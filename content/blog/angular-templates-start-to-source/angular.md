@@ -60,42 +60,48 @@ That said, they don't rely on the order of parameters (they rather rely on the n
 
 So, now that we know what they are in broad terms, what do they look like?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Passing Context To Rendering
-You can pass values to templates by using a template context
+
+While we used the `ngTemplateOutlet` directive before to render a template, we can also pass an input to the directive `ngTemplateOutletContext` in order to pass a context. A context is just an object with a standard key/value pairing.
 
 ```html
 <ng-template [ngTemplateOutlet]="templateName"
-             [ngTemplateOutletContext]="{$implicit: 'value', otherVar: 'otherVal'}">
+             [ngTemplateOutletContext]="{$implicit: 'Hello World', personName: 'Corbin'}">
 </ng-template>
 ```
 
-And then consuming it like so:
+From there, you can use `let` declarations to create template variables in that template based on the values passed by the context like so:
 ```html
-<ng-template let-implicitVal let-boundVar="otherVal">
-  <p #str1>{{implicitVal}}</p>
-  <p #str1>{{boundVar}}</p>
+<ng-template #templateName let-implicitTemplVal let-boundPersonTemplVar="personName">
+  <p>{{implicitTemplVal}} {{boundPersonTemplVar}}</p>
 </ng-template>
 ```
 
-Where `let-nameHere` is the name of the `$implicit`ly passed values for `nameHere` template variable, and `let-item="text"` gets the value of `text` that's passed and is assigned to the template variable `item`
+Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax to bind any named context key's value to the template variable with the name you provided after `let`. There is an edge-case you've probable noticed though, the `$implicit` key of the context is treated as a default of sorts, allowing a user to simply leave `let-templateVariableName` to be the value of the `$implicit` key of the context value. 
+
+#### Notes
+
+As a qiuck note, I only named these template variables differently from the context value key in order to make it clear that you may do so. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
+
+It's also important to note that a template variable is bound to the element and it's children. Attempting to accessing the template variable from a sibling, parent, or cousin's template code is not valid. To recap:
+```html
+<!-- ✅ This is perfectly fine -->
+<ng-template #templateOne let-varName><p>{{varName}}</p></ng-template>
+
+<!-- ❌ This will throw errors, as the template variable is not set in siblings -->
+<ng-template #templateTwo let-thisVar></ng-template>
+<p>{{thisVar}}</p>
+```
+
+
+
+
+
+
+
+
+
+
 
 ### Structural Directives - What Sorcery is this?
 
