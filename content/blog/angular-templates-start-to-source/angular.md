@@ -23,7 +23,9 @@ Before we dive into the meat of this article, let's do a quick recap of what a t
 <p *ngIf="bool; else templHere">True</p>
 ```
 
-In this example, we are creating a template and assigning it to a [template variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). This template variable will make `templHere` a valid variable whereever it's referenced within the template (much like how variables are bound from the component logic to the template, you can bind data from within the template to other parts of the template).
+In this example, we are creating a template and assigning it to a [template variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). This template variable will make `templHere` a valid variable whereever it's referenced within the template (much like how variables are bound from the component logic to the template, you can bind data from within the template to other parts of the template). 
+###FACTCHECK:
+These template variables can then be referenced by siblings or children, but not by cousin elements
 
 We are then creating a structural directive `ngIf` that checks if `bool` is true or false. If it is false, it will then check if the `else` condition has a value assigned to it. In this example, it does: The template we've assigned to `templHere`. Because there's a value there, when `bool` is false, `<p>False</p>` will be rendered, but if `bool` is true, `<p>True</p>` will be rendered. If you had forgotten to include the `ngIf`, it would never render the `False` element because **the `ng-template` component never renders to the DOM unless otherwise specified**
 
@@ -93,11 +95,45 @@ It's also important to note that a template variable is bound to the element and
 <p>{{thisVar}}</p>
 ```
 
+## ViewChild
+###FACTCHECK:
+Okay, that's neato - but what if I DID want to pass it to cousins? After all, just like we don't want christmas trees in our callback chains, we sure don't want super deeply nested templates if we can avoid it.
+
+Well, there's actually a way to get a reference to the template from the component logic rather than the template:
+```typescript
+@Component({
+  selector: 'app',
+  template: `
+  	<div>
+    	<ng-template #templName>Hello</ng-template>
+    </div>
+    <ng-template [ngTemplateOutlet]="templName"></ng-template>
+    
+  `
+})
+export class AppComponent implements OnInit {
+
+}
+```
 
 
 
 
 
+
+`@ViewChild('templateName', {read: TemplateRef<any>})`
+
+
+
+
+
+## Embedded Views - We Get It You Like The Expression
+
+It might seem like I've been trying to use `embedded view` far too much, possibly avoiding using `render` more than might seem logical at first, but there's a reason for this:
+
+Angular tracks them seperately from other components.
+
+Angular also allows you find, reference, modify, and create them yourself! 🤯
 
 
 
@@ -138,6 +174,12 @@ https://angular.io/guide/structural-directives#microsyntax
 For more information on this see:
 
 <https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateoutlet/>
+
+
+
+
+
+
 
 
 
