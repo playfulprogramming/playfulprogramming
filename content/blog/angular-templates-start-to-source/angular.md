@@ -306,11 +306,11 @@ export class AppComponent {
 }
 ```
 
-Would give you a list of all components with that base class.
+Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` propety from the `ViewChild` property decorator to get a `QueryList<ElementRef>` instead of a query list of `MyComponentComponent` types.
+
+### What is `QueryList`
 
 While `QueryList` (from `@angular/core`) returns an array-like, and the core team has done a very good job at adding in all the usual methods (`reduce`/`map`/etc) and it extends an iterator interface (so it will work with `*ngFor`  in Angular templates and `for (let i of _)` in TypeScript/JavaScript logic), it is not an array, so if you're expecting an array, it might be best to use `Array.from` on the `myComponents` component prop when you access it in logic later.
-
-### `QueryList` Notes
 
 A `QueryList` also allows for some nice additions like the `changes` observable property that will allow you to listen for changes to this query. For example, if you had some components that were hidden behind a toggle:
 
@@ -356,7 +356,7 @@ One thing I always run into though, is that I always end up wanting to style the
 </cards-list>
 ```
 
-Anyone with a sense of design might be cringing about now. Grey on grey? On cards? Yucky! Let's make those cards have some white backgrounds.
+Anyone with a sense of design might be cringing about now. Grey on grey? On cards? Yuck! Let's make those cards have some white backgrounds.
 
 This might seem like a trivial task to anyone assuming that these components are built-in HTML elements, of course a CSS stylesheet like so would apply:
 
@@ -369,29 +369,54 @@ action-card {
 
 But this is often not the case. Angular's ADDLINK:  `styleEncapsulation` prevents styles from one component from affecting the styling of another.CHECKTHIS: This will be made especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the Angular-specific CSS selector ADDLINK `::ng-deep` has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). 
 
-No matter though, we have the power of `ViewChild` on our side - Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
+No matter though, we have the power of `ViewChildren` on our side - Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
+```typescript
 
+@Component({
+    selector: 'action-card',
+    template: `<div></div>`,
+    styles: [':host div {height: 300px; width: 100px; background: grey; margin: 10px;}']
+})
+export class ActionCard {}
 
+@Component({
+  selector: 'cards-list',
+  template: `<div><ng-content></ng-content></div>`,
+  styles: [':host {background: grey}']
+})
+export class CardsList implements AfterViewInit {
+  @ViewChildren(ActionCard, {read: ElementRef}) actionCards;
 
-
-
-
-`ContentChild` even works when you're not using `ng-content` but still passing components and elements as children to the component.
-
-```html
-<component-to-view-child>
-	<component-passed-as-child></component-passed-as-child>
-</component-to-view-child>
+  ngAfterViewInit() {
+      // Any production code should absolutely be running `Renderer2` to do this rather than modifying the native element yourself
+      this.actionCards.forEach(elRef => {
+          console.log("Changing background of a card");
+          elRef.nativeElement.style.background = "white";
+      })
+  }
+}
 ```
 
+Awesome, let's spin that up and… Oh. The cards are still grey. Let's open up our terminal and see if the `console.log`s ran. 
 
+They didn't.
 
+Alright, I could keep going but I know you've all read the section title (👀 at the skim-readers).
 
+`ViewChildren` is a fantastic tool but only works for the items defined in the template of the component itself. Any children that are passed to the component are not handled the same way and require `ContentChildren` instead. The same applies for `ViewChild` (which has the adjacent API of `ContentChild`). The `ContentChild/ren` should share the same API with their `ViewChild/ren` counterparts.
 
+If we change the `ViewChildren` line to read:
 
+```typescript
+@ViewChildren(ActionCard, {read: ElementRef}) actionCards;
+```
 
-So, for example, if you wanted to pass a template as a child but wanted to render it in a very specific way, you could do so:
+We'll see that the code now runs as expected. Cards are recolored, consoles are ran, developers happy.
+
+### The Content Without the `ng`
+
+`ContentChild` even works when you're not using `ng-content` but still passing components and elements as children to the component. So, for example, if you wanted to pass a template as a child but wanted to render it in a very specific way, you could do so:
 
 ```html
 <!-- root-template.component.html -->
@@ -418,12 +443,6 @@ export class AppComponent implements OnInit {
 ```
 
 This is a perfect example of where you might want `@ContentChild` - not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
-
-
-
-
-
- `ContentChild` is similar to `ViewChild` but looks for items passed into the `ng-content` of the component rather than the view of the component itself, and `ContentChildren` is the `ViewChildren` of `ContentChild` that will give an array of any items that match a query in the `ng-content` of the component.
 
 
 
@@ -463,6 +482,8 @@ It might seem like I've been trying to use `embedded view` far too much, possibl
 Angular tracks them seperately from other components.
 
 Angular also allows you find, reference, modify, and create them yourself! 🤯
+
+`createEmbeddedView`
 
 
 
