@@ -167,6 +167,13 @@ console.log(myComponent.inputHere); // This will print `50`
 
 It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
 
+Depite having used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
+```typescript
+@ViewChild(MyComponentComponent) myComponent: MyComponentComponent;
+```
+
+Would yeild the same results in this particular example. When using `ViewChild`, it might be dangerous to do this if you have many components with that class. This is because when using `ViewChild`, it only returns the first result that Angular can find - this could return results that are unexpected if you're not aware of that.
+
 #### My Name is ~~Inigo Montoya~~ the `read` Prop
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
 
@@ -181,7 +188,68 @@ When we want to overwrite the type of data we expect `ViewChild` to return, we c
 @ViewChild('myComponent', {read: ElementRef}) myComponent: ElementRef; 
 ```
 
-Now that we've configured 
+Now that we've configured the `ViewChild` to read this as an `ElementRef` (A class provided from `@angular/core` to help us with just the thing we're looking for) rather than a component reference, we're able to use the `nativeElement` property of that class to get the HTMLElemenet object for that component instance.
+
+```typescript
+console.log(myComponent.nativeElement.dataset.unrelatedAttr); // This output `"Hi there!"`
+```
+
+#### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
+
+
+
+> Prior to this commit, the timing of `ViewChild`/`ContentChild` query
+> resolution depended on the results of each query. If any results
+> for a particular query were nested inside embedded views (e.g.
+> *ngIfs), that query would be resolved after change detection ran.
+> Otherwise, the query would be resolved as soon as nodes were created.
+>
+> This inconsistency in resolution timing had the potential to cause
+> confusion because query results would sometimes be available in
+> ngOnInit, but sometimes wouldn't be available until ngAfterContentInit
+> or ngAfterViewInit. Code depending on a query result could suddenly
+> stop working as soon as an *ngIf or an *ngFor was added to the template.
+>
+> With this commit, users can dictate when they want a particular
+> `ViewChild` or `ContentChild` query to be resolved with the `static` flag.
+> For example, one can mark a particular query as `static: false` to
+> ensure change detection always runs before its results are set:
+>
+> ```
+> @ContentChild('foo', {static: false}) foo !: ElementRef;
+> ```
+>
+> This means that even if there isn't a query result wrapped in an
+> *ngIf or an *ngFor now, adding one to the template later won't change
+> the timing of the query resolution and potentially break your component.
+>
+> Similarly, if you know that your query needs to be resolved earlier
+> (e.g. you need results in an ngOnInit hook), you can mark it as
+> `static: true`.
+>
+> ```
+> @ViewChild(TemplateRef, {static: true}) foo !: TemplateRef;
+> ```
+>
+> Note: this means that your component will not support *ngIf results.
+>
+> If you do not supply a `static` option when creating your `ViewChild` or
+> `ContentChild` query, the default query resolution timing will kick in.
+>
+> Note: This new option only applies to `ViewChild` and `ContentChild` queries,
+> not `ViewChildren` or `ContentChildren` queries, as those types already
+> resolve after CD runs.
+
+
+
+Something to keep in mind as you work with `ViewChild` is that it runs AFTER the `ngOnInit` hook but BEFORE the `ngAfterViewInit` hook. 
+
+```typescript
+// Ensure Change Detection runs before accessing the instance
+@ContentChild('foo', { static: false }) foo!: ElementRef;
+// If you need to access it in ngOnInt hook
+@ViewChild(TemplateRef, { static: true }) foo!: TemplateRef;
+```
 
 
 
@@ -193,13 +261,46 @@ Now that we've configured
 
 
 
-`read: {}` is optional interestingly - you're able to use it just like the above and it'll work;
-
-`@ViewChild('templateName', {read: TemplateRef<any>})`
 
 
+#### It's like talking to me: You're flooded with references! - `ViewChildren`
 
-New to Angular 8 (still in beta at the time of writing), you can even control the timing of `ViewChild`
+It's also worth mentioning that there are other property decorators in the same vein of `ViewChild`. 
+
+`ViewChildren` will allow you to get a reference to any items in the view that match your `ViewChildren` query as an array of each item that matches:
+
+```typescript
+@Component({
+  selector: 'app',
+  template: `
+    <div>
+        <my-custom-component [inputHere]="50"></my-custom-component>
+        <my-custom-component [inputHere]="80"></my-custom-component>
+    </div>
+  `
+})
+export class AppComponent implements OnInit {
+  @ViewChild(MyComponentComponent) myComponentS: QueryList<MyComponentComponent>;
+}
+```
+
+
+
+
+
+
+
+ `ContentChild` is similar to `ViewChild` but looks for items passed into the `ng-content` of the component rather than the view of the component itself, and `ContentChildren` is the `ViewChildren` of `ContentChild` that will give an array of any items that match a query in the `ng-content` of the component.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -234,7 +335,7 @@ Angular also allows you find, reference, modify, and create them yourself! 🤯
 
 
 
-### Structural Directives - What Sorcery is this?
+## Structural Directives - What Sorcery is this?
 
 A structural directive is something like `*ngFor` or `*ngIf`, they allow you to turn whatever you're looking at into a template.
 EG:
