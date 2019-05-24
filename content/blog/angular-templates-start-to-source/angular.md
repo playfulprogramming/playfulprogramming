@@ -4,6 +4,8 @@
 
 _*ADD MORE FLAVOR TEXT TO START THIS FLIPPIN' SWEET ARTICLE OFF*_
 
+
+
 Templates allow developers to create embedded views of UI from another location. These templates are able to be passed and handled much like most values in JavaScript. You're also able to leverage a set of APIs built into these templates to pass and manipulate data from one template to another during the render process. The ability to have this tool at your disposal not only makes Angular very appealing as a component framework, but is how many of it's internal processes are built.
 
 While this article is far from a comprehensive list of all template related APIs, there are three primary APIs that are used within a user defined template that I want to touch on in this article:
@@ -11,6 +13,12 @@ While this article is far from a comprehensive list of all template related APIs
 - `ng-template`
 - `ng-container`
 - [Structural Directives](<https://angular.io/guide/structural-directives#asterisk>) (such as `*ngIf`)
+
+While a lot of these examples are going to be small/silly/contrived, they loosely come from patterns I've seen in huge Angular libraries. Some of the coolest aspects of templates are used to make APIs much much simpler to use when consuming a library and some of what we'll be covering is code that's used to provide some useful features (like `ngIf` and `ngFor`) from Angular's source itself.
+
+It's going to be a long article, so please feel free to take breaks, grab a drink to enjoy while reading, pause to tinker with code, or anything in-between. Feedback is always welcomed and appreciated.
+
+Sound like a fun time? Let's goooo! 🏃🌈
 
 ## A Brief Introduction to Templates
 
@@ -143,7 +151,7 @@ Just to remind, there is no reason why the line couldn't read:
 
 I just wanted to make clear what was doing what in the example
 
-### Viewing Isn't just For Sight-seeing
+## Viewing Isn't just For Sight-seeing
 
 `ViewChild` isn't just for templates, either. You can get references to anything in the view tree:
 
@@ -174,7 +182,7 @@ Depite having used a string as the query for `ViewChild`, you're also able to us
 
 Would yeild the same results in this particular example. When using `ViewChild`, it might be dangerous to do this if you have many components with that class. This is because when using `ViewChild`, it only returns the first result that Angular can find - this could return results that are unexpected if you're not aware of that.
 
-#### My Name is ~~Inigo Montoya~~ the `read` Prop
+### My Name is ~~Inigo Montoya~~ the `read` Prop
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
 
 Ahh, so you've seen the problem with Angular's guessing of what datatype you're looking for. There are times where we, the developer, knows better of what we're looking for than the framework services.
@@ -194,7 +202,19 @@ Now that we've configured the `ViewChild` to read this as an `ElementRef` (A cla
 console.log(myComponent.nativeElement.dataset.unrelatedAttr); // This output `"Hi there!"`
 ```
 
-#### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
+
+
+
+
+
+
+
+
+
+
+
+
+### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
 
 
 
@@ -263,7 +283,9 @@ Something to keep in mind as you work with `ViewChild` is that it runs AFTER the
 
 
 
-#### It's like talking to me: You're flooded with references! - `ViewChildren`
+
+
+## It's like talking to me: You're flooded with references! - `ViewChildren`
 
 It's also worth mentioning that there are other property decorators in the same vein of `ViewChild`. 
 
@@ -279,12 +301,123 @@ It's also worth mentioning that there are other property decorators in the same 
     </div>
   `
 })
-export class AppComponent implements OnInit {
-  @ViewChild(MyComponentComponent) myComponentS: QueryList<MyComponentComponent>;
+export class AppComponent {
+  @ViewChildren(MyComponentComponent) myComponents: QueryList<MyComponentComponent>;
 }
 ```
 
+Would give you a list of all components with that base class.
 
+While `QueryList` (from `@angular/core`) returns an array-like, and the core team has done a very good job at adding in all the usual methods (`reduce`/`map`/etc) and it extends an iterator interface (so it will work with `*ngFor`  in Angular templates and `for (let i of _)` in TypeScript/JavaScript logic), it is not an array, so if you're expecting an array, it might be best to use `Array.from` on the `myComponents` component prop when you access it in logic later.
+
+### `QueryList` Notes
+
+A `QueryList` also allows for some nice additions like the `changes` observable property that will allow you to listen for changes to this query. For example, if you had some components that were hidden behind a toggle:
+
+```html
+<input type="checkbox" [(ngModel)]="bool"/>
+<div *ngIf="bool">
+  <my-custom-component></my-custom-component>    
+</div>
+<my-custom-component></my-custom-component>
+```
+
+And wanted to get the value of all component's `numberProp` values reduced into one, you could do so using the `changes` observable:
+
+```typescript
+this.myComponents.changes.subscribe(compsQueryList => {
+  const componentsNum = compsQueryList.reduce((prev, comp) => {
+    return prev + comp.numberProp;
+  }, 0);
+  console.log(componentsNum); // This would output the combined number from all of the component's `numberProp` field. This would run any time Angular saw a difference in the values
+});
+```
+
+It might be a good idea to gain familiarity of doing this, as the Angular docs leave the warning when reading through [`QueryList` docs](https://angular.io/api/core/QueryList#changes):
+
+> NOTE: In the future this class will implement an Observable interface.
+
+##Keep an Eyes on Your Kids - `ContentChild`
+
+Author's note:
+
+> This section of the article assumes you know what the `ng-content` tag is. While I could do an in-depth dive on what `ng-content` and content projection is, it's somewhat outside of the scope of this current article is. Let me know if this is something that interests you, I might do another deep deep dive into how Angular parses tags like `ng-content` and how it's handled by Angular's AST and template parsing/etc.
+>
+> If you're less familiar with `ng-content`, you can probably get by with just knowing how parent/child relationships elements work and just reading through carefully. Never be afraid to ask questions! 
+
+I always love nesting some of my code into `ng-content`s. I don't know what's so appealing to having my code look like it's straight out of HTML spec, but just being able to pass component instances and elements as children to one of my components and then tinkering with them is so satisfying.
+
+One thing I always run into though, is that I always end up wanting to style the components that're passed in. Take the following example:
+
+```html
+<cards-list> <!-- Cards list has default styling with grey background -->
+	<action-card></action-card> <!-- Action card has default styling with grey background -->
+	<action-card></action-card> <!-- It's also widely used across the app, so that can't change -->
+</cards-list>
+```
+
+Anyone with a sense of design might be cringing about now. Grey on grey? On cards? Yucky! Let's make those cards have some white backgrounds.
+
+This might seem like a trivial task to anyone assuming that these components are built-in HTML elements, of course a CSS stylesheet like so would apply:
+
+```css
+// cards-list.component.css
+action-card {
+  background: white;
+}
+```
+
+But this is often not the case. Angular's ADDLINK:  `styleEncapsulation` prevents styles from one component from affecting the styling of another.CHECKTHIS: This will be made especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the Angular-specific CSS selector ADDLINK `::ng-deep` has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). 
+
+No matter though, we have the power of `ViewChild` on our side - Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
+
+
+
+
+
+
+
+`ContentChild` even works when you're not using `ng-content` but still passing components and elements as children to the component.
+
+```html
+<component-to-view-child>
+	<component-passed-as-child></component-passed-as-child>
+</component-to-view-child>
+```
+
+
+
+
+
+
+
+So, for example, if you wanted to pass a template as a child but wanted to render it in a very specific way, you could do so:
+
+```html
+<!-- root-template.component.html -->
+<render-template-with-name>
+  <ng-template let-userName>
+    <p>Hello there, {{userName}}</p>
+  </ng-template>
+</render-template-with-name>
+```
+
+```typescript
+// render-template-with-name.component.ts
+@Component({
+  selector: 'render-template-with-name',
+  template: `
+  <ng-template [ngTemplateOutlet]="contentChildTemplate"
+               [ngTemplateOutletContext]="{$implicit: 'Name here'}">
+  </ng-template>
+`
+})
+export class AppComponent implements OnInit {
+  @ContentChild(TemplateRef) contentChildTemplate;
+}
+```
+
+This is a perfect example of where you might want `@ContentChild` - not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
 
 
 
