@@ -24,7 +24,7 @@ Before we dive into the meat of this article, let's do a quick recap of what a t
 ```
 
 In this example, we are creating a template and assigning it to a [template variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). This template variable will make `templHere` a valid variable whereever it's referenced within the template (much like how variables are bound from the component logic to the template, you can bind data from within the template to other parts of the template). 
-###FACTCHECK:
+
 These template variables can then be referenced by siblings or children, but not by cousin elements
 
 We are then creating a structural directive `ngIf` that checks if `bool` is true or false. If it is false, it will then check if the `else` condition has a value assigned to it. In this example, it does: The template we've assigned to `templHere`. Because there's a value there, when `bool` is false, `<p>False</p>` will be rendered, but if `bool` is true, `<p>True</p>` will be rendered. If you had forgotten to include the `ngIf`, it would never render the `False` element because **the `ng-template` component never renders to the DOM unless otherwise specified**
@@ -58,7 +58,7 @@ Once you understand that, combined with knowing about template variables ([which
 
 You know how I mentioned that you can pass data between templates (at the start of the article)? That is built on top of the concept of Contexts. Context are a way of passing data just like you would parameters to a function by creating template variables for the template that is created with a context.
 
-That said, they don't rely on the order of parameters (they rather rely on the name of the parameters to pass to the template) and are all entirely optional whether they are consumed by the template or not. In this way, they more similar to ADDLINK:`namedFunctions from Python 3` than they are arguments in a JavaScript function
+That said, they don't rely on the order of parameters (they rather rely on the name of the parameters to pass to the template) and are all entirely optional whether they are consumed by the template or not. In this way, they more similar to [functions with named arguments in Python 3](https://www.python.org/dev/peps/pep-3102/) than they are arguments in a JavaScript function
 
 So, now that we know what they are in broad terms, what do they look like?
 
@@ -95,11 +95,29 @@ It's also important to note that a template variable is bound to the element and
 <p>{{thisVar}}</p>
 ```
 
-## ViewChild
-###FACTCHECK:
-Okay, that's neato - but what if I DID want to pass it to cousins? After all, just like we don't want christmas trees in our callback chains, we sure don't want super deeply nested templates if we can avoid it.
+## Keeping Logic In Your Controller - `ViewChild`
 
-Well, there's actually a way to get a reference to the template from the component logic rather than the template:
+NOTE: Structural Directives don't actually use any of this, just something to keep in mind that you might want to just use it as a way to show how you can pass around templates and fuck with them
+
+Or actually I forgot that I'm using this as a way to talk about createEmbedded view before we get to structural directives to help the reader understand how they got there, right
+
+### The Setup
+
+Okay, so templates are really cool. But there are often times where you'd want to grab a reference to a template you'd defined in your template. Say you wanted to pass a template to another part of the component tree? Say you wanted to pass template `C` to component  `B` in the following component tree, say to reuse an template you're passing as the `else` to an `ngIf` that you don't want to move:
+
+```
+     +--->A---+->D
+app--+        |
+     |        +->C
+     +--->B
+```
+
+As we mentioned before, using the `#templateVar` reference will only work to as high as the siblings. Everything higher/in a different "root" context won't be able to understand where that reference is. 
+
+### The Solution
+
+Well, as it turns out, there's actually a way to get a reference to any component or element within a component. Using `ViewChild`, you're able to grab the template from the component logic rather than the template:
+
 ```typescript
 @Component({
   selector: 'app',
@@ -107,21 +125,98 @@ Well, there's actually a way to get a reference to the template from the compone
   	<div>
     	<ng-template #templName>Hello</ng-template>
     </div>
-    <ng-template [ngTemplateOutlet]="templName"></ng-template>
-    
+    <ng-template [ngTemplateOutlet]="templateHere"></ng-template>
   `
 })
 export class AppComponent implements OnInit {
-
+  @ViewChild('templName') templateHere: TemplateRef<any>;
 }
 ```
 
+`ViewChild` is a "property decorator" utility for Angular. This utility will search the component view tree to find whatever you're looking for. In the example above, when we pass a string of `'templName'`, we are looking for something in the tree that is marked with the template variable `templName`. In this case, it's an `ng-template`, which is then stored to the `templateHere` when this is found. Because it is a reference to a template, we are typing it as `TemplateRef<any>` to have TypeScript understand the typings whenever it sees this variable. 
+
+Just to remind, there is no reason why the line couldn't read:
+
+```typescript
+@ViewChild('templName') templName: TemplateRef<any>;
+```
+
+I just wanted to make clear what was doing what in the example
+
+### Viewing Isn't just For Sight-seeing
+
+`ViewChild` isn't just for templates, either. You can get references to anything in the view tree:
+
+```typescript
+@Component({
+  selector: 'app',
+  template: `
+  	<my-custom-component #myComponent [inputHere]="50" data-unrelatedAttr="Hi there!"></my-custom-component>
+  `
+})
+export class AppComponent implements OnInit {
+  @ViewChild('myComponent') myComponent: MyComponentComponent;
+}
+```
+
+For example, would give you a reference to the `MyComponentComponent` instance of the template. If you ran:
+
+```typescript
+console.log(myComponent.inputHere); // This will print `50`
+```
+
+It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
+
+#### My Name is ~~Inigo Montoya~~ the `read` Prop
+Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
+
+Ahh, so you've seen the problem with Angular's guessing of what datatype you're looking for. There are times where we, the developer, knows better of what we're looking for than the framework services.
+
+Fancy that.
+
+When we want to overwrite the type of data we expect `ViewChild` to return, we can use a second property passed to the `ViewChild` dectorator with the type we want returned. With the usecase mentioned above, we can tell Angular that we want a reference to the element of the component itself by using the `ElementRef`
+
+
+```typescript
+@ViewChild('myComponent', {read: ElementRef}) myComponent: ElementRef; 
+```
+
+Now that we've configured 
 
 
 
 
+
+
+
+
+
+
+
+`read: {}` is optional interestingly - you're able to use it just like the above and it'll work;
 
 `@ViewChild('templateName', {read: TemplateRef<any>})`
+
+
+
+New to Angular 8 (still in beta at the time of writing), you can even control the timing of `ViewChild`
+
+
+
+
+
+
+
+
+
+
+While this example is contrived, there are real-world usages that use this pattern. The examples I can think of that would use this pattern are a bit more complex and complex examples tend to be bad for educational purposes like this. Admittedly, they more-often then not end up being anti-patterns, so it's likely for the best we don't anyway.
+
+All the same, now that we've gone over `ViewChild` and the `read` property, we can trudge 🐕🛷 forward towards the honest goods! You got this! 💪
+
+
+
+
 
 
 
