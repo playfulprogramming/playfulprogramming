@@ -11,7 +11,11 @@ Templates allow developers to create embedded views of UI from another location.
 While this article is far from a comprehensive list of all template related APIs, there are three primary APIs that are used within a user defined template that I want to touch on in this article:
 
 - `ng-template`
-- `ng-container`
+- `ElementRef`
+- `TemplateRef`
+- `EmbeddedViewRef`
+- `ViewContainerRef`
+- `createEmbeddedView`
 - [Structural Directives](<https://angular.io/guide/structural-directives#asterisk>) (such as `*ngIf`)
 
 While a lot of these examples are going to be small/silly/contrived, they loosely come from patterns I've seen in huge Angular libraries. Some of the coolest aspects of templates are used to make APIs much much simpler to use when consuming a library and some of what we'll be covering is code that's used to provide some useful features (like `ngIf` and `ngFor`) from Angular's source itself.
@@ -31,11 +35,17 @@ Before we dive into the meat of this article, let's do a quick recap of what a t
 <p *ngIf="bool; else templHere">True</p>
 ```
 
-In this example, we are creating a template and assigning it to a [template variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). This template variable will make `templHere` a valid variable whereever it's referenced within the template (much like how variables are bound from the component logic to the template, you can bind data from within the template to other parts of the template). 
+In this example, we are creating a template and assigning it to a [template reference variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). This template reference variable will make `templHere` a valid variable whereever it's referenced within the template (much like how variables are bound from the component logic to the template, you can bind data from within the template to other parts of the template). 
 
-These template variables can then be referenced by siblings or children, but not by cousin elements
+These template reference variables can then be referenced by siblings or children, but not by cousin elements
 
-We are then creating a structural directive `ngIf` that checks if `bool` is true or false. If it is false, it will then check if the `else` condition has a value assigned to it. In this example, it does: The template we've assigned to `templHere`. Because there's a value there, when `bool` is false, `<p>False</p>` will be rendered, but if `bool` is true, `<p>True</p>` will be rendered. If you had forgotten to include the `ngIf`, it would never render the `False` element because **the `ng-template` component never renders to the DOM unless otherwise specified**
+We are then adding a structural directive `ngIf` to the `p` element on screen. This `ngIf` structural directive will checks if `bool` is true or false, and render items on screen depending on the value of `bool`.
+
+- If it is true, it will render `<p>True</p>` and the template containing the false will not
+- If it is false, it will then check if the `else` condition has a value assigned to it, if there is a value assigned, it will render that template. 
+  - In this example, it does: The template we've assigned to `templHere`. Because of this, `<p>False</p>` will render
+
+If you had forgotten to include the `ngIf`, it would never render the `False` element because **a template is not rendered to the view unless explicitly told to - this includes templates created with `ng-template`**
 
 ### Example Alternative - Let's Checkout `ngTemplateOutlet`
 
@@ -51,16 +61,22 @@ But there's a ~~simpler~~ ~~much more complex~~ another way show the same templa
 <ng-template [ngTemplateOutlet]="bool ? ngIfTrueCondTempl : templHere"></ng-template>
 ```
 
-While this is not how the `ngIf` structural template works internally (we'll touch on that in a bit, including taking a look at how Angular's source code is written), this is a good introduction to the `ngTemplateOutlet` input to the `ng-template` component.
+> While this is not how the `ngIf` structural template works internally, this is a good introduction to the `ngTemplateOutlet` directive, which adds functionality to the `ng-template` tag.
+>
+> If you're curious to how Angular's `ngIf` works, read on dear visitor.
 
-While I'd mentioned previously that `ng-template` does not render to the DOM, because we're using `ngTemplateOutlet`, it will create an embedded view based on the template passed into it. This embedded view will be located in the DOM where the `ng-template` that used the `ngTemplateOutlet` directive. Knowing that, you can see that the following example would show the user three of the most mythical beasts imaginable:
+While I'd mentioned previously that `ng-template` does not render to the DOM, because we're using `ngTemplateOutlet`, it will render the template defined in the passed `ng-template`.
+
+This template that's defined by `ng-template` is called a "view", and when it is rendered to the screen it is called an "embedded view".
+
+This embedded view will be located in the DOM where the `ng-template` that used the `ngTemplateOutlet` directive. Knowing that, you can see that the following example would show the user three of the most mythical beasts imaginable:
 
 ```html
 <ng-template #templateName><button>🦄🦄🦄</button></ng-template>
 <ng-template [ngTemplateOutlet]="templateName"></ng-template>
 ```
 
-Once you understand that, combined with knowing about template variables ([which we covered at the beggining of this section](#introductory-example)), it can be easier to understand that we're just doing a turnary to pass the correct template based on the value of `bool` to create an embedded view of that template.
+Once you understand that, combined with knowing about template reference variables ([which we covered at the beggining of this section](#introductory-example)), it can be easier to understand that we're just doing a turnary to pass the correct template based on the value of `bool` to create an embedded view of that template.
 
 ## Pass Data To Templates - The Template Context
 
@@ -87,20 +103,23 @@ From there, you can use `let` declarations to create template variables in that 
 </ng-template>
 ```
 
-Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax to bind any named context key's value to the template variable with the name you provided after `let`. There is an edge-case you've probable noticed though, the `$implicit` key of the context is treated as a default of sorts, allowing a user to simply leave `let-templateVariableName` to be the value of the `$implicit` key of the context value. 
+Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax to bind any named context key's value to the template input variable with the name you provided after `let`. There is an edge-case you've probable noticed though, the `$implicit` key of the context is treated as a default of sorts, allowing a user to simply leave `let-templateVariableName` to be the value of the `$implicit` key of the context value. 
 
 #### Notes
 
-As a qiuck note, I only named these template variables differently from the context value key in order to make it clear that you may do so. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
+As a qiuck note, I only named these template input variables differently from the context value key in order to make it clear that you may do so. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
 
-It's also important to note that a template variable is bound to the element and it's children. Attempting to accessing the template variable from a sibling, parent, or cousin's template code is not valid. To recap:
+It's also important to note that a template input variable is bound to the element and it's children. Attempting to accessing the template variable from a sibling, parent, or cousin's template code is not valid. To recap:
 ```html
 <!-- ✅ This is perfectly fine -->
 <ng-template #templateOne let-varName><p>{{varName}}</p></ng-template>
 
-<!-- ❌ This will throw errors, as the template variable is not set in siblings -->
+<!-- ❌ This will throw errors, as the template input variable is not set in siblings -->
 <ng-template #templateTwo let-thisVar></ng-template>
 <p>{{thisVar}}</p>
+
+<!--❗It is worth noting that you CAN reference template REFERENCE variables from it's siblings, but not from it's parents or higher up the DOM tree -->
+<ng-template [ngTemplateOutlet]="templateOne"></ng-template>
 ```
 
 ## Keeping Logic In Your Controller - `ViewChild`
@@ -111,7 +130,7 @@ Or actually I forgot that I'm using this as a way to talk about createEmbedded v
 
 ### The Setup
 
-Okay, so templates are really cool. But there are often times where you'd want to grab a reference to a template you'd defined in your template. Say you wanted to pass a template to another part of the component tree? Say you wanted to pass template `C` to component  `B` in the following component tree, say to reuse an template you're passing as the `else` to an `ngIf` that you don't want to move:
+Okay, so templates are really cool. But there are often times where you'd want to grab a reference to a template you'd defined in your template. Say you wanted to pass a template to another part of the view hierarchy tree (which is the more correct term for "DOM tree" since a lot of templates might not be rendered on screen but are still handled by Angular)? Say you wanted to pass template `C` to component  `B` in the following view tree, say to reuse an template you're passing as the `else` to an `ngIf` that you don't want to move:
 
 ```
      +--->A---+->D
@@ -124,7 +143,7 @@ As we mentioned before, using the `#templateVar` reference will only work to as 
 
 ### The Solution
 
-Well, as it turns out, there's actually a way to get a reference to any component or element within a component. Using `ViewChild`, you're able to grab the template from the component logic rather than the template:
+Well, as it turns out, there's actually a way to get a reference to any componen, directive, or view within a component. Using `ViewChild`, you're able to grab the template from the component logic rather than the template:
 
 ```typescript
 @Component({
@@ -372,23 +391,64 @@ This is a perfect example of where you might want `@ContentChild` - not only are
 
 ### Timings - The Bane of any JavaScript developer
 
-But, alas, all good must come with some bad. While the `ViewChild`/`ViewChildren` and `ContentChild`/`ContentChildren` properties are very good at what they do, they can be confusing when it comes to when a value that we expect might be present. 
+But, alas, all good must come with some bad. While the `ViewChild` and `ContentChild` properties are very good at what they do, they can be confusing when it comes to what lifecycle methods they're available in. This is partially why I've been using `ngAfterViewInit` for the examples thus far. It's far easier to keep them consistent until the concept is grasped better and THEN dive into the naunces. This oftentimes works just fine, but there are often times where being able to run code on an element reference in an  `ngOnInit` might be more advantagous - especially if you're trying to get some logic finished before the user sees the rendered screen.
+
+Take the following example and see if you can guess what these `console.log`s are going to output:
+
+
+```typescript
+@Component({
+  selector: 'app',
+  template: `
+  <div #divToView>At Root</div>
+  <ng-template [ngTemplateOutlet]="templateToOutlet"
+  <ng-template #templateToOutlet>
+    <div #childToView>In Template</div>
+  </ng-template>
+  `
+})
+export class HelloComponent implements OnInit, AfterViewInit {
+  @ViewChild('childToView') childToView;
+  @ViewChild('divToView') divToView;
+
+  ngOnInit() {
+    console.log("OnInit: " + this.divToView.nativeElement.innerText);
+    console.log("OnInit: " + this.childToView.nativeElement.innerText);
+  }
+
+  ngAfterViewInit() {
+    console.log("AfterView: " + this.divToView.nativeElement.innerText);
+    console.log("AfterView: " + this.childToView.nativeElement.innerText);
+  }
+}
+```
+
+Totally lost? 
+
+
+
+Think you got it? 
+
+
+
+Last chance, go on and properly try it.
 
 
 
 
-
-This is partially why I've been using `ngAfterViewInit` for some of these examples - trying to keep them consistent in order to avoid problems with this in previous examples. That said, there are often times where being able to run on a `ngOnInit` would be more advantagous - allowing the styling in one of the above examples to hopefully finish before being rendered on screen.
-
-
-
-
-
-Take this example:
+```diff
+OnInit: At Root
+- ERROR TypeError: Cannot read property 'nativeElement' of undefined
+AfterView: At Root
+AfterView: In Template
+```
 
 
+Weird, isn't it? Even though we're loading up the template immediately, and passing it by template reference variable, it still is `undefined` at the time of the `ngOnInit`.
 
+The reasoning behind this is that the intended query result is nested inside of a template. This template creates an "embedded view", an injected view created from a template when said template is rendered. This embedded view is difficult to see from anything above it in the parent view, and is only exposed properly after change detection is ran. Because change detection is ran after `ngOnInit`, it is `undefined` until the `ngAfterViewInit` lifecycle method.
 
+If you understood that, go get yourself some ice-cream, you totally deserve it. If you didn't, that's okay! We all learn at different paces and I'm sure this post could be written a dozen other ways.
 
 
 
