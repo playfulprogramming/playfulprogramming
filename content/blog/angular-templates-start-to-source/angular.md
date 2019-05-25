@@ -202,89 +202,6 @@ Now that we've configured the `ViewChild` to read this as an `ElementRef` (A cla
 console.log(myComponent.nativeElement.dataset.unrelatedAttr); // This output `"Hi there!"`
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
-
-
-
-> Prior to this commit, the timing of `ViewChild`/`ContentChild` query
-> resolution depended on the results of each query. If any results
-> for a particular query were nested inside embedded views (e.g.
-> *ngIfs), that query would be resolved after change detection ran.
-> Otherwise, the query would be resolved as soon as nodes were created.
->
-> This inconsistency in resolution timing had the potential to cause
-> confusion because query results would sometimes be available in
-> ngOnInit, but sometimes wouldn't be available until ngAfterContentInit
-> or ngAfterViewInit. Code depending on a query result could suddenly
-> stop working as soon as an *ngIf or an *ngFor was added to the template.
->
-> With this commit, users can dictate when they want a particular
-> `ViewChild` or `ContentChild` query to be resolved with the `static` flag.
-> For example, one can mark a particular query as `static: false` to
-> ensure change detection always runs before its results are set:
->
-> ```
-> @ContentChild('foo', {static: false}) foo !: ElementRef;
-> ```
->
-> This means that even if there isn't a query result wrapped in an
-> *ngIf or an *ngFor now, adding one to the template later won't change
-> the timing of the query resolution and potentially break your component.
->
-> Similarly, if you know that your query needs to be resolved earlier
-> (e.g. you need results in an ngOnInit hook), you can mark it as
-> `static: true`.
->
-> ```
-> @ViewChild(TemplateRef, {static: true}) foo !: TemplateRef;
-> ```
->
-> Note: this means that your component will not support *ngIf results.
->
-> If you do not supply a `static` option when creating your `ViewChild` or
-> `ContentChild` query, the default query resolution timing will kick in.
->
-> Note: This new option only applies to `ViewChild` and `ContentChild` queries,
-> not `ViewChildren` or `ContentChildren` queries, as those types already
-> resolve after CD runs.
-
-
-
-Something to keep in mind as you work with `ViewChild` is that it runs AFTER the `ngOnInit` hook but BEFORE the `ngAfterViewInit` hook. 
-
-```typescript
-// Ensure Change Detection runs before accessing the instance
-@ContentChild('foo', { static: false }) foo!: ElementRef;
-// If you need to access it in ngOnInt hook
-@ViewChild(TemplateRef, { static: true }) foo!: TemplateRef;
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## It's like talking to me: You're flooded with references! - `ViewChildren`
 
 It's also worth mentioning that there are other property decorators in the same vein of `ViewChild`. 
@@ -353,7 +270,7 @@ One thing I always run into though, is that I always end up wanting to style the
 <cards-list> <!-- Cards list has default styling with grey background -->
 	<action-card></action-card> <!-- Action card has default styling with grey background -->
 	<action-card></action-card> <!-- It's also widely used across the app, so that can't change -->
-</cards-list>
+</cards-list>	
 ```
 
 Anyone with a sense of design might be cringing about now. Grey on grey? On cards? Yuck! Let's make those cards have some white backgrounds.
@@ -367,7 +284,7 @@ action-card {
 }
 ```
 
-But this is often not the case. Angular's ADDLINK:  `styleEncapsulation` prevents styles from one component from affecting the styling of another.CHECKTHIS: This will be made especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the Angular-specific CSS selector ADDLINK `::ng-deep` has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). 
+But this is often not the case. [Angular's  `ViewEncapsulation`](https://angular.io/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another. This will be made especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector  `::ng-deep`](https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep) has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). 
 
 No matter though, we have the power of `ViewChildren` on our side - Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
@@ -443,6 +360,106 @@ export class AppComponent implements OnInit {
 ```
 
 This is a perfect example of where you might want `@ContentChild` - not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
+
+
+
+
+
+
+
+
+
+
+### Timings - The Bane of any JavaScript developer
+
+But, alas, all good must come with some bad. While the `ViewChild`/`ViewChildren` and `ContentChild`/`ContentChildren` properties are very good at what they do, they can be confusing when it comes to when a value that we expect might be present. 
+
+
+
+
+
+This is partially why I've been using `ngAfterViewInit` for some of these examples - trying to keep them consistent in order to avoid problems with this in previous examples. That said, there are often times where being able to run on a `ngOnInit` would be more advantagous - allowing the styling in one of the above examples to hopefully finish before being rendered on screen.
+
+
+
+
+
+Take this example:
+
+
+
+
+
+
+
+
+
+### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
+
+
+
+
+
+
+
+> Prior to this commit, the timing of `ViewChild`/`ContentChild` query
+> resolution depended on the results of each query. If any results
+> for a particular query were nested inside embedded views (e.g.
+> *ngIfs), that query would be resolved after change detection ran.
+> Otherwise, the query would be resolved as soon as nodes were created.
+>
+> This inconsistency in resolution timing had the potential to cause
+> confusion because query results would sometimes be available in
+> ngOnInit, but sometimes wouldn't be available until ngAfterContentInit
+> or ngAfterViewInit. Code depending on a query result could suddenly
+> stop working as soon as an *ngIf or an *ngFor was added to the template.
+>
+> With this commit, users can dictate when they want a particular
+> `ViewChild` or `ContentChild` query to be resolved with the `static` flag.
+> For example, one can mark a particular query as `static: false` to
+> ensure change detection always runs before its results are set:
+>
+> ```
+> @ContentChild('foo', {static: false}) foo !: ElementRef;
+> ```
+>
+> This means that even if there isn't a query result wrapped in an
+> *ngIf or an *ngFor now, adding one to the template later won't change
+> the timing of the query resolution and potentially break your component.
+>
+> Similarly, if you know that your query needs to be resolved earlier
+> (e.g. you need results in an ngOnInit hook), you can mark it as
+> `static: true`.
+>
+> ```
+> @ViewChild(TemplateRef, {static: true}) foo !: TemplateRef;
+> ```
+>
+> Note: this means that your component will not support *ngIf results.
+>
+> If you do not supply a `static` option when creating your `ViewChild` or
+> `ContentChild` query, the default query resolution timing will kick in.
+>
+> Note: This new option only applies to `ViewChild` and `ContentChild` queries,
+> not `ViewChildren` or `ContentChildren` queries, as those types already
+> resolve after CD runs.
+
+
+
+Something to keep in mind as you work with `ViewChild` is that it runs AFTER the `ngOnInit` hook but BEFORE the `ngAfterViewInit` hook. 
+
+```typescript
+// Ensure Change Detection runs before accessing the instance
+@ContentChild('foo', { static: false }) foo!: ElementRef;
+// If you need to access it in ngOnInt hook
+@ViewChild(TemplateRef, { static: true }) foo!: TemplateRef;
+```
+
+
+
+
+
+
 
 
 
