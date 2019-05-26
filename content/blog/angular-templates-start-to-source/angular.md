@@ -6,7 +6,7 @@ _*ADD MORE FLAVOR TEXT TO START THIS FLIPPIN' SWEET ARTICLE OFF*_
 
 
 
-Templates allow developers to create embedded views of UI from another location. These templates are able to be passed and handled much like most values in JavaScript. You're also able to leverage a set of APIs built into these templates to pass and manipulate data from one template to another during the render process. The ability to have this tool at your disposal not only makes Angular very appealing as a component framework, but is how many of it's internal processes are built.
+Templates allow developers to create embedded views of UI from another locations. These templates are able to be passed and handled much like most values in JavaScript. You're also able to leverage a set of APIs built into these templates to pass and manipulate data from one template to another during the render process. The ability to have this tool at your disposal not only makes Angular very appealing as a component framework, but is how many of it's internal processes are built.
 
 While this article is far from a comprehensive list of all template related APIs, there are three primary APIs that are used within a user defined template that I want to touch on in this article:
 
@@ -381,15 +381,7 @@ export class AppComponent implements OnInit {
 This is a perfect example of where you might want `@ContentChild` - not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
 
 
-
-
-
-
-
-
-
-
-### Timings - The Bane of any JavaScript developer
+### Timings - The Bane of any JavaScript developer, now with `ViewChild`
 
 But, alas, all good must come with some bad. While the `ViewChild` and `ContentChild` properties are very good at what they do, they can be confusing when it comes to what lifecycle methods they're available in. This is partially why I've been using `ngAfterViewInit` for the examples thus far. It's far easier to keep them consistent until the concept is grasped better and THEN dive into the naunces. This oftentimes works just fine, but there are often times where being able to run code on an element reference in an  `ngOnInit` might be more advantagous - especially if you're trying to get some logic finished before the user sees the rendered screen.
 
@@ -448,86 +440,30 @@ Weird, isn't it? Even though we're loading up the template immediately, and pass
 
 The reasoning behind this is that the intended query result is nested inside of a template. This template creates an "embedded view", an injected view created from a template when said template is rendered. This embedded view is difficult to see from anything above it in the parent view, and is only exposed properly after change detection is ran. Because change detection is ran after `ngOnInit`, it is `undefined` until the `ngAfterViewInit` lifecycle method.
 
-If you understood that, go get yourself some ice-cream, you totally deserve it. If you didn't, that's okay! We all learn at different paces and I'm sure this post could be written a dozen other ways.
+>  If you understood that, go get yourself some ice-cream, you totally deserve it. If you didn't, that's okay! We all learn at different paces and I'm sure this post could be written a dozen other ways - maybe try re-reading some stuff, tinking with code, or asking any questions you might have from myself or others.
 
+As a result, **if you have your code inside of a template that's being rendered that you want to grab using `ViewChild`/`ContentChild`  - you will need to use an `ngAfterViewInit` rather than a `ngOnInit`.** For similar reasons (change detection being a tricky thing as it is), **you'll need to access the plural APIs ( `ViewChildren`/`ContentChildren`) with the `ngAfterViewInit` lifecycle as well.**
 
+**This also effects `*ngIf` and `*ngFor` structural directives**, so if you've recently added one of those to your template, and have noticed that you've had to switch your lifecylcle methods to using `ngAfterViewInit`, you have a bit of an explaination ([as structural directives use templates internally](#structural-directives-what-sorcery-is-this))
 
+#### Acting as a Cyrstal Ball Gazer - Coming to Angular 8
 
+While this behavior can be a bit confusing, the next version of Angular (Angular 8) will bring an option to the `ViewChild` and `ContentChild` APIs to make this a bit easier to manage mentally. While **these APIs won't enbale use of templated queries in `ngOnInit`**, it will make bugs when adding templated queries (such as `ngIf`) less likely to create new bugs.
 
-### THIS NEEEDS SOME QUALITY EXPLAINING CUZ UH WTF: Acting as a Cyrstal Ball Gazer (by reading changelogs for future releases)
-
-
-
-
-
-
-
-> Prior to this commit, the timing of `ViewChild`/`ContentChild` query
-> resolution depended on the results of each query. If any results
-> for a particular query were nested inside embedded views (e.g.
-> *ngIfs), that query would be resolved after change detection ran.
-> Otherwise, the query would be resolved as soon as nodes were created.
->
-> This inconsistency in resolution timing had the potential to cause
-> confusion because query results would sometimes be available in
-> ngOnInit, but sometimes wouldn't be available until ngAfterContentInit
-> or ngAfterViewInit. Code depending on a query result could suddenly
-> stop working as soon as an *ngIf or an *ngFor was added to the template.
->
-> With this commit, users can dictate when they want a particular
-> `ViewChild` or `ContentChild` query to be resolved with the `static` flag.
-> For example, one can mark a particular query as `static: false` to
-> ensure change detection always runs before its results are set:
->
-> ```
-> @ContentChild('foo', {static: false}) foo !: ElementRef;
-> ```
->
-> This means that even if there isn't a query result wrapped in an
-> *ngIf or an *ngFor now, adding one to the template later won't change
-> the timing of the query resolution and potentially break your component.
->
-> Similarly, if you know that your query needs to be resolved earlier
-> (e.g. you need results in an ngOnInit hook), you can mark it as
-> `static: true`.
->
-> ```
-> @ViewChild(TemplateRef, {static: true}) foo !: TemplateRef;
-> ```
->
-> Note: this means that your component will not support *ngIf results.
->
-> If you do not supply a `static` option when creating your `ViewChild` or
-> `ContentChild` query, the default query resolution timing will kick in.
->
-> Note: This new option only applies to `ViewChild` and `ContentChild` queries,
-> not `ViewChildren` or `ContentChildren` queries, as those types already
-> resolve after CD runs.
-
-
-
-Something to keep in mind as you work with `ViewChild` is that it runs AFTER the `ngOnInit` hook but BEFORE the `ngAfterViewInit` hook. 
+For example, if you'd like to force all queries to not run until `ngAfterViewInit`, regardless of using templated views, you can enable that with the `{static: false}` option configuration:
 
 ```typescript
-// Ensure Change Detection runs before accessing the instance
-@ContentChild('foo', { static: false }) foo!: ElementRef;
-// If you need to access it in ngOnInt hook
-@ViewChild(TemplateRef, { static: true }) foo!: TemplateRef;
+@ContentChild(ComponentHere, {read: ElementRef, static: false}) foo: ElementRef;
+```
+
+However, if you'd like to try to disallow any templated views from being accessed by a query, you can pass the `static: true` option:
+
+```typescript
+@ContentChild(ComponentHere, {read: ElementRef, static: true}) foo: ElementRef;
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+Keep in that if you don't define a `static` prop, it will have the same API behavior as it did in the past. Additionally, because `ContentChildren`/`ViewChildren` don't have the same API nuance, the `static` option prop does not affect those APIs.
 
 
 
@@ -561,6 +497,41 @@ Angular tracks them seperately from other components.
 Angular also allows you find, reference, modify, and create them yourself! 🤯
 
 `createEmbeddedView`
+
+
+
+```typescript
+import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <ng-template #templ>
+      <ul>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+      </ul>
+    </ng-template>
+    <div #viewContainerRef class="testing">
+    </div>
+  `
+})
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('viewContainerRef', {read: ViewContainerRef}) viewContainerRef;
+  @ViewChild('templ', {read: TemplateRef}) templ;
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.viewContainerRef.createEmbeddedView(this.templ);
+  }
+}
+```
+
+
+
+You'll notice that the template is injected as a sibling to the `.testing` div, this is just as confusing for me as it is for you:
+https://github.com/angular/angular/issues/9035
 
 
 
