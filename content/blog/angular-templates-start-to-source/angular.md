@@ -476,6 +476,8 @@ Keep in that if you don't define a `static` prop, it will have the same API beha
 
 
 
+
+
 While this example is contrived, there are real-world usages that use this pattern. The examples I can think of that would use this pattern are a bit more complex and complex examples tend to be bad for educational purposes like this. Admittedly, they more-often then not end up being anti-patterns, so it's likely for the best we don't anyway.
 
 All the same, now that we've gone over `ViewChild` and the `read` property, we can trudge 🐕🛷 forward towards the honest goods! You got this! 💪
@@ -488,17 +490,21 @@ All the same, now that we've gone over `ViewChild` and the `read` property, we c
 
 
 
-## Embedded Views - We Get It You Like The Expression
-
-It might seem like I've been trying to use `embedded view` far too much, possibly avoiding using `render` more than might seem logical at first, but there's a reason for this:
-
-Angular tracks them seperately from other components.
-
-Angular also allows you find, reference, modify, and create them yourself! 🤯
-
-`createEmbeddedView`
 
 
+## Embedded Views - Is That Some Kind of Picture Frame?
+
+### Get 
+
+Before I go much further in this section, I want to make sure that I'm clearing up a bit how Angular works internally. I've sprinked a bit of how it does throughout the article, but having everything in one place helps a lot.
+
+Angular's smallest grouping of display elements are called a `view`. These `view`s can be created and destroyed together and are under the control of a directive or component of some kind and include any templates associated with them.
+
+When a template is rendered to the screen, it creates an `embedded view` which can be controlled and handled from an assocaited parent component or directive. This creation of an embedded view occurs automatically when a template is rendered using `ngTemplateOutlet` but also when using a structural directive such as `ngIf` and `ngFor`.
+
+But that's not all - Angular also allows you find, reference, modify, and create them yourself in your component/directive logic! 🤯
+
+Let's show an example of how we can render an `ng-template` using TypeScipt component logic:
 
 ```typescript
 import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef } from '@angular/core';
@@ -516,22 +522,77 @@ import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewC
     </div>
   `
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   @ViewChild('viewContainerRef', {read: ViewContainerRef}) viewContainerRef;
   @ViewChild('templ', {read: TemplateRef}) templ;
-  ngOnInit() {
-  }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.viewContainerRef.createEmbeddedView(this.templ);
   }
 }
 ```
 
+This example has a lot going on, so let's disect it bit-by-bit.
 
+Starting with some small recap:
 
-You'll notice that the template is injected as a sibling to the `.testing` div, this is just as confusing for me as it is for you:
+- We're creating an template with the `ng-template` tag and assigning it to a template reference variable `templ`
+- We're also creating a `div` tag, assignining it to the template reference variable `viewContainerRef`
+- Lastly, `ViewChild` is giving us a reference to the template on the `templ` component class property.
+
+Now the new stuff:
+
+- We're also using `ViewChild` to assign the template reference variable `viewContainerRef` to a component class property.
+  - We're using the `read` prop to give it the [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef) class, which includes some methods to help us create embedded view
+- Then, in the `ngOnInit` lifecycle ([since neither of our `ViewChild` reference are in embedded views themselves](#lakjsdf)), we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
+
+If you take a look at your element debugger, you'll notice that the template is injected as a sibling to the `.testing` div:
+
+```html
+<!---->
+<div class="testing"></div>
+<ul>
+  <li>List Item 1</li>
+  <li>List Item 2</li>
+</ul>
+```
+
+ this is just as confusing for me as it is for you:
 https://github.com/angular/angular/issues/9035
+
+Diving into the source and reading through their statements, it seems to be an intentional behavior.
+
+
+
+What it does is that it looks for the index of the view container ref, and injects the template as an embedded view after that index
+
+
+
+And in fact, this is how the `createEmbeddedView` works internally:
+
+```typescript
+// Source code directly from Angular
+createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
+EmbeddedViewRef<C> {
+  const viewRef = templateRef.createEmbeddedView(context || <any>{});
+  this.insert(viewRef, index);
+  return viewRef;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
