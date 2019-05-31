@@ -494,7 +494,7 @@ All the same, now that we've gone over `ViewChild` and the `read` property, we c
 
 ## Embedded Views - Is That Some Kind of Picture Frame?
 
-### Get 
+### If It Is, This Is The Green Screen - Some Background on Them
 
 Before I go much further in this section, I want to make sure that I'm clearing up a bit how Angular works internally. I've sprinked a bit of how it does throughout the article, but having everything in one place helps a lot.
 
@@ -557,14 +557,83 @@ If you take a look at your element debugger, you'll notice that the template is 
 </ul>
 ```
 
- this is just as confusing for me as it is for you:
-https://github.com/angular/angular/issues/9035
+[While this has confused many developers, who have expected the embedded view to be children of the `ViewContainer` reference element](https://github.com/angular/angular/issues/9035), this is intentional behavior (as-per their comments in the thread), and is consistent with other APIs similar to it.
 
-Diving into the source and reading through their statements, it seems to be an intentional behavior.
+The reasoning behind this has a lot to do with how **embedded views are tracked**, they're referenced **by Angular in it's source code by it's index**!
+
+For example, if you wanted to see the index, we could use an API on the view container to get the index of the embedded view. To do this, we'd first need a reference of the embedded view in our template logic.
+
+Just like how we have `ViewContainerRef`, there's also [`EmbeddedViewRef`](https://angular.io/api/core/EmbeddedViewRef#embeddedviewref). Luckily, with our previous example, getting that ref is trivial, as it's returned by the `createEmbeddedView` method:
+
+```typescript
+const embeddRef: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ);
+```
+
+From there, we can use the `indexOf` method on the parent `ViewContainerRef`:
+
+```typescript
+const embeddIndex = this.viewContainerRef.indexOf(embeddRef);
+console.log(embeddIndex); // This would print `0`
+```
+
+The view container keeps track of all of the embedded views in it's control, and when you `createEmbeddedView`
 
 
 
-What it does is that it looks for the index of the view container ref, and injects the template as an embedded view after that index
+
+
+
+
+
+What it does is that it looks for the index of the view container ref, and injects the template as an embedded view after that index:
+
+```typescript
+ngOnInit() {
+  for (let i = 0; i < this.viewContainerRef.length; i++) {
+    console.log(this.viewContainerRef.get(i));
+  }
+}
+```
+
+
+
+
+
+#### Move/Insert Template
+
+```typescript
+import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef , EmbeddedViewRef} from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <ng-template #templ let-i>
+      <ul>
+        <li>List Item {{i}}</li>
+        <li>List Item {{i + 1}}</li>
+      </ul>
+    </ng-template>
+    <div #viewContainerRef class="testing">
+    </div>
+  `
+})
+export class AppComponent implements OnInit {
+  @ViewChild('viewContainerRef', {read: ViewContainerRef}) viewContainerRef;
+  @ViewChild('templ', {read: TemplateRef}) templ;
+
+  ngOnInit() {
+    const embeddRef: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 1});
+    const embeddRef2: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
+    this.viewContainerRef.move(embeddRef2, 0);
+  }
+}
+```
+
+
+
+
+
+
 
 
 
@@ -579,8 +648,6 @@ EmbeddedViewRef<C> {
   return viewRef;
 }
 ```
-
-
 
 
 
