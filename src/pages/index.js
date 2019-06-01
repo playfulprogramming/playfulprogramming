@@ -15,7 +15,6 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
-        <Bio />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
@@ -25,6 +24,7 @@ class BlogIndex extends React.Component {
                   marginBottom: rhythm(1 / 4),
                 }}
               >
+                <Bio author={node.frontmatter.author} />
                 <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
                   {title}
                 </Link>
@@ -63,6 +63,22 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            author {
+              name
+              blurbet
+              description
+              socials {
+                twitter
+              }
+              pronouns
+              profileImg {
+                childImageSharp {
+                  fixed(width: 50, height: 50) {
+                    ...GatsbyImageSharpFixed
+                  }
+                }
+              }
+            }
           }
         }
       }

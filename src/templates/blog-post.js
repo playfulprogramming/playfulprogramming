@@ -35,7 +35,7 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
-        <Bio />
+        <Bio author={post.frontmatter.author}/>
 
         <ul
           style={{
@@ -73,7 +73,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        author
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -84,6 +83,23 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        license
+        author {
+          name
+          blurbet
+          description
+          socials {
+            twitter
+          }
+          pronouns
+          profileImg {
+            childImageSharp {
+              fixed(width: 50, height: 50) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
       }
     }
   }

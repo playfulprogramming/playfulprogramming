@@ -1,12 +1,11 @@
+const authors = require('./authors');
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: `Kyle Mathews`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
-    social: {
-      twitter: `kylemathews`,
-    },
+    title: `Unicorn Utterances`,
+    description: `Learning programming from magically magestic words`,
+    siteUrl: `https://unicorn-utterances.com/`,
+    authors
   },
   plugins: [
     {
@@ -21,6 +20,13 @@ module.exports = {
       options: {
         path: `${__dirname}/content/assets`,
         name: `assets`,
+      },
+    },
+    `gatsby-transformer-yaml`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data`,
       },
     },
     {
@@ -75,4 +81,7 @@ module.exports = {
       },
     },
   ],
+  mapping: {
+    "MarkdownRemark.frontmatter.author": `AuthorYaml`,
+  },
 }
