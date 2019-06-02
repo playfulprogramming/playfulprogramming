@@ -45,6 +45,31 @@ class BlogIndex extends React.Component {
 
 export default BlogIndex
 
+export const query = graphql`
+  fragment AuthorInfo on AuthorYaml {
+    name
+    blurbet
+    description
+    socials {
+      twitter
+    }
+    pronouns {
+      they
+      them
+      their
+      theirs
+      themselves
+    }
+    profileImg {
+      childImageSharp {
+        fixed(width: 50, height: 50) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`
+
 export const pageQuery = graphql`
   query {
     site {
@@ -64,20 +89,7 @@ export const pageQuery = graphql`
             title
             description
             author {
-              name
-              blurbet
-              description
-              socials {
-                twitter
-              }
-              pronouns
-              profileImg {
-                childImageSharp {
-                  fixed(width: 50, height: 50) {
-                    ...GatsbyImageSharpFixed
-                  }
-                }
-              }
+              ...AuthorInfo
             }
           }
         }

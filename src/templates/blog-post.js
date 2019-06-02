@@ -85,20 +85,7 @@ export const pageQuery = graphql`
         description
         license
         author {
-          name
-          blurbet
-          description
-          socials {
-            twitter
-          }
-          pronouns
-          profileImg {
-            childImageSharp {
-              fixed(width: 50, height: 50) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
+          ...AuthorInfo
         }
       }
     }

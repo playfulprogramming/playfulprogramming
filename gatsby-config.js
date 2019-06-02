@@ -1,11 +1,8 @@
-const authors = require('./authors');
-
 module.exports = {
   siteMetadata: {
     title: `Unicorn Utterances`,
     description: `Learning programming from magically magestic words`,
-    siteUrl: `https://unicorn-utterances.com/`,
-    authors
+    siteUrl: `https://unicorn-utterances.com/`
   },
   plugins: [
     {
@@ -83,5 +80,6 @@ module.exports = {
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `AuthorYaml`,
+    "AuthorYaml.pronouns": `PronounsYaml`
   },
 }

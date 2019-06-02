@@ -37,7 +37,7 @@ function Bio({author}) {
         {author.blurbet}
         {` `}
         <a href={`https://twitter.com/${author.socials.twitter}`}>
-          You should follow {author.pronouns[1]} on Twitter
+          You should follow {author.pronouns.them} on Twitter
         </a>
       </p>
     </div>
