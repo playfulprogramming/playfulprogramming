@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Unicorn Utterances`,
-    description: `Learning programming from magically magestic words`,
+    description: `Learning programming from magically majestic words`,
     siteUrl: `https://unicorn-utterances.com/`
   },
   plugins: [
@@ -60,13 +60,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Unicorn Utterances`,
+        short_name: `Unicorn Utterances`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#127db3`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/unicorn-utterances-logo-512.png`,
       },
     },
     `gatsby-plugin-offline`,

@@ -1,4 +1,5 @@
 const path = require(`path`)
+const fs = require('fs')
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.createPages = ({ graphql, actions }) => {
@@ -19,6 +20,9 @@ exports.createPages = ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                attached {
+                  file
+                }
               }
             }
           }
@@ -36,6 +40,20 @@ exports.createPages = ({ graphql, actions }) => {
     posts.forEach((post, index) => {
       const previous = index === posts.length - 1 ? null : posts[index + 1].node
       const next = index === 0 ? null : posts[index - 1].node
+
+      const postInfo = post.node.frontmatter
+      if (postInfo.attached && postInfo.attached.length > 0) {
+        postInfo.attached.forEach(({file: fileStr}) => {
+          const postPath = post.node.fields.slug
+          const relFilePath = path.join(__dirname, 'static', postPath, fileStr)
+          const fileExists = fs.existsSync(path.resolve(relFilePath))
+          if (!fileExists) {
+            console.error(`Could not find file to attach in the static folder: ${postPath}${fileStr}`)
+            console.error(`To fix this problem, attach the file to the static folder's expected path above, or remove it from the post frontmatter definition`)
+            process.exit(1)
+          }
+        });
+      }
 
       createPage({
         path: post.node.fields.slug,

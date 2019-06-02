@@ -6,7 +6,7 @@
   attached: [
     {
         id: '123',
-        val: 'hello'
+        file: 'file.txt'
     }
   ]
 }
