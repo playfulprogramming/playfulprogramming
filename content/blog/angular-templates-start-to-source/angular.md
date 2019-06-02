@@ -576,16 +576,10 @@ const embeddIndex = this.viewContainerRef.indexOf(embeddRef);
 console.log(embeddIndex); // This would print `0`
 ```
 
-The view container keeps track of all of the embedded views in it's control, and when you `createEmbeddedView`
+The view container keeps track of all of the embedded views in it's control, and when you `createEmbeddedView`, it searches for the index to insert the view into. 
 
 
-
-
-
-
-
-
-What it does is that it looks for the index of the view container ref, and injects the template as an embedded view after that index:
+You're also able to lookup an embedded view based on the index you're looking for using `get`. So, if you wanted to get all of the indexes being tracked by `viewContainerRef`, you'd do:
 
 ```typescript
 ngOnInit() {
@@ -595,11 +589,9 @@ ngOnInit() {
 }
 ```
 
+#### Context
 
-
-
-
-#### Move/Insert Template
+Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start couting from, you could pass a context, [with the same object structure we did before](#pass-data-to-template—the-template-context), have:
 
 ```typescript
 import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef , EmbeddedViewRef} from '@angular/core';
@@ -607,14 +599,13 @@ import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewC
 @Component({
   selector: 'my-app',
   template: `
-    <ng-template #templ let-i>
-      <ul>
+   <ng-template #templ let-i>
         <li>List Item {{i}}</li>
         <li>List Item {{i + 1}}</li>
-      </ul>
     </ng-template>
-    <div #viewContainerRef class="testing">
-    </div>
+    <ul>
+	    <div #viewContainerRef></div>
+    </ul>
   `
 })
 export class AppComponent implements OnInit {
@@ -622,22 +613,48 @@ export class AppComponent implements OnInit {
   @ViewChild('templ', {read: TemplateRef}) templ;
 
   ngOnInit() {
-    const embeddRef: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 1});
-    const embeddRef2: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
-    this.viewContainerRef.move(embeddRef2, 0);
+    const embeddRef3: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
+    const embeddRef1: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 1});
   }
 }
 ```
 
+In this example, because we want to have a unordered list with list elements being created using embedded views, we're getting a `ViewContainerRef` directly from inside the unordered list.
+But you'll notice a problem with doing this if you open up your inspector (or even just by reading the code):
+There's now a `div` at the start of your list.
+
+To get around this, we can use the `ng-container` tag, which allows us to get a view reference without injecting a DOM element into the fray. `ng-container` can also be used to group elements without using a DOM element, similar to how [ADDLINK: React Fragments]() work in that ecosystem.
+
+```html
+<ng-container #viewContainerRef></ng-container>
+```
+
+#### Move/Insert Template
+
+But oh no! You'll see that the ordering is off. The simplest (and probably most obvious) solution would be to flip the order of the calls. After all, if they're based on index - moving the two calls to be in the opposite order would just fix the problem. 
+
+But this is a blog post, and I needed a contrived example to showcase how we can move views programmatically:
 
 
+```typescript
+const newViewIndex = 0;
+this.viewContainerRef.move(embeddRef3, newViewIndex);
+```
 
+Angular provides many APIs to take an existing view and move it and modify it without having to create a new one and run change detection/etc again.
 
+In fact, if `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embedd it yourself manually.
 
+```typescript
+ngOnInit() {
+  const viewRef1 = this.templ.createEmbeddedView({ $implicit: 1 });
+  this.viewContainerRef.insert(viewRef1);
+  const viewRef3 = this.templ.createEmbeddedView({ $implicit: 3 });
+  this.viewContainerRef.insert(viewRef3);
+}
+```
 
-
-
-And in fact, this is how the `createEmbeddedView` works internally:
+[ADDLINK: And in fact, this is how the `createEmbeddedView` works internally]():
 
 ```typescript
 // Source code directly from Angular
@@ -651,13 +668,15 @@ EmbeddedViewRef<C> {
 
 
 
+## Accessing Templates from a Directive
 
 
 
 
 
+### A Note on Components
 
-
+A component is just a directive with a template
 
 
 
@@ -666,6 +685,214 @@ EmbeddedViewRef<C> {
 
 
 ## Structural Directives - What Sorcery is this?
+
+Angular has many helpers that will allow you to do various things. There's the classic `*ngIf` that will conditionally render props, the always lovely `*ngFor` that will iterate through an array and allow you to 
+
+
+
+
+
+
+
+
+
+This is Angular source code, unmodified with the exception of removing lines of code that would make an explaination harder to perform (not because of complexity, but just because of it's length)
+
+````typescript
+import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+
+@Directive({selector: '[ngIf]'})
+export class NgIf {
+  private _context: NgIfContext = new NgIfContext();
+  private _thenTemplateRef: TemplateRef<NgIfContext>|null = null;
+  private _thenViewRef: EmbeddedViewRef<NgIfContext>|null = null;
+
+  constructor(private _viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext>) {
+    this._thenTemplateRef = templateRef;
+  }
+
+  @Input()
+  set ngIf(condition: any) {
+    this._context.$implicit = this._context.ngIf = condition;
+    this._updateView();
+  }
+
+  private _updateView() {
+    if (this._context.$implicit) {
+      if (!this._thenViewRef) {
+        this._viewContainer.clear();
+        if (this._thenTemplateRef) {
+          this._thenViewRef =
+            this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
+        }
+      }
+    }
+  }
+}
+
+export class NgIfContext {
+  public $implicit: any = null;
+  public ngIf: any = null;
+}
+````
+
+
+
+
+
+
+
+
+
+### Microsyntax
+
+
+
+
+
+
+
+
+
+#### `ngFor`
+
+
+
+While this is 99% the source code from Angular, I have made some changes outside of removing lines that I want to note before moving forward:
+
+- I have removed large parts of the API for simplicitiy's sake
+- I have removed error checking for simplicity's sake
+- Removed any references of generics
+  - This includes making import changes and passing in `any` as a type alias with the same type name
+    - Because of this, this code will not run by pasting into an Angular project, [I have spun up a stackblitz to show it working here]() so you can see the full demo without redaction
+
+
+
+```typescript
+
+
+import {
+  Directive,
+  DoCheck,
+  EmbeddedViewRef,
+  Input,
+  IterableChangeRecord,
+  IterableChanges,
+  IterableDiffer,
+  IterableDiffers,
+  NgIterable,
+  TemplateRef,
+  ViewContainerRef
+} from '@angular/core';
+
+class NgForOfContext {
+  constructor(
+    public $implicit: any, public ngForOf: NgIterable, public index: number,
+    public count: number) {}
+
+  get first(): boolean { return this.index === 0; }
+
+  get last(): boolean { return this.index === this.count - 1; }
+
+  get even(): boolean { return this.index % 2 === 0; }
+
+  get odd(): boolean { return !this.even; }
+}
+
+@Directive({selector: '[ngFor][ngForOf]'})
+export class NgForOf implements DoCheck {
+  @Input()
+  set ngForOf(ngForOf: NgIterable) {
+    this._ngForOf = ngForOf;
+    this._ngForOfDirty = true;
+  }
+
+  private _ngForOf !: NgIterable;
+  private _ngForOfDirty: boolean = true;
+  private _differ: IterableDiffer | null = null;
+
+  constructor(
+    private _viewContainer: ViewContainerRef, private _template: TemplateRef<NgForOfContext>,
+    private _differs: IterableDiffers) {}
+
+  ngDoCheck(): void {
+    if (this._ngForOfDirty) {
+      this._ngForOfDirty = false;
+      // React on ngForOf changes only once all inputs have been initialized
+      const value = this._ngForOf;
+      if (!this._differ && value) {
+        this._differ = this._differs.find(value).create();
+      }
+    }
+    if (this._differ) {
+      const changes = this._differ.diff(this._ngForOf);
+      if (changes) this._applyChanges(changes);
+    }
+  }
+
+  private _applyChanges(changes: IterableChanges) {
+    const insertTuples: Array<RecordViewTuple> = [];
+    changes.forEachOperation(
+      (item: IterableChangeRecord, adjustedPreviousIndex: number, currentIndex: number) => {
+        if (item.previousIndex == null) {
+          const view = this._viewContainer.createEmbeddedView(
+            this._template,
+            new NgForOfContext(null, this._ngForOf, -1, -1),
+            currentIndex
+          );
+          const tuple = new RecordViewTuple(item, view);
+          insertTuples.push(tuple);
+        } else if (currentIndex == null) {
+          this._viewContainer.remove(adjustedPreviousIndex);
+        } else {
+          const view: any = this._viewContainer.get(adjustedPreviousIndex) !;
+          this._viewContainer.move(view, currentIndex);
+          const tuple = new RecordViewTuple(item, view);
+          insertTuples.push(tuple);
+        }
+      });
+
+    for (let i = 0; i < insertTuples.length; i++) {
+      this._perViewChange(insertTuples[i].view, insertTuples[i].record);
+    }
+
+    for (let i = 0, ilen = this._viewContainer.length; i < ilen; i++) {
+      const viewRef: EmbeddedViewRef = this._viewContainer.get(i) as any;
+      viewRef.context.index = i;
+      viewRef.context.count = ilen;
+      viewRef.context.ngForOf = this._ngForOf;
+    }
+
+    changes.forEachIdentityChange((record: any) => {
+      const viewRef: EmbeddedViewRef = this._viewContainer.get(record.currentIndex) as any;
+      viewRef.context.$implicit = record.item;
+    });
+  }
+
+  private _perViewChange(
+    view: EmbeddedViewRef,
+    record: IterableChangeRecord
+  ) {
+    view.context.$implicit = record.item;
+  }
+}
+
+class RecordViewTuple {
+  constructor(public record: any, public view: EmbeddedViewRef) {}
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 A structural directive is something like `*ngFor` or `*ngIf`, they allow you to turn whatever you're looking at into a template.
 EG:
@@ -700,6 +927,24 @@ https://angular.io/guide/structural-directives#microsyntax
 For more information on this see:
 
 <https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateoutlet/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
