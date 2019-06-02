@@ -1,0 +1,35 @@
+[
+  {
+    "id": "crutchcorn",
+    "name": "Corbin Crutchley",
+    "blurbet": "Is a cool dood",
+    "description": "Is a super mega rad human being",
+    "socials": {
+      "twitter": "crutchcorn"
+    },
+    "pronouns": "they/themselves",
+    "profileImg": "./crutchcorn.png"
+  },
+  {
+    "id": "joe",
+    "name": "Joe Casenova",
+    "blurbet": "Is a cool dood",
+    "description": "Is a super mega rad human being",
+    "socials": {
+      "twitter": "crutchcorn"
+    },
+    "pronouns": "he",
+    "profileImg": "./crutchcorn.png"
+  },
+  {
+    "id": "demoperson",
+    "name": "Demo Person",
+    "blurbet": "Is a cool dood",
+    "description": "Is a super mega rad human being",
+    "socials": {
+      "twitter": "crutchcorn"
+    },
+    "pronouns": "it",
+    "profileImg": "./crutchcorn.png"
+  }
+]

@@ -46,7 +46,7 @@ class BlogIndex extends React.Component {
 export default BlogIndex
 
 export const query = graphql`
-  fragment AuthorInfo on AuthorYaml {
+  fragment AuthorInfo on AuthorsJson {
     name
     blurbet
     description

@@ -1,8 +1,15 @@
 ---
-title: My Second Post!
-date: "2015-05-06T23:46:37.121Z"
-author: 'demoperson'
-attached: ['./file.txt']
+{
+  title: "My Second Post!",
+  date: "2015-05-06T23:46:37.121Z",
+  author: "demoperson",
+  attached: [
+    {
+        id: '123',
+        val: 'hello'
+    }
+  ]
+}
 ---
 
 Wow! I love blogging so much already.

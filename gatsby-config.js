@@ -19,7 +19,7 @@ module.exports = {
         name: `assets`,
       },
     },
-    `gatsby-transformer-yaml`,
+    `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -79,7 +79,7 @@ module.exports = {
     },
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `AuthorYaml`,
-    "AuthorYaml.pronouns": `PronounsYaml`
+    "MarkdownRemark.frontmatter.author": `AuthorsJson`,
+    "AuthorsJson.pronouns": `PronounsJson`
   },
 }
