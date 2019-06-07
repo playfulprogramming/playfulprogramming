@@ -643,7 +643,7 @@ this.viewContainerRef.move(embeddRef3, newViewIndex);
 
 Angular provides many APIs to take an existing view and move it and modify it without having to create a new one and run change detection/etc again.
 
-In fact, if `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embedd it yourself manually.
+If you're wanting to try out a different API and feel that `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embedd it yourself manually.
 
 ```typescript
 ngOnInit() {
@@ -670,7 +670,128 @@ EmbeddedViewRef<C> {
 
 ## Accessing Templates from a Directive
 
+So now that we have some understanding of how to create views programmatically, let's see how we can use directives to create them without any concept of a template being associated directly with that logic.
 
+```typescript
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  @ContentChild(TemplateRef, {static: true}) templ;
+  constructor (private parentViewRef: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {
+    this.parentViewRef.createEmbeddedView(this.templ);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div directiveName>
+      <ng-template>
+          <p>Hello</p>
+      </ng-template>
+    </div>
+  `
+})
+export class AppComponent {}
+```
+
+Because Angular treats directives extremely similarly to components, you'll notice this code is almost exactly the same from some of our previous component code.
+
+However, the lack of a template associated with the directive enables some fun stuff, for example, we can use the same dependency injection trick we've been using to get the view container reference to get a reference to the template element that the directive is attached to and render it in the `ngOnInit` method like so:
+
+
+```typescript
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  constructor (private parentViewRef: ViewContainerRef, private templ: TemplateRef<any>) {}
+
+  ngOnInit(): void {
+    this.parentViewRef.createEmbeddedView(this.templ);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <ng-template directiveName>
+        <p>Hello</p>
+    </ng-template>
+  `
+})
+export class AppComponent {}
+```
+
+With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
+
+```typescript
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  constructor (private parentViewRef: ViewContainerRef, private templ: TemplateRef<any>) {}
+
+  @Input() directiveName: string;
+
+  ngOnInit(): void {
+    this.parentViewRef.createEmbeddedView(this.templ, {$implicit: this.directiveName});
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <ng-template [directiveName]="'Hi there!'" let-message>
+        <p>{{message}}</p>
+    </ng-template>
+  `
+})
+export class AppComponent {}
+```
+
+
+
+With this syntax, we can add a second input, pass an object as the context to one of the inputs, and then a template reference variable, and be able to recreate Angular's `templateOutlet`
+
+```typescript
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  constructor (private parentViewRef: ViewContainerRef) {
+  }
+
+  @Input() directiveName: TemplateRef<any>;
+  @Input() directiveNameContext: object;
+
+  ngOnInit(): void {
+    this.parentViewRef.createEmbeddedView(this.directiveName,  this.directiveNameContext);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <ng-template [directiveName]="template1"
+                 [directiveNameContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
+    <ng-template #template1 let-message>
+        <p>Testing from <code>template1</code>: <b>{{message}}</b></p>
+    </ng-template>
+  `
+})
+export class AppComponent {}
+```
+
+
+
+
+
+And this is how the templateOutlet code works in Angular
 
 
 
@@ -689,6 +810,100 @@ A component is just a directive with a template
 Angular has many helpers that will allow you to do various things. There's the classic `*ngIf` that will conditionally render props, the always lovely `*ngFor` that will iterate through an array and allow you to 
 
 
+
+```typescript
+import {
+  Component,
+  ContentChild,
+  Directive,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+  AfterViewInit,
+  Input
+} from '@angular/core';
+
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  constructor (private templ: TemplateRef<any>,
+               private parentViewRef: ViewContainerRef) {
+  }
+
+  @Input() directiveName: TemplateRef<any>;
+
+  ngOnInit(): void {
+    if (this.directiveName) {
+      this.parentViewRef.createEmbeddedView(this.templ);
+    }
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div *directiveName="bool">
+      <p>Test</p>
+    </div>
+    <label for="boolToggle">Toggle me!</label>
+    <input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
+  `
+})
+export class AppComponent {
+  bool = true;
+}
+```
+
+
+
+But you'll notice the toggle doesn't hide anything. Let's change that
+
+
+
+
+
+
+
+
+
+```typescript
+@Directive({
+  selector: '[directiveName]'
+})
+export class DirectiveHere implements OnInit {
+  constructor (private templ: TemplateRef<any>,
+               private parentViewRef: ViewContainerRef) {
+  }
+
+  private _val: TemplateRef<any>;
+
+  @Input() set directiveName(val: TemplateRef<any>) {
+    this._val = val;
+    this.update();
+  }
+
+  update(): void {
+    if (this._val) {
+      this.parentViewRef.createEmbeddedView(this.templ);
+    }
+  }
+}
+```
+
+
+
+
+
+```typescript
+update(): void {
+  if (this._val) {
+    this.parentViewRef.createEmbeddedView(this.templ);
+  } else {
+    this.parentViewRef.clear();
+  }
+}
+```
 
 
 
@@ -735,8 +950,6 @@ export class NgIfContext {
   public ngIf: any = null;
 }
 ````
-
-
 
 
 
