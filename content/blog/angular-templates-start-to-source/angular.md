@@ -873,6 +873,8 @@ The cool part about structural directives, though? Because they're simply direct
   </p>
 </ng-template> 
 ```
+It is for this reason that **only one structural directive can be applied to one element**. Otherwise, how would it know what order to wrap those directives in? What template should get what reference to what template?
+
 ### Building A Basic `*ngIf`
 
 But rendering a template without changing it in any way isn't a very useful structural directive. Remove that directive and your code has exactly the same behavior. However, Angular provides something not-altogether-different from what we started on as a useful utility to hide/show a view based on a boolean's truthiness: `ngIf`. 
@@ -939,7 +941,7 @@ export class DirectiveHere {
 }
 ```
 
-You'll notice that I removed the `OnInit` lifecycle and replaced it with an input `set`ter. We could have changed the lifecycle method to use `ngOnChanges`, given that we only have one input, but as your directive adds more inputs and you want to maintain the local state, that logic can get more complex.
+You'll notice that I removed the `OnInit` lifecycle and replaced it with an input `set`ter. We could have changed the lifecycle method to use `ngOnChanges` to listen for input changes, given that we only have one input, but as your directive adds more inputs and you want to maintain the local state, that logic can get more complex.
 
 Running our tests again, we see that toggling it once now shows the embedded view, but toggling it again after that does not hide it again. With a simple update to the `update` method, we can fix that:
 
@@ -953,17 +955,15 @@ update(): void {
 }
 ```
 
-Here, we're using the 
+Here, we're using the `clear` method on the parent view ref to remove the previous view when the value is false. Because our structural directive will contain a template only used for this directive, we can safely assume that `clear` will only remove templates created within this directive and not from an external source.
 
+#### How Angular Built It
 
+While Angular goes for a more verbose pattern due to additional features available in their structural directive, the implementation is not too different from our own. 
 
-
-
-This is Angular source code, unmodified with the exception of removing lines of code that would make an explaination harder to perform (not because of complexity, but just because of it's length)
+The following is the Angular source code for that directive. To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
 
 ````typescript
-import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-
 @Directive({selector: '[ngIf]'})
 export class NgIf {
   private _context: NgIfContext = new NgIfContext();
@@ -988,6 +988,8 @@ export class NgIf {
           this._thenViewRef =
             this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
         }
+      } else {
+        this._viewContainer.clear();
       }
     }
   }
@@ -999,15 +1001,24 @@ export class NgIfContext {
 }
 ````
 
+Just to recap, let's run through this line-by-line:
 
-
-
-
+1. `_context` is creating a default of `{$implicit: null, ngIf: null}` 
+  - The object shape is defined by the `NgIfContext` class below
+  - This is to be able to pass as a context to the template. While this is not required to understand how Angular implemented this directive in basic terms, it was left in to avoid editing code elsewhere
+2. We're then defining a variable to keep track of the template reference and the view reference (ADDLINK: [what `createEmbeddedView` returns]()) for usage later
+3. The constructor is then assigning the template reference to the variable, and getting a reference to the view container
+4. We're then defining an input with the same name as a setter, as we did with our implementation
+   - This setter is also calling an update function, just as were with our implementaiton
+5. The update view is then seeing if the `$implicit` value in the context is truthy (as we're assigning the value of the `ngIf` input to the `$implicit` key on the context)
+6. Further checks are made to see if there is a view reference already.
+   - If there is not, it will proceed to make one (checking first that there is a template to create off of)
+   - If there is, it will not recreate a view, in order to avoid performance issues by recreating views over-and-over again
 
 
 ### Microsyntax
 
-
+https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855
 
 
 
@@ -1064,22 +1075,6 @@ While this is 99% the source code from Angular, I have made some changes outside
 
 
 ```typescript
-
-
-import {
-  Directive,
-  DoCheck,
-  EmbeddedViewRef,
-  Input,
-  IterableChangeRecord,
-  IterableChanges,
-  IterableDiffer,
-  IterableDiffers,
-  NgIterable,
-  TemplateRef,
-  ViewContainerRef
-} from '@angular/core';
-
 class NgForOfContext {
   constructor(
     public $implicit: any, public ngForOf: NgIterable, public index: number,
