@@ -1,10 +1,9 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import PostCard from "../components/post-card"
+import listStyle from './index.module.css'
 
 class BlogIndex extends React.Component {
   render() {
@@ -15,29 +14,24 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
+        <div className={listStyle.postsListContainer}>
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Bio author={node.frontmatter.author} />
-                <Link style={{ boxShadow: `none` }} to={`post/${node.fields.slug}`}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </div>
+            <PostCard
+              slug={node.fields.slug}
+              className={listStyle.postListItem}
+              key={node.fields.slug}
+              excerpt={node.excerpt}
+              title={title}
+              author={node.frontmatter.author}
+              date={node.frontmatter.date}
+              tags={node.frontmatter.tags}
+              description={node.frontmatter.description}
+            />
           )
         })}
+        </div>
       </Layout>
     )
   }
@@ -62,7 +56,7 @@ export const query = graphql`
     }
     profileImg {
       childImageSharp {
-        fixed(width: 50, height: 50) {
+        fixed(width: 60, height: 60) {
           ...GatsbyImageSharpFixed
         }
       }
@@ -87,6 +81,7 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            tags
             author {
               ...AuthorInfo
             }

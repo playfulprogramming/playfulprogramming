@@ -1,36 +1,46 @@
 import React from "react"
 import { Link } from "gatsby"
-import cardStyles from "./style.css"
+import cardStyles from "./style.module.css"
+import Image from "gatsby-image"
 
 class PostCard extends React.Component {
   render() {
-    const { title, authorName, date, tags, excerpt } = this.props
+    const { title, author, date, tags, excerpt, description, className, slug } = this.props
 
     return (
-      <div className={cardStyles.card}>
-        <img src={"https://pbs.twimg.com/profile_images/1137822889938317312/Z9Ci2LoS_400x400.jpg"}
-             alt={`Image of ${authorName}`}
-         className={cardStyles.profilePic} style={{
+      <Link to={`posts/${slug}`} className={`${cardStyles.card} ${className}`}>
+        <Image
+          fixed={author.profileImg.childImageSharp.fixed}
+          alt={author.name}
+          className={cardStyles.profilePic}
+          style={{
           borderColor: "red",
-        }}/>
+          }}
+          imgStyle={{
+            borderRadius: `50%`,
+          }}
+        />
         <div className={cardStyles.cardContents}>
           <h2 className={cardStyles.header}>{title}</h2>
           <div className={cardStyles.authorSubheader}>
-            <p>by {authorName}</p>
+            <p>by {author.name}</p>
             <p className={cardStyles.date}>{date}</p>
+            <div>
             {
               tags.map(tag => (
-                <Link to={"/"} className={cardStyles.tag}>
-                  {tag.name}
+                <Link to={"/"} key={tag} className={cardStyles.tag}>
+                  {tag}
                 </Link>
               ))
             }
+            </div>
           </div>
-          <p className={cardStyles.excerpt}>
-            {excerpt}
-          </p>
+          <p className={cardStyles.excerpt} dangerouslySetInnerHTML={{
+            __html: description || excerpt,
+          }}
+          />
         </div>
-      </div>
+      </Link>
     )
   }
 }

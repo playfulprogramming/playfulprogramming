@@ -3,11 +3,13 @@
     box-sizing: border-box;
     border-radius: 8px;
     position: relative;
+    color: inherit;
 }
 
 .profilePic {
-    height: 60px;
-    width: 60px;
+    position: absolute !important;
+    left: 12px;
+    top: 12px;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
@@ -18,6 +20,7 @@
 }
 
 .header {
+    margin:0;
     font-size: 32px;
 }
 
@@ -26,7 +29,12 @@
     flex-direction: row;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+}
+
+.authorSubheader p {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .date {
@@ -37,18 +45,29 @@
     color: var(--darkPrimary);
 }
 
-.tag, .date {
+.tag:not(:first-child), .date {
     position: relative;
     margin-left: 12px;
 }
 
-.tag::before, .date::before {
+.tag:not(:first-child)::before, .date::before, .date::after {
+    --height: 20px;
+    --halfHeight: calc(var(--height) / 2);
     position: absolute;
-    top: 0;
-    height: 100%;
-    left: 0;
+    top: 50%;
+    margin-top: calc(0px - var(--halfHeight));
+    height: var(--height);
     width: 1px;
-    background: var(--darkPrimary)
+    background: var(--darkPrimary);
+    content: ' ';
+}
+
+.tag:not(:first-child)::before, .date::before {
+    left: -6px;
+}
+
+.date::after {
+    right: -6px;
 }
 
 .excerpt {
@@ -59,7 +78,8 @@
     position: absolute;
     top: 0;
     height: 100%;
-    left: 12px;
+    left: -12px;
     width: 2px;
-    background: var(--darkPrimary)
+    background: var(--darkPrimary);
+    content: ' ';
 }

@@ -1,0 +1,14 @@
+.postsListContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.postListItem {
+    flex-basis: calc(33% - 20px);
+    margin: 0 10px;
+    flex-grow: 0;
+    width: calc(33% - 20px);
+    max-width: calc(33% - 20px);
+}

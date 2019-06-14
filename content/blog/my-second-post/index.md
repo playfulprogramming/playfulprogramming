@@ -8,7 +8,8 @@
         id: '123',
         file: 'file.txt'
     }
-  ]
+  ],
+  tags: ['second', 'post']
 }
 ---
 
