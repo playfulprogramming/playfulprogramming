@@ -1,0 +1,65 @@
+.card {
+    border: 1px solid var(--primary);
+    box-sizing: border-box;
+    border-radius: 8px;
+    position: relative;
+}
+
+.profilePic {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.cardContents {
+    margin-left: 108px;
+}
+
+.header {
+    font-size: 32px;
+}
+
+.authorSubheader {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+}
+
+.date {
+    color: var(--darkGrey)
+}
+
+.tag {
+    color: var(--darkPrimary);
+}
+
+.tag, .date {
+    position: relative;
+    margin-left: 12px;
+}
+
+.tag::before, .date::before {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 1px;
+    background: var(--darkPrimary)
+}
+
+.excerpt {
+    position: relative;
+}
+
+.excerpt::before {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 12px;
+    width: 2px;
+    background: var(--darkPrimary)
+}
