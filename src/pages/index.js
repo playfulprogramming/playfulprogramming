@@ -25,7 +25,7 @@ class BlogIndex extends React.Component {
                 }}
               >
                 <Bio author={node.frontmatter.author} />
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                <Link style={{ boxShadow: `none` }} to={`post/${node.fields.slug}`}>
                   {title}
                 </Link>
               </h3>

@@ -6,28 +6,33 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogAuthor = path.resolve(`./src/templates/blog-author.js`)
   return graphql(
     `
-      {
-        allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
-          limit: 1000
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                attached {
-                  file
-                }
+    {
+      allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}, limit: 1000) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+              attached {
+                file
               }
             }
           }
         }
       }
+      allAuthorsJson(limit: 100) {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
     `
   ).then(result => {
     if (result.errors) {
@@ -36,10 +41,11 @@ exports.createPages = ({ graphql, actions }) => {
 
     // Create blog posts pages.
     const posts = result.data.allMarkdownRemark.edges
+    const authors = result.data.allAuthorsJson.edges
 
-    posts.forEach((post, index) => {
-      const previous = index === posts.length - 1 ? null : posts[index + 1].node
-      const next = index === 0 ? null : posts[index - 1].node
+    posts.forEach((post, index, arr) => {
+      const previous = index === arr.length - 1 ? null : arr[index + 1].node
+      const next = index === 0 ? null : arr[index - 1].node
 
       const postInfo = post.node.frontmatter
       if (postInfo.attached && postInfo.attached.length > 0) {
@@ -55,13 +61,25 @@ exports.createPages = ({ graphql, actions }) => {
         });
       }
 
+      console.log(post.node.fields.slug);
+
       createPage({
-        path: post.node.fields.slug,
+        path: `post${post.node.fields.slug}`,
         component: blogPost,
         context: {
           slug: post.node.fields.slug,
           previous,
           next,
+        },
+      })
+    })
+
+    authors.forEach((author, index, arr) => {
+      createPage({
+        path: `author/${author.node.id}`,
+        component: blogAuthor,
+        context: {
+          slug: author.node.id
         },
       })
     })
