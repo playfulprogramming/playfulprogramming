@@ -38,6 +38,20 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-actions": "^5.1.7",
+    "@storybook/addon-knobs": "^5.1.7",
+    "@storybook/addon-links": "^5.1.7",
+    "@storybook/addons": "^5.1.7",
+    "@storybook/react": "^5.1.7",
+    "@testing-library/react": "^8.0.1",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-gatsby": "^0.1.11",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-dom": "^3.5.0",
+    "jest-watch-typeahead": "^0.3.1",
     "prettier": "^1.17.1"
   },
   "homepage": "https://unicorn-utterances.com",
@@ -58,6 +72,8 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "jest",
+    "storybook": "NODE_ENV=production start-storybook -s static -c config/storybook",
+    "build-storybook": "NODE_ENV=production build-storybook -s static -c config/storybook"
   }
 }
