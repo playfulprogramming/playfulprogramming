@@ -4,12 +4,13 @@
     border-radius: 8px;
     position: relative;
     color: inherit;
+    padding: 0 24px 23px 0;
 }
 
 .profilePic {
     position: absolute !important;
-    left: 12px;
-    top: 12px;
+    left: 24px;
+    top: 24px;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
@@ -20,11 +21,15 @@
 }
 
 .header {
-    margin:0;
+    margin: 21px 0 0 0;
     font-size: 32px;
 }
 
-.authorSubheader {
+.authorName {
+    margin: 4px 0;
+}
+
+.dateTagSubheader {
     display: flex;
     flex-direction: row;
     flex-grow: 0;
@@ -32,25 +37,27 @@
     flex-wrap: wrap;
 }
 
-.authorSubheader p {
+.dateTagSubheader p {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .date {
-    color: var(--darkGrey)
+    position: relative;
+    color: var(--darkGrey);
+    margin-right: 12px;
 }
 
 .tag {
     color: var(--darkPrimary);
 }
 
-.tag:not(:first-child), .date {
-    position: relative;
+.tag:not(:first-child) {
     margin-left: 12px;
+    position: relative;
 }
 
-.tag:not(:first-child)::before, .date::before, .date::after {
+.tag:not(:first-child)::before, .date::after {
     --height: 20px;
     --halfHeight: calc(var(--height) / 2);
     position: absolute;
@@ -71,6 +78,7 @@
 }
 
 .excerpt {
+    margin: 8px 0 0 0;
     position: relative;
 }
 

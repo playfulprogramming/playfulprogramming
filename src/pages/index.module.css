@@ -5,10 +5,19 @@
     padding: 0 20px;
 }
 
-.postListItem {
-    flex-basis: calc(33% - 20px);
-    margin: 0 10px;
-    flex-grow: 0;
-    width: calc(33% - 20px);
-    max-width: calc(33% - 20px);
+@media screen and (min-width: 992px) {
+    .postListItem {
+        --marginSize: 24px;
+        --doubleMargin: calc(var(--marginSize) * 2);
+        flex-basis: calc(50% - var(--doubleMargin));
+        margin: var(--marginSize);
+        flex-grow: 0;
+        width: calc(50% - var(--doubleMargin));
+        max-width: calc(50% - var(--doubleMargin));
+    }
 }
+
+    .postListItem {
+        --marginSize: 12px;
+        margin: calc(var(--marginSize) / 2) var(--marginSize);
+    }
