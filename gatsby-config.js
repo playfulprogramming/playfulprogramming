@@ -27,6 +27,18 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Archivo`,
+            variants: [`400`, `700`],
+            subsets: [`latin`]
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
@@ -77,6 +89,14 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /\/src\/assets\/icons\/.*\.svg$/ // See below to configure properly
+        }
+      }
+    }
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `AuthorsJson`,

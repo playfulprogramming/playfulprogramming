@@ -8,13 +8,13 @@ class PostCard extends React.Component {
     const { title, author, date, tags, excerpt, description, className, slug } = this.props
 
     return (
-      <Link to={`posts/${slug}`} className={`${cardStyles.card} ${className}`}>
+      <Link to={`posts${slug}`} className={`${cardStyles.card} ${className}`}>
         <Image
           fixed={author.profileImg.childImageSharp.fixed}
           alt={author.name}
           className={cardStyles.profilePic}
           style={{
-          borderColor: "red",
+          borderColor: author.color,
           }}
           imgStyle={{
             borderRadius: `50%`,

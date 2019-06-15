@@ -1,10 +1,25 @@
 .card {
-    border: 1px solid var(--primary);
+    border: var(--cardOutlineStyle);
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: var(--cardRadius);
     position: relative;
     color: inherit;
     padding: 0 24px 23px 0;
+    box-shadow: none;
+}
+
+.card:hover {
+    transition: background var(--animSpeed) var(--animStyle),
+                box-shadow var(--animSpeed) var(--animStyle),
+                border-color var(--animSpeed) var(--animStyle);
+    background: var(--cardActiveBackground);
+    border-color: transparent;
+    box-shadow: 0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF;
+}
+
+.card:hover .header {
+    text-decoration: underline;
+    transition: text-decoration var(--animSpeed);
 }
 
 .profilePic {
@@ -19,6 +34,7 @@
 .cardContents {
     margin-left: 108px;
 }
+
 
 .header {
     margin: 21px 0 0 0;

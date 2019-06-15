@@ -1,0 +1,49 @@
+.btn {
+    display: flex;
+    align-items: center;
+    border-radius: var(--cardRadius);
+    padding: 8px 16px 8px 15px;
+    color: var(--darkPrimary);
+    transition: background var(--animSpeed) var(--animStyle),
+                border-color var(--animSpeed) var(--animStyle);
+    border: 1px solid transparent;
+}
+
+.btn, .input, .input::placeholder {
+    color: var(--darkPrimary);
+}
+
+.btn:hover {
+    background: var(--cardActiveBackground);
+}
+
+.contentBtn {
+    border: var(--cardOutlineStyle);
+}
+
+.input {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 36px;
+    line-height: 36px;
+}
+
+.input::placeholder {
+    opacity: 1;
+}
+
+.inputContainer {
+    position: relative;
+    margin-left: 15px;
+}
+
+.inputContainer::after {
+    content: ' ';
+    background: var(--darkGrey);
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 1px;
+}

@@ -1,0 +1,15 @@
+.iconContainer {
+    display: flex;
+}
+
+@media screen and (min-width: 992px) {
+    .iconContainer {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+    }
+
+    .iconContainer > * {
+        flex-basis: 33%;
+    }
+}

@@ -6,12 +6,14 @@
     --white: white;
     --darkGrey: rgba(0, 0, 0, 0.64);
     --backgroundColor: #E4F4FF;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Archivo', sans-serif;
+    --cardActiveBackground: rgba(250, 250, 250, 0.5);
+    --animSpeed: 200ms;
+    --animStyle: ease-in-out;
+    --cardRadius: 8px;
+    --cardOutlineStyle: 1px solid var(--primary);
 }
 
 body {
-    background-color: var(--backgroundColor)
+    background-color: var(--backgroundColor);
+    font-family: 'Archivo', sans-serif;
 }

@@ -1,0 +1,29 @@
+.postsListContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+@media screen and (min-width: 992px) {
+    .postListItem {
+        --marginSize: 24px;
+        flex-basis: calc(50% - var(--marginSize));
+        margin: var(--marginSize);
+        flex-grow: 0;
+        width: calc(50% - var(--marginSize));
+        max-width: calc(50% - var(--marginSize));
+    }
+
+    .postListItem:nth-child(odd) {
+        margin-left: 0;
+    }
+
+    .postListItem:nth-child(even) {
+        margin-right: 0;
+    }
+}
+
+.postListItem {
+    --marginSize: 12px;
+    margin: calc(var(--marginSize) / 2) var(--marginSize);
+}

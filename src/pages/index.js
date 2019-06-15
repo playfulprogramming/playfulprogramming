@@ -1,9 +1,8 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import PostCard from "../components/post-card"
-import listStyle from './index.module.css'
+import PostList from "../components/post-card-list"
 
 class BlogIndex extends React.Component {
   render() {
@@ -13,24 +12,9 @@ class BlogIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
-        <div className={listStyle.postsListContainer}>
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <PostCard
-              slug={node.fields.slug}
-              className={listStyle.postListItem}
-              key={node.fields.slug}
-              excerpt={node.excerpt}
-              title={title}
-              author={node.frontmatter.author}
-              date={node.frontmatter.date}
-              tags={node.frontmatter.tags}
-              description={node.frontmatter.description}
-            />
-          )
-        })}
+        <SEO title="All posts"/>
+        <div style={{ padding: "0 20px" }}>
+          <PostList posts={posts}/>
         </div>
       </Layout>
     )
@@ -44,6 +28,7 @@ export const query = graphql`
     name
     blurbet
     description
+    color
     socials {
       twitter
     }
