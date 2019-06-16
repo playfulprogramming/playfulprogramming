@@ -1,7 +1,6 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 import './style.css'
-import 'react-widgets/dist/css/react-widgets.css';
 
 class Layout extends React.Component {
   render() {
@@ -69,3 +68,53 @@ class Layout extends React.Component {
 }
 
 export default Layout
+
+export const authorFragmentQuery = graphql`
+  fragment AuthorInfo on AuthorsJson {
+    name
+    blurbet
+    id
+    description
+    color
+    socials {
+      twitter
+    }
+    pronouns {
+      they
+      them
+      their
+      theirs
+      themselves
+    }
+    profileImg {
+      childImageSharp {
+        fixed(width: 60, height: 60) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`
+
+export const postFragmentQuery = graphql`
+  fragment PostInfo on MarkdownRemark {
+    id
+    excerpt(pruneLength: 160)
+    html
+    frontmatter {
+      title
+      date(formatString: "MMMM DD, YYYY")
+      license
+      tags
+      author {
+        ...AuthorInfo
+      }
+    }
+    fields {
+      slug
+    }
+    wordCount {
+      words
+    }
+  }
+`

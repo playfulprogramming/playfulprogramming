@@ -6,6 +6,7 @@
     color: inherit;
     padding: 0 24px 23px 0;
     box-shadow: none;
+    text-decoration: none;
 }
 
 .card:hover {
@@ -34,7 +35,6 @@
 .cardContents {
     margin-left: 108px;
 }
-
 
 .header {
     margin: 21px 0 0 0;

@@ -23,33 +23,6 @@ class BlogIndex extends React.Component {
 
 export default BlogIndex
 
-export const query = graphql`
-  fragment AuthorInfo on AuthorsJson {
-    name
-    blurbet
-    id
-    description
-    color
-    socials {
-      twitter
-    }
-    pronouns {
-      they
-      them
-      their
-      theirs
-      themselves
-    }
-    profileImg {
-      childImageSharp {
-        fixed(width: 60, height: 60) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-  }
-`
-
 export const pageQuery = graphql`
   query {
     site {
@@ -60,18 +33,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            tags
-            author {
-              ...AuthorInfo
-            }
-          }
+          ...PostInfo
         }
       }
     }

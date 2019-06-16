@@ -8,22 +8,18 @@
 import React from "react"
 import Image from "gatsby-image"
 
-import { rhythm } from "../utils/typography"
-
 function Bio({author}) {
   if (!(author && author.profileImg && author.profileImg.childImageSharp && author.profileImg.childImageSharp.fixed)) {return null;}
   return (
     <div
       style={{
         display: `flex`,
-        marginBottom: rhythm(2.5),
       }}
     >
       <Image
         fixed={author.profileImg.childImageSharp.fixed}
         alt={author.name}
         style={{
-          marginRight: rhythm(1 / 2),
           marginBottom: 0,
           minWidth: 50,
           borderRadius: `100%`,

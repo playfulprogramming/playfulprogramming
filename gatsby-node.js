@@ -61,8 +61,6 @@ exports.createPages = ({ graphql, actions }) => {
         });
       }
 
-      console.log(post.node.fields.slug);
-
       createPage({
         path: `posts${post.node.fields.slug}`,
         component: blogPost,
@@ -76,7 +74,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     authors.forEach((author, index, arr) => {
       createPage({
-        path: `author/${author.node.id}`,
+        path: `authors/${author.node.id}`,
         component: blogAuthor,
         context: {
           slug: author.node.id

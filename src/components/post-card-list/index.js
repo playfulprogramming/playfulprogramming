@@ -5,7 +5,11 @@ import FilterSearchBar from "../filter-search-bar"
 
 class PostList extends React.Component {
   render() {
-    const { posts = [], showWordCount = true } = this.props
+    /**
+     * overwriteAuthorInfo is a needed evil for now:
+     * @see https://github.com/gatsbyjs/gatsby/issues/14827
+     */
+    const { posts = [], showWordCount = false, overwriteAuthorInfo} = this.props
 
     return (
       <div>
@@ -22,7 +26,7 @@ class PostList extends React.Component {
                 key={node.fields.slug}
                 excerpt={node.excerpt}
                 title={title}
-                author={node.frontmatter.author}
+                author={overwriteAuthorInfo || node.frontmatter.author}
                 date={node.frontmatter.date}
                 tags={node.frontmatter.tags}
                 description={node.frontmatter.description}
