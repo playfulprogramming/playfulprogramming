@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react"
 import btnWrapperStyles from "./style.module.css"
 import classNames from "classnames"
-import SearchIcon from "../../assets/icons/search.svg"
+import SearchIcon from "../../../assets/icons/search.svg"
 
 const SearchField = () => {
   const [inputVal, setInputVal] = useState("")
@@ -18,7 +18,7 @@ const SearchField = () => {
 
   return (
     <div className={wrapperClasses}>
-      <SearchIcon/>
+      <SearchIcon className={btnWrapperStyles.icon}/>
       <div className={btnWrapperStyles.inputContainer}>
         <input placeholder="Search"
                onChange={e => setInputVal(e.target.value)}

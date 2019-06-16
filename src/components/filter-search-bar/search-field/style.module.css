@@ -25,8 +25,8 @@
     background: none;
     border: none;
     outline: none;
-    font-size: 36px;
-    line-height: 36px;
+    font-size: var(--filterBarFontSize);
+    line-height: var(--filterBarFontSize);
 }
 
 .input::placeholder {
@@ -46,4 +46,9 @@
     width: 100%;
     left: 0;
     height: 1px;
+}
+
+.icon {
+    height: var(--filterBarIconSize);
+    width: var(--filterBarIconSize);
 }

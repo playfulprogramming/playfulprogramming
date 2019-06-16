@@ -8,6 +8,7 @@
     "url": "https://github.com/crutchcorn/unicorn-utterances/issues"
   },
   "dependencies": {
+    "@reach/menu-button": "^0.1.18",
     "classnames": "^2.2.6",
     "css-loader": "^3.0.0",
     "gatsby": "^2.8.2",
@@ -36,6 +37,7 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-typography": "^0.16.19",
+    "react-widgets": "^4.4.11",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.54",
     "typography": "^0.16.19",

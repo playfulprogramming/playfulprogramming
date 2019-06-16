@@ -5,7 +5,7 @@ import FilterSearchBar from "../filter-search-bar"
 
 class PostList extends React.Component {
   render() {
-    const { posts = [], showWordCount = false } = this.props
+    const { posts = [], showWordCount = true } = this.props
 
     return (
       <div>

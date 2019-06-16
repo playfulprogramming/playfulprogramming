@@ -22,7 +22,7 @@ class PostCard extends React.Component {
         />
         <div className={cardStyles.cardContents}>
           <h2 className={cardStyles.header}>{title}</h2>
-          <p className={cardStyles.authorName}>by {author.name}</p>
+          <p className={cardStyles.authorName}>by <Link  to={`/authors/${author.id}`}>{author.name}</Link></p>
           <div className={cardStyles.dateTagSubheader}>
             <p className={cardStyles.date}>{date}</p>
             <div>

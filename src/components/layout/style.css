@@ -11,6 +11,8 @@
     --animStyle: ease-in-out;
     --cardRadius: 8px;
     --cardOutlineStyle: 1px solid var(--primary);
+    --filterBarIconSize: 22px;
+    --filterBarFontSize: 20px;
 }
 
 body {

@@ -27,6 +27,7 @@ export const query = graphql`
   fragment AuthorInfo on AuthorsJson {
     name
     blurbet
+    id
     description
     color
     socials {

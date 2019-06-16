@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.checkbox {
+    height: 30px;
+    width: 30px;
+    background: transparent;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.checkbox:not(:checked) {
+    border: 3px solid rgba(0, 0, 0, 0.58);
+}
+
+.checkbox:checked::after {
+    content: '✔️';
+    font-size: 26px;
+    line-height: 26px;
+    color: #153E67;
+    /*background: require(checkbox.svg)*/
+}
+
+.icon {
+    margin-right: 25px;
+    height: var(--filterBarIconSize);
+    width: var(--filterBarIconSize);
+}
