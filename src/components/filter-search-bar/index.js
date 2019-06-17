@@ -1,7 +1,7 @@
 import React from "react"
 import searchFilterBarStyles from "./style.module.css"
 import SearchField from "./search-field"
-import FilterDropdown from "./filter-dropdown"
+import FilterListbox from "./filter-listbox"
 import WordCount from "./word-count"
 
 class FilterSearchBar extends React.Component {
@@ -14,9 +14,10 @@ class FilterSearchBar extends React.Component {
       <div className={searchFilterBarStyles.iconContainer}>
         <SearchField/>
         {showWordCount ? <WordCount wordCount={wordCount} numberOfArticles={numberOfArticles}/> : <div/>}
-        <FilterDropdown tags={[
+        <FilterListbox tags={[
           "Test",
           "Another",
+          "One More Makes 3"
         ]}/>
       </div>
     )

@@ -32,3 +32,15 @@
     height: var(--filterBarIconSize);
     width: var(--filterBarIconSize);
 }
+
+.option {
+    color: blue;
+}
+
+.option.selected {
+    background: green;
+}
+
+.option.active {
+    color: red;
+}
