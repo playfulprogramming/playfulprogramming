@@ -36,6 +36,23 @@ import classNames from "classnames"
 
 import posed from "react-pose"
 
+const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
+  const liClassName = classNames(filterStyles.option, {
+    [filterStyles.active]: active.index === index,
+    [filterStyles.selected]: tag.selected,
+  })
+  return (
+    <li className={liClassName}
+        role="option"
+        key={tag.id}
+        onClick={e => expanded && selectIndex(index, e)}
+        id={tag.id}
+        aria-selected={tag.selected}>
+      <span>{tag.val}</span>
+    </li>
+  )
+}
+
 const FilterDisplaySpan = posed.span({
   initial: {
     width: props => {
@@ -48,11 +65,19 @@ const FilterDisplaySpan = posed.span({
 
 const FilterListbox = ({ tags = [] }) => {
   const { ref: listBoxRef, active, values, selected, selectIndex, expanded, setExpanded, parentRef } = useSelectRef(tags)
+  const shouldShowFilterMsg = expanded || !selected.length
 
   const filterTextRef = useRef()
-  const appliedFiltersTextRef = useRef()
+  const filterTextClasses = classNames({
+    [filterStyles.show]: shouldShowFilterMsg,
+    [filterStyles.placeholder]: true,
+  })
+  const appliedStrClasses = classNames({
+    [filterStyles.show]: !shouldShowFilterMsg,
+    [filterStyles.appliedTags]: true,
+  })
 
-  const shouldShowFilterMsg = expanded || !selected.length
+  const appliedFiltersTextRef = useRef()
 
   const currentWidth = useMemo(() => {
     if (!filterTextRef.current || !filterTextRef.current) return 0
@@ -97,7 +122,7 @@ const FilterListbox = ({ tags = [] }) => {
 
   return (
     <div className={containerClassName}>
-      <div className={filterStyles.buttonContainer}  ref={parentRef} >
+      <div className={filterStyles.buttonContainer} ref={parentRef}>
         <span id="exp_elem" className="visually-hidden">
           Choose a tag to filter by:
         </span>
@@ -122,17 +147,24 @@ const FilterListbox = ({ tags = [] }) => {
             <FilterIcon className={filterStyles.icon}
                         aria-hidden={true}/>
           }
-          {/*To animate this properly, this will likely need to manually get the width of one of the elements*/}
           <FilterDisplaySpan className={filterStyles.textContainer}
                              heiight={currentHeight}
                              pose="initial"
                              poseKey={currentWidth}
                              wiidth={currentWidth}>
-           <span ref={filterTextRef}
-                 aria-hidden={true}
-                 className={classNames(filterStyles.placeholder, { [filterStyles.show]: shouldShowFilterMsg })}>Filters</span>
-            <span ref={appliedFiltersTextRef}
-                  className={classNames(filterStyles.appliedTags, { [filterStyles.show]: !shouldShowFilterMsg })}>{appliedTagsStr}</span>
+           <span
+             ref={filterTextRef}
+             aria-hidden={true}
+             className={filterTextClasses}
+           >
+             Filters
+           </span>
+            <span
+              ref={appliedFiltersTextRef}
+              className={appliedStrClasses}
+            >
+              {appliedTagsStr}
+            </span>
           </FilterDisplaySpan>
         </button>
         <ul id="listBoxID"
@@ -142,24 +174,19 @@ const FilterListbox = ({ tags = [] }) => {
             aria-labelledby="exp_elem"
             tabIndex={-1}
             aria-multiselectable="true"
-            aria-activedescendant={active && active.id}>
-          <div className={filterStyles.spacer}/>
-          {values.map((tag, i) => {
-            const liClassName = classNames(filterStyles.option, {
-              [filterStyles.active]: active.index === i,
-              [filterStyles.selected]: tag.selected,
-            })
-            return (
-              <li className={liClassName}
-                  role="option"
-                  key={tag.id}
-                  onClick={e => expanded && selectIndex(i, e)}
-                  id={tag.id}
-                  aria-selected={tag.selected}>
-                <span>{tag.val}</span>
-              </li>
-            )
-          })}
+            aria-activedescendant={active && active.id}
+        >
+          {
+            values.map((tag, index) => (
+              <FilterListItem
+                tag={tag}
+                index={index}
+                expanded={expanded}
+                selectIndex={selectIndex}
+                active={active}
+              />
+            ))
+          }
         </ul>
       </div>
     </div>
