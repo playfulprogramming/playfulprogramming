@@ -33,7 +33,8 @@
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-pose": "^4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

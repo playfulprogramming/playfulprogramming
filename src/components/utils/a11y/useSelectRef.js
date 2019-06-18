@@ -3,6 +3,7 @@
  *
  */
 import { useMemo, useState, useRef, useEffect } from "react"
+import { useOutsideClick } from "../useOutsideClick"
 
 // Make new export in @reach-ui/auto-id
 let id = 0
@@ -108,8 +109,6 @@ export const useSelectRef = (arrVal) => {
       val.selected = true
       return val
     }))
-
-    setActive(internalArr[internalArr.length - 1])
   }
 
   const selectRef = useRef()
@@ -118,6 +117,7 @@ export const useSelectRef = (arrVal) => {
     if (selectRef.current) {
 
       const onKeyDown = event => {
+        if (!expanded) {return}
         let _newIndex
         let isSelecting
         if (event.key === "ArrowDown") {
@@ -171,10 +171,13 @@ export const useSelectRef = (arrVal) => {
     selectRef,
   ])
 
+  const parentRef = useOutsideClick(expanded, () => setExpanded(false))
+
   return {
     selected: selectedArr,
     active,
     ref: selectRef,
+    parentRef,
     values: internalArr,
     selectIndex,
     expanded,

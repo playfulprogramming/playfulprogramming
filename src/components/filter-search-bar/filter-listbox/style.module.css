@@ -3,7 +3,95 @@
     justify-content: flex-end;
 }
 
-.checkbox {
+.buttonContainer {
+    position: relative;
+}
+
+.filterButton {
+    cursor: pointer;
+    appearance: none;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding: 0 16px 0 8px;
+    font-size: var(--filterBarFontSize);
+    line-height: var(--filterBarFontSize);
+    color: var(--darkPrimary);
+    border-radius: var(--cardRadius);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: background var(--animSpeed) var(--animStyle),
+                box-shadow var(--animSpeed) var(--animStyle),
+                border-color var(--animSpeed) var(--animStyle);
+    z-index: 2;
+    position: relative;
+    outline: none;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.filterButton .textContainer {
+    position: relative;
+}
+
+.filterButton .appliedTags, .filterButton .placeholder {
+    position: absolute;
+}
+
+.filterButton .placeholder, .filterButton .appliedTags {
+    transition: top 350ms var(--animStyle);
+    top: 0;
+    left: 0;
+}
+
+.placeholder:not(.show) {
+    top: 40px;
+}
+
+.appliedTags:not(.show) {
+    top: -40px;
+}
+
+.container:not(.expanded) .filterButton:hover {
+    background: var(--cardActiveBackground);
+    box-shadow: var(--cardActiveBoxShadow);
+}
+
+.container:not(.expanded) .filterButton.hasTags {
+    border: var(--cardOutlineStyle);
+}
+
+.filterButton .icon {
+    margin-right: 16px;
+    height: var(--filterBarIconSize);
+    width: var(--filterBarIconSize);
+}
+
+.listbox {
+    outline: none;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: var(--cardActiveBackground);
+    box-shadow: var(--cardActiveBoxShadow);
+    border-radius: var(--cardRadius);
+    z-index: 1;
+    margin: 0;
+    padding: 48px 0 0 0;
+}
+
+.option {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.option::before {
     height: 30px;
     width: 30px;
     background: transparent;
@@ -13,32 +101,28 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-right: 14px;
 }
 
-.checkbox:not(:checked) {
+.option:not(.selected)::before {
+    content: ' ';
+    box-sizing: border-box;
     border: 3px solid rgba(0, 0, 0, 0.58);
 }
 
-.checkbox:checked::after {
+.option.selected::before {
     content: '✔️';
     font-size: 26px;
     line-height: 26px;
     color: #153E67;
-    /*background: require(checkbox.svg)*/
-}
-
-.icon {
-    margin-right: 25px;
-    height: var(--filterBarIconSize);
-    width: var(--filterBarIconSize);
 }
 
 .option {
-    color: blue;
+    color: rgba(0, 0, 0, 0.58);
 }
 
 .option.selected {
-    background: green;
+    color: var(--darkPrimary);
 }
 
 .option.active {

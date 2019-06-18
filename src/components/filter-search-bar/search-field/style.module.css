@@ -5,6 +5,7 @@
     padding: 8px 16px 8px 15px;
     color: var(--darkPrimary);
     transition: background var(--animSpeed) var(--animStyle),
+                box-shadow var(--animSpeed) var(--animStyle),
                 border-color var(--animSpeed) var(--animStyle);
     border: 1px solid transparent;
 }
@@ -15,6 +16,7 @@
 
 .btn:hover {
     background: var(--cardActiveBackground);
+    box-shadow: var(--cardActiveBoxShadow);
 }
 
 .contentBtn {
