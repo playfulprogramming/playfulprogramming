@@ -17,7 +17,11 @@ class FilterSearchBar extends React.Component {
         <FilterListbox tags={[
           "Test",
           "Another",
-          "One More Makes 3"
+          "One More Makes 3",
+          "One More Makes 4",
+          "One More Makes 5",
+          "One More Makes 1235",
+          "One More Makes 55"
         ]}/>
       </div>
     )

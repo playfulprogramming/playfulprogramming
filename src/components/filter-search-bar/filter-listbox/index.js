@@ -28,12 +28,15 @@
  */
 
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import filterStyles from "./style.module.css"
-import FilterIcon from "../../../assets/icons/filter.svg"
-import { useSelectRef } from "../../utils/a11y/useSelectRef"
 import classNames from "classnames"
-
 import posed from "react-pose"
+
+import filterStyles from "./style.module.css"
+
+import FilterIcon from "../../../assets/icons/filter.svg"
+
+import { useSelectRef } from "../../utils/a11y/useSelectRef"
+import { useWindowSize } from "../../utils/useWindowSize"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
@@ -90,7 +93,9 @@ const FilterListbox = ({ tags = [] }) => {
   const filterTextRef = useRef()
   const appliedFiltersTextRef = useRef()
   const btnRef = useRef()
+  const containerRef = useRef();
 
+  const windowSize = useWindowSize(150);
 
   /**
    * Value calcs
@@ -116,6 +121,7 @@ const FilterListbox = ({ tags = [] }) => {
     appliedFiltersTextRef,
     filterTextRef,
     afterInit,
+    windowSize
   ])
 
   const currentBtnHeight = useMemo(() => {
@@ -124,6 +130,7 @@ const FilterListbox = ({ tags = [] }) => {
     return btnRefBound.height
   }, [
     afterInit,
+    windowSize
   ])
 
   const currentSpanWidth = useMemo(() => {
@@ -145,7 +152,14 @@ const FilterListbox = ({ tags = [] }) => {
     (appliedFiltersTextRef && appliedFiltersTextRef.current),
     filterTextRef,
     afterInit,
+    windowSize
   ])
+
+  const maxSpanWidth = useMemo(() => {
+    if (!containerRef.current) return 0;
+    const containerRefBounding = containerRef.current.getBoundingClientRect()
+    return containerRefBounding.width;
+  }, [containerRef, afterInit, windowSize])
 
   /**
    * Class names
@@ -181,7 +195,7 @@ const FilterListbox = ({ tags = [] }) => {
   }), [shouldShowFilterMsg])
 
   return (
-    <div className={containerClassName}>
+    <div className={containerClassName} ref={containerRef}>
       <div className={filterStyles.buttonContainer} ref={parentRef}>
         <span id="exp_elem" className="visually-hidden">
           Choose a tag to filter by:
@@ -213,6 +227,7 @@ const FilterListbox = ({ tags = [] }) => {
             <span
               ref={appliedFiltersTextRef}
               className={appliedStrClasses}
+              style={{maxWidth: maxSpanWidth}}
             >
               {appliedTagsStr}
             </span>

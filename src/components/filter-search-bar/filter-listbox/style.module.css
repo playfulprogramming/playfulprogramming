@@ -5,11 +5,13 @@
 
 .buttonContainer {
     position: relative;
+    max-width: 100%;
 }
 
 .filterButton {
     cursor: pointer;
     appearance: none;
+    max-width: 100%;
     display: flex;
     justify-content: center;
     height: 100%;
@@ -41,6 +43,12 @@
     left: 0;
 }
 
+.appliedTags {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .placeholder:not(.show) {
     top: 40px;
 }
@@ -51,6 +59,7 @@
 
 .filterButton .icon {
     margin-right: 16px;
+    flex-shrink: 0;
     height: var(--filterBarIconSize);
     width: var(--filterBarIconSize);
 }
