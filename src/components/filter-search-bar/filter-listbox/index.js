@@ -1,4 +1,12 @@
 /**
+ * ⚠ A WARNING TO ALL YE WHO TRAVEL NEAR ⚠️
+ * Life would be dull if we never explored, never played
+ * However, deadlines near ever-closer and when one's played too long, they may
+ * forget to put away their toys in an orderly manor. This is what's occurred
+ *
+ * It is for this reason that this code is deemed a hazard to one's health.
+ * Ye've been warned
+ *
  * This is a hand-spun component to match the guidelines for a listbox ALA w3 guidelines
  * @see https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
  *
@@ -37,6 +45,7 @@ import FilterIcon from "../../../assets/icons/filter.svg"
 
 import { useSelectRef } from "../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../utils/useWindowSize"
+import { useAfterInit } from "../../utils/useAfterInit"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
@@ -85,7 +94,6 @@ const FilterListbox = ({ tags = [] }) => {
     buttonProps,
   } = useSelectRef(tags)
   const shouldShowFilterMsg = expanded || !selected.length
-  const [afterInit, setAfterInit] = useState(false)
 
   /**
    * Refs
@@ -110,7 +118,7 @@ const FilterListbox = ({ tags = [] }) => {
    */
 
   // Make bounding boxes work properly
-  useEffect(() => setAfterInit(true), [])
+  const afterInit = useAfterInit()
 
   const currentSpanHeight = useMemo(() => {
     if (!filterTextRef.current || !filterTextRef.current) return 0
