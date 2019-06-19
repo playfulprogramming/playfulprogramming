@@ -131,6 +131,11 @@
     opacity: 0;
 }
 
+.option span {
+    display: inline-flex;
+    align-items: center;
+}
+
 .option.selected {
     color: var(--darkPrimary);
 }
