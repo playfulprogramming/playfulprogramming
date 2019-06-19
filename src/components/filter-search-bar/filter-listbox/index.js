@@ -39,13 +39,12 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
     [filterStyles.active]: active.index === index,
     [filterStyles.selected]: tag.selected,
-    [filterStyles.expanded]: expanded
+    [filterStyles.expanded]: expanded,
   })
   return (
     <li className={liClassName}
         role="option"
-        key={tag.id}
-        onClick={e => expanded && selectIndex(index, e)}
+        onClick={e => expanded && selectIndex(index, e, e.type)}
         id={tag.id}
         aria-selected={tag.selected}>
       <span>{tag.val}</span>
@@ -66,12 +65,22 @@ const ListIdBox = posed.ul({
   },
   hidden: {
     height: props => props.heiight,
-  }
+  },
 })
 
 
 const FilterListbox = ({ tags = [] }) => {
-  const { ref: listBoxRef, active, values, selected, selectIndex, expanded, setExpanded, parentRef } = useSelectRef(tags)
+  const {
+    ref: listBoxRef,
+    active,
+    values,
+    selected,
+    selectIndex,
+    expanded,
+    usedKeyboardLast,
+    parentRef,
+    buttonProps,
+  } = useSelectRef(tags)
   const shouldShowFilterMsg = expanded || !selected.length
   const [afterInit, setAfterInit] = useState(false)
 
@@ -154,17 +163,22 @@ const FilterListbox = ({ tags = [] }) => {
   const listBoxClasses = useMemo(() => classNames({
     [filterStyles.hasTags]: !!selected.length,
     [filterStyles.listbox]: true,
-  }), [expanded])
+    [filterStyles.isKeyboard]: usedKeyboardLast,
+  }), [
+    expanded,
+    usedKeyboardLast,
+    selected,
+  ])
 
-  const filterTextClasses = classNames({
+  const filterTextClasses = useMemo(() => classNames({
     [filterStyles.show]: shouldShowFilterMsg,
     [filterStyles.placeholder]: true,
-  })
+  }), [shouldShowFilterMsg])
 
-  const appliedStrClasses = classNames({
+  const appliedStrClasses = useMemo(() => classNames({
     [filterStyles.show]: !shouldShowFilterMsg,
     [filterStyles.appliedTags]: true,
-  })
+  }), [shouldShowFilterMsg])
 
   return (
     <div className={containerClassName}>
@@ -175,15 +189,10 @@ const FilterListbox = ({ tags = [] }) => {
         <button
           ref={btnRef}
           className={filterStyles.filterButton}
-          onClick={() => {
-            setExpanded(!expanded)
-            if (expanded) {
-              listBoxRef.current.focus()
-            }
-          }}
           aria-haspopup="listbox"
           aria-labelledby="exp_elem filter-button"
           id="filter-button"
+          {...buttonProps}
         >
           {
             <FilterIcon className={filterIconClasses}
@@ -228,6 +237,7 @@ const FilterListbox = ({ tags = [] }) => {
               values.map((tag, index) => (
                 <FilterListItem
                   tag={tag}
+                  key={tag.id}
                   index={index}
                   expanded={expanded}
                   selectIndex={selectIndex}

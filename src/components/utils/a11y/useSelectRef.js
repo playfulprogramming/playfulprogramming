@@ -36,6 +36,7 @@ export const useSelectRef = (arrVal) => {
   // TODO: Change when `arrVal`?
   const [internalArr, setInternalArr] = useState([])
   const [active, setActive] = useState()
+  const [usedKeyboardLast, setUsedKeyboardLast] = useState(false)
   const [expanded, setExpanded] = useState(false)
 
   useMemo(() => {
@@ -100,8 +101,12 @@ export const useSelectRef = (arrVal) => {
     }
   }
 
-  const selectIndex = (i, e) => {
-    markAsSelected(i, e && e.shiftKey || "single")
+  const selectIndex = (i, e, type) => {
+    if (type === "click" || (e && e.type === "click")) {
+      // HACK: Is mouse event?
+      setUsedKeyboardLast(false)
+    }
+    markAsSelected(i, (e && e.shiftKey) || "single")
   }
 
   const selectAll = () => {
@@ -113,11 +118,14 @@ export const useSelectRef = (arrVal) => {
 
   const selectRef = useRef()
 
+  // Arrow key handler
   useEffect(() => {
     if (selectRef.current) {
 
       const onKeyDown = event => {
-        if (!expanded) {return}
+        if (!expanded) {
+          return
+        }
         let _newIndex
         let isSelecting
         if (event.key === "ArrowDown") {
@@ -129,19 +137,26 @@ export const useSelectRef = (arrVal) => {
           _newIndex = active.index - 1
           isSelecting = event.shiftKey
         } else if (event.key === " " || event.key === "Spacebar") {
+          event.preventDefault()
           _newIndex = active.index
           isSelecting = "single"
         } else if (event.key === "Home") {
+          event.preventDefault()
           _newIndex = 0
           isSelecting = event.shiftKey && event.ctrlKey
         } else if (event.key === "End") {
+          event.preventDefault()
           _newIndex = internalArr.length - 1
           isSelecting = event.shiftKey && event.ctrlKey
         } else {
           if (event.code === "KeyA" && event.ctrlKey) {
+            event.preventDefault()
             selectAll()
+            setUsedKeyboardLast(true)
             return
           } else if (event.key === "Escape") {
+            event.preventDefault()
+            setUsedKeyboardLast(true)
             setExpanded(false)
             return
           } else {
@@ -149,6 +164,7 @@ export const useSelectRef = (arrVal) => {
           }
         }
 
+        setUsedKeyboardLast(true)
         markAsSelected(_newIndex, isSelecting)
       }
 
@@ -160,6 +176,8 @@ export const useSelectRef = (arrVal) => {
   }, [
     selectRef,
     active,
+    expanded,
+    usedKeyboardLast,
   ])
 
   useEffect(() => {
@@ -173,6 +191,25 @@ export const useSelectRef = (arrVal) => {
 
   const parentRef = useOutsideClick(expanded, () => setExpanded(false))
 
+  const buttonProps = useMemo(() => ({
+    onClick: () => {
+      setExpanded(!expanded)
+      setUsedKeyboardLast(false)
+    },
+    onKeyDown: (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        setUsedKeyboardLast(true)
+        setExpanded(!expanded)
+      }
+    },
+  }), [
+    selectRef,
+    expanded,
+    usedKeyboardLast,
+  ])
+
+
   return {
     selected: selectedArr,
     active,
@@ -182,5 +219,7 @@ export const useSelectRef = (arrVal) => {
     selectIndex,
     expanded,
     setExpanded,
+    usedKeyboardLast,
+    buttonProps,
   }
 }

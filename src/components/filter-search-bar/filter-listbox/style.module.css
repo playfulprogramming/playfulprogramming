@@ -21,7 +21,6 @@
     background: transparent;
     z-index: 2;
     position: relative;
-    outline: none;
     overflow: hidden;
     flex-wrap: nowrap;
     white-space: nowrap;
@@ -90,7 +89,15 @@
     flex-wrap: nowrap;
     align-content: center;
     cursor: pointer;
-    padding: 4px;
+    padding: 2px;
+    margin: 2px;
+    color: rgba(0, 0, 0, 0.58);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: opacity var(--animSpeed) var(--animStyle),
+    box-shadow 60ms var(--animStyle);
+    border-radius: 4px;
 }
 
 .option::before {
@@ -120,14 +127,6 @@
     color: #153E67;
 }
 
-.option {
-    color: rgba(0, 0, 0, 0.58);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    transition: opacity var(--animSpeed) var(--animStyle);
-}
-
 .option:not(.expanded) {
     opacity: 0;
 }
@@ -136,8 +135,12 @@
     color: var(--darkPrimary);
 }
 
+.isKeyboard .option.active {
+    box-shadow: 0 0 1px 1px var(--primary);
+}
+
 .option.active {
-    color: red;
+    color: black;
 }
 
 .maxHeightHideContainer {
