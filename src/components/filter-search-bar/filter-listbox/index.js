@@ -27,7 +27,7 @@
  * If nothing is selected, don't animate away "Filters"
  */
 
-import React, { useMemo, useRef } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import filterStyles from "./style.module.css"
 import FilterIcon from "../../../assets/icons/filter.svg"
 import FilterExpandedIcon from "../../../assets/icons/filter_expanded.svg"
@@ -66,6 +66,7 @@ const FilterDisplaySpan = posed.span({
 const FilterListbox = ({ tags = [] }) => {
   const { ref: listBoxRef, active, values, selected, selectIndex, expanded, setExpanded, parentRef } = useSelectRef(tags)
   const shouldShowFilterMsg = expanded || !selected.length
+  const [afterInit, setAfterInit] = useState(false);
 
   const filterTextRef = useRef()
   const filterTextClasses = classNames({
@@ -97,7 +98,10 @@ const FilterListbox = ({ tags = [] }) => {
     (shouldShowFilterMsg && shouldShowFilterMsg.current),
     (appliedFiltersTextRef && appliedFiltersTextRef.current),
     filterTextRef,
+    afterInit
   ])
+
+  useEffect(() => setAfterInit(true), [])
 
   const currentHeight = useMemo(() => {
     if (!filterTextRef.current || !filterTextRef.current) return 0
