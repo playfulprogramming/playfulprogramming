@@ -17,12 +17,8 @@
     font-size: var(--filterBarFontSize);
     line-height: var(--filterBarFontSize);
     color: var(--darkPrimary);
-    border-radius: var(--cardRadius);
+    border: none;
     background: transparent;
-    border: 1px solid transparent;
-    transition: background var(--animSpeed) var(--animStyle),
-                box-shadow var(--animSpeed) var(--animStyle),
-                border-color var(--animSpeed) var(--animStyle);
     z-index: 2;
     position: relative;
     outline: none;
@@ -54,15 +50,6 @@
     top: -40px;
 }
 
-.container:not(.expanded) .filterButton:hover {
-    background: var(--cardActiveBackground);
-    box-shadow: var(--cardActiveBoxShadow);
-}
-
-.container:not(.expanded) .filterButton.hasTags {
-    border: var(--cardOutlineStyle);
-}
-
 .filterButton .icon {
     margin-right: 16px;
     height: var(--filterBarIconSize);
@@ -75,12 +62,27 @@
     width: 100%;
     left: 0;
     top: 0;
-    background: var(--cardActiveBackground);
-    box-shadow: var(--cardActiveBoxShadow);
     border-radius: var(--cardRadius);
     z-index: 1;
     margin: 0;
-    padding: 48px 0 0 0;
+    padding: 0;
+    border: 1px solid transparent;
+    transition: background var(--animSpeed) var(--animStyle),
+                box-shadow var(--animSpeed) var(--animStyle),
+                border-color var(--animSpeed) var(--animStyle);
+}
+
+.listbox:not(.expanded):hover, .container.expanded .listbox, .container:not(.expanded) .filterButton:hover + .listbox {
+    background: var(--cardActiveBackground);
+    box-shadow: var(--cardActiveBoxShadow);
+}
+
+.container:not(.expanded) .listbox.hasTags {
+    border: var(--cardOutlineStyle);
+}
+
+.listbox .spacer {
+    height: 48px;
 }
 
 .option {
@@ -102,6 +104,7 @@
     align-items: center;
     text-align: center;
     margin-right: 14px;
+    flex-shrink: 0;
 }
 
 .option:not(.selected)::before {
@@ -119,6 +122,14 @@
 
 .option {
     color: rgba(0, 0, 0, 0.58);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: opacity var(--animSpeed) var(--animStyle);
+}
+
+.option:not(.expanded) {
+    opacity: 0;
 }
 
 .option.selected {
@@ -127,4 +138,9 @@
 
 .option.active {
     color: red;
+}
+
+.maxHeightHideContainer {
+    overflow: hidden;
+    max-height: 100%;
 }
