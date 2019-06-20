@@ -8,6 +8,7 @@
                 box-shadow var(--animSpeed) var(--animStyle),
                 border-color var(--animSpeed) var(--animStyle);
     border: 1px solid transparent;
+    cursor: text;
 }
 
 .btn, .input, .input::placeholder {
@@ -26,7 +27,12 @@
 .input {
     background: none;
     border: none;
+    border-bottom: 1px solid var(--darkGrey);
     outline: none;
+    min-width: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
     font-size: var(--filterBarFontSize);
     line-height: var(--filterBarFontSize);
 }
@@ -36,18 +42,9 @@
 }
 
 .inputContainer {
+    width: 100%;
     position: relative;
     margin-left: 15px;
-}
-
-.inputContainer::after {
-    content: ' ';
-    background: var(--darkGrey);
-    bottom: 0;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    height: 1px;
 }
 
 .icon {
