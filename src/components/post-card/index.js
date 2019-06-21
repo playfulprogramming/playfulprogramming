@@ -10,7 +10,7 @@ class PostCard extends React.Component {
     return (
       <Link to={`posts${slug}`} className={`${cardStyles.card} ${className}`}>
         <Image
-          fixed={author.profileImg.childImageSharp.fixed}
+          fixed={author.profileImg.childImageSharp.smallPic}
           alt={author.name}
           className={cardStyles.profilePic}
           style={{

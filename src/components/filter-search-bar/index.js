@@ -1,5 +1,5 @@
 import React from "react"
-import searchFilterBarStyles from "./style.module.css"
+import styles from "./style.module.css"
 import SearchField from "./search-field"
 import FilterListbox from "./filter-listbox"
 import WordCount from "./word-count"
@@ -11,9 +11,11 @@ class FilterSearchBar extends React.Component {
     const numberOfArticles = 3;
     const wordCount = 4332;
     return (
-      <div className={searchFilterBarStyles.iconContainer}>
+      <div className={styles.iconContainer}>
         <SearchField/>
-        {showWordCount ? <WordCount wordCount={wordCount} numberOfArticles={numberOfArticles}/> : <div/>}
+        <div className={styles.midContainer}>
+        {showWordCount && <WordCount wordCount={wordCount} numberOfArticles={numberOfArticles}/>}
+        </div>
         <FilterListbox tags={[
           "Test",
           "Another",

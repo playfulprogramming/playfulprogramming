@@ -8,46 +8,9 @@ class Layout extends React.Component {
     const rootPath = `${__PATH_PREFIX__}/`
     let header
 
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-          style={{
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )
-    }
+    const isBase = location.pathname.startsWith === rootPath;
+    const isBlogPost = location.pathname.startsWith(`${rootPath}/posts`);
+
     return (
       <div
         style={{
@@ -55,8 +18,8 @@ class Layout extends React.Component {
           marginRight: `auto`,
         }}
       >
-        <header>{header}</header>
-        <main>{children}</main>
+        {/*<header>{header}</header>*/}
+        <main className={!isBlogPost && 'listViewContent'}>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
@@ -88,7 +51,10 @@ export const authorFragmentQuery = graphql`
     }
     profileImg {
       childImageSharp {
-        fixed(width: 60, height: 60) {
+        smallPic: fixed(width: 60, height: 60) {
+          ...GatsbyImageSharpFixed
+        }
+        bigPic: fixed(width: 300, quality: 100) {
           ...GatsbyImageSharpFixed
         }
       }

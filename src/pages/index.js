@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import PostList from "../components/post-card-list"
+import PicTitleHeader from "../components/pic-title-header"
 
 class BlogIndex extends React.Component {
   render() {
@@ -13,7 +14,12 @@ class BlogIndex extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts"/>
-        <div style={{ padding: "0 20px" }}>
+        <div>
+          <PicTitleHeader
+            image={data.file.childImageSharp.fixed}
+            title="Unicorn Utterances"
+            description="A software development blog focused on the kinds of things they don’t teach you. Curated by Corbin Crutchley."
+          />
           <PostList posts={posts}/>
         </div>
       </Layout>
@@ -34,6 +40,13 @@ export const pageQuery = graphql`
       edges {
         node {
           ...PostInfo
+        }
+      }
+    }
+    file(relativePath: { eq: "unicorn-utterances-logo-512.png" }) {
+      childImageSharp {
+        fixed(width: 300, quality: 100) {
+          ...GatsbyImageSharpFixed
         }
       }
     }

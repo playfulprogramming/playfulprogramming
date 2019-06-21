@@ -1,15 +1,25 @@
 .iconContainer {
     display: flex;
+    flex-wrap: wrap;
 }
 
-@media screen and (min-width: 992px) {
+.iconContainer > * {
+    flex-basis: 100%;
+}
+
+@media screen and (min-width: 800px) {
     .iconContainer {
         flex-wrap: nowrap;
         justify-content: space-between;
-
     }
 
     .iconContainer > * {
         flex-basis: 33%;
     }
+}
+
+.midContainer {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
 }

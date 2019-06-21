@@ -48,6 +48,7 @@
 }
 
 .icon {
+    flex-shrink: 0;
     height: var(--filterBarIconSize);
     width: var(--filterBarIconSize);
 }

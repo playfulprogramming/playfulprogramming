@@ -15,7 +15,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
-    padding: 0 16px 0 8px;
+    padding: 8px 16px 8px 8px;
     font-size: var(--filterBarFontSize);
     line-height: var(--filterBarFontSize);
     color: var(--darkPrimary);
@@ -93,13 +93,17 @@
     height: 48px;
 }
 
+.option:first-of-type {
+    margin-top: -14px !important;
+}
+
 .option {
     display: flex;
     flex-wrap: nowrap;
     align-content: center;
     cursor: pointer;
-    padding: 2px;
-    margin: 2px;
+    padding: 2px 0;
+    margin: 2px 0;
     color: rgba(0, 0, 0, 0.58);
     overflow: hidden;
     white-space: nowrap;
@@ -110,8 +114,8 @@
 }
 
 .option::before {
-    height: 30px;
-    width: 30px;
+    height: 22px;
+    width: 22px;
     background: transparent;
     border-radius: 8px;
     -webkit-appearance: none;
@@ -160,4 +164,5 @@
 .maxHeightHideContainer {
     overflow: hidden;
     max-height: 100%;
+    padding: 2px 6px 6px;
 }

@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import PostList from "../components/post-card-list"
+import PicTitleHeader from "../components/pic-title-header"
 
 class BlogAuthor extends React.Component {
   render() {
@@ -16,7 +17,12 @@ class BlogAuthor extends React.Component {
           title={authorData.name}
           description={authorData.description}
         />
-        <p>{authorData.name}</p>
+        <PicTitleHeader
+          image={authorData.profileImg.childImageSharp.bigPic}
+          title={authorData.name}
+          description={authorData.description}
+          author={true}
+        />
         <PostList posts={posts} overwriteAuthorInfo={authorData} showWordCount={true}/>
       </Layout>
     )

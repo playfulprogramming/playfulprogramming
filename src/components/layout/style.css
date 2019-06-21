@@ -5,6 +5,8 @@
     --black: black;
     --white: white;
     --darkGrey: rgba(0, 0, 0, 0.64);
+    --highImpactBlack: rgba(0, 0, 0, 0.87);
+    --midImpactBlack: rgba(0, 0, 0, 0.64);
     --backgroundColor: #E4F4FF;
     --cardActiveBackground: rgb(235, 246, 252);
     --cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF;
@@ -14,6 +16,19 @@
     --cardOutlineStyle: 1px solid var(--primary);
     --filterBarIconSize: 22px;
     --filterBarFontSize: 20px;
+    --listViewPadding: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    :root {
+        --listViewPadding: 20px;
+    }
+}
+
+.listViewContent {
+    margin: 0 auto;
+    max-width: 1272px;
+    padding: 0 var(--listViewPadding)
 }
 
 body {
