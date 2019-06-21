@@ -1,9 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import PostList from "../components/post-card-list"
-import PicTitleHeader from "../components/pic-title-header"
+import Layout from "../../components/layout"
+import SEO from "../../components/seo"
+import PostList from "../../components/post-card-list"
+import PicTitleHeader from "../../components/pic-title-header"
 
 class BlogAuthor extends React.Component {
   render() {

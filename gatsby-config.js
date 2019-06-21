@@ -4,6 +4,8 @@ module.exports = {
     description: `Learning programming from magically majestic words`,
     siteUrl: `https://unicorn-utterances.com/`,
     disqusShortname: 'unicorn-utterances',
+    repoPath: 'crutchcorn/unicorn-utterances',
+    relativeToPosts: '/content/blog/'
   },
   plugins: [
     {

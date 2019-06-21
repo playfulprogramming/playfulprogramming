@@ -49,8 +49,9 @@ body {
 .visually-hidden a:focus,
 .visually-hidden input:focus,
 .visually-hidden button:focus {
-    position:static;
-    width:auto; height:auto;
+    position: static;
+    width: auto;
+    height: auto;
 }
 
 
@@ -64,21 +65,26 @@ body {
 }
 
 .baseBtn {
+    cursor: pointer;
+}
+
+.baseBtn, .btnLike {
     appearance: none;
+    text-decoration: none;
     background: none;
     border: none;
     transition: background var(--animSpeed) var(--animStyle),
-                box-shadow var(--animSpeed) var(--animStyle),
-                border-color var(--animSpeed) var(--animStyle);
+    box-shadow var(--animSpeed) var(--animStyle),
+    border-color var(--animSpeed) var(--animStyle);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    cursor: pointer;
     border-radius: var(--cardRadius);
     line-height: 16px;
     font-size: 16px;
-    padding: 4px 8px
+    padding: 4px 8px;
+    color: var(--darkPrimary)
 }
 
 .baseBtn:hover {
@@ -87,16 +93,25 @@ body {
     box-shadow: var(--cardActiveBoxShadow);
 }
 
-.baseBtn svg {
+.baseBtn svg, .btnLike svg {
     height: 30px;
     width: 30px;
     flex-shrink: 0;
 }
 
-.baseBtn.prependIcon svg {
+.baseBtn.prependIcon svg, .btnLike.prependIcon svg {
     margin-right: 10px;
 }
 
-.baseBtn.appendIcon svg {
+.baseBtn.appendIcon svg, .btnLike.appendIcon svg {
     margin-left: 10px;
+}
+
+.post-body {
+    margin-bottom: 40px;
+    max-width: 576px;
+}
+
+.post-lower-area {
+    max-width: 920px;
 }
