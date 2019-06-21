@@ -62,3 +62,28 @@ body {
 .expandedIcon .filterDropdown {
     transform: rotate(180deg);
 }
+
+.baseBtn {
+    appearance: none;
+    background: none;
+    border: none;
+    transition: background var(--animSpeed) var(--animStyle),
+                box-shadow var(--animSpeed) var(--animStyle),
+                border-color var(--animSpeed) var(--animStyle);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: var(--cardRadius);
+}
+
+.baseBtn:hover {
+    background: var(--cardActiveBackground);
+    border-color: transparent;
+    box-shadow: var(--cardActiveBoxShadow);
+}
+
+.baseBtn svg {
+    flex-shrink: 0;
+}

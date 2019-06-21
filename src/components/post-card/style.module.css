@@ -7,12 +7,12 @@
     padding: 0 24px 23px 0;
     box-shadow: none;
     text-decoration: none;
+    transition: background var(--animSpeed) var(--animStyle),
+    box-shadow var(--animSpeed) var(--animStyle),
+    border-color var(--animSpeed) var(--animStyle);
 }
 
 .card:hover {
-    transition: background var(--animSpeed) var(--animStyle),
-                box-shadow var(--animSpeed) var(--animStyle),
-                border-color var(--animSpeed) var(--animStyle);
     background: var(--cardActiveBackground);
     border-color: transparent;
     box-shadow: var(--cardActiveBoxShadow);

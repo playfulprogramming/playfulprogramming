@@ -1,5 +1,9 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
+import GitHubIcon from "../assets/icons/github.svg"
+import ShareIcon from "../assets/icons/share.svg"
+import CommentsIcon from "../assets/icons/message.svg"
+import Disqus from 'disqus-react';
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -16,7 +20,9 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
+        {post.frontmatter.tags.map(tag => <p>{tag}</p>)}
         <h1>{post.frontmatter.title}</h1>
+        {post.frontmatter.subtitle && <h1>{post.frontmatter.subtitle}</h1>}
         <p
           style={{
             display: `block`,
@@ -26,31 +32,21 @@ class BlogPostTemplate extends React.Component {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr/>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <button className="baseBtn">
+            <GitHubIcon/>
+            View on GitHub
+          </button>
 
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
+          <button className="baseBtn">
+            Share this Post
+            <ShareIcon/>
+          </button>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <CommentsIcon/>
+        <p>42 comments</p>
+        </div>
       </Layout>
     )
   }

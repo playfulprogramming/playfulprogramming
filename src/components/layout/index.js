@@ -1,5 +1,7 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
+import BackIcon from "../../assets/icons/back.svg"
+import layoutStyles from './layout.module.css'
 import './style.css'
 
 class Layout extends React.Component {
@@ -8,7 +10,7 @@ class Layout extends React.Component {
     const rootPath = `${__PATH_PREFIX__}/`
     let header
 
-    const isBase = location.pathname.startsWith === rootPath;
+    const isBase = location.pathname === rootPath;
     const isBlogPost = location.pathname.startsWith(`${rootPath}/posts`);
 
     return (
@@ -18,7 +20,10 @@ class Layout extends React.Component {
           marginRight: `auto`,
         }}
       >
-        {/*<header>{header}</header>*/}
+        <header>
+          {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
+          {header}
+        </header>
         <main className={!isBlogPost && 'listViewContent'}>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
