@@ -1,24 +1,7 @@
 .back-btn {
-    appearance: none;
-    background: none;
-    border: none;
-    border-radius: 50%;
-    transition: background var(--animSpeed) var(--animStyle),
-    box-shadow var(--animSpeed) var(--animStyle),
-    border-color var(--animSpeed) var(--animStyle);
+    border-radius: 50% !important;
     height: 40px;
     width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-
-.back-btn:hover {
-    background: var(--cardActiveBackground);
-    border-color: transparent;
-    box-shadow: var(--cardActiveBoxShadow);
 }
 
 .back-btn svg {
