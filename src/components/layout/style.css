@@ -76,6 +76,9 @@ body {
     flex-shrink: 0;
     cursor: pointer;
     border-radius: var(--cardRadius);
+    line-height: 16px;
+    font-size: 16px;
+    padding: 4px 8px
 }
 
 .baseBtn:hover {
@@ -85,5 +88,15 @@ body {
 }
 
 .baseBtn svg {
+    height: 30px;
+    width: 30px;
     flex-shrink: 0;
+}
+
+.baseBtn.prependIcon svg {
+    margin-right: 10px;
+}
+
+.baseBtn.appendIcon svg {
+    margin-left: 10px;
 }

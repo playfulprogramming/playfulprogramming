@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Unicorn Utterances`,
     description: `Learning programming from magically majestic words`,
-    siteUrl: `https://unicorn-utterances.com/`
+    siteUrl: `https://unicorn-utterances.com/`,
+    disqusShortname: 'unicorn-utterances',
   },
   plugins: [
     {

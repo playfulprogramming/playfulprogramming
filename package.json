@@ -10,6 +10,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "css-loader": "^3.0.0",
+    "disqus-react": "^1.0.5",
     "gatsby": "^2.8.2",
     "gatsby-image": "^2.1.2",
     "gatsby-plugin-feed": "^2.2.2",
@@ -32,6 +33,7 @@
     "gatsby-transformer-sharp": "^2.1.21",
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
+    "react-breakpoints": "^3.0.3",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-pose": "^4.0.8"

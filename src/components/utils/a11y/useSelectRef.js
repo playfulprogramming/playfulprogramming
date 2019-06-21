@@ -30,9 +30,11 @@ const genId = () => ++id
 
 /**
  * @param arrVal
+ * @param {'single' | 'multi' | false | undefined} enableSelect
+ * @param {(i: number) => void} onSel - On an item selection
  * @returns {selectRefRet}
  */
-export const useSelectRef = (arrVal) => {
+export const useSelectRef = (arrVal, enableSelect, onSel) => {
   // TODO: Change when `arrVal`?
   const [internalArr, setInternalArr] = useState([])
   const [active, setActive] = useState()
@@ -40,18 +42,26 @@ export const useSelectRef = (arrVal) => {
   const [expanded, setExpanded] = useState(false)
 
   useMemo(() => {
-    const newArr = arrVal.map((val, i) => ({
-      id: genId(),
-      selected: false,
-      val,
-      index: i,
-    }))
+    const newArr = arrVal.map((val, i) => {
+      const newVal = {
+        id: genId(),
+        val,
+        index: i,
+      }
+
+      if (enableSelect) {
+        newVal.selected = false
+      }
+
+      return newVal;
+    })
 
     setInternalArr(newArr)
 
     setActive(newArr[0])
   }, [arrVal])
 
+  // This will be empty if `enableSelect` is null
   const selectedArr = useMemo(() =>
       internalArr.filter(item => item.selected),
     [internalArr],
@@ -136,10 +146,12 @@ export const useSelectRef = (arrVal) => {
           event.preventDefault()
           _newIndex = active.index - 1
           isSelecting = event.shiftKey
-        } else if (event.key === " " || event.key === "Spacebar") {
+        } else if (enableSelect && event.key === " " || event.key === "Spacebar") {
           event.preventDefault()
           _newIndex = active.index
           isSelecting = "single"
+        } else if (!enableSelect && event.key === 'Enter') {
+          onSel(active.index)
         } else if (event.key === "Home") {
           event.preventDefault()
           _newIndex = 0
@@ -149,7 +161,7 @@ export const useSelectRef = (arrVal) => {
           _newIndex = internalArr.length - 1
           isSelecting = event.shiftKey && event.ctrlKey
         } else {
-          if (event.code === "KeyA" && event.ctrlKey) {
+          if (enableSelect && event.code === "KeyA" && event.ctrlKey) {
             event.preventDefault()
             selectAll()
             setUsedKeyboardLast(true)
@@ -165,7 +177,7 @@ export const useSelectRef = (arrVal) => {
         }
 
         setUsedKeyboardLast(true)
-        markAsSelected(_newIndex, isSelecting)
+        markAsSelected(_newIndex, enableSelect && isSelecting)
       }
 
       const el = selectRef.current

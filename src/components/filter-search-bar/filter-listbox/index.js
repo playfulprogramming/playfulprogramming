@@ -92,7 +92,7 @@ const FilterListbox = ({ tags = [] }) => {
     usedKeyboardLast,
     parentRef,
     buttonProps,
-  } = useSelectRef(tags)
+  } = useSelectRef(tags, 'multi')
   const shouldShowFilterMsg = expanded || !selected.length
 
   /**
