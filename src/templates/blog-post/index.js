@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import GitHubIcon from "../../assets/icons/github.svg"
 import ShareIcon from "../../assets/icons/share.svg"
 import CommentsIcon from "../../assets/icons/message.svg"
@@ -7,6 +7,8 @@ import Disqus from "disqus-react"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
+import PostMetadata from "../../components/post-view/post-metadata"
+import PostTitleHeader from "../../components/post-view/post-title-header"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -14,7 +16,6 @@ class BlogPostTemplate extends React.Component {
     const siteData = this.props.data.site.siteMetadata
     const siteTitle = siteData.title
     const slug = post.fields.slug;
-    const { previous, next } = this.props.pageContext;
 
     const disqusConfig = {
       url: `${siteData.siteUrl}posts/${slug}`,
@@ -30,16 +31,8 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        {post.frontmatter.tags.map(tag => <p key={tag}>{tag}</p>)}
-        <h1>{post.frontmatter.title}</h1>
-        {post.frontmatter.subtitle && <h1>{post.frontmatter.subtitle}</h1>}
-        <p
-          style={{
-            display: `block`,
-          }}
-        >
-          {post.frontmatter.date}
-        </p>
+        <PostTitleHeader post={post}/>
+        <PostMetadata post={post}/>
         <div className="post-body" dangerouslySetInnerHTML={{ __html: post.html }}/>
         <div className="post-lower-area">
           <div style={{

@@ -37,7 +37,10 @@ module.exports = {
             family: `Archivo`,
             variants: [`400`, `700`],
             subsets: [`latin`]
-          },
+          }, {
+            family: 'Oswald',
+            variants: [`400`, `700`],
+          }
         ],
       },
     },

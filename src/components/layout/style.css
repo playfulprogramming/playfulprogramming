@@ -7,6 +7,7 @@
     --darkGrey: rgba(0, 0, 0, 0.64);
     --highImpactBlack: rgba(0, 0, 0, 0.87);
     --midImpactBlack: rgba(0, 0, 0, 0.64);
+    --lowImpactBlack: rgba(0, 0, 0, 0.58);
     --backgroundColor: #E4F4FF;
     --cardActiveBackground: rgb(235, 246, 252);
     --cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF;
@@ -17,6 +18,8 @@
     --filterBarIconSize: 22px;
     --filterBarFontSize: 20px;
     --listViewPadding: 10px;
+    --archivo: 'Archivo', sans-serif;
+    --oswald: 'Oswald', 'Archivo', sans-serif;
 }
 
 @media screen and (min-width: 600px) {
@@ -31,9 +34,21 @@
     padding: 0 var(--listViewPadding)
 }
 
+.postViewContent {
+    padding: 20px;
+}
+
+.postViewContent > * {
+    margin: 0 auto;
+}
+
 body {
     background-color: var(--backgroundColor);
-    font-family: 'Archivo', sans-serif;
+    font-family: var(--archivo);
+}
+
+h1, h2, h3 {
+    font-family: var(--oswald);
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */

@@ -11,7 +11,7 @@ class Layout extends React.Component {
     let header
 
     const isBase = location.pathname === rootPath;
-    const isBlogPost = location.pathname.startsWith(`${rootPath}/posts`);
+    const isBlogPost = location.pathname.startsWith(`${rootPath}posts`);
 
     return (
       <div
@@ -20,11 +20,11 @@ class Layout extends React.Component {
           marginRight: `auto`,
         }}
       >
-        <header>
+        <header className={layoutStyles.header}>
           {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
           {header}
         </header>
-        <main className={!isBlogPost && 'listViewContent'}>{children}</main>
+        <main className={!isBlogPost ? 'listViewContent' : 'postViewContent'}>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
@@ -56,7 +56,10 @@ export const authorFragmentQuery = graphql`
     }
     profileImg {
       childImageSharp {
-        smallPic: fixed(width: 60, height: 60) {
+        smallPic: fixed(width: 60) {
+          ...GatsbyImageSharpFixed
+        }
+        mediumPic: fixed(width: 85) {
           ...GatsbyImageSharpFixed
         }
         bigPic: fixed(width: 300, quality: 100) {
