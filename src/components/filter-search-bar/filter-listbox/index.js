@@ -81,7 +81,7 @@ const ListIdBox = posed.ul({
 })
 
 
-const FilterListbox = ({ tags = [] }) => {
+const FilterListbox = ({ tags = [], className }) => {
   const {
     ref: listBoxRef,
     active,
@@ -175,6 +175,7 @@ const FilterListbox = ({ tags = [] }) => {
   const containerClassName = useMemo(() => classNames({
     [filterStyles.expanded]: expanded,
     [filterStyles.container]: true,
+    [className || '']: true
   }), [expanded])
 
   const filterIconClasses = useMemo(() => classNames({

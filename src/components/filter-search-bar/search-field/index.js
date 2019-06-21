@@ -14,7 +14,7 @@ const PosedInput = posed.input({
   },
 })
 
-const SearchField = () => {
+const SearchField = ({className}) => {
   const [inputVal, setInputVal] = useState("")
   const [focused, setFocused] = useState("")
 
@@ -39,7 +39,7 @@ const SearchField = () => {
 
   return (
     // 70 as it's the size of all padding/etc more than just the input
-    <div >
+    <div className={className}>
       <div className={wrapperClasses} onClick={() => inputRef.current.focus()}>
         <SearchIcon className={btnWrapperStyles.icon}/>
         <div className={btnWrapperStyles.inputContainer} ref={containerRef}>

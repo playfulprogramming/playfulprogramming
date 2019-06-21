@@ -12,11 +12,11 @@ class FilterSearchBar extends React.Component {
     const wordCount = 4332;
     return (
       <div className={styles.iconContainer}>
-        <SearchField/>
+        <SearchField className={styles.searchField}/>
         <div className={styles.midContainer}>
         {showWordCount && <WordCount wordCount={wordCount} numberOfArticles={numberOfArticles}/>}
         </div>
-        <FilterListbox tags={[
+        <FilterListbox className={styles.filterField} tags={[
           "Test",
           "Another",
           "One More Makes 3",
