@@ -96,7 +96,8 @@ module.exports = {
           include: /\/src\/assets\/icons\/.*\.svg$/ // See below to configure properly
         }
       }
-    }
+    },
+    `gatsby-plugin-sass`
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `AuthorsJson`,

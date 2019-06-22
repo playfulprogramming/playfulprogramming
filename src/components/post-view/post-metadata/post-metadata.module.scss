@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 25px;
+  max-width: 768px;
+}
+
+.img {
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+}
+
+.textDiv {
+  margin-left: 24px;
+}
+
+.belowName > * {
+  font-weight: 400;
+  display: inline-block;
+  margin: 0 24px 0 0;
+  color: var(--lowImpactBlack);
+  font-size: 36px;
+  line-height: 36px;
+  position: relative;
+}
+
+.belowName > *:not(:last-child)::after {
+  position: absolute;
+  content: ' ';
+  right: -12px;
+  height: 100%;
+  width: 2px;
+  background: var(--darkPrimary);
+}
+
+.authorName {
+  font-size: 36px;
+  line-height: 36px;
+  color: var(--highImpactBlack);
+  margin: 0;
+}
+
+.date {
+}
+
+.wordCount {
+}

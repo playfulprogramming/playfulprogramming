@@ -2,7 +2,7 @@ import { useMemo, useRef } from "react"
 import { useAfterInit } from "./useAfterInit"
 import { useWindowSize } from "./useWindowSize"
 
-const getFromBoundClient = (rect) => ({
+const getFromBoundClient = rect => ({
   x: rect.x,
   y: rect.y,
   bottom: rect.bottom,
@@ -10,7 +10,7 @@ const getFromBoundClient = (rect) => ({
   left: rect.left,
   right: rect.right,
   top: rect.top,
-  width: rect.width
+  width: rect.width,
 })
 
 const emptyVal = {
@@ -24,29 +24,28 @@ const emptyVal = {
   width: 0,
 }
 
-export const useElementBoundingBox = (changeItem, changeFunc = a => a, debounceMs = 150) => {
+export const useElementBoundingBox = (
+  changeItem,
+  changeFunc = a => a,
+  debounceMs = 150
+) => {
   // Get the initial element size
   const afterInit = useAfterInit()
   const windowSize = useWindowSize(debounceMs)
   const ref = useRef()
 
   const boundingObj = useMemo(() => {
-    if (!ref.current) return {
-      ...changeFunc(emptyVal),
-      ref,
-    }
+    if (!ref.current)
+      return {
+        ...changeFunc(emptyVal),
+        ref,
+      }
     const bounding = ref.current.getBoundingClientRect()
     return {
       ref,
       ...changeFunc(getFromBoundClient(bounding)),
     }
-  }, [
-    ref,
-    afterInit,
-    windowSize,
-    changeItem,
-    changeFunc
-  ])
+  }, [ref, afterInit, windowSize, changeItem, changeFunc])
 
   return boundingObj
 }

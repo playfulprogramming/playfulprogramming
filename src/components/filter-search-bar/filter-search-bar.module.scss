@@ -1,0 +1,46 @@
+.iconContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.iconContainer > * {
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: 800px) {
+  .iconContainer {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .iconContainer > * {
+    flex-basis: 33%;
+    width: 33%;
+    flex-shrink: 0;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .midContainer {
+    order: 1;
+    margin: 16px 0 8px;
+    flex-basis: 100%;
+  }
+
+  .searchField, .filterField {
+    flex-basis: calc(50% - 8px);
+    max-width: calc(50% - 8px)
+  }
+  .searchField {
+    margin-right: 4px;
+  }
+  .filterField {
+    margin-left: 4px
+  }
+}
+
+.midContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}

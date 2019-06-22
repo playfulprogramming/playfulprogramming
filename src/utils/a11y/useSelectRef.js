@@ -2,7 +2,7 @@
  * I need to cleanup this code and also add:
  *
  */
-import { useMemo, useState, useRef, useEffect } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useOutsideClick } from "../useOutsideClick"
 
 // Make new export in @reach-ui/auto-id
@@ -53,7 +53,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
         newVal.selected = false
       }
 
-      return newVal;
+      return newVal
     })
 
     setInternalArr(newArr)
@@ -93,10 +93,10 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
       let compareFunc = (i) => i === index
 
       // New index is before, we want to save all items before or equal
-      if (index < active.index) {
-        compareFunc = (i) => i <= active.index && i >= index
+      if (index < active.layout) {
+        compareFunc = (i) => i <= active.layout && i >= index
       } else {
-        compareFunc = (i) => i >= active.index && i <= index
+        compareFunc = (i) => i >= active.layout && i <= index
       }
 
       // Set the internal array with a new array with right items selected
@@ -140,18 +140,18 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
         let isSelecting
         if (event.key === "ArrowDown") {
           event.preventDefault()
-          _newIndex = active.index + 1
+          _newIndex = active.layout + 1
           isSelecting = event.shiftKey
         } else if (event.key === "ArrowUp") {
           event.preventDefault()
-          _newIndex = active.index - 1
+          _newIndex = active.layout - 1
           isSelecting = event.shiftKey
-        } else if (enableSelect && event.key === " " || event.key === "Spacebar") {
+        } else if (enableSelect && (event.key === " " || event.key === "Spacebar")) {
           event.preventDefault()
-          _newIndex = active.index
+          _newIndex = active.layout
           isSelecting = "single"
-        } else if (!enableSelect && event.key === 'Enter') {
-          onSel(active.index)
+        } else if (!enableSelect && event.key === "Enter") {
+          onSel(active.layout)
         } else if (event.key === "Home") {
           event.preventDefault()
           _newIndex = 0

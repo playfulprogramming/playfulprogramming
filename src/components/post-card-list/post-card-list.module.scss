@@ -1,0 +1,30 @@
+.postsListContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+.postListItem {
+  margin: 6px 0;
+}
+
+
+@media screen and (min-width: 800px) {
+  .postListItem {
+    --marginSize: 12px;
+    flex-basis: calc(50% - var(--marginSize));
+    margin: calc(var(--marginSize) / 2) var(--marginSize);
+    flex-grow: 0;
+    width: calc(50% - var(--marginSize));
+    max-width: calc(50% - var(--marginSize));
+  }
+
+  .postListItem:nth-child(odd) {
+    margin-left: 0;
+  }
+
+  .postListItem:nth-child(even) {
+    margin-right: 0;
+  }
+}

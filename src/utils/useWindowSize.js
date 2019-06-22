@@ -2,7 +2,7 @@
  * Code migrated from this PR to use ES6 imports:
  * @see https://github.com/rehooks/window-size/pull/4
  */
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react"
 
 function getSize() {
   return {
@@ -10,30 +10,30 @@ function getSize() {
     innerWidth: window.innerWidth,
     outerHeight: window.outerHeight,
     outerWidth: window.outerWidth,
-  };
-};
+  }
+}
 
-export const useWindowSize = (debounceMs) => {
-  let [windowSize, setWindowSize] = useState(getSize());
+export const useWindowSize = debounceMs => {
+  let [windowSize, setWindowSize] = useState(getSize())
 
-  let timeoutId;
+  let timeoutId
 
   function handleResize() {
     if (timeoutId) {
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutId)
     }
 
     timeoutId = setTimeout(function() {
-      setWindowSize(getSize());
-    }, debounceMs);
+      setWindowSize(getSize())
+    }, debounceMs)
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
-  return windowSize;
+  return windowSize
 }

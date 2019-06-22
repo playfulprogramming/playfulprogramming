@@ -1,9 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import PostList from "../components/post-card-list"
-import PicTitleHeader from "../components/pic-title-header"
+import Layout from "../components/layout/layout"
+import { SEO } from "../components/seo"
+import { PostList } from "../components/post-card-list"
+import { PicTitleHeader } from "../components/pic-title-header"
 
 class BlogIndex extends React.Component {
   render() {
@@ -13,14 +13,14 @@ class BlogIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts"/>
+        <SEO title="All posts" />
         <div>
           <PicTitleHeader
             image={data.file.childImageSharp.fixed}
             title="Unicorn Utterances"
             description="A software development blog focused on the kinds of things they don’t teach you. Curated by Corbin Crutchley."
           />
-          <PostList posts={posts}/>
+          <PostList posts={posts} />
         </div>
       </Layout>
     )
