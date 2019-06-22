@@ -23,7 +23,7 @@ class BlogPostTemplate extends React.Component {
       title: post.frontmatter.title,
     }
 
-    const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}/index.md`;
+    const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`;
 
     return (
       <Layout location={this.props.location} title={siteTitle}>

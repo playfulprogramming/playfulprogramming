@@ -1,12 +1,22 @@
 .container {
     margin: 0 auto 50px auto;
     max-width: 948px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container > * {
+    flex: 0 0 auto;
+    max-width: 100%;
 }
 
 .headerPic {
     max-width: 300px;
     max-height: 300px;
-    margin-right: 48px
+    margin-right: 48px;
+    margin-bottom: 16px;
 }
 
 .title {
@@ -19,7 +29,7 @@
 .noMgContainer {
     display: inline-block;
     vertical-align: top;
-    max-width: 600px;
+    width: 600px;
 }
 
 .subheader {
