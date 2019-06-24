@@ -3,8 +3,7 @@ import Image from "gatsby-image"
 import styles from "./post-metadata.module.scss"
 
 export const PostMetadata = ({ post }) => {
-  const { frontmatter } = post
-  const { author } = frontmatter
+  const { author } = post.frontmatter
 
   return (
     <div className={styles.container}>
@@ -12,7 +11,7 @@ export const PostMetadata = ({ post }) => {
       <div className={styles.textDiv}>
         <h2 className={styles.authorName}>{author.name}</h2>
         <div className={styles.belowName}>
-          <p className={styles.date}>{frontmatter.date}</p>
+          <p className={styles.date}>{post.frontmatter.date}</p>
           <p className={styles.wordCount}>{post.wordCount.words} words</p>
         </div>
       </div>

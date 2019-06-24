@@ -24,15 +24,11 @@ export const Layout = ({ location, title, children }) => {
       </header>
       <main className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</main>
       <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
+        {''}
       </footer>
     </div>
   )
 }
-
-export default Layout
 
 export const authorFragmentQuery = graphql`
   fragment AuthorInfo on AuthorsJson {

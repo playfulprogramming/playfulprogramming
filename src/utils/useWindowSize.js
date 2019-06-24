@@ -5,6 +5,10 @@
 import { useEffect, useState } from "react"
 
 function getSize() {
+  if (!global.window || !window) {
+    return {}
+  }
+
   return {
     innerHeight: window.innerHeight,
     innerWidth: window.innerWidth,
@@ -29,6 +33,10 @@ export const useWindowSize = debounceMs => {
   }
 
   useEffect(() => {
+    if (windowSize.innerHeight === undefined) {
+      setWindowSize(getSize())
+    }
+
     window.addEventListener("resize", handleResize)
     return () => {
       window.removeEventListener("resize", handleResize)

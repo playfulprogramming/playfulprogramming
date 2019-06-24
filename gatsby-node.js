@@ -72,7 +72,7 @@ exports.createPages = ({ graphql, actions }) => {
       })
     })
 
-    authors.forEach((author, index, arr) => {
+    authors.forEach((author) => {
       createPage({
         path: `authors/${author.node.id}`,
         component: blogAuthor,
