@@ -7,11 +7,12 @@ import { WordCount } from "./word-count"
 /**
  * @param props
  * @param props.showWordCount
+ * @param props.tags
  * @param {(arr: {slug: string}[]) => void} props.onFilter
  * @returns {*}
  * @constructor
  */
-export const FilterSearchBar = ({ showWordCount = false, onFilter, numberOfArticles, wordCount }) => {
+export const FilterSearchBar = ({ showWordCount = false, onFilter, numberOfArticles, wordCount, tags }) => {
   return (
     <div className={styles.iconContainer}>
       <SearchField className={styles.searchField}/>
@@ -20,15 +21,7 @@ export const FilterSearchBar = ({ showWordCount = false, onFilter, numberOfArtic
       </div>
       <FilterListbox className={styles.filterField}
        onFilter={onFilter}
-       tags={[
-        "Test",
-        "Another",
-        "One More Makes 3",
-        "One More Makes 4",
-        "One More Makes 5",
-        "One More Makes 1235",
-        "One More Makes 55",
-      ]}/>
+       tags={tags}/>
     </div>
   )
 }

@@ -7,11 +7,11 @@ import { FilterSearchBar } from "../filter-search-bar"
  * overwriteAuthorInfo is a needed evil for now:
  * @see https://github.com/gatsbyjs/gatsby/issues/14827
  */
-export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount}) => {
+export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount, tags}) => {
   return (
     <div>
 
-      <FilterSearchBar showWordCount={showWordCount} wordCount={wordCount} numberOfArticles={numberOfArticles}/>
+      <FilterSearchBar tags={tags} showWordCount={showWordCount}  wordCount={wordCount} numberOfArticles={numberOfArticles}/>
 
       <div className={listStyle.postsListContainer}>
         {posts.map(({ node }) => {

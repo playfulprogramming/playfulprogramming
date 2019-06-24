@@ -1,18 +1,25 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { graphql } from "gatsby"
 import {Layout} from "../components/layout/layout"
 import { SEO } from "../components/seo"
 import { PostList } from "../components/post-card-list"
 import { PicTitleHeader } from "../components/pic-title-header"
 
-class BlogIndex extends React.Component {
-  render() {
-    const { data } = this.props
+const BlogIndex = (props) => {
+    const { data } = props
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
 
+    // FIXME: This logic will break with pagination
+    const postTags = useMemo(() => {
+        post.node.frontmatter.tags.forEach(tag => prev.add(tag));
+      return Array.from(posts.reduce((prev, post) => {
+        return prev;
+      }, new Set()))
+    }, [posts])
+
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={props.location} title={siteTitle}>
         <SEO title="All posts" />
         <div>
           <PicTitleHeader
@@ -20,11 +27,10 @@ class BlogIndex extends React.Component {
             title="Unicorn Utterances"
             description="A software development blog focused on the kinds of things they don’t teach you. Curated by Corbin Crutchley."
           />
-          <PostList posts={posts} />
+          <PostList posts={posts} tags={postTags} />
         </div>
       </Layout>
     )
-  }
 }
 
 export default BlogIndex

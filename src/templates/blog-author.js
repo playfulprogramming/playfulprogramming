@@ -10,8 +10,18 @@ const BlogAuthor = (props) => {
   const slugData = props.data
   const authorData = slugData.authorsJson
   const posts = slugData.allMarkdownRemark.edges
+
+  // FIXME: This logic will break with pagination
   const wordCount = useMemo(() => {
     return posts.reduce((prev, post) => prev + post.node.wordCount.words, 0)
+  }, [posts])
+
+  // FIXME: This logic will break with pagination
+  const postTags = useMemo(() => {
+    return Array.from(posts.reduce((prev, post) => {
+      post.node.frontmatter.tags.forEach(tag => prev.add(tag));
+      return prev;
+    }, new Set()))
   }, [posts])
 
   console.log(wordCount)
@@ -29,6 +39,7 @@ const BlogAuthor = (props) => {
         numberOfArticles={slugData.allMarkdownRemark.totalCount}
         wordCount={wordCount}
         posts={posts}
+        tags={postTags}
         overwriteAuthorInfo={authorData}
         showWordCount={true}
       />
