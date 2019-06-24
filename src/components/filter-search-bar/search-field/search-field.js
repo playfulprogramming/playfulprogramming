@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import btnWrapperStyles from "./search-field.module.scss"
+import styles from "./search-field.module.scss"
 import classNames from "classnames"
 import SearchIcon from "../../../assets/icons/search.svg"
 import { useElementBoundingBox } from "../../../utils/useRefBoundingBox"
@@ -36,20 +36,22 @@ export const SearchField = ({ className, onSearch = () => {} }) => {
    * Class calculation
    */
   const wrapperClasses = useMemo(() => {
-    return classNames(btnWrapperStyles.btn, {
-      [btnWrapperStyles.contentBtn]: focused || inputVal,
+    return classNames(styles.btn, {
+      [styles.contentBtn]: focused || inputVal,
     })
   }, [
     focused,
     inputVal,
   ])
 
+  const innerWinSize = global.window && window.innerWidth;
+
   return (
     // 70 as it's the size of all padding/etc more than just the input
-    <div className={className}>
+    <div className={`${className} ${styles.container}`}>
       <div className={wrapperClasses} onClick={() => inputRef.current.focus()}>
-        <SearchIcon className={btnWrapperStyles.icon}/>
-        <div className={btnWrapperStyles.inputContainer} ref={containerRef}>
+        <SearchIcon className={styles.icon}/>
+        <div className={styles.inputContainer} ref={containerRef}>
           <div style={{ height: inputHeight }}/>
           <PosedInput placeholder={placeholder}
                       ref={inputRef}
@@ -58,15 +60,15 @@ export const SearchField = ({ className, onSearch = () => {} }) => {
                         setInputVal(val)
                         searchWithLunr(val);
                       }}
-                      wiidth={currInputWidth}
-                      poseKey={inputVal || currInputWidth}
+                      wiidth={innerWinSize >= 450 ? currInputWidth : '100%'}
+                      poseKey={`${inputVal || currInputWidth}${innerWinSize}`}
                       pose="initial"
                       value={inputVal}
                       onFocus={() => setFocused(true)}
                       style={{ maxWidth: maxSpanWidth }}
                       onBlur={() => setFocused(false)}
-                      className={btnWrapperStyles.input}/>
-          <span aria-hidden={true} className={btnWrapperStyles.input}
+                      className={styles.input}/>
+          <span aria-hidden={true} className={styles.input}
                 style={{
                   position: "absolute",
                   top: "-300vh",

@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .iconContainer {
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +40,21 @@
     margin-left: 4px
   }
 }
+
+
+@media screen and (max-width: #{$fullScreenSearch}) {
+  .searchField, .filterField {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+  .searchField {
+    margin-right: 0;
+  }
+  .filterField {
+    margin-left: 0;
+  }
+}
+
 
 .midContainer {
   flex-grow: 1;

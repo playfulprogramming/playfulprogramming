@@ -1,5 +1,7 @@
+@import 'vars';
+
 :root {
-  /* Some obvious colors are duplicated to provide dark mode */
+  /* Some obvious colors (dark/light) are duplicated to provide dark mode */
   --darkPrimary: #153E67;
   --primary: #127DB3;
   --black: black;
@@ -16,27 +18,27 @@
   --cardOutlineStyle: 1px solid var(--primary);
   --archivo: 'Archivo', sans-serif;
   --oswald: 'Oswald', 'Archivo', sans-serif;
-  --baseNumber: 4;
-  --cardRadius: calc(2px * var(--baseNumber));
-  --filterBarIconSize: calc(6px * var(--baseNumber));
-  --filterBarFontSize: calc(5px * var(--baseNumber));
-  --listViewPadding: calc(3px * var(--baseNumber));
+  --cardRadius: #{2 * $baseUnit}px;
+  --filterBarIconSize: #{6 * $baseUnit}px;
+  --filterBarFontSize: #{5 * $baseUnit}px;
+  --listViewPadding: #{3 * $baseUnit}px;
+  font-size: $rootFontSize;
 }
 
 @media screen and (min-width: 600px) {
   :root {
-    --listViewPadding: 20px;
+    --listViewPadding: #{$baseUnit * 5}px;
   }
 }
 
 .listViewContent {
   margin: 0 auto;
-  max-width: 1272px;
+  max-width: #{67318 * $baseUnit}px;
   padding: 0 var(--listViewPadding)
 }
 
 .postViewContent {
-  padding: 20px;
+  padding: #{$baseUnit * 5}px;
 }
 
 .postViewContent > * {
@@ -72,6 +74,7 @@ h1, h2, h3 {
 
 
 .filterDropdown {
+  // This maps to the dropdown button. If the asset is changes, thus this must as well
   transform-origin: 26px 26px;
   transition: transform 300ms var(--animStyle);
 }
@@ -97,9 +100,8 @@ h1, h2, h3 {
   align-items: center;
   flex-shrink: 0;
   border-radius: var(--cardRadius);
-  line-height: 16px;
-  font-size: 16px;
-  padding: 4px 8px;
+  font-size: #{$baseUnit * 4}px;
+  padding: #{$baseUnit}px #{$baseUnit * 2}px;
   color: var(--darkPrimary)
 }
 
@@ -110,26 +112,29 @@ h1, h2, h3 {
 }
 
 .baseBtn svg, .btnLike svg {
-  height: 30px;
-  width: 30px;
+  $size: #{$baseUnit * 8}px;
+  height: $size;
+  width: $size;
   flex-shrink: 0;
 }
 
+$pendIconMarg: #{$baseUnit * 2}px;
+
 .baseBtn.prependIcon svg, .btnLike.prependIcon svg {
-  margin-right: 10px;
+  margin-right: $pendIconMarg;
 }
 
 .baseBtn.appendIcon svg, .btnLike.appendIcon svg {
-  margin-left: 10px;
+  margin-left: $pendIconMarg;
 }
 
 .post-body {
-  margin-bottom: 40px;
-  max-width: 576px;
+  margin-bottom: #{$baseUnit * 10}px;
+  max-width: #{$baseUnit * 144}px;
 }
 
 .post-lower-area {
-  max-width: 920px;
+  max-width: #{$baseUnit * 230}px;
 }
 
 // Please use this sparingly. There's massive A11y concerns

@@ -1,0 +1,9 @@
+$baseUnit: 4;
+
+$rootFontSize: #{$baseUnit * 4}px;
+$fullScreenSearch: 450px;
+
+@function pxToRem($pxNum) {
+  $remSize: $pxNum / $rootFontSize;
+  @return #{$remSize}rem;
+}

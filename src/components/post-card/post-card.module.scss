@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .card {
   cursor: pointer;
   border: var(--cardOutlineStyle);
@@ -39,7 +41,7 @@
 
 .header {
   margin: 21px 0 0 0;
-  font-size: 32px;
+  font-size: pxToRem(32px);
 }
 
 .authorName {

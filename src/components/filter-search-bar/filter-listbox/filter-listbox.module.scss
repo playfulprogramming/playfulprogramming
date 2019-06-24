@@ -1,3 +1,5 @@
+@import '../../../vars';
+
 .container {
   display: flex;
   justify-content: flex-end;
@@ -6,6 +8,11 @@
 .buttonContainer {
   position: relative;
   max-width: 100%;
+
+
+  @media screen and (max-width: #{$fullScreenSearch}) {
+    width: 100%;
+  }
 }
 
 .filterButton {
@@ -15,7 +22,7 @@
   display: flex;
   justify-content: center;
   height: 100%;
-  padding: 8px 16px 8px 8px;
+  padding: 8px 16px 8px 15px;
   font-size: var(--filterBarFontSize);
   line-height: var(--filterBarFontSize);
   color: var(--darkPrimary);
