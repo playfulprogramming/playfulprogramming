@@ -2,6 +2,16 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+
+  &:empty::after {
+    content: 'No results could be found, you might try making your search or filter less restrictive';
+    text-align: center;
+    display: block;
+    max-width: 500px;
+    color: var(--midImpactBlack);
+    margin: 20px auto 0;
+    font-size: 18px;
+  }
 }
 
 
