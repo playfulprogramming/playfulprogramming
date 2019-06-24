@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import {useState} from "react"
 
 
 function getSearchResults(query, lng, useQuery) {
@@ -17,18 +17,15 @@ function getSearchResults(query, lng, useQuery) {
  * onSearch - A `onChange` event or a callback to pass a string
  */
 export const useLunr = ({language = 'en', useQuery = false} = {}) => {
-  const [_, setQuery] = useState("")
   const [results, setResults] = useState(null)
 
   const onSearch = eventOrStr => {
     const eventVal = typeof eventOrStr === 'string' ? eventOrStr : eventOrStr.target.value
     if (!eventVal) {
       setResults(null)
-      setQuery('');
       return;
     }
     const results = getSearchResults(eventVal, language, useQuery)
-    setQuery(eventVal)
     setResults(results)
   }
 

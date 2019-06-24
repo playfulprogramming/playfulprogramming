@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useRef } from "react"
 import { Link } from "gatsby"
 import cardStyles from "./post-card.module.scss"
 import Image from "gatsby-image"
+import { stopPropCallback } from "../../utils/preventCallback"
 
 export const PostCard = ({ title, author, date, tags, excerpt, description, className, slug }) => {
+  const headerLink = useRef()
   return (
-    <Link to={`/posts${slug}`} className={`${cardStyles.card} ${className}`}>
+    <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
       <Image
         fixed={author.profileImg.childImageSharp.smallPic}
         alt={author.name}
@@ -18,14 +20,33 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
         }}
       />
       <div className={cardStyles.cardContents}>
-        <h2 className={cardStyles.header}>{title}</h2>
-        <p className={cardStyles.authorName}>by <Link to={`/authors/${author.id}`}>{author.name}</Link></p>
+        <Link
+          to={`/posts${slug}`}
+          onClick={stopPropCallback}
+          className="unlink"
+        >
+          <h2 className={cardStyles.header} ref={headerLink}
+          >{title}</h2>
+        </Link>
+        <p className={cardStyles.authorName}>by&nbsp;
+          <Link
+            onClick={stopPropCallback}
+            to={`/authors/${author.id}`}
+          >
+            {author.name}
+          </Link>
+        </p>
         <div className={cardStyles.dateTagSubheader}>
           <p className={cardStyles.date}>{date}</p>
           <div>
             {
               tags.map(tag => (
-                <Link to={"/"} key={tag} className={cardStyles.tag}>
+                <Link
+                  to={"/"}
+                  onClick={stopPropCallback}
+                  key={tag}
+                  className={cardStyles.tag}
+                >
                   {tag}
                 </Link>
               ))
@@ -37,7 +58,7 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
         }}
         />
       </div>
-    </Link>
+    </div>
   )
 }
 
