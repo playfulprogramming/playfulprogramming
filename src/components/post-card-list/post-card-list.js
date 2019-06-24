@@ -9,7 +9,8 @@ import { FilterSearchBar } from "../filter-search-bar"
  */
 export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount, tags }) => {
   // FIXME: This will not suffice with pagination added
-  const [filtered, setFiltered] = useState(null);
+  const [filtered, setFiltered] = useState(null)
+  const [searched, setSearched] = useState(null)
 
   return (
     <div>
@@ -17,12 +18,19 @@ export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInf
                        showWordCount={showWordCount}
                        wordCount={wordCount}
                        numberOfArticles={numberOfArticles}
-                       onFilter={val => val && setFiltered(val.map(v => v.slug))}/>
+                       onFilter={val => setFiltered(val && val.map(v => v.slug))}
+      onSearch={val => setSearched(val && val.map(v => v.slug))}/>
       <div className={listStyle.postsListContainer}>
         {posts.map(({ node }) => {
-          if (filtered && !filtered.includes(node.fields.slug)) return null;
+          const slug = node.fields.slug;
+          if (
+            (filtered && !filtered.includes(slug)) ||
+            (searched && !searched.includes(slug))
+          ) {
+            return null
+          }
 
-          const title = node.frontmatter.title || node.fields.slug
+          const title = node.frontmatter.title || slug
           return (
             <PostCard
               slug={node.fields.slug}

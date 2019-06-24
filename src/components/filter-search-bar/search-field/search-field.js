@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import btnWrapperStyles from "./search-field.module.scss"
 import classNames from "classnames"
 import SearchIcon from "../../../assets/icons/search.svg"
@@ -15,11 +15,15 @@ const PosedInput = posed.input({
   },
 })
 
-export const SearchField = ({ className }) => {
+export const SearchField = ({ className, onSearch = () => {} }) => {
   const [inputVal, setInputVal] = useState("")
   const [focused, setFocused] = useState("")
 
-  const searchCB = useLunr();
+  const {onSearch: searchWithLunr, results} = useLunr();
+
+  useEffect(() => {
+    onSearch(results);
+  }, [results])
 
   const { ref: containerRef, width: maxSpanWidth } = useElementBoundingBox()
   const { ref: inputRef, height: inputHeight } = useElementBoundingBox()
@@ -50,8 +54,9 @@ export const SearchField = ({ className }) => {
           <PosedInput placeholder={placeholder}
                       ref={inputRef}
                       onChange={e => {
-                        console.log("onchange")
-                        setInputVal(e.target.value)
+                        const val = e.target.value;
+                        setInputVal(val)
+                        searchWithLunr(val);
                       }}
                       wiidth={currInputWidth}
                       poseKey={inputVal || currInputWidth}

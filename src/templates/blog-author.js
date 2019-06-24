@@ -24,8 +24,6 @@ const BlogAuthor = (props) => {
     }, new Set()))
   }, [posts])
 
-  console.log(wordCount)
-
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO title={authorData.name} description={authorData.description}/>

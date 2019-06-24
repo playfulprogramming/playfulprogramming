@@ -5,7 +5,7 @@ import Image from "gatsby-image"
 
 export const PostCard = ({ title, author, date, tags, excerpt, description, className, slug }) => {
   return (
-    <Link to={`posts${slug}`} className={`${cardStyles.card} ${className}`}>
+    <Link to={`/posts${slug}`} className={`${cardStyles.card} ${className}`}>
       <Image
         fixed={author.profileImg.childImageSharp.smallPic}
         alt={author.name}
