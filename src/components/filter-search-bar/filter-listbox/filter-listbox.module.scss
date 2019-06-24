@@ -149,6 +149,7 @@
 
 .option:not(.expanded) {
   opacity: 0;
+  z-index: -100;
 }
 
 .option span {

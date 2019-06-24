@@ -8,17 +8,23 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
   const headerLink = useRef()
   return (
     <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
-      <Image
-        fixed={author.profileImg.childImageSharp.smallPic}
-        alt={author.name}
-        className={cardStyles.profilePic}
-        style={{
-          borderColor: author.color,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
-      />
+      <Link
+        to={`/authors/${author.id}`}
+        onClick={stopPropCallback}
+        className="unlink"
+      >
+        <Image
+          fixed={author.profileImg.childImageSharp.smallPic}
+          alt={author.name}
+          className={cardStyles.profilePic}
+          style={{
+            borderColor: author.color,
+          }}
+          imgStyle={{
+            borderRadius: `50%`,
+          }}
+        />
+      </Link>
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}

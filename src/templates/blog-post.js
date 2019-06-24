@@ -49,7 +49,7 @@ const BlogPostTemplate = (props) => {
             View on GitHub
           </a>
 
-          <button className="baseBtn appendIcon">
+          <button className="baseBtn appendIcon" type="button">
             Share this Post
             <ShareIcon/>
           </button>

@@ -229,6 +229,7 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
           Choose a tag to filter by:
         </span>
         <button
+          type="button"
           ref={btnRef}
           className={filterStyles.filterButton}
           aria-haspopup="listbox"
