@@ -3,9 +3,9 @@ module.exports = {
     title: `Unicorn Utterances`,
     description: `Learning programming from magically majestic words`,
     siteUrl: `https://unicorn-utterances.com/`,
-    disqusShortname: 'unicorn-utterances',
-    repoPath: 'crutchcorn/unicorn-utterances',
-    relativeToPosts: '/content/blog'
+    disqusShortname: "unicorn-utterances",
+    repoPath: "crutchcorn/unicorn-utterances",
+    relativeToPosts: "/content/blog",
   },
   plugins: [
     {
@@ -35,12 +35,19 @@ module.exports = {
         fonts: [
           {
             family: `Archivo`,
-            variants: [`400`, `700`],
-            subsets: [`latin`]
-          }, {
-            family: 'Oswald',
-            variants: [`400`, `700`],
-          }
+            variants: [
+              `400`,
+              `700`,
+            ],
+            subsets: [`latin`],
+          },
+          {
+            family: "Oswald",
+            variants: [
+              `400`,
+              `700`,
+            ],
+          },
         ],
       },
     },
@@ -93,14 +100,59 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /\/src\/assets\/icons\/.*\.svg$/ // See below to configure properly
-        }
-      }
+          include: /\/src\/assets\/icons\/.*\.svg$/, // See below to configure properly
+        },
+      },
     },
-    `gatsby-plugin-sass`
+    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-lunr`,
+      options: {
+        languages: [
+          {
+            name: "en",
+            // A function for filtering nodes. () => true by default
+            filterNodes: node => !!node.frontmatter,
+          },
+        ],
+        // Fields to index. If store === true value will be stored in index file.
+        // Attributes for custom indexing logic. See https://lunrjs.com/docs/lunr.Builder.html for details
+        fields: [
+          {
+            name: "title",
+            store: true,
+            attributes: { boost: 20 },
+          },
+          { name: "content" },
+          {
+            name: "slug",
+            store: true,
+          },
+          { name: "author" },
+          { name: "tags" },
+        ],
+        // How to resolve each field's value for a supported node type
+        resolvers: {
+          // For any node of type MarkdownRemark, list how to resolve the fields' values
+          MarkdownRemark: {
+            title: node => node.frontmatter.title,
+            content: node => node.rawMarkdownBody,
+            slug: node => node.fields.slug,
+            author: node => node.frontmatter.author.name,
+            tags: node => node.frontmatter.tags,
+          },
+        },
+        //custom index file name, default is search_index.json
+        filename: "search_index.json",
+        //custom options on fetch api call for search_ındex.json
+        fetchOptions: {
+          credentials: "same-origin",
+        },
+      },
+    },
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `AuthorsJson`,
-    "AuthorsJson.pronouns": `PronounsJson`
+    "AuthorsJson.pronouns": `PronounsJson`,
   },
 }

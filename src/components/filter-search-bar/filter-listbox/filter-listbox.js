@@ -81,7 +81,7 @@ const ListIdBox = posed.ul({
 })
 
 
-export const FilterListbox = ({ tags = [], className }) => {
+export const FilterListbox = ({ tags = [], className, onFilter }) => {
   const {
     ref: listBoxRef,
     active,
