@@ -35,7 +35,7 @@
  * If nothing is selected, don't animate away "Filters"
  */
 
-import React, { useMemo, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import classNames from "classnames"
 import posed from "react-pose"
 
@@ -46,6 +46,7 @@ import FilterIcon from "../../../assets/icons/filter.svg"
 import { useSelectRef } from "../../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../../utils/useWindowSize"
 import { useAfterInit } from "../../../utils/useAfterInit"
+import { useLunr } from "../../../utils/useLunr"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
@@ -94,6 +95,20 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
     buttonProps,
   } = useSelectRef(tags, "multi")
   const shouldShowFilterMsg = expanded || !selected.length
+
+  const {onSearch: searchWithLunr, results} = useLunr();
+
+  useEffect(() => {
+    onFilter(results);
+  }, [results])
+
+  useEffect(() => {
+    if (!selected || !selected.length) {
+      searchWithLunr('');
+    } else {
+      searchWithLunr(`tags: ${selected.map(v => v.val).join(' ')}`);
+    }
+  }, [selected])
 
   /**
    * Refs

@@ -4,7 +4,7 @@ import classNames from "classnames"
 import SearchIcon from "../../../assets/icons/search.svg"
 import { useElementBoundingBox } from "../../../utils/useRefBoundingBox"
 import posed from "react-pose"
-import { useSearch } from "../../../utils/useSearch"
+import { useLunr } from "../../../utils/useLunr"
 
 const placeholder = "Search"
 
@@ -19,7 +19,7 @@ export const SearchField = ({ className }) => {
   const [inputVal, setInputVal] = useState("")
   const [focused, setFocused] = useState("")
 
-  const searchCB = useSearch();
+  const searchCB = useLunr();
 
   const { ref: containerRef, width: maxSpanWidth } = useElementBoundingBox()
   const { ref: inputRef, height: inputHeight } = useElementBoundingBox()

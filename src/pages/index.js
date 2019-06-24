@@ -12,8 +12,8 @@ const BlogIndex = (props) => {
 
     // FIXME: This logic will break with pagination
     const postTags = useMemo(() => {
-        post.node.frontmatter.tags.forEach(tag => prev.add(tag));
       return Array.from(posts.reduce((prev, post) => {
+        post.node.frontmatter.tags.forEach(tag => prev.add(tag));
         return prev;
       }, new Set()))
     }, [posts])

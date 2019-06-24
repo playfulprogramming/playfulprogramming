@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import listStyle from "./post-card-list.module.scss"
 import { PostCard } from "../post-card"
 import { FilterSearchBar } from "../filter-search-bar"
@@ -7,14 +7,21 @@ import { FilterSearchBar } from "../filter-search-bar"
  * overwriteAuthorInfo is a needed evil for now:
  * @see https://github.com/gatsbyjs/gatsby/issues/14827
  */
-export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount, tags}) => {
+export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount, tags }) => {
+  // FIXME: This will not suffice with pagination added
+  const [filtered, setFiltered] = useState(null);
+
   return (
     <div>
-
-      <FilterSearchBar tags={tags} showWordCount={showWordCount}  wordCount={wordCount} numberOfArticles={numberOfArticles}/>
-
+      <FilterSearchBar tags={tags}
+                       showWordCount={showWordCount}
+                       wordCount={wordCount}
+                       numberOfArticles={numberOfArticles}
+                       onFilter={val => val && setFiltered(val.map(v => v.slug))}/>
       <div className={listStyle.postsListContainer}>
         {posts.map(({ node }) => {
+          if (filtered && !filtered.includes(node.fields.slug)) return null;
+
           const title = node.frontmatter.title || node.fields.slug
           return (
             <PostCard
