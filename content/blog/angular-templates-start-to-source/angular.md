@@ -1015,10 +1015,119 @@ Just to recap, let's run through this line-by-line:
    - If there is not, it will proceed to make one (checking first that there is a template to create off of)
    - If there is, it will not recreate a view, in order to avoid performance issues by recreating views over-and-over again
 
+## Microsyntax
 
-### Microsyntax
+Alright, we've made it thus far! The following section is going to be kinda a doozy so if you're feeling tired, a nap is certainly in order. Otherwise, let's get up - do a little shoulder shimmy to get ourselves moving for a bit (I'm totally not just writing this for my future self who's gonna be re-reading this, noooope), and dive in.
+
+### `let`s iveday inway
+
+######  (That's "let's dive in" in Pig Latin)
+
+Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, *Angular also provides a small language-like syntax into it's own query system*. This syntax is refered to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
+
+````typescript
+function translatePigLatin(strr) {
+	// See the code here: https://www.freecodecamp.org/forum/t/freecodecamp-algorithm-challenge-guide-pig-latin/16039/7
+}
+
+@Directive({
+  selector: '[makePiglatin]'
+})
+export class DirectiveHere {
+  constructor(private templ: TemplateRef<any>,
+    private parentViewRef: ViewContainerRef) {}
+
+  @Input() set makePiglatin(val: string) {
+    this.parentViewRef.createEmbeddedView(this.templ, {
+      $implicit: translatePigLatin(val)
+    });
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <p *makePiglatin="'This is a string'; let msg">
+      {{msg}}
+    </p>
+  `
+})
+export class AppComponent {}
+````
+
+This might look familiar. We're using the `$implicit` value from the context within our structural directive! However, ADDLINK: [if you review the section we introduced that concept in](), you'll notice that the syntax here is different but similar from a template variable that would be used to bind the context from an `ng-template` tag. 
+
+The semicolon is the primary differentiator between the two syntaxes in this particular example. The semicolon marks the end to the previous statement and the start of a new one (the first statement being a binding of the `makePiglatin` property in the directive, the second being a binding of the `$implicit` context value to the local template variable `msg`). This small demo already showcases part of why the microsyntax is so nice - it allows you to have a micro-language to define your APIs.
+
+Let's continue exploring how leveraging this tool can be advantageous. What if we wanted to export more than a single value in the context? How would we bind those named values?
+
+```typescript
+export class DirectiveHere {
+  constructor(private templ: TemplateRef<any>,
+    private parentViewRef: ViewContainerRef) {}
+
+  @Input() set makePiglatin(val: string) {
+    this.parentViewRef.createEmbeddedView(this.templ, {
+      $implicit: translatePigLatin(val),
+      original: val
+    });
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <p *makePiglatin="'This is a string'; let msg; let ogMsg = original">
+      {{msg}} is {{ogMsg}} in 🐷 Latin
+    </p>
+  `
+})
+```
+
+Just as before, we would use the semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
+
+
+
+
+
+
+### `as` to preserve values in template variable
+
+But this microsyntax is not just to be able to build out custom APIs for structural directives.
+
+
+
+
+
+
+
+### Reference Guide
 
 https://gist.github.com/mhevery/d3530294cff2e4a1b3fe15ff75d08855
+
+
+
+
+
+```
+*:prefix="( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )*"
+```
+
+- `:prefix`: HTML attribute key.
+- `:key`: HTML attribute key.
+- `:local`: local variable name used in the template.
+- `:export`: value exported by the directive under a given name.
+- `:experession`: standard angular expression
+- `:keyExp = :key ":"? :expression ("as" :local)? ";"?`
+- `:let = "let" :local "=" :export ";"?`
+- `:as = :export "as" :local ";"?`
+
+
+
+
+
+
+
 
 
 
@@ -1060,7 +1169,7 @@ export class AppComponent {}
 
 
 
-#### `ngFor`
+### `ngFor`
 
 
 
@@ -1178,39 +1287,29 @@ class RecordViewTuple {
 
 
 
-
-
-
-
-
-
-A structural directive is something like `*ngFor` or `*ngIf`, they allow you to turn whatever you're looking at into a template.
-EG:
-
-```html
-<div *ngIf="bool">
-  <p>Hello</p>
-</div>
+```
+*:prefix="( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )*"
 ```
 
-Might turn into something like*:
+- `:prefix`: HTML attribute key.
+- `:key`: HTML attribute key.
+- `:local`: local variable name used in the template.
+- `:export`: value exported by the directive under a given name.
+- `:experession`: standard angular expression
+- `:keyExp = :key ":"? :expression ("as" :local)? ";"?`
+- `:let = "let" :local "=" :export ";"?`
+- `:as = :export "as" :local ";"?`
 
-```html
-<ng-template #abcd>
-  <div><p>Hello</p></div>
-</ng-template>
-<ng-template [ngTemplateOutlet]="bool ? abcd : null"></ng-template>
-```
 
-Internally.
 
-\* This is guestimation, don't attack if not perfectly correct
 
-* Internally. 
 
-So when you mark something with a structural directive, you're turning it into an Angular template and then passing that element as a child to that template.
 
-You can also take the template variables and turn them into a way to communicate with the structural directive, like how `*ngFor` works:
+
+
+
+
+
 
 https://angular.io/guide/structural-directives#microsyntax
 
@@ -1247,7 +1346,7 @@ For more information on this see:
 
 
 
-#### MOVEME: EXPLAINBTR: Template Variables
+# MOVEME: EXPLAINBTR: Template Variables
 
 Template variables can reference other types other than templateRef ([just like `{read}` can be used with `ViewChild`](<https://angular.io/api/core/ViewChild#description>)) by using the prop input equality operator like values are passed to inputs (`#templArg="exportAsName"`) that matches the `exportAs` value of the component/directive you're trying to "spy" on
 
