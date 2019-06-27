@@ -2,9 +2,9 @@
 
 ## Article Overview
 
-One of the core concepts to the Angular framework is the idea of templates. Templates allow developers to create embedded views of UI from another locations.
+One of the core concepts to the Angular framework is the idea of templates. Templates allow developers to create embedded views of UI from other locations.
 
-These templates not only power many of Angular's baseline features, but are extremely versitile in their capabilities and serve as a powerful tool to levarage.
+These templates not only power many of Angular's baseline features, but are extremely versatile in their capabilities and serve as a powerful tool to leverage.
 
 - Templates are able to be passed and called manually similarly to functions.
 - You can leverage  a set of APIs built into these templates to pass and manipulate data from one template to another during the render process
@@ -19,7 +19,7 @@ While this article is far from a comprehensive list of all template related APIs
 - `createEmbeddedView`
 - [Structural Directives](<https://angular.io/guide/structural-directives#asterisk>) (such as `*ngIf`)
 
-While a lot of these examples are going to be small/silly/contrived, they loosely come from patterns I've seen in very large Angular libraries. One of the coolest aspects of templates is the ability to make APIs of consumable codebases which read more naturally and are more feature-filled when leveraged propery. 
+While a lot of these examples are going to be small/silly/contrived, they loosely come from patterns I've seen in very large Angular libraries. One of the coolest aspects of templates is the ability to make APIs of consumable codebases which read more naturally and are more feature-filled when leveraged properly. 
 
 This article was written with the idea that the reader is at least somewhat familiar with the introductory concepts of Angular. If you haven't yet done so, it might be a good read to start with the fantastic [Angular getting started guide](https://angular.io/start).
 
@@ -43,7 +43,7 @@ While Angular templates come in many shapes and sizes, a straightforward example
 <p *ngIf="bool; else templHere">True</p>
 ```
 
-In this example, we are creating a template and assigning it to a [template reference variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). _This template reference variable will make `templHere` a valid variable to use as a value for other inputs in sibling or child elements._ It wil then handle that variable similarly to how a variable from the component logic is handled when referenced from the template. 
+In this example, we are creating a template and assigning it to a [template reference variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). _This template reference variable will make `templHere` a valid variable to use as a value for other inputs in sibling or child elements._ It will then handle that variable similarly to how a variable from the component logic is handled when referenced from the template. 
 
 We are then adding a structural directive [`ngIf`](https://angular.io/api/common/NgIf) to the `p` element on screen. This `ngIf` structural directive will checks if `bool` is true or false, and render items on screen depending on the value of `bool`.
 
@@ -82,7 +82,7 @@ This embedded view will be located in the DOM where the `ng-template` that used 
 <ng-template [ngTemplateOutlet]="templateName"></ng-template>
 ```
 
-Once you understand that, combined with knowing about template reference variables ([which we covered at the beggining of this section](#introductory-example)), it can be easier to understand that we're just doing a turnary to pass the correct template based on the value of `bool` to create an embedded view of that template.
+Once you understand that, combined with knowing about template reference variables ([which we covered at the beginning of this section](#introductory-example)), it can be easier to understand that we're just doing a ternary to pass the correct template based on the value of `bool` to create an embedded view of that template.
 
 ## Pass Data To Templates - The Template Context
 
@@ -109,18 +109,18 @@ From there, you can use `let` declarations to create template variables in that 
 </ng-template>
 ```
 
-Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax to bind any named context key's value to the template input variable with the name you provided after `let`. There is an edge-case you've probable noticed though, the `$implicit` key of the context is treated as a default of sorts, allowing a user to simply leave `let-templateVariableName` to be the value of the `$implicit` key of the context value. 
+Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax to bind any named context key's value to the template input variable with the name you provided after `let`. There is an edge-case you've probably noticed though, the `$implicit` key of the context is treated as a default of sorts, allowing a user to simply leave `let-templateVariableName` to be the value of the `$implicit` key of the context value. 
 
 #### Clarification on Gotchas
 
 ##### Template Input Variable Names
-As a qiuck note, I only named these template input variables differently from the context value key in order to make it clear that you may do so. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
+As a quick note, I only named these template input variables differently from the context value key in order to make it clear that you may do so. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
 
 ##### Template Variable Access
 
-It's also important to note that _a template input variable (`<ng-template let-var>`) is bound to it's children and the tag itself_ while _template reference variables (`<ng-template #var>`) are also accessable by sibling tags_. 
+It's also important to note that _a template input variable (`<ng-template let-var>`) is bound to it's children and the tag itself_ while _template reference variables (`<ng-template #var>`) are also accessible by sibling tags_. 
 
-Neither of them are accessable further up the *view hierarchy tree*.
+Neither of them are accessible further up the *view hierarchy tree*.
 
 > "view hierarchy tree" is a term for the tree of tags that are defined by tags in the Angular template. This is a more correct term for "DOM tree" since Angular handles a lot of logic regarding templates without rendering that into the DOM itself.
 
@@ -156,7 +156,7 @@ app--+        |
      +--->B
 ```
 
- Say you wanted to pass template `C` to component  `B` in the following view tree, say to reuse an template you're passing as the `else` to an `ngIf` that you don't want to move.
+ Say you wanted to pass template `C` to component  `B` in the following view tree, say to reuse a template you're passing as the `else` to an `ngIf` that you don't want to move.
 
 As we mentioned before, using the `#templateVar` reference variable won't work in tags that are in a different root than it, so we're not able to simply use the variable for this usage.
 
@@ -213,12 +213,12 @@ console.log(myComponent.inputHere); // This will print `50`
 
 It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
 
-Depite the examples thus far having only used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
+Despite the examples thus far having only used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
 ```typescript
 @ViewChild(MyComponentComponent) myComponent: MyComponentComponent;
 ```
 
-Would yeild the same results in this particular example. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ - this could return results that are unexpected if you're not aware of that.
+Would yield the same results in this particular example. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ - this could return results that are unexpected if you're not aware of that.
 
 ### My Name is ~~Inigo Montoya~~ the `read` Prop
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
@@ -227,7 +227,7 @@ Ahh, so you've seen the problem with Angular's guessing of what datatype you're 
 
 Fancy that.
 
-When we want to overwrite the type of data we expect `ViewChild` to return, we can use a second property passed to the `ViewChild` dectorator with the type we want returned. With the usecase mentioned above, we can tell Angular that we want a reference to the element of the component itself by using the `ElementRef`
+When we want to overwrite the type of data we expect `ViewChild` to return, we can use a second property passed to the `ViewChild` decorator with the type we want returned. With the use-case mentioned above, we can tell Angular that we want a reference to the element of the component itself by using the `ElementRef`
 
 
 ```typescript
@@ -261,7 +261,7 @@ export class AppComponent {
 }
 ```
 
-Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` propety from the `ViewChild` property decorator to get a `QueryList<ElementRef>` (to be able to get the reference to the DOM [Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element) themselves) instead of a query list of `MyComponentComponent` types.
+Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` property from the `ViewChild` property decorator to get a `QueryList<ElementRef>` (to be able to get the reference to the DOM [Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element) themselves) instead of a query list of `MyComponentComponent` types.
 
 ### What is `QueryList`
 
@@ -292,17 +292,17 @@ It might be a good idea to gain familiarity of doing this, as the Angular docs l
 
 > NOTE: In the future this class will implement an Observable interface.
 
-##Keep an Eyes on Your Kids - `ContentChild`
+##Keep an Eye on Your Kids - `ContentChild`
 
 Author's note:
 
-> This section of the article assumes you know what the `ng-content` tag is. While I could do an in-depth dive on what `ng-content` and content projection is, it's somewhat outside of the scope of this current article is. Let me know if this is something that interests you, I might do another deep deep dive into how Angular parses tags like `ng-content` and how it's handled by Angular's AST and template parsing/etc.
+> This section of the article assumes that you know what the `ng-content` tag is. While I could do an in-depth dive on what `ng-content` and content projection is, it's somewhat outside of the scope of this current article is. Let me know if this is something that interests you, I might do another deep deep dive into how Angular parses tags like `ng-content` and how it's handled by Angular's AST and template parsing/etc.
 >
 > If you're less familiar with `ng-content`, you can probably get by with just knowing how parent/child relationships elements work and just reading through carefully. Never be afraid to ask questions! 
 
 I always love nesting some of my code into `ng-content`s. I don't know what's so appealing to having my code look like it's straight out of HTML spec, but just being able to pass component instances and elements as children to one of my components and then tinkering with them is so satisfying.
 
-One thing I always run into though, is that I always end up wanting to style the components that're passed in. Take the following example:
+One thing I always run into though, is that I always end up wanting to style the components that are passed in. Take the following example:
 
 ```html
 <cards-list> <!-- Cards list has default styling with grey background -->
@@ -322,7 +322,7 @@ action-card {
 }
 ```
 
-But this is often not the case. _[Angular's  `ViewEncapsulation`](https://angular.io/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This will be made especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector  `::ng-deep`](https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep) has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). s
+But this is often not the case. _[Angular's  `ViewEncapsulation`](https://angular.io/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This is especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector  `::ng-deep`](https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep) has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]). s
 
 No matter though, we have the power of `ViewChildren` on our side! Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
@@ -402,7 +402,7 @@ This is a perfect example of where you might want `@ContentChild` - not only are
 
 ### Timings - The Bane of any JavaScript developer, now with `ViewChild`
 
-But, alas, all good must come with some bad. While the `ViewChild` and `ContentChild` properties are very good at what they do, they can be confusing when it comes to what lifecycle methods they're available in. This is partially why I've been using `ngAfterViewInit` for the examples thus far. It's far easier to keep them consistent until the concept is grasped better and THEN dive into the naunces. This oftentimes works just fine, but there are often times where being able to run code on an element reference in an  `ngOnInit` might be more advantagous - especially if you're trying to get some logic finished before the user sees the rendered screen.
+But, alas, all good must come with some bad. While the `ViewChild` and `ContentChild` properties are very good at what they do, they can be confusing when it comes to what lifecycle methods they're available in. This is partially why I've been using `ngAfterViewInit` for the examples thus far. It's far easier to keep them consistent until the concept is grasped better and THEN dive into the nuances. This oftentimes works just fine, but there are often times where being able to run code on an element reference in an  `ngOnInit` might be more advantageous - especially if you're trying to get some logic finished before the user sees the rendered screen.
 
 Take the following example and see if you can guess what these `console.log`s are going to output:
 
@@ -463,11 +463,11 @@ The reasoning behind this is that the intended query result is nested inside of 
 
 As a result, **if you have your code inside of a template that's being rendered that you want to grab using `ViewChild`/`ContentChild`  - you will need to use an `ngAfterViewInit` rather than a `ngOnInit`.** For similar reasons (change detection being a tricky thing as it is), **you'll need to access the plural APIs ( `ViewChildren`/`ContentChildren`) with the `ngAfterViewInit` lifecycle as well.**
 
-**This also effects `*ngIf` and `*ngFor` structural directives**, so if you've recently added one of those to your template, and have noticed that you've had to switch your lifecylcle methods to using `ngAfterViewInit`, you have a bit of an explaination ([as structural directives use templates internally](#structural-directives-what-sorcery-is-this))
+**This also effects `*ngIf` and `*ngFor` structural directives**, so if you've recently added one of those to your template, and have noticed that you've had to switch your lifecycle methods to using `ngAfterViewInit`, you have a bit of an explanation ([as structural directives use templates internally](#structural-directives-what-sorcery-is-this))
 
 #### Great Scott - You Control The Timing!
 
-While this behavior can be a bit confusing, Angular 8 brought an option to the `ViewChild` and `ContentChild` APIs to make this a bit easier to manage mentally. While **these APIs won't enbale use of templated queries in `ngOnInit`**, it will make bugs when adding templated queries (such as `ngIf`) less likely to create new bugs.
+While this behavior can be a bit confusing, Angular 8 brought an option to the `ViewChild` and `ContentChild` APIs to make this a bit easier to manage mentally. While **these APIs won't enable use of templated queries in `ngOnInit`**, it will make bugs when adding templated queries (such as `ngIf`) less likely to create new bugs.
 
 For example, if you'd like to force all queries to not run until `ngAfterViewInit`, regardless of using templated views, you can enable that with the `{static: false}` option configuration:
 
@@ -494,7 +494,7 @@ Before I go much further in this section, I want to make sure that I'm clearing 
 
 _Angular's smallest grouping of display elements are called a `view`._ These `view`s can be created and destroyed together and are under the control of a directive or component of some kind and include any templates associated with them.
 
-_When a template is rendered to the screen, it creates an `embedded view`_ which can be controlled and handled from an assocaited parent component or directive. This creation of an embedded view occurs automatically when a template is rendered using `ngTemplateOutlet` but also when using a structural directive such as `ngIf` and `ngFor`.
+_When a template is rendered to the screen, it creates an `embedded view`_ which can be controlled and handled from an associated parent component or directive. This creation of an embedded view occurs automatically when a template is rendered using `ngTemplateOutlet` but also when using a structural directive such as `ngIf` and `ngFor`.
 
 But that's not all - Angular also allows you find, reference, modify, and create them yourself in your component/directive logic! 🤯
 
@@ -526,19 +526,19 @@ export class AppComponent implements OnInit {
 }
 ```
 
-This example has a lot going on, so let's disect it bit-by-bit.
+This example has a lot going on, so let's dissect it bit-by-bit.
 
 Starting with some small recap:
 
-- We're creating an template with the `ng-template` tag and assigning it to a template reference variable `templ`
-- We're also creating a `div` tag, assignining it to the template reference variable `viewContainerRef`
+- We're creating a template with the `ng-template` tag and assigning it to a template reference variable `templ`
+- We're also creating a `div` tag, assigning it to the template reference variable `viewContainerRef`
 - Lastly, `ViewChild` is giving us a reference to the template on the `templ` component class property.
 
 Now the new stuff:
 
 - We're also using `ViewChild` to assign the template reference variable `viewContainerRef` to a component class property.
   - We're using the `read` prop to give it the [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef) class, which includes some methods to help us create embedded view
-- Then, in the `ngOnInit` lifecycle ([since neither of our `ViewChild` reference are in embedded views themselves](#lakjsdf)), we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
+- Then, in the `ngOnInit` lifecycle ([since neither of our `ViewChild` references are in embedded views themselves](#lakjsdf)), we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
 
 If you take a look at your element debugger, you'll notice that the template is injected as a sibling to the `.testing` div:
 
@@ -585,7 +585,7 @@ ngOnInit() {
 
 #### Context
 
-Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start couting from, you could pass a context, ADDLINK: [with the same object structure we did before](#pass-data-to-template—the-template-context), have:
+Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start counting from, you could pass a context, ADDLINK: [with the same object structure we did before](#pass-data-to-template—the-template-context), have:
 
 ```typescript
 import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef , EmbeddedViewRef} from '@angular/core';
@@ -613,7 +613,7 @@ export class AppComponent implements OnInit {
 }
 ```
 
-In this example, because we want to have a unordered list with list elements being created using embedded views, we're getting a `ViewContainerRef` directly from inside the unordered list.
+In this example, because we want to have an unordered list with list elements being created using embedded views, we're getting a `ViewContainerRef` directly from inside the unordered list.
 But you'll notice a problem with doing this if you open up your inspector (or even just by reading the code):
 There's now a `div` at the start of your list.
 
@@ -637,7 +637,7 @@ this.viewContainerRef.move(embeddRef3, newViewIndex);
 
 Angular provides many APIs to take an existing view and move it and modify it without having to create a new one and run change detection/etc again.
 
-If you're wanting to try out a different API and feel that `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embedd it yourself manually.
+If you're wanting to try out a different API and feel that `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embed it yourself manually.
 
 ```typescript
 ngOnInit() {
@@ -848,7 +848,7 @@ export class AppComponent {}
 
 
 
-ADDLINK: [Just as we previously used Agular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
+ADDLINK: [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
 Too much CS speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template. 
 
@@ -869,7 +869,7 @@ It is for this reason that **only one structural directive can be applied to one
 
 But rendering a template without changing it in any way isn't a very useful structural directive. Remove that directive and your code has exactly the same behavior. However, Angular provides something not-altogether-different from what we started on as a useful utility to hide/show a view based on a boolean's truthiness: `ngIf`. 
 
-So if we added an input with the same name as the directive (ADDLINK: [as we did previously]()) to accept a value to check the truthiness of, added an `if` statement to render only if the value is true, we have ourselves the start of an `ngIf` replacement that we've built outselves!
+So if we added an input with the same name as the directive (ADDLINK: [as we did previously]()) to accept a value to check the truthiness of, added an `if` statement to render only if the value is true, we have ourselves the start of an `ngIf` replacement that we've built ourselves!
 
 
 ```typescript
@@ -999,7 +999,7 @@ Just to recap, let's run through this line-by-line:
 2. We're then defining a variable to keep track of the template reference and the view reference ([what `createEmbeddedView` returns](https://angular.io/api/core/EmbeddedViewRef)) for usage later
 3. The constructor is then assigning the template reference to the variable, and getting a reference to the view container
 4. We're then defining an input with the same name as a setter, as we did with our implementation
-   - This setter is also calling an update function, just as were with our implementaiton
+   - This setter is also calling an update function, just as were with our implementation
 5. The update view is then seeing if the `$implicit` value in the context is truthy (as we're assigning the value of the `ngIf` input to the `$implicit` key on the context)
 6. Further checks are made to see if there is a view reference already.
    - If there is not, it will proceed to make one (checking first that there is a template to create off of)
@@ -1013,7 +1013,7 @@ Alright, we've made it thus far! The following section is going to be kinda a do
 
 >  That's "let's dive in" in Pig Latin
 
-Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, *Angular also provides a small language-like syntax into it's own query system*. This syntax is refered to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
+Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, *Angular also provides a small language-like syntax into its own query system*. This syntax is referred to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
 
 ````typescript
 function translatePigLatin(strr) {
@@ -1074,7 +1074,7 @@ export class DirectiveHere {
 })
 ```
 
-Just as before, we would use the semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
+Just as before, we would use semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
 
 
 
@@ -1143,9 +1143,9 @@ export class AppComponent { }
 
 You can see that I've had to tweak our previous pig latin directive example a bit.
 
-For starters, I movied away from a `set`ter for the input value and towards `ngOnInit`, just to ensure that everything was defined in the right timing.
+For starters, I moved away from a `set`ter for the input value and towards `ngOnInit`, just to ensure that everything was defined in the right timing.
 
-I'm also binding the value "upper" to `makePiglatinCasing` by adding `casing: 'UPPER'` to the input to the structural directive and then seperating it by `;`.
+I'm also binding the value "upper" to `makePiglatinCasing` by adding `casing: 'UPPER'` to the input to the structural directive and then separating it by `;`.
 
 The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. *The microsyntax is taking the  `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.* 
 
@@ -1169,11 +1169,11 @@ You can drop the `:` regardless of if you use the `;`
 <p *makePiglatin="'This is a string'; casing 'UPPER'; let msg; let ogMsg = original">
 ```
 
-While this might seem very strange (especially because most fully-scoped languages have very rigid syntax), there's a lot of advantages and syntactical niceness as a result of this flexability.
+While this might seem very strange (especially because most fully-scoped languages have very rigid syntax), there's a lot of advantages and syntactical niceness as a result of this flexibility.
 
 ##### Always Be Willing To Take Input
 
-While the syntax is flexable, it's not unbreakable. *If you're expecting to pass an input to the directive, you must have the first thing in the syntax be the input value*. For example:
+While the syntax is flexible, it's not unbreakable. *If you're expecting to pass an input to the directive, you must have the first thing in the syntax be the input value*. For example:
 
 ```html
 <p *makePiglatin="casing 'UPPER'; 'This is a string'; let msg; let ogMsg = original">
@@ -1208,7 +1208,7 @@ I was not, however, greeted by praises on my PR making this change, but rather b
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
 
-This may seem strange upon first glance but remember: *The structural directive wraps the tag it's on inside of a template*. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_
+This may seem strange upon first glance but remember: *The structural directive wraps the tag it is on inside of a template*. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_
 
 
 #### Bind as you would - They're JUST directives!
@@ -1229,7 +1229,7 @@ This is true, but that only applies for binding to a structural directive the wa
 
 Like some of my favorite tools to use, the microsyntax has a very powerful tool that allows you to do many things. This is the `as` keyword.
 
-On paper, it sounds extremely straightforward and almost useless: It saves the context output of a specific value as a template variable. The simplest example of such is using `as` as a replacement to some of the syntax shown before:
+On paper, it sounds extremely straightforward and almost useless: It saves the context output of a specific value as a template variable. The simplest example of such is using the keyword `as` as a replacement to some of the syntax shown before:
 
 ```html
 <p *makePiglatin="let msg casing 'UPPER'; original as ogMsg">
@@ -1237,7 +1237,7 @@ On paper, it sounds extremely straightforward and almost useless: It saves the c
 
 Because `original` is being exported by the `makePiglatin` context, you can save the value to a template variable `ogMsg`.
 
-But this example doesn't showcase very much of what makes `as` as powerful as it is: It can handle more complex expressions, such as piped values:
+But this example doesn't showcase very much of what makes the `as` keyword as powerful as it is: It can handle more complex expressions, such as piped values:
 
 ```typescript
 @Component({
@@ -1258,7 +1258,7 @@ While this example can be seen clearly with this usage of `ngIf` , let's try to 
 <p *makePiglatin="let msg; casing 'upper' | uppercase as upperInUpper">{{upperInUpper}}: {{msg}}</p>
 ```
 
-In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as exected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
+In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
 The reason is because we're not exporting a key of `makePiglatinCasing` in our context to supply this value. 
 
@@ -1312,7 +1312,7 @@ sSo what is the API we want to support?
 
 `*uniFor="let item of items; let firstItem = isFirst"`
 
-Sounds reasonable enough. Just to make things even easier on us, let's not worry about re-rendering the list if it updates or properly cleaning up if this directive view unrenders. These requirement changes make our code much more simple for demonstartion purposes, but inherently makes the resulting code unfit for production. 
+Sounds reasonable enough. Just to make things even easier on us, let's not worry about re-rendering the list if it updates or properly cleaning up if this directive view unrenders. These requirement changes make our code much more simple for demonstration purposes, but inherently makes the resulting code unfit for production. 
 
 ```typescript
 @Directive({ selector: '[uniFor]' })
