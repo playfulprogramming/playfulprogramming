@@ -1088,6 +1088,136 @@ Just as before, we would use the semicolons to split the definitions, then bind 
 
 
 
+### Additional Attribute Inputs
+
+With a typical directive, you'd have inputs that you could add to your directive. For example, you could have a directive with the following inputs:
+
+```typescript
+@Directive({
+  selector: '[consoleThing]'
+})
+export class ConsoleThingDirective {
+  @Input() set consoleThing(val: string) {
+		if (this.warn) {
+			console.warn(val)
+			return
+		}
+	 	console.log(val)
+  }
+  
+  @Input() warn: boolean = false;
+}
+```
+
+
+And then call them with the following template:
+
+```html
+<ng-template [consoleThing]="'This is a warning from the 👻 of code future, refactor this please'" [warn]="true"></ng-template>
+```
+
+This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with it's own syntax and limitations due to the microsyntax API.
+
+```typescript
+export class DirectiveHere implements OnInit {
+  constructor(private templ: TemplateRef<any>,
+    private parentViewRef: ViewContainerRef) { }
+
+  @Input() makePiglatin: string;
+  @Input() makePiglatinCasing: 'upper' | 'lower';
+
+  ngOnInit() {
+    let pigLatinVal = translatePigLatin(this.makePiglatin)
+    if (this.makePiglatinCasing === 'upper') {
+      console.log('a')
+      pigLatinVal = pigLatinVal.toUpperCase();
+    } else if (this.makePiglatinCasing === 'lower') {
+      pigLatinVal = pigLatinVal.toLowerCase();
+    }
+    this.parentViewRef.createEmbeddedView(this.templ, {
+      $implicit: pigLatinVal,
+      original: this.makePiglatin
+    });
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <p *makePiglatin="'This is a string'; casing: 'upper'; let msg; let ogMsg = original">
+      {{msg}} is {{ogMsg}} in 🐷 Latin
+    </p>
+  `
+})
+export class AppComponent { }
+```
+
+You can see that I've had to tweak our previous pig latin directive example a bit.
+
+For starters, I movied away from a `set`ter for the input value and towards `ngOnInit`, just to ensure that everything was defined in the right timing.
+
+I'm also binding the value "upper" to `makePiglatinCasing` by adding `casing: 'upper'` to the input to the structural directive and then seperating it by `;`.
+
+The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. *The microsyntax is taking the  `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.* 
+
+This means that you can change the name of that input to just about anything and the syntax will handle passing it. Want to make it `makePiglatinCasingThingHere`? No problem, just change that part of the input syntax to read `casingThingHere: 'upper'`
+
+#### You Say `potatoe;` I Say `potatoe:`
+
+It's worth mentioning that the syntax for this is fairly loose. You're able to move things around a bit. If it's the second argument, you can drop the `;`
+
+```html
+<p *makePiglatin="'This is a string' casing: 'upper'; let msg; let ogMsg = original">
+```
+
+You can drop the `:` regardless of if you use the `;`
+
+```html
+<p *makePiglatin="'This is a string' casing 'upper'; let msg; let ogMsg = original">
+```
+
+```html
+<p *makePiglatin="'This is a string'; casing 'upper'; let msg; let ogMsg = original">
+```
+
+While this might seem very strange (especially because most fully-scoped languages have very rigid syntax), there's a lot of advantages and syntactical niceness as a result of this flexability.
+
+
+
+#### Why not bind like a typical input?
+
+Now, I remember when I learning a lot of the structural directive stuff, I thought "well this syntax is cool, but it might be a bit ambiguous". I decided I was going to change that a bit:
+
+```html
+<p *makePiglatin="'This is a string'; let msg; let ogMsg = original" [makePiglatinCasing]="'upper'">
+  {{msg}} is {{ogMsg}} in 🐷 Latin
+</p>
+```
+
+I was not, however, greeted by praises on my PR making this change, but rather by an error in my console:
+
+> Can't bind to 'makePiglatinCasing' since it isn't a known property of 'p'
+
+This may seem strange upon first glance but remember: *The structural directive wraps the tag it's on inside of a template*. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_
+
+
+#### Bind as you would - They're JUST directives!
+
+Okay now you just hold your horses there, you author person you. The very last thing I read was explaining the differences between structural directives and directive bindings! What gives?
+
+This is true, but that only applies for binding to a structural directive the way you would a non-structural directive because of the limitations in the microsyntax. However, because they're just directives underneath, you can use the same directive code you'd expect to.
+
+```html
+<ng-template [makePiglatin]="'This is a string'" [makePiglatinCasing]="'upper'" let-msg let-ogMsg="original">
+  <p>{{msg}} is {{ogMsg}} in 🐷 Latin</p>
+</ng-template>
+```
+
+
+
+### Microcontext
+
+
 
 
 
