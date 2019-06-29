@@ -49,19 +49,20 @@ const BlogPostTemplate = (props) => {
             justifyContent: "space-between",
           }}
         >
+          <div className="btnLike prependIcon">
+            <CommentsIcon/>
+            <p>Comments</p>
+          </div>
+
           <a className="baseBtn prependIcon" href={GHLink}>
             <GitHubIcon/>
-            View on GitHub
+            View this Post on GitHub
           </a>
 
-          <button className="baseBtn appendIcon" type="button">
-            Share this Post
-            <ShareIcon/>
-          </button>
-        </div>
-        <div className="btnLike prependIcon">
-          <CommentsIcon/>
-          <p>Comments</p>
+          {/*<button className="baseBtn appendIcon" type="button">*/}
+          {/*  Share this Post*/}
+          {/*  <ShareIcon/>*/}
+          {/*</button>*/}
         </div>
         <Disqus.DiscussionEmbed
           shortname={siteData.disqusShortname}
