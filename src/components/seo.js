@@ -98,8 +98,6 @@ function SEO({
         },
       ]
 
-  console.log(typeMetas)
-
   return (
     <Helmet
       htmlAttributes={{
