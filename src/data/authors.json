@@ -2,37 +2,16 @@
   {
     "id": "crutchcorn",
     "name": "Corbin Crutchley",
+    "firstName": "Corbin",
+    "lastName": "Crutchley",
     "blurbet": "Is a cool dood",
-    "description": "Is a super mega rad human being",
+    "description": "This is going to be a longer description. This is a test to see how well things render testing hello there why yes, how are you doing this very fine day? Oh, is that so? That's so interesting this is just me typing somewhat random text holy shit is it really 2AM",
     "socials": {
-      "twitter": "crutchcorn"
+      "twitter": "crutchcorn",
+      "github": "crutchcorn"
     },
     "pronouns": "they/themselves",
     "profileImg": "./crutchcorn.png",
     "color": "#ba68c8"
-  },
-  {
-    "id": "joe",
-    "name": "Joe Casenova",
-    "blurbet": "Is a cool dood",
-    "description": "Is a super mega rad human being",
-    "socials": {
-      "twitter": "crutchcorn"
-    },
-    "pronouns": "he",
-    "profileImg": "./crutchcorn.png",
-    "color": "#7e57c2"
-  },
-  {
-    "id": "demoperson",
-    "name": "Zuktoor Zaldarian (fka DOOM)",
-    "blurbet": "Is a cool dood",
-    "description": "Formerly known as Dr. DOOM, Zucktoor retired to spend more time with his family. Now, he’s back with a passion for software development and instruction.",
-    "socials": {
-      "twitter": "crutchcorn"
-    },
-    "pronouns": "it",
-    "profileImg": "./crutchcorn.png",
-    "color": "#ec407a"
   }
 ]

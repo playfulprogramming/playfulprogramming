@@ -71,7 +71,7 @@ export const postFragmentQuery = graphql`
     html
     frontmatter {
       title
-      date(formatString: "MMMM DD, YYYY")
+      published(formatString: "MMMM DD, YYYY")
       tags
       author {
         ...AuthorInfo

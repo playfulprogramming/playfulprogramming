@@ -26,7 +26,12 @@ const BlogAuthor = (props) => {
 
   return (
     <Layout location={props.location} title={siteTitle}>
-      <SEO title={authorData.name} description={authorData.description}/>
+      <SEO
+        title={authorData.name}
+        description={authorData.description}
+        authorData={authorData}
+        type="profile"
+      />
       <PicTitleHeader
         image={authorData.profileImg.childImageSharp.bigPic}
         title={authorData.name}

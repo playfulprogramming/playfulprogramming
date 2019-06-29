@@ -16,7 +16,7 @@ export const PostMetadata = ({ post }) => {
         <Link to={`/authors/${author.id}`} ref={authorLinkRef}><h2 className={styles.authorName}>{author.name}</h2>
         </Link>
         <div className={styles.belowName}>
-          <p className={styles.date}>{post.frontmatter.date}</p>
+          <p className={styles.date}>{post.frontmatter.published}</p>
           <p className={styles.wordCount}>{post.wordCount.words} words</p>
         </div>
       </div>

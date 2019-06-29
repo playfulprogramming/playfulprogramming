@@ -4,7 +4,7 @@ import cardStyles from "./post-card.module.scss"
 import Image from "gatsby-image"
 import { stopPropCallback } from "../../utils/preventCallback"
 
-export const PostCard = ({ title, author, date, tags, excerpt, description, className, slug }) => {
+export const PostCard = ({ title, author, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
   const authorLink = useRef();
   return (
@@ -47,7 +47,7 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
           </Link>
         </p>
         <div className={cardStyles.dateTagSubheader}>
-          <p className={cardStyles.date}>{date}</p>
+          <p className={cardStyles.date}>{published}</p>
           <div>
             {
               tags.map(tag => (

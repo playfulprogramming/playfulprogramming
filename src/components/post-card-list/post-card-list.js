@@ -39,7 +39,7 @@ export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInf
               excerpt={node.excerpt}
               title={title}
               author={overwriteAuthorInfo || node.frontmatter.author}
-              date={node.frontmatter.date}
+              published={node.frontmatter.published}
               tags={node.frontmatter.tags}
               description={node.frontmatter.description}
             />
