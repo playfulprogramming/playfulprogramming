@@ -6,12 +6,15 @@ import { stopPropCallback } from "../../utils/preventCallback"
 
 export const PostCard = ({ title, author, date, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
+  const authorLink = useRef();
   return (
     <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
-      <Link
-        to={`/authors/${author.id}`}
-        onClick={stopPropCallback}
-        className="unlink"
+      <div
+        aria-hidden={true}
+        onClick={(e) => {
+          stopPropCallback(e)
+          authorLink.current.click()
+        }}
       >
         <Image
           fixed={author.profileImg.childImageSharp.smallPic}
@@ -24,7 +27,7 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
             borderRadius: `50%`,
           }}
         />
-      </Link>
+      </div>
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}
@@ -38,6 +41,7 @@ export const PostCard = ({ title, author, date, tags, excerpt, description, clas
           <Link
             onClick={stopPropCallback}
             to={`/authors/${author.id}`}
+            ref={authorLink}
           >
             {author.name}
           </Link>

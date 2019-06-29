@@ -39,6 +39,7 @@ export const authorFragmentQuery = graphql`
     color
     socials {
       twitter
+      github
     }
     pronouns {
       they
@@ -71,7 +72,6 @@ export const postFragmentQuery = graphql`
     frontmatter {
       title
       date(formatString: "MMMM DD, YYYY")
-      license
       tags
       author {
         ...AuthorInfo

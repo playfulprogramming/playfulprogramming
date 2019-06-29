@@ -1,15 +1,20 @@
-import React from "react"
+import React, { useRef } from "react"
 import Image from "gatsby-image"
 import styles from "./post-metadata.module.scss"
+import { Link } from "@reach/router"
 
 export const PostMetadata = ({ post }) => {
   const { author } = post.frontmatter
+  const authorLinkRef = useRef()
 
   return (
     <div className={styles.container}>
-      <Image className={styles.img} fixed={author.profileImg.childImageSharp.mediumPic}/>
+      <div onClick={() => authorLinkRef.current.click()} className='pointer'>
+        <Image className={styles.img} fixed={author.profileImg.childImageSharp.mediumPic}/>
+      </div>
       <div className={styles.textDiv}>
-        <h2 className={styles.authorName}>{author.name}</h2>
+        <Link to={`/authors/${author.id}`} ref={authorLinkRef}><h2 className={styles.authorName}>{author.name}</h2>
+        </Link>
         <div className={styles.belowName}>
           <p className={styles.date}>{post.frontmatter.date}</p>
           <p className={styles.wordCount}>{post.wordCount.words} words</p>

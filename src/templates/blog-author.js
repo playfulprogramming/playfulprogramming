@@ -32,6 +32,7 @@ const BlogAuthor = (props) => {
         title={authorData.name}
         description={authorData.description}
         author={true}
+        socials={authorData.socials}
       />
       <PostList
         numberOfArticles={slugData.allMarkdownRemark.totalCount}

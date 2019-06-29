@@ -1,4 +1,5 @@
 @import 'vars';
+@import './prism';
 
 :root {
   /* Some obvious colors (dark/light) are duplicated to provide dark mode */
@@ -141,4 +142,19 @@ $pendIconMarg: #{$baseUnit * 2}px;
 .unlink {
   text-decoration: none;
   color: initial;
+}
+
+pre {
+  overflow: auto;
+  border: var(--cardOutlineStyle);
+  border-radius: 8px;
+  background: white;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.pointer {
+  cursor: pointer;
 }

@@ -42,21 +42,30 @@
 
 .socialsContainer {
   display: flex;
-
-}
-
-.socialIcon {
-  margin-top: 12px;
-  margin-right: 20px;
-}
-
-.socialBox:hover {
-  color: var(--darkPrimary);
-}
-
-.socialBox:hover .link {
-  color: var(--darkPrimary);
-  border-bottom: 1px solid var(--darkPrimary);
+  font-family: var(--oswald);
   font-size: 36px;
-  line-height: 36px;
+  color: var(--darkPrimary)
+}
+
+.socialsContainer > * {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  margin-top: 10px;
+}
+
+.socialsContainer > *:not(:first-child) {
+  margin-left: 20px;
+}
+
+.svgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialsContainer svg {
+  height: 36px;
+  width: 36px;
+  fill: none;
 }
