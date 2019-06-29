@@ -91,7 +91,69 @@ module.exports = {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
       },
     },
-    `gatsby-plugin-feed`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              const siteUrl = site.siteMetadata.siteUrl;
+              return allMarkdownRemark.edges.map(edge => {
+                const slug = edge.node.fields.slug;
+                const {frontmatter} = edge.node;
+                const nodeUrl = `${siteUrl}posts${slug}`
+                return {
+                  description: edge.node.excerpt,
+                  date: frontmatter.published,
+                  title: frontmatter.title,
+                  url: nodeUrl,
+                  guid: nodeUrl,
+                  custom_elements: [
+                    {"dc:creator": frontmatter.author.name },
+                    {comments: `${nodeUrl}#disqus_thread`}
+                  ],
+                }})
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { order: DESC, fields: [frontmatter___published] },
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { slug }
+                      frontmatter {
+                        title
+                        published
+                        author {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "Unicorn Utterances's RSS Feed",
+          },
+        ],
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

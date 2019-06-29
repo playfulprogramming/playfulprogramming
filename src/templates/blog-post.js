@@ -16,7 +16,7 @@ const BlogPostTemplate = (props) => {
   const slug = post.fields.slug
 
   const disqusConfig = {
-    url: `${siteData.siteUrl}posts/${slug}`,
+    url: `${siteData.siteUrl}posts${slug}`,
     identifier: slug,
     title: post.frontmatter.title,
   }
