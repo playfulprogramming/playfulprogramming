@@ -42,6 +42,8 @@ import posed from "react-pose"
 import filterStyles from "./filter-listbox.module.scss"
 
 import FilterIcon from "../../../assets/icons/filter.svg"
+import CheckIcon from "../../../assets/icons/check.svg"
+import UncheckIcon from "../../../assets/icons/unchecked.svg"
 
 import { useSelectRef } from "../../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../../utils/useWindowSize"
@@ -60,6 +62,7 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
         onClick={e => expanded && selectIndex(index, e, e.type)}
         id={tag.id}
         aria-selected={tag.selected}>
+      {tag.selected ? <CheckIcon/> : <UncheckIcon/>}
       <span>{tag.val}</span>
     </li>
   )
