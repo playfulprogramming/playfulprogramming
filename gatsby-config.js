@@ -1,3 +1,6 @@
+let CONSTS = require('./config/gatsby-config-consts');
+if (!CONSTS) CONSTS = {};
+
 module.exports = {
   siteMetadata: {
     title: `Unicorn Utterances`,
@@ -88,7 +91,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: `TRACKING ID HERE`,
+        trackingId: CONSTS.googleAnalytics || '',
         head: false,
         respectDNT: true,
       },
