@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Unicorn Utterances`,
-    description: `Learning programming from magically majestic words`,
+    description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
     siteUrl: `https://unicorn-utterances.com/`,
     disqusShortname: "unicorn-utterances",
     repoPath: "crutchcorn/unicorn-utterances",
@@ -224,6 +224,7 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-sitemap`
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `AuthorsJson`,

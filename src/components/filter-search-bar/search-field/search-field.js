@@ -55,6 +55,7 @@ export const SearchField = ({ className, onSearch = () => {} }) => {
           <div style={{ height: inputHeight }}/>
           <PosedInput placeholder={placeholder}
                       ref={inputRef}
+                      aria-label="Search for posts"
                       onChange={e => {
                         const val = e.target.value;
                         setInputVal(val)

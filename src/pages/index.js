@@ -25,7 +25,7 @@ const BlogIndex = (props) => {
           <PicTitleHeader
             image={data.file.childImageSharp.fixed}
             title="Unicorn Utterances"
-            description="Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions"
+            description={data.site.siteMetadata.description}
           />
           <PostList posts={posts} tags={postTags} />
         </div>
@@ -40,6 +40,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___published], order: DESC }) {

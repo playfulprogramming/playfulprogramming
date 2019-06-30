@@ -105,6 +105,11 @@ function SEO({
       }}
       title={title}
       titleTemplate={`%s | ${siteData.title}`}
+      link={[
+        { rel: "icon", href: '/favicon.ico' },
+        { rel: "preconnect", href: 'https://www.google.com' },
+        { rel: "preconnect", href: 'https://marketingplatform.google.com' },
+      ]}
       meta={[
         {
           property: `og:url`,

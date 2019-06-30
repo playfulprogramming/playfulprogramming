@@ -23,6 +23,7 @@
     "gatsby-plugin-react-svg": "^2.1.1",
     "gatsby-plugin-sass": "^2.1.0",
     "gatsby-plugin-sharp": "^2.2.1",
+    "gatsby-plugin-sitemap": "^2.2.1",
     "gatsby-plugin-transition-link": "^1.12.4",
     "gatsby-remark-autolink-headers": "^2.1.0",
     "gatsby-remark-copy-linked-files": "^2.1.0",

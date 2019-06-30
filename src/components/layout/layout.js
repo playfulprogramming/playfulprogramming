@@ -4,9 +4,8 @@ import BackIcon from "../../assets/icons/back.svg"
 import layoutStyles from "./layout.module.scss"
 import "../../global.scss"
 
-export const Layout = ({ location, title, children }) => {
+export const Layout = ({ location, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
-  let header
 
   const isBase = location.pathname === rootPath
   const isBlogPost = location.pathname.startsWith(`${rootPath}posts`)
@@ -20,7 +19,6 @@ export const Layout = ({ location, title, children }) => {
     >
       <header className={layoutStyles.header}>
         {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
-        {header}
       </header>
       <main className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</main>
       <footer>
