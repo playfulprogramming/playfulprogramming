@@ -6,7 +6,7 @@ module.exports = {
     disqusShortname: "unicorn-utterances",
     repoPath: "crutchcorn/unicorn-utterances",
     relativeToPosts: "/content/blog",
-    keywords: 'programming,development,mobile,web,game,polyglot,software engineering,javascript,docker,golang,java,nativescript,ionic framework,angular,unity'
+    keywords: 'programming,development,mobile,web,game,utterances,software engineering,javascript,angular,react,computer science'
   },
   plugins: [
     {

@@ -4,10 +4,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useOutsideClick } from "../useOutsideClick"
-
-// Make new export in @reach-ui/auto-id
-let id = 0
-const genId = () => ++id
+import { genId } from "./getNewId"
 
 /**
  * @callback selectIndexCB
