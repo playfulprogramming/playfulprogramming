@@ -25,7 +25,7 @@ const BlogIndex = (props) => {
           <PicTitleHeader
             image={data.file.childImageSharp.fixed}
             title="Unicorn Utterances"
-            description="A software development blog focused on the kinds of things they don’t teach you. Curated by Corbin Crutchley."
+            description="Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions"
           />
           <PostList posts={posts} tags={postTags} />
         </div>

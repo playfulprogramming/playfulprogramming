@@ -12,7 +12,7 @@ import { useAfterInit } from "../../utils/useAfterInit"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
-    [filterStyles.active]: active.layout === index,
+    [filterStyles.active]: active.index === index,
     [filterStyles.selected]: tag.selected,
     [filterStyles.expanded]: expanded,
   })

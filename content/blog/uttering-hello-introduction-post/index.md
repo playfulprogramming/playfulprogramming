@@ -3,7 +3,7 @@
     title: "Uttering Hello - The Site's First Post",
     published: "2019-06-29T22:12:03.284Z",
     author: 'crutchcorn',
-    tags: ['unicorn utterances', 'code of conduct'],
+    tags: ['community', 'announcements'],
     attached: []
 }
 ---

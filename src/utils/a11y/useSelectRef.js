@@ -93,10 +93,10 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
       let compareFunc = (i) => i === index
 
       // New index is before, we want to save all items before or equal
-      if (index < active.layout) {
-        compareFunc = (i) => i <= active.layout && i >= index
+      if (index < active.index) {
+        compareFunc = (i) => i <= active.index && i >= index
       } else {
-        compareFunc = (i) => i >= active.layout && i <= index
+        compareFunc = (i) => i >= active.index && i <= index
       }
 
       // Set the internal array with a new array with right items selected
@@ -140,18 +140,18 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
         let isSelecting
         if (event.key === "ArrowDown") {
           event.preventDefault()
-          _newIndex = active.layout + 1
+          _newIndex = active.index + 1
           isSelecting = event.shiftKey
         } else if (event.key === "ArrowUp") {
           event.preventDefault()
-          _newIndex = active.layout - 1
+          _newIndex = active.index - 1
           isSelecting = event.shiftKey
         } else if (enableSelect && (event.key === " " || event.key === "Spacebar")) {
           event.preventDefault()
-          _newIndex = active.layout
+          _newIndex = active.index
           isSelecting = "single"
         } else if (!enableSelect && event.key === "Enter") {
-          onSel(active.layout)
+          onSel(active.index)
         } else if (event.key === "Home") {
           event.preventDefault()
           _newIndex = 0
