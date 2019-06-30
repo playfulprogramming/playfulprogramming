@@ -155,6 +155,14 @@ function SEO({
           name: `twitter:card`,
           content: `summary_large_image`,
         },
+        {
+          name: 'og:image',
+          content: 'https://unicorn-utterances.com/share-banner.png'
+        },
+        {
+          name: 'twitter:image',
+          content: 'https://unicorn-utterances.com/share-banner.png'
+        }
       ].concat(meta).concat(typeMetas)}
     />
   )
