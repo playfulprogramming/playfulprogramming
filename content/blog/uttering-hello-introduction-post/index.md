@@ -10,13 +10,13 @@
 
 Learning itself is such an interesting thing to think about. 
 
-I'm always driven to learn more about the world around me, I simply find the act of growing in understanding on a given topic fascinating. One of the things I've come to love learning about the most is the field I'm in: Computer Science. There are so many people with such great knowledge that I've been blessed to be mentored by, be adjacent to, or even be friends with. Because of them, I am where I am today.
+I have always been driven to learn more about the world around me. I find the act of simply understanding a topic fascinating. One of the things I've come to love learning about the most is Computer Science. There are so many people with exceptional knowledge that I've been blessed to be mentored by, be adjacent to, or even be friends with. Because of them, I am where I am today.
 
-Likewise, I love being able to relay the things that others have taught me in a way that I feel to be expressive and accessible to others. As I've grown as developer and person, I've found that there seems to be a lack of resources in a number of topics that I've come across. As a result, I've spent countless hours pouring over confusing, loosely compiled, or otherwise inaccessible resources. Oftentimes, I would find myself even unable to learn despite these resources and had to rely on "playing" with the code itself or turning to others and relying on verbal affirmation of information in order to learn some topics better. Being able to take that experience and improve upon it and share it is always an exciting idea for me. 
+Likewise, I love being able to relay the things that others have taught me in a way that I feel to be expressive and accessible to others. As I've grown as a developer and person, I've found that there seems to be a lack of resources in a number of topics that I've come across. As a result, I've spent countless hours pouring over confusing, loosely compiled, or otherwise inaccessible resources. Oftentimes, I would find myself unable to learn with resources and had to rely on "playing" with the code itself or turning to others and relying on verbal affirmation of information in order to learn some topics better. Being able to take that experience and improve upon it and share it is always an exciting idea for me. 
 
-Over time, I've found myself wanting to share that information more and more, joining bootcamps to become a TA, writing some small-scale blog posts, giving talks, it's been a blast! I love meeting new people, hearing their experience, and often learning not only from talking to them, but by having to teach (which requires me to gain a deeper understanding in the things I want to teach and share). 
+Over time, I've found myself wanting to share that information more and more: joining bootcamps to become a TA, writing some small-scale blog posts, giving talks. It's been a blast! I love meeting new people, hearing their experience, and often learning not only from talking to them, but by having to teach (which requires me to gain a deeper understanding in the things I want to teach and share). 
 
-Today, I'm hoping to start on a new project to share even more and to grow what I hope to be a fantastic community around the project. I want to start a blog. Well, that might be what it is now, but I want it to be more in the future and leaving it like that is underselling the idea. Let's talk about the project's ultimate goals.
+Today, I'm starting on a new project to share even more. One of the goals of said project is to grow what I hope to be a fantastic community that is able to benefit from the things shared here and contribute to even further community engagement. I want to start a blog. Well, that might be what it is now, but I want it to be more in the future and leaving it like that is underselling the idea. Let's talk about the project's ultimate goals.
 
 # Ultimate Goals
 
@@ -32,11 +32,11 @@ This project is going to be a long-standing effort to try to write as often as p
 
 In terms of content, there is an extremely in-depth article which is being edited as we speak. Within the next few weeks, keep your eye out for new posts on the site. If you use RSS to keep up with your favorite content, [we have that as well](https://unicorn-utterances.com/rss.xml).
 
-Finally, I immediately want to be accessible to people of all forms of physical capabilities. Great care has been taking to ensure this site follows proper accessibility requirements. If there is anything on the site pertaining to accessibility that does not work, please let us know, it will be treated as diligently as any other bug preventing users from accessing the site.
+Finally, I immediately want to be accessible to people of all forms of physical capabilities. Great care has been taken to ensure this site follows proper accessibility requirements. If there is anything on the site pertaining to accessibility that does not work, please let us know, it will be treated as diligently as any other bug preventing users from accessing the site.
 
 # Who's Helped!
 
-Though the site is young, we've already had some amazing folks help us along the way of creating what we have now (and what we're going to be doing in the immediate future 🤫)
+Though the site is young, we've already had some amazing folks help us along the way creating what we have now (and what we're going to be doing in the immediate future 🤫)
 
 Starting with the logo, I've been absolutely blessed to have the amazing [Vukasin](https://twitter.com/vukash_in) (creator of CandyCons, PixBit, etc) create a fun and cute logo that you've almost certainly seen by now (if not, the homepage has it in decent quality. Go and take a peek - it's "aww" worthy for certain!)
 
@@ -44,10 +44,10 @@ As for the site's design, that was handled by the supremely talented and ever-la
 
 Due to time constraints on my part, much of his designs weren't able to be realized for the launch, but needless to say we have an exciting roadmap ahead and making his designs a reality is certainly one of them.
 
-Last, but certainly not least, the site has had some incredible help with getting the site live and deployed from [Evelyn Hathaway](https://twitter.com/evelynhathaway_). She's been an amazing help both in terms of giving suggestions and feedback on all ends of the site, but getting hosting working properly, handling SSL, redirects, etc. Sincerely couldn't do it without her
+Last, but certainly not least, the site has had some incredible help with getting the site live and deployed from [Evelyn Hathaway](https://twitter.com/evelynhathaway_). She's been an amazing help both in terms of giving suggestions and feedback on all ends of the site as well as getting hosting working properly, handling SSL, redirects, etc. Sincerely couldn't do it without her
 
 # What's Next
 
-We have some exciting stuff coming up. As mentioned before, there's going to be an in-depth post coming very soon, many posts that've been started and need editing and finalization and there's an absolutely gargantuan list of other posts I'd like to work on.
+We have some exciting stuff coming up. As mentioned before, there's going to be an in-depth post coming very soon. We also have many posts that've been started, but need editing and finalization before being sent out. That's not the end, though. There's an absolutely gargantuan list of other posts I'd like to work on, and it seems to be growing every day.
 
 You can keep up-to-date either by [following me on Twitter](https://twitter.com/crutchcorn) or by utilizing [our RSS feed](https://unicorn-utterances.com/rss.xml)
