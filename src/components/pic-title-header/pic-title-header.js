@@ -3,20 +3,21 @@ import Image from "gatsby-image"
 import styles from "./pic-title-header.module.scss"
 import GitHub from '../../assets/icons/github.svg'
 import Twitter from '../../assets/icons/twitter.svg'
+import { OutboundLink } from "gatsby-plugin-google-analytics"
 
 const SocialBtn = ({icon, text, url, name}) => {
   const nameS = useMemo(() => {
     if (name.endsWith('s')) return `${name}'`;
     return `${name}'s`;
   }, [name])
-  return <a className='unlink baseBtn lowercase prependIcon' href={url}>
+  return <OutboundLink className='unlink baseBtn lowercase prependIcon' href={url}>
     <span className={styles.svgContainer} aria-hidden={true}>{icon()}</span>
     <span className='visually-hidden'>Link to {nameS}</span>
     <span>
       {text}
     </span>
     <span className='visually-hidden'>account</span>
-  </a>
+  </OutboundLink>
 }
 
 /**

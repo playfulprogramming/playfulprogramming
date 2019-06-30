@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
 import Image from "gatsby-image"
+import { OutboundLink } from "gatsby-plugin-google-analytics"
 
 class NotFoundPage extends React.Component {
   render() {
@@ -22,7 +23,7 @@ class NotFoundPage extends React.Component {
           <br/>
           Maybe the URL has a typo in it or we've configured something wrong!
           <br/>
-          <a href={`https://github.com/${repoPath}/issues`}>If you really think it might be something we did, let us know!</a>
+          <OutboundLink href={`https://github.com/${repoPath}/issues`}>If you really think it might be something we did, let us know!</OutboundLink>
         </p>
       </Layout>
     )

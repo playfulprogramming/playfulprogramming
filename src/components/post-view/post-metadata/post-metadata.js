@@ -13,7 +13,8 @@ export const PostMetadata = ({ post }) => {
         <Image className={styles.img} fixed={author.profileImg.childImageSharp.mediumPic}/>
       </div>
       <div className={styles.textDiv}>
-        <Link to={`/authors/${author.id}`} ref={authorLinkRef}><h2 className={styles.authorName}>{author.name}</h2>
+        <Link to={`/authors/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
+          <h2 className={styles.authorName}>{author.name}</h2>
         </Link>
         <div className={styles.belowName}>
           <p className={styles.date}>{post.frontmatter.published}</p>

@@ -1,13 +1,13 @@
 import React from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
-import ShareIcon from "../assets/icons/share.svg"
 import CommentsIcon from "../assets/icons/message.svg"
 import Disqus from "disqus-react"
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
 import { PostMetadata, PostTitleHeader } from "../components/post-view"
+import { OutboundLink } from "gatsby-plugin-google-analytics"
 
 const BlogPostTemplate = (props) => {
   const post = props.data.markdownRemark
@@ -54,10 +54,10 @@ const BlogPostTemplate = (props) => {
             <p>Comments</p>
           </div>
 
-          <a className="baseBtn prependIcon" href={GHLink}>
+          <OutboundLink className="baseBtn prependIcon" href={GHLink}>
             <GitHubIcon/>
             View this Post on GitHub
-          </a>
+          </OutboundLink>
 
           {/*<button className="baseBtn appendIcon" type="button">*/}
           {/*  Share this Post*/}
