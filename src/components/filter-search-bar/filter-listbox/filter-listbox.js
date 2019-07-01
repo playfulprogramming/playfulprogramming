@@ -43,7 +43,7 @@ import filterStyles from "./filter-listbox.module.scss"
 
 import FilterIcon from "../../../assets/icons/filter.svg"
 import CheckIcon from "../../../assets/icons/check.svg"
-import {Unchecked as UncheckIcon} from "../../../assets/icons/unchecked"
+import UncheckIcon from "../../../assets/icons/unchecked.svg"
 
 import { useSelectRef } from "../../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../../utils/useWindowSize"

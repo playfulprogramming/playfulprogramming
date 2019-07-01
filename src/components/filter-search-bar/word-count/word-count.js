@@ -1,6 +1,6 @@
 import React from "react"
 import wordCountStyles from "./word-count.module.scss"
-import FeatherIcon from "../../../assets/icons/feather.svg"
+import {Feather as FeatherIcon} from "../../../assets/icons/feather"
 
 export const WordCount = ({ numberOfArticles = 0, wordCount = 0 }) => {
   return (
