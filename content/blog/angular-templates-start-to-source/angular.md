@@ -203,15 +203,52 @@ A simple example of a view is a simple `ng-template`:
 When this is rendered on screen, it becomes an "embedded view". This is because you're placing a view into another view. I'll explain:
 
 ```html
-<!-- This would be the `template` value of a component -->
-<p>I am in a view right now</p>
-<ng-template #rememberMsg>
-	But as you might recall, this is also a view
+<ng-template>
+  <p>I am in a view right now</p>
+  <ng-template #rememberMsg>
+    But as you might recall, this is also a view
+  </ng-template>
+  <ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
 </ng-template>
-<ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
 ```
 
-It's this composition of views that makeup the "view higharchy". A view can act as a view container for other views (as it is here), can be moved around, etc. 
+It's this composition of views that makeup the "view higharchy". A view can act as a "view container" for other views (as it is here), can be moved around, etc. 
+
+As a result of this "view container" being another view itself, it can also be added as a view to another view container, so on so forth.
+
+
+### A Word on Components
+
+If you're looking for them, you might notice a few similarities between component templates and `ng-template`s. Both of them allow for values to be passed into them (`@Input` props for components, context for templates), both of them are defined with the same template syntaxes (with the same HTML-like syntax).
+
+Well, there's a good reason for that: _A component is actually just a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_. This host view can also be attached to another view by using the `selector` value of that component's.
+
+```typescript
+@Component({
+  selector: "child-component",
+  template: `
+		I am the host view, and act as a view container for other views to attach to
+		<div><p>I am still in the child-component's host view</p></div>
+		<ng-template #firstChildCompTempl>
+			I am in a view outside of the child-component's host view
+		</ng-template>
+	  <ng-template [ngTemplateOutlet]="firstChildCompTempl"
+                 [ngTemplateOutletContext]="{$implicit: 'And now I'm attaching that template to the host view by embedding the view'}">
+		</ng-template>
+	`
+})
+export class ChildComponent {}
+
+
+@Component({
+  selector: 'app',
+  template: `
+		I am in app's host view, and can act as a view container for even other host views by using the component's selector
+		<child-component></child-component>
+	`
+})
+export class AppComponent {}
+```
 
 
 
@@ -219,19 +256,17 @@ It's this composition of views that makeup the "view higharchy". A view can act 
 
 
 
-You might notice a few similarities between components and directives (???), and that's because they both utilize views under-the-hood! _A component is actually a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_. This host view can also be attached to another view.
 
-
-
-
-
-Because it is not the DOM that is keeping track of the tree, it is not called the DOM but rather the "View hierarchy tree". Just as there are tags in HTML, there are "views" in Angular. Views are composed of a grouping of elements and can be dynamically manipulated based on user input, etc. 
 
 
 
 But views have limitations:
 
 >Properties of elements in a view can change dynamically, in response to user actions; the structure (number and order) of elements in a view can't. You can change the structure of elements by inserting, moving, or removing nested views within their view containers.
+
+
+
+
 
 
 
