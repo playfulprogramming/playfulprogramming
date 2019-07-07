@@ -98,14 +98,14 @@ So, now that we know what they are in broad terms, what do they look like?
 While we used the `ngTemplateOutlet` directive before to render a template, we can also pass an input to the directive `ngTemplateOutletContext` in order to pass a context. A context is just an object with a standard key/value pairing.
 
 ```html
-<ng-template [ngTemplateOutlet]="templateName"
+<ng-template [ngTemplateOutlet]="showMsgToPerson"
              [ngTemplateOutletContext]="{$implicit: 'Hello World', personName: 'Corbin'}">
 </ng-template>
 ```
 
 From there, you can use `let` declarations to create template variables in that template based on the values passed by the context like so:
 ```html
-<ng-template #templateName let-message let-thisPersonsName="personName">
+<ng-template #showMsgToPerson let-message let-thisPersonsName="personName">
   <p>{{message}} {{thisPersonsName}}</p>
 </ng-template>
 ```
@@ -118,13 +118,13 @@ Now let's see it in action!
 #### Clarification on Gotchas
 
 ##### Template Input Variable Names
-As a quick note, _I only named these template input variables differently from the context value key in order to make it clear that you may do so_. `let-personName="personName"` is not only valid, but can be clearer to other developers of it's intentions in the code.
+As a quick note, _I only named these template input variables differently from the context value key in order to make it clear that you may do so_. `let-personName="personName"` is not only valid, but can be clearer to other developers of its intentions in the code.
 
 # What A Wonderful `View`: `ViewChild`/`ContentChild`
 
 ## Keeping Logic In Your Controller - `ViewChild`
 
-While template reference variables are very useful for referencing values within the template itself, there may be times you'll want to access a reference to an item in the template from the component logic. Luckily, there's a way to get a reference to any component, directive, or view within a component template. 
+While template reference variables are very useful for referencing values within the template itself, there may be times when you'll want to access a reference to an item in the template from the component logic. Luckily, there's a way to get a reference to any component, directive, or view within a component template. 
 
 Using [`ViewChild`](https://angular.io/api/core/ViewChild), you're able to grab a reference to the `ng-template` from the component logic rather than the template code:
 
@@ -395,14 +395,14 @@ Let's start with a bit of review regarding terminologies. There are two types of
 
 ## Template Input Variables
 
-Template input variables are the variables you bind to a template when using context. `<ng-template let-var>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children of the templates, but not from a higher level* - as the context is not defined above the template:
+Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children of the templates, but not from a higher level* - as the context is not defined above the template:
 
 ```html
 <!-- ✅ This is perfectly fine -->
-<ng-template #templateOne let-varName><p>{{varName}}</p></ng-template>
+<ng-template let-varName><p>{{varName}}</p></ng-template>
 
 <!-- ❌ This will throw errors, as the template context is not available from anywhere that isn't a child of the template -->
-<ng-template #templateTwo let-thisVar></ng-template>
+<ng-template let-thisVar></ng-template>
 <p>{{thisVar}}</p>
 ```
 
@@ -427,9 +427,9 @@ _A template reference variable is a variable assigned to a tag so that other ite
 
 In this example, we're getting a reference to `testingMessage` template to be able to provide as an input. We're then passing that value to another `ng-template`'s `ngTemplateOutlet` directive to get it rendering on screen. Because the variable is defined in the same *view hierarchy tree* level, it is accessible from an element on a higher DOM tree node. This view hierarchy tree position defines all of the limitations on accessing a template reference variable.
 
-### What Kind of Tree??
+### A What Kind of Tree??
 
-Okay, so let's take that last sentence and expand on it a bit. First, a bit of background!
+Okay, I realize I just dropped some vocab on you without explaining first. Let's change that. Let's take that last sentence and expand on it a bit. First, a bit of background!
 
 So, when you build out an HTML file, you're defining the shape the document object model (DOM) takes. When you load a file similar to this:
 
@@ -455,18 +455,18 @@ A--+        |
 ```
 > Each element in this chart align the ID to the element in the chart
 
-The same could be said for Angular templates! _While Angular renders to the DOM the same as HTML, Angular also has it's own internally tree to keep track of templates defined in Angular_. 
+The same could be said for Angular templates! _While Angular renders to the DOM the same as HTML, Angular also has its own internally tree to keep track of templates defined in Angular_. 
 
-The reason Angular has it's own tree is due to the dynamic nature of Angular. In order to understand how to hide content on the fly, change out the content on screen, and know how to keep consistent expected interactions between all of this, Angular needs to have a tree to keep track of it's state.
+The reason Angular has its own tree is due to the dynamic nature of Angular. In order to understand how to hide content on the fly, change out the content on screen, and know how to keep consistent expected interactions between all of this, Angular needs to have a tree to keep track of its state.
 
-Because this tree is not the DOM itself, it shouldn't be confused with the DOM itself. _The tree Angular uses to track it's state is called the "view hierarchy tree"_. This tree is composed of various "views". _A view is a grouping of elements and is the smallest grouping of elements that can be created or destroyed together_.
+Because this tree is not the DOM itself, it shouldn't be confused with the DOM itself. _The tree Angular uses to track its state is called the "view hierarchy tree"_. This tree is composed of various "views". _A view is a grouping of elements and is the smallest grouping of elements that can be created or destroyed together_.
 
 A simple example of a view is a simple `ng-template`:
 
 ```html
-<ng-template>I am a view</ng-template>
+<ng-template>I am a view that's defined by a template</ng-template>
 <ng-template>
-  <p>So am I!</p>
+  <p>So am I! Just a different one. Everything in THIS template is in the same view</p>
   <div>Even with me in here? <span>Yup!</span></div>
 </ng-template>
 ```
@@ -479,11 +479,11 @@ When this is rendered on screen (say, by using an `ngTemplateOutlet`), it become
   <ng-template #rememberMsg>
     But as you might recall, this is also a view
   </ng-template>
-  <ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
+  <ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"></ng-template>
 </ng-template>
 ```
 
-It's this composition of views that makeup the "view higharchy". A view can act as a "view container" for other views (as it is here), can be moved around, etc. 
+It's this composition of views that makeup the "view hierarchy". A view can act as a "view container" for other views (as it is here), can be moved around, etc. 
 
 As a result of this "view container" being another view itself, it can also be added as a view to another view container, so on so forth.
 
@@ -533,7 +533,7 @@ So, as mentioned before, templates (and by proxy: views) can be stacked into one
 
 Obviously, this by itself would not render anything, but let's change that. Let's say I want to use a template outlet for both of these templates outside of the `helloThereMsg` template declaration.
 
-You might think, based on what we know about template reference variables, that rendering the `testingMessage` template as well would be a trivial task - they're accessable accross the template, no? Well, let's try:
+You might think, based on what we know about template reference variables, that rendering the `testingMessage` template as well would be a trivial task - they're accessible across the template, no? Well, let's try:
 
 ```html
 <ng-template #helloThereMsg>
@@ -558,7 +558,7 @@ host view--+
            +--->div
 ```
 
-Because the `helloThereMsg` template creates it's own view and the `testingMessage` template variable is defined, it is only able to accessable from within the `helloThereMsg` template. Because we're trying to reference it from the host view, it can't find the variable, is marked as `undefined` as a value, and does not render anything (as that's the default behavior of passing `undefined` to `ngTemplateOutlet`)
+Because the `helloThereMsg` template creates its own view and the `testingMessage` template variable is defined, it is only able to accessible, it can't find the variable, is marked as `undefined` as a value, and does not render anything (as that's the default behavior of passing `undefined` to `ngTemplateOutlet`)
 
 In order to fix this behavior, we'd need to move the second `ng-template` into the `helloThereMsg` template view
 
@@ -620,11 +620,11 @@ This, my friends, is where the conversation regarding change detection, lifecycl
 
 ## Change Detection, How Does It Work
 
-While diving into change detection in depth is a massive article all on it's own. While I'm not wanting to deviate too badly from the general discussion around templates, having a bit of understanding on change detection will help in general. That said, here's a general overview of what change detection is and how it applies to that example:
+While diving into change detection in depth is a massive article all on its own. While I'm not wanting to deviate too badly from the general discussion around templates, having a bit of understanding on change detection will help in general. That said, here's a general overview of what change detection is and how it applies to that example:
 
-_Angular has specific hooks of times when to update the UI_. Without these hooks, Angular has no way of knowing when data that's shown on screen is updated. These hooks essentially simply check when data has changed. While these checks are imperfect, they has default behavior that will handle most cases and and the ability to overwrite it and even manually trigger a check.
+_Angular has specific hooks of times when to update the UI_. Without these hooks, Angular has no way of knowing when data that's shown on screen is updated. These hooks essentially simply check when data has changed. While these checks are imperfect, they have default behavior that will handle most cases and and the ability to overwrite it and even manually trigger a check.
 
-One of the default checks that is ran when Angular is starting the intial render of a component. During this time, it will do a check of all of the values stored within the component's state. Afterwards, it will run checks whenever any data has changed whether or not to update the UI.
+One of the default checks that is ran when Angular is starting the initial render of a component. During this time, it will do a check of all of the values stored within the component's state. Afterwards, it will run checks whenever any data has changed whether or not to update the UI.
 
 These checks trigger the lifecycle method `DoCheck`, which you can manually handle. The `DoCheck` lifecycle method will trigger every time Angular detects data changes, regardless of if the check of that data does not decide to update the item on screen or not.
 
@@ -665,10 +665,10 @@ You can see that the `testingMessageCompVar` property is not defined until the `
 
 When using only the `ViewChild`, it simply updates the value of the `testingMessageCompVar` in the `AfterViewInit` lifecycle period. This value update is then in turn reflected in the template itself.
 
-However, because of the timing problems (of it not being defined previously and not showing until `ngAfterViewInit`), Angular has already ran change detection and Angular is unsure what to do with the new value. By hooking directly into the second `ngDoCheck` and updating the value by hand, Angular runs change detection and updates the value without there beiong able problems. 
+However, because of the timing problems (of it not being defined previously and not showing until `ngAfterViewInit`), Angular has already ran change detection and Angular is unsure what to do with the new value. By hooking directly into the second `ngDoCheck` and updating the value by hand, Angular runs change detection and updates the value without there being able problems. 
 
 
-I realize this is a bit confusing, but I think a further dive into lifecycle methods and change detection might help with that and would be outside of the scope of this particular article. [A resource I found extremely useful to help explain this issue came from the 3rd part "Angular University" where they walk through debugging this exact error](https://blog.angular-university.io/angular-debugging /). 
+I realize this is a bit confusing, but I think a further dive into lifecycle methods and change detection might help with that and would be outside of the scope of this particular article. [A resource I found extremely useful to help explain this issue came from the 3rd part "Angular University" where they walk through debugging this exact error](https://blog.angular-university.io/angular-debugging/). 
 
 #### Great Scott - You Control The Timing! The `static` Prop
 
@@ -805,7 +805,7 @@ console.log(embeddIndex); // This would print `0`.
 // Remember that this is a new view container made when we queried for one with DI, which is why this is the only view in it currently
 ```
 
-The view container keeps track of all of the embedded views in it's control, and when you `createEmbeddedView`, it searches for the index to insert the view into. 
+The view container keeps track of all of the embedded views in its control, and when you `createEmbeddedView`, it searches for the index to insert the view into. 
 
 
 You're also able to lookup an embedded view based on the index you're looking for using `get`. So, if you wanted to get all of the indexes being tracked by `viewContainerRef`, you'd do:
@@ -861,7 +861,6 @@ To get around this, we can use the `ng-container` tag, which allows us to get a 
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-18-create-embedd-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 #### Move/Insert Template
 
 But oh no! You'll see that the ordering is off. The simplest (and probably most obvious) solution would be to flip the order of the calls. After all, if they're based on index - moving the two calls to be in the opposite order would just fix the problem. 
@@ -871,9 +870,10 @@ But this is a blog post, and I needed a contrived example to showcase how we can
 
 ```typescript
 const newViewIndex = 0;
-this.viewContainerRef.move(embeddRef3, newViewIndex);
+this.viewContainerRef.move(embeddRef1, newViewIndex); // This will move this view to index 1, and shift every index greater than or equal to 0 up by 1
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-19-move-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 Angular provides many APIs to take an existing view and move it and modify it without having to create a new one and run change detection/etc again.
 
 If you're wanting to try out a different API and feel that `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embed it yourself manually.
@@ -887,10 +887,11 @@ ngOnInit() {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-20-insert-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 [And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/f1fb62d1e556de16c8a15054428add27fbc48fc0/packages/core/src/view/refs.ts#L174):
 
 ```typescript
-// Source code directly from Angular
+// Source code directly from Angular as of 8.0
 createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
 EmbeddedViewRef<C> {
   const viewRef = templateRef.createEmbeddedView(context || <any>{});
@@ -899,20 +900,19 @@ EmbeddedViewRef<C> {
 }
 ```
 
-
-
 ## Accessing Templates from a Directive
 
-So now that we have some understanding of how to create views programmatically, let's see how we can use directives to create them without any concept of a template being associated directly with that logic.
+Thus far, we've only used components to change and manipulate templates. However, [ADDLINK: as we've covered before](), directives and components are the same under-the-hood. As a result, _we have the ability to manipulate templates in the same way using directives rather than components_. Let's see what that might look like:
 
 ```typescript
 @Directive({
   selector: '[directiveName]'
 })
 export class DirectiveHere implements OnInit {
-  @ContentChild(TemplateRef, {static: true}) templ;
   constructor (private parentViewRef: ViewContainerRef) {
   }
+
+  @ContentChild(TemplateRef, {static: true}) templ;
 
   ngOnInit(): void {
     this.parentViewRef.createEmbeddedView(this.templ);
@@ -920,7 +920,7 @@ export class DirectiveHere implements OnInit {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
     <div directiveName>
       <ng-template>
@@ -932,7 +932,8 @@ export class DirectiveHere implements OnInit {
 export class AppComponent {}
 ```
 
-Because Angular treats directives extremely similarly to components, you'll notice this code is almost exactly the same from some of our previous component code.
+<iframe src="https://stackblitz.com/edit/start-to-source-21-directive-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+You'll notice this code is almost exactly the same from some of our previous component code.
 
 However, the lack of a template associated with the directive enables some fun stuff, for example, _we can use the same dependency injection trick we've been using to get the view container reference_ to get a reference to the template element that the directive is attached to and render it in the `ngOnInit` method like so:
 
@@ -960,6 +961,7 @@ export class DirectiveHere implements OnInit {
 export class AppComponent {}
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-22-directive-template-reference?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
 
 ```typescript
@@ -1084,8 +1086,6 @@ export class DirectiveHere implements OnInit {
 })
 export class AppComponent {}
 ```
-
-
 
 ADDLINK: [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
@@ -1345,7 +1345,7 @@ And then call them with the following template:
 <ng-template [consoleThing]="'This is a warning from the 👻 of code future, refactor this please'" [warn]="true"></ng-template>
 ```
 
-This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with it's own syntax and limitations due to the microsyntax API.
+This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with its own syntax and limitations due to the microsyntax API.
 
 ```typescript
 export class DirectiveHere implements OnInit {
@@ -1545,7 +1545,7 @@ this._context.$implicit = this._context.ngIf = condition;
 
 [The Angular section on structural directives say that you should probably study the `ngFor` code to understand them better](https://angular.io/guide/structural-directives#microsyntax). Let's do them one better - let's make our own. 
 
-Well okay, let's at least make a version of it that supports a limited part of it's API (just for conciseness). 
+Well okay, let's at least make a version of it that supports a limited part of its API (just for conciseness). 
 
 sSo what is the API we want to support?
 
