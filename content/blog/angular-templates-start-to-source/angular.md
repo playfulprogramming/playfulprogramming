@@ -43,7 +43,7 @@ While Angular templates come in many shapes and sizes, a simple but common use f
 <p *ngIf="bool; else falseTemp">True</p>
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-1?embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-1-ng-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 In this example, we are creating a template and assigning it to a [template reference variable](<https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1>). _This template reference variable will make `falseTemp` a valid variable to use as a value for other inputs in the same template._ It will then handle that variable similarly to how a variable from the component logic is handled when referenced from the template. 
 
 We are then adding the [`ngIf`](https://angular.io/api/common/NgIf) structural directive to the paragraph tag to conditionally render content to the screen.
@@ -68,7 +68,7 @@ But there's a ~~simpler~~ ~~much more complex~~ another way show the same templa
 <ng-template [ngTemplateOutlet]="bool ? ifTrueCondTempl : falseTemp"></ng-template>
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-2?embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-2-conditional-render?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 > While this is not how the `ngIf` structural template works internally, this is a good introduction to the `ngTemplateOutlet` directive, which adds functionality to the `ng-template` tag.
 >
 > If you're curious to how Angular's `ngIf` works, read on dear reader.
@@ -114,7 +114,7 @@ Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax
 
 Now let's see it in action!
 
-<iframe src="https://codesandbox.io/s/3-introduction-to-template-context-n173b?fontsize=14&module=%2Fsrc%2Fapp%2Fapp.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-3-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 #### Clarification on Gotchas
 
 ##### Template Input Variable Names
@@ -144,7 +144,7 @@ export class AppComponent {
 }
 ```
 
-<iframe src="https://codesandbox.io/s/4-the-solution-viewchild-nsorf?fontsize=14&module=%2Fsrc%2Fapp%2Fapp.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-4-viewchild?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 >  While this example is effectively not-much-more than an alternative API to `ngTemplateOutlet`, it serves as a basis for introducing into further concepts
 
 _ViewChild` is a "property decorator" utility for Angular which will search the component view tree to find whatever you're looking for._ In the example above, when we pass a string of `'templName'`, we are looking for something in the tree that is marked with the template variable `helloMsg`. In this case, it's an `ng-template`, which is then stored to the `helloMessageTemplate` property when this is found. Because it is a reference to a template, we are typing it as `TemplateRef<any>` to have TypeScript understand the typings whenever it sees this variable. 
@@ -174,7 +174,7 @@ console.log(this.myComponent.inputHere); // This will print `50`
 
 It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
 
-<iframe src="https://codesandbox.io/s/5-viewing-isnt-just-for-3y48n?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-5-view-not-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 Despite the examples thus far having only used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
 ```typescript
 /* This would replace the previous @ViewChild */
@@ -206,7 +206,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 ```
 
 
-<iframe src="https://codesandbox.io/s/6-read-prop-94mp1?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-6-read-prop?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
  `ViewChild` isn't an only child though (get it?). There are other APIs similar to it that will allow you to get references to other items in your templates from your component logic. 
 
 ## It's like talking to me: You're flooded with references! - `ViewChildren`
@@ -228,7 +228,7 @@ export class AppComponent {
 }
 ```
 
-<iframe src="https://codesandbox.io/s/7-viewchildren-3fyjq?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-7-viewchildren?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` property from the `ViewChild` property decorator to get a `QueryList<ElementRef>` (to be able to get the reference to the DOM [Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element) themselves) instead of a query list of `MyComponentComponent` types.
 
 ### What is `QueryList`
@@ -258,7 +258,7 @@ this.myComponents.changes.subscribe(compsQueryList => {
 });
 ```
 
-<iframe src="https://codesandbox.io/s/8-query-list-yskrw?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-8-querylist?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 It might be a good idea to gain familiarity of doing this, as the Angular docs leave the warning when reading through [`QueryList` docs](https://angular.io/api/core/QueryList#changes):
 
 > NOTE: In the future this class will implement an Observable interface.
@@ -336,7 +336,7 @@ export class CardsList implements AfterViewInit {
 
 Awesome, let's spin that up and… Oh.
 
-<iframe src="https://codesandbox.io/s/9-conentchildren-cards-not-grey-b0ub1?fontsize=14" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-9-cardlist-broke?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 The cards are still grey. Let's open up our terminal and see if the `console.log`s ran. 
 
 They didn't.
@@ -351,7 +351,7 @@ If we change the `ViewChildren` line to read:
 @ContentChildren(ActionCard, {read: ElementRef}) actionCards;
 ```
 
-<iframe src="https://codesandbox.io/s/10-conentchildren-fixed-cards-ww0pg?fontsize=149" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-10-cardlist-fixed?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 We'll see that the code now runs as expected. Cards are recolored, consoles are ran, developers happy.
 
 ### The Content Without the `ng`
@@ -384,11 +384,330 @@ export class AppComponent {
 
 This is a perfect example of where you might want `@ContentChild` - not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
 
-# Shtuff
+
+# Template Variable Access
+
+There are two types of template variables: _template input variables_ and _template reference variables_.
+
+## Template Input Variables
+
+Template input variables are the variables you bind to a template when using context. `<ng-template let-var>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children of the templates, but not from a higher level* - as the context is not defined above the template:
+
+```html
+<!-- ✅ This is perfectly fine -->
+<ng-template #templateOne let-varName><p>{{varName}}</p></ng-template>
+
+<!-- ❌ This will throw errors, as the template context is not available from anywhere that isn't a child of the template -->
+<ng-template #templateTwo let-thisVar></ng-template>
+<p>{{thisVar}}</p>
+```
+
+## Template Reference Variables
+
+Template reference variables, however, have a much more complex answer in regards to how they're able to be accessed.
+
+As a small review of what they are:
+_A template reference variable is a variable assigned to a tag so that other items in the same template are able to reference that tag._
+
+```html
+<div>
+	Hello There!
+	<ng-template #testingMessage><p>Testing 123</p></ng-template>
+</div>
+<ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
+
+<!-- Will now show the following in the DOM: -->
+<!--        <div>Hello There!</div>          -->
+<!--           <p>Hi There</p>               -->
+```
+
+In this example, we're getting a reference to `testingMessage` template to be able to provide as an input. We're then passing that value to another `ng-template`'s `ngTemplateOutlet` directive to get it rendering on screen. Because the variable is defined in the same *view hierarchy tree* level, it is accessible from an element on a higher DOM tree node. This view hierarchy tree position defines all of the limitations on accessing a template reference variable.
+
+### What Kind of Tree??
+
+Okay, so let's take that last sentence and expand on it a bit. First, a bit of background!
+
+So, when you build out an HTML file, you're defining the shape the document object model (DOM) takes. When you load a file similar to this:
+
+```html
+<!--index.html-->
+<!-- ids are only added for descriptive purposes -->
+<main id="A">
+	<ul id="B">
+		<li id="C">Item 1</li>
+		<li id="D">Item 2</li>
+	</ul>
+	<p id="E">Text here</p>
+</main>
+```
+
+_The browser takes the items that've been defined in HTML and turns them into a tree that the browser can understand how to layout and draw on the screen_. That tree, internally, might look something like this:
+
+```
+   +--->B---+->C
+A--+        |
+   |        +->D
+   +--->E
+```
+> Each element in this chart align the ID to the element in the chart
+
+The same could be said for Angular templates! _While Angular renders to the DOM the same as HTML, Angular also has it's own internally tree to keep track of templates defined in Angular_. 
+
+The reason Angular has it's own tree is due to the dynamic nature of Angular. In order to understand how to hide content on the fly, change out the content on screen, and know how to keep consistent expected interactions between all of this, Angular needs to have a tree to keep track of it's state.
+
+Because this tree is not the DOM itself, it shouldn't be confused with the DOM itself. _The tree Angular uses to track it's state is called the "view hierarchy tree"_. This tree is composed of various "views". _A view is a grouping of elements and is the smallest grouping of elements that can be created or destroyed together_.
+
+A simple example of a view is a simple `ng-template`:
+
+```html
+<ng-template>I am a view</ng-template>
+<ng-template>
+  <p>So am I!</p>
+  <div>Even with me in here? <span>Yup!</span></div>
+</ng-template>
+```
+
+When this is rendered on screen (say, by using an `ngTemplateOutlet`), it becomes an "embedded view". This is because you're placing a view into another view. I'll explain:
+
+```html
+<ng-template>
+  <p>I am in a view right now</p>
+  <ng-template #rememberMsg>
+    But as you might recall, this is also a view
+  </ng-template>
+  <ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
+</ng-template>
+```
+
+It's this composition of views that makeup the "view higharchy". A view can act as a "view container" for other views (as it is here), can be moved around, etc. 
+
+As a result of this "view container" being another view itself, it can also be added as a view to another view container, so on so forth.
+
+### A Word on Components
+
+If you're looking for them, you might notice a few similarities between component templates and `ng-template`s. Both of them allow for values to be passed into them (`@Input` props for components, context for templates), both of them are defined with the same template syntaxes (with the same HTML-like syntax).
+
+Well, there's a good reason for that: _A component is actually just a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_. This host view can also be attached to another view by using the `selector` value of that component's.
+
+```typescript
+@Component({
+  selector: "child-component",
+  template: `
+		I am the host view, and act as a view container for other views to attach to
+		<div><p>I am still in the child-component's host view</p></div>
+		<ng-template #firstChildCompTempl>
+			I am in a view outside of the child-component's host view
+		</ng-template>
+	  <ng-template [ngTemplateOutlet]="firstChildCompTempl"
+                 [ngTemplateOutletContext]="{$implicit: 'And now I'm attaching that template to the host view by embedding the view'}">
+		</ng-template>
+	`
+})
+export class ChildComponent {}
+
+
+@Component({
+  selector: 'app',
+  template: `
+		I am in app's host view, and can act as a view container for even other host views by using the component's selector
+		<child-component></child-component>
+	`
+})
+export class AppComponent {}
+```
+
+## Template Variable View 
+
+So, as mentioned before, templates (and by proxy: views) can be stacked into one-another like so:
+
+```html
+<ng-template #helloThereMsg>
+	Hello There!
+	<ng-template #testingMessage><p>Testing 123</p></ng-template>
+</ng-template>
+```
+
+Obviously, this by itself would not render anything, but let's change that. Let's say I want to use a template outlet for both of these templates outside of the `helloThereMsg` template declaration.
+
+You might think, based on what we know about template reference variables, that rendering the `testingMessage` template as well would be a trivial task - they're accessable accross the template, no? Well, let's try:
+
+```html
+<ng-template #helloThereMsg>
+	Hello There!
+	<ng-template #testingMessage><p>Testing 123</p></ng-template>
+</ng-template>
+<div>
+  <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+</div>
+<ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
+```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-11-broke-template-var?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+But you'll notice that `testingMessage` isn't rendering, why is that?
+
+Template reference variables bind to the view that they're present in. Like with CSS applied to a DOM element, they apply to the element itself and children, but not the parent.
+
+
+```
+           +-->helloThereMsg view--+-->testingMessage
+host view--+
+           +--->div
+```
+
+Because the `helloThereMsg` template creates it's own view and the `testingMessage` template variable is defined, it is only able to accessable from within the `helloThereMsg` template. Because we're trying to reference it from the host view, it can't find the variable, is marked as `undefined` as a value, and does not render anything (as that's the default behavior of passing `undefined` to `ngTemplateOutlet`)
+
+In order to fix this behavior, we'd need to move the second `ng-template` into the `helloThereMsg` template view
+
+```html
+<ng-template #helloThereMsg>
+	Hello There!
+	<ng-template #testingMessage><p>Testing 123</p></ng-template>
+	<ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
+</ng-template>
+<div>
+  <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+</div>
+```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-12-fixed-template-var?embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+## Timings - The Bane of any JavaScript developer, now with `ViewChild`
+
+But the example immediately above doesn't have the same behavior as the one before that. We wanted to get:
+
+```html
+<div>Hello there!</div>
+<p>Testing 123</p>
+```
+
+And instead got:
+
+```html
+<div>Hello there! <p>Testing 123</p></div>
+```
+
+Luckily, we've already covered `@ViewChild`, which is able to get references from further down the view tree than the template is able to.
+
+```typescript
+@Component({
+  selector: "my-app",
+  template: `
+    <ng-template #helloThereMsg>
+      Hello There!
+      <ng-template #testingMessage>Testing 123</ng-template>
+    </ng-template>
+    <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+    <ng-template [ngTemplateOutlet]="testingMessageCompVar"></ng-template>
+  `
+})
+export class AppComponent {
+  @ViewChild("testingMessage", { static: false }) testingMessageCompVar;
+}
+```
+
+Something you'll see if you open the console in that example is the classic error:
+
+```
+Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngTemplateOutlet: undefined'. Current value: 'ngTemplateOutlet: [object Object]'.
+```
+
+This error is being thrown by Angular's developer mode (so if you're running a production build, this error will not show). But why is this error happening? What can we do to fix it?
+
+This, my friends, is where the conversation regarding change detection, lifecycle methods, and the `static` prop come into play.
+
+## Change Detection, How Does It Work
+
+While diving into change detection in depth is a massive article all on it's own. While I'm not wanting to deviate too badly from the general discussion around templates, having a bit of understanding on change detection will help in general. That said, here's a general overview of what change detection is and how it applies to that example:
+
+_Angular has specific hooks of times when to update the UI_. Without these hooks, Angular has no way of knowing when data that's shown on screen is updated. These hooks essentially simply check when data has changed. While these checks are imperfect, they has default behavior that will handle most cases and and the ability to overwrite it and even manually trigger a check.
+
+One of the default checks that is ran when Angular is starting the intial render of a component. During this time, it will do a check of all of the values stored within the component's state. Afterwards, it will run checks whenever any data has changed whether or not to update the UI.
+
+These checks trigger the lifecycle method `DoCheck`, which you can manually handle. The `DoCheck` lifecycle method will trigger every time Angular detects data changes, regardless of if the check of that data does not decide to update the item on screen or not.
+
+
+So let's look at the example we had previously, but let's add some lifecycle methods to evaluate when `ViewChild` is able to give us our value.
+
+```typescript
+export class AppComponent implements DoCheck, OnChanges, AfterViewInit {
+  realMsgVar: TemplateRef<any>;
+  @ViewChild("testingMessage", { static: false }) testingMessageCompVar;
+
+  ngOnInit() {
+    console.log("ngOnInit: The template is present?", !!this.testingMessageCompVar)
+  }
+  
+  ngDoCheck() {
+    console.log("ngDoCheck: The template is present?", !!this.testingMessageCompVar);
+    this.realMsgVar = this.testingMessageCompVar;
+  }
+  
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit: The template is present?', !!this.testingMessageCompVar);
+  }
+}
+```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-13-lifecycle-explain?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+Looking at the console logs, you'll be left with the following messages in your console:
+
+```diff
+- ngOnInit: The template is present? false
+- ngDoCheck: The template is present? false
++ ngAfterViewInit: The template is present? true
++ ngDoCheck: The template is present? true
+```
+
+You can see that the `testingMessageCompVar` property is not defined until the `ngAfterViewInit`. _The reason we're hitting the error previously is that the template is not defined in the component logic until `ngAfterViewInit`._ *The template is not defined in the component logic because the template is being declared in an embedded view.* As a result, the `helloThereMsg` template must render first, then the `ViewChild` can get a reference to the child after the initial update.
+
+When using only the `ViewChild`, it simply updates the value of the `testingMessageCompVar` in the `AfterViewInit` lifecycle period. This value update is then in turn reflected in the template itself.
+
+However, because of the timing problems (of it not being defined previously and not showing until `ngAfterViewInit`), Angular has already ran change detection and Angular is unsure what to do with the new value. By hooking directly into the second `ngDoCheck` and updating the value by hand, Angular runs change detection and updates the value without there beiong able problems. 
+
+
+I realize this is a bit confusing, but I think a further dive into lifecycle methods and change detection might help with that and would be outside of the scope of this particular article. [A resource I found extremely useful to help explain this issue came from the 3rd part "Angular University" where they walk through debugging this exact error](https://blog.angular-university.io/angular-debugging /). 
+
+#### Great Scott - You Control The Timing! The `static` Prop
+
+But there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
+
+>  Before I go much further, I will remind viewers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810) - if you're running a version prior to that, this section will not apply to the syntax of how you'd use `ViewChild`/`ContentChild`
+
+Well, that can be controlled via the `static` prop!
+
+```typescript
+@Component({
+  selector: "my-app",
+  template: `
+		<div>
+			<p>Hello?</p>
+	    <ng-template #helloThereMsg>
+    	  Hello There!
+  	  </ng-template>
+		</div>
+    <ng-template [ngTemplateOutlet]="realMsgVar"></ng-template>
+  `
+})
+export class AppComponent {
+  @ViewChild("helloThereMsg", { static: true }) realMsgVar;
+}
+```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-14-static?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+Because this example does not have the `helloThereMsg` template within another view (outside of the host view), it is able to render without the errors we found when using `static: true`). Likewise, if you were to add an `OnInit` lifecycle method, you'd be able to get a reference to that template.
+
+```typescript
+ngOnInit() {
+	console.log(!!this.realMsgVar); // This would output true
+}
+```
+
+While you might wonder "Why would you use `static: false` if you can get the access within the `ngOnInit`", the answer is fairly similarly: _when using `static: true`, the `ViewChild` prop never updates after the initial `DoCheck` lifecycle check_. This means that your value will never update from `undefined` when trying to get the reference to a template from within a child view.
 
 
 
+When taking the example with the `testingMessageCompVar` prop and changing the value to `true`, it will never render the other component since it will always stay `undefined`.
 
+<iframe src="https://stackblitz.com/edit/start-to-source-15-static-first-check?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 # Embedded Views - Is That Some Kind of Picture Frame?
 
 ### If It Is, This Is The Green Screen - Some Background on Them
