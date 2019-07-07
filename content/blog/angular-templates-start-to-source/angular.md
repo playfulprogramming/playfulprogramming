@@ -387,7 +387,11 @@ This is a perfect example of where you might want `@ContentChild` - not only are
 
 # Template Variable Access
 
-There are two types of template variables: _template input variables_ and _template reference variables_.
+Awesome! We've been blowing through some of the real-world uses of templates like a bullet-train through a tunnel 🚆 But I have something to admit: I feel like I've been doing a pretty bad job at explaining the "nitty-gritty" of "how" this stuff works. While that can often be a bit more dry of a read, I think it's very important to being able to use these APIs to their fullest potential. As such, let's take a step back and read through some of the more abstract behind them. 
+
+
+
+Let's start with a bit of review regarding terminologies. There are two types of template variables: _template input variables_ and _template reference variables_.
 
 ## Template Input Variables
 
@@ -723,8 +727,6 @@ While we've covered how to insert a component using `ngTemplate`,  Angular also 
 Let's show an example of how we can render an `ng-template` using TypeScipt component logic:
 
 ```typescript
-import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef } from '@angular/core';
-
 @Component({
   selector: 'my-app',
   template: `
@@ -739,8 +741,8 @@ import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewC
   `
 })
 export class AppComponent implements OnInit {
-  @ViewChild('viewContainerRef', {read: ViewContainerRef}) viewContainerRef;
-  @ViewChild('templ', {read: TemplateRef}) templ;
+  @ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
+  @ViewChild('templ', {read: TemplateRef, static: true}) templ;
 
   ngOnInit() {
     this.viewContainerRef.createEmbeddedView(this.templ);
@@ -748,6 +750,7 @@ export class AppComponent implements OnInit {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-16-createembeddedview?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 This example has a lot going on, so let's dissect it bit-by-bit.
 
 Starting with some small recap:
@@ -755,12 +758,13 @@ Starting with some small recap:
 - We're creating a template with the `ng-template` tag and assigning it to a template reference variable `templ`
 - We're also creating a `div` tag, assigning it to the template reference variable `viewContainerRef`
 - Lastly, `ViewChild` is giving us a reference to the template on the `templ` component class property.
+  - We're able to mark both of these as `static: true` as neither of them are obfuscated by non-host-view views as parents
 
 Now the new stuff:
 
 - We're also using `ViewChild` to assign the template reference variable `viewContainerRef` to a component class property.
   - We're using the `read` prop to give it the [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef) class, which includes some methods to help us create embedded view
-- Then, in the `ngOnInit` lifecycle ([since neither of our `ViewChild` references are in embedded views themselves](#lakjsdf)), we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
+- Then, in the `ngOnInit` lifecycle, we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
 
 If you take a look at your element debugger, you'll notice that the template is injected as a sibling to the `.testing` div:
 
@@ -773,9 +777,17 @@ If you take a look at your element debugger, you'll notice that the template is 
 </ul>
 ```
 
-[While this has confused many developers, who have expected the embedded view to be children of the `ViewContainer` reference element](https://github.com/angular/angular/issues/9035), this is intentional behavior (as-per their comments in the thread), and is consistent with other APIs similar to it.
+[While this has confused many developers, who have expected the embedded view to be children of the `ViewContainer` reference element](https://github.com/angular/angular/issues/9035), this is intentional behavior, and is consistent with other APIs similar to it.
 
-The reasoning behind this has a lot to do with how **embedded views are tracked**, they're referenced **by Angular in it's source code by it's index**!
+The reason for this is that _Angular is creating a `ViewContainer` as the parent of the element when the user queries for one_. From there, Angular is "appending" the new view into the view container (as a view container is a view itself, and a view cannot have the number of elements in it modified without inserting a new view).
+
+Why would it make one as a parent rather than the element itself? 
+
+Not all elements accept children inputs, IE: `</br>`. As a result, the Angular team thought it be best to make the parent the view container when a user queries for one (or uses the dependency injection to get a reference to one, as we are in this example).
+
+### See How The View Is Tracked
+
+Because all views are unable to mutate the number of items without explicitly moving, creating, or destroying themselves, the view container is able to track all of the views via index.
 
 For example, if you wanted to see the index, we could use an API on the view container to get the index of the embedded view. To do this, we'd first need a reference of the embedded view in our template logic.
 
@@ -789,7 +801,8 @@ From there, we can use the `indexOf` method on the parent `ViewContainerRef`:
 
 ```typescript
 const embeddIndex = this.viewContainerRef.indexOf(embeddRef);
-console.log(embeddIndex); // This would print `0`
+console.log(embeddIndex); // This would print `0`.
+// Remember that this is a new view container made when we queried for one with DI, which is why this is the only view in it currently
 ```
 
 The view container keeps track of all of the embedded views in it's control, and when you `createEmbeddedView`, it searches for the index to insert the view into. 
@@ -805,6 +818,7 @@ ngOnInit() {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-17-see-viewcontainer-indexes?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 #### Context
 
 Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start counting from, you could pass a context, ADDLINK: [with the same object structure we did before](#pass-data-to-template—the-template-context), have:
@@ -825,8 +839,8 @@ import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewC
   `
 })
 export class AppComponent implements OnInit {
-  @ViewChild('viewContainerRef', {read: ViewContainerRef}) viewContainerRef;
-  @ViewChild('templ', {read: TemplateRef}) templ;
+  @ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
+  @ViewChild('templ', {read: TemplateRef, static: true}) templ;
 
   ngOnInit() {
     const embeddRef3: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
@@ -844,6 +858,9 @@ To get around this, we can use the `ng-container` tag, which allows us to get a 
 ```html
 <ng-container #viewContainerRef></ng-container>
 ```
+
+
+<iframe src="https://stackblitz.com/edit/start-to-source-18-create-embedd-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 #### Move/Insert Template
 
