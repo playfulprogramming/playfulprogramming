@@ -4,7 +4,7 @@
 
 One of the core concepts to the Angular framework is the idea of templates. Templates allow developers to create embedded views of UI from other locations.
 
-These templates not only power many of Angular's baseline features, but are extremely versatile in their capabilities and serve as a powerful tool to leverage.
+These templates not only power many of Angular's baseline features, but are extremely versatile in their capabilities and serve as powerful tools to leverage.
 
 - Templates are able to be passed and called manually similarly to functions.
 - You can leverage  a set of APIs built into these templates to pass and manipulate data from one template to another during the render process
@@ -19,11 +19,11 @@ While this article is far from a comprehensive list of all template related APIs
 - `createEmbeddedView`
 - [Structural Directives](<https://angular.io/guide/structural-directives#asterisk>) (such as `*ngIf`)
 
-While a lot of these examples are going to be small/silly/contrived, they loosely come from patterns I've seen in very large Angular libraries. One of the coolest aspects of templates is the ability to make APIs of consumable codebases which read more naturally and are more feature-filled when leveraged properly. 
+A lot of these examples are going to be small, silly, and contrived; however they loosely come from patterns I've seen in very large Angular libraries. One of the coolest aspects of templates is the ability to make APIs of consumable codebases which read more naturally and are more feature-filled when leveraged properly. 
 
 This article was written with the idea that the reader is at least somewhat familiar with the introductory concepts of Angular. If you haven't yet done so, the fantastic [Angular getting started guide](https://angular.io/start) is a great place to start.
 
-By the end of this article, you'll not only have read some of Angular's source code (as of [commit 641a4ea](https://github.com/angular/angular/commit/641a4ea763e9eb2d41e5225a1c554802668a470b)), but should have a better understanding of how to implement many of these tools and how some of the APIs you use daily work under-the-hood.
+By the end of this article, you'll not only have read some of Angular's source code (as of 8.0.1 [[commit e1f6d15](https://github.com/angular/angular/commit/e1f6d1538784eb87f7497bef27e3c313184c2d30)]), but should have a better understanding of how to implement many of these tools and how some of the APIs you use daily work under-the-hood.
 
 It's going to be a long article, so please feel free to take breaks, grab a drink to enjoy while reading, pause to tinker with code, or anything in-between. Feedback is always welcomed and appreciated.
 
@@ -491,7 +491,13 @@ As a result of this "view container" being another view itself, it can also be a
 
 If you're looking for them, you might notice a few similarities between component templates and `ng-template`s. Both of them allow for values to be passed into them (`@Input` props for components, context for templates), both of them are defined with the same template syntaxes (with the same HTML-like syntax).
 
-Well, there's a good reason for that: _A component is actually just a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_. This host view can also be attached to another view by using the `selector` value of that component's.
+Well, there's a good reason for that: _A component is actually just a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_.
+
+ [To quote the Angular documentation](https://angular.io/guide/architecture-components#directives):
+
+> A component is technically a directive. However, components are so distinctive and central to Angular applications that Angular defines the `@Component()` decorator, which extends the `@Directive()`decorator with template-oriented features.
+
+This host view can also be attached to another view by using the `selector` value of that component's.
 
 ```typescript
 @Component({
@@ -888,10 +894,10 @@ ngOnInit() {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-20-insert-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-[And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/f1fb62d1e556de16c8a15054428add27fbc48fc0/packages/core/src/view/refs.ts#L174):
+[And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/core/src/view/refs.ts#L174):
 
 ```typescript
-// Source code directly from Angular as of 8.0
+// Source code directly from Angular as of 8.0.1
 createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
 EmbeddedViewRef<C> {
   const viewRef = templateRef.createEmbeddedView(context || <any>{});
@@ -906,9 +912,9 @@ Thus far, we've only used components to change and manipulate templates. However
 
 ```typescript
 @Directive({
-  selector: '[directiveName]'
+  selector: '[renderTheTemplate]'
 })
-export class DirectiveHere implements OnInit {
+export class RenderTheTemplateDirective implements OnInit {
   constructor (private parentViewRef: ViewContainerRef) {
   }
 
@@ -922,7 +928,7 @@ export class DirectiveHere implements OnInit {
 @Component({
   selector: 'my-app',
   template: `
-    <div directiveName>
+    <div renderTheTemplate>
       <ng-template>
           <p>Hello</p>
       </ng-template>
@@ -940,20 +946,20 @@ However, the lack of a template associated with the directive enables some fun s
 
 ```typescript
 @Directive({
-  selector: '[directiveName]'
+  selector: '[renderTheTemplate]'
 })
-export class DirectiveHere implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef, private templ: TemplateRef<any>) {}
+export class RenderTheTemplateDirective implements OnInit {
+  constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
 
   ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templ);
+    this.parentViewRef.createEmbeddedView(this.templToRender);
   }
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
-    <ng-template directiveName>
+    <ng-template renderTheTemplate>
         <p>Hello</p>
     </ng-template>
   `
@@ -966,22 +972,22 @@ With directives, we can even create an input with the same name, and just pass t
 
 ```typescript
 @Directive({
-  selector: '[directiveName]'
+  selector: '[renderTheTemplate]'
 })
-export class DirectiveHere implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef, private templ: TemplateRef<any>) {}
+export class RenderTheTemplateDirective implements OnInit {
+  constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
 
-  @Input() directiveName: string;
+  @Input() renderTheTemplate: string;
 
   ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templ, {$implicit: this.directiveName});
+    this.parentViewRef.createEmbeddedView(this.templToRender, {$implicit: this.renderTheTemplate});
   }
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
-    <ng-template [directiveName]="'Hi there!'" let-message>
+    <ng-template [renderTheTemplate]="'Hi there!'" let-message>
         <p>{{message}}</p>
     </ng-template>
   `
@@ -989,29 +995,33 @@ export class DirectiveHere implements OnInit {
 export class AppComponent {}
 ```
 
-With this syntax, we can add a second input, pass an object as the context to one of the inputs, and then a template reference variable, and be able to recreate Angular's `templateOutlet`
+> I want to make clear that this trick is present in all directives. If you name the input the same as the directive name, it will bind the value you're passing in to that directive name while also associating the directive with the component. No need for a seperate input and directive name!
+
+<iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+Starting to look a bit more like the `ngTemplateOutlet`, no? Well, why not go even further! Let's lean into that! 
+With this syntax, we can add a second input, pass an object as the context to the template we want to render, and then a template reference variable, and be able to recreate Angular's `ngTemplateOutlet`'s API almost to-a-T:
 
 ```typescript
 @Directive({
-  selector: '[directiveName]'
+  selector: '[renderTheTemplate]'
 })
-export class DirectiveHere implements OnInit {
+export class RenderTheTemplateDirective implements OnInit {
   constructor (private parentViewRef: ViewContainerRef) {
   }
 
-  @Input() directiveName: TemplateRef<any>;
-  @Input() directiveNameContext: Object;
+  @Input() renderTheTemplate: TemplateRef<any>;
+  @Input() renderTheTemplateContext: Object;
 
   ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.directiveName,  this.directiveNameContext);
+    this.parentViewRef.createEmbeddedView(this.renderTheTemplate,  this.renderTheTemplateContext);
   }
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
-    <ng-template [directiveName]="template1"
-                 [directiveNameContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
+    <ng-template [renderTheTemplate]="template1"
+                 [renderTheTemplateContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
     <ng-template #template1 let-message>
         <p>Testing from <code>template1</code>: <b>{{message}}</b></p>
     </ng-template>
@@ -1020,10 +1030,11 @@ export class DirectiveHere implements OnInit {
 export class AppComponent {}
 ```
 
-While a very rudimentary example, it's not entirely dis-similar to how Angular writes the component internally:
+<iframe src="https://stackblitz.com/edit/start-to-source-24-directive-outlet-alternative?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+The nice part is that not only does it look like the directive from it's usage, [it's not entirely dis-similar to how Angular writes the component internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_template_outlet.ts#L35):
 
 ```typescript
-// This is Angular source code with some lines removed (but none modified otherwise).
+// This is Angular source code as of 8.0.1 with some lines removed (but none modified otherwise).
 // The lines removed were some performance optimizations by comparing the previous view to the new one
 @Directive({selector: '[ngTemplateOutlet]'})
 export class NgTemplateOutlet implements OnChanges {
@@ -1047,12 +1058,6 @@ export class NgTemplateOutlet implements OnChanges {
 }
 ```
 
-### A Note on Components
-
-Now that you've dived a bit deeper into templates, it might be a fun time to point out that components are just a type of Directives. [To quote the Angular documentation](https://angular.io/guide/architecture-components#directives):
-
-> A component is technically a directive. However, components are so distinctive and central to Angular applications that Angular defines the `@Component()` decorator, which extends the `@Directive()`decorator with template-oriented features.
-
 # Structural Directives - What Sorcery is this?
 
 If you've used Angular in any scale of application, you've ran into Angular helpers that look a lot like directives and start with a `*` such as `*ngIf` and `*ngFor`. These helpers are known as **structural directives**  and are built upon all of the things we've learned to this point. 
@@ -1066,7 +1071,7 @@ Let's look at a basic sample to start:
 @Directive({
   selector: '[renderThis]'
 })
-export class DirectiveHere implements OnInit {
+export class RenderThisDirective implements OnInit {
   constructor (private templ: TemplateRef<any>,
                private parentViewRef: ViewContainerRef) {
   }
@@ -1077,7 +1082,7 @@ export class DirectiveHere implements OnInit {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
       <p *renderThis>
           Rendering from <code>structural directive</code>
@@ -1087,9 +1092,10 @@ export class DirectiveHere implements OnInit {
 export class AppComponent {}
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 ADDLINK: [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
-Too much CS speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template. 
+Too much CS (computer science) speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template. 
 
 From there, the directive can get a reference to that template from the constructor (as Angular is nice enough to pass the template to our directive when we ask for it [this is what the DI system does]).
 
@@ -1102,11 +1108,12 @@ The cool part about structural directives, though? Because they're simply direct
   </p>
 </ng-template> 
 ```
+<iframe src="https://stackblitz.com/edit/start-to-source-26-structural-directive-manually-apply?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 It is for this reason that **only one structural directive can be applied to one element**. Otherwise, how would it know what order to wrap those directives in? What template should get what reference to what template?
 
 ### Building A Basic `*ngIf`
 
-But rendering a template without changing it in any way isn't a very useful structural directive. Remove that directive and your code has exactly the same behavior. However, Angular provides something not-altogether-different from what we started on as a useful utility to hide/show a view based on a boolean's truthiness: `ngIf`. 
+But rendering a template without changing it in any way isn't a very useful structural directive. Remove that structural directive and your code has exactly the same behavior. However, Angular provides something not-altogether-different from what we started on as a useful utility to hide/show a view based on a boolean's truthiness: `ngIf`. 
 
 So if we added an input with the same name as the directive (ADDLINK: [as we did previously]()) to accept a value to check the truthiness of, added an `if` statement to render only if the value is true, we have ourselves the start of an `ngIf` replacement that we've built ourselves!
 
@@ -1115,7 +1122,7 @@ So if we added an input with the same name as the directive (ADDLINK: [as we did
 @Directive({
   selector: '[renderThisIf]'
 })
-export class DirectiveHere implements OnInit {
+export class RenderThisIfDirective implements OnInit {
   constructor (private templ: TemplateRef<any>,
                private parentViewRef: ViewContainerRef) {
   }
@@ -1130,13 +1137,13 @@ export class DirectiveHere implements OnInit {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
   template: `
+    <label for="boolToggle">Toggle me!</label>
+    <input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
     <div *renderThisIf="bool">
       <p>Test</p>
     </div>
-    <label for="boolToggle">Toggle me!</label>
-    <input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
   `
 })
 export class AppComponent {
@@ -1144,20 +1151,21 @@ export class AppComponent {
 }
 ```
 
-Super cool! But you noticed while running your test (which you should totally have 👀) that toggling the checkbox doesn't actually show anything! This is because it's running the check once on `ngOnInit` and not again when the input changes. So let's change that:
+<iframe src="https://stackblitz.com/edit/start-to-source-27-render-if-intro?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+Super cool! Image we kept developing this strucutral directive out, but you noticed while running your test (which you should totally have 👀) that toggling the checkbox doesn't actually show anything! This is because it's running the check once on `ngOnInit` and not again when the input changes. So let's change that:
 
 ```typescript
 @Directive({
-  selector: '[directiveName]'
+  selector: '[renderThisIf]'
 })
-export class DirectiveHere {
+export class RenderThisIfDirective {
   constructor (private templ: TemplateRef<any>,
                private parentViewRef: ViewContainerRef) {
   }
 
   private _val: TemplateRef<any>;
 
-  @Input() set directiveName(val: TemplateRef<any>) {
+  @Input() set renderThisIf(val: TemplateRef<any>) {
     this._val = val;
     this.update();
   }
@@ -1170,6 +1178,7 @@ export class DirectiveHere {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-28-render-if-work-toggle-true?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 You'll notice that I removed the `OnInit` lifecycle and replaced it with an input `set`ter. We could have changed the lifecycle method to use `ngOnChanges` to listen for input changes, given that we only have one input, but as your directive adds more inputs and you want to maintain the local state, that logic can get more complex.
 
 Running our tests again, we see that toggling it once now shows the embedded view, but toggling it again after that does not hide it again. With a simple update to the `update` method, we can fix that:
@@ -1184,13 +1193,14 @@ update(): void {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-29-render-if-fully-working?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 Here, we're using the `clear` method on the parent view ref to remove the previous view when the value is false. Because our structural directive will contain a template only used for this directive, we can safely assume that `clear` will only remove templates created within this directive and not from an external source.
 
 #### How Angular Built It
 
 While Angular goes for a more verbose pattern due to additional features available in their structural directive, the implementation is not too different from our own. 
 
-The following is the Angular source code for that directive. To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
+[The following is the Angular source code for that directive](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_if.ts#L151). To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
 
 ````typescript
 @Directive({selector: '[ngIf]'})
@@ -1223,7 +1233,6 @@ export class NgIf {
     }
   }
 }
-
 export class NgIfContext {
   public $implicit: any = null;
   public ngIf: any = null;
@@ -1246,7 +1255,7 @@ Just to recap, let's run through this line-by-line:
 
 ## Microsyntax
 
-Alright, we've made it thus far! The following section is going to be kinda a doozy so if you're feeling tired, a nap is certainly in order. Otherwise, let's get up - do a little shoulder shimmy to get ourselves moving for a bit (I'm totally not just writing this for my future self who's gonna be re-reading this, noooope), and dive in.
+Alright, we've made it thus far! The following section is going to be kinda a doozy so if you're feeling tired, a nap is certainly in order.  😴 🛌 Otherwise, let's get up - do a little shoulder shimmy to get ourselves moving for a bit 🏋 (I'm totally not just writing this for my future self who's gonna be editing this, noooope 😬), and dive in.
 
 ### `let`s iveday inway
 
