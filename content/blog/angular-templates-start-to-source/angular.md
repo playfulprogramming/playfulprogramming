@@ -1329,7 +1329,6 @@ export class AppComponent {}
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-31-structural-named-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 Just as before, we would use semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
 
 
@@ -1361,7 +1360,6 @@ And then call them with the following template:
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-32-console-non-structural-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with its own syntax and limitations due to the microsyntax API.
 
 ```typescript
@@ -1401,7 +1399,6 @@ export class AppComponent { }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-33-pig-latin-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 You can see that I've had to tweak our previous pig latin directive example a bit.
 
 For starters, I moved away from a `set`ter for the input value and towards `ngOnInit`, just to ensure that everything was defined in the right timing.
@@ -1431,7 +1428,6 @@ You can drop the `:` regardless of if you use the `;`
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-34-syntax-looseness?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 While this might seem very strange (especially because most fully-scoped languages have very rigid syntax), there's a lot of advantages and syntactical niceness as a result of this flexibility.
 
 ##### Always Be Willing To Take Input
@@ -1457,7 +1453,6 @@ This wouldn't be valid syntax and would still throw an error. However, if you wa
 This follows the same rules as before where the `;` between the `let` and `casing` and the `:` between `casing` and `'upper'` are both still validly optional.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-35-syntax-no-nos?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 #### Why not bind like a typical input?
 
 Now, I remember when I learning a lot of the structural directive stuff, I thought "well this syntax is cool, but it might be a bit ambiguous". I decided I was going to change that a bit:
@@ -1469,7 +1464,6 @@ Now, I remember when I learning a lot of the structural directive stuff, I thoug
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-36-pig-latin-non-binding?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 I was not, however, greeted by praises on my PR making this change, but rather by an error in my console:
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
@@ -1490,7 +1484,6 @@ This is true, but that only applies for binding to a structural directive the wa
 
 <iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-
 ### `as` to preserve values in template variable
 
 Like some of my favorite tools to use, the microsyntax has a very powerful tool that allows you to do many things. This is the `as` keyword.
@@ -1503,7 +1496,7 @@ On paper, it sounds extremely straightforward and almost useless: It saves the c
 
 Because `original` is being exported by the `makePiglatin` context, you can save the value to a template variable `ogMsg`.
 
-But this example doesn't showcase very much of what makes the `as` keyword as powerful as it is: It can handle more complex expressions, such as piped values:
+But this example doesn't showcase very much of what makes the `as` keyword as powerful as it is: It can handle more complex expressions, such as piped values (in this example, the [uppercase pipe](https://angular.io/api/common/UpperCasePipe)):
 
 ```typescript
 @Component({
@@ -1518,11 +1511,15 @@ export class AppComponent {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-38-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 While this example can be seen clearly with this usage of `ngIf` , let's try to add it into our `pigLatin` example:
 
 ```html
-<p *makePiglatin="let msg; casing 'upper' | uppercase as upperInUpper">{{upperInUpper}}: {{msg}}</p>
+<p *makePiglatin="'test'; let msg; casing 'upper' | uppercase as upperInUpper">{{upperInUpper}}: {{msg}}</p>
 ```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-39-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
@@ -1535,6 +1532,8 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 	makePiglatinCasing: this.makePiglatinCasing
 });
 ```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-40-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? *Well, `as` exports the outputted value that it's bound to.*  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
@@ -1550,11 +1549,7 @@ Of course, this means that you can send any value as the context. Change the cod
 
 And the DOM would now show: 
 
-
 > See? Any value: ISTHAY ISWAY AWAY ESTTAY
-
-
-
 
 #### But it worked in `ngIf`
 
@@ -1565,8 +1560,6 @@ If we ADDLINK: [go back to the original section where we showed `ngIf` code from
 ```typescript
 this._context.$implicit = this._context.ngIf = condition;
 ```
-
-
 
 ### Let's remake `ngFor`
 
@@ -1604,7 +1597,7 @@ export class UniForOf<T> implements AfterViewInit {
 @Component({
   selector: 'my-app',
   template: `
-	<p *uniFor="let num of numbers | async as allNumbers; let firstItem = isFirst>
+	<p *uniFor="let num of numbers | async as allNumbers; let firstItem = isFirst">
 		Number in a list of {{allNumbers.length}} numbers: {{num}}
 		<ng-container *ngIf="firstItem"> it's the first number!</ng-container>
 	</p>
@@ -1615,6 +1608,8 @@ export class AppComponent {
   numbers = of([1,2,3,4,5])
 }
 ```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-41-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 - We're starting with enabling `uniFor` as the structural directive name
 - Then we're defining an input to accept `of` as a key in the syntax (to match the `ngFor` structural directive syntax). 
@@ -1627,15 +1622,10 @@ export class AppComponent {
   - Then we pass a `uniForOf` so that we can use `as` to capture the value passed to the `of` portion of the syntax
 - Finally, we use the [async pipe](https://angular.io/api/common/AsyncPipe) to get the value of the array that's inside of an observable
 
-
-
 # Conclusion
-
-
 
 All in all, Angular has extremely powerful tools that it provides to you out-of-the-box for managing templates across your application. These APIs allow for tons of potential within a library or app and knowing how to use them is only just the start to the fun. 
 
 Other than that, that's it! You reached the end, you did it! 🎊 
 
 Thank you so much for taking the time to read through, always feel free to reach out on Twitter or comment in the comment section below to ask further questions or add to the conversation/teach me something, always happy to help and always loving to learn!
-
