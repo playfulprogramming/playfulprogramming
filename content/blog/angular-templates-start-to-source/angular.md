@@ -73,7 +73,7 @@ But there's a ~~simpler~~ ~~much more complex~~ another way show the same templa
 >
 > If you're curious to how Angular's `ngIf` works, read on dear reader.
 
-While I'd mentioned previously that `ng-template` does not render to the DOM, because we're using `ngTemplateOutlet`, it will render the template defined in the passed `ng-template`.
+While I'd mentioned previously that `ng-template` does not render to the DOM, because we're using `ngTemplateOutlet`, it renders the template defined in the passed `ng-template`.
 
 This template that's defined by `ng-template` is called a "view", and when it is rendered to the screen it is called an "embedded view".
 
@@ -1271,7 +1271,7 @@ function translatePigLatin(strr) {
 @Directive({
   selector: '[makePiglatin]'
 })
-export class DirectiveHere {
+export class MakePigLatinDirective {
   constructor(private templ: TemplateRef<any>,
     private parentViewRef: ViewContainerRef) {}
 
@@ -1293,6 +1293,7 @@ export class DirectiveHere {
 export class AppComponent {}
 ````
 
+<iframe src="https://stackblitz.com/edit/start-to-source-30-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 This might look familiar. We're using the `$implicit` value from the context within our structural directive! However, ADDLINK: [if you review the section we introduced that concept in](), you'll notice that the syntax here is different but similar from a template variable that would be used to bind the context from an `ng-template` tag. 
 
 The semicolon is the primary differentiator between the two syntaxes in this particular example. The semicolon marks the end to the previous statement and the start of a new one (the first statement being a binding of the `makePiglatin` property in the directive, the second being a binding of the `$implicit` context value to the local template variable `msg`). This small demo already showcases part of why the microsyntax is so nice - it allows you to have a micro-language to define your APIs.
@@ -1300,7 +1301,10 @@ The semicolon is the primary differentiator between the two syntaxes in this par
 Let's continue exploring how leveraging this tool can be advantageous. What if we wanted to export more than a single value in the context? How would we bind those named values?
 
 ```typescript
-export class DirectiveHere {
+@Directive({
+  selector: '[makePiglatin]'
+})
+export class MakePigLatinDirective {
   constructor(private templ: TemplateRef<any>,
     private parentViewRef: ViewContainerRef) {}
 
@@ -1316,19 +1320,22 @@ export class DirectiveHere {
   selector: 'my-app',
   template: `
     <p *makePiglatin="'This is a string'; let msg; let ogMsg = original">
-      {{msg}} is {{ogMsg}} in 🐷 Latin
+      The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
     </p>
   `
 })
+export class AppComponent {}
 ```
+
+
+<iframe src="https://stackblitz.com/edit/start-to-source-31-structural-named-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Just as before, we would use semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
 
 
-
 ### Additional Attribute Inputs
 
-With a typical directive, you'd have inputs that you could add to your directive. For example, you could have a directive with the following inputs:
+With a typical — non-structural — directive, you'd have inputs that you could add to your directive. For example, you could have a directive with the following inputs:
 
 ```typescript
 @Directive({
@@ -1347,17 +1354,21 @@ export class ConsoleThingDirective {
 }
 ```
 
-
 And then call them with the following template:
 
 ```html
 <ng-template [consoleThing]="'This is a warning from the 👻 of code future, refactor this please'" [warn]="true"></ng-template>
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-32-console-non-structural-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with its own syntax and limitations due to the microsyntax API.
 
 ```typescript
-export class DirectiveHere implements OnInit {
+@Directive({
+  selector: '[makePiglatin]'
+})
+export class MakePigLatinDirective implements OnInit {
   constructor(private templ: TemplateRef<any>,
     private parentViewRef: ViewContainerRef) { }
 
@@ -1382,12 +1393,14 @@ export class DirectiveHere implements OnInit {
   selector: 'my-app',
   template: `
     <p *makePiglatin="'This is a string'; casing: 'UPPER'; let msg; let ogMsg = original">
-      {{msg}} is {{ogMsg}} in 🐷 Latin
+      The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
     </p>
   `
 })
 export class AppComponent { }
 ```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-33-pig-latin-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You can see that I've had to tweak our previous pig latin directive example a bit.
 
@@ -1417,6 +1430,8 @@ You can drop the `:` regardless of if you use the `;`
 <p *makePiglatin="'This is a string'; casing 'UPPER'; let msg; let ogMsg = original">
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-34-syntax-looseness?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 While this might seem very strange (especially because most fully-scoped languages have very rigid syntax), there's a lot of advantages and syntactical niceness as a result of this flexibility.
 
 ##### Always Be Willing To Take Input
@@ -1441,6 +1456,7 @@ This wouldn't be valid syntax and would still throw an error. However, if you wa
 
 This follows the same rules as before where the `;` between the `let` and `casing` and the `:` between `casing` and `'upper'` are both still validly optional.
 
+<iframe src="https://stackblitz.com/edit/start-to-source-35-syntax-no-nos?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 #### Why not bind like a typical input?
 
@@ -1448,16 +1464,17 @@ Now, I remember when I learning a lot of the structural directive stuff, I thoug
 
 ```html
 <p *makePiglatin="'This is a string'; let msg; let ogMsg = original" [makePiglatinCasing]="'UPPER'">
-  {{msg}} is {{ogMsg}} in 🐷 Latin
+	The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
 </p>
 ```
+
+<iframe src="https://stackblitz.com/edit/start-to-source-36-pig-latin-non-binding?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 I was not, however, greeted by praises on my PR making this change, but rather by an error in my console:
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
 
 This may seem strange upon first glance but remember: *The structural directive wraps the tag it is on inside of a template*. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_
-
 
 #### Bind as you would - They're JUST directives!
 
@@ -1467,10 +1484,11 @@ This is true, but that only applies for binding to a structural directive the wa
 
 ```html
 <ng-template [makePiglatin]="'This is a string'" [makePiglatinCasing]="'UPPER'" let-msg let-ogMsg="original">
-  <p>{{msg}} is {{ogMsg}} in 🐷 Latin</p>
+  <p>The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin</p>
 </ng-template>
 ```
 
+<iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
 ### `as` to preserve values in template variable
