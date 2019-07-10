@@ -197,7 +197,7 @@ When we want to overwrite the type of data we expect `ViewChild` to return, we c
 @ViewChild('myComponent', {read: ElementRef, static: false}) myComponent: ElementRef;
 ```
 
-Now that we've configured the `ViewChild` to read this as an `ElementRef` (a class provided from `@angular/core` to help us find only the element we're looking for) rather than a component reference, we're able to use the `nativeElement` property of that class to get the HTMLElement object for that component instance.
+Now that we've configured the `ViewChild` to read this as an `ElementRef` (a class provided from `@angular/core` which will help us get the right value back from the query) rather than a component reference, we're able to use the `nativeElement` property of that class to get the HTMLElement object for that component instance.
 
 ```typescript
 /* This would be added to the `AfterViewInit` lifecycle method */
