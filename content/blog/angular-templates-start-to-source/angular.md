@@ -180,7 +180,7 @@ Despite the examples thus far having only used a string as the query for `ViewCh
 @ViewChild(MyComponentComponent) myComponent: MyComponentComponent;
 ```
 
-Would yield the same results in this particular example. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ — this could return results that are unexpected if you're not aware of that.
+For the particular example listed above, this code change would still yield the same results. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ — this could return results that are unexpected if you're not aware of that.
 
 ### My Name is ~~Inigo Montoya~~ the `read` Prop
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
