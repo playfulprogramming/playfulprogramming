@@ -173,30 +173,31 @@ console.log(this.myComponent.inputHere); // This will print `50`
 It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-5-view-not-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Despite the examples thus far having only used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
 ```typescript
 /* This would replace the previous @ViewChild */
 @ViewChild(MyComponentComponent) myComponent: MyComponentComponent;
 ```
 
-Would yield the same results in this particular example. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ - this could return results that are unexpected if you're not aware of that.
+Would yield the same results in this particular example. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ — this could return results that are unexpected if you're not aware of that.
 
 ### My Name is ~~Inigo Montoya~~ the `read` Prop
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
 
-Ahh, so you've seen the problem with Angular's guessing of what datatype you're looking for. There are times where we, the developer, knows better of what we're looking for than the framework services.
+Ahh, so you've seen the problem with Angular's guessing of what datatype you're looking for. There are times where we, the developers, know better of what we're looking for than the framework services.
 
 Fancy that.
 
-When we want to overwrite the type of data we expect `ViewChild` to return, we can use a second property passed to the `ViewChild` decorator with the type we want returned. With the use-case mentioned above, we can tell Angular that we want a reference to the element of the component itself by using the `ElementRef`
+When we want to overwrite the type of data we expect `ViewChild` to return, we can use a second property passed to the `ViewChild` decorator with the type we want to be returned. With the use-case mentioned above, we can tell Angular that we want a reference to the element of the component itself by using the `ElementRef`.
 
 
 ```typescript
 /* This would replace the previous @ViewChild */
-@ViewChild('myComponent', {read: ElementRef, static: false}) myComponent: ElementRef; 
+@ViewChild('myComponent', {read: ElementRef, static: false}) myComponent: ElementRef;
 ```
 
-Now that we've configured the `ViewChild` to read this as an `ElementRef` (A class provided from `@angular/core` to help us with just the thing we're looking for) rather than a component reference, we're able to use the `nativeElement` property of that class to get the HTMLElemenet object for that component instance.
+Now that we've configured the `ViewChild` to read this as an `ElementRef` (a class provided from `@angular/core` to help us find only the element we're looking for) rather than a component reference, we're able to use the `nativeElement` property of that class to get the HTMLElement object for that component instance.
 
 ```typescript
 /* This would be added to the `AfterViewInit` lifecycle method */
@@ -205,7 +206,8 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-6-read-prop?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
- `ViewChild` isn't an only child though (get it?). There are other APIs similar to it that will allow you to get references to other items in your templates from your component logic. 
+
+`ViewChild` isn't an only child though (get it?). There are other APIs similar to it that will allow you to get references to other items in your templates from your component logic.
 
 ## It's like talking to me: You're flooded with references! - `ViewChildren`
 
