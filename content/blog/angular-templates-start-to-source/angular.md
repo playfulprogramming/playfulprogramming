@@ -115,9 +115,7 @@ Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax
 Now let's see it in action!
 
 <iframe src="https://stackblitz.com/edit/start-to-source-3-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-#### Clarification on Gotchas
-
-##### Template Input Variable Names
+#### Template Input Variable Names
 As a quick note, _I only named these template input variables differently from the context value key in order to make it clear that you may do so_. `let-personName="personName"` is not only valid, but can be clearer to other developers of its intentions in the code.
 
 # What A Wonderful `View`: `ViewChild`/`ContentChild`
@@ -130,7 +128,7 @@ Using [`ViewChild`](https://angular.io/api/core/ViewChild), you're able to grab 
 
 ```typescript
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   template: `
   	<div>
     	<ng-template #helloMsg>Hello</ng-template>
@@ -155,7 +153,7 @@ _ViewChild` is a "property decorator" utility for Angular which will search the 
 
 ```typescript
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   template: `
   	<my-custom-component #myComponent [inputHere]="50" data-unrelatedAttr="Hi there!"></my-custom-component>
   `
@@ -215,7 +213,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 
 ```typescript
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   template: `
     <div>
         <my-custom-component [inputHere]="50"></my-custom-component>
@@ -263,7 +261,7 @@ It might be a good idea to gain familiarity of doing this, as the Angular docs l
 
 > NOTE: In the future this class will implement an Observable interface.
 
-##Keep an Eye on Your Kids - `ContentChild`
+##Keep an Eye on Your Kids - `ContentChildren`
 
 Author's note:
 
@@ -517,7 +515,7 @@ export class ChildComponent {}
 
 
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   template: `
 		I am in app's host view, and can act as a view container for even other host views by using the component's selector
 		<child-component></child-component>
@@ -1483,7 +1481,6 @@ This is true, but that only applies for binding to a structural directive the wa
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 ### `as` to preserve values in template variable
 
 Like some of my favorite tools to use, the microsyntax has a very powerful tool that allows you to do many things. This is the `as` keyword.
@@ -1512,7 +1509,6 @@ export class AppComponent {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-38-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 While this example can be seen clearly with this usage of `ngIf` , let's try to add it into our `pigLatin` example:
 
 ```html
@@ -1520,7 +1516,6 @@ While this example can be seen clearly with this usage of `ngIf` , let's try to 
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-39-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
 The reason is because we're not exporting a key of `makePiglatinCasing` in our context to supply this value. 
@@ -1534,7 +1529,6 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-40-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? *Well, `as` exports the outputted value that it's bound to.*  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
 Of course, this means that you can send any value as the context. Change the code to read:
@@ -1610,7 +1604,6 @@ export class AppComponent {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-41-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 - We're starting with enabling `uniFor` as the structural directive name
 - Then we're defining an input to accept `of` as a key in the syntax (to match the `ngFor` structural directive syntax). 
 
