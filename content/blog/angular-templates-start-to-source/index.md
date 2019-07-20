@@ -1615,6 +1615,16 @@ The way I describe expressions in simple terms is “anything that, when referen
 
 While "what is and isn’t an expression in JavaScript” could be it’s own post, suffice it to say that if you’re able to pass a piece of code to a function as an argument — it’s an expression.
 
+```html
+<!-- This code is not super useful in the real-world, -->
+<!-- but is used To demonstrate the correct syntaxes -->
+<p *makePigLatin="'This is an expression'"></p>
+<p *makePigLatin="'So is this' | uppercase"></p>
+<p *makePigLatin="'So is ' + ' this'"></p>
+<p *makePigLatin="varsToo"></p>
+<p *makePigLatin="functionsAsWell()"></p>
+```
+
 #### The `as` keyword #{microsyntax-explain-as}
 
 The rules behind the `as` keyword as an alternative to `let` are fairly straightforward:
@@ -1633,6 +1643,14 @@ A key expression is simply an expression that you’re able to bind to an input 
 - You’ll then want to *place an expression that will be passed as the input value* for the `key` you started the key expression with
 - Finally, _if you’d like to save the input value_, you’re able to *use the `as` keyword*, followed by the name you’d like to save the input value to (as a template input variable)
 
+
+```html
+<p *makePigLatin="inputKey: 'This is an expression' as localVar"></p>
+<p *makePigLatin="inputKey: 'This is an expression'"></p>
+<p *makePigLatin="inputKey 'This is an expression' as localVar"></p>
+<p *makePigLatin="inputKey 'This is an expression'"></p>
+```
+
 #### `let` bindings #{microsyntax-explain-let}
 
 The `let` binding: 
@@ -1647,7 +1665,7 @@ The `let` binding:
 
 Now that we understand all of the parts by themselves, let’s combine them together to get a macro view at the microsyntax.
 
-![](./microsyntax_main.svg)
+![A chart showing the microsyntax rules all-together. Rules explained below](./microsyntax_main.svg "Microsyntax combined chart")
 
 - The start to any structural directive call is *the `*` reserved token* (a token, in this case, is just a symbol marked to do something). This just marks the directive call to be handled as a structural directive.
 
@@ -1659,27 +1677,62 @@ The contents of the input itself is where the microsyntax goes.
 
 #### First Item
 
-The first item that’s allowed in the microsyntax is either an expression or a `let` binding. If an expressing `*prefix="5 + 3”` is passed, this value will be passed to the same input name as the selector itself: EG the `ngIf` input on the directive with the `[ngIf]` selector value.
+The first item that’s allowed in the microsyntax is either an expression or a `let` binding.
 
-However, if a `let` binding is passed it will act as expected.
+If an expressing `*prefix="5 + 3”` is passed, this value will be passed to the same input name as the selector itself: EG the `ngIf` input on the directive with the `[ngIf]` selector value.
+
+If a `let` binding is the first item, it will work exactly as it’s explained in [the previous section](#microsyntax-explain-let)
+
+```html
+<!-- ✅ These ARE valid for the first item -->
+<p *makePigLatin="'Expression'"></p>
+<p *makePigLatin="let localVar = exportKey"></p>
+
+<!-- 🛑 But these are NOT valid for the first item -->
+<p *makePigLatin="inputKey: 'Input value expression'"></p>
+<p *makePigLatin="exportKey as localVar"></p>
+```
 
 #### Second Item and Beyond
 
-After the first item, you’re able to pass in a `let` binding, an `as` binding, or a key expression. These will act the way you expect them to as before. You’re not, however, able to pass an expression to act as the default input value - that’s preserved only for the first item.
+After the first item, _you’re able to pass in a `let` binding, an `as` binding, or a key expression_. *There can be as many of these items in a microsyntax as you’d like, so long as they’re one of those 3*. These will act the way you expect them to as before. You’re not, however, able to pass an expression to act as the default input value - that’s preserved only for the first item.
+
+```html
+<p *makePigLatin="'First'; let localVar = exportKey"></p>
+<p *makePigLatin="'First'; exportKey as localVar"></p>
+<p *makePigLatin="'First'; inputKey: 'Input value expression'"></p>
+<!-- And you can do more than one!-->
+<p *makePigLatin="'First'; let localVar = exportKey; exportKey as localVar; inputKey: 'Input value expression'"></p>
+```
 
 ## Optional Seperators
 
-Just as 
+Just as the `:` is optional in a [key expression](#microsyntax-explain-keyexp), *all seperators in the microsyntax are optional*.
 
+These are all valid:
 
+```html
+<!-- You can mix and match which tokens you leave or don't -->
+<p *makePigLatin="'First'; let localVar = exportKey; exportKey as localVar; inputKey: 'Input value expression'"></p>
+
+<!-- Remember that the key expression's `:` token is optional -->
+<p *makePigLatin="'First'; let localVar = exportKey exportKey as localVar; inputKey 'Input value expression'"></p>
+
+<!-- All seperator tokens are optional -->
+<p *makePigLatin="'First' let localVar = exportKey exportKey as localVar inputKey 'Input value expression'"></p>
+
+<!-- You can shorten the `as` binding, as it's also part of the `let` binding -->
+<!-- as an optional second part -->
+<p *makePigLatin="'First' let localVar = exportKey as localVar; inputKey 'Input value expression'"></p>
+```
 
 ## Let's remake `ngFor`
 
 [The Angular section on structural directives say that you should probably study the `ngFor` code to understand them better](https://angular.io/guide/structural-directives#microsyntax). Let's do them one better - let's make our own.
 
-Well okay, let's at least make a version of it that supports a limited part of its API (just for conciseness).
+Well, admittedly, the code for `ngFor` is a bit complex and handles a lot more than I think would be covered by the scope of this post; Let's at least make a version of it that supports a limited part of its API (just for conciseness).
 
-sSo what is the API we want to support?
+So, what is the API we want to support?
 
 `*uniFor="let item of items; let firstItem = isFirst"`
 
