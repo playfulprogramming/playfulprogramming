@@ -628,7 +628,7 @@ In order to fix this behavior, we'd need to move the second `ng-template` into t
 
 ## Understanding timings with `ViewChildren` #{viewchildren-timings}
 
-But the example immediately above doesn't have the same behavior as the one before that. We wanted to get:
+But the example immediately above doesn't have the same behavior as the one we likely intended. We wanted to get:
 
 ```html
 <div>Hello there!</div>
@@ -641,7 +641,9 @@ And instead got:
 <div>Hello there! <p>Testing 123</p></div>
 ```
 
-Luckily, we've already covered `@ViewChild`, which is able to get references from further down the view tree than the template is able to.
+This is because, when we moved the template into the correct view scope, we moved it in the element tree as well.
+
+Luckily, we've already covered `@ViewChild`, which is able to get references all the way down the view hierarchy tree and provide the value to the component logic. Because the *component logic variables are accessible from any child view of the component host view*, you can pass the `testingMessage` template reference variable to the top level.
 
 ```typescript
 @Component({
@@ -660,19 +662,23 @@ export class AppComponent {
 }
 ```
 
-Something you'll see if you open the console in that example is the classic error:
+Something you'll see if you open the console in that example is an error you may already be familiar with if you’ve used Angular extensively in the past (I know I sure saw it more then a few times!):
 
 ```
 Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngTemplateOutlet: undefined'. Current value: 'ngTemplateOutlet: [object Object]'.
 ```
 
-This error is being thrown by Angular's developer mode (so if you're running a production build, this error will not show). But why is this error happening? What can we do to fix it?
+> This error is being thrown by Angular's developer mode, so if you're running a production build, this error will not show.
+
+Why is this error happening? What can we do to fix it?
 
 This, my friends, is where the conversation regarding change detection, lifecycle methods, and the `static` prop come into play.
 
 ## Change Detection, How Does It Work #{change-detection}
 
-While diving into change detection in depth is a massive article all on its own. While I'm not wanting to deviate too badly from the general discussion around templates, having a bit of understanding on change detection will help in general. That said, here's a general overview of what change detection is and how it applies to that example:
+> Change detection in Angular is deserving of it’s own massive article: This is not that article. That said, understanding how change detection and how it affects the availability of templates is imperitive to understanding some of the more ambiguous aspects of Angular template’s behaviors.
+>
+> More information can be found on lifecycle methods and change detection on [the official docs page for them](https://angular.io/guide/lifecycle-hooks)
 
 _Angular has specific hooks of times when to update the UI_. Without these hooks, Angular has no way of knowing when data that's shown on screen is updated. These hooks essentially simply check when data has changed. While these checks are imperfect, they have default behavior that will handle most cases and and the ability to overwrite it and even manually trigger a check.
 
@@ -689,16 +695,16 @@ export class AppComponent implements DoCheck, OnChanges, AfterViewInit {
   @ViewChild("testingMessage", { static: false }) testingMessageCompVar;
 
   ngOnInit() {
-    console.log("ngOnInit: The template is present?", !!this.testingMessageCompVar)
+    console.log("ngOnInit | The template is present?", !!this.testingMessageCompVar)
   }
 
   ngDoCheck() {
-    console.log("ngDoCheck: The template is present?", !!this.testingMessageCompVar);
+    console.log("ngDoCheck | The template is present?", !!this.testingMessageCompVar);
     this.realMsgVar = this.testingMessageCompVar;
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit: The template is present?', !!this.testingMessageCompVar);
+    console.log('ngAfterViewInit | The template is present?', !!this.testingMessageCompVar);
   }
 }
 ```
@@ -707,35 +713,38 @@ export class AppComponent implements DoCheck, OnChanges, AfterViewInit {
 Looking at the console logs, you'll be left with the following messages in your console:
 
 ```diff
-- ngOnInit: The template is present? false
-- ngDoCheck: The template is present? false
-+ ngAfterViewInit: The template is present? true
-+ ngDoCheck: The template is present? true
+ngOnInit        | The template is present? false
+ngDoCheck       | The template is present? false
+ngAfterViewInit | The template is present? true
+ngDoCheck       | The template is present? true
 ```
 
-You can see that the `testingMessageCompVar` property is not defined until the `ngAfterViewInit`. _The reason we're hitting the error previously is that the template is not defined in the component logic until `ngAfterViewInit`._ *The template is not defined in the component logic because the template is being declared in an embedded view.* As a result, the `helloThereMsg` template must render first, then the `ViewChild` can get a reference to the child after the initial update.
+You can see that the `testingMessageCompVar` property is not defined until the `ngAfterViewInit`. _The reason we're hitting the error is that the template is not defined in the component logic until `ngAfterViewInit`._ It is not defined until them due to timing issues: *the template is being declared in an embedded view, which takes a portion of time to render to screen*. As a result, the `helloThereMsg` template must render first, then the `ViewChild` can get a reference to the child after the initial update.
 
-When using only the `ViewChild`, it simply updates the value of the `testingMessageCompVar` in the `AfterViewInit` lifecycle period. This value update is then in turn reflected in the template itself.
+When using `ViewChild` by itself, it updates the value of the `testingMessageCompVar` at the same time that the `AfterViewInit` lifecycle method is ran. This value update is then in turn reflected in the template itself.
 
-However, because of the timing problems (of it not being defined previously and not showing until `ngAfterViewInit`), Angular has already ran change detection and Angular is unsure what to do with the new value. By hooking directly into the second `ngDoCheck` and updating the value by hand, Angular runs change detection and updates the value without there being able problems.
+Angular, however, does not like values being updated directly within the `AfterViewInit`. Angular runs change detection often after an `ngDoCheck` and, after that method, does not like to re-check if there are things to update on screen (as there can be timing conflicts under-the-hood that require a lot of foundation regarding how the change detection process works to explain properly - well outside the scope of this post).
 
+Because of this — when using the `ngDoCheck` — you're manually running the variable update, which in turn informs Angular’s change detection process to include this in it’s list of screen updates.
 
-I realize this is a bit confusing, but I think a further dive into lifecycle methods and change detection might help with that and would be outside of the scope of this particular article. [A resource I found extremely useful to help explain this issue came from the 3rd part "Angular University" where they walk through debugging this exact error](https://blog.angular-university.io/angular-debugging/).
+> I realize there’s a lot going on in this example and that can be very confusing, even for me writing it! If you’re wanting to learn more but feeling discouraged after reading through this section a time or two, give [this resource](https://blog.angular-university.io/angular-debugging/) (from “Angular University”, a great un-official Angular resource hub) a shot. It’s what I used to re-learn the elements at play with this error.
 
-#### Great Scott - You Control The Timing! The `static` Prop #{static-prop}
+> If there’s more interest in an article from me about Angular change detection, reach out - I'd love to gague interest!
 
-But there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
+### Great Scott - You Control The Timing! The `static` Prop #{static-prop}
 
->  Before I go much further, I will remind viewers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810) - if you're running a version prior to that, this section will not apply to the syntax of how you'd use `ViewChild`/`ContentChild`
+That said, there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
 
-Well, that can be controlled via the `static` prop!
+>  Before I go much further, I will remind readers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810); this section does not apply to `ViewChild`/`ContentChild` prior to that version
+
+Well, that can be controlled via the `static` prop! Before this example, I was defaulting to use `static: false` to avoid running into [the issue we covered in the last section](#change-detection), but you’re able to set this flag to `true` to get access to the template reference from within the `ngOnInit` lifecycle method:
 
 ```typescript
 @Component({
   selector: "my-app",
   template: `
 		<div>
-			<p>Hello?</p>
+  			<p>Hello?</p>
 	    <ng-template #helloThereMsg>
     	  Hello There!
   	  </ng-template>
@@ -753,13 +762,11 @@ Because this example does not have the `helloThereMsg` template within another v
 
 ```typescript
 ngOnInit() {
-	console.log(!!this.realMsgVar); // This would output true
+  	console.log(!!this.realMsgVar); // This would output true
 }
 ```
 
 While you might wonder "Why would you use `static: false` if you can get the access within the `ngOnInit`", the answer is fairly similarly: _when using `static: true`, the `ViewChild` prop never updates after the initial `DoCheck` lifecycle check_. This means that your value will never update from `undefined` when trying to get the reference to a template from within a child view.
-
-
 
 When taking the example with the `testingMessageCompVar` prop and changing the value to `true`, it will never render the other component since it will always stay `undefined`.
 
