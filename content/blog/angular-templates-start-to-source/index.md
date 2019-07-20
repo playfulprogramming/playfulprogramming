@@ -392,11 +392,11 @@ This is a perfect example of where you might want `@ContentChild` - not only are
 
 # How Does Angular Track the UI #{understand-the-tree}
 
-Awesome! We've been blowing through some of the real-world uses of templates like a bullet-train through a tunnel 🚆 But I have something to admit: I feel like I've been doing a pretty bad job at explaining the "nitty-gritty" of "how" this stuff works. While that can often be a bit more dry of a read, I think it's very important to being able to use these APIs to their fullest potential. As such, let's take a step back and read through some of the more abstract behind them.
+Awesome! We've been blowing through some of the real-world uses of templates like a bullet-train through a tunnel 🚆 But I have something to admit: I feel like I've been doing a pretty bad job at explaining the "nitty-gritty" of how this stuff works. While that can often be a bit more dry of a read, I think it's very important to being able to use these APIs to their fullest. As such, let's take a step back and read through some of the more abstract concepts behind them.
 
-For example, just like the browser has the _Document Object Model_ tree (often called the DOM), Angular has the _View Hierarchy Tree_.
+One of these abstract concepts comes from how Angular tracks what’s on screen; just like the browser has the _Document Object Model_ tree (often called the DOM), Angular has the _View Hierarchy Tree_.
 
-## The DOM Tree
+## The DOM Tree #{the-dam}
 
 Okay, I realize I just dropped some vocab on you without explaining first. Let's change that.
 
@@ -550,9 +550,9 @@ export class AppComponent {}
 
 
 
-## Template Input Variables
+## Template Input Variable Scope
 
-Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children of the templates, but not from a higher level* - as the context is not defined above the template:
+Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children views of the templates, but not from a higher level* - as the context is not defined above the template:
 
 ```html
 <!-- ✅ This is perfectly fine -->
@@ -563,7 +563,7 @@ Template input variables are the variables you bind to a template when using con
 <p>{{thisVar}}</p>
 ```
 
-## Template Reference Variables
+## Template Reference Variable Scope
 
 Template reference variables, however, have a much more complex answer in regards to how they're able to be accessed.
 
@@ -572,7 +572,7 @@ _A template reference variable is a variable assigned to a tag so that other ite
 
 ```html
 <div>
-	Hello There!
+		Hello There!
 	<ng-template #testingMessage><p>Testing 123</p></ng-template>
 </div>
 <ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
@@ -582,27 +582,16 @@ _A template reference variable is a variable assigned to a tag so that other ite
 <!--           <p>Hi There</p>               -->
 ```
 
-In this example, we're getting a reference to `testingMessage` template to be able to provide as an input. We're then passing that value to another `ng-template`'s `ngTemplateOutlet` directive to get it rendering on screen. Because the variable is defined in the same *view hierarchy tree* level, it is accessible from an element on a higher DOM tree node. This view hierarchy tree position defines all of the limitations on accessing a template reference variable.
+In this example, we're getting a reference to `testingMessage` template to be able to provide as an input. We're then passing that value to another `ng-template`'s `ngTemplateOutlet` directive to get it rendering on screen.
 
-## Template Variable View
-
-So, as mentioned before, templates (and by proxy: views) can be stacked into one-another like so:
+Straightforward enough example, let’s see a more difficult example:
 
 ```html
 <ng-template #helloThereMsg>
-	Hello There!
-	<ng-template #testingMessage><p>Testing 123</p></ng-template>
-</ng-template>
-```
-
-Obviously, this by itself would not render anything, but let's change that. Let's say I want to use a template outlet for both of these templates outside of the `helloThereMsg` template declaration.
-
-You might think, based on what we know about template reference variables, that rendering the `testingMessage` template as well would be a trivial task - they're accessible across the template, no? Well, let's try:
-
-```html
-<ng-template #helloThereMsg>
-	Hello There!
-	<ng-template #testingMessage><p>Testing 123</p></ng-template>
+  <p>Hello There!</p>
+	  <ng-template #testingMessage>
+	    <p>Testing 123</p>
+		  </ng-template>
 </ng-template>
 <div>
   <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
@@ -611,20 +600,17 @@ You might think, based on what we know about template reference variables, that 
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-11-broke-template-var?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-But you'll notice that `testingMessage` isn't rendering, why is that?
+If you look at the output of this example, you'll notice that `testingMessage` isn't rendering. This is because template reference variables bind to the view that they're present in; and as a result are unable to be accessed from parent views.
 
-Template reference variables bind to the view that they're present in. Like with CSS applied to a DOM element, they apply to the element itself and children, but not the parent.
+[Like how CSS is applied to a dom when bound to a selector](#the-dom), template reference variables can be accessed within the view itself and child views, but not the parent views.
+
+![Chart showing the above code sample to match the prior visualization aids](./template_reference_scope.svg "Visualization of the hierarchy tree for the prior cod example")
 
 
-```
-           +-->helloThereMsg view--+-->testingMessage
-host view--+
-           +--->div
-```
 
-Because the `helloThereMsg` template creates its own view and the `testingMessage` template variable is defined, it is only able to accessible, it can't find the variable, is marked as `undefined` as a value, and does not render anything (as that's the default behavior of passing `undefined` to `ngTemplateOutlet`)
+When the view that is trying to render `testMessage` looks for that template reference variable, it is unable to, as it is bound to the `helloThereMsg` template view. Because it cannot find a template reference variable with the id `testMessage`, it treats it like any other unfound variable: an `undefined` value. The default behavior of `undefined` being passed to `ngTemplateOutlet` is to not render anything.
 
-In order to fix this behavior, we'd need to move the second `ng-template` into the `helloThereMsg` template view
+In order to fix this behavior, we'd need to move the second `ng-template` into the `helloThereMsg` template view so that the `ngTemplateOutlet` is able to find the matching template reference variable within it’s view scope.
 
 ```html
 <ng-template #helloThereMsg>
