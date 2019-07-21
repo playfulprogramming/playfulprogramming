@@ -39,7 +39,7 @@ Sound like a fun time? Let's goooo! 🏃🌈
 
 # Introduction To Templates {#intro}
 
-## `ng-template`  {#ng-template}
+## `ng-template` {#ng-template}
 
 Before we dive into the meat of this article, let's do a quick recap of what templates are and what they look like.
 
@@ -312,7 +312,7 @@ action-card {
 }
 ```
 
-But this is often not the case. _[Angular's  `ViewEncapsulation`](https://angular.io/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This is especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector  `::ng-deep`](https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep) has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]).
+But this is often not the case. _[Angular's `ViewEncapsulation`](https://angular.io/api/core/ViewEncapsulation) prevents styles from one component from affecting the styling of another_. This is especially true if you're using a configuration that allows the native browser to handle the components under the browser's shadow DOM APIs, which restricts stylesheet sharing on a browser-level. This is why the [Angular-specific CSS selector `::ng-deep`](https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep) has been marked for depreciation (sorry old-school Angular developers [including myself, so much to migrate 😭]).
 
 No matter though, we have the power of `ViewChildren` on our side! Corbin already showed us how to get a reference to an element of a rendered component! Let's spin up an example:
 
@@ -758,7 +758,7 @@ Because of this — when using the `ngDoCheck` — you're manually running the v
 
 That said, there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
 
->  Before I go much further, I will remind readers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810); this section does not apply to `ViewChild`/`ContentChild` prior to that version
+> Before I go much further, I will remind readers that [the `static` prop was introduced in Angular 8](https://github.com/angular/angular/pull/28810); this section does not apply to `ViewChild`/`ContentChild` prior to that version
 
 Well, that can be controlled via the `static` prop! Before this example, I was defaulting to use `static: false` to avoid running into [the issue we covered in the last section](#change-detection), but you’re able to set this flag to `true` to get access to the template reference from within the `ngOnInit` lifecycle method:
 
@@ -808,7 +808,7 @@ Having covered views in the last section, it's important to mention an important
 
 ## Embed Views {#embed-views}
 
-While we've covered how to insert a component using `ngTemplate`,  Angular also allows you to find, reference, modify, and create them yourself in your component/directive logic! 🤯
+While we've covered how to insert a component using `ngTemplate`, Angular also allows you to find, reference, modify, and create them yourself in your component/directive logic! 🤯
 
 Let's show an example of how we can render an `ng-template` using TypeScipt component logic:
 
@@ -1105,7 +1105,7 @@ export class RenderTheTemplateDirective implements OnInit {
 	@Input() renderTheTemplateContext: Object;
 
 	ngOnInit(): void {
-		this.parentViewRef.createEmbeddedView(this.renderTheTemplate,  this.renderTheTemplateContext);
+		this.parentViewRef.createEmbeddedView(this.renderTheTemplate, this.renderTheTemplateContext);
 	}
 }
 
@@ -1153,7 +1153,7 @@ export class NgTemplateOutlet implements OnChanges {
 
 # Structural Directives - What Sorcery is this? {#structural-directives}
 
-If you've used Angular in any scale of application, you've ran into Angular helpers that look a lot like directives and start with a `*` such as `*ngIf` and `*ngFor`. These helpers are known as **structural directives**  and are built upon all of the things we've learned to this point.
+If you've used Angular in any scale of application, you've ran into Angular helpers that look a lot like directives and start with a `*` such as `*ngIf` and `*ngFor`. These helpers are known as **structural directives** and are built upon all of the things we've learned to this point.
 
 The main idea behind structural directives is that **they're directives that will wrap the tag that you've applied it to inside of a template without the need for an `ng-template` tag**.
 
@@ -1187,7 +1187,7 @@ export class AppComponent {}
 
 <iframe src="https://stackblitz.com/edit/start-to-source-25-structural-directive-intro?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-[Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](#embed-views), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
+[Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](#embed-views), we're using DI to get a reference to the `TemplateRef` created by the `*` in the invocation of this directive and embedding a view.
 
 Too much CS (computer science) speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template.
 
@@ -1354,7 +1354,7 @@ Just to recap, let's run through this line-by-line:
 
 ## Microsyntax
 
-Alright, we've made it thus far! The following section is going to be kinda a doozy so if you're feeling tired, a nap is certainly in order.  😴 🛌 Otherwise, let's get up - do a little shoulder shimmy to get ourselves moving for a bit 🏋 (I'm totally not just writing this for my future self who's gonna be editing this, noooope 😬), and dive in.
+Alright, we've made it thus far! The following section is going to be kinda a doozy so if you're feeling tired, a nap is certainly in order. 😴 🛌 Otherwise, let's get up - do a little shoulder shimmy to get ourselves moving for a bit 🏋 (I'm totally not just writing this for my future self who's gonna be editing this, noooope 😬), and dive in.
 
 ### Bind Context
 
@@ -1506,7 +1506,7 @@ For starters, I moved away from a `set`ter for the input value and towards `ngOn
 
 I'm also binding the value "upper" to `makePiglatinCasing` by adding `casing: 'UPPER'` to the input to the structural directive and then separating it by `;`.
 
-The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. **The microsyntax is taking the  `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.**
+The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. **The microsyntax is taking the `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.**
 
 **This is why we usually call the directive selector the structural directive prefix - it should prefix the names of any of your microsyntax inputs**. Outside of the prefix rule, there's little else that you'll need to keep in mind with these input names. Want to make it `makePiglatinCasingThingHere`? No problem, just change that part of the input syntax to read `casingThingHere: 'upper'`
 
@@ -1593,7 +1593,7 @@ While this example can be seen clearly with this usage of `ngIf` , let's try to 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
+In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
 The reason is because we're not exporting a key of `makePiglatinCasing` in our context to supply this value.
 
@@ -1607,7 +1607,7 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 
 <iframe src="https://stackblitz.com/edit/start-to-source-38-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? **Well, `as` exports the outputted value that it's bound to.**  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
+Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? **Well, `as` exports the outputted value that it's bound to.** In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
 Of course, this means that you can send any value as the context. Change the code to read:
 
@@ -1643,14 +1643,14 @@ The rules behind microsyntax can seem overwelming, so let's take a look at each 
 
 Angular's microsyntax has 4 building blocks, that when combined in a particular way, make up the entire microsyntax API. These building blocks are:
 
--  Expressions
+- Expressions
 - The `as` keyword
 - Keyed expressions
 - `let` bindings
 
 ![A chart taking a microsyntax and turning it into a diagram. This diagram will be explained thoroughly via text in this section](./microsyntax.svg "A diagram showing the different parts of the microsyntax")
 
-#### Expressions  {#microsyntax-explain-expressions}
+#### Expressions {#microsyntax-explain-expressions}
 
 The way I describe expressions in simple terms is "anything that, when referenced, returns a value". Like the example above, it could mean using an operator (`5 + 3`), calling a function (`Math.random()`), a variable (assuming `const numberHere = 12`, `numberHere`) or just a value itself (`'a string here'`).
 
@@ -1675,7 +1675,7 @@ The rules behind the `as` keyword as an alternative to `let` are fairly straight
 
 So, if you had the context as `{personName: 'Corbin', personInterests: ['programming']}`, and wanted to save the value from `personInterests` to a template input variable `interestList`, you could use: `personInterests as interestList`.
 
-#### `keyExp` - Key Expressions  {#microsyntax-explain-keyexp}
+#### `keyExp` - Key Expressions {#microsyntax-explain-keyexp}
 
 A key expression is simply an expression that you’re able to bind to an input on a structural directive.
 
@@ -1823,7 +1823,7 @@ export class AppComponent {
 - We can then reference this value later with `this.uniForOf` just as we are in the `ngAfterViewInit`.
 
 - In that lifecycle method, we're then creating an embedded view for each item in the array
-	- This view is passed a context with an implicit value (so that `_var` in`let _var of list` will have the  value of this item)
+	- This view is passed a context with an implicit value (so that `_var` in`let _var of list` will have the value of this item)
 	- We also pass the index to the context to give a boolean if an item is the first in a list
 	- Then we pass a `uniForOf` so that we can use `as` to capture the value passed to the `of` portion of the syntax
 - Finally, we use the [async pipe](https://angular.io/api/common/AsyncPipe) to get the value of the array that's inside of an observable
