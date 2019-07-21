@@ -99,7 +99,7 @@ With this, combined with template reference variables, you may find it easier to
 
 ## Pass Data To Templates - The Template Context {#template-context}
 
-You know how I mentioned that you can pass data between templates (at the start of the article)? This can be accomplished by defining the _context_ of the template. This context is defined by a JavaScript object you pass to the template with your desired key/value pairs (just like any other object). We'll look at an example below, but *think of this in terms of passing data from a parent component to a child component through property binding*. When you define the context of a template, you're simply giving it the data it needs to fulfill its purpose in much the same way.
+You know how I mentioned that you can pass data between templates (at the start of the article)? This can be accomplished by defining the _context_ of the template. This context is defined by a JavaScript object you pass to the template with your desired key/value pairs (just like any other object). We'll look at an example below, but **think of this in terms of passing data from a parent component to a child component through property binding**. When you define the context of a template, you're simply giving it the data it needs to fulfill its purpose in much the same way.
 
 So, now that we know what they are in broad terms, what do they look like?
 
@@ -453,7 +453,7 @@ _While Angular renders to the DOM in the end_ (just as vanilla HTML would), _Ang
 >
 > Virtual DOMs have highly contested conversation surrounding them and have no standard definition as-to what one is or is not. I only used the DOM to present a foundational understanding of hierarchy trees in general.
 
-Because this tree is used to update the DOM rather than being part of the DOM itself, _the tree Angular uses to track its state is called the "view hierarchy tree"_. This tree is composed of various "views". _A view is a grouping of elements and is the smallest grouping of elements that can be created or destroyed together_. *A view is defined by a template.* _This template on it's own is not a view, but does define a view_
+Because this tree is used to update the DOM rather than being part of the DOM itself, _the tree Angular uses to track its state is called the "view hierarchy tree"_. This tree is composed of various "views". _A view is a grouping of elements and is the smallest grouping of elements that can be created or destroyed together_. **A view is defined by a template.** _This template on it's own is not a view, but does define a view_
 
 Because of this, despite there being many templates - this code sample does not have any views in it, because they are not being created from any of the templates:
 
@@ -562,7 +562,7 @@ export class AppComponent {}
 
 ## Template Input Variable Scope
 
-Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result *these templates are able to be accessed by the children views of the templates, but not from a higher level* - as the context is not defined above the template:
+Template input variables are the variables you bind to a template when using context. `<ng-template let-varName>`. _These variables are defined from the context that is applied to the template_. As a result **these templates are able to be accessed by the children views of the templates, but not from a higher level** - as the context is not defined above the template:
 
 ```html
 <!-- ✅ This is perfectly fine -->
@@ -653,7 +653,7 @@ And instead got:
 
 This is because, when we moved the template into the correct view scope, we moved it in the element tree as well.
 
-Luckily, we've already covered `@ViewChild`, which is able to get references all the way down the view hierarchy tree and provide the value to the component logic. Because the *component logic variables are accessible from any child view of the component host view*, you can pass the `testingMessage` template reference variable to the top level.
+Luckily, we've already covered `@ViewChild`, which is able to get references all the way down the view hierarchy tree and provide the value to the component logic. Because the **component logic variables are accessible from any child view of the component host view**, you can pass the `testingMessage` template reference variable to the top level.
 
 ```typescript
 @Component({
@@ -729,7 +729,7 @@ ngAfterViewInit | The template is present? true
 ngDoCheck       | The template is present? true
 ```
 
-You can see that the `testingMessageCompVar` property is not defined until the `ngAfterViewInit`. _The reason we're hitting the error is that the template is not defined in the component logic until `ngAfterViewInit`._ It is not defined until them due to timing issues: *the template is being declared in an embedded view, which takes a portion of time to render to screen*. As a result, the `helloThereMsg` template must render first, then the `ViewChild` can get a reference to the child after the initial update.
+You can see that the `testingMessageCompVar` property is not defined until the `ngAfterViewInit`. _The reason we're hitting the error is that the template is not defined in the component logic until `ngAfterViewInit`._ It is not defined until them due to timing issues:* **the template is being declared in an embedded view, which takes a portion of time to render to screen**. As a result, the `helloThereMsg` template must render first, then the `ViewChild` can get a reference to the child after the initial update.
 
 When using `ViewChild` by itself, it updates the value of the `testingMessageCompVar` at the same time that the `AfterViewInit` lifecycle method is ran. This value update is then in turn reflected in the template itself.
 
@@ -737,7 +737,7 @@ Angular, however, does not like values being updated directly within the `AfterV
 
 Because of this — when using the `ngDoCheck` — you're manually running the variable update, which in turn informs Angular’s change detection process to include this in it’s list of screen updates.
 
-> I realize there’s a lot going on in this example and that can be very confusing, even for me writing it! If you’re wanting to learn more but feeling discouraged after reading through this section a time or two, give [this resource](https://blog.angular-university.io/angular-debugging/) (from “Angular University”, a great un-official Angular resource hub) a shot. It’s what I used to re-learn the elements at play with this error.
+> I realize there’s a lot going on in this example and that can be very confusing, even for me writing it! If you’re wanting to learn more but feeling discouraged after reading through this section a time or two, give [this resource](https://blog.angular-university.io/angular-debugging/) (from "Angular University", a great un-official Angular resource hub) a shot. It’s what I used to re-learn the elements at play with this error.
 
 > If there’s more interest in an article from me about Angular change detection, reach out - I'd love to gague interest!
 
@@ -1329,7 +1329,7 @@ Alright, we've made it thus far! The following section is going to be kinda a do
 
 ### Bind Context
 
-Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, *Angular also provides a small language-like syntax into its own query system*. This syntax is referred to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
+Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, **Angular also provides a small language-like syntax into its own query system**. This syntax is referred to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
 
 ````typescript
 function translatePigLatin(strr) {
@@ -1473,9 +1473,9 @@ For starters, I moved away from a `set`ter for the input value and towards `ngOn
 
 I'm also binding the value "upper" to `makePiglatinCasing` by adding `casing: 'UPPER'` to the input to the structural directive and then separating it by `;`.
 
-The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. *The microsyntax is taking the  `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.*
+The magic in the syntax comes from that input name. I know in previous examples I've mentioned when things were similarly named only for readability purposes and not because the syntax demands such - this is not one of those times. **The microsyntax is taking the  `casing` binding from the input, making the first letter uppercase, then prepending it to the template selector to get the name of the `@Input` directive property to pass that value to.**
 
-*This is why we usually call the directive selector the structural directive prefix - it should prefix the names of any of your microsyntax inputs*. Outside of the prefix rule, there's little else that you'll need to keep in mind with these input names. Want to make it `makePiglatinCasingThingHere`? No problem, just change that part of the input syntax to read `casingThingHere: 'upper'`
+**This is why we usually call the directive selector the structural directive prefix - it should prefix the names of any of your microsyntax inputs**. Outside of the prefix rule, there's little else that you'll need to keep in mind with these input names. Want to make it `makePiglatinCasingThingHere`? No problem, just change that part of the input syntax to read `casingThingHere: 'upper'`
 
 
 #### Why not bind like a typical input?
@@ -1493,7 +1493,7 @@ I was not, however, greeted by praises on my PR making this change, but rather b
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
 
-This may seem strange upon first glance but remember: *The structural directive wraps the tag it is on inside of a template*. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_. 
+This may seem strange upon first glance but remember: **The structural directive wraps the tag it is on inside of a template**. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_. 
 
 This becomes more apparent when you expand the syntax to look something like this:
 
@@ -1569,7 +1569,8 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-40-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? *Well, `as` exports the outputted value that it's bound to.*  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
+
+Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? **Well, `as` exports the outputted value that it's bound to.**  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
 Of course, this means that you can send any value as the context. Change the code to read:
 
@@ -1614,9 +1615,9 @@ Angular's microsyntax has 4 building blocks, that when combined in a particular 
 
 #### Expressions  {#microsyntax-explain-expressions}
 
-The way I describe expressions in simple terms is “anything that, when referenced, returns a value". Like the example above, it could mean using an operator (`5 + 3`), calling a function (`Math.random()`), a variable (assuming `const numberHere = 12`, `numberHere`) or just a value itself (`'a string here'`).
+The way I describe expressions in simple terms is "anything that, when referenced, returns a value". Like the example above, it could mean using an operator (`5 + 3`), calling a function (`Math.random()`), a variable (assuming `const numberHere = 12`, `numberHere`) or just a value itself (`'a string here'`).
 
-While "what is and isn’t an expression in JavaScript” could be it’s own post, suffice it to say that if you’re able to pass a piece of code to a function as an argument — it’s an expression.
+While "what is and isn’t an expression in JavaScript" could be it’s own post, suffice it to say that if you’re able to pass a piece of code to a function as an argument — it’s an expression.
 
 ```html
 <!-- This code is not super useful in the real-world, -->
@@ -1632,8 +1633,8 @@ While "what is and isn’t an expression in JavaScript” could be it’s own po
 
 The rules behind the `as` keyword as an alternative to `let` are fairly straightforward:
 
-- You *start with the name of the exported key* from the context
-- Then, you *use the name you want to save the value to* (as a template input variable)
+- You **start with the name of the exported key** from the context
+- Then, you **use the name you want to save the value to** (as a template input variable)
 
 So, if you had the context as `{personName: 'Corbin', personInterests: ['programming']}`, and wanted to save the value from `personInterests` to a template input variable `interestList`, you could use: `personInterests as interestList`.
 
@@ -1641,10 +1642,10 @@ So, if you had the context as `{personName: 'Corbin', personInterests: ['program
 
 A key expression is simply an expression that you’re able to bind to an input on a structural directive. 
 
-- You *start with the `key` you’d like to bind to* the input that is prefixed with the directive selector (so `[ngIf]`’s `then` key would map to the `ngIfThen` input) 
-- Then, you *optionally can place a colon* (having it or not does not affect the behavior in any way)
-- You’ll then want to *place an expression that will be passed as the input value* for the `key` you started the key expression with
-- Finally, _if you’d like to save the input value_, you’re able to *use the `as` keyword*, followed by the name you’d like to save the input value to (as a template input variable)
+- You **start with the `key` you’d like to bind to** the input that is prefixed with the directive selector (so `[ngIf]`’s `then` key would map to the `ngIfThen` input) 
+- Then, you **optionally can place a colon** (having it or not does not affect the behavior in any way)
+- You’ll then want to **place an expression that will be passed as the input value** for the `key` you started the key expression with
+- Finally, _if you’d like to save the input value_, you’re able to **use the `as` keyword**, followed by the name you’d like to save the input value to (as a template input variable)
 
 
 ```html
@@ -1670,11 +1671,11 @@ Now that we understand all of the parts by themselves, let’s combine them toge
 
 ![A chart showing the microsyntax rules all-together. Rules explained below](./microsyntax_main.svg "Microsyntax combined chart")
 
-- The start to any structural directive call is *the `*` reserved token* (a token, in this case, is just a symbol marked to do something). This just marks the directive call to be handled as a structural directive.
+- The start to any structural directive call is **the `*` reserved token** (a token, in this case, is just a symbol marked to do something). This just marks the directive call to be handled as a structural directive.
 
-- Then, you have the *the `selector` value* of the directive iteslf (which acts as a prefix to the inputs)
+- Then, you have the **the `selector` value** of the directive iteslf (which acts as a prefix to the inputs)
 
-- You bind to the selector as you would any other input using *`=“`* tokens
+- You bind to the selector as you would any other input using **`="`** tokens
 
 The contents of the input itself is where the microsyntax goes.
 
@@ -1682,7 +1683,7 @@ The contents of the input itself is where the microsyntax goes.
 
 The first item that’s allowed in the microsyntax is either an expression or a `let` binding.
 
-If an expressing `*prefix="5 + 3”` is passed, this value will be passed to the same input name as the selector itself: EG the `ngIf` input on the directive with the `[ngIf]` selector value.
+If an expressing `*prefix="5 + 3"` is passed, this value will be passed to the same input name as the selector itself: EG the `ngIf` input on the directive with the `[ngIf]` selector value.
 
 If a `let` binding is the first item, it will work exactly as it’s explained in [the previous section](#microsyntax-explain-let)
 
@@ -1698,7 +1699,7 @@ If a `let` binding is the first item, it will work exactly as it’s explained i
 
 #### Second Item and Beyond
 
-After the first item, _you’re able to pass in a `let` binding, an `as` binding, or a key expression_. *There can be as many of these items in a microsyntax as you’d like, so long as they’re one of those 3*. These will act the way you expect them to as before. You’re not, however, able to pass an expression to act as the default input value - that’s preserved only for the first item.
+After the first item, _you’re able to pass in a `let` binding, an `as` binding, or a key expression_. **There can be as many of these items in a microsyntax as you’d like, so long as they’re one of those 3**. These will act the way you expect them to as before. You’re not, however, able to pass an expression to act as the default input value - that’s preserved only for the first item.
 
 ```html
 <p *makePigLatin="'First'; let localVar = exportKey"></p>
@@ -1710,7 +1711,7 @@ After the first item, _you’re able to pass in a `let` binding, an `as` binding
 
 ## Optional Seperators
 
-Just as the `:` is optional in a [key expression](#microsyntax-explain-keyexp), *all seperators in the microsyntax are optional*.
+Just as the `:` is optional in a [key expression](#microsyntax-explain-keyexp), **all seperators in the microsyntax are optional**.
 
 These are all valid:
 
