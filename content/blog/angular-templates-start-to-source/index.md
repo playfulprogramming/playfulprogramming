@@ -467,7 +467,7 @@ Because of this, despite there being many templates - this code sample does not 
 
 However, when you create a view from a template, you're able to display them on screen. When a view is displayed on screen, they're then called an _embedded view_. So, when we render a template using `ngTemplateOutlet`, we are creating a view from a template, then embedding the view in the view that you called the `ngTemplateOutlet` in.
 
-As such, the following code example would create the view hierarchy in the chart below the code sample: 
+As such, the following code example would create the view hierarchy in the chart below the code sample:
 
 ```html
 <ng-template>
@@ -476,7 +476,7 @@ As such, the following code example would create the view hierarchy in the chart
 		But as you might recall, this is also a view
 	</ng-template>
 	<ng-template
-		[ngTemplateOutlet]="rememberMsg"	
+		[ngTemplateOutlet]="rememberMsg"
 		[ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
 	></ng-template>
 </ng-template>
@@ -486,7 +486,7 @@ As such, the following code example would create the view hierarchy in the chart
 
 > The arrow in this chart simply shows that the view is being defined by the template itself
 
-It's this composition of views that makeup the "view hierarchy". 
+It's this composition of views that makeup the "view hierarchy".
 
 ## View Containers
 
@@ -1493,7 +1493,7 @@ I was not, however, greeted by praises on my PR making this change, but rather b
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
 
-This may seem strange upon first glance but remember: **The structural directive wraps the tag it is on inside of a template**. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_. 
+This may seem strange upon first glance but remember: **The structural directive wraps the tag it is on inside of a template**. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_.
 
 This becomes more apparent when you expand the syntax to look something like this:
 
@@ -1640,9 +1640,9 @@ So, if you had the context as `{personName: 'Corbin', personInterests: ['program
 
 #### `keyExp` - Key Expressions  {#microsyntax-explain-keyexp}
 
-A key expression is simply an expression that you’re able to bind to an input on a structural directive. 
+A key expression is simply an expression that you’re able to bind to an input on a structural directive.
 
-- You **start with the `key` you’d like to bind to** the input that is prefixed with the directive selector (so `[ngIf]`’s `then` key would map to the `ngIfThen` input) 
+- You **start with the `key` you’d like to bind to** the input that is prefixed with the directive selector (so `[ngIf]`’s `then` key would map to the `ngIfThen` input)
 - Then, you **optionally can place a colon** (having it or not does not affect the behavior in any way)
 - You’ll then want to **place an expression that will be passed as the input value** for the `key` you started the key expression with
 - Finally, _if you’d like to save the input value_, you’re able to **use the `as` keyword**, followed by the name you’d like to save the input value to (as a template input variable)
@@ -1657,7 +1657,7 @@ A key expression is simply an expression that you’re able to bind to an input 
 
 #### `let` bindings {#microsyntax-explain-let}
 
-The `let` binding: 
+The `let` binding:
 
 - Starts with a `let` preserved keyword
 - Then lists the template input variable to save the value to
