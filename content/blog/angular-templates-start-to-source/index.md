@@ -79,6 +79,7 @@ But there's a ~~simpler~~ ~~much more complex~~ another way show the same templa
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-2-conditional-render?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 > While this is not how the `ngIf` structural template works internally, this is a good introduction to the `ngTemplateOutlet` directive, which adds functionality to the `ng-template` tag.
 >
 > If you're curious to how Angular's `ngIf` works, read on dear reader.
@@ -155,6 +156,7 @@ export class AppComponent {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-4-viewchild?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 > While this example is effectively not-much-more than an alternative API to `ngTemplateOutlet`, it serves as a basis for introducing into further concepts.
 
 _`ViewChild` is a "property decorator" utility for Angular that will search the component tree to find what you pass it as a query._ In the example above, when we pass a string of `'templName'`, we are looking for something in the tree that is marked with the template variable `helloMsg`. In this case, it's an `ng-template`, which is then stored to the `helloMessageTemplate` property when this is found. Because it is a reference to a template, we are typing it as `TemplateRef<any>` to have TypeScript understand the typings whenever it sees this variable.
@@ -219,6 +221,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-6-read-prop?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 `ViewChild` isn't an only child though (get it?). There are other APIs similar to it that allow you to get references to other items in your templates from your component logic.
 
 ## `ViewChildren`: More references then your nerdy pop culture friend {#viewchildren}
@@ -642,6 +645,7 @@ In order to fix this behavior, we'd need to move the second `ng-template` into t
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-12-fixed-template-var?embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 # The Bane of All JavaScipt Developer: Timings {#timings}
 
 ## Understanding timings with `ViewChildren` {#viewchildren-timings}
@@ -791,6 +795,7 @@ While you might wonder "Why would you use `static: false` if you can get the acc
 When taking the example with the `testingMessageCompVar` prop and changing the value to `true`, it will never render the other component since it will always stay `undefined`.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-15-static-first-check?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 # View Manipulation {#view-manipulation}
 
 ## View Limitations {#view-limitations}
@@ -901,6 +906,7 @@ ngOnInit() {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-17-see-viewcontainer-indexes?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 #### Context
 
 Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start counting from, you could pass a context, [with the same object structure we did before](#template-context), have:
@@ -943,6 +949,7 @@ To get around this, we can use the `ng-container` tag, which allows us to get a 
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-18-create-embedd-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 #### Move/Insert Template
 
 But oh no! You'll see that the ordering is off. The simplest (and probably most obvious) solution would be to flip the order of the calls. After all, if they're based on index - moving the two calls to be in the opposite order would just fix the problem.
@@ -971,6 +978,7 @@ ngOnInit() {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-20-insert-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 [And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/core/src/view/refs.ts#L174):
 
 ```typescript
@@ -1048,6 +1056,7 @@ export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-22-directive-template-reference?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ## Input Shorthand {#directive-same-name-input}
 
 With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
@@ -1177,6 +1186,7 @@ export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](#embed-views), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
 Too much CS (computer science) speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template.
@@ -1542,6 +1552,7 @@ So if we did want to take the non-functional example above and fix it to not use
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ### `as` to preserve values in template variable
 
 One of my favorite tools at the microsyntax's disposal is the `as` keyword. On paper, it sounds extremely straightforward and duplicative of the `let` keyword:
@@ -1805,6 +1816,7 @@ export class AppComponent {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-41-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 - We're starting with enabling `uniFor` as the structural directive name
 - Then we're defining an input to accept `of` as a key in the syntax (to match the `ngFor` structural directive syntax).
 
