@@ -48,7 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
       if (postInfo.attached && postInfo.attached.length > 0) {
         postInfo.attached.forEach(({file: fileStr}) => {
           const postPath = post.node.fields.slug
-          const relFilePath = path.join(__dirname, 'static', postPath, fileStr)
+          const relFilePath = path.join(__dirname, 'static', 'posts', postPath, fileStr)
           const fileExists = fs.existsSync(path.resolve(relFilePath))
           if (!fileExists) {
             console.error(`Could not find file to attach in the static folder: ${postPath}${fileStr}`)
