@@ -1185,7 +1185,7 @@ export class RenderThisDirective implements OnInit {
 export class AppComponent {}
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-25-structural-directive-intro?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](#embed-views), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
@@ -1521,7 +1521,7 @@ Now, I remember when I learning a lot of the structural directive stuff, I thoug
 </p>
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-36-pig-latin-non-binding?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-34-pig-latin-non-binding?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 I was not, however, greeted by praises on my PR making this change, but rather by an error in my console:
 
@@ -1551,7 +1551,7 @@ So if we did want to take the non-functional example above and fix it to not use
 </ng-template>
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-35-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ### `as` to preserve values in template variable
 
@@ -1583,7 +1583,7 @@ export class AppComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-38-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-36-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 While this example can be seen clearly with this usage of `ngIf` , let's try to add it into our `pigLatin` example:
 
@@ -1591,7 +1591,7 @@ While this example can be seen clearly with this usage of `ngIf` , let's try to 
 <p *makePiglatin="'test'; let msg; casing 'upper' | uppercase as upperInUpper">{{upperInUpper}}: {{msg}}</p>
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-39-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
@@ -1605,7 +1605,7 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 });
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-40-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-38-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? **Well, `as` exports the outputted value that it's bound to.**  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
@@ -1815,7 +1815,7 @@ export class AppComponent {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/start-to-source-41-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/start-to-source-39-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 - We're starting with enabling `uniFor` as the structural directive name
 - Then we're defining an input to accept `of` as a key in the syntax (to match the `ngFor` structural directive syntax).
