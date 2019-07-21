@@ -1,10 +1,10 @@
 ---
 {
-    title: "Angular Templates - From Start to Source",
-    published: "2019-07-11T22:12:03.284Z",
-    author: 'crutchcorn',
-    tags: ['angular', 'templates'],
-    attached: []
+		title: "Angular Templates - From Start to Source",
+		published: "2019-07-11T22:12:03.284Z",
+		author: 'crutchcorn',
+		tags: ['angular', 'templates'],
+		attached: []
 }
 ---
 
@@ -47,19 +47,20 @@ While Angular templates come in many shapes and sizes, a simple but common use f
 
 ```html
 <ng-template #falseTemp>
-  <p>False</p>
+	<p>False</p>
 </ng-template>
 <p *ngIf="bool; else falseTemp">True</p>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-1-ng-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 In this example, we are creating a template and assigning it to a [template reference variable](https://blog.angulartraining.com/tutorial-the-magic-of-template-reference-variables-3183f0a0d9d1). _This template reference variable makes `falseTemp` a valid variable to use as a value for other inputs in the same template._ It then handles that variable similarly to how a variable from the component logic is handled when referenced from the template.
 
 We are then adding the [`ngIf`](https://angular.io/api/common/NgIf) structural directive to the paragraph tag to render content to the screen conditionally.
 
 - If `bool` is true, it renders `<p>True</p>`, and the template containing `<p>False</p>` does not
 - If `bool` is false, it then checks if the [`else` condition built into `ngIf`](https://angular.io/api/common/NgIf#showing-an-alternative-template-using-else) has a value assigned to it. If there is a value assigned to the `else` condition, it renders that template.
-  - In this example, it does; the template we've assigned to `templHere`. Because of this, `<p>False</p>` is rendered
+	- In this example, it does; the template we've assigned to `templHere`. Because of this, `<p>False</p>` is rendered
 
 If you had forgotten to include the `ngIf`, it would never render the `False` element because **a template is not rendered to the view unless explicitly told to — this includes templates created with `ng-template`**
 
@@ -69,15 +70,16 @@ But there's a ~~simpler~~ ~~much more complex~~ another way show the same templa
 
 ```html
 <ng-template #falseTemp>
-  <p>False</p>
+	<p>False</p>
 </ng-template>
 <ng-template #ifTrueCondTempl>
-  <p>True</p>
+	<p>True</p>
 </ng-template>
 <ng-template [ngTemplateOutlet]="bool ? ifTrueCondTempl : falseTemp"></ng-template>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-2-conditional-render?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 > While this is not how the `ngIf` structural template works internally, this is a good introduction to the `ngTemplateOutlet` directive, which adds functionality to the `ng-template` tag.
 >
 > If you're curious to how Angular's `ngIf` works, read on dear reader.
@@ -106,15 +108,18 @@ So, now that we know what they are in broad terms, what do they look like?
 While we used the `ngTemplateOutlet` directive before to render a template, we can also pass an input to the directive `ngTemplateOutletContext` to pass a context. A context is just an object with a standard key/value pairing.
 
 ```html
-<ng-template [ngTemplateOutlet]="showMsgToPerson"
-             [ngTemplateOutletContext]="{$implicit: 'Hello World', personName: 'Corbin'}">
+<ng-template
+	[ngTemplateOutlet]="showMsgToPerson"
+	[ngTemplateOutletContext]="{$implicit: 'Hello World', personName: 'Corbin'}"
+>
 </ng-template>
 ```
 
 From there, you can use `let` declarations to create template variables in that template based on the values passed by the context like so:
+
 ```html
 <ng-template #showMsgToPerson let-message let-thisPersonsName="personName">
-  <p>{{message}} {{thisPersonsName}}</p>
+	<p>{{message}} {{thisPersonsName}}</p>
 </ng-template>
 ```
 
@@ -123,6 +128,7 @@ Here, you can see that `let-templateVariableName="contextKeyName"` is the syntax
 Now let's see it in action!
 
 <iframe src="https://stackblitz.com/edit/start-to-source-3-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 As a quick note, _I only named these template input variables differently from the context value key in order to make it clear that you may do so_. `let-personName="personName"` is not only valid, but it also can make the code's intentions clearer to other developers.
 
 # View References - `ViewChild`/`ContentChild` #{view-references}
@@ -135,21 +141,22 @@ Using [`ViewChild`](https://angular.io/api/core/ViewChild), you're able to grab 
 
 ```typescript
 @Component({
-  selector: 'my-app',
-  template: `
-    <div>
-      <ng-template #helloMsg>Hello</ng-template>
-    </div>
-    <ng-template [ngTemplateOutlet]="helloMessageTemplate"></ng-template>
-  `
+	selector: 'my-app',
+	template: `
+		<div>
+			<ng-template #helloMsg>Hello</ng-template>
+		</div>
+		<ng-template [ngTemplateOutlet]="helloMessageTemplate"></ng-template>
+	`
 })
 export class AppComponent {
-  // Ignore the `static` prop for now, we'll cover that in just a bit
-  @ViewChild('helloMsg', {static: false}) helloMessageTemplate: TemplateRef<any>;
+	// Ignore the `static` prop for now, we'll cover that in just a bit
+	@ViewChild('helloMsg', {static: false}) helloMessageTemplate: TemplateRef<any>;
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-4-viewchild?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 > While this example is effectively not-much-more than an alternative API to `ngTemplateOutlet`, it serves as a basis for introducing into further concepts.
 
 _`ViewChild` is a "property decorator" utility for Angular that will search the component tree to find what you pass it as a query._ In the example above, when we pass a string of `'templName'`, we are looking for something in the tree that is marked with the template variable `helloMsg`. In this case, it's an `ng-template`, which is then stored to the `helloMessageTemplate` property when this is found. Because it is a reference to a template, we are typing it as `TemplateRef<any>` to have TypeScript understand the typings whenever it sees this variable.
@@ -160,13 +167,13 @@ _`ViewChild` is a "property decorator" utility for Angular that will search the 
 
 ```typescript
 @Component({
-  selector: 'my-app',
-  template: `
-    <my-custom-component #myComponent [inputHere]="50" data-unrelatedAttr="Hi there!"></my-custom-component>
-  `
+	selector: 'my-app',
+	template: `
+		<my-custom-component #myComponent [inputHere]="50" data-unrelatedAttr="Hi there!"></my-custom-component>
+	`
 })
 export class AppComponent {
-  @ViewChild('myComponent', {static: false}) myComponent: MyComponentComponent;
+	@ViewChild('myComponent', {static: false}) myComponent: MyComponentComponent;
 }
 ```
 
@@ -180,7 +187,9 @@ console.log(this.myComponent.inputHere); // This will print `50`
 It would give you the property value on the instance of that component. Angular by default does a pretty good job at figuring out what it is that you wanted to get a reference of and returning the "correct" object for that thing.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-5-view-not-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Despite the examples thus far having only used a string as the query for `ViewChild`, you're also able to use the ComponentClass to query for a component with that component type.
+
 ```typescript
 /* This would replace the previous @ViewChild */
 @ViewChild(MyComponentComponent) myComponent: MyComponentComponent;
@@ -189,6 +198,7 @@ Despite the examples thus far having only used a string as the query for `ViewCh
 For the particular example listed above, this code change would still yield the same results. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ — this could return results that are unexpected if you're not aware of that.
 
 ### My Name is ~~Inigo Montoya~~ the `read` Prop #{viewchild-read-prop}
+
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
 
 Ahh, so you've seen the problem with Angular's guessing of what datatype you're looking for. There are times where we, the developers, know better of what we're looking for than the framework services.
@@ -210,8 +220,8 @@ Now that we've configured the `ViewChild` to read this as an `ElementRef` (a cla
 console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')); // This output `"Hi there!"`
 ```
 
-
 <iframe src="https://stackblitz.com/edit/start-to-source-6-read-prop?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 `ViewChild` isn't an only child though (get it?). There are other APIs similar to it that allow you to get references to other items in your templates from your component logic.
 
 ## `ViewChildren`: More references then your nerdy pop culture friend #{viewchildren}
@@ -220,20 +230,21 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 
 ```typescript
 @Component({
-  selector: 'my-app',
-  template: `
-    <div>
-        <my-custom-component [inputHere]="50"></my-custom-component>
-        <my-custom-component [inputHere]="80"></my-custom-component>
-    </div>
-  `
+	selector: 'my-app',
+	template: `
+		<div>
+			<my-custom-component [inputHere]="50"></my-custom-component>
+			<my-custom-component [inputHere]="80"></my-custom-component>
+		</div>
+	`
 })
 export class AppComponent {
-  @ViewChildren(MyComponentComponent) myComponents: QueryList<MyComponentComponent>;
+	@ViewChildren(MyComponentComponent) myComponents: QueryList<MyComponentComponent>;
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-7-viewchildren?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` property from the `ViewChild` property decorator to get a `QueryList<ElementRef>` (to be able to get the reference to the DOM [Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element) themselves) instead of a query list of `MyComponentComponent` types.
 
 ### What is `QueryList` #{viewchildren-querylist}
@@ -246,7 +257,7 @@ A `QueryList` also allows for some nice additions like the `changes` observable 
 <!--This would makeup the template of a new component-->
 <input type="checkbox" [(ngModel)]="bool"/>
 <div *ngIf="bool">
-  <my-custom-component></my-custom-component>
+	<my-custom-component></my-custom-component>
 </div>
 <my-custom-component></my-custom-component>
 ```
@@ -256,14 +267,15 @@ And wanted to get the value of all component's `numberProp` values reduced into 
 ```typescript
 /* This would be added to the `AfterViewInit` lifecycle method */
 this.myComponents.changes.subscribe(compsQueryList => {
-  const componentsNum = compsQueryList.reduce((prev, comp) => {
-    return prev + comp.numberProp;
-  }, 0);
-  console.log(componentsNum); // This would output the combined number from all of the component's `numberProp` field. This would run any time Angular saw a difference in the values
+	const componentsNum = compsQueryList.reduce((prev, comp) => {
+		return prev + comp.numberProp;
+	}, 0);
+	console.log(componentsNum); // This would output the combined number from all of the component'	`numberProp` field. This would run any time Angular saw a difference in the values
 });
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-8-querylist?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 It might be a good idea to gain familiarity of doing this, as the Angular docs leave the warning when reading through [`QueryList` docs](https://angular.io/api/core/QueryList#changes):
 
 > NOTE: In the future this class will implement an Observable interface.
@@ -284,8 +296,8 @@ One thing I always run into though is that I always end up wanting to style the 
 
 ```html
 <cards-list> <!-- Cards list has default styling with grey background -->
-  <action-card></action-card> <!-- Action card has default styling with grey background -->
-  <action-card></action-card> <!-- It's also widely used across the app, so that can't change -->
+	<action-card></action-card> <!-- Action card has default styling with grey background -->
+	<action-card></action-card> <!-- It's also widely used across the app, so that can't change -->
 </cards-list>
 ```
 
@@ -296,7 +308,7 @@ This might seem like a trivial task to anyone assuming that these components are
 ```css
 // cards-list.component.css
 action-card {
-  background: white;
+	background: white;
 }
 ```
 
@@ -306,42 +318,44 @@ No matter though, we have the power of `ViewChildren` on our side! Corbin alread
 
 ```typescript
 @Component({
-    selector: 'action-card',
-    template: `<div></div>`,
-    styles: [    `
-      :host {
-        border: 1px solid black;
-        display: inline-block;
-        height: 300px;
-        width: 100px;
-        background: grey;
-        margin: 10px;
-      }
-    `]
+	selector: 'action-card',
+	template: `<div></div>`,
+	styles: [`
+		:host {
+			border: 1px solid black;
+			display: inline-block;
+			height: 300px;
+			width: 100px;
+			background: grey;
+			margin: 10px;
+		}
+	`]
 })
 export class ActionCard {}
 
 @Component({
-  selector: 'cards-list',
-  template: `<div><ng-content></ng-content></div>`,
-  styles: [`:host {background: grey; display: block;}`
+	selector: 'cards-list',
+	template: `<div><ng-content></ng-content></div>`,
+	styles: [`:host {background: grey; display: block;}`
 })
 export class CardsList implements AfterViewInit {
-  @ViewChildren(ActionCard, {read: ElementRef}) actionCards;
+	@ViewChildren(ActionCard, {read: ElementRef}) actionCards;
 
-  ngAfterViewInit() {
-    // Any production code should absolutely be cleaning this up properly, this is just for demonstration purposes
-    this.actionCards.forEach(elRef => {
-      console.log("Changing background of a card");
-      this.renderer.setStyle(elRef.nativeElement, "background", "white");
-    });
-  }
+	ngAfterViewInit() {
+		// Any production code should absolutely be cleaning this up properly,
+		// this is just for demonstration purposes
+		this.actionCards.forEach(elRef => {
+			console.log("Changing background of a card");
+			this.renderer.setStyle(elRef.nativeElement, "background", "white");
+		});
+	}
 }
 ```
 
 Awesome, let's spin that up and… Oh.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-9-cardlist-broke?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 The cards are still grey. Let's open up our terminal and see if the `console.log`s ran.
 
 They didn't.
@@ -357,6 +371,7 @@ If we change the `ViewChildren` line to read:
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-10-cardlist-fixed?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 We'll see that the code now runs as expected. Cards are recolored, consoles are ran, developers happy.
 
 ### The Content Without the `ng` #{viewchildren-without-ng-content}
@@ -366,24 +381,25 @@ We'll see that the code now runs as expected. Cards are recolored, consoles are 
 ```html
 <!-- root-template.component.html -->
 <render-template-with-name>
-  <ng-template let-userName>
-    <p>Hello there, {{userName}}</p>
-  </ng-template>
+	<ng-template let-userName>
+		<p>Hello there, {{userName}}</p>
+	</ng-template>
 </render-template-with-name>
 ```
 
 ```typescript
 // render-template-with-name.component.ts
 @Component({
-  selector: 'render-template-with-name',
-  template: `
-  <ng-template [ngTemplateOutlet]="contentChildTemplate"
-               [ngTemplateOutletContext]="{$implicit: 'Name here'}">
-  </ng-template>
+	selector: 'render-template-with-name',
+	template: `
+	<ng-template
+		[ngTemplateOutlet]="contentChildTemplate"
+		[ngTemplateOutletContext]="{$implicit: 'Name here'}">
+	</ng-template>
 `
 })
 export class AppComponent {
-  @ContentChild(TemplateRef, {static: false}) contentChildTemplate;
+	@ContentChild(TemplateRef, {static: false}) contentChildTemplate;
 }
 ```
 
@@ -424,7 +440,7 @@ This tree tells the browser where to place items and includes some logic when co
 
 ```css
 #b li {
-  background: red;
+	background: red;
 }
 ```
 
@@ -454,8 +470,8 @@ Because of this, despite there being many templates - this code sample does not 
 ```html
 <ng-template>I am a view that's defined by a template</ng-template>
 <ng-template>
-  <p>So am I! Just a different one. Everything in THIS template is in the same view</p>
-  <div>Even with me in here? <span>Yup!</span></div>
+	<p>So am I! Just a different one. Everything in THIS template is in the same view</p>
+	<div>Even with me in here? <span>Yup!</span></div>
 </ng-template>
 ```
 
@@ -465,11 +481,14 @@ As such, the following code example would create the view hierarchy in the chart
 
 ```html
 <ng-template>
-  <p>I am in a view right now</p>
-  <ng-template #rememberMsg>
-    But as you might recall, this is also a view
-  </ng-template>
-  <ng-template [ngTemplateOutlet]="rememberMsg" [ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"></ng-template>
+	<p>I am in a view right now</p>
+	<ng-template #rememberMsg>
+		But as you might recall, this is also a view
+	</ng-template>
+	<ng-template
+		[ngTemplateOutlet]="rememberMsg"	
+		[ngTemplateOutletContext]="{$implicit: 'So when we render it, it\'s a view within a view'}"
+	></ng-template>
 </ng-template>
 ```
 
@@ -489,10 +508,10 @@ Little has changed, yet there's something new! A _view container_ is just what i
 
 ```html
 <p>
-  <ng-template #letsRender>
-    Let's render this thing!
-  </ng-template>
-  <ng-template [ngTemplateOutlet]="letsRender"></ng-template>
+	<ng-template #letsRender>
+		Let's render this thing!
+	</ng-template>
+	<ng-template [ngTemplateOutlet]="letsRender"></ng-template>
 </p>
 ```
 
@@ -512,7 +531,7 @@ If you're looking for them, you might notice a few similarities between a compon
 
 Well, there's a good reason for that: _A component is actually just a directive with a special view - a "host view" (defined by the `template` or `templateUrl` field in the decorator) associated with it_.
 
- [To quote the Angular documentation](https://angular.io/guide/architecture-components#directives):
+[To quote the Angular documentation](https://angular.io/guide/architecture-components#directives):
 
 > A component is technically a directive. However, components are so distinctive and central to Angular applications that Angular defines the `@Component()` decorator, which extends the `@Directive()`decorator with template-oriented features.
 
@@ -520,24 +539,25 @@ This host view can also be attached to another view by using the `selector` valu
 
 ```typescript
 @Component({
-  selector: "child-component",
-  template: `
+	selector: "child-component",
+	template: `
 		<p>I am in the host view, which acts as a view container for other views to attach to</p>
 		<div><p>I am still in the child-component's host view</p></div>
 		<ng-template #firstChildCompTempl>
 			<p>I am in a view outside of the child-component's host view</p>
 		</ng-template>
-	  <ng-template [ngTemplateOutlet]="firstChildCompTempl"
-                 [ngTemplateOutletContext]="{$implicit: 'And now I'm attaching that template to the host view by embedding the view'}">
-		</ng-template>
+		<ng-template
+			[ngTemplateOutlet]="firstChildCompTempl"
+			[ngTemplateOutletContext]="{$implicit: 'And now I'm attaching that template to the host view by embedding the view'}"
+		></ng-template>
 	`
 })
 export class ChildComponent {}
 
 
 @Component({
-  selector: 'my-app',
-  template: `
+	selector: 'my-app',
+	template: `
 		<p>I am in app's host view, and can act as a view container for even other host views by using the component's selector</p>
 		<child-component></child-component>
 	`
@@ -588,18 +608,19 @@ Straightforward enough example, let’s see a more difficult example:
 
 ```html
 <ng-template #helloThereMsg>
-  <p>Hello There!</p>
-	  <ng-template #testingMessage>
-	    <p>Testing 123</p>
-		  </ng-template>
+	<p>Hello There!</p>
+	<ng-template #testingMessage>
+		<p>Testing 123</p>
+	</ng-template>
 </ng-template>
 <div>
-  <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+	<ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
 </div>
 <ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-11-broke-template-var?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 If you look at the output of this example, you'll notice that `testingMessage` isn't rendering. This is because template reference variables bind to the view that they're present in; and as a result are unable to be accessed from parent views.
 
 [Like how CSS is applied to a dom when bound to a selector](#the-dom), template reference variables can be accessed within the view itself and child views, but not the parent views.
@@ -619,11 +640,12 @@ In order to fix this behavior, we'd need to move the second `ng-template` into t
 	<ng-template [ngTemplateOutlet]="testingMessage"></ng-template>
 </ng-template>
 <div>
-  <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+	<ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
 </div>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-12-fixed-template-var?embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 # The Bane of All JavaScipt Developer: Timings #{timings}
 
 ## Understanding timings with `ViewChildren` #{viewchildren-timings}
@@ -647,18 +669,18 @@ Luckily, we've already covered `@ViewChild`, which is able to get references all
 
 ```typescript
 @Component({
-  selector: "my-app",
-  template: `
-    <ng-template #helloThereMsg>
-      Hello There!
-      <ng-template #testingMessage>Testing 123</ng-template>
-    </ng-template>
-    <ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
-    <ng-template [ngTemplateOutlet]="testingMessageCompVar"></ng-template>
-  `
+	selector: "my-app",
+	template: `
+		<ng-template #helloThereMsg>
+			Hello There!
+			<ng-template #testingMessage>Testing 123</ng-template>
+		</ng-template>
+		<ng-template [ngTemplateOutlet]="helloThereMsg"></ng-template>
+		<ng-template [ngTemplateOutlet]="testingMessageCompVar"></ng-template>
+	`
 })
 export class AppComponent {
-  @ViewChild("testingMessage", { static: false }) testingMessageCompVar;
+	@ViewChild("testingMessage", { static: false }) testingMessageCompVar;
 }
 ```
 
@@ -691,25 +713,26 @@ So let's look at the example we had previously, but let's add some lifecycle met
 
 ```typescript
 export class AppComponent implements DoCheck, OnChanges, AfterViewInit {
-  realMsgVar: TemplateRef<any>;
-  @ViewChild("testingMessage", { static: false }) testingMessageCompVar;
+	realMsgVar: TemplateRef<any>;
+	@ViewChild("testingMessage", { static: false }) testingMessageCompVar;
 
-  ngOnInit() {
-    console.log("ngOnInit | The template is present?", !!this.testingMessageCompVar)
-  }
+	ngOnInit() {
+		console.log("ngOnInit | The template is present?", !!this.testingMessageCompVar)
+	}
 
-  ngDoCheck() {
-    console.log("ngDoCheck | The template is present?", !!this.testingMessageCompVar);
-    this.realMsgVar = this.testingMessageCompVar;
-  }
+	ngDoCheck() {
+		console.log("ngDoCheck | The template is present?", !!this.testingMessageCompVar);
+		this.realMsgVar = this.testingMessageCompVar;
+	}
 
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit | The template is present?', !!this.testingMessageCompVar);
-  }
+	ngAfterViewInit() {
+		console.log('ngAfterViewInit | The template is present?', !!this.testingMessageCompVar);
+	}
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-13-lifecycle-explain?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Looking at the console logs, you'll be left with the following messages in your console:
 
 ```diff
@@ -741,28 +764,29 @@ Well, that can be controlled via the `static` prop! Before this example, I was d
 
 ```typescript
 @Component({
-  selector: "my-app",
-  template: `
+	selector: "my-app",
+	template: `
 		<div>
-  			<p>Hello?</p>
-	    <ng-template #helloThereMsg>
-    	  Hello There!
-  	  </ng-template>
+			<p>Hello?</p>
+			<ng-template #helloThereMsg>
+				Hello There!
+			</ng-template>
 		</div>
-    <ng-template [ngTemplateOutlet]="realMsgVar"></ng-template>
-  `
+		<ng-template [ngTemplateOutlet]="realMsgVar"></ng-template>
+	`
 })
 export class AppComponent {
-  @ViewChild("helloThereMsg", { static: true }) realMsgVar;
+	@ViewChild("helloThereMsg", { static: true }) realMsgVar;
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-14-static?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Because this example does not have the `helloThereMsg` template within another view (outside of the host view), it is able to render without the errors we found when using `static: true`). Likewise, if you were to add an `OnInit` lifecycle method, you'd be able to get a reference to that template.
 
 ```typescript
 ngOnInit() {
-  	console.log(!!this.realMsgVar); // This would output true
+	console.log(!!this.realMsgVar); // This would output true
 }
 ```
 
@@ -771,6 +795,7 @@ While you might wonder "Why would you use `static: false` if you can get the acc
 When taking the example with the `testingMessageCompVar` prop and changing the value to `true`, it will never render the other component since it will always stay `undefined`.
 
 <iframe src="https://stackblitz.com/edit/start-to-source-15-static-first-check?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 # View Manipulation #{view-manipulation}
 
 ## View Limitations #{view-limitations}
@@ -789,29 +814,30 @@ Let's show an example of how we can render an `ng-template` using TypeScipt comp
 
 ```typescript
 @Component({
-  selector: 'my-app',
-  template: `
-    <ng-template #templ>
-      <ul>
-        <li>List Item 1</li>
-        <li>List Item 2</li>
-      </ul>
-    </ng-template>
-    <div #viewContainerRef class="testing">
-    </div>
-  `
+	selector: 'my-app',
+	template: `
+		<ng-template #templ>
+			<ul>
+				<li>List Item 1</li>
+				<li>List Item 2</li>
+			</ul>
+		</ng-template>
+		<div #viewContainerRef class="testing">
+		</div>
+	`
 })
 export class AppComponent implements OnInit {
-  @ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
-  @ViewChild('templ', {read: TemplateRef, static: true}) templ;
+	@ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
+	@ViewChild('templ', {read: TemplateRef, static: true}) templ;
 
-  ngOnInit() {
-    this.viewContainerRef.createEmbeddedView(this.templ);
-  }
+	ngOnInit() {
+		this.viewContainerRef.createEmbeddedView(this.templ);
+	}
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-16-createembeddedview?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 This example has a lot going on, so let's dissect it bit-by-bit.
 
 Starting with some small recap:
@@ -819,12 +845,12 @@ Starting with some small recap:
 - We're creating a template with the `ng-template` tag and assigning it to a template reference variable `templ`
 - We're also creating a `div` tag, assigning it to the template reference variable `viewContainerRef`
 - Lastly, `ViewChild` is giving us a reference to the template on the `templ` component class property.
-  - We're able to mark both of these as `static: true` as neither of them are obfuscated by non-host-view views as parents
+	- We're able to mark both of these as `static: true` as neither of them are obfuscated by non-host-view views as parents
 
 Now the new stuff:
 
 - We're also using `ViewChild` to assign the template reference variable `viewContainerRef` to a component class property.
-  - We're using the `read` prop to give it the [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef) class, which includes some methods to help us create embedded view
+	- We're using the `read` prop to give it the [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef) class, which includes some methods to help us create embedded view
 - Then, in the `ngOnInit` lifecycle, we're running the `createEmbeddedView` method present on the `ViewContainerRef` property to create an embedded view based on the template.
 
 If you take a look at your element debugger, you'll notice that the template is injected as a sibling to the `.testing` div:
@@ -833,8 +859,8 @@ If you take a look at your element debugger, you'll notice that the template is 
 <!---->
 <div class="testing"></div>
 <ul>
-  <li>List Item 1</li>
-  <li>List Item 2</li>
+	<li>List Item 1</li>
+	<li>List Item 2</li>
 </ul>
 ```
 
@@ -873,13 +899,14 @@ You're also able to lookup an embedded view based on the index you're looking fo
 
 ```typescript
 ngOnInit() {
-  for (let i = 0; i < this.viewContainerRef.length; i++) {
-    console.log(this.viewContainerRef.get(i));
-  }
+	for (let i = 0; i < this.viewContainerRef.length; i++) {
+		console.log(this.viewContainerRef.get(i));
+	}
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-17-see-viewcontainer-indexes?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 #### Context
 
 Just as we can use `contextRouterOutlet`, you're able to pass context to a template when rendering it using `createEmbeddedView`. So, let's say that you wanted to have a counting component and want to pass a specific index to start counting from, you could pass a context, [with the same object structure we did before](#template-context), have:
@@ -888,25 +915,25 @@ Just as we can use `contextRouterOutlet`, you're able to pass context to a templ
 import { Component, ViewContainerRef, OnInit, AfterViewInit, ContentChild, ViewChild, TemplateRef , EmbeddedViewRef} from '@angular/core';
 
 @Component({
-  selector: 'my-app',
-  template: `
-   <ng-template #templ let-i>
-        <li>List Item {{i}}</li>
-        <li>List Item {{i + 1}}</li>
-    </ng-template>
-    <ul>
-	    <div #viewContainerRef></div>
-    </ul>
-  `
+	selector: 'my-app',
+	template: `
+	<ng-template #templ let-i>
+				<li>List Item {{i}}</li>
+				<li>List Item {{i + 1}}</li>
+		</ng-template>
+		<ul>
+			<div #viewContainerRef></div>
+		</ul>
+	`
 })
 export class AppComponent implements OnInit {
-  @ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
-  @ViewChild('templ', {read: TemplateRef, static: true}) templ;
+	@ViewChild('viewContainerRef', {read: ViewContainerRef, static: true}) viewContainerRef;
+	@ViewChild('templ', {read: TemplateRef, static: true}) templ;
 
-  ngOnInit() {
-    const embeddRef3: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
-    const embeddRef1: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 1});
-  }
+	ngOnInit() {
+		const embeddRef3: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 3});
+		const embeddRef1: EmbeddedViewRef<any> = this.viewContainerRef.createEmbeddedView(this.templ, {$implicit: 1});
+	}
 }
 ```
 
@@ -922,6 +949,7 @@ To get around this, we can use the `ng-container` tag, which allows us to get a 
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-18-create-embedd-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 #### Move/Insert Template
 
 But oh no! You'll see that the ordering is off. The simplest (and probably most obvious) solution would be to flip the order of the calls. After all, if they're based on index - moving the two calls to be in the opposite order would just fix the problem.
@@ -935,29 +963,31 @@ this.viewContainerRef.move(embeddRef1, newViewIndex); // This will move this vie
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-19-move-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Angular provides many APIs to take an existing view and move it and modify it without having to create a new one and run change detection/etc again.
 
 If you're wanting to try out a different API and feel that `createEmbeddedView` is a little too high-level for you (we need to go deeper), you can create a view from a template and then embed it yourself manually.
 
 ```typescript
 ngOnInit() {
-  const viewRef1 = this.templ.createEmbeddedView({ $implicit: 1 });
-  this.viewContainerRef.insert(viewRef1);
-  const viewRef3 = this.templ.createEmbeddedView({ $implicit: 3 });
-  this.viewContainerRef.insert(viewRef3);
+	const viewRef1 = this.templ.createEmbeddedView({ $implicit: 1 });
+	this.viewContainerRef.insert(viewRef1);
+	const viewRef3 = this.templ.createEmbeddedView({ $implicit: 3 });
+	this.viewContainerRef.insert(viewRef3);
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-20-insert-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 [And in fact, this is how the `createEmbeddedView` works internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/core/src/view/refs.ts#L174):
 
 ```typescript
 // Source code directly from Angular as of 8.0.1
 createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
 EmbeddedViewRef<C> {
-  const viewRef = templateRef.createEmbeddedView(context || <any>{});
-  this.insert(viewRef, index);
-  return viewRef;
+	const viewRef = templateRef.createEmbeddedView(context || <any>{});
+	this.insert(viewRef, index);
+	return viewRef;
 }
 ```
 
@@ -967,33 +997,34 @@ Thus far, we've only used components to change and manipulate templates. However
 
 ```typescript
 @Directive({
-  selector: '[renderTheTemplate]'
+	selector: '[renderTheTemplate]'
 })
 export class RenderTheTemplateDirective implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef) {
-  }
+	constructor (private parentViewRef: ViewContainerRef) {
+	}
 
-  @ContentChild(TemplateRef, {static: true}) templ;
+	@ContentChild(TemplateRef, {static: true}) templ;
 
-  ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templ);
-  }
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.templ);
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <div renderTheTemplate>
-      <ng-template>
-          <p>Hello</p>
-      </ng-template>
-    </div>
-  `
+	selector: 'my-app',
+	template: `
+		<div renderTheTemplate>
+			<ng-template>
+					<p>Hello</p>
+			</ng-template>
+		</div>
+	`
 })
 export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-21-directive-template?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 You'll notice this code is almost exactly the same from some of our previous component code.
 
 ## Reference More Than View Containers #{directive-template-ref}
@@ -1003,53 +1034,54 @@ However, the lack of a template associated with the directive enables some fun s
 
 ```typescript
 @Directive({
-  selector: '[renderTheTemplate]'
+	selector: '[renderTheTemplate]'
 })
 export class RenderTheTemplateDirective implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
+	constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
 
-  ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templToRender);
-  }
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.templToRender);
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <ng-template renderTheTemplate>
-        <p>Hello</p>
-    </ng-template>
-  `
+	selector: 'my-app',
+	template: `
+		<ng-template renderTheTemplate>
+				<p>Hello</p>
+		</ng-template>
+	`
 })
 export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-22-directive-template-reference?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ## Input Shorthand #{directive-same-name-input}
 
 With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
 
 ```typescript
 @Directive({
-  selector: '[renderTheTemplate]'
+	selector: '[renderTheTemplate]'
 })
 export class RenderTheTemplateDirective implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
+	constructor (private parentViewRef: ViewContainerRef, private templToRender: TemplateRef<any>) {}
 
-  @Input() renderTheTemplate: string;
+	@Input() renderTheTemplate: string;
 
-  ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templToRender, {$implicit: this.renderTheTemplate});
-  }
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.templToRender, {$implicit: this.renderTheTemplate});
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <ng-template [renderTheTemplate]="'Hi there!'" let-message>
-        <p>{{message}}</p>
-    </ng-template>
-  `
+	selector: 'my-app',
+	template: `
+		<ng-template [renderTheTemplate]="'Hi there!'" let-message>
+				<p>{{message}}</p>
+		</ng-template>
+	`
 })
 export class AppComponent {}
 ```
@@ -1057,39 +1089,41 @@ export class AppComponent {}
 > I want to make clear that this trick is present in all directives. If you name the input the same as the directive name, it will bind the value you're passing in to that directive name while also associating the directive with the component. No need for a seperate input and directive name!
 
 <iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Starting to look a bit more like the `ngTemplateOutlet`, no? Well, why not go even further! Let's lean into that!
 With this syntax, we can add a second input, pass an object as the context to the template we want to render, and then a template reference variable, and be able to recreate Angular's `ngTemplateOutlet`'s API almost to-a-T:
 
 ```typescript
 @Directive({
-  selector: '[renderTheTemplate]'
+	selector: '[renderTheTemplate]'
 })
 export class RenderTheTemplateDirective implements OnInit {
-  constructor (private parentViewRef: ViewContainerRef) {
-  }
+	constructor (private parentViewRef: ViewContainerRef) {
+	}
 
-  @Input() renderTheTemplate: TemplateRef<any>;
-  @Input() renderTheTemplateContext: Object;
+	@Input() renderTheTemplate: TemplateRef<any>;
+	@Input() renderTheTemplateContext: Object;
 
-  ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.renderTheTemplate,  this.renderTheTemplateContext);
-  }
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.renderTheTemplate,  this.renderTheTemplateContext);
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <ng-template [renderTheTemplate]="template1"
-                 [renderTheTemplateContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
-    <ng-template #template1 let-message>
-        <p>Testing from <code>template1</code>: <b>{{message}}</b></p>
-    </ng-template>
-  `
+	selector: 'my-app',
+	template: `
+		<ng-template [renderTheTemplate]="template1"
+								[renderTheTemplateContext]="{$implicit: 'Whoa 🤯'}"></ng-template>
+		<ng-template #template1 let-message>
+				<p>Testing from <code>template1</code>: <b>{{message}}</b></p>
+		</ng-template>
+	`
 })
 export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-24-directive-outlet-alternative?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 The nice part is that not only does it look like the directive from it's usage, [it's not entirely dis-similar to how Angular writes the component internally](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_template_outlet.ts#L35):
 
 ```typescript
@@ -1097,23 +1131,23 @@ The nice part is that not only does it look like the directive from it's usage, 
 // The lines removed were some performance optimizations by comparing the previous view to the new one
 @Directive({selector: '[ngTemplateOutlet]'})
 export class NgTemplateOutlet implements OnChanges {
-  private _viewRef: EmbeddedViewRef<any>|null = null;
+	private _viewRef: EmbeddedViewRef<any>|null = null;
 
-  @Input() public ngTemplateOutletContext: Object|null = null;
-  @Input() public ngTemplateOutlet: TemplateRef<any>|null = null;
+	@Input() public ngTemplateOutletContext: Object|null = null;
+	@Input() public ngTemplateOutlet: TemplateRef<any>|null = null;
 
-  constructor(private _viewContainerRef: ViewContainerRef) {}
+	constructor(private _viewContainerRef: ViewContainerRef) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-      if (this._viewRef) {
-        this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._viewRef));
-      }
+	ngOnChanges(changes: SimpleChanges) {
+			if (this._viewRef) {
+				this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._viewRef));
+			}
 
-      if (this.ngTemplateOutlet) {
-        this._viewRef = this._viewContainerRef.createEmbeddedView(
-          this.ngTemplateOutlet, this.ngTemplateOutletContext);
-      }
-   }
+			if (this.ngTemplateOutlet) {
+				this._viewRef = this._viewContainerRef.createEmbeddedView(
+					this.ngTemplateOutlet, this.ngTemplateOutletContext);
+			}
+	}
 }
 ```
 
@@ -1128,30 +1162,31 @@ Let's look at a basic sample to start:
 
 ```typescript
 @Directive({
-  selector: '[renderThis]'
+	selector: '[renderThis]'
 })
 export class RenderThisDirective implements OnInit {
-  constructor (private templ: TemplateRef<any>,
-               private parentViewRef: ViewContainerRef) {
-  }
+	constructor (private templ: TemplateRef<any>,
+							private parentViewRef: ViewContainerRef) {
+	}
 
-  ngOnInit(): void {
-    this.parentViewRef.createEmbeddedView(this.templ);
-  }
+	ngOnInit(): void {
+		this.parentViewRef.createEmbeddedView(this.templ);
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-      <p *renderThis>
-          Rendering from <code>structural directive</code>
-      </p>
-  `
+	selector: 'my-app',
+	template: `
+			<p *renderThis>
+					Rendering from <code>structural directive</code>
+			</p>
+	`
 })
 export class AppComponent {}
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-23-directive-input-name?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 [Just as we previously used Angular's dependency injection (DI) system to get a reference to the `ViewContainerRef`](#embed-views), we're using DI to get a reference to the `TemplateRef`  created by the `*` in the invocation of this directive and embedding a view.
 
 Too much CS (computer science) speak? Me too, let's rephrase that. When you add the `*` to the start of the directive that's being attached to the element, you're essentially telling Angular to wrap that element in an `ng-template` and pass the directive to the newly created template.
@@ -1162,13 +1197,14 @@ The cool part about structural directives, though? Because they're simply direct
 
 ```html
 <ng-template renderThis>
-  <p>
-    Rendering from <code>ng-template</code>
-  </p>
+	<p>
+		Rendering from <code>ng-template</code>
+	</p>
 </ng-template>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-26-structural-directive-manually-apply?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 It is for this reason that **only one structural directive can be applied to one element**. Otherwise, how would it know what order to wrap those directives in? What template should get what reference to what template?
 
 ### Building A Basic `*ngIf`
@@ -1180,80 +1216,83 @@ So if we added an input with the same name as the directive ([as we did previous
 
 ```typescript
 @Directive({
-  selector: '[renderThisIf]'
+	selector: '[renderThisIf]'
 })
 export class RenderThisIfDirective implements OnInit {
-  constructor (private templ: TemplateRef<any>,
-               private parentViewRef: ViewContainerRef) {
-  }
+	constructor (private templ: TemplateRef<any>,
+							private parentViewRef: ViewContainerRef) {
+	}
 
-  @Input() renderThisIf: any; // `any` since we want to check truthiness, not just boolean `true` or `false`
+	@Input() renderThisIf: any; // `any` since we want to check truthiness, not just boolean `true` or `false`
 
-  ngOnInit(): void {
-    if (this.renderThisIf) {
-      this.parentViewRef.createEmbeddedView(this.templ);
-    }
-  }
+	ngOnInit(): void {
+		if (this.renderThisIf) {
+			this.parentViewRef.createEmbeddedView(this.templ);
+		}
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <label for="boolToggle">Toggle me!</label>
-    <input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
-    <div *renderThisIf="bool">
-      <p>Test</p>
-    </div>
-  `
+	selector: 'my-app',
+	template: `
+		<label for="boolToggle">Toggle me!</label>
+		<input id="boolToggle" type="checkbox" [(ngModel)]="bool"/>
+		<div *renderThisIf="bool">
+			<p>Test</p>
+		</div>
+	`
 })
 export class AppComponent {
-  bool = false;
+	bool = false;
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-27-render-if-intro?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Super cool! Image we kept developing this strucutral directive out, but you noticed while running your test (which you should totally have 👀) that toggling the checkbox doesn't actually show anything! This is because it's running the check once on `ngOnInit` and not again when the input changes. So let's change that:
 
 ```typescript
 @Directive({
-  selector: '[renderThisIf]'
+	selector: '[renderThisIf]'
 })
 export class RenderThisIfDirective {
-  constructor (private templ: TemplateRef<any>,
-               private parentViewRef: ViewContainerRef) {
-  }
+	constructor (private templ: TemplateRef<any>,
+							private parentViewRef: ViewContainerRef) {
+	}
 
-  private _val: TemplateRef<any>;
+	private _val: TemplateRef<any>;
 
-  @Input() set renderThisIf(val: TemplateRef<any>) {
-    this._val = val;
-    this.update();
-  }
+	@Input() set renderThisIf(val: TemplateRef<any>) {
+		this._val = val;
+		this.update();
+	}
 
-  update(): void {
-    if (this._val) {
-      this.parentViewRef.createEmbeddedView(this.templ);
-    }
-  }
+	update(): void {
+		if (this._val) {
+			this.parentViewRef.createEmbeddedView(this.templ);
+		}
+	}
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-28-render-if-work-toggle-true?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 You'll notice that I removed the `OnInit` lifecycle and replaced it with an input `set`ter. We could have changed the lifecycle method to use `ngOnChanges` to listen for input changes, given that we only have one input, but as your directive adds more inputs and you want to maintain the local state, that logic can get more complex.
 
 Running our tests again, we see that toggling it once now shows the embedded view, but toggling it again after that does not hide it again. With a simple update to the `update` method, we can fix that:
 
 ```typescript
 update(): void {
-  if (this._val) {
-    this.parentViewRef.createEmbeddedView(this.templ);
-  } else {
-    this.parentViewRef.clear();
-  }
+	if (this._val) {
+		this.parentViewRef.createEmbeddedView(this.templ);
+	} else {
+		this.parentViewRef.clear();
+	}
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-29-render-if-fully-working?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Here, we're using the `clear` method on the parent view ref to remove the previous view when the value is false. Because our structural directive will contain a template only used for this directive, we can safely assume that `clear` will only remove templates created within this directive and not from an external source.
 
 #### How Angular Built It #{angular-ngif-source}
@@ -1265,53 +1304,53 @@ While Angular goes for a more verbose pattern due to additional features availab
 ````typescript
 @Directive({selector: '[ngIf]'})
 export class NgIf {
-  private _context: NgIfContext = new NgIfContext();
-  private _thenTemplateRef: TemplateRef<NgIfContext>|null = null;
-  private _thenViewRef: EmbeddedViewRef<NgIfContext>|null = null;
+	private _context: NgIfContext = new NgIfContext();
+	private _thenTemplateRef: TemplateRef<NgIfContext>|null = null;
+	private _thenViewRef: EmbeddedViewRef<NgIfContext>|null = null;
 
-  constructor(private _viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext>) {
-    this._thenTemplateRef = templateRef;
-  }
+	constructor(private _viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext>) {
+		this._thenTemplateRef = templateRef;
+	}
 
-  @Input()
-  set ngIf(condition: any) {
-    this._context.$implicit = this._context.ngIf = condition;
-    this._updateView();
-  }
+	@Input()
+	set ngIf(condition: any) {
+		this._context.$implicit = this._context.ngIf = condition;
+		this._updateView();
+	}
 
-  private _updateView() {
-    if (this._context.$implicit) {
-      if (!this._thenViewRef) {
-        this._viewContainer.clear();
-        if (this._thenTemplateRef) {
-          this._thenViewRef =
-            this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
-        }
-      } else {
-        this._viewContainer.clear();
-      }
-    }
-  }
+	private _updateView() {
+		if (this._context.$implicit) {
+			if (!this._thenViewRef) {
+				this._viewContainer.clear();
+				if (this._thenTemplateRef) {
+					this._thenViewRef =
+						this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
+				}
+			} else {
+				this._viewContainer.clear();
+			}
+		}
+	}
 }
 export class NgIfContext {
-  public $implicit: any = null;
-  public ngIf: any = null;
+	public $implicit: any = null;
+	public ngIf: any = null;
 }
 ````
 
 Just to recap, let's run through this line-by-line:
 
 1. `_context` is creating a default of `{$implicit: null, ngIf: null}`
-  - The object shape is defined by the `NgIfContext` class below
-  - This is to be able to pass as a context to the template. While this is not required to understand how Angular implemented this directive in basic terms, it was left in to avoid editing code elsewhere
+	- The object shape is defined by the `NgIfContext` class below
+	- This is to be able to pass as a context to the template. While this is not required to understand how Angular implemented this directive in basic terms, it was left in to avoid editing code elsewhere
 2. We're then defining a variable to keep track of the template reference and the view reference ([what `createEmbeddedView` returns](https://angular.io/api/core/EmbeddedViewRef)) for usage later
 3. The constructor is then assigning the template reference to the variable, and getting a reference to the view container
 4. We're then defining an input with the same name as a setter, as we did with our implementation
-   - This setter is also calling an update function, just as were with our implementation
+	- This setter is also calling an update function, just as were with our implementation
 5. The update view is then seeing if the `$implicit` value in the context is truthy (as we're assigning the value of the `ngIf` input to the `$implicit` key on the context)
 6. Further checks are made to see if there is a view reference already.
-   - If there is not, it will proceed to make one (checking first that there is a template to create off of)
-   - If there is, it will not recreate a view, in order to avoid performance issues by recreating views over-and-over again
+	- If there is not, it will proceed to make one (checking first that there is a template to create off of)
+	- If there is, it will not recreate a view, in order to avoid performance issues by recreating views over-and-over again
 
 ## Microsyntax
 
@@ -1327,31 +1366,32 @@ function translatePigLatin(strr) {
 }
 
 @Directive({
-  selector: '[makePiglatin]'
+	selector: '[makePiglatin]'
 })
 export class MakePigLatinDirective {
-  constructor(private templ: TemplateRef<any>,
-    private parentViewRef: ViewContainerRef) {}
+	constructor(private templ: TemplateRef<any>,
+		private parentViewRef: ViewContainerRef) {}
 
-  @Input() set makePiglatin(val: string) {
-    this.parentViewRef.createEmbeddedView(this.templ, {
-      $implicit: translatePigLatin(val)
-    });
-  }
+	@Input() set makePiglatin(val: string) {
+		this.parentViewRef.createEmbeddedView(this.templ, {
+			$implicit: translatePigLatin(val)
+		});
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <p *makePiglatin="'This is a string'; let msg">
-      {{msg}}
-    </p>
-  `
+	selector: 'my-app',
+	template: `
+		<p *makePiglatin="'This is a string'; let msg">
+			{{msg}}
+		</p>
+	`
 })
 export class AppComponent {}
 ````
 
 <iframe src="https://stackblitz.com/edit/start-to-source-30-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 This might look familiar. We're using the `$implicit` value from the context within our structural directive! However, [if you review the section we introduced that concept in](#template-context), you'll notice that the syntax here is different but similar from a template variable that would be used to bind the context from an `ng-template` tag.
 
 The semicolon is the primary differentiator between the two syntaxes in this particular example. The semicolon marks the end to the previous statement and the start of a new one (the first statement being a binding of the `makePiglatin` property in the directive, the second being a binding of the `$implicit` context value to the local template variable `msg`). This small demo already showcases part of why the microsyntax is so nice - it allows you to have a micro-language to define your APIs.
@@ -1360,33 +1400,34 @@ Let's continue exploring how leveraging this tool can be advantageous. What if w
 
 ```typescript
 @Directive({
-  selector: '[makePiglatin]'
+	selector: '[makePiglatin]'
 })
 export class MakePigLatinDirective {
-  constructor(private templ: TemplateRef<any>,
-    private parentViewRef: ViewContainerRef) {}
+	constructor(private templ: TemplateRef<any>,
+		private parentViewRef: ViewContainerRef) {}
 
-  @Input() set makePiglatin(val: string) {
-    this.parentViewRef.createEmbeddedView(this.templ, {
-      $implicit: translatePigLatin(val),
-      original: val
-    });
-  }
+	@Input() set makePiglatin(val: string) {
+		this.parentViewRef.createEmbeddedView(this.templ, {
+			$implicit: translatePigLatin(val),
+			original: val
+		});
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <p *makePiglatin="'This is a string'; let msg; let ogMsg = original">
-      The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
-    </p>
-  `
+	selector: 'my-app',
+	template: `
+		<p *makePiglatin="'This is a string'; let msg; let ogMsg = original">
+			The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
+		</p>
+	`
 })
 export class AppComponent {}
 ```
 
 
 <iframe src="https://stackblitz.com/edit/start-to-source-31-structural-named-context?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Just as before, we would use semicolons to split the definitions, then bind the external (as in: from the directive) context value of `original` to the local (this template) variable of `ogMsg`.
 
 
@@ -1396,18 +1437,18 @@ With a typical — non-structural — directive, you'd have inputs that you coul
 
 ```typescript
 @Directive({
-  selector: '[consoleThing]'
+	selector: '[consoleThing]'
 })
 export class ConsoleThingDirective {
-  @Input() set consoleThing(val: string) {
+	@Input() set consoleThing(val: string) {
 		if (this.warn) {
 			console.warn(val)
 			return
 		}
-	 	console.log(val)
-  }
+		console.log(val)
+	}
 
-  @Input() warn: boolean = false;
+	@Input() warn: boolean = false;
 }
 ```
 
@@ -1418,45 +1459,47 @@ And then call them with the following template:
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-32-console-non-structural-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 This can be super useful for both providing concise APIs as well as provide further functionalities to said directive simply. Structural directives offer similar, although it comes with its own syntax and limitations due to the microsyntax API.
 
 ```typescript
 @Directive({
-  selector: '[makePiglatin]'
+	selector: '[makePiglatin]'
 })
 export class MakePigLatinDirective implements OnInit {
-  constructor(private templ: TemplateRef<any>,
-    private parentViewRef: ViewContainerRef) { }
+	constructor(private templ: TemplateRef<any>,
+		private parentViewRef: ViewContainerRef) { }
 
-  @Input() makePiglatin: string;
-  @Input() makePiglatinCasing: 'UPPER' | 'lower';
+	@Input() makePiglatin: string;
+	@Input() makePiglatinCasing: 'UPPER' | 'lower';
 
-  ngOnInit() {
-    let pigLatinVal = translatePigLatin(this.makePiglatin)
-    if (this.makePiglatinCasing === 'UPPER') {
-      pigLatinVal = pigLatinVal.toUpperCase();
-    } else if (this.makePiglatinCasing === 'lower') {
-      pigLatinVal = pigLatinVal.toLowerCase();
-    }
-    this.parentViewRef.createEmbeddedView(this.templ, {
-      $implicit: pigLatinVal,
-      original: this.makePiglatin
-    });
-  }
+	ngOnInit() {
+		let pigLatinVal = translatePigLatin(this.makePiglatin)
+		if (this.makePiglatinCasing === 'UPPER') {
+			pigLatinVal = pigLatinVal.toUpperCase();
+		} else if (this.makePiglatinCasing === 'lower') {
+			pigLatinVal = pigLatinVal.toLowerCase();
+		}
+		this.parentViewRef.createEmbeddedView(this.templ, {
+			$implicit: pigLatinVal,
+			original: this.makePiglatin
+		});
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
-    <p *makePiglatin="'This is a string'; casing: 'UPPER'; let msg; let ogMsg = original">
-      The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
-    </p>
-  `
+	selector: 'my-app',
+	template: `
+		<p *makePiglatin="'This is a string'; casing: 'UPPER'; let msg; let ogMsg = original">
+			The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
+		</p>
+	`
 })
 export class AppComponent { }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-33-pig-latin-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 You can see that I've had to tweak our previous pig latin directive example a bit.
 
 For starters, I moved away from a `set`ter for the input value and towards `ngOnInit`, just to ensure that everything was defined in the right timing.
@@ -1479,6 +1522,7 @@ Now, I remember when I learning a lot of the structural directive stuff, I thoug
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-36-pig-latin-non-binding?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 I was not, however, greeted by praises on my PR making this change, but rather by an error in my console:
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
@@ -1489,9 +1533,9 @@ This becomes more apparent when you expand the syntax to look something like thi
 
 ```
 <ng-template makePiglatin="'This is a string'; let msg; let ogMsg = original">
-  <p [makePiglatinCasing]="'UPPER'">
-    The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
-  </p>
+	<p [makePiglatinCasing]="'UPPER'">
+		The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin
+	</p>
 </ng-template>
 ```
 
@@ -1503,11 +1547,12 @@ So if we did want to take the non-functional example above and fix it to not use
 
 ```html
 <ng-template [makePiglatin]="'This is a string'" [makePiglatinCasing]="'UPPER'" let-msg let-ogMsg="original">
-  <p>The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin</p>
+	<p>The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin</p>
 </ng-template>
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-37-pig-latin-normal-directive?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ### `as` to preserve values in template variable
 
 One of my favorite tools at the microsyntax's disposal is the `as` keyword. On paper, it sounds extremely straightforward and duplicative of the `let` keyword:
@@ -1527,18 +1572,19 @@ But this example doesn't showcase very much of what makes the `as` keyword as po
 
 ```typescript
 @Component({
-  selector: 'my-app',
-  template: `
-    <p *ngIf="message | uppercase as uppermessage">{{uppermessage}}</p>
+	selector: 'my-app',
+	template: `
+		<p *ngIf="message | uppercase as uppermessage">{{uppermessage}}</p>
 		<!-- Will output "HELLO THERE, WORLD" -->
-  `
+	`
 })
 export class AppComponent {
-  message = "Hello there, world"
+	message = "Hello there, world"
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-38-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 While this example can be seen clearly with this usage of `ngIf` , let's try to add it into our `pigLatin` example:
 
 ```html
@@ -1546,6 +1592,7 @@ While this example can be seen clearly with this usage of `ngIf` , let's try to 
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-39-pig-latin-as-keyword-broken?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 In this example, we're expecting `'upper'` to be turned into `'UPPER'` by the `uppercase` pipe, then to be passed as the input to `makePiglatinCasing` and for the `$implicit` value of that context to be assigned to a local variable  `msg`. If you load this, you'll noticed that the uppercased pig lattin displays as expected but the `upperInUpper` variable (which we expected to be `'UPPER'`) is undefined.
 
 The reason is because we're not exporting a key of `makePiglatinCasing` in our context to supply this value.
@@ -1559,6 +1606,7 @@ this.parentViewRef.createEmbeddedView(this.templ, {
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-40-pig-latin-as-keyword?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 Now that we're exporting the output with the `as`, it should show on screen as expected. So why is this? *Well, `as` exports the outputted value that it's bound to.*  In this case, we're binding the value to `casing` (because that's what `'upper'` is being passed as an input to).
 
 Of course, this means that you can send any value as the context. Change the code to read:
@@ -1734,27 +1782,27 @@ Sounds reasonable enough. Just to make things even easier on us, let's not worry
 ```typescript
 @Directive({ selector: '[uniFor]' })
 export class UniForOf<T> implements AfterViewInit {
-  @Input() uniForOf: Array<T>;
+	@Input() uniForOf: Array<T>;
 
-  constructor(
-    private viewContainer: ViewContainerRef,
-    private template: TemplateRef<any>
-  ) {}
+	constructor(
+		private viewContainer: ViewContainerRef,
+		private template: TemplateRef<any>
+	) {}
 
-  ngAfterViewInit() {
-    this.uniForOf.forEach((ofItem, i) => {
-      this.viewContainer.createEmbeddedView(this.template, {
-        isFirst: i === 0,
-        $implicit: ofItem,
-        uniForOf: this.uniForOf
-      })
-    })
-  }
+	ngAfterViewInit() {
+		this.uniForOf.forEach((ofItem, i) => {
+			this.viewContainer.createEmbeddedView(this.template, {
+				isFirst: i === 0,
+				$implicit: ofItem,
+				uniForOf: this.uniForOf
+			})
+		})
+	}
 }
 
 @Component({
-  selector: 'my-app',
-  template: `
+	selector: 'my-app',
+	template: `
 	<p *uniFor="let num of numbers | async as allNumbers; let firstItem = isFirst">
 		Number in a list of {{allNumbers.length}} numbers: {{num}}
 		<ng-container *ngIf="firstItem"> it's the first number!</ng-container>
@@ -1762,21 +1810,22 @@ export class UniForOf<T> implements AfterViewInit {
 	`
 })
 export class AppComponent {
-  // `import {of} from 'rxjs';`
-  numbers = of([1,2,3,4,5])
+	// `import {of} from 'rxjs';`
+	numbers = of([1,2,3,4,5])
 }
 ```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-41-uni-for?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 - We're starting with enabling `uniFor` as the structural directive name
 - Then we're defining an input to accept `of` as a key in the syntax (to match the `ngFor` structural directive syntax).
 
 - We can then reference this value later with `this.uniForOf` just as we are in the `ngAfterViewInit`.
 
 - In that lifecycle method, we're then creating an embedded view for each item in the array
-  - This view is passed a context with an implicit value (so that `_var` in`let _var of list` will have the  value of this item)
-  - We also pass the index to the context to give a boolean if an item is the first in a list
-  - Then we pass a `uniForOf` so that we can use `as` to capture the value passed to the `of` portion of the syntax
+	- This view is passed a context with an implicit value (so that `_var` in`let _var of list` will have the  value of this item)
+	- We also pass the index to the context to give a boolean if an item is the first in a list
+	- Then we pass a `uniForOf` so that we can use `as` to capture the value passed to the `of` portion of the syntax
 - Finally, we use the [async pipe](https://angular.io/api/common/AsyncPipe) to get the value of the array that's inside of an observable
 
 # Conclusion
