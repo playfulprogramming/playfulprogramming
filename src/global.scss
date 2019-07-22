@@ -132,6 +132,16 @@ $pendIconMarg: #{$baseUnit * 2}px;
 .post-body {
   margin-bottom: #{$baseUnit * 10}px;
   max-width: #{$baseUnit * 175}px;
+
+  img {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+  }
+
+  p {
+    line-height: 1.2em;
+  }
 }
 
 .post-lower-area {
