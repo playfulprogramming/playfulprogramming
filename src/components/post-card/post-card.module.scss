@@ -53,6 +53,8 @@
   margin: 4px 0;
   color: var(--darkPrimary);
   text-decoration: underline;
+  // Otherwise, the div goes full width and makes clicking the author name confusing (as it all acts like a link)
+  display: inline-block;
 }
 
 .dateTagSubheader {
