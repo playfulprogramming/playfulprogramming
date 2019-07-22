@@ -1527,7 +1527,6 @@ I was not, however, greeted by praises on my PR making this change, but rather b
 
 > Can't bind to `makePiglatinCasing` since it isn't a known property of `p`
 
-<!-- EVE: still not easy to understand -->
 This may seem strange upon first glance, but remember: **the structural directive wraps the tag it is on the inside of a template**. Because of this, _the `makePiglatinCasing` input is not set to the directive anymore, but rather on the `p` element inside the template created by the structural directive_.
 
 This becomes more apparent when you expand the syntax to look something like this:
