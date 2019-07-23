@@ -35,7 +35,7 @@ It's going to be a long article, so please feel free to take breaks, grab a drin
 
 Sound like a fun time? Let's goooo! 🏃🌈
 
-> This talk was also given as a talk. You can [find the slides here](./slides.pptx).
+> The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx).
 
 # Introduction To Templates {#intro}
 
@@ -1195,7 +1195,7 @@ Too much CS (computer science) speak? Me too, let's rephrase that. When you add 
 
 From there, the directive can get a reference to that template from the constructor (as Angular is nice enough to pass the template to our directive when we ask for it [this is what the DI system does]).
 
-The cool part about structural directives, though? Because they're simply directives, **you can remove the `*` and use it with an `ng-template` directly **. Want to use the `renderThis` without a structural directive? No problem! Replace the template with the following code block and you've got yourself a rendered template:
+The cool part about structural directives, though? Because they're simply directives, **you can remove the `*` and use it with an `ng-template` directly**. Want to use the `renderThis` without a structural directive? No problem! Replace the template with the following code block and you've got yourself a rendered template:
 
 ```html
 <ng-template renderThis>
