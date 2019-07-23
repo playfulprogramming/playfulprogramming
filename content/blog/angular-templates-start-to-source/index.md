@@ -412,7 +412,7 @@ Awesome! We've been blowing through some of the real-world uses of templates lik
 
 One of these abstract concepts comes from how Angular tracks what’s on-screen; just like the browser has the _Document Object Model_ tree (often called the DOM), Angular has the _View Hierarchy Tree_.
 
-## The DOM Tree {#the-dam}
+## The DOM Tree {#the-dom}
 
 Okay, I realize I just dropped some vocab on you without explaining first. Let's change that.
 
@@ -863,6 +863,8 @@ If you take a look at your element debugger, you'll notice that the template is 
 	<li>List Item 2</li>
 </ul>
 ```
+
+> The empty comment `<!---->` will show up in your element tab of your browser and was therefore left in. The empty comment block is used by Angular to showcase where a template is
 
 [While this has confused many developers, who have expected the embedded view to be children of the `ViewContainer` reference element](https://github.com/angular/angular/issues/9035), this is intentional behavior, and is consistent with other APIs similar to it.
 
