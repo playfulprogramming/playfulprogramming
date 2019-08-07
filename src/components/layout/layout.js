@@ -71,6 +71,7 @@ export const postFragmentQuery = graphql`
       title
       published(formatString: "MMMM DD, YYYY")
       tags
+      description
       author {
         ...AuthorInfo
       }

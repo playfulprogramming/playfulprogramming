@@ -120,7 +120,7 @@ module.exports = {
                 const {frontmatter} = edge.node;
                 const nodeUrl = `${siteUrl}posts${slug}`
                 return {
-                  description: edge.node.excerpt,
+                  description: frontmatter.description || edge.node.excerpt,
                   date: frontmatter.published,
                   title: frontmatter.title,
                   url: nodeUrl,
@@ -143,6 +143,7 @@ module.exports = {
                       fields { slug }
                       frontmatter {
                         title
+                        description
                         published
                         author {
                           name
