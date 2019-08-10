@@ -35,6 +35,9 @@ export const authorFragmentQuery = graphql`
     id
     description
     color
+    fields {
+      isAuthor
+    }
     socials {
       twitter
       github
