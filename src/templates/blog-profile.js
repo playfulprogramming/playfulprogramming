@@ -5,10 +5,10 @@ import { SEO } from "../components/seo"
 import { PostList } from "../components/post-card-list"
 import { PicTitleHeader } from "../components/pic-title-header"
 
-const BlogAuthor = (props) => {
+const BlogProfile = (props) => {
   const siteTitle = props.data.site.siteMetadata.title
   const slugData = props.data
-  const authorData = slugData.authorsJson
+  const unicornData = slugData.unicornsJson
   const posts = slugData.allMarkdownRemark.edges
 
   // FIXME: This logic will break with pagination
@@ -27,44 +27,46 @@ const BlogAuthor = (props) => {
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO
-        title={authorData.name}
-        description={authorData.description}
-        authorData={authorData}
+        title={unicornData.name}
+        description={unicornData.description}
+        unicornData={unicornData}
         type="profile"
       />
       <PicTitleHeader
-        image={authorData.profileImg.childImageSharp.bigPic}
-        title={authorData.name}
-        description={authorData.description}
-        author={true}
-        socials={authorData.socials}
+        image={unicornData.profileImg.childImageSharp.bigPic}
+        title={unicornData.name}
+        description={unicornData.description}
+        profile={true}
+        socials={unicornData.socials}
       />
       <PostList
         numberOfArticles={slugData.allMarkdownRemark.totalCount}
         wordCount={wordCount}
         posts={posts}
         tags={postTags}
-        overwriteAuthorInfo={authorData}
         showWordCount={true}
       />
     </Layout>
   )
 }
 
-export default BlogAuthor
+export default BlogProfile
 
 export const pageQuery = graphql`
-  query AuthorBySlug($slug: String!) {
+  query UnicornBySlug($slug: String!) {
     site {
       siteMetadata {
         title
       }
     }
-    authorsJson(id: { eq: $slug }) {
-      ...AuthorInfo
+    unicornsJson(id: { eq: $slug }) {
+      ...UnicornInfo
     }
     allMarkdownRemark(
-      filter: {frontmatter: {author: {id: {eq:  $slug}}}},
+      filter: {
+        frontmatter: {author: {id: {eq:  $slug}}},
+        fileAbsolutePath: {regex: "/content/blog/"}        
+      },
       sort: {order: DESC, fields: frontmatter___published}
     ) {
       totalCount

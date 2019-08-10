@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import Image from "gatsby-image"
 import styles from "./post-metadata.module.scss"
-import { Link } from "@reach/router"
+import { Link } from "gatsby"
 
 export const PostMetadata = ({ post }) => {
   const { author } = post.frontmatter
@@ -10,10 +10,10 @@ export const PostMetadata = ({ post }) => {
   return (
     <div className={styles.container}>
       <div onClick={() => authorLinkRef.current.click()} className='pointer'>
-        <Image className={styles.img} fixed={author.profileImg.childImageSharp.mediumPic}/>
+        <Image className="circleImg" fixed={author.profileImg.childImageSharp.mediumPic}/>
       </div>
       <div className={styles.textDiv}>
-        <Link to={`/authors/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
+        <Link to={`/unicorns/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
           <h2 className={styles.authorName}>{author.name}</h2>
         </Link>
         <div className={styles.belowName}>

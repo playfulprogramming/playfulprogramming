@@ -1,0 +1,54 @@
+.container {
+  font-size: 20px;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 64px;
+  }
+
+  blockquote {
+    font-size: 32px;
+    margin-left: 0;
+    color: var(--midImpactBlack);
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.headerTitle {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-body {
+  margin: 0 auto;
+}
+
+
+.name-role-div {
+  a {
+    font-size: 28px;
+  }
+}
+
+.roles-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  li {
+    display: inline-block;
+    color: var(--midImpactBlack);
+  }
+}
+
+.contributor-container {
+  display: flex;
+  align-items: center;
+  > div:first-child {
+    margin-right: 24px;
+  }
+}

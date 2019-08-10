@@ -47,7 +47,7 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
         />
       </div>
       <Link
-        to={`/authors/${author.id}`}
+        to={`/unicorns/${author.id}`}
         ref={authorLink}
         onClick={stopPropCallback}
         className={cardStyles.profilePicLink}

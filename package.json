@@ -42,6 +42,9 @@
     "react-helmet": "^5.2.1",
     "react-pose": "^4.0.8"
   },
+  "peerDependencies": {
+    "@reach/router": "^1.1.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@storybook/addon-actions": "^5.1.10",
