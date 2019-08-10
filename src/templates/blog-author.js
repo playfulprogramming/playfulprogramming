@@ -64,7 +64,10 @@ export const pageQuery = graphql`
       ...AuthorInfo
     }
     allMarkdownRemark(
-      filter: {frontmatter: {author: {id: {eq:  $slug}}}},
+      filter: {
+        frontmatter: {author: {id: {eq:  $slug}}},
+        fileAbsolutePath: {regex: "/content/blog/"}        
+      },
       sort: {order: DESC, fields: frontmatter___published}
     ) {
       totalCount

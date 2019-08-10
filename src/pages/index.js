@@ -43,7 +43,10 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___published], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___published], order: DESC },
+      filter: {fileAbsolutePath: {regex: "/content/blog/"}}
+    ) {
       edges {
         node {
           ...PostInfo

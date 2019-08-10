@@ -10,7 +10,11 @@ exports.createPages = ({ graphql, actions }) => {
   return graphql(
     `
     {
-      allMarkdownRemark(sort: {fields: [frontmatter___published], order: DESC}, limit: 1000) {
+      allMarkdownRemark(
+        sort: {fields: [frontmatter___published], order: DESC},
+        filter: {fileAbsolutePath: {regex: "/content/blog/"}},
+        limit: 1000
+      ) {
         edges {
           node {
             fields {
@@ -87,7 +91,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
-    console.log(node.frontmatter.description)
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,
