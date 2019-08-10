@@ -1,8 +1,10 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import BackIcon from "../../assets/icons/back.svg"
+import DarkIcon from "../../assets/icons/dark.svg"
 import layoutStyles from "./layout.module.scss"
 import "../../global.scss"
+import { DarkLightButton } from "../dark-light-button/dark-light-button"
 
 export const Layout = ({ location, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -19,6 +21,7 @@ export const Layout = ({ location, children }) => {
     >
       <header className={layoutStyles.header}>
         {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
+        <DarkLightButton/>
       </header>
       <main className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</main>
       <footer>

@@ -12,7 +12,7 @@
   --midImpactBlack: rgba(0, 0, 0, 0.64);
   --lowImpactBlack: rgba(0, 0, 0, 0.58);
   --backgroundColor: #E4F4FF;
-  --cardActiveBackground: rgb(235, 246, 252);
+  --cardActiveBackground: #EBF6FC;
   --cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF;
   --animSpeed: 200ms;
   --animStyle: ease-in-out;
@@ -49,6 +49,7 @@
 body {
   background-color: var(--backgroundColor);
   font-family: var(--archivo);
+  color: var(--black);
 }
 
 h1, h2, h3 {
@@ -151,7 +152,7 @@ $pendIconMarg: #{$baseUnit * 2}px;
 // Please use this sparingly. There's massive A11y concerns
 .unlink {
   text-decoration: none;
-  color: initial;
+  color: inherit;
 }
 
 pre {
