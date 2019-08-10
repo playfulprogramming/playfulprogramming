@@ -23,7 +23,7 @@ const SocialBtn = ({icon, text, url, name}) => {
 /**
  *
  * @param image
- * @param socials - Match the object of the authorsJson socials
+ * @param socials - Match the object of the usersJson socials
  * @param title
  * @param description
  * @param author - Is an author pic?

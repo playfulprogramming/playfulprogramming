@@ -239,7 +239,7 @@ module.exports = {
     `gatsby-plugin-sitemap`
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `AuthorsJson`,
-    "AuthorsJson.pronouns": `PronounsJson`,
+    "MarkdownRemark.frontmatter.author": `UsersJson`,
+    "UsersJson.pronouns": `PronounsJson`,
   },
 }

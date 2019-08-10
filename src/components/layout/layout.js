@@ -29,7 +29,7 @@ export const Layout = ({ location, children }) => {
 }
 
 export const authorFragmentQuery = graphql`
-  fragment AuthorInfo on AuthorsJson {
+  fragment UserInfo on UsersJson {
     name
     blurbet
     id
@@ -73,7 +73,7 @@ export const postFragmentQuery = graphql`
       tags
       description
       author {
-        ...AuthorInfo
+        ...UserInfo
       }
     }
     fields {

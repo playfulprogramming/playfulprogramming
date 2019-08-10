@@ -8,7 +8,7 @@ import { PicTitleHeader } from "../components/pic-title-header"
 const BlogAuthor = (props) => {
   const siteTitle = props.data.site.siteMetadata.title
   const slugData = props.data
-  const authorData = slugData.authorsJson
+  const authorData = slugData.usersJson
   const posts = slugData.allMarkdownRemark.edges
 
   // FIXME: This logic will break with pagination
@@ -44,7 +44,6 @@ const BlogAuthor = (props) => {
         wordCount={wordCount}
         posts={posts}
         tags={postTags}
-        overwriteAuthorInfo={authorData}
         showWordCount={true}
       />
     </Layout>
@@ -60,8 +59,8 @@ export const pageQuery = graphql`
         title
       }
     }
-    authorsJson(id: { eq: $slug }) {
-      ...AuthorInfo
+    usersJson(id: { eq: $slug }) {
+      ...UserInfo
     }
     allMarkdownRemark(
       filter: {

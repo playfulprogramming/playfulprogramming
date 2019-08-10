@@ -8,7 +8,7 @@ import style from "./about.module.scss"
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
 
-  const { file, markdownRemark: post, site } = useStaticQuery(graphql`
+  const { file, markdownRemark: post, site, allUsersJson: authors } = useStaticQuery(graphql`
       query AboutUsQuery {
         site {
           siteMetadata {
@@ -31,13 +31,19 @@ const AboutUs = (props) => {
             }
           }
         }
+        allUsersJson {
+          nodes {
+            ...UserInfo
+          }
+        }
       }
     `)
 
   const { siteMetadata: { title: siteTitle } } = site
+  const { nodes: authorArr } = authors
   const { childImageSharp: { fixed: imageFixed } } = file
 
-  console.log(post)
+  console.log(authorArr)
 
   return (
     <Layout location={props.location} title={siteTitle}>
@@ -53,8 +59,16 @@ const AboutUs = (props) => {
         </div>
         <div
           className={`${style.aboutBody} post-body`}
-          dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-        />
+        >
+          <div dangerouslySetInnerHTML={{ __html: markdownRemark.html }}/>
+          {
+            authorArr.map(authorInfo => (
+              <div key={authorInfo.id}>
+                <p>{authorInfo.name}</p>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </Layout>
   )

@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-      allAuthorsJson(limit: 100) {
+      allUsersJson(limit: 100) {
         edges {
           node {
             id
@@ -42,7 +42,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     // Create blog posts pages.
     const posts = result.data.allMarkdownRemark.edges
-    const authors = result.data.allAuthorsJson.edges
+    const authors = result.data.allUsersJson.edges
 
     posts.forEach((post, index, arr) => {
       const previous = index === arr.length - 1 ? null : arr[index + 1].node
