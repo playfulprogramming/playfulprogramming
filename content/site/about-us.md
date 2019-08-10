@@ -5,7 +5,7 @@
 }
 ---
 
-<div class="toparea">Our goal is to provide the best resources possible to learn any computer science related topic</div>
+> Our goal is to provide the best resources possible to learn any computer science related topic
 
 Whether it's from how memory is allocated in assembly or how to do complex CSS animations, to what a For loop is, we want to provide resources that are welcoming, supportive, and informational.
 

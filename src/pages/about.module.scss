@@ -1,0 +1,27 @@
+.container {
+  h1 {
+    font-size: 64px;
+  }
+
+  font-size: 20px;
+
+  blockquote {
+    font-size: 32px;
+    margin-left: 0;
+    color: var(--midImpactBlack);
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.headerTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-body {
+  margin: 0 auto;
+}

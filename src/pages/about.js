@@ -2,11 +2,13 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout } from "../components/layout/layout"
 import { SEO } from "../components/seo"
+import Image from "gatsby-image"
+import style from "./about.module.scss"
 
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
 
-  const { markdownRemark: post, site: {siteMetadata: {title: siteTitle}} } = useStaticQuery(graphql`
+  const { file, markdownRemark: post, site } = useStaticQuery(graphql`
       query AboutUsQuery {
         site {
           siteMetadata {
@@ -22,10 +24,20 @@ const AboutUs = (props) => {
             description
           }
         }
+        file(relativePath: { eq: "unicorn-head-1024.png" }) {
+          childImageSharp {
+            fixed(width: 192, quality: 100) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
       }
     `)
 
-  console.log(post);
+  const { siteMetadata: { title: siteTitle } } = site
+  const { childImageSharp: { fixed: imageFixed } } = file
+
+  console.log(post)
 
   return (
     <Layout location={props.location} title={siteTitle}>
@@ -33,10 +45,17 @@ const AboutUs = (props) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <div
-        className="post-body"
-        dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-      />
+      <div className={style.container}>
+        <div className={style.headerTitle}>
+          <Image fixed={imageFixed}
+                 loading={"eager"}/>
+          <h1>About Us</h1>
+        </div>
+        <div
+          className={`${style.aboutBody} post-body`}
+          dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
+        />
+      </div>
     </Layout>
   )
 }
