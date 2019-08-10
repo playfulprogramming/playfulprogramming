@@ -1,9 +1,10 @@
 .container {
+  font-size: 20px;
+  margin-bottom: 40px;
+
   h1 {
     font-size: 64px;
   }
-
-  font-size: 20px;
 
   blockquote {
     font-size: 32px;
@@ -27,13 +28,20 @@
   margin: 0 auto;
 }
 
+
+.name-role-div {
+  a {
+    font-size: 28px;
+  }
+}
+
 .roles-list {
   list-style: none;
   padding: 0;
+  margin: 8px 0 0;
   li {
     display: inline-block;
     color: var(--midImpactBlack);
-    font-size: 20px;
   }
 }
 

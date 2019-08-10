@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import Image from "gatsby-image"
 import styles from "./post-metadata.module.scss"
-import { Link } from "@reach/router"
+import { Link } from "gatsby"
 
 export const PostMetadata = ({ post }) => {
   const { author } = post.frontmatter

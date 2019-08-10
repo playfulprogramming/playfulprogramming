@@ -1,9 +1,10 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 import { Layout } from "../components/layout/layout"
 import { SEO } from "../components/seo"
 import Image from "gatsby-image"
 import style from "./about.module.scss"
+import {navigate} from '@reach/router';
 
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
@@ -64,11 +65,11 @@ const AboutUs = (props) => {
           {
             unicornArr.map(unicornInfo => (
               <div key={unicornInfo.id} className={style.contributorContainer}>
-                <div className='pointer'>
+                <div className='pointer' onClick={() => navigate(`/unicorns/${unicornInfo.id}`)}>
                   <Image className="circleImg" fixed={unicornInfo.profileImg.childImageSharp.mediumPic}/>
                 </div>
-                <div>
-                  <p>{unicornInfo.name}</p>
+                <div className={style.nameRoleDiv}>
+                  <Link to={`/unicorns/${unicornInfo.id}`}>{unicornInfo.name}</Link>
                   <ul aria-label="Roles assigned to this user" className={style.rolesList}>
                     {unicornInfo.roles.map((role, i) => (
                       <li key={role.id}>
