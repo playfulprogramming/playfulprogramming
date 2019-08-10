@@ -8,7 +8,7 @@ import style from "./about.module.scss"
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
 
-  const { file, markdownRemark: post, site, allUsersJson: authors } = useStaticQuery(graphql`
+  const { file, markdownRemark: post, site, allUsersJson: unicorns } = useStaticQuery(graphql`
       query AboutUsQuery {
         site {
           siteMetadata {
@@ -31,16 +31,16 @@ const AboutUs = (props) => {
             }
           }
         }
-        allUsersJson {
+        allUnicornsJson {
           nodes {
-            ...UserInfo
+            ...UnicornInfo
           }
         }
       }
     `)
 
   const { siteMetadata: { title: siteTitle } } = site
-  const { nodes: authorArr } = authors
+  const { nodes: authorArr } = unicorns
   const { childImageSharp: { fixed: imageFixed } } = file
 
   console.log(authorArr)

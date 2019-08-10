@@ -30,7 +30,7 @@ const BlogPostTemplate = (props) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
-        authorData={post.frontmatter.author}
+        unicornData={post.frontmatter.author}
         publishedTime={post.frontmatter.published}
         editedTime={post.frontmatter.edited}
         keywords={post.frontmatter.tags}

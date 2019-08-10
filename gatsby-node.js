@@ -17,7 +17,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     })
   }
 
-  if (node.internal.type === `UsersJson`) {
+  if (node.internal.type === `UnicornsJson`) {
     const value = createFilePath({
       node,
       getNode,
@@ -32,14 +32,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.sourceNodes = ({ getNodesByType, actions: { createNodeField } }) => {
   const postNodes = getNodesByType(`MarkdownRemark`)
-  const userNodes = getNodesByType(`UsersJson`)
+  const unicornNodes = getNodesByType(`UnicornsJson`)
 
-  userNodes.forEach(userNode => {
-    const isAuthor = postNodes.some(post => post.frontmatter.author === userNode.id)
+  unicornNodes.forEach(unicornNode => {
+    const isAuthor = postNodes.some(post => post.frontmatter.author === unicornNode.id)
 
     createNodeField({
       name: `isAuthor`,
-      node: userNode,
+      node: unicornNode,
       value: isAuthor,
     })
   })
@@ -49,7 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage, createNodeField } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
-  const blogAuthor = path.resolve(`./src/templates/blog-author.js`)
+  const blogProfile = path.resolve(`./src/templates/blog-profile.js`)
   return graphql(
     `
     {
@@ -72,7 +72,7 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-      allUsersJson(limit: 100) {
+      allUnicornsJson(limit: 100) {
         edges {
           node {
             id
@@ -88,7 +88,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     // Create blog posts pages.
     const posts = result.data.allMarkdownRemark.edges
-    const authors = result.data.allUsersJson.edges
+    const unicorns = result.data.allUnicornsJson.edges
 
     posts.forEach((post, index, arr) => {
       const previous = index === arr.length - 1 ? null : arr[index + 1].node
@@ -119,12 +119,12 @@ exports.createPages = ({ graphql, actions }) => {
       })
     })
 
-    authors.forEach((author) => {
+    unicorns.forEach((unicorn) => {
       createPage({
-        path: `authors/${author.node.id}`,
-        component: blogAuthor,
+        path: `unicorns/${unicorn.node.id}`,
+        component: blogProfile,
         context: {
-          slug: author.node.id,
+          slug: unicorn.node.id,
         },
       })
     })

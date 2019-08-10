@@ -29,7 +29,7 @@ export const Layout = ({ location, children }) => {
 }
 
 export const authorFragmentQuery = graphql`
-  fragment UserInfo on UsersJson {
+  fragment UnicornInfo on UnicornsJson {
     name
     blurbet
     id
@@ -76,7 +76,7 @@ export const postFragmentQuery = graphql`
       tags
       description
       author {
-        ...UserInfo
+        ...UnicornInfo
       }
     }
     fields {
