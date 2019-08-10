@@ -8,7 +8,7 @@ import style from "./about.module.scss"
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
 
-  const { file, markdownRemark: post, site, allUsersJson: unicorns } = useStaticQuery(graphql`
+  const { file, markdownRemark: post, site, allUnicornsJson: unicorns } = useStaticQuery(graphql`
       query AboutUsQuery {
         site {
           siteMetadata {
@@ -40,10 +40,10 @@ const AboutUs = (props) => {
     `)
 
   const { siteMetadata: { title: siteTitle } } = site
-  const { nodes: authorArr } = unicorns
+  const { nodes: unicornArr } = unicorns
   const { childImageSharp: { fixed: imageFixed } } = file
 
-  console.log(authorArr)
+  console.log(unicornArr)
 
   return (
     <Layout location={props.location} title={siteTitle}>
@@ -62,9 +62,25 @@ const AboutUs = (props) => {
         >
           <div dangerouslySetInnerHTML={{ __html: markdownRemark.html }}/>
           {
-            authorArr.map(authorInfo => (
-              <div key={authorInfo.id}>
-                <p>{authorInfo.name}</p>
+            unicornArr.map(unicornInfo => (
+              <div key={unicornInfo.id} className={style.contributorContainer}>
+                <div className='pointer'>
+                  <Image className="circleImg" fixed={unicornInfo.profileImg.childImageSharp.mediumPic}/>
+                </div>
+                <div>
+                  <p>{unicornInfo.name}</p>
+                  <ul aria-label="Roles assigned to this user" className={style.rolesList}>
+                    {unicornInfo.roles.map((role, i) => (
+                      <li key={role.id}>
+                        {i !== 0 && ", "}{role.prettyname}
+                      </li>
+                    ))}
+                    {
+                      unicornInfo.fields.isAuthor &&
+                      <li>{unicornInfo.roles.length >= 1 && ", "}Author</li>
+                    }
+                  </ul>
+                </div>
               </div>
             ))
           }

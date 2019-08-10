@@ -168,3 +168,9 @@ pre {
 .pointer {
   cursor: pointer;
 }
+
+.circleImg {
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+}

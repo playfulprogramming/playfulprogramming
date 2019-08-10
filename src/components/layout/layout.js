@@ -38,6 +38,10 @@ export const authorFragmentQuery = graphql`
     fields {
       isAuthor
     }
+    roles {
+      prettyname
+      id
+    }
     socials {
       twitter
       github

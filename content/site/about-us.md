@@ -15,4 +15,4 @@ Our content will have a wide range of subject matters, difficulty curves, and (w
  
  If you’d like to get in touch with us, our GitHub is probably the best way to do so.
 
-# Contributors
+# Contributors {#contributors}

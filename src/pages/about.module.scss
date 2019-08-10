@@ -26,3 +26,21 @@
 .about-body {
   margin: 0 auto;
 }
+
+.roles-list {
+  list-style: none;
+  padding: 0;
+  li {
+    display: inline-block;
+    color: var(--midImpactBlack);
+    font-size: 20px;
+  }
+}
+
+.contributor-container {
+  display: flex;
+  align-items: center;
+  > div:first-child {
+    margin-right: 24px;
+  }
+}
