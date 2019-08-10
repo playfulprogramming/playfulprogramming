@@ -3,11 +3,7 @@ import listStyle from "./post-card-list.module.scss"
 import { PostCard } from "../post-card"
 import { FilterSearchBar } from "../filter-search-bar"
 
-/**
- * overwriteAuthorInfo is a needed evil for now:
- * @see https://github.com/gatsbyjs/gatsby/issues/14827
- */
-export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInfo, numberOfArticles, wordCount, tags }) => {
+export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, wordCount, tags }) => {
   // FIXME: This will not suffice with pagination added
   const [filtered, setFiltered] = useState(null)
   const [searched, setSearched] = useState(null)
@@ -38,7 +34,7 @@ export const PostList = ({ posts = [], showWordCount = false, overwriteAuthorInf
               key={node.fields.slug}
               excerpt={node.excerpt}
               title={title}
-              author={overwriteAuthorInfo || node.frontmatter.author}
+              author={node.frontmatter.author}
               published={node.frontmatter.published}
               tags={node.frontmatter.tags}
               description={node.frontmatter.description}

@@ -14,7 +14,7 @@ This repository acts as the source code location for the Unicorn Utterances blog
 Should be located under [`content/blog/post-name-here`](./content/blog/). You should then have an `index.md` file containing a frontmatter (with JS header, not YAML) portion and any related files should be in the same folder.
 
 ### Author Data File
-The author data file is located at [`src/data/authors.json`](./src/data/authors.json). To add yourself as an author in a PR for a new post, you'd add your information as a new JSON object in the array, then add a profile picture to the `data` folder. The `pronouns` field should match an `id` in the `pronouns.json` (if yours is not listed, please add it as a new value in that file, we've tried to do our best to include everything we've found!)
+The author data file is located at [`src/data/authors.json`](./src/data/unicorns.json). To add yourself as an author in a PR for a new post, you'd add your information as a new JSON object in the array, then add a profile picture to the `data` folder. The `pronouns` field should match an `id` in the `pronouns.json` (if yours is not listed, please add it as a new value in that file, we've tried to do our best to include everything we've found!)
 
 
 

@@ -26,6 +26,13 @@ module.exports = {
         name: `assets`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/site`,
+        name: `sitecontent`,
+      },
+    },
     `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -135,6 +142,7 @@ module.exports = {
               {
                 allMarkdownRemark(
                   sort: { order: DESC, fields: [frontmatter___published] },
+                  filter: {fileAbsolutePath: {regex: "/content/blog/"}}
                 ) {
                   edges {
                     node {
@@ -190,7 +198,7 @@ module.exports = {
           {
             name: "en",
             // A function for filtering nodes. () => true by default
-            filterNodes: node => !!node.frontmatter,
+            filterNodes: node => !!node.frontmatter && !!node.frontmatter.author,
           },
         ],
         // Fields to index. If store === true value will be stored in index file.
@@ -231,7 +239,8 @@ module.exports = {
     `gatsby-plugin-sitemap`
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `AuthorsJson`,
-    "AuthorsJson.pronouns": `PronounsJson`,
+    "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "UnicornsJson.pronouns": `PronounsJson`,
+    "UnicornsJson.roles": `RolesJson`,
   },
 }

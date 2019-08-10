@@ -18,6 +18,12 @@ const BlogIndex = (props) => {
       }, new Set()))
     }, [posts])
 
+    const Description = <>
+      {data.site.siteMetadata.description}
+      <br/>
+      <a href="./about">Read More</a>
+    </>
+
     return (
       <Layout location={props.location} title={siteTitle}>
         <SEO title="All posts" />
@@ -25,7 +31,7 @@ const BlogIndex = (props) => {
           <PicTitleHeader
             image={data.file.childImageSharp.fixed}
             title="Unicorn Utterances"
-            description={data.site.siteMetadata.description}
+            description={Description}
           />
           <PostList posts={posts} tags={postTags} />
         </div>
@@ -43,7 +49,10 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___published], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___published], order: DESC },
+      filter: {fileAbsolutePath: {regex: "/content/blog/"}}
+    ) {
       edges {
         node {
           ...PostInfo
