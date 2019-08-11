@@ -1,7 +1,6 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import BackIcon from "../../assets/icons/back.svg"
-import DarkIcon from "../../assets/icons/dark.svg"
 import layoutStyles from "./layout.module.scss"
 import "../../global.scss"
 import { DarkLightButton } from "../dark-light-button/dark-light-button"
