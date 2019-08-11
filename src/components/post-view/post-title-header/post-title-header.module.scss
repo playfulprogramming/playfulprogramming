@@ -8,6 +8,7 @@
   display: inline-block;
   font-size: 26px;
   color: var(--darkPrimary);
+  transition: color var(--animStyle) var(--animSpeed);
   text-transform: uppercase;
   margin: 0 24px 18px 0;
 }
@@ -18,10 +19,12 @@
   right: -12px;
   height: 100%;
   width: 2px;
+  transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
 }
 
 .title {
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   font-size: 64px;
   margin: 0 0 50px 0;

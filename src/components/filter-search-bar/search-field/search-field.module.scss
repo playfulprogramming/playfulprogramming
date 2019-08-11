@@ -15,16 +15,19 @@
   color: var(--darkPrimary);
   transition: background var(--animSpeed) var(--animStyle),
   box-shadow var(--animSpeed) var(--animStyle),
+  color var(--animSpeed) var(--animStyle),
   border-color var(--animSpeed) var(--animStyle);
   border: 1px solid transparent;
   cursor: text;
 }
 
 .btn, .input, .input::placeholder {
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
 }
 
 .btn:hover {
+  background: color var(--animStyle) var(--animSpeed);
   background: var(--cardActiveBackground);
   box-shadow: var(--cardActiveBoxShadow);
 }

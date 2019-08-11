@@ -50,6 +50,7 @@ body {
   background-color: var(--backgroundColor);
   font-family: var(--archivo);
   color: var(--black);
+  transition: color var(--animStyle) var(--animSpeed), background-color var(--animStyle) var(--animSpeed);
 }
 
 h1, h2, h3 {
@@ -95,8 +96,9 @@ h1, h2, h3 {
   background: none;
   border: none;
   transition: background var(--animSpeed) var(--animStyle),
-  box-shadow var(--animSpeed) var(--animStyle),
-  border-color var(--animSpeed) var(--animStyle);
+              box-shadow var(--animSpeed) var(--animStyle),
+              border-color var(--animSpeed) var(--animStyle),
+              color var(--animStyle) var(--animSpeed);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,12 +184,14 @@ a {
 
 svg.strokeicon {
   &, * {
+    transition: stroke var(--animStyle) var(--animSpeed);
     stroke: var(--darkPrimary);
   }
 }
 
 svg:not(.strokeicon) {
   &, * {
+    transition: fill var(--animStyle) var(--animSpeed);
     fill: var(--darkPrimary);
   }
 }

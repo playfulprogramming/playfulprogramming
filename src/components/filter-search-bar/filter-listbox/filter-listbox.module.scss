@@ -27,6 +27,7 @@ $btnPadding: 8px 16px 8px 15px;
   padding: $btnPadding;
   font-size: var(--filterBarFontSize);
   line-height: var(--filterBarFontSize);
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
   border: none;
   background: transparent;
@@ -90,6 +91,7 @@ $btnPadding: 8px 16px 8px 15px;
 }
 
 .listbox:not(.expanded):hover, .container.expanded .listbox, .container:not(.expanded) .filterButton:hover + .listbox {
+  transition: background var(--animStyle) var(--animSpeed);
   background: var(--cardActiveBackground);
   box-shadow: var(--cardActiveBoxShadow);
 }
@@ -147,6 +149,7 @@ $btnPadding: 8px 16px 8px 15px;
 }
 
 .option.selected {
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
 }
 
