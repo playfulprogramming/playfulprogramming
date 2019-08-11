@@ -179,3 +179,15 @@ pre {
 a {
   color: var(--darkPrimary);
 }
+
+svg.strokeicon {
+  &, * {
+    stroke: var(--darkPrimary);
+  }
+}
+
+svg:not(.strokeicon) {
+  &, * {
+    fill: var(--darkPrimary);
+  }
+}
