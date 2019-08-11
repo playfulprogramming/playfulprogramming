@@ -7,7 +7,7 @@ module.exports = {
     description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
     siteUrl: `https://unicorn-utterances.com/`,
     disqusShortname: "unicorn-utterances",
-    repoPath: "crutchcorn/unicorn-utterances",
+    repoPath: "unicorn-utterances/unicorn-utterances",
     relativeToPosts: "/content/blog",
     keywords: 'programming,development,mobile,web,game,utterances,software engineering,javascript,angular,react,computer science'
   },
