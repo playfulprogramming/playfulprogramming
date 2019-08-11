@@ -115,7 +115,7 @@ $btnPadding: 8px 16px 8px 15px;
   cursor: pointer;
   padding: 2px 0;
   margin: 2px 0;
-  color: rgba(0, 0, 0, 0.58);
+  color: var(--lowImpactBlack);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -154,11 +154,11 @@ $btnPadding: 8px 16px 8px 15px;
 }
 
 .isKeyboard .option.active {
-  box-shadow: 0 0 1px 1px var(--primary);
+  box-shadow: 0 0 1px 1px var(--primary); //might be nice to have this be the selection thingy for everything if it's fine for a11y -adueppen
 }
 
 .option.active {
-  color: black;
+  color: var(--black);
 }
 
 .maxHeightHideContainer {

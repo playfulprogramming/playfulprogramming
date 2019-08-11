@@ -12,7 +12,7 @@ export const darkTheme = {
     "--lowImpactBlack": "rgba(255, 255, 255, .58)",
     "--backgroundColor": "#072a41", //from tommy's mockup
     "--cardActiveBackground": "#163954", //from tommy's mockup
-    "--cardActiveBoxShadow": "0px 2px 4px rgba(255, 255, 255, 0.27), inset 0px 1px 0px #000000", //very very extremely temporary and ugly
+    "--cardActiveBoxShadow": "0px 2px 4px rgba(0, 0, 0, 0.27), inset 0px 1px 0px #435e75", //close to tommy's mockup but outset color is slightly different
 };
 
 export const lightTheme = {

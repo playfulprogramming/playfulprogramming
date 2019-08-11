@@ -208,7 +208,7 @@ pre > code.highlight {
 blockquote {
   position: relative;
   margin-left: 1em;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--lowImpactBlack);
 
   &::before {
     content: " ";
@@ -221,9 +221,9 @@ blockquote {
     left: -1em;
   }
 
-  a {
+  /*a {
     color: rgba(0, 10, 125, 0.6);
-  }
+  }*/
 }
 
 
