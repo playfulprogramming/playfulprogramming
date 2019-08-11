@@ -125,7 +125,7 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const slug = edge.node.fields.slug;
                 const {frontmatter} = edge.node;
-                const nodeUrl = `${siteUrl}posts${slug}`
+                const nodeUrl = `${siteUrl}/posts${slug}`
                 return {
                   description: frontmatter.description || edge.node.excerpt,
                   date: frontmatter.published,
