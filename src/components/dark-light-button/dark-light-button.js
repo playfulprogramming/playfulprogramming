@@ -1,28 +1,18 @@
-import React from "react"
+import React, {useContext} from "react"
 import DarkIcon from "../../assets/icons/dark.svg"
 import LightIcon from "../../assets/icons/light.svg"
 import btnStyles from "./dark-light-button.module.scss"
+import {ThemeContext} from '../theme-context'
 
 export const DarkLightButton = () => {
+  const {currentTheme, setTheme} = useContext(ThemeContext);
+
   return (
-    <button className={`${btnStyles.darkLightBtn} baseBtn`} onClick={toDark}><DarkIcon/></button>
+    <button className={`${btnStyles.darkLightBtn} baseBtn`} onClick={() => {
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    }}>
+      {currentTheme === 'dark' ? <LightIcon/> :  <DarkIcon/>}
+    </button>
   )
-}
-
-function toDark() {
-  //alert("yes");
-  let style = document.documentElement.style;
-  //css variable names might need to be changed a bit
-  style.setProperty("--darkPrimary", "#E4F4FF");
-  style.setProperty("--black", "white"); //🎵 we're gonna party like it's nine-teen eighty-fourrrrrrr 🎵
-  style.setProperty("--white", "black");
-  style.setProperty("--darkGrey", "rgba(255, 255, 255, .64)");
-  style.setProperty("--highImpactBlack", "rgba(255, 255, 255, .87)");
-  style.setProperty("--midImpactBlack", "rgba(255, 255, 255, .64)");
-  style.setProperty("--lowImpactBlack", "rgba(255, 255, 255, .58)");
-  style.setProperty("--backgroundColor", "#072a41"); //from tommy's mockup
-  style.setProperty("--cardActiveBackground", "#163954"); //from tommy's mockup
-  style.setProperty("--cardActiveBoxShadow", "0px 2px 4px rgba(255, 255, 255, 0.27), inset 0px 1px 0px #000000"); //very very extremely temporary and ugly
-
-
 }
