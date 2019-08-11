@@ -4,6 +4,11 @@
 <h1 align="center">
   Unicorn Utterances Website
 </h1>
+<div align="center">
+
+[![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
+
+</div>
 
 This repository acts as the source code location for the Unicorn Utterances blog found [here](https://unicorn-utterances.com)
 
