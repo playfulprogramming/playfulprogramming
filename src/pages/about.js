@@ -44,8 +44,6 @@ const AboutUs = (props) => {
   const { nodes: unicornArr } = unicorns
   const { childImageSharp: { fixed: imageFixed } } = file
 
-  console.log(unicornArr)
-
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO
