@@ -29,12 +29,18 @@ export const Layout = ({ location, children }) => {
 }
 
 export const authorFragmentQuery = graphql`
-  fragment AuthorInfo on AuthorsJson {
+  fragment UnicornInfo on UnicornsJson {
     name
-    blurbet
     id
     description
     color
+    fields {
+      isAuthor
+    }
+    roles {
+      prettyname
+      id
+    }
     socials {
       twitter
       github
@@ -73,7 +79,7 @@ export const postFragmentQuery = graphql`
       tags
       description
       author {
-        ...AuthorInfo
+        ...UnicornInfo
       }
     }
     fields {

@@ -7,7 +7,7 @@ module.exports = {
     description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
     siteUrl: `https://unicorn-utterances.com/`,
     disqusShortname: "unicorn-utterances",
-    repoPath: "crutchcorn/unicorn-utterances",
+    repoPath: "unicorn-utterances/unicorn-utterances",
     relativeToPosts: "/content/blog",
     keywords: 'programming,development,mobile,web,game,utterances,software engineering,javascript,angular,react,computer science'
   },
@@ -24,6 +24,13 @@ module.exports = {
       options: {
         path: `${__dirname}/content/assets`,
         name: `assets`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/site`,
+        name: `sitecontent`,
       },
     },
     `gatsby-transformer-json`,
@@ -118,7 +125,7 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const slug = edge.node.fields.slug;
                 const {frontmatter} = edge.node;
-                const nodeUrl = `${siteUrl}posts${slug}`
+                const nodeUrl = `${siteUrl}/posts${slug}`
                 return {
                   description: frontmatter.description || edge.node.excerpt,
                   date: frontmatter.published,
@@ -135,6 +142,7 @@ module.exports = {
               {
                 allMarkdownRemark(
                   sort: { order: DESC, fields: [frontmatter___published] },
+                  filter: {fileAbsolutePath: {regex: "/content/blog/"}}
                 ) {
                   edges {
                     node {
@@ -190,7 +198,7 @@ module.exports = {
           {
             name: "en",
             // A function for filtering nodes. () => true by default
-            filterNodes: node => !!node.frontmatter,
+            filterNodes: node => !!node.frontmatter && !!node.frontmatter.author,
           },
         ],
         // Fields to index. If store === true value will be stored in index file.
@@ -231,7 +239,8 @@ module.exports = {
     `gatsby-plugin-sitemap`
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `AuthorsJson`,
-    "AuthorsJson.pronouns": `PronounsJson`,
+    "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "UnicornsJson.pronouns": `PronounsJson`,
+    "UnicornsJson.roles": `RolesJson`,
   },
 }

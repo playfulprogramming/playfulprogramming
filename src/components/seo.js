@@ -16,17 +16,17 @@ const mapToMetaArr = (map) => Array.from(map.entries())
     content: v,
   }))
 
-const getBlogPostMetas = (authorData, keywords = [], publishedTime, editedTime) => {
-  if (!authorData) return []
+const getBlogPostMetas = (unicornData, keywords = [], publishedTime, editedTime) => {
+  if (!unicornData) return []
   const metas = new Map()
 
   metas.set("og:type", "article")
 
   metas.set("article:section", "Technology")
-  metas.set("article:author", authorData.name)
+  metas.set("article:author", unicornData.name)
 
-  if (authorData.socials) {
-    const s = authorData.socials
+  if (unicornData.socials) {
+    const s = unicornData.socials
     if (s.twitter) {
       metas.set("twitter:creator", `@${s.twitter}`)
     }
@@ -44,14 +44,14 @@ const getBlogPostMetas = (authorData, keywords = [], publishedTime, editedTime) 
   ]
 }
 
-const getProfileMetas = (authorData) => {
-  if (!authorData) return []
+const getProfileMetas = (unicornData) => {
+  if (!unicornData) return []
   const metas = new Map()
 
   metas.set("og:type", "profile")
-  metas.set("profile:firstName", authorData.firstName)
-  metas.set("profile:lastName", authorData.lastName)
-  metas.set("profile:username", authorData.id)
+  metas.set("profile:firstName", unicornData.firstName)
+  metas.set("profile:lastName", unicornData.lastName)
+  metas.set("profile:username", unicornData.id)
 
   return mapToMetaArr(metas)
 }
@@ -61,7 +61,7 @@ function SEO({
                lang,
                meta,
                title,
-               authorData,
+               unicornData,
                keywords,
                publishedTime,
                editedTime,
@@ -88,9 +88,9 @@ function SEO({
   const metaKeywords = keywords || siteData.keywords
 
   const typeMetas = type === "article" ?
-    getBlogPostMetas(authorData, keywords, publishedTime, editedTime) :
+    getBlogPostMetas(unicornData, keywords, publishedTime, editedTime) :
     type === "profile" ?
-      getProfileMetas(authorData) :
+      getProfileMetas(unicornData) :
       [
         {
           property: `og:type`,

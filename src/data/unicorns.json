@@ -4,7 +4,6 @@
     "name": "Corbin Crutchley",
     "firstName": "Corbin",
     "lastName": "Crutchley",
-    "blurbet": "Is a cool dood",
     "description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn \uD83E\uDD84\uD83C\uDF3D\nI do development of all kinds, usually focusing on web development.\nI collect retro video games \uD83C\uDFAE, like reading \uD83D\uDCD6, love teaching \uD83D\uDC68\u200D\uD83C\uDFEB",
     "socials": {
       "twitter": "crutchcorn",
@@ -12,14 +11,14 @@
     },
     "pronouns": "they/themselves",
     "profileImg": "./crutchcorn.png",
-    "color": "#ba68c8"
+    "color": "#ba68c8",
+    "roles": ["developer"]
   },
   {
     "id": "fennifith",
     "name": "James Fenn",
     "firstName": "James",
     "lastName": "Fenn",
-    "blurbet": "Cabbage",
     "description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
     "socials": {
       "twitter": "fennifith",
@@ -27,6 +26,7 @@
     },
     "pronouns": "he",
     "profileImg": "./fennifith.jpg",
-    "color": "#0091EA"
+    "color": "#0091EA",
+    "roles": ["developer"]
   }
 ]

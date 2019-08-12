@@ -23,16 +23,16 @@ const SocialBtn = ({icon, text, url, name}) => {
 /**
  *
  * @param image
- * @param socials - Match the object of the authorsJson socials
+ * @param socials - Match the object of the unicornsJson socials
  * @param title
  * @param description
- * @param author - Is an author pic?
+ * @param profile - Is a profile pic?
  * @constructor
  */
-export const PicTitleHeader = ({ image, socials, title, description, author = false }) => {
+export const PicTitleHeader = ({ image, socials, title, description, profile = false }) => {
   return (
     <div className={styles.container}>
-      <Image className={styles.headerPic} style={author ? { borderRadius: "50%" } : {}} fixed={image}
+      <Image className={styles.headerPic} style={profile ? { borderRadius: "50%" } : {}} fixed={image}
              loading={"eager"}/>
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>{title}</h1>
