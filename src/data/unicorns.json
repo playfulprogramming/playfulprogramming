@@ -28,5 +28,20 @@
     "profileImg": "./fennifith.jpg",
     "color": "#0091EA",
     "roles": ["developer"]
+  },
+  {
+    "id": "adueppen",
+    "name": "Alex Dueppen",
+    "firstName": "Alex",
+    "lastName": "Dueppen",
+    "description": "I do stuff sometimes.",
+    "socials": {
+      "twitter": "AlexDueppen",
+      "github": "adueppen"
+    },
+    "pronouns": "he",
+    "profileImg": "./adueppen.png",
+    "color": "#69ffff",
+    "roles": ["developer"]
   }
 ]
