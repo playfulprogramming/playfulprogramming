@@ -133,7 +133,7 @@ module.exports = {
                   url: nodeUrl,
                   guid: nodeUrl,
                   custom_elements: [
-                    {"dc:creator": frontmatter.author.name },
+                    {"dc:creator": frontmatter.authors.name }, //changed
                     {comments: `${nodeUrl}#disqus_thread`}
                   ],
                 }})
@@ -153,7 +153,7 @@ module.exports = {
                         title
                         description
                         published
-                        author {
+                        authors {
                           name
                         }
                       }
@@ -198,7 +198,7 @@ module.exports = {
           {
             name: "en",
             // A function for filtering nodes. () => true by default
-            filterNodes: node => !!node.frontmatter && !!node.frontmatter.author,
+            filterNodes: node => !!node.frontmatter && !!node.frontmatter.authors, //changed
           },
         ],
         // Fields to index. If store === true value will be stored in index file.
@@ -214,7 +214,7 @@ module.exports = {
             name: "slug",
             store: true,
           },
-          { name: "author" },
+          { name: "authors" },
           { name: "tags" },
         ],
         // How to resolve each field's value for a supported node type
@@ -224,7 +224,7 @@ module.exports = {
             title: node => node.frontmatter.title,
             content: node => node.rawMarkdownBody,
             slug: node => node.fields.slug,
-            author: node => node.frontmatter.author.name,
+            authors: node => node.frontmatter.authors.name, //changed
             tags: node => node.frontmatter.tags,
           },
         },
@@ -239,7 +239,7 @@ module.exports = {
     `gatsby-plugin-sitemap`
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "MarkdownRemark.frontmatter.authors": `UnicornsJson`,
     "UnicornsJson.pronouns": `PronounsJson`,
     "UnicornsJson.roles": `RolesJson`,
   },

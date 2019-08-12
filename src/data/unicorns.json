@@ -13,5 +13,37 @@
     "profileImg": "./crutchcorn.png",
     "color": "#ba68c8",
     "roles": ["developer"]
+  },
+
+  {
+    "id": "test1",
+    "name": "Test 1",
+    "firstName": "Test",
+    "lastName": "One",
+    "description": "Just a test, first one",
+    "socials": {
+      "twitter": "no",
+      "github": "no"
+    },
+    "pronouns": "they/themselves",
+    "profileImg": "./test1.png",
+    "color": "#ff0000",
+    "roles": ["developer"]
+  },
+
+  {
+    "id": "test2",
+    "name": "Test 2",
+    "firstName": "Test",
+    "lastName": "Two",
+    "description": "Just a test, second one",
+    "socials": {
+      "twitter": "no",
+      "github": "no"
+    },
+    "pronouns": "they/themselves",
+    "profileImg": "./test2.png",
+    "color": "#00ff00",
+    "roles": ["developer"]
   }
 ]

@@ -64,7 +64,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        frontmatter: {author: {id: {eq:  $slug}}},
+        frontmatter: {authors: {elemMatch: {id: {eq:  $slug}}}},
         fileAbsolutePath: {regex: "/content/blog/"}        
       },
       sort: {order: DESC, fields: frontmatter___published}

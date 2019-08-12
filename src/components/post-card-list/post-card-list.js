@@ -34,7 +34,7 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
               key={node.fields.slug}
               excerpt={node.excerpt}
               title={title}
-              author={node.frontmatter.author}
+              authors={node.frontmatter.authors}
               published={node.frontmatter.published}
               tags={node.frontmatter.tags}
               description={node.frontmatter.description}

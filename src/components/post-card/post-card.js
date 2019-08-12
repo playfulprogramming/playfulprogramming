@@ -4,7 +4,7 @@ import cardStyles from "./post-card.module.scss"
 import Image from "gatsby-image"
 import { stopPropCallback } from "../../utils/preventCallback"
 
-export const PostCard = ({ title, author, published, tags, excerpt, description, className, slug }) => {
+export const PostCard = ({ title, authors, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
   const authorLink = useRef()
   return (
@@ -24,7 +24,7 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
              authorLink.current.click()
            }}
         >
-          by&nbsp;{author.name}
+          by&nbsp;{authors.map(author => author.name).join(", ")} {/*get comma-separated list of authors*/}
         </p>
         <div className={cardStyles.dateTagSubheader}>
           <p className={cardStyles.date}>{published}</p>
@@ -47,17 +47,17 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
         />
       </div>
       <Link
-        to={`/unicorns/${author.id}`}
+        to={`/unicorns/${authors.id}`}
         ref={authorLink}
         onClick={stopPropCallback}
         className={cardStyles.profilePicLink}
         style={{
-          borderColor: author.color,
+          borderColor: authors.color,
         }}
       >
         <Image
-          fixed={author.profileImg.childImageSharp.smallPic}
-          alt={author.name}
+          fixed={authors[0].profileImg.childImageSharp.smallPic}
+          alt={authors.name}
           className={cardStyles.profilePic}
           imgStyle={{
             borderRadius: `50%`,
