@@ -12,7 +12,7 @@ export const DarkLightButton = () => {
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       setTheme(newTheme);
     }}>
-      {currentTheme === 'dark' ? <LightIcon/> :  <DarkIcon/>}
+      {currentTheme === 'dark' ? <DarkIcon/> :  <LightIcon/>}
     </button>
   )
 }
