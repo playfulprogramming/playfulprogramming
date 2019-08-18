@@ -37,7 +37,8 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: #5e6687;
+  color: var(--lowImpactBlack);
+  background: var(--codeBlockBackground);
 }
 
 pre[class*="language-"]::-moz-selection,
@@ -67,7 +68,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
-  background: white;
+  background: var(--white);
   white-space: normal;
 }
 

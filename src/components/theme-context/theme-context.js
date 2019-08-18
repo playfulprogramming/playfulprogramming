@@ -13,6 +13,7 @@ export const darkTheme = {
     "--backgroundColor": "#072a41", //from tommy's mockup
     "--cardActiveBackground": "#163954", //from tommy's mockup
     "--cardActiveBoxShadow": "0px 2px 4px rgba(0, 0, 0, 0.27), inset 0px 1px 0px #435e75", //close to tommy's mockup but outset color is slightly different
+    "--codeBlockBackground": "#202746",
 };
 
 export const lightTheme = {
@@ -26,7 +27,8 @@ export const lightTheme = {
   '--lowImpactBlack': 'rgba(0, 0, 0, 0.58)',
   '--backgroundColor': '#E4F4FF',
   '--cardActiveBackground': '#EBF6FC',
-  '--cardActiveBoxShadow': '0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF'
+  '--cardActiveBoxShadow': '0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF',
+  "--codeBlockBackground": "white",
 }
 
 export function setThemeColorsToVars(themeName) {
