@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import {Layout} from "../components/layout/layout"
 import { SEO } from "../components/seo"
 import { PostList } from "../components/post-card-list"
@@ -21,7 +21,7 @@ const BlogIndex = (props) => {
     const Description = <>
       {data.site.siteMetadata.description}
       <br/>
-      <a href="./about">Read More</a>
+      <Link to={"/about"}>Read More</Link>
     </>
 
     return (
