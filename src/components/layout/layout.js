@@ -81,6 +81,13 @@ export const postFragmentQuery = graphql`
       author {
         ...UnicornInfo
       }
+      license {
+        licenceType
+        footerImg
+        explainLink
+        name
+        displayName
+      }
     }
     fields {
       slug

@@ -240,6 +240,7 @@ module.exports = {
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "MarkdownRemark.frontmatter.license": `LicensesJson`,
     "UnicornsJson.pronouns": `PronounsJson`,
     "UnicornsJson.roles": `RolesJson`,
   },
