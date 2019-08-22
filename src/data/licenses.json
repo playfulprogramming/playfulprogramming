@@ -1,0 +1,18 @@
+[
+  {
+    "id": "cc-by-nc-sa-4",
+    "footerImg": "https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png",
+    "licenceType": "Creative Commons License",
+    "explainLink": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "name": "Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+    "displayName": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
+  },
+  {
+    "id": "cc-by-4",
+    "footerImg": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+    "licenceType": "Creative Commons License",
+    "explainLink": "http://creativecommons.org/licenses/by/4.0/",
+    "name": "Attribution 4.0 International (CC BY 4.0)",
+    "displayName": "Creative Commons Attribution 4.0 International License"
+  }
+]

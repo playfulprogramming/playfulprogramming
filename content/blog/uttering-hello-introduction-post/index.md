@@ -5,7 +5,8 @@
     published: '2019-06-29T22:12:03.284Z',
     author: 'crutchcorn',
     tags: ['community', 'announcements'],
-    attached: []
+    attached: [],
+    license: 'cc-by-4'
 }
 ---
 

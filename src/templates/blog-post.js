@@ -43,6 +43,18 @@ const BlogPostTemplate = (props) => {
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
       <div className="post-lower-area">
+        <div>
+          <a
+            aria-label={`Post licensed with ${post.frontmatter.license.displayName}`}
+            href={post.frontmatter.license.explainLink}
+            style={{display: 'table', margin: '0 auto'}}
+          >
+          <img
+            src={post.frontmatter.license.footerImg}
+            alt={post.frontmatter.license.licenseType}
+          />
+          </a>
+        </div>
         <div
           style={{
             display: "flex",
