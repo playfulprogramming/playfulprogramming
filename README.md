@@ -4,6 +4,12 @@
 <h1 align="center">
   Unicorn Utterances Website
 </h1>
+<div align="center">
+
+[![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE-OF-CONDUCT.md)
+
+</div>
 
 This repository acts as the source code location for the Unicorn Utterances blog found [here](https://unicorn-utterances.com)
 

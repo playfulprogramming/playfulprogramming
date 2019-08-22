@@ -10,6 +10,6 @@ location /unicorns {
     return 302 /about;
 }
 
-location /posts {
+location = /posts/ {
     return 301 /;
 }

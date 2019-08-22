@@ -186,7 +186,7 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /\/src\/assets\/icons\/.*\.svg$/, // See below to configure properly
+          include: /(?:\/src\/assets\/icons\/|\\src\\assets\\icons\\).*\.svg$/,
         },
       },
     },
@@ -240,6 +240,7 @@ module.exports = {
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "MarkdownRemark.frontmatter.license": `LicensesJson`,
     "UnicornsJson.pronouns": `PronounsJson`,
     "UnicornsJson.roles": `RolesJson`,
   },
