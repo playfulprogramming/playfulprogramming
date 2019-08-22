@@ -43,5 +43,19 @@
     "profileImg": "./adueppen.png",
     "color": "#69ffff",
     "roles": ["developer"]
+  },
+  {
+    "id": "zavukodlak",
+    "name": "vukashin",
+    "firstName": "vukashin",
+    "lastName": "",
+    "description": "I'm a high school student doing creative work on the internet.",
+    "socials": {
+      "twitter": "vukash_in"
+    },
+    "pronouns": "he",
+    "profileImg": "./vukashin.png",
+    "color": "#3485FF",
+    "roles": ["designer"]
   }
 ]
