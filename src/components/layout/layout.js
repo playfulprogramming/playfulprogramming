@@ -44,6 +44,7 @@ export const authorFragmentQuery = graphql`
     socials {
       twitter
       github
+      website
     }
     pronouns {
       they
