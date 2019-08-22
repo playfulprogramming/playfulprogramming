@@ -12,7 +12,7 @@
     "pronouns": "they/themselves",
     "profileImg": "./crutchcorn.png",
     "color": "#ba68c8",
-    "roles": ["developer"]
+    "roles": ["devops", "developer"]
   },
   {
     "id": "fennifith",
