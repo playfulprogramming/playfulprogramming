@@ -14,6 +14,14 @@ Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://gith
   --punctuationColor: #006fce;
   --constantColor: #aa05d4;
   --functionColor: #5357d2;
+  --selectionColor: #dfe2f1;
+  --commentColor: #898ea4;
+  --propColor: #c08b30;
+  --varColor: #3d8fd1;
+  --selectorColor: #6679cc;
+  --urlColor: #22a9c9;
+  --insertedUnderlineColor: #202746;
+  --highlightColor: #c94922;
   //008000
 }
 
@@ -37,7 +45,7 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: var(--lowImpactBlack);
+  color: var(--highImpactBlack);
   background: var(--codeBlockBackground);
 }
 
@@ -46,7 +54,7 @@ pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
   text-shadow: none;
-  background: #dfe2f1;
+  background: var(--selectionColor);
 }
 
 pre[class*="language-"]::selection,
@@ -54,7 +62,7 @@ pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
   text-shadow: none;
-  background: #dfe2f1;
+  background: var(--selectionColor);
 }
 
 /* Code blocks */
@@ -76,7 +84,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #898ea4;
+  color: var(--commentColor);
 }
 
 .token.punctuation {
@@ -98,11 +106,11 @@ pre[class*="language-"] {
 }
 
 .token.property {
-  color: #c08b30;
+  color: var(--propColor);
 }
 
 .token.tag {
-  color: #3d8fd1;
+  color: var(--varColor);
 }
 
 .token.string {
@@ -110,7 +118,7 @@ pre[class*="language-"] {
 }
 
 .token.selector {
-  color: #6679cc;
+  color: var(--selectorColor);
 }
 
 .token.attr-name {
@@ -121,7 +129,7 @@ pre[class*="language-"] {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #22a2c9;
+  color: var(--urlColor);
 }
 
 .token.attr-value,
@@ -144,7 +152,7 @@ pre[class*="language-"] {
 
 .token.placeholder,
 .token.variable {
-  color: #3d8fd1;
+  color: var(--varColor);
 }
 
 .token.deleted {
@@ -152,7 +160,7 @@ pre[class*="language-"] {
 }
 
 .token.inserted {
-  border-bottom: 1px dotted #202746;
+  border-bottom: 1px dotted var(--insertedUnderlineColor);
   text-decoration: none;
 }
 
@@ -166,7 +174,7 @@ pre[class*="language-"] {
 }
 
 .token.important {
-  color: #c94922;
+  color: var(--highlightColor);
 }
 
 .token.entity {
@@ -174,7 +182,7 @@ pre[class*="language-"] {
 }
 
 pre > code.highlight {
-  outline: 0.4em solid #c94922;
+  outline: 0.4em solid var(--highlightColor);
   outline-offset: 0.4em;
 }
 
@@ -182,7 +190,7 @@ pre > code.highlight {
  * http://prismjs.com/plugins/line-numbers/
  */
 .line-numbers .line-numbers-rows {
-  border-right-color: #dfe2f1;
+  border-right-color: var(--selectionColor);
 }
 
 .line-numbers-rows > span:before {
@@ -209,7 +217,7 @@ pre > code.highlight {
 blockquote {
   position: relative;
   margin-left: 1em;
-  color: var(--lowImpactBlack);
+  color: var(--midImpactBlack);
 
   &::before {
     content: " ";
