@@ -14,5 +14,13 @@
     "explainLink": "http://creativecommons.org/licenses/by/4.0/",
     "name": "Attribution 4.0 International (CC BY 4.0)",
     "displayName": "Creative Commons Attribution 4.0 International License"
+  },
+  {
+    "id": "publicdomain-zero-1",
+    "footerImg": "https://licensebuttons.net/p/zero/1.0/88x31.png",
+    "licenceType": "Public Domain",
+    "explainLink": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "name": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    "displayName": "Public Domain"
   }
 ]
