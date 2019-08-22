@@ -7,7 +7,7 @@ module.exports = {
     description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
     siteUrl: `https://unicorn-utterances.com/`,
     disqusShortname: "unicorn-utterances",
-    repoPath: "crutchcorn/unicorn-utterances",
+    repoPath: "unicorn-utterances/unicorn-utterances",
     relativeToPosts: "/content/blog",
     keywords: 'programming,development,mobile,web,game,utterances,software engineering,javascript,angular,react,computer science'
   },
@@ -125,7 +125,7 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const slug = edge.node.fields.slug;
                 const {frontmatter} = edge.node;
-                const nodeUrl = `${siteUrl}posts${slug}`
+                const nodeUrl = `${siteUrl}/posts${slug}`
                 return {
                   description: frontmatter.description || edge.node.excerpt,
                   date: frontmatter.published,
@@ -186,7 +186,7 @@ module.exports = {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /\/src\/assets\/icons\/.*\.svg$/, // See below to configure properly
+          include: /(?:\/src\/assets\/icons\/|\\src\\assets\\icons\\).*\.svg$/,
         },
       },
     },
@@ -240,6 +240,7 @@ module.exports = {
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "MarkdownRemark.frontmatter.license": `LicensesJson`,
     "UnicornsJson.pronouns": `PronounsJson`,
     "UnicornsJson.roles": `RolesJson`,
   },

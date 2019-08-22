@@ -53,7 +53,6 @@ export const Layout = ({ location, children }) => {
 export const authorFragmentQuery = graphql`
   fragment UnicornInfo on UnicornsJson {
     name
-    blurbet
     id
     description
     color
@@ -103,6 +102,13 @@ export const postFragmentQuery = graphql`
       description
       author {
         ...UnicornInfo
+      }
+      license {
+        licenceType
+        footerImg
+        explainLink
+        name
+        displayName
       }
     }
     fields {

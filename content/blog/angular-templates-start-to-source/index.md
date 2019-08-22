@@ -5,7 +5,8 @@
 	published: '2019-07-11T22:12:03.284Z',
 	author: 'crutchcorn',
 	tags: ['angular', 'templates'],
-	attached: []
+	attached: [],
+	license: 'cc-by-nc-sa-4'
 }
 ---
 
