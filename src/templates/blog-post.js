@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, {useContext, useState, useEffect} from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
 import CommentsIcon from "../assets/icons/message.svg"
@@ -17,11 +17,21 @@ const BlogPostTemplateChild = (props) => {
 
   const { currentTheme } = useContext(ThemeContext)
 
-  const disqusConfig = {
-    url: `${siteData.siteUrl}posts${slug}`,
-    identifier: slug,
-    title: post.frontmatter.title,
-  }
+  const [disqusCurrentTheme, setDisqusCurrentTheme] = useState(currentTheme);
+  const [disqusConfig, setDisqusConfig] = useState(currentTheme);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!setDisqusCurrentTheme || !currentTheme) return;
+      setDisqusCurrentTheme(currentTheme)
+      setDisqusConfig({
+        url: `${siteData.siteUrl}posts${slug}`,
+        identifier: `${slug}${currentTheme}`,
+        title: post.frontmatter.title,
+      })
+      // Must use a `useTimeout` so that this reloads AFTER the background animation
+    }, 600);
+  }, [currentTheme])
 
   const GHLink = `https://github.com/${siteData.repoPath}/tree/master${
     siteData.relativeToPosts
