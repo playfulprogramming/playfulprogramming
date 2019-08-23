@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
 import CommentsIcon from "../assets/icons/message.svg"
