@@ -17,13 +17,11 @@ const BlogPostTemplateChild = (props) => {
 
   const { currentTheme } = useContext(ThemeContext)
 
-  const [disqusCurrentTheme, setDisqusCurrentTheme] = useState(currentTheme);
   const [disqusConfig, setDisqusConfig] = useState(currentTheme);
 
   useEffect(() => {
     setTimeout(() => {
-      if (!setDisqusCurrentTheme || !currentTheme) return;
-      setDisqusCurrentTheme(currentTheme)
+      if (!setDisqusConfig || !currentTheme) return;
       setDisqusConfig({
         url: `${siteData.siteUrl}posts${slug}`,
         identifier: `${slug}${currentTheme}`,
