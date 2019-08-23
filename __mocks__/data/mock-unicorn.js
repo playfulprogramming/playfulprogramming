@@ -1,4 +1,6 @@
-export const MockUnicornData = {
+import { MockRole } from "./mock-role"
+
+export const MockUnicorn = {
   name: "Joe",
   id: "joe",
   description: "Exists",
@@ -6,10 +8,7 @@ export const MockUnicornData = {
   fields: {
     isAuthor: true
   },
-  roles: [{
-    id: "developer",
-    prettyname: "Developer"
-  }],
+  roles: [MockRole],
   socials: {
     twitter: "twtrusrname",
     github: "ghusrname",

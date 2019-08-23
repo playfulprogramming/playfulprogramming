@@ -1,28 +1,48 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
 import { PostCard } from "./post-card"
-import { MockUnicornData } from "../../../__mocks__/mock-unicorn-data"
+import { MockPost } from "../../../__mocks__/data/mock-post"
 import {onLinkClick} from 'gatsby';
 
-test("Renders with the expected text and handles clicks properly", async () => {
-  const { baseElement, findByText, findByTestId } = render(<PostCard
-    title={"Post title"}
-    author={MockUnicornData}
-    published={"10-10-2010"}
-    tags={["item1"]}
-    excerpt={"This is a short description dunno why this would be this short"}
-    slug={"/this-post-name-here"}
-  />)
+const {frontmatter: {tags, author, title, published, description}, excerpt, fields: {slug}} = MockPost;
 
-  expect(baseElement).toBeInTheDocument();
-  expect(await findByText("by Joe")).toBeInTheDocument();
-  expect(await findByText('10-10-2010')).toBeInTheDocument();
-  expect(await findByText('item1')).toBeInTheDocument();
-  expect(await findByText('This is a short description dunno why this would be this short')).toBeInTheDocument();
+describe("Post card", () => {
+  test("Renders with the expected text and handles clicks properly", async () => {
+    const { baseElement, findByText, findByTestId } = render(<PostCard
+      title={title}
+      author={author}
+      published={published}
+      tags={tags}
+      excerpt={excerpt}
+      slug={slug}
+    />)
 
-  fireEvent.click(await findByText("Post title"));
-  expect(onLinkClick).toHaveBeenCalledTimes(2);
+    expect(baseElement).toBeInTheDocument();
+    expect(await findByText("by Joe")).toBeInTheDocument();
+    expect(await findByText('10-10-2010')).toBeInTheDocument();
+    expect(await findByText('item1')).toBeInTheDocument();
+    expect(await findByText('This would be an auto generated excerpt of the post in particular')).toBeInTheDocument();
 
-  fireEvent.click(await findByTestId("authorPic"));
-  expect(onLinkClick).toHaveBeenCalledTimes(4);
-})
+    fireEvent.click(await findByText("Post title"));
+    expect(onLinkClick).toHaveBeenCalledTimes(2);
+
+    fireEvent.click(await findByTestId("authorPic"));
+    expect(onLinkClick).toHaveBeenCalledTimes(4);
+  })
+
+  test("renders the description rather then excerpt", async () => {
+    const { findByText} = render(
+      <PostCard
+        title={title}
+        author={author}
+        published={published}
+        tags={tags}
+        excerpt={excerpt}
+        description={description}
+        slug={slug}
+      />
+    )
+
+    expect(await findByText('This is a short description dunno why this would be this short')).toBeInTheDocument();
+  })
+});
