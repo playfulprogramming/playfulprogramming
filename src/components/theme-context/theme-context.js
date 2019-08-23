@@ -1,4 +1,4 @@
-import {createContext} from 'react';
+import { createContext } from "react"
 
 
 //css variable names might need to be changed a bit
@@ -39,17 +39,17 @@ export const darkTheme = {
 
 export const lightTheme = {
   //main styles
-  '--darkPrimary': '#153E67',
-  '--primary': '#127DB3',
-  '--black': 'black',
-  '--white': 'white',
-  '--darkGrey': 'rgba(0, 0, 0, 0.64)',
-  '--highImpactBlack': 'rgba(0, 0, 0, 0.87)',
-  '--midImpactBlack': 'rgba(0, 0, 0, 0.64)',
-  '--lowImpactBlack': 'rgba(0, 0, 0, 0.58)',
-  '--backgroundColor': '#E4F4FF',
-  '--cardActiveBackground': '#EBF6FC',
-  '--cardActiveBoxShadow': '0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF',
+  "--darkPrimary": "#153E67",
+  "--primary": "#127DB3",
+  "--black": "black",
+  "--white": "white",
+  "--darkGrey": "rgba(0, 0, 0, 0.64)",
+  "--highImpactBlack": "rgba(0, 0, 0, 0.87)",
+  "--midImpactBlack": "rgba(0, 0, 0, 0.64)",
+  "--lowImpactBlack": "rgba(0, 0, 0, 0.58)",
+  "--backgroundColor": "#E4F4FF",
+  "--cardActiveBackground": "#EBF6FC",
+  "--cardActiveBoxShadow": "0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF",
   "--codeBlockBackground": "white",
   //code styles
   "--codeBackgroundColor": "#fff",
@@ -74,8 +74,11 @@ export const lightTheme = {
 }
 
 export function setThemeColorsToVars(themeName) {
-  const themeObj = themeName === 'dark' ? darkTheme : lightTheme;
+  const themeObj = themeName === "dark" ? darkTheme : lightTheme;
   const style = document.documentElement.style;
+  const themeColor = document.querySelector("meta[name='theme-color']");
+  themeColor.setAttribute("content", themeObj["--backgroundColor"]);
+
   Object.entries(themeObj).forEach(([themeKey, themeVal]) => {
     style.setProperty(themeKey, themeVal);
   })
@@ -83,7 +86,7 @@ export function setThemeColorsToVars(themeName) {
 
 // We only have dark and light right now
 export const defaultThemeContextVal = {
-  currentTheme: 'light',
+  currentTheme: "light",
   setTheme: (val) => {}
 }
 
