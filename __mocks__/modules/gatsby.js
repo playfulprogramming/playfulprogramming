@@ -22,7 +22,6 @@ jest.mock('gatsby', () => {
         partiallyActive,
         replace,
         to,
-        ref: _,
         ...rest
       } = props;
       return <a

@@ -2,7 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
 import CommentsIcon from "../assets/icons/message.svg"
-import Disqus from "disqus-react"
+import {DiscussionEmbed} from "disqus-react"
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
@@ -76,7 +76,7 @@ const BlogPostTemplate = (props) => {
           {/*  <ShareIcon/>*/}
           {/*</button>*/}
         </div>
-        <Disqus.DiscussionEmbed
+        <DiscussionEmbed
           shortname={siteData.disqusShortname}
           config={disqusConfig}
         />
