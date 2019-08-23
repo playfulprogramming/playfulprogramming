@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { graphql, Link } from "gatsby"
 import BackIcon from "../../assets/icons/back.svg"
 import layoutStyles from "./layout.module.scss"
@@ -12,14 +12,17 @@ export const Layout = ({ location, children }) => {
   const isBase = location.pathname === rootPath
   const isBlogPost = location.pathname.startsWith(`${rootPath}posts`)
 
-  const initialTheme = useMemo(() => {
-    const themeName = localStorage.getItem('currentTheme') || 'light'
-    setThemeColorsToVars(themeName);
-    return themeName;
-  }, [])
+  const [currentTheme, setCurrentTheme] = useState('light');
 
-  const [currentTheme, setCurrentTheme] = useState(initialTheme);
-  
+  const winLocalStorage = global && global.window && global.window.localStorage;
+
+  useEffect(() => {
+    if (!winLocalStorage) return;
+    const themeName = winLocalStorage.getItem('currentTheme') || 'light'
+    setThemeColorsToVars(themeName);
+    setCurrentTheme(themeName)
+  }, [winLocalStorage])
+
   const setTheme = (val) => {
     setThemeColorsToVars(val);
     setCurrentTheme(val);
