@@ -1,9 +1,9 @@
 import React from "react"
-import { render } from "@testing-library/react"
+import { fireEvent, render } from "@testing-library/react"
 import { siteMetadata } from "../../__mocks__/data/mock-site-metadata"
 import { MockPost } from "../../__mocks__/data/mock-post"
 import BlogPostTemplate from "./blog-post"
-import { useStaticQuery } from "gatsby"
+import { onLinkClick, useStaticQuery } from "gatsby"
 
 beforeAll(() => {
   useStaticQuery.mockImplementation(() => ({
@@ -40,7 +40,13 @@ test("Blog post page renders", async () => {
   expect(await findByText('Joe')).toBeInTheDocument();
   expect(await findByText('10-10-2010')).toBeInTheDocument();
   expect(await findByText('10000 words')).toBeInTheDocument();
-  expect(await findByTestId('post-meta-author-name')).toHaveTextContent('Joe');
+  const authorName = await findByTestId('post-meta-author-name');
+  expect(authorName).toHaveTextContent('Joe');
+  fireEvent.click(authorName);
+  expect(onLinkClick).toHaveBeenCalledTimes(1);
+  fireEvent.click(await findByTestId('post-meta-author-pic'));
+  expect(onLinkClick).toHaveBeenCalledTimes(2);
+
   // Renders the post body properly
   expect((await findByTestId('post-body-div')).innerHTML).toBe('<div>Hey there</div>');
 })
