@@ -8,12 +8,14 @@ import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
 import { PostMetadata, PostTitleHeader } from "../components/post-view"
 import { OutboundLink } from "gatsby-plugin-google-analytics"
+import { ThemeContext } from "../components/theme-context"
 
-const BlogPostTemplate = (props) => {
+const BlogPostTemplateChild = (props) => {
   const post = props.data.markdownRemark
   const siteData = props.data.site.siteMetadata
-  const siteTitle = siteData.title
   const slug = post.fields.slug
+
+  const { currentTheme } = useContext(ThemeContext)
 
   const disqusConfig = {
     url: `${siteData.siteUrl}posts${slug}`,
@@ -23,10 +25,10 @@ const BlogPostTemplate = (props) => {
 
   const GHLink = `https://github.com/${siteData.repoPath}/tree/master${
     siteData.relativeToPosts
-    }${slug}index.md`
+  }${slug}index.md`
 
   return (
-    <Layout location={props.location} title={siteTitle}>
+    <>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -47,12 +49,12 @@ const BlogPostTemplate = (props) => {
           <a
             aria-label={`Post licensed with ${post.frontmatter.license.displayName}`}
             href={post.frontmatter.license.explainLink}
-            style={{display: 'table', margin: '0 auto'}}
+            style={{ display: "table", margin: "0 auto" }}
           >
-          <img
-            src={post.frontmatter.license.footerImg}
-            alt={post.frontmatter.license.licenseType}
-          />
+            <img
+              src={post.frontmatter.license.footerImg}
+              alt={post.frontmatter.license.licenseType}
+            />
           </a>
         </div>
         <div
@@ -79,8 +81,19 @@ const BlogPostTemplate = (props) => {
         <Disqus.DiscussionEmbed
           shortname={siteData.disqusShortname}
           config={disqusConfig}
+          key={currentTheme}
         />
       </div>
+    </>
+  )
+}
+
+const BlogPostTemplate = (props) => {
+  const siteTitle = props.data.site.siteMetadata.title
+
+  return (
+    <Layout location={props.location} title={siteTitle}>
+      <BlogPostTemplateChild {...props}/>
     </Layout>
   )
 }
