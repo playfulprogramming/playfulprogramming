@@ -14,6 +14,7 @@
   font-weight: 400;
   display: inline-block;
   margin: 0 24px 0 0;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--lowImpactBlack);
   font-size: 36px;
   line-height: 36px;
@@ -26,17 +27,20 @@
   right: -12px;
   height: 100%;
   width: 2px;
+  transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
 }
 
 .authorName {
   font-size: 36px;
   line-height: 36px;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
 }
 
 .authorLink {
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
 }
 

@@ -22,6 +22,7 @@
 .title {
   font-size: 64px;
   line-height: 64px;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
 }
@@ -34,6 +35,7 @@
 
 .subheader {
   margin: 22px 0 0 0;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--midImpactBlack);
   font-size: 32px;
   font-weight: 400;
@@ -43,6 +45,7 @@
 
 .socialsContainer {
   display: flex;
+  transition: color var(--animStyle) var(--animSpeed);
   font-family: var(--oswald);
   font-size: 36px;
   color: var(--darkPrimary)

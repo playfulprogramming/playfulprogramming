@@ -9,6 +9,7 @@
   blockquote {
     font-size: 32px;
     margin-left: 0;
+    transition: color var(--animStyle) var(--animSpeed);
     color: var(--midImpactBlack);
     &::before {
       display: none;
@@ -41,6 +42,7 @@
   margin: 8px 0 0;
   li {
     display: inline-block;
+    transition: color var(--animStyle) var(--animSpeed);
     color: var(--midImpactBlack);
   }
 }
