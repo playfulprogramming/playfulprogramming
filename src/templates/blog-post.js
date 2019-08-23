@@ -40,6 +40,7 @@ const BlogPostTemplate = (props) => {
       <PostMetadata post={post}/>
       <div
         className="post-body"
+        data-testid={"post-body-div"}
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
       <div className="post-lower-area">
