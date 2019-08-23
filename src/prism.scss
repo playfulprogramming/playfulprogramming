@@ -8,6 +8,8 @@ Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/b
 Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://github.com/crutchcorn)
 */
 :root {
+  --codeBackgroundColor: #fff;
+  --textColor: #5e6687;
   --stringColor: #007396;
   --keywordColor: #846c00;
   --operatorColor: #b74c00;
@@ -22,7 +24,9 @@ Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://gith
   --urlColor: #22a9c9;
   --insertedUnderlineColor: #202746;
   --highlightColor: #c94922;
-  //008000
+  --lineNumbersColor: #979db4;
+  --lineHighlightColor: rgba(107, 115, 148, 0.2);
+  --lineHighlightFadeColor: rgba(107, 115, 148, 0);
 }
 
 code[class*="language-"],
@@ -45,8 +49,8 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: var(--highImpactBlack);
-  background: var(--codeBlockBackground);
+  color: var(--textColor);
+  background: var(--codeBackgroundColor);
 }
 
 pre[class*="language-"]::-moz-selection,
@@ -194,23 +198,23 @@ pre > code.highlight {
 }
 
 .line-numbers-rows > span:before {
-  color: #979db4;
+  color: var(--lineNumbersColor);
 }
 
 /* overrides color-values for the Line Highlight plugin
  * http://prismjs.com/plugins/line-highlight/
  */
 .line-highlight {
-  background: rgba(107, 115, 148, 0.2);
+  background: var(--lineHighlightColor);
   background: -webkit-linear-gradient(
     left,
-    rgba(107, 115, 148, 0.2) 70%,
-    rgba(107, 115, 148, 0)
+    var(--lineHighlightColor) 70%,
+    var(--lineHighlightFadeColor)
   );
   background: linear-gradient(
     to right,
-    rgba(107, 115, 148, 0.2) 70%,
-    rgba(107, 115, 148, 0)
+    var(--lineHighlightColor) 70%,
+    var(--lineHighlightFadeColor)
   );
 }
 
