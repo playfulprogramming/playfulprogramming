@@ -1,6 +1,6 @@
-$baseUnit: 4;
+$baseUnit: 8;
 
-$rootFontSize: #{$baseUnit * 4}px;
+$rootFontSize: #{$baseUnit * 2}px;
 $fullScreenSearch: 450px;
 
 @function pxToRem($pxNum) {
