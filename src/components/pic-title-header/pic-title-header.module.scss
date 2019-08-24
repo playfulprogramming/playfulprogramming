@@ -51,15 +51,28 @@
   color: var(--darkPrimary)
 }
 
+@media screen and (max-width: 599px) {
+  .socialsContainer {
+    display: list-item;
+    list-style: none;
+  }
+
+  .socialsContainer > * {
+    justify-content: left;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .socialsContainer > *:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+
 .socialsContainer > * {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
   margin-top: 10px;
-}
-
-.socialsContainer > *:not(:first-child) {
-  margin-left: 20px;
 }
 
 .svgContainer {

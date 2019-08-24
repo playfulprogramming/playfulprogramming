@@ -37,7 +37,8 @@
     "description": "I do stuff sometimes.",
     "socials": {
       "twitter": "AlexDueppen",
-      "github": "adueppen"
+      "github": "adueppen",
+      "website": "https://ajd.sh/"
     },
     "pronouns": "he",
     "profileImg": "./adueppen.png",
