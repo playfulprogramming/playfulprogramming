@@ -32,6 +32,16 @@
   }
 }
 
+:focus {
+  outline-color: var(--darkPrimary);
+}
+
+//without this all <button>s have bad outline colors in firefox
+:focus::-moz-focus-inner {
+  padding: 0; //prevent weirdness just in case
+  border-color: var(--darkPrimary);
+}
+
 .listViewContent {
   margin: 0 auto;
   max-width: #{67318 * $baseUnit}px;
