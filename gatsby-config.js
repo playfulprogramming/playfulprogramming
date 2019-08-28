@@ -209,7 +209,8 @@ module.exports = {
             store: true,
             attributes: { boost: 20 },
           },
-          { name: "content" },
+          { name: "excerpt" },
+          { name: "description" },
           {
             name: "slug",
             store: true,
@@ -222,7 +223,8 @@ module.exports = {
           // For any node of type MarkdownRemark, list how to resolve the fields' values
           MarkdownRemark: {
             title: node => node.frontmatter.title,
-            content: node => node.rawMarkdownBody,
+            excerpt: node => node.excerpt,
+            description: node => node.frontmatter.description,
             slug: node => node.fields.slug,
             author: node => node.frontmatter.author.name,
             tags: node => node.frontmatter.tags,
