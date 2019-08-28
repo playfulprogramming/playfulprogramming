@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
 import CommentsIcon from "../assets/icons/message.svg"
-import Disqus from "disqus-react"
+import {DiscussionEmbed} from "disqus-react"
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
@@ -50,6 +50,7 @@ const BlogPostTemplateChild = (props) => {
       <PostMetadata post={post}/>
       <div
         className="post-body"
+        data-testid={"post-body-div"}
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
       <div className="post-lower-area">
@@ -86,7 +87,7 @@ const BlogPostTemplateChild = (props) => {
           {/*  <ShareIcon/>*/}
           {/*</button>*/}
         </div>
-        <Disqus.DiscussionEmbed
+        <DiscussionEmbed
           shortname={siteData.disqusShortname}
           config={disqusConfig}
           key={currentTheme}

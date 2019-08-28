@@ -33,8 +33,12 @@ const SocialBtn = ({icon, text, url, name}) => {
 export const PicTitleHeader = ({ image, socials, title, description, profile = false }) => {
   return (
     <div className={styles.container}>
-      <Image className={styles.headerPic} style={profile ? { borderRadius: "50%" } : {}} fixed={image}
-             loading={"eager"}/>
+      <Image
+        className={styles.headerPic}
+        style={profile ? { borderRadius: "50%" } : {}}
+        fixed={image}
+        loading={"eager"}
+      />
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>{title}</h1>
         <h2 className={styles.subheader}>{description}</h2>

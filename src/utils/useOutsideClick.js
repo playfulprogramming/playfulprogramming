@@ -1,15 +1,16 @@
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
 export const useOutsideClick = (enable, onOutsideClick, parentRef) => {
-  const elRef = parentRef || useRef()
-  const handleClickOutside = e => {
-    if (elRef.current.contains(e.target)) {
+  const elRef = useRef()
+  const handleClickOutside = useCallback(e => {
+    const currElRef = parentRef || elRef;
+    if (currElRef.current.contains(e.target)) {
       // inside click
       return
     }
     // outside click
     onOutsideClick()
-  }
+  }, [parentRef, elRef]);
 
   useEffect(() => {
     if (enable) {
@@ -21,7 +22,7 @@ export const useOutsideClick = (enable, onOutsideClick, parentRef) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [enable])
+  }, [enable, handleClickOutside])
 
-  return elRef
+  return parentRef || elRef
 }
