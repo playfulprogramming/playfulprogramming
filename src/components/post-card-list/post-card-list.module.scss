@@ -8,6 +8,7 @@
     text-align: center;
     display: block;
     max-width: 500px;
+    transition: color var(--animStyle) var(--animSpeed);
     color: var(--midImpactBlack);
     margin: 20px auto 0;
     font-size: 18px;
