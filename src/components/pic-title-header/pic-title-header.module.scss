@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .container {
   margin: 0 auto 50px auto;
   max-width: 948px;
@@ -5,6 +7,10 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media screen and (max-width: $endMobileScreenSize) {
+    margin-bottom: 16px;
+  }
 }
 
 .container > * {
@@ -13,10 +19,17 @@
 }
 
 .headerPic {
-  max-width: 300px;
-  max-height: 300px;
+  $desktopImgSize: 300px;
+  max-width: $desktopImgSize;
+  max-height: $desktopImgSize;
   margin-right: 48px;
   margin-bottom: 16px;
+
+  @media screen and (max-width: $endMobileScreenSize) {
+    $mobileImgSize: 150px;
+    max-width: $mobileImgSize;
+    max-height: $mobileImgSize;
+  }
 }
 
 .title {
@@ -25,6 +38,12 @@
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
+  @media screen and (max-width: $endMobileScreenSize) {
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: normal;
+    text-align: center;
+  }
 }
 
 .noMgContainer {
@@ -40,30 +59,34 @@
   font-size: 32px;
   font-weight: 400;
   white-space: pre-line;
+
+  @media screen and (max-width: $endMobileScreenSize) {
+    font-size: 24px;
+    margin: 16px 16px 0;
+  }
 }
 
 .socialsContainer {
   display: flex;
   transition: color var(--animStyle) var(--animSpeed);
   font-family: var(--oswald);
-  font-size: 36px;
+  font-size: $baseUnit * 5px;
   color: var(--darkPrimary)
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: $endMobileScreenSize) {
   .socialsContainer {
-    display: list-item;
-    list-style: none;
-  }
+    justify-content: center;
 
-  .socialsContainer > * {
-    justify-content: left;
+    font-size: $baseUnit * 4px;
   }
 }
 
-@media screen and (min-width: 600px) {
-  .socialsContainer > *:not(:first-child) {
-    margin-left: 20px;
+.socialsContainer > *:not(:first-child) {
+  margin-left: $baseUnit * 3px;
+
+  @media screen and (max-width: $endMobileScreenSize) {
+    margin-left: #{$baseUnit}px;
   }
 }
 
@@ -71,7 +94,7 @@
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-  margin-top: 10px;
+  margin-top: #{$baseUnit}px;
 }
 
 .svgContainer {
@@ -81,7 +104,14 @@
 }
 
 .socialsContainer svg {
-  height: 36px;
-  width: 36px;
+  $desktopSvgSize: $baseUnit * 5px;
+  height: $desktopSvgSize;
+  width: $desktopSvgSize;
   fill: none;
+
+  @media screen and (max-width: $endMobileScreenSize) {
+    $mobileSvgSize: $baseUnit * 4px;
+    height: $mobileSvgSize;
+    width: $mobileSvgSize;
+  }
 }

@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .postsListContainer {
   display: flex;
   flex-direction: row;
@@ -15,13 +17,11 @@
   }
 }
 
-
 .postListItem {
   margin: 6px 0;
 }
 
-
-@media screen and (min-width: 800px) {
+@media screen and (min-width: $startMediumScreenSize) {
   .postListItem {
     --marginSize: 8px;
     flex-basis: calc(50% - var(--marginSize));
