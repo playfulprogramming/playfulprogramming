@@ -30,6 +30,21 @@
     "roles": ["developer"]
   },
   {
+    "id": "evelynhathaway",
+    "name": "Evelyn Hathaway",
+    "firstName": "Evelyn",
+    "lastName": "Hathaway",
+    "description": "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
+    "socials": {
+      "twitter": "evehathdev",
+      "github": "evelynhathaway"
+    },
+    "pronouns": "she",
+    "profileImg": "../../content/assets/branding/emotes/proud.png",
+    "color": "#ef5f17",
+    "roles": ["developer", "devops"]
+  },
+  {
     "id": "adueppen",
     "name": "Alex Dueppen",
     "firstName": "Alex",
