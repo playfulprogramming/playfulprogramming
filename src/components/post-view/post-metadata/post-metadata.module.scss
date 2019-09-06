@@ -17,7 +17,6 @@
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--lowImpactBlack);
   font-size: 36px;
-  line-height: 36px;
   position: relative;
 }
 
@@ -33,7 +32,6 @@
 
 .authorName {
   font-size: 36px;
-  line-height: 36px;
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
