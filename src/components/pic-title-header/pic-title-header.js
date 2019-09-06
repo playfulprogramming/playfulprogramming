@@ -45,7 +45,7 @@ export const PicTitleHeader = ({ image, socials, title, description, profile = f
         {socials && <div className={styles.socialsContainer}>
           {socials.twitter && <SocialBtn icon={<TwitterIcon/>} text={'Twitter'} name={title} url={`https://twitter.com/${socials.twitter}`}/>}
           {socials.github && <SocialBtn icon={<GitHubIcon/>} text={'GitHub'} name={title} url={`https://github.com/${socials.github}`}/>}
-          {socials.website && <SocialBtn icon={<SiteIcon/>} text={'WebSite'} name={title} url={socials.website}/>}
+          {socials.website && <SocialBtn icon={<SiteIcon/>} text={'Website'} name={title} url={socials.website}/>}
         </div>}
       </div>
     </div>
