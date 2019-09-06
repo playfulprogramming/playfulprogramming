@@ -71,11 +71,12 @@ const AboutUs = (props) => {
                   <ul aria-label="Roles assigned to this user" className={style.rolesList}>
                     {unicornInfo.roles.map((role, i, arr) => (
                       <li key={role.id}>
-                        {i !== 0 && <span aria-hidden={true}>, </span>}
                         {role.prettyname}
                         {
-                          unicornInfo.fields.isAuthor &&
-                          i === arr.length - 1 &&
+                          (arr[i + 1] || (
+                            unicornInfo.fields.isAuthor &&
+                            i === arr.length - 1
+                          )) &&
                             <span aria-hidden={true}>,&nbsp;</span>
                         }
                       </li>
