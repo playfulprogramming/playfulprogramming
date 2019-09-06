@@ -1,6 +1,6 @@
 @import '../../../vars';
 
-@media screen and (max-width: #{$mobileScreenSize}) {
+@media screen and (max-width: $endMobileScreenSize) {
   .container {
     overflow: hidden;
     width: 100%;

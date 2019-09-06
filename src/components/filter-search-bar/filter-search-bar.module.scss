@@ -9,7 +9,7 @@
   flex-basis: 100%;
 }
 
-@media screen and (min-width: $mobileScreenSize) {
+@media screen and (min-width: $startMediumScreenSize) {
   .iconContainer {
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -22,7 +22,7 @@
   }
 }
 
-@media screen and (max-width: ($mobileScreenSize - 1px)) {
+@media screen and (max-width: ($endMobileScreenSize)) {
   .midContainer {
     order: 1;
     margin: 16px 0 8px;
@@ -42,7 +42,7 @@
 }
 
 
-@media screen and (max-width: #{$mobileScreenSize}) {
+@media screen and (max-width: $endMobileScreenSize) {
   .searchField, .filterField {
     flex-basis: 100%;
     max-width: 100%;
