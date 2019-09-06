@@ -2,7 +2,10 @@ $baseUnit: 8;
 
 $rootFontSize: #{$baseUnit * 2}px;
 $startMediumScreenSize: 768px;
-$endMobileScreenSize: $startMediumScreenSize - 1px;
+$endSmallScreenSize: $startMediumScreenSize - 1px;
+$startSmallScreenSize: 440px;
+$startSuperSmallScreenSize: 348px;
+$endSuperSmallScreenSize: $startSmallScreenSize - 1px;
 
 @function pxToRem($pxNum) {
   $remSize: $pxNum / $rootFontSize;

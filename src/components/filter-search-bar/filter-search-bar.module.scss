@@ -22,7 +22,7 @@
   }
 }
 
-@media screen and (max-width: ($endMobileScreenSize)) {
+@media screen and (max-width: ($endSmallScreenSize)) {
   .midContainer {
     order: 1;
     margin: 16px 0 8px;
@@ -42,7 +42,7 @@
 }
 
 
-@media screen and (max-width: $endMobileScreenSize) {
+@media screen and (max-width: $endSmallScreenSize) {
   .searchField, .filterField {
     flex-basis: 100%;
     max-width: 100%;
