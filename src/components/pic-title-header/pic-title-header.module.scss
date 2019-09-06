@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .container {
   margin: 0 auto 50px auto;
   max-width: 948px;
@@ -50,7 +52,7 @@
   color: var(--darkPrimary)
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: ($mobileScreenSize - 1px)) {
   .socialsContainer {
     display: list-item;
     list-style: none;
@@ -61,7 +63,7 @@
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: $mobileScreenSize) {
   .socialsContainer > *:not(:first-child) {
     margin-left: 20px;
   }

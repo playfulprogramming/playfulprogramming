@@ -27,7 +27,7 @@
   line-height: 1.2;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: $mobileScreenSize) {
   :root {
     --listViewPadding: #{$baseUnit * 2.5}px;
   }
