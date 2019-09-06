@@ -4,6 +4,8 @@ import { siteMetadata } from "../../__mocks__/data/mock-site-metadata"
 import { MockPost } from "../../__mocks__/data/mock-post"
 import BlogPostTemplate from "./blog-post"
 import { onLinkClick, useStaticQuery } from "gatsby"
+import ReactDOMServer from 'react-dom/server';
+import { axe } from 'jest-axe';
 
 beforeAll(() => {
   useStaticQuery.mockImplementation(() => ({
@@ -17,8 +19,7 @@ afterAll(() => {
   useStaticQuery.mockImplementation(jest.fn())
 })
 
-test("Blog post page renders", async () => {
-  const { baseElement, findByText, findByTestId } = render(
+const getElement = () => (
   <BlogPostTemplate
     data={{
       site: {
@@ -29,7 +30,11 @@ test("Blog post page renders", async () => {
     location={{
       pathname: '/post/this-post-name-here'
     }}
-  />)
+  />
+)
+
+test("Blog post page renders", async () => {
+  const { baseElement, findByText, findByTestId } = render(getElement())
 
   expect(baseElement).toBeInTheDocument();
 
@@ -53,3 +58,10 @@ test("Blog post page renders", async () => {
 
 test.todo("SEO should apply");
 test.todo("Shows post footer image")
+
+
+test("Blog post page should not have axe errors", async () => {
+  const html = ReactDOMServer.renderToString(getElement());
+  const results = await axe(html);
+  expect(results).toHaveNoViolations();
+});

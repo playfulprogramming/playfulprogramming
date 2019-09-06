@@ -8,10 +8,15 @@ export const DarkLightButton = () => {
   const {currentTheme, setTheme} = useContext(ThemeContext);
 
   return (
-    <button className={`${btnStyles.darkLightBtn} baseBtn`} onClick={() => {
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-    }}>
+    <button
+      className={`${btnStyles.darkLightBtn} baseBtn`}
+      onClick={() => {
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+      }}
+      aria-pressed={currentTheme === 'light'}
+      aria-label={"Dark mode"}
+    >
       {currentTheme === 'dark' ? <DarkIcon/> :  <LightIcon/>}
     </button>
   )

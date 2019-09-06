@@ -14,6 +14,7 @@ export const PostMetadata = ({ post }) => {
           className="circleImg"
           fixed={author.profileImg.childImageSharp.mediumPic}
           data-testid="post-meta-author-pic"
+          alt={`Profile pic for ${author.name}`}
         />
       </div>
       <div className={styles.textDiv}>
