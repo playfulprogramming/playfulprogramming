@@ -77,6 +77,8 @@ export function setThemeColorsToVars(themeName) {
   const themeObj = themeName === "dark" ? darkTheme : lightTheme;
   const style = document.documentElement.style;
   const themeColor = document.querySelector("meta[name='theme-color']");
+  // For test environments, etc
+  if (!themeColor) return;
   themeColor.setAttribute("content", themeObj["--backgroundColor"]);
 
   Object.entries(themeObj).forEach(([themeKey, themeVal]) => {
