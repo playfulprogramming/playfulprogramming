@@ -24,7 +24,7 @@
   --filterBarFontSize: #{2.5 * $baseUnit}px;
   --listViewPadding: #{1.5 * $baseUnit}px;
   font-size: $rootFontSize;
-  line-height: calc(#{$rootFontSize} + #{$baseUnit / 2}px);
+  line-height: 1.2;
 }
 
 @media screen and (min-width: 600px) {
@@ -70,12 +70,10 @@ h1, h2, h3 {
 
 h1 {
   font-size: 2rem;
-  line-height: 2rem;
 }
 
 h2 {
   font-size: 1.5rem;
-  line-height: 1.5rem;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
@@ -161,10 +159,6 @@ $pendIconMarg: #{$baseUnit}px;
     margin: 0 auto;
     display: block;
     max-width: 100%;
-  }
-
-  p {
-    line-height: 1.2em;
   }
 }
 
