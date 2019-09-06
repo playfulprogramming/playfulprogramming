@@ -1,3 +1,8 @@
+/**
+ * This code is currently unused and does not function as-expected
+ *
+ * It is left as a starting point for #2
+ */
 import React, { useMemo, useRef } from "react"
 import classNames from "classnames"
 import posed from "react-pose"

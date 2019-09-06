@@ -10,11 +10,15 @@ export const PostMetadata = ({ post }) => {
   return (
     <div className={styles.container}>
       <div onClick={() => authorLinkRef.current.click()} className='pointer'>
-        <Image className="circleImg" fixed={author.profileImg.childImageSharp.mediumPic}/>
+        <Image
+          className="circleImg"
+          fixed={author.profileImg.childImageSharp.mediumPic}
+          data-testid="post-meta-author-pic"
+        />
       </div>
       <div className={styles.textDiv}>
         <Link to={`/unicorns/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
-          <h2 className={styles.authorName}>{author.name}</h2>
+          <h2 className={styles.authorName} data-testid="post-meta-author-name">{author.name}</h2>
         </Link>
         <div className={styles.belowName}>
           <p className={styles.date}>{post.frontmatter.published}</p>
