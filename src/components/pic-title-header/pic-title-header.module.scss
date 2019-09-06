@@ -71,7 +71,8 @@
   transition: color var(--animStyle) var(--animSpeed);
   font-family: var(--oswald);
   font-size: $baseUnit * 5px;
-  color: var(--darkPrimary)
+  color: var(--darkPrimary);
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: $endMobileScreenSize) {
@@ -82,11 +83,11 @@
   }
 }
 
-.socialsContainer > *:not(:first-child) {
-  margin-left: $baseUnit * 3px;
+.socialsContainer > *:not(:last-child) {
+  margin-right: $baseUnit * 3px;
 
   @media screen and (max-width: $endMobileScreenSize) {
-    margin-left: #{$baseUnit}px;
+    margin-right: #{$baseUnit}px;
   }
 }
 
