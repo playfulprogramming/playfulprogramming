@@ -4,8 +4,8 @@ $rootFontSize: #{$baseUnit * 2}px;
 $startMediumScreenSize: 768px;
 $endSmallScreenSize: $startMediumScreenSize - 1px;
 $startSmallScreenSize: 440px;
-$startSuperSmallScreenSize: 348px;
 $endSuperSmallScreenSize: $startSmallScreenSize - 1px;
+$startSuperSmallScreenSize: 348px;
 
 @function pxToRem($pxNum) {
   $remSize: $pxNum / $rootFontSize;
