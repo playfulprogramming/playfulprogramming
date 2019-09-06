@@ -38,6 +38,7 @@ export const PicTitleHeader = ({ image, socials, title, description, profile = f
         style={profile ? { borderRadius: "50%" } : {}}
         fixed={image}
         loading={"eager"}
+        alt={`${title} ${profile ? 'profile picture' : 'header image'}`}
       />
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>{title}</h1>

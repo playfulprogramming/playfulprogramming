@@ -41,7 +41,16 @@ export const Layout = ({ location, children }) => {
       }}
     >
       <header className={layoutStyles.header}>
-        {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
+        {
+          !isBase &&
+          <Link
+            className={`${layoutStyles.backBtn} baseBtn`}
+            to={`/`}
+            aria-label="Go back"
+          >
+            <BackIcon/>
+          </Link>
+        }
         <DarkLightButton/>
       </header>
       <main className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</main>

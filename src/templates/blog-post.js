@@ -62,7 +62,7 @@ const BlogPostTemplateChild = (props) => {
           >
             <img
               src={post.frontmatter.license.footerImg}
-              alt={post.frontmatter.license.licenseType}
+              alt={post.frontmatter.license.licenceType}
             />
           </a>
         </div>
