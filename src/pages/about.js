@@ -4,7 +4,7 @@ import { Layout } from "../components/layout/layout"
 import { SEO } from "../components/seo"
 import Image from "gatsby-image"
 import style from "./about.module.scss"
-import {navigate} from '@reach/router';
+import { navigate } from "@reach/router"
 
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
@@ -69,14 +69,21 @@ const AboutUs = (props) => {
                 <div className={style.nameRoleDiv}>
                   <Link to={`/unicorns/${unicornInfo.id}`}>{unicornInfo.name}</Link>
                   <ul aria-label="Roles assigned to this user" className={style.rolesList}>
-                    {unicornInfo.roles.map((role, i) => (
+                    {unicornInfo.roles.map((role, i, arr) => (
                       <li key={role.id}>
-                        {i !== 0 && <span aria-hidden={true}>, </span>}{role.prettyname}
+                        {role.prettyname}
+                        {
+                          (arr[i + 1] || (
+                            unicornInfo.fields.isAuthor &&
+                            i === arr.length - 1
+                          )) &&
+                            <span aria-hidden={true}>,&nbsp;</span>
+                        }
                       </li>
                     ))}
                     {
                       unicornInfo.fields.isAuthor &&
-                      <li>{unicornInfo.roles.length >= 1 && <span aria-hidden={true}>, </span>}Author</li>
+                      <li>Author</li>
                     }
                   </ul>
                 </div>

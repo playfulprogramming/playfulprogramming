@@ -10,7 +10,7 @@
   max-width: 100%;
 
 
-  @media screen and (max-width: #{$fullScreenSearch}) {
+  @media screen and (max-width: $endSmallScreenSize) {
     width: 100%;
   }
 }

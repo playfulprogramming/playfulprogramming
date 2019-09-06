@@ -1,9 +1,23 @@
+@import "../vars";
+
 .container {
   font-size: 20px;
   margin-bottom: 40px;
 
   h1 {
     font-size: 64px;
+  }
+
+  @media screen and (max-width: $startSmallScreenSize) {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  @media screen and (max-width: $startSuperSmallScreenSize) {
+    h1 {
+      font-size: 2rem;
+    }
   }
 
   blockquote {

@@ -1,6 +1,6 @@
 @import '../../../vars';
 
-@media screen and (max-width: #{$fullScreenSearch}) {
+@media screen and (max-width: $endSmallScreenSize) {
   .container {
     overflow: hidden;
     width: 100%;

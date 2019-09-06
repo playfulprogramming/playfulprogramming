@@ -1,3 +1,5 @@
+@import '../../../vars';
+
 .container {
   max-width: 768px;
 }
@@ -10,17 +12,25 @@
   color: var(--darkPrimary);
   transition: color var(--animStyle) var(--animSpeed);
   text-transform: uppercase;
-  margin: 0 24px 18px 0;
+  margin: 0 #{$baseUnit * 3}px #{$baseUnit * 2}px 0;
+
+  @media screen and (max-width: $endSmallScreenSize) {
+    margin: 0 #{$baseUnit * 2}px #{$baseUnit * 1}px 0;
+  }
 }
 
 .tags > *:not(:last-child)::after {
   position: absolute;
   content: ' ';
-  right: -12px;
+  right: -#{($baseUnit * 3) / 2}px;
   height: 100%;
   width: 2px;
   transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
+
+  @media screen and (max-width: $endSmallScreenSize) {
+    right: -#{$baseUnit}px;
+  }
 }
 
 .title {
@@ -28,6 +38,11 @@
   color: var(--highImpactBlack);
   font-size: 64px;
   margin: 0 0 50px 0;
+
+  @media screen and (max-width: $endSmallScreenSize) {
+    font-size: 50px;
+    margin-bottom: $baseUnit * 2px;
+  }
 }
 
 .subtitle {
