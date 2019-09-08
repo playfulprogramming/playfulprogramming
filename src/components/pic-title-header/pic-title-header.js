@@ -11,7 +11,7 @@ const SocialBtn = ({icon, text, url, name}) => {
     if (name.endsWith('s')) return `${name}'`;
     return `${name}'s`;
   }, [name])
-  return <OutboundLink className='unlink baseBtn lowercase prependIcon' href={url}>
+  return <OutboundLink className='unlink baseBtn lowercase prependIcon' target="_blank" rel="noopener" href={url}>
     <span className={styles.svgContainer} aria-hidden={true}>{icon}</span>
     <span className='visually-hidden'>Link to {nameS}</span>
     <span>
