@@ -5,7 +5,8 @@
     published: '2020-06-29T22:12:03.284Z',
     authors: ['test1', 'test2'],
     tags: ['announcements'],
-    attached: []
+    attached: [],
+    license: 'publicdomain-zero-1'
 }
 ---
 
