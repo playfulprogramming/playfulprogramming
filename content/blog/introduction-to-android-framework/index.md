@@ -3,7 +3,7 @@
     title: "Introduction to Android: Contexts, Intents, and the Activity lifecycle",
     description: 'A basic overview of the main components of an Android app and how they interact with each other and the Android system',
     published: '2019-08-22T05:12:03.284Z',
-    author: 'fennifith',
+    authors: ['fennifith'],
     tags: ['android'],
     attached: [],
     license: 'publicdomain-zero-1'

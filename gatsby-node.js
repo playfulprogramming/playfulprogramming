@@ -35,7 +35,12 @@ exports.sourceNodes = ({ getNodesByType, actions: { createNodeField } }) => {
   const unicornNodes = getNodesByType(`UnicornsJson`)
 
   unicornNodes.forEach(unicornNode => {
-    const isAuthor = postNodes.some(post => post.frontmatter.authors.includes(unicornNode.id)) //changed
+    const isAuthor = postNodes
+      // Ensure it's actually a post
+      .filter(post => !!post.frontmatter.authors)
+      .some(post => {
+        return post.frontmatter.authors.includes(unicornNode.id)
+      })
 
     createNodeField({
       name: `isAuthor`,
@@ -46,7 +51,7 @@ exports.sourceNodes = ({ getNodesByType, actions: { createNodeField } }) => {
 }
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage, createNodeField } = actions
+  const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const blogProfile = path.resolve(`./src/templates/blog-profile.js`)
