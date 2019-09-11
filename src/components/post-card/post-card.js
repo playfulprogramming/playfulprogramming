@@ -19,7 +19,7 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
   const authorLink = useRef()
 
   return (
-    <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
+    <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}
@@ -80,7 +80,7 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
           }}
         />
       </Link>
-    </div>
+    </li>
   )
 }
 

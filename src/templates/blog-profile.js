@@ -45,6 +45,7 @@ const BlogProfile = (props) => {
         posts={posts}
         tags={postTags}
         showWordCount={true}
+        unicornData={unicornData}
       />
     </Layout>
   )
