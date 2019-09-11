@@ -1,3 +1,5 @@
+@import "../vars";
+
 .container {
   font-size: 20px;
   margin-bottom: 40px;
@@ -6,9 +8,22 @@
     font-size: 64px;
   }
 
+  @media screen and (max-width: $startSmallScreenSize) {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  @media screen and (max-width: $startSuperSmallScreenSize) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
   blockquote {
     font-size: 32px;
     margin-left: 0;
+    transition: color var(--animStyle) var(--animSpeed);
     color: var(--midImpactBlack);
     &::before {
       display: none;
@@ -41,6 +56,7 @@
   margin: 8px 0 0;
   li {
     display: inline-block;
+    transition: color var(--animStyle) var(--animSpeed);
     color: var(--midImpactBlack);
   }
 }

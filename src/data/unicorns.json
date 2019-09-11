@@ -4,7 +4,7 @@
     "name": "Corbin Crutchley",
     "firstName": "Corbin",
     "lastName": "Crutchley",
-    "description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn \uD83E\uDD84\uD83C\uDF3D\nI do development of all kinds, usually focusing on web development.\nI collect retro video games \uD83C\uDFAE, like reading \uD83D\uDCD6, love teaching \uD83D\uDC68\u200D\uD83C\uDFEB",
+    "description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn 🦄🌽\nI do development of all kinds, usually focusing on web development.\nI collect retro video games 🎮, like reading 📖, love teaching 👨‍🏫",
     "socials": {
       "twitter": "crutchcorn",
       "github": "crutchcorn"
@@ -12,9 +12,84 @@
     "pronouns": "they/themselves",
     "profileImg": "./crutchcorn.png",
     "color": "#ba68c8",
+    "roles": ["devops", "developer"]
+  },
+  {
+    "id": "fennifith",
+    "name": "James Fenn",
+    "firstName": "James",
+    "lastName": "Fenn",
+    "description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
+    "socials": {
+      "twitter": "fennifith",
+      "github": "fennifith"
+    },
+    "pronouns": "he",
+    "profileImg": "./fennifith.jpg",
+    "color": "#0091EA",
     "roles": ["developer"]
   },
-
+  {
+    "id": "evelynhathaway",
+    "name": "Evelyn Hathaway",
+    "firstName": "Evelyn",
+    "lastName": "Hathaway",
+    "description": "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
+    "socials": {
+      "twitter": "evehathdev",
+      "github": "evelynhathaway"
+    },
+    "pronouns": "she",
+    "profileImg": "../../content/assets/branding/emotes/proud.png",
+    "color": "#ef5f17",
+    "roles": ["developer", "devops"]
+  },
+  {
+    "id": "adueppen",
+    "name": "Alex Dueppen",
+    "firstName": "Alex",
+    "lastName": "Dueppen",
+    "description": "I do stuff sometimes.",
+    "socials": {
+      "twitter": "AlexDueppen",
+      "github": "adueppen",
+      "website": "https://ajd.sh/"
+    },
+    "pronouns": "he",
+    "profileImg": "./adueppen.png",
+    "color": "#69ffff",
+    "roles": ["developer"]
+  },
+  {
+    "id": "zavukodlak",
+    "name": "vukashin",
+    "firstName": "vukashin",
+    "lastName": "",
+    "description": "I'm a high school student doing creative work on the internet.",
+    "socials": {
+      "twitter": "vukash_in",
+      "website": "https://vukash.in/"
+    },
+    "pronouns": "he",
+    "profileImg": "./vukashin.png",
+    "color": "#3485FF",
+    "roles": ["designer"]
+  },
+  {
+    "id": "tommyemo",
+    "name": "Tom Wellington",
+    "firstName": "Tom",
+    "lastName": "Wellington",
+    "description": "I design icons and user interfaces, among other things. he/him ✌️",
+    "socials": {
+      "twitter": "tommy_emo_",
+      "website": "https://www.tommyemo.net/"
+    },
+    "pronouns": "he",
+    "profileImg": "./tommyemo.jpg",
+    "color": "#8539EB",
+    "roles": ["designer"]
+  },
   {
     "id": "test1",
     "name": "Test 1",
@@ -30,7 +105,6 @@
     "color": "#ff0000",
     "roles": ["developer"]
   },
-
   {
     "id": "test2",
     "name": "Test 2",

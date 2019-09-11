@@ -51,6 +51,7 @@
 
 .authorName {
   margin: 4px 0;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
   text-decoration: underline;
   // Otherwise, the div goes full width and makes clicking the author name confusing (as it all acts like a link)
@@ -72,11 +73,13 @@
 
 .date {
   position: relative;
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkGrey);
   margin-right: 12px;
 }
 
 .tag {
+  transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
 }
 
@@ -93,6 +96,7 @@
   margin-top: calc(0px - var(--halfHeight));
   height: var(--height);
   width: 1px;
+  transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
   content: ' ';
 }
@@ -106,7 +110,7 @@
 }
 
 .excerpt {
-  margin: 8px 0 0 0;
+  margin: var(--marginSize) 0 0 0;
   position: relative;
 }
 
@@ -116,6 +120,7 @@
   height: 100%;
   left: -12px;
   width: 2px;
+  transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
   content: ' ';
 }

@@ -8,13 +8,25 @@ Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/b
 Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://github.com/crutchcorn)
 */
 :root {
+  --codeBackgroundColor: #fff;
+  --textColor: #5e6687;
   --stringColor: #007396;
   --keywordColor: #846c00;
   --operatorColor: #b74c00;
   --punctuationColor: #006fce;
   --constantColor: #aa05d4;
   --functionColor: #5357d2;
-  //008000
+  --selectionColor: #dfe2f1;
+  --commentColor: #898ea4;
+  --propColor: #c08b30;
+  --varColor: #3d8fd1;
+  --selectorColor: #6679cc;
+  --urlColor: #22a9c9;
+  --insertedUnderlineColor: #202746;
+  --highlightColor: #c94922;
+  --lineNumbersColor: #979db4;
+  --lineHighlightColor: rgba(107, 115, 148, 0.2);
+  --lineHighlightFadeColor: rgba(107, 115, 148, 0);
 }
 
 code[class*="language-"],
@@ -37,7 +49,8 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: #5e6687;
+  color: var(--textColor);
+  background: var(--codeBackgroundColor);
 }
 
 pre[class*="language-"]::-moz-selection,
@@ -45,7 +58,7 @@ pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
   text-shadow: none;
-  background: #dfe2f1;
+  background: var(--selectionColor);
 }
 
 pre[class*="language-"]::selection,
@@ -53,7 +66,7 @@ pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
   text-shadow: none;
-  background: #dfe2f1;
+  background: var(--selectionColor);
 }
 
 /* Code blocks */
@@ -67,7 +80,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
-  background: white;
+  background: var(--white);
   white-space: normal;
 }
 
@@ -75,7 +88,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #898ea4;
+  color: var(--commentColor);
 }
 
 .token.punctuation {
@@ -97,11 +110,11 @@ pre[class*="language-"] {
 }
 
 .token.property {
-  color: #c08b30;
+  color: var(--propColor);
 }
 
 .token.tag {
-  color: #3d8fd1;
+  color: var(--varColor);
 }
 
 .token.string {
@@ -109,7 +122,7 @@ pre[class*="language-"] {
 }
 
 .token.selector {
-  color: #6679cc;
+  color: var(--selectorColor);
 }
 
 .token.attr-name {
@@ -120,7 +133,7 @@ pre[class*="language-"] {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #22a2c9;
+  color: var(--urlColor);
 }
 
 .token.attr-value,
@@ -143,7 +156,7 @@ pre[class*="language-"] {
 
 .token.placeholder,
 .token.variable {
-  color: #3d8fd1;
+  color: var(--varColor);
 }
 
 .token.deleted {
@@ -151,7 +164,7 @@ pre[class*="language-"] {
 }
 
 .token.inserted {
-  border-bottom: 1px dotted #202746;
+  border-bottom: 1px dotted var(--insertedUnderlineColor);
   text-decoration: none;
 }
 
@@ -165,7 +178,7 @@ pre[class*="language-"] {
 }
 
 .token.important {
-  color: #c94922;
+  color: var(--highlightColor);
 }
 
 .token.entity {
@@ -173,7 +186,7 @@ pre[class*="language-"] {
 }
 
 pre > code.highlight {
-  outline: 0.4em solid #c94922;
+  outline: 0.4em solid var(--highlightColor);
   outline-offset: 0.4em;
 }
 
@@ -181,34 +194,34 @@ pre > code.highlight {
  * http://prismjs.com/plugins/line-numbers/
  */
 .line-numbers .line-numbers-rows {
-  border-right-color: #dfe2f1;
+  border-right-color: var(--selectionColor);
 }
 
 .line-numbers-rows > span:before {
-  color: #979db4;
+  color: var(--lineNumbersColor);
 }
 
 /* overrides color-values for the Line Highlight plugin
  * http://prismjs.com/plugins/line-highlight/
  */
 .line-highlight {
-  background: rgba(107, 115, 148, 0.2);
+  background: var(--lineHighlightColor);
   background: -webkit-linear-gradient(
     left,
-    rgba(107, 115, 148, 0.2) 70%,
-    rgba(107, 115, 148, 0)
+    var(--lineHighlightColor) 70%,
+    var(--lineHighlightFadeColor)
   );
   background: linear-gradient(
     to right,
-    rgba(107, 115, 148, 0.2) 70%,
-    rgba(107, 115, 148, 0)
+    var(--lineHighlightColor) 70%,
+    var(--lineHighlightFadeColor)
   );
 }
 
 blockquote {
   position: relative;
   margin-left: 1em;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--midImpactBlack);
 
   &::before {
     content: " ";
@@ -221,9 +234,9 @@ blockquote {
     left: -1em;
   }
 
-  a {
+  /*a {
     color: rgba(0, 10, 125, 0.6);
-  }
+  }*/
 }
 
 
