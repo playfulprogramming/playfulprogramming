@@ -73,6 +73,9 @@
   font-size: $baseUnit * 5px;
   color: var(--darkPrimary);
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 @media screen and (max-width: $endSmallScreenSize) {
@@ -114,5 +117,12 @@
     $mobileSvgSize: $baseUnit * 4px;
     height: $mobileSvgSize;
     width: $mobileSvgSize;
+  }
+}
+
+.socialBtnLink {
+  & > a {
+    display: flex;
+    flex-wrap: nowrap;
   }
 }
