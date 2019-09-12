@@ -26,11 +26,14 @@
   transition: text-decoration var(--animSpeed);
 }
 
-
-.profilePicLink {
-  position: absolute !important;
+.profilePicsContainer {
+  position: absolute;
   left: 24px;
   top: 24px;
+}
+
+.profilePicLink {
+  position: absolute;
   border-radius: 50%;
   border-width: 2px;
   border-style: solid;
@@ -38,6 +41,11 @@
 
 .profilePic {
   display: block !important;
+}
+
+.twoAuthorPicSize {
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .cardContents {

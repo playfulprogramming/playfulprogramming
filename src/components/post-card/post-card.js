@@ -61,24 +61,40 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         }}
         />
       </div>
-      <Link
-        to={`/unicorns/${authors.id}`}
-        ref={authorLink}
-        onClick={stopPropCallback}
-        className={cardStyles.profilePicLink}
-        style={{
-          borderColor: authors.color,
-        }}
-      >
-        <Image
-          fixed={authors[0].profileImg.childImageSharp.smallPic}
-          alt={authors[0].name}
-          className={cardStyles.profilePic}
-          imgStyle={{
-            borderRadius: `50%`,
-          }}
-        />
-      </Link>
+      <div className={cardStyles.profilePicsContainer}>
+        {authors.map((author, i, arr) => {
+          const hasTwoAuthors = arr.length !== 1;
+          const xyPosition =
+            !hasTwoAuthors ? undefined :
+            i === 1 ? "12px" : "-7px"
+
+          const classesToApply = hasTwoAuthors ? cardStyles.twoAuthorPicSize : '';
+
+          return (
+            <Link
+              id={author.id}
+              to={`/unicorns/${author.id}`}
+              ref={authorLink}
+              onClick={stopPropCallback}
+              className={cardStyles.profilePicLink}
+              style={{
+                borderColor: author.color,
+                left: xyPosition,
+                top: xyPosition,
+              }}
+            >
+              <Image
+                fixed={author.profileImg.childImageSharp.smallPic}
+                alt={author.name}
+                className={`${cardStyles.profilePic} ${classesToApply}`}
+                imgStyle={{
+                  borderRadius: `50%`,
+                }}
+              />
+            </Link>
+          )
+        })}
+      </div>
     </div>
   )
 }
