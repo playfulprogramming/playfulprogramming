@@ -8,26 +8,30 @@ Type generics are a way to handle abstract types in your function. They almost a
 
 
 
+### The Problem
+
 For example, if you wanted to return the same type as the prop, you would have a hard time doing that without type generics. Take the following:
 
 ```typescript
-function returnProp(a: string): string {
-	return a
+function returnProp(returnProp: string): string {
+	return returnProp;
 }
 
-returnProp('Test') // ✅ This is fine
-returnProp(4) // ❌ This would fail as `4` is not a string
+returnProp('Test'); // ✅ This is fine
+returnProp(4); // ❌ This would fail as `4` is not a string
 ```
+
+#### Unions
 
 Now, if we wanted to accept numbers, we could add that as a union:
 
 ```typescript
-function returnProp(a: string | number): string | number {
-	return a
+function returnProp(returnProp: string | number): string | number {
+	return returnProp;
 }
 
-returnProp('Test') // ✅ This is fine
-const shouldBeNumber = returnProp(4) // ✅ This won't show errors now
+returnProp('Test'); // ✅ This is fine
+const shouldBeNumber = returnProp(4); // ✅ This won't show errors now
 ```
 
 But you'll find that this doesn't give the example you might want:
@@ -44,32 +48,107 @@ The reason the opperation `shouldBeNumber + 4` yeilds this is because it doesn't
 >
 > That said, we're trying to build on concepts so we're trying to provide some examples of where this might be used and what it does
 
+#### Function Overloading
+
 Now, you COULD utilize function overloading to provide the proper typings
 
 ```typescript
-function returnProp(a: number): number;
-function returnProp(a: string): string;
+function returnProp(returnProp: number): number;
+function returnProp(returnProp: string): string;
 // While this seems duplicative, TS requires it
 // Otherwise, it will complain:
 // This overload signature is not compatible with its implementation signature.
-function returnProp(a: string | number): string | number {
+function returnProp(returnProp: string | number): string | number {
 	return a;
 }
 ```
 
 Additionally to having some abnoxious duplicated type information, this method also has it's limitations.
 
-For example, if we wanted 
+For example, if we wanted to pass in an object of some kind (we'll use `{}` for a placeholder), it would disallow us:
+
+```typescript
+returnProp({}) // Argument of type '{}' is not assignable to parameter of type 'string'.
+```
+
+This may seem obvious from the typings, but _we ideally want `returnProp` to accept ANY type because **we aren't using any opperations that require knowing the typing**._ (no addition or subtraction to require a number, no string concatenation that might restrict an object from being passed)
+
+#### Any
+
+Now, we could obviously use `any`, but then we lose type strictness:
+
+```typescript
+function returnSelf(returnProp: any): any {
+    return returnProp;
+}
+
+const returnedObject = returnSelf({objProperty: 12});
+
+returnedObject.test(); // This will not return an error but should
+returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number
+```
+
+### The Solution
+
+The solution is... Well, you've seen the title I'm sure. Type generics allow us to store loose type data in a _type variable_. A type variable is a unique kind of variable that's not exposed to JavaScript but is rather handled by TypeScript to provide expected typing data. For example, the above example could be coded as:
+
+```typescript
+function returnSelf<T>(returnProp: T): T {
+    return returnProp;
+}
+```
+
+In this example, we're defining a type variable `T`, then telling TS that both the property and the return type should be the same type.
+
+So, you can use the function like this:
+
+```typescript
+const numberVar = returnSelf(2); // T in this instance is `2`, so it's similar to writing `const numberVal: 2 = 2;`
+
+// Likewise, this object is now returned as if it was just placed on the const
+const returnedObject = returnSelf({objProperty: 12});
+
+// So this will fail, as expected
+returnedObject.test();
+// And this will exist and TS will know it as a number
+returnedObject.objProperty;
+```
+
+> Author's note
+>
+> The type variable does not need to be called `T`. In fact, while it seems to be commonplace for the community to use single-letter type variable names (often due to the length and complexity of the typings), there are many reasons why more explicit type names should be used.
+>
+> Remember, type variables are like other variables in that you need to maintain them and understand what they're doing in your code
 
 
 
-We ideally want `returnProp` to accept ANY type, especially as 
+### Why #{polymorphic-functions}
+
+Why might we want to do this? Returning an item as itself in a [identity function](https://en.wikipedia.org/wiki/Identity_function) (the formal name of the type of function `returnSelf` is) is cool, but not very useful in it's current state.
+
+
+
+For example, let's say that we had a function that we wanted to use as a logger:
+
+
+
+> Use JSON.stringify to showcase a logger
 
 
 
 
 
-Argument of type '{}' is not assignable to parameter of type 'string'.
+Well, type generics enable us to do things like type **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
+
+
+
+> 
+
+
+
+
+
+### Restricting The Types #{extends-keyword}
 
 
 
