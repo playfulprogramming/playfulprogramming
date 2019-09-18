@@ -19,7 +19,7 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
   const listAria = unicornData ? `List of posts written by ${unicornData.name}` : `List of posts`;
 
   return (
-    <div>
+    <main>
       <FilterSearchBar tags={tags}
                        showWordCount={showWordCount}
                        wordCount={wordCount}
@@ -52,7 +52,7 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
           )
         })}
       </ul>
-    </div>
+    </main>
   )
 }
 

@@ -44,7 +44,7 @@ export const PicTitleHeader = ({ image, socials, title, description, profile = f
   const socialsAria = profile && `${possessiveName} social media links`;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} role="banner" aria-label={`Banner for ${title}`}>
       <Image
         className={styles.headerPic}
         style={imgStyle}
@@ -54,9 +54,9 @@ export const PicTitleHeader = ({ image, socials, title, description, profile = f
       />
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>{title}</h1>
-        <aside className={styles.subheader} aria-label={subHeaderAria}>
+        <div className={styles.subheader} aria-label={subHeaderAria}>
           {description}
-        </aside>
+        </div>
         {socials && <ul className={styles.socialsContainer} aria-label={socialsAria}>
           {
             socials.twitter &&

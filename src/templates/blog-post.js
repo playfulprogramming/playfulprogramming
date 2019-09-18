@@ -19,11 +19,20 @@ const BlogPostTemplateChild = (props) => {
 
   const [disqusConfig, setDisqusConfig] = useState(currentTheme);
 
+  /**
+   * Toggle the Disqus theme
+   * Disqus will by default try to guess what theme to pick based on the
+   * color of the background. As a result, we don't have to do much other than
+   * reload it after the page theme change is finished
+   */
   useEffect(() => {
     setTimeout(() => {
       if (!setDisqusConfig || !currentTheme) return;
       setDisqusConfig({
         url: `${siteData.siteUrl}posts${slug}`,
+        // TODO: Fix this, this is causing comments to not apply to the correct
+        //   post. This identifier should NEVER change and should ALWAYS match
+        //   `slug` only
         identifier: `${slug}${currentTheme}`,
         title: post.frontmatter.title,
       })
@@ -46,14 +55,16 @@ const BlogPostTemplateChild = (props) => {
         keywords={post.frontmatter.tags}
         type="article"
       />
-      <PostTitleHeader post={post}/>
-      <PostMetadata post={post}/>
-      <div
+      <div role="banner" aria-label="Banner for the post">
+        <PostTitleHeader post={post}/>
+        <PostMetadata post={post}/>
+      </div>
+      <main
         className="post-body"
         data-testid={"post-body-div"}
         dangerouslySetInnerHTML={{ __html: post.html }}
       />
-      <div className="post-lower-area">
+      <footer className="post-lower-area">
         <div>
           <a
             aria-label={`Post licensed with ${post.frontmatter.license.displayName}`}
@@ -92,7 +103,7 @@ const BlogPostTemplateChild = (props) => {
           config={disqusConfig}
           key={currentTheme}
         />
-      </div>
+      </footer>
     </>
   )
 }
