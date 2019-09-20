@@ -8,7 +8,7 @@ Type generics are a way to handle abstract types in your function. They almost a
 
 
 
-### The Problem
+### The Problem #{generic-usecase-setup}
 
 For example, if you wanted to return the same type as the prop, you would have a hard time doing that without type generics. Take the following:
 
@@ -21,7 +21,7 @@ returnProp('Test'); // ✅ This is fine
 returnProp(4); // ❌ This would fail as `4` is not a string
 ```
 
-#### Unions
+#### Unions #{generic-usecase-setup-union-solution}
 
 Now, if we wanted to accept numbers, we could add that as a union:
 
@@ -48,7 +48,7 @@ The reason the opperation `shouldBeNumber + 4` yeilds this is because it doesn't
 >
 > That said, we're trying to build on concepts so we're trying to provide some examples of where this might be used and what it does
 
-#### Function Overloading
+#### Function Overloading #{generic-usecase-setup-overloading-solution}
 
 Now, you COULD utilize function overloading to provide the proper typings
 
@@ -73,7 +73,7 @@ returnProp({}) // Argument of type '{}' is not assignable to parameter of type '
 
 This may seem obvious from the typings, but _we ideally want `returnProp` to accept ANY type because **we aren't using any opperations that require knowing the typing**._ (no addition or subtraction to require a number, no string concatenation that might restrict an object from being passed)
 
-#### Any
+#### Any #{generic-usecase-setup-any-solution}
 
 Now, we could obviously use `any`, but then we lose type strictness:
 
@@ -88,7 +88,7 @@ returnedObject.test(); // This will not return an error but should
 returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number
 ```
 
-### The Solution
+### The Solution #{generics-intro}
 
 The solution is... Well, you've seen the title I'm sure. Type generics allow us to store loose type data in a _type variable_. A type variable is a unique kind of variable that's not exposed to JavaScript but is rather handled by TypeScript to provide expected typing data. For example, the above example could be coded as:
 
@@ -120,29 +120,144 @@ returnedObject.objProperty;
 >
 > Remember, type variables are like other variables in that you need to maintain them and understand what they're doing in your code
 
+### Okay, but Why? #{logger-example}
+
+Why might we want to do this? Returning an item as itself in a [identity function](https://en.wikipedia.org/wiki/Identity_function) (the formal name of the type of function `returnSelf` is) is cool, but not very useful in it's current state. That said, there ARE many many uses for generics in real-world codebases.
+
+For example, let's say that we had the following JavaScript code that we wanted to use as a logger:
+
+```javascript
+const util = require('util'),
+   	  fs   = require('fs');
+
+// Have the `writeFile` return a promise instead of having to use a callback
+const writeFileAsync = util.promisify(fs.writeFile)
+
+/**
+ * Async functions allows us to use `await` on promises in the function body, try/catch them, and
+ * will return their own promise wrapped around the `return` value
+ */
+async function logTheValue(item) {
+	const jsonString = JSON.stringify(item, null, 2);
+
+	let err = undefined;
+
+	try {
+		// Attempt to write a new log file. If this fails, save the error to the `err` variable
+		await writeFileAsync(`/logs/${Date.now()}`, jsonString);
+	} catch (e) {
+		err = e;
+	}
+
+	return {
+		loggedValue: jsonString,
+		original: item,
+		// If there was no error, return `undefined` here
+		err: err
+	}
+}
+```
+
+If we wanted to type this function, we'd want to make sure to use a generic for the `loggedValue` was using the same generic type as `item`. We could do so inline:
+
+```typescript
+async function logTheValue<ItemT>(item: ItemT): {loggedValue: string, original: ItemT, err: Error | undefined} {
+	// ... Function body here
+}
+```
+
+But we could utilize another of generics: The ability to pass the type value of the generic manually, and make an interface with a generic and do so there:
+
+```typescript
+interface LogTheValueReturnType<originalT> {
+  loggedValue: string;
+  original: originalT;
+  err: Error | undefined;
+}
+
+async function logTheValue<ItemT>(item: ItemT): LogTheValueReturnType<ItemT> {
+	// ... Function body here
+}
+```
+
+We could do so with the function call as well:
+
+```typescript
+logTheValue<number>(3);
+```
+
+### Non-Function Generics #{non-function-generics}
+
+That's right - functions aren't the only ones with generics. You can use generics in interfaces as you'd seen, but you can also use them in classes (which can be particularly helpful for data structures like this):
+
+```typescript
+// DataType might want to be a base64 encoded string, a buffer, or an IntArray
+class ImageType<DataType> {
+	data: DataType;
+  height: number;
+  width: number;
+
+  constructor(data: DataType, height: number, width: number) {
+		this.data = data;
+		this.height = height;
+		this.width = width
+	};
+}
+
+function handleImageBuffer(img: ImageType<Buffer>) {}
+```
+
+You could also use them within `type` definitions:
+
+```typescript
+interface ImageType<DataType> {
+	data: DataType;
+  height: number;
+  width: number;	
+}
+
+interface ImageConvertMethods<DataType> {
+  // This is the typing of a method. It will take a prop of the generic type and return the generic type
+  toPNG(data: DataType) => DataType;
+  toJPG(data: DataType) => DataType
+}
 
 
-### Why #{polymorphic-functions}
+type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertMethods<DataType>
+```
 
-Why might we want to do this? Returning an item as itself in a [identity function](https://en.wikipedia.org/wiki/Identity_function) (the formal name of the type of function `returnSelf` is) is cool, but not very useful in it's current state.
-
-
-
-For example, let's say that we had a function that we wanted to use as a logger:
-
-
-
-> Use JSON.stringify to showcase a logger
-
-
-
-
+### Okay, but why-_er_? #{polymorphic-functions}
 
 Well, type generics enable us to do things like type **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
 
+> Polymorphic functions are not unique to TypeScript, I just wanted to include them here as they provide some real-world insight to usages of generics and when they might be able to be used
+
+For example, let's take a look at the code for the `toPNG` :
+
+```javascript
+function toPNG(data) {
+	if (Buffer.isBuffer(data)) {
+		return convertBufferToPNG(data);
+	} else if (Array.isArray(data)) {
+		const imgBuffer = Buffer.from(data);
+		const pngBuffer = convertBufferToPNG(imgBuffer);		
+		return Buffer.from(pngBuffer);
+	// base64 encoded string
+	} else if (typeof data === 'string') {
+		const imgBuffer = getBufferFromBaseStr(data);
+		const pngBuffer = convertBufferToPNG(imgBuffer);
+		return bufferToBase64(pngBuffer);	
+	} else {
+		throw 'toPNG only accepts arrays, buffers, or strings'
+	}
+}
+```
+
+Even though this function accepts various data types, it handles them differently under-the-hood! 
 
 
-> 
+
+
 
 
 
