@@ -57,6 +57,7 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-gatsby": "^0.2.10",
+    "husky": "^3.0.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-axe": "^3.2.0",
@@ -70,7 +71,7 @@
     "education",
     "programming"
   ],
-  "license": "MIT",
+  "license": "MPL-2.0",
   "main": "n/a",
   "repository": {
     "type": "git",
@@ -79,11 +80,16 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
+    "format": "prettier --write src/**/*.{js,jsx,scss}",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "jest",
     "storybook": "NODE_ENV=production start-storybook -s static -c config/storybook",
     "build-storybook": "NODE_ENV=production build-storybook -s static -c config/storybook"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run format && npm run test"
+    }
   }
 }
