@@ -9,6 +9,7 @@
  */
 
 import { useEffect, useState } from "react"
+import { normalizeNumber } from "../normalize-number"
 
 /**
  * @callback RunOnSubmitCB
@@ -38,16 +39,16 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
          * This is to enable proper usage of passing a `onKeydown` from props
          * @see https://reactjs.org/docs/events.html#event-pooling
          */
-        event.persist();
+        event.persist && event.persist();
         let _newIndex
         switch (event.key) {
           case "ArrowDown":
             event.preventDefault();
-            _newIndex = active.index + 1;
+            _newIndex = normalizeNumber(focusedIndex + 1, 0, maxIndex);
             break;
           case "ArrowUp":
             event.preventDefault();
-            _newIndex = active.index - 1;
+            _newIndex = normalizeNumber(focusedIndex - 1, 0, maxIndex);
             break;
           case "Home":
             event.preventDefault();
@@ -84,7 +85,9 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
   ])
 
   const selectIndex = (i) => {
-    setFocusedIndex(i);
+    setFocusedIndex(
+      normalizeNumber(i, 0, maxIndex)
+    );
   }
 
   return {

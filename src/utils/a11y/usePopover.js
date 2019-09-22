@@ -19,7 +19,7 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
     onClick: (e) => {
       setExpanded(!expanded)
       if (onBtnClick) {
-        e.persist();
+        e.persist && e.persist();
         onBtnClick(e);
       }
     },
@@ -29,7 +29,7 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
         setExpanded(!expanded)
       }
       if (onBtnKeyDown) {
-        e.persist();
+        e.persist && e.persist();
         onBtnKeyDown(e);
       }
     },

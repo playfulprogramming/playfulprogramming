@@ -2,12 +2,11 @@
  * This hook is meant to serve as a general utility for single or multi-selects
  */
 
-import { useMemo, useRef, useState } from "react"
-import { useOutsideClick, useOutsideFocus } from "../outside-events"
-import { genId } from "./getNewId"
+import { useMemo, useRef } from "react"
 import { useKeyboardListNavigation } from "./useKeyboardListNavigation"
 import { useUsedKeyboardLast } from "./useUsedKeyboardLast"
 import { usePopover } from "./usePopover"
+import { useSelectableArray } from "./useSelectableArray"
 
 /**
  * @callback selectIndexCB
@@ -35,91 +34,12 @@ import { usePopover } from "./usePopover"
  * @returns {selectRefRet}
  */
 export const useSelectRef = (arrVal, enableSelect, onSel) => {
-  // TODO: Change when `arrVal`?
-  const [internalArr, setInternalArr] = useState([])
-  const [active, setActive] = useState()
-
-  useMemo(() => {
-    const newArr = arrVal.map((val, i) => {
-      const newVal = {
-        id: genId(),
-        val,
-        index: i,
-      }
-
-      if (enableSelect) {
-        newVal.selected = false
-      }
-
-      return newVal
-    })
-
-    setInternalArr(newArr)
-
-    setActive(newArr[0])
-  }, [arrVal])
-
-  // This will be empty if `enableSelect` is null
-  const selectedArr = useMemo(() =>
-      internalArr.filter(item => item.selected),
-    [internalArr],
-  )
-
-  /**
-   * @param {number} index
-   * @param {boolean | 'single'} markSelect
-   */
-  const markAsSelected = (index, markSelect, singleSelection) => {
-    // Safely set index
-    if (index < 0) {
-      index = 0
-    } else if (index >= internalArr.length) {
-      index = internalArr.length - 1
-    }
-
-    setActive(internalArr[index])
-
-    if (markSelect) {
-      if (singleSelection) {
-        const newArr = [...internalArr]
-        newArr[index].selected = !newArr[index].selected
-        setInternalArr(newArr)
-        return
-      }
-
-      /**
-       *
-       * @param i - The index being passed to compare whether to mark as selected or not
-       * @returns {boolean} - Should be selected?
-       */
-      let compareFunc = (i) => i === index
-
-      // New index is before, we want to save all items before or equal
-      if (index < active.index) {
-        compareFunc = (i) => i <= active.index && i >= index
-      } else {
-        compareFunc = (i) => i >= active.index && i <= index
-      }
-
-      // Set the internal array with a new array with right items selected
-      setInternalArr(
-        internalArr.map((val, i) => {
-          if (compareFunc(i)) {
-            val.selected = true
-          }
-          return val
-        }),
-      )
-    }
-  }
-
-  const selectAll = () => {
-    setInternalArr(internalArr.map(val => {
-      val.selected = true
-      return val
-    }))
-  }
-
+  const {
+    selectedArr,
+    selectAll,
+    markAsSelected,
+    internalArr
+  } = useSelectableArray(arrVal);
 
   // The parent container
   const parentRef = useRef();
@@ -139,15 +59,18 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   const  { buttonProps, expanded, setExpanded } = usePopover(selectRef, resetLastUsedKeyboard);
 
   const {
-    resetLastUsedKeyboard: tmpEesetUsedKeyboardLast,
+    resetLastUsedKeyboard: tmpResetUsedKeyboardLast,
     usedKeyboardLast
   } = useUsedKeyboardLast(parentRef, expanded);
 
-  resetLastUsedKeyboardRef.current = tmpEesetUsedKeyboardLast;
+  resetLastUsedKeyboardRef.current = tmpResetUsedKeyboardLast;
 
 
   // Arrow key handler
-  useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, newIndex) => {
+  const {
+    focusedIndex,
+    selectIndex
+  } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, newIndex) => {
     // If arrow keys were handled,
     if (newIndex)  {
       // If shift or shift+ctrl were being handled, mark the items as selected
@@ -190,5 +113,21 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     }
   })
 
+  const active = useMemo(() => {
+    return internalArr[focusedIndex];
+  }, [focusedIndex, internalArr])
 
+
+  return {
+    selected: selectedArr,
+    active,
+    ref: selectRef,
+    parentRef,
+    values: internalArr,
+    selectIndex,
+    expanded,
+    setExpanded,
+    usedKeyboardLast,
+    buttonProps
+  }
 }
