@@ -1,4 +1,12 @@
 /**
+ * This hook is intended to handle keyboard navigation of a list. It is not
+ * meant for handling selecting any of those items. There are ways to compose
+ * a hook to do so, but that is not this file. To see an example of how to do that,
+ * you can see our own composed hook meant for similar:
+ *
+ * @see ./useSelectableArray.js
+ * @see ./useSelectRef.js
+ *
  * ✅ Maintain a currently used index
  * ✅ Handle arrow-up to change index
  * ✅ Handle arrow-down to change index

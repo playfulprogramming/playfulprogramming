@@ -43,7 +43,7 @@ import FilterIcon from "../../../assets/icons/filter.svg"
 import CheckIcon from "../../../assets/icons/check.svg"
 import UncheckIcon from "../../../assets/icons/unchecked.svg"
 
-import { useSelectRef } from "../../../utils/a11y/useSelectRef"
+import { usePopoverCombobox } from "../../../utils/a11y/usePopoverCombobox"
 import { useWindowSize } from "../../../utils/useWindowSize"
 import { useAfterInit } from "../../../utils/useAfterInit"
 import { useLunr } from "../../../utils/useLunr"
@@ -97,7 +97,7 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
     usedKeyboardLast,
     parentRef,
     buttonProps,
-  } = useSelectRef(tags, "multi")
+  } = usePopoverCombobox(tags)
   const shouldShowFilterMsg = expanded || !selected.length
 
   const {onSearch: searchWithLunr, results} = useLunr();

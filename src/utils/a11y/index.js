@@ -1,2 +1,2 @@
 export * from './getNewId';
-export * from './useSelectRef';
+export * from './usePopoverCombobox';

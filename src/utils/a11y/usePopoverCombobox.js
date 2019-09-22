@@ -1,5 +1,7 @@
 /**
- * This hook is meant to serve as a general utility for single or multi-selects
+ * This hook is meant to serve as a general utility for multi-select,
+ * pop-over combo-box. It composes the ability to have a popover, keyboard navigation
+ * multi-selects, and tests to see if the user had last used a keyboard
  */
 
 import { useMemo, useRef, useState } from "react"
@@ -29,10 +31,9 @@ import { useSelectableArray } from "./useSelectableArray"
 
 /**
  * @param arrVal
- * @param {(i: number) => void} onSel - On an item selection
  * @returns {selectRefRet}
  */
-export const useSelectRef = (arrVal, enableSelect, onSel) => {
+export const usePopoverCombobox = (arrVal) => {
   /**
    * Because of timing issues within the `runOnSubmit` CB, we need to have
    * an index to add to the tracking index, otherwise pressing spacebar
@@ -94,6 +95,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
       const isMouseEvent = kbEvent.nativeEvent instanceof MouseEvent || kbEvent.nativeEvent instanceof TouchEvent;
       if (isMouseEvent && !kbEvent.shiftKey) {
         markAsSelected(newIndex, newIndex);
+        resetLastUsedKeyboard();
         return;
       }
 
@@ -115,19 +117,14 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
 
     const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key);
 
-    if (enableSelect && isSingleSelecting) {
+    if (isSingleSelecting) {
       kbEvent.preventDefault()
       const newIndex = active.index
       markAsSelected(newIndex, newIndex)
       return;
     }
 
-    if (!enableSelect && kbEvent.key === "Enter") {
-      onSel(active.index)
-      return;
-    }
-
-    if (enableSelect && kbEvent.code === "KeyA" && kbEvent.ctrlKey) {
+    if (kbEvent.code === "KeyA" && kbEvent.ctrlKey) {
         kbEvent.preventDefault()
         selectAll()
         return

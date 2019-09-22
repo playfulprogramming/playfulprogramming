@@ -1,3 +1,15 @@
+/**
+ * This hook is meant to provide a utility to help with selectable arrays
+ * this hook is able to be used in general scenarios where a selectable array
+ * is allowed, regardless of whether it's a keyboard that selects them or not
+ *
+ * ✅ Assign a unique ID to every item
+ * ✅ Return a filtered list of what is currently selected
+ * ✅ Add in helper inputs to help compose with other hooks
+ * ✅ Safe-guard too high and too low inputs
+ * ✅ Have a select all method
+ */
+
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import { genId } from "./getNewId"
 import { normalizeNumber } from "../normalize-number"

@@ -11,7 +11,7 @@ import filterStyles from "./dropdown-button.module.scss"
 
 import FilterIcon from "../../../assets/icons/filter.svg"
 
-import { useSelectRef } from "../../utils/a11y/useSelectRef"
+import { usePopoverCombobox } from "../../utils/a11y/usePopoverCombobox"
 import { useWindowSize } from "../../utils/useWindowSize"
 import { useAfterInit } from "../../utils/useAfterInit"
 
@@ -69,7 +69,7 @@ export const DropdownButton = ({ valArr = [], childComp, allowSelect, onPress })
     usedKeyboardLast,
     parentRef,
     buttonProps,
-  } = useSelectRef(valArr, allowSelect, onPress)
+  } = usePopoverCombobox(valArr, allowSelect, onPress)
   const shouldShowFilterMsg = expanded || !selected.length
 
   /**

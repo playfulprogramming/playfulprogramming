@@ -2,6 +2,13 @@
  * This hook is meant to provide a utility that can be used to compose functionality
  * for a popover component. This includes the `expanded` property handling as well
  * as the props to be added to the trigger button
+ *
+ * ✅ Have an open and closed state handlers
+ * ✅ Close on escape key
+ * ✅ Close on click outside
+ * ✅ Focus on popover area upon opening
+ * 🐛 Doesn't seem to close on focus loss
+ *       Needs an optional prop (?)
  */
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useOutsideClick, useOutsideFocus } from "../outside-events"
