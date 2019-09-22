@@ -58,7 +58,9 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   return (
     <li className={liClassName}
         role="option"
-        onClick={e => expanded && selectIndex(index, e, e.type)}
+        onClick={e => {
+          expanded && selectIndex(index, e)
+        }}
         id={tag.id}
         aria-selected={tag.selected}>
       {tag.selected ? <CheckIcon/> : <UncheckIcon/>}

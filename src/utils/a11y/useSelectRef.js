@@ -2,7 +2,7 @@
  * This hook is meant to serve as a general utility for single or multi-selects
  */
 
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useState } from "react"
 import { useKeyboardListNavigation } from "./useKeyboardListNavigation"
 import { useUsedKeyboardLast } from "./useUsedKeyboardLast"
 import { usePopover } from "./usePopover"
@@ -33,12 +33,31 @@ import { useSelectableArray } from "./useSelectableArray"
  * @returns {selectRefRet}
  */
 export const useSelectRef = (arrVal, enableSelect, onSel) => {
+  /**
+   * Because of timing issues within the `runOnSubmit` CB, we need to have
+   * an index to add to the tracking index, otherwise pressing spacebar
+   * will not update immediately and will wait until this hook re-runs. See
+   * the second param for `useSelectableArray` for more info
+   * @type {React.RefObject<number>}
+   */
+  const [manuallyUpdateSelectedArrIndex, setManualUpdateIndex] = useState(0);
+
   const {
     selectedArr,
     selectAll,
     markAsSelected,
     internalArr
-  } = useSelectableArray(arrVal);
+  } = useSelectableArray(arrVal, () => {
+    /**
+     * Must use a function here as there are timing issues otherwise. Because
+     * this can be called from outside of a render, the value will be persistent
+     * and only allow us to be able to have a single value. This causes particular
+     * problems when dealing with clicking on an item many times
+     * @see https://reactjs.org/docs/hooks-reference.html#functional-updates
+     */
+    setManualUpdateIndex((val) => val + 1);
+  });
+
 
   // The parent container
   const parentRef = useRef();
@@ -71,18 +90,28 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, focusedIndex, newIndex) => {
     // If arrow keys were handled,
     if (newIndex)  {
+      // We're selecting using mouse and not holding shift, select only one
+      const isMouseEvent = kbEvent.nativeEvent instanceof MouseEvent || kbEvent.nativeEvent instanceof TouchEvent;
+      if (isMouseEvent && !kbEvent.shiftKey) {
+        markAsSelected(newIndex, newIndex);
+        return;
+      }
+
       // If shift or shift+ctrl were being handled, mark the items as selected
-      const isSelecting = ['Home', "End"].includes(kbEvent.key) ?
-        kbEvent.shiftKey && kbEvent.ctrlKey :
-        kbEvent.shiftKey;
+      const isKeyboardSelecting = ['Home', "End"].includes(kbEvent.key) ?
+          kbEvent.shiftKey && kbEvent.ctrlKey :
+          kbEvent.shiftKey;
 
-      console.log(isSelecting);
-
-      if (isSelecting) {
+      // If a single item is selected, go ahead and toggle it
+      if (isKeyboardSelecting) {
         markAsSelected(focusedIndex, newIndex)
         return;
       }
     }
+
+    // At this point, we're using mouse to toggle an item, we can stop checking
+    // If there are other keys
+    if (!kbEvent) return;
 
     const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key);
 
@@ -112,7 +141,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
 
   const active = useMemo(() => {
     return internalArr[focusedIndex];
-  }, [focusedIndex, internalArr])
+  }, [focusedIndex, internalArr, manuallyUpdateSelectedArrIndex])
 
 
   return {

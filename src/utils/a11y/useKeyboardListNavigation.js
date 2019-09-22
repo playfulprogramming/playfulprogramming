@@ -85,10 +85,15 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
     parentRef
   ])
 
-  const selectIndex = (i) => {
+  const selectIndex = (i, e) => {
     setFocusedIndex(
       normalizeNumber(i, 0, maxIndex)
     );
+
+    if (runOnSubmit) {
+      if (e.persist) e.persist();
+      runOnSubmit(e, focusedIndex, i);
+    }
   }
 
   return {

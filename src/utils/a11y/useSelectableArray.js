@@ -14,7 +14,16 @@ const getNewArr = (valArr) => {
   );
 }
 
-export const useSelectableArray = (valArr) => {
+/**
+ *
+ * @param valArr
+ * @param [runAfterSelectChange] There may be instances where changing the `ref`
+ *     does not have the expected functionality if using it as a dep instance.
+ *     By using this function + a `useRef` and a number to manually toggle re-runs
+ *     you can fix this problem.
+ * @returns {{markAsSelected: *, selectedArr: *, selectAll: *, internalArr: *}}
+ */
+export const useSelectableArray = (valArr, runAfterSelectChange) => {
   /**
    * Using a `useRef` here for performance. Otherwise, to keep immutability
    * there's all kinds of hacks that must be implemented
@@ -43,6 +52,7 @@ export const useSelectableArray = (valArr) => {
     // Handle single selection properly
     if (newToIndex === newFromIndex && fromIndex === toIndex) {
       currInternalArr[toIndex].selected = !currInternalArr[toIndex].selected;
+      runAfterSelectChange && runAfterSelectChange()
       return
     }
 
@@ -52,11 +62,17 @@ export const useSelectableArray = (valArr) => {
     for (let i = smallerNum; i <= biggerNum; i++) {
       currInternalArr[i].selected = true;
     }
-  }, [currInternalArr])
+
+    runAfterSelectChange && runAfterSelectChange()
+  }, [currInternalArr, runAfterSelectChange])
 
   const selectAll = () => {
-    internalArrRef.current.forEach(val => {
+    internalArrRef.current.forEach((val, i, arr) => {
       val.selected = true
+
+      if (i === arr.length - 1) {
+        runAfterSelectChange && runAfterSelectChange()
+      }
     })
   }
 
