@@ -26,39 +26,40 @@ import { useOutsideClick, useOutsideFocus } from "../outside-events"
  */
 
 /**
+ * @param {React.RefObject} parentRef - The div that contains the popoverArea and the trigger button
  * @param {React.RefObject} popoverAreaRef - The div that will be used as the popover area to focus on when the popover is opened
  * @param {onBtnClickFn} [onBtnClick] - An add-on CB function to the button event handler
  * @param {onBtnKeyDownFn} [onBtnKeyDown] - An add-on CB function to the button event handler
  * @returns {{buttonProps, expanded}}
  */
-export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
-  const [expanded, setExpanded] = useState(false);
+export const usePopover = (parentRef, popoverAreaRef, onBtnClick, onBtnKeyDown) => {
+  const [expanded, setExpanded] = useState(false)
 
-  const buttonProps = useMemo(() => ({
-    onClick: (e) => {
-      setExpanded(!expanded)
-      if (onBtnClick) {
-        e.persist && e.persist();
-        onBtnClick(e, expanded);
-      }
-    },
-    onKeyDown: (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault()
-        setExpanded(!expanded)
-      }
-      if (onBtnKeyDown) {
-        e.persist && e.persist();
-        onBtnKeyDown(e, expanded);
-      }
-    },
-  }), [
-    expanded,
-    onBtnClick,
-    onBtnKeyDown
-  ])
+  const onClick = useCallback((e) => {
+    setExpanded(!expanded)
+    if (onBtnClick) {
+      e.persist && e.persist()
+      onBtnClick(e, expanded)
+    }
+  }, [expanded])
 
-  const currentBtnRef = popoverAreaRef && popoverAreaRef.current;
+  const onKeyDown = useCallback((e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      setExpanded((val) => !val)
+    }
+    if (onBtnKeyDown) {
+      e.persist && e.persist()
+      onBtnKeyDown(e, expanded)
+    }
+  }, [expanded, setExpanded])
+
+  const buttonProps = {
+    onClick,
+    onKeyDown,
+  }
+
+  const currentBtnRef = popoverAreaRef && popoverAreaRef.current
 
   // Focus the select ref whenever an item is expanded
   useEffect(() => {
@@ -67,18 +68,18 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
     }
   }, [
     expanded,
-    currentBtnRef
+    currentBtnRef,
   ])
 
-  const setExpandedToFalse = useCallback(() => setExpanded(false), []);
+  const setExpandedToFalse = useCallback(() => setExpanded(false), [])
 
-  useOutsideClick(popoverAreaRef, expanded, setExpandedToFalse);
+  useOutsideClick(parentRef, expanded, setExpandedToFalse)
 
-  useOutsideFocus(popoverAreaRef, expanded, setExpandedToFalse);
+  useOutsideFocus(parentRef, expanded, setExpandedToFalse)
 
   return {
     buttonProps,
     expanded,
-    setExpanded
+    setExpanded,
   }
 }

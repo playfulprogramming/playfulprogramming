@@ -69,7 +69,7 @@ export const usePopoverCombobox = (arrVal) => {
 
   const resetLastUsedKeyboard = resetLastUsedKeyboardRef.current
 
-  const { buttonProps, expanded, setExpanded } = usePopover(comboBoxListRef, resetLastUsedKeyboard)
+  const { buttonProps, expanded, setExpanded } = usePopover(parentRef, comboBoxListRef, resetLastUsedKeyboard)
 
   const {
     resetLastUsedKeyboard: tmpResetUsedKeyboardLast,

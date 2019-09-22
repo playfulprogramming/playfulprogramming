@@ -272,7 +272,7 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
           ref={comboBoxListRef}
           className={listBoxClasses}
           aria-labelledby="exp_elem"
-          tabIndex={-1}
+          tabIndex={0}
           aria-multiselectable="true"
           aria-activedescendant={active && active.id}
           heiight={currentBtnHeight}

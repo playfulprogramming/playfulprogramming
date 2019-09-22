@@ -28,7 +28,7 @@ export const useWindowSize = debounceMs => {
       clearTimeout(timeoutId)
     }
 
-    timeoutId.current = setTimeout(() => {
+    timeoutIdRef.current = setTimeout(() => {
       setWindowSize(getSize())
     }, (debounceMs || 0))
   }, [timeoutId, debounceMs]);
