@@ -25,6 +25,9 @@
   --listViewPadding: #{1.5 * $baseUnit}px;
   font-size: $rootFontSize;
   line-height: 1.2;
+
+  scrollbar-color: var(--darkPrimary) var(--backgroundColor);
+  transition: scrollbar-color var(--animStyle) var(--animSpeed);
 }
 
 @media screen and (min-width: $startMediumScreenSize) {
