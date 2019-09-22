@@ -14,7 +14,8 @@ import { normalizeNumber } from "../normalize-number"
 /**
  * @callback RunOnSubmitCB
  * @param {KeyboardEvent} event
- * @param {number} newIndex
+ * @param {number} focusedIndex - The current index
+ * @param {number} newIndex - The new index
  * @returns void
  */
 
@@ -63,7 +64,7 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
         }
 
         if (runOnSubmit) {
-          runOnSubmit(event, _newIndex);
+          runOnSubmit(event, focusedIndex, _newIndex);
         }
 
         // None of the keys were selected

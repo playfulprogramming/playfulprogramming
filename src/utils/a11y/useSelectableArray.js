@@ -46,7 +46,10 @@ export const useSelectableArray = (valArr) => {
       return
     }
 
-    for (let i = newFromIndex; i++; newToIndex) {
+    const smallerNum = newFromIndex > newToIndex ? newToIndex : newFromIndex;
+    const biggerNum = newFromIndex > newToIndex ?  newFromIndex : newToIndex;
+
+    for (let i = smallerNum; i <= biggerNum; i++) {
       currInternalArr[i].selected = true;
     }
   }, [currInternalArr])

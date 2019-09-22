@@ -29,7 +29,6 @@ import { useSelectableArray } from "./useSelectableArray"
 
 /**
  * @param arrVal
- * @param {'single' | 'multi' | false | undefined} enableSelect
  * @param {(i: number) => void} onSel - On an item selection
  * @returns {selectRefRet}
  */
@@ -65,12 +64,11 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
 
   resetLastUsedKeyboardRef.current = tmpResetUsedKeyboardLast;
 
-
   // Arrow key handler
   const {
     focusedIndex,
     selectIndex
-  } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, newIndex) => {
+  } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, focusedIndex, newIndex) => {
     // If arrow keys were handled,
     if (newIndex)  {
       // If shift or shift+ctrl were being handled, mark the items as selected
@@ -78,13 +76,12 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
         kbEvent.shiftKey && kbEvent.ctrlKey :
         kbEvent.shiftKey;
 
+      console.log(isSelecting);
+
       if (isSelecting) {
-        markAsSelected(newIndex, enableSelect)
+        markAsSelected(focusedIndex, newIndex)
         return;
       }
-
-      markAsSelected(newIndex, false);
-      return;
     }
 
     const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key);
@@ -92,7 +89,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     if (enableSelect && isSingleSelecting) {
       kbEvent.preventDefault()
       const newIndex = active.index
-      markAsSelected(newIndex, 'single')
+      markAsSelected(newIndex, newIndex)
       return;
     }
 
