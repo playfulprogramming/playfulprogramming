@@ -21,10 +21,8 @@
  * ✅ Ctrl + Shift + Home - Selects from the focused option to start of list
  * ✅ Ctrl + Shift + End - Selects from the focused option to end of list
  * ✅ Ctrl + A - Toggles selection of all
- * 🔲 Click outside this component to close
- * Am I supposed to focus lock w/ tab?
- * 🔲 If so, add that
- * 🔲 If not, close on `blur`
+ * ✅ Click outside this component to close
+ * 🔲 Close on `blur`
  */
 
 /**
@@ -49,6 +47,7 @@ import { useSelectRef } from "../../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../../utils/useWindowSize"
 import { useAfterInit } from "../../../utils/useAfterInit"
 import { useLunr } from "../../../utils/useLunr"
+import { useOutsideFocus } from "../../../utils/outside-events"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {

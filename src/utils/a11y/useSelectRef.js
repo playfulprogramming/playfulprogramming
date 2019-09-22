@@ -1,10 +1,13 @@
 /**
- * I need to cleanup this code and also add:
- *
+ * This hook is meant to serve as a general utility for single or multi-selects
  */
-import { useEffect, useMemo, useRef, useState } from "react"
-import { useOutsideClick } from "../useOutsideClick"
+
+import { useMemo, useRef, useState } from "react"
+import { useOutsideClick, useOutsideFocus } from "../outside-events"
 import { genId } from "./getNewId"
+import { useKeyboardListNavigation } from "./useKeyboardListNavigation"
+import { useUsedKeyboardLast } from "./useUsedKeyboardLast"
+import { usePopover } from "./usePopover"
 
 /**
  * @callback selectIndexCB
@@ -35,8 +38,6 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   // TODO: Change when `arrVal`?
   const [internalArr, setInternalArr] = useState([])
   const [active, setActive] = useState()
-  const [usedKeyboardLast, setUsedKeyboardLast] = useState(false)
-  const [expanded, setExpanded] = useState(false)
 
   useMemo(() => {
     const newArr = arrVal.map((val, i) => {
@@ -64,7 +65,11 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     [internalArr],
   )
 
-  const markAsSelected = (index, markSelect) => {
+  /**
+   * @param {number} index
+   * @param {boolean | 'single'} markSelect
+   */
+  const markAsSelected = (index, markSelect, singleSelection) => {
     // Safely set index
     if (index < 0) {
       index = 0
@@ -75,7 +80,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     setActive(internalArr[index])
 
     if (markSelect) {
-      if (markSelect === "single") {
+      if (singleSelection) {
         const newArr = [...internalArr]
         newArr[index].selected = !newArr[index].selected
         setInternalArr(newArr)
@@ -108,14 +113,6 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     }
   }
 
-  const selectIndex = (i, e, type) => {
-    if (type === "click" || (e && e.type === "click")) {
-      // HACK: Is mouse event?
-      setUsedKeyboardLast(false)
-    }
-    markAsSelected(i, (e && e.shiftKey) || "single")
-  }
-
   const selectAll = () => {
     setInternalArr(internalArr.map(val => {
       val.selected = true
@@ -123,112 +120,81 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     }))
   }
 
+
+  // The parent container
+  const parentRef = useRef();
+
+  // The reference to the combobox container div that opens when the expanded is true
   const selectRef = useRef()
 
+  const setExpandedToFalse = () => setExpanded(false);
+
+  /**
+   * This ref allows us to compose two circular hooks without having
+   * to assume that one already knows of another
+   * @type {React.RefObject<Function>}
+   */
+  const resetLastUsedKeyboardRef = useRef(() => undefined);
+
+  const resetLastUsedKeyboard = resetLastUsedKeyboardRef.current;
+
+  const  { buttonProps, expanded, setExpanded } = usePopover(selectRef, resetLastUsedKeyboard);
+
+  const {
+    resetLastUsedKeyboard: tmpEesetUsedKeyboardLast,
+    usedKeyboardLast
+  } = useUsedKeyboardLast(parentRef, expanded);
+
+  resetLastUsedKeyboardRef.current = tmpEesetUsedKeyboardLast;
+
+  useOutsideClick(parentRef, expanded, setExpandedToFalse);
+
+  useOutsideFocus(parentRef, expanded, setExpandedToFalse);
+
+
   // Arrow key handler
-  useEffect(() => {
-    if (selectRef.current) {
+  useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, newIndex) => {
+    // If arrow keys were handled,
+    if (newIndex)  {
+      // If shift or shift+ctrl were being handled, mark the items as selected
+      const isSelecting = ['Home', "End"].includes(kbEvent.key) ?
+        kbEvent.shiftKey && kbEvent.ctrlKey :
+        kbEvent.shiftKey;
 
-      const onKeyDown = event => {
-        if (!expanded) {
-          return
-        }
-        let _newIndex
-        let isSelecting
-        if (event.key === "ArrowDown") {
-          event.preventDefault()
-          _newIndex = active.index + 1
-          isSelecting = event.shiftKey
-        } else if (event.key === "ArrowUp") {
-          event.preventDefault()
-          _newIndex = active.index - 1
-          isSelecting = event.shiftKey
-        } else if (enableSelect && (event.key === " " || event.key === "Spacebar")) {
-          event.preventDefault()
-          _newIndex = active.index
-          isSelecting = "single"
-        } else if (!enableSelect && event.key === "Enter") {
-          onSel(active.index)
-        } else if (event.key === "Home") {
-          event.preventDefault()
-          _newIndex = 0
-          isSelecting = event.shiftKey && event.ctrlKey
-        } else if (event.key === "End") {
-          event.preventDefault()
-          _newIndex = internalArr.length - 1
-          isSelecting = event.shiftKey && event.ctrlKey
-        } else {
-          if (enableSelect && event.code === "KeyA" && event.ctrlKey) {
-            event.preventDefault()
-            selectAll()
-            setUsedKeyboardLast(true)
-            return
-          } else if (event.key === "Escape") {
-            event.preventDefault()
-            setUsedKeyboardLast(true)
-            setExpanded(false)
-            return
-          } else {
-            return
-          }
-        }
-
-        setUsedKeyboardLast(true)
-        markAsSelected(_newIndex, enableSelect && isSelecting)
+      if (isSelecting) {
+        markAsSelected(newIndex, enableSelect)
+        return;
       }
 
-      const el = selectRef.current
-      el.addEventListener("keydown", onKeyDown)
-      return () => el.removeEventListener("keydown", onKeyDown)
+      markAsSelected(newIndex, false);
+      return;
     }
-    // `active` must be here as otherwise this event listener never updates
-  }, [
-    selectRef,
-    active,
-    expanded,
-    usedKeyboardLast,
-  ])
 
-  useEffect(() => {
-    if (selectRef && expanded) {
-      selectRef.current.focus()
+    const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key);
+
+    if (enableSelect && isSingleSelecting) {
+      kbEvent.preventDefault()
+      const newIndex = active.index
+      markAsSelected(newIndex, 'single')
+      return;
     }
-  }, [
-    expanded,
-    selectRef,
-  ])
 
-  const parentRef = useOutsideClick(expanded, () => setExpanded(false))
+    if (!enableSelect && kbEvent.key === "Enter") {
+      onSel(active.index)
+      return;
+    }
 
-  const buttonProps = useMemo(() => ({
-    onClick: () => {
-      setExpanded(!expanded)
-      setUsedKeyboardLast(false)
-    },
-    onKeyDown: (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault()
-        setUsedKeyboardLast(true)
-        setExpanded(!expanded)
-      }
-    },
-  }), [
-    selectRef,
-    expanded,
-    usedKeyboardLast,
-  ])
+    if (enableSelect && kbEvent.code === "KeyA" && kbEvent.ctrlKey) {
+        kbEvent.preventDefault()
+        selectAll()
+        return
+    }
+
+    if (kbEvent.key === "Escape") {
+      kbEvent.preventDefault()
+      setExpandedToFalse()
+    }
+  })
 
 
-  return {
-    selected: selectedArr,
-    active,
-    ref: selectRef,
-    parentRef,
-    values: internalArr,
-    selectIndex,
-    expanded,
-    setExpanded,
-    usedKeyboardLast,
-    buttonProps,
-  }
 }
