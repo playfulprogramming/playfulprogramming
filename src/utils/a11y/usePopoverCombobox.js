@@ -80,7 +80,7 @@ export const usePopoverCombobox = (arrVal) => {
   const {
     resetLastUsedKeyboard: tmpResetUsedKeyboardLast,
     usedKeyboardLast
-  } = useUsedKeyboardLast(parentRef, expanded);
+  } = useUsedKeyboardLast(selectRef, expanded);
 
   resetLastUsedKeyboardRef.current = tmpResetUsedKeyboardLast;
 
@@ -92,7 +92,7 @@ export const usePopoverCombobox = (arrVal) => {
     // If arrow keys were handled,
     if (newIndex !== undefined)  {
       // We're selecting using mouse and not holding shift, select only one
-      const isMouseEvent = kbEvent.nativeEvent instanceof MouseEvent || kbEvent.nativeEvent instanceof TouchEvent;
+      const isMouseEvent = kbEvent.nativeEvent instanceof window.MouseEvent || (window.TouchEvent && kbEvent.nativeEvent instanceof window.TouchEvent);
       if (isMouseEvent && !kbEvent.shiftKey) {
         markAsSelected(newIndex, newIndex);
         resetLastUsedKeyboard();
@@ -144,7 +144,7 @@ export const usePopoverCombobox = (arrVal) => {
   return {
     selected: selectedArr,
     active,
-    ref: selectRef,
+    comboBoxList: selectRef,
     parentRef,
     values: internalArr,
     selectIndex,

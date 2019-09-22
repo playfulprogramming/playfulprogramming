@@ -14,9 +14,21 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useOutsideClick, useOutsideFocus } from "../outside-events"
 
 /**
+ * @callback onBtnClickFn
+ * @param {React.MouseEvent} e - The associated event to handle
+ * @param {boolean} expanded - Is the popover expanded
+ */
+
+/**
+ * @callback onBtnKeyDownFn
+ * @param {React.KeyboardEvent} e - The associated event to handle
+ * @param {boolean} expanded - Is the popover expanded
+ */
+
+/**
  * @param {React.RefObject} popoverAreaRef - The div that will be used as the popover area to focus on when the popover is opened
- * @param {React.MouseEventHandler} [onBtnClick] - An add-on CB function to the button event handler
- * @param {React.KeyboardEventHandler} [onBtnKeyDown] - An add-on CB function to the button event handler
+ * @param {onBtnClickFn} [onBtnClick] - An add-on CB function to the button event handler
+ * @param {onBtnKeyDownFn} [onBtnKeyDown] - An add-on CB function to the button event handler
  * @returns {{buttonProps, expanded}}
  */
 export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
@@ -27,7 +39,7 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
       setExpanded(!expanded)
       if (onBtnClick) {
         e.persist && e.persist();
-        onBtnClick(e);
+        onBtnClick(e, expanded);
       }
     },
     onKeyDown: (e) => {
@@ -37,7 +49,7 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
       }
       if (onBtnKeyDown) {
         e.persist && e.persist();
-        onBtnKeyDown(e);
+        onBtnKeyDown(e, expanded);
       }
     },
   }), [
