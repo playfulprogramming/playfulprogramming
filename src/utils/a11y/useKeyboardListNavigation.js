@@ -68,7 +68,7 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
         }
 
         // None of the keys were selected
-        if (!_newIndex) {
+        if (_newIndex === undefined) {
           return;
         }
 
@@ -86,6 +86,8 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
   ])
 
   const selectIndex = (i, e) => {
+    console.log(i);
+
     setFocusedIndex(
       normalizeNumber(i, 0, maxIndex)
     );

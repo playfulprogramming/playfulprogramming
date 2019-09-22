@@ -89,7 +89,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     selectIndex
   } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, focusedIndex, newIndex) => {
     // If arrow keys were handled,
-    if (newIndex)  {
+    if (newIndex !== undefined)  {
       // We're selecting using mouse and not holding shift, select only one
       const isMouseEvent = kbEvent.nativeEvent instanceof MouseEvent || kbEvent.nativeEvent instanceof TouchEvent;
       if (isMouseEvent && !kbEvent.shiftKey) {
