@@ -90,7 +90,10 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
       return () => el.removeEventListener("keydown", onKeyDown)
     }, [
     focusedIndex,
-    parentRef
+    parentRef,
+    enable,
+    maxIndex,
+    runOnSubmit
   ])
 
   const selectIndex = (i, e) => {

@@ -45,6 +45,7 @@ export const useElementBoundingBox = (
       ref,
       ...changeFunc(getFromBoundClient(bounding)),
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref, afterInit, windowSize, changeItem, changeFunc])
 
   return boundingObj

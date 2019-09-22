@@ -17,21 +17,17 @@ import { useSelectableArray } from "./useSelectableArray"
  */
 
 /**
- * @typedef {any} selectRefRetValue
- */
-
-/**
- * @typedef {object} selectRefRet
- * @prop {selectRefRetValue} active - The currently highlighted item
- * @prop {selectRefRetValue[]} selected - The array of selected items
- * @prop {any} ref - The reference to the element to apply to the div
+ * @typedef {object} PopoverComboboxRet
+ * @prop {useSelectableArrayInternalVal} active - The currently highlighted item
+ * @prop {useSelectableArrayInternalVal[]} selected - The array of selected items
+ * @prop {React.RefObject} comboBoxListRef - The reference to the element to apply to the div
  * @prop {selectIndexCB} selectIndex - A toggle for that index
- * @prop {selectRefRetValue[]} values - The array of values
+ * @prop {useSelectableArrayInternalVal[]} values - The array of values
  */
 
 /**
  * @param arrVal
- * @returns {selectRefRet}
+ * @returns {PopoverComboboxRet}
  */
 export const usePopoverCombobox = (arrVal) => {
   /**
@@ -41,12 +37,12 @@ export const usePopoverCombobox = (arrVal) => {
    * the second param for `useSelectableArray` for more info
    * @type {React.RefObject<number>}
    */
-  const [manuallyUpdateSelectedArrIndex, setManualUpdateIndex] = useState(0);
+  const [manuallyUpdateSelectedArrIndex, setManualUpdateIndex] = useState(0)
 
   const {
     selectAll,
     markAsSelected,
-    internalArr
+    internalArr,
   } = useSelectableArray(arrVal, () => {
     /**
      * Must use a function here as there are timing issues otherwise. Because
@@ -55,77 +51,77 @@ export const usePopoverCombobox = (arrVal) => {
      * problems when dealing with clicking on an item many times
      * @see https://reactjs.org/docs/hooks-reference.html#functional-updates
      */
-    setManualUpdateIndex((val) => val + 1);
-  });
+    setManualUpdateIndex((val) => val + 1)
+  })
 
   // The parent container
-  const parentRef = useRef();
+  const parentRef = useRef()
 
   // The reference to the combobox container div that opens when the expanded is true
-  const selectRef = useRef()
+  const comboBoxListRef = useRef()
 
   /**
    * This ref allows us to compose two circular hooks without having
    * to assume that one already knows of another
    * @type {React.RefObject<Function>}
    */
-  const resetLastUsedKeyboardRef = useRef(() => undefined);
+  const resetLastUsedKeyboardRef = useRef(() => undefined)
 
-  const resetLastUsedKeyboard = resetLastUsedKeyboardRef.current;
+  const resetLastUsedKeyboard = resetLastUsedKeyboardRef.current
 
-  const  { buttonProps, expanded, setExpanded } = usePopover(selectRef, resetLastUsedKeyboard);
+  const { buttonProps, expanded, setExpanded } = usePopover(comboBoxListRef, resetLastUsedKeyboard)
 
   const {
     resetLastUsedKeyboard: tmpResetUsedKeyboardLast,
-    usedKeyboardLast
-  } = useUsedKeyboardLast(selectRef, expanded);
+    usedKeyboardLast,
+  } = useUsedKeyboardLast(comboBoxListRef, expanded)
 
-  resetLastUsedKeyboardRef.current = tmpResetUsedKeyboardLast;
+  resetLastUsedKeyboardRef.current = tmpResetUsedKeyboardLast
 
   // Arrow key handler
   const {
     focusedIndex,
-    selectIndex
-  } = useKeyboardListNavigation(selectRef, internalArr, expanded, (kbEvent, focusedIndex, newIndex) => {
+    selectIndex,
+  } = useKeyboardListNavigation(comboBoxListRef, internalArr, expanded, (kbEvent, focusedIndex, newIndex) => {
     // If arrow keys were handled,
-    if (newIndex !== undefined)  {
+    if (newIndex !== undefined) {
       // We're selecting using mouse and not holding shift, select only one
-      const isMouseEvent = kbEvent.nativeEvent instanceof window.MouseEvent || (window.TouchEvent && kbEvent.nativeEvent instanceof window.TouchEvent);
+      const isMouseEvent = kbEvent.nativeEvent instanceof window.MouseEvent || (window.TouchEvent && kbEvent.nativeEvent instanceof window.TouchEvent)
       if (isMouseEvent && !kbEvent.shiftKey) {
-        markAsSelected(newIndex, newIndex);
-        resetLastUsedKeyboard();
-        return;
+        markAsSelected(newIndex, newIndex)
+        resetLastUsedKeyboard()
+        return
       }
 
       // If shift or shift+ctrl were being handled, mark the items as selected
-      const isKeyboardSelecting = ['Home', "End"].includes(kbEvent.key) ?
-          kbEvent.shiftKey && kbEvent.ctrlKey :
-          kbEvent.shiftKey;
+      const isKeyboardSelecting = ["Home", "End"].includes(kbEvent.key) ?
+        kbEvent.shiftKey && kbEvent.ctrlKey :
+        kbEvent.shiftKey
 
       // If a single item is selected, go ahead and toggle it
       if (isKeyboardSelecting) {
         markAsSelected(focusedIndex, newIndex)
-        return;
+        return
       }
     }
 
     // At this point, we're using mouse to toggle an item, we can stop checking
     // If there are other keys
-    if (!kbEvent) return;
+    if (!kbEvent) return
 
-    const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key);
+    const isSingleSelecting = [" ", "Spacebar"].includes(kbEvent.key)
 
     if (isSingleSelecting) {
       kbEvent.preventDefault()
       const newIndex = active.index
       markAsSelected(newIndex, newIndex)
-      return;
+      return
     }
 
     if (kbEvent.code === "KeyA" && kbEvent.ctrlKey) {
-        kbEvent.preventDefault()
-        selectAll()
-        return
+      kbEvent.preventDefault()
+      selectAll()
+      return
     }
 
     if (kbEvent.key === "Escape") {
@@ -135,25 +131,27 @@ export const usePopoverCombobox = (arrVal) => {
   })
 
   const active = useMemo(() => {
-    return internalArr[focusedIndex];
+    return internalArr[focusedIndex]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedIndex, internalArr, manuallyUpdateSelectedArrIndex])
-  
+
   // This will be empty if `enableSelect` is null
   const selectedArr = useMemo(() =>
       internalArr.filter(item => item.selected),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [internalArr, manuallyUpdateSelectedArrIndex],
   )
 
   return {
     selected: selectedArr,
     active,
-    comboBoxList: selectRef,
+    comboBoxListRef,
     parentRef,
     values: internalArr,
     selectIndex,
     expanded,
     setExpanded,
     usedKeyboardLast,
-    buttonProps
+    buttonProps,
   }
 }

@@ -228,7 +228,7 @@ export const DropdownButton = ({ valArr = [], childComp, allowSelect, onPress })
           ref={listBoxRef}
           className={listBoxClasses}
           aria-labelledby="exp_elem"
-          tabIndex={-1}
+          tabIndex={0}
           aria-multiselectable="true"
           aria-activedescendant={active && active.id}
           heiight={currentBtnHeight}

@@ -88,7 +88,7 @@ const ListIdBox = posed.ul({
 
 export const FilterListbox = ({ tags = [], className, onFilter }) => {
   const {
-    comboBoxList,
+    comboBoxListRef,
     active,
     values,
     selected,
@@ -269,7 +269,7 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
         <ListIdBox
           id="listBoxID"
           role="listbox"
-          ref={comboBoxList}
+          ref={comboBoxListRef}
           className={listBoxClasses}
           aria-labelledby="exp_elem"
           tabIndex={-1}

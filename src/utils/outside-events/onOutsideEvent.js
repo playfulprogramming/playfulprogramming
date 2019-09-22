@@ -17,7 +17,7 @@ export const useOutsideEvent = (eventName, params) => {
     }
     // outside click
     onOutsideEvent()
-  }, [parentRef]);
+  }, [parentRef, onOutsideEvent]);
 
   useEffect(() => {
     if (enable) {
@@ -28,5 +28,5 @@ export const useOutsideEvent = (eventName, params) => {
       }
     }
 
-  }, [enable, handleClickOutside])
+  }, [enable, handleClickOutside, onOutsideEvent, eventName])
 }

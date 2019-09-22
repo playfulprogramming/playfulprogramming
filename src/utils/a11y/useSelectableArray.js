@@ -9,10 +9,23 @@
  * ✅ Have a select all method
  */
 
-import { useCallback, useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { genId } from "./getNewId"
 import { normalizeNumber } from "../normalize-number"
 
+/**
+ * @typedef useSelectableArrayInternalVal
+ * @param {string} id - A unique ID that can be safely placed in the DOM
+ * @param {*} val - The original value in the array
+ * @param {number} index - The original index in the array
+ * @param {boolean} selected - If this item is selected in the data
+ */
+
+/**
+ *
+ * @param {*[]} valArr
+ * @returns {useSelectableArrayInternalVal[]}
+ */
 const getNewArr = (valArr) => {
   return valArr.map((val, i) => {
     return {
