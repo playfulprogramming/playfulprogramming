@@ -44,7 +44,6 @@ export const usePopoverCombobox = (arrVal) => {
   const [manuallyUpdateSelectedArrIndex, setManualUpdateIndex] = useState(0);
 
   const {
-    selectedArr,
     selectAll,
     markAsSelected,
     internalArr
@@ -58,7 +57,6 @@ export const usePopoverCombobox = (arrVal) => {
      */
     setManualUpdateIndex((val) => val + 1);
   });
-
 
   // The parent container
   const parentRef = useRef();
@@ -139,7 +137,12 @@ export const usePopoverCombobox = (arrVal) => {
   const active = useMemo(() => {
     return internalArr[focusedIndex];
   }, [focusedIndex, internalArr, manuallyUpdateSelectedArrIndex])
-
+  
+  // This will be empty if `enableSelect` is null
+  const selectedArr = useMemo(() =>
+      internalArr.filter(item => item.selected),
+    [internalArr, manuallyUpdateSelectedArrIndex],
+  )
 
   return {
     selected: selectedArr,

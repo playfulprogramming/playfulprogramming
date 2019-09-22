@@ -4,7 +4,6 @@
  * is allowed, regardless of whether it's a keyboard that selects them or not
  *
  * ✅ Assign a unique ID to every item
- * ✅ Return a filtered list of what is currently selected
  * ✅ Add in helper inputs to help compose with other hooks
  * ✅ Safe-guard too high and too low inputs
  * ✅ Have a select all method
@@ -49,12 +48,6 @@ export const useSelectableArray = (valArr, runAfterSelectChange) => {
 
   const currInternalArr = internalArrRef && internalArrRef.current;
 
-  // This will be empty if `enableSelect` is null
-  const selectedArr = useMemo(() =>
-      currInternalArr.filter(item => item.selected),
-    [currInternalArr],
-  )
-
   const markAsSelected = useCallback((fromIndex, toIndex) => {
     const maxIndex = currInternalArr.length - 1;
 
@@ -89,7 +82,6 @@ export const useSelectableArray = (valArr, runAfterSelectChange) => {
   }
 
   return {
-    selectedArr,
     selectAll,
     markAsSelected,
     internalArr: internalArrRef.current
