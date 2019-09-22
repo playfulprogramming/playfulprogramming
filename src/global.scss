@@ -210,3 +210,9 @@ svg:not(.strokeicon) {
     fill: var(--darkPrimary);
   }
 }
+
+.marginZeroAutoChild {
+  & > * {
+    margin: 0 auto;
+  }
+}

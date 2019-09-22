@@ -55,7 +55,7 @@ const BlogPostTemplateChild = (props) => {
         keywords={post.frontmatter.tags}
         type="article"
       />
-      <div role="banner" aria-label="Banner for the post">
+      <div role="banner" aria-label="Banner for the post" className="marginZeroAutoChild">
         <PostTitleHeader post={post}/>
         <PostMetadata post={post}/>
       </div>
