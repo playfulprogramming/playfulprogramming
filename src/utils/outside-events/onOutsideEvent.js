@@ -10,14 +10,16 @@ import { useCallback, useEffect } from "react"
 export const useOutsideEvent = (eventName, params) => {
   const [parentRef, enable, onOutsideEvent] = params;
 
+  const currParentRef = parentRef && parentRef.current;
+
   const handleClickOutside = useCallback(e => {
-    if (parentRef.current.contains(e.target)) {
+    if (currParentRef.contains(e.target)) {
       // inside click
       return
     }
     // outside click
     onOutsideEvent()
-  }, [parentRef, onOutsideEvent]);
+  }, [currParentRef, onOutsideEvent]);
 
   useEffect(() => {
     if (enable) {
