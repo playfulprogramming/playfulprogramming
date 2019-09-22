@@ -3,7 +3,8 @@
  * for a popover component. This includes the `expanded` property handling as well
  * as the props to be added to the trigger button
  */
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { useOutsideClick, useOutsideFocus } from "../outside-events"
 
 /**
  * @param {React.RefObject} popoverAreaRef - The div that will be used as the popover area to focus on when the popover is opened
@@ -50,6 +51,11 @@ export const usePopover = (popoverAreaRef, onBtnClick, onBtnKeyDown) => {
     currentBtnRef
   ])
 
+  const setExpandedToFalse = useCallback(() => setExpanded(false), []);
+
+  useOutsideClick(popoverAreaRef, expanded, setExpandedToFalse);
+
+  useOutsideFocus(popoverAreaRef, expanded, setExpandedToFalse);
 
   return {
     buttonProps,

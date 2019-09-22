@@ -127,8 +127,6 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   // The reference to the combobox container div that opens when the expanded is true
   const selectRef = useRef()
 
-  const setExpandedToFalse = () => setExpanded(false);
-
   /**
    * This ref allows us to compose two circular hooks without having
    * to assume that one already knows of another
@@ -146,10 +144,6 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   } = useUsedKeyboardLast(parentRef, expanded);
 
   resetLastUsedKeyboardRef.current = tmpEesetUsedKeyboardLast;
-
-  useOutsideClick(parentRef, expanded, setExpandedToFalse);
-
-  useOutsideFocus(parentRef, expanded, setExpandedToFalse);
 
 
   // Arrow key handler
@@ -192,7 +186,7 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
 
     if (kbEvent.key === "Escape") {
       kbEvent.preventDefault()
-      setExpandedToFalse()
+      setExpanded(false)
     }
   })
 
