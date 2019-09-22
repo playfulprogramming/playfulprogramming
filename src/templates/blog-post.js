@@ -1,8 +1,8 @@
-import React, {useContext, useState, useEffect} from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import GitHubIcon from "../assets/icons/github.svg"
 import CommentsIcon from "../assets/icons/message.svg"
-import {DiscussionEmbed} from "disqus-react"
+import { DiscussionEmbed } from "disqus-react"
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
@@ -10,30 +10,28 @@ import { PostMetadata, PostTitleHeader } from "../components/post-view"
 import { OutboundLink } from "gatsby-plugin-google-analytics"
 import { ThemeContext } from "../components/theme-context"
 
-const BlogPostTemplateChild = (props) => {
+const BlogPostTemplateChild = props => {
   const post = props.data.markdownRemark
   const siteData = props.data.site.siteMetadata
   const slug = post.fields.slug
 
   const { currentTheme } = useContext(ThemeContext)
 
-  const [disqusConfig, setDisqusConfig] = useState(currentTheme);
+  const [disqusConfig, setDisqusConfig] = useState(currentTheme)
 
   useEffect(() => {
     setTimeout(() => {
-      if (!setDisqusConfig || !currentTheme) return;
+      if (!setDisqusConfig || !currentTheme) return
       setDisqusConfig({
         url: `${siteData.siteUrl}posts${slug}`,
         identifier: `${slug}${currentTheme}`,
         title: post.frontmatter.title,
       })
       // Must use a `useTimeout` so that this reloads AFTER the background animation
-    }, 600);
+    }, 600)
   }, [currentTheme])
 
-  const GHLink = `https://github.com/${siteData.repoPath}/tree/master${
-    siteData.relativeToPosts
-  }${slug}index.md`
+  const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`
 
   return (
     <>
@@ -46,8 +44,8 @@ const BlogPostTemplateChild = (props) => {
         keywords={post.frontmatter.tags}
         type="article"
       />
-      <PostTitleHeader post={post}/>
-      <PostMetadata post={post}/>
+      <PostTitleHeader post={post} />
+      <PostMetadata post={post} />
       <div
         className="post-body"
         data-testid={"post-body-div"}
@@ -73,12 +71,12 @@ const BlogPostTemplateChild = (props) => {
           }}
         >
           <div className="btnLike prependIcon">
-            <CommentsIcon/>
+            <CommentsIcon />
             <p>Comments</p>
           </div>
 
           <OutboundLink className="baseBtn prependIcon" href={GHLink}>
-            <GitHubIcon/>
+            <GitHubIcon />
             View this Post on GitHub
           </OutboundLink>
 
@@ -97,12 +95,12 @@ const BlogPostTemplateChild = (props) => {
   )
 }
 
-const BlogPostTemplate = (props) => {
+const BlogPostTemplate = props => {
   const siteTitle = props.data.site.siteMetadata.title
 
   return (
     <Layout location={props.location} title={siteTitle}>
-      <BlogPostTemplateChild {...props}/>
+      <BlogPostTemplateChild {...props} />
     </Layout>
   )
 }

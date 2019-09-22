@@ -30,7 +30,7 @@ export const useWindowSize = debounceMs => {
     timeoutId = setTimeout(function() {
       setWindowSize(getSize())
     }, debounceMs)
-  }, [timeoutId]);
+  }, [timeoutId])
 
   useEffect(() => {
     if (windowSize.innerHeight === undefined) {

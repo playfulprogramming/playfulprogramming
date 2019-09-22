@@ -5,7 +5,7 @@ import { SEO } from "../components/seo"
 import { PostList } from "../components/post-card-list"
 import { PicTitleHeader } from "../components/pic-title-header"
 
-const BlogProfile = (props) => {
+const BlogProfile = props => {
   const siteTitle = props.data.site.siteMetadata.title
   const slugData = props.data
   const unicornData = slugData.unicornsJson
@@ -18,10 +18,12 @@ const BlogProfile = (props) => {
 
   // FIXME: This logic will break with pagination
   const postTags = useMemo(() => {
-    return Array.from(posts.reduce((prev, post) => {
-      post.node.frontmatter.tags.forEach(tag => prev.add(tag));
-      return prev;
-    }, new Set()))
+    return Array.from(
+      posts.reduce((prev, post) => {
+        post.node.frontmatter.tags.forEach(tag => prev.add(tag))
+        return prev
+      }, new Set())
+    )
   }, [posts])
 
   return (
@@ -64,10 +66,10 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        frontmatter: {author: {id: {eq:  $slug}}},
-        fileAbsolutePath: {regex: "/content/blog/"}        
-      },
-      sort: {order: DESC, fields: frontmatter___published}
+        frontmatter: { author: { id: { eq: $slug } } }
+        fileAbsolutePath: { regex: "/content/blog/" }
+      }
+      sort: { order: DESC, fields: frontmatter___published }
     ) {
       totalCount
       edges {
