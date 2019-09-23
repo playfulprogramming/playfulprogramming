@@ -1,7 +1,12 @@
+@import '../../vars';
+
 .postsListContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   &:empty::after {
     content: 'No results could be found, you might try making your search or filter less restrictive';
@@ -15,17 +20,15 @@
   }
 }
 
-
 .postListItem {
   margin: 6px 0;
 }
 
-
-@media screen and (min-width: 800px) {
+@media screen and (min-width: $startMediumScreenSize) {
   .postListItem {
-    --marginSize: 12px;
+    --marginSize: 8px;
     flex-basis: calc(50% - var(--marginSize));
-    margin: calc(var(--marginSize) / 2) var(--marginSize);
+    margin: var(--marginSize);
     flex-grow: 0;
     width: calc(50% - var(--marginSize));
     max-width: calc(50% - var(--marginSize));

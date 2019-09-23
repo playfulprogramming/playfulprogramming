@@ -7,8 +7,17 @@ function getSearchResults(query, lng, useQuery) {
   const lunrIndex = window.__LUNR__[lng]
   // you can customize your search, see https://lunrjs.com/guides/searching.html
   // Escape the lunr regex, add `*`s to partially match to act more like typical search
-  const results = lunrIndex.index.search(`*${query.replace(/(.)/g, '\\$1')}*`);
-  return results.map(({ ref }) => lunrIndex.store[ref])
+  const escapedStr = query.replace(/[-\/\\^$*+?.()|[\]{}:]/g, '\\$&');
+  // FIXME: This is super lazy and bad, please fix me I'm non-performant
+  const lazyResults = lunrIndex.index.search(`*${escapedStr}*`);
+  const fullResults = lunrIndex.index.search(escapedStr);
+  const refs = new Set([
+    ...lazyResults.map(({ ref }) => ref),
+    ...fullResults.map(({ ref }) => ref)
+  ]);
+
+  console.log(lazyResults, fullResults);
+  return Array.from(refs).map(ref => lunrIndex.store[ref])
 }
 
 /**

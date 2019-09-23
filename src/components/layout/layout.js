@@ -40,14 +40,20 @@ export const Layout = ({ location, children }) => {
         marginRight: `auto`,
       }}
     >
-      <header className={layoutStyles.header}>
-        {!isBase && <Link className={`${layoutStyles.backBtn} baseBtn`} to={`/`}><BackIcon/></Link>}
+      <header className={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
+        {
+          !isBase &&
+          <Link
+            className={`${layoutStyles.backBtn} baseBtn`}
+            to={`/`}
+            aria-label="Go back"
+          >
+            <BackIcon/>
+          </Link>
+        }
         <DarkLightButton/>
       </header>
-      <main className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</main>
-      <footer>
-        {''}
-      </footer>
+      <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</div>
     </div>
     </ThemeContext.Provider>
   )

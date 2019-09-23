@@ -124,6 +124,17 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
   const windowSize = useWindowSize(150)
 
   /**
+   * Effects
+   */
+  useEffect(() => {
+    // When user escapes using "Esc" key, refocus on btn
+    if (!expanded && usedKeyboardLast && btnRef.current) {
+      btnRef.current.focus();
+    }
+  }, [expanded, usedKeyboardLast, btnRef])
+
+
+  /**
    * Value calcs
    */
   const appliedTagsStr = useMemo(() => {
@@ -236,7 +247,9 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
           ref={btnRef}
           className={filterStyles.filterButton}
           aria-haspopup="listbox"
+          aria-expanded={expanded}
           aria-labelledby="exp_elem filter-button"
+          aria-owns="listBoxID"
           id="filter-button"
           {...buttonProps}
         >

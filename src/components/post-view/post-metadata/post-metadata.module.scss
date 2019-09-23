@@ -1,3 +1,5 @@
+@import '../../../vars';
+
 .container {
   display: flex;
   flex-wrap: nowrap;
@@ -5,9 +7,16 @@
   max-width: 768px;
 }
 
-
 .textDiv {
   margin-left: 24px;
+}
+
+.authorPic {
+  @media screen and (max-width: $endSmallScreenSize) {
+    $mobilePicSize: 64px;
+    height: $mobilePicSize;
+    width: $mobilePicSize;
+  }
 }
 
 .belowName > * {
@@ -17,8 +26,11 @@
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--lowImpactBlack);
   font-size: 36px;
-  line-height: 36px;
   position: relative;
+
+  @media screen and (max-width: $endSmallScreenSize) {
+    font-size: 24px;
+  }
 }
 
 .belowName > *:not(:last-child)::after {
@@ -33,10 +45,13 @@
 
 .authorName {
   font-size: 36px;
-  line-height: 36px;
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
+
+  @media screen and (max-width: $endSmallScreenSize) {
+    font-size: 32px;
+  }
 }
 
 .authorLink {

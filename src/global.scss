@@ -19,16 +19,20 @@
   --cardOutlineStyle: 1px solid var(--primary);
   --archivo: 'Archivo', sans-serif;
   --oswald: 'Oswald', 'Archivo', sans-serif;
-  --cardRadius: #{2 * $baseUnit}px;
-  --filterBarIconSize: #{6 * $baseUnit}px;
-  --filterBarFontSize: #{5 * $baseUnit}px;
-  --listViewPadding: #{3 * $baseUnit}px;
+  --cardRadius: #{$baseUnit}px;
+  --filterBarIconSize: #{3 * $baseUnit}px;
+  --filterBarFontSize: #{2.5 * $baseUnit}px;
+  --listViewPadding: #{1.5 * $baseUnit}px;
   font-size: $rootFontSize;
+  line-height: 1.2;
+
+  scrollbar-color: var(--darkPrimary) var(--backgroundColor);
+  transition: scrollbar-color var(--animStyle) var(--animSpeed);
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: $startMediumScreenSize) {
   :root {
-    --listViewPadding: #{$baseUnit * 5}px;
+    --listViewPadding: #{$baseUnit * 2.5}px;
   }
 }
 
@@ -44,12 +48,12 @@
 
 .listViewContent {
   margin: 0 auto;
-  max-width: #{67318 * $baseUnit}px;
+  max-width: #{160 * $baseUnit}px; // 1280px
   padding: 0 var(--listViewPadding)
 }
 
 .postViewContent {
-  padding: #{$baseUnit * 5}px;
+  padding: #{$baseUnit * 2.5}px;
 }
 
 .postViewContent > * {
@@ -65,6 +69,14 @@ body {
 
 h1, h2, h3 {
   font-family: var(--oswald);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
@@ -114,8 +126,8 @@ h1, h2, h3 {
   align-items: center;
   flex-shrink: 0;
   border-radius: var(--cardRadius);
-  font-size: #{$baseUnit * 4}px;
-  padding: #{$baseUnit}px #{$baseUnit * 2}px;
+  font-size: #{$baseUnit * 2}px;
+  padding: #{$baseUnit / 2}px #{$baseUnit}px;
   color: var(--darkPrimary)
 }
 
@@ -126,13 +138,13 @@ h1, h2, h3 {
 }
 
 .baseBtn svg, .btnLike svg {
-  $size: #{$baseUnit * 8}px;
+  $size: #{$baseUnit * 4}px;
   height: $size;
   width: $size;
   flex-shrink: 0;
 }
 
-$pendIconMarg: #{$baseUnit * 2}px;
+$pendIconMarg: #{$baseUnit}px;
 
 .baseBtn.prependIcon svg, .btnLike.prependIcon svg {
   margin-right: $pendIconMarg;
@@ -143,22 +155,19 @@ $pendIconMarg: #{$baseUnit * 2}px;
 }
 
 .post-body {
-  margin-bottom: #{$baseUnit * 10}px;
-  max-width: #{$baseUnit * 175}px;
+  margin: 0 auto #{$baseUnit * 4}px;
+  max-width: #{$baseUnit * 88}px;
 
   img {
     margin: 0 auto;
     display: block;
     max-width: 100%;
   }
-
-  p {
-    line-height: 1.2em;
-  }
 }
 
 .post-lower-area {
-  max-width: #{$baseUnit * 230}px;
+  margin: 0 auto;
+  max-width: #{$baseUnit * 115}px;
 }
 
 // Please use this sparingly. There's massive A11y concerns
@@ -203,5 +212,11 @@ svg:not(.strokeicon) {
   &, * {
     transition: fill var(--animStyle) var(--animSpeed);
     fill: var(--darkPrimary);
+  }
+}
+
+.marginZeroAutoChild {
+  & > * {
+    margin: 0 auto;
   }
 }

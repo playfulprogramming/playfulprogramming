@@ -7,6 +7,8 @@ import { MockUnicorn } from "../../__mocks__/data/mock-unicorn"
 import BlogProfile from "./blog-profile"
 import {onLinkClick as onAnalyticsLinkClick} from 'gatsby-plugin-google-analytics';
 import {onLinkClick as onGarsbyLinkClick} from 'gatsby';
+import ReactDOMServer from "react-dom/server"
+import { axe } from "jest-axe"
 
 beforeAll(() => {
   useStaticQuery.mockImplementation(() => ({
@@ -20,8 +22,7 @@ afterAll(() => {
   useStaticQuery.mockImplementation(jest.fn())
 })
 
-test("Blog profile page renders", async () => {
-  const { baseElement, findByText, findByTestId } = render(
+const getElement = () => (
   <BlogProfile
     data={{
       site: {
@@ -38,7 +39,11 @@ test("Blog profile page renders", async () => {
     location={{
       pathname: '/post/this-post-name-here'
     }}
-  />)
+  />
+)
+
+test("Blog profile page renders", async () => {
+  const { baseElement, findByText, findByTestId } = render(getElement());
 
   expect(baseElement).toBeInTheDocument();
   expect(await findByText('Joe')).toBeInTheDocument();
@@ -68,6 +73,10 @@ test("Blog profile page renders", async () => {
 
   fireEvent.click(await findByTestId("authorPic"));
   expect(onGarsbyLinkClick).toHaveBeenCalledTimes(4);
-
 })
 
+test("Blog profile page should not have axe errors", async () => {
+  const html = ReactDOMServer.renderToString(getElement());
+  const results = await axe(html);
+  expect(results).toHaveNoViolations();
+});
