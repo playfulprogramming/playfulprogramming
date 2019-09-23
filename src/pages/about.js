@@ -20,7 +20,7 @@ const getUnicornRoleListItems = (unicornInfo) => {
     // If there is an item ahead
     const shouldShowComma = arr[i + 1];
     return (
-      <li key={role.id}>
+      <li key={role.id} role="listitem">
         {role.prettyname}
         {
           shouldShowComma &&
@@ -101,7 +101,7 @@ const AboutUs = (props) => {
                   </div>
                   <div className={style.nameRoleDiv}>
                     <Link to={`/unicorns/${unicornInfo.id}`}>{unicornInfo.name}</Link>
-                    <ul aria-label="Roles assigned to this user" className={style.rolesList}>
+                    <ul aria-label="Roles assigned to this user" className={style.rolesList} role="list">
                       {roleListItems}
                     </ul>
                   </div>

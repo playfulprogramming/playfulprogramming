@@ -26,7 +26,7 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
                        numberOfArticles={numberOfArticles}
                        onFilter={val => setFiltered(val && val.map(v => v.slug))}
       onSearch={val => setSearched(val && val.map(v => v.slug))}/>
-      <ul className={listStyle.postsListContainer} aria-label={listAria}>
+      <ul className={listStyle.postsListContainer} aria-label={listAria} role="list">
         {posts.map(({ node }) => {
           const slug = node.fields.slug;
           if (

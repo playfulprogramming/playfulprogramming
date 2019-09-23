@@ -13,7 +13,7 @@ const getNamePossessive = (name) => {
 
 const SocialBtn = ({ icon, text, url }) => {
 
-  return <li className={`baseBtn lowercase prependIcon ${styles.socialBtnLink}`}>
+  return <li className={`baseBtn lowercase prependIcon ${styles.socialBtnLink}`} role="listitem">
     <OutboundLink className='unlink' target="_blank" rel="noopener" href={url}>
       <span className={styles.svgContainer} aria-hidden={true}>{icon}</span>
       <span>
@@ -57,7 +57,7 @@ export const PicTitleHeader = ({ image, socials, title, description, profile = f
         <div className={styles.subheader} aria-label={subHeaderAria}>
           {description}
         </div>
-        {socials && <ul className={styles.socialsContainer} aria-label={socialsAria}>
+        {socials && <ul className={styles.socialsContainer} aria-label={socialsAria} role="list">
           {
             socials.twitter &&
             <SocialBtn

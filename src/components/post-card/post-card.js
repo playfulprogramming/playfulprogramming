@@ -19,7 +19,7 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
   const authorLink = useRef()
 
   return (
-    <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
+    <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()} role="listitem">
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}
