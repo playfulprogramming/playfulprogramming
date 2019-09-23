@@ -21,7 +21,7 @@ const BlogIndex = (props) => {
     const Description = <>
       {data.site.siteMetadata.description}
       <br/>
-      <Link to={"/about"}>Read More</Link>
+      <Link to={"/about"} aria-label={"The about us page"}><span aria-hidden={true}>Read More</span></Link>
     </>
 
     return (

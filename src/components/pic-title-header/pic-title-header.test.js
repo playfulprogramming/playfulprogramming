@@ -17,6 +17,5 @@ test("Renders with the expected text", async () => {
   expect(baseElement).toBeInTheDocument();
   expect(await findByText("User")).toBeInTheDocument();
   expect(await findByText('Description')).toBeInTheDocument();
-  expect(await findByText('Link to User\'s')).toBeInTheDocument();
   expect(await findByText('Website')).toBeInTheDocument();
 })
