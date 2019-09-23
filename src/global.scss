@@ -152,7 +152,7 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-body {
-  margin-bottom: #{$baseUnit * 4}px;
+  margin: 0 auto #{$baseUnit * 4}px;
   max-width: #{$baseUnit * 88}px;
 
   img {
@@ -163,6 +163,7 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-lower-area {
+  margin: 0 auto;
   max-width: #{$baseUnit * 115}px;
 }
 
