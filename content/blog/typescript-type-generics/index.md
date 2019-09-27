@@ -105,7 +105,7 @@ function returnSelf(returnProp: any): any {
 const returnedObject = returnSelf({objProperty: 12}); // This now works! 🎉
 
 returnedObject.test(); // This will not return an error but should 🙁
-console.log(returnedObject.objProperty); // This will also (correctly) not throw an error, but TS will not know it's a number 🙁
+returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number ☹️
 ```
 
 # The Real Solution {#generics-intro}
