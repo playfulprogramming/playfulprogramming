@@ -89,7 +89,14 @@ module.exports = {
             },
           },
           `gatsby-remark-prismjs`,
-          `gatsby-remark-copy-linked-files`
+          `gatsby-remark-copy-linked-files`,
+          {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_self",
+              rel: "nofollow"
+            }
+          }
         ],
       },
     },
