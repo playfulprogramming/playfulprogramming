@@ -182,7 +182,7 @@ async function logTheValue(item) {
 }
 ```
 
-If we wanted to add typings for the `logTheValue` function, we'd want to make sure to use a generic for the `loggedValue` <!--Looks like some sentence revisions happened here, not 100% sure what it's supposed to say--> was using the same generic type as `item`. We could do so inline:
+If we wanted to type the `logTheValue` function, we'd want to make sure to use a type generic for the input parameter `item`. By doing so, we could use that same geneeric for the return prop of `loggedValue` to ensure they both have the same typing. To do this, we could do so inline:
 
 ```typescript
 // Because this is an `async` function, we want to wrap the returned type value in a Promise
