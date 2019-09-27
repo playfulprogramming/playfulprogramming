@@ -330,3 +330,9 @@ const checkTimeStamp(obj: T extends {time: Date}): TimestampReturn<T> {
 ```
 
 In this case, we can rely on implicit type casting to ensure that we're able to pass `{time: new Date()}` but not `{}` as values for `obj`.
+
+# Conclusion
+
+And that's all I have for generics! Their usages are far and wide, and now you're able to apply your knowledge in code! We're hoping to have more posts on TypeScript soon - both more introductory and advanced. 
+
+Questions? Feedback? Sound off in the comments below, we'd love to hear from you!
