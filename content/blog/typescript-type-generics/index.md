@@ -313,7 +313,7 @@ interface TimestampReturn<T> {
 	isFuture: boolean;
 	obj: T
 }
-const checkTimeStamp = function(obj: T extends {time: Date}): TimestampReturn<T> {
+const checkTimeStamp = (obj: T extends {time: Date}): TimestampReturn<T> => {
 	let returnVal: TimestampReturn<T> = {
 		isPast: false,
 		isFuture: false,
