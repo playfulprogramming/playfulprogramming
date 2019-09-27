@@ -185,6 +185,7 @@ async function logTheValue(item) {
 If we wanted to add typings for the `logTheValue` function, we'd want to make sure to use a generic for the `loggedValue` <!--Looks like some sentence revisions happened here, not 100% sure what it's supposed to say--> was using the same generic type as `item`. We could do so inline:
 
 ```typescript
+// Because this is an `async` function, we want to wrap the returned type value in a Promise
 async function logTheValue<ItemT>(item: ItemT): Promise<{loggedValue: string, original: ItemT, err: Error | undefined}> {
 	// ... Function body here
 }
