@@ -200,6 +200,7 @@ interface LogTheValueReturnType<originalT> {
   err: Error | undefined;
 }
 
+// Notice how we're even wrapping that interface in a built-in type with a generic argument for `Promise`!
 async function logTheValue<ItemT>(item: ItemT): Promise<LogTheValueReturnType<ItemT>> {
 	// ... Function body here
 }
