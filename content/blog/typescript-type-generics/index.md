@@ -105,7 +105,7 @@ function returnSelf(returnProp: any): any {
 const returnedObject = returnSelf({objProperty: 12}); // This now works! 🎉
 
 returnedObject.test(); // This will not return an error but should 🙁
-returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number ☹️
+returnedObject.objProperty; // This will also (correctly) not throw an error, but TS won't know it's a number ☹️
 ```
 
 # The Real Solution {#generics-intro}
@@ -182,7 +182,7 @@ async function logTheValue(item) {
 }
 ```
 
-If we wanted to type the `logTheValue` function, we'd want to make sure to use a type generic for the input parameter `item`. By doing so, we could use that same geneeric for the return prop of `loggedValue` to ensure they both have the same typing. To do this, we could do so inline:
+If we wanted to type the `logTheValue` function, we'd want to make sure to use a type generic for the input parameter `item`. By doing so, we could use that same generic for the return prop of `loggedValue` to ensure they both have the same typing. To do this, we could do so inline:
 
 ```typescript
 // Because this is an `async` function, we want to wrap the returned type value in a Promise
@@ -191,7 +191,7 @@ async function logTheValue<ItemT>(item: ItemT): Promise<{loggedValue: string, or
 }
 ```
 
-Alternatively, we could utilize another feature of generics: the ability to pass the type value of the generic manually, and make an interface with a generic and do so there:
+Alternatively, we could utilize another feature of generics: the ability to pass the type value of the generic manually by making an interface with a generic and doing so there:
 
 ```typescript
 interface LogTheValueReturnType<originalT> {
@@ -252,8 +252,8 @@ interface ImageType<DataType> {
 
 interface ImageConvertMethods<DataType> {
   // This is the typing of a method. It will take a prop of the generic type and return the generic type
-  toPNG(data: DataType) => DataType;
-  toJPG(data: DataType) => DataType
+  toPNG: (data: DataType) => DataType;
+  toJPG: (data: DataType) => DataType;
 }
 
 
@@ -296,8 +296,8 @@ Unfortunately, there's a problem with the above code: we don't know what type `D
 Let's fix that typing:
 
 ```typescript
-function toPNG(data: DataType extends (string | Array<number> | Buffer)): DataType {
-// ...
+function toPNG<DataType extends (string | Array<number> | Buffer)>(data: DataType): DataType {
+	// ...
 }
 ```
 
@@ -313,7 +313,7 @@ interface TimestampReturn<T> {
 	isFuture: boolean;
 	obj: T
 }
-const checkTimeStamp = (obj: T extends {time: Date}): TimestampReturn<T> => {
+const checkTimeStamp = <T extends {time: Date}>(obj: T): TimestampReturn<T> => {
 	let returnVal: TimestampReturn<T> = {
 		isPast: false,
 		isFuture: false,
