@@ -1,16 +1,26 @@
-# TypeScript Intermediates
+---
+{
+    title: "TypeScript Intermediates - Type Generics",
+    description: 'An introduction to the type generic functionality in TypeScript',
+    published: '2019-09-26T05:12:03.284Z',
+    author: 'crutchcorn',
+    tags: ['typescript', 'polymorphic functions', 'functional programming'],
+    attached: [],
+    license: 'cc-by-nc-sa-4'
+}
+---
 
+While working in various projects, you may come across a weird looking syntax in the codebase `<>`. No no, not JSX, we're of course talking about type generics. They'll appear next to function calls (`callFn<T>()`), TypeScript types (`Array<any>`), and more.
 
+_Type generics are a way to handle abstract types in your function._ **They act as a variable for types in that they contain information about the way your types will function.** They're very powerful in their right, and their usage is not just restricted to TypeScript. You'll see many of these concepts applied under very simiar terminology in various language. Enough on that, however, let's dive into how to use them! 🏊‍
 
-## Type Generics
+# The Problem #{generic-usecase-setup}
 
-Type generics are a way to handle abstract types in your function. They almost act as a variable for types in that they contain information about the way your types will function.
+Type generics — on the highest level — _allow you to accept abitrary data in place of strict typing in order to broaden up a type's scope_.
 
+For example, if you wanted to make a function that took an argument of `returnProp` and returned the `returnProp` value itself ([the formal name for a function like this is an **identity function**](https://en.wikipedia.org/wiki/Identity_function)). In order to provide a typing for a function like this, you might have a hard time doing that without type generics.
 
-
-### The Problem #{generic-usecase-setup}
-
-For example, if you wanted to return the same type as the prop, you would have a hard time doing that without type generics. Take the following:
+Take the following implementation and consider it's limitations:
 
 ```typescript
 function returnProp(returnProp: string): string {
@@ -21,9 +31,13 @@ returnProp('Test'); // ✅ This is fine
 returnProp(4); // ❌ This would fail as `4` is not a string
 ```
 
-#### Unions #{generic-usecase-setup-union-solution}
+In this case, we want to make sure that every possible input type is available for the prop type. Let's take a look at a few potential solutions with their various pros and cons and see if we can find a solution that fits our requirements for typing a function like this.
 
-Now, if we wanted to accept numbers, we could add that as a union:
+## Potential Solution 1: Unions #{generic-usecase-setup-union-solution}
+
+One potential solution to this problem might be TypeScript Unions. _TypeScript unions allow us to define an `or` condition of sorts for our types_. As we're wanting to allow for various types for inputs and outputs, perhaps that might help us here!
+
+Using this method, if we wanted to accept numbers, we could add that as a union:
 
 ```typescript
 function returnProp(returnProp: string | number): string | number {
@@ -34,7 +48,7 @@ returnProp('Test'); // ✅ This is fine
 const shouldBeNumber = returnProp(4); // ✅ This won't show errors now
 ```
 
-But you'll find that this doesn't give the example you might want:
+However, unions have some limiations. You'll find that this doesn't give the example you might want:
 
 ```typescript
 // ❌ This will yeild an error
@@ -42,15 +56,19 @@ But you'll find that this doesn't give the example you might want:
 const newNumber = shouldBeNumber + 4;
 ```
 
-The reason the opperation `shouldBeNumber + 4` yeilds this is because it doesn't know which to give you given your input, given that you've explicitly typed your output
+The reason the opperation `shouldBeNumber + 4` yeilds this error is because it doesn't know which to give you given your input, given that you've explicitly typed your output as also being a union (meaning that it could be a string OR a number returned — one of them supporting numeric operations one of them not).
 
-> If you'd left your return type blank, TypeScript would be able to infer what the return type should be just fine
+### Potential Solutions Disclaimer #{silly-examples-disclaimer}
+
+> Author's note:
 >
-> That said, we're trying to build on concepts so we're trying to provide some examples of where this might be used and what it does
+> If you were using unions in your property definitions and left your return type blank, TypeScript would be able to infer what the return type should be just fine
+>
+> That said, we're trying to build on concepts so we're trying to provide some examples of where this might be used and what it does. There are also instances, such as type definition files, where this inference might not be available to an author of typings, and that's ignoring other limitations with this method we'll see later
 
-#### Function Overloading #{generic-usecase-setup-overloading-solution}
+## Potential Solution 2: Function Overloading #{generic-usecase-setup-overloading-solution}
 
-Now, you COULD utilize function overloading to provide the proper typings
+In order to get around the issues with explicitly returning a union, you COULD utilize function overloading to provide the proper return typings:
 
 ```typescript
 function returnProp(returnProp: number): number;
@@ -63,7 +81,7 @@ function returnProp(returnProp: string | number): string | number {
 }
 ```
 
-Additionally to having some abnoxious duplicated type information, this method also has it's limitations.
+That said, additional to having some abnoxious duplicated type information, this method also has it's limitations.
 
 For example, if we wanted to pass in an object of some kind (we'll use `{}` for a placeholder), it would disallow us:
 
@@ -73,24 +91,30 @@ returnProp({}) // Argument of type '{}' is not assignable to parameter of type '
 
 This may seem obvious from the typings, but _we ideally want `returnProp` to accept ANY type because **we aren't using any opperations that require knowing the typing**._ (no addition or subtraction to require a number, no string concatenation that might restrict an object from being passed)
 
-#### Any #{generic-usecase-setup-any-solution}
+## Potential Solution 3: Any #{generic-usecase-setup-any-solution}
 
-Now, we could obviously use `any`, but then we lose type strictness:
+Of course, we could use the `any` in order to force any input and return type. (Goodness knows I've had my fair share of typing frustrations that ended with a few `any`s in my codebase!)
+
+However, while this would allow any input, we'd also be losing any type information between the input and output. As a result our types would be too loose on the return type:
 
 ```typescript
 function returnSelf(returnProp: any): any {
     return returnProp;
 }
 
-const returnedObject = returnSelf({objProperty: 12});
+const returnedObject = returnSelf({objProperty: 12}); // This now works! 🎉
 
-returnedObject.test(); // This will not return an error but should
-returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number
+returnedObject.test(); // This will not return an error but should 🙁
+returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number ☹️
 ```
 
-### The Solution #{generics-intro}
+# The Real Solution #{generics-intro}
 
-The solution is... Well, you've seen the title I'm sure. Type generics allow us to store loose type data in a _type variable_. A type variable is a unique kind of variable that's not exposed to JavaScript but is rather handled by TypeScript to provide expected typing data. For example, the above example could be coded as:
+So what's the answer? How are we able to get both preserved type data on the input as well as the output??
+
+The solution is... Well, you've read the title I'm sure.
+
+_Type generics allow us to store loose type data in a **type variable**_. A type variable is _a unique kind of variable that's not exposed to JavaScript but is rather handled by TypeScript to provide expected typing data_. For example, the above example could be coded as:
 
 ```typescript
 function returnSelf<T>(returnProp: T): T {
@@ -120,9 +144,9 @@ returnedObject.objProperty;
 >
 > Remember, type variables are like other variables in that you need to maintain them and understand what they're doing in your code
 
-### Okay, but Why? #{logger-example}
+# Okay, but Why? #{logger-example}
 
-Why might we want to do this? Returning an item as itself in a [identity function](https://en.wikipedia.org/wiki/Identity_function) (the formal name of the type of function `returnSelf` is) is cool, but not very useful in it's current state. That said, there ARE many many uses for generics in real-world codebases.
+Why might we want to do this? [Returning an item as itself in a identity function](#generic-usecase-setup) is cool, but not very useful in it's current state. That said, there ARE many many uses for generics in real-world codebases.
 
 For example, let's say that we had the following JavaScript code that we wanted to use as a logger:
 
@@ -158,7 +182,7 @@ async function logTheValue(item) {
 }
 ```
 
-If we wanted to type this function, we'd want to make sure to use a generic for the `loggedValue` was using the same generic type as `item`. We could do so inline:
+If we wanted to type the `logTheValue` function, we'd want to make sure to use a generic for the `loggedValue` was using the same generic type as `item`. We could do so inline:
 
 ```typescript
 async function logTheValue<ItemT>(item: ItemT): {loggedValue: string, original: ItemT, err: Error | undefined} {
@@ -166,7 +190,7 @@ async function logTheValue<ItemT>(item: ItemT): {loggedValue: string, original: 
 }
 ```
 
-But we could utilize another of generics: The ability to pass the type value of the generic manually, and make an interface with a generic and do so there:
+But we could utilize another feature of generics: The ability to pass the type value of the generic manually, and make an interface with a generic and do so there:
 
 ```typescript
 interface LogTheValueReturnType<originalT> {
@@ -180,15 +204,21 @@ async function logTheValue<ItemT>(item: ItemT): LogTheValueReturnType<ItemT> {
 }
 ```
 
-We could do so with the function call as well:
+WIth these few features, we're able to utilize much of the functionality of generics. 
+
+But I know I've not answered what the `<>` really is for, well - much like type variables there's also the ability to pass types as "type arguments" when generics are applied to a function.
+
+An example of this would be a syntax like this:
 
 ```typescript
 logTheValue<number>(3);
 ```
 
-### Non-Function Generics #{non-function-generics}
+# Non-Function Generics #{non-function-generics}
 
-That's right - functions aren't the only ones with generics. You can use generics in interfaces as you'd seen, but you can also use them in classes (which can be particularly helpful for data structures like this):
+As you saw before with the `LogTheValueReturnType` interface — functions aren't the only ones with generics. Additional to using them within functions and interfaces,  you can also use them in classes. 
+
+Classes with generics can be particularly helpful for data structures like this:
 
 ```typescript
 // DataType might want to be a base64 encoded string, a buffer, or an IntArray
@@ -207,7 +237,9 @@ class ImageType<DataType> {
 function handleImageBuffer(img: ImageType<Buffer>) {}
 ```
 
-You could also use them within `type` definitions:
+Type generics in classes can be used as method argument and property types alike.
+
+There's also the ability to use generics within `type` definitions:
 
 ```typescript
 interface ImageType<DataType> {
@@ -226,16 +258,16 @@ interface ImageConvertMethods<DataType> {
 type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertMethods<DataType>
 ```
 
-### Okay, but why-_er_? #{polymorphic-functions}
+# Okay, but why-_er_? #{polymorphic-functions}
 
-Well, type generics enable us to do things like type **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
+Well, "I want to see your credentials" person you, type generics enable us to do things like type **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
 
-> Polymorphic functions are not unique to TypeScript, I just wanted to include them here as they provide some real-world insight to usages of generics and when they might be able to be used
+> Polymorphic functions are not unique to TypeScript, the things learned here about polymorphic functions can be applied to other languages as well. They also provide some real-world insight to usages of generics and when they might be able to be used
 
 For example, let's take a look at the code for the `toPNG` :
 
-```javascript
-function toPNG(data) {
+```typescript
+function toPNG(data: DataType): DataType {
 	if (Buffer.isBuffer(data)) {
 		return convertBufferToPNG(data);
 	} else if (Array.isArray(data)) {
@@ -253,89 +285,48 @@ function toPNG(data) {
 }
 ```
 
-Even though this function accepts various data types, it handles them differently under-the-hood! 
+Even though this function accepts various data types, it handles them differently under-the-hood! Functions that do this type of accept-many-handle-each-slightly-differently are called **Polymorphic Functions**. They're particularly useful in utility libraries.
 
+# Restricting The Types #{extends-keyword}
 
+However, there's a problem with the above code: we don't know what type `T` is. Why does that matter? Well, if it's not a string, a Buffer, or an Array-like, it will throw an error! That's certainly not behavior to run into a runtime.
 
-
-
-
-
-
-
-### Restricting The Types #{extends-keyword}
-
-
-
-
+Let's fix that typing:
 
 ```typescript
-// 
-// Don't worry about why right away, just 
-
-function returnSelf(a: any): any {
-    return a;
-}
-
-returnSelf(2);
-
-returnSelf('t');
-
-const a = returnSelf('test').split(' ');
-
-// The problem here is that with `any`, we're losing type info. We no longer know what the return value of `returnSelf` is
-// How do we solve this? Type generics!
-
-function returnSelfGeneric<T>(a: T): T {
-    return a;
-}
-
-returnSelfGeneric([123, 234]).map(() => {});
-// Is the same thing as:
-returnSelfGeneric<number[]>([123, 234]).map(() => { });
-// The only reason we don't need the `<>` in the first example is because TS does a pretty good job at understanding what type you meant based on the args you're passing
-
-
-// Ta-da! We're done. What we're saying here is that `a` should be any type. This type will be refered to as `T` from here on out. We can now use that same type
-// elsewhere in the function definiton
-
-// This is where you end up with things like `Promise<string>` comes into play. The defintion would look something like:
-//Promise<T>((resolve: () => T, reject: () => any) => {then, catch});... You get the point, this is loose syntax and not valid
-
-// What about multiple generics?
-// Yup!
-// We can restrict the TYPE of generic we want. This allows us to say that T can be any type so long as it extends on this object
-function testGeneric<T extends {prop: number}, R>(arg1: T, arg2: R): T | R {
-    // Remember that comparisons can run on Dates and other stuff too
-    // What about something like this? We want a function that compares a prop but can have anything else? And `prop` should be a number? Seems complex, right?
-    if (arg1.prop > 2) {
-        return arg1;
-    } else {
-        return arg2;
-    }
-}
-
-// This is fine
-testGeneric({ prop: 2, hello: 'hi' }, 23)
-
-// This is not
-testGeneric({ hello: 'hi' }, 23)
-
-
-// You can even use type generics in other types
-
-// & means that the type must have both. If T === {hello: string}, then AddType MUST have at least {prop: number, hello: string}
-type AddType<T> = T & {prop: number}; // What does `&` do again?
-
-// and finally with classes:
-class GenericClass<T> {
-    prop: T;
-    constructor(arg1: T) {
-        this.prop = arg1;
-    }
-    method(): T {
-        return this.prop;
-    }
+function toPNG(data: DataType extends (string | Array<number> | Buffer)): DataType {
+// ...
 }
 ```
 
+In this example _we're using the `extends` keyword to enforce some level of type restriction in the otherwise broad definition of a type generic_. We're using a TypeScript union to say that it can be any one of those types, and we're still able to set the value to the type variable `DataType`.
+
+## Broaden Your Horizens #{imperative-casting-extends}
+
+We're also able to keep that type restriction broad within itself. Let's say we had a function that only cared if an object had a specific property on it:
+
+```typescript
+interface TimestampReturn<T> {
+	isPast: boolean;
+	isFuture: boolean;
+	obj: T
+}
+const checkTimeStamp(obj: T extends {time: Date}): TimestampReturn<T> {
+	let returnVal: TimestampReturn<T> = {
+		isPast: false,
+		isFuture: false,
+		obj
+	}
+	
+	if (obj.time < Date.now()) {
+		returnVal.isPast = true;
+	} else {
+		returnVal.isFuture = true;
+	}
+	
+	return returnVal;
+}
+
+```
+
+In this case, we can rely on implicit type casting to ensure that we're able to pass `{time: new Date()}` but not `{}` as values for `obj`.
