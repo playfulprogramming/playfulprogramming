@@ -191,7 +191,7 @@ async function logTheValue<ItemT>(item: ItemT): Promise<{loggedValue: string, or
 }
 ```
 
-Alternatively, we could utilize another feature of generics: the ability to pass the type value of the generic manually by making an interface with a generic and doing so there:
+Alternatively, we could utilize another feature of generics — the ability to pass the type value of the generic manually — and make an interface with a generic and do so there:
 
 ```typescript
 interface LogTheValueReturnType<originalT> {
