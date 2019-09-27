@@ -14,7 +14,7 @@ While working in various projects, you may come across a weird looking syntax in
 
 _Type generics are a way to handle abstract types in your function._ **They act as a variable for types in that they contain information about the way your types will function.** They're very powerful in their right, and their usage is not just restricted to TypeScript. You'll see many of these concepts applied under very simiar terminology in various language. Enough on that, however, let's dive into how to use them! 🏊‍
 
-# The Problem #{generic-usecase-setup}
+# The Problem {#generic-usecase-setup}
 
 Type generics — on the highest level — _allow you to accept abitrary data in place of strict typing in order to broaden up a type's scope_.
 
@@ -33,7 +33,7 @@ returnProp(4); // ❌ This would fail as `4` is not a string
 
 In this case, we want to make sure that every possible input type is available for the prop type. Let's take a look at a few potential solutions with their various pros and cons and see if we can find a solution that fits our requirements for typing a function like this.
 
-## Potential Solution 1: Unions #{generic-usecase-setup-union-solution}
+## Potential Solution 1: Unions {#generic-usecase-setup-union-solution}
 
 One potential solution to this problem might be TypeScript Unions. _TypeScript unions allow us to define an `or` condition of sorts for our types_. As we're wanting to allow for various types for inputs and outputs, perhaps that might help us here!
 
@@ -58,7 +58,7 @@ const newNumber = shouldBeNumber + 4;
 
 The reason the opperation `shouldBeNumber + 4` yeilds this error is because it doesn't know which to give you given your input, given that you've explicitly typed your output as also being a union (meaning that it could be a string OR a number returned — one of them supporting numeric operations one of them not).
 
-### Potential Solutions Disclaimer #{silly-examples-disclaimer}
+### Potential Solutions Disclaimer {#silly-examples-disclaimer}
 
 > Author's note:
 >
@@ -66,7 +66,7 @@ The reason the opperation `shouldBeNumber + 4` yeilds this error is because it d
 >
 > That said, we're trying to build on concepts so we're trying to provide some examples of where this might be used and what it does. There are also instances, such as type definition files, where this inference might not be available to an author of typings, and that's ignoring other limitations with this method we'll see later
 
-## Potential Solution 2: Function Overloading #{generic-usecase-setup-overloading-solution}
+## Potential Solution 2: Function Overloading {#generic-usecase-setup-overloading-solution}
 
 In order to get around the issues with explicitly returning a union, you COULD utilize function overloading to provide the proper return typings:
 
@@ -91,7 +91,7 @@ returnProp({}) // Argument of type '{}' is not assignable to parameter of type '
 
 This may seem obvious from the typings, but _we ideally want `returnProp` to accept ANY type because **we aren't using any opperations that require knowing the typing**._ (no addition or subtraction to require a number, no string concatenation that might restrict an object from being passed)
 
-## Potential Solution 3: Any #{generic-usecase-setup-any-solution}
+## Potential Solution 3: Any {#generic-usecase-setup-any-solution}
 
 Of course, we could use the `any` in order to force any input and return type. (Goodness knows I've had my fair share of typing frustrations that ended with a few `any`s in my codebase!)
 
@@ -108,7 +108,7 @@ returnedObject.test(); // This will not return an error but should 🙁
 returnedObject.objProperty; // This will also (correctly) not throw an error, but TS will not know it's a number ☹️
 ```
 
-# The Real Solution #{generics-intro}
+# The Real Solution {#generics-intro}
 
 So what's the answer? How are we able to get both preserved type data on the input as well as the output??
 
@@ -144,7 +144,7 @@ returnedObject.objProperty;
 >
 > Remember, type variables are like other variables in that you need to maintain them and understand what they're doing in your code
 
-# Okay, but Why? #{logger-example}
+# Okay, but Why? {#logger-example}
 
 Why might we want to do this? [Returning an item as itself in a identity function](#generic-usecase-setup) is cool, but not very useful in it's current state. That said, there ARE many many uses for generics in real-world codebases.
 
@@ -214,7 +214,7 @@ An example of this would be a syntax like this:
 logTheValue<number>(3);
 ```
 
-# Non-Function Generics #{non-function-generics}
+# Non-Function Generics {#non-function-generics}
 
 As you saw before with the `LogTheValueReturnType` interface — functions aren't the only ones with generics. Additional to using them within functions and interfaces,  you can also use them in classes. 
 
@@ -258,7 +258,7 @@ interface ImageConvertMethods<DataType> {
 type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertMethods<DataType>
 ```
 
-# Okay, but why-_er_? #{polymorphic-functions}
+# Okay, but why-_er_? {#polymorphic-functions}
 
 Well, "I want to see your credentials" person you, type generics enable us to do things like type **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
 
@@ -287,7 +287,7 @@ function toPNG(data: DataType): DataType {
 
 Even though this function accepts various data types, it handles them differently under-the-hood! Functions that do this type of accept-many-handle-each-slightly-differently are called **Polymorphic Functions**. They're particularly useful in utility libraries.
 
-# Restricting The Types #{extends-keyword}
+# Restricting The Types {#extends-keyword}
 
 However, there's a problem with the above code: we don't know what type `T` is. Why does that matter? Well, if it's not a string, a Buffer, or an Array-like, it will throw an error! That's certainly not behavior to run into a runtime.
 
@@ -301,7 +301,7 @@ function toPNG(data: DataType extends (string | Array<number> | Buffer)): DataTy
 
 In this example _we're using the `extends` keyword to enforce some level of type restriction in the otherwise broad definition of a type generic_. We're using a TypeScript union to say that it can be any one of those types, and we're still able to set the value to the type variable `DataType`.
 
-## Broaden Your Horizens #{imperative-casting-extends}
+## Broaden Your Horizens {#imperative-casting-extends}
 
 We're also able to keep that type restriction broad within itself. Let's say we had a function that only cared if an object had a specific property on it:
 
