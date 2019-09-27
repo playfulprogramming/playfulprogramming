@@ -135,7 +135,7 @@ const returnedObject = returnSelf({objProperty: 12});
 // This will fail, as expected
 returnedObject.test();
 // This will exist, and TS will know it as a number
-console.log(returnedObject.objProperty);
+returnedObject.objProperty;
 ```
 
 > Author's note:
