@@ -169,7 +169,7 @@ async function logTheValue(item) {
 	try {
 		// Attempt to write a new log file. If this fails, save the error to the `err` variable
 		await writeFileAsync(`/logs/${Date.now()}`, jsonString);
-		// Catch any errors and keep them as the `e` variable to assign to `err` later
+	// Catch any errors and keep them as the `e` variable to assign to `err` later
 	} catch (e) {
 		err = e;
 	}
