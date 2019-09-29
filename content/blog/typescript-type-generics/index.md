@@ -1,12 +1,12 @@
 ---
 {
-    title: "TypeScript Intermediates - Type Generics",
-    description: 'An introduction to the type generic functionality in TypeScript',
-    published: '2019-09-26T05:12:03.284Z',
-    author: 'crutchcorn',
-    tags: ['typescript', 'polymorphic functions', 'functional programming'],
-    attached: [],
-    license: 'cc-by-nc-sa-4'
+	title: "TypeScript Intermediates - Type Generics",
+	description: 'An introduction to the type generic functionality in TypeScript',
+	published: '2019-09-26T05:12:03.284Z',
+	author: 'crutchcorn',
+	tags: ['typescript', 'polymorphic functions', 'functional programming'],
+	attached: [],
+	license: 'cc-by-nc-sa-4'
 }
 ---
 
@@ -99,7 +99,7 @@ Although this would allow any input type, we'd also be losing any type informati
 
 ```typescript
 function returnSelf(returnProp: any): any {
-    return returnProp;
+	return returnProp;
 }
 
 const returnedObject = returnSelf({objProperty: 12}); // This now works! 🎉
@@ -118,7 +118,7 @@ _Type generics allow us to store loose type data in a **type variable**_. A type
 
 ```typescript
 function returnSelf<T>(returnProp: T): T {
-    return returnProp;
+	return returnProp;
 }
 ```
 
@@ -152,7 +152,7 @@ For example, let's say that we had the following JavaScript code that we wanted 
 
 ```javascript
 const util = require('util'),
-   	  fs   = require('fs');
+	fs = require('fs');
 
 // Have the `writeFile` return a promise instead of having to use a callback
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -169,7 +169,7 @@ async function logTheValue(item) {
 	try {
 		// Attempt to write a new log file. If this fails, save the error to the `err` variable
 		await writeFileAsync(`/logs/${Date.now()}`, jsonString);
-      // Catch any errors and keep them as the `e` variable to assign to `err` later
+		// Catch any errors and keep them as the `e` variable to assign to `err` later
 	} catch (e) {
 		err = e;
 	}
@@ -196,9 +196,9 @@ Alternatively, we could utilize another feature of generics — the ability to p
 
 ```typescript
 interface LogTheValueReturnType<originalT> {
-  loggedValue: string;
-  original: originalT;
-  err: Error | undefined;
+	loggedValue: string;
+	original: originalT;
+	err: Error | undefined;
 }
 
 // Notice how we're even wrapping that interface in a built-in type with a generic argument for `Promise`!
@@ -227,10 +227,10 @@ Classes with generics can be particularly helpful for data structures like this:
 // DataType might want to be a base64 encoded string, a buffer, or an IntArray
 class ImageType<DataType> {
 	data: DataType;
-  height: number;
-  width: number;
+	height: number;
+	width: number;
 
-  constructor(data: DataType, height: number, width: number) {
+	constructor(data: DataType, height: number, width: number) {
 		this.data = data;
 		this.height = height;
 		this.width = width
@@ -247,14 +247,14 @@ There's also the ability to use generics within `type` definitions:
 ```typescript
 interface ImageType<DataType> {
 	data: DataType;
-  height: number;
-  width: number;	
+	height: number;
+	width: number;	
 }
 
 interface ImageConvertMethods<DataType> {
-  // This is the typing of a method. It will take a prop of the generic type and return the generic type
-  toPNG: (data: DataType) => DataType;
-  toJPG: (data: DataType) => DataType;
+	// This is the typing of a method. It will take a prop of the generic type and return the generic type
+	toPNG: (data: DataType) => DataType;
+	toJPG: (data: DataType) => DataType;
 }
 
 
