@@ -64,7 +64,7 @@ The reason that the operation `shouldBeNumber + 4` yields this error is because 
 >
 > If you were using unions in your property definitions and left your return type blank, TypeScript would be able to infer what the return type should be just fine.
 >
-> That said, we're trying to build on concepts, so we're trying to provide some examples of where this might be used and what it does. There are also instances, such as type definition files, where this inference might not be available to an author of typings, as well as other limitations with this method that we'll see later,
+> That said, we're trying to build on concepts, so we're trying to provide some examples of where this might be used and what it does. There are also instances, such as type definition files, where this inference might not be available to an author of typings, as well as other limitations with this method that we'll see later.
 
 ## Potential Solution 2: Function Overloading {#generic-usecase-setup-overloading-solution}
 
@@ -93,7 +93,7 @@ This may seem obvious from the typings, but _we ideally want `returnProp` to acc
 
 ## Potential Solution 3: Any {#generic-usecase-setup-any-solution}
 
-Of course, we could use the `any` in order to force any input and return type. (Goodness knows I've had my fair share of typing frustrations that ended with a few `any`s in my codebase!)
+Of course, we could use the `any` type to force any input and return type. (Goodness knows I've had my fair share of typing frustrations that ended with a few `any`s in my codebase!)
 
 Although this would allow any input type, we'd also be losing any type information between the input and output. As a result our types would be too loose on the return type:
 
@@ -146,7 +146,7 @@ returnedObject.objProperty;
 
 # Okay, but Why? {#logger-example}
 
-Why might we want to do this? [Returning an item as itself in a identity function](#generic-usecase-setup) is cool, but it's not very useful in its current state. That said, there ARE many many uses for generics in real-world codebases.
+Why might we want to do this? [Returning an item as itself in an identity function](#generic-usecase-setup) is cool, but it's not very useful in its current state. That said, there **are** many, many uses for generics in real-world codebases.
 
 For example, let's say that we had the following JavaScript code that we wanted to use as a logger:
 
@@ -169,6 +169,7 @@ async function logTheValue(item) {
 	try {
 		// Attempt to write a new log file. If this fails, save the error to the `err` variable
 		await writeFileAsync(`/logs/${Date.now()}`, jsonString);
+      // Catch any errors and keep them as the `e` variable to assign to `err` later
 	} catch (e) {
 		err = e;
 	}
@@ -206,7 +207,7 @@ async function logTheValue<ItemT>(item: ItemT): Promise<LogTheValueReturnType<It
 }
 ```
 
-WIth these few features, we're able to utilize much of the functionality of generics. 
+With these few features, we're able to utilize much of the functionality of generics. 
 
 However, I know I haven't answered what the `<>` really is for. Well, much like type variables, there's also the ability to pass types as "type arguments" when generics are applied to a function.
 
@@ -264,9 +265,9 @@ type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertM
 
 Well, "I want to see your credentials" person you, type generics enable us to do things like provide typings for **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
 
-> Polymorphic functions are not unique to TypeScript, the things learned here about polymorphic functions can be applied to other languages as well. They also provide some real-world insight to usages of generics and when they might be able to be used.
+> Polymorphic functions are not unique to TypeScript; the things learned here about polymorphic functions can be applied to other languages as well. They also provide some real-world insight into the usages of generics and when they could be used.
 
-For example, let's take a look at the code for the `toPNG` :
+For example, let's take a look at the code for the `toPNG`:
 
 ```typescript
 function toPNG(data: DataType): DataType {
@@ -287,7 +288,7 @@ function toPNG(data: DataType): DataType {
 }
 ```
 
-Even though this function accepts various data types, it handles them differently under the hood! Functions that have this type of accept-many-handle-each-slightly-differently behavior are called **Polymorphic Functions**. They're particularly useful in utility libraries.
+Even though this function accepts various data types, it handles them differently under the hood! Functions that have this type of "accept many, handle each slightly differently" behavior are called **Polymorphic Functions**. They're particularly useful in utility libraries.
 
 # Restricting The Types {#extends-keyword}
 
@@ -337,4 +338,4 @@ In this case, we can rely on implicit type casting to ensure that we're able to 
 
 And that's all I have for generics! Their usages are far and wide, and now you're able to apply your knowledge in code! We're hoping to have more posts on TypeScript soon - both more introductory and advanced. 
 
-Questions? Feedback? Sound off in the comments below, we'd love to hear from you!
+Questions? Feedback? Sound off in the comments below; we'd love to hear from you!
