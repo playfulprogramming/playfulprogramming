@@ -56,7 +56,7 @@ However, unions have some limitations. You'll find that this doesn't give the ex
 const newNumber = shouldBeNumber + 4;
 ```
 
-The reason that the operation `shouldBeNumber + 4` yields this error is because it doesn't know which type to give you given your input, since the output is also explicitly a union (meaning that it could be a string OR a number returned — one of them supporting numeric operations, one of them not).
+The reason that the operation `shouldBeNumber + 4` yields this error is because you've told TypeScript that `shouldBeNumber` is either a number **or** a string by making the output explicitly typed as a union. As a result, TypeScript is unable to do addition between a number and a string (which is one of the potential values) and therefore throws an error.
 
 ### Potential Solutions Disclaimer {#silly-examples-disclaimer}
 
@@ -263,7 +263,9 @@ type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertM
 
 # Okay, but why-_er_? {#polymorphic-functions}
 
-Well, "I want to see your credentials" person you, type generics enable us to do things like provide typings for **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
+My my, you don't seem to take my word for it when I tell you that type generics are useful. That's alright, I suppose; After all, doubt while learning can lead to some great questions! 😉
+
+Type generics enable us to do things like provide typings for **polymorphic functions**. _Polymorphic functions are functions that can accept a myriad of different types and handle them differently._
 
 > Polymorphic functions are not unique to TypeScript; the things learned here about polymorphic functions can be applied to other languages as well. They also provide some real-world insight into the usages of generics and when they could be used.
 
