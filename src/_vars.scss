@@ -11,3 +11,9 @@ $startSuperSmallScreenSize: 348px;
   $remSize: $pxNum / $rootFontSize;
   @return #{$remSize}rem;
 }
+
+@mixin until($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}

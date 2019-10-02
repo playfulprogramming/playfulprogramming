@@ -168,6 +168,24 @@ $pendIconMarg: #{$baseUnit}px;
 .post-lower-area {
   margin: 0 auto;
   max-width: #{$baseUnit * 115}px;
+
+  .postBottom {
+    display: flex;
+    justify-content: space-between;
+
+    @include until($startMediumScreenSize) {
+      flex-direction: column;
+
+      .btnLike {
+        order: 2;
+      }
+
+      .baseBtn {
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 // Please use this sparingly. There's massive A11y concerns

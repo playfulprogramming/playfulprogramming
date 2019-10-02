@@ -79,10 +79,7 @@ const BlogPostTemplateChild = (props) => {
             </a>
           </div>
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
+            className="postBottom"
           >
             <div className="btnLike prependIcon">
               <CommentsIcon/>
