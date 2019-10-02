@@ -78,6 +78,11 @@ body {
   background: var(--backgroundColor) !important;
 }
 
+hr {
+  border: 0;
+  border-top: 2px solid var(--black);
+}
+
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
 .visually-hidden {
   position: absolute !important;
