@@ -22,5 +22,13 @@
     "explainLink": "https://creativecommons.org/publicdomain/zero/1.0/",
     "name": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     "displayName": "Public Domain"
+  },
+  {
+    "id": "cc-by-nc-nd-4",
+    "footerImg": "https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png",
+    "licenceType": "Creative Commons License",
+    "explainLink": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "name": "Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
+    "displayName": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License"
   }
 ]
