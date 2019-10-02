@@ -30,7 +30,7 @@
   transition: scrollbar-color var(--animStyle) var(--animSpeed);
 }
 
-@media screen and (min-width: $startMediumScreenSize) {
+@include from($startMediumScreenSize) {
   :root {
     --listViewPadding: #{$baseUnit * 2.5}px;
   }

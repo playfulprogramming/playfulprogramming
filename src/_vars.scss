@@ -17,3 +17,9 @@ $startSuperSmallScreenSize: 348px;
     @content;
   }
 }
+
+@mixin from($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
