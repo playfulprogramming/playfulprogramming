@@ -68,7 +68,7 @@ the terminal normally would do, but the real power of shell scripting comes in w
 with the scripting features in order to add things like interactivity, loops, and conditions. Now, let's move on to some
 of those more advanced features.
 
-##Conditions and User Input {#basic-conditions-input}
+##Conditions With the `if` Command {#basic-if-usage}
 
 Conditional execution is one of the most important parts of any programming language. If you couldn't choose whether or
 not to execute something, things would be ...difficult, to say the least. Thankfully, shells includes `if` as a built-in
@@ -100,17 +100,60 @@ else
 fi
 ```
 
-Now our script prints out "Hello, world!" even if `cowsay` isn't installed. This is certainly better, but what if you're
-not much of a fan of `cowsay` (but still want fun text display)? It's always nice to offer options, so let's make that
-happen. We can use the built-in command `read` in order to prompt the user to type something in. This also gives us a
-chance to use variables, which are another critical part of any programming language. Conveniently, variables in shell
-scripting are very easy to use, so we'll also use them to put the "Hello, world!" text in its own variable so it doesn't
-have to be written out so many times.
+Now our script prints out "Hello, world!" even if `cowsay` isn't installed. This is certainly better, but what if you
+don't always want to use `cowsay` to print it out? Two more programs available for printing out text in fun ways are 
+`figlet` and `toilet`, so let's make it so that the script will randomly use either `cowsay`, `figlet`, or `toilet`. 
+This time we'll want to use a variable to store the random number we generate. Conveniently, variables in shell 
+scripting are very easy to use. Declaring them doesn't require any special syntax at all, just a value of some sort for
+the variable. However, when referring to the variable, it has to be prefixed with a dollar sign in order to indicate
+that it's not a command to be run.
+
+```shell
+rand=$((RANDOM%3))
+
+if [[ $rand == 0 ]] ; then
+  if command -v cowsay > /dev/null; then
+    echo "Hello, world!" | cowsay
+  else
+    echo "cowsay is not installed :("
+  fi
+elif [[ $rand == 1 ]] ; then
+  if command -v figlet > /dev/null; then
+    echo "Hello, world!" | figlet
+  else
+    echo "figlet is not installed :("
+  fi
+else
+  if command -v toilet > /dev/null; then
+    echo "Hello, world!" | toilet -t
+  else
+    echo "toilet is not installed :("
+  fi
+fi
+```
+
+This time the script uses `$RANDOM`, which is a "variable" that `bash` includes as a built-in. Although it looks like a
+variable, it's actually a function instead (more on that later). It generates a random integer from 0-32767, which isn't
+quite what we're looking for. Thankfully, we can use the modulo operator (`%`) to force the value down to either 0, 1, 
+or 2. You've probably noticed by now a few new things in the `if` statements. In this case, we use double brackets to 
+indicate that we're performing a test, which in this case is the equality of 2 strings of text. We're also now using the
+`elif` command (short for else-if) so that we can check for more than just a single condition. Finally, the `-t` option
+for `toilet` is just a way to make sure the text won't wrap too early if your terminal window is wide. Anyway, it's nice
+that our script has a number of possibilities now, but wouldn't it be nice if it was possible for us to choose the way
+to print the text ourselves?
+
+##Interactivity and input {#basic-user-input}
+
+We can use the built-in command `read` in order to prompt the user to type something in. This gives us another chance to
+use variables, this time to store both the user's input as well as the text "Hello, world!" so we don't have to keep 
+writing it out manually. Conveniently, the read command has a handy second argument we can use to store the response in
+a variable.
 
 ```shell
 echo "1: Print with cowsay"
 echo "2: Print with figlet"
-echo "3: Print with echo"
+echo "3: Print with toilet"
+echo "4: Print with echo"
 echo "Anything else: Exit"
 
 read -p "Enter a number: " input
@@ -120,31 +163,31 @@ if [[ $input == "1" ]] ; then
   if command -v cowsay > /dev/null; then
     echo $hello | cowsay
   else
-    echo "Cowsay is not installed :("
+    echo "cowsay is not installed :("
   fi
 elif [[ $input == "2" ]] ; then
   if command -v figlet > /dev/null; then
     echo $hello | figlet
   else
-    echo "Figlet is not installed :("
+    echo "figlet is not installed :("
   fi
 elif [[ $input == "3" ]] ; then
+  if command -v toilet > /dev/null; then
+    echo $hello | toilet -t
+  else
+    echo "toilet is not installed :("
+  fi
+elif [[ $input == "4" ]] ; then
   echo $hello
 else
   exit
 fi
 ```
 
-Yes, this is quite the expansion, but I'll explain it. We start with telling the user which options are available to
-them (always a good idea), and then ask them to enter something. We store this input in a variable called `input`, along
-with storing the text "Hello, world!" in the variable `hello` so we can easily use it later. After that, we check what
-the user actually entered in. You've probably noticed by now a few new things in the `if` statements. In this case, we
-use double brackets to indicate that we're performing a test, which in this case is the equality of 2 strings of text.
-Additionally, we have to use a dollar sign in order to refer to our variables. This is just to make sure that they're
-variables, and not commands to be run. After that we once again check to see whether `cowsay` or `figlet` is installed,
-depending on what the user chose, and tell them if they don't have it.  We don't need to check if `echo` is installed
-since it's a built-in `bash` command. You can also see that using `elif` (short for else-if) makes it possible to check
-for a variety of conditions. Lastly, we have an `exit` command in the `else` block to make sure the script exits if the
-user puts in anything beyond the 3 options. In this case it's actually not necessary since the script would already
-finish and exit automatically, although it's a good idea to include it in case you decide to add more functionality
-later.
+This time, we start with telling the user which options are available to them (always a good idea), and then ask them to
+enter something. We store this input in a variable called `input`. After that, we check what the user actually entered.
+After that we once again check to see whether `cowsay`, `figlet`, or `toilet` is installed, depending on what the user
+chose, and tell them if they don't have it.  We don't need to check if `echo` is installed since it's a built-in `bash`
+command. Lastly, we have an `exit` command in the `else` block to make sure the script exits if the user puts in 
+anything beyond the 3 options. In this case it's actually not necessary since the script would already finish and exit
+automatically, although it's a good idea to include it in case you decide to add more functionality later.
