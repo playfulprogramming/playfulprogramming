@@ -48,7 +48,7 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
          * This is to enable proper usage of passing a `onKeydown` from props
          * @see https://reactjs.org/docs/events.html#event-pooling
          */
-        event.persist && event.persist();
+        event && event.persist && event.persist();
         let _newIndex
         switch (event.key) {
           case "ArrowDown":
@@ -97,14 +97,12 @@ export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit
   ])
 
   const selectIndex = (i, e) => {
-    console.log(i);
-
     setFocusedIndex(
       normalizeNumber(i, 0, maxIndex)
     );
 
     if (runOnSubmit) {
-      if (e.persist) e.persist();
+      if (e && e.persist) e.persist();
       runOnSubmit(e, focusedIndex, i);
     }
   }
