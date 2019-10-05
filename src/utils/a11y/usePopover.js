@@ -36,21 +36,23 @@ export const usePopover = (parentRef, popoverAreaRef, onBtnClick, onBtnKeyDown) 
   const [expanded, setExpanded] = useState(false)
 
   const onClick = useCallback((e) => {
-    setExpanded(!expanded)
+    const newVal = !expanded;
+    setExpanded(newVal)
     if (onBtnClick) {
       e.persist && e.persist()
-      onBtnClick(e, expanded)
+      onBtnClick(e, newVal)
     }
   }, [expanded])
 
   const onKeyDown = useCallback((e) => {
+    const newVal = !expanded;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
-      setExpanded((val) => !val)
+      setExpanded(newVal)
     }
     if (onBtnKeyDown) {
       e.persist && e.persist()
-      onBtnKeyDown(e, expanded)
+      onBtnKeyDown(e, newVal)
     }
   }, [expanded, setExpanded])
 
@@ -80,6 +82,6 @@ export const usePopover = (parentRef, popoverAreaRef, onBtnClick, onBtnKeyDown) 
   return {
     buttonProps,
     expanded,
-    setExpanded,
+    setExpanded
   }
 }

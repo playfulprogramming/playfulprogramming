@@ -2,7 +2,7 @@ import {useKeyboardListNavigation} from '../useKeyboardListNavigation';
 import React, { useRef, useState } from "react"
 import { fireEvent, render } from "@testing-library/react"
 
-test("genId generates unique IDs", async () => {
+test("useKeyboardListNavigation handles everything", async () => {
   const onSubmit = jest.fn();
   const TestEl = () => {
     const parRef = useRef();
