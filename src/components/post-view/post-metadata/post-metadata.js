@@ -19,7 +19,7 @@ export const PostMetadata = ({ post }) => {
 
       return (
         <div
-          key={i}
+          key={author.id}
           onClick={getAuthorLinkHandler(i)}
           className={`pointer ${styles.profilePicLink} ${classesToApplyToContainer}`}
           style={{
@@ -44,6 +44,7 @@ export const PostMetadata = ({ post }) => {
         <h2 className={styles.authorName} data-testid="post-meta-author-name">
           {authors.map((author, i) =>
             <Link
+              key={author.id}
               to={`/unicorns/${author.id}`}
               ref={authorLinkRefs[i]}
               className={styles.authorLink}

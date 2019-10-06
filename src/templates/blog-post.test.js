@@ -47,7 +47,8 @@ test("Blog post page renders", async () => {
   expect(await findByText('10000 words')).toBeInTheDocument();
   const authorName = await findByTestId('post-meta-author-name');
   expect(authorName).toHaveTextContent('Joe');
-  fireEvent.click(authorName);
+  // Because the links act as spans, we're wanting to find by text in this instance
+  fireEvent.click(await findByText('Joe'));
   expect(onLinkClick).toHaveBeenCalledTimes(1);
   fireEvent.click(await findByTestId('post-meta-author-pic'));
   expect(onLinkClick).toHaveBeenCalledTimes(2);

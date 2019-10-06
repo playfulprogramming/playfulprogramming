@@ -34,6 +34,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
 
     return (
       <Link
+        key={author.id}
         id={author.id}
         to={`/unicorns/${author.id}`}
         ref={authorLinks[i]}
@@ -77,7 +78,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         >
           <span onClick={getAuthorLinkHandler(0)}>by&nbsp;{authors[0].name}</span>
           {authors.slice(1).map((author, i) =>
-            <span key={i} onClick={getAuthorLinkHandler(i + 1)}>, {author.name}</span>
+            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)}>, {author.name}</span>
           )}
         </p>
         <div className={cardStyles.dateTagSubheader}>
