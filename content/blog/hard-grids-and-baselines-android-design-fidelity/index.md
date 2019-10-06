@@ -163,7 +163,7 @@ Now resize your Figma text box to 26.6 —* it will round it to 27, but that’s
 
 **Step 4: Now right click the text box and select Frame Selection.**
 
-![The right-click dialog hovering over Frame Selectin, key binding Ctrl+Alt+G ](./images/Step_03.png "The right-click dialog hovering over Frame Selectin")
+![The right-click dialog hovering over Frame Selection, key binding Ctrl+Alt+G ](./images/Step_03.png "The right-click dialog hovering over Frame Selection")
 
 *When created from an object, a frame’s dimensions are dependent on the content inside it.*
 
@@ -181,17 +181,17 @@ The same thing was done to the last baseline and the bottom; we changed it from 
 
 **Step 6: Select the text box inside the frame, and set the text to Grow Vertically.**
 
-![A view of the image aligning tool with the tooltip enabled for "Grow Vertically"](./images/Step_06.png "You can recreate the margin virticle grow functionality by selecting this")
+![A view of the image aligning tool with the tooltip enabled for "Grow Vertically"](./images/Step_06.png "You can recreate the margin vertical grow functionality by selecting this")
 
 This will cause the text box to return to its original height of 32sp — inherited from the line height.
 
-![A showcase of the textbox being 1sp down from the frame](./images/Step_07.png)
+![A showcase of the text box being 1sp down from the frame](./images/Step_07.png)
 
 *The text box is 1sp down from the frame, but that’s normal. We no longer care about the text box height.*
 
 **Step 7: With the text box selected, set its constraints to *Left & Right* and *Top & Bottom*.**
 
-![A view of the contraints dialog in Figma on the headline](./images/Step_08.png)
+![A view of the constraints dialog in Figma on the headline](./images/Step_08.png)
 
 *Now your text box will resize with your frame. This is essential when using the text components.*
 
@@ -235,7 +235,7 @@ For example, _**textAppearanceCaption**_, _**textAppearanceBody1**_, etc.
 
 **TextStyle:** Applied to TextViews in layouts, to ensure 4dp alignment.
 
-![A display of code stylign when TextStyle is properly applied. See 'styles.xml' at the bottom of the post for an example](./images/text-style-applied-properly.png "A display of code stylign when TextStyle is properly applied")
+![A display of code styling when TextStyle is properly applied. See 'styles.xml' at the bottom of the post for an example](./images/text-style-applied-properly.png "A display of code styling when TextStyle is properly applied")
 
 *What happens to a TextView when a TextStyle is properly applied.*
 
