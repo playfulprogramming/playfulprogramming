@@ -35,7 +35,6 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
     return (
       <Link
         key={author.id}
-        id={author.id}
         to={`/unicorns/${author.id}`}
         ref={authorLinks[i]}
         onClick={stopPropCallback}
