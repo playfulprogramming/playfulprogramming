@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef } from "react"
 
 export const useOutsideClick = (enable, onOutsideClick, parentRef) => {
-  const elRef = useRef()
+  const localElRef = useRef()
+  const elRef = parentRef || localElRef;
   const handleClickOutside = useCallback(e => {
-    const currElRef = parentRef || elRef;
-    if (currElRef.current.contains(e.target)) {
+    if (elRef.current.contains(e.target)) {
       // inside click
       return
     }

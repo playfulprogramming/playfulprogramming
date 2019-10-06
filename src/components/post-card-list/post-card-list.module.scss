@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   &:empty::after {
     content: 'No results could be found, you might try making your search or filter less restrictive';
@@ -21,7 +24,7 @@
   margin: 6px 0;
 }
 
-@media screen and (min-width: $startMediumScreenSize) {
+@include from($startMediumScreenSize) {
   .postListItem {
     --marginSize: 8px;
     flex-basis: calc(50% - var(--marginSize));

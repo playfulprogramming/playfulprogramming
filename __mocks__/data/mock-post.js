@@ -10,7 +10,7 @@ export const MockPost = {
     published: '10-10-2010',
     tags: ['item1'],
     description: 'This is a short description dunno why this would be this short',
-    author: MockUnicorn,
+    authors: [MockUnicorn],
     license: MockLicense
   },
   fields: {

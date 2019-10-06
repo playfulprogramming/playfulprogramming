@@ -19,7 +19,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
   const authorLink = useRef()
 
   return (
-    <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
+    <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()} role="listitem">
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}
@@ -84,6 +84,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
               }}
             >
               <Image
+                data-testid="authorPic"
                 fixed={author.profileImg.childImageSharp.smallPic}
                 alt={author.name}
                 className={`${cardStyles.profilePic} ${classesToApply}`}
@@ -95,7 +96,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
           )
         })}
       </div>
-    </div>
+    </li>
   )
 }
 

@@ -8,14 +8,20 @@
 .buttonContainer {
   position: relative;
   max-width: 100%;
-
-
-  @media screen and (max-width: $endSmallScreenSize) {
-    width: 100%;
-  }
 }
 
 $btnPadding: 8px 16px 8px 15px;
+
+@include until($endSmallScreenSize) {
+  .buttonContainer {
+    width: 100%;
+  }
+
+  .buttonContainer > .filterButton { //not the best way to write this but gets around media query specificity annoyances
+    width: 100%;
+    justify-content: left;
+  }
+}
 
 .filterButton {
   cursor: pointer;

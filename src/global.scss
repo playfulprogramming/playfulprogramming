@@ -25,9 +25,12 @@
   --listViewPadding: #{1.5 * $baseUnit}px;
   font-size: $rootFontSize;
   line-height: 1.2;
+
+  scrollbar-color: var(--darkPrimary) var(--backgroundColor);
+  transition: scrollbar-color var(--animStyle) var(--animSpeed);
 }
 
-@media screen and (min-width: $startMediumScreenSize) {
+@include from($startMediumScreenSize) {
   :root {
     --listViewPadding: #{$baseUnit * 2.5}px;
   }
@@ -152,7 +155,7 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-body {
-  margin-bottom: #{$baseUnit * 4}px;
+  margin: 0 auto #{$baseUnit * 4}px;
   max-width: #{$baseUnit * 88}px;
 
   img {
@@ -163,7 +166,26 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-lower-area {
+  margin: 0 auto;
   max-width: #{$baseUnit * 115}px;
+
+  .postBottom {
+    display: flex;
+    justify-content: space-between;
+
+    @include until($startMediumScreenSize) {
+      flex-direction: column;
+
+      .btnLike {
+        order: 2;
+      }
+
+      .baseBtn {
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 // Please use this sparingly. There's massive A11y concerns
@@ -208,5 +230,11 @@ svg:not(.strokeicon) {
   &, * {
     transition: fill var(--animStyle) var(--animSpeed);
     fill: var(--darkPrimary);
+  }
+}
+
+.marginZeroAutoChild {
+  & > * {
+    margin: 0 auto;
   }
 }

@@ -4,13 +4,13 @@ import { PostCard } from "./post-card"
 import { MockPost } from "../../../__mocks__/data/mock-post"
 import {onLinkClick} from 'gatsby';
 
-const {frontmatter: {tags, author, title, published, description}, excerpt, fields: {slug}} = MockPost;
+const {frontmatter: {tags, authors, title, published, description}, excerpt, fields: {slug}} = MockPost;
 
 describe("Post card", () => {
   test("Renders with the expected text and handles clicks properly", async () => {
     const { baseElement, findByText, findByTestId } = render(<PostCard
       title={title}
-      author={author}
+      authors={authors}
       published={published}
       tags={tags}
       excerpt={excerpt}
@@ -34,7 +34,7 @@ describe("Post card", () => {
     const { findByText} = render(
       <PostCard
         title={title}
-        author={author}
+        authors={authors}
         published={published}
         tags={tags}
         excerpt={excerpt}
