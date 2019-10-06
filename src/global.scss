@@ -67,6 +67,10 @@ body {
   transition: color var(--animStyle) var(--animSpeed), background-color var(--animStyle) var(--animSpeed);
 }
 
+.medium-zoom-overlay {
+  background: var(--backgroundColor) !important;
+}
+
 h1, h2, h3 {
   font-family: var(--oswald);
 }
