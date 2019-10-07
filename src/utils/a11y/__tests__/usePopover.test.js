@@ -1,7 +1,6 @@
 import {usePopover} from '../usePopover';
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import { fireEvent, render } from "@testing-library/react"
-import { wait } from "@testing-library/dom"
 
 test("usePopover handles everything", async () => {
   const onBtnClick = jest.fn();

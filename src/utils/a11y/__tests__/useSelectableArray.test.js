@@ -13,6 +13,8 @@ test("useSelectableArray handles everything", async () => {
       internalArr
     } = useSelectableArray(valArr, runAfterSelectChange);
 
+    // Because this logic does not rely on the DOM, we'll end up utilizing
+    // the ref forward helper to allow us to utilize testing helpers for arrays
     useImperativeHandle(ref, () => ({
       internalArr,
       selectAll,

@@ -12,13 +12,12 @@ import { useCallback, useEffect, useState } from "react"
  * @returns {{resetLastUsedKeyboard: Function, usedKeyboardLast: boolean}}
  */
 export const useUsedKeyboardLast = (ref, enable) => {
-  const currRef = ref && ref.current
-
   const [usedKeyboardLast, setUsedKeyboardLast] = useState(false);
 
   const resetLastUsedKeyboard = useCallback(() => setUsedKeyboardLast(false), []);
 
   useEffect(() => {
+    const currRef = ref && ref.current
     const setUsedKeyboardLastToTrue = () => setUsedKeyboardLast(true);
 
     if (enable && currRef) {
@@ -28,7 +27,7 @@ export const useUsedKeyboardLast = (ref, enable) => {
         currRef.removeEventListener("keydown", setUsedKeyboardLastToTrue);
       }
     }
-  }, [enable, currRef])
+  }, [enable, ref && ref.current])
 
   return {
     usedKeyboardLast,
