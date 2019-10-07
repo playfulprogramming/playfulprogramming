@@ -1,5 +1,5 @@
-import React, { createRef, forwardRef, useImperativeHandle, useMemo, useRef, useState } from "react"
-import { fireEvent, render } from "@testing-library/react"
+import React, { createRef, forwardRef, useImperativeHandle, useMemo } from "react"
+import { render } from "@testing-library/react"
 import { useSelectableArray } from "../useSelectableArray"
 
 test("useSelectableArray handles everything", async () => {

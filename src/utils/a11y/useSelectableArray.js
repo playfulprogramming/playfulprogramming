@@ -9,7 +9,7 @@
  * ✅ Have a select all method
  */
 
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { genId } from "./getNewId"
 import { normalizeNumber } from "../normalize-number"
 
@@ -48,6 +48,8 @@ const getNewArr = (valArr) => {
  * @returns {{markAsSelected: *, selectedArr: *, selectAll: *, internalArr: *}}
  */
 export const useSelectableArray = (valArr, runAfterSelectChange) => {
+  const numRef = useRef()
+  const [_trackingNum, setTrackNum] = useState(0)
   /**
    * Using a `useRef` here for performance. Otherwise, to keep immutability
    * there's all kinds of hacks that must be implemented
@@ -84,19 +86,21 @@ export const useSelectableArray = (valArr, runAfterSelectChange) => {
     runAfterSelectChange && runAfterSelectChange()
   }, [currInternalArr, runAfterSelectChange])
 
-  const selectAll = () => {
-    internalArrRef.current.forEach((val, i, arr) => {
-      val.selected = true
+  const selectAll = useCallback(() => {
+    internalArrRef.current.forEach((_, i, arr) => {
+      internalArrRef.current[i].selected = true
 
       if (i === arr.length - 1) {
         runAfterSelectChange && runAfterSelectChange()
+        setTrackNum(val => val + 1);
       }
     })
-  }
+  }, [internalArrRef && internalArrRef.current]);
 
   return {
     selectAll,
     markAsSelected,
-    internalArr: internalArrRef.current
+    internalArr: internalArrRef.current,
+    _trackingNum
   }
 }
