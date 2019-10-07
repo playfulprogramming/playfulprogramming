@@ -10,15 +10,15 @@
 }
 ---
 
-### Testing the limits of firstBaselineToTopHeight and lastBaselineToBottomHeight to deliver a perfect result.
+## Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.
 
 _**I really care about implementation.**_ I obsess over it. I’m constantly thinking about it.
 
 Whenever I’m designing an app, I always try to focus on how a UI can be created optimally and how well the composition inside a design tool can translate to platform components and paradigms.
 
-You’ve probably been through the same thing at one point: you make mockups, detailed descriptions, spreadsheets and in the end, the result is not what you wanted it to be. And in that case, you’d ask yourself whether those details matter to someone other than yourself. And your answer would be “No.”
+You’ve probably been through the same thing at one point: you make mockups, detailed descriptions, and spreadsheets; and in the end, the result is not what you wanted it to be. In that case, you’d ask yourself whether those details matter to someone other than yourself. And your answer would be “No.”
 
-But that doesn’t help it. Deep down, you still care. It’s still wrong. It almost makes it worse; you’re the only know that knows it’s wrong, but you can’t push yourself to bug your developers about it, and waste time that could be spent on “better things” or “more features.” That’s certainly the case for me.
+But that doesn’t help it. Deep down, you still care. It’s still wrong. It almost makes it worse; you’re the only one that knows it’s wrong, but you can’t push yourself to bug your developers about it and waste time that could be spent on “better things” or “more features.” That’s certainly the case for me.
 
 So today I’m going to talk about Android’s TextViews; how they behave in comparison to design tools, and how to take full control of them, **as a designer.**
 
@@ -39,11 +39,11 @@ _[Plaid’s BaselineGridTextView library](https://github.com/android/plaid/blob/
 
 ## Introduction
 
-Android has two main TextViews; one of them is **AppCompatTextView**, which has been available for quite a while, and **MaterialTextView** (which extends AppCompatTextView). They are identical, with the latter allowing a line height attribute to be set in a textAppearance (if you don’t know what that means, no worries). _**Go with MaterialTextView**._
+Android has two main `TextView`s; one of them is `AppCompatTextView`, which has been available for quite a while, and `MaterialTextView` (which extends `AppCompatTextView`). They are identical, with the latter allowing a line-height attribute to be set in a `textAppearance` (if you don’t know what that means, no worries). _**Go with `MaterialTextView`**._
 
-With Android 9.0 Pie, Google introduced 3 new attributes for TextViews: *firstBaselineToTopHeight*, *lastBaselineToBottomHeight* and *lineHeight*. These control everything you’d need to build a UI with.
+With Android 9.0 Pie, Google introduced 3 new attributes for `TextView`s: `firstBaselineToTopHeight`, `lastBaselineToBottomHeight` and `lineHeight`. These control everything you’d need to build a UI with.
 
-However, if you seek fidelity, you’ll find that _**lineHeight**_ on Android differs from other platforms and most design tools.
+However, if you seek fidelity, you’ll find that `lineHeight` on Android differs from other platforms and most design tools.
 
 ## How is it any different?
 
@@ -81,17 +81,17 @@ Designers, like myself, like to see perfect alignment. We like consistent values
 
 ![A showcase of the differences in line spacing between a mockup and an implementation in Android](./images/Designers_Want_Designers_Get.png)
 
-Unfortunately, translating values from a design tool wasn’t possible. You had the option to either pixel nudge (pictured above, right), or forget about alignment altogether thus leading to an incorrect implementation that would, yet again, be shorter than the mockups.
+Unfortunately, translating values from a design tool wasn’t possible. You had the option to either pixel nudge (pictured above, right), or forget about alignment altogether, thus leading to an incorrect implementation that would, yet again, be shorter than the mockups.
 
 ### …Until now!
 
-*firstBaselineToTopHeight* and *lastBaselineToBottomHeight* are powerful tools for Android design. They do as the name suggests: If *firstBaselineToTopHeight *is set to 56sp, then that’ll become the distance between the first baseline and the top of a TextView.
+*firstBaselineToTopHeight* and *lastBaselineToBottomHeight* are powerful tools for Android design. They do as the name suggests: If *firstBaselineToTopHeight* is set to 56sp, then that’ll become the distance between the first baseline and the top of a TextView.
 
 ![A subtitle block showing 56sp height despite the text visually being much shorter](./images/56sp.png)
 
 This means that designers, alongside developers, can force the bounds of a TextView to match the design specs and open the door to perfect implementations of their mockups.
 
-This is something I’ve personally tested in an app I designed. [**Memoire**, a note taking app](http://tiny.cc/getmemoire) for Android, is a 1:1 recreation of its mockups — for every single screen. This was made possible due to these APIs — *and because [**@sasikanth**](https://twitter.com/its\_sasikanth) is not confrontational* — , since text is what almost always makes baseline alignment and hard grids impossible to implement in production.
+This is something I’ve personally tested in an app I designed. [**Memoire**, a note-taking app](http://tiny.cc/getmemoire) for Android, is a 1:1 recreation of its mockups — for every single screen. This was made possible due to these APIs — *and because [**@sasikanth**](https://twitter.com/its\_sasikanth) is not confrontational* — since text is what almost always makes baseline alignment and hard grids impossible to implement in production.
 
 ![Near-perfect duplication of guidelines against Memoire's mockups and actual app](./images/Memoire_Bounds_and_Baselines.gif)
 
@@ -117,7 +117,7 @@ As you might imagine, **if we want to keep our text aligned to a baseline grid, 
 
 ![A comparison of how text spacing is applied on iOS and Android](./images/iOS_vs_Android.gif)
 
-The solution is to apply them in your **styles.xml **so that, when themed, the TextView is given the right text size, height, font and baseline properties.
+The solution is to apply them in your `styles.xml` so that, when themed, the TextView is given the right text size, height, font, and baseline properties.
 
 **It is important to note that these values should not be overridden within layouts.**
 
@@ -147,7 +147,7 @@ Here we can see that the text box has a height of 32. This is inherited from the
 
 *TextView on Android.*
 
-Now resize your Figma text box to 26.6 —* it will round it to 27, but that’s fine.*
+Now resize your Figma text box to 26.6 — *it will round it to 27, but that’s fine.*
 
 **Step 2: With the resized text box, align its baseline with the nearest 4dp breakpoint in your grid.**
 
@@ -205,7 +205,7 @@ All of them follow the same template.
 
 We first set up a TextAppearance — which your app probably already has —  and then create another style that encapsulates the TextAppearance alongside the firstBaseline and lastBaseline attributes.
 
-```
+```xml
 <!-- **TEXT_STYLE** -->
     <style name="TextAppearance.**APP_NAME**.**TEXT_STYLE**" parent="TextAppearance.MaterialComponents.**TEXT_STYLE**">
         <item name="lineHeight">**LINE_HEIGHT**</item>
@@ -230,7 +230,7 @@ Let’s use Memoire once again as an example.
 
 **TextAppearance:** Applied in styles to theme Material Components globally.
 
-Material Components are themed with textAppearanceTEXT_STYLE attributes that are then applied to all components that inherit it.
+Material Components are themed with `textAppearanceTEXT\_STYLE` attributes that are then applied to all components that inherit it.
 For example, _**textAppearanceCaption**_, _**textAppearanceBody1**_, etc.
 
 **TextStyle:** Applied to TextViews in layouts, to ensure 4dp alignment.
