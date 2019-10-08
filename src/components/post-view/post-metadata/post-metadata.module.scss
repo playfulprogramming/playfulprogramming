@@ -12,7 +12,7 @@
 }
 
 .authorPic {
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     $mobilePicSize: 64px;
     height: $mobilePicSize;
     width: $mobilePicSize;
@@ -28,7 +28,7 @@
   font-size: 36px;
   position: relative;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     font-size: 24px;
   }
 }
@@ -49,7 +49,7 @@
   color: var(--highImpactBlack);
   margin: 0;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     font-size: 32px;
   }
 }
