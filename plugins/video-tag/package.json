@@ -1,6 +1,0 @@
-{
-  "name": "video-tag",
-  "dependencies": {
-    "unist-util-visit": "^1.4.0"
-  }
-}

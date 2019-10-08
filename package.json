@@ -32,6 +32,7 @@
     "gatsby-remark-images-medium-zoom": "^1.2.1",
     "gatsby-remark-prismjs": "^3.3.16",
     "gatsby-remark-responsive-iframe": "^2.2.20",
+    "gatsby-remark-video": "^1.2.4",
     "gatsby-source-filesystem": "^2.1.28",
     "gatsby-transformer-json": "^2.2.11",
     "gatsby-transformer-remark": "^2.6.26",
@@ -64,11 +65,7 @@
     "jest-axe": "^3.2.0",
     "jest-dom": "^4.0.0",
     "jest-watch-typeahead": "^0.4.0",
-    "prettier": "^1.18.2",
-    "unist-util-visit": "^1.4.0"
-  },
-  "comments": {
-    "unist-util-visit": "this dep is part of a 'plugin' in the plugins folder. We want to remove it once that PR is merged"
+    "prettier": "^1.18.2"
   },
   "homepage": "https://unicorn-utterances.com",
   "keywords": [

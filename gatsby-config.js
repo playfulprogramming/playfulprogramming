@@ -74,7 +74,7 @@ module.exports = {
             },
           },
           {
-            resolve: 'video-tag',
+            resolve: 'gatsby-remark-video',
             options: {
               width: '100%',
               height: 'auto',
