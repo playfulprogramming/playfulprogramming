@@ -1,3 +1,7 @@
+/**
+ * Delete this when this PR is merged:
+ * https://github.com/JaeYeopHan/gatsby-remark-images-medium-zoom/pull/7
+ */
 // @see https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-remark-images/src/constants.js#L1
 const imageClass = '.gatsby-resp-image-image'
 

@@ -73,6 +73,18 @@ module.exports = {
               linkImagesToOriginal: false
             },
           },
+          {
+            resolve: 'video-tag',
+            options: {
+              width: '100%',
+              height: 'auto',
+              preload: 'auto',
+              muted: true,
+              autoplay: true,
+              controls: true,
+              loop: true
+            }
+          },
           `gatsby-remark-images-medium-zoom`,
           `tab-index-image`,
           {
