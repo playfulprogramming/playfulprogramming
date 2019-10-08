@@ -247,6 +247,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 blockquote.bigBlock {
-  font-size: 1.5rem;
-  font-family: var(--oswald);
+  &, & * {
+    font-size: 1.5rem;
+    font-family: var(--oswald);
+  }
 }
