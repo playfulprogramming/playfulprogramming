@@ -1,6 +1,6 @@
 ---
 {
-    title: "Uttering Hello - The Site's First Post",
+    title: "Uttering Hello — The Site's First Post",
     description: 'An introduction to Unicorn Utterances, including a mission statement and general roadmap',
     published: '2019-06-29T22:12:03.284Z',
     author: 'crutchcorn',
