@@ -10,17 +10,60 @@
 }
 ---
 
+It's a Wednesday night, you've been scrolling through Twitter and you've come across the 30th tweet of the night talking about TypeScript. We've all been there. Sometimes it can be intimidating to take on a new task,  learn that new skill. 
+
+
+
+
+
+
+
 # What is TypeScript?
 
-TypeScript is a superset of JavaScript (meaning that all valid JavaScript is valid TypeScript) that allows a developer to add a compile step to their JavaScript code in order to have stronger typings. This means that you'll need to run the TypeScript compiler (or a build process that calls the compiler) in order to run the generated JavaScript in a supported environment. Because TypeScript code turns into JavaScript after the compilation, does not alter the behavior of JavaScript outside of providing this additional typing information. This means that everything you see in this guidebook assumes a certain amount of knowledge of JavaScript and that nothing you see in TypeScript code alters runtime JavaScript behavior as expected.
+**TypeScript is a superset of JavaScript**, meaning that _all valid JavaScript is valid TypeScript but not all TypeScript is valid JavaScript_. Think of it as JavaScript + some goodies. These goodies _allow developers to add type information to their code that is enforced during a TypeScript to JavaScript compilation step_.
+
+These goodies are enabled by the TypeScript compiler, which takes your TypeScript source code and output JavaScript source code, capable of running in any JavaScript environment. 
+
+### Doesn't JavaScript Have Types Already? {#javascript-types}
+
+While JavaScript _does_ have a loose understanding of types, they're not strictly enforced.
+
+Take the following example:
+
+```javascript
+let numberHere = 0;
+numberHere = 'Test';
+
+const newNumber = 10 - numberHere;
+```
+
+In this example, we're expecting `10 - 0` but have accidentally thrown in a new line during a copy+paste session (this always happens to me) that changed the type from a number to a string. As a result of this errant line, instead of `newNumber` being a number, it's now `NaN`. 
+
+While TypeScript does not resrict the ability to have `NaN`s and errant copy-pastes (oh how I wish it did), it can make it more obvious that mistakes like this have been made by marking `numberHere` as a number type explicitly.
+
+```typescript
+let numberHere: number = 0;
+// 🛑 Error will be thrown during compilation:
+// Type '"Test"' is not assignable to type 'number'.
+numberHere = 'Test';
+
+const newNumber = 10 - numberHere;
+```
+
+This point is made even more complex when dealing with how both are constructed and handed mentally or dealing with classes. While [ES6 classes are syntactical sugar on top of JavaScript's prototype system](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) and there [are only seven base-types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) (called _primitive types_) in JavaScript that every other value is composed of, TypeScript has a much more robust type system.
+
+> Author's Note:
+> While the above mention of _primitive types_ and _syntatical sugar_ are meant as a path for you to learn more, don't feel discouraged from learning more about TypeScript if you're unfamiliar with such concepts.
+>
+> We're going to try to go at a high-level and while we may hint at deeper concepts or knowledge, know that we all learn at our own pace and it's more than okay to take your time feeling comfortable before diving into those topics
 
 # Why TypeScript?
 
-Why use TypeScript if it doesn't change the runtime behavior of your code? There can be a few reasons you may want to integrate TypeScript in your project such as the following.
+You may be asking yourself: "Why use TypeScript if it doesn't change the runtime behavior of your code?" There can be a few reasons you may want to integrate TypeScript in your project such as the following.
 
 ## Type Safety
 
-While JavaScript has the concept of types (in the form of the 6 [primitive types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Data_types)), it does a little to prevent you from making mistakes. Let's take the following code for example:
+As mentioned before, [JavaScript may have rudimentary types, but TypeScript's are far more robust](#javascript-types). This robustness is able to lend developers to force their code inputs and outputs to strictly enforce the limitations the developer places on them. Let's look at  take the following code for example:
 
 ```js
 function addFive(input) {
@@ -29,9 +72,10 @@ function addFive(input) {
 addFive('5');
 ```
 
-Reading through this code quickly, you might be able to spot the problem. Because we passed in a string, rather than a number, we get the result of `'55'` rather than the (likely) expected result of `10`. This is the kind of unintentional code safety concern that TypeScript fixes. Using TypeScript, we are able to check the properties passed into `addFive` during compile time in order to warn a developer about these mistakes.
+Reading through this code quickly, you might be able to spot the problem. Because we passed in a string, rather than a number, we get the result of `'55'` rather than the (likely) expected result of `10`. _This is the kind of unintentional code safety concern that TypeScript fixes_. Using TypeScript, we are able to check the properties passed into `addFive` during compile time in order to warn a developer about these mistakes.
 
 ```ts
+// test.ts
 function addFive(input: number) {
     return input + 5;
 }
@@ -46,37 +90,54 @@ test.ts:5:9 - error TS2345: Argument of type '"5"' is not assignable to paramete
 5 addFive('5');
 ```
 
-In a smaller codebase, such as the given example, it can be easy to miss how important type checking is. Detecting the error in this small length of code is often trivial; however, it can be much more difficult to do so in larger codebases or when utilizing code that might not be from your project, such as a library or framework. In these use cases, it can be much easier to identify an edge case where changing a function's parameters would break another part of the codebase. Likewise, being able to quickly identify implementation errors when using a library is a significant factor in identifying problems effectively.
+In a smaller codebase, such as the given example, it can be easy to miss how important type checking is. Detecting the error in this small length of code is often trivial; however, it can be much more difficult to do so in larger, more complex codebases or when utilizing code that might not be from your project, such as a library or framework. In these use cases, it can be much easier to identify an edge case where changing a function's parameters would break another part of the codebase. Likewise, being able to quickly identify implementation errors when using a library is a significant factor in identifying problems effectively.
 
-### Logic != Typings
+## Developer Quality of Life
+
+While it can be easy to forget in the abstract world of development, developers make the code that we interact with on a daily basis. These developers (yourself included) tend to like enjoying certain experiences while working on their code. TypeScript provides a myriad of such quality-of-life improvements.
+
+### Improved Tooling Support
+
+Historically, having the ability to make assumptions about code in order to provide developer niceties (such as autocomplete code suggestions) in loosely typed languages such as JavaScript has been incredibly hard to do. As time has gone on, support for these types of actions have gotten better; but due to the nature of JavaScript's type system, there will likely always be limitations on how effectively this can be done. TypeScript's syntax, however, _can provide much of the type data about your source code needed for tools to be able to provide those niceties_ that are otherwise tricky for these tools to build. _The TypeScript team even provides a tool to communicate directly to these IDEs_ so that the work on implementing this syntax data consumption is much more trivial than they otherwise would be. _This is why [many changelogs for TypeScript releases](https://www.typescriptlang.org/docs/handbook/release-notes/overview.html) mention changes to editors such as [Visual Studio Code](https://code.visualstudio.com)_.
+
+#### 3rd Party Library Support
+
+Because of JavaScript's awesome engineering diversity, many widely used projects do not use TypeScript. However, there are ways we can still utilize TypeScript's tooling capabilities without porting the code. If you have a good understanding of the given project's codebase and TypeScript, you can write a definition file which sits separated from the rest of the codebase. These definition files allow you many of the same tooling abilities native TypeScript code allows. Additionally, because TypeScript has a well established and widely used install-base, there are already many different definition files in the wild for supporting non-TypeScript supporting projects. One of the more extensive collections of these typings lives at the [DefinitelyTyped repository](https://github.com/DefinitelyTyped/DefinitelyTyped), which publishes the typings of their typings under the package names `@types/your-package-name` (where `your-package-name` is the name of the project you're looking for typings of) that you can look for on your package manager.
+
+### Documented types
+
+When working on projects with objects that contain many properties that are used variously across files and functions, it can be difficult to track down what properties and methods are available to you without having to refer to the documentation of that scope in your application. With types being referred within a scope, you're able to reference that type (often with a "jump to declaration" shortcut feature that is present in many IDEs) to quickly and safely use that typed value.
+
+## Type Information
+
+Although it's a much more complex and highly experimental feature of TypeScript, you are also able to use the typing data from your program in order to do other operations without explicitly duplicating the type data. This could be used in a situation where you might want to generate a JSON schema based on a class declaration in a TypeScript file or when using ORMs and mapping TypeScript types to the databases' native type. This potentially allows you to preserve both the database typing and the TypeScript compile type within the same file so you don't have to do duplicate checks against either. This is being built with and on top of features that are being proposed for a future version of JavaScript (commonly referred to as ESNext).
+
+# What isn't TypeScript
+
+Now that we've covered a bit of what TypeScript _is_, it might be a good idea to quickly synopsis what it _isn't_.
+
+## It's Not the Tower You Think It Is
+
+One of the things TypeScript is not is a transpiler. What this means is that TypeScript (alone) _will not take TypeScript source code that contains syntax from newer JavaScript versions (ES6+) and output older versions of JavaScript (ES5) in order to imrpove browser compatability (IE11)_.
+
+For anyone who's used TypeScript this may confuse you, as there are various flags and config options for the output version of JavaScript it compiles to. What's really happening under-the-hood is that TypeScript hands off your source code to Babel after it compiles down to JavaScript. [With Babel 7 this is even harder to notice](https://devblogs.microsoft.com/typescript/typescript-and-babel-7/) but be aware that any transpilation you expect to occur when using TypeScript may force you to use and understand Babel tools.
+
+However, this does mean that you can utilize the entire arsonal of Babel tooling to your disposal, [such as Babel plugins](https://babeljs.io/docs/en/plugins/).
+
+## Logic != Typings
 
 TypeScript will not find all your errors. TypeScript is only as useful as your typings are. If you keep `addFive`'s `input` parameter as a blank type type, it will try to do it's best to detect the type based on the operations you run on the value. Oftentimes, however, it has difficulty doing so which is why manually assigning types is best. If it couldn't properly detect a type for the value in this example, it does nothing to prevent strings from being passed as the parameter value.
 
 Although examples like this are simple, strict typings can also become fairly complex (see the #Advanced section) in order to maintain maximum type strictness.
 Also, because typings do nothing to test against the logic of your program, they should not be seen as a replacement for testing, but rather a companion to them. With strict typings and proper testing, regressions can be severely limited and improve code quality of life.
 
-## Developer Quality of Life
-
-### Improved Tooling Support
-
-Historically, having the ability to make assumptions about code in order to provide developer niceties (such as autocomplete code suggestions) in loosely typed languages such as JavaScript has been incredibly hard to do. As time has gone on, support for these types of actions have gotten better, but due to the nature of JavaScript's type system, there will likely always be limitations on how effectively this can be done. TypeScript, however, can provide much of the data needed for tools to be able to utilize data about the code in order to provide those niceties that are otherwise tricky to get working otherwise. TypeScript even provides a layer to communicate directly to these tools so that the work on their part to integrate these niceties are much more trivial than they otherwise would be. This is why many changelogs for TypeScript releases mentions changes to editors such as [Visual Studio Code](https://code.visualstudio.com).
-
-#### 3rd Party Library Support
-
-Because of JavaScript's awesome engineering diversity, many widely used projects do not use TypeScript. However, there are ways we can still utilize TypeScript's tooling capabilities without porting the code. If you have a good understanding of the given project's codebase and TypeScript, you can write a definition file which sits separated from the rest of the codebase. These definition files allow you many of the same tooling abilities native TypeScript code allows. Additionally, because TypeScript has a well established and widely used install-base, there are already many different definition files in the wild for supporting non-TypeScript supporting projects. One of the more extensive collections of these typings lives at the [DefinitelyTyped repository](https://github.com/DefinitelyTyped/DefinitelyTyped), which publishes the typings of their typings under the package names `@types/your-package-name` (where `your-package-name` is the name of the project you're looking for typings of) that you can look for on your package manager.
-
 ##### Typing Mishaps Happen
 
 Remember, because typings are kept separately from the project's logic code, typings can be misleading, incomplete, or otherwise incorrect. While this can also happen with TypeScript logic code, it tends to be more actively mitigated as a project's ability to compile (and therefore redistribute) relies on that typing information. This isn't to say that you should immediately mistrust typings, but simply a reminder that they too may have their flaws - just as any other codebase.
 
-### Documented types
-
-When working on projects with objects that contain many properties that are used variously across files and functions, it can be difficult to track down what properties and methods are available to you without having to refer to the documentation of that scope in your application. With types being referred within a scope, you're able to reference that type (often with a "jump to declaration" shortcut feature that is present in many IDEs) to quickly and safely use that typed value.
-
-#### Don't Forget To Document
+## Don't Forget To Document
 
 Just as typings shouldn't replace tests, typings should also not replace documentation or comments. Typings can help understand what inputs and outputs you're expecting, but just the same as with testing: it doesn't explain what the logic does or provide context as to why the data types have specific properties, what the properties are used for, and so forth. Additionally, typings often do little to help explain how to contribute in the larger scale or the design principles that may be applied in the design of the application.
 
-## Type Information
 
-Although it's a much more complex and highly experimental feature of TypeScript, you are also able to use the typing data from your program in order to do other operations without explicitly duplicating the type data. This could be used in a situation where you might want to generate a JSON schema based on a class declaration in a TypeScript file or when using ORMs and mapping TypeScript types to the databases' native type. This potentially allows you to preserve both the database typing and the TypeScript compile type within the same file so you don't have to do duplicate checks against either. This is being built with and on top of features that are being proposed for a future version of JavaScript (commonly referred to as ESNext).
+
