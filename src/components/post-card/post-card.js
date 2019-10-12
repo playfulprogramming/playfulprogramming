@@ -73,12 +73,13 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
             {title}
           </h2>
         </Link>
-        <p className={cardStyles.authorName}
-        >
-          <span onClick={getAuthorLinkHandler(0)}>by&nbsp;{authors[0].name}</span>
-          {authors.slice(1).map((author, i) =>
-            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)}>, {author.name}</span>
-          )}
+        <p className={cardStyles.authorName}>
+          <span>by&nbsp;</span> {/*the multiple spans can probably be cleaned up a bit*/}
+          <span onClick={getAuthorLinkHandler(0)} className={cardStyles.authorLink}>{authors[0].name}</span>
+          {authors.slice(1).map((author, i) => [
+            <span>, </span>,
+            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)} className={cardStyles.authorLink}>{author.name}</span>
+          ])}
         </p>
         <div className={cardStyles.dateTagSubheader}>
           <p className={cardStyles.date}>{published}</p>

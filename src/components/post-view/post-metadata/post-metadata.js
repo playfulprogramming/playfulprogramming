@@ -42,16 +42,16 @@ export const PostMetadata = ({ post }) => {
       <div className={styles.authorPicContainer}>{authorImgs}</div>
       <div className={styles.textDiv}>
         <h2 className={styles.authorName} data-testid="post-meta-author-name">
-          {authors.map((author, i) =>
+          {authors.map((author, i) => [
+            <span>{i !== 0 && ', '}</span>,
             <Link
               key={author.id}
               to={`/unicorns/${author.id}`}
               ref={authorLinkRefs[i]}
               className={styles.authorLink}
             >
-              {i !== 0 && ', '}
               {author.name}
-            </Link>
+            </Link>]
           )}
         </h2>
         <div className={styles.belowName}>
