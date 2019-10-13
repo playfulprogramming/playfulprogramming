@@ -1,7 +1,7 @@
 ---
 {
 	title: "Introduction to TypeScript — What is TypeScript?",
-	description: "An introduction and explaination of what TypeScript is, is not, and what it's used for",
+	description: "An introduction and explanation of what TypeScript is, is not, and what it's used for",
 	published: '2019-09-26T05:12:03.284Z',
 	author: 'crutchcorn',
 	tags: ['typescript'],
@@ -10,7 +10,7 @@
 }
 ---
 
-TypeScript's popularity cannot be understated. Either you likely know someone who works with it, you've heard of it, or possible you've been using it. As the language continues to grow and evolve, it can be helpful to jump into the langauge and play with it. Othertimes, however, having a reference for what the language is, what the language is not, and how it can be helpful can be of great resource. We're hoping that this page can be a good starting point for that resource.
+TypeScript's popularity cannot be understated. Either you likely know someone who works with it, you've heard of it, or possible you've been using it. As the language continues to grow and evolve, it can be helpful to jump into the language and play with it. Other times, however, having a reference for what the language is, what the language is not, and how it can be helpful can be of great resource. We're hoping that this page can be a good starting point for that resource.
 
 # What is TypeScript? {#what}
 
@@ -31,7 +31,7 @@ numberHere = 'Test';
 const newNumber = 10 - numberHere;
 ```
 
-In this example, we're expecting `10 - 0` but have accidentally thrown in a new line during a copy+paste session (this always happens to me) that changed the type from a number to a string. As a result of this errant line, instead of `newNumber` being a number, it's now `NaN`. 
+In this example, we're expecting `10 - 0` but have accidentally thrown in a new line during a copy + paste session (this always happens to me) that changed the type from a number to a string. As a result of this errant line, instead of `newNumber` being a number, it's now `NaN`. 
 
 While TypeScript does not resrict the ability to have `NaN`s and errant copy-pastes (oh how I wish it did), it can make it more obvious that mistakes like this have been made by marking `numberHere` as a number type explicitly.
 
@@ -127,7 +127,7 @@ When working on projects with objects that contain many properties that are used
 
 ## Type Information {#reflect-metadata}
 
-But developer quality of lifes and type safety aren't the only positive for utilizing TypeScript in your projects!
+However, developer quality of life changes and type safety aren't the only positive for utilizing TypeScript in your projects!
 
 Although it's a much more complex and highly experimental feature of TypeScript, _you are also able to use the typing data from your program in order to do other operations without explicitly duplicating the type data._
 
@@ -162,7 +162,7 @@ export class User {
 }
 ```
 
-And this feature doesn't have an API dissimiliar to standards-based APIs; [It's being built with and on top of features that are being proposed for a future version of JavaScript (commonly referred to as ESNext).](https://www.typescriptlang.org/docs/handbook/decorators.html#metadata)
+And this feature doesn't have an API dissimilar to standards-based APIs; [It's being built with and on top of features that are being proposed for a future version of JavaScript (commonly referred to as ESNext).](https://www.typescriptlang.org/docs/handbook/decorators.html#metadata)
 
 # What isn't TypeScript {#misconceptions}
 
@@ -170,15 +170,15 @@ Now that we've covered a bit of what TypeScript _is_, it might be a good idea to
 
 ## It's Not the Tower You Think It Is {#typescript-is-not-babel}
 
-One of the things TypeScript is not is a transpiler. What this means is that TypeScript (alone) _will not take TypeScript source code that contains syntax from newer JavaScript versions (ES6+) and output older versions of JavaScript (ES5) in order to imrpove browser compatability (IE11)_.
+One of the things TypeScript is not is a transpiler. What this means is that TypeScript (alone) _will not take TypeScript source code that contains syntax from newer JavaScript versions (ES6+) and output older versions of JavaScript (ES5) in order to improve browser compatibility (IE11)_.
 
 For anyone who's used TypeScript this may confuse you, as there are various flags and config options for the output version of JavaScript it compiles to. What's really happening under-the-hood is that TypeScript hands off your source code to Babel after it compiles down to JavaScript. [With Babel 7 this is even harder to notice](https://devblogs.microsoft.com/typescript/typescript-and-babel-7/) but be aware that any transpilation you expect to occur when using TypeScript may force you to use and understand Babel tools.
 
-However, this does mean that you can utilize the entire arsonal of Babel tooling to your disposal, [such as Babel plugins](https://babeljs.io/docs/en/plugins/).
+However, this does mean that you can utilize the entire arsenal of Babel tooling to your disposal, [such as Babel plugins](https://babeljs.io/docs/en/plugins/).
 
 ## Logic != Typings {#typings-are-not-logic}
 
-_TypeScript will not find all your typing errors on it's own_. This is because TypeScript is only as useful as your typings are. [Let's look back at an earlier example](#type-safety):
+_TypeScript will not find all your typing errors on its own_. This is because TypeScript is only as useful as your typings are. [Let's look back at an earlier example](#type-safety):
 
 ```javascript
 function addFive(input) {
@@ -186,7 +186,7 @@ function addFive(input) {
 }
 ```
 
-If you keep `addFive`'s `input` parameter without an explicit type, it will try to do it's best to detect the type based on the operations you run on the value. **While these infered types are often vary useful, it often has difficulty doing so in an accurate manor**. _This is why manually assigning types is almost always prefered to leaving them be infered_. If it couldn't properly detect a type for the value in this example, it does nothing to prevent strings from being passed as the parameter value.
+If you keep `addFive`'s `input` parameter without an explicit type, it will try to do its best to detect the type based on the operations you run on the value. **While these inferred types are often very useful, it often has difficulty doing so in an accurate manor**. _This is why manually assigning types is almost always preferred to leaving them be inferred_. If it couldn't properly detect a type for the value in this example, it does nothing to prevent strings from being passed as the parameter value.
 
 Although examples like this are simple, strict typings can also become fairly complex ([see the Advanced section of the official handbook for such examples](https://www.typescriptlang.org/docs/handbook/advanced-types.html)) in order to maintain maximum type strictness.
 Also, because typings do nothing to test against the logic of your program, they should not be seen as a replacement for testing, but rather a companion to them. With strict typings and proper testing, regressions can be severely limited and improve code quality of life.
@@ -199,7 +199,7 @@ Remember, because typings are kept separately from the project's logic code, typ
 
 Just as typings shouldn't replace tests, typings should also not replace documentation or comments. Typings can help understand what inputs and outputs you're expecting, but just the same as with testing; _it doesn't explain what the logic does or provide context as to why the data types have specific properties_, what the properties are used for, and so forth. Additionally, typings often do little to help explain how to contribute in the larger scale or the design principles that may be applied in the design of the application.
 
-Essentially, I just want to make sure to iterate that while there may be tools that can let you auto-document the properties and the property type from TypeScript anotations, hand-done documentation is still extremely important
+Essentially, I just want to make sure to iterate that while there may be tools that can let you auto-document the properties and the property type from TypeScript annotations, hand-done documentation is still extremely important
 
 # Conclusion
 
