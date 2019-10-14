@@ -117,7 +117,7 @@ declare function aNumberToAString(numProp: number): string; // Accept a number a
 
 ##### Community Hosting {#definitely-typed}
 
-Additionally, because TypeScript has a well established and widely used install-base, **there are already many different definition files in the wild for supporting non-TypeScript supporting projects**. One of the more extensive collections of these typings lives at the [DefinitelyTyped repository](https://github.com/DefinitelyTyped/DefinitelyTyped), which publishes the typings of their typings under the package names `@types/your-package-name` (where `your-package-name` is the name of the project you're looking for typings of) that you can look for on your package manager.
+Additionally, because TypeScript has a well established and widely used install-base, **there are already many different definition files in the wild for supporting non-TypeScript supporting projects**. One of the more extensive collections of these typings lives at the [DefinitelyTyped repository](https://github.com/DefinitelyTyped/DefinitelyTyped), which publishes the package's community typings under the package names `@types/your-package-name` (where `your-package-name` is the name of the project you're looking for typings of) that you can look for on your package manager.
 
 ### Documented Types {#typing-doc-references}
 
@@ -189,7 +189,7 @@ function addFive(input) {
 If you keep `addFive`'s `input` parameter without an explicit type, it will try to do its best to detect the type based on the operations you run on the value. **While these inferred types are often very useful, it often has difficulty doing so in an accurate manner**. _This is why manually assigning types is almost always preferred to leaving them as inferred_. If it couldn't properly detect a type for the value in this example, it does nothing to prevent strings from being passed as the parameter value.
 
 Although examples like this are simple, strict typings can also become fairly complex to maintain maximum type strictness. See the [Advanced section of the official handbook](https://www.typescriptlang.org/docs/handbook/advanced-types.html) for examples that illustrate this.
-Also, because typings do nothing to test against the logic of your program, they should not be seen as a replacement for testing, but rather a companion to them. With strict typings and proper testing, regressions can be severely limited and improve code quality of life.
+**Also, because typings do nothing to test against the logic of your program, they should not be seen as a replacement for testing, but rather a companion to them.** _With strict typings and proper testing, regressions can be severely limited and improve code quality of life._
 
 ##### Typing Mishaps Happen {#typings-can-be-wrong-too}
 
@@ -197,7 +197,7 @@ Remember, because typings are kept separately from the project's logic code, typ
 
 ## Don't Forget To Document {#typescript-is-not-documentation}
 
-Just as typings shouldn't replace tests, typings should also not replace documentation or comments. Typings can help understand what inputs and outputs you're expecting, but just the same as with testing; _it doesn't explain what the logic does or provide context as to why the data types have specific properties_, what the properties are used for, and so forth. Additionally, typings often do little to help explain how to contribute in the larger scale or the design principles that may be applied in the design of the application.
+Just as typings shouldn't replace tests, typings should also not replace documentation or comments. Typings can help understand what inputs and outputs you're expecting, but just the same as with testing; _it doesn't explain what the logic does or provide context as to why the data types have specific properties_, what the properties are used for, and so forth. Additionally, typings often do little to help explain how to contribute in the larger scale when talking about documentation. For example, in a large-scale application, there may be come complex data patterns or order-of-operations that are required to do a task. Typings alone will not effectively communicate these design principles that are integral to the usage of the code.
 
 Essentially, I just want to make sure to iterate that while there may be tools that can let you auto-document the properties and the property type from TypeScript annotations, hand-done documentation is still extremely important.
 
