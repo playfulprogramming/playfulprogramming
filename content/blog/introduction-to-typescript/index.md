@@ -141,6 +141,11 @@ function HandleUserInput(inputProp: number, functionToHandle: Function): string 
 
 What if you had a way to mutate or modify this function? What if this way of mutating this function allowed you the ability to see that the first parameter is a number, the second is a function, and the return type is a string? **While this may not seem to have any immediate advantages, this meta-type info allows us to do powerful things.** It can be used in a situation where you might want to generate a JSON schema based on a class declaration in a TypeScript file or when using ORMs and mapping TypeScript types to the databases' native type. _By doing something like this with your ORM, you could preserve both the database typing and the TypeScript compile type within the same file so that you don't have to do duplicate checks against either._
 
+> Author's note:
+> An ORM is an "Object Relational Model". An ORM is a library that helps developers keep database schemas mapped in their code, often by having classes reflect the shape of their (typically) SQL server schema.
+>
+> As always, feel free to search more on them (the terms "JavaScript ORM" might help) and always know that not knowing a thing is always okay 🤗 
+
 Here's an example [from a library built to do just that](https://typeorm.io/#/) that allows you to preserve the TypeScript type to save data in specified field types in your database:
 ```typescript
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
@@ -205,8 +210,6 @@ Essentially, I just want to make sure to iterate that while there may be tools t
 
 And with that, we have a better understanding of what TypeScript is! I hope this has been informative and helpful for those that may be new to the language in particular. What'd you learn, let us know!
 
-Now that you're more familiar with TypeScript, maybe you'd like to play around with one of their more experienced functionality: [Type generics](https://unicorn-utterances.com/posts/typescript-type-generics/)?
-
-We have a whole post around that concept as well, [you can find that here](https://unicorn-utterances.com/posts/typescript-type-generics/).
+Now that you're more familiar with TypeScript, maybe you'd like to play around with one of their more experienced functionality: [Type generics](https://unicorn-utterances.com/posts/typescript-type-generics/)? We have a whole post around that concept as well, [you can find that here](https://unicorn-utterances.com/posts/typescript-type-generics/).
 
 Thanks for reading! Leave any questions or feedback in the comments below.
