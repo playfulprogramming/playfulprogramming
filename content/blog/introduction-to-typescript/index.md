@@ -44,7 +44,7 @@ numberHere = 'Test';
 const newNumber = 10 - numberHere;
 ```
 
-This point is made even more complex when dealing with how both are constructed and handed mentally or dealing with classes. While [ES6 classes are syntactical sugar on top of JavaScript's prototype system](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) and there [are only seven base-types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) (called _primitive types_) in JavaScript that every other value is composed of, TypeScript has a much more robust type system.
+This point is made even more complex when dealing with how both values are handled internally in JavaScript. Especially when talking about ES6 classes, _the type-strict nature of TypeScript types and the "types" that are understood in JavaScript are not the same_. While [ES6 classes are syntactical sugar on top of JavaScript's prototype system](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) and there [are only seven base-types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures) (called _primitive types_) in JavaScript that every other value is composed of, TypeScript has a much more robust type system.
 
 > Author's Note:
 > While the above mention of _primitive types_ and _syntactical sugar_ are meant as a path for you to learn more, don't feel discouraged from learning more about TypeScript if you're unfamiliar with such concepts.
