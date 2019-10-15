@@ -10,7 +10,7 @@
 }
 ---
 
-#Intro {#intro}
+# Intro {#intro}
 
 Since the days of the first digital computers, interacting with them has been a rather fundamental aspect. Even though
 we've advanced far past the humble days of [thousands of switches](https://en.wikipedia.org/wiki/ENIAC#Programming), 
@@ -33,7 +33,7 @@ the shell and not with a separate program!
 Before we start, I'd like to say that this post is geared more towards people who already have some prior programming
 experience, and some existing Linux/Unix command-line experience helps as well.
 
-##Setup {#intro-setup}
+## Setup {#intro-setup}
 
 In order to follow this post, you'll want to make sure that you have access to a Linux shell of some sort. Thankfully,
 this is easier than ever to find nowadays. Everything should work the same whether it's running in a Linux VM, macOS, 
@@ -47,10 +47,10 @@ syntax highlighting installed. [`nano`](https://www.nano-editor.org/) or [`micro
 good options on the command-line, especially if you're new to CLI text editors. With that out of the way, let's get to
 the actual shell scripting part of this post!
 
-#Basic Scripting {#basic-scripting}
+# Basic Scripting {#basic-scripting}
 ---
 
-##A Simple Example {#basic-example}
+## A Simple Example {#basic-example}
 
 Let's start out with a simple example: create a file somewhere on your computer called `simple.sh` and start editing it.
 In most CLI text editors, you can combine both steps into one by running `{editor} simple.sh`. All you need to put into
@@ -68,7 +68,7 @@ the terminal normally would do, but the real power of shell scripting comes in w
 with the scripting features in order to add things like interactivity, loops, and conditions. Now, let's move on to some
 of those more advanced features.
 
-##Conditions With the `if` Command {#basic-if-usage}
+## Conditions With the `if` Command {#basic-if-usage}
 
 Conditional execution is one of the most important parts of any programming language. If you couldn't choose whether or
 not to execute something, things would be ...difficult, to say the least. Thankfully, shells includes `if` as a built-in
@@ -213,7 +213,7 @@ set to its exit code, which can be used to reference it in later comparisons. An
 programming; beginning a script with `set -e` will tell bash to exit the script immediately if any command returns a
 non-zero exit code.
 
-##Functions {#basic-functions}
+## Functions {#basic-functions}
 
 In order to write more abstract functionality that can be reused in a script, portions of functionality can be separated
 into a function. Functions within a script are given the same scope as the rest of the script, but are created with
@@ -261,8 +261,9 @@ elif [[ $input == "4" ]] ; then
 else
   exit
 fi
+```
 
-##Variables and Scope {#basic-scope}
+## Variables and Scope {#basic-scope}
 
 - reference `$hello` from `runpipe()`
 - `local VARIABLE=5`
