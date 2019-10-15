@@ -28,7 +28,7 @@ experience around that content, or our community is compromised; neither by
 financial sway or by any potentially harmful members of the community. As a
 result, [we've implemented the Contributor Covenant as our code of conduct](CODE_OF_CONDUCT.md).
 
-We also pledge to maintain transparency in regards to any finances that flows
+We also pledge to maintain transparency in regards to any finances that flow
 through the project. Not every sponsorship contains a financial contribution,
 but for ones that do, it will be clearly disclosed what those finances are
 going towards as well as what will be done in exchange for that contribution.
