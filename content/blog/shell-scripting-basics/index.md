@@ -191,3 +191,79 @@ chose, and tell them if they don't have it.  We don't need to check if `echo` is
 command. Lastly, we have an `exit` command in the `else` block to make sure the script exits if the user puts in 
 anything beyond the 3 options. In this case it's actually not necessary since the script would already finish and exit
 automatically, although it's a good idea to include it in case you decide to add more functionality later.
+
+##Positional Arguments {#arguments}
+
+(find a way to integrate this with the script?)
+
+| Variable        | Type   | Description                               |
+|-----------------|--------|-------------------------------------------|
+| `$0`, `$1`, ... | String | Argument at a specific position.          |
+| `$#`            | Int    | The total number of arguments.            |
+| `$@`            | Array  | All of the arguments passed.              |
+| `$*`            | String | All arguments passed, as a single string. |
+
+Every bash command returns an exit code which can be used to determine a measure of success or state of a script. In
+this example, we check the exit code of `command -v toilet` to determine whether `toilet` is installed. Generally, an
+exit code of zero implies success, and anything else represents some form of error. There are a few standards for using
+different error codes for specific purposes, but in this situation we only need to know if it equals zero.
+
+There are a few different ways to use these exit codes in a script. After a command is executed, the `$?` variable is
+set to its exit code, which can be used to reference it in later comparisons. Another interesting use is in fail-fast
+programming; beginning a script with `set -e` will tell bash to exit the script immediately if any command returns a
+non-zero exit code.
+
+##Functions {#basic-functions}
+
+In order to write more abstract functionality that can be reused in a script, portions of functionality can be separated
+into a function. Functions within a script are given the same scope as the rest of the script, but are created with
+their own positional arguments and can return their own exit code.
+
+```bash
+function runpipe() {
+  if command -v $2 > /dev/null; then
+    echo $1 | ${@:2}
+  else
+    echo "$2 is not installed :("
+	return 1
+  fi
+}
+```
+
+This recreates the functionality in the if statements of the previous script. We can now simplify it as follows:
+
+```shell
+echo "1: Print with cowsay"
+echo "2: Print with figlet"
+echo "3: Print with toilet"
+echo "4: Print with echo"
+echo "Anything else: Exit"
+
+read -p "Enter a number: " input
+hello="Hello, world!"
+
+function runpipe() {
+  if command -v $2 > /dev/null; then
+    echo $1 | ${@:2}
+  else
+    echo "$2 is not installed :("
+  fi
+}
+
+if [[ $input == "1" ]] ; then
+  runpipe $hello cowsay
+elif [[ $input == "2" ]] ; then
+  runpipe $hello figlet
+elif [[ $input == "3" ]] ; then
+  runpipe $hello toilet -t
+elif [[ $input == "4" ]] ; then
+  echo $hello
+else
+  exit
+fi
+
+##Variables and Scope {#basic-scope}
+
+- reference `$hello` from `runpipe()`
+- `local VARIABLE=5`
+- `export VARIABLE=5`
