@@ -23,16 +23,15 @@ This repository acts as the source code location for [the Unicorn Utterances blo
 
 ## Statement of Ethics
 
-We never want to end up in a place where our educational content or the community or
-experience around that content is compromised. Not by money and not by any potential
-of harmful members within said community. As a result,
-[we've implemented the Contributor Covenant as our code of conduct](CODE_OF_CONDUCT.md).
+We never want to end up in a place where our educational content, the
+experience around that content, or our community is compromised; neither by
+financial sway or by any potentially harmful members of the community. As a
+result, [we've implemented the Contributor Covenant as our code of conduct](CODE_OF_CONDUCT.md).
 
-We also pledge to keep transparent communication in regards to finances
-that flow through the project. While not every sponsorship contains a
-financial contribution, if one does it will be disclosed both what those
-finances are going towards as well as what will be done in exchange for
-said contribution will be clearly and transparently laid out.
+We also pledge to maintain transparency in regards to any finances that flow
+through the project. Not every sponsorship contains a financial contribution,
+but for ones that do, it will be clearly disclosed what those finances are
+going towards as well as what will be done in exchange for that contribution.
 
 ## Important Repo Files
 
