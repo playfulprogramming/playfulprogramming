@@ -21,15 +21,16 @@ If you’d like to get in touch with us, [our Discord](https://discord.gg/FMcvc6
 
 ## Statement of Ethics {#ethics}
 
-We never want to end up in a place where our educational content or the community or
-experience around that content is compromised. Not by money and not by any potential
-of harmful members within said community. As a result,
-[we've implemented the Contributor Covenant as our code of conduct](CODE_OF_CONDUCT.md).
+We never want to end up in a place where our educational content, experience,
+or community is compromised by either financial sway or potentially harmful
+members of the community. As such, we've implemented the
+[Contributor Covenant](https://www.contributor-covenant.org/)
+as our [code of conduct](CODE_OF_CONDUCT.md) to uphold these values.
 
-We also pledge to keep transparent communication in regards to finances
-that flow through the project. While not every sponsorship contains a
-financial contribution, if one does it will be disclosed both what those
-finances are going towards as well as what will be done in exchange for
-said contribution will be clearly and transparently laid out.
+We also pledge to maintain transparency in regards to any finances that flow
+This conversation was marked as resolved by crutchcorn
+through the project. Not every sponsorship contains a financial contribution,
+but if one does we will disclose both what those finances
+are going towards and what will be done in exchange.
 
 # Contributors {#contributors}
