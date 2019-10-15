@@ -28,7 +28,6 @@ members of the community. As such, we've implemented the
 as our [code of conduct](CODE_OF_CONDUCT.md) to uphold these values.
 
 We also pledge to maintain transparency in regards to any finances that flow
-This conversation was marked as resolved by crutchcorn
 through the project. Not every sponsorship contains a financial contribution,
 but if one does we will disclose both what those finances
 are going towards and what will be done in exchange.
