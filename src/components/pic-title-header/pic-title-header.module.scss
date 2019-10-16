@@ -19,16 +19,16 @@
 }
 
 .headerPic {
-  $desktopImgSize: 300px;
-  max-width: $desktopImgSize;
-  max-height: $desktopImgSize;
-  margin-right: 48px;
+  $mobileImgSize: 150px;
+  max-width: $mobileImgSize;
+  max-height: $mobileImgSize;
   margin-bottom: 16px;
 
-  @include until($endSmallScreenSize) {
-    $mobileImgSize: 150px;
-    max-width: $mobileImgSize;
-    max-height: $mobileImgSize;
+  @include from($startMediumScreenSize) {
+    $desktopImgSize: 300px;
+    max-width: $desktopImgSize;
+    max-height: $desktopImgSize;
+    margin-right: 48px;
   }
 }
 
