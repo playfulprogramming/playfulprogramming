@@ -12,6 +12,10 @@
 
 TypeScript's popularity cannot be understated. Either you likely know someone who works with it, you've heard of it, or possibly you've been using it. As the language continues to grow and evolve, it can be helpful to jump into the language and play with it. Other times, however, having a reference for what the language is, what the language is not, and how it can be helpful can be of great resource. We're hoping that this page can be a good starting point for that resource.
 
+> If you're more of an auditory learner, there's also a podcast episode that was done on this exact subject matter with the author of this post.
+>
+> This podcast episode [can be found on one of our sponsor's pages](https://www.thepolyglotdeveloper.com/2019/10/tpdp-e32-getting-familiar-typescript-development/)
+
 # What is TypeScript? {#what}
 
 **TypeScript is a superset of JavaScript**, meaning that _all valid JavaScript is valid TypeScript, but not all TypeScript is valid JavaScript_. Think of it as JavaScript plus some goodies. These goodies _allow developers to add type information to their code that is enforced during a TypeScript to JavaScript compilation step_.
