@@ -19,7 +19,8 @@ This repository acts as the source code location for [the Unicorn Utterances blo
 
 ## Sponsors
 
-[![The Polyglot Developer](./static/sponsors/the-polyglot-developer.svg)](https://www.thepolyglotdeveloper.com/)
+
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
 
 ## Statement of Ethics
 
