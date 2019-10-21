@@ -1,8 +1,8 @@
 import React, { createRef, useRef, useMemo } from "react"
 import { Link } from "gatsby"
 import cardStyles from "./post-card.module.scss"
-import Image from "gatsby-image"
 import { stopPropCallback } from "../../utils/preventCallback"
+import { UserProfilePic } from "../user-profile-pic"
 
 /**
  * @param {string} title - The title of the post
@@ -16,47 +16,16 @@ import { stopPropCallback } from "../../utils/preventCallback"
  */
 export const PostCard = ({ title, authors, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
-  const authorLinks = useMemo(() => authors.map(() => createRef()), [authors]);
+  const authorLinks = useMemo(() => authors.map(unicorn => ({
+      unicorn,
+      ref: createRef(),
+    }),
+  ), [authors])
 
   const getAuthorLinkHandler = i => (e) => {
     stopPropCallback(e)
-    authorLinks[i].current.click()
-  };
-
-  const PostAuthorImages = authors.map((author, i, arr) => {
-    const hasTwoAuthors = arr.length !== 1;
-    const xyPosition =
-      !hasTwoAuthors ? undefined :
-        i === 1 ? "12px" : "-7px"
-
-
-    const classesToApply = hasTwoAuthors ? cardStyles.twoAuthorPicSize : '';
-
-    return (
-      <Link
-        key={author.id}
-        to={`/unicorns/${author.id}`}
-        ref={authorLinks[i]}
-        onClick={stopPropCallback}
-        className={cardStyles.profilePicLink}
-        style={{
-          borderColor: author.color,
-          left: xyPosition,
-          top: xyPosition,
-        }}
-      >
-        <Image
-          data-testid="authorPic"
-          fixed={author.profileImg.childImageSharp.smallPic}
-          alt={author.name}
-          className={`${cardStyles.profilePic} ${classesToApply}`}
-          imgStyle={{
-            borderRadius: `50%`,
-          }}
-        />
-      </Link>
-    )
-  });
+    authorLinks[i].ref.current.click()
+  }
 
   return (
     <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()} role="listitem">
@@ -78,7 +47,8 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
           <span onClick={getAuthorLinkHandler(0)} className={cardStyles.authorLink}>{authors[0].name}</span>
           {authors.slice(1).map((author, i) => [
             <span>, </span>,
-            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)} className={cardStyles.authorLink}>{author.name}</span>
+            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)}
+                  className={cardStyles.authorLink}>{author.name}</span>,
           ])}
         </p>
         <div className={cardStyles.dateTagSubheader}>
@@ -101,9 +71,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         }}
         />
       </div>
-      <div className={cardStyles.profilePicsContainer}>
-        {PostAuthorImages}
-      </div>
+      <UserProfilePic authors={authorLinks}/>
     </li>
   )
 }
