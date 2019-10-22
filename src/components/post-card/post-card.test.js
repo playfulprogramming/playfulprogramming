@@ -18,7 +18,6 @@ describe("Post card", () => {
     />)
 
     expect(baseElement).toBeInTheDocument();
-    expect(await findByText("by Joe")).toBeInTheDocument();
     expect(await findByText('10-10-2010')).toBeInTheDocument();
     expect(await findByText('item1')).toBeInTheDocument();
     expect(await findByText('This would be an auto generated excerpt of the post in particular')).toBeInTheDocument();
@@ -26,7 +25,7 @@ describe("Post card", () => {
     fireEvent.click(await findByText("Post title"));
     expect(onLinkClick).toHaveBeenCalledTimes(2);
 
-    fireEvent.click(await findByTestId("authorPic"));
+    fireEvent.click(await findByTestId("author-pic-0"));
     expect(onLinkClick).toHaveBeenCalledTimes(4);
   })
 

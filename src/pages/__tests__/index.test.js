@@ -60,7 +60,6 @@ test("Blog index page renders", async () => {
   expect(onLinkClick).toHaveBeenCalledTimes(1)
 
   // Post cards
-  expect(await findByText("by Joe")).toBeInTheDocument();
   expect(await findByText('10-10-2010')).toBeInTheDocument();
   expect(await findByText('This is a short description dunno why this would be this short')).toBeInTheDocument();
 
@@ -68,7 +67,7 @@ test("Blog index page renders", async () => {
   expect(onLinkClick).toHaveBeenCalledTimes(3);
 
 
-  const authorImgs = await findAllByTestId("authorPic");
+  const authorImgs = await findAllByTestId("author-pic-0");
   fireEvent.click(authorImgs[0]);
   expect(onGarsbyLinkClick).toHaveBeenCalledTimes(5);
 });
