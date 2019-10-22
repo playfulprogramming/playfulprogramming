@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { graphql, Link, navigate } from "gatsby"
 
 import ReactPaginate from 'react-paginate';
@@ -7,13 +7,22 @@ import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
 import { PicTitleHeader } from "../components/pic-title-header"
 import { PostList } from "../components/post-card-list"
+import { getSkippedPosts } from "../utils/handle-post-list"
 
 const BlogPostListTemplate = (props) => {
-  const { data, pageContext: {pageIndex, numberOfPages} } = props
+  const { data, pageContext } = props
+  const {pageIndex, numberOfPages, limitNumber, skipNumber} = pageContext;
+  const [postsToDisplay] = useState(
+    /**
+     * Set the initial value to the expected page's results
+     *
+     * We should be able to overwrite this during a search/filter
+     */
+    getSkippedPosts(data.allMarkdownRemark.edges, skipNumber, limitNumber)
+  );
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
-  // FIXME: This logic will break with pagination
   const postTags = useMemo(() => {
     return Array.from(posts.reduce((prev, post) => {
       post.node.frontmatter.tags.forEach(tag => prev.add(tag))
@@ -40,7 +49,7 @@ const BlogPostListTemplate = (props) => {
           title="Unicorn Utterances"
           description={Description}
         />
-        <PostList posts={posts} tags={postTags}/>
+        <PostList posts={postsToDisplay} tags={postTags}/>
         <ReactPaginate
           previousLabel={'previous'}
           nextLabel={'next'}
@@ -74,7 +83,7 @@ const BlogPostListTemplate = (props) => {
 export default BlogPostListTemplate
 
 export const pageQuery = graphql`
-  query BlogListPageQuery($limitNumber: Int!, $skipNumber: Int!) {
+  query BlogListPageQuery {
     site {
       siteMetadata {
         title
@@ -83,13 +92,33 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark (
       sort: { fields: [frontmatter___published], order: DESC },
-      filter: {fileAbsolutePath: {regex: "/content/blog/"}},
-      limit: $limitNumber,
-      skip: $skipNumber
+      filter: {fileAbsolutePath: {regex: "/content/blog/"}}
     ) {
       edges {
         node {
-          ...PostInfo
+          id
+          excerpt(pruneLength: 160)
+          frontmatter {
+            title
+            published(formatString: "MMMM DD, YYYY")
+            tags
+            description
+            author {
+              name
+              id
+              color
+              profileImg {
+                childImageSharp {
+                  smallPic: fixed(width: 60) {
+                    ...GatsbyImageSharpFixed
+                  }
+                }
+              }
+            }
+          } 
+          fields {
+            slug
+          }
         }
       }
     }
