@@ -32,9 +32,13 @@ const BlogPostListTemplate = (props) => {
     <Link to={"/about"} aria-label={"The about us page"}><span aria-hidden={true}>Read More</span></Link>
   </>
 
+  const SEOTitle = !pageIndex ?
+    "Homepage" :
+    `Post page ${pageIndex}`
+
   return (
     <Layout location={props.location} title={siteTitle}>
-      <SEO title="All posts"/>
+      <SEO title={SEOTitle}/>
       <div>
         <PicTitleHeader
           image={data.file.childImageSharp.fixed}
