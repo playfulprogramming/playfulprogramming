@@ -50,7 +50,7 @@ test("Blog post page renders", async () => {
   // Because the links act as spans, we're wanting to find by text in this instance
   fireEvent.click(await findByText('Joe'));
   expect(onLinkClick).toHaveBeenCalledTimes(1);
-  fireEvent.click(await findByTestId('post-meta-author-pic-0'));
+  fireEvent.click(await findByTestId('author-pic-0'));
   expect(onLinkClick).toHaveBeenCalledTimes(2);
 
   // Renders the post body properly
@@ -67,7 +67,7 @@ test("Blog post page handles two authors", async () => {
   // Show a subtitle?
   // Shows post metadata
   const dianeNameEl = await findByText('Diane');
-  const joeNameEl = await findByText(', Joe');
+  const joeNameEl = await findByText('Joe');
   expect(dianeNameEl).toBeInTheDocument();
   expect(joeNameEl).toBeInTheDocument();
   expect(await findByText('10-20-2010')).toBeInTheDocument();
@@ -76,9 +76,9 @@ test("Blog post page handles two authors", async () => {
   expect(onLinkClick).toHaveBeenCalledTimes(1);
   fireEvent.click(joeNameEl);
   expect(onLinkClick).toHaveBeenCalledTimes(2);
-  fireEvent.click(await findByTestId('post-meta-author-pic-0'));
+  fireEvent.click(await findByTestId('author-pic-0'));
   expect(onLinkClick).toHaveBeenCalledTimes(3);
-  fireEvent.click(await findByTestId('post-meta-author-pic-1'));
+  fireEvent.click(await findByTestId('author-pic-1'));
   expect(onLinkClick).toHaveBeenCalledTimes(4);
 
   // Renders the post body properly

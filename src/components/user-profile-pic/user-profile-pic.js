@@ -25,7 +25,7 @@ export const UserProfilePic = ({ authors, className }) => {
         }}
       >
         <Image
-          data-testid="authorPic"
+          data-testid={`author-pic-${i}`}
           fixed={unicorn.profileImg.childImageSharp.smallPic}
           alt={unicorn.name}
           className={`circleImg ${styles.profilePicImage} ${classesToApply}`}
