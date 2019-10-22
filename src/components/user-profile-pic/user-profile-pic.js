@@ -6,46 +6,39 @@ import { stopPropCallback } from "../../utils/preventCallback"
 import styles from "./user-profile-pic.module.scss"
 
 /**
- * @param {Array.<{unicorn: UnicornInfo, ref: React.RefObject}>} authors
+ * @param {Array.<{unicorn: UnicornInfo, onClick: MouseEventHandler}>} authors
+ * @param {string} className
  */
-export const UserProfilePic = ({ authors }) => {
+export const UserProfilePic = ({ authors, className }) => {
   const hasTwoAuthors = authors.length !== 1;
 
-  const authorsLinks = authors.map(({ unicorn, ref }, i) => {
-    const xyPosition =
-      !hasTwoAuthors ? undefined :
-        i === 1 ? "12px" : "-7px"
-
-    const classesToApply = hasTwoAuthors ? styles.twoAuthorPicSize : ""
+  const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
+    const classesToApply = hasTwoAuthors ? styles.twoAuthor : ""
 
     return (
-      <Link
+      <div
         key={unicorn.id}
-        to={`/unicorns/${unicorn.id}`}
-        ref={ref}
-        onClick={stopPropCallback}
-        className={styles.profilePicLink}
+        onClick={onClick}
+        className={`pointer ${styles.profilePicContainer} ${classesToApply}`}
         style={{
           borderColor: unicorn.color,
-          left: xyPosition,
-          top: xyPosition,
         }}
       >
         <Image
           data-testid="authorPic"
           fixed={unicorn.profileImg.childImageSharp.smallPic}
           alt={unicorn.name}
-          className={`${styles.profilePic} ${classesToApply}`}
+          className={`circleImg ${styles.profilePicImage} ${classesToApply}`}
           imgStyle={{
             borderRadius: `50%`,
           }}
         />
-      </Link>
+      </div>
     )
   })
 
   return (
-    <div className={styles.profilePicsContainer}>
+    <div className={`${styles.container} ${className || ''}`}>
       {authorsLinks}
     </div>
   )

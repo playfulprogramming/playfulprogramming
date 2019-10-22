@@ -11,26 +11,6 @@
   margin-left: 24px;
 }
 
-.authorPic {
-  @include until($endSmallScreenSize) {
-    $mobilePicSize: 64px;
-    height: $mobilePicSize !important;
-    width: $mobilePicSize !important;
-  }
-}
-
-.authorPicContainer {
-  position: relative;
-  height: 85px;
-  width: 85px;
-
-  @include until($endSmallScreenSize) {
-    $mobilePicSize: 64px;
-    height: $mobilePicSize;
-    width: $mobilePicSize;
-  }
-}
-
 .belowName > * {
   font-weight: 400;
   display: inline-block;
@@ -67,45 +47,4 @@
 .authorLink {
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
-}
-
-.profilePicLink {
-  position: absolute;
-  border-radius: 50%;
-  border-width: 2px;
-  border-style: solid;
-
-  $desktopSingleSize: 85px;
-  height: $desktopSingleSize;
-  width: $desktopSingleSize;
-
-  @include until($endSmallScreenSize) {
-    $mobilePicSize: 64px;
-    height: $mobilePicSize;
-    width: $mobilePicSize;
-  }
-
-  &.twoAuthor {
-    $desktopTwoSize: 70px;
-    width: $desktopTwoSize;
-    height: $desktopTwoSize;
-
-    @include until($endSmallScreenSize) {
-      $mobilePicSize: 55px;
-      height: $mobilePicSize;
-      width: $mobilePicSize;
-    }
-  }
-}
-
-.twoAuthorPicSize {
-  width: 70px !important;
-  height: 70px !important;
-
-
-  @include until($endSmallScreenSize) {
-    $mobilePicSize: 55px;
-    height: $mobilePicSize !important;
-    width: $mobilePicSize !important;
-  }
 }

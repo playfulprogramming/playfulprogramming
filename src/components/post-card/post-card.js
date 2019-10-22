@@ -16,16 +16,19 @@ import { UserProfilePic } from "../user-profile-pic"
  */
 export const PostCard = ({ title, authors, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
-  const authorLinks = useMemo(() => authors.map(unicorn => ({
-      unicorn,
-      ref: createRef(),
-    }),
-  ), [authors])
+  const authorLinks = useMemo(() => authors.map((unicorn) => {
+    const ref = createRef();
+    const onClick = (e) => {
+      stopPropCallback(e);
+      ref.current.click();
+    }
 
-  const getAuthorLinkHandler = i => (e) => {
-    stopPropCallback(e)
-    authorLinks[i].ref.current.click()
-  }
+    return {
+      unicorn,
+      onClick,
+      ref
+    }
+  }), [authors])
 
   return (
     <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()} role="listitem">
@@ -44,11 +47,24 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         </Link>
         <p className={cardStyles.authorName}>
           <span>by&nbsp;</span>
-          <span onClick={getAuthorLinkHandler(0)} className={cardStyles.authorLink}>{authors[0].name}</span>
+          <Link
+            to={`/unicorns/${authors[0].id}`}
+            className={cardStyles.authorLink}
+            ref={authorLinks[0].ref}
+          >
+            {authors[0].name}
+          </Link>
+          {/* To avoid having commas on the first author name, we did this */}
           {authors.slice(1).map((author, i) => [
             <span>, </span>,
-            <span key={author.id} onClick={getAuthorLinkHandler(i + 1)}
-                  className={cardStyles.authorLink}>{author.name}</span>,
+            <Link
+              key={author.id}
+              to={`/unicorns/${author.id}`}
+              className={cardStyles.authorLink}
+              ref={authorLinks[i].ref}
+            >
+              {author.name}
+            </Link>,
           ])}
         </p>
         <div className={cardStyles.dateTagSubheader}>
@@ -71,7 +87,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         }}
         />
       </div>
-      <UserProfilePic authors={authorLinks}/>
+      <UserProfilePic authors={authorLinks} className={cardStyles.authorImagesContainer}/>
     </li>
   )
 }
