@@ -82,6 +82,34 @@ const BlogPostListTemplate = (props) => {
 
 export default BlogPostListTemplate
 
+export const query = graphql`
+  fragment PostInfoListDisplay on MarkdownRemark {
+    id
+    excerpt(pruneLength: 160)
+    frontmatter {
+      title
+      published(formatString: "MMMM DD, YYYY")
+      tags
+      description
+      author {
+        name
+        id
+        color
+        profileImg {
+          childImageSharp {
+            smallPic: fixed(width: 60) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    }
+    fields {
+      slug
+    }
+  }
+`
+
 export const pageQuery = graphql`
   query BlogListPageQuery {
     site {
@@ -96,29 +124,7 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          id
-          excerpt(pruneLength: 160)
-          frontmatter {
-            title
-            published(formatString: "MMMM DD, YYYY")
-            tags
-            description
-            author {
-              name
-              id
-              color
-              profileImg {
-                childImageSharp {
-                  smallPic: fixed(width: 60) {
-                    ...GatsbyImageSharpFixed
-                  }
-                }
-              }
-            }
-          } 
-          fields {
-            slug
-          }
+          ...PostInfoListDisplay
         }
       }
     }
