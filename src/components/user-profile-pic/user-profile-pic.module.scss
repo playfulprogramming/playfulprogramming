@@ -2,6 +2,7 @@
 
 .container {
   position: relative;
+  flex-shrink: 0;
   height: 85px;
   width: 85px;
 
@@ -33,8 +34,17 @@
       left: 20%;
       top: 20%;
     }
+
+    @include until($endSmallScreenSize) {
+      top: 0% !important;
+      left: 10% !important;
+
+      &:not(:first-child) {
+      top: 20% !important;
+      }
+    }
+    }
   }
-}
 
 .profilePicImage {
   width: 100% !important;
