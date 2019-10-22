@@ -17,16 +17,16 @@ import { UserProfilePic } from "../user-profile-pic"
 export const PostCard = ({ title, authors, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
   const authorLinks = useMemo(() => authors.map((unicorn) => {
-    const ref = createRef();
+    const ref = createRef()
     const onClick = (e) => {
-      stopPropCallback(e);
-      ref.current.click();
+      stopPropCallback(e)
+      ref.current.click()
     }
 
     return {
       unicorn,
       onClick,
-      ref
+      ref,
     }
   }), [authors])
 
@@ -55,17 +55,20 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
             {authors[0].name}
           </Link>
           {/* To avoid having commas on the first author name, we did this */}
-          {authors.slice(1).map((author, i) => [
-            <span>, </span>,
-            <Link
-              key={author.id}
-              to={`/unicorns/${author.id}`}
-              className={cardStyles.authorLink}
-              ref={authorLinks[i].ref}
-            >
-              {author.name}
-            </Link>,
-          ])}
+          {authors.slice(1).map((author, i) => {
+            return (<React.Fragment key={author.id}>
+                <span>, </span>,
+                <Link
+                  key={author.id}
+                  to={`/unicorns/${author.id}`}
+                  className={cardStyles.authorLink}
+                  ref={authorLinks[i].ref}
+                >
+                  {author.name}
+                </Link>
+              </React.Fragment>
+            )
+          })}
         </p>
         <div className={cardStyles.dateTagSubheader}>
           <p className={cardStyles.date}>{published}</p>
