@@ -46,10 +46,11 @@ exports.sourceNodes = ({ getNodesByType, actions: { createNodeField } }) => {
 }
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage, createNodeField } = actions
+  const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const blogProfile = path.resolve(`./src/templates/blog-profile.js`)
+  const postList = path.resolve(`./src/templates/post-list.js`)
   return graphql(
     `
     {
@@ -118,6 +119,34 @@ exports.createPages = ({ graphql, actions }) => {
         },
       })
     })
+
+    const postsPerPage = 6;
+
+    createPage({
+      path: `/`,
+      component: postList,
+      context: {
+        limitNumber: postsPerPage,
+        skipNumber: 0
+      }
+    })
+
+    const maxPage = Math.ceil(posts.length / postsPerPage)
+
+    for (const i of Array(maxPage).keys()) {
+      if (i === 0) continue;
+      const pageNum = i + 1;
+      const skipNumber =  postsPerPage * i;
+      createPage({
+        path: `page/${pageNum}`,
+        component: postList,
+        context: {
+          limitNumber: postsPerPage,
+          skipNumber,
+          pageIndex: pageNum
+        }
+      })
+    }
 
     unicorns.forEach((unicorn) => {
       createPage({
