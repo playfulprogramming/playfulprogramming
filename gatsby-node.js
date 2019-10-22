@@ -121,19 +121,20 @@ exports.createPages = ({ graphql, actions }) => {
     })
 
     const postsPerPage = 6;
+    const numberOfPages = Math.ceil(posts.length / postsPerPage)
 
     createPage({
       path: `/`,
       component: postList,
       context: {
         limitNumber: postsPerPage,
-        skipNumber: 0
+        skipNumber: 0,
+        pageIndex: 1,
+        numberOfPages
       }
     })
 
-    const maxPage = Math.ceil(posts.length / postsPerPage)
-
-    for (const i of Array(maxPage).keys()) {
+    for (const i of Array(numberOfPages).keys()) {
       if (i === 0) continue;
       const pageNum = i + 1;
       const skipNumber =  postsPerPage * i;
@@ -143,7 +144,8 @@ exports.createPages = ({ graphql, actions }) => {
         context: {
           limitNumber: postsPerPage,
           skipNumber,
-          pageIndex: pageNum
+          pageIndex: pageNum,
+          numberOfPages
         }
       })
     }

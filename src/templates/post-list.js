@@ -1,20 +1,15 @@
-import React, { useContext, useState, useEffect, useMemo } from "react"
-import { graphql, Link } from "gatsby"
-import GitHubIcon from "../assets/icons/github.svg"
-import CommentsIcon from "../assets/icons/message.svg"
-import { DiscussionEmbed } from "disqus-react"
+import React, { useMemo } from "react"
+import { graphql, Link, navigate } from "gatsby"
+
+import ReactPaginate from 'react-paginate';
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
-import { PostMetadata, PostTitleHeader } from "../components/post-view"
-import { OutboundLink } from "gatsby-plugin-google-analytics"
-import { ThemeContext } from "../components/theme-context"
 import { PicTitleHeader } from "../components/pic-title-header"
 import { PostList } from "../components/post-card-list"
 
 const BlogPostListTemplate = (props) => {
-  const { data, pageContext: {pageIndex} } = props
-  console.log(pageIndex);
+  const { data, pageContext: {pageIndex, numberOfPages} } = props
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
@@ -32,7 +27,7 @@ const BlogPostListTemplate = (props) => {
     <Link to={"/about"} aria-label={"The about us page"}><span aria-hidden={true}>Read More</span></Link>
   </>
 
-  const SEOTitle = !pageIndex ?
+  const SEOTitle = pageIndex === 1 ?
     "Homepage" :
     `Post page ${pageIndex}`
 
@@ -46,6 +41,31 @@ const BlogPostListTemplate = (props) => {
           description={Description}
         />
         <PostList posts={posts} tags={postTags}/>
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={numberOfPages}
+          marginPagesDisplayed={2}
+          forcePage={pageIndex - 1}
+          pageRangeDisplayed={5}
+          hrefBuilder={(props) => {
+            return `/page/${props}`
+          }}
+          onPageChange={({selected}) => {
+            // Even though we index at 1 for pages, this component indexes at 0
+            const newPageIndex = selected + 1;
+            if (newPageIndex === 1) {
+              navigate("/");
+              return;
+            }
+            navigate(`/page/${newPageIndex}`)
+          }}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
       </div>
     </Layout>
   )
