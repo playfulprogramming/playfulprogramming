@@ -13,6 +13,7 @@ import {
   getSkippedPosts,
 } from "../../utils/handle-post-list"
 import { useEffect } from "react"
+import { useMemo } from "react"
 
 export const PostListLayout = ({ children, posts, pageContext }) => {
   const {
@@ -99,6 +100,25 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
    */
   const postTags = usePostTagsFromNodes(posts)
 
+  const {pageCount, forcePage} = useMemo(() => {
+    if (!contextValue.searchVal && !contextValue.filterVal.length) return {
+      pageCount: numberOfPages,
+      forcePage: originalPageIndex
+    };
+    return {
+      pageCount: Math.ceil(filteredByPosts.length / limitNumber),
+      forcePage: currentPageIndex
+    }
+  }, [
+    contextValue.searchVal,
+    contextValue.filterVal,
+    numberOfPages,
+    filteredByPosts,
+    limitNumber,
+    currentPageIndex,
+    originalPageIndex
+  ])
+
   return (
     <SearchAndFilterContext.Provider value={contextValue}>
       {children}
@@ -110,9 +130,9 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
         nextLabel={"next"}
         breakLabel={"..."}
         breakClassName={"break-me"}
-        pageCount={numberOfPages}
+        pageCount={pageCount}
         marginPagesDisplayed={2}
-        forcePage={originalPageIndex}
+        forcePage={forcePage}
         pageRangeDisplayed={5}
         hrefBuilder={props => `/page/${props}`}
         containerClassName={"pagination"}
