@@ -43,8 +43,6 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
    * d: When user clears results, reset to initial page posts (GOTO a)
    */
   const [currentPageIndex, setCurrentPageIndex] = useState(originalPageIndex)
-  // Used as a way to handle useEffect tracking to avoid creating a stale closure
-  const [previousPageIndex, setPreviousPageIndex] = useState(originalPageIndex)
 
   const currentSkipNumber = currentPageIndex * limitNumber
 
@@ -72,8 +70,8 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
    * filtered posts to be able to more rapidly paginate through
    */
   useEffect(() => {
-    if (!contextValue.searchVal && !contextValue.filterVal) {
-      setCurrentPageIndex(0)
+    if (!contextValue.searchVal && !contextValue.filterVal.length) {
+      setCurrentPageIndex(originalPageIndex)
       setFilteredPosts(getInitialPagePosts())
       return
     }
@@ -90,20 +88,11 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
    * When the user changes the page, let's get the correct number of posts
    */
   useEffect(() => {
-    if (previousPageIndex !== currentPageIndex) {
-      const getCurrentPagePosts = () =>
-        getSkippedPosts(filteredByPosts, currentSkipNumber, limitNumber)
+    const getCurrentPagePosts = () =>
+      getSkippedPosts(filteredByPosts, currentSkipNumber, limitNumber)
 
-      setPostsToDisplay(getCurrentPagePosts())
-      setPreviousPageIndex(currentPageIndex)
-    }
-  }, [
-    currentPageIndex,
-    previousPageIndex,
-    filteredByPosts,
-    currentSkipNumber,
-    limitNumber,
-  ])
+    setPostsToDisplay(getCurrentPagePosts())
+  }, [currentPageIndex, filteredByPosts, currentSkipNumber, limitNumber])
 
   /**
    * Data setup to display the posts
