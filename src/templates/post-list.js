@@ -72,6 +72,9 @@ export const postInfoListDisplayFragmentQuery = graphql`
     fields {
       slug
     }
+    wordCount {
+      words
+    }
   }
 `
 

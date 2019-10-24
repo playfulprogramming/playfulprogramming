@@ -120,7 +120,7 @@ exports.createPages = ({ graphql, actions }) => {
       })
     })
 
-    const postsPerPage = 6;
+    const postsPerPage = 3;
     const numberOfPages = Math.ceil(posts.length / postsPerPage)
 
     createPage({
@@ -151,13 +151,38 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     unicorns.forEach((unicorn) => {
+      const uniPosts = posts.filter(({node: {frontmatter}}) => frontmatter.author.id === unicorn.node.id);
+
+      const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage)
+
       createPage({
         path: `unicorns/${unicorn.node.id}`,
         component: blogProfile,
         context: {
           slug: unicorn.node.id,
+          limitNumber: postsPerPage,
+          skipNumber: 0,
+          pageIndex: 1,
+          numberOfUniPages
         },
       })
+
+      for (const i of Array(numberOfPages).keys()) {
+        if (i === 0) continue;
+        const pageNum = i + 1;
+        const skipNumber =  postsPerPage * i;
+        createPage({
+          path: `unicorns/${unicorn.node.id}/page/${pageNum}`,
+          component: blogProfile,
+          context: {
+            slug: unicorn.node.id,
+            limitNumber: postsPerPage,
+            skipNumber,
+            pageIndex: pageNum,
+            numberOfUniPages
+          }
+        })
+      }
     })
 
     return null

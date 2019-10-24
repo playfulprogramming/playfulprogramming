@@ -2,14 +2,12 @@ import React, { useMemo } from "react"
 import { graphql } from "gatsby"
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
-import { PostList } from "../components/post-card-list"
 import { PicTitleHeader } from "../components/pic-title-header"
-import { usePostTagsFromNodes } from "../components/search-and-filter-context"
 import { PostListLayout } from "../components/post-list-layout"
 
 const BlogProfile = props => {
-  const siteTitle = props.data.site.siteMetadata.title
-  const slugData = props.data
+  const {pageContext, data: slugData} = props;
+  const siteTitle = slugData.site.siteMetadata.title
   const unicornData = slugData.unicornsJson
   const posts = slugData.allMarkdownRemark.edges
 
@@ -17,17 +15,22 @@ const BlogProfile = props => {
     return posts.reduce((prev, post) => prev + post.node.wordCount.words, 0)
   }, [posts])
 
-  const postTags = usePostTagsFromNodes(posts);
-
   return (
-    <PostListLayout>
-      <Layout location={props.location} title={siteTitle}>
-        <SEO
-          title={unicornData.name}
-          description={unicornData.description}
-          unicornData={unicornData}
-          type="profile"
-        />
+    <Layout location={props.location} title={siteTitle}>
+      <SEO
+        title={unicornData.name}
+        description={unicornData.description}
+        unicornData={unicornData}
+        type="profile"
+      />
+      <PostListLayout
+        pageContext={pageContext}
+        numberOfArticles={slugData.allMarkdownRemark.totalCount}
+        showWordCount={true}
+        unicornData={unicornData}
+        wordCount={wordCount}
+        posts={posts}
+      >
         <PicTitleHeader
           image={unicornData.profileImg.childImageSharp.bigPic}
           title={unicornData.name}
@@ -35,16 +38,8 @@ const BlogProfile = props => {
           profile={true}
           socials={unicornData.socials}
         />
-        <PostList
-          numberOfArticles={slugData.allMarkdownRemark.totalCount}
-          wordCount={wordCount}
-          posts={posts}
-          tags={postTags}
-          showWordCount={true}
-          unicornData={unicornData}
-        />
-      </Layout>
-    </PostListLayout>
+      </PostListLayout>
+    </Layout>
   )
 }
 
@@ -70,7 +65,7 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
-          ...PostInfo
+          ...PostInfoListDisplay
         }
       }
     }

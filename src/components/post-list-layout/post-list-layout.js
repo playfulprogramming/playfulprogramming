@@ -15,7 +15,7 @@ import {
 import { useEffect } from "react"
 import { useMemo } from "react"
 
-export const PostListLayout = ({ children, posts, pageContext }) => {
+export const PostListLayout = ({ children, posts, pageContext, ...postListProps }) => {
   const {
     pageIndex: originalPageIndexPlusOne,
     numberOfPages,
@@ -123,7 +123,7 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
     <SearchAndFilterContext.Provider value={contextValue}>
       {children}
 
-      <PostList posts={postsToDisplay} tags={postTags} />
+      <PostList posts={postsToDisplay} tags={postTags} {...postListProps} />
 
       <ReactPaginate
         previousLabel={"previous"}
