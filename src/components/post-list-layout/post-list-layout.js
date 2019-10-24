@@ -72,7 +72,7 @@ export const PostListLayout = ({ children, posts, pageContext }) => {
   useEffect(() => {
     if (!contextValue.searchVal && !contextValue.filterVal.length) {
       setCurrentPageIndex(originalPageIndex)
-      setFilteredPosts(getInitialPagePosts())
+      setFilteredPosts(posts)
       return
     }
 
