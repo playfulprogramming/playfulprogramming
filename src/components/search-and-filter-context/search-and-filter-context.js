@@ -70,10 +70,15 @@ export const useSearchFilterValue = () => {
    */
   const lunrAllowedIds = useMemo(
     () => {
-      const lunrIdSet = new Set();
-      if (lunrFilterIds) lunrFilterIds.forEach(v => lunrIdSet.add(v.slug));
-      if (lunrSearchIds) lunrSearchIds.forEach(v => lunrIdSet.add(v.slug));
-      return Array.from(lunrIdSet);
+      if (lunrFilterIds && lunrSearchIds) {
+        const lunrFilterIdsSlugs = lunrFilterIds.map(v => v.slug);
+        const lunrSearchIdsSlugs = lunrSearchIds.map(v => v.slug);
+        return lunrFilterIdsSlugs.filter(v => lunrSearchIdsSlugs.includes(v));
+      }
+
+      if (lunrFilterIds) return lunrFilterIds.map(v => v.slug);
+      if (lunrSearchIds) return lunrSearchIds.map(v => v.slug);
+      return [];
     },
     [lunrFilterIds, lunrSearchIds]
   )
