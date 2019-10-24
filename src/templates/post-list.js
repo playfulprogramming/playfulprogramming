@@ -1,80 +1,45 @@
 import React, { useMemo, useState } from "react"
 import { graphql, Link, navigate } from "gatsby"
 
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate"
 
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
 import { PicTitleHeader } from "../components/pic-title-header"
 import { PostList } from "../components/post-card-list"
 import { getSkippedPosts } from "../utils/handle-post-list"
+import { usePostTagsFromNodes } from "../components/search-and-filter-context"
+import { PostListLayout } from "../components/post-list-layout"
 
-const BlogPostListTemplate = (props) => {
+const BlogPostListTemplate = props => {
   const { data, pageContext } = props
-  const {pageIndex, numberOfPages, limitNumber, skipNumber} = pageContext;
-  const [postsToDisplay] = useState(
-    /**
-     * Set the initial value to the expected page's results
-     *
-     * We should be able to overwrite this during a search/filter
-     */
-    getSkippedPosts(data.allMarkdownRemark.edges, skipNumber, limitNumber)
-  );
+  const { pageIndex } = pageContext
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
-  const postTags = useMemo(() => {
-    return Array.from(posts.reduce((prev, post) => {
-      post.node.frontmatter.tags.forEach(tag => prev.add(tag))
-      return prev
-    }, new Set()))
-  }, [posts])
+  const Description = (
+    <>
+      {data.site.siteMetadata.description}
+      <br />
+      <Link to={"/about"} aria-label={"The about us page"}>
+        <span aria-hidden={true}>Read More</span>
+      </Link>
+    </>
+  )
 
-  const Description = <>
-    {data.site.siteMetadata.description}
-    <br/>
-    <Link to={"/about"} aria-label={"The about us page"}><span aria-hidden={true}>Read More</span></Link>
-  </>
-
-  const SEOTitle = pageIndex === 1 ?
-    "Homepage" :
-    `Post page ${pageIndex}`
+  const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`
 
   return (
     <Layout location={props.location} title={siteTitle}>
-      <SEO title={SEOTitle}/>
+      <SEO title={SEOTitle} />
       <div>
-        <PicTitleHeader
-          image={data.file.childImageSharp.fixed}
-          title="Unicorn Utterances"
-          description={Description}
-        />
-        <PostList posts={postsToDisplay} tags={postTags}/>
-        <ReactPaginate
-          previousLabel={'previous'}
-          nextLabel={'next'}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={numberOfPages}
-          marginPagesDisplayed={2}
-          forcePage={pageIndex - 1}
-          pageRangeDisplayed={5}
-          hrefBuilder={(props) => {
-            return `/page/${props}`
-          }}
-          onPageChange={({selected}) => {
-            // Even though we index at 1 for pages, this component indexes at 0
-            const newPageIndex = selected + 1;
-            if (newPageIndex === 1) {
-              navigate("/");
-              return;
-            }
-            navigate(`/page/${newPageIndex}`)
-          }}
-          containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
-          activeClassName={'active'}
-        />
+        <PostListLayout posts={posts} pageContext={pageContext}>
+          <PicTitleHeader
+            image={data.file.childImageSharp.fixed}
+            title="Unicorn Utterances"
+            description={Description}
+          />
+        </PostListLayout>
       </div>
     </Layout>
   )
@@ -82,7 +47,7 @@ const BlogPostListTemplate = (props) => {
 
 export default BlogPostListTemplate
 
-export const query = graphql`
+export const postInfoListDisplayFragmentQuery = graphql`
   fragment PostInfoListDisplay on MarkdownRemark {
     id
     excerpt(pruneLength: 160)
@@ -118,9 +83,9 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark (
-      sort: { fields: [frontmatter___published], order: DESC },
-      filter: {fileAbsolutePath: {regex: "/content/blog/"}}
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___published], order: DESC }
+      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
     ) {
       edges {
         node {

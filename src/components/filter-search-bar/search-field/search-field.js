@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useContext, useMemo, useState } from "react"
 import styles from "./search-field.module.scss"
 import classNames from "classnames"
 import SearchIcon from "../../../assets/icons/search.svg"
 import { useElementBoundingBox } from "../../../utils/useRefBoundingBox"
 import posed from "react-pose"
-import { useLunr } from "../../../utils/useLunr"
+import { SearchAndFilterContext } from "../../search-and-filter-context"
 
 const placeholder = "Search"
 
@@ -15,19 +15,13 @@ const PosedInput = posed.input({
   },
 })
 
-export const SearchField = ({ className, onSearch = () => {} }) => {
-  const [inputVal, setInputVal] = useState("")
-  const [focused, setFocused] = useState("")
-
-  const {onSearch: searchWithLunr, results} = useLunr();
-
-  useEffect(() => {
-    onSearch(results);
-  }, [results])
+export const SearchField = ({ className }) => {
+  const {setSearchVal, searchVal} = useContext(SearchAndFilterContext);
+  const [isFocused, setIsFocused] = useState(false)
 
   const { ref: containerRef, width: maxSpanWidth } = useElementBoundingBox()
   const { ref: inputRef, height: inputHeight } = useElementBoundingBox()
-  const { ref: spanRef, width: currInputWidth } = useElementBoundingBox(inputVal, a => ({
+  const { ref: spanRef, width: currInputWidth } = useElementBoundingBox(searchVal, a => ({
     ...a,
     width: a.width + 50,
   }))
@@ -37,11 +31,11 @@ export const SearchField = ({ className, onSearch = () => {} }) => {
    */
   const wrapperClasses = useMemo(() => {
     return classNames(styles.btn, {
-      [styles.contentBtn]: focused || inputVal,
+      [styles.contentBtn]: isFocused || searchVal,
     })
   }, [
-    focused,
-    inputVal,
+    isFocused,
+    searchVal,
   ])
 
   const innerWinSize = global.window && window.innerWidth;
@@ -58,22 +52,26 @@ export const SearchField = ({ className, onSearch = () => {} }) => {
                       aria-label="Search for posts"
                       onChange={e => {
                         const val = e.target.value;
-                        setInputVal(val)
-                        searchWithLunr(val);
+                        setSearchVal(val);
                       }}
                       wiidth={innerWinSize >= 450 ? currInputWidth : '100%'}
-                      poseKey={`${inputVal || currInputWidth}${innerWinSize}`}
+                      poseKey={`${searchVal || currInputWidth}${innerWinSize}`}
                       pose="initial"
-                      value={inputVal}
-                      onFocus={() => setFocused(true)}
+                      value={searchVal}
+                      onFocus={() => setIsFocused(true)}
                       style={{ maxWidth: maxSpanWidth }}
-                      onBlur={() => setFocused(false)}
+                      onBlur={() => setIsFocused(false)}
                       className={styles.input}/>
+          {/*
+            We want to hide this span as it acts as a placeholder for sizing
+            purposes so we can know what the min or max side of the input should
+            be
+          */}
           <span aria-hidden={true} className={styles.input}
                 style={{
                   position: "absolute",
                   top: "-300vh",
-                }} ref={spanRef}>{inputVal || placeholder}</span>
+                }} ref={spanRef}>{searchVal || placeholder}</span>
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@
  * If nothing is selected, don't animate away "Filters"
  */
 
-import React, { useEffect, useMemo, useRef } from "react"
+import React, { useContext, useEffect, useLayoutEffect, useMemo, useRef } from "react"
 import classNames from "classnames"
 import posed from "react-pose"
 
@@ -49,6 +49,7 @@ import { useSelectRef } from "../../../utils/a11y/useSelectRef"
 import { useWindowSize } from "../../../utils/useWindowSize"
 import { useAfterInit } from "../../../utils/useAfterInit"
 import { useLunr } from "../../../utils/useLunr"
+import { SearchAndFilterContext } from "../../search-and-filter-context"
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
   const liClassName = classNames(filterStyles.option, {
@@ -85,7 +86,8 @@ const ListIdBox = posed.ul({
 })
 
 
-export const FilterListbox = ({ tags = [], className, onFilter }) => {
+export const FilterListbox = ({ tags = [], className }) => {
+  const {setFilterVal} = useContext(SearchAndFilterContext);
   const {
     ref: listBoxRef,
     active,
@@ -97,21 +99,12 @@ export const FilterListbox = ({ tags = [], className, onFilter }) => {
     parentRef,
     buttonProps,
   } = useSelectRef(tags, "multi")
+
+  useLayoutEffect(() => {
+    setFilterVal(selected || []);
+  }, [selected, setFilterVal]);
+
   const shouldShowFilterMsg = expanded || !selected.length
-
-  const {onSearch: searchWithLunr, results} = useLunr();
-
-  useEffect(() => {
-    onFilter(results);
-  }, [results])
-
-  useEffect(() => {
-    if (!selected || !selected.length) {
-      searchWithLunr('');
-    } else {
-      searchWithLunr(`tags: ${selected.map(v => v.val).join(' ')}`);
-    }
-  }, [selected])
 
   /**
    * Refs

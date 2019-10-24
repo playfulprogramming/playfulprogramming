@@ -1,8 +1,6 @@
 import {useState} from "react"
 
-const {Query} = require('lunr');
-
-function getSearchResults(query, lng, useQuery) {
+function getSearchResults(query, lng) {
   if (!query || !window.__LUNR__) return []
   const lunrIndex = window.__LUNR__[lng]
   // you can customize your search, see https://lunrjs.com/guides/searching.html
@@ -16,7 +14,6 @@ function getSearchResults(query, lng, useQuery) {
     ...fullResults.map(({ ref }) => ref)
   ]);
 
-  console.log(lazyResults, fullResults);
   return Array.from(refs).map(ref => lunrIndex.store[ref])
 }
 
@@ -30,8 +27,8 @@ function getSearchResults(query, lng, useQuery) {
 export const useLunr = ({language = 'en'} = {}) => {
   const [results, setResults] = useState(null)
 
-  const onSearch = eventOrStr => {
-    const eventVal = typeof eventOrStr === 'string' ? eventOrStr : eventOrStr.target.value
+  const searchUsingLunr = str => {
+    const eventVal = str
     if (!eventVal) {
       setResults(null)
       return;
@@ -40,5 +37,5 @@ export const useLunr = ({language = 'en'} = {}) => {
     setResults(results)
   }
 
-  return {onSearch, results};
+  return {searchUsingLunr, results};
 }
