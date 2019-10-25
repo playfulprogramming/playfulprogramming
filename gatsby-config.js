@@ -70,8 +70,22 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590,
+              linkImagesToOriginal: false
             },
           },
+          {
+            resolve: 'gatsby-remark-video',
+            options: {
+              width: '100%',
+              height: 'auto',
+              preload: 'auto',
+              muted: true,
+              autoplay: true,
+              controls: true,
+              loop: true
+            }
+          },
+          `gatsby-remark-images-medium-zoom`,
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
