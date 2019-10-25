@@ -3,7 +3,7 @@
 	title: 'Angular Templates — From Start to Source',
 	description: 'Learn how templates work in Angular. From the basics to being able to read Angular source code and write your own structural directives',
 	published: '2019-07-11T22:12:03.284Z',
-	author: 'crutchcorn',
+	authors: ['crutchcorn'],
 	tags: ['angular', 'templates'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
@@ -1535,7 +1535,7 @@ This may seem strange upon first glance, but remember: **the structural directiv
 
 This becomes more apparent when you expand the syntax to look something like this:
 
-```
+```html
 <ng-template makePiglatin="'This is a string'; let msg; let ogMsg = original">
 	<p [makePiglatinCasing]="'UPPER'">
 		The message "{{msg}}" is "{{ogMsg}}" in 🐷 Latin

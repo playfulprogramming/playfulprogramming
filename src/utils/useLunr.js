@@ -1,8 +1,6 @@
 import {useState} from "react"
 
-const {Query} = require('lunr');
-
-function getSearchResults(query, lng, useQuery) {
+function getSearchResults(query, lng) {
   if (!query || !window.__LUNR__) return []
   const lunrIndex = window.__LUNR__[lng]
   // you can customize your search, see https://lunrjs.com/guides/searching.html

@@ -22,9 +22,10 @@
 
 .postListItem {
   margin: 6px 0;
+  flex-basis: 100%;
 }
 
-@media screen and (min-width: $startMediumScreenSize) {
+@include from($startMediumScreenSize) {
   .postListItem {
     --marginSize: 8px;
     flex-basis: calc(50% - var(--marginSize));

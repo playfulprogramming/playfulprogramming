@@ -7,7 +7,7 @@ import style from "./about.module.scss"
 import { navigate } from "@reach/router"
 
 const getUnicornRoleListItems = (unicornInfo) => {
-  const unicornRoles = unicornInfo.roles;
+  const unicornRoles = unicornInfo.roles.slice(0);
 
   if (unicornInfo.fields.isAuthor) {
     unicornRoles.push({
@@ -16,7 +16,7 @@ const getUnicornRoleListItems = (unicornInfo) => {
     })
   }
 
-  return unicornInfo.roles.map((role, i, arr) => {
+  return unicornRoles.map((role, i, arr) => {
     // If there is an item ahead
     const shouldShowComma = arr[i + 1];
     return (

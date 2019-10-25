@@ -23,7 +23,7 @@
   text-transform: uppercase;
   margin: 0 #{$baseUnit * 3}px #{$baseUnit * 2}px 0;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     margin: 0 #{$baseUnit * 2}px #{$baseUnit * 1}px 0;
   }
 }
@@ -37,7 +37,7 @@
   transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     right: -#{$baseUnit}px;
   }
 }
@@ -48,7 +48,7 @@
   font-size: 64px;
   margin: 0 0 50px 0;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     font-size: 50px;
     margin-bottom: $baseUnit * 2px;
   }

@@ -8,13 +8,13 @@
     font-size: 64px;
   }
 
-  @media screen and (max-width: $startSmallScreenSize) {
+  @include until($startSmallScreenSize) {
     h1 {
       font-size: 3rem;
     }
   }
 
-  @media screen and (max-width: $startSuperSmallScreenSize) {
+  @include until($startSuperSmallScreenSize) {
     h1 {
       font-size: 2rem;
     }
