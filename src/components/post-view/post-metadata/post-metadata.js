@@ -30,7 +30,7 @@ export const PostMetadata = ({ post }) => {
           {authors.map((author, i) => {
               return (
                 <React.Fragment key={author.id}>
-                  <span>{i !== 0 && ", "}</span>,
+                  <span>{i !== 0 && ", "}</span>
                   <Link
                     key={author.id}
                     to={`/unicorns/${author.id}`}

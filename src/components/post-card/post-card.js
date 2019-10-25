@@ -57,7 +57,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
           {/* To avoid having commas on the first author name, we did this */}
           {authors.slice(1).map((author, i) => {
             return (<React.Fragment key={author.id}>
-                <span>, </span>,
+                <span>, </span>
                 <Link
                   key={author.id}
                   to={`/unicorns/${author.id}`}
