@@ -51,6 +51,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
             to={`/unicorns/${authors[0].id}`}
             className={cardStyles.authorLink}
             ref={authorLinks[0].ref}
+            onClick={e => e.stopPropagation()}
           >
             {authors[0].name}
           </Link>
@@ -63,6 +64,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
                   to={`/unicorns/${author.id}`}
                   className={cardStyles.authorLink}
                   ref={authorLinks[i].ref}
+                  onClick={e => e.stopPropagation()}
                 >
                   {author.name}
                 </Link>
