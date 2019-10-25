@@ -3,7 +3,7 @@
     title: "Getting Started With Shell Scripts: The Basics",
     description: 'An introduction to the amazing possibilities offered by shell scripting.',
     published: '2019-09-26T05:12:03.284Z',
-    author: 'adueppen',
+    authors: ['adueppen', 'fennifith'],
     tags: ['shell', 'linux'],
     attached: [],
     license: 'cc-by-4'
