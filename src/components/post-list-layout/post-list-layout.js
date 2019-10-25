@@ -20,6 +20,7 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
     pageIndex: originalPageIndexPlusOne,
     numberOfPages,
     limitNumber,
+    relativePath
   } = pageContext
   /**
    * In order to get around limitations with GQL query calls, we originally
@@ -134,7 +135,7 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
         marginPagesDisplayed={2}
         forcePage={forcePage}
         pageRangeDisplayed={5}
-        hrefBuilder={props => `/page/${props}`}
+        hrefBuilder={props => `${relativePath}/page/${props}`}
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
@@ -147,10 +148,10 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
           // Even though we index at 1 for pages, this component indexes at 0
           const newPageIndex = selected + 1
           if (newPageIndex === 1) {
-            navigate("/")
+            navigate(`${relativePath}/`)
             return
           }
-          navigate(`/page/${newPageIndex}`)
+          navigate(`${relativePath}/page/${newPageIndex}`)
         }}
       />
     </SearchAndFilterContext.Provider>

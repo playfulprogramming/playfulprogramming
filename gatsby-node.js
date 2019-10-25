@@ -146,6 +146,7 @@ exports.createPages = ({ graphql, actions }) => {
         skipNumber: 0,
         pageIndex: 1,
         numberOfPages,
+        relativePath: ''
       },
     })
 
@@ -161,13 +162,16 @@ exports.createPages = ({ graphql, actions }) => {
           skipNumber,
           pageIndex: pageNum,
           numberOfPages,
+          relativePath: ''
         },
       })
     }
 
     unicorns.forEach(unicorn => {
+      const uniId = unicorn.node.id
+
       const uniPosts = posts.filter(({ node: { frontmatter } }) =>
-        frontmatter.authors.find(uni => uni.id === unicorn.node.id)
+        frontmatter.authors.find(uni => uni.id === uniId)
       )
 
       const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage)
@@ -176,27 +180,29 @@ exports.createPages = ({ graphql, actions }) => {
         path: `unicorns/${unicorn.node.id}`,
         component: blogProfile,
         context: {
-          slug: unicorn.node.id,
+          slug: uniId,
           limitNumber: postsPerPage,
           skipNumber: 0,
           pageIndex: 1,
-          numberOfUniPages,
+          numberOfPages: numberOfUniPages,
+          relativePath: `unicorns/${uniId}`,
         },
       })
 
-      for (const i of Array(numberOfPages).keys()) {
+      for (const i of Array(numberOfUniPages).keys()) {
         if (i === 0) continue
         const pageNum = i + 1
         const skipNumber = postsPerPage * i
         createPage({
-          path: `unicorns/${unicorn.node.id}/page/${pageNum}`,
+          path: `unicorns/${uniId}/page/${pageNum}`,
           component: blogProfile,
           context: {
-            slug: unicorn.node.id,
+            slug: uniId,
             limitNumber: postsPerPage,
             skipNumber,
             pageIndex: pageNum,
-            numberOfUniPages,
+            numberOfPages: numberOfUniPages,
+            relativePath: `unicorns/${uniId}`,
           },
         })
       }
