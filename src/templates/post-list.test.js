@@ -5,9 +5,9 @@ import React from "react"
 import { fireEvent, render } from "@testing-library/react"
 import ReactDOMServer from 'react-dom/server';
 import { axe } from 'jest-axe';
-import {onLinkClick, useStaticQuery} from 'gatsby';
+import { onLinkClick as onGarsbyLinkClick, onLinkClick, useStaticQuery } from "gatsby"
 import { siteMetadata } from "../../../__mocks__/data/mock-site-metadata"
-import { MockPost } from "../../../__mocks__/data/mock-post"
+import { MockMultiAuthorPost, MockPost } from "../../../__mocks__/data/mock-post"
 import { MockUnicorn } from "../../../__mocks__/data/mock-unicorn"
 import BlogIndex from "../index"
 
@@ -34,6 +34,8 @@ const getElement = () => (
         totalCount: 1,
         edges: [{
           node: MockPost
+        }, {
+          node: MockMultiAuthorPost
         }]
       },
       file: {
@@ -51,22 +53,23 @@ const getElement = () => (
 );
 
 test("Blog index page renders", async () => {
-  const { baseElement, findByText, findByTestId } = render(getElement());
+  const { baseElement, findByText, findAllByTestId } = render(getElement());
 
   expect(baseElement).toBeInTheDocument();
   fireEvent.click(await findByText('Read More'));
   expect(onLinkClick).toHaveBeenCalledTimes(1)
 
   // Post cards
-  expect(await findByText("by Joe")).toBeInTheDocument();
   expect(await findByText('10-10-2010')).toBeInTheDocument();
   expect(await findByText('This is a short description dunno why this would be this short')).toBeInTheDocument();
 
   fireEvent.click(await findByText("Post title"));
   expect(onLinkClick).toHaveBeenCalledTimes(3);
 
-  fireEvent.click(await findByTestId("authorPic"));
-  expect(onLinkClick).toHaveBeenCalledTimes(5);
+
+  const authorImgs = await findAllByTestId("author-pic-0");
+  fireEvent.click(authorImgs[0]);
+  expect(onGarsbyLinkClick).toHaveBeenCalledTimes(5);
 });
 
 test("Blog index page should not have axe errors", async () => {

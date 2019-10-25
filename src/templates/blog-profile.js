@@ -57,10 +57,10 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        frontmatter: { author: { id: { eq: $slug } } }
-        fileAbsolutePath: { regex: "/content/blog/" }
-      }
-      sort: { order: DESC, fields: frontmatter___published }
+        frontmatter: {authors: {elemMatch: {id: {eq:  $slug}}}},
+        fileAbsolutePath: {regex: "/content/blog/"}        
+      },
+      sort: {order: DESC, fields: frontmatter___published}
     ) {
       totalCount
       edges {

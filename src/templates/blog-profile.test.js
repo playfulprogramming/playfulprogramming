@@ -1,7 +1,7 @@
 import React from "react"
 import { fireEvent, render } from "@testing-library/react"
 import { siteMetadata } from "../../__mocks__/data/mock-site-metadata"
-import { MockPost } from "../../__mocks__/data/mock-post"
+import { MockMultiAuthorPost, MockPost } from "../../__mocks__/data/mock-post"
 import { useStaticQuery } from "gatsby"
 import { MockUnicorn } from "../../__mocks__/data/mock-unicorn"
 import BlogProfile from "./blog-profile"
@@ -30,9 +30,11 @@ const getElement = () => (
       },
       unicornsJson: MockUnicorn,
       allMarkdownRemark: {
-        totalCount: 1,
+        totalCount: 2,
         edges: [{
           node: MockPost
+        }, {
+          node: MockMultiAuthorPost
         }]
       },
     }}
@@ -43,10 +45,12 @@ const getElement = () => (
 )
 
 test("Blog profile page renders", async () => {
-  const { baseElement, findByText, findByTestId } = render(getElement());
+  const { baseElement, findByText, findAllByTestId, findAllByText } = render(getElement());
 
   expect(baseElement).toBeInTheDocument();
-  expect(await findByText('Joe')).toBeInTheDocument();
+  const joeEls = await findAllByText('Joe')
+  // One in the page title, one per post
+  expect(joeEls.length).toBe(3);
   expect(await findByText('Exists')).toBeInTheDocument();
   const TwitterEl = await findByText('Twitter')
   expect(TwitterEl).toBeInTheDocument();
@@ -60,18 +64,20 @@ test("Blog profile page renders", async () => {
   expect(WebsiteEl).toBeInTheDocument();
   fireEvent.click(WebsiteEl);
   expect(onAnalyticsLinkClick).toHaveBeenCalledTimes(3)
-  expect(await findByText('1 Articles')).toBeInTheDocument();
-  expect(await findByText('10000 Words')).toBeInTheDocument();
+  expect(await findByText('2 Articles')).toBeInTheDocument();
+  expect(await findByText('110000 Words')).toBeInTheDocument();
 
   // Post cards
-  expect(await findByText("by Joe")).toBeInTheDocument();
+  const byEls = await findAllByText("by");
+  expect(byEls.length).toBe(2);
   expect(await findByText('10-10-2010')).toBeInTheDocument();
   expect(await findByText('This is a short description dunno why this would be this short')).toBeInTheDocument();
 
   fireEvent.click(await findByText("Post title"));
   expect(onGarsbyLinkClick).toHaveBeenCalledTimes(2);
 
-  fireEvent.click(await findByTestId("authorPic"));
+  const authorImgs = await findAllByTestId("author-pic-0");
+  fireEvent.click(authorImgs[0]);
   expect(onGarsbyLinkClick).toHaveBeenCalledTimes(4);
 })
 

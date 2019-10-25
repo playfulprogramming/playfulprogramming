@@ -56,7 +56,7 @@ export const postInfoListDisplayFragmentQuery = graphql`
       published(formatString: "MMMM DD, YYYY")
       tags
       description
-      author {
+      authors {
         name
         id
         color
