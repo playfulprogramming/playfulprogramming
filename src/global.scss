@@ -168,6 +168,7 @@ $pendIconMarg: #{$baseUnit}px;
 .post-body {
 	margin: 0 auto #{$baseUnit * 4}px;
 	max-width: #{$baseUnit * 88}px;
+	line-height: 1.7;
 
 	// Fix autolink-headings anchors positioning
 	.anchor {
@@ -189,6 +190,15 @@ $pendIconMarg: #{$baseUnit}px;
 			width: 100%;
 			max-height: 50vh;
 		}
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin-top: 1.25em;
+		line-height: 1.5;
+		margin-bottom: 0;
+	}
+	h1 + h2, h2 + h3, h3 + h4, h4 + h5, h5 + h6 {
+		margin-top: 0.75em;
 	}
 }
 

@@ -8,6 +8,7 @@
 	position: relative;
 	color: inherit;
 	padding: 0 24px 23px 0;
+	line-height: 1.5;
 	box-shadow: none;
 	text-decoration: none;
 	transition: background var(--animSpeed) var(--animStyle),
@@ -32,6 +33,7 @@
 
 .header {
 	margin: 21px 0 0 0;
+	line-height: 1.25;
 	font-size: pxToRem(32px);
 }
 
