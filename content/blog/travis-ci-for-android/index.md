@@ -3,7 +3,7 @@
     title: "Continuous Integration with Travis CI for Android",
     description: 'An in-depth tutorial explaining how to set up Travis CI to deploy signed builds to Google Play. Among other things',
     published: '2019-08-22T05:12:03.284Z',
-    author: 'fennifith',
+    authors: ['fennifith'],
     tags: ['android', 'ci'],
     attached: [],
     license: 'publicdomain-zero-1'

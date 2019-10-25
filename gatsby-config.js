@@ -148,7 +148,17 @@ module.exports = {
                   url: nodeUrl,
                   guid: nodeUrl,
                   custom_elements: [
-                    {"dc:creator": frontmatter.author.name },
+                    /**
+                     * We chose `dc:creator` in order to avoid having
+                     * to list contact information from our contributors,
+                     * as `dc:creator`
+                     *
+                     * FIXME: This does not have the functionality we'd expect
+                     *  it only lists the last author's name
+                     *
+                     * @see https://github.com/dylang/node-rss/issues/92
+                     */
+                    {"dc:creator": frontmatter.authors.map(author => author.name) },
                     {comments: `${nodeUrl}#disqus_thread`}
                   ],
                 }})
@@ -168,7 +178,7 @@ module.exports = {
                         title
                         description
                         published
-                        author {
+                        authors {
                           name
                         }
                       }
@@ -213,7 +223,7 @@ module.exports = {
           {
             name: "en",
             // A function for filtering nodes. () => true by default
-            filterNodes: node => !!node.frontmatter && !!node.frontmatter.author,
+            filterNodes: node => !!node.frontmatter && !!node.frontmatter.authors,
           },
         ],
         // Fields to index. If store === true value will be stored in index file.
@@ -230,7 +240,7 @@ module.exports = {
             name: "slug",
             store: true,
           },
-          { name: "author" },
+          { name: "authors" },
           { name: "tags" },
         ],
         // How to resolve each field's value for a supported node type
@@ -241,7 +251,14 @@ module.exports = {
             excerpt: node => node.excerpt,
             description: node => node.frontmatter.description,
             slug: node => node.fields.slug,
-            author: node => node.frontmatter.author.name,
+            /**
+             * FIXME: This does not work the way we'd want. We want the name
+             *  the author rather than the username, but the node is not
+             *  populated
+             *
+             * @see https://github.com/humanseelabs/gatsby-plugin-lunr/issues/24
+             */
+            authors: node => node.frontmatter.authors.join(', '),
             tags: node => node.frontmatter.tags,
           },
         },
@@ -256,7 +273,7 @@ module.exports = {
     `gatsby-plugin-sitemap`
   ],
   mapping: {
-    "MarkdownRemark.frontmatter.author": `UnicornsJson`,
+    "MarkdownRemark.frontmatter.authors": `UnicornsJson`,
     "MarkdownRemark.frontmatter.license": `LicensesJson`,
     "UnicornsJson.pronouns": `PronounsJson`,
     "UnicornsJson.roles": `RolesJson`,

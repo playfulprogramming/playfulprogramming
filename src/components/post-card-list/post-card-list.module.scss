@@ -22,6 +22,7 @@
 
 .postListItem {
   margin: 6px 0;
+  flex-basis: 100%;
 }
 
 @include from($startMediumScreenSize) {

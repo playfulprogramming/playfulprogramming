@@ -110,7 +110,7 @@ export const postFragmentQuery = graphql`
       published(formatString: "MMMM DD, YYYY")
       tags
       description
-      author {
+      authors {
         ...UnicornInfo
       }
       license {

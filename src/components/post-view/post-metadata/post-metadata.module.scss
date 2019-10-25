@@ -11,14 +11,6 @@
   margin-left: 24px;
 }
 
-.authorPic {
-  @include until($endSmallScreenSize) {
-    $mobilePicSize: 64px;
-    height: $mobilePicSize;
-    width: $mobilePicSize;
-  }
-}
-
 .belowName > * {
   font-weight: 400;
   display: inline-block;
@@ -45,8 +37,6 @@
 
 .authorName {
   font-size: 36px;
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--highImpactBlack);
   margin: 0;
 
   @include until($endSmallScreenSize) {
@@ -56,11 +46,10 @@
 
 .authorLink {
   transition: color var(--animStyle) var(--animSpeed);
-  color: var(--darkPrimary);
+  color: var(--highImpactBlack);
 }
 
-.date {
-}
-
-.wordCount {
+.authorImagesContainer {
+  width: 84px;
+  height: 84px;
 }

@@ -26,20 +26,6 @@
   transition: text-decoration var(--animSpeed);
 }
 
-
-.profilePicLink {
-  position: absolute !important;
-  left: 24px;
-  top: 24px;
-  border-radius: 50%;
-  border-width: 2px;
-  border-style: solid;
-}
-
-.profilePic {
-  display: block !important;
-}
-
 .cardContents {
   margin-left: 108px;
 }
@@ -53,9 +39,12 @@
   margin: 4px 0;
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--darkPrimary);
-  text-decoration: underline;
   // Otherwise, the div goes full width and makes clicking the author name confusing (as it all acts like a link)
   display: inline-block;
+}
+
+.authorLink {
+  text-decoration: underline;
 }
 
 .dateTagSubheader {
@@ -123,4 +112,12 @@
   transition: background var(--animStyle) var(--animSpeed);
   background: var(--darkPrimary);
   content: ' ';
+}
+
+.authorImagesContainer {
+  position: absolute;
+  left: 16px;
+  top: 24px;
+  width: 68px;
+  height: 68px;
 }
