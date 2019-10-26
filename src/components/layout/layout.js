@@ -86,7 +86,7 @@ export const authorFragmentQuery = graphql`
     }
     profileImg {
       childImageSharp {
-        smallPic: fixed(width: 60) {
+        smallPic: fixed(width: 68) {
           ...GatsbyImageSharpFixed
         }
         mediumPic: fixed(width: 85) {

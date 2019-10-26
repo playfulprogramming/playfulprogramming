@@ -24,7 +24,7 @@ export const PostMetadata = ({ post }) => {
 
   return (
     <div className={styles.container}>
-      <UserProfilePic authors={authorLinks} className={styles.authorImagesContainer}/>
+      <UserProfilePic authors={authorLinks} className={styles.authorImagesContainer} mediumPic={true}/>
       <div className={styles.textDiv}>
         <h2 className={styles.authorName} data-testid="post-meta-author-name">
           {authors.map((author, i) => {

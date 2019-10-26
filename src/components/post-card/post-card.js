@@ -92,7 +92,7 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         }}
         />
       </div>
-      <UserProfilePic authors={authorLinks} className={cardStyles.authorImagesContainer}/>
+      <UserProfilePic authors={authorLinks} className={cardStyles.authorImagesContainer} mediumPic={false}/>
     </li>
   )
 }
