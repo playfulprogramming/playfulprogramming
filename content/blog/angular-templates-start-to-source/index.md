@@ -688,7 +688,7 @@ export class AppComponent {
 
 Something you'll see if you open the console in that example is an error you may already be familiar with if you’ve used Angular extensively in the past (I know I sure saw it more then a few times!):
 
-```
+```none
 Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngTemplateOutlet: undefined'. Current value: 'ngTemplateOutlet: [object Object]'.
 ```
 
@@ -1305,7 +1305,7 @@ While Angular goes for a more verbose pattern due to additional features availab
 
 [The following is the Angular source code for that directive](https://github.com/angular/angular/blob/e1f6d1538784eb87f7497bef27e3c313184c2d30/packages/common/src/directives/ng_if.ts#L151). To make it easier to explain with our current set of knowledge, there have been lines of code removed and a single conditional modified in a very minor way. Outside of these changes, this is largely unchanged.
 
-````typescript
+```typescript
 @Directive({selector: '[ngIf]'})
 export class NgIf {
 	private _context: NgIfContext = new NgIfContext();
@@ -1340,7 +1340,7 @@ export class NgIfContext {
 	public $implicit: any = null;
 	public ngIf: any = null;
 }
-````
+```
 
 Just to recap, let's run through this line-by-line:
 
@@ -1364,7 +1364,7 @@ Alright, we've made it thus far! The following section is going to be kinda a do
 
 Just as Angular parses the rest of the template you pass in to be able to convert your custom Angular components into template tags, **Angular also provides a small language-like syntax into its own query system**. This syntax is referred to as a "microsyntax" by the Angular devs. _This syntax is able to let the user create specific APIs that tie into this syntax and call/leverage specific parts of their code_. Sound vague? I think so too, let's look at a fairly minimal example:
 
-````typescript
+```typescript
 function translatePigLatin(strr) {
 	// See the code here: https://www.freecodecamp.org/forum/t/freecodecamp-algorithm-challenge-guide-pig-latin/16039/7
 }
@@ -1392,7 +1392,7 @@ export class MakePigLatinDirective {
 	`
 })
 export class AppComponent {}
-````
+```
 
 <iframe src="https://stackblitz.com/edit/start-to-source-30-microsyntax?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
