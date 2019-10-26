@@ -102,7 +102,14 @@ module.exports = {
               enableCustomId: true
             },
           },
-          `gatsby-remark-prismjs`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              aliases: {
+                "gradle": "groovy", //prismjs doesn't support gradle yet, so aliasing it to groovy provides at least some highlighting
+              },
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-external-links`
         ],
