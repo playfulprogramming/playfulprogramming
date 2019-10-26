@@ -106,7 +106,7 @@ module.exports = {
             resolve: `gatsby-remark-prismjs`,
             options: {
               aliases: {
-                gradle: "groovy", //prismjs doesn't support gradle yet, so aliasing it to groovy provides at least some highlighting
+                "gradle": "groovy", //prismjs doesn't support gradle yet, so aliasing it to groovy provides at least some highlighting
               },
             },
           },

@@ -688,7 +688,7 @@ export class AppComponent {
 
 Something you'll see if you open the console in that example is an error you may already be familiar with if you’ve used Angular extensively in the past (I know I sure saw it more then a few times!):
 
-```none
+```
 Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'ngTemplateOutlet: undefined'. Current value: 'ngTemplateOutlet: [object Object]'.
 ```
 
