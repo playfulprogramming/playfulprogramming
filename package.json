@@ -7,6 +7,17 @@
   "bugs": {
     "url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,scss}": [
+      "npm run format",
+      "git add"
+    ]
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "css-loader": "^3.2.0",
@@ -61,11 +72,15 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-gatsby": "^0.2.18",
+    "eslint": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-axe": "^3.2.0",
     "jest-dom": "^4.0.0",
     "jest-watch-typeahead": "^0.4.0",
+    "lint-staged": "^9.4.2",
     "prettier": "^1.18.2"
   },
   "homepage": "https://unicorn-utterances.com",
@@ -83,7 +98,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
+    "format": "eslint --fix",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "jest",
