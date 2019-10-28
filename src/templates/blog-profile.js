@@ -2,26 +2,17 @@ import React, { useMemo } from "react"
 import { graphql } from "gatsby"
 import { Layout } from "../components/layout"
 import { SEO } from "../components/seo"
-import { PostList } from "../components/post-card-list"
 import { PicTitleHeader } from "../components/pic-title-header"
+import { PostListLayout } from "../components/post-list-layout"
 
-const BlogProfile = (props) => {
-  const siteTitle = props.data.site.siteMetadata.title
-  const slugData = props.data
+const BlogProfile = props => {
+  const {pageContext, data: slugData} = props;
+  const siteTitle = slugData.site.siteMetadata.title
   const unicornData = slugData.unicornsJson
   const posts = slugData.allMarkdownRemark.edges
 
-  // FIXME: This logic will break with pagination
   const wordCount = useMemo(() => {
     return posts.reduce((prev, post) => prev + post.node.wordCount.words, 0)
-  }, [posts])
-
-  // FIXME: This logic will break with pagination
-  const postTags = useMemo(() => {
-    return Array.from(posts.reduce((prev, post) => {
-      post.node.frontmatter.tags.forEach(tag => prev.add(tag));
-      return prev;
-    }, new Set()))
   }, [posts])
 
   return (
@@ -32,21 +23,22 @@ const BlogProfile = (props) => {
         unicornData={unicornData}
         type="profile"
       />
-      <PicTitleHeader
-        image={unicornData.profileImg.childImageSharp.bigPic}
-        title={unicornData.name}
-        description={unicornData.description}
-        profile={true}
-        socials={unicornData.socials}
-      />
-      <PostList
+      <PostListLayout
+        pageContext={pageContext}
         numberOfArticles={slugData.allMarkdownRemark.totalCount}
-        wordCount={wordCount}
-        posts={posts}
-        tags={postTags}
         showWordCount={true}
         unicornData={unicornData}
-      />
+        wordCount={wordCount}
+        posts={posts}
+      >
+        <PicTitleHeader
+          image={unicornData.profileImg.childImageSharp.bigPic}
+          title={unicornData.name}
+          description={unicornData.description}
+          profile={true}
+          socials={unicornData.socials}
+        />
+      </PostListLayout>
     </Layout>
   )
 }
@@ -73,7 +65,7 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
-          ...PostInfo
+          ...PostInfoListDisplay
         }
       }
     }

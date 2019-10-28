@@ -6,10 +6,10 @@ import { fireEvent, render } from "@testing-library/react"
 import ReactDOMServer from 'react-dom/server';
 import { axe } from 'jest-axe';
 import { onLinkClick as onGarsbyLinkClick, onLinkClick, useStaticQuery } from "gatsby"
-import { siteMetadata } from "../../../__mocks__/data/mock-site-metadata"
-import { MockMultiAuthorPost, MockPost } from "../../../__mocks__/data/mock-post"
-import { MockUnicorn } from "../../../__mocks__/data/mock-unicorn"
-import BlogIndex from "../index"
+import { siteMetadata } from "../../__mocks__/data/mock-site-metadata"
+import { MockMultiAuthorPost, MockPost } from "../../__mocks__/data/mock-post"
+import { MockUnicorn } from "../../__mocks__/data/mock-unicorn"
+import BlogPostList from "./post-list"
 
 beforeAll(() => {
   useStaticQuery.mockImplementation(() => ({
@@ -24,7 +24,14 @@ afterAll(() => {
 })
 
 const getElement = () => (
-  <BlogIndex
+  <BlogPostList
+    pageContext={{
+      limitNumber: 8,
+      skipNumber: 0,
+      pageIndex: 1,
+      numberOfPages: 1,
+      relativePath: ''
+    }}
     data={{
       site: {
         siteMetadata

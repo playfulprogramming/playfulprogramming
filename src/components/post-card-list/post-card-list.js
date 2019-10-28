@@ -13,8 +13,6 @@ import { FilterSearchBar } from "../filter-search-bar"
  */
 export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, wordCount, tags, unicornData }) => {
   // FIXME: This will not suffice with pagination added
-  const [filtered, setFiltered] = useState(null)
-  const [searched, setSearched] = useState(null)
 
   const listAria = unicornData ? `List of posts written by ${unicornData.name}` : `List of posts`;
 
@@ -23,18 +21,10 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
       <FilterSearchBar tags={tags}
                        showWordCount={showWordCount}
                        wordCount={wordCount}
-                       numberOfArticles={numberOfArticles}
-                       onFilter={val => setFiltered(val && val.map(v => v.slug))}
-      onSearch={val => setSearched(val && val.map(v => v.slug))}/>
+                       numberOfArticles={numberOfArticles}/>
       <ul className={listStyle.postsListContainer} aria-label={listAria} role="list">
         {posts.map(({ node }) => {
           const slug = node.fields.slug;
-          if (
-            (filtered && !filtered.includes(slug)) ||
-            (searched && !searched.includes(slug))
-          ) {
-            return null
-          }
 
           const title = node.frontmatter.title || slug
           return (

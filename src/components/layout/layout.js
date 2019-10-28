@@ -34,12 +34,7 @@ export const Layout = ({ location, children }) => {
       currentTheme,
       setTheme
     }}>
-    <div
-      style={{
-        marginLeft: `auto`,
-        marginRight: `auto`,
-      }}
-    >
+    <div className={layoutStyles.horizCenter}>
       <header className={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
         {
           !isBase &&

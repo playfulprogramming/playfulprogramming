@@ -43,6 +43,7 @@
     "react-breakpoints": "^3.0.3",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
+    "react-paginate": "^6.3.0",
     "react-pose": "^4.0.9"
   },
   "peerDependencies": {

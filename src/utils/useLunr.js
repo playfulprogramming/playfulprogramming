@@ -14,7 +14,6 @@ function getSearchResults(query, lng) {
     ...fullResults.map(({ ref }) => ref)
   ]);
 
-  console.log(lazyResults, fullResults);
   return Array.from(refs).map(ref => lunrIndex.store[ref])
 }
 
@@ -28,8 +27,8 @@ function getSearchResults(query, lng) {
 export const useLunr = ({language = 'en'} = {}) => {
   const [results, setResults] = useState(null)
 
-  const onSearch = eventOrStr => {
-    const eventVal = typeof eventOrStr === 'string' ? eventOrStr : eventOrStr.target.value
+  const searchUsingLunr = str => {
+    const eventVal = str
     if (!eventVal) {
       setResults(null)
       return;
@@ -38,5 +37,5 @@ export const useLunr = ({language = 'en'} = {}) => {
     setResults(results)
   }
 
-  return {onSearch, results};
+  return {searchUsingLunr, results};
 }

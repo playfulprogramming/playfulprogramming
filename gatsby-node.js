@@ -55,37 +55,38 @@ exports.createPages = ({ graphql, actions }) => {
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
   const blogProfile = path.resolve(`./src/templates/blog-profile.js`)
+  const postList = path.resolve(`./src/templates/post-list.js`)
   return graphql(
     `
-    {
-      allMarkdownRemark(
-        sort: {fields: [frontmatter___published], order: DESC},
-        filter: {fileAbsolutePath: {regex: "/content/blog/"}},
-        limit: 1000
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-              authors {
-                id
+      {
+        allMarkdownRemark(
+          sort: { fields: [frontmatter___published], order: DESC }
+          filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                authors {
+                  id
+                }
               }
             }
           }
         }
-      }
-      allUnicornsJson(limit: 100) {
-        edges {
-          node {
-            id
+        allUnicornsJson(limit: 100) {
+          edges {
+            node {
+              id
+            }
           }
         }
       }
-    }
-    `,
+    `
   ).then(result => {
     if (result.errors) {
       throw result.errors
@@ -103,11 +104,21 @@ exports.createPages = ({ graphql, actions }) => {
       if (postInfo.attached && postInfo.attached.length > 0) {
         postInfo.attached.forEach(({ file: fileStr }) => {
           const postPath = post.node.fields.slug
-          const relFilePath = path.join(__dirname, "static", "posts", postPath, fileStr)
+          const relFilePath = path.join(
+            __dirname,
+            "static",
+            "posts",
+            postPath,
+            fileStr
+          )
           const fileExists = fs.existsSync(path.resolve(relFilePath))
           if (!fileExists) {
-            console.error(`Could not find file to attach in the static folder: ${postPath}${fileStr}`)
-            console.error(`To fix this problem, attach the file to the static folder's expected path above, or remove it from the post frontmatter definition`)
+            console.error(
+              `Could not find file to attach in the static folder: ${postPath}${fileStr}`
+            )
+            console.error(
+              `To fix this problem, attach the file to the static folder's expected path above, or remove it from the post frontmatter definition`
+            )
             process.exit(1)
           }
         })
@@ -124,14 +135,77 @@ exports.createPages = ({ graphql, actions }) => {
       })
     })
 
-    unicorns.forEach((unicorn) => {
+    const postsPerPage = 8
+    const numberOfPages = Math.ceil(posts.length / postsPerPage)
+
+    createPage({
+      path: `/`,
+      component: postList,
+      context: {
+        limitNumber: postsPerPage,
+        skipNumber: 0,
+        pageIndex: 1,
+        numberOfPages,
+        relativePath: ''
+      },
+    })
+
+    for (const i of Array(numberOfPages).keys()) {
+      if (i === 0) continue
+      const pageNum = i + 1
+      const skipNumber = postsPerPage * i
+      createPage({
+        path: `page/${pageNum}`,
+        component: postList,
+        context: {
+          limitNumber: postsPerPage,
+          skipNumber,
+          pageIndex: pageNum,
+          numberOfPages,
+          relativePath: ''
+        },
+      })
+    }
+
+    unicorns.forEach(unicorn => {
+      const uniId = unicorn.node.id
+
+      const uniPosts = posts.filter(({ node: { frontmatter } }) =>
+        frontmatter.authors.find(uni => uni.id === uniId)
+      )
+
+      const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage)
+
       createPage({
         path: `unicorns/${unicorn.node.id}`,
         component: blogProfile,
         context: {
-          slug: unicorn.node.id,
+          slug: uniId,
+          limitNumber: postsPerPage,
+          skipNumber: 0,
+          pageIndex: 1,
+          numberOfPages: numberOfUniPages,
+          relativePath: `unicorns/${uniId}`,
         },
       })
+
+      for (const i of Array(numberOfUniPages).keys()) {
+        if (i === 0) continue
+        const pageNum = i + 1
+        const skipNumber = postsPerPage * i
+        createPage({
+          path: `unicorns/${uniId}/page/${pageNum}`,
+          component: blogProfile,
+          context: {
+            slug: uniId,
+            limitNumber: postsPerPage,
+            skipNumber,
+            pageIndex: pageNum,
+            numberOfPages: numberOfUniPages,
+            relativePath: `unicorns/${uniId}`,
+          },
+        })
+      }
     })
 
     return null

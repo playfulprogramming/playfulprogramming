@@ -24,6 +24,13 @@ afterAll(() => {
 
 const getElement = () => (
   <BlogProfile
+    pageContext={{
+      limitNumber: 8,
+      skipNumber: 0,
+      pageIndex: 1,
+      numberOfPages: 1,
+      relativePath: ''
+    }}
     data={{
       site: {
         siteMetadata
