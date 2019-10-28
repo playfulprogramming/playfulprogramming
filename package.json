@@ -99,6 +99,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "eslint --fix ./src",
+    "lint": "eslint ./src",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "jest",
