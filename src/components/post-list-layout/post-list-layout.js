@@ -126,7 +126,7 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
 
       <PostList posts={postsToDisplay} tags={postTags} {...postListProps} />
 
-      <ReactPaginate
+      {!!pageCount && <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}
         breakLabel={"..."}
@@ -153,7 +153,7 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
           }
           navigate(`${relativePath}/page/${newPageIndex}`)
         }}
-      />
+      />}
     </SearchAndFilterContext.Provider>
   )
 }
