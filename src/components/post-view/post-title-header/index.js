@@ -1,1 +1,1 @@
-export * from "./post-title-header"
+export * from "./post-title-header";

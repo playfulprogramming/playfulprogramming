@@ -1,1 +1,1 @@
-export * from "./filter-search-bar"
+export * from "./filter-search-bar";

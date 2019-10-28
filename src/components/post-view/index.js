@@ -1,2 +1,2 @@
-export * from "./post-metadata"
-export * from "./post-title-header"
+export * from "./post-metadata";
+export * from "./post-title-header";
