@@ -1,1 +1,1 @@
-export * from "./post-list-layout"
+export * from "./post-list-layout";

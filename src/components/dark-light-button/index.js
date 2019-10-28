@@ -1,1 +1,1 @@
-export * from "./dark-light-button"
+export * from "./dark-light-button";
