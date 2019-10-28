@@ -1,4 +1,10 @@
-import { createContext, default as React, useEffect, useMemo, useState } from "react"
+import {
+  createContext,
+  default as React,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { useLunr } from "../../utils/useLunr"
 
 // We only have dark and light right now
@@ -54,34 +60,31 @@ export const useSearchFilterValue = () => {
 
   useEffect(() => {
     if (!filterVal || !filterVal.length) {
-      filterUsingLunr('');
+      filterUsingLunr("")
     } else {
-      filterUsingLunr(`tags: ${filterVal.map(v => v.val).join(' ')}`);
+      filterUsingLunr(`tags: ${filterVal.map(v => v.val).join(" ")}`)
     }
-  }, [filterVal])
+  }, [filterUsingLunr, filterVal])
 
   useEffect(() => {
-    searchUsingLunr(searchVal);
-  }, [searchVal])
+    searchUsingLunr(searchVal)
+  }, [searchUsingLunr, searchVal])
 
   /**
    * An array of all allowed posts to be shown to the user
    * @type {string[]}
    */
-  const lunrAllowedIds = useMemo(
-    () => {
-      if (lunrFilterIds && lunrSearchIds) {
-        const lunrFilterIdsSlugs = lunrFilterIds.map(v => v.slug);
-        const lunrSearchIdsSlugs = lunrSearchIds.map(v => v.slug);
-        return lunrFilterIdsSlugs.filter(v => lunrSearchIdsSlugs.includes(v));
-      }
+  const lunrAllowedIds = useMemo(() => {
+    if (lunrFilterIds && lunrSearchIds) {
+      const lunrFilterIdsSlugs = lunrFilterIds.map(v => v.slug)
+      const lunrSearchIdsSlugs = lunrSearchIds.map(v => v.slug)
+      return lunrFilterIdsSlugs.filter(v => lunrSearchIdsSlugs.includes(v))
+    }
 
-      if (lunrFilterIds) return lunrFilterIds.map(v => v.slug);
-      if (lunrSearchIds) return lunrSearchIds.map(v => v.slug);
-      return [];
-    },
-    [lunrFilterIds, lunrSearchIds]
-  )
+    if (lunrFilterIds) return lunrFilterIds.map(v => v.slug)
+    if (lunrSearchIds) return lunrSearchIds.map(v => v.slug)
+    return []
+  }, [lunrFilterIds, lunrSearchIds])
 
   return React.useMemo(
     () => ({
@@ -91,12 +94,6 @@ export const useSearchFilterValue = () => {
       setFilterVal,
       lunrAllowedIds,
     }),
-    [
-      searchVal,
-      filterVal,
-      setSearchVal,
-      setFilterVal,
-      lunrAllowedIds,
-    ]
+    [searchVal, filterVal, setSearchVal, setFilterVal, lunrAllowedIds]
   )
 }

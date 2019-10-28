@@ -45,7 +45,7 @@ export const useElementBoundingBox = (
       ref,
       ...changeFunc(getFromBoundClient(bounding)),
     }
-  }, [ref, afterInit, windowSize, changeItem, changeFunc])
+  }, [ref, changeFunc])
 
   return boundingObj
 }

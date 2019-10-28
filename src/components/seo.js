@@ -10,13 +10,18 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { graphql, useStaticQuery } from "gatsby"
 
-const mapToMetaArr = (map) => Array.from(map.entries())
-  .map(([k, v]) => ({
+const mapToMetaArr = map =>
+  Array.from(map.entries()).map(([k, v]) => ({
     property: k,
     content: v,
   }))
 
-const getBlogPostMetas = (unicornData, keywords = [], publishedTime, editedTime) => {
+const getBlogPostMetas = (
+  unicornData,
+  keywords = [],
+  publishedTime,
+  editedTime
+) => {
   if (!unicornData) return []
   const metas = new Map()
 
@@ -44,7 +49,7 @@ const getBlogPostMetas = (unicornData, keywords = [], publishedTime, editedTime)
   ]
 }
 
-const getProfileMetas = (unicornData) => {
+const getProfileMetas = unicornData => {
   if (!unicornData) return []
   const metas = new Map()
 
@@ -57,16 +62,16 @@ const getProfileMetas = (unicornData) => {
 }
 
 function SEO({
-               description,
-               lang,
-               meta,
-               title,
-               unicornData,
-               keywords,
-               publishedTime,
-               editedTime,
-               type,
-             }) {
+  description,
+  lang,
+  meta,
+  title,
+  unicornData,
+  keywords,
+  publishedTime,
+  editedTime,
+  type,
+}) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -79,7 +84,7 @@ function SEO({
           }
         }
       }
-    `,
+    `
   )
 
   const siteData = site.siteMetadata
@@ -87,16 +92,17 @@ function SEO({
   const metaDescription = description || siteData.description
   const metaKeywords = keywords || siteData.keywords
 
-  const typeMetas = type === "article" ?
-    getBlogPostMetas(unicornData, keywords, publishedTime, editedTime) :
-    type === "profile" ?
-      getProfileMetas(unicornData) :
-      [
-        {
-          property: `og:type`,
-          content: "blog",
-        },
-      ]
+  const typeMetas =
+    type === "article"
+      ? getBlogPostMetas(unicornData, keywords, publishedTime, editedTime)
+      : type === "profile"
+      ? getProfileMetas(unicornData)
+      : [
+          {
+            property: `og:type`,
+            content: "blog",
+          },
+        ]
 
   return (
     <Helmet
@@ -106,9 +112,9 @@ function SEO({
       title={title}
       titleTemplate={`%s | ${siteData.title}`}
       link={[
-        { rel: "icon", href: '/favicon.ico' },
-        { rel: "preconnect", href: 'https://www.google.com' },
-        { rel: "preconnect", href: 'https://marketingplatform.google.com' },
+        { rel: "icon", href: "/favicon.ico" },
+        { rel: "preconnect", href: "https://www.google.com" },
+        { rel: "preconnect", href: "https://marketingplatform.google.com" },
       ]}
       meta={[
         {
@@ -156,14 +162,16 @@ function SEO({
           content: `summary_large_image`,
         },
         {
-          name: 'og:image',
-          content: 'https://unicorn-utterances.com/share-banner.png'
+          name: "og:image",
+          content: "https://unicorn-utterances.com/share-banner.png",
         },
         {
-          name: 'twitter:image',
-          content: 'https://unicorn-utterances.com/share-banner.png'
-        }
-      ].concat(meta).concat(typeMetas)}
+          name: "twitter:image",
+          content: "https://unicorn-utterances.com/share-banner.png",
+        },
+      ]
+        .concat(meta)
+        .concat(typeMetas)}
     />
   )
 }

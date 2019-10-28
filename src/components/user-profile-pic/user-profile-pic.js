@@ -10,7 +10,7 @@ import styles from "./user-profile-pic.module.scss"
  * @param {string} className
  */
 export const UserProfilePic = ({ authors, className }) => {
-  const hasTwoAuthors = authors.length !== 1;
+  const hasTwoAuthors = authors.length !== 1
 
   const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
     const classesToApply = hasTwoAuthors ? styles.twoAuthor : ""
@@ -38,7 +38,7 @@ export const UserProfilePic = ({ authors, className }) => {
   })
 
   return (
-    <div className={`${styles.container} ${className || ''}`}>
+    <div className={`${styles.container} ${className || ""}`}>
       {authorsLinks}
     </div>
   )

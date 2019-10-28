@@ -2,15 +2,18 @@ import { useCallback, useEffect, useRef } from "react"
 
 export const useOutsideClick = (enable, onOutsideClick, parentRef) => {
   const localElRef = useRef()
-  const elRef = parentRef || localElRef;
-  const handleClickOutside = useCallback(e => {
-    if (elRef.current.contains(e.target)) {
-      // inside click
-      return
-    }
-    // outside click
-    onOutsideClick()
-  }, [parentRef, elRef]);
+  const elRef = parentRef || localElRef
+  const handleClickOutside = useCallback(
+    e => {
+      if (elRef.current.contains(e.target)) {
+        // inside click
+        return
+      }
+      // outside click
+      onOutsideClick()
+    },
+    [elRef, onOutsideClick]
+  )
 
   useEffect(() => {
     if (enable) {

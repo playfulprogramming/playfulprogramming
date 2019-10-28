@@ -11,20 +11,35 @@ import { FilterSearchBar } from "../filter-search-bar"
  * @param tags
  * @param unicornData - The data with the associated post. If present - you're on profile page
  */
-export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, wordCount, tags, unicornData }) => {
+export const PostList = ({
+  posts = [],
+  showWordCount = false,
+  numberOfArticles,
+  wordCount,
+  tags,
+  unicornData,
+}) => {
   // FIXME: This will not suffice with pagination added
 
-  const listAria = unicornData ? `List of posts written by ${unicornData.name}` : `List of posts`;
+  const listAria = unicornData
+    ? `List of posts written by ${unicornData.name}`
+    : `List of posts`
 
   return (
     <main>
-      <FilterSearchBar tags={tags}
-                       showWordCount={showWordCount}
-                       wordCount={wordCount}
-                       numberOfArticles={numberOfArticles}/>
-      <ul className={listStyle.postsListContainer} aria-label={listAria} role="list">
+      <FilterSearchBar
+        tags={tags}
+        showWordCount={showWordCount}
+        wordCount={wordCount}
+        numberOfArticles={numberOfArticles}
+      />
+      <ul
+        className={listStyle.postsListContainer}
+        aria-label={listAria}
+        role="list"
+      >
         {posts.map(({ node }) => {
-          const slug = node.fields.slug;
+          const slug = node.fields.slug
 
           const title = node.frontmatter.title || slug
           return (
@@ -45,4 +60,3 @@ export const PostList = ({ posts = [], showWordCount = false, numberOfArticles, 
     </main>
   )
 }
-

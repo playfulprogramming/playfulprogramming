@@ -4,52 +4,59 @@ import BackIcon from "../../assets/icons/back.svg"
 import layoutStyles from "./layout.module.scss"
 import "../../global.scss"
 import { DarkLightButton } from "../dark-light-button"
-import {ThemeContext, setThemeColorsToVars} from '../theme-context'
+import { ThemeContext, setThemeColorsToVars } from "../theme-context"
 
 export const Layout = ({ location, children }) => {
+  // eslint-disable-next-line no-undef
   const rootPath = `${__PATH_PREFIX__}/`
 
   const isBase = location.pathname === rootPath
   const isBlogPost = location.pathname.startsWith(`${rootPath}posts`)
 
-  const [currentTheme, setCurrentTheme] = useState('light');
+  const [currentTheme, setCurrentTheme] = useState("light")
 
-  const winLocalStorage = global && global.window && global.window.localStorage;
+  const winLocalStorage = global && global.window && global.window.localStorage
 
   useEffect(() => {
-    if (!winLocalStorage) return;
-    const themeName = winLocalStorage.getItem('currentTheme') || 'light'
-    setThemeColorsToVars(themeName);
+    if (!winLocalStorage) return
+    const themeName = winLocalStorage.getItem("currentTheme") || "light"
+    setThemeColorsToVars(themeName)
     setCurrentTheme(themeName)
   }, [winLocalStorage])
 
-  const setTheme = (val) => {
-    setThemeColorsToVars(val);
-    setCurrentTheme(val);
-    localStorage.setItem('currentTheme', val)
+  const setTheme = val => {
+    setThemeColorsToVars(val)
+    setCurrentTheme(val)
+    localStorage.setItem("currentTheme", val)
   }
 
   return (
-    <ThemeContext.Provider value={{
-      currentTheme,
-      setTheme
-    }}>
-    <div className={layoutStyles.horizCenter}>
-      <header className={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
-        {
-          !isBase &&
-          <Link
-            className={`${layoutStyles.backBtn} baseBtn`}
-            to={`/`}
-            aria-label="Go back"
-          >
-            <BackIcon/>
-          </Link>
-        }
-        <DarkLightButton/>
-      </header>
-      <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>{children}</div>
-    </div>
+    <ThemeContext.Provider
+      value={{
+        currentTheme,
+        setTheme,
+      }}
+    >
+      <div className={layoutStyles.horizCenter}>
+        <header
+          className={layoutStyles.header}
+          aria-label={"Toolbar for primary action buttons"}
+        >
+          {!isBase && (
+            <Link
+              className={`${layoutStyles.backBtn} baseBtn`}
+              to={`/`}
+              aria-label="Go back"
+            >
+              <BackIcon />
+            </Link>
+          )}
+          <DarkLightButton />
+        </header>
+        <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>
+          {children}
+        </div>
+      </div>
     </ThemeContext.Provider>
   )
 }

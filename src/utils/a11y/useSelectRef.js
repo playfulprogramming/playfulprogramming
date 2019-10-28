@@ -2,7 +2,7 @@
  * I need to cleanup this code and also add:
  *
  */
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, useCallback } from "react"
 import { useOutsideClick } from "../useOutsideClick"
 import { genId } from "./getNewId"
 
@@ -56,15 +56,14 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     setInternalArr(newArr)
 
     setActive(newArr[0])
-  }, [arrVal])
+  }, [arrVal, enableSelect])
 
   // This will be empty if `enableSelect` is null
-  const selectedArr = useMemo(() =>
-      internalArr.filter(item => item.selected),
-    [internalArr],
-  )
+  const selectedArr = useMemo(() => internalArr.filter(item => item.selected), [
+    internalArr,
+  ])
 
-  const markAsSelected = (index, markSelect) => {
+  const markAsSelected = useCallback((index, markSelect) => {
     // Safely set index
     if (index < 0) {
       index = 0
@@ -87,13 +86,13 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
        * @param i - The index being passed to compare whether to mark as selected or not
        * @returns {boolean} - Should be selected?
        */
-      let compareFunc = (i) => i === index
+      let compareFunc = i => i === index
 
       // New index is before, we want to save all items before or equal
       if (index < active.index) {
-        compareFunc = (i) => i <= active.index && i >= index
+        compareFunc = i => i <= active.index && i >= index
       } else {
-        compareFunc = (i) => i >= active.index && i <= index
+        compareFunc = i => i >= active.index && i <= index
       }
 
       // Set the internal array with a new array with right items selected
@@ -103,10 +102,10 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
             val.selected = true
           }
           return val
-        }),
+        })
       )
     }
-  }
+  })
 
   const selectIndex = (i, e, type) => {
     if (type === "click" || (e && e.type === "click")) {
@@ -117,10 +116,12 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   }
 
   const selectAll = () => {
-    setInternalArr(internalArr.map(val => {
-      val.selected = true
-      return val
-    }))
+    setInternalArr(
+      internalArr.map(val => {
+        val.selected = true
+        return val
+      })
+    )
   }
 
   const selectRef = useRef()
@@ -128,7 +129,6 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
   // Arrow key handler
   useEffect(() => {
     if (selectRef.current) {
-
       const onKeyDown = event => {
         if (!expanded) {
           return
@@ -143,7 +143,10 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
           event.preventDefault()
           _newIndex = active.index - 1
           isSelecting = event.shiftKey
-        } else if (enableSelect && (event.key === " " || event.key === "Spacebar")) {
+        } else if (
+          enableSelect &&
+          (event.key === " " || event.key === "Spacebar")
+        ) {
           event.preventDefault()
           _newIndex = active.index
           isSelecting = "single"
@@ -187,37 +190,37 @@ export const useSelectRef = (arrVal, enableSelect, onSel) => {
     active,
     expanded,
     usedKeyboardLast,
+    enableSelect,
+    markAsSelected,
+    onSel,
+    internalArr.length,
+    selectAll,
   ])
 
   useEffect(() => {
     if (selectRef && expanded) {
       selectRef.current.focus()
     }
-  }, [
-    expanded,
-    selectRef,
-  ])
+  }, [expanded, selectRef])
 
   const parentRef = useOutsideClick(expanded, () => setExpanded(false))
 
-  const buttonProps = useMemo(() => ({
-    onClick: () => {
-      setExpanded(!expanded)
-      setUsedKeyboardLast(false)
-    },
-    onKeyDown: (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault()
-        setUsedKeyboardLast(true)
+  const buttonProps = useMemo(
+    () => ({
+      onClick: () => {
         setExpanded(!expanded)
-      }
-    },
-  }), [
-    selectRef,
-    expanded,
-    usedKeyboardLast,
-  ])
-
+        setUsedKeyboardLast(false)
+      },
+      onKeyDown: e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          setUsedKeyboardLast(true)
+          setExpanded(!expanded)
+        }
+      },
+    }),
+    [expanded]
+  )
 
   return {
     selected: selectedArr,

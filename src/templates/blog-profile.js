@@ -6,7 +6,7 @@ import { PicTitleHeader } from "../components/pic-title-header"
 import { PostListLayout } from "../components/post-list-layout"
 
 const BlogProfile = props => {
-  const {pageContext, data: slugData} = props;
+  const { pageContext, data: slugData } = props
   const siteTitle = slugData.site.siteMetadata.title
   const unicornData = slugData.unicornsJson
   const posts = slugData.allMarkdownRemark.edges
@@ -57,10 +57,10 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: {
-        frontmatter: {authors: {elemMatch: {id: {eq:  $slug}}}},
-        fileAbsolutePath: {regex: "/content/blog/"}        
-      },
-      sort: {order: DESC, fields: frontmatter___published}
+        frontmatter: { authors: { elemMatch: { id: { eq: $slug } } } }
+        fileAbsolutePath: { regex: "/content/blog/" }
+      }
+      sort: { order: DESC, fields: frontmatter___published }
     ) {
       totalCount
       edges {

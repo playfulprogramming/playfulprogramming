@@ -15,12 +15,17 @@ import {
 import { useEffect } from "react"
 import { useMemo } from "react"
 
-export const PostListLayout = ({ children, posts, pageContext, ...postListProps }) => {
+export const PostListLayout = ({
+  children,
+  posts,
+  pageContext,
+  ...postListProps
+}) => {
   const {
     pageIndex: originalPageIndexPlusOne,
     numberOfPages,
     limitNumber,
-    relativePath
+    relativePath,
   } = pageContext
   /**
    * In order to get around limitations with GQL query calls, we originally
@@ -84,6 +89,8 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
     contextValue.searchVal,
     contextValue.filterVal,
     contextValue.lunrAllowedIds,
+    posts,
+    originalPageIndex,
   ])
 
   /**
@@ -101,14 +108,15 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
    */
   const postTags = usePostTagsFromNodes(posts)
 
-  const {pageCount, forcePage} = useMemo(() => {
-    if (!contextValue.searchVal && !contextValue.filterVal.length) return {
-      pageCount: numberOfPages,
-      forcePage: originalPageIndex
-    };
+  const { pageCount, forcePage } = useMemo(() => {
+    if (!contextValue.searchVal && !contextValue.filterVal.length)
+      return {
+        pageCount: numberOfPages,
+        forcePage: originalPageIndex,
+      }
     return {
       pageCount: Math.ceil(filteredByPosts.length / limitNumber),
-      forcePage: currentPageIndex
+      forcePage: currentPageIndex,
     }
   }, [
     contextValue.searchVal,
@@ -117,7 +125,7 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
     filteredByPosts,
     limitNumber,
     currentPageIndex,
-    originalPageIndex
+    originalPageIndex,
   ])
 
   return (
@@ -126,34 +134,36 @@ export const PostListLayout = ({ children, posts, pageContext, ...postListProps 
 
       <PostList posts={postsToDisplay} tags={postTags} {...postListProps} />
 
-      {!!pageCount && <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        forcePage={forcePage}
-        pageRangeDisplayed={5}
-        hrefBuilder={props => `${relativePath}/page/${props}`}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-        onPageChange={({ selected }) => {
-          if (contextValue.filterVal.length || contextValue.searchVal) {
-            setCurrentPageIndex(selected)
-            return
-          }
+      {!!pageCount && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          forcePage={forcePage}
+          pageRangeDisplayed={5}
+          hrefBuilder={props => `${relativePath}/page/${props}`}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          onPageChange={({ selected }) => {
+            if (contextValue.filterVal.length || contextValue.searchVal) {
+              setCurrentPageIndex(selected)
+              return
+            }
 
-          // Even though we index at 1 for pages, this component indexes at 0
-          const newPageIndex = selected + 1
-          if (newPageIndex === 1) {
-            navigate(`${relativePath}/`)
-            return
-          }
-          navigate(`${relativePath}/page/${newPageIndex}`)
-        }}
-      />}
+            // Even though we index at 1 for pages, this component indexes at 0
+            const newPageIndex = selected + 1
+            if (newPageIndex === 1) {
+              navigate(`${relativePath}/`)
+              return
+            }
+            navigate(`${relativePath}/page/${newPageIndex}`)
+          }}
+        />
+      )}
     </SearchAndFilterContext.Provider>
   )
 }

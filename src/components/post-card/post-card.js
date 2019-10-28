@@ -14,34 +14,48 @@ import { UserProfilePic } from "../user-profile-pic"
  * @param {string} [description] - The manually written description of the post in the post frontmatter
  * @param {string} [className] - Classname to pass to the post card element
  */
-export const PostCard = ({ title, authors, published, tags, excerpt, description, className, slug }) => {
+export const PostCard = ({
+  title,
+  authors,
+  published,
+  tags,
+  excerpt,
+  description,
+  className,
+  slug,
+}) => {
   const headerLink = useRef()
-  const authorLinks = useMemo(() => authors.map((unicorn) => {
-    const ref = createRef()
-    const onClick = (e) => {
-      stopPropCallback(e)
-      ref.current.click()
-    }
+  const authorLinks = useMemo(
+    () =>
+      authors.map(unicorn => {
+        const ref = createRef()
+        const onClick = e => {
+          stopPropCallback(e)
+          ref.current.click()
+        }
 
-    return {
-      unicorn,
-      onClick,
-      ref,
-    }
-  }), [authors])
+        return {
+          unicorn,
+          onClick,
+          ref,
+        }
+      }),
+    [authors]
+  )
 
   return (
-    <li className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()} role="listitem">
+    <li
+      className={`${cardStyles.card} ${className}`}
+      onClick={() => headerLink.current.click()}
+      role="listitem"
+    >
       <div className={cardStyles.cardContents}>
         <Link
           to={`/posts${slug}`}
           onClick={stopPropCallback}
           className="unlink"
         >
-          <h2
-            className={cardStyles.header}
-            ref={headerLink}
-          >
+          <h2 className={cardStyles.header} ref={headerLink}>
             {title}
           </h2>
         </Link>
@@ -57,7 +71,8 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
           </Link>
           {/* To avoid having commas on the first author name, we did this */}
           {authors.slice(1).map((author, i) => {
-            return (<React.Fragment key={author.id}>
+            return (
+              <React.Fragment key={author.id}>
                 <span>, </span>
                 <Link
                   key={author.id}
@@ -75,25 +90,24 @@ export const PostCard = ({ title, authors, published, tags, excerpt, description
         <div className={cardStyles.dateTagSubheader}>
           <p className={cardStyles.date}>{published}</p>
           <div>
-            {
-              tags.map(tag => (
-                <span
-                  key={tag}
-                  className={cardStyles.tag}
-                >
-                  {tag}
-                </span>
-              ))
-            }
+            {tags.map(tag => (
+              <span key={tag} className={cardStyles.tag}>
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
-        <p className={cardStyles.excerpt} dangerouslySetInnerHTML={{
-          __html: description || excerpt,
-        }}
+        <p
+          className={cardStyles.excerpt}
+          dangerouslySetInnerHTML={{
+            __html: description || excerpt,
+          }}
         />
       </div>
-      <UserProfilePic authors={authorLinks} className={cardStyles.authorImagesContainer}/>
+      <UserProfilePic
+        authors={authorLinks}
+        className={cardStyles.authorImagesContainer}
+      />
     </li>
   )
 }
-

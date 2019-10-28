@@ -35,7 +35,13 @@
  * If nothing is selected, don't animate away "Filters"
  */
 
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useRef } from "react"
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react"
 import classNames from "classnames"
 import posed from "react-pose"
 
@@ -58,12 +64,14 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
     [filterStyles.expanded]: expanded,
   })
   return (
-    <li className={liClassName}
-        role="option"
-        onClick={e => expanded && selectIndex(index, e, e.type)}
-        id={tag.id}
-        aria-selected={tag.selected}>
-      {tag.selected ? <CheckIcon/> : <UncheckIcon/>}
+    <li
+      className={liClassName}
+      role="option"
+      onClick={e => expanded && selectIndex(index, e, e.type)}
+      id={tag.id}
+      aria-selected={tag.selected}
+    >
+      {tag.selected ? <CheckIcon /> : <UncheckIcon />}
       <span>{tag.val}</span>
     </li>
   )
@@ -85,9 +93,8 @@ const ListIdBox = posed.ul({
   },
 })
 
-
 export const FilterListbox = ({ tags = [], className }) => {
-  const {setFilterVal} = useContext(SearchAndFilterContext);
+  const { setFilterVal } = useContext(SearchAndFilterContext)
   const {
     ref: listBoxRef,
     active,
@@ -101,8 +108,8 @@ export const FilterListbox = ({ tags = [], className }) => {
   } = useSelectRef(tags, "multi")
 
   useLayoutEffect(() => {
-    setFilterVal(selected || []);
-  }, [selected, setFilterVal]);
+    setFilterVal(selected || [])
+  }, [selected, setFilterVal])
 
   const shouldShowFilterMsg = expanded || !selected.length
 
@@ -122,10 +129,9 @@ export const FilterListbox = ({ tags = [], className }) => {
   useEffect(() => {
     // When user escapes using "Esc" key, refocus on btn
     if (!expanded && usedKeyboardLast && btnRef.current) {
-      btnRef.current.focus();
+      btnRef.current.focus()
     }
   }, [expanded, usedKeyboardLast, btnRef])
-
 
   /**
    * Value calcs
@@ -139,29 +145,23 @@ export const FilterListbox = ({ tags = [], className }) => {
    * Bounding Box Matches
    */
 
-    // Make bounding boxes work properly
+  // Make bounding boxes work properly
   const afterInit = useAfterInit()
 
   const currentSpanHeight = useMemo(() => {
     if (!filterTextRef.current || !filterTextRef.current) return 0
     const filtTxtBound = filterTextRef.current.getBoundingClientRect()
     const appliedFiltBound = appliedFiltersTextRef.current.getBoundingClientRect()
-    return filtTxtBound.height < appliedFiltBound.height ? appliedFiltBound.height : filtTxtBound.height
-  }, [
-    appliedFiltersTextRef,
-    filterTextRef,
-    afterInit,
-    windowSize,
-  ])
+    return filtTxtBound.height < appliedFiltBound.height
+      ? appliedFiltBound.height
+      : filtTxtBound.height
+  }, [appliedFiltersTextRef, filterTextRef])
 
   const currentBtnHeight = useMemo(() => {
     if (!btnRef.current) return 0
     const btnRefBound = btnRef.current.getBoundingClientRect()
     return btnRefBound.height
-  }, [
-    afterInit,
-    windowSize,
-  ])
+  }, [])
 
   const currentSpanWidth = useMemo(() => {
     if (!filterTextRef.current || !filterTextRef.current) return 0
@@ -176,58 +176,63 @@ export const FilterListbox = ({ tags = [], className }) => {
 
     const appliedFiltBound = appliedFiltersTextRef.current.getBoundingClientRect()
     return appliedFiltBound.width
-  }, [
-    expanded,
-    (shouldShowFilterMsg && shouldShowFilterMsg.current),
-    (appliedFiltersTextRef && appliedFiltersTextRef.current),
-    filterTextRef,
-    afterInit,
-    windowSize,
-  ])
+  }, [shouldShowFilterMsg, expanded])
 
   const maxSpanWidth = useMemo(() => {
     if (!containerRef.current) return 0
     const containerRefBounding = containerRef.current.getBoundingClientRect()
     return containerRefBounding.width
-  }, [
-    containerRef,
-    afterInit,
-    windowSize,
-  ])
+  }, [containerRef])
 
   /**
    * Class names
    */
-  const containerClassName = useMemo(() => classNames({
-    [filterStyles.expanded]: expanded,
-    [filterStyles.container]: true,
-    [className || ""]: true,
-  }), [expanded])
+  const containerClassName = useMemo(
+    () =>
+      classNames({
+        [filterStyles.expanded]: expanded,
+        [filterStyles.container]: true,
+        [className || ""]: true,
+      }),
+    [className, expanded]
+  )
 
-  const filterIconClasses = useMemo(() => classNames({
-    expandedIcon: expanded,
-    [filterStyles.icon]: true,
-  }), [expanded])
+  const filterIconClasses = useMemo(
+    () =>
+      classNames({
+        expandedIcon: expanded,
+        [filterStyles.icon]: true,
+      }),
+    [expanded]
+  )
 
-  const listBoxClasses = useMemo(() => classNames({
-    [filterStyles.hasTags]: !!selected.length,
-    [filterStyles.listbox]: true,
-    [filterStyles.isKeyboard]: usedKeyboardLast,
-  }), [
-    expanded,
-    usedKeyboardLast,
-    selected,
-  ])
+  const listBoxClasses = useMemo(
+    () =>
+      classNames({
+        [filterStyles.hasTags]: !!selected.length,
+        [filterStyles.listbox]: true,
+        [filterStyles.isKeyboard]: usedKeyboardLast,
+      }),
+    [usedKeyboardLast, selected]
+  )
 
-  const filterTextClasses = useMemo(() => classNames({
-    [filterStyles.show]: shouldShowFilterMsg,
-    [filterStyles.placeholder]: true,
-  }), [shouldShowFilterMsg])
+  const filterTextClasses = useMemo(
+    () =>
+      classNames({
+        [filterStyles.show]: shouldShowFilterMsg,
+        [filterStyles.placeholder]: true,
+      }),
+    [shouldShowFilterMsg]
+  )
 
-  const appliedStrClasses = useMemo(() => classNames({
-    [filterStyles.show]: !shouldShowFilterMsg,
-    [filterStyles.appliedTags]: true,
-  }), [shouldShowFilterMsg])
+  const appliedStrClasses = useMemo(
+    () =>
+      classNames({
+        [filterStyles.show]: !shouldShowFilterMsg,
+        [filterStyles.appliedTags]: true,
+      }),
+    [shouldShowFilterMsg]
+  )
 
   return (
     <div className={containerClassName} ref={containerRef}>
@@ -246,22 +251,21 @@ export const FilterListbox = ({ tags = [], className }) => {
           id="filter-button"
           {...buttonProps}
         >
-          {
-            <FilterIcon className={filterIconClasses}
-                        aria-hidden={true}/>
-          }
-          <FilterDisplaySpan className={filterStyles.textContainer}
-                             heiight={currentSpanHeight}
-                             pose="initial"
-                             poseKey={currentSpanWidth}
-                             wiidth={currentSpanWidth}>
-           <span
-             ref={filterTextRef}
-             aria-hidden={true}
-             className={filterTextClasses}
-           >
-             Filters
-           </span>
+          {<FilterIcon className={filterIconClasses} aria-hidden={true} />}
+          <FilterDisplaySpan
+            className={filterStyles.textContainer}
+            heiight={currentSpanHeight}
+            pose="initial"
+            poseKey={currentSpanWidth}
+            wiidth={currentSpanWidth}
+          >
+            <span
+              ref={filterTextRef}
+              aria-hidden={true}
+              className={filterTextClasses}
+            >
+              Filters
+            </span>
             <span
               ref={appliedFiltersTextRef}
               className={appliedStrClasses}
@@ -285,19 +289,17 @@ export const FilterListbox = ({ tags = [], className }) => {
           pose={expanded ? "expanded" : "hidden"}
         >
           <div className={filterStyles.maxHeightHideContainer}>
-            <div className={filterStyles.spacer}/>
-            {
-              values.map((tag, index) => (
-                <FilterListItem
-                  tag={tag}
-                  key={tag.id}
-                  index={index}
-                  expanded={expanded}
-                  selectIndex={selectIndex}
-                  active={active}
-                />
-              ))
-            }
+            <div className={filterStyles.spacer} />
+            {values.map((tag, index) => (
+              <FilterListItem
+                tag={tag}
+                key={tag.id}
+                index={index}
+                expanded={expanded}
+                selectIndex={selectIndex}
+                active={active}
+              />
+            ))}
           </div>
         </ListIdBox>
       </div>

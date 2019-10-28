@@ -10,7 +10,7 @@ import { PostMetadata, PostTitleHeader } from "../components/post-view"
 import { OutboundLink } from "gatsby-plugin-google-analytics"
 import { ThemeContext } from "../components/theme-context"
 
-const BlogPostTemplateChild = (props) => {
+const BlogPostTemplateChild = props => {
   const post = props.data.markdownRemark
   const siteData = props.data.site.siteMetadata
   const slug = post.fields.slug
@@ -38,11 +38,9 @@ const BlogPostTemplateChild = (props) => {
       })
       // Must use a `useTimeout` so that this reloads AFTER the background animation
     }, 600)
-  }, [currentTheme])
+  }, [currentTheme, post.frontmatter.title, siteData.siteUrl, slug])
 
-  const GHLink = `https://github.com/${siteData.repoPath}/tree/master${
-    siteData.relativeToPosts
-  }${slug}index.md`
+  const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`
 
   return (
     <>
@@ -57,8 +55,8 @@ const BlogPostTemplateChild = (props) => {
       />
       <article>
         <header role="banner" className="marginZeroAutoChild">
-          <PostTitleHeader post={post}/>
-          <PostMetadata post={post}/>
+          <PostTitleHeader post={post} />
+          <PostMetadata post={post} />
         </header>
         <main
           className="post-body"
@@ -78,16 +76,14 @@ const BlogPostTemplateChild = (props) => {
               />
             </a>
           </div>
-          <div
-            className="postBottom"
-          >
+          <div className="postBottom">
             <div className="btnLike prependIcon">
-              <CommentsIcon/>
+              <CommentsIcon />
               <p>Comments</p>
             </div>
 
             <OutboundLink className="baseBtn prependIcon" href={GHLink}>
-              <GitHubIcon/>
+              <GitHubIcon />
               View this Post on GitHub
             </OutboundLink>
 
@@ -107,12 +103,12 @@ const BlogPostTemplateChild = (props) => {
   )
 }
 
-const BlogPostTemplate = (props) => {
+const BlogPostTemplate = props => {
   const siteTitle = props.data.site.siteMetadata.title
 
   return (
     <Layout location={props.location} title={siteTitle}>
-      <BlogPostTemplateChild {...props}/>
+      <BlogPostTemplateChild {...props} />
     </Layout>
   )
 }

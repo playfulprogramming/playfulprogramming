@@ -11,15 +11,24 @@ import { WordCount } from "./word-count"
  * @returns {*}
  * @constructor
  */
-export const FilterSearchBar = ({ showWordCount = false, numberOfArticles, wordCount, tags }) => {
+export const FilterSearchBar = ({
+  showWordCount = false,
+  numberOfArticles,
+  wordCount,
+  tags,
+}) => {
   return (
     <div className={styles.iconContainer}>
-      <SearchField className={styles.searchField}/>
+      <SearchField className={styles.searchField} />
       <div className={styles.midContainer}>
-        {showWordCount && <WordCount wordCount={wordCount} numberOfArticles={numberOfArticles}/>}
+        {showWordCount && (
+          <WordCount
+            wordCount={wordCount}
+            numberOfArticles={numberOfArticles}
+          />
+        )}
       </div>
-      <FilterListbox className={styles.filterField}
-                     tags={tags}/>
+      <FilterListbox className={styles.filterField} tags={tags} />
     </div>
   )
 }
