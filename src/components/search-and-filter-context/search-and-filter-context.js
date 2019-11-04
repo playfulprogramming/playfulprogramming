@@ -62,7 +62,6 @@ export const useSearchFilterValue = () => {
 	const { searchUsingLunr, results: lunrSearchIds } = useLunr();
 
 	useEffect(() => {
-		console.log("FIltering", filterVal);
 		if (!filterVal || !filterVal.length) {
 			filterUsingLunr("");
 		} else {
