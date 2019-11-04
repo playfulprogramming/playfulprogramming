@@ -15,4 +15,21 @@ We know this is a lofty goal, though, and we don't want to do it alone. If you'r
  
 If you’d like to get in touch with us, [our Discord](https://discord.gg/FMcvc6T) is probably the best way to do so.
 
+## Sponsors
+
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="/sponsors/the-polyglot-developer.svg" width="300"/></a>
+
+## Statement of Ethics {#ethics}
+
+We never want to end up in a place where our educational content, experience,
+or community is compromised by either financial sway or potentially harmful
+members of the community. As such, we've implemented the
+[Contributor Covenant](https://www.contributor-covenant.org/)
+as our [code of conduct](CODE_OF_CONDUCT.md) to uphold these values.
+
+We also pledge to maintain transparency in regards to any finances that flow
+through the project. Not every sponsorship contains a financial contribution,
+but if one does we will disclose both what those finances
+are going towards and what will be done in exchange.
+
 # Contributors {#contributors}

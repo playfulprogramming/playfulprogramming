@@ -10,8 +10,8 @@
  * 🐛 Doesn't seem to close on focus loss
  *       Needs an optional prop (?)
  */
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { useOutsideClick, useOutsideFocus } from "../outside-events"
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useOutsideClick, useOutsideFocus } from "../outside-events";
 
 /**
  * @callback onBtnClickFn
@@ -32,56 +32,64 @@ import { useOutsideClick, useOutsideFocus } from "../outside-events"
  * @param {onBtnKeyDownFn} [onBtnKeyDown] - An add-on CB function to the button event handler
  * @returns {{buttonProps, expanded}}
  */
-export const usePopover = (parentRef, popoverAreaRef, onBtnClick, onBtnKeyDown) => {
-  const [expanded, setExpanded] = useState(false)
+export const usePopover = (
+	parentRef,
+	popoverAreaRef,
+	onBtnClick,
+	onBtnKeyDown
+) => {
+	const [expanded, setExpanded] = useState(false);
 
-  const onClick = useCallback((e) => {
-    const newVal = !expanded;
-    setExpanded(newVal)
-    if (onBtnClick) {
-      e.persist && e.persist()
-      onBtnClick(e, newVal)
-    }
-  }, [expanded])
+	const onClick = useCallback(
+		e => {
+			const newVal = !expanded;
+			setExpanded(newVal);
+			if (onBtnClick) {
+				e.persist && e.persist();
+				onBtnClick(e, newVal);
+			}
+		},
+		[expanded, onBtnClick]
+	);
 
-  const onKeyDown = useCallback((e) => {
-    const newVal = !expanded;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault()
-      setExpanded(newVal)
-    }
-    if (onBtnKeyDown) {
-      e.persist && e.persist()
-      onBtnKeyDown(e, newVal)
-    }
-  }, [expanded, setExpanded])
+	const onKeyDown = useCallback(
+		e => {
+			const newVal = !expanded;
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				setExpanded(newVal);
+			}
+			if (onBtnKeyDown) {
+				e.persist && e.persist();
+				onBtnKeyDown(e, newVal);
+			}
+		},
+		[expanded, onBtnKeyDown]
+	);
 
-  const buttonProps = {
-    onClick,
-    onKeyDown,
-  }
+	const buttonProps = {
+		onClick,
+		onKeyDown
+	};
 
-  const currentBtnRef = popoverAreaRef && popoverAreaRef.current
+	const currentBtnRef = popoverAreaRef && popoverAreaRef.current;
 
-  // Focus the select ref whenever an item is expanded
-  useEffect(() => {
-    if (currentBtnRef && expanded) {
-      currentBtnRef.focus()
-    }
-  }, [
-    expanded,
-    currentBtnRef,
-  ])
+	// Focus the select ref whenever an item is expanded
+	useEffect(() => {
+		if (currentBtnRef && expanded) {
+			currentBtnRef.focus();
+		}
+	}, [expanded, currentBtnRef]);
 
-  const setExpandedToFalse = useCallback(() => setExpanded(false), [])
+	const setExpandedToFalse = useCallback(() => setExpanded(false), []);
 
-  useOutsideClick(parentRef, expanded, setExpandedToFalse)
+	useOutsideClick(parentRef, expanded, setExpandedToFalse);
 
-  useOutsideFocus(parentRef, expanded, setExpandedToFalse)
+	useOutsideFocus(parentRef, expanded, setExpandedToFalse);
 
-  return {
-    buttonProps,
-    expanded,
-    setExpanded
-  }
-}
+	return {
+		buttonProps,
+		expanded,
+		setExpanded
+	};
+};

@@ -8,7 +8,7 @@
   justify-content: center;
   flex-wrap: wrap;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     margin-bottom: 16px;
   }
 }
@@ -25,7 +25,7 @@
   margin-right: 48px;
   margin-bottom: 16px;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     $mobileImgSize: 150px;
     max-width: $mobileImgSize;
     max-height: $mobileImgSize;
@@ -38,7 +38,7 @@
   transition: color var(--animStyle) var(--animSpeed);
   color: var(--highImpactBlack);
   margin: 0;
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     font-size: 40px;
     line-height: 40px;
     font-weight: normal;
@@ -60,7 +60,7 @@
   font-weight: 400;
   white-space: pre-line;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     font-size: 24px;
     margin: 16px 16px 0;
   }
@@ -73,9 +73,12 @@
   font-size: $baseUnit * 5px;
   color: var(--darkPrimary);
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-@media screen and (max-width: $endSmallScreenSize) {
+@include until($endSmallScreenSize) {
   .socialsContainer {
     justify-content: center;
 
@@ -86,7 +89,7 @@
 .socialsContainer > *:not(:last-child) {
   margin-right: $baseUnit * 3px;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     margin-right: #{$baseUnit}px;
   }
 }
@@ -110,9 +113,16 @@
   width: $desktopSvgSize;
   fill: none;
 
-  @media screen and (max-width: $endSmallScreenSize) {
+  @include until($endSmallScreenSize) {
     $mobileSvgSize: $baseUnit * 4px;
     height: $mobileSvgSize;
     width: $mobileSvgSize;
+  }
+}
+
+.socialBtnLink {
+  & > a {
+    display: flex;
+    flex-wrap: nowrap;
   }
 }

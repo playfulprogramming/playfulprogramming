@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect } from "react";
 
 /**
  * @param eventName - The name of the event to be bound to
@@ -8,27 +8,29 @@ import { useCallback, useEffect } from "react"
  * @param {Function} params.$2 - A function to run if the user clicks outside the parent ref
  */
 export const useOutsideEvent = (eventName, params) => {
-  const [parentRef, enable, onOutsideEvent] = params;
+	const [parentRef, enable, onOutsideEvent] = params;
 
-  const currParentRef = parentRef && parentRef.current;
+	const currParentRef = parentRef && parentRef.current;
 
-  const handleClickOutside = useCallback(e => {
-    if (currParentRef.contains(e.target)) {
-      // inside click
-      return
-    }
-    // outside click
-    onOutsideEvent()
-  }, [currParentRef, onOutsideEvent]);
+	const handleClickOutside = useCallback(
+		e => {
+			if (currParentRef.contains(e.target)) {
+				// inside click
+				return;
+			}
+			// outside click
+			onOutsideEvent();
+		},
+		[currParentRef, onOutsideEvent]
+	);
 
-  useEffect(() => {
-    if (enable) {
-      document.addEventListener(eventName, handleClickOutside)
+	useEffect(() => {
+		if (enable) {
+			document.addEventListener(eventName, handleClickOutside);
 
-      return () => {
-        document.removeEventListener(eventName, handleClickOutside)
-      }
-    }
-
-  }, [enable, handleClickOutside, onOutsideEvent, eventName])
-}
+			return () => {
+				document.removeEventListener(eventName, handleClickOutside);
+			};
+		}
+	}, [enable, handleClickOutside, onOutsideEvent, eventName]);
+};

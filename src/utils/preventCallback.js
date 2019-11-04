@@ -1,3 +1,3 @@
-export const stopPropCallback = (e) => {
-  e.stopPropagation();
-}
+export const stopPropCallback = e => {
+	e.stopPropagation();
+};

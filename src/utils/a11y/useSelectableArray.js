@@ -9,9 +9,9 @@
  * ✅ Have a select all method
  */
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { genId } from "./getNewId"
-import { normalizeNumber } from "../normalize-number"
+import { useCallback, useEffect, useRef, useState } from "react";
+import { genId } from "./getNewId";
+import { normalizeNumber } from "../normalize-number";
 
 /**
  * @typedef useSelectableArrayInternalVal
@@ -26,17 +26,16 @@ import { normalizeNumber } from "../normalize-number"
  * @param {*[]} valArr
  * @returns {useSelectableArrayInternalVal[]}
  */
-const getNewArr = (valArr) => {
-  return valArr.map((val, i) => {
-    return {
-        id: genId(),
-        val,
-        index: i,
-        selected: false
-      };
-    }
-  );
-}
+const getNewArr = valArr => {
+	return valArr.map((val, i) => {
+		return {
+			id: genId(),
+			val,
+			index: i,
+			selected: false
+		};
+	});
+};
 
 /**
  *
@@ -48,59 +47,62 @@ const getNewArr = (valArr) => {
  * @returns {{markAsSelected: *, selectedArr: *, selectAll: *, internalArr: *}}
  */
 export const useSelectableArray = (valArr, runAfterSelectChange) => {
-  const numRef = useRef()
-  const [_trackingNum, setTrackNum] = useState(0)
-  /**
-   * Using a `useRef` here for performance. Otherwise, to keep immutability
-   * there's all kinds of hacks that must be implemented
-   */
-  const internalArrRef = useRef(getNewArr(valArr));
+	const numRef = useRef();
+	const [_trackingNum, setTrackNum] = useState(0);
+	/**
+	 * Using a `useRef` here for performance. Otherwise, to keep immutability
+	 * there's all kinds of hacks that must be implemented
+	 */
+	const internalArrRef = useRef(getNewArr(valArr));
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    internalArrRef.current = getNewArr(valArr);
-  }, [valArr])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		internalArrRef.current = getNewArr(valArr);
+	}, [valArr]);
 
-  const currInternalArr = internalArrRef && internalArrRef.current;
+	const currInternalArr = internalArrRef && internalArrRef.current;
 
-  const markAsSelected = useCallback((fromIndex, toIndex) => {
-    const maxIndex = currInternalArr.length - 1;
+	const markAsSelected = useCallback(
+		(fromIndex, toIndex) => {
+			const maxIndex = currInternalArr.length - 1;
 
-    const newFromIndex = normalizeNumber(fromIndex, 0, maxIndex);
-    const newToIndex = normalizeNumber(toIndex, 0, maxIndex);
+			const newFromIndex = normalizeNumber(fromIndex, 0, maxIndex);
+			const newToIndex = normalizeNumber(toIndex, 0, maxIndex);
 
-    // Handle single selection properly
-    if (newToIndex === newFromIndex && fromIndex === toIndex) {
-      currInternalArr[toIndex].selected = !currInternalArr[toIndex].selected;
-      runAfterSelectChange && runAfterSelectChange()
-      return
-    }
+			// Handle single selection properly
+			if (newToIndex === newFromIndex && fromIndex === toIndex) {
+				currInternalArr[toIndex].selected = !currInternalArr[toIndex].selected;
+				runAfterSelectChange && runAfterSelectChange();
+				return;
+			}
 
-    const smallerNum = newFromIndex > newToIndex ? newToIndex : newFromIndex;
-    const biggerNum = newFromIndex > newToIndex ?  newFromIndex : newToIndex;
+			const smallerNum = newFromIndex > newToIndex ? newToIndex : newFromIndex;
+			const biggerNum = newFromIndex > newToIndex ? newFromIndex : newToIndex;
 
-    for (let i = smallerNum; i <= biggerNum; i++) {
-      currInternalArr[i].selected = true;
-    }
+			for (let i = smallerNum; i <= biggerNum; i++) {
+				currInternalArr[i].selected = true;
+			}
 
-    runAfterSelectChange && runAfterSelectChange()
-  }, [currInternalArr, runAfterSelectChange])
+			runAfterSelectChange && runAfterSelectChange();
+		},
+		[currInternalArr, runAfterSelectChange]
+	);
 
-  const selectAll = useCallback(() => {
-    internalArrRef.current.forEach((_, i, arr) => {
-      internalArrRef.current[i].selected = true
+	const selectAll = useCallback(() => {
+		internalArrRef.current.forEach((_, i, arr) => {
+			internalArrRef.current[i].selected = true;
 
-      if (i === arr.length - 1) {
-        runAfterSelectChange && runAfterSelectChange()
-        setTrackNum(val => val + 1);
-      }
-    })
-  }, [internalArrRef && internalArrRef.current]);
+			if (i === arr.length - 1) {
+				runAfterSelectChange && runAfterSelectChange();
+				setTrackNum(val => val + 1);
+			}
+		});
+	}, [runAfterSelectChange]);
 
-  return {
-    selectAll,
-    markAsSelected,
-    internalArr: internalArrRef.current,
-    _trackingNum
-  }
-}
+	return {
+		selectAll,
+		markAsSelected,
+		internalArr: internalArrRef.current,
+		_trackingNum
+	};
+};

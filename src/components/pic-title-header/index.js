@@ -1,1 +1,1 @@
-export * from "./pic-title-header"
+export * from "./pic-title-header";

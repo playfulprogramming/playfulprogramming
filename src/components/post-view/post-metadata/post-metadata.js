@@ -1,31 +1,60 @@
-import React, { useRef } from "react"
-import Image from "gatsby-image"
-import styles from "./post-metadata.module.scss"
-import { Link } from "gatsby"
+import React, { createRef, useMemo, useRef } from "react";
+import Image from "gatsby-image";
+import styles from "./post-metadata.module.scss";
+import { Link } from "gatsby";
+import { stopPropCallback } from "../../../utils/preventCallback";
+import { UserProfilePic } from "../../user-profile-pic";
 
 export const PostMetadata = ({ post }) => {
-  const { author } = post.frontmatter
-  const authorLinkRef = useRef()
+	const { authors } = post.frontmatter;
 
-  return (
-    <div className={styles.container}>
-      <div onClick={() => authorLinkRef.current.click()} className='pointer'>
-        <Image
-          className={`circleImg ${styles.authorPic}`}
-          fixed={author.profileImg.childImageSharp.mediumPic}
-          data-testid="post-meta-author-pic"
-          alt={`Profile pic for ${author.name}`}
-        />
-      </div>
-      <div className={styles.textDiv}>
-        <Link to={`/unicorns/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
-          <h2 className={styles.authorName} data-testid="post-meta-author-name">{author.name}</h2>
-        </Link>
-        <div className={styles.belowName}>
-          <p className={styles.date}>{post.frontmatter.published}</p>
-          <p className={styles.wordCount}>{post.wordCount.words} words</p>
-        </div>
-      </div>
-    </div>
-  )
-}
+	const authorLinks = useMemo(
+		() =>
+			authors.map(unicorn => {
+				const ref = createRef();
+				const onClick = e => {
+					stopPropCallback(e);
+					ref.current.click();
+				};
+
+				return {
+					unicorn,
+					onClick,
+					ref
+				};
+			}),
+		[authors]
+	);
+
+	return (
+		<div className={styles.container}>
+			<UserProfilePic
+				authors={authorLinks}
+				className={styles.authorImagesContainer}
+			/>
+			<div className={styles.textDiv}>
+				<h2 className={styles.authorName} data-testid="post-meta-author-name">
+					{authors.map((author, i) => {
+						return (
+							<React.Fragment key={author.id}>
+								<span>{i !== 0 && ", "}</span>
+								<Link
+									key={author.id}
+									to={`/unicorns/${author.id}`}
+									ref={authorLinks[i].ref}
+									className={styles.authorLink}
+								>
+									{author.name}
+								</Link>
+							</React.Fragment>
+						);
+					})}
+				</h2>
+				<div className={styles.belowName}>
+					<p>{post.frontmatter.published}</p>
+					<p>{post.wordCount.words} words</p>
+				</div>
+			</div>
+		</div>
+	);
+};

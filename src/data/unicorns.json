@@ -36,7 +36,7 @@
     "lastName": "Hathaway",
     "description": "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
     "socials": {
-      "twitter": "evehathdev",
+      "twitter": "eeveedev",
       "github": "evelynhathaway"
     },
     "pronouns": "she",
@@ -89,5 +89,20 @@
     "profileImg": "./tommyemo.jpg",
     "color": "#8539EB",
     "roles": ["designer"]
+  },
+  {
+    "id": "edpratti",
+    "name": "Eduardo Pratti",
+    "firstName": "Eduardo",
+    "lastName": "Pratti",
+    "description": "UI designer and developer wannabe. Cares about negative space, layout grids and Bloodborne challenge runs.",
+    "socials": {
+      "twitter": "edpratti",
+      "website": "http://pratti.design"
+    },
+    "pronouns": "he",
+    "profileImg": "./edpratti.jpg",
+    "color": "#FF3300",
+    "roles": []
   }
 ]

@@ -6,13 +6,13 @@
  * @returns {number}
  */
 export const normalizeNumber = (numberToNormalize, minIndex, maxIndex) => {
-  if (numberToNormalize > maxIndex) {
-    return maxIndex;
-  }
+	if (numberToNormalize > maxIndex) {
+		return maxIndex;
+	}
 
-  if (numberToNormalize < minIndex) {
-    return minIndex;
-  }
+	if (numberToNormalize < minIndex) {
+		return minIndex;
+	}
 
-  return numberToNormalize;
-}
+	return numberToNormalize;
+};

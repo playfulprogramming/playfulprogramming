@@ -1,4 +1,4 @@
-import { useOutsideEvent } from "./onOutsideEvent"
+import { useOutsideEvent } from "./onOutsideEvent";
 
 /**
  * @param {...*} params
@@ -7,5 +7,5 @@ import { useOutsideEvent } from "./onOutsideEvent"
  * @param {    Function   } params.$2 - A function to run if the user clicks outside the parent ref
  */
 export const useOutsideClick = (...params) => {
-  return useOutsideEvent("mousedown", params)
-}
+	return useOutsideEvent("mousedown", params);
+};

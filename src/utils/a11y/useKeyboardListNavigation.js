@@ -16,8 +16,8 @@
  * 🔲 Handle arrow-right to change index via optional prop (?)
  */
 
-import { useEffect, useState } from "react"
-import { normalizeNumber } from "../normalize-number"
+import { useEffect, useState } from "react";
+import { normalizeNumber } from "../normalize-number";
 
 /**
  * @callback RunOnSubmitCB
@@ -33,82 +33,79 @@ import { normalizeNumber } from "../normalize-number"
  * @param {boolean} enable - Disable event handling
  * @param {RunOnSubmitCB} [runOnSubmit] - An optional function to hook into the event handler logic
  */
-export const useKeyboardListNavigation = (parentRef, arrVal, enable, runOnSubmit) => {
-  const [focusedIndex, setFocusedIndex] = useState(0)
+export const useKeyboardListNavigation = (
+	parentRef,
+	arrVal,
+	enable,
+	runOnSubmit
+) => {
+	const [focusedIndex, setFocusedIndex] = useState(0);
 
-  const maxIndex = arrVal.length - 1;
+	const maxIndex = arrVal.length - 1;
 
-  // Arrow key handler
-  useEffect(() => {
-      const onKeyDown = event => {
-        if (!enable) {
-          return
-        }
-        /**
-         * This is to enable proper usage of passing a `onKeydown` from props
-         * @see https://reactjs.org/docs/events.html#event-pooling
-         */
-        event && event.persist && event.persist();
-        let _newIndex
-        switch (event.key) {
-          case "ArrowDown":
-            event.preventDefault();
-            _newIndex = normalizeNumber(focusedIndex + 1, 0, maxIndex);
-            break;
-          case "ArrowUp":
-            event.preventDefault();
-            _newIndex = normalizeNumber(focusedIndex - 1, 0, maxIndex);
-            break;
-          case "Home":
-            event.preventDefault();
-            _newIndex = 0;
-            break;
-          case "End":
-            event.preventDefault();
-            _newIndex = maxIndex;
-            break;
-          default:
-            break;
-        }
+	// Arrow key handler
+	useEffect(() => {
+		const onKeyDown = event => {
+			if (!enable) {
+				return;
+			}
+			/**
+			 * This is to enable proper usage of passing a `onKeydown` from props
+			 * @see https://reactjs.org/docs/events.html#event-pooling
+			 */
+			event && event.persist && event.persist();
+			let _newIndex;
+			switch (event.key) {
+				case "ArrowDown":
+					event.preventDefault();
+					_newIndex = normalizeNumber(focusedIndex + 1, 0, maxIndex);
+					break;
+				case "ArrowUp":
+					event.preventDefault();
+					_newIndex = normalizeNumber(focusedIndex - 1, 0, maxIndex);
+					break;
+				case "Home":
+					event.preventDefault();
+					_newIndex = 0;
+					break;
+				case "End":
+					event.preventDefault();
+					_newIndex = maxIndex;
+					break;
+				default:
+					break;
+			}
 
-        if (runOnSubmit) {
-          runOnSubmit(event, focusedIndex, _newIndex);
-        }
+			if (runOnSubmit) {
+				runOnSubmit(event, focusedIndex, _newIndex);
+			}
 
-        // None of the keys were selected
-        if (_newIndex === undefined) {
-          return;
-        }
+			// None of the keys were selected
+			if (_newIndex === undefined) {
+				return;
+			}
 
-        setFocusedIndex(_newIndex);
-      }
+			setFocusedIndex(_newIndex);
+		};
 
-      const el = parentRef && parentRef.current;
+		const el = parentRef && parentRef.current;
 
-      if (!el) return;
-      el.addEventListener("keydown", onKeyDown)
-      return () => el.removeEventListener("keydown", onKeyDown)
-    }, [
-    focusedIndex,
-    parentRef,
-    enable,
-    maxIndex,
-    runOnSubmit
-  ])
+		if (!el) return;
+		el.addEventListener("keydown", onKeyDown);
+		return () => el.removeEventListener("keydown", onKeyDown);
+	}, [focusedIndex, parentRef, enable, maxIndex, runOnSubmit]);
 
-  const selectIndex = (i, e) => {
-    setFocusedIndex(
-      normalizeNumber(i, 0, maxIndex)
-    );
+	const selectIndex = (i, e) => {
+		setFocusedIndex(normalizeNumber(i, 0, maxIndex));
 
-    if (runOnSubmit) {
-      if (e && e.persist) e.persist();
-      runOnSubmit(e, focusedIndex, i);
-    }
-  }
+		if (runOnSubmit) {
+			if (e && e.persist) e.persist();
+			runOnSubmit(e, focusedIndex, i);
+		}
+	};
 
-  return {
-    focusedIndex,
-    selectIndex
-  }
-}
+	return {
+		focusedIndex,
+		selectIndex
+	};
+};

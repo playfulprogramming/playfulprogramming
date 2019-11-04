@@ -25,9 +25,12 @@
   --listViewPadding: #{1.5 * $baseUnit}px;
   font-size: $rootFontSize;
   line-height: 1.2;
+
+  scrollbar-color: var(--darkPrimary) var(--backgroundColor);
+  transition: scrollbar-color var(--animStyle) var(--animSpeed);
 }
 
-@media screen and (min-width: $startMediumScreenSize) {
+@include from($startMediumScreenSize) {
   :root {
     --listViewPadding: #{$baseUnit * 2.5}px;
   }
@@ -62,6 +65,10 @@ body {
   font-family: var(--archivo);
   color: var(--black);
   transition: color var(--animStyle) var(--animSpeed), background-color var(--animStyle) var(--animSpeed);
+}
+
+.medium-zoom-overlay {
+  background: var(--backgroundColor) !important;
 }
 
 h1, h2, h3 {
@@ -152,8 +159,19 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-body {
-  margin-bottom: #{$baseUnit * 4}px;
+  margin: 0 auto #{$baseUnit * 4}px;
   max-width: #{$baseUnit * 88}px;
+
+  // Fix autolink-headings anchors positioning
+  .anchor {
+    line-height: 1;
+    margin-left: -24px;
+    padding: 0;
+
+    svg {
+      vertical-align: middle;
+    }
+  }
 
   img {
     margin: 0 auto;
@@ -163,7 +181,26 @@ $pendIconMarg: #{$baseUnit}px;
 }
 
 .post-lower-area {
+  margin: 0 auto;
   max-width: #{$baseUnit * 115}px;
+
+  .postBottom {
+    display: flex;
+    justify-content: space-between;
+
+    @include until($startMediumScreenSize) {
+      flex-direction: column;
+
+      .btnLike {
+        order: 2;
+      }
+
+      .baseBtn {
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 
 // Please use this sparingly. There's massive A11y concerns
@@ -208,5 +245,44 @@ svg:not(.strokeicon) {
   &, * {
     transition: fill var(--animStyle) var(--animSpeed);
     fill: var(--darkPrimary);
+  }
+}
+
+.marginZeroAutoChild {
+  & > * {
+    margin: 0 auto;
+  }
+}
+
+// The pagination styling
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    border-radius: 4px;
+    border: 1px solid var(--primary);
+    padding: 0.5rem;
+
+    &:not(:first-of-type) {
+      margin-left: 0.5rem;
+    }
+
+    &.active {
+      background: var(--primary);
+
+      a {
+        color: var(--white);
+      }
+    }
+  }
+
+  .previous, .next {
+    &.disabled {
+      display: none;
+    }
   }
 }

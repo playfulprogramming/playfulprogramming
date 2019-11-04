@@ -1,3 +1,3 @@
-export * from './onOutsideEvent';
-export * from './useOutsideClick';
-export * from './useOutsideFocus';
+export * from "./onOutsideEvent";
+export * from "./useOutsideClick";
+export * from "./useOutsideFocus";
