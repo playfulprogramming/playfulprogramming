@@ -1,14 +1,9 @@
-import React, { useMemo, useState } from "react";
-import { graphql, Link, navigate } from "gatsby";
-
-import ReactPaginate from "react-paginate";
+import React from "react";
+import { graphql, Link } from "gatsby";
 
 import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
-import { PostList } from "../components/post-card-list";
-import { getSkippedPosts } from "../utils/handle-post-list";
-import { usePostTagsFromNodes } from "../components/search-and-filter-context";
 import { PostListLayout } from "../components/post-list-layout";
 
 const BlogPostListTemplate = props => {

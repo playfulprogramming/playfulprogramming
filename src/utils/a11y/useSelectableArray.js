@@ -47,7 +47,6 @@ const getNewArr = valArr => {
  * @returns {{markAsSelected: *, selectedArr: *, selectAll: *, internalArr: *}}
  */
 export const useSelectableArray = (valArr, runAfterSelectChange) => {
-	const numRef = useRef();
 	const [_trackingNum, setTrackNum] = useState(0);
 	/**
 	 * Using a `useRef` here for performance. Otherwise, to keep immutability

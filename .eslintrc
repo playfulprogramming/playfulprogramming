@@ -2,6 +2,7 @@
   "extends": "react-app",
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "jsx-a11y/no-redundant-roles": "off"
   }
 }

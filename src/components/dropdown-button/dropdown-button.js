@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * This code is currently unused and does not function as-expected
  *

@@ -10,7 +10,7 @@
  * 🐛 Doesn't seem to close on focus loss
  *       Needs an optional prop (?)
  */
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useOutsideClick, useOutsideFocus } from "../outside-events";
 
 /**

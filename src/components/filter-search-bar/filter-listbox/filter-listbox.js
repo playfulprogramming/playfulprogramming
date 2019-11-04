@@ -50,7 +50,6 @@ import CheckIcon from "../../../assets/icons/check.svg";
 import UncheckIcon from "../../../assets/icons/unchecked.svg";
 
 import { usePopoverCombobox } from "../../../utils/a11y/usePopoverCombobox";
-import { useWindowSize } from "../../../utils/useWindowSize";
 import { useAfterInit } from "../../../utils/useAfterInit";
 import { SearchAndFilterContext } from "../../search-and-filter-context";
 
@@ -141,8 +140,6 @@ export const FilterListbox = ({ tags = [], className }) => {
 	 */
 
 	// Make bounding boxes work properly
-	const afterInit = useAfterInit();
-
 	const currentSpanHeight = useMemo(() => {
 		if (!filterTextRef.current || !filterTextRef.current) return 0;
 		const filtTxtBound = filterTextRef.current.getBoundingClientRect();
