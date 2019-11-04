@@ -88,15 +88,15 @@ export const useSelectableArray = (valArr, runAfterSelectChange) => {
 	);
 
 	const selectAll = useCallback(() => {
-		internalArrRef.current.forEach((_, i, arr) => {
-			internalArrRef.current[i].selected = true;
+		currInternalArr.forEach((arrItm, i, arr) => {
+			arrItm.selected = true;
 
 			if (i === arr.length - 1) {
 				runAfterSelectChange && runAfterSelectChange();
 				setTrackNum(val => val + 1);
 			}
 		});
-	}, [runAfterSelectChange]);
+	}, [runAfterSelectChange, currInternalArr]);
 
 	return {
 		selectAll,

@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { render } from "@testing-library/react";
 import { useSelectableArray } from "../useSelectableArray";
+import { act } from "react-dom/test-utils";
 
 test("useSelectableArray handles everything", async () => {
 	const runAfterSelectChange = jest.fn();
@@ -74,7 +75,9 @@ test("useSelectableArray handles everything", async () => {
 	expect(internalArr).toStrictEqual(initialExpectedVal);
 
 	// Select all works
-	selectAll();
+	act(() => selectAll(internalArr));
 	initialExpectedVal[0].selected = true;
+	// Make sure this function works
+	expect(runAfterSelectChange.mock.calls.length).toBe(6);
 	expect(internalArr).toStrictEqual(initialExpectedVal);
 });
