@@ -1,109 +1,120 @@
 {
-  "name": "unicorn-utterances-site",
-  "private": true,
-  "description": "Learning programming from magically majestic words",
-  "version": "0.1.0",
-  "author": "Corbin Crutchley <crutchcorn@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "npm run format",
-      "git add"
-    ]
-  },
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "css-loader": "^3.2.0",
-    "disqus-react": "^1.0.7",
-    "gatsby": "^2.15.35",
-    "gatsby-image": "^2.2.26",
-    "gatsby-plugin-feed": "^2.3.16",
-    "gatsby-plugin-google-analytics": "^2.1.21",
-    "gatsby-plugin-lunr": "^1.5.2",
-    "gatsby-plugin-manifest": "^2.2.21",
-    "gatsby-plugin-offline": "^3.0.14",
-    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
-    "gatsby-plugin-react-helmet": "^3.1.11",
-    "gatsby-plugin-react-svg": "^2.1.2",
-    "gatsby-plugin-sass": "^2.1.18",
-    "gatsby-plugin-sharp": "^2.2.29",
-    "gatsby-plugin-sitemap": "^2.2.17",
-    "gatsby-plugin-transition-link": "^1.13.0",
-    "gatsby-remark-autolink-headers": "^2.1.14",
-    "gatsby-remark-copy-linked-files": "^2.1.26",
-    "gatsby-remark-external-links": "0.0.4",
-    "gatsby-remark-images": "^3.1.26",
-    "gatsby-remark-images-medium-zoom": "^1.4.0",
-    "gatsby-remark-prismjs": "^3.3.18",
-    "gatsby-remark-responsive-iframe": "^2.2.23",
-    "gatsby-remark-video": "^1.2.4",
-    "gatsby-source-filesystem": "^2.1.31",
-    "gatsby-transformer-json": "^2.2.13",
-    "gatsby-transformer-remark": "^2.6.28",
-    "gatsby-transformer-sharp": "^2.2.21",
-    "node-sass": "^4.12.0",
-    "prismjs": "^1.17.1",
-    "react": "^16.10.2",
-    "react-breakpoints": "^3.0.3",
-    "react-dom": "^16.10.2",
-    "react-helmet": "^5.2.1",
-    "react-paginate": "^6.3.0",
-    "react-pose": "^4.0.9"
-  },
-  "peerDependencies": {
-    "@reach/router": "^1.1.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@storybook/addon-actions": "^5.2.3",
-    "@storybook/addon-knobs": "^5.2.3",
-    "@storybook/addon-links": "^5.2.3",
-    "@storybook/addons": "^5.2.3",
-    "@storybook/react": "^5.2.3",
-    "@testing-library/jest-dom": "^4.1.2",
-    "@testing-library/react": "^9.3.0",
-    "babel-jest": "^24.9.0",
-    "babel-loader": "^8.0.6",
-    "babel-preset-gatsby": "^0.2.18",
-    "eslint": "^5.16.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.0.9",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
-    "jest-axe": "^3.2.0",
-    "jest-dom": "^4.0.0",
-    "jest-watch-typeahead": "^0.4.0",
-    "lint-staged": "^9.4.2",
-    "prettier": "^1.18.2"
-  },
-  "homepage": "https://unicorn-utterances.com",
-  "keywords": [
-    "blog",
-    "education",
-    "programming"
-  ],
-  "license": "MPL-2.0",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
-  },
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "eslint --fix ./src",
-    "lint": "eslint ./src",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "jest",
-    "storybook": "NODE_ENV=production start-storybook -s static -c config/storybook",
-    "build-storybook": "NODE_ENV=production build-storybook -s static -c config/storybook"
-  }
+	"name": "unicorn-utterances-site",
+	"private": true,
+	"description": "Learning programming from magically majestic words",
+	"version": "0.1.0",
+	"author": "Corbin Crutchley <crutchcorn@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,jsx}": [
+			"npm run format:js",
+			"git add"
+		],
+		"*.scss": [
+			"npm run format:css",
+			"git add"
+		]
+	},
+	"dependencies": {
+		"classnames": "^2.2.6",
+		"css-loader": "^3.2.0",
+		"disqus-react": "^1.0.7",
+		"gatsby": "^2.15.35",
+		"gatsby-image": "^2.2.26",
+		"gatsby-plugin-feed": "^2.3.16",
+		"gatsby-plugin-google-analytics": "^2.1.21",
+		"gatsby-plugin-lunr": "^1.5.2",
+		"gatsby-plugin-manifest": "^2.2.21",
+		"gatsby-plugin-offline": "^3.0.14",
+		"gatsby-plugin-prefetch-google-fonts": "^1.4.3",
+		"gatsby-plugin-react-helmet": "^3.1.11",
+		"gatsby-plugin-react-svg": "^2.1.2",
+		"gatsby-plugin-sass": "^2.1.18",
+		"gatsby-plugin-sharp": "^2.2.29",
+		"gatsby-plugin-sitemap": "^2.2.17",
+		"gatsby-plugin-transition-link": "^1.13.0",
+		"gatsby-remark-autolink-headers": "^2.1.14",
+		"gatsby-remark-copy-linked-files": "^2.1.26",
+		"gatsby-remark-external-links": "0.0.4",
+		"gatsby-remark-images": "^3.1.26",
+		"gatsby-remark-images-medium-zoom": "^1.4.0",
+		"gatsby-remark-prismjs": "^3.3.18",
+		"gatsby-remark-responsive-iframe": "^2.2.23",
+		"gatsby-remark-video": "^1.2.4",
+		"gatsby-source-filesystem": "^2.1.31",
+		"gatsby-transformer-json": "^2.2.13",
+		"gatsby-transformer-remark": "^2.6.28",
+		"gatsby-transformer-sharp": "^2.2.21",
+		"node-sass": "^4.12.0",
+		"prismjs": "^1.17.1",
+		"react": "^16.10.2",
+		"react-breakpoints": "^3.0.3",
+		"react-dom": "^16.10.2",
+		"react-helmet": "^5.2.1",
+		"react-paginate": "^6.3.0",
+		"react-pose": "^4.0.9"
+	},
+	"peerDependencies": {
+		"@reach/router": "^1.1.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.6.4",
+		"@storybook/addon-actions": "^5.2.3",
+		"@storybook/addon-knobs": "^5.2.3",
+		"@storybook/addon-links": "^5.2.3",
+		"@storybook/addons": "^5.2.3",
+		"@storybook/react": "^5.2.3",
+		"@testing-library/jest-dom": "^4.1.2",
+		"@testing-library/react": "^9.3.0",
+		"babel-jest": "^24.9.0",
+		"babel-loader": "^8.0.6",
+		"babel-preset-gatsby": "^0.2.18",
+		"eslint": "^5.16.0",
+		"eslint-plugin-prettier": "^3.1.1",
+		"husky": "^3.0.9",
+		"identity-obj-proxy": "^3.0.0",
+		"jest": "^24.9.0",
+		"jest-axe": "^3.2.0",
+		"jest-dom": "^4.0.0",
+		"jest-watch-typeahead": "^0.4.0",
+		"lint-staged": "^9.4.2",
+		"prettier": "^1.18.2",
+		"stylelint": "^11.1.1",
+		"stylelint-config-prettier": "^6.0.0",
+		"stylelint-prettier": "^1.1.1"
+	},
+	"homepage": "https://unicorn-utterances.com",
+	"keywords": [
+		"blog",
+		"education",
+		"programming"
+	],
+	"license": "MPL-2.0",
+	"main": "n/a",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
+	},
+	"scripts": {
+		"build": "gatsby build",
+		"develop": "gatsby develop",
+		"format": "run-s format:**",
+		"format:js": "eslint --fix ./src",
+		"format:css": "stylelint --syntax=scss --fix ./src/**/*.scss",
+		"lint": "run-s lint:*",
+		"lint:js": "eslint ./src",
+		"lint:css": "stylelint --syntax=scss ./src/**/*.scss",
+		"start": "npm run develop",
+		"serve": "gatsby serve",
+		"test": "jest",
+		"storybook": "NODE_ENV=production start-storybook -s static -c config/storybook",
+		"build-storybook": "NODE_ENV=production build-storybook -s static -c config/storybook"
+	}
 }

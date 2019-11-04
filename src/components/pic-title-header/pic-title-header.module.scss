@@ -1,128 +1,128 @@
-@import '../../vars';
+@import "../../vars";
 
 .container {
-  margin: 0 auto 50px auto;
-  max-width: 948px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+	margin: 0 auto 50px auto;
+	max-width: 948px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 
-  @include until($endSmallScreenSize) {
-    margin-bottom: 16px;
-  }
+	@include until($endSmallScreenSize) {
+		margin-bottom: 16px;
+	}
 }
 
 .container > * {
-  flex: 0 0 auto;
-  max-width: 100%;
+	flex: 0 0 auto;
+	max-width: 100%;
 }
 
 .headerPic {
-  $desktopImgSize: 300px;
-  max-width: $desktopImgSize;
-  max-height: $desktopImgSize;
-  margin-right: 48px;
-  margin-bottom: 16px;
+	$desktopImgSize: 300px;
+	max-width: $desktopImgSize;
+	max-height: $desktopImgSize;
+	margin-right: 48px;
+	margin-bottom: 16px;
 
-  @include until($endSmallScreenSize) {
-    $mobileImgSize: 150px;
-    max-width: $mobileImgSize;
-    max-height: $mobileImgSize;
-  }
+	@include until($endSmallScreenSize) {
+		$mobileImgSize: 150px;
+		max-width: $mobileImgSize;
+		max-height: $mobileImgSize;
+	}
 }
 
 .title {
-  font-size: 64px;
-  line-height: 64px;
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--highImpactBlack);
-  margin: 0;
-  @include until($endSmallScreenSize) {
-    font-size: 40px;
-    line-height: 40px;
-    font-weight: normal;
-    text-align: center;
-  }
+	font-size: 64px;
+	line-height: 64px;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--highImpactBlack);
+	margin: 0;
+	@include until($endSmallScreenSize) {
+		font-size: 40px;
+		line-height: 40px;
+		font-weight: normal;
+		text-align: center;
+	}
 }
 
 .noMgContainer {
-  display: inline-block;
-  vertical-align: top;
-  width: 600px;
+	display: inline-block;
+	vertical-align: top;
+	width: 600px;
 }
 
 .subheader {
-  margin: 22px 0 0 0;
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--midImpactBlack);
-  font-size: 32px;
-  font-weight: 400;
-  white-space: pre-line;
+	margin: 22px 0 0 0;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--midImpactBlack);
+	font-size: 32px;
+	font-weight: 400;
+	white-space: pre-line;
 
-  @include until($endSmallScreenSize) {
-    font-size: 24px;
-    margin: 16px 16px 0;
-  }
+	@include until($endSmallScreenSize) {
+		font-size: 24px;
+		margin: 16px 16px 0;
+	}
 }
 
 .socialsContainer {
-  display: flex;
-  transition: color var(--animStyle) var(--animSpeed);
-  font-family: var(--oswald);
-  font-size: $baseUnit * 5px;
-  color: var(--darkPrimary);
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	display: flex;
+	transition: color var(--animStyle) var(--animSpeed);
+	font-family: var(--oswald);
+	font-size: $baseUnit * 5px;
+	color: var(--darkPrimary);
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 @include until($endSmallScreenSize) {
-  .socialsContainer {
-    justify-content: center;
+	.socialsContainer {
+		justify-content: center;
 
-    font-size: $baseUnit * 4px;
-  }
+		font-size: $baseUnit * 4px;
+	}
 }
 
 .socialsContainer > *:not(:last-child) {
-  margin-right: $baseUnit * 3px;
+	margin-right: $baseUnit * 3px;
 
-  @include until($endSmallScreenSize) {
-    margin-right: #{$baseUnit}px;
-  }
+	@include until($endSmallScreenSize) {
+		margin-right: #{$baseUnit}px;
+	}
 }
 
 .socialsContainer > * {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  margin-top: #{$baseUnit}px;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	margin-top: #{$baseUnit}px;
 }
 
 .svgContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .socialsContainer svg {
-  $desktopSvgSize: $baseUnit * 5px;
-  height: $desktopSvgSize;
-  width: $desktopSvgSize;
-  fill: none;
+	$desktopSvgSize: $baseUnit * 5px;
+	height: $desktopSvgSize;
+	width: $desktopSvgSize;
+	fill: none;
 
-  @include until($endSmallScreenSize) {
-    $mobileSvgSize: $baseUnit * 4px;
-    height: $mobileSvgSize;
-    width: $mobileSvgSize;
-  }
+	@include until($endSmallScreenSize) {
+		$mobileSvgSize: $baseUnit * 4px;
+		height: $mobileSvgSize;
+		width: $mobileSvgSize;
+	}
 }
 
 .socialBtnLink {
-  & > a {
-    display: flex;
-    flex-wrap: nowrap;
-  }
+	& > a {
+		display: flex;
+		flex-wrap: nowrap;
+	}
 }
