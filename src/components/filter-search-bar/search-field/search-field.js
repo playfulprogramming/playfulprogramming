@@ -1,10 +1,10 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import styles from "./search-field.module.scss";
 import classNames from "classnames";
 import SearchIcon from "../../../assets/icons/search.svg";
-import { useElementBoundingBox } from "../../../utils/useRefBoundingBox";
 import posed from "react-pose";
 import { SearchAndFilterContext } from "../../search-and-filter-context";
+import { useElementBounds } from "../../../utils";
 
 const placeholder = "Search";
 
@@ -18,15 +18,32 @@ export const SearchField = ({ className }) => {
 	const { setSearchVal, searchVal } = useContext(SearchAndFilterContext);
 	const [isFocused, setIsFocused] = useState(false);
 
-	const { ref: containerRef, width: maxSpanWidth } = useElementBoundingBox();
-	const { ref: inputRef, height: inputHeight } = useElementBoundingBox();
-	const { ref: spanRef, width: currInputWidth } = useElementBoundingBox(
-		searchVal,
-		a => ({
-			...a,
-			width: a.width + 50
-		})
+	// Set the node reference for the input for click listening
+	const [inputNode, setInputNode] = useState();
+	// Get a callback reference to get the element bounds
+	const {
+		ref: elBoundsCBRef,
+		val: { height: inputHeight }
+	} = useElementBounds([]);
+	// Create a callback reference to compose both the callback bound ref and the "real" ref
+	const inputCallbackRef = useCallback(
+		node => {
+			elBoundsCBRef(node);
+			setInputNode(node);
+		},
+		[elBoundsCBRef, setInputNode]
 	);
+	const {
+		ref: containerRef,
+		val: { width: maxSpanWidth }
+	} = useElementBounds([]);
+	const {
+		ref: spanRef,
+		val: { width: currInputWidth }
+	} = useElementBounds([searchVal], a => ({
+		...a,
+		width: a.width + 50
+	}));
 
 	/**
 	 * Class calculation
@@ -42,13 +59,13 @@ export const SearchField = ({ className }) => {
 	return (
 		// 70 as it's the size of all padding/etc more than just the input
 		<div className={`${className} ${styles.container}`}>
-			<div className={wrapperClasses} onClick={() => inputRef.current.focus()}>
+			<div className={wrapperClasses} onClick={() => inputNode.focus()}>
 				<SearchIcon className={styles.icon} />
 				<div className={styles.inputContainer} ref={containerRef}>
 					<div style={{ height: inputHeight }} />
 					<PosedInput
 						placeholder={placeholder}
-						ref={inputRef}
+						ref={inputCallbackRef}
 						aria-label="Search for posts"
 						onChange={e => {
 							const val = e.target.value;
