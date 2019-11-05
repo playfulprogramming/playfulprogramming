@@ -1,12 +1,4 @@
 /**
- * ⚠ A WARNING TO ALL YE WHO TRAVEL NEAR ⚠️
- * Life would be dull if we never explored, never played
- * However, deadlines near ever-closer and when one's played too long, they may
- * forget to put away their toys in an orderly manor. This is what's occurred
- *
- * It is for this reason that this code is deemed a hazard to one's health.
- * Ye've been warned
- *
  * This is a hand-spun component to match the guidelines for a listbox ALA w3 guidelines
  * @see https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
  *
@@ -22,7 +14,7 @@
  * ✅ Ctrl + Shift + End - Selects from the focused option to end of list
  * ✅ Ctrl + A - Toggles selection of all
  * ✅ Click outside this component to close
- * 🔲 Close on `blur`
+ * ✅ Close on `blur`
  */
 
 /**
