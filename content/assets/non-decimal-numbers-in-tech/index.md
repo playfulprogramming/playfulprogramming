@@ -1,3 +1,6 @@
+
+
+
 Computers - on a very low level - are built upon binary (ones and zeros). Think about that - all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together! 
 
 ## Decimal
@@ -71,12 +74,38 @@ Add up all those numbers:
 
 And voilà, you have the binary representation of `50`: **`0110010`**
 
+> Author's note:
+>
+> While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" alogrithm. I find this algorithm to flow the best with learning of the binary number system, but it's not the only way (or even the best way, oftentimes).
+
 ## Hexadecimal
 
-Funnily enough, if you've used a HEX value in HTML and CSS, you may already be loosely familiar with a similar scenario. Hexadecimal is the base 16 number set (hexa meaning "six" in latin, deca meaning "ten", combing to mean "sixteen"). Now you may wonder how you can count to 16 when we only use 10 numbers. The answer, to many developers, is to fill the remaining last 6 with other symbols: letter.
+But binary isn't the only non-deciamal system. You're able to reflect any numerical base so long as you have the correct number of symbols for that system. Let's look at another example of a non-decimal system: _Hexadecimal_.
+
+Hexadecimal is the base 16 number system.
+
+>  _Hexa_ meaning "six" in Latin, _deca_ meaning "ten", combining to mean "sixteen".
+
+Now you may wonder how you can count to 16 in a single column when we only use 10 numbers. The answer, to many developers, is to fill the remaining last 6 with other symbols: letters.
 
 `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `A`, `B`, `C`, `D`, `E`, `F`
 
-These are the symbols that makeup the hexadecimal numerical systems for many devs. A, in this case, represents the number 10. F being the number 15. In this numerical system, there are the "sixteens", the "two-hundred fifty sixs" (gathered by multiplying 16 by itself), etc
+These are the symbols that makeup the hexadecimal numerical systems for many devs. _`A`_, in this case, represents the number **`10`**. _`F`_ being the number **`15`**. In this numerical system, there are the _sixteens_, the _two-hundred fifty sixs_ (gathered by multiplying 16 by itself — 16 ^ 2), and other exponents of 16.
+
+Given this information, how 
 
 ![img](./base_16_50.svg)
+
+
+
+
+
+
+## Applications
+
+### CSS Colors
+
+Funnily enough, if you've used a HEX value in HTML and CSS, you may already be loosely familiar with a similar scenario. 
+
+
+### Text Encoding
