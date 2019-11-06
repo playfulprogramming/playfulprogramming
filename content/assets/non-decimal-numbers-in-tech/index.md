@@ -8,13 +8,13 @@ When you count to `10`, you're really using a combination of `1` and `0` in orde
 
 
 
-  ![img](./introduction_to_symbols.svg)
+  ![An image showcasing the symbols for decimal with one and zero highlighted to make up the number "10"](./introduction_to_symbols.svg)
 
 
 
 Knowing that we can separate the number from our thoughts allows us to categorize the number in a further manor, breaking it down into smaller groupings mentally. For example, if we take the number `34`, for example, we can break it down into three groups: the _ones_, the _tens_, and the _hundreds_.
 
-![img](./base_10_34_.svg)
+![A "0" in the hundreds column, a "3" in the tens column, a "4" in the ones column which drop down to show "30 + 4" which equals 34](./base_10_34_.svg)
 
 For the number `34`, we break it down into: `0` _hundreds_, `3` _tens_, and `4` _ones_. We can then multiply the higher number with the lower number (the column they're on) to get the numbers **`30`** (`3` _tens_) and **`4`** (`4` _ones_). Finally, we add the sum of them together to make the number we all know and love: **`34`**.
 
@@ -31,19 +31,19 @@ Binary, on the other hand, is _base two_. **This means that there are only two s
 Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and we should add it to the final sum_, _an **`O`** means that the number is not present and we should not add it_.
 Take the following example:
 
-![img](./base_2 _3_symbols.svg)
+![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2 _3_symbols.svg)
 
 In this example, both `1` and `2` are present, so we add them together to make **`3`**. You'll see that since we can only have a value present or not present — because we only have two symbols in binary — this conversion has less steps than using decimal. For example, if you only wanted the number two, you could simply mark the `1` as "not present" using the **`O`**
 
-![img](./base_2_2_symbols.svg)
+![A "X" on the two column and an "O" on the ones column which add together to make 2](./base_2_2_symbols.svg)
 
 You can even replace the two symbols with `1` and `0` to get the actual binary number of `10` in order to represent `2`
 
-![img](./base_2_2.svg)
+![A "1" on the two column and an "0" on the ones column which add together to make 2](./base_2_2.svg)
 
 So how does this play out when trying to represent the number **`50`** in binary?
 
-![img](./base_2_50.svg)
+![The binary number "110010" which shows 32, 64, and 2 to combine together to make 50. See the below explaination for more](./base_2_50.svg)
 
 As you can see, we create columns that are exponents of the number `2` for similar reasons as exponents of `10`; You can't represent `4`, `8`, `16`, or `32` without creating a new column otherwise. 
 
