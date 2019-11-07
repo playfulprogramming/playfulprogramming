@@ -169,4 +169,19 @@ Even without seeing a visual representation, you can tell that this color likely
 
 ### Text Encoding
 
-![](./ascii_chart.svg)
+While hexadecimal has much more immediately noticable application with colors, we started this post off with a question: "How does your computer know what letters to display on screen from only binary?"
+
+The answer to that question is quite complex, but let's answer it in a very simple manor (despite missing a lot of puzzle pieces in a very ["draw the owl"](https://knowyourmeme.com/memes/how-to-draw-an-owl) kind of way).
+
+Let's take a real way that computers used to (and still ocationally do) represent letters internally: [ASCII](https://en.wikipedia.org/wiki/ASCII). ASCII is an older standard for representing letters as different numbers inside your computer. Take the following (simplified) chart:
+
+![An ASCII chart that maps the numbers 64 which is capital A through to 90 which is capital Z and 97 which is lowercase a to 122 which is capital z](./ascii_chart.svg)
+
+When the user types "This", what the computer interprets (using ASCII) is `84`, `104`, `105`, and `115` for `T`, `h`, `i`, and `s` respectively.
+
+> You might be wondering "Why is there a bunch of missing numbers"?
+>
+> I've removed them to keep the examples simple, but many of them are for symbols (EG: `#`, `/`, and more) and some of them are for internal key commands that were used for terminal computing long ago that your computer now does without you noticing
+>
+> It's also worth mentioning that ASCII, while there are more characters than what's presented here, was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji).
+
