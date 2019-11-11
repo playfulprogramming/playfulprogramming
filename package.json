@@ -52,6 +52,7 @@
 		"gatsby-transformer-json": "^2.2.13",
 		"gatsby-transformer-remark": "^2.6.28",
 		"gatsby-transformer-sharp": "^2.2.21",
+		"medium-zoom": "^1.0.4",
 		"node-sass": "^4.12.0",
 		"prismjs": "^1.17.1",
 		"react": "^16.10.2",
@@ -59,7 +60,8 @@
 		"react-dom": "^16.10.2",
 		"react-helmet": "^5.2.1",
 		"react-paginate": "^6.3.0",
-		"react-pose": "^4.0.9"
+		"react-pose": "^4.0.9",
+		"unist-util-visit": "^1.4.1"
 	},
 	"peerDependencies": {
 		"@reach/router": "^1.1.1"

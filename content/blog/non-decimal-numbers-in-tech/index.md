@@ -39,7 +39,7 @@ Binary, on the other hand, is _base two_. **This means that there are only two s
 Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and we should add it to the final sum_, _an **`O`** means that the number is not present and we should not add it_.
 Take the following example:
 
-![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2 \_3_symbols.svg)
+![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2_3_symbols.svg)
 
 In this example, both `1` and `2` are present, so we add them together to make **`3`**. You'll see that since we can only have a value present or not present — because we only have two symbols in binary — this conversion has less steps than using decimal. For example, if you only wanted the number two, you could simply mark the `1` as "not present" using the **`O`**
 
