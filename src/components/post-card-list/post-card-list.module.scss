@@ -1,45 +1,45 @@
-@import '../../vars';
+@import "../../vars";
 
 .postsListContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 
-  &:empty::after {
-    content: 'No results could be found, you might try making your search or filter less restrictive';
-    text-align: center;
-    display: block;
-    max-width: 500px;
-    transition: color var(--animStyle) var(--animSpeed);
-    color: var(--midImpactBlack);
-    margin: 20px auto 0;
-    font-size: 18px;
-  }
+	&:empty::after {
+		content: "No results could be found, you might try making your search or filter less restrictive";
+		text-align: center;
+		display: block;
+		max-width: 500px;
+		transition: color var(--animStyle) var(--animSpeed);
+		color: var(--midImpactBlack);
+		margin: 20px auto 0;
+		font-size: 18px;
+	}
 }
 
 .postListItem {
-  margin: 6px 0;
-  flex-basis: 100%;
+	margin: 6px 0;
+	flex-basis: 100%;
 }
 
 @include from($startMediumScreenSize) {
-  .postListItem {
-    --marginSize: 8px;
-    flex-basis: calc(50% - var(--marginSize));
-    margin: var(--marginSize);
-    flex-grow: 0;
-    width: calc(50% - var(--marginSize));
-    max-width: calc(50% - var(--marginSize));
-  }
+	.postListItem {
+		--marginSize: 8px;
+		flex-basis: calc(50% - var(--marginSize));
+		margin: var(--marginSize);
+		flex-grow: 0;
+		width: calc(50% - var(--marginSize));
+		max-width: calc(50% - var(--marginSize));
+	}
 
-  .postListItem:nth-child(odd) {
-    margin-left: 0;
-  }
+	.postListItem:nth-child(odd) {
+		margin-left: 0;
+	}
 
-  .postListItem:nth-child(even) {
-    margin-right: 0;
-  }
+	.postListItem:nth-child(even) {
+		margin-right: 0;
+	}
 }

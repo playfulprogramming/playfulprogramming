@@ -1,26 +1,26 @@
 .icon {
-  margin-right: 16px;
-  height: var(--filterBarIconSize);
-  width: var(--filterBarIconSize);
+	margin-right: 16px;
+	height: var(--filterBarIconSize);
+	width: var(--filterBarIconSize);
 }
 
 .container {
-  display: flex;
-  color: var(--darkGrey);
-  text-transform: uppercase;
-  font-size: var(--filterBarFontSize);
-  line-height: var(--filterBarFontSize);
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	color: var(--darkGrey);
+	text-transform: uppercase;
+	font-size: var(--filterBarFontSize);
+	line-height: var(--filterBarFontSize);
+	align-items: center;
+	justify-content: center;
 }
 
 .container p {
-  margin: 0;
+	margin: 0;
 }
 
 .divider {
-  background: var(--darkGrey);
-  width: 1px;
-  height: var(--filterBarIconSize);
-  margin: 0 12px;
+	background: var(--darkGrey);
+	width: 1px;
+	height: var(--filterBarIconSize);
+	margin: 0 12px;
 }

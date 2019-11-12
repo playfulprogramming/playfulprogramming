@@ -1,67 +1,69 @@
-@import '../../../vars';
+@import "../../../vars";
 
 @include until($endSmallScreenSize) {
-  .container {
-    overflow: hidden;
-    width: 100%;
-    padding-bottom: 8px;
-  }
+	.container {
+		overflow: hidden;
+		width: 100%;
+		padding-bottom: 8px;
+	}
 }
 
 .btn {
-  display: flex;
-  align-items: center;
-  border-radius: var(--cardRadius);
-  padding: 8px 16px 8px 15px;
-  color: var(--darkPrimary);
-  transition: background var(--animSpeed) var(--animStyle),
-  box-shadow var(--animSpeed) var(--animStyle),
-  color var(--animSpeed) var(--animStyle),
-  border-color var(--animSpeed) var(--animStyle);
-  border: 1px solid transparent;
-  cursor: text;
+	display: flex;
+	align-items: center;
+	border-radius: var(--cardRadius);
+	padding: 8px 16px 8px 15px;
+	color: var(--darkPrimary);
+	transition: background var(--animSpeed) var(--animStyle),
+		box-shadow var(--animSpeed) var(--animStyle),
+		color var(--animSpeed) var(--animStyle),
+		border-color var(--animSpeed) var(--animStyle);
+	border: 1px solid transparent;
+	cursor: text;
 }
 
-.btn, .input, .input::placeholder {
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--darkPrimary);
+.btn,
+.input,
+.input::placeholder {
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--darkPrimary);
 }
 
 .btn:hover {
-  background: color var(--animStyle) var(--animSpeed);
-  background: var(--cardActiveBackground);
-  box-shadow: var(--cardActiveBoxShadow);
+	background: color var(--animStyle) var(--animSpeed);
+	background: var(--cardActiveBackground);
+	box-shadow: var(--cardActiveBoxShadow);
 }
 
 .contentBtn {
-  border: var(--cardOutlineStyle);
+	border: var(--cardOutlineStyle);
 }
 
 .input {
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--darkGrey);
-  outline: none;
-  min-width: 120px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: var(--filterBarFontSize);
-  line-height: var(--filterBarFontSize);
+	background: none;
+	border: none;
+	border-bottom: 1px solid var(--darkGrey);
+	outline: none;
+	min-width: 120px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: var(--filterBarFontSize);
+	line-height: var(--filterBarFontSize);
 }
 
 .input::placeholder {
-  opacity: 1;
+	opacity: 1;
 }
 
 .inputContainer {
-  width: 100%;
-  position: relative;
-  margin-left: 15px;
+	width: 100%;
+	position: relative;
+	margin-left: 15px;
 }
 
 .icon {
-  flex-shrink: 0;
-  height: var(--filterBarIconSize);
-  width: var(--filterBarIconSize);
+	flex-shrink: 0;
+	height: var(--filterBarIconSize);
+	width: var(--filterBarIconSize);
 }
