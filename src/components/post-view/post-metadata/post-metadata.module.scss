@@ -1,55 +1,55 @@
-@import '../../../vars';
+@import "../../../vars";
 
 .container {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-bottom: 25px;
-  max-width: 768px;
+	display: flex;
+	flex-wrap: nowrap;
+	margin-bottom: 25px;
+	max-width: 768px;
 }
 
 .textDiv {
-  margin-left: 24px;
+	margin-left: 24px;
 }
 
 .belowName > * {
-  font-weight: 400;
-  display: inline-block;
-  margin: 0 24px 0 0;
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--lowImpactBlack);
-  font-size: 36px;
-  position: relative;
+	font-weight: 400;
+	display: inline-block;
+	margin: 0 24px 0 0;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--lowImpactBlack);
+	font-size: 36px;
+	position: relative;
 
-  @include until($endSmallScreenSize) {
-    font-size: 24px;
-  }
+	@include until($endSmallScreenSize) {
+		font-size: 24px;
+	}
 }
 
 .belowName > *:not(:last-child)::after {
-  position: absolute;
-  content: ' ';
-  right: -12px;
-  height: 100%;
-  width: 2px;
-  transition: background var(--animStyle) var(--animSpeed);
-  background: var(--darkPrimary);
+	position: absolute;
+	content: " ";
+	right: -12px;
+	height: 100%;
+	width: 2px;
+	transition: background var(--animStyle) var(--animSpeed);
+	background: var(--darkPrimary);
 }
 
 .authorName {
-  font-size: 36px;
-  margin: 0;
+	font-size: 36px;
+	margin: 0;
 
-  @include until($endSmallScreenSize) {
-    font-size: 32px;
-  }
+	@include until($endSmallScreenSize) {
+		font-size: 32px;
+	}
 }
 
 .authorLink {
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--highImpactBlack);
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--highImpactBlack);
 }
 
 .authorImagesContainer {
-  width: 84px;
-  height: 84px;
+	width: 84px;
+	height: 84px;
 }
