@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import Image from "gatsby-image";
 import styles from "./pic-title-header.module.scss";
 import GitHubIcon from "../../assets/icons/github.svg";

@@ -1,12 +1,4 @@
 /**
- * ⚠ A WARNING TO ALL YE WHO TRAVEL NEAR ⚠️
- * Life would be dull if we never explored, never played
- * However, deadlines near ever-closer and when one's played too long, they may
- * forget to put away their toys in an orderly manor. This is what's occurred
- *
- * It is for this reason that this code is deemed a hazard to one's health.
- * Ye've been warned
- *
  * This is a hand-spun component to match the guidelines for a listbox ALA w3 guidelines
  * @see https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
  *
@@ -21,10 +13,8 @@
  * ✅ Ctrl + Shift + Home - Selects from the focused option to start of list
  * ✅ Ctrl + Shift + End - Selects from the focused option to end of list
  * ✅ Ctrl + A - Toggles selection of all
- * 🔲 Click outside this component to close
- * Am I supposed to focus lock w/ tab?
- * 🔲 If so, add that
- * 🔲 If not, close on `blur`
+ * ✅ Click outside this component to close
+ * ✅ Close on `blur`
  */
 
 /**
@@ -36,11 +26,12 @@
  */
 
 import React, {
+	useCallback,
 	useContext,
 	useEffect,
-	useLayoutEffect,
 	useMemo,
-	useRef
+	useRef,
+	useState
 } from "react";
 import classNames from "classnames";
 import posed from "react-pose";
@@ -51,11 +42,9 @@ import FilterIcon from "../../../assets/icons/filter.svg";
 import CheckIcon from "../../../assets/icons/check.svg";
 import UncheckIcon from "../../../assets/icons/unchecked.svg";
 
-import { useSelectRef } from "../../../utils/a11y/useSelectRef";
-import { useWindowSize } from "../../../utils/useWindowSize";
-import { useAfterInit } from "../../../utils/useAfterInit";
-import { useLunr } from "../../../utils/useLunr";
+import { usePopoverCombobox } from "../../../utils/a11y/usePopoverCombobox";
 import { SearchAndFilterContext } from "../../search-and-filter-context";
+import { useElementBounds } from "../../../utils";
 
 const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
 	const liClassName = classNames(filterStyles.option, {
@@ -95,8 +84,9 @@ const ListIdBox = posed.ul({
 
 export const FilterListbox = ({ tags = [], className }) => {
 	const { setFilterVal } = useContext(SearchAndFilterContext);
+
 	const {
-		ref: listBoxRef,
+		comboBoxListRef,
 		active,
 		values,
 		selected,
@@ -105,187 +95,167 @@ export const FilterListbox = ({ tags = [], className }) => {
 		usedKeyboardLast,
 		parentRef,
 		buttonProps
-	} = useSelectRef(tags, "multi");
+	} = usePopoverCombobox(tags);
 
-	useLayoutEffect(() => {
-		setFilterVal(selected || []);
-	}, [selected, setFilterVal]);
+	// Set the selected array value to match the parent combobox
+	useEffect(() => setFilterVal(selected), [selected, setFilterVal]);
 
+	// Should it show the text "filter" or the selected text
 	const shouldShowFilterMsg = expanded || !selected.length;
+
+	// What should the selected text show
+	const selectedString = useMemo(() => {
+		if (!selected.length) return "";
+		return selected.map(v => v.val).join(", ");
+	}, [selected]);
 
 	/**
 	 * Refs
 	 */
-	const filterTextRef = useRef();
-	const appliedFiltersTextRef = useRef();
-	const btnRef = useRef();
-	const containerRef = useRef();
-
-	const windowSize = useWindowSize(150);
+	// Set the node reference for the button for focusing
+	const [buttonNode, setButtonNode] = useState();
+	// Get a callback reference to get the element bounds
+	const {
+		ref: elBoundsCBRef,
+		val: { height: buttonHeight }
+	} = useElementBounds([]);
+	// Create a callback reference to compose both the callback bound ref and the "real" ref
+	const btnCallbackRef = useCallback(
+		node => {
+			elBoundsCBRef(node);
+			setButtonNode(node);
+		},
+		[elBoundsCBRef, setButtonNode]
+	);
 
 	/**
 	 * Effects
 	 */
 	useEffect(() => {
 		// When user escapes using "Esc" key, refocus on btn
-		if (!expanded && usedKeyboardLast && btnRef.current) {
-			btnRef.current.focus();
+		if (!expanded && usedKeyboardLast && buttonNode) {
+			buttonNode.focus();
 		}
-	}, [expanded, usedKeyboardLast, btnRef]);
+	}, [expanded, usedKeyboardLast, buttonNode]);
 
 	/**
-	 * Value calcs
+	 * The bounding box handlers
 	 */
-	const appliedTagsStr = useMemo(() => {
-		if (!selected.length) return "";
-		return selected.map(v => v.val).join(", ");
-	}, [selected]);
+	// Get the width of just displaying "Filter"
+	const {
+		ref: getFilterStrWidthFromRef,
+		val: { width: filterStrWidth, height: filterStrHeight }
+	} = useElementBounds([]);
+	// Get the width of the "selected" value string in order to set the box
+	// width to it for an animation effect
+	const {
+		ref: getSelectedStrWidthFromRef,
+		val: { width: selectedStrWidth }
+	} = useElementBounds([selected]);
+	// Get the top level container width so we can set it as a max width for the
+	// selected string span so we can cut it with `...` properly
+	const {
+		ref: getContainerWidthFromRef,
+		val: { width: topLevelContainerWidth }
+	} = useElementBounds([]);
+
+	// Set that max width value mentioned above but add some padding for the btn
+	const maxSelectedStrWidth = `${topLevelContainerWidth - 72}px`;
+
+	const filterContentsWidth =
+		// If there is nothing selected, then it should be the width of the filter str
+		shouldShowFilterMsg
+			? // If it's expanded, let's add some breathing room of 100px to see the filters
+			  expanded
+				? filterStrWidth + 100
+				: filterStrWidth
+			: selectedStrWidth;
 
 	/**
-	 * Bounding Box Matches
+	 * Classes
 	 */
+	const containerClassName = classNames({
+		[filterStyles.expanded]: expanded,
+		[filterStyles.container]: true,
+		[className || ""]: true
+	});
 
-	// Make bounding boxes work properly
-	const afterInit = useAfterInit();
+	const filterTextClasses = classNames({
+		[filterStyles.show]: shouldShowFilterMsg,
+		[filterStyles.placeholder]: true
+	});
 
-	const currentSpanHeight = useMemo(() => {
-		if (!filterTextRef.current || !filterTextRef.current) return 0;
-		const filtTxtBound = filterTextRef.current.getBoundingClientRect();
-		const appliedFiltBound = appliedFiltersTextRef.current.getBoundingClientRect();
-		return filtTxtBound.height < appliedFiltBound.height
-			? appliedFiltBound.height
-			: filtTxtBound.height;
-	}, [appliedFiltersTextRef, filterTextRef]);
+	const filterIconClasses = classNames({
+		expandedIcon: expanded,
+		[filterStyles.icon]: true
+	});
 
-	const currentBtnHeight = useMemo(() => {
-		if (!btnRef.current) return 0;
-		const btnRefBound = btnRef.current.getBoundingClientRect();
-		return btnRefBound.height;
-	}, []);
+	const listBoxClasses = classNames({
+		[filterStyles.hasTags]: !!selected.length,
+		[filterStyles.listbox]: true,
+		[filterStyles.isKeyboard]: usedKeyboardLast
+	});
 
-	const currentSpanWidth = useMemo(() => {
-		if (!filterTextRef.current || !filterTextRef.current) return 0;
-		if (shouldShowFilterMsg) {
-			const filtTxtBound = filterTextRef.current.getBoundingClientRect();
-			let toReturn = filtTxtBound.width;
-			if (expanded) {
-				toReturn += 100;
-			}
-			return toReturn;
-		}
-
-		const appliedFiltBound = appliedFiltersTextRef.current.getBoundingClientRect();
-		return appliedFiltBound.width;
-	}, [shouldShowFilterMsg, expanded]);
-
-	const maxSpanWidth = useMemo(() => {
-		if (!containerRef.current) return 0;
-		const containerRefBounding = containerRef.current.getBoundingClientRect();
-		return containerRefBounding.width;
-	}, [containerRef]);
-
-	/**
-	 * Class names
-	 */
-	const containerClassName = useMemo(
-		() =>
-			classNames({
-				[filterStyles.expanded]: expanded,
-				[filterStyles.container]: true,
-				[className || ""]: true
-			}),
-		[className, expanded]
-	);
-
-	const filterIconClasses = useMemo(
-		() =>
-			classNames({
-				expandedIcon: expanded,
-				[filterStyles.icon]: true
-			}),
-		[expanded]
-	);
-
-	const listBoxClasses = useMemo(
-		() =>
-			classNames({
-				[filterStyles.hasTags]: !!selected.length,
-				[filterStyles.listbox]: true,
-				[filterStyles.isKeyboard]: usedKeyboardLast
-			}),
-		[usedKeyboardLast, selected]
-	);
-
-	const filterTextClasses = useMemo(
-		() =>
-			classNames({
-				[filterStyles.show]: shouldShowFilterMsg,
-				[filterStyles.placeholder]: true
-			}),
-		[shouldShowFilterMsg]
-	);
-
-	const appliedStrClasses = useMemo(
-		() =>
-			classNames({
-				[filterStyles.show]: !shouldShowFilterMsg,
-				[filterStyles.appliedTags]: true
-			}),
-		[shouldShowFilterMsg]
-	);
+	const appliedStrClasses = classNames({
+		[filterStyles.show]: !shouldShowFilterMsg,
+		[filterStyles.appliedTags]: true
+	});
 
 	return (
-		<div className={containerClassName} ref={containerRef}>
+		<div className={containerClassName} ref={getContainerWidthFromRef}>
 			<div className={filterStyles.buttonContainer} ref={parentRef}>
 				<span id="exp_elem" className="visually-hidden">
 					Choose a tag to filter by:
 				</span>
 				<button
 					type="button"
-					ref={btnRef}
 					className={filterStyles.filterButton}
 					aria-haspopup="listbox"
 					aria-expanded={expanded}
 					aria-labelledby="exp_elem filter-button"
 					aria-owns="listBoxID"
 					id="filter-button"
+					ref={btnCallbackRef}
 					{...buttonProps}
 				>
 					{<FilterIcon className={filterIconClasses} aria-hidden={true} />}
 					<FilterDisplaySpan
 						className={filterStyles.textContainer}
-						heiight={currentSpanHeight}
 						pose="initial"
-						poseKey={currentSpanWidth}
-						wiidth={currentSpanWidth}
+						heiight={filterStrHeight}
+						poseKey={filterContentsWidth}
+						wiidth={filterContentsWidth}
 					>
 						<span
-							ref={filterTextRef}
 							aria-hidden={true}
+							ref={getFilterStrWidthFromRef}
 							className={filterTextClasses}
 						>
 							Filters
 						</span>
 						<span
-							ref={appliedFiltersTextRef}
+							aria-hidden={true}
+							ref={getSelectedStrWidthFromRef}
 							className={appliedStrClasses}
-							style={{ maxWidth: maxSpanWidth }}
+							style={{
+								maxWidth: maxSelectedStrWidth
+							}}
 						>
-							{appliedTagsStr}
+							{selectedString}
 						</span>
 					</FilterDisplaySpan>
 				</button>
 				<ListIdBox
 					id="listBoxID"
 					role="listbox"
-					ref={listBoxRef}
+					ref={comboBoxListRef}
 					className={listBoxClasses}
 					aria-labelledby="exp_elem"
-					tabIndex={-1}
+					tabIndex={0}
 					aria-multiselectable="true"
 					aria-activedescendant={active && active.id}
-					heiight={currentBtnHeight}
-					poseKey={currentBtnHeight}
+					heiight={buttonHeight}
+					poseKey={buttonHeight}
 					pose={expanded ? "expanded" : "hidden"}
 				>
 					<div className={filterStyles.maxHeightHideContainer}>

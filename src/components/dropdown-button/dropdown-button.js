@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * This code is currently unused and does not function as-expected
  *
@@ -11,7 +12,7 @@ import filterStyles from "./dropdown-button.module.scss";
 
 import FilterIcon from "../../../assets/icons/filter.svg";
 
-import { useSelectRef } from "../../utils/a11y/useSelectRef";
+import { usePopoverCombobox } from "../../utils/a11y/usePopoverCombobox";
 import { useWindowSize } from "../../utils/useWindowSize";
 import { useAfterInit } from "../../utils/useAfterInit";
 
@@ -75,7 +76,7 @@ export const DropdownButton = ({
 		usedKeyboardLast,
 		parentRef,
 		buttonProps
-	} = useSelectRef(valArr, allowSelect, onPress);
+	} = usePopoverCombobox(valArr, allowSelect, onPress);
 	const shouldShowFilterMsg = expanded || !selected.length;
 
 	/**
@@ -232,7 +233,7 @@ export const DropdownButton = ({
 					ref={listBoxRef}
 					className={listBoxClasses}
 					aria-labelledby="exp_elem"
-					tabIndex={-1}
+					tabIndex={0}
 					aria-multiselectable="true"
 					aria-activedescendant={active && active.id}
 					heiight={currentBtnHeight}
@@ -253,16 +254,6 @@ export const DropdownButton = ({
 						))}
 					</div>
 				</ListIdBox>
-			</div>
-
-			<button
-				aria-expanded="true"
-				aria-haspopup="menu"
-				id="button-befk28h8"
-			></button>
-
-			<div role="menu" aria-labelledby="button-befk28h8">
-				<div role="menuitem" />
 			</div>
 		</div>
 	);

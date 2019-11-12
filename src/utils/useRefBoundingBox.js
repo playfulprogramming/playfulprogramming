@@ -1,17 +1,6 @@
-import { useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useAfterInit } from "./useAfterInit";
 import { useWindowSize } from "./useWindowSize";
-
-const getFromBoundClient = rect => ({
-	x: rect.x,
-	y: rect.y,
-	bottom: rect.bottom,
-	height: rect.height,
-	left: rect.left,
-	right: rect.right,
-	top: rect.top,
-	width: rect.width
-});
 
 const emptyVal = {
 	x: 0,
@@ -24,28 +13,50 @@ const emptyVal = {
 	width: 0
 };
 
-export const useElementBoundingBox = (
-	changeItem,
+/**
+ * @param {Array} [changeArr] - The callback array for change handling
+ * @param {Function} [changeFunc] - The function used to modify the bounding box sizing
+ * @param {number} [debounceMs] - The time to debounce the window size by
+ * @returns {Object} 0
+ * @returns {React.RefObject} 0.ref - The ref to associate with the item
+ * @returns {React.RefObject} 0.val - The return of `getBoundingBox` of the ref
+ * @returns {number} 0.val.x - The associated value of the bounding box
+ * @returns {number} 0.val.y - The associated value of the bounding box
+ * @returns {number} 0.val.bottom - The associated value of the bounding box
+ * @returns {number} 0.val.height - The associated value of the bounding box
+ * @returns {number} 0.val.left - The associated value of the bounding box
+ * @returns {number} 0.val.right - The associated value of the bounding box
+ * @returns {number} 0.val.top - The associated value of the bounding box
+ * @returns {number} 0.val.width - The associated value of the bounding box
+ */
+export const useElementBounds = (
+	changeArr,
 	changeFunc = a => a,
 	debounceMs = 150
 ) => {
-	// Get the initial element size
+	const [val, setVal] = useState(0);
 	const afterInit = useAfterInit();
 	const windowSize = useWindowSize(debounceMs);
-	const ref = useRef();
 
-	const boundingObj = useMemo(() => {
-		if (!ref.current)
-			return {
-				...changeFunc(emptyVal),
-				ref
-			};
-		const bounding = ref.current.getBoundingClientRect();
-		return {
-			ref,
-			...changeFunc(getFromBoundClient(bounding))
-		};
-	}, [ref, changeFunc]);
+	const diffArr = useMemo(
+		() => [...changeArr, windowSize, emptyVal, afterInit],
+		[changeArr, windowSize, afterInit]
+	);
 
-	return boundingObj;
+	const ref = useCallback(
+		reff => {
+			if (reff) {
+				setVal(changeFunc(reff.getBoundingClientRect()));
+				return;
+			}
+			setVal(changeFunc(emptyVal));
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		diffArr
+	);
+
+	return {
+		ref,
+		val
+	};
 };

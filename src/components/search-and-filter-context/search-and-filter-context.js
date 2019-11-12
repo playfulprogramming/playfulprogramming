@@ -67,11 +67,13 @@ export const useSearchFilterValue = () => {
 		} else {
 			filterUsingLunr(`tags: ${filterVal.map(v => v.val).join(" ")}`);
 		}
-	}, [filterUsingLunr, filterVal]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [filterVal]);
 
 	useEffect(() => {
 		searchUsingLunr(searchVal);
-	}, [searchUsingLunr, searchVal]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchVal]);
 
 	/**
 	 * An array of all allowed posts to be shown to the user
