@@ -33,7 +33,7 @@ const BlogPostTemplateChild = props => {
 				// TODO: Fix this, this is causing comments to not apply to the correct
 				//   post. This identifier should NEVER change and should ALWAYS match
 				//   `slug` only
-				identifier: `${slug}${currentTheme}`,
+				identifier: slug,
 				title: post.frontmatter.title
 			});
 			// Must use a `useTimeout` so that this reloads AFTER the background animation
