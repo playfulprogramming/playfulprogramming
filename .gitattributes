@@ -1,9 +1,0 @@
-content/assets/**/*.png filter=lfs diff=lfs merge=lfs -text
-content/assets/**/*.svg filter=lfs diff=lfs merge=lfs -text
-content/assets/**/*.jpg filter=lfs diff=lfs merge=lfs -text
-content/assets/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
-content/blog/**/*.png filter=lfs diff=lfs merge=lfs -text
-content/blog/**/*.svg filter=lfs diff=lfs merge=lfs -text
-content/blog/**/*.jpg filter=lfs diff=lfs merge=lfs -text
-content/blog/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
-content/blog/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
