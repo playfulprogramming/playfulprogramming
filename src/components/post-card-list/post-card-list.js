@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";

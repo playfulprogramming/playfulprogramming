@@ -1,5 +1,4 @@
-import React, { createRef, useMemo, useRef } from "react";
-import Image from "gatsby-image";
+import React, { createRef, useMemo } from "react";
 import styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
 import { stopPropCallback } from "../../../utils/preventCallback";

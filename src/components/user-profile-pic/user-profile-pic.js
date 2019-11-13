@@ -1,8 +1,6 @@
 import * as React from "react";
 import Image from "gatsby-image";
-import { Link } from "gatsby";
 
-import { stopPropCallback } from "../../utils/preventCallback";
 import styles from "./user-profile-pic.module.scss";
 
 /**

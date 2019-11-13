@@ -2,7 +2,7 @@
  * Code migrated from this PR to use ES6 imports:
  * @see https://github.com/rehooks/window-size/pull/4
  */
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 function getSize() {
 	if (!global.window || !window) {
@@ -18,19 +18,20 @@ function getSize() {
 }
 
 export const useWindowSize = debounceMs => {
-	let [windowSize, setWindowSize] = useState(getSize());
+	const [windowSize, setWindowSize] = useState(getSize());
+	const timeoutIdRef = useRef();
 
-	let timeoutId;
+	const timeoutId = timeoutIdRef && timeoutIdRef.current;
 
 	const handleResize = useCallback(() => {
 		if (timeoutId) {
 			clearTimeout(timeoutId);
 		}
 
-		timeoutId = setTimeout(function() {
+		timeoutIdRef.current = setTimeout(() => {
 			setWindowSize(getSize());
-		}, debounceMs);
-	}, [timeoutId]);
+		}, debounceMs || 0);
+	}, [timeoutId, debounceMs]);
 
 	useEffect(() => {
 		if (windowSize.innerHeight === undefined) {

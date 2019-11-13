@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { graphql, Link } from "gatsby";
 import BackIcon from "../../assets/icons/back.svg";
 import layoutStyles from "./layout.module.scss";
