@@ -62,29 +62,32 @@ As you can see, we create columns that are powers of `2` for similar reasons as 
 >
 > Continuing on with this pattern: without an **`8`** column, you can only have a `4`, `2`, and `1` which would yield a maximum value of **`7`**. It's important to note that these values are always one less than a power of 2.
 
-Once each of these exponents is laid out, we can start adding 1s where we have the minimum amount of value. EG:
-Is `64` less than or equal to `50`? No. That's a **`0`**
-Is `32 <= 50`? Yes, therefore that's a **`1`**
-`50 - 32 = 18`
-Moving down the list, is `16 <= 18`? Yes, that's a **`1`**
-`18 - 16 = 2`
-Is `8 <= 2`? No, that's a **`0`**
-`4 <= 2`? No, that's a **`0`** as well
-`2 <= 2`? Yes, that's a **`1`**
-`2 - 2` is **`0`**. That means every number afterwards (in this case only `1` is left) is not present, therefore is a **`0`**.
+Once each of these powers is laid out, we can start adding `1`s where we have the minimum amount of each value. For example:
+
+- Is `64` less than or equal to `50`? No. That's a **`0`**.
+- Is `32 <= 50`? Yes, therefore that's a **`1`**.
+    - `50 - 32 = 18`
+- Moving down the list, is `16 <= 18`? Yes, that's a **`1`**.
+    -`18 - 16 = 2`
+- Is `8 <= 2`? No, that's a **`0`**.
+- `4 <= 2`? No, that's a **`0`** as well.
+- `2 <= 2`? Yes, that's a **`1`**.
+    - `2 - 2 = 0`
+- Now that we're left with `0`, we know that the rest of the digits will be `0`.
 
 Add up all those numbers:
-|Column|Value|
-|--|--|
-|`64`| **`0`**|
-|`32`| **`1`**|
-|`16`| **`1`**|
-|`8`| **`0`**|
-|`4`| **`0`**|
-|`2`| **`1`**|
-|`1`| **`0`**|
 
-And voilà, you have the binary representation of `50`: **`0110010`**
+| Column | Value   |  
+| ------ | ------- |  
+| `64`   | **`0`** |  
+| `32`   | **`1`** |  
+| `16`   | **`1`** |  
+| `8`    | **`0`** |  
+| `4`    | **`0`** |  
+| `2`    | **`1`** |  
+| `1`    | **`0`** |  
+
+And voilà, you have the binary representation of `50`: **`0110010`**.
 
 > Author's note:
 >
@@ -110,28 +113,17 @@ Given this information, how would we represent the number **`50`**?
 
 Assuming we have a _ones_ column, a _sixteens_ column, and a _two-hundred fifty sixes_ column, we can calculate the number in a similar way to the binary example earlier:
 
-Is `256` less than or equal to `50`? No. That's a **`0`**
-Is `16 <= 50`? Yes. So we know it's _at least_ _`1`_.
-
-Now, how many times can you put `16` in `50`?
-
-`16 * 2 = 32` and `32 <= 50`, so it's _at least_ _`2`_
-
-`16 * 3 = 48` and `48 <= 50` so it's _at least_ _`3`_
-
-`16 * 4 = 64`. However, `64 > 50`, therefor the _sixteenth_ place cannot be _`4`_, therefore it must be **`3`**
-
-So now that we know the most we can have in the _sixteenth_ place, we can subtract the sum (`48`) from our result (`50`)
-
-`50 - 48 = 2`
-
-Now onto the _ones_ place:
-
-How many _ones_ can fit into _`2`_?
-
-`1 * 1 = 1` and `1 <= 2`, so it's _at least_ _`1`_
-
-`1 * 2 = 2` and `2 <= 2` and because these number equal, we know that there must be **`2`** _twos_.
+- Is `256` less than or equal to `50`? No. That's a **`0`**
+- Is `16 <= 50`? Yes. So we know it's _at least `1`_.
+    - Now, how many times can you put `16` in `50`?
+        - `16 * 2 = 32` and `32 <= 50`, so it's _at least_ _`2`_.
+        - `16 * 3 = 48` and `48 <= 50` so it's _at least_ _`3`_.
+        - `16 * 4 = 64`. However, `64 > 50`, therefor the _sixteenth_ place cannot be _`4`_, therefore it must be **`3`**.
+    - Now that we know the most we can have in the _sixteenth_ place, we can subtract the sum (`48`) from our result (`50`).
+        - `50 - 48 = 2`
+- Now onto the _ones_ place: how many _ones_ can fit into _`2`_?
+    - `1 * 1 = 1` and `1 <= 2`, so it's _at least_ _`1`_.
+    - `1 * 2 = 2` and `2 <= 2` and because these numbers are equal, we know that there must be **`2`** _twos_.
 
 Now if we add up these numbers:
 
