@@ -58,7 +58,9 @@ So, how does this play out when trying to represent the number **`50`** in binar
 
 As you can see, we create columns that are powers of `2` for similar reasons as using powers of `10` in decimal; you can't represent `4`, `8`, `16`, or `32` without creating a new column otherwise.
 
-> Remember, in this system a number can only be present or not, there is no _`2`_. Because of this, without the **`4`** column, there can only be a `1` and a `2`, which makes up **`3`**. Continuing on with this pattern: without an **`8`** column, you can only have a `4`, `2`, and `1` which would yeild you **`7`**.
+> Remember, in this system a number can only be present or not, there is no _`2`_. This means that only the symbols `1` and `0` are present. Keeping this in mind, it then means that we can only have `11` as the highest represented number without another column. **`11`** in binary is **`3`** is decimal. _This shows that with only 2 binary digits, only the decimal numbers that can be represented are: `0`, `1`, `2`, and `3`_. As a result, we need to add a _`4`_ column in order to represent that number in binary.
+>
+> Continuing on with this pattern: without an **`8`** column, you can only have a `4`, `2`, and `1` which would yield a maximum value of **`7`**. It's important to note that these values are always one less than a power of 2.
 
 Once each of these exponents is laid out, we can start adding 1s where we have the minimum amount of value. EG:
 Is `64` less than or equal to `50`? No. That's a **`0`**
