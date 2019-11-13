@@ -89,7 +89,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**
 
 # Hexadecimal {#hexadecimal}
 
-But binary isn't the only non-deciamal system. You're able to reflect any numerical base so long as you have the correct number of symbols for that system. Let's look at another example of a non-decimal system: _Hexadecimal_.
+But binary isn't the only non-decimal system. You're able to reflect any numerical base so long as you have the correct number of symbols for that system. Let's look at another example of a non-decimal system: _Hexadecimal_.
 
 Hexadecimal is the base 16 number system.
 
@@ -157,6 +157,10 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 > Just as _`100`_ is `10^2` for the decimal system, `256` is `16^2`. We can follow this pattern to the next number in the hexadecimal column: `4096`, which is `16^3`. You can even apply it to `1` which is `16^0`
 >
 > Binary works in the same manor. The first 5 columns/digits of binary are: `1`, `2`, `4`, `8`, `16` . These numbers align respectively to their binary exponents: `2^0`, `2^1`, `2^2`, `2^3`, `2^4`
+>
+> It's also worth noting that decimal numbers can be written out the same way. 
+>
+> _`732`_ for example, in base 10, can be written as `7x10^2`+ `3x10^1` + `2x10^0`
 
 ## To Binary {#hexadecimal-to-binary}
 
@@ -164,7 +168,7 @@ Remember that at the end of the day a hexadecimal number only reflects a number 
 
 ![The hexadecimal number "032" and the binary number "110010" which both reflect 50](./binary_vs_hexadecimal.svg)
 
-After all, they're just refelctions of the numbers that we represent using a specific set of symbols. In binary those symbols are more restrictive than in hexadecimal and therefore the symbolic representation is longer
+After all, they're just reflections of the numbers that we represent using a specific set of symbols. In binary those symbols are more restrictive than in hexadecimal and therefore the symbolic representation is longer
 
 # Applications
 
