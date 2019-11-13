@@ -92,7 +92,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**
 
 # Hexadecimal {#hexadecimal}
 
-But binary isn't the only non-decimal system. You're able to reflect any numerical base so long as you have the correct number of symbols for that system. Let's look at another example of a non-decimal system: _Hexadecimal_.
+Binary isn't the only non-decimal system. You're able to use any number as your base as long as you have enough symbols to represent the digits. Let's look at another example of a non-decimal system: _hexadecimal_.
 
 Hexadecimal is the base 16 number system.
 
@@ -214,7 +214,7 @@ Although hexadecimal has a much more immediately noticeable application with col
 
 The answer to that question is quite complex, but let's answer it in a very simple manner (despite missing a lot of puzzle pieces in a very ["draw the owl"](https://knowyourmeme.com/memes/how-to-draw-an-owl) kind of way).
 
-Let's take a real way that computers used to (and still ocationally do) represent letters internally: [ASCII](https://en.wikipedia.org/wiki/ASCII). ASCII is an older standard for representing letters as different numbers inside your computer. Take the following (simplified) chart:
+Let's take a real way that computers used to (and still do, to some extent) represent letters internally: [ASCII](https://en.wikipedia.org/wiki/ASCII). ASCII is an older standard for representing each textual character as a different number inside your computer. Take the following (simplified) chart:
 
 ![An ASCII chart that maps the numbers 64 which is capital A through to 90 which is capital Z and 97 which is lowercase a to 122 which is capital z](./ascii_chart.svg)
 
@@ -224,7 +224,7 @@ When the user types _"This"_, what the computer interprets (using ASCII) is `84`
 >
 > I've removed them to keep the examples simple, but many of them are for symbols (EG: `#`, `/`, and more) and some of them are for internal key commands that were used for terminal computing long ago that your computer now does without you noticing.
 >
-> It's also worth mentioning that ASCII, while there are more characters than what's presented here, was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji).
+> It's also worth mentioning that ASCII (which does have more characters than what's presented here) was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji). ASCII still sticks around to some extent though, as the first 255 characters in Unicode are the same as they originally were in ASCII.
 
 While I've used the above chart to reflect _A_ as `65`, it'd be more accurate to say that you computer interprets the symbol as `01000001` internally. This is again due to the fact that your computer must interpret every number and letter as binary.
 
