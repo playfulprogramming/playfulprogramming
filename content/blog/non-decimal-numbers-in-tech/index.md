@@ -98,7 +98,7 @@ Hexadecimal is the base 16 number system.
 
 > _Hexa_ means "six" in Latin and _deca_ means "ten", so these are combined to form "sixteen".
 
-Now you may wonder how you can count to 16 in a single column when we only use 10 numbers. The answer, to many developers, is to fill the remaining last 6 with other symbols: letters.
+Now you may wonder how you can count to 16 in a single column when we only use 10 symbols to represent numbers. The answer, to many developers, is to fill the remaining last 6 with other symbols: alphabetical letters.
 
 `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `A`, `B`, `C`, `D`, `E`, `F`
 
@@ -149,7 +149,7 @@ If you recall, we use these 15 symbols to represent digits in hexadecimal:
 
 `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `A`, `B`, `C`, `D`, `E`, `F`
 
-If we reflect these numbers in a single digit (1 number column), the biggest number we can reflect is `F`: `15`.
+Using just a single digit (or, phrased in another way: A single number column), the biggest number we can represent is `F`, or `15` in decimal.
 
 This is similar to how the biggest number we can represent with a single digit in decimal is `9`.
 
@@ -157,13 +157,13 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 
 > For those that have experience in algebra, you'll notice that these are all powers of 16.
 >
-> Just as _`100`_ is `10^2` for the decimal system, `256` is `16^2`. We can follow this pattern to the next number in the hexadecimal column: `4096`, which is `16^3`. You can even apply it to `1` which is `16^0`
+> Just as _`100`_ is 10<sup>2</sup> for the decimal system, `256` is 16<sup>2</sup>. We can follow this pattern to the next number in the hexadecimal column: `4096`, which is 16<sup>3</sup>. You can even apply it to `1` which is 16<sup>0</sup>.
 >
-> Binary works in the same manor. The first 5 columns/digits of binary are: `1`, `2`, `4`, `8`, `16` . These numbers align respectively to their binary exponents: `2^0`, `2^1`, `2^2`, `2^3`, `2^4`
+> Binary works in the same manner. The first 5 columns/digits of binary are: `1`, `2`, `4`, `8`, `16`. These numbers align respectively to their binary exponents: 2<sup>0</sup>, 2<sup>1</sup>, 2<sup>2</sup>, 2<sup>3</sup>, 2<sup>4</sup>.
 >
 > It's also worth noting that decimal numbers can be written out the same way. 
 >
-> _`732`_ for example, in base 10, can be written as `7x10^2`+ `3x10^1` + `2x10^0`
+> _`732`_ for example, in base 10, can be written as (7 × 10<sup>2</sup>) + (3 × 10<sup>1</sup>) + (2 × 10<sup>0</sup>).
 
 ## To Binary {#hexadecimal-to-binary}
 
