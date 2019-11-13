@@ -160,6 +160,12 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 
 ## To Binary {#hexadecimal-to-binary}
 
+Remember that at the end of the day a hexadecimal number only reflects a number underneith. Just as we're able to convert from binary to decimal, we can convery from hexadecimal to binary and back and forth.
+
+![The hexadecimal number "032" and the binary number "110010" which both reflect 50](./binary_vs_hexadecimal.svg)
+
+After all, they're just refelctions of the numbers that we represent using a specific set of symbols. In binary those symbols are more restrictive than in hexadecimal and therefore the symbolic representation is longer
+
 # Applications
 
 ## CSS Colors {#hex-css}
@@ -212,9 +218,7 @@ When the user types _"This"_, what the computer interprets (using ASCII) is `84`
 >
 > It's also worth mentioning that ASCII, while there are more characters than what's presented here, was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji).
 
-### To Binary {#ascii-binary}
-
-... But we can go a step further - binary
+While I've used the above chart to reflect _A_ as `65`, it'd be more accurate to say that you computer interprets the symbol as ` 1000001` internally. This is again due to the fact that your computer must interpret every number and letter as binary.
 
 # Conclusion
 
