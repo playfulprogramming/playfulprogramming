@@ -1,3 +1,8 @@
+/**
+ * Replace with gatsby-remark-images-medium-zoom once the following PRs are merged:
+ * https://github.com/JaeYeopHan/gatsby-remark-images-medium-zoom/pull/9/files
+ * https://github.com/JaeYeopHan/gatsby-remark-images-medium-zoom/pull/8
+ */
 import mediumZoom from "medium-zoom";
 
 // @see https://github.com/francoischalifour/medium-zoom#options
@@ -68,23 +73,25 @@ function applyZoomEffect({ excludedSelector, includedSelector, ...options }) {
 		const includedEls = Array.from(document.querySelectorAll(includedSelector));
 		imageElements = imageElements.concat(includedEls);
 	}
-	const images = imageElements.map(el => {
-		function onImageLoad() {
-			const originalTransition = el.style.transition;
+	const images = imageElements
+		.filter(el => !el.classList.contains("medium-zoom-image"))
+		.map(el => {
+			function onImageLoad() {
+				const originalTransition = el.style.transition;
 
-			el.style.transition = `${originalTransition}, ${TRANSITION_EFFECT}`;
-			el.removeEventListener("load", onImageLoad);
-		}
-		el.addEventListener("load", onImageLoad);
-		el.setAttribute("tabIndex", 0);
-		el.addEventListener("keydown", e => {
-			if (e.key === " " || e.key === "Enter") {
-				e.preventDefault();
-				el.click();
+				el.style.transition = `${originalTransition}, ${TRANSITION_EFFECT}`;
+				el.removeEventListener("load", onImageLoad);
 			}
+			el.addEventListener("load", onImageLoad);
+			el.setAttribute("tabIndex", 0);
+			el.addEventListener("keydown", e => {
+				if (e.key === " " || e.key === "Enter") {
+					e.preventDefault();
+					el.click();
+				}
+			});
+			return el;
 		});
-		return el;
-	});
 
 	if (images.length > 0) {
 		mediumZoom(images, options);

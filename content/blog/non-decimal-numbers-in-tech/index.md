@@ -12,7 +12,7 @@
 
 Computers - on a very low level - are built upon binary (ones and zeros). Think about that - all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
 
-## Decimal
+# Decimal {#decimal}
 
 When you or I count, we typically use 10 numbers in some variation of combination to do so: `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, and `9`.
 
@@ -22,14 +22,16 @@ When you count to `10`, you're really using a combination of `1` and `0` in orde
 
 Knowing that we can separate the number from our thoughts allows us to categorize the number in a further manor, breaking it down into smaller groupings mentally. For example, if we take the number `34`, for example, we can break it down into three groups: the _ones_, the _tens_, and the _hundreds_.
 
-![A "0" in the hundreds column, a "3" in the tens column, a "4" in the ones column which drop down to show "30 + 4" which equals 34](./base_10_34_.svg)
+![A "0" in the hundreds column, a "3" in the tens column, a "4" in the ones column which drop down to show "30 + 4" which equals 34](./base_10_34.svg)
 
 For the number `34`, we break it down into: `0` _hundreds_, `3` _tens_, and `4` _ones_. We can then multiply the higher number with the lower number (the column they're on) to get the numbers **`30`** (`3` _tens_) and **`4`** (`4` _ones_). Finally, we add the sum of them together to make the number we all know and love: **`34`**.
 
 This breakdown showcases a limitation with having 10 symbols to represent numbers; with only a single column, the highest number we can represent is _`9`_.
 Remember that the number **`10`** is a combination of **`0`** and **`1`**? That's due to this limitation. Likewise - with two columns - the highest number we can represent is _`99`_
 
-## Binary
+![A "9" in the tens column, and a "9" in the ones column which drop down to show "90 + 9" which equals 99](./base_10_99.svg)
+
+# Binary {#binary}
 
 Now this may seem rather simplistic, but it's important to demonstrate this to understand binary. Our numerical system is known as the _base 10 system_. **Called such because there are 10 symbols used to construct all other numbers** (once again, that's: `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, and `9`).
 Binary, on the other hand, is _base two_. **This means that there are only two symbols that exist in this numerical system.**
@@ -85,7 +87,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**
 >
 > While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" alogrithm. I find this algorithm to flow the best with learning of the binary number system, but it's not the only way (or even the best way, oftentimes).
 
-## Hexadecimal
+# Hexadecimal {#hexadecimal}
 
 But binary isn't the only non-deciamal system. You're able to reflect any numerical base so long as you have the correct number of symbols for that system. Let's look at another example of a non-decimal system: _Hexadecimal_.
 
@@ -136,11 +138,31 @@ Now if we add up these numbers:
 | `16`   | **`3`** |
 | `1`    | **`2`** |
 
-### Why `256`?
+## Why `256`?
 
-## Applications
+While reading through this, you may wonder "Where did the `256` come from?". Let's take a step back to anaylize this question.
 
-### CSS Colors
+If you recall, we use the 15 symbols in hexadecimal:
+
+`0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `A`, `B`, `C`, `D`, `E`, `F`
+
+If we reflect these numbers in a single digit (1 number column), the biggest number we can reflect is `F`: `15`.
+
+This is similar to how the biggest number we can reflect with a single digit in the decimal system is `9`.
+
+In order to add a number larger than `15` in the hexadecimal system, we need to add another decimal/column. This column would represent the _sixteens_ place. Having `F` in this column, the highest we can represent, and an `F` in the _ones_ would allow us to have `FF`: `255`. As a result, we need to add a _two-hundred-fifty-six_ column to represent any numbers higher.
+
+> For those that have experience in algebra, you'll notice that these are all exponents of each other.
+>
+> Just as _`100`_ is `10^2` for the decimal system, `256` is `16^2`. We can follow this pattern to the next number in the hexadecimal column: `4096`, which is `16^3`. You can even apply it to `1` which is `16^0`
+>
+> Binary works in the same manor. The first 5 columns/digits of binary are: `1`, `2`, `4`, `8`, `16` . These numbers align respectively to their binary exponents: `2^0`, `2^1`, `2^2`, `2^3`, `2^4`
+
+## To Binary {#hexadecimal-to-binary}
+
+# Applications
+
+## CSS Colors {#hex-css}
 
 Funnily enough, if you've used a "HEX" value in HTML and CSS, you may already be loosely familiar with a similar scenario to what we walked through with the hexadecimal section.
 
@@ -172,7 +194,7 @@ Even without seeing a visual representation, you can tell that this color likely
 
 ![A visual representation of the color above, including a color slider to show where it falls in the ROYGBIV spectrum](./F33BC6.png)
 
-### Text Encoding
+## Text Encoding {#ascii}
 
 While hexadecimal has much more immediately noticable application with colors, we started this post off with a question: "How does your computer know what letters to display on screen from only binary?"
 
@@ -189,3 +211,11 @@ When the user types _"This"_, what the computer interprets (using ASCII) is `84`
 > I've removed them to keep the examples simple, but many of them are for symbols (EG: `#`, `/`, and more) and some of them are for internal key commands that were used for terminal computing long ago that your computer now does without you noticing
 >
 > It's also worth mentioning that ASCII, while there are more characters than what's presented here, was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji).
+
+### To Binary {#ascii-binary}
+
+... But we can go a step further - binary
+
+# Conclusion
+
+While this has been only a high-level overview of how your computer interprets these non-decimal numbers (and some of their applications), it can provide some basic insights to what your computer is doing every time you type in a keystroke or see a color on screen. Under the hood everything is binary, and now you understand the introduction to how to convert binary to numbers you and I may understand better: to decimal!
