@@ -3,7 +3,7 @@
 	title: "Introduction to TypeScript — What is TypeScript?",
 	description: "An introduction and explanation of what TypeScript is, is not, and what it's used for",
 	published: '2019-10-13T05:12:03.284Z',
-	author: 'crutchcorn',
+	authors: ['crutchcorn'],
 	tags: ['typescript'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
@@ -20,7 +20,7 @@ TypeScript's popularity cannot be understated. Either you likely know someone wh
 
 **TypeScript is a superset of JavaScript**, meaning that _all valid JavaScript is valid TypeScript, but not all TypeScript is valid JavaScript_. Think of it as JavaScript plus some goodies. These goodies _allow developers to add type information to their code that is enforced during a TypeScript to JavaScript compilation step_.
 
-These goodies are enabled by the TypeScript compiler, which takes your TypeScript source code and output JavaScript source code, capable of running in any JavaScript environment. 
+These goodies are enabled by the TypeScript compiler, which takes your TypeScript source code and output JavaScript source code, capable of running in any JavaScript environment.
 
 ### Doesn't JavaScript Have Types Already? {#javascript-types}
 
@@ -35,7 +35,7 @@ numberHere = 'Test';
 const newNumber = 10 - numberHere;
 ```
 
-In this example, we're expecting `10 - 0` but have accidentally thrown in a new line during a copy + paste session (this always happens to me) that changed the type from a number to a string. As a result of this errant line, instead of `newNumber` being a number, it's now `NaN`. 
+In this example, we're expecting `10 - 0` but have accidentally thrown in a new line during a copy + paste session (this always happens to me) that changed the type from a number to a string. As a result of this errant line, instead of `newNumber` being a number, it's now `NaN`.
 
 While TypeScript does not restrict the ability to have `NaN`s and errant copy-pastes (oh how I wish it did), it can make it more obvious that mistakes like this have been made by marking `numberHere` as a number type explicitly.
 
@@ -82,7 +82,7 @@ addFive('5');
 
 Will now output:
 
-```sh
+```bash
 >tsc test.ts
 test.ts:5:9 - error TS2345: Argument of type '"5"' is not assignable to parameter of type 'number'.
 5 addFive('5');
@@ -125,7 +125,7 @@ Additionally, because TypeScript has a well established and widely used install-
 
 ### Documented Types {#typing-doc-references}
 
-Another way TypeScript can help with the workflow while coding is in regard to gaining references to APIs and code. 
+Another way TypeScript can help with the workflow while coding is in regard to gaining references to APIs and code.
 
 When working on projects with objects that contain many properties that are used variously across files and functions, it can be difficult to track down what properties and methods are available to you without having to refer to the documentation of that scope in your application. With types present in your code, you're often able to reference that type (_often with a "jump to declaration" shortcut feature that is present in many IDEs_) to quickly refer to the properties and methods present on a given value or class.
 
@@ -148,7 +148,7 @@ What if you had a way to mutate or modify this function? What if this way of mut
 > Author's note:
 > An ORM is an "Object Relational Model". An ORM is a library that helps developers keep database schemas mapped in their code, often by having classes reflect the shape of their (typically) SQL server schema.
 >
-> As always, feel free to search more on them (the terms "JavaScript ORM" might help) and always know that not knowing a thing is always okay 🤗 
+> As always, feel free to search more on them (the terms "JavaScript ORM" might help) and always know that not knowing a thing is always okay 🤗
 
 Here's an example [from a library built to do just that](https://typeorm.io/#/) that allows you to preserve the TypeScript type to save data in specified field types in your database:
 ```typescript

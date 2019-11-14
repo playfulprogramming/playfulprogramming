@@ -1,61 +1,61 @@
-@import '../../../vars';
+@import "../../../vars";
 
 .container {
-  max-width: 768px;
-  display: flex;
-  flex-direction: column;
+	max-width: 768px;
+	display: flex;
+	flex-direction: column;
 }
 
 .tags {
-  order: -1;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	order: -1;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .tags > * {
-  font-weight: 700;
-  position: relative;
-  display: inline-block;
-  font-size: 26px;
-  color: var(--darkPrimary);
-  transition: color var(--animStyle) var(--animSpeed);
-  text-transform: uppercase;
-  margin: 0 #{$baseUnit * 3}px #{$baseUnit * 2}px 0;
+	font-weight: 700;
+	position: relative;
+	display: inline-block;
+	font-size: 26px;
+	color: var(--darkPrimary);
+	transition: color var(--animStyle) var(--animSpeed);
+	text-transform: uppercase;
+	margin: 0 #{$baseUnit * 3}px #{$baseUnit * 2}px 0;
 
-  @include until($endSmallScreenSize) {
-    margin: 0 #{$baseUnit * 2}px #{$baseUnit * 1}px 0;
-  }
+	@include until($endSmallScreenSize) {
+		margin: 0 #{$baseUnit * 2}px #{$baseUnit * 1}px 0;
+	}
 }
 
 .tags > *:not(:last-child)::after {
-  position: absolute;
-  content: ' ';
-  right: -#{($baseUnit * 3) / 2}px;
-  height: 100%;
-  width: 2px;
-  transition: background var(--animStyle) var(--animSpeed);
-  background: var(--darkPrimary);
+	position: absolute;
+	content: " ";
+	right: -#{($baseUnit * 3) / 2}px;
+	height: 100%;
+	width: 2px;
+	transition: background var(--animStyle) var(--animSpeed);
+	background: var(--darkPrimary);
 
-  @include until($endSmallScreenSize) {
-    right: -#{$baseUnit}px;
-  }
+	@include until($endSmallScreenSize) {
+		right: -#{$baseUnit}px;
+	}
 }
 
 .title {
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--highImpactBlack);
-  font-size: 64px;
-  margin: 0 0 50px 0;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--highImpactBlack);
+	font-size: 64px;
+	margin: 0 0 50px 0;
 
-  @include until($endSmallScreenSize) {
-    font-size: 50px;
-    margin-bottom: $baseUnit * 2px;
-  }
+	@include until($endSmallScreenSize) {
+		font-size: 50px;
+		margin-bottom: $baseUnit * 2px;
+	}
 }
 
 .subtitle {
-  font-family: var(--archivo);
-  font-size: 32px;
-  margin-bottom: 35px;
+	font-family: var(--archivo);
+	font-size: 32px;
+	margin-bottom: 35px;
 }

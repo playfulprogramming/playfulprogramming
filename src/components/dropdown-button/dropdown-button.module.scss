@@ -1,170 +1,174 @@
 .container {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .buttonContainer {
-  position: relative;
-  max-width: 100%;
+	position: relative;
+	max-width: 100%;
 }
 
 .filterButton {
-  cursor: pointer;
-  appearance: none;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  transition: color var(--animStyle) var(--animSpeed);
-  padding: 8px 16px 8px 8px;
-  font-size: var(--filterBarFontSize);
-  line-height: var(--filterBarFontSize);
-  color: var(--darkPrimary);
-  border: none;
-  background: transparent;
-  z-index: 2;
-  position: relative;
-  overflow: hidden;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	cursor: pointer;
+	appearance: none;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	transition: color var(--animStyle) var(--animSpeed);
+	padding: 8px 16px 8px 8px;
+	font-size: var(--filterBarFontSize);
+	line-height: var(--filterBarFontSize);
+	color: var(--darkPrimary);
+	border: none;
+	background: transparent;
+	z-index: 2;
+	position: relative;
+	overflow: hidden;
+	flex-wrap: nowrap;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .filterButton .textContainer {
-  position: relative;
+	position: relative;
 }
 
-.filterButton .appliedTags, .filterButton .placeholder {
-  position: absolute;
+.filterButton .appliedTags,
+.filterButton .placeholder {
+	position: absolute;
 }
 
-.filterButton .placeholder, .filterButton .appliedTags {
-  transition: top 350ms var(--animStyle);
-  top: 0;
-  left: 0;
+.filterButton .placeholder,
+.filterButton .appliedTags {
+	transition: top 350ms var(--animStyle);
+	top: 0;
+	left: 0;
 }
 
 .appliedTags {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .placeholder:not(.show) {
-  top: 40px;
+	top: 40px;
 }
 
 .appliedTags:not(.show) {
-  top: -40px;
+	top: -40px;
 }
 
 .filterButton .icon {
-  margin-right: 16px;
-  flex-shrink: 0;
-  height: var(--filterBarIconSize);
-  width: var(--filterBarIconSize);
+	margin-right: 16px;
+	flex-shrink: 0;
+	height: var(--filterBarIconSize);
+	width: var(--filterBarIconSize);
 }
 
 .listbox {
-  outline: none;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-  border-radius: var(--cardRadius);
-  z-index: 1;
-  margin: 0;
-  padding: 0;
-  border: 1px solid transparent;
-  transition: background var(--animSpeed) var(--animStyle),
-  box-shadow var(--animSpeed) var(--animStyle),
-  border-color var(--animSpeed) var(--animStyle);
+	outline: none;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	border-radius: var(--cardRadius);
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	transition: background var(--animSpeed) var(--animStyle),
+		box-shadow var(--animSpeed) var(--animStyle),
+		border-color var(--animSpeed) var(--animStyle);
 }
 
-.listbox:not(.expanded):hover, .container.expanded .listbox, .container:not(.expanded) .filterButton:hover + .listbox {
-  background: var(--cardActiveBackground);
-  box-shadow: var(--cardActiveBoxShadow);
+.listbox:not(.expanded):hover,
+.container.expanded .listbox,
+.container:not(.expanded) .filterButton:hover + .listbox {
+	background: var(--cardActiveBackground);
+	box-shadow: var(--cardActiveBoxShadow);
 }
 
 .container:not(.expanded) .listbox.hasTags {
-  border: var(--cardOutlineStyle);
+	border: var(--cardOutlineStyle);
 }
 
 .listbox .spacer {
-  height: 48px;
+	height: 48px;
 }
 
 .option:first-of-type {
-  margin-top: -14px !important;
+	margin-top: -14px !important;
 }
 
 .option {
-  display: flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  cursor: pointer;
-  padding: 2px 0;
-  margin: 2px 0;
-  color: rgba(0, 0, 0, 0.58);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  transition: opacity var(--animSpeed) var(--animStyle),
-  box-shadow 60ms var(--animStyle);
-  border-radius: 4px;
+	display: flex;
+	flex-wrap: nowrap;
+	align-content: center;
+	cursor: pointer;
+	padding: 2px 0;
+	margin: 2px 0;
+	color: rgba(0, 0, 0, 0.58);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	transition: opacity var(--animSpeed) var(--animStyle),
+		box-shadow 60ms var(--animStyle);
+	border-radius: 4px;
 }
 
 .option::before {
-  height: 22px;
-  width: 22px;
-  background: transparent;
-  border-radius: 8px;
-  -webkit-appearance: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-right: 14px;
-  flex-shrink: 0;
+	height: 22px;
+	width: 22px;
+	background: transparent;
+	border-radius: 8px;
+	-webkit-appearance: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-right: 14px;
+	flex-shrink: 0;
 }
 
 .option:not(.selected)::before {
-  content: ' ';
-  box-sizing: border-box;
-  border: 3px solid rgba(0, 0, 0, 0.58);
+	content: " ";
+	box-sizing: border-box;
+	border: 3px solid rgba(0, 0, 0, 0.58);
 }
 
 .option.selected::before {
-  content: '✔️';
-  font-size: 26px;
-  line-height: 26px;
-  color: #153E67;
+	content: "✔️";
+	font-size: 26px;
+	line-height: 26px;
+	color: #153e67;
 }
 
 .option:not(.expanded) {
-  opacity: 0;
+	opacity: 0;
 }
 
 .option span {
-  display: inline-flex;
-  align-items: center;
+	display: inline-flex;
+	align-items: center;
 }
 
 .option.selected {
-  transition: color var(--animStyle) var(--animSpeed);
-  color: var(--darkPrimary);
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--darkPrimary);
 }
 
 .isKeyboard .option.active {
-  box-shadow: 0 0 1px 1px var(--primary);
+	box-shadow: 0 0 1px 1px var(--primary);
 }
 
 .option.active {
-  color: black;
+	color: black;
 }
 
 .maxHeightHideContainer {
-  overflow: hidden;
-  max-height: 100%;
-  padding: 2px 6px 6px;
+	overflow: hidden;
+	max-height: 100%;
+	padding: 2px 6px 6px;
 }

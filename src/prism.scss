@@ -8,132 +8,132 @@ Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/b
 Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://github.com/crutchcorn)
 */
 :root {
-  --codeBackgroundColor: #fff;
-  --textColor: #5e6687;
-  --stringColor: #007396;
-  --keywordColor: #846c00;
-  --operatorColor: #b74c00;
-  --punctuationColor: #006fce;
-  --constantColor: #aa05d4;
-  --functionColor: #5357d2;
-  --selectionColor: #dfe2f1;
-  --commentColor: #898ea4;
-  --propColor: #c08b30;
-  --varColor: #3d8fd1;
-  --selectorColor: #6679cc;
-  --urlColor: #22a9c9;
-  --insertedUnderlineColor: #202746;
-  --highlightColor: #c94922;
-  --lineNumbersColor: #979db4;
-  --lineHighlightColor: rgba(107, 115, 148, 0.2);
-  --lineHighlightFadeColor: rgba(107, 115, 148, 0);
+	--codeBackgroundColor: #fff;
+	--textColor: #5e6687;
+	--stringColor: #007396;
+	--keywordColor: #846c00;
+	--operatorColor: #b74c00;
+	--punctuationColor: #006fce;
+	--constantColor: #aa05d4;
+	--functionColor: #5357d2;
+	--selectionColor: #dfe2f1;
+	--commentColor: #898ea4;
+	--propColor: #c08b30;
+	--varColor: #3d8fd1;
+	--selectorColor: #6679cc;
+	--urlColor: #22a9c9;
+	--insertedUnderlineColor: #202746;
+	--highlightColor: #c94922;
+	--lineNumbersColor: #979db4;
+	--lineHighlightColor: rgba(107, 115, 148, 0.2);
+	--lineHighlightFadeColor: rgba(107, 115, 148, 0);
 }
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
-    "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
-    "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
-    "Courier New", Courier, monospace;
-  font-size: 14px;
-  line-height: 1.375;
-  direction: ltr;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-  color: var(--textColor);
-  background: var(--codeBackgroundColor);
+	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
+		"Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
+		"Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
+		"Courier New", Courier, monospace;
+	font-size: 14px;
+	line-height: 1.375;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	color: var(--textColor);
+	background: var(--codeBackgroundColor);
 }
 
 pre[class*="language-"]::-moz-selection,
 pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: var(--selectionColor);
+	text-shadow: none;
+	background: var(--selectionColor);
 }
 
 pre[class*="language-"]::selection,
 pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: var(--selectionColor);
+	text-shadow: none;
+	background: var(--selectionColor);
 }
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 1em;
-  margin: 0.5em 0;
-  overflow: auto;
+	padding: 1em;
+	margin: 0.5em 0;
+	overflow: auto;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: 0.1em;
-  border-radius: 0.3em;
-  background: var(--white);
-  white-space: normal;
+	padding: 0.1em;
+	border-radius: 0.3em;
+	background: var(--white);
+	white-space: normal;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--commentColor);
+	color: var(--commentColor);
 }
 
 .token.punctuation {
-  color: var(--punctuationColor);
+	color: var(--punctuationColor);
 }
 
 .token.namespace {
-  opacity: 0.7;
+	opacity: 0.7;
 }
 
 .token.operator,
 .token.boolean,
 .token.number {
-  color: var(--operatorColor);
+	color: var(--operatorColor);
 }
 
 .token.function {
-  color: var(--functionColor);
+	color: var(--functionColor);
 }
 
 .token.property {
-  color: var(--propColor);
+	color: var(--propColor);
 }
 
 .token.tag {
-  color: var(--varColor);
+	color: var(--varColor);
 }
 
 .token.string {
-  color: var(--stringColor);
+	color: var(--stringColor);
 }
 
 .token.selector {
-  color: var(--selectorColor);
+	color: var(--selectorColor);
 }
 
 .token.attr-name {
-  color: var(--operatorColor);
+	color: var(--operatorColor);
 }
 
 .token.entity,
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: var(--urlColor);
+	color: var(--urlColor);
 }
 
 .token.attr-value,
@@ -141,114 +141,119 @@ pre[class*="language-"] {
 .token.control,
 .token.directive,
 .token.unit {
-  color: var(--keywordColor);
+	color: var(--keywordColor);
 }
 
 .token.constant {
-  color: var(--constantColor);
+	color: var(--constantColor);
 }
 
 .token.statement,
 .token.regex,
 .token.atrule {
-  color: var(--stringColor);
+	color: var(--stringColor);
 }
 
 .token.placeholder,
 .token.variable {
-  color: var(--varColor);
+	color: var(--varColor);
 }
 
 .token.deleted {
-  text-decoration: line-through;
+	text-decoration: line-through;
 }
 
 .token.inserted {
-  border-bottom: 1px dotted var(--insertedUnderlineColor);
-  text-decoration: none;
+	border-bottom: 1px dotted var(--insertedUnderlineColor);
+	text-decoration: none;
 }
 
 .token.italic {
-  font-style: italic;
+	font-style: italic;
 }
 
 .token.important,
 .token.bold {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .token.important {
-  color: var(--highlightColor);
+	color: var(--highlightColor);
 }
 
 .token.entity {
-  cursor: help;
+	cursor: help;
 }
 
 pre > code.highlight {
-  outline: 0.4em solid var(--highlightColor);
-  outline-offset: 0.4em;
+	outline: 0.4em solid var(--highlightColor);
+	outline-offset: 0.4em;
 }
 
 /* overrides color-values for the Line Numbers plugin
  * http://prismjs.com/plugins/line-numbers/
  */
 .line-numbers .line-numbers-rows {
-  border-right-color: var(--selectionColor);
+	border-right-color: var(--selectionColor);
 }
 
 .line-numbers-rows > span:before {
-  color: var(--lineNumbersColor);
+	color: var(--lineNumbersColor);
 }
 
 /* overrides color-values for the Line Highlight plugin
  * http://prismjs.com/plugins/line-highlight/
  */
 .line-highlight {
-  background: var(--lineHighlightColor);
-  background: -webkit-linear-gradient(
-    left,
-    var(--lineHighlightColor) 70%,
-    var(--lineHighlightFadeColor)
-  );
-  background: linear-gradient(
-    to right,
-    var(--lineHighlightColor) 70%,
-    var(--lineHighlightFadeColor)
-  );
+	background: var(--lineHighlightColor);
+	background: -webkit-linear-gradient(
+		left,
+		var(--lineHighlightColor) 70%,
+		var(--lineHighlightFadeColor)
+	);
+	background: linear-gradient(
+		to right,
+		var(--lineHighlightColor) 70%,
+		var(--lineHighlightFadeColor)
+	);
 }
 
 blockquote {
-  position: relative;
-  margin-left: 1em;
-  color: var(--midImpactBlack);
+	position: relative;
+	margin-left: 1em;
+	color: var(--midImpactBlack);
 
-  &::before {
-    content: " ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background: var(--darkPrimary);
-    left: -1em;
-  }
+	&::before {
+		content: " ";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 3px;
+		background: var(--darkPrimary);
+		left: -1em;
+	}
 
-  /*a {
+	/*a {
     color: rgba(0, 10, 125, 0.6);
   }*/
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-  code[class*="language-"] {
-    font-size: inherit;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	code[class*="language-"] {
+		font-size: inherit;
+	}
 }
 
 blockquote.bigBlock {
-  &, & * {
-    font-size: 1.5rem;
-    font-family: var(--oswald);
-  }
+	&,
+	& * {
+		font-size: 1.5rem;
+		font-family: var(--oswald);
+	}
 }

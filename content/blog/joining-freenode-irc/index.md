@@ -3,7 +3,7 @@
     title: "Joining Freenode IRC: A Guide",
     description: 'Basic (but detailed) instructions for setting up a Freenode IRC account through various clients',
     published: '2019-08-22T05:12:03.284Z',
-    author: 'fennifith',
+    authors: ['fennifith'],
     tags: ['irc'],
     attached: [],
     license: 'publicdomain-zero-1'

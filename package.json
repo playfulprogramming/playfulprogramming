@@ -7,6 +7,21 @@
   "bugs": {
     "url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run format:js",
+      "git add"
+    ],
+    "*.scss": [
+      "npm run format:css",
+      "git add"
+    ]
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "css-loader": "^3.2.0",
@@ -37,13 +52,16 @@
     "gatsby-transformer-json": "^2.2.13",
     "gatsby-transformer-remark": "^2.6.28",
     "gatsby-transformer-sharp": "^2.2.21",
+    "medium-zoom": "^1.0.4",
     "node-sass": "^4.12.0",
     "prismjs": "^1.17.1",
     "react": "^16.10.2",
     "react-breakpoints": "^3.0.3",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
-    "react-pose": "^4.0.9"
+    "react-paginate": "^6.3.0",
+    "react-pose": "^4.0.9",
+    "unist-util-visit": "^1.4.1"
   },
   "peerDependencies": {
     "@reach/router": "^1.1.1"
@@ -60,12 +78,19 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-gatsby": "^0.2.18",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-axe": "^3.2.0",
     "jest-dom": "^4.0.0",
     "jest-watch-typeahead": "^0.4.0",
-    "prettier": "^1.18.2"
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
+    "stylelint": "^11.1.1",
+    "stylelint-config-prettier": "^6.0.0",
+    "stylelint-prettier": "^1.1.1"
   },
   "homepage": "https://unicorn-utterances.com",
   "keywords": [
@@ -73,7 +98,7 @@
     "education",
     "programming"
   ],
-  "license": "MIT",
+  "license": "MPL-2.0",
   "main": "n/a",
   "repository": {
     "type": "git",
@@ -82,7 +107,12 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
+    "format": "run-s format:**",
+    "format:js": "eslint --fix ./src",
+    "format:css": "stylelint --syntax=scss --fix \"./src/**/*.scss\"",
+    "lint": "run-s lint:*",
+    "lint:js": "eslint ./src",
+    "lint:css": "stylelint --syntax=scss \"./src/**/*.scss\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "jest",
