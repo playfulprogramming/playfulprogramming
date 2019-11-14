@@ -10,7 +10,7 @@
 }
 ---
 
-Computers - on a very low level - are built upon binary (ones and zeros). Think about that - all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
+Computers, on a very low level, are built upon binary (ones and zeros). Think about that — all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
 
 # Decimal {#decimal}
 
@@ -39,12 +39,12 @@ Binary, on the other hand, is _base two_. **This means that there are only two s
 > For the Latin enthusiasts, binary comes from "binarius" meaning "two together". _Deca_, meaning 10, is where "decimal" comes from.
 > Additionally, the term "radix" is sometimes used instead of "base" when describing numeral systems, especially in programming.
 
-Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and we should add it to the final sum, an **`O`** means that the number is not present and we should not add it_.
+Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and that we should add it to the final sum; an **`O`** means that the number is not present and that we should not add it_.
 Take the following example:
 
 ![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2_3_symbols.svg)
 
-In this example, both `1` and `2` are present, so we add them together to make **`3`**. You'll see that since we can only have a value present or not present — because we only have two symbols in binary — this conversion has less steps than using decimal. For example, if you only wanted the number two, you could simply mark the `1` as "not present" using the **`O`**:
+In this example, both `1` and `2` are present, so we add them together to make **`3`**. You'll see that since we can only have a value present or not present — because we only have two symbols in binary — this conversion has fewer steps than using decimal. For example, if you only wanted the number two, you could simply mark the `1` as "not present" using the **`O`**:
 
 ![A "X" on the two column and an "O" on the ones column which add together to make 2](./base_2_2_symbols.svg)
 
@@ -58,7 +58,7 @@ So, how does this play out when trying to represent the number **`50`** in binar
 
 As you can see, we create columns that are powers of `2` for similar reasons as using powers of `10` in decimal; you can't represent `4`, `8`, `16`, or `32` without creating a new column otherwise.
 
-> Remember, in this system a number can only be present or not, there is no _`2`_. This means that only the symbols `1` and `0` are present. Keeping this in mind, it then means that we can only have `11` as the highest represented number without another column. **`11`** in binary is **`3`** is decimal. _This shows that with only 2 binary digits, only the decimal numbers that can be represented are: `0`, `1`, `2`, and `3`_. As a result, we need to add a _`4`_ column in order to represent that number in binary.
+> Remember, in this system, a number can only be present or not; there is no _`2`_. This means that only the symbols `1` and `0` are present. Keeping this in mind, it then means that we can only have `11` as the highest represented number without another column. **`11`** in binary is **`3`** in decimal. _This shows that with only 2 binary digits, only the decimal numbers that can be represented are: `0`, `1`, `2`, and `3`_. As a result, we need to add a _`4`_ column in order to represent that number in binary.
 >
 > Continuing on with this pattern: without an **`8`** column, you can only have a `4`, `2`, and `1` which would yield a maximum value of **`7`**. It's important to note that these values are always one less than a power of 2.
 
@@ -91,7 +91,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**.
 
 > Author's note:
 >
-> While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" algorithm. I find this algorithm to flow the best with learning of the binary number system, but it's not the only way (or even the best way, oftentimes).
+> While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" algorithm. I find this algorithm to flow the best with learning the binary number system, but it's not the only way (or even the best way, oftentimes).
 
 # Hexadecimal {#hexadecimal}
 
@@ -99,7 +99,7 @@ Binary isn't the only non-decimal system. You're able to use any number as your 
 
 Hexadecimal is the base 16 number system.
 
-> _Hexa_ means "six" in Latin and _deca_ means "ten", so these are combined to form "sixteen".
+> _Hexa_ means "six" in Latin, and _deca_ means "ten", so these are combined to form "sixteen".
 
 Now you may wonder how you can count to 16 in a single column when we only use 10 symbols to represent numbers. The answer, to many developers, is to fill the remaining last 6 with other symbols: alphabetical letters.
 
@@ -135,7 +135,7 @@ Now if we add up these numbers:
 
 ## Why `256`?
 
-While reading through this, you may wonder "Where did the `256` come from?". Let's take a step back to analyze this question.
+While reading through this, you may wonder, "Where did the `256` come from?". Let's take a step back to analyze this question.
 
 If you recall, we use these 15 symbols to represent digits in hexadecimal:
 
@@ -160,11 +160,11 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 ## To Binary {#hexadecimal-to-binary}
 
 Remember that at the end of the day, hexadecimal is just another way to represent a value using a specific set of symbols. Just as we're able to convert from binary to decimal, we can convert from hexadecimal to binary and vice versa. 
-In binary, the set of symbols is much smaller than in hexadecimal and as a result, the symbolic representation is longer.
+In binary, the set of symbols is much smaller than in hexadecimal, and as a result, the symbolic representation is longer.
 
 ![The hexadecimal number "032" and the binary number "110010" which both represent the decimal value 50](./binary_vs_hexadecimal.svg)
 
-After all, they're just reflections of the numbers that we represent using a specific set of symbols. In binary those symbols are more restrictive than in hexadecimal and therefore the symbolic representation is longer
+After all, they're just reflections of the numbers that we represent using a specific set of symbols. In binary, those symbols are more restrictive than in hexadecimal, and therefore the symbolic representation is longer.
 
 # Applications
 
@@ -178,7 +178,7 @@ For example, take the color `#F33BC6` (a pinkish color). This color is a combina
 
 _They reflect the amount of red, green, and blue (respectively) in that color._ Because these numbers are two-digit hexadecimal numbers, _the highest a number can be to reflect one of these colors is `255`_ (which is **FF** in hexadecimal).
 
-> If you're unfamiliar with how red, green and blue can combine to make the colors we're familiar with (such as yellow, orange, purple, and much more), it might be worth taking a look at some of the color theory behind it. [You can find resources on the topic on Wikipedia](https://en.wikipedia.org/wiki/RGB_color_model) and elsewhere.
+> If you're unfamiliar with how red, green, and blue can combine to make the colors we're familiar with (such as yellow, orange, purple, and much more), it might be worth taking a look at some of the color theory behind it. [You can find resources on the topic on Wikipedia](https://en.wikipedia.org/wiki/RGB_color_model) and elsewhere.
 
 These numbers, in decimal, are as follows:
 
@@ -202,7 +202,7 @@ Even without seeing a visual representation, you can tell that this color likely
 
 ## Text Encoding {#ascii}
 
-Although hexadecimal has a much more immediately noticeable application with colors, we started this post off with a question: "How does your computer know what letters to display on screen from only binary?"
+Although hexadecimal has a much more immediately noticeable application with colors, we started this post off with a question: "How does your computer know what letters to display on the screen from only binary?"
 
 The answer to that question is quite complex, but let's answer it in a very simple manner (despite missing a lot of puzzle pieces in a very ["draw the owl"](https://knowyourmeme.com/memes/how-to-draw-an-owl) kind of way).
 
@@ -210,16 +210,16 @@ Let's take a real way that computers used to (and still do, to some extent) repr
 
 ![An ASCII chart that maps the numbers 64 which is capital A through to 90 which is capital Z and 97 which is lowercase a to 122 which is capital z](./ascii_chart.svg)
 
-When the user types _"This"_, what the computer interprets (using ASCII) is `84`, `104`, `105`, and `115` for `T`, `h`, `i`, and `s` respectively.
+When the user types _"This"_, what the computer interprets (using ASCII) is `84`, `104`, `105`, and `115` for `T`, `h`, `i`, and `s`, respectively.
 
-> You might be wondering "Why are there a bunch of missing numbers"?
+> You might be wondering, "Why are there a bunch of missing numbers"?
 >
-> I've removed them to keep the examples simple, but many of them are for symbols (EG: `#`, `/`, and more) and some of them are for internal key commands that were used for terminal computing long ago that your computer now does without you noticing.
+> I've removed them to keep the examples simple, but many of them are for symbols (EG: `#`, `/`, and more), and some of them are for internal key commands that were used for terminal computing long ago that your computer now does without you noticing.
 >
 > It's also worth mentioning that ASCII (which does have more characters than what's presented here) was eventually replaced in various applications by [Unicode](https://en.wikipedia.org/wiki/Unicode) and other text encoding formats as it lacks various functionality we expect of our machines today, such as emoji and non-latin symbols (like Kanji). ASCII still sticks around to some extent though, as the first 255 characters in Unicode are the same as they originally were in ASCII.
 
-While I've used the above chart to reflect _A_ as `65`, it'd be more accurate to say that you computer interprets the symbol as `01000001` internally. This is again due to the fact that your computer must interpret every number and letter as binary.
+While I've used the above chart to reflect _A_ as `65`, it'd be more accurate to say that your computer interprets the symbol as `01000001` internally. This is again due to the fact that your computer must interpret every number and letter as binary.
 
 # Conclusion
 
-While this has been only a high-level overview of how your computer interprets these non-decimal numbers (and some of their applications), it can provide some basic insights to what your computer is doing every time you make a keystroke or see a color on screen. Under the hood everything is binary, and now you understand the introduction to how to convert binary to numbers you and I may understand better: to decimal!
+While this has been only a high-level overview of how your computer interprets these non-decimal numbers (and some of their applications), it can provide some basic insights to what your computer is doing every time you make a keystroke or see a color on screen. Under the hood, everything is binary, and now you understand the introduction to how to convert binary to numbers you and I may understand better: to decimal!
