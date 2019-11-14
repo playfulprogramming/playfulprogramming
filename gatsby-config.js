@@ -80,7 +80,12 @@ module.exports = {
 							loop: true
 						}
 					},
-					`gatsby-remark-images-medium-zoom`,
+					{
+						resolve: `gatsby-image-svg-version`,
+						options: {
+							includedSelector: '[src$=".svg"]'
+						}
+					},
 					{
 						resolve: `gatsby-remark-responsive-iframe`,
 						options: {

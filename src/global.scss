@@ -184,6 +184,11 @@ $pendIconMarg: #{$baseUnit}px;
 		margin: 0 auto;
 		display: block;
 		max-width: 100%;
+
+		&[src$=".svg"] {
+			width: 100%;
+			max-height: 50vh;
+		}
 	}
 }
 
