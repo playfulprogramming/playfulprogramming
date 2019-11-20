@@ -51,11 +51,9 @@ At the root of any HTML file, you have three things: Tags, attributes, and text 
 
 When you type a tag, like `header` or `a`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to said nodes. When you have another element node inside of a seperate element node, you add a _"child"_ to said node. This relationship between the nodes allow you to preserve metadata between them, allows CSS to apply, and more.
 
-![A chart showing a parent and child](./dom_tree_parent.svg)
-
 There's also the idea of a _"sibling"_ node. When a node's parent has more than one child, those other nodes are that child node's _"siblings"_.
 
-![A chart showing a parent and child](./dom_tree_sibling.svg)
+![A chart showing the relationships between parents and siblings](./dom_relationships.svg)
 
 Altogether, the terminologies used to refer between these node "leaves" are extremely similar to the terminology often used with family trees.
 
@@ -67,7 +65,7 @@ There are some rules to this tree that's created from these "nodes":
 	- But may not have many parents
 - A non-root node may have many siblings as a result of the parent having many children
 
-!!!!!!! INSERT CHART SHOWING ALLOWED AND DISALLOWED PROPERTIES
+![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
 
 ### How It's Used By The Browser {#how-the-browser-uses-the-dom}
 
