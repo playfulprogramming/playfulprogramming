@@ -12,7 +12,88 @@
 
 Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as Angular, React, or Vue will utilize some level of HTML to load the JavaScript. This understood, how the browser handes HTML and CSS under-the-hood can be quite the mystery. With this article, I'm going to explain what the browser does under-the-hood to understand what to show to the user.
 
-# Introductions
+# The DOM {#the-dom}
+
+Just as the source code of JavaScript programs are broken down to abractions that are more easily understood by the computer, so too is HTML. HTML, initially being an extension to XML, actually _forms a tree structure in memory_ in order to know [how to lay things out and do various other tasks](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
+
+For example, when you load a file similar to this:
+
+```html
+<!-- index.html -->
+<!-- ids are only added for descriptive purposes -->
+<main id="a">
+	<ul id="b">
+		<li id="c">Item 1</li>
+		<li id="d">Item 2</li>
+	</ul>
+	<p id="e">Text here</p>
+</main>
+```
+
+_The browser takes the items that've been defined in HTML and turns them into a tree that the browser can understand how to layout and draw on the screen_. That tree, internally, might look something like this:
+
+![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
+
+Let's see how this is done.
+
+At the root of any HTML file, you have three things: Tags, attributes, and text content.
+
+```html
+<!-- A "header" tag -->
+<header>
+  <!-- An "a" tag with an "href" attribute -->
+  <a href="example.com">
+    <!-- A text node -->
+    Example Site
+  </a>
+</header>
+```
+
+When you type a tag, like `header` or `a`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. When you have another element node inside of a seperate element node, you add a _"child"_ to said node. This relationship between the nodes allow you to preserve metadata between them, allows CSS to apply, and more.
+
+![A chart showing a parent and child](./dom_tree_parent.svg)
+
+There's also the idea of a _"sibling"_ node. When a node's parent has more than one child, those other nodes are that child node's _"siblings"_.
+
+![A chart showing a parent and child](./dom_tree_sibling.svg)
+
+Altogether, the terminologies used to refer between these node "leaves" are extremely similar to the terminology often used with family trees.
+
+There are some rules to this tree that's created from these "nodes":
+
+- There must be one "root" or "trunk" node, there cannot be more than one root
+- There must be a one-to-many relationship with parents and children
+	- A node may have many children
+	- But may not have many parents
+- A non-root node may have many siblings as a result of the parent having many children
+
+!!!!!!! INSERT CHART SHOWING ALLOWED AND DISALLOWED PROPERTIES
+
+### How It's Used By The Browser {#how-the-browser-uses-the-dom}
+
+This tree tells the browser all of the information the browser needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to an `index.html` file:
+
+```css
+#b li {
+	background: red;
+}
+```
+
+It finds the element with the ID of `b`, then the children of that tag are colored red. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
+
+![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
+
+> The `ul` element is marked as green just to showcase that it is the element being marked by the first part of the selector
+
+This tree relationship also enables CSS selectors such as [general sibling selector (`~` )](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector
+
+!!!!!!! INSERT CHART SHOWING SELECTORS
+
+> Interestingly, one of the questions that I've often heard asked is a "parent selector". The idea behind this is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator)  exists, why not have the ability to mark any parent of `.classname` selectors. 
+>
+> The answer behind that is: Performance. The [W3 organization](https://www.w3.org/Style/CSS/#specs) (the organization who maintains the HTML and CSS standard specification) points to the tree structure of the DOM and the algorithm behind how browsers traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply)  as not being performant when allowing parent selectors.
+>
+> The reason behind this is that browsers read from top-down in the DOM: They start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. They may have slight deviations on this algorithm, but for the most part they don't allow for upwards vertical movement of nodes within the DOM. 
 
 
 
@@ -74,7 +155,25 @@ In fact, the default metadata that is defaulted by specific tags can be directly
 > 
 > This is all to say: unless you have a **really** good reason for using `role` rather than an approprate tag, stick with the related tag. Just as any other form of engineering, properly employing HTML requires nuance and logic to be deployed at the hand of the implementing developer 
 
-## Element Metadata {#interacting-with-elements-using-js}
+# Element Metadata {#interacting-with-elements-using-js}
+
+If you've ever written a website that had back-and-forth communication between HTML and JavaScript, you're likely aware that you can access DOM elements from JavaScript: modifying, reading, and creating them to your heart's content.
+
+
+
+Let's look at some of the built-in utilities at our disposal for doing so:
+
+- [The `document` global object](document-global-object)
+- [The `Element` base class](element-class)
+- The event system
+
+
+
+## Document Global Object {#document-global-object}
+
+[As mentioned before, the DOM tree must contain one root node](#the-dom). This node, for any instance of the DOM, is the document entry point.
+
+## Element Base Class {#element-class}
 
 
 
@@ -82,36 +181,27 @@ In fact, the default metadata that is defaulted by specific tags can be directly
 
 
 
-So, when you build out an HTML file, you're defining the shape the document object model (DOM) takes. When you load a file similar to this:
+One way to save values to and from the 
 
-```html
-<!-- index.html -->
-<!-- ids are only added for descriptive purposes -->
-<main id="a">
-	<ul id="b">
-		<li id="c">Item 1</li>
-		<li id="d">Item 2</li>
-	</ul>
-	<p id="e">Text here</p>
-</main>
+
+
+While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written. By default, the primitive's `toString` will be called to store values.
+
+```javascript
+element.dataset.userInfo = {name: "Tony"}
+console.log(element.dataset.userInfo) // "[object Object]"
+/**
+ * "[object Object]" is because it's running `Object.prototype.toString()` 
+ * to convert the object to a string to store on the attribute
+ */
 ```
 
-_The browser takes the items that've been defined in HTML and turns them into a tree that the browser can understand how to layout and draw on the screen_. That tree, internally, might look something like this:
+> If you're having a difficult time understanding why `toString` is bring ran or what `prototype` is doing here, don't worry: You're in good company. The JavaScript prototype system is complex and can be difficult to follow.
+>
+> For now, it will suffice to just know that you're only able to store strings in element attribute
 
-![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
 
 
 
-This tree tells the browser where to place items and includes some logic when combined with CSS, even. For example, when the following CSS is applied to the `index.html` file:
 
-```css
-#b li {
-	background: red;
-}
-```
 
-It finds the element with the ID of `b`, then the children of that tag are colored red. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
-
-![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
-
-> The `ul` element is marked as green just to showcase that it is the element being marked by the first part of the selector
