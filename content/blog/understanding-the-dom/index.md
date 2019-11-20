@@ -221,19 +221,84 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 ## Element Base Class {#element-class}
 
+While `innerHTML` has been used to demonstrate that the element that's gathered is in fact the element that was queried, there are many _many_ more properties and methods that can be ran on an element reference.
+
+When an element is queried and returned, you're given a reference to that element through the [`Element` base class ](https://developer.mozilla.org/en-US/docs/Web/API/Element). This class is what contains the properties and methods that you can use to access and modify metadata about the element with.
+
+For example, let's say that I wanted to see the width and height an element has when rendered on screen. [Using the `Element.prototype.getBoundingClientRect` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect), you can get all of that information and more:
+
+```javascript
+const mainTextElement = document.querySelector('#mainText');
+console.log(mainTextElement.getBoundingClientRect())
+// Will output: DOMRect {x: 8, y: 16, width: 638, height: 18, top: 16, …}
+```
+
+### Attributes
+
+[As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript.
+
+For example, if you have [the style attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style) associated to an element you're working with, you're able to read the values of the element:
+
+```html
+<!-- index.html -->
+<div style="background-color: green; color: white; width: 200px; height: 400px;" id="greenEl">
+  This element is green
+</div>
+```
+
+```javascript
+// index.js
+const greenElement = document.querySelector('#greenEl');
+console.log(greenElement.style.backgroundColor); // 'green'
+```
+
+![A screenshot of the element and the debugger console of the above code](green_style_element.png)
+
+Not only are you able to read the value in question, but you can write and edit them as well:
+
+```javascript
+greenElement.style.backgroundColor = 'red';
+```
+
+Will turn the element's background color red, for example.
+
+![The element has now turned the background red](red_style_element.png)
 
 
-## Attributes
 
-[As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript
+#### Limitations
 
+While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
+> While you've seen `style` attribute be read and written to by an object interface, if you inspect the element or use the `getAttribute` to access the attribute's _true_ value, you'll find that it's really a string with a pleasant API wrapped around it that lets you use an object to interface with the attribute value
+>
+> ```javascript
+> console.log(mainTextElement.getAttribute('style')); // This will return a string value, despite the API that lets you use an object to read and write
+> ```
 
-One way to save values to and from the 
+For example, we can [use `data` attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) in order to read and write values via attributes to any given element.
 
+```html
+<!-- index.html -->
+<ul id="list" data-listitems="2">
+  <li>List item 1</li>
+  <li>List item 2</li>
+</ul>
+```
 
+```javascript
+// index.js
+const listEl = document.querySelector('#list');
+console.log(listEl.dataset.listitems); // '2'
+listEl.dataset.listitems = 3;
+console.log(listEl.dataset.listitems); // '3'
+```
 
-While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written. By default, the primitive's `toString` will be called to store values.
+![Demonstrating that dataset values are able to be read and written](list_dataset.png)
+
+If you'll notice, I wrote the string `'3'` instead of the numerical value `3` in the code sample's outputs in the comments despite using the numerical `3` to set the value. This behavior is due to how default non-string values are saved to attributes.
+
+By default, the primitive's `toString` will be called to store values.
 
 ```javascript
 element.dataset.userInfo = {name: "Tony"}
