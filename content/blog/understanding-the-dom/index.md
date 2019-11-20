@@ -190,7 +190,7 @@ Let's look at some of the built-in utilities at our disposal for doing so:
 
 The `document` object has the ability to get the `body` node ([`document.body`](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)), the `head` node ([`document.head`](https://developer.mozilla.org/en-US/docs/Web/API/Document/head)), and even the doctype ([`document.doctype`](https://developer.mozilla.org/en-US/docs/Web/API/Document/doctype)).
 
-!!!!!!! INSERT CHROME IMAGE SHOWING THIS DOCUMENT AND THE THREE PROPERTIES MENTIONED
+![A screenshot of the Chrome debugger console displaying those properties](first_document_properties.png)
 
 ### Querying Elements
 
@@ -200,25 +200,23 @@ Additional to containing static references to some of the closest nodes to the r
 const mainTextElement = document.querySelector('#mainText');
 ```
 
-!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
-
 This method will return a reference to the element as rendered in the DOM. [While we'll be covering more of what this reference is able to do later](#element-class), we can do a quick bit of code to show that it's the real element we intended to query:
 
 ```javascript
 console.log(mainTextElement.innerHTML); // This will output the HTML that we used to write this element
 ```
 
-!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
+![A screenshot of the Chrome debugger running the above code](query_selector.png)
 
 We also have the ability to gain a reference to many elements at once. GIven the same HTML document as before, let's say we want to see how many elements have the `bolded` class applied to it. We're able to do so using [the `document` `querySelectorAll` method](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
 
 ```javascript
 const boldedElements = document.querySelectorAll('.bolded');
 console.log(boldedElements.length); // Will output 2
-console.log(boldedElements[0].innerHTML) // Will output the HTML for that element
+console.log(boldedElements[0].innerHTML); // Will output the HTML for that element
 ```
 
-!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
+![A screenshot of Chrome running the above code](query_selector_all.png)
 
 
 ## Element Base Class {#element-class}
