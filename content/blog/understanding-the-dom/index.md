@@ -2,7 +2,7 @@
 {
 	title: 'Understanding The Dom: How Browsers Show Things on Screen',
 	description: 'Learn how the browser internally handles HTML and CSS to show the user things on-screen',
-	published: '2019-07-11T22:12:03.284Z',
+	published: '2019-11-19T22:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['dom', 'browser internals'],
 	attached: [],
@@ -49,7 +49,7 @@ At the root of any HTML file, you have three things: Tags, attributes, and text 
 </header>
 ```
 
-When you type a tag, like `header` or `a`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. When you have another element node inside of a seperate element node, you add a _"child"_ to said node. This relationship between the nodes allow you to preserve metadata between them, allows CSS to apply, and more.
+When you type a tag, like `header` or `a`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to said nodes. When you have another element node inside of a seperate element node, you add a _"child"_ to said node. This relationship between the nodes allow you to preserve metadata between them, allows CSS to apply, and more.
 
 ![A chart showing a parent and child](./dom_tree_parent.svg)
 
@@ -97,7 +97,7 @@ This tree relationship also enables CSS selectors such as [general sibling selec
 
 
 
-# Using The Correct Tags {#accessability}
+# Using The Correct Tags {#accessibility}
 
 HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form). 
 
@@ -171,13 +171,65 @@ Let's look at some of the built-in utilities at our disposal for doing so:
 
 ## Document Global Object {#document-global-object}
 
-[As mentioned before, the DOM tree must contain one root node](#the-dom). This node, for any instance of the DOM, is the document entry point.
+[As mentioned before, the DOM tree must contain one root node](#the-dom). This node, for any instance of the DOM, is the document entry point. When in the browser, this entry point is exposed to the developer with [the global object `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document). This object has various methods and properties to assist in a meaningful way. For example, given a standard HTML5 document:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is a page title</title>
+</head>
+<body>
+	<p id="mainText">
+    This is the page body
+		<span class="bolded">and it contains</span>
+		a lot of various content within
+    <span class="bolded">the DOM</span>
+	</p>
+</body>
+</html>
+```
+
+The `document` object has the ability to get the `body` node ([`document.body`](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)), the `head` node ([`document.head`](https://developer.mozilla.org/en-US/docs/Web/API/Document/head)), and even the doctype ([`document.doctype`](https://developer.mozilla.org/en-US/docs/Web/API/Document/doctype)).
+
+!!!!!!! INSERT CHROME IMAGE SHOWING THIS DOCUMENT AND THE THREE PROPERTIES MENTIONED
+
+### Querying Elements
+
+Additional to containing static references to some of the closest nodes to the root (`body` and `head`), there is also a way to query for any element by any of the CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
+
+```javascript
+const mainTextElement = document.querySelector('#mainText');
+```
+
+!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
+
+This method will return a reference to the element as rendered in the DOM. [While we'll be covering more of what this reference is able to do later](#element-class), we can do a quick bit of code to show that it's the real element we intended to query:
+
+```javascript
+console.log(mainTextElement.innerHTML); // This will output the HTML that we used to write this element
+```
+
+!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
+
+We also have the ability to gain a reference to many elements at once. GIven the same HTML document as before, let's say we want to see how many elements have the `bolded` class applied to it. We're able to do so using [the `document` `querySelectorAll` method](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
+
+```javascript
+const boldedElements = document.querySelectorAll('.bolded');
+console.log(boldedElements.length); // Will output 2
+console.log(boldedElements[0].innerHTML) // Will output the HTML for that element
+```
+
+!!!!!!! INSERT CHROME IMAGE SHOWING THIS METHOD BEING RAN
+
 
 ## Element Base Class {#element-class}
 
 
 
+## Attributes
 
+[As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript
 
 
 
