@@ -85,7 +85,7 @@ It finds the element with the ID of `b`, then the children of that tag are color
 
 This tree relationship also enables CSS selectors such as [general sibling selector (`~` )](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector
 
-!!!!!!! INSERT CHART SHOWING SELECTORS
+![A showcase of the above selectors and how they always look forward, never behind](css_selectors_demo.svg)
 
 > Interestingly, one of the questions that I've often heard asked is a "parent selector". The idea behind this is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator)  exists, why not have the ability to mark any parent of `.classname` selectors. 
 >
