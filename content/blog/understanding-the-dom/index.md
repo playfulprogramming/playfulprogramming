@@ -2,7 +2,7 @@
 {
 	title: 'Understanding The Dom: How Browsers Show Things on Screen',
 	description: 'Learn how the browser internally handles HTML and CSS to show the user things on-screen',
-	published: '2019-11-19T22:12:03.284Z',
+	published: '2019-11-26T22:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['dom', 'browser internals'],
 	attached: [],
@@ -200,6 +200,12 @@ Additional to containing static references to some of the closest nodes to the r
 const mainTextElement = document.querySelector('#mainText');
 ```
 
+> The `#` in the `#mainText` is the CSS selector syntax for selecting an element based on it's `id`. If you had a CSS selector of `#testing`, you'd be looking for an element with the following attribute value:
+>
+> ```
+> id="testing"
+> ```
+
 This method will return a reference to the element as rendered in the DOM. [While we'll be covering more of what this reference is able to do later](#element-class), we can do a quick bit of code to show that it's the real element we intended to query:
 
 ```javascript
@@ -264,7 +270,7 @@ Will turn the element's background color red, for example.
 
 ![The element has now turned the background red](red_style_element.png)
 
-
+Somewhat silly, seeing as how the `div` is no longer green 🤭
 
 #### Limitations
 
@@ -350,7 +356,7 @@ Let's look at an example of some code doing so:
     
 		redEl.addEventListener('click', () => {
 			console.log("A click handled on red using bubbling");
-			// If false, use bubbling. If true, use capturing
+			// This is set to false in order to use bubbling. We'll cover the `true` case later on
 		}, false);
 
 		blueEl.addEventListener('click', (event) => {
@@ -373,59 +379,59 @@ In this example, we're adding click listeners to three squares, each one smaller
 
 However, as you can see, we're running `stopPropagation` on the event in the blue square. This will make the click event stop bubbling. This means that any click events that are called on `#green` will not make it to `#red` as they will be stopped at `#blue`.
 
+![The event bubbles upwards from green to blue but then is stopped by the stopPropagate call](./stop_propagration.svg)
+
 You can see a running example of this here:
 
 <iframe src="https://stackblitz.com/edit/event-bubbling-demo?ctl=1&embed=1&file=index.js&hideExplorer=1&hideNavigation=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-![The event bubbles upwards from green to blue but then is stopped by the stopPropagate call](./stop_propegration.svg)
+### Capturing {#event-capturing}
 
-## Capturing {#event-capturing}
+Bubbling isn't the only way events are able to move; Just as they can move up from the bottom, they can also move from the top down. This method of emitting events is known as _capture mode_.
 
-But bubbling isn't the only Top to bottom
+Let's take the a look at some example code, with the same HTML as before but a new set of JavaScript:
+
+```javascript
+redEl.addEventListener('click', () => {
+  console.log("A click handled on red using capturing");
+  // Setting true here will switch to capture mode
+}, true);
+
+blueEl.addEventListener('click', (event) => {
+  // Stop the click event from moving further down in the bubble
+  event.stopPropagation();
+  console.log("A click handled on blue using capturing");
+}, true)
 
 
-
-
-
-
-
+greenEl.addEventListener('click', () => {
+  console.log("A click handled on green using capturing");
+}, true);
 ```
 
-		// A click handled on red using capturing
-		// A click handled on blue using capturing
-
-		redEl.addEventListener('click', () => {
-			console.log("A click handled on red using capturing");
-		}, true);
-
-		blueEl.addEventListener('click', (event) => {
-			// Stop the click event from moving further down in the bubble
-			event.stopPropagation();
-			console.log("A click handled on blue using capturing");
-		}, true)
+As demonstrated by the code above, `stopPropagation` works as you might expect it to as well!
 
 
-		greenEl.addEventListener('click', () => {
-			console.log("A click handled on green using capturing");
-		}, true);
+
+![stopPropagation works similarly to how it does in bubble mode, just that it stops events from moving _down_ the tree](./capture_stop_propagation.svg)
+
+This means that when the user clicks on the red square, you'll see the following in your console:
+
+```
+"A click handled on red using capturing"
+"A click handled on blue using capturing"
 ```
 
+But nothing from the green square's `eventListener`.
+
+<iframe src="https://stackblitz.com/edit/event-capture-demo?ctl=1&embed=1&file=index.js&hideExplorer=1&hideNavigation=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+You'll also notice that if you click on the green square, you'll never see the `"A click handled on green using capture"` message. This is due to the `stopPropagation` as mentioned before. The click is being registered on the red square first and then stopped on the blue square.
+
+# Conclusion
+
+This post has been filled to the brim with information. 😵 Even I, the author, have had to have a few amazing folks take a re-read to confirm what I've written. Please don't be afraid or ashamed to re-read anything that might not have made sense or to revisit the post whenever a question arises. Hopefully this has been a helpful exploration of the DOM and the ways you interact with it using code.
+
+Please ask any questions or comments in our comments section and remember that we have [a Discord](https://discord.gg/FMcvc6T) for further conversation including questions! 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
