@@ -14,7 +14,7 @@ Any web application relies on some fundamental technologies: HTML, CSS, and Java
 
 # The DOM {#the-dom}
 
-Just as the source code of JavaScript programs are broken down to abractions that are more easily understood by the computer, so too is HTML. HTML, initially being an extension to XML, actually _forms a tree structure in memory_ in order to know [how to lay things out and do various other tasks](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
+Just as the source code of JavaScript programs are broken down to abractions that are more easily understood by the computer, so too is HTML. HTML, initially being derived from SGML (the basis for XML as well), actually _forms a tree structure in memory_ in order to know [how to lay things out and do various other tasks](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
 
 For example, when you load a file similar to this:
 
@@ -33,6 +33,8 @@ For example, when you load a file similar to this:
 _The browser takes the items that've been defined in HTML and turns them into a tree that the browser can understand how to layout and draw on the screen_. That tree, internally, might look something like this:
 
 ![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
+
+> This is an oversimplified example of how the browser interprets HTML, but gets the job done to convey introductory information.
 
 Let's see how this is done.
 
@@ -72,16 +74,32 @@ There are some rules to this tree that's created from these "nodes":
 This tree tells the browser all of the information the browser needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to an `index.html` file:
 
 ```css
+// index.css
 #b li {
 	background: red;
 }
 ```
 
-It finds the element with the ID of `b`, then the children of that tag are colored red. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
+```html
+<!-- index.html -->
+<main id="a">
+	<p id="e"></p>
+  <ul id="b">
+    <li id="c"></li>
+    <li id="d"></li>
+  </ul>
+</main>
+```
+
+The browser is able to keep in mind, while it's moving through the tree, that it needs to find an element with the `ID` of `b` and then mark it's `li` children with a red background. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
 
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 
 > The `ul` element is marked as green just to showcase that it is the element being marked by the first part of the selector
+
+Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might start at the `main` tag, then go to the `p` tag, then visit the `ul` tag, and finally the two children in order from left-to-right (`li id="c"` , `li id="d"`).
+
+The browser, knowing what CSS to look for, is able to see the `ul` with the correct ID and know to mark it's children with the correct metadata that matches the selector with the relevant CSS.
 
 This tree relationship also enables CSS selectors such as [general sibling selector (`~` )](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector
 
@@ -91,7 +109,9 @@ This tree relationship also enables CSS selectors such as [general sibling selec
 >
 > The answer behind that is: Performance. The [W3 organization](https://www.w3.org/Style/CSS/#specs) (the organization who maintains the HTML and CSS standard specification) points to the tree structure of the DOM and the algorithm behind how browsers traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply)  as not being performant when allowing parent selectors.
 >
-> The reason behind this is that browsers read from top-down in the DOM: They start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. They may have slight deviations on this algorithm, but for the most part they don't allow for upwards vertical movement of nodes within the DOM. 
+> The reason behind this is that browsers read from top-down in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
+>
+> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part they don't allow for upwards vertical movement of nodes within the DOM. 
 
 
 
@@ -157,15 +177,11 @@ In fact, the default metadata that is defaulted by specific tags can be directly
 
 If you've ever written a website that had back-and-forth communication between HTML and JavaScript, you're likely aware that you can access DOM elements from JavaScript: modifying, reading, and creating them to your heart's content.
 
-
-
 Let's look at some of the built-in utilities at our disposal for doing so:
 
 - [The `document` global object](document-global-object)
 - [The `Element` base class](element-class)
-- The event system
-
-
+- [The event system](#events)
 
 ## Document Global Object {#document-global-object}
 
@@ -224,6 +240,7 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 ![A screenshot of Chrome running the above code](query_selector_all.png)
 
+> It's worth mentioning that the way `querySelector` works is not the same [way that the browser checks a node against the CSS selector data when the browser "visits" that node](#how-the-browser-uses-the-dom). `querySelector` and `querySelectorAll` work from a more top-down perspective where it searches the elements one-by-one against the query. First, it finds the top-most layer of the CSS selector. Then it will move to the next item and so-on-so forth until it returns the expected results
 
 ## Element Base Class {#element-class}
 
@@ -239,7 +256,11 @@ console.log(mainTextElement.getBoundingClientRect())
 // Will output: DOMRect {x: 8, y: 16, width: 638, height: 18, top: 16, …}
 ```
 
-### Attributes
+> While the explaination behind the `Element.prototype` is a lengthy one (an article on it's own to be sure), suffice it to say that there's a base class for all element references found using `querySelector`. This base class contains a myriad of methods and properties. The `.prototype` loosely refers to those properties and methods in question.
+>
+> This means that all queried elements will have their own `getBoundingClientRect` methods.
+
+### Attributes {#html-attributes}
 
 [As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript.
 
@@ -272,7 +293,7 @@ Will turn the element's background color red, for example.
 
 Somewhat silly, seeing as how the `div` is no longer green 🤭
 
-#### Limitations
+#### Limitations {#attribute-limitations}
 
 While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
@@ -321,7 +342,7 @@ console.log(element.dataset.userInfo) // "[object Object]"
 
 
 
-## Events
+## Events {#events}
 
 Just as your browser uses the DOM to know where to place elements to display for the user and metadata about the elements in order to interact with screenreaders as-expected, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or other noteworthy changes occur.
 
@@ -331,7 +352,7 @@ For example, when you have a form that includes a default button, when that butt
 
 _Bubbling_, as shown here, is the default behavior of any given event. It reflects it's behavior of a given event moving up the DOM tree to the nodes above it as parents. Parent nodes can respond to these events as expected, stop their upward motion on the tree, and more.
 
-### Event Listening
+### Event Listening {#event-bubbling}
 
 Much like many of the other internal uses of the DOM discussed in this article, you're able to hook into this event system to handle user interaction yourself.
 
