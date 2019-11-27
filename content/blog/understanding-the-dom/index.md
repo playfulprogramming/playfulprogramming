@@ -264,6 +264,42 @@ console.log(mainTextElement.getBoundingClientRect())
 
 [As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript.
 
+Using the `setAttribute` and `getAttribute` methods on an `Element` will yeild you the expected results
+
+```html
+<div id="divToList">
+	<div>Bananas</div>
+	<div>Apples</div>
+	<div>Oranges</div>
+</div>
+```
+
+```javascript
+const divToListEl = document.querySelector('#divToList');
+console.log(divToList.getAttribute('role')); // `null`
+divToListEl.setAttribute('role', 'list');
+divToListEl.setAttribute('aria-label', 'My favorite fruits');
+console.log(divToList.getAttribute('role')); // `'list'`
+
+
+// Using the CSS selector to get the children of the divs
+const listItems = document.querySelectorAll('#divToList > *');
+
+for (var i = 0; i < listItems.length; i++) {
+	listItems[i].setAttribute('role', 'listitem');
+}
+```
+
+
+
+### Properties {#element-properties}
+
+[As mentioned in a prior section, elements also have properties and methods associated with the instance of the underlaying base class](#element-class). Some of these properties are able to be exposed to HTML and provide a two-way binding to-and-from the HTML API and the JavaScript `Element` API.
+
+> Unfortunately, for various historical reasons, the list of properties that support this bi-directional mapping between the `Element` API and the HTML API are sporadic and inconsistent. Some elements that support a mapping between the two APIs even only support uni-directional mapping where updating one will not update another. 
+>
+> This is a round-about way of saying "This is confusing and complicated. It's okay if you don't get it right away". Even seasoned developers might not be aware of some of the limitations. That all said, let's continue on with some examples that _do_ follow the bi-directional implicit API mapping to showcase how it works and learn more about properties
+
 For example, if you have [the style attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style) associated to an element you're working with, you're able to read the values of the element:
 
 ```html
@@ -297,11 +333,13 @@ Somewhat silly, seeing as how the `div` is no longer green 🤭
 
 While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
-> While you've seen `style` attribute be read and written to by an object interface, if you inspect the element or use the `getAttribute` to access the attribute's _true_ value, you'll find that it's really a string with a pleasant API wrapped around it that lets you use an object to interface with the attribute value
+> While you've seen `style` attribute be read and written to by an object interface, if you inspect the element or use the `getAttribute` to access the attribute's HTML API value, you'll find that it's really a string with a pleasant API wrapped around it that lets you use an object to interface with the attribute value
 >
 > ```javascript
 > console.log(mainTextElement.getAttribute('style')); // This will return a string value, despite the API that lets you use an object to read and write
 > ```
+> 
+> The reasoning behind this incongruity is due to [the implicit mapping of the HTML API and the `Element` API as mentioned at the start of the previous section](#element-properties). The limitations described here will also apply to the HTML API of those types of properties. 
 
 For example, we can [use `data` attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) in order to read and write values via attributes to any given element.
 
