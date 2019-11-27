@@ -149,6 +149,10 @@ What can be done to remediate this? Well, by utilizing the proper tags, of cours
 
 In this example, both the browsers as well as Google's scraper bots are able to discern that this is a list with three list items within it.
 
+> While there ARE tags that may potentially  impact SEO somewhat significantly, it's unlikely `ul` and `li` would significantly impact your SEO scores.
+>
+> Needless to say, it's still good to use symantic (correctly tagged) HTML as there are users that use screen-readers that will benefit greatly from these minor changes. Additionally, it can make code more readable and parsable with automated tools
+
 We're able to even add further metadata to an element by using attributes. For example, let's say that I want to add a title to the list to be read upon a screen reader gaining focus on the element, we could use the `aria-label` attribute:
 
 ```html
@@ -264,7 +268,7 @@ console.log(mainTextElement.getBoundingClientRect())
 
 [As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript.
 
-Using the `setAttribute` and `getAttribute` methods on an `Element` will yeild you the expected results
+Let's take a slightly modified example from [the correct tags section](#accessibility) to demonstrate:
 
 ```html
 <div id="divToList">
@@ -274,23 +278,44 @@ Using the `setAttribute` and `getAttribute` methods on an `Element` will yeild y
 </div>
 ```
 
+We could update this list to include the `role`s and `aria-label`s in order to make this non-symantic HTML more relevant with how it reflects it's metadata to the browser. 
+
+This metadata that we place directly on the elements themselves are called `attributes` and are part of the HTML specification (also refered to as the HTML API in this document). This metadata can be accessed and modified from JavaScript by using the `Element`'s `getAttribute` to read the key-value pairing and `setAttribute` to set the value to that attribute on an element.
+
+Let's look at how we can set the `role` and `aria-label`s in the DOM using JavaScript:
+
 ```javascript
 const divToListEl = document.querySelector('#divToList');
+// Get the `role` attribute to demonstrate that there's no currently present role
 console.log(divToList.getAttribute('role')); // `null`
+// Let's set a role that emulates a `list`
+// Set the value from the HTML API using the Element method `setAttribute`
 divToListEl.setAttribute('role', 'list');
+// And let's add an aria-label, for good measure
 divToListEl.setAttribute('aria-label', 'My favorite fruits');
+// Get the value from the HTML API using the Element method `getAttribute`
 console.log(divToList.getAttribute('role')); // `'list'`
-
 
 // Using the CSS selector to get the children of the divs
 const listItems = document.querySelectorAll('#divToList > *');
 
+// Now, for all of the items in that list, let's use an aria `role` to make them reflect as listitems in their metadata to the browser
 for (var i = 0; i < listItems.length; i++) {
 	listItems[i].setAttribute('role', 'listitem');
 }
 ```
 
+Once this is all ran, if you inspect the elements tab in your debugger, you should be left with HTML that looks like this:
 
+```html
+<div id="divToList" role="list" aria-label="My favorite fruits">
+	<div role="listitem">Bananas</div>
+	<div role="listitem">Apples</div>
+	<div role="listitem">Oranges</div>
+</div>
+```
+
+Which is significantly more accessible for users that utilize screen readers, [as mentioned previously](#accessibility). You'll notice that despite not having any of the ARIA attributes prior, the `setAttribute` was able to implicitly create them with the newly placed values
 
 ### Properties {#element-properties}
 
@@ -298,7 +323,7 @@ for (var i = 0; i < listItems.length; i++) {
 
 > Unfortunately, for various historical reasons, the list of properties that support this bi-directional mapping between the `Element` API and the HTML API are sporadic and inconsistent. Some elements that support a mapping between the two APIs even only support uni-directional mapping where updating one will not update another. 
 >
-> This is a round-about way of saying "This is confusing and complicated. It's okay if you don't get it right away". Even seasoned developers might not be aware of some of the limitations. That all said, let's continue on with some examples that _do_ follow the bi-directional implicit API mapping to showcase how it works and learn more about properties
+> This is a round-about way of saying "It is confusing and complicated what properties have attribute bindings and which don't and why. It's okay if you don't get it right away". Even seasoned developers might not be aware of some of the limitations. That all said, let's continue on with some examples that _do_ follow the bi-directional implicit API mapping to showcase how it works and learn more about properties
 
 For example, if you have [the style attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style) associated to an element you're working with, you're able to read the values of the element:
 
