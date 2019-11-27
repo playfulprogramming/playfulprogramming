@@ -319,7 +319,7 @@ Which is significantly more accessible for users that utilize screen readers, [a
 
 ### Properties {#element-properties}
 
-[As mentioned in a prior section, elements also have properties and methods associated with the instance of the underlaying base class](#element-class). Some of these properties are able to be exposed to HTML and provide a two-way binding to-and-from the HTML API and the JavaScript `Element` API.
+[As mentioned in a prior section, elements also have properties and methods associated with the instance of the underlaying base class](#element-class). These properties are different from attributes as they are not part of the HTML specification. Instead, they're standardized JavaScript `Element` API additions. Some of these properties are able to be exposed to HTML and provide a two-way binding to-and-from the HTML API and the JavaScript `Element` API.
 
 > Unfortunately, for various historical reasons, the list of properties that support this bi-directional mapping between the `Element` API and the HTML API are sporadic and inconsistent. Some elements that support a mapping between the two APIs even only support uni-directional mapping where updating one will not update another. 
 >
