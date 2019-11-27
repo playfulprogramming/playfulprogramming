@@ -103,7 +103,7 @@ Some of these tag defaults are part of the specification while others are left u
 
 This metadata is also why it's so important that your application utilizes the expected HTML tags and not simply default to `div`s with CSS applied to simulate other items. Two of the biggest advantages to responsibly utilizing the metadata system the browser has built into it by using the correct tags are SEO and accessability.
 
-Take the following exampe:
+Take the following example:
 
 ```html
 <div>
@@ -315,6 +315,117 @@ console.log(element.dataset.userInfo) // "[object Object]"
 
 
 
+## Events
+
+Just as your browser uses the DOM to know where to place elements to display for the user and metadata about the elements in order to interact with screenreaders as-expected, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or other noteworthy changes occur.
+
+For example, when you have a form that includes a default button, when that button is pressed it will fire a `submit` event that will then _bubble_ up the DOM tree until it finds a [`form` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). This element will by default then run a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it recieves a `submit` event.
+
+![The bubble flow of the `submit` event](./submit_form.svg)
+
+_Bubbling_, as shown here, is the default behavior of any given event. It reflects it's behavior of a given event moving up the DOM tree to the nodes above it as parents. Parent nodes can respond to these events as expected, stop their upward motion on the tree, and more.
+
+### Event Listening
+
+Much like many of the other internal uses of the DOM discussed in this article, you're able to hook into this event system to handle user interaction yourself.
+
+Let's look at an example of some code doing so:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is a page title</title>
+</head>
+<body>
+	<div id="red" style="height: 400px; width: 400px; background: red;">
+		<div id="blue" style="height: 300px; width: 300px; background: blue;">
+			<div id="green" style="height: 200px; width: 200px; background: green;"></div>
+		</div>
+	</div>
+	<script>
+		const redEl = document.querySelector('#red');
+		const blueEl = document.querySelector('#blue');
+		const greenEl = document.querySelector('#green');
+    
+		redEl.addEventListener('click', () => {
+			console.log("A click handled on red using bubbling");
+			// If false, use bubbling. If true, use capturing
+		}, false);
+
+		blueEl.addEventListener('click', (event) => {
+			// Stop the click event from moving further up in the bubble
+			event.stopPropagation();
+			console.log("A click handled on blue using bubbling");
+		}, false)
+
+
+		greenEl.addEventListener('click', () => {
+			console.log("A click handled on green using bubbling");
+		}, false);
+	</script>
+</body>
+</html>
+```
+
+
+In this example, we're adding click listeners to three squares, each one smaller then their parent square. This allows us to see in our console the effect of bubbling. If you click on the red square, you'd expect the event to bubble up to `body`, but not down to `#green`. Likewise, if you clicked on the green square, you'd expect the event to bubble up to both `#blue` and `#red` as well as `body`. 
+
+However, as you can see, we're running `stopPropagation` on the event in the blue square. This will make the click event stop bubbling. This means that any click events that are called on `#green` will not make it to `#red` as they will be stopped at `#blue`.
+
+You can see a running example of this here:
+
+<iframe src="https://stackblitz.com/edit/event-bubbling-demo?ctl=1&embed=1&file=index.js&hideExplorer=1&hideNavigation=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+![The event bubbles upwards from green to blue but then is stopped by the stopPropagate call](./stop_propegration.svg)
+
+## Capturing {#event-capturing}
+
+But bubbling isn't the only Top to bottom
 
 
 
+
+
+
+
+```
+
+		// A click handled on red using capturing
+		// A click handled on blue using capturing
+
+		redEl.addEventListener('click', () => {
+			console.log("A click handled on red using capturing");
+		}, true);
+
+		blueEl.addEventListener('click', (event) => {
+			// Stop the click event from moving further down in the bubble
+			event.stopPropagation();
+			console.log("A click handled on blue using capturing");
+		}, true)
+
+
+		greenEl.addEventListener('click', () => {
+			console.log("A click handled on green using capturing");
+		}, true);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
