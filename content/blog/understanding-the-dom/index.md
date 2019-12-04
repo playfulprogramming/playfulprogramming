@@ -1,7 +1,7 @@
 ---
 {
-	title: 'Understanding The Dom: How Browsers Show Things on Screen',
-	description: 'Learn how the browser internally handles HTML and CSS to show the user things on-screen',
+	title: 'Understanding The DOM: How Browsers Show Content on Screen',
+	description: 'Learn how the browser internally handles HTML and CSS to show the user webpages on-screen',
 	published: '2019-11-26T22:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['dom', 'browser internals'],
@@ -10,11 +10,11 @@
 }
 ---
 
-Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as Angular, React, or Vue will utilize some level of HTML to load the JavaScript. This understood, how the browser handes HTML and CSS under-the-hood can be quite the mystery. With this article, I'm going to explain what the browser does under-the-hood to understand what to show to the user.
+Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as Angular, React, or Vue will utilize some level of HTML to load the JavaScript. That said, how the browser handles HTML and CSS under-the-hood can be quite the mystery. In this article, I'm going to explain what the browser does to understand what it should show to the user.
 
 # The DOM {#the-dom}
 
-Just as the source code of JavaScript programs are broken down to abractions that are more easily understood by the computer, so too is HTML. HTML, initially being derived from SGML (the basis for XML as well), actually _forms a tree structure in memory_ in order to know [how to lay things out and do various other tasks](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
+Just as the source code of JavaScript programs are broken down to abstractions that are more easily understood by the computer, so too is HTML. HTML, initially being derived from [SGML (the basis for XML as well)](https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language), actually _forms a tree structure in memory_ in order to [describe the relationships, layout, and executable tasks for items in the tree](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
 
 For example, when you load a file similar to this:
 
@@ -30,7 +30,7 @@ For example, when you load a file similar to this:
 </main>
 ```
 
-_The browser takes the items that've been defined in HTML and turns them into a tree that the browser can understand how to layout and draw on the screen_. That tree, internally, might look something like this:
+_The browser takes the items defined in the HTML and turns them into a tree that the browser understands how to lay out and draw on the screen_. That tree, internally, might look something like this:
 
 ![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
 
@@ -51,7 +51,7 @@ At the root of any HTML file, you have three things: Tags, attributes, and text 
 </header>
 ```
 
-When you type a tag, like `header` or `a`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to said nodes. When you have another element node inside of a seperate element node, you add a _"child"_ to said node. This relationship between the nodes allow you to preserve metadata between them, allows CSS to apply, and more.
+When you type a tag, like `<header>` or `<a>`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to said nodes. When you have another element node inside of a separate element node, you add a _"child"_ to said node. This relationship between the nodes allows you to preserve metadata between them and allows CSS to apply.
 
 There's also the idea of a _"sibling"_ node. When a node's parent has more than one child, those other nodes are that child node's _"siblings"_.
 
@@ -61,7 +61,7 @@ Altogether, the terminologies used to refer between these node "leaves" are extr
 
 There are some rules to this tree that's created from these "nodes":
 
-- There must be one "root" or "trunk" node, there cannot be more than one root
+- There must be one "root" or "trunk" node, and there cannot be more than one root
 - There must be a one-to-many relationship with parents and children
 	- A node may have many children
 	- But may not have many parents
@@ -91,37 +91,37 @@ This tree tells the browser all of the information the browser needs to execute 
 </main>
 ```
 
-The browser is able to keep in mind, while it's moving through the tree, that it needs to find an element with the `ID` of `b` and then mark it's `li` children with a red background. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
+The browser is able to keep in mind, while it's moving through the tree, that it needs to find an element with the `ID` of `b` and then mark it's `<li>` children with a red background. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
 
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 
-> The `ul` element is marked as green just to showcase that it is the element being marked by the first part of the selector
+> The `<ul>` element is marked as green just to showcase that it is the element being marked by the first part of the selector
 
-Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might start at the `main` tag, then go to the `p` tag, then visit the `ul` tag, and finally the two children in order from left-to-right (`li id="c"` , `li id="d"`).
+Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might start at the `<main>` tag, then go to the `<p>` tag, then visit the `<ul>` tag, and finally the two children in order from left-to-right (`<li id="c">` , `<li id="d">`).
 
-The browser, knowing what CSS to look for, is able to see the `ul` with the correct ID and know to mark it's children with the correct metadata that matches the selector with the relevant CSS.
+The browser, knowing what CSS to look for, is able to see the `<ul>` with the correct ID and know to mark its children with the correct metadata that matches the selector with the relevant CSS.
 
-This tree relationship also enables CSS selectors such as [general sibling selector (`~` )](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector
+This tree relationship also enables CSS selectors such as the [general sibling selector (`~`)](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector.
 
 ![A showcase of the above selectors and how they always look forward, never behind](css_selectors_demo.svg)
 
-> Interestingly, one of the questions that I've often heard asked is a "parent selector". The idea behind this is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator)  exists, why not have the ability to mark any parent of `.classname` selectors. 
+> Interestingly, one of the questions that I've often heard asked concerns a "parent selector". The idea behind the question is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) exists, so why not have the ability to mark any parent of `.classname` selectors?
 >
-> The answer behind that is: Performance. The [W3 organization](https://www.w3.org/Style/CSS/#specs) (the organization who maintains the HTML and CSS standard specification) points to the tree structure of the DOM and the algorithm behind how browsers traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply)  as not being performant when allowing parent selectors.
+> The answer behind that: performance. The [W3 organization](https://www.w3.org/Style/CSS/#specs) (the organization who maintains the HTML and CSS standard specification) points to the tree structure of the DOM and the algorithm behind how browsers traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply)  as not being performant when allowing parent selectors.
 >
 > The reason behind this is that browsers read from top-down in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
 >
-> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part they don't allow for upwards vertical movement of nodes within the DOM. 
+> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM. 
 
 
 
 # Using The Correct Tags {#accessibility}
 
-HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form). 
+HTML, as a specification, has tons of tags that can be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form). 
 
-Some of these tag defaults are part of the specification while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like `normalize.css` in order to set all of the element CSS defaults to an explicit set of defaults; Doing so can avoid having the UI of a webpage look different from browser-to-browser thanks to deviations on default CSS styling on specific tags.
+Some of these tag defaults are part of the specification, while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like [`normalize.css`](https://github.com/necolas/normalize.css/) to set all of the element CSS defaults to an explicit set of defaults. Doing so can avoid having the UI of a webpage look different from browser-to-browser thanks to deviations on default CSS styling on specific tags.
 
-This metadata is also why it's so important that your application utilizes the expected HTML tags and not simply default to `div`s with CSS applied to simulate other items. Two of the biggest advantages to responsibly utilizing the metadata system the browser has built into it by using the correct tags are SEO and accessability.
+This metadata is also why it's so important that your application utilizes the expected HTML tags and not simply default to `<div>`s with CSS or JavaScript applied to simulate other items. Two of the biggest advantages to responsibly utilizing the metadata system the browser has built into it by using the correct tags are search engine optimization (SEO) and accessibility.
 
 Take the following example:
 
@@ -133,9 +133,9 @@ Take the following example:
 </div>
 ```
 
-In this example, your browser only knows that you're looking to display text on screen. If a user utilizing a screen reader reaches the site, the browser doesn't know that it should inform the user that there are three items in a list (something that sight-impaired users would greatly value to know, in order to tab through the list effectively) as you've done nothing to inform the user that it is a list of items: Only that it's a set of `div` generic containers. 
+In this example, your browser only knows that you're looking to display text on-screen. If someone utilizing a screen reader reaches the site, the browser doesn't know that it should inform them that there are three items in a list (something that people with low vision would greatly value to know, in order to tab through the list effectively) as you've done nothing to inform the user that it is a list of items: only that it's a set of `<div>` generic containers. 
 
-Likewise, when Google's robots walk through your site, they won't be able to parse that you're displaying lists to your users. As a result, your search rating for "list of best places" might be impacted, since the site doesn't appear to contain any list at all
+Likewise, when Google's robots walk through your site, they won't be able to parse that you're displaying lists to your users. As a result, your search rating for "list of best places" might be impacted since the site doesn't appear to contain any list at all.
 
 What can be done to remediate this? Well, by utilizing the proper tags, of course!
 
@@ -517,5 +517,4 @@ You'll also notice that if you click on the green square, you'll never see the `
 This post has been filled to the brim with information. 😵 Even I, the author, have had to have a few amazing folks take a re-read to confirm what I've written. Please don't be afraid or ashamed to re-read anything that might not have made sense or to revisit the post whenever a question arises. Hopefully this has been a helpful exploration of the DOM and the ways you interact with it using code.
 
 Please ask any questions or comments in our comments section and remember that we have [a Discord](https://discord.gg/FMcvc6T) for further conversation including questions! 
-
 
