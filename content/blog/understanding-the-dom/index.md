@@ -95,7 +95,7 @@ The browser is able to keep in mind, while it's moving through the tree, that it
 
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 
-> The `<ul>` element is marked as green just to showcase that it is the element being marked by the first part of the selector
+> The `<ul>` element is marked as green just to showcase that it is the element being marked by the first part of the selector.
 
 Typically, the browser will "visit" it's nodes in a specific order. For example, in the above chart, the browser might start at the `<main>` tag, then go to the `<p>` tag, then visit the `<ul>` tag, and finally the two children in order from left-to-right (`<li id="c">` , `<li id="d">`).
 
@@ -111,13 +111,13 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 >
 > The reason behind this is that browsers read from top-down in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
 >
-> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM. 
+> As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM.
 
 
 
 # Using The Correct Tags {#accessibility}
 
-HTML, as a specification, has tons of tags that can be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form). 
+HTML, as a specification, has tons of tags that can be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
 
 Some of these tag defaults are part of the specification, while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like [`normalize.css`](https://github.com/necolas/normalize.css/) to set all of the element CSS defaults to an explicit set of defaults. Doing so can avoid having the UI of a webpage look different from browser-to-browser thanks to deviations on default CSS styling on specific tags.
 
@@ -133,7 +133,7 @@ Take the following example:
 </div>
 ```
 
-In this example, your browser only knows that you're looking to display text on-screen. If someone utilizing a screen reader reaches the site, the browser doesn't know that it should inform them that there are three items in a list (something that people with low vision would greatly value to know, in order to tab through the list effectively) as you've done nothing to inform the user that it is a list of items: only that it's a set of `<div>` generic containers. 
+In this example, your browser only knows that you're looking to display text on-screen. If someone utilizing a screen reader reaches the site, the browser doesn't know that it should inform them that there are three items in a list (something that people with low vision would greatly value to know, in order to tab through the list effectively) as you've done nothing to inform the user that it is a list of items: only that it's a set of `<div>` generic containers.
 
 Likewise, when Google's robots walk through your site, they won't be able to parse that you're displaying lists to your users. As a result, your search rating for "list of best places" might be impacted since the site doesn't appear to contain any list at all.
 
@@ -149,7 +149,7 @@ What can be done to remediate this? Well, by utilizing the proper tags, of cours
 
 In this example, both the browsers as well as Google's scraper bots are able to discern that this is a list with three list items within it.
 
-> While there ARE tags that may potentially  impact SEO somewhat significantly, it's unlikely `ul` and `li` would significantly impact your SEO scores.
+> While there ARE tags that may potentially  impact SEO somewhat significantly, it's unlikely `<ul>` and `<li>` would significantly impact your SEO scores.
 >
 > Needless to say, it's still good to use symantic (correctly tagged) HTML as there are users that use screen-readers that will benefit greatly from these minor changes. Additionally, it can make code more readable and parsable with automated tools
 
@@ -163,7 +163,7 @@ We're able to even add further metadata to an element by using attributes. For e
 </ol>
 ```
 
-In fact, the default metadata that is defaulted by specific tags can be directly applied manually to an element of a different tag. The metadata that is passed to the browser when using `li` is typically involving that element pertaining to a listitem, using the `role` attribute, we can add that information to a `div` itself
+In fact, the default metadata that is defaulted by specific tags can be directly applied manually to an element of a different tag. The metadata that is passed to the browser when using `<li>` is typically involving that element pertaining to a listitem, using the `role` attribute, we can add that information to a `<div>` itself.
 
 ```html
 <ol>
@@ -173,9 +173,9 @@ In fact, the default metadata that is defaulted by specific tags can be directly
 </ol>
 ```
 
-> It's worth mentioning that this example is generally considered malpractice. While you may have been able to preserve _some_ of the metadata from an `li` tag in a `div` element, it's extremely difficult to catch all of the defaults a browser might apply to the original tag that may enhanse a sight-impaired user's experience using screen-readers.
-> 
-> This is all to say: unless you have a **really** good reason for using `role` rather than an approprate tag, stick with the related tag. Just as any other form of engineering, properly employing HTML requires nuance and logic to be deployed at the hand of the implementing developer 
+> It's worth mentioning that this example is generally considered malpractice. While you may have been able to preserve _some_ of the metadata from an `<li>` tag in a `<div>` element, it's extremely difficult to catch all of the defaults a browser might apply to the original tag that may enhanse a sight-impaired user's experience using screen-readers.
+>
+> This is all to say: unless you have a **really** good reason for using `role` rather than an approprate tag, stick with the related tag. Just as any other form of engineering, properly employing HTML requires nuance and logic to be deployed at the hand of the implementing developer.
 
 # Element Metadata {#interacting-with-elements-using-js}
 
@@ -208,13 +208,13 @@ Let's look at some of the built-in utilities at our disposal for doing so:
 </html>
 ```
 
-The `document` object has the ability to get the `body` node ([`document.body`](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)), the `head` node ([`document.head`](https://developer.mozilla.org/en-US/docs/Web/API/Document/head)), and even the doctype ([`document.doctype`](https://developer.mozilla.org/en-US/docs/Web/API/Document/doctype)).
+The `document` object has the ability to get the `<body>` node ([`document.body`](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)), the `<head>` node ([`document.head`](https://developer.mozilla.org/en-US/docs/Web/API/Document/head)), and even the doctype ([`document.doctype`](https://developer.mozilla.org/en-US/docs/Web/API/Document/doctype)).
 
 ![A screenshot of the Chrome debugger console displaying those properties](first_document_properties.png)
 
 ### Querying Elements
 
-Additional to containing static references to some of the closest nodes to the root (`body` and `head`), there is also a way to query for any element by any of the CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
+Additional to containing static references to some of the closest nodes to the root (`<body>` and `<head>`), there is also a way to query for any element by any of the CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
 
 ```javascript
 const mainTextElement = document.querySelector('#mainText');
@@ -244,7 +244,7 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 ![A screenshot of Chrome running the above code](query_selector_all.png)
 
-> It's worth mentioning that the way `querySelector` works is not the same [way that the browser checks a node against the CSS selector data when the browser "visits" that node](#how-the-browser-uses-the-dom). `querySelector` and `querySelectorAll` work from a more top-down perspective where it searches the elements one-by-one against the query. First, it finds the top-most layer of the CSS selector. Then it will move to the next item and so-on-so forth until it returns the expected results
+> It's worth mentioning that the way `querySelector` works is not the same [way that the browser checks a node against the CSS selector data when the browser "visits" that node](#how-the-browser-uses-the-dom). `querySelector` and `querySelectorAll` work from a more top-down perspective where it searches the elements one-by-one against the query. First, it finds the top-most layer of the CSS selector. Then it will move to the next item and so-on-so forth until it returns the expected results.
 
 ## Element Base Class {#element-class}
 
@@ -256,7 +256,7 @@ For example, let's say that I wanted to see the width and height an element has 
 
 ```javascript
 const mainTextElement = document.querySelector('#mainText');
-console.log(mainTextElement.getBoundingClientRect())
+console.log(mainTextElement.getBoundingClientRect());
 // Will output: DOMRect {x: 8, y: 16, width: 638, height: 18, top: 16, …}
 ```
 
@@ -278,7 +278,7 @@ Let's take a slightly modified example from [the correct tags section](#accessib
 </div>
 ```
 
-We could update this list to include the `role`s and `aria-label`s in order to make this non-symantic HTML more relevant with how it reflects it's metadata to the browser. 
+We could update this list to include the `role`s and `aria-label`s in order to make this non-symantic HTML more relevant with how it reflects it's metadata to the browser.
 
 This metadata that we place directly on the elements themselves are called `attributes` and are part of the HTML specification (also refered to as the HTML API in this document). This metadata can be accessed and modified from JavaScript by using the `Element`'s `getAttribute` to read the key-value pairing and `setAttribute` to set the value to that attribute on an element.
 
@@ -315,15 +315,15 @@ Once this is all ran, if you inspect the elements tab in your debugger, you shou
 </div>
 ```
 
-Which is significantly more accessible for users that utilize screen readers, [as mentioned previously](#accessibility). You'll notice that despite not having any of the ARIA attributes prior, the `setAttribute` was able to implicitly create them with the newly placed values
+Which is significantly more accessible for users that utilize screen readers, [as mentioned previously](#accessibility). You'll notice that despite not having any of the ARIA attributes prior, the `setAttribute` was able to implicitly create them with the newly placed values.
 
 ### Properties {#element-properties}
 
 [As mentioned in a prior section, elements also have properties and methods associated with the instance of the underlaying base class](#element-class). These properties are different from attributes as they are not part of the HTML specification. Instead, they're standardized JavaScript `Element` API additions. Some of these properties are able to be exposed to HTML and provide a two-way binding to-and-from the HTML API and the JavaScript `Element` API.
 
-> Unfortunately, for various historical reasons, the list of properties that support this bi-directional mapping between the `Element` API and the HTML API are sporadic and inconsistent. Some elements that support a mapping between the two APIs even only support uni-directional mapping where updating one will not update another. 
+> Unfortunately, for various historical reasons, the list of properties that support this bi-directional mapping between the `Element` API and the HTML API are sporadic and inconsistent. Some elements that support a mapping between the two APIs even only support uni-directional mapping where updating one will not update another.
 >
-> This is a round-about way of saying "It is confusing and complicated what properties have attribute bindings and which don't and why. It's okay if you don't get it right away". Even seasoned developers might not be aware of some of the limitations. That all said, let's continue on with some examples that _do_ follow the bi-directional implicit API mapping to showcase how it works and learn more about properties
+> This is a round-about way of saying "It is confusing and complicated what properties have attribute bindings and which don't and why. It's okay if you don't get it right away". Even seasoned developers might not be aware of some of the limitations. That all said, let's continue on with some examples that _do_ follow the bi-directional implicit API mapping to showcase how it works and learn more about properties.
 
 For example, if you have [the style attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style) associated to an element you're working with, you're able to read the values of the element:
 
@@ -352,19 +352,19 @@ Will turn the element's background color red, for example.
 
 ![The element has now turned the background red](red_style_element.png)
 
-Somewhat silly, seeing as how the `div` is no longer green 🤭
+Somewhat silly, seeing as how the `<div>` is no longer green. 🤭
 
 #### Limitations {#attribute-limitations}
 
 While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
-> While you've seen `style` attribute be read and written to by an object interface, if you inspect the element or use the `getAttribute` to access the attribute's HTML API value, you'll find that it's really a string with a pleasant API wrapped around it that lets you use an object to interface with the attribute value
+> While you've seen `style` attribute be read and written to by an object interface, if you inspect the element or use the `getAttribute` to access the attribute's HTML API value, you'll find that it's really a string with a pleasant API wrapped around it that lets you use an object to interface with the attribute value.
 >
 > ```javascript
 > console.log(mainTextElement.getAttribute('style')); // This will return a string value, despite the API that lets you use an object to read and write
 > ```
-> 
-> The reasoning behind this incongruity is due to [the implicit mapping of the HTML API and the `Element` API as mentioned at the start of the previous section](#element-properties). The limitations described here will also apply to the HTML API of those types of properties. 
+>
+> The reasoning behind this incongruity is due to [the implicit mapping of the HTML API and the `Element` API as mentioned at the start of the previous section](#element-properties). The limitations described here will also apply to the HTML API of those types of properties.
 
 For example, we can [use `data` attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) in order to read and write values via attributes to any given element.
 
@@ -394,14 +394,14 @@ By default, the primitive's `toString` will be called to store values.
 element.dataset.userInfo = {name: "Tony"}
 console.log(element.dataset.userInfo) // "[object Object]"
 /**
- * "[object Object]" is because it's running `Object.prototype.toString()` 
+ * "[object Object]" is because it's running `Object.prototype.toString()`
  * to convert the object to a string to store on the attribute
  */
 ```
 
 > If you're having a difficult time understanding why `toString` is bring ran or what `prototype` is doing here, don't worry: You're in good company. The JavaScript prototype system is complex and can be difficult to follow.
 >
-> For now, it will suffice to just know that you're only able to store strings in element attribute
+> For now, it will suffice to just know that you're only able to store strings in element attribute.
 
 
 
@@ -409,7 +409,7 @@ console.log(element.dataset.userInfo) // "[object Object]"
 
 Just as your browser uses the DOM to know where to place elements to display for the user and metadata about the elements in order to interact with screenreaders as-expected, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or other noteworthy changes occur.
 
-For example, when you have a form that includes a default button, when that button is pressed it will fire a `submit` event that will then _bubble_ up the DOM tree until it finds a [`form` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). This element will by default then run a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it recieves a `submit` event.
+For example, when you have a form that includes a default button, when that button is pressed it will fire a `submit` event that will then _bubble_ up the DOM tree until it finds a [`<form>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). This element will by default then run a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it recieves a `submit` event.
 
 ![The bubble flow of the `submit` event](./submit_form.svg)
 
@@ -437,7 +437,7 @@ Let's look at an example of some code doing so:
 		const redEl = document.querySelector('#red');
 		const blueEl = document.querySelector('#blue');
 		const greenEl = document.querySelector('#green');
-    
+
 		redEl.addEventListener('click', () => {
 			console.log("A click handled on red using bubbling");
 			// This is set to false in order to use bubbling. We'll cover the `true` case later on
@@ -447,7 +447,7 @@ Let's look at an example of some code doing so:
 			// Stop the click event from moving further up in the bubble
 			event.stopPropagation();
 			console.log("A click handled on blue using bubbling");
-		}, false)
+		}, false);
 
 
 		greenEl.addEventListener('click', () => {
@@ -459,7 +459,7 @@ Let's look at an example of some code doing so:
 ```
 
 
-In this example, we're adding click listeners to three squares, each one smaller then their parent square. This allows us to see in our console the effect of bubbling. If you click on the red square, you'd expect the event to bubble up to `body`, but not down to `#green`. Likewise, if you clicked on the green square, you'd expect the event to bubble up to both `#blue` and `#red` as well as `body`. 
+In this example, we're adding click listeners to three squares, each one smaller then their parent square. This allows us to see in our console the effect of bubbling. If you click on the red square, you'd expect the event to bubble up to `<body>`, but not down to `#green`. Likewise, if you clicked on the green square, you'd expect the event to bubble up to both `#blue` and `#red` as well as `<body>`.
 
 However, as you can see, we're running `stopPropagation` on the event in the blue square. This will make the click event stop bubbling. This means that any click events that are called on `#green` will not make it to `#red` as they will be stopped at `#blue`.
 
@@ -485,7 +485,7 @@ blueEl.addEventListener('click', (event) => {
   // Stop the click event from moving further down in the bubble
   event.stopPropagation();
   console.log("A click handled on blue using capturing");
-}, true)
+}, true);
 
 
 greenEl.addEventListener('click', () => {
@@ -516,5 +516,4 @@ You'll also notice that if you click on the green square, you'll never see the `
 
 This post has been filled to the brim with information. 😵 Even I, the author, have had to have a few amazing folks take a re-read to confirm what I've written. Please don't be afraid or ashamed to re-read anything that might not have made sense or to revisit the post whenever a question arises. Hopefully this has been a helpful exploration of the DOM and the ways you interact with it using code.
 
-Please ask any questions or comments in our comments section and remember that we have [a Discord](https://discord.gg/FMcvc6T) for further conversation including questions! 
-
+Please ask any questions or comments in our comments section and remember that we have [a Discord](https://discord.gg/FMcvc6T) for further conversation including questions!
