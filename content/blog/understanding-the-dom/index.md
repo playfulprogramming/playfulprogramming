@@ -51,27 +51,27 @@ At the root of any HTML file, you have three things: tags, attributes, and text 
 </header>
 ```
 
-When you type a tag, like `<header>` or `<a>`, you're creating an _element node_. These nodes then compose to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to said nodes. When you have another element node inside of a separate element node, you add a _"child"_ to said node. This relationship between the nodes allows you to preserve metadata between them and allows CSS to apply.
+When you type a tag, like `<header>` or `<a>`, you're creating an _element node_. These nodes are then composed to create _"leaves"_ on the DOM tree. Attributes are then able to manually add information to these nodes. When you have one element node inside of a separate one, you add a _"child"_ to said node. The relationship between the nodes allows metadata, CSS properties, and more to be preserved.
 
 There's also the idea of a _"sibling"_ node. When a node's parent has more than one child, those other nodes are that child node's _"siblings"_.
 
 ![A chart showing the relationships between parents and siblings](./dom_relationships.svg)
 
-Altogether, the terminologies used to refer between these node "leaves" are extremely similar to the terminology often used with family trees.
+Altogether, the terminology used to refer to the nodes and their various relationships is extremely similar to the terminology often used with family trees.
 
-There are some rules to this tree that's created from these "nodes":
+There are some rules for the tree that's created from these nodes:
 
 - There must be one "root" or "trunk" node, and there cannot be more than one root
-- There must be a one-to-many relationship with parents and children
-	- A node may have many children
-	- But may not have many parents
+- There must be a one-to-many relationship with parents and children. A node:
+	- May have many children
+	- Cannot have more than one parent
 - A non-root node may have many siblings as a result of the parent having many children
 
 ![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
 
 ### How It's Used By The Browser {#how-the-browser-uses-the-dom}
 
-This tree tells the browser all of the information the browser needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to an `index.html` file:
+This tree tells the browser all of the information it needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to this HTML file:
 
 ```css
 // index.css
@@ -91,7 +91,7 @@ This tree tells the browser all of the information the browser needs to execute 
 </main>
 ```
 
-The browser is able to keep in mind, while it's moving through the tree, that it needs to find an element with the `ID` of `b` and then mark it's `<li>` children with a red background. They're "children" because the DOM tree keeps that relationship info that's defined by the HTML.
+While moving through the tree, the browser can keep track of the fact that it needs to find an element with the `ID` of `b` and then mark its `<li>` children with a red background. They're "children" because the DOM tree preserves the relationship defined by the HTML.
 
 ![A chart showing the 'ul' tag highlighted in green with the children 'li' tags marked in red](./dom_tree_with_css.svg "Diagram showing the above code as a graph")
 
@@ -101,15 +101,15 @@ Typically, the browser will "visit" it's nodes in a specific order. For example,
 
 The browser, knowing what CSS to look for, is able to see the `<ul>` with the correct ID and know to mark its children with the correct metadata that matches the selector with the relevant CSS.
 
-This tree relationship also enables CSS selectors such as the [general sibling selector (`~`)](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) to find siblings to a given selector.
+This tree relationship also enables CSS selectors such as the [general sibling selector (`~`)](https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_combinator) or the [adjacent sibling selector (`+`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator) of find siblings to a given selector.
 
 ![A showcase of the above selectors and how they always look forward, never behind](css_selectors_demo.svg)
 
-> Interestingly, one of the questions that I've often heard asked concerns a "parent selector". The idea behind the question is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) exists, so why not have the ability to mark any parent of `.classname` selectors?
+> Interestingly, one of the questions that I've often heard asked concerns a "parent selector". The idea behind the question is that the [direct child selector (`>`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) exists, so why not have the ability to select any parent of `.classname` selectors?
 >
-> The answer behind that: performance. The [W3 organization](https://www.w3.org/Style/CSS/#specs) (the organization who maintains the HTML and CSS standard specification) points to the tree structure of the DOM and the algorithm behind how browsers traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply)  as not being performant when allowing parent selectors.
+> The answer behind that? Performance. The [W3 Consortium](https://www.w3.org/Style/CSS/#specs) (the organization that maintains the HTML and CSS standard specifications) points to the tree structure of the DOM and the algorithm used by the browser to traverse the DOM (or, "visit" the nodes in order to figure out what CSS to apply) as not being performant when allowing parent selectors.
 >
-> The reason behind this is that browsers read from top-down in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
+> This happens because browsers read from top-to-bottom in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
 >
 > As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM.
 
@@ -117,9 +117,9 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 
 # Using The Correct Tags {#accessibility}
 
-HTML, as a specification, has tons of tags that can be used at one's disposal. These tags contain various metadata internally to the browser to provide information about what you want to render in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
+HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various pieces of metadata internally to provide information to the browser about how they should be rendered in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
 
-Some of these tag defaults are part of the specification, while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like [`normalize.css`](https://github.com/necolas/normalize.css/) to set all of the element CSS defaults to an explicit set of defaults. Doing so can avoid having the UI of a webpage look different from browser-to-browser thanks to deviations on default CSS styling on specific tags.
+Some of these tag defaults are part of the specification, while others are left up to the browser vendor to decide. This is why, in many instances, developers may choose to use something like [`normalize.css`](https://github.com/necolas/normalize.css/) to set all of the element CSS defaults to an explicit set of defaults. Doing so can avoid having the UI of a webpage look different from browser to browser thanks to deviations on default CSS styling on specific tags.
 
 This metadata is also why it's so important that your application utilizes the expected HTML tags and not simply default to `<div>`s with CSS or JavaScript applied to simulate other items. Two of the biggest advantages to responsibly utilizing the metadata system the browser has built into it by using the correct tags are search engine optimization (SEO) and accessibility.
 
@@ -149,7 +149,7 @@ What can be done to remediate this? Well, by utilizing the proper tags, of cours
 
 In this example, both the browsers as well as Google's scraper bots are able to discern that this is a list with three list items within it.
 
-> While there ARE tags that may potentially  impact SEO somewhat significantly, it's unlikely `<ul>` and `<li>` would significantly impact your SEO scores.
+> While there ARE tags that may potentially impact SEO somewhat significantly, it's unlikely `<ul>` and `<li>` would significantly impact your SEO scores.
 >
 > Needless to say, it's still good to use semantic (correctly tagged) HTML as people that use screen-readers and other assistive technologies benefit greatly from these minor changes. Additionally, it can make code more readable and parsable with automated tools.
 
@@ -163,7 +163,7 @@ We're able to even add further metadata to an element by using attributes. For e
 </ol>
 ```
 
-In fact, the default metadata that is defaulted by specific tags can be directly applied manually to an element of a different tag. The metadata that is passed to the browser when using `<li>` is typically involving that element pertaining to a `listitem`, using the `role` attribute, we can add that information to a `<div>` itself.
+In fact, the metadata that specific tags have by default can be manually applied to an element of a different type. The metadata that is passed to the browser when using `<li>` is typically involving that element pertaining to a `listitem`, using the `role` attribute, we can add that information to a `<div>` itself.
 
 ```html
 <ol>
@@ -214,7 +214,7 @@ The `document` object has the ability to get the `<body>` node ([`document.body`
 
 ### Querying Elements
 
-Besides containing static references to `<body>` and `<head>`, there is also a way to query for any element by using CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
+Besides containing static references to `<body>` and `<head>`, there is also a way to query any element by using CSS selectors. For example, if we wanted to get a reference to the single element with the `id` of `mainText`, we could use the CSS selector for an id, combined with [the `querySelector` method on the `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
 
 ```javascript
 const mainTextElement = document.querySelector('#mainText');
@@ -226,7 +226,7 @@ const mainTextElement = document.querySelector('#mainText');
 > id="testing"
 > ```
 
-This method will return a reference to the element as rendered in the DOM. [While we'll be covering more of what this reference is able to do later](#element-class), but for now we can execute this quick bit of code to show that it's the element we intended to query:
+This method will return a reference to the element as rendered in the DOM. [While we'll be covering more of what this reference is able to do later](#element-class), for now we can execute this quick bit of code to show that it's the element we intended to query:
 
 ```javascript
 console.log(mainTextElement.innerHTML); // This will output the HTML that we used to write this element
@@ -248,9 +248,9 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 ## Element Base Class {#element-class}
 
-While `innerHTML` has been used to demonstrate that the element that's gathered is in fact the element that was queried, there are many _many_ more properties and methods that can be ran on an element reference.
+While `innerHTML` has been used to demonstrate that the element that's gathered is in fact the element that was queried, there are many _many_ more properties and methods that can be run on an element reference.
 
-When an element is queried and returned, you're given a reference to that element through the [`Element` base class](https://developer.mozilla.org/en-US/docs/Web/API/Element). This class is what contains the properties and methods that you can use to access and modify metadata about the element with.
+When an element is queried and returned, you're given a reference to that element through the [`Element` base class](https://developer.mozilla.org/en-US/docs/Web/API/Element). This class is what contains the properties and methods that you can use to access and modify the element's metadata.
 
 For example, let's say that I wanted to see the width and height an element has when rendered on screen. [Using the `Element.prototype.getBoundingClientRect` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect), you can get all of that information and more:
 
@@ -266,7 +266,7 @@ console.log(mainTextElement.getBoundingClientRect());
 
 ### Attributes {#html-attributes}
 
-[As covered before in this post, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read, write, and modify that metadata using JavaScript.
+[As covered earlier, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read and write that metadata, as well as applying new metadata, using JavaScript.
 
 Let's take a slightly modified example from [the correct tags section](#accessibility) to demonstrate:
 
@@ -278,23 +278,23 @@ Let's take a slightly modified example from [the correct tags section](#accessib
 </div>
 ```
 
-We could update this list to include the `role`s and `aria-label`s in order to make this non-semantic HTML more relevant with how it reflects its metadata to the browser.
+We could update this list to include the `role`s and `aria-label`s in order to make this non-semantic HTML more relevant in terms of how it reflects its metadata to the browser.
 
-This metadata that we place directly on the elements themselves are called `attributes` and are part of the HTML specification (also referred to as the HTML API in this document). This metadata can be accessed and modified from JavaScript by using the `Element`'s `getAttribute` to read the key-value pairing and `setAttribute` to set the value to that attribute on an element.
+This metadata that we place directly on the elements themselves are called `attributes` and are part of the HTML specification (also referred to as the HTML API in this document). This metadata can be accessed and modified from JavaScript by using the `Element`'s [`getAttribute`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute) to read the key-value pairing and [`setAttribute`](https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute) to set the value to that attribute on an element.
 
 Let's look at how we can set the `role` and `aria-label`s in the DOM using JavaScript:
 
 ```javascript
 const divToListEl = document.querySelector('#divToList');
 // Get the `role` attribute to demonstrate that there's no currently present role
-console.log(divToList.getAttribute('role')); // `null`
+console.log(divToListEl.getAttribute('role')); // `null`
 // Let's set a role that emulates a `list`
 // Set the value from the HTML API using the Element method `setAttribute`
 divToListEl.setAttribute('role', 'list');
 // And let's add an aria-label, for good measure
 divToListEl.setAttribute('aria-label', 'My favorite fruits');
 // Get the value from the HTML API using the Element method `getAttribute`
-console.log(divToList.getAttribute('role')); // `'list'`
+console.log(divToListEl.getAttribute('role')); // `'list'`
 
 // Using the CSS selector to get the children of the divs
 const listItems = document.querySelectorAll('#divToList > *');
@@ -305,7 +305,7 @@ for (var i = 0; i < listItems.length; i++) {
 }
 ```
 
-Once this is all ran, if you inspect the elements tab in your debugger, you should be left with HTML that looks like this:
+Once this is run, if you inspect the elements tab in your debugger, you should be left with HTML that looks like this:
 
 ```html
 <div id="divToList" role="list" aria-label="My favorite fruits">
@@ -391,15 +391,15 @@ Note that I wrote the string `'3'` instead of the numerical value `3` in the cod
 By default, the primitive's `toString` will be called to store values.
 
 ```javascript
-element.dataset.userInfo = {name: "Tony"}
-console.log(element.dataset.userInfo) // "[object Object]"
+element.dataset.userInfo = {name: "Tony"};
+console.log(element.dataset.userInfo); // "[object Object]"
 /**
  * "[object Object]" is because it's running `Object.prototype.toString()`
  * to convert the object to a string to store on the attribute
  */
 ```
 
-> If you're having a difficult time understanding why `toString` is bring ran or what `prototype` is doing here, don't worry; you're in good company. The JavaScript prototype system is complex and can be difficult to follow.
+> If you're having a difficult time understanding why `toString` is bring run or what `prototype` is doing here, don't worry; you're in good company. The JavaScript prototype system is complex and can be difficult to follow.
 >
 > For now, it will suffice just to know that you're only able to store strings in an element attribute.
 
@@ -407,9 +407,9 @@ console.log(element.dataset.userInfo) // "[object Object]"
 
 ## Events {#events}
 
-Just as your browser uses the DOM to handle on-screen content visibility, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or other noteworthy changes occur.
+Just as your browser uses the DOM to handle on-screen content visibility, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or when other noteworthy changes occur.
 
-For example, say you have a form that includes a default `<button>` element. When that button is pressed, it fires a `submit` event that then _bubbles_ up the DOM tree until it finds a [`<form>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). By default, this `<form>` element then sends a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it receives the `submit` event.
+For example, say you have a form that includes a default `<button>` element. When that button is pressed, it fires a `submit` event that then _bubbles_ up the DOM tree until it finds a [`<form>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). By default, this `<form>` element sends a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it receives the `submit` event.
 
 ![The bubble flow of the `submit` event](./submit_form.svg)
 
@@ -493,7 +493,7 @@ greenEl.addEventListener('click', () => {
 }, true);
 ```
 
-As demonstrated by the code above, `stopPropagation` works as you might expect it to as well!
+As demonstrated by the code above, `stopPropagation` works as you might expect it to in capture mode as well!
 
 
 
@@ -506,7 +506,7 @@ This means that when the user clicks on the red square, you'll see the following
 "A click handled on blue using capturing"
 ```
 
-But nothing from the green square's `eventListener`.
+You won't see anything from the green square's `eventListener`, however.
 
 <iframe src="https://stackblitz.com/edit/event-capture-demo?ctl=1&embed=1&file=index.js&hideExplorer=1&hideNavigation=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
