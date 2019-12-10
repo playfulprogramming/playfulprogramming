@@ -44,8 +44,6 @@ const BlogPostTemplateChild = props => {
 		}, 600);
 	}, [currentTheme, post.frontmatter.title, siteData.siteUrl, slug]);
 
-	console.log(disqusConfig.url);
-
 	const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`;
 
 	return (
