@@ -17,7 +17,11 @@ const BlogPostTemplateChild = props => {
 
 	const { currentTheme } = useContext(ThemeContext);
 
-	const [disqusConfig, setDisqusConfig] = useState(currentTheme);
+	const [disqusConfig, setDisqusConfig] = useState({
+		url: `${siteData.siteUrl}/posts${slug}`,
+		identifier: slug,
+		title: post.frontmatter.title
+	});
 
 	/**
 	 * Toggle the Disqus theme
@@ -29,7 +33,7 @@ const BlogPostTemplateChild = props => {
 		setTimeout(() => {
 			if (!setDisqusConfig || !currentTheme) return;
 			setDisqusConfig({
-				url: `${siteData.siteUrl}posts${slug}`,
+				url: `${siteData.siteUrl}/posts${slug}`,
 				// TODO: Fix this, this is causing comments to not apply to the correct
 				//   post. This identifier should NEVER change and should ALWAYS match
 				//   `slug` only
@@ -39,6 +43,8 @@ const BlogPostTemplateChild = props => {
 			// Must use a `useTimeout` so that this reloads AFTER the background animation
 		}, 600);
 	}, [currentTheme, post.frontmatter.title, siteData.siteUrl, slug]);
+
+	console.log(disqusConfig.url);
 
 	const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`;
 
