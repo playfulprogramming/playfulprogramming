@@ -10,14 +10,6 @@
 }
 ---
 
-
-
-
-
-# HTML, CSS, and JavaScript Concepts for Beginners
-By Micah Dutro
-
-
 So you have decided to learn web development.
 
 Great! But once you start looking around for tutorials, guides, and other resources it’s easy to get overwhelmed. Web development incorporates a lot of different technologies that all work together to create the internet as we know it today. Understanding how they work together is no small task, especially when you are at the beginning of your web development journey. Which ones should you learn first? What do they do? What does it all mean???
@@ -65,7 +57,7 @@ Just like CSS, JavaScript is normally written in a separate file and connected b
 
 As I said before, JavaScript is a for-real programming language. That means it has arrays, for loops, if-else statements, and lots of other computer science-y things going on. Despite that, the language is actually very beginner-friendly. You don’t have to have a degree in computer science or arcane mathematics to get started with a programming language. And because of the way JavaScript interacts with web browsers, you will be to do some amazing things pretty quickly.
 
-One thing that makes JavaScript unique is its ability to manipulate the [DOM](https://developer.mozilla.org/en-US/docs/Glossary/DOM). The Document Object Model (or DOM) is an API (advanced programming interface) that allows JavaScript to manipulate the HTML and CSS of a website as the user navigates around the page and uses its features. Basically, the web browser can read JavaScript and make changes to the look, feel, and even the structure of the page in real time. 
+One thing that makes JavaScript unique is its ability to manipulate the [DOM](https://unicorn-utterances.com/posts/understanding-the-dom/). The Document Object Model (or DOM) is an API (advanced programming interface) that allows JavaScript to manipulate the HTML and CSS of a website as the user navigates around the page and uses its features. Basically, the web browser can read JavaScript and make changes to the look, feel, and even the structure of the page in real time. 
 
 To go back to our building construction analogy… well, it starts to break down at this point. Imagine if you could wave a magic wand and turn the wood siding on your building into bricks. Or change the color of the building from gray to bright blue. Remember the steel beams of HTML our building is made of on the inside? By using the DOM, JavaScript can change those too!
 
