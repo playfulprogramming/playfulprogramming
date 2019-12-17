@@ -14,7 +14,7 @@ So you have decided to learn web development.
 
 Great! But once you start looking around for tutorials, guides, and other resources, it's easy to get overwhelmed. Web development incorporates a lot of different technologies that all work together to create the internet as we know it today. Understanding how they work together is no small task, especially when you are at the beginning of your web development journey. Which ones should you learn first? What do they do? What does it all mean???
 
-Unicorn Utterances is here to help. Let’s start at the beginning.
+Unicorn Utterances is here to help. Let's start at the beginning.
 
 At a very basic level, all websites are constructed from three foundational technologies: HTML, CSS, and JavaScript. Every other concept or technology related to front-end web development is either based on or works with one of these three building blocks. Getting a firm grasp on HTML, CSS, and JavaScript is critical to understanding web development and learning how to create your own websites and web applications.
 
@@ -27,7 +27,7 @@ HTML is the steel frame of the user's interaction with any given website. It is 
 
 So, HTML gives a website its structure. But how does it do that?
 
-At its most basic level, HTML builds the structure of a webpage by using something called “elements” which are normally invisible to the casual website visitor. But even if you can't see them, you can usually guess where they are. That’s because elements are used to divide a web page into logical sections. When you see a navigation bar, a title, paragraphs of text, or a footer, you can be sure there is at least one HTML element associated with it.
+At its most basic level, HTML builds the structure of a webpage by using something called "elements" which are normally invisible to the casual website visitor. But even if you can't see them, you can usually guess where they are. That’s because elements are used to divide a web page into logical sections. When you see a navigation bar, a title, paragraphs of text, or a footer, you can be sure there is at least one HTML element associated with it.
 
 If HTML is like the steel frame of a building, then elements are like the individual beams that make up the frame. Elements are defined by small chunks of text called ["tags"](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started) that define where an element begins and ends. There are many different tags, and they can be organized in many ways - you can even nest tags inside each other - but the important thing to remember here is that the web browser on your computer reads these tags from the top of the HTML document to the bottom. Items on a website can be visually rearranged by CSS or JavaScript but their initial position on the page is set by their position in the HTML document itself.
 
@@ -42,9 +42,9 @@ CSS, or [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CS
 
 Let's think back to our building construction analogy for a moment. We have our steel frame (HTML), but what will the building look like when it is finished? Will the facade be brick, wood siding, or cut stone? Should it be painted? If so, what color? These are the kinds of questions that web developers use CSS to answer.
 
-CSS can be used to control virtually every visual aspect of a website. Take a look at the site you are reading right now. Everything on it is controlled (or “styled” as the lingo goes) by CSS. The background color, the color of the text, the size of the text, where images or videos appear on the page, the location of the navigation bar, and even some animations are set by CSS.
+CSS can be used to control virtually every visual aspect of a website. Take a look at the site you are reading right now. Everything on it is controlled (or "styled" as the lingo goes) by CSS. The background color, the color of the text, the size of the text, where images or videos appear on the page, the location of the navigation bar, and even some animations are set by CSS.
 
-In modern web development, CSS is written in a separate document  called a “stylesheet” that is referenced in the HTML document with a link element. The stylesheet contains a list of HTML elements, identified by various “selectors”, that the developer wants to style. Each element may contain any number of [properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference) and property values that set up how that element will be presented to the user in the web browser. These properties have a specific mapping to various aspects of how the page is styled. For example, `font-size` dictates the size of the font of the text on the page. Exactly what appears on the screen can be a little tricky for a beginner, and I encourage you to read the excellent [tutorial in Mozilla’s documentation](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance). For now, just know that CSS rules can inherit property values from each other and can even override each other in certain circumstances.
+In modern web development, CSS is written in a separate document  called a "stylesheet" that is referenced in the HTML document with a link element. The stylesheet contains a list of HTML elements, identified by various "selectors", that the developer wants to style. Each element may contain any number of [properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference) and property values that set up how that element will be presented to the user in the web browser. These properties have a specific mapping to various aspects of how the page is styled. For example, `font-size` dictates the size of the font of the text on the page. Exactly what appears on the screen can be a little tricky for a beginner, and I encourage you to read the excellent [tutorial in Mozilla’s documentation](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance). For now, just know that CSS rules can inherit property values from each other and can even override each other in certain circumstances.
 
 CSS is a big topic, and you will very likely be learning more about it as long as you do web development. There are pre-made frameworks, preprocessors, and lots of other CSS-related goodies out there to dive into as you learn your new craft. The important thing at the outset is to learn the basics well so that you know what to expect as you write your own CSS stylesheets.
 
@@ -57,7 +57,7 @@ Just like CSS, JavaScript is normally written in a separate file and connected b
 
 As I said before, JavaScript is a for-real programming language. That means it has arrays, for loops, if-else statements, and lots of other computer science-y things going on. Despite that, the language is actually very beginner-friendly. You don’t have to have a degree in computer science or arcane mathematics to get started with a programming language. And because of the way JavaScript interacts with web browsers, you will be to do some amazing things pretty quickly.
 
-One thing that makes JavaScript unique is its ability to manipulate the [DOM](https://unicorn-utterances.com/posts/understanding-the-dom/). The Document Object Model (or DOM) is an API (advanced programming interface) that allows JavaScript to manipulate the HTML and CSS of a website as the user navigates around the page and uses its features. Basically, the web browser can read JavaScript and make changes to the look, feel, and even the structure of the page in real-time.
+One thing that makes JavaScript unique is [its ability to manipulate the DOM](https://unicorn-utterances.com/posts/understanding-the-dom/). The Document Object Model (or DOM) is an API (advanced programming interface) that allows JavaScript to manipulate the HTML and CSS of a website as the user navigates around the page and uses its features. Basically, the web browser can read JavaScript and make changes to the look, feel, and even the structure of the page in real-time.
 
 To go back to our building construction analogy… well, it starts to break down at this point. Imagine if you could wave a magic wand and turn the wood siding on your building into bricks. Or change the color of the building from gray to bright blue. Remember the steel beams of HTML our building is made of on the inside? By using the DOM, JavaScript can change those too!
 
@@ -67,3 +67,7 @@ JavaScript is a powerful tool that can be used to create everything from useful 
 ## Conclusion
 
 Now you should have a better conceptual understanding of the primary web technologies, what they do, and how they work together to create the internet that we see and use every day. Once you learn the basics of HTML, CSS, and JavaScript, you will have a firm foundation to build on to create your own websites and applications.
+
+You can also read more about how your browser understands and utilizes HTML and CSS in order to display content and handle user interaction under-the-hood on [another post on the site](https://unicorn-utterances.com/posts/understanding-the-dom/).
+
+Finally, you're always able to [join our Discord](https://discord.gg/FMcvc6T) if you have any questions or comments while you're learning. All are welcome!
