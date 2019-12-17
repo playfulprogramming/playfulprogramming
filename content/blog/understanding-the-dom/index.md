@@ -12,7 +12,7 @@
 
 Any web application relies on some fundamental technologies: HTML, CSS, and JavaScript. Even advanced front-end JavaScript frameworks such as Angular, React, or Vue will utilize some level of HTML to load the JavaScript. That said, how the browser handles HTML and CSS under-the-hood can be quite the mystery. In this article, I'm going to explain what the browser does to understand what it should show to the user.
 
-> If you're unfamiliar with HTML, CSS, or JavaScript, you may want to take a look at [our post that introduces these three items](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript). They'll provide a good foundation for this article for newcomers to the programming scene or just folks who may not be familiar with what HTML, CSS, and JavaScript do
+> If you're unfamiliar with HTML, CSS, or JavaScript, you may want to take a look at [our post that introduces these three items](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript). They'll provide a good foundation for this article for newcomers to the programming scene or folks who may not be familiar with what those languages do.
 
 # The DOM {#the-dom}
 
