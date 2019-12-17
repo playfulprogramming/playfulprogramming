@@ -120,5 +120,19 @@
     "profileImg": "./sarsamurmu.png",
     "color": "#7C4DFF",
     "roles": ["developer"]
+  },
+  {
+    "id": "MDutro",
+    "name": "Micah Dutro",
+    "firstName": "Micah",
+    "lastName": "Dutro",
+    "description": "A non-profit lawyer turned budding web developer.",
+    "socials": {
+      "github": "MDutro"
+    },
+    "pronouns": "he",
+    "profileImg": "./mdutro.jpg",
+    "color": "#7C4DFF",
+    "roles": []
   }
 ]
