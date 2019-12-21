@@ -10,33 +10,22 @@
  * 🐛 Doesn't seem to close on focus loss
  *       Needs an optional prop (?)
  */
-import { useCallback, useEffect, useState } from "react";
+import { RefObject, useCallback, useEffect, useState } from "react";
 import { useOutsideClick, useOutsideFocus } from "../outside-events";
 
 /**
- * @callback onBtnClickFn
- * @param {React.MouseEvent} e - The associated event to handle
- * @param {boolean} expanded - Is the popover expanded
- */
-
-/**
- * @callback onBtnKeyDownFn
- * @param {React.KeyboardEvent} e - The associated event to handle
- * @param {boolean} expanded - Is the popover expanded
- */
-
-/**
- * @param {React.RefObject} parentRef - The div that contains the popoverArea and the trigger button
- * @param {React.RefObject} popoverAreaRef - The div that will be used as the popover area to focus on when the popover is opened
- * @param {onBtnClickFn} [onBtnClick] - An add-on CB function to the button event handler
- * @param {onBtnKeyDownFn} [onBtnKeyDown] - An add-on CB function to the button event handler
+ * @param parentRef - The div that contains the popoverArea and the trigger button
+ * @param popoverAreaRef - The div that will be used as the popover area to focus on when the popover is opened
+ * @param [onBtnClick] - An add-on CB function to the button event handler
+ * @param [onBtnKeyDown] - An add-on CB function to the button event handler
  * @returns {{buttonProps, expanded}}
  */
 export const usePopover = (
-	parentRef,
-	popoverAreaRef,
-	onBtnClick,
-	onBtnKeyDown
+	parentRef: RefObject<any>,
+	popoverAreaRef: RefObject<any>,
+	// Is the popover expanded
+	onBtnClick?: (e: MouseEvent, expanded: boolean) => void,
+	onBtnKeyDown?: (e: KeyboardEvent, expanded: boolean) => void,
 ) => {
 	const [expanded, setExpanded] = useState(false);
 

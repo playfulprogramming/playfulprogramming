@@ -5,7 +5,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 
 function getSize() {
-	if (!global.window || !window) {
+	if (!(global as any).window || !window) {
 		return {};
 	}
 
@@ -17,9 +17,9 @@ function getSize() {
 	};
 }
 
-export const useWindowSize = debounceMs => {
+export const useWindowSize = (debounceMs?: number) => {
 	const [windowSize, setWindowSize] = useState(getSize());
-	const timeoutIdRef = useRef();
+	const timeoutIdRef = useRef<NodeJS.Timeout>();
 
 	const timeoutId = timeoutIdRef && timeoutIdRef.current;
 

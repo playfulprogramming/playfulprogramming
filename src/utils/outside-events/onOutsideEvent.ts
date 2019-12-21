@@ -1,4 +1,6 @@
-import { useCallback, useEffect } from "react";
+import { RefObject, useCallback, useEffect } from "react";
+
+export type UseOutsideEventParams = [RefObject<any>, boolean, Function];
 
 /**
  * @param eventName - The name of the event to be bound to
@@ -7,7 +9,7 @@ import { useCallback, useEffect } from "react";
  * @param {boolean} params.$1 - Boolean to enable
  * @param {Function} params.$2 - A function to run if the user clicks outside the parent ref
  */
-export const useOutsideEvent = (eventName, params) => {
+export const useOutsideEvent = (eventName: string, params: UseOutsideEventParams) => {
 	const [parentRef, enable, onOutsideEvent] = params;
 
 	const currParentRef = parentRef && parentRef.current;

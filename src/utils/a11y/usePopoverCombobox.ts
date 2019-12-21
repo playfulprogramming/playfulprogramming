@@ -4,32 +4,16 @@
  * multi-selects, and tests to see if the user had last used a keyboard
  */
 
-import { useMemo, useRef, useState } from "react";
+import { RefObject, useMemo, useRef, useState } from "react";
 import { useKeyboardListNavigation } from "./useKeyboardListNavigation";
 import { useUsedKeyboardLast } from "./useUsedKeyboardLast";
 import { usePopover } from "./usePopover";
-import { useSelectableArray } from "./useSelectableArray";
+import {
+	useSelectableArray,
+	useSelectableArrayInternalVal
+} from "./useSelectableArray";
 
-/**
- * @callback selectIndexCB
- * @prop {number} index - The index to toggle the selected state of
- * @prop {MouseEvent|KeyboardEvent} event - The event to see if `select` is highlighted
- */
-
-/**
- * @typedef {object} PopoverComboboxRet
- * @prop {useSelectableArrayInternalVal} active - The currently highlighted item
- * @prop {useSelectableArrayInternalVal[]} selected - The array of selected items
- * @prop {React.RefObject} comboBoxListRef - The reference to the element to apply to the div
- * @prop {selectIndexCB} selectIndex - A toggle for that index
- * @prop {useSelectableArrayInternalVal[]} values - The array of values
- */
-
-/**
- * @param arrVal
- * @returns {PopoverComboboxRet}
- */
-export const usePopoverCombobox = arrVal => {
+export const usePopoverCombobox = (arrVal: any[]) => {
 	/**
 	 * Because of timing issues within the `runOnSubmit` CB, we need to have
 	 * an index to add to the tracking index, otherwise pressing spacebar
@@ -64,7 +48,7 @@ export const usePopoverCombobox = arrVal => {
 	 * to assume that one already knows of another
 	 * @type {React.RefObject<Function>}
 	 */
-	const resetLastUsedKeyboardRef = useRef(() => undefined);
+	const resetLastUsedKeyboardRef = useRef<() => void>(() => undefined);
 
 	const resetLastUsedKeyboard = resetLastUsedKeyboardRef.current;
 
@@ -149,12 +133,15 @@ export const usePopoverCombobox = arrVal => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[internalArr, manuallyUpdateSelectedArrIndex]
 	);
-
 	return {
+		// The array of selected items
 		selected: selectedArr,
+		// The currently highlighted item
 		active,
+		// The reference to the element to apply to the div
 		comboBoxListRef,
 		parentRef,
+		// The array of values
 		values: internalArr,
 		selectIndex,
 		expanded,

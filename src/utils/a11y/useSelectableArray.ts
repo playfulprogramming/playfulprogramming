@@ -13,20 +13,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { genId } from "./getNewId";
 import { normalizeNumber } from "../normalize-number";
 
-/**
- * @typedef useSelectableArrayInternalVal
- * @param {string} id - A unique ID that can be safely placed in the DOM
- * @param {*} val - The original value in the array
- * @param {number} index - The original index in the array
- * @param {boolean} selected - If this item is selected in the data
- */
+export interface useSelectableArrayInternalVal<T = any> {
+	id: string | number; // A unique ID that can be safely placed in the DOM
+	val: T; // The original value in the array
+	index: number; // The original index in the array
+	selected: boolean; // If this item is selected in the data
+}
 
-/**
- *
- * @param {*[]} valArr
- * @returns {useSelectableArrayInternalVal[]}
- */
-const getNewArr = valArr => {
+const getNewArr = <T>(valArr: T[]): useSelectableArrayInternalVal<T>[] => {
 	return valArr.map((val, i) => {
 		return {
 			id: genId(),
@@ -38,15 +32,12 @@ const getNewArr = valArr => {
 };
 
 /**
- *
- * @param valArr
  * @param [runAfterSelectChange] There may be instances where changing the `ref`
  *     does not have the expected functionality if using it as a dep instance.
  *     By using this function + a `useRef` and a number to manually toggle re-runs
  *     you can fix this problem.
- * @returns {{markAsSelected: *, selectedArr: *, selectAll: *, internalArr: *}}
  */
-export const useSelectableArray = (valArr, runAfterSelectChange) => {
+export const useSelectableArray = <T>(valArr: T[], runAfterSelectChange?: () => void) => {
 	const [_trackingNum, setTrackNum] = useState(0);
 	/**
 	 * Using a `useRef` here for performance. Otherwise, to keep immutability
@@ -62,7 +53,7 @@ export const useSelectableArray = (valArr, runAfterSelectChange) => {
 	const currInternalArr = internalArrRef && internalArrRef.current;
 
 	const markAsSelected = useCallback(
-		(fromIndex, toIndex) => {
+		(fromIndex: number, toIndex: number) => {
 			const maxIndex = currInternalArr.length - 1;
 
 			const newFromIndex = normalizeNumber(fromIndex, 0, maxIndex);

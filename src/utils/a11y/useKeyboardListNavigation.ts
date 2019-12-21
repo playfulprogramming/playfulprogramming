@@ -16,28 +16,20 @@
  * 🔲 Handle arrow-right to change index via optional prop (?)
  */
 
-import { useEffect, useState } from "react";
+import { RefObject, SyntheticEvent, useEffect, useState } from "react";
 import { normalizeNumber } from "../normalize-number";
 
 /**
- * @callback RunOnSubmitCB
- * @param {KeyboardEvent} event
- * @param {number} focusedIndex - The current index
- * @param {number} newIndex - The new index
- * @returns void
- */
-
-/**
- * @param {React.RefObject} parentRef - The parent ref to bind the event handling to
- * @param {*[]} arrVal - The array value to handle navigating the index of
- * @param {boolean} enable - Disable event handling
- * @param {RunOnSubmitCB} [runOnSubmit] - An optional function to hook into the event handler logic
+ * @param parentRef - The parent ref to bind the event handling to
+ * @param arrVal - The array value to handle navigating the index of
+ * @param enable - Disable event handling
+ * @param [runOnSubmit] - An optional function to hook into the event handler logic
  */
 export const useKeyboardListNavigation = (
-	parentRef,
-	arrVal,
-	enable,
-	runOnSubmit
+	parentRef: RefObject<any>,
+	arrVal: any[],
+	enable: boolean,
+	runOnSubmit?: (event: KeyboardEvent & Partial<SyntheticEvent>, focusedIndex: number, newIndex?: number) => void
 ) => {
 	const [focusedIndex, setFocusedIndex] = useState(0);
 
@@ -45,7 +37,7 @@ export const useKeyboardListNavigation = (
 
 	// Arrow key handler
 	useEffect(() => {
-		const onKeyDown = event => {
+		const onKeyDown = (event: KeyboardEvent & Partial<SyntheticEvent>) => {
 			if (!enable) {
 				return;
 			}
@@ -95,7 +87,7 @@ export const useKeyboardListNavigation = (
 		return () => el.removeEventListener("keydown", onKeyDown);
 	}, [focusedIndex, parentRef, enable, maxIndex, runOnSubmit]);
 
-	const selectIndex = (i, e) => {
+	const selectIndex = (i: number, e: KeyboardEvent & Partial<SyntheticEvent>) => {
 		setFocusedIndex(normalizeNumber(i, 0, maxIndex));
 
 		if (runOnSubmit) {

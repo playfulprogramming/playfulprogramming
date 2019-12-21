@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { RefObject, useCallback, useEffect, useState } from "react";
 
 /**
  * A hook to handle when the keyboard was used last
@@ -6,12 +6,8 @@ import { useCallback, useEffect, useState } from "react";
  * It's impossible (and non-performant) to handle all events,
  * so we're having the consumer themselves handle when to set the value to
  * false by returning the function `resetLastUsedKeyboard`
- *
- * @param {React.RefObject} ref
- * @param {boolean} enable
- * @returns {{resetLastUsedKeyboard: Function, usedKeyboardLast: boolean}}
  */
-export const useUsedKeyboardLast = (ref, enable) => {
+export const useUsedKeyboardLast = (ref: RefObject<any>, enable: boolean) => {
 	const [usedKeyboardLast, setUsedKeyboardLast] = useState(false);
 
 	const resetLastUsedKeyboard = useCallback(
