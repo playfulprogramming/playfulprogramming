@@ -9,8 +9,10 @@ import { SEO } from "../components/seo";
 import { PostMetadata, PostTitleHeader } from "../components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "../components/theme-context";
+import { SiteInfo } from "../types/SiteInfo";
+import { PostInfo } from "../types/PostInfo";
 
-const BlogPostTemplateChild = props => {
+const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
 	const siteData = props.data.site.siteMetadata;
 	const slug = post.fields.slug;
@@ -107,11 +109,16 @@ const BlogPostTemplateChild = props => {
 	);
 };
 
-const BlogPostTemplate = props => {
-	const siteTitle = props.data.site.siteMetadata.title;
-
+interface BlogPostTemplateProps {
+	data: {
+		site: SiteInfo,
+		markdownRemark: PostInfo
+	},
+	location: Location
+}
+const BlogPostTemplate = (props: BlogPostTemplateProps) => {
 	return (
-		<Layout location={props.location} title={siteTitle}>
+		<Layout location={props.location}>
 			<BlogPostTemplateChild {...props} />
 		</Layout>
 	);

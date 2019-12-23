@@ -4,8 +4,26 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
 import { PostListLayout } from "../components/post-list-layout";
+import { SiteInfo } from "../types/SiteInfo";
+import { UnicornInfo } from "../types/UnicornInfo";
+import { PostInfoListDisplay } from "../types/PostInfoListDisplay";
 
-const BlogProfile = props => {
+interface BlogProfileProps {
+	data: {
+		site: {
+			siteMetadata: Pick<SiteInfo['siteMetadata'], 'title'>
+		},
+		unicornsJson: UnicornInfo,
+		allMarkdownRemark: {
+			totalCount: number,
+			edges: [{
+				node: PostInfoListDisplay
+			}]
+		}
+	}
+}
+
+const BlogProfile = (props: BlogProfileProps) => {
 	const { pageContext, data: slugData } = props;
 	const siteTitle = slugData.site.siteMetadata.title;
 	const unicornData = slugData.unicornsJson;

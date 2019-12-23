@@ -1,18 +1,21 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { LicenseInfo } from "./LicenseInfo";
 
-export interface PostInfo {
+export interface PostInfoListDisplay {
 	id: string;
 	excerpt: string;
-	html: string;
 	frontmatter: {
 		title: string;
 		published: string;
 		tags: string[];
-		edited?: string; // This does not exist currently, but we want it to in the future
 		description: string;
-		authors: Array<UnicornInfo>;
-		license: LicenseInfo;
+		authors: Array<
+			Pick<UnicornInfo, "name" | "id" | "color"> & {
+				profileImg: {
+					childImageSharp: { smallPic: string };
+				};
+			}
+		>;
 	};
 	fields: {
 		slug: string;

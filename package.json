@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-paginate": "^6.2.1",
     "classnames": "^2.2.6",
     "css-loader": "^3.4.0",
     "disqus-react": "^1.0.7",
@@ -40,6 +41,7 @@
     "gatsby-plugin-sharp": "^2.3.10",
     "gatsby-plugin-sitemap": "^2.2.24",
     "gatsby-plugin-transition-link": "^1.17.7",
+    "gatsby-plugin-typescript": "^2.1.23",
     "gatsby-remark-autolink-headers": "^2.1.21",
     "gatsby-remark-copy-linked-files": "^2.1.33",
     "gatsby-remark-external-links": "0.0.4",
@@ -61,6 +63,7 @@
     "react-helmet": "^5.2.1",
     "react-paginate": "^6.3.2",
     "react-pose": "^4.0.10",
+    "typescript": "^3.7.4",
     "unist-util-visit": "^1.4.1"
   },
   "peerDependencies": {
@@ -75,11 +78,15 @@
     "@storybook/react": "^5.2.8",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-gatsby": "^0.2.26",
     "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
     "husky": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",

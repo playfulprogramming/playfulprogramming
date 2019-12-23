@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { graphql, Link } from "gatsby";
 import BackIcon from "../../assets/icons/back.svg";
 import layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
-import { ThemeContext, setThemeColorsToVars } from "../theme-context";
+import { ThemeContext, setThemeColorsToVars, ThemeEnum } from "../theme-context";
 
-export const Layout = ({ location, children }) => {
+interface LayoutProps {
+	location: Location
+}
+export const Layout: FC<LayoutProps> = ({ location, children }) => {
 	// eslint-disable-next-line no-undef
 	const rootPath = `${__PATH_PREFIX__}/`;
 
@@ -15,16 +18,16 @@ export const Layout = ({ location, children }) => {
 
 	const [currentTheme, setCurrentTheme] = useState("light");
 
-	const winLocalStorage = global && global.window && global.window.localStorage;
+	const winLocalStorage = window?.localStorage;
 
 	useEffect(() => {
 		if (!winLocalStorage) return;
-		const themeName = winLocalStorage.getItem("currentTheme") || "light";
+		const themeName = winLocalStorage.getItem("currentTheme") as ThemeEnum || "light";
 		setThemeColorsToVars(themeName);
 		setCurrentTheme(themeName);
 	}, [winLocalStorage]);
 
-	const setTheme = val => {
+	const setTheme = (val: ThemeEnum) => {
 		setThemeColorsToVars(val);
 		setCurrentTheme(val);
 		localStorage.setItem("currentTheme", val);
