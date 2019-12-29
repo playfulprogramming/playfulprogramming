@@ -1,6 +1,14 @@
-
-
-
+---
+{
+	title: "Integrating Native Android Code in Unity",
+	description: 'Have you ever wanted to run native Java and Kotlin code from your mobile game written in Unity? Well you can! This article outlines how to set that up!',
+	published: '2020-01-04T05:12:03.284Z',
+	authors: ['crutchcorn'],
+	tags: ['unity', 'android', 'c#', 'java', 'kotlin'],
+	attached: [],
+	license: 'cc-by-nc-sa-4'
+}
+---
 
 Working on mobile games with Unity, you may come across some instances where you'll want to run native code. Whether it be to access specific sensors, run code in the background, or other closer-to-hardware mobile-specific actions, knowing how to call native code from within your Unity's C# environment can be a great boon to your developmental efforts.
 
