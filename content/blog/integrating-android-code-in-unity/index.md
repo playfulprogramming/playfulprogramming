@@ -1,6 +1,117 @@
+
+
+
+
+Working on mobile games with Unity, you may come across some instances where you'll want to run native code. Whether it be to access specific sensors, run code in the background, or other closer-to-hardware mobile-specific actions, knowing how to call native code from within your Unity's C# environment can be a great boon to your developmental efforts.
+
+Luckily for us, Unity has a system of "plugins" that allow us to do just that. Unity contains the ability to map code between C# and Java by using in-house-developed helper classes to cross-talk between the two languages. This article will outline [how to setup a development environment](#setup-a-development-environment), [how to manage Android dependencies in Unity](#android-dependencies) , and finally [how to call Android-specific code from C#](#call-android-from-c-sharp). Without further ado, let's dive in! 🏊‍♂️
+
+> ⚠️ It's worth noting that this information is based on Unity 2018 versions. While this might be relevant for older versions of Unity, I have not tested much of this methodology of integration with older versions.
+
+# Setting up Development  Environment {#setup-a-development-environment}
+
+[Unity supports using either Java files or Kotlin source files as plugins](https://docs.unity3d.com/Manual/AndroidJavaSourcePlugins.html). This means that you're able to take Android source file (regardless of if they're written in Java or Kotlin) and treat them as callable compiled library code. Unity will then take these files and then include them into it's own Gradle build process, allowing you - the developer - to focus on development rather than the build process.
+
+> For anyone that may have experimented with doing so in older versions of Unity in the past will note that this is a massive improvement - it used to be that you'd have to compile to AAR files and include them manually.
+
+That said, the editor you may be using may not be best suited for editing Android code and it would be great to have a powerful development experience while working with. For this purpose, it would be great to edit code using [the official IDE for Android development: Android Studio](https://developer.android.com/studio/). 
+
+Unforunately, I've had difficulties getting the same Android Studio development environment to sync with the "source file" interop that Unity provides. For this reason, I tend to have two folders:
+
+- One of these folders lives at the root of the project (directly under `Unity/ProjectName`) called `AndroidStudioDev` that I open in Android Studio.
+
+- The other folder is one that lives under `Assets` called `AndroidCode`, which contains copied-and-pasted files from `AndroidStudioDev` that are only the related source files I need called.
+
+![Showcase of the filesystem as described by the previous paragraph](./android-code-fs-layout.png)
+
+This will naturally incur a question for developers who have tried to maintain a system of duplication of any size:
+**How do you manage dependencies between these two folders?**
+
+
+## Managing Android Dependencies {#android-dependencies}
+
+Luckily for us, managing Android code dependencies in Unity has a thought-out solution from a large company: Google. [Because Google writes a Firebase SDK for Unity](https://firebase.google.com/docs/unity/setup), they needed a solid way to manage native dependencies within Unity.
+
+### Installing the Unity Jar Resolver
+
+> ℹ️ If you've installed the Unity Firebase SDK already, you may skip the step of installing
+
+[This plugin, called the "Unity Jar Resolver"](https://github.com/googlesamples/unity-jar-resolver/), is hugely useful to us for syncronizing our development environment. You can start by downloading it from [their releases tab on GitHub](https://github.com/googlesamples/unity-jar-resolver/releases).
+
+> If you have a hard time finding the download link, you'll want to press the three dots (or, if you're looking for the alt text: the "Toggle commit message" button). There will typically be a link for downloading the `.unitypackage` file
+
+In your project, you'll then want to select `Assets > Import Package > Custom Package` in order to import the downloaded plugin 
+
+![A visual of where to find that menu in the MacOS menubar](./import-custom-package.png)
+
+Then, you'll see a dialog screen that'll ask what files you want to import with your Unity Package. Ensure that all of the files are selected, then press "Import"
+
+![A screenshot of the dialog mentioned](./importing-the-plugin.png)
+
+> Your screen may look slightly different from the one above. That's okay - so long as all of the files are selected, pressing "Import" is perfectly fine
+
+### Using the Jar Resolver
+
+Using the Jar resolver is fairly straightforward. Whenever you want to use a depenedency in your Android code, you can add them to a file within [the `Assets/AndroidCode` folder](#setup-a-development-environment) that adds dependencies with the same keys as you'd typically find in a `build.gradle` file for dependencies
+
+```xml
+<!-- DeviceNameDependencies.xml -->
+<dependencies>
+    <androidPackages>
+        <androidPackage spec="com.jaredrummler:android-device-names:1.1.8">
+        </androidPackage>
+    </androidPackages>
+</dependencies>
+```
+
+The only rule with this file structure is that your file must end with `Dependencies.xml`. You can have as many of these files as you'd like. Let's say you want to seperate out dependencies based on features? You can do that, just have seperate files that follow that naming pattern!
+
+```xml
+<!-- LocationCodeDependencies.xml -->
+<!-- Alongside the other file -->
+<dependencies>
+    <androidPackages>
+        <androidPackage spec="com.google.android.gms:play-services-location:16.0.0">
+        </androidPackage>
+    </androidPackages>
+</dependencies>
+```
+
+Then, after creating the files, in the menubar, go to `Assets > Play Services Resolver > Android Resolver > Resolve` and it should go fetch the AAR files related to those specific libraries and download them.
+
+![](./resolve-dependencies.png)
+
+So long as your file ends with `Dependencies.xml`, it should be picked up by the plugin to resolve the AAR files.
+
+#### Adding Support Into Android Studio Environment
+
+But that's only half of the equation. When editing code in Android Studio, you won't be able to use the libraries you've downloaded in Unity. This means that you're stuck manually editing both of the locations for dependencies. This is where a simple trick with build files comes into play.
+
+Assuming, like me, you used the built-in "Create Project" method of starting a codebase in Android Studio, you'll have a `build.gradle` file for managing dependencies. However, you'll notice that when you run the `Resolve` on the plugin in Unity, it'll download AAR and JAR files to `Assets/Plugins/Android`. You can tell Android Studio's Gradle to include them by adding the following line to your `dependencies`:
+
+```groovy
+dependencies {
+    implementation fileTree(dir: '../../Assets/Plugins/Android', include: ['*.jar', '*.aar'])
+}
+```
+
+This will take all of the AAR files and JAR files and treat them as if they were synced by Android Studio's gradle sync
+
+
+
+For more information on how to manage your app's dependencies from within Unity, you may want to checkout [this article created by the Firebase developers](https://medium.com/firebase-developers/how-to-manage-your-native-ios-and-android-dependencies-in-unity-like-firebase-921659843aef), who coincidentally made the plugin for managing Android dependencies in Unity.
+
+
+
 # Call Android code from C# {#call-android-from-c-sharp}
 
+But those dependencies don't meant much if you're not able to utilize the code from them!
+
 For example, take the following library: https://github.com/jaredrummler/AndroidDeviceNames
+
+That library allows you to grab metadata about a user's device. This might be useful for analytics or bug reporters you may be developing yourself. Let's see how we're able to integrate this Java library in our C# code when building for the Android platform
+
+## Introduction {#intro-call-android-from-c-sharp}
 
 You must make your callback extend the type of callback that is used in the library. For example, take the following code sample from the README of the aformentioned library:
 
