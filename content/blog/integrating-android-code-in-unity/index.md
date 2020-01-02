@@ -163,9 +163,9 @@ withInstance.request(handleOnFinished);
 You can see that we have a few steps here:
 
 1) Make a new `Callback` instance
-1a) Provide an implementation of `onFinished` for said instance
+	- Provide an implementation of `onFinished` for said instance
 2) Call `DeviceName.with` to create a request we can use later
-2a) This means that we have to gain access to the currently running context to gain device access. When calling the code from Unity, it means we have to get access to the `UnityPlayer` context that Unity engine runs on
+	- This means that we have to gain access to the currently running context to gain device access. When calling the code from Unity, it means we have to get access to the `UnityPlayer` context that Unity engine runs on
 3) Call that request's `request` method with the `Callback` instance
 
 For each of these steps, we need to have a mapping from the Java code to C# code. Let's walk through these steps one-by-one
