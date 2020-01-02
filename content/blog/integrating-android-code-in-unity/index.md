@@ -66,7 +66,7 @@ Then, you'll see a dialog screen that'll ask what files you want to import with 
 
 ### Using the Jar Resolver {#using-jar-resolver}
 
-Using the Jar resolver is fairly straightforward. Whenever you want to use a dependency in your Android code, you can add them to a file within [the `Assets/AndroidCode` folder](#setup-a-development-environment) that adds dependencies with the same keys as the ones typically found in a `build.gradle` file for dependencies.
+Using the Jar resolver is fairly straightforward. Whenever you want to use a dependency in your Android code, you can add them to a file within [the `Assets/AndroidCode` folder](#set-up-a-development-environment) that adds dependencies with the same keys as the ones typically found in a `build.gradle` file for dependencies.
 
 ```xml
 <!-- DeviceNameDependencies.xml -->
@@ -296,7 +296,7 @@ class Test() {
 }
 ```
 
-Assuming you [copied it over to the `Assets/AndroidCode` folder and marked it to be included in the Android build](#setup-a-development-environment), you should be able to use the `package` name and the name of the class in order to run the related code.
+Assuming you [copied it over to the `Assets/AndroidCode` folder and marked it to be included in the Android build](#set-up-a-development-environment), you should be able to use the `package` name and the name of the class in order to run the related code.
 
 ```c#
 var testAndroidObj = new AndroidJavaObject("com.company.example.Test");
