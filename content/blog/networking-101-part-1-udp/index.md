@@ -56,18 +56,20 @@ These headers can contain information (also called "metadata") like what size th
 
 ## Different Types of IP Addresses {#ipv4-vs-ipv6}
 
-While IP addresses may seem somewhat arbitrary on first glance, there are important rules to abide to in order to have what's considered a "valid" IP address. What's considered "valid" is defined by the TCP/IP specification, which is lead by the W3!!!!!! CHECK THIS!!!! consortium, a group created specifically to manage and handle network protocaul standardization. As time has gone on, there have been various revisions to the IP validation methods. What was once valid is now considered antiquated and migrated to a newer standard of IP address. The two most commonly used standards for defining IP addresses today are:
+While IP addresses may seem somewhat arbitrary on first glance, there are important rules to abide to in order to have what's considered a "valid" IP address. What's considered "valid" is defined by the TCP/IP specification, which is lead by the [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force), a group created specifically to manage and handle network protocaul standardization. As time has gone on, there have been various revisions to the IP validation methods. What was once valid is now considered antiquated and migrated to a newer standard of IP address. The two most commonly used standards for defining IP addresses today are:
 
 - IPv4 (Internet Protocol version 4)
 - IPv6 (Internet Protocol version 6)
 
-Due to the explosion of internet enabled-devices, we have had to make changes to the way we assign network addresses. The previous version of the IP protocol (v4) allowed for XXX#### unique IP addresses. While this number may seem exorbant, it's important to realize that we ran out of unique IP addresses in 20##. The only reason why we even lasted that long is due to a myriad of techniques that networking companies (like your ISP) utilized to extend the life of the IPv4 protocol. With IPv6, we're able to have XXX##### unique addresses - no fear of immediate exhaustion of addresses.
+Due to the explosion of internet enabled-devices, we have had to make changes to the way we assign network addresses. The previous version of the IP protocol (v4) allowed for 4,294,967,296 (2^32) unique IP addresses. While this number may seem exorbant, it's important to realize that we ran out of unique IP addresses in 2017. The only reason why we even lasted that long is due to a myriad of techniques that networking companies (like your ISP) utilized to extend the life of the IPv4 protocol. With IPv6, we're able to have 340,282,366,920,938,463,463,374,607,431,768,211,456 (2^128) (yes, that's correct) unique addresses - no fear of immediate exhaustion of addresses.
 
-![](./Show an example of IPv4 vs IPv6)
+![A showcase of an example IPv4 address and an IPv6 address. IPv4 example is "131.198.246.34" while IPv6 is "4131:e0fd:ef8e:ed27:f5b:ac98:640c:bfa5"](./ip-comparison.svg)
 
 ### What Happened to version 5? {#ipv5}
 
-As mentioned previously, the W3 consortium!!!! manages various specifications regarding the standardization of internet communication. Back in 20##, they gathered to attempt to create a new version of the protocol to handle the growing use of live-streamed communication. To make a long story short, this version was abandoned for various reasons and they moved on to tackle the issue of unique identifiers rapidly diminishing. In order to avoid confusion with the attempted streaming protocol improvements, this new version was called IPv6.
+As mentioned previously, the Internet Engineering Task Force manages various specifications regarding the standardization of internet communication. Back in 1995, they gathered to attempt to create a new version of the protocol to handle the growing use of live-streamed communication. To make a long story short, this version was abandoned for various reasons and they moved on to tackle the issue of unique identifiers rapidly diminishing. In order to avoid confusion with the attempted streaming protocol improvements, this new version was called IPv6.
+
+> If you'd like to read more about this version for fun, you can read through [the Wikipedia page](https://en.wikipedia.org/wiki/Internet_Stream_Protocol). Unfortunately, there's limited information and things get very quickly highly technical, due to the "in progress" nature that things were left at.
 
 # Ports {#udp-ports}
 
@@ -81,7 +83,7 @@ That said, UDP does not require you specify a port, you're able to pass port `0`
 
 ## Pre-Assigned Ports {#standard-ports}
 
-Like an apartment complex may pre-assign individuals to specific rooms, so too does the specification for Internet Protocol pre-assign specific applications to specific ports. For example, port `21` is officially designated to the File Transfer Protocol (FTP), which can used to transfer files if a server is setup on a machine to handle this protocol. As a result, it's strongly discouraged to use these ports that are reserved for your application stack if you want to use a specific port for networking in your app or project.
+Like an apartment complex may pre-assign individuals to specific rooms, so too does the specification for Internet Protocol pre-assign specific applications to specific ports. For example, port `21` is officially designated to the [File Transfer Protocol (FTP)](https://en.wikipedia.org/wiki/File_Transfer_Protocol), which can used to transfer files if a server is setup on a machine to handle this protocol. As a result, it's strongly discouraged to use these ports that are reserved for your application stack if you want to use a specific port for networking in your app or project.
 
 # Conclusion
 
