@@ -186,3 +186,33 @@ But that's not all! Once you make changes (or introspect the values), you're als
 
 Both of these buttons allow you to control where your debugger moves next. _The button to the left_ is more of a "play/pause" button. Pressing this _will unpause your code and keep running it_ (with your variable changes in-tact) _until it hits the next breakpoint_. If this happens to be two lines down, then it will run the line in-between without pausing and then pause once it reached that next breakpoint.
 
+So, if we want to see what happens after the `body` JSON variable is parsed into a variable, we could press the "next" button to the right to get to that line of code and pause once again.
+
+![A screenshot of the JSON being parsed into a few variables with some conosle logs to prove it did really parse and run the line above it](./next-line.png)
+
+ Knowing this, let's move through the next few lines manually by pressing each item. The ran values of the variables as they're assigned should show up to the right of the code itself in a little yellow box; This should help you understand what each line of code is running and returning without `console.log`ging or otherwise manually.
+
+![A screenshot showing ran lines until line 12 of the "console.log". It shows that "employeeAges" is "[undefined]"](./next-few-lines.png)
+
+But oh no! You can see, `employeeAges` on line `9` is the one that results in the unintended `[undefined]`. It seems to be occuring during the `map` phase, so let's add in a breakpoint to line `10` and reload the `localhost:3000` page (to re-reun the function in question).
+
+Once you hit the first breakpoint on line `7`, you can press "play" once again to keep running until it hits the breakpoint on line `10`.
+
+![Two breakpoints on line 7 and 10, currently paused on line 10](./press-run-twice.png)
+
+This will allow us to see the value of `employee` to see what's going wrong in our application to cause an `undefined` value.
+
+![A show of the "employee" object that has a property "employee_age"](./inspect-employee.png) 
+
+Oh! As we can see, the name of the field we're wanting to query is `employee_age`, not the mistakenly typo'd `employeeAge` property name we're currently using in our code. Let's stop our server, make the required changes, and then restart the application.
+
+We will have to run through the breakpoints we've set by pressing the "play" button twice once our code is paused, but once we get through them we should see something like the following:
+
+![Showing that the console log works out the way expected once the map is changed](./working-ran-debugger-code.png)
+
+
+
+There we go! We're able to get the expected "23"! That said, it was annoying to have to press "play" twice. Maybe there's something else we can do in similar scenarios like this?
+
+# Disabling Breakpoints {#disabling-breakpoints}
+
