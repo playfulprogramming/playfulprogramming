@@ -43,8 +43,16 @@ app.listen(3000);
 ```
 
 You'll notice that we're using the dummy endpoint http://www.mocky.io/v2/5e1a9abe3100004e004f316b. This endpoint returns an array of values with a shape much like this:
-```
-[{"id":"1","employee_name":"","employee_salary":"0","employee_age":"0","profile_image":""}]
+```json
+[
+    {
+        "id": "1",
+        "employee_name": "Adam",
+        "employee_salary": "12322",
+        "employee_age": "23",
+        "profile_image": ""
+    }
+]
 ```
 
 But once you run the `app.js` file in Node, you'll see the `console.log`s of:
