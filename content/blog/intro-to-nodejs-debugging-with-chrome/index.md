@@ -180,7 +180,7 @@ Once you do so, you're in full control of your code and it's state. You can:
 - _Change the value of a variable_
   ![A screenshot of using the Console tab in order to change the value of a variable as you would any other JavaScript variable](./change-variable-value.png)
 - _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to
-- ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary-js.png)
+  ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary-js.png)
 
 ## Running Through Lines {#running-through-lines}
 
