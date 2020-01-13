@@ -182,7 +182,7 @@ Once you do so, you're in full control of your code and it's state. You can:
 - _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to
 - ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary-js.png)
 
-## Running Through Lines
+## Running Through Lines {#running-through-lines}
 
 But that's not all! Once you make changes (or introspect the values), you're also able to control the flow of your application. For example, you may have noticed the following buttons in the debug window:
 
@@ -228,7 +228,40 @@ As mentioned previously in an asside, you can disable breakpoints as simply as p
 
 ## Step Into {#debugger-step-into}
 
+In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered it's own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button
 
+![A showcase of a breakpoint on line 9 currently paused and a circle around the step into button](./step-inside.png)
+
+Let's say you're on line `9` and want to move into the `map` function. You can press the "step into" to move into line `10`.
+
+![The after effects of pressing the "step into" button after the screenshot above](./step-inside-part-2.png)
+
+Once inside the `map` function, there's even a button _to get you outside of that function and back to the parent caller's next line_. This might if you're inside of a lengthy `map` function, have debugged the line you wanted to inspect, and want to move past the `map` to the next line (the `console.log`). Doing so is as simple as "stepping in" a function, you simply press the "step outside" button to move to the next line
+
+![The "step outside" button being highlighted with a circle with the line 12 console log being paused](./step-outside.png)
+
+> While the example uses a callback in `map`, both of these "step into" and "step out of" also work on functions that are called. For example, assume the code was written as the following:
+>
+> ```javascript
+> const getEmployeeAges = partialList => {
+>   const ageArray = [];
+>   for (employee of partialList) {
+>     ageArray.push(employee.employee_age);
+>   }
+>   return ageArray;
+> };
+> 
+> app.get('/', (req, res) => {
+>   request('http://www.mocky.io/v2/5e1a9abe3100004e004f316b', (error, response, body) => {
+>     const responseList = JSON.parse(body);
+>     const partialList = responseList.slice(0, 20);
+>     const employeeAges = getEmployeeAges(partialList);
+>     console.log(employeeAges);
+>   });
+> });
+> ```
+>
+> You would still be able to "step into" `getEmployeeAges` and, once inside, "step outside" again in the same manor of the `map` function, as shown prior.
 
 # Saving Files {#editing-files-in-chrome}
 
