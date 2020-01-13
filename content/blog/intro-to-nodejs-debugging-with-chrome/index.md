@@ -153,7 +153,9 @@ Think about running your code like driving an experimental race-car. This car ha
 
 It's similar to a debug mode of your program. You can evaluate data using `console.log`, but _to gain greater insight, you may want to pause your application_, inspect the small details in the code during a specific state,  and to do so you must pause your code. This is where breakpoints come into play: they allow you to place "pause" points into your code so that when you reach the part of code that a breakpoint is present on, your code will pause and you'll be given much better insight to what your code is doing.
 
-To set a breakpoint from within the debugging screen, you'll want to select a code line number off to the left side of the screen. This will create a blue arrow on the line number.
+To set a breakpoint from within the debugging screen, you'll want to select a code line number off to the left side of the screen. This will create a blue arrow on the line number. 
+
+> If you accidentally select a line you didn't mean to, that's okay. Pressing this line again will disable the breakpoint you just created
 
 ![The blue arrow being added to line 7 of the app.js file](./breakpoint-add.png)
 
@@ -179,6 +181,8 @@ Once you do so, you're in full control of your code and it's state. You can:
   ![A screenshot of using the Console tab in order to change the value of a variable as you would any other JavaScript variable](./change-variable-value.png)
 - _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to
 - ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary-js.png)
+
+## Running Through Lines
 
 But that's not all! Once you make changes (or introspect the values), you're also able to control the flow of your application. For example, you may have noticed the following buttons in the debug window:
 
@@ -214,5 +218,17 @@ We will have to run through the breakpoints we've set by pressing the "play" but
 
 There we go! We're able to get the expected "23"! That said, it was annoying to have to press "play" twice. Maybe there's something else we can do in similar scenarios like this?
 
-# Disabling Breakpoints {#disabling-breakpoints}
+## Disabling Breakpoints {#disabling-breakpoints}
+
+As mentioned previously in an asside, you can disable breakpoints as simply as pressing the created breakpoint once again (pressing the line number will cause the blue arrow to disappear). However, you're also able to temporarily disable all breakpoints if you want to allow code to run normally for a time. To do this, you'll want to look in the same toolbar as the "play" and "skip" button. Pressing this button will toggle breakpoints from enabling or not. If breakpoints are disabled, you'll see that the blue color in the arrows next to the line number will become a lighter shade.
+
+![Showcasing the lighter shade with a red arrow over the mentioned button](./disabled-breakpoints.png)
+
+ Whereareas code used to pause when passing over breakpoints, they will now ignore your custom set breakpoints and keep running as normal.
+
+## Step Into {#debugger-step-into}
+
+
+
+# Saving Files {#editing-files-in-chrome}
 
