@@ -303,4 +303,6 @@ It's not just JavaScript files you're able to edit, though! You can click or use
 
 # Conclusion
 
-ASDF
+While we've covered a lot of functionality present within the Chrome debugger, there's still more to cover about it! If you'd like to read more about it, you may want to take a look at [the extensive blog series by the Chrome team](https://developers.google.com/web/tools/chrome-devtools/javascript) that gives a much deeper dive to all of the debugging tools present within Chrome. Luckily, the skills that you gain while debugging Node.JS applications carries over to debugging front-end JavaScript, so hopefully this article has helped introduce you to the myriad of tools that Chrome has to offer.
+
+Leave a comment down below if you have a question or comment, or feel free to join [our Discord](https://discord.gg/FMcvc6T) to have a direct line to us about the article (or just general tech questions)
