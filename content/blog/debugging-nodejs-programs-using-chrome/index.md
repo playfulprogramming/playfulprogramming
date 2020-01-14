@@ -12,7 +12,7 @@
 
 Debugging is one of the most difficult aspects of development. Regardless of skill level, experience, or general knowledge, every developer finds themselves in an instance where they need to drop down and start walking through the process. Many, especially those who are in complex environments or just starting on their developmental path, may utilize `console.log`s to help debug JavaScript applications. However, there is a tool for developers using Node.JS that makes debugging significantly easier in many instances.
 
-The tool I'm referring to is [the Node Debugger utility](https://nodejs.org/api/debugger.html). While this utility is powerful and helpful all on it's own, _it can be made even more powerful by utilizing the power of the Chrome debugger_ to attach to a Node debugable process in order to _provide you a GUI for a debugging mode_ in your Node.JS applications.
+The tool I'm referring to is [the Node Debugger utility](https://nodejs.org/api/debugger.html). While this utility is powerful and helpful all on its own, _it can be made even more powerful by utilizing the power of the Chrome debugger_ to attach to a Node debuggable process in order to _provide you a GUI for a debugging mode_ in your Node.JS applications.
 
 Let's look at how we can do so and how to use the Chrome debugger for such purposes
 
@@ -65,9 +65,9 @@ Instead of the ages of the employees as we might expect. We'll need to dive deep
 
 > You may have already spotted the error in this small code sample, but I'd still suggest you read on. Having the skillsets to run a debugger can help immeasurably when dealing with large-scale codebases with many moving parts or even when dealing with an unfamiliar, poorly documented API.
 
-# Starting The Debugger {#starting-the-debugger}
+# Starting the Debugger {#starting-the-debugger}
 
-Whereareas a typical Express application might have `package.json` file that looks something like this:
+Whereas a typical Express application might have `package.json` file that looks something like this:
 
 ```json
 {
@@ -149,7 +149,7 @@ Doing so will bring up a screen of your entrypoint file with the source code in 
 
 These line numbers are important for a simple reason: They allow you to add breakpoints. In order to explain breakpoints, allow me to make an analogy about debug mode to race-car driving.
 
-Think about running your code like driving an experimental race-car. This car has the ability to drive around the track, you can watch it run using bonoculars, but that doesn't give you great insight to if there's anything wrong with the car. If you want to take a closer inspection of a race-car, you need to have it pull out to the pit-stop in order to examine the technical aspects of the car before sending it off to drive again.
+Think about running your code like driving an experimental race-car. This car has the ability to drive around the track, you can watch it run using binoculars, but that doesn't give you great insight to if there's anything wrong with the car. If you want to take a closer inspection of a race-car, you need to have it pull out to the pit-stop in order to examine the technical aspects of the car before sending it off to drive again.
 
 It's similar to a debug mode of your program. You can evaluate data using `console.log`, but _to gain greater insight, you may want to pause your application_, inspect the small details in the code during a specific state,  and to do so you must pause your code. This is where breakpoints come into play: they allow you to place "pause" points into your code so that when you reach the part of code that a breakpoint is present on, your code will pause and you'll be given much better insight to what your code is doing.
 
@@ -173,7 +173,7 @@ Once your code runs through a breakpoint, this window should immediately raise t
 
 > If you don't see the `Console` tab at the bottom of the screen, as is shown here, you can bring it up by pressing the `Esc` key. This will allow you to do various interactions with your code that are outlined below
 
-Once you do so, you're in full control of your code and it's state. You can:
+Once you do so, you're in full control of your code and its state. You can:
 
 - _Inspect variable's values_ (either by highlighting the variable you're interested in, looking under the "scope" tab on the right sidebar, or using the `Console` tab to run inspection commands ala !!! [`console.table`](https://developer.mozilla.org/en-US/docs/Web/API/Console/table) or [`console.log`](https://developer.mozilla.org/en-US/docs/Web/API/Console/log))
 	![A screenshot of all three of the mentioned methods to inspect a variable's value](./inspect-variable-value.png)
@@ -192,13 +192,13 @@ Both of these buttons allow you to control where your debugger moves next. _The 
 
 So, if we want to see what happens after the `body` JSON variable is parsed into a variable, we could press the "next" button to the right to get to that line of code and pause once again.
 
-![A screenshot of the JSON being parsed into a few variables with some conosle logs to prove it did really parse and run the line above it](./next-line.png)
+![A screenshot of the JSON being parsed into a few variables with some console logs to prove it did really parse and run the line above it](./next-line.png)
 
  Knowing this, let's move through the next few lines manually by pressing each item. The ran values of the variables as they're assigned should show up to the right of the code itself in a little yellow box; This should help you understand what each line of code is running and returning without `console.log`ging or otherwise manually.
 
 ![A screenshot showing ran lines until line 12 of the "console.log". It shows that "employeeAges" is "[undefined]"](./next-few-lines.png)
 
-But oh no! You can see, `employeeAges` on line `9` is the one that results in the unintended `[undefined]`. It seems to be occuring during the `map` phase, so let's add in a breakpoint to line `10` and reload the `localhost:3000` page (to re-reun the function in question).
+But oh no! You can see, `employeeAges` on line `9` is the one that results in the unintended `[undefined]`. It seems to be occurring during the `map` phase, so let's add in a breakpoint to line `10` and reload the `localhost:3000` page (to re-run the function in question).
 
 Once you hit the first breakpoint on line `7`, you can press "play" once again to keep running until it hits the breakpoint on line `10`.
 
@@ -220,7 +220,7 @@ There we go! We're able to get the expected "23"! That said, it was annoying to 
 
 ## Disabling Breakpoints {#disabling-breakpoints}
 
-As mentioned previously in an asside, you can disable breakpoints as simply as pressing the created breakpoint once again (pressing the line number will cause the blue arrow to disappear). However, you're also able to temporarily disable all breakpoints if you want to allow code to run normally for a time. To do this, you'll want to look in the same toolbar as the "play" and "skip" button. Pressing this button will toggle breakpoints from enabling or not. If breakpoints are disabled, you'll see that the blue color in the arrows next to the line number will become a lighter shade.
+As mentioned previously in an aside, you can disable breakpoints as simply as pressing the created breakpoint once again (pressing the line number will cause the blue arrow to disappear). However, you're also able to temporarily disable all breakpoints if you want to allow code to run normally for a time. To do this, you'll want to look in the same toolbar as the "play" and "skip" button. Pressing this button will toggle breakpoints from enabling or not. If breakpoints are disabled, you'll see that the blue color in the arrows next to the line number will become a lighter shade.
 
 ![Showcasing the lighter shade with a red arrow over the mentioned button](./disabled-breakpoints.png)
 
@@ -228,7 +228,7 @@ As mentioned previously in an asside, you can disable breakpoints as simply as p
 
 ## Step Into {#debugger-step-into}
 
-In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered it's own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button
+In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered its own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button
 
 ![A showcase of a breakpoint on line 9 currently paused and a circle around the step into button](./step-inside.png)
 
