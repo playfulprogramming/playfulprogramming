@@ -1,6 +1,6 @@
 ---
 {
-	title: "Intro to NodeJS Debugging in Chrome",
+	title: "Debugging NodeJS Applications Using Chrome",
 	description: 'Learn how to interactively debug your NodeJS applications using a GUI-based debugger built into Chrome.',
 	published: '2020-01-14T05:12:03.284Z',
 	authors: ['crutchcorn'],
@@ -269,32 +269,37 @@ One more feature I'd like to touch on with the debugger before closing things ou
 
 ![The screenshot of the debugger with the original code](./initial-debugger.png)
 
-ASADF
+Once this window is open, you're able to tab into or use your cursor to select within the text container that holds your code. Once inside, it should work just like a `textarea`, which _allows you to change code as you might expect from any other code editor_. Changing line `10` to `return employee.employee_age` instead of `return employee.employeeAge` will show an astererisk (`*`) to let you know your changes are not persisting. _Running your code in this state will not reflect the changes made to the code content on the screen_, which may have unintended effects.
 
-![](./edited-but-not-saved.png)
+![Showing the asterisk once changes made but not saved](./edited-but-not-saved.png)
 
-ASDF 
+In order to make your changes persist, you'll need to press `Ctrl + S` or `Command + S` in order to save the file (much like a Word document). Doing so will bring up a yellow triangle instead of an asterisk indicating _your changes are not saved to the source file but your changes will now take effect_. Re-running the `localhost:3000` route will now correct the behavior you're wanting, but if you open `app.js` in a program like Visual Studio Code, it will show the older broken code.
 
-![](./temporarily-saved.png)
+![A screenshot showing the yellow triangle once this occurs](./temporarily-saved.png)
 
-In order to save the changes to the file system
+Not only does VS Code not recognize your changes, but once you close your debugging window, you won't know what you'd changed in order to get your code to work. While this may help in short debugging sessions, this won't do for a longer session of code changes. To do that, you'll want your changes to save to the local file system.
 
-![](./add-folder-to-workspace.png)
+## Persisting Changes {#chrome-as-ide-persist-changes}
+
+In order to save the changes from inside the Chrome to the file system, you need to permit Chrome access to read and write your files. To do this, you'll want to press the "Add folder to workspace" button off to the left of the code screen.
+
+![A red rectangle around "Add folder to workspace" button](./add-folder-to-workspace.png)
 
 Selecting the folder your `app.js` is present in will bring up the dialog to give Chrome permission to view the files and folders within. You'll need to press "Allow" in order to save your saves to your file system
 
-![](./allow-fs-usage.png)
+![A screenshot showing the "Allow"/"Deny" dialog](./allow-fs-usage.png)
 
-Then, you should be able to press `Ctrl + S` once again
+Once done, you should now see a list of the files and folders in the parent folder. It should automatically have highlights over the `app.js` file and remove the yellow triangle in favor of another asterisk.
 
-![](./fs-permitted-not-saved.png)
+![A screenshot as described in the previous paragraph](./fs-permitted-not-saved.png)
 
-Which will have the files to the left in a list view and the `*` that tells you you haven't saved your changes to the file system. Pressing `Ctrl + S` to save once again will save the changes to the file and remove the `*`.
-![](./fs-permitted-saved.png)
 
-ASDF
 
-![](./package-json.png)
+As I'm sure you've guessed, the asterisk indicates that you'll need to save the file again. Once done (using the key combo), the asterisk should disappear.
+
+It's not just JavaScript files you're able to edit, though! You can click or use your keyboard to navigate the file tree of the parent folder. Doing so will allow you to edit and save changes to _any_ file in the filesystem. This would include the `package.json` file in the folder 
+
+![A screenshot of the package json file being edited](./package-json.png)
 
 # Conclusion
 
