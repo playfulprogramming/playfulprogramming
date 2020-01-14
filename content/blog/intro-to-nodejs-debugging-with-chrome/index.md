@@ -265,3 +265,37 @@ Once inside the `map` function, there's even a button _to get you outside of tha
 
 # Saving Files {#editing-files-in-chrome}
 
+One more feature I'd like to touch on with the debugger before closing things out is the ability to edit the source files directly from the debugger. Using this feature, it can make the Chrome debugger a form of lite IDE, which may improve your workflow. So, let's revert our code to [the place it was at before we applied the fix we needed](#example-code) and go from there.
+
+![The screenshot of the debugger with the original code](./initial-debugger.png)
+
+ASADF
+
+![](./edited-but-not-saved.png)
+
+ASDF 
+
+![](./temporarily-saved.png)
+
+In order to save the changes to the file system
+
+![](./add-folder-to-workspace.png)
+
+Selecting the folder your `app.js` is present in will bring up the dialog to give Chrome permission to view the files and folders within. You'll need to press "Allow" in order to save your saves to your file system
+
+![](./allow-fs-usage.png)
+
+Then, you should be able to press `Ctrl + S` once again
+
+![](./fs-permitted-not-saved.png)
+
+Which will have the files to the left in a list view and the `*` that tells you you haven't saved your changes to the file system. Pressing `Ctrl + S` to save once again will save the changes to the file and remove the `*`.
+![](./fs-permitted-saved.png)
+
+ASDF
+
+![](./package-json.png)
+
+# Conclusion
+
+ASDF
