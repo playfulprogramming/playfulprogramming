@@ -61,6 +61,7 @@ module.exports = {
 			resolve: `gatsby-transformer-remark`,
 			options: {
 				plugins: [
+					`count-inline-code`,
 					{
 						resolve: `gatsby-remark-images`,
 						options: {
@@ -68,7 +69,6 @@ module.exports = {
 							linkImagesToOriginal: false
 						}
 					},
-					`count-inline-code`,
 					{
 						resolve: "gatsby-remark-video",
 						options: {

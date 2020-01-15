@@ -8,6 +8,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "unist-util-visit": "^1.4.0"
+    "unist-util-flat-filter": "^1.0.0"
   }
 }
