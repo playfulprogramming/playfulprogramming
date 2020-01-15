@@ -61,6 +61,7 @@
     "react-helmet": "^5.2.1",
     "react-paginate": "^6.3.0",
     "react-pose": "^4.0.9",
+    "unist-util-filter": "^2.0.1",
     "unist-util-visit": "^1.4.1"
   },
   "peerDependencies": {

@@ -68,6 +68,7 @@ module.exports = {
 							linkImagesToOriginal: false
 						}
 					},
+					`count-inline-code`,
 					{
 						resolve: "gatsby-remark-video",
 						options: {
