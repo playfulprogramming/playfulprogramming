@@ -14,11 +14,11 @@ Debugging is one of the most difficult aspects of development. Regardless of ski
 
 The tool I'm referring to is [the Node Debugger utility](https://nodejs.org/api/debugger.html). While this utility is powerful and helpful all on its own, _it can be made even more powerful by utilizing the power of the Chrome debugger_ to attach to a Node debuggable process in order to _provide you a GUI for a debugging mode_ in your Node.JS applications.
 
-Let's look at how we can do so and how to use the Chrome debugger for such purposes
+Let's look at how we can do so and how to use the Chrome debugger for such purposes.
 
 # Example Application {#example-code}
 
-Let's assume we're building an [Express server](https://expressjs.com/) in NodeJS. We're wanting to `GET` an external endpoint, and process that data, but we're having issues with the output data. Not quite sure where the issue resides, we decide to turn to the debugger.
+Let's assume we're building an [Express server](https://expressjs.com/) in NodeJS. We want to `GET` an external endpoint and process that data, but we're having issues with the output data. Since it's not clear where the issue resides, we decide to turn to the debugger.
 
 Let's use the following code as our example Express app:
 
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
     const responseList = JSON.parse(body); 
     const partialList = responseList.slice(0, 20);
     const employeeAges = partialList.map(employee => {
-      return employee.employeeAge
+      return employee.employeeAge;
     });
     console.log(employeeAges);
   });
@@ -43,6 +43,7 @@ app.listen(3000);
 ```
 
 You'll notice that we're using the dummy endpoint http://www.mocky.io/v2/5e1a9abe3100004e004f316b. This endpoint returns an array of values with a shape much like this:
+
 ```json
 [
     {
@@ -55,7 +56,7 @@ You'll notice that we're using the dummy endpoint http://www.mocky.io/v2/5e1a9ab
 ]
 ```
 
-But once you run the `app.js` file in Node, you'll see the `console.log`s of:
+Once you run the `app.js` file in Node, however, you'll see the `console.log`s of:
 
 ```javascript
 [ undefined ]
@@ -63,7 +64,7 @@ But once you run the `app.js` file in Node, you'll see the `console.log`s of:
 
 Instead of the ages of the employees as we might expect. We'll need to dive deeper to figure out what's going on, let's move forward with setting up and using the debugger.
 
-> You may have already spotted the error in this small code sample, but I'd still suggest you read on. Having the skillsets to run a debugger can help immeasurably when dealing with large-scale codebases with many moving parts or even when dealing with an unfamiliar, poorly documented API.
+> You may have already spotted the error in this small code sample, but I'd still suggest you read on. Having the skillsets to run a debugger can help immeasurably when dealing with large-scale codebases with many moving parts or even when dealing with an unfamiliar or poorly documented API.
 
 # Starting the Debugger {#starting-the-debugger}
 
@@ -85,6 +86,7 @@ Whereas a typical Express application might have `package.json` file that looks 
 ```
 
 We'll be adding one more `scripts` item for debug mode:
+
 ```json
 {
   "name": "example-express-debug-code",
@@ -137,7 +139,7 @@ At this point, _it will hang and not process the code or run it_. That's okay th
 
 # The Debugger {#the-debugger}
 
-In order to access the debugger, you'll need to open up Chrome and go to the URL `chrome://inspect`. You should see a list of selectable debug devices, including the node instance you just started
+In order to access the debugger, you'll need to open up Chrome and go to the URL `chrome://inspect`. You should see a list of selectable debug devices, including the node instance you just started.
 
 ![A list of inspectable devices from Chrome](./chrome-inspect.png)
 
@@ -149,7 +151,7 @@ Doing so will bring up a screen of your entrypoint file with the source code in 
 
 These line numbers are important for a simple reason: They allow you to add breakpoints. In order to explain breakpoints, allow me to make an analogy about debug mode to race-car driving.
 
-Think about running your code like driving an experimental race-car. This car has the ability to drive around the track, you can watch it run using binoculars, but that doesn't give you great insight to if there's anything wrong with the car. If you want to take a closer inspection of a race-car, you need to have it pull out to the pit-stop in order to examine the technical aspects of the car before sending it off to drive again.
+Think about running your code like driving an experimental race-car. This car has the ability to drive around the track, you can watch it run using binoculars, but that doesn't give you great insight as to whether there's anything wrong with the car. If you want to take a closer inspection of a race-car, you need to have it pull out to the pit-stop in order to examine the technical aspects of the car before sending it off to drive again.
 
 It's similar to a debug mode of your program. You can evaluate data using `console.log`, but _to gain greater insight, you may want to pause your application_, inspect the small details in the code during a specific state,  and to do so you must pause your code. This is where breakpoints come into play: they allow you to place "pause" points into your code so that when you reach the part of code that a breakpoint is present on, your code will pause and you'll be given much better insight to what your code is doing.
 
@@ -171,30 +173,31 @@ Once your code runs through a breakpoint, this window should immediately raise t
 
 ![A breakpoint paused on line 7 at the JSON parsing line](breakpoint-paused.png)
 
-> If you don't see the `Console` tab at the bottom of the screen, as is shown here, you can bring it up by pressing the `Esc` key. This will allow you to do various interactions with your code that are outlined below
+> If you don't see the `Console` tab at the bottom of the screen, as is shown here, you can bring it up by pressing the `Esc` key. This will allow you to interact with your code in various ways that are outlined below.
 
 Once you do so, you're in full control of your code and its state. You can:
 
-- _Inspect variable's values_ (either by highlighting the variable you're interested in, looking under the "scope" tab on the right sidebar, or using the `Console` tab to run inspection commands ala !!! [`console.table`](https://developer.mozilla.org/en-US/docs/Web/API/Console/table) or [`console.log`](https://developer.mozilla.org/en-US/docs/Web/API/Console/log))
+- _Inspect the values of variables_ (either by highlighting the variable you're interested in, looking under the "scope" tab on the right sidebar, or using the `Console` tab to run inspection commands à la [`console.table`](https://developer.mozilla.org/en-US/docs/Web/API/Console/table) or [`console.log`](https://developer.mozilla.org/en-US/docs/Web/API/Console/log)):
+
 	![A screenshot of all three of the mentioned methods to inspect a variable's value](./inspect-variable-value.png)
-- _Change the value of a variable_
+- _Change the value of a variable:_
   ![A screenshot of using the Console tab in order to change the value of a variable as you would any other JavaScript variable](./change-variable-value.png)
-- _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to
+- _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to:
   ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary-js.png)
 
 ## Running Through Lines {#running-through-lines}
 
-But that's not all! Once you make changes (or introspect the values), you're also able to control the flow of your application. For example, you may have noticed the following buttons in the debug window:
+But that's not all! Once you make changes (or inspect the values), you're also able to control the flow of your application. For example, you may have noticed the following buttons in the debug window:
 
 ![A red circle highlighting the "play" and "skip" buttons in the debugger](./breakpoint-paused-buttons.png)
 
-Both of these buttons allow you to control where your debugger moves next. _The button to the left_ is more of a "play/pause" button. Pressing this _will unpause your code and keep running it_ (with your variable changes in-tact) _until it hits the next breakpoint_. If this happens to be two lines down, then it will run the line in-between without pausing and then pause once it reached that next breakpoint.
+Both of these buttons allow you to control where your debugger moves next. _The button to the left_ is more of a "play/pause" button. Pressing this _will unpause your code and keep running it_ (with your variable changes intact) _until it hits the next breakpoint_. If this happens to be two lines down, then it will run the line in-between without pausing and then pause once it reached that next breakpoint.
 
 So, if we want to see what happens after the `body` JSON variable is parsed into a variable, we could press the "next" button to the right to get to that line of code and pause once again.
 
 ![A screenshot of the JSON being parsed into a few variables with some console logs to prove it did really parse and run the line above it](./next-line.png)
 
- Knowing this, let's move through the next few lines manually by pressing each item. The ran values of the variables as they're assigned should show up to the right of the code itself in a little yellow box; This should help you understand what each line of code is running and returning without `console.log`ging or otherwise manually.
+Knowing this, let's move through the next few lines manually by pressing each item. The ran values of the variables as they're assigned should show up to the right of the code itself in a little yellow box; This should help you understand what each line of code is running and returning without `console.log`ging or otherwise manually.
 
 ![A screenshot showing ran lines until line 12 of the "console.log". It shows that "employeeAges" is "[undefined]"](./next-few-lines.png)
 
@@ -208,7 +211,7 @@ This will allow us to see the value of `employee` to see what's going wrong in o
 
 ![A show of the "employee" object that has a property "employee_age"](./inspect-employee.png) 
 
-Oh! As we can see, the name of the field we're wanting to query is `employee_age`, not the mistakenly typo'd `employeeAge` property name we're currently using in our code. Let's stop our server, make the required changes, and then restart the application.
+Oh! As we can see, the name of the field we're trying to query is `employee_age`, not the mistakenly typo'd `employeeAge` property name we're currently using in our code. Let's stop our server, make the required changes, and then restart the application.
 
 We will have to run through the breakpoints we've set by pressing the "play" button twice once our code is paused, but once we get through them we should see something like the following:
 
@@ -224,11 +227,11 @@ As mentioned previously in an aside, you can disable breakpoints as simply as pr
 
 ![Showcasing the lighter shade with a red arrow over the mentioned button](./disabled-breakpoints.png)
 
- Whereareas code used to pause when passing over breakpoints, they will now ignore your custom set breakpoints and keep running as normal.
+Whereas code used to pause when reaching breakpoints, it will now ignore your custom set breakpoints and keep running as normal.
 
 ## Step Into {#debugger-step-into}
 
-In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered its own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button
+In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered its own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button.
 
 ![A showcase of a breakpoint on line 9 currently paused and a circle around the step into button](./step-inside.png)
 
@@ -269,11 +272,11 @@ One more feature I'd like to touch on with the debugger before closing things ou
 
 ![The screenshot of the debugger with the original code](./initial-debugger.png)
 
-Once this window is open, you're able to tab into or use your cursor to select within the text container that holds your code. Once inside, it should work just like a `textarea`, which _allows you to change code as you might expect from any other code editor_. Changing line `10` to `return employee.employee_age` instead of `return employee.employeeAge` will show an astererisk (`*`) to let you know your changes are not persisting. _Running your code in this state will not reflect the changes made to the code content on the screen_, which may have unintended effects.
+Once this window is open, you're able to tab into or use your cursor to select within the text container that holds your code. Once inside, it should work just like a `textarea`, which _allows you to change code as you might expect from any other code editor_. Changing line `10` to `return employee.employee_age` instead of `return employee.employeeAge` will show an asterisk (`*`) to let you know your changes have not yet been applied. _Running your code in this state will not reflect the changes made to the code content on the screen_, which may have unintended effects.
 
 ![Showing the asterisk once changes made but not saved](./edited-but-not-saved.png)
 
-In order to make your changes persist, you'll need to press `Ctrl + S` or `Command + S` in order to save the file (much like a Word document). Doing so will bring up a yellow triangle instead of an asterisk indicating _your changes are not saved to the source file but your changes will now take effect_. Re-running the `localhost:3000` route will now correct the behavior you're wanting, but if you open `app.js` in a program like Visual Studio Code, it will show the older broken code.
+In order to make your changes persist, you'll need to press `Ctrl + S` or `Command + S` in order to save the file (much like a Word document). Doing so will bring up a yellow triangle instead of an asterisk indicating _your changes are not saved to the source file but your changes will now take effect_. Re-running the `localhost:3000` route will now correct the behavior you want, but if you open `app.js` in a program like Visual Studio Code, it will show the older broken code.
 
 ![A screenshot showing the yellow triangle once this occurs](./temporarily-saved.png)
 
@@ -285,7 +288,7 @@ In order to save the changes from inside the Chrome to the file system, you need
 
 ![A red rectangle around "Add folder to workspace" button](./add-folder-to-workspace.png)
 
-Selecting the folder your `app.js` is present in will bring up the dialog to give Chrome permission to view the files and folders within. You'll need to press "Allow" in order to save your saves to your file system
+Selecting the folder your `app.js` is present in will bring up the dialog to give Chrome permission to view the files and folders within. You'll need to press "Allow" in order to save your saves to your file system.
 
 ![A screenshot showing the "Allow"/"Deny" dialog](./allow-fs-usage.png)
 
@@ -293,16 +296,14 @@ Once done, you should now see a list of the files and folders in the parent fold
 
 ![A screenshot as described in the previous paragraph](./fs-permitted-not-saved.png)
 
-
-
 As I'm sure you've guessed, the asterisk indicates that you'll need to save the file again. Once done (using the key combo), the asterisk should disappear.
 
-It's not just JavaScript files you're able to edit, though! You can click or use your keyboard to navigate the file tree of the parent folder. Doing so will allow you to edit and save changes to _any_ file in the filesystem. This would include the `package.json` file in the folder 
+It's not just JavaScript files you're able to edit, though! You can click or use your keyboard to navigate the file tree of the parent folder. Doing so will allow you to edit and save changes to _any_ file in the filesystem. This would include the `package.json` file in the folder.
 
 ![A screenshot of the package json file being edited](./package-json.png)
 
 # Conclusion
 
-While we've covered a lot of functionality present within the Chrome debugger, there's still more to cover about it! If you'd like to read more about it, you may want to take a look at [the extensive blog series by the Chrome team](https://developers.google.com/web/tools/chrome-devtools/javascript) that gives a much deeper dive to all of the debugging tools present within Chrome. Luckily, the skills that you gain while debugging Node.JS applications carries over to debugging front-end JavaScript, so hopefully this article has helped introduce you to the myriad of tools that Chrome has to offer.
+While we've covered a lot of functionality present within the Chrome debugger, there's still more to cover about it! If you'd like to read more about it, you may want to take a look at [the extensive blog series by the Chrome team](https://developers.google.com/web/tools/chrome-devtools/javascript) that offers a much deeper dive into all of the debugging tools present within Chrome. Luckily, the skills that you gain while debugging Node.JS applications carries over to debugging front-end JavaScript, so hopefully this article has helped introduce you to the myriad of tools that Chrome has to offer.
 
-Leave a comment down below if you have a question or comment, or feel free to join [our Discord](https://discord.gg/FMcvc6T) to have a direct line to us about the article (or just general tech questions)
+Leave a comment down below if you have a question or comment, or feel free to join [our Discord](https://discord.gg/FMcvc6T) to have a direct line to us about the article (or just general tech questions).
