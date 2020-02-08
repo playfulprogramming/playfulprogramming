@@ -61,7 +61,7 @@
     "react-helmet": "^5.2.1",
     "react-paginate": "^6.3.0",
     "react-pose": "^4.0.9",
-    "unist-util-visit": "^1.4.1"
+    "unist-util-flat-filter": "^1.0.0"
   },
   "peerDependencies": {
     "@reach/router": "^1.1.1"
@@ -106,6 +106,7 @@
   },
   "scripts": {
     "build": "gatsby build",
+    "debug": "gatsby clean && node --nolazy --inspect-brk ./node_modules/.bin/gatsby develop",
     "develop": "gatsby develop",
     "format": "run-s format:**",
     "format:js": "eslint --fix ./src",
