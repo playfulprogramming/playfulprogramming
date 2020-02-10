@@ -10,9 +10,9 @@
 }
 ---
 
-We'll need to signup for a developer account and create an app to host our applicaiton logic:
+# Initial Signup {#signup-for-dev-account}
 
-https://api.slack.com/apps
+We'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps)
 
 ![The create app dialog once pressed "create app"](./create-app-dialog.png)
 
@@ -83,7 +83,7 @@ Then, in your `package.json`, you can edit your `start` command to reflect the f
 }
 ```
 
-## Development Hosting {#development-environment-setup}
+# Development Hosting {#development-environment-setup}
 
 In order to have these events called, we'll need to get a public URL to route to. In order to do this, we can use `ngrok` to host a public URL in our local environment:
 
@@ -139,9 +139,25 @@ But here we're requesting `message.channels`, how do we know that those two matc
 
 You can actually check the event `type` from [the API reference documentation](https://api.slack.com/events/message.channels) to see that the `type`s match up.
 
-## Installation {#development-installation}
+# Development App Installation {#development-installation}
 
-## Deployment {#deployment}
+You'll notice, as I first did, that if you start your server with `npm start` and then send a message to a public channel that you'll notice something in your terminal. Or, well, rather, a lack of something in your terminal. The `console.log` that you expect to've ran isn't doing so - why is that?
+
+That's because the app isn't actually enabled in your workspace yet (A real 🤦‍♂️ for me when I discovered this one)
+
+To do so, check the sidebar to the right of your Slack API homepage for the `install` section
+
+![The preview of the "install" page](./install_app.png)
+
+Simply click `Install App to Workspace`, then `Allow` to give permissions to add the app to your workspace.
+
+> Keep in mind, folks can use Slack for personal communication. You may want to give folks in your workspace a heads-up or simply create a new Slack workspace for testing
+
+Once this is done, you can send a test message to a public channel and see it printed out in your console!
+
+![A showcase of the message "Hello, World" being sent to the app](./hello_world.png) 
+
+# Deployment {#deployment}
 
 We'll then want to deploy
 
