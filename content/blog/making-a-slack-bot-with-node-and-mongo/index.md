@@ -10,34 +10,46 @@
 }
 ---
 
+Modern-day remote live communication has never been as efficient or fast as it is today. You're able to use services like Slack to join huge multi-channel communication workspaces for pleasure or buisness. These channels are often able to be super-powered by in-chat bots and applications that can inform you of new information from external services or even add new functionality to the chat. Luckily for us, Slack has put a lot of effort into making these extensions to Slack easy to write.
+
+One way they've eased the effort of their creation is by providing an SDK for Node developers to take and create extensions with. This post will outline how we can create a Slack bot to add functionality to chats.
+
+
 # Initial Signup {#signup-for-dev-account}
 
-We'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps)
+To start, we'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps). This will allow us to create new Slack apps and bots to add into our workspace.
 
 ![The create app dialog once pressed "create app"](./create-app-dialog.png)
 
+Enter in an app name, and assign the workspace you want the app to live during development. Once done, you should be greeted by a dashboard for your Slack app. You'll want to keep this screen open during development, as we'll be refering to it throughout this post. 
+
 ![The initial screen that'll be shown when a new app is created](./initial-screen.png)
 
-We're even able to customize the look of our application in our Slack settings:
+This screen (and the tabs off to the side) are able to configure all of the interactions with Slack that we'll build upon with our code. We're even able to customize the look of our application in our Slack settings at the bottom of this homepage.
 
 ![Towards the bottom of the intial page will show how to customize the description and such](./display-info.png)
 
-Luckily for us, Slack provides a SDK to provide functionality to a Slack app:
+As mentioned previously, Slack provides an SDK for Node applications. [You can find the homepage for the npm package at the following URL.](https://github.com/slackapi/node-slack-sdk)
 
-https://github.com/slackapi/node-slack-sdk
+In order to quickly set up the SDK, we'll create a new directory for our code to live. Once we have a clear directory, we can run:
 
-In order to quickly set it up, we'll run the following command:
+```
+npm init -y
+```
+
+To setup an initial `package.json`. Once we have a `package.json`, we can add the packages we require to use the Slack SDK:
 
 ```
 npm install @slack/web-api @slack/events-api
 ```
 
-We'll then be able to use their example API:
+After this, we'll then be able to use their example API from the README of their project as a baseline to our app:
 
 ```javascript
 // index.js
 // Initialize using signing secret from environment variables
 const { createEventAdapter } = require('@slack/events-api');
+// Slack requires a secret key to run your bot code. We'll find and figure out this signing secret thing in the next steps
 const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
 const port = process.env.PORT || 3000;
 
@@ -56,18 +68,18 @@ slackEvents.start(port).then(() => {
 });
 ```
 
-This will `console.log` every time a user sends a message. 
-Save this to `index.js`. 
+This code is what we'll need to run a `console.log` every time a user sends a message. However, we'll need to setup more to get this code actually running due to Slack's permissions systems and such. For now, we'll save this code to `index.js` in the same folder we saved our `package.json` file.
 
-Another thing that will need to be kept in mind is how to store the signing secret. As the above code hints at, it's suggested to use an environmental file or configuration.
 
-To make development easier, we'll setup a `.env` file with the expected credentials and run `env-cmd` to host all of our projects:
+Another thing that was mentioned in the code sample was the `process.env.SLACK_SIGNING_SECRET`. This is the key that Slack will use to connect your code to your workspace. We'll want to keep in mind how to store the signing secret (as the name implies, we want to keep this key a secret as otherwise anyone can highjack your Slack app). As the above code hints at, it's suggested to use an environmental file or configuration.
+
+While environmental variables are typically assigned by system configurations, to make development easier, we'll setup a `.env` file with the expected credentials. Then, to inject the `.env` file contents into our `process`, we'll run our code using [the `env-cmd` package](https://www.npmjs.com/package/env-cmd). We'll start by installing the package:
 
 ```
 npm i env-cmd
 ```
 
-This will look for a `.env` file and inject it into your command that follows `env-cmd`. So, for example, you can make a new file called `.env` and place the following contents in it:
+This package will look for a `.env` file and inject it into your command that follows `env-cmd`. So, for example, you can make a new file called `.env` and place the following contents in it:
 
 ```
 SLACK_SIGNING_SECRET=<SIGNING_SECRET_FROM_HOMESCREEN>
@@ -83,6 +95,8 @@ Then, in your `package.json`, you can edit your `start` command to reflect the f
 }
 ```
 
+Now, whenever your code shows `process.env.SLACK_SIGNING_SECRET`, it'll represent the value present in your `.env` file
+
 # Development Hosting {#development-environment-setup}
 
 In order to have these events called, we'll need to get a public URL to route to. In order to do this, we can use `ngrok` to host a public URL in our local environment:
@@ -93,7 +107,7 @@ npx ngrok http 3000
 ```
 
 > Keep in mind that this should NOT be used to host your Slack application when you're ready to publish.
-> This should only be used during development process. In order to see how to deploy, you'll want to checkout [the section on doing so using Heroku](#heroku)
+> This should only be used during development process. In order to see how to deploy, you'll want to checkout [the section on doing so using Heroku](#deployment)
 
 After doing so, you should be given an `ngrok.io` subdomain to map to your local IP address with a message like the following:
 
@@ -256,6 +270,9 @@ The above code should
 
 ## Adding State {#interactive-local-state}
 
+
+
+## Adding a Database
 
 # Deployment {#deployment}
 
