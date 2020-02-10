@@ -14,7 +14,6 @@ Modern-day remote live communication has never been as efficient or fast as it i
 
 One way they've eased the effort of their creation is by providing an SDK for Node developers to take and create extensions with. This post will outline how we can create a Slack bot to add functionality to chats.
 
-
 # Initial Signup {#signup-for-dev-account}
 
 To start, we'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps). This will allow us to create new Slack apps and bots to add into our workspace.
@@ -68,10 +67,9 @@ slackEvents.start(port).then(() => {
 });
 ```
 
-This code is what we'll need to run a `console.log` every time a user sends a message. However, we'll need to setup more to get this code actually running due to Slack's permissions systems and such. For now, we'll save this code to `index.js` in the same folder we saved our `package.json` file.
+This code is what we'll need to run a `console.log` every time a user sends a message. However, _we'll need to setup more to get this code actually running due to Slack's permissions systems_ and such. For now, we'll save this code to `index.js` in the same folder we saved our `package.json` file.
 
-
-Another thing that was mentioned in the code sample was the `process.env.SLACK_SIGNING_SECRET`. This is the key that Slack will use to connect your code to your workspace. We'll want to keep in mind how to store the signing secret (as the name implies, we want to keep this key a secret as otherwise anyone can highjack your Slack app). As the above code hints at, it's suggested to use an environmental file or configuration.
+Another thing that was mentioned in the code sample was the `process.env.SLACK_SIGNING_SECRET`. This is the key that Slack will use to connect your code to your workspace. We'll want to keep in mind how to store the signing secret (as the name implies, _we want to keep this key a secret as otherwise anyone can highjack your Slack app_). As the above code hints at, it's suggested to use an environmental file or configuration.
 
 While environmental variables are typically assigned by system configurations, to make development easier, we'll setup a `.env` file with the expected credentials. Then, to inject the `.env` file contents into our `process`, we'll run our code using [the `env-cmd` package](https://www.npmjs.com/package/env-cmd). We'll start by installing the package:
 
@@ -79,13 +77,13 @@ While environmental variables are typically assigned by system configurations, t
 npm i env-cmd
 ```
 
-This package will look for a `.env` file and inject it into your command that follows `env-cmd`. So, for example, you can make a new file called `.env` and place the following contents in it:
+This package will look for a `.env` file and inject it into your command that follows `env-cmd`. So, for example, you can **make a new file called `.env` and place the following contents in it**:
 
 ```
 SLACK_SIGNING_SECRET=<SIGNING_SECRET_FROM_HOMESCREEN>
 ```
 
-Then, in your `package.json`, you can edit your `start` command to reflect the following:
+Then, in your `package.json`, you can **edit your `start` command** to reflect the following:
 
 ```
 {
@@ -99,7 +97,7 @@ Now, whenever your code shows `process.env.SLACK_SIGNING_SECRET`, it'll represen
 
 # Development Hosting {#development-environment-setup}
 
-In order to have these events called, we'll need to get a public URL to route to. In order to do this, we can use `ngrok` to host a public URL in our local environment:
+In order to have these events called, we'll need to get a public URL to route to our local development server. In order to do this, we can [use `ngrok`](https://github.com/inconshreveable/ngrok) to host a public URL in our local environment:
 
 ```
 npm i -D ngrok
@@ -117,23 +115,25 @@ Forwarding https://9fca9f3e.ngrok.io -> http://localhost:3000
 
 ![Showing ngrok running in the terminal](./ngrok-running.png)
 
-We're now able to use this URL as a map to the external world to the local environment we're in. So, for example, in order to add in the events subscription to our current code, we'll run the following commmand:
+We're now able to use this URL as a map to the external world to the local environment we're in. This is how we'll tell Slack to run our `index.js` file when we recieve a new event.
+
+However, there's yet another step to enable the functionality. Slack, in order to ensure a more strict security, wants to ensure that you own this domain. As such, they have _a utility you'll need to run to ensure that you own this domain_. So, for example, in order to add in the events subscription to our current code, we'll run the following commmand:
 
 ```
 ./node_modules/.bin/slack-verify --secret <signing_secret>
 ```
 
-Where the `<signing_secret>` is the same signing secret from the homepage you landed on upon creating a new Slack app
+Where the `<signing_secret>` is the same signing secret from the `.env` file.
 
 ![Showing the command running](./slack-verify.png)
 
-With this command still running, you can press on the "Add features and functionality" tab in the homescreen, then press "Event Subscriptions".
+With this command still running, you can **press on the "Add features and functionality" tab** in the homescreen you saw when you first created your Slack app in the browser. Once the "features and functionality" is open, **press "Event Subscriptions"**.
 
-This will bring you to a page with an "On/Off" toggle. Toggle it to "On" and add the `ngrok` domain in the request URL
+This will bring you to a page with an "On/Off" toggle. **Toggle it to "On"** and **add the `ngrok` domain** in the request URL.
 
 ![Adding the ngrok domain into the "event subscription" area](./event-subscription-enable.png)
 
-But the domain isn't saved yet. We first need to add workspace events to subscribe to. This is to ensure that any app doesn't simply have root permissions to everything for privacy and security's sake
+This should show "Verified" to explain that your domain is verified to have belonged to you, but the domain isn't saved yet; We first need to **add workspace events to subscribe to**. This is to ensure that any app doesn't simply have root permissions to everything for privacy and security's sake and instead has to ask for grainular permissions.
 
 ![Searching for oauth permissions to add to the event handler](./searching_events.png)
 
@@ -149,7 +149,7 @@ slackEvents.on('message', (event) => {
 });
 ```
 
-But here we're requesting `message.channels`, how do we know that those two match each other?
+I can hear you asking "But here we're requesting `message.channels`, how do we know that those two match each other?"
 
 You can actually check the event `type` from [the API reference documentation](https://api.slack.com/events/message.channels) to see that the `type`s match up.
 
@@ -272,7 +272,7 @@ The above code should
 
 
 
-## Adding a Database
+# Adding a Database {#mongodb}
 
 # Deployment {#deployment}
 
