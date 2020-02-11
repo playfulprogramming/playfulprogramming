@@ -8,6 +8,7 @@
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
+
 ---
 
 Modern-day remote live communication has never been as efficient or fast as it is today. You're able to use services like Slack to join huge multi-channel communication workspaces for pleasure or buisness. These channels are often able to be super-powered by in-chat bots and applications that can inform you of new information from external services or even add new functionality to the chat. Luckily for us, Slack has put a lot of effort into making these extensions to Slack easy to write.
@@ -171,8 +172,6 @@ Once this is done, you can send a test message to a public channel and see it pr
 
 ![A showcase of the message "Hello, World" being sent to the app](./hello_world.png)
 
-
-
 # App Interactivity {#interactive-message-package}
 
 While listening to events alone can be very useful in some circumstances, oftentimes having a way to interact with you application can be very helpful. As a result, the Slack SDK also includes the `@slack/interactive-messages` package to help you provide interactions with the user more directly. Using this package, you can respond to the user's input. For example, let's say we wanted to reproduce the [PlusPlus](https://go.pluspl.us/) Slackbot as a way to track a user's score. 
@@ -183,38 +182,34 @@ We want to have the following functionality for an MVP:
 - `@UserOrThing--`: A way to remove a point from a user or thing
 - `@PointsRUs leaderboard`: A flat list of the items/people with points
 
-Each of these messages will prompt the bot to respond with a message in the same channel. Ideally we'd use a database to store score for long-term projects, but for the interim, let's use in-memory storage
-
-
+Each of these messages will prompt the bot to respond with a message in the same channel. Ideally we'd use a database to store score for long-term projects, but for the interim, let's use in-memory storage for an MVP of the interactivity we're hoping for.
 
 ## Setup {#interactive-bot-setup}
 
-First and foremost, something you'll need to do is add a new OAuth permission to enable the functionality for the bot to write to the channel
-![](./chat_write_bot_oauth.png)
+First and foremost, something you'll need to do is add a new OAuth permission to enable the functionality for the bot to write to the channel. Go into the dashboard and go to the "OAuth & Permissions" tab. The second section of the screen should be called "Scopes", where you can add the `chat:write:bot` permission.
+![The permissions searching for "chat" which shows that "chat:write:bot" permission we need to add](./chat_write_bot_oauth.png) 
 
-After enabling the new Oauth permission, you'll need to reinstall your app. This is because you're changing the permissions of your apps and you need to accept the new permissions when you reinstall the app. If you scroll to the top of the same Oauth page, you should see a `Reinstall App` button that will help you do this easily
+After enabling the new Oauth permission, you'll need to reinstall your app. This is because you're changing the permissions of your apps and you need to accept the new permissions when you reinstall the app. If you scroll to the top of the same OAuth page, you should see a `Reinstall App` button that will help you do this easily
 
-Once this is done, you can access the oauth token for the installation of your workspace. This token will enable us to send messages to the workspace itself. This token is unique per-workspace, so if you're intending for a broader release of your bot (to be easily added with a single button click), you'll likely need to walk through their oauth token request system. Since this is meant as an introductory look, we'll just copy this token and store it into our `.ENV` file,
+![The top of the "OAuth & Permissions" screen that shows that access token and the "Reinstall app" button](./oauth_tokens.png)
 
+Once this is done, you can access the OAuth token for the fresh installation of your workspace. This token will enable us to send messages to the workspace itself. It acts as a user-login of sorts for your Slack bot.
 
+> This token is unique per-workspace, so if you're intending for a broader release of your bot (to be easily added to multiple workspaces with a single button click), you'll likely need to [walk through their OAuth token request system](https://api.slack.com/authentication/oauth-v2#asking). Since this is meant as an introductory look at their APIs, we'll simply keep things locally and copy-paste.
 
-![](./oauth_tokens.png)
+Copying the token from the top of the screen, store it into our `.ENV` file so that we can utilize it in our application. I named the environmental variable `OAUTH_TOKEN`, so when you see that in code examples, know that this is in reference to this value
 
+## The Code {#leaderboard-local-code}
 
-
-You'll want to place this into your `.ENV` file. I named the environmental variable `OAUTH_TOKEN`, so when you see that in code examples, know that this is in reference to this value
-
-## The Code {#inmemory-state-code}
-
-To start, we need to install the package that'll allow us to use the web API:
+To start adding in response functionality, we need to install the package that'll allow us to use the web API:
 
 ```
 npm i @slack/web-api
 ```
 
-The web API should enable us to use the [`postMessage`](https://api.slack.com/methods/chat.postMessage) method to send messages to a channel when they send a message
+The web API should enable us to use the [`postMessage`](https://api.slack.com/methods/chat.postMessage) method to send messages to a channel when they send a message.
 
-Once this is installed, we're able to instanciate the web API with the oauth token we grabbed earlier
+Once this is installed, we're able to instantiate the web API with the OAuth token we grabbed earlier
 
 ```javascript
 const { WebClient } = require('@slack/web-api');
@@ -266,31 +261,43 @@ slackEvents.start(port).then(() => {
 });
 ```
 
-The above code should 
+As it did before, the code will listen for every message we send. Then, we listen for any time the user typed the message `@pointsrus leaderboard` and responds with a placeholder value when they do so. We're making sure to use the same channel ID by using the `event.channel` property.
+
+> Remember, the channel ID is not the same thing as the human-readable channel name. It's a unique ID generated by Slack and as such you'd have to use the API to get the channel ID if you only knew the human-readable name
 
 ## Adding State {#interactive-local-state}
 
+Luckily for our MVP, we've already outlined that we won't be using a database for the initial version of the bot. As such, we're able to keep a simple object as statefulness and simply mutate the object to keep track of what's being scored.
+
+For example, given a mutable `state` variable, we can do actions to read and write as such:
+
 ```javascript
-const { createEventAdapter } = require('@slack/events-api');
-const { WebClient } = require('@slack/web-api');
+const state = {};
+state.word1 = 1;
+state.word1 = state.word1 + 1;
+state.word2 = -1;
+console.log(state); // {word1: 2, word2: -1}
+```
+
+Following this pattern, let's go through and add a few lines of code to the last example to fulfill the expected behavior:
+
+```javascript
 const { tablize } = require('batteries-not-included/utils');
-
-const token = process.env.OAUTH_TOKEN;
-const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
-
-const slackEvents = createEventAdapter(slackSigningSecret);
-const web = new WebClient(token);
-const port = process.env.PORT || 3000;
 
 /**
  * @type <Record<string, number>> A record of the word and score. Should start at 0
- * This should be replaced by a database for persistence. This is just a demo
+ * This should be replaced by a database for persistence. This is just a demo and as
+ * such simply mutates this object to be stateful
  */
 const state = {};
 
+/**
+ * A function that accepts a string, then returns the action and the word to score
+ */
 const getIsPlusOrMinus = str => {
 	// Accept em-dash for cases like MacOS turning -- into an emdash
 	const plusOrMinusRegex = /\@(\w+?)(\-{2}|\+{2}|\—{1})/;
+  // The first item in the array is the full string, then the word to score, then the opperator
 	const [_, itemToScore, scoreStr] = plusOrMinusRegex.exec(str) || [];
 	switch (scoreStr) {
 		case '--':
@@ -307,8 +314,11 @@ slackEvents.on('message', async event => {
 	console.log(`Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
 
 	const { action, word } = getIsPlusOrMinus(event.text);
+  // If the `event.text` did not include a score (of plus or minus), it will return `{}`
+  // And therefore `action` will be `undefined`
 	if (action) {
 		const currentState = state[word] || 0;
+    // Mutate the state to update the score of the word.
 		state[word] = action == 'add' ? currentState + 1 : currentState - 1;
 		const actionString = action == 'add' ? 'had a point added' : 'had a point removed';
 		const result = await web.chat.postMessage({
@@ -332,15 +342,9 @@ slackEvents.on('message', async event => {
 		console.log(`Successfully send message ${result.ts} in conversation ${event.channel}`);
 	}
 });
-
-slackEvents.on('error', console.error);
-
-slackEvents.start(port).then(() => {
-	console.log(`server listening on port ${port}`);
-});
 ```
 
-
+As you can see, we're able to add in the functionality for the score keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/unicorn-utterances/batteries-not-included) in order to provide an ASCII table for our output.
 
 # Adding a Database {#mongodb}
 
