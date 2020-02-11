@@ -348,47 +348,55 @@ As you can see, we're able to add in the functionality for the score keeping rel
 
 # Adding a Database {#mongodb}
 
-In order to keep our app setup as trivial as possible, we'll be using MongoDB Atlas, which allows us to have a serverless MongoDB server at our disposal.
+However, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use MongoDB in order to keep our data stored.
 
-After [signing up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile), you'll need to "Build a new cluster" in order to create a database for your Slack app
+> This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
+
+To stay consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB server at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile). 
+
+Once done, you'll need to "Build a new cluster" in order to create a database cluster for your Slack app.
 
 ![An image of the "Build a new cluster" button](build_a_new_cluster.png)
 
-From here, you'll select the cloud provider you'll want to host your database. There's AWS, Google Cloud Platform, and Azure. All three of these options have a Free tier that you can use to host smaller applications
+From here, you'll select the cloud provider you'll want to host your database. There's AWS, Google Cloud Platform, and Azure. All three of these options have a Free tier that you can use to host smaller applications and have **plenty** of storage and runtime for smaller projects.
 
 ![The "create new cluster" screen with a price of $0.54 an hour](./create_new_cluster.png)
 
-> While all three have free tiers, you're limited to one free cluster per account. I have already created one, which is why it shows the price. Yours should be free if you select one of the "Free tier available" hosting locations and read the instructions
+> While all three have free tiers, you're limited to one free cluster per account. I have already created one, which is why it shows the price in the screenshot above. Yours should be free if you select one of the "Free tier available" hosting locations and read the instructions
 
-Once the cluster is created, it may take some time 
-
-
+Once the cluster is created, it may take some time to propagate the changes to the hosting solution itself. Once it is done, however, we're able to create a new user for database access. This will allow you to create a user for your MongoDB code to connect to a make interactions. Go to the "Database Access" tab of Atlas and press "Add New User",
 
 ![The "Database Access" screen with a "Add new user" button](./database_access.png)
 
 
 
-asdf
-
-
+Once there, you'll add a username and password. You'll also want to enable the permission to read and write to a database, seeing as we'll be editing the scores collection in the database.
 
 ![A new user creation screen with "dbuser" and "dbpass" as the username and password. Selected to have "full read and write" permissions](./new_db_user.png)
 
-
-
 > Be sure to remember that password! You'll want to store it in your .ENV file as plain text (so be sure you're on a secured computer! You do not want to store your passwords in such insecure ways for production)
 
-![](./db_connect_1.png)
+We'll store the MongoDB username and password into our `.ENV` file. The username under `MONGOUSER` and the password under `MONGOPASS`.
 
-asdf
+Once this is done, we'll want to go back to the homepage of the Atlas cluster. You should then see a button labeled "Connect". Press that to start the instructions for how to connect our Node code to MongoDB.
 
-![](./db_connect_2.png)
+![The image of the cluster0 with the "connect" button highlighted](./mongodb_atlas_connect.png)
+
+This will bring up the dialog of cluster. You'll see different connection options for Mongo Shell, Compass, or various drivers. Since we'll be using the NodeJS driver to connect our code, we'll select "Connect Your Application"
+
+![Showing the first dialog of "create cluster"](./db_connect_1.png)
+
+This will bring up a dialog where you can select the _Node.JS_ driver. This will give you the connection string with `<username>` and `<password>` that you'll need to replace with the credentials we created earlier.
+
+![The dialog that shows connection string to add to NodeJS code](./db_connect_2.png)
 
 This string is called the _connection string_ which is [an URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier). This URI will be used to connect your code to the database you just created. Let's store that string [in a template literal, which will allow us to interpolate variables into the string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) for the password:
 
 ```javascript
-const uri = `mongodb+srv://databaseuser:${mongoPass}@cluster0-xxxxx.mongodb.net/test?retryWrites=true&w=majority`; 
+const uri = `mongodb+srv://${mongoUser}:${mongoPass}@cluster0-xxxxx.mongodb.net/test?retryWrites=true&w=majority`; 
 ```
+
+Now that we understand the URI we need to pass to the Node driver to connect to the database, we'll dive into the code we need to change to enable MongoDB.
 
 ## The Code {#mongodb-code}
 
@@ -400,9 +408,11 @@ const { tablize } = require('batteries-not-included/dist/utils/index.js');
 
 const token = process.env.OAUTH_TOKEN;
 const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
+// Grab the MongoDB password and username we stored in our env file
 const mongoPass = process.env.MONGOPASS;
+const mongoUser = process.env.MONGOUSER;
 const port = process.env.PORT || 3000;
-const uri = `mongodb+srv://databaseuser:${mongoPass}@cluster0-xxxxx.mongodb.net/test?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${mongoUser}:${mongoPass}@cluster0-xxxxx.mongodb.net/test?retryWrites=true&w=majority`;
 
 const slackEvents = createEventAdapter(slackSigningSecret);
 const web = new WebClient(token);
@@ -412,6 +422,7 @@ const dbClient = new MongoClient(uri, { useNewUrlParser: true });
 dbClient.connect(err => {
 	// Show any errors that showup in the 
 	if (err) console.error(err);
+  // Connect to the test database in a cluster. Connect to the scores collection in that database
 	const collection = dbClient.db('test').collection('scores');
 
 	const getIsPlusOrMinus = str => {
@@ -492,7 +503,14 @@ dbClient.connect(err => {
 });
 ```
 
+If you do a diff against the previous code, you'll see that we were able to add the database using only 4 or 5 new operations. These operations are to:
 
+- Connect to the Mongo driver
+- Create a new connection to the database
+- An update and get query
+- A find query to list the leaderboard
+
+Now that we have the code updates, let's get to deploying
 
 # Deployment {#deployment}
 
