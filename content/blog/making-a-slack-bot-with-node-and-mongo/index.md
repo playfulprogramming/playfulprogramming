@@ -19,15 +19,15 @@ One way they've eased the effort of their creation is by providing an SDK for No
 
 To start, we'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps). This will allow us to create new Slack apps and bots to add into our workspace.
 
-![The create app dialog once pressed "create app"](./create-app-dialog.png)
+![The create app dialog once pressed "create app"](./create_app_dialog.png)
 
 Enter in an app name, and assign the workspace you want the app to live during development. Once done, you should be greeted by a dashboard for your Slack app. You'll want to keep this screen open during development, as we'll be refering to it throughout this post. 
 
-![The initial screen that'll be shown when a new app is created](./initial-screen.png)
+![The initial screen that'll be shown when a new app is created](./initial_screen.png)
 
 This screen (and the tabs off to the side) are able to configure all of the interactions with Slack that we'll build upon with our code. We're even able to customize the look of our application in our Slack settings at the bottom of this homepage.
 
-![Towards the bottom of the intial page will show how to customize the description and such](./display-info.png)
+![Towards the bottom of the intial page will show how to customize the description and such](./display_info.png)
 
 As mentioned previously, Slack provides an SDK for Node applications. [You can find the homepage for the npm package at the following URL.](https://github.com/slackapi/node-slack-sdk)
 
@@ -114,7 +114,7 @@ After doing so, you should be given an `ngrok.io` subdomain to map to your local
 Forwarding https://9fca9f3e.ngrok.io -> http://localhost:3000
 ```
 
-![Showing ngrok running in the terminal](./ngrok-running.png)
+![Showing ngrok running in the terminal](./ngrok_running.png)
 
 We're now able to use this URL as a map to the external world to the local environment we're in. This is how we'll tell Slack to run our `index.js` file when we recieve a new event.
 
@@ -126,13 +126,13 @@ However, there's yet another step to enable the functionality. Slack, in order t
 
 Where the `<signing_secret>` is the same signing secret from the `.env` file.
 
-![Showing the command running](./slack-verify.png)
+![Showing the command running](./slack_verify.png)
 
 With this command still running, you can **press on the "Add features and functionality" tab** in the homescreen you saw when you first created your Slack app in the browser. Once the "features and functionality" is open, **press "Event Subscriptions"**.
 
 This will bring you to a page with an "On/Off" toggle. **Toggle it to "On"** and **add the `ngrok` domain** in the request URL.
 
-![Adding the ngrok domain into the "event subscription" area](./event-subscription-enable.png)
+![Adding the ngrok domain into the "event subscription" area](./event_subscription_enable.png)
 
 This should show "Verified" to explain that your domain is verified to have belonged to you, but the domain isn't saved yet; We first need to **add workspace events to subscribe to**. This is to ensure that any app doesn't simply have root permissions to everything for privacy and security's sake and instead has to ask for grainular permissions.
 
