@@ -86,7 +86,7 @@ SLACK_SIGNING_SECRET=<SIGNING_SECRET_FROM_HOMESCREEN>
 
 Then, in your `package.json`, you can **edit your `start` command** to reflect the following:
 
-```
+```json
 {
   "scripts": {
     "start": "env-cmd node ./index.js"
@@ -510,11 +510,114 @@ If you do a diff against the previous code, you'll see that we were able to add 
 - An update and get query
 - A find query to list the leaderboard
 
-Now that we have the code updates, let's get to deploying
+Because we now have a database running the data show, we can be sure that our data will persist - even if or when our server goes down (either for maintenance or a crash). Now that we have the code updates, let's get to deploying the code we had setup
 
 # Deployment {#deployment}
 
-We'll then want to deploy
+Ideally, since our Slack app is a small side project, we'd like to host things in a straightforward manor for cheap/free. One of my favorite hosting solutions for such projects is [Heroku](heroku.com/). Heroku is no stranger to Slack apps, either. They have [an official blog post outlining making their own Slack bot using the web notification feature within Slack](https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku). That said, our route is going to be a bit different from theirs because we chose to use the events subscriptions instead.
+
+Let's start our step-by-step guide immediately after [you've created an account with Heroku](https://signup.heroku.com/).
+
+Once you're logged in, you should see a dashboard like the following:
+
+![The dashboard of Heroku with the "New" dropdown showing an option to "Create a new app"](./heroku_create_dropdown.png)
+
+Once you see this page, select "New", then "Create new app".
+
+![The "Create a new app" page with the "points-r-us" name shown as available](./heroku_create_naming.png)
+
+This should let you provide a name for your project. This name should be memorable, since it will be used to generate the subdomain on Heroku's servers. For example, my `points-r-us` app is available at [points-r-us.herokuapp.com/](https://points-r-us.herokuapp.com/). While ultimately it doesn't matter much for a simple Slack bot, if you wanted to use this subdomain for other things later on that you might add on, it helps to have a memorable name.
+
+Once this is done, open the Heroku app you just created by selecting it. You should see a dashboard screen like this:
+
+![The dashboard screen like this with instructions of how to deploy to Heroku](./initial_heroku_instructions.png)
+
+The instructions that will show up While we'll be following these instructions shortly, we'll first want to setup our environmental variables, just as we did with our `.env` file locally. You should see a "Settings" tab at the top of your dashboard.
+
+![The settings page with a button labeled "Reveal Config Vars"](./heroku_hidden_config_vars.png)
+
+Upon opening the tab, you should see a button labeled "Reveal Config Vars". Press the button and copy your environmental variables from your `.env` file into the fields available.
+
+![All of the .env file variables with the same name saved into Heroku](./heroku_config_vars.png)
+
+Now that we have that, we can go back to our instructions that were on the main dashboard. Let's open up the same folder we have our `package.json` and `index.js` in, and install the Heroku CLI:
+
+```
+npm i -g heroku
+```
+
+> It's worth noting that Heroku official suggests using [an alternative installation method for the CLI](https://devcenter.heroku.com/articles/heroku-cli) due to Node.JS incompatibilities, but I've faced no such issues with my (admittedly limited) usage
+
+Once this is done, we can:
+
+- Sign into our account using `heroku login`
+
+- Initialize a git repo into this folder `git init`
+
+- Add Heroku as a remote place to deploy to. We should be able to see our Git URL from the settings page, so for example I would run:
+
+  ```
+  git remote add heroku https://git.heroku.com/points-r-us.git
+  ```
 
 
-https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku
+
+Now that we have Heroku setup, we're able to `git push heroku master` to have Heroku deploy our `npm start` script. This means that anything we put in our `package.json`'s `start` `script` property, then commit and push, will then be ran on our server. As such, the first thing we need to do is verify that we own that subdomain for Slack to send events to.
+
+While our `package.json` might have looked like this before:
+
+```json
+"scripts": {
+  "start:dev": "env-cmd node ./index.js",
+  "start": "node ./index.js",
+},
+```
+
+We'll want to update it so that the `start` command uses the signing secret from our server environmental variables to verify:
+
+```json
+"verify": "slack-verify --secret $SLACK_SIGNING_SECRET --port=$PORT",
+"start": "npm run verify",
+```
+
+We need to allow Heroku to dictate the port to host our verification command as well, to get past their firewall they automatically route to the app's subdomain; hence the `--port` attribute. 
+
+After making this change, we'll run:
+
+- `git commit -m "Enforced verification"`
+- `git push heroku master`
+
+And watch as our app gets deployed
+
+![The app being deployed during the `git push`](./heroku_initial_deploy.png)
+
+
+
+After this, we can go back to the Slack app dashboard and change the Event Subscription URL
+
+![The event subscription being updated to "points-r-us.herokuapp.com"](./slack_verify_heroku.png)
+
+> Don't forget to hit "Save" once you change the URL 😉
+
+Finally after this change is made, you can modify your `package.json` to run the server with `node` once again:
+
+```json
+"scripts": {
+  "start": "node ./index.js",
+},
+```
+
+> Be sure to use `node` and not `env-cmd`, as we're wanting to actually use the values from the environmental variable, not from a `.env` file
+
+Run that last `git commit` and `git push hereku master` and congrats! You should have everything deployed and ready-to-use!
+
+![A demo of the app by adding a point to "botsRCool" and removing one from "failedDemos"](./showcase.png)
+
+# Conclusion {#conclusion}
+
+Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack Bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
+
+
+
+Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in realtime with folks from our community!
+
