@@ -51,7 +51,7 @@ export const PostMetadata = ({ post }) => {
 				</h2>
 				<div className={styles.belowName}>
 					<p>{post.frontmatter.published}</p>
-					<p>{post.wordCount.words} words</p>
+					<p>{post.wordCount.words + post.fields.inlineCount} words</p>
 				</div>
 			</div>
 		</div>
