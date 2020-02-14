@@ -29,7 +29,7 @@ export const PostMetadata = ({ post }) => {
 		<div className={styles.container}>
 			<UserProfilePic
 				authors={authorLinks}
-				className={styles.authorImagesContainer}
+				className={styles.postMetadataAuthorImagesContainer}
 			/>
 			<div className={styles.textDiv}>
 				<h2 className={styles.authorName} data-testid="post-meta-author-name">
