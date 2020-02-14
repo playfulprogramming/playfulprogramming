@@ -174,7 +174,7 @@ For each of these steps, we need to have a mapping from the Java code to C# code
 
 In order to create an instance of a `Callback` in C# code, we first need a C# class that maps to the `Java` interface. To do so, let's start by extending the Android library interface. We can do this by using the `base` constructor of `AndroidJavaProxy` and the name of the Java package path. You're able to use `$` to refer to the interface name from within the Java package.
 
-```c#
+```csharp
 private class DeviceCallback : AndroidJavaProxy
 {
 	// `base` calls the constructor on `AndroidJava` to pass the path of the interface
@@ -191,7 +191,7 @@ Otherwise — if we type the function with a C# interface or class that matches 
 
 This [`AndroidJavaObject` type has a myriad of methods that can be called to assist in gathering data from or interfacing with the Java object](https://docs.unity3d.com/ScriptReference/AndroidJavaObject.html). One of such methods is the [`Get` method](https://docs.unity3d.com/ScriptReference/AndroidJavaObject.Get.html). When called on an `AndroidJavaObject` instance in C#, it allows you to grab a value from Java. Likewise, if you intend to call a method from the Java code, you can use [`AndroidJavaObject.Call`](https://docs.unity3d.com/ScriptReference/AndroidJavaObject.Call.html).
 
-```c#
+```csharp
 private class DeviceCallback : AndroidJavaProxy
 {
 	public DeviceCallback() : base("com.jaredrummler.android.device.DeviceName$Callback") {}
@@ -214,7 +214,7 @@ Just as all Android applications have some context to their running code, so too
 
 While there is not a docs reference page for this Java class, [some of the company's code samples](https://docs.unity3d.com/530/Documentation/Manual/PluginsForAndroid.html) provide us with some useful methods and properties on the class. For example, that page mentions a static property of `currentActivity` that gives us the context we need to pass to `DeviceName.with` later on:
 
-```c#
+```csharp
 var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 var activity = player.GetStatic<AndroidJavaObject>("currentActivity");
 ```
@@ -227,14 +227,14 @@ DeviceName.Request withInstance = DeviceName.with(context);
 
 This means that `with` must be a static method on the `DeviceName` class. In order to call static Java methods, we'll use the `AndroidJavaClass.CallStatic` method in C#.
 
-```c#
+```csharp
 var jc = new AndroidJavaClass("com.jaredrummler.android.device.DeviceName");
 var withCallback = jc.CallStatic<AndroidJavaObject>("with", activity);
 ```
 
 Finally, we can add the call to `request` with an instance of the `DeviceCallback` class.
 
-```c#
+```csharp
 var deviceCallback = new DeviceCallback();
 withCallback.Call("request", deviceCallback);
 ```
@@ -243,7 +243,7 @@ withCallback.Call("request", deviceCallback);
 
 Line-by-line explanations are great, but often miss the wholistic image of what we're trying to achieve. The following is a more complete code sample that can be used to get device information from an Android device from Unity.
 
-```c#
+```csharp
 public class DeviceInfo {
 	public string manufacturer;  // "Samsung"
 	public string readableName;  // "Galaxy S8+"
@@ -298,7 +298,7 @@ class Test() {
 
 Assuming you [copied it over to the `Assets/AndroidCode` folder and marked it to be included in the Android build](#set-up-a-development-environment), you should be able to use the `package` name and the name of the class in order to run the related code.
 
-```c#
+```csharp
 var testAndroidObj = new AndroidJavaObject("com.company.example.Test");
 testAndroidObj.Call("runDebugLog");
 ```
