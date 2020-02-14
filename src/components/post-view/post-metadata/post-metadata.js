@@ -29,7 +29,7 @@ export const PostMetadata = ({ post }) => {
 		<div className={styles.container}>
 			<UserProfilePic
 				authors={authorLinks}
-				className={styles.authorImagesContainer}
+				className={styles.postMetadataAuthorImagesContainer}
 			/>
 			<div className={styles.textDiv}>
 				<h2 className={styles.authorName} data-testid="post-meta-author-name">
@@ -51,7 +51,7 @@ export const PostMetadata = ({ post }) => {
 				</h2>
 				<div className={styles.belowName}>
 					<p>{post.frontmatter.published}</p>
-					<p>{post.wordCount.words} words</p>
+					<p>{post.wordCount.words + post.fields.inlineCount} words</p>
 				</div>
 			</div>
 		</div>

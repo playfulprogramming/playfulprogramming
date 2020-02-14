@@ -15,7 +15,8 @@ export const MockPost = {
 		license: MockLicense
 	},
 	fields: {
-		slug: "/this-post-name-here"
+		slug: "/this-post-name-here",
+		inlineCount: 0
 	},
 	wordCount: {
 		words: 10000
@@ -37,7 +38,8 @@ export const MockMultiAuthorPost = {
 		license: MockLicense
 	},
 	fields: {
-		slug: "/this-other-post-name-here"
+		slug: "/this-other-post-name-here",
+		inlineCount: 0
 	},
 	wordCount: {
 		words: 100000

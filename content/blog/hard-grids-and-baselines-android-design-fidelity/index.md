@@ -3,6 +3,7 @@
     title: 'Hard grids & baselines: How I achieved 1:1 fidelity on Android',
     description: 'Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.',
     published: '2019-10-07T22:07:09.945Z',
+    edited: '2020-02-02T22:07:09.945Z',
     authors: ['edpratti'],
     tags: ['android', 'design', 'figma'],
     attached: [],
@@ -42,6 +43,8 @@ _[Plaid’s `BaselineGridTextView` library](https://github.com/android/plaid/blo
 Android has two main `TextView`s; one of them is `AppCompatTextView`, which has been available for quite a while, and `MaterialTextView` (which extends `AppCompatTextView`). They are identical, with the latter allowing a line-height attribute to be set in a `textAppearance` (if you don’t know what that means, no worries). _**Go with `MaterialTextView`**._
 
 With Android 9.0 Pie, Google introduced 3 new attributes for `TextView`s: `firstBaselineToTopHeight`, `lastBaselineToBottomHeight` and `lineHeight`. These control everything you’d need to build a UI with.
+
+Shortly after, Google removed those API restrictions by backporting those features to [`AppCompatTextView`](https://developer.android.com/reference/androidx/appcompat/widget/AppCompatTextView) and subsequently, [`MaterialTextView`](https://developer.android.com/reference/com/google/android/material/textview/MaterialTextView?hl=en). This means these attributes can now be used across all supported versions of Android!
 
 However, if you seek fidelity, you’ll find that `lineHeight` on Android differs from other platforms and most design tools.
 

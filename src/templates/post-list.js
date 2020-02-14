@@ -66,6 +66,7 @@ export const postInfoListDisplayFragmentQuery = graphql`
 		}
 		fields {
 			slug
+			inlineCount
 		}
 		wordCount {
 			words
