@@ -2,7 +2,7 @@
 {
 	title: "Making a Slack Bot using NodeJS and MongoDB",
 	description: 'Have you ever wanted to run native Java and Kotlin code from your mobile game written in Unity? Well you can! This article outlines how to set that up!',
-	published: '2020-02-04T05:12:03.284Z',
+	published: '2020-02-18T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['mongodb', 'node', 'slack'],
 	attached: [],
@@ -368,8 +368,6 @@ Once the cluster is created, it may take some time to propagate the changes to t
 
 ![The "Database Access" screen with a "Add new user" button](./database_access.png)
 
-
-
 Once there, you'll add a username and password. You'll also want to enable the permission to read and write to a database, seeing as we'll be editing the scores collection in the database.
 
 ![A new user creation screen with "dbuser" and "dbpass" as the username and password. Selected to have "full read and write" permissions.](./new_db_user.png)
@@ -560,8 +558,6 @@ Once this is done, we can:
   git remote add heroku https://git.heroku.com/points-r-us.git
   ```
 
-
-
 Now that we have Heroku set up, we're able to `git push heroku master` to have Heroku deploy our `npm start` script. This means that anything we put in our `package.json`'s `start` `script` property, then commit and push, will then be run on our server. As such, the first thing we need to do is verify that we own that subdomain for Slack to send events to.
 
 While our `package.json` might have looked like this before:
@@ -591,8 +587,6 @@ And watch as our app gets deployed:
 
 ![The app being deployed during the `git push`](./heroku_initial_deploy.png)
 
-
-
 After this, we can go back to the Slack app dashboard and change the Event Subscription URL.
 
 ![The event subscription being updated to "points-r-us.herokuapp.com"](./slack_verify_heroku.png)
@@ -616,7 +610,5 @@ Run that last `git commit` and `git push heroku master` and congrats! You should
 # Conclusion {#conclusion}
 
 Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
-
-
 
 Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in real time with folks from our community!
