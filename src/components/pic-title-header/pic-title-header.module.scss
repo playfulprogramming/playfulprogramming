@@ -22,7 +22,6 @@
 	$desktopImgSize: 300px;
 	max-width: $desktopImgSize;
 	max-height: $desktopImgSize;
-	margin-right: 48px;
 	margin-bottom: 16px;
 
 	@include until($endSmallScreenSize) {
