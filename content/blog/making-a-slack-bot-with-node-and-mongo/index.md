@@ -11,23 +11,23 @@
 
 ---
 
-Modern-day remote live communication has never been as efficient or fast as it is today. You're able to use services like Slack to join huge multi-channel communication workspaces for pleasure or buisness. These channels are often able to be super-powered by in-chat bots and applications that can inform you of new information from external services or even add new functionality to the chat. Luckily for us, Slack has put a lot of effort into making these extensions to Slack easy to write.
+Modern-day remote live communication has never been as efficient or fast as it is today. Services like Slack make it easy to join huge multi-channel communication workspaces for pleasure or business. These channels are often able to be super-powered by in-chat bots and applications that can inform you of new information from external services or even add new functionality to the chat. Luckily for us, Slack has put a lot of effort into making these extensions to Slack easy to write.
 
-One way they've eased the effort of their creation is by providing an SDK for Node developers to take and create extensions with. This post will outline how we can create a Slack bot to add functionality to chats.
+One way they've made extension development easier is by providing an SDK for Node developers to use and create extensions with. This post will outline how we can create a Slack bot to add functionality to chats.
 
 # Initial Signup {#signup-for-dev-account}
 
-To start, we'll need to [signup for a developer account and create an app to host our applicaiton logic using this link](https://api.slack.com/apps). This will allow us to create new Slack apps and bots to add into our workspace.
+To start, we'll need to [sign up for a developer account and create an app to host our application logic using this link](https://api.slack.com/apps). This will allow us to create new Slack apps and bots to add into our workspace.
 
-![The create app dialog once pressed "create app"](./create_app_dialog.png)
+![The create app dialog that shows up once "create app" is pressed](./create_app_dialog.png)
 
-Enter in an app name, and assign the workspace you want the app to live during development. Once done, you should be greeted by a dashboard for your Slack app. You'll want to keep this screen open during development, as we'll be refering to it throughout this post. 
+Enter in an app name, and assign the workspace where you want the app to live during development. Once done, you should be greeted by a dashboard for your Slack app. You'll want to keep this screen open during development, as we'll be referring to it throughout this post.
 
 ![The initial screen that'll be shown when a new app is created](./initial_screen.png)
 
-This screen (and the tabs off to the side) are able to configure all of the interactions with Slack that we'll build upon with our code. We're even able to customize the look of our application in our Slack settings at the bottom of this homepage.
+This screen (and the tabs off to the side) provides the configuration for all of the interactions with Slack that we'll build upon with our code. We're even able to customize the look of our application in our Slack settings at the bottom of this homepage.
 
-![Towards the bottom of the intial page will show how to customize the description and such](./display_info.png)
+![Towards the bottom of the initial page will show how to customize the description and such.](./display_info.png)
 
 As mentioned previously, Slack provides an SDK for Node applications. [You can find the homepage for the npm package at the following URL.](https://github.com/slackapi/node-slack-sdk)
 
@@ -43,7 +43,7 @@ To setup an initial `package.json`. Once we have a `package.json`, we can add th
 npm install @slack/web-api @slack/events-api
 ```
 
-After this, we'll then be able to use their example API from the README of their project as a baseline to our app:
+After this, we'll then be able to use their example API from the README of their project as a starter for our app:
 
 ```javascript
 // index.js
@@ -68,11 +68,11 @@ slackEvents.start(port).then(() => {
 });
 ```
 
-This code is what we'll need to run a `console.log` every time a user sends a message. However, _we'll need to setup more to get this code actually running due to Slack's permissions systems_ and such. For now, we'll save this code to `index.js` in the same folder we saved our `package.json` file.
+This code is what we'll need to run a `console.log` every time a user sends a message. However, _we'll need to set things up more to get this code actually working due to Slack's permissions systems_ and such. For now, we'll save this code to `index.js` in the same folder we saved our `package.json` file.
 
-Another thing that was mentioned in the code sample was the `process.env.SLACK_SIGNING_SECRET`. This is the key that Slack will use to connect your code to your workspace. We'll want to keep in mind how to store the signing secret (as the name implies, _we want to keep this key a secret as otherwise anyone can highjack your Slack app_). As the above code hints at, it's suggested to use an environmental file or configuration.
+Another thing that was mentioned in the code sample was the `process.env.SLACK_SIGNING_SECRET`. This is the key that Slack will use to connect your code to your workspace. We'll want to keep in mind how to store the signing secret (as the name implies, _we want to keep this key a secret as otherwise anyone can hijack your Slack app_). As the above code hints at, it's suggested to use an environment variable file or configuration.
 
-While environmental variables are typically assigned by system configurations, to make development easier, we'll setup a `.env` file with the expected credentials. Then, to inject the `.env` file contents into our `process`, we'll run our code using [the `env-cmd` package](https://www.npmjs.com/package/env-cmd). We'll start by installing the package:
+While environment variables are typically assigned by system configurations, we'll make development easier by setting up a `.env` file with the expected credentials. Then, to inject the `.env` file contents into our process, we'll run our code using [the `env-cmd` package](https://www.npmjs.com/package/env-cmd). We'll start by installing the package:
 
 ```
 npm i env-cmd
@@ -84,7 +84,7 @@ This package will look for a `.env` file and inject it into your command that fo
 SLACK_SIGNING_SECRET=<SIGNING_SECRET_FROM_HOMESCREEN>
 ```
 
-Then, in your `package.json`, you can **edit your `start` command** to reflect the following:
+Then, in your `package.json`, you can **edit your `start` script** to reflect the following:
 
 ```json
 {
@@ -94,7 +94,7 @@ Then, in your `package.json`, you can **edit your `start` command** to reflect t
 }
 ```
 
-Now, whenever your code shows `process.env.SLACK_SIGNING_SECRET`, it'll represent the value present in your `.env` file
+Now, whenever your code uses `process.env.SLACK_SIGNING_SECRET`, it'll represent the value present in your `.env` file.
 
 # Development Hosting {#development-environment-setup}
 
@@ -106,9 +106,9 @@ npx ngrok http 3000
 ```
 
 > Keep in mind that this should NOT be used to host your Slack application when you're ready to publish.
-> This should only be used during development process. In order to see how to deploy, you'll want to checkout [the section on doing so using Heroku](#deployment)
+> This should only be used during development process. In order to see how to deploy, you'll want to check out [the section on doing so using Heroku](#deployment).
 
-After doing so, you should be given an `ngrok.io` subdomain to map to your local IP address with a message like the following:
+After doing so, you should be given an `ngrok.io` subdomain to map to your local IP address with a message like this:
 
 ```
 Forwarding https://9fca9f3e.ngrok.io -> http://localhost:3000
@@ -116,9 +116,9 @@ Forwarding https://9fca9f3e.ngrok.io -> http://localhost:3000
 
 ![Showing ngrok running in the terminal](./ngrok_running.png)
 
-We're now able to use this URL as a map to the external world to the local environment we're in. This is how we'll tell Slack to run our `index.js` file when we recieve a new event.
+We're now able to use this URL as a bridge between the external internet and the local environment we're in. This is how we'll tell Slack to run our `index.js` file when we receive a new event.
 
-However, there's yet another step to enable the functionality. Slack, in order to ensure a more strict security, wants to ensure that you own this domain. As such, they have _a utility you'll need to run to ensure that you own this domain_. So, for example, in order to add in the events subscription to our current code, we'll run the following commmand:
+However, there's yet another step to enable the functionality. Slack, in order to ensure security, wants to confirm that you own this domain. As such, they have _a utility you'll need to run to ensure that you own the domain_. So, for example, in order to add in the events subscription to our current code, we'll run the following command:
 
 ```
 ./node_modules/.bin/slack-verify --secret <signing_secret>
@@ -134,9 +134,9 @@ This will bring you to a page with an "On/Off" toggle. **Toggle it to "On"** and
 
 ![Adding the ngrok domain into the "event subscription" area](./event_subscription_enable.png)
 
-This should show "Verified" to explain that your domain is verified to have belonged to you, but the domain isn't saved yet; We first need to **add workspace events to subscribe to**. This is to ensure that any app doesn't simply have root permissions to everything for privacy and security's sake and instead has to ask for grainular permissions.
+This should show "Verified" to explain that your domain is verified to have belonged to you, but the domain isn't saved yet; We first need to **add workspace events to subscribe to**. This is to ensure that any app doesn't simply have root permissions to everything for privacy and security's sake and instead has to ask for granular permissions.
 
-![Searching for oauth permissions to add to the event handler](./searching_events.png)
+![Searching for OAuth permissions to add to the event handler.](./searching_events.png)
 
 Let's say we want to handle all of the public messages to a channel, we can add `message.channels` to get the permissions to do so.
 
@@ -156,17 +156,17 @@ You can actually check the event `type` from [the API reference documentation](h
 
 # Development App Installation {#development-installation}
 
-You'll notice, as I first did, that if you start your server with `npm start` and then send a message to a public channel that you'll notice something in your terminal. Or, well, rather, a lack of something in your terminal. The `console.log` that you expect to've ran isn't doing so - why is that?
+You'll notice, as I first did, that if you start your server with `npm start` and then send a message to a public channel that you'll notice something in your terminal. Or, well, rather, a lack of something in your terminal. The `console.log` that you would expect to run isn't doing so - why is that?
 
-That's because the app isn't actually enabled in your workspace yet (A real 🤦‍♂️ for me when I discovered this one)
+That's because the app isn't actually enabled in your workspace yet (A real 🤦‍♂️ for me when I discovered this one).
 
-To do so, check the sidebar to the right of your Slack API homepage for the `install` section
+To do so, check the sidebar to the right of your Slack API homepage for the `install` section:
 
 ![The preview of the "install" page](./install_app.png)
 
 Simply click `Install App to Workspace`, then `Allow` to give permissions to add the app to your workspace.
 
-> Keep in mind, folks can use Slack for personal communication. You may want to give folks in your workspace a heads-up or simply create a new Slack workspace for testing
+> Keep in mind, folks can use Slack for personal communication. You may want to give folks in your workspace a heads-up or simply create a new Slack workspace for testing.
 
 Once this is done, you can send a test message to a public channel and see it printed out in your console!
 
@@ -174,7 +174,7 @@ Once this is done, you can send a test message to a public channel and see it pr
 
 # App Interactivity {#interactive-message-package}
 
-While listening to events alone can be very useful in some circumstances, oftentimes having a way to interact with you application can be very helpful. As a result, the Slack SDK also includes the `@slack/interactive-messages` package to help you provide interactions with the user more directly. Using this package, you can respond to the user's input. For example, let's say we wanted to reproduce the [PlusPlus](https://go.pluspl.us/) Slackbot as a way to track a user's score. 
+While listening to events alone can be very useful in some circumstances, oftentimes having a way to interact with your application can be very helpful. As a result, the Slack SDK also includes the `@slack/interactive-messages` package to help you provide interactions with the user more directly. Using this package, you can respond to the user's input. For example, let's say we wanted to replicate the [PlusPlus](https://go.pluspl.us/) Slack bot as a way to track a user's score. 
 
 We want to have the following functionality for an MVP:
 
@@ -182,14 +182,14 @@ We want to have the following functionality for an MVP:
 - `@UserOrThing--`: A way to remove a point from a user or thing
 - `@PointsRUs leaderboard`: A flat list of the items/people with points
 
-Each of these messages will prompt the bot to respond with a message in the same channel. Ideally we'd use a database to store score for long-term projects, but for the interim, let's use in-memory storage for an MVP of the interactivity we're hoping for.
+Each of these messages will prompt the bot to respond with a message in the same channel. Ideally we'd use a database to store score for long-term projects, but for now, let's use in-memory storage for an MVP of the interactivity we're hoping for.
 
 ## Setup {#interactive-bot-setup}
 
 First and foremost, something you'll need to do is add a new OAuth permission to enable the functionality for the bot to write to the channel. Go into the dashboard and go to the "OAuth & Permissions" tab. The second section of the screen should be called "Scopes", where you can add the `chat:write:bot` permission.
 ![The permissions searching for "chat" which shows that "chat:write:bot" permission we need to add](./chat_write_bot_oauth.png) 
 
-After enabling the new Oauth permission, you'll need to reinstall your app. This is because you're changing the permissions of your apps and you need to accept the new permissions when you reinstall the app. If you scroll to the top of the same OAuth page, you should see a `Reinstall App` button that will help you do this easily
+After enabling the new OAuth permission, you'll need to reinstall your app. This is because you're changing the permissions of your apps and you need to accept the new permissions when you reinstall the app. If you scroll to the top of the same OAuth page, you should see a `Reinstall App` button that will help you do this easily.
 
 ![The top of the "OAuth & Permissions" screen that shows that access token and the "Reinstall app" button](./oauth_tokens.png)
 
@@ -197,7 +197,7 @@ Once this is done, you can access the OAuth token for the fresh installation of 
 
 > This token is unique per-workspace, so if you're intending for a broader release of your bot (to be easily added to multiple workspaces with a single button click), you'll likely need to [walk through their OAuth token request system](https://api.slack.com/authentication/oauth-v2#asking). Since this is meant as an introductory look at their APIs, we'll simply keep things locally and copy-paste.
 
-Copying the token from the top of the screen, store it into our `.ENV` file so that we can utilize it in our application. I named the environmental variable `OAUTH_TOKEN`, so when you see that in code examples, know that this is in reference to this value
+Copying the token from the top of the screen, store it into our `.ENV` file so that we can utilize it in our application. I named the environment variable `OAUTH_TOKEN`, so when you see that in code examples, know that this is in reference to this value.
 
 ## The Code {#leaderboard-local-code}
 
@@ -261,13 +261,13 @@ slackEvents.start(port).then(() => {
 });
 ```
 
-As it did before, the code will listen for every message we send. Then, we listen for any time the user typed the message `@pointsrus leaderboard` and responds with a placeholder value when they do so. We're making sure to use the same channel ID by using the `event.channel` property.
+As it did before, the code will listen for every message we send. Then, we listen for any time the user typed the message `@pointsrus leaderboard` and respond with a placeholder value when they do so. We're making sure to use the same channel ID by using the `event.channel` property.
 
 > Remember, the channel ID is not the same thing as the human-readable channel name. It's a unique ID generated by Slack and as such you'd have to use the API to get the channel ID if you only knew the human-readable name
 
 ## Adding State {#interactive-local-state}
 
-Luckily for our MVP, we've already outlined that we won't be using a database for the initial version of the bot. As such, we're able to keep a simple object as statefulness and simply mutate the object to keep track of what's being scored.
+Luckily for our MVP, we've already outlined that we won't be using a database for the initial version of the bot. As such, we're able to keep a simple stateful object and simply mutate it to keep track of what's being scored.
 
 For example, given a mutable `state` variable, we can do actions to read and write as such:
 
@@ -285,14 +285,14 @@ Following this pattern, let's go through and add a few lines of code to the last
 const { tablize } = require('batteries-not-included/utils');
 
 /**
- * @type <Record<string, number>> A record of the word and score. Should start at 0
+ * @type <Record<string, number>> A record of the word and score. Should start at 0.
  * This should be replaced by a database for persistence. This is just a demo and as
- * such simply mutates this object to be stateful
+ * such simply mutates this object to be stateful.
  */
 const state = {};
 
 /**
- * A function that accepts a string, then returns the action and the word to score
+ * A function that accepts a string, then returns the action and the word to score.
  */
 const getIsPlusOrMinus = str => {
 	// Accept em-dash for cases like MacOS turning -- into an emdash
@@ -333,7 +333,7 @@ slackEvents.on('message', async event => {
 		// Tablize just takes a 2D array, treats the first item as a header row, then makes an ASCII table
 		const tableString = tablize([['Item', 'Count'], ...Object.entries(state)]);
 
-		// Send that table in codeblocks to monospace the font and render properly
+		// Send the table in a code block to use a monospace font and render properly.
 		const result = await web.chat.postMessage({
 			text: '```\n' + tableString + '```',
 			channel: event.channel,
@@ -344,25 +344,25 @@ slackEvents.on('message', async event => {
 });
 ```
 
-As you can see, we're able to add in the functionality for the score keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/unicorn-utterances/batteries-not-included) in order to provide an ASCII table for our output.
+As you can see, we're able to add in the functionality for the score-keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/unicorn-utterances/batteries-not-included) in order to provide an ASCII table for our output.
 
 # Adding a Database {#mongodb}
 
-However, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use MongoDB in order to keep our data stored.
+Even though the bot works well so far, it's not ideal to keep a score in memory. If your server crashes or if there's any other form of interruption in the process running, you'll lose all of your data. As such, we'll be replacing our local store with a database. As our data needs are simple and I want to keep this article relatively short, let's use a NoSQL database to avoid having to structure tables. We'll use MongoDB in order to keep our data stored.
 
 > This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
 
-To stay consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB server at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile). 
+To remain consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB service at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile). 
 
 Once done, you'll need to "Build a new cluster" in order to create a database cluster for your Slack app.
 
 ![An image of the "Build a new cluster" button](build_a_new_cluster.png)
 
-From here, you'll select the cloud provider you'll want to host your database. There's AWS, Google Cloud Platform, and Azure. All three of these options have a Free tier that you can use to host smaller applications and have **plenty** of storage and runtime for smaller projects.
+From here, you'll select the cloud provider that you'll use to host your database. There's AWS, Google Cloud Platform, and Azure. All three of these options have a Free tier that you can use to host smaller applications and have **plenty** of storage and run time for smaller projects.
 
 ![The "create new cluster" screen with a price of $0.54 an hour](./create_new_cluster.png)
 
-> While all three have free tiers, you're limited to one free cluster per account. I have already created one, which is why it shows the price in the screenshot above. Yours should be free if you select one of the "Free tier available" hosting locations and read the instructions
+> While all three have free tiers, you're limited to one free cluster per account. I have already created one, which is why it shows the price in the screenshot above. Yours should be free if you select one of the "Free tier available" hosting locations and read the instructions.
 
 Once the cluster is created, it may take some time to propagate the changes to the hosting solution itself. Once it is done, however, we're able to create a new user for database access. This will allow you to create a user for your MongoDB code to connect to a make interactions. Go to the "Database Access" tab of Atlas and press "Add New User",
 
@@ -372,9 +372,9 @@ Once the cluster is created, it may take some time to propagate the changes to t
 
 Once there, you'll add a username and password. You'll also want to enable the permission to read and write to a database, seeing as we'll be editing the scores collection in the database.
 
-![A new user creation screen with "dbuser" and "dbpass" as the username and password. Selected to have "full read and write" permissions](./new_db_user.png)
+![A new user creation screen with "dbuser" and "dbpass" as the username and password. Selected to have "full read and write" permissions.](./new_db_user.png)
 
-> Be sure to remember that password! You'll want to store it in your .ENV file as plain text (so be sure you're on a secured computer! You do not want to store your passwords in such insecure ways for production)
+> Be sure to remember that password! You'll want to store it in your .ENV file as plain text (so be sure you're on a secured computer! You do not want to store your passwords in such insecure ways for production).
 
 We'll store the MongoDB username and password into our `.ENV` file. The username under `MONGOUSER` and the password under `MONGOPASS`.
 
@@ -382,7 +382,7 @@ Once this is done, we'll want to go back to the homepage of the Atlas cluster. Y
 
 ![The image of the cluster0 with the "connect" button highlighted](./mongodb_atlas_connect.png)
 
-This will bring up the dialog of cluster. You'll see different connection options for Mongo Shell, Compass, or various drivers. Since we'll be using the NodeJS driver to connect our code, we'll select "Connect Your Application"
+This will bring up the dialog for the cluster. You'll see different connection options for Mongo Shell, Compass, or various drivers. Since we'll be using the NodeJS driver to connect our code, we'll select "Connect Your Application".
 
 ![Showing the first dialog of "create cluster"](./db_connect_1.png)
 
@@ -390,7 +390,7 @@ This will bring up a dialog where you can select the _Node.JS_ driver. This will
 
 ![The dialog that shows connection string to add to NodeJS code](./db_connect_2.png)
 
-This string is called the _connection string_ which is [an URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier). This URI will be used to connect your code to the database you just created. Let's store that string [in a template literal, which will allow us to interpolate variables into the string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) for the password:
+This string is called the _connection string_ which is [a URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier). This URI will be used to connect your code to the database you just created. Let's store that string [in a template literal, which will allow us to interpolate variables into the string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) for the password:
 
 ```javascript
 const uri = `mongodb+srv://${mongoUser}:${mongoPass}@cluster0-xxxxx.mongodb.net/test?retryWrites=true&w=majority`; 
@@ -510,11 +510,11 @@ If you do a diff against the previous code, you'll see that we were able to add 
 - An update and get query
 - A find query to list the leaderboard
 
-Because we now have a database running the data show, we can be sure that our data will persist - even if or when our server goes down (either for maintenance or a crash). Now that we have the code updates, let's get to deploying the code we had setup
+Because we now have a database running the data show, we can be sure that our data will persist - even if or when our server goes down (either for maintenance or a crash). Now that we have the code updates, let's get to deploying the code we had set up.
 
 # Deployment {#deployment}
 
-Ideally, since our Slack app is a small side project, we'd like to host things in a straightforward manor for cheap/free. One of my favorite hosting solutions for such projects is [Heroku](heroku.com/). Heroku is no stranger to Slack apps, either. They have [an official blog post outlining making their own Slack bot using the web notification feature within Slack](https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku). That said, our route is going to be a bit different from theirs because we chose to use the events subscriptions instead.
+Ideally, since our Slack app is a small side project, we'd like to host things in a straightforward manner for cheap/free. One of my favorite hosting solutions for such projects is [Heroku](heroku.com/). Heroku is no stranger to Slack apps, either. They have [an official blog post outlining making their own Slack bot using the web notification feature within Slack](https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku). That said, our route is going to be a bit different from theirs because we chose to use the events subscriptions instead.
 
 Let's start our step-by-step guide immediately after [you've created an account with Heroku](https://signup.heroku.com/).
 
@@ -532,11 +532,11 @@ Once this is done, open the Heroku app you just created by selecting it. You sho
 
 ![The dashboard screen like this with instructions of how to deploy to Heroku](./initial_heroku_instructions.png)
 
-The instructions that will show up While we'll be following these instructions shortly, we'll first want to setup our environmental variables, just as we did with our `.env` file locally. You should see a "Settings" tab at the top of your dashboard.
+The instructions that will show up While we'll be following these instructions shortly, we'll first want to setup our environment variables, just as we did with our `.env` file locally. You should see a "Settings" tab at the top of your dashboard.
 
 ![The settings page with a button labeled "Reveal Config Vars"](./heroku_hidden_config_vars.png)
 
-Upon opening the tab, you should see a button labeled "Reveal Config Vars". Press the button and copy your environmental variables from your `.env` file into the fields available.
+Upon opening the tab, you should see a button labeled "Reveal Config Vars". Press the button and copy your environment variables from your `.env` file into the fields available.
 
 ![All of the .env file variables with the same name saved into Heroku](./heroku_config_vars.png)
 
@@ -546,7 +546,7 @@ Now that we have that, we can go back to our instructions that were on the main 
 npm i -g heroku
 ```
 
-> It's worth noting that Heroku official suggests using [an alternative installation method for the CLI](https://devcenter.heroku.com/articles/heroku-cli) due to Node.JS incompatibilities, but I've faced no such issues with my (admittedly limited) usage
+> It's worth noting that Heroku officially suggests using [an alternative installation method for the CLI](https://devcenter.heroku.com/articles/heroku-cli) due to Node.JS incompatibilities, but I've faced no such issues with my (admittedly limited) usage.
 
 Once this is done, we can:
 
@@ -562,7 +562,7 @@ Once this is done, we can:
 
 
 
-Now that we have Heroku setup, we're able to `git push heroku master` to have Heroku deploy our `npm start` script. This means that anything we put in our `package.json`'s `start` `script` property, then commit and push, will then be ran on our server. As such, the first thing we need to do is verify that we own that subdomain for Slack to send events to.
+Now that we have Heroku set up, we're able to `git push heroku master` to have Heroku deploy our `npm start` script. This means that anything we put in our `package.json`'s `start` `script` property, then commit and push, will then be run on our server. As such, the first thing we need to do is verify that we own that subdomain for Slack to send events to.
 
 While our `package.json` might have looked like this before:
 
@@ -573,7 +573,7 @@ While our `package.json` might have looked like this before:
 },
 ```
 
-We'll want to update it so that the `start` command uses the signing secret from our server environmental variables to verify:
+We'll want to update it so that the `start` command uses the signing secret from our server environment variables to verify:
 
 ```json
 "verify": "slack-verify --secret $SLACK_SIGNING_SECRET --port=$PORT",
@@ -587,13 +587,13 @@ After making this change, we'll run:
 - `git commit -m "Enforced verification"`
 - `git push heroku master`
 
-And watch as our app gets deployed
+And watch as our app gets deployed:
 
 ![The app being deployed during the `git push`](./heroku_initial_deploy.png)
 
 
 
-After this, we can go back to the Slack app dashboard and change the Event Subscription URL
+After this, we can go back to the Slack app dashboard and change the Event Subscription URL.
 
 ![The event subscription being updated to "points-r-us.herokuapp.com"](./slack_verify_heroku.png)
 
@@ -607,17 +607,16 @@ Finally after this change is made, you can modify your `package.json` to run the
 },
 ```
 
-> Be sure to use `node` and not `env-cmd`, as we're wanting to actually use the values from the environmental variable, not from a `.env` file
+> Be sure to use `node` and not `env-cmd`, as we want to actually use the values from the environment variable, not from a `.env` file.
 
-Run that last `git commit` and `git push hereku master` and congrats! You should have everything deployed and ready-to-use!
+Run that last `git commit` and `git push heroku master` and congrats! You should have everything deployed and ready to use!
 
 ![A demo of the app by adding a point to "botsRCool" and removing one from "failedDemos"](./showcase.png)
 
 # Conclusion {#conclusion}
 
-Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack Bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
+Slack provides a feature-rich, very useful chat application. Being able to add in your own functionality to said application only makes things more powerful for either your group or your end users. I know many businesses will use Slack bots as another experience for their business users. Now you've been able to see the power of their Node SDK and how easy it is to setup and deploy your very own Slack app using MongoDB and Heroku!
 
 
 
-Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in realtime with folks from our community!
-
+Any questions or comments we didn't touch on here? Let us know down below or [in our Discord](https://discord.gg/FMcvc6T) where you can ask questions in real time with folks from our community!
