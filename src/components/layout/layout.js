@@ -126,6 +126,7 @@ export const postFragmentQuery = graphql`
 		}
 		fields {
 			slug
+			inlineCount
 		}
 		wordCount {
 			words
