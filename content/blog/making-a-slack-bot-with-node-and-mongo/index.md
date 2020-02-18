@@ -1,7 +1,7 @@
 ---
 {
 	title: "Making a Slack Bot using NodeJS and MongoDB",
-	description: 'Have you ever wanted to run native Java and Kotlin code from your mobile game written in Unity? Well you can! This article outlines how to set that up!',
+	description: 'Join us as we teach you how to create a Slack bot from scratch using their Node SDK and MongoDB for persistence',
 	published: '2020-02-18T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['mongodb', 'node', 'slack'],
