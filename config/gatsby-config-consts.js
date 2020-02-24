@@ -1,3 +1,3 @@
 module.exports = {
-  googleAnalytics: ''
-}
+	googleAnalytics: "UA-143062623-1"
+};
