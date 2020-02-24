@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { genId } from "../../utils/a11y/getNewId";
+import { genId } from "batteries-not-included/react/a11y";
 
 export const Attachment = props => {
 	const clipId = useRef(`path-1-inside-1${genId()}`);
