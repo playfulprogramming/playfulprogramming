@@ -1,0 +1,42 @@
+name: testing-deploying
+
+on: push
+
+jobs:
+  testing-deploying:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Run npm install, test, and build
+      run: |
+        npm ci
+        npm test
+        npm run build
+      env:
+        CI: true
+    - name: Deploy to beta.unicorn-utterances.com
+      if: github.ref == 'refs/heads/integration'
+      uses: AEnterprise/rsync-deploy@v1.0
+      env:
+        DEPLOY_KEY:  ${{ secrets.JAILED_PRIVATE_KEY }}
+        ARGS: "-rlt --delete --delete-delay --delay-updates"
+        SERVER_PORT: 22
+        FOLDER: "./public/"
+        SERVER_IP: unicorn-utterances.com
+        USERNAME: ${{ secrets.JAILED_USERNAME }}
+        SERVER_DESTINATION: ${{ secrets.JAILED_BETA_PATH }}
+    - name: Deploy to unicorn-utterances.com
+      if: github.ref == 'refs/heads/master'
+      uses: AEnterprise/rsync-deploy@v1.0
+      env:
+        DEPLOY_KEY:  ${{ secrets.JAILED_PRIVATE_KEY }}
+        ARGS: "-rlt --delete --delete-delay --delay-updates"
+        SERVER_PORT: 22
+        FOLDER: "./public/"
+        SERVER_IP: unicorn-utterances.com
+        USERNAME: ${{ secrets.JAILED_USERNAME }}
+        SERVER_DESTINATION: ${{ secrets.JAILED_PROD_PATH }}

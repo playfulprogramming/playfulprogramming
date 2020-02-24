@@ -67,6 +67,3 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
-
-# Gatsby config consts for the server
-/config/gatsby-config-consts.js
