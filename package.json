@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "batteries-not-included": "^0.0.1",
     "classnames": "^2.2.6",
     "css-loader": "^3.2.0",
     "disqus-react": "^1.0.7",
