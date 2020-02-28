@@ -14,7 +14,9 @@ function getSearchResults(query: any, lng: string) {
 		...fullResults.map(({ ref }: { ref: any }) => ref)
 	]);
 
-	return Array.from(refs).map(ref => lunrIndex.store[ref] as {title: string, slug: string});
+	return Array.from(refs).map(
+		ref => lunrIndex.store[ref] as { title: string; slug: string }
+	);
 }
 
 /**

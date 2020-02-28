@@ -27,9 +27,11 @@ const getElement = (post = MockPost) => (
 			},
 			markdownRemark: post as any
 		}}
-		location={{
-			pathname: "/post/this-post-name-here"
-		} as any}
+		location={
+			{
+				pathname: "/post/this-post-name-here"
+			} as any
+		}
 	/>
 );
 

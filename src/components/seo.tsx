@@ -74,7 +74,7 @@ interface SEOProps {
 	keywords?: string[];
 	publishedTime?: string;
 	editedTime?: string;
-	type?: 'article' | 'profile';
+	type?: "article" | "profile";
 }
 
 export const SEO = ({

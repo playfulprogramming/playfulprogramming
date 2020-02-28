@@ -4,21 +4,28 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
 import { PostListLayout } from "../components/post-list-layout";
-import { SiteInfo, UnicornInfo, PostInfoListDisplay, PageContext } from "../types";
+import {
+	SiteInfo,
+	UnicornInfo,
+	PostInfoListDisplay,
+	PageContext
+} from "../types";
 
 interface BlogProfileProps {
 	data: {
 		site: {
-			siteMetadata: Pick<SiteInfo['siteMetadata'], 'title'>
-		},
-		unicornsJson: UnicornInfo,
+			siteMetadata: Pick<SiteInfo["siteMetadata"], "title">;
+		};
+		unicornsJson: UnicornInfo;
 		allMarkdownRemark: {
-			totalCount: number,
-			edges: [{
-				node: PostInfoListDisplay
-			}]
-		}
-	},
+			totalCount: number;
+			edges: [
+				{
+					node: PostInfoListDisplay;
+				}
+			];
+		};
+	};
 	pageContext: PageContext;
 	location: Location;
 }

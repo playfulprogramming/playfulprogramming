@@ -110,10 +110,10 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 
 interface BlogPostTemplateProps {
 	data: {
-		site: SiteInfo,
-		markdownRemark: PostInfo
-	},
-	location: Location
+		site: SiteInfo;
+		markdownRemark: PostInfo;
+	};
+	location: Location;
 }
 const BlogPostTemplate = (props: BlogPostTemplateProps) => {
 	return (
