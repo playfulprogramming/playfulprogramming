@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./post-title-header.module.scss";
-import { PostInfoListDisplay } from "../../../types";
+import { PostInfo } from "../../../types";
 
 interface PostTitleHeaderProps {
-	post: PostInfoListDisplay;
+	post: PostInfo;
 }
 export const PostTitleHeader = ({ post }: PostTitleHeaderProps) => {
 	const { title, subtitle, tags } = post.frontmatter;

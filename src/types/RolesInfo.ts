@@ -10,4 +10,8 @@ export type RolesEnum =
 	| {
 			id: "devops";
 			prettyname: "Dev-ops";
+	  }
+	| {
+			id: "author";
+			prettyname: "Author";
 	  };

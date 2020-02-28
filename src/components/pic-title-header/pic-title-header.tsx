@@ -49,9 +49,9 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
  */
 interface PicTitleHeaderProps {
 	image: string;
-	socials: UnicornInfo['socials'],
+	socials?: UnicornInfo['socials'],
 	title: string;
-	description: string,
+	description: React.ReactNode | string,
 	profile?: boolean
 }
 export const PicTitleHeader = ({

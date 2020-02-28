@@ -3,10 +3,10 @@ import styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
 import { stopPropCallback } from "../../../utils";
 import { UserProfilePic } from "../../user-profile-pic";
-import { PostInfoListDisplay } from "../../../types";
+import { PostInfo } from "../../../types";
 
 interface PostMetadataProps {
-	post: PostInfoListDisplay;
+	post: PostInfo;
 }
 export const PostMetadata = ({ post }: PostMetadataProps) => {
 	const { authors } = post.frontmatter;

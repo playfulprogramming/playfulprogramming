@@ -5,11 +5,16 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
 import { PostListLayout } from "../components/post-list-layout";
+import { PageContext } from "../types";
 
-const BlogPostListTemplate = props => {
+interface BlogPostListTemplateProps {
+	data: any;
+	pageContext: PageContext;
+	location: Location;
+}
+const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 	const { data, pageContext } = props;
 	const { pageIndex } = pageContext;
-	const siteTitle = data.site.siteMetadata.title;
 	const posts = data.allMarkdownRemark.edges;
 
 	const Description = (

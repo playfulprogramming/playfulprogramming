@@ -7,6 +7,7 @@ export interface PostInfo {
 	html: string;
 	frontmatter: {
 		title: string;
+		subtitle: string;
 		published: string;
 		tags: string[];
 		edited?: string; // This does not exist currently, but we want it to in the future
@@ -16,6 +17,7 @@ export interface PostInfo {
 	};
 	fields: {
 		slug: string;
+		inlineCount: number;
 	};
 	wordCount: {
 		words: number;

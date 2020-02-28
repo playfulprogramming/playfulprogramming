@@ -8,7 +8,7 @@ import ReactDOMServer from "react-dom/server";
 import { axe } from "jest-axe";
 
 beforeAll(() => {
-	useStaticQuery.mockImplementation(() => ({
+	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
 			siteMetadata
 		}
@@ -16,7 +16,7 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-	useStaticQuery.mockImplementation(jest.fn());
+	(useStaticQuery as jest.Mock).mockImplementation(jest.fn());
 });
 
 const getElement = (post = MockPost) => (
@@ -25,11 +25,11 @@ const getElement = (post = MockPost) => (
 			site: {
 				siteMetadata
 			},
-			markdownRemark: post
+			markdownRemark: post as any
 		}}
 		location={{
 			pathname: "/post/this-post-name-here"
-		}}
+		} as any}
 	/>
 );
 

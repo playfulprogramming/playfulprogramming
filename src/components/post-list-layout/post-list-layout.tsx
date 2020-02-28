@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { useMemo } from "react";
 import { PageContext, PostInfoListDisplay } from "../../types";
 
-interface PostListLayoutProps extends PostListProps x{
+interface PostListLayoutProps extends PostListProps {
 	children?: React.ReactNode;
 	posts: {node: PostInfoListDisplay}[];
 	pageContext: PageContext;

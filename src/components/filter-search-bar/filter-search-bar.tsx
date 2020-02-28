@@ -6,8 +6,8 @@ import { WordCount } from "./word-count";
 
 interface FilterSearchBarProps {
 	showWordCount?: boolean;
-	numberOfArticles: number;
-	wordCount: number;
+	numberOfArticles?: number;
+	wordCount?: number;
 	tags: string[];
 }
 export const FilterSearchBar = ({

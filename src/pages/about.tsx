@@ -5,8 +5,9 @@ import { SEO } from "../components/seo";
 import Image from "gatsby-image";
 import style from "./about.module.scss";
 import { navigate } from "@reach/router";
+import { UnicornInfo } from "../types";
 
-const getUnicornRoleListItems = unicornInfo => {
+const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 	const unicornRoles = unicornInfo.roles.slice(0);
 
 	if (unicornInfo.fields.isAuthor) {
@@ -28,7 +29,7 @@ const getUnicornRoleListItems = unicornInfo => {
 	});
 };
 
-const AboutUs = props => {
+const AboutUs = (props: any) => {
 	const {
 		data: { markdownRemark }
 	} = props;
@@ -72,13 +73,13 @@ const AboutUs = props => {
 	const {
 		siteMetadata: { title: siteTitle }
 	} = site;
-	const { nodes: unicornArr } = unicorns;
+	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
 	const {
 		childImageSharp: { fixed: imageFixed }
 	} = file;
 
 	return (
-		<Layout location={props.location} title={siteTitle}>
+		<Layout location={props.location}>
 			<SEO
 				title={post.frontmatter.title}
 				description={post.frontmatter.description || post.excerpt}
@@ -100,7 +101,9 @@ const AboutUs = props => {
 								<div className="pointer" onClick={navigateToUni}>
 									<Image
 										className="circleImg"
-										fixed={unicornInfo.profileImg.childImageSharp.mediumPic}
+										fixed={
+											unicornInfo.profileImg.childImageSharp.mediumPic as any
+										}
 									/>
 								</div>
 								<div className={style.nameRoleDiv}>

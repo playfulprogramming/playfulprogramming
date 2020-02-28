@@ -4,7 +4,7 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
 import { PostListLayout } from "../components/post-list-layout";
-import { SiteInfo, UnicornInfo, PostInfoListDisplay } from "../types";
+import { SiteInfo, UnicornInfo, PostInfoListDisplay, PageContext } from "../types";
 
 interface BlogProfileProps {
 	data: {
@@ -18,12 +18,13 @@ interface BlogProfileProps {
 				node: PostInfoListDisplay
 			}]
 		}
-	}
+	},
+	pageContext: PageContext;
+	location: Location;
 }
 
 const BlogProfile = (props: BlogProfileProps) => {
 	const { pageContext, data: slugData } = props;
-	const siteTitle = slugData.site.siteMetadata.title;
 	const unicornData = slugData.unicornsJson;
 	const posts = slugData.allMarkdownRemark.edges;
 
@@ -36,7 +37,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 	}, [posts]);
 
 	return (
-		<Layout location={props.location} title={siteTitle}>
+		<Layout location={props.location}>
 			<SEO
 				title={unicornData.name}
 				description={unicornData.description}
@@ -52,7 +53,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 				posts={posts}
 			>
 				<PicTitleHeader
-					image={unicornData.profileImg.childImageSharp.bigPic}
+					image={unicornData.profileImg.childImageSharp.bigPic as any}
 					title={unicornData.name}
 					description={unicornData.description}
 					profile={true}

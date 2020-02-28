@@ -2,14 +2,14 @@ import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";
-import { PostInfoListDisplay, UnicornInfo } from "../../types";
+import { PostInfo, UnicornInfo } from "../../types";
 
 export interface PostListProps {
-	posts?: Array<{node: PostInfoListDisplay}>;
+	posts?: Array<{node: PostInfo}>;
 	showWordCount?: boolean;
-	numberOfArticles: number;
-	wordCount: number;
-	tags: string[];
+	numberOfArticles?: number;
+	wordCount?: number;
+	tags?: string[];
 	unicornData?: UnicornInfo;
 }
 /**
@@ -32,7 +32,7 @@ export const PostList = ({
 	return (
 		<main>
 			<FilterSearchBar
-				tags={tags}
+				tags={tags!}
 				showWordCount={showWordCount}
 				wordCount={wordCount}
 				numberOfArticles={numberOfArticles}

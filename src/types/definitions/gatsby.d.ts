@@ -1,4 +1,4 @@
-// declare module "gatsby" {
-// 	import Mock = jest.Mock;
-// 	export const onLinkClick: Mock;
-// }
+import * as gatsby from "gatsby"
+declare module "gatsby" {
+	export const onLinkClick: jest.Mock;
+}

@@ -8,11 +8,11 @@ import { OutboundLink } from "gatsby-plugin-google-analytics";
 
 class NotFoundPage extends React.Component {
 	render() {
-		const { data } = this.props;
-		const { title: siteTitle, repoPath } = data.site.siteMetadata;
+		const { data } = this.props as any;
+		const { repoPath } = data.site.siteMetadata;
 
 		return (
-			<Layout location={this.props.location} title={siteTitle}>
+			<Layout location={(this.props as any).location}>
 				<SEO title="404: Not Found" />
 				<Image
 					fixed={data.file.childImageSharp.fixed}

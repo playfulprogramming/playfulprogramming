@@ -1,14 +1,17 @@
 import { MockRole } from "./mock-role";
+import { UnicornInfo } from "../../src/types";
 
-export const MockUnicorn = {
+export const MockUnicorn: UnicornInfo = {
 	name: "Joe",
+	firstName: "Joe",
+	lastName: "Other",
 	id: "joe",
 	description: "Exists",
 	color: "red",
 	fields: {
 		isAuthor: true
 	},
-	roles: [MockRole],
+	roles: [MockRole as any],
 	socials: {
 		twitter: "twtrusrname",
 		github: "ghusrname",
