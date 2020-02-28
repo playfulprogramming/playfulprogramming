@@ -10,7 +10,6 @@ interface LayoutProps {
 	location: Location
 }
 export const Layout: FC<LayoutProps> = ({ location, children }) => {
-	// eslint-disable-next-line no-undef
 	const rootPath = `${__PATH_PREFIX__}/`;
 
 	const isBase = location.pathname === rootPath;

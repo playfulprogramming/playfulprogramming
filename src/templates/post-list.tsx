@@ -25,7 +25,7 @@ const BlogPostListTemplate = props => {
 	const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 
 	return (
-		<Layout location={props.location} title={siteTitle}>
+		<Layout location={props.location}>
 			<SEO title={SEOTitle} />
 			<div>
 				<PostListLayout posts={posts} pageContext={pageContext}>

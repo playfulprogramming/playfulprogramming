@@ -92,7 +92,7 @@ export function setThemeColorsToVars(themeName: ThemeEnum) {
 // We only have dark and light right now
 export const defaultThemeContextVal = {
 	currentTheme: "light",
-	setTheme: val => {}
+	setTheme: (val: ThemeEnum) => {}
 };
 
 export const ThemeContext = createContext(defaultThemeContextVal);

@@ -2,12 +2,13 @@ import * as React from "react";
 import Image from "gatsby-image";
 
 import styles from "./user-profile-pic.module.scss";
+import { UnicornInfo } from "../../types/UnicornInfo";
 
-/**
- * @param {Array.<{unicorn: UnicornInfo, onClick: MouseEventHandler}>} authors
- * @param {string} className
- */
-export const UserProfilePic = ({ authors, className }) => {
+interface UserProfilePicProps {
+	authors: Array<{unicorn: UnicornInfo, onClick: React.MouseEventHandler}>;
+	className: string;
+}
+export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 	const hasTwoAuthors = authors.length !== 1;
 
 	const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
@@ -24,7 +25,7 @@ export const UserProfilePic = ({ authors, className }) => {
 			>
 				<Image
 					data-testid={`author-pic-${i}`}
-					fixed={unicorn.profileImg.childImageSharp.smallPic}
+					fixed={unicorn.profileImg.childImageSharp.smallPic as any}
 					alt={unicorn.name}
 					className={`circleImg ${styles.profilePicImage} ${classesToApply}`}
 					imgStyle={{

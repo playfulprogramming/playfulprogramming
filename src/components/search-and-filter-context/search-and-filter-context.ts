@@ -5,7 +5,7 @@ import {
 	useMemo,
 	useState
 } from "react";
-import { useLunr } from "../../utils/useLunr";
+import { useLunr } from "../../utils";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
@@ -14,8 +14,8 @@ export const defaultSearchAndFilterContextVal = {
 	 * @type {string[]} A list of strings matching the tag IDs that we filter by
 	 */
 	filterVal: [],
-	setSearchVal: val => {},
-	setFilterVal: val => {}
+	setSearchVal: (val: string) => {},
+	setFilterVal: (val: string[]) => {}
 };
 
 export const SearchAndFilterContext = createContext(
@@ -47,7 +47,7 @@ export const useSearchFilterValue = () => {
 	 *
 	 * Search should be a string matching
 	 */
-	const [filterVal, setFilterVal] = useState([]);
+	const [filterVal, setFilterVal] = useState<string[]>([]);
 	const [searchVal, setSearchVal] = useState("");
 
 	/**

@@ -6,21 +6,25 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
-import Helmet from "react-helmet";
+import Helmet, { HelmetProps } from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
+import { UnicornInfo } from "../types/UnicornInfo";
 
-const mapToMetaArr = map =>
+type MapToMetaArrMap = Map<
+	JSX.IntrinsicElements["meta"]["property"],
+	JSX.IntrinsicElements["meta"]["content"]
+>;
+const mapToMetaArr = (map: MapToMetaArrMap) =>
 	Array.from(map.entries()).map(([k, v]) => ({
 		property: k,
 		content: v
 	}));
 
 const getBlogPostMetas = (
-	unicornData,
-	keywords = [],
-	publishedTime,
-	editedTime
+	unicornData?: UnicornInfo,
+	keywords: string[] = [],
+	publishedTime?: string,
+	editedTime?: string
 ) => {
 	if (!unicornData) return [];
 	const metas = new Map();
@@ -49,7 +53,7 @@ const getBlogPostMetas = (
 	];
 };
 
-const getProfileMetas = unicornData => {
+const getProfileMetas = (unicornData?: UnicornInfo) => {
 	if (!unicornData) return [];
 	const metas = new Map();
 
@@ -61,17 +65,29 @@ const getProfileMetas = unicornData => {
 	return mapToMetaArr(metas);
 };
 
-function SEO({
-	description,
-	lang,
-	meta,
+interface SEOProps {
+	description?: string;
+	lang?: string;
+	meta?: HelmetProps["meta"];
+	title: string;
+	unicornData?: UnicornInfo;
+	keywords?: string[];
+	publishedTime?: string;
+	editedTime?: string;
+	type?: 'article' | 'profile';
+}
+
+export const SEO = ({
+	description = "",
+	lang = "en",
+	meta = [],
 	title,
 	unicornData,
 	keywords,
 	publishedTime,
 	editedTime,
 	type
-}) {
+}: SEOProps) => {
 	const { site } = useStaticQuery(
 		graphql`
 			query {
@@ -170,23 +186,8 @@ function SEO({
 					content: "https://unicorn-utterances.com/share-banner.png"
 				}
 			]
-				.concat(meta)
-				.concat(typeMetas)}
+				.concat(meta as any)
+				.concat(typeMetas as any)}
 		/>
 	);
-}
-
-SEO.defaultProps = {
-	lang: `en`,
-	meta: [],
-	description: ``
 };
-
-SEO.propTypes = {
-	description: PropTypes.string,
-	lang: PropTypes.string,
-	meta: PropTypes.arrayOf(PropTypes.object),
-	title: PropTypes.string.isRequired
-};
-
-export { SEO };

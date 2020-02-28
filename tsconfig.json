@@ -10,6 +10,11 @@
     "esModuleInterop": true,
     "noUnusedLocals": false
   },
-  "include": ["./config/types/svg.d.ts"],
+  "files": [
+    "./src/**/*"
+  ],
+  "include": [
+    "./src/**/*"
+  ],
   "exclude": ["node_modules", "public", ".cache"]
 }

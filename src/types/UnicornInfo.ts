@@ -3,6 +3,8 @@ import { RolesEnum } from "./RolesInfo";
 
 export interface UnicornInfo {
 	name: string;
+	firstName: string;
+	lastName: string;
 	id: string;
 	description: string;
 	color: string;
