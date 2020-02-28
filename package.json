@@ -64,7 +64,9 @@
     "react-helmet": "^5.2.1",
     "react-paginate": "^6.3.2",
     "react-pose": "^4.0.10",
+    "source-map-support": "^0.5.16",
     "typescript": "^3.8.2",
+    "unist-util-flat-filter": "^1.0.0",
     "unist-util-visit": "^2.0.2"
   },
   "peerDependencies": {
@@ -103,7 +105,8 @@
     "stylelint": "^13.2.0",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-prettier": "^1.1.2",
-    "ts-jest": "^25.2.1"
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2"
   },
   "homepage": "https://unicorn-utterances.com",
   "keywords": [
