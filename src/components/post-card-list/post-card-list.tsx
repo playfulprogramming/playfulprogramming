@@ -4,7 +4,7 @@ import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";
 import { PostInfoListDisplay, UnicornInfo } from "../../types";
 
-interface PostListProps {
+export interface PostListProps {
 	posts?: Array<{node: PostInfoListDisplay}>;
 	showWordCount?: boolean;
 	numberOfArticles: number;

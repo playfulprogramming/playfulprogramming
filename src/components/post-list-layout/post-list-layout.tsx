@@ -5,7 +5,7 @@ import {
 	useSearchFilterValue
 } from "../search-and-filter-context";
 import { useState } from "react";
-import { PostList } from "../post-card-list";
+import { PostList, PostListProps } from "../post-card-list";
 import ReactPaginate from "react-paginate";
 import { navigate } from "gatsby-link";
 import {
@@ -14,13 +14,19 @@ import {
 } from "../../utils/handle-post-list";
 import { useEffect } from "react";
 import { useMemo } from "react";
+import { PageContext, PostInfoListDisplay } from "../../types";
 
+interface PostListLayoutProps extends PostListProps x{
+	children?: React.ReactNode;
+	posts: {node: PostInfoListDisplay}[];
+	pageContext: PageContext;
+}
 export const PostListLayout = ({
 	children,
 	posts,
 	pageContext,
 	...postListProps
-}) => {
+}: PostListLayoutProps) => {
 	const {
 		pageIndex: originalPageIndexPlusOne,
 		numberOfPages,
@@ -57,9 +63,9 @@ export const PostListLayout = ({
 		getSkippedPosts(posts, originalPageIndex * limitNumber, limitNumber);
 
 	// If there is no filter or search applied, this should be the original post array
-	const [filteredByPosts, setFilteredPosts] = useState([]);
+	const [filteredByPosts, setFilteredPosts] = useState<{node: PostInfoListDisplay}[]>([]);
 
-	const [postsToDisplay, setPostsToDisplay] = useState(
+	const [postsToDisplay, setPostsToDisplay] = useState<{node: PostInfoListDisplay}[]>(
 		/**
 		 * Set the initial value to the expected page's results
 		 *
@@ -146,7 +152,6 @@ export const PostListLayout = ({
 					pageRangeDisplayed={5}
 					hrefBuilder={props => `${relativePath}/page/${props}`}
 					containerClassName={"pagination"}
-					subContainerClassName={"pages pagination"}
 					activeClassName={"active"}
 					onPageChange={({ selected }) => {
 						if (contextValue.filterVal.length || contextValue.searchVal) {

@@ -15,7 +15,7 @@ export const defaultSearchAndFilterContextVal = {
 	/**
 	 * @type {string[]} A list of strings matching the tag IDs that we filter by
 	 */
-	filterVal: [],
+	filterVal: [] as any[],
 	setSearchVal: (val: string) => {},
 	setFilterVal: (val: UseSelectableArrayInternalVal<string>[]) => {}
 };
@@ -24,7 +24,11 @@ export const SearchAndFilterContext = createContext(
 	defaultSearchAndFilterContextVal
 );
 
-export const usePostTagsFromNodes = (posts: Array<{node: PostInfo}>) => {
+export const usePostTagsFromNodes = <
+	T extends { node: { frontmatter: { tags: string[] } } }
+>(
+	posts: Array<T>
+) => {
 	const postTags = useMemo(() => {
 		return Array.from(
 			posts.reduce((prev, post) => {
@@ -49,7 +53,9 @@ export const useSearchFilterValue = () => {
 	 *
 	 * Search should be a string matching
 	 */
-	const [filterVal, setFilterVal] = useState<UseSelectableArrayInternalVal<string>[]>([]);
+	const [filterVal, setFilterVal] = useState<
+		UseSelectableArrayInternalVal<string>[]
+	>([]);
 	const [searchVal, setSearchVal] = useState("");
 
 	/**
