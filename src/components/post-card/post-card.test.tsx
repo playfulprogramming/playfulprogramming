@@ -15,7 +15,7 @@ describe("Post card", () => {
 		const { baseElement, findByText, findByTestId } = render(
 			<PostCard
 				title={title}
-				authors={authors}
+				authors={authors as any}
 				published={published}
 				tags={tags}
 				excerpt={excerpt}
@@ -43,7 +43,7 @@ describe("Post card", () => {
 		const { findByText } = render(
 			<PostCard
 				title={title}
-				authors={authors}
+				authors={authors as any}
 				published={published}
 				tags={tags}
 				excerpt={excerpt}

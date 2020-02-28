@@ -3,15 +3,15 @@ import { useAfterInit } from "./useAfterInit";
 import { useWindowSize } from "./useWindowSize";
 
 interface ReturnType {
-	x: number,
-	y: number,
-	bottom: number,
-	height: number,
-	left: number,
-	right: number,
-	top: number,
-	width: number
-};
+	x: number;
+	y: number;
+	bottom: number;
+	height: number;
+	left: number;
+	right: number;
+	top: number;
+	width: number;
+}
 
 const emptyVal: ReturnType = {
 	x: 0,
@@ -34,10 +34,10 @@ const emptyVal: ReturnType = {
  */
 export const useElementBounds = (
 	changeArr: any[],
-	changeFunc: Function = (a: any) => a,
+	changeFunc: (a: ReturnType) => ReturnType = (a: ReturnType) => a,
 	debounceMs: number = 150
-): {ref: RefObject<any>, val: ReturnType} => {
-	const [val, setVal] = useState(emptyVal);
+): { ref: (el: HTMLElement) => void; val: ReturnType } => {
+	const [val, setVal] = useState<ReturnType>(emptyVal);
 	const afterInit = useAfterInit();
 	const windowSize = useWindowSize(debounceMs);
 
@@ -46,8 +46,8 @@ export const useElementBounds = (
 		[changeArr, windowSize, afterInit]
 	);
 
-	const ref: any = useCallback(
-		(reff: Element) => {
+	const ref = useCallback(
+		(reff: HTMLElement) => {
 			if (reff) {
 				setVal(changeFunc(reff.getBoundingClientRect()));
 				return;

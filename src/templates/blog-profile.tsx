@@ -4,9 +4,7 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { PicTitleHeader } from "../components/pic-title-header";
 import { PostListLayout } from "../components/post-list-layout";
-import { SiteInfo } from "../types/SiteInfo";
-import { UnicornInfo } from "../types/UnicornInfo";
-import { PostInfoListDisplay } from "../types/PostInfoListDisplay";
+import { SiteInfo, UnicornInfo, PostInfoListDisplay } from "../types";
 
 interface BlogProfileProps {
 	data: {

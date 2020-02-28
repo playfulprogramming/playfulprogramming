@@ -2,7 +2,7 @@ import * as React from "react";
 import Image from "gatsby-image";
 
 import styles from "./user-profile-pic.module.scss";
-import { UnicornInfo } from "../../types/UnicornInfo";
+import { UnicornInfo } from "../../types";
 
 interface UserProfilePicProps {
 	authors: Array<{unicorn: UnicornInfo, onClick: React.MouseEventHandler}>;

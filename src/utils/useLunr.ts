@@ -10,14 +10,11 @@ function getSearchResults(query: any, lng: string) {
 	const lazyResults = lunrIndex.index.search(`*${escapedStr}*`);
 	const fullResults = lunrIndex.index.search(escapedStr);
 	const refs = new Set([
-		...lazyResults.map(({ ref }: {ref: any}) => ref),
-		...fullResults.map(({ ref }: {ref: any}) => ref)
+		...lazyResults.map(({ ref }: { ref: any }) => ref),
+		...fullResults.map(({ ref }: { ref: any }) => ref)
 	]);
 
-	return Array.from(refs).map(ref => {
-		console.log(lunrIndex.store[ref])
-		return lunrIndex.store[ref]
-	});
+	return Array.from(refs).map(ref => lunrIndex.store[ref] as {title: string, slug: string});
 }
 
 /**

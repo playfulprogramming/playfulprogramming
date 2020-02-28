@@ -1,19 +1,23 @@
 import React, { createRef, useMemo } from "react";
 import styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
-import { stopPropCallback } from "../../../utils/preventCallback";
+import { stopPropCallback } from "../../../utils";
 import { UserProfilePic } from "../../user-profile-pic";
+import { PostInfoListDisplay } from "../../../types";
 
-export const PostMetadata = ({ post }) => {
+interface PostMetadataProps {
+	post: PostInfoListDisplay;
+}
+export const PostMetadata = ({ post }: PostMetadataProps) => {
 	const { authors } = post.frontmatter;
 
 	const authorLinks = useMemo(
 		() =>
 			authors.map(unicorn => {
-				const ref = createRef();
-				const onClick = e => {
+				const ref = createRef<HTMLElement>();
+				const onClick = (e: MouseEvent) => {
 					stopPropCallback(e);
-					ref.current.click();
+					ref.current!.click();
 				};
 
 				return {
@@ -28,7 +32,7 @@ export const PostMetadata = ({ post }) => {
 	return (
 		<div className={styles.container}>
 			<UserProfilePic
-				authors={authorLinks}
+				authors={authorLinks as any}
 				className={styles.postMetadataAuthorImagesContainer}
 			/>
 			<div className={styles.textDiv}>
@@ -40,7 +44,7 @@ export const PostMetadata = ({ post }) => {
 								<Link
 									key={author.id}
 									to={`/unicorns/${author.id}`}
-									ref={authorLinks[i].ref}
+									ref={authorLinks[i].ref as any}
 									className={styles.authorLink}
 								>
 									{author.name}

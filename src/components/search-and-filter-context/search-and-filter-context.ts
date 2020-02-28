@@ -6,6 +6,8 @@ import {
 	useState
 } from "react";
 import { useLunr } from "../../utils";
+import { UseSelectableArrayInternalVal } from "batteries-not-included";
+import { PostInfo } from "../../types";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
@@ -15,14 +17,14 @@ export const defaultSearchAndFilterContextVal = {
 	 */
 	filterVal: [],
 	setSearchVal: (val: string) => {},
-	setFilterVal: (val: string[]) => {}
+	setFilterVal: (val: UseSelectableArrayInternalVal<string>[]) => {}
 };
 
 export const SearchAndFilterContext = createContext(
 	defaultSearchAndFilterContextVal
 );
 
-export const usePostTagsFromNodes = posts => {
+export const usePostTagsFromNodes = (posts: Array<{node: PostInfo}>) => {
 	const postTags = useMemo(() => {
 		return Array.from(
 			posts.reduce((prev, post) => {
@@ -47,7 +49,7 @@ export const useSearchFilterValue = () => {
 	 *
 	 * Search should be a string matching
 	 */
-	const [filterVal, setFilterVal] = useState<string[]>([]);
+	const [filterVal, setFilterVal] = useState<UseSelectableArrayInternalVal<string>[]>([]);
 	const [searchVal, setSearchVal] = useState("");
 
 	/**

@@ -9,8 +9,7 @@ import { SEO } from "../components/seo";
 import { PostMetadata, PostTitleHeader } from "../components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "../components/theme-context";
-import { SiteInfo } from "../types/SiteInfo";
-import { PostInfo } from "../types/PostInfo";
+import { SiteInfo, PostInfo } from "../types";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;

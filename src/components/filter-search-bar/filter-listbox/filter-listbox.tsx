@@ -41,11 +41,27 @@ import FilterIcon from "../../../assets/icons/filter.svg";
 import CheckIcon from "../../../assets/icons/check.svg";
 import UncheckIcon from "../../../assets/icons/unchecked.svg";
 
-import { usePopoverCombobox } from "batteries-not-included/react/a11y";
+import {
+	usePopoverCombobox,
+	UseSelectableArrayInternalVal
+} from "batteries-not-included/react/a11y";
 import { SearchAndFilterContext } from "../../search-and-filter-context";
 import { useElementBounds } from "../../../utils";
 
-const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
+interface FilterListItemProps {
+	tag: UseSelectableArrayInternalVal;
+	index: number;
+	active: UseSelectableArrayInternalVal;
+	expanded: boolean;
+	selectIndex: (i: number, e: any, type: string) => void;
+}
+const FilterListItem = ({
+	tag,
+	index,
+	active,
+	expanded,
+	selectIndex
+}: FilterListItemProps) => {
 	const liClassName = classNames(filterStyles.option, {
 		[filterStyles.active]: active.index === index,
 		[filterStyles.selected]: tag.selected,
@@ -56,7 +72,7 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
 			className={liClassName}
 			role="option"
 			onClick={e => expanded && selectIndex(index, e, e.type)}
-			id={tag.id}
+			id={tag.id as string}
 			aria-selected={tag.selected}
 		>
 			{tag.selected ? <CheckIcon /> : <UncheckIcon />}
@@ -67,8 +83,8 @@ const FilterListItem = ({ tag, index, active, expanded, selectIndex }) => {
 
 const FilterDisplaySpan = posed.span({
 	initial: {
-		width: props => props.wiidth || 0,
-		height: props => props.heiight
+		width: (props: any) => props.wiidth || 0,
+		height: (props: any) => props.heiight
 	}
 });
 
@@ -77,11 +93,15 @@ const ListIdBox = posed.ul({
 		height: "auto"
 	},
 	hidden: {
-		height: props => props.heiight
+		height: (props: any) => props.heiight
 	}
 });
 
-export const FilterListbox = ({ tags = [], className }) => {
+interface FilterListboxProps {
+	tags: string[];
+	className?: string;
+}
+export const FilterListbox = ({ tags = [], className }: FilterListboxProps) => {
 	const { setFilterVal } = useContext(SearchAndFilterContext);
 
 	const {
@@ -94,7 +114,7 @@ export const FilterListbox = ({ tags = [], className }) => {
 		usedKeyboardLast,
 		parentRef,
 		buttonProps
-	} = usePopoverCombobox(tags);
+	} = usePopoverCombobox<string>(tags);
 
 	// Set the selected array value to match the parent combobox
 	useEffect(() => setFilterVal(selected), [selected, setFilterVal]);
@@ -112,7 +132,7 @@ export const FilterListbox = ({ tags = [], className }) => {
 	 * Refs
 	 */
 	// Set the node reference for the button for focusing
-	const [buttonNode, setButtonNode] = useState();
+	const [buttonNode, setButtonNode] = useState<HTMLElement>();
 	// Get a callback reference to get the element bounds
 	const {
 		ref: elBoundsCBRef,
@@ -201,8 +221,8 @@ export const FilterListbox = ({ tags = [], className }) => {
 	});
 
 	return (
-		<div className={containerClassName} ref={getContainerWidthFromRef}>
-			<div className={filterStyles.buttonContainer} ref={parentRef}>
+		<div className={containerClassName} ref={getContainerWidthFromRef as any}>
+			<div className={filterStyles.buttonContainer} ref={parentRef as any}>
 				<span id="exp_elem" className="visually-hidden">
 					Choose a tag to filter by:
 				</span>
@@ -252,7 +272,7 @@ export const FilterListbox = ({ tags = [], className }) => {
 					aria-labelledby="exp_elem"
 					tabIndex={0}
 					aria-multiselectable="true"
-					aria-activedescendant={active && active.id}
+					aria-activedescendant={active ? active.id as string : ''}
 					heiight={buttonHeight}
 					poseKey={buttonHeight}
 					pose={expanded ? "expanded" : "hidden"}

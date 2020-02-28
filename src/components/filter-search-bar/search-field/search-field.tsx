@@ -10,16 +10,16 @@ const placeholder = "Search";
 
 const PosedInput = posed.input({
 	initial: {
-		width: props => props.wiidth
+		width: (props: {wiidth: number}) => props.wiidth
 	}
 });
 
-export const SearchField = ({ className }) => {
+export const SearchField = ({ className }: {className?: string}) => {
 	const { setSearchVal, searchVal } = useContext(SearchAndFilterContext);
 	const [isFocused, setIsFocused] = useState(false);
 
 	// Set the node reference for the input for click listening
-	const [inputNode, setInputNode] = useState();
+	const [inputNode, setInputNode] = useState<HTMLElement>();
 	// Get a callback reference to get the element bounds
 	const {
 		ref: elBoundsCBRef,
@@ -27,7 +27,7 @@ export const SearchField = ({ className }) => {
 	} = useElementBounds([]);
 	// Create a callback reference to compose both the callback bound ref and the "real" ref
 	const inputCallbackRef = useCallback(
-		node => {
+		(node: HTMLInputElement) => {
 			elBoundsCBRef(node);
 			setInputNode(node);
 		},
@@ -54,21 +54,21 @@ export const SearchField = ({ className }) => {
 		});
 	}, [isFocused, searchVal]);
 
-	const innerWinSize = global.window && window.innerWidth;
+	const innerWinSize = window && window.innerWidth;
 
 	return (
 		// 70 as it's the size of all padding/etc more than just the input
 		<div className={`${className} ${styles.container}`}>
-			<div className={wrapperClasses} onClick={() => inputNode.focus()}>
+			<div className={wrapperClasses} onClick={() => inputNode!.focus()}>
 				<SearchIcon className={styles.icon} />
-				<div className={styles.inputContainer} ref={containerRef}>
+				<div className={styles.inputContainer} ref={containerRef as any}>
 					<div style={{ height: inputHeight }} />
 					<PosedInput
 						placeholder={placeholder}
 						ref={inputCallbackRef}
 						aria-label="Search for posts"
 						onChange={e => {
-							const val = e.target.value;
+							const val = (e.target as HTMLInputElement).value;
 							setSearchVal(val);
 						}}
 						wiidth={innerWinSize >= 450 ? currInputWidth : "100%"}

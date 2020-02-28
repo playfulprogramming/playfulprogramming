@@ -2,14 +2,18 @@ import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";
+import { PostInfoListDisplay, UnicornInfo } from "../../types";
 
+interface PostListProps {
+	posts?: Array<{node: PostInfoListDisplay}>;
+	showWordCount?: boolean;
+	numberOfArticles: number;
+	wordCount: number;
+	tags: string[];
+	unicornData?: UnicornInfo;
+}
 /**
- * @param posts
- * @param showWordCount
- * @param numberOfArticles
- * @param wordCount
- * @param tags
- * @param unicornData - The data with the associated post. If present - you're on profile page
+ * unicornData - The data with the associated post. If present - you're on profile page
  */
 export const PostList = ({
 	posts = [],
@@ -18,7 +22,7 @@ export const PostList = ({
 	wordCount,
 	tags,
 	unicornData
-}) => {
+}: PostListProps) => {
 	// FIXME: This will not suffice with pagination added
 
 	const listAria = unicornData

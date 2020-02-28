@@ -5,13 +5,19 @@ import GitHubIcon from "../../assets/icons/github.svg";
 import SiteIcon from "../../assets/icons/site.svg";
 import TwitterIcon from "../../assets/icons/twitter.svg";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { UnicornInfo } from "../../types";
 
-const getNamePossessive = name => {
+const getNamePossessive = (name: string) => {
 	if (name.endsWith("s")) return `${name}'`;
 	return `${name}'s`;
 };
 
-const SocialBtn = ({ icon, text, url }) => {
+interface SocialBtnProps {
+	icon: React.ReactNode;
+	text: string;
+	url: string;
+}
+const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
 	return (
 		<li
 			className={`baseBtn lowercase prependIcon ${styles.socialBtnLink}`}
@@ -41,13 +47,20 @@ const SocialBtn = ({ icon, text, url }) => {
  * @param profile - Is a profile pic?
  * @constructor
  */
+interface PicTitleHeaderProps {
+	image: string;
+	socials: UnicornInfo['socials'],
+	title: string;
+	description: string,
+	profile?: boolean
+}
 export const PicTitleHeader = ({
 	image,
 	socials,
 	title,
 	description,
 	profile = false
-}) => {
+}: PicTitleHeaderProps) => {
 	const subHeaderAria = profile
 		? `A description of ${title}`
 		: "The site's about snippet";
@@ -60,7 +73,7 @@ export const PicTitleHeader = ({
 		title
 	]);
 
-	const socialsAria = profile && `${possessiveName} social media links`;
+	const socialsAria = profile ? `${possessiveName} social media links` : '';
 
 	return (
 		<div
@@ -71,7 +84,7 @@ export const PicTitleHeader = ({
 			<Image
 				className={styles.headerPic}
 				style={imgStyle}
-				fixed={image}
+				fixed={image as any}
 				loading={"eager"}
 				alt={imgAlt}
 			/>
@@ -90,7 +103,6 @@ export const PicTitleHeader = ({
 							<SocialBtn
 								icon={<TwitterIcon />}
 								text={"Twitter"}
-								name={title}
 								url={`https://twitter.com/${socials.twitter}`}
 							/>
 						)}
@@ -98,7 +110,6 @@ export const PicTitleHeader = ({
 							<SocialBtn
 								icon={<GitHubIcon />}
 								text={"GitHub"}
-								name={title}
 								url={`https://github.com/${socials.github}`}
 							/>
 						)}
@@ -106,7 +117,6 @@ export const PicTitleHeader = ({
 							<SocialBtn
 								icon={<SiteIcon />}
 								text={"Website"}
-								name={title}
 								url={socials.website}
 							/>
 						)}

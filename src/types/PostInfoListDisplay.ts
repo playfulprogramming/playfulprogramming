@@ -7,6 +7,7 @@ export interface PostInfoListDisplay {
 	frontmatter: {
 		title: string;
 		published: string;
+		subtitle?: string;
 		tags: string[];
 		description: string;
 		authors: Array<
@@ -19,6 +20,7 @@ export interface PostInfoListDisplay {
 	};
 	fields: {
 		slug: string;
+		inlineCount: number;
 	};
 	wordCount: {
 		words: number;
