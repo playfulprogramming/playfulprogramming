@@ -10,11 +10,11 @@ const placeholder = "Search";
 
 const PosedInput = posed.input({
 	initial: {
-		width: (props: {wiidth: number}) => props.wiidth
+		width: (props: { wiidth: number }) => props.wiidth
 	}
 });
 
-export const SearchField = ({ className }: {className?: string}) => {
+export const SearchField = ({ className }: { className?: string }) => {
 	const { setSearchVal, searchVal } = useContext(SearchAndFilterContext);
 	const [isFocused, setIsFocused] = useState(false);
 
@@ -54,7 +54,7 @@ export const SearchField = ({ className }: {className?: string}) => {
 		});
 	}, [isFocused, searchVal]);
 
-	const innerWinSize = window && window.innerWidth;
+	const innerWinSize = (global as any).window && window.innerWidth;
 
 	return (
 		// 70 as it's the size of all padding/etc more than just the input

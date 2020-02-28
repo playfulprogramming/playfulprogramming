@@ -21,7 +21,7 @@ export const Layout: FC<LayoutProps> = ({ location, children }) => {
 
 	const [currentTheme, setCurrentTheme] = useState("light");
 
-	const winLocalStorage = window && window.localStorage;
+	const winLocalStorage = (global as any).window && window.localStorage;
 
 	useEffect(() => {
 		if (!winLocalStorage) return;
