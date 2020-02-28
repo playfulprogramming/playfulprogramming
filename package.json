@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@types/react-paginate": "^6.2.1",
+    "batteries-not-included": "0.0.2",
     "classnames": "^2.2.6",
     "css-loader": "^3.4.0",
     "disqus-react": "^1.0.7",
