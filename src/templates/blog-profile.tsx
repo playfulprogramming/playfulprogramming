@@ -57,7 +57,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 				showWordCount={true}
 				unicornData={unicornData}
 				wordCount={wordCount}
-				posts={posts}
+				posts={posts as any}
 			>
 				<PicTitleHeader
 					image={unicornData.profileImg.childImageSharp.bigPic as any}
