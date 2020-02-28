@@ -4,7 +4,7 @@
 	description: 'Introduction to the underlying concepts of HTML, CSS, and JavaScript and how they work together.',
 	published: '2019-12-16T13:45:00.284Z',
 	authors: ['MDutro'],
-	tags: ['HTML', 'CSS', 'JavaScript', 'Beginner'],
+	tags: ['html', 'css', 'javascript'],
 	attached: [],
 	license: 'publicdomain-zero-1'
 }

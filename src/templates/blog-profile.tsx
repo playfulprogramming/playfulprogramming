@@ -30,7 +30,11 @@ const BlogProfile = (props: BlogProfileProps) => {
 	const posts = slugData.allMarkdownRemark.edges;
 
 	const wordCount = useMemo(() => {
-		return posts.reduce((prev, post) => prev + post.node.wordCount.words, 0);
+		return posts.reduce(
+			(prev, post) =>
+				prev + post.node.wordCount.words + post.node.fields.inlineCount,
+			0
+		);
 	}, [posts]);
 
 	return (

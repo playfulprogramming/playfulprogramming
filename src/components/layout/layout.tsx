@@ -113,6 +113,7 @@ export const postFragmentQuery = graphql`
 		frontmatter {
 			title
 			published(formatString: "MMMM DD, YYYY")
+			edited(formatString: "MMMM DD, YYYY")
 			tags
 			description
 			authors {
@@ -128,6 +129,7 @@ export const postFragmentQuery = graphql`
 		}
 		fields {
 			slug
+			inlineCount
 		}
 		wordCount {
 			words
