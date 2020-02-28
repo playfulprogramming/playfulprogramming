@@ -4,10 +4,14 @@ import BackIcon from "../../assets/icons/back.svg";
 import layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
-import { ThemeContext, setThemeColorsToVars, ThemeEnum } from "../theme-context";
+import {
+	ThemeContext,
+	setThemeColorsToVars,
+	ThemeEnum
+} from "../theme-context";
 
 interface LayoutProps {
-	location: Location
+	location: Location;
 }
 export const Layout: FC<LayoutProps> = ({ location, children }) => {
 	const rootPath = `${__PATH_PREFIX__}/`;
@@ -17,11 +21,12 @@ export const Layout: FC<LayoutProps> = ({ location, children }) => {
 
 	const [currentTheme, setCurrentTheme] = useState("light");
 
-	const winLocalStorage = window?.localStorage;
+	const winLocalStorage = window && window.localStorage;
 
 	useEffect(() => {
 		if (!winLocalStorage) return;
-		const themeName = winLocalStorage.getItem("currentTheme") as ThemeEnum || "light";
+		const themeName =
+			(winLocalStorage.getItem("currentTheme") as ThemeEnum) || "light";
 		setThemeColorsToVars(themeName);
 		setCurrentTheme(themeName);
 	}, [winLocalStorage]);

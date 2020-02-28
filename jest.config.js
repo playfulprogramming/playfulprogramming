@@ -1,7 +1,7 @@
 module.exports = {
 	preset: "ts-jest",
-	testEnvironment: "node",
-
+	testEnvironment: "jsdom",
+	testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"],
 	moduleNameMapper: {
 		".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
 		".+(/|\\\\)assets(/|\\\\)icons(/|\\\\).+\\.svg$": `<rootDir>/__mocks__/svg-comp-mock.ts`,
@@ -12,7 +12,6 @@ module.exports = {
 	globals: {
 		__PATH_PREFIX__: ``
 	},
-	setupFiles: [`<rootDir>/config/jest/loadershim.ts`],
 	setupFilesAfterEnv: ["<rootDir>/config/jest/setup-test-env.ts"],
 	watchPlugins: [
 		"jest-watch-typeahead/filename",

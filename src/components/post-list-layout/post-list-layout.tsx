@@ -14,11 +14,11 @@ import {
 } from "../../utils/handle-post-list";
 import { useEffect } from "react";
 import { useMemo } from "react";
-import { PageContext, PostInfoListDisplay } from "../../types";
+import { PageContext, PostInfo, PostInfoListDisplay } from "../../types";
 
 interface PostListLayoutProps extends PostListProps {
 	children?: React.ReactNode;
-	posts: {node: PostInfoListDisplay}[];
+	posts: { node: PostInfo }[];
 	pageContext: PageContext;
 }
 export const PostListLayout = ({
@@ -63,9 +63,11 @@ export const PostListLayout = ({
 		getSkippedPosts(posts, originalPageIndex * limitNumber, limitNumber);
 
 	// If there is no filter or search applied, this should be the original post array
-	const [filteredByPosts, setFilteredPosts] = useState<{node: PostInfoListDisplay}[]>([]);
+	const [filteredByPosts, setFilteredPosts] = useState<{ node: PostInfo }[]>(
+		[]
+	);
 
-	const [postsToDisplay, setPostsToDisplay] = useState<{node: PostInfoListDisplay}[]>(
+	const [postsToDisplay, setPostsToDisplay] = useState<{ node: PostInfo }[]>(
 		/**
 		 * Set the initial value to the expected page's results
 		 *
@@ -112,7 +114,7 @@ export const PostListLayout = ({
 	/**
 	 * Data setup to display the posts
 	 */
-	const postTags = usePostTagsFromNodes(posts);
+	const postTags = usePostTagsFromNodes(posts) as string[];
 
 	const { pageCount, forcePage } = useMemo(() => {
 		if (!contextValue.searchVal && !contextValue.filterVal.length)

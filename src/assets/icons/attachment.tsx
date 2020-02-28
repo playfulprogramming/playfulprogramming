@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { SVGProps, useRef } from "react";
 import { genId } from "batteries-not-included/react/a11y";
 
-export const Attachment = props => {
-	const clipId = useRef(`path-1-inside-1${genId()}`);
+export const Attachment = (props: Partial<SVGProps<any>>) => {
+	const clipId = useRef<string>(`path-1-inside-1${genId()}`);
 
 	return (
 		<svg
@@ -13,7 +13,7 @@ export const Attachment = props => {
 			xmlns="http://www.w3.org/2000/svg"
 			{...props}
 		>
-			<g clipPath={`url(#${clipId})`}>
+			<g clipPath={`url(#${clipId.current})`}>
 				<path
 					fillRule="evenodd"
 					clipRule="evenodd"
@@ -22,7 +22,7 @@ export const Attachment = props => {
 				/>
 			</g>
 			<defs>
-				<clipPath id={clipId}>
+				<clipPath id={clipId.current}>
 					<rect width="36" height="36" fill="white" />
 				</clipPath>
 			</defs>

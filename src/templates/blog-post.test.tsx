@@ -19,7 +19,7 @@ afterAll(() => {
 	(useStaticQuery as jest.Mock).mockImplementation(jest.fn());
 });
 
-const getElement = (post = MockPost) => (
+const getElement = (post: any = MockPost) => (
 	<BlogPostTemplate
 		data={{
 			site: {

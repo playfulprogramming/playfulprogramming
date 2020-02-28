@@ -16,7 +16,7 @@ import { MockUnicorn } from "../../__mocks__/data/mock-unicorn";
 import BlogPostList from "./post-list";
 
 beforeAll(() => {
-	useStaticQuery.mockImplementation(() => ({
+	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
 			siteMetadata
 		}
@@ -24,7 +24,7 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-	useStaticQuery.mockImplementation(jest.fn());
+	(useStaticQuery as jest.Mock).mockImplementation(jest.fn());
 });
 
 const getElement = () => (
@@ -61,9 +61,11 @@ const getElement = () => (
 				}
 			}
 		}}
-		location={{
-			pathname: "/post/this-post-name-here"
-		}}
+		location={
+			{
+				pathname: "/post/this-post-name-here"
+			} as any
+		}
 	/>
 );
 
