@@ -8,10 +8,7 @@
 
 [![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
-
-Master branch status: [![Master Branch Build Status](https://travis-ci.org/unicorn-utterances/unicorn-utterances.svg?branch=master)](https://travis-ci.org/unicorn-utterances/unicorn-utterances)
-
-Integration branch status: [![Integration Branch Build Status](https://travis-ci.org/unicorn-utterances/unicorn-utterances.svg?branch=integration)](https://travis-ci.org/unicorn-utterances/unicorn-utterances)
+[![Build Status](https://github.com/unicorn-utterances/unicorn-utterances/workflows/testing-deploying/badge.svg)](https://github.com/unicorn-utterances/unicorn-utterances/actions)
 
 </div>
 
