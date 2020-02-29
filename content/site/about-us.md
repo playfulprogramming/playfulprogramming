@@ -43,6 +43,12 @@ We have various social media accounts where we share updates and new content wit
     </li>
     
     <li>
+        <a aria-label="Our Facebook" style="display: inline-block; margin-right: 1rem" href="https://www.facebook.com/Unicorn-Utterances-104838014459905"  target="_blank" rel="noopener noreferrer sponsored">
+            <svg height="100" aria-hidden="true" viewBox="0 0 266.893 266.895"><style type="text/css">.blk{fill:var(--highImpactBlack);}.bg{fill:var(--backgroundColor) !important;}</style><path class="blk" d="M248.082,262.307c7.854,0,14.223-6.369,14.223-14.225V18.812 c0-7.857-6.368-14.224-14.223-14.224H18.812c-7.857,0-14.224,6.367-14.224,14.224v229.27c0,7.855,6.366,14.225,14.224,14.225 H248.082z"/><path class="bg" d="M182.409,262.307v-99.803h33.499l5.016-38.895h-38.515V98.777c0-11.261,3.127-18.935,19.275-18.935 l20.596-0.009V45.045c-3.562-0.474-15.788-1.533-30.012-1.533c-29.695,0-50.025,18.126-50.025,51.413v28.684h-33.585v38.895h33.585 v99.803H182.409z"/></svg>
+        </a>
+    </li>
+    
+    <li>
         <a aria-label="Our RSS Feed" style="display: inline-block; margin-right: 1rem" href="https://unicorn-utterances.com/rss.xml"  target="_blank" rel="noopener noreferrer sponsored">
             <svg height="100" aria-hidden="true" viewBox="0 0 8 8"><style>.b{var(--highImpactBlack)}.s{fill: var(--backgroundColor) !important;}</style><rect class="b" width="8" height="8" rx="1.5" /><circle class="s" cx="2" cy="6" r="1" /><path class="s" d="m 1,4 a 3,3 0 0 1 3,3 h 1 a 4,4 0 0 0 -4,-4 z" /><path class="s" d="m 1,2 a 5,5 0 0 1 5,5 h 1 a 6,6 0 0 0 -6,-6 z" /></svg>
         </a>
