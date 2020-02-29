@@ -178,7 +178,7 @@ export const SEO = ({
 					content: `summary_large_image`
 				},
 				{
-					name: "og:image",
+					property: "og:image",
 					content: "https://unicorn-utterances.com/share-banner.png"
 				},
 				{
