@@ -285,7 +285,25 @@ module.exports = {
 				}
 			}
 		},
-		`gatsby-plugin-sitemap`
+		`gatsby-plugin-sitemap`,
+		{
+			resolve: 'gatsby-plugin-robots-txt',
+			options: {
+				resolveEnv: () => process.env.GITHUB_REF,
+				env: {
+					"refs/heads/integration": {
+						host: 'https://beta.unicorn-utterances.com/sitemap.xml',
+						sitemap: 'https://beta.unicorn-utterances.com/sitemap.xml',
+						policy: [{userAgent: '*', disallow: ['/']}]
+					},
+					"refs/heads/master": {
+						host: 'https://unicorn-utterances.com/sitemap.xml',
+						sitemap: 'https://unicorn-utterances.com/sitemap.xml',
+						policy: [{userAgent: '*', allow: '/'}]
+					}
+				}
+			}
+		}
 	],
 	mapping: {
 		"MarkdownRemark.frontmatter.authors": `UnicornsJson`,
