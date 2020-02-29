@@ -73,7 +73,7 @@ test("Blog index page renders", async () => {
 	const { baseElement, findByText, findAllByTestId } = render(getElement());
 
 	expect(baseElement).toBeInTheDocument();
-	fireEvent.click(await findByText("Read More"));
+	fireEvent.click(await findByText("About Us"));
 	expect(onLinkClick).toHaveBeenCalledTimes(1);
 
 	// Post cards
