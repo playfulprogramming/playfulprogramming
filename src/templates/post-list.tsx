@@ -21,9 +21,7 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 		<>
 			{data.site.siteMetadata.description}
 			<br />
-			<Link to={"/about"} aria-label={"The about us page"}>
-				<span aria-hidden={true}>Read More</span>
-			</Link>
+			<Link to={"/about"}>About Us</Link>
 		</>
 	);
 
