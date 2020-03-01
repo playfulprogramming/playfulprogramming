@@ -3,6 +3,7 @@ import { PostInfo } from "../../types";
 import tableOfContentsStyle from "./table-of-contents.module.scss";
 import { RefObject } from "react";
 import { useHeadingIntersectionObserver } from "./use-heading-intersection-observer";
+import classnames from "classnames";
 
 interface TableOfContentsProps {
 	headingsWithId: PostInfo["fields"]["headingsWithId"];
@@ -43,15 +44,23 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 			role={"list"}
 			ref={tocListRef}
 		>
-			{headingsToDisplay.map((headingInfo, i) => (
-				<li
-					key={headingInfo.slug}
-					style={{ marginLeft: `${1 * (headingInfo.depth - 1)}rem` }}
-					ref={linkRefs[i]}
-				>
-					<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
-				</li>
-			))}
+			{headingsToDisplay.map((headingInfo, i) => {
+				const liClassNames = classnames(tableOfContentsStyle.tocLi, {
+					[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
+					[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
+					[tableOfContentsStyle.tocH3]: headingInfo.depth === 3
+				});
+				return (
+					<li
+						key={headingInfo.slug}
+						style={{ marginLeft: `${1 * (headingInfo.depth - 1)}rem` }}
+						ref={linkRefs[i]}
+						className={liClassNames}
+					>
+						<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
+					</li>
+				);
+			})}
 		</ol>
 	);
 };

@@ -5,3 +5,29 @@
 	margin: 0;
 	padding: 0;
 }
+
+.tocLi a {
+	text-decoration: none;
+}
+
+.tocH1 {
+	font-family: var(--archivo);
+	font-size: 22px;
+	line-height: 142%;
+	a {
+		color: var(--darkPrimary);
+	}
+}
+
+.tocH2 a {
+	color: var(--midImpactBlack);
+	font-style: italic;
+	font-size: 18px;
+}
+
+.tocH3 a {
+	color: var(--midImpactBlack);
+	font-style: italic;
+	line-height: 135%;
+	font-size: 16px;
+}

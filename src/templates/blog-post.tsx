@@ -61,18 +61,20 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				type="article"
 			/>
 			<article>
-				<header role="banner" className="marginZeroAutoChild">
-					<PostTitleHeader post={post} />
-					<PostMetadata post={post} />
-				</header>
 				<BlogPostLayout
 					left={<TableOfContents headingsWithId={post.fields.headingsWithId} />}
 					center={
-						<main
-							className="post-body"
-							data-testid={"post-body-div"}
-							dangerouslySetInnerHTML={{ __html: post.html }}
-						/>
+						<div>
+							<header role="banner" className="marginZeroAutoChild">
+								<PostTitleHeader post={post} />
+								<PostMetadata post={post} />
+							</header>
+							<main
+								className="post-body"
+								data-testid={"post-body-div"}
+								dangerouslySetInnerHTML={{ __html: post.html }}
+							/>
+						</div>
 					}
 				/>
 				<footer role="contentinfo" className="post-lower-area">

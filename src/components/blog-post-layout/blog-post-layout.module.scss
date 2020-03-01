@@ -8,9 +8,11 @@
 .left-and-right-container {
 	width: 1px;
 	flex-grow: 1;
-	top: 5rem;
+	top: 13rem;
 	position: sticky;
 	align-self: flex-start;
+	overflow: auto;
+	height: calc(100vh - 13rem);
 
 	// Add 400px to the parent of the blog post, if it matches this, we want to hide the side elements from the browser
 	// This means no left and right containers on mobile
