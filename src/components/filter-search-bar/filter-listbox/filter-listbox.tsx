@@ -270,9 +270,10 @@ export const FilterListbox = ({ tags = [], className }: FilterListboxProps) => {
 					ref={comboBoxListRef}
 					className={listBoxClasses}
 					aria-labelledby="exp_elem"
-					tabIndex={0}
+					tabIndex={-1}
+					aria-hidden={!expanded}
 					aria-multiselectable="true"
-					aria-activedescendant={active ? active.id as string : ''}
+					aria-activedescendant={active ? (active.id as string) : ""}
 					heiight={buttonHeight}
 					poseKey={buttonHeight}
 					pose={expanded ? "expanded" : "hidden"}
