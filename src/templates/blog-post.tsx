@@ -66,7 +66,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 					<PostMetadata post={post} />
 				</header>
 				<BlogPostLayout
-					left={<TableOfContents />}
+					left={<TableOfContents headingsWithId={post.fields.headingsWithId} />}
 					center={
 						<main
 							className="post-body"
