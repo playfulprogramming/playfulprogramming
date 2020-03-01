@@ -8,6 +8,9 @@
 	position: relative;
 	color: inherit;
 	padding: 0 24px 23px 0;
+	line-height: 1.5;
+	overflow-wrap: break-word;
+	max-width: 100%;
 	box-shadow: none;
 	text-decoration: none;
 	transition: background var(--animSpeed) var(--animStyle),
@@ -32,6 +35,7 @@
 
 .header {
 	margin: 21px 0 0 0;
+	line-height: 1.25;
 	font-size: pxToRem(32px);
 }
 
@@ -101,6 +105,7 @@
 }
 
 .excerpt {
+	--marginSize: 8px;
 	margin: var(--marginSize) 0 0 0;
 	position: relative;
 }
