@@ -1,0 +1,20 @@
+@import "../../vars";
+
+.blog-post-layout-container {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.left-and-right-container {
+	width: 1px;
+	flex-grow: 1;
+	overflow: hidden;
+	position: sticky;
+	align-self: flex-start;
+
+	// Add 400px to the parent of the blog post, if it matches this, we want to hide the side elements from the browser
+	// This means no left and right containers on mobile
+	@include until(#{$baseUnit * (88 + 50)}px) {
+		display: none;
+	}
+}

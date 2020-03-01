@@ -10,6 +10,8 @@ import { PostMetadata, PostTitleHeader } from "../components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "../components/theme-context";
 import { SiteInfo, PostInfo } from "../types";
+import { TableOfContents } from "../components/table-of-contents";
+import { BlogPostLayout } from "../components/blog-post-layout";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
@@ -63,10 +65,15 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 					<PostTitleHeader post={post} />
 					<PostMetadata post={post} />
 				</header>
-				<main
-					className="post-body"
-					data-testid={"post-body-div"}
-					dangerouslySetInnerHTML={{ __html: post.html }}
+				<BlogPostLayout
+					left={<TableOfContents />}
+					center={
+						<main
+							className="post-body"
+							data-testid={"post-body-div"}
+							dangerouslySetInnerHTML={{ __html: post.html }}
+						/>
+					}
 				/>
 				<footer role="contentinfo" className="post-lower-area">
 					<div>
