@@ -105,6 +105,7 @@
 }
 
 .excerpt {
+	--marginSize: 8px;
 	margin: var(--marginSize) 0 0 0;
 	position: relative;
 }
