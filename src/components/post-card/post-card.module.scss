@@ -9,6 +9,8 @@
 	color: inherit;
 	padding: 0 24px 23px 0;
 	line-height: 1.5;
+	overflow-wrap: break-word;
+	max-width: 100%;
 	box-shadow: none;
 	text-decoration: none;
 	transition: background var(--animSpeed) var(--animStyle),
