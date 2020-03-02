@@ -2,7 +2,7 @@
 {
 	title: "How to Pick Tech Stacks For New Projects",
 	description: 'I often get asked: "How do you pick a tech stack for your projects?". This article answers that by outlining what questions you should be asking early on',
-	published: '2020-02-04T05:12:03.284Z',
+	published: '2020-03-02T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['engineering', 'advice'],
 	attached: [],
@@ -12,7 +12,7 @@
 
 I talk to engineers; I talk to a lot of engineers. I've spoken to engineers from various backgrounds and various skillsets. We all have had to face the same thing at some point: "What tools do you pick for the job?". It's a question that was phrased perfectly by [Lindsay Campbell](https://www.linkedin.com/in/lindsaycampbelldeveloper/) on [the public Unicorn Utterances Discord server our community use to chat](https://discord.gg/FMcvc6T):
 
-_"When you make a new project how do you go about planning it. You know what features you want, before you even start do you figure out frameworks, libraries etc. you will use for those different features, do you also make sure that all the different technologies you will be using will work together nicely in your application? Thanks!"_
+_"When you start a new project, how do you go about planning it? How do you know what features you want? How do you even start do you figure out frameworks, libraries you will use for those different features? What do you do to also make sure that all the different technologies you will be using will work together nicely in your application? Thanks!"_
 
 > Side note, Lindsay is an excellent engineer. You should [check out her profile](https://www.linkedin.com/in/lindsaycampbelldeveloper/) and give her a follow
 
@@ -91,7 +91,7 @@ Looking at what we need to do from the previous section, I can say that we could
 
 - Courses will need content, so a way to upload/view content on courses
 
-Notice how when I'm thinking about the features in a minimal way (just enough to suffice with our limited resources by ignoring the nuances of certain permission features), _I'm also mentally mapping how the data should be structured and thinking about long-term implications_ in such a way that we can add them later without refactoring everything. This balance during architecture can be tough to achieve and becomes more and more natural with experience.
+While thinking about these features, I want to keep the implementation details to a minimum, just enough to suffice with our resources by ignoring the nuances of certain permission features. However, notice how, despite thinking about the features minimally, *I'm also mentally mapping how the data should be structured and thinking about long-term implications* in such a way that we can add them later without refactoring everything. This balance during architecture can be tough to achieve and becomes more and more natural with experience.
 
 # Requirements {#data-requirements}
 
