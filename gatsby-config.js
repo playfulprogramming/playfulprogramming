@@ -131,17 +131,17 @@ module.exports = {
 			resolve: `gatsby-plugin-feed`,
 			options: {
 				query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
+					{
+						site {
+							siteMetadata {
+								title
+								description
+								siteUrl
+								site_url: siteUrl
+							}
+						}
+					}
+				`,
 				feeds: [
 					{
 						serialize: ({ query: { site, allMarkdownRemark } }) => {
@@ -178,29 +178,29 @@ module.exports = {
 							});
 						},
 						query: `
-              {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___published] },
-                  filter: {fileAbsolutePath: {regex: "/content/blog/"}}
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields { slug }
-                      frontmatter {
-                        title
-                        description
-                        published
-                        authors {
-                          name
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            `,
+							{
+								allMarkdownRemark(
+									sort: { order: DESC, fields: [frontmatter___published] },
+									filter: {fileAbsolutePath: {regex: "/content/blog/"}}
+								) {
+									edges {
+										node {
+											excerpt
+											html
+											fields { slug }
+											frontmatter {
+												title
+												description
+												published
+												authors {
+													name
+												}
+											}
+										}
+									}
+								}
+							}
+						`,
 						output: "/rss.xml",
 						title: "Unicorn Utterances's RSS Feed"
 					}
@@ -287,19 +287,29 @@ module.exports = {
 		},
 		`gatsby-plugin-sitemap`,
 		{
-			resolve: 'gatsby-plugin-robots-txt',
+			resolve: "gatsby-plugin-robots-txt",
 			options: {
 				resolveEnv: () => process.env.GITHUB_REF,
 				env: {
 					"refs/heads/integration": {
-						host: 'https://beta.unicorn-utterances.com/sitemap.xml',
-						sitemap: 'https://beta.unicorn-utterances.com/sitemap.xml',
-						policy: [{userAgent: '*', disallow: ['/']}]
+						host: "https://beta.unicorn-utterances.com/sitemap.xml",
+						sitemap: "https://beta.unicorn-utterances.com/sitemap.xml",
+						policy: [
+							{
+								userAgent: "*",
+								disallow: ["/"]
+							}
+						]
 					},
 					"refs/heads/master": {
-						host: 'https://unicorn-utterances.com/sitemap.xml',
-						sitemap: 'https://unicorn-utterances.com/sitemap.xml',
-						policy: [{userAgent: '*', allow: '/'}]
+						host: "https://unicorn-utterances.com/sitemap.xml",
+						sitemap: `https://unicorn-utterances.com/sitemap.xml`,
+						policy: [
+							{
+								userAgent: "*",
+								allow: "/"
+							}
+						]
 					}
 				}
 			}
