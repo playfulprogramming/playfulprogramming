@@ -5,7 +5,7 @@ import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "../../types";
 
 interface UserProfilePicProps {
-	authors: Array<{unicorn: UnicornInfo, onClick: React.MouseEventHandler}>;
+	authors: Array<{ unicorn: UnicornInfo; onClick: React.MouseEventHandler }>;
 	className: string;
 }
 export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
