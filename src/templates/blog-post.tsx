@@ -57,6 +57,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				editedTime={post.frontmatter.edited}
 				keywords={post.frontmatter.tags}
 				type="article"
+				canonicalPath={props.location.pathname}
 			/>
 			<article>
 				<header role="banner" className="marginZeroAutoChild">
