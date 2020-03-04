@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Unicorn Utterances logo" src="./content/assets/unicorn-utterances-logo-512.png"/>
+    <img alt="Unicorn Utterances logo" width="256" src="./content/assets/unicorn-utterances-logo-512.png"/>
 </p>
 <h1 align="center">
   Unicorn Utterances Website
@@ -7,15 +7,14 @@
 <div align="center">
 
 [![Join chat on Discord](https://badgen.net/badge/discord/join%20chat/7289DA?icon=discord)](https://discord.gg/FMcvc6T)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
-[![Build Status](https://github.com/unicorn-utterances/unicorn-utterances/workflows/testing-deploying/badge.svg)](https://github.com/unicorn-utterances/unicorn-utterances/actions)
+[![Contributor Covenant v1.4 adopted](https://badgen.net/badge/Contributor%20Covenant/v1.4%20adopted/ff69b4)](CODE_OF_CONDUCT.md)
+[![Check Status](https://badgen.net/github/checks/unicorn-utterances/unicorn-utterances/?icon=github)](https://github.com/unicorn-utterances/unicorn-utterances/actions)
 
 </div>
 
-This repository acts as the source code location for [the Unicorn Utterances blog](https://unicorn-utterances.com)
+This repository acts as the source code location for [the Unicorn Utterances blog](https://unicorn-utterances.com).
 
 ## Sponsors
-
 
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
 

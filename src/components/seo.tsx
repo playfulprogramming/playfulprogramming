@@ -75,6 +75,7 @@ interface SEOProps {
 	publishedTime?: string;
 	editedTime?: string;
 	type?: "article" | "profile";
+	canonicalPath?: string;
 }
 
 export const SEO = ({
@@ -86,7 +87,8 @@ export const SEO = ({
 	keywords,
 	publishedTime,
 	editedTime,
-	type
+	type,
+	canonicalPath
 }: SEOProps) => {
 	const { site } = useStaticQuery(
 		graphql`
@@ -135,7 +137,7 @@ export const SEO = ({
 			meta={[
 				{
 					property: `og:url`,
-					content: siteData.siteUrl
+					content: siteData.siteUrl + (canonicalPath || "")
 				},
 				{
 					property: `og:site_name`,
