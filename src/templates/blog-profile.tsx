@@ -50,6 +50,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 				description={unicornData.description}
 				unicornData={unicornData}
 				type="profile"
+				canonicalPath={props.location.pathname}
 			/>
 			<PostListLayout
 				pageContext={pageContext}
