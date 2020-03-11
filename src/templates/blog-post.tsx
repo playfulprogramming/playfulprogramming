@@ -10,6 +10,7 @@ import { PostMetadata, PostTitleHeader } from "../components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "../components/theme-context";
 import { SiteInfo, PostInfo } from "../types";
+import { MailingList } from "../components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
@@ -82,6 +83,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 							/>
 						</a>
 					</div>
+					<MailingList />
 					<div className="postBottom">
 						<div className="btnLike prependIcon">
 							<CommentsIcon />
