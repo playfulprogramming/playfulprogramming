@@ -48,7 +48,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 			<SEO
 				title={unicornData.name}
 				description={unicornData.description}
-				unicornData={unicornData}
+				unicornsData={[unicornData]}
 				type="profile"
 				canonicalPath={props.location.pathname}
 			/>
