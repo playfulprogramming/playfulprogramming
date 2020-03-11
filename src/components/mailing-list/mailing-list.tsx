@@ -17,7 +17,7 @@ export const MailingList = () => (
 		<p>
 			Subscribe to our newsletter to get updates on new content we create,
 			events we have coming up, and more! We'll make sure not to spam you and
-			provide good insights to the content we have
+			provide good insights to the content we have.
 		</p>
 		<div data-style="clean">
 			<ul
