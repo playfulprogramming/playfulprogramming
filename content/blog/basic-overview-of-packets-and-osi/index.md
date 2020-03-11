@@ -127,3 +127,6 @@ You've just been delivered the fancy new blender you ordered for smoothies. Afte
 
 # Conclusion
 
+We've done an initial overview of what layers you utilize when accessing a network. Although we've only done an initial glance at those layers, the next few steps will outline what those layers comprise of, and how data can transfer across a network. These steps will come in the order of various articles in the series in the future. To make sure you don't miss those next articles, be sure to subscribe to our newsletter down below!
+
+You can also [join us in our community Discord](https://discord.gg/FMcvc6T) and chat with us there!
