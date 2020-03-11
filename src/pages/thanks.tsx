@@ -21,8 +21,8 @@ const Thanks = (props: any) => {
 			/>
 			<h1 style={{ textAlign: "center" }}>Thank you for subscribing.</h1>
 			<p style={{ textAlign: "center" }}>
-				You are now confirmed. You can expect to receive emails as we create new
-				content.
+				Your subscription is now confirmed. You can expect to receive emails as
+				we create new content.
 			</p>
 		</Layout>
 	);
