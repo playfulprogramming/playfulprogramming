@@ -17,7 +17,7 @@ We know this is a lofty goal, though, and we don't want to do it alone. If you'r
 
 We have various social media accounts where we share updates and new content with folks! We also have a YouTube channel where we host livestreams, recorded talks, and much more educational content on computer science related topics.
 
-<ul aria-label="Our social media" style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;" role="list"> 
+<ul aria-label="Our social media" style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;" role="list">
     <li>
         <a aria-label="Our YouTube Channel" style="display: inline-block; margin-right: 1rem" href="https://www.youtube.com/channel/UCpHleOoeCdHNe_2k5nCbWOA/" target="_blank" rel="noopener noreferrer sponsored">
             <svg width="100" aria-hidden="true" viewBox="0 0 71.41206 50"><defs/><style>.st1{fill:var(--backgroundColor);} .st2{fill:var(--highImpactBlack);}</style><g transform="scale(.58824)"><path class="st2" fill-opacity="1" d="M118.9 13.3c-1.4-5.2-5.5-9.3-10.7-10.7C98.7 0 60.7 0 60.7 0s-38 0-47.5 2.5C8.1 3.9 3.9 8.1 2.5 13.3 0 22.8 0 42.5 0 42.5s0 19.8 2.5 29.2C3.9 76.9 8 81 13.2 82.4 22.8 85 60.7 85 60.7 85s38 0 47.5-2.5c5.2-1.4 9.3-5.5 10.7-10.7 2.5-9.5 2.5-29.2 2.5-29.2s.1-19.8-2.5-29.3z"/><path class="st1" d="M80.2 42.5L48.6 24.3v36.4z"/></g></svg>
@@ -71,7 +71,7 @@ We never want to end up in a place where our educational content, experience,
 or community is compromised by either financial sway or potentially harmful
 members of the community. As such, we've implemented the
 [Contributor Covenant](https://www.contributor-covenant.org/)
-as our [code of conduct](CODE_OF_CONDUCT.md) to uphold these values.
+as our [code of conduct](https://github.com/unicorn-utterances/unicorn-utterances/blob/master/CODE_OF_CONDUCT.md) to uphold these values.
 
 We also pledge to maintain transparency in regards to any finances that flow
 through the project. Not every sponsorship contains a financial contribution,

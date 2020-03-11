@@ -49,10 +49,10 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
  */
 interface PicTitleHeaderProps {
 	image: string;
-	socials?: UnicornInfo['socials'],
+	socials?: UnicornInfo["socials"];
 	title: string;
-	description: React.ReactNode | string,
-	profile?: boolean
+	description: React.ReactNode | string;
+	profile?: boolean;
 }
 export const PicTitleHeader = ({
 	image,
@@ -73,7 +73,7 @@ export const PicTitleHeader = ({
 		title
 	]);
 
-	const socialsAria = profile ? `${possessiveName} social media links` : '';
+	const socialsAria = profile ? `${possessiveName} social media links` : "";
 
 	return (
 		<div

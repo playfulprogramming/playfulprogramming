@@ -74,7 +74,7 @@ export const lightTheme = {
 	"--lineHighlightFadeColor": "rgba(107, 115, 148, 0)"
 };
 
-export type ThemeEnum = 'light' | 'dark';
+export type ThemeEnum = "light" | "dark";
 
 export function setThemeColorsToVars(themeName: ThemeEnum) {
 	const themeObj = themeName === "dark" ? darkTheme : lightTheme;
