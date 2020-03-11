@@ -58,7 +58,8 @@ const getBlogPostMetas = (
 	// as there are not multiple authors supported
 	if (unicornsData.length === 1) {
 		const socialUnicorn = unicornsData.find(uni => uni.socials);
-		const uniTwitter = socialUnicorn?.socials?.twitter;
+		const uniTwitter =
+			socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
 		if (uniTwitter) {
 			metas.set("twitter:creator", `@${uniTwitter}`);
 		}
