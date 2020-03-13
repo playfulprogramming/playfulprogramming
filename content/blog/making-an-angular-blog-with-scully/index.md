@@ -299,7 +299,7 @@ The server is available on "http://localhost:1668/"
 
 Finally, if we go to [http://localhost:1668/blog/test-post](http://localhost:1668/blog/test-post), we can see the post contents alongside our header and footer.
 
-![A preview of the post as seen on-screen](./hello-world-blog-post.png)
+![A preview of the post as seen on-screen](./hello_world_blog_post.png)
 
 ## Scully Build Additions {#scully-build-folder}
 
@@ -318,3 +318,163 @@ If you open the `/src/assets` folder, you'll notice another file you didn't have
 
 # Listing Posts {#scully-route-acess}
 
+In order to get a list of posts, we're actually going to utilize Scully's route information service. To start, let's add that service to the `blog.component.ts` file:
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ScullyRoutesService } from '@scullyio/ng-lib';
+
+@Component({
+  selector: 'app-blog',
+  templateUrl: './blog.component.html',
+  styleUrls: ['./blog.component.scss']
+})
+export class BlogComponent implements OnInit {
+  constructor(private scully: ScullyRoutesService) {}
+
+  ngOnInit(): void {      
+  }
+}
+```
+
+Now that we have access to said service, we can add some calls inside of our `ngOnInit` lifecycle method to list out the routes:
+
+```typescript
+ngOnInit(): void {
+  this.scully.available$.subscribe(routes => console.log(routes));
+}
+```
+
+If you now start your server (`ng serve`) and load up your `/blog` route, you should see the following printed out to your log:
+
+```javascript
+0: {route: "/"}
+1: {route: "/blog/test-post", title: "Test post", description: "This is a post description", publish: true, authorName: "Corbin Crutchley", …}
+2: {route: "/blog"}
+```
+
+See? We're able to see all of the routes that Scully generated during the last `npm run scully` post-build step. Additionally, any of the routes that were generated from a markdown file contains it's frontmatter!
+
+> [Remember how I said earlier that the frontmatter fields impacted Scully?](#frontmatter) Well, that `publish` field will toggle if a route shows up in this list or not. If you change that field to `false` then rebuild and re-run the `scully` command, it will hide it from this list.
+>
+> Want to list **all** of the routes, including the ones with `publish: false`? Well, change `this.scully.available$` to `this.scully.allRoutes$` and you'll even have those in the fray!
+
+We now have the list of routes, but surely we don't want to list the `/blog` or the `/` routes, do we? Simple enough, let's add a filter:
+
+```typescript
+routes.filter(route =>
+	route.route.startsWith('/blog/') && route.sourceFile.endsWith('.md')
+);
+```
+
+And that'll give us what we're looking for:
+
+```javascript
+0: {route: "/blog/test-post", title: "Test post", description: "This is a post description", publish: true, authorName: "Corbin Crutchley", …}
+```
+
+## Final Blog List {#scully-avail-routes}
+
+We can cleanup the code a bit by using [the Angular `async` pipe](https://angular.io/api/common/AsyncPipe):
+
+```typescript
+// blog.component.ts
+import { Component } from '@angular/core';
+import { ScullyRoutesService } from '@scullyio/ng-lib';
+import { map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-blog',
+  templateUrl: './blog.component.html',
+  styleUrls: ['./blog.component.scss']
+})
+export class BlogComponent {
+  constructor(private scully: ScullyRoutesService) {}
+
+  $blogPosts = this.scully.available$.pipe(
+    map(routes =>
+      routes.filter(
+        route =>
+          route.route.startsWith('/blog/') && route.sourceFile.endsWith('.md')
+      )
+    )
+  );
+}
+```
+
+```html
+<!-- blog.component.html -->
+<ul aria-label="Blog posts">
+  <li *ngFor="let blog of $blogPosts | async">
+    <a [routerLink]="blog.route">
+      {{blog.title}} by {{blog.authorName}}
+    </a>
+  </li>
+</ul>
+```
+
+This should give us a straight list of blog posts and turn them into links for us to access our posts with! 
+
+![A preview of the post list as seen on-screen](./post_list_preview.png)
+
+While this isn't a pretty blog, it is a functional one! Now you're able to list routes, we can even get the metadata for a post
+
+## Final Blog Post Page {#scully-avail-routes-filtered}
+
+But what happens if you want to display metadata about a post on the post page itself? Surely being able to list the author metadata in the post would be useful as well, right?
+
+Right you are! Using [RxJS' `combineLatest` function](https://rxjs.dev/api/index/function/combineLatest) and [the `ActivatedRoute`'s `params` property](https://angular.io/api/router/ActivatedRoute#params) (alongside [the RxJS `pluck` opperator](https://rxjs.dev/api/operators/pluck) to make things a bit easier for ourselves), we're able to quickly grab a post's metadata from the post page itself.
+
+```typescript
+// blog-post.component.ts
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ScullyRoutesService } from '@scullyio/ng-lib';
+import { combineLatest } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-blog-post',
+  templateUrl: './blog-post.component.html',
+  styleUrls: ['./blog-post.component.scss']
+})
+export class BlogPostComponent {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private scully: ScullyRoutesService
+  ) {}
+
+  $blogPostMetadata = combineLatest([
+    this.activatedRoute.params.pipe(pluck('postId')),
+    this.scully.available$
+  ]).pipe(
+    map(([postId, routes]) =>
+      routes.find(route => route.route === `/blog/${postId}`)
+    )
+  );
+}
+```
+
+```html
+<!-- blog-post.component.html -->
+<h1 *ngIf="$blogPostMetadata | async as blogPost">Blog Post by {{blogPost.authorName}}</h1>
+<hr>
+<!-- This is where Scully will inject the static HTML -->
+<scully-content></scully-content>
+<hr>
+<h2>End of content</h2>
+```
+
+![A preview of the post list as seen on-screen](./post_page_preview.png)
+
+
+
+
+
+# Conclusion
+
+While this blog site is far from ready from release, it's functional. It's missing some core SEO functionality as well as general aesthetics, but that could be easily remedied. Using a package like [`ngx-meta`](https://www.npmjs.com/package/@ngx-meta/core) should allow you to make short work of the SEO meta tags that you're missing where areas adding some CSS should go a long way with the visuals of the site.
+
+All in all, Scully proves to be a powerful tool in any Angular developer's toolkit, and knowing how to make a blog with it is just one use case for such a tool.
+
+As always, I'd love to hear from you down below in our comments or even [in our community Discord](https://discord.gg/FMcvc6T). Also, don't forget to subscribe to our newsletter so you don't miss more content like this in the future!
