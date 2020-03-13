@@ -2,7 +2,7 @@
 {
 	title: "Building an Angular Blog With Scully",
 	description: "While React and Vue have options like NuxtJS and Gatsby, Angular has previously not been able to make a SSG-enabled blog... Until now. Join us as we build one with Scully!",
-	published: '2020-03-18T05:12:03.284Z',
+	published: '2020-03-17T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'ssg', 'scully'],
 	attached: [],
@@ -10,13 +10,13 @@
 }
 ---
 
-If you've ever used something like [Gatsby](https://www.gatsbyjs.org/) or [NuxtJS](https://nuxtjs.org/), you may already be familiar with Static Site Generation (SSG). If not, here's a quick rundown: You're able to export a React application to simply HTML and CSS during a build-step. This means that (in some cases) you can disable JavaScript and still navigate your website as if you'd had it enabled. It also oftentimes means much faster time-to-interactive times, as you no longer have to run your JavaScript to render your HTML and CSS.
+If you've ever used something like [Gatsby](https://www.gatsbyjs.org/) or [NuxtJS](https://nuxtjs.org/), you may already be familiar with Static Site Generation (SSG). If not, here's a quick rundown: You're able to export a React application to simple HTML and CSS during a build-step. This export means that (in some cases), you can disable JavaScript and still navigate your website as if you'd had it enabled. It also often means much faster time-to-interactive times, as you no longer have to run your JavaScript to render your HTML and CSS.
 
-For a long time React and Vue have had all of the SSG fun... Until now. 
+For a long time, React and Vue have had all of the SSG fun... Until now. 
 
-Recently, a group of extremely knowledgeable developers have created [Scully, a static site generator for Angular projects](https://github.com/scullyio/scully). This means that if you prefer Angular for your stack, you too can join in the fun! You can even trivially migrate existing Angular projects to use Scully!
+Recently, a group of extremely knowledgeable developers has created [Scully, a static site generator for Angular projects](https://github.com/scullyio/scully). If you prefer Angular for your stack, you too can join in the fun! You can even trivially migrate existing Angular projects to use Scully!
 
-In this article, we'll outline how to setup a new blog post site using Scully. If you have an existing blog site that you'd like to migrate to use Scully, the blog post should help you understand some of the steps you'll need to take as well.
+In this article, we'll outline how to set up a new blog post site using Scully. If you have an existing blog site that you'd like to migrate to use Scully, the blog post should help you understand some of the steps you'll need to take as well.
 
 Without further ado, let's jump in, shall we?
 
@@ -29,14 +29,14 @@ First, we have some requirements:
 
 You're able to do this using `npm i -g @angular/cli`. You'll want to make sure you're using the latest version if you already have it pre-installed.
 
-Now that we have that covered, let's generate our project!
+Now that we have that covered let's generate our project!
 
 ```
 ng new my-scully-blog
 ```
 
 
-We'll want to choose `y` when it asks us to add routing. The second question that will be raised is regarding what flavor of CSS you'd like. I like `SCSS` so I chose that, but you're free to select any of the options that you deem fit for your blog.
+We'll want to choose `y` when it asks us to add routing. The second question that will be raised is regarding what flavor of CSS you'd like. I like `SCSS`, so I chose that, but you're free to select any of the options that you deem fit for your blog.
 
 If we pause here and run `ng serve`, we'll find ourselves greeted with the default generated app screen from the Angular core team upon visiting the `localhost:4200` URI in our browser.
 
@@ -59,7 +59,7 @@ This will yield us some changed files. You'll see a new `scully.my-scully-blog.c
 
 Here's where the "SSG" portion of Scully comes into play. You see, once you run `ng build` to build your application, you should be running `npm run scully` to run the static generation. That way, it will generate the HTML and CSS that your Angular code will generate on the client ahead-of-time. This means that you have one more build step, but it can be incredibly beneficial for your site's speed and usability.
 
-We'll need to run the `npm run scully` command later on, but for now let's focus on adding Markdown support to our blog:
+We'll need to run the `npm run scully` command later on, but for now, let's focus on adding Markdown support to our blog:
 
 # Adding Markdown Support
 
@@ -69,7 +69,7 @@ While Scully [_does_ have a generator to add in blog support](https://github.com
 
 ## Angular Routes {#angular-blog-routes}
 
-Before we get into adding in the Scully configs, let's first setup the page that we'll want our blog to show up on. We want a `/blog` sub route, allowing us to have a `/blog` for the list of all posts and a `/blog/:postId` for the individual posts.
+Before we get into adding in the Scully configs, let's first set up the page that we'll want our blog to show up within. We want a `/blog` sub route, allowing us to have a `/blog` for the list of all posts and a `/blog/:postId` for the individual posts.
 
 We'll start by generating the `blog` module that will hold our routes and components.
 
@@ -101,7 +101,7 @@ const routes: Routes = [
 ]
 ```
 
-This imports the `blog.module` file in order to use the further children routes defined there. If we now start serving the site and go to `localhost:4200/blog`, we should see the message "blog works!" at the bottom of the page. 
+This imports the `blog.module` file to use the further children routes defined there. If we now start serving the site and go to `localhost:4200/blog`, we should see the message "blog works!" at the bottom of the page. 
 
 ### Routing Fixes {#router-outlet}
 
@@ -155,12 +155,12 @@ const routes: Routes = [
 ];
 ```
 
-That's it! Now if you go to `localhost:4200/blog` you should see the `blog works!` message and on the `/blog/asdf` route, you should see `blog-post works!`. With this, we should be able to move onto the next steps!
+That's it! Now, if you go to `localhost:4200/blog`, you should see the `blog works!` message and on the `/blog/asdf` route, you should see `blog-post works!`. With this, we should be able to move onto the next steps!
 
 
 ## The Markdown Files {#frontmatter}
 
-To start off, let's create a new folder at the root of your project called `blog`. It's in this root folder that we'll add our markdown files that our blog posts will live in. Let's create a new markdown file under `/blog/test-post.md`. 
+To start, let's create a new folder at the root of your project called `blog`. It's in this root folder that we'll add our markdown files that our blog posts will live in. Let's create a new markdown file under `/blog/test-post.md`. 
 
 ```markdown
 ---
@@ -176,7 +176,7 @@ How are you doing?
 
 > Keep in mind that the file name will be the URL for the blog post later on. In this case, the URL for this post will be `/blog/test-post`.
 
-The top of the file `---` block is called the "frontmatter"_. You're able to put metadata in this block with a key/value pair. We're then able to use that metadata in the Angular code to generate specific UI based on this information in the markdown file. This means, it can be expanded to include more information:
+The top of the file `---` block is called the "frontmatter"_. You're able to put metadata in this block with a key/value pair. We're then able to use that metadata in the Angular code to generate specific UI based on this information in the markdown file. Knowing that we can store arbitrary metadata in this frontmatter allows us to expand the current frontmatter with some useful information:
 
 ```markdown
 ---
@@ -192,7 +192,7 @@ It's worth mentioning that the `publish` property has some built-in functionalit
 
 ## Scully Routes {#scully-blog-route-config}
 
-We now need to tell Scully to generate a route for each of the markdown files inside of our `blog` folder. As such, we'll update our `scully.my-scully-blog.config.js` file to generate a new `/blog/:postId` route for each of the markdown files:
+Now we'll tell Scully to generate one route for each markdown file inside of our `blog` folder. As such, we'll update our `scully.my-scully-blog.config.js` file to generate a new `/blog/:postId` route for each of the markdown files:
 
 ```javascript
 exports.config = {
@@ -223,7 +223,7 @@ Before we start the build process and run Scully, let's add one more change to o
 <h2>End of content</h2>
 ```
 
-Adding in the `scully-content` tags will allow Scully to inject the HTML that's generated from the related Markdown post into that tag location. In order to register this component in Angular, we also need to update our `blog.module.ts` file to add an import:
+Adding in the `scully-content` tags will allow Scully to inject the HTML that's generated from the related Markdown post into that tag location. To register this component in Angular, we also need to update our `blog.module.ts` file to add an import:
 
 ```typescript
 import {ScullyLibModule} from '@scullyio/ng-lib';
@@ -242,17 +242,17 @@ You'll notice that if you run `ng serve` at this stage and try to access `localh
 <p>This might happen if you are not using the static generated pages.</p>
 ```
 
-This is because we haven't statically generated the site. Scully injects the markdown's HTML at build time, so we're unable to get the contents of the markdown file during the development mode. We _are_ able to get the route metadata from the frontmatter on the blog post, however. If you want to learn more about that, you'll have to read the next section. 😉
+This message is showing because we're not able to get the HTML of the markdown; we haven't statically generated the site to do so. Scully injects the markdown's HTML at build time, so we're unable to get the contents of the markdown file during the development mode. We _can_ get the route metadata from the frontmatter on the blog post, however. If you want to learn more about that, you'll have to read the next section. 😉
 
 # Running the Build
 
 > Even if you're familiar with Angular's build process, you should read this section! Scully does some non-standard behavior that will prevent some of the steps in the next sections if not understood properly.
 
-Now that we have our code configured to generate routes based on our Markdown files, let's run `ng build`. This should go off without a hitch if the code was updated alongside the post.
+Now that we have our code configured to generate routes based on our Markdown files let's run `ng build`. The build should go off without a hitch if the code was updated alongside the post.
 
-> If you hit an error at this step, make sure to read through the steps again and pay attention to the error messages. Angular does a decent job at giving indication of what you need to change to get the build working again.
+> If you hit an error at this step, make sure to read through the steps again and pay attention to the error messages. Angular does a decent job of indicating what you need to change to get the build working again.
 
-Now, let's run `npm run scully`. This should give us some message like this:
+Now, let's run `npm run scully`; Doing so should give us some message like this:
 
 ```
 Route "" rendered into file: "/Users/ccrutchley/git/my-scully-blog/dist/static/index.html"
@@ -310,15 +310,15 @@ You'll notice that if you open your `dist` folder, you'll find two folders:
 
 ![An image showing the folder layout of dist](./dist-folders.png)
 
-This is because Scully has it's own build folder. When you ran `ng build`, you generated the `my-scully-blog` folder, then when you later ran `npm run scully`, it generated the `static` folder. As such, if you want to host your app, you should use the `static` folder.
+The reason for the two separate folders is because Scully has it's own build folder. When you ran `ng build`, you generated the `my-scully-blog` folder, then when you later ran `npm run scully`, it generated the `static` folder. As such, if you want to host your app, you should use the `static` folder.
 
 ## Asset Routes {#scully-build-routes}
 
-If you open the `/src/assets` folder, you'll notice another file you didn't have prior to `npm run scully`. This file is generated any time you run Scully and provides you the route metadata during an `ng serve` session. [Remember how I mentioned that there was a way to access the Markdown frontmatter data?](#scully-blog-route-config) Well, this is how! After running a Scully build, you'll be provided metadata at your disposal. In the next section we'll walk through how to access that metadata!
+If you open the `/src/assets` folder, you'll notice another file you didn't have before `npm run scully`. This file is generated any time you run Scully and provides you the routing metadata during an `ng serve` session. [Remember how I mentioned that there was a way to access the Markdown frontmatter data?](#scully-blog-route-config) Well, this is how! After running a Scully build, you'll be provided metadata at your disposal. In the next section, we'll walk through how to access that metadata!
 
 # Listing Posts {#scully-route-acess}
 
-In order to get a list of posts, we're actually going to utilize Scully's route information service. To start, let's add that service to the `blog.component.ts` file:
+To get a list of posts, we're going to utilize Scully's route information service. To start, let's add that service to the `blog.component.ts` file:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -355,9 +355,9 @@ If you now start your server (`ng serve`) and load up your `/blog` route, you sh
 
 See? We're able to see all of the routes that Scully generated during the last `npm run scully` post-build step. Additionally, any of the routes that were generated from a markdown file contains it's frontmatter!
 
-> [Remember how I said earlier that the frontmatter fields impacted Scully?](#frontmatter) Well, that `publish` field will toggle if a route shows up in this list or not. If you change that field to `false` then rebuild and re-run the `scully` command, it will hide it from this list.
+> [Remember how I said earlier that the frontmatter fields impacted Scully?](#frontmatter) Well, that `publish` field will toggle if a route shows up in this list or not. If you change that field to `false`, then rebuild and re-run the `scully` command, it will hide it from this list.
 >
-> Want to list **all** of the routes, including the ones with `publish: false`? Well, change `this.scully.available$` to `this.scully.allRoutes$` and you'll even have those in the fray!
+> Want to list **all** of the routes, including the ones with `publish: false`? Well, change `this.scully.available$` to `this.scully.allRoutes$`, and you'll even have those in the fray!
 
 We now have the list of routes, but surely we don't want to list the `/blog` or the `/` routes, do we? Simple enough, let's add a filter:
 
@@ -413,11 +413,11 @@ export class BlogComponent {
 </ul>
 ```
 
-This should give us a straight list of blog posts and turn them into links for us to access our posts with! 
+This code should give us a straight list of blog posts and turn them into links for us to access our posts with! 
 
 ![A preview of the post list as seen on-screen](./post_list_preview.png)
 
-While this isn't a pretty blog, it is a functional one! Now you're able to list routes, we can even get the metadata for a post
+While this isn't a pretty blog, it is a functional one! Now you're able to list routes; we can even get the metadata for a post
 
 ## Final Blog Post Page {#scully-avail-routes-filtered}
 
