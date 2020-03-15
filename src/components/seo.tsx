@@ -10,34 +10,58 @@ import Helmet, { HelmetProps } from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
 import { UnicornInfo } from "../types";
 
-type MapToMetaArrMap = Map<
+type MapToMetaMap = Map<
 	JSX.IntrinsicElements["meta"]["property"],
 	JSX.IntrinsicElements["meta"]["content"]
 >;
-const mapToMetaArr = (map: MapToMetaArrMap) =>
-	Array.from(map.entries()).map(([k, v]) => ({
-		property: k,
-		content: v
-	}));
+
+type MapToMeta = {
+	property: JSX.IntrinsicElements["meta"]["property"];
+	content: JSX.IntrinsicElements["meta"]["content"];
+};
+const mapToMetaArr = (map: MapToMetaMap) =>
+	Array.from(map.entries()).reduce((metaArr, [key, value]) => {
+		if (Array.isArray(value)) {
+			for (const item of value) {
+				metaArr.push({
+					property: (key as unknown) as string,
+					content: item
+				});
+			}
+		} else {
+			metaArr.push({
+				property: key,
+				content: value
+			});
+		}
+		return metaArr;
+	}, [] as MapToMeta[]);
 
 const getBlogPostMetas = (
-	unicornData?: UnicornInfo,
+	unicornsData?: UnicornInfo[],
 	keywords: string[] = [],
 	publishedTime?: string,
 	editedTime?: string
 ) => {
-	if (!unicornData) return [];
+	if (!unicornsData || !unicornsData.length) return [];
 	const metas = new Map();
 
 	metas.set("og:type", "article");
 
 	metas.set("article:section", "Technology");
-	metas.set("article:author", unicornData.name);
+	metas.set(
+		"article:author",
+		unicornsData.map(uni => uni.name)
+	);
 
-	if (unicornData.socials) {
-		const s = unicornData.socials;
-		if (s.twitter) {
-			metas.set("twitter:creator", `@${s.twitter}`);
+	// There has to be one author to add their Twitter. It's only fair
+	// as there are not multiple authors supported
+	if (unicornsData.length === 1) {
+		const socialUnicorn = unicornsData.find(uni => uni.socials);
+		const uniTwitter =
+			socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
+		if (uniTwitter) {
+			metas.set("twitter:creator", `@${uniTwitter}`);
 		}
 	}
 
@@ -70,11 +94,12 @@ interface SEOProps {
 	lang?: string;
 	meta?: HelmetProps["meta"];
 	title: string;
-	unicornData?: UnicornInfo;
+	unicornsData?: UnicornInfo[];
 	keywords?: string[];
 	publishedTime?: string;
 	editedTime?: string;
 	type?: "article" | "profile";
+	canonicalPath?: string;
 }
 
 export const SEO = ({
@@ -82,11 +107,12 @@ export const SEO = ({
 	lang = "en",
 	meta = [],
 	title,
-	unicornData,
+	unicornsData,
 	keywords,
 	publishedTime,
 	editedTime,
-	type
+	type,
+	canonicalPath
 }: SEOProps) => {
 	const { site } = useStaticQuery(
 		graphql`
@@ -110,9 +136,9 @@ export const SEO = ({
 
 	const typeMetas =
 		type === "article"
-			? getBlogPostMetas(unicornData, keywords, publishedTime, editedTime)
+			? getBlogPostMetas(unicornsData, keywords, publishedTime, editedTime)
 			: type === "profile"
-			? getProfileMetas(unicornData)
+			? getProfileMetas(unicornsData![0])
 			: [
 					{
 						property: `og:type`,
@@ -135,7 +161,7 @@ export const SEO = ({
 			meta={[
 				{
 					property: `og:url`,
-					content: siteData.siteUrl
+					content: siteData.siteUrl + (canonicalPath || "")
 				},
 				{
 					property: `og:site_name`,
@@ -178,7 +204,11 @@ export const SEO = ({
 					content: `summary_large_image`
 				},
 				{
-					name: "og:image",
+					name: `twitter:site`,
+					content: `@unicornuttrncs`
+				},
+				{
+					property: "og:image",
 					content: "https://unicorn-utterances.com/share-banner.png"
 				},
 				{

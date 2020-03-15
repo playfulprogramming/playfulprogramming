@@ -12,6 +12,7 @@ import { ThemeContext } from "../components/theme-context";
 import { SiteInfo, PostInfo } from "../types";
 import { TableOfContents } from "../components/table-of-contents";
 import { BlogPostLayout } from "../components/blog-post-layout";
+import { MailingList } from "../components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
@@ -54,11 +55,12 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 			<SEO
 				title={post.frontmatter.title}
 				description={post.frontmatter.description || post.excerpt}
-				unicornData={post.frontmatter.authors[0]} //might need to do CSV list here
+				unicornsData={post.frontmatter.authors}
 				publishedTime={post.frontmatter.published}
 				editedTime={post.frontmatter.edited}
 				keywords={post.frontmatter.tags}
 				type="article"
+				canonicalPath={props.location.pathname}
 			/>
 			<article>
 				<BlogPostLayout
@@ -90,6 +92,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 							/>
 						</a>
 					</div>
+					<MailingList />
 					<div className="postBottom">
 						<div className="btnLike prependIcon">
 							<CommentsIcon />

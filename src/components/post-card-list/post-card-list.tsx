@@ -5,7 +5,7 @@ import { FilterSearchBar } from "../filter-search-bar";
 import { PostInfo, UnicornInfo } from "../../types";
 
 export interface PostListProps {
-	posts?: Array<{node: PostInfo}>;
+	posts?: Array<{ node: PostInfo }>;
 	showWordCount?: boolean;
 	numberOfArticles?: number;
 	wordCount?: number;
