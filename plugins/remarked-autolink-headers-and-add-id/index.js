@@ -6,10 +6,13 @@ module.exports = ({ markdownAST, actions, markdownNode }) => {
 	const values = flatFilter(markdownAST, node => node.type === "heading");
 
 	const headings = values.children.map(node => {
-		const last = node.children[node.children.length - 1];
+		const headingText = node.children
+			.filter(child => child.value)
+			.map(child => child.value)
+			.join("");
 
 		return {
-			value: last.value,
+			value: headingText,
 			depth: node.depth,
 			// This is added by the `gatsby-remark-autolink-headers` plugin, we're just using it here
 			// This means that it must come after that plugin in your config file
