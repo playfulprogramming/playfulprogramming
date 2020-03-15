@@ -123,7 +123,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "debug": "gatsby clean && node --nolazy --inspect-brk ./node_modules/.bin/gatsby develop",
+    "debug": "gatsby clean && node --nolazy --inspect-brk --max-old-space-size=2000 ./node_modules/gatsby/dist/bin/gatsby.js develop",
     "develop": "gatsby develop",
     "format": "run-s format:**",
     "format:ts": "eslint --fix ./src/**/*.{ts,tsx}",
