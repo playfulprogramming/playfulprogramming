@@ -30,7 +30,7 @@ const Thanks = (props: any) => {
 
 export const pageQuery = graphql`
 	query ThanksSiteData {
-		file(relativePath: { eq: "proud-2048.png" }) {
+		file(relativePath: { eq: "proud_2048.png" }) {
 			childImageSharp {
 				fixed(width: 500, quality: 100) {
 					...GatsbyImageSharpFixed

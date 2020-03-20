@@ -30,7 +30,7 @@ const Confirm = (props: any) => {
 
 export const pageQuery = graphql`
 	query ConfirmSiteData {
-		file(relativePath: { eq: "hello-2048.png" }) {
+		file(relativePath: { eq: "hello_2048.png" }) {
 			childImageSharp {
 				fixed(width: 500, quality: 100) {
 					...GatsbyImageSharpFixed

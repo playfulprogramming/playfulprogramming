@@ -95,7 +95,7 @@ export const pageQuery = graphql`
 				}
 			}
 		}
-		file(relativePath: { eq: "unicorn-utterances-logo-512.png" }) {
+		file(relativePath: { eq: "unicorn_utterances_logo_512.png" }) {
 			childImageSharp {
 				fixed(width: 300, quality: 100) {
 					...GatsbyImageSharpFixed
