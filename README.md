@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Unicorn Utterances logo" width="256" src="./content/assets/unicorn-utterances-logo-512.png"/>
+    <img alt="Unicorn Utterances logo" width="256" src="src/assets/unicorn_utterances_logo_512.png"/>
 </p>
 <h1 align="center">
   Unicorn Utterances Website
@@ -49,7 +49,7 @@ yours is not listed, please add it as a new value in that file, we've tried to
 do our best to include everything we've found!)
 
 > If you do not want to show a profile picture or commit your picture to
-the repo, we have a [myriad of emotes that can be used as profile pictures as well](./content/assets/branding/emotes).
+the repo, we have a [myriad of emotes that can be used as profile pictures as well](src/assets/emotes).
 They're adorable, go check! 🤩
 
 ## 🚀 Develop
