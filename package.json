@@ -14,12 +14,10 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "npm run format:ts",
-      "git add"
+      "npm run format:ts"
     ],
     "*.scss": [
-      "npm run format:css",
-      "git add"
+      "npm run format:css"
     ]
   },
   "dependencies": {
