@@ -10,7 +10,13 @@
 }
 ---
 
+In recent years, projects like [Zeit's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.org/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.io/guide/universal), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use I use these concepts in my applications?
+
+We'll walk through all of these questions and provide answers for each. First, we have to have an understanding of how a typical HTML site is able to serve content to your user.
+
 # Vanilla HTML Sites
+
+While many sites today are built using a component-based framework like Angular, React, or Vue, there's nothing wrong with good ol' HTML. When you deploy a website like this to a server, you typically provide an HTML file for each of the routes of your site. When the user requests one of the routes, your server will return the HTML for it. From there, [your browser parses that code and provides the content directly to the user](/posts/understanding-the-dom/). All in all, the process looks something like this:
 
 1) You build HTML, CSS, JS
 2) You put it on a server
@@ -54,6 +60,10 @@ While the industry widely recognizes the term "Static Site Generation", I prefer
 
 ![A diagram explaining how the aforementioned steps would flow](./ssg.svg)
 
+
+
+
+
 # Pros and Cons {#pros-and-cons}
 
 It may be tempting to look through these options, find one that you think is the best, and [overfit](https://en.wiktionary.org/wiki/overfit) yourself into a conclusion that one is superior to all the others. That said, each of these methods have their own strengths and weaknesses.
@@ -67,3 +77,8 @@ It may be tempting to look through these options, find one that you think is the
 | Compile Time Rendering (SSG) | <ul aria-label="SSG Pros"><li>Layout based optimization</li><li>Better SEO handling</li><li>Usable without client JS enabled</li><li>CDN hostable</li></ul> | <ul aria-label="SSG Cons"><li>No access to query data</li><li>More dev effort than CSR</li></ul> |
 
 Consider each of these utilities a tool in your toolbox. You may be working on a landing page for a client where SSG would fit best. Working on an internal SPA that only has a limited budget allocated to it? Client-side rendering might be your best bet there! Working on a public-facing app that highly depends on real-time data? SSR's for you! Each of these has their utility in their own problem-space, and it's good to keep that in mind when selecting one for your next project.
+
+# A Note About SSR/SSG
+
+
+Here's a story 
