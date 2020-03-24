@@ -10,13 +10,13 @@
 }
 ---
 
-In recent years, projects like [Zeit's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.org/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.io/guide/universal), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use I use these concepts in my applications?
+In recent years, projects like [Zeit's NextJS](https://nextjs.org/) and [Gatsby](https://www.gatsbyjs.org/) have garnered acclaim and higher and higher usage numbers. Not only that, but their core concepts of Server Side Rendering (SSR) and Static Site Generation (SSG) have been seen in other projects and frameworks such as [Angular Universal](https://angular.io/guide/universal), [ScullyIO](https://scully.io/), and [NuxtJS](https://nuxtjs.org/). Why is that? What _is_ SSR and SSG? How can I use these concepts in my applications?
 
 We'll walk through all of these questions and provide answers for each. First, we have to have an understanding of how a typical HTML site is able to serve content to your user.
 
 # Vanilla HTML Sites
 
-While many sites today are built using a component-based framework like Angular, React, or Vue, there's nothing wrong with good ol' HTML. When you deploy a website like this to a server, you typically provide an HTML file for each of the routes of your site. When the user requests one of the routes, your server will return the HTML for it. From there, [your browser parses that code and provides the content directly to the user](/posts/understanding-the-dom/). All in all, the process looks something like this:
+While many sites today are built using a component-based framework like Angular, React, or Vue, there's nothing wrong with good ole' HTML. When you deploy a website like this to a server, you typically provide an HTML file for each of the routes of your site. When the user requests one of the routes, your server will return the HTML for it. From there, [your browser parses that code and provides the content directly to the user](/posts/understanding-the-dom/). All in all, the process looks something like this:
 
 1) You build HTML, CSS, JS
 2) You put it on a server
@@ -25,11 +25,11 @@ While many sites today are built using a component-based framework like Angular,
 
 ![A diagram explaining how the aforementioned steps would flow](./normal.svg)
 
-This is a fairly straightforward flow once you get the hang of it. Let's take a look at what happens when you throw a component-based framework into the fray.
+This is a reasonably straightforward flow once you get the hang of it. Let's take a look at what happens when you throw a component-based framework into the fray.
 
 # Client Side Rendering {#csr}
 
-While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building a Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
+While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
 
 1) You build the React code
 2) You put it on a server
@@ -54,13 +54,19 @@ Because React has to initialize _somewhere_, what if we were to move the initial
 
 ![A diagram explaining how the aforementioned steps would flow](./ssr.svg)
 
-There's more improvements than there might initially see, however! Because you're hosting from a server - which has better network connectivity than a user's machine - you're able to make much faster network requests in order to perform that initial render. Say you need to grab data from the database to populate the screen's data, you're able to do that much faster as a result. Instead of displaying the user a loading screen while you wait to grab the data, you can simply tell your client "don't show anything until I send you HTML that I've generated from React" and due to the speed of your network, can ship down a hydrated UI from database data.
+There's more improvements than there might initially see, however! Because you're hosting from a server - which has better network connectivity than a user's machine - you're able to make much faster network requests in order to perform that initial render.
+
+Say you need to grab data from the database to populate the screen's data, you're able to do that much faster as a result. Instead of displaying the user a loading screen while you wait to grab the data, you can simply tell your client "don't show anything until I send you HTML that I've generated from React" and due to the speed of your network, can ship down a hydrated UI from database data.
 
 Moreover, if you have your server and database in the same hosting location, you're even able to avoid out-of-intranet calls, which would provide faster, more reliable connectivity for your initial render.
 
+That said, because you're relying on server functionality to do this rendering, you have to have a custom server setup. No simple CDN hosting here - your server has to initialize and render each user's page on request.
+
 # Static Site Generation (SSG) {#ssg}
 
-While the industry widely recognizes the term "Static Site Generation", I prefer the term "Compile-side Rendering" or "Compile-Time Server-Side Rendering". This is because I feel they outline a better explanation of the flow of displaying content to the user. On a SSG site, you'd:
+If SSR is ["passing the buck"](https://en.wikipedia.org/wiki/Buck_passing) to the server to generate the initial page, then SSG is passing the buck to you - the developer.
+
+While the industry widely recognizes the term "Static Site Generation", I prefer the term "compile-side rendering" or "compile-time server-side rendering". This is because I feel they outline a better explanation of the flow of displaying content to the user. On a SSG site, you'd:
 
 1) You build the React code
 2) You generate the HTML and CSS on your development machine before deploying to server (run build)
@@ -70,9 +76,9 @@ While the industry widely recognizes the term "Static Site Generation", I prefer
 
 ![A diagram explaining how the aforementioned steps would flow](./ssg.svg)
 
+This simply extends the existing build process that many front-end frameworks have. After [Babel's done with it's transpilation](https://babeljs.io/), it simply executes code to compile your initial screen into static HTML and CSS. This isn't entirely dissimilar from how SSR hydrates your initial screen, but it's done at compile time, not at request time. 
 
-
-
+Due to the fact that you're only hosting HTML and CSS again, you're able to host your site as you would a client-side rendered app: Using a CDN. This means that you can geo-sparse your hosting much easier, but comes with the caveat that you're no longer to do rapid network queries to generate the UI as you could with SSR.
 
 # Pros and Cons {#pros-and-cons}
 
@@ -90,9 +96,9 @@ Consider each of these utilities a tool in your toolbox. You may be working on a
 
 In fact, if you're using a framework that supports more than one of these methods ([like NextJS does as-of version 9.3](https://nextjs.org/blog/next-9-3)), knowing which of these utilities to use for which pages can be critical for optimizing your app.
 
-# A Note Regarding Performance Benchmarks
+# A Note Regarding Performance Benchmarks {#lighthouse}
 
-I was once tasked with migrating a landing page with an associated blog from CSR to use SSG. Once I had done so, however I noticed that my Lighthouse score had gone _down_ despite my page rendering a much more useful initial page significantly faster than it'd taken for my app's spinner to go away.
+I was once tasked with migrating a landing page with an associated blog from CSR to use SSG. Once I had done so, however I noticed that [my Lighthouse score](https://developers.google.com/web/tools/lighthouse) had gone _down_ despite my page rendering a much more useful initial page significantly faster than it'd taken for my app's spinner to go away.
 
 > "Why did my lighthouse scores go down when using SSG?"
 
@@ -111,3 +117,14 @@ Here's an anecdote that was told to me by [Aaron Frost](https://twitter.com/aaro
 > The airport decided to re-arrange how their planes landed in the future. While the customers seemed to be much happier overall, they received a lower rating on their next audit. This clearly contradicted with the claims of their fliers. It turns out that the way the auditor was rating the airport was how much downtime they had before receiving a bag. While the others enjoyed reading articles on their phones during the downtime, the auditor was able to start their timer sooner as a result of walking for a shorter period of time.
 
 All in all, while lighthouse might score you lower, you can rest assured that your customers will be happier knowing that you have a much more useful interaction on first glance than a site that doesn't use something like SSG.
+
+# Conclusion
+
+As mentioned previously, having SSR and SSG in your toolbox are incredibly useful to have at your disposal. While not appropriate for every application, those that are tend to see great advantages from the concepts. Hopefully we've been able to provide a bit of insight that'll spark further learning and research into them.
+
+
+
+Now you have familiarity with what SSR and SSG are, maybe you want to take a stab at implementing it? [We took a look recently at creating a blog using an Angular SSG solution called Scully](/posts/making-an-angular-blog-with-scully/).
+
+
+As always, let us know what you think down in the comments below or [in our community Discord](https://discord.gg/FMcvc6T).
