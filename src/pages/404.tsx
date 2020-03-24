@@ -49,7 +49,7 @@ export const pageQuery = graphql`
 				repoPath
 			}
 		}
-		file(relativePath: { eq: "sad_unicorn-2048.png" }) {
+		file(relativePath: { eq: "sad_unicorn_2048.png" }) {
 			childImageSharp {
 				fixed(width: 500, quality: 100) {
 					...GatsbyImageSharpFixed

@@ -55,7 +55,7 @@ const AboutUs = (props: any) => {
 					description
 				}
 			}
-			file(relativePath: { eq: "unicorn-head-1024.png" }) {
+			file(relativePath: { eq: "unicorn_head_1024.png" }) {
 				childImageSharp {
 					fixed(width: 192, quality: 100) {
 						...GatsbyImageSharpFixed

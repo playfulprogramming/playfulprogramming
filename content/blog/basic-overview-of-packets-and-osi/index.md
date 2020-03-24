@@ -24,7 +24,7 @@ There are a lot of ways that information can be connected and transferred. We us
 
 _Computers speak in `1`s and `0`s, known as binary_. These binary values come in incredibly long strings of combinations of one of the two symbols to _construct all of the data used in communication_.
 
-> [We covered how these two numbers can be combined to turn into other data in another post](https://unicorn-utterances.com/posts/non-decimal-numbers-in-tech/). For a better understanding of how binary represents data, check out that post.
+> [We covered how these two numbers can be combined to turn into other data in another post](/posts/non-decimal-numbers-in-tech/). For a better understanding of how binary represents data, check out that post.
 
 This is true regardless of the architecture used to send data - it’s all binary under-the-hood somewhere in the process. The architecture used to send data is simply a way of organizing the ones and zeros effectively to enable the types of communication required for a specific use-case.
 
@@ -98,7 +98,7 @@ Let's start from the bottom and make our way up. Remember that each of these lay
 
 The physical layer is similar to the trucks, roads, and workers that are driving to send the data. Sure, you could send a letter just by handing letters one-by-one from driver to driver, but without some organization that's usually dispatched to higher levels, things can go wrong (as they often do [in a game of telephone](https://en.wikipedia.org/wiki/Chinese_whispers)).
 
-In the technical world, _this layer refers to the binary bits themselves_ ([which compose to makeup letters and the rest of structure to your data](https://unicorn-utterances.com/posts/non-decimal-numbers-in-tech/)) _and the physical wiring_ constructed to transfer those bits. As it is with the mail world, this layer alone _can_ be used alone, but often needs delegation from higher layers to be more effective.
+In the technical world, _this layer refers to the binary bits themselves_ ([which compose to makeup letters and the rest of structure to your data](/posts/non-decimal-numbers-in-tech/)) _and the physical wiring_ constructed to transfer those bits. As it is with the mail world, this layer alone _can_ be used alone, but often needs delegation from higher layers to be more effective.
 
 ## Data Link {#osi-layer-2-data-link}
 
