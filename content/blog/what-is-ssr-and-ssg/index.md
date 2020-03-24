@@ -43,16 +43,20 @@ This is because React's code has to initialize in order to render the components
 
 # Server Side Rendering (SSR) {#ssr}
 
-Because React has to initialize _somewhere_, what if we were to move the initial rendering off to the 
+Because React has to initialize _somewhere_, what if we were to move the initial rendering off to the server? Imagine - for each request the user sends your way, you spin up an instance of React. Then, you're able to serve up the initial render (also called "fully hydrated") HTML and CSS to the user, ready to roll. That's just what server-side rendering is!
 
-1) You build the ReactJS code
+1) You build the React code
 2) You put it on a server
 3) The client requests data
-4) The server runs the ReactJS code on the server to generate the HTML/CSS
+4) The server runs the React code on the server to generate the HTML/CSS
 5) The server then sends the generated HTML/CSS on screen
 6) The user then sees the content on screen. React doesn't have to run on their computer
 
 ![A diagram explaining how the aforementioned steps would flow](./ssr.svg)
+
+There's more improvements than there might initially see, however! Because you're hosting from a server - which has better network connectivity than a user's machine - you're able to make much faster network requests in order to perform that initial render. Say you need to grab data from the database to populate the screen's data, you're able to do that much faster as a result. Instead of displaying the user a loading screen while you wait to grab the data, you can simply tell your client "don't show anything until I send you HTML that I've generated from React" and due to the speed of your network, can ship down a hydrated UI from database data.
+
+Moreover, if you have your server and database in the same hosting location, you're even able to avoid out-of-intranet calls, which would provide faster, more reliable connectivity for your initial render.
 
 # Static Site Generation (SSG) {#ssg}
 
