@@ -13,9 +13,12 @@ const Thanks = (props: any) => {
 				style={{
 					margin: "0 auto",
 					display: "block",
-					width: "500px",
+					width: "calc(100vw - 40px)",
+					height: "calc(100vw - 40px)",
+					maxWidth: "450px",
+					maxHeight: "450px",
 					background: "var(--primary)",
-					borderRadius: "50%"
+					borderRadius: "100%"
 				}}
 				loading={"eager"}
 			/>
