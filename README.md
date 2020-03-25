@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Unicorn Utterances logo" width="256" src="./content/assets/unicorn-utterances-logo-512.png"/>
+    <img alt="Unicorn Utterances logo" width="256" src="./src/assets/unicorn_utterances_logo_512.png"/>
 </p>
 <h1 align="center">
   Unicorn Utterances Website
@@ -40,7 +40,7 @@ You should then have an `index.md` file containing a frontmatter (with JS
 header, not YAML) portion and any related files should be in the same folder.
 
 ### Author Data File
-The author data file is located at [`src/data/unicorns.json`](./src/data/unicorns.json) 🦄
+The author data file is located at [`content/data/unicorns.json`](./content/data/unicorns.json) 🦄
 
 To add yourself as an author in a PR for a new post, you'd add your information
 as a new JSON object in the array, then add a profile picture to the `data`
@@ -49,7 +49,7 @@ yours is not listed, please add it as a new value in that file, we've tried to
 do our best to include everything we've found!)
 
 > If you do not want to show a profile picture or commit your picture to
-the repo, we have a [myriad of emotes that can be used as profile pictures as well](./content/assets/branding/emotes).
+the repo, we have a [myriad of emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/master/emotes).
 They're adorable, go check! 🤩
 
 ## 🚀 Develop

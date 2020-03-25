@@ -30,11 +30,11 @@ Unfortunately, I've had difficulties getting the same Android Studio development
 
 - The other folder is one that lives under `Assets` called `AndroidCode`, which contains copied-and-pasted files from `AndroidStudioDev` that are only the related source files I need to call.
 
-![Showcase of the filesystem as described by the previous paragraph](./android-code-fs-layout.png)
+![Showcase of the filesystem as described by the previous paragraph](./android_code_fs_layout.png)
 
 Once the copying of the files from the Android Studio environment to `Assets` has finished, you'll need to mark it as being included in the Android build within Unity's inspector window that comes up when you highlight the source file.
 
-![The inspector window showing "Android" selected](unity-inspector.png)
+![The inspector window showing "Android" selected](./unity_inspector.png)
 
 > If you forget to do this, your class or file may not be found. This is an important step to keep in mind during debugging.
 
@@ -56,11 +56,11 @@ Luckily for us, managing Android code dependencies in Unity has a thought-out so
 
 In your project, you'll then want to select `Assets > Import Package > Custom Package` in order to import the downloaded plugin.
 
-![A visual of where to find that menu in the MacOS menubar](./import-custom-package.png)
+![A visual of where to find that menu in the MacOS menubar](./import_custom_package.png)
 
 Then, you'll see a dialog screen that'll ask what files you want to import with your Unity Package. Ensure that all of the files are selected, then press "Import".
 
-![A screenshot of the dialog mentioned](./importing-the-plugin.png)
+![A screenshot of the dialog mentioned](./importing_the_plugin.png)
 
 > Your screen may look slightly different from the one above. That's okay — so long as all of the files are selected, pressing "Import" is perfectly fine.
 
@@ -93,7 +93,7 @@ The only rule with this file structure is that your file must end with `Dependen
 
 After creating the files, in the menubar, go to `Assets > Play Services Resolver > Android Resolver > Resolve`, and it should go fetch the AAR files related to those specific libraries and download them.
 
-![The MacOS menubar showing the above path to resolve libraries](./resolve-dependencies.png)
+![The MacOS menubar showing the above path to resolve libraries](./resolve_dependencies.png)
 
 So long as your file ends with `Dependencies.xml`, it should be picked up by the plugin to resolve the AAR files.
 

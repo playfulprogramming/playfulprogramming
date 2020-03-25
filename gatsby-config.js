@@ -23,7 +23,7 @@ module.exports = {
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
-				path: `${__dirname}/content/assets`,
+				path: `${__dirname}/src/assets`,
 				name: `assets`
 			}
 		},
@@ -39,7 +39,7 @@ module.exports = {
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
-				path: `./src/data`
+				path: `./content/data`
 			}
 		},
 		{
@@ -62,7 +62,6 @@ module.exports = {
 			resolve: `gatsby-transformer-remark`,
 			options: {
 				plugins: [
-					`count-inline-code`,
 					{
 						resolve: `gatsby-remark-images`,
 						options: {
@@ -118,6 +117,7 @@ module.exports = {
 				]
 			}
 		},
+		`count-inline-code`,
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		{
@@ -217,7 +217,7 @@ module.exports = {
 				background_color: `#ffffff`,
 				theme_color: `#127db3`,
 				display: `minimal-ui`,
-				icon: `content/assets/unicorn-utterances-logo-512.png`
+				icon: `src/assets/unicorn_utterances_logo_512.png`
 			}
 		},
 		`gatsby-plugin-offline`,

@@ -19,6 +19,8 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const siteData = props.data.site.siteMetadata;
 	const slug = post.fields.slug;
 
+	console.log(post.fields);
+
 	const { currentTheme } = useContext(ThemeContext);
 
 	const [disqusConfig, setDisqusConfig] = useState({

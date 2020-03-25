@@ -13,9 +13,12 @@ const Thanks = (props: any) => {
 				style={{
 					margin: "0 auto",
 					display: "block",
-					width: "500px",
+					width: "calc(100vw - 40px)",
+					height: "calc(100vw - 40px)",
+					maxWidth: "450px",
+					maxHeight: "450px",
 					background: "var(--primary)",
-					borderRadius: "50%"
+					borderRadius: "100%"
 				}}
 				loading={"eager"}
 			/>
@@ -30,7 +33,7 @@ const Thanks = (props: any) => {
 
 export const pageQuery = graphql`
 	query ThanksSiteData {
-		file(relativePath: { eq: "proud-2048.png" }) {
+		file(relativePath: { eq: "proud_2048.png" }) {
 			childImageSharp {
 				fixed(width: 500, quality: 100) {
 					...GatsbyImageSharpFixed

@@ -13,9 +13,12 @@ const Confirm = (props: any) => {
 				style={{
 					margin: "0 auto",
 					display: "block",
-					width: "500px",
+					width: "calc(100vw - 40px)",
+					height: "calc(100vw - 40px)",
+					maxWidth: "450px",
+					maxHeight: "450px",
 					background: "var(--primary)",
-					borderRadius: "50%"
+					borderRadius: "100%"
 				}}
 				loading={"eager"}
 			/>
@@ -30,7 +33,7 @@ const Confirm = (props: any) => {
 
 export const pageQuery = graphql`
 	query ConfirmSiteData {
-		file(relativePath: { eq: "hello-2048.png" }) {
+		file(relativePath: { eq: "hello_2048.png" }) {
 			childImageSharp {
 				fixed(width: 500, quality: 100) {
 					...GatsbyImageSharpFixed

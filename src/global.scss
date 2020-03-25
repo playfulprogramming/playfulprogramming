@@ -210,6 +210,39 @@ $pendIconMarg: #{$baseUnit}px;
 	h5 + h6 {
 		margin-top: 0.75em;
 	}
+
+	table tr:last-child th:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:last-child {
+		border-bottom-right-radius: 10px;
+	}
+
+	table {
+		border: var(--cardOutlineStyle);
+		border-radius: var(--cardRadius);
+		border-collapse: collapse;
+		// Border-collapse and border-radius don't mix. This is a workaround for that issue
+		box-shadow: 0 0 0 1px var(--primary);
+		overflow: hidden;
+	}
+
+	tr,
+	td,
+	th {
+		border: var(--cardOutlineStyle);
+	}
+
+	td,
+	th {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
 }
 
 .post-lower-area {
