@@ -68,9 +68,11 @@ export const useHeadingIntersectionObserver = ({
 			return document.getElementById(headingToDisplay.slug);
 		});
 
-		headingsEls.forEach(heading => {
-			observer.observe(heading!);
-		});
+		headingsEls
+			.filter(a => a)
+			.forEach(heading => {
+				observer.observe(heading!);
+			});
 
 		return () => observer.disconnect();
 	}, [linkRefs, handleObserver, headingsToDisplay]);

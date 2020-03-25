@@ -103,7 +103,6 @@ module.exports = {
 							enableCustomId: true
 						}
 					},
-					`remarked-autolink-headers-and-add-id`,
 					{
 						resolve: `gatsby-remark-prismjs`,
 						options: {
@@ -118,6 +117,7 @@ module.exports = {
 			}
 		},
 		`count-inline-code`,
+		`remarked-autolink-headers-and-add-id`,
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		{
