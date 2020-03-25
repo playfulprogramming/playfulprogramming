@@ -68,7 +68,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				<BlogPostLayout
 					left={<TableOfContents headingsWithId={post.fields.headingsWithId} />}
 					center={
-						<div>
+						<>
 							<header role="banner" className="marginZeroAutoChild">
 								<PostTitleHeader post={post} />
 								<PostMetadata post={post} />
@@ -78,7 +78,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 								data-testid={"post-body-div"}
 								dangerouslySetInnerHTML={{ __html: post.html }}
 							/>
-						</div>
+						</>
 					}
 				/>
 				<footer role="contentinfo" className="post-lower-area">

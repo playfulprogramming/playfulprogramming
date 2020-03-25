@@ -13,9 +13,9 @@ export const BlogPostLayout = ({
 }: LayoutProps) => {
 	return (
 		<div className={layoutStyles.blogPostLayoutContainer}>
-			<div className={layoutStyles.leftAndRightContainer}>{left}</div>
-			{center}
-			<div className={layoutStyles.leftAndRightContainer}>{right}</div>
+			<div className={layoutStyles.leftContainer}>{left}</div>
+			<div className={layoutStyles.centerContainer}>{center}</div>
+			<div className={layoutStyles.rightContainer}>{right}</div>
 		</div>
 	);
 };

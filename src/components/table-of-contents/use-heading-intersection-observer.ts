@@ -15,8 +15,8 @@ export const useHeadingIntersectionObserver = ({
 }: useHeadingIntersectionObserverProp) => {
 	const [previousSection, setPreviousSelection] = React.useState("");
 
-	const handleObserver = React.useMemo<IntersectionObserverCallback>(() => {
-		return entries => {
+	React.useEffect(() => {
+		const handleObserver: IntersectionObserverCallback = entries => {
 			const highlightFirstActive = () => {
 				if (!tocListRef.current) return;
 				let firstVisibleLink = tocListRef.current.querySelector(
@@ -56,9 +56,7 @@ export const useHeadingIntersectionObserver = ({
 				highlightFirstActive();
 			});
 		};
-	}, [linkRefs, previousSection, tocListRef]);
 
-	React.useEffect(() => {
 		const observer = new IntersectionObserver(handleObserver, {
 			rootMargin: "0px",
 			threshold: 1
@@ -75,5 +73,5 @@ export const useHeadingIntersectionObserver = ({
 			});
 
 		return () => observer.disconnect();
-	}, [linkRefs, handleObserver, headingsToDisplay]);
+	}, [headingsToDisplay, previousSection, linkRefs, tocListRef]);
 };
