@@ -53,7 +53,7 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 				return (
 					<li
 						key={headingInfo.slug}
-						style={{ marginLeft: `${1 * (headingInfo.depth - 1)}rem` }}
+						style={{ marginLeft: `${10 * (headingInfo.depth - 1)}px` }}
 						ref={linkRefs[i]}
 						className={liClassNames}
 					>

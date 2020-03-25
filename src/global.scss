@@ -24,6 +24,8 @@
 	--filterBarIconSize: #{3 * $baseUnit}px;
 	--filterBarFontSize: #{2.5 * $baseUnit}px;
 	--listViewPadding: #{1.5 * $baseUnit}px;
+	--scrollBarBG: rgba(18, 125, 179, 0.3);
+	--scrollBarThumb: var(--primary);
 	font-size: $rootFontSize;
 	line-height: 1.2;
 
@@ -45,6 +47,20 @@
 :focus::-moz-focus-inner {
 	padding: 0; //prevent weirdness just in case
 	border-color: var(--darkPrimary);
+}
+
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--scrollBarBG);
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: var(--scrollBarThumb);
 }
 
 .listViewContent {
@@ -361,4 +377,7 @@ li > ul > li {
 
 .toc-is-active {
 	font-weight: bold;
+	a {
+		color: var(--darkPrimary) !important;
+	}
 }

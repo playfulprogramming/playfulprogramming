@@ -6,23 +6,32 @@
 	padding: 0;
 }
 
+.tocLi {
+	margin-top: 12px;
+}
+
 .tocLi a {
 	text-decoration: none;
 }
 
 .tocH1 {
 	font-family: var(--archivo);
-	font-size: 22px;
+	font-size: 20px;
 	line-height: 142%;
 	a {
-		color: var(--darkPrimary);
+		color: var(--midImpactBlack);
 	}
+}
+
+.tocH2,
+.tocH3 {
+	line-height: 135%;
 }
 
 .tocH2 a {
 	color: var(--midImpactBlack);
 	font-style: italic;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .tocH3 a {
