@@ -8,3 +8,19 @@ console.error = (message?: any, ...optionalParams: any[]) => {
 	if (/Not implemented: navigation/.exec(message)) return;
 	originConsoleErr(message, ...optionalParams);
 };
+
+(global as any).IntersectionObserver = class IntersectionObserver {
+	constructor() {}
+
+	observe() {
+		return null;
+	}
+
+	disconnect() {
+		return null;
+	}
+
+	unobserve() {
+		return null;
+	}
+};
