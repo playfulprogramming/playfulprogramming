@@ -13,13 +13,13 @@ As a site and community alike, we have a myriad of ways to contribute to the sit
 
 ## Adding a New Blog Post
 
-In order to credit you for your new post, we'll start by adding you to the list of authors for the site.
+To credit you for your new post, we'll start by adding you to the list of authors for the site.
 
 ### Author Data File
 
 The author data file is located at [`content/data/unicorns.json`](./content/data/unicorns.json) 🦄
 
-> This section assumes you'd like to contribute directly through GitHub. If you'd rather contribute an article without using Git, [reach out to us on our Discord](https://discord.gg/FMcvc6T) and we'll work with you to introduce your (attributed) content.
+> This section assumes you'd like to contribute directly through GitHub. If you'd rather contribute an article without using Git, [reach out to us on our Discord](https://discord.gg/FMcvc6T), and we'll work with you to introduce your (attributed) content.
 
 To add yourself as an author in a PR for a new post, you'd add your information
 as a new JSON object in the array.
@@ -27,11 +27,11 @@ as a new JSON object in the array.
 This information includes:
 
 - A username for your profile (used in your profile URL).
-	[IE, our founder's username is `crutchcorn` and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]	
+	[IE, our founder's username is `crutchcorn`, and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]	
 	
 - Full name
 
-  - A separate field for first name and last name as well
+  - A separate field for the first name and last name as well
 
     (this is because SEO meta tags force us to use first names and last names)
 
@@ -62,19 +62,17 @@ This information includes:
 - A profile picture, used on your profile page.
 
   - This profile picture should be a path to a PNG or a JPEG file with the resolution of at least `512x512` that's saved inside of `./content/data`
-  - If you do not want to show a profile picture or commit your picture to
-    the repo, we have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/master/emotes).
-    They're adorable, go check! 🤩
+  - Don't want to show your real picture on the site? That's alright! We have a [myriad of custom unicorn emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/master/emotes). They're adorable, go check! 🤩
 
 > While this feels like a lot of metadata, keep in mind that all of this is optional or can provide defaults that don't identify you. Please never feel pressured to provide more information than you're comfortable with!
 
 ### Markdown Post
 
-Now that we have your user attribution data, we can move onto the post data itself. We store all blog posts under a format called ["Markdown"](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). This format is a plaintext file with some special syntax for formatting improvements. I recommend using [an app like Typora](http://typora.io/) which allows you to edit markdown files similarly to a Word document. If you're coming from Google Drive, [there's an open-source script](https://github.com/lmmx/gdocs2md-html) that may help you convert your documents to Markdown.
+Now that we have your user attribution data, we can move onto the post data itself. We store all blog posts under a format called ["Markdown."](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) This format is a plaintext file with some special syntax for formatting improvements. I recommend using [an app like Typora](http://typora.io/), which allows you to edit markdown files similarly to a Word document. If you're coming from Google Drive, [there's an open-source script](https://github.com/lmmx/gdocs2md-html) that may help you convert your documents to Markdown.
 
 #### Save Location
 
-Once you have your `.md` file, we'll need a place to put it. We place a subdirectory in our [`content/blog` folder](https://github.com/unicorn-utterances/unicorn-utterances/tree/integration/content/blog) for each of the blog posts on the site. The naming of these subdirectories are integral to keep in mind, as they reflect the URL path of the article once finished. For example, the folder [`what-is-ssr-and-ssg`](./content/blog/what-is-ssr-and-ssg) will turn into the URL for the article:
+Once you have your `.md` file, we'll need a place to put it. We place a subdirectory in our [`content/blog` folder](https://github.com/unicorn-utterances/unicorn-utterances/tree/integration/content/blog) for each of the blog posts on the site. The naming of these subdirectories is integral to keep in mind, as they reflect the URL path of the article once finished. For example, the folder [`what-is-ssr-and-ssg`](./content/blog/what-is-ssr-and-ssg) will turn into the URL for the article:
 [https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/)
 
 Once you've created a subfolder with the URI you'd like your article to have, move the `.md` file into the folder with the name `index.md`. If you have linked images or videos, you'll need to save those files in the same folder and change your markdown file to reference them locally:
@@ -93,7 +91,7 @@ We expect images and videos to be fully lowercase with underscores ([often calle
 
 ##### Static File Linking
 
-There may be instances where you want an image or arbitrary file to be linked within your article. Say you've made a PowerPoint presentation that you'd like to link inside of the article. In order to do this, create a subfolder with the same name as the URI of the blog post user [`static/posts`](./static/posts). You're then able to reference your files inside of the markdown file:
+There may be instances where you want an image or arbitrary file to be linked within your article. Say you've made a PowerPoint presentation that you'd like to link inside of the article. To do this, create a subfolder with the same name as the URI of the blog post user [`static/posts`](./static/posts). You're then able to reference your files inside of the markdown file:
 
 ```markdown
 [styles.xml](./styles.xml)
@@ -101,7 +99,7 @@ There may be instances where you want an image or arbitrary file to be linked wi
 
 #### Frontmatter
 
-Now that we've placed the file in the correct location, we need to add metadata about the blog post itself. We do this inside of the `index.md` file itself using what's called a "Frontmatter". An example frontmatter looks something like this:
+Now that we've placed the file in the correct location, we need to add metadata about the blog post itself. We do this inside of the `index.md` file itself using what's called a "Frontmatter." An example frontmatter looks something like this:
 
 ```markdown
 ---
@@ -139,43 +137,41 @@ The following data **must** be present:
 
 ## Editing a Blog Post
 
-Our blog posts can all be found under [`/content/blog`](./content/blog). Simply find the article based on the URL path and edit the `index.md` file. We'll have one of our editors review the post changes and we'll try to reach out to the author for them to review your PR as well.
+Our blog posts can all be found under [`/content/blog`](./content/blog). Simply find the article based on the URL path and edit the `index.md` file. We'll have one of our editors review the post changes, and we'll try to reach out to the author for them to review your PR as well.
 
 # Code
 
-While we have a lot of code that is not yet this way, we try our best to build our code for the site in such a way that's generic enough to be useful for others. For example, some of our UI components have led to the creation of [our sister NPM library `batteries-not-included`](https://github.com/unicorn-utterances/batteries-not-included), which we now directly consume for our own components. We've also found ourselves requiring a custom markdown processing utility [in the form of `unist-util-flat-filter`](https://github.com/unicorn-utterances/unist-util-flat-filter).
+While we have a lot of code that is not yet this way, we try our best to build our code for the site in such a way that it's generic enough to be useful for others. For example, some of our UI components have led to the creation of [our sister NPM library `batteries-not-included`](https://github.com/unicorn-utterances/batteries-not-included). We now directly consume said library for our own components. We've also found ourselves requiring a custom markdown processing utility [in the form of `unist-util-flat-filter`](https://github.com/unicorn-utterances/unist-util-flat-filter).
+
+Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
 ## Develop Mode
 
-To start the develop server, run `npm run develop`, it will then start
-the local instance at `http://localhost:8000`. You also have the ability to
-checkout the GraphiQL tool at `http://localhost:8000/___graphql`. This is a
- tool you can use to experiment with querying your data. Learn more about
- using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
+To start the development server, run `npm run develop`, it will then start the local instance at `http://localhost:8000`. You also can check out the GraphiQL tool at `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
 
 
 ## Debugging Plugins
 
-We have a few local plugins to Gatsby. However, I've found that while debugging these plugins, Gatsby's cache can often get in the way. If you run `npm run debug`, it will create a debuggable ([using Chrome](https://unicorn-utterances.com/posts/debugging-nodejs-programs-using-chrome/)) instance of the Gatsby develop mode and clear the cache of Gatsby. This is to ensure that you're able to run your debugger to figure out what's happening in the build process.
+We have a few local plugins for Gatsby. However, I've found that while debugging these plugins, Gatsby's cache can often get in the way. If you run `npm run debug`, it will create a debuggable ([using Chrome](https://unicorn-utterances.com/posts/debugging-nodejs-programs-using-chrome/)) instance of the Gatsby develop mode and clear the cache of Gatsby. This script will ensure that your debugger provides proper insight into what's happening in the build process.
 
 # Deployment
 
 ## Git Strategy
 We loosely follow [the Gitflow branching strategy](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-where our development branch is called `integration` and our mainline branch is called `master`.
+where our development branch is called `integration`, and our mainline branch is called `master`.
 
 This means that any new pull requests should be made against `integration`
-unless it is an emergency hotfix (to be approved by the devops team).
+unless it is an emergency hotfix (to be approved by the DevOps team).
 
-We also have the `master` branch which is a live reflection of the code
+We also have the `master` branch, which is a live reflection of the code
 hosted on the server. Any time `integration` is pulled into `master`, the
 site will be deployed. A PR from `integration` to `master` should only be
 opened by a Unicorn Utterances team member and must be approved by at
-least one devops member
+least one DevOps member
 
 ## CI/CD
 
-As mentioned before, we follow the GitFlow branching strategy. What we didn't mention before is how we utilize those branches to deploy our code. Upon a PR being merged into `integration`, we have [a GitHub Action to deploy](https://github.com/unicorn-utterances/unicorn-utterances/actions?query=workflow%3Atesting-deploying) those changes to our beta link:
+As mentioned before, we follow the GitFlow branching strategy. What we didn't say before is how we utilize those branches to deploy our code. Upon a PR being merged into `integration`, we have [a GitHub Action to deploy](https://github.com/unicorn-utterances/unicorn-utterances/actions?query=workflow%3Atesting-deploying) those changes to our beta link:
 
 [https://beta.unicorn-utterances.com](https://beta.unicorn-utterances.com)
 
