@@ -18,6 +18,11 @@ export interface PostInfo {
 	fields: {
 		slug: string;
 		inlineCount: number;
+		headingsWithId: Array<{
+			value: string;
+			slug: string;
+			depth: number;
+		}>;
 	};
 	wordCount: {
 		words: number;

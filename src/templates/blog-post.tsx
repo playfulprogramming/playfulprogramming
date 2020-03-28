@@ -10,6 +10,8 @@ import { PostMetadata, PostTitleHeader } from "../components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "../components/theme-context";
 import { SiteInfo, PostInfo } from "../types";
+import { TableOfContents } from "../components/table-of-contents";
+import { BlogPostLayout } from "../components/blog-post-layout";
 import { MailingList } from "../components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
@@ -61,14 +63,21 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				canonicalPath={props.location.pathname}
 			/>
 			<article>
-				<header role="banner" className="marginZeroAutoChild">
-					<PostTitleHeader post={post} />
-					<PostMetadata post={post} />
-				</header>
-				<main
-					className="post-body"
-					data-testid={"post-body-div"}
-					dangerouslySetInnerHTML={{ __html: post.html }}
+				<BlogPostLayout
+					left={<TableOfContents headingsWithId={post.fields.headingsWithId} />}
+					center={
+						<>
+							<header role="banner" className="marginZeroAutoChild">
+								<PostTitleHeader post={post} />
+								<PostMetadata post={post} />
+							</header>
+							<main
+								className="post-body"
+								data-testid={"post-body-div"}
+								dangerouslySetInnerHTML={{ __html: post.html }}
+							/>
+						</>
+					}
 				/>
 				<footer role="contentinfo" className="post-lower-area">
 					<div>

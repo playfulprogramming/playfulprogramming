@@ -1616,9 +1616,9 @@ Of course, this means that you can send any value as the context. Change the cod
 
 ```typescript
 {
-			$implicit: pigLatinVal,
-original: this.makePiglatin,
-makePiglatinCasing: 'See? Any value'
+  $implicit: pigLatinVal,
+  original: this.makePiglatin,
+  makePiglatinCasing: 'See? Any value'
 }
 ```
 

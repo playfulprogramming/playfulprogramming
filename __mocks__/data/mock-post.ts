@@ -16,7 +16,8 @@ export const MockPost = {
 	},
 	fields: {
 		slug: "/this-post-name-here",
-		inlineCount: 0
+		inlineCount: 0,
+		headingsWithId: []
 	},
 	wordCount: {
 		words: 10000
@@ -39,7 +40,8 @@ export const MockMultiAuthorPost = {
 	},
 	fields: {
 		slug: "/this-other-post-name-here",
-		inlineCount: 0
+		inlineCount: 0,
+		headingsWithId: []
 	},
 	wordCount: {
 		words: 100000
