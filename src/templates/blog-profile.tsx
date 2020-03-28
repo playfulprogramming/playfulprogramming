@@ -35,8 +35,6 @@ const BlogProfile = (props: BlogProfileProps) => {
 	const unicornData = slugData.unicornsJson;
 	const posts = slugData.allMarkdownRemark.edges;
 
-	debugger;
-
 	const wordCount = useMemo(() => {
 		return posts.reduce(
 			(prev, post) =>
