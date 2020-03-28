@@ -15,12 +15,6 @@ exports.createSchemaCustomization = ({ actions }) => {
 	const typeDefs = `
     type MarkdownRemarkFields implements Node {
       inlineCount: Int
-			headingsWithId: [HeadingsWithId]
-    }
-    type HeadingsWithId {
-      value: String!
-      depth: Int!
-      slug: String!
     }
   `;
 	createTypes(typeDefs);

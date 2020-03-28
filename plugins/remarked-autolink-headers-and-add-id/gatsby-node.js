@@ -1,7 +1,3 @@
-const flatFilter = require("unist-util-flat-filter");
-const parse = require("@textlint/markdown-to-ast").parse;
-const deburr = require(`lodash/deburr`);
-
 /**
  * While I would much MUCH rather utilize the existing AST manipulation from
  * the remarked plugin, we've hit a bit of a snag. The problem is explained here:
@@ -11,6 +7,24 @@ const deburr = require(`lodash/deburr`);
  * was previously confirmed working here:
  * https://github.com/unicorn-utterances/unicorn-utterances/tree/4efc6216f0efc228ced5c6e5491cb8b77cb64c55/plugins/remarked-autolink-headers-and-add-id
  */
+const flatFilter = require("unist-util-flat-filter");
+const parse = require("@textlint/markdown-to-ast").parse;
+const deburr = require(`lodash/deburr`);
+
+exports.createSchemaCustomization = ({ actions }) => {
+	const { createTypes } = actions;
+	const typeDefs = `
+    type MarkdownRemarkFields implements Node {
+			headingsWithId: [HeadingsWithId]
+    }
+    type HeadingsWithId {
+      value: String!
+      depth: Int!
+      slug: String!
+    }
+  `;
+	createTypes(typeDefs);
+};
 
 /**
  * Copied directly from the plugin source:
