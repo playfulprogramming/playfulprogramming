@@ -38,29 +38,30 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 	});
 
 	return (
-		<ol
-			aria-label={"Table of Contents"}
-			className={tableOfContentsStyle.tableList}
-			role={"list"}
-			ref={tocListRef}
-		>
-			{headingsToDisplay.map((headingInfo, i) => {
-				const liClassNames = classnames(tableOfContentsStyle.tocLi, {
-					[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
-					[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
-					[tableOfContentsStyle.tocH3]: headingInfo.depth === 3
-				});
-				return (
-					<li
-						key={headingInfo.slug}
-						style={{ marginLeft: `${10 * (headingInfo.depth - 1)}px` }}
-						ref={linkRefs[i]}
-						className={liClassNames}
-					>
-						<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
-					</li>
-				);
-			})}
-		</ol>
+		<aside aria-label={"Table of Contents"}>
+			<ol
+				className={tableOfContentsStyle.tableList}
+				role={"list"}
+				ref={tocListRef}
+			>
+				{headingsToDisplay.map((headingInfo, i) => {
+					const liClassNames = classnames(tableOfContentsStyle.tocLi, {
+						[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
+						[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
+						[tableOfContentsStyle.tocH3]: headingInfo.depth === 3
+					});
+					return (
+						<li
+							key={headingInfo.slug}
+							style={{ marginLeft: `${10 * (headingInfo.depth - 1)}px` }}
+							ref={linkRefs[i]}
+							className={liClassNames}
+						>
+							<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
+						</li>
+					);
+				})}
+			</ol>
+		</aside>
 	);
 };
