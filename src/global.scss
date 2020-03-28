@@ -246,6 +246,13 @@ $pendIconMarg: #{$baseUnit}px;
 		// Border-collapse and border-radius don't mix. This is a workaround for that issue
 		box-shadow: 0 0 0 1px var(--primary);
 		overflow: hidden;
+
+		@include until($endSmallScreenSize) {
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+		}
 	}
 
 	tr,
@@ -258,6 +265,11 @@ $pendIconMarg: #{$baseUnit}px;
 	th {
 		padding-left: 1rem;
 		padding-right: 1rem;
+
+		@include until($endSmallScreenSize) {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
 	}
 }
 
