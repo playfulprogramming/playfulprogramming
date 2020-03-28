@@ -1,5 +1,7 @@
 @import "../../vars";
 
+$noAuthorPageSize: 390px;
+
 .card {
 	cursor: pointer;
 	border: var(--cardOutlineStyle);
@@ -31,6 +33,10 @@
 
 .cardContents {
 	margin-left: 108px;
+
+	@include until($noAuthorPageSize) {
+		margin-left: 1.5rem;
+	}
 }
 
 .header {
@@ -127,4 +133,8 @@
 	top: 24px;
 	width: 68px !important;
 	height: 68px !important;
+
+	@include until($noAuthorPageSize) {
+		display: none;
+	}
 }

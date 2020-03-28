@@ -34,7 +34,9 @@ export const darkTheme = {
 	"--highlightColor": "#d22d72",
 	"--lineNumbersColor": "#516d7b",
 	"--lineHighlightColor": "rgba(235, 248, 255, 0.2)",
-	"--lineHighlightFadeColor": "rgba(235, 248, 255, 0)"
+	"--lineHighlightFadeColor": "rgba(235, 248, 255, 0)",
+	"--scrollBarBG": "rgba(228, 244, 255, 0.3)",
+	"--scrollBarThumb": "var(--darkPrimary)"
 };
 
 export const lightTheme = {
@@ -71,7 +73,9 @@ export const lightTheme = {
 	"--highlightColor": "#c94922",
 	"--lineNumbersColor": "#979db4",
 	"--lineHighlightColor": "rgba(107, 115, 148, 0.2)",
-	"--lineHighlightFadeColor": "rgba(107, 115, 148, 0)"
+	"--lineHighlightFadeColor": "rgba(107, 115, 148, 0)",
+	"--scrollBarBG": "rgba(18, 125, 179, 0.3)",
+	"--scrollBarThumb": "var(--primary)"
 };
 
 export type ThemeEnum = "light" | "dark";

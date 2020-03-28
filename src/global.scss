@@ -24,6 +24,8 @@
 	--filterBarIconSize: #{3 * $baseUnit}px;
 	--filterBarFontSize: #{2.5 * $baseUnit}px;
 	--listViewPadding: #{1.5 * $baseUnit}px;
+	--scrollBarBG: rgba(18, 125, 179, 0.3);
+	--scrollBarThumb: var(--primary);
 	font-size: $rootFontSize;
 	line-height: 1.2;
 
@@ -45,6 +47,20 @@
 :focus::-moz-focus-inner {
 	padding: 0; //prevent weirdness just in case
 	border-color: var(--darkPrimary);
+}
+
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--scrollBarBG);
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: var(--scrollBarThumb);
 }
 
 .listViewContent {
@@ -230,6 +246,13 @@ $pendIconMarg: #{$baseUnit}px;
 		// Border-collapse and border-radius don't mix. This is a workaround for that issue
 		box-shadow: 0 0 0 1px var(--primary);
 		overflow: hidden;
+
+		@include until($endSmallScreenSize) {
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+		}
 	}
 
 	tr,
@@ -242,6 +265,11 @@ $pendIconMarg: #{$baseUnit}px;
 	th {
 		padding-left: 1rem;
 		padding-right: 1rem;
+
+		@include until($endSmallScreenSize) {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
 	}
 }
 
@@ -356,5 +384,12 @@ li > ul > li {
 		&.disabled {
 			display: none;
 		}
+	}
+}
+
+.toc-is-active {
+	font-weight: bold;
+	a {
+		color: var(--darkPrimary) !important;
 	}
 }
