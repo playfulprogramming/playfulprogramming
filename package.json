@@ -50,6 +50,7 @@
     "gatsby-remark-images-medium-zoom": "^1.4.0",
     "gatsby-remark-prismjs": "^3.4.1",
     "gatsby-remark-responsive-iframe": "^2.3.1",
+    "gatsby-remark-series": "^1.0.2",
     "gatsby-remark-video": "^1.2.5",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-json": "^2.3.1",

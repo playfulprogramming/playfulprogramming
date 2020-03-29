@@ -6,7 +6,9 @@
 	authors: ['crutchcorn'],
 	tags: ['udp', 'networking'],
 	attached: [],
-	license: 'cc-by-nc-sa-4'
+	license: 'cc-by-nc-sa-4',
+	series: "networking-101",
+	order: 2
 }
 ---
 
