@@ -37,7 +37,7 @@ It's going to be a long article, so please feel free to take breaks, grab a drin
 
 Sound like a fun time? Let's goooo! 🏃🌈
 
-> The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx).
+> The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx) or a live recording of that talk given by the post's author [on our YouTube channel](https://www.youtube.com/watch?v=7AilTMFPxqQ).
 
 # Introduction To Templates {#intro}
 
@@ -436,8 +436,6 @@ _The browser takes the items that've been defined in HTML and turns them into a 
 
 ![A chart showing the document object model layout of the above code. It shows that the 'main' tag is the parent to a 'ul' tag, and so on](./dom_tree.svg "Diagram showing the above code as a graph")
 
-
-
 This tree tells the browser where to place items and includes some logic when combined with CSS, even. For example, when the following CSS is applied to the `index.html` file:
 
 ```css
@@ -452,6 +450,7 @@ It finds the element with the ID of `b`, then the children of that tag are color
 
 > The `ul` element is marked as green just to showcase that it is the element being marked by the first part of the selector
 
+> If you want to have a better grasp on the DOM and how it relates to the content you see on-screen, [check out our article that outlines what the DOM is and how your code interfaces with it through the browser](/posts/understanding-the-dom/).
 
 ## View Hierarchy Tree
 
@@ -1617,9 +1616,9 @@ Of course, this means that you can send any value as the context. Change the cod
 
 ```typescript
 {
-			$implicit: pigLatinVal,
-original: this.makePiglatin,
-makePiglatinCasing: 'See? Any value'
+  $implicit: pigLatinVal,
+  original: this.makePiglatin,
+  makePiglatinCasing: 'See? Any value'
 }
 ```
 

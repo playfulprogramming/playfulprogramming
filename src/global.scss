@@ -24,6 +24,8 @@
 	--filterBarIconSize: #{3 * $baseUnit}px;
 	--filterBarFontSize: #{2.5 * $baseUnit}px;
 	--listViewPadding: #{1.5 * $baseUnit}px;
+	--scrollBarBG: rgba(18, 125, 179, 0.3);
+	--scrollBarThumb: var(--primary);
 	font-size: $rootFontSize;
 	line-height: 1.2;
 
@@ -47,6 +49,20 @@
 	border-color: var(--darkPrimary);
 }
 
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--scrollBarBG);
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: var(--scrollBarThumb);
+}
+
 .listViewContent {
 	margin: 0 auto;
 	max-width: #{160 * $baseUnit}px; // 1280px
@@ -55,6 +71,7 @@
 
 .postViewContent {
 	padding: #{$baseUnit * 2.5}px;
+	overflow-wrap: break-word;
 }
 
 .postViewContent > * {
@@ -168,6 +185,7 @@ $pendIconMarg: #{$baseUnit}px;
 .post-body {
 	margin: 0 auto #{$baseUnit * 4}px;
 	max-width: #{$baseUnit * 88}px;
+	line-height: 1.7;
 
 	// Fix autolink-headings anchors positioning
 	.anchor {
@@ -188,6 +206,69 @@ $pendIconMarg: #{$baseUnit}px;
 		&[src$=".svg"] {
 			width: 100%;
 			max-height: 50vh;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 1.25em;
+		line-height: 1.5;
+		margin-bottom: 0;
+	}
+	h1 + h2,
+	h2 + h3,
+	h3 + h4,
+	h4 + h5,
+	h5 + h6 {
+		margin-top: 0.75em;
+	}
+
+	table tr:last-child th:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:last-child {
+		border-bottom-right-radius: 10px;
+	}
+
+	table {
+		border: var(--cardOutlineStyle);
+		border-radius: var(--cardRadius);
+		border-collapse: collapse;
+		// Border-collapse and border-radius don't mix. This is a workaround for that issue
+		box-shadow: 0 0 0 1px var(--primary);
+		overflow: hidden;
+
+		@include until($endSmallScreenSize) {
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+		}
+	}
+
+	tr,
+	td,
+	th {
+		border: var(--cardOutlineStyle);
+	}
+
+	td,
+	th {
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		@include until($endSmallScreenSize) {
+			padding-left: 5px;
+			padding-right: 5px;
 		}
 	}
 }
@@ -268,6 +349,10 @@ svg:not(.strokeicon) {
 	}
 }
 
+li > ul > li {
+	margin: 1rem 0;
+}
+
 // The pagination styling
 .pagination {
 	display: flex;
@@ -299,5 +384,12 @@ svg:not(.strokeicon) {
 		&.disabled {
 			display: none;
 		}
+	}
+}
+
+.toc-is-active {
+	font-weight: bold;
+	a {
+		color: var(--darkPrimary) !important;
 	}
 }

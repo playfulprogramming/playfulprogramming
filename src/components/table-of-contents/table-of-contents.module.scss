@@ -1,0 +1,42 @@
+@import "../../vars";
+
+.tableList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tocLi {
+	margin-top: 12px;
+}
+
+.tocLi a {
+	text-decoration: none;
+}
+
+.tocH1 {
+	font-family: var(--archivo);
+	font-size: 20px;
+	line-height: 142%;
+	a {
+		color: var(--midImpactBlack);
+	}
+}
+
+.tocH2,
+.tocH3 {
+	line-height: 135%;
+}
+
+.tocH2 a {
+	color: var(--midImpactBlack);
+	font-style: italic;
+	font-size: 16px;
+}
+
+.tocH3 a {
+	color: var(--midImpactBlack);
+	font-style: italic;
+	line-height: 135%;
+	font-size: 16px;
+}
