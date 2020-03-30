@@ -1,3 +1,5 @@
+const { SeriesToC } = require("./src/components/series-toc");
+
 let CONSTS = require("./config/gatsby-config-consts");
 if (!CONSTS) CONSTS = {};
 
@@ -118,7 +120,8 @@ module.exports = {
 						options: {
 							render: {
 								// The location where the toc should be rendered.
-								placeholder: "top"
+								placeholder: "top",
+								template: SeriesToC
 							},
 							resolvers: {
 								slug: markdownNode => `/posts${markdownNode.fields.slug}`,

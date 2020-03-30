@@ -7,7 +7,7 @@
 	tags: ['udp', 'networking'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "networking-101",
+	series: "Networking 101",
 	order: 2
 }
 ---
