@@ -26,7 +26,7 @@ Since they're both packet-based, they both require an "address" of sorts to infe
 
 ## IP Addresses {#ip-address}
 
-
+The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
 
 ### Different Types of IP Addresses {#ipv4-vs-ipv6}
 
@@ -53,17 +53,15 @@ These separated landing sites are called "ports"; called as such because they op
 
 This method of port address selection even has it's own shorthand. For example, if you wanted to send data to IP address `192.168.1.50` on port `3000`, you'd send that data to: `192.168.1.50:3000`, being sure to use a colon to delineate between the IP address and the port number.
 
-#### Pre-Assigned Ports {#standard-ports}
+### Pre-Assigned Ports {#standard-ports}
 
 Like an apartment complex may pre-assign individuals to specific rooms, so too does the specification for Internet Protocol pre-assign specific applications to specific ports. For example, port 21 is officially designated to the [File Transfer Protocol (FTP)](https://en.wikipedia.org/wiki/File_Transfer_Protocol), which can be used to transfer files if a server is set up on a machine to handle this protocol. As a result, it's strongly discouraged to use these ports that are reserved for your application stack if you want to use a specific port for networking in your app or project.
 
+### A Note On IP Addresses {#localhost}
 
+You might remember from [the start of this section](#ip-addresses) that I listed `127.0.0.1` and `0:0:0:0:0:0:0:1` as examples of IPv4 and IPv6 addresses. This isn't without reason! These addresses are known as "loopback" addresses, and forward all traffic addressed to those IP addresses back to your machine! Why might this be useful? Let's take the following real-world example:
 
-
-
-
-
-
+Let's say you're developing a web application using React and want to see it hosted on your local development environment without deploying it to the public internet to see. In this example, you could spin up a server to host the React code on `127.0.0.1:3000`, and you could then access it via `localhost:3000` in your browser. For programs like React, this functionality is built-in to [it's CLI utility](https://reactjs.org/docs/create-a-new-react-app.html), but this isn't limited to React; It's universal for any form of network communication you need to test locally.
 
 
 
@@ -237,6 +235,6 @@ These headers can contain information (also called "metadata") like what size th
 
 # Conclusion
 
-This has been a breif overview of UDP. In this series, we're hoping to introduce the fundamentals of networking, and while UDP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll introduce TCP and how you're able to verify that your messages are being sent to the other client. Even further into the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.
+This has been a brief overview of UDP. In this series, we're hoping to introduce the fundamentals of networking, and while UDP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll introduce TCP and how you're able to verify that your messages are being sent to the other client. Even further into the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.
 
 To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimal. Otherwise, we also have a Discord you can join that we'll share new articles with. We also help others learn in the Discord as well.
