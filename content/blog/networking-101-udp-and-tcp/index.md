@@ -24,6 +24,10 @@ Since they're both packet-based, they both require an "address" of sorts to infe
 
 The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
 
+This IP address is then stored in a packet's header ([if you recall, that's where the metadata about the packet lives](/posts/basic-overview-of-packets-and-osi/#packet-metadata)), and that's then used to direct the packet to its correct recipient.
+
+![A packet being directed to the correct client matching the IP in the header](./showing-an-ip-address.svg)
+
 ### Different Types of IP Addresses {#ipv4-vs-ipv6}
 
 While IP addresses may seem somewhat arbitrary at first glance, there are important rules to abide by to have what's considered a "valid" IP address. What's considered "valid" is defined by the TCP/IP specification, which is lead by the [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force), a group created specifically to manage and handle network protocol standardization. As time has gone on, there have been various revisions to the IP validation methods. What was once valid is now considered outdated and migrated to a newer standard of IP address. The two most commonly used standards for defining IP addresses today are:
