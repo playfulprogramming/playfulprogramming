@@ -1,8 +1,8 @@
 ---
 {
 	title: "Networking 101: UDP & TCP",
-	description: 'If networking is analogous to physical mail, then let\'s take a look at the letters being sent themselves. Let\'s dive into UDP and TCP',
-	published: '2019-09-26T05:12:03.284Z',
+	description: "If networking is analogous to physical mail, then let's take a look at the letters being sent themselves. Let's dive into UDP and TCP",
+	published: '2020-03-31T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['udp', 'networking'],
 	attached: [],

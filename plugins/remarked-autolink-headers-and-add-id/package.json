@@ -9,7 +9,7 @@
   "dependencies": {
     "@textlint/markdown-to-ast": "^6.1.7",
     "github-slugger": "^1.2.1",
-    "lodash": "^4.17.15",
+    "lodash.deburr": "^4.1.0",
     "unist-util-flat-filter": "^1.0.0"
   }
 }
