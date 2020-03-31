@@ -9,7 +9,7 @@
  */
 const flatFilter = require("unist-util-flat-filter");
 const parse = require("@textlint/markdown-to-ast").parse;
-const deburr = require(`lodash/deburr`);
+const deburr = require(`lodash.deburr`);
 
 exports.createSchemaCustomization = ({ actions }) => {
 	const { createTypes } = actions;
