@@ -20,10 +20,6 @@ Let's start by talking about what similarities UDP and TCP have. While they do h
 
 Since they're both packet-based, they both require an "address" of sorts to infer where they've come from and where they're going.
 
-
-
-
-
 ## IP Addresses {#ip-address}
 
 The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
@@ -63,69 +59,33 @@ You might remember from [the start of this section](#ip-addresses) that I listed
 
 Let's say you're developing a web application using React and want to see it hosted on your local development environment without deploying it to the public internet to see. In this example, you could spin up a server to host the React code on `127.0.0.1:3000`, and you could then access it via `localhost:3000` in your browser. For programs like React, this functionality is built-in to [it's CLI utility](https://reactjs.org/docs/create-a-new-react-app.html), but this isn't limited to React; It's universal for any form of network communication you need to test locally.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # UDP {#udp}
 
-UDP is the **"User Datagram Protocol"**. Of the acronym, you may be familiar with "User" and "Protocol", but the term **"datagram"** may be new. 
+Now that we've explained what IP addresses are and what ports are let's walk through how UDP is unique. _UDP stands for "User datagram protocol."_ You may be familiar with "User" and "Protocol," but the term **"datagram"** may be new. 
 
 If you're familiar with how a telegram (like the old-school messaging method, not the new-age messaging platform) used to work, you may already be familiar with how a datagram works.
 
-_A datagram is a unidirectional, non-verifiably-sent piece of communication that contains data._
+*A datagram is a unidirectional, non-verifiably-sent piece of communication that contains data.*
 
 Whoa. What's that even mean?
 
+When you send a letter through the mail (barring any additional "protections" you might add to a valuable package. We'll get to that later), you have no way of knowing if it made it to the intended recipient. 
 
+Because the packet of information could be lost somewhere or sustain damage which makes the data unreadible (say, via data corruption), you are unable to reliably ensure that it was recieved.
 
+Likewise, if you've sent multiple packets at once, you have no way of knowing if your data is recieved in the same order they came in. While this isn't much of a problem for small-scale communication, this can become a problem for larger-scale bi-directional data transfer.
 
 
 
+## When is UDP Useful? {#udp-uses}
 
+UDP is useful for various low-level communication used to setup networks in ways that we'll touch later in the series. That said, there are also application-level usages for UDP's core strength: Speed. See, because UDP does not engage in any form of delivery confirmation, it tends to be significantly faster than it's TCP counterpart. As such, if you require high-speed data throughput and can afford to lose some data, UDP is the way to go. This speed is why it's often utilized in video calling software. You can scale up/down the video quality based on which packets are able to make it through, but keep latency low due to pressing forward when packets don't arrive in time.
 
+# TCP
 
+If you've ever sent an expensive package through a mail courier service, you may have opted to have the recipient "sign" for the package, as a method of certifying that they did, in fact, get the package.
 
+That's essentially what TCP is for HTTP packets. TCP stands for "Transmission Control Protocol" and solves for one of the biggest problems in UDP: delivery verification.
 
 
 
@@ -166,72 +126,6 @@ Whoa. What's that even mean?
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Okay, let's take a step back and understand what's going on with a datagram. Let's imagine you want to send a letter with some information to a friend in another state. Using the postal service, you're unable to verify that your friend has received the letter, only wait for a reply. There's also interaction required in order to send a letter. So long as you know the address of your friend, you can send as many letters as you'd like.
-
-In a typical correspondence, you'd send off a letter, include a return address, and wait for a response back. That said, there's nothing stopping someone from sending more than a single letter before receiving a response. This chart is a good example of that:
-
-![An image showcasing the rules of data sending both ways](./image-of-unidirectional-data-being-sent.svg)
-
-Similarly, a datagram is sent from a single sender, recieved by a single recipient, addressed where to go, and contains a set of information.
-
-However, one of the biggest weakness of a datagram is that you have no guarantee that what you sent was delivered. Because of this, other methods of sending data have been created in order to have assurance of data being received.
-
-That said, just because you're unsure whether or not it was sent does not mean that it's a useless delivery method. After all, we still utilize the postal service for various aspects of foundational infrastructure, despite similar flaws. For example, due to UDP's relatively short time-to-send (as compared to other methods we'll cover later), UDP is often used as the primary method for streaming data live.
-
-# IP Addresses and Packets {#ip-addresses-and-packets}
-
-_With a datagram, you send a group of data to another client that you know the address of_. This address is known as an **"IP Address"**. This address is composed of numbers (and sometimes letters) _in order to tell your computer where the other is_.
-
-![An image showing a "letter" (packet) going to an IPv4 address of 149.32.206.25 in a collection of machines with different IP addresses](./showing-an-ip-address.svg)
-
-The group of data that is sent using a datagram is known as a **"packet"**. This packet contains both a header and a body.
-
-![A breakdown of a packet showing a combination of a header with metadata and a body with data for the client](./breakdown-of-a-packet.svg)
-
-These headers can contain information (also called "metadata") like what size the content is, what type of data format the body of the packet contains, and more. This information can be then used to route specific packets to various routes. For example, say that I send a packet of data to a server that has the type 
-
-`video: title: "A simulation of a packet that has a header stating the body to be in XML format being routed to a server that specifically handles XML files and a packet with a header that notes the data being in JSON being routed to a server that handles JSON": ./redirect-based-on-headers.mp4`
 
 # Conclusion
 
