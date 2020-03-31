@@ -1,7 +1,7 @@
 ---
 {
-	title: "Networking 101: UDP",
-	description: 'An introduction to the User Datagram Protocol, the simplest method of communicating over a network',
+	title: "Networking 101: UDP & TCP",
+	description: 'If networking is analogous to physical mail, then let\'s take a look at the letters being sent themselves. Let\'s dive into UDP and TCP',
 	published: '2019-09-26T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['udp', 'networking'],
@@ -71,64 +71,36 @@ Whoa. What's that even mean?
 
 When you send a letter through the mail (barring any additional "protections" you might add to a valuable package. We'll get to that later), you have no way of knowing if it made it to the intended recipient. 
 
-Because the packet of information could be lost somewhere or sustain damage which makes the data unreadible (say, via data corruption), you are unable to reliably ensure that it was recieved.
+Because the packet of information could be lost somewhere or sustain damage, which makes the data unreadable (say, via data corruption), you are unable to reliably ensure that it was received.
 
-Likewise, if you've sent multiple packets at once, you have no way of knowing if your data is recieved in the same order they came in. While this isn't much of a problem for small-scale communication, this can become a problem for larger-scale bi-directional data transfer.
+Likewise, if you've sent multiple packets at once, you have no way of knowing if your data is received in the same order they came in. While this isn't much of a problem for small-scale communication, this can become a problem for larger-scale bi-directional data transfer.
 
 
 
 ## When is UDP Useful? {#udp-uses}
 
-UDP is useful for various low-level communication used to setup networks in ways that we'll touch later in the series. That said, there are also application-level usages for UDP's core strength: Speed. See, because UDP does not engage in any form of delivery confirmation, it tends to be significantly faster than it's TCP counterpart. As such, if you require high-speed data throughput and can afford to lose some data, UDP is the way to go. This speed is why it's often utilized in video calling software. You can scale up/down the video quality based on which packets are able to make it through, but keep latency low due to pressing forward when packets don't arrive in time.
+UDP is useful for various low-level communication used to set up networks in ways that we'll touch later in the series. That said, there are also application-level usages for UDP's core strength: Speed. See, because UDP does not engage in any form of delivery confirmation, it tends to be significantly faster than it's TCP counterpart. As such, if you require high-speed data throughput and can afford to lose some data, UDP is the way to go. This speed is why it's often utilized in video calling software. You can scale up/down the video quality based on which packets are able to make it through but keep latency low due to pressing forward when packets don't arrive in time.
 
-# TCP
+# TCP {#tcp}
 
 If you've ever sent an expensive package through a mail courier service, you may have opted to have the recipient "sign" for the package, as a method of certifying that they did, in fact, get the package.
 
-That's essentially what TCP is for HTTP packets. TCP stands for "Transmission Control Protocol" and solves for one of the biggest problems in UDP: delivery verification.
+That's what TCP is for HTTP packets. TCP stands for "Transmission Control Protocol" and solves one of the biggest problems in UDP: delivery verification. It does this by using a three-way "handshake" to verify an open connection between the clients, and a number associated with each packet to tell which order the data should arrive in.
 
+The three-step handshake is broken down to these steps:
 
+1) The client sends a request to the host, asking if it's acceptable to connect. It includes a "Synchronize Sequence Number" (SYN), which tells which packet number the communication is going to start with. This step is formally known as SYN
 
+2) The host then acknowledges (ACK) the request, and sends it's own SYN. This step is formally known as SYN/ACK
 
+3) The client acknowledges the SYN from the host, and data starts transmitting. This step is formally known as ACK.
 
+When you disconnect from the host, a similar disconnect handshake is done. Once the setup handshake is completed, and data starts flowing, every request to host will be returned by an acknowledgment of delivery. This ACK makes sure that you know your packets are delivered. If your packet acknowledgment is not resolved within a certain time, TCP includes the idea of timers running on the client that will re-send the packet.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Because of this more robust delivery pattern, TCP is often used for most high-level network connections.
 
 # Conclusion
 
-This has been a brief overview of UDP. In this series, we're hoping to introduce the fundamentals of networking, and while UDP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll introduce TCP and how you're able to verify that your messages are being sent to the other client. Even further into the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.
+This has been a brief overview of UDP and TCP! In this series, we're hoping to introduce the fundamentals of networking. While UDP/TCP is not often seen in higher-level coding directly, it's usage is integral to understand many other aspects of networking. In the next article in the series, we'll explain how IP addresses are assigned by using UDP thanks to DHCP.  Even further into the series, we'll walk through how the domain name URLs you type into your web browser are resolved into IP addresses through the domain name system (DNS).
 
-To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimal. Otherwise, we also have a Discord you can join that we'll share new articles with. We also help others learn in the Discord as well.
+To make sure you don't miss any of these articles, you may want to subscribe to our newsletter. We promise not to spam you with unrelated stuff and keep emails to a minimum. Otherwise, [we also have a Discord](https://discord.gg/FMcvc6T) you can join to see announcements for new articles, ask questions of the posts' authors, and engage in general community chatter
