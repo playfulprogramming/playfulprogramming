@@ -387,6 +387,39 @@ li > ul > li {
 	}
 }
 
+.series-table-of-content {
+	border: var(--cardOutlineStyle);
+	border-radius: var(--cardRadius);
+	overflow: hidden;
+
+	ol {
+		padding: 0;
+		list-style: none;
+		margin: 0;
+	}
+
+	& > div {
+		font-weight: bold;
+	}
+
+	& > div,
+	li {
+		padding: 0.5rem 1rem;
+	}
+
+	& > div,
+	li:not(:last-of-type) {
+		border-bottom: var(--cardOutlineStyle);
+	}
+
+	li.isActive {
+		background: var(--primary);
+		a {
+			color: white;
+		}
+	}
+}
+
 .toc-is-active {
 	font-weight: bold;
 	a {

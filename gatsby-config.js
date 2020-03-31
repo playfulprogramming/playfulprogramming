@@ -1,3 +1,5 @@
+const { SeriesToC } = require("./src/components/series-toc");
+
 let CONSTS = require("./config/gatsby-config-consts");
 if (!CONSTS) CONSTS = {};
 
@@ -112,7 +114,22 @@ module.exports = {
 						}
 					},
 					`gatsby-remark-copy-linked-files`,
-					`gatsby-remark-external-links`
+					`gatsby-remark-external-links`,
+					{
+						resolve: "gatsby-remark-series",
+						options: {
+							render: {
+								// The location where the toc should be rendered.
+								placeholder: "top",
+								template: SeriesToC
+							},
+							resolvers: {
+								slug: markdownNode => `/posts${markdownNode.fields.slug}`,
+								date: markdownNode => markdownNode.frontmatter.published,
+								draft: () => false
+							}
+						}
+					}
 				]
 			}
 		},

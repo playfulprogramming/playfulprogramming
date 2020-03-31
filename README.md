@@ -31,45 +31,11 @@ through the project. Not every sponsorship contains a financial contribution,
 but if one does we will disclose both what those finances
 are going towards and what will be done in exchange.
 
-## Important Repo Files
+## Contributing
 
-### Blog Posts
+We highly encourage and celebrate others contributing to our site and our community! We've written [a comprehensive guide on how to do so here](./CONTRIBUTING.md). This guide includes instructions for how to add a new post to the site, how to edit our code, and what our deployment strategy is.
 
-Should be located under [`content/blog/post-name-here`](./content/blog/).
-You should then have an `index.md` file containing a frontmatter (with JS
-header, not YAML) portion and any related files should be in the same folder.
+Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
-### Author Data File
-The author data file is located at [`content/data/unicorns.json`](./content/data/unicorns.json) 🦄
+We extend this invitation to those who may be unfamiliar with our processes. Be sure to check out [our CONTRIBUTING.md](./CONTRIBUTING.md) file first, but don't be afraid to join in and ask questions if you're uncertain of anything
 
-To add yourself as an author in a PR for a new post, you'd add your information
-as a new JSON object in the array, then add a profile picture to the `data`
-folder. The `pronouns` field should match an `id` in the `pronouns.json` (if
-yours is not listed, please add it as a new value in that file, we've tried to
-do our best to include everything we've found!)
-
-> If you do not want to show a profile picture or commit your picture to
-the repo, we have a [myriad of emotes that can be used as profile pictures as well](https://github.com/unicorn-utterances/design-assets/tree/master/emotes).
-They're adorable, go check! 🤩
-
-## 🚀 Develop
-
-To start the develop server, run `npm run develop`, it will then start
-the local instance at `http://localhost:8000`. You also have the ability to
-checkout the GraphiQL tool at `http://localhost:8000/___graphql`. This is a
- tool you can use to experiment with querying your data. Learn more about
- using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
-
-## Git Strategy
-
-We loosely follow [the Gitflow branching strategy](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-where our development branch is called `integration` and our mainline branch is called `master`.
-
-This means that any new pull requests should be made against `integration`
-unless it is an emergency hotfix (to be approved by the devops team).
-
-We also have the `master` branch which is a live reflection of the code
-hosted on the server. Any time `integration` is pulled into `master`, the
-site will be deployed. A PR from `integration` to `master` should only be
-opened by a Unicorn Utterances team member and must be approved by at
-least one devops member

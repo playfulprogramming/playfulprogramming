@@ -6,7 +6,9 @@
 	authors: ['reikaze', 'crutchcorn'],
 	tags: ['networking', 'osi model'],
 	attached: [],
-	license: 'cc-by-nc-sa-4'
+	license: 'cc-by-nc-sa-4',
+    series: "Networking 101",
+    order: 1
 }
 ---
 
