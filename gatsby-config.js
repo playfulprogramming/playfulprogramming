@@ -84,7 +84,7 @@ module.exports = {
 						}
 					},
 					{
-						resolve: `gatsby-image-svg-version`,
+						resolve: `gatsby-remark-images-medium-zoom`,
 						options: {
 							includedSelector: '[src$=".svg"]'
 						}
