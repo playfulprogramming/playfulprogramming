@@ -8,6 +8,7 @@
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
+
 ---
 
 Ask any developer running off of a Linux or macOS machine, and they'll be able to tell you what about their systems make them such a strong contender for development usage. Some of the top contenders I've heard are:
@@ -131,10 +132,127 @@ First, let's start with the unofficial offerings. We have many options, but the 
 
 ![A preview of the cmder terminal open on the UU repo](./cmder.png)
 
-As you can see, there's some custom logic for embedding Git metadata in the prompt, a custom `λ` prompt, and even contains some logic for more effective tab autocomplete. The terminal itself contains all kinds of functionality:
+As you can see, there's some custom logic for embedding Git metadata in the prompt, a custom `λ` prompt, and even contains some logic for more effective tab autocomplete. You're even able to install it via Chocolatey using `choco install cmder`! 
+
+The terminal itself contains all kinds of functionality:
 
 - Multi-line copy+paste
 - Tiling
 - Tabs
+- Customizable UI
 
 Those are just the features at the top of my head! What's nice about Cmder is that even if you don't use the terminal itself, you can use the configurations for CMD and PowerShell with other shells if you'd like. All of the screenshots for the other terminals will be shown using the Cmder configs.
+
+### Terminus {#terminus}
+
+Terminus is another excellent option for those looking for alternative terminal shells. Because it's rendered using web tech, it's UI is much more customizable. It also has an easy-to-install plugin system to add further functionality to the shell. What you're seeing is the initial out-of-the-box experience [with the Cmder configuration applied](https://github.com/cmderdev/cmder/wiki/Seamless-Terminus-Integration)
+
+![A preview of the Terminus shell with the Cmder config](./terminus.png)
+
+### Windows Terminal {#windows-terminal}
+
+Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft themselves. [The project is open-source](https://github.com/microsoft/terminal) and the preview is even installable   [via the Windows Store](https://aka.ms/windowsterminal).
+
+![A preview of the Windows Terminal](./windows_terminal.png)
+
+This terminal shell has been the most stable in my usage. It supports tabs, a highly customizable UI, and different tabs with the different shells supported.
+
+#### Cmder Integration {#windows-terminal-cmder}
+
+While Cmder integration with Windows Terminal is relatively trivial, it's not very well documented. Let's walk through how to do so.
+
+You'll want to start by making sure you have an environmental variable called `cmder_root`. This should be set up by default if you installed it using `choco`, but if you're unsure, you can check manually. [We outline how to set environmental variables in this article](#env-variables).
+
+Once we're sure that we have the configuration setup properly, we'll open up the settings file in Windows Terminal by pressing the dropdown button and selecting "Settings."
+
+![A preview of the Settings button](./windows_terminal_setting.png)
+
+Once this is done, update your `cmd` setting to have the following `commandline` config property:
+
+```json
+"commandline": "cmd.exe /k %cmder_root%/vendor/init.bat",
+```
+
+You can even do so for PowerShell:
+
+```json
+"commandline": "powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command \"Invoke-Expression 'Import-Module ''%cmder_root%/vendor/profile.ps1'''\"",
+```
+
+This is what my `profiles` looks like all together:
+
+```json
+"profiles": [
+    {
+        "guid": "{5b4ef9a8-4506-4ac9-930a-5eb1fd0ebf20}",
+        "name": "Cmder",
+        "commandline": "cmd.exe /k %cmder_root%/vendor/init.bat",
+        "icon": " %cmder_root%/icons/cmder.ico",
+        "hidden": false,
+        "startingDirectory": "%USERPROFILE%/git"
+    },
+    {
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "name": "Windows PowerShell",
+        "commandline": "powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command \"Invoke-Expression 'Import-Module ''%cmder_root%/vendor/profile.ps1'''\"",
+        "hidden": false,
+        "startingDirectory": "%USERPROFILE%/git",
+    },
+],
+```
+
+Finally, if you want to set one of these profiles as default (I wanted to make my new PowerShell config default), you can update the `defaultProfile ` parameter at the top of the file. Mine looked like this:
+
+```json
+"defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+```
+
+#### Color Configuration {#windows-terminal-colors}
+
+Windows terminal also supports customization of the colors for the terminal, among other things. The color settings I used for the screenshot above is the Dracula color theme.  You can add that color theme by adding the following to the `schemes` array in the `profiles.json` file:
+
+```json
+"schemes": [
+    {
+        "name" : "Dracula",
+        "background" : "#282A36",
+        "black" : "#21222C",
+        "blue" : "#BD93F9",
+        "brightBlack" : "#6272A4",
+        "brightBlue" : "#D6ACFF",
+        "brightCyan" : "#A4FFFF",
+        "brightGreen" : "#69FF94",
+        "brightPurple" : "#FF92DF",
+        "brightRed" : "#FF6E6E",
+        "brightWhite" : "#FFFFFF",
+        "brightYellow" : "#FFFFA5",
+        "cyan" : "#8BE9FD",
+        "foreground" : "#F8F8F2",
+        "green" : "#50FA7B",
+        "purple" : "#FF79C6",
+        "red" : "#FF5555",
+        "white" : "#F8F8F2",
+        "yellow" : "#F1FA8C"
+    }
+],
+```
+
+Then, for each of the profiles you want to have that color scheme, add the following property:
+
+```
+"colorScheme": "Dracula"
+```
+
+Resulting in the following for my PowerShell config:
+
+```json
+{
+    "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "name": "Windows PowerShell",
+    "commandline": "powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -NoExit -Command \"Invoke-Expression 'Import-Module ''%cmder_root%/vendor/profile.ps1'''\"",
+    "hidden": false,
+    "startingDirectory": "%USERPROFILE%/git",
+    "colorScheme": "Dracula"
+}
+```
+
