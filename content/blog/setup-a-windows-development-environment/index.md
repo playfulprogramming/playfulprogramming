@@ -43,3 +43,65 @@ You can see that it gives a list of installed packages with a simple at-glance v
 
 ## Suggested Packages {#suggested-packages}
 
+While Chocolatey has a myriad of useful packages to developers, there are some packages that I have installed on my local machine that I'd like to highlight.
+
+For starters, what's a developer machine without `git`? Let's throw that on:
+
+```
+choco install git.install
+```
+
+Additionally, I know a lot of developers would like to have access to common GNU utilities such as `rm` and `touch`. Using an install flag, you're able to add those to your path for usage:
+
+```
+choco install git.install--params "/GitAndUnixToolsOnPath"
+```
+
+### CLI Utilities {#cli-packages}
+
+| Package Name | Explanation                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `micro`      | A great terminal editor (ala Nano). It even supports using mouse usage! |
+| `bat`        | A great alternative to `cat` with line numbers and syntax highlighting |
+| `gh`         | GitHub's official CLI for managing issues, PRs, and more     |
+| `nvm`        | "Node version manager" - Enables users to have multiple installs of different Node versions and dynamically switch between them |
+| `yarn`       | An alternative to `npm` with better monorepo support. If installed through `choco`, it will support `nvm` switching seamlessly. |
+
+You're able to install all of these packages using `choco install micro bat gh nvm yarn`.
+
+## IDEs {#ides}
+
+| Package Name                                                 | Explanation                                                |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
+| `vscode`                                                     | Popular Microsoft IDE for many languages                   |
+| `sublimetext3`                                               | Popular text editor with syntax support for many languages |
+| `visualstudio2019professional` / `visualstudio2019community` | Microsoft's flagship IDE                                   |
+
+You're able to install all of these packages using:
+
+```
+choco install vscode sublimetext3 visualstudio2019community
+```
+
+## Others {#utilities}
+
+| Package Name                               | Explanation                                                  |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| `powertoys`                                | Built by MS itself, provides SVG/Markdown previews, provides utility for mass renaming, image resizing all from the file explorer itself. Also allows you to configure tiling, and more. We'll talk about this more later |
+| `virtualbox`                               | A program that allows you to create, run, and edit virtual machines |
+| `virtualbox-guest-additions-guest.install` | The extension to `virtualbox` that provides better USB passthrough support |
+| `firacode`                                 | A popular programming font that supports ligatures           |
+| `scrcpy`                                   | A utility that allows you to mirror your Android phone screen via ADB |
+| `typora`                                   | A markdown editor with a "preview edit" mode allowing you to edit markdown files similarly to Word |
+| `postman`                                  | A REST API tester                                            |
+| `Firefox`                                  | The popular web browser by Mozilla                           |
+| `licecap`                                  | A quick-and-easy GIF capture software                        |
+| `7zip`                                     | Compressed file format manager. Allows you to extract files from various formats |
+| `jdk` / `jre`                              | Java runtime and development kit                             |
+
+You're able to install all of these packages using:
+
+```
+choco install powertoys virtualbox virtualbox-guest-additions-guest.install firacode scrcpy typora postman Firefox licecap 7zip jdk jre
+```
+
