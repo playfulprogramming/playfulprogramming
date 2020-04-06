@@ -1,7 +1,7 @@
 ---
 {
-	title: "Setup a Development Environment in Windows",
-	description: "Many developers like MacOS or Linux for development environments, but don't know that Windows has plenty to offer. Let's explore that!",
+	title: "The Ultimate Windows Development Environment Guide",
+	description: "Many developers like MacOS or Linux for development environments, but don't know that Windows has plenty to offer. Let's explore that in this deep dive into Windows development environments!",
 	published: '2020-04-06T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['tooling', 'windows'],
@@ -106,13 +106,13 @@ You're able to install all of these packages using:
 choco install powertoys virtualbox virtualbox-guest-additions-guest.install firacode scrcpy typora postman Firefox licecap 7zip jdk jre
 ```
 
-## Windows Store {#windows-store}
+## Microsoft Store {#microsoft-store}
 
-I'm sure some avid Microsoft fans will have pointed out by now that I forgot something. You know, the official solution by Microsoft? Naturally, I haven't forgotten about the Windows Store.
+I'm sure some avid Microsoft fans will have pointed out by now that I forgot something. You know, the official solution by Microsoft? Naturally, I haven't forgotten about the Microsoft Store.
 
 While some of you may be surprised to hear this, the Microsoft Store has gained a fair number of development tools on its storefront. For example, there's now a package for Python that's now there. You're also able to get quick updates for all of your apps and seamlessly integrate them as-if they were typical windows apps.
 
-![A preview of the "Downloads and updates" tab in the Windows Store](./windows_store_update.png)
+![A preview of the "Downloads and updates" tab in the Microsoft Store](./windows_store_update.png)
 
 # Terminal Usage {#terminal-usage}
 
@@ -151,7 +151,7 @@ Terminus is another excellent option for those looking for alternative terminal 
 
 ### Windows Terminal {#windows-terminal}
 
-Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft themselves. [The project is open-source](https://github.com/microsoft/terminal) and the preview is even installable   [via the Windows Store](https://aka.ms/windowsterminal).
+Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft themselves. [The project is open-source](https://github.com/microsoft/terminal) and the preview is even installable   [via the Microsoft Store](https://aka.ms/windowsterminal).
 
 ![A preview of the Windows Terminal](./windows_terminal.png)
 
@@ -300,8 +300,6 @@ It could be because you don't have the program attached to your system path. You
 
 ![The path that I extracted the scc.exe file to](./scc_path.png)
 
-
-
 In order to add the file to the path, I need to edit the `path` environmental variable.
 
 > [Just as there are two sets of environmental variables](#env-path), there are two sets of `path` env variables. As such, you'll have to decide if you want all users to access a variable or if you want to restrict it to your current user. In this example, I'll be adding it to the system. 
@@ -315,3 +313,102 @@ Find the `path` environmental variable and select `"Edit."`
 Just as before, you're able to delete and edit a value by highlighting and pressing the respective buttons to the left. Otherwise, you can press "new" which will allow you to start typing. Once you're done, you can press "OK" to save your new path settings.
 
 > In order to get SCC running, you may have to close and then re-open an already opened terminal window. Otherwise, running `refreshenv` often updates the path so that you can use the new commands.
+
+## Git Configurations {#git-config}
+
+### Editor {#git-editor}
+
+Git, by default, uses `vim` to edit files. While I understand and respect the power of `vim`, I have never got the hang of `:!qnoWaitThatsNotRight!qq!helpMeLetMeOut`. As such, I tend to change my configuration to use `micro`, the CLI editor mentioned in [the CLI packages section](#cli-packages). In order to do so, I can just run:
+
+``` 
+git config --global core.editor "micro"
+```
+
+However, we can go a step further. Let's say that we want the full power of VSCode when editing a file via Git - we can do that!
+
+```
+git config --global core.editor "code --wait"
+```
+
+### Difftool {#git-difftool}
+
+Not only are you able to set VSCode as your editor for rebase messages, but [you can use it as your difftool as well](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-diff-tool)!
+
+Simply edit your global git config (typically found under `%UserProfile%/.gitconfig`) to reflect the following:
+
+```
+[diff]
+  tool = default-difftool
+[difftool "default-difftool"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+```
+
+And it should take care of the rest for you.
+
+## WSL {#wsl}
+
+Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subset for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual-machine themselves. The way that it works differs from version to version. The initial version worked by mapping system calls from Windows to Linux in a somewhat complex method. The new version (WSL2), right around the corner, works by running a Linux container in the background and enabling you to call into that container.
+
+Because of the foundational differences, compatibility with programs should be better in WSL2.
+
+[The way to enable them is the same between both versions](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+You'll simply want to run the following command in PowerShell as an administrator:
+
+```powershell
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
+
+Then reboot your machine. After a reboot, you should be able to search for a Linux distro via the Microsoft Store. There are different options available to you, such as:
+
+- [Debian](https://www.microsoft.com/en-us/p/debian/9msvkqc78pk6)
+- [Kali Linux](https://www.microsoft.com/en-us/p/kali-linux/9pkr34tncv07)
+- [openSUSE](https://www.microsoft.com/en-us/p/opensuse-leap-15-1/9njfzk00fgkv)
+- [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
+
+There are more distros than just those and more to come in the future.
+
+Once done, you simply run `bash` in a terminal Window or search for the distro name as an app. Either way should start-up the distro's instance of `bash` in the directory you were currently in. This is a full installation of Linux, meaning that you're able to access its package manager, run programs from it, and modify Windows files.
+
+### Shell Configuration {#linux-shell}
+
+If you prefer an alternative shell, such as ZSH or Fish, you're able to install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
+
+To get the alternative shell running any time you call `bash`, you'll need to configure your `.bashrc` file. You're able to run `nano ~/.bashrc` to open the file. Once done, add `bash -c zsh` to the top of the file. After this, every time `bash` runs, it will open `zsh`.
+
+#### Powerline Fonts {#powerline-fonts}
+
+Once setting up an `oh-my-zsh` theme, you may notice that your terminal display looks weird:
+
+![A preview of ZSH theme "agnoster" without a proper font installed](./no_powerline.png)
+
+To get some `oh-my-zsh` themes working properly, you may need to install a [powerline](https://github.com/ryanoasis/powerline-extra-symbols) enabled font. You have a few options to do this. 
+
+You can do so by [cloning this repository using PowerShell](https://github.com/powerline/fonts). Then `cd fonts` and `./install.ps1`. This script will install all of the fonts one-by-one on your system, fixing the font issues in your terminal. Find which font is your favorite and remember the name of it.
+
+Alternatively, [Microsoft has made a custom font themselves that supports powerline symbols](https://github.com/microsoft/cascadia-code/releases?WT.mc_id=-blog-scottha). To use that font, simply download the `CascadiaPL.ttf` file and install it.
+
+The final step is to configure your terminal editor to use the new font. Let's use the Windows Terminal as an example. Open your settings and inject `"fontFace":  "Cascadia Code PL"` into one of the profiles. The final result should look something like this:
+
+```
+ {
+     "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+     "hidden": false,
+     "name": "Ubuntu",
+     "source": "Windows.Terminal.Wsl",
+     "fontFace":  "Cascadia Code PL"
+ }
+```
+
+Then, when you open the terminal, you should see the correct terminal display.
+
+![A preview of ZSH theme "agnoster" with the proper font installed](./powerline.png)
+
+
+# Conclusion
+
+You'll notice that despite the raw power and capabilities that WSL2 will be bringing to us right around the corner, that I didn't touch on it until later in the article. That's because, while it's an amazing toolset to be able to utilize for those that need it, it's not the only thing that you can do to enable your Windows instance to be powerful for development. Windows (and Microsoft as a whole) has come a long way in the past 10 years, and with their continued effort on projects like WSL, VS Code, and the Windows Terminal, the future looks brighter than ever. 
+
+I want to take a moment to stop and appreciate all of the hard work that the folks at Microsoft and everyone involved in the projects mentioned have done to enable the kind of work I do daily. Thank you.
+
+With that, we're closing off the article. If you have any questions or comments, feel free to ring off in the comment box below. Otherwise, we have [our community Discord](https://discord.gg/FMcvc6T) where we talk not only talk Windows, but Linux, macOS, programming, and everything in between. We look forward to seeing you there!
