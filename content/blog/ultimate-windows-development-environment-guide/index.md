@@ -16,11 +16,11 @@ Ask any developer running off of a Linux or macOS machine, and they'll be able t
 - [Package management](#package-management)
 - [Terminal usage](#terminal-usage)
 - [Keyboard Usage](#keyboard-usage)
-- Customization
+- [Customization](#customization)
 
 What many don't know is that Windows has gained many of these options over the years. Between official tooling such as WSL2 right around the corner to third-party offerings becoming more-and-more mature, there's never been a better time to be a developer on the Windows platform.
 
-Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to free options, but I've personally used every paid software that I'll be mentioning.
+Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to free options, but I've personally used every paid software that I'll be mentioning. None of the paid software we mention here has been included as a deal of sponsorship in any way, I just like them and use them.
 
 > I understand that for some, Windows simply isn't their cup of tea. Additionally, I acknowledge that other platforms may do things *_better_* than Windows can. However, Windows is undisputedly a cheaper option than MacOS and often required for application usage where WINE and others fall flat. Just keep an open mind and understand that this isn't a put-down of other options.
 
@@ -436,9 +436,48 @@ Windows, by default, includes a myriad of shortcuts baked right in that allow yo
 
 ## Window Tiling {#window-tiling}
 
-"Surely, you can't forget window tiling!"
+"Surely, you can't forget about window tiling!"
 
-Oh, don't worry, I haven't. Out of the box, windows supports tiling using the <kbd>Win</kbd> +  <kbd>Arrow</kbd> keys. With these keys, you can lock a window into any four corner of a screen, make it take up half the screen, 
+Oh, don't worry, I haven't. Out of the box, windows supports tiling using the <kbd>Win</kbd> +  <kbd>Arrow</kbd> keys. With these keys, you can lock a window into any of the four corners of a screen, make it take up half the screen, or fill the screen entirely.
+
+More than that, though, there are many other options out there. One of the paid options that I like using is called [Divvy](https://mizage.com/windivvy/). While it's paid, it enables users a powerful ability to layout windows either with their keyboard or mouse alike. I often use it to size windows with my mouse, in fact.
+
+![A preview of Divvy laying out files using the mouse](./divvy.png)
+
+Back at the (Redmond-based) ranch, the [previously mentioned Microsoft made PowerToys](#utilities) gives users [a feature called "FancyZones"](https://github.com/microsoft/PowerToys/blob/master/src/modules/fancyzones/README.md). Using this feature, users can dictate what locations their window snapping behaves in. This overwrites the existing <kbd>Win</kbd> +  <kbd>Arrow</kbd> shortcuts to move a window.
+
+![A preview of PowerZones allowing users to customize how their tiling works](./powerzones.png)
+
+As you can see, there's an incredible amount of customization available with "FancyZones".
+
+# Customization {#customization}
+
+I'm not sure about you, but when I get a new machine, I want it to feel _mine_. This applies just as much to my wallpaper as it does the stickers I plaster my laptops in. The following software enables some new functionality or aesthetic difference that users might enjoy.
+
+## Free {#free-customization-software}
+
+| Program Name                                                 | What It Is                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Audio Band](https://github.com/dsafa/audio-band)            | Adds an interactive music preview to the taskbar. Integrates with Spotify and others |
+| [QuickLook](https://pooi.moe/QuickLook/)                     | Adds MacOS like file preview on pressing spacebar            |
+| [EarTrumpet](https://github.com/File-New-Project/EarTrumpet) | Allows a more complex audio mixer. Support per-app volume control |
+| [Rainmeter](https://github.com/File-New-Project/EarTrumpet)  | Enables new interactive desktop widgets                      |
+| [TranslucentTB](https://github.com/TranslucentTB/TranslucentTB) | Allows for more flexibility of taskbar                       |
+| [FalconX](https://chrisandriessen.nl/web/falconx/)           | Like TranslucentTB but also supports centering icons in the TaskBar |
+| [Files UWP](https://github.com/duke7553/files-uwp/releases)  | A modern rewrite of the file explorer in UWP                 |
+| [Open-Shell](https://github.com/Open-Shell/Open-Shell-Menu)  | An open-source replacement for the start menu                |
+
+## Paid
+
+> Just a reminder that none of this software is being sponsored. Please understand that this is all software that I personally use and thought that I would share. I've tried my best to find some form of free/open-source replacement and linked them in the "Free" section
+
+| Program Name                                          | What It Is                                                   | Price         |
+| ----------------------------------------------------- | ------------------------------------------------------------ | ------------- |
+| [DisplayFusion](http://www.displayfusion.com/)        | A multi-monitor utility program. Enables tons of functionality to help manage multiple monitors | Starts at $29 |
+| [OneCommander](http://onecommander.com/)              | A replacement for the File Explorer with various improvements | $5            |
+| [TrayStatus](https://www.traystatus.com/)             | Status tray indicators for HDD, CPU, Capslock, and more      | Starts at $10 |
+| [Start10](https://www.stardock.com/products/start10/) | A replacement for the Windows 10 start menu                  | $5            |
+| [Groupy](https://www.stardock.com/products/groupy/)   | A replacement for the [now-defunct Sets](https://www.zdnet.com/article/windows-10s-sets-feature-is-gone-and-not-expected-to-return/) functionality. Group unrelated programs into tabs, even if they didn't previously support tabs | %             |
 
 
 # Conclusion
