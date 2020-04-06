@@ -15,7 +15,7 @@ Ask any developer running off of a Linux or macOS machine, and they'll be able t
 
 - [Package management](#package-management)
 - [Terminal usage](#terminal-usage)
-- Window Tiling
+- [Keyboard Usage](#keyboard-usage)
 - Customization
 
 What many don't know is that Windows has gained many of these options over the years. Between official tooling such as WSL2 right around the corner to third-party offerings becoming more-and-more mature, there's never been a better time to be a developer on the Windows platform.
@@ -370,6 +370,8 @@ There are more distros than just those and more to come in the future.
 
 Once done, you simply run `bash` in a terminal Window or search for the distro name as an app. Either way should start-up the distro's instance of `bash` in the directory you were currently in. This is a full installation of Linux, meaning that you're able to access its package manager, run programs from it, and modify Windows files.
 
+There are even tweaks that're done with Windows to make it easier to use. If you run the `code` command to open a file, it will download a "VSCode remote server" to allow you to use your Windows install for both Linux and Windows commands. You can even [share SSH keys between Windows and WSL](https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/)!
+
 ### Shell Configuration {#linux-shell}
 
 If you prefer an alternative shell, such as ZSH or Fish, you're able to install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
@@ -403,6 +405,40 @@ The final step is to configure your terminal editor to use the new font. Let's u
 Then, when you open the terminal, you should see the correct terminal display.
 
 ![A preview of ZSH theme "agnoster" with the proper font installed](./powerline.png)
+
+
+
+# Keyboard Usage {#keyboard-usage}
+
+When asking many of my Linux-favoring friends why they love Linux so much, I've noticed one answer reoccur time and time again. They love being able to control their computer front, back, and sideways without having to touch their mouse. Well, dear reader, I assure you that Windows provides the same level of control.
+
+## Built-Ins {#built-in-keyboard-shortcuts}
+
+Windows, by default, includes a myriad of shortcuts baked right in that allow you to have powerful usage of your system using nothing but your keyboard. Here are just a few that I think are useful to keep-in-mind:
+
+| Key Combo                                           | What It Does                                                 |
+| --------------------------------------------------- | ------------------------------------------------------------ |
+| <kbd>Win</kbd> + <kbd>S</kbd>                       | Perform a partial screenshot. Allow you to select what you want screenshotted |
+| <kbd>Win</kbd> + <kbd>.</kbd>                       | Bring up the emoji picker. After pressing, start typing to search. |
+| <kbd>Win</kbd> + <kbd>R</kbd>                       | Bring up the "Run" dialog. Will allow you to type in the internal executable name to run it |
+| <kbd>Win</kbd> + <kbd>V</kbd>                       | Open the Windows clipboard manager                           |
+| <kbd>Win</kbd> + <kbd>X</kbd>                       | Bring up a list of actions, including "Start PowerShell as Admin" |
+| <kbd>Win</kbd> + <kbd>L</kbd>                       | Lock your screen                                             |
+| <kbd>Win</kbd> + <kbd>Tab</kbd>                     | Bring up the overview mode of all windows                    |
+| <kbd>Win</kbd> + <kbd>E</kbd>                       | Open file explorer                                           |
+| <kbd>Win</kbd> + <kbd>S</kbd>                       | Open search dialog                                           |
+| <kbd>Win</kbd> + <kbd>D</kbd>                       | Show/hide the desktop                                        |
+| <kbd>Shift</kbd> + <kbd>F10</kbd>                   | Bring up the context menu for the selected item              |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>D</kbd>     | Add a new virtual desktop                                    |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>Arrow</kbd> | Move between virtual desktops                                |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>F4</kbd>    | Close current virtual desktop                                |
+
+
+## Window Tiling {#window-tiling}
+
+"Surely, you can't forget window tiling!"
+
+Oh, don't worry, I haven't. Out of the box, windows supports tiling using the <kbd>Win</kbd> +  <kbd>Arrow</kbd> keys. With these keys, you can lock a window into any four corner of a screen, make it take up half the screen, 
 
 
 # Conclusion
