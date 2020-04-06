@@ -23,4 +23,23 @@ Moreover, much of what we'll be taking a look at today is either free, open-sour
 
 > I understand that for some, Windows simply isn't their cup of tea. Additionally, I acknowledge that other platforms may do things *_better_* than Windows can. However, Windows is undisputedly a cheaper option than MacOS and often required for application usage where WINE and others fall flat. Just keep an open mind and understand that this isn't a put-down of other options.
 
-# # Package Management {#package-management}
+# Package Management {#package-management}
+
+When it comes to package management on Windows, nothing beats [Chocolatey](https://chocolatey.org/). [It only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there, either; Much like it, Chocolatey is an unofficial repository of software but does include checks of verification for a select number of popular packages.
+
+It's also popular amongst sysadmins due to its ease of deployment across multiple devices and stability.
+
+You'll need to run in an administrator window, but once you do, you'll find the utility straightforward. A simple `choco search package-name` will find related packages to the name you input where areas `choco install package-name` will install the package.
+
+## Manage Packages via GUI {#chocolatey-gui}
+
+Readers, I won't lie to you. I'm not the kind of person to use CLIs for everything. I see their worth entirely, but it's simply not my strong suit remembering various commands even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie!
+
+![A list of installed software via the Chocolatey GUI](./choco-gui-list.png)
+
+You can see that it gives a list of installed packages with a simple at-glance view of what packages need updating.
+
+![A search result of the Chocolatey GUI](./choco-gui-search.png)
+
+## Suggested Packages {#suggested-packages}
+
