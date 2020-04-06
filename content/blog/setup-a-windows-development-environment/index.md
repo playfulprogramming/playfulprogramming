@@ -70,7 +70,7 @@ choco install git.install--params "/GitAndUnixToolsOnPath"
 
 You're able to install all of these packages using `choco install micro bat gh nvm yarn`.
 
-## IDEs {#ides}
+### IDEs {#ides}
 
 | Package Name                                                 | Explanation                                                |
 | ------------------------------------------------------------ | ---------------------------------------------------------- |
@@ -84,7 +84,7 @@ You're able to install all of these packages using:
 choco install vscode sublimetext3 visualstudio2019community
 ```
 
-## Others {#utilities}
+### Others {#utilities}
 
 | Package Name                               | Explanation                                                  |
 | ------------------------------------------ | ------------------------------------------------------------ |
@@ -256,3 +256,62 @@ Resulting in the following for my PowerShell config:
 }
 ```
 
+## Make Configuration Changes {#terminal-system-config}
+
+While terminals are important, another factor to be considered is the configuration of those terminal shells. It's important to keep system-level configuration settings in mind as well. For example, if you need to [make or modify environmental variables](#env-variables) or [make changes with the system path](#env-path). Luckily for us, they both live on the same path. As such, let's showcase how to reach the dialog that contains both of these settings before explaining each one in depth.
+
+![Showing the dialog for "This PC" in explorer with the "Properties" option selected](./this_pc_properties.png)
+
+After this, select "Advanced system settings."
+
+![The previously mentioned setting highlighted](./about_computer_advanced.png)
+
+After this, a dialog should pop up. This dialog should contain as one of the lower buttons "Environmental variables," which is where settings for both environmental variables and path should live.
+
+![The "Environmental variables" button selected](./system_properties.png)
+
+![The "environmental variables" dialog](./environmental_variables_dialog.png)
+
+### Environmental Variables {#env-variables}
+
+When working with the CLI, it's often important to have environmental variables to customize the functionality of a utility or program. Because Windows has the concept of users, there are two kinds of environment variables that can be set:
+
+- User-specific
+- System-level
+
+Each of them follows their namesakes in their usage. If I set a user-specific environmental variable and change users, I will not receive the same value as the user I'd set the variable for. Likewise, if I set it for the system, it will apply to all users. The top of the "environmental variables" section applies to the user-level, whereas the bottom level applies to the system. 
+
+In order to add a new one, simply select "New" on whichever level you want to create the environmental variables on. You should see this dialog appear:
+
+![The new user variable dialog](./new_user_var.png)
+
+Simply add the name of the variable and the value of the environmental variable to continue.
+
+You're able to do the same with editing a variable. Simply find the variable, highlight it, then select "Edit" and follow the same process.
+
+### Adding Items to Path {#env-path}
+
+Have you ever run into one of these errors?
+
+- `The term 'program-name' is not recognized as the name of a cmdlet, function, script file, or operable program.`
+- `'program-name' is not recognized as an internal or external command, operable program or batch file.`
+
+It could be because you don't have the program attached to your system path. Your path is what dictates what scripts and programs you're able to access globally. For example, there's a tool that I like to use [to count the LOC I have in a given project: `scc`](https://github.com/boyter/scc). This project is incredibly useful for quick estimations for fun. The problem? It doesn't live on Chocolatey and doesn't have an MSI installer. This means that it's harder to access via the terminal. Well, no longer! [If I download the ZIP from the releases tab](https://github.com/boyter/scc/releases), and extract it, I'll see that it contains a file called `scc.exe`. If I move that folder to `C:\tools\scc` and add it to the path, then I can use it in the terminal as if it were any other global util.
+
+![The path that I extracted the scc.exe file to](./scc_path.png)
+
+
+
+In order to add the file to the path, I need to edit the `path` environmental variable.
+
+> [Just as there are two sets of environmental variables](#env-path), there are two sets of `path` env variables. As such, you'll have to decide if you want all users to access a variable or if you want to restrict it to your current user. In this example, I'll be adding it to the system. 
+
+Find the `path` environmental variable and select `"Edit."` 
+
+![The path dialog value](./path_dialog.png)
+
+
+
+Just as before, you're able to delete and edit a value by highlighting and pressing the respective buttons to the left. Otherwise, you can press "new" which will allow you to start typing. Once you're done, you can press "OK" to save your new path settings.
+
+> In order to get SCC running, you may have to close and then re-open an already opened terminal window. Otherwise, running `refreshenv` often updates the path so that you can use the new commands.
