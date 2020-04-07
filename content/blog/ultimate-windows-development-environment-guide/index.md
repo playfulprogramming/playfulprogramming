@@ -68,7 +68,11 @@ choco install git.install--params "/GitAndUnixToolsOnPath"
 | `nvm`        | "Node version manager" - Enables users to have multiple installs of different Node versions and dynamically switch between them |
 | `yarn`       | An alternative to `npm` with better monorepo support. If installed through `choco`, it will support `nvm` switching seamlessly. |
 
-You're able to install all of these packages using `choco install micro bat gh nvm yarn`.
+You're able to install all of these packages using:
+
+```
+choco install micro bat gh nvm yarn
+```
 
 ### IDEs {#ides}
 
@@ -77,11 +81,12 @@ You're able to install all of these packages using `choco install micro bat gh n
 | `vscode`                                                     | Popular Microsoft IDE for many languages                   |
 | `sublimetext3`                                               | Popular text editor with syntax support for many languages |
 | `visualstudio2019professional` / `visualstudio2019community` | Microsoft's flagship IDE                                   |
+| `jetbrainstoolbox`                                           | The installer/updater for JetBrains' popular IDEs          |
 
 You're able to install all of these packages using:
 
 ```
-choco install vscode sublimetext3 visualstudio2019community
+choco install vscode sublimetext3 visualstudio2019community jetbrainstoolbox
 ```
 
 ### Others {#utilities}
@@ -89,6 +94,7 @@ choco install vscode sublimetext3 visualstudio2019community
 | Package Name                               | Explanation                                                  |
 | ------------------------------------------ | ------------------------------------------------------------ |
 | `powertoys`                                | Built by MS itself, provides SVG/Markdown previews, provides utility for mass renaming, image resizing all from the file explorer itself. It also allows you to configure tiling and more. We'll talk about this more later |
+| `ext2fsd`                                  | A program that enables you to read/write from ex2/ex3/ex4 formatted filesystems |
 | `virtualbox`                               | A program that allows you to create, run, and edit virtual machines |
 | `virtualbox-guest-additions-guest.install` | The extension to `virtualbox` that provides better USB passthrough support |
 | `firacode`                                 | A popular programming font that supports ligatures           |
@@ -103,7 +109,7 @@ choco install vscode sublimetext3 visualstudio2019community
 You're able to install all of these packages using:
 
 ```
-choco install powertoys virtualbox virtualbox-guest-additions-guest.install firacode scrcpy typora postman Firefox licecap 7zip jdk jre
+choco install powertoys ext2fsd virtualbox virtualbox-guest-additions-guest.install firacode scrcpy typora postman Firefox licecap 7zip jdk jre
 ```
 
 ## Microsoft Store {#microsoft-store}
@@ -345,6 +351,15 @@ Simply edit your global git config (typically found under `%UserProfile%/.gitcon
 
 And it should take care of the rest for you.
 
+### Line Endings {#git-line-endings}
+
+While most high-level language code is interoperable between different OSes, one of the primary differences between high-level codebases in Windows vs. macOS or Linux is the line-endings. As you might know, Windows uses `\r\n` line-ending where Linux and macOS end with `\n`.
+Luckily for us, Git can automatically convert the Windows line-endings before committing them to the repository. To do so, simply run the following command:
+
+```
+git config --global core.autocrlf true
+```
+
 ## WSL {#wsl}
 
 Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subset for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual-machine themselves. The way that it works differs from version to version. The initial version worked by mapping system calls from Windows to Linux in a somewhat complex method. The new version (WSL2), right around the corner, works by running a Linux container in the background and enabling you to call into that container.
@@ -477,7 +492,7 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 | [OneCommander](http://onecommander.com/)              | A replacement for the File Explorer with various improvements | $5            |
 | [TrayStatus](https://www.traystatus.com/)             | Status tray indicators for HDD, CPU, Capslock, and more      | Starts at $10 |
 | [Start10](https://www.stardock.com/products/start10/) | A replacement for the Windows 10 start menu                  | $5            |
-| [Groupy](https://www.stardock.com/products/groupy/)   | A replacement for the [now-defunct Sets](https://www.zdnet.com/article/windows-10s-sets-feature-is-gone-and-not-expected-to-return/) functionality. Group unrelated programs into tabs, even if they didn't previously support tabs | %             |
+| [Groupy](https://www.stardock.com/products/groupy/)   | A replacement for the [now-defunct Sets](https://www.zdnet.com/article/windows-10s-sets-feature-is-gone-and-not-expected-to-return/) functionality. Group unrelated programs into tabs, even if they didn't previously support tabs | $10           |
 
 
 # Conclusion
