@@ -125,8 +125,6 @@ While some of you may be surprised to hear this, the Microsoft Store has gained 
 
 Terminal usage is essential for most developers. It's a relatively universal utility regardless of what form of programming you're into. It's important to make sure that your terminal is fully featured for functionality and customizable for tastes and fun.
 
-
-
 ## Terminal Options {#terminals}
 
 One of the most important elements to one's terminal usage is, well, the terminal itself! While Windows has not historically had many options in this regard, things have turned around in recent years. Additional to the built-in CMD and PowerShell windows, we now have many newcomers, including one from Microsoft itself.
@@ -135,7 +133,7 @@ First, let's start with the unofficial offerings. We have many options, but the 
 
 ### Cmder {#cmder}
 
-[Cmder is an open-source terminal offering](https://github.com/cmderdev/cmder) built on top of a long-standing base called [ConEmu](https://conemu.github.io/). It provides a massive set of configurations that I think make the terminal much more useful and pretty. For example, this is the default view of Cmder:
+[Cmder is an open-source terminal offering](https://github.com/cmderdev/cmder) built on top of a long-standing base called [ConEmu](https://conemu.github.io/). Not only is it a terminal window for you to interface with, but it provides a massive set of configurations. It not only provides configurations for the CMD shell backend, but for PowerShell as well, meaning you can freely switch between them (and WSL) to suite your current needs. These configurations can even be used without having to utilize the terminal window. I think the config makes the terminal much more useful and pretty. For example, this is the default view of Cmder:
 
 ![A preview of the cmder terminal open on the UU repo](./cmder.png)
 
@@ -262,6 +260,16 @@ Resulting in the following for my PowerShell config:
     "colorScheme": "Dracula"
 }
 ```
+
+### Comparisons {#compare-different-terminals}
+
+While each of the three terminals offers something different, they each have their own set of pros and cons. Here's how I see it:
+
+- [Cmder](#cmder) has the most features of the three. It has so many features that I have not used most of them. That said, it has been known to crash on me from time-to-time.
+- [Terminus](#terminus) is by far the best looking and most configurable of the three. I have even written custom CSS to style every aspect of the terminal before. It's easy to do. That said, I've suffered even greater instability and general lack of integration polish (resizing a window has negative impacts, namely) than Cmder.
+- [WIndows Terminal](#windows-terminal)'s weakest link currently is it's lack of features. It lacks many of the same conveniences that you might miss from the other two options. That said, between the three, I'd say it's by far the most stable. Additionally, it's under heavy development, and the team behind it is moving fast. This is the terminal I use daily, armed with the configuration from Cmder.
+
+While I only outlined three here, there are many other options out there. These are just the three I have used and liked the most of the options out there.
 
 ## Make Configuration Changes {#terminal-system-config}
 
