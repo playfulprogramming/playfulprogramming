@@ -492,7 +492,7 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 | [Audio Band](https://github.com/dsafa/audio-band)            | Adds an interactive music preview to the taskbar. Integrates with Spotify and others |
 | [QuickLook](https://pooi.moe/QuickLook/)                     | Adds MacOS like file preview on pressing spacebar            |
 | [EarTrumpet](https://github.com/File-New-Project/EarTrumpet) | Allows a more complex audio mixer. Support per-app volume control |
-| [Rainmeter](https://github.com/File-New-Project/EarTrumpet)  | Enables new interactive desktop widgets                      |
+| [Rainmeter](https://www.rainmeter.net/)                      | Enables new interactive desktop widgets                      |
 | [TranslucentTB](https://github.com/TranslucentTB/TranslucentTB) | Allows for more flexibility of taskbar                       |
 | [FalconX](https://chrisandriessen.nl/web/falconx/)           | Like TranslucentTB but also supports centering icons in the TaskBar |
 | [Files UWP](https://github.com/duke7553/files-uwp/releases)  | A modern rewrite of the file explorer in UWP                 |
