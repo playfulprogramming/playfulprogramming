@@ -11,7 +11,7 @@
 
 ---
 
-Ask any developer running off of a Linux or macOS machine, and they'll be able to tell you what about their systems make them such a strong contender for development usage. Some of the top contenders I've heard are:
+Ask any developer running a Linux or MacOS machine, and they'll be able to tell you what makes their systems such a strong contender for software development. Some of the top contenders I've heard are:
 
 - [Package management](#package-management)
 - [Terminal usage](#terminal-usage)
@@ -21,21 +21,21 @@ Ask any developer running off of a Linux or macOS machine, and they'll be able t
 
 What many don't know is that Windows has gained many of these options over the years. Between official tooling such as [WSL2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install) right around the corner to third-party offerings becoming more-and-more mature, there's never been a better time to be a developer on the Windows platform.
 
-Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to free options, but I've personally used every paid software that I'll be mentioning. None of the paid software we mention here has been included as a deal of sponsorship in any way, I just like them and use them.
+Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to the free options, but I've personally used every piece of commercial software in this article. None of the paid software we mention here has been included as part of a sponsorship or financial deal in any way, I just like them and use them myself.
 
-> I understand that for some, Windows simply isn't their cup of tea. Additionally, I acknowledge that other platforms may do things *_better_* than Windows can. However, Windows is undisputedly a cheaper option than MacOS and often required for application usage where WINE and others fall flat. Just keep an open mind and understand that this isn't a put-down of other options.
+> I understand that for some, Windows simply isn't their cup of tea. Additionally, I acknowledge that other platforms may do things *_better_* than Windows can. However, Windows is certainly a less expensive option than MacOS and is often required for certain applications where WINE and other compatibility layers fall flat. Just keep an open mind and understand that this article isn't a put-down of other options.
 
 # Package Management {#package-management}
 
-When it comes to CLI package management on Windows, nothing beats [Chocolatey](https://chocolatey.org/). [It only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there, either; Much like it, Chocolatey is an unofficial repository of software but does include checks of verification for a select number of popular packages.
+When it comes to CLI package management on Windows, nothing beats [Chocolatey](https://chocolatey.org/). [It only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there either. Much like it's *nix-y counterparts, Chocolatey is an unofficial repository of software that includes checks of verification for a select number of popular packages.
 
 It's also popular amongst sysadmins due to its ease of deployment across multiple devices and stability.
 
-You'll need to run in an administrator window, but once you do, you'll find the utility straightforward. A simple `choco search package-name` will find related packages to the name you input where areas `choco install package-name` will install the package.
+You'll need to run it in an administrator window, but once you do, you'll find the utility straightforward. A simple `choco search package-name` will find related packages to the name you input where areas `choco install package-name` will install the package.
 
 ## Manage Packages via GUI {#chocolatey-gui}
 
-Readers, I won't lie to you. I'm not the kind of person to use CLIs for everything. I see their worth entirely, but it's simply not my strong suit remembering various commands even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie!
+Readers, I won't lie to you. I'm not the kind of person to use a CLI for everything. I absolutely see their worth, but remembering various command is simply not my strong suit even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie!
 
 ![A list of installed software via the Chocolatey GUI](./choco_gui_list.png)
 
@@ -45,7 +45,7 @@ You can see that it gives a list of installed packages with a simple at-glance v
 
 ## Suggested Packages {#suggested-packages}
 
-While Chocolatey has a myriad of useful packages to developers, there are some packages that I have installed on my local machine that I'd like to highlight.
+While Chocolatey has a myriad of useful packages for developers, there are some that I have installed on my local machine that I'd like to highlight in particular.
 
 For starters, what's a developer machine without `git`? Let's throw that on:
 
@@ -53,7 +53,7 @@ For starters, what's a developer machine without `git`? Let's throw that on:
 choco install git.install
 ```
 
-Additionally, I know a lot of developers would like to have access to common GNU utilities, such as `rm` and `touch`. Using an install flag, you're able to add those to your path for usage:
+Additionally, I know a lot of developers would like to have access to common GNU utilities, such as `rm` and `touch`. Using an install flag, you're able to add those to your path and put them to work for you:
 
 ```
 choco install git.install--params "/GitAndUnixToolsOnPath"
@@ -63,7 +63,7 @@ choco install git.install--params "/GitAndUnixToolsOnPath"
 
 | Package Name | Explanation                                                  |
 | ------------ | ------------------------------------------------------------ |
-| `micro`      | A great terminal editor (ala Nano). It even supports using mouse usage! |
+| `micro`      | A great terminal editor (ala Nano). It even supports using the mouse! 
 | `bat`        | A great alternative to `cat` with line numbers and syntax highlighting |
 | `gh`         | GitHub's official CLI for managing issues, PRs, and more     |
 | `nvm`        | "Node version manager" - Enables users to have multiple installs of different Node versions and dynamically switch between them |
@@ -117,19 +117,19 @@ choco install powertoys ext2fsd virtualbox virtualbox-guest-additions-guest.inst
 
 I'm sure some avid Microsoft fans will have pointed out by now that I forgot something. You know, the official solution by Microsoft? Naturally, I haven't forgotten about the Microsoft Store.
 
-While some of you may be surprised to hear this, the Microsoft Store has gained a fair number of development tools on its storefront. For example, there's now a package for Python that's now there. You're also able to get quick updates for all of your apps and seamlessly integrate them as-if they were typical windows apps.
+While some of you may be surprised to hear this, the Microsoft Store has put together a pretty good catalogue of development tools on its storefront. For example, there's now a package for Python right on the Microsoft Store. You're also able to get quick updates for all of your apps and seamlessly integrate them as if they were typical windows apps.
 
 ![A preview of the "Downloads and updates" tab in the Microsoft Store](./windows_store_update.png)
 
 # Terminal Usage {#terminal-usage}
 
-Terminal usage is essential for most developers. It's a relatively universal utility regardless of what form of programming you're into. It's important to make sure that your terminal is fully featured for functionality and customizable for tastes and fun.
+The terminal is essential for most developers. It's a relatively universal utility regardless of what form of programming you're into. It's important to make sure that your terminal is fully featured  both for functionality and so the user can customize to their taste.
 
 ## Terminal Options {#terminals}
 
-One of the most important elements to one's terminal usage is, well, the terminal itself! While Windows has not historically had many options in this regard, things have turned around in recent years. Additional to the built-in CMD and PowerShell windows, we now have many newcomers, including one from Microsoft itself.
+One of the most important elements to one's experience with the terminal is, well, the terminal itself! While Windows has not historically had many options in this regard, things have turned around in recent years. Additional to the built-in CMD and PowerShell applications, we now have many newcomers, including one from Microsoft itself.
 
-First, let's start with the unofficial offerings. We have many options, but the two I want to highlight is `Cmder` and `Terminus`.
+First, let's start with the third party offerings. We have many options, but the two I want to highlight is `Cmder` and `Terminus`.
 
 ### Cmder {#cmder}
 
@@ -146,7 +146,7 @@ The terminal itself contains all kinds of functionality:
 - Tabs
 - Customizable UI
 
-Those are just the features at the top of my head! What's nice about Cmder is that even if you don't use the terminal itself, you can use the configurations for CMD and PowerShell with other shells if you'd like. All of the screenshots for the other terminals will be shown using the Cmder configs.
+Those are just the features I can think of off the top of my head! What's nice about Cmder is that even if you don't use the terminal itself, you can use the configurations for CMD and PowerShell with other shells if you like. All of the screenshots for the other terminals will be shown using the Cmder configs.
 
 ### Terminus {#terminus}
 
@@ -156,15 +156,15 @@ Terminus is another excellent option for those looking for alternative terminal 
 
 ### Windows Terminal {#windows-terminal}
 
-Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft themselves. [The project is open-source](https://github.com/microsoft/terminal) and the preview is even installable   [via the Microsoft Store](https://aka.ms/windowsterminal).
+Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft itself. [The project is open-source](https://github.com/microsoft/terminal) and the preview is available now [via the Microsoft Store](https://aka.ms/windowsterminal).
 
 ![A preview of the Windows Terminal](./windows_terminal.png)
 
-This terminal shell has been the most stable in my usage. It supports tabs, a highly customizable UI, and different tabs with the different shells supported.
+This terminal shell has been the most stable in my experience. It supports tabs, a highly customizable UI, and supports using multiple terminal applications in different tabs.
 
 #### Cmder Integration {#windows-terminal-cmder}
 
-While Cmder integration with Windows Terminal is relatively trivial, it's not very well documented. Let's walk through how to do so.
+While Cmder integration with Windows Terminal is relatively trivial, it's not very well documented. Let's walk through how to get it up and running.
 
 You'll want to start by making sure you have an environmental variable called `cmder_root`. This should be set up by default if you installed it using `choco`, but if you're unsure, you can check manually. [We outline how to set environmental variables in this article](#env-variables).
 
@@ -214,7 +214,7 @@ Finally, if you want to set one of these profiles as default (I wanted to make m
 
 #### Color Configuration {#windows-terminal-colors}
 
-Windows terminal also supports customization of the colors for the terminal, among other things. The color settings I used for the screenshot above is the Dracula color theme.  You can add that color theme by adding the following to the `schemes` array in the `profiles.json` file:
+Windows Terminal also supports text and background color customization, among other things. The color settings I used for the screenshot above is the Dracula color theme.  You can add that color theme by adding the following to the `schemes` array in the `profiles.json` file:
 
 ```json
 "schemes": [
@@ -267,13 +267,13 @@ While each of the three terminals offers something different, they each have the
 
 - [Cmder](#cmder) has the most features of the three. It has so many features that I have not used most of them. That said, it has been known to crash on me from time-to-time.
 - [Terminus](#terminus) is by far the best looking and most configurable of the three. I have even written custom CSS to style every aspect of the terminal before. It's easy to do. That said, I've suffered even greater instability and general lack of integration polish (resizing a window has negative impacts, namely) than Cmder.
-- [WIndows Terminal](#windows-terminal)'s weakest link currently is it's lack of features. It lacks many of the same conveniences that you might miss from the other two options. That said, between the three, I'd say it's by far the most stable. Additionally, it's under heavy development, and the team behind it is moving fast. This is the terminal I use daily, armed with the configuration from Cmder.
+- [Windows Terminal](#windows-terminal)'s weakest link currently is it's lack of features. At the moment, it doesn't have many of the same conveniences that you might miss from the other two options. That said, between the three, I'd say it's by far the most stable. Additionally, it's under heavy development, and the team behind it is moving fast. This is the terminal I use daily, armed with the configuration from Cmder.
 
 While I only outlined three here, there are many other options out there. These are just the three I have used and liked the most of the options out there.
 
 ## Make Configuration Changes {#terminal-system-config}
 
-While terminals are important, another factor to be considered is the configuration of those terminal shells. It's important to keep system-level configuration settings in mind as well. For example, if you need to [make or modify environmental variables](#env-variables) or [make changes with the system path](#env-path). Luckily for us, they both live on the same path. As such, let's showcase how to reach the dialog that contains both of these settings before explaining each one in depth.
+While terminals are important, another factor to be considered is the configuration of those terminal shells. It's important to keep system-level configuration settings in mind as well. For example, if you need to [make or modify environmental variables](#env-variables) or [make changes to the system path](#env-path). Luckily for us, they both live on the same path. As such, let's showcase how to reach the dialog that contains both of these settings before explaining each one in depth.
 
 ![Showing the dialog for "This PC" in explorer with the "Properties" option selected](./this_pc_properties.png)
 
@@ -371,7 +371,7 @@ git config --global core.autocrlf true
 
 ## WSL {#wsl}
 
-Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subset for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual-machine themselves. The way that it works differs from version to version. The initial version worked by mapping system calls from Windows to Linux in a somewhat complex method. The new version (WSL2), right around the corner, works by running a Linux container in the background and enabling you to call into that container.
+Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. The way that it works differs from version to version. The initial version worked by mapping system calls from Windows to Linux in a somewhat complex method. The new version (WSL2), right around the corner, works by running a Linux container in the background and enabling you to call into that container.
 
 Because of the foundational differences, compatibility with programs should be better in WSL2.
 
@@ -390,21 +390,21 @@ Then reboot your machine. After a reboot, you should be able to search for a Lin
 - [openSUSE](https://www.microsoft.com/en-us/p/opensuse-leap-15-1/9njfzk00fgkv)
 - [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 
-There are more distros than just those and more to come in the future.
+There are more distros on the Microsoft Store now and more to come in the future.
 
 Once done, you simply run `bash` in a terminal Window or search for the distro name as an app. Either way should start-up the distro's instance of `bash` in the directory you were currently in. This is a full installation of Linux, meaning that you're able to access its package manager, run programs from it, and modify Windows files.
 
-There are even tweaks that're done with Windows to make it easier to use. If you run the `code` command to open a file, it will download a "VSCode remote server" to allow you to use your Windows install for both Linux and Windows commands. You can even [share SSH keys between Windows and WSL](https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/)!
+There are even tweaks that are done with Windows to make it easier to use. If you run the `code` command to open a file, it will download a "VSCode remote server" to allow you to use your Windows install for both Linux and Windows commands. You can even [share SSH keys between Windows and WSL](https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/)!
 
-The cross-WSL compatibility isn't uni-directional, either. You can [open files from your Linux filesystem in Windows](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
+The cross-WSL compatibility isn't uni-directional either. You can [open files from your Linux filesystem in Windows](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
 
 ### Shell Configuration {#linux-shell}
 
-If you prefer an alternative shell, such as ZSH or Fish, you're able to install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
+If you prefer an alternative shell, such as ZSH or Fish, you can install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
 
 To get the alternative shell running any time you call `bash`, you'll need to configure your `.bashrc` file. You're able to run `nano ~/.bashrc` to open the file. Once done, add `bash -c zsh` to the top of the file. After this, every time `bash` runs, it will open `zsh`.
 
-You're even able to tell Windows Terminal to use WSL as default! If you open Windows Terminal, it should have a default profile for WSL:
+You can even able to tell Windows Terminal to use WSL as default! If you open Windows Terminal, it should have a default profile for WSL:
 
 ```json
  {
@@ -449,11 +449,11 @@ Then, when you open the terminal, you should see the correct terminal display.
 
 # Keyboard Usage {#keyboard-usage}
 
-When asking many of my Linux-favoring friends why they love Linux so much, I've noticed one answer reoccur time and time again. They love being able to control their computer front, back, and sideways without having to touch their mouse. Well, dear reader, I assure you that Windows provides the same level of control.
+When asking many of my Linux-favoring friends why they love Linux so much, I've heard one answer time and time again. They love being able to control their computer front, back, and sideways without having to touch the mouse. Well, dear reader, I assure you that Windows provides the same level of control.
 
 ## Built-Ins {#built-in-keyboard-shortcuts}
 
-Windows, by default, includes a myriad of shortcuts baked right in that allow you to have powerful usage of your system using nothing but your keyboard. Here are just a few that I think are useful to keep-in-mind:
+By default, Windows includes a myriad of shortcuts baked right in that allow you to have powerful usage of your system using nothing but your keyboard. Here are just a few that I think are useful to keep-in-mind:
 
 | Key Combo                                           | What It Does                                                 |
 | --------------------------------------------------- | ------------------------------------------------------------ |
@@ -491,7 +491,7 @@ As you can see, there's an incredible amount of customization available with "Fa
 
 # Customization {#customization}
 
-I'm not sure about you, but when I get a new machine, I want it to feel _mine_. This applies just as much to my wallpaper as it does the stickers I plaster my laptops in. The following software enables some new functionality or aesthetic difference that users might enjoy.
+I'm not sure about you, but when I get a new machine, I want it to feel _mine_. This applies just as much to my wallpaper as it does the stickers I plaster my laptops with. The following software enables some new functionality or aesthetic difference that users might enjoy.
 
 ## Free {#free-customization-software}
 
@@ -508,7 +508,7 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 
 ## Paid
 
-> Just a reminder that none of this software is being sponsored. Please understand that this is all software that I personally use and thought that I would share. I've tried my best to find some form of free/open-source replacement and linked them in the "Free" section
+> Just a reminder that none of this software mentioned here due to a sponsorship or financial arrangement of any kind. Please understand that this is all software that I personally use and wanted to share. I've tried my best to find some form of free/open-source replacement and linked them in the "Free" section.
 
 | Program Name                                          | What It Is                                                   | Price         |
 | ----------------------------------------------------- | ------------------------------------------------------------ | ------------- |
@@ -588,7 +588,7 @@ mklink /J SymlinkDir SourceFolder
 
 ### GUI Alternative {#link-shell-extension}
 
-While the CLI enables you to make hard and soft symbolic links, it's far from graceful. It'd be ideal to have that functionality baked right into the explorer menu options if used frequently. Luckily for us, there's an app for that! [Link Shell Extension](https://schinagl.priv.at/nt/hardlinkshellext/linkshellextension.html) adds the options to the context menu itself. It's even able to be installed using [Chocolatey](#package-management):
+While the CLI enables you to make hard and soft symbolic links, it's far from graceful. It would be ideal to have that functionality baked right into the explorer menu options if used frequently. Luckily for us, there's an app for that! [Link Shell Extension](https://schinagl.priv.at/nt/hardlinkshellext/linkshellextension.html) adds the options to the context menu itself. It's even able to be installed using [Chocolatey](#package-management):
 
 ```
 choco install linkshellextension
@@ -609,4 +609,4 @@ You'll notice that despite the raw power and capabilities that WSL2 will be brin
 
 I want to take a moment to stop and appreciate all of the hard work that the folks at Microsoft and everyone involved in the projects mentioned have done to enable the kind of work I do daily. Thank you.
 
-With that, we're closing off the article. If you have any questions or comments, feel free to ring off in the comment box below. Otherwise, we have [our community Discord](https://discord.gg/FMcvc6T) where we talk not only talk Windows, but Linux, macOS, programming, and everything in between. We look forward to seeing you there!
+If you have any questions or comments, feel free to ring off in the comment box below. Otherwise, we have [our community Discord](https://discord.gg/FMcvc6T) where we talk not only talk Windows, but Linux, macOS, programming, and everything in between. We look forward to seeing you there!
