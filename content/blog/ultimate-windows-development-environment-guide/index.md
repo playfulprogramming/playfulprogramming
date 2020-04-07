@@ -133,7 +133,7 @@ First, let's start with the unofficial offerings. We have many options, but the 
 
 ### Cmder {#cmder}
 
-[Cmder is an open-source terminal offering](https://github.com/cmderdev/cmder) built on top of a long-standing base called [ConEmu](https://conemu.github.io/). Not only is it a terminal window for you to interface with, but it provides a massive set of configurations. It not only provides configurations for the CMD shell backend, but for PowerShell as well, meaning you can freely switch between them (and WSL) to suite your current needs. These configurations can even be used without having to utilize the terminal window. I think the config makes the terminal much more useful and pretty. For example, this is the default view of Cmder:
+[Cmder is an open-source terminal offering](https://github.com/cmderdev/cmder) built on top of a long-standing base called [ConEmu](https://conemu.github.io/). Not only is it a terminal window for you to interface with, but it provides a massive set of configurations. It not only provides configurations for the CMD shell backend but for PowerShell as well, meaning you can freely switch between them (and WSL) to suit your current needs. These configurations can even be used without having to utilize the terminal window. I think the config makes the terminal much more useful and pretty. For example, this is the default view of Cmder:
 
 ![A preview of the cmder terminal open on the UU repo](./cmder.png)
 
@@ -521,6 +521,36 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 # Functionality {#functionality}
 
 Windows also has some differing functionality to Linux/macOS in some critical ways. Some of the functionality you might be used to simply doesn't have an obvious analog in Windows. Let's take a look at some of these that we have an alternative to.
+
+## Virtual Desktops {#virtual-desktops}
+
+Longtime users of Linux will be quick to note that they've had virtual desktops for years. While a newer feature to the Windows product line, it too was actually introduced in Windows 10! 
+
+If [you press <kbd>Win</kbd> + <kbd>Tab</kbd>, it will open a task view](#built-in-keyboard-shortcuts). On the top right of your screen, you should see a "New desktop" button. If you press it, it will create a new desktop.
+
+![The task view showing the "New desktop" button](./new_desktop_button.png)
+
+Once you have more than one virtual desktop open, you should see a preview of each window individually.
+
+![What it looks like with more than one desktop](./multiple_desktops.png)
+
+In order to move a window from one desktop to another, simply drag a window into another desktop's preview window.
+
+![What it looks like when you drag a window to a new desktop](./dragging_windows_virtual_desktop.png)
+
+Finally, to delete a virtual desktop, you can hover over the preview of the desktop. Upon doing so, a close button should appear. Click it to close the virtual desktop instance.
+
+![A close button shows up when hovering over a virtual desktop](./close_virtual_desktop.png)
+
+> A feature that's soon-to-release is renaming a virtual desktop! This functionality is [being added in the 2020 stable release of Windows](https://blogs.windows.com/windowsexperience/2019/09/06/announcing-windows-10-insider-preview-build-18975/) launching soon!
+
+### Touchpad Users {#virtual-desktop-touchpad-users}
+
+If you're a laptop user (or have a touchpad for your desktop) that supports Windows gestures, you can configure a three or four finger feature to switch desktops with a simple swipe. Simply go to "Settings > Devices > Touchpad" to see if you're able to configure this or not. If you are able to, you should be able to select dropdowns to configure which one you'd like.
+
+![A preview of the touchpad settings page](./touchpad_virtual_desktop.png)
+
+
 
 ## Symbolic Links {#symlinks}
 
