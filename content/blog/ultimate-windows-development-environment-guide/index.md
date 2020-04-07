@@ -2,7 +2,7 @@
 {
 	title: "The Ultimate Windows Development Environment Guide",
 	description: "Many developers like MacOS or Linux for development environments, but don't know that Windows has plenty to offer. Let's explore that in this deep dive into Windows development environments!",
-	published: '2020-04-06T05:12:03.284Z',
+	published: '2020-04-07T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['tooling', 'windows'],
 	attached: [],
@@ -17,8 +17,9 @@ Ask any developer running off of a Linux or macOS machine, and they'll be able t
 - [Terminal usage](#terminal-usage)
 - [Keyboard Usage](#keyboard-usage)
 - [Customization](#customization)
+- [Functionality](#functionality)
 
-What many don't know is that Windows has gained many of these options over the years. Between official tooling such as WSL2 right around the corner to third-party offerings becoming more-and-more mature, there's never been a better time to be a developer on the Windows platform.
+What many don't know is that Windows has gained many of these options over the years. Between official tooling such as [WSL2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install) right around the corner to third-party offerings becoming more-and-more mature, there's never been a better time to be a developer on the Windows platform.
 
 Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to free options, but I've personally used every paid software that I'll be mentioning. None of the paid software we mention here has been included as a deal of sponsorship in any way, I just like them and use them.
 
@@ -393,6 +394,19 @@ If you prefer an alternative shell, such as ZSH or Fish, you're able to install 
 
 To get the alternative shell running any time you call `bash`, you'll need to configure your `.bashrc` file. You're able to run `nano ~/.bashrc` to open the file. Once done, add `bash -c zsh` to the top of the file. After this, every time `bash` runs, it will open `zsh`.
 
+You're even able to tell Windows Terminal to use WSL as default! If you open Windows Terminal, it should have a default profile for WSL:
+
+```json
+ {
+     "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+     "hidden": false,
+     "name": "Ubuntu",
+     "source": "Windows.Terminal.Wsl"
+ },
+```
+
+All you need to do is change the `defaultProfile` to match the `guid` of the WSL profile.
+
 #### Powerline Fonts {#powerline-fonts}
 
 Once setting up an `oh-my-zsh` theme, you may notice that your terminal display looks weird:
@@ -494,6 +508,60 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 | [Start10](https://www.stardock.com/products/start10/) | A replacement for the Windows 10 start menu                  | $5            |
 | [Groupy](https://www.stardock.com/products/groupy/)   | A replacement for the [now-defunct Sets](https://www.zdnet.com/article/windows-10s-sets-feature-is-gone-and-not-expected-to-return/) functionality. Group unrelated programs into tabs, even if they didn't previously support tabs | $10           |
 
+# Functionality {#functionality}
+
+Windows also has some differing functionality to Linux/macOS in some critical ways. Some of the functionality you might be used to simply doesn't have an obvious analog in Windows. Let's take a look at some of these that we have an alternative to.
+
+## Symbolic Links {#symlinks}
+
+Symbolic links are a method of having a shortcut of sorts from one file/folder to another. Think of it as Windows Shortcuts but baked directly into the filesystem level. This may come as a surprise to some developers, but Windows actually has support for symbolic links!
+
+To use symbolic links from the CLI, you have to first enable developer mode on your install of Windows. To do this, go to your settings app, open "Update & Security," then select in the sidebar "For developers."
+
+![The settings page for "developer mode"](./developer_mode.png)
+
+Once done, you're able to run `mklink`, which provides you the ability to make a symbolic link.
+
+### Usage {#using-mklink}
+
+By default, it creates a soft link from the first argument to the second. 
+```
+mklink Symlink SourceFile
+```
+
+You're also able to add `/D` to make a soft link to a directory:
+```
+mklink /D SymlinkDir SourceFolder
+```
+
+Finally, to make hard links, you use `/H` for files:
+
+```
+mklink /H Symlink SourceFile
+```
+
+And `/J` for folders:
+
+```
+mklink /J SymlinkDir SourceFolder
+```
+
+### GUI Alternative {#link-shell-extension}
+
+While the CLI enables you to make hard and soft symbolic links, it's far from graceful. It'd be ideal to have that functionality baked right into the explorer menu options if used frequently. Luckily for us, there's an app for that! [Link Shell Extension](https://schinagl.priv.at/nt/hardlinkshellext/linkshellextension.html) adds the options to the context menu itself. It's even able to be installed using [Chocolatey](#package-management):
+
+```
+choco install linkshellextension
+```
+
+Simply right click (or [use the <kbd>Shift</kbd> + <kbd>F10</kbd> shortcut](#built-in-keyboard-shortcuts)) and select "Pick Link Source":
+![The context menu with the option highlighted](./pick_source.png)
+
+Then you're able to navigate to the folder you're looking for, right click, and select "Drop as...":
+
+![The context menu with the option highlighted](./drop_as.png)
+
+There are a myriad of options to choose from and should handle any type of symlink you'd need.
 
 # Conclusion
 
