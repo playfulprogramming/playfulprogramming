@@ -388,6 +388,8 @@ Once done, you simply run `bash` in a terminal Window or search for the distro n
 
 There are even tweaks that're done with Windows to make it easier to use. If you run the `code` command to open a file, it will download a "VSCode remote server" to allow you to use your Windows install for both Linux and Windows commands. You can even [share SSH keys between Windows and WSL](https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/)!
 
+The cross-WSL compatibility isn't uni-directional, either. You can [open files from your Linux filesystem in Windows](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
+
 ### Shell Configuration {#linux-shell}
 
 If you prefer an alternative shell, such as ZSH or Fish, you're able to install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
