@@ -29,7 +29,7 @@ $btnPadding: 8px 16px 8px 15px;
 	appearance: none;
 	max-width: 100%;
 	display: flex;
-	justify-content: center;
+	align-items: center;
 	height: 100%;
 	padding: $btnPadding;
 	font-size: var(--filterBarFontSize);
@@ -65,7 +65,6 @@ $btnPadding: 8px 16px 8px 15px;
 .appliedTags {
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	overflow: hidden;
 }
 
 .placeholder:not(.show) {
@@ -93,6 +92,7 @@ $btnPadding: 8px 16px 8px 15px;
 	z-index: 1;
 	margin: 0;
 	padding: 0;
+	overflow: hidden;
 	border: 1px solid transparent;
 	transition: background var(--animSpeed) var(--animStyle),
 		box-shadow var(--animSpeed) var(--animStyle),
@@ -112,7 +112,7 @@ $btnPadding: 8px 16px 8px 15px;
 }
 
 .listbox .spacer {
-	height: 48px;
+	height: 8px;
 }
 
 .option:first-of-type {
@@ -172,8 +172,9 @@ $btnPadding: 8px 16px 8px 15px;
 	color: var(--black);
 }
 
-.maxHeightHideContainer {
-	overflow: hidden;
-	max-height: 100%;
+.filterListHideContainer {
+	margin-top: 48px;
 	padding: $btnPadding;
+	max-height: 50vh;
+	overflow: auto;
 }

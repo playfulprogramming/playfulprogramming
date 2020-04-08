@@ -278,7 +278,7 @@ export const FilterListbox = ({ tags = [], className }: FilterListboxProps) => {
 					poseKey={buttonHeight}
 					pose={expanded ? "expanded" : "hidden"}
 				>
-					<div className={filterStyles.maxHeightHideContainer}>
+					<div className={filterStyles.filterListHideContainer}>
 						<div className={filterStyles.spacer} />
 						{values.map((tag, index) => (
 							<FilterListItem
