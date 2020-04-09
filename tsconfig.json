@@ -3,15 +3,22 @@
     "module": "commonjs",
     "target": "esnext",
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
   },
   "include": [
     "./src/**/*"
   ],
-  "exclude": ["node_modules", "public", ".cache"]
+  "exclude": [
+    "node_modules",
+    "public",
+    ".cache"
+  ]
 }
