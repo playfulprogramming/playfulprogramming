@@ -22,7 +22,7 @@
 	--oswald: "Oswald", "Archivo", sans-serif;
 	--cardRadius: #{$baseUnit}px;
 	--filterBarIconSize: #{3 * $baseUnit}px;
-	--filterBarFontSize: #{2.5 * $baseUnit}px;
+	--filterBarFontSize: 1.25rem;
 	--listViewPadding: #{1.5 * $baseUnit}px;
 	--scrollBarBG: rgba(18, 125, 179, 0.3);
 	--scrollBarThumb: var(--primary);
@@ -151,7 +151,7 @@ h2 {
 	align-items: center;
 	flex-shrink: 0;
 	border-radius: var(--cardRadius);
-	font-size: #{$baseUnit * 2}px;
+	font-size: 1rem;
 	padding: #{$baseUnit / 2}px #{$baseUnit}px;
 	color: var(--darkPrimary);
 }
