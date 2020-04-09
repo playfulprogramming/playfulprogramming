@@ -17,7 +17,7 @@
 	font-weight: 700;
 	position: relative;
 	display: inline-block;
-	font-size: 26px;
+	font-size: 1.625rem;
 	color: var(--darkPrimary);
 	transition: color var(--animStyle) var(--animSpeed);
 	text-transform: uppercase;
@@ -45,17 +45,17 @@
 .title {
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
-	font-size: 64px;
+	font-size: 4rem;
 	margin: 0 0 50px 0;
 
 	@include until($endSmallScreenSize) {
-		font-size: 50px;
+		font-size: 3.125rem;
 		margin-bottom: $baseUnit * 2px;
 	}
 }
 
 .subtitle {
 	font-family: var(--archivo);
-	font-size: 32px;
+	font-size: 2rem;
 	margin-bottom: 35px;
 }

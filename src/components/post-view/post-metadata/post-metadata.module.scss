@@ -17,11 +17,11 @@
 	margin: 0 24px 0 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--lowImpactBlack);
-	font-size: 36px;
+	font-size: 2.25rem;
 	position: relative;
 
 	@include until($endSmallScreenSize) {
-		font-size: 24px;
+		font-size: 1.5rem;
 	}
 }
 
@@ -36,11 +36,11 @@
 }
 
 .authorName {
-	font-size: 36px;
+	font-size: 2.25rem;
 	margin: 0;
 
 	@include until($endSmallScreenSize) {
-		font-size: 32px;
+		font-size: 2rem;
 	}
 }
 
