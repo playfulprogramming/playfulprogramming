@@ -115,7 +115,7 @@ choco install powertoys ext2fsd virtualbox virtualbox-guest-additions-guest.inst
 
 ### Missing from the List {#awesome-windows}
 
-Didn't see your favorite utilities or tools? Unfortunately, I only can highlight a select few options. That said, there's no shortage of utilities, tools, and customization options for Windows. A vast collection of utilities you're able to hunt through would be [the Awesome Windows list](https://github.com/Awesome-Windows/Awesome). At the time of writing, it includes over 300 programs with an explanation of what each of them is.
+Didn't see your favorite utilities or tools? Unfortunately, I only can highlight a few options. That said, there's no shortage of utilities, tools, and customization options for Windows. A great collection of utilities to look through would be [the Awesome Windows list](https://github.com/Awesome-Windows/Awesome). At the time of writing, it includes over 300 programs with a short description and a link learn more.
 
 ## Microsoft Store {#microsoft-store}
 
@@ -273,7 +273,7 @@ While each of the three terminals offers something different, they each have the
 - [Terminus](#terminus) is by far the best looking and most configurable of the three. I have even written custom CSS to style every aspect of the terminal before. It's easy to do. That said, I've suffered even greater instability and general lack of integration polish (resizing a window has negative impacts, namely) than Cmder.
 - [Windows Terminal](#windows-terminal)'s weakest link currently is it's lack of features. At the moment, it doesn't have many of the same conveniences that you might miss from the other two options. That said, between the three, I'd say it's by far the most stable. Additionally, it's under heavy development, and the team behind it is moving fast. This is the terminal I use daily, armed with the configuration from Cmder.
 
-While I only outlined three here, there are many other options out there. These are just the three I have used and liked the most of the options out there. Some of the honorable mentions include:
+I only outlined three terminal emulators here. They are my favorites; I've used them and know they are great terminal solutions, but there are plenty of other options out there. Some of the honorable mentions include:
 
 - [Fluent Terminal](https://github.com/felixse/FluentTerminal)
 - [Hyper Terminal](https://hyper.is/)
@@ -411,9 +411,9 @@ If you prefer an alternative shell, such as ZSH or Fish, you can install those i
 
 To get the alternative shell running any time you call `bash`, you'll need to configure your `.bashrc` file. You're able to run `nano ~/.bashrc` to open the file. Once done, add `bash -c zsh` to the top of the file. After this, every time `bash` runs, it will open `zsh`.
 
-That said, there's something not quite right about using a program called `bash` to run a shell outside of `bash` itself. Additionally, you'll notice that if you type `exit` in `zsh`, it won't exit to the windows shell; instead, it'll bring you to `bash` and require one more `exit` before bringing you back to the shell from whence you came.
+That said, there's something a little awkward about using a program called `bash` to run a shell outside of `bash` itself. Additionally, you'll notice that if you type `exit` in `zsh`, it won't exit to the Windows shell. Instead, it will bring you to `bash` and require one more `exit` before you are back to the shell from whence you came.
 
-To solve these problems, simply run `chsh -s $(which zsh)` in your WSL instance and use the `wsl` command (as opposed to `bash`) to open your shell. `bash` will still work and bring you to the `bash` shell while `wsl` will bring you to `zsh` and work with the `exit` command as expected.
+To solve these problems, simply run `chsh -s $(which zsh)` in your WSL instance and use the `wsl` command (as opposed to `bash`) to open your shell. `bash` will still work and bring up the `bash` shell while `wsl` will bring you to `zsh` and work with the `exit` command as expected.
 
 You can even able to tell Windows Terminal to use WSL as default! If you open Windows Terminal, it should have a default profile for WSL:
 
@@ -616,11 +616,11 @@ There are a myriad of options to choose from and should handle any type of symli
 
 # Additional Configuration {#additional-configuration}
 
-Not quite customization and not quite a "missing feature," there are some things you can do to configure your install to make life better as a developer.
+They may not really count as a customization or making up for a "missing feature,"  but there are a few more things you can do to configure your Windows 10 installation to make life as a developer just a little bit better.
 
 ## Long Path Support
 
-Developers with many sub-paths (or those that use package managers like `npm`) can tell you how long their deepest path can get. This can cause problems with Windows, as a limitation exists by default for machines that limits users to paths with 260 characters or less. This can cause havoc and errors when doing automated tasks that exceed this limit. To fix this, you can either use a Registry Editor or modify an existing Group Policy (depending on which edition of Windows you have). The instructions are a bit complex for users not familiar with registry editing, [but HowToGeek provides a great resource](https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/) for making this process relatively trivial.
+Developers with many sub-paths (or those that use package managers like `npm`) can tell you just how long their deepest file paths can get. This can cause problems with Windows, because there is a default limit of 260 characters for file paths. This can cause havoc and errors when doing automated tasks that exceed this limit. To fix this, you can either use a Registry Editor or modify an existing Group Policy (depending on which edition of Windows you have). The instructions are a bit complex for users not familiar with registry editing, [but HowToGeek provides a great resource](https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/) for making this process relatively trivial.
 
 ## Make a Directory Case Sensitive
 
