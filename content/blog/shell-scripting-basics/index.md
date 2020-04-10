@@ -53,10 +53,10 @@ the actual shell scripting part of this post!
 ## A Simple Example {#basic-example}
 
 Let's start out with a simple example: create a file somewhere on your computer called `simple.sh` and start editing it.
-In most CLI text editors, you can combine both steps into one by running `{editor} simple.sh`. All you need to put into
-the file is `pwd`. This is a standard Linux/Unix command that prints out the directory you're currently in. If you save
-and exit your editor and then run `bash simple.sh`, it should print out your current directory. In my case, it looks 
-like this:
+In most text editors, you can combine both steps into one by running `{editor} simple.sh` - `nano simple.sh`, for
+example. All you need to put into the file is the text `pwd`. This is a standard Linux/Unix command that prints out the
+directory you're currently in. If you save and exit your editor and then run `bash simple.sh`, it should print out your
+current directory. In my case, it looks like this:
 
 ```
 $ bash pwd.sh
@@ -71,11 +71,12 @@ of those more advanced features.
 ## Conditions With the `if` Command {#basic-if-usage}
 
 Conditional execution is one of the most important parts of any programming language. If you couldn't choose whether or
-not to execute something, things would be ...difficult, to say the least. Thankfully, shells includes `if` as a built-in
+not to execute something, things would be ...difficult, to say the least. Thankfully, bash includes `if` as a built-in
 command. Note that this is _technically_ different from a typical programming language's `if` statement, and that's why
-I've been referring to it as the "`if` command". In practice, however, it functions basically the same way. A common way
-that conditions are used in shell scripts is to check if a particular program is installed before running it. Here's a
-simple way in which it can be used:
+I've been referring to it as the "`if` command". In practice, however, it functions basically the same way.
+
+A common way that conditions are used in shell scripts is to check if a particular program is installed before running
+it. Here's a simple example of it in use:
 
 ```shell
 if command -v cowsay > /dev/null; then
@@ -83,14 +84,15 @@ if command -v cowsay > /dev/null; then
 fi
 ```
 
-Here, an `if` statement is used with the built-in `command` command in order to check if the command `cowsay` is 
-installed. It's generally not installed by default (even if it perhaps should be), so we can't assume that it's going to
-be there. The `> /dev/null` part is used to throw away the output of `command` since we don't actually need to know
-where `cowsay` is, just that it exists. If it's there, we use `echo`, which prints out any input given to it, and then
-pipe (`|`) its output ("Hello, world!") to `cowsay`. Although the use of redirection (`>`) and piping might seem a bit
-confusing now, I'll get into them more later. Right now, if you run this script, it'll either print out ASCII art of a
-cow saying "Hello, world!", or ...nothing. That's not exactly ideal, so let's add an alternative path for when `cowsay`
-isn't available:
+Here, an `if` statement is used with the built-in `command` command in order to check if the `cowsay` command exists.
+It's generally not installed by default (even if it perhaps should be), so we can't assume that it's going to be there.
+The `> /dev/null` part is used to throw away the output of `command` since we don't actually need to know where `cowsay`
+is, just that it exists. If it's there, we use `echo`, which prints out any input given to it, and then pipe (`|`) its
+output ("Hello, world!") to `cowsay`.
+
+Although the use of redirection (`>`) and piping might seem a bit confusing now, I'll get into them more later. Right
+now, if you run this script, it'll either print out ASCII art of a cow saying "Hello, world!", or ...nothing. That's not
+exactly ideal, so let's add an alternative case for when `cowsay` isn't available:
 
 ```shell
 if command -v cowsay > /dev/null; then
@@ -100,13 +102,24 @@ else
 fi
 ```
 
-Now our script prints out "Hello, world!" even if `cowsay` isn't installed. This is certainly better, but what if you
-don't always want to use `cowsay` to print it out? Two more programs available for printing out text in fun ways are 
-`figlet` and `toilet`, so let's make it so that the script will randomly use either `cowsay`, `figlet`, or `toilet`. 
-This time we'll want to use a variable to store the random number we generate. Conveniently, variables in shell 
-scripting are very easy to use. Declaring them doesn't require any special syntax at all, just a value of some sort for
-the variable. However, when referring to the variable, it has to be prefixed with a dollar sign in order to indicate
-that it's not a command to be run.
+Now our script prints out "Hello, world!" even if `cowsay` isn't installed. If you don't have `cowsay` on your computer,
+try installing it to see the output change!
+
+## Variable Assignment {#basic-variable-assignment}
+
+<!-- TODO: introduction to variables? 
+I'm worried that this script goes from 0 to 100 wayyy to fast right about here,
+so - while it's nice to have one central example throughout the post - it might
+be good to digress into a simpler variables example to explain a bit more of
+what's going on.
+-->
+
+This is certainly better, but what if you don't always want to use `cowsay` to print it out? Two more programs available
+for printing out text in fun ways are `figlet` and `toilet`, so let's make it so that the script will randomly use
+either `cowsay`, `figlet`, or `toilet`. This time we'll want to use a variable to store the random number we generate.
+Conveniently, variables in shell scripting are very easy to use. Declaring them doesn't require any special syntax at
+all, just a value of some sort for the variable. However, when referring to the variable, it has to be prefixed with a
+dollar sign in order to indicate that it's not a command to be run.
 
 ```shell
 rand=$((RANDOM%3))
@@ -142,7 +155,7 @@ for `toilet` is just a way to make sure the text won't wrap too early if your te
 that our script has a number of possibilities now, but wouldn't it be nice if it was possible for us to choose the way
 to print the text ourselves?
 
-##Interactivity and input {#basic-user-input}
+## Interactivity and input {#basic-user-input}
 
 We can use the built-in command `read` in order to prompt the user to type something in. This gives us another chance to
 use variables, this time to store both the user's input as well as the text "Hello, world!" so we don't have to keep 
@@ -192,7 +205,7 @@ command. Lastly, we have an `exit` command in the `else` block to make sure the 
 anything beyond the 3 options. In this case it's actually not necessary since the script would already finish and exit
 automatically, although it's a good idea to include it in case you decide to add more functionality later.
 
-##Positional Arguments {#arguments}
+## Positional Arguments {#arguments}
 
 (find a way to integrate this with the script?)
 
