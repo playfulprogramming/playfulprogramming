@@ -52,6 +52,12 @@ the actual shell scripting part of this post!
 
 ## A Simple Example {#basic-example}
 
+At its core, a shell script is simply a sequence of commands, one per line - if you've used a bash command line before,
+you already know a lot of the syntax it uses. Each line of the file is interpreted as a single command, and bash will
+run each line sequentially until it reaches the end of the file, or it gets to an `exit` command. If you're ever
+confused about how part of a script works, you can try running it individually outside of the script to see how it
+behaves.
+
 Let's start out with a simple example: create a file somewhere on your computer called `simple.sh` and start editing it.
 In most text editors, you can combine both steps into one by running `{editor} simple.sh` - `nano simple.sh`, for
 example. All you need to put into the file is the text `pwd`. This is a standard Linux/Unix command that prints out the
@@ -80,23 +86,23 @@ it. Here's a simple example of it in use:
 
 ```shell
 if command -v cowsay > /dev/null; then
-  echo "Hello, world!" | cowsay
+  cowsay "Hello, world!"
 fi
 ```
 
-Here, an `if` statement is used with the built-in `command` command in order to check if the `cowsay` command exists.
+Here, an `if` construct is used with the built-in `command` command in order to check if the `cowsay` command exists.
 It's generally not installed by default (even if it perhaps should be), so we can't assume that it's going to be there.
 The `> /dev/null` part is used to throw away the output of `command` since we don't actually need to know where `cowsay`
-is, just that it exists. If it's there, we use `echo`, which prints out any input given to it, and then pipe (`|`) its
-output ("Hello, world!") to `cowsay`.
+is, just that it exists. If it's there, we run `cowsay` with the argument "Hello, world!", which prints a funky looking
+cow in the shell.
 
-Although the use of redirection (`>`) and piping might seem a bit confusing now, I'll get into them more later. Right
-now, if you run this script, it'll either print out ASCII art of a cow saying "Hello, world!", or ...nothing. That's not
-exactly ideal, so let's add an alternative case for when `cowsay` isn't available:
+Although the use of redirection (`>`) might seem a bit confusing now, I'll get into that later. Right now, if you run
+this script, it'll either print out ASCII art of a cow saying "Hello, world!", or ...nothing. That's not exactly ideal,
+so let's add an alternative case for when `cowsay` isn't available:
 
 ```shell
 if command -v cowsay > /dev/null; then
-  echo "Hello, world!" | cowsay
+  cowsay "Hello, world!"
 else
   echo "Hello, world! (PS: install cowsay for more fun!)"
 fi
@@ -105,14 +111,112 @@ fi
 Now our script prints out "Hello, world!" even if `cowsay` isn't installed. If you don't have `cowsay` on your computer,
 try installing it to see the output change!
 
-## Variable Assignment {#basic-variable-assignment}
+## Variables and User Input {#basic-variable-usage}
 
-<!-- TODO: introduction to variables? 
-I'm worried that this script goes from 0 to 100 wayyy to fast right about here,
-so - while it's nice to have one central example throughout the post - it might
-be good to digress into a simpler variables example to explain a bit more of
-what's going on.
--->
+Let's make this script a little more interactive - what about asking the user what they want the cow to say? One way to
+do that is to use the `read` command. Here's an excerpt from the command's help text, which can be accessed by running
+`read --help` in your command line.
+
+> read: read [-ers] [-a array] [-d delim] [-i text] [-n nchars] [-N nchars] [-p prompt] [-t timeout] [-u fd] [name ...]
+> 
+> Reads a single line from the standard input, or from file descriptor FD if the -u option is supplied.  The line is
+> split into fields as with word splitting, and the first word is assigned to the first NAME, the second word to the
+> second NAME, and so on, with any leftover words assigned to the last NAME.  Only the characters found in $IFS are
+> recognized as word delimiters.
+> 
+> -p prompt - output the string PROMPT without a trailing newline before attempting to read
+
+A lot of this isn't useful to us, but we can extract a bit of helpful information:
+
+- The (simplified) syntax of the command we want to run is `read -p [prompt] [name]`
+- `read` will allow the user to enter a single line, and store its result in whatever variable we specify as `[name]`
+- By passing `-p [prompt]`, we tell the command to output the prompt text before accepting any input.
+
+Now, let's try putting this together - if we want to ask the user a question, we could write something like this:
+
+```shell
+read -p "What should the cow say? " input
+```
+
+Running this will prompt the user for a line of text, and store its result in a variable named `input` - but how do we
+use that variable in our code?
+
+The syntax for accessing variables in bash is to simply write their name starting with a dollar sign (`$`). With this,
+variables can be embedded in nearly any bash command or argument - they will simply be replaced with the content of the
+variable when the command is run. With this in mind, let's rewrite our example with the if command from before...
+
+```shell
+read -p "What should the cow say? " input
+
+if command -v cowsay > /dev/null; then
+  cowsay "$input"
+else
+  echo "The cow says $input (PS: install cowsay for more fun!)"
+fi
+```
+
+Try running this! Your script should now ask you to enter a line of text, which will then be passed to the `cowsay`
+command, generating a fun ASCII cow that says whatever you want.
+
+## Conditions With the `if` Command - Continued {#basic-if-usage-continued}
+
+Now that we've added some user input into our program, we have the ability to get our cow to say some pretty crazy
+things. I've gotten mine to say "woof," for example - a noise that no real cow should ever be making. Perhaps we should
+add an extra case in this script to prevent our cow from making such a terrifying sound? In order to accomplish this, we
+need to learn about _test constructs,_ and how the `if` command really works.
+
+When any shell command is executed, it implicitly sets a variable named `$?`, called its "exit code". This is always an
+integer, and can be seen as a sort of "return value" in bash. Normally, most exit codes should be 0 - by Unix
+convention, this indicates that the command was a success. Some commands do fail, though - and their exit code can be
+used to communicate that information to the program that started it.
+
+As an example of this, the `command` command has the potential to fail if the argument it is given doesn't exist.
+Running `command thiscommanddoesntexist` followed by `echo $?` should print the number `127` in your shell - while
+running `command echo` followed by `echo $?` will print `0`. This is how the `if` statement evaluates its condition - if
+it returns an exit code of zero, it is interpreted as a success.
+
+With this in mind, we're going to introduce "test constructs" - a shell syntax that evaluates its arguments as a
+comparison, and returns an exit status indicative of the result (0 for true, 1 for false). Similarly to how `if` is
+_secretly a command of its own_, test constructs are also a command... which is named... "left square bracket" (`[`).
+No, I'm not joking.
+
+Here, we want to compare two variables for equality - we want to check whether our `$input` variable is equal to
+`"woof"`. The "left square bracket" equivalent of this should then be `[ "$input" == "woof" ]`. If the comparison is a
+success (meaning that `$input` is "woof"), the exit status will be `0`, which should be interpreted by an `if` command
+as "true." Inside our if statement, we can `echo` a message to the user, then use the `exit 1` command to terminate the
+script and indicate a failure - if another script wanted to determine the result of ours, it could use this exit code to
+do so.
+
+```shell
+read -p "What should the cow say? " input
+
+if [ "$input" == "woof" ]; then
+  echo "Your cow sounds like it has a cold! Take it to the vet."
+  exit 1
+fi
+
+if command -v cowsay > /dev/null; then
+  cowsay "$input"
+else
+  echo "The cow says $input (PS: install cowsay for more fun!)"
+fi
+```
+
+One **important thing** to note about these test constructs: _the space between the square brackets and the condition is
+mandatory._ The `[` command is interpreted as, well, a command - leaving out that space between `[` and `"$input"` would
+tell bash to look for a program named `["$input"` instead; the same thing would happen if you were to write `exit1`
+instead of `exit 1`.
+
+<!-- I'm thinking that the cowsay examples should end here - I think we've
+exhausted it of its usefulness by now. We should perhaps demonstrate the other
+types of control structures and positional arguments in this post, but I think
+functions and variable scopes are more advanced features that we should cover in
+a future post -->
+
+---
+
+<!-- Below this line is stuff I haven't managed to fit in yet - the examples
+are getting a bit too heavy IMO and might need to be replaced. -->
 
 This is certainly better, but what if you don't always want to use `cowsay` to print it out? Two more programs available
 for printing out text in fun ways are `figlet` and `toilet`, so let's make it so that the script will randomly use
