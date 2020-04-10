@@ -138,12 +138,12 @@ Now, let's try putting this together - if we want to ask the user a question, we
 read -p "What should the cow say? " input
 ```
 
-Running this will prompt the user for a line of text, and store its result in a variable named `input` - but how do we
+Running this will prompt the user for a line of text and store its result in a variable named `input` - but how do we
 use that variable in our code?
 
-The syntax for accessing variables in bash is to simply write their name starting with a dollar sign (`$`). With this,
-variables can be embedded in nearly any bash command or argument - they will simply be replaced with the content of the
-variable when the command is run. With this in mind, let's rewrite our example with the if command from before...
+The syntax for accessing variables in bash is to prefix their name with a dollar sign (`$`). With this, variables can be
+embedded in nearly any bash command or argument - they will simply be replaced with the content of the variable when the
+command is run. With this knowledge, let's rewrite our example of the `if` command from before...
 
 ```shell
 read -p "What should the cow say? " input
@@ -183,9 +183,8 @@ No, I'm not joking.
 Here, we want to compare two variables for equality - we want to check whether our `$input` variable is equal to
 `"woof"`. The "left square bracket" equivalent of this should then be `[ "$input" == "woof" ]`. If the comparison is a
 success (meaning that `$input` is "woof"), the exit status will be `0`, which should be interpreted by an `if` command
-as "true." Inside our if statement, we can `echo` a message to the user, then use the `exit 1` command to terminate the
-script and indicate a failure - if another script wanted to determine the result of ours, it could use this exit code to
-do so.
+as "true." Inside our if statement, we can `echo` a message to the user, then use `exit 1` to terminate the script and
+indicate a failure - if another script wanted to determine the result of ours, it could use this exit code to do so.
 
 ```shell
 read -p "What should the cow say? " input
