@@ -35,7 +35,7 @@ You'll need to run it in an administrator window, but once you do, you'll find t
 
 ## Manage Packages via GUI {#chocolatey-gui}
 
-Readers, I won't lie to you. I'm not the kind of person to use a CLI for everything. I absolutely see their worth, but remembering various command is simply not my strong suit even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie! More seriously, it's as simple as:
+Readers, I won't lie to you. I'm not the kind of person to use a CLI for everything. I absolutely see their worth, but remembering various command is simply not my strong suit even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie! More seriously, installing the GUI is as simple as:
 ```
 choco install ChocolateyGUI
 ``` 
