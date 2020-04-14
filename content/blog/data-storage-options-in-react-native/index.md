@@ -2,7 +2,7 @@
 {
 	title: "Data Storage Options for React Native",
 	description: "You know the classic expression: There's more than one way to... Err... store app data. That's how it's said 100%. Let's explore our options in React Native!",
-	published: '2020-03-31T05:12:03.284Z',
+	published: '2020-04-14T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['react', 'react native'],
 	attached: [],
