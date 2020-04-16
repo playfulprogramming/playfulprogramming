@@ -1,3 +1,16 @@
+---
+{
+	title: "Draw under the Android NavBar Using React Native",
+	description: "Android allows you to draw content under the navigation bar. It's a very cool effect and Google themselves suggest it for all new apps! Let's add that to our React Native apps",
+	published: '2020-04-16T05:12:03.284Z',
+	authors: ['crutchcorn'],
+	tags: ['android', 'react native'],
+	attached: [],
+	license: 'cc-by-nc-sa-4'
+}
+---
+
+
 While working on [my React Native mobile app]([https://g](https://github.com/crutchcorn/GitShark)itshark.dev), [the super-talented designer for the project](https://unicorn-utterances.com/unicorns/edpratti) raised an interesting question to me:
 
 > "Are we able to draw under the navigation bar and status bar? [Google officially recommends new apps to do so](https://youtu.be/Nf-fP2u9vjI).
@@ -167,10 +180,64 @@ That's done it! Not only is the button being drawn under the navbar fully transp
 >
 > Then you've forgotten to remove the `fitsSystemWindows` flag that we added in our `styles.xml` flag previously. Once that (and the `windowDrawsSystemBarBackgrounds` flag) was removed, it worked for me
 
-# Other API versions
+# Other API Versions {#api-versions}
 
+While the code I've mentioned thus far works, it only realistically works _well_ on Android O (API Level 26) and above. That's only about 60% of Android devices out there! Why does this only work well on Android O? Well, if you have a light background, it only makes sense to have dark buttons in the navigation bar. That functionality has only existed since [Android introduced the `SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR` Vew flag in API 26](https://developer.android.com/reference/android/view/View#SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR). To edgecase this, we'll need to add some conditional logic to draw our own dark translucent bar for versions lower than this:
 
+```java
+if ( Build.VERSION.SDK_INT <= Build.VERSION_CODES.O) {
+	w.setNavigationBarColor(Color.parseColor("#50000000"));
+} else {
+	w.setNavigationBarColor(Color.TRANSPARENT);
+}
+```
 
-# Extra Polish {#dark-mode}
+Likewise, [the support for dark statusbar icons has only been present since API Level 23 (Android M)](https://developer.android.com/reference/android/view/WindowManager.LayoutParams#SYSTEM_UI_FLAG_LIGHT_STATUS_BAR). This too, will need to be edgecased:
+
+```java
+if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+	w.setStatusBarColor(Color.parseColor("#50000000"));
+} else {
+	w.setStatusBarColor(Color.TRANSPARENT);
+}
+```
+
+When viewing the app on older versions of Android (like M), you'll the respective bars as a semi-transparent bar:
+![The statusbar is transparent while the navbar is translucent](./transparent_m.png)
 
 # The Easy Method {#react-native-immersive-bars}
+
+Let's not sugar coat it: It's tedious to make changes to native Android code in order to support all of the various API levels there are, the various forms of OEM issues that could arise. LIkewise, if your app implements a dark mode, there's now another level of challenge: You have to toggle the light and dark navigation buttons yourself! 
+
+Fear not, fellow developer! I've taken my learnings from implementing this into [my mobile Git Client](https://gitshark.dev) and created a package for you to utilize!
+
+https://github.com/crutchcorn/react-native-immersive-bars
+
+It's as simple to add as:
+
+```
+yarn add react-native-immersive-bars
+```
+
+```jsx
+import {changeBarColors} from 'react-native-immersive-bars';
+
+// ...
+
+React.useEffect(() => {
+    changeBarColors(isDarkMode);
+}, [isDarkMode]);
+```
+
+It supports dark mode switching, as many API levels as React Native does, and much more!
+
+```
+video: title: "A working dark switch with transparent navbar": ./android_10.mp4
+```
+
+# Conclusion
+
+This feature was not a trivial one for me to implement. Not often is it that such a short article reflects how long I'd spent debugging and researching this issue. I want to make sure to thank [James Fenn](/unicorns/fennifith) and [Sasi Kanth](https://github.com/msasikanth) for helping me debug and research for this. I'm happy I did so, though. I think it adds a nice level of polish to my app, and I think you'll find the same in your app as well. Hopefully the package I made is able to ease the process for you. If you have any comments or questions regarding the package, please refer to the GitHub issues for said project.
+
+Otherwise, if you have comments or questions about the article you can leave them in the comments down below. We also have a newsletter that you can subscribe to for more articles like this: I plan on writing much more about React Native as I develop my app.
+
