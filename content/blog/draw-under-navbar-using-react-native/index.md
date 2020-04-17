@@ -11,7 +11,7 @@
 ---
 
 
-While working on [my React Native mobile app]([https://g](https://github.com/crutchcorn/GitShark)itshark.dev), [the super-talented designer for the project](https://unicorn-utterances.com/unicorns/edpratti) raised an interesting question to me:
+While working on [my React Native mobile app](https://gitshark.dev), [the super-talented designer for the project](/unicorns/edpratti) raised an interesting question to me:
 
 > "Are we able to draw under the navigation bar and status bar? [Google officially recommends new apps to do so](https://youtu.be/Nf-fP2u9vjI).
 
@@ -111,7 +111,7 @@ After making the changes and restarting my app, I was greeted with the following
 
 Fantastic! It's not only drawing under the navbar, but it's also registering the correct `inset.bottom` height we wanted to display in the titlebar! That said, I was still hoping for a fully transparent navbar. I knew it was possible. Maybe if I added explicit code to make the navbar transparent, that would work:
 
-```xaml
+```xml
 <item name="android:statusBarColor">@android:color/transparent</item>
 <item name="android:navigationBarColor">@android:color/transparent</item>
 <item name="android:windowTranslucentStatus">true</item>
@@ -231,9 +231,7 @@ React.useEffect(() => {
 
 It supports dark mode switching, as many API levels as React Native does, and much more!
 
-```
-video: title: "A working dark switch with transparent navbar": ./android_10.mp4
-```
+`video: title: "A working dark switch with transparent navbar": ./android_10.mp4`
 
 # Conclusion
 
