@@ -103,7 +103,7 @@
 		"pronouns": "he",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": []
+		"roles": ["designer"]
 	},
 	{
 		"id": "sarsamurmu",

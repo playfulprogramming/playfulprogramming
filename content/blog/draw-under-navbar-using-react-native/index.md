@@ -111,7 +111,7 @@ After making the changes and restarting my app, I was greeted with the following
 
 Fantastic! It's not only drawing under the navbar, but it's also registering the correct `inset.bottom` height we wanted to display in the titlebar! That said, I was still hoping for a fully transparent navbar. I knew it was possible. Maybe if I added explicit code to make the navbar transparent, that would work:
 
-```xaml
+```xml
 <item name="android:statusBarColor">@android:color/transparent</item>
 <item name="android:navigationBarColor">@android:color/transparent</item>
 <item name="android:windowTranslucentStatus">true</item>
@@ -231,9 +231,7 @@ React.useEffect(() => {
 
 It supports dark mode switching, as many API levels as React Native does, and much more!
 
-```
-video: title: "A working dark switch with transparent navbar": ./android_10.mp4
-```
+`video: title: "A working dark switch with transparent navbar": ./android_10.mp4`
 
 # Conclusion
 
