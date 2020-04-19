@@ -278,7 +278,20 @@ instead of `exit 1`.
 Another thing we didn't quite cover here - the "if" construct also supports `elif`. It can be used the same as an `else`
 case, in the form of `elif [condition]; then ...`.
 
-## 
+# Executable Scripts {#executables}
+
+<!-- TODO:
+  - adding a hashbang; #!/bin/bash
+  - using chmod +x to fix "Permission denied" error
+  - adding our script to $PATH; creating ~/bin
+-->
+
+# More Features {#more-features}
+
+By now, we've probably exhausted our poor cow of examples, and you've learnt a lot of scripting concepts from it. For
+this section, we're going to forego the theatrics and just list a bunch of functionality for you to try out on your own;
+much of this is very similar to what we've already covered and shouldn't be difficult to pick up by referencing what
+you've already written.
 
 ## Looping Control Structures {#basic-loops}
 
@@ -295,190 +308,20 @@ done
     
 ```
 
+<!-- TODO:
+  - while, foreach, etc
+  - more test constructs; [ test ] vs. [[ test ]] vs. (( test ))
+  - test conditions; >=, ==, -eq, -z, etc.
+  - boolean expressions; cmd || othercmd, cmd && othercmd - chaining commands, chaining test constructs... wait, they're the same thing!
+  - shell expansion, e.g. `~/`, `files=./*`, `$((1+3))` vs $(expr 1 + 3)
+  - special variables: $RANDOM, $((RANDOM%3))
+  - i/o redirection; cmd > file.txt, 2> file.txt, 2> /dev/null
+-->
 
-
-<!-- TODO: while, foreach, etc -->
-
-# Executable Scripts {#installation}
----
-
-
-
-<!-- I'm thinking that the cowsay examples should end here - I think we've
-exhausted it of its usefulness by now. We should perhaps demonstrate the other
-types of control structures and positional arguments in this post, but I think
-functions and variable scopes are more advanced features that we should cover in
-a future post -->
-
----
-
-<!-- Below this line is stuff I haven't managed to fit in yet - the examples
-are getting a bit too heavy IMO and might need to be replaced. -->
-
-This is certainly better, but what if you don't always want to use `cowsay` to print it out? Two more programs available
-for printing out text in fun ways are `figlet` and `toilet`, so let's make it so that the script will randomly use
-either `cowsay`, `figlet`, or `toilet`. This time we'll want to use a variable to store the random number we generate.
-Conveniently, variables in shell scripting are very easy to use. Declaring them doesn't require any special syntax at
-all, just a value of some sort for the variable. However, when referring to the variable, it has to be prefixed with a
-dollar sign in order to indicate that it's not a command to be run.
-
-```shell
-rand=$((RANDOM%3))
-
-if [[ $rand == 0 ]] ; then
-  if command -v cowsay > /dev/null; then
-    echo "Hello, world!" | cowsay
-  else
-    echo "cowsay is not installed :("
-  fi
-elif [[ $rand == 1 ]] ; then
-  if command -v figlet > /dev/null; then
-    echo "Hello, world!" | figlet
-  else
-    echo "figlet is not installed :("
-  fi
-else
-  if command -v toilet > /dev/null; then
-    echo "Hello, world!" | toilet -t
-  else
-    echo "toilet is not installed :("
-  fi
-fi
-```
-
-This time the script uses `$RANDOM`, which is a "variable" that `bash` includes as a built-in. Although it looks like a
-variable, it's actually a function instead (more on that later). It generates a random integer from 0-32767, which isn't
-quite what we're looking for. Thankfully, we can use the modulo operator (`%`) to force the value down to either 0, 1, 
-or 2. You've probably noticed by now a few new things in the `if` statements. In this case, we use double brackets to 
-indicate that we're performing a test, which in this case is the equality of 2 strings of text. We're also now using the
-`elif` command (short for else-if) so that we can check for more than just a single condition. Finally, the `-t` option
-for `toilet` is just a way to make sure the text won't wrap too early if your terminal window is wide. Anyway, it's nice
-that our script has a number of possibilities now, but wouldn't it be nice if it was possible for us to choose the way
-to print the text ourselves?
-
-## Interactivity and input {#basic-user-input}
-
-We can use the built-in command `read` in order to prompt the user to type something in. This gives us another chance to
-use variables, this time to store both the user's input as well as the text "Hello, world!" so we don't have to keep 
-writing it out manually. Conveniently, the read command has a handy second argument we can use to store the response in
-a variable.
-
-```shell
-echo "1: Print with cowsay"
-echo "2: Print with figlet"
-echo "3: Print with toilet"
-echo "4: Print with echo"
-echo "Anything else: Exit"
-
-read -p "Enter a number: " input
-hello="Hello, world!"
-
-if [[ $input == "1" ]] ; then
-  if command -v cowsay > /dev/null; then
-    echo $hello | cowsay
-  else
-    echo "cowsay is not installed :("
-  fi
-elif [[ $input == "2" ]] ; then
-  if command -v figlet > /dev/null; then
-    echo $hello | figlet
-  else
-    echo "figlet is not installed :("
-  fi
-elif [[ $input == "3" ]] ; then
-  if command -v toilet > /dev/null; then
-    echo $hello | toilet -t
-  else
-    echo "toilet is not installed :("
-  fi
-elif [[ $input == "4" ]] ; then
-  echo $hello
-else
-  exit
-fi
-```
-
-This time, we start with telling the user which options are available to them (always a good idea), and then ask them to
-enter something. We store this input in a variable called `input`. After that, we check what the user actually entered.
-After that we once again check to see whether `cowsay`, `figlet`, or `toilet` is installed, depending on what the user
-chose, and tell them if they don't have it.  We don't need to check if `echo` is installed since it's a built-in `bash`
-command. Lastly, we have an `exit` command in the `else` block to make sure the script exits if the user puts in 
-anything beyond the 3 options. In this case it's actually not necessary since the script would already finish and exit
-automatically, although it's a good idea to include it in case you decide to add more functionality later.
-
-## Positional Arguments {#arguments}
-
-(find a way to integrate this with the script?)
-
-| Variable        | Type   | Description                               |
-|-----------------|--------|-------------------------------------------|
-| `$0`, `$1`, ... | String | Argument at a specific position.          |
-| `$#`            | Int    | The total number of arguments.            |
-| `$@`            | Array  | All of the arguments passed.              |
-| `$*`            | String | All arguments passed, as a single string. |
-
-Every bash command returns an exit code which can be used to determine a measure of success or state of a script. In
-this example, we check the exit code of `command -v toilet` to determine whether `toilet` is installed. Generally, an
-exit code of zero implies success, and anything else represents some form of error. There are a few standards for using
-different error codes for specific purposes, but in this situation we only need to know if it equals zero.
-
-There are a few different ways to use these exit codes in a script. After a command is executed, the `$?` variable is
-set to its exit code, which can be used to reference it in later comparisons. Another interesting use is in fail-fast
-programming; beginning a script with `set -e` will tell bash to exit the script immediately if any command returns a
-non-zero exit code.
-
-## Functions {#basic-functions}
-
-In order to write more abstract functionality that can be reused in a script, portions of functionality can be separated
-into a function. Functions within a script are given the same scope as the rest of the script, but are created with
-their own positional arguments and can return their own exit code.
-
-```bash
-function runpipe() {
-  if command -v $2 > /dev/null; then
-    echo $1 | ${@:2}
-  else
-    echo "$2 is not installed :("
-	return 1
-  fi
-}
-```
-
-This recreates the functionality in the if statements of the previous script. We can now simplify it as follows:
-
-```shell
-echo "1: Print with cowsay"
-echo "2: Print with figlet"
-echo "3: Print with toilet"
-echo "4: Print with echo"
-echo "Anything else: Exit"
-
-read -p "Enter a number: " input
-hello="Hello, world!"
-
-function runpipe() {
-  if command -v $2 > /dev/null; then
-    echo $1 | ${@:2}
-  else
-    echo "$2 is not installed :("
-  fi
-}
-
-if [[ $input == "1" ]] ; then
-  runpipe $hello cowsay
-elif [[ $input == "2" ]] ; then
-  runpipe $hello figlet
-elif [[ $input == "3" ]] ; then
-  runpipe $hello toilet -t
-elif [[ $input == "4" ]] ; then
-  echo $hello
-else
-  exit
-fi
-```
-
-## Variables and Scope {#basic-scope}
-
-- reference `$hello` from `runpipe()`
-- `local VARIABLE=5`
-- `export VARIABLE=5`
+<!-- TODO: In the next post
+  - positional arguments; $0, $#, $@, $*
+  - how do arrays work? (annoying things about arrays); also: ${arr[0]}
+  - functions, "return values" - i.e. $(function) or `return 0` (it works like exit!)
+  - variable... scope? `local SOMETHING=hi`, `export SOMETHINGELSE=ohno` - introduce the `source global.sh` pattern
+  - advanced variable templating: ${@:2}, ${var/replace/replacement}, ${var//replaceall/replacement}
+-->
