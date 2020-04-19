@@ -74,7 +74,7 @@ the terminal normally would do, but the real power of shell scripting comes in w
 with the scripting features in order to add things like interactivity, loops, and conditions. Now, let's move on to some
 of those more advanced features.
 
-## Conditions With the `if` Command {#basic-if-usage}
+## Cowsay, Part 1: The `if` Command {#cowsay-if-command}
 
 Conditional execution is one of the most important parts of any programming language. If you couldn't choose whether or
 not to execute something, things would be ...difficult, to say the least. Thankfully, bash includes `if` as a built-in
@@ -85,7 +85,8 @@ A common way that conditions are used in shell scripts is to check if a particul
 it. Here's a simple example of it in use:
 
 ```shell
-if command -v cowsay > /dev/null; then
+if command -v cowsay > /dev/null
+then
   cowsay "Hello, world!"
 fi
 ```
@@ -96,12 +97,13 @@ The `> /dev/null` part is used to throw away the output of `command` since we do
 is, just that it exists. If it's there, we run `cowsay` with the argument "Hello, world!", which prints a funky looking
 cow in the shell.
 
-Although the use of redirection (`>`) might seem a bit confusing now, I'll get into that later. Right now, if you run
+Although the use of redirection (`>`) might seem a bit confusing now, we'll get into that later. Right now, if you run
 this script, it'll either print out ASCII art of a cow saying "Hello, world!", or ...nothing. That's not exactly ideal,
 so let's add an alternative case for when `cowsay` isn't available:
 
 ```shell
-if command -v cowsay > /dev/null; then
+if command -v cowsay > /dev/null
+then
   cowsay "Hello, world!"
 else
   echo "Hello, world! (PS: install cowsay for more fun!)"
@@ -111,7 +113,7 @@ fi
 Now our script prints out "Hello, world!" even if `cowsay` isn't installed. If you don't have `cowsay` on your computer,
 try installing it to see the output change!
 
-## Variables and User Input {#basic-variable-usage}
+## Cowsay, Part 2: User Input {#cowsay-user-input}
 
 Let's make this script a little more interactive - what about asking the user what they want the cow to say? One way to
 do that is to use the `read` command. Here's an excerpt from the command's help text, which can be accessed by running
@@ -148,19 +150,77 @@ command is run. With this knowledge, let's rewrite our example of the `if` comma
 ```shell
 read -p "What should the cow say? " input
 
-if command -v cowsay > /dev/null; then
+if command -v cowsay > /dev/null
+then
   cowsay "$input"
 else
   echo "The cow says $input (PS: install cowsay for more fun!)"
 fi
 ```
 
+_Optionally, the variable can be formatted as `${input}`, with curly brackets around the name - this is sometimes useful
+to make it distinctly separate from the rest of the string, if it's surrounded by other text._
+
 Try running this! Your script should now ask you to enter a line of text, which will then be passed to the `cowsay`
 command, generating a fun ASCII cow that says whatever you want.
 
-## Conditions With the `if` Command - Continued {#basic-if-usage-continued}
+## Cowsay, Part 3: Command Substitution {#cowsay-command-substitution}
 
-Now that we've added some user input into our program, we have the ability to get our cow to say some pretty crazy
+`read` obviously works a little bit differently from most bash commands, in a "pass-by-reference" design - this isn't
+unusual, and we'll cover how this works in a future post, but there are more common ways to assign a variable to the
+result of a command. Namely, using the `variable=value` syntax...
+
+<!-- I say "pass-by-reference design" here, but it doesn't feel quite right to me - is it... a syntax? a trend? I feel
+like there's a better word for this sort of thing but I can't think what it could possibly be. -->
+
+_For a hint to why `read` needs to do this, try running `read -p "Type something: "` in your command line. You'll notice
+that, after prompting you for input, it doesn't write anything else to the console. Most other commands (such as `pwd`)
+ will print their results to the "standard output" - which this next feature makes use of._
+
+Let's say that we want our cow to greet the user at the start of our script. The `whoami` command is a fairly standard
+Linux tool that prints the name of the current user - running this in your command line, you should see that it prints
+your username. We now know the command we want to run to get the information we need, but how can we use this in our
+script?
+
+For this, we need to capture the output of the command and store it in a variable. Bash allows us to do that using the
+"command substitution" construct - by enclosing our command in `$(...)`. All we need to do is assign that to a variable,
+then use that variable to template it into our greeting.
+
+```shell
+username=$(whoami)
+echo "Hello, $username!"
+```
+
+If you guessed that we could shorten this to a single line, you'd be right! Just like how we can template variables in
+a double-quoted string, command substitution can be templated as well - making our command `echo "Hello, $(whoami)!"`.
+
+Now that we've got this working, all we have to do is run `cowsay` instead of `echo` - and we have a very creepy cow
+that somehow knows what my name is. Oh no. I could have nightmares about this.
+
+Err, let's forget about that for now and add this to the start of our program - enclosing it in the `if` statement we
+wrote before, to make sure that `cowsay` actually exists before using it.
+
+```shell
+if command -v cowsay > /dev/null
+then
+  cowsay "Hello, $(whoami)!"
+else
+  echo "Hello, $(whoami)! You should really install cowsay. It's a lot of fun."
+fi
+
+read -p "What should the cow say? " input
+
+if command -v cowsay > /dev/null
+then
+  cowsay "$input"
+else
+  echo "The cow says $input (PS: install cowsay for more fun!)"
+fi
+```
+
+## Cowsay, Part 4: Test Constructs {#cowsay-test-constructs}
+
+Now that we've added a couple features to our program, we have the ability to get our cow to say some pretty crazy
 things. I've gotten mine to say "woof," for example - a noise that no real cow should ever be making. Perhaps we should
 add an extra case in this script to prevent our cow from making such a terrifying sound? In order to accomplish this, we
 need to learn about _test constructs,_ and how the `if` command really works.
@@ -187,14 +247,23 @@ as "true." Inside our if statement, we can `echo` a message to the user, then us
 indicate a failure - if another script wanted to determine the result of ours, it could use this exit code to do so.
 
 ```shell
+if command -v cowsay > /dev/null
+then
+  cowsay "Hello, $(whoami)!"
+else
+  echo "Hello, $(whoami)! You should really install cowsay. It's a lot of fun."
+fi
+
 read -p "What should the cow say? " input
 
-if [ "$input" == "woof" ]; then
+if [ "$input" == "woof" ]
+then
   echo "Your cow sounds like it has a cold! Take it to the vet."
   exit 1
 fi
 
-if command -v cowsay > /dev/null; then
+if command -v cowsay > /dev/null
+then
   cowsay "$input"
 else
   echo "The cow says $input (PS: install cowsay for more fun!)"
@@ -205,6 +274,35 @@ One **important thing** to note about these test constructs: _the space between 
 mandatory._ The `[` command is interpreted as, well, a command - leaving out that space between `[` and `"$input"` would
 tell bash to look for a program named `["$input"` instead; the same thing would happen if you were to write `exit1`
 instead of `exit 1`.
+
+Another thing we didn't quite cover here - the "if" construct also supports `elif`. It can be used the same as an `else`
+case, in the form of `elif [condition]; then ...`.
+
+## 
+
+## Looping Control Structures {#basic-loops}
+
+Bash also includes a few commands for looping or repeatedly performing a task: `for`, `while`, and `until`.
+
+`while` loops have a similar syntax to the `if` command, with a few key differences...
+
+```shell
+i=5
+while [ $i > 0 ]
+do
+    i=$(expr $i - 1)
+done
+    
+```
+
+
+
+<!-- TODO: while, foreach, etc -->
+
+# Executable Scripts {#installation}
+---
+
+
 
 <!-- I'm thinking that the cowsay examples should end here - I think we've
 exhausted it of its usefulness by now. We should perhaps demonstrate the other
