@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import DarkIcon from "../../assets/icons/dark.svg";
-import LightIcon from "../../assets/icons/light.svg";
+import DarkIcon from "assets/icons/dark.svg";
+import LightIcon from "assets/icons/light.svg";
 import btnStyles from "./dark-light-button.module.scss";
-import { ThemeContext } from "../theme-context";
+import { ThemeContext } from "uu-constants";
 
 export const DarkLightButton = () => {
 	const { currentTheme, setTheme } = useContext(ThemeContext);

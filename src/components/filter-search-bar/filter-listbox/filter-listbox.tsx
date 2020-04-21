@@ -37,16 +37,16 @@ import posed from "react-pose";
 
 import filterStyles from "./filter-listbox.module.scss";
 
-import FilterIcon from "../../../assets/icons/filter.svg";
-import CheckIcon from "../../../assets/icons/check.svg";
-import UncheckIcon from "../../../assets/icons/unchecked.svg";
+import FilterIcon from "assets/icons/filter.svg";
+import CheckIcon from "assets/icons/check.svg";
+import UncheckIcon from "assets/icons/unchecked.svg";
 
 import {
 	usePopoverCombobox,
 	UseSelectableArrayInternalVal
 } from "batteries-not-included/react/a11y";
-import { SearchAndFilterContext } from "../../search-and-filter-context";
-import { useElementBounds } from "../../../utils";
+import { SearchAndFilterContext } from "uu-constants";
+import { useElementBounds } from "uu-utils";
 
 interface FilterListItemProps {
 	tag: UseSelectableArrayInternalVal;

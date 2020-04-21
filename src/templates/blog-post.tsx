@@ -1,18 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { graphql } from "gatsby";
-import GitHubIcon from "../assets/icons/github.svg";
-import CommentsIcon from "../assets/icons/message.svg";
+import GitHubIcon from "assets/icons/github.svg";
+import CommentsIcon from "assets/icons/message.svg";
 import { DiscussionEmbed } from "disqus-react";
 
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
-import { PostMetadata, PostTitleHeader } from "../components/post-view";
+import { Layout } from "components/layout";
+import { SEO } from "components/seo";
+import { PostMetadata, PostTitleHeader } from "components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { ThemeContext } from "../components/theme-context";
-import { SiteInfo, PostInfo } from "../types";
-import { TableOfContents } from "../components/table-of-contents";
-import { BlogPostLayout } from "../components/blog-post-layout";
-import { MailingList } from "../components/mailing-list";
+import { ThemeContext } from "constants/theme-context";
+import { SiteInfo, PostInfo } from "uu-types";
+import { TableOfContents } from "components/table-of-contents";
+import { BlogPostLayout } from "components/blog-post-layout";
+import { MailingList } from "components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;

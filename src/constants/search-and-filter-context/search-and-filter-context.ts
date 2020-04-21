@@ -5,9 +5,8 @@ import {
 	useMemo,
 	useState
 } from "react";
-import { useLunr } from "../../utils";
+import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
-import { PostInfo } from "../../types";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PostInfo } from "../../types";
+import { PostInfo } from "uu-types";
 import tableOfContentsStyle from "./table-of-contents.module.scss";
 import { RefObject } from "react";
 import { useHeadingIntersectionObserver } from "./use-heading-intersection-observer";

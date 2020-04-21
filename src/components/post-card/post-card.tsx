@@ -1,9 +1,9 @@
 import React, { createRef, useRef, useMemo } from "react";
 import { Link } from "gatsby";
 import cardStyles from "./post-card.module.scss";
-import { stopPropCallback } from "../../utils";
+import { stopPropCallback } from "uu-utils";
 import { UserProfilePic } from "../user-profile-pic";
-import { UnicornInfo } from "../../types";
+import { UnicornInfo } from "uu-types";
 
 interface PostCardProps {
 	title: string; // The title of the post
