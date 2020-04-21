@@ -1,34 +1,3 @@
-/*
-
-Name:       Base16 Atelier Sulphurpool Light
-Author:     Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/sulphurpool)
-
-Prism template by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
-Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
-Theme modified for usage in Unicorn Utterances by Corbin Crutchley (https://github.com/crutchcorn)
-*/
-:root {
-	--codeBackgroundColor: #fff;
-	--textColor: #5e6687;
-	--stringColor: #007396;
-	--keywordColor: #846c00;
-	--operatorColor: #b74c00;
-	--punctuationColor: #006fce;
-	--constantColor: #aa05d4;
-	--functionColor: #5357d2;
-	--selectionColor: #dfe2f1;
-	--commentColor: #898ea4;
-	--propColor: #c08b30;
-	--varColor: #3d8fd1;
-	--selectorColor: #6679cc;
-	--urlColor: #22a9c9;
-	--insertedUnderlineColor: #202746;
-	--highlightColor: #c94922;
-	--lineNumbersColor: #979db4;
-	--lineHighlightColor: rgba(107, 115, 148, 0.2);
-	--lineHighlightFadeColor: rgba(107, 115, 148, 0);
-}
-
 code[class*="language-"],
 pre[class*="language-"] {
 	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
