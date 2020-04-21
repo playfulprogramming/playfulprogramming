@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { PostCard } from "./post-card";
-import { MockPost } from "../../../__mocks__/data/mock-post";
+import { MockPost } from "__mocks__/data/mock-post";
 import { onLinkClick } from "gatsby";
 
 const {

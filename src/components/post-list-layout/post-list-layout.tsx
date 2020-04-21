@@ -3,18 +3,15 @@ import {
 	SearchAndFilterContext,
 	usePostTagsFromNodes,
 	useSearchFilterValue
-} from "../search-and-filter-context";
+} from "constants/search-and-filter-context";
 import { useState } from "react";
 import { PostList, PostListProps } from "../post-card-list";
 import ReactPaginate from "react-paginate";
 import { navigate } from "gatsby-link";
-import {
-	filterPostsBySlugArr,
-	getSkippedPosts
-} from "../../utils/handle-post-list";
+import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
 import { useEffect } from "react";
 import { useMemo } from "react";
-import { PageContext, PostInfo, PostInfoListDisplay } from "../../types";
+import { PageContext, PostInfo } from "uu-types";
 
 interface PostListLayoutProps extends PostListProps {
 	children?: React.ReactNode;

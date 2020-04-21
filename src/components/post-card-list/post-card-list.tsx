@@ -2,7 +2,7 @@ import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";
-import { PostInfo, UnicornInfo } from "../../types";
+import { PostInfo, UnicornInfo } from "uu-types";
 
 export interface PostListProps {
 	posts?: Array<{ node: PostInfo }>;

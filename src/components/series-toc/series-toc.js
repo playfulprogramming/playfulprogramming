@@ -1,3 +1,6 @@
+/**
+ * This is both a JS file and using CJS because it's used in `gatsby-config`
+ */
 exports.SeriesToC = context => {
 	const { items, name, markdownNode } = context;
 	const list = items.reduce((code, item, i) => {

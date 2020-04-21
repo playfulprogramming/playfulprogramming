@@ -1,14 +1,10 @@
 import React, { useState, useEffect, FC } from "react";
 import { graphql, Link } from "gatsby";
-import BackIcon from "../../assets/icons/back.svg";
+import BackIcon from "assets/icons/back.svg";
 import layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
-import {
-	ThemeContext,
-	setThemeColorsToVars,
-	ThemeEnum
-} from "../theme-context";
+import { ThemeContext, setThemeColorsToVars, ThemeEnum } from "uu-constants";
 
 interface LayoutProps {
 	location: Location;
