@@ -1,0 +1,76 @@
+@import "./utils";
+
+/**
+ * H1
+ */
+%h1Desktop {
+	font-family: var(--oswald);
+	font-style: normal;
+	font-size: 4rem;
+	line-height: 112%;
+}
+
+%h1Mobile {
+	font-family: var(--oswald);
+	font-style: normal;
+	font-size: 2.5rem;
+	line-height: 130%;
+}
+
+%h1 {
+	@include until($endSmallScreenSize) {
+		@extend %h1Mobile;
+	}
+
+	@extend %h1Desktop;
+}
+
+/**
+ * H2
+ */
+%h2Desktop {
+	font-family: var(--archivo);
+	font-style: normal;
+	font-size: 2rem;
+	line-height: 125%;
+}
+
+%h2Mobile {
+	font-family: var(--archivo);
+	font-style: normal;
+	font-size: 1.25rem;
+	line-height: 121%;
+}
+
+%h2 {
+	@include until($endSmallScreenSize) {
+		@extend %h2Mobile;
+	}
+
+	@extend %h2Desktop;
+}
+
+/**
+ * S1
+ */
+%s1Desktop {
+	font-family: var(--oswald);
+	font-style: normal;
+	font-size: 1.75rem;
+	line-height: 130%;
+}
+
+%s1Mobile {
+	font-family: var(--oswald);
+	font-style: normal;
+	font-size: 1.25rem;
+	line-height: 121%;
+}
+
+%s1 {
+	@include until($endSmallScreenSize) {
+		@extend %s1Mobile;
+	}
+
+	@extend %s1Desktop;
+}
