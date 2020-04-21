@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import Image from "gatsby-image";
 import styles from "./pic-title-header.module.scss";
-import GitHubIcon from "../../assets/icons/github.svg";
-import SiteIcon from "../../assets/icons/site.svg";
-import TwitterIcon from "../../assets/icons/twitter.svg";
+import GitHubIcon from "assets/icons/github.svg";
+import SiteIcon from "assets/icons/site.svg";
+import TwitterIcon from "assets/icons/twitter.svg";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { UnicornInfo } from "../../types";
+import { UnicornInfo } from "uu-types";
 
 const getNamePossessive = (name: string) => {
 	if (name.endsWith("s")) return `${name}'`;

@@ -1,18 +1,14 @@
-import React, { useState, useEffect, FC, forwardRef } from "react";
-import { graphql, Link } from "gatsby";
-import BackIcon from "../../assets/icons/back.svg";
+import * as React from "react";
+import { graphql } from "gatsby";
+import BackIcon from "assets/icons/back.svg";
 import layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
-import {
-	ThemeContext,
-	setThemeColorsToVars,
-	ThemeEnum
-} from "../theme-context";
 import TransitionLink, { TransitionState } from "gatsby-plugin-transition-link";
 import posed from "react-pose";
+import { ThemeProvider } from "constants/theme-context";
 
-const Main = forwardRef(({ children, ...props }, ref) => (
+const Main = React.forwardRef(({ children, ...props }, ref) => (
 	<main {...props} ref={ref as any}>
 		{children}
 	</main>
@@ -47,37 +43,14 @@ const AnimMainTed = posed.div({
 interface LayoutProps {
 	location: Location;
 }
-export const Layout: FC<LayoutProps> = ({ location, children }) => {
+export const Layout: React.FC<LayoutProps> = ({ location, children }) => {
 	const rootPath = `${__PATH_PREFIX__}/`;
 
 	const isBase = location.pathname === rootPath;
 	const isBlogPost = location.pathname.startsWith(`${rootPath}posts`);
 
-	const [currentTheme, setCurrentTheme] = useState("light");
-
-	const winLocalStorage = (global as any).window && window.localStorage;
-
-	useEffect(() => {
-		if (!winLocalStorage) return;
-		const themeName =
-			(winLocalStorage.getItem("currentTheme") as ThemeEnum) || "light";
-		setThemeColorsToVars(themeName);
-		setCurrentTheme(themeName);
-	}, [winLocalStorage]);
-
-	const setTheme = (val: ThemeEnum) => {
-		setThemeColorsToVars(val);
-		setCurrentTheme(val);
-		localStorage.setItem("currentTheme", val);
-	};
-
 	return (
-		<ThemeContext.Provider
-			value={{
-				currentTheme,
-				setTheme
-			}}
-		>
+		<ThemeProvider>
 			<div className={layoutStyles.horizCenter}>
 				<header
 					className={layoutStyles.header}
@@ -117,7 +90,7 @@ export const Layout: FC<LayoutProps> = ({ location, children }) => {
 					}}
 				</TransitionState>
 			</div>
-		</ThemeContext.Provider>
+		</ThemeProvider>
 	);
 };
 

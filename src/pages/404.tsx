@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
+import { Layout } from "components/layout";
+import { SEO } from "components/seo";
 import Image from "gatsby-image";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 

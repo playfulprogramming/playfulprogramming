@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
-import { PicTitleHeader } from "../components/pic-title-header";
-import { PostListLayout } from "../components/post-list-layout";
-import { PageContext } from "../types";
+import { Layout } from "components/layout";
+import { SEO } from "components/seo";
+import { PicTitleHeader } from "components/pic-title-header";
+import { PostListLayout } from "components/post-list-layout";
+import { PageContext } from "uu-types";
 
 interface BlogPostListTemplateProps {
 	data: any;
