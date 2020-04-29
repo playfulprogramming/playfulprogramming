@@ -10,6 +10,8 @@
 }
 ---
 
+# overview
+
 This is a classic problem in Computer Science that is said to come up in various forms on programming interviews - given an 8 x 8 chessboard, a selected starting square, and a selected ending square, what is the minimum number of legal moves are required to get a knight piece from the starting square to the ending square? Note that this is _not_ the same as Knight's Tour, a much more involved problem where we try to find a path around the board such that the knight touches every square once without repeat.
 
 For some background - a chess knight moves in an L-shaped pattern - two up and one to the right, two to the left and one up, and so on. The knight jumps from it's starting location to it's ending location.
@@ -18,6 +20,8 @@ There are many diagrams of possible knight moves on a google image search, but t
 ![Image of possible moves for a knight centered on a chessboard.](./knight-moves-0.png)
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
+
+# solution method
 
 At first glance, this may look like a bizarre maze navigation algorithm with complex rules, and inspires any number of thoughts of number of possible iterations, how to decide if a move is constructive or not, etc.
 
@@ -35,6 +39,8 @@ Notice that our starting square is double occupied. We can reach this spot in ei
 So, right now, we have all of the squares labelled that we can get to in zero, one or two moves. If you would like, you can fill in three moves and possibly four moves if that is required to fill every square. Remember to give precedent to the lower number in any already occupied squares.
 
 If any of the labelled squares is a desired destination, then we know the minimum number of moves required to reach that square. So, all we have to do is start with our starting square and repeat this process until we happen to fill our ending destination with a number. The number in that square will be the minimal number of moves required to reach that spot.
+
+# javascript execution
 
 So, let's get started. I hacked this together in codepen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3js, etc, but that's not for this blog post.
 
