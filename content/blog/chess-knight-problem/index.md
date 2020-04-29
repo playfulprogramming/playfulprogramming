@@ -21,7 +21,7 @@ There are many diagrams of possible knight moves on a google image search, but t
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
 
-At first glance, this may look like a bizarre maze navigation algorythm with complex rules, and inspires any number of thoughts of number of possible iterations, how to decide if a move is constructive or not, etc.
+At first glance, this may look like a bizarre maze navigation algorithm with complex rules, and inspires any number of thoughts of number of possible iterations, how to decide if a move is constructive or not, etc.
 
 Happily, our solution is much simpler, such that I was able to tap one up in JavaScript in a single evening after I decided to look into this problem.
 
@@ -34,11 +34,11 @@ Let's choose one of those spots and see all of the places that we can go from th
 Notice that our starting square is double occupied. We can reach this spot in either zero moves or two moves. However, we want to know the _least_ number of possible moves to get to this spot. Zero is fewer than two, so we shall occupy this space with a '0.' I will remove the two and fill in the remaining spots that we can reach in two moves as being those that are one move away from the other '1' squares:
 ![3 moves](./knight-moves-3.png)
 
-So, right now, we have all of the squares labeled that we can get to in zero, one or two moves. If you would like, you can fill in three moves and possibly four moves if that is required to fill every square. Remember to give precedent to the lower number in any already occupied squares.
+So, right now, we have all of the squares labelled that we can get to in zero, one or two moves. If you would like, you can fill in three moves and possibly four moves if that is required to fill every square. Remember to give precedent to the lower number in any already occupied squares.
 
-If any of the labeled squares is a desired destination, then we know the minimum number of moves required to reach that square. So, all we have to do is start with our starting square and repeat this process until we happen to fill our ending destination with a number. The number in that square will be the minimal number of moves required to reach that spot.
+If any of the labelled squares is a desired destination, then we know the minimum number of moves required to reach that square. So, all we have to do is start with our starting square and repeat this process until we happen to fill our ending destination with a number. The number in that square will be the minimal number of moves required to reach that spot.
 
-So, let's get started. I hacked this together in codepen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3, etc, but that's not for this blog post.
+So, let's get started. I hacked this together in codepen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3js, etc, but that's not for this blog post.
 
 To begin, let's define a two dimensional array to be our chess board:
 
@@ -47,7 +47,7 @@ To begin, let's define a two dimensional array to be our chess board:
       board[i] = [];
     }
 
-That's it. All we need is a two dimensional 8x8 array. I've not explicitly defined the number of entries in the either dimension of the array because that's one of the ideosynchrosies of JavaScript. (It would be possible to say something like _let board = Array(8);_ but it's not clear how much that will benefit performance here - JavaScript is famous for not having the same memory management optimisation of languages like Fortran - also note that I didn't need to prepopulate the array with null values, as I would have to with many other languages).
+That's it. All we need is a two dimensional 8x8 array. I've not explicitly defined the number of entries in the either dimension of the array because that's one of the idiosyncrasies of JavaScript. (It would be possible to say something like _let board = Array(8);_ but it's not clear how much that will benefit performance here - JavaScript is famous for not having the same memory management optimisation of languages like FORTRAN - also note that I didn't need to prepopulate the array with null values, as I would have to with many other languages).
 
 Let's make a function to add a move to the board. We need to see if the location is both in range and not occupied by another number before adding that move:
 
@@ -97,7 +97,7 @@ I hope that you can predict where this is going. Let's make a master function to
       return board[endX][endY];
     }
 
-Finally: I'll test this function with some of the spots we have labeled in the diagram above. Labelling the columns left to right and the rows start to finish, we start from [3,3]. One of the spots we can get in one move is [2,1].
+Finally: I'll test this function with some of the spots we have labelled in the diagram above. Labelling the columns left to right and the rows start to finish, we start from [3,3]. One of the spots we can get in one move is [2,1].
 
     console.log(findPath(3,3,2,1));
 
