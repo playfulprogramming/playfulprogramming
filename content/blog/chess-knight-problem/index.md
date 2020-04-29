@@ -15,7 +15,7 @@ This is a classic problem in Computer Science that is said to come up in various
 For some background - a chess knight moves in an L-shaped pattern - two up and one to the right, two to the left and one up, and so on. The knight jumps from it's starting location to it's ending location.
 
 There are many diagrams of possible knight moves on a google image search, but to avoid copyright claims, I made up my own diagram:
-![knight moves image](./knight-moves-0.png)
+![Image of possible moves for a knight centered on a chessboard.](./knight-moves-0.png)
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
 
@@ -24,13 +24,13 @@ At first glance, this may look like a bizarre maze navigation algorithm with com
 Happily, our solution is much simpler, such that I was able to tap one up in JavaScript in a single evening after I decided to look into this problem.
 
 If, in the diagram above, we start in the red space, all of the green spaces are places we can go in one move. Let's label out starting spot '0', and the places that we can go in one move with '1.'
-![1 move](./knight-moves-1.png)
+![Image of possible moves for a knight centered on a chessboard with the initial location populated by a 0 and the possible moved populated by 1s.](./knight-moves-1.png)
 
 Let's choose one of those spots and see all of the places that we can go from there. Any spot that we can reach from this spot is a place that we can reach in two moves from our starting spot. Let's label them with '2's.
-![2 moves](./knight-moves-2.png)
+![Same image as above, but with one of the 1s highlighted, and the possible moved from there populated by 2s.  In the starting space, we see both a 0 and a 2.](./knight-moves-2.png)
 
 Notice that our starting square is double occupied. We can reach this spot in either zero moves or two moves. However, we want to know the _least_ number of possible moves to get to this spot. Zero is fewer than two, so we shall occupy this space with a '0.' I will remove the two and fill in the remaining spots that we can reach in two moves as being those that are one move away from the other '1' squares:
-![3 moves](./knight-moves-3.png)
+![All of the squares labeled for 0, 1 or 2 moves with no overlap, based on the images above.  There are a few blank squares.](./knight-moves-3.png)
 
 So, right now, we have all of the squares labelled that we can get to in zero, one or two moves. If you would like, you can fill in three moves and possibly four moves if that is required to fill every square. Remember to give precedent to the lower number in any already occupied squares.
 
@@ -108,4 +108,4 @@ One of the spots that we can reach in 2 moves is \[4,6\].
 I correctly got 2.
 
 If you want to try this yourself, [here is my codepen project](https://codepen.io/thodges314/pen/ZEbJzPX). Enlarge the JavaScript panel and open the console along the bottom of the page to try this out.
-![panel view](./display-knight.png)
+![Image of the codepen interface with the JavaScript panel and the built in concole panel expanded.](./display-knight.png)
