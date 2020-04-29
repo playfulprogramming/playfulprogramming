@@ -33,7 +33,7 @@ If, in the diagram above, we start in the red space, all of the green spaces are
 Let's choose one of those spots and see all of the places that we can go from there. Any spot that we can reach from this spot is a place that we can reach in two moves from our starting spot. Let's label them with '2's.
 ![Same image as above, but with one of the 1s highlighted, and the possible moved from there populated by 2s.  In the starting space, we see both a 0 and a 2.](./knight-moves-2.png)
 
-Notice that our starting square is double occupied. We can reach this spot in either zero moves or two moves. However, we want to know the _least_ number of possible moves to get to this spot. Zero is fewer than two, so we shall occupy this space with a '0.' I will remove the two and fill in the remaining spots that we can reach in two moves as being those that are one move away from the other '1' squares:
+Notice that our starting square is double occupied. We can reach this spot in either zero moves or two moves. However, we want to know the _least_ number of possible moves to get to this spot. Zero is fewer than two, so we shall occupy this space with a '0.' I will remove the '2' and fill in the remaining spots that we can reach in two moves as being those that are one move away from the other '1' squares:
 ![All of the squares labeled for 0, 1 or 2 moves with no overlap, based on the images above.  There are a few blank squares.](./knight-moves-3.png)
 
 So, right now, we have all of the squares labelled that we can get to in zero, one or two moves. If you would like, you can fill in three moves and possibly four moves if that is required to fill every square. Remember to give precedent to the lower number in any already occupied squares.
@@ -61,7 +61,7 @@ Let's make a function to add a move to the board. We need to see if the location
       }
     }
 
-You may have noticed that I have checked if _board\[x\]\[y\] == null_, rather than just _!board\[x\]\[y\]_. This is because _0_ is a potential entry for one of the squared (our staring square) and _0_ is falsy.
+You may have noticed that I have checked if _board\[x\]\[y\] == null_, rather than just _!board\[x\]\[y\]_. This is because _0_ is a potential entry for one of the squares (our staring square) and _0_ is falsy.
 
 Let's call this from another function that for any given location, tries to add all of the moves for that can be reached from that location:
 
