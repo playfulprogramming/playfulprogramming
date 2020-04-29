@@ -4,7 +4,7 @@
   description: "Here I present a quick and dirty solution to a common interview question where the solution is not nearly as complex as it may first appear.",
   published: "2020-04-29T12:27:06.284Z",
   authors: ["thodges314"],
-  tags: ["javascript", "chess", "knight", "computer science", "interview"],
+  tags: ["javascript", "computer science", "interview"],
   attached: [],
   license: "cc-by-4",
 }
