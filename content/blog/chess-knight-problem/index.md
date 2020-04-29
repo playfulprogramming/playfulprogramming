@@ -57,7 +57,7 @@ Let's make a function to add a move to the board. We need to see if the location
       }
     }
 
-You may have noticed that I have checked if _board[x][y] == null_, rathern than just _!board[x][y]_. This is because _0_ is a potential entry for one of the squared (our staring square) and _0_ is falsy.
+You may have noticed that I have checked if _board\[x\]\[y\] == null_, rather than just _!board\[x\]\[y\]_. This is because _0_ is a potential entry for one of the squared (our staring square) and _0_ is falsy.
 
 Let's call this from another function that for any given location, tries to add all of the moves for that can be reached from that location:
 
@@ -97,17 +97,17 @@ I hope that you can predict where this is going. Let's make a master function to
       return board[endX][endY];
     }
 
-Finally: I'll test this function with some of the spots we have labelled in the diagram above. Labelling the columns left to right and the rows start to finish, we start from [3,3]. One of the spots we can get in one move is [2,1].
+Finally: I'll test this function with some of the spots we have labelled in the diagram above. Labelling the columns left to right and the rows start to finish, we start from \[3,3\]. One of the spots we can get in one move is \[2,1\].
 
     console.log(findPath(3,3,2,1));
 
 I correctly got 1.
 
-One of the spots that we can reach in 2 moves is [4,6].
+One of the spots that we can reach in 2 moves is \[4,6\].
 
     console.log(findPath(3,3,4,6));
 
 I correctly got 2.
 
-If you want to try this yourself, [here is my codepen project](https://codepen.io/thodges314/pen/ZEbJzPX). Enlarge the javascript panel and open the console along the bottom of the page to try this out.
+If you want to try this yourself, [here is my codepen project](https://codepen.io/thodges314/pen/ZEbJzPX). Enlarge the JavaScript panel and open the console along the bottom of the page to try this out.
 ![panel view](./display-knight.png)
