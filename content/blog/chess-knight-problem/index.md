@@ -1,4 +1,4 @@
-﻿---
+---
 {
   title: "Chess Knight Problem: a quick and dirty solution in JavaScript",
   description: "Here I present a quick and dirty solution to a common interview question where the solution is not nearly as complex as it may first appear.",
@@ -12,7 +12,7 @@
 
 # Chess Knight Problem: a quick and dirty solution in JavaScript
 
-This is a classic problem in Computer Science that is said to come up in various forms on programming interviews - given an 8 x 8 chessboard, a selected starting square, and a selected ending square, what is the minimum number of legal moves are required to get from the starting square to the ending square? Note that this is _not_ the same as Knight's Tour, a much more involved problem where we try to find a path around the board such that the night touches every square once without repeat.
+This is a classic problem in Computer Science that is said to come up in various forms on programming interviews - given an 8 x 8 chessboard, a selected starting square, and a selected ending square, what is the minimum number of legal moves are required to get a knight piece from the starting square to the ending square? Note that this is _not_ the same as Knight's Tour, a much more involved problem where we try to find a path around the board such that the night touches every square once without repeat.
 
 For some background - a chess knight moves in an L-shaped pattern - two up and one to the right, two to the left and one up, and so on. The knight jumps from it's starting location to it's ending location.
 
