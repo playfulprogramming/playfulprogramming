@@ -14,7 +14,8 @@ Here's a classic problem in Computer Science that is said to come up in various 
 
 For some background - a chess knight moves in an L-shaped pattern - two up and one to the right, two to the left and one up, and so on. The knight jumps from it's starting location to it's ending location.
 
-There are many diagrams of possible knight moves on a google image search, but to avoid copyright claims, I made up my own diagram:
+This is a diagram showing all possible knight moves:
+
 ![Image of possible moves for a knight centered on a chessboard.](./knight-moves-0.png)
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
