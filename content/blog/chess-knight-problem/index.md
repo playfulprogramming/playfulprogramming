@@ -16,7 +16,7 @@ For some background - a chess knight moves in an L-shaped pattern - two up and o
 
 This is a diagram showing all possible knight moves:
 
-![Image of possible moves for a knight centered on a chessboard.](./knight-moves-0.png)
+![A list of possible moves for a knight centered on a chessboard, following the L pattern mentioned above](./knight-moves-0.png)
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
 
