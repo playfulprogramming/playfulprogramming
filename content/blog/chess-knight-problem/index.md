@@ -52,7 +52,7 @@ for (let i = 0; i < 8; i++) {
 }
 ```
 
-That's it. All we need is a two dimensional 8x8 array. I've not explicitly defined the number of entries in the either dimension of the array because that's one of the idiosyncrasies of JavaScript. (It would be possible to say something like _let board = Array(8);_ but it's not clear how much that will benefit performance here - JavaScript is famous for not having the same memory management optimisation of languages like FORTRAN - also note that I didn't need to prepopulate the array with null values, as I would have to with many other languages).
+That's it. All we need is a two-dimensional 8x8 array. I've not explicitly defined the number of entries in either dimension of the array because that's one of the idiosyncrasies of JavaScript. (It would be possible to say something like `let board = Array(8);` but it's not clear how much that will benefit performance here. JavaScript is famous for not having the same memory management optimizations of languages like FORTRAN - also note that I didn't need to prepopulate the array with null values, as I would have to with many other languages).
 
 Let's make a function to add a move to the board. We need to see if the location is both in range and not occupied by another number before adding that move:
 
