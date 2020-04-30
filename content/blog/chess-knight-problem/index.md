@@ -41,14 +41,14 @@ If any of the labeled squares is the desired destination, then we know the minim
 
 # JavaScript Execution {#js-execution}
 
-So, let's get started. I hacked this together in codepen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3js, etc, but that's not for this blog post.
+So, let's get started. I hacked this together in CodePen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3js, etc, but that's not for this blog post.
 
 To begin, let's define a two dimensional array to be our chess board:
 
 ```javascript
 const board = [];
 for (let i = 0; i < 8; i++) {
-  board[i] = [];
+	board[i] = [];
 }
 ```
 
@@ -58,10 +58,10 @@ Let's make a function to add a move to the board. We need to see if the location
 
 ```javascript
 const addMove = (x, y, level) => {
-  if ((x >= 0) && (x <= 7) && (y >= 0) && (y <= 7) && board[x][y] == null) {
-    board[x][y] = level;
-  }
-}
+	if (x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[x][y] == null) {
+		board[x][y] = level;
+	}
+};
 ```
 
 You may have noticed that I have checked if `board[x][y] == null`, rather than just `!board[x][y]`. This is because `0` is a potential entry for one of the squares (our staring square) and `0` is falsy.
@@ -70,15 +70,15 @@ Let's call this from another function that for any given location, tries to add 
 
 ```javascript
 const addAllMoves = (x, y, level) => {
-  addMove(x + 1, y + 2, level);
-  addMove(x + 2, y + 1, level);
-  addMove(x + 2, y - 1, level);
-  addMove(x + 1, y - 2, level);
-  addMove(x - 1, y - 2, level);
-  addMove(x - 2, y - 1, level);
-  addMove(x - 2, y + 1, level);
-  addMove(x - 1, y + 2, level);
-}
+	addMove(x + 1, y + 2, level);
+	addMove(x + 2, y + 1, level);
+	addMove(x + 2, y - 1, level);
+	addMove(x + 1, y - 2, level);
+	addMove(x - 1, y - 2, level);
+	addMove(x - 2, y - 1, level);
+	addMove(x - 2, y + 1, level);
+	addMove(x - 1, y + 2, level);
+};
 ```
 
 There might be a way to do this systematically, but for what I was doing, it was easier to tap it out by hand. Notice that we didn't have to check for valid moves because that is handled by `addMove()`.
@@ -87,33 +87,33 @@ Now, let's make a function to scan the board, look for all squares occupied by a
 
 ```javascript
 const addAllPossible = (level) => {
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      if (board[i][j] === level) {
-        addAllMoves(i, j, level + 1);
-      }
-    }
-  }
-}
+	for (let i = 0; i < 8; i++) {
+		for (let j = 0; j < 8; j++) {
+			if (board[i][j] === level) {
+				addAllMoves(i, j, level + 1);
+			}
+		}
+	}
+};
 ```
 
 I hope that you can predict where this is going. Let's make a master function to tie all of this together:
 
 ```javascript
 const findPath = (startX, startY, endX, endY) => {
-  addMove(startX, startY, 0);
-  let index = 0;
-  do {
-    addAllPossible(index++);
-  } while (board[endX][endY] == null);
-  return board[endX][endY];
-}
+	addMove(startX, startY, 0);
+	let index = 0;
+	do {
+		addAllPossible(index++);
+	} while (board[endX][endY] == null);
+	return board[endX][endY];
+};
 ```
 
 Finally: I'll test this function with some of the spots we have labeled in the diagram above. Labeling the columns left to right and the rows start to finish, we start from `[3,3]`. One of the spots we can get in one move is `[2,1]`.
 
 ```javascript
-console.log(findPath(3,3,2,1));
+console.log(findPath(3, 3, 2, 1));
 ```
 
 I correctly got 1.
@@ -121,7 +121,7 @@ I correctly got 1.
 One of the spots that we can reach in 2 moves is \[4,6\].
 
 ```javascript
-console.log(findPath(3,3,4,6));
+console.log(findPath(3, 3, 4, 6));
 ```
 
 I correctly got 2.
