@@ -126,5 +126,6 @@ console.log(findPath(3,3,4,6));
 
 I correctly got 2.
 
-If you want to try this yourself, [here is my codepen project](https://codepen.io/thodges314/pen/ZEbJzPX). Enlarge the JavaScript panel and open the console along the bottom of the page to try this out.
+If you want to try this yourself, [here is my CodePen project](https://codepen.io/thodges314/pen/ZEbJzPX). Enlarge the JavaScript panel and open the console along the bottom of the page to try this out.
+
 ![Image of the codepen interface with the JavaScript panel and the built in concole panel expanded.](./display-knight.png)
