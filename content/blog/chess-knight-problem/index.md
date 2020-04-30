@@ -27,7 +27,7 @@ At first glance, this may look like a bizarre maze navigation algorithm with com
 Happily, our solution is much simpler, such that I was able to tap one up in JavaScript in a single evening after I decided to look into this problem.
 
 If, in the diagram above, we start in the red space, all of the green spaces are places we can go in one move. Let's label out starting spot '0', and the places that we can go in one move with '1.'
-![Image of possible moves for a knight centered on a chessboard with the initial location populated by a 0 and the possible moved populated by 1s.](./knight-moves-1.png)
+![Possible moves for a knight centered on a chessboard with the initial location populated by a 0 and the possible moved populated by 1s.](./knight-moves-1.png)
 
 Let's choose one of those spots and see all of the places that we can go from there. Any spot that we can reach from this spot is a place that we can reach in two moves from our starting spot. Let's label them with '2's.
 ![Same image as above, but with one of the 1s highlighted, and the possible moved from there populated by 2s.  In the starting space, we see both a 0 and a 2.](./knight-moves-2.png)
