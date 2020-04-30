@@ -110,7 +110,7 @@ const findPath = (startX, startY, endX, endY) => {
 }
 ```
 
-Finally: I'll test this function with some of the spots we have labelled in the diagram above. Labelling the columns left to right and the rows start to finish, we start from \[3,3\]. One of the spots we can get in one move is \[2,1\].
+Finally: I'll test this function with some of the spots we have labeled in the diagram above. Labeling the columns left to right and the rows start to finish, we start from `[3,3]`. One of the spots we can get in one move is `[2,1]`.
 
 ```javascript
 console.log(findPath(3,3,2,1));
