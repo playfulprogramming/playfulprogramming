@@ -83,7 +83,7 @@ const addAllMoves = (x, y, level) => {
 
 There might be a way to do this systematically, but for what I was doing, it was easier to tap it out by hand. Notice that we didn't have to check for valid moves because that is handled by `addMove()`.
 
-Now, let's make a function to scan the board, look for all squares occupied by a given number, and to call _addAllMoves()_ for each occupied space:
+Now, let's make a function to scan the board, look for all squares occupied by a given number, and to call `addAllMoves()` for each occupied space:
 
 ```javascript
 const addAllPossible = (level) => {
