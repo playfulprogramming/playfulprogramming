@@ -64,7 +64,7 @@ const addMove = (x, y, level) => {
 }
 ```
 
-You may have noticed that I have checked if _board\[x\]\[y\] == null_, rather than just _!board\[x\]\[y\]_. This is because _0_ is a potential entry for one of the squares (our staring square) and _0_ is falsy.
+You may have noticed that I have checked if `board[x][y] == null`, rather than just `!board[x][y]`. This is because `0` is a potential entry for one of the squares (our staring square) and `0` is falsy.
 
 Let's call this from another function that for any given location, tries to add all of the moves for that can be reached from that location:
 
