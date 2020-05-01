@@ -1,7 +1,7 @@
 ---
 {
 	title: "Setup Android Studio Emulator for AMD Ryzen CPUs",
-	description: "Historically, the Android Emulator has only ran on Intel CPUs. While that's no longer the case, it can be tricky to setup. Let's walk through how to do so!",
+	description: "Historically, the Android Emulator has only run on Intel CPUs. While that's no longer the case, it can be tricky to setup. Let's walk through how to do so!",
 	published: '2020-05-05T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['tooling', 'windows'],
@@ -16,7 +16,7 @@ However, while working on my Ryzen CPU powered desktop, I had difficulties getti
 
 # BIOS Setup {#bios}
 
-In order to use Hyper-V, we have to have various settings configured on our motherboards.
+To use Hyper-V, we have to have various settings configured on our motherboards.
 
 Two of the settings we need to enable are:
 
@@ -43,7 +43,7 @@ Once on this page, you should see **"SVM Mode"** as the fourth option from the b
 
 ## IOMMU {#gigabyte-iommu}
 
-Enabling IOMMU on a Gigabyte AMD motherboard is much easier then enabling SVM mode. Simply _go to the **"Chipset"** root tab and it should be the first option at the top_. Even if it's set to "Auto", go ahead and _update that to be **"Enabled"**_.
+Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mode. Simply _go to the **"Chipset"** root tab, and it should be the first option at the top_. Even if it's set to "Auto", go ahead and _update that to be **"Enabled"**_.
 
 ![The chipset tab](./iommu.jpg)
 
@@ -53,13 +53,13 @@ Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
 # Windows Features Setup {#windows-features}
 
-Now that we have our BIOS (UEFI, really) configured properly, we can enable the Windows features we need for the Android Emulator.
+Now that we have our BIOS (UEFI, really) configured correctly, we can enable the Windows features we need for the Android Emulator.
 
 To start, press <kbd>Win</kbd> + <kbd>R</kbd>, which should bring up the **"Run"** dialog. Once open, _type `OptionalFeatures` and press **"OK"**_. 
 
 ![The "run dialog" box with the typed suggestion](./run_dialog.png)
 
-Once that's ran, you'll see a **"Turn Windows features on or off"** window.
+Once that's run, you'll see a **"Turn Windows features on or off"** window.
 
 ![](./windows_10_add_features.png)
 
@@ -69,7 +69,7 @@ You'll want to turn on the following options:
 - Windows Hypervisor Platform
 - Windows Sandbox
 
-After these three settings are selected, press **"OK"** and allow the features to install. After your features are installed, your machine will need a reboot. Go ahead and restart your machine before proceeding to installing Android Studio.
+After these three settings are selected, press **"OK"** and allow the features to install. After your features are installed, your machine will need a reboot. Go ahead and restart your computer before proceeding to install Android Studio.
 
 # Setup Android Studio {#android-studio}
 
@@ -87,11 +87,13 @@ Once you see the popup dialog, you'll want to _select the "SDK Tools" tab_. Ther
 
 
 
-Once selecting it, press **"Apply"** to download the installer. _Because the "Apply" button only downloads the installer, we'll need to run it manually._ 
+Once you've selected it, press **"Apply"** to download the installer. _Because the "Apply" button only downloads the installer, we'll need to run it manually._ 
 
 ## Run the Installer {#amd-hypervisor-installer}
 
-To find the location of the installer, you'll want to to go to the install location for your Android SDK. For me (who used the Jetbrains Toolbox to install Android Studio), that path was: `%AppData%/../Local/Android/Sdk`. To find the hypervisor installer, it's located under the subpaths:
+To find the location of the installer, you'll want to go to the install location for your Android SDK. For me (who used the Jetbrains Toolbox to install Android Studio), that path was: `%AppData%/../Local/Android/Sdk`. 
+
+The hypervisor installer is located under the following subpath of that path:
 
 ```
 SDK_INSTALL_LOCATION\extras\google\Android_Emulator_Hypervisor_Driver
@@ -113,7 +115,7 @@ You should see the message _"DeleteService SUCCESS"_ if everything ran as expect
 
 ## AVD Setup {#avd}
 
-To run the emulator, you need to setup a device itself. You do this through the **"AVD Manager"** in the "configure" menu.
+To run the emulator, you need to set up a device itself. You do this through the **"AVD Manager"** in the "configure" menu.
 
 ![The AVG manager submenu](./avd_manager.png)
 
@@ -131,19 +133,19 @@ Once you've selected a device, you can pick the version of Android to run. You'l
 
 ![The selected image for x86_64 Pie](./pie_device.png)
 
-Afterwards, you'll want to name your emulator. I try to keep them without strings and not too long so if I need to run the emulator manually in the CLI, I can do so with the name of the emulator easily.
+Afterward, you'll want to name your emulator. I try to keep them without strings and not too long, so if I need to run the emulator manually in the CLI, I can do so with the name of the emulator easily.
 
 ![Naming the emulator device](./finalize_avd.png)
 
 Finally, once you've selected **"Finish"**, it should save the emulator's settings and start the emulator itself.
 
 
-> You may get an error such as `HAXM is not installed` when trying to setup an emulator. If you get this error, it's most likely that you have not [enabled the settings in BIOS](#bios). I know in my case, I had recently performed a BIOS upgrade and it had reset my BIOS settings, making me go back and re-enable them.
+> You may get an error such as `HAXM is not installed` when trying to set up an emulator. If you get this error, it's most likely that you have not [enabled the settings in BIOS](#bios). I know in my case, I had recently performed a BIOS upgrade, and it had reset my BIOS settings, making me go back and re-enable them.
 
 ![The emulator once ran](./device_running.png)
 
 # Conclusion
 
-I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully this article has been able to help you setup your machine as well. 
+I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully, this article has been able to help you set up your machine as well. 
 
 Let us know what your thoughts on this article were! We not only have our comments down below, but we have [a Discord community](https://discord.gg/FMcvc6T) as well that we invite you to join! We chat about all kinds of programming and CS related topics there!
