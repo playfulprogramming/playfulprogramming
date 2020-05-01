@@ -2,19 +2,6 @@
 @import "./prism";
 
 :root {
-	/* Some obvious colors (dark/light) are duplicated to provide dark mode */
-	--darkPrimary: #153e67;
-	--primary: #127db3;
-	--black: black;
-	--white: white;
-	--darkGrey: rgba(0, 0, 0, 0.64);
-	--highImpactBlack: rgba(0, 0, 0, 0.87);
-	--midImpactBlack: rgba(0, 0, 0, 0.64);
-	--lowImpactBlack: rgba(0, 0, 0, 0.58);
-	--backgroundColor: #e4f4ff;
-	--cardActiveBackground: #ebf6fc;
-	--cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27),
-		inset 0px 1px 0px #ffffff;
 	--animSpeed: 200ms;
 	--animStyle: ease-in-out;
 	--cardOutlineStyle: 1px solid var(--primary);
@@ -24,8 +11,6 @@
 	--filterBarIconSize: #{3 * $baseUnit}px;
 	--filterBarFontSize: 1.25rem;
 	--listViewPadding: #{1.5 * $baseUnit}px;
-	--scrollBarBG: rgba(18, 125, 179, 0.3);
-	--scrollBarThumb: var(--primary);
 	font-size: $rootFontSize;
 	line-height: 1.2;
 
@@ -425,4 +410,19 @@ li > ul > li {
 	a {
 		color: var(--darkPrimary) !important;
 	}
+}
+
+kbd {
+	background-color: #eee;
+	border-radius: 3px;
+	border: 1px solid #b4b4b4;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+		0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+	color: #333;
+	display: inline-block;
+	font-size: 0.85em;
+	font-weight: 700;
+	line-height: 1;
+	padding: 2px 4px;
+	white-space: nowrap;
 }

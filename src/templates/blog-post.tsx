@@ -1,25 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import { graphql } from "gatsby";
-import GitHubIcon from "../assets/icons/github.svg";
-import CommentsIcon from "../assets/icons/message.svg";
+import GitHubIcon from "assets/icons/github.svg";
+import CommentsIcon from "assets/icons/message.svg";
 import { DiscussionEmbed } from "disqus-react";
 
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
-import { PostMetadata, PostTitleHeader } from "../components/post-view";
+import { Layout } from "components/layout";
+import { SEO } from "components/seo";
+import { PostMetadata, PostTitleHeader } from "components/post-view";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { ThemeContext } from "../components/theme-context";
-import { SiteInfo, PostInfo } from "../types";
-import { TableOfContents } from "../components/table-of-contents";
-import { BlogPostLayout } from "../components/blog-post-layout";
-import { MailingList } from "../components/mailing-list";
+import { ThemeContext } from "constants/theme-context";
+import { SiteInfo, PostInfo } from "uu-types";
+import { TableOfContents } from "components/table-of-contents";
+import { BlogPostLayout } from "components/blog-post-layout";
+import { MailingList } from "components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
 	const siteData = props.data.site.siteMetadata;
 	const slug = post.fields.slug;
 
-	const { currentTheme } = useContext(ThemeContext);
+	const { colorMode } = useContext(ThemeContext);
 
 	const [disqusConfig, setDisqusConfig] = useState({
 		url: `${siteData.siteUrl}/posts${slug}`,
@@ -35,7 +35,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	 */
 	useEffect(() => {
 		setTimeout(() => {
-			if (!setDisqusConfig || !currentTheme) return;
+			if (!setDisqusConfig || !colorMode) return;
 			setDisqusConfig({
 				url: `${siteData.siteUrl}/posts${slug}`,
 				// TODO: Fix this, this is causing comments to not apply to the correct
@@ -46,7 +46,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 			});
 			// Must use a `useTimeout` so that this reloads AFTER the background animation
 		}, 600);
-	}, [currentTheme, post.frontmatter.title, siteData.siteUrl, slug]);
+	}, [colorMode, post.frontmatter.title, siteData.siteUrl, slug]);
 
 	const GHLink = `https://github.com/${siteData.repoPath}/tree/master${siteData.relativeToPosts}${slug}index.md`;
 
@@ -112,7 +112,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 					<DiscussionEmbed
 						shortname={siteData.disqusShortname}
 						config={disqusConfig}
-						key={currentTheme}
+						key={colorMode}
 					/>
 				</footer>
 			</article>

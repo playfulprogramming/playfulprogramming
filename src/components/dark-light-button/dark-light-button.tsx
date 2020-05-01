@@ -1,23 +1,27 @@
-import React, { useContext } from "react";
-import DarkIcon from "../../assets/icons/dark.svg";
-import LightIcon from "../../assets/icons/light.svg";
+import * as React from "react";
+import DarkIcon from "assets/icons/dark.svg";
+import LightIcon from "assets/icons/light.svg";
 import btnStyles from "./dark-light-button.module.scss";
-import { ThemeContext } from "../theme-context";
+import { ThemeContext } from "uu-constants";
 
 export const DarkLightButton = () => {
-	const { currentTheme, setTheme } = useContext(ThemeContext);
+	const { colorMode, setColorMode } = React.useContext(ThemeContext);
+
+	if (!colorMode) {
+		return null;
+	}
 
 	return (
 		<button
 			className={`${btnStyles.darkLightBtn} baseBtn`}
 			onClick={() => {
-				const newTheme = currentTheme === "dark" ? "light" : "dark";
-				setTheme(newTheme);
+				const newTheme = colorMode === "dark" ? "light" : "dark";
+				setColorMode(newTheme);
 			}}
-			aria-pressed={currentTheme === "light"}
+			aria-pressed={colorMode === "light"}
 			aria-label={"Dark mode"}
 		>
-			{currentTheme === "dark" ? <DarkIcon /> : <LightIcon />}
+			{colorMode === "dark" ? <DarkIcon /> : <LightIcon />}
 		</button>
 	);
 };

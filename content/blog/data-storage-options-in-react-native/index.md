@@ -26,7 +26,7 @@ Under-the-hood, it utilized native methods for storing data in a key-value manne
 
 # Secure Key-Value Pair Storage {#secure-key-store}
 
-There may be an instance where you want to store a part of secure information to the device. For example, in [my mobile Git client I'm currently writing](https://twitter.com/crutchcorn/status/1249852692987428864), I'm grabbing an access token from the GitHub API. This type of sensitive data introduces a new set of problems when it comes to storage; conventional means of storing data are easily accessed from external sources, leading to a security vulnerability with such sensitive data. That said, both major mobile platforms have solved for this problem: [iOS has its Keychain API](https://developer.apple.com/documentation/security/keychain_services) while [Android provides a KeyStore API](https://developer.android.com/reference/java/security/KeyStore). Both can be accessed using the [`react-native-secure-key-store` npm package]([https://github.com/pradeep1991singh/react-native-secure-key-store](https://github.com/pradeep1991singh/react-native-secure-key-store#readme)) :
+There may be an instance where you want to store a part of secure information to the device. For example, in [my mobile Git client I'm currently writing](https://gitshark.dev), I'm grabbing an access token from the GitHub API. This type of sensitive data introduces a new set of problems when it comes to storage; conventional means of storing data are easily accessed from external sources, leading to a security vulnerability with such sensitive data. That said, both major mobile platforms have solved for this problem: [iOS has its Keychain API](https://developer.apple.com/documentation/security/keychain_services) while [Android provides a KeyStore API](https://developer.android.com/reference/java/security/KeyStore). Both can be accessed using the [`react-native-secure-key-store` npm package](https://github.com/pradeep1991singh/react-native-secure-key-store#readme) :
 
 ```
 yarn add react-native-secure-key-store
@@ -46,9 +46,9 @@ This package allows you to use full SQL syntax for querying and creating.
 
 ## ORM Options {#orms}
 
-Want the power and utility of a SQL database, but don't want to play with any of the SQL syntaxes yourself? No problem, there is a myriad of options to build on top of SQLite using React Native. One of my favorites us [TypeORM](https://[typeorm.io/](http://typeorm.io/)). Useful for both TypeScript and vanilla JS usage, it provides a bunch of functionality that maps relatively directly to SQL.
+Want the power and utility of a SQL database, but don't want to play with any of the SQL syntaxes yourself? No problem, there is a myriad of options to build on top of SQLite using React Native. One of my favorites us [TypeORM](http://typeorm.io/). Useful for both TypeScript and vanilla JS usage, it provides a bunch of functionality that maps relatively directly to SQL.
 
-Alternatively, if you're looking for something with more of a framework feel, there's [WatermelonDB](https://github.com/Nozbe/WatermelonDB). WatermelonDB is utilized with [RxJS]([https://](https://github.com/ReactiveX/rxjs)[rxjs.dev/](https://rxjs.dev/)) to provide an event-based fast-as-fusion alternative to more conventional ORMs.
+Alternatively, if you're looking for something with more of a framework feel, there's [WatermelonDB](https://github.com/Nozbe/WatermelonDB). WatermelonDB is utilized with [RxJS](https://rxjs.dev/) to provide an event-based fast-as-fusion alternative to more conventional ORMs.
 
 # Remote Database Usage {#serverless}
 

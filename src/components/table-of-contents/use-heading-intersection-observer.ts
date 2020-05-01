@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RefObject } from "react";
-import { PostInfo } from "../../types";
+import { PostInfo } from "uu-types";
 
 interface useHeadingIntersectionObserverProp {
 	tocListRef: React.RefObject<HTMLOListElement>;
