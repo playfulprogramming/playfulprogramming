@@ -107,8 +107,43 @@ Once you have the path located, you'll want to run the `silent_installer.bat` in
 
 ![The "Success" of the installer once ran](./installer_ran.png)
 
-
-
 You should see the message _"DeleteService SUCCESS"_ if everything ran as expected.
 
+> If you get an error `[SC] StartService FAILED with error 4294967201.`, make sure you've followed the steps to [enable BOTH settings in your BIOS](#bios) as well as ALL of the [features mentioned in Windows](#windows-features)
 
+## AVD Setup {#avd}
+
+To run the emulator, you need to setup a device itself. You do this through the **"AVD Manager"** in the "configure" menu.
+
+![The AVG manager submenu](./avd_manager.png)
+
+You'll then see a list of the devices that you currently have setup. I, for example, have three different devices already setup as you can see here:
+
+![The three devices as mentioned](./virtual_devices.png)
+
+You can create a new one by _pressing **"Create Virtual Device"**_.
+
+Upon the dialog creation, you'll see a list of devices that you can use as a baseline for your emulator. This sets the hardware information (screen size and such). Even if you pick a device, it does not restrict the versions of Android you can use with it. I picked Pixel 2 and KitKat for my KK testing device, despite the Pixel 2 being released well after that OS release. 
+
+![The "select hardware" screen as mentioned](./select_virtual_device.png)
+
+Once you've selected a device, you can pick the version of Android to run. You'll want to select an `x86` or `x86_64` build of Android you're looking for. I've noticed better performance from `x86_64` emulators myself, so I went with an `x86_64` build of Android Pie.
+
+![The selected image for x86_64 Pie](./pie_device.png)
+
+Afterwards, you'll want to name your emulator. I try to keep them without strings and not too long so if I need to run the emulator manually in the CLI, I can do so with the name of the emulator easily.
+
+![Naming the emulator device](./finalize_avd.png)
+
+Finally, once you've selected **"Finish"**, it should save the emulator's settings and start the emulator itself.
+
+
+> You may get an error such as `HAXM is not installed` when trying to setup an emulator. If you get this error, it's most likely that you have not [enabled the settings in BIOS](#bios). I know in my case, I had recently performed a BIOS upgrade and it had reset my BIOS settings, making me go back and re-enable them.
+
+![The emulator once ran](./device_running.png)
+
+# Conclusion
+
+I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully this article has been able to help you setup your machine as well. 
+
+Let us know what your thoughts on this article were! We not only have our comments down below, but we have [a Discord community](https://discord.gg/FMcvc6T) as well that we invite you to join! We chat about all kinds of programming and CS related topics there!
