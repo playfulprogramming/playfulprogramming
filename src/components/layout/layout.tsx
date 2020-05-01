@@ -58,6 +58,7 @@ export const authorFragmentQuery = graphql`
 			twitter
 			github
 			website
+			linkedIn
 		}
 		pronouns {
 			they

@@ -16,6 +16,7 @@ export interface UnicornInfo {
 		twitter?: string;
 		github?: string;
 		website?: string;
+		linkedIn?: string;
 	};
 	pronouns: PronounInfo;
 	profileImg: {
