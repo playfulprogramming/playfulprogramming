@@ -1,76 +1,110 @@
 @import "./utils";
 
-/**
- * H1
- */
-%h1Desktop {
-	font-family: var(--oswald);
-	font-style: normal;
-	font-size: 4rem;
-	line-height: 112%;
-}
+$workSans: "Work Sans", "Archivo", sans-serif;
+$archivo: "Archivo", sans-serif;
 
-%h1Mobile {
-	font-family: var(--oswald);
-	font-style: normal;
-	font-size: 2.5rem;
-	line-height: 130%;
-}
-
-%h1 {
-	@include until($endSmallScreenSize) {
-		@extend %h1Mobile;
-	}
-
-	@extend %h1Desktop;
-}
-
-/**
- * H2
- */
-%h2Desktop {
-	font-family: var(--archivo);
-	font-style: normal;
+%headline-1 {
+	font-family: $workSans;
+	font-weight: 600;
 	font-size: 2rem;
-	line-height: 125%;
-}
-
-%h2Mobile {
-	font-family: var(--archivo);
-	font-style: normal;
-	font-size: 1.25rem;
-	line-height: 121%;
-}
-
-%h2 {
-	@include until($endSmallScreenSize) {
-		@extend %h2Mobile;
-	}
-
-	@extend %h2Desktop;
-}
-
-/**
- * S1
- */
-%s1Desktop {
-	font-family: var(--oswald);
-	font-style: normal;
-	font-size: 1.75rem;
+	letter-spacing: 1em;
 	line-height: 130%;
-}
-
-%s1Mobile {
-	font-family: var(--oswald);
-	font-style: normal;
-	font-size: 1.25rem;
-	line-height: 121%;
-}
-
-%s1 {
-	@include until($endSmallScreenSize) {
-		@extend %s1Mobile;
+	@include from($endSmallScreenSize) {
+		font-size: 3rem;
 	}
+}
 
-	@extend %s1Desktop;
+%headline-2 {
+	font-family: $workSans;
+	font-weight: 500;
+	font-size: 1.5rem;
+	letter-spacing: 1em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 2.5rem;
+		line-height: 120%;
+	}
+}
+
+%subheader-1 {
+	font-family: $workSans;
+	font-weight: 600;
+	font-size: 1.5rem;
+	letter-spacing: 0.96em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 2rem;
+		line-height: 125%;
+	}
+}
+
+%subheader-2 {
+	font-family: $workSans;
+	font-weight: 500;
+	font-size: 1.5rem;
+	letter-spacing: 0.96em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 2rem;
+		line-height: 125%;
+	}
+}
+
+%subheader-3 {
+	font-family: $workSans;
+	font-weight: 400;
+	font-size: 1.25rem;
+	letter-spacing: 0.96em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.75rem;
+		line-height: 130%;
+	}
+}
+
+%button {
+	font-family: $workSans;
+	font-weight: 600;
+	font-size: 1.25rem;
+	letter-spacing: 1.02em;
+	line-height: 130%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.5rem;
+		letter-spacing: 1.04em;
+		line-height: 130%;
+	}
+}
+
+%body-1 {
+	font-family: $archivo;
+	font-weight: 400;
+	font-size: 1rem;
+	letter-spacing: 1em;
+	line-height: 150%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.25rem;
+		line-height: 140%;
+	}
+}
+
+%overline {
+	font-family: $workSans;
+	font-weight: 700;
+	font-size: 0.75rem;
+	letter-spacing: 1.22em;
+	line-height: 120%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.25rem;
+	}
+}
+
+%caption {
+	font-family: $archivo;
+	font-weight: 400;
+	font-size: 0.75rem;
+	letter-spacing: 1em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 0.875rem;
+	}
 }
