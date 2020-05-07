@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
-import { PicTitleHeader } from "components/pic-title-header";
+import { PostListHeader } from "./post-list-header";
 import { PostListLayout } from "components/post-list-layout";
 import { PageContext } from "uu-types";
 
@@ -17,14 +17,6 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 	const { pageIndex } = pageContext;
 	const posts = data.allMarkdownRemark.edges;
 
-	const Description = (
-		<>
-			{data.site.siteMetadata.description}
-			<br />
-			<Link to={"/about"}>About Us</Link>
-		</>
-	);
-
 	const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 
 	return (
@@ -32,10 +24,9 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 			<SEO title={SEOTitle} />
 			<div>
 				<PostListLayout posts={posts} pageContext={pageContext}>
-					<PicTitleHeader
+					<PostListHeader
 						image={data.file.childImageSharp.fixed}
-						title="Unicorn Utterances"
-						description={Description}
+						siteMetadata={data.site.siteMetadata}
 					/>
 				</PostListLayout>
 			</div>

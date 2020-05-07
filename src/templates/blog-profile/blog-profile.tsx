@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { graphql } from "gatsby";
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
-import { PicTitleHeader } from "components/pic-title-header";
+import { ProfileHeader } from "./profile-header";
 import { PostListLayout } from "components/post-list-layout";
 import {
 	SiteInfo,
@@ -60,13 +60,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 				wordCount={wordCount}
 				posts={posts as any}
 			>
-				<PicTitleHeader
-					image={unicornData.profileImg.childImageSharp.bigPic as any}
-					title={unicornData.name}
-					description={unicornData.description}
-					profile={true}
-					socials={unicornData.socials}
-				/>
+				<ProfileHeader unicornData={unicornData} />
 			</PostListLayout>
 		</Layout>
 	);
