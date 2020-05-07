@@ -1,11 +1,13 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
 import { PostListHeader } from "./post-list-header";
-import { PostListLayout } from "components/post-list-layout";
 import { PageContext } from "uu-types";
+import { PostList } from "components/post-card-list";
+import { PostListProvider } from "constants/post-list-context";
+import { Pagination } from "components/pagination";
 
 interface BlogPostListTemplateProps {
 	data: any;
@@ -23,12 +25,14 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 		<Layout location={props.location}>
 			<SEO title={SEOTitle} />
 			<div>
-				<PostListLayout posts={posts} pageContext={pageContext}>
+				<PostListProvider posts={posts} pageContext={pageContext}>
 					<PostListHeader
 						image={data.file.childImageSharp.fixed}
 						siteMetadata={data.site.siteMetadata}
 					/>
-				</PostListLayout>
+					<PostList />
+					<Pagination pageContext={pageContext} />
+				</PostListProvider>
 			</div>
 		</Layout>
 	);

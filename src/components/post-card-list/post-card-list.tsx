@@ -2,28 +2,25 @@ import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { FilterSearchBar } from "../filter-search-bar";
-import { PostInfo, UnicornInfo } from "uu-types";
+import { UnicornInfo } from "uu-types";
+import { PostListContext } from "constants/post-list-context";
 
 export interface PostListProps {
-	posts?: Array<{ node: PostInfo }>;
 	showWordCount?: boolean;
 	numberOfArticles?: number;
 	wordCount?: number;
-	tags?: string[];
 	unicornData?: UnicornInfo;
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page
  */
 export const PostList = ({
-	posts = [],
 	showWordCount = false,
 	numberOfArticles,
 	wordCount,
-	tags,
 	unicornData
 }: PostListProps) => {
-	// FIXME: This will not suffice with pagination added
+	const { postsToDisplay: posts, postTags } = React.useContext(PostListContext);
 
 	const listAria = unicornData
 		? `List of posts written by ${unicornData.name}`
@@ -32,7 +29,7 @@ export const PostList = ({
 	return (
 		<main>
 			<FilterSearchBar
-				tags={tags!}
+				tags={postTags}
 				showWordCount={showWordCount}
 				wordCount={wordCount}
 				numberOfArticles={numberOfArticles}

@@ -3,13 +3,15 @@ import { graphql } from "gatsby";
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
 import { ProfileHeader } from "./profile-header";
-import { PostListLayout } from "components/post-list-layout";
 import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
 	PageContext
 } from "uu-types";
+import { PostList } from "components/post-card-list";
+import { Pagination } from "components/pagination";
+import { PostListProvider } from "constants/post-list-context";
 
 interface BlogProfileProps {
 	data: {
@@ -52,16 +54,16 @@ const BlogProfile = (props: BlogProfileProps) => {
 				type="profile"
 				canonicalPath={props.location.pathname}
 			/>
-			<PostListLayout
-				pageContext={pageContext}
-				numberOfArticles={slugData.allMarkdownRemark.totalCount}
-				showWordCount={true}
-				unicornData={unicornData}
-				wordCount={wordCount}
-				posts={posts as any}
-			>
+			<PostListProvider pageContext={pageContext} posts={posts as any}>
 				<ProfileHeader unicornData={unicornData} />
-			</PostListLayout>
+				<PostList
+					numberOfArticles={slugData.allMarkdownRemark.totalCount}
+					showWordCount={true}
+					unicornData={unicornData}
+					wordCount={wordCount}
+				/>
+				<Pagination pageContext={pageContext} />
+			</PostListProvider>
 		</Layout>
 	);
 };

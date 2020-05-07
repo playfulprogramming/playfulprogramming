@@ -1,34 +1,51 @@
-import * as React from "react";
+/**
+ * This file exists because of our integration/complexity involving client-side
+ * search/filter. The alternative to a context is to have all of the components
+ * (paginations, post list, etc) as the child to a component containing all
+ * of the logic. This isn't something I wanted for our codebase, as it makes
+ * reading through the templates much harder
+ */
+import {
+	createContext,
+	default as React,
+	useEffect,
+	useMemo,
+	useState
+} from "react";
 import {
 	SearchAndFilterContext,
 	usePostTagsFromNodes,
 	useSearchFilterValue
 } from "constants/search-and-filter-context";
-import { useState } from "react";
-import { PostList, PostListProps } from "../post-card-list";
-import ReactPaginate from "react-paginate";
-import { navigate } from "gatsby-link";
+import { PageContext } from "types/PageContext";
 import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
-import { useEffect } from "react";
-import { useMemo } from "react";
-import { PageContext, PostInfo } from "uu-types";
+import { PostInfo } from "types/PostInfo";
 
-interface PostListLayoutProps extends PostListProps {
-	children?: React.ReactNode;
-	posts: { node: PostInfo }[];
+type PostInfoNode = { node: PostInfo };
+
+export const defaultSearchAndFilterContextVal = {
+	postsToDisplay: [] as PostInfoNode[],
+	pageCount: 0 as number,
+	pageIndex: 0 as number,
+	setCurrentPageIndex: (val: number) => {},
+	postTags: [] as string[]
+};
+
+export const PostListContext = createContext(defaultSearchAndFilterContextVal);
+
+interface PostListContextProps {
 	pageContext: PageContext;
+	posts: { node: PostInfo }[];
 }
-export const PostListLayout = ({
+export const PostListProvider: React.FC<PostListContextProps> = ({
 	children,
-	posts,
 	pageContext,
-	...postListProps
-}: PostListLayoutProps) => {
+	posts
+}) => {
 	const {
 		pageIndex: originalPageIndexPlusOne,
 		numberOfPages,
-		limitNumber,
-		relativePath
+		limitNumber
 	} = pageContext;
 	/**
 	 * In order to get around limitations with GQL query calls, we originally
@@ -37,7 +54,7 @@ export const PostListLayout = ({
 	 * @type {number}
 	 */
 	const originalPageIndex = originalPageIndexPlusOne - 1;
-	const contextValue = useSearchFilterValue();
+	const searchContextValue = useSearchFilterValue();
 
 	/**
 	 * Logic for the posts pagination logic
@@ -60,11 +77,9 @@ export const PostListLayout = ({
 		getSkippedPosts(posts, originalPageIndex * limitNumber, limitNumber);
 
 	// If there is no filter or search applied, this should be the original post array
-	const [filteredByPosts, setFilteredPosts] = useState<{ node: PostInfo }[]>(
-		[]
-	);
+	const [filteredByPosts, setFilteredPosts] = useState<PostInfoNode[]>([]);
 
-	const [postsToDisplay, setPostsToDisplay] = useState<{ node: PostInfo }[]>(
+	const [postsToDisplay, setPostsToDisplay] = useState<PostInfoNode[]>(
 		/**
 		 * Set the initial value to the expected page's results
 		 *
@@ -82,18 +97,20 @@ export const PostListLayout = ({
 	 * filtered posts to be able to more rapidly paginate through
 	 */
 	useEffect(() => {
-		if (!contextValue.searchVal && !contextValue.filterVal.length) {
+		if (!searchContextValue.searchVal && !searchContextValue.filterVal.length) {
 			setCurrentPageIndex(originalPageIndex);
 			setFilteredPosts(posts);
 			return;
 		}
 
-		setFilteredPosts(filterPostsBySlugArr(posts, contextValue.lunrAllowedIds));
+		setFilteredPosts(
+			filterPostsBySlugArr(posts, searchContextValue.lunrAllowedIds)
+		);
 		setCurrentPageIndex(0);
 	}, [
-		contextValue.searchVal,
-		contextValue.filterVal,
-		contextValue.lunrAllowedIds,
+		searchContextValue.searchVal,
+		searchContextValue.filterVal,
+		searchContextValue.lunrAllowedIds,
 		posts,
 		originalPageIndex
 	]);
@@ -111,21 +128,19 @@ export const PostListLayout = ({
 	/**
 	 * Data setup to display the posts
 	 */
-	const postTags = usePostTagsFromNodes(posts) as string[];
-
-	const { pageCount, forcePage } = useMemo(() => {
-		if (!contextValue.searchVal && !contextValue.filterVal.length)
+	const { pageCount, pageIndex } = useMemo(() => {
+		if (!searchContextValue.searchVal && !searchContextValue.filterVal.length)
 			return {
 				pageCount: numberOfPages,
-				forcePage: originalPageIndex
+				pageIndex: originalPageIndex
 			};
 		return {
 			pageCount: Math.ceil(filteredByPosts.length / limitNumber),
-			forcePage: currentPageIndex
+			pageIndex: currentPageIndex
 		};
 	}, [
-		contextValue.searchVal,
-		contextValue.filterVal,
+		searchContextValue.searchVal,
+		searchContextValue.filterVal,
 		numberOfPages,
 		filteredByPosts,
 		limitNumber,
@@ -133,41 +148,28 @@ export const PostListLayout = ({
 		originalPageIndex
 	]);
 
+	/**
+	 * Despite "best judgement", this needs to be present here instead of inside the
+	 * `post-list` component. This is because it's populating the _full_ list of
+	 * tags. If this is moved to something that's being fed `postsToDisplay`,
+	 * it will hang the website. This is because it will be caught in an infinite
+	 * loop of computing the tags and updating the post
+	 */
+	const postTags = usePostTagsFromNodes(posts) as string[];
+
+	const contextValue = {
+		pageCount,
+		pageIndex,
+		postsToDisplay,
+		setCurrentPageIndex,
+		postTags
+	};
+
 	return (
-		<SearchAndFilterContext.Provider value={contextValue}>
-			{children}
-
-			<PostList posts={postsToDisplay} tags={postTags} {...postListProps} />
-
-			{!!pageCount && (
-				<ReactPaginate
-					previousLabel={"previous"}
-					nextLabel={"next"}
-					breakLabel={"..."}
-					breakClassName={"break-me"}
-					pageCount={pageCount}
-					marginPagesDisplayed={2}
-					forcePage={forcePage}
-					pageRangeDisplayed={5}
-					hrefBuilder={props => `${relativePath}/page/${props}`}
-					containerClassName={"pagination"}
-					activeClassName={"active"}
-					onPageChange={({ selected }) => {
-						if (contextValue.filterVal.length || contextValue.searchVal) {
-							setCurrentPageIndex(selected);
-							return;
-						}
-
-						// Even though we index at 1 for pages, this component indexes at 0
-						const newPageIndex = selected + 1;
-						if (newPageIndex === 1) {
-							navigate(`${relativePath}/`);
-							return;
-						}
-						navigate(`${relativePath}/page/${newPageIndex}`);
-					}}
-				/>
-			)}
-		</SearchAndFilterContext.Provider>
+		<PostListContext.Provider value={contextValue}>
+			<SearchAndFilterContext.Provider value={searchContextValue}>
+				{children}
+			</SearchAndFilterContext.Provider>
+		</PostListContext.Provider>
 	);
 };
