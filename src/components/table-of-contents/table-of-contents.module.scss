@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/text_styles";
 
 .tableList {
 	list-style: none;
@@ -15,9 +16,8 @@
 }
 
 .tocH1 {
-	font-family: var(--archivo);
-	font-size: 1.25rem;
-	line-height: 142%;
+	@extend %body-1;
+	font-style: italic;
 	a {
 		color: var(--midImpactBlack);
 	}
@@ -25,6 +25,7 @@
 
 .tocH2,
 .tocH3 {
+	// This should be body2
 	line-height: 135%;
 }
 

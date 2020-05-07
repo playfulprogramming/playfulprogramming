@@ -1,13 +1,12 @@
 @import "styles/vars";
 @import "styles/utils";
+@import "styles/text_styles";
 @import "./prism";
 
 :root {
 	--animSpeed: 200ms;
 	--animStyle: ease-in-out;
 	--cardOutlineStyle: 1px solid var(--primary);
-	--archivo: "Archivo", sans-serif;
-	--oswald: "Oswald", "Archivo", sans-serif;
 	--cardRadius: #{$baseUnit}px;
 	--filterBarIconSize: #{3 * $baseUnit}px;
 	--filterBarFontSize: 1.25rem;
@@ -66,7 +65,7 @@
 
 body {
 	background-color: var(--backgroundColor);
-	font-family: var(--archivo);
+	@extend %body-1;
 	color: var(--black);
 	transition: color var(--animStyle) var(--animSpeed),
 		background-color var(--animStyle) var(--animSpeed);
@@ -74,20 +73,6 @@ body {
 
 .medium-zoom-overlay {
 	background: var(--backgroundColor) !important;
-}
-
-h1,
-h2,
-h3 {
-	font-family: var(--oswald);
-}
-
-h1 {
-	font-size: 2rem;
-}
-
-h2 {
-	font-size: 1.5rem;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */

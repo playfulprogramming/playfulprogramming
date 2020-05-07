@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/text_styles";
 
 $noAuthorPageSize: 390px;
 
@@ -40,9 +41,8 @@ $noAuthorPageSize: 390px;
 }
 
 .header {
+	@extend %subheader-1;
 	margin: 21px 0 0 0;
-	line-height: 1.25;
-	font-size: 1.5rem;
 }
 
 .authorName {
@@ -51,6 +51,7 @@ $noAuthorPageSize: 390px;
 	color: var(--darkPrimary);
 	// Otherwise, the div goes full width and makes clicking the author name confusing (as it all acts like a link)
 	display: inline-block;
+	@extend %body-1;
 }
 
 .authorLink {
@@ -63,6 +64,7 @@ $noAuthorPageSize: 390px;
 	flex-grow: 0;
 	flex-shrink: 0;
 	flex-wrap: wrap;
+	@extend %body-1;
 }
 
 .dateTagSubheader p {
@@ -114,6 +116,7 @@ $noAuthorPageSize: 390px;
 	--marginSize: 8px;
 	margin: var(--marginSize) 0 0 0;
 	position: relative;
+	@extend %body-1;
 }
 
 .excerpt::before {

@@ -1,9 +1,6 @@
 code[class*="language-"],
 pre[class*="language-"] {
-	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
-		"Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
-		"Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
-		"Courier New", Courier, monospace;
+	font-family: "Roboto Mono", monospace;
 	font-size: 0.875rem;
 	line-height: 1.375;
 	direction: ltr;
@@ -223,6 +220,5 @@ blockquote.bigBlock {
 	&,
 	& * {
 		font-size: 1.5rem;
-		font-family: var(--oswald);
 	}
 }
