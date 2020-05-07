@@ -8,6 +8,7 @@ import { PageContext } from "uu-types";
 import { PostList } from "components/post-card-list";
 import { PostListProvider } from "constants/post-list-context";
 import { Pagination } from "components/pagination";
+import { FilterSearchBar } from "components/filter-search-bar";
 
 interface BlogPostListTemplateProps {
 	data: any;
@@ -30,7 +31,10 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 						image={data.file.childImageSharp.fixed}
 						siteMetadata={data.site.siteMetadata}
 					/>
-					<PostList />
+					<main>
+						<FilterSearchBar />
+						<PostList listAriaLabel={`List of posts`} />
+					</main>
 					<Pagination pageContext={pageContext} />
 				</PostListProvider>
 			</div>

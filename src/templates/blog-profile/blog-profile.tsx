@@ -12,6 +12,8 @@ import {
 import { PostList } from "components/post-card-list";
 import { Pagination } from "components/pagination";
 import { PostListProvider } from "constants/post-list-context";
+import { FilterSearchBar } from "components/filter-search-bar";
+import { WordCount } from "./word-count";
 
 interface BlogProfileProps {
 	data: {
@@ -56,12 +58,17 @@ const BlogProfile = (props: BlogProfileProps) => {
 			/>
 			<PostListProvider pageContext={pageContext} posts={posts as any}>
 				<ProfileHeader unicornData={unicornData} />
-				<PostList
-					numberOfArticles={slugData.allMarkdownRemark.totalCount}
-					showWordCount={true}
-					unicornData={unicornData}
-					wordCount={wordCount}
-				/>
+				<main>
+					<FilterSearchBar>
+						<WordCount
+							wordCount={wordCount}
+							numberOfArticles={slugData.allMarkdownRemark.totalCount}
+						/>
+					</FilterSearchBar>
+					<PostList
+						listAriaLabel={`List of posts written by ${unicornData.name}`}
+					/>
+				</main>
 				<Pagination pageContext={pageContext} />
 			</PostListProvider>
 		</Layout>

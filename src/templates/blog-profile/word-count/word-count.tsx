@@ -6,7 +6,10 @@ interface WordCountProps {
 	numberOfArticles: number;
 	wordCount: number;
 }
-export const WordCount = ({ numberOfArticles = 0, wordCount = 0 }) => {
+export const WordCount = ({
+	numberOfArticles = 0,
+	wordCount = 0
+}: WordCountProps) => {
 	return (
 		<div className={wordCountStyles.container}>
 			<FeatherIcon className={wordCountStyles.icon} />
