@@ -1,11 +1,14 @@
 import React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
-import { PicTitleHeader } from "components/pic-title-header";
-import { PostListLayout } from "components/post-list-layout";
+import { PostListHeader } from "./post-list-header";
 import { PageContext } from "uu-types";
+import { PostList } from "components/post-card-list";
+import { PostListProvider } from "constants/post-list-context";
+import { Pagination } from "components/pagination";
+import { FilterSearchBar } from "components/filter-search-bar";
 
 interface BlogPostListTemplateProps {
 	data: any;
@@ -17,27 +20,23 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 	const { pageIndex } = pageContext;
 	const posts = data.allMarkdownRemark.edges;
 
-	const Description = (
-		<>
-			{data.site.siteMetadata.description}
-			<br />
-			<Link to={"/about"}>About Us</Link>
-		</>
-	);
-
 	const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 
 	return (
 		<Layout location={props.location}>
 			<SEO title={SEOTitle} />
 			<div>
-				<PostListLayout posts={posts} pageContext={pageContext}>
-					<PicTitleHeader
+				<PostListProvider posts={posts} pageContext={pageContext}>
+					<PostListHeader
 						image={data.file.childImageSharp.fixed}
-						title="Unicorn Utterances"
-						description={Description}
+						siteMetadata={data.site.siteMetadata}
 					/>
-				</PostListLayout>
+					<main>
+						<FilterSearchBar />
+						<PostList listAriaLabel={`List of posts`} />
+					</main>
+					<Pagination pageContext={pageContext} />
+				</PostListProvider>
 			</div>
 		</Layout>
 	);

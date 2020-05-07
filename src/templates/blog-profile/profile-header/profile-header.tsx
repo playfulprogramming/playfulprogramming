@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Image from "gatsby-image";
-import styles from "./pic-title-header.module.scss";
+import styles from "./profile-header.module.scss";
 import GitHubIcon from "assets/icons/github.svg";
 import SiteIcon from "assets/icons/site.svg";
 import LinkedInIcon from "assets/icons/linkedin.svg";
@@ -39,93 +39,67 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
 	);
 };
 
-/**
- *
- * @param image
- * @param socials - Match the object of the unicornsJson socials
- * @param title
- * @param description
- * @param profile - Is a profile pic?
- * @constructor
- */
 interface PicTitleHeaderProps {
-	image: string;
-	socials?: UnicornInfo["socials"];
-	title: string;
-	description: React.ReactNode | string;
-	profile?: boolean;
+	unicornData: UnicornInfo;
 }
-export const PicTitleHeader = ({
-	image,
-	socials,
-	title,
-	description,
-	profile = false
-}: PicTitleHeaderProps) => {
-	const subHeaderAria = profile
-		? `A description of ${title}`
-		: "The site's about snippet";
-
-	const imgAlt = `${title} ${profile ? "profile picture" : "header image"}`;
-	const imgStyle = profile ? { borderRadius: "50%" } : {};
-
-	const possessiveName = useMemo(() => profile && getNamePossessive(title), [
-		profile,
-		title
+export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
+	const possessiveName = useMemo(() => getNamePossessive(unicornData.name), [
+		unicornData
 	]);
-
-	const socialsAria = profile ? `${possessiveName} social media links` : "";
 
 	return (
 		<div
 			className={styles.container}
 			role="banner"
-			aria-label={`Banner for ${title}`}
+			aria-label={`Banner for ${unicornData.name}`}
 		>
 			<Image
 				className={styles.headerPic}
-				style={imgStyle}
-				fixed={image as any}
+				style={{ borderRadius: "50%" }}
+				fixed={unicornData.profileImg.childImageSharp.bigPic as any}
 				loading={"eager"}
-				alt={imgAlt}
+				alt={`${possessiveName} profile picture`}
 			/>
 			<div className={styles.noMgContainer}>
-				<h1 className={styles.title}>{title}</h1>
-				<div className={styles.subheader} aria-label={subHeaderAria}>
-					{description}
+				<h1 className={styles.title}>{unicornData.name}</h1>
+				<div
+					className={styles.subheader}
+					aria-label={`A description of ${unicornData.name}`}
+				>
+					{unicornData.description}
 				</div>
-				{socials && (
+				{unicornData.socials && (
 					<ul
 						className={styles.socialsContainer}
-						aria-label={socialsAria}
+						aria-label={`${possessiveName} social media links`}
 						role="list"
 					>
-						{socials.twitter && (
+						{unicornData.socials.twitter && (
 							<SocialBtn
 								icon={<TwitterIcon />}
 								text={"Twitter"}
-								url={`https://twitter.com/${socials.twitter}`}
+								url={`https://twitter.com/${unicornData.socials.twitter}`}
 							/>
 						)}
-						{socials.github && (
+						{unicornData.socials.github && (
 							<SocialBtn
 								icon={<GitHubIcon />}
 								text={"GitHub"}
-								url={`https://github.com/${socials.github}`}
+								url={`https://github.com/${unicornData.socials.github}`}
 							/>
 						)}
-						{socials.linkedIn && (
+						{unicornData.socials.linkedIn && (
 							<SocialBtn
 								icon={<LinkedInIcon />}
 								text={"LinkedIn"}
-								url={`https://www.linkedin.com/in/${socials.linkedIn}`}
+								url={`https://www.linkedin.com/in/${unicornData.socials.linkedIn}`}
 							/>
 						)}
-						{socials.website && (
+						{unicornData.socials.website && (
 							<SocialBtn
 								icon={<SiteIcon />}
 								text={"Website"}
-								url={socials.website}
+								url={unicornData.socials.website}
 							/>
 						)}
 					</ul>

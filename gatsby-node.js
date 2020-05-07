@@ -74,9 +74,11 @@ exports.sourceNodes = async ({
 exports.createPages = ({ graphql, actions }) => {
 	const { createPage } = actions;
 
-	const blogPost = path.resolve(`./src/templates/blog-post.tsx`);
-	const blogProfile = path.resolve(`./src/templates/blog-profile.tsx`);
-	const postList = path.resolve(`./src/templates/post-list.tsx`);
+	const blogPost = path.resolve(`./src/templates/blog-post/blog-post.tsx`);
+	const blogProfile = path.resolve(
+		`./src/templates/blog-profile/blog-profile.tsx`
+	);
+	const postList = path.resolve(`./src/templates/post-list/post-list.tsx`);
 	return graphql(
 		`
 			{
