@@ -68,7 +68,7 @@ Angular ships with Karma alongside Jasmine for running tests and collecting cove
 npm uninstall karma karma-chrome-launcher karma-coverage-istanbul-reporter karma-jasmine karma-jasmine-html-reporter
 ```
 
-#### Remove the leftover configurations
+#### Remove the leftover configurations {#remove-karma-config}
 
 Deleting the following will remove the leftover configuration files from the project:
 
