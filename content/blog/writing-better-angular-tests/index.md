@@ -14,7 +14,7 @@ Some evangelicals say that before code ever exists, there always needs to be a t
 
 # Writing tests for an Angular application does not mean testing Angular
 
-In regards to Angular and writing tests first it must be understood what the tests are for. For a great many projects that means testing a webpage. In proper testing for a webpage the underlying library should be able to be changed at any time for maintainability purposes and the tests should still work. To that end we must write tests for the web and not for Angular. When using the Angular CLI it sets up some tests but when looking closely at the tests it becomes apparent that the tests are testing Angular and not the ouput.
+In regards to Angular and writing tests, we must first understand what the tests are for. For a great many projects, that means testing a webpage. In proper testing for a webpage, the underlying library should be able to be changed at any time for maintainability purposes, and the tests should still work. To that end, we must write tests for the web and not for Angular. When using the Angular CLI, it sets up some tests, but when looking closely at the tests, it becomes apparent that the tests are testing Angular and not the output.
 
 ```js
 it('should create the app', () => {
