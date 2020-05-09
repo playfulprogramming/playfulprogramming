@@ -37,7 +37,7 @@ it('should render title', () => {
 });
 ```
 
-That test looks a little better but it's still very tied to Angular, require in depth knowledge of how Angular actually routes and moves all the bits around to write tests for it and now the tests are completely tied into Angular and the current API footprint. If over the years Angular is retired these tests are now no longer valid.
+That test looks a little better, but it's still very tied to Angular. The test requires in-depth knowledge of how Angular actually routes and moves all the bits around to write tests for it, and as a result, the tests are completely tied into Angular and the current API footprint. If — over the years — Angular is retired, these tests will no longer be valid.
 
 If the tests were just tailored to the outputted DOM or containers it would be a much easier and more adaptable test.
 
