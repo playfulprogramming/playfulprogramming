@@ -10,7 +10,7 @@
 }
 ---
 
-There are some evangelicals who say that before code ever exists there always needs to be a test to know how the code should be written. That frankly isn't true. A test isn't *strictly* needed to determine how to code. What **is** needed are tests that give confidence that as code is written a change to already existing functionality doesn't happen and that new functionality will behave properly as time goes on. To this end a lot of testing libraries and frameworks exist. Often times tests are written in regards to the library or framework used and not to the end product's specifications. For Angular this is especially true when the default testing implementation is for testing angular, and not for testing what a developer would use Angular to build. **Tests should be written in the same way a user would use them.** We don't need to test Angular, we need to test what we make with Angular.
+Some evangelicals say that before code ever exists, there always needs to be a test to know how the code should be written. That frankly isn't true. A test isn't _strictly_ needed to determine how to code. What **is** needed are tests that give confidence that as code is written, a change to already existing functionality doesn't happen and that new functionality will behave properly as time goes on. To this end, a lot of testing libraries and frameworks exist. Often times, tests are written in regards to the library or framework used and not to the end product's specifications. For Angular, this is especially true when the default testing implementation is for testing angular, and not for testing what a developer would use Angular to build. **Tests should be written in the same way a user would use them.** We don't need to test Angular; we need to test what we make with Angular.
 
 # Writing tests for an Angular application does not mean testing Angular
 
@@ -205,4 +205,3 @@ npm install --save-dev @testing-library/angular
 # Ready, Steady, Test!
 
 Now that the project has a better testing library with some great helpers better tests can be written. There are plenty of [great examples](https://testing-library.com/docs/angular-testing-library/examples) for learning and [Tim Deschryver](https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library) has more examples to help in that endeavor, and the Angular Testing Library will make tests much simpler to write and maintain. With Angular, good tests, and plenty of confidence anyone would be happy to ship a project with this setup.
-
