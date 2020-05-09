@@ -58,7 +58,7 @@ Thankfully, writing tests like these have been made simple by a testing library 
 
 ## Transitioning to Jest and Angular Testing Library {#transitioning-to-jest}
 
-### Get rid of Karma
+### Get rid of Karma {#remove-karma}
 
 Angular ships with Karma alongside Jasmine for running tests and collecting coverage. With Jest an Angular project no longer need Karma or the other packages that would be installed by the Angular CLI.
 
