@@ -119,7 +119,7 @@ tsconfig.spec.json
 
 Now the project is ready for installing any other test runner.
 
-### Setting up Jest
+### Setting up Jest {#setup-jest}
 
 Now that the project has no Karma it can be setup with Jest
 
