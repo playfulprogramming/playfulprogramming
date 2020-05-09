@@ -60,7 +60,7 @@ Thankfully, writing tests like these have been made simple by a testing library 
 
 ### Get rid of Karma {#remove-karma}
 
-Angular ships with Karma alongside Jasmine for running tests and collecting coverage. With Jest an Angular project no longer need Karma or the other packages that would be installed by the Angular CLI.
+Angular ships with Karma alongside Jasmine for running tests and collecting coverage. With Jest, an Angular project no longer needs Karma or the other packages that would be installed by the Angular CLI.
 
 #### Uninstall Karma
 
