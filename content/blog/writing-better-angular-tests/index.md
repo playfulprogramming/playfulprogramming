@@ -77,7 +77,7 @@ karma.config.js
 src/test.ts
 ```
 
-Once those two files are deleted any references to `src/test.ts` will need to be removed. Removing the paths from the following file that reference them cleans it up easily enough:
+Once those two files are deleted, any references to `src/test.ts` will need to be removed. Removing the paths from the following file that reference them cleans it up easily enough:
 
 ```json
 tsconfig.spec.json
