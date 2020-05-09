@@ -192,7 +192,7 @@ package.json
 }
 ```
 
-Jest is now the test runner for the project. It can now be used to run the tests, but even better it can be used in combination with Testing Library.
+Jest is now the test runner for the project. It can now be used to run the tests, but even better, it can be used in combination with Testing Library.
 
 ### Install Angular Testing Library
 
