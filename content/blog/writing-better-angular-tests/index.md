@@ -202,6 +202,6 @@ Now the project is ready to have better tests written for it and by using [Angul
 npm install --save-dev @testing-library/angular
 ```
 
-# Ready, Steady, Test!
+# Ready, Steady, Test! {#conclusion}
 
 Now that the project has a better testing library with some great helpers better tests can be written. There are plenty of [great examples](https://testing-library.com/docs/angular-testing-library/examples) for learning and [Tim Deschryver](https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library) has more examples to help in that endeavor, and the Angular Testing Library will make tests much simpler to write and maintain. With Angular, good tests, and plenty of confidence anyone would be happy to ship a project with this setup.
