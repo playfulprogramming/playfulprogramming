@@ -12,7 +12,7 @@
 
 Some evangelicals say that before code ever exists, there always needs to be a test to know how the code should be written. That frankly isn't true. A test isn't _strictly_ needed to determine how to code. What **is** needed are tests that give confidence that as code is written, a change to already existing functionality doesn't happen and that new functionality will behave properly as time goes on. To this end, a lot of testing libraries and frameworks exist. Often times, tests are written in regards to the library or framework used and not to the end product's specifications. For Angular, this is especially true when the default testing implementation is for testing angular, and not for testing what a developer would use Angular to build. **Tests should be written in the same way a user would use them.** We don't need to test Angular; we need to test what we make with Angular.
 
-# Writing tests for an Angular application does not mean testing Angular
+# Writing tests for an Angular application does not mean testing Angular {#test-the-web-not-angular}
 
 In regards to Angular and writing tests, we must first understand what the tests are for. For a great many projects, that means testing a webpage. In proper testing for a webpage, the underlying library should be able to be changed at any time for maintainability purposes, and the tests should still work. To that end, we must write tests for the web and not for Angular. When using the Angular CLI, it sets up some tests, but when looking closely at the tests, it becomes apparent that the tests are testing Angular and not the output.
 
