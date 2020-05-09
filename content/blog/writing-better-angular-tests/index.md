@@ -24,7 +24,7 @@ it('should create the app', () => {
 });
 ```
 
-This test isn't a very good test. It doesn't say anything about the actual output of the application component itself. When the output is a full rich webpage and tests are testing Angular then the tests won't do much when the content of the webpage is changed. 
+This test isn't a very good test. It doesn't say anything about the actual output of the application component itself. When the output is a full, rich webpage and tests are testing Angular, then the tests won't do much when the content of the webpage is changed.
 
 While the default testing setup does allow for the writing of tests that would test the outputted HTML they are still specific to Angular
 
