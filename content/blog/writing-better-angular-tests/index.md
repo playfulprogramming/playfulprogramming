@@ -50,7 +50,7 @@ test('should render counter', async () => {
 
 This test no longer even needs Angular to be the library chosen. It just requires that a render method, when given the component, will render it to the DOM present in the testing environment. This can be run in the Framework, and even tested against in a real world browser. This is a good test in that the first `span` inside of `.content` has the `innerText` value expected in the test. These are all JavaScript and DOM APIs and thus can be trusted in any environment that adheres to them.
 
-Writing tests like this that don't rely on testing Angular but instead rely on on the DOM allows the application to be tested in a way that a user would use the application instead of the way that Angular internally works to display the application.
+Writing tests that don't rely on testing Angular, but instead rely on the DOM, allows the application to be tested in a way that a user would use the application instead of the way that Angular internally works.
 
 # Fixing that shortcoming using Testing Library
 
