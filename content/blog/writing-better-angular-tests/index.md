@@ -52,7 +52,7 @@ This test no longer even needs Angular to be the library chosen. It just require
 
 Writing tests that don't rely on testing Angular, but instead rely on the DOM, allows the application to be tested in a way that a user would use the application instead of the way that Angular internally works.
 
-# Fixing that shortcoming using Testing Library
+# Fixing that shortcoming using Testing Library {#testing-library}
 
 Thankfully, writing tests like these have been made simple by a testing library simply called "[Testing Library](https://testing-library.com)." Testing Library is a collection of libraries for various frameworks and applications. One of the supported libraries is Angular, through the [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro). This can be used to test Angular apps in a simple DOM focused manner with some nice helpers to make it even easier to work with. It relies on [Jest](https://jestjs.io/) as an extension to the Jasmine testing framework to make testing easier, and more end-results focused. With that tooling, a project can have tests much less focused on Angular and much more focused on what is being made.
 
