@@ -50,7 +50,7 @@ module.exports = {
 				google: {
 					families: [
 						`Work Sans:400,500,600,700`,
-						`Archivo:400`,
+						`Archivo:400,500,600`,
 						`Roboto Mono:400`
 					]
 				}

@@ -1,7 +1,6 @@
 @import "../../styles/vars";
 @import "../../styles/text_styles";
-
-$noAuthorPageSize: 390px;
+@import "../../styles/utils";
 
 .card {
 	cursor: pointer;
@@ -10,8 +9,6 @@ $noAuthorPageSize: 390px;
 	border-radius: var(--cardRadius);
 	position: relative;
 	color: inherit;
-	padding: 0 24px 23px 0;
-	line-height: 1.5;
 	overflow-wrap: break-word;
 	max-width: 100%;
 	box-shadow: none;
@@ -19,6 +16,14 @@ $noAuthorPageSize: 390px;
 	transition: background var(--animSpeed) var(--animStyle),
 		box-shadow var(--animSpeed) var(--animStyle),
 		border-color var(--animSpeed) var(--animStyle);
+
+	padding: 16px;
+	padding-left: 0;
+
+	@include from($endSmallScreenSize) {
+		padding: 24px;
+		padding-left: 0;
+	}
 }
 
 .card:hover {
@@ -33,25 +38,25 @@ $noAuthorPageSize: 390px;
 }
 
 .cardContents {
-	margin-left: 108px;
-
-	@include until($noAuthorPageSize) {
-		margin-left: 1.5rem;
+	margin-left: 80px;
+	@include from($endSmallScreenSize) {
+		margin-left: 120px;
 	}
 }
 
 .header {
 	@extend %subheader-1;
-	margin: 21px 0 0 0;
+	margin-bottom: 8px;
+	margin-top: 0;
 }
 
 .authorName {
-	margin: 4px 0;
+	@extend %body-1;
+	margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--darkPrimary);
 	// Otherwise, the div goes full width and makes clicking the author name confusing (as it all acts like a link)
 	display: inline-block;
-	@extend %body-1;
 }
 
 .authorLink {
@@ -59,12 +64,12 @@ $noAuthorPageSize: 390px;
 }
 
 .dateTagSubheader {
+	@extend %body-1;
 	display: flex;
 	flex-direction: row;
 	flex-grow: 0;
 	flex-shrink: 0;
 	flex-wrap: wrap;
-	@extend %body-1;
 }
 
 .dateTagSubheader p {
@@ -73,48 +78,53 @@ $noAuthorPageSize: 390px;
 }
 
 .date {
+	@extend %body-1;
+	font-weight: 500;
 	position: relative;
 	transition: color var(--animStyle) var(--animSpeed);
-	color: var(--darkGrey);
-	margin-right: 12px;
+	color: var(--midImpactBlack);
 }
+
+/**
+ * Here's a few considerations to keep in mind with tags:
+ *   1) They can wrap to a new line. We don't want left margins in that case
+ */
 
 .tag {
+	@extend %body-1;
+	font-weight: 500;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--darkPrimary);
-}
-
-.tag:not(:first-child) {
-	margin-left: 12px;
+	margin-right: 24px;
 	position: relative;
 }
 
-.tag:not(:first-child)::before,
-.date::after {
-	--height: 20px;
-	--halfHeight: calc(var(--height) / 2);
+.tag:first-of-type {
+	margin-left: 24px;
+}
+
+.tag:not(:last-of-type)::before,
+.tag:first-of-type::after {
 	position: absolute;
 	top: 50%;
-	margin-top: calc(0px - var(--halfHeight));
-	height: var(--height);
-	width: 1px;
+	transform: translateY(-50%);
+	height: 20px;
+	width: 2px;
 	transition: background var(--animStyle) var(--animSpeed);
 	background: var(--darkPrimary);
 	content: " ";
 }
 
-.tag:not(:first-child)::before,
-.date::before {
-	left: -6px;
+.tag:not(:last-of-type)::before {
+	right: -12px;
 }
 
-.date::after {
-	right: -6px;
+.tag:first-of-type::after {
+	left: -12px;
 }
 
 .excerpt {
-	--marginSize: 8px;
-	margin: var(--marginSize) 0 0 0;
+	margin: 8px 0 0 0;
 	position: relative;
 	@extend %body-1;
 }
@@ -123,21 +133,28 @@ $noAuthorPageSize: 390px;
 	position: absolute;
 	top: 0;
 	height: 100%;
-	left: -12px;
+	left: -16px;
 	width: 2px;
 	transition: background var(--animStyle) var(--animSpeed);
 	background: var(--darkPrimary);
 	content: " ";
+
+	@include from($endSmallScreenSize) {
+		left: -24px;
+	}
 }
 
 .authorImagesContainer {
 	position: absolute !important;
 	left: 16px;
-	top: 24px;
-	width: 68px !important;
-	height: 68px !important;
+	top: 16px;
+	width: 48px !important;
+	height: 48px !important;
 
-	@include until($noAuthorPageSize) {
-		display: none;
+	@include from($endSmallScreenSize) {
+		width: 72px !important;
+		height: 72px !important;
+		left: 24px;
+		top: 24px;
 	}
 }

@@ -19,6 +19,7 @@
 	border-radius: 50%;
 	border-width: 2px;
 	border-style: solid;
+	box-sizing: border-box;
 
 	&:not(.twoAuthor) {
 		$desktopSingleSize: 100%;
