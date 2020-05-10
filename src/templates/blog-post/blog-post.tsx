@@ -6,7 +6,8 @@ import { DiscussionEmbed } from "disqus-react";
 
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
-import { PostMetadata, PostTitleHeader } from "components/post-view";
+import { PostMetadata } from "./post-metadata";
+import { PostTitleHeader } from "./post-title-header";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "constants/theme-context";
 import { SiteInfo, PostInfo } from "uu-types";
