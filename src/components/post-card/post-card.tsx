@@ -23,7 +23,7 @@ export const PostCard = ({
 	tags,
 	excerpt,
 	description,
-	className,
+	className = "",
 	slug
 }: PostCardProps) => {
 	const headerLink = useRef<HTMLElement>();
