@@ -23,6 +23,7 @@
 	max-width: $mobileImgSize;
 	max-height: $mobileImgSize;
 	margin-right: 0;
+	flex-shrink: 0;
 
 	@include from($endSmallScreenSize) {
 		$desktopImgSize: 192px;
@@ -59,9 +60,7 @@
 }
 
 .noMgContainer {
-	display: inline-block;
-	vertical-align: top;
-	width: 600px;
+	flex-grow: 1;
 }
 
 .subheader {
@@ -85,13 +84,13 @@
 	list-style: none;
 	padding: 0;
 	margin: 0 auto;
-	max-width: 328px;
 	justify-content: center;
+	margin-top: 16px;
 
 	@include from($endSmallScreenSize) {
 		padding: 6px 0;
 		margin: 0;
-		margin-top: 16px;
+		justify-content: flex-start;
 	}
 }
 
