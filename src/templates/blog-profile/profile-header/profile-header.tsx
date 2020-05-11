@@ -20,10 +20,7 @@ interface SocialBtnProps {
 }
 const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
 	return (
-		<li
-			className={`baseBtn lowercase prependIcon ${styles.socialBtnLink}`}
-			role="listitem"
-		>
+		<li className={`baseBtn lowercase ${styles.socialBtnLink}`} role="listitem">
 			<OutboundLink
 				className="unlink"
 				target="_blank"
@@ -33,7 +30,7 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
 				<span className={styles.svgContainer} aria-hidden={true}>
 					{icon}
 				</span>
-				<span>{text}</span>
+				<span className={styles.socialText}>{text}</span>
 			</OutboundLink>
 		</li>
 	);
@@ -61,7 +58,12 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 				alt={`${possessiveName} profile picture`}
 			/>
 			<div className={styles.noMgContainer}>
-				<h1 className={styles.title}>{unicornData.name}</h1>
+				<h1 className={`${styles.title} ${styles.mobileTitle}`}>
+					{unicornData.name}
+				</h1>
+				<h1 className={`${styles.title} ${styles.desktopTitle}`}>
+					{unicornData.name}
+				</h1>
 				<div
 					className={styles.subheader}
 					aria-label={`A description of ${unicornData.name}`}
