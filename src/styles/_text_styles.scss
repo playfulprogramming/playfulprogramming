@@ -70,7 +70,7 @@ $archivo: "Archivo", sans-serif;
 	line-height: 130%;
 	@include from($endSmallScreenSize) {
 		font-size: 1.5rem;
-		letter-spacing: 1.04em;
+		letter-spacing: 0.04em;
 		line-height: 130%;
 	}
 }

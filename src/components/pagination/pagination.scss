@@ -1,32 +1,53 @@
+@import "../../styles/text_styles";
+@import "../../styles/utils";
+
 .pagination {
 	display: flex;
 	justify-content: center;
 	margin: 0;
+	margin-bottom: 24px;
 	padding: 0;
 	list-style: none;
 
-	li {
+	// We select the `a` so that the focus state looks right
+	li a {
 		border-radius: 4px;
+		color: var(--highImpactBlack);
+		@extend %button;
+		text-decoration: none;
+		padding: 8px 16px;
+	}
+
+	li:not(:first-of-type) a {
+		margin-left: 0.5rem;
+	}
+
+	li.active a {
+		background: var(--cardActiveBackground);
+		border-color: transparent;
+		box-shadow: var(--cardActiveBoxShadow);
+	}
+
+	li:not(.active) a {
 		border: 1px solid var(--primary);
-		padding: 0.5rem;
-
-		&:not(:first-of-type) {
-			margin-left: 0.5rem;
-		}
-
-		&.active {
-			background: var(--primary);
-
-			a {
-				color: var(--white);
-			}
-		}
 	}
 
 	.previous,
 	.next {
 		&.disabled {
 			display: none;
+		}
+
+		// Make it so that the next and prev label text is hidden on mobile
+		// but not removed from the aria-reading role
+		[aria-hidden="false"] {
+			@include until($endSmallScreenSize) {
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+				opacity: 0;
+				display: inline-block;
+			}
 		}
 	}
 }
