@@ -47,6 +47,7 @@ import {
 } from "batteries-not-included/react/a11y";
 import { SearchAndFilterContext } from "uu-constants";
 import { useElementBounds } from "uu-utils";
+import { PostListContext } from "constants/post-list-context";
 
 interface FilterListItemProps {
 	tag: UseSelectableArrayInternalVal;
@@ -98,10 +99,11 @@ const ListIdBox = posed.ul({
 });
 
 interface FilterListboxProps {
-	tags: string[];
 	className?: string;
 }
-export const FilterListbox = ({ tags = [], className }: FilterListboxProps) => {
+export const FilterListbox = ({ className }: FilterListboxProps) => {
+	const { postTags } = React.useContext(PostListContext);
+
 	const { setFilterVal } = useContext(SearchAndFilterContext);
 
 	const {
@@ -114,7 +116,7 @@ export const FilterListbox = ({ tags = [], className }: FilterListboxProps) => {
 		usedKeyboardLast,
 		parentRef,
 		buttonProps
-	} = usePopoverCombobox<string>(tags);
+	} = usePopoverCombobox<string>(postTags);
 
 	// Set the selected array value to match the parent combobox
 	useEffect(() => setFilterVal(selected), [selected, setFilterVal]);

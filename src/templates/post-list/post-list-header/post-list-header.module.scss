@@ -1,0 +1,68 @@
+@import "../../../vars";
+
+.container {
+	margin: 0 auto 50px auto;
+	max-width: 948px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+
+	@include until($endSmallScreenSize) {
+		margin-bottom: 16px;
+	}
+}
+
+.container > * {
+	flex: 0 0 auto;
+	max-width: 100%;
+}
+
+.headerPic {
+	$desktopImgSize: 300px;
+	max-width: $desktopImgSize;
+	max-height: $desktopImgSize;
+	margin-right: 48px;
+	margin-bottom: 16px;
+
+	@include until($endSmallScreenSize) {
+		$mobileImgSize: 150px;
+		max-width: $mobileImgSize;
+		max-height: $mobileImgSize;
+		margin-right: 0;
+	}
+}
+
+.title {
+	font-size: 4rem;
+	line-height: 4rem;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--highImpactBlack);
+	margin: 0;
+	@include until($endSmallScreenSize) {
+		font-size: 2.5rem;
+		line-height: 2.5rem;
+		font-weight: normal;
+		text-align: center;
+	}
+}
+
+.noMgContainer {
+	display: inline-block;
+	vertical-align: top;
+	width: 600px;
+}
+
+.subheader {
+	margin: 22px 0 0 0;
+	transition: color var(--animStyle) var(--animSpeed);
+	color: var(--midImpactBlack);
+	font-size: 2rem;
+	font-weight: 400;
+	white-space: pre-line;
+
+	@include until($endSmallScreenSize) {
+		font-size: 1.5rem;
+		margin: 16px 16px 0;
+	}
+}
