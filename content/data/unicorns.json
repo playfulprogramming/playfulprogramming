@@ -163,5 +163,22 @@
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
 		"roles": []
+	},
+ 	{
+		"id": "seanmiller",
+		"name": "Sean Miller",
+		"firstName": "Sean",
+		"lastName": "Miller",
+		"description": "Howdy! Computer Science major at Texas A&M University, with a minor in cybersecurity. Super passionate about all things software!",
+		"socials": {
+			"twitter": "beastosean",
+			"github": "tamuseanmiller",
+			"website": "http://www.be-defined.com",
+			"linkedIn": "sean-miller-0a057b182"
+		},
+		"pronouns": "he",
+		"profileImg": "./seanmiller.jpg",
+		"color": "#551a8b",
+		"roles": []
 	}
 ]
