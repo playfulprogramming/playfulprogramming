@@ -40,12 +40,9 @@ export const ThemeProvider: React.FC = ({ children }) => {
 		const setColorMode = (newValue: Exclude<LightOptions, undefined>) => {
 			const root = window.document.documentElement;
 
-			console.log("SETTING TO", newValue);
-
 			localStorage.setItem(COLOR_MODE_KEY, newValue);
 
 			Object.entries(COLORS).forEach(([name, colorByTheme]) => {
-				console.log("SEETING", name);
 				const cssVarName = `--${name}`;
 
 				root.style.setProperty(cssVarName, colorByTheme[newValue]);

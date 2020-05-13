@@ -2,14 +2,18 @@ import React, { useMemo } from "react";
 import { graphql } from "gatsby";
 import { Layout } from "components/layout";
 import { SEO } from "components/seo";
-import { PicTitleHeader } from "components/pic-title-header";
-import { PostListLayout } from "components/post-list-layout";
+import { ProfileHeader } from "./profile-header";
 import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
 	PageContext
 } from "uu-types";
+import { PostList } from "components/post-card-list";
+import { Pagination } from "components/pagination";
+import { PostListProvider } from "constants/post-list-context";
+import { FilterSearchBar } from "components/filter-search-bar";
+import { WordCount } from "./word-count";
 
 interface BlogProfileProps {
 	data: {
@@ -52,22 +56,21 @@ const BlogProfile = (props: BlogProfileProps) => {
 				type="profile"
 				canonicalPath={props.location.pathname}
 			/>
-			<PostListLayout
-				pageContext={pageContext}
-				numberOfArticles={slugData.allMarkdownRemark.totalCount}
-				showWordCount={true}
-				unicornData={unicornData}
-				wordCount={wordCount}
-				posts={posts as any}
-			>
-				<PicTitleHeader
-					image={unicornData.profileImg.childImageSharp.bigPic as any}
-					title={unicornData.name}
-					description={unicornData.description}
-					profile={true}
-					socials={unicornData.socials}
-				/>
-			</PostListLayout>
+			<PostListProvider pageContext={pageContext} posts={posts as any}>
+				<ProfileHeader unicornData={unicornData} />
+				<main>
+					<FilterSearchBar>
+						<WordCount
+							wordCount={wordCount}
+							numberOfArticles={slugData.allMarkdownRemark.totalCount}
+						/>
+					</FilterSearchBar>
+					<PostList
+						listAriaLabel={`List of posts written by ${unicornData.name}`}
+					/>
+				</main>
+				<Pagination pageContext={pageContext} />
+			</PostListProvider>
 		</Layout>
 	);
 };
