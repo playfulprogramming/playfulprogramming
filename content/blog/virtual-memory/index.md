@@ -1,4 +1,16 @@
-﻿
+---
+{
+    title: 'Virtual Memory Overview',
+    description: 'An overview of how operating systems give processes their own address space.',
+    published: '2020-05-13T12:45:00.000Z',
+    edited: '2020-05-13T12:45:00.000Z',
+    authors: ['seanmiller'],
+    tags: ['computer science', 'cpp'],
+    attached: [],
+    license: 'cc-by-nc-nd-4'
+}
+---
+
 # Computer Memory
 
   
@@ -16,7 +28,7 @@ Operating systems (OS) are the ones in control of all of the physical memory in 
 
   
 
-![Representation of how virtual memory works](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Virtual_memory.svg/800px-Virtual_memory.svg.png)
+![Representation of how virtual memory works](./virtual_memory)
 
   
 
