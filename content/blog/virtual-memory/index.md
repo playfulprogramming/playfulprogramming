@@ -28,7 +28,7 @@ Operating systems (OS) are the ones in control of all of the physical memory in 
 
   
 
-![Representation of how virtual memory works](./virtual_memory)
+![Representation of how virtual memory works](./virtual_memory.jpg)
 
   
 
