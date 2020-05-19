@@ -15,16 +15,24 @@ Writing tests is a part of programming and the skills that allow for good test w
 We’ve collected five methods for simplifying your tests while making them easier to write, understand, and debug.
 
 You may notice that our code samples use various libraries from [the Testing Library suite of libraries](https://testing-library.com/). This is because we feel that these testing methodologies mesh well with the user-centric testing that the library encourages.
+
+> Keep in mind that Jest (and furthermore, Testing Library) is not exclusive to 
+> any specific framework or toolset. This article is meant just as general advice for testing.
+>
+> That said if you're looking to include Jest and Testing Library into your Angular app,
+> but don't know where to start, [we wrote a guide on how to do just that](/posts/writing-better-angular-tests/)
+
 # Don't Include Application Logic in Tests {#dont-include-logic}
+
 I'd like to make a confession: I love metaprogramming. Whether it's typings, complex libraries, babel plugins, it's all joyous for me to write.
 
 The problem that I face is that I find it's often not joyous for others to read (or debug, for that matter). This is especially pronounced in my testing: when I don't keep things simple my tests tend to suffer.
 
 To demonstrate this point, let's use an example component: A table component. This component should have the following functionality:
 
-Optional pagination
-When pagination is disabled, list all items
-Display a row of various sets of data
+- Optional pagination
+- When pagination is disabled, list all items
+- Display a row of various sets of data
 
 We could use a `for` loop to make sure that each row contains each set of data. This would keep our logic somewhat centralized and able to be quickly customized:
 
@@ -73,7 +81,9 @@ This code is much more repetitive, and it's not the perfect code example (we'll 
 When bringing up this point to a coworker, they reminded me of the expression "Write code for your audience." In this case, your audience is Junior developers on your team working on debugging why a test is failing, QA engineers who might not be familiar with your programming language, and yourself when in the middle of deploying something integral to production when your tests unexpectedly fail. Each of these scenarios directly benefits from simpler, easier to parse, less utility-driven tests.
 
 Furthermore, there's another advantage to writing code simpler: Error messages. When using `for` loops, when an error is thrown, it's not known what piece of data is not rendering. You only know that _something_ isn't being rendered, but not what data, in particular, is missing. If I dropped the third row in its entirety, the error message in the `for` loop will not indicate what row was throwing the error. However, removing them from the for loop, it will immediately be clear which row, in particular, is throwing the error.
+
 # Hardcode Your Testing Data {#hardcode-data}
+
 While we started our example previously by removing for loops, this can be difficult to do without doing this step first. Hard-coding data is one of the most important things you can do to simplify your tests and reduce potential errors in your tests.
 
 Let's take the following code that was used to generate data:
@@ -133,7 +143,9 @@ const rows = JSON.stringify(genRows(20), null, 2)
 
 fs.writeFileSync('mock_data.js', `module.exports = ${rows}`);
 ```
+
 You can then run `const mockData = require('./mock_data.js')` inside of your test file. Now, you should be able to hardcode your data, knowing what the first, second, and third index are.
+
 # Keep Tests Focused {#seperate-tests}
 
 While working on tests, it can be easy to group together actions into a single test. For example, let's say we want to test our table component for the following behaviors:
@@ -243,7 +255,9 @@ it('should render all of the users', () => {
 In this example, I would prefer the second test. It's closer to how I would manually check if all of the data was rendered, and it reduces the size of my tests. We already know that the columns are all being rendered, why not trust your first test and separate what logic you're testing for the next test? This makes debugging easier as well. If your phone number column isn't rendering, it will only fail one test, not two. This makes it easier to pinpoint what's gone wrong and how to fix it.
 
 Ultimately, when writing tests, a good rule to follow is "They should read like simple instructions that can be run, tested, and understood by a person with no technical knowledge"
+
 # Don’t Include Network Logic in Your Render Tests  {#seperate-network-logic}
+
 Let's say in a component we want to include some logic to implement some social features. We’ll follow all the best practices and have a wonderful looking app with GraphQL using ApolloGraphQL as our integration layer so we don’t need to import a bunch of APIs and can hide them behind our server. Now we’re writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
 
 ```javascript
@@ -322,6 +336,7 @@ The tests get drastically simplified and we can write tests with mocks for our s
 When using large amounts of network data that you'd like to mock, be sure to [hardcode that data using mock files](#hardcode-data).
 
 # Conclusion {#conclusion}
+
 Using these methods, tests can be simplified, often made faster, and typically shorten the length of a testing file. While this may sound straightforward on a surface level, writing tests is a skill that's grown like any other. Practice encourages growth, so don't be discouraged if your tests aren't as straightforward as you'd like to first.
 
 If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able. 
