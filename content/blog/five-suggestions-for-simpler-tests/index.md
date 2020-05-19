@@ -240,11 +240,11 @@ it('should render all of the users', () => {
 })
 ```
 
-In this example, I would prefer the second test. It's closer to how I would manually check if all of the data was rendered, and it reduces the size of my tests. We already know that the columns are all being rendered, why not trust your first test and separate what logic your testing for the next test? This makes debugging easier as well. If your phone number column isn't rendering, it will only fail one test, not two. This makes it easier to pinpoint what's gone wrong and how to fix it.
+In this example, I would prefer the second test. It's closer to how I would manually check if all of the data was rendered, and it reduces the size of my tests. We already know that the columns are all being rendered, why not trust your first test and separate what logic you're testing for the next test? This makes debugging easier as well. If your phone number column isn't rendering, it will only fail one test, not two. This makes it easier to pinpoint what's gone wrong and how to fix it.
 
 Ultimately, when writing tests, a good rule to follow is "They should read like simple instructions that can be run, tested, and understood by a person with no technical knowledge"
 # Don’t Include Network Logic in Your Render Tests  {#seperate-network-logic}
-Let's say in a component we want to include some logic to implement some social features. We’ll follow all the best practices and have a wonderful looking app with GraphQL using ApolloGraphQL as our integration layer so we don’t need to import a bunch of APIs and can hide them behind our server. Our tests are going on and now we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
+Let's say in a component we want to include some logic to implement some social features. We’ll follow all the best practices and have a wonderful looking app with GraphQL using ApolloGraphQL as our integration layer so we don’t need to import a bunch of APIs and can hide them behind our server. Now we’re writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
 
 ```javascript
 // ConnectedComponent.spec.tsx
@@ -266,7 +266,7 @@ We have a `MockedProvider`, `mocks`, extra logic for loading states, and then fi
 Thankfully the answer to that is pretty easy. Taking a cursory glance at our component we see a data layer and some logic for the data layer.
 
 ```javascript
-ConnectedComponent.tsx
+// ConnectedComponent.tsx
 export default () => {
   const { data } = userQueryHook();
   const { user } = data?.user; 
@@ -285,7 +285,7 @@ We don’t want our tests doing that as now our component and the test is direct
 export default ({ user }:{ user: UserType }) => {
   return !user
     ? <span>Loading component…</span>
-    : <><span>Element</span><span>{this.props.user.first}</span></>
+    : <><span>Element</span><span>{user.first}</span></>
 }
 ```
 
