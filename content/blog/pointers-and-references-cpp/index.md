@@ -1,4 +1,4 @@
-﻿---
+---
 {
     title: 'Pointers and References in C/C++',
     description: 'An overview of how pointers and references function in C/C++',
