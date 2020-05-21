@@ -62,7 +62,7 @@ Pointers can also get a lot more complex and must be used in certain situations.
 
 ## What is a Reference? {#what-is-a-reference}
 
-In simple terms, a reference is simply the address of whatever you're passing. The difference between a pointer and a reference lies in the fact that a reference **address** where a value of some sort is being stored, a pointer has a value at an address different from the one it’s pointing to. I like to consider the **&** operator the "reference operator" even though I'm pretty sure that's not actually what it is called. I used this operator in the last example, and it's pretty straightforward.
+In simple terms, a reference is simply the address of whatever you're passing. The difference between a pointer and a reference lies in the fact that a reference is simply the **address** to where a value is being stored and a pointer is simply a variable that has it's own address as well as the address it’s pointing to. I like to consider the **&** operator the "reference operator" even though I'm pretty sure that's not actually what it is called. I used this operator in the last example, and it's pretty straightforward.
 
 ```cpp  
 	int num = 12;
@@ -90,7 +90,7 @@ The output will look something like this...
 	0xffffcc08 : 0xffffcc10 : 0xffffcc1c : 12
 ```
   
-As you can see, all the **&** operator does is gives you the memory address at its specific spot in memory. I also included a small example of a double-pointer which is just one more layer of abstraction then another pointer. You can see how the memory addresses line up.
+As you can see, all the **&** operator does is gives you the memory address at its specific spot in memory. I also included a small example of a double-pointer which just contains one more layer of abstraction then a single pointer. You can see how the memory addresses line up in the output.
 
 Here’s what this looks like in memory with more easily understandable addresses in a “0x…” format.
 
@@ -98,9 +98,9 @@ Here’s what this looks like in memory with more easily understandable addresse
 
 ## Pass by Reference vs. Pass by Value {#passing}
 
-This is another more complex topic that we as programmers need to be aware of in almost all languages - even languages without pointers. The idea of the two all stems from functions, or methods, and their parameters. Whenever you pass something to a function, does the original variable/object gets updated in the function as well as outside of it, or is it hyperlocal and it just creates a copy of the original parameter. "Pass by reference" refers to when the parameter is changed both within the function and outside of it. "Pass by value" refers to when the parameters are merely a copy and have their own memory address.
+This is another more complex topic that we as programmers need to be aware of in almost all languages - even languages without pointers. The idea of the two all stems from functions, sometimes called methods, and their parameters. Whenever you pass something into a function, does the original variable/object that is passed in get updated inside as well as outside the function, or is it hyperlocal and it just creates a copy of the original parameter? "Pass by reference" refers to when the parameter is changed both within the function and outside of it. "Pass by value" refers to when the parameters are merely a copy and have their own memory address, only being updated inside of the function.
 
-The primary difference between the two is what happens when you change values. If you pass by reference and update the property, it will update the original variable that was passed as well. However, if you pass by value and update it in function, it will not impact the original variable.
+The primary difference between the two is what happens when you change values. If you pass by reference and update the property, it will update the original variable that was passed as well. However, if you pass by value and update it in the function, it will not impact the original variable.
 
 The neat part of C++ is that you can control whether something is passed by reference or passed by value, but rather than try and explain it further let's look at an example.
 
@@ -150,4 +150,4 @@ This gets confusing after a while if you're not paying attention to your outputs
 
 ## Review/Conclusion {#conclusion}
 
-Pointers and References are extremely important in your day to day work in languages like C/C++. C++ gives you a lot of manual control with the most common being memory. Knowing how each one of your pointers or variables are stored will help you write code faster and more efficiently. Knowing also how passing parameters to your functions works will make your life **so** much easier.
+Pointers and References are extremely important in your day to day work in languages like C/C++. C++ gives you a lot of manual control with the most common being memory. Knowing how each one of your pointers or variables are stored will help you write code faster and more efficiently. Knowing also how parameters are passed to your functions as well as how they are updated, will make your life **so** much easier.
