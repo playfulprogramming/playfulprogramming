@@ -2,7 +2,7 @@
 {
 	title: "Make Better Angular Form Components using ControlValueAccessor",
 	description: "You may have ran into elements or components that allow you to use formControl or ngModel. They make your life as a consumer much easier. Let's build one!",
-	published: '2020-05-05T13:45:00.284Z',
+	published: '2020-06-09T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'javascript'],
 	attached: [],
@@ -192,12 +192,118 @@ Implementing the disabled state check is extremely similar to [implementing valu
 
 Just as we did with value writing, we want to run a `markForCheck` to allow change detection to work as expected when the value is changed from a parent
 
-> It's worth mentioning that unlike the other three methods, this one is entirely optional for implementing a `ControlValueAccessor`. This allows us 
+> It's worth mentioning that unlike the other three methods, this one is entirely optional for implementing a `ControlValueAccessor`. This allows us to disable the component or keep it enabled, but is not required for usage with the other methods. `ngModel` and `formControl` will work without this method implemented.
 
 ## `registerOnChange` {#register-on-change}
 
+While the previous methods have been implemented in a way that required usage of `markForCheck`, these last two methods are implemented in a bit of a different way. You only need look at the type of the methods on the interface to see as much:
+
+```typescript
+registerOnChange(fn: (value: any) => void);
+```
+
+As you might be able to deduce from the method type, when `registerOnChange` is called, it passes you a function. You'll then want to store this function in your class instance and call it whenever the user changes data.
+
+```typescript
+/** The method to be called in order to update ngModel */
+_controlValueAccessorChangeFn: (value: any) => void = () => {};
+
+registerOnChange(fn: (value: any) => void) {
+    this._controlValueAccessorChangeFn = fn;
+}
+```
+
+While this code sample shows you how to store the function, but doesn't outline how to call it once stored. You'll want to make sure to call it with the updated value on every update. For example, if you are expecting an `input` to change, you'd want to add it to `(change)` output of the `input`:
+
+```html
+<input
+       placeholder=""
+       [disabled]="disabled"
+       [(ngModel)]="value"
+       (change)="_controlValueAccessorChangeFn($event.target.value)"
+/>
+```
+
 ## `registerOnTouched` {#register-on-touched}
 
+Likewise to how you [store a function and call it to register changes](#register-on-change), you do much of the same to register when a component has been "touched" or not. This tells your consumer when a component has had interaction or not.
+
+```typescript
+onTouched: () => any = () => {};
+
+registerOnTouched(fn: any) {
+	this.onTouched = fn;
+}
+```
+
+You'll want to call this `onTouched` method any time that your user "touches" (or, interacts) with your component. In the case of an `input`, you'll likely want to place it on the `(blur)` output:
+
+```html
+<input
+    placeholder=""
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    (change)="onChange($event)"
+    (blur)="onTouched()"
+/>
+```
+
+# Consumption {#consume-demo}
+
+Now that we've done that work, let's put it all together, apply [the styling from before](#code-demo), and consume the component we've built!
+
+We'll need to start by importing `FormModule` and `ReactiveFormModule` into your `AppModule` for `ngModel` and `formControl` support respectively.
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { ExampleInputComponent } from './example-input/example-input.component';
+
+@NgModule({
+  imports:      [ ReactiveFormsModule, FormsModule, BrowserModule ],
+  declarations: [ AppComponent, ExampleInputComponent ],
+  bootstrap:    [ AppComponent ]
+})
+export class AppModule { }
+```
+
+Once you have support for them both, you can move onto adding a `formControl` item to your parent component:
+
+```typescript
+import { Component, VERSION } from '@angular/core';
+import {FormControl} from '@angular/forms';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  control = new FormControl('');
+  modelValue = "";
+}
+```
+
+Finally, you can pass these options to `ngModel` and `formControl` (or even `formControlName`) and inspect the value directly from the parent itself:
+
+```html
+<h1>Form Control</h1>
+<app-example-input placeholder="What's your favorite animal?" [formControl]="control"></app-example-input>
+<p>The value of the input is: {{control.value}}</p>
+<h1>ngModel</h1>
+<app-example-input placeholder="What's your favorite animal?" [(ngModel)]="modelValue"></app-example-input>
+<p>The value of the input is: {{modelValue}}</p>
+```
+
+If done properly, you should see something like this:
+
+
+<iframe src="https://stackblitz.com/edit/angular-value-accessor-example?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Form Control Classes
 
