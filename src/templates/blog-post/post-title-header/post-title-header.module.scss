@@ -22,24 +22,24 @@
 	color: var(--darkPrimary);
 	transition: color var(--animStyle) var(--animSpeed);
 	text-transform: uppercase;
-	margin: 0 #{$baseUnit * 3}px #{$baseUnit * 2}px 0;
+	margin: 0 24px 16px 0;
 
 	@include until($endSmallScreenSize) {
-		margin: 0 #{$baseUnit * 2}px #{$baseUnit * 1}px 0;
+		margin: 0 16px 8px 0;
 	}
 }
 
 .tags > *:not(:last-child)::after {
 	position: absolute;
 	content: " ";
-	right: -#{($baseUnit * 3) / 2}px;
+	right: -12px;
 	height: 100%;
 	width: 2px;
 	transition: background var(--animStyle) var(--animSpeed);
 	background: var(--darkPrimary);
 
 	@include until($endSmallScreenSize) {
-		right: -#{$baseUnit}px;
+		right: -8px;
 	}
 }
 
@@ -47,7 +47,7 @@
 	@extend %headline-1;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
-	margin: 0 0 50px 0;
+	margin: 0 0 48px 0;
 
 	@include until($endSmallScreenSize) {
 		margin-bottom: $baseUnit * 2px;
