@@ -14,11 +14,11 @@ Memory in your standard computer works in a much more abstract and complex way t
 
 # Virtual Memory {#virtual-memory}
 
-Operating systems (OS) are the ones in control of all of the physical memory in your computer. This is a safeguard to make sure that memory is being allocated fairly to all processes, the way this is done by a concept called **Virtual Memory**. As the name suggests, it means that it's shrouding the physical memory in hardware with seemingly infinite storage (in reality, you're limited by various elements of your hardware, but the amount of memory you can assign to virtual memory is typically orders of magnitude higher than the amount you can store in physical memory) for each process that is created. This is accomplished by using more than just your main memory in the case that if you need more storage, then the OS can also store it on your hard drive or SSD. Even though it may seem like a slower alternative, it allows much more freedom for processes without wrecking your computer.
+Operating systems (OS) are the ones in control of all of the physical memory in your computer. This is a safeguard to make sure that memory is being allocated fairly to all processes. The way this is done is by a concept called **Virtual Memory**. As the name suggests, it means that it's shrouding the physical memory in hardware with seemingly infinite storage (in reality, you're limited by various elements of your hardware, but the amount of memory you can assign to virtual memory is typically orders of magnitude higher than the amount you can store in physical memory) for each process that is created. This is accomplished by using more than just your main memory in the case that if you need more storage, then the OS can also store it on your hard drive or SSD. Even though it may seem like a slower alternative, it allows much more freedom for processes without wrecking your computer.
 
 ![Representation of how virtual memory works](./virtual_memory.svg)
 
-Virtual Memory uses what are called **page tables** that then point to a memory map that will then finally point to either your physical memory or something like an HDD. It works like a cache where each entry in a page table is only used when absolutely necessary. Whenever a process comes in it only stores the pages that the OS thinks the process will need in main memory while the rest stay behind. This reduces the amount of memory that is taken up as well as speeding up the overall time it would take to complete a process.
+Virtual Memory uses what are called **page tables** that point to a memory map which will then finally point to either your physical memory or something like an HDD. It works like a cache where each entry in a page table is only used when absolutely necessary. Whenever a process comes in it only stores the "pages" that the OS thinks the process will need in main memory while the rest stay behind. This reduces the amount of memory that is taken up as well as speeding up the overall time it would take to complete a process.
 
 ## What Virtual Memory looks like in C/C++ {#virtual-memory-cpp}
 
@@ -102,7 +102,7 @@ int main() {
 
 Just so we understand what is going on here, I created a global vector pointer that I did not define. Therefore it is just on the stack represented as a '0'. When example1() is called it allocates memory for vec on the heap and instantiates a vector with all zeros. You can access the vector using the memory address on the stack. When I print out just "vec" it will print out the memory address of the location on the heap where it is stored, when I call *vec it then goes to that memory location on the heap. More on pointers in a later article.
 
-The other method, example2(), just creates a new local vector and sets vec equal to it. You'll see why this is problematic later on. When the program is run in the order example1()$\to$ example2() everything will work fine. And here is the output:
+The other method, example2(), just creates a new local vector and sets vec equal to it. You'll see why this is problematic later on. When the program is run in the order example1() -> example2() everything will work fine. And here is the output:
 
 ```
 0
