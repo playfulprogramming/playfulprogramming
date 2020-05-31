@@ -87,6 +87,18 @@ $archivo: "Archivo", sans-serif;
 	}
 }
 
+%body-2 {
+	font-family: $archivo;
+	font-weight: 400;
+	font-size: 0.875rem;
+	letter-spacing: 0em;
+	line-height: 145%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.125rem;
+		line-height: 135%;
+	}
+}
+
 %overline {
 	font-family: $workSans;
 	font-weight: 700;

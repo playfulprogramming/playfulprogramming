@@ -2,6 +2,7 @@
 @import "styles/utils";
 @import "styles/text_styles";
 @import "./prism";
+@import "./components/series-toc/series-toc";
 
 :root {
 	--animSpeed: 200ms;
@@ -321,39 +322,6 @@ svg:not(.strokeicon) {
 
 li > ul > li {
 	margin: 1rem 0;
-}
-
-.series-table-of-content {
-	border: var(--cardOutlineStyle);
-	border-radius: var(--cardRadius);
-	overflow: hidden;
-
-	ol {
-		padding: 0;
-		list-style: none;
-		margin: 0;
-	}
-
-	& > div {
-		font-weight: bold;
-	}
-
-	& > div,
-	li {
-		padding: 0.5rem 1rem;
-	}
-
-	& > div,
-	li:not(:last-of-type) {
-		border-bottom: var(--cardOutlineStyle);
-	}
-
-	li.isActive {
-		background: var(--primary);
-		a {
-			color: white;
-		}
-	}
 }
 
 .toc-is-active {
