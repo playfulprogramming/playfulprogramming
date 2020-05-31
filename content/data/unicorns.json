@@ -6,7 +6,8 @@
 		"description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn 🦄🌽\nI do development of all kinds, usually focusing on web development.\nI collect retro video games 🎮, like reading 📖, love teaching 👨‍🏫",
 		"socials": {
 			"twitter": "crutchcorn",
-			"github": "crutchcorn"
+			"github": "crutchcorn",
+			"twitch": "crutchcorn"
 		},
 		"pronouns": "they/themselves",
 		"profileImg": "./crutchcorn.png",
@@ -162,6 +163,38 @@
 		"pronouns": "he",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
+		"roles": []
+	},
+	{
+		"id": "skatcat31",
+		"name": "Robert Mennell",
+		"firstName": "Robert",
+		"lastName": "Mennell",
+		"description": "A fullstack engineer who loves learning new things, playing video games, and his wife.\nIf you can learn it, you can do it.\nIf you can do it well, you've learned it.",
+		"socials": {
+			"github": "skatcat31",
+			"linkedIn": "rnmennell"
+		},
+		"color": "#ba68c8",
+		"profileImg": "./hello.png",
+		"pronouns": "he",
+		"roles": []
+	},
+ 	{
+		"id": "seanmiller",
+		"name": "Sean Miller",
+		"firstName": "Sean",
+		"lastName": "Miller",
+		"description": "Howdy! Computer Science major at Texas A&M University, with a minor in cybersecurity. Super passionate about all things software!",
+		"socials": {
+			"twitter": "beastosean",
+			"github": "tamuseanmiller",
+			"website": "http://www.be-defined.com",
+			"linkedIn": "sean-miller-0a057b182"
+		},
+		"pronouns": "he",
+		"profileImg": "./seanmiller.jpg",
+		"color": "#551a8b",
 		"roles": []
 	}
 ]

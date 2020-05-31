@@ -5,6 +5,7 @@ import GitHubIcon from "assets/icons/github.svg";
 import SiteIcon from "assets/icons/site.svg";
 import LinkedInIcon from "assets/icons/linkedin.svg";
 import TwitterIcon from "assets/icons/twitter.svg";
+import TwitchIcon from "assets/icons/twitch.svg";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { UnicornInfo } from "uu-types";
 
@@ -95,6 +96,13 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 								icon={<LinkedInIcon />}
 								text={"LinkedIn"}
 								url={`https://www.linkedin.com/in/${unicornData.socials.linkedIn}`}
+							/>
+						)}
+						{unicornData.socials.twitch && (
+							<SocialBtn
+								icon={<TwitchIcon />}
+								text={"Twitch"}
+								url={`https://twitch.tv/${unicornData.socials.twitch}`}
 							/>
 						)}
 						{unicornData.socials.website && (
