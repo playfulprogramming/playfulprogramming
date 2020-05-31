@@ -21,7 +21,7 @@ interface SocialBtnProps {
 }
 const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
 	return (
-		<li className={`baseBtn lowercase ${styles.socialBtnLink}`} role="listitem">
+		<li className={`baseBtn ${styles.socialBtnLink}`} role="listitem">
 			<OutboundLink
 				className="unlink"
 				target="_blank"
