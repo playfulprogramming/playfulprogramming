@@ -1,6 +1,6 @@
 ---
 {
-	title: "Make Better Angular Form Components using ControlValueAccessor",
+	title: "Better Angular Form Components with ngModel and formControl Implementation",
 	description: "You may have ran into elements or components that allow you to use formControl or ngModel. They make your life as a consumer much easier. Let's build one!",
 	published: '2020-06-09T13:45:00.284Z',
 	authors: ['crutchcorn'],
@@ -325,7 +325,7 @@ Something you'll notice that wasn't implemented in the `ControlValueAccessor` im
 
 Well, thanks to Angular's DI system, we can do just that!
 
-However, we'll need to make a few changes to the form input that we made before. While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
+However, we'll need to make a few changes to the form input [that we made before](#forwardRef). While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
 
 ```typescript
 import {
@@ -412,3 +412,8 @@ export class AppComponent  {
 
 Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.io/api/forms/Validators), but you're even able to [make your own validator](https://angular.io/api/forms/Validator)!
 
+# Conclusion {#conclusion}
+
+Enabling `formControl` and `ngModel` usage is an extremely powerful that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully this article has provided you with deeper insight that you're able to take to your own components.
+
+If you're interested in learning more about Angular, make sure to sign up to our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server where we chat code and more!](https://discord.gg/FMcvc6T)
