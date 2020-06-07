@@ -316,4 +316,99 @@ These classes include:
 - `ng-dirty`
 - `ng-untouched`
 - `ng-touched`
-They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions.
+
+They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions. As such, you're able to display custom CSS logic for when each of these values appear.
+
+# Gain Access To Form Control Errors {#form-control-errors}
+
+Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking if validators are applied or not. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.io/guide/form-validation). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component that the form is attached to?
+
+Well, thanks to Angular's DI system, we can do just that!
+
+However, we'll need to make a few changes to the form input that we made before. While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
+
+```typescript
+import {
+  Component,
+  Input,
+  ChangeDetectorRef,
+  Optional,
+  Self,
+  AfterContentInit
+} from "@angular/core";
+import { ControlValueAccessor, NgControl } from "@angular/forms";
+
+@Component({
+  selector: "app-example-input",
+  templateUrl: "./example-input.component.html",
+  styleUrls: ["./example-input.component.css"]
+})
+export class ExampleInputComponent implements ControlValueAccessor, AfterContentInit {
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+    private _changeDetector: ChangeDetectorRef
+  ) {
+    if (ngControl != null) {
+      // Setting the value accessor directly (instead of using
+      // the providers) to avoid running into a circular import.
+      ngControl.valueAccessor = this;
+    }
+  }
+    
+  // ...
+}
+```
+
+In this code sample, we're using [the `@Self` decorator](https://angular.io/api/core/Self) to tell the dependency injection system that "this component _itself_ should have been provided a `formControl` or `formControlName`". However, we want the component to work even when `FormModule` isn't being used, so we allow the dependency injection to return `null` in the event that nothing's passed by utilizing [the `@Optional` decorator](https://angular.io/api/core/Optional).
+
+Now that you have the `ngControl`, you can access the `formControl` by using `ngControl.control`.
+
+```typescript
+ngOnInit() {
+    const control = this.ngControl && this.ngControl.control;
+    if (control) {
+        console.log("ngOnInit", control);
+        // FormControl should be available here
+    }
+}
+```
+
+You have [a ton of different props you're able to access for the control's metadata](https://angular.io/api/forms/NgControl). For example, if you want to check when errors are present, you can do the following:
+
+```typescript
+get errors() {
+	const control = this.ngControl && this.ngControl.control;
+    if (control) {
+    	return control.touched && control.errors;
+    }
+    return null;
+}
+```
+
+And then reference it in the template:
+
+```html
+<span class="inputLabel" [class.redtext]="errors">{{ placeholder }}</span>
+```
+
+Now that you have the component implementation, you can add validators to your `FormControl`:
+
+```typescript
+import { Component } from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  control = new FormControl('', Validators.required);
+}
+```
+
+<iframe src="https://stackblitz.com/edit/angular-value-accessor-dep-inject?ctl=1&embed=1&file=src/app/app.component.ts" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+
+Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.io/api/forms/Validators), but you're even able to [make your own validator](https://angular.io/api/forms/Validator)!
+
