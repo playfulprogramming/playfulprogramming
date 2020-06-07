@@ -2,7 +2,8 @@
 {
 	title: "Writing better tests for Angular with Angular Testing Library",
 	description: "A simple explination of writing better tests for Angular applications and setting up Angular Testing Library",
-	published: "2020-05-09T04:45:30.247Z",
+	published: "2020-05-12T04:45:30.247Z",
+	edited: "2020-06-09T04:45:30.247Z",
 	authors: ["skatcat31"],
 	tags: ["testing", "unit tests", "angular"],
 	attached: [],
