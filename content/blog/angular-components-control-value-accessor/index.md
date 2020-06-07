@@ -20,7 +20,7 @@ These features are hugely helpful when dealing with complex form logic throughou
 
 # Example {#code-demo}
 
-It's hard for us to talk about the potential advantages to a component without having actually taken a look at it. Let's start with this component, just for fun.
+It's hard for us to talk about the potential advantages to a component without taking a look at it. Let's start with this component, just for fun.
 
 It'll allow you to type in data, have a header label (as opposed to a floating label, [which is notoriously bad for A11Y](https://www.matsuko.ca/blog/stop-using-material-design-text-fields/)), and even present a fun message when "Unicorns" is typed in.
 
@@ -89,7 +89,7 @@ Let's go through these one-by-one and see how we can introduce change to our com
 
 ## Setup {#forwardRef}
 
-In order to use these four methods, you'll first need to `provide` them somehow. To do this, we use a combination of the component's `providers` array, `NG_VALUE_ACCESSOR`, and `forwardRef`.
+To use these four methods, you'll first need to `provide` them somehow. To do this, we use a combination of the component's `providers` array, `NG_VALUE_ACCESSOR`, and `forwardRef`.
 
 ```typescript
 import { forwardRef } from '@angular/core';
@@ -133,7 +133,7 @@ With this, we'll finally be able to use these methods to control our component.
 
 ## `writeValue` {#write-value}
 
-`writeValue` is a method that acts exactly as you'd expect it to: It simply writes a value to your component's value. Because of this, it's suggested to have a setter and getter for `value` and a private internal value that's used as the real value:
+`writeValue` is a method that acts exactly as you'd expect it to: It simply writes a value to your component's value. As your value has more than a single write method (from your component and from the parent), it's suggested to have a setter, getter, and private internal value for your property.
 
 ```typescript
  private _value: any = null;
@@ -173,7 +173,7 @@ Now, when we use a value like `new FormValue('test')` and pass it as `[formContr
 
 ## `setDisabledState` {#disabled-state}
 
-Implementing the disabled state check is extremely similar to [implementing value writing](#write-value). Simply add a setter, getter, and `setDisabledState` to your component and you should be good-to-go:
+Implementing the disabled state check is extremely similar to [implementing value writing](#write-value). Simply add a setter, getter, and `setDisabledState` to your component, and you should be good-to-go:
 
 ```typescript
  private _disabled: boolean = false;
@@ -192,7 +192,7 @@ Implementing the disabled state check is extremely similar to [implementing valu
 
 Just as we did with value writing, we want to run a `markForCheck` to allow change detection to work as expected when the value is changed from a parent
 
-> It's worth mentioning that unlike the other three methods, this one is entirely optional for implementing a `ControlValueAccessor`. This allows us to disable the component or keep it enabled, but is not required for usage with the other methods. `ngModel` and `formControl` will work without this method implemented.
+> It's worth mentioning that unlike the other three methods, this one is entirely optional for implementing a `ControlValueAccessor`. This allows us to disable the component or keep it enabled but is not required for usage with the other methods. `ngModel` and `formControl` will work without this method implemented.
 
 ## `registerOnChange` {#register-on-change}
 
@@ -205,7 +205,7 @@ registerOnChange(fn: (value: any) => void);
 As you might be able to deduce from the method type, when `registerOnChange` is called, it passes you a function. You'll then want to store this function in your class instance and call it whenever the user changes data.
 
 ```typescript
-/** The method to be called in order to update ngModel */
+/** The method to be called to update ngModel */
 _controlValueAccessorChangeFn: (value: any) => void = () => {};
 
 registerOnChange(fn: (value: any) => void) {
@@ -226,7 +226,7 @@ While this code sample shows you how to store the function, but doesn't outline 
 
 ## `registerOnTouched` {#register-on-touched}
 
-Likewise to how you [store a function and call it to register changes](#register-on-change), you do much of the same to register when a component has been "touched" or not. This tells your consumer when a component has had interaction or not.
+Like how you [store a function and call it to register changes](#register-on-change), you do much of the same to register when a component has been "touched" or not. This tells your consumer when a component has had interaction or not.
 
 ```typescript
 onTouched: () => any = () => {};
@@ -250,7 +250,7 @@ You'll want to call this `onTouched` method any time that your user "touches" (o
 
 # Consumption {#consume-demo}
 
-Now that we've done that work, let's put it all together, apply [the styling from before](#code-demo), and consume the component we've built!
+Now that we've done that work let's put it all together, apply [the styling from before](#code-demo), and consume the component we've built!
 
 We'll need to start by importing `FormModule` and `ReactiveFormModule` into your `AppModule` for `ngModel` and `formControl` support respectively.
 
@@ -317,11 +317,11 @@ These classes include:
 - `ng-untouched`
 - `ng-touched`
 
-They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions. As such, you're able to display custom CSS logic for when each of these values appear.
+They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions. As such, you're able to display custom CSS logic for when each of these values appears.
 
 # Gain Access To Form Control Errors {#form-control-errors}
 
-Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking if validators are applied or not. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.io/guide/form-validation). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component that the form is attached to?
+Something you'll notice that wasn't implemented in the `ControlValueAccessor` implementation is support for checking whether validators are applied. If you're a well-versed Angular Form-ite, you'll recall the ability to [validate forms using validators appended to `FormControl`s](https://angular.io/guide/form-validation). Although a niche situation — since most validation happens at the page level, not the component level — wouldn't it be nice to check when a form is valid or not directly from the component to which the form is attached?
 
 Well, thanks to Angular's DI system, we can do just that!
 
@@ -359,7 +359,7 @@ export class ExampleInputComponent implements ControlValueAccessor, AfterContent
 }
 ```
 
-In this code sample, we're using [the `@Self` decorator](https://angular.io/api/core/Self) to tell the dependency injection system that "this component _itself_ should have been provided a `formControl` or `formControlName`". However, we want the component to work even when `FormModule` isn't being used, so we allow the dependency injection to return `null` in the event that nothing's passed by utilizing [the `@Optional` decorator](https://angular.io/api/core/Optional).
+In this code sample, we're using [the `@Self` decorator](https://angular.io/api/core/Self) to tell the dependency injection system that "this component _itself_ should have been provided a `formControl` or `formControlName`". However, we want the component to work even when `FormModule` isn't being used, so we allow the dependency injection to return `null` if nothing's passed by utilizing [the `@Optional` decorator](https://angular.io/api/core/Optional).
 
 Now that you have the `ngControl`, you can access the `formControl` by using `ngControl.control`.
 
@@ -414,6 +414,6 @@ Not only do you have [a wide range of Angular-built validators at your disposal]
 
 # Conclusion {#conclusion}
 
-Enabling `formControl` and `ngModel` usage is an extremely powerful that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully this article has provided you with deeper insight that you're able to take to your own components.
+Enabling `formControl` and `ngModel` usage is an extremely powerful tool that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully, this article has provided you with more in-depth insight that you're able to take to your own components.
 
-If you're interested in learning more about Angular, make sure to sign up to our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server where we chat code and more!](https://discord.gg/FMcvc6T)
+If you're interested in learning more about Angular, please sign up for our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server, where we talk code and more!](https://discord.gg/FMcvc6T)
