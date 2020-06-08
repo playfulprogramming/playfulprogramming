@@ -213,7 +213,7 @@ registerOnChange(fn: (value: any) => void) {
 }
 ```
 
-While this code sample shows you how to store the function, but doesn't outline how to call it once stored. You'll want to make sure to call it with the updated value on every update. For example, if you are expecting an `input` to change, you'd want to add it to `(change)` output of the `input`:
+While this code sample shows you how to store the function, it doesn't outline how to call it once stored. You'll want to make sure to call it with the updated value on every update. For example, if you are expecting an `input` to change, you'd want to add it to `(change)` output of the `input`:
 
 ```html
 <input
@@ -275,7 +275,7 @@ export class AppModule { }
 Once you have support for them both, you can move onto adding a `formControl` item to your parent component:
 
 ```typescript
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -317,7 +317,7 @@ These classes include:
 - `ng-untouched`
 - `ng-touched`
 
-They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions. As such, you're able to display custom CSS logic for when each of these values appears.
+They reflect states so that you can update the visuals in CSS to reflect them. When using `[(ngModel)]`, they won't appear, since nothing is tracking when a component is `pristine` or `dirty`. However, when using `[formControl]` or `[formControlName]`, these classes _will_ appear and act accordingly, thanks to the `registerOnChange` and `registerOnTouched` functions. As such, you're able to display custom CSS logic for when each of these states are met.
 
 # Gain Access To Form Control Errors {#form-control-errors}
 
@@ -325,7 +325,7 @@ Something you'll notice that wasn't implemented in the `ControlValueAccessor` im
 
 Well, thanks to Angular's DI system, we can do just that!
 
-However, we'll need to make a few changes to the form input [that we made before](#forwardRef). While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
+However, we'll need to make a few changes to the form input [we made before](#forwardRef). While we previously implemented a provider for form controls, we now need to manually assign the provider ourselves in the constructor:
 
 ```typescript
 import {
@@ -377,7 +377,7 @@ You have [a ton of different props you're able to access for the control's metad
 
 ```typescript
 get errors() {
-	const control = this.ngControl && this.ngControl.control;
+    const control = this.ngControl && this.ngControl.control;
     if (control) {
     	return control.touched && control.errors;
     }
@@ -414,6 +414,6 @@ Not only do you have [a wide range of Angular-built validators at your disposal]
 
 # Conclusion {#conclusion}
 
-Enabling `formControl` and `ngModel` usage is an extremely powerful tool that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully, this article has provided you with more in-depth insight that you're able to take to your own components.
+Enabling `formControl` and `ngModel` usage is an extremely powerful tool that enables you to have feature-rich and consistent APIs across your form components. Using them, you can ensure that your consumers are provided with the functionality they'd expect in a familiar API to native elements. Hopefully, this article has provided you with more in-depth insight that you're able to use with your own components.
 
 If you're interested in learning more about Angular, please sign up for our newsletter down below! We don't spam and will notify you when new Angular articles are live! Additionally, if you'd like to ask in-depth questions or chat about anything Angular related, don't forget to [join our Discord Server, where we talk code and more!](https://discord.gg/FMcvc6T)
