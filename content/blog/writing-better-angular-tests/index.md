@@ -2,7 +2,8 @@
 {
 	title: "Writing better tests for Angular with Angular Testing Library",
 	description: "A simple explination of writing better tests for Angular applications and setting up Angular Testing Library",
-	published: "2020-05-09T04:45:30.247Z",
+	published: "2020-05-12T04:45:30.247Z",
+	edited: "2020-06-09T04:45:30.247Z",
 	authors: ["skatcat31"],
 	tags: ["testing", "unit tests", "angular"],
 	attached: [],
@@ -90,13 +91,12 @@ tsconfig.spec.json
 }
 ```
 
-The project also no longer needs the `test` key inside of `angular.json`, and thus it can be removed.
-
+The project also no longer needs the `test` key inside of `angular.json` as it stands, and thus it's contents can be removed. Don't worry, we'll be making `ng test` work again later.
 ```json
 angular.json
 {
   ...,
-  "test": {...} <- delete
+  "test": {} <- delete contents, but leave the key
   ....
 }
 ```
@@ -126,7 +126,7 @@ Now that the project has no Karma it can be setup with Jest
 #### Install Jest
 
 ```bash
-npm i -D @types/jest jest jest-preset-angular ts-jest
+npm i -D @types/jest jest jest-preset-angular ts-jest @angular-builders/jest
 ```
 
 This installs Jest, the types for Jest, a TypeScript pre-processor for Jest, and a preset that makes setting up Jest much easier.
@@ -192,7 +192,18 @@ package.json
 }
 ```
 
-Jest is now the test runner for the project. It can now be used to run the tests, but even better, it can be used in combination with Testing Library.
+```json
+angular.json
+{
+  ...,
+  "test": {
+    "builder": "@angular-builders/jest:run" <- new
+  }
+  ....
+}
+```
+
+Jest is now the test runner for the projectand it can be run with NPM, Yarn, or the Angular CLI. It can now be used in combination with Testing Library.
 
 ### Install Angular Testing Library
 
