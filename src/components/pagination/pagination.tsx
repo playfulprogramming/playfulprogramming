@@ -21,8 +21,18 @@ export const Pagination = ({ pageContext }: PaginationProps) => {
 
 	return (
 		<ReactPaginate
-			previousLabel={"previous"}
-			nextLabel={"next"}
+			previousLabel={
+				<>
+					<span aria-hidden={true}>{"<"}</span>
+					<span aria-hidden={false}> Previous</span>
+				</>
+			}
+			nextLabel={
+				<>
+					<span aria-hidden={false}>Next </span>
+					<span aria-hidden={true}>{">"}</span>
+				</>
+			}
 			breakLabel={"..."}
 			breakClassName={"break-me"}
 			pageCount={pageCount}

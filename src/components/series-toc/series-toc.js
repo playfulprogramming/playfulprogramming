@@ -9,13 +9,13 @@ exports.SeriesToC = context => {
 
 		const titleName = item.title.replace(new RegExp(`^${name}: `), "");
 
-		const inner = `<a href="${item.slug}">${i + 1}) ${titleName}</a>`;
+		const inner = `<a href="${item.slug}">Part ${i + 1}: ${titleName}</a>`;
 
 		return `${code}<li class="${liClass}" role="listitem">${inner}</li>`.trim();
 	}, "");
 
 	const body = `<ol aria-labelledby="series-header" role="list">${list}</ol>`;
-	const title = `<div id="series-header">${name} (${items.length} Part Series)</div>`;
+	const title = `<div id="series-header">Part of our series: ${name}</div>`;
 
 	return `
 <div class="series-table-of-content">

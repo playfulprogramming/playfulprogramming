@@ -45,19 +45,15 @@ module.exports = {
 			}
 		},
 		{
-			resolve: `gatsby-plugin-prefetch-google-fonts`,
+			resolve: "gatsby-plugin-web-font-loader",
 			options: {
-				fonts: [
-					{
-						family: `Archivo`,
-						variants: [`400`, `700`],
-						subsets: [`latin`]
-					},
-					{
-						family: "Oswald",
-						variants: [`400`, `700`]
-					}
-				]
+				google: {
+					families: [
+						`Work Sans:400,500,600,700`,
+						`Archivo:400,500,600`,
+						`Roboto Mono:400`
+					]
+				}
 			}
 		},
 		{

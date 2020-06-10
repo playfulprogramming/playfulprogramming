@@ -1,4 +1,6 @@
-@import "../../../vars";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
 
 @include until($endSmallScreenSize) {
 	.container {
@@ -42,14 +44,13 @@
 .input {
 	background: none;
 	border: none;
-	border-bottom: 1px solid var(--darkGrey);
+	border-bottom: 1px solid var(--darkPrimary);
 	outline: none;
 	min-width: 120px;
 	position: absolute;
 	top: 0;
 	left: 0;
-	font-size: var(--filterBarFontSize);
-	line-height: var(--filterBarFontSize);
+	@extend %subheader-3;
 }
 
 .input::placeholder {

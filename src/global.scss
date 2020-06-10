@@ -1,15 +1,15 @@
-@import "vars";
+@import "styles/vars";
+@import "styles/utils";
+@import "styles/text_styles";
 @import "./prism";
+@import "./components/series-toc/series-toc";
 
 :root {
 	--animSpeed: 200ms;
 	--animStyle: ease-in-out;
 	--cardOutlineStyle: 1px solid var(--primary);
-	--archivo: "Archivo", sans-serif;
-	--oswald: "Oswald", "Archivo", sans-serif;
 	--cardRadius: #{$baseUnit}px;
 	--filterBarIconSize: #{3 * $baseUnit}px;
-	--filterBarFontSize: 1.25rem;
 	--listViewPadding: #{1.5 * $baseUnit}px;
 	font-size: $rootFontSize;
 	line-height: 1.2;
@@ -65,7 +65,7 @@
 
 body {
 	background-color: var(--backgroundColor);
-	font-family: var(--archivo);
+	@extend %body-1;
 	color: var(--black);
 	transition: color var(--animStyle) var(--animSpeed),
 		background-color var(--animStyle) var(--animSpeed);
@@ -73,20 +73,6 @@ body {
 
 .medium-zoom-overlay {
 	background: var(--backgroundColor) !important;
-}
-
-h1,
-h2,
-h3 {
-	font-family: var(--oswald);
-}
-
-h1 {
-	font-size: 2rem;
-}
-
-h2 {
-	font-size: 1.5rem;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
@@ -336,39 +322,6 @@ svg:not(.strokeicon) {
 
 li > ul > li {
 	margin: 1rem 0;
-}
-
-.series-table-of-content {
-	border: var(--cardOutlineStyle);
-	border-radius: var(--cardRadius);
-	overflow: hidden;
-
-	ol {
-		padding: 0;
-		list-style: none;
-		margin: 0;
-	}
-
-	& > div {
-		font-weight: bold;
-	}
-
-	& > div,
-	li {
-		padding: 0.5rem 1rem;
-	}
-
-	& > div,
-	li:not(:last-of-type) {
-		border-bottom: var(--cardOutlineStyle);
-	}
-
-	li.isActive {
-		background: var(--primary);
-		a {
-			color: white;
-		}
-	}
 }
 
 .toc-is-active {

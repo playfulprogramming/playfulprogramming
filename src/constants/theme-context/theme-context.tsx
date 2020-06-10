@@ -23,7 +23,6 @@ export const ThemeProvider: React.FC = ({ children }) => {
 	);
 
 	React.useEffect(() => {
-		console.log("EFFECT");
 		const root = window.document.documentElement;
 
 		// Because colors matter so much for the initial page view, we're

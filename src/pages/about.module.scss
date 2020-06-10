@@ -1,23 +1,14 @@
-@import "../vars";
+@import "../styles/vars";
+@import "../styles/utils";
+@import "../styles/text_styles";
 
 .container {
 	font-size: 1.25rem;
 	margin-bottom: 40px;
 
 	h1 {
-		font-size: 4rem;
-	}
-
-	@include until($startSmallScreenSize) {
-		h1 {
-			font-size: 3rem;
-		}
-	}
-
-	@include until($startSuperSmallScreenSize) {
-		h1 {
-			font-size: 2rem;
-		}
+		@extend %headline-1;
+		margin-bottom: 24px;
 	}
 
 	blockquote {

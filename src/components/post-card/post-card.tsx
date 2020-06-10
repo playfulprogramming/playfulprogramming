@@ -23,7 +23,7 @@ export const PostCard = ({
 	tags,
 	excerpt,
 	description,
-	className,
+	className = "",
 	slug
 }: PostCardProps) => {
 	const headerLink = useRef<HTMLElement>();
@@ -91,13 +91,11 @@ export const PostCard = ({
 				</p>
 				<div className={cardStyles.dateTagSubheader}>
 					<p className={cardStyles.date}>{published}</p>
-					<div>
-						{tags.map(tag => (
-							<span key={tag} className={cardStyles.tag}>
-								{tag}
-							</span>
-						))}
-					</div>
+					{tags.map(tag => (
+						<span key={tag} className={cardStyles.tag}>
+							{tag}
+						</span>
+					))}
 				</div>
 				<p
 					className={cardStyles.excerpt}

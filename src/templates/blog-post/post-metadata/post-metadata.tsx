@@ -37,10 +37,11 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 			/>
 			<div className={styles.textDiv}>
 				<h2 className={styles.authorName} data-testid="post-meta-author-name">
+					<span>by </span>
 					{authors.map((author, i) => {
 						return (
 							<React.Fragment key={author.id}>
-								<span>{i !== 0 && ", "}</span>
+								{i !== 0 && <span>{", "}</span>}
 								<Link
 									key={author.id}
 									to={`/unicorns/${author.id}`}

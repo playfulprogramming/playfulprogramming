@@ -1,45 +1,32 @@
-@import "../../vars";
+@import "../../styles/vars";
+@import "../../styles/utils";
+@import "../../styles/text_styles";
 
 .postsListContainer {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 	list-style: none;
-	margin: 0;
+	margin: 24px 0;
 	padding: 0;
 
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 24px;
+
+	@include from($startMediumScreenSize) {
+		grid-template-columns: 1fr 1fr;
+
+		&:empty {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	&:empty::after {
+		@extend %body-1;
 		content: "No results could be found, you might try making your search or filter less restrictive";
 		text-align: center;
 		display: block;
 		max-width: 500px;
 		transition: color var(--animStyle) var(--animSpeed);
 		color: var(--midImpactBlack);
-		margin: 20px auto 0;
-		font-size: 1.25rem;
-	}
-}
-
-.postListItem {
-	margin: 6px 0;
-	flex-basis: 100%;
-}
-
-@include from($startMediumScreenSize) {
-	.postListItem {
-		--marginSize: 8px;
-		flex-basis: calc(50% - var(--marginSize));
-		margin: var(--marginSize);
-		flex-grow: 0;
-		width: calc(50% - var(--marginSize));
-		max-width: calc(50% - var(--marginSize));
-	}
-
-	.postListItem:nth-child(odd) {
-		margin-left: 0;
-	}
-
-	.postListItem:nth-child(even) {
-		margin-right: 0;
+		margin: 0 auto;
 	}
 }
