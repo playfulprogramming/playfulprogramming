@@ -10,7 +10,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: 0em;
 	line-height: 130%;
 	@include from($endSmallScreenSize) {
-		font-size: 3rem;
+		font-size: 2.5rem;
 	}
 }
 
@@ -21,7 +21,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: 0em;
 	line-height: 140%;
 	@include from($endSmallScreenSize) {
-		font-size: 2.5rem;
+		font-size: 2.25rem;
 		line-height: 120%;
 	}
 }
@@ -33,7 +33,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: -0.04em;
 	line-height: 140%;
 	@include from($endSmallScreenSize) {
-		font-size: 2rem;
+		font-size: 1.5rem;
 		line-height: 125%;
 	}
 }
@@ -45,7 +45,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: -0.04em;
 	line-height: 140%;
 	@include from($endSmallScreenSize) {
-		font-size: 2rem;
+		font-size: 1.5rem;
 		line-height: 125%;
 	}
 }
@@ -57,7 +57,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: -0.04em;
 	line-height: 140%;
 	@include from($endSmallScreenSize) {
-		font-size: 1.75rem;
+		font-size: 1.375rem;
 		line-height: 130%;
 	}
 }
@@ -69,9 +69,20 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: 0.02em;
 	line-height: 130%;
 	@include from($endSmallScreenSize) {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		letter-spacing: 0.04em;
 		line-height: 130%;
+	}
+}
+
+%overline {
+	font-family: $workSans;
+	font-weight: 700;
+	font-size: 0.75rem;
+	letter-spacing: 0.22em;
+	line-height: 120%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.125rem;
 	}
 }
 
@@ -82,7 +93,7 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: 0em;
 	line-height: 150%;
 	@include from($endSmallScreenSize) {
-		font-size: 1.25rem;
+		font-size: 1.125rem;
 		line-height: 140%;
 	}
 }
@@ -94,22 +105,10 @@ $archivo: "Archivo", sans-serif;
 	letter-spacing: 0em;
 	line-height: 145%;
 	@include from($endSmallScreenSize) {
-		font-size: 1.125rem;
+		font-size: 1rem;
 		line-height: 135%;
 	}
 }
-
-%overline {
-	font-family: $workSans;
-	font-weight: 700;
-	font-size: 0.75rem;
-	letter-spacing: 0.22em;
-	line-height: 120%;
-	@include from($endSmallScreenSize) {
-		font-size: 1.25rem;
-	}
-}
-
 %caption {
 	font-family: $archivo;
 	font-weight: 400;
