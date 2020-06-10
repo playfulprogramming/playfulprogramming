@@ -64,7 +64,7 @@ test("Blog profile page renders", async () => {
 	expect(baseElement).toBeInTheDocument();
 	const joeEls = await findAllByText("Joe");
 	// One in the page title, one per post
-	expect(joeEls.length).toBe(3);
+	expect(joeEls.length).toBe(4);
 	expect(await findByText("Exists")).toBeInTheDocument();
 	const TwitterEl = await findByText("Twitter");
 	expect(TwitterEl).toBeInTheDocument();
