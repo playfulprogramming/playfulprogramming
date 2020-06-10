@@ -2,6 +2,7 @@
 
 $workSans: "Work Sans", "Archivo", sans-serif;
 $archivo: "Archivo", sans-serif;
+$robotoMono: "Roboto Mono", monospace;
 
 %headline-1 {
 	font-family: $workSans;
@@ -17,12 +18,57 @@ $archivo: "Archivo", sans-serif;
 %headline-2 {
 	font-family: $workSans;
 	font-weight: 500;
-	font-size: 1.5rem;
+	font-size: 1.75rem;
 	letter-spacing: 0em;
 	line-height: 140%;
 	@include from($endSmallScreenSize) {
 		font-size: 2.25rem;
 		line-height: 120%;
+	}
+}
+
+%headline-3 {
+	font-family: $workSans;
+	font-weight: 500;
+	font-size: 1.625rem;
+	letter-spacing: 0em;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 2rem;
+		line-height: 120%;
+	}
+}
+
+%headline-4 {
+	font-family: $workSans;
+	font-weight: 600;
+	font-size: 1.5rem;
+	letter-spacing: 0em;
+	line-height: 120%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.75rem;
+	}
+}
+
+%headline-5 {
+	font-family: $workSans;
+	font-weight: 500;
+	font-size: 1.4rem;
+	letter-spacing: 0em;
+	line-height: 120%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.625rem;
+	}
+}
+
+%headline-6 {
+	font-family: $workSans;
+	font-weight: 500;
+	font-size: 1.375rem;
+	letter-spacing: 0em;
+	line-height: 120%;
+	@include from($endSmallScreenSize) {
+		font-size: 1.5rem;
 	}
 }
 
@@ -72,6 +118,16 @@ $archivo: "Archivo", sans-serif;
 		font-size: 1.25rem;
 		letter-spacing: 0.04em;
 		line-height: 130%;
+	}
+}
+
+%code-sample {
+	font-family: $robotoMono;
+	font-weight: 500;
+	font-size: 0.875rem;
+	line-height: 140%;
+	@include from($endSmallScreenSize) {
+		font-size: 1rem;
 	}
 }
 
