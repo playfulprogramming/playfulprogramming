@@ -86,12 +86,70 @@ An immediate question that might be asked is "why would I put the scope of chang
 
 # Step 1: Commit Message Enforcement {#commit-lint}
 
+Any good set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, Conventional Commit setups often have a linter setup of their own. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
 
+Just as you have many options when it comes to what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the guide of the Angular Team](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
 
+Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available to it](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your own configuration from scratch.
 
+## Setup {#install-commit-lint}
 
+While you can go as in-depth as creating your own configuration, let's assume that we want to stick with the out-of-box settings. Let's assume that you already have a `package.json` configured. First thing's first, let's install the dependencies we need:
 
+```
+npm install --save-dev @commitlint/cli @commitlint/config-conventional
+```
 
+The [`commitlint` CLI](https://commitlint.js.org/) is what will actually do the linting on the commit message while the `@commitlint/config-conventional` is the ruleset that the linter will follow. Now, we'll create the configuration file that will tell the CLI what rules to use. Create a file called `commitlint.config.js` at the root of your project and place the following code inside:
+
+```javascript
+module.exports = {extends: ['@commitlint/config-conventional']};
+```
+
+Now, you can test that your setup works properly by linting the last commit in your branch:
+
+```
+npx commitlint --from=HEAD~1
+```
+
+It should either validate or fail, depending on if the last commit message followed the ruleset or not.
+
+### Husky Setup {#husky}
+
+While you _could_ setup a CI system with something like the `commitlint` command from above, it wouldn't be super effective for making sure you and your team remain vigilant with your commit schema. You're actually able to enforce your commit messages directly from your development machine at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
+
+```
+npm install --save-dev husky
+```
+
+By installing `husky`, we can now add the following to our `package.json` to tell git to run our `commitlint`:
+
+```json
+{
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
+```
+
+## Test The Hook {#testing-husky}
+
+Now that we have `husky` configured properly, we're able to ensure that the linting is working as-expected. Now, if you run `git commit` it will give the following behavior pattern:
+
+```
+git commit -m "foo: this will fail"
+husky > commit-msg (node v10.1.0)
+No staged files match any of provided globs.
+⧗   input: foo: this will fail
+✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]
+
+✖   found 1 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+husky > commit-msg hook failed (add --no-verify to bypass)
+```
 
 # Conclusion
 
