@@ -10,15 +10,15 @@
 }
 ---
 
-Writing changelogs for a project can be tedious. Usually, this lengthy process would start with your project manager, organizing your tickets in the sprint (depending on how your project is organized), and taking time out of the day to write the changelog itself. This process becomes even more complex when working on developer-centric projects. Remembering what is and isn't a breaking change (to keep a sensible [SEMVER](https://www.geeksforgeeks.org/introduction-semantic-versioning/)), what technical changes were made, and what you should do to migrate to newer versions might be a challenge in itself, on top of the typical release patterns.
+Writing changelogs for a project can be tedious. Usually, this lengthy process would start with your project manager, organizing your tickets in the sprint (depending on how your project is organized), and taking time out of the day to write the changelog itself. This process becomes even more complicated when working on developer-centric projects. Remembering what is and isn't a breaking change (to keep a sensible [SEMVER](https://www.geeksforgeeks.org/introduction-semantic-versioning/)), what technical changes were made, and what you should do to migrate to newer versions might be a challenge in itself, on top of the typical release patterns.
 
-This versioning complexity birthed _a set of tools that allows you to automatically generate changelogs_. Now, this may sound too good to be true: "How can it generate something without any metadata?" Well, dear reader, that's the trick of it: You **do** provide the metadata in the form of commit messages.
+This versioning complexity birthed _a set of tools that allows you to generate changelogs automatically_. Now, this may sound too good to be true: "How can it generate something without any metadata?" Well, dear reader, that's the trick of it: You **do** provide the metadata in the form of commit messages.
 
-If you _enforce a standardized set of commit messages_ (both header and body), then _a tool can automatically run through each commit_ since your last release _and generate the changelog_ from there. Furthermore, because the commit message standards you'll follow explain when a new feature, bug fix, or breaking change is introduced, _this tooling is able to assume what portion of SEMVER (major, minor, or patch) to bump_, and can change the version numbers in your files as well!
+If you _enforce a standardized set of commit messages_ (both header and body), then _a tool can automatically run through each commit_ since your last release _and generate the changelog_. Furthermore, because the commit message standards you'll follow outline when a new feature, bug fix, or breaking change is introduced, _this tooling can assume what portion of SEMVER (major, minor, or patch) to bump_. It can change the version numbers in your files as well!
 
 # Step 0: Commit Rules {#conventional-commit}
 
-Before we start setting up tooling (to generate the changelogs, commit message verification, and more), we need to first understand what the rules are that we're signing up for. As mentioned before, we'll need to standardize the way we write our commit messages for our tooling to work effectively. The standardized commit message template we'll be following in this article is called [Conventional Commits](https://www.conventionalcommits.org/). Conventional Commits generally follow an outline as such:
+Before we start setting up tooling (to generate the changelogs, commit message verification, and more), we need first to understand what the rules are that we're signing up for. As mentioned before, we'll need to standardize the way we write our commit messages for our tooling to work effectively. The standardized commit message template we'll be following in this article is called [Conventional Commits](https://www.conventionalcommits.org/). Conventional Commits generally follow an outline as such:
 
 - First, start with the _type_ of change you're making
 - Then, have an (optional) scope, indicating what section of your app you're changing
@@ -55,20 +55,20 @@ This means that your commit message might be something along the lines of:
 ```
 test(pagination): added pagination edgecase to test suite
 
-When changing pages on an odd number of items in the collection, we had an error thrown as a result of a miscalculation. This test should ensure this bug doesn't regress
+We had an error thrown as a result of a miscalculation when changing pages on an odd number of items in the collection. This test should ensure this bug doesn't regress
 ```
 
-In this case, your _type_ is `test` whereareas your scope is `pagination`. This way, when you're generating your public changelog, it will likely not include this commit message, as your users don't often care about the implementation or tests within. While this isn't a great example, let's take the next two examples:
+In this case, your _type_ is `test`, whereas your scope is `pagination`. This way, when you're generating your public changelog, it will likely not include this commit message, as your users don't often care about the implementation or tests within. While this isn't a great example, let's take the next two examples:
 
 ```
-fix(pagination): fixed pagination throwing errors when odd number of items in collection
+fix(pagination): fixed pagination throwing errors when an odd number of items in collection
 ```
 
 ```
-feat(pagination): added new "first" and "last" events when pagination is moved to first or last page 
+feat(pagination): added new "first" and "last" events when pagination is moved to first or the last page 
 ```
 
-Because your first example is listed as a _type_ of `fix`, your tooling knows to only bump the patch release. However, in the second example, you have a _type_ of `feat`, which tells your tooling to bump your release version by a minor number.
+Your tooling knows only to bump the patch release because your first example is listed as a *type* of `fix`. However, in the second example, you have a _type_ of `feat` that tells your tooling to bump your release version by a minor number.
 
 Likewise, to tell your tooling that a commit introduces a breaking change, you'll do something along the lines of this:
 
@@ -82,15 +82,15 @@ The `BREAKING CHANGE:` at the start of your commit body tells your tooling that 
 
 ## Commit Scope {#lerna-usage}
 
-An immediate question that might be asked is "why would I put the scope of changes? How could this realistically help me?" One usecase where adding a commit scope is hugely advantageous is when using a monorepo for multiple packages in a single repo. When using [Lerna](https://github.com/lerna/lerna) to help manage a monorepo, there are even addons that enable [restricting your _scope_ to match one of the project's package names](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-lerna-scopes). By doing so, you're able to generate individual `CHANGELOG.md` files for each package, enabling your tooling to scope with your project's scale.
+An immediate question that might be asked is, "why would I put the scope of changes? How could this realistically help me?" One use-case where adding a commit scope is hugely advantageous is when using a monorepo for multiple packages in a single repo. When using [Lerna](https://github.com/lerna/lerna) to help manage a monorepo, there are even addons that enable [restricting your _scope_ to match one of the project's packages names](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-lerna-scopes). By doing so, you're able to generate individual `CHANGELOG.md` files for each package, enabling your tooling to scope with your project's scale.
 
 # Step 1: Commit Message Enforcement {#commit-lint}
 
-Any good set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
+Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
 
-Just as you have many options when it comes to what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the guide of the Angular Team](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
+Just as you have many options regarding what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the Angular Team's guidelines](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
 
-Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available to it](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your own configuration from scratch.
+Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your configuration from scratch.
 
 ## Setup {#install-commit-lint}
 
@@ -112,11 +112,11 @@ Now, you can test that your setup works properly by linting the last commit in y
 npx commitlint --from=HEAD~1
 ```
 
-It should either validate or fail, depending on if the last commit message followed the ruleset or not.
+It should either validate or fail, depending on whether the last commit message followed the ruleset.
 
 ### Husky Setup {#husky}
 
-While you _could_ setup a CI system with something like the `commitlint` command from above, it wouldn't be super effective for making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
+While you _could_ set up a CI system with something like the `commitlint` command from above, it wouldn't be very effective at making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
 
 ```
 npm install --save-dev husky
@@ -136,7 +136,7 @@ By installing `husky`, we can now add the following to our `package.json` to tel
 
 ## Test The Hook {#testing-husky}
 
-Now that we have `husky` configured properly, we're able to ensure that the linting is working as-expected. Now, if you run `git commit` it will give the following behavior pattern:
+Now that we have `husky` configured properly, we're able to ensure that the linting is working as expected. Now, if you run `git commit` it will give the following behavior pattern:
 
 ```
 git commit -m "foo: this will fail"
@@ -159,7 +159,7 @@ While contiguous commit consistency is cool (what a mouthful), our end goal is t
 npm i --save-dev standard-version
 ```
 
-Afterwards, we can add a `release` script in our `package.json`:
+Afterward, we can add a `release` script in our `package.json`:
 
 ```json
 {
@@ -175,13 +175,13 @@ Finally, `standard-version` needs to have a starting point to append the CHANGEL
 npm run release -- --first-release
 ```
 
-In order to generate your initial `CHANGELOG.md` file. This will also create a tag of the current state, so that every subsequent release can change your version numbers. 
+To generate your initial `CHANGELOG.md` file. This will also create a tag of the current state so that every subsequent release can change your version numbers. 
 
 ## Usage {#use-standard-version}
 
-Having an initial starting point for releases is cool, but ultimately useless without understanding how to cut a new release. Once you've made a series of commits, you'll want to re-run `npm run release`. This will do all of the standard release actions. [As mentioned before, the `type` of commits will dictate what number (patch, minor, major) is bumped](#conventional-commits). As all of your changes will make it into your `CHANGELOG.md`, you may want to consider squashing PRs before merging them, so that your changelog is clean and reflective of your public changes (not just the implementation detail).
+Having an initial starting point for releases is cool but ultimately useless without understanding how to cut a new release. Once you've made a series of commits, you'll want to re-run `npm run release`. This will do all of the standard release actions. [As mentioned before, the `type` of commits will dictate what number (patch, minor, major) is bumped](#conventional-commits). As all of your changes will make it into your `CHANGELOG.md`, you may want to consider squashing PRs before merging them, so that your changelog is clean and reflective of your public changes (not just the implementation detail).
 
-One thing to note is that you'll want to run `npm run release` _**before**_ running your build or release. This is because it bumps your package version and as-such won't change the package version in your deployed updates.
+One thing to note is that you'll want to run `npm run release` _**before**_ running your build or release. This is because it bumps your package version, and as-such won't change the package version in your deployed updates.
 
 ## Changelog Customization {#customize-changelog}
 
@@ -245,13 +245,13 @@ You'll want to create a `.versionrc` file and put the following in it:
 }
 ```
 
-There are multiple different kinds of files that can be updated, and you can even [write your own `updater` method to update any file you'd so like](https://github.com/conventional-changelog/standard-version#custom-updaters).
+Multiple different kinds of files that can be updated, and you can even [write your own `updater` method to update any file you'd so like](https://github.com/conventional-changelog/standard-version#custom-updaters).
 
 # Conclusion {#conclusion}
 
-Keep in mind, simply because you have a new tool to manage releases doesn't mean that you have a free pass on ignoring your branching strategy. If you're developing a developer tool that has breaking  changes every week, you're certainly going to alienate anyone that's not a staunch consumer. You'll want to keep following best practices for your use-cases to make sure that this tool isn't squandered by other project issues.
+Keep in mind, simply because you have a new tool to manage releases doesn't mean that you have a free pass on ignoring your branching strategy. If you're developing a developer tool that has breaking  changes every week, you're certainly going to alienate anyone that's not a staunch consumer. You'll want to keep following best practices for your use-cases to ensure that this tool isn't squandered by other project issues.
 
-While the outline we've provided should suffice for most usage, each of these tools includes a bunch of options that you're able to utilize in order to customize the process to your liking.
+While the outline we've provided should suffice for most usage, each of these tools includes many options that you're able to utilize customize the process to your liking.
 
 Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.gg/FMcvc6T) that we use to chat.
 
