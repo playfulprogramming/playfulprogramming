@@ -1,11 +1,8 @@
+@import "./styles/text_styles";
+
 code[class*="language-"],
 pre[class*="language-"] {
-	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
-		"Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
-		"Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
-		"Courier New", Courier, monospace;
-	font-size: 0.875rem;
-	line-height: 1.375;
+	@extend %code-sample;
 	direction: ltr;
 	text-align: left;
 	white-space: pre;
@@ -208,6 +205,35 @@ blockquote {
   }*/
 }
 
+h1 {
+	@extend %headline-1;
+	font-size: 1.825rem;
+
+	@include from($endSmallScreenSize) {
+		font-size: 2.4rem;
+	}
+}
+
+h2 {
+	@extend %headline-2;
+}
+
+h3 {
+	@extend %headline-3;
+}
+
+h4 {
+	@extend %headline-4;
+}
+
+h5 {
+	@extend %headline-5;
+}
+
+h6 {
+	@extend %headline-6;
+}
+
 h1,
 h2,
 h3,
@@ -223,6 +249,5 @@ blockquote.bigBlock {
 	&,
 	& * {
 		font-size: 1.5rem;
-		font-family: var(--oswald);
 	}
 }

@@ -1,3 +1,5 @@
+@import "../../../styles/text_styles";
+
 .icon {
 	margin-right: 16px;
 	height: var(--filterBarIconSize);
@@ -8,10 +10,9 @@
 	display: flex;
 	color: var(--darkGrey);
 	text-transform: uppercase;
-	font-size: var(--filterBarFontSize);
-	line-height: var(--filterBarFontSize);
 	align-items: center;
 	justify-content: center;
+	@extend %overline;
 }
 
 .container p {

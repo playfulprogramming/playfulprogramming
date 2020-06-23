@@ -1,105 +1,97 @@
-@import "../../../vars";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
 
 .container {
-	margin: 0 auto 50px auto;
-	max-width: 948px;
+	margin: 50px auto 58px auto;
+	max-width: 1032px;
 	display: flex;
+	position: relative;
 	align-items: center;
-	justify-content: center;
 	flex-wrap: wrap;
+	justify-content: center;
 
-	@include until($endSmallScreenSize) {
-		margin-bottom: 16px;
+	@include from($endSmallScreenSize) {
+		margin-bottom: 24px;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
 	}
 }
 
-.container > * {
-	flex: 0 0 auto;
-	max-width: 100%;
-}
-
 .headerPic {
-	$desktopImgSize: 300px;
-	max-width: $desktopImgSize;
-	max-height: $desktopImgSize;
-	margin-right: 48px;
-	margin-bottom: 16px;
+	$mobileImgSize: 120px;
+	max-width: $mobileImgSize;
+	max-height: $mobileImgSize;
+	margin-right: 0;
+	flex-shrink: 0;
 
-	@include until($endSmallScreenSize) {
-		$mobileImgSize: 150px;
-		max-width: $mobileImgSize;
-		max-height: $mobileImgSize;
-		margin-right: 0;
+	@include from($endSmallScreenSize) {
+		$desktopImgSize: 192px;
+		max-width: $desktopImgSize;
+		max-height: $desktopImgSize;
+		margin-right: 48px;
 	}
 }
 
 .title {
-	font-size: 4rem;
-	line-height: 4rem;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0;
 	@include until($endSmallScreenSize) {
-		font-size: 2.5rem;
-		line-height: 2.5rem;
-		font-weight: normal;
 		text-align: center;
 	}
 }
 
+.mobileTitle {
+	@extend %headline-1;
+	margin-top: 16px;
+
+	@include from($endSmallScreenSize) {
+		display: none;
+	}
+}
+
+.desktopTitle {
+	@extend %headline-2;
+
+	@include until($endSmallScreenSize) {
+		display: none;
+	}
+}
+
 .noMgContainer {
-	display: inline-block;
-	vertical-align: top;
-	width: 600px;
+	flex-grow: 1;
 }
 
 .subheader {
-	margin: 22px 0 0 0;
+	@extend %subheader-3;
+	margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
-	font-size: 2rem;
-	font-weight: 400;
 	white-space: pre-line;
 
 	@include until($endSmallScreenSize) {
-		font-size: 1.5rem;
 		margin: 16px 16px 0;
 	}
 }
 
 .socialsContainer {
 	display: flex;
+	flex-direction: row;
 	transition: color var(--animStyle) var(--animSpeed);
-	font-family: var(--oswald);
-	font-size: 2.5rem;
 	color: var(--darkPrimary);
 	flex-wrap: wrap;
-	margin: 0;
-	padding: 0;
 	list-style: none;
-}
+	padding: 0;
+	margin: 0 auto;
+	justify-content: center;
+	margin-top: 16px;
 
-@include until($endSmallScreenSize) {
-	.socialsContainer {
-		justify-content: center;
-
-		font-size: 2rem;
+	@include from($endSmallScreenSize) {
+		padding: 6px 0;
+		margin: 0;
+		justify-content: flex-start;
 	}
-}
-
-.socialsContainer > *:not(:last-child) {
-	margin-right: $baseUnit * 3px;
-
-	@include until($endSmallScreenSize) {
-		margin-right: #{$baseUnit}px;
-	}
-}
-
-.socialsContainer > * {
-	font-family: inherit;
-	font-size: inherit;
-	color: inherit;
-	margin-top: #{$baseUnit}px;
 }
 
 .svgContainer {
@@ -108,22 +100,51 @@
 	align-items: center;
 }
 
-.socialsContainer svg {
-	$desktopSvgSize: $baseUnit * 5px;
-	height: $desktopSvgSize;
-	width: $desktopSvgSize;
-	fill: none;
-
-	@include until($endSmallScreenSize) {
-		$mobileSvgSize: $baseUnit * 4px;
-		height: $mobileSvgSize;
-		width: $mobileSvgSize;
-	}
-}
-
 .socialBtnLink {
+	&:not(:last-of-type) {
+		margin-right: 32px;
+
+		@include from($endSmallScreenSize) {
+			margin-right: 24px;
+		}
+	}
+
+	.socialText {
+		margin-left: 16px;
+		@extend %subheader-3;
+
+		// Make it so that the next and prev label text is hidden on mobile
+		// but not removed from the aria-reading role
+		@include until($endSmallScreenSize) {
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			opacity: 0;
+			display: inline-block;
+		}
+	}
+
 	& > a {
 		display: flex;
 		flex-wrap: nowrap;
+
+		$mobileSvgSize: 32px;
+
+		@include until($endSmallScreenSize) {
+			height: $mobileSvgSize;
+			width: $mobileSvgSize;
+		}
+
+		svg {
+			$desktopSvgSize: 36px;
+			height: $desktopSvgSize;
+			width: $desktopSvgSize;
+			fill: none;
+
+			@include until($endSmallScreenSize) {
+				height: $mobileSvgSize;
+				width: $mobileSvgSize;
+			}
+		}
 	}
 }

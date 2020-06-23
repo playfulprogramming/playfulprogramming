@@ -43,6 +43,7 @@
     "gatsby-plugin-sitemap": "^2.3.1",
     "gatsby-plugin-transition-link": "^1.18.0",
     "gatsby-plugin-typescript": "^2.3.1",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-autolink-headers": "^2.2.1",
     "gatsby-remark-copy-linked-files": "^2.2.1",
     "gatsby-remark-external-links": "0.0.4",

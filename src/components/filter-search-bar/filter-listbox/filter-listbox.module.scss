@@ -1,4 +1,6 @@
-@import "../../../vars";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
 
 .container {
 	display: flex;
@@ -10,7 +12,7 @@
 	max-width: 100%;
 }
 
-$btnPadding: 8px 16px 8px 15px;
+$btnPadding: 6px 16px;
 
 @include until($endSmallScreenSize) {
 	.buttonContainer {
@@ -30,10 +32,7 @@ $btnPadding: 8px 16px 8px 15px;
 	max-width: 100%;
 	display: flex;
 	align-items: center;
-	height: 100%;
 	padding: $btnPadding;
-	font-size: var(--filterBarFontSize);
-	line-height: var(--filterBarFontSize);
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--darkPrimary);
 	border: none;
@@ -44,6 +43,7 @@ $btnPadding: 8px 16px 8px 15px;
 	flex-wrap: nowrap;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	@extend %subheader-3;
 }
 
 .filterButton .textContainer {
@@ -78,8 +78,8 @@ $btnPadding: 8px 16px 8px 15px;
 .filterButton .icon {
 	margin-right: 16px;
 	flex-shrink: 0;
-	height: var(--filterBarIconSize);
-	width: var(--filterBarIconSize);
+	height: 30px;
+	width: 30px;
 }
 
 .listbox {

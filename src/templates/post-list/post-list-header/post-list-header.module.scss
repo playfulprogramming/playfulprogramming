@@ -1,4 +1,6 @@
-@import "../../../vars";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
 
 .container {
 	margin: 0 auto 50px auto;
@@ -34,15 +36,11 @@
 }
 
 .title {
-	font-size: 4rem;
-	line-height: 4rem;
+	@extend %headline-1;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0;
 	@include until($endSmallScreenSize) {
-		font-size: 2.5rem;
-		line-height: 2.5rem;
-		font-weight: normal;
 		text-align: center;
 	}
 }
@@ -54,15 +52,13 @@
 }
 
 .subheader {
+	@extend %subheader-2;
 	margin: 22px 0 0 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
-	font-size: 2rem;
-	font-weight: 400;
 	white-space: pre-line;
 
 	@include until($endSmallScreenSize) {
-		font-size: 1.5rem;
 		margin: 16px 16px 0;
 	}
 }
