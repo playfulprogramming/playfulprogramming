@@ -1,7 +1,7 @@
 ---
 {
 	title: "Autogenerate Changelogs and Manage Releases using Conventional Commit",
-	description: "An explanation of what server-side rendering is, what static site generation is, and how you can utilize them in React, Angular, or Vue!",
+	description: "Whether creating comprehensive changelogs or just keeping track of git tags, releases matter. Learn how to automate your release process with conventional-commits!",
 	published: '2020-06-23T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['packaging', 'engineering', 'javascript'],
