@@ -12,9 +12,9 @@
 
 Writing changelogs for a project can be tedious. Usually, this lengthy process would start with your project manager, organizing your tickets in the sprint (depending on how your project is organized), and taking time out of the day to write the changelog itself. This process becomes even more complex when working on developer-centric projects. Remembering what is and isn't a breaking change (to keep a sensible [SEMVER](https://www.geeksforgeeks.org/introduction-semantic-versioning/)), what technical changes were made, and what you should do to migrate to newer versions might be a challenge in itself, on top of the typical release patterns.
 
-This versioning complexity birthed a set of tools that allows you to automatically generate changelogs. Now, this may sound too good to be true: "How can it generate something without any metadata?" Well, dear reader, that's the trick of it: You **do** provide the metadata in the form of commit messages.
+This versioning complexity birthed _a set of tools that allows you to automatically generate changelogs_. Now, this may sound too good to be true: "How can it generate something without any metadata?" Well, dear reader, that's the trick of it: You **do** provide the metadata in the form of commit messages.
 
-If you enforce a standardized set of commit messages (both header and body), then a tool can automatically run through each commit since your last release and generate the changelog from there. Furthermore, because the commit message standards you'll follow explain when a new feature, bug fix, or breaking change is introduced, this tooling is able to assume what portion of SEMVER (major, minor, or patch) to bump, and can change the version numbers in your files as well!
+If you _enforce a standardized set of commit messages_ (both header and body), then _a tool can automatically run through each commit_ since your last release _and generate the changelog_ from there. Furthermore, because the commit message standards you'll follow explain when a new feature, bug fix, or breaking change is introduced, _this tooling is able to assume what portion of SEMVER (major, minor, or patch) to bump_, and can change the version numbers in your files as well!
 
 # Step 0: Commit Rules {#conventional-commit}
 
@@ -86,7 +86,7 @@ An immediate question that might be asked is "why would I put the scope of chang
 
 # Step 1: Commit Message Enforcement {#commit-lint}
 
-Any good set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, Conventional Commit setups often have a linter setup of their own. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
+Any good set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
 
 Just as you have many options when it comes to what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the guide of the Angular Team](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
 
@@ -116,7 +116,7 @@ It should either validate or fail, depending on if the last commit message follo
 
 ### Husky Setup {#husky}
 
-While you _could_ setup a CI system with something like the `commitlint` command from above, it wouldn't be super effective for making sure you and your team remain vigilant with your commit schema. You're actually able to enforce your commit messages directly from your development machine at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
+While you _could_ setup a CI system with something like the `commitlint` command from above, it wouldn't be super effective for making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
 
 ```
 npm install --save-dev husky
@@ -151,8 +151,80 @@ No staged files match any of provided globs.
 husky > commit-msg hook failed (add --no-verify to bypass)
 ```
 
-# Conclusion
+# Step 2: Manage Your Releases {#standard-version}
+
+While contiguous commit consistency is cool (what a mouthful), our end goal is to have easier management of our releases. To this end, we have the [`standard-version` ](https://github.com/conventional-changelog/standard-version). This tool allows you to generate git tags, changelogs, and bump your `package.json` files. To start, we'll install the package as a developer dependency:
+
+```
+npm i --save-dev standard-version
+```
+
+Afterwards, we can add a `release` script in our `package.json`:
+
+```json
+{
+  "scripts": {
+    "release": "standard-version"
+  }
+}
+```
+
+Finally, `standard-version` needs to have a starting point to append the CHANGELOG and other versions to. Simply run:
+
+```
+npm run release -- --first-release
+```
+
+In order to generate your initial `CHANGELOG.md` file. This will also create a tag of the current state, so that every subsequent release can change your version numbers. 
+
+## Usage {#use-standard-version}
+
+Having an initial starting point for releases is cool, but ultimately useless without understanding how to cut a new release. Once you've made a series of commits, you'll want to re-run `npm run release`. This will do all of the standard release actions. [As mentioned before, the `type` of commits will dictate what number (patch, minor, major) is bumped](#conventional-commits). As all of your changes will make it into your `CHANGELOG.md`, you may want to consider squashing PRs before merging them, so that your changelog is clean and reflective of your public changes (not just the implementation detail).
+
+One thing to note is that you'll want to run `npm run release` _**before**_ running your build or release. This is because it bumps your package version and as-such won't change the package version in your deployed updates.
+
+## Changelog Customization {#customize-changelog}
+
+From here, your `CHANGELOG.md` file should look like the following:
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 0.0.1-alpha.1 (2020-01-01)
+
+Initial release
+```
 
 
+Let's say we introduce a new version that has a set of features and bug fixes:
+
+```markdown
+### [0.0.2](https://github.com/unicorn-utterances/batteries-not-included/compare/v0.0.1...v0.0.2) (2020-02-25)
+
+### Features
+
+* added overflow property to keyboard handler ([3f85fdc](https://github.com/unicorn-utterances/batteries-not-included/commit/3f85fdcc9ff2bf2e765585c500b0d2f3421c92dc))
+* added wrap number util ([762f1cd](https://github.com/unicorn-utterances/batteries-not-included/commit/762f1cd5ff60274b221eccf6da829b72fac97d7b))
+
+### Bug Fixes
+
+* parameter in name in doc in wrap-number.ts ([249b63b](https://github.com/unicorn-utterances/batteries-not-included/commit/249b63bebe1816655dd64cc1acf7f57875b0613e))
+* updated overflow to work on keyboard handler ([eb50de0](https://github.com/unicorn-utterances/batteries-not-included/commit/eb50de0c401d98f84a5c9628c6d34c6cef311eb1))
+```
+
+You might think "Well, this file is auto-generated. I shouldn't modify it, least it stop working!" Luckily for us, this is not the case! So long as we leave the headers as-is, we're able to customize the `CHANGELOG.md` file with further details. _We can even include images_ using the standard markdown `![]()` syntax! Using this knowledge, we can create extremely robust and explanative changelogs for our consumers.
+
+## Bump Version Files {#bump-package-json}
+
+
+
+# Conclusion {#conclusion}
 
 Keep in mind, simply because you have a new tool to manage releases doesn't mean that you have a free pass on ignoring your branching strategy. If you're developing a developer tool that has breaking  changes every week, you're certainly going to alienate anyone that's not a staunch consumer. You'll want to keep following best practices for your use-cases to make sure that this tool isn't squandered by other project issues.
+
+While the outline we've provided should suffice for most usage, each of these tools includes a bunch of options that you're able to utilize in order to customize the process to your liking.
+
+Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.gg/FMcvc6T) that we use to chat.
+
