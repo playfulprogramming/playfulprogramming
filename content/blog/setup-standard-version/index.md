@@ -218,7 +218,34 @@ You might think "Well, this file is auto-generated. I shouldn't modify it, least
 
 ## Bump Version Files {#bump-package-json}
 
+While working in a monorepo, I often find myself needing to change the version number in more than a single file at a time. I've also found myself in need of multi-file version bumping when using a different `package.json` for release than the one I use for development.
 
+Regardless of the reason behind needing to change multiple files' package number, `standard-version`'s got you covered!
+
+You'll want to create a `.versionrc` file and put the following in it:
+
+```json
+{
+  "bumpFiles": [
+    {
+      "filename": "MY_VERSION_TRACKER.txt",
+      // The `plain-text` updater assumes the file contents represents the version.
+      "type": "plain-text"
+    },
+    {
+      "filename": "a/deep/package/dot/json/file/package.json",
+      // The `json` updater assumes the version is available under a `version` key in the provided JSON document.
+      "type": "json"
+    },
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+  ]
+}
+```
+
+There are multiple different kinds of files that can be updated, and you can even [write your own `updater` method to update any file you'd so like](https://github.com/conventional-changelog/standard-version#custom-updaters).
 
 # Conclusion {#conclusion}
 
