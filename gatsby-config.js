@@ -233,7 +233,42 @@ module.exports = {
 				icon: `src/assets/unicorn_utterances_logo_512.png`
 			}
 		},
-		`gatsby-plugin-offline`,
+		{
+			resolve: `gatsby-plugin-offline`,
+			options: {
+				workboxConfig: {
+					runtimeCaching: [
+						// Some as-is options from default config, explictly stated to avoid regressions from issues with `_.merge`ing into the default
+						{
+							// DEFAULT - Use cacheFirst since these don't need to be revalidated (same RegExp
+							// and same reason as above)
+							urlPattern: /(\.js$|\.css$|static\/)/,
+							handler: `CacheFirst`
+						},
+						{
+							// MODIFIED - page-data.json files are not content hashed
+							urlPattern: /^https?:.*\/page-data\/.*\/page-data\.json/,
+							handler: `NetworkFirst`
+						},
+						{
+							// MODIFIED - app-data.json is not content hashed
+							urlPattern: /^https?:.*\/page-data\/app-data\.json/,
+							handler: `NetworkFirst`
+						},
+						{
+							// DEFAULT - Add runtime caching of various other page resources
+							urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
+							handler: `StaleWhileRevalidate`
+						},
+						{
+							// DEFAULT - Google Fonts CSS (doesn't end in .css so we need to specify it)
+							urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
+							handler: `StaleWhileRevalidate`
+						}
+					]
+				}
+			}
+		},
 		`gatsby-plugin-react-helmet`,
 		{
 			resolve: "gatsby-plugin-react-svg",
