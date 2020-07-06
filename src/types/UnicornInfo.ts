@@ -18,6 +18,7 @@ export interface UnicornInfo {
 		website?: string;
 		linkedIn?: string;
 		twitch?: string;
+		dribbble?: string;
 	};
 	pronouns: PronounInfo;
 	profileImg: {
