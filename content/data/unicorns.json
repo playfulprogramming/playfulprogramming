@@ -62,13 +62,14 @@
 	},
 	{
 		"id": "zavukodlak",
-		"name": "vukashin",
-		"firstName": "vukashin",
-		"lastName": "",
-		"description": "I'm a high school student doing creative work on the internet.",
+		"name": "Vukašin Anđelković",
+		"firstName": "Vukašin",
+		"lastName": "Anđelković",
+		"description": "Always doing a little bit of everything. Although, mainly focusing on design, logos, illustrations and paintings.\nI created the logo and all of the unicorns you see peeking out in some of the profile pictures!",
 		"socials": {
-			"twitter": "vukash_in",
-			"website": "https://vukash.in/"
+			"twitter": "vukkashin",
+			"website": "https://vukash.in/",
+			"dribbble": "vukashin"
 		},
 		"pronouns": "he",
 		"profileImg": "./vukashin.png",
