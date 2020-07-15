@@ -17,9 +17,13 @@ A long & terse explanation of a file extension exists but to boil it down into s
 
 # Viewing the File Extension
 
-When most people look at a file they probably don't see a file extension after the name. Often, by default, the file extension is hidden from the user. You can easily find articles that outline how to turn it back on again, however, for longevity, we won't be linking any as with time they can become obsolete. Now when looking at the file its extension will be visible right after the name.
+When most people look at a file they probably don't see a file extension after the name. Often, by default, the file extension is hidden from the user. You can easily find articles that outline how to [turn file extensions on for macOS](https://support.apple.com/guide/mac-help/show-or-hide-filename-extensions-on-mac-mchlp2304/mac) or [how to turn it on for Windows](https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/). Now when looking at the file its extension will be visible right after the name.
+
+![A preview of what it's like to have file extensions on and off in Windows 10](./file_extensions.png)
 
 As an example, most pictures you have will end in `.jpg`, `.png`, `.gif`, `.webp`, or `.avif`. A program will have a `.exe`, `.bash`, or `.bat`. A music file might have a `.mp3`, `.mp4`, `.flac`, or `.ogg`. A text file can be `.docx`, `.txt`, or `.odf`. Then there are spreadsheets, videos, hardware drivers, databases, and many other types of file extensions with more being made every day.
+
+Keep in mind, these file extensions are just part of the file name, they aren't part of your file's contents. If you were to remove or change the file extension and then add it back, nothing bad would happen to your file and it would act the same as it did before.
 
 # Opening the File
 
