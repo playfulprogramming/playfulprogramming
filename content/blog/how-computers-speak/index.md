@@ -20,3 +20,16 @@ Now, while you _could_ write your code in Word, it would add additional (invisib
 
 > Typically, code is not stored in a `.txt` file, but it rather stored in a different file extension. However, if you saved the code above in a `code.txt` file, then renamed that to a `code.js` file, that would be how JavaScript is typically stored. The contents of the file are exactly the same, just the file name (ala extension) is different
 
+However, you'll notice that if you double-click the file nothing special happens, it just opens the file in a text editor. You'd have to use something like [NodeJS](https://nodejs.org/) which is a program used to run JavaScript source code files as a program. While this might make sense at a surface level, it brings more things into question.
+
+- Why do I need a custom program to run some programming languages?
+- How does a computer turn letters and symbols into instructions that it knows how to run?
+- Why do some programming languages have different rules and look different from one-another?
+- Why can't we simply give the computer English instructions and have it run those with a special program?
+
+We'll do our best to answer these questions in this article, and dive into how computers actually speak and understand things.
+
+# How A Computer Works
+
+> This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to suppliment explainations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
+
