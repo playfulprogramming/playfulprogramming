@@ -33,3 +33,75 @@ We'll do our best to answer these questions in this article, and dive into how c
 
 > This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to suppliment explainations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
 
+
+
+# Assembly: What's that? {#assembly-code}
+
+> As we mentioned, assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proxomity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+
+
+
+
+
+# This (code) Keeps Lifting me Higher {#introducing-c-code}
+
+As efficient as assembly code is, you may have noticed that it's not particurly readible. Further, for larger projects, it's not always easy to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or Ruby come into play*.
+
+
+
+## Compiled vs. Runtime {#compiled-vs-runtime}
+
+As [the start of this section](#introducing-c-code), we mentioned that languages like C or Ruby are higher-level languages than assembly. However, long-time developers will be quick to remind that these two languages are drastically different. The biggest difference between these being that C is a "compiled" language while Ruby is a dynamic "runtime" language.
+
+
+
+// ...
+
+
+
+But how does it know that X (JS) means that we want to do Y (ASSEMBLY)? How is it able to do that conversion?
+
+# Introducing the AST {#ast}
+
+An AST takes human-readible text and turns it into machine-understandable data using a rigid set of rules.
+
+
+
+// ...
+
+
+
+Whether you're using a compiled language or a runtime language, you're using an AST at some point of using the language.
+
+
+
+// ... 
+
+
+
+![](./parser_1.svg)
+
+
+
+// ...
+
+
+
+![](./ast_1.svg)
+
+
+
+
+
+## Why Not English? {#english-vs-ast}
+
+// Explain linguistical complexities and it's loose set of rules (comparitively)
+
+
+
+// AI is able to do this a bit, there are projects working on making that exact question possible
+
+
+
+# Conclusion
+
