@@ -33,6 +33,31 @@ We'll do our best to answer these questions in this article, and dive into how c
 
 > This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to suppliment explainations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
 
+Your computer is comprised of many components, but today we'll be focusing on four of the primary ones:
+
+- Hard Drive Disk ("HDD")
+- Graphics Processing Unit ("GPU")
+- Central Processing Unit ("CPU")
+- Random Access Memory ("RAM")
+
+These, alongside the motherboard, which is used to connect each of these parts together, make up the "brains" of your computer. Whenever you take an action on your computer, these components launch into action to bring you the output you'd expect. Be it auditory, visual, or some other form of output, these components will do the "thinking" required to make it happen.
+
+
+
+Let's start with your hard drive. When you turn on your computer, the first that will happen is that your hard-drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your hard-drive is done finding the relevant files, your computer reads the rest of the information off of the disk to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
+
+
+
+While hard drives (and their solid-state counterparts [SSDs]) are fantastic for long-term file storage, they're poorly optimized for temporary information storage, despite some app's usage of caching. RAM allows you to extremely rapidly store information while it's being processed. When a programmer assigns a value to a variable, this is where that data lives. Everything from your operating system to your video player utilizes RAM in order to store data while it's processing. However, while this information is magnitudes faster to access than hard-drives, it's non-volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. This is why we don't store our files to RAM for long-term accesss.
+
+
+
+
+
+
+
+Your CPU is what does all of the computation needed to perform the action. It does the math and logic to figure out what the other components need to be doing. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM, 
+
 ![](./hardware_devices.svg)
 
 # Assembly: What's that? {#assembly-code}
@@ -63,15 +88,61 @@ But how does it know that X (JS) means that we want to do Y (ASSEMBLY)? How is i
 
 # Introducing the AST {#ast}
 
-An AST takes human-readible text and turns it into machine-understandable data using a rigid set of rules.
-
-
+An Abstract Syntax Tree (AST) takes human-readible text and turns it into machine-understandable data using a rigid set of rules.
 
 // ...
 
 
 
-Whether you're using a compiled language or a runtime language, you're using an AST at some point of using the language.
+Let's take the following code snippet:
+
+```javascript
+const magicNumber = 185;
+```
+
+While this code sample is small (and doesn't do anything on it's own), it contains enough complexity in how the computer understands it to use as an introductory example.
+
+## The Lexer {#lexer}
+
+There are (typically) two steps to turning source code into something that the computer is able to transform into assembly instruction sets.
+
+First, the computer goes through a **"lexer"**. The lexer is what turns individual characters into collections of characters called **"tokens"**. These tokens can either be a single character or a collection of characters. Both the lexer and the token identifiers are programmed into the language (either in the runtime or the compiler). Taking the code snippet, we can see that there's 5 tokens that are generated:
+
+![](./lexer_1.svg)
+
+> These lexer demos are a general aproximation of how a lexer might work. This particular example isn't based on any specific JavaScript lexer
+
+While these tokens' collective functions may seem obvious to you and I, the computer does not yet understand that we want to assign a variable, despite the "ASSIGN" name of the `=` token. At this stage of tokenization, synax errors do not exist yet, code logic does not exist yet, simply characters and tokens.
+
+What do I mean by that? Let's take the following intentionally incorrect example:
+
+```javascript
+const magicNumber = = 185;
+```
+
+To a developer, this is obviously a syntax error. However, the lexer is not in charge of finding syntax errors, simply assigning tokens to the characters it's been taught to recognize. As such, running the above through a lexer would likely yeild us something like this:
+
+![](./lexer_2.svg)
+
+It's not until later (with the parser) that the computer recognizes that there is a synax error, at which point it will throw an error:
+
+```
+Uncaught SyntaxError: Unexpected token '='
+```
+
+Notice how it reports "Unexpected token"? That's because the lexer is converting that symbol into a token before the parser recognizes that it's an invalid syntax.
+
+## The Parser {#parser} 
+
+Now that we've loosely touched on the parser at the end of the last section, let's talk more about it!
+
+At this stage, the lexer has already had time to convert the code into a series of tokens, complete with a bit of metadata about the tokens (such as what line number and column start/end of the token), and the parser is ready to convert these tokens into a tree for further computing.
+
+> A tree is a kind of memory structure that represents a hierarchy of information related to one-another. While [we touched on this concept in our "Understanding the DOM" article](/posts/understanding-the-dom/), here's a quick chart from that article to show an example tree:
+>
+> ![](../understanding-the-dom/dom_tree.svg)
+>
+> Once a set of data is turned into a tree, the computer knows how to "walk" through this tree and utilize the data (and metadata of their relationships) to take actions. In this case, the tree that is created by the parser is traversed to compile the code into instruction sets.
 
 
 
@@ -88,6 +159,10 @@ Whether you're using a compiled language or a runtime language, you're using an 
 
 
 ![](./ast_1.svg)
+
+
+
+Whether you're using a compiled language or a runtime language, you're using an AST at some point of using the language.
 
 
 
