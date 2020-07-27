@@ -66,11 +66,21 @@ Your CPU is what does all of the computation needed to perform the action. It do
 
 
 
+// Use faux assembly code to showcase how memory is assigned in "variable" creation
+
+// Showcase a quick example of a stack, and how things work fundamentally different (aka more explicitly) in assembly 
+
 
 
 # This (code) Keeps Lifting me Higher {#introducing-c-code}
 
 As efficient as assembly code is, you may have noticed that it's not particurly readible. Further, for larger projects, it's not always easy to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or Ruby come into play*.
+
+
+
+// Showcase difference in assembly vs C coding for variable creation
+
+// Show "assembled" faux assembly code that maps to the C code
 
 
 
@@ -145,28 +155,49 @@ At this stage, the lexer has already had time to convert the code into a series 
 > Once a set of data is turned into a tree, the computer knows how to "walk" through this tree and utilize the data (and metadata of their relationships) to take actions. In this case, the tree that is created by the parser is traversed to compile the code into instruction sets.
 
 
-
-// ... 
-
-
+Once the tokenized code is ran through the parser, we're left with the "syntax tree" of the code in question. For example, when ran through Babel's parser (A JavaScript parser written itself in JavaScript), we're left with something like the following:
 
 ![](./parser_1.svg)
 
-
-
-// ...
-
-
+While the above chart represents the code in a flat manner, it's anything but:
 
 ![](./ast_1.svg)
 
+As you can see, there's a top-down view of the AST for the expected code. However, that's not all I'm able to provide. Because Babel's parser is implemented in JavaScript itself, I'm able to show the AST in the shape of a JavaScript object:
 
+```javascript
+{
+  type: "File",
+  program: {
+    type: "Program",
+    body: [
+      {
+        type: "VariableDeclaration",
+        declarations: [
+          {
+            type: "VariableDeclarator",
+            id: {
+              type: "Identifier",
+              name: "magicNumber",
+            },
+            init: {
+              type: "NumericLiteral",
+              value: 185,
+            },
+          },
+        ],
+        kind: "const",
+      },
+    ],
+  },
+};
+```
 
-Whether you're using a compiled language or a runtime language, you're using an AST at some point of using the language.
+> This is not the exact output of the Babel Parser. There is a great deal more metadata that has been stripped for the sake of simplicity
 
+This showcases how much metadata is stored during the parsing process. Everything from operator order to variable naming is stored during this process. Because of this, the conversion to instructions is made possible.
 
-
-
+Needless to say, whether you're using a compiled language or a runtime language, you're using an AST at some point of using the language.
 
 ## Why Not English? {#english-vs-ast}
 
