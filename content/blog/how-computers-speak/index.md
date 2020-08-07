@@ -29,7 +29,7 @@ However, you'll notice that if you double-click the file nothing special happens
 
 We'll do our best to answer these questions in this article, and dive into how computers actually speak and understand things.
 
-# How A Computer Works
+# How A Computer Works {#computer-hardware}
 
 > This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to suppliment explainations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
 
@@ -42,21 +42,25 @@ Your computer is comprised of many components, but today we'll be focusing on fo
 
 These, alongside the motherboard, which is used to connect each of these parts together, make up the "brains" of your computer. Whenever you take an action on your computer, these components launch into action to bring you the output you'd expect. Be it auditory, visual, or some other form of output, these components will do the "thinking" required to make it happen.
 
-
+## Hard Drive {#hdd}
 
 Let's start with your hard drive. When you turn on your computer, the first that will happen is that your hard-drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your hard-drive is done finding the relevant files, your computer reads the rest of the information off of the disk to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
 
+## RAM {#ram}
 
+While hard drives (and their solid-state counterparts, `SSDs`) are fantastic for long-term file storage, they're poorly optimized for temporary information storage, despite some app's usage of caching. RAM allows you to extremely rapidly store information while it's being processed. When a programmer assigns a value to a variable, this is where that data lives. Everything from your operating system to your video player utilizes RAM in order to store data while it's processing. 
 
-While hard drives (and their solid-state counterparts [SSDs]) are fantastic for long-term file storage, they're poorly optimized for temporary information storage, despite some app's usage of caching. RAM allows you to extremely rapidly store information while it's being processed. When a programmer assigns a value to a variable, this is where that data lives. Everything from your operating system to your video player utilizes RAM in order to store data while it's processing. However, while this information is magnitudes faster to access than hard-drives, it's non-volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. This is why we don't store our files to RAM for long-term accesss.
+However, while this information is magnitudes faster to access than hard-drives, it's non-volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. This is why we don't store our files to RAM for long-term accesss.
 
+## GPU {#gpu}
 
+Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - being able to see the results of an action they've taken. Your computer's "graphics processing unit" (GPU) is the hardware that is used to calculate the complex maths required to draw things on-screen.
 
+## CPU {#cpu}
 
+Your CPU is what does all of the computation needed to perform the action. It does the math and logic to figure out what the other components need to be doing. An example of this is telling what the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
 
-
-
-Your CPU is what does all of the computation needed to perform the action. It does the math and logic to figure out what the other components need to be doing. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM, 
+You can think of these components to work together similar to this:
 
 ![](./hardware_devices.svg)
 
@@ -81,6 +85,14 @@ As efficient as assembly code is, you may have noticed that it's not particurly 
 // Showcase difference in assembly vs C coding for variable creation
 
 // Show "assembled" faux assembly code that maps to the C code
+
+```c
+void main() {
+   int magicNumber = 185;
+}
+```
+
+
 
 
 
