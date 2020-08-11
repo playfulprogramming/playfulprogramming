@@ -116,17 +116,17 @@ The neat part of C++ is that you can control whether something is passed by refe
 	
 		int num1 = 0;
 		int num2 = 0;
-		cout << "Original values: " << num << endl;
+		cout << "Original value: " << num1 << endl;
 
 		// call passByReference()
 		passByReference(num1);
 
-		cout << "After passing by reference: " << num << endl;
+		cout << "After passing by reference: " << num1 << endl;
 		
 		// call passByValue()
 		passByValue(num2);
 
-		cout << "After passing by value: " << num << endl;
+		cout << "After passing by value: " << num2 << endl;
 		
 	}
 ```
@@ -134,12 +134,12 @@ The neat part of C++ is that you can control whether something is passed by refe
 The output of this looks like...
 
 ```
-	Original values: 0
+	Original value: 0
 	After passing by reference: 2
 	After passing by value: 0
 ```
 
-As you can see, when passed by reference the local value is changed but when it is passed by value it is not even though they both perform the same operation. In languages outside of C++ — like Java for example — doesn't give you control of whether you pass by value or reference; Some types of objects or variables are passed by reference and some aren't. For example, Java collections are passed by reference, but all other variables and objects are passed by value.
+As you can see, when passed by reference the local value is changed but when it is passed by value it is not even though they both perform the same operation. In languages outside of C++ — like Java for example — doesn't give you control of whether you pass by value or reference; Java always passes by value, though it can pass addresses as values, making it seem like a pass by reference. For example, Java collections end up passing a reference by value, but all other variables are passed by value.
 
 This gets confusing after a while if you're not paying attention to your outputs. In fact, Python gets even more confusing, but that's a topic for another day; be sure to sign up for our newsletter to see when that lands 😉
 
