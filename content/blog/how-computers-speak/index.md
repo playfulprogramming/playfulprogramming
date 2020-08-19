@@ -1,10 +1,46 @@
-> I want to start this article by saying "It's okay if you don't know programming". I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as I can before diving into the more complex territory. That said, we all learn in different ways and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in depth.
->
-> 
->
-> Further, while I'll be using JavaScript for the examples in this article, the foundational concepts apply regardless of what programming language you use. While some languages may have more or less complex translations to and from your machine, they ultimately boil down to the same formula.
+> While I'll be using JavaScript for the examples in this article, the foundational concepts apply regardless of what programming language you use. While some languages may have more or less complex translations to and from your machine, they ultimately boil down to the same formula.
 >
 > Now that that's out-of-the-way, let's get started!
+
+
+
+
+
+
+
+
+
+ I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as I can before diving into the more complex territory. That said, we all learn in different ways and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in depth.
+
+
+
+
+
+
+
+Starting out programming can feel intimidating because there are many components that comes in to play when learning about programming that isn't properly explained at the very first time. Take for example, an error like this: 
+
+```javascript
+const magicNumber = = 185;
+```
+
+```
+Uncaught SyntaxError: Unexpected token '='
+```
+
+Why does this happen? 
+
+
+
+
+
+
+
+
+
+
+
+
 
 If you've spent any time with developers, you'll likely have heard of the term "source code". Source code simply refers to the text that programmers type in order to make their programs. Take the following text:
 
@@ -14,7 +50,7 @@ const magicNumber = 185;
 console.log(magicNumber);
 ```
 
-If you're not familiar with what that code does, that's okay. We'll explain this code in a bit. Right now it's just important to focus on what's being typed. If you opened Word, you'd be able to type this in using a typical QWERTY keyboard.
+If you're not familiar with what that code does,  we'll explain this code in a bit. Right now it's just important to focus on what's being typed. If you opened Word, you'd be able to type this in using a typical QWERTY keyboard.
 
 Now, while you _could_ write your code in Word, it would add additional (invisible) encoding characters in the file. However, if you were to use Notepad (or similar), and save this to a `.txt` file, it would be considered a "source code" file.
 
@@ -27,46 +63,75 @@ However, you'll notice that if you double-click the file nothing special happens
 - Why do some programming languages have different rules and look different from one-another?
 - Why can't we simply give the computer English instructions and have it run those with a special program?
 
-We'll do our best to answer these questions in this article, and dive into how computers actually speak and understand things.
+The answer to all of these involves an understanding of how hardware works, and one of the best ways to learn programming is to learn how a computer works in the first place.
 
 # How A Computer Works {#computer-hardware}
 
-> This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to suppliment explainations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
+> This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives in deeper into these subject matters, this is meant as a short description to supplement explanations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
 
-Your computer is comprised of many components, but today we'll be focusing on four of the primary ones:
+Your computer is comprised of many components, but today we'll be focusing on five of the primary ones:
 
-- Hard Drive Disk ("HDD")
+- Motherboard
+- Long Term Storage ("HDD" or "SSD")
 - Graphics Processing Unit ("GPU")
 - Central Processing Unit ("CPU")
 - Random Access Memory ("RAM")
 
-These, alongside the motherboard, which is used to connect each of these parts together, make up the "brains" of your computer. Whenever you take an action on your computer, these components launch into action to bring you the output you'd expect. Be it auditory, visual, or some other form of output, these components will do the "thinking" required to make it happen.
+These are used to connect each of these parts together, make up the "brains" of your computer. Whenever you take an action on your computer, these components launch into action to bring you the output you'd expect. Be it auditory, visual, or some other form of output, these components will do the "thinking" required to make it happen.
 
-## Hard Drive {#hdd}
+## Motherboard {#mobo}
 
-Let's start with your hard drive. When you turn on your computer, the first that will happen is that your hard-drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your hard-drive is done finding the relevant files, your computer reads the rest of the information off of the disk to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
+A motherboard is the platform in which all other components connect together and communicate through. There are various integrated components to your motherboard like storage controllers, chipsets that are necessary for your computer to work. Fancier motherboards include additional functionality like high speed connectivity (PCIE 4.0) and Wi-Fi. 
 
-## RAM {#ram}
+When you turn on your computer, the first that will happen is your motherboard will do a "POST"; a hardware check to see if everything connected is functioning properly. Then the motherboard will start the boot sequence; which starts with storage
 
-While hard drives (and their solid-state counterparts, `SSDs`) are fantastic for long-term file storage, they're poorly optimized for temporary information storage, despite some app's usage of caching. RAM allows you to extremely rapidly store information while it's being processed. When a programmer assigns a value to a variable, this is where that data lives. Everything from your operating system to your video player utilizes RAM in order to store data while it's processing. 
+## Long Term Storage {#hdd}
 
-However, while this information is magnitudes faster to access than hard-drives, it's non-volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. This is why we don't store our files to RAM for long-term accesss.
+There are 2 primary types of storage in computers; Solid State Drives (SSD), and Hard Disk Drives (HDD). When the boot sequence hits storage, your drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your storage is done finding the relevant files, your computer reads the rest of the information off of the drive to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
+
+## Memory {#ram}
+
+While SSDs and HDDs are fantastic for long-term file storage, they're too slow (in terms of reading speeds) to store data needed to run your computer. This is why we have memory in the form of Registers, and Random Access Memory (RAM).  Registers are the closest memory to your processor, and is extremely fast, but they are extremely small. System Memory, or RAM, is outside of the processor but allows us to store entire programs in a responsive manner.  Everything from your operating system to your video player utilizes memory in order to store data while it's processing. We'll see how the computer utilized registers and RAM in programs [later in the article](#assembly-code).
+
+However, while this information is magnitudes faster to access than hard-drives, it's volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. Memory is also much more expensive than Storage. This is why we don't store our files to RAM for long-term access.
 
 ## GPU {#gpu}
 
-Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - being able to see the results of an action they've taken. Your computer's "graphics processing unit" (GPU) is the hardware that is used to calculate the complex maths required to draw things on-screen.
+Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - being able to see the results of an action they've taken. Your computer's "graphics processing unit" (GPU) is the hardware that is used to calculate the complex maths required to draw things on-screen. The GPUs' complex mathematics prowess can also be utilized for things other than graphics (data analytics, cryptocurrency mining, scientific computation).
 
 ## CPU {#cpu}
 
-Your CPU is what does all of the computation needed to perform the action. It does the math and logic to figure out what the other components need to be doing. An example of this is telling what the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
+Your CPU is what does all of the computation needed to perform tasks you do on your computer. It does the math and logic to figure out what the other components need to be doing and it coordinates them. An example of this is telling what the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
 
 You can think of these components to work together similar to this:
 
 ![](./hardware_devices.svg)
 
+> For those unaware, the visual cortex is the part of the brain that allows us to perceive and understand the information provided to us by our eyes. Our eyes simply pass the light information gathered to our brains, which make sense of it all. Likewise, the GPU does the computation but does not display the data it processes, it passes that information to your monitor, which in turns displays the image source to you.
+
+## Putting It All Together
+
+Now that you understand the individual components that go into your computer, let's explain how these are used in the real world.
+
+Assuming the program is already installed on the computer, when the user selects the icon on their device, the CPU tells the HDD to load the relevant initialization data 
+
+ 
+
 # Assembly: What's that? {#assembly-code}
 
-> As we mentioned, assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proxomity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+> Assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proximity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+
+You may have heard that computers only truly understand `1`s and `0`s. While this is true, this is not how engineers program. 
+
+Even for direct hardware access, there is a language that doesn't 
+
+
+
+All programming languages end up as assembly instructions at one stage or another (we'll touch on how that conversion takes place later on).
+
+
+
+
 
 
 
@@ -78,7 +143,7 @@ You can think of these components to work together similar to this:
 
 # This (code) Keeps Lifting me Higher {#introducing-c-code}
 
-As efficient as assembly code is, you may have noticed that it's not particurly readible. Further, for larger projects, it's not always easy to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or Ruby come into play*.
+As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's not possible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or Ruby come into play*.
 
 
 
@@ -94,9 +159,9 @@ void main() {
 
 
 
+## Compiler
 
-
-## Compiled vs. Runtime {#compiled-vs-runtime}
+## Tangent: Compiled vs. Runtime {#compiled-vs-runtime}
 
 As [the start of this section](#introducing-c-code), we mentioned that languages like C or Ruby are higher-level languages than assembly. However, long-time developers will be quick to remind that these two languages are drastically different. The biggest difference between these being that C is a "compiled" language while Ruby is a dynamic "runtime" language.
 
@@ -222,4 +287,6 @@ Needless to say, whether you're using a compiled language or a runtime language,
 
 
 # Conclusion
+
+
 
