@@ -119,6 +119,8 @@ Assuming the program is already installed on the computer, when the user selects
 # Assembly: What's that? {#assembly-code}
 
 > Assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proximity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+>
+> For record keeping purposes: we'll be trying our best to stick to the [MIPS instructionset](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html) with [Pseudoinstructions assembler macros](https://en.wikibooks.org/wiki/MIPS_Assembly/Pseudoinstructions)
 
 
 
@@ -145,8 +147,8 @@ When you and I do math, we need to keep the concepts of the numbers `180` and `5
 Let's assume that we have two (2) registers. We can use `$1` as shorthand for "register 1" while `$2` will be shorthand for "register 2".
 
 ```assembly
-li      $1,180 # Loads "180" into regester 2
-li      $2,5 # Loads "5" into register 2
+li      $1,180     # Loads "180" into regester 2
+li      $2,5       # Loads "5" into register 2
 ```
 
 > The `li` command stands for "load immediate".
@@ -154,7 +156,7 @@ li      $2,5 # Loads "5" into register 2
 Now that we have that data loaded into registers, we can now do the `addu` instruction to combine these numbers and store the final value back in register 1
 
 ```assembly
-addu    $1,$2,$1 # Add (+) data from registers 1 and 2, store the result back into register 1
+addu    $1,$2,$1   # Add (+) data from registers 1 and 2, store the result back into register 1
 ```
 
 Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`. The calculation has been done on the CPU and you're 
@@ -169,21 +171,23 @@ This is where RAM comes into play. In order to store items into RAM, we can use 
 
 ```assembly
 # Saving "180" to RAM w/ tag "8"
-li      $1,180 # Loads "180" into regester 1
-sw      $1,8($fp) # Store data in register 1 into RAM (with the tag "8")
+
+li      $1,180     # Loads "180" into regester 1
+sw      $1,8($fp)  # Store data in register 1 into RAM (with the tag "8")
 
 # Saving "5" to RAM w/ tag "8"
-li      $1,5 # Loads "5" into register 1
+
+li      $1,5       # Loads "5" into register 1
 sw      $1,12($fp) # Stores data in register 1 into RAM (with the tag "12")
 
-
 # Saving "20" to RAM w/ tag "16"
-li      $1,20 # Loads "20" into register 1
+
+li      $1,20      # Loads "20" into register 1
 sw      $1,16($fp) # Stores data in register 1 into RAM (with the tag "16")
 
-lw      $1,8($fp) # Load RAM tag 8 data into register 1
+lw      $1,8($fp)  # Load RAM tag 8 data into register 1
 lw      $2,12($fp) # Load RAM tag 12 data into register 2
-addu    $1,$2,$1 # Add (+) data from register 1 and 2, store the result back into register 1
+addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back into register 1
 
 # Register 1 now contains the value "185"
 
@@ -191,7 +195,7 @@ lw      $2,12($fp) # Load RAM tag 16 data into register 2
 
 # Remember, register 2 now contains the value "20"
 
-addu    $1,$2,$1 # Add (+) data from register 1 and 2, store the result back into register 1
+addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back into register 1
 
 # Register 1 now contains the value "205"
 ```
@@ -210,9 +214,13 @@ As efficient as assembly code is, you may have noticed that it's not particularl
 
 
 
-// Showcase difference in assembly vs C coding for variable creation
 
-// Show "assembled" faux assembly code that maps to the C code
+
+
+
+
+
+While in-memory "tags" are useful for storing data into RAM using assembly, the numbers spit out from the stack are hardly memorable. Remembering what value is present in RAM spot #16 is tricky on it's own, and only grows more and more complex the larger the application is. As such, higher-level languages have the concept of "variables". They're an abstraction around storing values in RAM but instead of number "tags", you can make them alpha-numeric human-readable values. For example, the following code in C:
 
 ```c
 void main() {
@@ -220,24 +228,22 @@ void main() {
 }
 ```
 
+Might map to something like this:
 
+```assembly
+li      $1,185
+sw      $1,8($fp)
+```
 
+Without the comments in the assembly, it's much easier to tell what the C code is doing. This is made more dramatic when using more than a single value. Let's take the three number addition from before:
 
-
-
-
-
-
-Take the following:
-
-```c++
-#include <iostream>
-using namespace std;
-
+```c
 int main() {
-    int magicNumber = 185;
-    
-    cout << magicNumber;
+	int magicNumber = 180;
+	int number2 = 5;
+	int thirdNumber = 20;
+
+	return magicNumber + number2 + thirdNumber;
 }
 ```
 
@@ -245,30 +251,105 @@ int main() {
 
 
 
-This might map to the following MIPS assembly:
 
-```assembly
-li      $2,185                  # 0xb9
-sw      $2,24($fp) # End of int
-lw      $5,24($fp) # Start of cout
-lui     $2,%hi(_ZSt4cout)
-addiu   $4,$2,%lo(_ZSt4cout)
-jal     std::basic_ostream<char, std::char_traits<char> >::operator<<(int) # End of cout
+
+
+
+## Portability
+
+While the previous example already demonstrates the readability that higher-level languages hold over assembly, when it comes to code complexity there's no contest: High-level languages make I/O like printing something on-screen readily available.
+
+Take the following:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int magicNumber = 185;
+    
+    printf("%d", magicNumber);
+}
 ```
 
+This code simply says "print the number 185 to the screen so the user can see it". **To do the same in assembly requires a massive amount of knowledge about the system** you're intending to run code on, due to the lack of portability granted by higher-level languages.
+
+What do I mean by portability? Well, let's say you want to write code that runs on both low-end Chromebooks and high-end Desktops alike, you need to adapt your code to run on their respective processors. Most low-end Chromebooks use a type of CPU called "ARM", while most high-end Desktops run "x86_64" processors. **This difference in CPU architecture means an entirely different instruction set which requires a different set of assembly instructions to be written to do the same thing in both**.
+
+Meanwhile (with a few exceptions), simple C code will run both platforms equally with some minor changes. This is because of C's _compiler_. 
+
+What is a compiler?
+
+**A compiler is a program that converts a given programming language into instructions that the computer can understand and run**. With the above example, you can use a compiler like [GCC](https://gcc.gnu.org/) in order to convert that into the assembly instructions for x86 or ARM. Simply save the code to a file `code.c`, then run the command:
+
+```
+gcc -S code.c
+```
+
+It should output a `code.s` file. This contains the assembly code that's generated from the relevant C code. Here's the `code.s` file generated from the C example targetting MIPS (for familiarity):
+
+```assembly
+	.file	1 "code.c"
+	.section .mdebug.abi32
+	.previous
+	.nan	legacy
+	.module	fp=xx
+	.module	nooddspreg
+	.abicalls
+	.text
+	.rdata
+	.align	2
+$LC0:
+	.ascii	"%d\000"
+	.text
+	.align	2
+	.globl	main
+	.set	nomips16
+	.set	nomicromips
+	.ent	main
+	.type	main, @function
+main:
+	.frame	$fp,40,$31		# vars= 8, regs= 2/0, args= 16, gp= 8
+	.mask	0xc0000000,-4
+	.fmask	0x00000000,0
+	.set	noreorder
+	.set	nomacro
+	addiu	$sp,$sp,-40
+	sw	$31,36($sp)
+	sw	$fp,32($sp)
+	move	$fp,$sp
+	lui	$28,%hi(__gnu_local_gp)
+	addiu	$28,$28,%lo(__gnu_local_gp)
+	.cprestore	16
+	li	$2,185			# 0xb9
+	sw	$2,28($fp)
+	lw	$5,28($fp)
+	lui	$2,%hi($LC0)
+	addiu	$4,$2,%lo($LC0)
+	lw	$2,%call16(printf)($28)
+	move	$25,$2
+	.reloc	1f,R_MIPS_JALR,printf
+1:	jalr	$25
+	nop
+
+	lw	$28,16($fp)
+	move	$2,$0
+	move	$sp,$fp
+	lw	$31,36($sp)
+	lw	$fp,32($sp)
+	addiu	$sp,$sp,40
+	jr	$31
+	nop
+
+	.set	macro
+	.set	reorder
+	.end	main
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+```
+
+There's a lot there that's not familiar to us. That's okay. There's a lot of Vudu that the compiler does to make sure your code is efficient and compatible with as many computers (of the same CPU type) as possible. You'll still likely recognize the `addiu`, `li`, and `sw` instructions [from before](#assembly-code).
 
 
-
-
-
-
-https://godbolt.org/z/fr5o8d
-
-
-
-
-
-## Compiler
 
 ## Tangent: Compiled vs. Runtime {#compiled-vs-runtime}
 
@@ -284,7 +365,7 @@ But how does it know that X (JS) means that we want to do Y (ASSEMBLY)? How is i
 
 # Introducing the AST {#ast}
 
-An Abstract Syntax Tree (AST) takes human-readible text and turns it into machine-understandable data using a rigid set of rules.
+An Abstract Syntax Tree (AST) takes human-readable text and turns it into machine-understandable data using a rigid set of rules.
 
 // ...
 
@@ -387,7 +468,7 @@ Needless to say, whether you're using a compiled language or a runtime language,
 
 ## Why Not English? {#english-vs-ast}
 
-// Explain linguistical complexities and it's loose set of rules (comparitively)
+// Explain linguistical complexities and it's loose set of rules (comparatively)
 
 
 
