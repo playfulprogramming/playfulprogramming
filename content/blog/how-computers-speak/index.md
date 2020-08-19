@@ -115,11 +115,12 @@ Now that you understand the individual components that go into your computer, le
 
 Assuming the program is already installed on the computer, when the user selects the icon on their device, the CPU tells the HDD to load the relevant initialization data 
 
- 
 
 # Assembly: What's that? {#assembly-code}
 
 > Assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proximity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+
+
 
 You may have heard that computers only truly understand `1`s and `0`s. While this is true, this is not how engineers program. 
 
@@ -135,9 +136,71 @@ All programming languages end up as assembly instructions at one stage or anothe
 
 
 
-// Use faux assembly code to showcase how memory is assigned in "variable" creation
 
-// Showcase a quick example of a stack, and how things work fundamentally different (aka more explicitly) in assembly 
+
+Let's assume we want to do the math `180 + 5`. A fairly straightforward example, let's evaluate how we might go about doing so in MIPS assembly.
+
+When you and I do math, we need to keep the concepts of the numbers `180` and `5` in our minds separately in order to combine them. Likewise, the computer needs to store both of these hardcoded values in registers before they can be added together.
+
+Let's assume that we have two (2) registers. We can use `$1` as shorthand for "register 1" while `$2` will be shorthand for "register 2".
+
+```assembly
+li      $1,180 # Loads "180" into regester 2
+li      $2,5 # Loads "5" into register 2
+```
+
+> The `li` command stands for "load immediate".
+
+Now that we have that data loaded into registers, we can now do the `addu` instruction to combine these numbers and store the final value back in register 1
+
+```assembly
+addu    $1,$2,$1 # Add (+) data from registers 1 and 2, store the result back into register 1
+```
+
+Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`. The calculation has been done on the CPU and you're 
+
+
+
+This works well, but what happens if we want to add 3 numbers together? We don't have enough registers to store all of these values at once!
+
+This is where RAM comes into play. In order to store items into RAM, we can use `sw` instruction (short for "Store word") to store register values into RAM with a "tag" of sorts. This "tag" then can read and write values into RAM for you.
+
+> The method in which these values are stored is into [a Stack](/posts/virtual-memory-overview/#stack). For simplicity's sake, we won't review that here, but it's suggested you read the [related article](/posts/virtual-memory-overview/#stack) that covers the topic
+
+```assembly
+# Saving "180" to RAM w/ tag "8"
+li      $1,180 # Loads "180" into regester 1
+sw      $1,8($fp) # Store data in register 1 into RAM (with the tag "8")
+
+# Saving "5" to RAM w/ tag "8"
+li      $1,5 # Loads "5" into register 1
+sw      $1,12($fp) # Stores data in register 1 into RAM (with the tag "12")
+
+
+# Saving "20" to RAM w/ tag "16"
+li      $1,20 # Loads "20" into register 1
+sw      $1,16($fp) # Stores data in register 1 into RAM (with the tag "16")
+
+lw      $1,8($fp) # Load RAM tag 8 data into register 1
+lw      $2,12($fp) # Load RAM tag 12 data into register 2
+addu    $1,$2,$1 # Add (+) data from register 1 and 2, store the result back into register 1
+
+# Register 1 now contains the value "185"
+
+lw      $2,12($fp) # Load RAM tag 16 data into register 2
+
+# Remember, register 2 now contains the value "20"
+
+addu    $1,$2,$1 # Add (+) data from register 1 and 2, store the result back into register 1
+
+# Register 1 now contains the value "205"
+```
+
+> Editors note: There's a way to add the numbers together without using RAM. We're only doing things this way to demonstrate how you use RAM in assembly. If you can figure out how this is done (hint: move some lines around), leave a comment! 😉
+
+
+
+
 
 
 
@@ -156,6 +219,52 @@ void main() {
    int magicNumber = 185;
 }
 ```
+
+
+
+
+
+
+
+
+
+Take the following:
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int magicNumber = 185;
+    
+    cout << magicNumber;
+}
+```
+
+
+
+
+
+This might map to the following MIPS assembly:
+
+```assembly
+li      $2,185                  # 0xb9
+sw      $2,24($fp) # End of int
+lw      $5,24($fp) # Start of cout
+lui     $2,%hi(_ZSt4cout)
+addiu   $4,$2,%lo(_ZSt4cout)
+jal     std::basic_ostream<char, std::char_traits<char> >::operator<<(int) # End of cout
+```
+
+
+
+
+
+
+
+https://godbolt.org/z/fr5o8d
+
+
 
 
 
