@@ -34,8 +34,6 @@ If you're not familiar with what that code does,  we'll explain this code in a b
 The mention of "regardless of file name" might seem like an odd thing to mention until you consider the [the file extension](/posts/what-do-files-extensions-do/) is part of the file name.
 This means that you can store source code in a `.txt` file and still have it run if executed the proper way. Most programming languages have their own file extension they tell your computer they own, but even if you change a file's extension, [the contents of the file are exactly the same, just the file name (ala extension) is different](/posts/what-do-files-extensions-do/).
 
-
-
 Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Destop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are ran this way](#compiled-vs-runtime), but JavaScript is.
 
 Once NodeJS is downloaded, open your terminal (also known as CMD in Windows), go to your desktop, and run `node code.js`, it will output the number `185` so that you can see it.
@@ -63,27 +61,27 @@ These are used to connect each of these parts together, make up the "brains" of 
 
 ## Motherboard {#mobo}
 
-A motherboard is the platform in which all other components connect together and communicate through. There are various integrated components to your motherboard like storage controllers, chipsets that are necessary for your computer to work. Fancier motherboards include additional functionality like high speed connectivity (PCIE 4.0) and Wi-Fi. 
+**A motherboard is the platform in which all other components connect together and communicate through**. There are various integrated components to your motherboard like storage controllers, chipsets that are necessary for your computer to work. Fancier motherboards include additional functionality like high speed connectivity (PCIE 4.0) and Wi-Fi. 
 
 When you turn on your computer, the first that will happen is your motherboard will do a "POST"; a hardware check to see if everything connected is functioning properly. Then the motherboard will start the boot sequence; which starts with storage
 
 ## Long Term Storage {#hdd}
 
-There are 2 primary types of storage in computers; Solid State Drives (SSD), and Hard Disk Drives (HDD). When the boot sequence hits storage, your drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your storage is done finding the relevant files, your computer reads the rest of the information off of the drive to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
+**There are 2 primary types of storage in computers; Solid State Drives (SSD), and Hard Disk Drives (HDD)**. When the boot sequence hits storage, your drive will scan the very first bit of it's disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your storage is done finding the relevant files, your computer reads the rest of the information off of the drive to load your system. This include configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) as well as the system files setup when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
 
 ## Memory {#ram}
 
-While SSDs and HDDs are fantastic for long-term file storage, they're too slow (in terms of reading speeds) to store data needed to run your computer. This is why we have memory in the form of Registers, and Random Access Memory (RAM).  Registers are the closest memory to your processor, and is extremely fast, but they are extremely small. System Memory, or RAM, is outside of the processor but allows us to store entire programs in a responsive manner.  Everything from your operating system to your video player utilizes memory in order to store data while it's processing. We'll see how the computer utilized registers and RAM in programs [later in the article](#assembly-code).
+**While SSDs and HDDs are fantastic for long-term file storage, they're too slow (in terms of reading speeds) to store data needed to run your computer**. This is why we have memory in the form of Registers, and Random Access Memory (RAM).  **Registers are the closest memory to your processor, and is extremely fast, but they are extremely small.** System Memory, or RAM, is outside of the processor but allows us to store entire programs in a responsive manner.  Everything from your operating system to your video player utilizes memory in order to store data while it's processing. We'll see how the computer utilized registers and RAM in programs [later in the article](#assembly-code).
 
-However, while this information is magnitudes faster to access than hard-drives, it's volatile. That means that when you turn off your computer, the data stored in RAM is lost forever. Memory is also much more expensive than Storage. This is why we don't store our files to RAM for long-term access.
+**While this information is magnitudes faster to access than hard-drives, it's volatile.** That means that when you turn off your computer, the data stored in RAM is lost forever. Memory is also much more expensive than Storage. This is why we don't store our files to RAM for long-term access.
 
 ## GPU {#gpu}
 
-Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - being able to see the results of an action they've taken. Your computer's "graphics processing unit" (GPU) is the hardware that is used to calculate the complex maths required to draw things on-screen. The GPUs' complex mathematics prowess can also be utilized for things other than graphics (data analytics, cryptocurrency mining, scientific computation).
+Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - being able to see the results of an action they've taken. **Your computer's "graphics processing unit" (GPU) is the hardware that is used to calculate the complex maths required to draw things on-screen.** The GPUs' complex mathematics prowess can also be utilized for things other than graphics (data analytics, cryptocurrency mining, scientific computation).
 
 ## CPU {#cpu}
 
-Your CPU is what does all of the computation needed to perform tasks you do on your computer. It does the math and logic to figure out what the other components need to be doing and it coordinates them. An example of this is telling what the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
+Your CPU is what does all of the computation needed to perform tasks you do on your computer. **It does the math and logic to figure out what the other components need to be doing and it coordinates them.** An example of this is telling what the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
 
 You can think of these components to work together similar to this:
 
@@ -91,40 +89,32 @@ You can think of these components to work together similar to this:
 
 > For those unaware, the visual cortex is the part of the brain that allows us to perceive and understand the information provided to us by our eyes. Our eyes simply pass the light information gathered to our brains, which make sense of it all. Likewise, the GPU does the computation but does not display the data it processes, it passes that information to your monitor, which in turns displays the image source to you.
 
-## Putting It All Together
-
-Now that you understand the individual components that go into your computer, let's explain how these are used in the real world.
-
-Assuming the program is already installed on the computer, when the user selects the icon on their device, the CPU tells the HDD to load the relevant initialization data 
-
 
 # Assembly: What's that? {#assembly-code}
 
-> Assembly is the most direct method for talking to computer hardware outside of manually writing binary. However, due to it's proximity to the hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
+At the start of this article, one of the questions I promised to answer was "What language does the computer speak natively?". The answer to this question is, as you may have guessed from the section title, assembly.
+
+When [introducing CPUs](#cpu), I mentioned that they contain the logic to do maths, instruct other components to execute operations and more. In order to support a wide range of operations needed to run a computer, **CPU manufacturers implement an "instruction set"**. This instruction set handles everything from basic arithmetic to basic memory handling. Once an instruction set is settled upon, **the hardware of the CPU is built around the instruction set**. That's right: Processors are built with their instructions (code) in mind first, and hardware is meant to backup that code.
+
+These instructions often map very plainly to a sequence of bits (ones and zeros). For example:
+
+```
+100001 # addu
+101011 # sw
+100100 # and
+```
+
+While [understanding binary can be a task all on it's own](/posts/non-decimal-numbers-in-tech/), suffice it to say that the processor hardware is built to understand the order of `1`s and `0`s, and which command they map to. Because of the direct one-to-one match between instruction and assembly code, this is considered the closest a programming language can get to the hardware.
+
+> Because of this close proximity to hardware, each type of CPU has a different flavor of assembly. Because of this, the actual assembly code isn't particularly important, nor is it particularly accurate. Keep that in mind as we go forward.
 >
 > For record keeping purposes: we'll be trying our best to stick to the [MIPS instructionset](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html) with [Pseudoinstructions assembler macros](https://en.wikibooks.org/wiki/MIPS_Assembly/Pseudoinstructions)
 
-
-
-You may have heard that computers only truly understand `1`s and `0`s. While this is true, this is not how engineers program. 
-
-Even for direct hardware access, there is a language that doesn't 
-
-
-
-All programming languages end up as assembly instructions at one stage or another (we'll touch on how that conversion takes place later on).
-
-
-
-
-
-
-
-
+Since assembly is the closest to hardware that any programming can get, **all programming languages end up as assembly instructions at one stage or another (we'll touch on how that conversion takes place later on)**. Because of this, we'd like to show you how to do some basic programming using assembly to help connect some dots.
 
 Let's assume we want to do the math `180 + 5`. A fairly straightforward example, let's evaluate how we might go about doing so in MIPS assembly.
 
-When you and I do math, we need to keep the concepts of the numbers `180` and `5` in our minds separately in order to combine them. Likewise, the computer needs to store both of these hardcoded values in registers before they can be added together.
+When you and I do math, we need to keep the concepts of the numbers `180` and `5` in our minds separately in order to combine them. Likewise, the computer needs to store both of these hardcoded values in [registers (remember, we touched on what registers are in the "memory section")](#ram) before they can be added together.
 
 Let's assume that we have two (2) registers. We can use `$1` as shorthand for "register 1" while `$2` will be shorthand for "register 2".
 
@@ -141,9 +131,7 @@ Now that we have that data loaded into registers, we can now do the `addu` instr
 addu    $1,$2,$1   # Add (+) data from registers 1 and 2, store the result back into register 1
 ```
 
-Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`. The calculation has been done on the CPU and you're 
-
-
+Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`. 
 
 This works well, but what happens if we want to add 3 numbers together? We don't have enough registers to store all of these values at once!
 
@@ -429,6 +417,9 @@ Needless to say, whether you're using a compiled language or a runtime language,
 
 
 // AI is able to do this a bit, there are projects working on making that exact question possible
+
+
+GPT-3.0
 
 
 
