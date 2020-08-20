@@ -210,7 +210,7 @@ addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back i
 
 # This (code) Keeps Lifting me Higher {#introducing-c-code}
 
-As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's not possible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or Ruby come into play*.
+As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's not possible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or JavaScript come into play*.
 
 
 
@@ -255,7 +255,7 @@ int main() {
 
 
 
-## Portability
+## Portability {#compilation}
 
 While the previous example already demonstrates the readability that higher-level languages hold over assembly, when it comes to code complexity there's no contest: High-level languages make I/O like printing something on-screen readily available.
 
@@ -285,34 +285,10 @@ What is a compiler?
 gcc -S code.c
 ```
 
-It should output a `code.s` file. This contains the assembly code that's generated from the relevant C code. Here's the `code.s` file generated from the C example targetting MIPS (for familiarity):
+It should output a `code.s` file. This contains the assembly code that's generated from the relevant C code. Here's the `code.s` file generated from the C example targeting MIPS (for familiarity):
 
 ```assembly
-	.file	1 "code.c"
-	.section .mdebug.abi32
-	.previous
-	.nan	legacy
-	.module	fp=xx
-	.module	nooddspreg
-	.abicalls
-	.text
-	.rdata
-	.align	2
-$LC0:
-	.ascii	"%d\000"
-	.text
-	.align	2
-	.globl	main
-	.set	nomips16
-	.set	nomicromips
-	.ent	main
-	.type	main, @function
 main:
-	.frame	$fp,40,$31		# vars= 8, regs= 2/0, args= 16, gp= 8
-	.mask	0xc0000000,-4
-	.fmask	0x00000000,0
-	.set	noreorder
-	.set	nomacro
 	addiu	$sp,$sp,-40
 	sw	$31,36($sp)
 	sw	$fp,32($sp)
@@ -339,31 +315,37 @@ main:
 	addiu	$sp,$sp,40
 	jr	$31
 	nop
-
-	.set	macro
-	.set	reorder
-	.end	main
-	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
 ```
 
 There's a lot there that's not familiar to us. That's okay. There's a lot of Vudu that the compiler does to make sure your code is efficient and compatible with as many computers (of the same CPU type) as possible. You'll still likely recognize the `addiu`, `li`, and `sw` instructions [from before](#assembly-code).
 
+Further, there are some abstractions that make higher-level languages easier to build and scale than assembly that simply don't have trivial 1:1 mappings. This is why compilers are so complex, there are many tricks up a compiler's sleeve to convert code to run and even internally "rewrite" your code in order to be more efficient: All without know knowing.
 
+This is why, in order to run your C code, you need to run the compiler to convert your source code into an executable file to run your program.
 
-## Tangent: Compiled vs. Runtime {#compiled-vs-runtime}
+## Compiled vs. Runtime {#compiled-vs-runtime}
 
-As [the start of this section](#introducing-c-code), we mentioned that languages like C or Ruby are higher-level languages than assembly. However, long-time developers will be quick to remind that these two languages are drastically different. The biggest difference between these being that C is a "compiled" language while Ruby is a dynamic "runtime" language.
+As [the start of this section](#introducing-c-code), we mentioned that languages like C or JavaScript are higher-level languages than assembly. However, long-time developers will be quick to remind that these two languages are drastically different. The biggest difference between these being that C is a "compiled" language while JavaScript is a dynamic "runtime" language.
 
+If you download [NodeJS](https://nodejs.org/en/) for your computer and run the `node` command from a computer terminal, you can write JavaScript and have it executed right then and there, without having to have compiled your source code ahead-of-time (also known as A.O.T. compilation)
 
+How are these runtime languages able to run without compiling beforehand?
 
-// ...
+**That's because they utilize a program (known as the runtime) to compile the code while running it**. While this gives the advantage of even more portable code, it comes at the cost of having to download a separate program (the runtime) in order to run your programs. As such, instead of having to port your entire codebase to support a new operating system or CPU flavor, you port the runtime the language runs on. Once this is done, you're able to run all programs written in that language on the new platform.
 
+Because the compilation on these languages happens during runtime (this method of compilation is called J.I.T compilation - "just in time compilation"), **it is a common misconception that these languages are not compiled**. This is not true.
 
+Simply because a language is compiled at run-time does not mean that there is a lack of optimizations. The compilers for these J.I.T languages can be just as complex (if not more-so) than those for pre-compiled languages. Typically, **J.I.T compilers are able to "warm up" and increase speed as they optimize the code they're running**, due to repetitions in execution cycles.
 
-But how does it know that X (JS) means that we want to do Y (ASSEMBLY)? How is it able to do that conversion?
+In fact, many J.I.T languages - like Python - contain a way to optimize your code by **running your code through a pre-compiler to generate what's known as "bytecode"**. This bytecode is often closer in resemblance to your instruction set, while not going so far as to compile all the way down to assembly. **You can think of this pre-optimization as pre-heating the oven** - you'll be faster to cook your food if much of the prep work is already handled for you. As such, you still need the runtime to run this optimized code, but because you've done the early optimization, the code will load much faster. In Python, once you [precompile your code](http://effbot.org/zone/python-compile.htm), it gets turned into a `.pyc` file, which is faster to run on first load.
 
 # Introducing the AST {#ast}
+
+While we've talked about compiled languages (A.O.T and J.I.T alike), we haven't yet talked about the methods in which computers are able to convert high-level language source code into assembly. How does it know what commands to map to which instructions?
+
+
+
+
 
 An Abstract Syntax Tree (AST) takes human-readable text and turns it into machine-understandable data using a rigid set of rules.
 
