@@ -1,3 +1,16 @@
+---
+{
+	title: "How Computers Speak: Assembly to AST",
+	description: "Have you wondered how programming languages are able to be ran on your hardware? This article explains how your code is processed and ran",
+	published: "2020-08-25T04:45:30.247Z",
+	edited: "2020-08-25T04:45:30.247Z",
+	authors: ["crutchcorn", "reikaze"],
+	tags: ["hardware", "javascript", "ast"],
+	attached: [],
+	license: "cc-by-nc-sa-4"
+}
+---
+
 During my time learning programming, I found myself lacking foundational knowledge about how a computer worked under-the-hood. It wasn't until much later in my career that I started learning about how certain puzzle pieces fit together and had a more wholistic image of how computers worked. I feel that having this insight made me a better developer, and shifted my thinking during debugging to reflect more accurately what was happening.
 
 In this article, we're going to introduce you to various concepts in the effort of helping you understand how computers are able to parse and understand common programming languages and process the instructions you pass to it.
@@ -118,7 +131,7 @@ When you and I do math, we need to keep the concepts of the numbers `180` and `5
 
 Let's assume that we have two (2) registers. We can use `$1` as shorthand for "register 1" while `$2` will be shorthand for "register 2".
 
-```assembly
+```nasm
 li      $1,180     # Loads "180" into regester 2
 li      $2,5       # Loads "5" into register 2
 ```
@@ -127,7 +140,7 @@ li      $2,5       # Loads "5" into register 2
 
 Now that we have that data loaded into registers, we can now do the `addu` instruction to combine these numbers and store the final value back in register 1
 
-```assembly
+```nasm
 addu    $1,$2,$1   # Add (+) data from registers 1 and 2, store the result back into register 1
 ```
 
@@ -139,7 +152,7 @@ This is where RAM comes into play. In order to store items into RAM, we can use 
 
 > The method in which these values are stored is into [a Stack](/posts/virtual-memory-overview/#stack). For simplicity's sake, we won't review that here, but it's suggested you read the [related article](/posts/virtual-memory-overview/#stack) that covers the topic
 
-```assembly
+```nasm
 # Saving "180" to RAM w/ tag "8"
 
 li      $1,180     # Loads "180" into regester 1
@@ -172,23 +185,9 @@ addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back i
 
 > Editors note: There's a way to add the numbers together without using RAM. We're only doing things this way to demonstrate how you use RAM in assembly. If you can figure out how this is done (hint: move some lines around), leave a comment! 😉
 
-
-
-
-
-
-
 # This (code) Keeps Lifting me Higher {#introducing-c-code}
 
-As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's not possible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or JavaScript come into play*.
-
-
-
-
-
-
-
-
+As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's not possible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or JavaScript come into play.
 
 While in-memory "tags" are useful for storing data into RAM using assembly, the numbers spit out from the stack are hardly memorable. Remembering what value is present in RAM spot #16 is tricky on it's own, and only grows more and more complex the larger the application is. As such, higher-level languages have the concept of "variables". They're an abstraction around storing values in RAM but instead of number "tags", you can make them alpha-numeric human-readable values. For example, the following code in C:
 
@@ -200,7 +199,7 @@ void main() {
 
 Might map to something like this:
 
-```assembly
+```nasm
 li      $1,185
 sw      $1,8($fp)
 ```
@@ -216,14 +215,6 @@ int main() {
 	return magicNumber + number2 + thirdNumber;
 }
 ```
-
-
-
-
-
-
-
-
 
 ## Portability {#compilation}
 
@@ -257,7 +248,7 @@ gcc -S code.c
 
 It should output a `code.s` file. This contains the assembly code that's generated from the relevant C code. Here's the `code.s` file generated from the C example targeting MIPS (for familiarity):
 
-```assembly
+```nasm
 main:
 	addiu	$sp,$sp,-40
 	sw	$31,36($sp)
@@ -333,7 +324,7 @@ First, the computer goes through a _"lexer"_. **The lexer is what turns individu
 
 > These lexer demos are a general approximation of how a lexer might work. This particular example isn't based on any specific JavaScript lexer
 
-While these tokens' collective functions may seem obvious to you and I, the computer does not yet understand that we want to assign a variable, despite the "ASSIGN" name of the `=` token. At this stage of tokenization, syntax errors do not exist yet, code logic does not exist yet, simply characters and tokens.
+While these tokens' collective functions may seem obvious to you and I, the computer does not yet understand that we want to assign a variable, despite the "ASSIGN" name of the `=` token. **At this stage of tokenization, syntax errors do not exist yet, code logic does not exist yet**, simply characters and tokens.
 
 What do I mean by that? Let's take the following intentionally incorrect example:
 
@@ -341,7 +332,7 @@ What do I mean by that? Let's take the following intentionally incorrect example
 const magicNumber = = 185;
 ```
 
-To a developer, this is obviously a syntax error. However, the lexer is not in charge of finding syntax errors, simply assigning tokens to the characters it's been taught to recognize. As such, running the above through a lexer would likely yeild us something like this:
+To a developer, this is obviously a syntax error. However, the lexer is not in charge of finding syntax errors, simply assigning tokens to the characters it's been taught to recognize. As such, running the above through a lexer would likely yield us something like this:
 
 ![](./lexer_2.svg)
 
@@ -412,16 +403,39 @@ Needless to say, whether you're using a compiled language or a runtime language,
 
 ## Why Not English? {#english-vs-ast}
 
-// Explain linguistical complexities and it's loose set of rules (comparatively)
+An AST seems like it's a lot of work just to convert code into other code. Wouldn't it make development simpler if we were to cut out the middle-man and built computers that are able to understand English (or some other human native tongue)?
 
+While this may seem like a logical progression of tech, there are some extreme limitations with the idea that prevent it from being executed in practice.
 
+Let's start with the biggest problem that even humans face when communicating with language: Ambiguity.
 
-// AI is able to do this a bit, there are projects working on making that exact question possible
+Take the following sentence:
 
+> "I wonder what time it will happen."
 
-GPT-3.0
+This sentence is a complete sentence, but lacks the proper context required to fully understand what the sentence is saying. This would cause massive problems when trying to convert our language to operable instructions. This is exacerbated by homonyms like "fish" that change meaning depending on context:
 
+> "I fish for fishy fish"
 
+While humans have grown to parse this type of language, doing so for computers is an extreme challenge. This is because of both the massive amounts of complexity in the English language as well as the looseness of the rules that do apply to the language.
+
+I'll make my point by presenting you an extremely confusing grammatically correct sentence:
+
+>  ["Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo"](https://simple.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo)
+
+Yes, that's a complete and valid English sentence. Have fun writing a parser for that one.
+
+### The Future {#AI}
+
+While writing a parser for the English language is near-impossible to do perfectly, there is some hope for using English in the programming sphere in the future. This hope comes in the form of AI; natural language processing. 
+
+AI has been used for years to help computers understand our language. If you've ever used a Google Home, Amazon Alexa, or Apple's Siri, you've utilized an AI that tries it's best to parse your language into instructions pre-determined by the parent company's developers. 
+
+Likewise, there are projects such as [OpenAPI's GPT-3.0](https://beta.openai.com/) that make some moonshot ideas closer to reality. 
+
+Some folks have even been able to write [React code using GPT-3.0](https://twitter.com/sharifshameem/status/1284807152603820032).
+
+Only time travelers will know exactly how AI will play out with using English for our programming in the future, but there are many obstacles to overcome before it becomes the norm.
 
 # Conclusion
 
