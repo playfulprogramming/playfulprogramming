@@ -1,46 +1,21 @@
-> While I'll be using JavaScript for the examples in this article, the foundational concepts apply regardless of what programming language you use. While some languages may have more or less complex translations to and from your machine, they ultimately boil down to the same formula.
->
-> Now that that's out-of-the-way, let's get started!
+During my time learning programming, I found myself lacking foundational knowledge about how a computer worked under-the-hood. It wasn't until much later in my career that I started learning about how certain puzzle pieces fit together and had a more wholistic image of how computers worked. I feel that having this insight made me a better developer, and shifted my thinking during debugging to reflect more accurately what was happening.
 
+In this article, we're going to introduce you to various concepts in the effort of helping you understand how computers are able to parse and understand common programming languages and process the instructions you pass to it.
 
+We'll ask and answer the following questions:
 
+- [What is "source code"?](#source-code)
+- [What are the major components of a computer and how do they tie together?](#computer-hardware)
+- [What language does the computer speak natively?](#assembly-code)
 
+- [Why do I need a custom program to run some programming languages?](#compiled-vs-runtime)
+- [How does a computer turn letters and symbols into instructions that it knows how to run?](#lexer)
+- [Why do some programming languages have different rules and look different from one-another?](#parser)
+- [Why can't we simply give the computer English instructions and have it run those with a special program?](#english-vs-ast)
 
+>  I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as I can before diving into the more complex territory. That said, we all learn in different ways and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in depth.
 
-
-
-
- I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as I can before diving into the more complex territory. That said, we all learn in different ways and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in depth.
-
-
-
-
-
-
-
-Starting out programming can feel intimidating because there are many components that comes in to play when learning about programming that isn't properly explained at the very first time. Take for example, an error like this: 
-
-```javascript
-const magicNumber = = 185;
-```
-
-```
-Uncaught SyntaxError: Unexpected token '='
-```
-
-Why does this happen? 
-
-
-
-
-
-
-
-
-
-
-
-
+# Source Code {#source-code}
 
 If you've spent any time with developers, you'll likely have heard of the term "source code". Source code simply refers to the text that programmers type in order to make their programs. Take the following text:
 
@@ -50,18 +25,25 @@ const magicNumber = 185;
 console.log(magicNumber);
 ```
 
-If you're not familiar with what that code does,  we'll explain this code in a bit. Right now it's just important to focus on what's being typed. If you opened Word, you'd be able to type this in using a typical QWERTY keyboard.
+If you're not familiar with what that code does,  we'll explain this code in a bit. Right now it's just important to focus on what's being typed. If you opened Notepad, you'd be able to type this in using a typical QWERTY keyboard.
 
-Now, while you _could_ write your code in Word, it would add additional (invisible) encoding characters in the file. However, if you were to use Notepad (or similar), and save this to a `.txt` file, it would be considered a "source code" file.
+**This type of file, regardless of file name, is known as a "plain text" file**. Plain text files are those that contain only the alpha-numeric values that you're able to type. There are other types of files - such as **"binary" files - that contain special encoding that, were you to open them in Notepad, humans would not be able to easily read**.
 
-> Typically, code is not stored in a `.txt` file, but it rather [stored in a different file extension](/posts/what-do-files-extensions-do/). However, if you saved the code above in a `code.txt` file, then renamed that to a `code.js` file, that would be how JavaScript is typically stored. [The contents of the file are exactly the same, just the file name (ala extension) is different](/posts/what-do-files-extensions-do/)
+> Notice that I mention using Notepad instead of a program like Microsoft Word. This is because Word actually includes special formatting in it's files that would break any source code stored within a file created in Word
 
-However, you'll notice that if you double-click the file nothing special happens, it just opens the file in a text editor. You'd have to use something like [NodeJS](https://nodejs.org/) which is a program used to run JavaScript source code files as a program. While this might make sense at a surface level, it brings more things into question.
+The mention of "regardless of file name" might seem like an odd thing to mention until you consider the [the file extension](/posts/what-do-files-extensions-do/) is part of the file name.
+This means that you can store source code in a `.txt` file and still have it run if executed the proper way. Most programming languages have their own file extension they tell your computer they own, but even if you change a file's extension, [the contents of the file are exactly the same, just the file name (ala extension) is different](/posts/what-do-files-extensions-do/).
 
-- Why do I need a custom program to run some programming languages?
-- How does a computer turn letters and symbols into instructions that it knows how to run?
-- Why do some programming languages have different rules and look different from one-another?
-- Why can't we simply give the computer English instructions and have it run those with a special program?
+
+
+Let's assume that we've stored the `magicNumber` code inside of a text file. Go ahead and open Notepad, copy+paste that code, and save it to `/User/Destop/code.js`. Now, download [NodeJS](https://nodejs.org/). NodeJS is a program that runs JavaScript source code files. [Not all programming languages are ran this way](#compiled-vs-runtime), but JavaScript is.
+
+Once NodeJS is downloaded, open your terminal (also known as CMD in Windows), go to your desktop, and run `node code.js`, it will output the number `185` so that you can see it.
+
+![](./cmd.png)
+
+This same behavior would happen even if you called the file `code.txt`. While understanding what a source code file is, it does lend itself to a question:
+How does your computer understand what to do when running a programming language? Why do some languages, like JavaScript, need another program to run it's code while others don't.
 
 The answer to all of these involves an understanding of how hardware works, and one of the best ways to learn programming is to learn how a computer works in the first place.
 
@@ -343,35 +325,27 @@ In fact, many J.I.T languages - like Python - contain a way to optimize your cod
 
 While we've talked about compiled languages (A.O.T and J.I.T alike), we haven't yet talked about the methods in which computers are able to convert high-level language source code into assembly. How does it know what commands to map to which instructions?
 
+I'm glad you asked! Inside of **every compiler** is a piece of software that **turns your source code into something called an "Abstract Syntax Tree" (AST)**. An AST takes human-readable text and turns it into machine-understandable data using a rigid set of rules. Once in this state, an AST is easier to map and match to the related instructions.
 
-
-
-
-An Abstract Syntax Tree (AST) takes human-readable text and turns it into machine-understandable data using a rigid set of rules.
-
-// ...
-
-
-
-Let's take the following code snippet:
+Let's take the following JavaScript variable assignment:
 
 ```javascript
 const magicNumber = 185;
 ```
 
-While this code sample is small (and doesn't do anything on it's own), it contains enough complexity in how the computer understands it to use as an introductory example.
+While this code sample is extremely trivial (and doesn't do anything on it's own), it contains enough complexity in how the computer understands it to use as an introductory example.
 
 ## The Lexer {#lexer}
 
 There are (typically) two steps to turning source code into something that the computer is able to transform into assembly instruction sets.
 
-First, the computer goes through a **"lexer"**. The lexer is what turns individual characters into collections of characters called **"tokens"**. These tokens can either be a single character or a collection of characters. Both the lexer and the token identifiers are programmed into the language (either in the runtime or the compiler). Taking the code snippet, we can see that there's 5 tokens that are generated:
+First, the computer goes through a _"lexer"_. **The lexer is what turns individual characters into collections of characters called _"tokens"_**. These tokens can either be a single character or a collection of characters. Both the lexer and the token identifiers are programmed into the language compiler. Taking the code snippet, we can see that there's 5 tokens that are generated:
 
 ![](./lexer_1.svg)
 
-> These lexer demos are a general aproximation of how a lexer might work. This particular example isn't based on any specific JavaScript lexer
+> These lexer demos are a general approximation of how a lexer might work. This particular example isn't based on any specific JavaScript lexer
 
-While these tokens' collective functions may seem obvious to you and I, the computer does not yet understand that we want to assign a variable, despite the "ASSIGN" name of the `=` token. At this stage of tokenization, synax errors do not exist yet, code logic does not exist yet, simply characters and tokens.
+While these tokens' collective functions may seem obvious to you and I, the computer does not yet understand that we want to assign a variable, despite the "ASSIGN" name of the `=` token. At this stage of tokenization, syntax errors do not exist yet, code logic does not exist yet, simply characters and tokens.
 
 What do I mean by that? Let's take the following intentionally incorrect example:
 
@@ -383,7 +357,7 @@ To a developer, this is obviously a syntax error. However, the lexer is not in c
 
 ![](./lexer_2.svg)
 
-It's not until later (with the parser) that the computer recognizes that there is a synax error, at which point it will throw an error:
+It's not until later (with the parser) that the computer recognizes that there is a syntax error, at which point it will throw an error:
 
 ```
 Uncaught SyntaxError: Unexpected token '='
