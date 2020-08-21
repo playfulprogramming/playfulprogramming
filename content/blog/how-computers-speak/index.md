@@ -54,7 +54,7 @@ Once NodeJS is downloaded, open your terminal (also known as CMD in Windows), go
 ![](./cmd.png)
 
 This same behavior would happen even if you called the file `code.txt`. While understanding what a source code file is, it does lend itself to a question:
-How does your computer understand what to do when running a programming language? Why do some languages, like JavaScript, need another program to run it's code while others don't?
+How does your computer understand what to do when running a programming language? Why do some languages, like JavaScript, need another program to run its code while others don't?
 
 The answer to all of these involves an understanding of how hardware works, and one of the best ways to learn programming is to learn how a computer works in the first place.
 
@@ -155,7 +155,7 @@ This is where RAM comes into play. To store items into RAM, we can use `sw` inst
 ```nasm
 # Saving "180" to RAM w/ tag "8"
 
-li      $1,180     # Loads "180" into regester 1
+li      $1,180     # Loads "180" into register 1
 sw      $1,8($fp)  # Store data in register 1 into RAM (with the tag "8")
 
 # Saving "5" to RAM w/ tag "8"
@@ -429,7 +429,7 @@ Yes, that's a complete and valid English sentence. Have fun writing a parser for
 
 While writing a parser for the English language is near-impossible to do perfectly, there is some hope for using English in the programming sphere in the future. This hope comes in the form of AI, natural language processing. 
 
-AI has been used for years to help computers understand our language. If you've ever used a Google Home, Amazon Alexa, or Apple's Siri, you've utilized an AI that tries it's best to parse your language into instructions pre-determined by the parent company's developers. 
+AI has been used for years to help computers understand our language. If you've ever used a Google Home, Amazon Alexa, or Apple's Siri, you've utilized an AI that tries its best to parse your language into instructions pre-determined by the parent company's developers.
 
 Likewise, there are projects such as [OpenAPI's GPT-3.0](https://beta.openai.com/) that make some moonshot ideas closer to reality. 
 
@@ -438,6 +438,5 @@ Some folks have even been able to write [React code using GPT-3.0](https://twitt
 Only time travelers will know precisely how AI will play out with using English for our programming in the future, but there are many obstacles to overcome before it becomes the norm.
 
 # Conclusion
-
 
 
