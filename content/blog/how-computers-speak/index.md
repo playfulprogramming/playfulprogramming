@@ -437,6 +437,8 @@ Some folks have even been able to write [React code using GPT-3.0](https://twitt
 
 Only time travelers will know precisely how AI will play out with using English for our programming in the future, but there are many obstacles to overcome before it becomes the norm.
 
-# Conclusion
+# Conclusion {#conclusion}
 
+While computers can be incredibly complex, most of their foundation can be understood. We've touched on a lot in this article: a bit about hardware, some language design, even some linguistical parsing! This is both the blessing and the curse when it comes to a field as large as computer science: there are so many avenues to go down. If the path you're looking for is more in-depth explanations of how languages are parsed and understood by the computer, be sure to sign up for our newsletter down below! We're wanting to write an article explaining what "grammars" languages can follow.
 
+If you have any questions about the article or CS in general, drop a comment down below or [join our community Discord](https://discord.gg/FMcvc6T).
