@@ -139,7 +139,7 @@ The output of this looks like...
 	After passing by value: 0
 ```
 
-As you can see, when passed by reference the local value is changed but when it is passed by value it is not even though they both perform the same operation. Some other languages, such as Java do not give you this control. Java always passes by value, though it does pass addresses by value. For example, Java collections end up passing a reference by value which has the same effect as a pass by reference. You see, all Java Objects pass a reference by value whereas all primitive data types, like int and float for example, are passed by value and therefore cannot be mutated inside of a function. But, if you use the Object version of their primitives like Integer and Float, they will continue to act as if they are passed by reference and therefore can be mutated inside of a function.
+As you can see, when passed by reference, the local value is changed, but when it is passed by value, it is not; even though they both perform the same operation. Some other languages, such as Java, do not give you this control. Java always passes by value, though it does pass addresses by value.
 
 This gets confusing after a while if you're not paying attention to your outputs. In fact, Python gets even more confusing, but that's a topic for another day; be sure to sign up for our newsletter to see when that lands 😉
 
