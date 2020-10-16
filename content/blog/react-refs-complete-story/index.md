@@ -196,8 +196,7 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
 
 # DOM Element References {#dom-ref}
 
-- Stored using "ref" attribute
-- HTMLDivElement stored in "current"
+At the start of this article, I mentioned that `ref`s are not just a mutable data storage method, but a way to reference DOM nodes from inside of React. The easiest of the methods to track a DOM node is by storing it in a `useRef` hook using any element's `ref` property:
 
 ```jsx
   const elRef = React.useRef();
@@ -211,10 +210,13 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
   )
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect
+> Keep in mind, the `ref` attribute is added and handled by React on any HTML Element. This example uses a `div`, but this applies to `span`s and `header`s and beyond, "oh my".
 
-- Full "Element.prototype" JS API available
-	- Can be used to style the element
+In this example, if we took a look at the `console.log` in the `useEffect`, we'd find [an `HTMLDivElement` instance](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement) in the `current` property. Open the following StackBlitz and look at the console value to confirm:
+
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+Because `elRef.current` is now a `HTMLDivElement`, it means we now have access to [the entire `Element.prototype` JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/Element#Properties). As such, this `elRef` can be used to style the underlying HTML node:
 
 ```jsx
   const elRef = React.useRef();
@@ -228,9 +230,11 @@ https://stackblitz.com/edit/react-use-ref-effect
   )
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-Ref attribute accepts functional API
+## Alternative Syntax {#ref-function}
+
+It's worth noting that the `ref` attribute also accepts a function. While [we'll touch on the implications of this more in the future](#callback-refs), just note that this code example does exaclty the same thing as `ref={elRef}`:
 
 ```jsx
   const elRef = React.useRef();
@@ -244,9 +248,7 @@ Ref attribute accepts functional API
   )
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style-callback
-
-# Component References {#forward-ref}
+#  Component References {#forward-ref}
 
 - Can pass "ref" to components
 - Property must not be called "ref"*
