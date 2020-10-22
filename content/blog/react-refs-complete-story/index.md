@@ -250,8 +250,9 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
 
 #  Component References {#forward-ref}
 
-- Can pass "ref" to components
-- Property must not be called "ref"*
+HTMLElements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?
+
+By passing a property from the parent to the child, you can pass a ref to a child component. Take an example like this:
 
 ```jsx
 const Container = ({children, divRef}) => {
@@ -262,7 +263,7 @@ const App = () => {
   const elRef = React.useRef();
 
   React.useEffect(() => {
-    console.log(elRef);
+    if (!elRef.current) return;
    elRef.current.style.background = 'lightblue';
   }, [elRef])
 
@@ -271,12 +272,12 @@ const App = () => {
   );
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong-kinda
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong-kinda?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-However, what happens if we try to switch to use the "ref" property name?
-> This code does not function
+You might be wondering why I didn't call that property `ref` instead of `divRef`. This is because of a limitations with React. If we try to switch the property's name to `ref`, we find ourselves with some unintended concequences.
 
 ```jsx
+// This code does not function as intended
 const Container = ({children, ref}) => {
   return <div ref={ref}/>
 }
@@ -285,8 +286,8 @@ const App = () => {
   const elRef = React.useRef();
 
   React.useEffect(() => {
-    console.log(elRef);
-    // The following line will throw an error:
+    if (!elRef.current) return;
+    // If the early return was not present, this line would throw an error:
     // "Cannot read property 'style' of undefined"
    elRef.current.style.background = 'lightblue';
   }, [elRef])
@@ -296,16 +297,17 @@ const App = () => {
   );
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+You'll notice that the `Container` `div` is not styled to have a `lightblue` background. This is because `elRef.current` is never set to contain the `HTMLElement` ref. As such, for simple ref forwarding, you cannot use the `ref` property name.
 
-- *Can get it to use the "ref" property
-- Must use "forwardRef" API
-- Props can still be accessed using the first property
+How do you get the `ref` property name to work as expected with functional components?
+
+You can use the `ref` property name to forward refs by using the `forwardRef` API. When defining a functional component, instead of simply being an arrow function, you pass `forwardRef` with the arrow function as it's first property. From there, you can access `ref` from the second property of the inner arrow function.
 
 ```jsx
-const Container = React.forwardRef(({children}, ref) => {
-  return <div ref={ref}/>
+const Container = React.forwardRef((props, ref) => {
+  return <div ref={ref}>{props.children}</div>
 })
 
 const App = () => {
@@ -321,8 +323,9 @@ const App = () => {
   );
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref
+Now that we are using `forwardRef`, we can use the `ref` property name on the parent component to get access to the `elRef` once again.
 
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 
 # Add Data to Ref {#use-imperative-handle}
