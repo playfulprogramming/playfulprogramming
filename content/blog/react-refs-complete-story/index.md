@@ -327,8 +327,167 @@ Now that we are using `forwardRef`, we can use the `ref` property name on the pa
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+# Class Component References {#class-ref}
+
+While I mentioned that we'll be using functional components and hooks for a majority of this article, I think it's important that I cover how class components handle the `ref` property. Take the following class component:
+
+```jsx
+class Container extends React.Component {
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
+```
+
+What do you think will happen if we try to pass a `ref` attribute?
+
+```jsx
+const App = () => {
+  const compRef = React.useRef();
+
+  React.useEffect(() => {
+    console.log(compRef.current);
+  });
+
+  return (
+    <Container ref={container}>
+      <h1>Hello StackBlitz!</h1>
+      <p>Start editing to see some magic happen :)</p>
+    </Container>
+  );
+}
+```
+
+> If you'd rather, you can also write `App` as a class component:
+>
+> ```jsx
+> class App extends React.Component {
+>   compRef = React.createRef();
+> 
+>   componentDidMount() {
+>     console.log(this.compRef.current);
+>   }
+> 
+>   render() {
+>     return (
+>       <Container ref={this.compRef}>
+>         <h1>Hello StackBlitz!</h1>
+>         <p>Start editing to see some magic happen :)</p>
+>       </Container>
+>     );
+>   }
+> }
+> ```
+
+<iframe src="https://stackblitz.com/edit/react-class-ref-instance?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+If you look at the `console.log` statement, you'll notice that it prints something like this:
+
+```
+Container {props: {…}, context: {…}, refs: {…}, updater: {…}…}
+context: Object
+props: Object
+refs: Object
+state: null
+updater: Object
+_reactInternalInstance: Object
+_reactInternals: FiberNode
+__proto__: Container
+```
+
+You'll notice that it prints out the value of a `Container` instance. In fact, if we run the following code, we can confirm that the `ref.current` value is an instance of the `Container` class:
+
+```jsx
+console.log(container.current instanceof Container); // true
+```
+
+However, what _is_ this class? Where are those props coming from? Well, if you're familiar with [class inheritence](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance), it's the properties coming from `React.Component` that's being extended. If we take a look at the [TypeScript definition for the `React.Component` class](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L436), we can see some pretty familiar properties in that class:
+
+```jsx
+// This is incomplete and inaccurate type definition shown for educational purposes - DO NOT USE IN PROD
+class Component {
+  render(): ReactNode;
+  context: any;
+  readonly props: Object;
+  refs: any;
+  state: Readonly<any>;
+}
+```
+
+Not only do the `refs`, `state`, `props`, and `context` line up with what we're seeing in our `console.log`, but methods that are part of the class (like `render`) are present as well:
+
+```jsx
+console.log(this.container.current.render);
+```
+
+```
+ƒ render()
+```
+
+## Custom Properties and Methods {#class-ref-methods-props}
+
+Not only are React Component built-ins (like `render` and `props`) accessible from a class ref, but you can access data that you attach to that class as well. Because the `container.current` is an instance of the `Container` class, when you add custom properties and methods, they're visible from the ref!
+
+So, if you change the class definition to look like this:
+
+```jsx
+class Container extends React.Component {
+  welcomeMsg = "Hello"
+
+  sayHello() {
+    console.log("I am saying: ", this.welcomeMsg)
+  }
+
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
+```
+
+You can then reference the `welcomeMsg` property and `sayHello` method:
+
+```jsx
+function App() {
+  const container = React.useRef();
+
+  React.useEffect(() => {
+    console.log(container.current.welcomeMsg); // Hello
+    container.current.sayHello(); // I am saying: Hello
+  });
+
+  return (
+    <Container ref={container}>
+      <h1>Hello StackBlitz!</h1>
+      <p>Start editing to see some magic happen :)</p>
+    </Container>
+  );
+}
+```
+
+<iframe src="https://stackblitz.com/edit/react-class-ref-instance-custom-props?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+# Unidirectional Flow {#unidirectional-flow}
+
+While the concept of "universal directional flow" is a broader subject than what I originally wanted to cover with this article, I think it's important to understand why you shouldn't utilize the pattern outlined above. One of the reasons refs are so useful is one of the reasons they're so dangerous as a concept: They break unidirectional data flow. 
+
+Typically, in a React app, you want your data to go one way at a time.
+
+![A circle going from state, to view, to action, then back to state](./unidirectional_flow.png)
+
+
+
+
+
+
 
 # Add Data to Ref {#use-imperative-handle}
+
+
+If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods to 
+
+
+
+
 
 ```jsx
 import React from "react";
