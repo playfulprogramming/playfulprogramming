@@ -476,6 +476,125 @@ Typically, in a React app, you want your data to go one way at a time.
 
 
 
+Let's take a look at a code sample that follows this unidirectionality:
+
+```jsx
+import React from "react";
+
+class SimpleForm extends React.Component {
+  render() {
+    return (
+      <div>
+        <label>
+          <div>Username</div>
+          <input
+            onChange={e => this.props.onChange(e.target.value)}
+            value={this.props.value}
+          />
+        </label>
+        <button onClick={this.props.onDone}>Submit</button>
+      </div>
+    );
+  }
+}
+
+export default function App() {
+  const [inputTxt, setInputTxt] = React.useState("");
+  const [displayTxt, setDisplayTxt] = React.useState("");
+
+  const onDone = () => {
+    setDisplayTxt(inputTxt);
+  };
+
+  return (
+    <div>
+      <SimpleForm
+        onDone={onDone}
+        onChange={v => setInputTxt(v)}
+        value={inputTxt}
+      />
+      <p>{displayTxt}</p>
+    </div>
+  );
+}
+```
+
+In this example, because both the `onChange` property and `value` property are being passed in to the `SimpleForm` component, you're able to keep all of the relevant data in one place. You'll notice that none of the actual logic happens inside of the `SimpleForm` component itself. As such, this component is called a "dumb" component. It's utilized for styling and composability, but not for the logic itself.
+
+This is what a proper React component _should_ look like. This pattern of raising state out of the component itself and leaving "dumb" component comes from the guidance of the React team itself. This pattern is called ["lifting state up"](https://reactjs.org/docs/lifting-state-up.html).
+
+Now that we have a better understanding of the patterns to follow, let's take a look at the wrong way to do things.
+
+## Breaking from Suggested Patterns {#bidirectionality-example}
+
+Doing the inverse of "lifting state", let's lower that state back into the `SimpleForm` component. Then, in order to access that data from `App`, we can use the `ref` property to access that data from the parent.
+
+```jsx
+import React from "react";
+
+class SimpleForm extends React.Component {
+  // State is now a part of the SimpleForm component
+  state = {
+    input: ""
+  };
+
+  onChange(e) {
+    this.setState({
+      input: e.target.value
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <label>
+          <div>Username</div>
+          <input onChange={this.onChange.bind(this)} value={this.state.input} />
+        </label>
+        <button onClick={this.props.onDone}>Submit</button>
+      </div>
+    );
+  }
+}
+
+export default function App() {
+  const simpleRef = React.useRef();
+  const [displayTxt, setDisplayTxt] = React.useState("");
+
+  const onDone = () => {
+    // Reach into the Ref to access the state of the component instance
+    setDisplayTxt(simpleRef.current.state.input);
+  };
+
+  return (
+    <div>
+      <SimpleForm 
+        onDone={onDone} 
+        ref={simpleRef} 
+      />
+      <p>{displayTxt}</p>
+    </div>
+  );
+}
+```
+
+However, the problem is that when you look to start expanding, you'll find managing this dual-state behavior more difficult. Even following the application logic is more difficult. Let's start taking a look at what these two components' lifecycle look visually.
+
+First, let's start by taking a look at the `simpleRef` component, where the state is "lowered down" in the `SimpleForm` component:
+
+![Arrows pointing back and forth from App and SimpleForm to demonstrate the data going both directions](two_way_flow.png)
+
+In this example, the flow of the application state is as follows:
+
+- `App` (and it's children, `SimpleForm`) render
+- The user makes changes to the data as stored in `SimpleForm`
+- The user triggers the `onDone` action, which triggers a function in `App`
+- The `App` `onDone` method inspects the data from `SimpleForm`
+
+As you can see from the chart above and the outline of the data flow, you're keeping your data seperated across two different locations. As such, the mental model to modify this code can get confusing and disjointed. This code sample gets even more complex when `onDone` is expected to change the state in `SimpleForm`
+
+
+
 
 
 
