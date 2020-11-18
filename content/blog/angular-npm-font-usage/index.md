@@ -1,8 +1,8 @@
 ---
 {
     title: "Package Font Files on NPM for Angular Usage",
-    description: "",
-    published: '2020-11-15T22:12:03.284Z',
+    description: "Does your organization use custom fonts that you want to share with multiple apps? Learn how to distribute those fonts on NPM and consume them in Angular!",
+    published: '2020-11-24T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['angular', 'javascript', 'npm'],
     attached: [],
@@ -14,13 +14,13 @@ While working on my company's shared component system, I got a request from our 
 
 While we're prepping our shared component system for an open-source release to the public, we quickly acknowledged that we couldn't possibly ship this font with the package we intend for public publishing [due to it's licensing and cost](https://www.fonts.com/font/the-foundry/foundry-sterling).
 
-However, we have mutliple teams that rely on our shared component system and we don't want to have to copy+paste the relevant `@font-face` definition or font files. What was our solution? Ship a second `npm` package (in our internal `npm` registry) that contained all of our private assets - including font files.
+However, we have multiple teams that rely on our shared component system, and we don't want to have to copy+paste the relevant `@font-face` definition or font files. What was our solution? Ship a second `npm` package (in our internal `npm` registry) that contained all of our private assets - including font files.
 
 Let's walk through how we did that.
 
 # Setup Assets Package {#assets-package}
 
-As we're wanting to ship our packages seperately, we opted for two Git repositories for the component system and private assets. In a new repository, I have the following for the `package.json`:
+As we're wanting to ship our packages separately, we opted for two Git repositories for the component system and private assets. In a new repository, I have the following for the `package.json`:
 
 ```json
 {
@@ -49,7 +49,7 @@ As we're wanting to ship our packages seperately, we opted for two Git repositor
 }
 ```
 
-While this package is not going to maintain code, I still believe it important to maintain a semver for the package. If a path of the package changes, the semver will communicate that with your package's consumers alongside the changeling. As such, this `package.json` utilizes [Conventional Commit and `commitlint` to auto-generate changelogs and maintain history version](/posts/setup-standard-version/).
+While this package will not maintain code, I still believe it important to maintain a semver for the package. If a path of the package changes, the semver will communicate that with your package's consumers alongside the changeling. As such, this `package.json` utilizes [Conventional Commit and `commitlint` to auto-generate changelogs and maintain history version](/posts/setup-standard-version/).
 
 ## Add Font Files {#font-files}
 
@@ -199,16 +199,16 @@ This way, when we use the CSS `url('/assets/')`, it will point to our newly appo
 
 ## Import CSS {#css-import}
 
-Now that we have our assets in place, we need to import the CSS file in our app.
+Now that we have our assets in place, we need to import the CSS file into our app.
 
 
-If your app utilizes `postcss`'s `import` plugin or if you're just using vanilla CSS, add the following line to your `main.scss` file:
+If your app utilizes `postcss`'s `import` plugin or if you're using vanilla CSS, add the following line to your `main.scss` file:
 
 ```css
 @import "ecp-private-assets/fonts/foundry_sterling.css";
 ```
 
-> Remember to keep the `@import`s at the top of your file, as you will recieve an error otherwise. 
+> Remember to keep the `@import`s at the top of your file, as you will receive an error otherwise. 
 
 However, if you're not using `postcss` and have SCSS installed, you can use the following:
 
@@ -218,6 +218,6 @@ However, if you're not using `postcss` and have SCSS installed, you can use the 
 
 # Conclusion
 
-Once you've added the file to your CSS imports and `angular.json`, you should see your font loading as-expected. Because you've setup your fonts to use `npm` to distribute them, you can now reuse your fonts accross multiple different apps.
+Once you've added the file to your CSS imports and `angular.json`, you should see your font loading as-expected. Because you've setup your fonts to use `npm` to distribute them, you can now reuse your fonts across multiple apps.
 
 If you'd like to learn more or have questions about this setup, feel free to leave a comment down below or join [our Discord](https://discord.gg/FMcvc6T) and ask questions there!
