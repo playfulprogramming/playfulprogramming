@@ -142,3 +142,82 @@ Because our font had multiple files to declare the different CSS values weights,
 
 # Consume Assets Package in Angular CLI {#angular-cli}
 
+Now that we have our `npm` package configured for usage, we'll start preparing for consuming that package by installing it into our app's `package.json`:
+
+```
+npm i ecp-private-assets
+```
+
+> Remember, `ecp-private-assets` is the name of our internal package. You'll need to replace this `npm i` command with your own package name
+
+## `angular.json` modification {#angular-json}
+
+Once this is done, two steps are required. First, add the following to `angular.json`'s `assets` property. This will copy the files from `ecp-private-assets` to `/assets` once you setup a build. 
+
+```json
+{
+  "glob": "**/*",
+  "input": "./node_modules/ecp-private-assets/fonts",
+  "output": "./assets/"
+}
+```
+
+This way, when we use the CSS `url('/assets/')`, it will point to our newly appointed `fonts` files. Once this is added, your `angular.json` should look like this:
+
+```json
+{
+  "architect": {
+    "build": {
+      "builder": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "./webpack.config.js"
+        },
+        "outputPath": "www",
+        "index": "src/index.html",
+        "main": "src/main.ts",
+        "polyfills": "src/polyfills.ts",
+        "tsConfig": "tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "src/assets",
+          {
+            "glob": "**/*",
+            "input": "./node_modules/ecp-private-assets/fonts",
+            "output": "./assets/"
+          }
+        ],
+        "styles": [
+          "src/main.scss"
+        ],
+        "scripts": []
+      }
+    }
+  }
+}
+```
+
+## Import CSS {#css-import}
+
+Now that we have our assets in place, we need to import the CSS file in our app.
+
+
+If your app utilizes `postcss`'s `import` plugin or if you're just using vanilla CSS, add the following line to your `main.scss` file:
+
+```css
+@import "ecp-private-assets/fonts/foundry_sterling.css";
+```
+
+> Remember to keep the `@import`s at the top of your file, as you will recieve an error otherwise. 
+
+However, if you're not using `postcss` and have SCSS installed, you can use the following:
+
+```scss
+@import '~ecp-private-assets/fonts/foundry_sterling.css';
+```
+
+# Conclusion
+
+Once you've added the file to your CSS imports and `angular.json`, you should see your font loading as-expected. Because you've setup your fonts to use `npm` to distribute them, you can now reuse your fonts accross multiple different apps.
+
+If you'd like to learn more or have questions about this setup, feel free to leave a comment down below or join [our Discord](https://discord.gg/FMcvc6T) and ask questions there!
