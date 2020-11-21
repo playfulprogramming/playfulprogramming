@@ -940,9 +940,9 @@ That's true. However, you _can_ combine the two behaviors to make a callback tha
 
 # `useState` Refs {#usestate-refs}
 
-- Combining useState and Callback Refs
-- Will trigger a re-render
-- Works in useEffect
+Sometimes the combination of `useRef` and callback refs are not enough. There are the rare instances where you need to re-render whenever you get a new value in `.current.`. The problem is that the inherent nature of `.current` prevents re-rendering. How do we get around that? Eliminate `.current` entirely by switching your `useRef` out for a `useState`.
+
+You can do this relatively trivially using callback refs to assign to a `useState` hook.
 
 ```jsx
   const [elRef, setElRef] = React.useState();
@@ -960,9 +960,9 @@ That's true. However, you _can_ combine the two behaviors to make a callback tha
   }, [elRef])
 ```
 
-https://stackblitz.com/edit/react-use-ref-callback-and-use-state
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-use-state?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-- Can be used to impact reference using useEffect instead of inside of callback
+Now that the `ref` update causes a re-render, you can now _**safely**_ use the `ref` in `useEffect`'s dependency array.
 
 ```jsx
  const [elNode, setElNode] = React.useState();
@@ -979,6 +979,10 @@ https://stackblitz.com/edit/react-use-ref-callback-and-use-state
   }, [elNode])
 ```
 
-https://stackblitz.com/edit/react-use-ref-callback-and-state-effect
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-state-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+However, this comes at an offset cost of performance. Because you're causing a re-render, it will inherently be slower than if you were not triggering a re-render. There are valid uses for this, however. You just have to be mindful of your decisions and your code's usage of them.
 
 # Conclusion
+
+As with most of engineering, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
