@@ -712,8 +712,55 @@ That said, you're not limited to simply the names of native APIs. What do you th
 
 # React Refs in `useEffect ` {#refs-in-use-effect}
 
+I have to make a confession: I've been lying to you. Not maliciously, but I've repeatedly used code in the previous samples that should not ever be used in production. This is because without hand-waving a bit, teaching these things can be tricky.
+
+What's the offending code?
+
+```jsx
+React.useEffect(() => {
+  elRef.current.anything.here.is.bad();
+}, [elRef])
+```
+
+> What?
+
+That's right! You shouldn't be placing `elRef.current` inside of any `useEffect` (unless you _really_ **really** _**really**_ know what you're doing).
+
+> Why's that?
+
+Before we answer that fully, let's take a look at how `useEffect` works.
+
+Assume we have a simple component that looks like this:
+
+```jsx
+const App = () => {
+  const [num, setNum] = React.useState(0);
+
+  React.useEffect(() => {
+    console.log("Num has ran");
+  }, [num])
+
+  return (
+    // ...
+  )
+}
+```
+
+You might expect that when `num` updates, the dependency array "listens" for changes to `num`, and when the data updates, it will trigger the side-effect. This line of thinking is such that "useEffect actively listens for data updates and runs side effects when data is changed". This mental model is inaccurate and can be dangerous when combined with `ref` usage. Even I didn't realize this was wrong until I had already started writing this article! 
+
+Under non-ref (`useState`/props) dependency array tracking, this line of reasoning typically does not introduce bugs into the codebase, but when `ref`s are added, it opens a can of worms due to the misunderstanding.
+
+The way `useEffect` _actually_ works is much more passive. During a render, `useEffect` will do a check against the values in the dependency array. If any of the values' memory addresses have changed (_this means that object mutations are ignored_), it will run the side effect. This might seem similar to the previously outlined understanding, but it's a difference of "push" vs. "pull". `useEffect` does not listen to anything and does not trigger a render in itself, but instead the render triggers `useEffect`'s listening and comparison of values. **This means that if there is not a render, `useEffect` cannot run a side effect, even if the memory addresses in the array have changed.**
+
+Why does this come into play when `ref`s are used? Well, there are two things to keep in mind:
+
+- Refs rely on object mutation rather than reassignment
+- When a `ref` is mutated, it does not trigger a re-render
+
 - `useEffect` only does the array check on re-render
-- Ref's current property set doesn't trigger a re-render
+- Ref's current property set doesn't trigger a re-render ([remember how `useRef` is _actually_ implemented](#use-ref-mutate))
+
+Knowing this, let's take a look at an offending example once more:
 
 ```jsx
 export default function App() {
@@ -732,9 +779,14 @@ export default function App() {
 }
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-style
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-However, what happens when you make the `div` render happen _after_ the initial render. What do you think will happen here?
+This code behaves as we might initially expect, not because we've done things properly, but instead thanks to the nature of React's `useEffect` hook's timing.
+
+Because `useEffect` happens _after_ the first render, `elRef` is already assigned by the time `elRef.current.style` has it's new value assigned to it. However, if we somehow broke that timing expectancy, we'd see a different behavior.
+
+
+What do you think will happen if you make the `div` render happen _after_ the initial render?
 
 ```jsx
 export default function App() {
@@ -761,7 +813,11 @@ export default function App() {
 }
 ```
 
-https://stackblitz.com/edit/react-use-ref-effect-bug-effect
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-bug-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+Oh no! The background is no longer `'lightblue'`! Because we delay the rendering of the `div`, `elRef` is _not_ assigned for the initial render. Then, once it _is_ rendered, it mutates the `.current` property of `elRef` to assign the ref, and because mutations do not trigger a re-render (and `useEffect` only runs during renders), `useEffect` does not have a chance to "compare" the differences in value and therefore run the side-effect.
+
+Confused? That's okay! So was I at first. I made a playground of sorts to help us kinesthetic learners!
 
 ```jsx
   const [minus, setMinus] = React.useState(0);
@@ -784,21 +840,37 @@ https://stackblitz.com/edit/react-use-ref-effect-bug-effect
   }, [minus]);
 ```
 
-https://stackblitz.com/edit/react-use-ref-not-updating
+<iframe src="https://stackblitz.com/edit/react-use-ref-not-updating?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+> Open your console and take notes of what `console.log` runs when you change the respective values!
 
+How do you use this example? Great question!
 
-Here are some comments from Dan Apromov, of the React Core team:
+First, start by clicking the button under the `useState` header. You'll notice that each time you click the button, it promptly triggers a re-render and your value displayed in the UI is immediately updated. Because of this, it enables the `useEffect` (with `num` as a dep) to compare the previous value to the current one - they don't match up - and run the `console.log` side effect.
 
-https://github.com/facebook/react/issues/14387#issuecomment-503616820
+Now, once you've triggered the `useState` "add" button, do the same with the `useRef` button. Click it as many times as you'd like, but it (alone) will never trigger a re-render. Because `useRef` mutations do not re-render the DOM, neither `useEffect` is able to do a comparison of values, and therefore neither `useEffect` will run. However, the values in `.current` _are_ updating - they're just not showing up in the UI (because the component is not re-rendering). Once you trigger a re-render (by pressing the `useState` "add" button again), it will update the UI to match the internal memory value of `.current`.
 
-https://twitter.com/dan_abramov/status/1093497348913803265
+[TL;DR](https://www.dictionary.com/browse/tldr) - Try pressing `useState` "add" twice. The value on-screen will be 2. Then, try pressing the `useRef` "add" button thrice. The value on-screen will be 0. Press `useState`'s button once again and et voilà - both values are 3 again!
 
-https://github.com/facebook/react/issues/14387#issuecomment-493677168
+## Comments from Core Team {#core-team-comments}
 
+Because of the unintended effects of tracking a `ref` in a `useEffect`, the core team has explicitly suggested avoiding doing so.
 
+[Dan Apromov Said on GitHub:](https://github.com/facebook/react/issues/14387#issuecomment-503616820)
 
-But what does Dan mean by "callback ref"?
+> As I mentioned earlier, if you put [ref.current] in dependencies, you're likely making a mistake. Refs are for values whose changes don't need to trigger a re-render.
+>
+> If you want to re-run effect when a ref changes, you probably want a callback ref instead. 
+
+[... twice:](https://github.com/facebook/react/issues/14387#issuecomment-493677168)
+
+> When you try to put `ref.current` in dependencies, you usually want a callback ref instead
+
+[An even again on Twitter:](https://twitter.com/dan_abramov/status/1093497348913803265)
+
+> I think you want callback ref for that. You can’t have component magically react to ref changes because ref can go deep down and have independent lifecycle of the owner component.
+
+These are great points... But what does Dan mean by a "callback ref"?
 
 # Callback Refs {#callback-refs}
 
