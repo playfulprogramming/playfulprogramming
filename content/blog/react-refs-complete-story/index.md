@@ -874,8 +874,25 @@ These are great points... But what does Dan mean by a "callback ref"?
 
 # Callback Refs {#callback-refs}
 
-- Remember, "ref" property accepts a function to access the node
-- Because it's not using "useEffect", code can execute in proper timing
+Towards the start of this article, we mentioned an alternative way to assign refs. Instead of:
+
+```jsx
+<div ref={elRef}>
+```
+
+There's the valid (and slightly more verbose):
+
+```jsx
+<div ref={node => elRef.current = node}>
+```
+
+This is because `ref` can accept callback functions. These functions are called with the element's node itself. This means that if you wanted to, you could inline the `.style` assignment we've been using multiple times throughout this article:
+
+```jsx
+<div ref={node => node.style.background = "lightblue"}>
+```
+
+But, you're probably thinking that if it accepts a function, we could pass a callback declared earlier in the component. That's correct!
 
 ```jsx
   const elRefCB = React.useCallback(node => {
@@ -892,9 +909,15 @@ These are great points... But what does Dan mean by a "callback ref"?
   );
 ```
 
-https://stackblitz.com/edit/react-use-ref-callback-styling
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-styling?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-- Can still keep a traditional "useRef" reference
+> But hey! Wait a minute! Even though the `shouldRender` timing mismatch is still there, the background is being applied all the same! Why is the `useEffect` timing mismatch not causing the bug we were experiencing before?
+
+Well, that's because we eliminated the usage of `useEffect` entirely in this example! Because the callback function is running only once `ref` is available, we can know for certain that `.current` _will_ be present and because of that, we can assign property values and more inside said callback!
+
+> But I also need to pass that `ref` to other parts of the codebase! I can't pass the function itself, that's just a function - not a ref!
+
+That's true. However, you _can_ combine the two behaviors to make a callback that _also_ stores it's data inside of a `useRef` (so that you can use that reference later).
 
 ```jsx
   const elRef = React.useRef();
@@ -913,7 +936,7 @@ https://stackblitz.com/edit/react-use-ref-callback-styling
   }, [elRef, shouldRender]);
 ```
 
-https://stackblitz.com/edit/react-use-ref-callback-and-effect
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # `useState` Refs {#usestate-refs}
 
