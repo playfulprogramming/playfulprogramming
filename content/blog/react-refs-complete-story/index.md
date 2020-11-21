@@ -582,7 +582,7 @@ However, the problem is that when you look to start expanding, you'll find manag
 
 First, let's start by taking a look at the `simpleRef` component, where the state is "lowered down" in the `SimpleForm` component:
 
-![Arrows pointing back and forth from App and SimpleForm to demonstrate the data going both directions](two_way_flow.png)
+![Arrows pointing back and forth from App and SimpleForm to demonstrate the data going both directions](./two_way_flow.png)
 
 In this example, the flow of the application state is as follows:
 
@@ -590,23 +590,28 @@ In this example, the flow of the application state is as follows:
 - The user makes changes to the data as stored in `SimpleForm`
 - The user triggers the `onDone` action, which triggers a function in `App`
 - The `App` `onDone` method inspects the data from `SimpleForm`
+- Once the data is returned to `App`, it changes it's own data, thus triggering a re-render of `App` and `SimpleForm` both
 
-As you can see from the chart above and the outline of the data flow, you're keeping your data seperated across two different locations. As such, the mental model to modify this code can get confusing and disjointed. This code sample gets even more complex when `onDone` is expected to change the state in `SimpleForm`
+As you can see from the chart above and the outline of the data flow, you're keeping your data seperated across two different locations. As such, the mental model to modify this code can get confusing and disjointed. This code sample gets even more complex when `onDone` is expected to change the state in `SimpleForm`.
 
+Now, let's contrast that to the mental model needed to work with unidirectionality enforced.
 
+![Arrows pointing in a single circular direction from App to SimpleForm to demonstrate data going one-way](./one_way_flow.png)
 
+- `App` (and it's children, `SimpleForm`) render
+- The user makes changes in `SimpleForm`, the state is raised up to `App` through callbacks
+- The user triggers the `onDone` action, which triggers a function in `App`
+- The `App` `onDone` method already contains all of the data it needs in it's own component, so it simply re-renders `App` and `SimpleForm` without any additional logic overhead
 
+As you can see, while the number of steps is similar between these methods (and it may not be in a less trivial example), the unidirectional flow is much more streamlined and easier to follow.
 
-
+This is why the React core team (and the community at large) highly suggests you use unidirectionality and rightfully shuns breaking away from that pattern when it's not required.
 
 # Add Data to Ref {#use-imperative-handle}
 
+If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods and properties to a `ref` forwarded/passed in to a component. By doing this, you're able to access data from the child directly within the parent, rather than forcing you to raise state up, which can break unidirectionality.
 
-If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods to 
-
-
-
-
+Let's look at a component that we could extend using `useImperativeHandle`:
 
 ```jsx
 import React from "react";
@@ -634,12 +639,13 @@ export default function App() {
 }
 ```
 
-https://stackblitz.com/edit/react-use-imperative-handle-demo-pre
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-pre?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
+As you can witness from the embedded demo, when the application renders, it will focus you on the `Container` `div`. This example does not use the `useImperativeHandle` hook, but instead relies on the timing of `useEffect` to have the `ref`'s `current` already defined.
 
-- useImperativeHandle hook allows properties to be added to ref
-- Can be used in combination with forwardRef
-- Only properties returned in second param are set to ref
+Let's say that we wanted to keep track of every time the `Container` `div` was focused programmatically. How would you go about doing that? There's lots of options to enable that functionality, but one way that wouldn't require any modification of `App` (or other `Container` consumers) would be to utilize `useImperativeHandle`.
+
+Not only does `useImperativeHandle` allow properties to be added to ref, but you can provide an alternative implementation of native APIs by returning a function of the same name.
 
 ```jsx
 import React from "react";
@@ -676,9 +682,23 @@ export default function App() {
 }
 ```
 
-https://stackblitz.com/edit/react-use-imperative-handle-demo-post
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-post?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-> Be cautious about using this in production. It breaks unidirectional data binding
+> If you look in the console, you'll find the `console.log` has ran when `focus()` was ran!
+
+As you can, `useImperativeHandle` can be used in combination with `forwardRef` to maximize the natural look-and-feel of the component's API.
+
+However, be warned that if you look to suppliment the native APIs with your own, that only properties and methods returned in second param are set to ref. That means that if you now run:
+
+```jsx
+  React.useEffect(() => {
+    elRef.current.style.background = 'lightblue';
+  }, [elRef])
+```
+
+In `App`, you will face an error, as `style` is not defined on `elRef.current` anymore.
+
+That said, you're not limited to simply the names of native APIs. What do you think this code sample in a different `App` component might do?
 
 ```jsx
   React.useEffect(() => {
@@ -686,7 +706,9 @@ https://stackblitz.com/edit/react-use-imperative-handle-demo-post
   }, [elRef])
 ```
 
-https://stackblitz.com/edit/react-use-imperative-handle-demo-useful
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-useful?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+> When your focus is set to the `Container` element, try typing in the ["Konami code"](https://en.wikipedia.org/wiki/Konami_Code) using your arrow keys. What does it do when that's done?
 
 # React Refs in `useEffect ` {#refs-in-use-effect}
 
