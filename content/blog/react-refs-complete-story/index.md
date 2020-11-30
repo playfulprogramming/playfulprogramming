@@ -472,9 +472,7 @@ While the concept of "universal directional flow" is a broader subject than what
 
 Typically, in a React app, you want your data to go one way at a time.
 
-![A circle going from state, to view, to action, then back to state](./unidirectional_flow.png)
-
-
+![A circle going from state, to view, to action, then back to state](./unidirectional_flow.svg)
 
 Let's take a look at a code sample that follows this unidirectionality:
 
@@ -582,7 +580,7 @@ However, the problem is that when you look to start expanding, you'll find manag
 
 First, let's start by taking a look at the `simpleRef` component, where the state is "lowered down" in the `SimpleForm` component:
 
-![Arrows pointing back and forth from App and SimpleForm to demonstrate the data going both directions](./two_way_flow.png)
+![Arrows pointing back and forth from App and SimpleForm to demonstrate the data going both directions](./two_way_flow.svg)
 
 In this example, the flow of the application state is as follows:
 
@@ -596,7 +594,7 @@ As you can see from the chart above and the outline of the data flow, you're kee
 
 Now, let's contrast that to the mental model needed to work with unidirectionality enforced.
 
-![Arrows pointing in a single circular direction from App to SimpleForm to demonstrate data going one-way](./one_way_flow.png)
+![Arrows pointing in a single circular direction from App to SimpleForm to demonstrate data going one-way](./one_way_flow.svg)
 
 - `App` (and it's children, `SimpleForm`) render
 - The user makes changes in `SimpleForm`, the state is raised up to `App` through callbacks
