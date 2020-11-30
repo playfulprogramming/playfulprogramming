@@ -2,7 +2,7 @@
 {
 	title: "React Refs: The Complete Story",
 	description: "",
-	published: '2020-10-24T05:12:03.284Z',
+	published: '2020-12-01T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['react', 'javascript'],
 	attached: [],
