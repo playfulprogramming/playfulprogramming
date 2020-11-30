@@ -18,7 +18,7 @@ Today, we'll be walking through two definitions of refs:
 
 - A [reference to DOM elements](#dom-ref)
 
-We'll also be exploring additional functionality to each of those two defintions, such as [component refs](#forward-ref), [adding more properties to a ref](#use-imperative-handle), and even exploring [common code gotchas associated with using `useRef`](#refs-in-use-effect). 
+We'll also be exploring additional functionality to each of those two definitions, such as [component refs](#forward-ref), [adding more properties to a ref](#use-imperative-handle), and even exploring [common code gotchas associated with using `useRef`](#refs-in-use-effect). 
 
 > As most of this content relies on the `useRef` hook, we'll be using functional components for all of our examples. However, there are APIs such as [`React.createRef`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs) and [class instance variables](https://www.seanmcp.com/articles/storing-data-in-state-vs-class-variable/) that can be used to recreate `React.useRef` functionality with classes.
 
@@ -32,7 +32,7 @@ const ref = React.useRef();
 ref.current = "Hello!";
 ```
 
-In this example, `ref.current` will contain `"Hello!"` after the intial render. The returned value from `useRef` is an object that contains a single key: `current`.
+In this example, `ref.current` will contain `"Hello!"` after the initial render. The returned value from `useRef` is an object that contains a single key: `current`.
 
 If you were to run the following code:
 
@@ -80,7 +80,7 @@ function useRef(initial) {
 }
 ```
 
-However, that's not the case. [To quote Dan Apromov](https://github.com/facebook/react/issues/14387#issuecomment-493676850):
+However, that's not the case. [To quote Dan Abramov](https://github.com/facebook/react/issues/14387#issuecomment-493676850):
 
 > ... `useRef` works more like this:
 >
@@ -93,9 +93,9 @@ However, that's not the case. [To quote Dan Apromov](https://github.com/facebook
 
 
 
-Because of this implementation, when you mutate the `current` value it will not cause a re-render. 
+Because of this implementation, when you mutate the `current` value, it will not cause a re-render. 
 
-Thanks to the lack of rendering on data storage, it's particularly useful for storing data that you need to keep a reference to, but don't need to render on-screen. One such example of this would be a timer:
+Thanks to the lack of rendering on data storage, it's particularly useful for storing data that you need to keep a reference to but don't need to render on-screen. One such example of this would be a timer:
 
 ```jsx
   const dataRef = React.useRef();
@@ -117,9 +117,9 @@ Thanks to the lack of rendering on data storage, it's particularly useful for st
 
 # Visual Timer with Refs {#visual-timers}
 
-While there are usages for timers without rendered values, what were to happen if we made the timer render a value in state?
+While there are usages for timers without rendered values, what would happen if we made the timer render a value in state?
 
-Let's take the example from before, but inside of the `setInterval`, we update a `useState` that contains a number to add one to it's state.
+Let's take the example from before, but inside of the `setInterval`, we update a `useState` that contains a number to add one to its state.
 
 ```jsx
  const dataRef = React.useRef();
@@ -196,7 +196,7 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
 
 # DOM Element References {#dom-ref}
 
-At the start of this article, I mentioned that `ref`s are not just a mutable data storage method, but a way to reference DOM nodes from inside of React. The easiest of the methods to track a DOM node is by storing it in a `useRef` hook using any element's `ref` property:
+At the start of this article, I mentioned that `ref`s are not just a mutable data storage method but a way to reference DOM nodes from inside of React. The easiest of the methods to track a DOM node is by storing it in a `useRef` hook using any element's `ref` property:
 
 ```jsx
   const elRef = React.useRef();
@@ -234,7 +234,7 @@ Because `elRef.current` is now a `HTMLDivElement`, it means we now have access t
 
 ## Alternative Syntax {#ref-function}
 
-It's worth noting that the `ref` attribute also accepts a function. While [we'll touch on the implications of this more in the future](#callback-refs), just note that this code example does exaclty the same thing as `ref={elRef}`:
+It's worth noting that the `ref` attribute also accepts a function. While [we'll touch on the implications of this more in the future](#callback-refs), just note that this code example does exactly the same thing as `ref={elRef}`:
 
 ```jsx
   const elRef = React.useRef();
@@ -250,7 +250,7 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
 
 #  Component References {#forward-ref}
 
-HTMLElements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?
+HTML elements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?
 
 By passing a property from the parent to the child, you can pass a ref to a child component. Take an example like this:
 
@@ -274,7 +274,7 @@ const App = () => {
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong-kinda?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-You might be wondering why I didn't call that property `ref` instead of `divRef`. This is because of a limitations with React. If we try to switch the property's name to `ref`, we find ourselves with some unintended concequences.
+You might be wondering why I didn't call that property `ref` instead of `divRef`. This is because of a limitation with React. If we try to switch the property's name to `ref`, we find ourselves with some unintended consequences.
 
 ```jsx
 // This code does not function as intended
@@ -303,7 +303,7 @@ You'll notice that the `Container` `div` is not styled to have a `lightblue` bac
 
 How do you get the `ref` property name to work as expected with functional components?
 
-You can use the `ref` property name to forward refs by using the `forwardRef` API. When defining a functional component, instead of simply being an arrow function, you pass `forwardRef` with the arrow function as it's first property. From there, you can access `ref` from the second property of the inner arrow function.
+You can use the `ref` property name to forward refs by using the `forwardRef` API. When defining a functional component, instead of simply being an arrow function like you would otherwise, you assign the component to a `forwardRef` with the arrow function as it's first property. From there, you can access `ref` from the second property of the inner arrow function.
 
 ```jsx
 const Container = React.forwardRef((props, ref) => {
@@ -401,10 +401,10 @@ You'll notice that it prints out the value of a `Container` instance. In fact, i
 console.log(container.current instanceof Container); // true
 ```
 
-However, what _is_ this class? Where are those props coming from? Well, if you're familiar with [class inheritence](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance), it's the properties coming from `React.Component` that's being extended. If we take a look at the [TypeScript definition for the `React.Component` class](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L436), we can see some pretty familiar properties in that class:
+However, what _is_ this class? Where are those props coming from? Well, if you're familiar with [class inheritance](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance), it's the properties coming from `React.Component` that's being extended. If we take a look at the [TypeScript definition for the `React.Component` class](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L436), we can see some pretty familiar properties in that class:
 
 ```jsx
-// This is incomplete and inaccurate type definition shown for educational purposes - DO NOT USE IN PROD
+// This is an incomplete and inaccurate type definition shown for educational purposes - DO NOT USE IN PROD
 class Component {
   render(): ReactNode;
   context: any;
@@ -517,15 +517,15 @@ export default function App() {
 }
 ```
 
-In this example, because both the `onChange` property and `value` property are being passed in to the `SimpleForm` component, you're able to keep all of the relevant data in one place. You'll notice that none of the actual logic happens inside of the `SimpleForm` component itself. As such, this component is called a "dumb" component. It's utilized for styling and composability, but not for the logic itself.
+In this example, because both the `onChange` property and `value` property are being passed into the `SimpleForm` component, you're able to keep all of the relevant data in one place. You'll notice that none of the actual logic happens inside of the `SimpleForm` component itself. As such, this component is called a "dumb" component. It's utilized for styling and composability, but not for the logic itself.
 
 This is what a proper React component _should_ look like. This pattern of raising state out of the component itself and leaving "dumb" component comes from the guidance of the React team itself. This pattern is called ["lifting state up"](https://reactjs.org/docs/lifting-state-up.html).
 
-Now that we have a better understanding of the patterns to follow, let's take a look at the wrong way to do things.
+Now that we have a better understanding of the patterns to follow let's take a look at the wrong way to do things.
 
 ## Breaking from Suggested Patterns {#bidirectionality-example}
 
-Doing the inverse of "lifting state", let's lower that state back into the `SimpleForm` component. Then, in order to access that data from `App`, we can use the `ref` property to access that data from the parent.
+Doing the inverse of "lifting state," let's lower that state back into the `SimpleForm` component. Then, to access that data from `App`, we can use the `ref` property to access that data from the parent.
 
 ```jsx
 import React from "react";
@@ -576,7 +576,7 @@ export default function App() {
 }
 ```
 
-However, the problem is that when you look to start expanding, you'll find managing this dual-state behavior more difficult. Even following the application logic is more difficult. Let's start taking a look at what these two components' lifecycle look visually.
+However, the problem is that when you look to start expanding, you'll find managing this dual-state behavior more difficult. Even following the application logic is more difficult. Let's start taking a look at what these two components' lifecycle look like visually.
 
 First, let's start by taking a look at the `simpleRef` component, where the state is "lowered down" in the `SimpleForm` component:
 
@@ -590,7 +590,7 @@ In this example, the flow of the application state is as follows:
 - The `App` `onDone` method inspects the data from `SimpleForm`
 - Once the data is returned to `App`, it changes it's own data, thus triggering a re-render of `App` and `SimpleForm` both
 
-As you can see from the chart above and the outline of the data flow, you're keeping your data seperated across two different locations. As such, the mental model to modify this code can get confusing and disjointed. This code sample gets even more complex when `onDone` is expected to change the state in `SimpleForm`.
+As you can see from the chart above and the outline of the data flow, you're keeping your data separated across two different locations. As such, the mental model to modify this code can get confusing and disjointed. This code sample gets even more complex when `onDone` is expected to change the state in `SimpleForm`.
 
 Now, let's contrast that to the mental model needed to work with unidirectionality enforced.
 
@@ -601,13 +601,13 @@ Now, let's contrast that to the mental model needed to work with unidirectionali
 - The user triggers the `onDone` action, which triggers a function in `App`
 - The `App` `onDone` method already contains all of the data it needs in it's own component, so it simply re-renders `App` and `SimpleForm` without any additional logic overhead
 
-As you can see, while the number of steps is similar between these methods (and it may not be in a less trivial example), the unidirectional flow is much more streamlined and easier to follow.
+As you can see, while the number of steps is similar between these methods (and may not be in a less trivial example), the unidirectional flow is much more streamlined and easier to follow.
 
 This is why the React core team (and the community at large) highly suggests you use unidirectionality and rightfully shuns breaking away from that pattern when it's not required.
 
 # Add Data to Ref {#use-imperative-handle}
 
-If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods and properties to a `ref` forwarded/passed in to a component. By doing this, you're able to access data from the child directly within the parent, rather than forcing you to raise state up, which can break unidirectionality.
+If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods and properties to a `ref` forwarded/passed into a component. By doing this, you're able to access data from the child directly within the parent, rather than forcing you to raise state up, which can break unidirectionality.
 
 Let's look at a component that we could extend using `useImperativeHandle`:
 
@@ -639,9 +639,9 @@ export default function App() {
 
 <iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-pre?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-As you can witness from the embedded demo, when the application renders, it will focus you on the `Container` `div`. This example does not use the `useImperativeHandle` hook, but instead relies on the timing of `useEffect` to have the `ref`'s `current` already defined.
+As you can witness from the embedded demo it will focus you on the `Container` `div` when the application renders. This example does not use the `useImperativeHandle` hook but instead relies on the timing of `useEffect` to have the `ref`'s `current` already defined.
 
-Let's say that we wanted to keep track of every time the `Container` `div` was focused programmatically. How would you go about doing that? There's lots of options to enable that functionality, but one way that wouldn't require any modification of `App` (or other `Container` consumers) would be to utilize `useImperativeHandle`.
+Let's say that we wanted to keep track of every time the `Container` `div` was focused programmatically. How would you go about doing that? There are many options to enable that functionality, but one way that wouldn't require any modification of `App` (or other `Container` consumers) would be to utilize `useImperativeHandle`.
 
 Not only does `useImperativeHandle` allow properties to be added to ref, but you can provide an alternative implementation of native APIs by returning a function of the same name.
 
@@ -682,11 +682,11 @@ export default function App() {
 
 <iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-post?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-> If you look in the console, you'll find the `console.log` has ran when `focus()` was ran!
+> If you look in the console, you'll find the `console.log` has run when `focus()` ran!
 
 As you can, `useImperativeHandle` can be used in combination with `forwardRef` to maximize the natural look-and-feel of the component's API.
 
-However, be warned that if you look to suppliment the native APIs with your own, that only properties and methods returned in second param are set to ref. That means that if you now run:
+However, be warned that if you look to supplement the native APIs with your own, only properties and methods returned in the second param are set to ref. That means that if you now run:
 
 ```jsx
   React.useEffect(() => {
@@ -748,7 +748,7 @@ You might expect that when `num` updates, the dependency array "listens" for cha
 
 Under non-ref (`useState`/props) dependency array tracking, this line of reasoning typically does not introduce bugs into the codebase, but when `ref`s are added, it opens a can of worms due to the misunderstanding.
 
-The way `useEffect` _actually_ works is much more passive. During a render, `useEffect` will do a check against the values in the dependency array. If any of the values' memory addresses have changed (_this means that object mutations are ignored_), it will run the side effect. This might seem similar to the previously outlined understanding, but it's a difference of "push" vs. "pull". `useEffect` does not listen to anything and does not trigger a render in itself, but instead the render triggers `useEffect`'s listening and comparison of values. **This means that if there is not a render, `useEffect` cannot run a side effect, even if the memory addresses in the array have changed.**
+The way `useEffect` _actually_ works is much more passive. During a render, `useEffect` will do a check against the values in the dependency array. If any of the values' memory addresses have changed (_this means that object mutations are ignored_), it will run the side effect. This might seem similar to the previously outlined understanding, but it's a difference of "push" vs. "pull". `useEffect` does not listen to anything and does not trigger a render in itself, but instead, the render triggers `useEffect`'s listening and comparison of values. **This means that if there is not a render, `useEffect` cannot run a side effect, even if the memory addresses in the array have changed.**
 
 Why does this come into play when `ref`s are used? Well, there are two things to keep in mind:
 
@@ -779,9 +779,9 @@ export default function App() {
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-This code behaves as we might initially expect, not because we've done things properly, but instead thanks to the nature of React's `useEffect` hook's timing.
+This code behaves as we might initially expect, not because we've done things properly, but instead, thanks to the nature of React's `useEffect` hook's timing.
 
-Because `useEffect` happens _after_ the first render, `elRef` is already assigned by the time `elRef.current.style` has it's new value assigned to it. However, if we somehow broke that timing expectancy, we'd see a different behavior.
+Because `useEffect` happens _after_ the first render, `elRef` is already assigned by the time `elRef.current.style` has its new value assigned to it. However, if we somehow broke that timing expectancy, we'd see different behavior.
 
 
 What do you think will happen if you make the `div` render happen _after_ the initial render?
@@ -813,7 +813,7 @@ export default function App() {
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-bug-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-Oh no! The background is no longer `'lightblue'`! Because we delay the rendering of the `div`, `elRef` is _not_ assigned for the initial render. Then, once it _is_ rendered, it mutates the `.current` property of `elRef` to assign the ref, and because mutations do not trigger a re-render (and `useEffect` only runs during renders), `useEffect` does not have a chance to "compare" the differences in value and therefore run the side-effect.
+Oh no! The background is no longer `'lightblue'`! Because we delay the rendering of the `div`, `elRef` is _not_ assigned for the initial render. Then, once it _is_ rendered, it mutates the `.current` property of `elRef` to assign the ref. Because mutations do not trigger a re-render (and `useEffect` only runs during renders), `useEffect` does not have a chance to "compare" the differences in value and, therefore, run the side-effect.
 
 Confused? That's okay! So was I at first. I made a playground of sorts to help us kinesthetic learners!
 
@@ -844,9 +844,9 @@ Confused? That's okay! So was I at first. I made a playground of sorts to help u
 
 How do you use this example? Great question!
 
-First, start by clicking the button under the `useState` header. You'll notice that each time you click the button, it promptly triggers a re-render and your value displayed in the UI is immediately updated. Because of this, it enables the `useEffect` (with `num` as a dep) to compare the previous value to the current one - they don't match up - and run the `console.log` side effect.
+First, start by clicking the button under the `useState` header. You'll notice that each time you click the button, it promptly triggers a re-render, and your value displayed in the UI is immediately updated. Thus, it enables the `useEffect` (with `num` as a dep) to compare the previous value to the current one - they don't match up - and run the `console.log` side effect.
 
-Now, once you've triggered the `useState` "add" button, do the same with the `useRef` button. Click it as many times as you'd like, but it (alone) will never trigger a re-render. Because `useRef` mutations do not re-render the DOM, neither `useEffect` is able to do a comparison of values, and therefore neither `useEffect` will run. However, the values in `.current` _are_ updating - they're just not showing up in the UI (because the component is not re-rendering). Once you trigger a re-render (by pressing the `useState` "add" button again), it will update the UI to match the internal memory value of `.current`.
+Now, once you've triggered the `useState` "add" button, do the same with the `useRef` button. Click it as many times as you'd like, but it (alone) will never trigger a re-render. Because `useRef` mutations do not re-render the DOM, neither `useEffect` is able to make a comparison of values, and therefore neither `useEffect` will run. However, the values in `.current` _are_ updating - they're just not showing up in the UI (because the component is not re-rendering). Once you trigger a re-render (by pressing the `useState` "add" button again), it will update the UI to match the internal memory value of `.current`.
 
 [TL;DR](https://www.dictionary.com/browse/tldr) - Try pressing `useState` "add" twice. The value on-screen will be 2. Then, try pressing the `useRef` "add" button thrice. The value on-screen will be 0. Press `useState`'s button once again and et voilà - both values are 3 again!
 
@@ -911,11 +911,11 @@ But, you're probably thinking that if it accepts a function, we could pass a cal
 
 > But hey! Wait a minute! Even though the `shouldRender` timing mismatch is still there, the background is being applied all the same! Why is the `useEffect` timing mismatch not causing the bug we were experiencing before?
 
-Well, that's because we eliminated the usage of `useEffect` entirely in this example! Because the callback function is running only once `ref` is available, we can know for certain that `.current` _will_ be present and because of that, we can assign property values and more inside said callback!
+Well, that's because we eliminated the usage of `useEffect` entirely in this example! Because the callback function is running only once `ref` is available, we can know for certain that `.current` _will_ be present, and because of that, we can assign property values and more inside said callback!
 
-> But I also need to pass that `ref` to other parts of the codebase! I can't pass the function itself, that's just a function - not a ref!
+> But I also need to pass that `ref` to other parts of the codebase! I can't pass the function itself; that's just a function - not a ref!
 
-That's true. However, you _can_ combine the two behaviors to make a callback that _also_ stores it's data inside of a `useRef` (so that you can use that reference later).
+That's true. However, you _can_ combine the two behaviors to make a callback that _also_ stores its data inside a `useRef` (so you can use that reference later).
 
 ```jsx
   const elRef = React.useRef();
@@ -938,7 +938,7 @@ That's true. However, you _can_ combine the two behaviors to make a callback tha
 
 # `useState` Refs {#usestate-refs}
 
-Sometimes the combination of `useRef` and callback refs are not enough. There are the rare instances where you need to re-render whenever you get a new value in `.current.`. The problem is that the inherent nature of `.current` prevents re-rendering. How do we get around that? Eliminate `.current` entirely by switching your `useRef` out for a `useState`.
+Sometimes the combination of `useRef` and callback refs is not enough. There are the rare instances where you need to re-render whenever you get a new value in `.current.`. The problem is that the inherent nature of `.current` prevents re-rendering. How do we get around that? Eliminate `.current` entirely by switching your `useRef` out for a `useState`.
 
 You can do this relatively trivially using callback refs to assign to a `useState` hook.
 
@@ -983,4 +983,4 @@ However, this comes at an offset cost of performance. Because you're causing a r
 
 # Conclusion
 
-As with most of engineering, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
+As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
