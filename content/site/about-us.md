@@ -59,9 +59,16 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 
 ## Sponsors
 
-<ul aria-label="Our sponsors" role="list" style="list-style: none; padding: 0; margin: 0;">
-<li>
+<ul aria-label="Our sponsors" role="list" style="list-style: none; padding: 0; margin: 0; display: flex">
+<li style="
+    margin: 16px;
+">
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="/sponsors/the-polyglot-developer.svg" style="width: 300px; margin: 0"/></a>
+</li>
+<li style="
+    margin: 16px;
+">
+<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="/sponsors/oceanbit.svg" style="width: 300px; margin: 0"/></a>
 </li>
 </ul>
 
