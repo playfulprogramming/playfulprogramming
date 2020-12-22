@@ -17,6 +17,7 @@ This repository acts as the source code location for [the Unicorn Utterances blo
 ## Sponsors
 
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
+<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a>
 
 ## Statement of Ethics
 
