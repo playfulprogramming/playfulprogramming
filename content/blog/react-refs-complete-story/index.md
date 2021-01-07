@@ -93,7 +93,7 @@ However, that's not the case. [To quote Dan Abramov](https://github.com/facebook
 
 
 
-Because of this implementation, when you mutate the `current` value, it will not cause a re-render. 
+Because of this implementation, when you mutate the `current` value, it will not cause a re-render.
 
 Thanks to the lack of rendering on data storage, it's particularly useful for storing data that you need to keep a reference to but don't need to render on-screen. One such example of this would be a timer:
 
@@ -147,7 +147,7 @@ Now, we'd expect to see the timer update from `1` to `2` (and beyond) as the tim
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-mutable-buggy-code?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-This is because [the closure](https://whatthefuck.is/closure) that's passed to the `setInterval` has grown stale. This is a common problem when using React Hooks. While there's a simple solution hidden in `useState`'s API, let's solve this problem using mutations and `useRef`. 
+This is because [the closure](https://whatthefuck.is/closure) that's passed to the `setInterval` has grown stale. This is a common problem when using React Hooks. While there's a simple solution hidden in `useState`'s API, let's solve this problem using mutations and `useRef`.
 
 Because `useRef` relies on passing by reference and mutating that reference, if we simply introduce a second `useRef` and mutate it on every render to match the `useState` value, we can work around the limitations with the stale closure.
 
@@ -468,7 +468,7 @@ function App() {
 
 # Unidirectional Flow {#unidirectional-flow}
 
-While the concept of "universal directional flow" is a broader subject than what I originally wanted to cover with this article, I think it's important to understand why you shouldn't utilize the pattern outlined above. One of the reasons refs are so useful is one of the reasons they're so dangerous as a concept: They break unidirectional data flow. 
+While the concept of "universal directional flow" is a broader subject than what I originally wanted to cover with this article, I think it's important to understand why you shouldn't utilize the pattern outlined above. One of the reasons refs are so useful is one of the reasons they're so dangerous as a concept: They break unidirectional data flow.
 
 Typically, in a React app, you want your data to go one way at a time.
 
@@ -744,7 +744,7 @@ const App = () => {
 }
 ```
 
-You might expect that when `num` updates, the dependency array "listens" for changes to `num`, and when the data updates, it will trigger the side-effect. This line of thinking is such that "useEffect actively listens for data updates and runs side effects when data is changed". This mental model is inaccurate and can be dangerous when combined with `ref` usage. Even I didn't realize this was wrong until I had already started writing this article! 
+You might expect that when `num` updates, the dependency array "listens" for changes to `num`, and when the data updates, it will trigger the side-effect. This line of thinking is such that "useEffect actively listens for data updates and runs side effects when data is changed". This mental model is inaccurate and can be dangerous when combined with `ref` usage. Even I didn't realize this was wrong until I had already started writing this article!
 
 Under non-ref (`useState`/props) dependency array tracking, this line of reasoning typically does not introduce bugs into the codebase, but when `ref`s are added, it opens a can of worms due to the misunderstanding.
 
@@ -854,11 +854,11 @@ Now, once you've triggered the `useState` "add" button, do the same with the `us
 
 Because of the unintended effects of tracking a `ref` in a `useEffect`, the core team has explicitly suggested avoiding doing so.
 
-[Dan Apromov Said on GitHub:](https://github.com/facebook/react/issues/14387#issuecomment-503616820)
+[Dan Abramov Said on GitHub:](https://github.com/facebook/react/issues/14387#issuecomment-503616820)
 
 > As I mentioned earlier, if you put [ref.current] in dependencies, you're likely making a mistake. Refs are for values whose changes don't need to trigger a re-render.
 >
-> If you want to re-run effect when a ref changes, you probably want a callback ref instead. 
+> If you want to re-run effect when a ref changes, you probably want a callback ref instead.
 
 [... twice:](https://github.com/facebook/react/issues/14387#issuecomment-493677168)
 
