@@ -984,34 +984,3 @@ However, this comes at an offset cost of performance. Because you're causing a r
 # Conclusion
 
 As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
-  React.useEffect(() => {
-    console.log(elRef);
-  }, [elRef])
-```
-
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-use-state?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
-Now that the `ref` update causes a re-render, you can now _**safely**_ use the `ref` in `useEffect`'s dependency array.
-
-```jsx
- const [elNode, setElNode] = React.useState();
-
-  const elRefCB = React.useCallback(node => {
-    if (node !== null) {
-      setElNode(node);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (!elNode) return;
-    elNode.style.background = 'lightblue';
-  }, [elNode])
-```
-
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-state-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
-However, this comes at an offset cost of performance. Because you're causing a re-render, it will inherently be slower than if you were not triggering a re-render. There are valid uses for this, however. You just have to be mindful of your decisions and your code's usage of them.
-
-# Conclusion
-
-As with most engineering work, knowing an API's limitations, strengths, and workarounds can increase performance, cause fewer bugs in production, and make the organization of code more readily available. Now that you know the whole story surrounding refs, what will you do with that knowledge? We'd love to hear from you! Drop a comment down below or [join us in our community Discord](https://discord.gg/FMcvc6T)!
