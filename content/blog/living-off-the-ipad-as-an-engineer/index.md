@@ -1,7 +1,7 @@
 ---
 {
     title: 'Living off the iPad as an Engineer',
-    description: "Let's explore the ways that newer iPad Air/Pro can be used as realy workstation, for coding and beyond",
+    description: "Let's explore some ways the newer iPad Air/Pro can be used as real workstation, for coding and beyond",
     published: '2021-01-11T22:07:09.945Z',
     edited: '2021-01-11T22:07:09.945Z',
     authors: ['pierremtb'],
