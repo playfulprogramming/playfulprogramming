@@ -11,7 +11,10 @@ interface TableOfContentsProps {
 
 export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 	const headingsToDisplay = React.useMemo(
-		() => headingsWithId.filter(headingInfo => headingInfo.depth <= 3),
+		() =>
+			headingsWithId?.length
+				? headingsWithId.filter(headingInfo => headingInfo.depth <= 3)
+				: [],
 		[headingsWithId]
 	);
 
