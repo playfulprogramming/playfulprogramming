@@ -4,7 +4,7 @@
     description: "",
     published: '2021-10-13T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['rxjs', 'javascript'],
+    tags: ['webdev', 'javascript', 'node'],
     attached: [],
     license: 'cc-by-4'
 }
@@ -16,13 +16,29 @@ In this article, we'll outline how to use both `npm` and `yarn` to install depen
 
 
 
-# Installing
+# Setting Up Node
+
+Before we explain how to install Node, let's explain something about the release process of the software. 
+
+When it comes to install options there are two: 
+
+1) LTS
+
+2) Current
+
+The "LTS" release stands for "long-term release" is considered the most "stable" release, and is recommended for production usage. This is because LTS releases will recieve critical bug fixes and improvements even after a new version comes along. LTS releases often see years of support.
+
+The "current" release, on the other hand, usually sees new features of JavaScript implemented that may not be present in the LTS release. This is often used to experiment and tests new features and functionality before the next LTS release.
+
+NodeJS swiches back and forth between LTS and non-LTS stable releases. For example, Node 12 and 14 were LTS releases, but Node 13 and 15 were not. You can [read more about their release cycle on their website](https://nodejs.org/en/about/releases/)
 
 ## Installing Node
 
-You can find pre-build binaries ready-to-install from [NodeJS' website](). Simply download the package and install it. 
+You can find pre-build binaries ready-to-install from [NodeJS' website](https://nodejs.org/en/download/). Simply download the package you want and install it. 
 
-Node installs come pre-packaged with their own version of `npm`. While 
+> If you're unsure which version of Node to go with, stick to the LTS release
+
+Node installs come pre-packaged with their own version of `npm`, so don't worry about having to install that seperately.
 
 However, the process of upgrading and changing version of NodeJS can be difficult. This is why I (and many others) recommend using NVM to manage your Node versions.
 
