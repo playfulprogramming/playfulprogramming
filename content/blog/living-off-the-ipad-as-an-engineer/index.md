@@ -10,8 +10,7 @@
     license: 'cc-by-nc-nd-4'
 }
 ---
-
-Since I transitioned from working all day on my personal MacBook Pro to receiving powerful a Thinkpad for a new engineering position at [Algolux](undefined), I decided to go for the only thing financially wise: selling my beloved 16" MacBook Pro to live off the 2018 iPad Pro I had around for iOS app development as **main computer** for my personal life.
+Since I transitioned from working all day on my personal MacBook Pro to receiving powerful a Thinkpad for a new engineering position at [Algolux](algolux.com), I decided to go for the only thing financially wise: selling my beloved 16" MacBook Pro to live off the 2018 iPad Pro I had around for iOS app development as **main computer** for my personal life.
 
 While I loved the feeling of knowing that I could open and run anything on the MacBook Pro—aka a conventional laptop—the idea of moving solely to the efficient machine that is the iPad Pro was appealing for various reasons. Yet the question remained: how would I continue the work on side-projects, whether they be software or hardware? We see lots of talking these days on how [LumaFusion](https://freecadweb.org/) is real competition to Adobe Premiere, or that [Affinity Photo](https://affinity.serif.com/en-gb/photo/ipad/) has nothing to envy from desktop Photoshop. While I do spend some time on such creative apps, how am I supposed to maintain [my personal webpage](https://pierrejacquier.com), write code for my Raspberry Pi, or create CAD models for 3D printing?
 
@@ -70,6 +69,8 @@ The big downside here though is the [lack of scrolling support](https://github.c
 In the example below it runs in Safari for iPad, but it would be a great example where a Shiftscreen pane would help having both VS Code on one side and whatever docs on the other, for a true multitasking experience on an external display.
 
 ![A code-server session, that feels native since it’s the same VS Code as on a regular computer](https://cdn-images-1.medium.com/max/4798/1*2cHzbviLVuuS0-uUOC69Fg.png)
+
+Side note: there is no such thing as a system clipboard manager on iPadOS, which is quite incovenient when coming from other desktop platforms. While there are various paid solutions that offer cloud clipboard syncing and beyond, the non-iPad-optimized [Clipboard++](https://apps.apple.com/ca/app/clipboard/id854707788) brought me exactly what I needed: a way to automatically save my Cmd+Cs so I don’t have to worry about overwriting the system buffer. Neat!
 
 ## Software Dev (Bonus): Local Raspberry Pi
 
