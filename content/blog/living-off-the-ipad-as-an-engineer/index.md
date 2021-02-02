@@ -19,7 +19,7 @@ The answer is mostly through remote access. Fear not, dear reader, we’ll try t
 
 *Note 2: The new iPad Air now features most of the laptop-like abilities of its Pro brother; therefore, I’ll only use the term “iPad” in the following. But bear in mind: the cheapest 2020 8th-gen iPad still has the old form-factor and a Lightning port, making it incompatible with some of the following.*
 
-![Photo by [Ernest Ojeh](https://unsplash.com/@namzo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/magic-keyboard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](7eIBTr3Nrk1fG7tS_i7Gpg.jpeg)
+![Photo by [Ernest Ojeh](https://unsplash.com/@namzo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/magic-keyboard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](cover.jpeg)
 
 ## External Monitor
 
@@ -33,7 +33,7 @@ The workaround is indeed in the ability of iOS apps to specify how external moni
 
 And in a clever workaround, a popular app called [Shiftscreen](http://shiftscreen.app) leverages these APIs to enable side-by-side web multitasking on the full external monitor, pretty convenient since nowadays a lot of work is actually happening within web apps like Google Docs or JIRA. On top of that, the app is still able to project the side-by-side browser on the external monitor even in Split Mode, therefore enabling another iOS app to be interacted with, such as a todo-list or direct messaging.
 
-![shiftscreen.app, the app’s webpage](ty5qFwX3H0jKQtZ0pfcHLQ.jpeg)
+![shiftscreen.app, the app’s webpage](shiftscreen.jpeg)
 
 I have to say, it’s an excellent option for specific tasks, but after a while, I just learned to love the mirrored interface, and I’m now rarely spending my time in apps that provide full monitor support. App Switching via Cmd+Tab or the gestures is hugely satisfying, plus I don’t think it has brought my productivity down, and on the flip side, it might have improved focus on the task at hand.
 
@@ -45,7 +45,7 @@ On the high-end of the spectrum lies the incredible [Magic Keyboard for iPad](ht
 
 Now even cheaper options are possible, such as just getting a good regular Bluetooth keyboard to complete a stand mount like the mechanical [Keychron K2](https://www.keychron.com/products/keychron-k2-wireless-mechanical-keyboard), as well as a mouse—I can’t *not *recommend the [MX Master series](https://www.logitech.com/en-ca/products/mice/mx-master-3.910-005620.html), but the Pebble on the pocketable side is excellent and very affordable in the [K380 combo](https://www.logitech.com/en-ca/products/combos/k380-m350-keyboard-mouse-combo.html?crid=1759). The external [Magic Trackpad](https://www.apple.com/shop/product/MRMF2LL/A/magic-trackpad-2-space-gray?fnode=77ac33807229049f26bebb326a1b4522488e4f051b1a666c9afcaabe58587a06b83e6823fcf6b2252221dfa0a67c6d6503d4048f5a20ae59be372257a04c999d1c4039a886b6c06bad71362915abc57426612fc100c35fb1e968420f659be9e0) 2 is incredible to use with iPadOS but is, granted, on the expensive edge of pointing devices.
 
-![A quite simple desk setup. Doing some LumaFusion edits!](D-z3kbUI5lW2Ku5z8nGPog.jpeg)
+![A quite simple desk setup. Doing some LumaFusion edits!](setup.jpeg)
 
 *Update: After quite some time with Magic Keyboard for iPad on the desk, I revised the setup, with the tablet laying flat under the monitor to quickly take handwritten notes or drawings, with the Keychron K2 + Magic Trackpad 2 as input devices. We’ll see if it sticks!*
 
@@ -59,7 +59,7 @@ As it’s common these days, the trick is in the cloud. While it comes with its 
 
 There’s essentially two solutions that work for me at the moment: [Visual Studio Code](https://code.visualstudio.com/) in the browser, which can be achieved in various ways; or a native SSH client app such as [Termius](https://apps.apple.com/us/app/termius-ssh-client/id549039908) or [Blink Shell](https://blink.sh/). The former is a cross-platform cloud SSH/Mosh service that has really good iPad support, its main downside being the lack of a full external monitor integration, as mentioned earlier. Blink Shell features it, and it works quite well. Picture that clean tmux/vim session on a 4K monitor, at the cost of losing mouse support, though.
 
-![A mobile web dev session in the native app Termius, with the side-kick browser](J2PoW3f7v0a14ODPZRxiXg.png)
+![A mobile web dev session in the native app Termius, with the side-kick browser](termius.png)
 
 For a proper IDE, there are ways to run the undisputed leader of the last years—VS Code — in Safari. I personally only fire it for refactoring and large Git diffs, I’m happy with terminal-only work otherwise. [code-server](http://code-server.dev/) is a project that does exactly that, and at the time of writing comes with a Beta parameter --link [that does all the hard work of securing the connection](https://github.com/cdr/code-server#cloud-program-%EF%B8%8F). One line to install on various hosts, and one port-forwarding command to start the remote access. For more details on the setup with more technical bits, you can check out [my Notion project page](https://www.notion.so/iPad-Challenge-ba216d5956194453a0dd4d56f62d888c).
 
@@ -67,7 +67,7 @@ The big downside here is the [lack of scrolling support](https://github.com/micr
 
 In the example below, it runs in Safari for iPad. Still, it would be a great example where a Shiftscreen pane would help having both VS Code on one side and whatever docs on the other for a true multitasking experience on an external display.
 
-![A code-server session, that feels native since it’s the same VS Code as on a regular computer](2cHzbviLVuuS0-uUOC69Fg.png)
+![A code-server session, that feels native since it’s the same VS Code as on a regular computer](code-server.png)
 
 Side note: there is no such thing as a system clipboard manager on iPadOS, which is quite inconvenient when coming from other desktop platforms. While there are various paid solutions that offer cloud clipboard syncing and beyond, the non-iPad-optimized [Clipboard++](https://apps.apple.com/ca/app/clipboard/id854707788) brought me exactly what I needed: a way to automatically save my Cmd+Cs so I don’t have to worry about overwriting the system buffer. Neat!
 
@@ -95,11 +95,11 @@ The first option applies to a broad range of software beyond just CAD. The real 
 
 And it resisted the test of time: the whole design for my [GeeXY 3D printer project](https://www.notion.so/Geeetech-CoreXY-Conversion-GeeXY-b46d9f7b4b0643faa60bd2f20399c0b6) was created through Jump Desktop on the iPad. No regret so far.
 
-![My GeeXY printer model, fully created through Jump on the iPad](XGCsXkdCjoIf6caxy8fHtQ.png)
+![My GeeXY printer model, fully created through Jump on the iPad](freecad.png)
 
 The second option lies in the cloud web-based CAD system: [Onshape](http://onshape.com). I’ve been bullish on their system through college since they’ve nailed quite a lot of CAD aspects that are out of this article’s scope. While I do use it from time to time on Safari on the iPad, I’ve been loyal to the great open-source [FreeCAD](https://freecadweb.org/) lately because I’m also using it at work (it even runs on Linux!).
 
-![Despite a few small bugs on Safari, Onshape is an excellent CAD system, fully usable on the iPad](qa7FOs2Y_fapR4J7CcfCpg.png)
+![Despite a few small bugs on Safari, Onshape is an excellent CAD system, fully usable on the iPad](onshape.png)
 
 A life of workarounds? Most definitely.
 
