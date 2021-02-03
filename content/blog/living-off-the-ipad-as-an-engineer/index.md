@@ -73,7 +73,7 @@ Side note: there is no such thing as a system clipboard manager on iPadOS, which
 
 ## Software Dev (Bonus): Local Raspberry Pi
 
-The folks for whom a cloud connection isn’t an option can still hope: the most recent iteration of the sweet [Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) comes with a USB-C power and data port. Hence it’spossible to both run it and give it ethernet access from the iPad with one cable.
+The folks for whom a cloud connection isn’t an option shouldn't lose hope: the most recent iteration of the sweet [Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) comes with a USB-C power and data port. Hence it’s possible to both run it and give it ethernet access from the iPad with one cable.
 
 This enables a lot of possibilities, including local SSH, code-server-ing and access to the Desktop Environment. I have yet to test this, but there are plenty of guides out there, notably [one from the very official MagPi](https://magpi.raspberrypi.org/articles/connect-raspberry-pi-4-to-ipad-pro-with-a-usb-c-cable).
 
