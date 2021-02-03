@@ -93,7 +93,7 @@ Two options I have explored:
 
 The first option could apply to a broad range of software beyond just CAD. The real bottleneck here is the quality of the iPad app. I’ve gone through many of the free options *à la* TeamViewer or Chrome Remote Desktop. But none provided mandatory things for my use case like full mouse buttons support (including click-and-drag with the wheel, for instance). Jumping into more premium territory, Splashtop remains free for personal and same-network use and has a great iPad app, but has a monthly fee for real remote access. The one that ended up meeting all my needs was the $19.99 [Jump Destkop](https://jumpdesktop.com/). With its outdated app icon and steep price tag, this was clearly not my first choice. But their Fluid Remote Desktop protocol for Windows and macOS has just been a very smooth experience. It works wonders with external mice and Trackpads, and it has full external monitor support on the iPad with automatic resolution matching. On top of that, it supports VNC (even over SSH tunnels) to connect to Linux hosts such as a (local) Raspberry Pi or other instances I use for work on a daily basis.
 
-And it resisted the test of time: the whole design for my [GeeXY 3D printer project](https://www.notion.so/Geeetech-CoreXY-Conversion-GeeXY-b46d9f7b4b0643faa60bd2f20399c0b6) was created through Jump Desktop on the iPad. No regret so far.
+And it has stood the test of time: the whole design for my [GeeXY 3D printer project](https://www.notion.so/Geeetech-CoreXY-Conversion-GeeXY-b46d9f7b4b0643faa60bd2f20399c0b6) was created through Jump Desktop on the iPad. No regrets so far!
 
 ![My GeeXY printer model, fully created through Jump on the iPad](freecad.png)
 
