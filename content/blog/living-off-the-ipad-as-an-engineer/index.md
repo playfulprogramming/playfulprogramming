@@ -35,7 +35,7 @@ And in a clever workaround, a popular app called [Shiftscreen](http://shiftscree
 
 ![shiftscreen.app, the app’s webpage](shiftscreen.jpeg)
 
-I have to say, it’s an excellent option for specific tasks, but after a while, I just learned to love the mirrored interface, and I’m now rarely spending my time in apps that provide full monitor support. App Switching via Cmd+Tab or the gestures is hugely satisfying, plus I don’t think it has brought my productivity down, and on the flip side, it might have improved focus on the task at hand.
+I have to say, it’s an excellent option for specific tasks, but after a while I just learned to love the mirrored interface. Now I’m rarely spending my time in apps that provide full monitor support. App Switching via Cmd+Tab or the gestures is hugely satisfying, plus I don’t think it has brought my productivity down at all. In fact, it might have improved my focus on the task at hand.
 
 ## External Keyboard and Mouse/Trackpad 
 
