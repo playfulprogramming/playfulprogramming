@@ -103,7 +103,7 @@ The second option lies in the cloud web-based CAD system: [Onshape](http://onsha
 
 A life of workarounds? Most definitely.
 
-Coming from macOS, the holy grail for many curious people who care about a furnished software library, first-class terminal experience and compatibility whatsoever, the fully mobile iPad path is definitely not the safest journey for our specific needs as developers or engineers.
+Coming from macOS, the holy grail for many curious people who care about a furnished software library, first-class terminal experience and compatibility, the fully mobile iPad path is definitely not the easiest path to meet our specific needs as developers or engineers.
 
 But the joy, I mean it, the joy, that this iPad experience brings is what got me up for the challenge and kept me on the hook for side-projects as well as WFH. At the moment  there’s no going back, and it’s become clear that Intel chips are not missed at all, by me or many people with the new M1 Macs.
 
