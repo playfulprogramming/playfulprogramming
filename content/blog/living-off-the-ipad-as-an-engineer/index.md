@@ -55,7 +55,7 @@ Let’s get into real engineering tools. As you may know very well already, ther
 
 *How the heck do we write and run our beloved code, Pierre? 💁*
 
-As it’s common these days, the trick is in the cloud. While it comes with its drawbacks such as with spotty connections, offloading the work to a remote, safe, always-accessible machine has some nice things going for it. A hosted instance can be fired in minutes these days. To stay somewhat minimalist, I chose to keep an old laptop plugged in a closet, but there are many options out there.
+As is so common these days, the trick is in the cloud. While it comes with its drawbacks such as spotty connections, offloading the work to a remote, safe, always-accessible machine has some nice things going for it. A hosted instance can be fired up in a matter of minutes these days. To stay somewhat minimalist, I chose to keep an old laptop plugged in inside a closet, but there are many options out there.
 
 There’s essentially two solutions that work for me at the moment: [Visual Studio Code](https://code.visualstudio.com/) in the browser, which can be achieved in various ways; or a native SSH client app such as [Termius](https://apps.apple.com/us/app/termius-ssh-client/id549039908) or [Blink Shell](https://blink.sh/). The former is a cross-platform cloud SSH/Mosh service that has really good iPad support, its main downside being the lack of a full external monitor integration, as mentioned earlier. Blink Shell features it, and it works quite well. Picture that clean tmux/vim session on a 4K monitor, at the cost of losing mouse support, though.
 
