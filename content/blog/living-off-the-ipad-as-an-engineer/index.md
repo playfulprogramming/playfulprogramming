@@ -39,7 +39,7 @@ I have to say, it’s an excellent option for specific tasks, but after a while 
 
 ## External Keyboard and Mouse/Trackpad 
 
-Speaking of hitting keys and performing gestures. While the iPad itself has an incredibly mobile form-factor, we owe ourselves a decent desk setup, for it’s becoming our personal workstation.
+Speaking of hitting keys and performing gestures. While the iPad itself has an incredibly mobile form-factor, we owe ourselves a decent desk setup. After all, we are turning it into our personal workstation.
 
 On the high-end of the spectrum lies the incredible [Magic Keyboard for iPad](https://www.apple.com/shop/product/MXQT2LL/A/magic-keyboard-for-ipad-air-4th-generation-and-ipad-pro-11-inch-2nd-generation-us-english). It’s heavy. It’s stupidly expensive. But it’s my best purchase of the year. It effectively turns the iPad into a laptop with its form-factor, Trackpad, and additional charging port. On top of that, the keys have nothing to envy from a real Magic Keyboard, so good it made it to my main desk. Thankfully though, Logitech came up with a much more affordable option, the [Folio Touch](https://www.logitech.com/en-ca/products/ipad-keyboards/folio-touch.html?crid=1762) for 11" iPads.
 
