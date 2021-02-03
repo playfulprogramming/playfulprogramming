@@ -13,7 +13,7 @@ Since I transitioned from working all day on my personal MacBook Pro to receivin
 
 While I loved the feeling of knowing that I could open and run anything on the MacBook Pro—aka a conventional laptop—the idea of moving solely to the efficient machine that is the iPad Pro was appealing for various reasons. Yet the question remained: how would I continue the work on side-projects, whether they be software or hardware? We see lots of talking these days on how [LumaFusion](https://freecadweb.org/) is real competition to Adobe Premiere, or that [Affinity Photo](https://affinity.serif.com/en-gb/photo/ipad/) has nothing to envy from desktop Photoshop. While I do spend some time on such creative apps, how am I supposed to maintain [my personal webpage](https://pierrejacquier.com), write code for my Raspberry Pi, or create CAD models for 3D printing?
 
-The answer is mostly through remote access. Fear not, dear reader, we’ll try to rely on tools that are or *feel* native on the iPad Pro, not just cheap Teamviewer-ing. What started as just a 9 to 5 setup challenge, not the other way around, is now much more than that.
+The answer is mostly through remote access. Fear not, dear reader, we’ll try to rely on tools that are native or at least *feel* native on the iPad Pro, not just cheap Teamviewer-ing. What started as just a 9 to 5 setup challenge, not the other way around, is now much more than that.
 
 *Note 1: This is merely a shoutout to great products I’m using daily and isn’t sponsored. The links are not affiliated either. I’ll try to provide different options as well as keep some focus on open-source software.*
 
