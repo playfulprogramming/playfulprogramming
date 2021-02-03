@@ -23,7 +23,7 @@ The answer is mostly through remote access. Fear not, dear reader, we’ll try t
 
 ## External Monitor
 
- I was lucky enough to have an [LG Ultrafine 4K](https://www.apple.com/shop/product/HMUA2VC/A/lg-ultrafine-4k-display?fnode=01ed6570fcad8a82974ba2365bf1eaa7d05d2098f328a409870e96ca8209d73125b43501b2178d7e0da5e2a872812d90d869256e6fac4e035ad1db81d91c5dca98f07b0806b261899f5ca87dcdf5f2b3bdd2a569c5a005cfba29a467eb8ce95e6d29ec0c8c4548ba56c842fb8e09c74a) display in my possession for use with the MacBook Pro. These fancy displays designed hand-in-hand with Apple are both compatible with Thunderbolt devices like the MacBook and with standard USB-C devices like the iPad. However, you can’t use the same cable, so if you are to buy this one, make sure you’re using the one with an iPad label on it before returning it out of frustration!
+ I was lucky enough to have an [LG Ultrafine 4K](https://www.apple.com/shop/product/HMUA2VC/A/lg-ultrafine-4k-display) display in my possession for use with the MacBook Pro. These fancy displays are designed hand-in-hand with Apple are compatible with both Thunderbolt devices like the MacBook and with standard USB-C devices like the iPad. However, you can’t use the same cable, so if you are planning to buy this one, make sure you’re using the one with an iPad label on it before returning it out of frustration!
 
 I believe it’s common knowledge that you can’t just work out of a laptop form-factor all day without destroying your neck. Here the cheapest option would be to go with one of the pretty cool arm mount specifically designed to put the iPad right in front of your eyes or just a pile of books. This allows the expensive pixels to get their deserved amount of attention while also enabling instant video calling.
 
