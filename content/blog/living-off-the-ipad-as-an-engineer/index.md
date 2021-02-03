@@ -47,7 +47,7 @@ Now even cheaper options are possible, such as just getting a good regular Bluet
 
 ![A quite simple desk setup. Doing some LumaFusion edits!](setup.jpeg)
 
-*Update: After quite some time with Magic Keyboard for iPad on the desk, I revised the setup, with the tablet laying flat under the monitor to quickly take handwritten notes or drawings, with the Keychron K2 + Magic Trackpad 2 as input devices. We’ll see if it sticks!*
+*Update: After quite some time with the Magic Keyboard for iPad on my desk, I revised the setup, with the tablet laying flat under the monitor to quickly take handwritten notes or drawings, with the Keychron K2 + Magic Trackpad 2 as input devices. We’ll see if it sticks!*
 
 ## Software Dev: Remote Server and Native Apps
 
