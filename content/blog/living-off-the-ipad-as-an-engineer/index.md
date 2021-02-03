@@ -9,7 +9,7 @@
     license: 'cc-by-nc-nd-4'
 }
 ---
-Since I transitioned from working all day on my personal MacBook Pro to receiving a work computer for a new engineering position, I decided to go for the only thing financially wise: selling my beloved 16" MacBook Pro to live off the 2018 iPad Pro I had around for iOS app development as **main computer** for my personal life.
+Since I transitioned from working all day on my personal MacBook Pro to receiving a work computer for a new engineering position, I decided to go for the only financially wise thing: selling my beloved 16" MacBook Pro to live off the 2018 iPad Pro I had around for iOS app development as my **main computer** for my personal life.
 
 While I loved the feeling of knowing that I could open and run anything on the MacBook Pro—aka a conventional laptop—the idea of moving solely to the efficient machine that is the iPad Pro was appealing for various reasons. Yet the question remained: how would I continue the work on side-projects, whether they be software or hardware? We see lots of talking these days on how [LumaFusion](https://freecadweb.org/) is real competition to Adobe Premiere, or that [Affinity Photo](https://affinity.serif.com/en-gb/photo/ipad/) has nothing to envy from desktop Photoshop. While I do spend some time on such creative apps, how am I supposed to maintain [my personal webpage](https://pierrejacquier.com), write code for my Raspberry Pi, or create CAD models for 3D printing?
 
