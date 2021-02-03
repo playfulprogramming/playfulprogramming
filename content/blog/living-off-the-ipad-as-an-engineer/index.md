@@ -31,7 +31,7 @@ While an external monitor is really comfortable, one thing to note is the lack o
 
 The workaround is indeed in the ability of iOS apps to specify how an external monitor should be used. For instance, [Netflix](http://netflix.com) uses the iPad’s display for media controls while broadcasting the content onto the monitor. Luma Fusion has a mode for the video editor to stay on the iPad’s screen while live previewing on the monitor in full-screen.
 
-And in a clever workaround, a popular app called [Shiftscreen](http://shiftscreen.app) leverages these APIs to enable side-by-side web multitasking on the full external monitor, pretty convenient since nowadays a lot of work is actually happening within web apps like Google Docs or JIRA. On top of that, the app is still able to project the side-by-side browser on the external monitor even in Split Mode, therefore enabling another iOS app to be interacted with, such as a todo-list or direct messaging.
+And in a clever workaround, a popular app called [Shiftscreen](http://shiftscreen.app) leverages these APIs to enable side-by-side web multitasking on the full external monitor, which is pretty convenient since nowadays a lot of work is actually happening within web apps like Google Docs or JIRA. On top of that, the app is still able to project the side-by-side browser on the external monitor even when it's in Split Mode, therefore enabling another iOS app to be interacted with, such as a todo-list or direct messaging.
 
 ![shiftscreen.app, the app’s webpage](shiftscreen.jpeg)
 
