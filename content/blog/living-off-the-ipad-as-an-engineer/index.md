@@ -105,6 +105,6 @@ A life of workarounds? Most definitely.
 
 Coming from macOS, the holy grail for many curious people who care about a furnished software library, first-class terminal experience and compatibility, the fully mobile iPad path is definitely not the easiest path to meet our specific needs as developers or engineers.
 
-But the joy, I mean it, the joy, that this iPad experience brings is what got me up for the challenge and kept me on the hook for side-projects as well as WFH. At the moment  there’s no going back, and it’s become clear that Intel chips are not missed at all, by me or many people with the new M1 Macs.
+But the joy, I mean it, the joy, that this iPad experience brings is what got me up for the challenge and kept me on the hook for side-projects as well as working from home. At the moment, there’s no going back and it’s become clear that Intel chips are not missed at all, by me or many people with the new M1 Macs.
 
 One curious thing I noticed in the iPadOS environment is a widespread old-school pay-once/use-forever business model, which offers quite a shelter from our subscription-based world. Shiftscreen was $3.99, Jump $19.99, and LumaFusion $29.99. It’s now paid for. Let’s enjoy the ride.
