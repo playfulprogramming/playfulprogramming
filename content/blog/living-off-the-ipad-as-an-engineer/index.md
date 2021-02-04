@@ -51,7 +51,7 @@ Now even cheaper options are possible, such as just getting a good regular Bluet
 
 ## Software Dev: Remote Server and Native Apps
 
-Let’s get into real engineering tools. As you may know very well already, there’s no walled garden like iOS/iPadOS. Apps are fully contained, *Files* is some kind of explorer yet remains very limited, and firing a local command line is pure fantasy.
+Let’s get into some real engineering tools. As I'm sure you already know, there’s no walled garden like iOS/iPadOS. Apps are fully contained, *Files* is some kind of file explorer yet remains very limited, and firing up a local command line is pure fantasy.
 
 *How the heck do we write and run our beloved code, Pierre? 💁*
 
