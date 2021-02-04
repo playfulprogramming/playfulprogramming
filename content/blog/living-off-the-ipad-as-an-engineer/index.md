@@ -65,7 +65,7 @@ For a proper IDE, there are ways to run the undisputed leader of the last years 
 
 The big downside here is the [lack of scrolling support](https://github.com/microsoft/vscode/issues/106232). Lucky for me, I’m navigating keyboard-only with the help of the [Vim extension](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) ([Colemak version](https://marketplace.visualstudio.com/items?itemName=ollyhayes.colmak-vim)), but it’s a real barrier to entry. It’s related to a bug in the web engine. Nonetheless, there are a few hosted solutions with the same problem, such as [Stackblitz](https://stackblitz.com/) and [GitHub Codespaces](https://github.com/features/codespaces) — which both get honourable mentions yet aren’t open source — so I’m confident that issue might get solved soon.
 
-In the example below, it runs in Safari for iPad. Still, it would be a great example where a Shiftscreen pane would help having both VS Code on one side and whatever docs on the other for a true multitasking experience on an external display.
+The example below shows VS Code running in Safari for iPad. It would be a great use case for Shiftscreen, which could have both VS Code and whatever docs on the side for a true multitasking experience on an external display.
 
 ![A code-server session, that feels native since it’s the same VS Code as on a regular computer](code-server.png)
 
