@@ -1,7 +1,8 @@
-import React from 'react'
-
-jest.mock('disqus-react', () => {
-  return {
-    DiscussionEmbed: () => <></>
-  }
+jest.mock("disqus-react", () => {
+	const React = require("react");
+	return {
+		DiscussionEmbed: () => <></>
+	};
 });
+
+export default {};

@@ -19,13 +19,13 @@ function getSize() {
 
 export const useWindowSize = (debounceMs?: number) => {
 	const [windowSize, setWindowSize] = useState(getSize());
-	const timeoutIdRef = useRef<NodeJS.Timeout>();
+	const timeoutIdRef = useRef<number | NodeJS.Timeout>();
 
 	const timeoutId = timeoutIdRef && timeoutIdRef.current;
 
 	const handleResize = useCallback(() => {
 		if (timeoutId) {
-			clearTimeout(timeoutId);
+			clearTimeout(timeoutId as any);
 		}
 
 		timeoutIdRef.current = setTimeout(() => {

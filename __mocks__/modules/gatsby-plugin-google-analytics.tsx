@@ -1,4 +1,3 @@
-import React from "react";
 import { onLinkClick } from "gatsby-plugin-google-analytics";
 
 afterEach(() => {
@@ -6,12 +5,15 @@ afterEach(() => {
 });
 
 jest.mock("gatsby-plugin-google-analytics", () => {
-	const onLinkClick = jest.fn();
+	const React = require("react");
+	const onLinkClickFn = jest.fn();
 
 	return {
 		OutboundLink: (props: any) => (
-			<div onClick={onLinkClick}>{props.children}</div>
+			<div onClick={onLinkClickFn}>{props.children}</div>
 		),
-		onLinkClick
+		onLinkClick: onLinkClickFn
 	};
 });
+
+export default {};

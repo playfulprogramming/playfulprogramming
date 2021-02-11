@@ -1,7 +1,7 @@
 const { resolve } = require("path");
 
 module.exports = {
-	preset: "ts-jest",
+	preset: 'ts-jest/presets/js-with-babel',
 	testEnvironment: "jsdom",
 	testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(test).ts?(x)"],
 	moduleNameMapper: {
@@ -23,7 +23,8 @@ module.exports = {
 	globals: {
 		__PATH_PREFIX__: ``,
 		"ts-jest": {
-			tsConfig: "tsconfig.json"
+			tsconfig: "tsconfig.json",
+			babelConfig: true,
 		}
 	},
 	setupFilesAfterEnv: ["<rootDir>/config/jest/setup-test-env.ts"],
