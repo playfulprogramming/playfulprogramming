@@ -99,7 +99,7 @@ test("Blog profile page renders", async () => {
 	expect(onGarsbyLinkClick).toHaveBeenCalledTimes(4);
 });
 
-test("Blog profile page should not have axe errors", async () => {
+test.skip("Blog profile page should not have axe errors", async () => {
 	const html = ReactDOMServer.renderToString(getElement());
 	const results = await axe(html);
 	expect(results).toHaveNoViolations();
