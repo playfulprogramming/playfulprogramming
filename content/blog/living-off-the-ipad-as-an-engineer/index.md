@@ -2,7 +2,8 @@
 {
     title: 'Living off the iPad as an Engineer',
     description: "Tips on how to get yourself a proper development environment on the iPad to fully exploit its potential.",
-    published: '2021-02-01T00:00:00.000Z',
+    published: '2021-02-11T00:00:00.000Z',
+    edited: '2021-02-12T00:00:00.000Z',
     authors: ['pierremtb'],
     tags: ['tooling', 'ipad'],
     attached: [],
@@ -64,6 +65,8 @@ There’s essentially two solutions that work for me at the moment: [Visual Stud
 For a proper IDE, there are ways to run the undisputed leader of the last years—VS Code — in Safari. I personally only fire it for refactoring and large Git diffs, I’m happy with terminal-only work otherwise. [code-server](http://code-server.dev/) is a project that does exactly that, and at the time of writing comes with a Beta parameter --link [that does all the hard work of securing the connection](https://github.com/cdr/code-server#cloud-program-%EF%B8%8F). One line to install on various hosts, and one port-forwarding command to start the remote access. For more details on the setup with more technical bits, you can check out [my Notion project page](https://www.notion.so/iPad-Challenge-ba216d5956194453a0dd4d56f62d888c).
 
 The big downside here is the [lack of scrolling support](https://github.com/microsoft/vscode/issues/106232). Lucky for me, I’m navigating keyboard-only with the help of the [Vim extension](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) ([Colemak version](https://marketplace.visualstudio.com/items?itemName=ollyhayes.colmak-vim)), but it’s a real barrier to entry. It’s related to a bug in the web engine. Nonetheless, there are a few hosted solutions with the same problem, such as [Stackblitz](https://stackblitz.com/) and [GitHub Codespaces](https://github.com/features/codespaces)—which both get honourable mentions yet aren’t open source—so I’m confident that issue might get solved soon.
+
+*Update: the scrolling issue is fixed as of iPadOS 14.5 Beta 1, which requires enrolling [here](https://beta.apple.com/sp/betaprogram/). This means more people will be able to enjoy a proper coding experience on the iPad, and is really good news.*
 
 In the example below, it runs in Safari for iPad. Still, it would be a great example where a Shiftscreen pane would help having both VS Code on one side and whatever docs on the other for a true multitasking experience on an external display.
 
