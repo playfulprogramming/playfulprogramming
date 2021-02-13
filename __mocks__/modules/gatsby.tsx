@@ -1,18 +1,17 @@
 import { onLinkClick } from "gatsby";
-const React = require("react");
 
 afterEach(() => {
 	onLinkClick.mockReset();
 });
 
 jest.mock("gatsby", () => {
-	const react = require("react");
+	const React = require("react");
 	const gatsbyOGl = jest.requireActual("gatsby");
-	const onLinkClick = jest.fn();
+	const onLinkClickFn = jest.fn();
 
 	return {
 		...gatsbyOGl,
-		Link: react.forwardRef((props: any, ref: any) => {
+		Link: React.forwardRef((props: any, ref: any) => {
 			const {
 				// these props are invalid for an `a` tag
 				activeClassName,
@@ -27,7 +26,7 @@ jest.mock("gatsby", () => {
 			return (
 				<a
 					{...rest}
-					onClick={onLinkClick}
+					onClick={onLinkClickFn}
 					style={props.style}
 					className={props.className}
 					ref={ref}
@@ -37,9 +36,11 @@ jest.mock("gatsby", () => {
 				</a>
 			);
 		}),
-		onLinkClick,
+		onLinkClick: onLinkClickFn,
 		graphql: jest.fn(),
 		StaticQuery: jest.fn(),
 		useStaticQuery: jest.fn()
 	};
 });
+
+export default {};

@@ -10,6 +10,7 @@
     license: 'cc-by-nc-nd-4'
 }
 ---
+
 Since I transitioned from working all day on my personal MacBook Pro to receiving a work computer for a new engineering position, I decided to go for the only financially wise thing: selling my beloved 16" MacBook Pro to live off the 2018 iPad Pro I had around for iOS app development as my **main computer** for my personal life.
 
 While I loved the feeling of knowing that I could open and run anything on the MacBook Pro — aka a conventional laptop — the idea of moving solely to the efficient machine that is the iPad Pro was appealing for various reasons. Yet the question remained: how would I continue the work on side-projects, whether they be software or hardware? There is a lot of talk these days about how [LumaFusion](https://freecadweb.org/) is real competition to Adobe Premiere, or that [Affinity Photo](https://affinity.serif.com/en-gb/photo/ipad/) has nothing to fear from desktop Photoshop. While I do spend some time with such creative apps, how am I supposed to maintain [my personal webpage](https://pierrejacquier.com), write code for my Raspberry Pi, or create CAD models for 3D printing?
@@ -20,7 +21,7 @@ The answer is mostly through remote access. Fear not, dear reader, we’ll try t
 
 *Note 2: The new iPad Air now features most of the laptop-like abilities of its Pro brother; therefore, I’ll only use the term “iPad” in the following. But bear in mind: the cheapest 2020 8th-gen iPad still has the old form-factor and a Lightning port, making it incompatible with some of the following.*
 
-![Photo by [Ernest Ojeh](https://unsplash.com/@namzo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/magic-keyboard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](cover.jpeg)
+![Photo by [Ernest Ojeh](https://unsplash.com/@namzo) on [Unsplash](https://unsplash.com/s/photos/magic-keyboard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](cover.jpeg)
 
 ## External Monitor
 

@@ -1,6 +1,6 @@
-import React from "react";
-
 jest.mock("gatsby-image", () => {
+	const React = require("react");
+
 	return (props: any) => {
 		return (
 			<img
@@ -12,3 +12,5 @@ jest.mock("gatsby-image", () => {
 		);
 	};
 });
+
+export default {};
