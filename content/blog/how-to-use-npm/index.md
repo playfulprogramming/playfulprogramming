@@ -26,6 +26,8 @@ Let's start with Node. Node is a [JavaScript runtime](/posts/how-computers-speak
 
 > You can [learn more about what a runtime is and how they work from our article that introduces the concept](/posts/how-computers-speak/#compiled-vs-runtime)
 
+Node also comes with an advantage over browsers for running JavaScript: you can interface with lower-level programming languages such as C via [Node's N-API](). This means that libraries you rely on can build on top of this N-API to provide a way to do things like send native desktop notifications, show something particular in your taskbar, or any other action that would require lower-level access to your local machine than JavaScript typically provides.
+
 ### `npm`
 
 Any sufficiently useful programming langauge needs an ecosystem to rely on. One of the primary elements for an ecosystem is a collection of libraries that you can use to build out your own libraries and applications.
@@ -85,6 +87,18 @@ Additionally, you can (and, in order to use `nvm`, **must** use `nvm` to do so) 
 nvm install --lts
 ```
 
+##### Switching Node Versions {#nvm-switch-node-ver}
+
+While NVM's entire point is to switch Node versions, there is something that should be noted before you do so. When you switch Node versions, it also resets the globally installed packages. This means that if you ran:
+
+```
+npm i -g create-react-app
+```
+
+On Node 12, when you switch to Node 14, and attempt to run a `create-react-app` command, you'll find yourself with a "cannot find that package" message.
+
+It's also worth noting that some packages (like `sass`) have native dependencies. This means that they need to run specific commands on install depending on the version of Node you have installed. Because of this, if you switch from Node 12 to Node 14, you may need to re-run `npm i` on your packages before you attempt to re-run your applications.
+
 ##### Windows NVM
 
 It's worth noting that the Windows variant of `nvm` does not support the same commands as the macOS and Linux variants. As such, when you find instructions for `nvm` online, you may have to find the alternative versions of those commands for the Windows version
@@ -103,7 +117,7 @@ nvm use 12.16.3
 
 #### Upgrading NPM
 
-The default version of `npm` is typically good enough for 99.99% of use-cases. Like any other software, however, bug fixes and features are added to new versions of `npm`. You can follow [the official `npm` blog]() to read about new features and bug fixes the versions introduce.
+The version of `npm` that's shipped with Node is typically good enough for 99.99% of use-cases. Like any other software, however, bug fixes and features are added to new versions of `npm`. You can follow [the official `npm` blog](https://blog.npmjs.org/) to read about new features and bug fixes the versions introduce.
 
 Ironically enough, the method of upgrading `npm` is by using `npm` itself:
 
@@ -115,7 +129,35 @@ npm i -g npm@latest
 
 ### Yarn
 
-`npm` isn't the only game in town when it comes to installing packages for use in webdev. One of the biggest alternatives to `npm` is the `yarn` package manager
+`npm` isn't the only game in town when it comes to installing packages for use in webdev. One of the biggest alternatives to `npm` is the `yarn` package manager.
+
+Yarn does not host it's own registry. Because of this, when you install a library using yarn, you're using the NPM registry and the `yarn` CLI tool. It's the method of how the packages are extracted, maintained, and handled on your local system that are changed when you use `yarn` over `npm` - not the package's contents or functionality.
+
+Because of this, if you run into a library that tells you to run:
+
+```
+yarn add library-name
+```
+
+But your project utilizes the `npm` CLI instead, you can safely replace that command with:
+
+```
+npm i library-name
+```
+
+And vice-versa to retreive the same package's contents.
+
+However, the ways `npm` and `yarn` install packages on your local machine are different enough that, for some projects specifically built around Yarn's functionality, you cannot simply replace `yarn` for `npm` without some re-engineering. The differences between `npm` CLI and `yarn` are numerous and nuanced. While most projects can get by with `npm`, if a project instructs you to use `yarn` to setup your development environment, there are usually good engineering reasons for it.
+
+> Want to learn the differences between `npm` and `yarn` yourself? We have an article that outlines the major differences between the two.
+
+------------ Turn this into it's own article ----------------
+
+While `yarn` previously had the advantage of the [workspaces](https://yarnpkg.com/features/workspaces/) feature, newer versions of `npm` (version 7 and above) [have added this feature upstream](https://docs.npmjs.com/cli/v7/using-npm/workspaces). Nowadays `yarn`'s primary differenciator is their "Plug-N-Play"(PnP) system. Enabled by default in yarn 2, 
+
+One feature that `yarn` still holds over `npm` is [package version resolution handling](https://yarnpkg.com/configuration/manifest/#resolutions). This feature enables you to overwrite a package's dependency version that's downloaded. However, [`npm` plans on adding that feature to a future version of `npm` 7](https://github.com/npm/rfcs/pull/129#issuecomment-658906056)
+
+--------------------------------------------------------------
 
 ### Installing Yarn
 
@@ -125,38 +167,133 @@ Once you have node and npm installed, installing yarn is as simple as:
 npm i -g yarn
 ```
 
+It's worth noting that, just like `npm` and any other globally installed packages, [when you change Node version using `nvm`, you'll need to re-run this command](#nvm-switch-node-ver). However, if you're able to natively install `yarn`, you can sidestep this issue and have `yarn` persist through `nvm` version changes.
+
 #### macOS
 
-If you're using macOS and want to utilize `nvm`, you can also use Homebrew (a third party package manager for Macs)
+If you're using macOS and want to utilize `nvm`, you can also use Homebrew (a third party package manager for Macs) to install `yarn` natively:
 
 ```
 brew install yarn
 ```
 
-https://classic.yarnpkg.com/en/docs/install/#mac-stable
+> There are other methods to install Yarn on macOS if you'd rather. [Look through `yarn`'s official docs for more](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
 #### Windows
 
-https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#package-management
+Just as there's a method for installing `yarn` natively on macOS, you can do the same on Windows using [the same third-party package manager we suggest using for installing and maintaining Windows programs on your machine, Chocolatey](https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#package-management):
 
 ```
 choco install yarn
 ```
 
-https://classic.yarnpkg.com/en/docs/install/#windows-stable
+
+> There are other methods to install Yarn on Windows if you'd rather. [Look through `yarn`'s official docs for more](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+
 
 ## Using Node
+
+Now that you have it setup, let's walk through how to use Node. First, start by opening your terminal.
+
+> On macOS, you can find your terminal by opening finder (Meta+Space) and typing "Terminal".
+>
+> For Windows usage, there are a few more options. We suggest reading through [our article that outlines those options and explains how to setup and use your terminal correctly.](https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#terminal-usage)
+
+Once you have your terminal open, run the following command:
 
 ```
 node
 ```
 
+Once this is done, you should see a cursor that indicates where in the terminal:
+
+```
+>
+```
+
+From here, you can type in JavaScript code, and hit "enter" to execute:
+
+```javascript
+> console.log("Hello")
+```
+
+![](./hello-js.png)
+
+This view of Node - where you have an interactive terminal you can type code into - is known as the REPL.
+
+### Executing JS Files
+
+While Node's REPL is super useful for application prototyping, the primary usage of Node comes into effect when running JavaScript files.
+
+To show how this works, create a file in an empty folder called "index.js". Then, place valid JavaScript in that file:
+
+```javascript
+// index.js
+
+const randomNumber = Math.random() * 100;
+
+if (randomNumber > 75) {
+    console.log("You got really lucky and won 100 points!");
+} else if (randomNumber > 50) {
+    console.log("You got pretty lucky and won 50 points!");
+} else if (randomNumber > 25) {
+    console.log("You got 25 points!");
+} else {
+    console.log("You got unlucky and gained no points");
+}
+```
+
+Then, in your terminal, `cd` into the directory the `index.js` file is and run `node index.js`. It will run the code and execute a `console.log` and exit immediately after.
+
+![](./thing.png)
+
+While this particular program will automatically exit Node once 
+
+```javascript
+// index.js
+
+var points = 0;
+
+function checkNumber() {
+    const randomNumber = Math.random() * 100;
+
+    if (randomNumber > 75) {
+        console.log("You got really lucky and won 100 points!");
+        point += 100;
+    } else if (randomNumber > 50) {
+        console.log("You got pretty lucky and won 50 points!");
+        point += 50;
+    } else if (randomNumber > 25) {
+        console.log("You got 25 points!");
+        point += 25;
+    } else {
+        console.log("You got unlucky and gained no points");
+    }
+
+    console.log("You now have " + points + " points");
+}
+
+setInterval(checkNumber, 2000);
+```
 
 
+While some Node programs have exit conditions that will exit Node, others (like a REST app) are expected to be ran continually until manually stopped. It is worth mentioning that [unless you change the default behavior with a library](#nodemon), programs that do not have an exit condition pre-programmed need to be manually restarted in order to see changes to your code executed properly.
 
+The way you restart a Node process is the same on Windows as it is on macOS - it's the same way you stop the process. simply type Ctrl+C in your terminal to stop the process running. Then, re-run your Node command.
 
-https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#terminal-usage
+#### Hot Reload on File Edit {#nodemon}
 
+Node being able to run JavaScript files is useful once you have a finished product ready-to-run. However, while you're actively developing a file, it can be frustrating to manually stop and restart Node every time you make a change. I've had so many instances where I've Googled "NodeJS not updating JavaScript file" at some point in my debugging, only to realize that I'd forgotten to restart the process.
+
+Introducing `nodemon`: a library (installable via `npm`) that listens for your file changes and restarts the process whenever any of your dependencies change.
+
+To install `nodemon`, use `npm`:
+
+```
+npm i -g nodemon
+```
+
+Then, simply replace your `node index.js` command with `nodemon index.js`.
 
 
 ## Using NPM/Yarn
@@ -170,4 +307,3 @@ npm init
 
 
 ### Ignoring `node_modules`
-
