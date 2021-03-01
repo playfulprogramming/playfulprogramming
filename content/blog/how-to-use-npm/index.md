@@ -14,8 +14,6 @@ If you're new to web development, it can be difficult to figure out when (and ho
 
 In this article, we'll outline what Node and npm are, how to use both `npm` and `yarn` to install dependencies for your project, and point out some "gotcha's" that are good to keep in mind while using them.
 
-
-
 ## What's Node and `npm`, anyway?
 
 If you're new to web development - well, firstly, welcome! - you may wonder what Node and `npm` are. Great questions!
@@ -30,7 +28,7 @@ Node also comes with an advantage over browsers for running JavaScript: you can 
 
 ### `npm`
 
-Any sufficiently useful programming langauge needs an ecosystem to rely on. One of the primary elements for an ecosystem is a collection of libraries that you can use to build out your own libraries and applications.
+Any sufficiently useful programming language needs an ecosystem to rely on. One of the primary elements for an ecosystem is a collection of libraries that you can use to build out your own libraries and applications.
 
 > A library is a snippet of code that other people have written that you can easily import into your own code and use yourself - often with a single line of code
 
@@ -125,7 +123,7 @@ Ironically enough, the method of upgrading `npm` is by using `npm` itself:
 npm i -g npm@latest
 ```
 
-> Keep in mind that if you switch Node versions using `nvm`, you will need to re-run this command on every version of installed Node, as switching Node also swiches the installed version of `npm`.
+> Keep in mind that if you switch Node versions using `nvm`, you will need to re-run this command on every version of installed Node, as switching Node also switches the installed version of `npm`.
 
 ### Yarn
 
@@ -145,7 +143,7 @@ But your project utilizes the `npm` CLI instead, you can safely replace that com
 npm i library-name
 ```
 
-And vice-versa to retreive the same package's contents.
+And vice-versa to retrieve the same package's contents.
 
 However, the ways `npm` and `yarn` install packages on your local machine are different enough that, for some projects specifically built around Yarn's functionality, you cannot simply replace `yarn` for `npm` without some re-engineering. The differences between `npm` CLI and `yarn` are numerous and nuanced. While most projects can get by with `npm`, if a project instructs you to use `yarn` to setup your development environment, there are usually good engineering reasons for it.
 
@@ -314,7 +312,7 @@ When you `clone` a project, you might see a file in the root called `package.jso
     "start": "node index.js",
   },
   "dependencies": {
-    "classnames": "^2.2.6"
+    "classnames": "^2.1.3"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
@@ -338,7 +336,135 @@ yarn init
 
 ### Dependencies
 
+Most projects you'll run into will have at least one dependency. A dependency is a library that your project depends on for it's functionality. For example, if I use the [`classnames` library](https://www.npmjs.com/package/classnames) to generate CSS-friendly class names from a JavaScript object:
+
+```javascript
+const classNames = require('classnames');
+const classes = classNames({ foo: true, bar: false });
+console.log({classes});
+```
+
+I would need to make sure that `classnames` is installed before running this code. Otherwise, I'd run into an error like this:
+
+```
+internal/modules/cjs/loader.js:985
+  throw err;
+  ^
+
+Error: Cannot find module 'classnames'
+```
+
+In order to fix this error, we need to make sure that `classnames` is in our dependency object in `package.json` and that we've ran `npm i` or a `yarn install` to install the package.
+
+If your `package.json` already has the dependency listed:
+
+```
+"dependencies": {
+  "classnames": "^2.1.3"
+},
+```
+
+Then it should be as easy as `npm i` or `yarn install` to tell it "Install the packages listed as dependencies". However, if you're starting with a fresh `package.json` file without any dependencies (or simply want to add a new dependency), you can do so with a single command.
+
+If you're using `npm`, you can add a new dependency using:
+
+```
+npm install classnames
+```
+
+Otherwise, if you're using `yarn`, the command is:
+
+```
+yarn add classnames
+```
+
+> While we're using `classnames` as an example here, you can use the name of whatever dependency you're wanting to add.
+
+#### Semantic Versioning {#semver}
+
+For each dependency listed, there is a number with three dots associated with it. These numbers represent the version of the library to install when running commands like `npm i`.
+
+While you can use these numbers arbitrarily, most projects follow [a standard called "Semantic versioning"](https://semver.org/) (aka "SemVer" for short).
+
+The basics of semantic versioning can be broken down into three parts:
+
+1) The major version
+2) The minor version
+3) The patch version
+
+In SemVer, a package version might look something like `MAJOR.MINOR.PATCH`. A package with `2.1.3` has a "**major** version" of `2`, a "**minor** version" of `1`, and a "**patch** version" of `3`.
+
+What are major, minor, and patch versions?
+
+They describe what changes were made in each release. Let's start from the bottom and work our way up.
+
+A patch release might contain documentation updates, bug fixes, security patch, or anything else that doesn't add functionality or breaking changes (more on that later).
+
+A minor release is usually a feature update. This release added some new functionality to the library without any breaking changes.
+
+A major release is a change to the library that requires a change (any change) in the consuming code. These changes, which may require dependants to rewrite sections of their code to utilize, are called **breaking changes**. In large libraries, breaking changes are often withheld from smaller releases and grouped together to create a major release, complete with documentation for how to change your code to reflect these changes.
+
+Because minor and patch releases do not contain breaking changes (when following SemVer), you can safely update dependencies that utilize SemVer without having to check the changelog for every minor/patch release.
+
+Again, this isn't the _only_ way to version a library, but it is an increasingly common method for making sure that new versions won't break your project's functionality.
+
+##### SemVer Setting {#package-json-semver}
+
+How can we leverage SemVer in our `package.json`? If you looked at the `dependencies` object in our example previously, you may have noticed an odd character that's not a number: `^`.
+
+```
+"dependencies": {
+  "classnames": "^2.1.3"
+},
+```
+
+This is a character that's understood by `npm` to mean "you may install any version of `classnames` that's a minor version above `2.1.3`"
+
+For example, `classnames` has had the following releases:
+
+- `2.1.2`
+- `2.1.3`
+- `2.1.4`
+- `2.2.0`
+- `2.2.1`
+- `...`
+- `2.2.6`
+
+If we set our version to include the caret (`^`) of `2.1.3`(`^2.1.3`), the following versions are allowed to be installed:
+
+```diff
+- 2.1.2
++ 2.1.3
++ 2.1.4
++ 2.2.0
++ ...
++ 2.2.6
+- 3.0.0
+```
+
+> A `-` means that this version is out-of-range and should not be installed, while `+` means that this version is in-range and is able to be installed by your package manager.
+
+This allows us to set a bare-minimum version that we rely the functionality of without worrying about breaking changes from a major release.
+
+However, `^` isn't the only character you can use to tell your package manager which version to install. You can also use `~` like `~2.1.3` to indicate that you'd like to install patch releases, but not minor releases.
+
+```diff
+- 2.1.2
++ 2.1.3
++ 2.1.4
+- 2.2.0
+- ...
+- 2.2.6
+- 3.0.0
+```
+
+This can be useful when a package isn't following SemVer and instead includes breaking changes in minor releases.
+
+There are other modifiers you can use such as version ranges that cross-over major releases, pre-release versions, and more. To learn more about these additional modifiers and to experiment with the tilde and caret modifiers, [NPM has setup a website that teaches you and lets you visually experiment with the modifiers](https://semver.npmjs.com/).
+
 #### Dev Dependencies
+
+#### Peer Dependencies
 
 ### Scripts {#npm-scripts}
 
