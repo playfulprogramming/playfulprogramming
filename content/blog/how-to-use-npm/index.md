@@ -151,14 +151,6 @@ However, the ways `npm` and `yarn` install packages on your local machine are di
 
 > Want to learn the differences between `npm` and `yarn` yourself? We have an article that outlines the major differences between the two.
 
------------- Turn this into it's own article ----------------
-
-While `yarn` previously had the advantage of the [workspaces](https://yarnpkg.com/features/workspaces/) feature, newer versions of `npm` (version 7 and above) [have added this feature upstream](https://docs.npmjs.com/cli/v7/using-npm/workspaces). Nowadays `yarn`'s primary differenciator is their "Plug-N-Play"(PnP) system. Enabled by default in yarn 2, 
-
-One feature that `yarn` still holds over `npm` is [package version resolution handling](https://yarnpkg.com/configuration/manifest/#resolutions). This feature enables you to overwrite a package's dependency version that's downloaded. However, [`npm` plans on adding that feature to a future version of `npm` 7](https://github.com/npm/rfcs/pull/129#issuecomment-658906056)
-
---------------------------------------------------------------
-
 ### Installing Yarn
 
 Once you have node and npm installed, installing yarn is as simple as:
@@ -247,7 +239,7 @@ Then, in your terminal, `cd` into the directory the `index.js` file is and run `
 
 ![](./thing.png)
 
-While this particular program will automatically exit Node once 
+While this particular program will automatically exits Node once it's completed running, programs like the following may run until manually halted: 
 
 ```javascript
 // index.js
@@ -259,13 +251,13 @@ function checkNumber() {
 
     if (randomNumber > 75) {
         console.log("You got really lucky and won 100 points!");
-        point += 100;
+        points += 100;
     } else if (randomNumber > 50) {
         console.log("You got pretty lucky and won 50 points!");
-        point += 50;
+        points += 50;
     } else if (randomNumber > 25) {
         console.log("You got 25 points!");
-        point += 25;
+        points += 25;
     } else {
         console.log("You got unlucky and gained no points");
     }
@@ -276,8 +268,15 @@ function checkNumber() {
 setInterval(checkNumber, 2000);
 ```
 
+Some other programs that may run continually includes servers (REST, GraphQL),  file watchers, or background programs. It is worth mentioning that [unless you change the default behavior with a library](#nodemon), programs that do not have an exit condition pre-programmed need to be manually restarted in order to see changes to your code executed properly.
 
-While some Node programs have exit conditions that will exit Node, others (like a REST app) are expected to be ran continually until manually stopped. It is worth mentioning that [unless you change the default behavior with a library](#nodemon), programs that do not have an exit condition pre-programmed need to be manually restarted in order to see changes to your code executed properly.
+This means that if you change the interval at-which the `checkNumber` function is ran:
+
+```javascript
+setInterval(checkNumber, 3000);
+```
+
+You'll need to re-start Node to catch that update.
 
 The way you restart a Node process is the same on Windows as it is on macOS - it's the same way you stop the process. simply type Ctrl+C in your terminal to stop the process running. Then, re-run your Node command.
 
@@ -295,11 +294,80 @@ npm i -g nodemon
 
 Then, simply replace your `node index.js` command with `nodemon index.js`.
 
-
 ## Using NPM/Yarn
+
+With basic Node usage established, we can expand our abilities by learning how to use `npm`/`yarn` efficiently.
+
+Let's start by explaining what the `package.json` file is.
+
+When you `clone` a project, you might see a file in the root called `package.json`, it might look something like this:
+
+```json
+{
+  "name": "unicorn-utterances-site",
+  "description": "Learning programming from magically majestic words",
+  "version": "0.1.0",
+  "bugs": {
+    "url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
+  },
+  "scripts": {
+    "start": "node index.js",
+  },
+  "dependencies": {
+    "classnames": "^2.2.6"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}
+```
+
+This is how `npm` is able to track what versions of what libraries for your project, as well as keeping a consolidated list of what commands you'd like to have a shorthand for, and other project metadata. We'll explain what each of these sections does in sub-sections.
+
+You're able to generate a fresh `package.json` file for your project using either:
 
 ```
 npm init
+```
+
+Or:
+
+```
+yarn init
+```
+
+### Dependencies
+
+#### Dev Dependencies
+
+### Scripts {#npm-scripts}
+
+You'll notice that the above `package.json` has a `start` script. When `npm run start` or `yarn start` is ran, it will execute `node index.js` to run the file with Node. While `node` usage is common, you're also able to leverage any command that's valid on your machine. You could have:
+
+```json
+"scripts": {
+  "start": "gatsby build",
+}
+```
+
+To reference an `npm` package script, or even a system command like:
+
+```
+"scripts": {
+  "start": "ls",
+}
+```
+
+You're not limited to a single command, either. Most projects will have "scripts" for things like building your project for production, starting development servers, running linters, and much more:
+
+```json
+"scripts": {
+  "build": "gatsby build",
+  "develop": "gatsby develop",
+  "lint": "eslint ./src/**/*.{ts,tsx}",
+  "start": "npm run develop",
+  "test": "jest"
+}
 ```
 
 ### `package-lock.json`
