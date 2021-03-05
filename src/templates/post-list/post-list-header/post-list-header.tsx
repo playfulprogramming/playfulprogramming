@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "gatsby-image";
-import styles from "./post-list-header.module.scss";
+import * as styles from "./post-list-header.module.scss";
 import { Link } from "gatsby";
 
 interface PostListHeaderProps {

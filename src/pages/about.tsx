@@ -3,7 +3,7 @@ import { graphql, useStaticQuery, Link } from "gatsby";
 import { Layout } from "../components/layout/layout";
 import { SEO } from "../components/seo";
 import Image from "gatsby-image";
-import style from "./about.module.scss";
+import * as style from "./about.module.scss";
 import { navigate } from "@reach/router";
 import { UnicornInfo } from "../types";
 

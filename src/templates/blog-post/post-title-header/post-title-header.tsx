@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./post-title-header.module.scss";
+import * as styles from "./post-title-header.module.scss";
 import { PostInfo } from "../../../types";
 
 interface PostTitleHeaderProps {

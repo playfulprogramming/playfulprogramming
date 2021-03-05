@@ -1,7 +1,7 @@
 import * as React from "react";
 import DarkIcon from "../../../src/assets/icons/dark.svg";
 import LightIcon from "../../../src/assets/icons/light.svg";
-import btnStyles from "./dark-light-button.module.scss";
+import * as btnStyles from "./dark-light-button.module.scss";
 import { ThemeContext } from "../../../src/constants";
 
 export const DarkLightButton = () => {

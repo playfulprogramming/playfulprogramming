@@ -1,7 +1,7 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
 import BackIcon from "../../../src/assets/icons/back.svg";
-import layoutStyles from "./layout.module.scss";
+import * as layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
 import { ThemeProvider } from "../../../src/constants/theme-context";

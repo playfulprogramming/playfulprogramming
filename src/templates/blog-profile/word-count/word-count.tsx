@@ -1,5 +1,5 @@
 import React from "react";
-import wordCountStyles from "./word-count.module.scss";
+import * as wordCountStyles from "./word-count.module.scss";
 import { Feather as FeatherIcon } from "../../../assets/icons/feather";
 
 interface WordCountProps {

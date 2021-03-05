@@ -35,7 +35,7 @@ import React, {
 import classNames from "classnames";
 import posed from "react-pose";
 
-import filterStyles from "./filter-listbox.module.scss";
+import * as filterStyles from "./filter-listbox.module.scss";
 
 import FilterIcon from "../../../../src/assets/icons/filter.svg";
 import CheckIcon from "../../../../src/assets/icons/check.svg";

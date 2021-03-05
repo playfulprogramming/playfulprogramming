@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./filter-search-bar.module.scss";
+import * as styles from "./filter-search-bar.module.scss";
 import { SearchField } from "./search-field";
 import { FilterListbox } from "./filter-listbox";
 

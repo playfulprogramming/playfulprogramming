@@ -1,7 +1,7 @@
 import * as React from "react";
 import Image from "gatsby-image";
 
-import styles from "./user-profile-pic.module.scss";
+import * as styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "../../types";
 
 interface UserProfilePicProps {

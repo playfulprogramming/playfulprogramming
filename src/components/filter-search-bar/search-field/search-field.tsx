@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import styles from "./search-field.module.scss";
+import * as styles from "./search-field.module.scss";
 import classNames from "classnames";
 import SearchIcon from "../../../assets/icons/search.svg";
 import posed from "react-pose";
-import { SearchAndFilterContext } from "../../search-and-filter-context";
+import { SearchAndFilterContext } from "../../../constants/search-and-filter-context";
 import { useElementBounds } from "../../../utils";
 
 const placeholder = "Search";

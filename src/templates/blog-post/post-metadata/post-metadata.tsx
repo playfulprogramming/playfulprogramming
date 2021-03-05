@@ -1,8 +1,8 @@
 import React, { createRef, useMemo } from "react";
-import styles from "./post-metadata.module.scss";
+import * as styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
 import { stopPropCallback } from "../../../utils";
-import { UserProfilePic } from "../../user-profile-pic";
+import { UserProfilePic } from "../../../components/user-profile-pic";
 import { PostInfo } from "../../../types";
 
 interface PostMetadataProps {

@@ -1,5 +1,5 @@
 import React from "react";
-import listStyle from "./post-card-list.module.scss";
+import * as listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { UnicornInfo } from "../../../src/types";
 import { PostListContext } from "../../../src/constants/post-list-context";

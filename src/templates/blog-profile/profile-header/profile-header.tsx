@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Image from "gatsby-image";
-import styles from "./profile-header.module.scss";
+import * as styles from "./profile-header.module.scss";
 import GitHubIcon from "../../../../src/assets/icons/github.svg";
 import SiteIcon from "../../../../src/assets/icons/site.svg";
 import LinkedInIcon from "../../../../src/assets/icons/linkedin.svg";
