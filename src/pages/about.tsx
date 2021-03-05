@@ -13,7 +13,7 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 	if (unicornInfo.fields.isAuthor) {
 		unicornRoles.push({
 			id: "author",
-			prettyname: "Author"
+			prettyname: "Author",
 		});
 	}
 
@@ -31,14 +31,14 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 const AboutUs = (props: any) => {
 	const {
-		data: { markdownRemark }
+		data: { markdownRemark },
 	} = props;
 
 	const {
 		file,
 		markdownRemark: post,
 		site,
-		allUnicornsJson: unicorns
+		allUnicornsJson: unicorns,
 	} = useStaticQuery(graphql`
 		query AboutUsQuery {
 			site {
@@ -71,11 +71,11 @@ const AboutUs = (props: any) => {
 	`);
 
 	const {
-		siteMetadata: { title: siteTitle }
+		siteMetadata: { title: siteTitle },
 	} = site;
 	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
 	const {
-		childImageSharp: { fixed: imageFixed }
+		childImageSharp: { fixed: imageFixed },
 	} = file;
 
 	return (
@@ -92,7 +92,7 @@ const AboutUs = (props: any) => {
 				</div>
 				<main className={`${style.aboutBody} post-body`}>
 					<div dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
-					{unicornArr.map(unicornInfo => {
+					{unicornArr.map((unicornInfo) => {
 						const roleListItems = getUnicornRoleListItems(unicornInfo);
 
 						const navigateToUni = () => navigate(`/unicorns/${unicornInfo.id}`);

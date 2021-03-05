@@ -13,7 +13,7 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 	const headingsToDisplay = React.useMemo(
 		() =>
 			headingsWithId?.length
-				? headingsWithId.filter(headingInfo => headingInfo.depth <= 3)
+				? headingsWithId.filter((headingInfo) => headingInfo.depth <= 3)
 				: [],
 		[headingsWithId]
 	);
@@ -27,7 +27,7 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 
 	React.useEffect(() => {
 		// add or remove refs
-		setLinkRefs(elRefs =>
+		setLinkRefs((elRefs) =>
 			Array(arrLength)
 				.fill(0)
 				.map((_, i) => elRefs[i] || React.createRef<HTMLLIElement>())
@@ -37,7 +37,7 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 	useHeadingIntersectionObserver({
 		tocListRef,
 		linkRefs,
-		headingsToDisplay
+		headingsToDisplay,
 	});
 
 	return (
@@ -51,7 +51,7 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
 					const liClassNames = classnames(tableOfContentsStyle.tocLi, {
 						[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
 						[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
-						[tableOfContentsStyle.tocH3]: headingInfo.depth === 3
+						[tableOfContentsStyle.tocH3]: headingInfo.depth === 3,
 					});
 					return (
 						<li

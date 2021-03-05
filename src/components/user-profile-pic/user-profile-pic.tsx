@@ -20,7 +20,7 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 				onClick={onClick}
 				className={`pointer ${styles.profilePicContainer} ${classesToApply}`}
 				style={{
-					borderColor: unicorn.color
+					borderColor: unicorn.color,
 				}}
 			>
 				<Image
@@ -29,7 +29,7 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 					alt={unicorn.name}
 					className={`circleImg ${styles.profilePicImage} ${classesToApply}`}
 					imgStyle={{
-						borderRadius: `50%`
+						borderRadius: `50%`,
 					}}
 				/>
 			</div>

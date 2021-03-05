@@ -13,7 +13,7 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 
 	const authorLinks = useMemo(
 		() =>
-			authors.map(unicorn => {
+			authors.map((unicorn) => {
 				const ref = createRef<HTMLElement>();
 				const onClick = (e: MouseEvent) => {
 					stopPropCallback(e);
@@ -23,7 +23,7 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 				return {
 					unicorn,
 					onClick,
-					ref
+					ref,
 				};
 			}),
 		[authors]

@@ -8,7 +8,7 @@ interface WordCountProps {
 }
 export const WordCount = ({
 	numberOfArticles = 0,
-	wordCount = 0
+	wordCount = 0,
 }: WordCountProps) => {
 	return (
 		<div className={wordCountStyles.container}>

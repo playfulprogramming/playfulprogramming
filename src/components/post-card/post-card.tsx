@@ -24,12 +24,12 @@ export const PostCard = ({
 	excerpt,
 	description,
 	className = "",
-	slug
+	slug,
 }: PostCardProps) => {
 	const headerLink = useRef<HTMLElement>();
 	const authorLinks = useMemo(
 		() =>
-			authors.map(unicorn => {
+			authors.map((unicorn) => {
 				const ref = createRef<HTMLElement>();
 				const onClick = (e: MouseEvent) => {
 					stopPropCallback(e);
@@ -39,7 +39,7 @@ export const PostCard = ({
 				return {
 					unicorn,
 					onClick,
-					ref
+					ref,
 				};
 			}),
 		[authors]
@@ -67,7 +67,7 @@ export const PostCard = ({
 						to={`/unicorns/${authors[0].id}`}
 						className={cardStyles.authorLink}
 						ref={authorLinks[0].ref as any}
-						onClick={e => e.stopPropagation()}
+						onClick={(e) => e.stopPropagation()}
 					>
 						{authors[0].name}
 					</Link>
@@ -81,7 +81,7 @@ export const PostCard = ({
 									to={`/unicorns/${author.id}`}
 									className={cardStyles.authorLink}
 									ref={authorLinks[i].ref as any}
-									onClick={e => e.stopPropagation()}
+									onClick={(e) => e.stopPropagation()}
 								>
 									{author.name}
 								</Link>
@@ -91,7 +91,7 @@ export const PostCard = ({
 				</p>
 				<div className={cardStyles.dateTagSubheader}>
 					<p className={cardStyles.date}>{published}</p>
-					{tags.map(tag => (
+					{tags.map((tag) => (
 						<span key={tag} className={cardStyles.tag}>
 							{tag}
 						</span>
@@ -100,7 +100,7 @@ export const PostCard = ({
 				<p
 					className={cardStyles.excerpt}
 					dangerouslySetInnerHTML={{
-						__html: description || excerpt
+						__html: description || excerpt,
 					}}
 				/>
 			</div>

@@ -11,11 +11,11 @@ function getSearchResults(query: any, lng: string) {
 	const fullResults = lunrIndex.index.search(escapedStr);
 	const refs = new Set([
 		...lazyResults.map(({ ref }: { ref: any }) => ref),
-		...fullResults.map(({ ref }: { ref: any }) => ref)
+		...fullResults.map(({ ref }: { ref: any }) => ref),
 	]);
 
 	return Array.from(refs).map(
-		ref => lunrIndex.store[ref] as { title: string; slug: string }
+		(ref) => lunrIndex.store[ref] as { title: string; slug: string }
 	);
 }
 

@@ -11,7 +11,7 @@ interface PostListHeaderProps {
 }
 export const PostListHeader = ({
 	image,
-	siteMetadata
+	siteMetadata,
 }: PostListHeaderProps) => {
 	return (
 		<div

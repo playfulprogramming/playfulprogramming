@@ -18,7 +18,7 @@ const Confirm = (props: any) => {
 					maxWidth: "450px",
 					maxHeight: "450px",
 					background: "var(--primary)",
-					borderRadius: "100%"
+					borderRadius: "100%",
 				}}
 				loading={"eager"}
 			/>

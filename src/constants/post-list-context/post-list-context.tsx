@@ -10,12 +10,12 @@ import {
 	default as React,
 	useEffect,
 	useMemo,
-	useState
+	useState,
 } from "react";
 import {
 	SearchAndFilterContext,
 	usePostTagsFromNodes,
-	useSearchFilterValue
+	useSearchFilterValue,
 } from "constants/search-and-filter-context";
 import { PageContext } from "types/PageContext";
 import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
@@ -28,7 +28,7 @@ export const defaultSearchAndFilterContextVal = {
 	pageCount: 0 as number,
 	pageIndex: 0 as number,
 	setCurrentPageIndex: (val: number) => {},
-	postTags: [] as string[]
+	postTags: [] as string[],
 };
 
 export const PostListContext = createContext(defaultSearchAndFilterContextVal);
@@ -40,12 +40,12 @@ interface PostListContextProps {
 export const PostListProvider: React.FC<PostListContextProps> = ({
 	children,
 	pageContext,
-	posts
+	posts,
 }) => {
 	const {
 		pageIndex: originalPageIndexPlusOne,
 		numberOfPages,
-		limitNumber
+		limitNumber,
 	} = pageContext;
 	/**
 	 * In order to get around limitations with GQL query calls, we originally
@@ -112,7 +112,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
 		searchContextValue.filterVal,
 		searchContextValue.lunrAllowedIds,
 		posts,
-		originalPageIndex
+		originalPageIndex,
 	]);
 
 	/**
@@ -132,11 +132,11 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
 		if (!searchContextValue.searchVal && !searchContextValue.filterVal.length)
 			return {
 				pageCount: numberOfPages,
-				pageIndex: originalPageIndex
+				pageIndex: originalPageIndex,
 			};
 		return {
 			pageCount: Math.ceil(filteredByPosts.length / limitNumber),
-			pageIndex: currentPageIndex
+			pageIndex: currentPageIndex,
 		};
 	}, [
 		searchContextValue.searchVal,
@@ -145,7 +145,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
 		filteredByPosts,
 		limitNumber,
 		currentPageIndex,
-		originalPageIndex
+		originalPageIndex,
 	]);
 
 	/**
@@ -162,7 +162,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
 		pageIndex,
 		postsToDisplay,
 		setCurrentPageIndex,
-		postTags
+		postTags,
 	};
 
 	return (

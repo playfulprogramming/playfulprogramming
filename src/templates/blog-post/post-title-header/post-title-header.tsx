@@ -12,7 +12,7 @@ export const PostTitleHeader = ({ post }: PostTitleHeaderProps) => {
 		<div className={styles.container}>
 			<h1 className={styles.title}>{title}</h1>
 			<ul aria-label="Post tags" role="list" className={styles.tags}>
-				{tags.map(tag => (
+				{tags.map((tag) => (
 					<li key={tag} role="listitem">
 						{tag}
 					</li>

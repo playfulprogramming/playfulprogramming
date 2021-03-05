@@ -41,7 +41,7 @@ export const MailingList = () => (
 							color: "rgb(0, 0, 0)",
 							borderColor: "rgb(227, 227, 227)",
 							borderRadius: "4px",
-							fontWeight: "normal"
+							fontWeight: "normal",
 						}}
 					/>
 				</div>
@@ -57,7 +57,7 @@ export const MailingList = () => (
 							color: "rgb(0, 0, 0)",
 							borderColor: "rgb(227, 227, 227)",
 							borderRadius: "4px",
-							fontWeight: "normal"
+							fontWeight: "normal",
 						}}
 					/>
 				</div>
@@ -68,7 +68,7 @@ export const MailingList = () => (
 						color: "rgb(255, 255, 255)",
 						backgroundColor: "rgb(18, 125, 179)",
 						borderRadius: "4px",
-						fontWeight: "normal"
+						fontWeight: "normal",
 					}}
 				>
 					<div className="formkit-spinner">

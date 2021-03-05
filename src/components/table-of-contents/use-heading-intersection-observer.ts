@@ -11,19 +11,19 @@ interface useHeadingIntersectionObserverProp {
 export const useHeadingIntersectionObserver = ({
 	tocListRef,
 	linkRefs,
-	headingsToDisplay
+	headingsToDisplay,
 }: useHeadingIntersectionObserverProp) => {
 	const [previousSection, setPreviousSelection] = React.useState("");
 
 	React.useEffect(() => {
-		const handleObserver: IntersectionObserverCallback = entries => {
+		const handleObserver: IntersectionObserverCallback = (entries) => {
 			const highlightFirstActive = () => {
 				if (!tocListRef.current) return;
 				let firstVisibleLink = tocListRef.current.querySelector(
 					".toc-is-visible"
 				);
 
-				linkRefs.forEach(linkRef => {
+				linkRefs.forEach((linkRef) => {
 					linkRef.current!.classList.remove("toc-is-active");
 				});
 
@@ -38,10 +38,10 @@ export const useHeadingIntersectionObserver = ({
 				}
 			};
 
-			entries.forEach(entry => {
+			entries.forEach((entry) => {
 				let href = `#${entry.target.getAttribute("id")}`,
 					link = linkRefs.find(
-						l => l.current!.firstElementChild!.getAttribute("href") === href
+						(l) => l.current!.firstElementChild!.getAttribute("href") === href
 					);
 
 				if (!link || !link.current) return;
@@ -59,16 +59,16 @@ export const useHeadingIntersectionObserver = ({
 
 		const observer = new IntersectionObserver(handleObserver, {
 			rootMargin: "0px",
-			threshold: 1
+			threshold: 1,
 		});
 
-		const headingsEls = headingsToDisplay.map(headingToDisplay => {
+		const headingsEls = headingsToDisplay.map((headingToDisplay) => {
 			return document.getElementById(headingToDisplay.slug);
 		});
 
 		headingsEls
-			.filter(a => a)
-			.forEach(heading => {
+			.filter((a) => a)
+			.forEach((heading) => {
 				observer.observe(heading!);
 			});
 

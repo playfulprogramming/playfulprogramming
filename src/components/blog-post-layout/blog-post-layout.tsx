@@ -9,7 +9,7 @@ interface LayoutProps {
 export const BlogPostLayout = ({
 	left = null,
 	right = null,
-	center
+	center,
 }: LayoutProps) => {
 	return (
 		<div className={layoutStyles.blogPostLayoutContainer}>

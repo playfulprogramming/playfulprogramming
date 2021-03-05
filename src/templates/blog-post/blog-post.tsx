@@ -25,7 +25,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const [disqusConfig, setDisqusConfig] = useState({
 		url: `${siteData.siteUrl}/posts${slug}`,
 		identifier: slug,
-		title: post.frontmatter.title
+		title: post.frontmatter.title,
 	});
 
 	/**
@@ -43,7 +43,7 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				//   post. This identifier should NEVER change and should ALWAYS match
 				//   `slug` only
 				identifier: slug,
-				title: post.frontmatter.title
+				title: post.frontmatter.title,
 			});
 			// Must use a `useTimeout` so that this reloads AFTER the background animation
 		}, 600);

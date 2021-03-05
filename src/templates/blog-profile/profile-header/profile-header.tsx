@@ -43,7 +43,7 @@ interface PicTitleHeaderProps {
 }
 export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 	const possessiveName = useMemo(() => getNamePossessive(unicornData.name), [
-		unicornData
+		unicornData,
 	]);
 
 	return (
