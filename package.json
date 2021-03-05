@@ -87,6 +87,7 @@
     "react-paginate": "^7.1.0",
     "react-pose": "^4.0.10",
     "source-map-support": "^0.5.16",
+    "terser": "^4.8.0",
     "typescript": "^4.2.3",
     "unist-util-flat-filter": "^1.0.0",
     "unist-util-visit": "^2.0.2"
