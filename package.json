@@ -31,8 +31,6 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "jest",
-    "storybook": "NODE_ENV=production start-storybook -s static -c config/storybook",
-    "build-storybook": "NODE_ENV=production build-storybook -s static -c config/storybook",
     "postinstall": "husky install"
   },
   "lint-staged": {
@@ -101,11 +99,6 @@
     "@babel/plugin-transform-react-jsx-self": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",
-    "@storybook/addon-actions": "^5.3.14",
-    "@storybook/addon-knobs": "^5.3.14",
-    "@storybook/addon-links": "^5.3.14",
-    "@storybook/addons": "^5.3.14",
-    "@storybook/react": "^5.3.14",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@types/classnames": "^2.2.9",
