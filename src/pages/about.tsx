@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout } from "components/layout";
-import { SEO } from "components/seo";
+import { Layout } from "../components/layout/layout";
+import { SEO } from "../components/seo";
 import Image from "gatsby-image";
 import style from "./about.module.scss";
 import { navigate } from "@reach/router";
-import { UnicornInfo } from "uu-types";
+import { UnicornInfo } from "../types";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 	const unicornRoles = unicornInfo.roles.slice(0);

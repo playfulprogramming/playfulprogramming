@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import Image from "gatsby-image";
 import styles from "./profile-header.module.scss";
-import GitHubIcon from "assets/icons/github.svg";
-import SiteIcon from "assets/icons/site.svg";
-import LinkedInIcon from "assets/icons/linkedin.svg";
-import TwitterIcon from "assets/icons/twitter.svg";
-import TwitchIcon from "assets/icons/twitch.svg";
-import DribbbleIcon from "assets/icons/dribbble.svg";
+import GitHubIcon from "../../../../src/assets/icons/github.svg";
+import SiteIcon from "../../../../src/assets/icons/site.svg";
+import LinkedInIcon from "../../../../src/assets/icons/linkedin.svg";
+import TwitterIcon from "../../../../src/assets/icons/twitter.svg";
+import TwitchIcon from "../../../../src/assets/icons/twitch.svg";
+import DribbbleIcon from "../../../../src/assets/icons/dribbble.svg";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { UnicornInfo } from "uu-types";
+import { UnicornInfo } from "../../../../src/types";
 
 const getNamePossessive = (name: string) => {
 	if (name.endsWith("s")) return `${name}'`;

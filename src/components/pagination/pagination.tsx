@@ -1,9 +1,9 @@
 import * as React from "react";
 import { navigate } from "gatsby-link";
 import ReactPaginate from "react-paginate";
-import { SearchAndFilterContext } from "constants/search-and-filter-context";
-import { PageContext } from "types/PageContext";
-import { PostListContext } from "constants/post-list-context";
+import { SearchAndFilterContext } from "../../../src/constants/search-and-filter-context";
+import { PageContext } from "../../../src/types/PageContext";
+import { PostListContext } from "../../../src/constants/post-list-context";
 import "./pagination.scss";
 
 interface PaginationProps {

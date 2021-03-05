@@ -1,14 +1,14 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { Layout } from "components/layout";
-import { SEO } from "components/seo";
+import { Layout } from "../../../src/components/layout";
+import { SEO } from "../../../src/components/seo";
 import { PostListHeader } from "./post-list-header";
-import { PageContext } from "uu-types";
-import { PostList } from "components/post-card-list";
-import { PostListProvider } from "constants/post-list-context";
-import { Pagination } from "components/pagination";
-import { FilterSearchBar } from "components/filter-search-bar";
+import { PageContext } from "../../../src/types";
+import { PostList } from "../../../src/components/post-card-list";
+import { PostListProvider } from "../../../src/constants/post-list-context";
+import { Pagination } from "../../../src/components/pagination";
+import { FilterSearchBar } from "../../../src/components/filter-search-bar";
 
 interface BlogPostListTemplateProps {
 	data: any;

@@ -1,18 +1,18 @@
 import React, { useMemo } from "react";
 import { graphql } from "gatsby";
-import { Layout } from "components/layout";
-import { SEO } from "components/seo";
+import { Layout } from "../../../src/components/layout";
+import { SEO } from "../../../src/components/seo";
 import { ProfileHeader } from "./profile-header";
 import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
 	PageContext,
-} from "uu-types";
-import { PostList } from "components/post-card-list";
-import { Pagination } from "components/pagination";
-import { PostListProvider } from "constants/post-list-context";
-import { FilterSearchBar } from "components/filter-search-bar";
+} from "../../../src/types";
+import { PostList } from "../../../src/components/post-card-list";
+import { Pagination } from "../../../src/components/pagination";
+import { PostListProvider } from "../../../src/constants/post-list-context";
+import { FilterSearchBar } from "../../../src/components/filter-search-bar";
 import { WordCount } from "./word-count";
 
 interface BlogProfileProps {

@@ -1,8 +1,8 @@
 import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
-import { UnicornInfo } from "uu-types";
-import { PostListContext } from "constants/post-list-context";
+import { UnicornInfo } from "../../../src/types";
+import { PostListContext } from "../../../src/constants/post-list-context";
 
 export interface PostListProps {
 	showWordCount?: boolean;

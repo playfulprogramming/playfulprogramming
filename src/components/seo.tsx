@@ -8,7 +8,7 @@
 import React from "react";
 import Helmet, { HelmetProps } from "react-helmet";
 import { graphql, useStaticQuery } from "gatsby";
-import { UnicornInfo } from "uu-types";
+import { UnicornInfo } from "../types";
 
 type MapToMetaMap = Map<
 	JSX.IntrinsicElements["meta"]["property"],

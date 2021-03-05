@@ -9,18 +9,7 @@
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"noUnusedLocals": false,
-		"baseUrl": ".",
-		"paths": {
-			"constants/*": ["src/constants/*"],
-			"uu-constants": ["src/constants"],
-			"types/*": ["src/types/*"],
-			"uu-types": ["src/types"],
-			"components/*": ["src/components/*"],
-			"utils/*": ["src/utils/*"],
-			"uu-utils": ["src/utils"],
-			"assets/*": ["src/assets/*"],
-			"__mocks__/*": ["__mocks__/*"]
-		}
+		"baseUrl": "."
 	},
 	"include": ["./src/**/*"],
 	"exclude": ["node_modules", "public", ".cache"]

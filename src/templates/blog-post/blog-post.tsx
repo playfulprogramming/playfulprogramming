@@ -1,19 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
 import { graphql } from "gatsby";
-import GitHubIcon from "assets/icons/github.svg";
-import CommentsIcon from "assets/icons/message.svg";
+import GitHubIcon from "../../../src/assets/icons/github.svg";
+import CommentsIcon from "../../../src/assets/icons/message.svg";
 import { DiscussionEmbed } from "disqus-react";
 
-import { Layout } from "components/layout";
-import { SEO } from "components/seo";
+import { Layout } from "../../../src/components/layout";
+import { SEO } from "../../../src/components/seo";
 import { PostMetadata } from "./post-metadata";
 import { PostTitleHeader } from "./post-title-header";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { ThemeContext } from "constants/theme-context";
-import { SiteInfo, PostInfo } from "uu-types";
-import { TableOfContents } from "components/table-of-contents";
-import { BlogPostLayout } from "components/blog-post-layout";
-import { MailingList } from "components/mailing-list";
+import { ThemeContext } from "../../../src/constants/theme-context";
+import { SiteInfo, PostInfo } from "../../../src/types";
+import { TableOfContents } from "../../../src/components/table-of-contents";
+import { BlogPostLayout } from "../../../src/components/blog-post-layout";
+import { MailingList } from "../../../src/components/mailing-list";
 
 const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 	const post = props.data.markdownRemark;
