@@ -1,9 +1,12 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { siteMetadata } from "../../__mocks__/data/mock-site-metadata";
-import { MockMultiAuthorPost, MockPost } from "../../__mocks__/data/mock-post";
+import { siteMetadata } from "../../../__mocks__/data/mock-site-metadata";
+import {
+	MockMultiAuthorPost,
+	MockPost,
+} from "../../../__mocks__/data/mock-post";
 import { useStaticQuery } from "gatsby";
-import { MockUnicorn } from "../../__mocks__/data/mock-unicorn";
+import { MockUnicorn } from "../../../__mocks__/data/mock-unicorn";
 import BlogProfile from "./blog-profile";
 import { onLinkClick as onAnalyticsLinkClick } from "gatsby-plugin-google-analytics";
 import { onLinkClick as onGarsbyLinkClick } from "gatsby";

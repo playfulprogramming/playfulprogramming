@@ -1,7 +1,10 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { siteMetadata } from "../../__mocks__/data/mock-site-metadata";
-import { MockMultiAuthorPost, MockPost } from "../../__mocks__/data/mock-post";
+import { siteMetadata } from "../../../__mocks__/data/mock-site-metadata";
+import {
+	MockMultiAuthorPost,
+	MockPost,
+} from "../../../__mocks__/data/mock-post";
 import BlogPostTemplate from "./blog-post";
 import { onLinkClick, useStaticQuery } from "gatsby";
 import ReactDOMServer from "react-dom/server";

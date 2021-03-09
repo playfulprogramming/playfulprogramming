@@ -10,9 +10,12 @@ import {
 	onLinkClick,
 	useStaticQuery,
 } from "gatsby";
-import { siteMetadata } from "../../__mocks__/data/mock-site-metadata";
-import { MockMultiAuthorPost, MockPost } from "../../__mocks__/data/mock-post";
-import { MockUnicorn } from "../../__mocks__/data/mock-unicorn";
+import { siteMetadata } from "../../../__mocks__/data/mock-site-metadata";
+import {
+	MockMultiAuthorPost,
+	MockPost,
+} from "../../../__mocks__/data/mock-post";
+import { MockUnicorn } from "../../../__mocks__/data/mock-unicorn";
 import BlogPostList from "./post-list";
 
 beforeAll(() => {
