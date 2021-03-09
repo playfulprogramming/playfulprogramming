@@ -30,7 +30,6 @@ export const PostList = ({ listAriaLabel }: PostListProps) => {
 				return (
 					<PostCard
 						slug={node.fields.slug}
-						className={listStyle.postListItem}
 						key={node.fields.slug}
 						excerpt={node.excerpt}
 						title={title}
