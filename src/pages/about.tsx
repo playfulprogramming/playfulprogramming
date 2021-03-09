@@ -31,10 +31,6 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 const AboutUs = (props: any) => {
 	const {
-		data: { markdownRemark },
-	} = props;
-
-	const {
 		file,
 		markdownRemark: post,
 		site,
@@ -91,7 +87,7 @@ const AboutUs = (props: any) => {
 					<h1>About Us</h1>
 				</div>
 				<main className={`${style.aboutBody} post-body`}>
-					<div dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
+					<div dangerouslySetInnerHTML={{ __html: post.html }} />
 					{unicornArr.map((unicornInfo) => {
 						const roleListItems = getUnicornRoleListItems(unicornInfo);
 
