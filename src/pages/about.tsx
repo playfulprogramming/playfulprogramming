@@ -2,7 +2,7 @@ import React from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
 import { Layout } from "../components/layout/layout";
 import { SEO } from "../components/seo";
-import Image from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import * as style from "./about.module.scss";
 import { navigate } from "@reach/router";
 import { UnicornInfo } from "../types";
@@ -53,9 +53,7 @@ const AboutUs = (props: any) => {
 			}
 			file(relativePath: { eq: "unicorn_head_1024.png" }) {
 				childImageSharp {
-					fixed(width: 192, quality: 100) {
-						...GatsbyImageSharpFixed
-					}
+					gatsbyImageData(layout: FIXED, width: 192, quality: 100)
 				}
 			}
 			allUnicornsJson {
@@ -71,7 +69,7 @@ const AboutUs = (props: any) => {
 	} = site;
 	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
 	const {
-		childImageSharp: { fixed: imageFixed },
+		childImageSharp: { gatsbyImageData: imageFixed },
 	} = file;
 
 	return (
@@ -83,7 +81,11 @@ const AboutUs = (props: any) => {
 			/>
 			<div className={style.container}>
 				<div className={style.headerTitle}>
-					<Image fixed={imageFixed} loading={"eager"} />
+					<GatsbyImage
+						image={imageFixed}
+						loading={"eager"}
+						alt={"Unicorn Utterances logo"}
+					/>
 					<h1>About Us</h1>
 				</div>
 				<main className={`${style.aboutBody} post-body`}>
@@ -96,11 +98,10 @@ const AboutUs = (props: any) => {
 						return (
 							<div key={unicornInfo.id} className={style.contributorContainer}>
 								<div className="pointer" onClick={navigateToUni}>
-									<Image
+									<GatsbyImage
+										alt={unicornInfo.name + " profile picture"}
 										className="circleImg"
-										fixed={
-											unicornInfo.profileImg.childImageSharp.mediumPic as any
-										}
+										image={unicornInfo.profileImg.childImageSharp.mediumPic}
 									/>
 								</div>
 								<div className={style.nameRoleDiv}>

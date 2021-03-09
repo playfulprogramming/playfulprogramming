@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import Image from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import * as styles from "./profile-header.module.scss";
 import GitHubIcon from "../../../../src/assets/icons/github.svg";
 import SiteIcon from "../../../../src/assets/icons/site.svg";
@@ -52,10 +52,10 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 			role="banner"
 			aria-label={`Banner for ${unicornData.name}`}
 		>
-			<Image
+			<GatsbyImage
 				className={styles.headerPic}
 				style={{ borderRadius: "50%" }}
-				fixed={unicornData.profileImg.childImageSharp.bigPic as any}
+				image={unicornData.profileImg.childImageSharp.bigPic}
 				loading={"eager"}
 				alt={`${possessiveName} profile picture`}
 			/>

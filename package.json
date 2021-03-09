@@ -50,6 +50,7 @@
     "gatsby-image": "^3.0.0",
     "gatsby-plugin-feed": "^3.0.0",
     "gatsby-plugin-google-analytics": "^3.0.0",
+    "gatsby-plugin-image": "^1.0.0",
     "gatsby-plugin-lunr": "^1.5.2",
     "gatsby-plugin-manifest": "^3.0.0",
     "gatsby-plugin-offline": "^4.0.0",

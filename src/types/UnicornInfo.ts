@@ -1,5 +1,6 @@
 import { PronounInfo } from "./PronounInfo";
 import { RolesEnum } from "./RolesInfo";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 
 export interface UnicornInfo {
 	name: string;
@@ -23,15 +24,9 @@ export interface UnicornInfo {
 	pronouns: PronounInfo;
 	profileImg: {
 		childImageSharp: {
-			smallPic: {
-				fixed: string;
-			};
-			mediumPic: {
-				fixed: string;
-			};
-			bigPic: {
-				fixed: string;
-			};
+			smallPic: IGatsbyImageData;
+			mediumPic: IGatsbyImageData;
+			bigPic: IGatsbyImageData;
 		};
 	};
 }

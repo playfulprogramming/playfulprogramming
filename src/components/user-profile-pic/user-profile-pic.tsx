@@ -1,5 +1,5 @@
 import * as React from "react";
-import Image from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import * as styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "../../types";
@@ -23,9 +23,9 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 					borderColor: unicorn.color,
 				}}
 			>
-				<Image
+				<GatsbyImage
 					data-testid={`author-pic-${i}`}
-					fixed={unicorn.profileImg.childImageSharp.smallPic as any}
+					image={unicorn.profileImg.childImageSharp.smallPic}
 					alt={unicorn.name}
 					className={`circleImg ${styles.profilePicImage} ${classesToApply}`}
 					imgStyle={{

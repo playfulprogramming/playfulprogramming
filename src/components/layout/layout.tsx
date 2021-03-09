@@ -71,15 +71,9 @@ export const authorFragmentQuery = graphql`
 		}
 		profileImg {
 			childImageSharp {
-				smallPic: fixed(width: 60) {
-					...GatsbyImageSharpFixed
-				}
-				mediumPic: fixed(width: 85) {
-					...GatsbyImageSharpFixed
-				}
-				bigPic: fixed(width: 300, quality: 100) {
-					...GatsbyImageSharpFixed
-				}
+				smallPic: gatsbyImageData(layout: FIXED, width: 60)
+				mediumPic: gatsbyImageData(layout: FIXED, width: 85)
+				bigPic: gatsbyImageData(layout: FIXED, width: 300, quality: 100)
 			}
 		}
 	}
