@@ -207,7 +207,7 @@ From here, you can type in JavaScript code, and hit "enter" to execute:
 > console.log("Hello")
 ```
 
-![](./hello-js.png)
+![Windows Terminal showing the console output](./hello-js.png)
 
 This view of Node - where you have an interactive terminal you can type code into - is known as the REPL.
 
@@ -235,7 +235,7 @@ if (randomNumber > 75) {
 
 Then, in your terminal, `cd` into the directory the `index.js` file is and run `node index.js`. It will run the code and execute a `console.log` and exit immediately after.
 
-![](./thing.png)
+![Windows Terminal showing the program output](./output-js.png)
 
 This particular program will automatically exits Node once it's completed running, but not all do. Some programs, like the following, may run until manually halted: 
 
