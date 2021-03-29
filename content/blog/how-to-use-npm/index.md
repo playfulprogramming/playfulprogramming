@@ -1,8 +1,8 @@
 ---
 {
     title: "WebDev 101: How to use npm and Yarn",
-    description: "",
-    published: '2021-10-13T22:12:03.284Z',
+    description: "You want to become a webdev! That's great! You've heard a lot about Node, npm, and yarn - but aren't sure what they are. This article introduces them in-depth and helps explain why they're there",
+    published: '2021-04-05T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev', 'javascript', 'node'],
     attached: [],
@@ -147,7 +147,7 @@ And vice-versa to retrieve the same package's contents.
 
 However, the ways `npm` and `yarn` install packages on your local machine are different enough that, for some projects specifically built around Yarn's functionality, you cannot simply replace `yarn` for `npm` without some re-engineering. The differences between `npm` CLI and `yarn` are numerous and nuanced. While most projects can get by with `npm`, if a project instructs you to use `yarn` to setup your development environment, there are usually good engineering reasons for it.
 
-> Want to learn the differences between `npm` and `yarn` yourself? We have an article that outlines the major differences between the two.
+> Want to learn the differences between `npm` and `yarn` yourself? We're working on an article that covers that exact topic in-depth, both for newcomers and experiences devs alike. Be sure to subscribe to our update emails (at the bottom of the page right above the comments) to catch when that article lands!
 
 ### Installing Yarn {#install-yarn}
 
@@ -572,3 +572,6 @@ You're not limited to a single command, either. Most projects will have "scripts
 
 ## Conclusion
 
+While there's always more to learn when it comes to developmental tooling, this has been an introduction to `npm`, `yarn`, and `node`! With this information, you should have more context when it comes to how dependency management and basic JavaScript usage are utilized in web projects. We suggest taking a look through some open-source projects on GitHub to see how they're doing things.
+
+Run into any questions along the way? We have [a community Discord](https://discord.gg/FMcvc6T) where you can ask us any questions you might find along your development journey. We wish you the best along this journey! 😊 Just remember, this is only the start - don't be discouraged by potential hiccups along the way, and never be afraid or embarrassed to ask for help from others.
