@@ -24,7 +24,7 @@ Let's start with Node. Node is a [JavaScript runtime](/posts/how-computers-speak
 
 > You can [learn more about what a runtime is and how they work from our article that introduces the concept](/posts/how-computers-speak/#compiled-vs-runtime)
 
-Node also comes with an advantage over browsers for running JavaScript: you can interface with lower-level programming languages such as C via [Node's N-API](). This means that libraries you rely on can build on top of this N-API to provide a way to do things like send native desktop notifications, show something particular in your taskbar, or any other action that would require lower-level access to your local machine than JavaScript typically provides.
+Node also comes with an advantage over browsers for running JavaScript: you can interface with lower-level programming languages such as C via [Node's N-API](https://nodejs.org/api/n-api.html#n_api_node_api). This means that libraries you rely on can build on top of this N-API to provide a way to do things like send native desktop notifications, show something particular in your taskbar, or any other action that would require lower-level access to your local machine than JavaScript typically provides.
 
 ### `npm` {#whats-npm}
 
@@ -51,7 +51,7 @@ When it comes to install options there are two:
 
 2) Current
 
-The "LTS" release stands for "long-term release" is considered the most "stable" release, and is recommended for production usage. This is because LTS releases will receive critical bug fixes and improvements even after a new version comes along. LTS releases often see years of support.
+The "LTS" release stands for "long-term support" and is considered the most "stable" release that is recommended for production usage. This is because LTS releases will receive critical bug fixes and improvements even after a new version comes along. LTS releases often see years of support.
 
 The "current" release, on the other hand, usually sees new features of JavaScript implemented that may not be present in the LTS release. This is often used to experiment and tests new features and functionality before the next LTS release.
 
@@ -59,7 +59,7 @@ NodeJS switches back and forth between LTS and non-LTS stable releases. For exam
 
 ### Installing Node {#installing-node}
 
-You can find pre-build binaries ready-to-install from [NodeJS' website](https://nodejs.org/en/download/). Simply download the package you want and install it. 
+You can find pre-built binaries ready-to-install from [NodeJS' website](https://nodejs.org/en/download/). Simply download the package you want and install it. 
 
 > If you're unsure which version of Node to go with, stick to the LTS release
 
@@ -73,7 +73,7 @@ While Node has a fairly stable API (and their LTS releases are often supported f
 
 For example, some webdev projects only work on specific versions of Node, while other times specific JavaScript features are only available on new versions of Node.
 
-Both Windows, macOS, and Linux all have versions of a program called `nvm`, which allows you to change the installed version of node based on a single CLI command:
+Windows, macOS, and Linux all have versions of a program called `nvm`, which allows you to change the installed version of node based on a single CLI command:
 
 ```
 nvm use --lts
