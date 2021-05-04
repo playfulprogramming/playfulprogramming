@@ -9,74 +9,160 @@ export const MockUnicorn: UnicornInfo = {
 	description: "Exists",
 	color: "red",
 	fields: {
-		isAuthor: true
+		isAuthor: true,
 	},
 	roles: [MockRole as any],
 	socials: {
 		twitter: "twtrusrname",
 		github: "ghusrname",
-		website: "example.com"
+		website: "example.com",
 	},
 	pronouns: {
 		they: "they",
 		them: "them",
 		their: "their",
 		theirs: "theirs",
-		themselves: "themselves"
+		themselves: "themselves",
 	},
 	profileImg: {
 		childImageSharp: {
 			smallPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
 			},
 			mediumPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
 			},
 			bigPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-			}
-		}
-	}
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
+			},
+		},
+	},
 };
 
-export const MockUnicornTwo = {
+export const MockUnicornTwo: UnicornInfo = {
 	name: "Diane",
+	firstName: "Diane",
+	lastName: "",
 	id: "diane",
 	description: "Is a human",
 	color: "blue",
 	fields: {
-		isAuthor: true
+		isAuthor: true,
 	},
-	roles: [MockRole],
+	roles: [MockRole] as any[],
 	socials: {
 		twitter: "twtrusrname2",
 		github: "ghusrname2",
-		website: "example.com/2"
+		website: "example.com/2",
 	},
 	pronouns: {
 		they: "they",
 		them: "them",
 		their: "their",
 		theirs: "theirs",
-		themselves: "themselves"
+		themselves: "themselves",
 	},
 	profileImg: {
 		childImageSharp: {
 			smallPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
 			},
 			mediumPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
 			},
 			bigPic: {
-				fixed:
-					"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-			}
-		}
-	}
+				images: {
+					fallback: {
+						src:
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+					sources: [
+						{
+							srcSet:
+								"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+							type: "png",
+						},
+					],
+				},
+				width: 272,
+				height: 92,
+				layout: "fixed",
+			},
+		},
+	},
 };
