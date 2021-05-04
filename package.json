@@ -80,7 +80,6 @@
     "medium-zoom": "^1.0.5",
     "prismjs": "^1.17.1",
     "react": "^17.0.2",
-    "react-breakpoints": "^3.0.3",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-paginate": "^7.1.2",
@@ -101,7 +100,6 @@
     "@babel/preset-typescript": "^7.12.13",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
-    "@types/classnames": "^2.3.1",
     "@types/jest-axe": "^3.2.1",
     "@types/react-dom": "^17.0.3",
     "@types/react-helmet": "^6.1.1",
@@ -123,7 +121,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-axe": "^4.1.0",
-    "jest-dom": "^4.0.0",
     "jest-watch-typeahead": "^0.6.3",
     "lint-staged": "^10.5.4",
     "npm-run-all": "^4.1.5",
@@ -134,10 +131,5 @@
     "stylelint-prettier": "^1.2.0",
     "ts-jest": "^26.5.5",
     "tsconfig-paths-webpack-plugin": "^3.5.1"
-  },
-  "resolutions": {
-    "graphql": "^15.4.0",
-    "graphql-compose": "^7.25.0",
-    "webpack": "^5.24.2"
   }
 }
