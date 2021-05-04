@@ -5,7 +5,7 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import { useLunr } from "../../../src/utils";
+import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
 
 // We only have dark and light right now

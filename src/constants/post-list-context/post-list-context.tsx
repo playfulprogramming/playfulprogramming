@@ -16,13 +16,10 @@ import {
 	SearchAndFilterContext,
 	usePostTagsFromNodes,
 	useSearchFilterValue,
-} from "../../../src/constants/search-and-filter-context";
-import { PageContext } from "../../../src/types/PageContext";
-import {
-	filterPostsBySlugArr,
-	getSkippedPosts,
-} from "../../../src/utils/handle-post-list";
-import { PostInfo } from "../../../src/types/PostInfo";
+} from "constants/search-and-filter-context";
+import { PageContext } from "types/PageContext";
+import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
+import { PostInfo } from "types/PostInfo";
 
 type PostInfoNode = { node: PostInfo };
 

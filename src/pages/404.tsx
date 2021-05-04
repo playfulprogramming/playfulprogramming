@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { SEO } from "components/seo";
+import { Layout } from "components/layout";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 
 class NotFoundPage extends React.Component {

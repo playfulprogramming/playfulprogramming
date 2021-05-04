@@ -4,7 +4,7 @@ import {
 	COLORS,
 	COLOR_MODE_KEY,
 	INITIAL_COLOR_MODE_CSS_PROP,
-} from "../../../src/constants";
+} from "uu-constants";
 
 type LightOptions = "light" | "dark";
 

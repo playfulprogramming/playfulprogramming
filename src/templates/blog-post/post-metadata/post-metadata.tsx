@@ -1,9 +1,9 @@
 import React, { createRef, useMemo } from "react";
 import * as styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
-import { stopPropCallback } from "../../../utils";
-import { UserProfilePic } from "../../../components/user-profile-pic";
-import { PostInfo } from "../../../types";
+import { stopPropCallback } from "uu-utils";
+import { PostInfo } from "uu-types";
+import { UserProfilePic } from "components/user-profile-pic";
 
 interface PostMetadataProps {
 	post: PostInfo;

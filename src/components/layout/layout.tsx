@@ -1,10 +1,10 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
-import BackIcon from "../../../src/assets/icons/back.svg";
 import * as layoutStyles from "./layout.module.scss";
+import BackIcon from "assets/icons/back.svg";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
-import { ThemeProvider } from "../../../src/constants/theme-context";
+import { ThemeProvider } from "constants/theme-context";
 
 interface LayoutProps {
 	location: Location;

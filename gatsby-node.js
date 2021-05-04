@@ -1,18 +1,18 @@
 const path = require(`path`);
 const fs = require("fs");
 const { createFilePath } = require(`gatsby-source-filesystem`);
-// const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-// /**
-//  * Allow tsconfig.path usage
-//  */
-// exports.onCreateWebpackConfig = ({ actions }) => {
-// 	actions.setWebpackConfig({
-// 		resolve: {
-// 			plugins: [new TsconfigPathsPlugin()]
-// 		}
-// 	});
-// };
+/**
+ * Allow tsconfig.path usage
+ */
+exports.onCreateWebpackConfig = ({ actions }) => {
+	actions.setWebpackConfig({
+		resolve: {
+			plugins: [new TsconfigPathsPlugin()]
+		}
+	});
+};
 
 /**
  * Add slugs to Markdown and Unicorns
