@@ -1,5 +1,5 @@
 import React from "react";
-import wordCountStyles from "./word-count.module.scss";
+import * as wordCountStyles from "./word-count.module.scss";
 import { Feather as FeatherIcon } from "assets/icons/feather";
 
 interface WordCountProps {
@@ -8,7 +8,7 @@ interface WordCountProps {
 }
 export const WordCount = ({
 	numberOfArticles = 0,
-	wordCount = 0
+	wordCount = 0,
 }: WordCountProps) => {
 	return (
 		<div className={wordCountStyles.container}>

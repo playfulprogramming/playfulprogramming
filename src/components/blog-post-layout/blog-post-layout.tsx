@@ -1,5 +1,5 @@
 import * as React from "react";
-import layoutStyles from "./blog-post-layout.module.scss";
+import * as layoutStyles from "./blog-post-layout.module.scss";
 
 interface LayoutProps {
 	left?: React.ReactNode;
@@ -9,7 +9,7 @@ interface LayoutProps {
 export const BlogPostLayout = ({
 	left = null,
 	right = null,
-	center
+	center,
 }: LayoutProps) => {
 	return (
 		<div className={layoutStyles.blogPostLayoutContainer}>

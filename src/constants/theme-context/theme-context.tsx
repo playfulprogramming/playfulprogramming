@@ -3,7 +3,7 @@ import * as React from "react";
 import {
 	COLORS,
 	COLOR_MODE_KEY,
-	INITIAL_COLOR_MODE_CSS_PROP
+	INITIAL_COLOR_MODE_CSS_PROP,
 } from "uu-constants";
 
 type LightOptions = "light" | "dark";
@@ -14,7 +14,7 @@ interface ThemeContextType {
 }
 export const ThemeContext = React.createContext<ThemeContextType>({
 	colorMode: undefined,
-	setColorMode: () => {}
+	setColorMode: () => {},
 });
 
 export const ThemeProvider: React.FC = ({ children }) => {
@@ -52,7 +52,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
 
 		return {
 			colorMode,
-			setColorMode
+			setColorMode,
 		};
 	}, [colorMode, rawSetColorMode]);
 

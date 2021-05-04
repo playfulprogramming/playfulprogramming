@@ -1,14 +1,15 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Layout } from "components/layout";
-import Image from "gatsby-image";
 
 const Confirm = (props: any) => {
 	const { location, data } = props;
 	return (
 		<Layout location={location}>
-			<Image
-				fixed={data.file.childImageSharp.fixed}
+			<GatsbyImage
+				alt={""}
+				image={data.file.childImageSharp.gatsbyImageData}
 				imgStyle={{ objectFit: "contain" }}
 				style={{
 					margin: "0 auto",
@@ -18,7 +19,7 @@ const Confirm = (props: any) => {
 					maxWidth: "450px",
 					maxHeight: "450px",
 					background: "var(--primary)",
-					borderRadius: "100%"
+					borderRadius: "100%",
 				}}
 				loading={"eager"}
 			/>
@@ -35,9 +36,7 @@ export const pageQuery = graphql`
 	query ConfirmSiteData {
 		file(relativePath: { eq: "hello_2048.png" }) {
 			childImageSharp {
-				fixed(width: 500, quality: 100) {
-					...GatsbyImageSharpFixed
-				}
+				gatsbyImageData(layout: FIXED, width: 500, quality: 100)
 			}
 		}
 	}

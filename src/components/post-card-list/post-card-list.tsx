@@ -1,5 +1,5 @@
 import React from "react";
-import listStyle from "./post-card-list.module.scss";
+import * as listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { UnicornInfo } from "uu-types";
 import { PostListContext } from "constants/post-list-context";
@@ -30,7 +30,6 @@ export const PostList = ({ listAriaLabel }: PostListProps) => {
 				return (
 					<PostCard
 						slug={node.fields.slug}
-						className={listStyle.postListItem}
 						key={node.fields.slug}
 						excerpt={node.excerpt}
 						title={title}

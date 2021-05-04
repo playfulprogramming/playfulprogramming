@@ -64,7 +64,8 @@ module.exports = {
 						resolve: `gatsby-remark-images`,
 						options: {
 							maxWidth: 590,
-							linkImagesToOriginal: false
+							linkImagesToOriginal: false,
+							backgroundColor: 'transparent'
 						}
 					},
 					{
@@ -131,8 +132,9 @@ module.exports = {
 		},
 		`count-inline-code`,
 		`remarked-autolink-headers-and-add-id`,
-		`gatsby-transformer-sharp`,
+		`gatsby-plugin-image`,
 		`gatsby-plugin-sharp`,
+		`gatsby-transformer-sharp`,
 		{
 			resolve: `gatsby-plugin-google-analytics`,
 			options: {
@@ -362,7 +364,7 @@ module.exports = {
 					}
 				}
 			}
-		}
+		},
 	],
 	mapping: {
 		"MarkdownRemark.frontmatter.authors": `UnicornsJson`,

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import styles from "./search-field.module.scss";
+import * as styles from "./search-field.module.scss";
 import classNames from "classnames";
 import SearchIcon from "assets/icons/search.svg";
 import posed from "react-pose";
@@ -10,8 +10,8 @@ const placeholder = "Search";
 
 const PosedInput = posed.input({
 	initial: {
-		width: (props: { wiidth: number }) => props.wiidth
-	}
+		width: (props: { wiidth: number }) => props.wiidth,
+	},
 });
 
 export const SearchField = ({ className }: { className?: string }) => {
@@ -23,7 +23,7 @@ export const SearchField = ({ className }: { className?: string }) => {
 	// Get a callback reference to get the element bounds
 	const {
 		ref: elBoundsCBRef,
-		val: { height: inputHeight }
+		val: { height: inputHeight },
 	} = useElementBounds([]);
 	// Create a callback reference to compose both the callback bound ref and the "real" ref
 	const inputCallbackRef = useCallback(
@@ -35,14 +35,14 @@ export const SearchField = ({ className }: { className?: string }) => {
 	);
 	const {
 		ref: containerRef,
-		val: { width: maxSpanWidth }
+		val: { width: maxSpanWidth },
 	} = useElementBounds([]);
 	const {
 		ref: spanRef,
-		val: { width: currInputWidth }
-	} = useElementBounds([searchVal], a => ({
+		val: { width: currInputWidth },
+	} = useElementBounds([searchVal], (a) => ({
 		...a,
-		width: a.width + 50
+		width: a.width + 50,
 	}));
 
 	/**
@@ -50,7 +50,7 @@ export const SearchField = ({ className }: { className?: string }) => {
 	 */
 	const wrapperClasses = useMemo(() => {
 		return classNames(styles.btn, {
-			[styles.contentBtn]: isFocused || searchVal
+			[styles.contentBtn]: isFocused || searchVal,
 		});
 	}, [isFocused, searchVal]);
 
@@ -67,7 +67,7 @@ export const SearchField = ({ className }: { className?: string }) => {
 						placeholder={placeholder}
 						ref={inputCallbackRef}
 						aria-label="Search for posts"
-						onChange={e => {
+						onChange={(e) => {
 							const val = (e.target as HTMLInputElement).value;
 							setSearchVal(val);
 						}}
@@ -90,7 +90,7 @@ export const SearchField = ({ className }: { className?: string }) => {
 						className={styles.input}
 						style={{
 							position: "absolute",
-							top: "-300vh"
+							top: "-300vh",
 						}}
 						ref={spanRef}
 					>

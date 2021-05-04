@@ -1,17 +1,17 @@
 import React from "react";
-import Image from "gatsby-image";
-import styles from "./post-list-header.module.scss";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import * as styles from "./post-list-header.module.scss";
 import { Link } from "gatsby";
 
 interface PostListHeaderProps {
-	image: string;
+	image: IGatsbyImageData;
 	siteMetadata: {
 		description: string;
 	};
 }
 export const PostListHeader = ({
 	image,
-	siteMetadata
+	siteMetadata,
 }: PostListHeaderProps) => {
 	return (
 		<div
@@ -19,9 +19,9 @@ export const PostListHeader = ({
 			role="banner"
 			aria-label={`Banner for Unicorn Utterances`}
 		>
-			<Image
+			<GatsbyImage
 				className={styles.headerPic}
-				fixed={image as any}
+				image={image}
 				loading={"eager"}
 				alt={`Unicorn Utterances header image`}
 			/>

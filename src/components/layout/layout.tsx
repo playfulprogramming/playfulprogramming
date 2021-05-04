@@ -1,7 +1,7 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
+import * as layoutStyles from "./layout.module.scss";
 import BackIcon from "assets/icons/back.svg";
-import layoutStyles from "./layout.module.scss";
 import "../../global.scss";
 import { DarkLightButton } from "../dark-light-button";
 import { ThemeProvider } from "constants/theme-context";
@@ -71,15 +71,9 @@ export const authorFragmentQuery = graphql`
 		}
 		profileImg {
 			childImageSharp {
-				smallPic: fixed(width: 60) {
-					...GatsbyImageSharpFixed
-				}
-				mediumPic: fixed(width: 85) {
-					...GatsbyImageSharpFixed
-				}
-				bigPic: fixed(width: 300, quality: 100) {
-					...GatsbyImageSharpFixed
-				}
+				smallPic: gatsbyImageData(layout: FIXED, width: 60)
+				mediumPic: gatsbyImageData(layout: FIXED, width: 85)
+				bigPic: gatsbyImageData(layout: FIXED, width: 300, quality: 100)
 			}
 		}
 	}

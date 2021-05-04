@@ -10,8 +10,8 @@ import { axe } from "jest-axe";
 beforeAll(() => {
 	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
-			siteMetadata
-		}
+			siteMetadata,
+		},
 	}));
 });
 
@@ -23,13 +23,13 @@ const getElement = (post: any = MockPost) => (
 	<BlogPostTemplate
 		data={{
 			site: {
-				siteMetadata
+				siteMetadata,
 			},
-			markdownRemark: post as any
+			markdownRemark: post as any,
 		}}
 		location={
 			{
-				pathname: "/post/this-post-name-here"
+				pathname: "/post/this-post-name-here",
 			} as any
 		}
 	/>

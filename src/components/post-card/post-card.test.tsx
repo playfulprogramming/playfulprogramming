@@ -7,7 +7,7 @@ import { onLinkClick } from "gatsby";
 const {
 	frontmatter: { tags, authors, title, published, description },
 	excerpt,
-	fields: { slug }
+	fields: { slug },
 } = MockPost;
 
 describe("Post card", () => {

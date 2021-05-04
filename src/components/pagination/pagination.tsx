@@ -39,7 +39,7 @@ export const Pagination = ({ pageContext }: PaginationProps) => {
 			marginPagesDisplayed={2}
 			forcePage={pageIndex}
 			pageRangeDisplayed={5}
-			hrefBuilder={props => `${relativePath}/page/${props}`}
+			hrefBuilder={(props) => `${relativePath}/page/${props}`}
 			containerClassName={"pagination"}
 			activeClassName={"active"}
 			onPageChange={({ selected }) => {

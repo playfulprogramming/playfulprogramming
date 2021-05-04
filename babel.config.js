@@ -12,6 +12,7 @@ module.exports = {
 	],
 	plugins: [
 		'@babel/plugin-proposal-optional-chaining',
-		'@babel/plugin-transform-react-jsx'
+		'@babel/plugin-transform-react-jsx',
+		'@babel/plugin-proposal-class-properties'
 	],
 };

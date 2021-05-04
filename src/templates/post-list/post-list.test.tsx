@@ -8,7 +8,7 @@ import { axe } from "jest-axe";
 import {
 	onLinkClick as onGarsbyLinkClick,
 	onLinkClick,
-	useStaticQuery
+	useStaticQuery,
 } from "gatsby";
 import { siteMetadata } from "__mocks__/data/mock-site-metadata";
 import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
@@ -18,8 +18,8 @@ import BlogPostList from "./post-list";
 beforeAll(() => {
 	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
-			siteMetadata
-		}
+			siteMetadata,
+		},
 	}));
 });
 
@@ -34,36 +34,36 @@ const getElement = () => (
 			skipNumber: 0,
 			pageIndex: 1,
 			numberOfPages: 1,
-			relativePath: ""
+			relativePath: "",
 		}}
 		data={{
 			site: {
-				siteMetadata
+				siteMetadata,
 			},
 			unicornsJson: MockUnicorn,
 			allMarkdownRemark: {
 				totalCount: 1,
 				edges: [
 					{
-						node: MockPost
+						node: MockPost,
 					},
 					{
-						node: MockMultiAuthorPost
-					}
-				]
+						node: MockMultiAuthorPost,
+					},
+				],
 			},
 			file: {
 				childImageSharp: {
 					smallPic: {
 						fixed:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-					}
-				}
-			}
+							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+					},
+				},
+			},
 		}}
 		location={
 			{
-				pathname: "/post/this-post-name-here"
+				pathname: "/post/this-post-name-here",
 			} as any
 		}
 	/>
