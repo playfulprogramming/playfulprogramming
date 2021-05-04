@@ -30,5 +30,13 @@
     "explainLink": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
     "name": "Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
     "displayName": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License"
+  },
+  {
+    "id": "coderpad",
+    "footerImg": "/coderpad.png",
+    "licenceType": "Owned by CoderPad",
+    "explainLink": "https://coderpad.io/about-us/",
+    "name": "Written for CoderPad, reposted to Unicorn Utterances",
+    "displayName": "Written for CoderPad"
   }
 ]

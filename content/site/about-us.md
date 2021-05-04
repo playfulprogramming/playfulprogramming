@@ -70,6 +70,11 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 ">
 <a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="/sponsors/oceanbit.svg" style="width: 300px; margin: 0"/></a>
 </li>
+<li style="
+    margin: 16px;
+">
+<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored"><img alt="CoderPad" src="/sponsors/coderpad.svg" style="width: 300px; margin: 0"/></a>
+</li>
 </ul>
 
 ## Statement of Ethics {#ethics}
