@@ -46,6 +46,7 @@
     "batteries-not-included": "0.1.0",
     "classnames": "^2.3.1",
     "disqus-react": "^1.0.7",
+    "framer-motion": "^4.1.11",
     "gatsby": "^3.4.1",
     "gatsby-image": "^3.4.0",
     "gatsby-plugin-feed": "^3.4.0",
