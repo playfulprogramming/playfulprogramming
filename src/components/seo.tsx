@@ -25,13 +25,13 @@ const mapToMetaArr = (map: MapToMetaMap) =>
 			for (const item of value) {
 				metaArr.push({
 					property: (key as unknown) as string,
-					content: item
+					content: item,
 				});
 			}
 		} else {
 			metaArr.push({
 				property: key,
-				content: value
+				content: value,
 			});
 		}
 		return metaArr;
@@ -51,13 +51,13 @@ const getBlogPostMetas = (
 	metas.set("article:section", "Technology");
 	metas.set(
 		"article:author",
-		unicornsData.map(uni => uni.name)
+		unicornsData.map((uni) => uni.name)
 	);
 
 	// There has to be one author to add their Twitter. It's only fair
 	// as there are not multiple authors supported
 	if (unicornsData.length === 1) {
-		const socialUnicorn = unicornsData.find(uni => uni.socials);
+		const socialUnicorn = unicornsData.find((uni) => uni.socials);
 		const uniTwitter =
 			socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
 		if (uniTwitter) {
@@ -70,10 +70,10 @@ const getBlogPostMetas = (
 
 	return [
 		...mapToMetaArr(metas),
-		...keywords.map(keyword => ({
+		...keywords.map((keyword) => ({
 			property: "article:tag",
-			content: keyword
-		}))
+			content: keyword,
+		})),
 	];
 };
 
@@ -99,7 +99,8 @@ interface SEOProps {
 	publishedTime?: string;
 	editedTime?: string;
 	type?: "article" | "profile";
-	canonicalPath?: string;
+	pathName?: string;
+	canonical?: string;
 }
 
 export const SEO = ({
@@ -112,7 +113,8 @@ export const SEO = ({
 	publishedTime,
 	editedTime,
 	type,
-	canonicalPath
+	pathName,
+	canonical,
 }: SEOProps) => {
 	const { site } = useStaticQuery(
 		graphql`
@@ -142,79 +144,80 @@ export const SEO = ({
 			: [
 					{
 						property: `og:type`,
-						content: "blog"
-					}
+						content: "blog",
+					},
 			  ];
 
 	return (
 		<Helmet
 			htmlAttributes={{
-				lang
+				lang,
 			}}
 			title={title}
 			titleTemplate={`%s | ${siteData.title}`}
 			link={[
 				{ rel: "icon", href: "/favicon.ico" },
 				{ rel: "preconnect", href: "https://www.google.com" },
-				{ rel: "preconnect", href: "https://marketingplatform.google.com" }
+				{ rel: "preconnect", href: "https://marketingplatform.google.com" },
+				...(canonical ? [{ rel: "canonical", href: canonical }] : []),
 			]}
 			meta={[
 				{
 					property: `og:url`,
-					content: siteData.siteUrl + (canonicalPath || "")
+					content: siteData.siteUrl + (pathName || ""),
 				},
 				{
 					property: `og:site_name`,
-					content: siteData.title
+					content: siteData.title,
 				},
 				{
 					property: `name`,
-					content: siteData.title
+					content: siteData.title,
 				},
 				{
 					property: `og:title`,
-					content: title
+					content: title,
 				},
 				{
 					property: "og:locale",
-					content: "en_US"
+					content: "en_US",
 				},
 				{
 					name: `twitter:title`,
-					content: title
+					content: title,
 				},
 				{
 					name: `description`,
-					content: metaDescription
+					content: metaDescription,
 				},
 				{
 					property: `og:description`,
-					content: metaDescription
+					content: metaDescription,
 				},
 				{
 					name: `twitter:description`,
-					content: metaDescription
+					content: metaDescription,
 				},
 				{
 					property: `keywords`,
-					content: metaKeywords
+					content: metaKeywords,
 				},
 				{
 					name: `twitter:card`,
-					content: `summary_large_image`
+					content: `summary_large_image`,
 				},
 				{
 					name: `twitter:site`,
-					content: `@unicornuttrncs`
+					content: `@unicornuttrncs`,
 				},
 				{
 					property: "og:image",
-					content: "https://unicorn-utterances.com/share-banner.png"
+					content: "https://unicorn-utterances.com/share-banner.png",
 				},
 				{
 					name: "twitter:image",
-					content: "https://unicorn-utterances.com/share-banner.png"
-				}
+					content: "https://unicorn-utterances.com/share-banner.png",
+				},
 			]
 				.concat(meta as any)
 				.concat(typeMetas as any)}

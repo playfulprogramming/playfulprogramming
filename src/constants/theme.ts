@@ -7,21 +7,21 @@ export const COLORS = {
 	darkGrey: { light: "rgba(0, 0, 0, 0.64)", dark: "rgba(255, 255, 255, .64)" },
 	highImpactBlack: {
 		light: "rgba(0, 0, 0, 0.87)",
-		dark: "rgba(255, 255, 255, .87)"
+		dark: "rgba(255, 255, 255, .87)",
 	},
 	midImpactBlack: {
 		light: "rgba(0, 0, 0, 0.64)",
-		dark: "rgba(255, 255, 255, .64)"
+		dark: "rgba(255, 255, 255, .64)",
 	},
 	lowImpactBlack: {
 		light: "rgba(0, 0, 0, 0.58)",
-		dark: "rgba(255, 255, 255, .58)"
+		dark: "rgba(255, 255, 255, .58)",
 	},
 	backgroundColor: { light: "#E4F4FF", dark: "#072a41" },
 	cardActiveBackground: { light: "#EBF6FC", dark: "#163954" },
 	cardActiveBoxShadow: {
 		light: "0px 2px 4px rgba(11, 37, 104, 0.27), inset 0px 1px 0px #FFFFFF",
-		dark: "0px 2px 4px rgba(0, 0, 0, 0.27), inset 0px 1px 0px #435e75"
+		dark: "0px 2px 4px rgba(0, 0, 0, 0.27), inset 0px 1px 0px #435e75",
 	},
 	codeBlockBackground: { light: "white", dark: "#202746" },
 	//code styles
@@ -44,17 +44,17 @@ export const COLORS = {
 	lineNumbersColor: { light: "#979db4", dark: "#516d7b" },
 	lineHighlightColor: {
 		light: "rgba(107, 115, 148, 0.2)",
-		dark: "rgba(235, 248, 255, 0.2)"
+		dark: "rgba(235, 248, 255, 0.2)",
 	},
 	lineHighlightFadeColor: {
 		light: "rgba(107, 115, 148, 0)",
-		dark: "rgba(235, 248, 255, 0)"
+		dark: "rgba(235, 248, 255, 0)",
 	},
 	scrollBarBG: {
 		light: "rgba(18, 125, 179, 0.3)",
-		dark: "rgba(228, 244, 255, 0.3)"
+		dark: "rgba(228, 244, 255, 0.3)",
 	},
-	scrollBarThumb: { light: "var(--primary)", dark: "var(--darkPrimary)" }
+	scrollBarThumb: { light: "var(--primary)", dark: "var(--darkPrimary)" },
 };
 
 export const COLOR_MODE_KEY = "currentTheme";

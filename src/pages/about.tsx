@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql, useStaticQuery, Link } from "gatsby";
-import { Layout } from "components/layout";
+import * as style from "./about.module.scss";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { SEO } from "components/seo";
-import Image from "gatsby-image";
-import style from "./about.module.scss";
+import { Layout } from "components/layout";
 import { navigate } from "@reach/router";
 import { UnicornInfo } from "uu-types";
 
@@ -13,7 +13,7 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 	if (unicornInfo.fields.isAuthor) {
 		unicornRoles.push({
 			id: "author",
-			prettyname: "Author"
+			prettyname: "Author",
 		});
 	}
 
@@ -31,14 +31,10 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 const AboutUs = (props: any) => {
 	const {
-		data: { markdownRemark }
-	} = props;
-
-	const {
 		file,
 		markdownRemark: post,
 		site,
-		allUnicornsJson: unicorns
+		allUnicornsJson: unicorns,
 	} = useStaticQuery(graphql`
 		query AboutUsQuery {
 			site {
@@ -57,9 +53,7 @@ const AboutUs = (props: any) => {
 			}
 			file(relativePath: { eq: "unicorn_head_1024.png" }) {
 				childImageSharp {
-					fixed(width: 192, quality: 100) {
-						...GatsbyImageSharpFixed
-					}
+					gatsbyImageData(layout: FIXED, width: 192, quality: 100)
 				}
 			}
 			allUnicornsJson {
@@ -71,11 +65,11 @@ const AboutUs = (props: any) => {
 	`);
 
 	const {
-		siteMetadata: { title: siteTitle }
+		siteMetadata: { title: siteTitle },
 	} = site;
 	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
 	const {
-		childImageSharp: { fixed: imageFixed }
+		childImageSharp: { gatsbyImageData: imageFixed },
 	} = file;
 
 	return (
@@ -83,16 +77,20 @@ const AboutUs = (props: any) => {
 			<SEO
 				title={post.frontmatter.title}
 				description={post.frontmatter.description || post.excerpt}
-				canonicalPath={props.location.pathname}
+				pathName={props.location.pathname}
 			/>
 			<div className={style.container}>
 				<div className={style.headerTitle}>
-					<Image fixed={imageFixed} loading={"eager"} />
+					<GatsbyImage
+						image={imageFixed}
+						loading={"eager"}
+						alt={"Unicorn Utterances logo"}
+					/>
 					<h1>About Us</h1>
 				</div>
 				<main className={`${style.aboutBody} post-body`}>
-					<div dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
-					{unicornArr.map(unicornInfo => {
+					<div dangerouslySetInnerHTML={{ __html: post.html }} />
+					{unicornArr.map((unicornInfo) => {
 						const roleListItems = getUnicornRoleListItems(unicornInfo);
 
 						const navigateToUni = () => navigate(`/unicorns/${unicornInfo.id}`);
@@ -100,11 +98,10 @@ const AboutUs = (props: any) => {
 						return (
 							<div key={unicornInfo.id} className={style.contributorContainer}>
 								<div className="pointer" onClick={navigateToUni}>
-									<Image
+									<GatsbyImage
+										alt={unicornInfo.name + " profile picture"}
 										className="circleImg"
-										fixed={
-											unicornInfo.profileImg.childImageSharp.mediumPic as any
-										}
+										image={unicornInfo.profileImg.childImageSharp.mediumPic}
 									/>
 								</div>
 								<div className={style.nameRoleDiv}>

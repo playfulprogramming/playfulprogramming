@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import Image from "gatsby-image";
-import styles from "./profile-header.module.scss";
+import * as styles from "./profile-header.module.scss";
+import { GatsbyImage } from "gatsby-plugin-image";
 import GitHubIcon from "assets/icons/github.svg";
 import SiteIcon from "assets/icons/site.svg";
 import LinkedInIcon from "assets/icons/linkedin.svg";
@@ -43,7 +43,7 @@ interface PicTitleHeaderProps {
 }
 export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 	const possessiveName = useMemo(() => getNamePossessive(unicornData.name), [
-		unicornData
+		unicornData,
 	]);
 
 	return (
@@ -52,10 +52,10 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
 			role="banner"
 			aria-label={`Banner for ${unicornData.name}`}
 		>
-			<Image
+			<GatsbyImage
 				className={styles.headerPic}
 				style={{ borderRadius: "50%" }}
-				fixed={unicornData.profileImg.childImageSharp.bigPic as any}
+				image={unicornData.profileImg.childImageSharp.bigPic}
 				loading={"eager"}
 				alt={`${possessiveName} profile picture`}
 			/>

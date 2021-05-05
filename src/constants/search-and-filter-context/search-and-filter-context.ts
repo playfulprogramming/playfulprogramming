@@ -3,7 +3,7 @@ import {
 	default as React,
 	useEffect,
 	useMemo,
-	useState
+	useState,
 } from "react";
 import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
@@ -16,7 +16,7 @@ export const defaultSearchAndFilterContextVal = {
 	 */
 	filterVal: [] as any[],
 	setSearchVal: (val: string) => {},
-	setFilterVal: (val: UseSelectableArrayInternalVal<string>[]) => {}
+	setFilterVal: (val: UseSelectableArrayInternalVal<string>[]) => {},
 };
 
 export const SearchAndFilterContext = createContext(
@@ -31,7 +31,7 @@ export const usePostTagsFromNodes = <
 	const postTags = useMemo(() => {
 		return Array.from(
 			posts.reduce((prev, post) => {
-				post.node.frontmatter.tags.forEach(tag => prev.add(tag));
+				post.node.frontmatter.tags.forEach((tag) => prev.add(tag));
 				return prev;
 			}, new Set())
 		);
@@ -64,7 +64,7 @@ export const useSearchFilterValue = () => {
 	 */
 	const {
 		searchUsingLunr: filterUsingLunr,
-		results: lunrFilterIds
+		results: lunrFilterIds,
 	} = useLunr();
 	const { searchUsingLunr, results: lunrSearchIds } = useLunr();
 
@@ -72,7 +72,7 @@ export const useSearchFilterValue = () => {
 		if (!filterVal || !filterVal.length) {
 			filterUsingLunr("");
 		} else {
-			filterUsingLunr(`tags: ${filterVal.map(v => v.val).join(" ")}`);
+			filterUsingLunr(`tags: ${filterVal.map((v) => v.val).join(" ")}`);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filterVal]);
@@ -88,13 +88,13 @@ export const useSearchFilterValue = () => {
 	 */
 	const lunrAllowedIds = useMemo(() => {
 		if (lunrFilterIds && lunrSearchIds) {
-			const lunrFilterIdsSlugs = lunrFilterIds.map(v => v.slug);
-			const lunrSearchIdsSlugs = lunrSearchIds.map(v => v.slug);
-			return lunrFilterIdsSlugs.filter(v => lunrSearchIdsSlugs.includes(v));
+			const lunrFilterIdsSlugs = lunrFilterIds.map((v) => v.slug);
+			const lunrSearchIdsSlugs = lunrSearchIds.map((v) => v.slug);
+			return lunrFilterIdsSlugs.filter((v) => lunrSearchIdsSlugs.includes(v));
 		}
 
-		if (lunrFilterIds) return lunrFilterIds.map(v => v.slug);
-		if (lunrSearchIds) return lunrSearchIds.map(v => v.slug);
+		if (lunrFilterIds) return lunrFilterIds.map((v) => v.slug);
+		if (lunrSearchIds) return lunrSearchIds.map((v) => v.slug);
 		return [];
 	}, [lunrFilterIds, lunrSearchIds]);
 
@@ -104,7 +104,7 @@ export const useSearchFilterValue = () => {
 			filterVal,
 			setSearchVal,
 			setFilterVal,
-			lunrAllowedIds
+			lunrAllowedIds,
 		}),
 		[searchVal, filterVal, setSearchVal, setFilterVal, lunrAllowedIds]
 	);

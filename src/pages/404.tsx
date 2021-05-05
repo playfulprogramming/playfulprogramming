@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { Layout } from "components/layout";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { SEO } from "components/seo";
-import Image from "gatsby-image";
+import { Layout } from "components/layout";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
 
 class NotFoundPage extends React.Component {
@@ -14,12 +14,13 @@ class NotFoundPage extends React.Component {
 
 		return (
 			<Layout location={location}>
-				<SEO title="404: Not Found" canonicalPath={location.pathname} />
-				<Image
-					fixed={data.file.childImageSharp.fixed}
+				<SEO title="404: Not Found" pathName={location.pathname} />
+				<GatsbyImage
+					image={data.file.childImageSharp.gatsbyImageData}
 					imgStyle={{ objectFit: "contain" }}
 					style={{ margin: "0 auto", display: "block", width: "100%" }}
 					loading={"eager"}
+					alt={`Unicorn Utterances 404 image`}
 				/>
 				<h1 style={{ textAlign: "center" }}>
 					We're Sorry, We Don't Understand
@@ -51,9 +52,7 @@ export const pageQuery = graphql`
 		}
 		file(relativePath: { eq: "sad_unicorn_2048.png" }) {
 			childImageSharp {
-				fixed(width: 500, quality: 100) {
-					...GatsbyImageSharpFixed
-				}
+				gatsbyImageData(layout: FIXED, width: 500, quality: 100)
 			}
 		}
 	}

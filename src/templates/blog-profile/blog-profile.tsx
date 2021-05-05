@@ -7,7 +7,7 @@ import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
-	PageContext
+	PageContext,
 } from "uu-types";
 import { PostList } from "components/post-card-list";
 import { Pagination } from "components/pagination";
@@ -54,7 +54,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 				description={unicornData.description}
 				unicornsData={[unicornData]}
 				type="profile"
-				canonicalPath={props.location.pathname}
+				pathName={props.location.pathname}
 			/>
 			<PostListProvider pageContext={pageContext} posts={posts as any}>
 				<ProfileHeader unicornData={unicornData} />

@@ -1,9 +1,9 @@
 import React, { createRef, useMemo } from "react";
-import styles from "./post-metadata.module.scss";
+import * as styles from "./post-metadata.module.scss";
 import { Link } from "gatsby";
 import { stopPropCallback } from "uu-utils";
-import { UserProfilePic } from "components/user-profile-pic";
 import { PostInfo } from "uu-types";
+import { UserProfilePic } from "components/user-profile-pic";
 
 interface PostMetadataProps {
 	post: PostInfo;
@@ -13,7 +13,7 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 
 	const authorLinks = useMemo(
 		() =>
-			authors.map(unicorn => {
+			authors.map((unicorn) => {
 				const ref = createRef<HTMLElement>();
 				const onClick = (e: MouseEvent) => {
 					stopPropCallback(e);
@@ -23,11 +23,17 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 				return {
 					unicorn,
 					onClick,
-					ref
+					ref,
 				};
 			}),
 		[authors]
 	);
+
+	const originalHost = useMemo(() => {
+		if (!post.frontmatter.originalLink) return "";
+		const url = new URL(post.frontmatter.originalLink);
+		return url.host;
+	}, [post.frontmatter.originalLink]);
 
 	return (
 		<div className={styles.container}>
@@ -59,6 +65,18 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 					<p>{post.wordCount.words + post.fields.inlineCount} words</p>
 				</div>
 			</div>
+			{!!post.frontmatter.originalLink && (
+				<p className={styles.originalLink}>
+					Originally posted at&nbsp;
+					<a
+						href={post.frontmatter.originalLink}
+						target="_blank"
+						rel="nofollow noopener noreferrer"
+					>
+						{originalHost}
+					</a>
+				</p>
+			)}
 		</div>
 	);
 };

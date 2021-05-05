@@ -30,12 +30,12 @@ import React, {
 	useContext,
 	useEffect,
 	useMemo,
-	useState
+	useState,
 } from "react";
 import classNames from "classnames";
 import posed from "react-pose";
 
-import filterStyles from "./filter-listbox.module.scss";
+import * as filterStyles from "./filter-listbox.module.scss";
 
 import FilterIcon from "assets/icons/filter.svg";
 import CheckIcon from "assets/icons/check.svg";
@@ -43,7 +43,7 @@ import UncheckIcon from "assets/icons/unchecked.svg";
 
 import {
 	usePopoverCombobox,
-	UseSelectableArrayInternalVal
+	UseSelectableArrayInternalVal,
 } from "batteries-not-included/react/a11y";
 import { SearchAndFilterContext } from "uu-constants";
 import { useElementBounds } from "uu-utils";
@@ -61,18 +61,18 @@ const FilterListItem = ({
 	index,
 	active,
 	expanded,
-	selectIndex
+	selectIndex,
 }: FilterListItemProps) => {
 	const liClassName = classNames(filterStyles.option, {
 		[filterStyles.active]: active.index === index,
 		[filterStyles.selected]: tag.selected,
-		[filterStyles.expanded]: expanded
+		[filterStyles.expanded]: expanded,
 	});
 	return (
 		<li
 			className={liClassName}
 			role="option"
-			onClick={e => expanded && selectIndex(index, e, e.type)}
+			onClick={(e) => expanded && selectIndex(index, e, e.type)}
 			id={tag.id as string}
 			aria-selected={tag.selected}
 		>
@@ -85,17 +85,17 @@ const FilterListItem = ({
 const FilterDisplaySpan = posed.span({
 	initial: {
 		width: (props: any) => props.wiidth || 0,
-		height: (props: any) => props.heiight
-	}
+		height: (props: any) => props.heiight,
+	},
 });
 
 const ListIdBox = posed.ul({
 	expanded: {
-		height: "auto"
+		height: "auto",
 	},
 	hidden: {
-		height: (props: any) => props.heiight
-	}
+		height: (props: any) => props.heiight,
+	},
 });
 
 interface FilterListboxProps {
@@ -115,7 +115,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 		expanded,
 		usedKeyboardLast,
 		parentRef,
-		buttonProps
+		buttonProps,
 	} = usePopoverCombobox<string>(postTags);
 
 	// Set the selected array value to match the parent combobox
@@ -127,7 +127,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 	// What should the selected text show
 	const selectedString = useMemo(() => {
 		if (!selected.length) return "";
-		return selected.map(v => v.val).join(", ");
+		return selected.map((v) => v.val).join(", ");
 	}, [selected]);
 
 	/**
@@ -138,11 +138,11 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 	// Get a callback reference to get the element bounds
 	const {
 		ref: elBoundsCBRef,
-		val: { height: buttonHeight }
+		val: { height: buttonHeight },
 	} = useElementBounds([]);
 	// Create a callback reference to compose both the callback bound ref and the "real" ref
 	const btnCallbackRef = useCallback(
-		node => {
+		(node) => {
 			elBoundsCBRef(node);
 			setButtonNode(node);
 		},
@@ -165,19 +165,19 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 	// Get the width of just displaying "Filter"
 	const {
 		ref: getFilterStrWidthFromRef,
-		val: { width: filterStrWidth, height: filterStrHeight }
+		val: { width: filterStrWidth, height: filterStrHeight },
 	} = useElementBounds([]);
 	// Get the width of the "selected" value string in order to set the box
 	// width to it for an animation effect
 	const {
 		ref: getSelectedStrWidthFromRef,
-		val: { width: selectedStrWidth }
+		val: { width: selectedStrWidth },
 	} = useElementBounds([selected]);
 	// Get the top level container width so we can set it as a max width for the
 	// selected string span so we can cut it with `...` properly
 	const {
 		ref: getContainerWidthFromRef,
-		val: { width: topLevelContainerWidth }
+		val: { width: topLevelContainerWidth },
 	} = useElementBounds([]);
 
 	// Set that max width value mentioned above but add some padding for the btn
@@ -198,28 +198,28 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 	const containerClassName = classNames({
 		[filterStyles.expanded]: expanded,
 		[filterStyles.container]: true,
-		[className || ""]: true
+		[className || ""]: true,
 	});
 
 	const filterTextClasses = classNames({
 		[filterStyles.show]: shouldShowFilterMsg,
-		[filterStyles.placeholder]: true
+		[filterStyles.placeholder]: true,
 	});
 
 	const filterIconClasses = classNames({
 		expandedIcon: expanded,
-		[filterStyles.icon]: true
+		[filterStyles.icon]: true,
 	});
 
 	const listBoxClasses = classNames({
 		[filterStyles.hasTags]: !!selected.length,
 		[filterStyles.listbox]: true,
-		[filterStyles.isKeyboard]: usedKeyboardLast
+		[filterStyles.isKeyboard]: usedKeyboardLast,
 	});
 
 	const appliedStrClasses = classNames({
 		[filterStyles.show]: !shouldShowFilterMsg,
-		[filterStyles.appliedTags]: true
+		[filterStyles.appliedTags]: true,
 	});
 
 	return (
@@ -259,7 +259,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 							ref={getSelectedStrWidthFromRef}
 							className={appliedStrClasses}
 							style={{
-								maxWidth: maxSelectedStrWidth
+								maxWidth: maxSelectedStrWidth,
 							}}
 						>
 							{selectedString}

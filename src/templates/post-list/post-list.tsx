@@ -28,7 +28,7 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 			<div>
 				<PostListProvider posts={posts} pageContext={pageContext}>
 					<PostListHeader
-						image={data.file.childImageSharp.fixed}
+						image={data.file.childImageSharp.gatsbyImageData}
 						siteMetadata={data.site.siteMetadata}
 					/>
 					<main>
@@ -59,9 +59,7 @@ export const postInfoListDisplayFragmentQuery = graphql`
 				color
 				profileImg {
 					childImageSharp {
-						smallPic: fixed(width: 60) {
-							...GatsbyImageSharpFixed
-						}
+						smallPic: gatsbyImageData(layout: FIXED, width: 60)
 					}
 				}
 			}
@@ -96,9 +94,7 @@ export const pageQuery = graphql`
 		}
 		file(relativePath: { eq: "unicorn_utterances_logo_512.png" }) {
 			childImageSharp {
-				fixed(width: 300, quality: 100) {
-					...GatsbyImageSharpFixed
-				}
+				gatsbyImageData(layout: FIXED, width: 300, quality: 100)
 			}
 		}
 	}

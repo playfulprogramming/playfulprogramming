@@ -21,7 +21,7 @@ const emptyVal: ReturnType = {
 	left: 0,
 	right: 0,
 	top: 0,
-	width: 0
+	width: 0,
 };
 
 /**
@@ -60,6 +60,6 @@ export const useElementBounds = (
 
 	return {
 		ref,
-		val
+		val,
 	};
 };
