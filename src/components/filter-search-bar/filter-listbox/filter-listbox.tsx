@@ -83,13 +83,6 @@ const FilterListItem = ({
 	);
 };
 
-// const FilterDisplaySpan = posed.span({
-// 	initial: {
-// 		width: (props: any) => props.wiidth || 0,
-// 		height: (props: any) => props.heiight,
-// 	},
-// });
-
 const FilterDisplaySpan = ({
 	children,
 	...props
@@ -102,7 +95,12 @@ const FilterDisplaySpan = ({
 	};
 
 	return (
-		<motion.span {...props} variants={variants} animate={"initial"}>
+		<motion.span
+			{...props}
+			variants={variants}
+			animate={"initial"}
+			transition={{ ease: "linear", duration: 0.2 }}
+		>
 			{children}
 		</motion.span>
 	);
@@ -122,20 +120,15 @@ const ListIdBox = ({
 	};
 
 	return (
-		<motion.ul {...props} variants={variants}>
+		<motion.ul
+			{...props}
+			variants={variants}
+			transition={{ ease: "linear", duration: 0.2 }}
+		>
 			{children}
 		</motion.ul>
 	);
 };
-
-// const ListIdBox = posed.ul({
-// 	expanded: {
-// 		height: "auto",
-// 	},
-// 	hidden: {
-// 		height: (props: any) => props.heiight,
-// 	},
-// });
 
 interface FilterListboxProps {
 	className?: string;
