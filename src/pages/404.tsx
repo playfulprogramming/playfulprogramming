@@ -14,7 +14,7 @@ class NotFoundPage extends React.Component {
 
 		return (
 			<Layout location={location}>
-				<SEO title="404: Not Found" canonicalPath={location.pathname} />
+				<SEO title="404: Not Found" pathName={location.pathname} />
 				<GatsbyImage
 					image={data.file.childImageSharp.gatsbyImageData}
 					imgStyle={{ objectFit: "contain" }}

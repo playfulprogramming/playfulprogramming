@@ -61,7 +61,8 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 				editedTime={post.frontmatter.edited}
 				keywords={post.frontmatter.tags}
 				type="article"
-				canonicalPath={props.location.pathname}
+				pathName={props.location.pathname}
+				canonical={post.frontmatter.originalLink}
 			/>
 			<article>
 				<BlogPostLayout

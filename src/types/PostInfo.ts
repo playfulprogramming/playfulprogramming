@@ -14,6 +14,7 @@ export interface PostInfo {
 		description: string;
 		authors: Array<UnicornInfo>;
 		license: LicenseInfo;
+		originalLink?: string;
 	};
 	fields: {
 		slug: string;

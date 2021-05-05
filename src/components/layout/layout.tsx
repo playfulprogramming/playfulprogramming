@@ -90,6 +90,7 @@ export const postFragmentQuery = graphql`
 			edited(formatString: "MMMM DD, YYYY")
 			tags
 			description
+			originalLink
 			authors {
 				...UnicornInfo
 			}

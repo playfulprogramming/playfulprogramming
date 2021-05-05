@@ -99,7 +99,8 @@ interface SEOProps {
 	publishedTime?: string;
 	editedTime?: string;
 	type?: "article" | "profile";
-	canonicalPath?: string;
+	pathName?: string;
+	canonical?: string;
 }
 
 export const SEO = ({
@@ -112,7 +113,8 @@ export const SEO = ({
 	publishedTime,
 	editedTime,
 	type,
-	canonicalPath,
+	pathName,
+	canonical,
 }: SEOProps) => {
 	const { site } = useStaticQuery(
 		graphql`
@@ -157,11 +159,12 @@ export const SEO = ({
 				{ rel: "icon", href: "/favicon.ico" },
 				{ rel: "preconnect", href: "https://www.google.com" },
 				{ rel: "preconnect", href: "https://marketingplatform.google.com" },
+				...(canonical ? [{ rel: "canonical", href: canonical }] : []),
 			]}
 			meta={[
 				{
 					property: `og:url`,
-					content: siteData.siteUrl + (canonicalPath || ""),
+					content: siteData.siteUrl + (pathName || ""),
 				},
 				{
 					property: `og:site_name`,

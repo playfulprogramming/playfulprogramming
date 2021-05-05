@@ -4,12 +4,13 @@
 
 .container {
 	display: flex;
-	flex-wrap: nowrap;
 	max-width: 768px;
 	margin-bottom: 16px;
+	flex-wrap: wrap;
 
 	@include from($endSmallScreenSize) {
 		margin-bottom: 24px;
+		flex-wrap: nowrap;
 	}
 }
 
@@ -56,5 +57,16 @@
 
 	@include until($endSmallScreenSize) {
 		display: none;
+	}
+}
+
+.originalLink {
+	@extend %caption;
+
+	flex-basis: 100%;
+
+	@include from($endSmallScreenSize) {
+		margin-left: auto;
+		flex-basis: auto;
 	}
 }

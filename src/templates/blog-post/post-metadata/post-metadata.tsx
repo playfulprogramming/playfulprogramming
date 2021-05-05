@@ -29,6 +29,12 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 		[authors]
 	);
 
+	const originalHost = useMemo(() => {
+		if (!post.frontmatter.originalLink) return "";
+		const url = new URL(post.frontmatter.originalLink);
+		return url.host;
+	}, [post.frontmatter.originalLink]);
+
 	return (
 		<div className={styles.container}>
 			<UserProfilePic
@@ -59,6 +65,18 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 					<p>{post.wordCount.words + post.fields.inlineCount} words</p>
 				</div>
 			</div>
+			{!!post.frontmatter.originalLink && (
+				<p className={styles.originalLink}>
+					Originally posted at&nbsp;
+					<a
+						href={post.frontmatter.originalLink}
+						target="_blank"
+						rel="nofollow noopener noreferrer"
+					>
+						{originalHost}
+					</a>
+				</p>
+			)}
 		</div>
 	);
 };

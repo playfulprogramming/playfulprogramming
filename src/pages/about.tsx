@@ -77,7 +77,7 @@ const AboutUs = (props: any) => {
 			<SEO
 				title={post.frontmatter.title}
 				description={post.frontmatter.description || post.excerpt}
-				canonicalPath={props.location.pathname}
+				pathName={props.location.pathname}
 			/>
 			<div className={style.container}>
 				<div className={style.headerTitle}>
