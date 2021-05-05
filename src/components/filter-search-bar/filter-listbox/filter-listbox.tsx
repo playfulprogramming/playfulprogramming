@@ -33,7 +33,6 @@ import React, {
 	useState,
 } from "react";
 import classNames from "classnames";
-// import posed from "react-pose";
 import { motion, Variants } from "framer-motion";
 
 import * as filterStyles from "./filter-listbox.module.scss";
@@ -106,29 +105,29 @@ const FilterDisplaySpan = ({
 	);
 };
 
-const ListIdBox = ({
-	children,
-	...props
-}: React.ComponentProps<typeof motion.ul>) => {
-	const variants: Variants = {
-		expanded: {
-			height: "auto",
-		},
-		hidden: (target) => ({
-			height: target,
-		}),
-	};
+const ListIdBox = React.forwardRef<any, React.ComponentProps<typeof motion.ul>>(
+	({ children, ...props }, ref) => {
+		const variants: Variants = {
+			expanded: {
+				height: "auto",
+			},
+			hidden: (target) => ({
+				height: target,
+			}),
+		};
 
-	return (
-		<motion.ul
-			{...props}
-			variants={variants}
-			transition={{ ease: "linear", duration: 0.2 }}
-		>
-			{children}
-		</motion.ul>
-	);
-};
+		return (
+			<motion.ul
+				{...props}
+				variants={variants}
+				transition={{ ease: "linear", duration: 0.2 }}
+				ref={ref}
+			>
+				{children}
+			</motion.ul>
+		);
+	}
+);
 
 interface FilterListboxProps {
 	className?: string;
