@@ -33,7 +33,7 @@ import React, {
 	useState,
 } from "react";
 import classNames from "classnames";
-import posed from "react-pose";
+import { motion, Variants } from "framer-motion";
 
 import * as filterStyles from "./filter-listbox.module.scss";
 
@@ -82,21 +82,52 @@ const FilterListItem = ({
 	);
 };
 
-const FilterDisplaySpan = posed.span({
-	initial: {
-		width: (props: any) => props.wiidth || 0,
-		height: (props: any) => props.heiight,
-	},
-});
+const FilterDisplaySpan = ({
+	children,
+	...props
+}: React.ComponentProps<typeof motion.span>) => {
+	const variants: Variants = {
+		initial: (target) => ({
+			width: target.width || 0,
+			height: target.height,
+		}),
+	};
 
-const ListIdBox = posed.ul({
-	expanded: {
-		height: "auto",
-	},
-	hidden: {
-		height: (props: any) => props.heiight,
-	},
-});
+	return (
+		<motion.span
+			{...props}
+			variants={variants}
+			animate={"initial"}
+			transition={{ ease: "linear", duration: 0.2 }}
+		>
+			{children}
+		</motion.span>
+	);
+};
+
+const ListIdBox = React.forwardRef<any, React.ComponentProps<typeof motion.ul>>(
+	({ children, ...props }, ref) => {
+		const variants: Variants = {
+			expanded: {
+				height: "auto",
+			},
+			hidden: (target) => ({
+				height: target,
+			}),
+		};
+
+		return (
+			<motion.ul
+				{...props}
+				variants={variants}
+				transition={{ ease: "linear", duration: 0.2 }}
+				ref={ref}
+			>
+				{children}
+			</motion.ul>
+		);
+	}
+);
 
 interface FilterListboxProps {
 	className?: string;
@@ -242,10 +273,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 					{<FilterIcon className={filterIconClasses} aria-hidden={true} />}
 					<FilterDisplaySpan
 						className={filterStyles.textContainer}
-						pose="initial"
-						heiight={filterStrHeight}
-						poseKey={filterContentsWidth}
-						wiidth={filterContentsWidth}
+						custom={{ height: filterStrHeight, width: filterContentsWidth }}
 					>
 						<span
 							aria-hidden={true}
@@ -269,16 +297,15 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
 				<ListIdBox
 					id="listBoxID"
 					role="listbox"
-					ref={comboBoxListRef}
+					ref={comboBoxListRef as any}
 					className={listBoxClasses}
 					aria-labelledby="exp_elem"
 					tabIndex={-1}
 					aria-hidden={!expanded}
 					aria-multiselectable="true"
 					aria-activedescendant={active ? (active.id as string) : ""}
-					heiight={buttonHeight}
-					poseKey={buttonHeight}
-					pose={expanded ? "expanded" : "hidden"}
+					custom={buttonHeight}
+					animate={expanded ? "expanded" : "hidden"}
 				>
 					<div className={filterStyles.filterListHideContainer}>
 						<div className={filterStyles.spacer} />
