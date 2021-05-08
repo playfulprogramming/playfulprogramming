@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "gatsby build",
+    "build-beta": "BUILD_ENV=development npm run build",
     "debug": "gatsby clean && node --nolazy --inspect-brk --max-old-space-size=2000 ./node_modules/gatsby/dist/bin/gatsby.js develop",
     "develop": "gatsby develop",
     "format": "run-s format:**",

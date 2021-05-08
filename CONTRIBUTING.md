@@ -6,8 +6,6 @@ As a site and community alike, we have a myriad of ways to contribute to the sit
     - [Markdown Post](#Markdown-Post)
   - [Editing a Blog Post](#Editing-a-Blog-Post)
 - [Code Contributions](#Code)
-- [Deployment](#Deployment)
-
 
 # Blog Posts
 
@@ -149,32 +147,6 @@ Keep in mind that we request developers reach out [via our Discord](https://disc
 
 To start the development server, run `npm run develop`, it will then start the local instance at `http://localhost:8000`. You also can check out the GraphiQL tool at `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
 
-
 ## Debugging Plugins
 
 We have a few local plugins for Gatsby. However, I've found that while debugging these plugins, Gatsby's cache can often get in the way. If you run `npm run debug`, it will create a debuggable ([using Chrome](https://unicorn-utterances.com/posts/debugging-nodejs-programs-using-chrome/)) instance of the Gatsby develop mode and clear the cache of Gatsby. This script will ensure that your debugger provides proper insight into what's happening in the build process.
-
-# Deployment
-
-## Git Strategy
-We loosely follow [the Gitflow branching strategy](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-where our development branch is called `integration`, and our mainline branch is called `master`.
-
-This means that any new pull requests should be made against `integration`
-unless it is an emergency hotfix (to be approved by the DevOps team).
-
-We also have the `master` branch, which is a live reflection of the code
-hosted on the server. Any time `integration` is pulled into `master`, the
-site will be deployed. A PR from `integration` to `master` should only be
-opened by a Unicorn Utterances team member and must be approved by at
-least one DevOps member
-
-## CI/CD
-
-As mentioned before, we follow the GitFlow branching strategy. What we didn't say before is how we utilize those branches to deploy our code. Upon a PR being merged into `integration`, we have [a GitHub Action to deploy](https://github.com/unicorn-utterances/unicorn-utterances/actions?query=workflow%3Atesting-deploying) those changes to our beta link:
-
-[https://beta.unicorn-utterances.com](https://beta.unicorn-utterances.com)
-
-Likewise, we make periodic PRs to the `master` branch. We call these PR's `Integration merge MM/DD/YY`. These PRs **must** be approved by one or more of the members of the DevOps team before being able to be merged. Upon merging, there will be an automated deployment ([using the same GitHub action](https://github.com/unicorn-utterances/unicorn-utterances/actions?query=workflow%3Atesting-deploying)) to our homepage:
-
-[https://unicorn-utterances.com](https://unicorn-utterances.com)
