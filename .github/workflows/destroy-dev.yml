@@ -38,3 +38,4 @@ jobs:
           token: ${{ github.token }}
           env: ${{ steps.get_branch.outputs.branch }}
           desc: Deployment was pruned
+          
