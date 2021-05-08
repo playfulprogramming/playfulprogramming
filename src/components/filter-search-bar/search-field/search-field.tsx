@@ -2,16 +2,33 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import * as styles from "./search-field.module.scss";
 import classNames from "classnames";
 import SearchIcon from "assets/icons/search.svg";
-import posed from "react-pose";
 import { SearchAndFilterContext } from "uu-constants";
 import { useElementBounds } from "uu-utils";
+import { motion, Variants } from "framer-motion";
 
 const placeholder = "Search";
 
-const PosedInput = posed.input({
-	initial: {
-		width: (props: { wiidth: number }) => props.wiidth,
-	},
+const PosedInput = React.forwardRef<
+	any,
+	React.ComponentProps<typeof motion.input>
+>(({ children, ...props }, ref) => {
+	const variants: Variants = {
+		initial: (target) => ({
+			width: target,
+		}),
+	};
+
+	return (
+		<motion.input
+			{...props}
+			variants={variants}
+			animate={"initial"}
+			transition={{ ease: "linear", duration: 0.2 }}
+			ref={ref}
+		>
+			{children}
+		</motion.input>
+	);
 });
 
 export const SearchField = ({ className }: { className?: string }) => {
@@ -71,9 +88,7 @@ export const SearchField = ({ className }: { className?: string }) => {
 							const val = (e.target as HTMLInputElement).value;
 							setSearchVal(val);
 						}}
-						wiidth={innerWinSize >= 450 ? currInputWidth : "100%"}
-						poseKey={`${searchVal || currInputWidth}${innerWinSize}`}
-						pose="initial"
+						custom={innerWinSize >= 450 ? currInputWidth : "100%"}
 						value={searchVal}
 						onFocus={() => setIsFocused(true)}
 						style={{ maxWidth: maxSpanWidth }}

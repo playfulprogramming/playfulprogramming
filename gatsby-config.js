@@ -3,11 +3,20 @@ const { SeriesToC } = require("./src/components/series-toc");
 let CONSTS = require("./config/gatsby-config-consts");
 if (!CONSTS) CONSTS = {};
 
+const buildMode = process.env.BUILD_ENV || "production";
+const siteUrl =
+	process.env.SITE_URL ||
+	(buildMode === "production"
+		? "https://unicorn-utterances.com"
+		: "https://beta.unicorn-utterances.com");
+
+console.log(`Building for ${buildMode} at ${siteUrl}`);
+
 module.exports = {
 	siteMetadata: {
 		title: `Unicorn Utterances`,
 		description: `Learning programming from magically majestic words. A place to learn about all sorts of programming topics from entry-level concepts to advanced abstractions`,
-		siteUrl: `https://unicorn-utterances.com/`,
+		siteUrl,
 		disqusShortname: "unicorn-utterances",
 		repoPath: "unicorn-utterances/unicorn-utterances",
 		relativeToPosts: "/content/blog",
@@ -65,7 +74,7 @@ module.exports = {
 						options: {
 							maxWidth: 590,
 							linkImagesToOriginal: false,
-							backgroundColor: 'transparent'
+							backgroundColor: `transparent`
 						}
 					},
 					{
@@ -340,11 +349,11 @@ module.exports = {
 		{
 			resolve: "gatsby-plugin-robots-txt",
 			options: {
-				resolveEnv: () => process.env.GITHUB_REF,
+				resolveEnv: () => buildMode,
 				env: {
-					"refs/heads/integration": {
-						host: "https://beta.unicorn-utterances.com/sitemap.xml",
-						sitemap: "https://beta.unicorn-utterances.com/sitemap.xml",
+					development: {
+						host: siteUrl,
+						sitemap: `${siteUrl}/sitemap.xml`,
 						policy: [
 							{
 								userAgent: "*",
@@ -352,9 +361,9 @@ module.exports = {
 							}
 						]
 					},
-					"refs/heads/master": {
-						host: "https://unicorn-utterances.com/sitemap.xml",
-						sitemap: `https://unicorn-utterances.com/sitemap.xml`,
+					production: {
+						host: siteUrl,
+						sitemap: `${siteUrl}/sitemap.xml`,
 						policy: [
 							{
 								userAgent: "*",
@@ -364,7 +373,7 @@ module.exports = {
 					}
 				}
 			}
-		},
+		}
 	],
 	mapping: {
 		"MarkdownRemark.frontmatter.authors": `UnicornsJson`,
