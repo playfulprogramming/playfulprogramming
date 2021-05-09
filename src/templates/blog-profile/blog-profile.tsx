@@ -7,7 +7,7 @@ import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
-	PageContext
+	PageContext,
 } from "uu-types";
 import { PostList } from "components/post-card-list";
 import { Pagination } from "components/pagination";

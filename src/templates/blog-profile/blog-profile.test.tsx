@@ -13,8 +13,8 @@ import { axe } from "jest-axe";
 beforeAll(() => {
 	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
-			siteMetadata
-		}
+			siteMetadata,
+		},
 	}));
 });
 
@@ -29,28 +29,28 @@ const getElement = () => (
 			skipNumber: 0,
 			pageIndex: 1,
 			numberOfPages: 1,
-			absolutePath: "/"
+			absolutePath: "/",
 		}}
 		data={{
 			site: {
-				siteMetadata
+				siteMetadata,
 			},
 			unicornsJson: MockUnicorn,
 			allMarkdownRemark: {
 				totalCount: 2,
 				edges: [
 					{
-						node: MockPost
+						node: MockPost,
 					},
 					{
-						node: MockMultiAuthorPost
-					}
-				] as any
-			}
+						node: MockMultiAuthorPost,
+					},
+				] as any,
+			},
 		}}
 		location={
 			{
-				pathname: "/post/this-post-name-here"
+				pathname: "/post/this-post-name-here",
 			} as any
 		}
 	/>

@@ -1,5 +1,4 @@
 import { UnicornInfo } from "./UnicornInfo";
-import { LicenseInfo } from "./LicenseInfo";
 
 export interface PostInfoListDisplay {
 	id: string;

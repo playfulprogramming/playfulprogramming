@@ -36,7 +36,7 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
 			marginPagesDisplayed={2}
 			forcePage={pageIndex}
 			pageRangeDisplayed={5}
-			hrefBuilder={pageIndex => `${absolutePath}page/${pageIndex}`}
+			hrefBuilder={(pageIndex) => `${absolutePath}page/${pageIndex}`}
 			containerClassName="pagination"
 			activeClassName="active"
 			onPageChange={({ selected }) => {
