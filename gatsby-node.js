@@ -200,7 +200,7 @@ exports.createPages = ({ graphql, actions }) => {
 			const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage);
 
 			createPage({
-				path: `/unicorns/${unicorn.node.id}/`,
+				path: `/unicorns/${uniId}/`,
 				component: blogProfile,
 				context: {
 					slug: uniId,
@@ -208,7 +208,7 @@ exports.createPages = ({ graphql, actions }) => {
 					skipNumber: 0,
 					pageIndex: 1,
 					numberOfPages: numberOfUniPages,
-					absolutePath: `/unicorns/${unicorn.node.id}/`
+					absolutePath: `/unicorns/${uniId}/`
 				}
 			});
 
@@ -225,7 +225,7 @@ exports.createPages = ({ graphql, actions }) => {
 						skipNumber,
 						pageIndex: pageNum,
 						numberOfPages: numberOfUniPages,
-						absolutePath: `/unicorns/${unicorn.node.id}/`
+						absolutePath: `/unicorns/${uniId}/`
 					}
 				});
 			}
