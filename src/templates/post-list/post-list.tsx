@@ -33,9 +33,9 @@ const BlogPostListTemplate = (props: BlogPostListTemplateProps) => {
 					/>
 					<main>
 						<FilterSearchBar />
-						<PostList listAriaLabel={`List of posts`} />
+						<PostList listAriaLabel="List of posts" />
 					</main>
-					<Pagination pageContext={pageContext} />
+					<Pagination absolutePath={pageContext.absolutePath} />
 				</PostListProvider>
 			</div>
 		</Layout>

@@ -69,4 +69,3 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: https://unicorn-utterances.com
-          

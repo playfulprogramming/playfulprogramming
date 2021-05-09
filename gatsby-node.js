@@ -148,7 +148,7 @@ exports.createPages = ({ graphql, actions }) => {
 			}
 
 			createPage({
-				path: `posts${post.node.fields.slug}`,
+				path: `/posts${post.node.fields.slug}`,
 				component: blogPost,
 				context: {
 					slug: post.node.fields.slug,
@@ -162,14 +162,14 @@ exports.createPages = ({ graphql, actions }) => {
 		const numberOfPages = Math.ceil(posts.length / postsPerPage);
 
 		createPage({
-			path: `/`,
+			path: "/",
 			component: postList,
 			context: {
 				limitNumber: postsPerPage,
 				skipNumber: 0,
 				pageIndex: 1,
 				numberOfPages,
-				relativePath: ""
+				absolutePath: "/"
 			}
 		});
 
@@ -178,14 +178,14 @@ exports.createPages = ({ graphql, actions }) => {
 			const pageNum = i + 1;
 			const skipNumber = postsPerPage * i;
 			createPage({
-				path: `page/${pageNum}`,
+				path: `/page/${pageNum}/`,
 				component: postList,
 				context: {
 					limitNumber: postsPerPage,
 					skipNumber,
 					pageIndex: pageNum,
 					numberOfPages,
-					relativePath: ""
+					absolutePath: "/"
 				}
 			});
 		}
@@ -200,7 +200,7 @@ exports.createPages = ({ graphql, actions }) => {
 			const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage);
 
 			createPage({
-				path: `unicorns/${unicorn.node.id}`,
+				path: `/unicorns/${uniId}/`,
 				component: blogProfile,
 				context: {
 					slug: uniId,
@@ -208,7 +208,7 @@ exports.createPages = ({ graphql, actions }) => {
 					skipNumber: 0,
 					pageIndex: 1,
 					numberOfPages: numberOfUniPages,
-					relativePath: `unicorns/${uniId}`
+					absolutePath: `/unicorns/${uniId}/`
 				}
 			});
 
@@ -217,7 +217,7 @@ exports.createPages = ({ graphql, actions }) => {
 				const pageNum = i + 1;
 				const skipNumber = postsPerPage * i;
 				createPage({
-					path: `unicorns/${uniId}/page/${pageNum}`,
+					path: `/unicorns/${uniId}/page/${pageNum}/`,
 					component: blogProfile,
 					context: {
 						slug: uniId,
@@ -225,7 +225,7 @@ exports.createPages = ({ graphql, actions }) => {
 						skipNumber,
 						pageIndex: pageNum,
 						numberOfPages: numberOfUniPages,
-						relativePath: `unicorns/${uniId}`
+						absolutePath: `/unicorns/${uniId}/`
 					}
 				});
 			}

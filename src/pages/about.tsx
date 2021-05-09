@@ -33,7 +33,6 @@ const AboutUs = (props: any) => {
 	const {
 		file,
 		markdownRemark: post,
-		site,
 		allUnicornsJson: unicorns,
 	} = useStaticQuery(graphql`
 		query AboutUsQuery {
@@ -64,9 +63,6 @@ const AboutUs = (props: any) => {
 		}
 	`);
 
-	const {
-		siteMetadata: { title: siteTitle },
-	} = site;
 	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
 	const {
 		childImageSharp: { gatsbyImageData: imageFixed },

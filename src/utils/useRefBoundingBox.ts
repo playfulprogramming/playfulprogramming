@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useAfterInit } from "./useAfterInit";
 import { useWindowSize } from "./useWindowSize";
 

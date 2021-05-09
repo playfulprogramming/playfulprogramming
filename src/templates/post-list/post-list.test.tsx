@@ -6,7 +6,7 @@ import { fireEvent, render } from "@testing-library/react";
 import ReactDOMServer from "react-dom/server";
 import { axe } from "jest-axe";
 import {
-	onLinkClick as onGarsbyLinkClick,
+	onLinkClick as onGatsbyLinkClick,
 	onLinkClick,
 	useStaticQuery,
 } from "gatsby";
@@ -34,7 +34,7 @@ const getElement = () => (
 			skipNumber: 0,
 			pageIndex: 1,
 			numberOfPages: 1,
-			relativePath: "",
+			absolutePath: "/",
 		}}
 		data={{
 			site: {
@@ -89,7 +89,7 @@ test("Blog index page renders", async () => {
 
 	const authorImgs = await findAllByTestId("author-pic-0");
 	fireEvent.click(authorImgs[0]);
-	expect(onGarsbyLinkClick).toHaveBeenCalledTimes(5);
+	expect(onGatsbyLinkClick).toHaveBeenCalledTimes(5);
 });
 
 test.skip("Blog index page should not have axe errors", async () => {

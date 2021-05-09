@@ -1,7 +1,7 @@
 /**
  * This is both a JS file and using CJS because it's used in `gatsby-config`
  */
-exports.SeriesToC = context => {
+exports.SeriesToC = (context) => {
 	const { items, name, markdownNode } = context;
 	const list = items.reduce((code, item, i) => {
 		const isActive = item.slug.endsWith(markdownNode.fields.slug);
