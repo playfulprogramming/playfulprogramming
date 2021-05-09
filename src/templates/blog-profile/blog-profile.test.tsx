@@ -6,15 +6,15 @@ import { useStaticQuery } from "gatsby";
 import { MockUnicorn } from "__mocks__/data/mock-unicorn";
 import BlogProfile from "./blog-profile";
 import { onLinkClick as onAnalyticsLinkClick } from "gatsby-plugin-google-analytics";
-import { onLinkClick as onGarsbyLinkClick } from "gatsby";
+import { onLinkClick as onGatsbyLinkClick } from "gatsby";
 import ReactDOMServer from "react-dom/server";
 import { axe } from "jest-axe";
 
 beforeAll(() => {
 	(useStaticQuery as jest.Mock).mockImplementation(() => ({
 		site: {
-			siteMetadata,
-		},
+			siteMetadata
+		}
 	}));
 });
 
@@ -29,28 +29,28 @@ const getElement = () => (
 			skipNumber: 0,
 			pageIndex: 1,
 			numberOfPages: 1,
-			relativePath: "",
+			absolutePath: "/"
 		}}
 		data={{
 			site: {
-				siteMetadata,
+				siteMetadata
 			},
 			unicornsJson: MockUnicorn,
 			allMarkdownRemark: {
 				totalCount: 2,
 				edges: [
 					{
-						node: MockPost,
+						node: MockPost
 					},
 					{
-						node: MockMultiAuthorPost,
-					},
-				] as any,
-			},
+						node: MockMultiAuthorPost
+					}
+				] as any
+			}
 		}}
 		location={
 			{
-				pathname: "/post/this-post-name-here",
+				pathname: "/post/this-post-name-here"
 			} as any
 		}
 	/>
@@ -92,11 +92,11 @@ test("Blog profile page renders", async () => {
 	).toBeInTheDocument();
 
 	fireEvent.click(await findByText("Post title"));
-	expect(onGarsbyLinkClick).toHaveBeenCalledTimes(2);
+	expect(onGatsbyLinkClick).toHaveBeenCalledTimes(2);
 
 	const authorImgs = await findAllByTestId("author-pic-0");
 	fireEvent.click(authorImgs[0]);
-	expect(onGarsbyLinkClick).toHaveBeenCalledTimes(4);
+	expect(onGatsbyLinkClick).toHaveBeenCalledTimes(4);
 });
 
 test.skip("Blog profile page should not have axe errors", async () => {

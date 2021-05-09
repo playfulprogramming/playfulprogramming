@@ -7,7 +7,7 @@ import {
 	SiteInfo,
 	UnicornInfo,
 	PostInfoListDisplay,
-	PageContext,
+	PageContext
 } from "uu-types";
 import { PostList } from "components/post-card-list";
 import { Pagination } from "components/pagination";
@@ -69,7 +69,7 @@ const BlogProfile = (props: BlogProfileProps) => {
 						listAriaLabel={`List of posts written by ${unicornData.name}`}
 					/>
 				</main>
-				<Pagination pageContext={pageContext} />
+				<Pagination absolutePath={pageContext.absolutePath} />
 			</PostListProvider>
 		</Layout>
 	);

@@ -3,5 +3,5 @@ export interface PageContext {
 	skipNumber: number;
 	pageIndex: number;
 	numberOfPages: number;
-	relativePath: string;
+	absolutePath: string;
 }
