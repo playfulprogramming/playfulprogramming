@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   deploy:
-    if: github.repository_owner === 'unicorn-utterances'
+    if: github.repository_owner == 'unicorn-utterances'
     runs-on: ubuntu-latest
     env:
       CI: true
@@ -81,4 +81,3 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: https://${{ steps.get_branch.outputs.branch }}.unicorn-utterances.com
-          
