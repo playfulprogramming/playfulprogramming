@@ -1,3 +1,16 @@
+---
+{
+    title: "Introduction to Web Accessibility (A11Y)",
+    description: "",
+    published: '2021-05-30T22:12:03.284Z',
+    authors: ['crutchcorn'],
+    tags: ['a11y', 'javascript', 'web'],
+    attached: [],
+    license: 'coderpad',
+    originalLink: 'https://coderpad.io/blog/rust-enums-matching-options-api/'
+}
+---
+
 # Friendly Foundations
 
 If you're coming across this article and haven't heard about "accessibility" (often shortened to "A11Y") before, that's okay. We're all learning at different speeds and come across new things all the time. That said, accessibility is a critical component to any frontend engineer's responsibilities. We implore you to explore what that means, not just in this blog post but beyond with your teams and communities.
@@ -158,7 +171,7 @@ In this example you can see that the text passes the WCAG AA requirements for la
 
 
 
-
+https://www.24a11y.com/2019/pixels-vs-relative-units-in-css-why-its-still-a-big-deal/
 
 
 
@@ -188,7 +201,7 @@ You can do the same in Firefox in [your preferences](about:preferences#general).
 
 ![Font settings in Firefox](./firefox_font_size.png)
 
-# Keyboard is King
+# Keyboard is King {#keyboard}
 
 While the average of users might utilize your application with a mouse
 
@@ -198,13 +211,31 @@ This impacts not only people that are using screen readers on your site, but ena
 
 https://www.w3.org/TR/WCAG21/#keyboard-no-exception
 
-# Humans Can’t Be Automated
+# Humans Can’t Be Automated {#no-automation}
+
+The perception for some is that accessibility is something that can be 1:1 adapted from an existing design. This is often untrue. You may want to add a "Skip to contents" button that only shows up with tabbing for some sites, while the visual order and tab order might need to be flipped for a better experience for screen-reader users. Remember, accessibility is a form of user experience that has to be crafted by hand. Each decision has nuance to it and there are rarely objectives of which experience is better than others. Because of this, many companies will have dedicated accessibility specialists alongside their design and engineering teams.
+
+You also need to make sure to [test your application](#testing) as you would any other part of your app. We'll touch on this more in a future section.
 
 If anyone is ever advertising to you that your project can be made accessible without any changes to your codebase: they're either lying to you or don't understand accessibility properly.
 
-# Test, Test, Test Again
+## Assistance is Amicable {#eslint}
 
+While full automation will never be possible for improving a project's accessibility, not everyone proposing assistance in the process is trying to sell snake-oil. 
 
+For example, [Deque's open source Axe project](https://github.com/dequelabs/axe-core) can help identify issues such as common HTML semantic errors, contrast problems, and more. There are even libraries that help integrate Axe into your project's linters such as one for React called [`eslint-plugin-jsx-a11y`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y).
+
+Keep in mind, however, that these tools are not infallible and are meant to supplement accessibility experts working with your engineering team, not replace them.
+
+# Test, Test, Test Again {#testing}
+
+Testing is a critical component to any application release. Whether using automated testing solutions or QA teams, they help ensure that your users are getting the best experience possible without regressions in an application's behavior.
+
+As a developer working on the frontend, you should be regularly turning on a screen-reader to analyze your site and navigating your application [with only your keyboard](#keyboard). This will help enforce the feedback loop between building the functionality and getting it shipped to users. Make it part of your PR review process - have other members of your team test with a screen-reader as they would visually analyze new features.
+
+You're also able to include automated tests that will help with A11Y regressions. Either using [integration tests](https://kentcdodds.com/blog/write-tests) or e2e tests, you can use real-world behavior such as "search for an element with this label" or "tab over to this button" to ensure your application is functioning as-intended.
+
+As mentioned in [a previous section](#no-automation), the process to make your app accessible cannot be fully automated. This extends to testing as well. While real-world automated tests are fine and well, you need someone to experience the application on a broader scale to make sure the experience is as fluid as it can be. While a specific component might be accessible by default, perhaps in specific usages it falls flat.
 
 # Fantastic Features
 
