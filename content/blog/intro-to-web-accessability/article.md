@@ -169,29 +169,26 @@ In this example you can see that the text passes the WCAG AA requirements for la
 
 # Fantastic Fonts {#font-resize}
 
+One of the most widely used accessibility features is font scaling. While many browsers default to a font size of `16px`, the user is actually able to change settings on their device to configure websites to use a larger font size.
 
-
-https://www.24a11y.com/2019/pixels-vs-relative-units-in-css-why-its-still-a-big-deal/
-
-
-
-
-
-`1rem`
+Many phones using iOS and Android allow users to change the font size on their mobile device. This feature so commonplace, that it often prompts users to change this setting when the phone is being set up.
 
 <div style="display: flex; justify-content: space-around">
-<img src="./ios_text_size.png" style="height: 300px" alt="iOS font size settings screen"/>
-<img src="./android_text_size.png" style="height: 300px" alt="Android font size settings screen"/>
+    <figure>
+		<img src="./ios_text_size.png" style="height: 300px" alt=""/>
+        <figcaption>
+            iOS font size settings screen
+        </figcaption>
+    </figure>
+    <figure>
+        <img src="./android_text_size.png" style="height: 300px" alt=""/>
+        <figcaption>
+            Android font size settings screen
+        </figcaption>
+    </figure>
 </div>
 
-
-
-
-
-
 Not only do you have these settings on mobile devices, but they're available on desktop as well. 
-
-
 
 Using Chrome, go to [your settings page](chrome://settings/?search=font+size), and you should be able to set your font size.
 
@@ -200,6 +197,31 @@ Using Chrome, go to [your settings page](chrome://settings/?search=font+size), a
 You can do the same in Firefox in [your preferences](about:preferences#general).
 
 ![Font settings in Firefox](./firefox_font_size.png)
+
+
+## Implementation
+
+While browsers have the ability to set the font size, if you're using `px`, `vw`, `vh`, or other unit values for your fonts, the browser will not update these font sizes for you. In order to have your application rescale the font size to match the browser settings, you'll need to use the `rem` unit.
+
+You can think of `rem` as a multiplier to apply to the default font size. When the browser's font size is set to `16px`:
+
+- `1rem` will be `16px` (1 * 16px)
+- `1.5rem` will be `24px` (1.5 * 16px)
+- `3rem` will be `48px` (3 * 16px)
+
+Likewise, when the browser's font size is set to `20px`:
+
+- `1rem` will be `20px` (1 * 20px)
+- `1.5rem` will be `30px` (1.5 * 20px)
+- `3rem` will be `60px` (3 * 20px)
+
+> Something to keep in mind is that `rem` is a _relative_ font size. It's relative to the root element's font size. _This means that you cannot set a default `px` value font size in `:root`  , as it will disable font scaling, even if the rest of your page is using `rem` values._
+
+It's highly encouraged to keep font sizes standardized around the `1rem` value. While this may seem like a frustrating limitation at first, see it from the user's perspective.
+
+Say site "A" sets their font size to `1rem` and site "B" sets their font size to `0.8rem`. When the user switches from "A" to "B", to font drastically decreases, requiring the user to change their font size. Then, when they switch back to site "A", they're left with too large of a font size. By respecting the user's setting of font size, you're ensuring that their experience jumping from site-to-site is more consistent and a nicer experience.
+
+Want to learn more about `rem` and font sizing? [Take a look at this in-depth blog post that covers even more](https://www.24a11y.com/2019/pixels-vs-relative-units-in-css-why-its-still-a-big-deal/).
 
 # Keyboard is King {#keyboard}
 
