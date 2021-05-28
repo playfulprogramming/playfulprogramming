@@ -7,7 +7,7 @@
     tags: ['a11y', 'javascript', 'web'],
     attached: [],
     license: 'coderpad',
-    originalLink: 'https://coderpad.io/blog/rust-enums-matching-options-api/'
+    originalLink: 'https://coderpad.io/blog/introduction-to-accessibility/'
 }
 ---
 
@@ -114,7 +114,7 @@ Let's say we have HTML to display fruits in a list:
 
 While this will display the contents, and you may be able to use CSS to add styling to make this look like a list, the browser has no way of knowing that this is a list. This is reflected in how screen-readers read that HTML output.
 
---------- ADD VIDEO OF VOICEOVER READING THIS HTML ----------
+<video src="./div.mp4" width="100%" height="auto" preload="auto" title="Voiceover reading of the content above"  controls></video>
 
 Likewise, search engine crawlers won't know that this is a list. If you're only using `div` tags as far as Google's concerned, you have no lists, no headings, nothing. This makes the page significantly less engaging and therefore rank more poorly.
 
@@ -128,7 +128,7 @@ Let's compare that to using the correct HTML tags for a list.
 </ul>
 ```
 
---------- ADD VIDEO OF VOICEOVER READING THIS HTML ----------
+<video src="./semantic.mp4" width="100%" height="auto" preload="auto" title="Voiceover reading of the content above" controls></video>
 
 As you can hear, this screen-reader is now able to read out that it's a list. It makes navigation of that list easier for those users by allowing them to quickly skip to the next list item and hear the index of an item in the list.
 
@@ -225,13 +225,39 @@ Want to learn more about `rem` and font sizing? [Take a look at this in-depth bl
 
 # Keyboard is King {#keyboard}
 
-While the average of users might utilize your application with a mouse
+Just as developers have preferences with keyboard or mouse, so too do your end users. Some users may only be able to utilize the keyboard to navigate the digital world. Not only is keyboard navigation critical for accessibility, but it enables power users of your application to be more efficient as well.
 
-This impacts not only people that are using screen readers on your site, but enables power users of your application to be more efficient as well.
+While you may immediate think of "keyboard shortcuts" to trigger different applications, it's often easy to forget about smaller interactions as well.
 
+> This isn't to say that keyboard shortcuts aren't helpful - they can serve shorthand for operations that might otherwise take considerable more effort using only the keyboard. Do consider implementing them in your app when they make sense.
 
+Consider a site with a large amount of navigation links like [The New York Times](https://www.nytimes.com/).
 
+![The initial homepage of New York Times](./nyt_initial.png)
 
+Their site has 30+ individual items in their header that you'd need to tab through in order to get to the main portion of the website. Safe to say that most users of the site are likely to want to access that main content quickly. Additionally, users that rely on a screen reader that aren't familiar with the site's layout wouldn't know when to stop tabbing without slogging through every item in the header.
+
+As such, many sites (including New York Times) include a "Skip to Content" button that doesn't become visible until you've tabbed into it. Unless you were navigating the site by keyboard, you wouldn't know it was there.
+
+![A "skip to content" button shown on the New York Times' site](./nyt_skip.png)
+
+This is far from the only considerations that should be made when considering a site's keyboard navigability, but is a prime example of a solution to a problem that might not be immediately obvious to users that primarily use the mouse.
+
+## Focus Indicators
+
+Something to keep in mind is that not all keyboard users are going to be using screen-readers. Because of this, it's important to have an outline around the element you're currently focused on. Without this outline, how would you know where you are on the page without the help of a screen-reader?
+
+Imagine trying to use your mouse without being able to see your cursor or hover effects on elements - it would be nearly impossible to know what you were doing!
+
+Luckily, the browser provides a default outline out-of-the-box. That said, some developers unfamiliar with accessibility requirements may disable the outline, as they "don't like the look of the outline when using a mouse" or "think the outline is too obtrusive visually". They often to this by adding an `outline: none` rule to the element, which breaks the behavior of the browser.
+
+Instead, it's suggested to either:
+
+- Style the outline to be more consistent with your project's visuals (similarly to how The New York times made their outline styling black to match their site)
+- Style the element in some other way to indicate focus (avoid only using colors to differentiate, as colorblind users may not be able to distinguish the differences)
+- Use JavaScript to disable the behavior when mouse-events are detected (and re-enable if keyboard events are detected)
+
+To learn more about the focus indicator and how to work alongside it, [check out this blog post from The A11Y Project](https://www.a11yproject.com/posts/2013-01-25-never-remove-css-outlines/).
 
 # Humans Can’t Be Automated {#no-automation}
 
@@ -274,3 +300,4 @@ Some great examples of things like this are sites with lots of user-generated co
 We hope you've enjoyed learning from our accolade-worthy alliterative headlines.
 
 While this article outlines many basics of web accessibility, it's far from a complete guide. Remember that accessibility is as much UX as visual design. To get it in a great place for your users takes active effort like any other part of your app. 
+
