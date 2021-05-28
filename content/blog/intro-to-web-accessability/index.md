@@ -11,8 +11,6 @@
 }
 ---
 
-# Friendly Foundations
-
 If you're coming across this article and haven't heard about "accessibility" (often shortened to "A11Y") before, that's okay. We're all learning at different speeds and come across new things all the time. That said, accessibility is a critical component to any frontend engineer's responsibilities. We implore you to explore what that means, not just in this blog post but beyond with your teams and communities.
 
 First, let's define what "accessibility" is. Accessibility in engineering is ["the process of creating products that are usable by people with the widest possible range of abilities"](https://dl.acm.org/doi/10.1145/2596695.2596719). 
@@ -98,7 +96,7 @@ Meanwhile, AAA includes support for:
 
 Among other things.
 
-# Smartly using Semantic HTML Tags
+# Smartly using Semantic HTML Tags {#html-semantic-tags}
 
 One of the easiest things you can do for your application's accessibility is to use semantic HTML tags. 
 
@@ -134,11 +132,11 @@ As you can hear, this screen-reader is now able to read out that it's a list. It
 
 Not only will this enhance the experience of your screen-reader using users, but because search engine crawlers rely on HTML tags to inform what's what, your site will rank better in search engine queries as well! This is a massive boon to your site's SEO score.
 
-# Understand `aria-` properties
+# Understand `aria-` properties {#aria}
 
 In our previous example, we used an HTML attribute [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) on our `ul`. [ARIA is collection of HTML attributes that allow you to enhance the accessibility in applications](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA). That said, _**it is highly encouraged to use the suggested HTML tags instead of `aria` attributes whenever possible**_. Think of `aria` as a complex low level API that can enhance your experience when done properly, but drastically harm user experience when unproperly utilized.
 
-A small subsection of `aria-` attributes includes:
+A super small small subsection of `aria-` attributes includes:
 
 - [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) - Associate the element with another element's text as the label 
 - `aria-expanded` - A Boolean value meant to communicate when a dropdown is expanded
@@ -199,7 +197,7 @@ You can do the same in Firefox in [your preferences](about:preferences#general).
 ![Font settings in Firefox](./firefox_font_size.png)
 
 
-## Implementation
+## Implementation {#font-rem}
 
 While browsers have the ability to set the font size, if you're using `px`, `vw`, `vh`, or other unit values for your fonts, the browser will not update these font sizes for you. In order to have your application rescale the font size to match the browser settings, you'll need to use the `rem` unit.
 
@@ -243,7 +241,7 @@ As such, many sites (including New York Times) include a "Skip to Content" butto
 
 This is far from the only considerations that should be made when considering a site's keyboard navigability, but is a prime example of a solution to a problem that might not be immediately obvious to users that primarily use the mouse.
 
-## Focus Indicators
+## Focus Indicators {#focus-indicator}
 
 Something to keep in mind is that not all keyboard users are going to be using screen-readers. Because of this, it's important to have an outline around the element you're currently focused on. Without this outline, how would you know where you are on the page without the help of a screen-reader?
 
@@ -285,19 +283,19 @@ You're also able to include automated tests that will help with A11Y regressions
 
 As mentioned in [a previous section](#no-automation), the process to make your app accessible cannot be fully automated. This extends to testing as well. While real-world automated tests are fine and well, you need someone to experience the application on a broader scale to make sure the experience is as fluid as it can be. While a specific component might be accessible by default, perhaps in specific usages it falls flat.
 
-# Fantastic Features
+# Fantastic Features {#features}
 
 While there is plenty you can do to make existing functionality accessibility friendly, it's often forgotten that a strongly accessible app may opt to add specific functionality for it's users with disabilities.
 
-
-
 Some great examples of things like this are sites with lots of user-generated content. For example, Twitter allows its users to [add "alt" text to their uploaded images and GIFs](https://help.twitter.com/en/using-twitter/picture-descriptions). Likewise, YouTube has the ability to [add subtitles and captions](https://support.google.com/youtube/answer/2734796?hl=en) to uploaded videos on their platform. 
 
+Oftentimes, you'll find that these features benefit everyone, not just assistive technology users. You may want to watch a video in a crowded area; with closed captions that's a much easier sell then trying to hear over others and interrupting everyone around you.
 
-
-# Conclusion
+# Conclusion {#conclusion}
 
 We hope you've enjoyed learning from our accolade-worthy alliterative headlines.
 
-While this article outlines many basics of web accessibility, it's far from a complete guide. Remember that accessibility is as much UX as visual design. To get it in a great place for your users takes active effort like any other part of your app. 
+There are so many things that we wanted to include in this article but couldn't. Like most parts of engineering, the field of accessible design and the nuances within can be incredible complex in fringe scenarios. To get accessibility in a great place for your users takes active effort - just like any other part of building your app. Because of this, we encourage you to do further research on the topic. Don't be afraid to ask questions of community members, either! Many in the community are incredibly helpful and friendly.
+
+Speaking of community, we'd love to hear your thoughts on this article. Did you learn something from it? Have questions about something A11Y-related? Think we missed something? [Join our Slack community](https://bit.ly/coderpad-slack) and chat with us or [send us a Tweet](https://twitter.com/coderpad)! 
 
