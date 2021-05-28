@@ -231,7 +231,7 @@ This impacts not only people that are using screen readers on your site, but ena
 
 
 
-https://www.w3.org/TR/WCAG21/#keyboard-no-exception
+
 
 # Humans Can’t Be Automated {#no-automation}
 
