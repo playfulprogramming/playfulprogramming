@@ -4,7 +4,7 @@
     description: "",
     published: '2021-05-30T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['a11y', 'javascript', 'web'],
+    tags: ['a11y', 'accessibility', 'web'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/introduction-to-accessibility/'
@@ -157,7 +157,29 @@ Additional to `aria` props, [the `role` property](https://developer.mozilla.org/
 
 # Classy CSS {#css}
 
+While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code. 
 
+> Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](https://unicorn-utterances.com/posts/understanding-the-dom/).
+
+Because the DOM is influenced by CSS, it impacts the accessibility tree as well. For example, `display: none` removes the element from the [accessibility tree](https://benmyers.dev/blog/accessibility-tree/) and from the browsers visual output. This means that screen readers won't read the contents of an element with that rule applied. However, `visibility: hidden`  or `width: 0px` will hide an element visually, but will still be read by screen readers.
+
+For this reason, there's a frequently used CSS class used to hide elements visually but not from screen readers:
+
+```css
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+```
+
+ There are many ways which CSS can influence assistive technologies. [Ben Myers covers this more in his blog post](https://benmyers.dev/blog/css-can-influence-screenreaders/).
 
 # Contrast is Cool {#contrast}
 
