@@ -77,9 +77,14 @@ There are different scales of accessibility as well. [WCAG includes three differ
 > - Level AA includes all Level A and AA requirements. Many organizations strive to meet Level AA.
 > - Level AAA includes all Level A, AA, and AAA requirements.
 
-Meeting AA requirements is typically seen as a good commitment to accessibility, but AAA will open more doors to your users and is the gold standard for accessible UX. 
+Meeting AA requirements is typically seen as a good commitment to accessibility, but AAA will open more doors to your users and is the gold standard for accessible user experience. 
 
-Far from a comprehensive list, AA covers things like:
+Far from a comprehensive list, A requires:
+
+- [Non-text content to have alternative text](https://www.w3.org/TR/WCAG21/#non-text-content)
+- [All content accessible with keyboard](https://www.w3.org/TR/WCAG21/#keyboard)
+
+Meanwhile, AA covers things like:
 
 - Screen reader experience
 - [Minimum contrast guidelines](#contrast)
@@ -87,7 +92,7 @@ Far from a comprehensive list, AA covers things like:
 - [Video captions](https://www.w3.org/TR/WCAG21/#captions-live)
 - [Basic support for keyboard navigation](#keyboard)
 
-Meanwhile, AAA includes support for:
+Finally, AAA includes support for:
 
 - [Enhanced contrast](https://www.w3.org/TR/WCAG21/#contrast-enhanced)
 - [Reduced/restricted animations](https://www.w3.org/TR/WCAG21/#animation-from-interactions)
@@ -149,6 +154,10 @@ A super small small subsection of `aria-` attributes includes:
 - `aria-valuemax` — The maximum allowed value of a numerical input
 
 Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) acts to have the browser see and read an element as a different one. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
+
+# Classy CSS {#css}
+
+
 
 # Contrast is Cool {#contrast}
 
@@ -296,10 +305,60 @@ Some great examples of things like this are sites with lots of user-generated co
 
 Oftentimes, you'll find that these features benefit everyone, not just assistive technology users. You may want to watch a video in a crowded area; with closed captions, that's a much easier sell than trying to hear over others and interrupting everyone around you.
 
+# Radical Research {#further-reading}
+
+While we've done our best to have this article act as a starting point for accessibility, there's always more to cover.  Let's talk about some of the ways you can continue learning more.
+
+## Terminology
+
+During your journey to learn more, you may run into terms that you're not familiar with. Let's take a look at some of the more predominant ones. We'll start this discussion of terminology with a common question:
+
+> What's "A11Y"?
+
+A11Y is [a nymeronym](https://www.a11yproject.com/posts/2017-08-26-a11y-and-other-numeronyms/) which stands for "accessibility". It's used as shorthand for the word in conversations about the subject.
+
+Some other terms that might helpful are:
+
+- "UI" — "User interface". The visual styling of an app
+- "UX" — "User experience". The interaction the user has with the app that defines their experience. This extends to assistive technology
+- ["WCAG"](#wcag) — "W3C Accessibility Guidelines", the standard guidelines for applications' accessibility support
+- "W3C" — "World Wide Web Consortium", the organization that publishes WCAG
+- "ADA" — "Americans with Disabilities Act", regulations in the US for businesses and governments which prohibits discrimination based on disability
+- "Alternative text"/"Alt text" — Short text used to describe images and other non-text assets
+
+## Tools
+
+People in need of a screen reader have multiple options at their disposal. Just a few of them include:
+
+- [JAWS](https://www.freedomscientific.com/products/software/jaws/) — An incredibly popular paid Windows screen reader
+- [NVDA](https://www.nvaccess.org/) — A Windows screen reader
+- [VoiceOver](https://www.apple.com/accessibility/vision/)  — The screen reader for iOS and macOS
+- [TalkBack](https://support.google.com/accessibility/android/answer/6283677?hl=en) — The screen reader for Android
+
+It's important to keep in mind that just as browsers may have differing behaviors for CSS or JavaScript, so too may these screen readers. Be sure to test with more than one of them as you would with different browsers.
+
+Screen readers aren't the only accessible tech, however. A small example of them might be:
+
+- [Braille Displays](https://www.afb.org/node/16207/refreshable-braille-displays)
+- [Switches](https://axesslab.com/switches/)
+- [Eye tracking](https://en.wikipedia.org/wiki/Eye_tracking#Assistive_technology)
+
+## Additional Resources
+
+- [Google's accessibility tips for web developers](https://web.dev/a11y-tips-for-web-dev/)
+- [Apple's accessibility guidelines](https://developer.apple.com/design/human-interface-guidelines/accessibility/overview/introduction/)
+- [WebAIM's website with a plethora of resources](https://webaim.org/)
+- [The A11Y Project](https://www.a11yproject.com/)
+
+Additionally, there are a few sites that contain extensive lists of additional resources:
+
+- [A11Y project's list of external resources](https://www.a11yproject.com/resources/)
+- [A11Y & Me resource list](https://a11y.me/)
+
 # Conclusion {#conclusion}
 
 We hope you've enjoyed learning from our accolade-worthy alliterative headlines.
 
-There are so many things that we wanted to include in this article but couldn't. Like most parts of engineering, the field of accessible design and the nuances within can be incredibly complex in fringe scenarios. Getting accessibility in a great place for your users takes active effort - just like any other part of building your app. Because of this, we encourage you to do further research on the topic. Don't be afraid to ask questions of community members, either! Many in the community are incredibly helpful and friendly.
+There are so many things that we wanted to include in this article but couldn't. Like most parts of engineering, the field of accessible design and the nuances within can be incredibly complex in fringe scenarios. Getting accessibility in a great place for your users takes active effort - just like any other part of building your app. Because of this, we encourage you to do [further research](#further-reading) on the topic. Don't be afraid to ask questions of community members, either! Many in the community are incredibly helpful and friendly.
 
 Speaking of community, we'd love to hear your thoughts on this article. Did you learn something from it? Have questions about something accessibility-related? Think we missed something? [Join our Slack community](https://bit.ly/coderpad-slack) and chat with us or [send us a Tweet](https://twitter.com/coderpad)! 
