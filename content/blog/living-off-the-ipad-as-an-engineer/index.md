@@ -23,7 +23,7 @@ The answer is mostly through remote access. Fear not, dear reader, we’ll try t
 
 ![Photo by [Ernest Ojeh](https://unsplash.com/@namzo) on [Unsplash](https://unsplash.com/s/photos/magic-keyboard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](cover.jpeg)
 
-## External Monitor
+# External Monitor
 
  I was lucky enough to have an [LG Ultrafine 4K](https://www.apple.com/shop/product/HMUA2VC/A/lg-ultrafine-4k-display) display in my possession for use with the MacBook Pro. These fancy displays are designed hand-in-hand with Apple are compatible with both Thunderbolt devices like the MacBook and with standard USB-C devices like the iPad. However, you can’t use the same cable, so if you are planning to buy this one, make sure you’re using the one with an iPad label on it before returning it out of frustration!
 
@@ -39,7 +39,7 @@ And in a clever workaround, a popular app called [Shiftscreen](http://shiftscree
 
 I have to say, it’s an excellent option for specific tasks, but after a while I just learned to love the mirrored interface. Now I’m rarely spending my time in apps that provide full monitor support. App Switching via Cmd+Tab or the gestures is hugely satisfying, plus I don’t think it has brought my productivity down at all. In fact, it might have improved my focus on the task at hand.
 
-## External Keyboard and Mouse/Trackpad 
+# External Keyboard and Mouse/Trackpad 
 
 Speaking of hitting keys and performing gestures. While the iPad itself has an incredibly mobile form-factor, we owe ourselves a decent desk setup. After all, we are turning it into our personal workstation.
 
@@ -51,7 +51,7 @@ Now even cheaper options are possible, such as just getting a good regular Bluet
 
 *Update: After quite some time with the Magic Keyboard for iPad on my desk, I revised the setup, with the tablet laying flat under the monitor to quickly take handwritten notes or drawings, with the Keychron K2 + Magic Trackpad 2 as input devices. We’ll see if it sticks!*
 
-## Software Dev: Remote Server and Native Apps
+# Software Dev: Remote Server and Native Apps
 
 Let’s get into some real engineering tools. As I'm sure you already know, there’s no walled garden like iOS/iPadOS. Apps are fully contained, *Files* is some kind of file explorer yet remains very limited, and firing up a local command line is pure fantasy.
 
@@ -75,7 +75,7 @@ The example below shows VS Code running in Safari for iPad. It would be a great 
 
 Side note: there is no such thing as a system clipboard manager on iPadOS, which is quite inconvenient when coming from other desktop platforms. While there are various paid solutions that offer cloud clipboard syncing and beyond, the non-iPad-optimized [Clipboard++](https://apps.apple.com/ca/app/clipboard/id854707788) brought me exactly what I needed: a way to automatically save my Cmd+Cs so I don’t have to worry about overwriting the system buffer. Neat!
 
-## Software Dev (Bonus): Local Raspberry Pi
+# Software Dev (Bonus): Local Raspberry Pi
 
 The folks for whom a cloud connection isn’t an option shouldn't lose hope: the most recent iteration of the sweet [Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) comes with a USB-C power and data port. Hence it’s possible to both run it and give it ethernet access from the iPad with one cable.
 
@@ -83,7 +83,7 @@ This enables a lot of possibilities, including local SSH, code-server-ing and ac
 
 A great way to make sure some coding work gets done when we get to travel again ✈️
 
-## Hardware Dev: Remote Server and Remote Desktop
+# Hardware Dev: Remote Server and Remote Desktop
 
 Here comes the harder part: hardware (*easy)*.
 

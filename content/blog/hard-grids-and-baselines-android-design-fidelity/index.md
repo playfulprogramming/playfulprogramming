@@ -11,7 +11,7 @@
 }
 ---
 
-## Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.
+# Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.
 
 _**I really care about implementation.**_ I obsess over it. I’m constantly thinking about it.
 
@@ -38,7 +38,7 @@ _[Plaid’s `BaselineGridTextView` library](https://github.com/android/plaid/blo
 
 **If this isn’t good enough for you and you’d rather have control over every aspect of the UI, then come along.**
 
-## Introduction
+# Introduction
 
 Android has two main `TextView`s; one of them is `AppCompatTextView`, which has been available for quite a while, and `MaterialTextView` (which extends `AppCompatTextView`). They are identical, with the latter allowing a line-height attribute to be set in a `textAppearance` (if you don’t know what that means, no worries). _**Go with `MaterialTextView`**._
 
@@ -48,7 +48,7 @@ Shortly after, Google removed those API restrictions by backporting those featur
 
 However, if you seek fidelity, you’ll find that `lineHeight` on Android differs from other platforms and most design tools.
 
-## How is it any different?
+# How is it any different?
 
 Let us take a look at some examples; one with a single line, then two lines, then three lines with line height set to `24pt/sp`.
 
@@ -78,7 +78,7 @@ Here’s a simple mockup, detailing the spacing between a title and a subtitle. 
 
 But even if it did have an effect, the problems wouldn’t stop there; the issue is more complex than that.
 
-## What designers want, and what developers can do
+# What designers want, and what developers can do
 
 Designers, like myself, like to see perfect alignment. We like consistent values and visual rhythm.
 
@@ -86,7 +86,7 @@ Designers, like myself, like to see perfect alignment. We like consistent values
 
 Unfortunately, translating values from a design tool wasn’t possible. You had the option to either pixel nudge (pictured above, right), or forget about alignment altogether, thus leading to an incorrect implementation that would, yet again, be shorter than the mockups.
 
-### …Until now!
+## …Until now!
 
 _`firstBaselineToTopHeight`_ and _`lastBaselineToBottomHeight`_ are powerful tools for Android design. They do as the name suggests: If _`firstBaselineToTopHeight`_ is set to `56sp`, then that’ll become the distance between the first baseline and the top of a `TextView`.
 
@@ -100,7 +100,7 @@ This is something I’ve personally tested in an app I designed. [**Memoire**, a
 
 *Memoire’s TextViews are all customized using these APIs.*
 
-## What is the purpose of firstBaselineToTopHeight and lastBaselineToBottomHeight?
+# What is the purpose of firstBaselineToTopHeight and lastBaselineToBottomHeight?
 
 In reality, the new attributes were actually made to be used when creating layouts: you want to make sure the baseline is a certain distance from another element, and it also helps to align the first and lastBaseline to a `4dp` grid. This mirrors the way iOS layouts are built.
 
@@ -132,7 +132,7 @@ The overrides will take precedence to whatever value you set in your **`styles.x
 
 Implementing margins instead of overriding values also matches the way layouts work within Android Studio and design tools like Sketch and Figma. It also ensures that your layouts can scale well to different font sizes.
 
-## So, how can you adapt your TextViews? Design goes first.
+# So, how can you adapt your TextViews? Design goes first.
 
 It’s actually pretty simple. Let’s walk through how to adapt one of Material Design’s standard type sizes: Headline 6 — used inside AppBars and dialog titles.
 
@@ -202,7 +202,7 @@ You would need to find these values for every text style in your app, but if you
 
 ![A showcase of what the headings and text should look like at the end](./headline_text_size_showcase.png)
 
-## How to implement these values (as a developer)
+# How to implement these values (as a developer)
 
 All of them follow the same template.
 
@@ -229,7 +229,7 @@ Let’s use Memoire once again as an example.
 
 ![An example of the Memoire codebase showing the headline of 4](./memoire_headline_4_code.png)
 
-### Each has a different function:
+## Each has a different function:
 
 **`TextAppearance`:** Applied in styles to theme Material Components globally.
 
@@ -242,13 +242,13 @@ For example, _**`textAppearanceCaption`**_, _**`textAppearanceBody1`**_, etc.
 
 *What happens to a `TextView` when a `TextStyle` is properly applied.*
 
-## And now, a couple of warnings
+# And now, a couple of warnings
 
-### Loss of vertical padding
+## Loss of vertical padding
 
 When setting a style to a `TextView`, keep in mind that `firstBaseline` and `lastBaseline` are designed to replace vertical padding. This means that, whenever set, a `TextStyle` will nullify all vertical padding values.
 
-### Do not apply `TextStyle` to Material Components. Use `TextAppearance` for those instances instead.
+## Do not apply `TextStyle` to Material Components. Use `TextAppearance` for those instances instead.
 
 Applying a `TextStyle` to a component — instead of a `TextAppearance` — causes serious issues.
 
@@ -260,7 +260,7 @@ This happens because Material Components already have padding that _**IS NOT**_ 
 
 As far as other issues, I haven’t been able to find any.
 
-## Resources, resources, resources!
+# Resources, resources, resources!
 
 Now that you’ve scrolled all the way down without reading a single word, here’s all the stuff you’ll need:
 
@@ -268,7 +268,7 @@ Now that you’ve scrolled all the way down without reading a single word, here�
 
 *Figma document with code and layout samples.*
 
-### For designers: [Figma Document](https://www.figma.com/file/F1RVpdJh73KmvOi06IJE8o/Hard-Grid-—-Text-Components/duplicate)
+## For designers: [Figma Document](https://www.figma.com/file/F1RVpdJh73KmvOi06IJE8o/Hard-Grid-—-Text-Components/duplicate)
 
 Document containing:
 
@@ -282,7 +282,7 @@ Document containing:
 
 * Customizable code blocks for each style in a text box, so you can change each depending on your theme and hand it to developers
 
-### For developers: [styles.xml](./styles.xml)
+## For developers: [styles.xml](./styles.xml)
 
 A styles.xml file containing:
 

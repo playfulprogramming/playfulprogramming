@@ -19,7 +19,7 @@ If you are completely new to Android development, I would recommend following th
 ["Build your first app"](https://developer.android.com/training/basics/firstapp/) tutorial before
 reading this article.
 
-## Contexts
+# Contexts
 
 In Android, a `Context` is a general class that... facilitates your app's interaction with the
 Android system? I'm not sure how to best explain it, but it essentially gives you access to
@@ -46,7 +46,7 @@ For more about Drawables and other image assets, see
 A general overview of app resources can be found
 [here](https://developer.android.com/guide/topics/resources/providing-resources).
 
-## Intents
+# Intents
 
 Every component inside of an Android app is started by an `Intent`. Components declared in an
 app's manifest can typically be invoked from _anywhere in the system_, but you can define
@@ -64,7 +64,7 @@ context.startActivity(new Intent(context, ActivityClass.class));
 This call to `startActivity` sends the `Intent` to the Android system, which is then in charge of
 creating and opening the activity that you have specified.
 
-### Starting an Unknown Activity
+## Starting an Unknown Activity
 
 You do not always need to specify an explicit class to start a new activity, though. How would your
 app start an activity in another application? You don't know what its class name is, and if you did,
@@ -89,7 +89,7 @@ _[so ridiculously slow](https://issuetracker.google.com/issues/68393945)_ is tha
 these lists, it has to query every single activity on the device asking "will you accept this Intent?"
 to make a list for the user to choose from.
 
-### Sending Data to Activities
+## Sending Data to Activities
 
 In order for an Activity to have any dynamic functionality, you will need to have some way of sending
 information to it. When you create an Intent to a new Activity, you should _never_ have an instance of
@@ -99,7 +99,7 @@ circumstances this may not present any obvious issues, there are situations wher
 reliable way to tell an activity what to display while abiding by the laws of the system. There are two
 main ways of doing this, both of which have their own advantages and disadvantages:
 
-#### 1. Create your own state / data provider.
+### 1. Create your own state / data provider.
 
 This indirectly relies on having access to an instance of the activity, though it should not fail if
 it does not obtain an instance; rather than relying on the started activity being created, it acts
@@ -113,7 +113,7 @@ very robust solution that will make your application much easier to maintain in 
 it can be a little bit complicated, especially if you are writing a simple application that
 only needs to manage a small amount of information.
 
-#### 2. Use Intent extras.
+### 2. Use Intent extras.
 
 The other, much simpler method of transferring data between activities is to simply include the
 data in the Intent. This data will be passed with the Intent to the Android system when it starts
@@ -144,7 +144,7 @@ such as Bitmaps or Drawables.
 For more information about Intents, there is a more descriptive summary of them in the
 [Android Developer Documentation](https://developer.android.com/reference/android/content/Intent).
 
-### Note: More about Contexts
+## Note: More about Contexts
 
 When your application is opened by the system, the first components to be created will be the
 `Application`, then the `Activity` - which will have a different Context from the Application
@@ -159,7 +159,7 @@ of your app's `Application` class (which should be referenced from the manifest)
 Activities and other parts of your application look there for the information. The Application
 class can be obtained from any `Context` instance by calling `context.getApplicationContext()`.
 
-## Activity Lifecycle
+# Activity Lifecycle
 
 Activities are big and complicated things, and many events can occur during their use as a result
 of user interaction or just weird Android memory-saving things. However, it is important to know
@@ -196,14 +196,14 @@ When the application is completely closed by the user, then you will receive:
 A more comprehensive overview of the Activity lifecycle can be found
 [here](https://developer.android.com/guide/components/activities/activity-lifecycle).
 
-## More...
+# More...
 
 What about tasks that you want to exist beyond the Activity lifecycle? Maybe you want music to
 keep playing after the user leaves the app, or you just want to perform a short action without
 opening an activity when a certain event occurs. There are two other components that can receive
 intents for this purpose: `Service` and `BroadcastReceiver`.
 
-### Services
+## Services
 
 Services can run in the background without being attached to a user interface for longer periods
 of time, for tasks such as playing music, downloading large files, or other potentially lengthy
@@ -211,7 +211,7 @@ operations that shouldn't be terminated when the user leaves the app.
 
 See: [Service documentation](https://developer.android.com/reference/android/app/Service).
 
-### Broadcast Receivers
+## Broadcast Receivers
 
 A broadcast receiver can be seen as more of an "event" that occurs once and is over. They can run
 independently from a UI, the same a Service, but only for a short period of time (I believe they are
@@ -225,7 +225,7 @@ again when they are no longer needed.
 
 See: [BroadcastReceiver documentation](https://developer.android.com/reference/android/content/BroadcastReceiver).
 
-## Fin
+# Fin
 
 That's all for now! This was not a very thorough overview of Android development, and I feel like
 I left a lot of holes and exceptions to what I mentioned here, but hopefully it is useful to someone.

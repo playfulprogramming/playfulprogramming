@@ -12,10 +12,7 @@
 
 Every new C/C++ programmer will eventually reach the point at which they are forced to work with pointers and will undoubtedly realize that they extremely dislike using them because they are a little complex. Today, we'll be looking at what pointers are, deconstructing their usage, and hopefully, making the usage of pointers easier to grok.
 
-  
 # What is a Pointer? {#what-is-a-pointer}
-
-  
 
 A pointer is simply a variable or object that instead of holding a value, holds a memory address to another spot in memory. You will commonly see a pointer being most recognizable by their declaration including the **\*** operator, also known as the **dereference operator**. This operator is called the dereference operator because when you try to access the value that the pointer is referencing, you have to use the **\*** operator to "de-reference" the value. Which is just a fancy way of saying, "go to that reference".
 
@@ -55,7 +52,6 @@ This should print out something like...
 As you can see, the pointer p holds the memory address of num, and when you use the dereference operator, the value at num is printed out.
 
 Pointers can also get a lot more complex and must be used in certain situations. For example, if you put an object on the heap (Check out my article on Virtual Memory to learn more about heap memory) then you will have to use a pointer because you can't access the heap directly. So, instead of having a pointer to an address on the stack, it will point to an address on the heap. You might even find yourself using double or triple pointers as you get more used to them.
-
 
 # What is a Reference? {#what-is-a-reference}
 
@@ -142,8 +138,6 @@ The output of this looks like...
 As you can see, when passed by reference, the local value is changed, but when it is passed by value, it is not; even though they both perform the same operation. Some other languages, such as Java, do not give you this control. Java always passes by value, though it does pass addresses by value.
 
 This gets confusing after a while if you're not paying attention to your outputs. In fact, Python gets even more confusing, but that's a topic for another day; be sure to sign up for our newsletter to see when that lands 😉
-
-  
 
 # Review/Conclusion {#conclusion}
 

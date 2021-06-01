@@ -18,8 +18,7 @@ Unicorn Utterances is here to help. Let's start at the beginning.
 
 At a very basic level, all websites are constructed from three foundational technologies: HTML, CSS, and JavaScript. Every other concept or technology related to front-end web development is either based on or works with one of these three building blocks. Getting a firm grasp on HTML, CSS, and JavaScript is critical to understanding web development and learning how to create your own websites and web applications.
 
-
-## HTML
+# HTML
 
 HTML stands for [HyperText Markup Language](https://developer.mozilla.org/en-US/docs/Web/HTML), and the latest release is HTML5. HTML is the foundation of the modern internet. Every website you visit or web application you use is built on a structure created by an HTML document. A great way to visualize what HTML does is to think of a building under construction. All buildings have a frame, whether steel or wood, that creates the basic structure of the building from the foundation to the roof. This structure dictates the size and shape of the building. No matter what the building looks like when it is finished or the purpose it serves, everything will be built around that steel structure.
 
@@ -35,8 +34,7 @@ If you want to see the HTML of a website, all you have to do is access the devel
 
 HTML also serves as the foundation for web accessibility for people with disabilities. [Screen readers](https://www.afb.org/blindness-and-low-vision/using-technology/assistive-technology-products/screen-readers) allow people who are blind or have low vision to use the internet in a primarily audio format. They work by reading the HTML directly and are programmed to follow its structure and pick up on information included in the element tags. Practicing good [web accessibility standards](https://www.w3.org/WAI/standards-guidelines/wcag/) is important for a modern web developer and makes websites that are easier to use for everyone.
 
-
-## CSS
+# CSS
 
 CSS, or [Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS), is what web developers use to control the look and feel of the websites they create.
 
@@ -48,8 +46,7 @@ In modern web development, CSS is written in a separate document  called a "styl
 
 CSS is a big topic, and you will very likely be learning more about it as long as you do web development. There are pre-made frameworks, preprocessors, and lots of other CSS-related goodies out there to dive into as you learn your new craft. The important thing at the outset is to learn the basics well so that you know what to expect as you write your own CSS stylesheets.
 
-
-## JavaScript
+# JavaScript
 
 JavaScript is the programming language of the internet and web browsers. When you are shopping online, JavaScript is happening. When you check your local weather radar, JavaScript is happening. When you use social media, JavaScript is happening. Basically, JavaScript is what gives websites and web applications the ability to actually do something.
 
@@ -63,8 +60,7 @@ To go back to our building construction analogy… well, it starts to break down
 
 JavaScript is a powerful tool that can be used to create everything from useful applications, to convenient shopping experiences, and even games. JavaScript is complex, and there is a lot to learn, but there are a lot of great free [resources](https://developer.mozilla.org/en-US/docs/Web/JavaScript) out there to learn the basics and get started writing code from scratch.
 
-
-## Conclusion
+# Conclusion
 
 Now you should have a better conceptual understanding of the primary web technologies, what they do, and how they work together to create the internet that we see and use every day. Once you learn the basics of HTML, CSS, and JavaScript, you will have a firm foundation to build on to create your own websites and applications.
 
