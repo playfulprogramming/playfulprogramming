@@ -81,7 +81,7 @@ Meeting AA requirements is typically seen as a good commitment to accessibility,
 Far from a comprehensive list, A requires:
 
 - [Non-text content to have alternative text](https://www.w3.org/TR/WCAG21/#non-text-content)
-- [All content accessible with keyboard](https://www.w3.org/TR/WCAG21/#keyboard)
+- [Automatically moving elements (such as GIFs) must be able to be paused](https://www.w3.org/TR/WCAG21/#pause-stop-hide)
 
 Meanwhile, AA covers things like:
 
@@ -152,7 +152,7 @@ A super small small subsection of `aria-` attributes includes:
 - `aria-valuemin` — The minimum allowed value in a numerical input
 - `aria-valuemax` — The maximum allowed value of a numerical input
 
-Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) acts to have the browser see and read an element as a different one. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
+Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) allows to tell the browser what an element's intended purpose is, thus changing it's behavior with accessible tech. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
 
 # Classy CSS {#css}
 
