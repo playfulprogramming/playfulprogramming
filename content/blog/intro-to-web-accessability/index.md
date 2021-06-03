@@ -60,7 +60,7 @@ Something to keep in mind is that these disabilities may not be permanent. For i
 
 Creating an application that's accessible means that you're making a better experience for *all* of your users.
 
-In addition to both moral and financial incentives (by opening the door to more users), many organizations have a legal requirement to meet accessibility. U.S. government software is subject to [Section 508](https://www.section508.gov/manage/laws-and-policies), which requires compliance to the [Web Content Accessibility Guidelines (also known as WCAG, which we'll touch on later)](#wcag). Likewise, private US companies may be subject to compliance due to the "Americans with Disabilities Act" (shortened to "ADA"). The U.S. isn't the only country with these requirements, either. According to[ WCAG's reference page for various legal laws](https://www.w3.org/WAI/policies/), there are at least 40 such laws in place around the world.
+By making your services accessible to more people, you are most importantly making them more equitable, but there is often a business case for accessibility. Opening your doors to more users may create an additional financial incentive, and many organizations have a legal requirement to meet accessibility guidelines. For instance, the U.S. Federal Government is subject to [Section 508](https://www.section508.gov/manage/laws-and-policies), which requires compliance with [Web Content Accessibility Guidelines (also known as WCAG, which we'll touch on later)](#wcag). Likewise, private US companies may be subject to compliance due to the "Americans with Disabilities Act" (shortened to "ADA"). The U.S. isn't the only country with these requirements, either. According to [WCAG's reference page for various legal laws](https://www.w3.org/WAI/policies/), there are at least 40 such laws in place around the world.
 
 > Please note that we are _not_ giving legal advice. This article is simply meant for educational purposes for individuals. Consult legal authorities for the appropriate jurisdiction
 
@@ -152,7 +152,7 @@ A super small small subsection of `aria-` attributes includes:
 - `aria-valuemin` — The minimum allowed value in a numerical input
 - `aria-valuemax` — The maximum allowed value of a numerical input
 
-Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) allows to tell the browser what an element's intended purpose is, thus changing it's behavior with accessible tech. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
+Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) tells the browser what an element's intended purpose is, thus changing its behavior with accessible tech. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
 
 # Classy CSS {#css}
 
