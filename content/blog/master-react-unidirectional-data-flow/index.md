@@ -15,7 +15,7 @@ As with any form of programming, there are dozens of ways to manage data inside 
 
 Today, we'll be covering one of the most important structural best practices to follow when building your React applications: Unidirectional data flow.
 
-## What is Unidirectional Data Flow?
+# What is Unidirectional Data Flow?
 
 Unidirectional data flow is the idea that components should only raise data in one direction. Child components should only call functions from parent components, while parent components should only set/pass data to their children.
 
@@ -23,7 +23,7 @@ Unidirectional data flow is the idea that components should only raise data in o
 
 In order to explain how both of these look in real code, let's start with how a properly unidirectional parent and child component would be written.
 
-## Unidirectional Demo
+# Unidirectional Demo
 
 A great example of a set of components we'll use to demonstrate unidirectionality is a parent "App" component and a child "Form" component.
 
@@ -39,7 +39,7 @@ This is what a set of proper React components *should* look like. This pattern o
 
 Now that we have a better understanding of the patterns to follow let's take a look at the wrong way to do things.
 
-## Breaking from Suggested Patterns
+# Breaking from Suggested Patterns
 
 Now that we've "lifted" the state, let's drop back down into `SimpleForm`. We'll start by changing `SimpleForm` to a class component and adding state.
 
@@ -98,7 +98,7 @@ export default function App() {
 
 This code works, but has some inherent complexity issues. When you start expanding this component, this idea of separating your state and having to inspect the child reference from the parent makes development more difficult. Let's take a look visually how following the application logic is now more difficult with this pattern.
 
-## Visualizing the Problem
+# Visualizing the Problem
 
 First, let's start by taking a look at the `simpleRef` component, where the state is "lowered down" to the `SimpleForm` component:
 
@@ -127,7 +127,7 @@ As you can see, while the number of steps is similar between these methods (but 
 
 This is why the React core team (and the community at large) strongly suggests you use unidirectionality as often as possible.
 
-## Conclusion & Challenge
+# Conclusion & Challenge
 
 Understanding unidirectionality is integral to scaffolding scalable React applications. Unidirectionality doesn't just apply to React, either - Angular and Vue applications often require similar patterns for large scale codebases to be easier to follow and more performant.
 

@@ -17,7 +17,7 @@ But what does Rust do that has garnered such a positive response from the commun
 
 One of the many features that highlights Rust’s capabilities is its handling of enums and matching.
 
-## Enums
+# Enums
 
 Like many languages with strict typings, Rust [has an enum feature](https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html). To declare an enum is simple enough, start with `pub enum` and name the values.
 
@@ -49,7 +49,7 @@ fn get_version(_lang: CodeLang) -> &'static str {
 
 While this code *works*, it’s not very functional. If you pass in “CodeLang::JavaScript”, the version number isn’t correct. Let’s take a look at how we can fix that in the next section.
 
-## Matching
+# Matching
 
 While you *could* use `if` statements to detect which enum is passed in, like so:
 
@@ -90,7 +90,7 @@ fn get_version(lang: CodeLang) -> &'static str {
 
 If you’re familiar with a programming language that has a feature similar to “[switch/case](https://www.tutorialspoint.com/cprogramming/switch_statement_in_c.htm)”, this example is a close approximation of that functionality. However, as you’ll soon see, `match` in Rust is significantly more powerful than most implementations of switch/case.
 
-## Pattern Matching
+# Pattern Matching
 
 While most implementations of `switch/case` only allow simple primitives matching, such as strings or numbers, Rust’s `match` allows you to have more granular control over what is matched and how. For example, you can match anything that isn’t matched otherwise using the `_` identifier:
 
@@ -116,7 +116,7 @@ fn get_version<'a>(lang: CodeLang, other_lang: CodeLang) -> (&'a str, &'a str) {
 
 This shows some of the power of `match` . However, there’s more that you’re able to do with enums.
 
-## Value Storage
+# Value Storage
 
 Not only are enums values within themselves, but you can also store values within enums to be accessed later.
 
@@ -164,7 +164,7 @@ fn get_version(lang: CodeLang) -> &'static str {
 
 Not all enums need to be manually set, however! Rust has some enums built-in to the language, ready for use.
 
-## Option Enum
+# Option Enum
 
 While we’re currently returning the string `”Unknown”` as a version, that’s not ideal. Namely, we’d have to do a string comparison to check if we’re returning a known version or not, rather than having a value dedicated to a lack of value.
 
@@ -216,11 +216,11 @@ fn main() {
 }
 ```
 
-## Operators
+# Operators
 
 While the above code functions as intended, if we add more conditional logic, we may find ourselves wanting to make abstractions. Let’s look at some of these abstractions Rust provides for us
 
-### Map Operator
+## Map Operator
 
 What if we wanted to convert `rust_version` to a string, but wanted to handle edge-cases where `None` was present.
 
@@ -274,7 +274,7 @@ pub fn map<U, F: FnOnce(T) -> U>(self, f: F) -> Option<U> {
 
 As you can see, we matched our implementation very similarly, matching `Some` to another `Some` and `None` to another `None` 
 
-### And Then Operator
+## And Then Operator
 
 While the automatic wrapping of the `.map` function return value into a `Some` can be useful in most instances, there may be times where you want to conditionally make something inside the `map`
 
@@ -301,7 +301,6 @@ fn main() {
     }
 }
 ```
-
 
 Which we can rewrite using Rust’s `and_then` operator:
 
@@ -335,7 +334,7 @@ pub fn and_then<U, F: FnOnce(T) -> Option<U>>(self, f: F) -> Option<U> {
     }
 ```
 
-## Putting it Together
+# Putting it Together
 
 Now that we’re familiar with the Option enum, operators, and pattern matching let’s put it all together!
 
@@ -485,7 +484,7 @@ fn main() {
 }
 ```
 
-## Conclusion & Challenge
+# Conclusion & Challenge
 
 All of these features are used regularly in Rust applications: enums, matching, option operators. We hope that you can take these features and utilize them in your applications along your journey to learn Rust.
 

@@ -35,7 +35,6 @@ Now that we have that covered let's generate our project!
 ng new my-scully-blog
 ```
 
-
 We'll want to choose `y` when it asks us to add routing. The second question that will be raised is regarding what flavor of CSS you'd like. I like `SCSS`, so I chose that, but you're free to select any of the options that you deem fit for your blog.
 
 If we pause here and run `ng serve`, we'll find ourselves greeted with the default generated app screen from the Angular core team upon visiting the `localhost:4200` URI in our browser.

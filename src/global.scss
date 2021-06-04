@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "styles/vars";
 @import "styles/utils";
 @import "styles/text_styles";
@@ -123,7 +124,7 @@ body {
 	flex-shrink: 0;
 	border-radius: var(--cardRadius);
 	font-size: 1rem;
-	padding: #{$baseUnit / 2}px #{$baseUnit}px;
+	padding: #{math.div($baseUnit, 2)}px #{$baseUnit}px;
 	color: var(--darkPrimary);
 }
 

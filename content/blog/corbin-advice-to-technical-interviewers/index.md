@@ -16,7 +16,7 @@ Tech recruiting is difficult. Interviews are tricky for candidates - and for int
 
 This can be done in many ways, but let’s talk about a few today.
 
-## Don’t Be Afraid To Help
+# Don’t Be Afraid To Help
 
 Something to keep in mind while interviewing candidates is that they’re just like you and me: people. People that make mistakes from time-to-time or might get stuck on a certain phrasing of a question. 
 
@@ -27,7 +27,7 @@ This is particularly beneficial for junior engineers, who’s interviews should 
 
 While this all might seem counterintuitive to assist a candidate (even in small ways) during an interview, you have to remember that they need support. In their future role with your company, they won’t (and shouldn’t) be working in isolation. Instead, they will have a team to lean on. By giving a small hint here and there, you’re able to understand how they receive feedback and when they need help.
 
-## Allow for Resources
+# Allow for Resources
 
 As mentioned earlier, candidates are just people. Because of that, you will never find an all-knowing candidate who only ever relies solely on their existing knowledge to fix an issue (no matter what big-ego Jim says). Time-and-time again I’ve heard from seasoned developers that research and cheat-sheets are part of their daily engineering work. 
 
@@ -36,7 +36,7 @@ While it might not be immediately obvious, knowing how to search for and find th
 
 After all, the point of coding interviews is to see how capable a developer is at the job they’re applying for. You want to test in real-world situations, not in an isolated environment that doesn’t represent the daily aspects of the job.
 
-## Less Algorithms, More Demos
+# Less Algorithms, More Demos
 
 Speaking of representing a job in a more realistic light: think about the last time you had a ticket in your backlog that required discussion of tree reversal (or similar algorithm). Now think of the last time you asked a question like that in your interviews. See where I’m going here? I’m not implying that algorithm questions are inherently bad for every position, but in this industry they’ve been used as a stop-gap for more relevant questions.
 
@@ -50,7 +50,7 @@ Not only is possible cheating unhelpful in reflecting a candidate’s problem so
 
 Even with all of this, I’m only scratching the surface of the [issues with algorithm-based “whiteboarding” interviews that’ve been written about before](https://coderpad.io/blog/whiteboard-interview-guide/).
 
-### Fixing the Problem
+## Fixing the Problem
 
 That said, interview questions are important, so what should we be replacing these algorithm questions with technical assessments?
 
@@ -60,7 +60,7 @@ In other scenarios, where styling is important to the role, you might want to pr
 
 While real-world code samples provide many upsides, setting up a real-world example may take a candidate a little longer to read through the code and orient themselves. How can we reduce the dead-air for interviewers and candidates alike?
 
-## Take-Homes
+# Take-Homes
 
 We at CoderPad are ***strong\*** advocates of take-home interviews for technical assessments. While [we’ve written about many of the benefits of take-homes before](https://coderpad.io/blog/hire-better-faster-and-in-a-more-human-way-with-take-homes/), we’ll touch on some of the advantages here:
 
@@ -70,7 +70,7 @@ We at CoderPad are ***strong\*** advocates of take-home interviews for technical
 - Removes biases
 - Kills dead air while candidate is doing initial thought process of a problem
 
-### Level the Playing Field
+## Level the Playing Field
 
 As mentioned previously, time isn’t the same for everyone. Some folks look for work while they’re still working full-time for another employer. Those same people may have kids or other priorities in their lives. This makes time a rare commodity for some.
 
@@ -82,13 +82,13 @@ CoderPad allows you to limit the amount of time a candidate is able to spend in 
 
 I encourage you to keep the time limit to 2 hours max. Any longer and you risk alienating the candidates without that much time to do assessments. Keep in mind - you’re likely not the only role that candidate has applied for.
 
-## Find Their Speciality
+# Find Their Speciality
 
 Not only do take-homes improve the balance of “stress” vs “capabilities” you look for in an interview, they also allow candidates with specialties focus on their strengths and show you what they’re most capable of.
 
 Think about it this way: You’re hiring for a team - ideally a team should have a good balance of skills. Even in small-scale applications, there are lots of jobs to do: styling, internal documentation to write, code organization, boilerplate writing, application logic, testing, etc.. While it’s possible to have someone capable of doing more than one of these - it’s impossible to be a true universal expert at all of them at once. Engineers are likely to lean more in some directions than others. Don’t discourage this - it’s what allows a team of diverse people to build a better product through combined individual expertise.
 
-## Wrap Up
+# Wrap Up
 
 Most of these tips are meant to make your technical interviews more representative of real-world experiences and enable a more diverse pool of candidates to succeed in your process. I hope these tips help give you better insights into your candidates and enable a team that’s more well-rounded, ultimately bringing more value to your company and teams.
 

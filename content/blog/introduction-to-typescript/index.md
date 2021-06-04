@@ -22,7 +22,7 @@ TypeScript's popularity cannot be understated. Either you likely know someone wh
 
 These goodies are enabled by the TypeScript compiler, which takes your TypeScript source code and output JavaScript source code, capable of running in any JavaScript environment.
 
-### Doesn't JavaScript Have Types Already? {#javascript-types}
+## Doesn't JavaScript Have Types Already? {#javascript-types}
 
 While JavaScript _does_ have a loose understanding of types, they're not strictly enforced.
 
