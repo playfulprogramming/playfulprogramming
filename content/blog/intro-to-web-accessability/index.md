@@ -7,7 +7,7 @@
     tags: ['a11y', 'accessibility', 'web'],
     attached: [],
     license: 'coderpad',
-    originalLink: 'https://coderpad.io/blog/introduction-to-accessibility/'
+    originalLink: 'https://coderpad.io/blog/introduction-to-web-accessibility-a11y/'
 }
 ---
 
