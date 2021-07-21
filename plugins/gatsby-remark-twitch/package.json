@@ -1,0 +1,12 @@
+{
+  "name": "gatsby-remark-twitch",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/octahedroid/gatsby-remark-twitch",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
