@@ -20,6 +20,8 @@ This repository acts as the source code location for [the Unicorn Utterances blo
 <a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a>
 <a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored"><img alt="CoderPad" src="https://unicorn-utterances.com/sponsors/coderpad.svg" width="300"/></a>
 
+[We disclose every sponsorship we share openly on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
+
 ## Statement of Ethics
 
 We never want to end up in a place where our educational content, experience,
