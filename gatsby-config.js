@@ -20,6 +20,27 @@ if (!siteUrl) {
 	}
 }
 
+// To set for Twitch
+let parent;
+
+// Try & Catch to allow for hosts themselves to be passed
+// `new URL('domain.com')` will fail/throw, but is a valid host
+try {
+	const url = new URL(siteUrl);
+	// URLs like 'localhost:3000' might not give host.
+	// Throw in order to catch in wrapper handler
+	if (!url.host) throw new Error();
+} catch (_) {
+	const url = new URL("https://" + siteUrl);
+	parent = url.host || parent;
+}
+
+// Twitch embed throws error with strings like 'localhost:3000', but
+// those persist with `new URL().host`
+if (parent.startsWith("localhost")) {
+	parent = "localhost";
+}
+
 console.log(`Building for ${buildMode} at ${siteUrl}`);
 
 module.exports = {
@@ -147,11 +168,13 @@ module.exports = {
 						},
 					},
 					{
-						resolve: "gatsby-remark-twitch",
+						resolve: `gatsby-remark-embedder`,
 						options: {
-							width: 800,
-							height: 400,
-							domain: siteUrl,
+							services: {
+								Twitch: {
+									parent,
+								},
+							},
 						},
 					},
 					`gatsby-remark-external-links`,
