@@ -30,9 +30,10 @@ try {
 	// URLs like 'localhost:3000' might not give host.
 	// Throw in order to catch in wrapper handler
 	if (!url.host) throw new Error();
+	parent = url.host;
 } catch (_) {
 	const url = new URL("https://" + siteUrl);
-	parent = url.host || parent;
+	parent = url.host;
 }
 
 // Twitch embed throws error with strings like 'localhost:3000', but
@@ -41,7 +42,7 @@ if (parent.startsWith("localhost")) {
 	parent = "localhost";
 }
 
-console.log(`Building for ${buildMode} at ${siteUrl}`);
+console.log(`Building for ${buildMode} at ${siteUrl} with the parent ${parent}`);
 
 module.exports = {
 	siteMetadata: {
