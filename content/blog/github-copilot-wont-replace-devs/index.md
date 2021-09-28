@@ -16,11 +16,19 @@ Some have taken these advanced algorithm assessment capabilities as a warning si
 
 # Copilot Isn't An Engineer
 
-While automation is amazing (some would argue the whole point of programming is to automate)
+Automation is amazing. Some would argue the whole point of programming is to automate as much as possible.
 
+But when you automate things you often lose a fair amount of nuance within the problem-space you're trying to automate. This is true for any industry and any problem you run into: Especially so with programming. 
 
+We all know the meme: The junior engineer asks a question and the senior mentor answers "it depends"
 
-On first glance, Copilot may appear to walk the "I'm an Engineer replacement" walk, and it may even talk the talk from time-to-time: but it falters in some key areas.
+![A joke off of an O' Reilly programming book. "It depends, the answer to every programming question ever conceived - The definitive guide". Credit: @thePracticalDev](./it_depends.jpg)
+
+But there's a reason for this "joke" having such prevalence: it's true. A lot of software engineering requires a lot of context be kept in mind.
+
+Knowing this, can an AI take on the required nuance and act an additional engineer to the team?
+
+On first glance, GitHub Copilot may appear to walk the "I'm an Engineer replacement" walk, and it may even talk the talk from time-to-time: but it falters in some key areas.
 
 ## Architecture
 
@@ -214,15 +222,15 @@ While it's no replacement to a helpful community (which Vue absolutely has) or s
 
 # Conclusion
 
+GitHub Copilot is an innovative tool. With many forms of innovation, there's a lot of uncertainty on how useful a tool is. Copilot isn't perfect by any means, but for many use-cases it can potentially speed up development.
 
+Also similar to other innovative ideas, there's a lot of "what if in the future" being merged with "it is this way today". While Copilot (or other AI-powered code generators) has the potential to go a long distance in lowering the barrier to entry and making development easier and smoother, it's not at the stage of "robot uprising" today.
 
-
-
-
-
-GCP, I love ya, but your suggestion that [humans need not apply](https://www.youtube.com/watch?v=7Pq-S557XQU) isn’t quite here yet. At least not for developers.
+GCP, I love your work, but I don't think your suggestion that [humans need not apply](https://www.youtube.com/watch?v=7Pq-S557XQU) isn’t quite here yet. At least not for developers.
 
 After all, GitHub’s tool is called “Copilot”, not “Autopilot”
 
+What do you think? Let us know [on Twitter](https://twitter.com/UnicornUttrncs) or [join our Discord](https://discord.gg/FMcvc6T) and start a conversation with us! We're an open-source community ran project with no ads, no spam.
 
+We'd love to hear your thoughts!
 
