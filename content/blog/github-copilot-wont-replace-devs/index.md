@@ -2,7 +2,7 @@
  {
     title: "GitHub Copilot is Amazing - It Won't Replace Developers",
     description: "",
-    published: '2021-05-30T22:12:03.284Z',
+    published: '2021-09-28T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['github copilot', 'tools'],
     attached: [],
