@@ -42,7 +42,9 @@ if (parent.startsWith("localhost")) {
 	parent = "localhost";
 }
 
-console.log(`Building for ${buildMode} at ${siteUrl} with the parent ${parent}`);
+console.log(
+	`Building for ${buildMode} at ${siteUrl} with the parent ${parent}`
+);
 
 module.exports = {
 	siteMetadata: {
@@ -311,7 +313,8 @@ module.exports = {
 						},
 						{
 							// DEFAULT - Add runtime caching of various other page resources
-							urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
+							urlPattern:
+								/^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
 							handler: `StaleWhileRevalidate`,
 						},
 						{

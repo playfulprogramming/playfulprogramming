@@ -43,7 +43,7 @@
     ]
   },
   "dependencies": {
-    "@textlint/markdown-to-ast": "^6.3.4",
+    "@textlint/markdown-to-ast": "^12.0.2",
     "batteries-not-included": "0.1.0",
     "classnames": "^2.3.1",
     "disqus-react": "^1.1.2",
@@ -89,8 +89,8 @@
     "react-paginate": "^7.1.3",
     "terser": "^4.8.0",
     "typescript": "^4.4.4",
-    "unist-util-flat-filter": "^1.0.0",
-    "unist-util-visit": "^2.0.2"
+    "unist-util-flat-filter": "^2.0.0",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -120,6 +120,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "esm": "^3.2.25",
     "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",

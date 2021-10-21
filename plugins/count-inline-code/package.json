@@ -8,6 +8,6 @@
   "license": "MIT",
   "dependencies": {
     "@textlint/markdown-to-ast": "^6.1.7",
-    "unist-util-flat-filter": "^1.0.0"
+    "unist-util-flat-filter": "^2.0.0"
   }
 }
