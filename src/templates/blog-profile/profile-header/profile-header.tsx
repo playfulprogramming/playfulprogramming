@@ -42,9 +42,10 @@ interface PicTitleHeaderProps {
 	unicornData: UnicornInfo;
 }
 export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
-	const possessiveName = useMemo(() => getNamePossessive(unicornData.name), [
-		unicornData,
-	]);
+	const possessiveName = useMemo(
+		() => getNamePossessive(unicornData.name),
+		[unicornData]
+	);
 
 	return (
 		<div

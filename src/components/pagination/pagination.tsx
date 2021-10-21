@@ -9,9 +9,8 @@ interface PaginationProps {
 	absolutePath: string;
 }
 export const Pagination = ({ absolutePath }: PaginationProps) => {
-	const { pageCount, pageIndex, setCurrentPageIndex } = React.useContext(
-		PostListContext
-	);
+	const { pageCount, pageIndex, setCurrentPageIndex } =
+		React.useContext(PostListContext);
 	const { searchVal, filterVal } = React.useContext(SearchAndFilterContext);
 
 	if (!pageCount) return null;

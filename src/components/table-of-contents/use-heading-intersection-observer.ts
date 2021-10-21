@@ -19,9 +19,8 @@ export const useHeadingIntersectionObserver = ({
 		const handleObserver: IntersectionObserverCallback = (entries) => {
 			const highlightFirstActive = () => {
 				if (!tocListRef.current) return;
-				let firstVisibleLink = tocListRef.current.querySelector(
-					".toc-is-visible"
-				);
+				let firstVisibleLink =
+					tocListRef.current.querySelector(".toc-is-visible");
 
 				linkRefs.forEach((linkRef) => {
 					linkRef.current!.classList.remove("toc-is-active");

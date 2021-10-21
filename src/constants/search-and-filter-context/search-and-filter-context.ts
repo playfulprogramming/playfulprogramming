@@ -62,10 +62,8 @@ export const useSearchFilterValue = () => {
 	 * However, due to bring splut between filter and search, we still need to limit
 	 * them
 	 */
-	const {
-		searchUsingLunr: filterUsingLunr,
-		results: lunrFilterIds,
-	} = useLunr();
+	const { searchUsingLunr: filterUsingLunr, results: lunrFilterIds } =
+		useLunr();
 	const { searchUsingLunr, results: lunrSearchIds } = useLunr();
 
 	useEffect(() => {
