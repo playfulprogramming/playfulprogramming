@@ -24,7 +24,7 @@ const mapToMetaArr = (map: MapToMetaMap) =>
 		if (Array.isArray(value)) {
 			for (const item of value) {
 				metaArr.push({
-					property: (key as unknown) as string,
+					property: key as unknown as string,
 					content: item,
 				});
 			}

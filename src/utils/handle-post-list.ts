@@ -8,7 +8,11 @@ export const filterPostsBySlugArr = <
 	posts: T[],
 	allowedIdArr: string[]
 ) => {
-	return posts.filter(({ node: { fields: { slug } } }) =>
-		allowedIdArr.includes(slug)
+	return posts.filter(
+		({
+			node: {
+				fields: { slug },
+			},
+		}) => allowedIdArr.includes(slug)
 	);
 };
