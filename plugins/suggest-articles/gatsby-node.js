@@ -146,9 +146,17 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			}
 		};
 
+		fillSuggestionArrayWith(moreSimilarTags);
 		fillSuggestionArrayWith(similarTags);
-		// TODO: Sort based on date
-		fillSuggestionArrayWith(postNodes);
+
+		const dateSorted = postNodes.sort((postA, postB) => {
+			return (
+				// Newest first
+				new Date(postB.frontmatter.published) -
+				new Date(postA.frontmatter.published)
+			);
+		});
+		fillSuggestionArrayWith(dateSorted);
 
 		const unicorns = require("../../content/data/unicorns.json");
 
