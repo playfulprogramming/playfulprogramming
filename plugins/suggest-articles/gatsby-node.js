@@ -8,6 +8,7 @@
  * https://github.com/unicorn-utterances/unicorn-utterances/tree/c6d64a44ee8a4e7d6cad1dbd2d01bc9a6ad78241/plugins/count-inline-code
  */
 
+const unicorns = require("../../content/data/unicorns.json");
 /**
  * Get 3 similar articles to suggest in sidebar.
  * Base off of article series,and similar tags.
@@ -56,7 +57,14 @@ exports.createSchemaCustomization = ({ actions }) => {
 	const { createTypes } = actions;
 	const typeDefs = `
     type MarkdownRemarkFields implements Node {
-      suggestedArticles: [MarkdownRemark]
+      suggestedArticles: [SuggestedArticles]
+    }
+    
+		type SuggestedArticles {
+      id: String!
+      title: String!
+      slug: String!
+      authors: [String]
     }
   `;
 	// TODO: Replace with https://www.gatsbyjs.com/docs/reference/config-files/actions/#createFieldExtension
@@ -136,16 +144,24 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 		// TODO: Sort based on date
 		fillSuggestionArrayWith(postNodes);
 
+		const unicorns = require("../../content/data/unicorns.json");
+
 		createNodeField({
 			node: postNode,
 			name: `suggestedArticles`,
 			// TODO: Migrate to `RemarkMarkdown` type. Gatbsy doesn't seem to like
-			value: suggestedArticles.map((post) => ({
-				id: post.id,
-				slug: post.fields.slug,
-				title: post.frontmatter.title,
-				authors: post.frontmatter.authors,
-			})),
+			value: suggestedArticles.map((post) => {
+				const authors = (post.frontmatter.authors || []).map((authorID) => {
+					return unicorns.find((unicorn) => unicorn.id === authorID).name;
+				});
+				return {
+					id: post.id,
+					slug: post.fields.slug,
+					title: post.frontmatter.title,
+					// Array of IDs
+					authors: authors,
+				};
+			}),
 		});
 	});
 };

@@ -19,6 +19,13 @@ export interface PostInfo {
 	fields: {
 		slug: string;
 		inlineCount: number;
+		suggestedArticles: Array<{
+			id: string;
+			slug: string;
+			title: string;
+			// Array of names
+			authors: string[];
+		}>;
 		headingsWithId: Array<{
 			value: string;
 			slug: string;

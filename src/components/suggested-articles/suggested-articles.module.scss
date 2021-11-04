@@ -1,0 +1,21 @@
+@import "../../styles/vars";
+@import "../../styles/text_styles";
+@import '../post-card/post-card.module';
+
+.list {
+	list-style: none;
+}
+
+.localCard {
+	padding: 1rem !important;
+	margin-bottom: 1rem;
+}
+
+.header {
+	@extend %headline-4;
+	margin-bottom: 1rem;
+}
+
+.author {
+	color: var(--midImpactBlack);
+}

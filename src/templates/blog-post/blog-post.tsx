@@ -12,6 +12,7 @@ import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { ThemeContext } from "constants/theme-context";
 import { SiteInfo, PostInfo } from "uu-types";
 import { TableOfContents } from "components/table-of-contents";
+import { SuggestedArticles } from "components/suggested-articles";
 import { BlogPostLayout } from "components/blog-post-layout";
 import { MailingList } from "components/mailing-list";
 
@@ -69,6 +70,11 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 			<article>
 				<BlogPostLayout
 					left={<TableOfContents headingsWithId={post.fields.headingsWithId} />}
+					right={
+						<SuggestedArticles
+							suggestedArticles={post.fields.suggestedArticles}
+						/>
+					}
 					center={
 						<>
 							<header role="banner" className="marginZeroAutoChild">
@@ -159,6 +165,7 @@ export const pageQuery = graphql`
 					id
 					slug
 					title
+					authors
 				}
 			}
 		}

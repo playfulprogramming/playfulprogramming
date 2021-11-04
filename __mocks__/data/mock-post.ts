@@ -12,16 +12,17 @@ export const MockPost = {
 		description:
 			"This is a short description dunno why this would be this short",
 		authors: [MockUnicorn],
-		license: MockLicense
+		license: MockLicense,
 	},
 	fields: {
 		slug: "/this-post-name-here",
 		inlineCount: 0,
-		headingsWithId: []
+		headingsWithId: [],
+		suggestedArticles: [],
 	},
 	wordCount: {
-		words: 10000
-	}
+		words: 10000,
+	},
 };
 
 export const MockMultiAuthorPost = {
@@ -36,14 +37,15 @@ export const MockMultiAuthorPost = {
 		description:
 			"This is another short description dunno why this would be this short",
 		authors: [MockUnicornTwo, MockUnicorn],
-		license: MockLicense
+		license: MockLicense,
 	},
 	fields: {
 		slug: "/this-other-post-name-here",
 		inlineCount: 0,
-		headingsWithId: []
+		headingsWithId: [],
+		suggestedArticles: [],
 	},
 	wordCount: {
-		words: 100000
-	}
+		words: 100000,
+	},
 };
