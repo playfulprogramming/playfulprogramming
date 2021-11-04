@@ -1,6 +1,6 @@
 @import "../../styles/vars";
 @import "../../styles/text_styles";
-@import '../post-card/post-card.module';
+@import "../post-card/post-card.module";
 
 .list {
 	list-style: none;
@@ -9,6 +9,16 @@
 .localCard {
 	padding: 1rem !important;
 	margin-bottom: 1rem;
+	text-decoration: none;
+}
+
+.localCard a {
+	text-decoration: none;
+}
+
+.localCard:hover .titleTag {
+	text-decoration: underline;
+	transition: text-decoration var(--animSpeed);
 }
 
 .header {
@@ -17,5 +27,18 @@
 }
 
 .author {
-	color: var(--midImpactBlack);
+	color: var(--midImpactBlack) !important;
+	text-underline-style: none;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
