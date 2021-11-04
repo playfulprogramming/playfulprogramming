@@ -56,7 +56,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 	const { createTypes } = actions;
 	const typeDefs = `
     type MarkdownRemarkFields implements Node {
-      suggestedArticles: Node[]
+      suggestedArticles: [MarkdownRemark]
     }
   `;
 	// TODO: Replace with https://www.gatsbyjs.com/docs/reference/config-files/actions/#createFieldExtension
@@ -71,11 +71,13 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 		let suggestedArticles = [];
 		let similarTags = [];
 		for (let post of postNodes) {
+			// Handle non-blog content, like about page
+			if (!post.frontmatter.published) break;
 			// Early return for value
 			if (suggestedArticles.length >= 3) break;
 			// Don't return the same article
 			if (post.id === postNode.id) break;
-			if (post.frontmatter.series === postNode.frontMatter.series) {
+			if (post.frontmatter.series === postNode.frontmatter.series) {
 				const { largest, smallest } = getOrderRange(suggestedArticles) || {};
 				let newArticlePushed = false;
 				if (post.order === smallest - 1 || post.order === largest + 1) {
@@ -109,7 +111,12 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			// TODO: Should we consider making more than a single tag match?
 			// FWIW I don't know the answer. I'm leaning "no" for now, but "yes" in future
 			// when we have more content on the site
-			if (arraysContainSimilar(post.tags, postNode.tags)) {
+			if (
+				arraysContainSimilar(
+					post.frontmatter.tags,
+					postNode.frontmatter.tags || []
+				)
+			) {
 				similarTags.push(post);
 			}
 		}
