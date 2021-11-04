@@ -26,7 +26,9 @@ export const SuggestedArticles = ({
 							])}
 						>
 							<Link to={`/posts${suggestedArticle.slug}`}>
-								<span className={suggestedStyle.titleTag}>{suggestedArticle.title}</span>
+								<span className={suggestedStyle.titleTag}>
+									{suggestedArticle.title}
+								</span>
 								<br />
 								<span className={suggestedStyle.srOnly}>by</span>
 								<span className={suggestedStyle.author}>{authorNames}</span>

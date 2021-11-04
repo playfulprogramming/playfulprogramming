@@ -18,6 +18,10 @@ const unicorns = require("../../content/data/unicorns.json");
  * series articles, they should suggest higher than
  * matching tags
  *
+ * We check exactly how similar tags are in general. For example, given one
+ * post with 4 tags that match, and another post with only 2, the one with
+ * 4 tags will show above the one with 2.
+ *
  * For suggested articles, get the articles only within
  * 1 series order of each other.
  *
