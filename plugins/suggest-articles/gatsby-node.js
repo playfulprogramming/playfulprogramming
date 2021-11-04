@@ -84,14 +84,13 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 		let extraSuggestedArticles = [];
 		let suggestedArticles = [];
 		let similarTags = [];
-		let moreSimilarTags = [];
 		for (let post of postNodes) {
-			// Handle non-blog content, like about page
-			if (!post.frontmatter.published) break;
-			// Early return for value
+			// Early "return" for value
 			if (suggestedArticles.length >= 3) break;
+			// Handle non-blog content, like about page
+			if (!post.frontmatter.published) continue;
 			// Don't return the same article
-			if (post.id === postNode.id) break;
+			if (post.id === postNode.id) continue;
 			if (post.frontmatter.series === postNode.frontmatter.series) {
 				const { largest, smallest } = getOrderRange(suggestedArticles) || {};
 				let newArticlePushed = false;
@@ -127,8 +126,9 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 				post.frontmatter.tags,
 				postNode.frontmatter.tags || []
 			);
-			if (howManyTagsSimilar >= 2) moreSimilarTags.push(post);
-			else if (howManyTagsSimilar === 1) similarTags.push(post);
+			if (howManyTagsSimilar > 0) {
+				similarTags.push({ post, howManyTagsSimilar });
+			}
 		}
 
 		// Check to see if there are at least three suggested articles.
@@ -137,6 +137,8 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			if (suggestedArticles.length < 3) {
 				let sizeToPush = 3 - suggestedArticles.length;
 				for (const item of otherArr) {
+					// Don't suggest itself
+					if (item.id === postNode.id) continue;
 					// No duplicates, please!
 					if (suggestedArticles.includes(item)) continue;
 					suggestedArticles.push(item);
@@ -146,8 +148,10 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			}
 		};
 
-		fillSuggestionArrayWith(moreSimilarTags);
-		fillSuggestionArrayWith(similarTags);
+		const tagSimilaritySorted = similarTags
+			.sort((a, b) => b.howManyTagsSimilar - a.howManyTagsSimilar)
+			.map(({ post }) => post);
+		fillSuggestionArrayWith(tagSimilaritySorted);
 
 		const dateSorted = postNodes.sort((postA, postB) => {
 			return (
