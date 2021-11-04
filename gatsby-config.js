@@ -183,6 +183,7 @@ module.exports = {
 			},
 		},
 		`count-inline-code`,
+		`suggest-articles`,
 		`remarked-autolink-headers-and-add-id`,
 		`gatsby-plugin-image`,
 		`gatsby-plugin-sharp`,

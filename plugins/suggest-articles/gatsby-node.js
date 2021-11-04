@@ -139,7 +139,13 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 		createNodeField({
 			node: postNode,
 			name: `suggestedArticles`,
-			value: suggestedArticles,
+			// TODO: Migrate to `RemarkMarkdown` type. Gatbsy doesn't seem to like
+			value: suggestedArticles.map((post) => ({
+				id: post.id,
+				slug: post.fields.slug,
+				title: post.frontmatter.title,
+				authors: post.frontmatter.authors,
+			})),
 		});
 	});
 };

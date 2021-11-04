@@ -28,6 +28,8 @@ const BlogPostTemplateChild = (props: BlogPostTemplateProps) => {
 		title: post.frontmatter.title,
 	});
 
+	console.log(post);
+
 	/**
 	 * Toggle the Disqus theme
 	 * Disqus will by default try to guess what theme to pick based on the
@@ -152,6 +154,13 @@ export const pageQuery = graphql`
 		}
 		markdownRemark(fields: { slug: { eq: $slug } }) {
 			...PostInfo
+			fields {
+				suggestedArticles {
+					id
+					slug
+					title
+				}
+			}
 		}
 	}
 `;
