@@ -33,7 +33,13 @@ const unicorns = require("../../content/data/unicorns.json");
  * But not:
  * 1, 4, 5
  */
-const arraysContainSimilar = (arr1, arr2) => arr1.some((r) => arr2.includes(r));
+const howManySimilarBetween = (arr1, arr2) => {
+	let match = 0;
+	for (let item of arr1) {
+		if (arr2.includes(item)) match++;
+	}
+	return match;
+};
 
 const getOrderRange = (arr) => {
 	return arr.reduce((prev, curr) => {
@@ -78,6 +84,7 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 		let extraSuggestedArticles = [];
 		let suggestedArticles = [];
 		let similarTags = [];
+		let moreSimilarTags = [];
 		for (let post of postNodes) {
 			// Handle non-blog content, like about page
 			if (!post.frontmatter.published) break;
@@ -116,27 +123,26 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 				if (suggestedArticles.length >= 3) break;
 				extraSuggestedArticles.push(post);
 			}
-			// TODO: Should we consider making more than a single tag match?
-			// FWIW I don't know the answer. I'm leaning "no" for now, but "yes" in future
-			// when we have more content on the site
-			if (
-				arraysContainSimilar(
-					post.frontmatter.tags,
-					postNode.frontmatter.tags || []
-				)
-			) {
-				similarTags.push(post);
-			}
+			const howManyTagsSimilar = howManySimilarBetween(
+				post.frontmatter.tags,
+				postNode.frontmatter.tags || []
+			);
+			if (howManyTagsSimilar >= 2) moreSimilarTags.push(post);
+			else if (howManyTagsSimilar === 1) similarTags.push(post);
 		}
 
 		// Check to see if there are at least three suggested articles.
 		// If not, fill it with another array of suggested articles.
 		const fillSuggestionArrayWith = (otherArr) => {
 			if (suggestedArticles.length < 3) {
-				const sizeToPush = 3 - suggestedArticles.length;
-				suggestedArticles = suggestedArticles.concat(
-					otherArr.slice(0, sizeToPush)
-				);
+				let sizeToPush = 3 - suggestedArticles.length;
+				for (const item of otherArr) {
+					// No duplicates, please!
+					if (suggestedArticles.includes(item)) continue;
+					suggestedArticles.push(item);
+					sizeToPush--;
+					if (sizeToPush <= 0) return;
+				}
 			}
 		};
 
