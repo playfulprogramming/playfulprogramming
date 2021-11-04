@@ -13,6 +13,7 @@ const deburr = require(`lodash.deburr`);
 
 exports.createSchemaCustomization = ({ actions }) => {
 	const { createTypes } = actions;
+	// TODO: Replace with https://www.gatsbyjs.com/docs/reference/config-files/actions/#createFieldExtension
 	const typeDefs = `
     type MarkdownRemarkFields implements Node {
 			headingsWithId: [HeadingsWithId]

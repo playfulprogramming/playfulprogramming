@@ -17,6 +17,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       inlineCount: Int
     }
   `;
+	// TODO: Replace with https://www.gatsbyjs.com/docs/reference/config-files/actions/#createFieldExtension
 	createTypes(typeDefs);
 };
 exports.sourceNodes = ({ getNodesByType, actions }) => {
