@@ -103,6 +103,7 @@ module.exports = {
 				plugins: [
 					`gatsby-remark-behead`,
 					{
+						// TODO: NEXTJS: Replace with https://ironeko.com/posts/how-to-use-next-js-image-with-markdown-or-mdx
 						resolve: `gatsby-remark-images`,
 						options: {
 							maxWidth: 590,
@@ -111,6 +112,8 @@ module.exports = {
 						},
 					},
 					{
+						// TODO: NEXTJS: Replace with https://ironeko.com/posts/how-to-use-next-js-image-with-markdown-or-mdx
+						// https://wangchujiang.com/rehype-video/
 						resolve: "gatsby-remark-video",
 						options: {
 							width: "100%",
@@ -123,18 +126,21 @@ module.exports = {
 						},
 					},
 					{
+						// TODO: NEXTJS: Replace with https://github.com/francoischalifour/medium-zoom/blob/master/examples/react-markdown/src/Post.js
 						resolve: `gatsby-remark-images-medium-zoom`,
 						options: {
 							includedSelector: '[src$=".svg"]',
 						},
 					},
 					{
+						// TODO: NEXTJS: Replace with https://ironeko.com/posts/how-to-use-next-js-image-with-markdown-or-mdx
 						resolve: `gatsby-remark-responsive-iframe`,
 						options: {
 							wrapperStyle: `margin-bottom: 1.0725rem`,
 						},
 					},
 					{
+						// TODO: NEXTJS: Replace with https://github.com/rehypejs/rehype-autolink-headings
 						resolve: `gatsby-remark-autolink-headers`,
 						options: {
 							offsetY: `100`,
@@ -145,6 +151,7 @@ module.exports = {
 						},
 					},
 					{
+						// TODO: NEXTJS:  Replace with https://github.com/rehypejs/rehype-highlight
 						resolve: `gatsby-remark-prismjs`,
 						options: {
 							aliases: {
@@ -152,6 +159,7 @@ module.exports = {
 							},
 						},
 					},
+					// TODO: NEXTJS: Are we legit using this at all?
 					`gatsby-remark-copy-linked-files`,
 					{
 						resolve: "gatsby-remark-series",
