@@ -1,27 +1,30 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "esnext",
-		"jsx": "react",
-		"lib": ["dom", "esnext"],
-		"strict": true,
-		"noEmit": true,
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"noUnusedLocals": false,
-		"baseUrl": ".",
-		"paths": {
-			"constants/*": ["src/constants/*"],
-			"uu-constants": ["src/constants"],
-			"types/*": ["src/types/*"],
-			"uu-types": ["src/types"],
-			"components/*": ["src/components/*"],
-			"utils/*": ["src/utils/*"],
-			"uu-utils": ["src/utils"],
-			"assets/*": ["src/assets/*"],
-			"__mocks__/*": ["__mocks__/*"]
-		}
-	},
-	"include": ["./src/**/*"],
-	"exclude": ["node_modules", "public", ".cache"]
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
