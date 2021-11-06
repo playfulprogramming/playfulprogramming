@@ -4,7 +4,6 @@ import remarkStringify from "remark-stringify";
 import remarkToRehype from 'remark-rehype';
 import rehypeStringify from "rehype-stringify";
 
-import * as React from 'react'
 // TODO: Create types
 const behead = require('remark-behead')
 
