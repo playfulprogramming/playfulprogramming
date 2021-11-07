@@ -13,13 +13,13 @@ interface useMarkdownRendererProps {
 }
 
 const getComponents = ({
-                           postsDirectory,
                            slug
                        }: useMarkdownRendererProps) => ({
     img: (imgProps: unknown) => {
         const {src, ...props2} = imgProps as ImageProps;
-        const imagePath = join(postsDirectory, slug, src as string);
-        const beResponsive = props2.height && props2.width;
+        const imagePath = join('/posts', slug, src as string);
+        const beResponsive = !!(props2.height && props2.width);
+
         return (
             <Image
                 src={imagePath}

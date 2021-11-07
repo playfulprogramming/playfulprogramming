@@ -1,9 +1,9 @@
 // import { useRouter } from 'next/router'
 // import ErrorPage from 'next/error'
-import {getPostBySlug, getAllPosts, postsDirectory} from '../../lib/api'
+import {getPostBySlug, getAllPosts, postsDirectory} from '../../api/api'
 import * as React from 'react';
 
-import markdownToHtml from "../../lib/markdownToHtml";
+import markdownToHtml from "../../utils/markdownToHtml";
 import {useMarkdownRenderer} from "../../hooks/useMarkdownRenderer";
 
 type Props = {

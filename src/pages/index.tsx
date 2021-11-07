@@ -1,11 +1,14 @@
-import {getAllPosts} from '../lib/api'
+import {getAllPosts} from '../api/api'
 import Post from '../types/post'
 import React from 'react'
 import Link from 'next/link';
+import consts from '../utils/constants';
 
 type Props = {
     allPosts: Post[]
 }
+
+
 
 const Index = ({allPosts}: Props) => {
     return (
@@ -15,7 +18,7 @@ const Index = ({allPosts}: Props) => {
                     post =>
                         <li key={post.slug}>
                             <h2>
-                                <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
+                                <Link href={`/posts/[slug]`} as={`/posts/${post.slug}`}>
                                     <a>{post.title}</a>
                                 </Link>
                             </h2>
