@@ -2,7 +2,7 @@
 {
   title: "Docs, Where Can We Do Better?",
   description: "My personal approach to writing docs, mainly aimed at frameworks and the like.",
-  published: "2021-01-30T05:12:03.284Z",
+  published: "2021-11-13T05:12:03.284Z",
   authors: ["maisydino"],
   tags: ["documentation"],
   attached: [],
