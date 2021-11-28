@@ -5,10 +5,10 @@ import remarkToRehype from 'remark-rehype';
 import rehypeStringify from "rehype-stringify";
 import path from "path";
 import {postsDirectory} from "../api";
+import rehypeImageSize from 'rehype-img-size';
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
-import rehypeImageSize from 'rehype-img-size';
 const behead = require('remark-behead')
 
 export default async function markdownToHtml(slug: string, markdown: string) {

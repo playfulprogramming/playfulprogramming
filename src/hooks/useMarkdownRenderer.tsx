@@ -18,13 +18,14 @@ const getComponents = ({
     img: (imgProps: unknown) => {
         const {src, ...props2} = imgProps as ImageProps;
         const imagePath = join('/posts', slug, src as string);
+        // only "fill" is supported when height and width are not specified
         const beResponsive = !!(props2.height && props2.width);
 
         return (
             <Image
                 src={imagePath}
                 {...props2}
-                layout={beResponsive ? "responsive" : "fill"}
+                layout={beResponsive ? "intrinsic" : "fill"}
                 loading="lazy"
             />
         )
