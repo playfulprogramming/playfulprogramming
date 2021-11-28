@@ -36,7 +36,7 @@ For example, one of the ways that we can send and receive data is by, well, send
 
 It doesn't wait for a full message to be sent or provide many guidelines for how to send the data, it just tells them to "come on over".
 
-`video: title: "A series of cars driving across 3 lines at various speeds. This is meant to represent the data flow of binary data on a bus architecture": ./bus_animation.mp4`
+<video src="./bus_animation.mp4" title="A series of cars driving across 3 lines at various speeds. This is meant to represent the data flow of binary data on a bus architecture"></video>
 
 In this example, the bus icons are similar to binary data - either a one or a zero. They're able to _move as quickly as possible down a "lane" that is allocated for a specific stream of data to come through_. A collection of "lanes" is called a "bus" (which is where the name of the architecture comes from. I was just being silly by representing the binary data as buses in the video above). Your system, right now, is streaming through _**many**_ thousands of these busses to communicate between your CPU and I/O devices (like your keyboard or speakers) and tons of other things. They're _typically divided to send specific data through specific lanes (or busses)_, but outside of that, there's little high-level organization or concepts to think through.
 
@@ -70,7 +70,7 @@ While the "body" of your packet would contain the data you want the other party 
 
 As a result, you might have a middleware packet handler that reads only the header of the packet in order to decide where to send the packet in question - much like the mail service you use will read the outside of the envelope to see where to send your letter
 
-`video: title: "An example of a small packet being sent to a small file server and a larger packet being sent to the large file server based on the data in the packet header": ./header_routing.mp4`
+<video src="./header_routing.mp4" title="An example of a small packet being sent to a small file server and a larger packet being sent to the large file server based on the data in the packet header"></video>
 
 # [It Takes A Village](https://en.wikipedia.org/wiki/It_takes_a_village) To Send A Letter {#osi-layers}
 

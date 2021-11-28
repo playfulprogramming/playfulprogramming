@@ -14,31 +14,51 @@ interface useMarkdownRendererProps {
     markdownHTML: string
 }
 
+const isRelativePath = (str: string) => {
+    return str.startsWith('./') || /^\w/.exec(str);
+}
+
+const getFullRelativePath = (slug: string, srcStr: string) => {
+    if (srcStr.startsWith('./')) srcStr = srcStr.slice(2);
+    return isRelativePath(srcStr) ?
+            // URLJoin doesn't seem to handle the `./` well
+            urljoin('/posts', slug, srcStr)
+            : srcStr
+}
+
 const getComponents = ({
                            slug
                        }: useMarkdownRendererProps) => ({
     img: (imgProps: unknown) => {
         const {src, ...props2} = imgProps as ImageProps;
-        const srcStr = src as string; // ImageProps isn't _quite_ right for our usg here
-        const imagePath =
-            srcStr.startsWith('./') ?
-                // URLJoin doesn't seem to handle the `./` well
-                urljoin('/posts', slug, srcStr.slice(2, srcStr.length))
-                : srcStr
-        
+        let srcStr = getFullRelativePath(slug, src as string); // ImageProps isn't _quite_ right for our usg here
+
         // only "fill" is supported when height and width are not specified
         const beResponsive = !!(props2.height && props2.width);
 
         return (
           <Zoom>
             <Image
-                src={imagePath}
+                src={srcStr}
                 {...props2}
                 layout={beResponsive ? "intrinsic" : "fill"}
                 loading="lazy"
             />
           </Zoom>
         )
+    },
+    video: (props: React.VideoHTMLAttributes<HTMLVideoElement>) => {
+        const {src, ...rest} = props;
+        const srcStr = getFullRelativePath(slug, src || '');
+        return <video
+            muted={true}
+            autoPlay={true}
+            controls={true}
+            loop={true}
+            width="100%"
+            height="auto"
+            {...rest}
+            src={srcStr}/>
     },
     // Temp fix to remove HTML, BODY, and HEAD nodes from render. Not sure why,
     // but it's being added to the markdown rendering in the `useMarkdownRenderer`

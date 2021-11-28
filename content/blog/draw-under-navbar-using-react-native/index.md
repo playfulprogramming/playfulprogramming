@@ -231,7 +231,7 @@ React.useEffect(() => {
 
 It supports dark mode switching, as many API levels as React Native does, and much more!
 
-`video: title: "A working dark switch with transparent navbar": ./android_10.mp4`
+<video src="./android_10.mp4" title="A working dark switch with transparent navbar"></video>
 
 # Conclusion
 

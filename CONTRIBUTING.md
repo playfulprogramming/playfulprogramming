@@ -78,7 +78,7 @@ Once you've created a subfolder with the URI you'd like your article to have, mo
 An example of referencing a video locally is:
 
 ```markdown
-`video: title: "A comparison of how text spacing is applied on iOS and Android": ./ios_vs_android.mp4`
+<video src="./ios_vs_android.mp4" title="A comparison of how text spacing is applied on iOS and Android"></video>
 ```
 
 Where you include the title of the video and the video.
