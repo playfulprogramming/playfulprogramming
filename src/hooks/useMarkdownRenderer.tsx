@@ -4,7 +4,8 @@ import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import Image, {ImageProps} from "next/image";
 import {join} from "path";
-import {ReactElement} from "react";
+import { ReactElement, ReactNode } from "react";
+import Zoom from 'react-medium-image-zoom';
 
 interface useMarkdownRendererProps {
     postsDirectory: string;
@@ -22,14 +23,22 @@ const getComponents = ({
         const beResponsive = !!(props2.height && props2.width);
 
         return (
+          <Zoom>
             <Image
                 src={imagePath}
                 {...props2}
                 layout={beResponsive ? "intrinsic" : "fill"}
                 loading="lazy"
             />
+          </Zoom>
         )
-    }
+    },
+    // Temp fix to remove HTML, BODY, and HEAD nodes from render. Not sure why,
+    // but it's being added to the markdown rendering in the `useMarkdownRenderer`
+    // step.
+    html: ({children}: {children: ReactNode[]}) => <>{children}</>,
+    body: ({children}: {children: ReactNode[]}) => <>{children}</>,
+    head: ({children}: {children: ReactNode[]}) => <>{children}</>,
 })
 
 export const useMarkdownRenderer = (props: useMarkdownRendererProps) => {
@@ -41,7 +50,7 @@ export const useMarkdownRenderer = (props: useMarkdownRendererProps) => {
         .use(rehypeParse)
         .use(reactRehyped, {
             createElement: React.createElement,
-            components: getComponents(props)
+            components: getComponents(props) as any,
         }).processSync(props.markdownHTML).result as ReactElement,
         [props]
     );

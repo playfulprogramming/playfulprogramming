@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import markdownToHtml from "../../utils/markdownToHtml";
 import {useMarkdownRenderer} from "../../hooks/useMarkdownRenderer";
+import 'react-medium-image-zoom/dist/styles.css'
 
 type Props = {
     markdownHTML: string
