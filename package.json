@@ -14,7 +14,7 @@
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rehype-img-size": "^0.0.1",
+    "rehype-img-size": "git+https://github.com/unicorn-utterances/rehype-img-size.git#relative-path-full",
     "rehype-parse": "^8.0.3",
     "rehype-react": "^7.0.3",
     "rehype-stringify": "^9.0.2",
