@@ -2,13 +2,10 @@ import {getAllPosts} from '../api/api'
 import Post from '../types/post'
 import React from 'react'
 import Link from 'next/link';
-import consts from '../utils/constants';
 
 type Props = {
     allPosts: Post[]
 }
-
-
 
 const Index = ({allPosts}: Props) => {
     return (
@@ -22,7 +19,7 @@ const Index = ({allPosts}: Props) => {
                                     <a>{post.title}</a>
                                 </Link>
                             </h2>
-                            <p>{post.date}</p>
+                            <p>{post.published}</p>
                         </li>
                 )}
             </ul>
@@ -33,13 +30,21 @@ const Index = ({allPosts}: Props) => {
 export default Index
 
 export const getStaticProps = async () => {
-    const allPosts = getAllPosts([
+    let allPosts = getAllPosts([
         'title',
-        'date',
+        'published',
         'slug',
         'author',
         'excerpt',
     ])
+
+        // sort posts by date in descending order
+    allPosts = allPosts.sort((post1, post2) => {
+            const date1 = new Date(post1.published);
+            const date2 = new Date(post2.published);
+            return (date1 > date2 ? -1 : 1);
+        })
+
 
     return {
         props: {allPosts},
