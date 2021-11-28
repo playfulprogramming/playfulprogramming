@@ -3,9 +3,10 @@ import {unified} from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import Image, {ImageProps} from "next/image";
-import {join} from "path";
+import {join, normalize} from "path";
 import { ReactElement, ReactNode } from "react";
 import Zoom from 'react-medium-image-zoom';
+import urljoin from 'url-join';
 
 interface useMarkdownRendererProps {
     postsDirectory: string;
@@ -18,7 +19,13 @@ const getComponents = ({
                        }: useMarkdownRendererProps) => ({
     img: (imgProps: unknown) => {
         const {src, ...props2} = imgProps as ImageProps;
-        const imagePath = join('/posts', slug, src as string);
+        const srcStr = src as string; // ImageProps isn't _quite_ right for our usg here
+        const imagePath =
+            srcStr.startsWith('./') ?
+                // URLJoin doesn't seem to handle the `./` well
+                urljoin('/posts', slug, srcStr.slice(2, srcStr.length))
+                : srcStr
+        
         // only "fill" is supported when height and width are not specified
         const beResponsive = !!(props2.height && props2.width);
 
