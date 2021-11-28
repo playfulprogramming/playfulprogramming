@@ -7,6 +7,8 @@ import remarkGfm from 'remark-gfm'
 import path from "path";
 import {postsDirectory} from "../api";
 import rehypeImageSize from 'rehype-img-size';
+import remarkEmbedder, {RemarkEmbedderOptions} from '@remark-embedder/core'
+import oembedTransformer from '@remark-embedder/transformer-oembed'
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -19,6 +21,11 @@ export default async function markdownToHtml(slug: string, markdown: string) {
       .use(remarkGfm)
       /* start remark plugins here */
       .use(behead, { after: 0, depth: 1 })
+      .use((remarkEmbedder as any), {
+          transformers: [
+              oembedTransformer
+          ]
+      } as RemarkEmbedderOptions)
       /* end remark plugins here */
       .use(remarkStringify)
       .use(remarkToRehype, {allowDangerousHtml: true})
@@ -29,6 +36,10 @@ export default async function markdownToHtml(slug: string, markdown: string) {
       })
       /* end rehype plugins here */
       .use(rehypeStringify, {allowDangerousHtml: true})
+      // .use(() => tree => {
+      //     debugger;
+      //     return tree;
+      // })
       .process(markdown);
 
   return result.toString()
