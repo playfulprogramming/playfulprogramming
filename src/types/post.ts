@@ -8,6 +8,7 @@ type PostType = {
   coverImage: string
   author: Author
   excerpt: string
+  wordCount: number;
   ogImage: {
     url: string
   }

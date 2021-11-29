@@ -2,6 +2,8 @@ import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
 import {countContent} from "../utils/count-words";
+import PostType from "../types/post";
+import {Picked} from "../types/helpers";
 
 export const postsDirectory = join(process.cwd(), 'content/blog')
 
@@ -9,11 +11,8 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory)
 }
 
-type Items = {
-  [key: string]: string | number
-}
-
-export function getPostBySlug(slug: string, fields: string[] = []) {
+export function getPostBySlug<Keys extends Array<keyof PostType>>(slug: string, fields: Keys = [] as any):
+    Picked<PostType, Keys> {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, realSlug, `index.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -31,7 +30,7 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     SourceNode: number
   };
 
-  const items: Items = {
+  const items: Partial<PostType> = {
   }
 
   // Ensure only the minimal needed data is exposed
@@ -54,9 +53,10 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   return items
 }
 
-let allPostsCache = new WeakMap<object, Items[]>();
+let allPostsCache = new WeakMap<object, PostType[]>();
 
-export function getAllPosts(fields: string[] = [], cacheString: null | object = null) {
+export function getAllPosts<Keys extends Array<keyof PostType>>(fields: Keys = [] as any, cacheString: null | object = null):
+    Array<Picked<PostType, Keys>> {
   if (cacheString) {
     const cacheData = allPostsCache.get(cacheString);
     if (cacheData) return cacheData;
@@ -66,7 +66,7 @@ export function getAllPosts(fields: string[] = [], cacheString: null | object = 
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields));
 
-  if (cacheString) allPostsCache.set(cacheString, posts);
+  if (cacheString) allPostsCache.set(cacheString, posts as PostType[]);
 
   return posts
 }
