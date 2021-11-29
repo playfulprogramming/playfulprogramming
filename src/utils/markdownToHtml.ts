@@ -13,7 +13,7 @@ import oembedTransformer from '@remark-embedder/transformer-oembed'
 import * as TwitchTransformer from 'gatsby-remark-embedder/dist/transformers/Twitch';
 import rehypeSlug from 'rehype-slug'
 import {parent} from "../api/get-site-config";
-import {rehypeHeaderText} from "../plugins/add-header-text";
+import {rehypeHeaderText} from "../api/plugins/add-header-text";
 import remarkShikiTwoslash from 'remark-shiki-twoslash'
 import remarkTwoslash from "remark-shiki-twoslash";
 
