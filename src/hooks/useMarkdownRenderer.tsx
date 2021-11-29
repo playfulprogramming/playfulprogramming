@@ -25,8 +25,8 @@ const getFullRelativePath = (slug: string, srcStr: string) => {
         : srcStr
 }
 
-const HeaderLink: React.FC<{ id: string }> = ({id}) => {
-    return <a href={`#${id}`} aria-label="So what should docs be like permalink"
+const HeaderLink: React.FC<{ id: string, headerText: string }> = ({id, headerText}) => {
+    return <a href={`#${id}`} aria-label={`Permalink for "${headerText}"`}
               className="anchor before">
         <svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -39,54 +39,60 @@ const HeaderLink: React.FC<{ id: string }> = ({id}) => {
     </a>
 }
 
+type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
+    ['data-header-text']: string
+};
+
 const getComponents = ({
                            slug
                        }: useMarkdownRendererProps) => ({
-    h1: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h1: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
-        return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+        console.log({headerText})
+
+        return <h2 {...props} id={id} style={{position: "relative"}}>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },
-    h2: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h2: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
         return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },
-    h3: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h3: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
         return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },
-    h4: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h4: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
         return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },
-    h5: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h5: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
         return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },
-    h6: (headerProps: React.HTMLAttributes<HTMLHeadingElement>) => {
-        const {children, id} = headerProps;
+    h6: (headerProps: HeadingProps) => {
+        const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
         return <h2 id={id} style={{position: "relative"}}>
-            <HeaderLink id={id || ''}/>
+            <HeaderLink id={id || ''} headerText={headerText}/>
             {children}
         </h2>
     },

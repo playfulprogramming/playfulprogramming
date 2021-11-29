@@ -11,9 +11,9 @@ import rehypeImageSize from 'rehype-img-size';
 import remarkEmbedder, {RemarkEmbedderOptions} from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import * as TwitchTransformer from 'gatsby-remark-embedder/dist/transformers/Twitch';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import {parent} from "../api/get-site-config";
+import {rehypeHeaderText} from "../plugins/add-header-text";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -43,7 +43,7 @@ export default async function markdownToHtml(slug: string, markdown: string) {
         dir: imageDir,
       })
       .use(rehypeSlug)
-      // .use(rehypeAutolinkHeadings)
+      .use(rehypeHeaderText)
       /* end rehype plugins here */
       .use(rehypeStringify, {allowDangerousHtml: true})
       // .use(() => tree => {
