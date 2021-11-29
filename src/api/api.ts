@@ -1,6 +1,11 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
+import parse from 'remark-parse';
+import stringify from 'remark-stringify';
+import english from 'retext-english';
+import {unified} from "unified";
+import {countContent} from "../utils/count-words";
 
 export const postsDirectory = join(process.cwd(), 'content/blog')
 
@@ -13,12 +18,27 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   const fullPath = join(postsDirectory, realSlug, `index.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
+  const counts = countContent(content) as {
+    InlineCodeWords: number,
+    RootNode: number,
+    ParagraphNode: number,
+    SentenceNode: number,
+    WordNode: number,
+    TextNode: number,
+    WhiteSpaceNode: number,
+    PunctuationNode: number,
+    SymbolNode: number,
+    SourceNode: number
+  };
+
+  console.log({counts, slug})
 
   type Items = {
-    [key: string]: string
+    [key: string]: string | number
   }
 
-  const items: Items = {}
+  const items: Items = {
+  }
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
@@ -27,6 +47,9 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     }
     if (field === 'content') {
       items[field] = content
+    }
+    if (field === 'wordCount') {
+      items[field] = (counts.InlineCodeWords || 0) + (counts.WordNode || 0)
     }
 
     if (typeof data[field] !== 'undefined') {

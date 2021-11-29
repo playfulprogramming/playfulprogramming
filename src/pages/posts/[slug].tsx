@@ -11,9 +11,10 @@ type Props = {
     markdownHTML: string
     slug: string
     postsDirectory: string
+    wordCount: number
 }
 
-const Post = ({markdownHTML, slug, postsDirectory}: Props) => {
+const Post = ({markdownHTML, slug, postsDirectory, wordCount}: Props) => {
     const result = useMarkdownRenderer({
         markdownHTML,
         slug,
@@ -21,7 +22,10 @@ const Post = ({markdownHTML, slug, postsDirectory}: Props) => {
     });
 
     return (
+        <>
+        <h1>Word count: {wordCount}</h1>
         <>{result}</>
+        </>
     )
 }
 
@@ -37,7 +41,8 @@ export async function getStaticProps({params}: Params) {
     const post = getPostBySlug(params.slug, [
         'title',
         'slug',
-        'content'
+        'content',
+        'wordCount'
     ])
     const markdown = post.content || '';
 
@@ -47,7 +52,8 @@ export async function getStaticProps({params}: Params) {
         props: {
             markdownHTML,
             slug: post.slug,
-            postsDirectory
+            postsDirectory,
+            wordCount: post.wordCount
         }
     }
 }
