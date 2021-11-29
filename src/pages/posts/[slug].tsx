@@ -39,6 +39,8 @@ type Params = {
     }
 }
 
+const seriesPostCacheKey = {};
+
 export async function getStaticProps({params}: Params) {
     const post = getPostBySlug(params.slug, [
         'title',
@@ -60,10 +62,9 @@ export async function getStaticProps({params}: Params) {
             'slug',
             'series',
             'order'
-        ])
+        ], seriesPostCacheKey)
 
         seriesPosts = allPosts.filter(filterPost => filterPost.series === post.series).sort(sortPost => Number(sortPost.order) - Number(post.order));
-        console.log({seriesPosts})
     }
 
     const markdownHTML = await markdownToHtml(slug, markdown);

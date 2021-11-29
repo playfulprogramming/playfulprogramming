@@ -9,6 +9,10 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory)
 }
 
+type Items = {
+  [key: string]: string | number
+}
+
 export function getPostBySlug(slug: string, fields: string[] = []) {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, realSlug, `index.md`)
@@ -26,10 +30,6 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     SymbolNode: number,
     SourceNode: number
   };
-
-  type Items = {
-    [key: string]: string | number
-  }
 
   const items: Items = {
   }
@@ -54,10 +54,19 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   return items
 }
 
-export function getAllPosts(fields: string[] = []) {
+let allPostsCache = new WeakMap<object, Items[]>();
+
+export function getAllPosts(fields: string[] = [], cacheString: null | object = null) {
+  if (cacheString) {
+    const cacheData = allPostsCache.get(cacheString);
+    if (cacheData) return cacheData;
+  }
+
   const slugs = getPostSlugs()
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields));
+
+  if (cacheString) allPostsCache.set(cacheString, posts);
 
   return posts
 }
