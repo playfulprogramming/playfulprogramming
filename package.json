@@ -28,6 +28,7 @@
     "remark-parse": "^10.0.0",
     "remark-rehype": "^10.0.1",
     "remark-stringify": "^10.0.1",
+    "remark-unwrap-images": "^3.0.1",
     "typescript": "^4.4.4",
     "unified": "^10.1.0",
     "url-join": "^4.0.1"

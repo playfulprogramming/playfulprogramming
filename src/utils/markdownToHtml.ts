@@ -3,6 +3,7 @@ import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import remarkToRehype from 'remark-rehype';
 import rehypeStringify from "rehype-stringify";
+import remarkUnwrapImages from 'remark-unwrap-images'
 import remarkGfm from 'remark-gfm'
 import path from "path";
 import {postsDirectory} from "../api";
@@ -21,6 +22,8 @@ export default async function markdownToHtml(slug: string, markdown: string) {
   const result = await unified()
       .use(remarkParse)
       .use(remarkGfm)
+      // Remove complaining about "div cannot be in p element"
+      .use(remarkUnwrapImages)
       /* start remark plugins here */
       .use(behead, { after: 0, depth: 1 })
       .use((remarkEmbedder as any), {
