@@ -12,9 +12,10 @@ type Props = {
     slug: string
     postsDirectory: string
     wordCount: number
+    seriesPosts: any[]
 }
 
-const Post = ({markdownHTML, slug, postsDirectory, wordCount}: Props) => {
+const Post = ({markdownHTML, slug, postsDirectory, wordCount, seriesPosts}: Props) => {
     const result = useMarkdownRenderer({
         markdownHTML,
         slug,
@@ -23,8 +24,9 @@ const Post = ({markdownHTML, slug, postsDirectory, wordCount}: Props) => {
 
     return (
         <>
-        <h1>Word count: {wordCount}</h1>
-        <>{result}</>
+            <h1>Word count: {wordCount}</h1>
+            {JSON.stringify(seriesPosts)}
+            <>{result}</>
         </>
     )
 }
@@ -42,18 +44,37 @@ export async function getStaticProps({params}: Params) {
         'title',
         'slug',
         'content',
-        'wordCount'
+        'wordCount',
+        'series',
+        'order'
     ])
-    const markdown = post.content || '';
 
-    const markdownHTML = await markdownToHtml(post.slug, markdown);
+    const isStr = (val: any): val is string => typeof val === 'string';
+    const markdown = isStr(post.content) ? post.content : '';
+    const slug = isStr(post.slug) ? post.slug : '';
+
+    let seriesPosts: any[] = [];
+    if (post.series && post.order) {
+        const allPosts = getAllPosts([
+            'title',
+            'slug',
+            'series',
+            'order'
+        ])
+
+        seriesPosts = allPosts.filter(filterPost => filterPost.series === post.series).sort(sortPost => Number(sortPost.order) - Number(post.order));
+        console.log({seriesPosts})
+    }
+
+    const markdownHTML = await markdownToHtml(slug, markdown);
 
     return {
         props: {
             markdownHTML,
-            slug: post.slug,
+            slug: slug,
             postsDirectory,
-            wordCount: post.wordCount
+            wordCount: post.wordCount,
+            seriesPosts
         }
     }
 }

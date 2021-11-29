@@ -49,8 +49,6 @@ const getComponents = ({
     h1: (headerProps: HeadingProps) => {
         const {children, id, ['data-header-text']: headerText, ...props} = headerProps;
 
-        console.log({headerText})
-
         return <h2 {...props} id={id} style={{position: "relative"}}>
             <HeaderLink id={id || ''} headerText={headerText}/>
             {children}

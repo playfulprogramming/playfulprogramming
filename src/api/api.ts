@@ -1,10 +1,6 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
-import parse from 'remark-parse';
-import stringify from 'remark-stringify';
-import english from 'retext-english';
-import {unified} from "unified";
 import {countContent} from "../utils/count-words";
 
 export const postsDirectory = join(process.cwd(), 'content/blog')
@@ -30,8 +26,6 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     SymbolNode: number,
     SourceNode: number
   };
-
-  console.log({counts, slug})
 
   type Items = {
     [key: string]: string | number
