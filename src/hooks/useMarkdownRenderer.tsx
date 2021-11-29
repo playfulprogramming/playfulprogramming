@@ -3,9 +3,8 @@ import {unified} from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import {ReactElement, ReactNode} from "react";
-import {getHeadings} from "./MarkdownRenderer/headings";
+import {getHeadings, getMedia, getLinks} from "./MarkdownRenderer";
 import {useMarkdownRendererProps} from "./MarkdownRenderer/types";
-import {getMedia} from "./MarkdownRenderer/media";
 
 const getComponents = (props: useMarkdownRendererProps) => {
     return ({
@@ -17,7 +16,8 @@ const getComponents = (props: useMarkdownRendererProps) => {
         body: ({children}: { children: ReactNode[] }) => <>{children}</>,
         head: ({children}: { children: ReactNode[] }) => <>{children}</>,
         ...getHeadings(props),
-        ...getMedia(props)
+        ...getMedia(props),
+        ...getLinks(props)
     });
 }
 
