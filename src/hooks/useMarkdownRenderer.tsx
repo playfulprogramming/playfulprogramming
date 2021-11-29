@@ -3,7 +3,6 @@ import {unified} from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import Image, {ImageProps} from "next/image";
-import {join, normalize} from "path";
 import { ReactElement, ReactNode } from "react";
 import Zoom from 'react-medium-image-zoom';
 import urljoin from 'url-join';

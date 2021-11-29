@@ -9,6 +9,8 @@ import {postsDirectory} from "../api";
 import rehypeImageSize from 'rehype-img-size';
 import remarkEmbedder, {RemarkEmbedderOptions} from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
+import * as TwitchTransformer from 'gatsby-remark-embedder/dist/transformers/Twitch';
+import {parent} from "../api/get-site-config";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -23,7 +25,8 @@ export default async function markdownToHtml(slug: string, markdown: string) {
       .use(behead, { after: 0, depth: 1 })
       .use((remarkEmbedder as any), {
           transformers: [
-              oembedTransformer
+              oembedTransformer,
+              [TwitchTransformer, {parent}]
           ]
       } as RemarkEmbedderOptions)
       /* end remark plugins here */

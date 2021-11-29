@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
-    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "env-cmd -f ./src/environments/dev.env next",
+    "debug": "env-cmd -f ./src/environments/debug.env next",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc"
@@ -13,6 +13,7 @@
     "classnames": "2.3.1",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "2.21.3",
+    "gatsby-remark-embedder": "^5.0.0",
     "gray-matter": "4.0.3",
     "next": "latest",
     "react": "^17.0.2",
@@ -37,6 +38,6 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "@types/url-join": "^4.0.1",
-    "cross-env": "^7.0.3"
+    "env-cmd": "^10.1.0"
   }
 }
