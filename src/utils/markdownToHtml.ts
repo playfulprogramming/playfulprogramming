@@ -14,6 +14,8 @@ import * as TwitchTransformer from 'gatsby-remark-embedder/dist/transformers/Twi
 import rehypeSlug from 'rehype-slug'
 import {parent} from "../api/get-site-config";
 import {rehypeHeaderText} from "../plugins/add-header-text";
+import remarkShikiTwoslash from 'remark-shiki-twoslash'
+import remarkTwoslash from "remark-shiki-twoslash";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -36,6 +38,7 @@ export default async function markdownToHtml(slug: string, markdown: string) {
       } as RemarkEmbedderOptions)
       /* end remark plugins here */
       .use(remarkStringify)
+      .use(remarkTwoslash as any)
       .use(remarkToRehype, {allowDangerousHtml: true})
       /* start rehype plugins here */
       // TODO: https://github.com/ksoichiro/rehype-img-size/issues/4
