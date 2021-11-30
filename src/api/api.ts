@@ -4,8 +4,12 @@ import matter from 'gray-matter'
 import {countContent} from "../utils/count-words";
 import PostType from "../types/post";
 import {Picked} from "../types/helpers";
+import {dataDirectory, getDatas} from "./get-datas";
 
 export const postsDirectory = join(process.cwd(), 'content/blog')
+
+const {unicorns, pronouns, licenses, roles} = getDatas()
+export {unicorns, pronouns, licenses, roles, dataDirectory};
 
 export function getPostSlugs() {
   return fs.readdirSync(postsDirectory)
@@ -43,6 +47,14 @@ export function getPostBySlug<Keys extends Array<keyof PostType>>(slug: string, 
     }
     if (field === 'wordCount') {
       items[field] = (counts.InlineCodeWords || 0) + (counts.WordNode || 0)
+    }
+    if (field === 'wordCount') {
+      items[field] = (counts.InlineCodeWords || 0) + (counts.WordNode || 0)
+    }
+    if (field === 'authors') {
+      items[field] = (data[field] as string[]).map(author =>
+        unicorns.find(unicorn => unicorn.id === author)!
+      )
     }
 
     if (typeof data[field] !== 'undefined') {

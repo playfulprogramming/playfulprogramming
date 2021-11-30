@@ -16,14 +16,14 @@ export const getDatas = () => {
 
     const licensesRaw: LicenseInfo[] = JSON.parse(fs.readFileSync(join(dataDirectory, 'licenses.json')).toString())
 
-    unicornsRaw.map(unicorn => ({
+    const fullUnicorns: UnicornInfo[] = unicornsRaw.map(unicorn => ({
         ...unicorn,
         roles: unicorn.roles.map(role => rolesRaw.find(rRole => rRole.id === role)),
         pronouns: pronounsRaw.find(proWithNouns => proWithNouns.id === unicorn.pronouns)
-    }))
+    })) as never[]
 
     return {
-        unicorns: unicornsRaw,
+        unicorns: fullUnicorns,
         roles: rolesRaw,
         pronouns: pronounsRaw,
         licenses: licensesRaw

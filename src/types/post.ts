@@ -1,4 +1,4 @@
-import Author from './author'
+import {UnicornInfo} from "./UnicornInfo";
 
 type PostType = {
   slug: string
@@ -6,7 +6,7 @@ type PostType = {
   published: string
   edited: string
   coverImage: string
-  author: Author
+  authors: UnicornInfo[]
   excerpt: string
   wordCount: number;
   series?: string;
