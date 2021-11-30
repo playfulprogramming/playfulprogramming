@@ -1,5 +1,5 @@
 import React from "react";
-import {Head} from "next/document";
+import Head from "next/head";
 import {siteMetadata, siteUrl} from "../api/get-site-config";
 import {UnicornInfo} from "../types";
 
@@ -59,19 +59,19 @@ const FacebookSEO = (props: MetaSEOProps) => {
         {
             type === 'profile' ?
                 [
-                    <meta property="profile:firstName" content={unicornsData![0].firstName}/>,
-                    <meta property="profile:lastName" content={unicornsData![0].lastName}/>,
-                    <meta property="profile:username" content={unicornsData![0].id}/>
+                    <meta key="firstName" property="profile:firstName" content={unicornsData![0].firstName}/>,
+                    <meta key="lastName" property="profile:lastName" content={unicornsData![0].lastName}/>,
+                    <meta key="username" property="profile:username" content={unicornsData![0].id}/>
                 ]
                 : null
         }
         {
             type !== 'article' ? null : [
-                <meta property="article:section" content="Technology"/>,
-                <meta property="article:author" content={unicornsData!.map((uni) => uni.name).join(',')}/>,
-                publishedTime ? <meta property="article:published_time" content={publishedTime}/> : null,
-                editedTime ? <meta property="article:modified_time" content={editedTime}/> : null,
-                ...keywords!.map(keyword => <meta property="article:tag" content={keyword}/>)
+                <meta key="section" property="article:section" content="Technology"/>,
+                <meta key="author" property="article:author" content={unicornsData!.map((uni) => uni.name).join(',')}/>,
+                publishedTime ? <meta key="published_time" property="article:published_time" content={publishedTime}/> : null,
+                editedTime ? <meta key="modified_time" property="article:modified_time" content={editedTime}/> : null,
+                ...keywords!.map(keyword => <meta key={keyword} property="article:tag" content={keyword}/>)
             ]
         }
     </>
@@ -101,7 +101,7 @@ const TwitterSEO = (props: MetaSEOProps) => {
             type === 'article' ?
                 [
                     unicornsData!.length === 1 ?
-                        <TwitterSingleAuthor {...props}/> :
+                        <TwitterSingleAuthor key="singleAuthor" {...props}/> :
                         null
                 ]
                 : null

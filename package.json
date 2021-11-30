@@ -5,7 +5,8 @@
     "debug": "env-cmd -f ./src/environments/debug.env next -p 9000",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "lint": "next lint"
   },
   "dependencies": {
     "@remark-embedder/core": "^2.0.0",
@@ -44,6 +45,10 @@
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.0"
   }
 }
