@@ -1,4 +1,5 @@
 export interface PronounInfo {
+	id: string;
 	they: string;
 	them: string;
 	their: string;

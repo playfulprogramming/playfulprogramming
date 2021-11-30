@@ -9,6 +9,8 @@ type PostType = {
   author: Author
   excerpt: string
   wordCount: number;
+  series?: string;
+  order?: number;
   ogImage: {
     url: string
   }
