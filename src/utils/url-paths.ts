@@ -1,4 +1,3 @@
-import urljoin from "url-join";
 import {join} from "path";
 import slash from "slash";
 
