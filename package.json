@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "env-cmd -f ./src/environments/dev.env next",
-    "debug": "env-cmd -f ./src/environments/debug.env next",
+    "dev": "env-cmd -f ./src/environments/dev.env next -p 9000",
+    "debug": "env-cmd -f ./src/environments/debug.env next -p 9000",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc"

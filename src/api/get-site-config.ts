@@ -8,7 +8,7 @@ if (!siteUrl) {
             siteUrl = "https://unicorn-utterances.com";
             break;
         case "local":
-            siteUrl = "localhost:3000";
+            siteUrl = "localhost:9000";
             break;
         default:
             siteUrl = "https://beta.unicorn-utterances.com";
