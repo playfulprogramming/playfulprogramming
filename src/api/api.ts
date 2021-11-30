@@ -70,7 +70,7 @@ export function getAllPosts<ToPick extends KeysToPick>
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields));
 
-  if (cacheString) allPostsCache.set(cacheString, posts as PostType[]);
+  if (cacheString) allPostsCache.set(cacheString, posts as never as PostType[]);
 
   return posts as any[];
 }
