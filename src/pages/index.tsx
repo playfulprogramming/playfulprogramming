@@ -30,13 +30,13 @@ const Index = ({allPosts}: Props) => {
 export default Index
 
 export const getStaticProps = async () => {
-    let allPosts = getAllPosts([
-        'title',
-        'published',
-        'slug',
-        'author',
-        'excerpt',
-    ])
+    let allPosts = getAllPosts({
+        title: true,
+        published: true,
+        slug: true,
+        author: true,
+        excerpt: true
+    } as const)
 
     // sort posts by date in descending order
     allPosts = allPosts.sort((post1, post2) => {

@@ -42,14 +42,14 @@ type Params = {
 const seriesPostCacheKey = {};
 
 export async function getStaticProps({params}: Params) {
-    const post = getPostBySlug(params.slug, [
-        'title',
-        'slug',
-        'content',
-        'wordCount',
-        'series',
-        'order'
-    ])
+    const post = getPostBySlug(params.slug, {
+        title: true,
+        slug: true,
+        content: true,
+        wordCount: true,
+        series: true,
+        order: true
+    } as const)
 
     const isStr = (val: any): val is string => typeof val === 'string';
     const markdown = isStr(post.content) ? post.content : '';
@@ -57,12 +57,12 @@ export async function getStaticProps({params}: Params) {
 
     let seriesPosts: any[] = [];
     if (post.series && post.order) {
-        const allPosts = getAllPosts([
-            'title',
-            'slug',
-            'series',
-            'order'
-        ], seriesPostCacheKey)
+        const allPosts = getAllPosts({
+            title: true,
+            slug: true,
+            series: true,
+            order: true,
+        } as const, seriesPostCacheKey)
 
         seriesPosts = allPosts.filter(filterPost => filterPost.series === post.series).sort(sortPost => Number(sortPost.order) - Number(post.order));
     }
@@ -81,7 +81,7 @@ export async function getStaticProps({params}: Params) {
 }
 
 export async function getStaticPaths() {
-    const posts = getAllPosts(['slug'])
+    const posts = getAllPosts({'slug': true})
 
     const paths = posts.map((post) => {
         return {
