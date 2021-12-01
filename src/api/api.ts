@@ -95,6 +95,7 @@ export const getAllPostsForListView = () => {
       authors: {
         firstName: true,
         lastName: true,
+        id: true
       },
       excerpt: true,
     } as const,

@@ -59,6 +59,7 @@ export async function getStaticPaths() {
   const numberOfPages = Math.ceil(posts.length / postsPerPage);
 
   const pageNumbers: number[] = [];
+  // `page/1` is just `/`
   for (let i = 2; i <= numberOfPages; i++) pageNumbers.push(i);
 
   const paths = pageNumbers.map((pageNum) => {
