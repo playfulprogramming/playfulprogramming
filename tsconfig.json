@@ -17,7 +17,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "types/*": ["src/types/*"],
+      "uu-types": ["src/types"]
+    }
   },
   "exclude": [
     "node_modules"
@@ -26,5 +30,5 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
 }

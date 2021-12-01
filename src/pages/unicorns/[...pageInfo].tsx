@@ -99,8 +99,6 @@ export async function getStaticPaths() {
       paths.push({
         params: {
           pageInfo: [unicorn.id, "page", `${pageNum}`],
-          pageNum: `${pageNum}`,
-          unicornId: unicorn.id,
         },
       });
     }
