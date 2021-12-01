@@ -33,7 +33,10 @@ export const getStaticProps = async () => {
     title: true,
     published: true,
     slug: true,
-    author: true,
+    authors: {
+      firstName: true,
+      lastName: true,
+    },
     excerpt: true,
   } as const);
 
