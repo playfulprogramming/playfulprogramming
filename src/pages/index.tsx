@@ -1,10 +1,9 @@
-import { getAllPosts } from "../api/api";
-import Post from "../types/post";
+import { getAllPostsForListView, ListViewPosts } from "../api/api";
 import React from "react";
 import Link from "next/link";
 
 type Props = {
-  allPosts: Post[];
+  allPosts: ListViewPosts;
 };
 
 const Index = ({ allPosts }: Props) => {
@@ -29,24 +28,7 @@ const Index = ({ allPosts }: Props) => {
 export default Index;
 
 export const getStaticProps = async () => {
-  let allPosts = getAllPosts({
-    title: true,
-    published: true,
-    slug: true,
-    authors: {
-      firstName: true,
-      lastName: true,
-    },
-    excerpt: true,
-  } as const);
-
-  // sort posts by date in descending order
-  allPosts = allPosts.sort((post1, post2) => {
-    const date1 = new Date(post1.published);
-    const date2 = new Date(post2.published);
-    return date1 > date2 ? -1 : 1;
-  });
-
+  let allPosts = getAllPostsForListView();
   return {
     props: { allPosts },
   };

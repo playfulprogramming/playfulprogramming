@@ -83,3 +83,32 @@ export function getAllPosts<ToPick extends KeysToPick>(
 
   return posts as any[];
 }
+
+const listViewCache = {};
+
+export const getAllPostsForListView = () => {
+  let allPosts = getAllPosts(
+    {
+      title: true,
+      published: true,
+      slug: true,
+      authors: {
+        firstName: true,
+        lastName: true,
+      },
+      excerpt: true,
+    } as const,
+    listViewCache
+  );
+
+  // sort posts by date in descending order
+  allPosts = allPosts.sort((post1, post2) => {
+    const date1 = new Date(post1.published);
+    const date2 = new Date(post2.published);
+    return date1 > date2 ? -1 : 1;
+  });
+
+  return allPosts;
+};
+
+export type ListViewPosts = ReturnType<typeof getAllPostsForListView>;
