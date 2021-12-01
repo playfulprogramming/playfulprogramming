@@ -1,5 +1,5 @@
 export interface useMarkdownRendererProps {
-    postsDirectory: string;
-    slug: string;
-    markdownHTML: string
+  postsDirectory: string;
+  slug: string;
+  markdownHTML: string;
 }
