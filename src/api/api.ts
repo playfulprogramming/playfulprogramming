@@ -2,7 +2,7 @@ import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
 import { countContent } from "../utils/count-words";
-import PostType from "../types/post";
+import {PostInfo} from "uu-types";
 import { dataDirectory, getDatas } from "./get-datas";
 import {
   pickDeep,
@@ -20,12 +20,12 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
-type KeysToPick = DeepPartial<DeepReplaceKeys<PostType, true | false>>;
+type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo, true | false>>;
 
 export function getPostBySlug<ToPick extends KeysToPick>(
   slug: string,
   fields: ToPick = {} as any
-): PickDeep<true | false, PostType, ToPick> {
+): PickDeep<true | false, PostInfo, ToPick> {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, realSlug, `index.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -65,12 +65,12 @@ export function getPostBySlug<ToPick extends KeysToPick>(
   return items as any;
 }
 
-let allPostsCache = new WeakMap<object, PostType[]>();
+let allPostsCache = new WeakMap<object, PostInfo[]>();
 
 export function getAllPosts<ToPick extends KeysToPick>(
   fields: ToPick = {} as any,
   cacheString: null | object = null
-): Array<PickDeep<true | false, PostType, ToPick>> {
+): Array<PickDeep<true | false, PostInfo, ToPick>> {
   if (cacheString) {
     const cacheData = allPostsCache.get(cacheString);
     if (cacheData) return cacheData as any;
@@ -79,7 +79,7 @@ export function getAllPosts<ToPick extends KeysToPick>(
   const slugs = getPostSlugs();
   const posts = slugs.map((slug) => getPostBySlug(slug, fields));
 
-  if (cacheString) allPostsCache.set(cacheString, posts as never as PostType[]);
+  if (cacheString) allPostsCache.set(cacheString, posts as never as PostInfo[]);
 
   return posts as any[];
 }

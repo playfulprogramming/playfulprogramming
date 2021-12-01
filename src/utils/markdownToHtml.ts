@@ -14,15 +14,25 @@ import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twi
 import rehypeSlug from "rehype-slug";
 import { parent } from "../api/get-site-config";
 import { rehypeHeaderText } from "../api/plugins/add-header-text";
-import remarkShikiTwoslash from "remark-shiki-twoslash";
 import remarkTwoslash from "remark-shiki-twoslash";
+import { PostInfo, RenderedPostInfo } from "uu-types";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
 const behead = require("remark-behead");
 
-export default async function markdownToHtml(slug: string, markdown: string) {
-  const imageDir = path.resolve(postsDirectory, slug);
+export default async function markdownToHtml<
+  T extends Pick<PostInfo, "slug" | "content">
+>(post: T) {
+  // We mutate this object in plugins to add metadata from remark
+  // rendering
+  const renderedPost: T & RenderedPostInfo = {
+    ...post,
+    headingsWithId: [],
+    content: "",
+  };
+
+  const imageDir = path.resolve(postsDirectory, post.slug);
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -46,14 +56,17 @@ export default async function markdownToHtml(slug: string, markdown: string) {
       dir: imageDir,
     })
     .use(rehypeSlug)
-    .use(rehypeHeaderText)
+    .use(rehypeHeaderText(renderedPost))
     /* end rehype plugins here */
     .use(rehypeStringify, { allowDangerousHtml: true })
     // .use(() => tree => {
     //     debugger;
     //     return tree;
     // })
-    .process(markdown);
+    .process(post.content);
 
-  return result.toString();
+  return {
+    html: result.toString(),
+    renderedPost: renderedPost,
+  };
 }

@@ -1,7 +1,7 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { LicenseInfo } from "./LicenseInfo";
 
-interface PostType {
+export interface PostInfo {
   slug: string;
   title: string;
   published: string;
@@ -19,4 +19,10 @@ interface PostType {
   tags: string[];
 }
 
-export default PostType;
+export interface RenderedPostInfo {
+  headingsWithId?: Array<{
+    value: string;
+    slug: string;
+    depth: number;
+  }>;
+}
