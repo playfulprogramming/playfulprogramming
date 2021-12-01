@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "env-cmd -f ./src/environments/dev.env next -p 9000",
     "debug": "env-cmd -f ./src/environments/debug.env next -p 9000",
-    "build": "next build",
+    "rss": "node --experimental-loader esbuild-node-loader src/gen-rss.ts",
+    "build": "npm run rss && next build",
     "start": "next start",
     "typecheck": "tsc",
     "lint": "next lint",
@@ -36,7 +37,7 @@
     "remark-unwrap-images": "^3.0.1",
     "retext-english": "^4.1.0",
     "slash": "^4.0.0",
-    "ts-util-helpers": "^1.0.0-alpha.3",
+    "ts-util-helpers": "^1.0.0-alpha.4",
     "typescript": "^4.4.4",
     "unified": "^10.1.0",
     "unist-util-flat-filter": "^2.0.0"
@@ -47,10 +48,12 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "env-cmd": "^10.1.0",
+    "esbuild-node-loader": "^0.6.3",
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "feed": "^4.2.2",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.0"

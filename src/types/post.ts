@@ -1,4 +1,5 @@
 import { UnicornInfo } from "./UnicornInfo";
+import { LicenseInfo } from "./LicenseInfo";
 
 interface PostType {
   slug: string;
@@ -7,6 +8,7 @@ interface PostType {
   edited?: string;
   coverImage: string;
   authors: UnicornInfo[];
+  license: LicenseInfo;
   excerpt: string;
   wordCount: number;
   description?: string;
