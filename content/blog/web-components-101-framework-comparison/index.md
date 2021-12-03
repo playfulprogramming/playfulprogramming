@@ -7,7 +7,7 @@
     tags: ['lit', 'vue', 'react', 'angular'],
     attached: [],
     license: 'coderpad',
-    originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',
+    originalLink: 'https://coderpad.io/blog/web-components-101-framework-comparison/',
     series: "Web Components 101",
     order: 3
 }
