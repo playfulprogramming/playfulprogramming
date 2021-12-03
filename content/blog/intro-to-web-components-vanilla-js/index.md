@@ -1,13 +1,15 @@
 ---
 {
-    title: "Intro to Web Components: Vanilla JS",
+    title: "Web Components 101: Vanilla JS",
     description: "",
     published: '2021-07-15T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['javascript', 'html', 'web'],
     attached: [],
     license: 'coderpad',
-    originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/'
+    originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',
+    series: "Web Components 101",
+    order: 1
 }
 ---
 
