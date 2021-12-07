@@ -19,8 +19,13 @@
     "isolatedModules": true,
     "incremental": true,
     "paths": {
-      "types/*": ["src/types/*"],
-      "uu-types": ["src/types"]
+      "constants/*": ["./src/constants/*"],
+      "uu-constants": ["./src/constants"],
+      "types/*": ["./src/types/*"],
+      "uu-types": ["./src/types"],
+      "components/*": ["./src/components/*"],
+      "utils/*": ["./src/utils/*"],
+      "uu-utils": ["./src/utils"]
     }
   },
   "exclude": [

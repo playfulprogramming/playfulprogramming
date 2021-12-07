@@ -13,6 +13,7 @@
   "dependencies": {
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
+    "batteries-not-included": "^0.1.0",
     "classnames": "2.3.1",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "2.21.3",
