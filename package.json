@@ -17,6 +17,7 @@
     "classnames": "2.3.1",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "2.21.3",
+    "framer-motion": "^4.1.17",
     "gatsby-remark-embedder": "^5.0.0",
     "gray-matter": "4.0.3",
     "next": "latest",
