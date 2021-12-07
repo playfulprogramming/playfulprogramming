@@ -12,7 +12,7 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
   const { pageCount, pageIndex, setCurrentPageIndex } =
     React.useContext(PostListContext);
   const { searchVal, filterVal } = React.useContext(SearchAndFilterContext);
-  const router = useRouter()
+  const router = useRouter();
 
   if (!pageCount) return null;
 

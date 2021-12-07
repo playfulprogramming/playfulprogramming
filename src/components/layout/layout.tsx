@@ -4,14 +4,16 @@ import layoutStyles from "./layout.module.scss";
 import BackIcon from "assets/icons/back.svg";
 import { DarkLightButton } from "../dark-light-button";
 import { ThemeProvider } from "constants/theme-context";
-import { basePath } from "../../../next.config";
 import "../../global.scss";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   location: Location;
 }
 export const Layout: React.FC<LayoutProps> = ({ location, children }) => {
-  const rootPath = `${basePath}/`;
+  const router = useRouter();
+
+  const rootPath = `${router.basePath}/`;
 
   const isBase = location.pathname === rootPath;
   const isBlogPost = location.pathname.startsWith(`${rootPath}posts`);

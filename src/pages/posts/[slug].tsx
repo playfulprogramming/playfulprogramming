@@ -8,13 +8,14 @@ import { useMarkdownRenderer } from "../../hooks/useMarkdownRenderer";
 import "react-medium-image-zoom/dist/styles.css";
 import { PickDeep } from "ts-util-helpers";
 import { PostInfo, RenderedPostInfo } from "types/PostInfo";
+import { SeriesPostInfo, seriesPostsPick } from "constants/queries";
 
 type Props = {
   markdownHTML: string;
   slug: string;
   postsDirectory: string;
   wordCount: number;
-  seriesPosts: any[];
+  seriesPosts: SeriesPostInfo[];
   post: Omit<SlugPostInfo, "content"> & RenderedPostInfo;
 };
 
@@ -72,15 +73,7 @@ export async function getStaticProps({ params }: Params) {
 
   let seriesPosts: any[] = [];
   if (post.series && post.order) {
-    const allPosts = getAllPosts(
-      {
-        title: true,
-        slug: true,
-        series: true,
-        order: true,
-      } as const,
-      seriesPostCacheKey
-    );
+    const allPosts = getAllPosts(seriesPostsPick, seriesPostCacheKey);
 
     seriesPosts = allPosts
       .filter((filterPost) => filterPost.series === post.series)
