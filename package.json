@@ -17,6 +17,7 @@
     "classnames": "2.3.1",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "2.21.3",
+    "disqus-react": "^1.1.2",
     "framer-motion": "^4.1.17",
     "gatsby-remark-embedder": "^5.0.0",
     "gray-matter": "4.0.3",
@@ -41,12 +42,13 @@
     "retext-english": "^4.1.0",
     "sass": "^1.44.0",
     "slash": "^4.0.0",
-    "ts-util-helpers": "^1.0.0-alpha.4",
+    "ts-util-helpers": "^1.1.0-alpha.1",
     "typescript": "^4.4.4",
     "unified": "^10.1.0",
     "unist-util-flat-filter": "^2.0.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.1.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.6",

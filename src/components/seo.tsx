@@ -7,7 +7,9 @@ interface SEOProps {
   description?: string;
   lang?: string;
   title: string;
-  unicornsData?: UnicornInfo[];
+  unicornsData?: Array<
+    Pick<UnicornInfo, "socials" | "name" | "lastName" | "firstName" | "id">
+  >;
   keywords?: string[];
   publishedTime?: string;
   editedTime?: string;

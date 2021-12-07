@@ -1,7 +1,6 @@
 import { getAllPostsForListView, ListViewPosts, unicorns } from "../../api/api";
 import * as React from "react";
 
-import "react-medium-image-zoom/dist/styles.css";
 import Link from "next/link";
 import { UnicornInfo } from "../../types";
 import { postsPerPage } from "../../api/pagination";

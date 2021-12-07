@@ -25,7 +25,7 @@ type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo, true | false>>;
 export function getPostBySlug<ToPick extends KeysToPick>(
   slug: string,
   fields: ToPick = {} as any
-): PickDeep<true | false, PostInfo, ToPick> {
+): PickDeep<PostInfo, ToPick> {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, realSlug, `index.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -70,7 +70,7 @@ let allPostsCache = new WeakMap<object, PostInfo[]>();
 export function getAllPosts<ToPick extends KeysToPick>(
   fields: ToPick = {} as any,
   cacheString: null | object = null
-): Array<PickDeep<true | false, PostInfo, ToPick>> {
+): Array<PickDeep<PostInfo, ToPick>> {
   if (cacheString) {
     const cacheData = allPostsCache.get(cacheString);
     if (cacheData) return cacheData as any;

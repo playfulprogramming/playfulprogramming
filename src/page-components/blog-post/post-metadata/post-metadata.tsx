@@ -2,11 +2,11 @@ import React, { createRef, useMemo } from "react";
 import styles from "./post-metadata.module.scss";
 import Link from "next/link";
 import { stopPropCallback } from "uu-utils";
-import { PostInfo } from "uu-types";
 import { UserProfilePic } from "components/user-profile-pic";
+import { SlugPostInfo } from "constants/queries";
 
 interface PostMetadataProps {
-  post: PostInfo;
+  post: SlugPostInfo;
 }
 export const PostMetadata = ({ post }: PostMetadataProps) => {
   const { authors } = post;

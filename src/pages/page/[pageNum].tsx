@@ -3,7 +3,6 @@
 import { getAllPostsForListView, ListViewPosts } from "../../api/api";
 import * as React from "react";
 
-import "react-medium-image-zoom/dist/styles.css";
 import { postsPerPage } from "../../api/pagination";
 
 type Props = {

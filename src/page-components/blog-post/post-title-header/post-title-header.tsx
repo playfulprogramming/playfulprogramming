@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./post-title-header.module.scss";
-import { PostInfo } from "uu-types";
+import { SlugPostInfo } from "constants/queries";
 
 interface PostTitleHeaderProps {
-  post: PostInfo;
+  post: SlugPostInfo;
 }
 export const PostTitleHeader = ({ post }: PostTitleHeaderProps) => {
   const { title, tags } = post;
