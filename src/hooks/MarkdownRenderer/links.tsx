@@ -21,7 +21,7 @@ export const getLinks = ({ slug }: useMarkdownRendererProps) => {
         );
       }
       return (
-        <Link {...restProps} href={href || ""}>
+        <Link {...restProps} href={href || ""} passHref>
           <a>{props.children}</a>
         </Link>
       );

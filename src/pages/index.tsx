@@ -13,7 +13,7 @@ const Index = ({ allPosts }: Props) => {
         {allPosts.map((post) => (
           <li key={post.slug}>
             <h2>
-              <Link href={`/posts/[slug]`} as={`/posts/${post.slug}`}>
+              <Link href={`/posts/[slug]`} as={`/posts/${post.slug}`} passHref>
                 <a>{post.title}</a>
               </Link>
             </h2>
