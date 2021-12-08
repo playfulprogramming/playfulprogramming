@@ -1,8 +1,8 @@
 import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
-import { countContent } from "../utils/count-words";
-import {PostInfo} from "uu-types";
+import { countContent } from "utils/count-words";
+import { PostInfo } from "uu-types";
 import { dataDirectory, getDatas } from "./get-datas";
 import {
   pickDeep,
@@ -20,7 +20,7 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
-type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo, true | false>>;
+type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo>>;
 
 export function getPostBySlug<ToPick extends KeysToPick>(
   slug: string,
@@ -44,7 +44,7 @@ export function getPostBySlug<ToPick extends KeysToPick>(
   };
 
   // Ensure only the minimal needed data is exposed
-  const items = pickDeep(data, fields);
+  const items = pickDeep(data, fields as DeepReplaceKeys<typeof data>);
 
   if (fields.slug) {
     items.slug = realSlug;
@@ -95,7 +95,7 @@ export const getAllPostsForListView = () => {
       authors: {
         firstName: true,
         lastName: true,
-        id: true
+        id: true,
       },
       excerpt: true,
     } as const,
