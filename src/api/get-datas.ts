@@ -1,45 +1,63 @@
 import { LicenseInfo, PronounInfo, RolesEnum, UnicornInfo } from "../types";
 import fs from "fs";
 import { join } from "path";
+import { getImageSize } from "rehype-img-size";
+import { getFullRelativeAuthorImgPath } from "utils/url-paths";
 
 export const dataDirectory = join(process.cwd(), "content/data");
 
-export const getDatas = () => {
-  const unicornsRaw: Array<
-    Omit<UnicornInfo, "roles" | "pronouns"> & {
-      roles: string[];
-      pronouns: string;
-    }
-  > = JSON.parse(
-    fs.readFileSync(join(dataDirectory, "unicorns.json")).toString()
-  );
+const unicornsRaw: Array<
+  Omit<UnicornInfo, "roles" | "pronouns" | "profileImg"> & {
+    roles: string[];
+    pronouns: string;
+    profileImg: string;
+  }
+> = JSON.parse(
+  fs.readFileSync(join(dataDirectory, "unicorns.json")).toString()
+);
 
-  const rolesRaw: RolesEnum[] = JSON.parse(
-    fs.readFileSync(join(dataDirectory, "roles.json")).toString()
-  );
+const rolesRaw: RolesEnum[] = JSON.parse(
+  fs.readFileSync(join(dataDirectory, "roles.json")).toString()
+);
 
-  const pronounsRaw: PronounInfo[] = JSON.parse(
-    fs.readFileSync(join(dataDirectory, "pronouns.json")).toString()
-  );
+const pronounsRaw: PronounInfo[] = JSON.parse(
+  fs.readFileSync(join(dataDirectory, "pronouns.json")).toString()
+);
 
-  const licensesRaw: LicenseInfo[] = JSON.parse(
-    fs.readFileSync(join(dataDirectory, "licenses.json")).toString()
-  );
+const licensesRaw: LicenseInfo[] = JSON.parse(
+  fs.readFileSync(join(dataDirectory, "licenses.json")).toString()
+);
 
-  const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => ({
-    ...unicorn,
-    roles: unicorn.roles.map((role) =>
-      rolesRaw.find((rRole) => rRole.id === role)
-    ),
-    pronouns: pronounsRaw.find(
-      (proWithNouns) => proWithNouns.id === unicorn.pronouns
-    ),
-  })) as never[];
+const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
+  const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
+  const relativeServerPath = getFullRelativeAuthorImgPath(unicorn.profileImg);
+  const profileImgSize = getImageSize(absoluteFSPath);
 
-  return {
-    unicorns: fullUnicorns,
-    roles: rolesRaw,
-    pronouns: pronounsRaw,
-    licenses: licensesRaw,
+  // Mutation go BRR
+  const newUnicorn: UnicornInfo = unicorn as never;
+
+  newUnicorn.profileImg = {
+    height: profileImgSize.height as number,
+    width: profileImgSize.width as number,
+    relativePath: unicorn.profileImg,
+    relativeServerPath,
+    absoluteFSPath,
   };
+
+  newUnicorn.roles = unicorn.roles.map(
+    (role) => rolesRaw.find((rRole) => rRole.id === role)!
+  );
+
+  newUnicorn.pronouns = pronounsRaw.find(
+    (proWithNouns) => proWithNouns.id === unicorn.pronouns
+  )!;
+
+  return newUnicorn;
+});
+
+export {
+  fullUnicorns as unicorns,
+  rolesRaw as roles,
+  pronounsRaw as pronouns,
+  licensesRaw as licenses,
 };

@@ -42,11 +42,11 @@
     "retext-english": "^4.1.0",
     "sass": "^1.44.0",
     "slash": "^4.0.0",
+    "terser": "^4.8.0",
     "ts-util-helpers": "^1.1.0-alpha.2",
     "typescript": "^4.4.4",
     "unified": "^10.1.0",
-    "unist-util-flat-filter": "^2.0.0",
-    "terser": "^4.8.0"
+    "unist-util-flat-filter": "^2.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.1.1",

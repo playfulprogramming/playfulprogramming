@@ -15,8 +15,6 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
   const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
     const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
 
-    const unicornImgSrc = getFullRelativeAuthorImgPath(unicorn.profileImg);
-
     return (
       <div
         key={unicorn.id}
@@ -28,8 +26,11 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
       >
         <Image
           data-testid={`author-pic-${i}`}
-          src={unicornImgSrc}
+          src={unicorn.profileImg.relativeServerPath}
+          height={unicorn.profileImg.height}
+          width={unicorn.profileImg.width}
           alt={unicorn.name}
+          sizes={"85px"}
           layout={"fill"}
           className={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
         />

@@ -3,7 +3,13 @@ import { join } from "path";
 import matter from "gray-matter";
 import { countContent } from "utils/count-words";
 import { PostInfo } from "uu-types";
-import { dataDirectory, getDatas } from "./get-datas";
+import {
+  dataDirectory,
+  unicorns,
+  pronouns,
+  licenses,
+  roles,
+} from "./get-datas";
 import {
   pickDeep,
   DeepPartial,
@@ -13,7 +19,6 @@ import {
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 
-const { unicorns, pronouns, licenses, roles } = getDatas();
 export { unicorns, pronouns, licenses, roles, dataDirectory };
 
 export function getPostSlugs() {

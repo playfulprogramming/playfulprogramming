@@ -40,7 +40,7 @@
 			"github": "evelynhathaway"
 		},
 		"pronouns": "she",
-		"profileImg": "../../src/assets/emotes/proud.png",
+		"profileImg": "proud.png",
 		"color": "#ef5f17",
 		"roles": ["developer", "devops"]
 	},
