@@ -10,9 +10,13 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       const { src, ...props2 } = imgProps as ImageProps;
       let srcStr = getFullRelativePath(...serverPath, src as string); // ImageProps isn't _quite_ right for our usg here
 
-      const shouldZoom = !!(imgProps as HTMLElement).dataset?.nozoom;
+      const htmlProps = imgProps as Record<string, any>;
+      const noZoomProp = htmlProps["data-nozoom"] ?? htmlProps?.dataset?.nozoom;
+      const shouldZoom = noZoomProp ? noZoomProp === "false" : true;
 
-      const ZoomComp: React.FC = shouldZoom ? Zoom : ({ children }) => children;
+      const ZoomComp = shouldZoom
+        ? Zoom
+        : ((({ children }) => <>{children}</>) as React.FC);
 
       // only "fill" is supported when height and width are not specified
       const beResponsive = !!(props2.height && props2.width);
