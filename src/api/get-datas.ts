@@ -7,6 +7,7 @@ import { getFullRelativePath } from "utils/url-paths";
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const dataDirectory = join(process.cwd(), "content/data");
 export const siteDirectory = join(process.cwd(), "content/site");
+export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
 
 const unicornsRaw: Array<
   Omit<UnicornInfo, "roles" | "pronouns" | "profileImg"> & {

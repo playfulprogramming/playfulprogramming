@@ -10,18 +10,22 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       const { src, ...props2 } = imgProps as ImageProps;
       let srcStr = getFullRelativePath(...serverPath, src as string); // ImageProps isn't _quite_ right for our usg here
 
+      const shouldZoom = !!(imgProps as HTMLElement).dataset?.nozoom;
+
+      const ZoomComp: React.FC = shouldZoom ? Zoom : ({ children }) => children;
+
       // only "fill" is supported when height and width are not specified
       const beResponsive = !!(props2.height && props2.width);
 
       return (
-        <Zoom>
+        <ZoomComp>
           <Image
             src={srcStr}
             {...props2}
             layout={beResponsive ? "intrinsic" : "fill"}
             loading="lazy"
           />
-        </Zoom>
+        </ZoomComp>
       );
     },
     video: (props: React.VideoHTMLAttributes<HTMLVideoElement>) => {

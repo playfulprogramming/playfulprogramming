@@ -3,9 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import style from "../page-components/about/about.module.scss";
 import { UnicornInfo } from "uu-types";
-import { unicorns } from "../api/get-datas";
+import { siteDirectory, sponsorsDirectory, unicorns } from "../api/get-datas";
 import unicornLogo from "../assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
+import { readMarkdownFile } from "../api";
+import { join } from "path";
+import markdownToHtml from "utils/markdownToHtml";
+import { useMarkdownRenderer } from "../hooks/useMarkdownRenderer";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
   const unicornRoles = unicornInfo.roles.slice(0);
@@ -24,10 +28,16 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 interface AboutUsProps {
   allUnicorns: UnicornInfo[];
+  html: string;
 }
 
-const AboutUs = ({ allUnicorns }: AboutUsProps) => {
+const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
   const router = useRouter();
+
+  const result = useMarkdownRenderer({
+    markdownHTML: html,
+    serverPath: [""],
+  });
 
   return (
     <div>
@@ -50,7 +60,7 @@ const AboutUs = ({ allUnicorns }: AboutUsProps) => {
           <h1>About Us</h1>
         </div>
         <main className={`${style.aboutBody} post-body`}>
-          {/*<div dangerouslySetInnerHTML={{ __html: post.html }} />*/}
+          <div>{result}</div>
           {allUnicorns.map((unicornInfo) => {
             const roleListItems = getUnicornRoleListItems(unicornInfo);
 
@@ -94,10 +104,28 @@ const AboutUs = ({ allUnicorns }: AboutUsProps) => {
   );
 };
 
+interface AboutUsMarkdownData {
+  title: string;
+  description: string;
+}
+
 export async function getStaticProps() {
+  const { pickedData, frontmatterData } = readMarkdownFile<AboutUsMarkdownData>(
+    join(siteDirectory, "about-us.md"),
+    {
+      content: true,
+      title: true,
+      description: true,
+    }
+  );
+
+  const { html } = await markdownToHtml(pickedData.content!, sponsorsDirectory);
+
   return {
     props: {
       allUnicorns: unicorns,
+      frontmatterData,
+      html,
     },
   };
 }
