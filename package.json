@@ -45,7 +45,8 @@
     "ts-util-helpers": "^1.1.0-alpha.2",
     "typescript": "^4.4.4",
     "unified": "^10.1.0",
-    "unist-util-flat-filter": "^2.0.0"
+    "unist-util-flat-filter": "^2.0.0",
+    "terser": "^4.8.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.1.1",

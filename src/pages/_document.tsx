@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { MagicScriptTag } from "../page-components/_document/magic-script";
 
 export default class MyDocument extends Document {
   render() {
@@ -19,6 +20,7 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          <MagicScriptTag />
           <Main />
           <NextScript />
         </body>
