@@ -15,10 +15,8 @@ export const isRelativePath = (str: string) => {
   return true;
 };
 
-export const getFullRelativePostImgPath = (slug: string, srcStr: string) => {
-  return isRelativePath(srcStr) ? slash(join("/posts", slug, srcStr)) : srcStr;
-};
-
-export const getFullRelativeAuthorImgPath = (srcStr: string) => {
-  return isRelativePath(srcStr) ? slash(join("/unicorns", srcStr)) : srcStr;
+export const getFullRelativePath = (...paths: string[]) => {
+  return isRelativePath(paths[paths.length - 1])
+    ? slash(join(...paths))
+    : paths[paths.length - 1];
 };

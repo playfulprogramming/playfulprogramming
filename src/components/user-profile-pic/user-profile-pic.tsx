@@ -3,7 +3,6 @@ import * as React from "react";
 import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "uu-types";
 import Image from "next/image";
-import { getFullRelativeAuthorImgPath } from "utils/url-paths";
 
 interface UserProfilePicProps {
   authors: Array<{ unicorn: UnicornInfo; onClick: React.MouseEventHandler }>;
