@@ -1,19 +1,19 @@
 @import "../../styles/vars";
 @import "../../styles/utils";
 
-.blog-post-layout-container {
+.blogPostLayoutContainer {
 	display: flex;
 	flex-wrap: nowrap;
 	max-width: 1500px;
 	margin: 0 auto;
 }
 
-.center-container {
+.centerContainer {
 	margin: 0 auto;
 	max-width: 100%;
 }
 
-.left-container {
+.leftContainer {
 	top: 3rem;
 	overflow: auto;
 	height: calc(100vh - 10rem);
@@ -22,12 +22,12 @@
 	min-width: 220px;
 }
 
-.right-container {
+.rightContainer {
 	margin-left: 2rem;
 }
 
-.left-container,
-.right-container {
+.leftContainer,
+.rightContainer {
 	width: 1px;
 	flex-grow: 1;
 	position: sticky;
