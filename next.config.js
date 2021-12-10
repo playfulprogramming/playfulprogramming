@@ -10,6 +10,10 @@ module.exports = {
             from: path.resolve(__dirname, "content/blog"),
             to: path.resolve(__dirname, "public/posts"),
           },
+          {
+            from: path.resolve(__dirname, "content/data"),
+            to: path.resolve(__dirname, "public/unicorns"),
+          },
         ],
       })
     );

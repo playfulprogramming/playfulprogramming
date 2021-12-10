@@ -2,13 +2,13 @@ import * as React from "react";
 import { useMarkdownRendererProps } from "./types";
 import Image, { ImageProps } from "next/image";
 import Zoom from "react-medium-image-zoom";
-import { getFullRelativePath } from "../../utils/url-paths";
+import { getFullRelativePostImgPath } from "../../utils/url-paths";
 
 export const getMedia = ({ slug }: useMarkdownRendererProps) => {
   return {
     img: (imgProps: unknown) => {
       const { src, ...props2 } = imgProps as ImageProps;
-      let srcStr = getFullRelativePath(slug, src as string); // ImageProps isn't _quite_ right for our usg here
+      let srcStr = getFullRelativePostImgPath(slug, src as string); // ImageProps isn't _quite_ right for our usg here
 
       // only "fill" is supported when height and width are not specified
       const beResponsive = !!(props2.height && props2.width);
@@ -26,7 +26,7 @@ export const getMedia = ({ slug }: useMarkdownRendererProps) => {
     },
     video: (props: React.VideoHTMLAttributes<HTMLVideoElement>) => {
       const { src, ...rest } = props;
-      const srcStr = getFullRelativePath(slug, src || "");
+      const srcStr = getFullRelativePostImgPath(slug, src || "");
       return (
         <video
           muted={true}

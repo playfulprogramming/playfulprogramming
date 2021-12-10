@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "uu-types";
 import Image from "next/image";
+import { getFullRelativeAuthorImgPath } from "utils/url-paths";
 
 interface UserProfilePicProps {
   authors: Array<{ unicorn: UnicornInfo; onClick: React.MouseEventHandler }>;
@@ -13,6 +14,8 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 
   const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
     const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
+
+    const unicornImgSrc = getFullRelativeAuthorImgPath(unicorn.profileImg);
 
     return (
       <div
@@ -25,8 +28,9 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
       >
         <Image
           data-testid={`author-pic-${i}`}
-          src={unicorn.profileImg}
+          src={unicornImgSrc}
           alt={unicorn.name}
+          layout={"fill"}
           className={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
         />
       </div>

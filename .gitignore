@@ -33,6 +33,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-/public/posts
 .idea/
 tsconfig.tsbuildinfo
