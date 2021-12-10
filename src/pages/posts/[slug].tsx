@@ -46,8 +46,6 @@ const Post = ({
   postsDirectory,
   seriesPosts,
 }: Props) => {
-  console.log(seriesPosts)
-
   const router = useRouter();
 
   const result = useMarkdownRenderer({
