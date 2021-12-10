@@ -4,21 +4,23 @@ import { getAllPostsForListView, ListViewPosts } from "../../api/api";
 import * as React from "react";
 
 import { postsPerPage } from "../../api/pagination";
+import { PostListTemplate } from "../../page-components/post-list/PostList";
 
 type Props = {
   posts: ListViewPosts;
   path: string;
   pageNum: number;
+  numberOfPages: number;
 };
 
 const Post = (props: Props) => {
   return (
-    <>
-      <h1>Page: {props.pageNum}</h1>
-      {props.posts.map((post) => {
-        return <h1 key={post.title}>{post.title}</h1>;
-      })}
-    </>
+    <PostListTemplate
+      numberOfPages={props.numberOfPages}
+      limitNumber={postsPerPage}
+      posts={props.posts}
+      pageIndex={props.pageNum}
+    />
   );
 };
 
@@ -35,6 +37,8 @@ const postListCache = {};
 export async function getStaticProps({ params }: Params) {
   const posts = getAllPostsForListView();
 
+  const numberOfPages = Math.ceil(posts.length / postsPerPage);
+
   const pageNum = Number(params.pageNum);
 
   const skipNumber = postsPerPage * (pageNum - 1);
@@ -48,6 +52,7 @@ export async function getStaticProps({ params }: Params) {
       pageNum: pageNum,
       path: `/page/${pageNum}/`,
       posts: postsToSend,
+      numberOfPages
     },
   };
 }

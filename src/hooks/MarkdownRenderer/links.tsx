@@ -3,7 +3,7 @@ import { useMarkdownRendererProps } from "./types";
 import { isRelativePath } from "../../utils/url-paths";
 import Link from "next/link";
 
-export const getLinks = ({ slug }: useMarkdownRendererProps) => {
+export const getLinks = (_: useMarkdownRendererProps) => {
   return {
     a(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
       const { href, ...restProps } = props;

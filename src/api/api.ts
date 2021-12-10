@@ -129,9 +129,12 @@ export const getAllPostsForListView = () => {
       authors: {
         firstName: true,
         lastName: true,
+        name: true,
         id: true,
       },
       excerpt: true,
+      tags: true,
+      description: true,
     } as const,
     listViewCache
   );

@@ -19,9 +19,10 @@ import {
 } from "constants/search-and-filter-context";
 import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
 import { PostInfo } from "types/PostInfo";
+import { ListViewPosts } from "../../api";
 
 export const defaultSearchAndFilterContextVal = {
-  postsToDisplay: [] as PostInfo[],
+  postsToDisplay: [] as ListViewPosts,
   pageCount: 0 as number,
   pageIndex: 0 as number,
   setCurrentPageIndex: (val: number) => {},
@@ -34,7 +35,7 @@ interface PostListContextProps {
   numberOfPages: number;
   limitNumber: number;
   pageIndex: number;
-  posts: PostInfo[];
+  posts: ListViewPosts;
 }
 
 export const PostListProvider: React.FC<PostListContextProps> = ({
@@ -74,9 +75,9 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
     getSkippedPosts(posts, originalPageIndex * limitNumber, limitNumber);
 
   // If there is no filter or search applied, this should be the original post array
-  const [filteredByPosts, setFilteredPosts] = useState<PostInfo[]>([]);
+  const [filteredByPosts, setFilteredPosts] = useState<ListViewPosts>([]);
 
-  const [postsToDisplay, setPostsToDisplay] = useState<PostInfo[]>(
+  const [postsToDisplay, setPostsToDisplay] = useState<ListViewPosts>(
     /**
      * Set the initial value to the expected page's results
      *

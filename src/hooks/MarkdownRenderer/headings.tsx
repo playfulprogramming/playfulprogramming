@@ -35,7 +35,7 @@ type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   ["data-header-text"]: string;
 };
 
-export const getHeadings = ({ slug }: useMarkdownRendererProps) => {
+export const getHeadings = (_: useMarkdownRendererProps) => {
   return {
     h1: (headerProps: HeadingProps) => {
       const {

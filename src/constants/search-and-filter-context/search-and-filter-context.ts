@@ -24,7 +24,9 @@ export const SearchAndFilterContext = createContext(
   defaultSearchAndFilterContextVal
 );
 
-export const usePostTagsFromNodes = (posts: PostInfo[]) => {
+export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
+  posts: T[]
+) => {
   const postTags = useMemo(() => {
     return Array.from(
       posts.reduce((prev, post) => {

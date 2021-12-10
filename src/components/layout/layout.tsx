@@ -6,10 +6,7 @@ import { DarkLightButton } from "../dark-light-button";
 import { ThemeProvider } from "constants/theme-context";
 import { useRouter } from "next/router";
 
-interface LayoutProps {
-  location: Location;
-}
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
 
   const rootPath = `${router.basePath}/`;

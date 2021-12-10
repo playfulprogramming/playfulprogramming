@@ -1,14 +1,14 @@
 import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
-import { UnicornInfo } from "uu-types";
 import { PostListContext } from "constants/post-list-context";
+import { ListViewPosts } from "../../api";
 
 export interface PostListProps {
   showWordCount?: boolean;
   numberOfArticles?: number;
   wordCount?: number;
-  unicornData?: UnicornInfo;
+  unicornData?: ListViewPosts[number]["authors"];
   listAriaLabel: string;
 }
 /**

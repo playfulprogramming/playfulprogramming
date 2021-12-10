@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import { SearchAndFilterContext } from "constants/search-and-filter-context";
 import { PostListContext } from "constants/post-list-context";
-import "./pagination.scss";
+import styles from "./pagination.module.scss";
 
 interface PaginationProps {
   absolutePath: string;
@@ -15,6 +15,10 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
   const router = useRouter();
 
   if (!pageCount) return null;
+
+  const forwardSlashedBase = absolutePath.endsWith("/")
+    ? absolutePath
+    : `${absolutePath}/`;
 
   return (
     <ReactPaginate
@@ -36,9 +40,9 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
       marginPagesDisplayed={2}
       forcePage={pageIndex}
       pageRangeDisplayed={5}
-      hrefBuilder={(pageIndex) => `${absolutePath}page/${pageIndex}`}
-      containerClassName="pagination"
-      activeClassName="active"
+      hrefBuilder={(pageIndex) => `${forwardSlashedBase}page/${pageIndex + 1}`}
+      containerClassName={styles.pagination}
+      activeClassName={styles.active}
       onPageChange={({ selected }) => {
         if (filterVal.length || searchVal) {
           setCurrentPageIndex(selected);
@@ -46,12 +50,12 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
         }
 
         // Even though we index at 1 for pages, this component indexes at 0
-        const newPageIndex = selected + 1;
-        if (newPageIndex === 1) {
-          router.push(absolutePath);
+        const newPageIndex = selected;
+        if (newPageIndex === 0) {
+          router.push(forwardSlashedBase);
           return;
         }
-        router.push(`${absolutePath}page/${newPageIndex}`);
+        router.push(`${forwardSlashedBase}page/${newPageIndex + 1}`);
       }}
     />
   );
