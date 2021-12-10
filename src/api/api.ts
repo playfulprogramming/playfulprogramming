@@ -9,6 +9,7 @@ import {
   pronouns,
   licenses,
   roles,
+  postsDirectory,
 } from "./get-datas";
 import {
   pickDeep,
@@ -17,9 +18,7 @@ import {
   PickDeep,
 } from "ts-util-helpers";
 
-export const postsDirectory = join(process.cwd(), "content/blog");
-
-export { unicorns, pronouns, licenses, roles, dataDirectory };
+export { unicorns, pronouns, licenses, roles, dataDirectory, postsDirectory };
 
 export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
@@ -27,14 +26,25 @@ export function getPostSlugs() {
 
 type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo>>;
 
-export function getPostBySlug<ToPick extends KeysToPick>(
-  slug: string,
-  fields: ToPick = {} as any
-): PickDeep<PostInfo, ToPick> {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, realSlug, `index.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+interface MarkdownAdditions {
+  content: string;
+  wordCount: number;
+}
+
+export function readMarkdownFile<
+  T,
+  ToPick extends DeepPartial<
+    DeepReplaceKeys<T & MarkdownAdditions>
+  > = DeepPartial<DeepReplaceKeys<T & MarkdownAdditions>>
+>(
+  filePath: string,
+  fields: ToPick
+): {
+  frontmatterData: Record<string, any>;
+  pickedData: PickDeep<T & MarkdownAdditions, ToPick>;
+} {
+  const fileContents = fs.readFileSync(filePath, "utf8");
+  const { data: frontmatterData, content } = matter(fileContents);
   const counts = countContent(content) as {
     InlineCodeWords: number;
     RootNode: number;
@@ -49,25 +59,44 @@ export function getPostBySlug<ToPick extends KeysToPick>(
   };
 
   // Ensure only the minimal needed data is exposed
-  const items = pickDeep(data, fields as DeepReplaceKeys<typeof data>);
+  const pickedData = pickDeep(
+    frontmatterData,
+    fields as DeepReplaceKeys<typeof frontmatterData>
+  );
 
-  if (fields.slug) {
-    items.slug = realSlug;
-  }
   if (fields.content) {
-    items.content = content;
+    pickedData.content = content;
   }
   if (fields.wordCount) {
-    items.wordCount = (counts.InlineCodeWords || 0) + (counts.WordNode || 0);
+    pickedData.wordCount =
+      (counts.InlineCodeWords || 0) + (counts.WordNode || 0);
+  }
+
+  return {
+    frontmatterData,
+    pickedData: pickedData as any,
+  };
+}
+
+export function getPostBySlug<ToPick extends KeysToPick>(
+  slug: string,
+  fields: ToPick = {} as any
+): PickDeep<PostInfo, ToPick> {
+  const realSlug = slug.replace(/\.md$/, "");
+  const fullPath = join(postsDirectory, realSlug, `index.md`);
+  const { frontmatterData, pickedData } = readMarkdownFile(fullPath, fields);
+
+  if (fields.slug) {
+    pickedData.slug = realSlug;
   }
 
   if (fields.authors) {
-    items.authors = (data.authors as string[]).map(
+    pickedData.authors = (frontmatterData.authors as string[]).map(
       (author) => unicorns.find((unicorn) => unicorn.id === author)!
     );
   }
 
-  return items as any;
+  return pickedData as any;
 }
 
 let allPostsCache = new WeakMap<object, PostInfo[]>();

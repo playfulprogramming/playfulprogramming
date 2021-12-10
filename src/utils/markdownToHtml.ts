@@ -21,18 +21,16 @@ import { PostInfo, RenderedPostInfo } from "uu-types";
 // TODO: Create types
 const behead = require("remark-behead");
 
-export default async function markdownToHtml<
-  T extends Pick<PostInfo, "slug" | "content">
->(post: T) {
+export default async function markdownToHtml(
+  content: string,
+  imgDirectory: string
+) {
   // We mutate this object in plugins to add metadata from remark
   // rendering
-  const renderedPost: T & RenderedPostInfo = {
-    ...post,
+  const renderData = {
     headingsWithId: [],
-    content: "",
   };
 
-  const imageDir = path.resolve(postsDirectory, post.slug);
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -53,24 +51,24 @@ export default async function markdownToHtml<
     /* start rehype plugins here */
     // TODO: https://github.com/ksoichiro/rehype-img-size/issues/4
     .use(rehypeImageSize, {
-      dir: imageDir,
+      dir: imgDirectory,
     })
     .use(rehypeSlug, {
       maintainCase: true,
       removeAccents: true,
       enableCustomId: true,
     })
-    .use(rehypeHeaderText(renderedPost))
+    .use(rehypeHeaderText(renderData))
     /* end rehype plugins here */
     .use(rehypeStringify, { allowDangerousHtml: true })
     // .use(() => tree => {
     //     debugger;
     //     return tree;
     // })
-    .process(post.content);
+    .process(content);
 
   return {
     html: result.toString(),
-    renderedPost: renderedPost,
+    headingsWithId: renderData.headingsWithId,
   };
 }

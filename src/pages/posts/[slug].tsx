@@ -28,6 +28,7 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "constants/theme-context";
 import { siteMetadata } from "../../api/get-site-config";
 import "react-medium-image-zoom/dist/styles.css";
+import path from "path";
 
 type Props = {
   markdownHTML: string;
@@ -182,11 +183,19 @@ export async function getStaticProps({ params }: Params) {
       .sort((sortPost) => Number(sortPost.order) - Number(post.order));
   }
 
-  const { html: markdownHTML, renderedPost } = await markdownToHtml(post);
+  const { html: markdownHTML, headingsWithId } = await markdownToHtml(
+    post.content,
+    path.resolve(postsDirectory, post.slug)
+  );
 
   return {
     props: {
-      post: renderedPost,
+      post: {
+        ...post,
+        content: "",
+        headingsWithId,
+        markdownHTML,
+      },
       markdownHTML,
       slug: slug,
       postsDirectory,
