@@ -29,6 +29,7 @@ import { ThemeContext } from "constants/theme-context";
 import { siteMetadata } from "../../api/get-site-config";
 import "react-medium-image-zoom/dist/styles.css";
 import path from "path";
+import { SeriesToC } from "components/series-toc";
 
 type Props = {
   markdownHTML: string;
@@ -45,6 +46,8 @@ const Post = ({
   postsDirectory,
   seriesPosts,
 }: Props) => {
+  console.log(seriesPosts)
+
   const router = useRouter();
 
   const result = useMarkdownRenderer({
@@ -106,6 +109,9 @@ const Post = ({
                 <PostMetadata post={post} />
               </header>
               <main className="post-body" data-testid={"post-body-div"}>
+                {post.series && (
+                  <SeriesToC post={post} postSeries={seriesPosts} />
+                )}
                 {result}
               </main>
             </>
@@ -179,7 +185,7 @@ export async function getStaticProps({ params }: Params) {
 
     seriesPosts = allPosts
       .filter((filterPost) => filterPost.series === post.series)
-      .sort((sortPost) => Number(sortPost.order) - Number(post.order));
+      .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
   const { html: markdownHTML, headingsWithId } = await markdownToHtml(
