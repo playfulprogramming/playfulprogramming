@@ -55,7 +55,11 @@ export default async function markdownToHtml<
     .use(rehypeImageSize, {
       dir: imageDir,
     })
-    .use(rehypeSlug)
+    .use(rehypeSlug, {
+      maintainCase: true,
+      removeAccents: true,
+      enableCustomId: true,
+    })
     .use(rehypeHeaderText(renderedPost))
     /* end rehype plugins here */
     .use(rehypeStringify, { allowDangerousHtml: true })

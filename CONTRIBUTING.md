@@ -143,6 +143,11 @@ While we have a lot of code that is not yet this way, we try our best to build o
 
 Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
+We're using a small set of internal forks of deps for the following reasons:
+
+- [rehype-slug](https://github.com/rehypejs/rehype-slug/issues/10)
+- [rehype-img-size](https://github.com/ksoichiro/rehype-img-size/issues/4)
+
 ## Develop Mode
 
 To start the development server, run `npm run develop`, it will then start the local instance at `http://localhost:8000`. You also can check out the GraphiQL tool at `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
