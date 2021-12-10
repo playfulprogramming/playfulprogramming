@@ -12,7 +12,7 @@
 		"pronouns": "they/themselves",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer"]
+		"roles": ["devops", "developer", "author"]
 	},
 	{
 		"id": "fennifith",
@@ -27,7 +27,7 @@
 		"pronouns": "he",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer"]
+		"roles": ["developer", "author"]
 	},
 	{
 		"id": "evelynhathaway",
@@ -104,7 +104,7 @@
 		"pronouns": "he",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": ["designer"]
+		"roles": ["designer", "author"]
 	},
 	{
 		"id": "sarsamurmu",
@@ -134,7 +134,7 @@
 		"pronouns": "he",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": ["developer"]
+		"roles": ["developer", "author"]
 	},
 	{
 		"id": "reikaze",
@@ -149,7 +149,7 @@
 		"pronouns": "he",
 		"profileImg": "./reikaze.jpg",
 		"color": "#ba68c8",
-		"roles": []
+		"roles": ["author"]
 	},
 	{
 		"id": "thodges314",
@@ -164,7 +164,7 @@
 		"pronouns": "he",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
-		"roles": []
+		"roles": ["author"]
 	},
 	{
 		"id": "skatcat31",
@@ -179,7 +179,7 @@
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
 		"pronouns": "he",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
 		"id": "seanmiller",
@@ -196,7 +196,7 @@
 		"pronouns": "he",
 		"profileImg": "./seanmiller.jpg",
 		"color": "#551a8b",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
 		"id": "pierremtb",
@@ -213,7 +213,7 @@
 		"pronouns": "he",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
 		"id": "maisydino",
@@ -229,6 +229,6 @@
 		"pronouns": "she",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": []
+		"roles": ["author"]
 	}
 ]
