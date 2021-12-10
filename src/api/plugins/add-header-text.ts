@@ -21,9 +21,9 @@ export const rehypeHeaderText =
           const headerText = toString(node);
           node.properties["data-header-text"] = headerText;
           post.headingsWithId?.push({
-            value: node.properties["id"] as string,
+            value: headerText,
             depth: headingRank(node)!,
-            slug: headerText,
+            slug: node.properties["id"] as string,
           });
         }
       });

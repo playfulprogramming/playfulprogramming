@@ -21,7 +21,9 @@ export interface PostInfo {
 
 export interface RenderedPostInfo {
   headingsWithId?: Array<{
+    // Title value
     value: string;
+    // ID
     slug: string;
     depth: number;
   }>;
