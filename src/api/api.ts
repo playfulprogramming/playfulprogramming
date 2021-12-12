@@ -120,24 +120,23 @@ export function getAllPosts<ToPick extends KeysToPick>(
 
 const listViewCache = {};
 
+export const listViewPostQuery = {
+  title: true,
+  published: true,
+  slug: true,
+  authors: {
+    firstName: true,
+    lastName: true,
+    name: true,
+    id: true,
+  },
+  excerpt: true,
+  tags: true,
+  description: true,
+} as const;
+
 export const getAllPostsForListView = () => {
-  let allPosts = getAllPosts(
-    {
-      title: true,
-      published: true,
-      slug: true,
-      authors: {
-        firstName: true,
-        lastName: true,
-        name: true,
-        id: true,
-      },
-      excerpt: true,
-      tags: true,
-      description: true,
-    } as const,
-    listViewCache
-  );
+  let allPosts = getAllPosts(listViewPostQuery, listViewCache);
 
   // sort posts by date in descending order
   allPosts = allPosts.sort((post1, post2) => {

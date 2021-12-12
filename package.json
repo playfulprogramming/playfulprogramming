@@ -67,6 +67,8 @@
     "hast-util-heading-rank": "^2.1.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^9.0.0",
     "prettier": "^2.5.0"
   }
 }

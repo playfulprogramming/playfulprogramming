@@ -8,6 +8,7 @@ import {
 import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
 import { PostInfo } from "types/PostInfo";
+import { ListViewPosts } from "../../api";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
@@ -41,12 +42,16 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
 
 interface SearchFilterProps {
   exportedIndex: Record<number | string, string>;
+  posts: ListViewPosts;
 }
 
 /**
  * Get the default value for the search and filter context provider
  */
-export const useSearchFilterValue = ({ exportedIndex }: SearchFilterProps) => {
+export const useSearchFilterValue = ({
+  exportedIndex,
+  posts,
+}: SearchFilterProps) => {
   /**
    * The local states of the filter and search
    *
@@ -67,9 +72,11 @@ export const useSearchFilterValue = ({ exportedIndex }: SearchFilterProps) => {
    */
   const { searchUsingLunr: filterUsingLunr, results: lunrFilterIds } = useLunr({
     exportedIndex,
+    posts,
   });
   const { searchUsingLunr, results: lunrSearchIds } = useLunr({
     exportedIndex,
+    posts,
   });
 
   useEffect(() => {

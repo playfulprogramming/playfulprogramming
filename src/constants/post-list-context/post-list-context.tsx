@@ -54,7 +54,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
    * @type {number}
    */
   const originalPageIndex = originalPageIndexPlusOne - 1;
-  const searchContextValue = useSearchFilterValue({ exportedIndex });
+  const searchContextValue = useSearchFilterValue({ exportedIndex, posts });
 
   /**
    * Logic for the posts pagination logic

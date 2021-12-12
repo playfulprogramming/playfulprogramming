@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { postsPerPage } from "../../api/pagination";
 import { PostListTemplate } from "../../page-components/post-list/PostList";
-import { Index } from "flexsearch";
+import { getNewIndex } from "constants/search";
 
 type Props = {
   posts: ListViewPosts;
@@ -35,7 +35,7 @@ type Params = {
   };
 };
 
-const postListCache = {};
+const postListContentsCache = {};
 
 export async function getStaticProps({ params }: Params) {
   const posts = getAllPostsForListView();
@@ -50,7 +50,7 @@ export async function getStaticProps({ params }: Params) {
     (_, i) => i >= skipNumber && i < skipNumber + postsPerPage
   );
 
-  const index = new Index("performance");
+  const index = getNewIndex();
 
   posts.forEach((post) => {
     index.add(post.slug, JSON.stringify(post));
@@ -68,13 +68,13 @@ export async function getStaticProps({ params }: Params) {
 
   // Temporary hotpatch for issue with `export` async
   // @see https://github.com/nextapps-de/flexsearch/pull/253
-  await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
+  await new Promise<void>((resolve) => setTimeout(() => resolve(), 100));
 
   return {
     props: {
       pageNum: pageNum,
       path: `/page/${pageNum}/`,
-      posts: postsToSend,
+      posts,
       numberOfPages,
       exportedIndex,
     },
