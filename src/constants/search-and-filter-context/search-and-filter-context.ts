@@ -39,10 +39,14 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
   return postTags;
 };
 
+interface SearchFilterProps {
+  exportedIndex: Record<number | string, string>;
+}
+
 /**
  * Get the default value for the search and filter context provider
  */
-export const useSearchFilterValue = () => {
+export const useSearchFilterValue = ({ exportedIndex }: SearchFilterProps) => {
   /**
    * The local states of the filter and search
    *
@@ -61,9 +65,12 @@ export const useSearchFilterValue = () => {
    * However, due to bring splut between filter and search, we still need to limit
    * them
    */
-  const { searchUsingLunr: filterUsingLunr, results: lunrFilterIds } =
-    useLunr();
-  const { searchUsingLunr, results: lunrSearchIds } = useLunr();
+  const { searchUsingLunr: filterUsingLunr, results: lunrFilterIds } = useLunr({
+    exportedIndex,
+  });
+  const { searchUsingLunr, results: lunrSearchIds } = useLunr({
+    exportedIndex,
+  });
 
   useEffect(() => {
     if (!filterVal || !filterVal.length) {

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Index } from "flexsearch/dist/flexsearch.bundle";
 
 // TODO: Add back
 function getSearchResults(query: any, lng: string) {
@@ -20,6 +21,10 @@ function getSearchResults(query: any, lng: string) {
   );
 }
 
+interface LunrProps {
+  exportedIndex: Record<number | string, string>;
+}
+
 /**
  *
  * @param [language]
@@ -27,16 +32,30 @@ function getSearchResults(query: any, lng: string) {
  * results - an array of matches {slug: string}[]
  * onSearch - A `onChange` event or a callback to pass a string
  */
-export const useLunr = ({ language = "en" } = {}) => {
+export const useLunr = ({ exportedIndex }: LunrProps) => {
   const [results, setResults] = useState<any[] | null>(null);
+  const indexRef = useRef(new Index("performance"));
+
+  useEffect(() => {
+    if (!exportedIndex) {
+      return;
+    }
+    const keys = Object.keys(exportedIndex);
+
+    keys.forEach((key) => {
+      indexRef.current.import(key, exportedIndex[key]);
+    });
+  }, [exportedIndex]);
 
   const searchUsingLunr = (str: string) => {
+    const ids = indexRef.current.search(str);
+    console.log({ ids });
     const eventVal = str;
     if (!eventVal) {
       setResults(null);
       return;
     }
-    const results = getSearchResults(eventVal, language);
+    const results = getSearchResults(eventVal, "en");
     setResults(results);
   };
 
