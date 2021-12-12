@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { postsPerPage } from "../../api/pagination";
 import { PostListTemplate } from "../../page-components/post-list/PostList";
-import { getNewIndex } from "constants/search";
+import { createIndex, getNewIndex } from "constants/search";
 
 type Props = {
   posts: ListViewPosts;
@@ -46,29 +46,21 @@ export async function getStaticProps({ params }: Params) {
 
   const skipNumber = postsPerPage * (pageNum - 1);
 
-  const postsToSend = posts.filter(
-    (_, i) => i >= skipNumber && i < skipNumber + postsPerPage
-  );
-
-  const index = getNewIndex();
-
-  posts.forEach((post) => {
-    index.add(post.slug, JSON.stringify(post));
-  });
-
-  const exportedIndex: Record<string | number, string> = {};
-  await index.export((key, data) => {
-    // Keys don't match between import() and export()
-    // export() nests keys like reg, reg.cfg, reg.cfg.map, and reg.cfg.map.ctx
-    // but import() wants them flat like reg, cfg, map, ctx
-    // @see https://github.com/nextapps-de/flexsearch/issues/290#issuecomment-968255507
-    const k = key.toString().split(".").pop() || "";
-    exportedIndex[k] = data;
-  });
-
-  // Temporary hotpatch for issue with `export` async
-  // @see https://github.com/nextapps-de/flexsearch/pull/253
-  await new Promise<void>((resolve) => setTimeout(() => resolve(), 100));
+  const exportedIndex = createIndex(posts, [
+    {
+      name: "title",
+      store: true,
+      attributes: { boost: 20 },
+    },
+    { name: "excerpt" },
+    { name: "description" },
+    {
+      name: "slug",
+      store: true,
+    },
+    { name: "authors" },
+    { name: "tags" },
+  ]);
 
   return {
     props: {
@@ -76,7 +68,7 @@ export async function getStaticProps({ params }: Params) {
       path: `/page/${pageNum}/`,
       posts,
       numberOfPages,
-      exportedIndex,
+      exportedIndex: JSON.stringify(exportedIndex),
     },
   };
 }
