@@ -6,23 +6,25 @@ function loadLunr() {
     window.__LUNR__ = window.__LUNR__ || {};
     if (!window.__LUNR__?.__loaded) {
       // TODO: Handle subpath deploys
-      window.__LUNR__.__loaded = fetch(`/search_index.json`, {
-        credentials: "same-origin",
-      })
-        .then(function (response) {
-          return response.json();
+      window.__LUNR__.__loaded =
+        typeof fetch !== "undefined" &&
+        fetch(`/search_index.json`, {
+          credentials: "same-origin",
         })
-        .then(function (fullIndex) {
-          window.__LUNR__ = {
-            index: lunr.Index.load(fullIndex.index),
-            store: fullIndex.store,
-            __loaded: window.__LUNR__.__loaded,
-          };
-        })
-        .catch((e) => {
-          console.log("Failed fetch search index");
-          throw e;
-        });
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (fullIndex) {
+            window.__LUNR__ = {
+              index: lunr.Index.load(fullIndex.index),
+              store: fullIndex.store,
+              __loaded: window.__LUNR__.__loaded,
+            };
+          })
+          .catch((e) => {
+            console.log("Failed fetch search index");
+            throw e;
+          });
     }
   }
 }

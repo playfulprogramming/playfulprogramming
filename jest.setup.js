@@ -3,8 +3,8 @@
 
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom/extend-expect";
-import "./__mocks__/modules";
+require("@testing-library/jest-dom/extend-expect");
+require("./__mocks__/modules");
 
 const originConsoleErr = console.error;
 console.error = (message, ...optionalParams) => {

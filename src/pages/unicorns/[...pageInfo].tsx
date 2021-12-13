@@ -29,7 +29,7 @@ const UnicornPage = ({
   numberOfPages,
   wordCount,
 }: Props) => {
-  const router = useRouter();
+  const router = useRouter() || {};
 
   return (
     <>

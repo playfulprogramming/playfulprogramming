@@ -26,8 +26,6 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
         <Image
           data-testid={`author-pic-${i}`}
           src={unicorn.profileImg.relativeServerPath}
-          height={unicorn.profileImg.height}
-          width={unicorn.profileImg.width}
           alt={unicorn.name}
           sizes={"85px"}
           layout={"fill"}
