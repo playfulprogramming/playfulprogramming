@@ -40,7 +40,12 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
       marginPagesDisplayed={2}
       forcePage={pageIndex}
       pageRangeDisplayed={5}
-      hrefBuilder={(pageIndex) => `${forwardSlashedBase}page/${pageIndex + 1}`}
+      hrefBuilder={(pageIndex) => {
+        if (pageIndex === 1) {
+          return `${forwardSlashedBase}`;
+        }
+        return `${forwardSlashedBase}page/${pageIndex}`;
+      }}
       containerClassName={styles.pagination}
       activeClassName={styles.active}
       disabledClassName={styles.showNothing}

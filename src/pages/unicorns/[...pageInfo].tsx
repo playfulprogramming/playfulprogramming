@@ -1,33 +1,68 @@
 import { getAllPostsForListView, ListViewPosts, unicorns } from "utils/fs/api";
 import * as React from "react";
 
-import Link from "next/link";
 import { UnicornInfo } from "../../types";
 import { postsPerPage } from "constants/pagination";
+import { SEO } from "components/seo";
+import { PostListProvider } from "constants/post-list-context";
+import { ProfileHeader } from "../../page-components/unicorns/profile-header";
+import { WordCount } from "../../page-components/unicorns/word-count";
+import { FilterSearchBar } from "components/filter-search-bar";
+import { PostList } from "components/post-card-list";
+import { Pagination } from "components/pagination";
+import { useRouter } from "next/router";
 
 type Props = {
   unicorn: UnicornInfo;
   authoredPosts: ListViewPosts;
+  path: string;
+  basePath: string;
+  pageNum: number;
+  numberOfPages: number;
+  wordCount: number;
 };
 
-const UnicornPage = ({ authoredPosts, unicorn }: Props) => {
+const UnicornPage = ({
+  authoredPosts,
+  unicorn,
+  basePath,
+  pageNum,
+  numberOfPages,
+  wordCount,
+}: Props) => {
+  const router = useRouter();
+
+  console.log({ authoredPosts, pageNum, numberOfPages, wordCount });
+
   return (
     <>
-      <h1>
-        {unicorn.firstName} {unicorn.lastName}
-      </h1>
-      <ul>
-        {authoredPosts.map((post) => (
-          <li key={post.slug}>
-            <h2>
-              <Link href={`/posts/[slug]`} as={`/posts/${post.slug}`} passHref>
-                <a>{post.title}</a>
-              </Link>
-            </h2>
-            <p>{post.published}</p>
-          </li>
-        ))}
-      </ul>
+      <SEO
+        title={unicorn.name}
+        description={unicorn.description}
+        unicornsData={[unicorn]}
+        type="profile"
+        pathName={router.pathname}
+      />
+      <PostListProvider
+        posts={authoredPosts}
+        numberOfPages={numberOfPages}
+        limitNumber={postsPerPage}
+        pageIndex={pageNum}
+      >
+        <ProfileHeader unicornData={unicorn} />
+        <main>
+          <FilterSearchBar>
+            <WordCount
+              wordCount={wordCount}
+              numberOfArticles={authoredPosts.length}
+            />
+          </FilterSearchBar>
+          <PostList
+            listAriaLabel={`List of posts written by ${unicorn.name}`}
+          />
+        </main>
+        <Pagination absolutePath={basePath} />
+      </PostListProvider>
     </>
   );
 };
@@ -37,7 +72,7 @@ export default UnicornPage;
 type Params = {
   params: {
     // unicornId, "page", pageNum
-    pageInfo: [string, string, string];
+    pageInfo: [string, string, string] | [string];
   };
 };
 
@@ -48,22 +83,27 @@ export async function getStaticProps({ params }: Params) {
 
   const unicorn = unicorns.find((unicorn) => unicorn.id === unicornId);
 
-  const pageNum = Number(paramsPageNum);
+  const pageNum = Number(paramsPageNum || 1);
 
-  const skipNumber = postsPerPage * (pageNum - 1);
+  const authoredPosts = allPosts.filter((post) =>
+    post.authors.some((author) => author.id === unicornId)
+  );
 
-  const authoredPosts = allPosts
-    .filter((post) => post.authors.some((author) => author.id === unicornId))
-    // These can't be one filter, unfortunately. Otherwise, `i` isn't correct.
-    // If we get worse build times, a good optimization might be to reduce this down to a single `for` loop to handle this all
-    .filter((_, i) => i >= skipNumber && i < skipNumber + postsPerPage);
+  const numberOfPages = Math.ceil(authoredPosts.length / postsPerPage);
+
+  const wordCount = authoredPosts.reduce((acc, post) => {
+    return acc + post.wordCount;
+  }, 0);
 
   return {
     props: {
       pageNum: pageNum,
-      path: `/unicorns/${params.pageInfo}`,
+      path: `/unicorns/${params.pageInfo.join("/")}`,
+      basePath: `/unicorns/${params.pageInfo[0]}`,
       authoredPosts,
       unicorn,
+      wordCount,
+      numberOfPages,
     },
   };
 }
@@ -101,6 +141,12 @@ export async function getStaticPaths() {
         },
       });
     }
+
+    paths.push({
+      params: {
+        pageInfo: [unicorn.id],
+      },
+    });
   }
 
   return {

@@ -133,6 +133,7 @@ export const listViewPostQuery = {
   excerpt: true,
   tags: true,
   description: true,
+  wordCount: true,
 } as const;
 
 export const getAllPostsForListView = () => {
