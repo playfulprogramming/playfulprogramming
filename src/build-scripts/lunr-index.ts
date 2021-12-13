@@ -1,11 +1,12 @@
 import lunr from "lunr";
-import { ListViewPosts } from "utils/fs/api";
+import { getAllPostsForListView, ListViewPosts } from "utils/fs/api";
 import { objectFilter } from "ts-util-helpers";
+import path from "path";
+import * as fs from "fs";
 
 type ListViewPost = ListViewPosts[number];
 
-let indexCache: null | { index: lunr.Index; store: Record<string, any> } =
-  null;
+let indexCache: null | { index: lunr.Index; store: Record<string, any> } = null;
 
 export const createIndex = (
   posts: ListViewPosts,
@@ -58,3 +59,23 @@ export const createIndex = (
 
   return indexCache;
 };
+
+const exportedIndex = createIndex(getAllPostsForListView(), [
+  {
+    name: "title",
+    store: true,
+    attributes: { boost: 20 },
+  },
+  { name: "excerpt", resolver: (post) => post.description || post.excerpt },
+  {
+    name: "slug",
+    store: true,
+  },
+  { name: "authors" },
+  { name: "tags" },
+]);
+
+fs.writeFileSync(
+  path.resolve(process.cwd(), "./public/search_index.json"),
+  JSON.stringify(exportedIndex)
+);

@@ -14,10 +14,9 @@ interface PostListTemplateProps {
   limitNumber: number;
   pageIndex: number;
   posts: ListViewPosts;
-  exportedIndex: string;
 }
 export const PostListTemplate = (props: PostListTemplateProps) => {
-  const { numberOfPages, limitNumber, pageIndex, posts, exportedIndex } = props;
+  const { numberOfPages, limitNumber, pageIndex, posts } = props;
 
   const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 
@@ -32,7 +31,6 @@ export const PostListTemplate = (props: PostListTemplateProps) => {
           numberOfPages={numberOfPages}
           limitNumber={limitNumber}
           pageIndex={pageIndex}
-          exportedIndex={exportedIndex}
         >
           <PostListHeader siteDescription={siteMetadata.description} />
           <main>

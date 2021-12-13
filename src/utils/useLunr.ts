@@ -1,16 +1,35 @@
 import lunr from "lunr";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-interface LunrStore {
-  index: lunr.Index;
-  store: Record<string, any>;
+function loadLunr() {
+  if (typeof window !== "undefined") {
+    window.__LUNR__ = window.__LUNR__ || {};
+    if (!window.__LUNR__?.__loaded) {
+      // TODO: Handle subpath deploys
+      window.__LUNR__.__loaded = fetch(`/search_index.json`, {
+        credentials: "same-origin",
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (fullIndex) {
+          window.__LUNR__ = {
+            index: lunr.Index.load(fullIndex.index),
+            store: fullIndex.store,
+            __loaded: window.__LUNR__.__loaded,
+          };
+        })
+        .catch((e) => {
+          console.log("Failed fetch search index");
+          throw e;
+        });
+    }
+  }
 }
 
-function getSearchResults(
-  lunrIndex: LunrStore | null | undefined,
-  query: string
-) {
-  if (!query || !lunrIndex) return [];
+function getSearchResults(query: string) {
+  if (!query || !(window as any)?.__LUNR__) return [];
+  const lunrIndex = (window as any).__LUNR__;
   // you can customize your search, see https://lunrjs.com/guides/searching.html
   // Escape the lunr regex, add `*`s to partially match to act more like typical search
   const escapedStr = query.replace(/[-/\\^$*+?.()|[\]{}:]/g, "\\$&");
@@ -27,30 +46,18 @@ function getSearchResults(
   );
 }
 
-interface LunrProps {
-  exportedIndex: string;
-}
-
 /**
  *
- * @param [language]
  * @returns {object}
  * results - an array of matches {slug: string}[]
  * onSearch - A `onChange` event or a callback to pass a string
  */
-export const useLunr = ({ exportedIndex }: LunrProps) => {
+export const useLunr = () => {
   const [results, setResults] = useState<any[] | null>(null);
 
-  const lunrRef = useRef<LunrStore>();
-
   useEffect(() => {
-    const index = JSON.parse(exportedIndex);
-
-    lunrRef.current = {
-      index: lunr.Index.load(index.index),
-      store: index.store,
-    };
-  }, [exportedIndex]);
+    loadLunr();
+  }, []);
 
   const searchUsingLunr = (str: string) => {
     const eventVal = str;
@@ -58,7 +65,7 @@ export const useLunr = ({ exportedIndex }: LunrProps) => {
       setResults(null);
       return;
     }
-    const results = getSearchResults(lunrRef.current, eventVal);
+    const results = getSearchResults(eventVal);
     setResults(results);
   };
 

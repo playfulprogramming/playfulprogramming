@@ -64,4 +64,4 @@ posts.forEach((post) => {
 });
 
 // Relative to root
-fs.writeFileSync(path.resolve("./public/rss.xml"), feed.rss2());
+fs.writeFileSync(path.resolve(process.cwd(), "./public/rss.xml"), feed.rss2());

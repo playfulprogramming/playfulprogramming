@@ -5,14 +5,12 @@ import * as React from "react";
 
 import { postsPerPage } from "constants/pagination";
 import { PostListTemplate } from "../../page-components/post-list/PostList";
-import { createIndex } from "utils/lunr";
 
 type Props = {
   posts: ListViewPosts;
   path: string;
   pageNum: number;
   numberOfPages: number;
-  exportedIndex: string;
 };
 
 const Post = (props: Props) => {
@@ -22,7 +20,6 @@ const Post = (props: Props) => {
       limitNumber={postsPerPage}
       posts={props.posts}
       pageIndex={props.pageNum}
-      exportedIndex={props.exportedIndex}
     />
   );
 };
@@ -44,28 +41,12 @@ export async function getStaticProps({ params }: Params) {
 
   const pageNum = Number(params.pageNum);
 
-  const exportedIndex = createIndex(posts, [
-    {
-      name: "title",
-      store: true,
-      attributes: { boost: 20 },
-    },
-    { name: "excerpt", resolver: (post) => post.description || post.excerpt },
-    {
-      name: "slug",
-      store: true,
-    },
-    { name: "authors" },
-    { name: "tags" },
-  ]);
-
   return {
     props: {
       pageNum: pageNum,
       path: `/page/${pageNum}/`,
       posts,
       numberOfPages,
-      exportedIndex: JSON.stringify(exportedIndex),
     },
   };
 }

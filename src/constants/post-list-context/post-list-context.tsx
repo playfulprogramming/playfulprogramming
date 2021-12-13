@@ -36,7 +36,6 @@ interface PostListContextProps {
   limitNumber: number;
   pageIndex: number;
   posts: ListViewPosts;
-  exportedIndex: string;
 }
 
 export const PostListProvider: React.FC<PostListContextProps> = ({
@@ -45,7 +44,6 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
   limitNumber,
   pageIndex: originalPageIndexPlusOne,
   posts,
-  exportedIndex,
 }) => {
   /**
    * In order to get around limitations with GQL query calls, we originally
@@ -54,7 +52,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
    * @type {number}
    */
   const originalPageIndex = originalPageIndexPlusOne - 1;
-  const searchContextValue = useSearchFilterValue({ exportedIndex });
+  const searchContextValue = useSearchFilterValue();
 
   /**
    * Logic for the posts pagination logic
