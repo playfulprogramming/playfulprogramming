@@ -54,7 +54,7 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 
 # Sponsors
 
-<ul aria-label="Our sponsors" role="list" style="list-style: none; padding: 0; margin: 0; display: flex">
+<ul aria-label="Our sponsors" role="list" style="list-style: none; padding: 0; margin: 0; display: flex; width: 100%; flex-wrap: wrap; justify-content: center;">
 <li style="
     margin: 16px;
 ">

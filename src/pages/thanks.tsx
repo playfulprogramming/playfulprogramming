@@ -2,14 +2,14 @@ import React from "react";
 
 import Image from "next/image";
 import { SEO } from "components/seo";
-import helloUnicorn from "assets/hello_2048.png";
+import proudUnicorn from "assets/proud_2048.png";
 import { useRouter } from "next/router";
 
-const ConfirmPage = () => {
+const ThanksPage = () => {
   const router = useRouter();
   return (
     <>
-      <SEO title="Confirm Your Email" pathName={router.pathname} />
+      <SEO title="Thank You!" pathName={router.pathname} />
       <div
         style={{
           width: "100%",
@@ -29,7 +29,7 @@ const ConfirmPage = () => {
           }}
         >
           <Image
-            src={helloUnicorn}
+            src={proudUnicorn}
             loading={"eager"}
             sizes="500px"
             layout={"responsive"}
@@ -37,13 +37,13 @@ const ConfirmPage = () => {
           />
         </div>
       </div>
-      <h1 style={{ textAlign: "center" }}>Just one more thing...</h1>
+      <h1 style={{ textAlign: "center" }}>Thank you for subscribing.</h1>
       <p style={{ textAlign: "center" }}>
-        Thank you for subscribing. You will need to check your inbox and confirm
-        your subscription.
+        Your subscription is now confirmed. You can expect to receive emails as
+        we create new content.
       </p>
     </>
   );
 };
 
-export default ConfirmPage;
+export default ThanksPage;
