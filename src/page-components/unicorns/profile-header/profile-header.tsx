@@ -48,11 +48,21 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
       role="banner"
       aria-label={`Banner for ${unicornData.name}`}
     >
-      <div className={styles.headerPic} style={{ borderRadius: "50%" }}>
+      <div
+        className={styles.headerPic}
+        style={{
+          height: "300px",
+          width: "300px",
+          borderRadius: "50%",
+          overflow: "hidden",
+        }}
+      >
         <Image
           src={unicornData.profileImg.relativeServerPath}
           height={unicornData.profileImg.height}
-          width={unicornData.profileImg.width }
+          width={unicornData.profileImg.width}
+          sizes={"300px"}
+          layout="responsive"
           loading={"eager"}
           alt={`${possessiveName} profile picture`}
         />
