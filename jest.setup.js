@@ -6,12 +6,6 @@
 require("@testing-library/jest-dom/extend-expect");
 require("./__mocks__/modules");
 
-const originConsoleErr = console.error;
-console.error = (message, ...optionalParams) => {
-  if (/Not implemented: navigation/.exec(message)) return;
-  originConsoleErr(message, ...optionalParams);
-};
-
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
 

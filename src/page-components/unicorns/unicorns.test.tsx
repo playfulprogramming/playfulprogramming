@@ -5,21 +5,37 @@ import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
 import { MockUnicorn } from "__mocks__/data/mock-unicorn";
 import ReactDOMServer from "react-dom/server";
 import UnicornPage from "../../pages/unicorns/[...pageInfo]";
+import { onLinkClick } from "__mocks__/modules/next-link";
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
-const getElement = () => (
-  <UnicornPage
-    unicorn={MockUnicorn}
-    authoredPosts={[MockPost, MockMultiAuthorPost] as any[]}
-    basePath={"/"}
-    pageNum={1}
-    numberOfPages={3}
-    wordCount={10000}
-  />
+const getElement = (fn: () => void) => (
+  <RouterContext.Provider
+    value={
+      {
+        push: () => {
+          fn();
+          return Promise.resolve(false);
+        },
+        replace: () => Promise.resolve(false),
+        prefetch: () => Promise.resolve(),
+      } as any
+    }
+  >
+    <UnicornPage
+      unicorn={MockUnicorn}
+      authoredPosts={[MockPost, MockMultiAuthorPost] as any[]}
+      basePath={"/"}
+      pageNum={1}
+      numberOfPages={3}
+      wordCount={10000}
+    />
+  </RouterContext.Provider>
 );
 
 test("Blog profile page renders", async () => {
+  const navigatePushFn = jest.fn();
   const { baseElement, findByText, findAllByTestId, findAllByText } = render(
-    getElement()
+    getElement(navigatePushFn)
   );
 
   expect(baseElement).toBeInTheDocument();
@@ -30,34 +46,36 @@ test("Blog profile page renders", async () => {
   const TwitterEl = await findByText("Twitter");
   expect(TwitterEl).toBeInTheDocument();
   fireEvent.click(TwitterEl);
-  // expect(onAnalyticsLinkClick).toHaveBeenCalledTimes(1);
-  // const GitHubEl = await findByText("GitHub");
-  // expect(GitHubEl).toBeInTheDocument();
-  // fireEvent.click(GitHubEl);
-  // expect(onAnalyticsLinkClick).toHaveBeenCalledTimes(2);
-  // const WebsiteEl = await findByText("Website");
-  // expect(WebsiteEl).toBeInTheDocument();
-  // fireEvent.click(WebsiteEl);
-  // expect(onAnalyticsLinkClick).toHaveBeenCalledTimes(3);
-  // expect(await findByText("2 Articles")).toBeInTheDocument();
-  // expect(await findByText("110000 Words")).toBeInTheDocument();
-  //
-  // // Post cards
-  // const byEls = await findAllByText("by");
-  // expect(byEls.length).toBe(2);
-  // expect(await findByText("10-10-2010")).toBeInTheDocument();
-  // expect(
-  //   await findByText(
-  //     "This is a short description dunno why this would be this short"
-  //   )
-  // ).toBeInTheDocument();
-  //
-  // fireEvent.click(await findByText("Post title"));
-  // expect(onGatsbyLinkClick).toHaveBeenCalledTimes(2);
-  //
-  // const authorImgs = await findAllByTestId("author-pic-0");
-  // fireEvent.click(authorImgs[0]);
-  // expect(onGatsbyLinkClick).toHaveBeenCalledTimes(4);
+  // expect(onLinkClick).toHaveBeenCalledTimes(1);
+  const GitHubEl = await findByText("GitHub");
+  expect(GitHubEl).toBeInTheDocument();
+  fireEvent.click(GitHubEl);
+  // expect(onLinkClick).toHaveBeenCalledTimes(2);
+  const WebsiteEl = await findByText("Website");
+  expect(WebsiteEl).toBeInTheDocument();
+  fireEvent.click(WebsiteEl);
+  // expect(onLinkClick).toHaveBeenCalledTimes(3);
+  expect(await findByText("2 Articles")).toBeInTheDocument();
+  expect(await findByText("10000 Words")).toBeInTheDocument();
+
+  onLinkClick.mockReset();
+
+  // Post cards
+  const byEls = await findAllByText("by");
+  expect(byEls.length).toBe(2);
+  expect(await findByText("October 10, 2010")).toBeInTheDocument();
+  expect(
+    await findByText(
+      "This is a short description dunno why this would be this short"
+    )
+  ).toBeInTheDocument();
+
+  fireEvent.click(await findByText("Post title"));
+  expect(navigatePushFn).toHaveBeenCalledTimes(1);
+
+  const authorImgs = await findAllByTestId("author-pic-0");
+  fireEvent.click(authorImgs[0]);
+  expect(navigatePushFn).toHaveBeenCalledTimes(2);
 });
 
 // test.skip("Blog profile page should not have axe errors", async () => {

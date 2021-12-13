@@ -23,7 +23,7 @@ interface SocialBtnProps {
 const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
   return (
     <li className={`baseBtn ${styles.socialBtnLink}`} role="listitem">
-      <a className="unlink" target="_blank" rel="noopener" href={url}>
+      <a className="unlink" target="_blank" rel="noreferrer" href={url}>
         <span className={styles.svgContainer} aria-hidden={true}>
           {icon}
         </span>
