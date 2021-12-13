@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 type Props = {
   unicorn: UnicornInfo;
   authoredPosts: ListViewPosts;
-  path: string;
   basePath: string;
   pageNum: number;
   numberOfPages: number;
@@ -31,8 +30,6 @@ const UnicornPage = ({
   wordCount,
 }: Props) => {
   const router = useRouter();
-
-  console.log({ authoredPosts, pageNum, numberOfPages, wordCount });
 
   return (
     <>
