@@ -26,6 +26,8 @@
 	max-height: $desktopImgSize;
 	margin-right: 48px;
 	margin-bottom: 16px;
+	height: 100%;
+	width: 100%;
 
 	@include until($endSmallScreenSize) {
 		$mobileImgSize: 150px;

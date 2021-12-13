@@ -14,14 +14,15 @@ export const PostListHeader = ({ siteDescription }: PostListHeaderProps) => {
       role="banner"
       aria-label={`Banner for Unicorn Utterances`}
     >
-      <Image
-        className={styles.headerPic}
-        loading={"eager"}
-        layout="responsive"
-        sizes={"300px"}
-        alt={`Unicorn Utterances header image`}
-        src={unicornLogo}
-      />
+      <div className={styles.headerPic}>
+        <Image
+          loading={"eager"}
+          layout="responsive"
+          sizes={"300px"}
+          alt={`Unicorn Utterances header image`}
+          src={unicornLogo}
+        />
+      </div>
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>Unicorn Utterances</h1>
         <div
