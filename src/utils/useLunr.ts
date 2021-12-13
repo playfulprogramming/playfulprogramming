@@ -1,11 +1,16 @@
 import lunr from "lunr";
 import { useEffect, useRef, useState } from "react";
-import { ListViewPosts } from "../api";
 
-// TODO: Add back
-function getSearchResults(query: any, lng: string) {
-  if (!query || !(window as any).__LUNR__) return [];
-  const lunrIndex = (window as any).__LUNR__[lng];
+interface LunrStore {
+  index: lunr.Index;
+  store: Record<string, any>;
+}
+
+function getSearchResults(
+  lunrIndex: LunrStore | null | undefined,
+  query: string
+) {
+  if (!query || !lunrIndex) return [];
   // you can customize your search, see https://lunrjs.com/guides/searching.html
   // Escape the lunr regex, add `*`s to partially match to act more like typical search
   const escapedStr = query.replace(/[-/\\^$*+?.()|[\]{}:]/g, "\\$&");
@@ -23,8 +28,7 @@ function getSearchResults(query: any, lng: string) {
 }
 
 interface LunrProps {
-  exportedIndex: any;
-  posts: ListViewPosts;
+  exportedIndex: string;
 }
 
 /**
@@ -34,36 +38,27 @@ interface LunrProps {
  * results - an array of matches {slug: string}[]
  * onSearch - A `onChange` event or a callback to pass a string
  */
-export const useLunr = ({ exportedIndex, posts }: LunrProps) => {
+export const useLunr = ({ exportedIndex }: LunrProps) => {
   const [results, setResults] = useState<any[] | null>(null);
+
+  const lunrRef = useRef<LunrStore>();
 
   useEffect(() => {
     const index = JSON.parse(exportedIndex);
-    // @ts-ignore
-    window.__LUNR__ = Object.keys({ en: index }).reduce(
-      (prev, key) => ({
-        ...prev,
-        [key]: {
-          index: lunr.Index.load(index.index),
-          store: index.store,
-        },
-      }),
-      {
-        // @ts-ignore
-        __loaded: window.__LUNR__?.__loaded,
-      }
-    );
+
+    lunrRef.current = {
+      index: lunr.Index.load(index.index),
+      store: index.store,
+    };
   }, [exportedIndex]);
 
   const searchUsingLunr = (str: string) => {
-    // const ids = indexRef.current.search(str);
-    // console.log({ ids });
     const eventVal = str;
     if (!eventVal) {
       setResults(null);
       return;
     }
-    const results = getSearchResults(eventVal, "en");
+    const results = getSearchResults(lunrRef.current, eventVal);
     setResults(results);
   };
 

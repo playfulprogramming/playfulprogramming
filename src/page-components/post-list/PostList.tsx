@@ -14,7 +14,7 @@ interface PostListTemplateProps {
   limitNumber: number;
   pageIndex: number;
   posts: ListViewPosts;
-  exportedIndex: Record<number | string, string>;
+  exportedIndex: string;
 }
 export const PostListTemplate = (props: PostListTemplateProps) => {
   const { numberOfPages, limitNumber, pageIndex, posts, exportedIndex } = props;

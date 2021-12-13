@@ -41,17 +41,13 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
 };
 
 interface SearchFilterProps {
-  exportedIndex: Record<number | string, string>;
-  posts: ListViewPosts;
+  exportedIndex: string;
 }
 
 /**
  * Get the default value for the search and filter context provider
  */
-export const useSearchFilterValue = ({
-  exportedIndex,
-  posts,
-}: SearchFilterProps) => {
+export const useSearchFilterValue = ({ exportedIndex }: SearchFilterProps) => {
   /**
    * The local states of the filter and search
    *
@@ -72,11 +68,9 @@ export const useSearchFilterValue = ({
    */
   const { searchUsingLunr: filterUsingLunr, results: lunrFilterIds } = useLunr({
     exportedIndex,
-    posts,
   });
   const { searchUsingLunr, results: lunrSearchIds } = useLunr({
     exportedIndex,
-    posts,
   });
 
   useEffect(() => {

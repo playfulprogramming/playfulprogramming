@@ -36,7 +36,7 @@ interface PostListContextProps {
   limitNumber: number;
   pageIndex: number;
   posts: ListViewPosts;
-  exportedIndex: Record<number | string, string>;
+  exportedIndex: string;
 }
 
 export const PostListProvider: React.FC<PostListContextProps> = ({
@@ -54,7 +54,7 @@ export const PostListProvider: React.FC<PostListContextProps> = ({
    * @type {number}
    */
   const originalPageIndex = originalPageIndexPlusOne - 1;
-  const searchContextValue = useSearchFilterValue({ exportedIndex, posts });
+  const searchContextValue = useSearchFilterValue({ exportedIndex });
 
   /**
    * Logic for the posts pagination logic
