@@ -15,7 +15,7 @@ import rehypeSlug from "rehype-slug";
 import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
-import { PostInfo, RenderedPostInfo } from "uu-types";
+import { UserConfigSettings } from "shiki-twoslash";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -46,7 +46,12 @@ export default async function markdownToHtml(
     )
     /* end remark plugins here */
     .use(remarkStringify)
-    .use(remarkTwoslash as any)
+    .use(
+      remarkTwoslash as any,
+      {
+        themes: ["css-variables"],
+      } as UserConfigSettings
+    )
     .use(remarkToRehype, { allowDangerousHtml: true })
     /* start rehype plugins here */
     // TODO: https://github.com/ksoichiro/rehype-img-size/issues/4

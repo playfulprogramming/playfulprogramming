@@ -4,6 +4,7 @@ import Link from "next/link";
 import { stopPropCallback } from "uu-utils";
 import { UserProfilePic } from "components/user-profile-pic";
 import { SlugPostInfo } from "constants/queries";
+import dayjs from "dayjs";
 
 interface PostMetadataProps {
   post: SlugPostInfo;
@@ -35,6 +36,8 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
     return url.host;
   }, [post.originalLink]);
 
+  const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
+
   return (
     <div className={styles.container}>
       <UserProfilePic
@@ -61,7 +64,7 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
           })}
         </h2>
         <div className={styles.belowName}>
-          <p>{post.published}</p>
+          <p>{publishedStr}</p>
           <p>{post.wordCount} words</p>
         </div>
       </div>

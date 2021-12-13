@@ -4,6 +4,7 @@ import cardStyles from "./post-card.module.scss";
 import { stopPropCallback } from "uu-utils";
 import { UserProfilePic } from "../user-profile-pic";
 import { ListViewPosts } from "utils/fs/api";
+import dayjs from "dayjs";
 
 interface PostCardProps {
   title: string; // The title of the post
@@ -44,6 +45,8 @@ export const PostCard = ({
       }),
     [authors]
   );
+
+  const publishedStr = dayjs(published).format("MMMM D, YYYY");
 
   return (
     <li
@@ -89,7 +92,7 @@ export const PostCard = ({
           })}
         </p>
         <div className={cardStyles.dateTagSubheader}>
-          <p className={cardStyles.date}>{published}</p>
+          <p className={cardStyles.date}>{publishedStr}</p>
           {tags.map((tag) => (
             <span key={tag} className={cardStyles.tag}>
               {tag}

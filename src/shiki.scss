@@ -13,13 +13,21 @@ Code blocks structurally look like:
   </pre>
 */
 
+:root {
+	--shiki-color-background: var(--white);
+	--shiki-token-function: var(--functionColor);
+	--shiki-color-text: var(--punctuationColor);
+	--shiki-token-string: var(--stringColor);
+	--shiki-token-keyword: var(--keywordColor);
+	--shiki-string-expression: var(--operatorColor);
+	--shiki-token-constant: var(--varColor);
+	--shiki-token-comment: var(--commentColor);
+}
+
 pre {
 	/* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
 	background-color: white;
 	color: black;
-
-	/* Give it some space to breathe */
-	padding: 12px;
 
 	/* All code samples get a grey border, twoslash ones get a different color */
 	border-left: 1px solid #999;
@@ -30,6 +38,10 @@ pre {
 	/* Important to allow the code to move horizontally; */
 	overflow-x: auto;
 	position: relative;
+}
+pre .code-container {
+	/* Give it some space to breathe */
+	padding: 12px;
 }
 pre.shiki {
 	overflow-x: auto;
@@ -78,8 +90,8 @@ pre.twoslash data-lsp:hover::before {
 	text-align: left;
 	padding: 5px 8px;
 	border-radius: 2px;
-	font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
-	font-size: 14px;
+	font-family: $robotoMono;
+	font-size: 0.8rem;
 	white-space: pre-wrap;
 	z-index: 100;
 }
@@ -116,8 +128,8 @@ pre .code-container:hover a {
 }
 
 pre code {
-	font-size: 15px;
-	font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;;
+	font-size: 0.9rem;
+	font-family: $robotoMono;
 	white-space: pre;
 	-webkit-overflow-scrolling: touch;
 }
@@ -199,7 +211,7 @@ pre .inline-completions ul.dropdown {
 	background-color: gainsboro;
 	color: grey;
 	padding-top: 4px;
-	font-family: var(--code-font);
+	font-family: $robotoMono;
 	font-size: 0.8rem;
 	margin: 0;
 	padding: 0;
@@ -254,7 +266,7 @@ data-lsp {
 }
 .tag-container .twoslash-annotation {
 	position: absolute;
-	font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
+	font-family: $robotoMono;
 	right: -10px;
 	/** Default annotation text to 200px */
 	width: 200px;
@@ -307,4 +319,73 @@ pre .logger.log-log {
 pre .logger.log-log svg {
 	margin-left: 6px;
 	margin-right: 9px;
+}
+
+
+blockquote {
+	position: relative;
+	margin-left: 1em;
+	color: var(--midImpactBlack);
+
+	&::before {
+		content: " ";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 3px;
+		background: var(--darkPrimary);
+		left: -1em;
+	}
+
+	/*a {
+    color: rgba(0, 10, 125, 0.6);
+  }*/
+}
+
+h1 {
+	@extend %headline-1;
+	font-size: 1.825rem;
+
+	@include from($endSmallScreenSize) {
+		font-size: 2.4rem;
+	}
+}
+
+h2 {
+	@extend %headline-2;
+}
+
+h3 {
+	@extend %headline-3;
+}
+
+h4 {
+	@extend %headline-4;
+}
+
+h5 {
+	@extend %headline-5;
+}
+
+h6 {
+	@extend %headline-6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	code[class*="language-"] {
+		font-size: inherit;
+	}
+}
+
+blockquote.bigBlock {
+	&,
+	& * {
+		font-size: 1.5rem;
+	}
 }

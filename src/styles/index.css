@@ -16,9 +16,6 @@ pre {
     background-color: white;
     color: black;
 
-    /* Give it some space to breathe */
-    padding: 12px;
-
     /* All code samples get a grey border, twoslash ones get a different color */
     border-left: 1px solid #999;
     border-bottom: 1px solid #999;
@@ -28,6 +25,10 @@ pre {
     /* Important to allow the code to move horizontally; */
     overflow-x: auto;
     position: relative;
+}
+
+pre .code-container {
+    padding: 12px;
 }
 pre.shiki {
     overflow-x: auto;
