@@ -34,10 +34,6 @@
 
 	.previous,
 	.next {
-		&.disabled {
-			display: none;
-		}
-
 		// Make it so that the next and prev label text is hidden on mobile
 		// but not removed from the aria-reading role
 		[aria-hidden="false"] {
@@ -49,5 +45,9 @@
 				display: inline-block;
 			}
 		}
+	}
+
+	.showNothing {
+		display: none;
 	}
 }

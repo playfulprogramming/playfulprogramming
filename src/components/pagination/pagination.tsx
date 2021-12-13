@@ -43,6 +43,7 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
       hrefBuilder={(pageIndex) => `${forwardSlashedBase}page/${pageIndex + 1}`}
       containerClassName={styles.pagination}
       activeClassName={styles.active}
+      disabledClassName={styles.showNothing}
       onPageChange={({ selected }) => {
         if (filterVal.length || searchVal) {
           setCurrentPageIndex(selected);

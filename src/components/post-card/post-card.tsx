@@ -52,7 +52,7 @@ export const PostCard = ({
       role="listitem"
     >
       <div className={cardStyles.cardContents}>
-        <Link href={`/posts${slug}`} passHref>
+        <Link href={`/posts/${slug}`} passHref>
           <a className="unlink" onClick={(e) => e.stopPropagation()}>
             <h2 className={cardStyles.header} ref={headerLink as any}>
               {title}

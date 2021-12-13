@@ -21,7 +21,7 @@ export const DarkLightButton = () => {
       aria-pressed={colorMode === "light"}
       aria-label={"Dark mode"}
     >
-      {colorMode === "dark" ? <DarkIcon /> : <LightIcon  />}
+      {colorMode === "dark" ? <DarkIcon /> : <LightIcon />}
     </button>
   );
 };

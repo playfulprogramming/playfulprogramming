@@ -52,6 +52,8 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
+  // TODO: Only initially hydrate the current page, then have the server "get"
+  // the rest of the posts via GET requests.
   const posts = getAllPostsForListView();
 
   const numberOfPages = Math.ceil(posts.length / postsPerPage);
