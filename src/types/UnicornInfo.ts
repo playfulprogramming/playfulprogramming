@@ -8,7 +8,6 @@ export interface UnicornInfo {
   id: string;
   description: string;
   color: string;
-  isAuthor: true; // TODO: Should we add this field to the NextJS port or not?
   roles: RolesEnum[];
   socials: {
     twitter?: string;

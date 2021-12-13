@@ -6,7 +6,6 @@ export interface PostInfo {
   title: string;
   published: string;
   edited?: string;
-  coverImage: string;
   authors: UnicornInfo[];
   license: LicenseInfo;
   excerpt: string;
