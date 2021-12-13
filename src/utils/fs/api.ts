@@ -17,6 +17,7 @@ import {
   DeepReplaceKeys,
   PickDeep,
 } from "ts-util-helpers";
+import { getExcerpt } from "utils/markdown/getExcerpt";
 
 export { unicorns, pronouns, licenses, roles, dataDirectory, postsDirectory };
 
@@ -42,6 +43,7 @@ export function readMarkdownFile<
 ): {
   frontmatterData: Record<string, any>;
   pickedData: PickDeep<T & MarkdownAdditions, ToPick>;
+  content: string;
 } {
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data: frontmatterData, content } = matter(fileContents);
@@ -75,6 +77,7 @@ export function readMarkdownFile<
   return {
     frontmatterData,
     pickedData: pickedData as any,
+    content,
   };
 }
 
@@ -84,7 +87,10 @@ export function getPostBySlug<ToPick extends KeysToPick>(
 ): PickDeep<PostInfo, ToPick> {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, realSlug, `index.md`);
-  const { frontmatterData, pickedData } = readMarkdownFile(fullPath, fields);
+  const { frontmatterData, pickedData, content } = readMarkdownFile(
+    fullPath,
+    fields
+  );
 
   if (fields.slug) {
     pickedData.slug = realSlug;
@@ -94,6 +100,10 @@ export function getPostBySlug<ToPick extends KeysToPick>(
     pickedData.authors = (frontmatterData.authors as string[]).map(
       (author) => unicorns.find((unicorn) => unicorn.id === author)!
     );
+  }
+
+  if (fields.excerpt) {
+    pickedData.excerpt = getExcerpt(content);
   }
 
   return pickedData as any;

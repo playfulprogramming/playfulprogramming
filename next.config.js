@@ -1,9 +1,8 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const withPlugins = require("next-compose-plugins");
-const withTM = require("next-transpile-modules")(["flexsearch"]);
 
-module.exports = withPlugins([withTM], {
+module.exports = withPlugins([], {
   webpack: (config) => {
     config.plugins.push(
       new CopyPlugin({

@@ -14,13 +14,11 @@
   "dependencies": {
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
-    "@types/flexsearch": "^0.7.2",
     "batteries-not-included": "^0.1.0",
     "classnames": "2.3.1",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "2.21.3",
     "disqus-react": "^1.1.2",
-    "flexsearch": "0.7.11",
     "framer-motion": "^4.1.17",
     "gatsby-remark-embedder": "^5.0.0",
     "gray-matter": "4.0.3",
@@ -47,6 +45,7 @@
     "sass": "^1.44.0",
     "sharp": "^0.29.3",
     "slash": "^4.0.0",
+    "strip-markdown": "^5.0.0",
     "terser": "^4.8.0",
     "ts-util-helpers": "^1.1.0-alpha.2",
     "typescript": "^4.4.4",
@@ -71,7 +70,6 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^9.0.0",
     "prettier": "^2.5.0"
   }
 }
