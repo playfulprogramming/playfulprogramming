@@ -3,13 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import style from "../page-components/about/about.module.scss";
 import { UnicornInfo } from "uu-types";
-import { siteDirectory, sponsorsDirectory, unicorns } from "../api/get-datas";
+import { siteDirectory, sponsorsDirectory, unicorns } from "utils/fs/get-datas";
 import unicornLogo from "../assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
-import { readMarkdownFile } from "../api";
+import { readMarkdownFile } from "utils/fs/api";
 import { join } from "path";
-import markdownToHtml from "utils/markdownToHtml";
-import { useMarkdownRenderer } from "../hooks/useMarkdownRenderer";
+import markdownToHtml from "utils/markdown/markdownToHtml";
+import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
   const unicornRoles = unicornInfo.roles.slice(0);

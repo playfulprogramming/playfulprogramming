@@ -2,7 +2,7 @@ import React from "react";
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card";
 import { PostListContext } from "constants/post-list-context";
-import { ListViewPosts } from "../../api";
+import { ListViewPosts } from "utils/fs/api";
 
 export interface PostListProps {
   showWordCount?: boolean;

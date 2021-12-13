@@ -19,7 +19,7 @@ import {
 } from "constants/search-and-filter-context";
 import { filterPostsBySlugArr, getSkippedPosts } from "utils/handle-post-list";
 import { PostInfo } from "types/PostInfo";
-import { ListViewPosts } from "../../api";
+import { ListViewPosts } from "utils/fs/api";
 
 export const defaultSearchAndFilterContextVal = {
   postsToDisplay: [] as ListViewPosts,

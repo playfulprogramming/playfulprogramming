@@ -1,9 +1,9 @@
-import { getAllPostsForListView, ListViewPosts, unicorns } from "../../api/api";
+import { getAllPostsForListView, ListViewPosts, unicorns } from "utils/fs/api";
 import * as React from "react";
 
 import Link from "next/link";
 import { UnicornInfo } from "../../types";
-import { postsPerPage } from "../../api/pagination";
+import { postsPerPage } from "constants/pagination";
 
 type Props = {
   unicorn: UnicornInfo;

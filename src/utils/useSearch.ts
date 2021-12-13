@@ -1,4 +1,4 @@
-import { getAllPosts } from "../api";
+import { getAllPosts } from "./fs/api";
 import { Index } from "flexsearch";
 
 const searchCache = {};

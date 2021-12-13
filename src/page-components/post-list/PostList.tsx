@@ -5,9 +5,9 @@ import { PostList } from "components/post-card-list";
 import { PostListProvider } from "constants/post-list-context";
 import { Pagination } from "components/pagination";
 import { FilterSearchBar } from "components/filter-search-bar";
-import { siteMetadata } from "../../api/get-site-config";
+import { siteMetadata } from "constants/site-config";
 import { useRouter } from "next/router";
-import { ListViewPosts } from "../../api";
+import { ListViewPosts } from "utils/fs/api";
 
 interface PostListTemplateProps {
   numberOfPages: number;

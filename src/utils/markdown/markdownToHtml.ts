@@ -6,14 +6,14 @@ import rehypeStringify from "rehype-stringify";
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import path from "path";
-import { postsDirectory } from "../api";
+import { postsDirectory } from "utils/fs/api";
 import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch";
 import rehypeSlug from "rehype-slug";
-import { parent } from "../api/get-site-config";
-import { rehypeHeaderText } from "../api/plugins/add-header-text";
+import { parent } from "constants/site-config";
+import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { PostInfo, RenderedPostInfo } from "uu-types";
 

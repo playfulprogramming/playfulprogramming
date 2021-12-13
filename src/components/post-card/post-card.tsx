@@ -3,7 +3,7 @@ import Link from "next/link";
 import cardStyles from "./post-card.module.scss";
 import { stopPropCallback } from "uu-utils";
 import { UserProfilePic } from "../user-profile-pic";
-import { ListViewPosts } from "../../api";
+import { ListViewPosts } from "utils/fs/api";
 
 interface PostCardProps {
   title: string; // The title of the post

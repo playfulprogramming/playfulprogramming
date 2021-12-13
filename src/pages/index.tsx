@@ -1,4 +1,4 @@
-import { getAllPostsForListView, ListViewPosts } from "../api";
+import { getAllPostsForListView, ListViewPosts } from "utils/fs/api";
 import React from "react";
 import Link from "next/link";
 

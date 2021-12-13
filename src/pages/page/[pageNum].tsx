@@ -1,9 +1,9 @@
 // import { useRouter } from 'next/router'
 // import ErrorPage from 'next/error'
-import { getAllPostsForListView, ListViewPosts } from "../../api/api";
+import { getAllPostsForListView, ListViewPosts } from "utils/fs/api";
 import * as React from "react";
 
-import { postsPerPage } from "../../api/pagination";
+import { postsPerPage } from "constants/pagination";
 import { PostListTemplate } from "../../page-components/post-list/PostList";
 import { createIndex } from "utils/lunr";
 

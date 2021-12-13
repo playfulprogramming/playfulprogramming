@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMarkdownRendererProps } from "./types";
-import { isRelativePath } from "../../utils/url-paths";
+import { isRelativePath } from "../../url-paths";
 import Link from "next/link";
 
 export const getLinks = (_: useMarkdownRendererProps) => {

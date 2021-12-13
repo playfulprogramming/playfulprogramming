@@ -1,6 +1,6 @@
 import { Feed } from "feed";
-import { getAllPosts } from "./api";
-import { siteUrl } from "./api/get-site-config";
+import { getAllPosts } from "utils/fs/api";
+import { siteUrl } from "constants/site-config";
 import fs from "fs";
 import path from "path";
 

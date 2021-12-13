@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { siteMetadata, siteUrl } from "../api/get-site-config";
+import { siteMetadata, siteUrl } from "constants/site-config";
 import { UnicornInfo } from "../types";
 
 interface SEOProps {

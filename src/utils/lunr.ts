@@ -1,5 +1,5 @@
 import lunr from "lunr";
-import { ListViewPosts } from "../api";
+import { ListViewPosts } from "utils/fs/api";
 import { objectFilter } from "ts-util-helpers";
 
 type ListViewPost = ListViewPosts[number];

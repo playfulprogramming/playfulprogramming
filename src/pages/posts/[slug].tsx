@@ -1,11 +1,11 @@
 // import { useRouter } from 'next/router'
 // import ErrorPage from 'next/error'
-import { getPostBySlug, getAllPosts, postsDirectory } from "../../api/api";
+import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
 import * as React from "react";
 import { DiscussionEmbed } from "disqus-react";
 
-import markdownToHtml from "../../utils/markdownToHtml";
-import { useMarkdownRenderer } from "../../hooks/useMarkdownRenderer";
+import markdownToHtml from "utils/markdown/markdownToHtml";
+import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { RenderedPostInfo } from "types/PostInfo";
 import {
   postBySlug,
@@ -26,7 +26,7 @@ import GitHubIcon from "assets/icons/github.svg";
 import CommentsIcon from "assets/icons/message.svg";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "constants/theme-context";
-import { siteMetadata } from "../../api/get-site-config";
+import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
 import path from "path";
 import { SeriesToC } from "components/series-toc";

@@ -8,7 +8,7 @@ import {
 import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
 import { PostInfo } from "types/PostInfo";
-import { ListViewPosts } from "../../api";
+import { ListViewPosts } from "utils/fs/api";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
