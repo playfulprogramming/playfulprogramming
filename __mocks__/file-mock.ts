@@ -1,1 +1,2 @@
-module.exports = "test-file-stub"
+// @ts-ignore
+module.exports = "test-file-stub";

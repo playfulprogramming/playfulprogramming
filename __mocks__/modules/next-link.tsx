@@ -12,7 +12,7 @@ jest.mock("next/link", () => {
     return (
       <Link
         {...props}
-        onClick={(e) => {
+        onClick={(e: Event) => {
           e.preventDefault();
           e.stopPropagation();
           onLinkClick();

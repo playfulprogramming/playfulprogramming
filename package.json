@@ -57,6 +57,7 @@
     "@svgr/webpack": "^6.1.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
+    "@types/gtag.js": "0.0.8",
     "@types/jest": "^26.0.23",
     "@types/lunr": "^2.3.4",
     "@types/node": "^16.11.6",
