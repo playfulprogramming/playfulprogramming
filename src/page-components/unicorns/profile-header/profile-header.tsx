@@ -7,8 +7,8 @@ import LinkedInIcon from "assets/icons/linkedin.svg";
 import TwitterIcon from "assets/icons/twitter.svg";
 import TwitchIcon from "assets/icons/twitch.svg";
 import DribbbleIcon from "assets/icons/dribbble.svg";
-// import { OutboundLink } from "gatsby-plugin-google-analytics";
 import { UnicornInfo } from "uu-types";
+import { OutboundLink } from "components/outbound-link";
 
 const getNamePossessive = (name: string) => {
   if (name.endsWith("s")) return `${name}'`;
@@ -23,12 +23,17 @@ interface SocialBtnProps {
 const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
   return (
     <li className={`baseBtn ${styles.socialBtnLink}`} role="listitem">
-      <a className="unlink" target="_blank" rel="noreferrer" href={url}>
+      <OutboundLink
+        className="unlink"
+        target="_blank"
+        rel="noreferrer"
+        href={url}
+      >
         <span className={styles.svgContainer} aria-hidden={true}>
           {icon}
         </span>
         <span className={styles.socialText}>{text}</span>
-      </a>
+      </OutboundLink>
     </li>
   );
 };

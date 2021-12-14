@@ -2,11 +2,10 @@ import React from "react";
 
 import Image from "next/image";
 import { SEO } from "components/seo";
-import { Layout } from "components/layout";
-// import { OutboundLink } from "gatsby-plugin-google-analytics";
 import sadUnicorn from "assets/sad_unicorn_2048.png";
 import { siteMetadata } from "constants/site-config";
 import { useRouter } from "next/router";
+import { OutboundLink } from "components/outbound-link";
 
 const NotFoundPage = () => {
   const router = useRouter();
@@ -44,10 +43,11 @@ const NotFoundPage = () => {
         <br />
         Maybe the URL has a typo in it or we&apos;ve configured something wrong!
         <br />
-        {/*OutBoundLink*/}
-        <a href={`https://github.com/${siteMetadata.repoPath}/issues`}>
+        <OutboundLink
+          href={`https://github.com/${siteMetadata.repoPath}/issues`}
+        >
           If you really think it might be something we did, let us know!
-        </a>
+        </OutboundLink>
       </p>
     </>
   );
