@@ -9,7 +9,7 @@
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-lit-framework/',
     series: "Web Components 101",
-    order: 2
+    order: 3
 }
 ---
 
