@@ -1,4 +1,13 @@
-<!--A Better Way To Code: Documentation Driven Development-->
+---
+{
+title: "A Better Way To Code: Documentation Driven Development",
+description: "",
+published: '2021-12-28T22:12:03.284Z',
+authors: ['crutchcorn'],
+tags: ['documentation', 'tdd', 'ddd'],
+attached: []
+}
+---
 
 If you've spent much time in software development you've undoubtedly heard the expression “test-driven development” or "TDD" for short.
 
