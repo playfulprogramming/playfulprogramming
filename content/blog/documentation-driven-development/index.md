@@ -5,7 +5,8 @@ description: "",
 published: '2021-12-28T22:12:03.284Z',
 authors: ['crutchcorn'],
 tags: ['documentation', 'tdd', 'ddd'],
-attached: []
+attached: [],
+license: 'cc-by-nc-sa-4',
 }
 ---
 
