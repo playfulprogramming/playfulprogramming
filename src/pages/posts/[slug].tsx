@@ -50,7 +50,7 @@ const Post = ({
 
   const result = useMarkdownRenderer({
     markdownHTML,
-    serverPath: ["blog", slug],
+    serverPath: ["posts", slug],
   });
 
   const { colorMode } = useContext(ThemeContext);
