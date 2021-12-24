@@ -1,4 +1,4 @@
-# A Better Way To Code: Documentation Driven Development
+<!--A Better Way To Code: Documentation Driven Development-->
 
 If you've spent much time in software development you've undoubtedly heard the expression “test-driven development” or "TDD" for short.
 
@@ -12,7 +12,7 @@ As a result, many choose to start implementing a function as a proof-of-concept,
 
 The problem is that, by doing so, you lose one of the greatest benefits of test-driven development: Its ability to force you to confront your API ahead of time.
 
-### APIs are Hard
+# APIs are hard
 
 You're working at an indie game company. A small top-down shooter that you've written [in JavaScript with Phaser](https://phaser.io/). Your bass has asked you to implement a user score.
 
@@ -64,7 +64,7 @@ Let's take a step back. Why did this happen?
 
 These problems tend to happen because of miscommunication of scope. This miscommunication can be introduced between teams, from individual to individual, or even just within your internal monolog.
 
-## Testing is Hard
+# Testing is hard
 
 One way that many suggest working around this problem is by following TDD. TDD can help force you to address your API ahead of time by adding in a feedback loop.
 
@@ -78,11 +78,13 @@ Let's say that the ability to track special kills after the fact isn't possible 
 
 Had you spoken with other engineers, you may have realized that there are developments in the match-end screen that were completed sooner than expected. It's only caught now in code review after you've made the implementation, forcing a refactor immediately.
 
-### Getting to the point
+# Getting to the point
 
 OK OK, I'll get to the point: There's a better way to address this "API shift" problem better than TDD. This "better way" is "Documentation drive development".
 
-![](./drake.png)Writing docs first can help you iron out implementation details ahead of time, before having to make tough calls about implementing a design. Even reference APIs can help you make a lot of designs
+![Drake looking away from "Test Driven Development" but a thumbs up for "Documentation Driven Development"](./drake.png)
+
+Writing docs first can help you iron out implementation details ahead of time, before having to make tough calls about implementing a design. Even reference APIs can help you make a lot of designs
 
 Let's loop back to the older example of `calculateUserScore`. Just like before, you called a short meeting to gather the requirements from the team. This time though, instead of starting with the code you start by writing documentation.
 
@@ -122,17 +124,53 @@ While working on the docs, you will likely realize that the `kills` array should
 calculateUserScore({kills: [{killedUser: 'unknown'}], deaths: 0, assists: 0});
 ```
 
-While this might seem obvious to us, while in the moment it may not be so clear. This is the benifit of Documentation-Driven Development: It forces you to go through a self-feedback cycle on your APIs and the scope of your work.
+While this might seem obvious to us, while in the moment it may not be so clear. This is the benefit of Documentation-Driven Development: It forces you to go through a self-feedback cycle on your APIs and the scope of your work.
 
-As we showed with this example, you may need to modify your designs before moving forward for final release: that's okay. Docs influence code influence docs. The same is true for TDD.
+# Refining the process
 
-Tests are part of that, you're writing your tests while writing API documentation
+OK, I get it. Documentation is seen as a chore. While I could go on about "your medicine is good for you", I've got good news for you: Documentation doesn't mean what you think it means.
 
-\
-This is particularly true when writing developer tooling or libraries.
+Documentation can be found in many forms: design mockups, API reference docs, well-formed tickets, future plan writeups, and more.
 
-DDD isn't just useful for developing, either. In interviews, it can be huge to write code comments, then write the solution
+Essentially, anything that can be used to communicate your thoughts on a topic is documentation.
 
-## Refining the Process
+In fact, this _includes_ tests. 😱 Tests are a good way of conveying API examples for your usage. TDD itself may be enough on it's own to convey that information for future you, while other times it may be a good companion alongside other forms of documentation.
 
-Documentation can be found in many forms: mockups, API reference docs, well-formed tickets, future plans, and more.
+In particular, if you're good about [writing primarily integration tests](https://kentcdodds.com/blog/write-tests), you're actually writing out usage API docs while writing testing code.
+
+This is particularly true when writing developer tooling or libraries. Being able to see a usage example of how to do something is extremely helpful, especially with a test to validate its behavior alongside it. 
+
+-------
+
+Another thing "documentation-driven development" does not prescribe is "write once and done". This idea is a myth and may be harmful to your scope and budgets - time or otherwise.
+
+As we showed with the `calculateUserScore` example, you may need to modify your designs before moving forward for final release: that's okay. Docs influence code influence docs. The same is true for TDD.
+
+--------
+
+DDD isn't just useful for developing code for production, either. In interviews, a good piece of advice to communicate your development workflow is to write code comments, **then** write the solution. This allows you to make mistakes in the documentation phase (of writing comments) that will be less time-costly than if you'd made a mistake in implementation.
+
+By doing this, you can communicate with your interviewer that you know how to work in a team and find well-defined goals. These will allow you to work towards an edgecase-free* implementation with those understandings.
+
+# Bring it back now y'all
+
+I realize this article already has more twist than an M. Night Shyamalan film, but here’s one more: document driven development as we’ve explored today it is an established concept. It’s simply called by other names:
+
+- [Behavioral Driven Development (BDD)](https://en.wikipedia.org/wiki/Behavior-driven_development)
+- [Acceptance Test-Driven Development (ATDD)](https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development)
+
+Each of these refers to a form of validating your functionality of code behind user behavior. Each encourages a stronger communication method that often includes documentation in the process. "DDD" is just another form of this type of logic.
+
+> Those of you who are familiar with a wide array of project planning methodologies may be frustrated that I made the false start of calling this concept "documentation-drive development", since "DDD" typically stands for ["Domain-driven development"](https://en.wikipedia.org/wiki/Domain-driven_design). 
+>
+> While this is true, acronyms come and go and evolve. Further, "documentation-driven development"  sounds cool and is a straightforward enough name to grasp the idea from it.
+
+# Conclusion
+
+I've been using documentation-driven development as a concept to drive my coding on some projects. Among them, was my project [`CLI Testing Library`](https://github.com/crutchcorn/cli-testing-library), which allowed me to write a [myriad of documentation pages](https://github.com/crutchcorn/cli-testing-library/tree/main/docs) as well as [verbose GitHub issues](https://github.com/crutchcorn/cli-testing-library/issues/2). 
+
+Both of these forced me to better refine my goals and what I was looking for. The end-product I believe is better as a result.
+
+What do you think? Is "DDD" a good idea? Will you be using it for your next project?
+
+Let us know what you think, and [join our Discord](https://discord.gg/FMcvc6T) to talk to us more about it! 
