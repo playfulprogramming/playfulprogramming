@@ -58,17 +58,17 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 <li style="
     margin: 16px;
 ">
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="The Polyglot Developer" src="/sponsors/the-polyglot-developer.svg"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored" style="display: flex; width: 300px; height: 100px"><img data-nozoom="true" alt="The Polyglot Developer" src="/sponsors/the-polyglot-developer.svg"/></a>
 </li>
 <li style="
     margin: 16px;
 ">
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="OceanBit" src="/sponsors/oceanbit.svg"/></a>
+<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored" style="display: flex; width: 300px; height: 100px"><img data-nozoom="true" alt="OceanBit" src="/sponsors/oceanbit.svg"/></a>
 </li>
 <li style="
     margin: 16px;
 ">
-<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="CoderPad" src="/sponsors/coderpad.svg"/></a>
+<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored" style="display: flex; width: 300px; height: 100px"><img data-nozoom="true" alt="CoderPad" src="/sponsors/coderpad.svg"/></a>
 </li>
 </ul>
 

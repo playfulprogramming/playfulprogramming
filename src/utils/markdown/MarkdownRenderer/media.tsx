@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useMarkdownRendererProps } from "./types";
 import Zoom from "react-medium-image-zoom";
-import { getFullRelativePath } from "utils/url-paths";
+import { getFullRelativePath, isRelativePath } from "utils/url-paths";
 import path from "path";
 
 /**
@@ -23,11 +23,18 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
     img: (imgProps: HTMLImageElement) => {
       const { src, height, width, ...props2 } = imgProps;
 
-      const realSrc = src.endsWith("svg")
-        ? // Don't optimize SVGs. This is because `svgo` turns them into
-          // React components that seem to have issues with many of our examples
-          { src: `/${getFullRelativePath(...serverPath, src)}` }
-        : requireWebpImage(`./${getFullRelativePath(...serverPath, src)}`);
+      let fullRelPath = getFullRelativePath(...serverPath, src);
+
+      if (fullRelPath.startsWith("/")) {
+        fullRelPath = fullRelPath.replace(/\//, "");
+      }
+
+      const realSrc =
+        src.endsWith("svg") || !isRelativePath(src)
+          ? // Don't optimize SVGs. This is because `svgo` turns them into
+            // React components that seem to have issues with many of our examples
+            { src: `/${fullRelPath}` }
+          : requireWebpImage(`./${fullRelPath}`);
 
       const htmlProps = imgProps as Record<string, any>;
       const noZoomProp = htmlProps["data-nozoom"] ?? htmlProps?.dataset?.nozoom;
@@ -39,8 +46,13 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
 
       return (
         <ZoomComp>
-          {/*sizes is required for image zoom with srcSet*/}
-          <img {...(props2 as any)} src={realSrc.src} srcSet={realSrc.srcSet} sizes="(max-width: 640px) 100vw, 640px" />
+          {/* sizes is required for image zoom with srcSet */}
+          <img
+            {...(props2 as any)}
+            src={realSrc.src}
+            srcSet={realSrc.srcSet}
+            sizes="(max-width: 640px) 100vw, 640px"
+          />
         </ZoomComp>
       );
     },

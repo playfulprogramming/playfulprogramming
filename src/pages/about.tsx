@@ -4,12 +4,12 @@ import Image from "next/image";
 import style from "../page-components/about/about.module.scss";
 import { UnicornInfo } from "uu-types";
 import { siteDirectory, sponsorsDirectory, unicorns } from "utils/fs/get-datas";
-import unicornLogo from "../assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
 import { readMarkdownFile } from "utils/fs/api";
 import { join } from "path";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+const unicornLogo = require("../assets/unicorn_head_1024.png?size=192");
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
   const unicornRoles = unicornInfo.roles.slice(0);
@@ -49,11 +49,9 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
       <div className={style.container}>
         <div className={style.headerTitle}>
           <div className={style.unicornLogo}>
-            <Image
+            <img
               src={unicornLogo}
               loading={"eager"}
-              layout="responsive"
-              sizes={"192px"}
               alt={"Unicorn Utterances logo"}
             />
           </div>
