@@ -122,6 +122,12 @@ export async function getStaticPaths() {
 
   let paths: Params[] = [];
   for (let unicorn of unicorns) {
+    paths.push({
+      params: {
+        pageInfo: [unicorn.id],
+      },
+    });
+
     const unicornPostsSize = unicornPostsLookup[unicorn.id];
     if (unicornPostsSize <= postsPerPage) continue;
 
@@ -138,12 +144,6 @@ export async function getStaticPaths() {
         },
       });
     }
-
-    paths.push({
-      params: {
-        pageInfo: [unicorn.id],
-      },
-    });
   }
 
   return {
