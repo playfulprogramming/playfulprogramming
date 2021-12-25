@@ -2,8 +2,8 @@ import React from "react";
 
 import Image from "next/image";
 import { SEO } from "components/seo";
-import proudUnicorn from "assets/proud_2048.png";
 import { useRouter } from "next/router";
+const proudUnicorn = require("../assets/proud_2048.png");
 
 const ThanksPage = () => {
   const router = useRouter();
@@ -28,13 +28,7 @@ const ThanksPage = () => {
             display: "block",
           }}
         >
-          <Image
-            src={proudUnicorn}
-            loading={"eager"}
-            sizes="500px"
-            layout={"responsive"}
-            alt={`Unicorn Utterances 404 image`}
-          />
+          <img src={proudUnicorn} loading={"eager"} alt={`A proud unicorn`} height={"100%"} width={"100%"} />
         </div>
       </div>
       <h1 style={{ textAlign: "center" }}>Thank you for subscribing.</h1>

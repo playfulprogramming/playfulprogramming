@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./post-list-header.module.scss";
 import Link from "next/link";
-import Image from "next/image";
-import unicornLogo from "assets/unicorn_utterances_logo_512.png";
+const unicornLogo = require("../../../assets/unicorn_utterances_logo_512.png?size=300");
 
 interface PostListHeaderProps {
   siteDescription: string;
@@ -15,10 +14,8 @@ export const PostListHeader = ({ siteDescription }: PostListHeaderProps) => {
       aria-label={`Banner for Unicorn Utterances`}
     >
       <div className={styles.headerPic}>
-        <Image
+        <img
           loading={"eager"}
-          layout="responsive"
-          sizes={"300px"}
           alt={`Unicorn Utterances header image`}
           src={unicornLogo}
         />

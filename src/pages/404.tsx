@@ -1,11 +1,10 @@
 import React from "react";
 
-import Image from "next/image";
 import { SEO } from "components/seo";
-import sadUnicorn from "assets/sad_unicorn_2048.png";
 import { siteMetadata } from "constants/site-config";
 import { useRouter } from "next/router";
 import { OutboundLink } from "components/outbound-link";
+const sadUnicorn = require("../assets/sad_unicorn_2048.png?size=500");
 
 const NotFoundPage = () => {
   const router = useRouter();
@@ -25,12 +24,12 @@ const NotFoundPage = () => {
             height: "500px",
           }}
         >
-          <Image
+          <img
             src={sadUnicorn}
             loading={"eager"}
-            sizes="500px"
-            layout={"responsive"}
-            alt={`Unicorn Utterances 404 image`}
+            alt={`A crying unicorn`}
+            height={"100%"}
+            width={"100%"}
           />
         </div>
       </div>
