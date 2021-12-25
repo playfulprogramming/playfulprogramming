@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import styles from "./profile-header.module.scss";
-import Image from "next/image";
 import GitHubIcon from "assets/icons/github.svg";
 import SiteIcon from "assets/icons/site.svg";
 import LinkedInIcon from "assets/icons/linkedin.svg";
@@ -38,6 +37,12 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
   );
 };
 
+const requirePublicImage = require.context(
+  "../../../../public?size=192",
+  true,
+  /\.(?:png|jpg|jpeg)$/
+);
+
 interface PicTitleHeaderProps {
   unicornData: UnicornInfo;
 }
@@ -62,13 +67,12 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
           overflow: "hidden",
         }}
       >
-        <Image
-          src={unicornData.profileImg.relativeServerPath}
-          height={unicornData.profileImg.height}
-          width={unicornData.profileImg.width}
-          sizes={"300px"}
-          layout="responsive"
+        <img
+          src={requirePublicImage(
+            `.${unicornData.profileImg.relativeServerPath}`
+          )}
           loading={"eager"}
+          style={{ height: "100%" }}
           alt={`${possessiveName} profile picture`}
         />
       </div>

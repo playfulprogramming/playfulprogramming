@@ -2,7 +2,12 @@ import * as React from "react";
 
 import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "uu-types";
-import Image from "next/image";
+
+const requirePublicImage = require.context(
+  "../../../public?size=85",
+  true,
+  /\.(?:png|jpg|jpeg)$/
+);
 
 interface UserProfilePicProps {
   authors: Array<{ unicorn: UnicornInfo; onClick: React.MouseEventHandler }>;
@@ -23,12 +28,10 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
           borderColor: unicorn.color,
         }}
       >
-        <Image
+        <img
           data-testid={`author-pic-${i}`}
-          src={unicorn.profileImg.relativeServerPath}
+          src={requirePublicImage(`.${unicorn.profileImg.relativeServerPath}`)}
           alt={unicorn.name}
-          sizes={"85px"}
-          layout={"fill"}
           className={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
         />
       </div>
