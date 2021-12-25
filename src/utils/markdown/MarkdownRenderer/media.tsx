@@ -13,7 +13,7 @@ import path from "path";
  * @see https://github.com/Jam3/nextjs-boilerplate/blob/main/src/components/Image/Image.tsx
  */
 const requireWebpImage = require.context(
-  "../../../../public",
+  "../../../../public?{sizes:[320,640,960]}",
   true,
   /\.(?:png|jpg|jpeg)$/
 );
@@ -26,7 +26,7 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       const realSrc = src.endsWith("svg")
         ? // Don't optimize SVGs. This is because `svgo` turns them into
           // React components that seem to have issues with many of our examples
-          `/${getFullRelativePath(...serverPath, src)}`
+          { src: `/${getFullRelativePath(...serverPath, src)}` }
         : requireWebpImage(`./${getFullRelativePath(...serverPath, src)}`);
 
       const htmlProps = imgProps as Record<string, any>;
@@ -39,7 +39,8 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
 
       return (
         <ZoomComp>
-          <img {...(props2 as any)} src={realSrc} />
+          {/*sizes is required for image zoom with srcSet*/}
+          <img {...(props2 as any)} src={realSrc.src} srcSet={realSrc.srcSet} sizes="(max-width: 640px) 100vw, 640px" />
         </ZoomComp>
       );
     },
