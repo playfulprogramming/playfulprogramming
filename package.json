@@ -6,6 +6,7 @@
     "rss": "node --experimental-loader esbuild-node-loader src/build-scripts/gen-rss.ts",
     "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
     "build": "npm run lunr && npm run rss && next build && next export",
+    "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "start": "next start",
     "typecheck": "tsc",
     "lint": "next lint",
