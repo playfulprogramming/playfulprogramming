@@ -28,7 +28,13 @@ const ThanksPage = () => {
             display: "block",
           }}
         >
-          <img src={proudUnicorn} loading={"eager"} alt={`A proud unicorn`} height={"100%"} width={"100%"} />
+          <img
+            src={proudUnicorn}
+            loading={"eager"}
+            alt={`A proud unicorn`}
+            height={"100%"}
+            width={"100%"}
+          />
         </div>
       </div>
       <h1 style={{ textAlign: "center" }}>Thank you for subscribing.</h1>
