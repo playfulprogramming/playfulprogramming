@@ -2,6 +2,7 @@ import styles from "./series-toc.module.scss";
 import { RenderedPostInfo } from "types/PostInfo";
 import { SeriesPostInfo, SlugPostInfo } from "constants/queries";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface SeriesTocProps {
   post: SlugPostInfo & RenderedPostInfo;
@@ -17,7 +18,7 @@ export const SeriesToC = ({ post, postSeries }: SeriesTocProps) => {
       </div>
       <ol aria-labelledby="series-header" role="list">
         {postSeries.map((seriesPost, i) => {
-          const isActive = router.asPath.endsWith(seriesPost.slug);
+          const isActive = post.order === seriesPost.order;
           const liClass = isActive ? styles.isActive : "";
 
           const titleName = seriesPost.title.replace(
@@ -27,9 +28,11 @@ export const SeriesToC = ({ post, postSeries }: SeriesTocProps) => {
 
           return (
             <li key={seriesPost.slug} className={liClass || ""} role="listitem">
-              <a href={seriesPost.slug}>
-                Part {i + 1}: {titleName}
-              </a>
+              <Link href={`/posts/${seriesPost.slug}`} passHref>
+                <a>
+                  Part {i + 1}: {titleName}
+                </a>
+              </Link>
             </li>
           );
         })}
