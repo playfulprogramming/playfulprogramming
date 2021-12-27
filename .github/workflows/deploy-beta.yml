@@ -23,7 +23,7 @@ jobs:
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: '14'
+          node-version: '16'
 
       # From: https://help.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows#example-using-the-cache-action
       - name: Cache node modules
