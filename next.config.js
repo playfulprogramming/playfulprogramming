@@ -8,6 +8,7 @@ module.exports = withPlugins(
     [
       optimizedImages,
       {
+        optimizeImagesInDev: process.env.BUILD_ENV !== "development",
         inlineImageLimit: 1,
         imagesName: "[name]-[hash].[ext]",
         handleImages: ["png", "jpeg"],

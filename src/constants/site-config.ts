@@ -7,7 +7,7 @@ if (!siteUrl) {
     case "production":
       siteUrl = "https://unicorn-utterances.com";
       break;
-    case "local":
+    case "development":
       siteUrl = "localhost:9000";
       break;
     default:
