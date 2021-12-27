@@ -1,6 +1,10 @@
+const path = require('path');
+
 module.exports = {
   '**/*.{js,ts,tsx,jsx}': (filenames) =>
     `next lint --fix --file ${filenames
-      .map((file) => file.split(process.cwd())[1])
+      .map((file) => {
+        return path.relative(process.cwd(), file);
+      })
       .join(' --file ')}`,
 }
