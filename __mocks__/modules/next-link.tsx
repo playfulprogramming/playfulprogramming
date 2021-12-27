@@ -1,7 +1,7 @@
-export const onLinkClick = jest.fn();
+export const mockOnLinkClick = jest.fn();
 
 afterEach(() => {
-  onLinkClick.mockReset();
+  mockOnLinkClick.mockReset();
 });
 
 jest.mock("next/link", () => {
@@ -15,7 +15,7 @@ jest.mock("next/link", () => {
         onClick={(e: Event) => {
           e.preventDefault();
           e.stopPropagation();
-          onLinkClick();
+          mockOnLinkClick();
         }}
       >
         {props.children}

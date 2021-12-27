@@ -5,7 +5,7 @@ import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
 import { MockUnicorn } from "__mocks__/data/mock-unicorn";
 import ReactDOMServer from "react-dom/server";
 import UnicornPage from "../../pages/unicorns/[...pageInfo]";
-import { onLinkClick } from "__mocks__/modules/next-link";
+import { mockOnLinkClick } from "__mocks__/modules/next-link";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
 const getElement = (fn: () => void) => (
@@ -58,7 +58,7 @@ test("Blog profile page renders", async () => {
   expect(await findByText("2 Articles")).toBeInTheDocument();
   expect(await findByText("10000 Words")).toBeInTheDocument();
 
-  onLinkClick.mockReset();
+  mockOnLinkClick.mockReset();
 
   // Post cards
   const byEls = await findAllByText("by");

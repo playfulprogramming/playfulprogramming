@@ -1,23 +1,50 @@
-const { pathsToModuleNameMapper } = require("ts-jest");
-const { compilerOptions } = require("./tsconfig.json");
-const nextJest = require("next/jest");
 const { resolve } = require("path");
 
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: "./",
-});
-
 // Add any custom config to be passed to Jest
-const customJestConfig = {
+module.exports = {
   testEnvironment: "jsdom",
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ["<rootDir>/__mocks__/jest.setup.js"],
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
+  transformIgnorePatterns: [
+    "/node_modules/",
+    "^.+\\.module\\.(css|sass|scss)$",
+  ],
+  collectCoverageFrom: [
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/*.d.ts",
+    "!**/node_modules/**",
+  ],
+  transform: {
+    // Use babel-jest to transpile tests with the next/babel preset
+    // https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
+    "^.+\\.(js|jsx|ts|tsx)$": [
+      "babel-jest",
+      {
+        presets: ["next/babel"],
+        plugins: ["transform-require-context"],
+      },
+    ],
+  },
+  transformIgnorePatterns: [
+    // ...your ignore patterns
+    "node_modules/(?!(unified|bail|is-plain-obj|trough|vfile|unist|hast|remark|mdast|micromark|parse-entities|character-entities|zwitch|longest-streak|retext|unherit|parse|nlcst|rehype|slash|strip-markdown|decode-named-character-reference).*/)",
+  ],
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   moduleNameMapper: {
+    // NextJS
+    // Handle CSS imports (with CSS modules)
+    // https://jestjs.io/docs/webpack#mocking-css-modules
+    "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+    // Handle module aliases
+    "^@/components/(.*)$": "<rootDir>/components/$1",
+    // UU Files
+    ".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
+    ".+\\.svg$": `<rootDir>/__mocks__/svg-comp-mock.ts`,
+    ".+\\.(jpg|svg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/__mocks__/file-mock.ts`,
+    // UU TS
     "^__mocks__/(.*)$": resolve(__dirname, "./__mocks__/$1"),
     "^constants/(.*)$": resolve(__dirname, "./src/constants/$1"),
     "^types/(.*)$": resolve(__dirname, "./src/types/$1"),
@@ -28,15 +55,4 @@ const customJestConfig = {
     "^uu-constants$": resolve(__dirname, "./src/constants"),
     "^assets/(.*)": resolve(__dirname, "./src/assets/$1"),
   },
-};
-
-const asyncConfig = createJestConfig(customJestConfig);
-
-module.exports = async () => {
-  const config = await asyncConfig();
-  config.transformIgnorePatterns = [
-    // ...your ignore patterns
-    "node_modules/(?!(unified|bail|is-plain-obj|trough|vfile|unist|hast|remark|mdast|micromark|parse-entities|character-entities|zwitch|longest-streak|retext|unherit|parse|nlcst|rehype|slash|strip-markdown).*/)",
-  ];
-  return config;
 };

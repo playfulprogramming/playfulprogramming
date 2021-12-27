@@ -8,6 +8,7 @@
     "build": "npm run lunr && npm run rss && next build && next export",
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "start": "next start",
+    "test": "jest",
     "typecheck": "tsc",
     "lint": "next lint",
     "postinstall": "husky install"
@@ -56,6 +57,8 @@
     "unist-util-flat-filter": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
     "@svgr/webpack": "^6.1.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -66,6 +69,8 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "@types/webpack-env": "^1.16.3",
+    "babel-jest": "^27.4.5",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "env-cmd": "^10.1.0",
     "esbuild-node-loader": "^0.6.3",
     "eslint": "^7.32.0",
@@ -75,6 +80,7 @@
     "feed": "^4.2.2",
     "hast-util-heading-rank": "^2.1.0",
     "husky": "^7.0.4",
+    "identity-obj-proxy": "^3.0.0",
     "imagemin-gifsicle": "6.0.1",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
