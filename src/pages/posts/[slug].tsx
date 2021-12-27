@@ -80,7 +80,7 @@ const Post = ({
       });
       // Must use a `useTimeout` so that this reloads AFTER the background animation
     }, 600);
-  }, [colorMode, post.title, siteMetadata.siteUrl, slug]);
+  }, [colorMode, post.title, slug]);
 
   const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}${slug}index.md`;
 

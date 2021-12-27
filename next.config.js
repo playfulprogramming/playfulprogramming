@@ -3,12 +3,15 @@ const CopyPlugin = require("copy-webpack-plugin");
 const withPlugins = require("next-compose-plugins");
 const optimizedImages = require("next-optimized-images");
 
+const isNonDevBuild = process.env.BUILD_ENV !== "development";
+
 module.exports = withPlugins(
   [
     [
       optimizedImages,
       {
-        optimizeImagesInDev: process.env.BUILD_ENV !== "development",
+        optimizeImagesInDev: isNonDevBuild,
+        optimizeImages: isNonDevBuild,
         inlineImageLimit: 1,
         imagesName: "[name]-[hash].[ext]",
         handleImages: ["png", "jpeg"],
