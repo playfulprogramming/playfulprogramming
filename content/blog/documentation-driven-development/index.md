@@ -171,10 +171,6 @@ I realize this article already has more twists than an M. Night Shyamalan film, 
 
 Each of these refers to a form of validating the functionality of code behind user behavior. Each encourages a stronger communication method that often includes documentation in the process. "DDD" is just another form of this type of logic.
 
-> Those of you who are familiar with a wide array of project planning methodologies may be frustrated that I made the false start of calling this concept "documentation-driven development," since "DDD" typically stands for ["Domain-driven development."](https://en.wikipedia.org/wiki/Domain-driven_design) 
->
-> While this is true, acronyms come and go and evolve. Further, "documentation-driven development"  sounds cool and is a straightforward enough name to grasp the idea from it.
-
 # Conclusion
 
 I've been using documentation-driven development as a concept to drive my coding on some projects. Among them was my project [`CLI Testing Library`](https://github.com/crutchcorn/cli-testing-library), which allowed me to write a [myriad of documentation pages](https://github.com/crutchcorn/cli-testing-library/tree/main/docs) as well as [verbose GitHub issues](https://github.com/crutchcorn/cli-testing-library/issues/2). 
