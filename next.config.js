@@ -5,6 +5,8 @@ const optimizedImages = require("next-optimized-images");
 
 const isNonDevBuild = process.env.BUILD_ENV !== "development";
 
+console.log({ isNonDevBuild });
+
 module.exports = withPlugins(
   [
     [
