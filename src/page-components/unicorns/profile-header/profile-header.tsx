@@ -68,9 +68,7 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
         }}
       >
         <img
-          src={requirePublicImage(
-            `.${unicornData.profileImg.relativeServerPath}`
-          )}
+          src={requirePublicImage(unicornData.profileImg.relativeServerPath)}
           loading={"eager"}
           style={{ height: "100%" }}
           alt={`${possessiveName} profile picture`}

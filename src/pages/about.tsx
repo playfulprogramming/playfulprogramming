@@ -82,7 +82,7 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
                     className="circleImg"
                     sizes="85px"
                     src={requirePublicImage(
-                      `.${unicornInfo.profileImg.relativeServerPath}`
+                      unicornInfo.profileImg.relativeServerPath
                     )}
                   />
                 </div>

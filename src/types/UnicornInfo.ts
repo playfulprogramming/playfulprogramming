@@ -19,9 +19,7 @@ export interface UnicornInfo {
   };
   pronouns: PronounInfo;
   profileImg: {
-    // Relative to "public/unicorns"
-    relativePath: string;
-    // Relative to site root
+    // Relative to "public/"
     relativeServerPath: string;
     // This is not stored, it's generated at build time
     absoluteFSPath: string;

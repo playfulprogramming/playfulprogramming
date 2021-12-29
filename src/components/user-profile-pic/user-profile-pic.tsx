@@ -30,7 +30,7 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
       >
         <img
           data-testid={`author-pic-${i}`}
-          src={requirePublicImage(`.${unicorn.profileImg.relativeServerPath}`)}
+          src={requirePublicImage(unicorn.profileImg.relativeServerPath)}
           alt={unicorn.name}
           className={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
         />
