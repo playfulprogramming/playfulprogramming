@@ -493,16 +493,16 @@ git config --global core.autocrlf true
 
 ## WSL {#wsl}
 
-Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. The way that it works differs from version to version. The initial version worked by mapping system calls from Windows to Linux in a somewhat complex method. The new version (WSL2), right around the corner, works by running a Linux container in the background and enabling you to call into that container.
+Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. 
 
-Because of the foundational differences, compatibility with programs should be better in WSL2.
-
-[The way to enable them is the same between both versions](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+> While the initial v1 worked by mapping system calls from Windows to Linux in a somewhat complex method, the new version (WSL2) works differently. WSL2 utilizes a Linux container in the background and enabling you to call into that container. 
+>
+> Because of the foundational differences, compatibility with programs should be better in WSL2. If you last tried WSL when it first launched and were underwhelmed, try it again today.
 
 You'll simply want to run the following command in PowerShell as an administrator:
 
 ```powershell
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+wsl --install
 ```
 
 Then reboot your machine. After a reboot, you should be able to search for a Linux distro via the Microsoft Store. There are different options available to you, such as:
@@ -512,17 +512,17 @@ Then reboot your machine. After a reboot, you should be able to search for a Lin
 - [openSUSE](https://www.microsoft.com/en-us/p/opensuse-leap-15-1/9njfzk00fgkv)
 - [Ubuntu](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 
-There are more distros on the Microsoft Store now and more to come in the future.
+There are more distros on the Microsoft Store if you search for them.
 
-Once done, you simply run `bash` in a terminal Window or search for the distro name as an app. Either way should start-up the distro's instance of `bash` in the directory you were currently in. This is a full installation of Linux, meaning that you're able to access its package manager, run programs from it, and modify Windows files.
+Once done, you simply run `wsl` in a terminal window. This should start-up the distro's shell in the directory you were currently in. This is a full installation of Linux, meaning that you're able to access its package manager, run programs from it, and modify Windows files.
 
 There are even tweaks that are done with Windows to make it easier to use. If you run the `code` command to open a file, it will download a "VSCode remote server" to allow you to use your Windows install for both Linux and Windows commands. You can even [share SSH keys between Windows and WSL](https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/)!
 
-The cross-WSL compatibility isn't uni-directional either. You can [open files from your Linux filesystem in Windows](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
+The cross-WSL compatibility isn't uni-directional either. You can [open files from your Linux filesystem in Windows](#access-wsl-files), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
 
 ### Shell Configuration {#linux-shell}
 
-If you prefer an alternative shell, such as ZSH or Fish, you can install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `bash`.
+If you prefer an alternative shell, such as ZSH or Fish, you can install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `wsl`.
 
 To get the alternative shell running any time you call `bash`, you'll need to configure your `.bashrc` file. You're able to run `nano ~/.bashrc` to open the file. Once done, add `bash -c zsh` to the top of the file. After this, every time `bash` runs, it will open `zsh`.
 
@@ -542,6 +542,26 @@ You can even able to tell Windows Terminal to use WSL as default! If you open Wi
 ```
 
 All you need to do is change the `defaultProfile` to match the `guid` of the WSL profile.
+
+### Accessing Linux Files {#access-wsl-files}
+
+Since [Windows 10 (1903)](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), you're able to access your WSL Linux distro files directly from Windows explorer. To do this, simply look to the sidebar panel of your File Explorer.
+
+![Linux shows up as a sidebar option when you enable WSL](./linux_sidebar.png)
+
+Here, you can read and write files to and from your Linux installation in WSL.
+
+### Linux GUI Programs {#wsl-gui}
+
+[In Windows 11, you're now able to run Linux GUI apps with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps). Simply install them as you usually would using your distro's package manager and run them from the command line.
+
+Here, I'm using `gedit` that I installed using:
+
+```
+sudo apt install gedit
+```
+
+![Gedit running alongside Notepad](./linux_gui.png)
 
 # Keyboard Usage {#keyboard-usage}
 
