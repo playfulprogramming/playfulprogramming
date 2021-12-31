@@ -192,7 +192,7 @@ While some of you may be surprised to hear this, the Microsoft Store has put tog
 
 The terminal is essential for most developers. It's a relatively universal utility regardless of what form of programming you're into. It's important to make sure that your terminal is fully featured  both for functionality and so the user can customize to their taste.
 
-## Terminal Options {#terminals}
+## Terminal Emulators {#terminals}
 
 One of the most important elements to one's experience with the terminal is, well, the terminal itself! While Windows has not historically had many options in this regard, things have turned around in recent years. Additional to the built-in CMD and PowerShell applications, we now have many newcomers, including one from Microsoft itself.
 
@@ -223,7 +223,7 @@ Terminus is another excellent option for those looking for alternative terminal 
 
 ### Windows Terminal {#windows-terminal}
 
-Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's being built by Microsoft itself. [The project is open-source](https://github.com/microsoft/terminal) and the preview is available now [via the Microsoft Store](https://aka.ms/windowsterminal).
+Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's built by Microsoft itself. [The project is open-source](https://github.com/microsoft/terminal) and is available now [via the Microsoft Store](https://aka.ms/windowsterminal). In fact, in Windows 11, this terminal is now built-in and acts as the default terminal emulator.
 
 ![A preview of the Windows Terminal](./windows_terminal.png)
 
@@ -340,6 +340,58 @@ I only outlined three terminal emulators here. They are my favorites; I've used 
 
 - [Fluent Terminal](https://github.com/felixse/FluentTerminal)
 - [Hyper Terminal](https://hyper.is/)
+
+## Terminal Styling {#terminal-styling}
+
+Anyone that's used `ohmyzsh` on Mac or Linux before can tell you that customizing your terminal shell doesn't just stop at picking an emulator.
+
+In fact, regardless of your emulator, you have a wide swath of customization options such as:
+
+- Various display colors
+- Icons on your path string
+- Spacing between commands
+
+[While some terminals have a quick single (or zero) config change to add some fancy styling](#windows-terminal-cmder), you can have full control over your terminal styling.
+
+### OhMyPosh {#oh-my-posh}
+
+One option to customize your windows shell styling is [OhMyPosh](https://ohmyposh.dev/). Named after the similarly powerful [`OhMyZSH`](https://ohmyz.sh/), it allows you to have themes you can utilize for both PowerShell and CMD alike.
+
+For example, this is [my terminal theme](https://github.com/crutchcorn/dotfiles/blob/master/.myposh.json) that's being used in PowerShell
+
+![My PowerShell terminal with an emoji at the start and a plethora of colors and arrows. It's running `wsl exa -l`](./my_terminal_example.png)
+
+> That emoji at the start? That's randomized on every shell start with a preselected list of emoji. Pretty 🔥 if you ask me.
+
+### Powerline Fonts {#powerline-fonts}
+
+Once setting up OhMyPosh in CMD/PowerShell or OhMyZSH in WSL, you may notice that your terminal display looks weird with some themes:
+
+![A preview of ZSH theme "agnoster" without a proper font installed](./no_powerline.png)
+
+To get some of these themes working properly, you may need to install a [powerline](https://github.com/ryanoasis/powerline-extra-symbols) enabled font. You have a few options to do this. 
+
+You can do so by [cloning this repository using PowerShell](https://github.com/powerline/fonts). Then `cd fonts` and `./install.ps1`. This script will install all of the fonts one-by-one on your system, fixing the font issues in your terminal. Find which font is your favorite and remember the name of it.
+
+Alternatively, [Microsoft has made a custom font themselves that supports powerline symbols](https://github.com/microsoft/cascadia-code/releases?WT.mc_id=-blog-scottha). To use that font, simply download the `CascadiaPL.ttf` file and install it.
+
+The final step is to configure your terminal editor to use the new font. Let's use the Windows Terminal as an example. Open your settings and inject `"fontFace":  "Cascadia Code PL"` into one of the profiles. The final result should look something like this:
+
+```
+ {
+     "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+     "hidden": false,
+     "name": "Ubuntu",
+     "source": "Windows.Terminal.Wsl",
+     "fontFace":  "Cascadia Code PL"
+ }
+```
+
+Then, when you open the terminal, you should see the correct terminal display.
+
+![A preview of ZSH theme "agnoster" with the proper font installed](./powerline.png)
+
+
 
 ## Make Configuration Changes {#terminal-system-config}
 
@@ -490,36 +542,6 @@ You can even able to tell Windows Terminal to use WSL as default! If you open Wi
 ```
 
 All you need to do is change the `defaultProfile` to match the `guid` of the WSL profile.
-
-#### Powerline Fonts {#powerline-fonts}
-
-Once setting up an `oh-my-zsh` theme, you may notice that your terminal display looks weird:
-
-![A preview of ZSH theme "agnoster" without a proper font installed](./no_powerline.png)
-
-To get some `oh-my-zsh` themes working properly, you may need to install a [powerline](https://github.com/ryanoasis/powerline-extra-symbols) enabled font. You have a few options to do this. 
-
-You can do so by [cloning this repository using PowerShell](https://github.com/powerline/fonts). Then `cd fonts` and `./install.ps1`. This script will install all of the fonts one-by-one on your system, fixing the font issues in your terminal. Find which font is your favorite and remember the name of it.
-
-Alternatively, [Microsoft has made a custom font themselves that supports powerline symbols](https://github.com/microsoft/cascadia-code/releases?WT.mc_id=-blog-scottha). To use that font, simply download the `CascadiaPL.ttf` file and install it.
-
-The final step is to configure your terminal editor to use the new font. Let's use the Windows Terminal as an example. Open your settings and inject `"fontFace":  "Cascadia Code PL"` into one of the profiles. The final result should look something like this:
-
-```
- {
-     "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-     "hidden": false,
-     "name": "Ubuntu",
-     "source": "Windows.Terminal.Wsl",
-     "fontFace":  "Cascadia Code PL"
- }
-```
-
-Then, when you open the terminal, you should see the correct terminal display.
-
-![A preview of ZSH theme "agnoster" with the proper font installed](./powerline.png)
-
-
 
 # Keyboard Usage {#keyboard-usage}
 
