@@ -563,6 +563,14 @@ sudo apt install gedit
 
 ![Gedit running alongside Notepad](./linux_gui.png)
 
+
+
+### USB Pass-thru {#wsl-usb}
+
+For some development usage, having USB access from Linux is immensely useful. In particular, when dealing with Linux-only software for flashing microcontrollers or other embedded devices it's an absolute necessity.
+
+Luckily, as of late [Microsoft has worked with a third party project to add support to WSL](https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl/) to directly connect USB to Linux. This allows you to do flashing with `dd` and similar
+
 # Keyboard Usage {#keyboard-usage}
 
 When asking many of my Linux-favoring friends why they love Linux so much, I've heard one answer time and time again. They love being able to control their computer front, back, and sideways without having to touch the mouse. Well, dear reader, I assure you that Windows provides the same level of control.
