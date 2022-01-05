@@ -29,6 +29,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Pre-configure AWS profile
+        run: aws configure set max_attempts 10 --profile s3-sync-action
+
       - uses: jakejarvis/s3-sync-action@v0.5.1
         name: Sync files to DigitalOcean Spaces
         with:
@@ -38,7 +41,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_ENDPOINT: https://sfo2.digitaloceanspaces.com
-          AWS_MAX_ATTEMPTS: 10
           SOURCE_DIR: public
           DEST_DIR: prod
 
