@@ -3,6 +3,7 @@
 	title: "The Ultimate Windows Development Environment Guide",
 	description: "Many developers like MacOS or Linux for development environments, but don't know that Windows has plenty to offer. Let's explore that in this deep dive into Windows development environments!",
 	published: '2020-04-07T05:12:03.284Z',
+	edited: "2022-01-05T04:45:30.247Z",
 	authors: ['crutchcorn'],
 	tags: ['tooling', 'windows'],
 	attached: [],
