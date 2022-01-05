@@ -9,7 +9,7 @@ jobs:
       CI: true
     steps:
       - name: Create GitHub deployment
-        uses: bobheadxi/deployments@v0.4.3
+        uses: bobheadxi/deployments@v0.6.2
         id: deployment
         with:
           step: start
@@ -17,28 +17,20 @@ jobs:
           env: production
 
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: 16.x
+          cache: npm
 
-      # From: https://help.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows#example-using-the-cache-action
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
       - name: Install Dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
+
+      - name: Pre-configure AWS profile
+        run: aws configure set max_attempts 10 --profile s3-sync-action
 
       - uses: jakejarvis/s3-sync-action@v0.5.1
         name: Sync files to DigitalOcean Spaces
@@ -61,7 +53,7 @@ jobs:
         run: doctl compute cdn flush ${{ secrets.DIGITALOCEAN_CDN_ID }} --files prod/*
 
       - name: Update deployment status
-        uses: bobheadxi/deployments@v0.4.3
+        uses: bobheadxi/deployments@v0.6.2
         if: always()
         with:
           step: finish

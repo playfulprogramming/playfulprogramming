@@ -9,11 +9,9 @@
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',
     series: "Web Components 101",
-    order: 1
+    order: 2
 }
 ---
-
-
 
 Many modern web apps today are built using components. While frameworks like React exist to add an implementation, web components seek to make those practices standardized and part of your browser.
 
@@ -59,32 +57,6 @@ Because of this, we’re able to improve an app’s organization by reducing the
 But custom elements aren’t just made up of HTML - you’re able to associate JavaScript logic with these tags as well! This enables you to keep your logic alongside it’s associated UI. Say your header is a dropdown that’s powered by JavaScript. Now you can keep that JavaScript inside of your “page-header” component, keeping your logic consolidated.
 
 Finally, a significant improvement that components provide is composability. You’re able to use these components on different pages, allowing you to keep your header code in sync between pages. This reduces the potential for having variations in standard components - like having multiple differently sized buttons in a page - that might confuse your users. As long as you’re vigilant about utilizing your existing components, you’re able to make your app more consistent this way.
-
-## History
-
-But web components didn’t come from nowhere. While web components enjoy large-scale usage now, that wasn’t always the case. Let’s walk through a short history of web components and the related ecosystem.
-
-- 2010: 
-  - Angular.js made open-source
-- 2011:
-  - [Web components are announced at a conference by Alex Russell](https://fronteers.nl/congres/2011/sessions/web-components-and-model-driven-views-alex-russell) (then Sr Staff Engineer at Google, working on web platform team)
-
-- 2013:
-  - [Polymer (Google’s web component framework) public development began](https://www.youtube.com/watch?v=DH1vTVkqCDQ)
-  - [React open-sourced](https://www.youtube.com/watch?v=GW0rj4sNH2w)
-
-- 2016:
-  - [YouTube rewritten in Polymer](https://blog.youtube/news-and-events/a-sneak-peek-at-youtubes-new-look-and/)
-
-- 2018:
-  - [Polymer announces start of migration to “LitElement”](https://www.polymer-project.org/blog/2018-05-02-roadmap-update#libraries)
-  - [Firefox enables web components (Polyfills no longer needed)](https://www.mozilla.org/en-US/firefox/63.0/releasenotes/)
-
-While JavaScript frameworks with similar concepts have been around since at least 2010, web components have found a way to standardize those concepts in the browser. 
-
-it’s clear that the core concepts at play in web components have allowed for dramatic adoption since then. For example React, which has a lot of the same ideas at play, now has a major market share of websites and applications written in JavaScript. 
-
-Now that we’ve seen a short history of web components, let’s take a look at how to build custom elements without using a framework.
 
 ## Lifecycle Methods
 

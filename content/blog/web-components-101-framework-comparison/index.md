@@ -9,7 +9,7 @@
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-framework-comparison/',
     series: "Web Components 101",
-    order: 3
+    order: 4
 }
 ---
 
