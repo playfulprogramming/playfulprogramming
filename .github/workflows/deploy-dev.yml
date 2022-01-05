@@ -18,7 +18,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${PR_HEAD#refs/heads/} | tr / -)"
 
       - name: Create GitHub deployment
-        uses: bobheadxi/deployments@v0.4.3
+        uses: bobheadxi/deployments@v0.6.2
         id: deployment
         with:
           step: start
@@ -27,10 +27,10 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '14'
+          node-version: "16"
 
       # From: https://help.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows#example-using-the-cache-action
       - name: Cache node modules
@@ -73,7 +73,7 @@ jobs:
         run: doctl compute cdn flush ${{ secrets.DIGITALOCEAN_CDN_ID }} --files ${{ steps.get_branch.outputs.branch }}/*
 
       - name: Update deployment status
-        uses: bobheadxi/deployments@v0.4.3
+        uses: bobheadxi/deployments@v0.6.2
         if: always()
         with:
           step: finish
