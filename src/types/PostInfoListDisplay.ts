@@ -10,7 +10,7 @@ export interface PostInfoListDisplay {
 		tags: string[];
 		description: string;
 		authors: Array<
-			Pick<UnicornInfo, "name" | "id" | "color"> & {
+			Pick<UnicornInfo, "name" | "unicornId" | "color"> & {
 				profileImg: {
 					childImageSharp: { smallPic: string };
 				};

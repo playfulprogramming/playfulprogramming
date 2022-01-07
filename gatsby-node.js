@@ -9,8 +9,8 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 exports.onCreateWebpackConfig = ({ actions }) => {
 	actions.setWebpackConfig({
 		resolve: {
-			plugins: [new TsconfigPathsPlugin()]
-		}
+			plugins: [new TsconfigPathsPlugin()],
+		},
 	});
 };
 
@@ -23,24 +23,24 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 	if (node.internal.type === `MarkdownRemark`) {
 		const value = createFilePath({
 			node,
-			getNode
+			getNode,
 		});
 		createNodeField({
 			name: `slug`,
 			node,
-			value
+			value,
 		});
 	}
 
 	if (node.internal.type === `UnicornsJson`) {
 		const value = createFilePath({
 			node,
-			getNode
+			getNode,
 		});
 		createNodeField({
 			name: `slug`,
 			node,
-			value
+			value,
 		});
 	}
 };
@@ -50,23 +50,23 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
  */
 exports.sourceNodes = async ({
 	getNodesByType,
-	actions: { createNodeField }
+	actions: { createNodeField },
 }) => {
 	const postNodes = getNodesByType(`MarkdownRemark`);
 	const unicornNodes = getNodesByType(`UnicornsJson`);
 
-	unicornNodes.forEach(unicornNode => {
+	unicornNodes.forEach((unicornNode) => {
 		const isAuthor = postNodes
 			// Ensure it's actually a post
-			.filter(post => !!post.frontmatter.authors)
-			.some(post => {
-				return post.frontmatter.authors.includes(unicornNode.id);
+			.filter((post) => !!post.frontmatter.authors)
+			.some((post) => {
+				return post.frontmatter.authors.includes(unicornNode.unicornId);
 			});
 
 		createNodeField({
 			name: `isAuthor`,
 			node: unicornNode,
-			value: isAuthor
+			value: isAuthor,
 		});
 	});
 };
@@ -95,7 +95,7 @@ exports.createPages = ({ graphql, actions }) => {
 							frontmatter {
 								title
 								authors {
-									id
+									unicornId
 								}
 							}
 						}
@@ -104,13 +104,13 @@ exports.createPages = ({ graphql, actions }) => {
 				allUnicornsJson(limit: 100) {
 					edges {
 						node {
-							id
+							unicornId
 						}
 					}
 				}
 			}
 		`
-	).then(result => {
+	).then((result) => {
 		if (result.errors) {
 			throw result.errors;
 		}
@@ -153,8 +153,8 @@ exports.createPages = ({ graphql, actions }) => {
 				context: {
 					slug: post.node.fields.slug,
 					previous,
-					next
-				}
+					next,
+				},
 			});
 		});
 
@@ -169,8 +169,8 @@ exports.createPages = ({ graphql, actions }) => {
 				skipNumber: 0,
 				pageIndex: 1,
 				numberOfPages,
-				absolutePath: "/"
-			}
+				absolutePath: "/",
+			},
 		});
 
 		for (const i of Array(numberOfPages).keys()) {
@@ -185,16 +185,16 @@ exports.createPages = ({ graphql, actions }) => {
 					skipNumber,
 					pageIndex: pageNum,
 					numberOfPages,
-					absolutePath: "/"
-				}
+					absolutePath: "/",
+				},
 			});
 		}
 
-		unicorns.forEach(unicorn => {
-			const uniId = unicorn.node.id;
+		unicorns.forEach((unicorn) => {
+			const uniId = unicorn.node.unicornId;
 
 			const uniPosts = posts.filter(({ node: { frontmatter } }) =>
-				frontmatter.authors.find(uni => uni.id === uniId)
+				frontmatter.authors.find((uni) => uni.unicornId === uniId)
 			);
 
 			const numberOfUniPages = Math.ceil(uniPosts.length / postsPerPage);
@@ -208,8 +208,8 @@ exports.createPages = ({ graphql, actions }) => {
 					skipNumber: 0,
 					pageIndex: 1,
 					numberOfPages: numberOfUniPages,
-					absolutePath: `/unicorns/${uniId}/`
-				}
+					absolutePath: `/unicorns/${uniId}/`,
+				},
 			});
 
 			for (const i of Array(numberOfUniPages).keys()) {
@@ -225,8 +225,8 @@ exports.createPages = ({ graphql, actions }) => {
 						skipNumber,
 						pageIndex: pageNum,
 						numberOfPages: numberOfUniPages,
-						absolutePath: `/unicorns/${uniId}/`
-					}
+						absolutePath: `/unicorns/${uniId}/`,
+					},
 				});
 			}
 		});

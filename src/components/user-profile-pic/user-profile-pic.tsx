@@ -17,7 +17,7 @@ export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
 
 		return (
 			<div
-				key={unicorn.id}
+				key={unicorn.unicornId}
 				onClick={onClick}
 				className={`pointer ${styles.profilePicContainer} ${classesToApply}`}
 				style={{

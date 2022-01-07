@@ -6,7 +6,7 @@ export interface UnicornInfo {
 	name: string;
 	firstName: string;
 	lastName: string;
-	id: string;
+	unicornId: string;
 	description: string;
 	color: string;
 	fields: {

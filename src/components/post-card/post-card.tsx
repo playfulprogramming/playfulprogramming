@@ -64,7 +64,7 @@ export const PostCard = ({
 				<p className={cardStyles.authorName}>
 					<span>by&nbsp;</span>
 					<Link
-						to={`/unicorns/${authors[0].id}`}
+						to={`/unicorns/${authors[0].unicornId}`}
 						className={cardStyles.authorLink}
 						ref={authorLinks[0].ref as any}
 						onClick={(e) => e.stopPropagation()}
@@ -74,11 +74,11 @@ export const PostCard = ({
 					{/* To avoid having commas on the first author name, we did this */}
 					{authors.slice(1).map((author, i) => {
 						return (
-							<React.Fragment key={author.id}>
+							<React.Fragment key={author.unicornId}>
 								<span>, </span>
 								<Link
-									key={author.id}
-									to={`/unicorns/${author.id}`}
+									key={author.unicornId}
+									to={`/unicorns/${author.unicornId}`}
 									className={cardStyles.authorLink}
 									ref={authorLinks[i].ref as any}
 									onClick={(e) => e.stopPropagation()}

@@ -55,7 +55,7 @@ export const postInfoListDisplayFragmentQuery = graphql`
 			description
 			authors {
 				name
-				id
+				unicornId
 				color
 				profileImg {
 					childImageSharp {
