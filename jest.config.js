@@ -26,7 +26,7 @@ module.exports = {
   },
   transformIgnorePatterns: [
     // ...your ignore patterns
-    "node_modules\\/((?!unified|unist|hast|remark|mdast|micromark|retext|nlcst|rehype).)*$",
+    "^((?!node_modules).)*node_modules.((?!unified|unist|hast|remark|mdast|micromark|retext|nlcst|rehype|decode\\-named\\-character\\-reference|character\\-entities|zwitch|longest\\-streak|unherit|parse\\-|strip\\-|html\\-void\\-elements|stringify\\-entities|ccount|markdown\\-|slash).)*$",
     "^.+\\.module\\.(css|sass|scss)$",
   ],
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
