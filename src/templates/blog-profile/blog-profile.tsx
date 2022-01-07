@@ -84,12 +84,12 @@ export const pageQuery = graphql`
 				title
 			}
 		}
-		unicornsJson(id: { eq: $slug }) {
+		unicornsJson(unicornId: { eq: $slug }) {
 			...UnicornInfo
 		}
 		allMarkdownRemark(
 			filter: {
-				frontmatter: { authors: { elemMatch: { id: { eq: $slug } } } }
+				frontmatter: { authors: { elemMatch: { unicornId: { eq: $slug } } } }
 				fileAbsolutePath: { regex: "/content/blog/" }
 			}
 			sort: { order: DESC, fields: frontmatter___published }

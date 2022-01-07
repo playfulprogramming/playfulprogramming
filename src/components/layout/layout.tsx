@@ -44,7 +44,7 @@ export const Layout: React.FC<LayoutProps> = ({ location, children }) => {
 export const authorFragmentQuery = graphql`
 	fragment UnicornInfo on UnicornsJson {
 		name
-		id
+		unicornId
 		description
 		color
 		fields {
@@ -52,7 +52,7 @@ export const authorFragmentQuery = graphql`
 		}
 		roles {
 			prettyname
-			id
+			roleId
 		}
 		socials {
 			twitter
