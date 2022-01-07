@@ -12,7 +12,7 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 	if (unicornInfo.fields.isAuthor) {
 		unicornRoles.push({
-			id: "author",
+			roleId: "author",
 			prettyname: "Author",
 		});
 	}
@@ -21,7 +21,7 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 		// If there is an item ahead
 		const shouldShowComma = arr[i + 1];
 		return (
-			<li key={role.id} role="listitem">
+			<li key={role.roleId} role="listitem">
 				{role.prettyname}
 				{shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
 			</li>
@@ -89,10 +89,14 @@ const AboutUs = (props: any) => {
 					{unicornArr.map((unicornInfo) => {
 						const roleListItems = getUnicornRoleListItems(unicornInfo);
 
-						const navigateToUni = () => navigate(`/unicorns/${unicornInfo.id}`);
+						const navigateToUni = () =>
+							navigate(`/unicorns/${unicornInfo.unicornId}`);
 
 						return (
-							<div key={unicornInfo.id} className={style.contributorContainer}>
+							<div
+								key={unicornInfo.unicornId}
+								className={style.contributorContainer}
+							>
 								<div className="pointer" onClick={navigateToUni}>
 									<GatsbyImage
 										alt={unicornInfo.name + " profile picture"}
@@ -101,7 +105,7 @@ const AboutUs = (props: any) => {
 									/>
 								</div>
 								<div className={style.nameRoleDiv}>
-									<Link to={`/unicorns/${unicornInfo.id}`}>
+									<Link to={`/unicorns/${unicornInfo.unicornId}`}>
 										{unicornInfo.name}
 									</Link>
 									<ul

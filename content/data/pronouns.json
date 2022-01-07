@@ -1,6 +1,6 @@
 [
   {
-    "id": "she",
+    "pronounId": "she",
     "they": "she",
     "them": "her",
     "their": "her",
@@ -8,7 +8,7 @@
     "themselves": "herself"
   },
   {
-    "id": "he",
+    "pronounId": "he",
     "they": "he",
     "them": "him",
     "their": "his",
@@ -16,7 +16,7 @@
     "themselves": "himself"
   },
   {
-    "id": "they/themselves",
+    "pronounId": "they/themselves",
     "they": "they",
     "them": "them",
     "their": "their",
@@ -24,7 +24,7 @@
     "themselves": "themselves"
   },
   {
-    "id": "they/themself",
+    "pronounId": "they/themself",
     "they": "they",
     "them": "them",
     "their": "their",
@@ -32,7 +32,7 @@
     "themselves": "themself"
   },
   {
-    "id": "ze/hir",
+    "pronounId": "ze/hir",
     "they": "ze",
     "them": "hir",
     "their": "hir",
@@ -40,7 +40,7 @@
     "themselves": "hirself"
   },
   {
-    "id": "ze/zir",
+    "pronounId": "ze/zir",
     "they": "ze",
     "them": "zir",
     "their": "zir",
@@ -48,7 +48,7 @@
     "themselves": "zirself"
   },
   {
-    "id": "xey",
+    "pronounId": "xey",
     "they": "xey",
     "them": "xem",
     "their": "xyr",
@@ -56,7 +56,7 @@
     "themselves": "xemself"
   },
   {
-    "id": "ae",
+    "pronounId": "ae",
     "they": "ae",
     "them": "aer",
     "their": "aer",
@@ -64,7 +64,7 @@
     "themselves": "aerself"
   },
   {
-    "id": "e",
+    "pronounId": "e",
     "they": "e",
     "them": "em",
     "their": "eir",
@@ -72,7 +72,7 @@
     "themselves": "emself"
   },
   {
-    "id": "ey",
+    "pronounId": "ey",
     "they": "ey",
     "them": "em",
     "their": "eir",
@@ -80,7 +80,7 @@
     "themselves": "eirself"
   },
   {
-    "id": "fae",
+    "pronounId": "fae",
     "they": "fae",
     "them": "faer",
     "their": "faer",
@@ -88,7 +88,7 @@
     "themselves": "faerself"
   },
   {
-    "id": "fey",
+    "pronounId": "fey",
     "they": "fey",
     "them": "fem",
     "their": "feir",
@@ -96,7 +96,7 @@
     "themselves": "feirself"
   },
   {
-    "id": "hu",
+    "pronounId": "hu",
     "they": "hu",
     "them": "hum",
     "their": "hus",
@@ -104,7 +104,7 @@
     "themselves": "humself"
   },
   {
-    "id": "it",
+    "pronounId": "it",
     "they": "it",
     "them": "it",
     "their": "its",
@@ -112,7 +112,7 @@
     "themselves": "itself"
   },
   {
-    "id": "jee",
+    "pronounId": "jee",
     "they": "jee",
     "them": "jem",
     "their": "jeir",
@@ -120,7 +120,7 @@
     "themselves": "jemself"
   },
   {
-    "id": "kit",
+    "pronounId": "kit",
     "they": "kit",
     "them": "kit",
     "their": "kits",
@@ -128,7 +128,7 @@
     "themselves": "kitself"
   },
   {
-    "id": "ne",
+    "pronounId": "ne",
     "they": "ne",
     "them": "nem",
     "their": "nir",
@@ -136,7 +136,7 @@
     "themselves": "nemself"
   },
   {
-    "id": "peh",
+    "pronounId": "peh",
     "they": "peh",
     "them": "pehm",
     "their": "peh's",
@@ -144,7 +144,7 @@
     "themselves": "pehself"
   },
   {
-    "id": "per",
+    "pronounId": "per",
     "they": "per",
     "them": "per",
     "their": "per",
@@ -152,7 +152,7 @@
     "themselves": "perself"
   },
   {
-    "id": "sie",
+    "pronounId": "sie",
     "they": "sie",
     "them": "hir",
     "their": "hir",
@@ -160,7 +160,7 @@
     "themselves": "hirself"
   },
   {
-    "id": "se",
+    "pronounId": "se",
     "they": "se",
     "them": "sim",
     "their": "ser",
@@ -168,7 +168,7 @@
     "themselves": "serself"
   },
   {
-    "id": "shi",
+    "pronounId": "shi",
     "they": "shi",
     "them": "hir",
     "their": "hir",
@@ -176,7 +176,7 @@
     "themselves": "hirself"
   },
   {
-    "id": "si",
+    "pronounId": "si",
     "they": "si",
     "them": "hyr",
     "their": "hyr",
@@ -184,7 +184,7 @@
     "themselves": "hyrself"
   },
   {
-    "id": "they/thonself",
+    "pronounId": "they/thonself",
     "they": "thon",
     "them": "thon",
     "their": "thons",
@@ -192,7 +192,7 @@
     "themselves": "thonself"
   },
   {
-    "id": "ve/vis/verself",
+    "pronounId": "ve/vis/verself",
     "they": "ve",
     "them": "ver",
     "their": "vis",
@@ -200,7 +200,7 @@
     "themselves": "verself"
   },
   {
-    "id": "ve/vir/vemself",
+    "pronounId": "ve/vir/vemself",
     "they": "ve",
     "them": "vem",
     "their": "vir",
@@ -208,7 +208,7 @@
     "themselves": "vemself"
   },
   {
-    "id": "vi/ver/verself",
+    "pronounId": "vi/ver/verself",
     "they": "vi",
     "them": "ver",
     "their": "ver",
@@ -216,7 +216,7 @@
     "themselves": "verself"
   },
   {
-    "id": "vi/vir/vimself",
+    "pronounId": "vi/vir/vimself",
     "they": "vi",
     "them": "vim",
     "their": "vir",
@@ -224,7 +224,7 @@
     "themselves": "vimself"
   },
   {
-    "id": "vi/vim/vimself",
+    "pronounId": "vi/vim/vimself",
     "they": "vi",
     "them": "vim",
     "their": "vim",
@@ -232,7 +232,7 @@
     "themselves": "vimself"
   },
   {
-    "id": "xie",
+    "pronounId": "xie",
     "they": "xie",
     "them": "xer",
     "their": "xer",
@@ -240,7 +240,7 @@
     "themselves": "xerself"
   },
   {
-    "id": "xe",
+    "pronounId": "xe",
     "they": "xe",
     "them": "xem",
     "their": "xyr",
@@ -248,7 +248,7 @@
     "themselves": "xemself"
   },
   {
-    "id": "xey",
+    "pronounId": "xey",
     "they": "xey",
     "them": "xem",
     "their": "xeir",
@@ -256,7 +256,7 @@
     "themselves": "xemself"
   },
   {
-    "id": "yo",
+    "pronounId": "yo",
     "they": "yo",
     "them": "yo",
     "their": "yos",
@@ -264,7 +264,7 @@
     "themselves": "yosself"
   },
   {
-    "id": "ze/zirself",
+    "pronounId": "ze/zirself",
     "they": "ze",
     "them": "zem",
     "their": "zes",
@@ -272,7 +272,7 @@
     "themselves": "zirself"
   },
   {
-    "id": "ze",
+    "pronounId": "ze",
     "they": "ze",
     "them": "mer",
     "their": "zer",
@@ -280,7 +280,7 @@
     "themselves": "zemself"
   },
   {
-    "id": "zee",
+    "pronounId": "zee",
     "they": "zee",
     "them": "zed",
     "their": "zeta",
@@ -288,7 +288,7 @@
     "themselves": "zedself"
   },
   {
-    "id": "zie/zir",
+    "pronounId": "zie/zir",
     "they": "zie",
     "them": "zir",
     "their": "zir",
@@ -296,7 +296,7 @@
     "themselves": "zirself"
   },
   {
-    "id": "zie/zem",
+    "pronounId": "zie/zem",
     "they": "zie",
     "them": "zem",
     "their": "zes",
@@ -304,7 +304,7 @@
     "themselves": "zirself"
   },
   {
-    "id": "zie/hir",
+    "pronounId": "zie/hir",
     "they": "zie",
     "them": "hir",
     "their": "hir",
@@ -312,7 +312,7 @@
     "themselves": "hirself"
   },
   {
-    "id": "zme",
+    "pronounId": "zme",
     "they": "zme",
     "them": "zmyr",
     "their": "zmyr",

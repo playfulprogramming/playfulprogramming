@@ -5,7 +5,7 @@ export const MockUnicorn: UnicornInfo = {
 	name: "Joe",
 	firstName: "Joe",
 	lastName: "Other",
-	id: "joe",
+	unicornId: "joe",
 	description: "Exists",
 	color: "red",
 	fields: {
@@ -29,8 +29,7 @@ export const MockUnicorn: UnicornInfo = {
 			smallPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{
@@ -47,8 +46,7 @@ export const MockUnicorn: UnicornInfo = {
 			mediumPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{
@@ -65,8 +63,7 @@ export const MockUnicorn: UnicornInfo = {
 			bigPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{
@@ -88,7 +85,7 @@ export const MockUnicornTwo: UnicornInfo = {
 	name: "Diane",
 	firstName: "Diane",
 	lastName: "",
-	id: "diane",
+	unicornId: "diane",
 	description: "Is a human",
 	color: "blue",
 	fields: {
@@ -112,8 +109,7 @@ export const MockUnicornTwo: UnicornInfo = {
 			smallPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{
@@ -130,8 +126,7 @@ export const MockUnicornTwo: UnicornInfo = {
 			mediumPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{
@@ -148,8 +143,7 @@ export const MockUnicornTwo: UnicornInfo = {
 			bigPic: {
 				images: {
 					fallback: {
-						src:
-							"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+						src: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 					},
 					sources: [
 						{

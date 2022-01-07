@@ -84,7 +84,7 @@ const getProfileMetas = (unicornData?: UnicornInfo) => {
 	metas.set("og:type", "profile");
 	metas.set("profile:firstName", unicornData.firstName);
 	metas.set("profile:lastName", unicornData.lastName);
-	metas.set("profile:username", unicornData.id);
+	metas.set("profile:username", unicornData.unicornId);
 
 	return mapToMetaArr(metas);
 };

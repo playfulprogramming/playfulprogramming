@@ -1,5 +1,5 @@
 [{
-		"id": "crutchcorn",
+		"unicornId": "crutchcorn",
 		"name": "Corbin Crutchley",
 		"firstName": "Corbin",
 		"lastName": "Crutchley",
@@ -15,7 +15,7 @@
 		"roles": ["devops", "developer"]
 	},
 	{
-		"id": "fennifith",
+		"unicornId": "fennifith",
 		"name": "James Fenn",
 		"firstName": "James",
 		"lastName": "Fenn",
@@ -30,7 +30,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"id": "evelynhathaway",
+		"unicornId": "evelynhathaway",
 		"name": "Evelyn Hathaway",
 		"firstName": "Evelyn",
 		"lastName": "Hathaway",
@@ -45,7 +45,7 @@
 		"roles": ["developer", "devops"]
 	},
 	{
-		"id": "adueppen",
+		"unicornId": "adueppen",
 		"name": "Alex Dueppen",
 		"firstName": "Alex",
 		"lastName": "Dueppen",
@@ -61,7 +61,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"id": "zavukodlak",
+		"unicornId": "zavukodlak",
 		"name": "Vukašin Anđelković",
 		"firstName": "Vukašin",
 		"lastName": "Anđelković",
@@ -77,7 +77,7 @@
 		"roles": ["designer"]
 	},
 	{
-		"id": "tommyemo",
+		"unicornId": "tommyemo",
 		"name": "Tom Wellington",
 		"firstName": "Tom",
 		"lastName": "Wellington",
@@ -92,7 +92,7 @@
 		"roles": ["designer"]
 	},
 	{
-		"id": "edpratti",
+		"unicornId": "edpratti",
 		"name": "Eduardo Pratti",
 		"firstName": "Eduardo",
 		"lastName": "Pratti",
@@ -107,7 +107,7 @@
 		"roles": ["designer"]
 	},
 	{
-		"id": "sarsamurmu",
+		"unicornId": "sarsamurmu",
 		"name": "Sarsa Murmu",
 		"firstName": "Sarsa",
 		"lastName": "Murmu",
@@ -123,7 +123,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"id": "MDutro",
+		"unicornId": "MDutro",
 		"name": "Micah Dutro",
 		"firstName": "Micah",
 		"lastName": "Dutro",
@@ -137,7 +137,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"id": "reikaze",
+		"unicornId": "reikaze",
 		"name": "Kevin Mai",
 		"firstName": "Kevin",
 		"lastName": "Mai",
@@ -152,7 +152,7 @@
 		"roles": []
 	},
 	{
-		"id": "thodges314",
+		"unicornId": "thodges314",
 		"name": "Thomas Hodges",
 		"firstName": "Thomas",
 		"lastName": "Hodges",
@@ -167,7 +167,7 @@
 		"roles": []
 	},
 	{
-		"id": "skatcat31",
+		"unicornId": "skatcat31",
 		"name": "Robert Mennell",
 		"firstName": "Robert",
 		"lastName": "Mennell",
@@ -182,7 +182,7 @@
 		"roles": []
 	},
  	{
-		"id": "seanmiller",
+		"unicornId": "seanmiller",
 		"name": "Sean Miller",
 		"firstName": "Sean",
 		"lastName": "Miller",
@@ -199,7 +199,7 @@
 		"roles": []
 	},
  	{
-		"id": "pierremtb",
+		"unicornId": "pierremtb",
 		"name": "Pierre Jacquier",
 		"firstName": "Pierre",
 		"lastName": "Jacquier",
@@ -213,6 +213,22 @@
 		"pronouns": "he",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
+		"roles": []
+	},
+ 	{
+		"unicornId": "maisydino",
+		"name": "Maisy Dinosaur",
+		"firstName": "Maisy",
+		"lastName": "Dinosaur",
+		"description": "I do a lot of stuff sometimes. Part-time fullstack, full time dog petter.",
+		"socials": {
+			"twitter": "rodentman87",
+			"github": "rodentman87",
+			"website": "https://likesdinosaurs.com"
+		},
+		"pronouns": "she",
+		"profileImg": "./maisydino.jpg",
+		"color": "#FDF6E3",
 		"roles": []
 	}
 ]

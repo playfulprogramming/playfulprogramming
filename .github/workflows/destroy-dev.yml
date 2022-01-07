@@ -20,6 +20,9 @@ jobs:
           PR_HEAD: ${{ github.head_ref }}
         run: echo "##[set-output name=branch;]$(echo ${PR_HEAD#refs/heads/} | tr / -)"
 
+      - name: Pre-configure AWS profile
+        run: aws configure set max_attempts 10 --profile s3-rm-action
+
       - name: Remove files from DigitalOcean Spaces
         uses: vitorsgomes/s3-rm-action@v1.0.1
         with:
@@ -32,7 +35,7 @@ jobs:
           PATH_TO_DELETE: "${{ steps.get_branch.outputs.branch }}"
 
       - name: Mark environment as deactivated
-        uses: bobheadxi/deployments@v0.4.3
+        uses: bobheadxi/deployments@v0.6.2
         with:
           step: deactivate-env
           token: ${{ github.token }}

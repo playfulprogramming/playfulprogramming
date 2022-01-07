@@ -1,17 +1,17 @@
 export type RolesEnum =
 	| {
-			id: "developer";
+			roleId: "developer";
 			prettyname: "Developer";
 	  }
 	| {
-			id: "designer";
+			roleId: "designer";
 			prettyname: "Designer";
 	  }
 	| {
-			id: "devops";
+			roleId: "devops";
 			prettyname: "Dev-ops";
 	  }
 	| {
-			id: "author";
+			roleId: "author";
 			prettyname: "Author";
 	  };

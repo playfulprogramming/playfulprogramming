@@ -46,11 +46,11 @@ export const PostMetadata = ({ post }: PostMetadataProps) => {
 					<span>by </span>
 					{authors.map((author, i) => {
 						return (
-							<React.Fragment key={author.id}>
+							<React.Fragment key={author.unicornId}>
 								{i !== 0 && <span>{", "}</span>}
 								<Link
-									key={author.id}
-									to={`/unicorns/${author.id}`}
+									key={author.unicornId}
+									to={`/unicorns/${author.unicornId}`}
 									ref={authorLinks[i].ref as any}
 									className={styles.authorLink}
 								>

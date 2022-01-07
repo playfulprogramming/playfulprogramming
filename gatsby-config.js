@@ -420,9 +420,9 @@ module.exports = {
 		},
 	],
 	mapping: {
-		"MarkdownRemark.frontmatter.authors": `UnicornsJson`,
-		"MarkdownRemark.frontmatter.license": `LicensesJson`,
-		"UnicornsJson.pronouns": `PronounsJson`,
-		"UnicornsJson.roles": `RolesJson`,
+		"MarkdownRemark.frontmatter.authors": `UnicornsJson.unicornId`,
+		"MarkdownRemark.frontmatter.license": `LicensesJson.licenseId`,
+		"UnicornsJson.pronouns": `PronounsJson.pronounId`,
+		"UnicornsJson.roles": `RolesJson.roleId`,
 	},
 };
