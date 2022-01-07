@@ -8,10 +8,6 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
-  transformIgnorePatterns: [
-    "/node_modules/",
-    "^.+\\.module\\.(css|sass|scss)$",
-  ],
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!**/*.d.ts",
@@ -30,7 +26,8 @@ module.exports = {
   },
   transformIgnorePatterns: [
     // ...your ignore patterns
-    "node_modules/(?!(unified|bail|is-plain-obj|trough|vfile|unist|hast|remark|mdast|micromark|parse-entities|character-entities|zwitch|longest-streak|retext|unherit|parse|nlcst|rehype|slash|strip-markdown|decode-named-character-reference).*/)",
+    "node_modules\\/((?!unified|unist|hast|remark|mdast|micromark|retext|nlcst|rehype).)*$",
+    "^.+\\.module\\.(css|sass|scss)$",
   ],
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   moduleNameMapper: {
