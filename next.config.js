@@ -18,6 +18,7 @@ module.exports = withPlugins(
         imagesName: "[name]-[hash].[ext]",
         handleImages: ["png", "jpeg"],
         responsive: {
+          disable: !isNonDevBuild,
           adapter: require("responsive-loader/sharp"),
           quality: 85,
         },
