@@ -9,6 +9,7 @@ import { readMarkdownFile } from "utils/fs/api";
 import { join } from "path";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+import { SEO } from "components/seo";
 const unicornLogo = require("../assets/unicorn_head_1024.png?size=192");
 
 const requirePublicImage = require.context(
@@ -47,11 +48,7 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
 
   return (
     <div>
-      {/*<SEO*/}
-      {/*  title={post.frontmatter.title}*/}
-      {/*  description={post.frontmatter.description || post.excerpt}*/}
-      {/*  pathName={props.location.pathname}*/}
-      {/*/>*/}
+      <SEO title="About Us" pathName={router.pathname} />
       <div className={style.container}>
         <div className={style.headerTitle}>
           <div className={style.unicornLogo}>
