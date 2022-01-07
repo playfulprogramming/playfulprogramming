@@ -165,7 +165,6 @@ export const SEO: React.FC<SEOProps> = (props) => {
       <title>
         {title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
       </title>
-      <link rel="icon" href="/favicon.ico" />
       {canonical ? <link rel="canonical" href={canonical} /> : null}
       <meta property="name" content={siteMetadata.title} />
       <meta name="description" content={metaDescription} />
