@@ -1,20 +1,5 @@
-const buildMode: string = process.env.BUILD_ENV || "production";
-
-let siteUrl: string = process.env.SITE_URL || "";
-
-if (!siteUrl) {
-  switch (buildMode) {
-    case "production":
-      siteUrl = "https://unicorn-utterances.com";
-      break;
-    case "development":
-      siteUrl = "localhost:9000";
-      break;
-    default:
-      siteUrl = "https://beta.unicorn-utterances.com";
-  }
-}
-
+import getSiteUrlAndBuildMode from "./site-url";
+const { siteUrl, buildMode } = getSiteUrlAndBuildMode();
 // To set for Twitch
 let parent: string;
 

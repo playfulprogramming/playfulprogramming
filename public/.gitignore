@@ -1,4 +1,8 @@
+# The following are generated
 rss.xml
 search_index.json
+sitemap.xml
+robots.txt
+# These are part of the copy file
 unicorns/
 posts/
