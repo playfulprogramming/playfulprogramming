@@ -15,6 +15,9 @@ module.exports = withPlugins(
         optimizeImagesInDev: isNonDevBuild,
         optimizeImages: isNonDevBuild,
         inlineImageLimit: 1,
+        imagesFolder: "images",
+        imagesPublicPath: "/_next/static/images/",
+        imagesOutputPath: "static/images/",
         imagesName: "[name]-[hash].[ext]",
         handleImages: ["png", "jpeg"],
         responsive: {
