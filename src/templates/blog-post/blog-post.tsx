@@ -162,7 +162,7 @@ export const pageQuery = graphql`
 			...PostInfo
 			fields {
 				suggestedArticles {
-					id
+					articleId
 					slug
 					title
 					authors

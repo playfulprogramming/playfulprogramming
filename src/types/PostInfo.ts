@@ -20,7 +20,7 @@ export interface PostInfo {
 		slug: string;
 		inlineCount: number;
 		suggestedArticles: Array<{
-			id: string;
+			articleId: string;
 			slug: string;
 			title: string;
 			// Array of names

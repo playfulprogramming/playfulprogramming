@@ -71,7 +71,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
     
 		type SuggestedArticles {
-      id: String!
+      articleId: String!
       title: String!
       slug: String!
       authors: [String]
@@ -141,6 +141,8 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			if (suggestedArticles.length < 3) {
 				let sizeToPush = 3 - suggestedArticles.length;
 				for (const item of otherArr) {
+					// Handle non-blog content, like about page
+					if (!item?.frontmatter?.published) continue;
 					// Don't suggest itself
 					if (item.id === postNode.id) continue;
 					// No duplicates, please!
@@ -174,10 +176,10 @@ exports.sourceNodes = ({ getNodesByType, actions }) => {
 			// TODO: Migrate to `RemarkMarkdown` type. Gatbsy doesn't seem to like
 			value: suggestedArticles.map((post) => {
 				const authors = (post.frontmatter.authors || []).map((authorID) => {
-					return unicorns.find((unicorn) => unicorn.id === authorID).name;
+					return unicorns.find((unicorn) => unicorn.unicornId === authorID).name;
 				});
 				return {
-					id: post.id,
+					articleId: post.id,
 					slug: post.fields.slug,
 					title: post.frontmatter.title,
 					// Array of IDs
