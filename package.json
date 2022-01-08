@@ -5,7 +5,7 @@
     "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
     "rss": "node --experimental-loader esbuild-node-loader src/build-scripts/gen-rss.ts",
     "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
-    "build": "npm run lunr && npm run rss && next build && npm run sitemap && next export",
+    "build": "npm run lunr && npm run rss && next build && npm run sitemap",
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "sitemap": "node ./node_modules/next-sitemap/bin/next-sitemap",
     "start": "next start",
