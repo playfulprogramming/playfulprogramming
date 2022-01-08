@@ -1,7 +1,8 @@
 import { LicenseInfo, PronounInfo, RolesEnum, UnicornInfo } from "types/index";
 import fs from "fs";
-import { basename, join } from "path";
+import { join } from "path";
 import { getImageSize } from "rehype-img-size";
+import { getFullRelativePath } from "utils/url-paths";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const dataDirectory = join(process.cwd(), "content/data");
@@ -32,7 +33,10 @@ const licensesRaw: LicenseInfo[] = JSON.parse(
 
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
-  const relativeServerPath = `./unicorns/${basename(unicorn.profileImg)}`;
+  const relativeServerPath = getFullRelativePath(
+    "/unicorns",
+    unicorn.profileImg
+  );
   const profileImgSize = getImageSize(absoluteFSPath);
 
   // Mutation go BRR
@@ -41,6 +45,7 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   newUnicorn.profileImg = {
     height: profileImgSize.height as number,
     width: profileImgSize.width as number,
+    relativePath: unicorn.profileImg,
     relativeServerPath,
     absoluteFSPath,
   };
