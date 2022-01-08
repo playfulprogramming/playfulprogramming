@@ -2,8 +2,8 @@ import React from "react";
 
 import Image from "next/image";
 import { SEO } from "components/seo";
+import helloUnicorn from "assets/hello_2048.png";
 import { useRouter } from "next/router";
-const helloUnicorn = require("../assets/hello_2048.png");
 
 const ConfirmPage = () => {
   const router = useRouter();
@@ -28,12 +28,12 @@ const ConfirmPage = () => {
             display: "block",
           }}
         >
-          <img
+          <Image
             src={helloUnicorn}
             loading={"eager"}
-            alt={`A happy unicorn`}
-            height={"100%"}
-            width={"100%"}
+            sizes="500px"
+            layout={"responsive"}
+            alt={`Unicorn Utterances 404 image`}
           />
         </div>
       </div>

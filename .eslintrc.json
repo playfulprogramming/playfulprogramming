@@ -2,7 +2,6 @@
   "plugins": ["prettier"],
   "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
-    "prettier/prettier": "error",
-    "@next/next/no-img-element": "off"
+    "prettier/prettier": "error"
   }
 }
