@@ -10,10 +10,16 @@ module.exports = withPlugins([], {
           {
             from: path.resolve(__dirname, "content/blog"),
             to: path.resolve(__dirname, "public/posts"),
+            globOptions: {
+              ignore: ["**/*.md"],
+            },
           },
           {
             from: path.resolve(__dirname, "content/data"),
             to: path.resolve(__dirname, "public/unicorns"),
+            globOptions: {
+              ignore: ["**/*.md", "**/*.json"],
+            },
           },
         ],
       })
