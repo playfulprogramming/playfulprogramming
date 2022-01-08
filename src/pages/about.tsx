@@ -12,12 +12,6 @@ import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { SEO } from "components/seo";
 const unicornLogo = require("../assets/unicorn_head_1024.png?size=192");
 
-const requirePublicImage = require.context(
-  "../../public?size=85",
-  true,
-  /\.(?:png|jpg|jpeg)$/
-);
-
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
   const unicornRoles = unicornInfo.roles.slice(0);
 
@@ -74,13 +68,14 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
                   className={`pointer ${style.userProfilePicture}`}
                   onClick={navigateToUni}
                 >
-                  <img
+                  <Image
                     alt={unicornInfo.name + " profile picture"}
                     className="circleImg"
+                    layout="responsive"
                     sizes="85px"
-                    src={requirePublicImage(
-                      unicornInfo.profileImg.relativeServerPath
-                    )}
+                    height={unicornInfo.profileImg.height}
+                    width={unicornInfo.profileImg.width}
+                    src={unicornInfo.profileImg.relativeServerPath}
                   />
                 </div>
                 <div className={style.nameRoleDiv}>
