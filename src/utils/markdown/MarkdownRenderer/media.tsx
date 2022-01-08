@@ -10,10 +10,10 @@ import path from "path";
  *
  * @see https://github.com/cyrilwanner/next-optimized-images/issues/16#issuecomment-405556547
  * @see https://webpack.js.org/guides/dependency-management/#requirecontext
- * @see https://github.com/Jam3/nextjs-boilerplate/blob/main/src/components/Image/Image.tsx
+ * @see https://github.com/Jam3/nextjs-boilerplate
  */
 const requireWebpImage = require.context(
-  "../../../../public",
+  "../../../../content",
   true,
   /\.(?:png|jpg|jpeg)$/
 );
@@ -22,13 +22,16 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
   return {
     img: (imgProps: HTMLImageElement) => {
       const { src, height, width, ...props2 } = imgProps;
+      console.log({
+        serverPath: serverPath[0],
+        src,
+        val: getFullRelativePath(src),
+      });
 
-      const realSrc = src.endsWith("svg")
-        ? // Don't optimize SVGs. This is because `svgo` turns them into
-          // React components that seem to have issues with many of our examples
-          `/${getFullRelativePath(...serverPath, src)}`
-        : requireWebpImage(`./${getFullRelativePath(...serverPath, src)}`);
-
+      const realSrc = requireWebpImage(
+        `./${getFullRelativePath(...serverPath, src)}`
+      );
+      
       const htmlProps = imgProps as Record<string, any>;
       const noZoomProp = htmlProps["data-nozoom"] ?? htmlProps?.dataset?.nozoom;
       const shouldZoom = noZoomProp ? noZoomProp === "false" : true;
