@@ -69,60 +69,49 @@ export default async function markdownToHtml(
           let sectionStarted = false;
           let isNodeHeading = (n: any) =>
             n.type === "element" && /h[1-6]/.exec(n.tagName);
+
+          const tabsContainer = {
+            type: "element",
+            tagName: "tabs",
+            children: [
+              {
+                type: "element",
+                tagName: "tab-list",
+                children: [] as any[],
+              },
+            ],
+          };
+
           for (const localNode of nodes as any[]) {
             if (!sectionStarted && !isNodeHeading(localNode)) continue;
             sectionStarted = true;
 
-            /**
-             * ```
-             * <!-- tabs:start -->
-             *
-             * #### **English**
-             *
-             * Hello!
-             *
-             * #### **French**
-             *
-             * Bonjour!
-             *
-             * <!-- tabs:end -->
-             * ```
-             *
-             * Will result in:
-             *
-             * <tabs>
-             *   <tab>
-             *     <tab-header><b>English</b></tab-header>
-             *     <tab-content>
-             *       <p>Hello!</p>
-             *     </tab-content>
-             *   </tab>
-             *   <!-- ... -->
-             * </tabs>
-             */
             if (isNodeHeading(localNode)) {
               const header = {
                 type: "element",
-                tagName: "tab-header",
+                tagName: "tab",
                 children: localNode.children,
               };
 
               const contents = {
                 type: "element",
-                tagName: "tab-contents",
+                tagName: "tab-panel",
                 children: [],
               };
 
-              localNode.tagName = "tab";
-              localNode.children = [header, contents];
+              tabsContainer.children[0].children.push(header);
 
-              sections.push(localNode);
+              tabsContainer.children.push(contents);
               continue;
             }
-            sections[sections.length - 1].children[1].children.push(localNode);
+
+            // Push into last `tab-panel`
+            tabsContainer.children[
+              tabsContainer.children.length - 1
+            ].children.push(localNode);
           }
 
-          return sections;
+          return [tabsContainer];
         }
       );
       return tree;

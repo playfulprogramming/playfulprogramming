@@ -2,15 +2,7 @@ import * as React from "react";
 import { useMarkdownRendererProps } from "./types";
 
 /**
- * <tabs>
- *   <tab>
- *     <tab-header><b>English</b></tab-header>
- *     <tab-content>
- *       <p>Hello!</p>
- *     </tab-content>
- *   </tab>
- *   <!-- ... -->
- * </tabs>
+ * @see https://github.com/reactjs/react-tabs for layout of "HTML" nodes
  */
 const Tabs: React.FC = ({ children }) => {
   return <>{children}</>;
@@ -22,21 +14,21 @@ const Tab: React.FC = ({ children }) => {
 };
 Tab.displayName = "Tab";
 
-const TabHeader: React.FC = ({ children }) => {
+const TabList: React.FC = ({ children }) => {
   return <>{children}</>;
 };
-TabHeader.displayName = "TabHeader";
+TabList.displayName = "TabList";
 
-const TabContents: React.FC = ({ children }) => {
+const TabPanel: React.FC = ({ children }) => {
   return <>{children}</>;
 };
-TabContents.displayName = "TabContents";
+TabPanel.displayName = "TabPanel";
 
 export const getTabs = ({ serverPath }: useMarkdownRendererProps) => {
   return {
     tabs: Tabs,
     tab: Tab,
-    ["tab-header"]: TabHeader,
-    ["tab-contents"]: TabContents,
+    ["tab-list"]: TabList,
+    ["tab-panel"]: TabPanel,
   };
 };
