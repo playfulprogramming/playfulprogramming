@@ -1,42 +1,46 @@
 import * as React from "react";
-import * as suggestedStyle from "./suggested-articles.module.scss";
-import { PostInfo } from "uu-types";
+import suggestedStyle from "./suggested-articles.module.scss";
 import classnames from "classnames";
-import { Link } from "gatsby";
+import Link from "next/link";
+import { OrderSuggestPosts } from "utils/useGetSuggestedArticles";
 
 interface TableOfContentsProps {
-	suggestedArticles: PostInfo["fields"]["suggestedArticles"];
+  suggestedArticles: OrderSuggestPosts;
 }
 
 export const SuggestedArticles = ({
-	suggestedArticles,
+  suggestedArticles,
 }: TableOfContentsProps) => {
-	return (
-		<aside aria-label={"Suggested Articles"}>
-			<ol role={"list"} className={suggestedStyle.list}>
-				<h2 className={suggestedStyle.header}>Related posts</h2>
-				{suggestedArticles.map((suggestedArticle, i) => {
-					const authorNames = suggestedArticle.authors.join(", ");
-					return (
-						<li
-							key={suggestedArticle.slug}
-							className={classnames([
-								suggestedStyle.card,
-								suggestedStyle.localCard,
-							])}
-						>
-							<Link to={`/posts${suggestedArticle.slug}`}>
-								<span className={suggestedStyle.titleTag}>
-									{suggestedArticle.title}
-								</span>
-								<br />
-								<span className={suggestedStyle.srOnly}>by</span>
-								<span className={suggestedStyle.author}>{authorNames}</span>
-							</Link>
-						</li>
-					);
-				})}
-			</ol>
-		</aside>
-	);
+  return (
+    <aside aria-label={"Suggested Articles"}>
+      <ol role={"list"} className={suggestedStyle.list}>
+        <h2 className={suggestedStyle.header}>Related posts</h2>
+        {suggestedArticles.map((suggestedArticle, i) => {
+          const authorNames = suggestedArticle.authors
+            .map((author) => author.name)
+            .join(", ");
+          return (
+            <li
+              key={suggestedArticle.slug}
+              className={classnames([
+                suggestedStyle.card,
+                suggestedStyle.localCard,
+              ])}
+            >
+              <Link href={`/posts/${suggestedArticle.slug}`} passHref>
+                <a>
+                  <span className={suggestedStyle.titleTag}>
+                    {suggestedArticle.title}
+                  </span>
+                  <br />
+                  <span className={suggestedStyle.srOnly}>by</span>
+                  <span className={suggestedStyle.author}> {authorNames}</span>
+                </a>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
+    </aside>
+  );
 };
