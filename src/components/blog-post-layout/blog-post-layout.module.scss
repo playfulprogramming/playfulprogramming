@@ -1,20 +1,20 @@
 @import "../../styles/vars";
 @import "../../styles/utils";
 
-.blog-post-layout-container {
+.blogPostLayoutContainer {
 	display: flex;
 	flex-wrap: nowrap;
 	max-width: 1500px;
 	margin: 0 auto;
 }
 
-.center-container {
+.centerContainer {
 	margin: 0 auto;
 	max-width: 100%;
 }
 
-.left-container,
-.right-container {
+.rightContainer,
+.leftContainer {
 	top: 3rem;
 	overflow: auto;
 	height: calc(100vh - 10rem);
@@ -23,7 +23,7 @@
 	min-width: 220px;
 }
 
-.right-container {
+.rightContainer {
 	margin-left: 2rem;
 	transition: 300ms opacity ease-in-out;
 }
@@ -31,13 +31,13 @@
 // This makes up ~80% of desktop users as-of Oct 2021 (past 3 months)
 // For reference, ~80% of desktop users had >750px height
 @media (max-width: 1270px) {
-	.right-container {
+	.rightContainer {
 		opacity: 0;
 	}
 }
 
-.left-container,
-.right-container {
+.leftContainer,
+.rightContainer {
 	width: 1px;
 	flex-grow: 1;
 	position: sticky;

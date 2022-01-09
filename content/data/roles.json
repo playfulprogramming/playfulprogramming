@@ -1,14 +1,18 @@
 [
   {
-    "roleId": "developer",
+    "id": "developer",
     "prettyname": "Developer"
   },
   {
-    "roleId": "designer",
+    "id": "designer",
     "prettyname": "Designer"
   },
   {
-    "roleId": "devops",
+    "id": "devops",
     "prettyname": "Dev-ops"
+  },
+  {
+    "id": "author",
+    "prettyname": "Author"
   }
 ]
