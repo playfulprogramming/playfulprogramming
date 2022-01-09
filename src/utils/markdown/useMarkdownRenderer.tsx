@@ -3,11 +3,17 @@ import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
-import { getHeadings, getMedia, getLinks } from "./MarkdownRenderer";
+import { getHeadings, getMedia, getLinks, getTabs } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
+
+const TabHeader: React.FC = ({ children }) => {
+  return <>{children}</>;
+};
+
+TabHeader.displayName = "TabHeader";
 
 const getComponents = (
   props: useMarkdownRendererProps,
@@ -20,30 +26,7 @@ const getComponents = (
     html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
-    tabs: ({ children }: { children: ReactNode[] }) => (
-      <section>
-        <h1>HELLO, SACRAMENTO</h1>
-        {children}
-      </section>
-    ),
-    tab: ({ children }: { children: ReactNode[] }) => (
-      <div>
-        <h2>Start tab</h2>
-        {children}
-      </div>
-    ),
-    ["tab-header"]: ({ children }: { children: ReactNode[] }) => (
-      <div>
-        <h3>Tab header</h3>
-        {children}
-      </div>
-    ),
-    ["tab-contents"]: ({ children }: { children: ReactNode[] }) => (
-      <div>
-        <h4>Tab contents</h4>
-        {children}
-      </div>
-    ),
+    ...getTabs(props),
     ...getHeadings(props),
     ...getMedia(props),
     ...getLinks(props),
