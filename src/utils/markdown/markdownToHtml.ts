@@ -64,13 +64,66 @@ export default async function markdownToHtml(
         tree,
         { type: "raw", value: "<!-- tabs:start -->" } as never,
         { type: "raw", value: "<!-- tabs:end -->" } as never,
-        (nodes) => [
-          {
-            type: "element",
-            tagName: "tabs",
-            children: nodes,
-          },
-        ]
+        (nodes) => {
+          let sections = [];
+          let sectionStarted = false;
+          let isNodeHeading = (n: any) =>
+            n.type === "element" && /h[1-6]/.exec(n.tagName);
+          for (const localNode of nodes as any[]) {
+            if (!sectionStarted && !isNodeHeading(localNode)) continue;
+            sectionStarted = true;
+
+            /**
+             * ```
+             * <!-- tabs:start -->
+             *
+             * #### **English**
+             *
+             * Hello!
+             *
+             * #### **French**
+             *
+             * Bonjour!
+             *
+             * <!-- tabs:end -->
+             * ```
+             *
+             * Will result in:
+             *
+             * <tabs>
+             *   <tab>
+             *     <tab-header><b>English</b></tab-header>
+             *     <tab-content>
+             *       <p>Hello!</p>
+             *     </tab-content>
+             *   </tab>
+             *   <!-- ... -->
+             * </tabs>
+             */
+            if (isNodeHeading(localNode)) {
+              const header = {
+                type: "element",
+                tagName: "tab-header",
+                children: localNode.children,
+              };
+
+              const contents = {
+                type: "element",
+                tagName: "tab-contents",
+                children: [],
+              };
+
+              localNode.tagName = "tab";
+              localNode.children = [header, contents];
+
+              sections.push(localNode);
+              continue;
+            }
+            sections[sections.length - 1].children[1].children.push(localNode);
+          }
+
+          return sections;
+        }
       );
       return tree;
     })

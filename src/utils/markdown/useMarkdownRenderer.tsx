@@ -20,7 +20,30 @@ const getComponents = (
     html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
-    tabs: ({ children }) => <h1>TESTING{children}</h1>,
+    tabs: ({ children }: { children: ReactNode[] }) => (
+      <section>
+        <h1>HELLO, SACRAMENTO</h1>
+        {children}
+      </section>
+    ),
+    tab: ({ children }: { children: ReactNode[] }) => (
+      <div>
+        <h2>Start tab</h2>
+        {children}
+      </div>
+    ),
+    ["tab-header"]: ({ children }: { children: ReactNode[] }) => (
+      <div>
+        <h3>Tab header</h3>
+        {children}
+      </div>
+    ),
+    ["tab-contents"]: ({ children }: { children: ReactNode[] }) => (
+      <div>
+        <h4>Tab contents</h4>
+        {children}
+      </div>
+    ),
     ...getHeadings(props),
     ...getMedia(props),
     ...getLinks(props),
