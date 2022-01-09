@@ -10,17 +10,27 @@ const Tabs: React.FC = ({ children }) => {
 Tabs.displayName = "Tabs";
 
 const Tab: React.FC = ({ children }) => {
-  return <>{children}</>;
+  // TODO: use `Children.clone` to pass `index`
+  return (
+    <li role="tab" className="react-tabs__tab">
+      {children}
+    </li>
+  );
 };
 Tab.displayName = "Tab";
 
 const TabList: React.FC = ({ children }) => {
-  return <>{children}</>;
+  return (
+    <ul role="tablist" className="react-tabs__tab-list">
+      {children}
+    </ul>
+  );
 };
 TabList.displayName = "TabList";
 
 const TabPanel: React.FC = ({ children }) => {
-  return <>{children}</>;
+  // TODO: use `Children.clone` to pass `selected`
+  return <div role="tabpanel">{children}</div>;
 };
 TabPanel.displayName = "TabPanel";
 
