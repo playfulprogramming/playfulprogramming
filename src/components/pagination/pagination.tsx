@@ -25,21 +25,25 @@ export const Pagination = ({ absolutePath }: PaginationProps) => {
       previousLabel={
         <>
           <span aria-hidden={true}>{"<"}</span>
-          <span aria-hidden={false}> Previous</span>
+          <span aria-hidden={false} className={styles.srOnly}>
+            Previous
+          </span>
         </>
       }
       nextLabel={
         <>
-          <span aria-hidden={false}>Next </span>
+          <span aria-hidden={false} className={styles.srOnly}>
+            Next
+          </span>
           <span aria-hidden={true}>{">"}</span>
         </>
       }
       breakLabel="..."
       breakClassName="break-me"
       pageCount={pageCount}
-      marginPagesDisplayed={2}
+      marginPagesDisplayed={0}
       forcePage={pageIndex}
-      pageRangeDisplayed={5}
+      pageRangeDisplayed={3}
       hrefBuilder={(pageIndex) => {
         if (pageIndex === 1) {
           return `${forwardSlashedBase}`;
