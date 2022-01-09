@@ -16,6 +16,7 @@ import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
+import replaceAllBetween from "unist-util-replace-all-between";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -57,6 +58,21 @@ export default async function markdownToHtml(
     // TODO: https://github.com/ksoichiro/rehype-img-size/issues/4
     .use(rehypeImageSize, {
       dir: imgDirectory,
+    })
+    .use(() => (tree) => {
+      replaceAllBetween(
+        tree,
+        { type: "raw", value: "<!-- tabs:start -->" } as never,
+        { type: "raw", value: "<!-- tabs:end -->" } as never,
+        (nodes) => [
+          {
+            type: "element",
+            tagName: "tabs",
+            children: nodes,
+          },
+        ]
+      );
+      return tree;
     })
     .use(rehypeSlug, {
       maintainCase: true,
