@@ -15,31 +15,127 @@
 
 You may have heard about various frameworks and libraries that modern front-end developers utilize to build large-scale applications. Some of these frameworks you may have heard of are Angular, React, and Vue. While each of these libraries bring their own strengths and weaknesses, many of the core concepts are shared between them.
 
-With this series of articles, we're going to be outlining core concepts that are shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
-
-# Components
+With this course, we're going to be outlining core concepts that are shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
 
 Let's first explain why frameworks like Angular, React, or Vue differ from other libraries that may have come before it, like jQuery.
 
 It all comes down to a single core concept at the heart of each of them: **Componentization**.
 
-The idea of a component is that you have a modular system of HTML, JS, and CSS comprised of individual "components" that you them compose to make up a larger UI. For example, instead of one HTML file that contains:
+# What's an app, anyway?
 
-- Header
-- Sidenav
-- Form logic
-- Footer
+Before we dive into the technical aspects, let's think about what an app consists of at a high level.
 
-You might have a component for each of them and end up with a component to roll them all into a single page like this:
+Take the following application into consideration.
+
+**// Add screenshot of google-drive-like app, with sidebar and contents**
+
+Here, our app has many parts to it. A sidebar to contain navigation links, a list of files for a user to navigate, and a details pane about the file the user currently has selected.
+
+What's more, each part of the app needs different things.
+
+The sidebar may not require complex programming logic, but we may want to style it with nice colors and highlight effects when the user hovers. Likewise, the file list may contain complex logic to handle a user right clicking or dragging and dropping files.
+
+When you break it down, each part of the app has three primary concerns:
+
+- Logic - What the app does
+- Styling - How the app looks visually
+- Structure - How the app is laid out
+
+While the mockup above does a good job at displaying things structurally, let's look at what the app looks like structurally:
+
+**// Add screenshot of mockup turned into a skeleton with numbers in order of what the user should be interacting with**
+
+Here, each section is laid out to showcase the order in which a user might typically walk through an app. While some sections may be more important than others, the structure of the page is meant more to represent a user's flow.
+
+Now that we understand the structure, let's add some functionality. We'll include a small snippet of text to each section to outline what the goals are. In the future, we'd use these as "acceptance" criteria. This is what our logic will provide to the app.
+
+**// Add screenshot of mockup turned into a skeleton with numbers in order of what the user should be interacting with**
+
+Great! Now let's go back and add in the styling to recreate the mockup we had before!
+
+**// Add back mockup screenshot**
+
+For each step of the process, we can think of it like we're adding in a new programming language.
+
+- HTML is used for adding in the strucuture of an application. The sidenav might be a `<nav>` tag, for example
+- JavaScript adds in the logic of the application on top of the structure.
+- CSS is utilized to make all of it look nice, and to potentially add some smaller UX improvements
+
+
+The way I typically think about these 3 pieces of tech is:
+
+HTML is like the building blueprints. It allows you to see the overarching pictures of what the end result will look like. They define the walls, doors, and flow of a home. 
+
+JavaScript is like the electrical, plumbing, and appliances of the house. They allow you to interact with the building in a meaningful way.
+
+CSS is like the paint and other decor that goes into a home. They're what makes the house feel lived in and inviting. They can't exist without the rest of the home, but rest assured without it it's a miserable experience.
+
+# Parts of the app
+
+Now that we've introduced the idea of what an app looks like, let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup and take a look at that in more depth.
+
+**// Add screenshot of mockup with each section in a 3d-ish "blown up" kinda view**
+
+Here, we can more distinctly see how each part of the app has it's own structure, styling, and logic.
+
+The files list, for example, contains the structure of each files being its own item, logic about what buttons do which actions, and some CSS to make it look engaging.
+
+While the code for this section might look something like this:
 
 ```html
-<div>
-  <header></header>
-  <sidenav></sidenav>
-  <form-logic></form-logic>
-  <footer></footer>
-</div>
+<section>
+    <button id="addButton"><span class="icon">plus</span></button>
+    <!-- ... -->
+</section>
+<ul>
+    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <!-- ... -->
+<ul>
+<script>
+var addButton = document.querySelector("#addButton")
+addButton.addEventListener('click', () => {
+  // ...
+})
+</script>
 ```
 
-As you'll notice, the layout of these "components" is very similar to [the way we structure a DOM tree](https://unicorn-utterances.com/posts/understanding-the-dom/) 
+We might have a mental model to break down each section into smaller ones. If we use psuedo-code to represent our mental model of the actual codebase, it might look something like this:
 
+```html
+<files-buttons>
+	<add-button></add-button>
+</files-buttons>
+<files-list>
+	<file name="File one"></file>
+</files-list>
+```
+
+
+
+
+
+
+
+
+
+------
+
+Components can have multiple elements
+
+Components can have multiple methods
+
+Components can have multiple classes
+
+------
+
+Components can be re-used
+
+Components can be used for organized. Keeping files logic with files
+
+Components can contain themselves
+
+Components can accept inputs
+
+Components can output*
+
+Components make up tree relationship
