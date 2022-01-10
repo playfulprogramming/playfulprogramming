@@ -110,7 +110,53 @@ We might have a mental model to break down each section into smaller ones. If we
 </files-list>
 ```
 
+Luckily, by using frameworks, this mental model can be reflect in real code!
 
+Let's look at what `<file>` might look like in each framework:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const File = () => {
+  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+}
+```
+
+Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
+
+While JSX looks closer to HTML than normal JS, it is not supported in the language itself. Instead, it requires a compiler (or transpiler) like [Babel](https://babeljs.io/) to compile down to normal JS. Under-the-hood this JSX compiles down to function calls.
+
+For example, the above would be turned into:
+
+```javascript
+var spanTag = React.createElement("span", null, "12/03/21");
+var aTag = React.createElement("a", {
+    href: "/file/file_one"
+}, "File one", spanTag);
+React.createElement("li", null, aTag);
+```
+
+> While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. This is simply to demonstrate why you need Babel in React applications.
+>
+> You also likely do not need to setup Babel yourself from scratch. [Create React App](https://create-react-app.dev) - the tool React team recommends to manage your React apps - handles it out-of-the-box for you invisibly.
+
+## Angular
+
+
+
+## Vue
+
+```javascript
+Vue.component('file', { 
+	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+})
+```
+
+Here, we're using a template field on a new Vue component. This 
+
+<!-- tabs:end -->
 
 
 
