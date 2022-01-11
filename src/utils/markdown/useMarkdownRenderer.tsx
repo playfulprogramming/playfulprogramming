@@ -6,6 +6,7 @@ import { ReactElement, ReactNode } from "react";
 import { getHeadings, getMedia, getLinks, getTabs } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
+import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
@@ -41,7 +42,7 @@ export const useMarkdownRenderer = (
   // This only parses once to avoid serialization errors.
   // DO NOT ADD OTHER REHYPE PLUGINS OR REMARK PLUGINS HERE
   // This works in SRR just fine
-  return React.useMemo(
+  const result = React.useMemo(
     () =>
       unified()
         .use(rehypeParse)
@@ -52,4 +53,6 @@ export const useMarkdownRenderer = (
         .processSync(props.markdownHTML).result as ReactElement,
     [comps, props]
   );
+
+  return <MarkdownDataProvider>{result}</MarkdownDataProvider>;
 };

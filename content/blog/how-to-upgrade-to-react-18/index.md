@@ -27,6 +27,42 @@ Ciao!
 
 <!-- tabs:end -->
 
+STOP TAB
+
+NEW TAB
+
+<!-- tabs:start -->
+
+#### English
+
+Hello!
+
+#### French
+
+Bonjour!
+
+#### Italian
+
+Ciao!
+
+<!-- tabs:end -->
+
+STOP TAB
+
+NEW TAB
+
+<!-- tabs:start -->
+
+#### One
+
+Hello!
+
+#### Two
+
+Bonjour!
+
+<!-- tabs:end -->
+
 React 18 is the latest in a long line of major releases of React. With it you gain access to: [new features for Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html), new [useId](https://github.com/reactwg/react-18/discussions/111), [useSyncExternalStore](https://github.com/reactwg/react-18/discussions/86), and [useDeferredValue](https://github.com/reactwg/react-18/discussions/100) hooks, as well as the new [startTransition](https://github.com/reactwg/react-18/discussions/100) API.
 
 While React 18 is not yet a stable release, testing out your application can be useful. 

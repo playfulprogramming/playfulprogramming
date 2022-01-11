@@ -6,9 +6,10 @@ import {
   TabList as ReactTabList,
   TabPanel as ReactTabPanel,
 } from "react-tabs";
-import { ReactElement } from "react";
+import { ReactElement, useCallback } from "react";
 import { onlyText } from "react-children-utilities";
 import { useIsomorphicLayoutEffect } from "react-use";
+import { MarkdownDataContext } from "utils/markdown/MarkdownRenderer/data-context";
 
 /**
  * @see https://github.com/reactjs/react-tabs for layout of "HTML" nodes
@@ -30,25 +31,37 @@ const Tabs: React.FC = ({ children }) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+  const { dispatch, state } = React.useContext(MarkdownDataContext);
+
+  const matchTextToIndex = useCallback(
+    (tabText: string) => {
+      if (!tabsHeadingText?.length) {
+        return -1;
+      }
+      const matchIndex = tabsHeadingText.findIndex(
+        (headingText) => tabText === headingText
+      );
+      if (matchIndex === -1) return -1;
+      return matchIndex;
+    },
+    [tabsHeadingText]
+  );
+
   useIsomorphicLayoutEffect(() => {
-    if (!tabsHeadingText?.length) {
-      return;
-    }
-    const tabSelect = localStorage.getItem("tabs-selection");
-    if (!tabSelect) return;
-    const matchIndex = tabsHeadingText.findIndex(
-      (headingText) => tabSelect === headingText
-    );
-    if (matchIndex === -1) return;
-    setSelectedIndex(matchIndex);
-  }, [tabsHeadingText]);
+    const selectedTextIdx = matchTextToIndex(state.selectedTabText);
+    if (selectedTextIdx === -1) return;
+    setSelectedIndex(selectedTextIdx);
+  }, [state.selectedTabText]);
 
   const onSelect = React.useCallback(
     (index: number) => {
-      localStorage.setItem("tabs-selection", tabsHeadingText[index]);
       setSelectedIndex(index);
+      dispatch({
+        type: "SET_SELECTED_TAB_TEXT",
+        payload: tabsHeadingText[index],
+      });
     },
-    [tabsHeadingText]
+    [dispatch, tabsHeadingText]
   );
 
   return (
