@@ -18,14 +18,18 @@ const Tabs: React.FC = ({ children }) => {
   const tabsHeadingText = React.useMemo(() => {
     const childrenArr = React.Children.toArray(children);
     const tabList = childrenArr.filter(
-      (child) => (child as ReactElement).type === ReactTabList
+      (child) => (child as ReactElement)?.type === ReactTabList
     )[0];
     // A list of Tabs
     const tabsCompList = (tabList as ReactElement).props.children;
-    const tabTextArr = tabsCompList.map((tabComp: ReactElement) => {
-      // Contents of tab header
-      return onlyText(tabComp.props.children);
-    });
+    const tabTextArr = tabsCompList
+      .filter((maybeTabComp: ReactElement) => {
+        return maybeTabComp?.type === ReactTab;
+      })
+      .map((tabComp: ReactElement) => {
+        // Contents of tab header
+        return onlyText(tabComp.props.children);
+      });
     return tabTextArr as string[];
   }, [children]);
 
