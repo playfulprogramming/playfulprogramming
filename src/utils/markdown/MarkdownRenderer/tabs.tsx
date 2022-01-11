@@ -8,6 +8,7 @@ import {
 } from "react-tabs";
 import { ReactElement } from "react";
 import { onlyText } from "react-children-utilities";
+import { useIsomorphicLayoutEffect } from "react-use";
 
 /**
  * @see https://github.com/reactjs/react-tabs for layout of "HTML" nodes
@@ -24,9 +25,37 @@ const Tabs: React.FC = ({ children }) => {
       // Contents of tab header
       return onlyText(tabComp.props.children);
     });
-    return tabTextArr;
+    return tabTextArr as string[];
   }, [children]);
-  return <ReactTabs>{children}</ReactTabs>;
+
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!tabsHeadingText?.length) {
+      return;
+    }
+    const tabSelect = localStorage.getItem("tabs-selection");
+    if (!tabSelect) return;
+    const matchIndex = tabsHeadingText.findIndex(
+      (headingText) => tabSelect === headingText
+    );
+    if (matchIndex === -1) return;
+    setSelectedIndex(matchIndex);
+  }, [tabsHeadingText]);
+
+  const onSelect = React.useCallback(
+    (index: number) => {
+      localStorage.setItem("tabs-selection", tabsHeadingText[index]);
+      setSelectedIndex(index);
+    },
+    [tabsHeadingText]
+  );
+
+  return (
+    <ReactTabs selectedIndex={selectedIndex} onSelect={onSelect}>
+      {children}
+    </ReactTabs>
+  );
 };
 Tabs.displayName = "Tabs";
 
