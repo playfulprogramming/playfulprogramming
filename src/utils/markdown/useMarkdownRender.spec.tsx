@@ -36,6 +36,37 @@ test("tabs should render", () => {
   expect(screen.getByText("Goodbye")).toBeInTheDocument();
 });
 
+test("tabs should persist", () => {
+  localStorage.setItem("tabs-selection", "");
+  const comp = (
+    <Comp
+      props={{
+        serverPath: [],
+        markdownHTML: `
+<tabs>
+  <tab-list>
+    <tab>Header</tab>
+    <tab>Header2</tab>
+  </tab-list>
+  <tab-panel>Hello</tab-panel>
+  <tab-panel>Goodbye</tab-panel>
+</tabs>
+    `,
+      }}
+    />
+  );
+  const { rerender } = render(comp);
+
+  expect(screen.getByText("Hello")).toBeInTheDocument();
+  fireEvent.click(screen.getByText("Header2"));
+  expect(screen.queryByText("Hello")).not.toBeInTheDocument();
+  expect(screen.getByText("Goodbye")).toBeInTheDocument();
+
+  rerender(comp);
+  expect(screen.queryByText("Hello")).not.toBeInTheDocument();
+  expect(screen.getByText("Goodbye")).toBeInTheDocument();
+});
+
 test("tabs should sync values", () => {
   localStorage.setItem("tabs-selection", "");
   render(
