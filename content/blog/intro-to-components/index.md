@@ -183,9 +183,8 @@ This process of "drawing" is called "rendering".
 
 Because modern web apps consist of multiple files (that are then often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
 
-
-
 <!-- tabs:start -->
+
 ## React
 
 ```html
@@ -283,7 +282,240 @@ createApp(File).mount("#root");
 
 <!-- tabs:end -->
 
+Once a component is rendered, you're able to do a lot more with it!
 
+For example, just like [nodes in the DOM]() have relationships, so too can components.
+
+# Children, siblings, and more oh my!
+
+While our `File` component currently contains HTML elements, components may also contain other components!
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const File = () => {
+  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+}
+
+const FileList = () => {
+    return <ul>
+    	<File/>
+    </ul>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+  `
+})
+export class FileComponent {
+}
+
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+		<file></file>
+    </ul>
+  `
+})
+export class FileListComponent {
+}
+```
+
+## Vue
+
+```javascript
+const File = { 
+	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+}
+
+const FileList = {
+    template: `
+    	<ul>
+    		<file></file>
+        </ul>
+    `,
+    components: {
+        File
+    }
+}
+```
+
+We need to make sure to register all of the components we'll be using in our component! Otherwise, Vue will throw an error:
+
+> Failed to resolve component: file
+
+<!-- tabs:end -->
+
+
+
+Looking through our `File` component, we can also notice that we're rendering multiple elements inside of a single component. Funnily enough, this has the fun side effect that we can also render multiple components inside of a parent component.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const FileList = () => {
+    return <ul>
+    	<File/>
+    	<File/>
+    	<File/>
+    </ul>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+		<file></file>
+		<file></file>
+		<file></file>
+    </ul>
+  `
+})
+export class FileListComponent {
+}
+```
+
+## Vue
+
+```javascript
+const FileList = {
+    template: `
+    	<ul>
+    		<file></file>
+    		<file></file>
+    		<file></file>
+        </ul>
+    `,
+    components: {
+        File
+    }
+}
+```
+
+<!-- tabs:end -->
+
+This is a particularly useful feature of components. It allows you to reuse aspects of your structure (and styling + logic, but I'm getting ahead of myself) without having to repeat yourself. It allows for a very DRY architecture where your code is declared once and reused elswhere.
+
+> That stands for "Don't repeat yourself" and is often heralded as a gold standard of code quality!
+
+It's worth remembering that we're using the term "parent" to refer to our `FileList` component in relation to our `File` component. This is because, like the DOM tree, each framework's set of components reflect a tree.
+
+**// Add in DOM tree representation of `File` and `FileList`**
+
+This means that the related `File` components are "siblings" of one-another, each with a "parent" of `FileList`.
+
+We can extend this hierarchical relationship to have "grandchildren" and beyond as well:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const Date = () => {
+  return <span>12/03/21</span>    
+}
+
+
+const File = () => {
+  return <li><a href="/file/file_one">File one<Date/></a></li>
+}
+
+const FileList = () => {
+    return <ul>
+    	<File/>
+    	<File/>
+    	<File/>
+    </ul>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'date',
+  template: `
+    <span>12/03/21</span>
+  `
+})
+export class DateComponent {
+}
+
+@Component({
+  selector: 'file',
+  template: `
+    <li><a href="/file/file_one">File one<date></date></a></li>
+  `
+})
+export class FileComponent {
+}
+
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+		<file></file>
+		<file></file>
+		<file></file>
+    </ul>
+  `
+})
+export class FileListComponent {
+}
+```
+
+## Vue
+
+```javascript
+const Date = { 
+	template: `<span>12/03/21</span>`
+}
+
+const File = { 
+	template: `<li><a href="/file/file_one">File one<date></date></a></li>`,
+    components: {
+        Date
+    }
+}
+
+const FileList = {
+    template: `
+    	<ul>
+    		<file></file>
+    		<file></file>
+    		<file></file>
+        </ul>
+    `,
+    components: {
+        File
+    }
+}
+```
+
+<!-- tabs:end -->
+
+
+
+# Inputs
+
+A file list containing only a single kind of file isn't much of a file list, however. Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
+
+Let's have the file name be an input to our `File` component: 
 
 
 
@@ -292,8 +524,6 @@ createApp(File).mount("#root");
 
 
 ------
-
-Components can have multiple elements
 
 Components can have multiple methods
 
