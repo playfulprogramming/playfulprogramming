@@ -114,8 +114,6 @@ Luckily, by using frameworks, this mental model can be reflect in real code!
 
 Let's look at what `<file>` might look like in each framework:
 
-
-
 <!-- tabs:start -->
 
 ## React
@@ -164,12 +162,128 @@ export class FileComponent {
 ## Vue
 
 ```javascript
-Vue.component('file', { 
+const File = { 
 	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
-})
+}
 ```
 
 <!-- tabs:end -->
+
+These are called "components". Components have multiple properties, which we'll touch on shortly. 
+
+We can see that each framework has their own syntax to display these components. While each framework has its pros and cons, many of the fundamental concepts behind them are shared. 
+
+While this is cool - it leads to a good question: how do you _use_ these components in HTML?
+
+# Rendering the app
+
+While these components might look like simple HTML, they're rather capable of further usage. Because of this, each framework actually uses JavaScript under-the-hood to draw these components on-screen.
+
+This process of "drawing" is called "rendering".
+
+Because modern web apps consist of multiple files (that are then often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
+
+
+
+<!-- tabs:start -->
+## React
+
+```html
+<!-- index.html -->
+<html>
+	<body>
+		<div id="root"></div>
+	</body>
+</html>
+```
+
+
+## Angular
+
+```html
+<!-- index.html -->
+<html>
+	<body>
+		<!-- This should match the `selector` of the -->
+    <!-- component you want here -->
+		<file></file>
+	</body>
+</html>
+```
+
+## Vue
+
+```html
+<!-- index.html -->
+<html>
+	<body>
+		<div id="root"></div>
+	</body>
+</html>
+```
+
+<!-- tabs:end -->
+
+
+
+Then, in JavaScript, you "render" a component into this element.
+
+<!-- tabs:start -->
+
+## React
+
+
+```jsx
+import { createRoot } from 'react-dom';
+
+const File = () => {
+  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+}
+
+createRoot(document.getElementById('root')).render(<File />);
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+  `
+})
+export class FileComponent {
+}
+
+@NgModule({
+  imports: [BrowserModule],
+  declarations: [FileComponent],
+  bootstrap: [FileComponent],
+})
+export class AppModule {}
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+```
+
+> Angular has the concept of ["Modules"](https://angular.io/guide/architecture-modules) that allows you to opimize your application by keeping bundle size small. While it's an important part of Angular, don't worry too much about it for the moment.
+>
+> What _is_ important to note is that for each component, you need to register components within the `declarations` before usage
+
+## Vue
+
+```javascript
+const File = { 
+	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+}
+
+import { createApp } from 'vue';
+
+createApp(File).mount("#root");
+```
+
+<!-- tabs:end -->
+
+
 
 
 
