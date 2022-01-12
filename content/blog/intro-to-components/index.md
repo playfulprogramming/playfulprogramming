@@ -426,13 +426,13 @@ We can extend this hierarchical relationship to have "grandchildren" and beyond 
 ## React
 
 ```jsx
-const Date = () => {
+const FileDate = () => {
   return <span>12/03/21</span>    
 }
 
 
 const File = () => {
-  return <li><a href="/file/file_one">File one<Date/></a></li>
+  return <li><a href="/file/file_one">File one<FileDate/></a></li>
 }
 
 const FileList = () => {
@@ -448,18 +448,18 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span>12/03/21</span>
   `
 })
-export class DateComponent {
+export class FileDateComponent {
 }
 
 @Component({
   selector: 'file',
   template: `
-    <li><a href="/file/file_one">File one<date></date></a></li>
+    <li><a href="/file/file_one">File one<file-date></file-date></a></li>
   `
 })
 export class FileComponent {
@@ -482,14 +482,14 @@ export class FileListComponent {
 ## Vue
 
 ```javascript
-const Date = { 
+const FileDate = { 
 	template: `<span>12/03/21</span>`
 }
 
 const File = { 
-	template: `<li><a href="/file/file_one">File one<date></date></a></li>`,
+	template: `<li><a href="/file/file_one">File one<file-date></file-date></a></li>`,
     components: {
-        Date
+        FileDate
     }
 }
 
@@ -508,6 +508,168 @@ const FileList = {
 ```
 
 <!-- tabs:end -->
+
+# Logic
+
+HTML isn't the only thing components are able to store, however! Like we mentioned earlier, apps (and by extension, each part of the respective apps) require three parts:
+
+- Structure (HTML)
+- Styling (CSS)
+- Logic (JS)
+
+Components can handle all three!
+
+While we'll touch on styling more in the future, let's take a look at how we can declare logic in a component by making `date` show the current date instead of a static date.
+
+We'll start by adding in a simple function to display the current date in a human readable form.
+
+
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const FileDate = () => {
+  const date = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+  return <span>12/03/21</span>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'date',
+  template: `
+    <span>12/03/21</span>
+  `
+})
+export class FileDateComponent {
+	date = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
+}
+```
+
+## Vue
+
+```javascript
+const FileDate = { 
+	template: `<span>12/03/21</span>`,
+    data() {
+        return {
+            date: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+        }
+    }
+}
+```
+
+<!-- tabs:end -->
+
+While this logic works, it's a bit verbose (and slow, due to recreating the `Date` object thrice) - let's break it out into a method, contained within the component.
+
+```javascript
+function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const month = today.getMonth() + 1;
+    const date = today.getDate();
+    const year = today.getFullYear();
+    return month + "/" + date + "/" + year;
+}
+```
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const FileDate = () => {
+  function formatDate() {
+	const today = new Date();
+	// Month starts at 0, annoyingly
+	const month = today.getMonth() + 1;
+    const date = today.getDate();
+    const year = today.getFullYear();
+    return month + "/" + date + "/" + year;
+  }
+    
+  const date = formatDate();
+  return <span>12/03/21</span>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'date',
+  template: `
+    <span>12/03/21</span>
+  `
+})
+export class FileDateComponent {
+	date = this.formatDate();
+    
+    formatDate() {
+	  const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + "/" + date + "/" + year;
+    }
+}
+```
+
+## Vue
+
+```javascript
+const FileDate = {
+  template: `<span>{{datee}}</span>`,
+  data() {
+    return {
+      datee: this.formatDate(),
+    };
+  },
+  methods: {
+    formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + '/' + date + '/' + year;
+    },
+  },
+};
+```
+
+> This syntax might look a bit off. After all, why are we using `this` when it's not a class we're calling within.
+>
+> Luckily for us, Vue expects us to declare our methods and data in this way. As a result, it'll automatically bind `this` for us.
+
+<!-- tabs:end -->
+
+
+
+
+# Lifecycle
+
+While you can rest assured this code works, since I'm the author and I'd probably be a bit embarrassed by it not running...
+
+> Way to temp fate there, author
+
+... It's important to realize that not all of our code will functions will work as intended first try. Moreover: What on earth is that function even outputting - we don't currently have a way to evaluate the output?
+
+Let's fix that by telling our components that "once you're rendered on screen, `console.log` the value of that data".
+
+
+
+
+
+# Display
+
+While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is.
 
 
 
