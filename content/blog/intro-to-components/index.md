@@ -27,7 +27,7 @@ Before we dive into the technical aspects, let's think about what an app consist
 
 Take the following application into consideration.
 
-**// Add screenshot of google-drive-like app, with sidebar and contents**
+![A mockup of a file management application. Contains two sidebars on left and right and a file list](./fancy_mockup.jpg)
 
 Here, our app has many parts to it. A sidebar to contain navigation links, a list of files for a user to navigate, and a details pane about the file the user currently has selected.
 
@@ -43,17 +43,17 @@ When you break it down, each part of the app has three primary concerns:
 
 While the mockup above does a good job at displaying things structurally, let's look at what the app looks like structurally:
 
-**// Add screenshot of mockup turned into a skeleton with numbers in order of what the user should be interacting with**
+![The same mockup of the file list but with everything greyed out and showing just blocks](./after_html.png)
 
-Here, each section is laid out to showcase the order in which a user might typically walk through an app. While some sections may be more important than others, the structure of the page is meant more to represent a user's flow.
+Here, each section is laid out without any additional styling. Simply a wireframe of what the page will look like with each section containing blocks that are laid out in fairly simple ways. This is what HTML will help us build.
 
 Now that we understand the structure, let's add some functionality. We'll include a small snippet of text to each section to outline what the goals are. In the future, we'd use these as "acceptance" criteria. This is what our logic will provide to the app.
 
-**// Add screenshot of mockup turned into a skeleton with numbers in order of what the user should be interacting with**
+![The same wireframe mockup but with pointers to each section outlining what logic should be added to each section](after_js.png)
 
 Great! Now let's go back and add in the styling to recreate the mockup we had before!
 
-**// Add back mockup screenshot**
+![The same mockup with styling as before](./fancy_mockup.jpg)
 
 For each step of the process, we can think of it like we're adding in a new programming language.
 
@@ -74,7 +74,7 @@ CSS is like the paint and other decor that goes into a home. They're what makes 
 
 Now that we've introduced the idea of what an app looks like, let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup and take a look at that in more depth.
 
-**// Add screenshot of mockup with each section in a 3d-ish "blown up" kinda view**
+![A top-down 3d view of the stylized mockup](./broken_down.png)
 
 Here, we can more distinctly see how each part of the app has it's own structure, styling, and logic.
 
