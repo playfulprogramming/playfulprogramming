@@ -539,10 +539,21 @@ We'll start by adding in a simple function to display the current date in a huma
 
 ```jsx
 const FileDate = () => {
-  const date = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+  // Don't worry what "setDate" is yet. We'll touch on it soon
+  const [date, setDate] = React.useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
   return <span>12/03/21</span>
 }
 ```
+
+> `useState` is what React uses to store data that is set by the user. It's first argument (that we're passing a string into) is used to set the initial value.
+>
+> We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
+>
+> ```jsx
+> const dateArr = React.useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+> const date = dateArr[0];
+> const setDate = dateArr[1];
+> ```
 
 ## Angular
 
@@ -635,7 +646,7 @@ export class FileDateComponent {
 
 ```javascript
 const FileDate = {
-  template: `<span>{{date}}</span>`,
+  template: `<span>12/03/21</span>`,
   data() {
     return {
       date: this.formatDate(),
@@ -690,12 +701,12 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  useEffect(() => {
-	  const date = formatDate();
+  const [date, setDate] = formatDate();
 
-    console.log({date})
+  useEffect(() => {
+    console.log(date)
   }, []);
-  
+ 
   return <span>12/03/21</span>
 }
 ```
@@ -779,8 +790,194 @@ Speaking of updating data on screen - let's take a look at how we can dynamicall
 
 # Display
 
-While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show that code on-screen
+While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show `date` on-screen
 
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+import {useEffect, useState} from 'react';
+
+function formatDate() {
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
+  const year = today.getFullYear();
+  return month + "/" + date + "/" + year;
+}
+
+const FileDate = () => {  
+  const [date, setDate] = useState(formatDate());
+  
+  return <span>{date}</span>
+}
+```
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'date',
+  template: `
+    <span>{{date}}</span>
+  `
+})
+export class FileDateComponent {
+	date = this.formatDate();
+  
+    formatDate() {
+	  const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + "/" + date + "/" + year;
+    }
+}
+```
+
+### Vue
+
+```javascript
+const FileDate = {
+  template: `<span>{{date}}</span>`,
+  data() {
+    return {
+      date: this.formatDate(),
+    };
+  },
+  methods: {
+    formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + '/' + date + '/' + year;
+    },
+  },
+};
+```
+
+<!-- tabs:end -->
+
+
+Here, we're using each framework's method of injecting state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
+
+## Live Updating
+
+But what happens if we update `date` after the fact? Say we have a `setTimeout` call that updates the date to tomorrow's date after 5 minutes.
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+import {useEffect} from 'react';
+
+function formatDate(inputDate) {
+  // Month starts at 0, annoyingly
+  const month = inputDate.getMonth() + 1;
+  const date = inputDate.getDate();
+  const year = inputDate.getFullYear();
+  return month + "/" + date + "/" + year;
+}
+
+const FileDate = () => {  
+  const [date, setDate] = React.useState(formatDate(new Date()));
+
+  useEffect(() => {
+    setTimeout(() => {
+      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      const tomorrowDate = this.formatDate(tomorrow);
+      setDate(tomorrowDate);
+    }, 5000);
+  }, []);
+  
+  return <span>{date}</span>
+}
+```
+
+> Remember how we said we'd touch on `setDate`?
+>
+> Here, we're using `setDate` to tell React that it should re-render, which will update the value of `date`. This differs from Angular and Vue where you don't have to tell the framework when to re-render.
+>
+> There are benifits and downsides to this method, which we'll touch on in a future section.
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'date',
+  template: `
+    <span>12/03/21</span>
+  `
+})
+export class FileDateComponent implements OnInit {
+	date = this.formatDate(new Date());
+
+  ngOnInit() {
+    setTimeout(() => {
+      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      this.date = this.formatDate(tomorrow);
+    }, 5000);
+  }
+    
+  formatDate(inputDate) {
+    // Month starts at 0, annoyingly
+    const month = inputDate.getMonth() + 1;
+    const date = inputDate.getDate();
+    const year = inputDate.getFullYear();
+    return month + "/" + date + "/" + year;
+  }
+}
+```
+
+### Vue
+
+```javascript
+const FileDate = {
+  template: `<span>{{date}}</span>`,
+  data() {
+    return {
+      date: this.formatDate(new Date()),
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      this.date = this.formatDate(tomorrow);
+    }, 5000);
+  },
+  methods: {
+    formatDate(inputDate) {
+      // Month starts at 0, annoyingly
+      const month = inputDate.getMonth() + 1;
+      const date = inputDate.getDate();
+      const year = inputDate.getFullYear();
+      return month + "/" + date + "/" + year;
+    }
+  },
+};
+```
+
+<!-- tabs:end -->
+
+If you sit on these screens for a while, you'll see that they update automatically!
+
+While the frameworks detect changes under-the-hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on screen as opposed to the code that updates the DOM itself. 
+
+This is important because in order to update the DOM in an efficient way requires significant hevy-lifting. In fact, many of these frameworks store an entire copy of the DOM in-memory in order to keep that updating as lightweight as possible. We'll explain in the future exactly how this works.
 
 
 # Inputs
@@ -805,12 +1002,16 @@ Components can have multiple classes
 
 Components can be re-used
 
-Components can be used for organized. Keeping files logic with files
-
-Components can contain themselves
-
 Components can accept inputs
 
 Components can output*
 
-Components make up tree relationship
+--------------------
+
+## Future Sections
+
+
+
+Lifecycle methods
+
+Under-the-hood how do each framework render contents? (Vue = Proxy, Angular = Zone.js, React = explicit)
