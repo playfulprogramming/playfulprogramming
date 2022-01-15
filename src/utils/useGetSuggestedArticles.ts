@@ -163,12 +163,13 @@ export const getSuggestedArticles = (postNode: SlugPostInfo) => {
     .map(({ post }) => post);
   fillSuggestionArrayWith(tagSimilaritySorted);
 
-  const dateSorted = suggestedArticles.sort((postA, postB) => {
+  const dateSorted = suggestedPosts.sort((postA, postB) => {
     return (
       // Newest first
-      new Date(postB.published) > new Date(postA.published) ? -1 : 1
+      new Date(postB.published) < new Date(postA.published) ? -1 : 1
     );
   });
+
   fillSuggestionArrayWith(dateSorted);
 
   return suggestedArticles;
