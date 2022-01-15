@@ -41,6 +41,7 @@ const getElement = ({
       slug={slug}
       postsDirectory={postsDirectory}
       seriesPosts={seriesPosts}
+      suggestedPosts={[]}
     />
   </RouterContext.Provider>
 );
