@@ -11,7 +11,7 @@ jest.mock("utils/fs/api", () => {
     order: 1,
     series: "Test",
     slug: "/series-1",
-    tags: ["react", "angular", "vue"],
+    tags: ["series"],
     published: "10/10/1010",
     title: "Series Post 1",
   };
@@ -25,7 +25,7 @@ jest.mock("utils/fs/api", () => {
     order: 2,
     series: "Test",
     slug: "/series-2",
-    tags: ["react", "angular", "vue"],
+    tags: ["series"],
     published: "10/10/1011",
     title: "Series Post 2",
   };
@@ -39,7 +39,7 @@ jest.mock("utils/fs/api", () => {
     order: 3,
     series: "Test",
     slug: "/series-3",
-    tags: ["react", "angular", "vue"],
+    tags: ["series"],
     published: "10/10/1012",
     title: "Series Post 3",
   };
@@ -53,7 +53,7 @@ jest.mock("utils/fs/api", () => {
     order: 4,
     series: "Test",
     slug: "/series-4",
-    tags: ["react", "angular", "vue"],
+    tags: ["series"],
     published: "10/10/1013",
     title: "Series Post 4",
   };
@@ -67,12 +67,12 @@ jest.mock("utils/fs/api", () => {
     order: 5,
     series: "Test",
     slug: "/series-5",
-    tags: ["react", "angular", "vue"],
+    tags: ["series"],
     published: "10/10/1013",
     title: "Series Post 5",
   };
 
-  const maxSimilarTags1 = {
+  const angularReactVueSveltePost = {
     authors: [
       {
         name: "Corbin",
@@ -80,10 +80,52 @@ jest.mock("utils/fs/api", () => {
     ],
     order: undefined,
     series: undefined,
-    slug: "/react-angular-vue-post-1",
+    slug: "/react-angular-vue-svelte",
+    tags: ["react", "angular", "vue", "svelte"],
+    published: "10/10/1010",
+    title: "Angular React Vue Svelte",
+  };
+
+  const angularReactVuePost = {
+    authors: [
+      {
+        name: "Corbin",
+      },
+    ],
+    order: undefined,
+    series: undefined,
+    slug: "/react-angular-vue",
     tags: ["react", "angular", "vue"],
     published: "10/10/1010",
-    title: "Max Similar Post",
+    title: "Angular React Vue",
+  };
+
+  const angularReactPost = {
+    authors: [
+      {
+        name: "Corbin",
+      },
+    ],
+    order: undefined,
+    series: undefined,
+    slug: "/react-angular",
+    tags: ["react", "angular"],
+    published: "10/10/1010",
+    title: "Angular React",
+  };
+
+  const angularPost = {
+    authors: [
+      {
+        name: "Corbin",
+      },
+    ],
+    order: undefined,
+    series: undefined,
+    slug: "/angular",
+    tags: ["angular"],
+    published: "10/10/1010",
+    title: "Angular",
   };
 
   const noSimilarPosts = {
@@ -150,7 +192,10 @@ jest.mock("utils/fs/api", () => {
     seriesPost3,
     seriesPost4,
     seriesPost5,
-    maxSimilarTags1,
+    angularReactVueSveltePost,
+    angularReactVuePost,
+    angularReactPost,
+    angularPost,
     noSimilarPosts,
     newestPost,
     secondNewestPost,
@@ -162,7 +207,10 @@ jest.mock("utils/fs/api", () => {
         seriesPost3,
         seriesPost4,
         seriesPost5,
-        maxSimilarTags1,
+        angularReactVueSveltePost,
+        angularReactVuePost,
+        angularReactPost,
+        angularPost,
         noSimilarPosts,
         newestPost,
         secondNewestPost,
@@ -177,7 +225,10 @@ const {
   seriesPost2,
   seriesPost3,
   seriesPost4,
-  maxSimilarTags1,
+  angularReactVueSveltePost,
+  angularReactVuePost,
+  angularReactPost,
+  angularPost,
   noSimilarPosts,
   newestPost,
   secondNewestPost,
@@ -189,6 +240,15 @@ test("should suggest series articles starting with 1", () => {
   expect(suggestedArticles[0].slug).toBe(seriesPost2.slug);
   expect(suggestedArticles[1].slug).toBe(seriesPost3.slug);
   expect(suggestedArticles[2].slug).toBe(seriesPost4.slug);
+});
+
+test("recommend other similar tagged posts", () => {
+  const suggestedArticles = getSuggestedArticles(
+    angularReactVueSveltePost as any
+  );
+  expect(suggestedArticles[0].slug).toBe(angularReactVuePost.slug);
+  expect(suggestedArticles[1].slug).toBe(angularReactPost.slug);
+  expect(suggestedArticles[2].slug).toBe(angularPost.slug);
 });
 
 test("no similar tags recommends latest articles", () => {

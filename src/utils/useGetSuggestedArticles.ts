@@ -163,6 +163,7 @@ export const getSuggestedArticles = (postNode: SlugPostInfo) => {
     .map(({ post }) => post);
   fillSuggestionArrayWith(tagSimilaritySorted);
 
+  // TODO: replace with logic inside of a single for loop
   const dateSorted = suggestedPosts.sort((postA, postB) => {
     return (
       // Newest first
