@@ -164,7 +164,8 @@ export const getSuggestedArticles = (postNode: SlugPostInfo) => {
   fillSuggestionArrayWith(tagSimilaritySorted);
 
   // TODO: replace with logic inside of a single for loop
-  const dateSorted = suggestedPosts.sort((postA, postB) => {
+  // We must spread, since `sort` mutates the original array
+  const dateSorted = [...suggestedPosts].sort((postA, postB) => {
     return (
       // Newest first
       new Date(postB.published) < new Date(postA.published) ? -1 : 1

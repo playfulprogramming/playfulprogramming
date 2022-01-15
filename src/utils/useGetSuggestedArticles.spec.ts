@@ -242,6 +242,13 @@ test("should suggest series articles starting with 1", () => {
   expect(suggestedArticles[2].slug).toBe(seriesPost4.slug);
 });
 
+test("should suggest series articles starting with 2", () => {
+  const suggestedArticles = getSuggestedArticles(seriesPost2 as any);
+  expect(suggestedArticles[0].slug).toBe(seriesPost1.slug);
+  expect(suggestedArticles[1].slug).toBe(seriesPost3.slug);
+  expect(suggestedArticles[2].slug).toBe(seriesPost4.slug);
+});
+
 test("recommend other similar tagged posts", () => {
   const suggestedArticles = getSuggestedArticles(
     angularReactVueSveltePost as any
