@@ -17,6 +17,14 @@ export const suggestedViewQuery = {
 const suggestedPosts = getAllPosts(suggestedViewQuery, suggestedViewCache);
 export type OrderSuggestPosts = typeof suggestedPosts;
 
+// We must spread, since `sort` mutates the original array
+const dateSorted = [...suggestedPosts].sort((postA, postB) => {
+  return (
+    // Newest first
+    new Date(postB.published) < new Date(postA.published) ? -1 : 1
+  );
+});
+
 /**
  * Get 3 similar articles to suggest in sidebar.
  * Base off of article series,and similar tags.
@@ -83,7 +91,6 @@ const getOrderRange = (arr: OrderSuggestPosts) => {
 export const getSuggestedArticles = (postNode: SlugPostInfo) => {
   let extraSuggestedArticles: OrderSuggestPosts = [];
   let suggestedArticles: OrderSuggestPosts = [];
-  let newestPosts: OrderSuggestPosts = [];
   let similarTags: Array<{
     post: OrderSuggestPosts[number];
     howManyTagsSimilar: number;
@@ -94,18 +101,6 @@ export const getSuggestedArticles = (postNode: SlugPostInfo) => {
     // Don't return the same article
     if (post.slug === postNode.slug) continue;
     const postPublishedDate = post.published;
-    if (
-      !newestPosts.length ||
-      postPublishedDate > newestPosts[newestPosts.length - 1].published
-    ) {
-      newestPosts.push(post);
-      newestPosts.sort((postA, postB) =>
-        new Date(postB.published) < new Date(postA.published) ? -1 : 1
-      );
-      if (newestPosts.length > 3) {
-        newestPosts.pop();
-      }
-    }
     if (!!post.series && post.series === postNode.series) {
       const { largest, smallest } =
         getOrderRange([...suggestedArticles, postNode]) || {};
@@ -177,7 +172,7 @@ export const getSuggestedArticles = (postNode: SlugPostInfo) => {
     .map(({ post }) => post);
   fillSuggestionArrayWith(tagSimilaritySorted);
 
-  fillSuggestionArrayWith(newestPosts);
+  fillSuggestionArrayWith(dateSorted);
 
   return suggestedArticles;
 };
