@@ -39,6 +39,7 @@
 | Class props                                                  | [`state = {}`](https://reactjs.org/docs/state-and-lifecycle.html)/[`useState`](https://reactjs.org/docs/hooks-state.html) | [`data`](https://vuejs.org/v2/guide/instance.html#Data-and-Methods)/`useRef`/`reactive` |                                                              |
 | Angular Universal/ScullyIO*                                  | Next.JS\*/Gatsby\*                                           | Nuxt.JS\*                                                    | \* These are unofficial solutions but are the most  popular versions of these concepts |
 | `Output`(?). Classes sorta handle this for free              | `forwardRef`                                                 | [`expose`](https://v3.vuejs.org/api/composition-api.html#setup) |                                                              |
+| `ngAfterViewChecked`*                                        | useEffect with no dep                                        | `updated` lifecycle method                                   | * More like "when every diff is checked"                     |
 
 
 

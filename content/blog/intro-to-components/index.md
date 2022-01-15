@@ -125,9 +125,9 @@ const File = () => {
 ```
 
 > Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
-> 
+>
 > While JSX looks closer to HTML than normal JS, it is not supported in the language itself. Instead, it requires a compiler (or transpiler) like [Babel](https://babeljs.io/) to compile down to normal JS. Under-the-hood this JSX compiles down to function calls.
-> 
+>
 > For example, the above would be turned into:
 >
 > ```javascript
@@ -145,6 +145,8 @@ const File = () => {
 ## Angular
 
 ```typescript
+import {Component} from '@angular/core';
+
 @Component({
   selector: 'file',
   template: `
@@ -179,7 +181,7 @@ While this is cool - it leads to a good question: how do you _use_ these compone
 
 While these components might look like simple HTML, they're rather capable of further usage. Because of this, each framework actually uses JavaScript under-the-hood to draw these components on-screen.
 
-This process of "drawing" is called "rendering".
+**This process of "drawing" is called "rendering".** A component may render at various times, in particular when it needs to update data shown on-screen, which we'll touch on later.
 
 Because modern web apps consist of multiple files (that are then often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
 
@@ -245,6 +247,10 @@ createRoot(document.getElementById('root')).render(<File />);
 ## Angular
 
 ```typescript
+import {Component, NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 @Component({
   selector: 'file',
   template: `
@@ -447,6 +453,8 @@ const FileList = () => {
 ## Angular
 
 ```typescript
+import {Component} from '@angular/core';
+
 @Component({
   selector: 'file-date',
   template: `
@@ -583,20 +591,22 @@ function formatDate() {
 ## React
 
 ```jsx
-const FileDate = () => {
-  function formatDate() {
+function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
 	const month = today.getMonth() + 1;
-    const date = today.getDate();
-    const year = today.getFullYear();
-    return month + "/" + date + "/" + year;
-  }
-    
+  const date = today.getDate();
+  const year = today.getFullYear();
+  return month + "/" + date + "/" + year;
+}
+
+const FileDate = () => {    
   const date = formatDate();
   return <span>12/03/21</span>
 }
 ```
+
+> Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do thanks to different philosophies.
 
 ## Angular
 
@@ -625,10 +635,10 @@ export class FileDateComponent {
 
 ```javascript
 const FileDate = {
-  template: `<span>{{datee}}</span>`,
+  template: `<span>{{date}}</span>`,
   data() {
     return {
-      datee: this.formatDate(),
+      date: this.formatDate(),
     };
   },
   methods: {
@@ -653,7 +663,7 @@ const FileDate = {
 
 
 
-# Lifecycle
+# Intro to Lifecycles
 
 While you can rest assured this code works, since I'm the author and I'd probably be a bit embarrassed by it not running...
 
@@ -663,13 +673,113 @@ While you can rest assured this code works, since I'm the author and I'd probabl
 
 Let's fix that by telling our components that "once you're rendered on screen, `console.log` the value of that data".
 
+<!-- tabs:start -->
 
+### React
+
+```jsx
+import {useEffect} from 'react';
+
+function formatDate() {
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
+  const year = today.getFullYear();
+  return month + "/" + date + "/" + year;
+}
+
+const FileDate = () => {  
+  useEffect(() => {
+	  const date = formatDate();
+
+    console.log({date})
+  }, []);
+  
+  return <span>12/03/21</span>
+}
+```
+
+> React is a bit different from the rest of the group when it comes to lifecycles. Take a look at the other examples. Instead of an explicit "when this is rendered", we have a mention of a "side effect". We'll touch on why that is in a moment.
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'date',
+  template: `
+    <span>12/03/21</span>
+  `
+})
+export class FileDateComponent implements OnInit {
+	date = this.formatDate();
+
+  ngOnInit() {
+    console.log(date);
+  }
+  
+    formatDate() {
+	  const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + "/" + date + "/" + year;
+    }
+}
+```
+
+### Vue
+
+```javascript
+const FileDate = {
+  template: `<span>{{date}}</span>`,
+  data() {
+    return {
+      date: this.formatDate(),
+    };
+  },
+  mounted() {
+    console.log(this.date);
+  },
+  methods: {
+    formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const year = today.getFullYear();
+      return month + '/' + date + '/' + year;
+    },
+  },
+};
+```
+
+<!-- tabs:end -->
+
+Here, we're telling each respective framework to simply log the value of `date` to the console once the component is rendered for the first time.
+
+> Wait, "for the first time"?
+
+Yup! React, Angular, and Vue all are capable of updating (or, re-rendering) when they need to.
+
+For example, let's say you want to show `date` to a user, but then later in the day the time switches over. While you'd have to handle the code to keep track of the time, **the respective framework would notice that you've modified the values of `date` and re-render the component to display the new value**.
+
+While the method each framework uses to tell _when_ to re-render is different, they all have a highly stable method of doing so.
+
+This feature is arguably the biggest advantage of building an application with one of these frameworks.
+
+**This idea of having a bit of code run at a specific time relative to a component is called a compoent's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, but we'll dive deeper into them at another time.
+
+Speaking of updating data on screen - let's take a look at how we can dynamically display data on a page.
 
 
 
 # Display
 
-While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is.
+While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show that code on-screen
 
 
 
