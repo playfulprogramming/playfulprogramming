@@ -982,36 +982,98 @@ This is important because in order to update the DOM in an efficient way require
 
 # Inputs
 
-A file list containing only a single kind of file isn't much of a file list, however. Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
+Our file list is starting to look good! That said, a file list containing only a single kind of file isn't much of a file list. Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
 
 Let's have the file name be an input to our `File` component: 
 
+<!-- tabs:start -->
 
+## React
 
+```jsx
+const File = (props) => {
+  return <li><a href="/file/file_one">{props.fileName}<FileDate/></a></li>
+}
 
+const FileList = () => {
+    return <ul>
+    	<File fileName="File one"/>
+    	<File fileName="File two"/>
+    	<File fileName="File three"/>
+    </ul>
+}
+```
 
+> `props` is short for "properties". React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
+>
+> ```jsx
+> const File = ({ fileName }) => {
+>   return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
+> }
+> ```
 
+## Angular
 
-------
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+    <li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>
+  `
+})
+export class FileComponent {
+	@Input() fileName: string;
+}
 
-Components can have multiple methods
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+		<file fileName="File one"></file>
+		<file fileName="File two"></file>
+		<file fileName="File three"></file>
+    </ul>
+  `
+})
+export class FileListComponent {
+}
+```
 
-Components can have multiple classes
+## Vue
 
-------
+```javascript
+const File = { 
+	template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
+  components: {
+      FileDate
+  },
+  props: ['fileName']
+}
 
-Components can be re-used
+const FileList = {
+    template: `
+    	<ul>
+    		<file fileName="File one"></file>
+    		<file fileName="File two"></file>
+    		<file fileName="File three"></file>
+      </ul>
+    `,
+    components: {
+        File
+    }
+}
+```
+
+<!-- tabs:end -->
+
+Props can be JS objects/etc
+
+Props cannot be mutated
+
+Props have shorthand
+
+-------------------------------------------------
 
 Components can accept inputs
 
 Components can output*
-
---------------------
-
-## Future Sections
-
-
-
-Lifecycle methods
-
-Under-the-hood how do each framework render contents? (Vue = Proxy, Angular = Zone.js, React = explicit)
