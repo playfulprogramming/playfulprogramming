@@ -245,6 +245,6 @@
 		"pronouns": "he",
 		"profileImg": "./bobrossrtx.jpg",
 		"color": "#b7e11e",
-		"roles": ["developer"]
+		"roles": ["developer", "author"]
 	}
 ]
