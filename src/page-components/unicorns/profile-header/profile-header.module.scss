@@ -110,7 +110,8 @@
 	}
 
 	.socialText {
-		margin-left: 16px;
+		margin-left: 0.5em;
+		padding: 0.2em 0;
 		@extend %subheader-3;
 
 		// Make it so that the next and prev label text is hidden on mobile
