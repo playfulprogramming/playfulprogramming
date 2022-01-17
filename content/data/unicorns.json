@@ -232,7 +232,7 @@
 		"roles": ["author"]
 	},
 	{
-		"unicornId": "bobrossrtx",
+		"id": "bobrossrtx",
 		"name": "Bobrossrtx",
 		"firstName": "Owen",
 		"lastName": "Boreham",
@@ -242,7 +242,7 @@
 			"github": "bobrossrtx",
 			"website": "https://www.owenboreham.tech"
 		},
-		"pronouns": "he/him",
+		"pronouns": "he",
 		"profileImg": "./bobrossrtx.jpg",
 		"color": "#b7e11e",
 		"roles": ["developer"]
