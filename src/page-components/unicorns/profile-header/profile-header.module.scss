@@ -110,7 +110,7 @@
 	}
 
 	.socialText {
-		margin-left: 16px;
+		margin-left: 0.5rem;
 		@extend %subheader-3;
 
 		// Make it so that the next and prev label text is hidden on mobile
@@ -127,6 +127,7 @@
 	& > a {
 		display: flex;
 		flex-wrap: nowrap;
+		align-items: center;
 
 		$mobileSvgSize: 32px;
 
