@@ -237,7 +237,7 @@ In many instances (such as the `map` we use in the following code), you may find
 
 Let's say you're on line `9` and want to move into the `map` function. You can press the "step into" to move into line `10`.
 
-![The after effects of pressing the "step into" button after the screenshot above](./step_inside_part-2.png)
+![The after effects of pressing the "step into" button after the screenshot above](./step_inside_part_2.png)
 
 Once inside the `map` function, there's even a button _to get you outside of that function and back to the parent caller's next line_. This might if you're inside of a lengthy `map` function, have debugged the line you wanted to inspect, and want to move past the `map` to the next line (the `console.log`). Doing so is as simple as "stepping in" a function, you simply press the "step outside" button to move to the next line
 

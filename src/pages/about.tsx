@@ -1,128 +1,130 @@
 import React from "react";
-import { graphql, useStaticQuery, Link } from "gatsby";
-import * as style from "./about.module.scss";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { SEO } from "components/seo";
-import { Layout } from "components/layout";
-import { navigate } from "@reach/router";
+import Link from "next/link";
+import Image from "next/image";
+import style from "../page-components/about/about.module.scss";
 import { UnicornInfo } from "uu-types";
+import { siteDirectory, sponsorsDirectory, unicorns } from "utils/fs/get-datas";
+import unicornLogo from "../assets/unicorn_head_1024.png";
+import { useRouter } from "next/router";
+import { readMarkdownFile } from "utils/fs/api";
+import { join } from "path";
+import markdownToHtml from "utils/markdown/markdownToHtml";
+import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+import { SEO } from "components/seo";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
-	const unicornRoles = unicornInfo.roles.slice(0);
+  const unicornRoles = unicornInfo.roles.slice(0);
 
-	if (unicornInfo.fields.isAuthor) {
-		unicornRoles.push({
-			roleId: "author",
-			prettyname: "Author",
-		});
-	}
-
-	return unicornRoles.map((role, i, arr) => {
-		// If there is an item ahead
-		const shouldShowComma = arr[i + 1];
-		return (
-			<li key={role.roleId} role="listitem">
-				{role.prettyname}
-				{shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
-			</li>
-		);
-	});
+  return unicornRoles.map((role, i, arr) => {
+    // If there is an item ahead
+    const shouldShowComma = arr[i + 1];
+    return (
+      <li key={role.id} role="listitem">
+        {role.prettyname}
+        {shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
+      </li>
+    );
+  });
 };
 
-const AboutUs = (props: any) => {
-	const {
-		file,
-		markdownRemark: post,
-		allUnicornsJson: unicorns,
-	} = useStaticQuery(graphql`
-		query AboutUsQuery {
-			site {
-				siteMetadata {
-					title
-				}
-			}
-			markdownRemark(fields: { slug: { eq: "/about-us/" } }) {
-				id
-				excerpt(pruneLength: 160)
-				html
-				frontmatter {
-					title
-					description
-				}
-			}
-			file(relativePath: { eq: "unicorn_head_1024.png" }) {
-				childImageSharp {
-					gatsbyImageData(layout: FIXED, width: 192, quality: 100)
-				}
-			}
-			allUnicornsJson {
-				nodes {
-					...UnicornInfo
-				}
-			}
-		}
-	`);
+interface AboutUsProps {
+  allUnicorns: UnicornInfo[];
+  html: string;
+}
 
-	const { nodes: unicornArr } = unicorns as { nodes: UnicornInfo[] };
-	const {
-		childImageSharp: { gatsbyImageData: imageFixed },
-	} = file;
+const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
+  const router = useRouter();
 
-	return (
-		<Layout location={props.location}>
-			<SEO
-				title={post.frontmatter.title}
-				description={post.frontmatter.description || post.excerpt}
-				pathName={props.location.pathname}
-			/>
-			<div className={style.container}>
-				<div className={style.headerTitle}>
-					<GatsbyImage
-						image={imageFixed}
-						loading={"eager"}
-						alt={"Unicorn Utterances logo"}
-					/>
-					<h1>About Us</h1>
-				</div>
-				<main className={`${style.aboutBody} post-body`}>
-					<div dangerouslySetInnerHTML={{ __html: post.html }} />
-					{unicornArr.map((unicornInfo) => {
-						const roleListItems = getUnicornRoleListItems(unicornInfo);
+  const result = useMarkdownRenderer({
+    markdownHTML: html,
+    serverPath: [""],
+  });
 
-						const navigateToUni = () =>
-							navigate(`/unicorns/${unicornInfo.unicornId}`);
+  return (
+    <div>
+      <SEO title="About Us" pathName={router.pathname} />
+      <div className={style.container}>
+        <div className={style.headerTitle}>
+          <div className={style.unicornLogo}>
+            <Image
+              src={unicornLogo}
+              loading={"eager"}
+              layout="responsive"
+              sizes={"192px"}
+              alt={"Unicorn Utterances logo"}
+            />
+          </div>
+          <h1>About Us</h1>
+        </div>
+        <main className={`${style.aboutBody} post-body`}>
+          <div>{result}</div>
+          {allUnicorns.map((unicornInfo) => {
+            const roleListItems = getUnicornRoleListItems(unicornInfo);
 
-						return (
-							<div
-								key={unicornInfo.unicornId}
-								className={style.contributorContainer}
-							>
-								<div className="pointer" onClick={navigateToUni}>
-									<GatsbyImage
-										alt={unicornInfo.name + " profile picture"}
-										className="circleImg"
-										image={unicornInfo.profileImg.childImageSharp.mediumPic}
-									/>
-								</div>
-								<div className={style.nameRoleDiv}>
-									<Link to={`/unicorns/${unicornInfo.unicornId}`}>
-										{unicornInfo.name}
-									</Link>
-									<ul
-										aria-label="Roles assigned to this user"
-										className={style.rolesList}
-										role="list"
-									>
-										{roleListItems}
-									</ul>
-								</div>
-							</div>
-						);
-					})}
-				</main>
-			</div>
-		</Layout>
-	);
+            const navigateToUni = () =>
+              router.push(`/unicorns/${unicornInfo.id}`);
+
+            return (
+              <div key={unicornInfo.id} className={style.contributorContainer}>
+                <div
+                  className={`pointer ${style.userProfilePicture}`}
+                  onClick={navigateToUni}
+                >
+                  <Image
+                    alt={unicornInfo.name + " profile picture"}
+                    className="circleImg"
+                    layout="responsive"
+                    sizes="85px"
+                    height={unicornInfo.profileImg.height}
+                    width={unicornInfo.profileImg.width}
+                    src={unicornInfo.profileImg.relativeServerPath}
+                  />
+                </div>
+                <div className={style.nameRoleDiv}>
+                  <Link href={`/unicorns/${unicornInfo.id}`}>
+                    {unicornInfo.name}
+                  </Link>
+                  <ul
+                    aria-label="Roles assigned to this user"
+                    className={style.rolesList}
+                    role="list"
+                  >
+                    {roleListItems}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </main>
+      </div>
+    </div>
+  );
 };
+
+interface AboutUsMarkdownData {
+  title: string;
+  description: string;
+}
+
+export async function getStaticProps() {
+  const { pickedData, frontmatterData } = readMarkdownFile<AboutUsMarkdownData>(
+    join(siteDirectory, "about-us.md"),
+    {
+      content: true,
+      title: true,
+      description: true,
+    }
+  );
+
+  const { html } = await markdownToHtml(pickedData.content!, sponsorsDirectory);
+
+  return {
+    props: {
+      allUnicorns: unicorns,
+      frontmatterData,
+      html,
+    },
+  };
+}
 
 export default AboutUs;

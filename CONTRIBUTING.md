@@ -78,7 +78,7 @@ Once you've created a subfolder with the URI you'd like your article to have, mo
 An example of referencing a video locally is:
 
 ```markdown
-`video: title: "A comparison of how text spacing is applied on iOS and Android": ./ios_vs_android.mp4`
+<video src="./ios_vs_android.mp4" title="A comparison of how text spacing is applied on iOS and Android"></video>
 ```
 
 Where you include the title of the video and the video.
@@ -142,6 +142,11 @@ Our blog posts can all be found under [`/content/blog`](./content/blog). Simply 
 While we have a lot of code that is not yet this way, we try our best to build our code for the site in such a way that it's generic enough to be useful for others. For example, some of our UI components have led to the creation of [our sister NPM library `batteries-not-included`](https://github.com/unicorn-utterances/batteries-not-included). We now directly consume said library for our own components. We've also found ourselves requiring a custom markdown processing utility [in the form of `unist-util-flat-filter`](https://github.com/unicorn-utterances/unist-util-flat-filter).
 
 Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
+
+We're using a small set of internal forks of deps for the following reasons:
+
+- [rehype-slug](https://github.com/rehypejs/rehype-slug/issues/10)
+- [rehype-img-size](https://github.com/ksoichiro/rehype-img-size/issues/4)
 
 ## Develop Mode
 

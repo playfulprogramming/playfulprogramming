@@ -15,7 +15,7 @@
 	text-decoration: none;
 }
 
-.tocH1 {
+.tocH2 {
 	@extend %body-1;
 	font-style: italic;
 	a {
@@ -23,19 +23,19 @@
 	}
 }
 
-.tocH2,
-.tocH3 {
+.tocH3,
+.tocH4 {
 	// This should be body2
 	line-height: 135%;
 }
 
-.tocH2 a {
+.tocH3 a {
 	color: var(--midImpactBlack);
 	font-style: italic;
 	font-size: 1rem;
 }
 
-.tocH3 a {
+.tocH4 a {
 	color: var(--midImpactBlack);
 	font-style: italic;
 	line-height: 135%;

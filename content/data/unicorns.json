@@ -1,5 +1,5 @@
 [{
-		"unicornId": "crutchcorn",
+		"id": "crutchcorn",
 		"name": "Corbin Crutchley",
 		"firstName": "Corbin",
 		"lastName": "Crutchley",
@@ -12,10 +12,10 @@
 		"pronouns": "they/themselves",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer"]
+		"roles": ["devops", "developer", "author"]
 	},
 	{
-		"unicornId": "fennifith",
+		"id": "fennifith",
 		"name": "James Fenn",
 		"firstName": "James",
 		"lastName": "Fenn",
@@ -27,10 +27,10 @@
 		"pronouns": "he",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer"]
+		"roles": ["developer", "author"]
 	},
 	{
-		"unicornId": "evelynhathaway",
+		"id": "evelynhathaway",
 		"name": "Evelyn Hathaway",
 		"firstName": "Evelyn",
 		"lastName": "Hathaway",
@@ -40,12 +40,12 @@
 			"github": "evelynhathaway"
 		},
 		"pronouns": "she",
-		"profileImg": "../../src/assets/emotes/proud.png",
+		"profileImg": "proud.png",
 		"color": "#ef5f17",
 		"roles": ["developer", "devops"]
 	},
 	{
-		"unicornId": "adueppen",
+		"id": "adueppen",
 		"name": "Alex Dueppen",
 		"firstName": "Alex",
 		"lastName": "Dueppen",
@@ -61,7 +61,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"unicornId": "zavukodlak",
+		"id": "zavukodlak",
 		"name": "Vukašin Anđelković",
 		"firstName": "Vukašin",
 		"lastName": "Anđelković",
@@ -77,7 +77,7 @@
 		"roles": ["designer"]
 	},
 	{
-		"unicornId": "tommyemo",
+		"id": "tommyemo",
 		"name": "Tom Wellington",
 		"firstName": "Tom",
 		"lastName": "Wellington",
@@ -92,7 +92,7 @@
 		"roles": ["designer"]
 	},
 	{
-		"unicornId": "edpratti",
+		"id": "edpratti",
 		"name": "Eduardo Pratti",
 		"firstName": "Eduardo",
 		"lastName": "Pratti",
@@ -104,10 +104,10 @@
 		"pronouns": "he",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": ["designer"]
+		"roles": ["designer", "author"]
 	},
 	{
-		"unicornId": "sarsamurmu",
+		"id": "sarsamurmu",
 		"name": "Sarsa Murmu",
 		"firstName": "Sarsa",
 		"lastName": "Murmu",
@@ -123,7 +123,7 @@
 		"roles": ["developer"]
 	},
 	{
-		"unicornId": "MDutro",
+		"id": "MDutro",
 		"name": "Micah Dutro",
 		"firstName": "Micah",
 		"lastName": "Dutro",
@@ -134,10 +134,10 @@
 		"pronouns": "he",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": ["developer"]
+		"roles": ["developer", "author"]
 	},
 	{
-		"unicornId": "reikaze",
+		"id": "reikaze",
 		"name": "Kevin Mai",
 		"firstName": "Kevin",
 		"lastName": "Mai",
@@ -149,10 +149,10 @@
 		"pronouns": "he",
 		"profileImg": "./reikaze.jpg",
 		"color": "#ba68c8",
-		"roles": []
+		"roles": ["author"]
 	},
 	{
-		"unicornId": "thodges314",
+		"id": "thodges314",
 		"name": "Thomas Hodges",
 		"firstName": "Thomas",
 		"lastName": "Hodges",
@@ -164,10 +164,10 @@
 		"pronouns": "he",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
-		"roles": []
+		"roles": ["author"]
 	},
 	{
-		"unicornId": "skatcat31",
+		"id": "skatcat31",
 		"name": "Robert Mennell",
 		"firstName": "Robert",
 		"lastName": "Mennell",
@@ -179,10 +179,10 @@
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
 		"pronouns": "he",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
-		"unicornId": "seanmiller",
+		"id": "seanmiller",
 		"name": "Sean Miller",
 		"firstName": "Sean",
 		"lastName": "Miller",
@@ -196,10 +196,10 @@
 		"pronouns": "he",
 		"profileImg": "./seanmiller.jpg",
 		"color": "#551a8b",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
-		"unicornId": "pierremtb",
+		"id": "pierremtb",
 		"name": "Pierre Jacquier",
 		"firstName": "Pierre",
 		"lastName": "Jacquier",
@@ -213,10 +213,10 @@
 		"pronouns": "he",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
-		"roles": []
+		"roles": ["author"]
 	},
  	{
-		"unicornId": "maisydino",
+		"id": "maisydino",
 		"name": "Maisy Dinosaur",
 		"firstName": "Maisy",
 		"lastName": "Dinosaur",
@@ -229,6 +229,6 @@
 		"pronouns": "she",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": []
+		"roles": ["author"]
 	}
 ]

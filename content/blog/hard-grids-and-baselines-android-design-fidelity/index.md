@@ -96,7 +96,7 @@ This means that designers, alongside developers, can force the bounds of a `Text
 
 This is something I’ve personally tested in an app I designed. [**Memoire**, a note-taking app](http://tiny.cc/getmemoire) for Android, is a 1:1 recreation of its mockups — for every single screen. This was made possible due to these APIs — *and because [**@sasikanth**](https://twitter.com/its\_sasikanth) is not confrontational* — since text is what almost always makes baseline alignment and hard grids impossible to implement in production.
 
-`video: title: "Near-perfect duplication of guidelines against Memoire's mockups and actual app": ./memoire_bounds_and_baselines.mp4`
+<video src="./memoire_bounds_and_baselines.mp4" title="Near-perfect duplication of guidelines against Memoire's mockups and actual app"></video>
 
 *Memoire’s TextViews are all customized using these APIs.*
 
@@ -118,7 +118,7 @@ As you might imagine, **if we want to keep our text aligned to a baseline grid, 
 |--|--|
 |Applying `firstBaseline` and `lastBaseline` in styles allows you to know exactly what the distance between baselines is, without having to set them one by one to ensure they properly align to a `4dp` grid. | Without applying `firstBaseline` and `lastBaseline` in styles, you can’t detect what the default values are, so you are forced to apply these one by one to every `TextView` to ensure they align to a `4dp` grid. |
 
-`video: title: "A comparison of how text spacing is applied on iOS and Android": ./ios_vs_android.mp4`
+<video src="./ios_vs_android.mp4" title="A comparison of how text spacing is applied on iOS and Android"></video>
 
 The solution is to apply them in your `styles.xml` so that, when themed, the `TextView` is given the right text size, height, font, and baseline properties.
 
@@ -128,7 +128,7 @@ The solution is to apply them in your `styles.xml` so that, when themed, the `Te
 
 The overrides will take precedence to whatever value you set in your **`styles.xml`**, requiring you to hunt down occurrences until you can find a layout that was broken due to the change. Let’s look at an example:
 
-`video: title: "Allowing margin changes instead will let the text grow to it's expected sie without having issues with the baseline not being centered": ./dont_override.mp4`
+<video src="./dont_override.mp4" title="Allowing margin changes instead will let the text grow to it's expected sie without having issues with the baseline not being centered"></video>
 
 Implementing margins instead of overriding values also matches the way layouts work within Android Studio and design tools like Sketch and Figma. It also ensures that your layouts can scale well to different font sizes.
 

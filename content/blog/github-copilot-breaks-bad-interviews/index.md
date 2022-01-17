@@ -59,7 +59,7 @@ Well, it’s been a few years since I’ve refreshed my math skills, so they mig
 
 Let’s open VSCode and start implementing the function.
 
-`video: title: "GitHub Copilot generating a complete implementation of 'isPrime' from nothing more than the function name": ./gh_copilot_is_prime.mp4`
+<video src="./gh_copilot_is_prime.mp4" title="GitHub Copilot generating a complete implementation of 'isPrime' from nothing more than the function name"></video>
 
 Wow! I hadn’t even had a chance to add the parameters to the “isPrime” function before Copilot had already made a suggestion!
 

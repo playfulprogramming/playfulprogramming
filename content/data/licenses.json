@@ -1,6 +1,6 @@
 [
   {
-    "licenseId": "cc-by-nc-sa-4",
+    "id": "cc-by-nc-sa-4",
     "footerImg": "https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png",
     "licenceType": "Creative Commons License",
     "explainLink": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
@@ -8,7 +8,7 @@
     "displayName": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"
   },
   {
-    "licenseId": "cc-by-4",
+    "id": "cc-by-4",
     "footerImg": "https://i.creativecommons.org/l/by/4.0/88x31.png",
     "licenceType": "Creative Commons License",
     "explainLink": "http://creativecommons.org/licenses/by/4.0/",
@@ -16,7 +16,7 @@
     "displayName": "Creative Commons Attribution 4.0 International License"
   },
   {
-    "licenseId": "publicdomain-zero-1",
+    "id": "publicdomain-zero-1",
     "footerImg": "https://licensebuttons.net/p/zero/1.0/88x31.png",
     "licenceType": "Public Domain",
     "explainLink": "https://creativecommons.org/publicdomain/zero/1.0/",
@@ -24,7 +24,7 @@
     "displayName": "Public Domain"
   },
   {
-    "licenseId": "cc-by-nc-nd-4",
+    "id": "cc-by-nc-nd-4",
     "footerImg": "https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png",
     "licenceType": "Creative Commons License",
     "explainLink": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
@@ -32,7 +32,7 @@
     "displayName": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License"
   },
   {
-    "licenseId": "coderpad",
+    "id": "coderpad",
     "footerImg": "/coderpad.png",
     "licenceType": "Owned by CoderPad",
     "explainLink": "https://coderpad.io/about-us/",
