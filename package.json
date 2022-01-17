@@ -1,5 +1,22 @@
 {
+  "name": "unicorn-utterances-site",
   "private": true,
+  "description": "Learning programming from magically majestic words",
+  "version": "0.1.0",
+  "bugs": {
+    "url": "https://github.com/unicorn-utterances/unicorn-utterances/issues"
+  },
+  "homepage": "https://unicorn-utterances.com",
+  "keywords": [
+    "blog",
+    "education",
+    "programming"
+  ],
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
+  },
   "scripts": {
     "dev": "npm run lunr && env-cmd -f ./src/environments/dev.env next -p 9000",
     "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
