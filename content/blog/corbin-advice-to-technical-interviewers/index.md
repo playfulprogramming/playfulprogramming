@@ -4,7 +4,7 @@
     description: "",
     published: '2021-05-03T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['interviews'],
+    tags: ['interviewing'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/5-tips-for-tech-recruiting/'

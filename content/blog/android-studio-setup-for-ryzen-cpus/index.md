@@ -4,7 +4,7 @@
 	description: "Historically, the Android Emulator has only run on Intel CPUs. While that's no longer the case, it can be tricky to setup. Let's walk through how to do so!",
 	published: '2020-05-05T13:45:00.284Z',
 	authors: ['crutchcorn'],
-	tags: ['tooling', 'windows'],
+	tags: ['tools', 'windows'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

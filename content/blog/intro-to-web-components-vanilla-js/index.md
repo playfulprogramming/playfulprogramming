@@ -4,7 +4,7 @@
     description: "",
     published: '2021-07-15T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['javascript', 'html', 'web'],
+    tags: ['javascript', 'html', 'webdev'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',

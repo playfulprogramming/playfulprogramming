@@ -5,7 +5,7 @@
 	published: "2020-08-25T04:45:30.247Z",
 	edited: "2020-08-25T04:45:30.247Z",
 	authors: ["crutchcorn", "reikaze"],
-	tags: ["hardware", "javascript", "ast"],
+	tags: ["hardware", "javascript", "computer science"],
 	attached: [],
 	license: "cc-by-nc-sa-4"
 }
