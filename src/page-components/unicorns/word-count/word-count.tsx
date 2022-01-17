@@ -13,7 +13,7 @@ export const WordCount = ({
   return (
     <div className={wordCountStyles.container}>
       <FeatherIcon className={wordCountStyles.icon} />
-      <p>{numberOfArticles} Articles</p>
+      <p>{numberOfArticles} {numberOfArticles < 2 ? 'Article' : 'Articles'}</p>
       <div className={wordCountStyles.divider} />
       <p>{wordCount} Words</p>
     </div>
