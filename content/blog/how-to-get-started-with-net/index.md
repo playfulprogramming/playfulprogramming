@@ -122,4 +122,4 @@ I fully understand that dotnet can be a bit confusing at first, but I hope that 
 
 # Contact
 
-If you have any questions, comments, or concerns, feel free to contact me at https://www.owenboreham.tech/contact or by email at contact@owenboreham.tech
+If you have any questions, comments, or concerns, feel free to contact me at https://www.owenboreham.tech/contact
