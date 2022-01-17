@@ -2,7 +2,7 @@
 {
 title: "A Better Way To Code: Documentation Driven Development",
 description: "",
-published: '2021-12-28T22:12:03.284Z',
+published: '2022-01-18T22:12:03.284Z',
 authors: ['crutchcorn'],
 tags: ['documentation', 'tdd', 'ddd'],
 attached: [],
