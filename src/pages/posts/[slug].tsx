@@ -56,8 +56,8 @@ const Post = ({
   const { colorMode } = useContext(ThemeContext);
 
   const [disqusConfig, setDisqusConfig] = useState({
-    url: `${siteMetadata.siteUrl}/posts${slug}`,
-    identifier: slug,
+    url: `${siteMetadata.siteUrl}/posts/${slug}`,
+    identifier: "/" + slug,
     title: post.title,
   });
 
@@ -71,11 +71,11 @@ const Post = ({
     setTimeout(() => {
       if (!setDisqusConfig || !colorMode) return;
       setDisqusConfig({
-        url: `${siteMetadata.siteUrl}/posts${slug}`,
+        url: `${siteMetadata.siteUrl}/posts/${slug}`,
         // TODO: Fix this, this is causing comments to not apply to the correct
         //   post. This identifier should NEVER change and should ALWAYS match
         //   `slug` only
-        identifier: slug,
+        identifier: "/" + slug,
         title: post.title,
       });
       // Must use a `useTimeout` so that this reloads AFTER the background animation
