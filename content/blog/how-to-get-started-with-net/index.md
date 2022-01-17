@@ -6,7 +6,8 @@
     authors: ['bobrossrtx'],
     tags: ['dotnet', 'c#'],
     attached: [],
-    license: 'cc-by-4'
+    license: 'cc-by-4',
+    originalLink: 'https://dev.to/bobrossrtx/how-to-get-started-with-net-50bh'
 }
 ---
 
