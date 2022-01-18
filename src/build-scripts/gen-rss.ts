@@ -39,7 +39,7 @@ const posts = getAllPosts({
 } as const);
 
 posts.forEach((post) => {
-  const nodeUrl = `${siteUrl}/posts${post.slug}`;
+  const nodeUrl = `${siteUrl}/posts/${post.slug}`;
 
   feed.addItem({
     title: post.title,
