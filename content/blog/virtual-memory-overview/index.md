@@ -4,7 +4,7 @@
     description: 'An overview of how operating systems give processes their own address space.',
     published: '2020-05-19T12:45:00.000Z',
     authors: ['seanmiller'],
-    tags: ['computer science', 'c++'],
+    tags: ['computer science', 'cpp'],
     attached: [],
     license: 'cc-by-nc-nd-4'
 }
