@@ -538,9 +538,11 @@ We'll start by adding in a simple function to display the current date in a huma
 ## React
 
 ```jsx
+import {useState} from 'react';
+
 const FileDate = () => {
   // Don't worry what "setDate" is yet. We'll touch on it soon
-  const [date, setDate] = React.useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+  const [date, setDate] = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
   return <span>12/03/21</span>
 }
 ```
@@ -550,7 +552,7 @@ const FileDate = () => {
 > We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
 >
 > ```jsx
-> const dateArr = React.useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+> const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
 > const date = dateArr[0];
 > const setDate = dateArr[1];
 > ```
@@ -878,7 +880,7 @@ But what happens if we update `date` after the fact? Say we have a `setTimeout` 
 ### React
 
 ```jsx
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 function formatDate(inputDate) {
   // Month starts at 0, annoyingly
@@ -889,7 +891,7 @@ function formatDate(inputDate) {
 }
 
 const FileDate = () => {  
-  const [date, setDate] = React.useState(formatDate(new Date()));
+  const [date, setDate] = useState(formatDate(new Date()));
 
   useEffect(() => {
     setTimeout(() => {
@@ -918,7 +920,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'date',
   template: `
-    <span>12/03/21</span>
+    <span>{{date}}</span>
   `
 })
 export class FileDateComponent implements OnInit {
