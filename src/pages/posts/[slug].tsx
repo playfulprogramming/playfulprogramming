@@ -30,6 +30,7 @@ import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
 import path from "path";
 import { SeriesToC } from "components/series-toc";
+import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 
 type Props = {
   markdownHTML: string;
@@ -150,11 +151,13 @@ const Post = ({
             {/*  <ShareIcon/>*/}
             {/*</button>*/}
           </div>
-          <DiscussionEmbed
-            shortname={siteMetadata.disqusShortname}
-            config={disqusConfig}
-            key={colorMode}
-          />
+          <PrivacyErrorBoundary>
+            <DiscussionEmbed
+              shortname={siteMetadata.disqusShortname}
+              config={disqusConfig}
+              key={colorMode}
+            />
+          </PrivacyErrorBoundary>
         </footer>
       </article>
     </>
