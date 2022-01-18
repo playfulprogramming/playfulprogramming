@@ -4,7 +4,7 @@ title: "A Better Way To Code: Documentation Driven Development",
 description: "",
 published: '2022-01-18T22:12:03.284Z',
 authors: ['crutchcorn'],
-tags: ['documentation', 'tdd', 'ddd'],
+tags: ['documentation', 'testing', 'opinion'],
 attached: [],
 license: 'cc-by-nc-sa-4',
 }
