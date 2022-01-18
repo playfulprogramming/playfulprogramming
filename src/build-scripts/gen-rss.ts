@@ -24,6 +24,7 @@ const posts = getAllPosts({
   title: true,
   description: true,
   published: true,
+  edited: true,
   slug: true,
   excerpt: true,
   license: {
@@ -38,30 +39,32 @@ const posts = getAllPosts({
   },
 } as const);
 
-posts.forEach((post) => {
-  const nodeUrl = `${siteUrl}/posts/${post.slug}`;
+posts
+  .sort((a, b) => (new Date(b.published) > new Date(a.published) ? 1 : -1))
+  .forEach((post) => {
+    const nodeUrl = `${siteUrl}/posts/${post.slug}`;
 
-  feed.addItem({
-    title: post.title,
-    guid: nodeUrl,
-    link: nodeUrl,
-    description: post.description || post.excerpt,
-    author: post.authors.map((author) => {
-      return {
-        name: author.name,
-        link: `${siteUrl}/unicorns/${author.id}`,
-      };
-    }),
-    date: new Date(post.published),
-    copyright: post.license?.displayName,
-    extensions: [
-      {
-        name: "comments",
-        objects: `${nodeUrl}#disqus_thread`,
-      },
-    ],
+    feed.addItem({
+      title: post.title,
+      guid: nodeUrl,
+      link: nodeUrl,
+      description: post.description || post.excerpt,
+      author: post.authors.map((author) => {
+        return {
+          name: author.name,
+          link: `${siteUrl}/unicorns/${author.id}`,
+        };
+      }),
+      date: new Date(post.published),
+      copyright: post.license?.displayName,
+      extensions: [
+        {
+          name: "comments",
+          objects: `${nodeUrl}#disqus_thread`,
+        },
+      ],
+    });
   });
-});
 
 // Relative to root
 fs.writeFileSync(path.resolve(process.cwd(), "./public/rss.xml"), feed.rss2());
