@@ -78,7 +78,7 @@ ReactDOM.createRoot(rootElement).render(
 
 When finished, you should be able to verify the version of React you’re using with `{React.version}`
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=200107" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=200107" width="704" height="500" loading="lazy"></iframe>
 
 ## Conclusion
 

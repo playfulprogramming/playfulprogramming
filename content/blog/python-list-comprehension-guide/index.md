@@ -239,7 +239,7 @@ We’ve covered a lot about list comprehension in Python today! We’re able to 
 
 For example, given this sandbox code pad of a long and messy list comprehension, how can you refactor to remove all usage of list comprehensions? Avoid using `map`, `filter` or other list helpers, either. Simply use nested `for` loops and `if` conditionals to match the behavior as it was before.
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=177671" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=177671" width="704" height="500" loading="lazy"></iframe>
 
 This is an open-ended question meant to challenge your skills you’ve learned throughout the article!
 
