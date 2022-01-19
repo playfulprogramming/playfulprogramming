@@ -4,7 +4,7 @@
   description: "Writing tests is an integral skill for any engineer to take on. Unfortunately, we often tend to over complicate our tests. Let's take a look at how we can simplify them for better tests overall",
   published: '2020-05-26T05:12:03.284Z',
   authors: ['crutchcorn', 'skatcat31'],
-  tags: ['testing', 'testing library', 'jest'],
+  tags: ['testing', 'jest'],
   attached: [],
   license: 'cc-by-nc-sa-4'
 }

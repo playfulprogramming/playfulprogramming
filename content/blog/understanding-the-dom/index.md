@@ -4,7 +4,7 @@
 	description: 'Learn how the browser internally handles HTML and CSS to show the user webpages on-screen',
 	published: '2019-11-26T22:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['dom', 'css', 'javascript', 'html'],
+	tags: ['webdev', 'css', 'javascript', 'html'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

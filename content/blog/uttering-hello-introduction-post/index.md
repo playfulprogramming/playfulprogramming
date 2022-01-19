@@ -4,7 +4,7 @@
     description: 'An introduction to Unicorn Utterances, including a mission statement and general roadmap',
     published: '2019-06-29T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['community', 'announcements'],
+    tags: ['announcements'],
     attached: [],
     license: 'cc-by-4'
 }

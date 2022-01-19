@@ -4,7 +4,7 @@
     description: "",
     published: '2021-07-22T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['interviews', 'github copilot'],
+    tags: ['interviewing', 'opinion', 'copilot'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/github-copilot-breaks-bad-interviews/'

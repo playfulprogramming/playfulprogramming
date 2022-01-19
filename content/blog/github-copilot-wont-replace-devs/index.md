@@ -4,7 +4,7 @@
     description: "",
     published: '2021-10-04T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['github copilot', 'tools'],
+    tags: ['opinion', 'tools', 'copilot'],
     attached: [],
     license: 'cc-by-nc-sa-4'
 }
