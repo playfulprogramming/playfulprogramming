@@ -22,14 +22,13 @@ export const Layout: React.FC = ({ children }) => {
           aria-label={"Toolbar for primary action buttons"}
         >
           {!isBase && (
-            <Link href={`/`}>
-              <a
-                className={`${layoutStyles.backBtn} baseBtn`}
-                aria-label="Go back"
-              >
-                <BackIcon />
-              </a>
-            </Link>
+            <button
+              className={`${layoutStyles.backBtn} baseBtn`}
+              aria-label="Go back"
+              onClick={() => router.back()}
+            >
+              <BackIcon />
+            </button>
           )}
           <DarkLightButton />
         </header>
