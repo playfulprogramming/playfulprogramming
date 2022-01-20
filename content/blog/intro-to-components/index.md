@@ -982,9 +982,222 @@ While the frameworks detect changes under-the-hood differently, they all handle 
 This is important because in order to update the DOM in an efficient way requires significant hevy-lifting. In fact, many of these frameworks store an entire copy of the DOM in-memory in order to keep that updating as lightweight as possible. We'll explain in the future exactly how this works.
 
 
+
+# Attribute Binding
+
+Text isn't the only thing that frameworks are capable of live-updating, however!
+
+Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element. 
+
+Currently, our `date` component doesn't read out [particularly kindly to screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability), since it would only read out as numbers. Let's change that by adding in an `aria-label`of a human readable date to our `date` component.
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const FileDate = () => {  
+  const [date, setDate] = useState(formatDate(new Date()));
+
+  // ...
+  
+  return <span ariaLabel="January 10th, 2023">{date}</span>
+}
+```
+
+> You may notice that the attribute is [`ariaLabel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaLabel) in React but `aria-label` in every other framework. This is because React uses the JavaScript names for attributes, similar to the properties you'd set on an [`Element` ](https://developer.mozilla.org/en-US/docs/Web/API/Element) that you'd get from a query like [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
+>
+> This also means that instead of `class`, you set [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className), to the confusion of many an early React developer.
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'date',
+  template: `
+    <span aria-label="January 10th, 2023">{{date}}</span>
+  `
+})
+export class FileDateComponent implements OnInit {
+	date = this.formatDate(new Date());
+
+  // ...
+}
+```
+
+### Vue
+
+```javascript
+const FileDate = {
+  template: `<span aria-label="January 10th, 2023">{{date}}</span>`,
+  data() {
+    return {
+      date: this.formatDate(new Date()),
+    };
+  },
+  // ...
+};
+```
+
+<!-- tabs:end -->
+
+
+Now, when we use a screen reader it'll read out "January 10th" instead of "One dash ten".
+
+However, while this may have worked before `date` was dyanamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day)
+
+Let's correct that by adding in a `formatReadableDate` method and reflect that in the attribute:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+import {useState, useEffect} from 'react';
+
+function dateSuffix(dayNumber) {
+  const lastDigit = dayNumber % 10;
+  if (lastDigit == 1 && dayNumber != 11) {
+    return dayNumber + "st";
+  }
+  if (lastDigit == 2 && dayNumber != 12) {
+    return dayNumber + "nd";
+  }
+  if (lastDigit == 3 && dayNumber != 13) {
+    return dayNumber + "rd";
+  }
+  return dayNumber + "th";
+}
+
+function formatReadableDate(inputDate) {
+  const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthStr = months[inputDate.getMonth()];
+  const dateStr = this.dateSuffix(inputDate.getDate());
+  const year = inputDate.getFullYear();
+  return month + " " + dateStr + "," + year;
+}
+
+const FileDate = () => {  
+  const [date, setDate] = useState(formatDate(new Date()));
+  const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
+  
+  // ...
+  
+  return <span ariaLabel={labelText}>{date}</span>
+}
+```
+
+> Notice the `{}` used after the `=` to assign the attribute value. This is pretty similar to the syntax to interpolate text into the DOM!
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'date',
+  template: `
+    <span [attr.aria-label]="labelText">{{date}}</span>
+  `
+})
+export class FileDateComponent implements OnInit {
+	date = this.formatDate(new Date());
+	labelText = this.formatReadableDate(new Date());
+
+  // ...
+    
+  dateSuffix(dayNumber) {
+    const lastDigit = dayNumber % 10;
+    if (lastDigit == 1 && dayNumber != 11) {
+      return dayNumber + "st";
+    }
+    if (lastDigit == 2 && dayNumber != 12) {
+      return dayNumber + "nd";
+    }
+    if (lastDigit == 3 && dayNumber != 13) {
+      return dayNumber + "rd";
+    }
+    return dayNumber + "th";
+  },
+  formatReadableDate(inputDate) {
+    const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthStr = months[inputDate.getMonth()];
+    const dateStr = this.dateSuffix(inputDate.getDate());
+    const year = inputDate.getFullYear();
+    return month + " " + dateStr + "," + year;
+  }
+}
+```
+
+> Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
+
+### Vue
+
+```javascript
+const FileDate = {
+  template: `<span v-bind:aria-label="labelText">{{date}}</span>`,
+  data() {
+    return {
+      date: this.formatDate(new Date()),
+      labelText: this.formatReadableDate(new Date())
+    };
+  },
+
+  methods: {
+    dateSuffix(dayNumber) {
+   	 const lastDigit = dayNumber % 10;
+   	 if (lastDigit == 1 && dayNumber != 11) {
+    	    return dayNumber + "st";
+  	  }
+	    if (lastDigit == 2 && dayNumber != 12) {
+    	    return dayNumber + "nd";
+  	  }
+	    if (lastDigit == 3 && dayNumber != 13) {
+     	   return dayNumber + "rd";
+    	}
+    	return dayNumber + "th";
+		},
+    formatReadableDate(inputDate) {
+      const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const monthStr = months[inputDate.getMonth()];
+      const dateStr = this.dateSuffix(inputDate.getDate());
+      const year = inputDate.getFullYear();
+      return month + " " + dateStr + "," + year;
+    }
+    // ...
+  },
+};
+```
+
+> In Vue, `v-bind` has a shorter syntax that does the same thing. If you axe the `v-bind` and leave the `:`, it works the same way.
+>
+> This means that:
+>
+> ```html
+> <span v-bind:aria-label="labelText">{{date}}</span>
+> ```
+>
+> And:
+>
+> ```html
+> <span :aria-label="labelText">{{date}}</span>
+> ```
+>
+> Both work to bind to an attribute in HTML.
+
+<!-- tabs:end -->
+
+> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](TODO: ADD ME) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values that in a future section.
+
+Awesome! Now it should read the file's date properly to a screen reader properly!
+
 # Inputs
 
-Our file list is starting to look good! That said, a file list containing only a single kind of file isn't much of a file list. Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
+Our file list is starting to look good! That said, a file list containing the same file repeatedly isn't much of a file list. Ideally, we'd like to pass in the name of the file into our `File` component to add a bit of variance.
+
+Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
 
 Let's have the file name be an input to our `File` component: 
 
@@ -1013,6 +1226,8 @@ const FileList = () => {
 >   return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
 > }
 > ```
+> 
+> Since this is extremely common in production React applications, we'll be using this style going forward.
 
 ## Angular
 
@@ -1067,6 +1282,101 @@ const FileList = {
 ```
 
 <!-- tabs:end -->
+
+
+
+Here, we can see each `File` being rendered with their own names. But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that! 
+
+Like functions, components can accept as many properties as you'd like to pass. Let's add another for `href`:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const File = ({ fileName, href }) => {
+  return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
+}
+
+const FileList = () => {
+    return <ul>
+    	<File fileName="File one"/>
+    	<File fileName="File two"/>
+    	<File fileName="File three"/>
+    </ul>
+}
+```
+
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+    <li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>
+  `
+})
+export class FileComponent {
+	@Input() fileName: string;
+}
+
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+		<file fileName="File one"></file>
+		<file fileName="File two"></file>
+		<file fileName="File three"></file>
+    </ul>
+  `
+})
+export class FileListComponent {
+}
+```
+
+## Vue
+
+```javascript
+const File = { 
+	template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
+  components: {
+      FileDate
+  },
+  props: ['fileName']
+}
+
+const FileList = {
+    template: `
+    	<ul>
+    		<file fileName="File one"></file>
+    		<file fileName="File two"></file>
+    		<file fileName="File three"></file>
+      </ul>
+    `,
+    components: {
+        File
+    }
+}
+```
+
+<!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You can have mutliple props
 
 Props can be JS objects/etc
 
