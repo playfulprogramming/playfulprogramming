@@ -1132,6 +1132,8 @@ export class FileDateComponent implements OnInit {
 ```
 
 > Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
+>
+> `attr` stands for `attribute`. We'll see the other usage for the `[]` momentarily.
 
 ### Vue
 
@@ -1212,9 +1214,9 @@ const File = (props) => {
 
 const FileList = () => {
     return <ul>
-    	<File fileName="File one"/>
-    	<File fileName="File two"/>
-    	<File fileName="File three"/>
+    	<File fileName={"File one"}/>
+    	<File fileName={"File two"}/>
+    	<File fileName={"File three"}/>
     </ul>
 }
 ```
@@ -1223,11 +1225,17 @@ const FileList = () => {
 >
 > ```jsx
 > const File = ({ fileName }) => {
->   return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
+> return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
 > }
 > ```
-> 
+>
 > Since this is extremely common in production React applications, we'll be using this style going forward.
+>
+> Similarly, while `{}` is required to bind a variable to an input or attribute in React, since we're only passing a string here, we could alterantively write:
+>
+>  ```jsx
+>  <File fileName="File one"/>
+>  ```
 
 ## Angular
 
@@ -1246,15 +1254,19 @@ export class FileComponent {
   selector: 'file-list',
   template: `
     <ul>
-		<file fileName="File one"></file>
-		<file fileName="File two"></file>
-		<file fileName="File three"></file>
+		<file [fileName]="File one"></file>
+		<file [fileName]="File two"></file>
+		<file [fileName]="File three"></file>
     </ul>
   `
 })
 export class FileListComponent {
 }
 ```
+
+> See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
+>
+> We're also using the `@Input` dectorator to declare inputs for each component input.
 
 ## Vue
 
@@ -1270,9 +1282,9 @@ const File = {
 const FileList = {
     template: `
     	<ul>
-    		<file fileName="File one"></file>
-    		<file fileName="File two"></file>
-    		<file fileName="File three"></file>
+    		<file :fileName="File one"></file>
+    		<file :fileName="File two"></file>
+    		<file :fileName="File three"></file>
       </ul>
     `,
     components: {
@@ -1281,53 +1293,62 @@ const FileList = {
 }
 ```
 
+> Here, we need to declare each property using the `props` property on our component, otherwise the input value won't be available to the rest of the component.
+>
+> Also, when we talked about atttribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
+>
+> ```html
+> <file v-bind:fileName="File three"></file>
+> ```
+
 <!-- tabs:end -->
 
+Here, we can see each `File` being rendered with their own names. But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
 
-
-Here, we can see each `File` being rendered with their own names. But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that! 
+## Mutliple Properties
 
 Like functions, components can accept as many properties as you'd like to pass. Let's add another for `href`:
 
 <!-- tabs:start -->
 
-## React
+### React
 
 ```jsx
 const File = ({ fileName, href }) => {
-  return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
+  return <li><a href={href}>{fileName}<FileDate/></a></li>
 }
 
 const FileList = () => {
     return <ul>
-    	<File fileName="File one"/>
-    	<File fileName="File two"/>
-    	<File fileName="File three"/>
+    	<File fileName="File one" href="/file/file_one"/>
+    	<File fileName="File two" href="/file/file_two"/>
+    	<File fileName="File three" href="/file/file_three"/>
     </ul>
 }
 ```
 
 
-## Angular
+### Angular
 
 ```typescript
 @Component({
   selector: 'file',
   template: `
-    <li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>
+    <li><a [attr.href]="href">{{fileName}}<file-date></file-date></a></li>
   `
 })
 export class FileComponent {
 	@Input() fileName: string;
+	@Input() href: string;
 }
 
 @Component({
   selector: 'file-list',
   template: `
     <ul>
-		<file fileName="File one"></file>
-		<file fileName="File two"></file>
-		<file fileName="File three"></file>
+		<file fileName="File one" href="/file/file_one"></file>
+		<file fileName="File two" href="/file/file_two"></file>
+		<file fileName="File three" href="/file/file_three"></file>
     </ul>
   `
 })
@@ -1335,23 +1356,23 @@ export class FileListComponent {
 }
 ```
 
-## Vue
+### Vue
 
 ```javascript
 const File = { 
-	template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
+	template: `<li><a :href="href">{{fileName}}<file-date></file-date></a></li>`,
   components: {
       FileDate
   },
-  props: ['fileName']
+  props: ['fileName', 'href']
 }
 
 const FileList = {
     template: `
     	<ul>
-    		<file fileName="File one"></file>
-    		<file fileName="File two"></file>
-    		<file fileName="File three"></file>
+    		<file fileName="File one" href="/file/file_one"></file>
+    		<file fileName="File two" href="/file/file_two"></file>
+    		<file fileName="File three" href="/file/file_three"></file>
       </ul>
     `,
     components: {
@@ -1363,20 +1384,6 @@ const FileList = {
 <!-- tabs:end -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-You can have mutliple props
 
 Props can be JS objects/etc
 
