@@ -499,7 +499,7 @@ Let’s say that we have the “patch” version of a software tracked. We want 
 
 How can you modify the code below to support the match version being listed out properly?
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=175664" width="704" height="500" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=175664" loading="lazy"></iframe>
 
 You’ll know the code is working when you’re able to output the following:
 

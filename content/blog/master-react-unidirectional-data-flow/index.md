@@ -29,7 +29,7 @@ A great example of a set of components we'll use to demonstrate unidirectionalit
 
 Let's take a look at a code sample that follows this unidirectionality first:
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=176771" width="704" height="500" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=176771" loading="lazy"></iframe>
 
 As you can see we're passing the `onChange` and value props to `SimpleForm`. This keeps our state consolidated inside of the `App` component rather than split between `App` and `SimpleForm`. Once you "submit" the form, `SimpleForm` calls `onDone` which changes the state stored inside of `App`. This in turn causes a re-render of `SimpleForm`.
 
@@ -94,7 +94,7 @@ export default function App() {
 }
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=176773" width="704" height="500" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=176773" loading="lazy"></iframe>
 
 This code works, but has some inherent complexity issues. When you start expanding this component, this idea of separating your state and having to inspect the child reference from the parent makes development more difficult. Let's take a look visually how following the application logic is now more difficult with this pattern.
 
@@ -133,7 +133,7 @@ Understanding unidirectionality is integral to scaffolding scalable React applic
 
 Now that we have a deeper understanding of unidirectionality, here's a challenge for you: Refactor the following components to better reflect unidirectionality in this coding pad.
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=176774" width="704" height="500" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=176774" loading="lazy"></iframe>
 
 The functionality of the app should be consistent with the previous version. Stuck?
 

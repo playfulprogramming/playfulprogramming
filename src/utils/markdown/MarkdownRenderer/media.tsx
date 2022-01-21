@@ -3,6 +3,7 @@ import { useMarkdownRendererProps } from "./types";
 import Image, { ImageProps } from "next/image";
 import Zoom from "react-medium-image-zoom";
 import { getFullRelativePath } from "utils/url-paths";
+import { EMBED_SIZE } from "../constants";
 
 export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
   return {
@@ -45,6 +46,18 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
           height="auto"
           {...rest}
           src={srcStr}
+        />
+      );
+    },
+    iframe: (props: React.IframeHTMLAttributes<HTMLIFrameElement>) => {
+      const { src, ...rest } = props;
+      return (
+        <iframe
+          width={EMBED_SIZE.w}
+          height={EMBED_SIZE.h}
+          loading="lazy"
+          {...rest}
+          src={src}
         />
       );
     },
