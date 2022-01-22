@@ -527,7 +527,7 @@ HTML isn't the only thing components are able to store, however! Like we mention
 
 Components can handle all three!
 
-While we'll touch on styling more in the future, let's take a look at how we can declare logic in a component by making `date` show the current date instead of a static date.
+While we'll touch on styling more in the future, let's take a look at how we can declare logic in a component by making `file-date` show the current date instead of a static date.
 
 We'll start by adding in a simple function to display the current date in a human readable form.
 
@@ -541,8 +541,8 @@ We'll start by adding in a simple function to display the current date in a huma
 import {useState} from 'react';
 
 const FileDate = () => {
-  // Don't worry what "setDate" is yet. We'll touch on it soon
-  const [date, setDate] = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+  // Don't worry what "setDateStr" is yet. We'll touch on it soon
+  const [dateStr, setDateStr] = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
   return <span>12/03/21</span>
 }
 ```
@@ -553,21 +553,21 @@ const FileDate = () => {
 >
 > ```jsx
 > const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
-> const date = dateArr[0];
-> const setDate = dateArr[1];
+> const dateStr = dateArr[0];
+> const setDateStr = dateArr[1];
 > ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span>12/03/21</span>
   `
 })
 export class FileDateComponent {
-	date = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
+	dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
 }
 ```
 
@@ -578,7 +578,7 @@ const FileDate = {
 	template: `<span>12/03/21</span>`,
     data() {
         return {
-            date: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+            dateStr: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
         }
     }
 }
@@ -592,10 +592,10 @@ While this logic works, it's a bit verbose (and slow, due to recreating the `Dat
 function formatDate() {
 	const today = new Date();
 	// Month starts at 0, annoyingly
-	const month = today.getMonth() + 1;
-    const date = today.getDate();
-    const year = today.getFullYear();
-    return month + "/" + date + "/" + year;
+	const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -605,16 +605,16 @@ function formatDate() {
 
 ```jsx
 function formatDate() {
-	const today = new Date();
-	// Month starts at 0, annoyingly
-	const month = today.getMonth() + 1;
-  const date = today.getDate();
-  const year = today.getFullYear();
-  return month + "/" + date + "/" + year;
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 const FileDate = () => {    
-  const date = formatDate();
+  const dateStr = formatDate();
   return <span>12/03/21</span>
 }
 ```
@@ -625,21 +625,21 @@ const FileDate = () => {
 
 ```typescript
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span>12/03/21</span>
   `
 })
 export class FileDateComponent {
-	date = this.formatDate();
+	dateStr = this.formatDate();
     
     formatDate() {
 	  const today = new Date();
       // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + "/" + date + "/" + year;
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
     }
 }
 ```
@@ -651,17 +651,17 @@ const FileDate = {
   template: `<span>12/03/21</span>`,
   data() {
     return {
-      date: this.formatDate(),
+      dateStr: this.formatDate(),
     };
   },
   methods: {
     formatDate() {
       const today = new Date();
       // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + '/' + date + '/' + year;
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + '/' + dateNum + '/' + yearNum;
     },
   },
 };
@@ -703,10 +703,10 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  const [date, setDate] = formatDate();
+  const [dateStr, setDateStr] = formatDate();
 
   useEffect(() => {
-    console.log(date)
+    console.log(dateStr)
   }, []);
  
   return <span>12/03/21</span>
@@ -721,25 +721,25 @@ const FileDate = () => {
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
-    <span>12/03/21</span>
+    <span>{{dateStr}}</span>
   `
 })
 export class FileDateComponent implements OnInit {
-	date = this.formatDate();
+    dateStr = this.formatDate();
 
-  ngOnInit() {
-    console.log(date);
-  }
+    ngOnInit() {
+        console.log(dateStr);
+    }
   
     formatDate() {
-	  const today = new Date();
-      // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + "/" + date + "/" + year;
+        const today = new Date();
+        // Month starts at 0, annoyingly
+        const monthNum = today.getMonth() + 1;
+        const dateNum = today.getDate();
+        const yearNum = today.getFullYear();
+        return monthNum + "/" + dateNum + "/" + yearNum;
     }
 }
 ```
@@ -748,23 +748,23 @@ export class FileDateComponent implements OnInit {
 
 ```javascript
 const FileDate = {
-  template: `<span>{{date}}</span>`,
+  template: `<span>{{dateStr}}</span>`,
   data() {
     return {
-      date: this.formatDate(),
+      dateStr: this.formatDate(),
     };
   },
   mounted() {
-    console.log(this.date);
+    console.log(this.dateStr);
   },
   methods: {
     formatDate() {
       const today = new Date();
       // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + '/' + date + '/' + year;
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + '/' + dateNum + '/' + yearNum;
     },
   },
 };
@@ -772,13 +772,13 @@ const FileDate = {
 
 <!-- tabs:end -->
 
-Here, we're telling each respective framework to simply log the value of `date` to the console once the component is rendered for the first time.
+Here, we're telling each respective framework to simply log the value of `dateStr` to the console once the component is rendered for the first time.
 
 > Wait, "for the first time"?
 
 Yup! React, Angular, and Vue all are capable of updating (or, re-rendering) when they need to.
 
-For example, let's say you want to show `date` to a user, but then later in the day the time switches over. While you'd have to handle the code to keep track of the time, **the respective framework would notice that you've modified the values of `date` and re-render the component to display the new value**.
+For example, let's say you want to show `dateStr` to a user, but then later in the day the time switches over. While you'd have to handle the code to keep track of the time, **the respective framework would notice that you've modified the values of `dateStr` and re-render the component to display the new value**.
 
 While the method each framework uses to tell _when_ to re-render is different, they all have a highly stable method of doing so.
 
@@ -792,7 +792,7 @@ Speaking of updating data on screen - let's take a look at how we can dynamicall
 
 # Display
 
-While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show `date` on-screen
+While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show `dateStr` on-screen
 
 
 <!-- tabs:start -->
@@ -812,9 +812,9 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  const [date, setDate] = useState(formatDate());
+  const [dateStr, setDateStr] = useState(formatDate());
   
-  return <span>{date}</span>
+  return <span>{dateStr}</span>
 }
 ```
 
@@ -824,7 +824,7 @@ const FileDate = () => {
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span>{{date}}</span>
   `
@@ -873,7 +873,7 @@ Here, we're using each framework's method of injecting state into a component. F
 
 ## Live Updating
 
-But what happens if we update `date` after the fact? Say we have a `setTimeout` call that updates the date to tomorrow's date after 5 minutes.
+But what happens if we update `dateStr` after the fact? Say we have a `setTimeout` call that updates the date to tomorrow's date after 5 minutes.
 
 <!-- tabs:start -->
 
@@ -891,24 +891,24 @@ function formatDate(inputDate) {
 }
 
 const FileDate = () => {  
-  const [date, setDate] = useState(formatDate(new Date()));
+  const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
   useEffect(() => {
     setTimeout(() => {
       // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
       const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
       const tomorrowDate = this.formatDate(tomorrow);
-      setDate(tomorrowDate);
+      setDateStr(tomorrowDate);
     }, 5000);
   }, []);
   
-  return <span>{date}</span>
+  return <span>{dateStr}</span>
 }
 ```
 
-> Remember how we said we'd touch on `setDate`?
+> Remember how we said we'd touch on `setDateStr`?
 >
-> Here, we're using `setDate` to tell React that it should re-render, which will update the value of `date`. This differs from Angular and Vue where you don't have to tell the framework when to re-render.
+> Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue where you don't have to tell the framework when to re-render.
 >
 > There are benifits and downsides to this method, which we'll touch on in a future section.
 
@@ -918,7 +918,7 @@ const FileDate = () => {
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span>{{date}}</span>
   `
@@ -997,11 +997,11 @@ Currently, our `date` component doesn't read out [particularly kindly to screen-
 
 ```jsx
 const FileDate = () => {  
-  const [date, setDate] = useState(formatDate(new Date()));
+  const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
   // ...
   
-  return <span ariaLabel="January 10th, 2023">{date}</span>
+  return <span ariaLabel="January 10th, 2023">{dateStr}</span>
 }
 ```
 
@@ -1015,7 +1015,7 @@ const FileDate = () => {
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span aria-label="January 10th, 2023">{{date}}</span>
   `
@@ -1072,20 +1072,20 @@ function dateSuffix(dayNumber) {
 }
 
 function formatReadableDate(inputDate) {
-  const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthStr = months[inputDate.getMonth()];
-  const dateStr = this.dateSuffix(inputDate.getDate());
-  const year = inputDate.getFullYear();
-  return month + " " + dateStr + "," + year;
+  const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+  const yearNum = inputDate.getFullYear();
+  return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
 
 const FileDate = () => {  
-  const [date, setDate] = useState(formatDate(new Date()));
+  const [dateStr, setDateStr] = useState(formatDate(new Date()));
   const [labelText, setLabelText] = useState(formatReadableDate(new Date()));
   
   // ...
   
-  return <span ariaLabel={labelText}>{date}</span>
+  return <span ariaLabel={labelText}>{dateStr}</span>
 }
 ```
 
@@ -1097,7 +1097,7 @@ const FileDate = () => {
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'date',
+  selector: 'file-date',
   template: `
     <span [attr.aria-label]="labelText">{{date}}</span>
   `
@@ -1122,11 +1122,11 @@ export class FileDateComponent implements OnInit {
     return dayNumber + "th";
   },
   formatReadableDate(inputDate) {
-    const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const monthStr = months[inputDate.getMonth()];
-    const dateStr = this.dateSuffix(inputDate.getDate());
-    const year = inputDate.getFullYear();
-    return month + " " + dateStr + "," + year;
+    const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+    const yearNum = inputDate.getFullYear();
+    return monthStr + " " + dateSuffixStr + "," + yearNum;
   }
 }
 ```
@@ -1162,11 +1162,11 @@ const FileDate = {
     	return dayNumber + "th";
 		},
     formatReadableDate(inputDate) {
-      const months ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const monthStr = months[inputDate.getMonth()];
-      const dateStr = this.dateSuffix(inputDate.getDate());
-      const year = inputDate.getFullYear();
-      return month + " " + dateStr + "," + year;
+      const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+      const yearNum = inputDate.getFullYear();
+      return monthStr + " " + dateSuffixStr + "," + yearNum;
     }
     // ...
   },
