@@ -1383,16 +1383,110 @@ const FileList = {
 
 <!-- tabs:end -->
 
+## Object Passing
+
+While we've been using strings to pass values to a component as an input, this isn't always the case.
+
+Input properties can be of any JavaScript type. This can include objects, strings, numbers, arrays, class instances, or anything in between!
+
+To showcase this, let's add in the ability to pass a `Date` class instance to our `file-date` component. After all, each file in our files list will likely be created at different times.
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const FileDate = ({inputDate}) => {
+  const [dateStr, setDateStr] = useState(formatDate(inputDate));
+  const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
+  
+  // ...
+  
+  return <span ariaLabel={labelText}>{dateStr}</span>
+}
+
+const File = ({href, fileName}) => {
+	  return (
+          <li><a href={href}>
+              {fileName}
+              <FileDate inputDate={new Date()}/>
+          </a></li>
+      )
+}
+```
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'file-date',
+  template: `
+    <span [attr.aria-label]="labelText">{{dateStr}}</span>
+  `
+})
+export class FileDateComponent implements OnInit {
+	@Input() inputDate: Date;
+    
+    dateStr = this.formatDate(this.inputDate);
+    labelText = this.formatReadableDate(this.inputDate);
+
+    // ...
+}
+
+@Component({
+  selector: 'file',
+  template: `
+    <li><a [attr.href]="href">
+    	{{fileName}}
+    	<file-date [inputDate]="new Date()"></file-date>
+    </a></li>
+  `
+})
+export class FileComponent {
+    // ...
+}
+```
+
+### Vue
+
+```javascript
+const FileDate = {
+    template: `<span :aria-label="labelText">{{dateStr}}</span>`,
+    data() {
+        return {
+            dateStr: this.formatDate(this.inputDate),
+            labelText: this.formatReadableDate(this.inputDate)
+        };
+    },
+    props: ['inputDate']
+    // ...
+};
+
+const File = { 
+    template: `<li><a :href="href">
+    		{{fileName}}
+    		<file-date :inputDate="new Date()"></file-date>
+        </a></li>`,
+    components: {
+        FileDate
+    },
+    props: ['fileName', 'href']
+}
+
+```
+
+<!-- tabs:end -->
+
+> Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `file-date`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
+>
+> Each framework has a way of live-updating this value for us as we might usually expect, by [utilizing a derived value](TODO: ADD ME), but we'll touch on that in a future section.
 
 
-Props can be JS objects/etc
 
 Props cannot be mutated
 
-Props have shorthand
-
 -------------------------------------------------
-
-Components can accept inputs
 
 Components can output*
