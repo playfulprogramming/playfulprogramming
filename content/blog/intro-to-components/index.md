@@ -805,10 +805,10 @@ import {useEffect, useState} from 'react';
 function formatDate() {
   const today = new Date();
   // Month starts at 0, annoyingly
-  const month = today.getMonth() + 1;
-  const date = today.getDate();
-  const year = today.getFullYear();
-  return month + "/" + date + "/" + year;
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
 const FileDate = () => {  
@@ -826,19 +826,19 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'file-date',
   template: `
-    <span>{{date}}</span>
+    <span>{{dateStr}}</span>
   `
 })
 export class FileDateComponent {
-	date = this.formatDate();
+	dateStr = this.formatDate();
   
     formatDate() {
 	  const today = new Date();
       // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + "/" + date + "/" + year;
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
     }
 }
 ```
@@ -847,20 +847,20 @@ export class FileDateComponent {
 
 ```javascript
 const FileDate = {
-  template: `<span>{{date}}</span>`,
+  template: `<span>{{dateStr}}</span>`,
   data() {
     return {
-      date: this.formatDate(),
+      dateStr: this.formatDate(),
     };
   },
   methods: {
     formatDate() {
       const today = new Date();
       // Month starts at 0, annoyingly
-      const month = today.getMonth() + 1;
-      const date = today.getDate();
-      const year = today.getFullYear();
-      return month + '/' + date + '/' + year;
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + '/' + dateNum + '/' + yearNum;
     },
   },
 };
@@ -920,27 +920,27 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'file-date',
   template: `
-    <span>{{date}}</span>
+    <span>{{dateStr}}</span>
   `
 })
 export class FileDateComponent implements OnInit {
-	date = this.formatDate(new Date());
+    dateStr = this.formatDate(new Date());
 
-  ngOnInit() {
-    setTimeout(() => {
-      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
-      this.date = this.formatDate(tomorrow);
-    }, 5000);
-  }
-    
-  formatDate(inputDate) {
-    // Month starts at 0, annoyingly
-    const month = inputDate.getMonth() + 1;
-    const date = inputDate.getDate();
-    const year = inputDate.getFullYear();
-    return month + "/" + date + "/" + year;
-  }
+    ngOnInit() {
+        setTimeout(() => {
+            // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+            const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+            this.date = this.formatDate(tomorrow);
+        }, 5000);
+    }
+
+    formatDate(inputDate) {
+        // Month starts at 0, annoyingly
+        const monthNum = inputDate.getMonth() + 1;
+        const dateNum = inputDate.getDate();
+        const yearNum = inputDate.getFullYear();
+        return monthNum + "/" + dateNum + "/" + yearNum;
+    }
 }
 ```
 
@@ -948,10 +948,10 @@ export class FileDateComponent implements OnInit {
 
 ```javascript
 const FileDate = {
-  template: `<span>{{date}}</span>`,
+  template: `<span>{{dateStr}}</span>`,
   data() {
     return {
-      date: this.formatDate(new Date()),
+      dateStr: this.formatDate(new Date()),
     };
   },
   mounted() {
@@ -964,10 +964,10 @@ const FileDate = {
   methods: {
     formatDate(inputDate) {
       // Month starts at 0, annoyingly
-      const month = inputDate.getMonth() + 1;
-      const date = inputDate.getDate();
-      const year = inputDate.getFullYear();
-      return month + "/" + date + "/" + year;
+      const monthNum = inputDate.getMonth() + 1;
+      const dateNum = inputDate.getDate();
+      const yearNum = inputDate.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
     }
   },
 };
@@ -1017,11 +1017,11 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'file-date',
   template: `
-    <span aria-label="January 10th, 2023">{{date}}</span>
+    <span aria-label="January 10th, 2023">{{dateStr}}</span>
   `
 })
 export class FileDateComponent implements OnInit {
-	date = this.formatDate(new Date());
+	dateStr = this.formatDate(new Date());
 
   // ...
 }
@@ -1031,10 +1031,10 @@ export class FileDateComponent implements OnInit {
 
 ```javascript
 const FileDate = {
-  template: `<span aria-label="January 10th, 2023">{{date}}</span>`,
+  template: `<span aria-label="January 10th, 2023">{{dateStr}}</span>`,
   data() {
     return {
-      date: this.formatDate(new Date()),
+      dateStr: this.formatDate(new Date()),
     };
   },
   // ...
@@ -1099,11 +1099,11 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'file-date',
   template: `
-    <span [attr.aria-label]="labelText">{{date}}</span>
+    <span [attr.aria-label]="labelText">{{dateStr}}</span>
   `
 })
 export class FileDateComponent implements OnInit {
-	date = this.formatDate(new Date());
+	dateStr = this.formatDate(new Date());
 	labelText = this.formatReadableDate(new Date());
 
   // ...
@@ -1139,10 +1139,10 @@ export class FileDateComponent implements OnInit {
 
 ```javascript
 const FileDate = {
-  template: `<span v-bind:aria-label="labelText">{{date}}</span>`,
+  template: `<span v-bind:aria-label="labelText">{{dateStr}}</span>`,
   data() {
     return {
-      date: this.formatDate(new Date()),
+      dateStr: this.formatDate(new Date()),
       labelText: this.formatReadableDate(new Date())
     };
   },
@@ -1178,13 +1178,13 @@ const FileDate = {
 > This means that:
 >
 > ```html
-> <span v-bind:aria-label="labelText">{{date}}</span>
+> <span v-bind:aria-label="labelText">{{dateStr}}</span>
 > ```
 >
 > And:
 >
 > ```html
-> <span :aria-label="labelText">{{date}}</span>
+> <span :aria-label="labelText">{{dateStr}}</span>
 > ```
 >
 > Both work to bind to an attribute in HTML.
