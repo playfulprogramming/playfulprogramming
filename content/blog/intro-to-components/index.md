@@ -1303,7 +1303,11 @@ const FileList = {
 
 <!-- tabs:end -->
 
-Here, we can see each `File` being rendered with their own names. But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
+Here, we can see each `File` being rendered with their own names. 
+
+One way of thinking about passing properties to a component is that we're "pass down" data to our children components. Remember, these components make a parent/child relationship to one-another.
+
+It's exciting what progress we're making! But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
 
 ## Mutliple Properties
 
@@ -1483,9 +1487,74 @@ const File = {
 >
 > Each framework has a way of live-updating this value for us as we might usually expect, by [utilizing a derived value](TODO: ADD ME), but we'll touch on that in a future section.
 
+## Props Rules
+
+While it's true that component properties can be JavaScript object, there's a rule you **must** follow when it comes to object props:
+
+You must not mutate component prop values.
+
+For example, here's some code that **will not work as-expected**:
+
+ <!-- tabs:start -->
+
+### React
+
+```jsx
+const GenericList = ({inputArray}) => {
+    // This is NOT allowed and will break things
+    inputArray.push("some value");
+
+    // ...
+}
+```
+
+### Angular
+
+```typescript
+import {Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'generic-list',
+  // ...
+})
+export class GenericListComponent implements OnInit {
+	@Input() inputArray: string[];
+    
+    ngOnInit() {
+        // This is NOT allowed and will break things
+        this.inputArray.push("some value")
+    }
+    
+    // ...
+}
+```
+
+### Vue
+
+```javascript
+const GenericList = {
+	// ...
+    mounted() {
+        // This is NOT allowed and will break things
+        this.inputArray.push("some value");
+    },
+    props: ['inputArray']
+    // ...
+};
+```
+
+<!-- tabs:end -->
+
+You're not intended to mutate properties because it breaks two concepts which we'll learn about later:
+
+1) What it means to be a "pure" function 
+2) Unidirectionality of component flow
 
 
-Props cannot be mutated
+
+# Outputs
+
+Components aren't simply able to recieve a value from it's parent. You're also
 
 -------------------------------------------------
 

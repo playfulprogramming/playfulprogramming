@@ -52,6 +52,9 @@
     - Angular Forms
   - One way binding/React
   - v-model/Vue
+- Fundamentals/Structure
+  - Pure vs impure logic
+  - Unidirectionality
 - Calculated values
   - Pipes/Angular
   - useMemo/React
@@ -99,13 +102,13 @@
   - Vuex / Vue
   - Redux / React
     - Redux DevTools / NgRX
-
 - DevTools
   - React DevTools
   - Angular DevTools
   - Vue.js DevTools
   - Flamegraph
 - Building a demo app
+- Terminology/Glossary
 
 
 
