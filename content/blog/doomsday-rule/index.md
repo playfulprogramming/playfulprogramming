@@ -69,7 +69,19 @@ For the 5th month the 9th is a doomsday, an easy way of remembering it is, "work
 Now it’s just the 7th month and the 11th month. This is where the rest of the mnemonic comes. For the 7th month, the 11th is a doomsday, and the same the other way, for the 11th month, the 7th is a doomsday. So the full mnemonic is "working 9 to 5, at 7-11"
 
 List of all doomsdays (written is day/month):   
-`3/1 OR 4/1, 28/2 OR 29/2, 14/3, 4/4, 5/9, 6/6, 7/11, 8/8, 9/5, 10/10, 11/7, 12/12`
+
+- 3/1 or 4/1
+- 28/2 or 29/2
+- 14/3
+- 4/4
+- 5/9
+- 6/6
+- 7/11
+- 8/8
+- 9/5
+- 10/10
+- 11/7
+- 12/12
 
 ## What about decimals?
 
