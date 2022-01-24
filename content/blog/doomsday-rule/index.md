@@ -62,7 +62,7 @@ For the 1st month, it depends if it's a leap year or not. To work this out, you 
 
 For the 2nd month, it also depends if it's a leap year; this time, the doomsday is always the last day of the month. So if it were a leap year, it would be the 29th, but if it weren't, it would be the 28th. So like in the paragraph above, because 1898 is not divisible by 4, the doomsday in February is the 28th.
 
-For the 3rd month its Pi day, yep, Pi day is a doomsday. So using the example, Pi day is a Monday for the 18th of March 1898.
+For the 3rd month, the doomsday is Pi day. Yep, Pi day is a doomsday. So using the example, Pi day is a Monday for the 18th of March 1898.
 
 For the 5th month, the 9th is a doomsday. An easy way of remembering it is "working 9 to 5". This mnemonic has a second half to it, but that's for another month. As you may have noticed (if you write your dates with the month first then day, I'm British, so for me, it's day then month), the mnemonic is the wrong way round; this is because it works the other way round as well, for the 9th month the 5th is a doomsday.
 
