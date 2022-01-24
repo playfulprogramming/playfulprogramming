@@ -18,7 +18,7 @@ The algorithm was invented by John Conway in 1973. You may know some of his work
 
 # things you should know before the numbers
 
-I gathered this information from the Wikipedia page which can be found [Here](https://en.wikipedia.org/wiki/Doomsday_rule)._
+I gathered this information from the [Wikipedia page, which can be found here](https://en.wikipedia.org/wiki/Doomsday_rule).
 
 ## What is MOD?
 
