@@ -64,7 +64,7 @@ For the 2nd month, it also depends if it's a leap year; this time, the doomsday 
 
 For the 3rd month its Pi day, yep, Pi day is a doomsday. So using the example, Pi day is a Monday for the 18th of March 1898.
 
-For the 5th month the 9th is a doomsday, an easy way of remembering it is, "working 9 to 5...", the dots are there as there is another bit to the mnemonic but that is for another month. As you may have noticed (if you write your dates with the month first then day, I'm British, so for me it's day then month) the mnemonic is the wrong way round, this is because it works the other way round, for the 9th month the 5th is a doomsday.
+For the 5th month, the 9th is a doomsday. An easy way of remembering it is "working 9 to 5". This mnemonic has a second half to it, but that's for another month. As you may have noticed (if you write your dates with the month first then day, I'm British, so for me, it's day then month), the mnemonic is the wrong way round; this is because it works the other way round as well, for the 9th month the 5th is a doomsday.
 
 Now it’s just the 7th month and the 11th month. This is where the rest of the mnemonic comes. For the 7th month, the 11th is a doomsday, and the same the other way, for the 11th month, the 7th is a doomsday. So the full mnemonic is "working 9 to 5, at 7-11"
 
