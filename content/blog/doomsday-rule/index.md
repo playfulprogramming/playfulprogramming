@@ -12,7 +12,7 @@
 
 # What is the doomsday rule?
 
-Before I get to how my program works, I should probably explain what the doomsday rule is. The doomsday rule is an algorithm that determines the day of the week for a given date in the Gregorian calendar, e.g. the 18th of March 1898 is a Friday. I can't think when you would use this in everyday life but it's a cool party trick to show off with.
+Before I get to how my program works, I should probably explain what the doomsday rule is. The doomsday rule is an algorithm that determines the day of the week for a given date in the Gregorian calendar. For example, without looking at a calendar, I know that the 18th of March, 1898 is a Friday. I can't think when you would use this in everyday life, but it's a cool party trick to show off with.
 
 The algorithm was invented by John Conway in 1973. You may know some of his work like Conway's game of life. A nice little fact about the dates that Conway was born on and died on were doomsdays but I will tell what they are later. The algorithm is simple enough that it can be calculated mentally. Conway could do this in a couple of seconds, and to improve his speed he created a program which gave him ten random dates every time he logged on to his computer.
 
