@@ -1403,9 +1403,9 @@ To showcase this, let's add in the ability to pass a `Date` class instance to ou
 const FileDate = ({inputDate}) => {
   const [dateStr, setDateStr] = useState(formatDate(inputDate));
   const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
-  
+
   // ...
-  
+
   return <span ariaLabel={labelText}>{dateStr}</span>
 }
 
@@ -1444,11 +1444,13 @@ export class FileDateComponent implements OnInit {
   template: `
     <li><a [attr.href]="href">
     	{{fileName}}
-    	<file-date [inputDate]="new Date()"></file-date>
+    	<file-date [inputDate]="inputDate"></file-date>
     </a></li>
   `
 })
 export class FileComponent {
+  	inputDate = new Date();
+  
     // ...
 }
 ```
@@ -1471,11 +1473,16 @@ const FileDate = {
 const File = { 
     template: `<li><a :href="href">
     		{{fileName}}
-    		<file-date :inputDate="new Date()"></file-date>
+    		<file-date :inputDate="inputDate"></file-date>
         </a></li>`,
     components: {
         FileDate
     },
+  	date() {
+      return {
+        inputDate: new Date()
+      }
+    }
     props: ['fileName', 'href']
 }
 
@@ -1495,7 +1502,7 @@ You must not mutate component prop values.
 
 For example, here's some code that **will not work as-expected**:
 
- <!-- tabs:start -->
+<!-- tabs:start -->
 
 ### React
 
@@ -1545,16 +1552,176 @@ const GenericList = {
 
 <!-- tabs:end -->
 
+
 You're not intended to mutate properties because it breaks two concepts which we'll learn about later:
 
 1) What it means to be a "pure" function 
 2) Unidirectionality of component flow
 
+# Event Binding
+
+Binding values to an HTML attribute is a powerful way to control your UI, but that's only half the story. Showing information to the user is one thing, but you also need to react to a user's input.
+
+One way you can do this is [binding a DOM event](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) that are emitted by a user's behavior.
+
+In the mockup we saw before, our files list has a hover state for the file list. However, when the user clicks on a file, it should be highlighted more distinctly.
+
+![Three files listed in a list with the middle one selected](./small_file_list.png)
+
+Let's add in a `isSelected` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
+
+
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const File = ({href, fileName}) => {
+  const [isSelected, setSelected] = useState(false);
+  const selectFile = () => {
+    setSelected(!isSelected);
+  };
+  return (
+    <li
+      onClick={selectFile}
+      style={
+        isSelected
+          ? { backgroundColor: 'blue', color: 'white' }
+          : { backgroundColor: 'white', color: 'blue' }
+      }
+    >
+      <a href={href}>
+        {fileName}
+        <FileDate inputDate={new Date()}/>
+      </a>
+    </li>
+  );
+};
+```
+
+We mentioned earlier that we'd look into the second value in the return array of `useState` at a later time. Well, that time is now!
+
+The second value of the array returned by `useState` is utilized to update the value assigned to the first variable.
+
+So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
+
+We also make sure to prefix the event name with `on` in order to bind a method to a browser event name.
+
+However, the first name of the browser event name needs to be capital. This means that `click` turns into `onClick`.
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+  <li
+  (click)="selectFile()"
+  [style]="
+    isSelected ?
+      {backgroundColor: 'blue', color: 'white'} : {backgroundColor: 'white', color: 'blue'}
+  ">
+    <a [href]="href">
+      {{fileName}}
+      <file-date [inputDate]="inputDate"></file-date>
+    </a>
+  </li>
+   `,
+  styleUrls: ['./app.component.css'],
+})
+export class FileComponent {
+  isSelected = false;
+  selectFile() {
+    this.isSelected = !this.isSelected;
+  }
+  
+  // ...
+}
+```
+
+Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser name.
+
+### Vue
+
+```js
+const File = {
+  template: `
+  <li
+  v-on:click="selectFile()"
+  :style="
+    isSelected ?
+      {backgroundColor: 'blue', color: 'white'} : {backgroundColor: 'white', color: 'blue'}
+  ">
+    <a :href="href">
+    	{{fileName}}
+    	<file-date [inputDate]="inputDate"></file-date>
+    </a>
+  </li>`,
+  data() {
+    return {
+      isSelected: false,
+      inputDate: new Date()
+    };
+  },
+  methods: {
+    selectFile() {
+      this.isSelected = !this.isSelected;
+    },
+  },
+  // ...
+};
+```
+
+We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
+
+There's also a shorthand syntax, just like there is one for attribute bindings. Instead of `v-on:`, we can use the `@` symbol.
+
+This means:
+
+```html
+<li v-on:click="selectFile()">
+```
+
+Can be rewritten into:
+
+```html
+<li @click="selectFile()">
+```
+
+<!-- tabs:end -->
+
+Here, we're binding the `style` property using Vue's binding. You may notice that for each framework, when binding via `style`, you use an object notation for styling instead of the usual string.
+
+We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
+
 
 
 # Outputs
 
-Components aren't simply able to recieve a value from it's parent. You're also
+Components aren't simply able to recieve a value from its parent. You're also able to send values back to the parent.
+
+<!-- tabs:start -->
+
+### React
+
+Test
+
+### Angular
+
+Test
+
+### Vue
+
+Test
+
+<!-- tabs:end -->
+
+
+
+
+
+
 
 -------------------------------------------------
 
