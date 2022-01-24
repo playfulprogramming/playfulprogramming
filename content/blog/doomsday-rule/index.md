@@ -48,7 +48,15 @@ The rule is called Doomsday Rule for a reason; that reason is it relies on days 
 
 I have mentioned these a lot, but what are they? They are dates of a year that fall on the same day of the week.
 
-So examples of this, going back to the 18th of March 1898 as an example, the 4th of April is a Monday, so is the 6th of June, same with 8th of August, 10th of October and 12th of December. There is one for every month, but I have only listed the 4th, 6th, 8th, 10th and 12th month, so this leaves the January, February, March, May, July, September and November, or the 1st, 2nd, 3rd, 5th, 7th, 9th and 11th month. I say the numbers and will from now on as it helps with the calculations later on.
+For examples of this, let's use the 18th of March 1898 for reference. To start, let's note that all of the following dates fall on a Monday:
+
+- 4th of April
+- 6th of June
+- 8th of August
+- 10th of October 
+- 12th of December
+
+There is one for every month, but I have only listed the 4th, 6th, 8th, 10th, and 12th months; This leaves January, February, March, May, July, September, and November, or the 1st, 2nd, 3rd, 5th, 7th, 9th and 11th month. I say the numbers and will from now on as it helps with the calculations later on.
 
 For the 1st month, it depends if it's a leap year or not, to work this out you divide the year by 4 and if it is a whole number it's a leap year. If it's a leap year it's the 4th, if it's not it's the 3rd. Easy way of remembering this is if it's the fourth year (so a leap year) it's the 4th. So for the 18th of March 1898, as 1898 is not divisible by 4. The doomsday in January is the 3rd.
 
