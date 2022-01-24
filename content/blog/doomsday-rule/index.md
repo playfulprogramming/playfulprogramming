@@ -58,7 +58,7 @@ For examples of this, let's use the 18th of March 1898 for reference. To start, 
 
 There is one for every month, but I have only listed the 4th, 6th, 8th, 10th, and 12th months; This leaves January, February, March, May, July, September, and November, or the 1st, 2nd, 3rd, 5th, 7th, 9th and 11th month. I say the numbers and will from now on as it helps with the calculations later on.
 
-For the 1st month, it depends if it's a leap year or not, to work this out you divide the year by 4 and if it is a whole number it's a leap year. If it's a leap year it's the 4th, if it's not it's the 3rd. Easy way of remembering this is if it's the fourth year (so a leap year) it's the 4th. So for the 18th of March 1898, as 1898 is not divisible by 4. The doomsday in January is the 3rd.
+For the 1st month, it depends if it's a leap year or not. To work this out, you divide the year by 4, and if it is a whole number, it's a leap year. So if it's a leap year, it's the 4th; if it's not, it's the 3rd. An easy way of remembering this is if it's the fourth year (so a leap year), it's the 4th. So for the 18th of March 1898, as 1898 is not divisible by 4. Because of this, the doomsday in January is the 3rd.
 
 For the 2nd month, it also depends if it's a leap year, this time it's always the last day of the month. So if it was a leap year it would be the 29th, but if it wasn't it would be the 28th. So like in the paragraph above, because 1898 is not divisible by 4, the doomsday in February is the 28th.
 
