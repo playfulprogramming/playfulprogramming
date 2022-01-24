@@ -60,7 +60,7 @@ There is one for every month, but I have only listed the 4th, 6th, 8th, 10th, an
 
 For the 1st month, it depends if it's a leap year or not. To work this out, you divide the year by 4, and if it is a whole number, it's a leap year. So if it's a leap year, it's the 4th; if it's not, it's the 3rd. An easy way of remembering this is if it's the fourth year (so a leap year), it's the 4th. So for the 18th of March 1898, as 1898 is not divisible by 4. Because of this, the doomsday in January is the 3rd.
 
-For the 2nd month, it also depends if it's a leap year, this time it's always the last day of the month. So if it was a leap year it would be the 29th, but if it wasn't it would be the 28th. So like in the paragraph above, because 1898 is not divisible by 4, the doomsday in February is the 28th.
+For the 2nd month, it also depends if it's a leap year; this time, the doomsday is always the last day of the month. So if it were a leap year, it would be the 29th, but if it weren't, it would be the 28th. So like in the paragraph above, because 1898 is not divisible by 4, the doomsday in February is the 28th.
 
 For the 3rd month its Pi day, yep, Pi day is a doomsday. So using the example, Pi day is a Monday for the 18th of March 1898.
 
