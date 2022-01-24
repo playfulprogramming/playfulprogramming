@@ -22,7 +22,7 @@ I gathered this information from the [Wikipedia page, which can be found here](h
 
 ## What is MOD?
 
-If you didn't know already when you get the MOD of something you divide the first number by the second number but the answer is the remainder. For example, 70 MOD 12 is 10, as 70 / 12 is 5 with a remainder of 10.
+If you didn't know already, when you get the MOD of something you divide the first number by the second number, but the answer is the remainder. For example, 70 MOD 12 is 10, as 70 / 12 is 5 with a remainder of 10.
 
 ## The days of the week
 
