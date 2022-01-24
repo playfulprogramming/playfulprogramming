@@ -44,7 +44,7 @@ The Wikipedia page doesn't actually explain what an anchor day actually is, but 
 
 ## Doomsdays
 
-The rule is called Doomsday Rule for a reason, that reason is it relies on days that are called doomsdays.
+The rule is called Doomsday Rule for a reason; that reason is it relies on days that are called doomsdays.
 
 I have mentioned these a lot, but what are they? They are dates of a year that fall on the same day of the week.
 
