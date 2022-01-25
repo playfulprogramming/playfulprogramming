@@ -84,29 +84,33 @@ While the code for this section might look something like this:
 
 ```html
 <section>
-    <button id="addButton"><span class="icon">plus</span></button>
-    <!-- ... -->
+  <button id="addButton"><span class="icon">plus</span></button>
+  <!-- ... -->
 </section>
 <ul>
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-    <!-- ... -->
-<ul>
-<script>
-var addButton = document.querySelector("#addButton")
-addButton.addEventListener('click', () => {
-  // ...
-})
-</script>
+  <li>
+    <a href="/file/file_one">File one<span>12/03/21</span></a>
+  </li>
+  <!-- ... -->
+  <ul>
+    <script>
+      var addButton = document.querySelector("#addButton");
+      addButton.addEventListener("click", () => {
+        // ...
+      });
+    </script>
+  </ul>
+</ul>
 ```
 
 We might have a mental model to break down each section into smaller ones. If we use psuedo-code to represent our mental model of the actual codebase, it might look something like this:
 
 ```html
 <files-buttons>
-	<add-button></add-button>
+  <add-button></add-button>
 </files-buttons>
 <files-list>
-	<file name="File one"></file>
+  <file name="File one"></file>
 </files-list>
 ```
 
@@ -120,8 +124,10 @@ Let's look at what `<file>` might look like in each framework:
 
 ```jsx
 const File = () => {
-  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-}
+  return (
+    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+  );
+};
 ```
 
 > Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
@@ -133,7 +139,7 @@ const File = () => {
 > ```javascript
 > var spanTag = React.createElement("span", null, "12/03/21");
 > var aTag = React.createElement("a", {
->     href: "/file/file_one"
+>   href: "/file/file_one"
 > }, "File one", spanTag);
 > React.createElement("li", null, aTag);
 > ```
@@ -145,16 +151,15 @@ const File = () => {
 ## Angular
 
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
     <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-  `
+  `,
 })
-export class FileComponent {
-}
+export class FileComponent {}
 ```
 
 > Here, we're using the `@Component` decorator to define a class component in Angular. However, it's important to note that decorators (`@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
@@ -165,7 +170,7 @@ export class FileComponent {
 
 ```javascript
 const File = { 
-	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
 }
 ```
 
@@ -192,9 +197,9 @@ Because modern web apps consist of multiple files (that are then often bundled w
 ```html
 <!-- index.html -->
 <html>
-	<body>
-		<div id="root"></div>
-	</body>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
 ```
 
@@ -204,11 +209,11 @@ Because modern web apps consist of multiple files (that are then often bundled w
 ```html
 <!-- index.html -->
 <html>
-	<body>
-		<!-- This should match the `selector` of the -->
+  <body>
+    <!-- This should match the `selector` of the -->
     <!-- component you want here -->
-		<file></file>
-	</body>
+    <file></file>
+  </body>
 </html>
 ```
 
@@ -217,9 +222,9 @@ Because modern web apps consist of multiple files (that are then often bundled w
 ```html
 <!-- index.html -->
 <html>
-	<body>
-		<div id="root"></div>
-	</body>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
 ```
 
@@ -234,7 +239,7 @@ Then, in JavaScript, you "render" a component into this element.
 ## React
 
 
-```jsx
+```jsx {0,6}
 import { createRoot } from 'react-dom';
 
 const File = () => {
@@ -246,19 +251,18 @@ createRoot(document.getElementById('root')).render(<File />);
 
 ## Angular
 
-```typescript
-import {Component, NgModule} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+```typescript {2,20}
+import { Component, NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
     <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-  `
+  `,
 })
-export class FileComponent {
-}
+export class FileComponent {}
 
 @NgModule({
   imports: [BrowserModule],
@@ -276,9 +280,9 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 ## Vue
 
-```javascript
+```javascript {4,6}
 const File = { 
-	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
 }
 
 import { createApp } from 'vue';
@@ -300,59 +304,57 @@ While our `File` component currently contains HTML elements, components may also
 
 ## React
 
-```jsx
+```jsx {6-11}
 const File = () => {
-  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-}
+  return (
+    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+  );
+};
 
 const FileList = () => {
-    return <ul>
-    	<File/>
-    </ul>
-}
+  return (
+    <ul><File /></ul>
+  );
+};
 ```
 
 ## Angular
 
-```typescript
+```typescript {7-14}
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
     <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
-  `
+  `,
 })
-export class FileComponent {
-}
+export class FileComponent {}
 
 @Component({
-  selector: 'file-list',
+  selector: "file-list",
   template: `
-    <ul>
-		<file></file>
-    </ul>
-  `
+    <ul><file></file></ul>
+  `,
 })
-export class FileListComponent {
-}
+export class FileListComponent {}
 ```
 
 ## Vue
 
-```javascript
-const File = { 
-	template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
-}
+```javascript {4-13}
+const File = {
+  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`,
+};
 
 const FileList = {
-    template: `
-    	<ul>
-    		<file></file>
-        </ul>
-    `,
-    components: {
-        File
-    }
-}
+  template: `
+    <ul>
+      <file></file>
+    </ul>
+  `,
+  components: {
+    File,
+  },
+};
 ```
 
 We need to make sure to register all of the components we'll be using in our component! Otherwise, Vue will throw an error:
@@ -371,46 +373,47 @@ Looking through our `File` component, we can also notice that we're rendering mu
 
 ```jsx
 const FileList = () => {
-    return <ul>
-    	<File/>
-    	<File/>
-    	<File/>
+  return (
+    <ul>
+      <File />
+      <File />
+      <File />
     </ul>
-}
+  );
+};
 ```
 
 ## Angular
 
 ```typescript
 @Component({
-  selector: 'file-list',
+  selector: "file-list",
   template: `
     <ul>
-		<file></file>
-		<file></file>
-		<file></file>
+      <file></file>
+      <file></file>
+      <file></file>
     </ul>
-  `
+  `,
 })
-export class FileListComponent {
-}
+export class FileListComponent {}
 ```
 
 ## Vue
 
 ```javascript
 const FileList = {
-    template: `
-    	<ul>
-    		<file></file>
-    		<file></file>
-    		<file></file>
-        </ul>
-    `,
-    components: {
-        File
-    }
-}
+  template: `
+    <ul>
+      <file></file>
+      <file></file>
+      <file></file>
+    </ul>
+  `,
+  components: {
+    File,
+  },
+};
 ```
 
 <!-- tabs:end -->
@@ -431,88 +434,86 @@ We can extend this hierarchical relationship to have "grandchildren" and beyond 
 
 ## React
 
-```jsx
+```jsx {0-2,4-6,11}
 const FileDate = () => {
-  return <span>12/03/21</span>    
-}
-
+  return <span>12/03/21</span>;
+};
 
 const File = () => {
-  return <li><a href="/file/file_one">File one<FileDate/></a></li>
-}
+  return <li><a href="/file/file_one">File one<FileDate/></a></li>;
+};
 
 const FileList = () => {
-    return <ul>
-    	<File/>
-    	<File/>
-    	<File/>
+  return (
+    <ul>
+      <File />
+      <File />
+      <File />
     </ul>
-}
+  );
+};
 ```
 
 ## Angular
 
-```typescript
-import {Component} from '@angular/core';
+```typescript {2-6,9-12,22}
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  template: `
-    <span>12/03/21</span>
-  `
+  selector: "file-date",
+  template: `<span>12/03/21</span>`,
 })
-export class FileDateComponent {
-}
+export class FileDateComponent {}
 
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
-    <li><a href="/file/file_one">File one<file-date></file-date></a></li>
-  `
+    <li>
+      <a href="/file/file_one">File one<file-date></file-date></a>
+    </li>
+  `,
 })
-export class FileComponent {
-}
+export class FileComponent {}
 
 @Component({
-  selector: 'file-list',
+  selector: "file-list",
   template: `
     <ul>
-		<file></file>
-		<file></file>
-		<file></file>
+      <file></file>
+      <file></file>
+      <file></file>
     </ul>
-  `
+  `,
 })
-export class FileListComponent {
-}
+export class FileListComponent {}
 ```
 
 ## Vue
 
-```javascript
-const FileDate = { 
-	template: `<span>12/03/21</span>`
-}
+```javascript {0-2,4-5,14}
+const FileDate = {
+  template: `<span>12/03/21</span>`,
+};
 
-const File = { 
-	template: `<li><a href="/file/file_one">File one<file-date></file-date></a></li>`,
-    components: {
-        FileDate
-    }
-}
+const File = {
+  template: `<li><a href="/file/file_one">File one<file-date></file-date></a></li>`,
+  components: {
+    FileDate,
+  },
+};
 
 const FileList = {
-    template: `
-    	<ul>
-    		<file></file>
-    		<file></file>
-    		<file></file>
-        </ul>
-    `,
-    components: {
-        File
-    }
-}
+  template: `
+    <ul>
+      <file></file>
+      <file></file>
+      <file></file>
+    </ul>
+  `,
+  components: {
+    File,
+  },
+};
 ```
 
 <!-- tabs:end -->
@@ -537,7 +538,7 @@ We'll start by adding in a simple function to display the current date in a huma
 
 ## React
 
-```jsx
+```jsx {4}
 import {useState} from 'react';
 
 const FileDate = () => {
@@ -559,28 +560,26 @@ const FileDate = () => {
 
 ## Angular
 
-```typescript
+```typescript {6}
 @Component({
   selector: 'file-date',
-  template: `
-    <span>12/03/21</span>
-  `
+  template: `<span>12/03/21</span>`
 })
 export class FileDateComponent {
-	dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
+  dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
 }
 ```
 
 ## Vue
 
-```javascript
+```javascript {2-6}
 const FileDate = { 
-	template: `<span>12/03/21</span>`,
-    data() {
-        return {
-            dateStr: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
-        }
+  template: `<span>12/03/21</span>`,
+  data() {
+    return {
+      dateStr: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
     }
+  }
 }
 ```
 
@@ -590,12 +589,12 @@ While this logic works, it's a bit verbose (and slow, due to recreating the `Dat
 
 ```javascript
 function formatDate() {
-	const today = new Date();
-	// Month starts at 0, annoyingly
-	const monthNum = today.getMonth() + 1;
-    const dateNum = today.getDate();
-    const yearNum = today.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
 }
 ```
 
@@ -603,50 +602,48 @@ function formatDate() {
 
 ## React
 
-```jsx
+```jsx {0-7, 10}
 function formatDate() {
-    const today = new Date();
-    // Month starts at 0, annoyingly
-    const monthNum = today.getMonth() + 1;
-    const dateNum = today.getDate();
-    const yearNum = today.getFullYear();
-    return monthNum + "/" + dateNum + "/" + yearNum;
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
 }
 
-const FileDate = () => {    
+const FileDate = () => {
   const dateStr = formatDate();
-  return <span>12/03/21</span>
-}
+  return <span>12/03/21</span>;
+};
 ```
 
 > Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do thanks to different philosophies.
 
 ## Angular
 
-```typescript
+```typescript {5-14}
 @Component({
-  selector: 'file-date',
-  template: `
-    <span>12/03/21</span>
-  `
+  selector: "file-date",
+  template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {
-	dateStr = this.formatDate();
-    
-    formatDate() {
-	  const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-    }
+  dateStr = this.formatDate();
+
+  formatDate() {
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
+  }
 }
 ```
 
 ## Vue
 
-```javascript
+```javascript {2-16}
 const FileDate = {
   template: `<span>12/03/21</span>`,
   data() {
@@ -661,7 +658,7 @@ const FileDate = {
       const monthNum = today.getMonth() + 1;
       const dateNum = today.getDate();
       const yearNum = today.getFullYear();
-      return monthNum + '/' + dateNum + '/' + yearNum;
+      return monthNum + "/" + dateNum + "/" + yearNum;
     },
   },
 };
@@ -690,7 +687,7 @@ Let's fix that by telling our components that "once you're rendered on screen, `
 
 ### React
 
-```jsx
+```jsx {0,14-16}
 import {useEffect} from 'react';
 
 function formatDate() {
@@ -717,36 +714,34 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript
-import {Component, OnInit} from '@angular/core';
+```typescript {0,6,9-11}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  template: `
-    <span>{{dateStr}}</span>
-  `
+  selector: "file-date",
+  template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
-    dateStr = this.formatDate();
+  dateStr = this.formatDate();
 
-    ngOnInit() {
-        console.log(dateStr);
-    }
-  
-    formatDate() {
-        const today = new Date();
-        // Month starts at 0, annoyingly
-        const monthNum = today.getMonth() + 1;
-        const dateNum = today.getDate();
-        const yearNum = today.getFullYear();
-        return monthNum + "/" + dateNum + "/" + yearNum;
-    }
+  ngOnInit() {
+    console.log(dateStr);
+  }
+
+  formatDate() {
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
+  }
 }
 ```
 
 ### Vue
 
-```javascript
+```javascript {7-9}
 const FileDate = {
   template: `<span>{{dateStr}}</span>`,
   data() {
@@ -799,7 +794,7 @@ While displaying the value in the console works well for debugging, it's not of 
 
 ### React
 
-```jsx
+```jsx {14}
 import {useEffect, useState} from 'react';
 
 function formatDate() {
@@ -820,32 +815,30 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript
-import {Component, OnInit} from '@angular/core';
+```typescript {4}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  template: `
-    <span>{{dateStr}}</span>
-  `
+  selector: "file-date",
+  template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent {
-	dateStr = this.formatDate();
-  
-    formatDate() {
-	  const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-    }
+  dateStr = this.formatDate();
+
+  formatDate() {
+    const today = new Date();
+    // Month starts at 0, annoyingly
+    const monthNum = today.getMonth() + 1;
+    const dateNum = today.getDate();
+    const yearNum = today.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
+  }
 }
 ```
 
 ### Vue
 
-```javascript
+```javascript {1}
 const FileDate = {
   template: `<span>{{dateStr}}</span>`,
   data() {
@@ -879,8 +872,8 @@ But what happens if we update `dateStr` after the fact? Say we have a `setTimeou
 
 ### React
 
-```jsx
-import {useState, useEffect} from 'react';
+```jsx {13-20}
+import { useState, useEffect } from "react";
 
 function formatDate(inputDate) {
   // Month starts at 0, annoyingly
@@ -890,20 +883,20 @@ function formatDate(inputDate) {
   return month + "/" + date + "/" + year;
 }
 
-const FileDate = () => {  
+const FileDate = () => {
   const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
   useEffect(() => {
     setTimeout(() => {
       // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
       const tomorrowDate = this.formatDate(tomorrow);
       setDateStr(tomorrowDate);
     }, 5000);
   }, []);
-  
-  return <span>{dateStr}</span>
-}
+
+  return <span>{dateStr}</span>;
+};
 ```
 
 > Remember how we said we'd touch on `setDateStr`?
@@ -914,39 +907,37 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript
-import {Component, OnInit} from '@angular/core';
+```typescript {9-15}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  template: `
-    <span>{{dateStr}}</span>
-  `
+  selector: "file-date",
+  template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
-    dateStr = this.formatDate(new Date());
+  dateStr = this.formatDate(new Date());
 
-    ngOnInit() {
-        setTimeout(() => {
-            // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-            const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
-            this.date = this.formatDate(tomorrow);
-        }, 5000);
-    }
+  ngOnInit() {
+    setTimeout(() => {
+      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      this.date = this.formatDate(tomorrow);
+    }, 5000);
+  }
 
-    formatDate(inputDate) {
-        // Month starts at 0, annoyingly
-        const monthNum = inputDate.getMonth() + 1;
-        const dateNum = inputDate.getDate();
-        const yearNum = inputDate.getFullYear();
-        return monthNum + "/" + dateNum + "/" + yearNum;
-    }
+  formatDate(inputDate) {
+    // Month starts at 0, annoyingly
+    const monthNum = inputDate.getMonth() + 1;
+    const dateNum = inputDate.getDate();
+    const yearNum = inputDate.getFullYear();
+    return monthNum + "/" + dateNum + "/" + yearNum;
+  }
 }
 ```
 
 ### Vue
 
-```javascript
+```javascript {7-13}
 const FileDate = {
   template: `<span>{{dateStr}}</span>`,
   data() {
@@ -957,7 +948,7 @@ const FileDate = {
   mounted() {
     setTimeout(() => {
       // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000));
+      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
       this.date = this.formatDate(tomorrow);
     }, 5000);
   },
@@ -968,7 +959,7 @@ const FileDate = {
       const dateNum = inputDate.getDate();
       const yearNum = inputDate.getFullYear();
       return monthNum + "/" + dateNum + "/" + yearNum;
-    }
+    },
   },
 };
 ```
@@ -995,7 +986,7 @@ Currently, our `date` component doesn't read out [particularly kindly to screen-
 
 ### React
 
-```jsx
+```jsx {5}
 const FileDate = () => {  
   const [dateStr, setDateStr] = useState(formatDate(new Date()));
 
@@ -1011,7 +1002,7 @@ const FileDate = () => {
 
 ### Angular
 
-```typescript
+```typescript {5}
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -1029,7 +1020,7 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript
+```javascript {1}
 const FileDate = {
   template: `<span aria-label="January 10th, 2023">{{dateStr}}</span>`,
   data() {
@@ -1054,22 +1045,8 @@ Let's correct that by adding in a `formatReadableDate` method and reflect that i
 
 ### React
 
-```jsx
+```jsx {12,16}
 import {useState, useEffect} from 'react';
-
-function dateSuffix(dayNumber) {
-  const lastDigit = dayNumber % 10;
-  if (lastDigit == 1 && dayNumber != 11) {
-    return dayNumber + "st";
-  }
-  if (lastDigit == 2 && dayNumber != 12) {
-    return dayNumber + "nd";
-  }
-  if (lastDigit == 3 && dayNumber != 13) {
-    return dayNumber + "rd";
-  }
-  return dayNumber + "th";
-}
 
 function formatReadableDate(inputDate) {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -1087,13 +1064,27 @@ const FileDate = () => {
   
   return <span ariaLabel={labelText}>{dateStr}</span>
 }
+
+function dateSuffix(dayNumber) {
+  const lastDigit = dayNumber % 10;
+  if (lastDigit == 1 && dayNumber != 11) {
+    return dayNumber + "st";
+  }
+  if (lastDigit == 2 && dayNumber != 12) {
+    return dayNumber + "nd";
+  }
+  if (lastDigit == 3 && dayNumber != 13) {
+    return dayNumber + "rd";
+  }
+  return dayNumber + "th";
+}
 ```
 
 > Notice the `{}` used after the `=` to assign the attribute value. This is pretty similar to the syntax to interpolate text into the DOM!
 
 ### Angular
 
-```typescript
+```typescript {5,10}
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -1137,7 +1128,7 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript
+```javascript {1,5}
 const FileDate = {
   template: `<span v-bind:aria-label="labelText">{{dateStr}}</span>`,
   data() {
@@ -1207,25 +1198,27 @@ Let's have the file name be an input to our `File` component:
 
 ## React
 
-```jsx
+```jsx {0-2,7}
 const File = (props) => {
-  return <li><a href="/file/file_one">{props.fileName}<FileDate/></a></li>
-}
+  return <li><a href="/file/file_one">{props.fileName}<FileDate/></a></li>;
+};
 
 const FileList = () => {
-    return <ul>
-    	<File fileName={"File one"}/>
-    	<File fileName={"File two"}/>
-    	<File fileName={"File three"}/>
+  return (
+    <ul>
+      <File fileName={"File one"} />
+      <File fileName={"File two"} />
+      <File fileName={"File three"} />
     </ul>
-}
+  );
+};
 ```
 
 > `props` is short for "properties". React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
 >
 > ```jsx
 > const File = ({ fileName }) => {
-> return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>
+>   return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>;
 > }
 > ```
 >
@@ -1239,29 +1232,28 @@ const FileList = () => {
 
 ## Angular
 
-```typescript
+```typescript {7,14}
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
-    <li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>
-  `
+    <li><a href="/file/file_one">{{ fileName }}<file-date></file-date></a></li>
+  `,
 })
 export class FileComponent {
-	@Input() fileName: string;
+  @Input() fileName: string;
 }
 
 @Component({
-  selector: 'file-list',
+  selector: "file-list",
   template: `
     <ul>
-		<file [fileName]="File one"></file>
-		<file [fileName]="File two"></file>
-		<file [fileName]="File three"></file>
+      <file [fileName]="File one"></file>
+      <file [fileName]="File two"></file>
+      <file [fileName]="File three"></file>
     </ul>
-  `
+  `,
 })
-export class FileListComponent {
-}
+export class FileListComponent {}
 ```
 
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
@@ -1270,27 +1262,27 @@ export class FileListComponent {
 
 ## Vue
 
-```javascript
-const File = { 
-	template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
+```javascript {5,11}
+const File = {
+  template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
   components: {
-      FileDate
+    FileDate,
   },
-  props: ['fileName']
-}
+  props: ["fileName"],
+};
 
 const FileList = {
-    template: `
-    	<ul>
-    		<file :fileName="File one"></file>
-    		<file :fileName="File two"></file>
-    		<file :fileName="File three"></file>
-      </ul>
-    `,
-    components: {
-        File
-    }
-}
+  template: `
+    <ul>
+      <file :fileName="File one"></file>
+      <file :fileName="File two"></file>
+      <file :fileName="File three"></file>
+    </ul>
+  `,
+  components: {
+    File,
+  },
+};
 ```
 
 > Here, we need to declare each property using the `props` property on our component, otherwise the input value won't be available to the rest of the component.
@@ -1309,7 +1301,7 @@ One way of thinking about passing properties to a component is that we're "pass 
 
 It's exciting what progress we're making! But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
 
-## Mutliple Properties
+## Multiple Properties
 
 Like functions, components can accept as many properties as you'd like to pass. Let's add another for `href`:
 
@@ -1317,72 +1309,73 @@ Like functions, components can accept as many properties as you'd like to pass. 
 
 ### React
 
-```jsx
+```jsx {0-2,7}
 const File = ({ fileName, href }) => {
-  return <li><a href={href}>{fileName}<FileDate/></a></li>
-}
+  return <li><a href={href}>{fileName}<FileDate/></a></li>;
+};
 
 const FileList = () => {
-    return <ul>
-    	<File fileName="File one" href="/file/file_one"/>
-    	<File fileName="File two" href="/file/file_two"/>
-    	<File fileName="File three" href="/file/file_three"/>
+  return (
+    <ul>
+      <File fileName="File one" href="/file/file_one" />
+      <File fileName="File two" href="/file/file_two" />
+      <File fileName="File three" href="/file/file_three" />
     </ul>
-}
+  );
+};
 ```
 
 
 ### Angular
 
-```typescript
+```typescript {7-8,15}
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
-    <li><a [attr.href]="href">{{fileName}}<file-date></file-date></a></li>
-  `
+    <li><a [attr.href]="href">{{ fileName }}<file-date></file-date></a></li>
+  `,
 })
 export class FileComponent {
-	@Input() fileName: string;
-	@Input() href: string;
+  @Input() fileName: string;
+  @Input() href: string;
 }
 
 @Component({
-  selector: 'file-list',
+  selector: "file-list",
   template: `
     <ul>
-		<file fileName="File one" href="/file/file_one"></file>
-		<file fileName="File two" href="/file/file_two"></file>
-		<file fileName="File three" href="/file/file_three"></file>
+      <file fileName="File one" href="/file/file_one"></file>
+      <file fileName="File two" href="/file/file_two"></file>
+      <file fileName="File three" href="/file/file_three"></file>
     </ul>
-  `
+  `,
 })
-export class FileListComponent {
-}
+export class FileListComponent {}
 ```
 
 ### Vue
 
-```javascript
-const File = { 
-	template: `<li><a :href="href">{{fileName}}<file-date></file-date></a></li>`,
+```javascript {5,11}
+const File = {
+  template: `<li><a :href="href">{{fileName}}<file-date></file-date></a></li>`,
   components: {
-      FileDate
+    FileDate,
   },
-  props: ['fileName', 'href']
-}
+  props: ["fileName", "href"],
+};
 
 const FileList = {
-    template: `
-    	<ul>
-    		<file fileName="File one" href="/file/file_one"></file>
-    		<file fileName="File two" href="/file/file_two"></file>
-    		<file fileName="File three" href="/file/file_three"></file>
+  template: `
+      <ul>
+        <file fileName="File one" href="/file/file_one"></file>
+        <file fileName="File two" href="/file/file_two"></file>
+        <file fileName="File three" href="/file/file_three"></file>
       </ul>
     `,
-    components: {
-        File
-    }
-}
+  components: {
+    File,
+  },
+};
 ```
 
 <!-- tabs:end -->
@@ -1399,93 +1392,98 @@ To showcase this, let's add in the ability to pass a `Date` class instance to ou
 
 ### React
 
-```jsx
-const FileDate = ({inputDate}) => {
+```jsx {0-2,14}
+const FileDate = ({ inputDate }) => {
   const [dateStr, setDateStr] = useState(formatDate(inputDate));
   const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
 
   // ...
 
-  return <span ariaLabel={labelText}>{dateStr}</span>
-}
+  return <span ariaLabel={labelText}>{dateStr}</span>;
+};
 
-const File = ({href, fileName}) => {
-	  return (
-          <li><a href={href}>
-              {fileName}
-              <FileDate inputDate={new Date()}/>
-          </a></li>
-      )
-}
+const File = ({ href, fileName }) => {
+  return (
+    <li>
+      <a href={href}>
+        {fileName}
+        <FileDate inputDate={new Date()} />
+      </a>
+    </li>
+  );
+};
 ```
 
 ### Angular
 
-```typescript
-import {Component, OnInit} from '@angular/core';
+```typescript {7,21,27}
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'file-date',
-  template: `
-    <span [attr.aria-label]="labelText">{{dateStr}}</span>
-  `
+  selector: "file-date",
+  template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
-	@Input() inputDate: Date;
-    
-    dateStr = this.formatDate(this.inputDate);
-    labelText = this.formatReadableDate(this.inputDate);
+  @Input() inputDate: Date;
 
-    // ...
+  dateStr = this.formatDate(this.inputDate);
+  labelText = this.formatReadableDate(this.inputDate);
+
+  // ...
 }
 
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
-    <li><a [attr.href]="href">
-    	{{fileName}}
-    	<file-date [inputDate]="inputDate"></file-date>
-    </a></li>
-  `
+    <li>
+      <a [attr.href]="href">
+        {{ fileName }}
+        <file-date [inputDate]="inputDate"></file-date>
+      </a>
+    </li>
+  `,
 })
 export class FileComponent {
-  	inputDate = new Date();
-  
-    // ...
+  inputDate = new Date();
+
+  // ...
 }
 ```
 
 ### Vue
 
-```javascript
+```javascript {4-5,8,17,26}
 const FileDate = {
-    template: `<span :aria-label="labelText">{{dateStr}}</span>`,
-    data() {
-        return {
-            dateStr: this.formatDate(this.inputDate),
-            labelText: this.formatReadableDate(this.inputDate)
-        };
-    },
-    props: ['inputDate']
-    // ...
+  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
+  data() {
+    return {
+      dateStr: this.formatDate(this.inputDate),
+      labelText: this.formatReadableDate(this.inputDate)
+    };
+  },
+  props: ['inputDate']
+  // ...
 };
 
 const File = { 
-    template: `<li><a :href="href">
-    		{{fileName}}
-    		<file-date :inputDate="inputDate"></file-date>
-        </a></li>`,
-    components: {
-        FileDate
-    },
-  	date() {
-      return {
-        inputDate: new Date()
-      }
+  template: `
+    <li>
+      <a :href="href">
+        {{fileName}}
+        <file-date :inputDate="inputDate"></file-date>
+      </a>
+    </li>
+  `,
+  components: {
+      FileDate
+  },
+  date() {
+    return {
+      inputDate: new Date()
     }
-    props: ['fileName', 'href']
+  }
+  props: ['fileName', 'href']
 }
-
 ```
 
 <!-- tabs:end -->
@@ -1576,24 +1574,26 @@ Let's add in a `isSelected` property to our `file` component to add hover stylin
 
 ### React
 
-```jsx
-const File = ({href, fileName}) => {
+```jsx {1,4,9-14}
+const File = ({ href, fileName }) => {
   const [isSelected, setSelected] = useState(false);
+
   const selectFile = () => {
     setSelected(!isSelected);
   };
+
   return (
     <li
       onClick={selectFile}
       style={
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? { backgroundColor: "blue", color: "white" }
+          : { backgroundColor: "white", color: "blue" }
       }
     >
       <a href={href}>
         {fileName}
-        <FileDate inputDate={new Date()}/>
+        <FileDate inputDate={new Date()} />
       </a>
     </li>
   );
@@ -1602,40 +1602,39 @@ const File = ({href, fileName}) => {
 
 We mentioned earlier that we'd look into the second value in the return array of `useState` at a later time. Well, that time is now!
 
-The second value of the array returned by `useState` is utilized to update the value assigned to the first variable.
+The second value of the array returned by `useState` is utilized to update the value assigned to the first variable. So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
 
-So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
-
-We also make sure to prefix the event name with `on` in order to bind a method to a browser event name.
-
-However, the first name of the browser event name needs to be capital. This means that `click` turns into `onClick`.
+We also make sure to prefix the event name with `on` in order to bind a method to a browser event name. However, the first name of the browser event name needs to be capital. This means that `click` turns into `onClick`.
 
 ### Angular
 
-```typescript
+```typescript {4-9,20-24}
 @Component({
-  selector: 'file',
+  selector: "file",
   template: `
-  <li
-  (click)="selectFile()"
-  [style]="
-    isSelected ?
-      {backgroundColor: 'blue', color: 'white'} : {backgroundColor: 'white', color: 'blue'}
-  ">
-    <a [href]="href">
-      {{fileName}}
-      <file-date [inputDate]="inputDate"></file-date>
-    </a>
-  </li>
-   `,
-  styleUrls: ['./app.component.css'],
+    <li
+      (click)="selectFile()"
+      [style]="
+        isSelected
+          ? { backgroundColor: 'blue', color: 'white' }
+          : { backgroundColor: 'white', color: 'blue' }
+      "
+    >
+      <a [href]="href">
+        {{ fileName }}
+        <file-date [inputDate]="inputDate"></file-date>
+      </a>
+    </li>
+  `,
+  styleUrls: ["./app.component.css"],
 })
 export class FileComponent {
   isSelected = false;
+
   selectFile() {
     this.isSelected = !this.isSelected;
   }
-  
+
   // ...
 }
 ```
@@ -1644,15 +1643,16 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 
 ### Vue
 
-```js
+```javascript {3-8,16,21-23}
 const File = {
   template: `
   <li
-  v-on:click="selectFile()"
-  :style="
-    isSelected ?
-      {backgroundColor: 'blue', color: 'white'} : {backgroundColor: 'white', color: 'blue'}
-  ">
+    v-on:click="selectFile()"
+    :style="
+      isSelected ?
+        {backgroundColor: 'blue', color: 'white'} :
+        {backgroundColor: 'white', color: 'blue'}
+    ">
     <a :href="href">
     	{{fileName}}
     	<file-date [inputDate]="inputDate"></file-date>
@@ -1661,7 +1661,7 @@ const File = {
   data() {
     return {
       isSelected: false,
-      inputDate: new Date()
+      inputDate: new Date(),
     };
   },
   methods: {
@@ -1695,11 +1695,11 @@ Here, we're binding the `style` property using Vue's binding. You may notice tha
 
 We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
 
-
-
 # Outputs
 
 Components aren't simply able to recieve a value from its parent. You're also able to send values back to the parent.
+
+Just like the event binding that we did earlier, we'll use the same syntax, alongside some new syntax, in order to emit the values.
 
 <!-- tabs:start -->
 
