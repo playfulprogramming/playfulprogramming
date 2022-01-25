@@ -1608,7 +1608,7 @@ We also make sure to prefix the event name with `on` in order to bind a method t
 
 ### Angular
 
-```typescript {4-9,20-24}
+```typescript {4-9,19-23}
 @Component({
   selector: "file",
   template: `
@@ -1625,8 +1625,7 @@ We also make sure to prefix the event name with `on` in order to bind a method t
         <file-date [inputDate]="inputDate"></file-date>
       </a>
     </li>
-  `,
-  styleUrls: ["./app.component.css"],
+  `
 })
 export class FileComponent {
   isSelected = false;
@@ -1699,23 +1698,215 @@ We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/
 
 Components aren't simply able to recieve a value from its parent. You're also able to send values back to the parent.
 
-Just like the event binding that we did earlier, we'll use the same syntax, alongside some new syntax, in order to emit the values.
+ These values are sent back to the parent component usually via a custom event, much like those emitted by the browser. Just like the event binding that we did earlier, we'll use the same syntax to bind the custom events, alongside some new syntax in order to emit them.
+
+> Something work mentioning is that, like event binding, React typically expects you to pass in a function as opposed emitting an event and listening for it.
+>
+> This differs slightly from Vue and Angular, but has the same fundamental idea of "sending data to a parent component".
+
+While listening for a `click` event in our `file` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior, and instead, emit a `selected` custom event to allow for only one selected file at a time.
 
 <!-- tabs:start -->
 
 ### React
 
-Test
+```jsx {2,5,19-27,31-36}
+import { useState } from 'react';
+
+const File = ({ href, fileName, isSelected, onSelected }) => {
+  return (
+    <li
+      onClick={onSelected}
+      style={
+        isSelected
+          ? { backgroundColor: 'blue', color: 'white' }
+          : { backgroundColor: 'white', color: 'blue' }
+      }
+    >
+      <a href={href}>{fileName}</a>
+      {/* ... */}
+    </li>
+  );
+};
+
+const FileList = () => {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const onSelected = (idx) => {
+    if (selectedIndex === idx) {
+      setSelectedIndex(-1);
+      return;
+    }
+    setSelectedIndex(idx);
+  };
+
+  return (
+    <ul>
+      <File
+        isSelected={selectedIndex === 0}
+        onSelected={() => onSelected(0)}
+        fileName="File one"
+        href="/file/file_one"
+      />
+      <File
+        isSelected={selectedIndex === 1}
+        onSelected={() => onSelected(1)}
+        fileName="File two"
+        href="/file/file_two"
+      />
+      <File
+        isSelected={selectedIndex === 2}
+        onSelected={() => onSelected(2)}
+        fileName="File three"
+        href="/file/file_three"
+      />
+    </ul>
+  );
+};
+```
 
 ### Angular
 
-Test
+```typescript {11,27-28,35-40,57-65}
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+
+@Component({
+  selector: 'file',
+  template: `
+    <li
+      (click)="selected.emit()"
+      [style]="
+        isSelected
+          ? { backgroundColor: 'blue', color: 'white' }
+          : { backgroundColor: 'white', color: 'blue' }
+      "
+    >
+      <a [href]="href">
+        {{ fileName }}
+      </a>
+    </li>
+  `,
+})
+export class FileComponent {
+  @Input() fileName: string;
+  @Input() href: string;
+  @Input() isSelected: boolean;
+  @Output() selected = new EventEmitter();
+}
+
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+      <file
+        (selected)="onSelected(0)"
+        [isSelected]="selectedIndex === 0"
+        fileName="File one" 
+        href="/file/file_one"
+      ></file>
+      <file
+        (selected)="onSelected(1)"
+        [isSelected]="selectedIndex === 1"
+        fileName="File two" 
+        href="/file/file_two"
+      ></file>
+      <file
+        (selected)="onSelected(2)"
+        [isSelected]="selectedIndex === 2"
+        fileName="File three" 
+        href="/file/file_three"
+      ></file>
+    </ul>
+  `,
+})
+export class FileListComponent {
+  selectedIndex = -1;
+
+  onSelected(idx) {
+    if (this.selectedIndex === idx) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = idx;
+  }
+}
+```
 
 ### Vue
 
-Test
+```javascript {3,13-14,20-25,40-53}
+const File = {
+  template: `
+    <li
+      v-on:click="$emit('selected')"
+      :style="
+        isSelected ?
+          {backgroundColor: 'blue', color: 'white'} :
+          {backgroundColor: 'white', color: 'blue'}
+      ">
+      <a :href="href">
+        {{ fileName }}
+      </a>
+    </li>`,
+  emits: ['selected'],
+  props: ['isSelected', 'fileName', 'href'],
+};
+
+const FileList = {
+  template: `
+    <ul>
+      <file 
+        @selected="onSelected(0)" 
+        :isSelected="selectedIndex === 0" 
+        fileName="File one" 
+        href="/file/file_one"
+      ></file>
+      <file 
+        @selected="onSelected(1)" 
+        :isSelected="selectedIndex === 1" 
+        fileName="File two" 
+        href="/file/file_two"
+      ></file>
+      <file 
+        @selected="onSelected(2)" 
+        :isSelected="selectedIndex === 2" 
+        fileName="File three" 
+        href="/file/file_three"
+      ></file>
+    </ul>
+  `,
+  data() {
+    return {
+      selectedIndex: -1,
+    };
+  },
+  methods: {
+    onSelected(idx) {
+      if (this.selectedIndex === idx) {
+        this.selectedIndex = -1;
+        return;
+      }
+      this.selectedIndex = idx;
+    },
+  },
+  components: {
+    File,
+  },
+};
+```
 
 <!-- tabs:end -->
+
+> Keep in mind: This code isn't _quite_ production ready. There are some accessibility concerns with this code, and might require things like [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected) and more to fix.
+
+Here, we're using a simple number-based index to act as an `id` of sorts for each file. This allows us to keep track of which file is currently selected or not. Likewise, if the user selects an index that's already been selected, we will set the `isSelected` index to a number which no file has associated.
+
+You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state", which is a best practices concept we'll touch on later.](TODO: Add link to future article)
 
 
 
