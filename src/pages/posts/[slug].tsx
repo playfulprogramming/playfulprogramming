@@ -33,24 +33,17 @@ import { SeriesToC } from "components/series-toc";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 
 type Props = {
-  markdownHTML: string;
+  source: any;
   slug: string;
   postsDirectory: string;
   seriesPosts: SeriesPostInfo[];
   post: SlugPostInfo & RenderedPostInfo;
 };
 
-const Post = ({
-  post,
-  markdownHTML,
-  slug,
-  postsDirectory,
-  seriesPosts,
-}: Props) => {
+const Post = ({ post, source, slug, postsDirectory, seriesPosts }: Props) => {
   const router = useRouter();
 
-  const result = useMarkdownRenderer({
-    markdownHTML,
+  const result = useMarkdownRenderer(source, {
     serverPath: ["/posts", slug],
   });
 
@@ -189,7 +182,7 @@ export async function getStaticProps({ params }: Params) {
       .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
-  const { html: markdownHTML, headingsWithId } = await markdownToHtml(
+  const { source, headingsWithId } = await markdownToHtml(
     post.content,
     path.resolve(postsDirectory, post.slug)
   );
@@ -200,9 +193,9 @@ export async function getStaticProps({ params }: Params) {
         ...post,
         content: "",
         headingsWithId,
-        markdownHTML,
+        source,
       },
-      markdownHTML,
+      source,
       slug: slug,
       postsDirectory,
       seriesPosts,

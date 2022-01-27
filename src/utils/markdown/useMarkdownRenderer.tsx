@@ -1,11 +1,9 @@
 import * as React from "react";
-import { unified } from "unified";
-import rehypeParse from "rehype-parse";
-import reactRehyped from "rehype-react";
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { getHeadings, getMedia, getLinks } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
+import { MDXRemote } from "next-mdx-remote";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
@@ -28,21 +26,13 @@ const getComponents = (
 };
 
 export const useMarkdownRenderer = (
+  source: any,
   props: useMarkdownRendererProps,
   comps: ComponentMap = {}
 ) => {
-  // This only parses once to avoid serialization errors.
-  // DO NOT ADD OTHER REHYPE PLUGINS OR REMARK PLUGINS HERE
-  // This works in SRR just fine
-  return React.useMemo(
-    () =>
-      unified()
-        .use(rehypeParse)
-        .use(reactRehyped, {
-          createElement: React.createElement,
-          components: getComponents(props, comps) as any,
-        })
-        .processSync(props.markdownHTML).result as ReactElement,
-    [comps, props]
-  );
+  const components = React.useMemo(() => {
+    return getComponents(props, comps);
+  }, []);
+
+  return <MDXRemote {...source} components={components} />;
 };
