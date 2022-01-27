@@ -5,7 +5,7 @@ import * as React from "react";
 import { DiscussionEmbed } from "disqus-react";
 
 import markdownToHtml from "utils/markdown/markdownToHtml";
-import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+import { MarkdownRenderer, Source } from "utils/markdown/useMarkdownRenderer";
 import { RenderedPostInfo } from "types/PostInfo";
 import {
   postBySlug,
@@ -33,7 +33,7 @@ import { SeriesToC } from "components/series-toc";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 
 type Props = {
-  source: any;
+  source: Source;
   slug: string;
   postsDirectory: string;
   seriesPosts: SeriesPostInfo[];
@@ -42,10 +42,6 @@ type Props = {
 
 const Post = ({ post, source, slug, postsDirectory, seriesPosts }: Props) => {
   const router = useRouter();
-
-  const result = useMarkdownRenderer(source, {
-    serverPath: ["/posts", slug],
-  });
 
   const { colorMode } = useContext(ThemeContext);
 
@@ -104,7 +100,10 @@ const Post = ({ post, source, slug, postsDirectory, seriesPosts }: Props) => {
                 {post.series && (
                   <SeriesToC post={post} postSeries={seriesPosts} />
                 )}
-                {result}
+                <MarkdownRenderer
+                  source={source}
+                  serverPath={["/posts", slug]}
+                />
               </main>
             </>
           }

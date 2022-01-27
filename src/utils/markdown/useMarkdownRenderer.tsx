@@ -25,13 +25,19 @@ const getComponents = (
   };
 };
 
-export const useMarkdownRenderer = (
-  source: any,
-  props: useMarkdownRendererProps,
-  comps: ComponentMap = {}
-) => {
+export type Source = React.ComponentProps<typeof MDXRemote>;
+
+interface MarkdownRendererProps {
+  serverPath: string[];
+  source: Source;
+}
+
+export const MarkdownRenderer = ({
+  source,
+  serverPath,
+}: MarkdownRendererProps) => {
   const components = React.useMemo(() => {
-    return getComponents(props, comps);
+    return getComponents({ serverPath }, {});
   }, []);
 
   return <MDXRemote {...source} components={components} />;
