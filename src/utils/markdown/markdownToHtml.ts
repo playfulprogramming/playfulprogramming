@@ -20,6 +20,37 @@ import { rehypeTabs } from "utils/markdown/plugins/tabs";
 // TODO: Create types
 const behead = require("remark-behead");
 
+const markdownToHtmlNoReally = ({
+  remarkPlugins,
+  rehypePlugins,
+}: Record<string, any>) => {
+  let unifiedChain = unified().use(remarkParse);
+
+  for (let remarkPlugin of remarkPlugins) {
+    unifiedChain.use(
+      ...(Array.isArray(remarkPlugin)
+        ? (remarkPlugin as [any])
+        : ([remarkPlugin] as [any]))
+    );
+  }
+
+  unifiedChain
+    .use(remarkStringify)
+    .use(remarkToRehype, { allowDangerousHtml: true });
+
+  for (let rhypePlugin of rehypePlugins) {
+    unifiedChain.use(
+      ...(Array.isArray(rhypePlugin)
+        ? (rhypePlugin as [any])
+        : ([rhypePlugin] as [any]))
+    );
+  }
+
+  unifiedChain.use(rehypeStringify, { allowDangerousHtml: true });
+
+  return unifiedChain;
+};
+
 export default async function markdownToHtml(
   content: string,
   imgDirectory: string
@@ -30,47 +61,46 @@ export default async function markdownToHtml(
     headingsWithId: [],
   };
 
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    // Remove complaining about "div cannot be in p element"
-    .use(remarkUnwrapImages)
-    /* start remark plugins here */
-    .use(behead, { after: 0, depth: 1 })
-    .use(
-      remarkEmbedder as any,
-      {
-        transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
-      } as RemarkEmbedderOptions
-    )
-    /* end remark plugins here */
-    .use(remarkStringify)
-    .use(
-      remarkTwoslash as any,
-      {
-        themes: ["css-variables"],
-      } as UserConfigSettings
-    )
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    /* start rehype plugins here */
-    // TODO: https://github.com/ksoichiro/rehype-img-size/issues/4
-    .use(rehypeImageSize, {
-      dir: imgDirectory,
-    })
-    .use(rehypeTabs)
-    .use(rehypeSlug, {
-      maintainCase: true,
-      removeAccents: true,
-      enableCustomId: true,
-    })
-    .use(rehypeHeaderText(renderData))
-    /* end rehype plugins here */
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    // .use(() => tree => {
-    //     debugger;
-    //     return tree;
-    // })
-    .process(content);
+  const result = await markdownToHtmlNoReally({
+    remarkPlugins: [
+      remarkGfm,
+      // Remove complaining about "div cannot be in p element"
+      remarkUnwrapImages,
+      /* start remark plugins here */
+      [behead, { after: 0, depth: 1 }],
+
+      [
+        remarkEmbedder as any,
+        {
+          transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
+        } as RemarkEmbedderOptions,
+      ],
+      [
+        remarkTwoslash as any,
+        {
+          themes: ["css-variables"],
+        } as UserConfigSettings,
+      ],
+    ],
+    rehypePlugins: [
+      [
+        rehypeImageSize,
+        {
+          dir: imgDirectory,
+        },
+      ],
+      rehypeTabs,
+      [
+        rehypeSlug,
+        {
+          maintainCase: true,
+          removeAccents: true,
+          enableCustomId: true,
+        },
+      ],
+      [rehypeHeaderText(renderData)],
+    ],
+  }).process(content);
 
   return {
     html: result.toString(),
