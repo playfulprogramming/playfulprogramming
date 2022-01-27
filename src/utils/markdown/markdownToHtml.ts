@@ -15,38 +15,25 @@ import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs } from "utils/markdown/plugins/tabs";
+import { PluggableList } from "unified";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
 const behead = require("remark-behead");
 
-const markdownToHtmlNoReally = ({
-  remarkPlugins,
-  rehypePlugins,
-}: Record<string, any>) => {
-  let unifiedChain = unified().use(remarkParse);
+interface markdownChainProps {
+  remarkPlugins: PluggableList;
+  rehypePlugins: PluggableList;
+}
 
-  for (let remarkPlugin of remarkPlugins) {
-    unifiedChain.use(
-      ...(Array.isArray(remarkPlugin)
-        ? (remarkPlugin as [any])
-        : ([remarkPlugin] as [any]))
-    );
-  }
-
-  unifiedChain
+const unifiedChain = ({ remarkPlugins, rehypePlugins }: markdownChainProps) => {
+  let unifiedChain = unified()
+    .use(remarkParse)
+    .use(remarkPlugins)
     .use(remarkStringify)
-    .use(remarkToRehype, { allowDangerousHtml: true });
-
-  for (let rhypePlugin of rehypePlugins) {
-    unifiedChain.use(
-      ...(Array.isArray(rhypePlugin)
-        ? (rhypePlugin as [any])
-        : ([rhypePlugin] as [any]))
-    );
-  }
-
-  unifiedChain.use(rehypeStringify, { allowDangerousHtml: true });
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypePlugins)
+    .use(rehypeStringify, { allowDangerousHtml: true });
 
   return unifiedChain;
 };
@@ -61,7 +48,7 @@ export default async function markdownToHtml(
     headingsWithId: [],
   };
 
-  const result = await markdownToHtmlNoReally({
+  const result = await unifiedChain({
     remarkPlugins: [
       remarkGfm,
       // Remove complaining about "div cannot be in p element"
@@ -76,7 +63,7 @@ export default async function markdownToHtml(
         } as RemarkEmbedderOptions,
       ],
       [
-        remarkTwoslash as any,
+        remarkTwoslash,
         {
           themes: ["css-variables"],
         } as UserConfigSettings,
@@ -84,7 +71,7 @@ export default async function markdownToHtml(
     ],
     rehypePlugins: [
       [
-        rehypeImageSize,
+        rehypeImageSize as any,
         {
           dir: imgDirectory,
         },
