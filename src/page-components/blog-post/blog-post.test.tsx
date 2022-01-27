@@ -5,19 +5,20 @@ import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
 import BlogPostTemplate from "../../pages/posts/[slug]";
 import ReactDOMServer from "react-dom/server";
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import { serialize } from "next-mdx-remote/serialize";
 // import { axe } from "jest-axe";
 
-const getElement = ({
+const getElement = async ({
   post,
   fn = jest.fn(),
-  markdownHTML = "",
+  markdown = "",
   slug = "/slug",
   postsDirectory = "/posts",
   seriesPosts = [],
 }: {
   post: any;
   fn?: () => void;
-  markdownHTML?: string;
+  markdown?: string;
   slug?: string;
   postsDirectory?: string;
   seriesPosts?: any[];
@@ -37,7 +38,7 @@ const getElement = ({
   >
     <BlogPostTemplate
       post={post}
-      markdownHTML={markdownHTML}
+      source={await serialize(markdown)}
       slug={slug}
       postsDirectory={postsDirectory}
       seriesPosts={seriesPosts}
@@ -48,10 +49,10 @@ const getElement = ({
 test("Blog post page renders", async () => {
   const navigatePushFn = jest.fn();
   const { baseElement, findByText, findByTestId } = render(
-    getElement({
+    await getElement({
       post: MockPost,
       fn: navigatePushFn,
-      markdownHTML: "Hey there",
+      markdown: "Hey there",
     })
   );
 
@@ -73,8 +74,8 @@ test("Blog post page renders", async () => {
   expect(navigatePushFn).toHaveBeenCalledTimes(2);
 
   // Renders the post body properly
-  expect((await findByTestId("post-body-div")).innerHTML).toBe(
-    "<div>Hey there</div>"
+  expect((await findByTestId("post-body-div")).innerHTML).toMatchInlineSnapshot(
+    `"<p>Hey there</p>"`
   );
 });
 
@@ -82,10 +83,10 @@ test("Blog post page handles two authors", async () => {
   const navigatePushFn = jest.fn();
 
   const { baseElement, findByText, findByTestId } = render(
-    getElement({
+    await getElement({
       post: MockMultiAuthorPost,
       fn: navigatePushFn,
-      markdownHTML: "Hello, friends",
+      markdown: "Hello, friends",
     })
   );
 
@@ -111,8 +112,8 @@ test("Blog post page handles two authors", async () => {
   expect(navigatePushFn).toHaveBeenCalledTimes(4);
 
   // Renders the post body properly
-  expect((await findByTestId("post-body-div")).innerHTML).toBe(
-    "<div>Hello, friends</div>"
+  expect((await findByTestId("post-body-div")).innerHTML).toMatchInlineSnapshot(
+    `"<p>Hello, friends</p>"`
   );
 });
 

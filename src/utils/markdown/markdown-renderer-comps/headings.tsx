@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMarkdownRendererProps } from "./types";
+import { SharedMarkdownRendererProps } from "./types";
 
 const HeaderLink: React.FC<{ id: string; headerText: string }> = ({
   id,
@@ -35,7 +35,7 @@ type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
   ["data-header-text"]: string;
 };
 
-export const getHeadings = (_: useMarkdownRendererProps) => {
+export const getHeadings = (_: SharedMarkdownRendererProps) => {
   return {
     h1: (headerProps: HeadingProps) => {
       const {

@@ -8,8 +8,8 @@ import unicornLogo from "../assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
 import { readMarkdownFile } from "utils/fs/api";
 import { join } from "path";
-import markdownToHtml from "utils/markdown/markdownToHtml";
-import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+import markdownToHtml from "utils/markdown/markdown-to-html";
+import { MarkdownRenderer, Source } from "utils/markdown/markdown-renderer";
 import { SEO } from "components/seo";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
@@ -29,16 +29,11 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 
 interface AboutUsProps {
   allUnicorns: UnicornInfo[];
-  html: string;
+  source: Source;
 }
 
-const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
+const AboutUs = ({ allUnicorns, source }: AboutUsProps) => {
   const router = useRouter();
-
-  const result = useMarkdownRenderer({
-    markdownHTML: html,
-    serverPath: [""],
-  });
 
   return (
     <div>
@@ -57,7 +52,9 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
           <h1>About Us</h1>
         </div>
         <main className={`${style.aboutBody} post-body`}>
-          <div>{result}</div>
+          <div>
+            <MarkdownRenderer serverPath={[""]} source={source} />
+          </div>
           {allUnicorns.map((unicornInfo) => {
             const roleListItems = getUnicornRoleListItems(unicornInfo);
 
@@ -116,13 +113,16 @@ export async function getStaticProps() {
     }
   );
 
-  const { html } = await markdownToHtml(pickedData.content!, sponsorsDirectory);
+  const { source } = await markdownToHtml(
+    pickedData.content!,
+    sponsorsDirectory
+  );
 
   return {
     props: {
       allUnicorns: unicorns,
       frontmatterData,
-      html,
+      source,
     },
   };
 }

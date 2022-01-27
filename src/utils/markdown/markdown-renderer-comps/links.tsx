@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useMarkdownRendererProps } from "./types";
+import { SharedMarkdownRendererProps } from "./types";
 import { isRelativePath } from "../../url-paths";
 import Link from "next/link";
 
-export const getLinks = (_: useMarkdownRendererProps) => {
+export const getLinks = (_: SharedMarkdownRendererProps) => {
   return {
     a(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
       const { href, ...restProps } = props;

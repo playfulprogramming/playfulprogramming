@@ -4,8 +4,8 @@ import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
 import * as React from "react";
 import { DiscussionEmbed } from "disqus-react";
 
-import markdownToHtml from "utils/markdown/markdownToHtml";
-import { MarkdownRenderer, Source } from "utils/markdown/useMarkdownRenderer";
+import markdownToHtml from "utils/markdown/markdown-to-html";
+import { MarkdownRenderer, Source } from "utils/markdown/markdown-renderer";
 import { RenderedPostInfo } from "types/PostInfo";
 import {
   postBySlug,

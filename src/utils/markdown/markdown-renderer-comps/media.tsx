@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useMarkdownRendererProps } from "./types";
+import { SharedMarkdownRendererProps } from "./types";
 import Image, { ImageProps } from "next/image";
 import Zoom from "react-medium-image-zoom";
 import { getFullRelativePath } from "utils/url-paths";
 
-export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
+export const getMedia = ({ serverPath }: SharedMarkdownRendererProps) => {
   return {
     img: (imgProps: unknown) => {
       const { src, ...props2 } = imgProps as ImageProps;
