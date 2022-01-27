@@ -91,17 +91,17 @@ You throw away the decimals, you don't round down as well, so, for example, the 
 
 To explain how it works I will be using an example along with the explanation. I will be using the date Apollo 11 landed on the moon: July 20, 1969.
 
-First you get the anchor day for the century, the way you work this out is you get the first 2 digits of the year. Then do `5 × (century MOD 4) MOD 7 + Tuesday`.
+First, you get the anchor day for the century. The way you work this out is you get the first 2 digits of the year. Then do `5 × (century MOD 4) MOD 7 + Tuesday`.
 
-So `19 MOD 4` is 3 so the calculation is now looking like this:
+So, for our example, `19 MOD 4` is 3; as a result, the calculation now looks like this:
 
 `5 x 3 MOD 7 + Tuesday`
 
-Because of BIDMAS we do `5 x 3` which gives us 15. Then get `15 MOD 7` which is 1 then add Tuesday (2) to it giving us 3.
+Because of BIDMAS, we do `5 x 3` which gives us 15. Then get `15 MOD 7` - which is 1 - then add Tuesday (2) to our previous multiplication, giving us 3.
 
-So from this we know that the anchor day for the 1900s is a Wednesday.
+If we remember back to our date/number lookup chart, `3` is associated with Wednesday. So, from our calculation, we know that the anchor day for the 1900s is a Wednesday.
 
-So now we need to find the years offset. We do this with three calculations then adding the total together. I will label the first one "a", the second "b" and the third "c".
+Now we need to find the years offset. We do this with three calculations, then adding the total together. I will label the first calculation "a", the second "b" and the third "c".
 
 The calculations are:
 
@@ -113,9 +113,11 @@ b = (last two digits of the year) MOD 12
 c = b / 4
 ```
 
-then a + b + c = offset
+After these calculations, you finally do:
 
-then you get the MOD of offset, as if you were to add 7 to Wednesday you are back to Wednesday.
+`a + b + c = offset`
+
+Then you get the MOD of offset. Think of MOD as if you were to add 7 to Wednesday (3), then run MOD over that new number (10), you are back to Wednesday. (3)
 
 So using the example you would do:
 ```
@@ -135,12 +137,13 @@ So, 5 + 9 + 2 = 16
 ```
 Then get the MOD which is, 2.
 
-So we now know that the offset is 2, and we know that the anchor day for the century is Wednesday, or 3. We add the two numbers together to get 5, so for 1969, the doomsday is Friday.
+So we now know that the year offset is 2, and we know that the anchor day for the century is Wednesday, or 3. We add the two numbers together to get 5 and match that to our date chart, so for 1969, the doomsday is Friday.
 
-Now we need to think about the closest doomsday to July 20th. Which is the 11th of July. So from the above calculation we know that the 11th of July is a Friday. Then we work out the difference between the date we need to figure it and the doomsday, so here it would be `20 - 11 = 9`. Then we MOD this by 7 like we did to find the offset.
+Now we need to think about the closest doomsday to July 20th. Which is the 11th of July. So from the above calculation, we know that the 11th of July is a Friday. Then we work out the difference between the date we need to figure it and the doomsday, so here it would be `20 - 11 = 9`. Then we MOD this by 7 like we did to find the offset.
+
 So this would be 2.
 
-Then we add this to the doomsday. So `5 + 2 = 7`. But there isn't a 7, but `7 MOD 7` is 0. and 0 is Sunday. So we now know that they day of Apollo 11's landing was on a Sunday.
+Then we add this to the doomsday. So `5 + 2 = 7`. But there isn't a 7 in our chart, but remember, `7 MOD 7` is 0. and 0 is Sunday. So we now know that the day of Apollo 11's landing was on a Sunday.
 
 # The fun part, Coding!
 
@@ -150,7 +153,9 @@ I wrote the script using functions so that it would be easy to edit the code.
 
 ### Coding part 1 *The backbone of this project*
 
-First I thought it would good to start with the harder bit, which is the actual solver. So what is the first part you need for the calculations? Inputs. The script needs three inputs, day, month and year we will call them their respectable names, so it will look like this:
+First I thought it would be good to start with the harder bit, which is the actual solver; But what is the first part you need for the calculations? Inputs. Let's build a script to generate those inputs.
+
+The script needs to output three inputs: a day, month, and year. We will call them their respectable names, so it will look like this:
 
 ```python
 day = int(input("What day do you want? (number needed) "))
@@ -160,7 +165,7 @@ year = int(input("What year do you want? "))
 
 We put `int` there to tell the program that whatever the input is, it's an integer not a string.
 
-So now we need the script to work out the anchor day for the century. So whilst I was making the script whenever I tried to do `century MOD 4` it would be wrong, but on the Wikipedia it has a different way of working out the anchor day which is:
+Now we need the script to work out the anchor day for the century. Whilst I was making the script whenever I tried to do `century MOD 4` it would be wrong, but on Wikipedia, it has a different way of working out the anchor day which is:
 
 `5 * (Century MOD 4) MOD 7 + 2`
 
@@ -168,7 +173,7 @@ The way you work out the century is:
 
 `year / 100`
 
-but this usually, unless the year ended in 00, would be a decimal, so in code we write it as:
+However, unless the year ended in 00, this output would be a decimal, but we need a non-decimal number. So in code we write it as:
 
 `int(year / 100)`
 
