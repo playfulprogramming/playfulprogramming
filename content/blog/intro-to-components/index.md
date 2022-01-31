@@ -6,7 +6,7 @@
     authors: ['crutchcorn'],
     tags: ['webdev'],
     attached: [],
-    order: 1,
+    order: 2,
     series: "The Framework Field Guide"
 }
 ---
@@ -248,6 +248,12 @@ const File = () => {
 
 createRoot(document.getElementById('root')).render(<File />);
 ```
+
+React, unlike the other frameworks, allows you to "self-close" a tag (element or component alike) when it contains no children.
+
+This is how we're able to write `<File />` instead of `<File></File>`.
+
+This is also true for any other frameworks not mentioned in this series that utilize JSX under-the-hood.
 
 ## Angular
 
