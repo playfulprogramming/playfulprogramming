@@ -21,7 +21,7 @@ Namely, we'll be taking a look at the most modern iterations of these frameworks
 
 > It's worth mentioning that React and Angular iterate their major versions much more frequently than Vue. If you're reading this in the future and see "Angular 18" or "React 22", it's likely that it's using similar concepts under-the-hood.
 
-I will take the time to take asides for each framework in order to explain where they differ and how they work under-the-hood individually.
+We're able to do this because, despite being different in many ways, these frameworks share the same foundational ideas that run the show in any modern application. That's not to say they are the same, however, and because of this I will take the time to take asides for each framework in order to explain where they differ and how they work under-the-hood individually.
 
 By the end of this series, you should be able to confidently navigate any codebase utilizing these frameworks.
 
@@ -86,6 +86,22 @@ Each of these frameworks have at least one large backer behind them.
 
 
 React is built by Meta, with major backing by 
+
+
+
+### Why learn all three frameworks?
+
+While there's the obvious answer of "it broadens the types of work you're able to do", there are more reasons than that to learn more than one framework at a time.
+
+In particular, each framework comes with their own restrictions, rules, and best practices. These rules and restrictions can help you understand a different way of coding that often transfers to the other frameworks as well. 
+
+For example, Angular focuses on object-oriented programming while the React ecosystem tends to favor functional programming. While it's not immediately important what each of these means, they allow you to do many of the same things in different ways and have different pros and cons.
+
+Because of this, once you have a higher mastery skill with each, you can pick-and-choose which methodology of programming you want to apply within parts of your applications.
+
+Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining great traction, for example. Svelte, while it differs even more from the three options we're learning, still shares many of the foundations of React, Angular, and Vue.
+
+This transfer of knolwedge doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming allows you to utilize the same proceedures in other languages or types of programming. Many of the APIs I've utilized in web development were also useful when doing engineering work with native languages.
 
 
 ### Will these tools stick around?
