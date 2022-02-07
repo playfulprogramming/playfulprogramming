@@ -459,6 +459,451 @@ Once again, the `v-else-if` and `v-else` tags must follow one another to work as
 
 <!-- tabs:end -->
 
+# Rendering Lists
+
+While we've primarily focused on our `File` component until now, let's take another look at our `FileList` component.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const FileList = () => {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const onSelected = (idx) => {
+    if (selectedIndex === idx) {
+      setSelectedIndex(-1);
+      return;
+    }
+    setSelectedIndex(idx);
+  };
+
+  return (
+    <ul>
+      <File
+        isSelected={selectedIndex === 0}
+        onSelected={() => onSelected(0)}
+        fileName="File one"
+        href="/file/file_one"
+      />
+      <File
+        isSelected={selectedIndex === 1}
+        onSelected={() => onSelected(1)}
+        fileName="File two"
+        href="/file/file_two"
+      />
+      <File
+        isSelected={selectedIndex === 2}
+        onSelected={() => onSelected(2)}
+        fileName="File three"
+        href="/file/file_three"
+      />
+    </ul>
+  );
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+      <file
+        (selected)="onSelected(0)"
+        [isSelected]="selectedIndex === 0"
+        fileName="File one" 
+        href="/file/file_one"
+      ></file>
+      <file
+        (selected)="onSelected(1)"
+        [isSelected]="selectedIndex === 1"
+        fileName="File two" 
+        href="/file/file_two"
+      ></file>
+      <file
+        (selected)="onSelected(2)"
+        [isSelected]="selectedIndex === 2"
+        fileName="File three" 
+        href="/file/file_three"
+      ></file>
+    </ul>
+  `,
+})
+export class FileListComponent {
+  selectedIndex = -1;
+
+  onSelected(idx) {
+    if (this.selectedIndex === idx) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = idx;
+  }
+}
+```
+
+## Vue
+
+```javascript
+const FileList = {
+  template: `
+    <ul>
+      <file 
+        @selected="onSelected(0)" 
+        :isSelected="selectedIndex === 0" 
+        fileName="File one" 
+        href="/file/file_one"
+      ></file>
+      <file 
+        @selected="onSelected(1)" 
+        :isSelected="selectedIndex === 1" 
+        fileName="File two" 
+        href="/file/file_two"
+      ></file>
+      <file 
+        @selected="onSelected(2)" 
+        :isSelected="selectedIndex === 2" 
+        fileName="File three" 
+        href="/file/file_three"
+      ></file>
+    </ul>
+  `,
+  data() {
+    return {
+      selectedIndex: -1,
+    };
+  },
+  methods: {
+    onSelected(idx) {
+      if (this.selectedIndex === idx) {
+        this.selectedIndex = -1;
+        return;
+      }
+      this.selectedIndex = idx;
+    },
+  },
+  components: {
+    File,
+  },
+};
+```
+
+<!-- tabs:end -->
+
+Something that might immediately jump out at you upon second glance is just how long these code samples are! Interestingly, this is primarily due to the copy-pasted nature of our `File` component being repeated.
+
+What's more - this method of hardcoding file components means that we're unable to create new files in JavaScript and display them in the DOM.
+
+Let's fix that by replacing the copy-pasted components with a loop and an array.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {0-13,28-33}
+const filesArray = [
+    {
+        fileName: "File one",
+        href: "/file/file_one"
+    },
+    {
+        fileName: "File two",
+        href: "/file/file_two"
+    },
+    {
+        fileName: "File three",
+        href: "/file/file_three"
+    }
+]
+
+const FileList = () => {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const onSelected = (idx) => {
+    if (selectedIndex === idx) {
+      setSelectedIndex(-1);
+      return;
+    }
+    setSelectedIndex(idx);
+  };
+
+  return (
+    <ul>
+      {filesArray.map((file, i) => <File
+        isSelected={selectedIndex === i}
+        onSelected={() => onSelected(i)}
+        fileName={file.fileName}
+        href={file.href}
+      />}
+    </ul>
+  );
+};
+```
+
+React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) in order to loop through each item and map them to some React component.
+
+We can then use the second argument inside of the `map` in order to gain access to the index of the looped item.
+
+## Angular
+
+```typescript {4-10,25-38}
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+      <file
+      	*ngFor="let file of filesArray; let i = index"
+        (selected)="onSelected(i)"
+        [isSelected]="selectedIndex === i"
+        [fileName]="file.fileName" 
+        [href]="file.href"
+      ></file>
+    </ul>
+  `,
+})
+export class FileListComponent {
+  selectedIndex = -1;
+
+  onSelected(idx) {
+    if (this.selectedIndex === idx) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = idx;
+  }
+    
+  filesArray = [
+    {
+        fileName: "File one",
+        href: "/file/file_one"
+    },
+    {
+        fileName: "File two",
+        href: "/file/file_two"
+    },
+    {
+        fileName: "File three",
+        href: "/file/file_three"
+    }
+  ]
+}
+```
+
+Inside of our `ngFor`, `index` may not seem like it is being defined, however, Angular declares it whenever you attempt to utilize `ngFor` under-the-hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
+
+## Vue
+
+```javascript {3-9,15-28}
+const FileList = {
+  template: `
+    <ul>
+      <file 
+        v-for="(file, i) in filesArray"
+        @selected="onSelected(i)" 
+        :isSelected="selectedIndex === i" 
+        :fileName="file.fileName" 
+        :href="file.href"
+      ></file>
+    </ul>
+  `,
+  data() {
+    return {
+      selectedIndex: -1,
+        filesArray: [
+          {
+              fileName: "File one",
+              href: "/file/file_one"
+          },
+          {
+              fileName: "File two",
+              href: "/file/file_two"
+          },
+          {
+              fileName: "File three",
+              href: "/file/file_three"
+          }
+        ]
+    };
+  },
+  methods: {
+    onSelected(idx) {
+      if (this.selectedIndex === idx) {
+        this.selectedIndex = -1;
+        return;
+      }
+      this.selectedIndex = idx;
+    },
+  },
+  components: {
+    File,
+  },
+};
+```
+
+<!-- tabs:end -->
+
+Now if we look at the rendered output, we can see that we have all three files listing out as-expected!
+
+Now all it would take to add a new item to our files list would be to `push` to said array and also force a re-render.
+
+## Keys
+
+If you're using React, you may encounter an error like the following:
+
+> Warning: Each child in a list should have a unique "key" prop.
+
+Or, in Vue, the error might say:
+
+> Elements in iteration expect to have 'v-bind:key' directives
+
+This is because each of these frameworks is only able to keep track of what's what inside of a loop using a manually input unique ID of some kind.
+
+What this means is that if you don't provide a unique ID, when you re-render the loop, it will destroy the entire tree.
+
+Say you have the following:
+
+
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const WordList = () => {
+  const [words, setWords] = React.useState([]);
+
+  const addWord = () => {
+    const newWord = getRandomWord();
+    // Remove ability for duplicate words
+    if (words.includes(newWord)) return;
+    setWords([...words, newWord]);
+  };
+
+  return (
+    <div>
+      <button onClick={addWord}>Add word</button>
+      <ul>
+        {words.map((word) => {
+          return <li key={word.id}>{word.word}</li>;
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const wordDatabase = [
+  { word: 'who', id: 1 },
+  { word: 'what', id: 2 },
+  { word: 'when', id: 3 },
+  { word: 'where', id: 4 },
+  { word: 'why', id: 5 },
+  { word: 'how', id: 6 },
+];
+
+function getRandomWord() {
+  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+}
+```
+
+## Angular
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'word-list',
+  template: `
+  <div>
+      <button (click)="addWord()">Add word</button>
+      <ul>
+        <li *ngFor="let word of words">{{word.word}}</li>
+      </ul>
+    </div>
+  `,
+})
+export class WordListComponent {
+  words: Array<{ word: string; id: number }> = [];
+
+  addWord() {
+    const newWord = getRandomWord();
+    // Remove ability for duplicate words
+    if (this.words.includes(newWord)) return;
+    this.words = [...this.words, newWord];
+  }
+}
+
+const wordDatabase = [
+  { word: 'who', id: 1 },
+  { word: 'what', id: 2 },
+  { word: 'when', id: 3 },
+  { word: 'where', id: 4 },
+  { word: 'why', id: 5 },
+  { word: 'how', id: 6 },
+];
+
+function getRandomWord() {
+  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+}
+```
+
+## Vue
+
+```javascript
+const WordList = {
+  template: `
+  <div>
+  <button @click="addWord()">Add word</button>
+  <ul>
+    <li v-for="word in words">{{word.word}}</li>
+  </ul>
+</div>
+`,
+  data() {
+    return {
+      words: [],
+    };
+  },
+  methods: {
+    addWord() {
+      const newWord = getRandomWord();
+      // Remove ability for duplicate words
+      if (this.words.includes(newWord)) return;
+      this.words = [...this.words, newWord];
+    },
+  },
+};
+
+const wordDatabase = [
+  { word: 'who', id: 1 },
+  { word: 'what', id: 2 },
+  { word: 'when', id: 3 },
+  { word: 'where', id: 4 },
+  { word: 'why', id: 5 },
+  { word: 'how', id: 6 },
+];
+
+function getRandomWord() {
+  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+}
+```
+
+<!-- tabs:end -->
+
+
+
+
+
+Even in Angular, where an error like this may not show up, it's still a good idea to use a unique value for each framework
+
+
+
+
+
+
+
 
 
 -------
