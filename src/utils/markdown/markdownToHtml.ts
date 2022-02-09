@@ -5,8 +5,6 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
-import path from "path";
-import { postsDirectory } from "utils/fs/api";
 import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
@@ -16,6 +14,7 @@ import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
+import { rehypeTabs } from "utils/markdown/plugins/tabs";
 
 // Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
@@ -58,6 +57,7 @@ export default async function markdownToHtml(
     .use(rehypeImageSize, {
       dir: imgDirectory,
     })
+    .use(rehypeTabs)
     .use(rehypeSlug, {
       maintainCase: true,
       removeAccents: true,
