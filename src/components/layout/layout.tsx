@@ -5,6 +5,8 @@ import BackIcon from "assets/icons/back.svg";
 import { DarkLightButton } from "../dark-light-button";
 import { ThemeProvider } from "constants/theme-context";
 import { useRouter } from "next/router";
+import { AnalyticsLink } from "components/analytics-link";
+import DiscordIcon from "assets/icons/discord.svg";
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -21,16 +23,30 @@ export const Layout: React.FC = ({ children }) => {
           className={layoutStyles.header}
           aria-label={"Toolbar for primary action buttons"}
         >
-          {!isBase && (
-            <button
-              className={`${layoutStyles.backBtn} baseBtn`}
-              aria-label="Go back"
-              onClick={() => router.back()}
-            >
-              <BackIcon />
-            </button>
-          )}
-          <DarkLightButton />
+          <div className={layoutStyles.headerInsideContainer}>
+            {!isBase ? (
+              <button
+                className={`${layoutStyles.backBtn} baseBtn`}
+                aria-label="Go back"
+                onClick={() => router.back()}
+              >
+                <BackIcon />
+              </button>
+            ) : (
+              <div />
+            )}
+            <div className={layoutStyles.iconList}>
+              <AnalyticsLink
+                category={"outbound"}
+                href="https://discord.gg/FMcvc6T"
+                className={"baseBtn"}
+                aria-label={"Join the Discord"}
+              >
+                <DiscordIcon />
+              </AnalyticsLink>
+              <DarkLightButton />
+            </div>
+          </div>
         </header>
         <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>
           {children}

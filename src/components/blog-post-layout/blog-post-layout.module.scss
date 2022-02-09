@@ -19,8 +19,11 @@
 	overflow: auto;
 	height: calc(100vh - 10rem);
 	margin-top: 4rem;
-	margin-right: 2rem;
 	min-width: 220px;
+}
+
+.leftContainer {
+	margin-right: 2rem;
 }
 
 .rightContainer {
