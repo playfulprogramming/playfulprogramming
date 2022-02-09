@@ -40,6 +40,7 @@ export const Layout: React.FC = ({ children }) => {
                 category={"outbound"}
                 href="https://discord.gg/FMcvc6T"
                 className={"baseBtn"}
+                aria-label={"Join the Discord"}
               >
                 <DiscordIcon />
               </AnalyticsLink>
