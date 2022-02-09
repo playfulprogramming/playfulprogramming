@@ -1,14 +1,9 @@
-import {
-  createContext,
-  default as React,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
 import { PostInfo } from "types/PostInfo";
-import { ListViewPosts } from "utils/fs/api";
+import * as ga from "utils/ga";
+import { debounce } from "utils/debounce";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
@@ -39,6 +34,37 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
 
   return postTags.sort();
 };
+
+const debouncedFilterGA = debounce(
+  (filterVal: Array<{ val: string }>) => {
+    ga.event({
+      action: "click",
+      params: {
+        event_category: "filter",
+        event_label: filterVal.map((v) => v.val).join(" "),
+        transport_type: ``,
+      },
+    });
+  },
+  1000,
+  false
+);
+
+const debouncedSearchGA = debounce(
+  (searchVal: string) => {
+    if (!searchVal) return;
+    ga.event({
+      action: "click",
+      params: {
+        event_category: "search",
+        event_label: searchVal,
+        transport_type: ``,
+      },
+    });
+  },
+  1000,
+  false
+);
 
 /**
  * Get the default value for the search and filter context provider
@@ -71,12 +97,21 @@ export const useSearchFilterValue = () => {
       filterUsingLunr("");
     } else {
       filterUsingLunr(`tags: ${filterVal.map((v) => v.val).join(" ")}`);
+
+      if (!!window.gtag) {
+        debouncedFilterGA(filterVal);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterVal]);
 
   useEffect(() => {
     searchUsingLunr(searchVal);
+
+    if (!!window.gtag) {
+      debouncedSearchGA(searchVal);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVal]);
 
@@ -96,7 +131,7 @@ export const useSearchFilterValue = () => {
     return [];
   }, [lunrFilterIds, lunrSearchIds]);
 
-  return React.useMemo(
+  return useMemo(
     () => ({
       searchVal,
       filterVal,
