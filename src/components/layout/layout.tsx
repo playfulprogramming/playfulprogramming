@@ -21,16 +21,18 @@ export const Layout: React.FC = ({ children }) => {
           className={layoutStyles.header}
           aria-label={"Toolbar for primary action buttons"}
         >
-          {!isBase && (
-            <button
-              className={`${layoutStyles.backBtn} baseBtn`}
-              aria-label="Go back"
-              onClick={() => router.back()}
-            >
-              <BackIcon />
-            </button>
-          )}
-          <DarkLightButton />
+          <div className={layoutStyles.headerInsideContainer}>
+            {!isBase && (
+              <button
+                className={`${layoutStyles.backBtn} baseBtn`}
+                aria-label="Go back"
+                onClick={() => router.back()}
+              >
+                <BackIcon />
+              </button>
+            )}
+            <DarkLightButton />
+          </div>
         </header>
         <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>
           {children}
