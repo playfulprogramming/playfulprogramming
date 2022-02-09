@@ -8,7 +8,7 @@ import TwitterIcon from "assets/icons/twitter.svg";
 import TwitchIcon from "assets/icons/twitch.svg";
 import DribbbleIcon from "assets/icons/dribbble.svg";
 import { UnicornInfo } from "uu-types";
-import { OutboundLink } from "components/outbound-link";
+import { AnalyticsLink } from "components/analytics-link";
 
 const getNamePossessive = (name: string) => {
   if (name.endsWith("s")) return `${name}'`;
@@ -23,7 +23,8 @@ interface SocialBtnProps {
 const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
   return (
     <li className={`baseBtn ${styles.socialBtnLink}`} role="listitem">
-      <OutboundLink
+      <AnalyticsLink
+        category="outbound"
         className="unlink"
         target="_blank"
         rel="noreferrer"
@@ -33,7 +34,7 @@ const SocialBtn = ({ icon, text, url }: SocialBtnProps) => {
           {icon}
         </span>
         <span className={styles.socialText}>{text}</span>
-      </OutboundLink>
+      </AnalyticsLink>
     </li>
   );
 };

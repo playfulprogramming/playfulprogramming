@@ -36,6 +36,7 @@ import {
 } from "utils/useGetSuggestedArticles";
 import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
+import { AnalyticsLink } from "components/analytics-link";
 
 type Props = {
   markdownHTML: string;
@@ -144,7 +145,8 @@ const Post = ({
               <p>Comments</p>
             </div>
 
-            <a
+            <AnalyticsLink
+              category="outbound"
               className="baseBtn prependIcon"
               href={GHLink}
               target="_blank"
@@ -152,7 +154,7 @@ const Post = ({
             >
               <GitHubIcon />
               View this Post on GitHub
-            </a>
+            </AnalyticsLink>
 
             {/*<button className="baseBtn appendIcon" type="button">*/}
             {/*  Share this Post*/}

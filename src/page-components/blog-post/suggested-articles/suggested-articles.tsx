@@ -3,6 +3,7 @@ import suggestedStyle from "./suggested-articles.module.scss";
 import classnames from "classnames";
 import Link from "next/link";
 import { OrderSuggestPosts } from "utils/useGetSuggestedArticles";
+import { AnalyticsLink } from "components/analytics-link";
 
 interface TableOfContentsProps {
   suggestedArticles: OrderSuggestPosts;
@@ -28,14 +29,17 @@ export const SuggestedArticles = ({
               ])}
             >
               <Link href={`/posts/${suggestedArticle.slug}`} passHref>
-                <a className={suggestedStyle.aTag}>
+                <AnalyticsLink
+                  category="suggested_article"
+                  className={suggestedStyle.aTag}
+                >
                   <span className={suggestedStyle.titleTag}>
                     {suggestedArticle.title}
                   </span>
                   <br />
                   <span className={suggestedStyle.srOnly}>by</span>
                   <span className={suggestedStyle.author}> {authorNames}</span>
-                </a>
+                </AnalyticsLink>
               </Link>
             </li>
           );
