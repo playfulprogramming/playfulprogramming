@@ -16,6 +16,10 @@
   text-decoration: none;
 }
 
+.aTag {
+  display: block;
+}
+
 .localCard:hover .titleTag {
   text-decoration: underline;
   transition: text-decoration var(--animSpeed);

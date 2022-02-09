@@ -28,7 +28,7 @@ export const SuggestedArticles = ({
               ])}
             >
               <Link href={`/posts/${suggestedArticle.slug}`} passHref>
-                <a>
+                <a className={suggestedStyle.aTag}>
                   <span className={suggestedStyle.titleTag}>
                     {suggestedArticle.title}
                   </span>
