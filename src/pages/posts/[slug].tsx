@@ -83,7 +83,7 @@ const Post = ({
     }, 600);
   }, [colorMode, post.title, slug]);
 
-  const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}${slug}index.md`;
+  const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
   return (
     <>
