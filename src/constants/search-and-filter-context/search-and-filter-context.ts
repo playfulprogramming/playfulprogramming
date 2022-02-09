@@ -37,7 +37,7 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
     );
   }, [posts]);
 
-  return postTags;
+  return postTags.sort();
 };
 
 /**

@@ -39,7 +39,7 @@ export const createIndex = (
         }
         const postFieldVal = post[field.name];
         newPost[field.name] = Array.isArray(postFieldVal)
-          ? postFieldVal.join(",")
+          ? postFieldVal.join(" ")
           : postFieldVal;
       }
 
@@ -72,7 +72,7 @@ const exportedIndex = createIndex(getAllPostsForListView(), [
     store: true,
   },
   { name: "authors" },
-  { name: "tags" },
+  { name: "tags", store: true },
 ]);
 
 fs.writeFileSync(

@@ -4,7 +4,7 @@
     description: "",
     published: '2021-12-21T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['web components', 'history'],
+    tags: ['webdev', 'history'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-history/',

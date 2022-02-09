@@ -35,6 +35,7 @@ import {
   OrderSuggestPosts,
 } from "utils/useGetSuggestedArticles";
 import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
+import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 
 type Props = {
   markdownHTML: string;
@@ -158,11 +159,13 @@ const Post = ({
             {/*  <ShareIcon/>*/}
             {/*</button>*/}
           </div>
-          <DiscussionEmbed
-            shortname={siteMetadata.disqusShortname}
-            config={disqusConfig}
-            key={colorMode}
-          />
+          <PrivacyErrorBoundary>
+            <DiscussionEmbed
+              shortname={siteMetadata.disqusShortname}
+              config={disqusConfig}
+              key={colorMode}
+            />
+          </PrivacyErrorBoundary>
         </footer>
       </article>
     </>

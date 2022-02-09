@@ -4,7 +4,7 @@
 	description: 'An introduction to the type generic functionality in TypeScript',
 	published: '2019-09-26T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['typescript', 'polymorphic functions', 'functional programming'],
+	tags: ['typescript'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

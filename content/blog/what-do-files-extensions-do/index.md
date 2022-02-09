@@ -5,7 +5,7 @@
 	published: "2020-07-11T20:58:16.292Z",
 	edited: "2020-07-11T20:58:16.292Z",
 	authors: ["skatcat31"],
-	tags: ["files","extensions", "magic numbers"],
+	tags: ["computer science"],
 	attached: [],
 	license: "cc-by-nc-sa-4"
 }

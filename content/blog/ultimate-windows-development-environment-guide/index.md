@@ -5,7 +5,7 @@
 	published: '2020-04-07T05:12:03.284Z',
 	edited: "2022-01-05T04:45:30.247Z",
 	authors: ['crutchcorn'],
-	tags: ['tooling', 'windows'],
+	tags: ['tools', 'windows'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

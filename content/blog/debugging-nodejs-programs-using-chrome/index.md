@@ -4,7 +4,7 @@
 	description: 'Learn how to interactively debug your NodeJS applications using a GUI-based debugger built into Chrome.',
 	published: '2020-01-21T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['nodejs', 'debugging', 'chrome'],
+	tags: ['node', 'chrome'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

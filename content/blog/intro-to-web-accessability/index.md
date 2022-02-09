@@ -4,7 +4,7 @@
     description: "",
     published: '2021-05-30T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['a11y', 'accessibility', 'web'],
+    tags: ['accessibility', 'webdev'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/introduction-to-web-accessibility-a11y/'

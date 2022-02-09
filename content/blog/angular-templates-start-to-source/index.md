@@ -4,7 +4,7 @@
 	description: 'Learn how templates work in Angular. From the basics to being able to read Angular source code and write your own structural directives',
 	published: '2019-07-11T22:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['angular', 'templates'],
+	tags: ['angular', 'webdev'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

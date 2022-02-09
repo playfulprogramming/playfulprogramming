@@ -5,7 +5,7 @@
     published: '2019-10-07T22:07:09.945Z',
     edited: '2020-02-02T22:07:09.945Z',
     authors: ['edpratti'],
-    tags: ['android', 'design', 'figma'],
+    tags: ['android', 'design'],
     attached: [],
     license: 'cc-by-nc-nd-4'
 }

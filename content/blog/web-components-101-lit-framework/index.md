@@ -4,7 +4,7 @@
     description: "",
     published: '2021-11-04T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['web components', 'lit'],
+    tags: ['webdev', 'lit'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-lit-framework/',

@@ -5,7 +5,7 @@
     published: '2021-02-11T00:00:00.000Z',
     edited: '2021-02-12T00:00:00.000Z',
     authors: ['pierremtb'],
-    tags: ['tooling', 'ipad'],
+    tags: ['tools', 'opinion'],
     attached: [],
     license: 'cc-by-nc-nd-4'
 }

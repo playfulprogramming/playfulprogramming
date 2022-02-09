@@ -4,7 +4,7 @@
 	description: 'You use networking every day - even to read this text! Join us as we dive into explaining how we send data across a network and what the OSI model is.',
 	published: '2020-03-11T13:45:00.284Z',
 	authors: ['reikaze', 'crutchcorn'],
-	tags: ['networking', 'osi model'],
+	tags: ['networking'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
     series: "Networking 101",

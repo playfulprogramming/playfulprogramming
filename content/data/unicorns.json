@@ -230,5 +230,38 @@
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
 		"roles": ["author"]
-	}
+	},
+	{
+		"id": "bobrossrtx",
+		"name": "Bobrossrtx",
+		"firstName": "Owen",
+		"lastName": "Boreham",
+		"description": "I have over 1000 years of software development experience, do not underestimate me!",
+		"socials": {
+			"twitter": "bobrossrtx",
+			"github": "bobrossrtx",
+			"website": "https://www.owenboreham.tech"
+		},
+		"pronouns": "he",
+		"profileImg": "./bobrossrtx.jpg",
+		"color": "#b7e11e",
+		"roles": ["developer", "author"]
+	},
+ 	{
+		"id": "ljtech",
+   		"name": "Landon Johnson",
+   		"firstName": "Landon",
+  		"lastName": "Johnson",
+  		"description": "Hello there, my name is Lj. I am a full stack developer.",
+  		"socials": {
+   			"twitter": "ljtechdotca",
+  			"github": "ljtechdotca",
+   			"twitch": "ljtechdotca",
+   			"website": "https://ljtech.ca"
+    		},
+  		"pronouns": "he",
+  		"profileImg": "./ljtechdotca.png",
+  		"color": "#7b61ff",
+  		"roles": ["author"]
+ 	}
 ]

@@ -4,7 +4,7 @@
 	description: "If networking is analogous to physical mail, then let's take a look at the letters being sent themselves. Let's dive into UDP and TCP",
 	published: '2020-03-31T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['udp', 'networking'],
+	tags: ['networking'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 	series: "Networking 101",
