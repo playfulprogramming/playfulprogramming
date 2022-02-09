@@ -277,6 +277,14 @@ $pendIconMarg: #{$baseUnit}px;
       padding-right: 5px;
     }
   }
+
+  iframe {
+    width: 100%;
+    min-height: 500px;
+    border: var(--cardOutlineStyle);
+    border-radius: 8px;
+    overflow: hidden;
+  }
 }
 
 .post-lower-area {

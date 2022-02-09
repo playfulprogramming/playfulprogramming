@@ -65,7 +65,7 @@ window.customElements.define('hello-component', HelloElement);
 <hello-component></hello-component>
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=194516" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=194516" loading="lazy"></iframe>
 
 There are two primary differences from the vanilla JavaScript example. First, we no longer need to use the `connectedCallback` to call `render`. The LitElement’s `render` function is called by Lit itself whenever needed - such as when data changes or for an initial render - avoiding the need to manually re-call the render method. 
 
@@ -159,7 +159,7 @@ window.customElements.define('hello-component', HelloElement);
 <hello-component></hello-component>
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=194518" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=194518" loading="lazy"></iframe>
 
 Yup, that’s all. Lit allows you to bind elements by using the `@` sign and passing the function as a placeholder to the `html` tagged template. Not only does this look much HTML-like, it handles event cleanup, re-rendering, and more.
 
@@ -254,7 +254,7 @@ window.customElements.define('hello-component', HelloElement);
 <hello-component val="Test"></hello-component>
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=194519" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=194519" loading="lazy"></iframe>
 
 ## Attribute Reactivity
 
@@ -292,7 +292,7 @@ export class ChangeMessageElement extends LitElement {
 }
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=181069" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=181069" loading="lazy"></iframe>
 
 # Reactive Data Binding
 
@@ -332,7 +332,7 @@ export class FormElement extends LitElement {
 }
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=181090" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=181090" loading="lazy"></iframe>
 
 You may also notice that we’re binding both the user’s input and output to set and reflect the state. [This is exactly how other frameworks like React also expect you to manage user state](https://coderpad.io/blog/master-react-unidirectional-data-flow/). 
 
@@ -449,7 +449,7 @@ window.customElements.define('change-message-component', ChangeMessageElement);
 <change-message-component></change-message-component>
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=194520" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=194520" loading="lazy"></iframe>
 
 This works because properties and attributes are both created at the same time with Lit.
 
@@ -514,7 +514,7 @@ class TodoElement extends LitElement {
 }
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=181092" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=181092" loading="lazy"></iframe>
 
 # Passing Functions
 
@@ -549,7 +549,7 @@ class TodoElement extends LitElement {
 }
 ```
 
-<iframe src="https://app.coderpad.io/sandbox?question_id=181093" width="640" height="480" loading="lazy"></iframe>
+<iframe src="https://app.coderpad.io/sandbox?question_id=181093" loading="lazy"></iframe>
 
 You will notice that we’re using a `filter` within our `render` method. Because this logic is within the `render` method, it will run on every UI update. This is important to note in case you have expensive operations: you should avoid running those within the render method.
 
