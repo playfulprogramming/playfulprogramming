@@ -2,9 +2,9 @@
 {
     title: "Doomsday Rule",
     description: 'In this blog I talk about the Doomsday Rule, how it works, how to put it into code then how to make a program that tests you.',
-    published: '2019-06-29T22:12:03.284Z',
+    published: '2022-01-11T22:12:03.284Z',
     authors: ['SkyHawk_0'],
-    tags: ['Python', 'Maths', 'Doomsday rule'],
+    tags: ['python', 'math'],
     attached: [],
     license: 'cc-by-4'
 }
@@ -22,7 +22,7 @@ I gathered this information from the [Wikipedia page, which can be found here](h
 
 ## What is MOD?
 
-If you didn't know already, when you get the MOD of something you divide the first number by the second number, but the answer is the remainder. For example, 70 MOD 12 is 10, as 70 / 12 is 5 with a remainder of 10.
+If you didn't know already, when you get the MOD of something, you divide the first number by the second number, but the answer is the remainder. For example, 70 MOD 12 is 10, as 70 / 12 is 5 with a remainder of 10.
 
 ## The days of the week
 
@@ -85,7 +85,7 @@ List of all doomsdays (written is day/month):
 
 ## What about decimals?
 
-You throw away the decimals, you don't round down as well, so, for example, the answer for 70 / 12 is 5.83, but for us we only care about the whole number, so it would be 5.
+You throw away the decimals; you don't round down as well, so, for example, the answer for 70 / 12 is 5.83, but for us, we only care about the whole number, so it would be 5.
 
 # How does it work?
 
@@ -97,7 +97,7 @@ So, for our example, `19 MOD 4` is 3; as a result, the calculation now looks lik
 
 `5 x 3 MOD 7 + Tuesday`
 
-Because of BIDMAS, we do `5 x 3` which gives us 15. Then get `15 MOD 7` - which is 1 - then add Tuesday (2) to our previous multiplication, giving us 3.
+Because of BIDMAS, we do `5 x 3`, which gives us 15. Then get `15 MOD 7` - which is 1 - then add Tuesday (2) to our previous multiplication, giving us 3.
 
 If we remember back to our date/number lookup chart, `3` is associated with Wednesday. So, from our calculation, we know that the anchor day for the 1900s is a Wednesday.
 
@@ -153,9 +153,9 @@ I wrote the script using functions so that it would be easy to edit the code.
 
 ### Coding part 1 *The backbone of this project*
 
-First I thought it would be good to start with the harder bit, which is the actual solver; But what is the first part you need for the calculations? Inputs. Let's build a script to generate those inputs.
+First, I thought it would be good to start with the harder bit, which is the actual solver; But what is the first part you need for the calculations? Inputs. Let's build a script to generate those inputs.
 
-The script needs to output three inputs: a day, month, and year. We will call them their respectable names, so it will look like this:
+The script needs to output three inputs: a day, month, and year. We will call them their respective names, so it will look like this:
 
 ```python
 day = int(input("What day do you want? (number needed) "))
@@ -165,7 +165,7 @@ year = int(input("What year do you want? "))
 
 We put `int` there to tell the program that whatever the input is, it's an integer not a string.
 
-Now we need the script to work out the anchor day for the century. Whilst I was making the script whenever I tried to do `century MOD 4` it would be wrong, but on Wikipedia, it has a different way of working out the anchor day which is:
+Now we need the script to work out the anchor day for the century. Unfortunately, while I was making the script, whenever I tried to do the `century MOD 4` calculation, it would be incorrect. Luckily, Wikipedia has a different way of working out the anchor day, which is:
 
 `5 * (Century MOD 4) MOD 7 + 2`
 
@@ -173,7 +173,7 @@ The way you work out the century is:
 
 `year / 100`
 
-However, unless the year ended in 00, this output would be a decimal, but we need a non-decimal number. So in code we write it as:
+Unless the year ended in 00, the output of this division would be a decimal, but we need a non-decimal number. To solve for this, we can write the following in our code:
 
 `int(year / 100)`
 
@@ -184,9 +184,10 @@ Century = int(year / 100)
 
 anchor = 5 * (Century % 4) % 7 + 2
 ```
-(the percentage sign (%) is python's MOD)
 
-The program now can get the anchor day. The next step is for it to work out the doomsday for the year. But we have not told the program how to get the last 2 digits of the year, so we tell the script to convert it to a string, then tell it to get the 3rd and 4th digit. so this would look like this:
+> The percentage sign (%) is python's MOD
+
+The program now can get the anchor day. The next step is to work out the doomsday for the year. To do this, we must tell the program how to get the last 2 digits of the year. We'll tell the script to convert the year to a string, then tell it to get the 3rd and 4th character. That code looks like this:
 
 ```python
 EndTwo = str(year)
@@ -239,19 +240,20 @@ Doomsday = ((A + B + C) % 7) + anchor
 Doomsday = Doomsday % 7
 ```
 
-Now we need the script to find the doomsday that’s in the month chosen. But the script doesn't know what a doomsday is, so we will create a 2D list which contains the doomsday for every month. We will put the list just after the inputs to keep the script structured. The list will be written as:
+Now we need the script to find the doomsday in the chosen month. But the script doesn't know what a doomsday is, so we will create a 2D list that contains the doomsday every month. We will put the list just after the inputs to keep the script structured. The list will be written as:
+
 ```python
 DoomsdayList = [[4, 4], [6, 6], [8, 8], [10, 10], [12, 12], [9, 5], [5, 9], [14, 3], [7, 11], [11, 7], [4, 1], [29, 2]]
 ```
 
-So now the script knows what the doomsdays are, we can make a loop that loops for how many items are in the list, 12, then if `month` is the same as `a` (from the loop) but as it is a 2D list we also need to tell it to look in the second column, so it would look like this:
+Now that the script knows what the doomsdays are, loop through all 12 items in the list. Then we can check if `month` is the same as `a` (declared in the loop). However, since it is a 2D list, we also need to tell it to look in the second column. As a result, the code looks like this:
 
 ```python
 for a in range(len(DoomsdayList)):
     if DoomsdayList[a][1] == month:
         location = a
 ```
-But this causes a problem, `DoomsdayList` has only the dates for a leap year. But what if it's not a leap year? We just have a if statement after saying what `DoomsdayList` is that is if `year` MOD 4 is greater than or equal to 1, set the 10th item of the list to `[3, 1]` and the 11th item to `[28, 2]`. This would look like:
+But this causes a problem; `DoomsdayList` has only the dates for a leap year. But what if it's not a leap year? We can solve this problem by adding an if statement after our check. This if statement should check if `year MOD 4` is greater than or equal to 1. If this statement is true, set the 10th item of the list to `[3, 1]` and the 11th item to `[28, 2]`.
 
 ```python
 if year % 4 >= 1:
@@ -260,7 +262,7 @@ if year % 4 >= 1:
 ```
 
 ### Quick summary
-Just surmising what we have done so far, we have 3 inputs: year, month and day. The script calculates the anchor day for the century. It gets the last two digits of the year then uses the a, b and c calculations. Then it adds them, gets the MOD 7 of that then adds the anchor. Then it gets the MOD 7 of that answer. The answer for the last MOD is the doomsday. We have a `DoomsdayList` which contains the doomsdays. We have an if statement that changes the 10th and 11th item if it’s not a leap year. Then we have a loop that looks for the location of the doomsday in the picked month.
+Just summarizing what we have done so far, we have three inputs: year, month, and day. The script calculates the anchor day for the century. It gets the last two digits of the year then uses the a, b and c calculations. Once this is done, it adds them together, gets the MOD 7 of that then adds the anchor. Next, it receives the MOD 7 of that answer. The answer for the last MOD is the doomsday. We have a `DoomsdayList` which contains the doomsdays. We have an if statement that changes the 10th and 11th item if it's not a leap year. Then we have a loop that looks for the location of the doomsday in the picked month.
 
 The code should look like this now:
 ```python
@@ -297,7 +299,9 @@ for a in range(len(DoomsdayList)):
 ```
 
 ### Coding part 2 *Doomsday and printing the right day of the week*
-The most difficult bit is now done. We now only need to worry about the day of the month. The script now knows the location of the closest doomsday. But sort of, we haven't told it to get the item in that location, which is pretty easy:
+
+The most difficult bit is now done. Now, we only need to worry about the day of the month. After all, the script now knows the location of the closest doomsday. But this is only half true; we haven't told it to get the item in that location, which is luckily pretty easy to do:
+
 ```python
 ClosestDoomsday = DoomsdayList[location]
 ```
@@ -392,17 +396,20 @@ print("This date falls on a", weekList[DayOfWeek])
 
 ## The Tester
 
-With the hardest bit now out of the way and put into functions we can now relax. Make a new file but keep the old when as you can look back at it to see how it works and even modify it, we built it so that it can be used to understand and can be used as a template for further programs that will use it, like the tester.
+With the hardest bit now out of the way and put into functions, we can now relax. Make a new file but keep the old when as you can look back at it to see how it works and even modify it. We built it to be used to understand what our logic should do and can be used as a template for other programs that will use it: like the tester.
 
-I built the tester using `randint` from the module `random`. this should be your first line of code:
+I built the tester using `randint` from the module `random`. This should be your first line of code:
 ```python
 from random import randint
 ```
 ### Coding part 1: *The functions*
-So in the previous program we made 3 inputs Year, Month, Day. We still need to give these to the program, but we need it to do it randomly, and to keep the structure we will use functions.
+
+In the previous program, we made three inputs: Year, Month, Day. We still need to pass these to the doomsday program, but we need to do it randomly. To keep our code's structure, we will use functions.
 
 #### Random Year
-To get a random year we will just make a function that has two arguments, `StartYear` and `EndYear`. These will be in a `randint` line:
+
+To get a random year, we will just make a function that has two arguments: `StartYear` and `EndYear`. These will be in a `randint` line:
+
 ```python
 def randomYear(StartYear, EndYear):
     return randint(StartYear, EndYear)
