@@ -248,6 +248,11 @@ $pendIconMarg: #{$baseUnit}px;
     border-bottom-right-radius: 10px;
   }
 
+  .table-container {
+    max-width: 100%;
+    overflow: auto;
+  }
+
   table {
     border: var(--cardOutlineStyle);
     border-radius: var(--cardRadius);

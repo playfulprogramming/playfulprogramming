@@ -3,7 +3,13 @@ import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
-import { getHeadings, getMedia, getLinks, getTabs } from "./MarkdownRenderer";
+import {
+  getHeadings,
+  getMedia,
+  getLinks,
+  getTabs,
+  getTable,
+} from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
@@ -27,6 +33,7 @@ const getComponents = (
     html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    ...getTable(props),
     ...getTabs(props),
     ...getHeadings(props),
     ...getMedia(props),
