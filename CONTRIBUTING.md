@@ -38,7 +38,7 @@ This information includes:
 - A short description of yourself
 
   - If you need to have a line break, simply add in `\n` and the code will handle it for you
-  - We ask that your description is less than 256 characters long
+  - We ask that your description is less than 140 characters long
 
 - Your social media metadata. We currently support the following:
 

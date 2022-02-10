@@ -1,7 +1,7 @@
 ---
 {
   title: "Write Simpler Tests - 5 Suggestions for Better Tests",
-  description: "Writing tests is an integral skill for any engineer to take on. Unfortunately, we often tend to over complicate our tests. Let's take a look at how we can simplify them for better tests overall",
+  description: "Writing tests is an big skill for any engineer, but we often over-complicate our tests. Let's simplify them for better tests overall!",
   published: '2020-05-26T05:12:03.284Z',
   authors: ['crutchcorn', 'skatcat31'],
   tags: ['testing', 'jest'],

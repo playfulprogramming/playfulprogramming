@@ -1,7 +1,7 @@
 ---
 {
 	title: "How to Pick Tech Stacks For New Projects",
-	description: 'I often get asked: "How do you pick a tech stack for your projects?". This article answers that by outlining what questions you should be asking early on',
+	description: 'I often get asked "How do you pick a tech stack for your projects?". The answer is: outline what questions you should be asking early on.',
 	published: '2020-03-02T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['opinion'],
