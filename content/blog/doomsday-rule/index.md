@@ -2,7 +2,7 @@
 {
     title: "Doomsday Rule",
     description: 'In this blog I talk about the Doomsday Rule, how it works, how to put it into code then how to make a program that tests you.',
-    published: '2022-01-11T22:12:03.284Z',
+    published: '2022-02-10T22:12:03.284Z',
     authors: ['SkyHawk_0'],
     tags: ['python', 'math'],
     attached: [],
