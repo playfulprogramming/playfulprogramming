@@ -1,7 +1,7 @@
 ---
 {
 title: "A Better Way To Code: Documentation Driven Development",
-description: "",
+description: "Test driven development is often taught to improve a your dev workflow; I think works Documentation drive development (DDD) works better.",
 published: '2022-01-18T22:12:03.284Z',
 authors: ['crutchcorn'],
 tags: ['documentation', 'testing', 'opinion'],

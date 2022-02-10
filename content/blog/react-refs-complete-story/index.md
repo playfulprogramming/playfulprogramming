@@ -1,7 +1,7 @@
 ---
 {
 	title: "React Refs: The Complete Story",
-	description: "",
+	description: "React Refs are an immensely powerful, yet often misunderstood API. Let's learn what they're capable of, and how they're usually misused.",
 	published: '2020-12-01T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['react', 'javascript'],
