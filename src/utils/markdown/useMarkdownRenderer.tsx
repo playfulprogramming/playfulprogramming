@@ -3,11 +3,24 @@ import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
-import { getHeadings, getMedia, getLinks } from "./MarkdownRenderer";
+import {
+  getHeadings,
+  getMedia,
+  getLinks,
+  getTabs,
+  getTable,
+} from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
+import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
+
+const TabHeader: React.FC = ({ children }) => {
+  return <>{children}</>;
+};
+
+TabHeader.displayName = "TabHeader";
 
 const getComponents = (
   props: useMarkdownRendererProps,
@@ -20,6 +33,8 @@ const getComponents = (
     html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    ...getTable(props),
+    ...getTabs(props),
     ...getHeadings(props),
     ...getMedia(props),
     ...getLinks(props),
@@ -34,7 +49,7 @@ export const useMarkdownRenderer = (
   // This only parses once to avoid serialization errors.
   // DO NOT ADD OTHER REHYPE PLUGINS OR REMARK PLUGINS HERE
   // This works in SRR just fine
-  return React.useMemo(
+  const result = React.useMemo(
     () =>
       unified()
         .use(rehypeParse)
@@ -45,4 +60,6 @@ export const useMarkdownRenderer = (
         .processSync(props.markdownHTML).result as ReactElement,
     [comps, props]
   );
+
+  return <MarkdownDataProvider>{result}</MarkdownDataProvider>;
 };

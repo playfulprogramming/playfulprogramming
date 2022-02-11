@@ -113,7 +113,7 @@ Thanks to the lack of rendering on data storage, it's particularly useful for st
   }, [dataRef]);
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-data?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-data?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Visual Timer with Refs {#visual-timers}
 
@@ -145,7 +145,7 @@ Let's take the example from before, but inside of the `setInterval`, we update a
 
 Now, we'd expect to see the timer update from `1` to `2` (and beyond) as the timer continues to render. However, if we look at the app while it runs, we'll see some behavior we might not expect:
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-buggy-code?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-buggy-code?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This is because [the closure](https://whatthefuck.is/closure) that's passed to the `setInterval` has grown stale. This is a common problem when using React Hooks. While there's a simple solution hidden in `useState`'s API, let's solve this problem using mutations and `useRef`.
 
@@ -171,7 +171,7 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
   }, [dataRef]);
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-fixed-code?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-mutable-fixed-code?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > * I would not solve it this way in production. `useState` accepts a callback which you can use as an alternative (much more recommended) route:
 >
@@ -214,7 +214,7 @@ At the start of this article, I mentioned that `ref`s are not just a mutable dat
 
 In this example, if we took a look at the `console.log` in the `useEffect`, we'd find [an `HTMLDivElement` instance](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDivElement) in the `current` property. Open the following StackBlitz and look at the console value to confirm:
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Because `elRef.current` is now a `HTMLDivElement`, it means we now have access to [the entire `Element.prototype` JavaScript API](https://developer.mozilla.org/en-US/docs/Web/API/Element#Properties). As such, this `elRef` can be used to style the underlying HTML node:
 
@@ -230,7 +230,7 @@ Because `elRef.current` is now a `HTMLDivElement`, it means we now have access t
   )
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Alternative Syntax {#ref-function}
 
@@ -272,7 +272,7 @@ const App = () => {
   );
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong-kinda?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong-kinda?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You might be wondering why I didn't call that property `ref` instead of `divRef`. This is because of a limitation with React. If we try to switch the property's name to `ref`, we find ourselves with some unintended consequences.
 
@@ -297,7 +297,7 @@ const App = () => {
   );
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref-wrong?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 You'll notice that the `Container` `div` is not styled to have a `lightblue` background. This is because `elRef.current` is never set to contain the `HTMLElement` ref. As such, for simple ref forwarding, you cannot use the `ref` property name.
 
@@ -325,7 +325,7 @@ const App = () => {
 
 Now that we are using `forwardRef`, we can use the `ref` property name on the parent component to get access to the `elRef` once again.
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Class Component References {#class-ref}
 
@@ -379,7 +379,7 @@ const App = () => {
 > }
 > ```
 
-<iframe src="https://stackblitz.com/edit/react-class-ref-instance?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-class-ref-instance?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 If you look at the `console.log` statement, you'll notice that it prints something like this:
 
@@ -464,7 +464,7 @@ function App() {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/react-class-ref-instance-custom-props?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-class-ref-instance-custom-props?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Unidirectional Flow {#unidirectional-flow}
 
@@ -637,7 +637,7 @@ export default function App() {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-pre?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-pre?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 As you can witness from the embedded demo it will focus you on the `Container` `div` when the application renders. This example does not use the `useImperativeHandle` hook but instead relies on the timing of `useEffect` to have the `ref`'s `current` already defined.
 
@@ -680,7 +680,7 @@ export default function App() {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-post?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-post?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > If you look in the console, you'll find the `console.log` has run when `focus()` ran!
 
@@ -704,7 +704,7 @@ That said, you're not limited to simply the names of native APIs. What do you th
   }, [elRef])
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-useful?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-imperative-handle-demo-useful?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > When your focus is set to the `Container` element, try typing in the ["Konami code"](https://en.wikipedia.org/wiki/Konami_Code) using your arrow keys. What does it do when that's done?
 
@@ -777,7 +777,7 @@ export default function App() {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 This code behaves as we might initially expect, not because we've done things properly, but instead, thanks to the nature of React's `useEffect` hook's timing.
 
@@ -811,7 +811,7 @@ export default function App() {
 }
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-effect-bug-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-effect-bug-effect?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Oh no! The background is no longer `'lightblue'`! Because we delay the rendering of the `div`, `elRef` is _not_ assigned for the initial render. Then, once it _is_ rendered, it mutates the `.current` property of `elRef` to assign the ref. Because mutations do not trigger a re-render (and `useEffect` only runs during renders), `useEffect` does not have a chance to "compare" the differences in value and, therefore, run the side-effect.
 
@@ -838,7 +838,7 @@ Confused? That's okay! So was I at first. I made a playground of sorts to help u
   }, [minus]);
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-not-updating?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-not-updating?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > Open your console and take notes of what `console.log` runs when you change the respective values!
 
@@ -907,7 +907,7 @@ But, you're probably thinking that if it accepts a function, we could pass a cal
   );
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-styling?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-styling?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 > But hey! Wait a minute! Even though the `shouldRender` timing mismatch is still there, the background is being applied all the same! Why is the `useEffect` timing mismatch not causing the bug we were experiencing before?
 
@@ -934,7 +934,7 @@ That's true. However, you _can_ combine the two behaviors to make a callback tha
   }, [elRef, shouldRender]);
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-effect?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # `useState` Refs {#usestate-refs}
 
@@ -958,7 +958,7 @@ You can do this relatively trivially using callback refs to assign to a `useStat
   }, [elRef])
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-use-state?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-use-state?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 Now that the `ref` update causes a re-render, you can now _**safely**_ use the `ref` in `useEffect`'s dependency array.
 
@@ -977,7 +977,7 @@ Now that the `ref` update causes a re-render, you can now _**safely**_ use the `
   }, [elNode])
 ```
 
-<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-state-effect?ctl=1&embed=1" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-state-effect?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 However, this comes at an offset cost of performance. Because you're causing a re-render, it will inherently be slower than if you were not triggering a re-render. There are valid uses for this, however. You just have to be mindful of your decisions and your code's usage of them.
 

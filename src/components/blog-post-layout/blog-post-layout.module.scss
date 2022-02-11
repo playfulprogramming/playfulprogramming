@@ -13,17 +13,30 @@
 	max-width: 100%;
 }
 
+.rightContainer,
 .leftContainer {
 	top: 3rem;
 	overflow: auto;
 	height: calc(100vh - 10rem);
 	margin-top: 4rem;
-	margin-right: 2rem;
 	min-width: 220px;
+}
+
+.leftContainer {
+	margin-right: 2rem;
 }
 
 .rightContainer {
 	margin-left: 2rem;
+	transition: 300ms opacity ease-in-out;
+}
+
+// This makes up ~80% of desktop users as-of Oct 2021 (past 3 months)
+// For reference, ~80% of desktop users had >750px height
+@media (max-width: 1270px) {
+	.rightContainer {
+		opacity: 0;
+	}
 }
 
 .leftContainer,

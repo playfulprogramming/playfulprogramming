@@ -3,6 +3,7 @@
 @import "styles/utils";
 @import "styles/text_styles";
 @import "shiki";
+@import "tabs";
 
 :root {
   --animSpeed: 200ms;
@@ -64,6 +65,8 @@
 
 body {
   background-color: var(--backgroundColor);
+  margin: 0;
+  padding: 0;
   @extend %body-1;
   color: var(--black);
   transition: color var(--animStyle) var(--animSpeed),
@@ -245,6 +248,11 @@ $pendIconMarg: #{$baseUnit}px;
     border-bottom-right-radius: 10px;
   }
 
+  .table-container {
+    max-width: 100%;
+    overflow: auto;
+  }
+
   table {
     border: var(--cardOutlineStyle);
     border-radius: var(--cardRadius);
@@ -276,6 +284,14 @@ $pendIconMarg: #{$baseUnit}px;
       padding-left: 5px;
       padding-right: 5px;
     }
+  }
+
+  iframe {
+    width: 100%;
+    min-height: 500px;
+    border: var(--cardOutlineStyle);
+    border-radius: 8px;
+    overflow: hidden;
   }
 }
 

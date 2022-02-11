@@ -5,16 +5,18 @@
 import * as ga from "utils/ga";
 import { forwardRef, AnchorHTMLAttributes, MouseEventHandler } from "react";
 
-interface OutboundLinkProps {
+interface AnalyticsLinkProps {
   onClick?: MouseEventHandler;
   target?: string;
-  href: string;
+  // May be passed by `ref`
+  href?: string;
+  category: string;
 }
 
-export const OutboundLink = forwardRef<
+export const AnalyticsLink = forwardRef<
   HTMLAnchorElement,
-  OutboundLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
->(({ children, ...props }, ref) => (
+  AnalyticsLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
+>(({ children, category, ...props }, ref) => (
   <a
     ref={ref}
     {...props}
@@ -40,19 +42,19 @@ export const OutboundLink = forwardRef<
         ga.event({
           action: "click",
           params: {
-            event_category: `outbound`,
+            event_category: category,
             event_label: props.href,
             transport_type: redirect ? `beacon` : ``,
             event_callback: function () {
               if (redirect) {
-                document.location = props.href;
+                document.location = props.href!;
               }
             },
           },
         });
       } else {
         if (redirect) {
-          document.location = props.href;
+          document.location = props.href!;
         }
       }
 
@@ -63,4 +65,4 @@ export const OutboundLink = forwardRef<
   </a>
 ));
 
-OutboundLink.displayName = `OutboundLink`;
+AnalyticsLink.displayName = `AnalyticsLink`;

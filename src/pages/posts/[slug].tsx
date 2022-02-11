@@ -30,13 +30,20 @@ import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
 import path from "path";
 import { SeriesToC } from "components/series-toc";
+import {
+  getSuggestedArticles,
+  OrderSuggestPosts,
+} from "utils/useGetSuggestedArticles";
+import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
+import { AnalyticsLink } from "components/analytics-link";
 
 type Props = {
   markdownHTML: string;
   slug: string;
   postsDirectory: string;
   seriesPosts: SeriesPostInfo[];
+  suggestedPosts: OrderSuggestPosts;
   post: SlugPostInfo & RenderedPostInfo;
 };
 
@@ -46,6 +53,7 @@ const Post = ({
   slug,
   postsDirectory,
   seriesPosts,
+  suggestedPosts,
 }: Props) => {
   const router = useRouter();
 
@@ -83,7 +91,7 @@ const Post = ({
     }, 600);
   }, [colorMode, post.title, slug]);
 
-  const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}${slug}index.md`;
+  const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
   return (
     <>
@@ -101,6 +109,7 @@ const Post = ({
       <article>
         <BlogPostLayout
           left={<TableOfContents headingsWithId={post.headingsWithId} />}
+          right={<SuggestedArticles suggestedArticles={suggestedPosts} />}
           center={
             <>
               <header role="banner" className="marginZeroAutoChild">
@@ -136,7 +145,8 @@ const Post = ({
               <p>Comments</p>
             </div>
 
-            <a
+            <AnalyticsLink
+              category="outbound"
               className="baseBtn prependIcon"
               href={GHLink}
               target="_blank"
@@ -144,7 +154,7 @@ const Post = ({
             >
               <GitHubIcon />
               View this Post on GitHub
-            </a>
+            </AnalyticsLink>
 
             {/*<button className="baseBtn appendIcon" type="button">*/}
             {/*  Share this Post*/}
@@ -189,6 +199,8 @@ export async function getStaticProps({ params }: Params) {
       .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
+  const suggestedPosts = getSuggestedArticles(post);
+
   const { html: markdownHTML, headingsWithId } = await markdownToHtml(
     post.content,
     path.resolve(postsDirectory, post.slug)
@@ -206,6 +218,7 @@ export async function getStaticProps({ params }: Params) {
       slug: slug,
       postsDirectory,
       seriesPosts,
+      suggestedPosts,
     } as Props,
   };
 }
