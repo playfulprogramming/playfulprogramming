@@ -1,7 +1,7 @@
 ---
 {
   title: "CSS Fundamentals",
-  description: "A beginners course for CSS box model, HTML defaults, flex box layout, grid box layout, responsive design, selectors, units, and variables.",
+  description: "A beginners course for CSS box model, HTML defaults, flexbox layout, gridbox layout, responsive design, selectors, units, and variables.",
   published: "2022-01-18T20:08:26.988Z",
   authors: ["ljtech"],
   tags: ["css", "design"],
@@ -135,7 +135,7 @@ These placement methods are used to distribute both flex and gridbox items:
 
 - [`place-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-content) - shorthand property for [`align-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) and [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
 - [`place-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-items) - shorthand property for [`align-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) and [`justify-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items)
-- [`place-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self) - shorthand property for [`align-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
+- [`place-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/place-self) - shorthand property for [`align-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) and [`justify-self`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self)
 
 > 🤓 These are some godly CSS properties that everyone should know about
 
@@ -283,9 +283,39 @@ Here is a list of CSS properties used to control gridbox properties:
 
 ## Positioning
 
-The CSS property `position` determines an elements flow inside a document. You can add the CSS properties `top`, `right`, `bottom`, `left`  to create an offset on a positioned element or control its order using `z-index`, allowing for elements to overlap one another.
+The CSS property `position` determines an elements flow inside a document.
+
+The CSS properties `top`, `bottom`, `left`, `right` are used on positioned elements to control an offset while `z-index` controls the elements order (bringing it to the front or back).
 
 ![positioning.svg](./positioning.svg)
+
+```css
+.root {
+	position: relative;
+	width: 768px;
+    height: 272px;
+}
+
+.container {
+	position: absolute;
+	left: 224px;
+    top: 100px;
+    width: 320px;
+    height: 145px;
+    z-index: 90;
+}
+
+.item {
+	position: absolute;
+    bottom: 50px;
+    right: 90px;
+	width: 213px;
+	height: 65px;
+    z-index: 100;
+}
+```
+
+ 
 
 There are five types of element positions:
 
@@ -293,18 +323,15 @@ There are five types of element positions:
   - Can be offset relative to the parent container and ordered
 - **Fixed** - The element is removed from document flow and positioned relative to the initial container
   - Can be offset relative to the initial container and ordered
-  
 - **Relative** - The element flows normally and provides relative positioning for children elements
   - Can be offset relative to itself and ordered
-  
 - **Static** - The default position
   - Unaffected by offset and order
-
 - **Sticky** - The element flows normally and "sticks" to the nearest container
   - A mixture between relative and fixed positions depending on the scroll mechanism
   - Can be offset relative to the parent container and ordered
 
-> ⚡ Live Code Example: **COMING SOON!**
+> ⚡ Live Code Example: [Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)
 
 ---
 
@@ -320,7 +347,7 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 ![youtube.png](./youtube.png)
 
-> 🤓 Mastering the flexbox will take you very far in CSS
+> 🤓 Mastering the flexbox will take you very far in CSS as it is used everywhere
 
 #### Gridbox: 
 
