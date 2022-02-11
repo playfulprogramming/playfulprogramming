@@ -315,8 +315,6 @@ The CSS properties `top`, `bottom`, `left`, `right` are used on positioned eleme
 }
 ```
 
- 
-
 There are five types of element positions:
 
 - **Absolute** - The element is removed from document flow and positioned relative to the nearest `position: relative` parent
@@ -331,7 +329,7 @@ There are five types of element positions:
   - A mixture between relative and fixed positions depending on the scroll mechanism
   - Can be offset relative to the parent container and ordered
 
-> ⚡ Live Code Example: [Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)
+> ⚡ [Live Code Example: Positioning](https://codesandbox.io/s/positioning-gzzv3?file=/styles.css)
 
 ---
 
