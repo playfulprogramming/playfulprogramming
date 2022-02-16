@@ -11,14 +11,14 @@
 .centerContainer {
 	margin: 0 auto;
 	max-width: 100%;
+	flex-basis: 100%;
 }
 
 .rightContainer,
 .leftContainer {
-	top: 3rem;
+	top: 4rem;
 	overflow: auto;
-	height: calc(100vh - 10rem);
-	margin-top: 4rem;
+	height: calc(100vh - 6rem);
 	min-width: 220px;
 }
 
