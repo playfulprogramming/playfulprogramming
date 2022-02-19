@@ -765,11 +765,9 @@ What this means is that if you don't provide a unique ID, when you re-render the
 
 Say you have the following:
 
-
-
 <!-- tabs:start -->
 
-## React
+### React
 
 ```jsx
 const WordList = () => {
@@ -787,7 +785,7 @@ const WordList = () => {
       <button onClick={addWord}>Add word</button>
       <ul>
         {words.map((word) => {
-          return <li key={word.id}>{word.word}</li>;
+          return <li>{word.word}</li>;
         })}
       </ul>
     </div>
@@ -808,7 +806,7 @@ function getRandomWord() {
 }
 ```
 
-## Angular
+### Angular
 
 ```typescript
 import { Component } from '@angular/core';
@@ -849,7 +847,7 @@ function getRandomWord() {
 }
 ```
 
-## Vue
+### Vue
 
 ```javascript
 const WordList = {
@@ -892,15 +890,89 @@ function getRandomWord() {
 
 <!-- tabs:end -->
 
+Without using some kind of `key` prop, when you run `addWord` it will iterate through every item in the list and destroy them. This is because **the framework isn't able to detect which item in your array has changed, marks all DOM elements as "outdated" and destroys them in the process, only to immediately reconstruct them**.
 
+**// TODO: add diagram demonstrating each item in the array being re-rendered**
 
+In order to solve for this problem, we need to tell the framework which DOM element associates with which item in our JavaScript array.
 
+<!-- tabs:start -->
 
-Even in Angular, where an error like this may not show up, it's still a good idea to use a unique value for each framework
+### React
 
+```jsx {4}
+<div>
+  <button onClick={addWord}>Add word</button>
+  <ul>
+    {words.map((word) => {
+      return <li key={word.id}>{word.word}</li>;
+    })}
+  </ul>
+</div>
+```
 
+Here, we're using the `key` property to tell React which `li` is related to which `word` via the `word`'s unique `id` field.
 
+### Angular
 
+While Angular doesn't have quite the same API for`key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
+
+```typescript {8,16-18}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'word-list',
+  template: `
+    <div>
+      <button (click)="addWord()">Add word</button>
+      <ul>
+        <li *ngFor="let word of words; trackBy: wordTrackBy">{{word.word}}</li>
+      </ul>
+    </div>
+  `,
+})
+export class WordListComponent {
+  words: Array<{ word: string; id: number }> = [];
+
+  wordTrackBy(index, user) {
+    return user.id;
+  }
+
+  // ...
+}
+```
+
+Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do a strict equality (`===`) between the old item in the array and the new to check if the item is the same.
+
+While this works in some cases, for the most part it's suggested to provide your own `trackBy` to avoid problems with the limitations present with the default.
+
+### Vue
+
+```javascript {5}
+const WordList = {
+  template: `
+    <div>
+      <button @click="addWord()">Add word</button>
+      <ul>
+        <li v-for="word in words" :key="word.id">{{word.word}}</li>
+      </ul>
+    </div>
+`,
+ // ...
+}
+```
+
+<!-- tabs:end -->
+
+Now that this is done, when we re-render the list, the framework is able to know exactly which items have and have not changed.
+
+As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
+
+**// TODO: add diagram demonstrating only new items in the array being re-rendered** 
+
+## Keys As Render Hints
+
+// Use `key` to force a refresh
 
 
 
