@@ -373,7 +373,7 @@ While we could move back to a simple `if` statement for each condition:
 
 <!-- tabs:start -->
 
-## React
+### React
 
 ```jsx
 {isFolder && <span>Type: Folder</span>}
@@ -381,7 +381,7 @@ While we could move back to a simple `if` statement for each condition:
 {!isFolder && !isImage && <span>Type: File</span>}
 ```
 
-## Angular
+### Angular
 
 ```html
 <span *ngIf="isFolder">Type: Folder</span>
@@ -389,7 +389,7 @@ While we could move back to a simple `if` statement for each condition:
 <span *ngIf="!isFolder && !isImage">Type: File</span>
 ```
 
-## Vue
+### Vue
 
 ```html
 <span v-if="isFolder">Type: Folder</span>
@@ -403,7 +403,7 @@ This can get hard to read with multiple conditionals in a row. As a result, thes
 
 <!-- tabs:start -->
 
-## React
+### React
 
 ```jsx
 {
@@ -415,7 +415,7 @@ This can get hard to read with multiple conditionals in a row. As a result, thes
 }
 ```
 
-## Angular
+### Angular
 
 ```html
 <ng-container [ngSwitch]="true">
@@ -447,7 +447,7 @@ Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of
 
 Using this tool, we can simply set the `ngSwitch` value to `true` and add in a conditional into the `ngSwitchCase`.
 
-## Vue
+### Vue
 
 ```html
 <span v-if="isFolder">Type: Folder</span>
@@ -962,6 +962,8 @@ const WordList = {
 }
 ```
 
+Here, we're using the `key` property to tell Vue which `li` is related to which `word` via the `word`'s unique `id` field.
+
 <!-- tabs:end -->
 
 Now that this is done, when we re-render the list, the framework is able to know exactly which items have and have not changed.
@@ -972,7 +974,65 @@ As such, it will only re-render the new items, leaving the old and unchanged DOM
 
 ## Keys As Render Hints
 
-// Use `key` to force a refresh
+**// Use `key` to force a refresh**
+
+Because `key` is utilized to let the framework know which element maps to which item in the virtual DOM
+
+
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {6}
+function KeyExample() {
+  const [num, setNum] = useState(0);
+
+  const increase = () => setNum(num + 1);
+
+  return (
+    <div>
+      <input key={num} />
+      <button onClick={increase}>Increase</button>
+      <p>{num}</p>
+    </div>
+  );
+}
+```
+
+
+
+### Angular
+
+Because Angular does not have the concept of a `key`, it is unable to follow the same behavior of Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular. 
+
+This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an anti-pattern.
+
+### Vue
+
+```javascript {2}
+const KeyExample = {
+  template: `
+    <input :key="num" />
+    <button @click="increase()">Increase</button>
+    <p>{{ num }}</p>
+  `,
+  data() {
+    return {
+      num: 0,
+    };
+  },
+  methods: {
+    increase() {
+      this.num++;
+    },
+  },
+};
+```
+
+<!-- tabs:end -->
+
+
 
 
 
