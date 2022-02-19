@@ -486,18 +486,21 @@ const FileList = () => {
         onSelected={() => onSelected(0)}
         fileName="File one"
         href="/file/file_one"
+        isFolder={false}
       />
       <File
         isSelected={selectedIndex === 1}
         onSelected={() => onSelected(1)}
         fileName="File two"
         href="/file/file_two"
+        isFolder={false}
       />
       <File
         isSelected={selectedIndex === 2}
         onSelected={() => onSelected(2)}
         fileName="File three"
         href="/file/file_three"
+        isFolder={false}
       />
     </ul>
   );
@@ -516,18 +519,21 @@ const FileList = () => {
         [isSelected]="selectedIndex === 0"
         fileName="File one" 
         href="/file/file_one"
+        [isFolder]="false"
       ></file>
       <file
         (selected)="onSelected(1)"
         [isSelected]="selectedIndex === 1"
         fileName="File two" 
         href="/file/file_two"
+        [isFolder]="false"
       ></file>
       <file
         (selected)="onSelected(2)"
         [isSelected]="selectedIndex === 2"
         fileName="File three" 
         href="/file/file_three"
+        [isFolder]="false"
       ></file>
     </ul>
   `,
@@ -556,18 +562,21 @@ const FileList = {
         :isSelected="selectedIndex === 0" 
         fileName="File one" 
         href="/file/file_one"
+        :isFolder="false"
       ></file>
       <file 
         @selected="onSelected(1)" 
         :isSelected="selectedIndex === 1" 
         fileName="File two" 
         href="/file/file_two"
+        :isFolder="false"
       ></file>
       <file 
         @selected="onSelected(2)" 
         :isSelected="selectedIndex === 2" 
         fileName="File three" 
         href="/file/file_three"
+        :isFolder="false"
       ></file>
     </ul>
   `,
@@ -607,15 +616,18 @@ Let's fix that by replacing the copy-pasted components with a loop and an array.
 const filesArray = [
     {
         fileName: "File one",
-        href: "/file/file_one"
+        href: "/file/file_one",
+        isFolder: false
     },
     {
         fileName: "File two",
-        href: "/file/file_two"
+        href: "/file/file_two",
+        isFolder: false
     },
     {
         fileName: "File three",
-        href: "/file/file_three"
+        href: "/file/file_three",
+        isFolder: false
     }
 ]
 
@@ -637,6 +649,7 @@ const FileList = () => {
         onSelected={() => onSelected(i)}
         fileName={file.fileName}
         href={file.href}
+        isFolder={file.isFolder}
       />}
     </ul>
   );
@@ -660,6 +673,7 @@ We can then use the second argument inside of the `map` in order to gain access 
         [isSelected]="selectedIndex === i"
         [fileName]="file.fileName" 
         [href]="file.href"
+        [isFolder]="file.isFolder"
       ></file>
     </ul>
   `,
@@ -678,15 +692,18 @@ export class FileListComponent {
   filesArray = [
     {
         fileName: "File one",
-        href: "/file/file_one"
+        href: "/file/file_one",
+        isFolder: false
     },
     {
         fileName: "File two",
-        href: "/file/file_two"
+        href: "/file/file_two",
+        isFolder: false
     },
     {
         fileName: "File three",
-        href: "/file/file_three"
+        href: "/file/file_three",
+        isFolder: false
     }
   ]
 }
@@ -706,6 +723,7 @@ const FileList = {
         :isSelected="selectedIndex === i" 
         :fileName="file.fileName" 
         :href="file.href"
+        :isFolder="file.isFolder"
       ></file>
     </ul>
   `,
@@ -715,15 +733,18 @@ const FileList = {
         filesArray: [
           {
               fileName: "File one",
-              href: "/file/file_one"
+              href: "/file/file_one",
+              isFolder: false
           },
           {
               fileName: "File two",
-              href: "/file/file_two"
+              href: "/file/file_two",
+              isFolder: false
           },
           {
               fileName: "File three",
-              href: "/file/file_three"
+              href: "/file/file_three",
+              isFolder: false
           }
         ]
     };
@@ -934,8 +955,8 @@ import { Component } from '@angular/core';
 export class WordListComponent {
   words: Array<{ word: string; id: number }> = [];
 
-  wordTrackBy(index, user) {
-    return user.id;
+  wordTrackBy(index, word) {
+    return word.id;
   }
 
   // ...
@@ -974,11 +995,11 @@ As such, it will only re-render the new items, leaving the old and unchanged DOM
 
 ## Keys As Render Hints
 
-**// Use `key` to force a refresh**
+Because `key` is utilized to let the framework know which element to update, we can force re-renders on non-iterative items as well.
 
-Because `key` is utilized to let the framework know which element maps to which item in the virtual DOM
+For example, let's assume we have a basic `input` that we want to be able to reset when a button is pressed.
 
-
+To do this, we can simply have the button increment a local variable containing a number, and set the `key` value to track said number as it's internal reference.
 
 <!-- tabs:start -->
 
@@ -999,8 +1020,6 @@ function KeyExample() {
   );
 }
 ```
-
-
 
 ### Angular
 
@@ -1032,16 +1051,301 @@ const KeyExample = {
 
 <!-- tabs:end -->
 
+This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated and a new `input` is rendered in it's place, the value is reset and not bound again.
+
+This reset is what's causing the `input` to blank out after a button press. 
+
+> This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
+>
+> [We'll learn more about how each framework handles these references under-the-hood in a future chapter.](// TODO: Link this)
 
 
 
+# Putting it to Production
+
+While rendering lists of words is neat, it doesn't help us much with our file management application.
+
+Let's fix that by looping back to our file list.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {0-13,28-33}
+const filesArray = [
+    {
+        fileName: "File one",
+        href: "/file/file_one",
+        isFolder: false,
+        id: 1
+    },
+    {
+        fileName: "File two",
+        href: "/file/file_two",
+        isFolder: false,
+        id: 2
+    },
+    {
+        fileName: "File three",
+        href: "/file/file_three",
+        isFolder: false,
+        id: 3
+    }
+]
+
+const FileList = () => {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const onSelected = (idx) => {
+    if (selectedIndex === idx) {
+      setSelectedIndex(-1);
+      return;
+    }
+    setSelectedIndex(idx);
+  };
+
+  return (
+    <ul>
+      {filesArray.map((file, i) => <File
+        key={file.id}
+        isSelected={selectedIndex === i}
+        onSelected={() => onSelected(i)}
+        fileName={file.fileName}
+        href={file.href}
+        isFolder={file.isFolder}
+      />}
+    </ul>
+  );
+};
+```
+
+## Angular
+
+```typescript {4-10,25-38}
+@Component({
+  selector: 'file-list',
+  template: `
+    <ul>
+      <file
+      	*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
+        (selected)="onSelected(i)"
+        [isSelected]="selectedIndex === i"
+        [fileName]="file.fileName" 
+        [href]="file.href"
+        [isFolder]="file.isFolder"
+      ></file>
+    </ul>
+  `,
+})
+export class FileListComponent {
+  selectedIndex = -1;
+
+  fileTrackBy(index, file) {
+    return file.id;
+  }
+    
+  onSelected(idx) {
+    if (this.selectedIndex === idx) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = idx;
+  }
+    
+  filesArray = [
+    {
+        fileName: "File one",
+        href: "/file/file_one",
+        isFolder: false,
+        id: 1
+    },
+    {
+        fileName: "File two",
+        href: "/file/file_two",
+        isFolder: false,
+        id: 2
+    },
+    {
+        fileName: "File three",
+        href: "/file/file_three",
+        isFolder: false,
+        id: 3
+    }
+  ]
+}
+```
+
+## Vue
+
+```javascript {3-9,15-28}
+const FileList = {
+  template: `
+    <ul>
+      <file 
+        v-for="(file, i) in filesArray"
+        :key="file.id"
+        @selected="onSelected(i)" 
+        :isSelected="selectedIndex === i" 
+        :fileName="file.fileName" 
+        :href="file.href"
+        :isFolder="file.isFolder"
+      ></file>
+    </ul>
+  `,
+  data() {
+    return {
+      selectedIndex: -1,
+        filesArray: [
+          {
+              fileName: "File one",
+              href: "/file/file_one",
+              isFolder: false,
+              id: 1
+          },
+          {
+              fileName: "File two",
+              href: "/file/file_two",
+              isFolder: false,
+              id: 2
+          },
+          {
+              fileName: "File three",
+              href: "/file/file_three",
+              isFolder: false,
+              id: 3
+          }
+        ]
+    };
+  },
+  methods: {
+    onSelected(idx) {
+      if (this.selectedIndex === idx) {
+        this.selectedIndex = -1;
+        return;
+      }
+      this.selectedIndex = idx;
+    },
+  },
+  components: {
+    File,
+  },
+};
+```
+
+<!-- tabs:end -->
+
+Here, we've added all of our proper `key` handling (or `trackBy` for Angular), which allows us to improve the performance of our file list when re-rendering.
 
 
 
--------
+# Using It All Together
 
-Dynamic HTML
+While our file management application is only using a loop for now, what if our users want to filter our list to only display files instead of folders?
 
-- For loop
-  - Key
-- Combining if and for
+Let's allow that by adding in a button to toggle between the two views. We'll do this by adding in a conditional inside of our template loop!
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {11}
+const FileList = () => {
+  // ...
+
+  const [onlyShowFiles, setOnlyShowFiles] = useState(false);
+  const toggleOnlyShow = () => setOnlyShowFiles(!onlyShowFiles);
+  
+  return (
+    <div>
+      <button onClick={toggleOnlyShow}>Only show files</button>
+      <ul>
+        {filesArray.map((file, i) => {
+          if (onlyShowFiles ? file.isFolder : false) return null;
+
+          return <File
+            key={file.id}
+            isSelected={selectedIndex === i}
+            onSelected={() => onSelected(i)}
+            fileName={file.fileName}
+            href={file.href}
+            isFolder={file.isFolder}
+          />;
+        }
+      </ul>
+    </div>
+  );
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file-list',
+  template: `
+    <div>
+      <button (click)="toggleOnlyShow()">Only show files</button>
+      <ul>
+        <ng-container *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
+            <file
+              *ngIf="onlyShowFiles ? !file.isFolder : true"
+              (selected)="onSelected(i)"
+              [isSelected]="selectedIndex === i"
+              [fileName]="file.fileName" 
+              [href]="file.href"
+              [isFolder]="file.isFolder"
+            ></file>
+        </ng-container>
+      </ul>
+    </div>
+  `,
+})
+export class FileListComponent {
+  // ...
+
+  onlyShowFiles = false;
+  
+  toggleOnlyShow() {
+      this.onlyShowFiles = !onlyShowFiles;
+  }
+}
+```
+
+// Mention ng-container
+
+## Vue
+
+```javascript
+const FileList = {
+  template: `
+    <ul>
+      <file 
+        v-for="(file, i) in filesArray"
+        v-if="onlyShowFiles ? !file.isFolder : true"
+        :key="file.id"
+        @selected="onSelected(i)" 
+        :isSelected="selectedIndex === i" 
+        :fileName="file.fileName" 
+        :href="file.href"
+        :isFolder="file.isFolder"
+      ></file>
+    </ul>
+  `,
+  data() {
+    return {
+      // ...
+      onlyShowFiles: false,
+    };
+  },
+  methods: {
+     // ...
+      
+	toggleOnlyShow() {
+      this.onlyShowFiles = !onlyShowFiles;
+    }
+  },
+  // ...
+};
+```
+
+<!-- tabs:end -->

@@ -43,6 +43,10 @@
     - BeforeUpdated/BeforeMounted
   - Include graphs for each framework
 - Under-the-hood how do each framework render contents?
+  - Vue/React = Virtual DOM
+  - Angular = Incremental DOM
+
+- Under-the-hood how do each framework track changes?
   - React explicit
   - Angular = Zone.js
   - Vue = Proxies
