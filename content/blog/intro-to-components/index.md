@@ -430,7 +430,7 @@ This is a particularly useful feature of components. It allows you to reuse aspe
 
 It's worth remembering that we're using the term "parent" to refer to our `FileList` component in relation to our `File` component. This is because, like the DOM tree, each framework's set of components reflect a tree.
 
-**// Add in DOM tree representation of `File` and `FileList`**
+![The FileList component is the parent of each File component. Likewise, each File component has a FileDate child](./file_list_tree.png)
 
 This means that the related `File` components are "siblings" of one-another, each with a "parent" of `FileList`.
 
