@@ -913,7 +913,7 @@ function getRandomWord() {
 
 Without using some kind of `key` prop, when you run `addWord` it will iterate through every item in the list and destroy them. This is because **the framework isn't able to detect which item in your array has changed, marks all DOM elements as "outdated" and destroys them in the process, only to immediately reconstruct them**.
 
-**// TODO: add diagram demonstrating each item in the array being re-rendered**
+![When a render occurs, each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
 In order to solve for this problem, we need to tell the framework which DOM element associates with which item in our JavaScript array.
 
@@ -991,7 +991,7 @@ Now that this is done, when we re-render the list, the framework is able to know
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
 
-**// TODO: add diagram demonstrating only new items in the array being re-rendered** 
+![When a key is assigned to an element in a list, it can avoid duplicative renders, like when a new item in a list is added](./render_with_keys.png) 
 
 ## Keys As Render Hints
 
@@ -1058,8 +1058,6 @@ This reset is what's causing the `input` to blank out after a button press.
 > This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
 >
 > [We'll learn more about how each framework handles these references under-the-hood in a future chapter.](// TODO: Link this)
-
-
 
 # Putting it to Production
 
