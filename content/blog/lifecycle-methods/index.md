@@ -25,24 +25,12 @@ This occurs at first when the user loads a page, but also when shown or hidden u
 
 Say we have the following code:
 
-
-
-------
-
-
-
-
-
 <!-- tabs:start -->
 
 ## React
 
-```jsx {1-3,15}
+```jsx
 const Child = () => {
-	useEffect(() => {
-        console.log("I am rendering");
-    }, []);
-
     return <p>I am the child</p>
 }
 
@@ -58,17 +46,9 @@ const Parent = () => {
 }
 ```
 
-React works slightly differently from the other frameworks we're looking at in this series. In particular, while there's an alternative way of writing React components called "class components" which does have traditional lifecycle methods, the way we're writing components — called "functional components" — does not.
-
-Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
-
-For example, in the above code we're using `useEffect` with an empty array as the second argument in order to create a [side effect](// TODO: Link to glossary) that runs only once per render.
-
-We'll touch on what a side effect is and what the empty array is doing in just a moment.
-
 ## Angular
 
-```typescript {7,22-26}
+```typescript
 @Component({
   selector: 'parent',
   template: `
@@ -91,25 +71,15 @@ export class ParentComponent {
   selector: 'child',
   template: '<p>I am the child</p>',
 })
-export class ChildComponent implements OnInit {
-  ngOnInit() {
-    console.log('I am rendering');
-  }
+export class ChildComponent {
 }
 ```
 
-Angular's version of the "rendered" lifecycle method is called "OnInit". Each of Angular's lifecycle methods are prepended with `ng` and require you to add `implements` to your component class.
-
-If you forget the `implements`, your lifecycle method will not run when you expect it to. 
-
 ## Vue
 
-```javascript {2-4,13}
+```javascript
 const Child = {
-  template: `<p>I am the child</p>`,
-  mounted() {
-    console.log('I am rendering');
-  },
+  template: `<p>I am the child</p>`
 };
 
 const Parent = {
@@ -133,6 +103,65 @@ const Parent = {
     setShowChild() {
       this.showChild = !this.showChild;
     },
+  },
+};
+```
+
+<!-- tabs:end -->
+
+
+
+What would we need to do in order to add in a `console.log` whenever the `setShowChild` method is called?
+
+Well, we can use a lifecycle method to detect when `Child` is rendered!
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {1-3}
+const Child = () => {
+	useEffect(() => {
+        console.log("I am rendering");
+    }, []);
+
+    return <p>I am the child</p>
+}
+```
+
+React works slightly differently from the other frameworks we're looking at in this series. In particular, while there's an alternative way of writing React components called "class components" which does have traditional lifecycle methods, the way we're writing components — called "functional components" — does not.
+
+Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
+
+For example, in the above code we're using `useEffect` with an empty array as the second argument in order to create a [side effect](// TODO: Link to glossary) that runs only once per render.
+
+We'll touch on what a side effect is and what the empty array is doing in just a moment.
+
+## Angular
+
+```typescript {4-8}
+@Component({
+  selector: 'child',
+  template: '<p>I am the child</p>',
+})
+export class ChildComponent implements OnInit {
+  ngOnInit() {
+    console.log('I am rendering');
+  }
+}
+```
+
+Angular's version of the "rendered" lifecycle method is called "OnInit". Each of Angular's lifecycle methods are prepended with `ng` and require you to add `implements` to your component class.
+
+If you forget the `implements`, your lifecycle method will not run when you expect it to. 
+
+## Vue
+
+```javascript {2-4}
+const Child = {
+  template: `<p>I am the child</p>`,
+  mounted() {
+    console.log('I am rendering');
   },
 };
 ```
@@ -266,7 +295,7 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 
 #### React
 
-```jsx
+```jsx {4-10}
 const WindowSize = () => {
   const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
@@ -288,7 +317,7 @@ const WindowSize = () => {
 
 #### Angular
 
-```typescript
+```typescript {13-20}
 @Component({
   selector: 'window-size',
   template: `
@@ -302,19 +331,20 @@ export class WindowSizeComponent implements OnInit {
   height = window.innerHeight;
   width = window.innerWidth;
 
+  resizeHandler() {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+    
   ngOnInit() {
-    function resizeHandler() {
-      this.height = window.innerHeight;
-      this.width = window.innerWidth;
-    }
-    window.addEventListener('resize', resizeHandler);
+    window.addEventListener('resize', this.resizeHandler);
   }
 }
 ```
 
 #### Vue
 
-```javascript
+```javascript {13-21}
 const WindowSize = {
   template: `
    <div>
@@ -328,12 +358,14 @@ const WindowSize = {
   	  width: window.innerWidth
   	}
   },
-  mounted() {
-    function resizeHandler() {
+  methods: {
+    resizeHandler() {
       this.height = window.innerHeight;
       this.width = window.innerWidth;
     }
-    window.addEventListener('resize', resizeHandler);
+  },
+  mounted() {
+    window.addEventListener('resize', this.resizeHandler);
   }
 };
 ```
@@ -351,32 +383,55 @@ This is because the `resize` event is only trigged on the `window` object (assoc
 You see, by default events will always "bubble" upwards from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
 
 ![A click event bubbling to the top of the document](./event_bubbling.png) 
+We can demonstrate this inside of our frameworks.
 
-Because our `resize` event is emitted directly from the `html` node, the only way to get access to it from the `div` parent component is to use `addEventListener`.
+<!-- tabs:start -->
+
+##### React
+
+```jsx
+<div onClick={() => logMessage()}>
+  <p><span>Click me</span> or even me!</p>
+</div>
+```
+
+##### Angular
+
+```html
+<div (click)="logMessage()">
+  <p><span>Click me</span> or even me!</p>
+</div>
+```
+
+##### Vue
+
+```html
+<div @click="logMessage()">
+  <p><span>Click me</span> or even me!</p>
+</div>
+```
+
+<!-- tabs:end -->
+
+If you click on the `span`, the `click` event will start from the `span`, bubble up to the `p` tag, then finally bubble up to the `div` . Because we add an event listener on the `div`, it will run `logMessage`, even when clicking on the `span`.
+
+Back to the original question: Because our `resize` event is emitted directly from the `html` node, the only way to get access to it from the `div` parent component is to use `addEventListener`, which is why we use it in our code sample to track `resize` events.
 
 [You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 
-# Unrendering
+# Un-rendering
 
 Side effects are, among other things, a powerful way to utilize browser APIs. However, we need to make sure to cleanup any side effects we utilize.
 
-Why? Because `addEventListener` runs 
+This holds true for our `addEventListener` usage, since `addEventListener` will continue to run the passed function until a `removeEventListener` is called. We should run this any time an element is un-rendered. After all, it makes no sense to listen to DOM events on a DOM node that isn't present anymore.
 
-
-
-Just as there's a lifecycle method for when a component is rendered, there's a
-
-
-
-
-
-
+Luckily, just as there's a lifecycle method for when a component is rendered, there's another lifecycle method for when a component is unrendered.
 
 <!-- tabs:start -->
 
 ## React
 
-```jsx {1-3,15}
+```jsx {1,4,5}
 const Child = () => {
 	useEffect(() => {
         console.log("I am rendering");
@@ -388,11 +443,11 @@ const Child = () => {
 }
 ```
 
-
+React utilizes `useEffect`'s ability to do cleanup to act as an "unrendered" of sorts. This cleanup is setup by returning a function at the end of a `useEffect` call. What's more, if `useEffect` is called more than once for whatever reason, it will execute the cleanup before running the next time.
 
 ## Angular
 
-```typescript {7,22-26}
+```typescript {4,9-11}
 @Component({
   selector: 'child',
   template: '<p>I am the child</p>',
@@ -408,11 +463,9 @@ export class ChildComponent implements OnInit, OnDestroy {
 }
 ```
 
-
-
 ## Vue
 
-```javascript {2-4,13}
+```javascript {5-7}
 const Child = {
   template: `<p>I am the child</p>`,
   mounted() {
@@ -424,9 +477,119 @@ const Child = {
 };
 ```
 
+<!-- tabs:end -->
 
+Knowing this, we can add in a `removeEventListener` to our `WindowSize` component we were building previously.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const WindowSize = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+    
+  useEffect(() => {
+      function resizeHandler() {
+          setHeight(window.innerHeight);
+          setWidth(window.innerWidth);
+      }
+      window.addEventListener('resize', resizeHandler);
+      
+      return () => window.removeEventListener('resize', resizeHandler);
+  }, []);
+    
+  return <div>
+  	<p>Height: {height}</p>
+  	<p>Width: {width}</p>
+  </div>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'window-size',
+  template: `
+  <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+})
+export class WindowSizeComponent implements OnInit, OnDestroy {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  resizeHandler() {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+    
+  ngOnInit() {
+    window.addEventListener('resize', this.resizeHandler);
+  }
+    
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
+  }
+}
+```
+
+## Vue
+
+```javascript
+const WindowSize = {
+  template: `
+   <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+  data() {
+  	return {
+      height: window.innerHeight,
+  	  width: window.innerWidth
+  	}
+  },
+  methods: {
+    resizeHandler() {
+      this.height = window.innerHeight;
+      this.width = window.innerWidth;
+    }
+  },
+  mounted() {
+    window.addEventListener('resize', this.resizeHandler);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.resizeHandler);
+  }
+};
+```
 
 <!-- tabs:end -->
+
+> Something to keep in mind with `removeEventListener` is that it needs to be the same function passed as the second argument to remove it from the listener.
+>
+> This means that inline arrow functions like this:
+>
+> ```javascript
+> window.addEventListener('resize', () => console.log('a'));
+> window.removeEventListener('resize', () => console.log('a'));
+> ```
+>
+> Won't work, but the following will:
+>
+> ```javascript
+> const fn = () => console.log('a');
+> window.addEventListener('resize', fn);
+> window.removeEventListener('resize', fn);
+> ```
+>
+
+
 
 
 
@@ -436,8 +599,6 @@ const Child = {
 ----
 
 - Lifecycle methods
-    - Mounted/rendered
-    - Unmounted/unrendered
     - On Updated
         - Compare old vs new
     - Others
