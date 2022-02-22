@@ -27,6 +27,12 @@ Say we have the following code:
 
 
 
+------
+
+
+
+
+
 <!-- tabs:start -->
 
 ## React
@@ -94,13 +100,11 @@ export class ChildComponent implements OnInit {
 
 Angular's version of the "rendered" lifecycle method is called "OnInit". Each of Angular's lifecycle methods are prepended with `ng` and require you to add `implements` to your component class.
 
-Angular then runs these methods when the related lifecycle event occurs.
-
 If you forget the `implements`, your lifecycle method will not run when you expect it to. 
 
 ## Vue
 
-```javascript {2-4,14}
+```javascript {2-4,13}
 const Child = {
   template: `<p>I am the child</p>`,
   mounted() {
@@ -133,15 +137,280 @@ const Parent = {
 };
 ```
 
-Despite Vue's lifecycle methods being called "methods", they do not live in the "methods" object on a component.
-
-Instead, they live at the root of the component declaration and are called by Vue itself when a lifecycle event occurs.
+Despite Vue's lifecycle methods being called "methods", they do not live in the "methods" object on a component. Instead, they live at the root of the component declaration.
 
 <!-- tabs:end -->
 
+These lifecycle methods are then called by the framework when a specific lifecycle event occurs. No need to call these methods yourself manually!
+
+Try clicking the toggle button repeatedly, and you'll see that the `console.log` occurs every time the `Child` component renders again.
+
+## Side Effects
+
+A common usage of this `rendered` lifecycle is to be able to do some kind of **side effect**.
+
+A side effect is when a piece of code changes or relies on state outside of it's local environment. When a piece of code does not contain a side effect, it is considered "pure".
+
+![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside of its own environment](./pure-vs-side-effect.png)
+
+For example, say we have the following code:
+
+```javascript
+function pureFn() {
+	let data = 0;
+    data++;
+    return data;
+}
+```
+
+This logic would be considered "pure", as it does not rely on external data sources. However, if we move the `data` variable outside of the local environment, and mutate elsewhere:
+
+```javascript
+let data;
+
+function increment() {
+	data++;
+}
+
+function setupData() {
+	data = 0;
+	increment();
+	return data;
+}
+```
+
+`increment` would be considered a "side-effect" that mutates a variable outside of it's own environment.
+
+> When does this come into play in a production application?
+
+This is a great question! A great example of this occurs in the browser with the `window` and `document` APIs.
+
+Say we wanted to store a global counter that we use in multiple parts of the app, we might store this in `window`.
+
+````javascript
+window.shoppingCartItems = 0;
+
+function addToShoppingCart() {
+	window.shoppingCartItems++;
+}
+````
+
+### Production Side Effects
+
+On top of global storage, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
+
+Let's say that inside of our component we'd like to display the window size:
+
+<!-- tabs:start -->
+
+#### React
+
+```jsx
+const Parent = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+    
+  return <div>
+  	<p>Height: {height}</p>
+  	<p>Width: {width}</p>
+  </div>
+}
+```
+
+#### Angular
+
+```typescript
+@Component({
+  selector: 'window-size',
+  template: `
+  <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+})
+export class WindowSizeComponent {
+  height = window.innerHeight;
+  width = window.innerWidth;
+}
+```
+
+#### Vue
+
+```javascript
+const Child = {
+  template: `
+   <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+  data() {
+  	return {
+      height: window.innerHeight,
+  	  width: window.innerWidth
+  	}
+  },
+};
+```
+
+<!-- tabs:end -->
+
+This works to display the window size on the initial render, but what happens when the user resizes their browser?
+
+Because we aren't listening for the change in Window size, we never get an updated render with the new screen size!
+
+Let's solve this by using [`window.addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to handle [`resize` events](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event); emitted when the user changes their window size.
+
+<!-- tabs:start -->
+
+#### React
+
+```jsx
+const Parent = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+    
+  useEffect(() => {
+      function resizeHandler() {
+          setHeight(window.innerHeight);
+          setWidth(window.innerWidth);
+      }
+      window.addEventListener('resize', resizeHandler);
+  }, []);
+    
+  return <div>
+  	<p>Height: {height}</p>
+  	<p>Width: {width}</p>
+  </div>
+}
+```
+
+#### Angular
+
+```typescript
+@Component({
+  selector: 'window-size',
+  template: `
+  <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+})
+export class WindowSizeComponent implements OnInit {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  ngOnInit() {
+    function resizeHandler() {
+      this.height = window.innerHeight;
+      this.width = window.innerWidth;
+    }
+    window.addEventListener('resize', resizeHandler);
+  }
+}
+```
+
+#### Vue
+
+```javascript
+const Child = {
+  template: `
+   <div>
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+  data() {
+  	return {
+      height: window.innerHeight,
+  	  width: window.innerWidth
+  	}
+  },
+  mounted() {
+    function resizeHandler() {
+      this.height = window.innerHeight;
+      this.width = window.innerWidth;
+    }
+    window.addEventListener('resize', resizeHandler);
+  }
+};
+```
+
+<!-- tabs:end -->
+
+Now, when we resize the browser, our values on-screen should update as well!
+
+# Unrendering
+
+Side effects are a powerful way to 
 
 
 
+Just as there's a lifecycle method for when a component is rendered, there's a
+
+
+
+
+
+
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {1-3,15}
+const Child = () => {
+	useEffect(() => {
+        console.log("I am rendering");
+        
+        return () => console.log("I am unrendering");
+    }, []);
+
+    return <p>I am the child</p>
+}
+```
+
+
+
+## Angular
+
+```typescript {7,22-26}
+@Component({
+  selector: 'child',
+  template: '<p>I am the child</p>',
+})
+export class ChildComponent implements OnInit, OnDestroy {
+  ngOnInit() {
+    console.log('I am rendering');
+  }
+    
+  ngOnDestroy() {
+      console.log("I am unrendering");
+  }
+}
+```
+
+
+
+## Vue
+
+```javascript {2-4,13}
+const Child = {
+  template: `<p>I am the child</p>`,
+  mounted() {
+    console.log('I am rendering');
+  },
+  unmounted() {
+    console.log('I am unrendering');      
+  }
+};
+```
+
+
+
+<!-- tabs:end -->
 
 
 
