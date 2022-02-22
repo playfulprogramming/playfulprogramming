@@ -267,7 +267,7 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 #### React
 
 ```jsx
-const Parent = () => {
+const WindowSize = () => {
   const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
     
@@ -315,7 +315,7 @@ export class WindowSizeComponent implements OnInit {
 #### Vue
 
 ```javascript
-const Child = {
+const WindowSize = {
   template: `
    <div>
   	<p>Height: {{height}}</p>
@@ -342,9 +342,25 @@ const Child = {
 
 Now, when we resize the browser, our values on-screen should update as well!
 
+#### Event Bubbling Aside
+
+You might be wondering why we don't simply utilize event binding, [which we covered in our introduction to components](/posts/intro-to-components#Event-Binding), to listen for the `resize` event.
+
+This is because the `resize` event is only trigged on the `window` object (associated with the `<html>` tag) and does not permeate downwards towards other elements.
+
+You see, by default events will always "bubble" upwards from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
+
+![A click event bubbling to the top of the document](./event_bubbling.png) 
+
+Because our `resize` event is emitted directly from the `html` node, the only way to get access to it from the `div` parent component is to use `addEventListener`.
+
+[You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
+
 # Unrendering
 
-Side effects are a powerful way to 
+Side effects are, among other things, a powerful way to utilize browser APIs. However, we need to make sure to cleanup any side effects we utilize.
+
+Why? Because `addEventListener` runs 
 
 
 
