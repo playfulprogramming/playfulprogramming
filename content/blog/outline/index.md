@@ -26,13 +26,6 @@
 
 # Future Sections
 
-- Dynamic HTML
-  - Conditional display
-  	- If/else
-  	- switch/case Angular
-  - For loop
-  	- Key
-  - Combining if and for
 - Lifecycle methods
   - Mounted/rendered
   - Unmounted/unrendered
