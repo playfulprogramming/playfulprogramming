@@ -589,19 +589,75 @@ const WindowSize = {
 > ```
 >
 
+# Re-renders & Beyond
 
+While rendering and un-rendering are primary actions in a component's lifecycle, they're not the only lifecycle methods on the table.
 
+Each of the frameworks have a handful of lifecycle methods beyond the two we've looked at today. However, this is where these frameworks tend to diverge, as their lifecycle methods tend to reflect the framework's internals. While we'll touch on the framework's internals in a future chapter, for now let's take a look at one more component lifecycle that's fairly consistent between every framework: Re-rendering.
 
+<!-- tabs:start -->
 
+## React
 
+```jsx
+const ReRenderListener = () => {
+  useEffect(() => {
+      console.log("Component has re-rendered")
+  }); // Notice the lack of an array
+    
+  return (
+  	<div/>
+  )
+}
+```
 
+You remember how I said we'd mention what the array for the second argument of `useEffect`? Well, here we are!
 
-----
+The array at the end of the `useEffect` allows you to limit how often `useEffect` runs. If there is no array, `useEffect` will run the side effect on every render.
 
-- Lifecycle methods
-    - On Updated
-        - Compare old vs new
-    - Others
-        - ngAfterViewInit
-        - BeforeUpdated/BeforeMounted
-    - Include graphs for each framework
+However, if you pass an array, it will only run when the references inside of the `useEffect` run.
+
+```jsx
+useEffect(() => {
+	// ...
+}, [test])
+```
+
+Here, if the reference to `test` changes during a render, `useEffect` will run after the render.
+
+This means that if we pass an empty array:
+
+```jsx
+useEffect(() => {
+	// ...
+}, [])
+```
+
+It will run once the array is initialized - during the initial render - but not again afterwards. This is what allows it to act as an alternative to a `rendered` lifecycle.
+
+## Angular
+
+Angular works fairly differently from React and Vue here. While Vue and React both have fairly straightforward ways to detect when a re-render has occurred, Angular instead has a way to check if Angular is _guessing_
+
+// TODO: Wat ZoneJS 
+
+## Vue
+
+```javascript
+const WindowSize = {
+  template: `
+   <div></div>
+  `,
+  updated() {
+    console.log("Component was re-rendered")
+  }
+};
+```
+
+<!-- tabs:end -->
+
+Re-renders may occur for many reasons:
+
+- Props being updated
+- State being changed
+- Explicitly calling a re-render with other means

@@ -26,15 +26,11 @@
 
 # Future Sections
 
-- Lifecycle methods
-  - Mounted/rendered
-  - Unmounted/unrendered
-  - On Updated
-    - Compare old vs new
-  - Others
-    - ngAfterViewInit
-    - BeforeUpdated/BeforeMounted
-  - Include graphs for each framework
+- Derived values
+  - Angular = `onChanges`
+  - React = `useMemo`, `useEffect`
+  - Vue = `computed`, `watch`
+
 - Under-the-hood how do each framework render contents?
   - Vue/React = Virtual DOM
   - Angular = Incremental DOM
