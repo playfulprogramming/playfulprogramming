@@ -1,7 +1,7 @@
 ---
 {
     title: "Web Components 101: Framework Comparison",
-    description: "",
+    description: "While web components can be used standalone, they're paired best with a framework. With that in mind, which is the best and why?",
     published: '2021-12-02T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['lit', 'vue', 'react', 'angular'],

@@ -1,7 +1,7 @@
 ---
 {
     title: "Angular Route Guards For Authorization In A Web And Mobile Application",
-    description: '',
+    description: "Learn how to use Angular route guards for authenticating & authorizing access to certain child and parent routes.",
     published: '2018-07-13T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['angular'],

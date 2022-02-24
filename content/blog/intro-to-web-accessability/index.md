@@ -1,7 +1,7 @@
 ---
 {
     title: "Introduction to Web Accessibility (A11Y)",
-    description: "",
+    description: "Accessibility allows as many people to use your product as possible. That, in turn, generates more profit. Here's how to improve it on web.",
     published: '2021-05-30T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['accessibility', 'webdev'],

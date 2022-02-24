@@ -1,7 +1,7 @@
 ---
 {
 	title: "Setup Android Studio Emulator for AMD Ryzen CPUs",
-	description: "Historically, the Android Emulator has only run on Intel CPUs. While that's no longer the case, it can be tricky to setup. Let's walk through how to do so!",
+	description: "While the Android Emulator isn't confined to Intel CPUs anymore, it can be tricky to setup for AMD Ryzen CPUs. Let's explain how to do so.",
 	published: '2020-05-05T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['tools', 'windows'],
