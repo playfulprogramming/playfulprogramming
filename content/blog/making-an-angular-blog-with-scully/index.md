@@ -1,7 +1,7 @@
 ---
 {
 	title: "Building an Angular Blog With Scully",
-	description: "NuxtJS and Gatsby allow you to make SSG-enabled blog, but Angular doesn't have an equivalent... Until now. Let's build a blog with Scully!",
+	description: "NuxtJS and Gatsby allow you to make SSG-enabled blogs, but Angular doesn't have an equivalent... Until now. Let's build a blog with Scully!",
 	published: '2020-03-17T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'ssg', 'scully'],

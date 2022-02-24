@@ -1,7 +1,7 @@
 ---
 {
     title: "Python List Comprehension - The Comprehensive Guide",
-    description: "Python is language with a broad and powerful APIs. One such API is 'List Comprehensions'. Let's learn to use them to improve your code!",
+    description: "Python is a language with broad and powerful APIs. One such API is 'List Comprehensions'. Let's learn to use them to improve your code!",
     published: '2021-05-07T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['python'],
