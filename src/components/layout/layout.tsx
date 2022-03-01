@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "next/link";
 import layoutStyles from "./layout.module.scss";
 import BackIcon from "assets/icons/back.svg";
 import { DarkLightButton } from "../dark-light-button";
@@ -7,9 +6,11 @@ import { ThemeProvider } from "constants/theme-context";
 import { useRouter } from "next/router";
 import { AnalyticsLink } from "components/analytics-link";
 import DiscordIcon from "assets/icons/discord.svg";
+import { useHistory } from "constants/history-context";
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
+  const { back } = useHistory();
 
   const rootPath = `${router.basePath}/`;
 
@@ -28,7 +29,10 @@ export const Layout: React.FC = ({ children }) => {
               <button
                 className={`${layoutStyles.backBtn} baseBtn`}
                 aria-label="Go back"
-                onClick={() => router.back()}
+                onClick={() => {
+                  console.log({ back });
+                  back("/");
+                }}
               >
                 <BackIcon />
               </button>
