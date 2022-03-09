@@ -1,5 +1,24 @@
 import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
+import { Node } from "unist";
+
+type ElementNode = Node & HTMLElement;
+
+const isNodeHeading = (n: ElementNode) =>
+  n.type === "element" && /h[1-6]/.exec(n.tagName);
+
+const findLargestHeading = (nodes: ElementNode[]) => {
+  let largestSize = Infinity;
+  for (let node of nodes) {
+    if (!isNodeHeading(node)) continue;
+    const size = parseInt(node.tagName.substr(1), 10);
+    largestSize = Math.min(largestSize, size);
+  }
+  return largestSize;
+};
+
+const isNodeLargestHeading = (n: ElementNode, largestSize: number) =>
+  isNodeHeading(n) && parseInt(n.tagName.substr(1), 10) === largestSize;
 
 /**
  * Plugin to add Docsify's tab support.
@@ -25,10 +44,9 @@ export const rehypeTabs = () => {
       { type: "raw", value: "<!-- tabs:start -->" } as never,
       { type: "raw", value: "<!-- tabs:end -->" } as never,
       (nodes) => {
-        let sections = [];
         let sectionStarted = false;
-        let isNodeHeading = (n: any) =>
-          n.type === "element" && /h[1-6]/.exec(n.tagName);
+
+        const largestSize = findLargestHeading(nodes as ElementNode[]);
 
         const tabsContainer = {
           type: "element",
@@ -42,11 +60,16 @@ export const rehypeTabs = () => {
           ],
         };
 
-        for (const localNode of nodes as any[]) {
-          if (!sectionStarted && !isNodeHeading(localNode)) continue;
+        for (const localNode of nodes as ElementNode[]) {
+          if (
+            !sectionStarted &&
+            !isNodeLargestHeading(localNode, largestSize)
+          ) {
+            continue;
+          }
           sectionStarted = true;
 
-          if (isNodeHeading(localNode)) {
+          if (isNodeLargestHeading(localNode, largestSize)) {
             const header = {
               type: "element",
               tagName: "tab",
