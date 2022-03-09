@@ -1188,7 +1188,7 @@ const FileDate = {
 
 <!-- tabs:end -->
 
-> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](TODO: ADD ME) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values that in a future section.
+> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values that in a future section.
 
 Awesome! Now it should read the file's date properly to a screen reader properly!
 

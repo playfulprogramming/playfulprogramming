@@ -24,15 +24,9 @@
 
 # Future Sections
 
-- Derived values
-  - Angular = `onChanges`
-  - React = `useMemo`, `useEffect`
-  - Vue = `computed`, `watch`
-
 - Under-the-hood how do each framework render contents?
   - Vue/React = Virtual DOM
   - Angular = Incremental DOM
-
 - Under-the-hood how do each framework track changes?
   - React explicit
   - Angular = Zone.js
@@ -46,10 +40,6 @@
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality
-- Calculated values
-  - Pipes/Angular
-  - useMemo/React
-  - computed/Vue
 - Performance
   - OnPush/Angular
   - memo/React
