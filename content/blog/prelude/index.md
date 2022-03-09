@@ -29,13 +29,15 @@ But I'm getting ahead of myself, first, let's answer some fundamental questions.
 
 # Why should I learn web development today?
 
+Learning web development is a vital skill in software engineering. Even if you don't end up working on web tech yourself, the likelyhood of a project eventually utilizing webtech is extremely high. Knowing and understanding the limitations of a web's frontend can make communicating with those teams simpler, makes structuring effective backend APIs easier, and allows you to transfer that knolwedge to other UI development.
 
+What's more, there's an absolutely gargantuan job market. To quote [the U.S. Buero of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm):
 
-
-
-
-
-[According the U.S. Buero of Labor Statistics, the medium income of a web developer is $77,200 per year.](https://www.bls.gov/ooh/computer-and-information-technology/web-developers.htm)
+> Employment in computer and information technology occupations is  projected to grow 13 percent from 2020 to 2030, faster than the average for all occupations. These occupations are projected to add about 667,600 new jobs. 
+>
+> [...]
+>
+> **The median annual wage for computer and information technology occupations was $91,250 in May 2020**.
 
 ## Why should I learn these tools?
 
@@ -43,7 +45,7 @@ While web development is broadly useful to learn as a skill for work in engineer
 
 ### Ecosystem size
 
-For starters, these tools are massively adopted. [React, Angular, and Vue account for 9% of the web in 2021](https://almanac.httparchive.org/en/2021/javascript#libraries-usage) and are consistently growing.
+For starters, these tools are massively adopted. [React, Angular, and Vue account for 9% of the web in 2021](https://almanac.httparchive.org/en/2021/javascript#libraries-usage) and are consistently growing. While that might not sound like much, remember that [there are over 1.9 billion websites as of 2022](https://www.internetlivestats.com/total-number-of-websites/); Even 1% of that accounts for nearly 10 million sites.
 
 For example, React accounts for 12 million downloads a week from NPM alone and powers Meta's products (including Facebook, Instagram, and Messenger). React is utilized by a huge quantity of companies; everyone from Fortune 500s to hot startups are using React in some capactiy.
 
@@ -71,23 +73,17 @@ These tools include [ElectronJS](https://www.electronjs.org/) and [Tauri](https:
 
 ## Who's building what?
 
-This isn't to say that the only reliance you have that these tools won't disappear is that they're popular, though.
+This isn't to say that the only reliance you have that these tools won't disappear is that they're popular, though. Each of these frameworks have at least one large backer behind them.
 
-Each of these frameworks have at least one large backer behind them.
+React is built by Meta, and powers all of their major applications. What's more, the core team has started to accept external contribution to feedback of the framework's development via ["working groups" consisting of subject matter experts](https://github.com/reactwg). In recent years, even [groups like Vercel have hired React core members to work on the project from outside of Meta](https://twitter.com/sebmarkbage/status/1470761453091237892).
 
+However, when most mention "React", they tend to talk about the React ecosystem at large. See, the core maintainers of React itself tend to remain focused on a small subsection of tooling. Instead, they rely on external groups, like [Remix](https://reactrouter.com/) and [Vercel](https://nextjs.org/) to provide libraries that are often integral to application development.   
 
+Angular, on the other hand, is fully funded and supported by Google. They build a substancial portion of their major websites on top of the framework, and as a result, have a vested interest in continuing and upkeeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
 
+When talking about funding, Vue is often seen as the odd one out. Vue's development is driven by an independant team that's crowd-funded from a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are major contributors involved. Not only do they have a large open-source maintainance team, but they have sponsors from major organizations [like Aliababa, Baidu, Xioami, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
 
-
-
-
-
-
-
-
-React is built by Meta, with major backing by 
-
-
+Similar to Angular, the Vue core team consists of groups that work on a broad set of tooling. Everything from [the official routing library](https://router.vuejs.org/) to its two different global store libraries ([Vuex](https://vuex.vuejs.org/) and [Pinia](https://pinia.vuejs.org/)) and beyond are considered part of Vue's core.
 
 ### Why learn all three frameworks?
 
@@ -114,7 +110,7 @@ These types of tools don't disappear overnight, nor do the jobs associated with 
 
 Take ColdFusion for example. If you ask most front-end developers, they may likely either not know of ColdFusion, or assume it dead. After all, ColdFusion goes back to 1995 and remains a proprietary paid programming language — yes, those exist — to this day.
 
-But ColdFusion isn't dead! (I can hear my friend Mark holler with excitement and agreement from miles away.) It's still used by as many websites as Angular is, and maintains an ecosystem of a respectible size that's big enough to allow Adobe to maintain development of the language, 27 years later.
+But ColdFusion isn't dead! (I can hear my friend Mark holler with excitement and agreement from miles away.) [It's still used by as many websites](https://w3techs.com/technologies/details/pl-coldfusion) [as Angular is](https://w3techs.com/technologies/details/js-angularjs) in 2022, and maintains an ecosystem of a respectible size that's big enough to allow Adobe to maintain development of the language, 27 years later.
 
 What's more, from the cultural standpoint, many developers are also tired of switching back and forth between new frameworks at seemingly breakneck speeds. Many companies may choose to stay with these tools for longer than anticipated simply because they've grown in expertice with these tools.
 
@@ -134,11 +130,6 @@ Just because a tool is new, doesn't mean that it's inherently better; and even t
 -------
 
 
-
-
-- Ecosystem numbers
-  
-- Mention tooling and third party packages
 - Outline contents
 - React has two methods of display: We'll focus on hooks
 - Vue has two methods of display: We'll focus on options API
