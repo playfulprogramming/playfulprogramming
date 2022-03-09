@@ -224,7 +224,7 @@ function addToShoppingCart() {
 }
 ````
 
-### Production Side Effects
+## Production Side Effects
 
 On top of global storage, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
 
@@ -232,7 +232,7 @@ Let's say that inside of our component we'd like to display the window size:
 
 <!-- tabs:start -->
 
-#### React
+### React
 
 ```jsx
 const Parent = () => {
@@ -246,7 +246,7 @@ const Parent = () => {
 }
 ```
 
-#### Angular
+### Angular
 
 ```typescript
 @Component({
@@ -264,7 +264,7 @@ export class WindowSizeComponent {
 }
 ```
 
-#### Vue
+### Vue
 
 ```javascript
 const Child = {
@@ -293,7 +293,7 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 
 <!-- tabs:start -->
 
-#### React
+### React
 
 ```jsx {4-10}
 const WindowSize = () => {
@@ -315,7 +315,7 @@ const WindowSize = () => {
 }
 ```
 
-#### Angular
+### Angular
 
 ```typescript {13-20}
 @Component({
@@ -342,7 +342,7 @@ export class WindowSizeComponent implements OnInit {
 }
 ```
 
-#### Vue
+### Vue
 
 ```javascript {13-21}
 const WindowSize = {
@@ -374,7 +374,7 @@ const WindowSize = {
 
 Now, when we resize the browser, our values on-screen should update as well!
 
-#### Event Bubbling Aside
+## Event Bubbling Aside
 
 You might be wondering why we don't simply utilize event binding, [which we covered in our introduction to components](/posts/intro-to-components#Event-Binding), to listen for the `resize` event.
 
@@ -387,7 +387,7 @@ We can demonstrate this inside of our frameworks.
 
 <!-- tabs:start -->
 
-##### React
+### React
 
 ```jsx
 <div onClick={() => logMessage()}>
@@ -395,7 +395,7 @@ We can demonstrate this inside of our frameworks.
 </div>
 ```
 
-##### Angular
+### Angular
 
 ```html
 <div (click)="logMessage()">
@@ -403,7 +403,7 @@ We can demonstrate this inside of our frameworks.
 </div>
 ```
 
-##### Vue
+### Vue
 
 ```html
 <div @click="logMessage()">
@@ -595,6 +595,24 @@ While rendering and un-rendering are primary actions in a component's lifecycle,
 
 Each of the frameworks have a handful of lifecycle methods beyond the two we've looked at today. However, this is where these frameworks tend to diverge, as their lifecycle methods tend to reflect the framework's internals. While we'll touch on the framework's internals in a future chapter, for now let's take a look at one more component lifecycle that's fairly consistent between every framework: Re-rendering.
 
+Re-rendering is just what it sounds like! While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during subsequent re-renders.
+
+Re-renders may occur for many reasons:
+
+- Props being updated
+- State being changed
+- Explicitly calling a re-render with other means
+
+While we might attribute the definition of "rendering" to mean "showing something new on screen", this is only partially true. In some instances, the framework may do some internal updates to the DOM that may not show anything new to the user, but is still considered a "re-render".
+
+> While this isn't always a bad thing — conventional knowledge says that these "empty" re-renders aren't usually bad things — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our "Performance" chapter.](// TODO: Add link)
+
+ <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
+
+Each render that displays new content to the user is called a "paint".
+
+Let's take a look at how each framework exposes re-rendering to the user via lifecycle methods.
+
 <!-- tabs:start -->
 
 ## React
@@ -613,7 +631,7 @@ const ReRenderListener = () => {
 
 You remember how I said we'd mention what the array for the second argument of `useEffect`? Well, here we are!
 
-The array at the end of the `useEffect` allows you to limit how often `useEffect` runs. If there is no array, `useEffect` will run the side effect on every render.
+The array at the end of the `useEffect` allows you to limit how often `useEffect` runs. If there is no array, `useEffect` will run the side effect on every render, regardless of if said render has "painted" or not.
 
 However, if you pass an array, it will only run when the references inside of the `useEffect` run.
 
@@ -639,9 +657,9 @@ It will run once the array is initialized - during the initial render - but not 
 
 We mentioned earlier that outside of the basics of "rendering" and "unrendering", each framework tends to diverge. Well, dear reader, it's coming into play here.
 
-While we'll dive into the _why_ in the future, suffice it to say that Angular does not have a lifecycle method specifically for when a component re-renders.
+Angular does not have a lifecycle method specifically for when a component re-renders. This is because Angular does not track DOM changes internally the same way the other two frameworks do.
 
-This isn't to say that Angular components don't re-render — we've already demonstrated that it's able to live-refresh the DOM, which is a re-render in itself — just that Angular doesn't provide a lifecycle for detecting when it does.
+This isn't to say that Angular components don't re-paint the DOM — we've already demonstrated that it's able to live-refresh the DOM — just that Angular doesn't provide a lifecycle for detecting when it does.
 
 To answer "why" is a much longer topic, [which we'll touch on in our "Angular Internals" section](// TODO), but feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
 
@@ -650,20 +668,65 @@ To answer "why" is a much longer topic, [which we'll touch on in our "Angular In
 ```javascript
 const ReRenderListener = {
   template: `
-   <div></div>
+   <div>{{val}}</div>
   `,
+  props: ['val'],
   updated() {
-    console.log("Component was re-rendered")
+    console.log("Component was painted")
   }
 };
 ```
 
-Every time the `ReRenderListener` component is re-rendered, the `updated` method will run. 
+Every time the `ReRenderListener` component is re-rendered **and the DOM is painted with the changes**, the `updated` method will run.
+
+Vue also exposes a lifecycle method, called `renderTriggered`, for when a re-render occurs in general, regardless of if a paint has also occurred. 
+
+```javascript
+const ReRenderListener = {
+  template: `
+   <div></div>
+  `,
+  renderTriggered() {
+    console.log("Component was re-rendered, paint may not have occured")
+  }
+};
+```
+
+Something worth mentioning is that `renderTriggered` only runs in Vue's `dev` mode and therefore cannot be used in production apps.
 
 <!-- tabs:end -->
 
-Re-renders may occur for many reasons:
+## Other lifecycles
 
-- Props being updated
-- State being changed
-- Explicitly calling a re-render with other means
+We haven't touched on every lifecycle present, either!
+
+While these lifecycles vary even further from framework-to-framework, some other lifecycles that may be present depending on your selected tool might include:
+
+- When an error is caught
+- Before a component is rendered
+- Before a component is unrendered
+- Specifically when props are changed
+- After a component's children are rendered
+
+These additional lifecycles tend to be utilized in more niche usages and, as such, won't be touched on currently.
+
+# Lifecycle Chart
+
+Let's take a look visually at how each framework calls the relevant lifecycle methods we've touched on today:
+
+<!-- tabs:start -->
+
+## React
+
+![// TODO: Add description](./react_lifecycles.jpg)
+
+## Angular
+
+![// TODO: Add description](./angular_lifecycles.jpg)
+
+## Vue
+
+![// TODO: Add description](./vue_lifecycles.jpg)
+
+<!-- tabs:end -->
+
