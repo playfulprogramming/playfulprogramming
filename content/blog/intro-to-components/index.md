@@ -896,7 +896,7 @@ const FileDate = () => {
     setTimeout(() => {
       // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
       const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      const tomorrowDate = this.formatDate(tomorrow);
+      const tomorrowDate = formatDate(tomorrow);
       setDateStr(tomorrowDate);
     }, 5000);
   }, []);

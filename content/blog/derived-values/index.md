@@ -115,7 +115,7 @@ export class FileComponent implements OnInit, OnDestroy {
     }
     
     ngOnDestroy() {
-		clearInterval(this.interval as any);        
+		  clearInterval(this.interval as any);        
     }
 }
 ```
@@ -239,13 +239,131 @@ Here, we're watching the `inputDate` input key and, when changed, updating `date
 <!-- tabs:end -->
 
 
-While this method works, it tends to introduce duplicate developmental logic. Luckily for us, there's an easy solution for this called "computed values".
+While this method works, it tends to introduce duplicate developmental logic. Notice how we have to repeat the declaration of the `dateStr` and `labelText` values. Luckily for us, there's an easy solution for this called "computed values".
 
 ## Method 2: Computed values
+
+Our previous method of deriving a value from a property follows two steps:
+
+1) Set an initial value
+2) Update and recompute the value when its base changes
+
+However, what if we could instead simplify this idea to a single step:
+
+1) Run a function over a value, live update as it changes.
+
+This may remind you of a similar pattern we've used already for [live updated text](/posts/intro-to-components#Live-Updating) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
+
+Luckily for us, all three frameworks have a way of doing just this!
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {4-8}
+const FileDate = ({ inputDate }) => {
+  const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
+  const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
+
+  // ...
+
+  return <span ariaLabel={labelText}>{dateStr}</span>;
+};
+```
+
+
+
+// TODO: Add more about `useMemo` here
+
+
+
+
+
+### Angular
+
+Angular introduces the concept of a "pipe" into the mix of things. The idea being that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
+
+```typescript
+import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'formatDate' })
+export class FormatDatePipe implements PipeTransform {
+  transform(value: Date): string {
+    return formatDate(value);
+  }
+}
+
+@Pipe({ name: 'formatReadableDate' })
+export class FormatReadableDatePipe implements PipeTransform {
+  transform(value: Date): string {
+    return formatReadableDate(value);
+  }
+}
+```
+
+These `Pipe` clases then need to be registered in a `Module`.
+
+```typescript
+@NgModule({
+  imports: [BrowserModule],
+  declarations: [
+    AppComponent,
+    FileDateComponent,
+    FormatDatePipe,
+    FormatReadableDatePipe,
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Once registered, you may then use these pipes in your components directly inside of the template.
+
+```tsx
+@Component({
+  selector: 'file-date',
+  template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{ inputDate | formatDate }}</span>`,
+})
+export class FileDateComponent {
+  @Input() inputDate: Date;
+}
+```
+
+
+
+#### Multiple Input Pipes
+
+
+
+
+
+#### Built-in Pipes
+
+Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
+
+
+
+### Vue
+
+`computed`
+
+<!-- tabs:end -->
+
+
+
+
 
 
 
 > `useMemo` isn't simply helpful for computed values, it's also a performance optimization. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
+
+
+
+
+
+# Non-Prop Derived Values
+
+While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized today work for internal component state as well as they do inputs.
 
 
 
