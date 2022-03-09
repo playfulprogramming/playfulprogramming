@@ -5,9 +5,7 @@
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
-    attached: [],
-    order: 8,
-    series: "The Framework Field Guide"
+    attached: []
 }
 ---
 
