@@ -1,6 +1,7 @@
 import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
+import { isNotJunk } from "junk";
 import { countContent } from "utils/count-words";
 import { PostInfo } from "uu-types";
 import {
@@ -22,7 +23,8 @@ import { getExcerpt } from "utils/markdown/getExcerpt";
 export { unicorns, pronouns, licenses, roles, dataDirectory, postsDirectory };
 
 export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+  // Avoid errors trying to read from `.DS_Store` files
+  return fs.readdirSync(postsDirectory).filter(isNotJunk);
 }
 
 type KeysToPick = DeepPartial<DeepReplaceKeys<PostInfo>>;

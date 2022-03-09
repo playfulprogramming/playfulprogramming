@@ -43,6 +43,7 @@
     "framer-motion": "^4.1.17",
     "gatsby-remark-embedder": "^5.0.0",
     "gray-matter": "4.0.3",
+    "junk": "^4.0.0",
     "lunr": "^2.3.9",
     "next": "^12.1.0",
     "react": "^17.0.2",
