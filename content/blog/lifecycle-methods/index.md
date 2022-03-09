@@ -637,14 +637,18 @@ It will run once the array is initialized - during the initial render - but not 
 
 ## Angular
 
-Angular works fairly differently from React and Vue here. While Vue and React both have fairly straightforward ways to detect when a re-render has occurred, Angular instead has a way to check if Angular is _guessing_
+We mentioned earlier that outside of the basics of "rendering" and "unrendering", each framework tends to diverge. Well, dear reader, it's coming into play here.
 
-// TODO: Wat ZoneJS 
+While we'll dive into the _why_ in the future, suffice it to say that Angular does not have a lifecycle method specifically for when a component re-renders.
+
+This isn't to say that Angular components don't re-render — we've already demonstrated that it's able to live-refresh the DOM, which is a re-render in itself — just that Angular doesn't provide a lifecycle for detecting when it does.
+
+To answer "why" is a much longer topic, [which we'll touch on in our "Angular Internals" section](// TODO), but feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
 
 ## Vue
 
 ```javascript
-const WindowSize = {
+const ReRenderListener = {
   template: `
    <div></div>
   `,
@@ -653,6 +657,8 @@ const WindowSize = {
   }
 };
 ```
+
+Every time the `ReRenderListener` component is re-rendered, the `updated` method will run. 
 
 <!-- tabs:end -->
 
