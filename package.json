@@ -55,7 +55,7 @@
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.3",
     "rehype-react": "^7.0.3",
-    "rehype-slug": "github:unicorn-utterances/rehype-slug#built-custom-slug",
+    "rehype-slug-custom-id": "^1.0.0",
     "rehype-stringify": "^9.0.2",
     "remark-behead": "^2.3.3",
     "remark-gfm": "^3.0.1",
