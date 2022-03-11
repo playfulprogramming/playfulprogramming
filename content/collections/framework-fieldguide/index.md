@@ -16,3 +16,12 @@
 ---
 
 This is some text to talk about why the book is awesome - it just is
+
+## This is a header
+
+This is more content
+
+- THIS IS **MORE** content
+- Even more!
+
+Goodbye

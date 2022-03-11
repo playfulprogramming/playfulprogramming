@@ -1,28 +1,33 @@
 // import { useRouter } from 'next/router'
 // import ErrorPage from 'next/error'
 import {
-  getPostBySlug,
-  getAllPosts,
-  postsDirectory,
   getAllCollections,
   getCollectionBySlug,
   collectionsDirectory,
 } from "utils/fs/api";
 import * as React from "react";
 import { CollectionInfo } from "types/CollectionInfo";
+import markdownToHtml from "utils/markdown/markdownToHtml";
+import path from "path";
+import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 
 type Props = {
-  // markdownHTML: string;
+  markdownHTML: string;
   slug: string;
   collectionsDirectory: string;
   collection: Partial<CollectionInfo>;
 };
 
-const Post = ({ slug, collectionsDirectory, collection }: Props) => {
-  // const result = useMarkdownRenderer({
-  //   markdownHTML,
-  //   serverPath: ["/posts", slug],
-  // });
+const Post = ({
+  slug,
+  collectionsDirectory,
+  markdownHTML,
+  collection,
+}: Props) => {
+  const result = useMarkdownRenderer({
+    markdownHTML,
+    serverPath: ["/collections", slug],
+  });
 
   return (
     <>
@@ -36,6 +41,7 @@ const Post = ({ slug, collectionsDirectory, collection }: Props) => {
             </p>
           );
         })}
+      {result}
     </>
   );
 };
@@ -60,13 +66,20 @@ export async function getStaticProps({ params }: Params) {
     },
     description: true,
     content: true,
+    slug: true,
   });
+
+  const { html: markdownHTML } = await markdownToHtml(
+    collection.content,
+    path.resolve(collectionsDirectory, collection.slug)
+  );
 
   return {
     props: {
       collection: {
         ...collection,
       },
+      markdownHTML,
       collectionsDirectory,
       slug: params.slug,
     } as Props,
