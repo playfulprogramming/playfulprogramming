@@ -49,6 +49,28 @@ export const MarkdownDataProvider: FC = ({ children }) => {
     localStorage.setItem("tabs-selection", state.selectedTabText || "");
   }, [state.selectedTabText]);
 
+  // If user has linked to a heading that's inside of a tab
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const el = document.querySelector(hash);
+    // If not header
+    if (!el || !/[hH][1-6]/.exec(el.tagName)) return;
+    // If header is not in a tab
+    const tabName = el.getAttribute("data-tabname");
+    if (!tabName) return;
+    dispatch({ type: "SET_SELECTED_TAB_TEXT", payload: tabName });
+    // This is an awful hack and I hate it.
+    // However, it's also the only way I can get both Chrome and Firefox to scroll to the right place.
+    window.location.hash = " ";
+    setTimeout(() => {
+      setTimeout(() => {
+        el.scrollIntoView(true);
+        window.location.hash = hash;
+      }, 100);
+    }, 100);
+  }, []);
+
   return (
     <MarkdownDataContext.Provider value={{ state, dispatch }}>
       {children}

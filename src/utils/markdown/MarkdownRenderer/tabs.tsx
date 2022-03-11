@@ -67,7 +67,12 @@ const Tabs: React.FC = ({ children }) => {
   );
 
   return (
-    <ReactTabs selectedIndex={selectedIndex} onSelect={onSelect}>
+    /* `forceRenderTabPanel` is enabled in order to make hash loading work */
+    <ReactTabs
+      selectedIndex={selectedIndex}
+      onSelect={onSelect}
+      forceRenderTabPanel={true}
+    >
       {children}
     </ReactTabs>
   );

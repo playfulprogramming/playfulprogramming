@@ -1,10 +1,13 @@
 import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
-import { Node } from "unist";
+import { Parent } from "unist";
 import { Plugin } from "unified";
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 
-type ElementNode = Node & HTMLElement;
+interface ElementNode extends Parent {
+  tagName: string;
+  properties: any;
+}
 
 const isNodeHeading = (n: ElementNode) =>
   n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -65,7 +68,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             {
               type: "element",
               tagName: "tab-list",
-              children: [] as any[],
+              children: [] as ElementNode[],
             },
           ],
         };
@@ -112,7 +115,11 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
           }
 
           if (isNodeHeading(localNode) && injectSubheaderProps) {
-            // localNode
+            localNode.properties["data-tabname"] =
+              // Get the last tab's `data-tabname` property
+              tabsContainer.children[0].children[
+                tabsContainer.children[0].children.length - 1
+              ].properties["data-tabname"];
           }
 
           // Push into last `tab-panel`
