@@ -1,6 +1,8 @@
 import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
 import { Node } from "unist";
+import { Plugin } from "unified";
+import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 
 type ElementNode = Node & HTMLElement;
 
@@ -20,6 +22,11 @@ const findLargestHeading = (nodes: ElementNode[]) => {
 const isNodeLargestHeading = (n: ElementNode, largestSize: number) =>
   isNodeHeading(n) && parseInt(n.tagName.substr(1), 10) === largestSize;
 
+export interface RehypeTabsProps {
+  injectSubheaderProps?: boolean;
+  tabSlugifyProps?: Parameters<typeof getHeaderNodeId>[1];
+}
+
 /**
  * Plugin to add Docsify's tab support.
  * @see https://jhildenbiddle.github.io/docsify-tabs/
@@ -37,8 +44,11 @@ const isNodeLargestHeading = (n: ElementNode, largestSize: number) =>
  * To align with React Tabs package:
  * @see https://github.com/reactjs/react-tabs
  */
-export const rehypeTabs = () => {
-  return (tree: Root) => {
+export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
+  injectSubheaderProps = false,
+  tabSlugifyProps = {},
+}) => {
+  return (tree) => {
     replaceAllBetween(
       tree,
       { type: "raw", value: "<!-- tabs:start -->" } as never,
@@ -70,22 +80,39 @@ export const rehypeTabs = () => {
           sectionStarted = true;
 
           if (isNodeLargestHeading(localNode, largestSize)) {
+            // Make sure that all tabs labeled "thing" aren't also labeled "thing2"
+            slugs.reset();
+            const { id: headerSlug } = getHeaderNodeId(
+              localNode,
+              tabSlugifyProps
+            );
+
             const header = {
               type: "element",
               tagName: "tab",
               children: localNode.children,
+              properties: {
+                "data-tabname": headerSlug,
+              },
             };
 
             const contents = {
               type: "element",
               tagName: "tab-panel",
               children: [],
+              properties: {
+                "data-tabname": headerSlug,
+              },
             };
 
             tabsContainer.children[0].children.push(header);
 
             tabsContainer.children.push(contents);
             continue;
+          }
+
+          if (isNodeHeading(localNode) && injectSubheaderProps) {
+            // localNode
           }
 
           // Push into last `tab-panel`

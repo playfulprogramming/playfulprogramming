@@ -14,7 +14,7 @@ import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
-import { rehypeTabs } from "utils/markdown/plugins/tabs";
+import { rehypeTabs, RehypeTabsProps } from "utils/markdown/plugins/tabs";
 import { PluggableList } from "unified";
 
 // Optional now. Probably should move to an array that's passed or something
@@ -76,7 +76,15 @@ export default async function markdownToHtml(
           dir: imgDirectory,
         },
       ],
-      rehypeTabs,
+      [
+        rehypeTabs,
+        {
+          injectSubheaderProps: true,
+          tabSlugifyProps: {
+            enableCustomId: true,
+          },
+        } as RehypeTabsProps,
+      ],
       [
         rehypeSlug,
         {

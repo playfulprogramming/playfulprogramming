@@ -10,7 +10,7 @@ test("headers are tabified", (done) => {
     .use(remarkParse)
     .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeTabs)
+    .use(rehypeTabs, {})
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(
       `
@@ -33,14 +33,14 @@ Bonjour!
       function (err, file) {
         expect(err).toBeNull();
         expect(file?.value).toMatchInlineSnapshot(`
-"<tabs><tab-list><tab>English</tab><tab>French</tab><tab>Italian</tab></tab-list><tab-panel>
-<p>Hello!</p>
-</tab-panel><tab-panel>
-<p>Bonjour!</p>
-</tab-panel><tab-panel>
-<p>Bonjour!</p>
-<!-- tabs:end --></tab-panel></tabs>"
-`);
+          "<tabs><tab-list><tab data-tabname=\\"english\\">English</tab><tab data-tabname=\\"french\\">French</tab><tab data-tabname=\\"italian\\">Italian</tab></tab-list><tab-panel data-tabname=\\"english\\">
+          <p>Hello!</p>
+          </tab-panel><tab-panel data-tabname=\\"french\\">
+          <p>Bonjour!</p>
+          </tab-panel><tab-panel data-tabname=\\"italian\\">
+          <p>Bonjour!</p>
+          <!-- tabs:end --></tab-panel></tabs>"
+        `);
         done();
       }
     );
@@ -51,7 +51,7 @@ test("sub-headers are not tabified", (done) => {
     .use(remarkParse)
     .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeTabs)
+    .use(rehypeTabs, {})
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(
       `
@@ -78,16 +78,16 @@ Bonjour!
       function (err, file) {
         expect(err).toBeNull();
         expect(file?.value).toMatchInlineSnapshot(`
-"<tabs><tab-list><tab>English</tab><tab>French</tab><tab>Italian</tab></tab-list><tab-panel>
-<p>Hello!</p>
-<h5>A note about English</h5>
-<p>Something!</p>
-</tab-panel><tab-panel>
-<p>Bonjour!</p>
-</tab-panel><tab-panel>
-<p>Bonjour!</p>
-<!-- tabs:end --></tab-panel></tabs>"
-`);
+          "<tabs><tab-list><tab data-tabname=\\"english\\">English</tab><tab data-tabname=\\"french\\">French</tab><tab data-tabname=\\"italian\\">Italian</tab></tab-list><tab-panel data-tabname=\\"english\\">
+          <p>Hello!</p>
+          <h5>A note about English</h5>
+          <p>Something!</p>
+          </tab-panel><tab-panel data-tabname=\\"french\\">
+          <p>Bonjour!</p>
+          </tab-panel><tab-panel data-tabname=\\"italian\\">
+          <p>Bonjour!</p>
+          <!-- tabs:end --></tab-panel></tabs>"
+        `);
         done();
       }
     );
