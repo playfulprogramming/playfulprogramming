@@ -46,10 +46,10 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 {...props} id={id} style={{ position: "relative" }}>
+        <h1 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
-        </h2>
+        </h1>
       );
     },
     h2: (headerProps: HeadingProps) => {
@@ -61,7 +61,7 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 id={id} style={{ position: "relative" }}>
+        <h2 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
         </h2>
@@ -76,10 +76,10 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 id={id} style={{ position: "relative" }}>
+        <h3 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
-        </h2>
+        </h3>
       );
     },
     h4: (headerProps: HeadingProps) => {
@@ -91,10 +91,10 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 id={id} style={{ position: "relative" }}>
+        <h4 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
-        </h2>
+        </h4>
       );
     },
     h5: (headerProps: HeadingProps) => {
@@ -106,10 +106,10 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 id={id} style={{ position: "relative" }}>
+        <h5 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
-        </h2>
+        </h5>
       );
     },
     h6: (headerProps: HeadingProps) => {
@@ -121,10 +121,10 @@ export const getHeadings = (_: useMarkdownRendererProps) => {
       } = headerProps;
 
       return (
-        <h2 id={id} style={{ position: "relative" }}>
+        <h6 {...props} id={id} style={{ position: "relative" }}>
           <HeaderLink id={id || ""} headerText={headerText} />
           {children}
-        </h2>
+        </h6>
       );
     },
   };
