@@ -64,16 +64,10 @@ export const MarkdownDataProvider: FC = ({ children }) => {
     const tabName = matchingTab.getAttribute("data-tabname");
     if (!tabName) return;
     dispatch({ type: "SET_SELECTED_TAB_TEXT", payload: tabName });
-    // This is an awful hack and I hate it.
-    // However, it's also the only way I can get both Chrome and Firefox to scroll to the right place.
-    window.location.hash = " ";
     setTimeout(() => {
-      setTimeout(() => {
-        window.location.hash = hash;
-        const el = document.querySelector(hash);
-        if (!el) return;
-        el.scrollIntoView(true);
-      }, 100);
+      const el = document.querySelector(hash);
+      if (!el) return;
+      el.scrollIntoView(true);
     }, 100);
   }, []);
 
