@@ -271,13 +271,29 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
+`useMemo` is a method for computing values based off of an input or series of inputs. The way that this works is that it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
+Similar to `useEffect`, this array's values' changes are only tracked when the component is rendering. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
 
-// TODO: Add more about `useMemo` here
+Instead, if you want to recalculate the logic in every render, you'd simply remove the `useMemo` entirely. So, for simple computations, you can take this code:
 
+```jsx
+const AddComp = ({baseNum, addNum}) => {
+	const val = useMemo(() => baseNum + addNum, [baseNum, addNum]);
+	return <p>{val}</p>;
+}
+```
 
+And refactor it to look like this:
 
+```jsx
+const AddComp = ({baseNum, addNum}) => {
+	const val = baseNum + addNum;
+	return <p>{val}</p>;
+}
+```
 
+> While it's technically possible to use this trick to never use `useMemo`, your application's performance will greatly suffer. There's a bit of a science to knowing when and where to use `useMemo`. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
 
 ### Angular
 
@@ -330,18 +346,69 @@ export class FileDateComponent {
 ```
 
 
-
 #### Multiple Input Pipes
 
+You may notice the similarities between pipes and functions. After all, pipes are effectively functions you're able to call in your template. Much like functions, they're not limited to a single input property, either.
 
+Let's add a second input to see if the `formatDate` pipe should return a readable date or not.
 
+```typescript
+import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
 
+@Pipe({ name: 'formatDate' })
+export class FormatDatePipe implements PipeTransform {
+  // `dateFormat` is an optional argument. If left empty, will simply `formatDate`
+  transform(value: Date, dateFormat?: string): string {
+    // Stands for "Long format month, day of month, year"
+  	if (dateFormat === 'MMMM d, Y') return formatReadableDate(value);
+    return formatDate(value);
+  }
+}
+```
+
+Then, we can use it in our template while passing a second argument:
+
+```typescript
+@Component({
+  selector: 'file-date',
+  template: `<span [attr.aria-label]="inputDate | formatReadableDate:'MMMM d, Y'">{{ inputDate | formatDate }}</span>`,
+})
+export class FileDateComponent {
+  @Input() inputDate: Date;
+}
+```
 
 #### Built-in Pipes
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
+To use the built-in pipes, we need to import the `CommonModule`:
 
+```typescript {0,2}
+import {CommonModule} from "@angular/common";
+
+@NgModule({
+  imports: [BrowserModule, CommonModule],
+  declarations: [
+    AppComponent,
+    FileDateComponent
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Once this is done, we can use the provided pipe. This provided date pipe is, expectedly, called `date` and can be used like so:
+
+```typescript
+@Component({
+  selector: 'file-date',
+  template: `<span [attr.aria-label]="inputDate | date:'MMMM d, Y'">{{ inputDate | date }}</span>`,
+})
+export class FileDateComponent {
+  @Input() inputDate: Date;
+}
+```
 
 ### Vue
 
@@ -350,12 +417,6 @@ Luckily, Angular's all-in-one methodology means that there's a slew of pipes tha
 <!-- tabs:end -->
 
 
-
-
-
-
-
-> `useMemo` isn't simply helpful for computed values, it's also a performance optimization. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
 
 
 
