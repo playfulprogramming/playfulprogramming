@@ -49,6 +49,28 @@ export const MarkdownDataProvider: FC = ({ children }) => {
     localStorage.setItem("tabs-selection", state.selectedTabText || "");
   }, [state.selectedTabText]);
 
+  // If user has linked to a heading that's inside of a tab
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    // If hash exists, then we can safely ignore it
+    if (document.querySelector(hash)) return;
+    const partialHash = hash.slice(1);
+    const matchingTab = document.querySelector(
+      `[data-headers*="${partialHash}"`
+    );
+    if (!matchingTab) return;
+    // If header is not in a tab
+    const tabName = matchingTab.getAttribute("data-tabname");
+    if (!tabName) return;
+    dispatch({ type: "SET_SELECTED_TAB_TEXT", payload: tabName });
+    setTimeout(() => {
+      const el = document.querySelector(hash);
+      if (!el) return;
+      el.scrollIntoView(true);
+    }, 100);
+  }, []);
+
   return (
     <MarkdownDataContext.Provider value={{ state, dispatch }}>
       {children}

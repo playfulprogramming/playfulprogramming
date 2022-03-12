@@ -7,7 +7,6 @@ import {
   TabPanel as ReactTabPanel,
 } from "react-tabs";
 import { ReactElement, useCallback } from "react";
-import { onlyText } from "react-children-utilities";
 import { useIsomorphicLayoutEffect } from "react-use";
 import { MarkdownDataContext } from "utils/markdown/MarkdownRenderer/data-context";
 
@@ -27,8 +26,7 @@ const Tabs: React.FC = ({ children }) => {
         return maybeTabComp?.type === ReactTab;
       })
       .map((tabComp: ReactElement) => {
-        // Contents of tab header
-        return onlyText(tabComp.props.children);
+        return tabComp.props["data-tabname"];
       });
     return tabTextArr as string[];
   }, [children]);

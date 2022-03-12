@@ -1,7 +1,6 @@
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { useMarkdownRendererProps } from "utils/markdown/MarkdownRenderer/types";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { useLayoutEffect } from "react";
 
 const Comp = ({ props }: { props: useMarkdownRendererProps }) => {
   const result = useMarkdownRenderer(props);
@@ -17,11 +16,11 @@ test("tabs should render", () => {
         markdownHTML: `
 <tabs>
   <tab-list>
-    <tab>Header</tab>
-    <tab>Header2</tab>
+    <tab data-tabname="header">Header</tab>
+    <tab data-tabname="header2">Header2</tab>
   </tab-list>
-  <tab-panel>Hello</tab-panel>
-  <tab-panel>Goodbye</tab-panel>
+  <tab-panel data-tabname="header">Hello</tab-panel>
+  <tab-panel data-tabname="header2">Goodbye</tab-panel>
 </tabs>
     `,
       }}
@@ -45,11 +44,11 @@ test("tabs should persist", () => {
         markdownHTML: `
 <tabs>
   <tab-list>
-    <tab>Header</tab>
-    <tab>Header2</tab>
+    <tab data-tabname="header">Header</tab>
+    <tab data-tabname="header2">Header2</tab>
   </tab-list>
-  <tab-panel>Hello</tab-panel>
-  <tab-panel>Goodbye</tab-panel>
+  <tab-panel data-tabname="header">Hello</tab-panel>
+  <tab-panel data-tabname="header2">Goodbye</tab-panel>
 </tabs>
     `,
       }}
@@ -76,20 +75,20 @@ test("tabs should sync values", () => {
         markdownHTML: `
 <tabs>
   <tab-list>
-    <tab>Header</tab>
-    <tab>Header2</tab>
+    <tab data-tabname="header">Header</tab>
+    <tab data-tabname="header2">Header2</tab>
   </tab-list>
-  <tab-panel>Hello</tab-panel>
-  <tab-panel>Goodbye</tab-panel>
+  <tab-panel data-tabname="header">Hello</tab-panel>
+  <tab-panel data-tabname="header2">Goodbye</tab-panel>
 </tabs>
 
 <tabs>
   <tab-list>
-    <tab>Header</tab>
-    <tab>Header2</tab>
+    <tab data-tabname="header">Header</tab>
+    <tab data-tabname="header2">Header2</tab>
   </tab-list>
-  <tab-panel>Hello2</tab-panel>
-  <tab-panel>Goodbye2</tab-panel>
+  <tab-panel data-tabname="header">Hello2</tab-panel>
+  <tab-panel data-tabname="header2">Goodbye2</tab-panel>
 </tabs>
     `,
       }}
