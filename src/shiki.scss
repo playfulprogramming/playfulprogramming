@@ -33,11 +33,18 @@ pre {
 	border-left: 1px solid #999;
 	border-bottom: 1px solid #999;
 
-	margin-bottom: 3rem;
-
 	/* Important to allow the code to move horizontally; */
 	overflow-x: auto;
 	position: relative;
+}
+pre:not(:last-child) {
+	margin-bottom: 3rem;
+}
+pre:first-child {
+	margin-top: 0;
+}
+pre:last-child {
+	margin-top: 0;
 }
 pre .code-container {
 	/* Give it some space to breathe */
