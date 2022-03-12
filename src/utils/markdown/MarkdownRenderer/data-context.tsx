@@ -53,11 +53,15 @@ export const MarkdownDataProvider: FC = ({ children }) => {
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
-    const el = document.querySelector(hash);
-    // If not header
-    if (!el || !/[hH][1-6]/.exec(el.tagName)) return;
+    // If hash exists, then we can safely ignore it
+    if (document.querySelector(hash)) return;
+    const partialHash = hash.slice(1);
+    const matchingTab = document.querySelector(
+      `[data-headers*="${partialHash}"`
+    );
+    if (!matchingTab) return;
     // If header is not in a tab
-    const tabName = el.getAttribute("data-tabname");
+    const tabName = matchingTab.getAttribute("data-tabname");
     if (!tabName) return;
     dispatch({ type: "SET_SELECTED_TAB_TEXT", payload: tabName });
     // This is an awful hack and I hate it.
@@ -65,8 +69,10 @@ export const MarkdownDataProvider: FC = ({ children }) => {
     window.location.hash = " ";
     setTimeout(() => {
       setTimeout(() => {
-        el.scrollIntoView(true);
         window.location.hash = hash;
+        const el = document.querySelector(hash);
+        if (!el) return;
+        el.scrollIntoView(true);
       }, 100);
     }, 100);
   }, []);

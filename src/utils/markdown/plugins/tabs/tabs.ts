@@ -115,11 +115,23 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
           }
 
           if (isNodeHeading(localNode) && injectSubheaderProps) {
-            localNode.properties["data-tabname"] =
-              // Get the last tab's `data-tabname` property
+            // This is `tagName: tab`
+            const lastTab =
               tabsContainer.children[0].children[
                 tabsContainer.children[0].children.length - 1
-              ].properties["data-tabname"];
+              ];
+
+            // Store the related tab ID in the attributes of the header
+            localNode.properties["data-tabname"] =
+              // Get the last tab's `data-tabname` property
+              lastTab.properties["data-tabname"];
+
+            // Add header ID to array
+            lastTab.properties["data-headers"] = JSON.stringify(
+              JSON.parse(lastTab.properties["data-headers"] ?? "[]").concat(
+                localNode.properties.id
+              )
+            );
           }
 
           // Push into last `tab-panel`

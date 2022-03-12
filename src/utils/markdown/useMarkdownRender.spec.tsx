@@ -1,7 +1,6 @@
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { useMarkdownRendererProps } from "utils/markdown/MarkdownRenderer/types";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { useLayoutEffect } from "react";
 
 const Comp = ({ props }: { props: useMarkdownRendererProps }) => {
   const result = useMarkdownRenderer(props);

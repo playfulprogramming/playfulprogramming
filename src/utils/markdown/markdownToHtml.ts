@@ -76,6 +76,16 @@ export default async function markdownToHtml(
           dir: imgDirectory,
         },
       ],
+      // Do not add the tabs before the slug. We rely on some of the heading
+      // logic in order to do some of the subheading logic
+      [
+        rehypeSlug,
+        {
+          maintainCase: true,
+          removeAccents: true,
+          enableCustomId: true,
+        },
+      ],
       [
         rehypeTabs,
         {
@@ -84,14 +94,6 @@ export default async function markdownToHtml(
             enableCustomId: true,
           },
         } as RehypeTabsProps,
-      ],
-      [
-        rehypeSlug,
-        {
-          maintainCase: true,
-          removeAccents: true,
-          enableCustomId: true,
-        },
       ],
       [rehypeHeaderText(renderData)],
     ],
