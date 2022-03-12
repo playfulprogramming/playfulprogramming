@@ -2,26 +2,31 @@
   -webkit-tap-highlight-color: transparent;
 
   &__tab-list {
-    border-bottom: 1px solid #aaa;
-    margin: 0 0 10px;
     padding: 0;
+    margin: 0 1rem -2px;
   }
 
   &__tab {
     display: inline-block;
     border: 1px solid transparent;
     border-bottom: none;
-    bottom: -1px;
+    bottom: -2px;
     position: relative;
     list-style: none;
     padding: 6px 12px;
     cursor: pointer;
 
+    background: #153E67;
+    color: var(--backgroundColor);
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-right: 4px;
+
     &--selected {
-      background: #fff;
-      border-color: #aaa;
-      color: black;
-      border-radius: 5px 5px 0 0;
+      background: var(--backgroundColor);
+      border: 2px solid #153E67;
+      border-bottom: 0px;
+      margin-bottom: 2px;
+      color: #153E67;
     }
 
     &--disabled {
@@ -48,6 +53,9 @@
 
   &__tab-panel {
     display: none;
+    border: 2px solid #153E67;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
 
     &--selected {
       display: block;
