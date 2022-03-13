@@ -56,55 +56,65 @@ const Collection = ({
 
   return (
     <>
-      <div className={styles.topHeader}>
-        <div className={styles.bigImageContainer}>
-          <Image
-            alt=""
-            src={coverImgPath}
-            height={collection.coverImg.height}
-            width={collection.coverImg.width}
-            layout={"fill"}
-            loading="lazy"
-            objectFit="contain"
-          />
-        </div>
-        <div className={styles.topDescContainer}>
-          <h1 className={styles.title}>{collection.title}</h1>
-          <div className={styles.smallImageContainer}>
+      <div className="listViewContent">
+        <div className={styles.topHeader}>
+          <div className={styles.bigImageContainer}>
             <Image
               alt=""
               src={coverImgPath}
               height={collection.coverImg.height}
               width={collection.coverImg.width}
-              layout={"intrinsic"}
+              layout={"fill"}
               loading="lazy"
               objectFit="contain"
             />
           </div>
-          <p className={styles.description}>{collection.description}</p>
-          <div className={styles.buttonContainer}>
-            {collection.buttons?.map((button) => {
+          <div className={styles.topDescContainer}>
+            <h1 className={styles.title}>{collection.title}</h1>
+            <div className={styles.smallImageContainer}>
+              <Image
+                alt=""
+                src={coverImgPath}
+                height={collection.coverImg.height}
+                width={collection.coverImg.width}
+                layout={"intrinsic"}
+                loading="lazy"
+                objectFit="contain"
+              />
+            </div>
+            <p className={styles.description}>{collection.description}</p>
+            <div className={styles.buttonContainer}>
+              {collection.buttons?.map((button) => {
+                return (
+                  <AnalyticsLink
+                    className={`baseBtn ${styles.collectionButton}`}
+                    key={button.url}
+                    category="outbound"
+                    href={button.url}
+                  >
+                    {button.text}
+                  </AnalyticsLink>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.stitchedAreaContainer}>
+        <div className={styles.topBorderArea} />
+        <div className={styles.postsContainer}>
+          <div className="listViewContent">
+            {collection.posts.map((post) => {
               return (
-                <AnalyticsLink
-                  className={`baseBtn ${styles.collectionButton}`}
-                  key={button.url}
-                  category="outbound"
-                  href={button.url}
-                >
-                  {button.text}
-                </AnalyticsLink>
+                <p key={post.order}>
+                  {post.order} {post.title}
+                </p>
               );
             })}
           </div>
         </div>
+        <div className={styles.bottomBorderArea} />
       </div>
-      {collection.posts.map((post) => {
-        return (
-          <p key={post.order}>
-            {post.order} {post.title}
-          </p>
-        );
-      })}
       {result}
     </>
   );
