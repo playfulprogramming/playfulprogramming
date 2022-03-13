@@ -2,6 +2,10 @@
 @import "../../styles/utils";
 @import "../../styles/text_styles";
 
+.mainContainer {
+  padding-bottom: 4rem;
+}
+
 .topHeader {
   display: flex;
   flex-direction: row;
@@ -63,7 +67,8 @@
 .stitchedAreaContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 .topBorderArea {
@@ -134,4 +139,8 @@
 
 .postDesc {
   @extend %body-1;
+}
+
+.markdownContainer {
+  color: var(--darkPrimary);
 }

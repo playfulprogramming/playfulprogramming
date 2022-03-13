@@ -55,7 +55,7 @@ const Collection = ({
   );
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <div className="listViewContent">
         <div className={styles.topHeader}>
           <div className={styles.bigImageContainer}>
@@ -130,8 +130,8 @@ const Collection = ({
         </div>
         <div className={styles.bottomBorderArea} />
       </div>
-      {result}
-    </>
+      <div className={`post-body ${styles.markdownContainer}`}>{result}</div>
+    </div>
   );
 };
 

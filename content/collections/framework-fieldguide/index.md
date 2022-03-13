@@ -15,13 +15,6 @@
 }
 ---
 
-This is some text to talk about why the book is awesome - it just is
+# Why read this book?
 
-## This is a header
-
-This is more content
-
-- THIS IS **MORE** content
-- Even more!
-
-Goodbye
+Hi! I’m Corbin, the writter of this book, and I’m going to switch to latin now lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper faucibus nulla velit, blandit quis sit massa nunc. Semper faucibus nulla velit, blandit quis sit massa nunc.
