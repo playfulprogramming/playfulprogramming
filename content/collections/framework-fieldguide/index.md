@@ -4,6 +4,7 @@
   associatedSeries: "Web Components 101",
   description: "It's a booky book of book preportions",
   authors: ["crutchcorn"],
+  coverImg: "./cover.png",
   buttons:
     [
       { text: "Read now", url: "/posts/webb-components-101-history" },

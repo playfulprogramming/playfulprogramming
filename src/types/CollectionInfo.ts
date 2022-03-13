@@ -7,6 +7,11 @@ export interface CollectionInfo {
   authors: UnicornInfo[];
   description: string;
   associatedSeries: string;
+  coverImg: {
+    height: number;
+    width: number;
+    relativePath: string;
+  };
   posts: Pick<
     PostInfo,
     "description" | "excerpt" | "title" | "order" | "series"

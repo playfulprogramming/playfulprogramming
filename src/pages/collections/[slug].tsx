@@ -10,15 +10,31 @@ import { CollectionInfo } from "types/CollectionInfo";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import path from "path";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
+import { PickDeep } from "ts-util-helpers";
+import Image from "next/image";
+import { getFullRelativePath } from "utils/url-paths";
+
+const collectionQuery = {
+  associatedSeries: true,
+  posts: true,
+  title: true,
+  authors: {
+    name: true,
+  },
+  description: true,
+  content: true,
+  slug: true,
+  coverImg: true,
+} as const;
 
 type Props = {
   markdownHTML: string;
   slug: string;
   collectionsDirectory: string;
-  collection: Partial<CollectionInfo>;
+  collection: PickDeep<CollectionInfo, typeof collectionQuery>;
 };
 
-const Post = ({
+const Collection = ({
   slug,
   collectionsDirectory,
   markdownHTML,
@@ -29,24 +45,36 @@ const Post = ({
     serverPath: ["/collections", slug],
   });
 
+  const coverImgPath = getFullRelativePath(
+    "/collections",
+    slug,
+    collection.coverImg.relativePath
+  );
+
   return (
     <>
       <h1>{collection.title}</h1>
-      {collection
-        .posts!.sort((a, b) => (a.order! < b.order! ? -1 : 1))
-        .map((post) => {
-          return (
-            <p key={post.order}>
-              {post.order} {post.title}
-            </p>
-          );
-        })}
+      <Image
+        alt=""
+        src={coverImgPath}
+        height={collection.coverImg.height}
+        width={collection.coverImg.width}
+        layout={"fixed"}
+        loading="lazy"
+      />
+      {collection.posts.map((post) => {
+        return (
+          <p key={post.order}>
+            {post.order} {post.title}
+          </p>
+        );
+      })}
       {result}
     </>
   );
 };
 
-export default Post;
+export default Collection;
 
 type Params = {
   params: {
@@ -57,17 +85,7 @@ type Params = {
 const seriesPostCacheKey = {};
 
 export async function getStaticProps({ params }: Params) {
-  const collection = getCollectionBySlug(params.slug, {
-    associatedSeries: true,
-    posts: true,
-    title: true,
-    authors: {
-      name: true,
-    },
-    description: true,
-    content: true,
-    slug: true,
-  });
+  const collection = getCollectionBySlug(params.slug, collectionQuery);
 
   const { html: markdownHTML } = await markdownToHtml(
     collection.content,

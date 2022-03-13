@@ -7,6 +7,7 @@ import { PostInfo } from "types/PostInfo";
 import { join } from "path";
 import { readMarkdownFile } from "utils/fs/markdown-api";
 import { getAllPosts } from "utils/fs/posts-api";
+import { getImageSize } from "rehype-img-size";
 
 export function getCollectionSlugs() {
   return fs.readdirSync(collectionsDirectory).filter(isNotJunk);
@@ -46,9 +47,23 @@ export function getCollectionBySlug<ToPick extends KeysToPick>(
       allPostsForCollectionQueryCache
     );
 
-    pickedData.posts = allPosts.filter(
-      (post) => post.series === pickedData.associatedSeries
+    pickedData.posts = allPosts
+      .filter((post) => post.series === pickedData.associatedSeries)
+      .sort((a, b) => (a.order! < b.order! ? -1 : 1));
+  }
+
+  if (fields.coverImg) {
+    const absoluteFSPath = join(
+      collectionsDirectory,
+      slug,
+      pickedData.coverImg
     );
+    const profileImgSize = getImageSize(absoluteFSPath);
+    pickedData.coverImg = {
+      height: profileImgSize.height,
+      width: profileImgSize.width,
+      relativePath: pickedData.coverImg,
+    };
   }
 
   return pickedData as any;
