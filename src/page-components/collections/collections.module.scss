@@ -50,7 +50,7 @@
 
 .description {
   @extend %headline-5;
-  color: #315e81;
+  color: var(--lightPrimary);
 }
 
 .buttonContainer {
@@ -71,19 +71,25 @@
   margin-bottom: 4rem;
 }
 
+.topBorderArea.darkAreaBorder {
+  background-image: url("/collections_top_border_dark.png");
+}
 .topBorderArea {
   height: 1rem;
   background-size: contain;
-  background-image: url("/collections_top_border.png");
+  background-image: url("/collections_top_border_light.png");
   background-repeat: repeat-x;
   margin: 0;
   padding: 0;
 }
 
+.bottomBorderArea.darkAreaBorder {
+  background-image: url("/collections_bottom_border_dark.png");
+}
 .bottomBorderArea {
   height: 1rem;
   background-size: contain;
-  background-image: url("/collections_bottom_border.png");
+  background-image: url("/collections_bottom_border_light.png");
   background-repeat: repeat-x;
   margin: 0;
   padding: 0;
@@ -91,7 +97,7 @@
 
 .postsContainer {
   background: var(--white);
-  color: #315e81;
+  color: var(--lightPrimary);
   padding-bottom: 5rem;
 }
 
@@ -130,7 +136,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 32px;
-  border: 4px dashed #315e81;
+  border: 4px dashed var(--lightPrimary);
   font-weight: bold;
   margin-right: 1rem;
 }

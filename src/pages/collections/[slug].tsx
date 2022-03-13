@@ -16,6 +16,7 @@ import { getFullRelativePath } from "utils/url-paths";
 import styles from "../../page-components/collections/collections.module.scss";
 import { AnalyticsLink } from "components/analytics-link";
 import Link from "next/link";
+import { ThemeContext } from "constants/theme-context";
 
 const collectionQuery = {
   associatedSeries: true,
@@ -44,6 +45,8 @@ const Collection = ({
   markdownHTML,
   collection,
 }: Props) => {
+  const { colorMode } = React.useContext(ThemeContext);
+
   const result = useMarkdownRenderer({
     markdownHTML,
     serverPath: ["/collections", slug],
@@ -102,7 +105,11 @@ const Collection = ({
         </div>
       </div>
       <div className={styles.stitchedAreaContainer}>
-        <div className={styles.topBorderArea} />
+        <div
+          className={`${styles.topBorderArea} ${
+            colorMode === "light" ? "" : styles.darkAreaBorder
+          }`}
+        />
         <div className={styles.postsContainer}>
           <div className={`listViewContent ${styles.postsInnerContainer}`}>
             <h2
@@ -135,7 +142,11 @@ const Collection = ({
             </ul>
           </div>
         </div>
-        <div className={styles.bottomBorderArea} />
+        <div
+          className={`${styles.bottomBorderArea} ${
+            colorMode === "light" ? "" : styles.darkAreaBorder
+          }`}
+        />
       </div>
       <div className={`post-body ${styles.markdownContainer}`}>{result}</div>
     </div>
