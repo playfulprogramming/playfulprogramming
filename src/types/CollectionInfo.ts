@@ -14,7 +14,7 @@ export interface CollectionInfo {
   };
   posts: Pick<
     PostInfo,
-    "description" | "excerpt" | "title" | "order" | "series"
+    "description" | "excerpt" | "title" | "order" | "series" | "slug"
   >[];
   content: string;
   buttons: Array<{ text: string; url: string }>;

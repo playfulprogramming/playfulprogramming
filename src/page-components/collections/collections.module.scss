@@ -58,7 +58,7 @@
 }
 
 .collectionButton {
-  outline: var(--cardOutlineStyle);
+  border: var(--cardOutlineStyle);
   @extend %button;
   margin-right: 1rem;
   padding: 0.5rem;
@@ -111,9 +111,13 @@
 }
 
 .postContainer {
-  display: flex;
   margin-bottom: 2rem;
   list-style: none;
+}
+
+.postLink {
+  text-decoration: none;
+  display: flex;
 }
 
 .orderContainer {
@@ -135,6 +139,7 @@
   @extend %headline-4;
   margin-top: 0.25rem;
   margin-bottom: 0;
+  text-decoration: underline;
 }
 
 .postDesc {

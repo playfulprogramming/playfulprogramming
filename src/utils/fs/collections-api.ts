@@ -43,6 +43,7 @@ export function getCollectionBySlug<ToPick extends KeysToPick>(
         title: true,
         series: true,
         order: true,
+        slug: true,
       },
       allPostsForCollectionQueryCache
     );

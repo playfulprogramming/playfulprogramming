@@ -15,6 +15,7 @@ import Image from "next/image";
 import { getFullRelativePath } from "utils/url-paths";
 import styles from "../../page-components/collections/collections.module.scss";
 import { AnalyticsLink } from "components/analytics-link";
+import Link from "next/link";
 
 const collectionQuery = {
   associatedSeries: true,
@@ -117,11 +118,17 @@ const Collection = ({
               {collection.posts.map((post) => {
                 return (
                   <li key={post.order} className={styles.postContainer}>
-                    <div className={styles.orderContainer}>{post.order}</div>
-                    <div>
-                      <h3 className={styles.postTitle}>{post.title}</h3>
-                      <p className={styles.postDesc}>{post.description}</p>
-                    </div>
+                    <Link href={"/posts/" + post.slug} passHref>
+                      <a className={styles.postLink}>
+                        <div className={styles.orderContainer}>
+                          {post.order}
+                        </div>
+                        <div>
+                          <h3 className={styles.postTitle}>{post.title}</h3>
+                          <p className={styles.postDesc}>{post.description}</p>
+                        </div>
+                      </a>
+                    </Link>
                   </li>
                 );
               })}
