@@ -75,7 +75,6 @@
   padding: 0;
 }
 
-
 .bottomBorderArea {
   height: 1rem;
   background-size: contain;
@@ -87,4 +86,52 @@
 
 .postsContainer {
   background: var(--white);
+  color: #315e81;
+  padding-bottom: 5rem;
+}
+
+.postsInnerContainer {
+  max-width: 800px;
+}
+
+.chapterListingHeader {
+  @extend %headline-1;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.collectionPostList {
+  margin: 0;
+  padding: 0;
+}
+
+.postContainer {
+  display: flex;
+  margin-bottom: 2rem;
+  list-style: none;
+}
+
+.orderContainer {
+  font-size: 2rem;
+  flex-shrink: 0;
+  background: var(--backgroundColor);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  border: 4px dashed #315e81;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.postTitle {
+  @extend %headline-4;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.postDesc {
+  @extend %body-1;
 }

@@ -103,14 +103,29 @@ const Collection = ({
       <div className={styles.stitchedAreaContainer}>
         <div className={styles.topBorderArea} />
         <div className={styles.postsContainer}>
-          <div className="listViewContent">
-            {collection.posts.map((post) => {
-              return (
-                <p key={post.order}>
-                  {post.order} {post.title}
-                </p>
-              );
-            })}
+          <div className={`listViewContent ${styles.postsInnerContainer}`}>
+            <h2
+              id="chapter-listing-heading"
+              className={styles.chapterListingHeader}
+            >
+              Chapter Listing:
+            </h2>
+            <ul
+              aria-describedby="chapter-listing-heading"
+              className={styles.collectionPostList}
+            >
+              {collection.posts.map((post) => {
+                return (
+                  <li key={post.order} className={styles.postContainer}>
+                    <div className={styles.orderContainer}>{post.order}</div>
+                    <div>
+                      <h3 className={styles.postTitle}>{post.title}</h3>
+                      <p className={styles.postDesc}>{post.description}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
         <div className={styles.bottomBorderArea} />
