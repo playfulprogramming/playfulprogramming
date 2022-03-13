@@ -13,6 +13,8 @@ import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { PickDeep } from "ts-util-helpers";
 import Image from "next/image";
 import { getFullRelativePath } from "utils/url-paths";
+import styles from "../../page-components/collections/collections.module.scss";
+import { AnalyticsLink } from "components/analytics-link";
 
 const collectionQuery = {
   associatedSeries: true,
@@ -25,6 +27,7 @@ const collectionQuery = {
   content: true,
   slug: true,
   coverImg: true,
+  buttons: true,
 } as const;
 
 type Props = {
@@ -53,15 +56,48 @@ const Collection = ({
 
   return (
     <>
-      <h1>{collection.title}</h1>
-      <Image
-        alt=""
-        src={coverImgPath}
-        height={collection.coverImg.height}
-        width={collection.coverImg.width}
-        layout={"fixed"}
-        loading="lazy"
-      />
+      <div className={styles.topHeader}>
+        <div className={styles.bigImageContainer}>
+          <Image
+            alt=""
+            src={coverImgPath}
+            height={collection.coverImg.height}
+            width={collection.coverImg.width}
+            layout={"fill"}
+            loading="lazy"
+            objectFit="contain"
+          />
+        </div>
+        <div className={styles.topDescContainer}>
+          <h1 className={styles.title}>{collection.title}</h1>
+          <div className={styles.smallImageContainer}>
+            <Image
+              alt=""
+              src={coverImgPath}
+              height={collection.coverImg.height}
+              width={collection.coverImg.width}
+              layout={"intrinsic"}
+              loading="lazy"
+              objectFit="contain"
+            />
+          </div>
+          <p className={styles.description}>{collection.description}</p>
+          <div className={styles.buttonContainer}>
+            {collection.buttons?.map((button) => {
+              return (
+                <AnalyticsLink
+                  className={`baseBtn ${styles.collectionButton}`}
+                  key={button.url}
+                  category="outbound"
+                  href={button.url}
+                >
+                  {button.text}
+                </AnalyticsLink>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       {collection.posts.map((post) => {
         return (
           <p key={post.order}>

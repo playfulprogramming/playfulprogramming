@@ -1,0 +1,61 @@
+@import "../../styles/vars";
+@import "../../styles/utils";
+@import "../../styles/text_styles";
+
+.topHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  min-height: 600px;
+  padding: 1rem;
+
+  @include until($endSmallScreenSize) {
+    flex-direction: column;
+    min-height: auto;
+  }
+}
+
+.bigImageContainer {
+  flex-basis: 50%;
+  position: relative;
+  margin-right: 3.5rem;
+
+  @include until($endSmallScreenSize) {
+    display: none;
+  }
+}
+
+.smallImageContainer {
+  display: none;
+  width: 60%;
+  margin: 0 auto;
+
+  @include until($endSmallScreenSize) {
+    display: block;
+  }
+}
+
+.topDescContainer {
+  flex-basis: 50%;
+}
+
+.title {
+  @extend %beeg;
+  color: var(--darkPrimary);
+}
+
+.description {
+  @extend %headline-5;
+  color: #315e81;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.collectionButton {
+  outline: var(--cardOutlineStyle);
+  @extend %button;
+  margin-right: 1rem;
+  padding: 0.5rem;
+}
