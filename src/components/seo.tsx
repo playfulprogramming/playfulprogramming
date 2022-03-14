@@ -13,9 +13,11 @@ interface SEOProps {
   keywords?: string[];
   publishedTime?: string;
   editedTime?: string;
-  type?: "article" | "profile";
+  type?: "article" | "profile" | "book";
   pathName?: string;
   canonical?: string;
+  isbn?: string;
+  shareImage?: string;
 }
 
 export const SEO: React.FC<SEOProps> = (props) => {
@@ -30,11 +32,13 @@ export const SEO: React.FC<SEOProps> = (props) => {
     publishedTime,
     editedTime,
     pathName,
+    isbn,
+    shareImage,
   } = props;
 
   const metaDescription = description || siteMetadata.description;
   const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
-  const metaImage = `${siteUrl}/share-banner.png`;
+  const metaImage = `${siteUrl}${shareImage ?? "/share-banner.png"}`;
 
   const ogType = type ?? "blog";
 
@@ -59,6 +63,24 @@ export const SEO: React.FC<SEOProps> = (props) => {
             content={unicornsData![0].id}
           />,
         ];
+        break;
+      }
+      case "book": {
+        tags = tags.concat([
+          <meta
+            key="release_date"
+            property="book:release_date"
+            content={publishedTime}
+          />,
+          <meta
+            key="author"
+            property="book:author"
+            content={unicornsData!.map((uni) => uni.name).join(",")}
+          />,
+        ]);
+        if (isbn) {
+          tags.push(<meta key="isbn" property="book:isbn" content={isbn} />);
+        }
         break;
       }
       case "article": {
@@ -104,7 +126,7 @@ export const SEO: React.FC<SEOProps> = (props) => {
         break;
     }
     return tags;
-  }, [editedTime, publishedTime, type, unicornsData]);
+  }, [editedTime, isbn, keywords, publishedTime, type, unicornsData]);
 
   const socialUnicorn = props.unicornsData?.find((uni) => uni.socials);
   const uniTwitter =

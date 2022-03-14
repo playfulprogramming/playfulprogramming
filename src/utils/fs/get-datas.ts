@@ -5,6 +5,7 @@ import { getImageSize } from "rehype-img-size";
 import { getFullRelativePath } from "utils/url-paths";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
+export const collectionsDirectory = join(process.cwd(), "content/collections");
 export const dataDirectory = join(process.cwd(), "content/data");
 export const siteDirectory = join(process.cwd(), "content/site");
 export const sponsorsDirectory = join(process.cwd(), "public/sponsors");

@@ -4,6 +4,17 @@ $workSans: "Work Sans", "Archivo", sans-serif;
 $archivo: "Archivo", sans-serif;
 $robotoMono: "Roboto Mono", monospace;
 
+%beeg {
+	font-family: $workSans;
+	font-weight: 600;
+	font-size: 3rem;
+	letter-spacing: 0em;
+	line-height: 130%;
+	@include from($endSmallScreenSize) {
+		font-size: 4rem;
+	}
+}
+
 %headline-1 {
 	font-family: $workSans;
 	font-weight: 600;

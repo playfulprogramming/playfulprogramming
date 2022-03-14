@@ -15,6 +15,13 @@ module.exports = withPlugins([], {
             },
           },
           {
+            from: path.resolve(__dirname, "content/collections"),
+            to: path.resolve(__dirname, "public/collections"),
+            globOptions: {
+              ignore: ["**/*.md"],
+            },
+          },
+          {
             from: path.resolve(__dirname, "content/data"),
             to: path.resolve(__dirname, "public/unicorns"),
             globOptions: {

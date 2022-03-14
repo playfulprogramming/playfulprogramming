@@ -16,6 +16,7 @@ export const Layout: React.FC = ({ children }) => {
 
   const isBase = router.pathname === rootPath;
   const isBlogPost = router.pathname.startsWith(`${rootPath}posts`);
+  const isCollection = router.pathname.startsWith(`${rootPath}collections`);
 
   return (
     <ThemeProvider>
@@ -52,7 +53,15 @@ export const Layout: React.FC = ({ children }) => {
             </div>
           </div>
         </header>
-        <div className={!isBlogPost ? "listViewContent" : "postViewContent"}>
+        <div
+          className={
+            isCollection
+              ? ""
+              : !isBlogPost
+              ? "listViewContent"
+              : "postViewContent"
+          }
+        >
           {children}
         </div>
       </div>
