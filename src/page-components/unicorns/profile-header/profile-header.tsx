@@ -70,6 +70,7 @@ export const ProfileHeader = ({ unicornData }: PicTitleHeaderProps) => {
           sizes={"300px"}
           layout="responsive"
           loading={"eager"}
+          priority={true}
           alt={`${possessiveName} profile picture`}
         />
       </div>
