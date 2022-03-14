@@ -62,11 +62,11 @@ export const SEO: React.FC<SEOProps> = (props) => {
         break;
       }
       case "article": {
-        // for (let keyword of keywords || []) {
-        //   tags.push(
-        //     <meta key={keyword} property="article:tag" content={keyword} />
-        //   );
-        // }
+        for (let keyword of keywords || []) {
+          tags.push(
+            <meta key={keyword} property="article:tag" content={keyword} />
+          );
+        }
         tags = tags.concat([
           <meta
             key="section"
