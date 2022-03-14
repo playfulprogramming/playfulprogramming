@@ -8,7 +8,7 @@ module.exports = () => {
         siteUrl = "https://unicorn-utterances.com";
         break;
       case "development":
-        siteUrl = "localhost:9000";
+        siteUrl = "http://localhost:9000";
         break;
       default:
         siteUrl = "https://beta.unicorn-utterances.com";
