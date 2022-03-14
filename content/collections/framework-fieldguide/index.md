@@ -5,6 +5,8 @@
   description: "A practical way to teach you Angular, React, and Vue all at once, removing that ever-present desire to switch carreers all programmers have.",
   authors: ["crutchcorn"],
   coverImg: "./cover.png",
+  published: '2023-01-01T13:45:00.284Z',
+  type: "book",
   buttons: [
       { text: "Read now", url: "/posts/webb-components-101-history" },
       {

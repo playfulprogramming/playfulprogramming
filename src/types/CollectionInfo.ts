@@ -7,6 +7,9 @@ export interface CollectionInfo {
   authors: UnicornInfo[];
   description: string;
   associatedSeries: string;
+  published: string;
+  isbn?: string;
+  type?: "book";
   coverImg: {
     height: number;
     width: number;

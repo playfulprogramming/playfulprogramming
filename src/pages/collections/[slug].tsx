@@ -17,19 +17,27 @@ import styles from "../../page-components/collections/collections.module.scss";
 import { AnalyticsLink } from "components/analytics-link";
 import Link from "next/link";
 import { ThemeContext } from "constants/theme-context";
+import { SEO } from "components/seo";
+import { useRouter } from "next/router";
 
 const collectionQuery = {
   associatedSeries: true,
   posts: true,
   title: true,
   authors: {
+    socials: true,
     name: true,
+    lastName: true,
+    firstName: true,
+    id: true,
   },
   description: true,
   content: true,
   slug: true,
   coverImg: true,
   buttons: true,
+  published: true,
+  type: true,
 } as const;
 
 type Props = {
@@ -46,6 +54,7 @@ const Collection = ({
   collection,
 }: Props) => {
   const { colorMode } = React.useContext(ThemeContext);
+  const router = useRouter();
 
   const result = useMarkdownRenderer({
     markdownHTML,
@@ -59,97 +68,110 @@ const Collection = ({
   );
 
   return (
-    <div className={styles.mainContainer}>
-      <div className="listViewContent">
-        <div className={styles.topHeader}>
-          <div className={styles.bigImageContainer}>
-            <Image
-              alt=""
-              src={coverImgPath}
-              height={collection.coverImg.height}
-              width={collection.coverImg.width}
-              layout={"fill"}
-              loading="lazy"
-              objectFit="contain"
-            />
-          </div>
-          <div className={styles.topDescContainer}>
-            <h1 className={styles.title}>{collection.title}</h1>
-            <div className={styles.smallImageContainer}>
+    <>
+      <SEO
+        title={collection.title}
+        description={collection.description}
+        unicornsData={collection.authors}
+        publishedTime={collection.published}
+        type={collection.type}
+        pathName={router.asPath}
+        shareImage={coverImgPath}
+      />
+      <div className={styles.mainContainer}>
+        <div className="listViewContent">
+          <div className={styles.topHeader}>
+            <div className={styles.bigImageContainer}>
               <Image
                 alt=""
                 src={coverImgPath}
                 height={collection.coverImg.height}
                 width={collection.coverImg.width}
-                layout={"intrinsic"}
+                layout={"fill"}
                 loading="lazy"
                 objectFit="contain"
               />
             </div>
-            <p className={styles.description}>{collection.description}</p>
-            <div className={styles.buttonContainer}>
-              {collection.buttons?.map((button) => {
-                return (
-                  <AnalyticsLink
-                    className={`baseBtn ${styles.collectionButton}`}
-                    key={button.url}
-                    category="outbound"
-                    href={button.url}
-                  >
-                    {button.text}
-                  </AnalyticsLink>
-                );
-              })}
+            <div className={styles.topDescContainer}>
+              <h1 className={styles.title}>{collection.title}</h1>
+              <div className={styles.smallImageContainer}>
+                <Image
+                  alt=""
+                  src={coverImgPath}
+                  height={collection.coverImg.height}
+                  width={collection.coverImg.width}
+                  layout={"intrinsic"}
+                  loading="lazy"
+                  objectFit="contain"
+                />
+              </div>
+              <p className={styles.description}>{collection.description}</p>
+              <div className={styles.buttonContainer}>
+                {collection.buttons?.map((button) => {
+                  return (
+                    <AnalyticsLink
+                      className={`baseBtn ${styles.collectionButton}`}
+                      key={button.url}
+                      category="outbound"
+                      href={button.url}
+                    >
+                      {button.text}
+                    </AnalyticsLink>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.stitchedAreaContainer}>
-        <div
-          className={`${styles.topBorderArea} ${
-            colorMode === "light" ? "" : styles.darkAreaBorder
-          }`}
-        />
-        <div className={styles.postsContainer}>
-          <div className={`listViewContent ${styles.postsInnerContainer}`}>
-            <h2
-              id="chapter-listing-heading"
-              className={styles.chapterListingHeader}
-            >
-              Chapter Listing:
-            </h2>
-            <ul
-              aria-describedby="chapter-listing-heading"
-              className={styles.collectionPostList}
-            >
-              {collection.posts.map((post) => {
-                return (
-                  <li key={post.order} className={styles.postContainer}>
-                    <Link href={"/posts/" + post.slug} passHref>
-                      <a className={styles.postLink}>
-                        <div className={styles.orderContainer}>
-                          {post.order}
-                        </div>
-                        <div>
-                          <h3 className={styles.postTitle}>{post.title}</h3>
-                          <p className={styles.postDesc}>{post.description}</p>
-                        </div>
-                      </a>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+        <div className={styles.stitchedAreaContainer}>
+          <div
+            className={`${styles.topBorderArea} ${
+              colorMode === "light" ? "" : styles.darkAreaBorder
+            }`}
+          />
+          <div className={styles.postsContainer}>
+            <div className={`listViewContent ${styles.postsInnerContainer}`}>
+              <h2
+                id="chapter-listing-heading"
+                className={styles.chapterListingHeader}
+              >
+                Chapter Listing:
+              </h2>
+              <ul
+                aria-describedby="chapter-listing-heading"
+                className={styles.collectionPostList}
+              >
+                {collection.posts.map((post) => {
+                  return (
+                    <li key={post.order} className={styles.postContainer}>
+                      <Link href={"/posts/" + post.slug} passHref>
+                        <a className={styles.postLink}>
+                          <div className={styles.orderContainer}>
+                            {post.order}
+                          </div>
+                          <div>
+                            <h3 className={styles.postTitle}>{post.title}</h3>
+                            <p className={styles.postDesc}>
+                              {post.description}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
+          <div
+            className={`${styles.bottomBorderArea} ${
+              colorMode === "light" ? "" : styles.darkAreaBorder
+            }`}
+          />
         </div>
-        <div
-          className={`${styles.bottomBorderArea} ${
-            colorMode === "light" ? "" : styles.darkAreaBorder
-          }`}
-        />
+        <div className={`post-body ${styles.markdownContainer}`}>{result}</div>
       </div>
-      <div className={`post-body ${styles.markdownContainer}`}>{result}</div>
-    </div>
+    </>
   );
 };
 
