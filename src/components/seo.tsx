@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, useMemo } from "react";
 import Head from "next/head";
 import { siteMetadata, siteUrl } from "constants/site-config";
 import { UnicornInfo } from "../types";
@@ -45,6 +45,79 @@ const FacebookSEO = (props: MetaSEOProps) => {
     editedTime,
     keywords,
   } = props;
+
+  const ogType = type ?? "blog";
+
+  const typeSpecificTags = useMemo(() => {
+    console.log("I AM RECALCULATING THE TAGS");
+    let tags: ReactElement[] = [];
+    switch (type) {
+      case "profile": {
+        tags = [
+          <meta
+            key="firstName"
+            property="profile:firstName"
+            content={unicornsData![0].firstName}
+          />,
+          <meta
+            key="lastName"
+            property="profile:lastName"
+            content={unicornsData![0].lastName}
+          />,
+          <meta
+            key="username"
+            property="profile:username"
+            content={unicornsData![0].id}
+          />,
+        ];
+        break;
+      }
+      case "article": {
+        for (let keyword of keywords || []) {
+          tags.push(
+            <meta key={keyword} property="article:tag" content={keyword} />
+          );
+        }
+        tags = tags.concat([
+          <meta
+            key="section"
+            property="article:section"
+            content="Technology"
+          />,
+          <meta
+            key="author"
+            property="article:author"
+            content={unicornsData!.map((uni) => uni.name).join(",")}
+          />,
+        ]);
+
+        if (editedTime) {
+          tags.push(
+            <meta
+              key="modified_time"
+              property="article:modified_time"
+              content={editedTime}
+            />
+          );
+        }
+        if (publishedTime) {
+          tags.push(
+            <meta
+              key="published_time"
+              property="article:published_time"
+              content={publishedTime}
+            />
+          );
+        }
+        break;
+      }
+      default:
+        break;
+    }
+    return tags;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <meta
@@ -56,63 +129,8 @@ const FacebookSEO = (props: MetaSEOProps) => {
       <meta property="og:locale" content="en_US" />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={metaImage} />
-      {type === "article" ? (
-        <meta property="og:type" content="article" />
-      ) : type === "profile" ? (
-        <meta property="og:type" content="profile" />
-      ) : (
-        <meta property="og:type" content="blog" />
-      )}
-      {type === "profile"
-        ? [
-            <meta
-              key="firstName"
-              property="profile:firstName"
-              content={unicornsData![0].firstName}
-            />,
-            <meta
-              key="lastName"
-              property="profile:lastName"
-              content={unicornsData![0].lastName}
-            />,
-            <meta
-              key="username"
-              property="profile:username"
-              content={unicornsData![0].id}
-            />,
-          ]
-        : null}
-      {type !== "article"
-        ? null
-        : [
-            <meta
-              key="section"
-              property="article:section"
-              content="Technology"
-            />,
-            <meta
-              key="author"
-              property="article:author"
-              content={unicornsData!.map((uni) => uni.name).join(",")}
-            />,
-            publishedTime ? (
-              <meta
-                key="published_time"
-                property="article:published_time"
-                content={publishedTime}
-              />
-            ) : null,
-            editedTime ? (
-              <meta
-                key="modified_time"
-                property="article:modified_time"
-                content={editedTime}
-              />
-            ) : null,
-            ...keywords!.map((keyword) => (
-              <meta key={keyword} property="article:tag" content={keyword} />
-            )),
-          ]}
+      <meta property="og:type" content={ogType} />
+      {typeSpecificTags}
     </>
   );
 };
@@ -136,13 +154,9 @@ const TwitterSEO = (props: MetaSEOProps) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={siteMetadata.twitterHandle} />
       <meta name="twitter:image" content={metaImage} />
-      {type === "article"
-        ? [
-            unicornsData!.length === 1 ? (
-              <TwitterSingleAuthor key="singleAuthor" {...props} />
-            ) : null,
-          ]
-        : null}
+      {type === "article" && unicornsData!.length === 1 ? (
+        <TwitterSingleAuthor key="singleAuthor" {...props} />
+      ) : null}
     </>
   );
 };
