@@ -9,7 +9,7 @@ const ThanksPage = () => {
   const router = useRouter();
   return (
     <>
-      <SEO title="Thank You!" pathName={router.pathname} />
+      <SEO title="Thank You!" pathName={router.asPath} />
       <div
         style={{
           width: "100%",

@@ -38,7 +38,7 @@ const UnicornPage = ({
         description={unicorn.description}
         unicornsData={[unicorn]}
         type="profile"
-        pathName={router.pathname}
+        pathName={router.asPath}
       />
       <PostListProvider
         posts={authoredPosts}

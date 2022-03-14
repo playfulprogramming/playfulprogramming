@@ -42,7 +42,7 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
 
   return (
     <div>
-      <SEO title="About Us" pathName={router.pathname} />
+      <SEO title="About Us" pathName={router.asPath} />
       <div className={style.container}>
         <div className={style.headerTitle}>
           <div className={style.unicornLogo}>
