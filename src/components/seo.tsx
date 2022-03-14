@@ -18,38 +18,27 @@ interface SEOProps {
   canonical?: string;
 }
 
-type MetaSEOProps = SEOProps & {
-  metaDescription: string;
-  metaKeywords: string;
-  metaImage: string;
-};
-
-const GoogleAnalytics = () => {
-  return (
-    <>
-      <link rel="preconnect" href="https://www.google.com" />
-      <link rel="preconnect" href="https://marketingplatform.google.com" />
-    </>
-  );
-};
-
-const FacebookSEO = (props: MetaSEOProps) => {
+export const SEO: React.FC<SEOProps> = (props) => {
   const {
-    pathName,
-    metaDescription,
+    description = "",
+    children,
     title,
-    metaImage,
+    keywords,
+    canonical,
     type,
     unicornsData,
     publishedTime,
     editedTime,
-    keywords,
+    pathName,
   } = props;
+
+  const metaDescription = description || siteMetadata.description;
+  const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
+  const metaImage = `${siteUrl}/share-banner.png`;
 
   const ogType = type ?? "blog";
 
   const typeSpecificTags = useMemo(() => {
-    console.log("I AM RECALCULATING THE TAGS");
     let tags: ReactElement[] = [];
     switch (type) {
       case "profile": {
@@ -73,11 +62,11 @@ const FacebookSEO = (props: MetaSEOProps) => {
         break;
       }
       case "article": {
-        for (let keyword of keywords || []) {
-          tags.push(
-            <meta key={keyword} property="article:tag" content={keyword} />
-          );
-        }
+        // for (let keyword of keywords || []) {
+        //   tags.push(
+        //     <meta key={keyword} property="article:tag" content={keyword} />
+        //   );
+        // }
         tags = tags.concat([
           <meta
             key="section"
@@ -115,11 +104,45 @@ const FacebookSEO = (props: MetaSEOProps) => {
         break;
     }
     return tags;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [editedTime, publishedTime, type, unicornsData]);
 
+  const socialUnicorn = props.unicornsData?.find((uni) => uni.socials);
+  const uniTwitter =
+    socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
+
+  /**
+   * These cannot be broken into dedicated components because of a limitation in
+   * NextJS's source code
+   *
+   * To quote the docs:
+   * > title, meta or any other elements (e.g. script) need to be contained as
+   * > direct children of the Head element, or wrapped into maximum one level of
+   * > <React.Fragment> or arrays—otherwise the tags won't be correctly picked up
+   * > on client-side navigations.
+   */
   return (
-    <>
+    <Head>
+      <title>
+        {title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
+      </title>
+      {canonical ? <link rel="canonical" href={canonical} /> : null}
+      <meta property="name" content={siteMetadata.title} />
+      <meta name="description" content={metaDescription} />
+      <meta property="keywords" content={metaKeywords} />
+      {/* Google Analytics */}
+      <link rel="preconnect" href="https://www.google.com" />
+      <link rel="preconnect" href="https://marketingplatform.google.com" />
+      {/* Twitter SEO */}
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={siteMetadata.twitterHandle} />
+      <meta name="twitter:image" content={metaImage} />
+      {type === "article" && unicornsData!.length === 1 && uniTwitter ? (
+        <meta property="twitter:creator" content={`@${uniTwitter}`} />
+      ) : null}
+      {children}
+      {/* Open Graph SEO */}
       <meta
         property="og:url"
         content={siteMetadata.siteUrl + (pathName || "")}
@@ -131,62 +154,6 @@ const FacebookSEO = (props: MetaSEOProps) => {
       <meta property="og:image" content={metaImage} />
       <meta property="og:type" content={ogType} />
       {typeSpecificTags}
-    </>
-  );
-};
-
-const TwitterSingleAuthor = (props: MetaSEOProps) => {
-  const socialUnicorn = props.unicornsData!.find((uni) => uni.socials);
-  const uniTwitter =
-    socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
-  if (uniTwitter) {
-    return <meta property="twitter:creator" content={`@${uniTwitter}`} />;
-  }
-  return null;
-};
-
-const TwitterSEO = (props: MetaSEOProps) => {
-  const { metaDescription, title, metaImage, type, unicornsData } = props;
-  return (
-    <>
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={siteMetadata.twitterHandle} />
-      <meta name="twitter:image" content={metaImage} />
-      {type === "article" && unicornsData!.length === 1 ? (
-        <TwitterSingleAuthor key="singleAuthor" {...props} />
-      ) : null}
-    </>
-  );
-};
-
-export const SEO: React.FC<SEOProps> = (props) => {
-  const { description = "", children, title, keywords, canonical } = props;
-
-  const metaDescription = description || siteMetadata.description;
-  const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
-  const metaImage = `${siteUrl}/share-banner.png`;
-
-  const metaProps = {
-    metaDescription,
-    metaKeywords,
-    metaImage,
-  };
-
-  return (
-    <Head>
-      <title>
-        {title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
-      </title>
-      {canonical ? <link rel="canonical" href={canonical} /> : null}
-      <meta property="name" content={siteMetadata.title} />
-      <meta name="description" content={metaDescription} />
-      <meta property="keywords" content={metaKeywords} />
-      <GoogleAnalytics />
-      <FacebookSEO {...props} {...metaProps} />
-      <TwitterSEO {...props} {...metaProps} />
-      {children}
     </Head>
   );
 };
