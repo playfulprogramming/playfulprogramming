@@ -24,14 +24,6 @@
 
 # Future Sections
 
-- Under-the-hood how do each framework render contents?
-  - Vue/React = Virtual DOM
-  - Angular = Incremental DOM
-- Under-the-hood how do each framework track changes?
-  - React explicit
-  - Angular = Zone.js
-  - Vue = Proxies
-    - Bad redux example
 - Forms
   - ngModel/Angular
     - Angular Forms
@@ -40,6 +32,14 @@
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality
+- Under-the-hood how do each framework render contents?
+  - Vue/React = Virtual DOM
+  - Angular = Incremental DOM
+- Under-the-hood how do each framework track changes?
+  - React explicit
+  - Angular = Zone.js
+  - Vue = Proxies
+    - Bad redux example
 - Performance
   - OnPush/Angular
   - memo/React
@@ -57,7 +57,7 @@
     - Children.forEach and beyond
   - `@ViewContents` / Angular
   - `slots` / Vue
-- Dependenct injection
+- Dependency injection
   - `useContext` / React
   - `provide/inject` / Vue
   - Angular DI 

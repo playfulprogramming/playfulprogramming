@@ -412,30 +412,28 @@ export class FileDateComponent {
 
 ### Vue
 
-`computed`
+```javascript
+const FileDate = {
+  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
+  props: ['inputDate'],
+  computed: {
+    dateStr() {
+      return this.formatDate(this.inputDate)
+    },
+    labelText() {
+      return this.formatReadableDate(this.inputDate)
+    }
+  }
+};
+```
+
+Instead of using `data` to construct a set of variables, then re-intializating the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
+
+These props are then accessible in the same way a `data` property is, both from the template and from Vue's logic layer alike.
 
 <!-- tabs:end -->
-
-
-
-
-
-
 
 # Non-Prop Derived Values
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized today work for internal component state as well as they do inputs.
 
-
-
-
-
----------
-
-
-
-Derived values
-
-- Angular = `onChanges`, Pipes
-- React =  `useEffect`, `useMemo`
-- Vue = `watch`, `computed`
