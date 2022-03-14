@@ -1,7 +1,7 @@
 ---
 {
     title: "Lifecycle Methods",
-    description: "",
+    description: "One way for JavaScript logic to run in components is for a framework to call a specific bit of JS when an event occurs. These are called 'Lifecycle methods'.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],

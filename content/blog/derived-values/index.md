@@ -1,7 +1,7 @@
 ---
 {
     title: "Derived Values",
-    description: "",
+    description: "Often in application development, you'll want to base one variable's value off of another. There are a few ways of doing this - some easier than others.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
