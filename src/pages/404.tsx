@@ -11,7 +11,7 @@ const NotFoundPage = () => {
   const router = useRouter();
   return (
     <>
-      <SEO title="404: Not Found" pathName={router.pathname} />
+      <SEO title="404: Not Found" pathName={router.asPath} />
       <div
         style={{
           width: "100%",
