@@ -9,19 +9,6 @@
 }
 ---
 
-# Intro notes
-
-- AngularJS is not Angular
-- We're using Vue 3, Angular 13, React 18
-  - React is stable, but updates often
-  - Angular is stable, but updates often
-
-- Ecosystem numbers
-- Mention tooling and third party packages
-- Outline contents
-- React has two methods of display: We'll focus on hooks
-- Vue has two methods of display: We'll focus on options API
-
 # Future Sections
 
 - Forms
@@ -32,22 +19,6 @@
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality
-- Under-the-hood how do each framework render contents?
-  - Vue/React = Virtual DOM
-  - Angular = Incremental DOM
-- Under-the-hood how do each framework track changes?
-  - React explicit
-  - Angular = Zone.js
-  - Vue = Proxies
-    - Bad redux example
-- Performance
-  - OnPush/Angular
-  - memo/React
-  - ???? / Vue
-- Component reference
-  - `ref`/`forwardRef` / React
-  - ViewChild/Angular
-  - `ref` / Vue
 - Content projection
   - `{props.children}` / React
   - `ng-content` / Angular
@@ -57,17 +28,30 @@
     - Children.forEach and beyond
   - `@ViewContents` / Angular
   - `slots` / Vue
+- Partial DOM Application
+  - `React.Fragment` / React
+  - `ng-template` / Angular
+  - `template` / Vue
+
+- Component reference
+  - `ref`/`forwardRef` / React
+  - ViewChild/Angular
+  - `ref` / Vue
 - Dependency injection
   - `useContext` / React
   - `provide/inject` / Vue
   - Angular DI 
 - Error handling
-  - onErrorCapture Vue
-  - Error boundary React
+  - onErrorCapture / Vue
+  - Error boundary / React
+  - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
 - Routing
   - React Router
   - Angular Router
   - Vue Router
+- HTTPS
+  - Angular HTTP library
+  - Fetch / React & Vue
 - Testing
   - Testing library, simply for ease of comparison
 - SSR
@@ -88,25 +72,20 @@
   - Angular DevTools
   - Vue.js DevTools
   - Flamegraph
+- Performance
+  - OnPush/Angular
+  - memo/React
+  - [`v-once`](https://vuejs.org/guide/best-practices/performance.html#v-once) / Vue
+- Under-the-hood how do each framework render contents?
+  - Vue/React = Virtual DOM
+  - Angular = Incremental DOM
+- Under-the-hood how do each framework track changes?
+  - React explicit
+  - Angular = Zone.js
+  - Vue = Proxies
+    - Bad redux example
 - Building a demo app
+- API Comparison Table
 - Terminology/Glossary
 
 
-
-----------
-
-
-
-Unsure:
-
-- HTTPS
-  - Angular HTTP library
-  - Fetch / React & Vue
-- i18n
-  - React i18n
-  - Angular i18n
-  - ???? / Vue
-- Animations
-  - ???? / React (too many)
-  - Angular Animation
-  - 

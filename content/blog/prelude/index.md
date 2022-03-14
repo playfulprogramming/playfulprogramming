@@ -131,6 +131,7 @@ Just because a tool is new, doesn't mean that it's inherently better; and even t
 
 
 - Outline contents
+- Angular !== AngularJS
 - React has two methods of display: We'll focus on hooks
 - Vue has two methods of display: We'll focus on options API
 
