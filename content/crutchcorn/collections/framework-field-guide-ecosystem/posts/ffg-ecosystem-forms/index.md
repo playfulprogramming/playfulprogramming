@@ -223,11 +223,201 @@ const FormComp = {
 
 
 
-Angular reactive forms
+<!-- tabs:start -->
+
+### React
+
+ 
+
+// TODO
+
+
+
+### Angular
+
+First, import the `ReactiveFormsModule`
+
+```typescript
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  declarations: [AppComponent, FormComponent],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Then, we can create a new `FormControl` to assign a value:
+
+```typescript
+import { FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)">
+	  <input type="text" [formControl]="inputControl"/>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  inputControl = new FormControl('');
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.inputControl.value);
+  }
+}
+```
+
+We can even manually update the value of the `FormControl` from JavaScript:
+
+```typescript
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)">
+	  	<input type="text" [formControl]="inputControl"/>
+      <button type="button" (click)="setControlToMessage()">Set to "Hello"</button>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  inputControl = new FormControl('');
+
+  setControlToMessage() {
+    this.inputControl.patchValue('Hello, world');
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.inputControl.value);
+  }
+}
+```
+
+#### Form Groups
+
+However, this doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth:
+
+```typescript
+import { FormGroup, FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <div>
+      <label>
+        Name
+        <input type="text" formControlName="name"/>
+      </label>
+    </div>
+    <div>
+      <label>
+        Favorite food
+        <input type="text" formControlName="favoriteFood"/>
+      </label>
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  mainForm = new FormGroup({
+    name: new FormControl(''),
+    favoriteFood: new FormControl(''),
+  });
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+#### Form Builder
+
+You're also able to utilize a shorthand provided by Angular to remove duplicate calls to `FormControl`
+
+```typescript
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+} from '@angular/forms';
+
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <div>
+      <label>
+        Name
+        <input type="text" formControlName="name"/>
+      </label>
+    </div>
+    <div>
+      <label>
+        Favorite food
+        <input type="text" formControlName="favoriteFood"/>
+      </label>
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  mainForm = this.fb.group({
+    name: '',
+    favoriteFood: '',
+  });
+
+  constructor(private fb: FormBuilder) {}
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+> Under the hood, this uses Angular's [Dependency Injection system, which we'll touch on in a future chapter.](// TODO: Add link)
+
+### Vue
+
+// TODO
+
+
+
+<!-- tabs:end -->
+
+
 
 Formik
 
 https://github.com/logaretm/vee-validate
+
+
+
+### Arrays
+
+// TODO: Complete this section
+
+- [Formik `<FieldArray>`](https://formik.org/docs/api/fieldarray)
+- [Angular FormArray](https://angular.io/guide/reactive-forms#creating-dynamic-forms)
+- [Vee-validate FieldArray](https://vee-validate.logaretm.com/v4/examples/array-fields)
+
+### Validation
+
+// TODO: Talk about form validators
+
+
 
 
 
