@@ -36,23 +36,186 @@ Using props/events
 
 ### React
 
-Test
+```jsx
+const FormComp = () => {
+	const [inputText, setInputText] = React.useState("");
+
+	const onChange = (e) => {
+		setInputText(e.target.value);
+	}
+    
+    const onSubmit = (e) => {
+      e.preventDefault();
+      console.log(inputText);
+    };
+
+	return (
+      <form onSubmit={onSubmit}>
+		<input type="text" onChange={onChange} value={inputText}/>
+        <button type="submit">Submit</button>
+      </form>
+	)
+}
+```
+
+
 
 ### Angular
 
-Test
+```typescript
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)">
+	  	<input type="text" (change)="onChange($event)" [value]="inputText"/>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  inputText = '';
+
+  onChange(e: { target: HTMLInputElement }) {
+    this.inputText = e.target.value;
+  }
+
+  onSubmit(e: Event) {
+    e.preventDefault();
+    console.log(this.inputText);
+  }
+}
+```
+
+
 
 ### Vue
 
-Test
+```javascript
+const FormComp = {
+  template: `
+  <form @submit="onSubmit($event)">
+    <input type="text" @change="onChange($event)" :value="inputText"/>
+    <button type="submit">Submit</button>
+  </form>
+  `,
+  data() {
+    return {
+      inputText: '',
+    };
+  },
+  methods: {
+    onChange(e) {
+      this.inputText = e.target.value;
+    },
+    onSubmit(e) {
+      e.preventDefault();
+      console.log(this.inputText);
+    },
+  },
+};
+```
+
+
 
 <!-- tabs:end -->
 
 ## Two-way form bindings
 
+`v-model`, `[(ngModel)]`
 
+
+
+<!-- tabs:start -->
+
+### React
 
 React doesn't have a way to do this
+
+
+
+### Angular
+
+If you recall from our earlier introduction to components, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
+
+Well, if we combine them together, we can sync all of an event's values to and from an Angular variable with a handy shorthand:
+```typescript
+[(bindName)]
+```
+
+> Remember to not flip the `[]` and `()` symbols! It's important to make sure that the square brackets go on the outside of the bind.
+>
+> Luckily, there's a mnemonic device to remember this operator order - This syntax is colloquially known as a ["banana in a box", even in Angular's source code itself](https://github.com/angular/angular/blob/3ecf93020ce06b9b8621f0c83126cb3d584d4181/packages/compiler/src/render3/r3_template_transform.ts#L41)!
+
+For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements.
+
+```typescript
+@Component({
+  selector: 'form-comp',
+  template: `
+    <form (submit)="onSubmit($event)">
+	  	<input type="text" [(ngModel)]="inputText" name="input"/>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+})
+export class FormComponent {
+  inputText = '';
+
+  onSubmit(e: Event) {
+    e.preventDefault();
+    console.log(this.inputText);
+  }
+}
+```
+
+However, when you first use this, you may run into an error:
+
+> Type 'Event' is not assignable to type 'string'.
+
+This is because we need to import the `FormsModule` in our closest `NgModel` to use `ngModel` bindings
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [BrowserModule, FormsModule],
+  declarations: [AppComponent, FormComponent],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+### Vue
+
+```javascript
+const FormComp = {
+  template: `
+  <form @submit="onSubmit($event)">
+    <input type="text" v-model="inputText"/>
+    <button type="submit">Submit</button>
+  </form>
+  `,
+  data() {
+    return {
+      inputText: '',
+    };
+  },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault();
+      console.log(this.inputText);
+    },
+  },
+};
+```
+
+
+
+<!-- tabs:end -->
+
+
 
 
 
