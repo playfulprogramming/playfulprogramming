@@ -554,15 +554,19 @@ const FileDate = () => {
 }
 ```
 
-> `useState` is what React uses to store data that is set by the user. It's first argument (that we're passing a string into) is used to set the initial value.
+`useState` is what React uses to store data that is set by the user. It's first argument (that we're passing a string into) is used to set the initial value.
+
+We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
+
+```jsx
+const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+const dateStr = dateArr[0];
+const setDateStr = dateArr[1];
+```
+
+> `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 >
-> We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
->
-> ```jsx
-> const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
-> const dateStr = dateArr[0];
-> const setDateStr = dateArr[1];
-> ```
+> Hooks can be identified as a function that starts with the word `use`. Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
 
 ## Angular
 
@@ -679,7 +683,7 @@ const FileDate = {
 
 
 
-# Intro to Lifecycles
+# Intro to Lifecycles {#lifecycles}
 
 While you can rest assured this code works, since I'm the author and I'd probably be a bit embarrassed by it not running...
 
@@ -785,7 +789,7 @@ While the method each framework uses to tell _when_ to re-render is different, t
 
 This feature is arguably the biggest advantage of building an application with one of these frameworks.
 
-**This idea of having a bit of code run at a specific time relative to a component is called a compoent's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, but we'll dive deeper into them at another time.
+**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed [which we'll dive deeper into with our "Lifecycles" chapter](/posts/lifecycle-methods).
 
 Speaking of updating data on screen - let's take a look at how we can dynamically display data on a page.
 
