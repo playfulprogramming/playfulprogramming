@@ -227,9 +227,61 @@ const FormComp = {
 
 ### React
 
- 
+ Because of React's minimalist API philosophy, React does not have anything equivocal to Angular's reactive forms. Instead, it relies on the ecosystem of libraries to support this functionality.
 
-// TODO
+Luckily, there's a similar tool that's both widely used and highly capable: [Formik](https://formik.org/).
+
+Here's what a basic form might look like in Formik:
+
+```jsx
+import React from "react";
+import { useFormik } from "formik";
+
+const FormComponent = () => {
+  /**
+   * Formik provides us a hook called "useFormik" which allows us to
+   * define the initial values and submitted behavior
+   * 
+   * This return value is then used to track form events and more
+   */
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      favoriteFood: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div>
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Favorite food
+          <input
+            type="text"
+            name="favoriteFood"
+            onChange={formik.handleChange}
+            value={formik.values.favoriteFood}
+          />
+        </label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+```
 
 
 
@@ -281,7 +333,7 @@ We can even manually update the value of the `FormControl` from JavaScript:
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  	<input type="text" [formControl]="inputControl"/>
+      <input type="text" [formControl]="inputControl"/>
       <button type="button" (click)="setControlToMessage()">Set to "Hello"</button>
       <button type="submit">Submit</button>
     </form>
@@ -393,7 +445,44 @@ export class FormComponent {
 
 // TODO
 
+While Vue has a large home-grown ecosystem of tools, Vue does not have an official complex form library. Luckily for us, [`vee-validate` aims to be a good fit for any form requirements our Vue apps may have](https://github.com/logaretm/vee-validate). 
 
+Here's a simple form using `vee-validate`:
+
+```javascript
+const FormComponent = {
+  template: `
+  <div id="app">
+    <v-form @submit="onSubmit">
+      <div>
+        <label>
+          Name
+      <v-field name="name" value=""></v-field> 
+        </label>
+      </div>
+
+      <div>
+        <label>
+          Favorite food
+      <v-field name="favoriteFood" value=""></v-field> 
+        </label>
+      </div>
+      <button type="submit">Submit</button>
+    </v-form>
+  </div>
+`,
+  components: {
+    VForm: VeeValidate.Form,
+    VField: VeeValidate.Field,
+    ErrorMessage: VeeValidate.ErrorMessage,
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    }
+  }
+}
+```
 
 <!-- tabs:end -->
 
