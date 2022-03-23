@@ -283,6 +283,58 @@ const FormComponent = () => {
 };
 ```
 
+#### `<Formik/>` Component 
+
+This isn't the only way to declare a form, however. 
+
+// TODO
+
+```jsx
+import React from "react";
+import { Formik } from "formik";
+
+const FormComponent = () => {
+  return (
+    <Formik
+      initialValues={{
+        name: "",
+        favoriteFood: "",
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+      render={({ values, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>
+              Name
+              <input
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={values.name}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Favorite food
+              <input
+                type="text"
+                name="favoriteFood"
+                onChange={handleChange}
+                value={values.favoriteFood}
+              />
+            </label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    />
+  );
+};
+```
+
 
 
 ### Angular
@@ -488,9 +540,7 @@ const FormComponent = {
 
 
 
-Formik
-
-https://github.com/logaretm/vee-validate
+We're using Formik v2 and `vee-validate` v4.
 
 
 
@@ -501,6 +551,127 @@ https://github.com/logaretm/vee-validate
 - [Formik `<FieldArray>`](https://formik.org/docs/api/fieldarray)
 - [Angular FormArray](https://angular.io/guide/reactive-forms#creating-dynamic-forms)
 - [Vee-validate FieldArray](https://vee-validate.logaretm.com/v4/examples/array-fields)
+
+
+
+<!-- tabs:start -->
+
+#### React
+
+// TODO
+
+```jsx
+import { Formik, Form, Field, FieldArray } from "formik";
+
+let id = 0;
+
+export const FriendList = () => (
+  <div>
+    <h1>Friend List</h1>
+    <Formik
+      initialValues={{ users: [] }}
+      onSubmit={(values) => console.log(values)}
+      render={({ values }) => (
+        <Form>
+          <FieldArray
+            name="users"
+            render={(arrayHelpers) => (
+              <div>
+                {values.users.map((user, index) => (
+                  <div key={index}>
+                    <label>
+                      Name
+                      <Field name={`users.${index}.name`} />
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                    >
+                      Remove User
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => arrayHelpers.push({ name: "", id: ++id })}
+                >
+                  Add user
+                </button>
+                <button type="submit">Submit</button>
+              </div>
+            )}
+          />
+        </Form>
+      )}
+    />
+  </div>
+);
+```
+
+A limitation of Formik is that we **must use the `<Formik>` component in order to use `<FieldArray>`**. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link).
+
+#### Angular
+
+// TODO
+
+#### Vue
+
+// TODO
+
+```javascript
+const FormComponent = {
+  template: `
+  <div id="app">
+  <v-form @submit="onSubmit" :initial-values="initialValues">
+    <field-array name="users" key-path="id" v-slot="{fields, push, remove }">
+    <div v-for="(field, idx) in fields" :key="field.key">
+      <label>
+        Name
+        <v-field :name="'users[' + idx + '].name'"></v-field> 
+      </label>
+      <button type="button" @click="remove(idx)">Remove User</button>
+    </div>
+    <button type="button" @click="push({name: '', id: ++id})">Add User</button>
+    </field-array>
+    <button type="submit">Submit</button>
+  </v-form>
+</div>
+`,
+  components: {
+    VForm: VeeValidate.Form,
+    VField: VeeValidate.Field,
+    FieldArray: VeeValidate.FieldArray,
+    ErrorMessage: VeeValidate.ErrorMessage,
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    }
+  },
+  data: {
+      return {
+    	id: 1,
+      	initialValues: {users: [{name: "Test", id: 0}]}
+	  }
+  }
+}
+```
+
+You may notice the `v-slot`. It's a bit confusing, but think of this as properties being passed to `field-array` from `v-form`. 
+
+[We'll touch on `v-slot` usage in the near future.](// TODO: Add link)
+
+Notice our usage of `key-path` // TODO:
+
+<!-- tabs:end -->
+
+
+
+
+
+
+
+
 
 ### Validation
 
