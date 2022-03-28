@@ -504,7 +504,6 @@ Here's a simple form using `vee-validate`:
 ```javascript
 const FormComponent = {
   template: `
-  <div id="app">
     <v-form @submit="onSubmit">
       <div>
         <label>
@@ -521,7 +520,6 @@ const FormComponent = {
       </div>
       <button type="submit">Submit</button>
     </v-form>
-  </div>
 `,
   components: {
     VForm: VeeValidate.Form,
@@ -614,6 +612,65 @@ A limitation of Formik is that we **must use the `<Formik>` component in order t
 
 // TODO
 
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <h1>Friend List</h1>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <ng-container formArrayName="users">
+    <div *ngFor="let item of arr.controls; let i = index;" [formGroupName]="i">
+        <label>
+          Name
+          <input type="text" formControlName="name"/>
+        </label>
+        <button type="button" (click)="removeUser(i)">Remove User</button>
+    </div>
+    </ng-container>
+    <button type="button" (click)="addUser()">Add user</button>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  id = 0;
+
+  mainForm = this.fb.group({
+    users: this.fb.array([this.fb.group({ id: ++this.id, name: '' })]),
+  });
+
+  addUser() {
+    this.arr.push(
+      this.fb.group({
+        id: ++this.id,
+        name: '',
+      })
+    );
+  }
+
+  removeUser(i) {
+    this.arr.removeAt(i);
+  }
+
+  // Required cast to FormArray. Otherwise, TypeScript will assume it
+  // to be a `FormControl` and won't have `push` or `removeAt` methods.
+  get arr(): FormArray {
+    return this.mainForm.get('users') as FormArray;
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+
+
 #### Vue
 
 // TODO
@@ -621,21 +678,22 @@ A limitation of Formik is that we **must use the `<Formik>` component in order t
 ```javascript
 const FormComponent = {
   template: `
-  <div id="app">
-  <v-form @submit="onSubmit" :initial-values="initialValues">
-    <field-array name="users" key-path="id" v-slot="{fields, push, remove }">
-    <div v-for="(field, idx) in fields" :key="field.key">
-      <label>
-        Name
-        <v-field :name="'users[' + idx + '].name'"></v-field> 
-      </label>
-      <button type="button" @click="remove(idx)">Remove User</button>
-    </div>
-    <button type="button" @click="push({name: '', id: ++id})">Add User</button>
-    </field-array>
-    <button type="submit">Submit</button>
-  </v-form>
-</div>
+  <div>
+    <h1>Friend List</h1>
+    <v-form @submit="onSubmit" :initial-values="initialValues">
+      <field-array name="users" key-path="id" v-slot="{fields, push, remove }">
+      <div v-for="(field, idx) in fields" :key="field.key">
+        <label>
+          Name
+          <v-field :name="'users[' + idx + '].name'"></v-field> 
+        </label>
+        <button type="button" @click="remove(idx)">Remove User</button>
+      </div>
+      <button type="button" @click="push({name: '', id: ++id})">Add User</button>
+      </field-array>
+      <button type="submit">Submit</button>
+    </v-form>
+  </div>
 `,
   components: {
     VForm: VeeValidate.Form,
