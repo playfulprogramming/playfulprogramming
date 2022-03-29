@@ -20,17 +20,7 @@ Let's create a form that the user can fill out to add a new user to their existi
 
 ## One-way Form Bindings
 
-
-
-
-
-
-
-Using props/events
-
-// TODO: Use file sharing form as an example
-
-
+One common and easy way to assign a value to form elements - like a text input - is to simply listen for value changes (using events) on the element and assign those changes back to a bound input value.
 
 <!-- tabs:start -->
 
@@ -38,27 +28,25 @@ Using props/events
 
 ```jsx
 const FormComp = () => {
-	const [inputText, setInputText] = React.useState("");
+  const [inputText, setInputText] = React.useState("");
 
-	const onChange = (e) => {
-		setInputText(e.target.value);
-	}
-    
-    const onSubmit = (e) => {
-      e.preventDefault();
-      console.log(inputText);
-    };
+  const onChange = (e) => {
+    setInputText(e.target.value);
+  }
 
-	return (
-      <form onSubmit={onSubmit}>
-		<input type="text" onChange={onChange} value={inputText}/>
-        <button type="submit">Submit</button>
-      </form>
-	)
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputText);
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input type="text" onChange={onChange} value={inputText} />
+      <button type="submit">Submit</button>
+    </form>
+  )
 }
 ```
-
-
 
 ### Angular
 
@@ -85,8 +73,6 @@ export class FormComponent {
   }
 }
 ```
-
-
 
 ### Vue
 
@@ -115,23 +101,29 @@ const FormComp = {
 };
 ```
 
-
-
 <!-- tabs:end -->
+
+
+
+While this works as-is, it can get complex when too many inputs are present. For each input you need:
+
+- A function to listen for changes and bind them to the value
+- A variable to assign the data to
+- Rebind said data back to the input
+
+Let's try to simplify this by removing the first step.
 
 ## Two-way form bindings
 
-`v-model`, `[(ngModel)]`
-
-
+One method for removing the function to listen for changes is by using the given framework's input variable two-way bindings. When the framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
 <!-- tabs:start -->
 
 ### React
 
-React doesn't have a way to do this
+React doesn't have a way to do this and generally regard it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data-flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
 
-
+However, we'll touch on another method of form binding that should be helpful to address the verbosity of that method soon.
 
 ### Angular
 
@@ -189,6 +181,8 @@ export class AppModule {}
 
 ### Vue
 
+While Angular's two-way binding requires a special syntax, Vue instead relies on a custom element attribute called `v-model` to sync the variable to the element's value.
+
 ```javascript
 const FormComp = {
   template: `
@@ -211,17 +205,22 @@ const FormComp = {
 };
 ```
 
-
-
 <!-- tabs:end -->
 
+While these methods of two-way binding help mitigate some problems, there's still one big problem: Your data is no longer consolidated. This means that if you submit a form and want to, say, pass the form's data to your server, you'll need to:
 
+- Create a new object
+- Make sure you pass all subkeys of the object
 
+While this works for simple examples like ours, it quickly gets unweildy and easy to introduce bugs within at a larger scale.
 
+There's a better way.
 
 ## Reactive Forms
 
+Reactive forms are a way for you to keep all of your form data inside of a single variable when it comes time to submit a form. There are also multiple enhancements to this method, such as data validation and array handling.
 
+Let's take a look at how we can use reactive forms in our framworks, then touch on the additional features afterwards.
 
 <!-- tabs:start -->
 
