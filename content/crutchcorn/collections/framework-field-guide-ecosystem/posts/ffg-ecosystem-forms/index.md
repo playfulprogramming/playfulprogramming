@@ -764,7 +764,7 @@ const FormComp = () => {
           <div>
             <Field name="name" validate={requiredField} />
           </div>
-          {errors.name && <div>{errors.name}</div>}
+          {errors.name && errors.touched && <div>{errors.name}</div>}
           <button type="submit">Submit</button>
         </Form>
       )}
@@ -773,9 +773,108 @@ const FormComp = () => {
 };
 ```
 
+##### Complex Data Schema
+
+
+
+// TODO Usage with `yup`
+
+
+
 #### Angular
 
 // TODO
+
+```typescript
+import {
+  FormsModule,
+  FormBuilder,
+  ReactiveFormsModule,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
+
+export function requiredValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const noVal = !control.value;
+  return noVal ? { required: 'This field is required' } : null;
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <h1>Friend List</h1>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <label>
+      Name
+      <input type="text" formControlName="name"/>
+    </label>
+
+
+    <div *ngIf="mainForm.touched && mainForm.controls.name.errors?.['required']">
+    Name is required.
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  mainForm = this.fb.group({
+    name: ['', requiredValidator],
+  });
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+
+
+##### Built-In Validators
+
+// TODO
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <h1>Friend List</h1>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <label>
+      Name
+      <input type="text" formControlName="name"/>
+    </label>
+
+
+    <div *ngIf="mainForm.touched && mainForm.controls.name.errors?.['required']">
+    Name is required.
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  mainForm = this.fb.group({
+    name: ['', Validators.required],
+  });
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
 
 #### Vue
 
