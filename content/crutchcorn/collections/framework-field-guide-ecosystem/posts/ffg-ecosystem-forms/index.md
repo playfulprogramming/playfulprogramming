@@ -779,9 +779,66 @@ class AppComponent {
 
 ### Vue
 
+`vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `v-field` as well as each `v-form`. A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `v-field` where we did not have to do so earlier.
 
+```javascript
+const FormComponent = {
+  template: `
+    <v-form @submit="onSubmit" v-slot="{ meta }">
+      <div>
+        <label>
+          Name
+          <v-field name="name" value=""  v-slot="{ field, meta }">
+            <input v-bind="field" />
+            <p v-if="meta.dirty">Field is dirty</p>
+            <p v-if="meta.touched">Field has been touched</p>
+            <p v-if="!meta.dirty">Field is pristine</p>
+          </v-field> 
+        </label>
+      </div>
 
+      <div>
+        <label>
+          Disabled field
+          <v-field disabled name="disabled" value=""></v-field> 
+        </label>
+      </div>
+      <p v-if="meta.dirty">Form is dirty</p>
+      <p v-if="!meta.dirty">Form is pristine</p>
+      <p v-if="meta.touched">Form has been touched</p>
+      <p v-if="submitted">Form submitted</p>
+      <p v-if="pending">Form is pending</p>
+      <button type="submit">Submit</button>
+    </v-form>
+`,
+  components: {
+    VForm: Form,
+    VField: Field,
+  },
+  data() {
+    return {
+      pending: false,
+      submitted: false,
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      this.submitted = true;
+      this.pending = true;
+      this.sendToServer(values).then(() => {
+        this.pending = false;
+      });
+    },
+    // Pretend this is calling to a server
+    sendToServer(formData) {
+      // Wait 4 seconds, then resolve promise
+      return new Promise((resolve) => setTimeout(() => resolve(0), 4000));
+    },
+  },
+};
+```
 
+> You may notice that `vee-validate`'s `dirty` only seems to be `true` when the form actively has data inside of it. This differs in behavior from the other frameworks and is worth noting.
 
 <!-- tabs:end -->
 
@@ -798,6 +855,38 @@ Additional to form states, a reactive form also adds in the following features i
 - [Validation - making sure an input's value aligns to a set of rules.](#form-validation)
 	- "Is input a valid email"
 	- Required fits into this category
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1139,8 +1228,14 @@ class AppComponent {
 <!-- tabs:end -->
 
 
+# Non-Text Form Fields
 
+Not all fields in a form are going to be text inputs, however. While there are many other types of user input elements, let's focus on just two:
 
+1) User Select Dropdowns
+2) User Radio Buttons
+
+// TODO:
 
 -----
 
