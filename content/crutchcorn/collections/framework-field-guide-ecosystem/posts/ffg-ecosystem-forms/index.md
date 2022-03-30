@@ -286,7 +286,7 @@ const FormComponent = () => {
 
 The `useFormik` hook isn't the only way to declare a form, however. Formik also provides a set of components that can then be used in place of a hook.
 
-```jsx {5-13}
+```jsx {5-14}
 import React from "react";
 import { Formik } from "formik";
 
@@ -300,7 +300,8 @@ const FormComponent = () => {
       onSubmit={(values) => {
         console.log(values);
       }}
-      render={({ values, handleChange, handleSubmit }) => (
+    >
+      {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <div>
             <label>
@@ -327,14 +328,14 @@ const FormComponent = () => {
           <button type="submit">Submit</button>
         </form>
       )}
-    />
+    </Formik>
   );
 };
 ```
 
 This component isn't just useful as an alternative API, however - it also enabled us to use functionality like Formik's built in `Form` and `Field` components, which allows us to remove the `onSubmit` and `onChange` method passing for a more terse API.
 
-```jsx {11,15,21}
+```jsx {12,16,22,26}
 const FormComponent = () => {
   return (
     <Formik
@@ -345,7 +346,8 @@ const FormComponent = () => {
       onSubmit={(values) => {
         console.log(values);
       }}
-      render={({ values, handleChange, handleSubmit }) => (
+    >
+      {({ values, handleChange, handleSubmit }) => (
         <Form>
           <div>
             <label>
@@ -362,7 +364,7 @@ const FormComponent = () => {
           <button type="submit">Submit</button>
         </Form>
       )}
-    />
+    </Formik>
   );
 };
 ```
@@ -668,7 +670,8 @@ export const FriendList = () => (
     <Formik
       initialValues={{ users: [] }}
       onSubmit={(values) => console.log(values)}
-      render={({ values }) => (
+     >
+       {({ values }) => (
         <Form>
           <FieldArray
             name="users"
@@ -700,7 +703,7 @@ export const FriendList = () => (
           />
         </Form>
       )}
-    />
+    </Formik>
   </div>
 );
 ```
