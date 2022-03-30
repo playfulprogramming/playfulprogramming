@@ -140,12 +140,12 @@ Well, if we combine them together, we can sync all of an event's values to and f
 
 For our simple example of binding a `value`, we can use the `bindName` of `ngModel`, which is standard on most input elements.
 
-```typescript
+```typescript {4,10}
 @Component({
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  	<input type="text" [(ngModel)]="inputText" name="input"/>
+	  <input type="text" [(ngModel)]="inputText" name="input"/>
       <button type="submit">Submit</button>
     </form>
   `,
@@ -166,7 +166,7 @@ However, when you first use this, you may run into an error:
 
 This is because we need to import the `FormsModule` in our closest `NgModel` to use `ngModel` bindings
 
-```typescript
+```typescript {2,6}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -183,7 +183,7 @@ export class AppModule {}
 
 While Angular's two-way binding requires a special syntax, Vue instead relies on a custom element attribute called `v-model` to sync the variable to the element's value.
 
-```javascript
+```javascript {3,9}
 const FormComp = {
   template: `
   <form @submit="onSubmit($event)">
@@ -226,13 +226,13 @@ Let's take a look at how we can use reactive forms in our framworks, then touch 
 
 ### React
 
- Because of React's minimalist API philosophy, React does not have anything equivocal to Angular's reactive forms. Instead, it relies on the ecosystem of libraries to support this functionality.
+Because of React's minimalist API philosophy, React does not have anything equivocal to Angular's reactive forms. Instead, it relies on the ecosystem of libraries to support this functionality.
 
 Luckily, there's a similar tool that's both widely used and highly capable: [Formik](https://formik.org/).
 
 Here's what a basic form might look like in Formik:
 
-```jsx
+```jsx {10-18,20,24-29}
 import React from "react";
 import { useFormik } from "formik";
 
@@ -284,11 +284,9 @@ const FormComponent = () => {
 
 #### `<Formik/>` Component 
 
-This isn't the only way to declare a form, however. 
+The `useFormik` hook isn't the only way to declare a form, however. Formik also provides a set of components that can then be used in place of a hook.
 
-// TODO
-
-```jsx
+```jsx {5-13}
 import React from "react";
 import { Formik } from "formik";
 
@@ -334,13 +332,52 @@ const FormComponent = () => {
 };
 ```
 
+This component isn't just useful as an alternative API, however - it also enabled us to use functionality like Formik's built in `Form` and `Field` components, which allows us to remove the `onSubmit` and `onChange` method passing for a more terse API.
 
+```jsx {11,15,21}
+const FormComponent = () => {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        favoriteFood: '',
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+      render={({ values, handleChange, handleSubmit }) => (
+        <Form>
+          <div>
+            <label>
+              Name
+              <Field type="text" name="name" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Favorite food
+              <Field type="text" name="favoriteFood" />
+            </label>
+          </div>
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    />
+  );
+};
+```
+
+> Keep in mind, the `Field` and `Form` components will not work when using `useFormik`. Instead, you'd have to pass `onChange` and `onSubmit` respectively to `input` and `form` HTML elements as we demonstrated before.
+
+> We are currently using version 2 of Formik. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
 ### Angular
 
-First, import the `ReactiveFormsModule`
+As opposed to the other two frameworks, which require utilizing an external library for reactive forms, Angular has them baked in as a priority feature of the framework.
 
-```typescript
+To utilize them, we first need to import the `ReactiveFormsModule`, which allows us to have a more fully featured API as opposed to `FormsModule`'s `[(ngModel)]`.
+
+```typescript {2,5}
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -353,9 +390,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AppModule {}
 ```
 
-Then, we can create a new `FormControl` to assign a value:
+Now, we can create a new instance of a class called `FormControl` to act as an form item that we can then bind to a `[formControl]` in order to have two-way event and value input sync. 
 
-```typescript
+```typescript {0,6,12}
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -377,9 +414,9 @@ export class FormComponent {
 }
 ```
 
-We can even manually update the value of the `FormControl` from JavaScript:
+We aren't simply bound to input events to update this value, however; we can even manually update the value of the `FormControl` from JavaScript-land:
 
-```typescript
+```typescript {14}
 @Component({
   selector: 'form-comp',
   template: `
@@ -406,9 +443,9 @@ export class FormComponent {
 
 #### Form Groups
 
-However, this doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth:
+While a basic `FormControl` creation is useful for demonstration purposes, it doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth through a new `FormGroup` class instance:
 
-```typescript
+```typescript {0,5,9,23-26,30}
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -446,7 +483,7 @@ export class FormComponent {
 
 #### Form Builder
 
-You're also able to utilize a shorthand provided by Angular to remove duplicate calls to `FormControl`
+You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup` respectively.
 
 ```typescript
 import {
@@ -494,36 +531,38 @@ export class FormComponent {
 
 ### Vue
 
-// TODO
-
 While Vue has a large home-grown ecosystem of tools, Vue does not have an official complex form library. Luckily for us, [`vee-validate` aims to be a good fit for any form requirements our Vue apps may have](https://github.com/logaretm/vee-validate). 
 
 Here's a simple form using `vee-validate`:
 
 ```javascript
+import {Form, Field, ErrorMessage} from 'vee-validate';
+
 const FormComponent = {
   template: `
     <v-form @submit="onSubmit">
       <div>
         <label>
           Name
-      <v-field name="name" value=""></v-field> 
+          <v-field name="name" value=""></v-field> 
         </label>
       </div>
 
       <div>
         <label>
           Favorite food
-      <v-field name="favoriteFood" value=""></v-field> 
+          <v-field name="favoriteFood" value=""></v-field> 
         </label>
       </div>
       <button type="submit">Submit</button>
     </v-form>
 `,
+  // We're importing these forms under a different name due to conflicts
+  // with the browser's built in `form` and `field` elements
   components: {
-    VForm: VeeValidate.Form,
-    VField: VeeValidate.Field,
-    ErrorMessage: VeeValidate.ErrorMessage,
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
   },
   methods: {
     onSubmit(values) {
@@ -533,21 +572,39 @@ const FormComponent = {
 }
 ```
 
+> We are currently using version 4 of `vee-validate`. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
+
 <!-- tabs:end -->
 
 
+As we mentioned earlier, reactive forms have more features than the simple two-way (or even one-way) input binding!
 
-We're using Formik v2 and `vee-validate` v4.
+Of this list, here's a small section of concepts that Reactive Forms (regardless of framework) introduce:
+
+- "Touched" inputs - when the user has interacted with a given field, even if they haven't input anything
+  - Clicking on input
+  - Tabbing through an input
+  - Typing data into input
+- "Touched" forms - when the user has interacted with _any_ field in a form
+- "Dirty" fields - When the user has input data into the field
+  - Comes after "touch"ing said field
+- "Pristine" fields - User has not yet input data into the field
+  - Comes before "touch"ing said field
+- "Disabled" fields - Inputs that the user should not be able to add values into
+- "Pending" forms - When a user has submitted a form and the form is currently doing something
+  - Submitting data to the server
+- "Required" fields - Make sure an input's value is present and not empty
+- [Validation - making sure an input's value aligns to a set of rules.](#form-validation)
+  - "Is input a valid email"
+  - Required fits into this category
+- Form groups - A collection of fields (or sub-fields) that create a grouping
+- [Form arrays](#form-arrays) - A collection of fields in a list
 
 
 
-### Arrays
+### Arrays {#form-arrays}
 
 // TODO: Complete this section
-
-- [Formik `<FieldArray>`](https://formik.org/docs/api/fieldarray)
-- [Angular FormArray](https://angular.io/guide/reactive-forms#creating-dynamic-forms)
-- [Vee-validate FieldArray](https://vee-validate.logaretm.com/v4/examples/array-fields)
 
 
 
@@ -730,7 +787,7 @@ Notice our usage of `key-path` // TODO:
 
 
 
-### Validation
+### Validation {#form-validation}
 
 // TODO: Talk about form validators
 
