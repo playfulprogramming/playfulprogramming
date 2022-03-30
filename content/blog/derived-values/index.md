@@ -15,7 +15,7 @@ We've touched on before how to pass values to a component as properties:
 
 <!-- tabs:start -->
 
-### React
+# React
 
 ```jsx
 const FileDate = ({ inputDate }) => {
@@ -28,7 +28,7 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-### Angular
+# Angular
 
 ```typescript
 import { Component, OnInit } from "@angular/core";
@@ -47,7 +47,7 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
-### Vue
+# Vue
 
 ```javascript
 const FileDate = {
@@ -71,7 +71,7 @@ Because of this, we lose reactivity if we were to pass in an updated `inputDate`
 
 <!-- tabs:start -->
 
-### React
+# React
 
 ```jsx
 const File = () => {
@@ -92,7 +92,7 @@ const File = () => {
 }
 ```
 
-### Angular
+# Angular
 
 ```typescript
 import { Component, OnInit } from "@angular/core";
@@ -120,7 +120,7 @@ export class FileComponent implements OnInit, OnDestroy {
 }
 ```
 
-### Vue
+# Vue
 
 ```javascript
 const File = {
@@ -151,7 +151,7 @@ While the `File` component is working as-expected, our `FileDate` component is n
 
 How can we fix this?
 
-## Method 1: Prop listening
+# Method 1: Prop listening
 
 The first, and arguably easiest to mentally model, method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
@@ -159,7 +159,7 @@ Luckily, we can use [our existing knolwedge of lifecycle methods](/posts/lifecyc
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx {4-8}
 const FileDate = ({ inputDate }) => {
@@ -178,7 +178,7 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-### Angular
+## Angular
 
 ```typescript
 import { Component, OnInit, SimpleChanges } from "@angular/core";
@@ -210,7 +210,7 @@ export class FileDateComponent implements OnChanges {
 
 Here, we're using a new lifecycle method — specific to Angular — called `ngOnChanges` to detect when a property value is updated.
 
-### Vue
+## Vue
 
 ```javascript
 const FileDate = {
@@ -241,7 +241,7 @@ Here, we're watching the `inputDate` input key and, when changed, updating `date
 
 While this method works, it tends to introduce duplicate developmental logic. Notice how we have to repeat the declaration of the `dateStr` and `labelText` values. Luckily for us, there's an easy solution for this called "computed values".
 
-## Method 2: Computed values
+# Method 2: Computed values
 
 Our previous method of deriving a value from a property follows two steps:
 
@@ -258,7 +258,7 @@ Luckily for us, all three frameworks have a way of doing just this!
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx {4-8}
 const FileDate = ({ inputDate }) => {
@@ -295,7 +295,7 @@ const AddComp = ({baseNum, addNum}) => {
 
 > While it's technically possible to use this trick to never use `useMemo`, your application's performance will greatly suffer. There's a bit of a science to knowing when and where to use `useMemo`. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
 
-### Angular
+## Angular
 
 Angular introduces the concept of a "pipe" into the mix of things. The idea being that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
 
@@ -346,7 +346,7 @@ export class FileDateComponent {
 ```
 
 
-#### Multiple Input Pipes
+### Multiple Input Pipes
 
 You may notice the similarities between pipes and functions. After all, pipes are effectively functions you're able to call in your template. Much like functions, they're not limited to a single input property, either.
 
@@ -378,7 +378,7 @@ export class FileDateComponent {
 }
 ```
 
-#### Built-in Pipes
+### Built-in Pipes
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
@@ -410,7 +410,7 @@ export class FileDateComponent {
 }
 ```
 
-### Vue
+## Vue
 
 ```javascript
 const FileDate = {
