@@ -576,29 +576,72 @@ const FormComponent = {
 
 <!-- tabs:end -->
 
+## Input States {#input-states}
 
 As we mentioned earlier, reactive forms have more features than the simple two-way (or even one-way) input binding!
 
-Of this list, here's a small section of concepts that Reactive Forms (regardless of framework) introduce:
+One of the features that's added with reactive forms is the concept of an input's state. An input can have many different states:
 
-- "Touched" inputs - when the user has interacted with a given field, even if they haven't input anything
+- "Touched" - When the user has interacted with a given field, even if they haven't input anything
   - Clicking on input
   - Tabbing through an input
   - Typing data into input
-- "Touched" forms - when the user has interacted with _any_ field in a form
-- "Dirty" fields - When the user has input data into the field
-  - Comes after "touch"ing said field
-- "Pristine" fields - User has not yet input data into the field
-  - Comes before "touch"ing said field
-- "Disabled" fields - Inputs that the user should not be able to add values into
-- "Pending" forms - When a user has submitted a form and the form is currently doing something
-  - Submitting data to the server
-- "Required" fields - Make sure an input's value is present and not empty
-- [Validation - making sure an input's value aligns to a set of rules.](#form-validation)
-  - "Is input a valid email"
-  - Required fits into this category
+- "Pristine" - User has not yet input data into the field
+  - Comes before "touching" said field if the user has not interacted with it any way
+  - Comes between "touched" and "dirty" when the user has "touched" the field but has not put data in
+- "Dirty"  - When the user has input data into the field
+  - Comes after "touching" said field
+  - Opposite of "pristine"
+- "Disabled" - Inputs that the user should not be able to add values into
+- "Required" - Make sure an input's value is present and not empty
+
+While some of these states are mutually exclusive, an input may have more than one of these states active at a time. For example, a field that the user has typed into has both "dirty" and "touched" states applied at the same time.
+
+These states can then be used to apply different styling or logic on each of the input's associated elements. For example, a field that is `required && touched && pristine`, meaning that the user has clicked on the field, not input data into the field, but the field requires a user's input. In this instance, an implementation might show a `"This field is required"` error message.
+
+> The method of displaying this error message is part of a much larger discussion of [field validation, which we'll touch on in a different section in this chapter](#form-validation).
+
+In addition to the form's fields having these possible states applied, many of them apply to the `form` itself.
+
+For example, when the user "touches" a field for the first time, they're also "touching" the form itself. You can use this information to do something like:
+
+```javascript
+// This is psuedocode and likely won't work with any framework unconfigured
+if (!form.touched) {
+	alert("You must put data into the form first!")
+    return;
+}
+```
+
+In addition to the existing field states, a form may also contain a "pending" state. This pending state occurs when a user has submitted a form while the form is currently doing something, like submitting data to the server.
+
+Here's an interactive playground that you can use to play around with each of the different input states.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Additional to form states, a reactive form also adds in the following features into a form: 
+
 - Form groups - A collection of fields (or sub-fields) that create a grouping
 - [Form arrays](#form-arrays) - A collection of fields in a list
+- [Validation - making sure an input's value aligns to a set of rules.](#form-validation)
+	- "Is input a valid email"
+	- Required fits into this category
 
 
 
