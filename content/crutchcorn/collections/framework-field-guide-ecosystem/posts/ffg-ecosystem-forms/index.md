@@ -18,13 +18,13 @@ We've been working on a files app up to this point in a fairly simplistic manner
 
 Let's create a form that the user can fill out to add a new user to their existing files.
 
-## One-way Form Bindings
+# One-way Form Bindings
 
 One common and easy way to assign a value to form elements - like a text input - is to simply listen for value changes (using events) on the element and assign those changes back to a bound input value.
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx
 const FormComp = () => {
@@ -48,7 +48,7 @@ const FormComp = () => {
 }
 ```
 
-### Angular
+## Angular
 
 ```typescript
 @Component({
@@ -74,7 +74,7 @@ export class FormComponent {
 }
 ```
 
-### Vue
+## Vue
 
 ```javascript
 const FormComp = {
@@ -113,19 +113,19 @@ While this works as-is, it can get complex when too many inputs are present. For
 
 Let's try to simplify this by removing the first step.
 
-## Two-way form bindings
+# Two-way form bindings
 
 One method for removing the function to listen for changes is by using the given framework's input variable two-way bindings. When the framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
 <!-- tabs:start -->
 
-### React
+## React
 
 React doesn't have a way to do this and generally regard it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data-flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
 
 However, we'll touch on another method of form binding that should be helpful to address the verbosity of that method soon.
 
-### Angular
+## Angular
 
 If you recall from our earlier introduction to components, Angular's syntax to bind to an attribute or property is `[bindName]`. Similarly, the syntax to bind to a DOM event or component output is `(bindName)`.
 
@@ -179,7 +179,7 @@ import { FormsModule } from '@angular/forms';
 export class AppModule {}
 ```
 
-### Vue
+## Vue
 
 While Angular's two-way binding requires a special syntax, Vue instead relies on a custom element attribute called `v-model` to sync the variable to the element's value.
 
@@ -216,7 +216,7 @@ While this works for simple examples like ours, it quickly gets unweildy and eas
 
 There's a better way.
 
-## Reactive Forms
+# Reactive Forms
 
 Reactive forms are a way for you to keep all of your form data inside of a single variable when it comes time to submit a form. There are also multiple enhancements to this method, such as data validation and array handling.
 
@@ -224,7 +224,7 @@ Let's take a look at how we can use reactive forms in our framworks, then touch 
 
 <!-- tabs:start -->
 
-### React
+## React
 
 Because of React's minimalist API philosophy, React does not have anything equivocal to Angular's reactive forms. Instead, it relies on the ecosystem of libraries to support this functionality.
 
@@ -282,7 +282,7 @@ const FormComponent = () => {
 };
 ```
 
-#### `<Formik/>` Component 
+### `<Formik/>` Component 
 
 The `useFormik` hook isn't the only way to declare a form, however. Formik also provides a set of components that can then be used in place of a hook.
 
@@ -371,7 +371,7 @@ const FormComponent = () => {
 
 > We are currently using version 2 of Formik. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
-### Angular
+## Angular
 
 As opposed to the other two frameworks, which require utilizing an external library for reactive forms, Angular has them baked in as a priority feature of the framework.
 
@@ -441,7 +441,7 @@ export class FormComponent {
 }
 ```
 
-#### Form Groups
+### Form Groups
 
 While a basic `FormControl` creation is useful for demonstration purposes, it doesn't truly demonstrate the full power of reactive forms. Namely, when there are multiple inputs, your `form` can act as the source of truth through a new `FormGroup` class instance:
 
@@ -481,7 +481,7 @@ export class FormComponent {
 }
 ```
 
-#### Form Builder
+### Form Builder
 
 You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup` respectively.
 
@@ -529,7 +529,7 @@ export class FormComponent {
 
 > Under the hood, this uses Angular's [Dependency Injection system, which we'll touch on in a future chapter.](// TODO: Add link)
 
-### Vue
+## Vue
 
 While Vue has a large home-grown ecosystem of tools, Vue does not have an official complex form library. Luckily for us, [`vee-validate` aims to be a good fit for any form requirements our Vue apps may have](https://github.com/logaretm/vee-validate). 
 
@@ -602,7 +602,7 @@ Of this list, here's a small section of concepts that Reactive Forms (regardless
 
 
 
-### Arrays {#form-arrays}
+# Form Arrays {#form-arrays}
 
 // TODO: Complete this section
 
@@ -610,7 +610,7 @@ Of this list, here's a small section of concepts that Reactive Forms (regardless
 
 <!-- tabs:start -->
 
-#### React
+## React
 
 // TODO
 
@@ -664,7 +664,7 @@ export const FriendList = () => (
 
 A limitation of Formik is that we **must use the `<Formik>` component in order to use `<FieldArray>`**. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link).
 
-#### Angular
+## Angular
 
 // TODO
 
@@ -727,7 +727,7 @@ class AppComponent {
 
 
 
-#### Vue
+## Vue
 
 // TODO
 
@@ -787,7 +787,7 @@ Notice our usage of `key-path` // TODO:
 
 
 
-### Validation {#form-validation}
+# Form Validation {#form-validation}
 
 // TODO: Talk about form validators
 
@@ -797,7 +797,7 @@ Notice our usage of `key-path` // TODO:
 
 <!-- tabs:start -->
 
-#### React
+## React
 
 // TODO
 
@@ -829,7 +829,7 @@ const FormComp = () => {
 };
 ```
 
-##### Complex Data Schema
+### Complex Data Schema
 
 
 
@@ -837,7 +837,7 @@ const FormComp = () => {
 
 
 
-#### Angular
+## Angular
 
 // TODO
 
@@ -893,7 +893,7 @@ class AppComponent {
 
 
 
-##### Built-In Validators
+### Built-In Validators
 
 // TODO
 
@@ -932,7 +932,7 @@ class AppComponent {
 }
 ```
 
-#### Vue
+## Vue
 
 // TODO
 
