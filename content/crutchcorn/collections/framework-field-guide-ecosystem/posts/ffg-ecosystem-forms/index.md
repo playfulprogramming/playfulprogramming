@@ -517,7 +517,11 @@ import {
 export class FormComponent {
   mainForm = this.fb.group({
     name: '',
-    favoriteFood: '',
+    // This doesn't mean to make `favoriteFood` an array
+    // It just allows us to add more information about this
+    // Input in the future.
+    // We'll see it's usage in the next section
+    favoriteFood: [''],
   });
 
   constructor(private fb: FormBuilder) {}
@@ -595,7 +599,6 @@ One of the features that's added with reactive forms is the concept of an input'
   - Comes after "touching" said field
   - Opposite of "pristine"
 - "Disabled" - Inputs that the user should not be able to add values into
-- "Required" - Make sure an input's value is present and not empty
 
 While some of these states are mutually exclusive, an input may have more than one of these states active at a time. For example, a field that the user has typed into has both "dirty" and "touched" states applied at the same time.
 
@@ -615,23 +618,174 @@ if (!form.touched) {
 }
 ```
 
-In addition to the existing field states, a form may also contain a "pending" state. This pending state occurs when a user has submitted a form while the form is currently doing something, like submitting data to the server.
+In addition to the existing field states, a form may also contain the following states:
+
+- "Submitted" - When the user has submitted a form
+- "Pending" - When a user has submitted a form while the form is currently doing something
+  - Comes after "submitted"
+  - Submitting data to the server
 
 Here's an interactive playground that you can use to play around with each of the different input states.
 
 
 
+<!-- tabs:start -->
+
+### React
+
+Formik only provides the states for:
+
+- Touched fields
+- Dirty forms
+- Submitted forms
+
+And allows you to construct the rest from it
+
+```jsx
+const FormComponent = () => {
+  const [isPending, setIsPending] = useState(false);
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        favoriteFood: '',
+      }}
+      onSubmit={(values) => {
+        setIsPending(true);
+        sendToServer(values).then(() => setIsPending(false));
+      }}
+    >
+      {({ touched, dirty, isSubmitting }) => (
+        <Form>
+          <div>
+            <label>
+              Name
+              <Field type="text" name="name" />
+            </label>
+            {touched.name && <p>This field has been touched</p>}
+            {!touched.name && <p>This field has not been touched</p>}
+          </div>
+          <div>
+            <label>
+              Disabled Field
+              <Field type="text" name="other" disabled />
+            </label>
+          </div>
+          {/* Formik doesn't provide "dirty" on a field-level basis */}
+          {dirty && <p>This form is dirty</p>}
+          {!dirty && <p>This form is pristine</p>}
+          {isSubmitting && <p>Form is submitted</p>}
+          {isPending && <p>Form is pending</p>}
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+// Pretend this is calling to a server
+function sendToServer(formData) {
+  // Wait 4 seconds, then resolve promise
+  return new Promise((resolve) => setTimeout(() => resolve(), 4000));
+}
+```
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <h1>Friend List</h1>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <div>
+      <label>
+        Name
+        <input type="text" formControlName="name"/>
+      </label>
+      <p *ngIf="mainForm.controls.name.untouched">
+        Field has not been touched
+      </p>
+      <p *ngIf="mainForm.controls.name.touched">
+        Field has been touched
+      </p>
+      <p *ngIf="mainForm.controls.name.dirty">
+        Field is dirty
+      </p>
+      <p *ngIf="mainForm.controls.name.pristine">
+        Field is pristine
+      </p>
+    </div>
+    <div>
+      <label>
+        Disabled field
+        <input type="text" [disabled]="true" formControlName="disabled"/>
+      </label>
+    </div>
+    <button type="submit">Submit</button>
+    <p *ngIf="mainForm.untouched">
+      Form has not been touched
+    </p>
+    <p *ngIf="mainForm.touched">
+      Form has been touched
+    </p>
+    <p *ngIf="mainForm.dirty">
+      Form is dirty
+    </p>
+    <p *ngIf="mainForm.pristine">
+      Form is pristine
+    </p>
+    <p *ngIf="mainForm.dirty">
+      Form is dirty
+    </p>
+    <p *ngIf="submitted">
+      Form is submitted
+    </p>
+    <p *ngIf="pending">
+      Form is pending
+    </p>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  mainForm = this.fb.group({
+    name: [''],
+    disabled: [{ value: '', disabled: true }],
+  });
+
+  submitted = false;
+  pending = false;
+
+  onSubmit(e) {
+    this.submitted = true;
+    this.pending = true;
+    e.preventDefault();
+    this.sendToServer(this.mainForm.value).then(() => {
+      this.pending = false;
+    });
+  }
+
+  // Pretend this is calling to a server
+  sendToServer(formData) {
+    // Wait 4 seconds, then resolve promise
+    return new Promise((resolve) => setTimeout(() => resolve(0), 4000));
+  }
+}
+```
+
+### Vue
 
 
 
 
 
+<!-- tabs:end -->
 
-
-
-
-
-
+### 
 
 
 
