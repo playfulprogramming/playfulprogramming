@@ -28,20 +28,20 @@ One common and easy way to assign a value to form elements - like a text input -
 
 ```jsx
 const FormComp = () => {
-  const [inputText, setInputText] = React.useState("");
+  const [usersName, setUsersName] = React.useState("");
 
   const onChange = (e) => {
-    setInputText(e.target.value);
+    setUsersName(e.target.value);
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(inputText);
+    console.log(usersName);
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="text" onChange={onChange} value={inputText} />
+      <input type="text" onChange={onChange} value={usersName} />
       <button type="submit">Submit</button>
     </form>
   )
@@ -55,21 +55,21 @@ const FormComp = () => {
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  	<input type="text" (change)="onChange($event)" [value]="inputText"/>
+	  	<input type="text" (change)="onChange($event)" [value]="usersName"/>
       <button type="submit">Submit</button>
     </form>
   `,
 })
 export class FormComponent {
-  inputText = '';
+  usersName = '';
 
   onChange(e: { target: HTMLInputElement }) {
-    this.inputText = e.target.value;
+    this.usersName = e.target.value;
   }
 
   onSubmit(e: Event) {
     e.preventDefault();
-    console.log(this.inputText);
+    console.log(this.usersName);
   }
 }
 ```
@@ -80,22 +80,22 @@ export class FormComponent {
 const FormComp = {
   template: `
   <form @submit="onSubmit($event)">
-    <input type="text" @change="onChange($event)" :value="inputText"/>
+    <input type="text" @change="onChange($event)" :value="usersName"/>
     <button type="submit">Submit</button>
   </form>
   `,
   data() {
     return {
-      inputText: '',
+      usersName: '',
     };
   },
   methods: {
     onChange(e) {
-      this.inputText = e.target.value;
+      this.usersName = e.target.value;
     },
     onSubmit(e) {
       e.preventDefault();
-      console.log(this.inputText);
+      console.log(this.usersName);
     },
   },
 };
@@ -145,17 +145,17 @@ For our simple example of binding a `value`, we can use the `bindName` of `ngMod
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  <input type="text" [(ngModel)]="inputText" name="input"/>
+	  <input type="text" [(ngModel)]="usersName" name="input"/>
       <button type="submit">Submit</button>
     </form>
   `,
 })
 export class FormComponent {
-  inputText = '';
+  usersName = '';
 
   onSubmit(e: Event) {
     e.preventDefault();
-    console.log(this.inputText);
+    console.log(this.usersName);
   }
 }
 ```
@@ -187,19 +187,19 @@ While Angular's two-way binding requires a special syntax, Vue instead relies on
 const FormComp = {
   template: `
   <form @submit="onSubmit($event)">
-    <input type="text" v-model="inputText"/>
+    <input type="text" v-model="usersName"/>
     <button type="submit">Submit</button>
   </form>
   `,
   data() {
     return {
-      inputText: '',
+      usersName: '',
     };
   },
   methods: {
     onSubmit(e) {
       e.preventDefault();
-      console.log(this.inputText);
+      console.log(this.usersName);
     },
   },
 };
@@ -246,7 +246,7 @@ const FormComponent = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      favoriteFood: "",
+      email: "",
     },
     onSubmit: (values) => {
       console.log(values);
@@ -267,10 +267,10 @@ const FormComponent = () => {
       </div>
       <div>
         <label>
-          Favorite food
+          Email
           <input
             type="text"
-            name="favoriteFood"
+            name="email"
             onChange={formik.handleChange}
             value={formik.values.favoriteFood}
           />
@@ -295,7 +295,7 @@ const FormComponent = () => {
     <Formik
       initialValues={{
         name: "",
-        favoriteFood: "",
+        email: "",
       }}
       onSubmit={(values) => {
         console.log(values);
@@ -316,10 +316,10 @@ const FormComponent = () => {
           </div>
           <div>
             <label>
-              Favorite food
+              Email
               <input
                 type="text"
-                name="favoriteFood"
+                name="email"
                 onChange={handleChange}
                 value={values.favoriteFood}
               />
@@ -341,7 +341,7 @@ const FormComponent = () => {
     <Formik
       initialValues={{
         name: '',
-        favoriteFood: '',
+        email: '',
       }}
       onSubmit={(values) => {
         console.log(values);
@@ -357,8 +357,8 @@ const FormComponent = () => {
           </div>
           <div>
             <label>
-              Favorite food
-              <Field type="text" name="favoriteFood" />
+              Email
+              <Field type="text" name="email" />
             </label>
           </div>
           <button type="submit">Submit</button>
@@ -401,17 +401,17 @@ import { FormControl } from '@angular/forms';
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-	  <input type="text" [formControl]="inputControl"/>
+	  <input type="text" [formControl]="nameControl"/>
       <button type="submit">Submit</button>
     </form>
   `,
 })
 export class FormComponent {
-  inputControl = new FormControl('');
+  nameControl = new FormControl('');
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.inputControl.value);
+    console.log(this.nameControl.value);
   }
 }
 ```
@@ -423,22 +423,22 @@ We aren't simply bound to input events to update this value, however; we can eve
   selector: 'form-comp',
   template: `
     <form (submit)="onSubmit($event)">
-      <input type="text" [formControl]="inputControl"/>
-      <button type="button" (click)="setControlToMessage()">Set to "Hello"</button>
+      <input type="text" [formControl]="nameControl"/>
+      <button type="button" (click)="setControlToName()">Set to author name</button>
       <button type="submit">Submit</button>
     </form>
   `,
 })
 export class FormComponent {
-  inputControl = new FormControl('');
+  nameControl = new FormControl('');
 
-  setControlToMessage() {
-    this.inputControl.patchValue('Hello, world');
+  setControlToName() {
+    this.nameControl.patchValue('Corbin Crutchley');
   }
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.inputControl.value);
+    console.log(this.nameControl.value);
   }
 }
 ```
@@ -462,8 +462,8 @@ import { FormGroup, FormControl } from '@angular/forms';
     </div>
     <div>
       <label>
-        Favorite food
-        <input type="text" formControlName="favoriteFood"/>
+        Email
+        <input type="text" formControlName="email"/>
       </label>
     </div>
     <button type="submit">Submit</button>
@@ -473,7 +473,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class FormComponent {
   mainForm = new FormGroup({
     name: new FormControl(''),
-    favoriteFood: new FormControl(''),
+    email: new FormControl(''),
   });
 
   onSubmit(e) {
@@ -506,8 +506,8 @@ import {
     </div>
     <div>
       <label>
-        Favorite food
-        <input type="text" formControlName="favoriteFood"/>
+        Email
+        <input type="text" formControlName="email"/>
       </label>
     </div>
     <button type="submit">Submit</button>
@@ -521,7 +521,7 @@ export class FormComponent {
     // It just allows us to add more information about this
     // Input in the future.
     // We'll see it's usage in the next section
-    favoriteFood: [''],
+    email: [''],
   });
 
   constructor(private fb: FormBuilder) {}
@@ -556,8 +556,8 @@ const FormComponent = {
 
       <div>
         <label>
-          Favorite food
-          <v-field name="favoriteFood" value=""></v-field> 
+          Email
+          <v-field name="email" value=""></v-field> 
         </label>
       </div>
       <button type="submit">Submit</button>
@@ -648,7 +648,7 @@ const FormComponent = () => {
     <Formik
       initialValues={{
         name: '',
-        favoriteFood: '',
+        email: '',
       }}
       onSubmit={(values) => {
         setIsPending(true);
@@ -668,7 +668,7 @@ const FormComponent = () => {
           <div>
             <label>
               Disabled Field
-              <Field type="text" name="other" disabled />
+              <Field type="text" name="email" disabled />
             </label>
           </div>
           {/* Formik doesn't provide "dirty" on a field-level basis */}
@@ -720,7 +720,7 @@ function sendToServer(formData) {
     <div>
       <label>
         Disabled field
-        <input type="text" [disabled]="true" formControlName="disabled"/>
+        <input type="text" formControlName="email"/>
       </label>
     </div>
     <button type="submit">Submit</button>
@@ -754,7 +754,7 @@ class AppComponent {
 
   mainForm = this.fb.group({
     name: [''],
-    disabled: [{ value: '', disabled: true }],
+    email: [{ value: '', disabled: true }],
   });
 
   submitted = false;
@@ -800,7 +800,7 @@ const FormComponent = {
       <div>
         <label>
           Disabled field
-          <v-field disabled name="disabled" value=""></v-field> 
+          <v-field disabled name="email" value=""></v-field> 
         </label>
       </div>
       <p v-if="meta.dirty">Form is dirty</p>
@@ -842,12 +842,6 @@ const FormComponent = {
 
 <!-- tabs:end -->
 
-### 
-
-
-
-
-
 Additional to form states, a reactive form also adds in the following features into a form: 
 
 - Form groups - A collection of fields (or sub-fields) that create a grouping
@@ -856,43 +850,19 @@ Additional to form states, a reactive form also adds in the following features i
 	- "Is input a valid email"
 	- Required fits into this category
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Let's start by taking a look at form arrays.
 
 # Form Arrays {#form-arrays}
 
-// TODO: Complete this section
+The example we set off to build at the start of the chapter was a method of sharing a file with a selection of users. 
+
+While we've built a primitive version of this that allows us to share a file with a single user, but let's expand that behavior to allows us to share a file with any number of users.
+
+To do this, we'll need to rely on the ability to add in an array of a form.
+
+
+
+
 
 
 
