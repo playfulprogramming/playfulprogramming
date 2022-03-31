@@ -16,9 +16,10 @@
     - Angular Forms
   - One way binding/React
   - v-model/Vue
-- Fundamentals/Structure
-  - Pure vs impure logic
-  - Unidirectionality
+- Partial DOM Application
+  - `React.Fragment` / React
+  - `ng-template` / Angular
+  - `template` / Vue
 - Content projection
   - `{props.children}` / React
   - `ng-content` / Angular
@@ -28,11 +29,10 @@
     - Children.forEach and beyond
   - `@ViewContents` / Angular
   - `slots` / Vue
-- Partial DOM Application
-  - `React.Fragment` / React
-  - `ng-template` / Angular
-  - `template` / Vue
-
+  - Passing values to content projection
+    - `v-slot` attribute / Vue
+    - `React.cloneElement` / React
+    - NgTemplate `context` / Angular
 - Component reference
   - `ref`/`forwardRef` / React
   - ViewChild/Angular
@@ -45,6 +45,9 @@
   - onErrorCapture / Vue
   - Error boundary / React
   - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
+- Fundamentals/Structure
+  - Pure vs impure logic
+  - Unidirectionality
 - Routing
   - React Router
   - Angular Router
@@ -87,5 +90,4 @@
 - Building a demo app
 - API Comparison Table
 - Terminology/Glossary
-
 
