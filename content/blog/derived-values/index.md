@@ -437,3 +437,83 @@ These props are then accessible in the same way a `data` property is, both from 
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized today work for internal component state as well as they do inputs.
 
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const CountAndDoubleComp = () => {
+	const [number, setNumber] = useState(0);
+  const doubleNum = useMemo(() => number * 2, [number]);
+
+  return <div>
+    <p>{number}</p>
+    <p>{doubleNum}</p>
+    <button onClick={() => setNumber(number + 2)}>Add one</button>
+  </div>;
+};
+```
+
+## Angular
+
+```typescript
+@Pipe({ name: 'doubleNum' })
+export class DoubleNumPipe implements PipeTransform {
+  transform(value: number): number {
+    return value * 2;
+  }
+}
+```
+
+```typescript
+@Component({
+  selector: 'file-date',
+  template: `
+  <div>
+    <p>{{number}}</p>
+    <p>{{number | doubleNum}}</p>
+    <button (click)="addOne()">Add one</button>
+  </div>
+  `,
+})
+export class FileDateComponent {
+  number = 0;
+  
+	addOne() {
+    this.number++;
+  }
+}
+```
+
+## Vue
+
+```javascript
+const FileDate = {
+  template: `
+    <div>
+   	 <p>{{number}}</p>
+   	 <p>{{number | doubleNum}}</p>
+   	 <button (click)="addOne()">Add one</button>
+	  </div>
+  `,
+	data() {
+    return {
+      number: 0
+    }
+  },
+  methods: {
+    addOne() {
+      this.number++;
+    }
+  },
+  computed: {
+    doubleNum() {
+      return this.number*2;
+    }
+  }
+};
+```
+
+<!-- tabs:end -->
+
+In this component, we can see two numbers - one doubling the value of the other. We then have a button that allows us to increment the first number and therefore, using a derived value, the second number also updates.
