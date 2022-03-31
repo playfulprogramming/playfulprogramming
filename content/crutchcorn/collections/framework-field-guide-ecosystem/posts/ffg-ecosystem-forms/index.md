@@ -369,7 +369,7 @@ const FormComponent = () => {
 };
 ```
 
-> Keep in mind, the `Field` and `Form` components will not work when using `useFormik`. Instead, you'd have to pass `onChange` and `onSubmit` respectively to `input` and `form` HTML elements as we demonstrated before.
+> Keep in mind, the `Field` and `Form` components will not work when using `useFormik`. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link). Instead, you'd have to pass `onChange` and `onSubmit` respectively to `input` and `form` HTML elements as we demonstrated before.
 
 > We are currently using version 2 of Formik. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
@@ -779,7 +779,13 @@ class AppComponent {
 
 ### Vue
 
-`vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `v-field` as well as each `v-form`. A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `v-field` where we did not have to do so earlier.
+`vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `v-field` as well as each `v-form`.
+
+`v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance `v-form` and `v-field` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
+
+> We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](// TODO Add link)
+
+A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `v-field` where we did not have to do so earlier.
 
 ```javascript
 const FormComponent = {
@@ -860,28 +866,23 @@ While we've built a primitive version of this that allows us to share a file wit
 
 To do this, we'll need to rely on the ability to add in an array of a form.
 
-
-
-
-
-
-
 <!-- tabs:start -->
 
 ## React
 
-// TODO
+Formik provides a `FieldArray` to help make handling arrays easier with Formik fields. Similar to Formik's `Field` and `Form` components, `FieldArray` only works when using the `Formik` component instead of the `useFormik` hook.
 
 ```jsx
 import { Formik, Form, Field, FieldArray } from "formik";
 
+// We'll explain why we need an id a bit later
 let id = 0;
 
 export const FriendList = () => (
   <div>
     <h1>Friend List</h1>
     <Formik
-      initialValues={{ users: [] }}
+      initialValues={{ users: [{name: "", id: ++id}] }}
       onSubmit={(values) => console.log(values)}
      >
        {({ values }) => (
@@ -921,7 +922,9 @@ export const FriendList = () => (
 );
 ```
 
-A limitation of Formik is that we **must use the `<Formik>` component in order to use `<FieldArray>`**. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link).
+> You may notice that we're using `arrayHelpers.push` and `arrayHelpers.remove` instead of simply doing `values.push`. This is because if we do a `values.push` command, it won't trigger a re-render. We'll learn more about why this is and what the alternatives tend to be [in the chapter exploring React's internals](// TODO: Add link).
+
+
 
 ## Angular
 
@@ -1030,17 +1033,13 @@ const FormComponent = {
 }
 ```
 
-You may notice the `v-slot`. It's a bit confusing, but think of this as properties being passed to `field-array` from `v-form`. 
-
-[We'll touch on `v-slot` usage in the near future.](// TODO: Add link)
-
 Notice our usage of `key-path` // TODO:
 
 <!-- tabs:end -->
 
 
 
-
+Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. We then use this `id` field to identify which user is which to the framework, [just like we've done before for loops in HTML](/posts/dynamic-html).
 
 
 
