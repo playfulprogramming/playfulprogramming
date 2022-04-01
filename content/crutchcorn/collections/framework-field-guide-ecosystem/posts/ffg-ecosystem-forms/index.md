@@ -924,11 +924,9 @@ export const FriendList = () => (
 
 > You may notice that we're using `arrayHelpers.push` and `arrayHelpers.remove` instead of simply doing `values.push`. This is because if we do a `values.push` command, it won't trigger a re-render. We'll learn more about why this is and what the alternatives tend to be [in the chapter exploring React's internals](// TODO: Add link).
 
-
-
 ## Angular
 
-// TODO
+Instead of a dedicated component for rendering lists like with React's Formik, Angular allows you to simply `ngFor` and use `formGroupName` in association with `formArrayName` and `formControlName` to access the specific `FormControl` and `FormGroup` for a user's information.
 
 ```typescript
 @Component({
@@ -937,15 +935,15 @@ export const FriendList = () => (
   <div>
     <h1>Friend List</h1>
     <form (submit)="onSubmit($event)" [formGroup]="mainForm">
-    <ng-container formArrayName="users">
+    <div formArrayName="users">
     <div *ngFor="let item of arr.controls; let i = index;" [formGroupName]="i">
-        <label>
-          Name
-          <input type="text" formControlName="name"/>
-        </label>
-        <button type="button" (click)="removeUser(i)">Remove User</button>
+      <label>
+        Name
+        <input type="text" formControlName="name"/>
+      </label>
+      <button type="button" (click)="removeUser(i)">Remove User</button>
     </div>
-    </ng-container>
+    </div>
     <button type="button" (click)="addUser()">Add user</button>
     <button type="submit">Submit</button>
     </form>
@@ -958,11 +956,13 @@ class AppComponent {
   id = 0;
 
   mainForm = this.fb.group({
+    // This could also be written using `new FormArray([`
     users: this.fb.array([this.fb.group({ id: ++this.id, name: '' })]),
   });
 
   addUser() {
     this.arr.push(
+      // This could also be written as `new FormGroup({`
       this.fb.group({
         id: ++this.id,
         name: '',
@@ -991,7 +991,7 @@ class AppComponent {
 
 ## Vue
 
-// TODO
+Similar to Angular, you're able to use `v-for` to iterate through each user index, then use said index to alias the `name` property of `v-field` to access a user's information.
 
 ```javascript
 const FormComponent = {
@@ -1027,21 +1027,17 @@ const FormComponent = {
   data: {
       return {
     	id: 1,
-      	initialValues: {users: [{name: "Test", id: 0}]}
+    	initialValues: {users: [{name: "", id: 0}]}
 	  }
   }
 }
 ```
 
-Notice our usage of `key-path` // TODO:
+Something worth highlighting is our of `key-path` with the `id` to track with user is which.
 
 <!-- tabs:end -->
 
-
-
 Because we're now using an array, we need a unique ID for each user. This is why, for each implementation, there's an `id` field. We then use this `id` field to identify which user is which to the framework, [just like we've done before for loops in HTML](/posts/dynamic-html).
-
-
 
 
 
@@ -1195,6 +1191,35 @@ class AppComponent {
 // TODO
 
 <!-- tabs:end -->
+
+
+
+
+
+## Caution When Validating & Form Building
+
+While validation is inarguably a useful feature for forms, it's important to not be too enthusiastic in our usage of it.
+
+An initial temptation for some might be to use this form validation in order to enforce a minumum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](// TODO: Add regex cross-posted link). 
+
+Let's take the minimum length - you might assume that 3 is a reasonable minimum length for a name. But what about [the surname of "He" or "Ho", a common Chinese family name](https://en.wikipedia.org/wiki/He_(surname))? Likewise, if you require only letters from A-Z, you leave out the ability to have [double barrelled last names](https://en.wikipedia.org/wiki/Double-barrelled_name).
+
+This type of problem extends past validation, to be fair.
+
+You'll notice that instead of asking for first name and last name, we instead simply asked for a single name. This is because [some have no surname](https://en.wikipedia.org/wiki/Mononymous_person) or even [two given names](https://en.wikipedia.org/wiki/Given_name#Compound).
+
+Not only is this a matter of validation, but a question of "what data do you truly need"? When sharing a file, do you **need** a distinction between a user's name or username? Likewise, when someone is creating an account, do you **need** their gender? Asking could be uncomfortable if it's private or they are excluded by the limited options.
+
+If you're stuck in deciding if you need data or not, remember that privacy should often win over not. The less data you ask, the better.
+
+Here's some further reading on the topic:
+
+https://www.w3.org/International/questions/qa-personal-names
+
+https://uxdesign.cc/designing-forms-for-gender-diversity-and-inclusion-d8194cf1f51
+
+
+
 
 
 # Non-Text Form Fields
