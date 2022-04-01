@@ -13,7 +13,7 @@
 
 Previously, we learned how to create components for our file application. These components included a way to create a component tree, add inputs to each component to pass data, and add an output of data back to a parent component.
 
-Where we last left off, we manually input a list of files, which included file names and dates inside of an `li`. Let's take a look at our file component to start:
+Where we last left off, we manually input a list of files, which included file names and dates inside of an `button`. Let's take a look at our file component to start:
 
 <!-- tabs:start -->
 
@@ -22,7 +22,7 @@ Where we last left off, we manually input a list of files, which included file n
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected }) => {
   return (
-    <li
+    <button
       onClick={onSelected}
       style={
         isSelected
@@ -32,7 +32,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
     >
       <a href={href}>{fileName}</a>
       <FileDate inputDate={new Date()} />
-    </li>
+    </button>
   );
 };
 ```
@@ -43,7 +43,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 @Component({
   selector: 'file',
   template: `
-    <li
+    <button
       (click)="selected.emit()"
       [style]="
         isSelected
@@ -55,7 +55,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
         {{ fileName }}
         <file-date [inputDate]="inputDate"></file-date>
       </a>
-    </li>
+    </button>
   `,
 })
 export class FileComponent {
@@ -71,7 +71,7 @@ export class FileComponent {
 ```javascript
 const File = {
   template: `
-    <li
+    <button
       v-on:click="$emit('selected')"
       :style="
         isSelected ?
@@ -82,7 +82,7 @@ const File = {
         {{ fileName }}
         <file-date [inputDate]="inputDate"></file-date>
       </a>
-    </li>`,
+    </button>`,
   emits: ['selected'],
   props: ['isSelected', 'fileName', 'href'],
 };
@@ -211,7 +211,7 @@ Adding this to our component is just as easy as we outlined before:
 ```jsx {11}
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
   return (
-    <li
+    <button
       onClick={onSelected}
       style={
         isSelected
@@ -221,7 +221,7 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
     >
       <a href={href}>{fileName}</a>
       {isFolder && <FileDate inputDate={new Date()} />}
-    </li>
+    </button>
   );
 };
 ```
@@ -232,7 +232,7 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 @Component({
   selector: 'file',
   template: `
-    <li
+    <button
       (click)="selected.emit()"
       [style]="
         isSelected
@@ -244,7 +244,7 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
         {{ fileName }}
         <file-date *ngIf="isFolder" [inputDate]="inputDate"></file-date>
       </a>
-    </li>
+    </button>
   `,
 })
 export class FileComponent {
@@ -261,7 +261,7 @@ export class FileComponent {
 ```javascript {11}
 const File = {
   template: `
-    <li
+    <button
       v-on:click="$emit('selected')"
       :style="
         isSelected ?
@@ -272,7 +272,7 @@ const File = {
         {{ fileName }}
         <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
       </a>
-    </li>`,
+    </button>`,
   emits: ['selected'],
   props: ['isSelected', 'isFolder', 'fileName', 'href'],
 };
@@ -1260,14 +1260,14 @@ const FileList = () => {
         {filesArray.map((file, i) => {
           if (onlyShowFiles ? file.isFolder : false) return null;
 
-          return <File
+          return <li><File
             key={file.id}
             isSelected={selectedIndex === i}
             onSelected={() => onSelected(i)}
             fileName={file.fileName}
             href={file.href}
             isFolder={file.isFolder}
-          />;
+          /></li>;
         }
       </ul>
     </div>
@@ -1284,7 +1284,7 @@ const FileList = () => {
     <div>
       <button (click)="toggleOnlyShow()">Only show files</button>
       <ul>
-        <ng-container *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
+        <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
             <file
               *ngIf="onlyShowFiles ? !file.isFolder : true"
               (selected)="onSelected(i)"
@@ -1293,7 +1293,7 @@ const FileList = () => {
               [href]="file.href"
               [isFolder]="file.isFolder"
             ></file>
-        </ng-container>
+        </li>
       </ul>
     </div>
   `,
@@ -1309,25 +1309,31 @@ export class FileListComponent {
 }
 ```
 
-// Mention ng-container
+Don't worry too much about the `ngIf` 
 
 ## Vue
 
 ```javascript
 const FileList = {
   template: `
-    <ul>
-      <file 
-        v-for="(file, i) in filesArray"
-        v-if="onlyShowFiles ? !file.isFolder : true"
-        :key="file.id"
-        @selected="onSelected(i)" 
-        :isSelected="selectedIndex === i" 
-        :fileName="file.fileName" 
-        :href="file.href"
-        :isFolder="file.isFolder"
-      ></file>
-    </ul>
+    <div>
+      <button (click)="toggleOnlyShow()">Only show files</button>
+      <ul>
+        <li
+          v-for="(file, i) in filesArray"
+          :key="file.id"
+        >
+        <file 
+          v-if="onlyShowFiles ? !file.isFolder : true"
+          @selected="onSelected(i)" 
+          :isSelected="selectedIndex === i" 
+          :fileName="file.fileName" 
+          :href="file.href"
+          :isFolder="file.isFolder"
+        ></file>
+        </li>
+      </ul>
+    </div>
   `,
   data() {
     return {
@@ -1336,9 +1342,9 @@ const FileList = {
     };
   },
   methods: {
-     // ...
-      
-	toggleOnlyShow() {
+    // ...
+
+    toggleOnlyShow() {
       this.onlyShowFiles = !onlyShowFiles;
     }
   },

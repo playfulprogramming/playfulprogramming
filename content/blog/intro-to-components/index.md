@@ -125,7 +125,7 @@ Let's look at what `<file>` might look like in each framework:
 ```jsx
 const File = () => {
   return (
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   );
 };
 ```
@@ -141,7 +141,7 @@ const File = () => {
 > var aTag = React.createElement("a", {
 >   href: "/file/file_one"
 > }, "File one", spanTag);
-> React.createElement("li", null, aTag);
+> React.createElement("div", null, aTag);
 > ```
 >
 > While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. This is simply to demonstrate why you need Babel in React applications.
@@ -156,7 +156,7 @@ import { Component } from "@angular/core";
 @Component({
   selector: "file",
   template: `
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
 })
 export class FileComponent {}
@@ -170,7 +170,7 @@ export class FileComponent {}
 
 ```javascript
 const File = { 
-  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>`
 }
 ```
 
@@ -243,7 +243,7 @@ Then, in JavaScript, you "render" a component into this element.
 import { createRoot } from 'react-dom';
 
 const File = () => {
-  return <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+  return <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
 }
 
 createRoot(document.getElementById('root')).render(<File />);
@@ -265,7 +265,7 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 @Component({
   selector: "file",
   template: `
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
 })
 export class FileComponent {}
@@ -288,7 +288,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 ```javascript {4,6}
 const File = { 
-  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`
+  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>`
 }
 
 import { createApp } from 'vue';
@@ -313,13 +313,13 @@ While our `File` component currently contains HTML elements, components may also
 ```jsx {6-11}
 const File = () => {
   return (
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   );
 };
 
 const FileList = () => {
   return (
-    <ul><File /></ul>
+    <ul><li><File /></li></ul>
   );
 };
 ```
@@ -330,7 +330,7 @@ const FileList = () => {
 @Component({
   selector: "file",
   template: `
-    <li><a href="/file/file_one">File one<span>12/03/21</span></a></li>
+    <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
 })
 export class FileComponent {}
@@ -338,7 +338,7 @@ export class FileComponent {}
 @Component({
   selector: "file-list",
   template: `
-    <ul><file></file></ul>
+    <ul><li><file></file></li></ul>
   `,
 })
 export class FileListComponent {}
@@ -348,13 +348,13 @@ export class FileListComponent {}
 
 ```javascript {4-13}
 const File = {
-  template: `<li><a href="/file/file_one">File one<span>12/03/21</span></a></li>`,
+  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></li>`,
 };
 
 const FileList = {
   template: `
     <ul>
-      <file></file>
+      <li><file></file></li>
     </ul>
   `,
   components: {
@@ -381,9 +381,9 @@ Looking through our `File` component, we can also notice that we're rendering mu
 const FileList = () => {
   return (
     <ul>
-      <File />
-      <File />
-      <File />
+      <li><File /></li>
+      <li><File /></li>
+      <li><File /></li>
     </ul>
   );
 };
@@ -396,9 +396,9 @@ const FileList = () => {
   selector: "file-list",
   template: `
     <ul>
-      <file></file>
-      <file></file>
-      <file></file>
+      <li><file></file></li>
+      <li><file></file></li>
+      <li><file></file></li>
     </ul>
   `,
 })
@@ -411,9 +411,9 @@ export class FileListComponent {}
 const FileList = {
   template: `
     <ul>
-      <file></file>
-      <file></file>
-      <file></file>
+      <li><file></file></li>
+      <li><file></file></li>
+      <li><file></file></li>
     </ul>
   `,
   components: {
@@ -446,15 +446,15 @@ const FileDate = () => {
 };
 
 const File = () => {
-  return <li><a href="/file/file_one">File one<FileDate/></a></li>;
+  return <div><a href="/file/file_one">File one<FileDate/></a></div>;
 };
 
 const FileList = () => {
   return (
     <ul>
-      <File />
-      <File />
-      <File />
+      <li><File /></li>li>
+      <li><File /></li>li>
+      <li><File /></li>li>
     </ul>
   );
 };
@@ -474,9 +474,9 @@ export class FileDateComponent {}
 @Component({
   selector: "file",
   template: `
-    <li>
+    <div>
       <a href="/file/file_one">File one<file-date></file-date></a>
-    </li>
+    </div>
   `,
 })
 export class FileComponent {}
@@ -485,9 +485,9 @@ export class FileComponent {}
   selector: "file-list",
   template: `
     <ul>
-      <file></file>
-      <file></file>
-      <file></file>
+      <li><file></file></li>
+      <li><file></file></li>
+      <li><file></file></li>
     </ul>
   `,
 })
@@ -502,7 +502,7 @@ const FileDate = {
 };
 
 const File = {
-  template: `<li><a href="/file/file_one">File one<file-date></file-date></a></li>`,
+  template: `<div><a href="/file/file_one">File one<file-date></file-date></a></div>`,
   components: {
     FileDate,
   },
@@ -511,9 +511,9 @@ const File = {
 const FileList = {
   template: `
     <ul>
-      <file></file>
-      <file></file>
-      <file></file>
+      <li><file></file></li>
+      <li><file></file></li>
+      <li><file></file></li>
     </ul>
   `,
   components: {
@@ -1210,15 +1210,15 @@ Let's have the file name be an input to our `File` component:
 
 ```jsx {0-2,7}
 const File = (props) => {
-  return <li><a href="/file/file_one">{props.fileName}<FileDate/></a></li>;
+  return <div><a href="/file/file_one">{props.fileName}<FileDate/></a></div>;
 };
 
 const FileList = () => {
   return (
     <ul>
-      <File fileName={"File one"} />
-      <File fileName={"File two"} />
-      <File fileName={"File three"} />
+      <li><File fileName={"File one"} /></li>
+      <li><File fileName={"File two"} /></li>
+      <li><File fileName={"File three"} /></li>
     </ul>
   );
 };
@@ -1228,7 +1228,7 @@ const FileList = () => {
 >
 > ```jsx
 > const File = ({ fileName }) => {
->   return <li><a href="/file/file_one">{fileName}<FileDate/></a></li>;
+>   return <div><a href="/file/file_one">{fileName}<FileDate/></a></div>;
 > }
 > ```
 >
@@ -1246,7 +1246,7 @@ const FileList = () => {
 @Component({
   selector: "file",
   template: `
-    <li><a href="/file/file_one">{{ fileName }}<file-date></file-date></a></li>
+    <div><a href="/file/file_one">{{ fileName }}<file-date></file-date></a></div>
   `,
 })
 export class FileComponent {
@@ -1257,9 +1257,9 @@ export class FileComponent {
   selector: "file-list",
   template: `
     <ul>
-      <file [fileName]="File one"></file>
-      <file [fileName]="File two"></file>
-      <file [fileName]="File three"></file>
+      <li><file [fileName]="File one"></file></li>
+      <li><file [fileName]="File two"></file></li>
+      <li><file [fileName]="File three"></file></li>
     </ul>
   `,
 })
@@ -1274,7 +1274,7 @@ export class FileListComponent {}
 
 ```javascript {5,11}
 const File = {
-  template: `<li><a href="/file/file_one">{{fileName}}<file-date></file-date></a></li>`,
+  template: `<div><a href="/file/file_one">{{fileName}}<file-date></file-date></a></div>`,
   components: {
     FileDate,
   },
@@ -1284,9 +1284,9 @@ const File = {
 const FileList = {
   template: `
     <ul>
-      <file :fileName="File one"></file>
-      <file :fileName="File two"></file>
-      <file :fileName="File three"></file>
+      <li><file :fileName="File one"></file></li>
+      <li><file :fileName="File two"></file></li>
+      <li><file :fileName="File three"></file></li>
     </ul>
   `,
   components: {
@@ -1321,15 +1321,15 @@ Like functions, components can accept as many properties as you'd like to pass. 
 
 ```jsx {0-2,7}
 const File = ({ fileName, href }) => {
-  return <li><a href={href}>{fileName}<FileDate/></a></li>;
+  return <div><a href={href}>{fileName}<FileDate/></a></div>;
 };
 
 const FileList = () => {
   return (
     <ul>
-      <File fileName="File one" href="/file/file_one" />
-      <File fileName="File two" href="/file/file_two" />
-      <File fileName="File three" href="/file/file_three" />
+      <li><File fileName="File one" href="/file/file_one" /></li>
+      <li><File fileName="File two" href="/file/file_two" /></li>
+      <li><File fileName="File three" href="/file/file_three" /></li>
     </ul>
   );
 };
@@ -1342,7 +1342,7 @@ const FileList = () => {
 @Component({
   selector: "file",
   template: `
-    <li><a [attr.href]="href">{{ fileName }}<file-date></file-date></a></li>
+    <div><a [attr.href]="href">{{ fileName }}<file-date></file-date></a></div>
   `,
 })
 export class FileComponent {
@@ -1354,9 +1354,9 @@ export class FileComponent {
   selector: "file-list",
   template: `
     <ul>
-      <file fileName="File one" href="/file/file_one"></file>
-      <file fileName="File two" href="/file/file_two"></file>
-      <file fileName="File three" href="/file/file_three"></file>
+      <li><file fileName="File one" href="/file/file_one"></file></li>
+      <li><file fileName="File two" href="/file/file_two"></file></li>
+      <li><file fileName="File three" href="/file/file_three"></file></li>
     </ul>
   `,
 })
@@ -1367,7 +1367,7 @@ export class FileListComponent {}
 
 ```javascript {5,11}
 const File = {
-  template: `<li><a :href="href">{{fileName}}<file-date></file-date></a></li>`,
+  template: `<div><a :href="href">{{fileName}}<file-date></file-date></a></div>`,
   components: {
     FileDate,
   },
@@ -1377,9 +1377,9 @@ const File = {
 const FileList = {
   template: `
       <ul>
-        <file fileName="File one" href="/file/file_one"></file>
-        <file fileName="File two" href="/file/file_two"></file>
-        <file fileName="File three" href="/file/file_three"></file>
+        <li><file fileName="File one" href="/file/file_one"></file></li>
+        <li><file fileName="File two" href="/file/file_two"></file></li>
+        <li><file fileName="File three" href="/file/file_three"></file></li>
       </ul>
     `,
   components: {
@@ -1414,12 +1414,12 @@ const FileDate = ({ inputDate }) => {
 
 const File = ({ href, fileName }) => {
   return (
-    <li>
+    <div>
       <a href={href}>
         {fileName}
         <FileDate inputDate={new Date()} />
       </a>
-    </li>
+    </div>
   );
 };
 ```
@@ -1445,12 +1445,12 @@ export class FileDateComponent implements OnInit {
 @Component({
   selector: "file",
   template: `
-    <li>
+    <div>
       <a [attr.href]="href">
         {{ fileName }}
         <file-date [inputDate]="inputDate"></file-date>
       </a>
-    </li>
+    </div>
   `,
 })
 export class FileComponent {
@@ -1477,12 +1477,12 @@ const FileDate = {
 
 const File = { 
   template: `
-    <li>
+    <div>
       <a :href="href">
         {{fileName}}
         <file-date :inputDate="inputDate"></file-date>
       </a>
-    </li>
+    </div>
   `,
   components: {
       FileDate
@@ -1578,7 +1578,7 @@ In the mockup we saw before, our files list has a hover state for the file list.
 
 Let's add in a `isSelected` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
 
-
+While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](// TODO: Link to accessibility chapter).
 
 <!-- tabs:start -->
 
@@ -1593,7 +1593,7 @@ const File = ({ href, fileName }) => {
   };
 
   return (
-    <li
+    <button
       onClick={selectFile}
       style={
         isSelected
@@ -1605,7 +1605,7 @@ const File = ({ href, fileName }) => {
         {fileName}
         <FileDate inputDate={new Date()} />
       </a>
-    </li>
+    </button>
   );
 };
 ```
@@ -1622,7 +1622,7 @@ We also make sure to prefix the event name with `on` in order to bind a method t
 @Component({
   selector: "file",
   template: `
-    <li
+    <button
       (click)="selectFile()"
       [style]="
         isSelected
@@ -1634,7 +1634,7 @@ We also make sure to prefix the event name with `on` in order to bind a method t
         {{ fileName }}
         <file-date [inputDate]="inputDate"></file-date>
       </a>
-    </li>
+    </button>
   `
 })
 export class FileComponent {
@@ -1655,7 +1655,7 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 ```javascript {3-8,16,21-23}
 const File = {
   template: `
-  <li
+  <button
     v-on:click="selectFile()"
     :style="
       isSelected ?
@@ -1666,7 +1666,7 @@ const File = {
     	{{fileName}}
     	<file-date [inputDate]="inputDate"></file-date>
     </a>
-  </li>`,
+  </button>`,
   data() {
     return {
       isSelected: false,
@@ -1689,13 +1689,13 @@ There's also a shorthand syntax, just like there is one for attribute bindings. 
 This means:
 
 ```html
-<li v-on:click="selectFile()">
+<button v-on:click="selectFile()">
 ```
 
 Can be rewritten into:
 
 ```html
-<li @click="selectFile()">
+<button @click="selectFile()">
 ```
 
 <!-- tabs:end -->
@@ -1725,7 +1725,7 @@ import { useState } from 'react';
 
 const File = ({ href, fileName, isSelected, onSelected }) => {
   return (
-    <li
+    <button
       onClick={onSelected}
       style={
         isSelected
@@ -1735,7 +1735,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
     >
       <a href={href}>{fileName}</a>
       {/* ... */}
-    </li>
+    </button>
   );
 };
 
@@ -1752,24 +1752,24 @@ const FileList = () => {
 
   return (
     <ul>
-      <File
+      <li><File
         isSelected={selectedIndex === 0}
         onSelected={() => onSelected(0)}
         fileName="File one"
         href="/file/file_one"
-      />
-      <File
+      /></li>
+      <li><File
         isSelected={selectedIndex === 1}
         onSelected={() => onSelected(1)}
         fileName="File two"
         href="/file/file_two"
-      />
-      <File
+      /></li>
+      <li><File
         isSelected={selectedIndex === 2}
         onSelected={() => onSelected(2)}
         fileName="File three"
         href="/file/file_three"
-      />
+      /></li>
     </ul>
   );
 };
@@ -1788,7 +1788,7 @@ import {
 @Component({
   selector: 'file',
   template: `
-    <li
+    <button
       (click)="selected.emit()"
       [style]="
         isSelected
@@ -1799,7 +1799,7 @@ import {
       <a [href]="href">
         {{ fileName }}
       </a>
-    </li>
+    </button>
   `,
 })
 export class FileComponent {
@@ -1813,24 +1813,24 @@ export class FileComponent {
   selector: 'file-list',
   template: `
     <ul>
-      <file
+      <li><file
         (selected)="onSelected(0)"
         [isSelected]="selectedIndex === 0"
         fileName="File one" 
         href="/file/file_one"
-      ></file>
-      <file
+      ></file></li>
+      <li><file
         (selected)="onSelected(1)"
         [isSelected]="selectedIndex === 1"
         fileName="File two" 
         href="/file/file_two"
-      ></file>
-      <file
+      ></file></li>
+      <li><file
         (selected)="onSelected(2)"
         [isSelected]="selectedIndex === 2"
         fileName="File three" 
         href="/file/file_three"
-      ></file>
+      ></file></li>
     </ul>
   `,
 })
@@ -1852,7 +1852,7 @@ export class FileListComponent {
 ```javascript {3,13-14,20-25,40-53}
 const File = {
   template: `
-    <li
+    <button
       v-on:click="$emit('selected')"
       :style="
         isSelected ?
@@ -1862,7 +1862,7 @@ const File = {
       <a :href="href">
         {{ fileName }}
       </a>
-    </li>`,
+    </button>`,
   emits: ['selected'],
   props: ['isSelected', 'fileName', 'href'],
 };
@@ -1870,24 +1870,24 @@ const File = {
 const FileList = {
   template: `
     <ul>
-      <file 
+      <li><file 
         @selected="onSelected(0)" 
         :isSelected="selectedIndex === 0" 
         fileName="File one" 
         href="/file/file_one"
-      ></file>
-      <file 
+      ></file></li>
+      <li><file 
         @selected="onSelected(1)" 
         :isSelected="selectedIndex === 1" 
         fileName="File two" 
         href="/file/file_two"
-      ></file>
-      <file 
+      ></file></li>
+      <li><file 
         @selected="onSelected(2)" 
         :isSelected="selectedIndex === 2" 
         fileName="File three" 
         href="/file/file_three"
-      ></file>
+      ></file></li>
     </ul>
   `,
   data() {
@@ -1922,8 +1922,8 @@ You may notice that we've also removed our `isSelected` state and logic from our
 
 
 
+--------
 
 
--------------------------------------------------
 
-Components can output*
+TODO: Add conclusion section
