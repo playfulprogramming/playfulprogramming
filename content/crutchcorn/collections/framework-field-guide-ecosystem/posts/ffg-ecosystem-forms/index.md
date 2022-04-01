@@ -542,7 +542,7 @@ While Vue has a large home-grown ecosystem of tools, Vue does not have an offici
 Here's a simple form using `vee-validate`:
 
 ```javascript
-import {Form, Field, ErrorMessage} from 'vee-validate';
+import {Form, Field} from 'vee-validate';
 
 const FormComponent = {
   template: `
@@ -568,7 +568,6 @@ const FormComponent = {
   components: {
     VForm: Form,
     VField: Field,
-    ErrorMessage: ErrorMessage,
   },
   methods: {
     onSubmit(values) {
@@ -994,6 +993,8 @@ class AppComponent {
 Similar to Angular, you're able to use `v-for` to iterate through each user index, then use said index to alias the `name` property of `v-field` to access a user's information.
 
 ```javascript
+import {Form, Field, FieldArray} from 'vee-validate';
+
 const FormComponent = {
   template: `
   <div>
@@ -1014,10 +1015,9 @@ const FormComponent = {
   </div>
 `,
   components: {
-    VForm: VeeValidate.Form,
-    VField: VeeValidate.Field,
-    FieldArray: VeeValidate.FieldArray,
-    ErrorMessage: VeeValidate.ErrorMessage,
+    VForm: Form,
+    VField: Field,
+    FieldArray: FieldArray
   },
   methods: {
     onSubmit(values) {
@@ -1043,17 +1043,19 @@ Because we're now using an array, we need a unique ID for each user. This is why
 
 # Form Validation {#form-validation}
 
-// TODO: Talk about form validators
+You sit down after adding in form arrays to your share dialog, ready to work on the next task. Suddenly, an email slides in from your issues tracker: Dang it - you missed a requirement.
 
+Namely, we need to make sure that the user has actually typed in the user's name before moving forward.
 
+Let's see if we can't mark the name field as "required" and show an error when the user tries to submit a form without inputting a name.
 
-
+> To focus on form validation, let's temporarily remove the array requirement and limit our scope just to the form validation.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO
+Formik allows you to pass a function to the `Field` component in order to `validate` the data input. Here, we can simply check if `value` is present or not. Then, we can check against the `Formik` component's `errors` field to see if the `name` field has any errors. 
 
 ```jsx
 import { Formik, Form, Field } from 'formik';
@@ -1091,9 +1093,67 @@ const FormComp = () => {
 
 
 
+```jsx
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+
+const FormSchema = yup.object().shape({
+  name: yup.string().required(),
+});
+
+const FormComponent = () => {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      validationSchema={FormSchema}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+    >
+      {({ errors }) => (
+        <Form>
+          <div>
+            <label>
+              Name
+              <Field type="text" name="name" />
+            </label>
+            {errors.name && <p>{errors.name}</p>}
+          </div>
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+```
+
+
+
+
+
 ## Angular
 
-// TODO
+You know how earlier we switch our `fb.group` command from:
+
+```typescript
+mainForm = this.fb.group({
+  name: ''
+});
+```
+
+To:
+
+```typescript
+mainForm = this.fb.group({
+  name: [''],
+});
+```
+
+And promised there was some nebulous benefit for doing so later? Well, not it's time to introduce the "why". When a `FormControl` is being created with an array, the second value for the array is treated as a validator function.
+
+Let's write a simple validator function to check when the field is filled or not. If it's not filled, we can return a string to display to the user that "This field is required".
 
 ```typescript
 import {
@@ -1149,9 +1209,16 @@ class AppComponent {
 
 ### Built-In Validators
 
-// TODO
+Luckily for us, just like [Angular's Pipes](/posts/derived-values), Angular provides some built-in validators for us to use. For example, we can replace our implementation with Angular's built-in `Validators.required` version.
 
 ```typescript
+import {
+  FormsModule,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+
 @Component({
   selector: 'my-app',
   template: `
@@ -1188,11 +1255,131 @@ class AppComponent {
 
 ## Vue
 
+```javascript
+import { Form, Field, ErrorMessage } from 'vee-validate';
+
+const FormComponent = {
+  template: `
+    <v-form @submit="onSubmit">
+      <div>
+        <label>
+          Name
+          <v-field name="name" value="" :rules="required">
+          </v-field> 
+        </label>
+      </div>
+      <div>
+        <error-message name="name" />
+      </div>
+
+      <button type="submit">Submit</button>
+    </v-form>
+`,
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
+  data() {
+    return {
+      pending: false,
+      submitted: false,
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    },
+    required(value) {
+      // Validation failed!
+      if (!value) return 'This field is required';
+
+      // Validation passed!
+      return true;
+    },
+  },
+};
+```
+
+### Complex Data Schema
+
 // TODO
+
+```javascript
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+
+const FormComponent = {
+  template: `
+    <v-form @submit="onSubmit" :validationSchema="formSchema">
+      <div>
+        <label>
+          Name
+          <v-field name="name" value="">
+          </v-field> 
+        </label>
+      </div>
+      <div>
+        <error-message name="name" />
+      </div>
+
+      <button type="submit">Submit</button>
+    </v-form>
+`,
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
+  data() {
+    return {
+      pending: false,
+      submitted: false,
+      formSchema: yup.object().shape({
+        name: yup.string().required(),
+      })
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    },
+  },
+};
+```
+
+
 
 <!-- tabs:end -->
 
+One of the concepts that's introduced with form validation -- especially forms with groups -- is the idea of an object's "shape". You can think of this as the "type" of information an object might contain. For example:
 
+```javascript
+const obj1 = {name: "Corbin", id: 2}
+const obj2 = {name: "Kevin", id: 3}
+```
+
+Would be considered to have the same "shape", since they contain the same keys and each of the keys contains the same type of value. However, the following objects would have divergant shapes due to differing keys:
+
+
+```javascript
+const obj3 = {name: "Corbin", favFood: "Ice Cream"}
+const obj4 = {name: "Kevin", id: 3}
+```
+
+
+
+
+## Validation Types
+
+Marking a field as required is far from the only type of form validation. While there are any number of items, there
+
+- Minimum string length
+- Maximum string length
+- Two inputs match each other
+- Match a regex
+
+// TODO: Add playground
 
 
 
