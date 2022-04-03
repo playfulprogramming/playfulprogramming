@@ -9,12 +9,12 @@ import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch";
-import rehypeSlug from "rehype-slug";
+import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
-import { rehypeTabs } from "utils/markdown/plugins/tabs";
+import { rehypeTabs, RehypeTabsProps } from "utils/markdown/plugins/tabs";
 import { PluggableList } from "unified";
 
 // Optional now. Probably should move to an array that's passed or something
@@ -76,7 +76,8 @@ export default async function markdownToHtml(
           dir: imgDirectory,
         },
       ],
-      rehypeTabs,
+      // Do not add the tabs before the slug. We rely on some of the heading
+      // logic in order to do some of the subheading logic
       [
         rehypeSlug,
         {
@@ -84,6 +85,15 @@ export default async function markdownToHtml(
           removeAccents: true,
           enableCustomId: true,
         },
+      ],
+      [
+        rehypeTabs,
+        {
+          injectSubheaderProps: true,
+          tabSlugifyProps: {
+            enableCustomId: true,
+          },
+        } as RehypeTabsProps,
       ],
       [rehypeHeaderText(renderData)],
     ],

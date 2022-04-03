@@ -2,6 +2,7 @@ export const COLORS = {
   //main styles
   darkPrimary: { light: "#153E67", dark: "#E4F4FF" },
   primary: { light: "#127DB3", dark: "#127DB3" },
+  lightPrimary: { light: "#315e81", dark: "#bdd9e9" },
   black: { light: "black", dark: "white" },
   white: { light: "white", dark: "black" },
   darkGrey: { light: "rgba(0, 0, 0, 0.64)", dark: "rgba(255, 255, 255, .64)" },

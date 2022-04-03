@@ -1,7 +1,7 @@
 ---
 {
     title: "Adding Cathage Dependencies into React Native",
-    description: "CocoaPods is a great dependency manager, however some projects need to utilize Carthage for specific deps. Let's walk through how to integrate it with React Native!",
+    description: "CocoaPods is a great dependency manager, but some need Carthage still. Let's walk through how to integrate Carthage with React Native!",
     published: '2020-10-13T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['ios', 'react native'],

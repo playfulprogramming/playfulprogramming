@@ -157,7 +157,7 @@ $pendIconMarg: #{$baseUnit}px;
 
 .post-body {
   margin: 0 auto #{$baseUnit * 4}px;
-  max-width: #{$baseUnit * 88}px;
+  max-width: 768px;
   line-height: 1.7;
 
   // Fix autolink-headings anchors positioning

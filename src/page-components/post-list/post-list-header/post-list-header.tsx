@@ -17,6 +17,7 @@ export const PostListHeader = ({ siteDescription }: PostListHeaderProps) => {
       <div className={styles.headerPic}>
         <Image
           loading={"eager"}
+          priority={true}
           layout="responsive"
           sizes={"300px"}
           alt={`Unicorn Utterances header image`}

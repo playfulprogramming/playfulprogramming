@@ -103,7 +103,7 @@ const Post = ({
         editedTime={post.edited}
         keywords={post.tags}
         type="article"
-        pathName={router.pathname}
+        pathName={router.asPath}
         canonical={post.originalLink}
       />
       <article>

@@ -9,7 +9,7 @@ const ConfirmPage = () => {
   const router = useRouter();
   return (
     <>
-      <SEO title="Confirm Your Email" pathName={router.pathname} />
+      <SEO title="Confirm Your Email" pathName={router.asPath} />
       <div
         style={{
           width: "100%",

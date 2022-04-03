@@ -1,7 +1,7 @@
 ---
 {
     title: "My Advice to Technical Interviewers",
-    description: "",
+    description: "Interviewing candidates is tough. It just is. Here are just a few of my tips to make your tech recruiting go smoother.",
     published: '2021-05-03T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['interviewing'],

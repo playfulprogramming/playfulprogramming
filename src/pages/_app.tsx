@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 import * as ga from "utils/ga";
+import { HistoryProvider } from "constants/history-context";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -39,9 +40,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
           `}
       </Script>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <HistoryProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </HistoryProvider>
     </>
   );
 }
