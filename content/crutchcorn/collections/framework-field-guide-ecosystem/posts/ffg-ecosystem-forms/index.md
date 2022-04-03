@@ -1091,7 +1091,7 @@ const FormComp = () => {
 
 // TODO Usage with `yup`
 
-
+// TODO: Mention customizing the "error" string
 
 ```jsx
 import { Formik, Form, Field } from 'formik';
@@ -1305,6 +1305,8 @@ const FormComponent = {
 
 // TODO
 
+// TODO: Mention customizing the "error" string
+
 ```javascript
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
@@ -1370,6 +1372,12 @@ const obj4 = {name: "Kevin", id: 3}
 
 
 
+
+
+
+
+
+
 ## Validation Types
 
 Marking a field as required is far from the only type of form validation. While there are any number of items, there
@@ -1380,6 +1388,274 @@ Marking a field as required is far from the only type of form validation. While 
 - Match a regex
 
 // TODO: Add playground
+
+
+
+
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+
+const FormSchema = yup.object().shape({
+  minLenStr: yup.string().min(3),
+  maxLenStr: yup.string().max(3),
+  regex: yup.string().matches(/hello|hi/i),
+  pass: yup.string(),
+  confirm: yup
+    .string()
+    .oneOf([yup.ref('pass'), null], 'Must match "password" field value'),
+});
+
+const FormComponent = () => {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      validationSchema={FormSchema}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+    >
+      {({ errors }) => (
+        <Form>
+          <div>
+            <label>
+              Minimum Length String (3)
+              <Field type="text" name="minLenStr" />
+            </label>
+            {errors.minLenStr && <p>{errors.minLenStr}</p>}
+          </div>
+          <div>
+            <label>
+              Maximum Length String (3)
+              <Field type="text" name="maxLenStr" />
+            </label>
+            {errors.maxLenStr && <p>{errors.maxLenStr}</p>}
+          </div>
+          <div>
+            <label>
+              Regex
+              <Field type="text" name="regex" />
+            </label>
+            {errors.regex && <p>{errors.regex}</p>}
+          </div>
+          <div>
+            <label>
+              Password
+              <Field type="password" name="pass" />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password Confirm
+              <Field type="password" name="confirm" />
+            </label>
+            {errors.confirm && <p>{errors.confirm}</p>}
+          </div>
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+```
+
+### Angular
+
+```typescript
+import {
+  FormsModule,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
+
+// Angular does not provide a built-in validator for matching two `FormControl` values,
+// so we have to build our own
+function matchValues(
+  matchTo: string
+): (AbstractControl) => ValidationErrors | null {
+  return (control: AbstractControl): ValidationErrors | null => {
+    // Get "parent" of control, AKA the "form" itself AKA a "FormGroup"
+    return !!control.parent &&
+      !!control.parent.value &&
+      control.value === control.parent.controls[matchTo].value
+      ? null
+      : { isNotMatching: true };
+  };
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <h1>Friend List</h1>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <div>
+      <label>
+        Minimum Length String (3)
+        <input type="text" formControlName="minLenStr"/>
+      </label>
+    </div>
+    <div *ngIf="mainForm.controls.minLenStr.errors?.minlength">
+      Expected a length of at least 3
+    </div>
+    <div>
+      <label>
+        Maximum Length String (3)
+        <input type="text" formControlName="maxLenStr"/>
+      </label>
+    </div>
+    <div *ngIf="mainForm.controls.maxLenStr.errors?.maxlength">
+      Expected a length of at most 3
+    </div>
+    <div>
+      <label>
+        Regex
+        <input type="text" formControlName="regex"/>
+      </label>
+    </div>
+    <div *ngIf="mainForm.controls.regex.errors?.pattern">
+      Expected the input to match the regex: /hello|hi/i
+    </div>
+    <div>
+      <label>
+        Password
+        <input type="text" formControlName="pass"/>
+      </label>
+    </div>
+    <div>
+      <label>
+        Password Confirm
+        <input type="text" formControlName="confirm"/>
+      </label>
+    </div>
+    <div *ngIf="mainForm.controls.confirm.errors?.isNotMatching">
+      Expected password to match confirm
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  mainForm = this.fb.group(
+    {
+      minLenStr: ['', Validators.minLength(3)],
+      maxLenStr: ['', Validators.maxLength(3)],
+      regex: ['', Validators.pattern(/hello|hi/i)],
+      pass: [''],
+      confirm: ['', matchValues('pass')],
+    },
+    { validators: [] }
+  );
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+### Vue
+
+```javascript
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+
+const FormComponent = {
+  template: `
+  <v-form @submit="onSubmit" :validationSchema="formSchema">
+    <div>
+      <label>
+        Minimum Length String (3)
+        <v-field name="minLenStr" value=""> </v-field>
+      </label>
+    </div>
+    <div>
+      <error-message name="minLenStr" />
+    </div>
+    <div>
+      <label>
+        Maximum Length String (3)
+        <v-field name="maxLenStr" value=""> </v-field>
+      </label>
+    </div>
+    <div>
+      <error-message name="maxLenStr" />
+    </div>
+    <div>
+      <label>
+        Regex
+        <v-field name="regex" value=""> </v-field>
+      </label>
+    </div>
+    <div>
+      <error-message name="regex" />
+    </div>
+    <div>
+      <label>
+        Password
+        <v-field name="pass" type="password" value=""> </v-field>
+      </label>
+    </div>
+    <div>
+      <label>
+        Password Confirm
+        <v-field name="confirm" type="password" value=""> </v-field>
+      </label>
+    </div>
+    <div>
+      <error-message name="confirm" />
+    </div>
+    <button type="submit">Submit</button>
+  </v-form>
+  `,
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
+  data() {
+    return {
+      formSchema: yup.object().shape({
+        minLenStr: yup.string().min(3),
+        maxLenStr: yup.string().max(3),
+        regex: yup.string().matches(/hello|hi/i),
+        pass: yup.string(),
+        confirm: yup
+          .string()
+          .oneOf([yup.ref('pass'), null], 'Must match "password" field value'),
+      }),
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    },
+  },
+};
+```
+
+<!-- tabs:end -->
+
+
+
+
+
+
+
+
 
 
 
