@@ -1087,11 +1087,13 @@ const FormComp = () => {
 
 ### Complex Data Schema
 
+Formik's `validate` function passing works quite well for basic usage. That said, let's introduce a better way to do form validation that scales a little better when dealing with more complex data.
 
+There exist multiple different libraries that will integrate with Formik in order to add dedicated complex validation functionality. [`yup` is one such library](https://github.com/jquense/yup).
 
-// TODO Usage with `yup`
+By using `yup`, you're able to replace our home-grown function with something as simply as `yup.string().required()` to mark the field as required.
 
-// TODO: Mention customizing the "error" string
+Yup works by introducing in the concept of a "schema" into form validation. You start by decaring a schema that's then validated against using the `validationSchema` in the `Formik` component.
 
 ```jsx
 import { Formik, Form, Field } from 'formik';
@@ -1129,9 +1131,13 @@ const FormComponent = () => {
 };
 ```
 
+While Yup will generate an error message based on the expected and recieved data types, we're also able to customize the error message ourselves:
 
-
-
+```javascript
+const FormSchema = yup.object().shape({
+  name: yup.string().required("You must input a name of the user to share with."),
+});
+```
 
 ## Angular
 
@@ -1255,6 +1261,8 @@ class AppComponent {
 
 ## Vue
 
+React's Formik isn't alone in its ability to allow you to pass a function to validate user's input. Similar to Formik, `vee-validate` allows you to pass a `rules` parameter that's a function. If the function returns anything other than `true`, it will display the value as the error in the `error-message` component.
+
 ```javascript
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
@@ -1303,9 +1311,11 @@ const FormComponent = {
 
 ### Complex Data Schema
 
-// TODO
+Instead of writing our own functions to validate user input, let's instead use a library that can do that validation for us.
 
-// TODO: Mention customizing the "error" string
+[`yup` is a library that allows us to do "schema" based validation](https://github.com/jquense/yup). A schema is simply another way of saying "a set of rules that should be followed". In this case, we want Yup to make sure that the user's inputs match the rules we set up in Yup's validation.
+
+We can then pass that Yup schema into `vee-validate`'s `v-form` `validationSchema` property.
 
 ```javascript
 import { Form, Field, ErrorMessage } from 'vee-validate';
@@ -1350,7 +1360,13 @@ const FormComponent = {
 };
 ```
 
+By default, Yup will attempt to figure out the error message it should show based on the schema and the user's input. However, as we mentioned in our React section, we're able to change the error message displayed by Yup with the following:
 
+```javascript
+const FormSchema = yup.object().shape({
+  name: yup.string().required("You must input a name of the user to share with."),
+});
+```
 
 <!-- tabs:end -->
 
@@ -1369,13 +1385,9 @@ const obj3 = {name: "Corbin", favFood: "Ice Cream"}
 const obj4 = {name: "Kevin", id: 3}
 ```
 
+Likewise, another concept that's introduced here is the concept of a "schema". A schema is simply a blueprint for how data should be represented.
 
-
-
-
-
-
-
+A schema defines what an object's shape and input values _should_ look like, as opposed to what the user may input.
 
 
 ## Validation Types
@@ -1387,11 +1399,7 @@ Marking a field as required is far from the only type of form validation. While 
 - Two inputs match each other
 - Match a regex
 
-// TODO: Add playground
-
-
-
-
+Here's a playground where we demonstrate a form that validates all of those examples:
 
 <!-- tabs:start -->
 
@@ -1649,16 +1657,6 @@ const FormComponent = {
 
 <!-- tabs:end -->
 
-
-
-
-
-
-
-
-
-
-
 ## Caution When Validating & Form Building
 
 While validation is inarguably a useful feature for forms, it's important to not be too enthusiastic in our usage of it.
@@ -1680,6 +1678,18 @@ Here's some further reading on the topic:
 https://www.w3.org/International/questions/qa-personal-names
 
 https://uxdesign.cc/designing-forms-for-gender-diversity-and-inclusion-d8194cf1f51
+
+// TODO: Find more reading on the topic, vet the above
+
+
+
+
+
+
+
+
+
+
 
 
 
