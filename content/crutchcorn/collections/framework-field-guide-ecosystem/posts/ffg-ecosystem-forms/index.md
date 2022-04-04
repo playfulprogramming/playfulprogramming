@@ -1683,34 +1683,156 @@ https://uxdesign.cc/designing-forms-for-gender-diversity-and-inclusion-d8194cf1f
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # Non-Text Form Fields
 
-Not all fields in a form are going to be text inputs, however. While there are many other types of user input elements, let's focus on just two:
+Not all fields in a form are going to be text inputs, however. You might want to introduce a checkbox to the user to make sure they've accepted terms and conditions, have a dropdown of time-zones, or have a date picker for the user to input a time.
 
-1) User Select Dropdowns
-2) User Radio Buttons
+Just like text inputs, you can combine these input types with validation!
 
-// TODO:
+While there are many other types of user input elements, let's focus on just one: Checkboxes.
 
------
+<!-- tabs:start -->
+
+## React
+
+Formik allows you to easily cast a `Field` component to a different `type` to display a different base input UI. This is the same as how the `input` element works.
+
+```jsx
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+
+const FormSchema = yup.object().shape({
+  termsAndConditions: yup
+    .bool()
+    .oneOf([true], 'You need to accept the terms and conditions'),
+});
+
+const FormComponent = () => {
+  return (
+    <Formik
+      initialValues={{
+        termsAndConditions: false,
+      }}
+      validationSchema={FormSchema}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+    >
+      {({ errors }) => (
+        <Form>
+          <div>
+            <label>
+              Terms and conditions
+              <Field type="checkbox" name="termsAndConditions" />
+            </label>
+            {errors.termsAndConditions && <p>{errors.termsAndConditions}</p>}
+          </div>
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+```
+
+Something worth mentioning in terms of validation is how Formik integrates with Yup; we can't simply mark our `termsAndConditions` field as `required`. Instead, we have to tell `yup` that it has to be `oneOf([true])` to enforce the checkbox to be `true`.
+
+## Angular
+
+Since Angular uses the `input` element directly, it's trivial to implement a checkbox without much thought. In addition, our specific use-case of creating a terms and conditions toggle is something that [the built-in validator `requiredTrue`](https://angular.io/api/forms/Validators#requiredtrue) can make trivial.
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <form (submit)="onSubmit($event)" [formGroup]="mainForm">
+    <div>
+      <label>
+        Terms and Conditions
+        <input type="checkbox" formControlName="termsAndConditions"/>
+      </label>
+    </div>
+    <div *ngIf="mainForm.controls.termsAndConditions.errors?.required">
+      You must accept the terms and conditions
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  `,
+})
+class AppComponent {
+  constructor(private fb: FormBuilder) {}
+
+  mainForm = this.fb.group({
+    termsAndConditions: ['', Validators.requiredTrue],
+  });
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(this.mainForm.value);
+  }
+}
+```
+
+## Vue
+
+`vee-validate` supports casting a `v-field` to a different `input` `type`, just like React's Formik. Luckily for us, usage with `yup` is for checkboxes as simple as adding the `required` validator to Yup's schema shape.
+
+```javascript
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+
+const FormComponent = {
+  template: `
+    <v-form @submit="onSubmit" :validationSchema="formSchema">
+      <div>
+        <label>
+          Name
+          <v-field name="termsAndConditions" type="checkbox" :value="true">
+          </v-field> 
+        </label>
+      </div>
+      <div>
+        <error-message name="termsAndConditions" />
+      </div>
+
+      <button type="submit">Submit</button>
+    </v-form>
+`,
+  components: {
+    VForm: Form,
+    VField: Field,
+    ErrorMessage: ErrorMessage,
+  },
+  data() {
+    return {
+      formSchema: yup.object().shape({
+        termsAndConditions: yup
+          .bool()
+          .required('You need to accept the terms and conditions'),
+      }),
+    };
+  },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    },
+  },
+};
+```
+
+<!-- tabs:end -->
 
 
+# Wrapping Up
 
-Forms
+We've taken a look at various methods of creating forms for React, Angular, and Vue. Each method has their pros and cons, complete with complexity tradeoffs as well.
 
-- ngModel/Angular
-  - Angular Forms
-- One way binding/React
-- v-model/Vue
+While our React and Vue code samples have utilized Formik and `vee-validate` respectively, they're far from the only options on the table. I selected them in part due to their similarity and popularity, but some other alternatives might include [FormKit for Vue](https://formkit.com/)  or [React Hook Form](https://react-hook-form.com/).
+
+Similarly, despite using `yup` for both our React and Vue code samples, there exist other libraries that can integrate with Formik and `vee-validate`. [One popular alternative is `zod`](https://github.com/colinhacks/zod), which claims to have better TypeScript usage when compared to `yup`.
+
+Going further, despite our lack of integration with Angular, `yup` (and `zod`) supports Angular as well! There's no reason you couldn't use `yup` to build a custom Angular validator that integrates seamlessly with `@angular/forms`'s `ReactiveForms` module.
+
+In our next chapter, we'll take a look at [Partial DOM Application](/posts/partial-dom-application) using `React.Fragment`s, `template`s, and `ng-template`s to solve some problems with dynamic HTML.
