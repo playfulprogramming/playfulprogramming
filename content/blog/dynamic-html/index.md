@@ -1252,23 +1252,25 @@ const FileList = () => {
 
   const [onlyShowFiles, setOnlyShowFiles] = useState(false);
   const toggleOnlyShow = () => setOnlyShowFiles(!onlyShowFiles);
-  
+
   return (
     <div>
       <button onClick={toggleOnlyShow}>Only show files</button>
       <ul>
-        {filesArray.map((file, i) => {
-          if (onlyShowFiles ? file.isFolder : false) return null;
-
-          return <li><File
-            key={file.id}
-            isSelected={selectedIndex === i}
-            onSelected={() => onSelected(i)}
-            fileName={file.fileName}
-            href={file.href}
-            isFolder={file.isFolder}
-          /></li>;
-        }
+        {filesArray.map((file, i) => (
+          <li>
+            {(!onlyShowFiles || !file.isFolder) &&
+              <File
+                key={file.id}
+                isSelected={selectedIndex === i}
+                onSelected={() => onSelected(i)}
+                fileName={file.fileName}
+                href={file.href}
+                isFolder={file.isFolder}
+              />
+            }
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -1310,6 +1312,8 @@ export class FileListComponent {
 ```
 
 Don't worry too much about the `ngIf` 
+
+// TODO
 
 ## Vue
 
@@ -1353,3 +1357,7 @@ const FileList = {
 ```
 
 <!-- tabs:end -->
+
+
+
+// TODO: Finish
