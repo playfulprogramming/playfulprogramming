@@ -18,7 +18,7 @@ export const DarkLightButton = () => {
         const newTheme = colorMode === "dark" ? "light" : "dark";
         setColorMode(newTheme);
       }}
-      aria-pressed={colorMode === "light"}
+      aria-pressed={colorMode !== "light"}
       aria-label={"Dark mode"}
     >
       {colorMode === "dark" ? <DarkIcon /> : <LightIcon />}
