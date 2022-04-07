@@ -26,10 +26,7 @@ export const PostListHeader = ({ siteDescription }: PostListHeaderProps) => {
       </div>
       <div className={styles.noMgContainer}>
         <h1 className={styles.title}>Unicorn Utterances</h1>
-        <div
-          className={styles.subheader}
-          aria-label={"The site's about snippet"}
-        >
+        <div className={styles.subheader}>
           {siteDescription}
           <br />
           <Link href={"/about"}>About Us</Link>
