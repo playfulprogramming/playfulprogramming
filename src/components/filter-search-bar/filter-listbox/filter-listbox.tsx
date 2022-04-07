@@ -266,7 +266,6 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
           className={filterStyles.filterButton}
           aria-haspopup="listbox"
           aria-expanded={expanded}
-          aria-labelledby="exp_elem filter-button"
           aria-owns="listBoxID"
           id="filter-button"
           ref={btnCallbackRef}
