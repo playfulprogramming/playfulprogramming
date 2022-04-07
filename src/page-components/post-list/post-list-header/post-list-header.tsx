@@ -20,7 +20,7 @@ export const PostListHeader = ({ siteDescription }: PostListHeaderProps) => {
           priority={true}
           layout="responsive"
           sizes={"300px"}
-          alt={`Unicorn Utterances header image`}
+          alt={`Smiling cartoon unicorn with a bowtie`}
           src={unicornLogo}
         />
       </div>
