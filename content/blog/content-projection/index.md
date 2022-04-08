@@ -27,6 +27,10 @@ Let's think of a simple example where you have the following HTML:
 
 Say you want the `button` to have "pressed" effect whenever you click on it. Then, when you click on it for a second time, it unclicks. This might look something like the following:
 
+<!-- tabs:start -->
+
+# React
+
 // TODO: Add other framework examples, this is just React
 
 ```jsx
@@ -40,10 +44,21 @@ const ToggleButtonList = () => {
 }
 ```
 
+# Angular
+
+// TODO
+
+# Vue
+
+// TODO
+
+<!-- tabs:end -->
 
 While this works for a single button pretty well, what happens when we want to add a second button? Sure, we could simply add a second variable:
 
-// TODO: Add other framework examples, this is just React
+<!-- tabs:start -->
+
+# React
 
 ```jsx
 const ToggleButtonList = () => {
@@ -60,13 +75,25 @@ const ToggleButtonList = () => {
 }
 ```
 
+# Angular
+
+// TODO
+
+# Vue
+
+// TODO
+
+<!-- tabs:end -->
+
 But this admittedly adds a fair bit of complexity and muddles up the code's readability.
 
 We could instead use [dynamic HTML](/posts/dynamic-html) and create a `for` loop, but what if we wanted to have items in between some of the `button`s? It's not a great fit.
 
 Instead, let's create a `ToggleButton` component to re-use the logic!
 
-// TODO: Add other framework examples, this is just React
+<!-- tabs:start -->
+
+# React
 
 ```jsx
 const ToggleButton = ({text}) => {
@@ -86,11 +113,23 @@ const ToggleButtonList = () => {
 }
 ```
 
+# Angular
+
+// TODO
+
+# Vue
+
+// TODO
+
+<!-- tabs:end -->
+
 Here, we're passing `text` as a string property to assign text. But oh no! What if we wanted to add a `span` inside of the `button` to add bolded text? After all, if you pass `Hello, <span>world</span>!`, it wouldn't render the `span`, but instead render the `<span>` as text.
 
 Instead, **let's allow the parent of our `ToggleButton` to pass in a template that's then rendered into the component**.
 
-// TODO: Add other framework examples, this is just React
+<!-- tabs:start -->
+
+# React
 
 // TODO: Mention `children` being a special property name in React
 
@@ -112,11 +151,23 @@ const ToggleButtonList = () => {
 }
 ```
 
+# Angular
+
+// TODO
+
+# Vue
+
+// TODO
+
+<!-- tabs:end -->
+
 Here, we can see that we're able to pass a `span` and other template items directly as _children_ to our `ToggleButton` component. [This is similar to how you're able to pass HTML elements as `children` to other HTML elements](https://unicorn-utterances.com/posts/understanding-the-dom).
 
 However, because these templates have the full power of the frameworks at their disposal, these _children_ have super-powers! Let's add in a `for` loop into our children template to say hello to all of our friends:
 
-// TODO: Add other framework examples, this is just React
+<!-- tabs:start -->
+
+# React
 
 ```jsx
 const RainbowExclamationMark = () => {
@@ -147,6 +198,16 @@ const ToggleButtonList = () => {
 }
 ```
 
+# Angular
+
+// TODO
+
+# Vue
+
+// TODO
+
+<!-- tabs:end -->
+
 As you can see, we can use any features inside of our `children` - even other components!
 
 > [Thanks to Sarah Fossheim for the guide on how to add clipped background text like our exclamation mark!](https://fossheim.io/writing/posts/css-text-gradient/)
@@ -157,7 +218,7 @@ As you can see, we can use any features inside of our `children` - even other co
 
 
 
-
+----------------------------
 
 
 
