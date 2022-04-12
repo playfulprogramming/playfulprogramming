@@ -31,13 +31,11 @@ Say you want the `button` to have "pressed" effect whenever you click on it. The
 
 # React
 
-// TODO: Add other framework examples, this is just React
-
 ```jsx
 const ToggleButtonList = () => {
 	const [pressed, setPressed] = useState(false);
 	return <>
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}}>
+		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
 			Hello world!
 		</button>
 	</>
@@ -46,13 +44,32 @@ const ToggleButtonList = () => {
 
 # Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'toggle-button-list',
+  template: `
+    <button (click)="togglePressed()" [ngStyle]="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" [attr.aria-pressed]="pressed">
+      Hello world!
+    </button>
+    `,
+})
+export class ToggleButtonListComponent {
+  pressed = false;
+  togglePressed() {
+    this.pressed = !this.pressed;
+  }
+}
+```
+
+
 
 # Vue
 
 // TODO
 
 <!-- tabs:end -->
+
+> TODO: Shortly mention `aria-pressed` and link to accessibility chapter and "Introduction to A11Y"
 
 While this works for a single button pretty well, what happens when we want to add a second button? Sure, we could simply add a second variable:
 
@@ -65,10 +82,10 @@ const ToggleButtonList = () => {
 	const [pressed, setPressed] = useState(false);
 	const [pressed2, setPressed2] = useState(false);
 	return <>
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}}>
+		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
 			Hello world!
 		</button>
-		<button onClick={() => setPressed2(!pressed2)} style={{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}}>
+		<button onClick={() => setPressed2(!pressed2)} style={{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
 			Hello other friends!
 		</button>
 	</>
@@ -77,7 +94,31 @@ const ToggleButtonList = () => {
 
 # Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'toggle-button-list',
+  template: `
+    <button (click)="togglePressed()" [ngStyle]="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" [attr.aria-pressed]="pressed">
+      Hello world!
+    </button>
+    <button (click)="togglePressed2()" [ngStyle]="{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}" type="button" [attr.aria-pressed]="pressed2">
+    Hello world!
+  </button>
+    `,
+})
+export class ToggleButtonListComponent {
+  pressed = false;
+  togglePressed() {
+    this.pressed = !this.pressed;
+  }
+  pressed2 = false;
+  togglePressed2() {
+    this.pressed2 = !this.pressed2;
+  }
+}
+```
+
+
 
 # Vue
 
@@ -99,7 +140,7 @@ Instead, let's create a `ToggleButton` component to re-use the logic!
 const ToggleButton = ({text}) => {
 	const [pressed, setPressed] = useState(false);
 	return (
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}}>
+		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
 			{text}
 		</button>
     )
@@ -115,7 +156,32 @@ const ToggleButtonList = () => {
 
 # Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'toggle-button',
+  template: `
+    <button (click)="togglePressed()" [ngStyle]="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" [attr.aria-pressed]="pressed">
+      {{text}}
+    </button>
+    `,
+})
+export class ToggleButtonComponent {
+  @Input() text: string;
+  pressed = false;
+  togglePressed() {
+    this.pressed = !this.pressed;
+  }
+}
+
+@Component({
+  selector: 'toggle-button-list',
+  template: `
+    <toggle-button text="Hello world!"></toggle-button>
+    <toggle-button text="Hello other friends!"></toggle-button>
+  `,
+})
+export class ToggleButtonListComponent {}
+```
 
 # Vue
 
@@ -137,7 +203,7 @@ Instead, **let's allow the parent of our `ToggleButton` to pass in a template th
 const ToggleButton = ({children}) => {
 	const [pressed, setPressed] = useState(false);
 	return (
-		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}}>
+		<button onClick={() => setPressed(!pressed)} style={{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}} type="button" aria-pressed={pressed}>
 			{text}
 		</button>
     )
@@ -153,7 +219,33 @@ const ToggleButtonList = () => {
 
 # Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'toggle-button',
+  template: `
+    <button (click)="togglePressed()" [ngStyle]="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" [attr.aria-pressed]="pressed">
+    <ng-content></ng-content>
+    </button>
+    `,
+})
+export class ToggleButtonComponent {
+  pressed = false;
+  togglePressed() {
+    this.pressed = !this.pressed;
+  }
+}
+
+@Component({
+  selector: 'toggle-button-list',
+  template: `
+    <toggle-button>Hello <span [ngStyle]="{fontWeight: 'bold'}">world</span>!</toggle-button>
+    <toggle-button>Hello other friends!</toggle-button>
+  `,
+})
+export class ToggleButtonListComponent {}
+```
+
+// TODO: Mention `ng-content` to be a special tab
 
 # Vue
 
@@ -200,7 +292,40 @@ const ToggleButtonList = () => {
 
 # Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'rainbow-exclamation-mark',
+  template: `
+  <span
+  [ngStyle]="{
+    fontSize: '3rem',
+    background: rainbowGradient,
+    backgroundSize: '100%',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    MozBackgroundClip: 'text'
+  }"
+>
+  !
+</span>
+    `,
+})
+export class RainbowExclamationMarkComponent {
+  rainbowGradient =
+    'linear-gradient(180deg, #FE0000 16.66%, #FD8C00 16.66%, 33.32%, #FFE500 33.32%, 49.98%, #119F0B 49.98%, 66.64%, #0644B3 66.64%, 83.3%, #C22EDC 83.3%)';
+}
+
+@Component({
+  selector: 'toggle-button-list',
+  template: `
+    <toggle-button>Hello <span *ngFor="let friend of friends">{{friend}} </span>!</toggle-button>
+    <toggle-button>Hello other friends<rainbow-exclamation-mark></rainbow-exclamation-mark></toggle-button>
+  `,
+})
+export class ToggleButtonListComponent {
+  friends = ['Kevin,', 'Evelyn,', 'and James'];
+}
+```
 
 # Vue
 
