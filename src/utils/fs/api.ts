@@ -8,8 +8,7 @@ import {
   collectionsDirectory,
 } from "./get-datas";
 
-export * from "./posts-api";
-export * from "./collections-api";
+export * from "./posts-and-collections-api";
 export * from "./markdown-api";
 
 export {

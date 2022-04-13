@@ -7,14 +7,27 @@ import Link from "next/link";
 interface SeriesTocProps {
   post: SlugPostInfo & RenderedPostInfo;
   postSeries: SeriesPostInfo[];
+  collectionSlug?: string;
 }
-export const SeriesToC = ({ post, postSeries }: SeriesTocProps) => {
+export const SeriesToC = ({
+  post,
+  postSeries,
+  collectionSlug,
+}: SeriesTocProps) => {
   const router = useRouter();
+
+  const seriesText = `Part of our series: ${post.series}`;
 
   return (
     <div className={styles.seriesTableOfContent}>
       <div className={styles.seriesHeader}>
-        Part of our series: {post.series}
+        {collectionSlug ? (
+          <Link href={`/collections/${collectionSlug}`} passHref>
+            <a>{seriesText}</a>
+          </Link>
+        ) : (
+          seriesText
+        )}
       </div>
       <ol aria-labelledby="series-header" role="list">
         {postSeries.map((seriesPost, i) => {

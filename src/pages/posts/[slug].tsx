@@ -93,6 +93,8 @@ const Post = ({
 
   const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
+  console.log(post);
+
   return (
     <>
       <SEO
@@ -118,7 +120,11 @@ const Post = ({
               </header>
               <main className="post-body" data-testid={"post-body-div"}>
                 {post.series && (
-                  <SeriesToC post={post} postSeries={seriesPosts} />
+                  <SeriesToC
+                    post={post}
+                    postSeries={seriesPosts}
+                    collectionSlug={post.collectionSlug}
+                  />
                 )}
                 {result}
               </main>
