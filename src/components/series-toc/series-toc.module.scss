@@ -35,6 +35,10 @@
 	li > button {
 		background: none;
 		border: none;
+		color: var(--darkPrimary);
+		font-size: inherit;
+		text-decoration: underline;
+		cursor: pointer;
 	}
 
 	li::before {

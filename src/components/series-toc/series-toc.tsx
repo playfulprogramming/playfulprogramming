@@ -7,14 +7,12 @@ import { useMemo, useState } from "react";
 interface SeriesToCListItem {
   post: SeriesTocProps["postSeries"][0];
   isActive: boolean;
-  partNum: number;
   className?: string;
 }
 
 const SeriesToCListItem = ({
   post,
   isActive,
-  partNum,
   className,
 }: SeriesToCListItem) => {
   const liClass = isActive ? styles.isActive : "";
@@ -25,7 +23,7 @@ const SeriesToCListItem = ({
     <li className={`${liClass || ""} ${className || ""}`} role="listitem">
       <Link href={`/posts/${post.slug}`} passHref>
         <a>
-          Part {partNum}: {titleName}
+          Part {post.order}: {titleName}
         </a>
       </Link>
     </li>
@@ -33,11 +31,12 @@ const SeriesToCListItem = ({
 };
 
 function seperatePostsIntoThirds(seriesPosts: SeriesTocProps["postSeries"]) {
-  const firstPosts = seriesPosts.splice(0, 2);
-  const lastPosts = seriesPosts.splice(seriesPosts.length - 2, 2);
+  const posts = [...seriesPosts];
+  const firstPosts = posts.splice(0, 2);
+  const lastPosts = posts.splice(posts.length - 2, 2);
   return {
     firstPosts,
-    middlePosts: seriesPosts,
+    middlePosts: posts,
     lastPosts,
   };
 }
@@ -84,7 +83,6 @@ export const SeriesToC = ({
             <SeriesToCListItem
               key={seriesPost.slug}
               isActive={isActive}
-              partNum={i + 1}
               post={seriesPost}
             />
           );
@@ -101,8 +99,11 @@ export const SeriesToC = ({
               }
               role="listitem"
             >
-              <button aria-expanded={false}>
-                {middlePosts.length} more posts
+              <button
+                aria-expanded={false}
+                onClick={() => setMiddlePostsActive(true)}
+              >
+                {middlePosts.length} more parts
               </button>
             </li>
             {middlePosts.map((seriesPost, i) => {
@@ -113,7 +114,6 @@ export const SeriesToC = ({
                   className={areMiddlePostsActive ? "" : styles.displayNone}
                   key={seriesPost.slug}
                   isActive={isActive}
-                  partNum={i + 1}
                   post={seriesPost}
                 />
               );
@@ -127,7 +127,6 @@ export const SeriesToC = ({
             <SeriesToCListItem
               key={seriesPost.slug}
               isActive={isActive}
-              partNum={i + 1}
               post={seriesPost}
             />
           );
