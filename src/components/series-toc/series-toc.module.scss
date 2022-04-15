@@ -32,6 +32,11 @@
 		margin-top: 16px;
 	}
 
+	li > button {
+		background: none;
+		border: none;
+	}
+
 	li::before {
 		position: absolute;
 		height: 8px;
@@ -50,5 +55,9 @@
 
 	li.isActive::before {
 		background: var(--darkPrimary);
+	}
+
+	.displayNone {
+		display: none;
 	}
 }
