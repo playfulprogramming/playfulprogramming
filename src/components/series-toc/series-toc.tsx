@@ -44,7 +44,7 @@ function seperatePostsIntoThirds(seriesPosts: SeriesTocProps["postSeries"]) {
 interface SeriesTocProps {
   post: SlugPostInfo & RenderedPostInfo;
   postSeries: SeriesPostInfo[];
-  collectionSlug?: string;
+  collectionSlug?: string | null;
 }
 export const SeriesToC = ({
   post,
