@@ -339,6 +339,71 @@ As you can see, we can use any features inside of our `children` - even other co
 
 
 
+# Applying our knowledge
+
+Now that we're familiar with how content projection works, let's apply it to one of our components we've been building for our file hosting application.
+
+One example where we can utilize content projection in our application is as a wrapper component for our files list.
+
+![// TODO: Add content](./file_list.png)
+
+As we can see, this file "list" is really more of a file "table". Let's go ahead and do some refactor work on our file list to be a `table`:
+
+### React
+
+```jsx
+const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
+  return (
+    <tr
+      onClick={onSelected}
+      aria-selected={isSelected}
+      style={
+        isSelected
+          ? { backgroundColor: 'blue', color: 'white' }
+          : { backgroundColor: 'white', color: 'blue' }
+      }
+    >
+      <td><a href={href}>{fileName}</a></td>
+      {isFolder && <td><FileDate inputDate={new Date()} /></td>}
+    </tr>
+  );
+};
+
+// This was previously called "FileList"
+const FileTableBody = () => {
+  return (<tbody>
+  {
+    filesArray.map(file => {
+      return <>
+        {file.isFolder && <File />}
+      </>
+    })
+  }
+</tbody>)
+}
+
+// This is a new component
+const FileTable = () => {
+  return (
+  	return <table><FileList/></table>
+  )
+}
+```
+
+<!-- Author's note: It's not clear what the best A11Y pattern is here. The best guide for this seems to be an incomplete WCAG guide -->
+<!-- https://w3c.github.io/aria-practices/examples/grid/advancedDataGrid.html -->
+<!-- That said, it seems like the best overall pattern here is that the row selection should have `aria-selected` (not `aria-pressed`) with the information present -->
+
+--------------
+
+
+
+Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a templacement `FileTableContainer` component, which utilizes content projection
+
+
+
+
+
 
 
 
