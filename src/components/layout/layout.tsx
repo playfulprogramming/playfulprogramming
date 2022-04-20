@@ -31,7 +31,6 @@ export const Layout: React.FC = ({ children }) => {
                 className={`${layoutStyles.backBtn} baseBtn`}
                 aria-label="Go back"
                 onClick={() => {
-                  console.log({ back });
                   back("/");
                 }}
               >

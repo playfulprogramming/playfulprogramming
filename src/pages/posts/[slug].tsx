@@ -93,8 +93,6 @@ const Post = ({
 
   const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
-  console.log(post);
-
   return (
     <>
       <SEO
