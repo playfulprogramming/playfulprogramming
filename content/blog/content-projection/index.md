@@ -507,4 +507,18 @@ const FileTable = () => {
 
 
 
+------------
 
+- Content projection
+  - `{props.children}` / React
+  - `ng-content` / Angular
+  - `<slot>` / Vue
+  - Named slots
+    - `{props.header}` / React
+    - `ng-content select` / Angular
+    - `<slot name` / Vue
+
+
+ Create a `FileContainer` component that has a bunch of stying around the contrainer itself.
+
+ Then, add in `header` for buttons related to the file list

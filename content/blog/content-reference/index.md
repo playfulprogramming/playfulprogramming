@@ -126,6 +126,51 @@ const App = () => {
 
 Here, we can see that whenever a random number is added to the list, our list item counter still increments properly.
 
+# Passing Values to Projected Content
+
+While counting the number of items in a list is novel, it's not a very practical use of accessing projected content in JavaScript.
+
+Instead, let's see if there's a way that we can pass values to our projected content. For example, let's try to change the background color of each `li` item if the index is even or odd.
+
+
+
+<!-- tabs:start -->
+
+## React
+
+As part of React's `Children` utilities, we're able to `cloneElement` on each item in the `children` array in order to pass React properties. We can use this logic to pass properties that include styling when the index is even or odd.
+
+```jsx
+import {Children, useState} from 'react';
+
+const ParentList = ({ children }) => {
+  const childArr = Children.toArray(children);
+  const newChildArr = childArr.map((node, i) =>
+    React.cloneElement(node, {
+      style: { backgroundColor: i % 2 ? 'grey' : '' },
+    })
+  );
+  return (
+    <>
+      <p>There are {childArr.length} number of items in this array</p>
+      <ul>{newChildArr}</ul>
+    </>
+  );
+};
+```
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+
+
 
 
 
