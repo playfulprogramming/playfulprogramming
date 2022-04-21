@@ -397,8 +397,21 @@ const FileTable = () => {
 --------------
 
 
+Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which utilizes content projection to style the underlying `table` element.
 
-Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a templacement `FileTableContainer` component, which utilizes content projection
+````jsx
+const FileTableContainer = ({children}) => {
+  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
+		{children}
+	</table>
+}
+
+const FileTable = () => {
+  return (
+  	return <table><FileList/></table>
+  )
+}
+````
 
 
 
