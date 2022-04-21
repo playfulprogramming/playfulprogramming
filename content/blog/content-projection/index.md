@@ -387,7 +387,7 @@ const FileTableBody = () => {
 // This is a new component
 const FileTable = () => {
   return (
-  	<table><FileList/></table>
+  	<table><FileTableBody/></table>
   )
 }
 ```
@@ -489,7 +489,7 @@ const FileTable = () => {
     
     return (
   	<FileTableContainer header={headerEl}>
-      <FileList/>
+      <FileTableBody/>
     </FileTableContainer>
   )
 }
