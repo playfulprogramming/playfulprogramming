@@ -65,7 +65,23 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-// TODO
+```javascript
+const ToggleButtonList = {
+  template: `
+  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
+  Hello world!
+</button>
+`,
+  data() {
+    return { pressed: false };
+  },
+  methods: {
+    togglePressed() {
+      this.pressed = !this.pressed;
+    },
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -122,7 +138,32 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-// TODO
+```javascript
+const ToggleButtonList = {
+  template: `
+  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
+  Hello world!
+</button>
+<button @click="togglePressed2()" :style="{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}" type="button" :aria-pressed="pressed2">
+Hello world!
+</button>
+`,
+  data() {
+    return { pressed: false, pressed2: false };
+  },
+  methods: {
+    togglePressed() {
+      this.pressed = !this.pressed;
+    },
+
+    togglePressed2() {
+      this.pressed2 = !this.pressed2;
+    },
+  },
+};
+```
+
+
 
 <!-- tabs:end -->
 
@@ -185,7 +226,34 @@ export class ToggleButtonListComponent {}
 
 # Vue
 
-// TODO
+```javascript
+const ToggleButton = {
+  template: `
+  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
+  {{text}}
+</button>
+  `,
+  props: ['text'],
+  data() {
+    return { pressed: false };
+  },
+  methods: {
+    togglePressed() {
+      this.pressed = !this.pressed;
+    },
+  },
+};
+
+const ToggleButtonList = {
+  template: `
+  <toggle-button text="Hello world!"></toggle-button>
+  <toggle-button text="Hello other friends!"></toggle-button>
+`,
+  components: {
+    ToggleButton,
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -249,7 +317,36 @@ export class ToggleButtonListComponent {}
 
 # Vue
 
-// TODO
+// TODO: Mention "slot" being a special element
+
+```javascript
+const ToggleButton = {
+  template: `
+  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
+  <slot></slot>
+</button>
+  `,
+  props: ['text'],
+  data() {
+    return { pressed: false };
+  },
+  methods: {
+    togglePressed() {
+      this.pressed = !this.pressed;
+    },
+  },
+};
+
+const ToggleButtonList = {
+  template: `
+  <toggle-button>Hello <span style="font-weight: bold">world</span>!</toggle-button>
+  <toggle-button>Hello other friends!</toggle-button>
+`,
+  components: {
+    ToggleButton,
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -329,7 +426,46 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-// TODO
+```javascript
+const RainbowExclamationMark = {
+  template: `
+  <span
+  :style="{
+    fontSize: '3rem',
+    background: rainbowGradient,
+    backgroundSize: '100%',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    MozBackgroundClip: 'text'
+  }"
+>
+  !
+</span>
+  `,
+  data() {
+    return {
+      rainbowGradient:
+        'linear-gradient(180deg, #FE0000 16.66%, #FD8C00 16.66%, 33.32%, #FFE500 33.32%, 49.98%, #119F0B 49.98%, 66.64%, #0644B3 66.64%, 83.3%, #C22EDC 83.3%)',
+    };
+  },
+};
+
+const ToggleButtonList = {
+  template: `
+  <toggle-button>Hello <span v-for="friend of friends">{{friend}} </span>!</toggle-button>
+  <toggle-button>Hello other friends<rainbow-exclamation-mark></rainbow-exclamation-mark></toggle-button></toggle-button>
+`,
+  components: {
+    ToggleButton,
+    RainbowExclamationMark,
+  },
+  data() {
+    return {
+      friends: ['Kevin,', 'Evelyn,', 'and James'],
+    };
+  },
+};
+```
 
 <!-- tabs:end -->
 
