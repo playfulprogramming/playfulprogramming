@@ -349,7 +349,9 @@ One example where we can utilize content projection in our application is as a w
 
 As we can see, this file "list" is really more of a file "table". Let's go ahead and do some refactor work on our file list to be a `table`:
 
-### React
+<!-- tabs:start -->
+
+## React
 
 ```jsx
 const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
@@ -385,10 +387,20 @@ const FileTableBody = () => {
 // This is a new component
 const FileTable = () => {
   return (
-  	return <table><FileList/></table>
+  	<table><FileList/></table>
   )
 }
 ```
+
+## Angular
+
+// TODO: This section
+
+## Vue
+
+// TODO: This section
+
+<!-- tabs:end -->
 
 <!-- Author's note: It's not clear what the best A11Y pattern is here. The best guide for this seems to be an incomplete WCAG guide -->
 <!-- https://w3c.github.io/aria-practices/examples/grid/advancedDataGrid.html -->
@@ -396,8 +408,11 @@ const FileTable = () => {
 
 --------------
 
-
 Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which utilizes content projection to style the underlying `table` element.
+
+<!-- tabs:start -->
+
+## React
 
 ````jsx
 const FileTableContainer = ({children}) => {
@@ -408,34 +423,88 @@ const FileTableContainer = ({children}) => {
 
 const FileTable = () => {
   return (
-  	return <table><FileList/></table>
+  	<FileTableContainer><FileList/></FileTableContainer>
   )
 }
 ````
 
+## Angular
+
+// TODO: This section
+
+## Vue
+
+// TODO: This section
+
+<!-- tabs:end -->
+
+# Named Content Projection
+
+Oftentimes when building a component that utilizes content projection, you'll find yourself wanting to have more than one area to inject content into. For example, in our table, let's pretend that on top of passing the table's body contents, we also want to pass a table's header.
+
+While we _could_ simply pass the table as a `child`:
+
+```jsx
+<table>
+   <FileHeader/>
+   <FileList/>
+</table>
+```
+
+ What happens if we want to apply custom styling to our `FileHeader` and apply it universally to all instances of a `table`'s `thead`?
+
+This is where a named content projection would come in handy.
+
+<!-- tabs:start -->
+
+## React
+
+Something worth reminding is that JSX constructs a value, just like a number or string, that you can then store to a variable.
+
+```jsx
+const table = <p>Test</p>;
+```
+
+This can be passed to a function, like `console.log`, or anything any other JavaScript value can do.
+
+```jsx
+console.log(<p>Test</p>); // ReactElement
+```
+
+Because of this behavior, in order to pass more than one JSX value to a component, we can use function parameters and pass them that way.
+
+```jsx
+const FileTableContainer = ({children, header}) => {
+  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
+        {header && <thead>{header}</thead>}
+		{children}
+	</table>
+}
+
+const FileTable = () => {
+  const headerEl = <tr>
+            <th>Name</th>
+        	<th>Date</th>
+        </tr>
+    
+    return (
+  	<FileTableContainer header={headerEl}>
+      <FileList/>
+    </FileTableContainer>
+  )
+}
+```
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
 
 
 
-
-
-
-
-
-----------------------------
-
-
-
-
-- Content projection
-  - `{props.children}` / React
-  - `ng-content` / Angular
-  - `<slot>` / Vue
-  - Named slots
-    - `{props.header}` / React
-    - `ng-content select` / Angular
-    - `<slot name` / Vue
-
-Create a `FileContainer` component that has a bunch of stying around the contrainer itself.
-
-Then, add in `header` for buttons related to the file list
 
