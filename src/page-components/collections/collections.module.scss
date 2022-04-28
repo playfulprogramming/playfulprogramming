@@ -157,3 +157,17 @@
   color: var(--darkPrimary);
   padding: 0 2rem;
 }
+
+.lightImage {
+  filter: drop-shadow(0 3px 4px rgba(21, 62, 103, 0.12))
+    drop-shadow(0 3px 3px rgba(21, 62, 103, 0.14))
+    drop-shadow(0 1px 8px rgba(21, 62, 103, 0.12))
+    drop-shadow(0 -2px 2px rgba(21, 62, 103, 0.1));
+}
+
+.darkImage {
+  filter: drop-shadow(0 3px 4px rgba(228, 244, 255, 0.04))
+  drop-shadow(0 3px 3px rgba(228, 244, 255, 0.05))
+  drop-shadow(0 1px 8px rgba(228, 244, 255, 0.04))
+  drop-shadow(0 -2px 2px rgba(228, 244, 255, 0.1));
+}

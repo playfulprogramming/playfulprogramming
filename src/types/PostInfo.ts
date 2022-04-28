@@ -12,6 +12,7 @@ export interface PostInfo {
   wordCount: number;
   description?: string;
   series?: string;
+  collectionSlug?: string | null;
   order?: number;
   originalLink?: string;
   content: string;

@@ -81,7 +81,11 @@ const Collection = ({
       <div className={styles.mainContainer}>
         <div className="listViewContent">
           <div className={styles.topHeader}>
-            <div className={styles.bigImageContainer}>
+            <div
+              className={`${styles.bigImageContainer} ${
+                colorMode === "light" ? styles.lightImage : styles.darkImage
+              }`}
+            >
               <Image
                 alt=""
                 src={coverImgPath}
@@ -94,7 +98,11 @@ const Collection = ({
             </div>
             <div className={styles.topDescContainer}>
               <h1 className={styles.title}>{collection.title}</h1>
-              <div className={styles.smallImageContainer}>
+              <div
+                className={`${styles.smallImageContainer} ${
+                  colorMode === "light" ? styles.lightImage : styles.darkImage
+                }`}
+              >
                 <Image
                   alt=""
                   src={coverImgPath}

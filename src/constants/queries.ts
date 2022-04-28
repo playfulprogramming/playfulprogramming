@@ -25,6 +25,7 @@ export const postBySlug = {
   description: true,
   excerpt: true,
   license: true,
+  collectionSlug: true,
 } as const;
 
 export type SlugPostInfo = PickDeep<PostInfo, typeof postBySlug>;

@@ -118,7 +118,11 @@ const Post = ({
               </header>
               <main className="post-body" data-testid={"post-body-div"}>
                 {post.series && (
-                  <SeriesToC post={post} postSeries={seriesPosts} />
+                  <SeriesToC
+                    post={post}
+                    postSeries={seriesPosts}
+                    collectionSlug={post.collectionSlug}
+                  />
                 )}
                 {result}
               </main>
