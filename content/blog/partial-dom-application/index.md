@@ -1,7 +1,7 @@
 ---
 {
     title: "Partial DOM Application",
-    description: "",
+    description: "There are specific instances where you may want to have a wrapper element in a framework that renders to nothing in the DOM. This is how.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -289,6 +289,8 @@ Angular's version of the `nothing` element is the `ng-container` element.
 # Vue
 
 // TODO: Fact check this? What about `template`? [My tests show it does not work, but I swear I've used it before](https://stackblitz.com/edit/vue-bqg1dk?file=src%2FTesting.vue)
+
+> Editor's note: it seems that `template` renders when you have a `v-if` or `v-true`, but if neither are present, it won't render. Figure out why and document this behavior
 
 Unfortunately, Vue doesn't have anything quite as simply for a replacement of the `nothing` element in our pseudo-syntax. Instead, we must create a new component as a wrapper and have multiple root nodes that way.
 

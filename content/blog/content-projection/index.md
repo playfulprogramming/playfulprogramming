@@ -507,13 +507,40 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
   );
 };
 
+const filesArray = [
+    {
+      fileName: 'File one',
+      href: '/file/file_one',
+      isFolder: false,
+    },
+    {
+      fileName: 'File two',
+      href: '/file/file_two',
+      isFolder: false,
+    },
+    {
+      fileName: 'File three',
+      href: '/file/file_three',
+      isFolder: false,
+    },
+  ];
+
 // This was previously called "FileList"
 const FileTableBody = () => {
   return (<tbody>
   {
     filesArray.map(file => {
       return <>
-        {file.isFolder && <File />}
+        {
+            !file.isFolder &&
+            <File
+              fileName={file.fileName}
+         	  href={file.href}
+         	  isSelected={false}
+         	  isFolder={file.isFolder}
+              onSelected={() => {}}
+            />
+        }
       </>
     })
   }
@@ -528,13 +555,158 @@ const FileTable = () => {
 }
 ```
 
+> Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
+
 ## Angular
 
-// TODO: This section
+```typescript
+@Component({
+  selector: 'file',
+  template: `
+  <tr
+  (click)="selected.emit()"  [attr.aria-selected]="isSelected"
+  [style]="
+    isSelected
+      ? { backgroundColor: 'blue', color: 'white' }
+      : { backgroundColor: 'white', color: 'blue' }
+  "
+>
+  <td><a [href]="href">{{fileName}}</a></td>
+  <td *ngIf="isFolder"><file-date inputDate={new Date()}></file-date></td>
+</tr>
+  `,
+})
+class FileComponent {
+  @Input() fileName: string;
+  @Input() href: string;
+  @Input() isSelected: boolean;
+  @Input() isFolder: boolean;
+  @Output() selected = new EventEmitter();
+}
+
+// This was previously called "FileList"
+@Component({
+  selector: 'file-table-body',
+  template: `
+    <tbody>
+      <ng-container *ngFor="let file of filesArray">
+        <file
+         *ngIf="!file.isFolder"
+         [fileName]="file.fileName"
+         [href]="file.href"
+         [isSelected]="false"
+         [isFolder]="file.isFolder"
+         ></file>
+      </ng-container>
+    </tbody>
+  `,
+})
+class FileTableBodyComponent {
+  filesArray = [
+    {
+      fileName: 'File one',
+      href: '/file/file_one',
+      isFolder: false,
+    },
+    {
+      fileName: 'File two',
+      href: '/file/file_two',
+      isFolder: false,
+    },
+    {
+      fileName: 'File three',
+      href: '/file/file_three',
+      isFolder: false,
+    },
+  ];
+}
+
+// This is a new component
+@Component({
+  selector: 'file-table',
+  template: `
+    <table><file-table-body></file-table-body></table>
+  `,
+})
+class FileTableComponent {}
+```
+
+> Please note that we've temporarily disabled `isSelected` logic for the sake of code sample brevity
 
 ## Vue
 
-// TODO: This section
+```jsx
+
+const File = {
+  template: `
+  <tr
+    @click="selected.emit()"
+    :aria-selected="isSelected"
+    :style="
+      isSelected
+        ? { backgroundColor: 'blue', color: 'white' }
+        : { backgroundColor: 'white', color: 'blue' }
+    "
+  >
+    <td><a :href="href">{{fileName}}</a></td>
+    <td v-if="isFolder"><file-date :inputDate="new Date()"></file-date></td>
+  </tr>
+  `,
+  components: {
+    FileDate,
+  },
+  props: ['fileName', 'href', 'isSelected', 'isFolder'],
+  emits: ['selected'],
+};
+
+// This was previously called "FileList"
+const FileTableBody = {
+  template: `
+  <tbody>
+    <template v-for="file in filesArray">
+      <file
+        v-if="!file.isFolder"
+        :fileName="file.fileName"
+        :href="file.href"
+        :isSelected="false"
+        :isFolder="file.isFolder"
+        ></file>
+        </template>
+    </tbody>`,
+  components: { File },
+  data() {
+    return {
+      filesArray: [
+        {
+          fileName: 'File one',
+          href: '/file/file_one',
+          isFolder: false,
+        },
+        {
+          fileName: 'File two',
+          href: '/file/file_two',
+          isFolder: false,
+        },
+        {
+          fileName: 'File three',
+          href: '/file/file_three',
+          isFolder: false,
+        },
+      ],
+    };
+  },
+};
+
+// This is a new component
+const FileTable = {
+  template: `
+    <table><file-table-body></file-table-body></table>
+  `,
+  components: {
+    FileTableBody,
+  },
+};
+```
 
 <!-- tabs:end -->
 
