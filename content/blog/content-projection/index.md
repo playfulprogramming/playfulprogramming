@@ -738,11 +738,47 @@ const FileTable = () => {
 
 ## Angular
 
-// TODO: This section
+```typescript
+@Component({
+  selector: 'file-table-container',
+  template: `
+  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <ng-content></ng-content>
+  </table>
+  `,
+})
+class FileTableContainerComponent {}
+
+@Component({
+  selector: 'file-table',
+  template: `
+    <file-table-container><file-table-body></file-table-body></file-table-container>
+  `,
+})
+class FileTableComponent {}
+```
 
 ## Vue
 
-// TODO: This section
+```javascript
+const FileTableContainer = {
+  template: `
+  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <slot></slot>
+  </table>
+  `,
+};
+
+const FileTable = {
+  template: `
+    <file-table-container><file-table-body></file-table-body></file-table-container>
+  `,
+  components: {
+    FileTableBody,
+    FileTableContainer,
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -784,7 +820,7 @@ Because of this behavior, in order to pass more than one JSX value to a componen
 ```jsx
 const FileTableContainer = ({children, header}) => {
   return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
-        {header && <thead>{header}</thead>}
+        <thead>{header}</thead>
 		{children}
 	</table>
 }
@@ -805,11 +841,69 @@ const FileTable = () => {
 
 ## Angular
 
-// TODO
+````typescript
+
+@Component({
+  selector: 'file-table-container',
+  template: `
+  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <thead><ng-content select="[header]"></ng-content></thead>
+    <ng-content></ng-content>
+  </table>
+  `,
+})
+class FileTableContainerComponent {}
+
+@Component({
+  selector: 'file-table',
+  template: `
+    <file-table-container>
+    <tr header>
+      <th>Name</th>
+      <th>Date</th>
+    </tr>
+    <file-table-body></file-table-body>
+    </file-table-container>
+  `,
+})
+class FileTableComponent {}
+````
+
+// TODO: Mention `[header]` selector aligning with CSS selector query value
 
 ## Vue
 
-// TODO
+```javascript
+
+const FileTableContainer = {
+  template: `
+  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <thead><slot name="header"></slot></thead>
+    <slot></slot>
+  </table>
+  `,
+};
+
+const FileTable = {
+  template: `
+    <file-table-container>
+      <header>
+        <tr>
+        <th>Name</th>
+        <th>Date</th>
+        </tr>
+      </header>
+      <file-table-body></file-table-body>
+    </file-table-container>
+  `,
+  components: {
+    FileTableBody,
+    FileTableContainer,
+  },
+};
+```
+
+// TODO: Mention how `header` is not a component, just a reference to the named `slot`
 
 <!-- tabs:end -->
 
