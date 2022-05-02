@@ -147,30 +147,19 @@ class AppComponent {}
 
 # Vue
 
-// TODO: Explain `$slots`
+// TODO: Mention that Vue isn't able to do count the number of `items`
 
-// TODO: Explain why we're using `mounted`, and the pitfalls of doing this (we need to add `updated`)
+<!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
-// TODO: Mention that calling `default()` is triggering a render
-
-// TODO: Mention `VNode`, which isn't quite an `HTMLElement`
+<!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinate render, since it will in turn re-trigger `updated -->
 
 ```javascript
 const ParentList = {
   template: `
-  <p>There are {{children.length}} number of items in this array</p>
   <ul>
     <slot></slot>
   </ul>
   `,
-  data() {
-    return {
-      children: [],
-    };
-  },
-  mounted() {
-    this.children = this.$slots.default();
-  },
 };
 
 const App = {
@@ -186,6 +175,36 @@ const App = {
   },
 };
 ```
+
+ However, if you absolutely positively really, no, for sure just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector ` in [the `mounted` lifecycle method](lifecycle-methods#Lifecycle-Chart).
+
+```javascript
+const ParentList = {
+  template: `
+  <p>There are {{children.length}} number of items in this array</p>
+  <ul id="parentList">
+    <slot></slot>
+  </ul>
+  `,
+  data() {
+    return {
+      children: [],
+    };
+  },
+  methods: {
+    findChildren() {
+      return document.querySelectorAll('#parentList > li');
+    },
+  },
+  mounted() {
+    this.children = this.findChildren();
+  }
+};
+```
+
+This doesn't _quite_ follow the same internal logic pattern as our examples in React or Angular, however, which is why it's a bit of an aside.
+
+<!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have a `id` property -->
 
 <!-- tabs:end -->
 
@@ -300,13 +319,11 @@ To quickly synopsis what our `changes` observable does:
 
 # Vue
 
-// TODO: Mention why Vue can't do this with `$slots`
-
-<!-- Editors note: It's because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinate render, since it will in turn re-trigger `updated -->
+As we mentioned previously, it's not possible to use the `<slot>` information to count how many items there are being passed to the slot. Because of this, we've decided to forgo the code sample associated with life updating this count.
 
 This isn't to say that the lack of the ability to easily count slotted children is a big deal; you wouldn't implement code exactly like this in production for 99.99% of cases. Remember, this chapter started by mentioning "Let's take a break from the immediately practical".
 
->  However, if you absolutely positively really, no, for sure just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector`and listening for re-renders using [the `updated()` lifecycle method](lifecycle-methods#Lifecycle-Chart).
+> If you wanted to continue listening for events using the `querySelectorAll` trick, you can listen for re-renders using [the `updated()` lifecycle method](lifecycle-methods#Lifecycle-Chart) to live refresh the number of lists of items in the array.
 >
 > ```javascript
 > const ParentList = {
@@ -334,12 +351,7 @@ This isn't to say that the lack of the ability to easily count slotted children 
 >   },
 > };
 > ```
->
-> This doesn't _quite_ follow the same internal logic pattern as our examples in React or Angular, however, which is why it's a bit of an aside.
->
-> <!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have a `id` property -->
-
-
+> Just remember that this isn't working the same way the other frameworks are counting the passed content items under-the-hood, which is again why this is an aside.
 
 <!-- tabs:end -->
 
@@ -375,13 +387,101 @@ const ParentList = ({ children }) => {
 };
 ```
 
+React is the only framework that's able to pass parameters to projected content without modifying the callers' codebase. This means that we only need to update `ParentList` and not `App` to change the `style` prop for each `li` that `App` passes.
+
 ## Angular
 
-// TODO
+// TODO: Explain `read: {}`
+
+// TODO: Explain `TemplateRef`
+
+// TODO: Explain `ng-template`
+
+// TODO: Explain `ngTemplateOutlet` (and how you need to import `CommonModule` for it to work)
+
+// TODO: Explain `ngTemplateOutletContext`
+
+```typescript
+@Component({
+  selector: 'parent-list',
+  template: `
+    <p>There are {{children.length}} number of items in this array</p>
+    <ul>
+      <ng-template *ngFor="let template of children; let i = index" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{backgroundColor: i % 2 ? 'grey' : ''}"></ng-template>
+    </ul>
+  `,
+})
+class ParentListComponent {
+  @ContentChildren('listItem', { read: TemplateRef }) children: QueryList<
+    TemplateRef<any>
+  >;
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <parent-list>
+    <ng-template #listItem *ngFor="let item of list; let i = index" let-backgroundColor="backgroundColor">
+      <li [style]="{backgroundColor}">{{i}} {{item}}</li>
+    </ng-template>
+  </parent-list>
+  <button (click)="addOne()">Add</button>
+  `,
+})
+class AppComponent {
+  list = [1, 42, 13];
+
+  addOne() {
+    const randomNum = Math.floor(Math.random() * 100);
+    this.list.push(randomNum);
+  }
+}
+```
+
+// TODO: Plug Angular templates: Start to source article
 
 ## Vue
 
-// TODO
+// TODO: Problem, Vue can't do _quite_ the same API (see also: above `updated` problem)
+
+// TODO: Because of this, we'll [raise state](// TODO: Link article) and render the list inside of the `ParentList`
+
+```javascript
+const ParentList = {
+  template: `
+  <p>There are {{list.length}} number of items in this array</p>
+  <ul id="parentList">
+    <slot v-for="(item, i) in list" :item="item" :i="i"></slot>
+  </ul>
+  `,
+  props: ['list'],
+};
+
+const App = {
+  template: `
+    <parent-list :list="list">
+			<template v-slot="{i, item}">
+        <li>{{i}} {{item}}</li>
+      </template>
+    </parent-list>
+    <button @click="addOne()">Add</button>
+  `,
+  data() {
+    return {
+      list: [1, 42, 13],
+    };
+  },
+  methods: {
+    addOne() {
+      const randomNum = Math.floor(Math.random() * 100);
+      this.list.push(randomNum);
+    },
+  },
+  components: {
+    ParentList,
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -393,36 +493,8 @@ const ParentList = ({ children }) => {
 
 -------------------
 
+// TODO:
 
-
-
-
-- Content reference
-  - Children/React
-    - Children.forEach and beyond
-    - `Children.toArray().find` for single one
-  - `@ContentChildren` / Angular
-    - `ContentChild`
-  - `slots` / Vue
-    - `this.$slots`
-  - Passing values to content projection
-    - `v-slot` attribute / Vue
-    - `React.cloneElement` / React
-    - NgTemplate `context` / Angular
-
-File list created by `Children.forEach` or a `ng-template` of `ViewContents` .
-
-
-
-Then, we pass relevant data via `v-slot`.
-
-
-
-End API looks something like:
-
-```jsx
-<FileList component={File}/>
-```
-
-
+- `ContentChild` / Angular
+- `this.$slots` / Vue (only for conditionally rendering)
 
