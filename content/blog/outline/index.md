@@ -15,8 +15,11 @@
 
 - Component reference
   - `ref`/`forwardRef` / `useImperativeHandle` React
+    - Array of refs
   - ViewChild/Angular
+    - `ViewChildren`
   - `ref` / Vue
+    - Array of refs
   - Element reference
   - Component reference
 
