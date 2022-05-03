@@ -119,21 +119,153 @@ Just because a tool is new, doesn't mean that it's inherently better; and even t
 
 # What will we be learning?
 
+As mentioned earlier, we will be learning React, Angular, and Vue from an introductory place all the way to understanding the inner-workings of these frameworks.
 
+**You do not need much any pre-requisite knowledge on these frameworks, and very little pre-requisite knowledge on JavaScript, HTML, or CSS.**
 
+In fact, I will do my best to link out to anything that's expected to be known or is useful in the context of continuing the learning process. That said, if you're new to these topics some suggested pre-reading might include:
 
+- ["How Computers Speak" - An introduction to how your computer takes "source code" and converts it to machine code.](https://unicorn-utterances.com/posts/how-computers-speak)
+- ["Introduction to HTML, CSS, and JavaScript" - An explaination to what the three fundamentals of web development are and how they're utilized to build websites.](https://unicorn-utterances.com/posts/intro-to-html-css-and-javascript)
+- ["CSS Fundamentals" - An introduction to how CSS works and common rules you should know.](https://unicorn-utterances.com/posts/css-fundamentals)
+- ["WebDev 101: How to use NPM and Yarn" - An explaination of what "Node" is, what "NPM" is, and how to use them.](https://unicorn-utterances.com/posts/how-to-use-npm)
+- ["Understanding The DOM: How Browsers Show Content On-Screen" - An explaination of what the "DOM" is, and how it pertains to HTML.](https://unicorn-utterances.com/posts/understanding-the-dom)
 
+## What aren't we learning?
 
+Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this book/course**: 
 
+- Standalone JavaScript APIs
+- CSS
+- Bundling tooling, such as Webpack, Babel, Vite, ESBuild, SWC, or similar.
+- Linting tooling, such as ESLint or Prettier.
+- IDE functionality, such as VSCode, WebStorm, or Sublime Text.
+- TypeScript - while Angular code samples will include a bit of it, we won't be diving into the specifics.
 
+All of these are broad concepts in their own right and have a pleathura of content capable of hosting their own books. After all, resources without a properly defined scope run into challenges of surface-level explainations, jarring transitions, and even delayed publications.
 
--------
+> Remember, knowledge is like a web - these topics intersect with one another in messy and complex ways! It's okay to take your time to learn these, or even to limit your scope of learning to remain focused on a specific subset of knowledge. Nobody knows each and all of these perfectly and that's okay! 
 
+Once again, however, if any of these topics become relevant in the book, we'll link out to resources that will help you explore more and broaden your knolwedge-base.
 
-- Outline contents
-- Angular !== AngularJS
-- React has two methods of display: We'll focus on hooks
-- Vue has two methods of display: We'll focus on options API
+## Content outline
 
+Okay, with the understanding of what we won't be looking through out of the way, **let's talk about what we _will_ be learning about**:
 
+<!-- TODO: // Link out to each chapter -->
 
+- What a component is <!-- Introduction to components -->
+  - What "rendering" is
+  - How to keep the DOM and JavaScript state in sync
+  - How to bind DOM events to JavaScript functions
+  - How to pass values from one part of the UI to another
+
+- How to update the DOM <!-- Dynamic HTML -->
+  - How to conditionally show data on screen
+  - How to render lists on screen
+
+- What a lifecycle method is <!-- Lifecycle methods -->
+  - What a "side effect" is
+
+- How to base the value of one variable off of another <!-- Derived values -->
+
+- How to create powerful forms in your app <!-- Forms -->
+  - How to do form validation
+  - How to handle non-text fields (like checkboxes)
+
+- How to handle segments of HTML as a group <!-- Partial DOM Application -->
+
+- How to build relationships between components <!-- Content projection -->
+  - How to pass children to components
+
+- How to access a component's children programatically <!-- Content reference -->
+
+- How to access a component instance programmatically <!-- Component reference -->
+  - How to pass data from a component up to its parent
+  - How to create complex event handling logic
+
+- What "dependency injection" is <!-- Dependency injection -->
+
+- How to do error handling in your apps <!-- Error handling -->
+
+- How to structure your application <!-- Fundamentals/structure -->
+  - What a "pure" function is
+  - What "unidirectionality" is
+
+- How to add other screens to your app <!-- Routing -->
+
+- How to make network calls in your application <!-- HTTPS -->
+
+- How to write tests to automatically validate your code's functionality <!-- Testing -->
+
+- How to translate your app to other languages <!-- I18N -->
+
+- How to make your app accessible to everyone, including assistive technologies <!-- A11Y -->
+
+- What "Server-side rendering" (SSR) is <!-- SSR -->
+
+  - How to use [NextJS](https://nextjs.org/) for React
+  - How to use [Angular Universal](https://angular.io/guide/universal) for Angular
+  - How to use [NuxtJS](https://nuxtjs.org/) for Vue
+
+- What "static site generation" (SSG) is <!-- SSG -->
+  - How to use [Gatsby](https://gatsbyjs.com/) for React
+  - How to use [Scully](https://scully.io/) for Angular
+  - How to use [VuePress](https://vuepress.vuejs.org/) for Vue
+
+- What a "global store" is and how to persist data across multiple app screens  <!-- Store -->
+
+- How to debug your application using provided tools <!-- DevTools -->
+
+  - How to use devtools
+  - How to benchmark your apps
+  - How to detect memory leaks in your apps
+
+- How to fine-tune the performance of your app to be blazing fast <!-- Performance -->
+
+- How each framework keeps track of what to show on-screen under-the-hood 
+
+  - What a "Virtual DOM" is
+  - What an "Incremental DOM" is
+
+- How each framework tracks changes to state under-the-hood
+
+  > This chapter will build minimal versions of each framework from scratch to show how they work under-the-hood
+
+  - How React uses explicit function calling
+  - What a "proxy" is and how Vue utilizes them
+  - What "Zone.js" is and how Angular uses it
+
+> This can seem overwhelming, but remember - this book/course is meant as a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book/course isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/unicorn-utterances/unicorn-utterances/).
+
+Throughout this all, we will be attempting to build a single application as outlined in the "Introduction to Components" chapter. This means that, by the end of this book/course, you will have a fully functional user interface that you have built yourself through code samples and challenges displayed throughout.
+
+We will also have easy-to-reference resources in case you're already a pro with a specific framework and are looking to quickly learn:
+
+- A glossary of various terms relevant to these frameworks
+- A lookup table with equivilant APIs between these frameworks
+
+## A note on framework specifics
+
+As a final note before I send you onto the rest of the book/course, I want to touch on a few points about these frameworks:
+
+- **React has two different ways of writing code: Using classes and "Hooks".**
+
+While React classes are more similar to Angular or Vue's option API, **I've decided to write this book/course using React's "Hooks" method as references for the components.**
+
+This is because, while classes are still a part of the most modern versions of React, they've drastically fallen out of favor in comparison to React Hooks. I want to try to make this book as representative of real-world codebases you're likely to run into with modern versions of these frameworks, so I thought it only made sense to go with Hooks.
+
+That all said, the core concepts outlined in this book/course apply to both of these methods, so if you wanted to learn the React class API after-the-fact, it should be easier with this foundation of learning.
+
+- **Angular is not AngularJS.**
+
+Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was originally released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
+
+- **Vue has two different ways of writing code: The "Options" API and the "Composition" API.**
+
+While the "Composition" API is newer and has become quite popular in Vue, **I've decided to use the Options API in this book.** This is for a few reasons:
+
+1) In my opinion, the options API has a lower barrier of introductory concept explaination compared to the composition API 
+2) The composition API is built on top of the Options API in the Vue codebase - The Options API is not going anywhere
+3) The composition API is relatively trivial to learn once you have a strong grasp of the options API
+4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier
