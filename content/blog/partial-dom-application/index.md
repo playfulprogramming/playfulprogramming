@@ -243,7 +243,7 @@ import { Fragment } from 'react';
 <ul>
   {
     filesArray.map(file => {
-      return <Fragment>
+      return <Fragment key={file.id}>
         {file.isFolder && <li><File /></li>}
       </Fragment>
     })
@@ -264,6 +264,8 @@ import { Fragment } from 'react';
   }
 </ul>
 ```
+
+> You may notice that `<>` syntax for `Fragment` does not have a `key`  associated with it. This is because the `<>` syntax does not allow you to have props associated with it. However, this means that your loop will still misbehave and add performance overhead as a penalty for not including `key` ([as we discussed in the "Dynamic HTML" chapter](/posts/dynamic-html)). For this reason, when inside of a `map` loop, you'll want to use `Fragment` with a `key` property associated with it.
 
 # Angular
 
@@ -288,46 +290,23 @@ Angular's version of the `nothing` element is the `ng-container` element.
 
 # Vue
 
-// TODO: Fact check this? What about `template`? [My tests show it does not work, but I swear I've used it before](https://stackblitz.com/edit/vue-bqg1dk?file=src%2FTesting.vue)
+In order to render out something akin to a `nothing` element, we can use a [`template`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) element with a `v-for` or `v-if` associated with it.
 
-> Editor's note: it seems that `template` renders when you have a `v-if` or `v-true`, but if neither are present, it won't render. Figure out why and document this behavior
-
-Unfortunately, Vue doesn't have anything quite as simply for a replacement of the `nothing` element in our pseudo-syntax. Instead, we must create a new component as a wrapper and have multiple root nodes that way.
-
-```javascript
-const FileListItem = {
-	template: `
-      <li
-        v-if="onlyShowFiles ? !file.isFolder : true"
-      >
+```html
+<ul>
+  <template v-for="(file, i) of filesArray">
+    <li :key="file.id">
       <file
-        @selected="onSelected(i)" 
-        :isSelected="selectedIndex === i" 
-        :fileName="file.fileName" 
-        :href="file.href"
-        :isFolder="file.isFolder"
+        v-if="onlyShowFiles ? !file.isFolder : true"
+        (selected)="onSelected(i)"
+        [isSelected]="selectedIndex === i"
+        [fileName]="file.fileName"
+        [href]="file.href"
+        [isFolder]="file.isFolder"
       ></file>
-      </li>
-  `
-}
-
-const FileList = {
-  template: `
-    <!-- ... -->
-    <ul>
-      <file-list-item
-        v-for="(file, i) in filesArray"
-        :key="file.id"
-			></file-list-item>
-    </ul>
-    <!-- ... -->
-  `,
-	components: {
-    FileListItem,
-    // ...
-  }
-  // ...
-};
+    <li>
+  </template>
+</ul>
 ```
 
 <!-- tabs:end -->
@@ -370,7 +349,44 @@ Here's some code samples that render out the following:
 
 ## Vue
 
-Because Vue does not have the same 1:1 equivilance to the `nothing` element, to do this you'd need to create a wrapper component for each instance. Luckily, the example we're using here is pretty silly and not very useful to production, so it shouldn't impact your apps much.
+While the other frameworks have a more 1:1 mapping between our psuedo-syntax'd `nothing`, Vue has a slightly different approach due to its reuse of the [existing HTML `<template>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+
+By default, if you render a `template` in Vue, it will render nothing to the screen:
+
+```html
+<template>
+  <p>Test</p>
+</template>
+```
+
+> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining the "why" is outside of the scope of this book, this is expected behavior of the `template` tag in HTML.
+
+However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/content-reference)), it will remove the `<template>` and only render out the children.
+
+This means that both:
+```html
+<template v-if="true">
+  <p>Test</p>
+</template>
+```
+
+And:
+
+```html
+<template v-if="true">
+  <template v-if="true">
+    <template v-if="true">
+      <p>Test</p>
+    </template>
+  </template>
+</template>
+```
+
+Will both render out to the following HTML:
+
+```html
+<p>Test</p>
+```
 
 <!-- tabs:end -->
 
