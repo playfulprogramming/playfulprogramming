@@ -269,3 +269,13 @@ While the "Composition" API is newer and has become quite popular in Vue, **I've
 2) The composition API is built on top of the Options API in the Vue codebase - The Options API is not going anywhere
 3) The composition API is relatively trivial to learn once you have a strong grasp of the options API
 4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier
+
+- **[Vue typically stores files in `.vue` files in most production apps](https://vuejs.org/guide/scaling-up/sfc.html), we will not.**
+
+While Vue's `.vue` files (called "Single-file components" [SFCs]) are the most common method of creating Vue components, there are a few reasons we're not using them:
+
+1) It requires additional and more complex build tooling, which is out of the scope of this book.
+2) It reduces code sample size
+3) It's easy to learn how to use SFCs once an understanding of Vue's basics is established. 
+
+Similarly, Vue provides other compiler-based syntax choices, such as [ `<script setup>`](https://vuejs.org/api/sfc-script-setup.html) or the [upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369), which will not be covered in this course.
