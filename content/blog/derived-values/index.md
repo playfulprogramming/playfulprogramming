@@ -65,7 +65,7 @@ const FileDate = {
 
 <!-- tabs:end -->
 
-However, you may notice that we're deriving two values from the same property. The issue with how we're doing things currently, however, is that our `formatDate` and `formatReadableDate` methods are only running once during the intial render.
+However, you may notice that we're deriving two values from the same property. However, the issue with how we're doing things currently, is that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
 
 Because of this, we lose reactivity if we were to pass in an updated `inputDate` to the `FileDate` component.
 
@@ -147,15 +147,15 @@ const File = {
 
 <!-- tabs:end -->
 
-While the `File` component is working as-expected, our `FileDate` component is never listening for the changed input value, and as such never displays the updated value to users.
+While the `File` component is working as expected, our `FileDate` component is never listening for the changed input value and, as such, never displays the updated value to users.
 
 How can we fix this?
 
 # Method 1: Prop listening
 
-The first, and arguably easiest to mentally model, method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
+The first - and arguably easiest to mentally model - method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
-Luckily, we can use [our existing knolwedge of lifecycle methods](/posts/lifecycle-methods) to do so:
+Luckily, we can use [our existing knowledge of lifecycle methods](/posts/lifecycle-methods) to do so:
 
 <!-- tabs:start -->
 
@@ -232,14 +232,14 @@ const FileDate = {
 };
 ```
 
-Vue's `watch` logic allows you to track the changes from a given property or state value based on its key.
+Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
 Here, we're watching the `inputDate` input key and, when changed, updating `dateStr` and `labelText` based off of the new property value.
 
 <!-- tabs:end -->
 
 
-While this method works, it tends to introduce duplicate developmental logic. Notice how we have to repeat the declaration of the `dateStr` and `labelText` values. Luckily for us, there's an easy solution for this called "computed values".
+While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values. Luckily for us, there's an easy solution called "computed values".
 
 # Method 2: Computed values
 
@@ -250,7 +250,7 @@ Our previous method of deriving a value from a property follows two steps:
 
 However, what if we could instead simplify this idea to a single step:
 
-1) Run a function over a value, live update as it changes.
+1) Run a function over a value, and live update as it changes.
 
 This may remind you of a similar pattern we've used already for [live updated text](/posts/intro-to-components#Live-Updating) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
 
@@ -271,9 +271,9 @@ const FileDate = ({ inputDate }) => {
 };
 ```
 
-`useMemo` is a method for computing values based off of an input or series of inputs. The way that this works is that it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
+`useMemo` is a method for computing values based on an input or series of inputs. This works because it does the computation and regenerates the calculation whenever the second argument array's values have changed in a render.
 
-Similar to `useEffect`, this array's values' changes are only tracked when the component is rendering. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
+Like `useEffect`, this array's values' changes are only tracked when the component is rendering. Unlike `useEffect`, however, there's no option to remove the second array argument entirely.
 
 Instead, if you want to recalculate the logic in every render, you'd simply remove the `useMemo` entirely. So, for simple computations, you can take this code:
 
@@ -293,11 +293,11 @@ const AddComp = ({baseNum, addNum}) => {
 }
 ```
 
-> While it's technically possible to use this trick to never use `useMemo`, your application's performance will greatly suffer. There's a bit of a science to knowing when and where to use `useMemo`. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
+> While it's technically possible to use this trick to never use `useMemo`, your application's performance will suffer drastically. That said, it's a bit of a science to know when and where to use `useMemo`. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
 
 ## Angular
 
-Angular introduces the concept of a "pipe" into the mix of things. The idea being that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
+Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
 
 ```typescript
 import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
@@ -427,7 +427,7 @@ const FileDate = {
 };
 ```
 
-Instead of using `data` to construct a set of variables, then re-intializating the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
+Instead of using `data` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
 These props are then accessible in the same way a `data` property is, both from the template and from Vue's logic layer alike.
 
@@ -435,7 +435,7 @@ These props are then accessible in the same way a `data` property is, both from 
 
 # Non-Prop Derived Values
 
-While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized today work for internal component state as well as they do inputs.
+While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized thus far work for the internal component state as well as inputs.
 
 <!-- tabs:start -->
 
@@ -516,4 +516,4 @@ const FileDate = {
 
 <!-- tabs:end -->
 
-In this component, we can see two numbers - one doubling the value of the other. We then have a button that allows us to increment the first number and therefore, using a derived value, the second number also updates.
+In this component, we can see two numbers - one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
