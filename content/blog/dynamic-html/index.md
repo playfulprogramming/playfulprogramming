@@ -13,7 +13,7 @@
 
 Previously, we learned how to create components for our file application. These components included a way to create a component tree, add inputs to each component to pass data, and add an output of data back to a parent component.
 
-Where we last left off, we manually input a list of files, which included file names and dates inside of an `button`. Let's take a look at our file component to start:
+Where we last left off, we manually input a list of files, which included file names and dates inside of a `button`. Let's take a look at our file component to start:
 
 <!-- tabs:start -->
 
@@ -90,11 +90,11 @@ const File = {
 
 <!-- tabs:end -->
 
-This is a strong basis for a component, without needing much changing for now. 
+This is a strong basis for a component without needing many changes for the moment.
 
-One thing we would love to add is the ability to see folders listed alongside files. While we _could_ - and arguably should - add in a component which copy/pastes the code from the `File` component to create a new `Folder` component, let's reuse what we already have!
+One thing we would love to add is the ability to see folders listed alongside files. While we _could_ - and arguably should - add in a component that copy/pastes the code from the `File` component to create a new `Folder` component, let's reuse what we already have!
 
-To do this, we'll create a new property called `isFolder` which hides the date when set to true.
+To do this, we'll create a new property called `isFolder`, which hides the date when set to true.
 
 # Conditional Rendering
 
@@ -112,7 +112,7 @@ const ConditionalRender = ({ bool }) => {
 };
 ```
 
-Here, we're using React's `{}` JavaScript binding in order to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by utilizing Boolean logic of ["short circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
+Here, we're using React's `{}` JavaScript binding to add in an [`AND` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND). This works by utilizing Boolean logic of ["short-circuiting"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation). This means that if we have:
 
 ```javascript
 const val = true || {}
@@ -186,21 +186,21 @@ But when `bool` is set to `false`, it instead renders the following HTML:
 <div></div>
 ```
 
-This is possible because React, Angular, and Vue control what is rendered to the screen. Utilizing this, they're able to remove or add HTML rendered to the DOM with nothing more than a simple Boolean instruction.
+This is possible because React, Angular, and Vue control what is rendered to the screen. Utilizing this, they can remove or add HTML rendered to the DOM with nothing more than a simple Boolean instruction.
 
-Knowing this, let's add in conditional rendering into our application.
+Knowing this, let's add conditional rendering to our application.
 
 ## Conditional Rendering our Date
 
-Right now we have a list of files to present to the user. However, if we look back to our mockups, we'll notice that we wanted to list folders alongside files.
+Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
-Luckily for us, our `File` component already manages a lot that we would want a `Folder` component to as well. For example, when the user clicks on a folder, we want to select the folder like we would any other file in a list.
+Luckily for us, our `File` component already manages a lot that we would want a `Folder` component to as well. For example, when the user clicks on a folder, we want to select the folder like any other file in a list.
 
-However, something that's currently preventing us from using `File` for our folders as well is that folders do not have a creation date associated with it. Otherwise, it becomes unclear to the user if the listed date refers to the first file created or the date the folder itself was created.
+However, something currently preventing us from using `File` for our folders is that folders do not have a creation date. Otherwise, it becomes unclear to the user if the listed date refers to the first file created or the date the folder itself was created.
 
-One way we could solve for this problem and still reuse the `File` component to list out folders is to conditionally render the date if we know we're showing a folder instead of a file.
+One way we could solve this problem and still reuse the `File` component to list out folders is to conditionally render the date if we know we're showing a folder instead of a file.
 
-To do this, let's add an input called `isFolder` and prevent the date from rendering if set to `true`.
+Let's add an input called `isFolder` and prevent the date from rendering if set to `true`.
 
 Adding this to our component is just as easy as we outlined before:
 
@@ -309,9 +309,9 @@ One other way we can use conditional rendering inside of our `File` component is
 
 <!-- tabs:end -->
 
-While this works, those familiar with `if` statements in JavaScript will be quick to point out that this is simply reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else).
+While this works, those familiar with `if` statements in JavaScript will quickly point out that this is simply reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else).
 
-Just like the JavaScript environment these frameworks run in, they too implement a similar API for this exact purpose.
+Like the JavaScript environment these frameworks run in, they also implement a similar API for this exact purpose.
 
 
 
@@ -338,7 +338,7 @@ Undoubtably you're looking at this snippet of code and wondering what `ng-templa
 
 The [long answer is complicated and may involve more experience with Angular than you currently have](https://unicorn-utterances.com/posts/angular-templates-start-to-source) — We encourage a read after this course.
 
-Luckily, the short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to a in-template variable in order for Angular to use in conditional statements and a few other places"
+Luckily, the short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to an in-template variable for Angular to use in conditional statements and a few other places."
 
 With this known, we can explain that the syntax looks something like this:
 
@@ -359,13 +359,13 @@ Which we can then use in an `*ngIf` statement like so:
 <span v-else>Type: File</span>
 ```
 
-A `v-else` tag **must** immediately follow a `v-if`, otherwise it won't work. 
+A `v-else` tag **must** immediately follow a `v-if`; otherwise, it won't work. 
 
 <!-- tabs:end -->
 
 ## Expanded Branches
 
-While an `if ... else` works wonders if you only have a single Boolean value you need to check, oftentimes you'll find yourself needing more than a single conditional branch to check against.
+While an `if ... else` works wonders if you only have a single Boolean value you need to check, you'll often need more than a single conditional branch to check against.
 
 For example, what if we added an `isImage` Boolean to differentiate between images and other file types?
 
@@ -445,7 +445,7 @@ It would render:
 
 Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of `'folder'`.
 
-Using this tool, we can simply set the `ngSwitch` value to `true` and add in a conditional into the `ngSwitchCase`.
+Using this tool, we can simply set the `ngSwitch` value to `true` and add a conditional into the `ngSwitchCase`.
 
 ### Vue
 
@@ -602,9 +602,9 @@ const FileList = {
 
 <!-- tabs:end -->
 
-Something that might immediately jump out at you upon second glance is just how long these code samples are! Interestingly, this is primarily due to the copy-pasted nature of our `File` component being repeated.
+Upon second glance, something that might immediately jump out at you is just how long these code samples are! Interestingly, this is primarily due to the copy-pasted nature of our `File` component being repeated.
 
-What's more - this method of hardcoding file components means that we're unable to create new files in JavaScript and display them in the DOM.
+What's more, this method of hardcoding file components means that we cannot create new files in JavaScript and display them in the DOM.
 
 Let's fix that by replacing the copy-pasted components with a loop and an array.
 
@@ -656,9 +656,9 @@ const FileList = () => {
 };
 ```
 
-React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) in order to loop through each item and map them to some React component.
+React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
 
-We can then use the second argument inside of the `map` in order to gain access to the index of the looped item.
+We can then use the second argument inside of the `map` to gain access to the index of the looped item.
 
 ## Angular
 
@@ -709,7 +709,7 @@ export class FileListComponent {
 }
 ```
 
-Inside of our `ngFor`, `index` may not seem like it is being defined, however, Angular declares it whenever you attempt to utilize `ngFor` under-the-hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
+Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
 ## Vue
 
@@ -766,9 +766,9 @@ const FileList = {
 
 <!-- tabs:end -->
 
-Now if we look at the rendered output, we can see that we have all three files listing out as-expected!
+If we look at the rendered output, we can see that we have all three files listing out as expected!
 
-Now all it would take to add a new item to our files list would be to `push` to said array and also force a re-render.
+Now, all it would take to add a new item to the list of our files is to `push` to said array and force a re-render.
 
 ## Keys
 
@@ -780,9 +780,9 @@ Or, in Vue, the error might say:
 
 > Elements in iteration expect to have 'v-bind:key' directives
 
-This is because each of these frameworks is only able to keep track of what's what inside of a loop using a manually input unique ID of some kind.
+This is because each of these frameworks can only keep track of what's what inside a loop using a manually input unique ID of some kind.
 
-What this means is that if you don't provide a unique ID, when you re-render the loop, it will destroy the entire tree.
+If you don't provide a unique ID when you re-render the loop, it will destroy the entire tree.
 
 Say you have the following:
 
@@ -911,11 +911,11 @@ function getRandomWord() {
 
 <!-- tabs:end -->
 
-Without using some kind of `key` prop, when you run `addWord` it will iterate through every item in the list and destroy them. This is because **the framework isn't able to detect which item in your array has changed, marks all DOM elements as "outdated" and destroys them in the process, only to immediately reconstruct them**.
+Without using some kind of `key` prop, when you run `addWord`, it will iterate through every item in the list and destroy them. This is because **the framework isn't able to detect which item in your array has changed, marks all DOM elements as "outdated", and destroys them in the process, only to immediately reconstruct them**.
 
-![When a render occurs, each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
+![When a render occurs each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
-In order to solve for this problem, we need to tell the framework which DOM element associates with which item in our JavaScript array.
+To solve this problem, we need to tell the framework which DOM element associates with which item in our JavaScript array.
 
 <!-- tabs:start -->
 
@@ -936,7 +936,7 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 
 ### Angular
 
-While Angular doesn't have quite the same API for`key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
+While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
 
 ```typescript {8,16-18}
 import { Component } from '@angular/core';
@@ -963,9 +963,9 @@ export class WordListComponent {
 }
 ```
 
-Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do a strict equality (`===`) between the old item in the array and the new to check if the item is the same.
+Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new to check if the item is the same.
 
-While this works in some cases, for the most part it's suggested to provide your own `trackBy` to avoid problems with the limitations present with the default.
+While this works in some cases, for the most part, it's suggested to provide your own `trackBy` to avoid problems with the limitations present with the default.
 
 ### Vue
 
@@ -999,7 +999,7 @@ Because `key` is utilized to let the framework know which element to update, we 
 
 For example, let's assume we have a basic `input` that we want to be able to reset when a button is pressed.
 
-To do this, we can simply have the button increment a local variable containing a number, and set the `key` value to track said number as it's internal reference.
+To do this, we can simply have the button increment a local variable containing a number and set the `key` value to track said number as its internal reference.
 
 <!-- tabs:start -->
 
@@ -1023,7 +1023,7 @@ function KeyExample() {
 
 ### Angular
 
-Because Angular does not have the concept of a `key`, it is unable to follow the same behavior of Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular. 
+Because Angular does not have the concept of a `key`, it is unable to follow the same behavior as Vue and React in this instance. Therefore, this section is more useful in understanding the underlying DOM diffing logic as opposed to functional coding advice for Angular in particular. 
 
 This isn't necessarily a bad thing, however. We'll touch on this more in a bit, but using `key` in this way is often an anti-pattern.
 
@@ -1051,13 +1051,13 @@ const KeyExample = {
 
 <!-- tabs:end -->
 
-This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated and a new `input` is rendered in it's place, the value is reset and not bound again.
+This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated, and a new `input` is rendered in its place, the value is reset and not bound again.
 
 This reset is what's causing the `input` to blank out after a button press. 
 
 > This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
 >
-> [We'll learn more about how each framework handles these references under-the-hood in a future chapter.](// TODO: Link this)
+> [In a future chapter, we'll learn more about how each framework handles these references under the hood.](// TODO: Link this)
 
 # Putting it to Production
 
@@ -1311,10 +1311,6 @@ export class FileListComponent {
 }
 ```
 
-Don't worry too much about the `ngIf` 
-
-// TODO
-
 ## Vue
 
 ```javascript
@@ -1358,6 +1354,4 @@ const FileList = {
 
 <!-- tabs:end -->
 
-
-
-// TODO: Finish
+> While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/partial-dom-application) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
