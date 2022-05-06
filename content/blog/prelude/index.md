@@ -29,7 +29,7 @@ But I'm getting ahead of myself; first, let's answer some fundamental questions.
 
 # Why should I learn web development today?
 
-Learning web development is a vital skill in software engineering. Even if you don't end up working on web tech yourself, the likelihood of a project eventually utilizing web tech is extremely high. Knowing and understanding the limitations of a web's frontend can make communicating with those teams simpler, make structuring effective backend APIs easier, and allows you to transfer that knowledge to other UI development.
+Learning web development is a vital skill in software engineering. Even if you don't end up working on web tech yourself, the likelihood of a project eventually utilizing web tech is exceptionally high. Knowing and understanding the limitations of a web's frontend can make communicating with those teams simpler, make structuring effective backend APIs easier, and allows you to transfer that knowledge to other UI development.
 
 What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm):
 
@@ -41,13 +41,13 @@ What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bur
 
 ## Why should I learn these tools?
 
-While web development is broadly useful to learn as a skill for work in engineering, these frameworks, in particular, are a huge boon to learn.
+While web development is broadly helpful to learn as a skill for work in engineering, these frameworks, in particular, are a considerable boon to learn.
 
 ### Ecosystem size
 
 For starters, these tools are massively adopted. [React, Angular, and Vue account for 9% of the web in 2021](https://almanac.httparchive.org/en/2021/javascript#libraries-usage) and are consistently growing. While that might not sound like much, remember that [there are over 1.9 billion websites as of 2022](https://www.internetlivestats.com/total-number-of-websites/); Even 1% accounts for nearly 10 million sites.
 
-For example, React accounts for 12 million downloads a week from NPM alone and powers Meta's products (including Facebook, Instagram, and Messenger). In addition, React is utilized by a huge quantity of companies; everyone from Fortune 500s to hot startups is using React in some capacity.
+For example, React accounts for 12 million downloads a week from NPM alone and powers Meta's products (including Facebook, Instagram, and Messenger). In addition, React is utilized by a vast quantity of companies; everyone from Fortune 500s to hot startups is using React in some capacity.
 
 Likewise, while smaller, Angular is alive and well today (unlike its eerily similarly named yet distinct predecessor "AngularJS"). Angular gains over 2 million downloads a week from NPM and powers sites such as Microsoft's [Xbox website](https://www.madewithangular.com/sites/xbox), [Office Web Home](https://www.madewithangular.com/sites/microsoft-office-home) site, Google's [Voice website](https://www.madewithangular.com/sites/google-voice), [Messages site](https://www.madewithangular.com/sites/google-messages), [Firebase's dashboard](https://www.madewithangular.com/sites/google-firebase), and many, many, many more.
 
@@ -73,7 +73,7 @@ These tools include [ElectronJS](https://www.electronjs.org/) and [Tauri](https:
 
 ## Who's building what?
 
-This isn't to say that the only reliance you have that these tools won't disappear is that they're popular; each of these frameworks has at least one large backer behind them.
+This isn't to say that the only reliance you have that these tools won't disappear is that they're popular; each of these frameworks has at least one prominent backer behind them.
 
 React is built by Meta and powers all of its major applications. Moreover, the core team has started to accept external contributions in the form of feedback on the framework's development via ["working groups" consisting of subject matter experts](https://github.com/reactwg). In recent years, even [groups like Vercel have hired React core members to work on the project from outside of Meta](https://twitter.com/sebmarkbage/status/1470761453091237892).
 
@@ -81,7 +81,7 @@ However, when most mention "React," they tend to talk about the React ecosystem 
 
 On the other hand, Angular is fully funded and supported by Google. They build a substantial portion of their major websites on top of the framework and, as a result, have a vested interest in continuing and upkeeping development. Continuing the differences from React, the Angular core team maintains a slew of helper libraries that provide everything from an [HTTP call layer](https://angular.io/guide/http) to [form validation](https://angular.io/guide/forms-overview).
 
-Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are major contributors involved. Not only do they have a large open-source maintenance team, but they have sponsors from major organizations [like Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
+Vue is often seen as the odd one out when talking about funding. Vue's development is driven by an independent team crowd-funded by a diverse pool of groups and individuals. However, while it's unclear how much money they bring in, it is clear that there are significantly sized contributors involved. Not only do they have a sizable open-source maintenance team, but they have sponsors from major organizations [like Alibaba, Baidu, Xiaomi, and more](https://medium.com/the-vue-point/the-state-of-vue-1655e10a340a).
 
 Like Angular, the Vue core team consists of groups that work on a broad set of tooling. Everything from [the official routing library](https://router.vuejs.org/) to its two different global store libraries ([Vuex](https://vuex.vuejs.org/) and [Pinia](https://pinia.vuejs.org/)) and beyond are considered part of Vue's core.
 
@@ -95,9 +95,9 @@ For example, Angular focuses on object-oriented programming while the React ecos
 
 Because of this, once you have a higher mastery skill with each, you can pick and choose which methodology of programming you want to apply within parts of your applications.
 
-Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining great traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
+Beyond this, it's important to remember that these three frameworks are not the only choices on the table in web development. Svelte is an alternative that's been gaining tremendous traction, for example. While it differs even more from the three options we're learning, Svelte still shares many of the foundations of React, Angular, and Vue.
 
-This knowledge transfer doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming can be used to utilize the same procedures in other languages or types of programming. Many of the APIs I've utilized in web development was also useful when doing engineering work with native languages.
+This knowledge transfer doesn't stop at JavaScript or web development, either. The more you learn about any aspect of programming can be used to utilize the same procedures in other languages or types of programming. Many of the APIs I've used in web development was also valuable when doing engineering work with native languages.
 
 
 ### Will these tools stick around?
@@ -110,7 +110,7 @@ These types of tools don't disappear overnight, nor do the jobs associated with 
 
 Take ColdFusion, for example. If you ask most frontend developers, they will likely either not know of ColdFusion or assume it is dead. After all, ColdFusion goes back to 1995 and remains a proprietary paid programming language — yes, those exist — to this day.
 
-But ColdFusion isn't dead! (I can hear my friend Mark holler with excitement and agreement from miles away.) [It's still used by as many websites](https://w3techs.com/technologies/details/pl-coldfusion) [as Angular is](https://w3techs.com/technologies/details/js-angularjs) in 2022 and maintains an ecosystem of a respectable size that's big enough to allow Adobe to maintain the development of the language 27 years later.
+But ColdFusion isn't dead! (I can hear my friend Mark holler with excitement and agreement from miles away.) [It's still used by as many websites](https://w3techs.com/technologies/details/pl-coldfusion) [as Angular is](https://w3techs.com/technologies/details/js-angularjs) in 2022 and maintains an ecosystem of a respectable size that's big enough to allow Adobe to sustain the development of the language 27 years later.
 
 Additionally, from a cultural standpoint, many developers are also tired of switching back and forth between new frameworks at seemingly breakneck speeds. Many companies may choose to stay with these tools for longer than anticipated simply because they've grown in expertise with these tools.
 
