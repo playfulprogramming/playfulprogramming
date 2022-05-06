@@ -718,15 +718,15 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 
 ## React
 
-![// TODO: Add description](./react_lifecycles.jpg)
+![A component starts by rendering, then "useEffect" has its first run. After that, the component is rendered. For each time the component re-renders, it will run the "useEffect" array check. Finally, when a component is being unrendered, it will run the "useEffect" cleanup.](./react_lifecycles.jpg)
 
 ## Angular
 
-![// TODO: Add description](./angular_lifecycles.jpg)
+![When a component renders, it will trigger ngOnInit. Then, when it unrenders, it will call ngOnDestroy.](./angular_lifecycles.jpg)
 
 ## Vue
 
-![// TODO: Add description](./vue_lifecycles.jpg)
+![A component starts by rendering with the "mounted" lifecycle method running as a result. After that, the component is rendered. For each time the component re-renders, it will run the "updated" lifecycle method. Finally, when a component is being unrendered, it will run the "unmounted" lifecycle method.](./vue_lifecycles.jpg)
 
 <!-- tabs:end -->
 
