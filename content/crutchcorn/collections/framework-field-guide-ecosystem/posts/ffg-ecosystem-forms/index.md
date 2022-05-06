@@ -782,7 +782,7 @@ class AppComponent {
 
 `v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance `v-form` and `v-field` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
 
-> We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](// TODO Add link)
+> We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](/posts/content-reference Add link)
 
 A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `v-field` where we did not have to do so earlier.
 
@@ -1661,7 +1661,7 @@ const FormComponent = {
 
 While validation is inarguably a useful feature for forms, it's important to not be too enthusiastic in our usage of it.
 
-An initial temptation for some might be to use this form validation in order to enforce a minumum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](// TODO: Add regex cross-posted link). 
+An initial temptation for some might be to use this form validation in order to enforce a minumum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](https://unicorn-utterances.com/posts/the-complete-guide-to-regular-expressions-regex). 
 
 Let's take the minimum length - you might assume that 3 is a reasonable minimum length for a name. But what about [the surname of "He" or "Ho", a common Chinese family name](https://en.wikipedia.org/wiki/He_(surname))? Likewise, if you require only letters from A-Z, you leave out the ability to have [double barrelled last names](https://en.wikipedia.org/wiki/Double-barrelled_name).
 
