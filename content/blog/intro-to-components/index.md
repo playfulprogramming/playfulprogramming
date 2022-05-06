@@ -11,15 +11,15 @@
 }
 ---
 
-> Before we can dive into how many front-end frameworks that you may have heard of work, we need to set a baseline of information. If you're already familiar with how the DOM represents a tree and how the browser takes that information and utilizes it, great! You're ready to read ahead! Otherwise, it's strongly suggested that you take a look at [our post introducing the concepts](https://unicorn-utterances.com/posts/understanding-the-dom/) required to understanding some of the baseline to this post
+> Before we can dive into how many front-end frameworks work, we need to set a baseline of information. If you're already familiar with how the DOM represents a tree and how the browser takes that information and utilizes it, great; You're ready to read ahead! Otherwise, it's strongly suggested that you look at [our post introducing the concepts](https://unicorn-utterances.com/posts/understanding-the-dom/) required to understand some of the baselines of this post.
 
-You may have heard about various frameworks and libraries that modern front-end developers utilize to build large-scale applications. Some of these frameworks you may have heard of are Angular, React, and Vue. While each of these libraries bring their own strengths and weaknesses, many of the core concepts are shared between them.
+You may have heard about various frameworks and libraries that modern front-end developers utilize to build large-scale applications. Among these frameworks, there are Angular, React, and Vue. While each of these libraries brings its own strengths and weaknesses, many of the core concepts are shared between them.
 
-With this course, we're going to be outlining core concepts that are shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
+With this course, we will outline core concepts shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
 
-Let's first explain why frameworks like Angular, React, or Vue differ from other libraries that may have come before it, like jQuery.
+First, let's explain why frameworks like Angular, React, or Vue differs from other libraries that may have come before them, like jQuery.
 
-It all comes down to a single core concept at the heart of each of them: **Componentization**.
+It all comes down to a single core concept at the heart of each: **Componentization**.
 
 # What's an app, anyway?
 
@@ -29,11 +29,11 @@ Take the following application into consideration.
 
 ![A mockup of a file management application. Contains two sidebars on left and right and a file list](./fancy_mockup.jpg)
 
-Here, our app has many parts to it. A sidebar to contain navigation links, a list of files for a user to navigate, and a details pane about the file the user currently has selected.
+Here, our app has many parts to it. For example, a sidebar containing navigation links, a list of files for a user to navigate, and a details pane about the user's selected file.
 
 What's more, each part of the app needs different things.
 
-The sidebar may not require complex programming logic, but we may want to style it with nice colors and highlight effects when the user hovers. Likewise, the file list may contain complex logic to handle a user right clicking or dragging and dropping files.
+The sidebar may not require complex programming logic, but we may want to style it with nice colors and highlight effects when the user hovers. Likewise, the file list may contain complex logic to handle a user right-clicking or dragging and dropping files.
 
 When you break it down, each part of the app has three primary concerns:
 
@@ -41,44 +41,44 @@ When you break it down, each part of the app has three primary concerns:
 - Styling - How the app looks visually
 - Structure - How the app is laid out
 
-While the mockup above does a good job at displaying things structurally, let's look at what the app looks like structurally:
+While the mockup above does a decent job at displaying things structurally, let's look at what the app looks like structurally:
 
 ![The same mockup of the file list but with everything greyed out and showing just blocks](./after_html.png)
 
-Here, each section is laid out without any additional styling. Simply a wireframe of what the page will look like with each section containing blocks that are laid out in fairly simple ways. This is what HTML will help us build.
+Here, each section is laid out without any additional styling: Simply a wireframe of what the page will look like, with each section containing blocks laid out in pretty straightforward ways. This is what HTML will help us build.
 
-Now that we understand the structure, let's add some functionality. We'll include a small snippet of text to each section to outline what the goals are. In the future, we'd use these as "acceptance" criteria. This is what our logic will provide to the app.
+Now that we understand the structure let's add some functionality. First, we'll include a small snippet of text in each section to outline our goals. We'd then use these as "acceptance" criteria in the future. This is what our logic will provide to the app.
 
 ![The same wireframe mockup but with pointers to each section outlining what logic should be added to each section](after_js.png)
 
-Great! Now let's go back and add in the styling to recreate the mockup we had before!
+Great! Now let's go back and add the styling to recreate the mockup we had before!
 
 ![The same mockup with styling as before](./fancy_mockup.jpg)
 
 For each step of the process, we can think of it like we're adding in a new programming language.
 
-- HTML is used for adding in the strucuture of an application. The sidenav might be a `<nav>` tag, for example
-- JavaScript adds in the logic of the application on top of the structure.
-- CSS is utilized to make all of it look nice, and to potentially add some smaller UX improvements
+- HTML is used for adding the structure of an application. The side nav might be a `<nav>` tag, for example.
+- JavaScript adds the logic of the application on top of the structure.
+- CSS is utilized to make all of it look nice and to potentially add some more minor UX improvements.
 
 
 The way I typically think about these 3 pieces of tech is:
 
-HTML is like the building blueprints. It allows you to see the overarching pictures of what the end result will look like. They define the walls, doors, and flow of a home. 
+HTML is like building blueprints. It allows you to see the overarching pictures of what the end result will look like. They define the walls, doors, and flow of a home. 
 
 JavaScript is like the electrical, plumbing, and appliances of the house. They allow you to interact with the building in a meaningful way.
 
-CSS is like the paint and other decor that goes into a home. They're what makes the house feel lived in and inviting. They can't exist without the rest of the home, but rest assured without it it's a miserable experience.
+CSS is like the paint and other decors that goes into a home. They're what makes the house feel lived in and inviting. Of course, this decor doesn't do much without the rest of the home but rest assured, without it, it's a miserable experience.
 
 # Parts of the app
 
-Now that we've introduced the idea of what an app looks like, let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup and take a look at that in more depth.
+Now that we've introduced what an app looks like let's go back for a moment. Remember how I said each app is made of parts? Let's explode the app's mockup into smaller pieces and look at them more in-depth.
 
 ![A top-down 3d view of the stylized mockup](./broken_down.png)
 
-Here, we can more distinctly see how each part of the app has it's own structure, styling, and logic.
+Here, we can more distinctly see how each part of the app has its own structure, styling, and logic.
 
-The files list, for example, contains the structure of each files being its own item, logic about what buttons do which actions, and some CSS to make it look engaging.
+The file list, for example, contains the structure of each file being its own item, logic about what buttons do which actions and some CSS to make it look engaging.
 
 While the code for this section might look something like this:
 
@@ -132,7 +132,7 @@ const File = () => {
 
 > Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
 >
-> While JSX looks closer to HTML than normal JS, it is not supported in the language itself. Instead, it requires a compiler (or transpiler) like [Babel](https://babeljs.io/) to compile down to normal JS. Under-the-hood this JSX compiles down to function calls.
+> While JSX looks closer to HTML than standard JS, it is not supported in the language itself. Instead, a compiler (or transpiler) like [Babel](https://babeljs.io/) must compile down to regular JS. Under the hood, this JSX compiles down to function calls.
 >
 > For example, the above would be turned into:
 >
@@ -144,9 +144,9 @@ const File = () => {
 > React.createElement("div", null, aTag);
 > ```
 >
-> While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. This is simply to demonstrate why you need Babel in React applications.
+> While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. Instead, this demonstrates why you need Babel in React applications.
 >
-> You also likely do not need to setup Babel yourself from scratch. [Create React App](https://create-react-app.dev) - the tool React team recommends to manage your React apps - handles it out-of-the-box for you invisibly.
+> You also likely do not need to set up Babel yourself from scratch. [Create React App](https://create-react-app.dev) - the tool React team recommends to manage your React apps - handles it out-of-the-box for you invisibly.
 
 ## Angular
 
@@ -178,17 +178,17 @@ const File = {
 
 These are called "components". Components have multiple properties, which we'll touch on shortly. 
 
-We can see that each framework has their own syntax to display these components. While each framework has its pros and cons, many of the fundamental concepts behind them are shared. 
+We can see that each framework has its own syntax to display these components. While each framework has its pros and cons, many of the fundamental concepts behind them are shared. 
 
 While this is cool - it leads to a good question: how do you _use_ these components in HTML?
 
 # Rendering the app
 
-While these components might look like simple HTML, they're rather capable of further usage. Because of this, each framework actually uses JavaScript under-the-hood to draw these components on-screen.
+While these components might look like simple HTML, they're rather capable of further usage. Because of this, each framework actually uses JavaScript under the hood to draw these components on-screen.
 
-**This process of "drawing" is called "rendering".** A component may render at various times, in particular when it needs to update data shown on-screen, which we'll touch on later.
+**This process of "drawing" is called "rendering".** A component may render at various times, particularly when it needs to update data shown on-screen, which we'll touch on later.
 
-Because modern web apps consist of multiple files (that are then often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
+Because modern web apps consist of multiple files (often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
 
 <!-- tabs:start -->
 
@@ -253,7 +253,7 @@ React, unlike the other frameworks, allows you to "self-close" a tag (element or
 
 This is how we're able to write `<File />` instead of `<File></File>`.
 
-This is also true for any other frameworks not mentioned in this series that utilize JSX under-the-hood.
+This is also true for any other frameworks not mentioned in this series that utilize JSX under the hood.
 
 ## Angular
 
@@ -280,9 +280,9 @@ export class AppModule {}
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-> Angular has the concept of ["Modules"](https://angular.io/guide/architecture-modules) that allows you to opimize your application by keeping bundle size small. While it's an important part of Angular, don't worry too much about it for the moment.
+> Angular has the concept of ["Modules"](https://angular.io/guide/architecture-modules) that allows you to optimize your application by keeping bundle size small. While it's a central part of Angular, don't worry too much about it for the moment.
 >
-> What _is_ important to note is that for each component, you need to register components within the `declarations` before usage
+> What _is_ important to note is that for each component, you need to register components within the `declarations` before usage.
 
 ## Vue
 
@@ -298,11 +298,11 @@ createApp(File).mount("#root");
 
 <!-- tabs:end -->
 
-Once a component is rendered, you're able to do a lot more with it!
+Once a component is rendered, you can do a lot more with it!
 
 For example, just like [nodes in the DOM]() have relationships, so too can components.
 
-# Children, siblings, and more oh my!
+# Children, siblings, and more, oh my!
 
 While our `File` component currently contains HTML elements, components may also contain other components!
 
@@ -363,7 +363,7 @@ const FileList = {
 };
 ```
 
-We need to make sure to register all of the components we'll be using in our component! Otherwise, Vue will throw an error:
+We need to register all of the components we'll be using in our component! Otherwise, Vue will throw an error:
 
 > Failed to resolve component: file
 
@@ -371,7 +371,7 @@ We need to make sure to register all of the components we'll be using in our com
 
 
 
-Looking through our `File` component, we can also notice that we're rendering multiple elements inside of a single component. Funnily enough, this has the fun side effect that we can also render multiple components inside of a parent component.
+Looking through our `File` component, we'll notice that we're rendering multiple elements inside a single component. Funnily enough, this has the fun side effect that we can also render multiple components inside a parent component.
 
 <!-- tabs:start -->
 
@@ -424,15 +424,15 @@ const FileList = {
 
 <!-- tabs:end -->
 
-This is a particularly useful feature of components. It allows you to reuse aspects of your structure (and styling + logic, but I'm getting ahead of myself) without having to repeat yourself. It allows for a very DRY architecture where your code is declared once and reused elswhere.
+This is a particularly useful feature of components. It allows you to reuse aspects of your structure (and styling + logic, but I'm getting ahead of myself) without repeating yourself. It allows for a very DRY architecture where your code is declared once and reused elsewhere.
 
 > That stands for "Don't repeat yourself" and is often heralded as a gold standard of code quality!
 
-It's worth remembering that we're using the term "parent" to refer to our `FileList` component in relation to our `File` component. This is because, like the DOM tree, each framework's set of components reflect a tree.
+It's worth remembering that we're using the term "parent" to refer to our `FileList` component in relation to our `File` component. This is because, like the DOM tree, each framework's set of components reflects a tree.
 
 ![The FileList component is the parent of each File component. Likewise, each File component has a FileDate child](./file_list_tree.png)
 
-This means that the related `File` components are "siblings" of one-another, each with a "parent" of `FileList`.
+This means that the related `File` components are "siblings" of one another, each with a "parent" of `FileList`.
 
 We can extend this hierarchical relationship to have "grandchildren" and beyond as well:
 
@@ -526,7 +526,7 @@ const FileList = {
 
 # Logic
 
-HTML isn't the only thing components are able to store, however! Like we mentioned earlier, apps (and by extension, each part of the respective apps) require three parts:
+HTML isn't the only thing components are able to store, however! As we mentioned earlier, apps (and by extension, each part of the respective apps) require three parts:
 
 - Structure (HTML)
 - Styling (CSS)
@@ -536,7 +536,7 @@ Components can handle all three!
 
 While we'll touch on styling more in the future, let's take a look at how we can declare logic in a component by making `file-date` show the current date instead of a static date.
 
-We'll start by adding in a simple function to display the current date in a human readable form.
+We'll start by adding a simple function to display the current date in a human-readable form.
 
 
 
@@ -554,7 +554,7 @@ const FileDate = () => {
 }
 ```
 
-`useState` is what React uses to store data that is set by the user. It's first argument (that we're passing a string into) is used to set the initial value.
+`useState` is what React uses to store data that is set by the user. Its first argument (that we're passing a string into) is used to set the initial value.
 
 We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
 
@@ -566,7 +566,7 @@ const setDateStr = dateArr[1];
 
 > `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 >
-> Hooks can be identified as a function that starts with the word `use`. Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
+> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
 
 ## Angular
 
@@ -628,7 +628,7 @@ const FileDate = () => {
 };
 ```
 
-> Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do thanks to different philosophies.
+> Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do, thanks to different philosophies.
 
 ## Angular
 
@@ -685,13 +685,13 @@ const FileDate = {
 
 # Intro to Lifecycles {#lifecycles}
 
-While you can rest assured this code works, since I'm the author and I'd probably be a bit embarrassed by it not running...
+While you can rest assured that this code works since I'm the author and I'd probably be a bit embarrassed by it not running...
 
-> Way to temp fate there, author
+> Way to tempt fate there, author
 
-... It's important to realize that not all of our code will functions will work as intended first try. Moreover: What on earth is that function even outputting - we don't currently have a way to evaluate the output?
+... It's important to realize that not all of our code will function as intended first try. Moreover: What on earth is that function even outputting - we don't currently have a way to evaluate the output?
 
-Let's fix that by telling our components that "once you're rendered on screen, `console.log` the value of that data".
+Let's fix that by telling our components that "once you're rendered on screen, `console.log` the value of that data."
 
 <!-- tabs:start -->
 
@@ -781,24 +781,23 @@ Here, we're telling each respective framework to simply log the value of `dateSt
 
 > Wait, "for the first time"?
 
-Yup! React, Angular, and Vue all are capable of updating (or, re-rendering) when they need to.
+Yup! React, Angular and Vue all are capable of updating (or "re-rendering") when they need to.
 
-For example, let's say you want to show `dateStr` to a user, but then later in the day the time switches over. While you'd have to handle the code to keep track of the time, **the respective framework would notice that you've modified the values of `dateStr` and re-render the component to display the new value**.
+For example, let's say you want to show `dateStr` to a user, but then later in the day, the time switches over. While you'd have to handle the code to keep track of the time, **the respective framework would notice that you've modified the values of `dateStr` and re-render the component to display the new value**.
 
 While the method each framework uses to tell _when_ to re-render is different, they all have a highly stable method of doing so.
 
 This feature is arguably the biggest advantage of building an application with one of these frameworks.
 
-**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed [which we'll dive deeper into with our "Lifecycles" chapter](/posts/lifecycle-methods).
+**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, [which we'll dive deeper into with our "Lifecycles" chapter](/posts/lifecycle-methods).
 
-Speaking of updating data on screen - let's take a look at how we can dynamically display data on a page.
+Speaking of updating data on-screen - let's take a look at how we can dynamically display data on a page.
 
 
 
 # Display
 
-While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely your users won't know what a console even is. Let's show `dateStr` on-screen
-
+While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely, your users won't know what a console even is. Let's show `dateStr` on-screen
 
 <!-- tabs:start -->
 
@@ -872,7 +871,7 @@ const FileDate = {
 <!-- tabs:end -->
 
 
-Here, we're using each framework's method of injecting state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
+Here, we're using each framework's method of injecting the state into a component. For React, we'll use the `{}` syntax to interpolate JavaScript into the template, while Vue and Angular both rely on `{{}}` syntax.
 
 ## Live Updating
 
@@ -911,9 +910,9 @@ const FileDate = () => {
 
 > Remember how we said we'd touch on `setDateStr`?
 >
-> Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue where you don't have to tell the framework when to re-render.
+> Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to tell the framework when to re-render.
 >
-> There are benifits and downsides to this method, which we'll touch on in a future section.
+> There are benefits and downsides to this method, which we'll touch on in a future section.
 
 ### Angular
 
@@ -978,9 +977,9 @@ const FileDate = {
 
 If you sit on these screens for a while, you'll see that they update automatically!
 
-While the frameworks detect changes under-the-hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on screen as opposed to the code that updates the DOM itself. 
+While the frameworks detect changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself. 
 
-This is important because in order to update the DOM in an efficient way requires significant hevy-lifting. In fact, many of these frameworks store an entire copy of the DOM in-memory in order to keep that updating as lightweight as possible. We'll explain in the future exactly how this works.
+This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, many of these frameworks store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible. We'll explain in the future exactly how this works.
 
 
 
@@ -990,7 +989,7 @@ Text isn't the only thing that frameworks are capable of live-updating, however!
 
 Just like each framework has a way to have state rendered into text on-screen, it can also update HTML attributes for an element. 
 
-Currently, our `date` component doesn't read out [particularly kindly to screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability), since it would only read out as numbers. Let's change that by adding in an `aria-label`of a human readable date to our `date` component.
+Currently, our `date` component doesn't read out [particularly kindly to screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability) since it would only read out as numbers. Let's change that by adding in an `aria-label`of a human-readable date to our `date` component.
 
 <!-- tabs:start -->
 
@@ -1006,7 +1005,7 @@ const FileDate = () => {
 }
 ```
 
-> You may notice that the attribute is [`ariaLabel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaLabel) in React but `aria-label` in every other framework. This is because React uses the JavaScript names for attributes, similar to the properties you'd set on an [`Element` ](https://developer.mozilla.org/en-US/docs/Web/API/Element) that you'd get from a query like [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
+> You may notice that the attribute is [`ariaLabel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaLabel) in React but `aria-label` in every other framework. This is because React uses the JavaScript names for attributes, similar to the properties you'd set on an [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) that you'd get from a query like [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
 >
 > This also means that instead of `class`, you set [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className), to the confusion of many an early React developer.
 
@@ -1045,9 +1044,9 @@ const FileDate = {
 <!-- tabs:end -->
 
 
-Now, when we use a screen reader it'll read out "January 10th" instead of "One dash ten".
+Now, when we use a screen reader, it'll read out "January 10th" instead of "One dash ten".
 
-However, while this may have worked before `date` was dyanamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day)
+However, while this may have worked before `date` was dynamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day)
 
 Let's correct that by adding in a `formatReadableDate` method and reflect that in the attribute:
 
@@ -1134,7 +1133,7 @@ export class FileDateComponent implements OnInit {
 
 > Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
 >
-> `attr` stands for `attribute`. We'll see the other usage for the `[]` momentarily.
+> "`attr`" stands for "attribute". We'll see the other usage for the `[]` syntax momentarily.
 
 ### Vue
 
@@ -1174,7 +1173,7 @@ const FileDate = {
 };
 ```
 
-> In Vue, `v-bind` has a shorter syntax that does the same thing. If you axe the `v-bind` and leave the `:`, it works the same way.
+> In Vue, `v-bind` has a shorter syntax that does the same thing. If you ax the `v-bind` and leave the `:`, it works the same way.
 >
 > This means that:
 >
@@ -1192,7 +1191,7 @@ const FileDate = {
 
 <!-- tabs:end -->
 
-> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values that in a future section.
+> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values in a future section.
 
 Awesome! Now it should read the file's date properly to a screen reader properly!
 
@@ -1234,7 +1233,7 @@ const FileList = () => {
 >
 > Since this is extremely common in production React applications, we'll be using this style going forward.
 >
-> Similarly, while `{}` is required to bind a variable to an input or attribute in React, since we're only passing a string here, we could alterantively write:
+> Similarly, while `{}` is required to bind a variable to an input or attribute in React, since we're only passing a string here, we could alternatively write:
 >
 >  ```jsx
 >  <File fileName="File one"/>
@@ -1268,7 +1267,7 @@ export class FileListComponent {}
 
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
 >
-> We're also using the `@Input` dectorator to declare inputs for each component input.
+> We're also using the `@Input` decorator to declare inputs for each component input.
 
 ## Vue
 
@@ -1295,7 +1294,7 @@ const FileList = {
 };
 ```
 
-> Here, we need to declare each property using the `props` property on our component, otherwise the input value won't be available to the rest of the component.
+> Here, we need to declare each property using the `props` property on our component; otherwise, the input value won't be available to the rest of the component.
 >
 > Also, when we talked about atttribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
 >
@@ -1305,9 +1304,9 @@ const FileList = {
 
 <!-- tabs:end -->
 
-Here, we can see each `File` being rendered with their own names. 
+Here, we can see each `File` being rendered with its own name. 
 
-One way of thinking about passing properties to a component is that we're "pass down" data to our children components. Remember, these components make a parent/child relationship to one-another.
+One way of thinking about passing properties to a component is that we "pass down" data to our children's components. Remember, these components make a parent/child relationship to one another.
 
 It's exciting what progress we're making! But oh no - the links are still static! Each file has the same `href` property as the last. Let's fix that!
 
@@ -1396,7 +1395,7 @@ While we've been using strings to pass values to a component as an input, this i
 
 Input properties can be of any JavaScript type. This can include objects, strings, numbers, arrays, class instances, or anything in between!
 
-To showcase this, let's add in the ability to pass a `Date` class instance to our `file-date` component. After all, each file in our files list will likely be created at different times.
+To showcase this, let's add the ability to pass a `Date` class instance to our `file-date` component. After all, each file in the list of our files will likely be created at different times.
 
 <!-- tabs:start -->
 
@@ -1500,15 +1499,15 @@ const File = {
 
 > Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `file-date`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
 >
-> Each framework has a way of live-updating this value for us as we might usually expect, by [utilizing a derived value](TODO: ADD ME), but we'll touch on that in a future section.
+> Each framework has a way of live-updating this value for us, as we might usually expect, by [utilizing a derived value](/posts/derived-values), but we'll touch on that in a future section.
 
 ## Props Rules
 
-While it's true that component properties can be JavaScript object, there's a rule you **must** follow when it comes to object props:
+While it's true that a component property can be passed a JavaScript object, there's a rule you **must** follow when it comes to object props:
 
 You must not mutate component prop values.
 
-For example, here's some code that **will not work as-expected**:
+For example, here's some code that **will not work as expected**:
 
 <!-- tabs:start -->
 
@@ -1563,20 +1562,20 @@ const GenericList = {
 
 You're not intended to mutate properties because it breaks two concepts which we'll learn about later:
 
-1) What it means to be a "pure" function 
-2) Unidirectionality of component flow
+1) [What it means to be a "pure" function](// TODO: Add link)
+2) [Unidirectionality of component flow](// TODO: Add link)
 
 # Event Binding
 
 Binding values to an HTML attribute is a powerful way to control your UI, but that's only half the story. Showing information to the user is one thing, but you also need to react to a user's input.
 
-One way you can do this is [binding a DOM event](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) that are emitted by a user's behavior.
+One way you can do this is [by binding a DOM event](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) that is emitted by a user's behavior.
 
-In the mockup we saw before, our files list has a hover state for the file list. However, when the user clicks on a file, it should be highlighted more distinctly.
+In the mockup we saw before, the list of our files has a hover state for the file list. However, when the user clicks on a file, it should be highlighted more distinctly.
 
 ![Three files listed in a list with the middle one selected](./small_file_list.png)
 
-Let's add in a `isSelected` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
+Let's add in an `isSelected` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
 
 While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](// TODO: Link to accessibility chapter).
 
@@ -1614,7 +1613,7 @@ We mentioned earlier that we'd look into the second value in the return array of
 
 The second value of the array returned by `useState` is utilized to update the value assigned to the first variable. So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
 
-We also make sure to prefix the event name with `on` in order to bind a method to a browser event name. However, the first name of the browser event name needs to be capital. This means that `click` turns into `onClick`.
+We also make sure to prefix the event name with `on` in order to bind a method to a browser event name. However, the first letter of the browser event name needs to be capitalized. This means that `click` turns into `onClick`.
 
 ### Angular
 
@@ -1700,21 +1699,21 @@ Can be rewritten into:
 
 <!-- tabs:end -->
 
-Here, we're binding the `style` property using Vue's binding. You may notice that for each framework, when binding via `style`, you use an object notation for styling instead of the usual string.
+Here, we're binding the `style` property using Vue's binding. You may notice that for each framework when binding via `style`, you use an object notation for styling instead of the usual string.
 
 We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) (`condition ? trueVal : falseVal`) to act as a single-line `if` statement to decide which style to use.
 
 # Outputs
 
-Components aren't simply able to recieve a value from its parent. You're also able to send values back to the parent.
+Components aren't simply able to receive a value from its parent. You're also able to send values back to the parent.
 
- These values are sent back to the parent component usually via a custom event, much like those emitted by the browser. Just like the event binding that we did earlier, we'll use the same syntax to bind the custom events, alongside some new syntax in order to emit them.
+ These values are sent back to the parent component, usually via a custom event, much like those emitted by the browser. Just like the event binding that we did earlier, we'll use the same syntax to bind the custom events, alongside some new syntax, in order to emit them.
 
-> Something work mentioning is that, like event binding, React typically expects you to pass in a function as opposed emitting an event and listening for it.
+> Something work mentioning is that, like event binding, React typically expects you to pass in a function as opposed to emitting an event and listening for it.
 >
-> This differs slightly from Vue and Angular, but has the same fundamental idea of "sending data to a parent component".
+> This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component".
 
-While listening for a `click` event in our `file` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior, and instead, emit a `selected` custom event to allow for only one selected file at a time.
+While listening for a `click` event in our `file` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior and instead emit a `selected` custom event to allow for only one selected file at a time.
 
 <!-- tabs:start -->
 
@@ -1912,9 +1911,9 @@ const FileList = {
 
 <!-- tabs:end -->
 
-> Keep in mind: This code isn't _quite_ production ready. There are some accessibility concerns with this code, and might require things like [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected) and more to fix.
+> Keep in mind: This code isn't _quite_ production-ready. There are some accessibility concerns with this code and might require things like [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected) and more to fix.
 
-Here, we're using a simple number-based index to act as an `id` of sorts for each file. This allows us to keep track of which file is currently selected or not. Likewise, if the user selects an index that's already been selected, we will set the `isSelected` index to a number which no file has associated.
+Here, we're using a simple number-based index to act as an `id` of sorts for each file. This allows us to keep track of which file is currently selected or not. Likewise, if the user selects an index that's already been selected, we will set the `isSelected` index to a number that no file has associated.
 
 You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state", which is a best practices concept we'll touch on later.](TODO: Add link to future article)
 
