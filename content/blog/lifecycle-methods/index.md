@@ -21,7 +21,7 @@ Let's start by recapping what we already know.
 
 When we introduced components, we touched on the [concept of "rendering"](/posts/intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen.
 
-This occurs at first when the user loads a page but also when shown or hidden using a [conditional render, which we touched on in the last chapter](/posts/dynamic-html#Conditional-Branches).
+This occurs when the user loads a page and when shown or hidden using a [conditional render, which we touched on in the last chapter](/posts/dynamic-html#Conditional-Branches).
 
 Say we have the following code:
 
@@ -111,7 +111,7 @@ const Parent = {
 
 
 
-What would we need to do in order to add in a `console.log` whenever the `setShowChild` method is called?
+What would we need to do to add in a `console.log` whenever the `setShowChild` method is called?
 
 Well, we can use a lifecycle method to detect when `Child` is rendered!
 
@@ -133,7 +133,7 @@ React works slightly differently from the other frameworks we're looking at in t
 
 Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
 
-For example, in the above code, we're using `useEffect` with an empty array as the second argument in order to create a [side effect](// TODO: Link to glossary) that runs only once per render.
+For example, in the above code, we're using `useEffect` with an empty array as the second argument to create a [side effect](// TODO: Link to glossary) that runs only once per render.
 
 We'll touch on what a side effect is and what the empty array is doing in just a moment.
 
@@ -151,7 +151,7 @@ export class ChildComponent implements OnInit {
 }
 ```
 
-Angular's version of the "rendered" lifecycle method is called "OnInit". Each of Angular's lifecycle methods is prepended with `ng` and requires you to add `implements` to your component class.
+Angular's version of the "rendered" lifecycle method is called "OnInit". All of Angular's lifecycle methods are prepended with `ng` and requires you to add `implements` to your component class.
 
 If you forget the `implements`, your lifecycle method will not run when you expect it to. 
 
@@ -166,11 +166,11 @@ const Child = {
 };
 ```
 
-Despite Vue's lifecycle methods being called "methods", they do not live in the "methods" object on a component. Instead, they live at the root of the component declaration.
+Despite Vue's lifecycle methods being called "methods", they do not live in a component's "methods" object. Instead, they live at the root of the component declaration.
 
 <!-- tabs:end -->
 
-These lifecycle methods are then called by the framework when a specific lifecycle event occurs. No need to call these methods yourself manually!
+The framework then calls these lifecycle methods when a specific lifecycle event occurs. No need to call these methods yourself manually!
 
 Try clicking the toggle button repeatedly, and you'll see that the `console.log` occurs every time the `Child` component renders again.
 
@@ -178,9 +178,9 @@ Try clicking the toggle button repeatedly, and you'll see that the `console.log`
 
 A common usage of this `rendered` lifecycle is to be able to do some kind of **side effect**.
 
-A side effect is when a piece of code changes or relies on state outside of its local environment. When a piece of code does not contain a side effect, it is considered "pure".
+A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure".
 
-![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside of its own environment](./pure-vs-side-effect.png)
+![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](./pure-vs-side-effect.png)
 
 For example, say we have the following code:
 
@@ -415,7 +415,7 @@ We can demonstrate this inside of our frameworks.
 
 If you click on the `span`, the `click` event will start from the `span`, bubble up to the `p` tag, then finally bubble up to the `div`. Because we add an event listener on the `div`, it will run `logMessage`, even when clicking on the `span`.
 
-Back to the original question: Because our `resize` event is emitted directly from the `html` node, the only way to get access to it from the `div` parent component is to use `addEventListener`, which is why we use it in our code sample to track `resize` events.
+This is why we don't we simply utilize event binding for the `resize` event: It's only ever emitted directly from the `html` node. Because of this behavior, if we want to access the `resize` event inside of our `WindowSize` component, we need to use `addEventListener`.
 
 [You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 
@@ -425,7 +425,7 @@ Side effects are, among other things, a powerful way to utilize browser APIs. Ho
 
 This holds true for our `addEventListener` usage since `addEventListener` will continue to run the passed function until a `removeEventListener` is called. We should run this any time an element is un-rendered. After all, it makes no sense to listen to DOM events on a DOM node that isn't present anymore.
 
-Luckily, just as there's a lifecycle method for when a component is rendered, there's another lifecycle method for when a component is unrendered.
+Luckily, similar to the lifecycle method for a component's render, there's another lifecycle method for when a component is unrendered.
 
 <!-- tabs:start -->
 
