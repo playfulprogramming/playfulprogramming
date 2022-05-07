@@ -8,11 +8,11 @@
 }
 ---
 
-One of the most common types of front-end applications that I've seen in my career can be classified as some form of "Form wrapper". Whether it's a payment form, a user submitted tracking form, or anything of the like - these pages exist in almost every app I've ever seen.
+One of the most common types of front-end applications that I've seen in my career can be classified as some form of "Form wrapper". Whether it's a payment form, a user-submitted tracking form, or anything of the like - these pages exist in almost every app I've ever seen.
 
 What's more, even in less obvious "form wrapper" style pages, you'll always need a way to track a user's input for usage in some kind of processing.
 
-To do this, React, Angular, and Vue have a few tools at their disposal.
+To do this, React, Angular, and Vue all have a few tools at their disposal.
 
 We've been working on a files app up to this point in a fairly simplistic manner of getting files listed for the user. However, many modern file apps (such as Dropbox and Google Drive) allow you to share files with others.
 
@@ -105,7 +105,7 @@ const FormComp = {
 
 
 
-While this works as-is, it can get complex when too many inputs are present. For each input you need:
+While this works as-is, it can get complex when too many inputs are present. For each input, you need:
 
 - A function to listen for changes and bind them to the value
 - A variable to assign the data to
@@ -115,15 +115,15 @@ Let's try to simplify this by removing the first step.
 
 # Two-way form bindings
 
-One method for removing the function to listen for changes is by using the given framework's input variable two-way bindings. When the framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
+One method for removing the input change listener is by using two-way variable bindings. When your framework supports this, you don't need to assign a function for change listening. Simply pass a variable and watch the value change as you type!
 
 <!-- tabs:start -->
 
 ## React
 
-React doesn't have a way to do this and generally regard it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data-flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
+React doesn't have a way to do this and generally regards it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
 
-However, we'll touch on another method of form binding that should be helpful to address the verbosity of that method soon.
+However, we'll touch on another method of form binding that should be helpful in addressing the verbosity of event bindings.
 
 ## Angular
 
@@ -212,7 +212,7 @@ While these methods of two-way binding help mitigate some problems, there's stil
 - Create a new object
 - Make sure you pass all subkeys of the object
 
-While this works for simple examples like ours, it quickly gets unweildy and easy to introduce bugs within at a larger scale.
+While this works for simple examples like ours, it quickly gets unwieldy and easy to introduce bugs within at a larger scale.
 
 There's a better way.
 
@@ -220,7 +220,7 @@ There's a better way.
 
 Reactive forms are a way for you to keep all of your form data inside of a single variable when it comes time to submit a form. There are also multiple enhancements to this method, such as data validation and array handling.
 
-Let's take a look at how we can use reactive forms in our framworks, then touch on the additional features afterwards.
+Let's take a look at how we can use reactive forms in our frameworks, then touch on the additional features afterward.
 
 <!-- tabs:start -->
 
@@ -369,9 +369,9 @@ const FormComponent = () => {
 };
 ```
 
-> Keep in mind, the `Field` and `Form` components will not work when using `useFormik`. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link). Instead, you'd have to pass `onChange` and `onSubmit` respectively to `input` and `form` HTML elements as we demonstrated before.
+> Keep in mind that the `Field` and `Form` components will not work when using `useFormik`. This is because of underlying implementation details that [rely on React's Dependency Injection (which we'll touch on in a future chapter)](// TODO: Add link). Instead, you'd have to pass `onChange` and `onSubmit`, respectively, to `input` and `form` HTML elements, as we demonstrated before.
 
-> We are currently using version 2 of Formik. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
+> We are currently using version 2 of Formik. Inevitably, its API will change, and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
 ## Angular
 
@@ -392,7 +392,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AppModule {}
 ```
 
-Now, we can create a new instance of a class called `FormControl` to act as an form item that we can then bind to a `[formControl]` in order to have two-way event and value input sync. 
+Now, we can create a new instance of a class called `FormControl` to act as a form item that we can then bind to a `[formControl]` in order to have two-way event and value input sync. 
 
 ```typescript {0,6,12}
 import { FormControl } from '@angular/forms';
@@ -485,7 +485,7 @@ export class FormComponent {
 
 ### Form Builder
 
-You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup` respectively.
+You're also able to utilize a shorthand `fb` provided by Angular to remove duplicate calls to `FormControl` and `FormGroup`, respectively.
 
 ```typescript
 import {
