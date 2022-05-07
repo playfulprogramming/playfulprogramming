@@ -265,9 +265,10 @@ Instead, **let's allow the parent of our `ToggleButton` to pass in a template th
 
 # React
 
-// TODO: Mention `children` being a special property name in React
+In React, passed content is treated like any other property that's passed into a component. However, by default when you pass content as children, the property name assigned to that `ReactNode` value is `children`.
 
 ```jsx
+// "children" is a preserved property name by React. It reflects passed child nodes
 const ToggleButton = ({children}) => {
 	const [pressed, setPressed] = useState(false);
 	return (
@@ -286,6 +287,8 @@ const ToggleButtonList = () => {
 ```
 
 # Angular
+
+Angular has a special tag called `ng-content` that acts as a pass-through for all children content passed to a component.
 
 ```typescript
 @Component({
@@ -313,11 +316,11 @@ export class ToggleButtonComponent {
 export class ToggleButtonListComponent {}
 ```
 
-// TODO: Mention `ng-content` to be a special tab
+Because `ng-content` is built-in to [Angular's compiler](// TODO: Link to Angular internals section), we do not need to import anything into a module to use the feature.
 
 # Vue
 
-// TODO: Mention "slot" being a special element
+When in Vue-land, the `slot` tag is utilized in order to pass children through to a component's template. 
 
 ```javascript
 const ToggleButton = {
@@ -347,6 +350,8 @@ const ToggleButtonList = {
   },
 };
 ```
+
+Because `slot` is a built-in component to Vue, we do not need to register it as a `components` item.
 
 <!-- tabs:end -->
 
@@ -481,7 +486,7 @@ Now that we're familiar with how content projection works, let's apply it to one
 
 One example where we can utilize content projection in our application is as a wrapper component for our files list.
 
-![// TODO: Add content](./file_list.png)
+![A table of files with headings for "Name", "Last modified", "Type", and "Size"](./file_list.png)
 
 As we can see, this file "list" is really more of a file "table". Let's go ahead and do some refactor work on our file list to be a `table`:
 
@@ -841,6 +846,8 @@ const FileTable = () => {
 
 ## Angular
 
+`ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
+
 ````typescript
 
 @Component({
@@ -869,9 +876,11 @@ class FileTableContainerComponent {}
 class FileTableComponent {}
 ````
 
-// TODO: Mention `[header]` selector aligning with CSS selector query value
+Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
 
 ## Vue
+
+Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
 
 ```javascript
 
@@ -903,24 +912,10 @@ const FileTable = {
 };
 ```
 
-// TODO: Mention how `header` is not a component, just a reference to the named `slot`
+Here, we can see that `slot` is querying for a `header` element. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
 
 <!-- tabs:end -->
 
 
 
-------------
-
-- Content projection
-  - `{props.children}` / React
-  - `ng-content` / Angular
-  - `<slot>` / Vue
-  - Named slots
-    - `{props.header}` / React
-    - `ng-content select` / Angular
-    - `<slot name` / Vue
-
-
- Create a `FileContainer` component that has a bunch of stying around the contrainer itself.
-
- Then, add in `header` for buttons related to the file list
+// TODO: Conclusion
