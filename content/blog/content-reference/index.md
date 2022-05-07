@@ -104,7 +104,7 @@ In an earlier chapter, we had some `if ... else` code that looked like this:
 
 And referred out to [an external article](https://unicorn-utterances.com/posts/angular-templates-start-to-source) to explain more. While I still suggest reading through that article at some point (I wrote it, after all), let's explain a bit more in-depth.
 
-## What's a template, anyway?
+## What's a template, anyway? {#ng-templates}
 
 See, an `ng-template` allows you to store multiple tags as children without rendering them.
 
@@ -566,15 +566,77 @@ React is the only framework that's able to pass parameters to projected content 
 
 ## Angular
 
-// TODO: Explain `read: {}`
+Angular is not able to pass properties directly to `ng-content` projected nodes without utilizing `ContentChildren` and a bit of magic.
 
-// TODO: Explain `TemplateRef`
+In order to explain this magic, we have to walk through some pre-requisite knowledge.
 
-// TODO: Explain `ng-template`
+### Back to the start: `ng-template` rendering
 
-// TODO: Explain `ngTemplateOutlet` (and how you need to import `CommonModule` for it to work)
+ [As we explained earlier in the chapter](#ng-templates), `ng-template` is useful for assigning parts of your template to a variable that you can then use elsewhere.
 
-// TODO: Explain `ngTemplateOutletContext`
+What we didn't mention in this previous section is how to display `ng-template` without utilizing an `ngIf`:
+
+```html
+<!-- This is the template to be rendered -->
+<ng-template #renderMe>Hello, world!</ng-template>
+<!-- `ngTemplateOutlet` renders the passed template -->
+<ng-container *ngTemplateOutlet="renderMe"></ng-container>
+```
+
+Here, we can use [the `ngTemplateOutlet` structural directive](https://angular.io/api/common/NgTemplateOutlet) to pass a template in to be rendered to an `ng-container`.
+
+> In order to use this, you'll need to import [`CommonModule`](https://angular.io/api/common/CommonModule) to your `AppModule`'s `import` array:
+>
+> ```typescript
+> import { CommonModule } from '@angular/common';
+> 
+> @NgModule({
+>   imports: [CommonModule, BrowserModule],
+>   // ...
+> })
+> ```
+
+We can also ["unwrap" the structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives) to an attribute of `ng-template` in order to render them as an alternative syntax.
+
+```html
+<!-- This is the same as <ng-container *ngTemplateOutlet="renderMe"></ng-container> -->
+<ng-template [ngTemplateOutlet]="renderMe"></ng-template>
+```
+
+This alternative syntax works exactly the same as the structural directive we demonstrated earlier.
+
+### Template Contexts
+
+> But why? `ng-template` doesn't seem to do very much outside of contain values.
+
+Aha! That's where you're wrong! You've been fooled again people, `ng-template` is more powerful than I've been letting on.
+
+See, not only does `ng-template` allow you query values and assign template tags, but you're also able to pass values to an `ng-template` when rendering via a `ngTemplateOutlet`. These passed values are called "`context`" values and can be passed with `ngTemplateOutletContext`:
+
+```html
+<ng-template #messageDisplay let-message="message">
+  <p>{{msg}}</p>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="messageDisplay" [ngTemplateOutletContext]="{message: 'Hello, world!'}"></ng-template>
+<!-- Or, an alternative syntax with the same functionality -->
+<ng-container *ngTemplateOutlet="messageDisplay; context: {message: 'Hello, world!'}"></ng-container>
+```
+
+Here, we're using [Angular's structural directive microsyntax](https://unicorn-utterances.com/posts/angular-templates-start-to-source#Microsyntax) to say "give me the `message` property of the `context` object and assign it to a template tag of `msg`." We're then taking that `msg` value and rendering it into a `p` element.
+
+### Putting it together
+
+OK, still with me? Great!
+
+At this point we know a few things about Angular:
+
+1) `ng-template` does not render anything by default
+2) You can assign a template variable to a `ng-template`
+3) `ContentChildren` can query projected children and assign them to an array-like `QueryList`
+4) You can pass values to a rendered `ng-template` using a `context`
+
+Knowing these things, let's put it all together to create a checkered list of items; each odd numbered row will have a grey background.
 
 ```typescript
 @Component({
@@ -613,7 +675,9 @@ class AppComponent {
 }
 ```
 
-// TODO: Plug Angular templates: Start to source article
+Here, we're using everything we've covered to this point in order to render out `listItem` `ng-template` inside of `ParentListComponent`. We're doing this by utilizing `ContentChildren` to `read` each template passed as projected children and re-rendering those templates with `ngTemplateOutlet`. Those rendered templates are then passed a context with a `backgroundColor` property that changes the bound `[style]` attribute.
+
+Whew! What a mouthful. 
 
 ## Vue
 
@@ -676,6 +740,5 @@ const App = {
 
 // TODO:
 
-- `ContentChild` / Angular
 - `this.$slots` / Vue (only for conditionally rendering)
 
