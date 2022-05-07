@@ -267,16 +267,21 @@ class AppComponent {}
 
 # Vue
 
-// TODO: Mention that Vue isn't able to do count the number of `items`
+While both React and Angular are fairly easily able to count the number of children within their respective `children`, Vue is unable to without a drastic refactor of the `ParentList` component.
+
+Generally, this is because while you _can_ access children from the other frameworks, you often _shouldn't_ rely on that behavior. Instead, it's typically suggested to [raise the state of your query from the child to the parent, in order to keep your code more consolidated and organized](// TODO: Link).
 
 <!-- Editor's note: While yes, we could do a `mounted() {this.$slots.children}` for THIS example, two things: 1) It's bad practice in that it will cause two renders. 2) It breaks in the very next code sample -->
 
 <!-- Editors note: It breaks in the next sample because if you add `updated` to listen for changes, then call `this.$slots.default()` it will trigger an infinate render, since it will in turn re-trigger `updated -->
 
+This means that you might take the following code:
+
 ```javascript
 const ParentList = {
   template: `
   <ul>
+   	<p>There are ? number of items in this array</p>
     <slot></slot>
   </ul>
   `,
@@ -296,7 +301,37 @@ const App = {
 };
 ```
 
- However, if you absolutely positively really, no, for sure just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector ` in [the `mounted` lifecycle method](lifecycle-methods#Lifecycle-Chart).
+And instead generate each `li` using a `v-for` and pass the `list.length` to `parent-list` like so:
+
+```javascript
+const ParentList = {
+  template: `
+  <ul>
+  	 <p>There are {{length}} number of items in this array</p>
+    <slot></slot>
+  </ul>
+  `,
+  props: ['length']
+};
+
+const App = {
+  template: `
+    <parent-list :length="list.legnth">
+	  <li v-for="i in list">Item {{i}}</li>
+    </parent-list>
+  `,
+  components: {
+    ParentList,
+  },
+  data() {
+  	return {
+  		list: [1, 2, 3]
+  	}
+  }
+};
+```
+
+However, if you absolutely positively really, no, for sure just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector ` in [the `mounted` lifecycle method](lifecycle-methods#Lifecycle-Chart).
 
 ```javascript
 const ParentList = {
@@ -325,6 +360,26 @@ const ParentList = {
 This doesn't _quite_ follow the same internal logic pattern as our examples in React or Angular, however, which is why it's a bit of an aside.
 
 <!-- Editor's note: While `$el` might seem like a viable alternative to an ID, it's not due to the fact that we have multiple root HTML nodes. This means that `$el` is a VNode, not an `HTMLElement` and therefore does not have a `id` property -->
+
+> There _technically_ is a way to count the number of children nodes within Vue in the same way that React and Angular can. However, be warned that the syntax for doing so isn't very elegant and a more in-depth explaination is out-of-scope for this chapter.
+>
+> By utilizing [Vue's `h` function and a component's `render` method](https://vuejs.org/guide/extras/render-function.html), you can do something like this:
+>
+> ```javascript
+> const ParentList = {
+>   render() {
+>     const slotRenderVal = this.$slots.default();
+>     return [
+>       h('p', {}, [
+>         'There are ',
+>         slotRenderVal.length,
+>         ' number of items in this array',
+>       ]),
+>       h('ul', { id: 'parentList' }, slotRenderVal),
+>     ];
+>   },
+> };
+> ```
 
 <!-- tabs:end -->
 
@@ -604,6 +659,12 @@ const App = {
 ```
 
 <!-- tabs:end -->
+
+
+
+
+
+
 
 
 
