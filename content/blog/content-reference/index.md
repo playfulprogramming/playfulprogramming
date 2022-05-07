@@ -91,17 +91,138 @@ const ParentList = ({children}) => {
 }
 ```
 
-
-
 # Angular
 
-// TODO: Mention `ngAfterContentInit`
+Before we talk about accessing projected content programmatically in Angular, we need to first touch on a concept called "template tags".
 
-// TODO: Mention `ContentChildren`
+In an earlier chapter, we had some `if ... else` code that looked like this:
 
-// TODO: Mention template tags, query selector
+```html
+<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
+<ng-template #fileDisplay><span>Type: File</span></ng-template>
+```
 
-// TODO: Mention `QueryList` type
+And referred out to [an external article](https://unicorn-utterances.com/posts/angular-templates-start-to-source) to explain more. While I still suggest reading through that article at some point (I wrote it, after all), let's explain a bit more in-depth.
+
+## What's a template, anyway?
+
+See, an `ng-template` allows you to store multiple tags as children without rendering them.
+
+Take the following code:
+
+```html
+<ng-template>
+	Hello, <strong>world</strong>!
+</ng-template>
+```
+
+This will convert to the following HTML:
+
+```html
+ 
+```
+
+> Wait, but there's nothing there...
+
+Correct! By default, an `ng-template` will not render anything at all.
+
+> So then what's the point?
+
+The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.  
+
+```html
+<ng-template #tag>
+   This template is now assigned to the "tag" template variable. 
+</ng-template>
+```
+
+We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see it's usage reflected.
+
+```html
+<span *ngIf="false; else trueTag">False</span>
+<ng-template #trueTag>True</ng-template>
+```
+
+Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will render when the passed value is `false`.
+
+## There can only be one: `ContentChild`
+
+These template tags aren't simply useful in `ngIf` usage, however. We can also use them in a myriad of programmatic queries, such as `ContentChild`.
+
+`ContentChild` is a way to query the projected content within `ng-content` from JavaScript.
+
+```typescript
+import {
+  NgModule,
+  Component,
+  AfterContentInit,
+  ContentChild,
+  ElementRef,
+} from '@angular/core';
+
+@Component({
+  selector: 'parent',
+  template: `
+    <ng-content></ng-content>
+  `,
+})
+class ParentListComponent implements AfterContentInit {
+  @ContentChild('childItem') child: ElementRef<HTMLElement>;
+
+  // This cannot be replaced with an `OnInit`, otherwise `children` is empty.
+  ngAfterContentInit() {
+    console.log(this.child.nativeElement); // This is an HTMLElement
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <parent>
+    <p #childItem>Hello, world!</p>
+  </parent>
+  `,
+})
+class AppComponent {}
+```
+
+Here, we're querying for the template tag `childItem` within the project content by using [the `ContentChild` decorator](https://angular.io/api/core/ContentChild). `ContentChild` then returns [a TypeScript generic type](https://unicorn-utterances.com/posts/typescript-type-generics) of `ElementRef`. `ElementRef` is a type that has a single property called `nativeElement` containing the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) in question.
+
+### Sounds like a song lyric: `ngAfterContentInit`
+
+> Tell me you couldn't imagine a power ballet from the 80s with that in it.
+
+If you were looking at the last code sample and wondered:
+
+> "What is `ngAfterContentInit` and why are we using it in place of `ngOnInit`?" 
+
+Then you're asking the right questions!
+
+See, if we replace our usage of `ngAfterContentInit` with a `ngOnInit`, then we get `undefined` in place of `this.child`:
+
+```typescript
+@Component({
+  selector: 'parent',
+  template: `
+    <ng-content></ng-content>
+  `,
+})
+class ParentListComponent implements OnInit {
+  @ContentChild('childItem') child: ElementRef<HTMLElement>;
+
+  ngOnInit() {
+    console.log(this.child); // This is `undefined`
+  }
+}
+```
+
+This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished it's query.
+
+## And then there were more: `ContentChildren`
+
+While `ContentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
+
+This is where `ContentChildren` comes into play:
 
 ```typescript
 import {
@@ -124,7 +245,6 @@ import {
 class ParentListComponent implements AfterContentInit {
   @ContentChildren('listItem') children: QueryList<HTMLElement>;
 
-  // This cannot be replaced with an `OnInit`, otherwise `children` is empty.
   ngAfterContentInit() {
     console.log(this.children);
   }
@@ -143,7 +263,7 @@ class ParentListComponent implements AfterContentInit {
 class AppComponent {}
 ```
 
-
+`ContentChildren` returns an array-like [`QueryList`](https://angular.io/api/core/QueryList) generic type. You can then access the properties of `children` inside of the template itself, like what we're doing with `children.length`. 
 
 # Vue
 
