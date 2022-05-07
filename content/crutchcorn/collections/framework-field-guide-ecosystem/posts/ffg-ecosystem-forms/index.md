@@ -333,7 +333,7 @@ const FormComponent = () => {
 };
 ```
 
-This component isn't just useful as an alternative API, however - it also enabled us to use functionality like Formik's built in `Form` and `Field` components, which allows us to remove the `onSubmit` and `onChange` method passing for a more terse API.
+This component isn't just useful as an alternative API, however. It also enabled us to use functionality like Formik's built-in `Form` and `Field` components, which allows us to remove the `onSubmit` and `onChange` method passing for a more terse API.
 
 ```jsx {12,16,22,26}
 const FormComponent = () => {
@@ -377,7 +377,7 @@ const FormComponent = () => {
 
 As opposed to the other two frameworks, which require utilizing an external library for reactive forms, Angular has them baked in as a priority feature of the framework.
 
-To utilize them, we first need to import the `ReactiveFormsModule`, which allows us to have a more fully featured API as opposed to `FormsModule`'s `[(ngModel)]`.
+To utilize them, we first need to import the `ReactiveFormsModule`, which allows us to have a more fully-featured API as opposed to `FormsModule`'s `[(ngModel)]`.
 
 ```typescript {2,5}
 import { Component, NgModule } from '@angular/core';
@@ -577,7 +577,7 @@ const FormComponent = {
 }
 ```
 
-> We are currently using version 4 of `vee-validate`. Inevitably, its API will change and this section will be out-of-date, but the core concepts at play likely will not change very much.
+> We are currently using version 4 of `vee-validate`. Inevitably, its API will change, and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
 <!-- tabs:end -->
 
@@ -585,14 +585,14 @@ const FormComponent = {
 
 As we mentioned earlier, reactive forms have more features than the simple two-way (or even one-way) input binding!
 
-One of the features that's added with reactive forms is the concept of an input's state. An input can have many different states:
+One feature that's added with reactive forms is the concept of an input's state. An input can have many different states:
 
 - "Touched" - When the user has interacted with a given field, even if they haven't input anything
-  - Clicking on input
+  - Clicking on the input
   - Tabbing through an input
   - Typing data into input
-- "Pristine" - User has not yet input data into the field
-  - Comes before "touching" said field if the user has not interacted with it any way
+- "Pristine" - The user has not yet input data into the field
+  - Comes before "touching" said field if the user has not interacted with it in any way
   - Comes between "touched" and "dirty" when the user has "touched" the field but has not put data in
 - "Dirty"  - When the user has input data into the field
   - Comes after "touching" said field
@@ -601,7 +601,7 @@ One of the features that's added with reactive forms is the concept of an input'
 
 While some of these states are mutually exclusive, an input may have more than one of these states active at a time. For example, a field that the user has typed into has both "dirty" and "touched" states applied at the same time.
 
-These states can then be used to apply different styling or logic on each of the input's associated elements. For example, a field that is `required && touched && pristine`, meaning that the user has clicked on the field, not input data into the field, but the field requires a user's input. In this instance, an implementation might show a `"This field is required"` error message.
+These states can then be used to apply different styling or logic to each of the input's associated elements. For example, a field that is `required && touched && pristine`, meaning that the user has clicked on the field, not input data into the field, but the field requires a user's input. In this instance, an implementation might show a `"This field is required"` error message.
 
 > The method of displaying this error message is part of a much larger discussion of [field validation, which we'll touch on in a different section in this chapter](#form-validation).
 
@@ -610,7 +610,7 @@ In addition to the form's fields having these possible states applied, many of t
 For example, when the user "touches" a field for the first time, they're also "touching" the form itself. You can use this information to do something like:
 
 ```javascript
-// This is psuedocode and likely won't work with any framework unconfigured
+// This is pseudocode and likely won't work with any framework unconfigured
 if (!form.touched) {
 	alert("You must put data into the form first!")
     return;
@@ -621,7 +621,7 @@ In addition to the existing field states, a form may also contain the following 
 
 - "Submitted" - When the user has submitted a form
 - "Pending" - When a user has submitted a form while the form is currently doing something
-  - Comes after "submitted"
+  - Comes after the "submitted" state
   - Submitting data to the server
 
 Here's an interactive playground that you can use to play around with each of the different input states.
@@ -780,7 +780,7 @@ class AppComponent {
 
 `vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `v-field` as well as each `v-form`.
 
-`v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance `v-form` and `v-field` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
+`v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance, `v-form` and `v-field` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
 
 > We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](/posts/content-reference Add link)
 
@@ -847,11 +847,11 @@ const FormComponent = {
 
 <!-- tabs:end -->
 
-Additional to form states, a reactive form also adds in the following features into a form: 
+Additional to form states, a reactive form also adds the following features into a form: 
 
 - Form groups - A collection of fields (or sub-fields) that create a grouping
 - [Form arrays](#form-arrays) - A collection of fields in a list
-- [Validation - making sure an input's value aligns to a set of rules.](#form-validation)
+- [Validation - making sure an input's value aligns with a set of rules.](#form-validation)
 	- "Is input a valid email"
 	- Required fits into this category
 
@@ -861,7 +861,7 @@ Let's start by taking a look at form arrays.
 
 The example we set off to build at the start of the chapter was a method of sharing a file with a selection of users. 
 
-While we've built a primitive version of this that allows us to share a file with a single user, but let's expand that behavior to allows us to share a file with any number of users.
+While we've built a primitive version of this that allows us to share a file with a single user, let's expand that behavior to allow us to share a file with any number of users.
 
 To do this, we'll need to rely on the ability to add in an array of a form.
 
@@ -1033,7 +1033,7 @@ const FormComponent = {
 }
 ```
 
-Something worth highlighting is our of `key-path` with the `id` to track with user is which.
+Something worth highlighting is our usage of `key-path` with the `id` to track which user is which.
 
 <!-- tabs:end -->
 
@@ -1091,9 +1091,9 @@ Formik's `validate` function passing works quite well for basic usage. That said
 
 There exist multiple different libraries that will integrate with Formik in order to add dedicated complex validation functionality. [`yup` is one such library](https://github.com/jquense/yup).
 
-By using `yup`, you're able to replace our home-grown function with something as simply as `yup.string().required()` to mark the field as required.
+By using `yup`, you're able to replace our home-grown function with something as simple as `yup.string().required()` to mark the field as required.
 
-Yup works by introducing in the concept of a "schema" into form validation. You start by decaring a schema that's then validated against using the `validationSchema` in the `Formik` component.
+Yup works by introducing the concept of a "schema" into form validation. You start by declaring a schema that's then validated against using the `validationSchema` in the `Formik` component.
 
 ```jsx
 import { Formik, Form, Field } from 'formik';
@@ -1131,7 +1131,7 @@ const FormComponent = () => {
 };
 ```
 
-While Yup will generate an error message based on the expected and recieved data types, we're also able to customize the error message ourselves:
+While Yup will generate an error message based on the expected and received data types, we're also able to customize the error message ourselves:
 
 ```javascript
 const FormSchema = yup.object().shape({
@@ -1157,7 +1157,7 @@ mainForm = this.fb.group({
 });
 ```
 
-And promised there was some nebulous benefit for doing so later? Well, not it's time to introduce the "why". When a `FormControl` is being created with an array, the second value for the array is treated as a validator function.
+And promised there was some nebulous benefit for doing so later? Well, now it's time to introduce the "why". When a `FormControl` is being created with an array, the second value for the array is treated as a validator function.
 
 Let's write a simple validator function to check when the field is filled or not. If it's not filled, we can return a string to display to the user that "This field is required".
 
@@ -1261,7 +1261,7 @@ class AppComponent {
 
 ## Vue
 
-React's Formik isn't alone in its ability to allow you to pass a function to validate user's input. Similar to Formik, `vee-validate` allows you to pass a `rules` parameter that's a function. If the function returns anything other than `true`, it will display the value as the error in the `error-message` component.
+React's Formik isn't alone in its ability to allow you to pass a function to validate a user's input. Similar to Formik, `vee-validate` allows you to pass a `rules` parameter that's a function. If the function returns anything other than `true`, it will display the value as the error in the `error-message` component.
 
 ```javascript
 import { Form, Field, ErrorMessage } from 'vee-validate';
@@ -1370,14 +1370,14 @@ const FormSchema = yup.object().shape({
 
 <!-- tabs:end -->
 
-One of the concepts that's introduced with form validation -- especially forms with groups -- is the idea of an object's "shape". You can think of this as the "type" of information an object might contain. For example:
+One concept that's introduced with form validation -- especially forms with groups -- is the idea of an object's "shape". You can think of this as the "type" of information an object might contain. For example:
 
 ```javascript
 const obj1 = {name: "Corbin", id: 2}
 const obj2 = {name: "Kevin", id: 3}
 ```
 
-Would be considered to have the same "shape", since they contain the same keys and each of the keys contains the same type of value. However, the following objects would have divergant shapes due to differing keys:
+Would be considered to have the same "shape" since they contain the same keys, and each of the keys contains the same type of value. However, the following objects would have divergent shapes due to differing keys:
 
 
 ```javascript
@@ -1661,7 +1661,7 @@ const FormComponent = {
 
 While validation is inarguably a useful feature for forms, it's important to not be too enthusiastic in our usage of it.
 
-An initial temptation for some might be to use this form validation in order to enforce a minumum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](https://unicorn-utterances.com/posts/the-complete-guide-to-regular-expressions-regex). 
+An initial temptation for some might be to use this form validation in order to enforce a minimum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](https://unicorn-utterances.com/posts/the-complete-guide-to-regular-expressions-regex). 
 
 Let's take the minimum length - you might assume that 3 is a reasonable minimum length for a name. But what about [the surname of "He" or "Ho", a common Chinese family name](https://en.wikipedia.org/wiki/He_(surname))? Likewise, if you require only letters from A-Z, you leave out the ability to have [double barrelled last names](https://en.wikipedia.org/wiki/Double-barrelled_name).
 
@@ -1685,7 +1685,7 @@ https://uxdesign.cc/designing-forms-for-gender-diversity-and-inclusion-d8194cf1f
 
 # Non-Text Form Fields
 
-Not all fields in a form are going to be text inputs, however. You might want to introduce a checkbox to the user to make sure they've accepted terms and conditions, have a dropdown of time-zones, or have a date picker for the user to input a time.
+Not all fields in a form are going to be text inputs, however. You might want to introduce a checkbox to the user to make sure they've accepted terms and conditions, have a dropdown of time zones, or have a date picker for the user to input a time.
 
 Just like text inputs, you can combine these input types with validation!
 
@@ -1827,7 +1827,7 @@ const FormComponent = {
 
 # Wrapping Up
 
-We've taken a look at various methods of creating forms for React, Angular, and Vue. Each method has their pros and cons, complete with complexity tradeoffs as well.
+We've taken a look at various methods of creating forms for React, Angular, and Vue. Each method has its pros and cons, complete with complexity tradeoffs as well.
 
 While our React and Vue code samples have utilized Formik and `vee-validate` respectively, they're far from the only options on the table. I selected them in part due to their similarity and popularity, but some other alternatives might include [FormKit for Vue](https://formkit.com/)  or [React Hook Form](https://react-hook-form.com/).
 
