@@ -163,7 +163,7 @@ const FileList = {
 
 <!-- tabs:end -->
 
-While this theoretically _works_, there's an major problem with it. Let's take a look at what the HTML looks like when rendering with `onlyShowFiles=true` and the following `filesArray`:
+While this theoretically _works_, there's a significant problem with it. Let's take a look at what the HTML looks like when rendering with `onlyShowFiles=true` and the following `filesArray`:
 
 ```javascript
 [
@@ -182,7 +182,7 @@ While this theoretically _works_, there's an major problem with it. Let's take a
 ]
 ```
 
-Because our conditional statement is on the `li`, when rendered to the DOM it might look something like this:
+Because our conditional statement is on the `li` when rendered to the DOM, it might look something like this:
 
 ```html
 <!-- ... -->
@@ -196,13 +196,13 @@ Because our conditional statement is on the `li`, when rendered to the DOM it mi
 <!-- ... -->
 ```
 
-While this might not seem like a big problem at first, the fact that there's an empty `li` in the middle of our `ul` introduces three problems:
+While this might not seem like a big problem at first, the fact that there's an empty `li` in the middle of our `ul` introduces three issues:
 
 1) It will leave an empty space created by any styling you have applied to the `li`.
 2) [Any assistive technologies, like screen readers](/posts/intro-to-web-accessability), will read out that there's an empty item, a confusing behavior for those users.
-3) Any search engines reading data off of your page may incorrectly assume that your list intentionally empty, thus potentially impacting your ranking on sites.
+3) Any search engines reading data off of your page may incorrectly assume that your list is intentionally empty, thus potentially impacting your ranking on sites.
 
-This is where something called "partial DOM application" comes into play. See, ideally what we want to have is something like a tag that renders to _nothing_.
+Solving these issues is where something called "partial DOM application" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
 
 This means that, if we could instead generate something like the following psuedo-syntax in framework code:
 
@@ -251,7 +251,7 @@ import { Fragment } from 'react';
 </ul>
 ```
 
-`Fragment` also has an alternative syntax in JSX. Instead of `<Fragment></Fragment>`, you can simply do `<></>`. This removes the need for the import and makes the above code sample read like:
+`Fragment` also has an alternative syntax in JSX. Instead of `<Fragment></Fragment>`, you can simply do `<></>`. This shorthand removes the need for the import and makes the above code sample read like this:
 
 ```jsx
 <ul>
@@ -349,7 +349,7 @@ Here's some code samples that render out the following:
 
 ## Vue
 
-While the other frameworks have a more 1:1 mapping between our psuedo-syntax'd `nothing`, Vue has a slightly different approach due to its reuse of the [existing HTML `<template>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+While the other frameworks have a more 1:1 mapping between our pseudo-syntax `nothing`, Vue has a slightly different approach due to its reuse of the [existing HTML `<template>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
 
 By default, if you render a `template` in Vue, it will render nothing to the screen:
 
@@ -359,7 +359,7 @@ By default, if you render a `template` in Vue, it will render nothing to the scr
 </template>
 ```
 
-> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining the "why" is outside of the scope of this book, this is expected behavior of the `template` tag in HTML.
+> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining "why" a `template` element renders nothing by default is outside of the scope of this book, it is expected behavior.
 
 However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/content-reference)), it will remove the `<template>` and only render out the children.
 
