@@ -336,9 +336,9 @@ Like the JavaScript environment these frameworks run in, they also implement a s
 
 Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here. 
 
-The [long answer is complicated and may involve more experience with Angular than you currently have](https://unicorn-utterances.com/posts/angular-templates-start-to-source) — We encourage a read after this course.
+The long answer is a bit complicated and might distract from the current focus of this chapter — [We will answer this further in our "Content Reference" chapter](/posts/content-reference#ng-templates).
 
-Luckily, the short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to an in-template variable for Angular to use in conditional statements and a few other places."
+The short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to an in-template variable for Angular to use in conditional statements and a few other places."
 
 With this known, we can explain that the syntax looks something like this:
 

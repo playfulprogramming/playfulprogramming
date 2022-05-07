@@ -111,8 +111,6 @@ https://stackblitz.com/edit/react-ts-gpjzsm?file=index.tsx
   - [`v-once`](https://vuejs.org/guide/best-practices/performance.html#v-once) / Vue
 - Under-the-hood how do each framework render contents?
   - Vue/React = Virtual DOM
-    - Show Vue using JSX
-    - Show Vue `h` function
   - Angular = Incremental DOM
 - Under-the-hood how do each framework track changes?
   - React explicit
@@ -131,3 +129,20 @@ TODO:
 
 - I18N
 - A11Y
+
+------
+
+Should do?:
+
+- Vue alternative syntax
+
+  - Composition API
+  - Show Vue using JSX
+
+  - Show Vue `h` function
+
+​	"In fact, Vue's [virtual DOM](// TODO: Link) is similar enough to React's that it's able to use JSX"
+
+
+
+- TypeScript usage for React/Vue
