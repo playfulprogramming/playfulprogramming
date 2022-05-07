@@ -111,6 +111,8 @@ https://stackblitz.com/edit/react-ts-gpjzsm?file=index.tsx
   - [`v-once`](https://vuejs.org/guide/best-practices/performance.html#v-once) / Vue
 - Under-the-hood how do each framework render contents?
   - Vue/React = Virtual DOM
+    - Show Vue using JSX
+    - Show Vue `h` function
   - Angular = Incremental DOM
 - Under-the-hood how do each framework track changes?
   - React explicit

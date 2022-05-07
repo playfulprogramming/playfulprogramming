@@ -307,16 +307,16 @@ And instead generate each `li` using a `v-for` and pass the `list.length` to `pa
 const ParentList = {
   template: `
   <ul>
-  	 <p>There are {{length}} number of items in this array</p>
+  	 <p>There are {{list.length}} number of items in this array</p>
     <slot></slot>
   </ul>
   `,
-  props: ['length']
+  props: ['list']
 };
 
 const App = {
   template: `
-    <parent-list :length="list.legnth">
+    <parent-list :list="list">
 	  <li v-for="i in list">Item {{i}}</li>
     </parent-list>
   `,
@@ -681,9 +681,39 @@ Whew! What a mouthful.
 
 ## Vue
 
-// TODO: Problem, Vue can't do _quite_ the same API (see also: above `updated` problem)
+In order to color the background of each list item, let's continue off of the code of our "raised state" where we're rendering our `list` with a `v-for`:
 
-// TODO: Because of this, we'll [raise state](// TODO: Link article) and render the list inside of the `ParentList`
+```javascript
+const ParentList = {
+  template: `
+  <ul>
+  	 <p>There are {{length}} number of items in this array</p>
+    <slot></slot>
+  </ul>
+  `,
+  props: ['length']
+};
+
+const App = {
+  template: `
+    <parent-list :length="list.legnth">
+	  <li v-for="i in list">Item {{i}}</li>
+    </parent-list>
+  `,
+  components: {
+    ParentList,
+  },
+  data() {
+  	return {
+  		list: [1, 2, 3]
+  	}
+  }
+};
+```
+
+While this works, it's obnoxious that we have to reference `list` in more than one component template at a time. Currently, we're using `list` in both our `App` template as well as our `ParentList` template.
+
+Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attribute:
 
 ```javascript
 const ParentList = {
@@ -699,8 +729,8 @@ const ParentList = {
 const App = {
   template: `
     <parent-list :list="list">
-			<template v-slot="{i, item}">
-        <li>{{i}} {{item}}</li>
+      <template v-slot="props">
+        <li>{{props.i}} {{props.item}}</li>
       </template>
     </parent-list>
     <button @click="addOne()">Add</button>
@@ -721,6 +751,16 @@ const App = {
   },
 };
 ```
+
+This `v-slot` is similar to how you might pass properties to a component, but instead we're passing data directly to a `template` to be rendered by `v-slot`.
+
+> You can [object destructure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) the `v-slot` usage to gain access to the property names without having to repeat `props` each time:
+>
+> ```html
+> <template v-slot="{item, i}">
+> 	<li>{{i}} {{item}}</li>
+> </template>
+> ```
 
 <!-- tabs:end -->
 
