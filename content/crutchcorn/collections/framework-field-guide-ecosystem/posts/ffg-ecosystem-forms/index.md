@@ -123,7 +123,7 @@ One method for removing the input change listener is by using two-way variable b
 
 React doesn't have a way to do this and generally regards it as an anti-pattern even if it were possible. The reason they consider it an anti-pattern is because they strongly encourage utilizing [unidirectional data flow instead, which we'll learn about in a future chapter](// TODO: Add). The React team (and ecosystem) tend to prefer you stick to event bindings instead of a two-way form bind.
 
-However, we'll touch on another method of form binding that should be helpful in addressing the verbosity of event bindings.
+However, we'll touch on another method of form binding that should be help address the verbosity of event bindings.
 
 ## Angular
 
@@ -1033,7 +1033,7 @@ const FormComponent = {
 }
 ```
 
-Something worth highlighting is our usage of `key-path` with the `id` to track which user is which.
+Our usage of `key-path` with the `id` to track which user is which is worth highlighting here.
 
 <!-- tabs:end -->
 
@@ -1043,7 +1043,7 @@ Because we're now using an array, we need a unique ID for each user. This is why
 
 # Form Validation {#form-validation}
 
-You sit down after adding in form arrays to your share dialog, ready to work on the next task. Suddenly, an email slides in from your issues tracker: Dang it - you missed a requirement.
+After adding in form arrays to your share dialog, you sit down, ready to work on the next task. Suddenly, an email slides in from your issues tracker: Dang it - you missed a requirement.
 
 Namely, we need to make sure that the user has actually typed in the user's name before moving forward.
 
@@ -1089,7 +1089,7 @@ const FormComp = () => {
 
 Formik's `validate` function passing works quite well for basic usage. That said, let's introduce a better way to do form validation that scales a little better when dealing with more complex data.
 
-There exist multiple different libraries that will integrate with Formik in order to add dedicated complex validation functionality. [`yup` is one such library](https://github.com/jquense/yup).
+There are multiple different libraries that will integrate with Formik to add dedicated complex validation functionality. [`yup` is one such library](https://github.com/jquense/yup).
 
 By using `yup`, you're able to replace our home-grown function with something as simple as `yup.string().required()` to mark the field as required.
 
@@ -1157,7 +1157,7 @@ mainForm = this.fb.group({
 });
 ```
 
-And promised there was some nebulous benefit for doing so later? Well, now it's time to introduce the "why". When a `FormControl` is being created with an array, the second value for the array is treated as a validator function.
+And promised there was some nebulous benefit for doing so later? Well, now it's time to introduce the "why". When a `FormControl` is passed an array with a second value, that value is treated as a validator function.
 
 Let's write a simple validator function to check when the field is filled or not. If it's not filled, we can return a string to display to the user that "This field is required".
 
@@ -1659,7 +1659,7 @@ const FormComponent = {
 
 ## Caution When Validating & Form Building
 
-While validation is inarguably a useful feature for forms, it's important to not be too enthusiastic in our usage of it.
+While validation is inarguably a useful feature for forms, it's important not to be too enthusiastic in our usage of it.
 
 An initial temptation for some might be to use this form validation in order to enforce a minimum length on a user's name. Likewise, others might try to limit a user's name to only include characters from A-Z [using a regex](https://unicorn-utterances.com/posts/the-complete-guide-to-regular-expressions-regex). 
 
