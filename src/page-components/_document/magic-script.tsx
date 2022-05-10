@@ -25,9 +25,9 @@ import {
  * into that string. This way, we're able to avoid duplicating
  */
 function setColorsByTheme() {
-  const colors = "🌈";
-  const colorModeKey = "🔑";
-  const colorModeCssProp = "⚡️";
+  const colors = "COLORS_VAL";
+  const colorModeKey = "COLORS_KEY";
+  const colorModeCssProp = "COLORS_CSS_PROP";
 
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
   const prefersDarkFromMQ = mql.matches;
@@ -56,9 +56,9 @@ function setColorsByTheme() {
 
 export const MagicScriptTag = () => {
   const boundFn = String(setColorsByTheme)
-    .replace('"🌈"', JSON.stringify(COLORS))
-    .replace("🔑", COLOR_MODE_KEY)
-    .replace("⚡️", INITIAL_COLOR_MODE_CSS_PROP);
+    .replace('"COLORS_VAL"', JSON.stringify(COLORS))
+    .replace("COLORS_KEY", COLOR_MODE_KEY)
+    .replace("COLORS_CSS_PROP", INITIAL_COLOR_MODE_CSS_PROP);
 
   let calledFunction = `(${boundFn})()`;
 
