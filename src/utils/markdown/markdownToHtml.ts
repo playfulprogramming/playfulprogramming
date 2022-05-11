@@ -17,9 +17,8 @@ import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs, RehypeTabsProps } from "utils/markdown/plugins/tabs";
 import { PluggableList } from "unified";
 
-// Optional now. Probably should move to an array that's passed or something
 // TODO: Create types
-const behead = require("remark-behead");
+import behead from "remark-behead";
 
 interface markdownChainProps {
   remarkPlugins: PluggableList;
