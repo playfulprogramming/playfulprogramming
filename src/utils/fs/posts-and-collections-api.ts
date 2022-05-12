@@ -110,9 +110,9 @@ export function getPostSlugs(lang: Languages) {
   return fs
     .readdirSync(postsDirectory)
     .filter(isNotJunk)
-    .filter((dir) => {
-      return fs.existsSync(path.resolve(dir, getIndexPath(lang)));
-    });
+    .filter((dir) =>
+      fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
+    );
 }
 
 type PostKeysToPick = DeepPartial<DeepReplaceKeys<PostInfo>>;
