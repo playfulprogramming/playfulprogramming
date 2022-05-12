@@ -35,8 +35,8 @@ const posts = getSocialPosts();
  * });
  * ```
  */
-const rebuild = () => {
-  const html = renderPostPreviewToString(posts[0]);
+const rebuild = async () => {
+  const html = await renderPostPreviewToString(posts[0]);
 
   const previewHtmlPath = resolve(__dirname, "./dist/preview.html");
   ensureDirectoryExistence(previewHtmlPath);
@@ -47,7 +47,8 @@ chokidar.watch(resolve(__dirname, "./social-previews")).on("change", () => {
   rebuild();
 });
 
-rebuild();
+// @ts-ignore
+await rebuild();
 
 const params: LiveServerParams = {
   root: resolve(__dirname, "./dist"), // Set root directory that's being served. Defaults to cwd.

@@ -5,7 +5,6 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { getSocialPosts, PreviewPost } from "./social-previews/get-posts";
 import { renderToStaticMarkup } from "react-dom/server";
-import TwitterLargeCard from "./social-previews/twitter-large-card";
 import { createElement } from "react";
 import { COLORS } from "constants/theme";
 
@@ -28,7 +27,13 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
-export const renderPostPreviewToString = (post: PreviewPost) => {
+export const renderPostPreviewToString = async (post: PreviewPost) => {
+  // This needs to happen here, since otherwise the `import` is stale at runtime,
+  // thus breaking live refresh
+  const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
+    (await import(`./social-previews/twitter-large-card?update=${Date.now()}`))
+      .default;
+
   return `
     <!DOCTYPE html>
     <html>
@@ -60,7 +65,7 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
     await page.setViewport({ width: 1128, height: 600 });
   }
 
-  await page.setContent(renderPostPreviewToString(post));
+  await page.setContent(await renderPostPreviewToString(post));
   const screenShotBuffer = await page.screenshot();
   return screenShotBuffer;
 };
