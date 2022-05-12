@@ -28,6 +28,25 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
+export const renderPostPreviewToString = (post: PreviewPost) => {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    ${colorsCSS}
+    </style>
+    <style>
+    ${twitterLargeCardPreviewCSS}
+    </style>
+    </head>
+    <body>
+    ${renderToStaticMarkup(createElement(TwitterLargeCard, { post }))}
+    </body>
+    </html>
+    `;
+};
+
 const createPostSocialPreviewPng = async (post: PreviewPost) => {
   if (!browser) {
     browser = await chromium.puppeteer.launch({
@@ -41,17 +60,7 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
     await page.setViewport({ width: 1128, height: 600 });
   }
 
-  await page.setContent(
-    `
-    <style>
-    ${colorsCSS}
-    </style>
-    <style>
-    ${twitterLargeCardPreviewCSS}
-    </style>
-    ${renderToStaticMarkup(createElement(TwitterLargeCard, { post }))}
-    `
-  );
+  await page.setContent(renderPostPreviewToString(post));
   const screenShotBuffer = await page.screenshot();
   return screenShotBuffer;
 };
