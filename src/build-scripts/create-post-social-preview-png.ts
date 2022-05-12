@@ -1,21 +1,16 @@
 import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
-import { readFileSync, promises as fsPromises } from "fs";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
-import { getAllPosts } from "utils/fs/posts-and-collections-api";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const twitterLargeCardPreviewHTML = readFileSync(
-  resolve(__dirname, "./social-previews/twitter-large-card.html"),
-  "utf8"
-);
+import { promises as fsPromises } from "fs";
+import { resolve } from "path";
+import { getSocialPosts, PreviewPost } from "./social-previews/get-posts";
+import { renderToStaticMarkup } from "react-dom/server";
+import TwitterLargeCard from "./social-previews/twitter-large-card";
+import { createElement } from "react";
 
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
-const createPostSocialPreviewPng = async () => {
+const createPostSocialPreviewPng = async (post: PreviewPost) => {
   if (!browser) {
     browser = await chromium.puppeteer.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
@@ -28,21 +23,14 @@ const createPostSocialPreviewPng = async () => {
     await page.setViewport({ width: 1128, height: 600 });
   }
 
-  await page.setContent(twitterLargeCardPreviewHTML);
+  await page.setContent(
+    renderToStaticMarkup(createElement(TwitterLargeCard, { post }))
+  );
   const screenShotBuffer = await page.screenshot();
   return screenShotBuffer;
 };
 
-const posts = getAllPosts({
-  title: true,
-  published: true,
-  slug: true,
-  authors: {
-    id: true,
-    name: true,
-    profileImg: true,
-  },
-} as const);
+const posts = getSocialPosts();
 
 /**
  * This is done synchronously, in order to prevent more than a single instance
@@ -53,7 +41,7 @@ for (let post of posts) {
   postPngs.push({
     post,
     // @ts-ignore
-    png: await createPostSocialPreviewPng(),
+    png: await createPostSocialPreviewPng(post),
   });
 }
 
