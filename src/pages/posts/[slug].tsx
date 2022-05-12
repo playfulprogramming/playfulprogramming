@@ -189,14 +189,14 @@ type Params = {
 const seriesPostCacheKey = {};
 
 export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, postBySlug);
+  const post = getPostBySlug(params.slug, "en", postBySlug);
 
   const isStr = (val: any): val is string => typeof val === "string";
   const slug = isStr(post.slug) ? post.slug : "";
 
   let seriesPosts: any[] = [];
   if (post.series && post.order) {
-    const allPosts = getAllPosts(seriesPostsPick, seriesPostCacheKey);
+    const allPosts = getAllPosts(seriesPostsPick, "en", seriesPostCacheKey);
 
     seriesPosts = allPosts
       .filter((filterPost) => filterPost.series === post.series)
@@ -228,7 +228,7 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts({ slug: true });
+  const posts = getAllPosts({ slug: true }, "en");
 
   const paths = posts.map((post) => {
     return {

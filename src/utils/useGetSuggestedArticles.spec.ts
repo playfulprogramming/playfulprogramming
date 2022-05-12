@@ -1,5 +1,4 @@
 import { getSuggestedArticles } from "utils/useGetSuggestedArticles";
-import { getAllPosts, getPostBySlug } from "utils/fs/api";
 
 jest.mock("utils/fs/api", () => {
   const seriesPost1 = {

@@ -14,7 +14,11 @@ export const suggestedViewQuery = {
   published: true,
   title: true,
 } as const;
-const suggestedPosts = getAllPosts(suggestedViewQuery, suggestedViewCache);
+const suggestedPosts = getAllPosts(
+  suggestedViewQuery,
+  "en",
+  suggestedViewCache
+);
 export type OrderSuggestPosts = typeof suggestedPosts;
 
 // We must spread, since `sort` mutates the original array

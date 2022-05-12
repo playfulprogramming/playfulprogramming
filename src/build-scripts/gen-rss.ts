@@ -20,24 +20,27 @@ const feed = new Feed({
   },
 });
 
-const posts = getAllPosts({
-  title: true,
-  description: true,
-  published: true,
-  edited: true,
-  slug: true,
-  excerpt: true,
-  license: {
-    displayName: true,
-  },
-  authors: {
-    id: true,
-    name: true,
-    socials: {
-      website: true,
+const posts = getAllPosts(
+  {
+    title: true,
+    description: true,
+    published: true,
+    edited: true,
+    slug: true,
+    excerpt: true,
+    license: {
+      displayName: true,
     },
-  },
-} as const);
+    authors: {
+      id: true,
+      name: true,
+      socials: {
+        website: true,
+      },
+    },
+  } as const,
+  "en"
+);
 
 posts
   .sort((a, b) => (new Date(b.published) > new Date(a.published) ? 1 : -1))
