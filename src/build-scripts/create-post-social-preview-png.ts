@@ -1,11 +1,29 @@
 import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
-import { promises as fsPromises } from "fs";
-import { resolve } from "path";
+import { promises as fsPromises, readFileSync } from "fs";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
 import { getSocialPosts, PreviewPost } from "./social-previews/get-posts";
 import { renderToStaticMarkup } from "react-dom/server";
 import TwitterLargeCard from "./social-previews/twitter-large-card";
 import { createElement } from "react";
+import { COLORS } from "constants/theme";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const twitterLargeCardPreviewCSS = readFileSync(
+  resolve(__dirname, "./social-previews/twitter-large-card.css"),
+  "utf8"
+);
+
+const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
+  (stylesheetStr, colorKey, i, arr) => {
+    let str = stylesheetStr + `\n--${colorKey}: ${COLORS[colorKey].light};`;
+    if (i === arr.length - 1) str += "\n}";
+    return str;
+  },
+  ":root {\n"
+);
 
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
@@ -24,7 +42,15 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
   }
 
   await page.setContent(
-    renderToStaticMarkup(createElement(TwitterLargeCard, { post }))
+    `
+    <style>
+    ${colorsCSS}
+    </style>
+    <style>
+    ${twitterLargeCardPreviewCSS}
+    </style>
+    ${renderToStaticMarkup(createElement(TwitterLargeCard, { post }))}
+    `
   );
   const screenShotBuffer = await page.screenshot();
   return screenShotBuffer;
