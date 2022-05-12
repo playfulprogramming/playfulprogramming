@@ -37,6 +37,11 @@ import {
 import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 import { AnalyticsLink } from "components/analytics-link";
+import { languages } from "constants/index";
+import { Languages } from "types/index";
+import { objectFromKeys } from "utils/objects";
+import { objectMap } from "ts-util-helpers";
+import { Lang } from "shiki";
 
 type Props = {
   markdownHTML: string;
@@ -182,28 +187,30 @@ export default Post;
 
 type Params = {
   params: {
-    slug: string;
+    postInfo: [Languages, string] | [string];
   };
 };
 
 const seriesPostCacheKey = {};
 
 export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, "en", postBySlug);
+  const slugParam = params.postInfo.pop() || "";
+  const lang = (params.postInfo.pop() as Languages) || "en";
+  const post = getPostBySlug(slugParam, lang, postBySlug);
 
   const isStr = (val: any): val is string => typeof val === "string";
   const slug = isStr(post.slug) ? post.slug : "";
 
   let seriesPosts: any[] = [];
   if (post.series && post.order) {
-    const allPosts = getAllPosts(seriesPostsPick, "en", seriesPostCacheKey);
+    const allPosts = getAllPosts(seriesPostsPick, lang, seriesPostCacheKey);
 
     seriesPosts = allPosts
       .filter((filterPost) => filterPost.series === post.series)
       .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
-  const suggestedPosts = getSuggestedArticles(post, "en");
+  const suggestedPosts = getSuggestedArticles(post, lang);
 
   const { html: markdownHTML, headingsWithId } = await markdownToHtml(
     post.content,
@@ -228,15 +235,25 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts({ slug: true }, "en");
-
-  const paths = posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
+  const postsLangArr = objectMap(languages, (_, lang) => {
+    return getAllPosts({ slug: true }, lang);
   });
+
+  const paths = (Object.keys(postsLangArr) as Array<Languages>)
+    .map((lang) =>
+      postsLangArr[lang].map((post) => {
+        const postInfo = [];
+        if (lang !== "en") postInfo.push(lang);
+        postInfo.push(post.slug);
+
+        return {
+          params: {
+            postInfo,
+          },
+        };
+      })
+    )
+    .flat();
 
   return {
     paths,
