@@ -13,9 +13,7 @@ import { join } from "path";
 import { readMarkdownFile } from "utils/fs/markdown-api";
 import { getImageSize } from "rehype-img-size";
 import { getExcerpt } from "utils/markdown/getExcerpt";
-import languages from "../../../content/data/languages.json";
-
-type Languages = keyof typeof languages;
+import { Languages } from "types/index";
 
 export function getCollectionSlugs() {
   return fs.readdirSync(collectionsDirectory).filter(isNotJunk);

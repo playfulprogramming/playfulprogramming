@@ -203,7 +203,7 @@ export async function getStaticProps({ params }: Params) {
       .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
-  const suggestedPosts = getSuggestedArticles(post);
+  const suggestedPosts = getSuggestedArticles(post, "en");
 
   const { html: markdownHTML, headingsWithId } = await markdownToHtml(
     post.content,

@@ -1,7 +1,7 @@
 import { getAllPosts } from "utils/fs/api";
 import { SlugPostInfo } from "constants/queries";
-
-const suggestedViewCache = {};
+import { Languages, PostInfo } from "types/index";
+import { PickDeep } from "ts-util-helpers";
 
 export const suggestedViewQuery = {
   authors: {
@@ -14,20 +14,33 @@ export const suggestedViewQuery = {
   published: true,
   title: true,
 } as const;
-const suggestedPosts = getAllPosts(
-  suggestedViewQuery,
-  "en",
-  suggestedViewCache
-);
-export type OrderSuggestPosts = typeof suggestedPosts;
 
-// We must spread, since `sort` mutates the original array
-const dateSorted = [...suggestedPosts].sort((postA, postB) => {
-  return (
-    // Newest first
-    new Date(postB.published) < new Date(postA.published) ? -1 : 1
-  );
-});
+const postLangMap = new Map<string, ReturnType<typeof getAllPostsByLang>>();
+
+type PostByLangType = PickDeep<PostInfo, typeof suggestedViewQuery>;
+
+const getAllPostsByLang = (
+  lang: Languages
+): { suggestedPosts: PostByLangType[]; dateSorted: PostByLangType[] } => {
+  if (postLangMap.has(lang)) return postLangMap.get(lang)!;
+  const suggestedPosts = getAllPosts(suggestedViewQuery, "en");
+
+  // We must spread, since `sort` mutates the original array
+  const dateSorted = [...suggestedPosts].sort((postA, postB) => {
+    return (
+      // Newest first
+      new Date(postB.published) < new Date(postA.published) ? -1 : 1
+    );
+  });
+
+  postLangMap.set(lang, { suggestedPosts, dateSorted });
+
+  return { suggestedPosts, dateSorted };
+};
+
+export type OrderSuggestPosts = ReturnType<
+  typeof getAllPostsByLang
+>["suggestedPosts"];
 
 /**
  * Get 3 similar articles to suggest in sidebar.
@@ -92,7 +105,12 @@ const getOrderRange = (arr: OrderSuggestPosts) => {
   };
 };
 
-export const getSuggestedArticles = (postNode: SlugPostInfo) => {
+export const getSuggestedArticles = (
+  postNode: SlugPostInfo,
+  lang: Languages
+) => {
+  const { suggestedPosts, dateSorted } = getAllPostsByLang(lang);
+
   let extraSuggestedArticles: OrderSuggestPosts = [];
   let suggestedArticles: OrderSuggestPosts = [];
   let similarTags: Array<{
