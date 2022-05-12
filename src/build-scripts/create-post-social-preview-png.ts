@@ -44,17 +44,32 @@ const posts = getAllPosts({
   },
 } as const);
 
-(async () => {
-  await Promise.all(
-    posts.map(async (post) => {
-      const png = await createPostSocialPreviewPng();
+/**
+ * This is done synchronously, in order to prevent more than a single instance
+ * of the browser from running at the same time.
+ */
+let postPngs = [] as Array<{ png: Buffer; post: typeof posts[number] }>;
+for (let post of posts) {
+  postPngs.push({
+    post,
+    // @ts-ignore
+    png: await createPostSocialPreviewPng(),
+  });
+}
 
-      return fsPromises.writeFile(
-        resolve(process.cwd(), `./public/${post.slug}.twitter-preview.png`),
-        png!
-      );
-    })
-  );
-})();
+// @ts-ignore
+await Promise.all(
+  postPngs.map(async (postData) => {
+    await fsPromises.writeFile(
+      // Relative to root
+      resolve(
+        process.cwd(),
+        `./public/${postData.post.slug}.twitter-preview.png`
+      ),
+      postData.png!
+    );
+  })
+);
 
-// Relative to root
+// @ts-ignore
+await browser!.close();
