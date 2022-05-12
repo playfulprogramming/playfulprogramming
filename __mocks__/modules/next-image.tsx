@@ -2,7 +2,8 @@ jest.mock("next/image", () => {
   const React = require("react");
 
   return function NextImage(props: any) {
-    return <img {...props}>{props.children}</img>;
+    const { priority, ...rest } = props;
+    return <img {...rest}>{props.children}</img>;
   };
 });
 
