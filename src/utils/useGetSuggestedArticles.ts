@@ -23,7 +23,7 @@ const getAllPostsByLang = (
   lang: Languages
 ): { suggestedPosts: PostByLangType[]; dateSorted: PostByLangType[] } => {
   if (postLangMap.has(lang)) return postLangMap.get(lang)!;
-  const suggestedPosts = getAllPosts(suggestedViewQuery, "en");
+  const suggestedPosts = getAllPosts(suggestedViewQuery, lang);
 
   // We must spread, since `sort` mutates the original array
   const dateSorted = [...suggestedPosts].sort((postA, postB) => {

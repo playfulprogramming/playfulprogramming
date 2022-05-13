@@ -12,6 +12,7 @@ interface TableOfContentsProps {
 export const SuggestedArticles = ({
   suggestedArticles,
 }: TableOfContentsProps) => {
+  if (!suggestedArticles.length) return null;
   return (
     <aside aria-label={"Suggested Articles"}>
       <ol role={"list"} className={suggestedStyle.list}>
