@@ -115,7 +115,9 @@ const Post = ({
         canonical={post.originalLink}
         langData={{
           currentLang: lang,
-          otherLangs: Object.keys(post.translations) as Languages[],
+          otherLangs: post.translations
+            ? (Object.keys(post.translations) as Languages[])
+            : [],
         }}
       />
       <article>
