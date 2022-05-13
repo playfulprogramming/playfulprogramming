@@ -1,6 +1,9 @@
-import { Component, ErrorInfo } from "react";
+import { Component, ErrorInfo, PropsWithChildren } from "react";
 
-export class PrivacyErrorBoundary extends Component<{}, { hasError: boolean }> {
+export class PrivacyErrorBoundary extends Component<
+  PropsWithChildren<unknown>,
+  { hasError: boolean }
+> {
   constructor(props: {}) {
     super(props);
     this.state = { hasError: false };

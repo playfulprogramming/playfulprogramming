@@ -17,7 +17,9 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
 
       const ZoomComp = shouldZoom
         ? Zoom
-        : ((({ children }) => <>{children}</>) as React.FC);
+        : ((({ children }) => <>{children}</>) as React.FC<
+            React.PropsWithChildren<unknown>
+          >);
 
       // only "fill" is supported when height and width are not specified
       const beResponsive = !!(props2.height && props2.width);
@@ -33,7 +35,11 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
         </ZoomComp>
       );
     },
-    video: (props: React.VideoHTMLAttributes<HTMLVideoElement>) => {
+    video: (
+      props: React.PropsWithChildren<
+        React.VideoHTMLAttributes<HTMLVideoElement>
+      >
+    ) => {
       const { src, ...rest } = props;
       const srcStr = getFullRelativePath(...serverPath, src || "");
       return (
@@ -49,7 +55,11 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
         />
       );
     },
-    iframe: (props: React.IframeHTMLAttributes<HTMLIFrameElement>) => {
+    iframe: (
+      props: React.PropsWithChildren<
+        React.IframeHTMLAttributes<HTMLIFrameElement>
+      >
+    ) => {
       const { src, ...rest } = props;
       return (
         <iframe

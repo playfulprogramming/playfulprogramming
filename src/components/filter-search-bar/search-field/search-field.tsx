@@ -10,7 +10,7 @@ const placeholder = "Search";
 
 const PosedInput = React.forwardRef<
   any,
-  React.ComponentProps<typeof motion.input>
+  React.ComponentProps<React.PropsWithChildren<typeof motion.input>>
 >(({ children, ...props }, ref) => {
   const variants: Variants = {
     initial: (target) => ({

@@ -73,7 +73,7 @@ const FilterListItem = ({
       className={liClassName}
       role="option"
       onClick={(e) => expanded && selectIndex(index, e, e.type)}
-      id={tag.id as string}
+      id={tag.val}
       aria-selected={tag.selected}
     >
       {tag.selected ? <CheckIcon /> : <UncheckIcon />}
@@ -85,7 +85,7 @@ const FilterListItem = ({
 const FilterDisplaySpan = ({
   children,
   ...props
-}: React.ComponentProps<typeof motion.span>) => {
+}: React.ComponentProps<React.PropsWithChildren<typeof motion.span>>) => {
   const variants: Variants = {
     initial: (target) => ({
       width: target.width || 0,
@@ -105,29 +105,30 @@ const FilterDisplaySpan = ({
   );
 };
 
-const ListIdBox = React.forwardRef<any, React.ComponentProps<typeof motion.ul>>(
-  ({ children, ...props }, ref) => {
-    const variants: Variants = {
-      expanded: {
-        height: "auto",
-      },
-      hidden: (target) => ({
-        height: target,
-      }),
-    };
+const ListIdBox = React.forwardRef<
+  any,
+  React.ComponentProps<React.PropsWithChildren<typeof motion.ul>>
+>(({ children, ...props }, ref) => {
+  const variants: Variants = {
+    expanded: {
+      height: "auto",
+    },
+    hidden: (target) => ({
+      height: target,
+    }),
+  };
 
-    return (
-      <motion.ul
-        {...props}
-        variants={variants}
-        transition={{ ease: "linear", duration: 0.2 }}
-        ref={ref}
-      >
-        {children}
-      </motion.ul>
-    );
-  }
-);
+  return (
+    <motion.ul
+      {...props}
+      variants={variants}
+      transition={{ ease: "linear", duration: 0.2 }}
+      ref={ref}
+    >
+      {children}
+    </motion.ul>
+  );
+});
 
 ListIdBox.displayName = "ListIdBox";
 
@@ -175,7 +176,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
   } = useElementBounds([]);
   // Create a callback reference to compose both the callback bound ref and the "real" ref
   const btnCallbackRef = useCallback(
-    (node) => {
+    (node: HTMLElement) => {
       elBoundsCBRef(node);
       setButtonNode(node);
     },
@@ -268,7 +269,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
           aria-expanded={expanded}
           aria-owns="listBoxID"
           id="filter-button"
-          ref={btnCallbackRef}
+          ref={btnCallbackRef as never}
           {...buttonProps}
         >
           {<FilterIcon className={filterIconClasses} aria-hidden={true} />}
@@ -313,7 +314,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
             {values.map((tag, index) => (
               <FilterListItem
                 tag={tag}
-                key={tag.id}
+                key={tag.val}
                 index={index}
                 expanded={expanded}
                 selectIndex={selectIndex}

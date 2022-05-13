@@ -1,8 +1,8 @@
-import React, { SVGProps, useRef } from "react";
-import { genId } from "batteries-not-included/react/a11y";
+import React, { SVGProps, useId, useRef } from "react";
 
 export const Feather = (props: Partial<SVGProps<any>>) => {
-  const clipId = useRef<string>(`path-1-inside-1${genId()}`);
+  const id = useId();
+  const clipId = useRef<string>(`path-1-inside-1${id}`);
 
   return (
     <svg

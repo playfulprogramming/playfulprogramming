@@ -31,9 +31,11 @@ const HeaderLink: React.FC<{ id: string; headerText: string }> = ({
   );
 };
 
-type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> & {
-  ["data-header-text"]: string;
-};
+type HeadingProps = React.PropsWithChildren<
+  React.HTMLAttributes<HTMLHeadingElement> & {
+    ["data-header-text"]: string;
+  }
+>;
 
 export const getHeadings = (_: useMarkdownRendererProps) => {
   return {

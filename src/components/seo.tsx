@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from "react";
+import React, { PropsWithChildren, ReactElement, useMemo } from "react";
 import Head from "next/head";
 import { siteMetadata, siteUrl } from "constants/site-config";
 import { UnicornInfo } from "../types";
@@ -20,7 +20,7 @@ interface SEOProps {
   shareImage?: string;
 }
 
-export const SEO: React.FC<SEOProps> = (props) => {
+export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
   const {
     description = "",
     children,
