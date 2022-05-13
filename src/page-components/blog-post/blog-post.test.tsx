@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { siteMetadata } from "__mocks__/data/mock-site-metadata";
 import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
-import BlogPostTemplate from "../../pages/posts/[...postInfo]";
+import BlogPostTemplate from "../../pages/[...postInfo]";
 import ReactDOMServer from "react-dom/server";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 // import { axe } from "jest-axe";

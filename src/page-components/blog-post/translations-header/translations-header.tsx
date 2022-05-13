@@ -14,7 +14,7 @@ export const TranslationsHeader = ({ post }: TranslationsHeaderProps) => {
       {(Object.keys(post.translations) as Languages[]).map((lang) => {
         const langHref = lang === "en" ? "" : `${lang}/`;
         return (
-          <Link key={lang} passHref href={`/posts/${langHref}${post.slug}`}>
+          <Link key={lang} passHref href={`/${langHref}posts/${post.slug}`}>
             <a>{post.translations[lang]}</a>
           </Link>
         );
