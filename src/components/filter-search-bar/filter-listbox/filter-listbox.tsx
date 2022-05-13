@@ -73,7 +73,7 @@ const FilterListItem = ({
       className={liClassName}
       role="option"
       onClick={(e) => expanded && selectIndex(index, e, e.type)}
-      id={tag.id as string}
+      id={tag.val}
       aria-selected={tag.selected}
     >
       {tag.selected ? <CheckIcon /> : <UncheckIcon />}
@@ -314,7 +314,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
             {values.map((tag, index) => (
               <FilterListItem
                 tag={tag}
-                key={tag.id}
+                key={tag.val}
                 index={index}
                 expanded={expanded}
                 selectIndex={selectIndex}
