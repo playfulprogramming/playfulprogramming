@@ -38,7 +38,9 @@ interface PostListContextProps {
   posts: ListViewPosts;
 }
 
-export const PostListProvider: React.FC<PostListContextProps> = ({
+export const PostListProvider: React.FC<
+  React.PropsWithChildren<PostListContextProps>
+> = ({
   children,
   numberOfPages,
   limitNumber,

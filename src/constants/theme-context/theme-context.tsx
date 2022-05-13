@@ -17,7 +17,9 @@ export const ThemeContext = React.createContext<ThemeContextType>({
   setColorMode: () => {},
 });
 
-export const ThemeProvider: React.FC = ({ children }) => {
+export const ThemeProvider: React.FC<React.PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const [colorMode, rawSetColorMode] = React.useState<LightOptions | undefined>(
     undefined
   );

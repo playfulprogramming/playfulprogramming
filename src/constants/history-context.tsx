@@ -1,7 +1,14 @@
 // Thank you StackOverflow
 // @see https://stackoverflow.com/a/65309348
 import { useRouter } from "next/router";
-import { createContext, useState, useEffect, useContext, FC } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  FC,
+  PropsWithChildren,
+} from "react";
 
 interface HValidation {
   history: string[];
@@ -10,7 +17,9 @@ interface HValidation {
 }
 
 const HistoryContext = createContext<HValidation>({} as HValidation);
-export const HistoryProvider: FC = ({ children }) => {
+export const HistoryProvider: FC<PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const { asPath, push, pathname } = useRouter();
   const [history, setHistory] = useState<string[]>([]);
 

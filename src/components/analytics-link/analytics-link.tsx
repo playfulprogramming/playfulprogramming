@@ -3,7 +3,12 @@
  * @see https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-google-gtag/src/index.js
  */
 import * as ga from "utils/ga";
-import { forwardRef, AnchorHTMLAttributes, MouseEventHandler } from "react";
+import {
+  forwardRef,
+  AnchorHTMLAttributes,
+  MouseEventHandler,
+  PropsWithChildren,
+} from "react";
 
 interface AnalyticsLinkProps {
   onClick?: MouseEventHandler;
@@ -15,7 +20,9 @@ interface AnalyticsLinkProps {
 
 export const AnalyticsLink = forwardRef<
   HTMLAnchorElement,
-  AnalyticsLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
+  PropsWithChildren<
+    AnalyticsLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
+  >
 >(({ children, category, ...props }, ref) => (
   <a
     ref={ref}

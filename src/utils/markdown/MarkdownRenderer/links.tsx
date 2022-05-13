@@ -5,7 +5,11 @@ import Link from "next/link";
 
 export const getLinks = (_: useMarkdownRendererProps) => {
   return {
-    a(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+    a(
+      props: React.PropsWithChildren<
+        React.AnchorHTMLAttributes<HTMLAnchorElement>
+      >
+    ) {
       const { href, ...restProps } = props;
       const isInternalLink = isRelativePath(href || "");
       if (!isInternalLink) {

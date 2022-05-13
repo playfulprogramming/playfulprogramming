@@ -7,13 +7,13 @@ import {
   TabPanel as ReactTabPanel,
 } from "react-tabs";
 import { ReactElement, useCallback } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import { useIsomorphicLayoutEffect } from "utils/index";
 import { MarkdownDataContext } from "utils/markdown/MarkdownRenderer/data-context";
 
 /**
  * @see https://github.com/reactjs/react-tabs for layout of "HTML" nodes
  */
-const Tabs: React.FC = ({ children }) => {
+const Tabs: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const tabsHeadingText = React.useMemo(() => {
     const childrenArr = React.Children.toArray(children);
     const tabList = childrenArr.filter(

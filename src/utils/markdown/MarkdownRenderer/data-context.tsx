@@ -1,5 +1,12 @@
-import { createContext, Dispatch, FC, useEffect, useReducer } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import {
+  createContext,
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useReducer,
+} from "react";
+import { useIsomorphicLayoutEffect } from "utils/index";
 
 interface MarkdownDataContextType {
   selectedTabText: string;
@@ -32,7 +39,9 @@ export const MarkdownDataContext = createContext<{
   dispatch: () => {},
 });
 
-export const MarkdownDataProvider: FC = ({ children }) => {
+export const MarkdownDataProvider: FC<PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Alternative to `useEffect`

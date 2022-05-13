@@ -8,7 +8,9 @@ import { AnalyticsLink } from "components/analytics-link";
 import DiscordIcon from "assets/icons/discord.svg";
 import { useHistory } from "constants/history-context";
 
-export const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC<React.PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const router = useRouter();
   const { back } = useHistory();
 
