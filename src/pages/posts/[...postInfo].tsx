@@ -130,7 +130,7 @@ const Post = ({
                     collectionSlug={post.collectionSlug}
                   />
                 )}
-                {Object.keys(post.translations).length && (
+                {post.translations && Object.keys(post.translations).length && (
                   <TranslationsHeader post={post} />
                 )}
                 {result}
