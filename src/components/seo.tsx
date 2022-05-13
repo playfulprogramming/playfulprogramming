@@ -2,7 +2,10 @@ import React, { PropsWithChildren, ReactElement, useMemo } from "react";
 import Head from "next/head";
 import { siteMetadata, siteUrl } from "constants/site-config";
 import { Languages, UnicornInfo } from "../types";
-import { fileToOpenGraphConverter } from "utils/translations";
+import {
+  fileToOpenGraphConverter,
+  removePrefixLanguageFromPath,
+} from "utils/translations";
 
 interface SEOProps {
   description?: string;
@@ -137,9 +140,13 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
   const uniTwitter =
     socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
 
+  const currentPath = siteMetadata.siteUrl + (pathName || "");
+
   /**
    * These cannot be broken into dedicated components because of a limitation in
    * NextJS's source code
+   *
+   * @see https://github.com/vercel/next.js/blob/canary/packages/next/shared/lib/head.tsx
    *
    * To quote the docs:
    * > title, meta or any other elements (e.g. script) need to be contained as
@@ -170,12 +177,31 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       ) : null}
       {children}
       {/* Open Graph SEO */}
-      <meta
-        property="og:url"
-        content={siteMetadata.siteUrl + (pathName || "")}
-      />
+      <meta property="og:url" content={currentPath} />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:title" content={title} />
+      {langData?.currentLang && (
+        <link
+          rel="alternate"
+          href={
+            siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
+          }
+          hrefLang="x-default"
+        />
+      )}
+      {langData?.otherLangs &&
+        langData.otherLangs.map((lang) => (
+          <link
+            key={lang}
+            rel="alternate"
+            href={
+              siteMetadata.siteUrl +
+              `${lang === "en" ? "" : "/"}${lang}` +
+              removePrefixLanguageFromPath(pathName || "")
+            }
+            hrefLang={langData.currentLang}
+          />
+        ))}
       <meta
         property="og:locale"
         content={
