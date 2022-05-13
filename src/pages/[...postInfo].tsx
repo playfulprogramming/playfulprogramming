@@ -51,6 +51,7 @@ type Props = {
   seriesPosts: SeriesPostInfo[];
   suggestedPosts: OrderSuggestPosts;
   post: SlugPostInfo & RenderedPostInfo;
+  lang: Languages;
 };
 
 const Post = ({
@@ -58,6 +59,7 @@ const Post = ({
   markdownHTML,
   slug,
   postsDirectory,
+  lang,
   seriesPosts,
   suggestedPosts,
 }: Props) => {
@@ -111,6 +113,10 @@ const Post = ({
         type="article"
         pathName={router.asPath}
         canonical={post.originalLink}
+        langData={{
+          currentLang: lang,
+          otherLangs: Object.keys(post.translations) as Languages[],
+        }}
       />
       <article>
         <BlogPostLayout
@@ -235,6 +241,7 @@ export async function getStaticProps({ params }: Params) {
       postsDirectory,
       seriesPosts,
       suggestedPosts,
+      lang,
     } as Props,
   };
 }

@@ -1,11 +1,15 @@
 import React, { PropsWithChildren, ReactElement, useMemo } from "react";
 import Head from "next/head";
 import { siteMetadata, siteUrl } from "constants/site-config";
-import { UnicornInfo } from "../types";
+import { Languages, UnicornInfo } from "../types";
+import { fileToOpenGraphConverter } from "utils/translations";
 
 interface SEOProps {
   description?: string;
-  lang?: string;
+  langData?: {
+    currentLang: Languages;
+    otherLangs: Languages[];
+  };
   title: string;
   unicornsData?: Array<
     Pick<UnicornInfo, "socials" | "name" | "lastName" | "firstName" | "id">
@@ -33,6 +37,7 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
     editedTime,
     pathName,
     isbn,
+    langData,
     shareImage,
   } = props;
 
@@ -171,7 +176,20 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:title" content={title} />
-      <meta property="og:locale" content="en_US" />
+      <meta
+        property="og:locale"
+        content={
+          langData ? fileToOpenGraphConverter(langData.currentLang) : "en"
+        }
+      />
+      {langData?.otherLangs &&
+        langData.otherLangs.map((lang) => (
+          <meta
+            key={lang}
+            property="og:locale:alternate"
+            content={fileToOpenGraphConverter(lang)}
+          />
+        ))}
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={metaImage} />
       <meta property="og:type" content={ogType} />
