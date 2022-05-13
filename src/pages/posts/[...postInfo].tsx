@@ -42,6 +42,7 @@ import { Languages } from "types/index";
 import { objectFromKeys } from "utils/objects";
 import { objectMap } from "ts-util-helpers";
 import { Lang } from "shiki";
+import { TranslationsHeader } from "components/translations-header";
 
 type Props = {
   markdownHTML: string;
@@ -128,6 +129,9 @@ const Post = ({
                     postSeries={seriesPosts}
                     collectionSlug={post.collectionSlug}
                   />
+                )}
+                {Object.keys(post.translations).length && (
+                  <TranslationsHeader post={post} />
                 )}
                 {result}
               </main>
