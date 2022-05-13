@@ -94,7 +94,11 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       case "article": {
         for (let keyword of keywords || []) {
           tags.push(
-            <meta key={keyword} property="article:tag" content={keyword} />
+            <meta
+              key={`article_tag_${keyword}`}
+              property="article:tag"
+              content={keyword}
+            />
           );
         }
         tags = tags.concat([
@@ -153,6 +157,12 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
    * > direct children of the Head element, or wrapped into maximum one level of
    * > <React.Fragment> or arrays—otherwise the tags won't be correctly picked up
    * > on client-side navigations.
+   *
+   * What's more, because of the same limited source code limitations, we need to have a per-Head
+   * unique `key` in each `.map`, as opposed to a `per-.map` unique `key`.
+   *
+   * This means that for each list, we need to have a unique prefix key on top of the unique
+   * per-item key
    */
   return (
     <Head>
@@ -192,14 +202,14 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       {langData?.otherLangs &&
         langData.otherLangs.map((lang) => (
           <link
-            key={lang}
+            key={`${lang}_hreflang`}
             rel="alternate"
             href={
               siteMetadata.siteUrl +
               `${lang === "en" ? "" : "/"}${lang}` +
               removePrefixLanguageFromPath(pathName || "")
             }
-            hrefLang={langData.currentLang}
+            hrefLang={lang}
           />
         ))}
       <meta
@@ -211,7 +221,7 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       {langData?.otherLangs &&
         langData.otherLangs.map((lang) => (
           <meta
-            key={lang}
+            key={`${lang}_og_alternative`}
             property="og:locale:alternate"
             content={fileToOpenGraphConverter(lang)}
           />
