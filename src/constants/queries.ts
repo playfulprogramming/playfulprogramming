@@ -25,6 +25,7 @@ export const postBySlug = {
   description: true,
   excerpt: true,
   license: true,
+  translations: true,
   collectionSlug: true,
 } as const;
 

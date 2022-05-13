@@ -9,11 +9,12 @@ import { isNotJunk } from "junk";
 import { DeepPartial, DeepReplaceKeys, PickDeep } from "ts-util-helpers";
 import { CollectionInfo } from "types/CollectionInfo";
 import { PostInfo } from "types/PostInfo";
-import { join } from "path";
+import { join, dirname, resolve } from "path";
 import { readMarkdownFile } from "utils/fs/markdown-api";
 import { getImageSize } from "rehype-img-size";
 import { getExcerpt } from "utils/markdown/getExcerpt";
 import { Languages } from "types/index";
+import { languages } from "constants/index";
 
 export function getCollectionSlugs() {
   return fs.readdirSync(collectionsDirectory).filter(isNotJunk);
@@ -137,6 +138,20 @@ export function getPostBySlug<ToPick extends PostKeysToPick>(
 
   if (fields.slug) {
     pickedData.slug = realSlug;
+  }
+
+  if (fields.translations) {
+    const langsToQuery: Languages[] = Object.keys(languages).filter(
+      (l) => l !== lang
+    ) as never;
+    pickedData.translations = langsToQuery
+      .filter((lang) =>
+        fs.existsSync(resolve(dirname(fullPath), getIndexPath(lang)))
+      )
+      .reduce((prev, lang) => {
+        prev[lang] = languages[lang];
+        return prev;
+      }, {} as Record<Languages, string>);
   }
 
   if (fields.collectionSlug) {

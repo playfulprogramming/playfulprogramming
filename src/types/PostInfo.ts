@@ -1,5 +1,6 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { LicenseInfo } from "./LicenseInfo";
+import { Languages } from "types/index";
 
 export interface PostInfo {
   slug: string;
@@ -17,6 +18,7 @@ export interface PostInfo {
   originalLink?: string;
   content: string;
   tags: string[];
+  translations: Array<Record<Languages, string>;
 }
 
 export interface RenderedPostInfo {
