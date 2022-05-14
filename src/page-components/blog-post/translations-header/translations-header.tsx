@@ -3,6 +3,7 @@ import { RenderedPostInfo } from "types/PostInfo";
 import { SlugPostInfo } from "constants/queries";
 import Link from "next/link";
 import { Languages } from "types/index";
+import { Fragment } from "react";
 
 interface TranslationsHeaderProps {
   post: SlugPostInfo & RenderedPostInfo;
@@ -14,12 +15,12 @@ export const TranslationsHeader = ({ post }: TranslationsHeaderProps) => {
       {(Object.keys(post.translations) as Languages[]).map((lang, i, arr) => {
         const langHref = lang === "en" ? "" : `${lang}/`;
         return (
-          <>
-            <Link key={lang} passHref href={`/${langHref}posts/${post.slug}`}>
+          <Fragment key={lang}>
+            <Link passHref href={`/${langHref}posts/${post.slug}`}>
               <a>{post.translations[lang]}</a>
             </Link>
             {i !== arr.length - 1 && <span>, </span>}
-          </>
+          </Fragment>
         );
       })}
     </div>

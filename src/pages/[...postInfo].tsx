@@ -24,7 +24,7 @@ import { MailingList } from "components/mailing-list";
 
 import GitHubIcon from "assets/icons/github.svg";
 import CommentsIcon from "assets/icons/message.svg";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "constants/theme-context";
 import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
@@ -101,6 +101,19 @@ const Post = ({
 
   const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
+  const langData = useMemo(() => {
+    const otherLangs = post.translations
+      ? (Object.keys(post.translations).filter(
+          (t) => t !== lang
+        ) as Languages[])
+      : [];
+
+    return {
+      otherLangs,
+      currentLang: lang,
+    };
+  }, [lang, post.translations]);
+
   return (
     <>
       <SEO
@@ -113,12 +126,7 @@ const Post = ({
         type="article"
         pathName={router.asPath}
         canonical={post.originalLink}
-        langData={{
-          currentLang: lang,
-          otherLangs: post.translations
-            ? (Object.keys(post.translations) as Languages[])
-            : [],
-        }}
+        langData={langData}
       />
       <article>
         <BlogPostLayout

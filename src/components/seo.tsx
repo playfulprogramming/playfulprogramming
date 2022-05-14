@@ -206,7 +206,7 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
             rel="alternate"
             href={
               siteMetadata.siteUrl +
-              `${lang === "en" ? "" : "/"}${lang}` +
+              `${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
               removePrefixLanguageFromPath(pathName || "")
             }
             hrefLang={lang}

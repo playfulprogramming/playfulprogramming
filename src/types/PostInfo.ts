@@ -18,7 +18,7 @@ export interface PostInfo {
   originalLink?: string;
   content: string;
   tags: string[];
-  translations: Record<Languages, string>;
+  translations: Partial<Record<Languages, string>>;
 }
 
 export interface RenderedPostInfo {

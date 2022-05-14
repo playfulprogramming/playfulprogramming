@@ -1,10 +1,15 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { siteMetadata } from "__mocks__/data/mock-site-metadata";
-import { MockMultiAuthorPost, MockPost } from "__mocks__/data/mock-post";
+import {
+  MockCanonicalPost,
+  MockMuliLanguagePost,
+  MockMultiAuthorPost,
+  MockPost,
+} from "__mocks__/data/mock-post";
 import BlogPostTemplate from "../../pages/[...postInfo]";
-import ReactDOMServer from "react-dom/server";
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import { Languages } from "types/index";
+import { getAllByRel, getByProperty, getByRel } from "utils/tests";
 // import { axe } from "jest-axe";
 
 const getElement = ({
@@ -14,6 +19,7 @@ const getElement = ({
   slug = "/slug",
   postsDirectory = "/posts",
   seriesPosts = [],
+  lang = "en",
 }: {
   post: any;
   fn?: () => void;
@@ -21,6 +27,7 @@ const getElement = ({
   slug?: string;
   postsDirectory?: string;
   seriesPosts?: any[];
+  lang?: Languages;
 }) => (
   <RouterContext.Provider
     value={
@@ -39,6 +46,7 @@ const getElement = ({
       post={post}
       markdownHTML={markdownHTML}
       slug={slug}
+      lang={lang}
       postsDirectory={postsDirectory}
       seriesPosts={seriesPosts}
       suggestedPosts={[]}
@@ -74,7 +82,7 @@ test("Blog post page renders", async () => {
   expect(navigatePushFn).toHaveBeenCalledTimes(2);
 
   // Renders the post body properly
-  expect((await findByTestId("post-body-div")).innerHTML).toBe(
+  expect((await findByTestId("post-body-div")).innerHTML).toContain(
     "<div>Hey there</div>"
   );
 });
@@ -112,12 +120,71 @@ test("Blog post page handles two authors", async () => {
   expect(navigatePushFn).toHaveBeenCalledTimes(4);
 
   // Renders the post body properly
-  expect((await findByTestId("post-body-div")).innerHTML).toBe(
+  expect((await findByTestId("post-body-div")).innerHTML).toContain(
     "<div>Hello, friends</div>"
   );
 });
 
-test.todo("SEO should apply");
+/**
+ * Next head mocking to `head` element
+ *
+ * TODO: Turn this + queries into a library
+ */
+const mockDocument = document;
+
+jest.mock("next/head", () => {
+  const ReactDOM = require("react-dom");
+  return ({ children }: PropsWithChildren<unknown>) => {
+    return ReactDOM.createPortal(children, mockDocument.head);
+  };
+});
+
+test("SEO should show translation data", () => {
+  const navigatePushFn = jest.fn();
+
+  render(
+    getElement({
+      post: MockMuliLanguagePost,
+      fn: navigatePushFn,
+      markdownHTML: "Hello, friends",
+      lang: "en",
+    })
+  );
+
+  const alts = getAllByRel(document.head, "alternate");
+  expect(alts.length).toBe(2);
+  expect(alts[0]).toHaveProperty("hreflang", "x-default");
+  expect(alts[1]).toHaveProperty("hreflang", "es");
+
+  expect(getByProperty(document.head, "og:locale")).toHaveProperty(
+    "content",
+    "en"
+  );
+  expect(getByProperty(document.head, "og:locale:alternate")).toHaveProperty(
+    "content",
+    "es"
+  );
+});
+
+test("Canonical tags should show in SEO", () => {
+  const navigatePushFn = jest.fn();
+
+  render(
+    getElement({
+      post: MockCanonicalPost,
+      fn: navigatePushFn,
+      markdownHTML: "Hello, friends",
+      lang: "en",
+    })
+  );
+
+  expect(getByRel(document.head, "canonical")).toHaveProperty(
+    "href",
+    "https://google.com/"
+  );
+});
+
+test.todo("SEO Twitter");
 test.todo("Shows post footer image");
 
 // test.skip("Blog post page should not have axe errors", async () => {
