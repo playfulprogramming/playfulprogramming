@@ -235,14 +235,14 @@ const {
 } = require("utils/fs/api");
 
 test("should suggest series articles starting with 1", () => {
-  const suggestedArticles = getSuggestedArticles(seriesPost1 as any);
+  const suggestedArticles = getSuggestedArticles(seriesPost1 as any, "en");
   expect(suggestedArticles[0].slug).toBe(seriesPost2.slug);
   expect(suggestedArticles[1].slug).toBe(seriesPost3.slug);
   expect(suggestedArticles[2].slug).toBe(seriesPost4.slug);
 });
 
 test("should suggest series articles starting with 2", () => {
-  const suggestedArticles = getSuggestedArticles(seriesPost2 as any);
+  const suggestedArticles = getSuggestedArticles(seriesPost2 as any, "en");
   expect(suggestedArticles[0].slug).toBe(seriesPost1.slug);
   expect(suggestedArticles[1].slug).toBe(seriesPost3.slug);
   expect(suggestedArticles[2].slug).toBe(seriesPost4.slug);
@@ -250,7 +250,8 @@ test("should suggest series articles starting with 2", () => {
 
 test("recommend other similar tagged posts", () => {
   const suggestedArticles = getSuggestedArticles(
-    angularReactVueSveltePost as any
+    angularReactVueSveltePost as any,
+    "en"
   );
   expect(suggestedArticles[0].slug).toBe(angularReactVuePost.slug);
   expect(suggestedArticles[1].slug).toBe(angularReactPost.slug);
@@ -258,7 +259,7 @@ test("recommend other similar tagged posts", () => {
 });
 
 test("no similar tags recommends latest articles", () => {
-  const suggestedArticles = getSuggestedArticles(noSimilarPosts as any);
+  const suggestedArticles = getSuggestedArticles(noSimilarPosts as any, "en");
   expect(suggestedArticles[0].slug).toBe(newestPost.slug);
   expect(suggestedArticles[1].slug).toBe(secondNewestPost.slug);
   expect(suggestedArticles[2].slug).toBe(thirdNewestPost.slug);
