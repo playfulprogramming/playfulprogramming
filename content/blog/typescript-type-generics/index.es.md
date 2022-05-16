@@ -16,7 +16,7 @@ _Los tipos genéricos son una forma de manejar tipos abstractos en tu función._
 
 # El problema {#generico-usecase-setup}
 
-Los tipos genéricos -en el nivel más alto- _permiten aceptar datos arbitrarios en lugar de una tipificación estricta, lo que hace posible ampliar el alcance de un tipo_.
+Los tipos genéricos — en el nivel más alto — _permiten aceptar datos arbitrarios en lugar de una tipificación estricta, lo que hace posible ampliar el alcance de un tipo_.
 
 Por ejemplo, ¿qué pasaría si quisieras hacer una función que tomara un argumento de `returnProp` y devolviera el propio valor de `returnProp` ([el nombre formal para una función como ésta es una **función de identidad**](https://en.wikipedia.org/wiki/Identity_function))? Sin genéricos, proporcionar una tipificación para una función como ésta podría ser difícil.
 
@@ -28,11 +28,11 @@ function returnProp(returnProp: string): string {
 }
 
 returnProp('Test'); // ✅ Esto esta bien
-returnProp(4); // ❌ Esto falla porque `4` is not a string
+returnProp(4); // ❌ Esto falla porque `4` no es un string
 ```
 En este caso, queremos asegurarnos de que todos los tipos de entrada posibles estén disponibles para el tipo prop. Echemos un vistazo a algunas soluciones potenciales, con sus diversos pros y contras, y veamos si podemos encontrar una solución que se ajuste a los requisitos para proporcionar tipado a una función como ésta.
 
-## Solución potencial 1: sindicatos {#generic-usecase-setup-union-solution}
+## Solución potencial 1: Unions {#generic-usecase-setup-union-solution}
 
 Una posible solución a este problema podrían ser las uniones de TypeScript. _Las uniones nos permiten definir una condición `or` para nuestros tipos_. Como queremos permitir varios tipos para las entradas y salidas, ¡quizás eso pueda ayudarnos!
 
@@ -73,15 +73,15 @@ Para evitar los problemas de devolver explícitamente una unión, usted _PODRÍA
 ```typescript
 function returnProp(returnProp: number): number;
 function returnProp(returnProp: string): string;
-// Aunque esto parece repetitivo, el TS lo requiere.
+// Aunque esto parece repetitivo, TS lo requiere.
 // De lo contrario, se quejará:
-// Esta firma de sobrecarga no es compatible con su firma de implementación.
+// Esta sobrecarga no es compatible con su firma de implementación.
 function returnProp(returnProp: string | number): string | number {
 	return returnProp;
 }
 ```
 
-Dicho esto, además de tener una odiosa información de tipo duplicado, este método también tiene sus limitaciones.
+Dicho esto, además de tener una odiosa información duplicada del tipo , este método también tiene sus limitaciones.
 
 Por ejemplo, si quisiéramos pasar un objeto de algún tipo (como `{}`, un simple objeto vacío), no sería válido:
 
@@ -90,7 +90,7 @@ Por ejemplo, si quisiéramos pasar un objeto de algún tipo (como `{}`, un simpl
 returnProp({}) // El argumento de tipo '{}' no es asignable a un parámetro de tipo 'string'.
 ```
 
-Esto puede parecer obvio a partir de las tipificaciones, pero _lo ideal es que queramos que `returnProp` acepte CUALQUIER tipo porque **no estamos usando ninguna operación que requiera conocer el tipo**._ (nada de sumas o restas, que requieran un número; nada de concatenación de cadenas que pueda restringir el paso de un objeto).
+Esto puede parecer obvio a partir de los tipos, pero _lo ideal es que queramos que `returnProp` acepte CUALQUIER tipo porque **no estamos usando ninguna operación que requiera conocer el tipo**._ (nada de sumas o restas, que requieran un número; nada de concatenación de cadenas que pueda restringir el paso de un objeto).
 
 ## Solución potencial 3: Any {#generic-usecase-setup-any-solution}
 
