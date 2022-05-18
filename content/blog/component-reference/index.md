@@ -13,6 +13,58 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+- Component reference
+  - `ref`/`forwardRef` / `useImperativeHandle` React
+    - Array of refs
+  - ViewChild/Angular
+    - `ViewChildren`
+  - `ref` / Vue
+    - Array of refs
+  - Element reference
+  - Component reference
+
+
+
+Element reference first, introduce alternative to `onClick` using `document.addEventListener()`
+
+`element.focus()` example
+
+
+
+Then, move to component reference to introduce calling component method/data.
+
+https://stackblitz.com/edit/react-ts-gpjzsm?file=index.tsx
+
+
+
+
+
 <!-- tabs:start -->
 
 # React
