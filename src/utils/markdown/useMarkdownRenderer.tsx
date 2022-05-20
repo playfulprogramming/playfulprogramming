@@ -1,6 +1,5 @@
 import * as React from "react";
-import { unified } from "unified";
-import rehypeParse from "rehype-parse";
+import { Plugin, unified } from "unified";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
@@ -13,6 +12,20 @@ import {
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
+
+import { isBrowser } from "utils/use-isomorphic-layout-effect";
+import type { Options } from "rehype-parse/lib";
+import type { Root } from "hast";
+
+let rehypeParseIsomorphic: Plugin<[Options?] | Array<void>, string, Root>;
+
+if (isBrowser()) {
+  // @ts-ignore
+  rehypeParseIsomorphic = (await import("rehype-dom-parse")).default;
+} else {
+  // @ts-ignore
+  rehypeParseIsomorphic = (await import("rehype-parse")).default;
+}
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
@@ -54,7 +67,7 @@ export const useMarkdownRenderer = (
   const result = React.useMemo(
     () =>
       unified()
-        .use(rehypeParse)
+        .use(rehypeParseIsomorphic)
         .use(reactRehyped, {
           createElement: React.createElement,
           components: getComponents(props, comps) as any,

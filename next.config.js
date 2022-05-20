@@ -59,6 +59,8 @@ module.exports = withPlugins([withBundleAnalyzer], {
       ],
     });
 
+    config.experiments.topLevelAwait = true;
+
     return config;
   },
 });
