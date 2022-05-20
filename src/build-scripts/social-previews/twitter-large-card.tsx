@@ -14,6 +14,15 @@ const unicornUtterancesHead = readFileAsBase64(
   resolve(__dirname, "../../assets/unicorn_head_1024.png")
 );
 
+function splitSentence(str: string): [string, string] {
+  const splitStr = str.split(" ");
+  const isEven = splitStr.length % 2 === 0;
+  const firstHalfEnd = (isEven ? splitStr.length : splitStr.length - 1) / 2;
+  const firstHalf = splitStr.splice(0, firstHalfEnd);
+  // Splice mutates, so we can just return the rest
+  return [firstHalf.join(" "), splitStr.join(" ")];
+}
+
 interface TwitterLargeCardProps {
   post: PreviewPost;
   height: number;
@@ -28,6 +37,7 @@ const TwitterLargeCard = ({
   authorImagesStrs,
 }: TwitterLargeCardProps) => {
   const title = post.title;
+  const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
   return (
     <div
       style={{
@@ -46,7 +56,8 @@ const TwitterLargeCard = ({
             }px)`,
           }}
         >
-          {title}
+          {firstHalfTitle}{" "}
+          <span className="secondHalfTitle">{secondHalfTitle}</span>
         </h1>
       </div>
       <div
