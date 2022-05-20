@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: "Work Sans";
+  color: var(--white);
+}
+
+.backgroundColor {
+  background: #127db3;
+}
+
+.backgroundImage {
+  background-blend-mode: luminosity;
+  opacity: 0.1;
+}
+
+.absoluteFill {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+}
+
+.bottomContainer {
+  position: absolute;
+  bottom: 0;
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 1px 2px rgba(11, 37, 104, 0.3));
+}
+
+.centerAll {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.bottomImagesContainer {
+}
+
+.bottomProfImg {
+  border-radius: 99px;
+  margin-right: 16px;
+}
+
+.bottomImagesContainer > p {
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 9px;
+  text-align: right;
+  margin-right: 4px;
+}
+
+.secondHalfTitle {
+  color: #f5acc9;
+}

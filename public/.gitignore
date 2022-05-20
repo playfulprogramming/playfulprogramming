@@ -4,6 +4,7 @@ search_index.json
 sitemap.xml
 sitemap*.xml
 robots.txt
+*.twitter-preview.png
 # These are part of the copy file
 unicorns/
 posts/
