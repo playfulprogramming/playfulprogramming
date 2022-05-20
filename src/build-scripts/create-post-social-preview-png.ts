@@ -29,6 +29,11 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
   return screenShotBuffer;
 };
 
+// For non-prod builds, this isn't needed
+if (process.env.BUILD_ENV && process.env.BUILD_ENV !== "production") {
+  process.exit();
+}
+
 const posts = getSocialPosts();
 
 /**
