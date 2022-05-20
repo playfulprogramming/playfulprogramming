@@ -18,20 +18,21 @@
     "url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
   },
   "scripts": {
-    "dev": "npm run lunr && env-cmd -f ./src/environments/dev.env next -p 9000",
-    "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
-    "rss": "node --experimental-loader esbuild-node-loader src/build-scripts/gen-rss.ts",
-    "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
-    "social-previews:build": "node --experimental-loader esbuild-node-loader src/build-scripts/create-post-social-preview-png.ts",
-    "social-previews:dev": "node --experimental-loader esbuild-node-loader src/build-scripts/preview-social-preview-site.ts",
+    "analyze": "env-cmd -f ./src/environments/analyze.env next build",
     "build": "npm run lunr && npm run rss && next build && npm run sitemap && npm run social-previews:build",
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
+    "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
+    "dev": "npm run lunr && env-cmd -f ./src/environments/dev.env next -p 9000",
+    "lint": "next lint",
+    "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
+    "postinstall": "husky install",
+    "rss": "node --experimental-loader esbuild-node-loader src/build-scripts/gen-rss.ts",
     "sitemap": "node ./node_modules/next-sitemap/bin/next-sitemap",
+    "social-previews:build": "node --experimental-loader esbuild-node-loader src/build-scripts/create-post-social-preview-png.ts",
+    "social-previews:dev": "node --experimental-loader esbuild-node-loader src/build-scripts/preview-social-preview-site.ts",
     "start": "next start",
     "test": "jest",
-    "typecheck": "tsc",
-    "lint": "next lint",
-    "postinstall": "husky install"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@remark-embedder/core": "^2.0.0",
@@ -89,12 +90,13 @@
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@compodoc/live-server": "^1.2.3",
+    "@next/bundle-analyzer": "^12.1.6",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@types/gtag.js": "^0.0.10",
-    "@types/live-server": "^1.2.1",
     "@types/jest": "^27.5.1",
+    "@types/live-server": "^1.2.1",
     "@types/lunr": "^2.3.4",
     "@types/node": "^17.0.33",
     "@types/react": "^18.0.9",
@@ -120,8 +122,8 @@
     "next-compose-plugins": "^2.2.1",
     "next-sitemap": "^2.5.20",
     "prettier": "^2.6.2",
-    "react-test-renderer": "^18.1.0",
     "puppeteer": "^14.0.0",
+    "react-test-renderer": "^18.1.0",
     "ts-jest": "^28.0.2"
   }
 }
