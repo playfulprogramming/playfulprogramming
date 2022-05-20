@@ -4,16 +4,6 @@ import { readFileAsBase64 } from "./read-file-as-base64";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const backgroundStr = readFileAsBase64(
-  resolve(__dirname, "./assets/code_background.jpg")
-);
-
-const unicornUtterancesHead = readFileAsBase64(
-  resolve(__dirname, "../../assets/unicorn_head_1024.png")
-);
-
 function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
   const isEven = splitStr.length % 2 === 0;
@@ -28,6 +18,8 @@ interface TwitterLargeCardProps {
   height: number;
   width: number;
   authorImagesStrs: string[];
+  backgroundStr: string;
+  unicornUtterancesHead: string;
 }
 
 const TwitterLargeCard = ({
@@ -35,6 +27,8 @@ const TwitterLargeCard = ({
   height,
   width,
   authorImagesStrs,
+  backgroundStr,
+  unicornUtterancesHead,
 }: TwitterLargeCardProps) => {
   const title = post.title;
   const [firstHalfTitle, secondHalfTitle] = splitSentence(title);

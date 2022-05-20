@@ -24,7 +24,7 @@
     "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
     "social-previews:build": "node --experimental-loader esbuild-node-loader src/build-scripts/create-post-social-preview-png.ts",
     "social-previews:dev": "node --experimental-loader esbuild-node-loader src/build-scripts/preview-social-preview-site.ts",
-    "build": "npm run lunr && npm run rss && next build && npm run sitemap",
+    "build": "npm run lunr && npm run rss && next build && npm run sitemap && npm run social-previews:build",
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "sitemap": "node ./node_modules/next-sitemap/bin/next-sitemap",
     "start": "next start",

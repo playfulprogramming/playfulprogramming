@@ -25,6 +25,14 @@ let page: puppeteer.Page;
 
 const heightWidth = { width: 1280, height: 640 };
 
+const backgroundStr = readFileAsBase64(
+  resolve(__dirname, "./social-previews/assets/code_background.jpg")
+);
+
+const unicornUtterancesHead = readFileAsBase64(
+  resolve(__dirname, "../assets/unicorn_head_1024.png")
+);
+
 export const renderPostPreviewToString = async (post: PreviewPost) => {
   const twitterLargeCardPreviewCSS = readFileSync(
     resolve(__dirname, "./social-previews/twitter-large-card.css"),
@@ -58,6 +66,8 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
         post,
         ...heightWidth,
         authorImagesStrs,
+        backgroundStr,
+        unicornUtterancesHead,
       })
     )}
     </body>
