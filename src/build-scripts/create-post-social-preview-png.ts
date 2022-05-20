@@ -23,7 +23,7 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
-const heightWidth = { width: 1128, height: 600 };
+const heightWidth = { width: 1280, height: 640 };
 
 export const renderPostPreviewToString = async (post: PreviewPost) => {
   const twitterLargeCardPreviewCSS = readFileSync(
@@ -36,6 +36,10 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
   const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
     (await import(`./social-previews/twitter-large-card?update=${Date.now()}`))
       .default;
+
+  const authorImagesStrs = post.authors.map((author) =>
+    readFileAsBase64(author.profileImg.absoluteFSPath)
+  );
 
   return `
     <!DOCTYPE html>
@@ -50,7 +54,11 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     </head>
     <body>
     ${renderToStaticMarkup(
-      createElement(TwitterLargeCard, { post, ...heightWidth })
+      createElement(TwitterLargeCard, {
+        post,
+        ...heightWidth,
+        authorImagesStrs,
+      })
     )}
     </body>
     </html>
