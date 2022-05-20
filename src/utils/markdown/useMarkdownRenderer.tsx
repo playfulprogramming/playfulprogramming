@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Plugin, unified } from "unified";
+import { unified } from "unified";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
@@ -13,19 +13,13 @@ import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
 
-import { isBrowser } from "utils/use-isomorphic-layout-effect";
-import type { Options } from "rehype-parse/lib";
-import type { Root } from "hast";
-
-let rehypeParseIsomorphic: Plugin<[Options?] | Array<void>, string, Root>;
-
-if (isBrowser()) {
-  // @ts-ignore
-  rehypeParseIsomorphic = (await import("rehype-dom-parse")).default;
-} else {
-  // @ts-ignore
-  rehypeParseIsomorphic = (await import("rehype-parse")).default;
-}
+/**
+ * This is replaced with the smaller `rehype-dom-parse` using Webpack
+ * Bad idea? Sure, but trying the `isBrowser()` logic doesn't work for bundled stuff.
+ *
+ * Neither does the less obvious `if (isBrowser()) await import()`
+ */
+import rehypeParseIsomorphic from "rehype-parse";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
