@@ -7,13 +7,9 @@ import { getSocialPosts, PreviewPost } from "./social-previews/get-posts";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import { COLORS } from "constants/theme";
+import { readFileAsBase64 } from "./social-previews/read-file-as-base64";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const twitterLargeCardPreviewCSS = readFileSync(
-  resolve(__dirname, "./social-previews/twitter-large-card.css"),
-  "utf8"
-);
 
 const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
   (stylesheetStr, colorKey, i, arr) => {
@@ -27,7 +23,14 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
+const heightWidth = { width: 1128, height: 600 };
+
 export const renderPostPreviewToString = async (post: PreviewPost) => {
+  const twitterLargeCardPreviewCSS = readFileSync(
+    resolve(__dirname, "./social-previews/twitter-large-card.css"),
+    "utf8"
+  );
+
   // This needs to happen here, since otherwise the `import` is stale at runtime,
   // thus breaking live refresh
   const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
@@ -46,7 +49,9 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     </style>
     </head>
     <body>
-    ${renderToStaticMarkup(createElement(TwitterLargeCard, { post }))}
+    ${renderToStaticMarkup(
+      createElement(TwitterLargeCard, { post, ...heightWidth })
+    )}
     </body>
     </html>
     `;
@@ -62,7 +67,7 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
       ignoreHTTPSErrors: true,
     });
     page = await browser.newPage();
-    await page.setViewport({ width: 1128, height: 600 });
+    await page.setViewport(heightWidth);
   }
 
   await page.setContent(await renderPostPreviewToString(post));

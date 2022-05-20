@@ -1,4 +1,23 @@
 * {
   font-size: 2rem;
-  color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.backgroundColor {
+  background: #127DB3;
+}
+
+.backgroundImage {
+
+  background-blend-mode: luminosity;
+  opacity: 0.1;
+}
+
+.absoluteFill {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
 }
