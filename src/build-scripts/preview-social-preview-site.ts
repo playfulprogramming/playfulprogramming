@@ -1,5 +1,5 @@
 import { getSocialPosts } from "./social-previews/get-posts";
-import { renderPostPreviewToString } from "./create-post-social-preview-png";
+import { renderPostPreviewToString } from "./shared-post-preview-png";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
