@@ -33,7 +33,6 @@ import React, {
   useState,
 } from "react";
 import classNames from "classnames";
-import { motion, Variants } from "framer-motion";
 
 import filterStyles from "./filter-listbox.module.scss";
 
@@ -81,56 +80,6 @@ const FilterListItem = ({
     </li>
   );
 };
-
-const FilterDisplaySpan = ({
-  children,
-  ...props
-}: React.ComponentProps<React.PropsWithChildren<typeof motion.span>>) => {
-  const variants: Variants = {
-    initial: (target) => ({
-      width: target.width || 0,
-      height: target.height,
-    }),
-  };
-
-  return (
-    <motion.span
-      {...props}
-      variants={variants}
-      animate={"initial"}
-      transition={{ ease: "linear", duration: 0.2 }}
-    >
-      {children}
-    </motion.span>
-  );
-};
-
-const ListIdBox = React.forwardRef<
-  any,
-  React.ComponentProps<React.PropsWithChildren<typeof motion.ul>>
->(({ children, ...props }, ref) => {
-  const variants: Variants = {
-    expanded: {
-      height: "auto",
-    },
-    hidden: (target) => ({
-      height: target,
-    }),
-  };
-
-  return (
-    <motion.ul
-      {...props}
-      variants={variants}
-      transition={{ ease: "linear", duration: 0.2 }}
-      ref={ref}
-    >
-      {children}
-    </motion.ul>
-  );
-});
-
-ListIdBox.displayName = "ListIdBox";
 
 interface FilterListboxProps {
   className?: string;
@@ -273,9 +222,9 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
           {...buttonProps}
         >
           {<FilterIcon className={filterIconClasses} aria-hidden={true} />}
-          <FilterDisplaySpan
+          <span
             className={filterStyles.textContainer}
-            custom={{ height: filterStrHeight, width: filterContentsWidth }}
+            style={{ height: filterStrHeight, width: filterContentsWidth }}
           >
             <span
               aria-hidden={true}
@@ -294,9 +243,9 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
             >
               {selectedString}
             </span>
-          </FilterDisplaySpan>
+          </span>
         </button>
-        <ListIdBox
+        <ul
           id="listBoxID"
           role="listbox"
           ref={comboBoxListRef as any}
@@ -306,8 +255,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
           aria-hidden={!expanded}
           aria-multiselectable="true"
           aria-activedescendant={active ? (active.id as string) : ""}
-          custom={buttonHeight}
-          animate={expanded ? "expanded" : "hidden"}
+          style={expanded ? {} : { height: 0, opacity: 0 }}
         >
           <div className={filterStyles.filterListHideContainer}>
             <div className={filterStyles.spacer} />
@@ -322,7 +270,7 @@ export const FilterListbox = ({ className }: FilterListboxProps) => {
               />
             ))}
           </div>
-        </ListIdBox>
+        </ul>
       </div>
     </div>
   );
