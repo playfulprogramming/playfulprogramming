@@ -30,38 +30,36 @@ const createPostSocialPreviewPng = async (post: PreviewPost) => {
 };
 
 // For non-prod builds, this isn't needed
-if (process.env.BUILD_ENV && process.env.BUILD_ENV !== "production") {
-  process.exit();
+if (!process.env.BUILD_ENV || process.env.BUILD_ENV === "production") {
+  const posts = getSocialPosts();
+
+  /**
+   * This is done synchronously, in order to prevent more than a single instance
+   * of the browser from running at the same time.
+   */
+  let postPngs = [] as Array<{ png: Buffer; post: typeof posts[number] }>;
+  for (let post of posts) {
+    postPngs.push({
+      post,
+      // @ts-ignore
+      png: await createPostSocialPreviewPng(post),
+    });
+  }
+
+  // @ts-ignore
+  await Promise.all(
+    postPngs.map(async (postData) => {
+      await fsPromises.writeFile(
+        // Relative to root
+        resolve(
+          process.cwd(),
+          `./public/${postData.post.slug}.twitter-preview.png`
+        ),
+        postData.png!
+      );
+    })
+  );
+
+  // @ts-ignore
+  await browser!.close();
 }
-
-const posts = getSocialPosts();
-
-/**
- * This is done synchronously, in order to prevent more than a single instance
- * of the browser from running at the same time.
- */
-let postPngs = [] as Array<{ png: Buffer; post: typeof posts[number] }>;
-for (let post of posts) {
-  postPngs.push({
-    post,
-    // @ts-ignore
-    png: await createPostSocialPreviewPng(post),
-  });
-}
-
-// @ts-ignore
-await Promise.all(
-  postPngs.map(async (postData) => {
-    await fsPromises.writeFile(
-      // Relative to root
-      resolve(
-        process.cwd(),
-        `./public/${postData.post.slug}.twitter-preview.png`
-      ),
-      postData.png!
-    );
-  })
-);
-
-// @ts-ignore
-await browser!.close();
