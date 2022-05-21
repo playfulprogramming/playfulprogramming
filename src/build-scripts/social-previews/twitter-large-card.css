@@ -10,8 +10,45 @@ html, body {
   color: var(--white);
 }
 
+.codeScreenBg {
+  background: #808080;
+  z-index: -2;
+}
+
+.codeScreen {
+  height: 200% !important;
+  transform: translateX(64px) translateY(-64px) rotate3d(0.5, 1, 0, 44deg);
+  background: #212121;
+  border-radius: 8px;
+  box-shadow: 0 0 28px #000;
+}
+
+.codeScreen > * {
+  padding: 4em;
+}
+
+.codeScreen pre {
+  font-family: monospace;
+  overflow: hidden;
+  background: none !important;
+  border: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.codeScreen code {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.codeScreen .code-container {
+  margin: 0;
+  padding: 0;
+}
+
 .backgroundColor {
   background: #127db3;
+  opacity: 0.4;
 }
 
 .backgroundImage {
@@ -23,6 +60,7 @@ html, body {
   height: 100%;
   width: 100%;
   position: absolute;
+  box-sizing: border-box;
   top: 0;
   left: 0;
   background-size: cover;

@@ -1,8 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PreviewPost } from "./get-posts";
-import { readFileAsBase64 } from "./read-file-as-base64";
-import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
 
 function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -13,8 +10,51 @@ function splitSentence(str: string): [string, string] {
   return [firstHalf.join(" "), splitStr.join(" ")];
 }
 
+interface TwitterCodeScreenProps {
+  text: string,
+  direction: 'left'|'right'
+}
+
+const TwitterCodeScreen = ({
+  text,
+  direction
+}: TwitterCodeScreenProps) => {
+  const mask = `linear-gradient(to ${direction}, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))`;
+
+  let code = text || TwitterLargeCard.toString();
+
+  code = code
+    .replaceAll('&amp;', '&')
+    .replaceAll('&apos;', '\'')
+    .replaceAll('&#x27;', '\'')
+    .replaceAll('&#x2F;', '/')
+    .replaceAll('&#39;', '\'')
+    .replaceAll('&#47;', '/')
+    .replaceAll('&#x3C;', '<')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&#x26;', '&')
+    .replaceAll('&nbsp;', ' ')
+    .replaceAll('&quot;', '"')
+
+  return (
+    <div className="absoluteFill codeScreenBg" style={{
+      maskImage: mask,
+      WebkitMaskImage: mask,
+      filter: direction == 'right' ? 'blur(3px)' : ''
+    }}>
+      <div className="absoluteFill codeScreen">
+        <div className="absoluteFill">
+          <pre dangerouslySetInnerHTML={{__html: code}}/>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 interface TwitterLargeCardProps {
   post: PreviewPost;
+  postHtml: string;
   height: number;
   width: number;
   authorImagesStrs: string[];
@@ -24,6 +64,7 @@ interface TwitterLargeCardProps {
 
 const TwitterLargeCard = ({
   post,
+  postHtml,
   height,
   width,
   authorImagesStrs,
@@ -32,6 +73,7 @@ const TwitterLargeCard = ({
 }: TwitterLargeCardProps) => {
   const title = post.title;
   const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
+
   return (
     <div
       style={{
@@ -40,6 +82,8 @@ const TwitterLargeCard = ({
         position: "relative",
       }}
     >
+      <TwitterCodeScreen text={postHtml} direction="left"/>
+      <TwitterCodeScreen text={postHtml} direction="right"/>
       <div className="absoluteFill centerAll">
         <h1
           style={{
@@ -57,14 +101,7 @@ const TwitterLargeCard = ({
       <div
         className="absoluteFill backgroundColor"
         style={{
-          zIndex: -2,
-        }}
-      />
-      <div
-        className="absoluteFill backgroundImage"
-        style={{
           zIndex: -1,
-          backgroundImage: `url("${backgroundStr}")`,
         }}
       />
       <div className="bottomContainer">

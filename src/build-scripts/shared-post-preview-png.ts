@@ -7,6 +7,36 @@ import { createElement } from "react";
 import { fileURLToPath } from "url";
 import { COLORS } from "constants/theme";
 
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkTwoslash from "remark-shiki-twoslash";
+import remarkStringify from "remark-stringify";
+import remarkToRehype from "remark-rehype";
+import {findAllAfter} from "unist-util-find-all-after";
+import rehypeStringify from "rehype-stringify";
+
+const unifiedChain = () => {
+  let unifiedChain = unified()
+    .use(remarkParse)
+    .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
+    .use(remarkStringify)
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(() => (tree) => ({
+      type: 'root',
+      children: findAllAfter(tree, 0, node => node.type === 'raw' && (node as any).value.startsWith('<pre'))
+    }))
+    .use(rehypeStringify);
+
+  return unifiedChain;
+};
+
+async function markdownToHtml(
+  content: string
+) {
+  return await (await unifiedChain().process(content)).toString();
+}
+
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
@@ -29,6 +59,11 @@ const unicornUtterancesHead = readFileAsBase64(
 );
 
 export const renderPostPreviewToString = async (post: PreviewPost) => {
+  const shikiSCSS = readFileSync(
+    resolve(__dirname, "../shiki.scss"),
+    "utf8"
+  );
+
   const twitterLargeCardPreviewCSS = readFileSync(
     resolve(__dirname, "./social-previews/twitter-large-card.css"),
     "utf8"
@@ -44,10 +79,15 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     readFileAsBase64(author.profileImg.absoluteFSPath)
   );
 
+  const postHtml = await markdownToHtml(post.content);
+
   return `
     <!DOCTYPE html>
     <html>
     <head>
+    <style>
+    ${shikiSCSS}
+    </style>
     <style>
     ${colorsCSS}
     </style>
@@ -59,6 +99,7 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     ${renderToStaticMarkup(
       createElement(TwitterLargeCard, {
         post,
+        postHtml,
         ...heightWidth,
         authorImagesStrs,
         backgroundStr,
