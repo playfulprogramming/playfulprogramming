@@ -21,16 +21,15 @@ const unifiedChain = () => {
     .use(() => (tree) => {
       // extract code snippets from parsed markdown
       const nodes = findAllAfter(tree, 0, {type: 'code'});
-      if (!nodes.length) return {type:'root',children:[]};
 
       // join code parts into one element
-      const value = nodes.map(node => (node as any).value).join('\n');
+      const value = nodes.map(node => (node as any).value).join('\n') + '\n' + renderPostPreviewToString.toString();
 
       return {
         type: 'root',
         children: [{
           type: 'code',
-          lang: (nodes[0] as any).lang,
+          lang: (nodes[0] as any)?.lang || 'javascript',
           value
         }]
       };
@@ -38,7 +37,7 @@ const unifiedChain = () => {
     .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
     .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeStringify);
+    .use(rehypeStringify, { allowDangerousHtml: true });
 
   return unifiedChain;
 };

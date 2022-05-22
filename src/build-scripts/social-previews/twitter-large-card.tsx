@@ -11,35 +11,19 @@ function splitSentence(str: string): [string, string] {
 }
 
 interface TwitterCodeScreenProps {
-  text: string,
+  html: string,
   blur: boolean
 }
 
 const TwitterCodeScreen = ({
-  text,
+  html,
   blur
 }: TwitterCodeScreenProps) => {
-  let code = text || TwitterLargeCard.toString();
-
-  code = code
-    .replaceAll('&amp;', '&')
-    .replaceAll('&apos;', '\'')
-    .replaceAll('&#x27;', '\'')
-    .replaceAll('&#x2F;', '/')
-    .replaceAll('&#39;', '\'')
-    .replaceAll('&#47;', '/')
-    .replaceAll('&#x3C;', '<')
-    .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>')
-    .replaceAll('&#x26;', '&')
-    .replaceAll('&nbsp;', ' ')
-    .replaceAll('&quot;', '"')
-
   return (
     <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`}>
       <div className="absoluteFill codeScreen">
         <div className="absoluteFill">
-          <pre dangerouslySetInnerHTML={{__html: code}}/>
+          <pre dangerouslySetInnerHTML={{__html: html}}/>
         </div>
       </div>
     </div>
@@ -75,8 +59,8 @@ const TwitterLargeCard = ({
         overflow: "hidden",
       }}
     >
-      <TwitterCodeScreen text={postHtml} blur={true}/>
-      <TwitterCodeScreen text={postHtml} blur={false}/>
+      <TwitterCodeScreen html={postHtml} blur={true}/>
+      <TwitterCodeScreen html={postHtml} blur={false}/>
       <div className="absoluteFill codeScreenOverlay"/>
       <div className="absoluteFill centerAll">
         <h1
