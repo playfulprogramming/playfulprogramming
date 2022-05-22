@@ -74,7 +74,7 @@ html, body {
 
 .codeScreen code {
   font-size: 1.6rem;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .codeScreen .code-container {
