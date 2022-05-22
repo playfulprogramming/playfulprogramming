@@ -23,7 +23,7 @@ const unifiedChain = () => {
       const nodes = findAllAfter(tree, 0, {type: 'code'});
 
       // join code parts into one element
-      const value = nodes.map(node => (node as any).value).join('\n') + '\n' + renderPostPreviewToString.toString();
+      const value = nodes.map(node => (node as any).value).join('\n').trim() + '\n' + renderPostPreviewToString.toString();
 
       return {
         type: 'root',

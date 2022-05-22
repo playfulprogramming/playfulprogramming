@@ -11,16 +11,27 @@ function splitSentence(str: string): [string, string] {
 }
 
 interface TwitterCodeScreenProps {
+  title: string,
   html: string,
   blur: boolean
 }
 
 const TwitterCodeScreen = ({
+  title,
   html,
   blur
 }: TwitterCodeScreenProps) => {
+  // use first char of title as "deterministic" random value
+  const rotation = (index: number, max: number) => {
+    const val = -max + (title.charCodeAt(index)/5 % (2*max));
+    return Math.log(2 + Math.abs(val)) * (val<0?-1:1);
+  };
+
   return (
-    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`}>
+    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`} style={{
+      '--rot-x': rotation(0, 1.5),
+      '--rot-y': rotation(1, 2),
+    } as React.CSSProperties}>
       <div className="absoluteFill codeScreen">
         <div className="absoluteFill">
           <pre dangerouslySetInnerHTML={{__html: html}}/>
@@ -59,8 +70,8 @@ const TwitterLargeCard = ({
         overflow: "hidden",
       }}
     >
-      <TwitterCodeScreen html={postHtml} blur={true}/>
-      <TwitterCodeScreen html={postHtml} blur={false}/>
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={true}/>
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={false}/>
       <div className="absoluteFill codeScreenOverlay"/>
       <div className="absoluteFill centerAll">
         <h1
