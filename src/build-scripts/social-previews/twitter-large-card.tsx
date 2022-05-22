@@ -12,15 +12,13 @@ function splitSentence(str: string): [string, string] {
 
 interface TwitterCodeScreenProps {
   text: string,
-  direction: 'left'|'right'
+  blur: boolean
 }
 
 const TwitterCodeScreen = ({
   text,
-  direction
+  blur
 }: TwitterCodeScreenProps) => {
-  const mask = `linear-gradient(to ${direction}, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))`;
-
   let code = text || TwitterLargeCard.toString();
 
   code = code
@@ -38,11 +36,7 @@ const TwitterCodeScreen = ({
     .replaceAll('&quot;', '"')
 
   return (
-    <div className="absoluteFill codeScreenBg" style={{
-      maskImage: mask,
-      WebkitMaskImage: mask,
-      filter: direction == 'right' ? 'blur(3px)' : ''
-    }}>
+    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`}>
       <div className="absoluteFill codeScreen">
         <div className="absoluteFill">
           <pre dangerouslySetInnerHTML={{__html: code}}/>
@@ -58,7 +52,6 @@ interface TwitterLargeCardProps {
   height: number;
   width: number;
   authorImagesStrs: string[];
-  backgroundStr: string;
   unicornUtterancesHead: string;
 }
 
@@ -68,7 +61,6 @@ const TwitterLargeCard = ({
   height,
   width,
   authorImagesStrs,
-  backgroundStr,
   unicornUtterancesHead,
 }: TwitterLargeCardProps) => {
   const title = post.title;
@@ -80,10 +72,12 @@ const TwitterLargeCard = ({
         height: `${height}px`,
         width: `${width}px`,
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <TwitterCodeScreen text={postHtml} direction="left"/>
-      <TwitterCodeScreen text={postHtml} direction="right"/>
+      <TwitterCodeScreen text={postHtml} blur={true}/>
+      <TwitterCodeScreen text={postHtml} blur={false}/>
+      <div className="absoluteFill codeScreenOverlay"/>
       <div className="absoluteFill centerAll">
         <h1
           style={{

@@ -10,21 +10,56 @@ html, body {
   color: var(--white);
 }
 
-.codeScreenBg {
-  background: #808080;
+.codeScreenOverlay {
+  background: linear-gradient(340deg, rgba(0,0,0,.5), rgba(0,0,0,0)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+  filter: contrast(800%) brightness(200%);
+  opacity: 0.2;
   z-index: -2;
+}
+
+.codeScreenBg {
+  background: radial-gradient(ellipse 200% 100%, #888, #000);
+  z-index: -4;
+}
+
+.codeScreenBg.blur {
+  --gradient: radial-gradient(circle 500px at 25% 50%, rgba(0,0,0,0), rgba(0,0,0,1));
+  -webkit-mask-image: var(--gradient);
+  mask-image: var(--gradient);
+  filter: blur(5px);
+  z-index: -3;
+}
+
+.codeScreenBg::after {
+  position: absolute;
+  bottom: 0;
+  right: -30%;
+  width: 100%;
+  height: 200px;
+  background: radial-gradient(closest-side, rgba(255,255,255,0.2), rgba(255,255,255,0));
+  transform: rotateZ(25deg);
+  content: ' ';
 }
 
 .codeScreen {
   height: 200% !important;
-  transform: translateX(64px) translateY(-64px) rotate3d(0.5, 1, 0, 44deg);
+  width: 120% !important;
+  transform: translateX(-100px) translateY(-50px) rotate3d(0.5, 1, 0, 45deg);
   background: #212121;
   border-radius: 8px;
   box-shadow: 0 0 28px #000;
 }
 
+.codeScreen::after {
+  position: absolute;
+  top: 0.5em;
+  right: 1em;
+  font-size: 1.4em;
+  content: '🗕 🗖 🗙';
+}
+
 .codeScreen > * {
-  padding: 4em;
+  padding: 2em;
 }
 
 .codeScreen pre {
@@ -34,10 +69,11 @@ html, body {
   border: none !important;
   margin: 0;
   padding: 0;
+  color: #FFF;
 }
 
 .codeScreen code {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -48,12 +84,7 @@ html, body {
 
 .backgroundColor {
   background: #127db3;
-  opacity: 0.4;
-}
-
-.backgroundImage {
-  background-blend-mode: luminosity;
-  opacity: 0.1;
+  opacity: 0.6;
 }
 
 .absoluteFill {

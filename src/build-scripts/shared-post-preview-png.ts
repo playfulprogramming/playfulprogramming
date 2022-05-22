@@ -18,13 +18,26 @@ import rehypeStringify from "rehype-stringify";
 const unifiedChain = () => {
   let unifiedChain = unified()
     .use(remarkParse)
+    .use(() => (tree) => {
+      // extract code snippets from parsed markdown
+      const nodes = findAllAfter(tree, 0, {type: 'code'});
+      if (!nodes.length) return {type:'root',children:[]};
+
+      // join code parts into one element
+      const value = nodes.map(node => (node as any).value).join('\n');
+
+      return {
+        type: 'root',
+        children: [{
+          type: 'code',
+          lang: (nodes[0] as any).lang,
+          value
+        }]
+      };
+    })
     .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
     .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(() => (tree) => ({
-      type: 'root',
-      children: findAllAfter(tree, 0, node => node.type === 'raw' && (node as any).value.startsWith('<pre'))
-    }))
     .use(rehypeStringify);
 
   return unifiedChain;
@@ -49,10 +62,6 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 );
 
 export const heightWidth = { width: 1280, height: 640 };
-
-const backgroundStr = readFileAsBase64(
-  resolve(__dirname, "./social-previews/assets/code_background.jpg")
-);
 
 const unicornUtterancesHead = readFileAsBase64(
   resolve(__dirname, "../assets/unicorn_head_1024.png")
@@ -102,7 +111,6 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
         postHtml,
         ...heightWidth,
         authorImagesStrs,
-        backgroundStr,
         unicornUtterancesHead,
       })
     )}
