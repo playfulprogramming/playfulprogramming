@@ -4,7 +4,7 @@ import { readFileAsBase64 } from "./read-file-as-base64";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
-function splitSentence(str: string): [string, string] {
+export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
   const splitBy = (regex: RegExp, matchLast: boolean = true): [string, string]|null => {
     const matches = splitStr.map((word, i) => ({ reg: regex.exec(word), i }));
@@ -28,7 +28,7 @@ function splitSentence(str: string): [string, string] {
   // try to split by "Topic['s Attribute]" (apostrophe)
   if (ret = splitBy(/(?<=^\w+\'s?)$/)) return ret;
   // try to split by "Attribute [in Topic]" (lowercase words)
-  if (ret = splitBy(/^[a-z]\w+$/)) return ret;
+  if (ret = splitBy(/^[a-z][A-Za-z]*$/)) return ret;
   // otherwise, don't split the string
   return [str, ""];
 }
