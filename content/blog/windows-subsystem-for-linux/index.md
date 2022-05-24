@@ -1,7 +1,7 @@
 ---
 {
     title: 'Windows Subsystem for Linux',
-    description: 'Best of both worlds',
+    description: 'Utilize the best of both worlds — Windows and Linux — without having to dual boot. Windows Subset for Linux (WSL) lets you run software designed for Linux in Windows.',
     published: '2022-05-24T22:07:20.000Z',
     edited: '2022-05-24T22:07:20.000Z',
     authors: ['splatkillwill'],
@@ -94,15 +94,15 @@ Do you want to continue? [Y/n] Y
 user@MACHINE_NAME:~$
 ```
 
-_Note: If you are looking to get into C or C++ development `build-essential` is a good package to remember to get compilers_
+> Note: If you are looking to get into C or C++ development `build-essential` is a good package to remember to get compilers
 
 ### Visual Studio Code Integration
 
 You can use your regular Windows installation of Visual Studio Code to interact directly with the Linux environment. Install the [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension pack or just [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl). Then you can use the Remote Explorer to browse WSL Targets (WSL OS's you've installed). All the projects and files are in and commands run in the Linux environment.
 
-![](./Screenshot_2021-10-17_171944.jpg)
+![Visual Studio Code showing a side panel with a list of "WSL Targets". There are two targets: Debian and Ubuntu with a project called "my-project" active in Ubuntu](./Screenshot_2021-10-17_171944.jpg)
 
-_Note: The `Remote Development` extension pack also includes `Remote - SSH` which allows you to interact with remote Linux environments exactly the same way_
+> Note: The `Remote Development` extension pack also includes `Remote - SSH` which allows you to interact with remote Linux environments exactly the same way
 
 To test it out we can throw a `hello.cpp` in there.
 
@@ -116,6 +116,6 @@ int main()
 }
 ```
 
-![](./Screenshot_2021-10-21_205232.jpg)
+![The files sidebar open in a VSCode instance showing a project containing C plus plus files open in WSL Ubuntu](./Screenshot_2021-10-21_205232.jpg)
 
 <!-- Does this need a conclusion paragraph (I suck at those) -->
