@@ -1,7 +1,7 @@
 ---
 {
-    title: 'DOM Pollution',
-    description: 'Why I prefer Vue over Angular',
+    title: 'DOM Pollution, Why I prefer Vue over Angular',
+    description: 'See why not all frontend SPA frameworks render the same and what you need to be aware of when using Angular',
     published: '2022-05-24T22:07:20.000Z',
     edited: '2022-05-24T22:07:20.000Z',
     authors: ['splatkillwill'],
@@ -50,7 +50,7 @@ To illustrate, take the following example in Vue:
 
 Which can produce:
 
-![](./Capture1.JPG)
+![HTML table with rows and columns](./Capture1.JPG)
 
 Then if you tried the same in Angular:
 
@@ -80,7 +80,7 @@ Then if you tried the same in Angular:
 </div>
 ```
 
-![](./Capture2.JPG)
+![HTML table with rows and columns messed up](./Capture2.JPG)
 
 What happened? Lets compare the custom components.
 
