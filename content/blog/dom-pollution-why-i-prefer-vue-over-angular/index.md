@@ -1,7 +1,7 @@
 ---
 {
-    title: 'DOM Pollution, Why I prefer Vue over Angular',
-    description: 'See why not all frontend SPA frameworks render the same and what you need to be aware of when using Angular',
+    title: 'Why I prefer Vue over Angular: DOM Pollution',
+    description: 'Angular differs from Vue in some keys ways, including its "Incremental rendering". This shift introduces something I call "DOM Pollution"; its why I prefer Vue over Angular.',
     published: '2022-05-24T22:07:20.000Z',
     edited: '2022-05-24T22:07:20.000Z',
     authors: ['splatkillwill'],
@@ -24,109 +24,35 @@ With a renderer like the one used by Angular, breaking down your UI into reusabl
 
 To illustrate, take the following example in Vue:
 
-```html
-<template>
-  <h1>John Hammond No Expense Report</h1>
-  <my-table>
-    <my-row>
-      <my-header-cell>Category</my-header-cell>
-      <my-header-cell>Amount</my-header-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>Dinosaurs</my-text-cell>
-      <my-decimal-cell :value="999999999.99"></my-decimal-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>Park</my-text-cell>
-      <my-decimal-cell :value="999999999.99"></my-decimal-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>IT</my-text-cell>
-      <my-decimal-cell :value="5.27"></my-decimal-cell>
-    </my-row>
-  </my-table>
-</template>
-```
-
-Which can produce:
-
-![HTML table with rows and columns](./Capture1.JPG)
+<iframe src="https://codesandbox.io/embed/async-leftpad-gjxmqv?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark&highlights=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="A properly formatted table with 'category' and 'amount' headers to your data."
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
 Then if you tried the same in Angular:
 
-```html
-<div>
-  <h1>
-    John Hammond No Expense Report
-  </h1>
-  <my-table>
-    <my-row>
-      <my-header-cell>Category</my-header-cell>
-      <my-header-cell>Amount</my-header-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>Dinosaurs</my-text-cell>
-      <my-decimal-cell [value]="999999999.99"></my-decimal-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>Park</my-text-cell>
-      <my-decimal-cell [value]="999999999.99"></my-decimal-cell>
-    </my-row>
-    <my-row>
-      <my-text-cell>IT</my-text-cell>
-      <my-decimal-cell [value]="5.27"></my-decimal-cell>
-    </my-row>
-  </my-table>
-</div>
-```
-
-![HTML table with rows and columns messed up](./Capture2.JPG)
+<iframe src="https://codesandbox.io/embed/cranky-shadow-frukfg?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Fapp.component.html&theme=dark&highlights=2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="A malformed table that shows all data, including headers, horizontally instead of in a grid"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
 What happened? Lets compare the custom components.
 
-MyTextCell.vue
-```vue
-<template>
-  <td>
-    <slot></slot>
-  </td>
-</template>
-<script>
-export default {
-  name: "MyTextCell",
-};
-</script>
-<style scoped>
-td {
-  border: 1px solid black;
-  text-align: left;
-}
-</style>
-```
+`MyTextCell.vue`
+<iframe src="https://codesandbox.io/embed/async-leftpad-gjxmqv?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FMyTextCell.vue&theme=dark&view=editor"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="MyTextCell.vue"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
-text-cell.component.ts
-```ts
-import { Component } from "@angular/core";
-
-@Component({
-  selector: "my-text-cell",
-  template: `
-    <td>
-      <ng-content></ng-content>
-    </td>
-  `,
-  styles: [
-    `
-      td {
-        border: 1px solid black;
-        text-align: left;
-      }
-    `
-  ]
-})
-export class MyTextCellComponent {
-}
-```
+`text-cell.component.ts`
+<iframe src="https://codesandbox.io/embed/cranky-shadow-frukfg?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Ftext-cell.component.ts&theme=dark&view=editor"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="text-cell.component.ts"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
 They both look like they are just wrapping table detail (cell) tags but they render completely diffrent.
 
