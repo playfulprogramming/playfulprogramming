@@ -36,7 +36,7 @@ const posts = getSocialPosts();
  * ```
  */
 const rebuild = async () => {
-  const html = await renderPostPreviewToString(posts[3]);
+  const html = await renderPostPreviewToString(posts[0]);
 
   const previewHtmlPath = resolve(__dirname, "./dist/preview.html");
   ensureDirectoryExistence(previewHtmlPath);

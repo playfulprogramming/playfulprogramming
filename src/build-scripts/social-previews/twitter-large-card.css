@@ -44,9 +44,9 @@ html, body {
 
 .codeScreen {
   height: 200% !important;
-  width: 120% !important;
-  transform: translateX(-100px) translateY(-50px) rotate3d(0.5, 1, 0, 45deg);
-  transform: translateX(-100px) translateY(-50px) rotate3d(var(--rot-x), var(--rot-y), 0, 45deg);
+  width: 115% !important;
+  transform-origin: 30% 0;
+  transform: rotate3d(0.7, 1, 0.3, 45deg);
   background: #222;
   border-radius: 8px;
   box-shadow: 0 0 28px #000;
@@ -82,6 +82,7 @@ html, body {
 .codeScreen .code-container {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .backgroundColor {

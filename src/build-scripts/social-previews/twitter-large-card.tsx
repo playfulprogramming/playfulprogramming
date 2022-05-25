@@ -21,18 +21,19 @@ const TwitterCodeScreen = ({
   html,
   blur
 }: TwitterCodeScreenProps) => {
-  // use first char of title as "deterministic" random value
-  const rotation = (index: number, max: number) => {
-    const val = -max + (title.charCodeAt(index)/5 % (2*max));
-    return Math.log(2 + Math.abs(val)) * (val<0?-1:1);
-  };
+  const rotations = [
+    'rotate3d(0.7, -1.3, -0.5, 45deg) translate(-5%, -10%)',
+    'rotate3d(-1.3, -2, 1, 45deg) translate(-2%, -20%)',
+  ];
+
+  // use second char of title as "deterministic" random value
+  const transform = rotations[title.charCodeAt(1) % rotations.length];
 
   return (
-    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`} style={{
-      '--rot-x': rotation(0, 1.5),
-      '--rot-y': rotation(1, 2),
-    } as React.CSSProperties}>
-      <div className="absoluteFill codeScreen">
+    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`}>
+      <div className="absoluteFill codeScreen" style={{
+        transform
+      } as React.CSSProperties}>
         <div className="absoluteFill">
           <pre dangerouslySetInnerHTML={{__html: html}}/>
         </div>
