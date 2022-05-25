@@ -23,7 +23,8 @@ const TwitterCodeScreen = ({
 }: TwitterCodeScreenProps) => {
   const rotations = [
     'rotate3d(0.7, -1.3, -0.5, 45deg) translate(-5%, -10%)',
-    'rotate3d(-1.3, -2, 1, 45deg) translate(-2%, -20%)',
+    'rotate3d(-0.8, -2, 1, 40deg) translate(-2%, -20%)',
+    'rotate3d(-1.3, -2, 1, 50deg) translate(0%, -20%)',
   ];
 
   // use second char of title as "deterministic" random value
