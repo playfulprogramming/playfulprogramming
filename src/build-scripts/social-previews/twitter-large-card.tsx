@@ -11,32 +11,35 @@ function splitSentence(str: string): [string, string] {
 }
 
 interface TwitterCodeScreenProps {
-  title: string,
-  html: string,
-  blur: boolean
+  title: string;
+  html: string;
+  blur: boolean;
 }
 
-const TwitterCodeScreen = ({
-  title,
-  html,
-  blur
-}: TwitterCodeScreenProps) => {
+const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
   const rotations = [
     'rotate3d(0.7, -1.3, -0.5, 45deg) translate(-5%, -10%)',
     'rotate3d(-0.8, -2, 1, 40deg) translate(-2%, -20%)',
     'rotate3d(-1.3, -2, 1, 50deg) translate(0%, -20%)',
+    // Corbin added this to look like the original
+    "rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translateX(4%)",
   ];
 
   // use second char of title as "deterministic" random value
   const transform = rotations[title.charCodeAt(1) % rotations.length];
 
   return (
-    <div className={`absoluteFill codeScreenBg ${blur?'blur':''}`}>
-      <div className="absoluteFill codeScreen" style={{
-        transform
-      } as React.CSSProperties}>
+    <div className={`absoluteFill codeScreenBg ${blur ? "blur" : ""}`}>
+      <div
+        className="absoluteFill codeScreen"
+        style={
+          {
+            transform,
+          } as React.CSSProperties
+        }
+      >
         <div className="absoluteFill">
-          <pre dangerouslySetInnerHTML={{__html: html}}/>
+          <pre dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </div>
     </div>
@@ -72,9 +75,9 @@ const TwitterLargeCard = ({
         overflow: "hidden",
       }}
     >
-      <TwitterCodeScreen title={post.title} html={postHtml} blur={true}/>
-      <TwitterCodeScreen title={post.title} html={postHtml} blur={false}/>
-      <div className="absoluteFill codeScreenOverlay"/>
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
+      <div className="absoluteFill codeScreenOverlay" />
       <div className="absoluteFill centerAll">
         <h1
           style={{
