@@ -18,11 +18,9 @@ interface TwitterCodeScreenProps {
 
 const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
   const rotations = [
-    'rotate3d(0.7, -1.3, -0.5, 45deg) translate(-5%, -10%)',
-    'rotate3d(-0.8, -2, 1, 40deg) translate(-2%, -20%)',
-    'rotate3d(-1.3, -2, 1, 50deg) translate(0%, -20%)',
-    // Corbin added this to look like the original
-    "rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translateX(4%)",
+    "rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translate(16%, 0%)",
+    "rotateX(5deg) rotateY(35deg) rotateZ(345deg) translate(18%, 0)",
+    "rotateX(15deg) rotateY(25deg) rotateZ(12deg) translate(3%, -15%)"
   ];
 
   // use second char of title as "deterministic" random value

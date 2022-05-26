@@ -49,7 +49,7 @@ html, body {
 .codeScreen {
   height: 200% !important;
   width: 115% !important;
-  transform-origin: 30% 0;
+  transform-origin: 50% 50%;
   transform: rotate3d(0.7, 1, 0.3, 45deg);
   background: #222;
   border-radius: 8px;
@@ -79,7 +79,7 @@ html, body {
 }
 
 .codeScreen code {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
