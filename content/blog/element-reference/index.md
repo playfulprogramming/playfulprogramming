@@ -500,18 +500,147 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
+This is the reason we utilized `.bind` in the previous Angular example: it forces `this.count` to be bound to the component instance.
 
+```typescript
+addOne = function () {
+  this.count++;
+}.bind(this);
+```
 
 
 ## Can we solve this without `.bind`?
 
-Yes! Arrow functions:
+> The `.bind` code looks obtuse and increases the amount of boilerplate in our components. Is there any other way to solve the `this` issue without `bind`?
 
+Yes! Introducing: Arrow functions.
 
+When learning JavaScript, you may have come across an alternative way of creating functions. Sure, there's the original `function` keyword:
 
+```javascript
+function SayHi() {
+	console.log("Hi");
+}
+```
 
+But if you wanted to remove a few characters, you could alternatively use an "arrow function" syntax instead:
 
+```javascript
+const SayHi = () => {
+	console.log("Hi");
+}
+```
 
+Some people even start explanations by saying that there are no differences between these two methods, but that's not quite right.
+
+Take our `Cup` and `Bowl` example from earlier:
+
+```javascript
+class Cup {
+	contents = "water";
+    
+    consume() {
+        console.log("You drink the ", this.contents, ". Hydrating!");
+    }
+}
+
+class Bowl {
+    contents = "chili";
+    
+    consume() {
+        console.log("You eat the ", this.contents, ". Spicy!");
+    }
+}
+
+cup = new Cup();
+bowl = new Bowl();
+
+cup.consume = bowl.consume;
+
+cup.consume();
+```
+
+We already know that this example will log `"You eat the water. Spicy!"` when `cup.consume()` is called.
+
+But what happens if we instead change `Bowl.consume()` from a class method to an arrow function:
+
+```javascript
+class Cup {
+	contents = "water";
+    
+    consume = () => {
+        console.log("You drink the ", this.contents, ". Hydrating!");
+    }
+}
+
+class Bowl {
+    contents = "chili";
+    
+    consume = () => {
+        console.log("You eat the ", this.contents, ". Spicy!");
+    }
+}
+
+cup = new Cup();
+bowl = new Bowl();
+
+cup.consume = bowl.consume;
+
+// What will this output?
+cup.consume();
+```
+
+ While it might seem obvious what the output would be, if you thought it was the same `"You eat the water. Spicy!"`  as before, you're in for a suprise.
+
+Instead, it outputs: `"You eat the chili. Spicy!"`, as if it were bound to `bowl`.
+
+> Why does an arrow function act like it's bound?
+
+That's simply the semantic meaning of an arrow function! While `function` (and methods) both implicitly bind `this` to a callee of the function, an arrow function is bound to the original `this` scope and cannot be modified.
+
+Even if we try to use `.bind` on an arrow function to overwrite this behavior, it will never change its scope away from `bowl`.
+
+```javascript
+cup = new Cup();
+bowl = new Bowl();
+
+// The `bind` does not work on arrow functions
+cup.consume = bowl.consume.bind(cup);
+
+// This will still output as if we ran `bowl.consume()`.
+cup.consume();
+```
+
+Knowing this, we can refactor our Angular component to set `addOne` to an arrow function instead of using `.bind`:
+
+```typescript
+@Component({
+    selector: 'paragraph',
+    template: `
+		<button #btn>Add one</button>
+    	<p>Count is {{count}}</p>
+    `
+})
+class RenderParagraphComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('btn') btn: ElementRef<HTMLElement>;
+    
+    count = 0;
+    
+    addOne = () => {
+        this.count++;
+    }
+    
+    ngAfterViewInit() {
+        this.btn.nativeElement.addEventListener('click', this.addOne);
+    }
+    
+    ngOnDestroy() {
+        this.btn.nativeElement.removeEventListener('click', this.addOne);
+    }
+}
+```
+
+Now our component works as intended and has minimal boilerplate to solve the problem of `this`!
 
 # Vue
 
