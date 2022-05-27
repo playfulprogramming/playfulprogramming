@@ -381,6 +381,138 @@ cup.consume();
 
 ![Imagine bowl and cup as two boxes. Inside of the boxes are 2 items each. The "Bowl" box contains a yellow container of "Chili", a red "consume" method. The "Cup" box contains a blue container of "Water" and a purple "consume" method. When we assign the red "bowl" consume method to `cup` and call "consume", it will still have `this` pointed towards "Water"](./this_explainer_chart.png)
 
+
+
+This can be a problem at times. If we want `bowl.consume` to _always_ reference the `this` scope of `bowl`, then we can use `.bind` to force `bowl.consume` to use the same `this` method.
+
+```javascript
+cup = new Cup();
+bowl = new Bowl();
+
+// This is assigning the `bowl.consume` message and binding the `this` context to `bowl`
+cup.consume = bowl.consume.bind(bowl);
+
+// Because of this, we will now see the output "You eat the chili. Spicy!" again
+cup.consume();
+```
+
+
+
+![](./bind_explainer.png)
+
+## What does `.bind` have to do with an Angular event listener?
+
+> Both `cup` and `bowl` are both classes, which creates a scope. This makes sense why `this` is being reassigned, by what does this have to do with `addEventListener`?
+
+To answer this question, let's look back at a minimal version of our unbound Angular code. 
+
+```typescript
+@Component({
+    selector: 'paragraph',
+    template: `
+		<button #btn>Add one</button>
+    	<p>Count is {{count}}</p>
+    `
+})
+class RenderParagraphComponent implements AfterViewInit {
+    @ViewChild('btn') btn: ElementRef<HTMLElement>;
+    
+    count = 0;
+    
+    addOne() {
+        // What is `this` being set to?
+        this.count++;
+    }
+    
+    ngAfterViewInit() {
+        this.btn.nativeElement.addEventListener('click', this.addOne);
+    }
+}
+```
+
+Remember that `this` is being bound to _something_. To understand what that might be, let's do a small rewrite of the code:
+
+```typescript
+// ngAfterViewInit
+const button = this.btn.nativeElement;
+button.onClick = this.addOne;
+```
+
+We can then think of your browser calling an event on `button` to look something like this:
+
+```javascript
+/**
+ * This is a representation of what your browser is doing when you click the button.
+ * This is NOT how it really works, just an explainatory representation
+ */
+function clickButton() {
+	button.onClick();
+}
+```
+
+Now that we have that code written to be a little simpler, let's chart out what's happening behind-the-scenes:
+
+![When onClick is assigned to addOne, it doesn't carry over the `this`, because it isn't bound. As a result, when button.onClick is called, it will utilize Button's `this` value.](./component_this_explainer.png)
+
+Here, we can see that, despite assigning `component.addOne` to `button.onClick`, when the browser calls `button.onClick`, the `this` keyword (from within `addOne`) is actually pointing at the scope of the [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) `button`, not the Angular `Component` instance.
+
+This means that within this code:
+```typescript
+addOne() {
+	this.count++;
+}
+
+ngAfterViewInit() {
+    this.btn.nativeElement.addEventListener('click', this.addOne);
+}
+```
+
+`this.count` is pointing at the Button HTML DOM instance instead of the component instance.
+
+To prove this, let's `console.log` the DOM element's `count` value:
+
+```typescript
+@Component({
+    selector: 'paragraph',
+    template: `
+		<button #btn>Add one</button>
+		<button (click)="logButtonCount()">Click me</button>
+    `
+})
+class RenderParagraphComponent implements AfterViewInit {
+    @ViewChild('btn') btn: ElementRef<HTMLElement>;
+
+    addOne() {
+        // What is `this` being set to?
+        this.count++;
+        console.log(this); // Will output an HTMLElement instance of `button`
+    }
+    
+    ngAfterViewInit() {
+        // Otherwise `logButtonCount` will show `NaN`
+        this.btn.nativeElement.count = 0;
+        this.btn.nativeElement.addEventListener('click', this.addOne);
+    }
+    
+    logButtonCount() {
+        console.log(this.btn.nativeElement.count); // This increments every time `addOne` is ran
+    }
+}
+```
+
+
+
+
+## Can we solve this without `.bind`?
+
+Yes! Arrow functions:
+
+
+
+
+
+
+
 # Vue
 
 // TODO
