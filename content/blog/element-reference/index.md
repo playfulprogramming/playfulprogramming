@@ -9,14 +9,19 @@
     order: 10,
     series: "The Framework Field Guide"
 }
-
 ---
 
+While React, Angular, and Vue all provide simple built-in APIs to access events, inputs, and other bindings to underlying HTML elements, sometimes it's just not enough.
 
+In those rare events you want to eject away from the framework controlling your access to HTML nodes, each framework enables you to access the underlying DOM nodes via element reference.
+
+Let's look at some basic examples.
 
 <!-- tabs:start -->
 
 # React
+
+In React, there's no simpler demonstration of an element reference than passing a function to an element's `ref` property.
 
 ```jsx
 const RenderParagraph = () => {
@@ -25,7 +30,11 @@ const RenderParagraph = () => {
 }
 ```
 
-// TODO: Add more
+In this example, once the paragraph tags renders, it will `console.log` the underlying HTML DOM node.
+
+> You may be wondering where the `ref` property has come from, since it's not a known [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) property. This is because `ref` is a reserved property by React for this special case. 
+
+Knowing that we can pass a function to gain access to the HTML DOM node, we can pass a function that adds an event listener to the HTML element.
 
 ```jsx
 const RenderButton = () => {
@@ -40,11 +49,13 @@ const RenderButton = () => {
 }
 ```
 
+> This is just used as an example of what you can do with the underlying HTML element. While there _are_ perfectly valid reasons for using `ref` to `addEventListener` (we'll touch on one such case later on), it's usually suggested to use `onClick` style event bindings instead.
+
 ## `useState` `ref`s
 
 However, this is a problem because our `addEventListener` is never cleaned up! Remember, this is part of the API that `useEffect` provides.
 
-As a result, let's store the value of `el` into a `useState`, then pass that value into a `useEffect`, which will then add the event listener
+As a result, let's store the value of `el` into a `useState`, then pass that value into a `useEffect`, which will then add the event listener:
 
 ```jsx
 const CountButton = () => {
@@ -80,13 +91,16 @@ const CountButton = () => {
 }
 ```
 
+> Once again: You should be using `onClick` to bind a method, this is only to demonstrate how element `ref`s work
+
+You'll notice in this example that within our `useEffect`, we're utilizing a function to update `setCount`. This is because otherwise, we will run into a "Stale Closure", which means that our `count` value will never update past `1`.
+
 // TODO: Explain closures (or link out to curse-free mirror of https://whatthefuck.is/closure)
 
-> You should be using `onClick` to bind a method, this is only to demonstrate how element `ref`s work
 
-// TODO: Add transition sentence
+Overall, we're utilizing a familiar `useState` hook in order to store our `ref`. Fairly standard stuff thus far.
 
-However, if you look through the [React Hooks API documentation](// TODO: Link), you'll notice something called `useRef`. Sensibly, based on the name, it's very commonly used with an element's `ref` property. But why aren't we using it here? What is it?
+However, if you look through the [React Hooks API documentation](// TODO: Link), you'll notice something called `useRef`. Sensibly, based on the name, it's very commonly used with an element's `ref` property. But why aren't we using it in this example? What is `useRef`?
 
 ## What's a `useRef` and why aren't we using it?
 
@@ -187,11 +201,185 @@ Only when the `useState` variable is updated (via the `button`'s `onClick`) does
 
 This isn't to say that `useRef` is bad by any means, though. Instead, what I'm trying to say is that you shouldn't use a `useRef` inside of a `useEffect` (unless you _really_ know what you're doing).
 
-[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here](https://unicorn-utterances.com/posts/react-refs-complete-story)
+[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
 
 # Angular
 
-// TODO
+In our chapter about [content reference](/posts/content-reference), we touched on `ContentChild`, a method of accessing the projected content programmatically without our component class instance.
+
+While this is extremely useful when you're able to use it, projected content isn't the only thing HTML elements we want to reference programatically.
+
+This is where `ContentChild`'s sibling API comes into play: `ViewChild`. Using `ViewChild`, we can access an Element that's within an Angular component's `template`:
+
+```typescript
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+
+@Component({
+    selector: 'paragraph',
+    template: `<p #pTag></p>`
+})
+class RenderParagraphComponent implements AfterViewInit {
+    @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
+    
+    ngAfterViewInit() {
+        console.log(this.pTag.nativeElement);
+    }
+}
+```
+
+Here, we're using a [template reference variable](/posts/content-reference#ng-templates) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
+
+> What's this new `ngAfterViewInit` method?
+
+Similar to how `ViewContent` has an associated lifecycle method that tells our component when the project content is ready, so too do we have a lifecycle method to let us know when our template is rendered fully: `ngAfterViewInit`.
+
+If we were to run our `console.log` within `ngOnInit`, it would throw an error due to `nativeElement` being `undefined`.
+
+<!-- Editors note: This isn't true. `{static: true}` fixes this problem for us -->
+
+<!-- TODO: Make this true -->
+
+Using this, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
+
+```typescript
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+
+@Component({
+    selector: 'paragraph',
+    template: `
+		<button #btn>Add one</button>
+    	<p>Count is {{count}}</p>
+    `
+})
+class RenderParagraphComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('btn') btn: ElementRef<HTMLElement>;
+    
+    count = 0;
+    
+    addOne() {
+        this.count++;
+    }
+    
+    ngAfterViewInit() {
+        this.btn.nativeElement.addEventListener('click', this.addOne);
+    }
+    
+    ngOnDestroy() {
+        this.btn.nativeElement.removeEventListener('click', this.addOne);
+    }
+}
+```
+
+But wait! When we click on the `button`, `count` is not updated!
+
+This is because `this` is being unbound from the component instance within `addEventListener`, and we need to forcibly rebind the `count` to the component instead.
+
+Change `addOne` to the following:
+
+```typescript
+addOne = function () {
+  this.count++;
+}.bind(this);
+```
+
+And boom, the count suddenly starts updating when the button is pressed.
+
+> Wat?!
+
+## What does `.bind` mean and why did it fix our problem?
+
+OK, so here's the deal. Remember this headache inducing sentence that I just used as an explaination:
+
+> This is because `this` is being unbound from the component instance within `addEventListener`, and we need to forcibly rebind the `count` to the component instead.
+
+Even I'm ready to admit that, while it is _technically correct_, it's absolute gibberish to anyone that's already in the know.
+
+Here's what's actually happening.
+
+This behavior isn't unique to Angular, it's a JavaScript "feature" of `this` that's introduced a bug in our code.
+
+Take the following two classes:
+
+```javascript
+class Cup {
+	contents = "water";
+    
+    consume() {
+        console.log("You drink the ", this.contents, ". Hydrating!");
+    }
+}
+
+class Bowl {
+    contents = "chili";
+    
+    consume() {
+        console.log("You eat the ", this.contents, ". Spicy!");
+    }
+}
+
+cup = new Cup();
+bowl = new Bowl();
+```
+
+If we run:
+
+```javascript
+cup.consume();
+```
+
+It will `console.log` "You drink the water. Hydrating!". Meanwhile, if you run:
+
+```javascript
+bowl.consume();
+```
+
+It will `console.log` "You eat the chili. Spicy!".
+
+Makes sense, right?
+
+Now, what do you think will happened if I do the following?
+
+```javascript
+cup = new Cup();
+bowl = new Bowl();
+
+cup.consume = bowl.consume;
+
+cup.consume();
+```
+
+While you might think that it would log `"You eat the chili. Spicy!"`, it doesn't! Instead, it logs: `"You drink eat the water. Spicy!"`.
+
+Why?
+
+The `this` keyword isn't bound to the `Bowl` class, like you might otherwise expect. Instead, the `this` keyword searches for the  [scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope) of the caller. 
+
+> To explain this better using plain English, this might be reiterated as: "JavaScript looks at the class that uses the `this` keyword, not the class that creates the `this` keyword"
+
+Because of this:
+
+```javascript
+cup = new Cup();
+bowl = new Bowl();
+
+// This is assigning the `bowl.consume` message
+cup.consume = bowl.consume;
+
+// But using the `cup.contents` `this` scoping
+cup.consume();
+```
+
+![Imagine bowl and cup as two boxes. Inside of the boxes are 2 items each. The "Bowl" box contains a yellow container of "Chili", a red "consume" method. The "Cup" box contains a blue container of "Water" and a purple "consume" method. When we assign the red "bowl" consume method to `cup` and call "consume", it will still have `this` pointed towards "Water"](./this_explainer_chart.png)
 
 # Vue
 
@@ -215,11 +403,11 @@ This isn't to say that `useRef` is bad by any means, though. Instead, what I'm t
   - `ref`/`forwardRef` / `useImperativeHandle` React
     - Array of refs
   - ViewChild/Angular
+    - `ViewChild`
     - `ViewChildren`
   - `ref` / Vue
     - Array of refs
   - Element reference
-  - Component reference
 
 
 

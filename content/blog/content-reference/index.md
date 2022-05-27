@@ -218,6 +218,10 @@ class ParentListComponent implements OnInit {
 
 This is because while `ngOnInit` runs after the component has rendered, it has not yet received any values within `ng-content`; This is where `ngAfterContentInit` comes into play. This lifecycle method runs once `ng-content` has received the values, which we can then use as a sign that `ContentChild` has finished it's query.
 
+<!-- Editors note: This isn't true. `{static: true}` fixes this problem for us -->
+
+<!-- TODO: Make this true -->
+
 ## And then there were more: `ContentChildren`
 
 While `ContentChild` is useful for querying against a single item being projected, what if we wanted to query against multiple items being projected?
