@@ -398,7 +398,7 @@ cup.consume();
 
 
 
-![](./bind_explainer.png)
+![When using the "bind" method, you're telling cup.consume to always reference "bowl"'s binding.](./bind_explainer.png)
 
 ## What does `.bind` have to do with an Angular event listener?
 
@@ -646,7 +646,189 @@ Now our component works as intended and has minimal boilerplate to solve the pro
 
 // TODO
 
+```jsx
+const App = {
+  template: '<p ref="el"></p>',
+  mounted() {
+    console.log(this.$refs.el);
+  },
+};
+```
+
+
+
+```javascript
+const App = {
+  template: '<p :ref="logEl"></p>',
+  methods: {
+    logEl(el) {
+      console.log(el);
+    },
+  },
+};
+```
+
+
+
+
+
 <!-- tabs:end -->
+
+
+
+
+
+# How to keep an array of element references
+
+
+
+Array of items, for usage with `scrollIntoView` so that you can bring users to the right item.
+
+
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const chapters = [
+  'Preface',
+  'Introduction to Components',
+  'Dynamic HTML',
+  'Lifecycle Methods',
+  'Derived Values',
+  'Forms',
+  'Partial DOM Application',
+  'Content Projection',
+  'Content Reference',
+  'Element Reference',
+];
+
+export default function App() {
+  const chaptersRef = React.useRef([]);
+
+  const scrollToTop = () => {
+    chaptersRef.current[0].scrollIntoView();
+  };
+
+  const scrollToBottom = () => {
+    chaptersRef.current[chaptersRef.current.length - 1].scrollIntoView();
+  };
+
+  return (
+    <div>
+      <button onClick={scrollToTop}>Scroll to top</button>
+      <ul style={{ height: '100px', overflow: 'scroll' }}>
+        {chapters.map((chapter, i) => {
+          return <li ref={(el) => (chaptersRef.current[i] = el)}>{chapter}</li>;
+        })}
+      </ul>
+      <button onClick={scrollToBottom}>Scroll to bottom</button>
+    </div>
+  );
+}
+```
+
+## Angular
+
+// TODO: Add more
+
+````typescript
+@Component({
+  selector: 'my-app',
+  template: `
+    <div>
+      <button (click)="scrollToTop()">Scroll to top</button>
+      <ul style="height: 100px; overflow: scroll">
+        <li #listItem *ngFor="let chapter of chapters; let i = index">
+          {{chapter}}
+        </li>
+      </ul>
+      <button (click)="scrollToBottom()">Scroll to bottom</button>
+    </div>
+  `,
+})
+class AppComponent {
+  @ViewChildren('listItem') els: QueryList<ElementRef<HTMLElement>>;
+
+  scrollToTop() {
+    this.els.get(0).nativeElement.scrollIntoView();
+  }
+
+  scrollToBottom() {
+    this.els.get(this.els.length - 1).nativeElement.scrollIntoView();
+  }
+
+  chapters = [
+    'Preface',
+    'Introduction to Components',
+    'Dynamic HTML',
+    'Lifecycle Methods',
+    'Derived Values',
+    'Forms',
+    'Partial DOM Application',
+    'Content Projection',
+    'Content Reference',
+    'Element Reference',
+  ];
+}
+````
+
+
+
+## Vue
+
+// TODO: Add more
+
+```javascript
+const App = {
+  template: `
+  <div>
+  <button @click="scrollToTop()">Scroll to top</button>
+  <ul style="height: 100px; overflow: scroll">
+    <li #listItem v-for="(chapter, i) of chapters" ref="items">
+      {{chapter}}
+    </li>
+  </ul>
+  <button @click="scrollToBottom()">Scroll to bottom</button>
+</div>
+  `,
+  methods: {
+    scrollToTop() {
+      this.$refs.items[0].scrollIntoView();
+    },
+    scrollToBottom() {
+      this.$refs.items[this.$refs.items.length - 1].scrollIntoView();
+    },
+  },
+  data() {
+    return {
+      chapters: [
+        'Preface',
+        'Introduction to Components',
+        'Dynamic HTML',
+        'Lifecycle Methods',
+        'Derived Values',
+        'Forms',
+        'Partial DOM Application',
+        'Content Projection',
+        'Content Reference',
+        'Element Reference',
+      ],
+    };
+  },
+};
+```
+
+
+
+<!-- tabs:end -->
+
+
+
+
+
+
 
 
 
