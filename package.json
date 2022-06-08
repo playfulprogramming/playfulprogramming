@@ -75,7 +75,7 @@
     "remark-unwrap-images": "^3.0.1",
     "retext-english": "^4.1.0",
     "sass": "^1.51.0",
-    "sharp": "^0.30.4",
+    "sharp": "^0.30.5",
     "slash": "^4.0.0",
     "strip-markdown": "^5.0.0",
     "terser": "^4.8.0",
