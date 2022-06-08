@@ -58,17 +58,17 @@ Como lo mencionamos antes, también tenemos un servidor de Discord donde podemos
 <li style="
     margin: 16px;
 ">
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="The Polyglot Developer" src="/sponsors/the-polyglot-developer.svg"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="The Polyglot Developer" src="/the-polyglot-developer.svg"/></a>
 </li>
 <li style="
     margin: 16px;
 ">
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="OceanBit" src="/sponsors/oceanbit.svg"/></a>
+<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="OceanBit" src="/oceanbit.svg"/></a>
 </li>
 <li style="
     margin: 16px;
 ">
-<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="CoderPad" src="/sponsors/coderpad.svg"/></a>
+<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored" style="position: relative; display: inline-block; width: 300px; height: 100px"><img data-nozoom="true" alt="CoderPad" src="/coderpad.svg"/></a>
 </li>
 </ul>
 
