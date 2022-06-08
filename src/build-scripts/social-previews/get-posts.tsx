@@ -11,10 +11,10 @@ export function getSocialPosts() {
         name: true,
         profileImg: true,
       },
+      content: true,
     } as const,
     "en"
   );
-
   return posts;
 }
 

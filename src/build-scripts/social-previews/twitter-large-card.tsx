@@ -1,8 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PreviewPost } from "./get-posts";
-import { readFileAsBase64 } from "./read-file-as-base64";
-import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -39,33 +36,72 @@ export function splitSentence(str: string): [string, string] {
   return [str, ""];
 }
 
+interface TwitterCodeScreenProps {
+  title: string;
+  html: string;
+  blur: boolean;
+}
+
+const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
+  const rotations = [
+    "rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translate(16%, 0%)",
+    "rotateX(5deg) rotateY(35deg) rotateZ(345deg) translate(18%, 0)",
+    "rotateX(15deg) rotateY(25deg) rotateZ(12deg) translate(3%, -15%)",
+  ];
+
+  // use second char of title as "deterministic" random value
+  const transform = rotations[title.charCodeAt(1) % rotations.length];
+
+  return (
+    <div className={`absoluteFill codeScreenBg ${blur ? "blur" : ""}`}>
+      <div
+        className="absoluteFill codeScreen"
+        style={
+          {
+            transform,
+          } as React.CSSProperties
+        }
+      >
+        <div className="absoluteFill">
+          <pre dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 interface TwitterLargeCardProps {
   post: PreviewPost;
+  postHtml: string;
   height: number;
   width: number;
   authorImagesStrs: string[];
-  backgroundStr: string;
   unicornUtterancesHead: string;
 }
 
 const TwitterLargeCard = ({
   post,
+  postHtml,
   height,
   width,
   authorImagesStrs,
-  backgroundStr,
   unicornUtterancesHead,
 }: TwitterLargeCardProps) => {
   const title = post.title;
   const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
+
   return (
     <div
       style={{
         height: `${height}px`,
         width: `${width}px`,
         position: "relative",
+        overflow: "hidden",
       }}
     >
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
+      <TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
+      <div className="absoluteFill codeScreenOverlay" />
       <div className="absoluteFill centerAll">
         <h1
           style={{
@@ -83,14 +119,7 @@ const TwitterLargeCard = ({
       <div
         className="absoluteFill backgroundColor"
         style={{
-          zIndex: -2,
-        }}
-      />
-      <div
-        className="absoluteFill backgroundImage"
-        style={{
           zIndex: -1,
-          backgroundImage: `url("${backgroundStr}")`,
         }}
       />
       <div className="bottomContainer">

@@ -7,7 +7,7 @@ import { siteDirectory, sponsorsDirectory, unicorns } from "utils/fs/get-datas";
 import unicornLogo from "../assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
 import { readMarkdownFile } from "utils/fs/api";
-import { join } from "path";
+import { join, resolve } from "path";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { SEO } from "components/seo";
@@ -116,7 +116,10 @@ export async function getStaticProps() {
     }
   );
 
-  const { html } = await markdownToHtml(pickedData.content!, sponsorsDirectory);
+  const { html } = await markdownToHtml(
+    pickedData.content!,
+    resolve(sponsorsDirectory, "..")
+  );
 
   return {
     props: {
