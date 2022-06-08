@@ -19,6 +19,7 @@ import { PluggableList } from "unified";
 
 // TODO: Create types
 import behead from "remark-behead";
+import rehypeRaw from "rehype-raw";
 
 interface markdownChainProps {
   remarkPlugins: PluggableList;
@@ -54,7 +55,6 @@ export default async function markdownToHtml(
       remarkUnwrapImages,
       /* start remark plugins here */
       [behead, { after: 0, depth: 1 }],
-
       [
         remarkEmbedder as any,
         {
@@ -69,6 +69,8 @@ export default async function markdownToHtml(
       ],
     ],
     rehypePlugins: [
+      // This is required to handle unsafe HTML embedded into Markdown
+      rehypeRaw,
       [
         rehypeImageSize as any,
         {
