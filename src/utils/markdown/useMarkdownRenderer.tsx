@@ -1,6 +1,5 @@
 import * as React from "react";
 import { unified } from "unified";
-import rehypeParse from "rehype-parse";
 import reactRehyped from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
@@ -13,6 +12,14 @@ import {
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 import { MarkdownDataProvider } from "utils/markdown/MarkdownRenderer/data-context";
+
+/**
+ * This is replaced with the smaller `rehype-dom-parse` using Webpack
+ * Bad idea? Sure, but trying the `isBrowser()` logic doesn't work for bundled stuff.
+ *
+ * Neither does the less obvious `if (isBrowser()) await import()`
+ */
+import rehypeParseIsomorphic from "rehype-parse";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
@@ -54,7 +61,7 @@ export const useMarkdownRenderer = (
   const result = React.useMemo(
     () =>
       unified()
-        .use(rehypeParse)
+        .use(rehypeParseIsomorphic)
         .use(reactRehyped, {
           createElement: React.createElement,
           components: getComponents(props, comps) as any,

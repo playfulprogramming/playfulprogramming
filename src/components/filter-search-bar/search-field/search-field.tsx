@@ -4,34 +4,8 @@ import classNames from "classnames";
 import SearchIcon from "assets/icons/search.svg";
 import { SearchAndFilterContext } from "uu-constants";
 import { useElementBounds } from "uu-utils";
-import { motion, Variants } from "framer-motion";
 
 const placeholder = "Search";
-
-const PosedInput = React.forwardRef<
-  any,
-  React.ComponentProps<React.PropsWithChildren<typeof motion.input>>
->(({ children, ...props }, ref) => {
-  const variants: Variants = {
-    initial: (target) => ({
-      width: target,
-    }),
-  };
-
-  return (
-    <motion.input
-      {...props}
-      variants={variants}
-      animate={"initial"}
-      transition={{ ease: "linear", duration: 0.2 }}
-      ref={ref}
-    >
-      {children}
-    </motion.input>
-  );
-});
-
-PosedInput.displayName = "PosedInput";
 
 export const SearchField = ({ className }: { className?: string }) => {
   const { setSearchVal, searchVal } = useContext(SearchAndFilterContext);
@@ -82,7 +56,7 @@ export const SearchField = ({ className }: { className?: string }) => {
         <SearchIcon className={styles.icon} />
         <div className={styles.inputContainer} ref={containerRef as any}>
           <div style={{ height: inputHeight }} />
-          <PosedInput
+          <input
             placeholder={placeholder}
             ref={inputCallbackRef}
             aria-label="Search for posts"
@@ -90,7 +64,6 @@ export const SearchField = ({ className }: { className?: string }) => {
               const val = (e.target as HTMLInputElement).value;
               setSearchVal(val);
             }}
-            custom={innerWinSize >= 450 ? currInputWidth : "100%"}
             value={searchVal}
             onFocus={() => setIsFocused(true)}
             style={{ maxWidth: maxSpanWidth }}
