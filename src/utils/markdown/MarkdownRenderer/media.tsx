@@ -8,7 +8,7 @@ import { EMBED_SIZE } from "../constants";
 export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
   return {
     img: (imgProps: unknown) => {
-      const { src, ...props2 } = imgProps as ImageProps;
+      const { src, style, ...props2 } = imgProps as ImageProps;
       let srcStr = getFullRelativePath(...serverPath, src as string); // ImageProps isn't _quite_ right for our usg here
 
       const htmlProps = imgProps as Record<string, any>;

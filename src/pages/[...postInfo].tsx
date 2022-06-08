@@ -127,6 +127,7 @@ const Post = ({
         pathName={router.asPath}
         canonical={post.originalLink}
         langData={langData}
+        shareImage={`/${post.slug}.twitter-preview.png`}
       />
       <article>
         <BlogPostLayout
