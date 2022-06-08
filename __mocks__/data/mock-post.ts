@@ -15,6 +15,9 @@ export const MockPost: PostInfo & RenderedPostInfo = {
   headingsWithId: [],
   wordCount: 10000,
   content: "",
+  translations: {
+    en: "English",
+  },
 };
 
 export const MockMultiAuthorPost: PostInfo & RenderedPostInfo = {
@@ -31,4 +34,46 @@ export const MockMultiAuthorPost: PostInfo & RenderedPostInfo = {
   headingsWithId: [],
   wordCount: 100000,
   content: "",
+  translations: {
+    en: "English",
+  },
+};
+
+export const MockMuliLanguagePost: PostInfo & RenderedPostInfo = {
+  excerpt:
+    "This would be a second auto generated excerpt of the post in particular",
+  title: "Another post title",
+  published: "10-20-2010",
+  tags: ["item1"],
+  description:
+    "This is another short description dunno why this would be this short",
+  authors: [MockUnicornTwo, MockUnicorn],
+  license: MockLicense,
+  slug: "this-other-post-name-here",
+  headingsWithId: [],
+  wordCount: 100000,
+  content: "",
+  translations: {
+    es: "Español",
+  },
+};
+
+export const MockCanonicalPost: PostInfo & RenderedPostInfo = {
+  excerpt:
+    "This would be a second auto generated excerpt of the post in particular",
+  title: "Another post title",
+  published: "10-20-2010",
+  originalLink: "https://google.com/",
+  tags: ["item1"],
+  description:
+    "This is another short description dunno why this would be this short",
+  authors: [MockUnicornTwo, MockUnicorn],
+  license: MockLicense,
+  slug: "this-other-post-name-here",
+  headingsWithId: [],
+  wordCount: 100000,
+  content: "",
+  translations: {
+    en: "English",
+  },
 };

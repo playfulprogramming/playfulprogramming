@@ -1,11 +1,18 @@
 import React, { PropsWithChildren, ReactElement, useMemo } from "react";
 import Head from "next/head";
 import { siteMetadata, siteUrl } from "constants/site-config";
-import { UnicornInfo } from "../types";
+import { Languages, UnicornInfo } from "../types";
+import {
+  fileToOpenGraphConverter,
+  removePrefixLanguageFromPath,
+} from "utils/translations";
 
 interface SEOProps {
   description?: string;
-  lang?: string;
+  langData?: {
+    currentLang: Languages;
+    otherLangs: Languages[];
+  };
   title: string;
   unicornsData?: Array<
     Pick<UnicornInfo, "socials" | "name" | "lastName" | "firstName" | "id">
@@ -33,6 +40,7 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
     editedTime,
     pathName,
     isbn,
+    langData,
     shareImage,
   } = props;
 
@@ -86,7 +94,11 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       case "article": {
         for (let keyword of keywords || []) {
           tags.push(
-            <meta key={keyword} property="article:tag" content={keyword} />
+            <meta
+              key={`article_tag_${keyword}`}
+              property="article:tag"
+              content={keyword}
+            />
           );
         }
         tags = tags.concat([
@@ -132,15 +144,25 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
   const uniTwitter =
     socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
 
+  const currentPath = siteMetadata.siteUrl + (pathName || "");
+
   /**
    * These cannot be broken into dedicated components because of a limitation in
    * NextJS's source code
+   *
+   * @see https://github.com/vercel/next.js/blob/canary/packages/next/shared/lib/head.tsx
    *
    * To quote the docs:
    * > title, meta or any other elements (e.g. script) need to be contained as
    * > direct children of the Head element, or wrapped into maximum one level of
    * > <React.Fragment> or arrays—otherwise the tags won't be correctly picked up
    * > on client-side navigations.
+   *
+   * What's more, because of the same limited source code limitations, we need to have a per-Head
+   * unique `key` in each `.map`, as opposed to a `per-.map` unique `key`.
+   *
+   * This means that for each list, we need to have a unique prefix key on top of the unique
+   * per-item key
    */
   return (
     <Head>
@@ -165,13 +187,45 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = (props) => {
       ) : null}
       {children}
       {/* Open Graph SEO */}
-      <meta
-        property="og:url"
-        content={siteMetadata.siteUrl + (pathName || "")}
-      />
+      <meta property="og:url" content={currentPath} />
       <meta property="og:site_name" content={siteMetadata.title} />
       <meta property="og:title" content={title} />
-      <meta property="og:locale" content="en_US" />
+      {langData?.currentLang && (
+        <link
+          rel="alternate"
+          href={
+            siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
+          }
+          hrefLang="x-default"
+        />
+      )}
+      {langData?.otherLangs &&
+        langData.otherLangs.map((lang) => (
+          <link
+            key={`${lang}_hreflang`}
+            rel="alternate"
+            href={
+              siteMetadata.siteUrl +
+              `${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
+              removePrefixLanguageFromPath(pathName || "")
+            }
+            hrefLang={lang}
+          />
+        ))}
+      <meta
+        property="og:locale"
+        content={
+          langData ? fileToOpenGraphConverter(langData.currentLang) : "en"
+        }
+      />
+      {langData?.otherLangs &&
+        langData.otherLangs.map((lang) => (
+          <meta
+            key={`${lang}_og_alternative`}
+            property="og:locale:alternate"
+            content={fileToOpenGraphConverter(lang)}
+          />
+        ))}
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={metaImage} />
       <meta property="og:type" content={ogType} />

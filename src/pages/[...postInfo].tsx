@@ -16,15 +16,15 @@ import {
 import { useRouter } from "next/router";
 
 import { SEO } from "components/seo";
-import { PostMetadata } from "../../page-components/blog-post/post-metadata";
-import { PostTitleHeader } from "../../page-components/blog-post/post-title-header";
+import { PostMetadata } from "../page-components/blog-post/post-metadata";
+import { PostTitleHeader } from "../page-components/blog-post/post-title-header";
 import { TableOfContents } from "components/table-of-contents";
 import { BlogPostLayout } from "components/blog-post-layout";
 import { MailingList } from "components/mailing-list";
 
 import GitHubIcon from "assets/icons/github.svg";
 import CommentsIcon from "assets/icons/message.svg";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "constants/theme-context";
 import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
@@ -34,9 +34,15 @@ import {
   getSuggestedArticles,
   OrderSuggestPosts,
 } from "utils/useGetSuggestedArticles";
-import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
+import { SuggestedArticles } from "../page-components/blog-post/suggested-articles";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 import { AnalyticsLink } from "components/analytics-link";
+import { languages } from "constants/index";
+import { Languages } from "types/index";
+import { objectFromKeys } from "utils/objects";
+import { objectMap } from "ts-util-helpers";
+import { Lang } from "shiki";
+import { TranslationsHeader } from "components/../page-components/blog-post/translations-header";
 
 type Props = {
   markdownHTML: string;
@@ -45,6 +51,7 @@ type Props = {
   seriesPosts: SeriesPostInfo[];
   suggestedPosts: OrderSuggestPosts;
   post: SlugPostInfo & RenderedPostInfo;
+  lang: Languages;
 };
 
 const Post = ({
@@ -52,6 +59,7 @@ const Post = ({
   markdownHTML,
   slug,
   postsDirectory,
+  lang,
   seriesPosts,
   suggestedPosts,
 }: Props) => {
@@ -93,6 +101,19 @@ const Post = ({
 
   const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${slug}/index.md`;
 
+  const langData = useMemo(() => {
+    const otherLangs = post.translations
+      ? (Object.keys(post.translations).filter(
+          (t) => t !== lang
+        ) as Languages[])
+      : [];
+
+    return {
+      otherLangs,
+      currentLang: lang,
+    };
+  }, [lang, post.translations]);
+
   return (
     <>
       <SEO
@@ -105,6 +126,7 @@ const Post = ({
         type="article"
         pathName={router.asPath}
         canonical={post.originalLink}
+        langData={langData}
       />
       <article>
         <BlogPostLayout
@@ -123,6 +145,9 @@ const Post = ({
                     postSeries={seriesPosts}
                     collectionSlug={post.collectionSlug}
                   />
+                )}
+                {post.translations && Object.keys(post.translations).length && (
+                  <TranslationsHeader post={post} />
                 )}
                 {result}
               </main>
@@ -182,28 +207,31 @@ export default Post;
 
 type Params = {
   params: {
-    slug: string;
+    postInfo: [Languages, string] | [string];
   };
 };
 
 const seriesPostCacheKey = {};
 
 export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, postBySlug);
+  const slugParam = params.postInfo.pop() || "";
+  params.postInfo.pop(); // Remove `"posts"`
+  const lang = (params.postInfo.pop() as Languages) || "en";
+  const post = getPostBySlug(slugParam, lang, postBySlug);
 
   const isStr = (val: any): val is string => typeof val === "string";
   const slug = isStr(post.slug) ? post.slug : "";
 
   let seriesPosts: any[] = [];
   if (post.series && post.order) {
-    const allPosts = getAllPosts(seriesPostsPick, seriesPostCacheKey);
+    const allPosts = getAllPosts(seriesPostsPick, lang, seriesPostCacheKey);
 
     seriesPosts = allPosts
       .filter((filterPost) => filterPost.series === post.series)
       .sort((postA, postB) => Number(postA.order) - Number(postB.order));
   }
 
-  const suggestedPosts = getSuggestedArticles(post);
+  const suggestedPosts = getSuggestedArticles(post, lang);
 
   const { html: markdownHTML, headingsWithId } = await markdownToHtml(
     post.content,
@@ -223,20 +251,32 @@ export async function getStaticProps({ params }: Params) {
       postsDirectory,
       seriesPosts,
       suggestedPosts,
+      lang,
     } as Props,
   };
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts({ slug: true });
-
-  const paths = posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
+  const postsLangArr = objectMap(languages, (_, lang) => {
+    return getAllPosts({ slug: true }, lang);
   });
+
+  const paths = (Object.keys(postsLangArr) as Array<Languages>)
+    .map((lang) =>
+      postsLangArr[lang].map((post) => {
+        const postInfo = [];
+        if (lang !== "en") postInfo.push(lang);
+        postInfo.push("posts");
+        postInfo.push(post.slug);
+
+        return {
+          params: {
+            postInfo,
+          },
+        };
+      })
+    )
+    .flat();
 
   return {
     paths,

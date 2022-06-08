@@ -5,6 +5,7 @@ As a site and community alike, we have a myriad of ways to contribute to the sit
     - [Author Data](#Author-Data-File)
     - [Markdown Post](#Markdown-Post)
   - [Editing a Blog Post](#Editing-a-Blog-Post)
+- [Translations](#Translations)
 - [Code Contributions](#Code)
 
 # Blog Posts
@@ -136,6 +137,16 @@ The following data **must** be present:
 ## Editing a Blog Post
 
 Our blog posts can all be found under [`/content/blog`](./content/blog). Simply find the article based on the URL path and edit the `index.md` file. We'll have one of our editors review the post changes, and we'll try to reach out to the author for them to review your PR as well.
+
+# Translations
+
+> In other words, the language attribute needs to be in ISO 639-1 format (a two-letter code).m
+
+> The region is optional and should be in ISO 3166-1 Alpha 2 format; more precisely
+> 
+> https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+Please use `-` for language region ISO formats, instead of `_`
 
 # Code
 
