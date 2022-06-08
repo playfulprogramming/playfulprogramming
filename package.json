@@ -127,6 +127,7 @@
     "prettier": "^2.6.2",
     "puppeteer": "^14.0.0",
     "react-test-renderer": "^18.1.0",
-    "ts-jest": "^28.0.2"
+    "ts-jest": "^28.0.2",
+    "unist-util-find-all-after": "^4.0.0"
   }
 }

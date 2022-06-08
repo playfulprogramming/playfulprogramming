@@ -7,6 +7,48 @@ import { createElement } from "react";
 import { fileURLToPath } from "url";
 import { COLORS } from "constants/theme";
 
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkTwoslash from "remark-shiki-twoslash";
+import remarkStringify from "remark-stringify";
+import remarkToRehype from "remark-rehype";
+import {findAllAfter} from "unist-util-find-all-after";
+import rehypeStringify from "rehype-stringify";
+
+const unifiedChain = () => {
+  let unifiedChain = unified()
+    .use(remarkParse)
+    .use(() => (tree) => {
+      // extract code snippets from parsed markdown
+      const nodes = findAllAfter(tree, 0, {type: 'code'});
+
+      // join code parts into one element
+      const value = nodes.map(node => (node as any).value).join('\n').trim() + '\n' + renderPostPreviewToString.toString();
+
+      return {
+        type: 'root',
+        children: [{
+          type: 'code',
+          lang: (nodes[0] as any)?.lang || 'javascript',
+          value
+        }]
+      };
+    })
+    .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
+    .use(remarkStringify)
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true });
+
+  return unifiedChain;
+};
+
+async function markdownToHtml(
+  content: string
+) {
+  return await (await unifiedChain().process(content)).toString();
+}
+
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
@@ -20,15 +62,16 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 
 export const heightWidth = { width: 1280, height: 640 };
 
-const backgroundStr = readFileAsBase64(
-  resolve(__dirname, "./social-previews/assets/code_background.jpg")
-);
-
 const unicornUtterancesHead = readFileAsBase64(
   resolve(__dirname, "../assets/unicorn_head_1024.png")
 );
 
 export const renderPostPreviewToString = async (post: PreviewPost) => {
+  const shikiSCSS = readFileSync(
+    resolve(__dirname, "../shiki.scss"),
+    "utf8"
+  );
+
   const twitterLargeCardPreviewCSS = readFileSync(
     resolve(__dirname, "./social-previews/twitter-large-card.css"),
     "utf8"
@@ -44,10 +87,15 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     readFileAsBase64(author.profileImg.absoluteFSPath)
   );
 
+  const postHtml = await markdownToHtml(post.content);
+
   return `
     <!DOCTYPE html>
     <html>
     <head>
+    <style>
+    ${shikiSCSS}
+    </style>
     <style>
     ${colorsCSS}
     </style>
@@ -59,9 +107,9 @@ export const renderPostPreviewToString = async (post: PreviewPost) => {
     ${renderToStaticMarkup(
       createElement(TwitterLargeCard, {
         post,
+        postHtml,
         ...heightWidth,
         authorImagesStrs,
-        backgroundStr,
         unicornUtterancesHead,
       })
     )}

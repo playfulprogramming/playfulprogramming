@@ -10,6 +10,7 @@ export function getSocialPosts() {
       name: true,
       profileImg: true,
     },
+    content: true,
   } as const);
 
   return posts;
