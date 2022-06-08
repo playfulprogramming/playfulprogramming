@@ -288,7 +288,7 @@ test.valid = 12
 print(test.updateCount)
 ```
 
-\> Notice our usage of `super().__setattr__`. We need to do this similarly to how we utilized the `super()` method in `__getattribute__`, otherwise `self.updateCount += 1` would trigger an infinite loop of calls to `__setattr__`.
+> Notice our usage of `super().__setattr__`. We need to do this similarly to how we utilized the `super()` method in `__getattribute__`, otherwise `self.updateCount += 1` would trigger an infinite loop of calls to `__setattr__`.
 
 ### Clean up programmatic property instanciation
 
@@ -334,7 +334,9 @@ fileDictionary['README'] = "Hello"
 
 We would quickly get an error from Python:
 
-\> TypeError: 'FileDictionary' object is not subscriptable
+```
+> TypeError: 'FileDictionary' object is not subscriptable
+```
 
 To solve this problem, we need to migrate away from `__setattr__`, which only supports dot notation, to `__setitem__`, which only supports the dictionary-style notation.
 
@@ -581,7 +583,7 @@ listLike.append("World")
 
 The `__iter__` magic method isn’t the only way to customize traditionally list-like behavior for a class. You can also use the `__contains__` method to add support for simple “is this in the class” checks.
 
-`__contains__(self, item)` - `key in instance
+`__contains__(self, item)` - `key in instance`
 
 
 Something to keep in mind is that if `__contains__` isn't defined, Python will use the information provided by `__iter__` to check if the key is present. However, `__contains__` is a more optimized method, since the default `__iter__` checking behavior will iterate through every key until it finds a match.
