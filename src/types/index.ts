@@ -1,4 +1,3 @@
-
 export * from "./LicenseInfo";
 export * from "./CollectionInfo";
 export * from "./PostInfo";
