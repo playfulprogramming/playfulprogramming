@@ -32,27 +32,27 @@ Something to keep in mind is that these disabilities may not be permanent. For i
 	</tr>
 	<tr>
 		<th scope="row">Touch</th>
-		<td><img src="./one_arm.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>One arm</td>
-		<td><img src="./arm_injury.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Arm injury</td>
-		<td><img src="./new_parent.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>New parent</td>
+		<td><img src="./one_arm.png" style="height: 200px"/><br/>One arm</td>
+		<td><img src="./arm_injury.png" style="height: 200px"/><br/>Arm injury</td>
+		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
 	</tr>
 	<tr>
 		<th scope="row">See</th>
-		<td><img src="./blind.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Blind</td>
-		<td><img src="./cataract.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Cataract</td>
-		<td><img src="./distracted_driver.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Distracted driver</td>
+		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
+		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
+		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
 	</tr>
 	<tr>
 		<th scope="row">Hear</th>
-		<td><img src="./deaf.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Deaf</td>
-		<td><img src="./ear_infection.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Ear infection</td>
-		<td><img src="./bartender.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Bartender</td>
+		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
+		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
+		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
 	</tr>
 	<tr>
 		<th scope="row">Speak</th>
-		<td><img src="./non_verbal.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Non-verbal</td>
-		<td><img src="./laryngitis.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Laryngitis</td>
-		<td><img src="./heavy_accent.png" style="height: 200px" alt="GATSBY_EMPTY_ALT"/><br/>Heavy accent</td>
+		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
+		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
+		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
 	</tr>
 </table>
 
@@ -208,13 +208,13 @@ Many phones using iOS and Android allow users to change the font size on their m
 
 <div style="display: flex; justify-content: space-around">
     <figure>
-		<img src="./ios_text_size.png" style="height: 300px" alt="GATSBY_EMPTY_ALT"/>
+		<img src="./ios_text_size.png"  style="height: 300px"/>            
         <figcaption>
             iOS font size settings screen
         </figcaption>
     </figure>
     <figure>
-        <img src="./android_text_size.png" style="height: 300px" alt="GATSBY_EMPTY_ALT"/>
+        <img src="./android_text_size.png"  style="height: 300px"/>
         <figcaption>
             Android font size settings screen
         </figcaption>

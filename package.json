@@ -64,6 +64,7 @@
     "rehype-dom-parse": "^4.0.2",
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.4",
+    "rehype-raw": "^6.1.1",
     "rehype-react": "^7.1.1",
     "rehype-slug-custom-id": "^1.1.0",
     "rehype-stringify": "^9.0.3",
