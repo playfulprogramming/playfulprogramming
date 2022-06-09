@@ -150,6 +150,8 @@ For any language to be translated, it must have a name and identifier defined in
 
 Each language code should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
 
+> Please use `-` instead of `_` in the language region ISO formats. Instead of `fr_ca`, it'd be `fr-ca`.
+
 Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for identifiers to be used in this format.
 
 ### Creating the Translated Post
