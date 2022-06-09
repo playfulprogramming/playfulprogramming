@@ -19,7 +19,7 @@ export const TranslationsHeader = ({ post }: TranslationsHeaderProps) => {
             <Link passHref href={`/${langHref}posts/${post.slug}`}>
               <a>{post.translations[lang]}</a>
             </Link>
-            {i !== arr.length - 1 && <span>, </span>}
+            {i !== arr.length - 1 ? <span>, </span> : null}
           </Fragment>
         );
       })}

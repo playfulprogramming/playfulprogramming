@@ -140,16 +140,16 @@ const Post = ({
                 <PostMetadata post={post} />
               </header>
               <main className="post-body" data-testid={"post-body-div"}>
-                {post.series && (
+                {post.series ? (
                   <SeriesToC
                     post={post}
                     postSeries={seriesPosts}
                     collectionSlug={post.collectionSlug}
                   />
-                )}
-                {post.translations && Object.keys(post.translations).length && (
+                ) : null}
+                {post.translations && Object.keys(post.translations).length ? (
                   <TranslationsHeader post={post} />
-                )}
+                ) : null}
                 {result}
               </main>
             </>
