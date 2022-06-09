@@ -5,7 +5,9 @@ As a site and community alike, we have a myriad of ways to contribute to the sit
     - [Author Data](#Author-Data-File)
     - [Markdown Post](#Markdown-Post)
   - [Editing a Blog Post](#Editing-a-Blog-Post)
-- [Translations](#Translations)
+  - [Translating a Blog Post](#Translating-a-Blog-Post)
+    - [Finding a Language Code](#Finding-a-Language-Code)
+    - [Creating the Translated Post](#Creating-the-Translated-Post)
 - [Code Contributions](#Code)
 
 # Blog Posts
@@ -26,8 +28,8 @@ as a new JSON object in the array.
 This information includes:
 
 - A username for your profile (used in your profile URL).
-	[IE, our founder's username is `crutchcorn`, and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]	
-	
+	[IE, our founder's username is `crutchcorn`, and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]
+
 - Full name
 
   - A separate field for the first name and last name as well
@@ -54,8 +56,8 @@ This information includes:
 
 - Your preferred pronouns
 
-  - Please keep [our Code of Conduct](https://github.com/unicorn-utterances/unicorn-utterances/blob/integration/CODE_OF_CONDUCT.md)  in mind. We do not accept bigotry of _**any kind**_.
-  - This value must match [one of the  `id` fields of our `pronouns.json` file](https://github.com/unicorn-utterances/unicorn-utterances/blob/integration/content/data/pronouns.json)
+  - Please keep [our Code of Conduct](./CODE_OF_CONDUCT.md)  in mind. We do not accept bigotry of _**any kind**_.
+  - This value must match [one of the  `id` fields of our `pronouns.json` file](./content/data/pronouns.json)
     - If your preferred pronouns are not present, simply add a new value inside of said JSON file
 
 - A profile picture, used on your profile page.
@@ -71,7 +73,7 @@ Now that we have your user attribution data, we can move onto the post data itse
 
 #### Save Location
 
-Once you have your `.md` file, we'll need a place to put it. We place a subdirectory in our [`content/blog` folder](https://github.com/unicorn-utterances/unicorn-utterances/tree/integration/content/blog) for each of the blog posts on the site. The naming of these subdirectories is integral to keep in mind, as they reflect the URL path of the article once finished. For example, the folder [`what-is-ssr-and-ssg`](./content/blog/what-is-ssr-and-ssg) will turn into the URL for the article:
+Once you have your `.md` file, we'll need a place to put it. We place a subdirectory in our [`content/blog` folder](./content/blog) for each of the blog posts on the site. The naming of these subdirectories is integral to keep in mind, as they reflect the URL path of the article once finished. For example, the folder [`what-is-ssr-and-ssg`](./content/blog/what-is-ssr-and-ssg) will turn into the URL for the article:
 [https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/)
 
 Once you've created a subfolder with the URI you'd like your article to have, move the `.md` file into the folder with the name `index.md`. If you have linked images or videos, you'll need to save those files in the same folder and change your markdown file to reference them locally:
@@ -118,9 +120,9 @@ Now that we've placed the file in the correct location, we need to add metadata 
 The following data **must** be present:
 
 - Title for the article
-  - We ask that your titles are less than 80 characters. 
+  - We ask that your titles are less than 80 characters.
 - A description of the article
-  - We ask that your descriptions are less than 190 characters. 
+  - We ask that your descriptions are less than 190 characters.
 
 - A published date
   - Please follow the format as seen above
@@ -131,22 +133,34 @@ The following data **must** be present:
   - We ask that you keep it to 4 tags maximum
 - A `license` to be associated with the post
   - This must match the `id` field for one of the values [in our `license.json` file](./content/data/licenses.json)
-  - If you're not familiar with what these licenses mean, view the `explainLink` for each of them in the `license.json` file. It'll help you understand what permissions the public has to the post 
+  - If you're not familiar with what these licenses mean, view the `explainLink` for each of them in the `license.json` file. It'll help you understand what permissions the public has to the post
     - For example, can they modify the article and re-release it or not?
 
 ## Editing a Blog Post
 
 Our blog posts can all be found under [`/content/blog`](./content/blog). Simply find the article based on the URL path and edit the `index.md` file. We'll have one of our editors review the post changes, and we'll try to reach out to the author for them to review your PR as well.
 
-# Translations
+## Translating a Blog Post
 
-> In other words, the language attribute needs to be in ISO 639-1 format (a two-letter code).m
+If you are adding a translation, make sure to create an [Author Data File](#author-data-file) with the `"translator"` role so that you are credited for your work on the site!
 
-> The region is optional and should be in ISO 3166-1 Alpha 2 format; more precisely
-> 
-> https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+### Finding a Language Code
 
-Please use `-` for language region ISO formats, instead of `_`
+For any language to be translated, it must have a name and identifier defined in the [`/content/data/languages.json`](./content/data/languages.json) file. If the language is already defined there, simply use its identifier in the following sections; if not, we will need to add it to the file.
+
+Each language code should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
+
+Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for identifiers to be used in this format.
+
+### Creating the Translated Post
+
+Each blog post on the site has a subdirectory inside the [`content/blog` folder](./content/blog). In this folder, the post should have an `index.md` file with its current contents.
+
+To create a translation file for this post, copy the `index.md` file and rename it to include the new language identifier as `index.(lang).md`. For example, a translation for `fr` would be named `index.fr.md`. The content inside this file can then be translated into the respective language.
+
+#### Translating Post Images / Assets
+
+If any images used in the post need to be translated, these should be named in a similar fashion - for example, a translation of `dom_tree.svg` should be named `dom_tree.fr.svg`. Any links to these images will need to be updated in the `index.fr.md` post to point to the translated image.
 
 # Code
 
