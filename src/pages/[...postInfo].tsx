@@ -132,7 +132,9 @@ const Post = ({
       <article>
         <BlogPostLayout
           left={<TableOfContents headingsWithId={post.headingsWithId} />}
-          right={<SuggestedArticles suggestedArticles={suggestedPosts} />}
+          right={
+            <SuggestedArticles suggestedArticles={suggestedPosts} lang={lang} />
+          }
           center={
             <>
               <header role="banner" className="marginZeroAutoChild">
