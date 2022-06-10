@@ -2,6 +2,7 @@ import { getAllPostsForListView, ListViewPosts } from "utils/fs/api";
 import React from "react";
 import { postsPerPage } from "constants/pagination";
 import { PostListTemplate } from "../page-components/post-list/PostList";
+import { Languages } from "types/index";
 
 type Props = {
   posts: ListViewPosts;
@@ -23,7 +24,13 @@ const Index = (props: Props) => {
 
 export default Index;
 
-export const getStaticProps = async () => {
+export async function getStaticProps({ locale }: { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
+
   const posts = getAllPostsForListView();
 
   const numberOfPages = Math.ceil(posts.length / postsPerPage);
@@ -38,4 +45,4 @@ export const getStaticProps = async () => {
       numberOfPages,
     },
   };
-};
+}

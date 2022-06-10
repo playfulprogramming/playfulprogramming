@@ -16,8 +16,8 @@ import {
 import { useRouter } from "next/router";
 
 import { SEO } from "components/seo";
-import { PostMetadata } from "../page-components/blog-post/post-metadata";
-import { PostTitleHeader } from "../page-components/blog-post/post-title-header";
+import { PostMetadata } from "../../page-components/blog-post/post-metadata";
+import { PostTitleHeader } from "../../page-components/blog-post/post-title-header";
 import { TableOfContents } from "components/table-of-contents";
 import { BlogPostLayout } from "components/blog-post-layout";
 import { MailingList } from "components/mailing-list";
@@ -34,7 +34,7 @@ import {
   getSuggestedArticles,
   OrderSuggestPosts,
 } from "utils/useGetSuggestedArticles";
-import { SuggestedArticles } from "../page-components/blog-post/suggested-articles";
+import { SuggestedArticles } from "../../page-components/blog-post/suggested-articles";
 import { PrivacyErrorBoundary } from "components/privacy-error-boundary";
 import { AnalyticsLink } from "components/analytics-link";
 import { languages } from "constants/index";
@@ -42,7 +42,7 @@ import { Languages } from "types/index";
 import { objectFromKeys } from "utils/objects";
 import { objectMap } from "ts-util-helpers";
 import { Lang } from "shiki";
-import { TranslationsHeader } from "components/../page-components/blog-post/translations-header";
+import { TranslationsHeader } from "../../page-components/blog-post/translations-header";
 
 type Props = {
   markdownHTML: string;
@@ -210,16 +210,16 @@ export default Post;
 
 type Params = {
   params: {
-    postInfo: [Languages, string] | [string];
+    postInfo: [string];
   };
+  locale: Languages;
 };
 
 const seriesPostCacheKey = {};
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({ params, locale }: Params) {
   const slugParam = params.postInfo.pop() || "";
-  params.postInfo.pop(); // Remove `"posts"`
-  const lang = (params.postInfo.pop() as Languages) || "en";
+  const lang = locale;
   const post = getPostBySlug(slugParam, lang, postBySlug);
 
   const isStr = (val: any): val is string => typeof val === "string";
@@ -267,15 +267,11 @@ export async function getStaticPaths() {
   const paths = (Object.keys(postsLangArr) as Array<Languages>)
     .map((lang) =>
       postsLangArr[lang].map((post) => {
-        const postInfo = [];
-        if (lang !== "en") postInfo.push(lang);
-        postInfo.push("posts");
-        postInfo.push(post.slug);
-
         return {
           params: {
-            postInfo,
+            postInfo: [post.slug],
           },
+          locale: lang,
         };
       })
     )

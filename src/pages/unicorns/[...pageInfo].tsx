@@ -1,7 +1,7 @@
 import { getAllPostsForListView, ListViewPosts, unicorns } from "utils/fs/api";
 import * as React from "react";
 
-import { UnicornInfo } from "../../types";
+import { Languages, UnicornInfo } from "../../types";
 import { postsPerPage } from "constants/pagination";
 import { SEO } from "components/seo";
 import { PostListProvider } from "constants/post-list-context";
@@ -73,7 +73,15 @@ type Params = {
   };
 };
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({
+  params,
+  locale,
+}: Params & { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
   const allPosts = getAllPostsForListView();
 
   const [unicornId, _, paramsPageNum] = params.pageInfo;

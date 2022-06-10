@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import style from "../page-components/about/about.module.scss";
-import { UnicornInfo } from "uu-types";
+import { Languages, UnicornInfo } from "uu-types";
 import { siteDirectory, sponsorsDirectory, unicorns } from "utils/fs/get-datas";
-import unicornLogo from "../assets/unicorn_head_1024.png";
+import unicornLogo from "assets/unicorn_head_1024.png";
 import { useRouter } from "next/router";
 import { readMarkdownFile } from "utils/fs/api";
 import { join, resolve } from "path";
@@ -106,7 +106,13 @@ interface AboutUsMarkdownData {
   description: string;
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
+
   const { pickedData, frontmatterData } = readMarkdownFile<AboutUsMarkdownData>(
     join(siteDirectory, "about-us.md"),
     {

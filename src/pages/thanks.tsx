@@ -4,6 +4,7 @@ import Image from "next/image";
 import { SEO } from "components/seo";
 import proudUnicorn from "assets/proud_2048.png";
 import { useRouter } from "next/router";
+import { Languages } from "types/index";
 
 const ThanksPage = () => {
   const router = useRouter();
@@ -47,3 +48,13 @@ const ThanksPage = () => {
 };
 
 export default ThanksPage;
+
+export async function getStaticProps({ locale }: { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
+
+  return { props: {} };
+}
