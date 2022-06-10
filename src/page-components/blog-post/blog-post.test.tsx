@@ -6,7 +6,7 @@ import {
   MockMultiAuthorPost,
   MockPost,
 } from "__mocks__/data/mock-post";
-import BlogPostTemplate from "../../pages/[...postInfo]";
+import BlogPostTemplate from "../../pages/posts/[...postInfo]";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import { Languages } from "types/index";
 import { getAllByRel, getByProperty, getByRel } from "utils/tests";

@@ -2,12 +2,18 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const withPlugins = require("next-compose-plugins");
 const webpack = require("webpack");
+const languagesObj = require("./content/data/languages.json");
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
 module.exports = withPlugins([withBundleAnalyzer], {
+  i18n: {
+    locales: Object.keys(languagesObj),
+    defaultLocale: "en",
+    localeDetection: false,
+  },
   webpack: (config) => {
     config.plugins.push(
       new CopyPlugin({
