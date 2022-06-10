@@ -5,6 +5,7 @@ import * as React from "react";
 
 import { postsPerPage } from "constants/pagination";
 import { PostListTemplate } from "../../page-components/post-list/PostList";
+import { Languages } from "types/index";
 
 type Props = {
   posts: ListViewPosts;
@@ -34,7 +35,15 @@ type Params = {
 
 const postListContentsCache = {};
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({
+  params,
+  locale,
+}: Params & { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
   const posts = getAllPostsForListView();
 
   const numberOfPages = Math.ceil(posts.length / postsPerPage);

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { SEO } from "components/seo";
 import helloUnicorn from "assets/hello_2048.png";
 import { useRouter } from "next/router";
+import { Languages } from "types/index";
 
 const ConfirmPage = () => {
   const router = useRouter();
@@ -47,3 +48,11 @@ const ConfirmPage = () => {
 };
 
 export default ConfirmPage;
+
+export async function getStaticProps({ locale }: { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
+}

@@ -19,6 +19,7 @@ import Link from "next/link";
 import { ThemeContext } from "constants/theme-context";
 import { SEO } from "components/seo";
 import { useRouter } from "next/router";
+import { Languages } from "types/index";
 
 const collectionQuery = {
   associatedSeries: true,
@@ -193,7 +194,15 @@ type Params = {
 
 const seriesPostCacheKey = {};
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps({
+  params,
+  locale,
+}: Params & { locale: Languages }) {
+  if (locale !== "en") {
+    return {
+      notFound: true,
+    };
+  }
   const collection = getCollectionBySlug(params.slug, collectionQuery);
 
   const { html: markdownHTML } = await markdownToHtml(
