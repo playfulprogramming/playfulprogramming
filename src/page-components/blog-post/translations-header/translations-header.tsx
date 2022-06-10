@@ -13,10 +13,9 @@ export const TranslationsHeader = ({ post }: TranslationsHeaderProps) => {
     <div className={styles.translationContainer}>
       Translated by our community into:{" "}
       {(Object.keys(post.translations) as Languages[]).map((lang, i, arr) => {
-        const langHref = lang === "en" ? "" : `${lang}/`;
         return (
           <Fragment key={lang}>
-            <Link passHref href={`/${langHref}posts/${post.slug}`}>
+            <Link passHref href={`/posts/${post.slug}`} locale={lang}>
               <a>{post.translations[lang]}</a>
             </Link>
             {i !== arr.length - 1 ? <span>, </span> : null}

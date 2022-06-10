@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import style from "../page-components/about/about.module.scss";
@@ -11,6 +11,10 @@ import { join, resolve } from "path";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
 import { SEO } from "components/seo";
+import { existsSync } from "fs";
+import { languages } from "constants/index";
+import { objectFilter } from "ts-util-helpers";
+import { AboutUsTranslationsHeader } from "../page-components/about/about-us-translations-header";
 
 const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
   const unicornRoles = unicornInfo.roles.slice(0);
@@ -30,9 +34,22 @@ const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
 interface AboutUsProps {
   allUnicorns: UnicornInfo[];
   html: string;
+  translations: Partial<Record<Languages, string>>;
+  lang: Languages;
 }
 
-const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
+const AboutUs = ({ allUnicorns, html, translations, lang }: AboutUsProps) => {
+  const langData = useMemo(() => {
+    const otherLangs = translations
+      ? (Object.keys(translations).filter((t) => t !== lang) as Languages[])
+      : [];
+
+    return {
+      otherLangs,
+      currentLang: lang,
+    };
+  }, [lang, translations]);
+
   const router = useRouter();
 
   const result = useMarkdownRenderer({
@@ -42,7 +59,7 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
 
   return (
     <div>
-      <SEO title="About Us" pathName={router.asPath} />
+      <SEO title="About Us" pathName={router.asPath} langData={langData} />
       <div className={style.container}>
         <div className={style.headerTitle}>
           <div className={style.unicornLogo}>
@@ -57,6 +74,7 @@ const AboutUs = ({ allUnicorns, html }: AboutUsProps) => {
           <h1>About Us</h1>
         </div>
         <main className={`${style.aboutBody} post-body`}>
+          <AboutUsTranslationsHeader translations={translations} lang={lang} />
           <div>{result}</div>
           {allUnicorns.map((unicornInfo) => {
             const roleListItems = getUnicornRoleListItems(unicornInfo);
@@ -106,15 +124,21 @@ interface AboutUsMarkdownData {
   description: string;
 }
 
+const aboutUsLanguages = objectFilter(languages, (_, lang) => {
+  return existsSync(
+    join(siteDirectory, `about-us${lang !== "en" ? `.${lang}` : ""}.md`)
+  );
+});
+
 export async function getStaticProps({ locale }: { locale: Languages }) {
-  if (locale !== "en") {
+  if (!aboutUsLanguages[locale]) {
     return {
       notFound: true,
     };
   }
 
   const { pickedData, frontmatterData } = readMarkdownFile<AboutUsMarkdownData>(
-    join(siteDirectory, "about-us.md"),
+    join(siteDirectory, `about-us${locale !== "en" ? `.${locale}` : ""}.md`),
     {
       content: true,
       title: true,
@@ -132,6 +156,8 @@ export async function getStaticProps({ locale }: { locale: Languages }) {
       allUnicorns: unicorns,
       frontmatterData,
       html,
+      translations: aboutUsLanguages,
+      lang: locale,
     },
   };
 }
