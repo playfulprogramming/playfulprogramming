@@ -55,4 +55,6 @@ export async function getStaticProps({ locale }: { locale: Languages }) {
       notFound: true,
     };
   }
+
+  return { props: {} };
 }
