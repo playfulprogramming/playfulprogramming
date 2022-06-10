@@ -12,7 +12,7 @@ import remarkParse from "remark-parse";
 import remarkTwoslash from "remark-shiki-twoslash";
 import remarkStringify from "remark-stringify";
 import remarkToRehype from "remark-rehype";
-import {findAllAfter} from "unist-util-find-all-after";
+import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
 
 const unifiedChain = () => {
@@ -20,18 +20,26 @@ const unifiedChain = () => {
     .use(remarkParse)
     .use(() => (tree) => {
       // extract code snippets from parsed markdown
-      const nodes = findAllAfter(tree, 0, {type: 'code'});
+      const nodes = findAllAfter(tree, 0, { type: "code" });
 
       // join code parts into one element
-      const value = nodes.map(node => (node as any).value).join('\n').trim() + '\n' + renderPostPreviewToString.toString();
+      const value =
+        nodes
+          .map((node) => (node as any).value)
+          .join("\n")
+          .trim() +
+        "\n" +
+        renderPostPreviewToString.toString();
 
       return {
-        type: 'root',
-        children: [{
-          type: 'code',
-          lang: (nodes[0] as any)?.lang || 'javascript',
-          value
-        }]
+        type: "root",
+        children: [
+          {
+            type: "code",
+            lang: (nodes[0] as any)?.lang || "javascript",
+            value,
+          },
+        ],
       };
     })
     .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
@@ -42,12 +50,9 @@ const unifiedChain = () => {
   return unifiedChain;
 };
 
-async function markdownToHtml(
-  content: string
-) {
+async function markdownToHtml(content: string) {
   return await (await unifiedChain().process(content)).toString();
 }
-
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -67,10 +72,7 @@ const unicornUtterancesHead = readFileAsBase64(
 );
 
 export const renderPostPreviewToString = async (post: PreviewPost) => {
-  const shikiSCSS = readFileSync(
-    resolve(__dirname, "../shiki.scss"),
-    "utf8"
-  );
+  const shikiSCSS = readFileSync(resolve(__dirname, "../shiki.scss"), "utf8");
 
   const twitterLargeCardPreviewCSS = readFileSync(
     resolve(__dirname, "./social-previews/twitter-large-card.css"),

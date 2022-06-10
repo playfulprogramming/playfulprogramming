@@ -4,14 +4,18 @@ import classnames from "classnames";
 import Link from "next/link";
 import { OrderSuggestPosts } from "utils/useGetSuggestedArticles";
 import { AnalyticsLink } from "components/analytics-link";
+import { Languages } from "types/index";
 
 interface TableOfContentsProps {
   suggestedArticles: OrderSuggestPosts;
+  lang?: Languages;
 }
 
 export const SuggestedArticles = ({
   suggestedArticles,
+  lang,
 }: TableOfContentsProps) => {
+  if (!suggestedArticles.length) return null;
   return (
     <aside aria-label={"Suggested Articles"}>
       <ol role={"list"} className={suggestedStyle.list}>
@@ -28,7 +32,12 @@ export const SuggestedArticles = ({
                 suggestedStyle.localCard,
               ])}
             >
-              <Link href={`/posts/${suggestedArticle.slug}`} passHref>
+              <Link
+                href={`/${lang !== "en" ? `${lang}/` : ""}posts/${
+                  suggestedArticle.slug
+                }`}
+                passHref
+              >
                 <AnalyticsLink
                   category="suggested_article"
                   className={suggestedStyle.aTag}

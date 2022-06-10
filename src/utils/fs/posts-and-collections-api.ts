@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import {
   collectionsDirectory,
   postsDirectory,
@@ -8,10 +9,12 @@ import { isNotJunk } from "junk";
 import { DeepPartial, DeepReplaceKeys, PickDeep } from "ts-util-helpers";
 import { CollectionInfo } from "types/CollectionInfo";
 import { PostInfo } from "types/PostInfo";
-import { join } from "path";
+import { join, dirname, resolve } from "path";
 import { readMarkdownFile } from "utils/fs/markdown-api";
 import { getImageSize } from "rehype-img-size";
 import { getExcerpt } from "utils/markdown/getExcerpt";
+import { Languages } from "types/index";
+import { languages } from "constants/index";
 
 export function getCollectionSlugs() {
   return fs.readdirSync(collectionsDirectory).filter(isNotJunk);
@@ -49,6 +52,7 @@ export function getCollectionBySlug<ToPick extends CollectionKeysToPick>(
         order: true,
         slug: true,
       },
+      "en",
       allPostsForCollectionQueryCache
     );
 
@@ -97,9 +101,19 @@ export function getAllCollections<ToPick extends CollectionKeysToPick>(
   return collections as any[];
 }
 
-export function getPostSlugs() {
+const getIndexPath = (lang: Languages) => {
+  const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
+  return indexPath;
+};
+
+export function getPostSlugs(lang: Languages) {
   // Avoid errors trying to read from `.DS_Store` files
-  return fs.readdirSync(postsDirectory).filter(isNotJunk);
+  return fs
+    .readdirSync(postsDirectory)
+    .filter(isNotJunk)
+    .filter((dir) =>
+      fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
+    );
 }
 
 type PostKeysToPick = DeepPartial<DeepReplaceKeys<PostInfo>>;
@@ -111,10 +125,12 @@ const collectionsByName = getAllCollections({
 
 export function getPostBySlug<ToPick extends PostKeysToPick>(
   slug: string,
+  lang: Languages,
   fields: ToPick = {} as any
 ): PickDeep<PostInfo, ToPick> {
   const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, realSlug, `index.md`);
+  const indexPath = getIndexPath(lang);
+  const fullPath = join(postsDirectory, realSlug, indexPath);
   const { frontmatterData, pickedData, content } = readMarkdownFile(
     fullPath,
     fields
@@ -122,6 +138,20 @@ export function getPostBySlug<ToPick extends PostKeysToPick>(
 
   if (fields.slug) {
     pickedData.slug = realSlug;
+  }
+
+  if (fields.translations) {
+    const langsToQuery: Languages[] = Object.keys(languages).filter(
+      (l) => l !== lang
+    ) as never;
+    pickedData.translations = langsToQuery
+      .filter((lang) =>
+        fs.existsSync(resolve(dirname(fullPath), getIndexPath(lang)))
+      )
+      .reduce((prev, lang) => {
+        prev[lang] = languages[lang];
+        return prev;
+      }, {} as Record<Languages, string>);
   }
 
   if (fields.collectionSlug) {
@@ -150,6 +180,7 @@ let allPostsCache = new WeakMap<object, PostInfo[]>();
 
 export function getAllPosts<ToPick extends PostKeysToPick>(
   fields: ToPick = {} as any,
+  language: Languages,
   cacheString: null | object = null
 ): Array<PickDeep<PostInfo, ToPick>> {
   if (cacheString) {
@@ -157,8 +188,8 @@ export function getAllPosts<ToPick extends PostKeysToPick>(
     if (cacheData) return cacheData as any;
   }
 
-  const slugs = getPostSlugs();
-  const posts = slugs.map((slug) => getPostBySlug(slug, fields));
+  const slugs = getPostSlugs(language);
+  const posts = slugs.map((slug) => getPostBySlug(slug, language, fields));
 
   if (cacheString) allPostsCache.set(cacheString, posts as never as PostInfo[]);
 
@@ -184,7 +215,7 @@ export const listViewPostQuery = {
 } as const;
 
 export const getAllPostsForListView = () => {
-  let allPosts = getAllPosts(listViewPostQuery, listViewCache);
+  let allPosts = getAllPosts(listViewPostQuery, "en", listViewCache);
 
   // sort posts by date in descending order
   allPosts = allPosts.sort((post1, post2) => {

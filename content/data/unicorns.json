@@ -1,297 +1,330 @@
-[{
-		"id": "crutchcorn",
-		"name": "Corbin Crutchley",
-		"firstName": "Corbin",
-		"lastName": "Crutchley",
-		"description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn 🦄🌽\nI do development of all kinds, usually focusing on web development.\nI collect retro video games 🎮, like reading 📖, love teaching 👨‍🏫",
-		"socials": {
-			"twitter": "crutchcorn",
-			"github": "crutchcorn",
-			"twitch": "crutchcorn"
-		},
-		"pronouns": "they/themselves",
-		"profileImg": "./crutchcorn.png",
-		"color": "#ba68c8",
-		"roles": ["devops", "developer", "author"]
-	},
-	{
-		"id": "fennifith",
-		"name": "James Fenn",
-		"firstName": "James",
-		"lastName": "Fenn",
-		"description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
-		"socials": {
-			"twitter": "fennifith",
-			"github": "fennifith"
-		},
-		"pronouns": "he",
-		"profileImg": "./fennifith.jpg",
-		"color": "#0091EA",
-		"roles": ["developer", "author"]
-	},
-	{
-		"id": "evelynhathaway",
-		"name": "Evelyn Hathaway",
-		"firstName": "Evelyn",
-		"lastName": "Hathaway",
-		"description": "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
-		"socials": {
-			"twitter": "eeveedev",
-			"github": "evelynhathaway"
-		},
-		"pronouns": "she",
-		"profileImg": "proud.png",
-		"color": "#ef5f17",
-		"roles": ["developer", "devops"]
-	},
-	{
-		"id": "adueppen",
-		"name": "Alex Dueppen",
-		"firstName": "Alex",
-		"lastName": "Dueppen",
-		"description": "I do stuff sometimes.",
-		"socials": {
-			"twitter": "AlexDueppen",
-			"github": "adueppen",
-			"website": "https://ajd.sh/"
-		},
-		"pronouns": "he",
-		"profileImg": "./adueppen.png",
-		"color": "#69ffff",
-		"roles": ["developer"]
-	},
-	{
-		"id": "zavukodlak",
-		"name": "Vukašin Anđelković",
-		"firstName": "Vukašin",
-		"lastName": "Anđelković",
-		"description": "Always doing a little bit of everything. Although, mainly focusing on design, logos, illustrations and paintings.\nI created the logo and all of the unicorns you see peeking out in some of the profile pictures!",
-		"socials": {
-			"twitter": "vukkashin",
-			"website": "https://vukash.in/",
-			"dribbble": "vukashin"
-		},
-		"pronouns": "he",
-		"profileImg": "./vukashin.png",
-		"color": "#3485FF",
-		"roles": ["designer"]
-	},
-	{
-		"id": "tommyemo",
-		"name": "Tom Wellington",
-		"firstName": "Tom",
-		"lastName": "Wellington",
-		"description": "I design icons and user interfaces, among other things. he/him ✌️",
-		"socials": {
-			"twitter": "tommy_emo_",
-			"website": "https://www.tommyemo.net/"
-		},
-		"pronouns": "he",
-		"profileImg": "./tommyemo.jpg",
-		"color": "#8539EB",
-		"roles": ["designer"]
-	},
-	{
-		"id": "edpratti",
-		"name": "Eduardo Pratti",
-		"firstName": "Eduardo",
-		"lastName": "Pratti",
-		"description": "UI designer and developer wannabe. Cares about negative space, layout grids and Bloodborne challenge runs.",
-		"socials": {
-			"twitter": "edpratti",
-			"website": "http://pratti.design"
-		},
-		"pronouns": "he",
-		"profileImg": "./edpratti.jpg",
-		"color": "#FF3300",
-		"roles": ["designer", "author"]
-	},
-	{
-		"id": "sarsamurmu",
-		"name": "Sarsa Murmu",
-		"firstName": "Sarsa",
-		"lastName": "Murmu",
-		"description": "A High School Web Dev. Likes Android Development too. On the way to be an expert in Front-end. Checkout GitHub for more.",
-		"socials": {
-			"twitter": "sarsamurmu",
-			"github": "sarsamurmu",
-			"website": "https://sarsamurmu.github.io"
-		},
-		"pronouns": "he",
-		"profileImg": "./sarsamurmu.png",
-		"color": "#7C4DFF",
-		"roles": ["developer"]
-	},
-	{
-		"id": "MDutro",
-		"name": "Micah Dutro",
-		"firstName": "Micah",
-		"lastName": "Dutro",
-		"description": "A non-profit lawyer turned budding web developer.",
-		"socials": {
-			"github": "MDutro"
-		},
-		"pronouns": "he",
-		"profileImg": "./mdutro.jpg",
-		"color": "#7C4DFF",
-		"roles": ["developer", "author"]
-	},
-	{
-		"id": "reikaze",
-		"name": "Kevin Mai",
-		"firstName": "Kevin",
-		"lastName": "Mai",
-		"description": "Hello! I'm Kevin Phong Mai, aka Reikaze or RockmanDash12, a Computer Engineering Student and Freelance Writer passionate about Tech, Anime, Visual Novels and much more. I'm the Owner of RockmanDash Reviews Blog, and I write for the AniTAY & FuwaNovel blogs.",
-		"socials": {
-			"twitter": "Reikaze0",
-			"github": "Reikaze"
-		},
-		"pronouns": "he",
-		"profileImg": "./reikaze.jpg",
-		"color": "#ba68c8",
-		"roles": ["author"]
-	},
-	{
-		"id": "thodges314",
-		"name": "Thomas Hodges",
-		"firstName": "Thomas",
-		"lastName": "Hodges",
-		"description": "A software engineer with a mathematical background, professional experience in frontend, primarily with Reactjs and D3js, and a strong interest in mathematical modeling and visualisations.",
-		"socials": {
-			"github": "thodges314",
-			"linkedIn": "thomas-hodges"
-		},
-		"pronouns": "he",
-		"profileImg": "./thodges.png",
-		"color": "#ba68c8",
-		"roles": ["author"]
-	},
-	{
-		"id": "skatcat31",
-		"name": "Robert Mennell",
-		"firstName": "Robert",
-		"lastName": "Mennell",
-		"description": "A fullstack engineer who loves learning new things, playing video games, and his wife.\nIf you can learn it, you can do it.\nIf you can do it well, you've learned it.",
-		"socials": {
-			"github": "skatcat31",
-			"linkedIn": "rnmennell"
-		},
-		"color": "#ba68c8",
-		"profileImg": "./hello.png",
-		"pronouns": "he",
-		"roles": ["author"]
-	},
- 	{
-		"id": "seanmiller",
-		"name": "Sean Miller",
-		"firstName": "Sean",
-		"lastName": "Miller",
-		"description": "Howdy! Computer Science major at Texas A&M University, with a minor in cybersecurity. Super passionate about all things software!",
-		"socials": {
-			"twitter": "beastosean",
-			"github": "tamuseanmiller",
-			"website": "https://sean.millerfamily.tech",
-			"linkedIn": "tamuseanmiller"
-		},
-		"pronouns": "he",
-		"profileImg": "./seanmiller.jpg",
-		"color": "#551a8b",
-		"roles": ["author"]
-	},
- 	{
-		"id": "pierremtb",
-		"name": "Pierre Jacquier",
-		"firstName": "Pierre",
-		"lastName": "Jacquier",
-		"description": "Junior Hardware Engineer at Algolux. Computationally curious.",
-		"socials": {
-			"twitter": "PierreJacquier",
-			"github": "pierremtb",
-			"website": "https://pierrejacquier.com",
-			"linkedIn": "pierrejacquier"
-		},
-		"pronouns": "he",
-		"profileImg": "./pierremtb.jpg",
-		"color": "#FFEB3B",
-		"roles": ["author"]
-	},
- 	{
-		"id": "maisydino",
-		"name": "Maisy Dinosaur",
-		"firstName": "Maisy",
-		"lastName": "Dinosaur",
-		"description": "I do a lot of stuff sometimes. Part-time fullstack, full time dog petter.",
-		"socials": {
-			"twitter": "rodentman87",
-			"github": "rodentman87",
-			"website": "https://likesdinosaurs.com"
-		},
-		"pronouns": "she",
-		"profileImg": "./maisydino.jpg",
-		"color": "#FDF6E3",
-		"roles": ["author"]
-	},
-	{
-		"id": "bobrossrtx",
-		"name": "Bobrossrtx",
-		"firstName": "Owen",
-		"lastName": "Boreham",
-		"description": "I have over 1000 years of software development experience, do not underestimate me!",
-		"socials": {
-			"twitter": "bobrossrtx",
-			"github": "bobrossrtx",
-			"website": "https://www.owenboreham.tech"
-		},
-		"pronouns": "he",
-		"profileImg": "./bobrossrtx.jpg",
-		"color": "#b7e11e",
-		"roles": ["developer", "author"]
-	},
- 	{
-		"id": "ljtech",
-   		"name": "Landon Johnson",
-   		"firstName": "Landon",
-  		"lastName": "Johnson",
-  		"description": "Hello there, my name is Lj. I am a full stack developer.",
-  		"socials": {
-   			"twitter": "ljtechdotca",
-  			"github": "ljtechdotca",
-   			"twitch": "ljtechdotca",
-   			"website": "https://ljtech.ca"
-    		},
-  		"pronouns": "he",
-  		"profileImg": "./ljtechdotca.png",
-  		"color": "#7b61ff",
-  		"roles": ["author"]
- 	},
-	{
-	"id": "SkyHawk_0",
-    	"name": "Joshua Hawkins",
-    	"firstName": "Joshua",
-    	"lastName": "Hawkins",
-    	"description": "I am a high school student who focuses on python. Most of my scripts I have made where just for fun or to work something out that I couldn't.",
-    	"socials": {
-    	},
-    	"pronouns": "he",
-    	"profileImg": "./goofy.png",
-    	"color": "#18BBC9",
-    	"roles": ["author"]
-	},
-	{
-		"id": "splatkillwill",
-    	"name": "William (Will) Lohan",
-    	"firstName": "William",
-    	"lastName": "Lohan",
-    	"description": "",
-    	"socials": {
-			"github": "william-lohan",
-   			"twitch": "splat_killwill",
-   			"website": "https://gatimus.com/",
-			"linkedIn": "william-lohan-b202637a"
-    	},
-    	"pronouns": "they/themselves",
-    	"profileImg": "./splatkillwill.jpg",
-    	"color": "#BF00FF",
-    	"roles": ["author"]
-	}
+[
+  {
+    "id": "crutchcorn",
+    "name": "Corbin Crutchley",
+    "firstName": "Corbin",
+    "lastName": "Crutchley",
+    "description": "I'm the ONE and only Corbin, aka:\nThe Uni-Corn 🦄🌽\nI do development of all kinds, usually focusing on web development.\nI collect retro video games 🎮, like reading 📖, love teaching 👨‍🏫",
+    "socials": {
+      "twitter": "crutchcorn",
+      "github": "crutchcorn",
+      "twitch": "crutchcorn"
+    },
+    "pronouns": "they/themselves",
+    "profileImg": "./crutchcorn.png",
+    "color": "#ba68c8",
+    "roles": ["devops", "developer", "author"]
+  },
+  {
+    "id": "fennifith",
+    "name": "James Fenn",
+    "firstName": "James",
+    "lastName": "Fenn",
+    "description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
+    "socials": {
+      "twitter": "fennifith",
+      "github": "fennifith"
+    },
+    "pronouns": "he",
+    "profileImg": "./fennifith.jpg",
+    "color": "#0091EA",
+    "roles": ["developer", "author"]
+  },
+  {
+    "id": "evelynhathaway",
+    "name": "Evelyn Hathaway",
+    "firstName": "Evelyn",
+    "lastName": "Hathaway",
+    "description": "👩‍💻🌈 I'm a student and software developer with a strong passion for frontend and backend JavaScript and web accessibility.",
+    "socials": {
+      "twitter": "eeveedev",
+      "github": "evelynhathaway"
+    },
+    "pronouns": "she",
+    "profileImg": "proud.png",
+    "color": "#ef5f17",
+    "roles": ["developer", "devops"]
+  },
+  {
+    "id": "adueppen",
+    "name": "Alex Dueppen",
+    "firstName": "Alex",
+    "lastName": "Dueppen",
+    "description": "I do stuff sometimes.",
+    "socials": {
+      "twitter": "AlexDueppen",
+      "github": "adueppen",
+      "website": "https://ajd.sh/"
+    },
+    "pronouns": "he",
+    "profileImg": "./adueppen.png",
+    "color": "#69ffff",
+    "roles": ["developer"]
+  },
+  {
+    "id": "zavukodlak",
+    "name": "Vukašin Anđelković",
+    "firstName": "Vukašin",
+    "lastName": "Anđelković",
+    "description": "Always doing a little bit of everything. Although, mainly focusing on design, logos, illustrations and paintings.\nI created the logo and all of the unicorns you see peeking out in some of the profile pictures!",
+    "socials": {
+      "twitter": "vukkashin",
+      "website": "https://vukash.in/",
+      "dribbble": "vukashin"
+    },
+    "pronouns": "he",
+    "profileImg": "./vukashin.png",
+    "color": "#3485FF",
+    "roles": ["designer"]
+  },
+  {
+    "id": "tommyemo",
+    "name": "Tom Wellington",
+    "firstName": "Tom",
+    "lastName": "Wellington",
+    "description": "I design icons and user interfaces, among other things. he/him ✌️",
+    "socials": {
+      "twitter": "tommy_emo_",
+      "website": "https://www.tommyemo.net/"
+    },
+    "pronouns": "he",
+    "profileImg": "./tommyemo.jpg",
+    "color": "#8539EB",
+    "roles": ["designer"]
+  },
+  {
+    "id": "edpratti",
+    "name": "Eduardo Pratti",
+    "firstName": "Eduardo",
+    "lastName": "Pratti",
+    "description": "UI designer and developer wannabe. Cares about negative space, layout grids and Bloodborne challenge runs.",
+    "socials": {
+      "twitter": "edpratti",
+      "website": "http://pratti.design"
+    },
+    "pronouns": "he",
+    "profileImg": "./edpratti.jpg",
+    "color": "#FF3300",
+    "roles": ["designer", "author"]
+  },
+  {
+    "id": "sarsamurmu",
+    "name": "Sarsa Murmu",
+    "firstName": "Sarsa",
+    "lastName": "Murmu",
+    "description": "A High School Web Dev. Likes Android Development too. On the way to be an expert in Front-end. Checkout GitHub for more.",
+    "socials": {
+      "twitter": "sarsamurmu",
+      "github": "sarsamurmu",
+      "website": "https://sarsamurmu.github.io"
+    },
+    "pronouns": "he",
+    "profileImg": "./sarsamurmu.png",
+    "color": "#7C4DFF",
+    "roles": ["developer"]
+  },
+  {
+    "id": "MDutro",
+    "name": "Micah Dutro",
+    "firstName": "Micah",
+    "lastName": "Dutro",
+    "description": "A non-profit lawyer turned budding web developer.",
+    "socials": {
+      "github": "MDutro"
+    },
+    "pronouns": "he",
+    "profileImg": "./mdutro.jpg",
+    "color": "#7C4DFF",
+    "roles": ["developer", "author"]
+  },
+  {
+    "id": "reikaze",
+    "name": "Kevin Mai",
+    "firstName": "Kevin",
+    "lastName": "Mai",
+    "description": "Hello! I'm Kevin Phong Mai, aka Reikaze or RockmanDash12, a Computer Engineering Student and Freelance Writer passionate about Tech, Anime, Visual Novels and much more. I'm the Owner of RockmanDash Reviews Blog, and I write for the AniTAY & FuwaNovel blogs.",
+    "socials": {
+      "twitter": "Reikaze0",
+      "github": "Reikaze"
+    },
+    "pronouns": "he",
+    "profileImg": "./reikaze.jpg",
+    "color": "#ba68c8",
+    "roles": ["author"]
+  },
+  {
+    "id": "thodges314",
+    "name": "Thomas Hodges",
+    "firstName": "Thomas",
+    "lastName": "Hodges",
+    "description": "A software engineer with a mathematical background, professional experience in frontend, primarily with Reactjs and D3js, and a strong interest in mathematical modeling and visualisations.",
+    "socials": {
+      "github": "thodges314",
+      "linkedIn": "thomas-hodges"
+    },
+    "pronouns": "he",
+    "profileImg": "./thodges.png",
+    "color": "#ba68c8",
+    "roles": ["author"]
+  },
+  {
+    "id": "skatcat31",
+    "name": "Robert Mennell",
+    "firstName": "Robert",
+    "lastName": "Mennell",
+    "description": "A fullstack engineer who loves learning new things, playing video games, and his wife.\nIf you can learn it, you can do it.\nIf you can do it well, you've learned it.",
+    "socials": {
+      "github": "skatcat31",
+      "linkedIn": "rnmennell"
+    },
+    "color": "#ba68c8",
+    "profileImg": "./hello.png",
+    "pronouns": "he",
+    "roles": ["author"]
+  },
+  {
+    "id": "seanmiller",
+    "name": "Sean Miller",
+    "firstName": "Sean",
+    "lastName": "Miller",
+    "description": "Howdy! Computer Science major at Texas A&M University, with a minor in cybersecurity. Super passionate about all things software!",
+    "socials": {
+      "twitter": "beastosean",
+      "github": "tamuseanmiller",
+      "website": "https://sean.millerfamily.tech",
+      "linkedIn": "tamuseanmiller"
+    },
+    "pronouns": "he",
+    "profileImg": "./seanmiller.jpg",
+    "color": "#551a8b",
+    "roles": ["author"]
+  },
+  {
+    "id": "pierremtb",
+    "name": "Pierre Jacquier",
+    "firstName": "Pierre",
+    "lastName": "Jacquier",
+    "description": "Junior Hardware Engineer at Algolux. Computationally curious.",
+    "socials": {
+      "twitter": "PierreJacquier",
+      "github": "pierremtb",
+      "website": "https://pierrejacquier.com",
+      "linkedIn": "pierrejacquier"
+    },
+    "pronouns": "he",
+    "profileImg": "./pierremtb.jpg",
+    "color": "#FFEB3B",
+    "roles": ["author"]
+  },
+  {
+    "id": "maisydino",
+    "name": "Maisy Dinosaur",
+    "firstName": "Maisy",
+    "lastName": "Dinosaur",
+    "description": "I do a lot of stuff sometimes. Part-time fullstack, full time dog petter.",
+    "socials": {
+      "twitter": "rodentman87",
+      "github": "rodentman87",
+      "website": "https://likesdinosaurs.com"
+    },
+    "pronouns": "she",
+    "profileImg": "./maisydino.jpg",
+    "color": "#FDF6E3",
+    "roles": ["author"]
+  },
+  {
+    "id": "bobrossrtx",
+    "name": "Bobrossrtx",
+    "firstName": "Owen",
+    "lastName": "Boreham",
+    "description": "I have over 1000 years of software development experience, do not underestimate me!",
+    "socials": {
+      "twitter": "bobrossrtx",
+      "github": "bobrossrtx",
+      "website": "https://www.owenboreham.tech"
+    },
+    "pronouns": "he",
+    "profileImg": "./bobrossrtx.jpg",
+    "color": "#b7e11e",
+    "roles": ["developer", "author"]
+  },
+  {
+    "id": "ljtech",
+    "name": "Landon Johnson",
+    "firstName": "Landon",
+    "lastName": "Johnson",
+    "description": "Hello there, my name is Lj. I am a full stack developer.",
+    "socials": {
+      "twitter": "ljtechdotca",
+      "github": "ljtechdotca",
+      "twitch": "ljtechdotca",
+      "website": "https://ljtech.ca"
+    },
+    "pronouns": "he",
+    "profileImg": "./ljtechdotca.png",
+    "color": "#7b61ff",
+    "roles": ["author"]
+  },
+  {
+    "id": "SkyHawk_0",
+    "name": "Joshua Hawkins",
+    "firstName": "Joshua",
+    "lastName": "Hawkins",
+    "description": "I am a high school student who focuses on python. Most of my scripts I have made where just for fun or to work something out that I couldn't.",
+    "socials": {},
+    "pronouns": "he",
+    "profileImg": "./goofy.png",
+    "color": "#18BBC9",
+    "roles": ["author"]
+  },
+  {
+    "id": "splatkillwill",
+    "name": "William (Will) Lohan",
+    "firstName": "William",
+    "lastName": "Lohan",
+    "description": "",
+    "socials": {
+      "github": "william-lohan",
+      "twitch": "splat_killwill",
+      "website": "https://gatimus.com/",
+      "linkedIn": "william-lohan-b202637a"
+    },
+    "pronouns": "they/themselves",
+    "profileImg": "./splatkillwill.jpg",
+    "color": "#BF00FF",
+    "roles": ["author"]
+  },
+  {
+    "id": "fmothe",
+    "name": "Federico Mothe",
+    "firstName": "Federico",
+    "lastName": "Mothe",
+    "description": "Software Dev from Argentina learning the dark magic of frontend development and typescript.",
+    "socials": {
+      "twitter": "FedericoMothe",
+      "github": "fmothe",
+      "twitch": "mothevv"
+    },
+    "pronouns": "he",
+    "profileImg": "./fmothe.jpg",
+    "color": "#18BBC9",
+    "roles": ["translator"]
+  },
+  {
+    "id": "jahirfiquitiva",
+    "name": "Jahir Fiquitiva",
+    "firstName": "Jahir",
+    "lastName": "Fiquitiva",
+    "description": "Passionate and creative full-stack software engineer based in Colombia 🇨🇴.",
+    "socials": {
+      "twitter": "jahirfiquitiva",
+      "github": "jahirfiquitiva",
+      "website": "https://jahir.dev",
+      "linkedIn": "jahirfiquitiva"
+    },
+    "pronouns": "he",
+    "profileImg": "./jahirfiquitiva.jpg",
+    "color": "#3867d6",
+    "roles": ["translator"]
+  }
 ]
