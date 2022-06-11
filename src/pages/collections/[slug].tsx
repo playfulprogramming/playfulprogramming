@@ -222,10 +222,14 @@ export async function getStaticProps({
     path.resolve(collectionsDirectory, collection.slug)
   );
 
-  const { html: aboveMarkdownHTML } = await markdownToHtml(
-    collection.aboveFoldMarkdown || "",
-    path.resolve(collectionsDirectory, collection.slug)
-  );
+  let aboveMarkdownHTML = "";
+  if (collection.aboveFoldMarkdown) {
+    const { html } = await markdownToHtml(
+      collection.aboveFoldMarkdown,
+      path.resolve(collectionsDirectory, collection.slug)
+    );
+    aboveMarkdownHTML = html;
+  }
 
   return {
     props: {

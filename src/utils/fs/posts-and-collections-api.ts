@@ -65,11 +65,15 @@ export function getCollectionBySlug<ToPick extends CollectionKeysToPick>(
   }
 
   if (fields.aboveFoldMarkdown) {
-    const { content } = readMarkdownFile(
-      join(collectionsDirectory, realSlug, pickedData.aboveFoldMarkdown),
-      { content: true }
-    );
-    pickedData.aboveFoldMarkdown = content;
+    if (pickedData.aboveFoldMarkdown) {
+      const { content } = readMarkdownFile(
+        join(collectionsDirectory, realSlug, pickedData.aboveFoldMarkdown),
+        { content: true }
+      );
+      pickedData.aboveFoldMarkdown = content;
+    } else {
+      pickedData.aboveFoldMarkdown = null;
+    }
   }
 
   if (fields.coverImg) {
