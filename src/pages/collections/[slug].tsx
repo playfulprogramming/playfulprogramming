@@ -20,6 +20,7 @@ import { ThemeContext } from "constants/theme-context";
 import { SEO } from "components/seo";
 import { useRouter } from "next/router";
 import { Languages } from "types/index";
+import "react-medium-image-zoom/dist/styles.css";
 
 const collectionQuery = {
   associatedSeries: true,
@@ -39,6 +40,7 @@ const collectionQuery = {
   buttons: true,
   published: true,
   type: true,
+  chapterList: true,
 } as const;
 
 type Props = {
@@ -166,6 +168,25 @@ const Collection = ({
                           </div>
                         </a>
                       </Link>
+                    </li>
+                  );
+                })}
+                {(collection.chapterList || []).map((post, i) => {
+                  return (
+                    <li key={post.title} className={styles.postContainer}>
+                      <div className={styles.postLink}>
+                        <div className={styles.orderContainer}>
+                          {post.order}
+                        </div>
+                        <div>
+                          <h3
+                            className={`${styles.postTitle} ${styles.noLink}`}
+                          >
+                            {post.title}
+                          </h3>
+                          <p className={styles.postDesc}>{post.description}</p>
+                        </div>
+                      </div>
                     </li>
                   );
                 })}

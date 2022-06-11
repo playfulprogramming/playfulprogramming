@@ -51,6 +51,7 @@
 .description {
   @extend %headline-5;
   color: var(--lightPrimary);
+  white-space: break-spaces;
 }
 
 .buttonContainer {
@@ -147,6 +148,10 @@
   margin-top: 0.25rem;
   margin-bottom: 0;
   text-decoration: underline;
+}
+
+.noLink {
+  text-decoration: none !important;
 }
 
 .postDesc {
