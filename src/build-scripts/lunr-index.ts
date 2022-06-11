@@ -60,7 +60,7 @@ export const createIndex = (
   return indexCache;
 };
 
-const exportedIndex = createIndex(getAllPostsForListView(), [
+const exportedIndex = createIndex(getAllPostsForListView("en"), [
   {
     name: "title",
     store: true,
