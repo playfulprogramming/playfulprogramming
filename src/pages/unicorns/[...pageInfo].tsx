@@ -82,7 +82,7 @@ export async function getStaticProps({
       notFound: true,
     };
   }
-  const allPosts = getAllPostsForListView();
+  const allPosts = getAllPostsForListView("en");
 
   const [unicornId, _, paramsPageNum] = params.pageInfo;
 
@@ -114,7 +114,8 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPostsForListView();
+  // TODO: Handle other languages
+  const posts = getAllPostsForListView("en");
 
   // Iterate through `posts` only once. Avoids us having to run `filter`
   // multiple times

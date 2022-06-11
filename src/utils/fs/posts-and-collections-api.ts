@@ -7,7 +7,12 @@ import {
   licenses,
 } from "utils/fs/get-datas";
 import { isNotJunk } from "junk";
-import { DeepPartial, DeepReplaceKeys, PickDeep } from "ts-util-helpers";
+import {
+  DeepPartial,
+  DeepReplaceKeys,
+  objectMap,
+  PickDeep,
+} from "ts-util-helpers";
 import { CollectionInfo } from "types/CollectionInfo";
 import { PostInfo } from "types/PostInfo";
 import { join, dirname, resolve } from "path";
@@ -97,19 +102,19 @@ let allCollectionsCache = new WeakMap<object, CollectionInfo[]>();
 
 export function getAllCollections<ToPick extends CollectionKeysToPick>(
   fields: ToPick = {} as any,
-  cacheString: null | object = null
+  cacheObjRef: null | object = null
 ): Array<PickDeep<PostInfo, ToPick>> {
-  if (cacheString) {
-    const cacheData = allCollectionsCache.get(cacheString);
+  if (cacheObjRef) {
+    const cacheData = allCollectionsCache.get(cacheObjRef);
     if (cacheData) return cacheData as any;
   }
 
   const slugs = getCollectionSlugs();
   const collections = slugs.map((slug) => getCollectionBySlug(slug, fields));
 
-  if (cacheString)
+  if (cacheObjRef)
     allCollectionsCache.set(
-      cacheString,
+      cacheObjRef,
       collections as never as CollectionInfo[]
     );
 
@@ -200,22 +205,27 @@ export function getPostBySlug<ToPick extends PostKeysToPick>(
   return pickedData as any;
 }
 
-let allPostsCache = new WeakMap<object, PostInfo[]>();
+let allPostsCache = objectMap(
+  languages,
+  () => new WeakMap<object, PostInfo[]>()
+);
 
 export function getAllPosts<ToPick extends PostKeysToPick>(
   fields: ToPick = {} as any,
   language: Languages,
-  cacheString: null | object = null
+  cacheObjRef: null | object = null
 ): Array<PickDeep<PostInfo, ToPick>> {
-  if (cacheString) {
-    const cacheData = allPostsCache.get(cacheString);
+  if (cacheObjRef) {
+    const cacheData = allPostsCache[language].get(cacheObjRef);
     if (cacheData) return cacheData as any;
   }
 
   const slugs = getPostSlugs(language);
   const posts = slugs.map((slug) => getPostBySlug(slug, language, fields));
 
-  if (cacheString) allPostsCache.set(cacheString, posts as never as PostInfo[]);
+  if (cacheObjRef) {
+    allPostsCache[language].set(cacheObjRef, posts as never as PostInfo[]);
+  }
 
   return posts as any[];
 }
@@ -238,8 +248,21 @@ export const listViewPostQuery = {
   wordCount: true,
 } as const;
 
-export const getAllPostsForListView = () => {
-  let allPosts = getAllPosts(listViewPostQuery, "en", listViewCache);
+let mostPosts: null | number = null;
+
+export const getLocalWithMostPosts = (locales: Languages[]) => {
+  if (mostPosts) return mostPosts;
+
+  const localePostsSize = locales.map(
+    (lang) => getAllPosts({ slug: true }, lang).length
+  );
+
+  mostPosts = Math.max(...localePostsSize);
+  return mostPosts;
+};
+
+export const getAllPostsForListView = (lang: Languages) => {
+  let allPosts = getAllPosts(listViewPostQuery, lang, listViewCache);
 
   // sort posts by date in descending order
   allPosts = allPosts.sort((post1, post2) => {

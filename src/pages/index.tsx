@@ -3,12 +3,15 @@ import React from "react";
 import { postsPerPage } from "constants/pagination";
 import { PostListTemplate } from "../page-components/post-list/PostList";
 import { Languages } from "types/index";
+import { languages } from "constants/index";
 
 type Props = {
   posts: ListViewPosts;
   path: string;
   pageNum: number;
   numberOfPages: number;
+  currentLocale: Languages;
+  locales: Record<Languages, string>;
 };
 
 const Index = (props: Props) => {
@@ -18,6 +21,8 @@ const Index = (props: Props) => {
       limitNumber={postsPerPage}
       posts={props.posts}
       pageIndex={props.pageNum}
+      currentLocale={props.currentLocale}
+      locales={props.locales}
     />
   );
 };
@@ -25,13 +30,7 @@ const Index = (props: Props) => {
 export default Index;
 
 export async function getStaticProps({ locale }: { locale: Languages }) {
-  if (locale !== "en") {
-    return {
-      notFound: true,
-    };
-  }
-
-  const posts = getAllPostsForListView();
+  const posts = getAllPostsForListView(locale);
 
   const numberOfPages = Math.ceil(posts.length / postsPerPage);
 
@@ -43,6 +42,8 @@ export async function getStaticProps({ locale }: { locale: Languages }) {
       path: `/`,
       posts,
       numberOfPages,
+      currentLocale: locale,
+      locales: languages,
     },
   };
 }
