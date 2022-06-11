@@ -5,6 +5,7 @@
   description: "A practical and free way to teach you Angular, React, and Vue all at once, removing that ever-present desire to switch careers all programmers have.\n\nCurrently in production.",
   authors: ["crutchcorn"],
   coverImg: "./cover.png",
+  socialImg: "/framework_field_guide_social.png",
   type: "book",
   published: "2023-01-01T13:45:00.284Z",
   buttons: [{ text: "Get Notified of Release", url: "https://mailinglist.unicorn-utterances.com/subscribe" }],

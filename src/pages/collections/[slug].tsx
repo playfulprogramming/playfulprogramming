@@ -41,6 +41,7 @@ const collectionQuery = {
   published: true,
   type: true,
   chapterList: true,
+  socialImg: true,
 } as const;
 
 type Props = {
@@ -79,7 +80,7 @@ const Collection = ({
         publishedTime={collection.published}
         type={collection.type}
         pathName={router.asPath}
-        shareImage={coverImgPath}
+        shareImage={collection.socialImg || coverImgPath}
       />
       <div className={styles.mainContainer}>
         <div className="listViewContent">

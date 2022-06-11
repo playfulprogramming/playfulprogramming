@@ -15,6 +15,7 @@ export interface CollectionInfo {
     width: number;
     relativePath: string;
   };
+  socialImg?: string;
   posts: Pick<
     PostInfo,
     "description" | "excerpt" | "title" | "order" | "series" | "slug"
