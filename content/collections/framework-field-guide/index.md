@@ -2,7 +2,7 @@
 {
   title: "The Framework Field Guide",
   associatedSeries: "Framework Field Guide",
-  description: "A practical and free way to teach you Angular, React, and Vue all at once, removing that ever-present desire to switch careers all programmers have.\n\nCurrently in production.",
+  description: "A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
   authors: ["crutchcorn"],
   coverImg: "./cover.png",
   socialImg: "/framework_field_guide_social.png",
