@@ -21,4 +21,9 @@ export interface CollectionInfo {
   >[];
   content: string;
   buttons: Array<{ text: string; url: string }>;
+  chapterList?: Array<{
+    title: string;
+    description: string;
+    order: string;
+  }>;
 }
