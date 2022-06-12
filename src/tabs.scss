@@ -16,17 +16,17 @@
     padding: 6px 12px;
     cursor: pointer;
 
-    background: #153E67;
+    background: var(--darkPrimary);
     color: var(--backgroundColor);
     border-radius: 0.5rem 0.5rem 0 0;
     margin-right: 4px;
 
     &--selected {
       background: var(--backgroundColor);
-      border: 2px solid #153E67;
+      border: 2px solid var(--darkPrimary);
       border-bottom: 0px;
       margin-bottom: 2px;
-      color: #153E67;
+      color: var(--darkPrimary);
     }
 
     &--disabled {
@@ -46,14 +46,14 @@
         left: -4px;
         right: -4px;
         bottom: -5px;
-        background: #fff;
+        background: var(--backgroundColor);
       }
     }
   }
 
   &__tab-panel {
     display: none;
-    border: 2px solid #153E67;
+    border: 2px solid var(--darkPrimary);
     border-radius: 0.5rem;
     padding: 1.5rem;
 
