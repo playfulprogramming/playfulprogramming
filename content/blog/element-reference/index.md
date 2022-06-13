@@ -902,7 +902,72 @@ export default function App() {
 
 ## Angular
 
-// TODO: Add code sample
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div #contextOrigin (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    #contextMenu
+    *ngIf="isOpen"
+    tabIndex="0"
+    [style]="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+  <button (click)="close()">X</button>
+  This is a context menu
+</div>
+  
+  `,
+})
+class AppComponent implements AfterViewInit {
+  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+
+  isOpen = false;
+
+  bounds = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  };
+
+  ngAfterViewInit() {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+
+    this.contextMenu.changes.forEach(() => {
+      // TODO: Explain ?. and why we need it
+      const isLoaded = this?.contextMenu?.first?.nativeElement;
+      if (!isLoaded) return;
+      this.contextMenu.first.nativeElement.focus();
+    });
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+
+```
+
+
 
 ## Vue
 
@@ -932,59 +997,41 @@ When you resize the browser, it does not recalculate the element's height and wi
 
 ## React
 
-```jsx
-import * as React from 'react';
-import './style.css';
-
-const useElementBounds = () => {
-  let trackedEl = React.useRef<HTMLElement>();
-  const [bounds, setBounds] = React.useState<{
-    height: number;
-    width: number;
-    x: number;
-    y: number;
-  }>({
+```jsx {8-32}
+export default function App() {
+  const [refBounds, setBounds] = React.useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const resizeListener: React.UIEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      const localBounds = e.currentTarget.getBoundingClientRect();
-      setBounds(localBounds);
-    },
-    []
-  );
+  const trackingRef = React.useRef();
 
-  React.useEffect(() => {
-    if (!trackedEl.current) return;
-    return () =>
-      trackedEl.current.removeEventListener('resize', resizeListener as never);
-  }, [trackedEl, resizeListener]);
-
-  const ref = React.useCallback((el: HTMLElement) => {
-    if (!el) return;
-    trackedEl.current = el;
-    el.addEventListener('resize', resizeListener as never);
-    const localBounds = el.getBoundingClientRect();
+  const resizeListener = React.useCallback((e) => {
+    if (!trackingRef.current) return;
+    const localBounds = trackingRef.current.getBoundingClientRect();
     setBounds(localBounds);
   }, []);
 
-  return {
-    ref,
-    bounds,
-  };
-};
+  React.useEffect(() => {
+    window.addEventListener('resize', resizeListener);
 
-export default function App() {
-  const files = ['File one', 'File two'];
+    return () => {
+      window.removeEventListener('resize', resizeListener);
+    };
+  }, [resizeListener]);
 
-  const { ref: trackingRef, bounds: refBounds } = useElementBounds();
+  const trackingCBRef = React.useCallback(
+    (el) => {
+      if (!el) return;
+      trackingRef.current = el;
+      const localBounds = el.getBoundingClientRect();
+      setBounds(localBounds);
+    },
+    [resizeListener]
+  );
 
-  // An addEventListener is easier to tackle when inside of the conditional render
-  // Add that as an exploration for `useImperativeHandle`
   const [isOpen, setIsOpen] = React.useState(false);
 
   function onContextMenu(e) {
@@ -995,7 +1042,7 @@ export default function App() {
   return (
     <React.Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div ref={trackingRef} onContextMenu={onContextMenu}>
+        <div ref={trackingCBRef} onContextMenu={onContextMenu}>
           Right click on me!
         </div>
       </div>
@@ -1022,7 +1069,80 @@ export default function App() {
 
 ## Angular
 
-// TODO: Add code sample
+```typescript {41-45,49}
+@Component({
+  selector: 'my-app',
+  template: `
+  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div #contextOrigin (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    #contextMenu
+    *ngIf="isOpen"
+    tabIndex="0"
+    [style]="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+  <button (click)="close()">X</button>
+  This is a context menu
+</div>
+  
+  `,
+})
+class AppComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+
+  isOpen = false;
+
+  bounds = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  };
+
+  // Do you remember why we can't use a class method here?
+  resizeListener = () => {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+  };
+
+  ngAfterViewInit() {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+
+    window.addEventListener('resize', this.resizeListener);
+
+    this.contextMenu.changes.forEach(() => {
+      const isLoaded = this?.contextMenu?.first?.nativeElement;
+      if (!isLoaded) return;
+      this.contextMenu.first.nativeElement.focus();
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+
+```
 
 ## Vue
 

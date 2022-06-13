@@ -6,6 +6,8 @@
     authors: ['crutchcorn'],
     tags: ['webdev'],
     attached: [],
+    order: 11,
+    series: "The Framework Field Guide"
 }
 ---
 
@@ -13,15 +15,17 @@
 
 
 
--------
-
-
+-----
 
 
 
 Continuing from previous example, let's add the ability to close the context menu when a user clicks outside of it.
 
-```jsx
+<!-- tabs:start -->
+
+# React
+
+```jsx {31-40,51}
 export default function App() {
   const [bounds, setBounds] = React.useState({
     height: 0,
@@ -93,11 +97,112 @@ export default function App() {
 }
 ```
 
+# Angular
+
+```typescript {45-51}
+@Component({
+  selector: 'my-app',
+  template: `
+  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div #contextOrigin (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    #contextMenu
+    *ngIf="isOpen"
+    tabIndex="0"
+    [style]="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+  <button (click)="close()">X</button>
+  This is a context menu
+</div>
+  
+  `,
+})
+class AppComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+
+  isOpen = false;
+
+  bounds = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  };
+
+  resizeListener = () => {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+  };
+
+  closeIfOutsideOfContext = (e: MouseEvent) => {
+    const contextMenuEl = this?.contextMenu?.first?.nativeElement;
+    if (!contextMenuEl) return;
+    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+    if (isClickInside) return;
+    this.isOpen = false;
+  };
+
+  ngAfterViewInit() {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+
+    window.addEventListener('resize', this.resizeListener);
+
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+
+    this.contextMenu.changes.forEach(() => {
+      const isLoaded = this?.contextMenu?.first?.nativeElement;
+      if (!isLoaded) return;
+      this.contextMenu.first.nativeElement.focus();
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+```
+
+
+
+# Vue
+
+// TODO: Add code sample
+
+<!-- tabs:end -->
+
+
 
 
 This code is getting a bit out of hand, let's move our context menu code into it's own component.
 
-```jsx
+
+
+<!-- tabs:start -->
+
+# React
+
+```jsx {0-12}
 const ContextMenu = ({ x, y, onClose }) => {
   const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
 
@@ -172,14 +277,122 @@ export default function App() {
 }
 ```
 
+# Angular
+
+```typescript {0-43}
+@Component({
+  selector: 'context-menu',
+  template: `
+  <div
+    #contextMenu
+    tabIndex="0"
+    [style]="{
+      position: 'fixed',
+      top: y + 20,
+      left: x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button (click)="close.emit()">X</button>
+    This is a context menu
+  </div>
+  `,
+})
+class ContextMenuComponent implements AfterViewInit, OnDestroy {
+  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+
+  @Input() x: number;
+  @Input() y: number;
+  @Output() close = new EventEmitter();
+
+  ngAfterViewInit() {
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  }
+
+  closeIfOutsideOfContext = (e: MouseEvent) => {
+    const contextMenuEl = this?.contextMenu?.first?.nativeElement;
+    if (!contextMenuEl) return;
+    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+    if (isClickInside) return;
+    this.close.emit();
+  };
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div #contextOrigin (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <context-menu *ngIf="isOpen" [x]="bounds.x" [y]="bounds.y" (close)="close()"></context-menu>  
+  `,
+})
+class AppComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+
+  isOpen = false;
+
+  bounds = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  };
+
+  resizeListener = () => {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+  };
+
+  ngAfterViewInit() {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+
+    window.addEventListener('resize', this.resizeListener);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+```
+
+# Vue
+
+// TODO: Add code sample
+
+<!-- tabs:end -->
+
+
 
 
 But now a new problem has arose - how do we `focus` the context menu from `App` when we aren't able to pass a `ref` directly to the child `div`?
 
-## Introducing `useImperativeHandle`
 
-```jsx
 
+# Introducing Element Reference 
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {0-7,22,62,81}
 const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
   const divRef = React.useRef();
 
@@ -271,7 +484,17 @@ export default function App() {
 ```
 
 
+## Angular
 
+
+// TODO: Add code sample
+
+## Vue
+
+// TODO: Add code sample
+
+
+<!-- tabs:end -->
 
 
 
