@@ -919,3 +919,17 @@ Here, we can see that `slot` is querying for a `header` element. This query is t
 
 
 // TODO: Conclusion
+
+
+
+
+
+
+
+# Challenge
+
+
+
+Add in `resize` detection to the `useElementBounds` hook.
+
+https://stackblitz.com/edit/react-ts-kkycvf?file=App.tsx,lib.dom.d.ts

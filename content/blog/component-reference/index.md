@@ -13,6 +13,262 @@
 
 
 
+-------
+
+
+
+
+
+Continuing from previous example, let's add the ability to close the context menu when a user clicks outside of it.
+
+```jsx
+export default function App() {
+  const [bounds, setBounds] = React.useState({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const ref = React.useCallback((el) => {
+    if (!el) return;
+    const localBounds = el.getBoundingClientRect();
+    setBounds(localBounds);
+  }, []);
+
+  // An addEventListener is easier to tackle when inside of the conditional render
+  // Add that as an exploration for `useImperativeHandle`
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
+
+  React.useEffect(() => {
+    if (contextMenu) {
+      contextMenu.focus();
+    }
+  }, [contextMenu]);
+    
+  React.useEffect(() => {
+    if (!contextMenu) return;
+    const closeIfOutsideOfContext = (e) => {
+      const isClickInside = contextMenu.contains(e.target);
+      if (isClickInside) return;
+      setIsOpen(false);
+    };
+    document.addEventListener('click', closeIfOutsideOfContext);
+    return () => document.removeEventListener('click', closeIfOutsideOfContext);
+  }, [contextMenu]);
+
+  return (
+    <React.Fragment>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div ref={ref} onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <div
+          ref={(el) => setContextMenu(el)}
+          style={{
+            position: 'fixed',
+            top: bounds.y + 20,
+            left: bounds.x + 20,
+            background: 'white',
+            border: '1px solid black',
+            borderRadius: 16,
+            padding: '1rem',
+          }}
+        >
+          <button onClick={() => setIsOpen(false)}>X</button>
+          This is a context menu
+        </div>
+      )}
+    </React.Fragment>
+  );
+}
+```
+
+
+
+This code is getting a bit out of hand, let's move our context menu code into it's own component.
+
+```jsx
+const ContextMenu = ({ x, y, onClose }) => {
+  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
+
+  React.useEffect(() => {
+    if (!contextMenu) return;
+    const closeIfOutsideOfContext = (e) => {
+      const isClickInside = contextMenu.contains(e.target);
+      if (isClickInside) return;
+      onClose();
+    };
+    document.addEventListener('click', closeIfOutsideOfContext);
+    return () => document.removeEventListener('click', closeIfOutsideOfContext);
+  }, [contextMenu, onClose]);
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: y + 20,
+        left: x + 20,
+        background: 'white',
+        border: '1px solid black',
+        borderRadius: 16,
+        padding: '1rem',
+      }}
+    >
+      <button onClick={() => onClose()}>X</button>
+      This is a context menu
+    </div>
+  );
+});
+
+export default function App() {
+  const [bounds, setBounds] = React.useState({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const ref = React.useCallback((el) => {
+    if (!el) return;
+    const localBounds = el.getBoundingClientRect();
+    setBounds(localBounds);
+  }, []);
+
+  // An addEventListener is easier to tackle when inside of the conditional render
+  // Add that as an exploration for `useImperativeHandle`
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  return (
+    <React.Fragment>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div ref={ref} onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <ContextMenu
+          x={bounds.x}
+          y={bounds.y}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
+    </React.Fragment>
+  );
+}
+```
+
+
+
+But now a new problem has arose - how do we `focus` the context menu from `App` when we aren't able to pass a `ref` directly to the child `div`?
+
+## Introducing `useImperativeHandle`
+
+```jsx
+
+const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
+  const divRef = React.useRef();
+
+  React.useImperativeHandle(ref, () => ({
+    focus: () => divRef.current && divRef.current.focus(),
+  }));
+
+  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
+
+  React.useEffect(() => {
+    if (!contextMenu) return;
+    const closeIfOutsideOfContext = (e) => {
+      const isClickInside = contextMenu.contains(e.target);
+      if (isClickInside) return;
+      onClose();
+    };
+    document.addEventListener('click', closeIfOutsideOfContext);
+    return () => document.removeEventListener('click', closeIfOutsideOfContext);
+  }, [contextMenu, onClose]);
+
+  return (
+    <div
+      ref={divRef}
+      style={{
+        position: 'fixed',
+        top: y + 20,
+        left: x + 20,
+        background: 'white',
+        border: '1px solid black',
+        borderRadius: 16,
+        padding: '1rem',
+      }}
+    >
+      <button onClick={() => onClose()}>X</button>
+      This is a context menu
+    </div>
+  );
+});
+
+export default function App() {
+  const [bounds, setBounds] = React.useState({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const ref = React.useCallback((el) => {
+    if (!el) return;
+    const localBounds = el.getBoundingClientRect();
+    setBounds(localBounds);
+  }, []);
+
+  // An addEventListener is easier to tackle when inside of the conditional render
+  // Add that as an exploration for `useImperativeHandle`
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  const contextMenuRef = React.useRef();
+
+  React.useEffect(() => {
+    if (isOpen && contextMenuRef.current) {
+      contextMenuRef.current.focus();
+    }
+  }, [isOpen]);
+
+  return (
+    <React.Fragment>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div ref={ref} onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <ContextMenu
+          x={bounds.x}
+          y={bounds.y}
+          ref={contextMenuRef}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
+    </React.Fragment>
+  );
+}
+```
 
 
 
@@ -20,53 +276,15 @@
 
 
 
+# Challenge
 
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-- Component reference
-  - `ref`/`forwardRef` / `useImperativeHandle` React
-  - ViewChild/Angular
-    - `ViewChildren`
-  - `ref` / Vue
-    - Array of refs
-  - Element reference
-  - Component reference
-
-
-
-Element reference first, introduce alternative to `onClick` using `document.addEventListener()`
-
-`element.focus()` example
-
-
-
-Then, move to component reference to introduce calling component method/data.
-
-https://stackblitz.com/edit/react-ts-gpjzsm?file=index.tsx
-
-
+Let's add functionality for a drag handler into another part of our app. This will use what we know of 
 
 
 
 <!-- tabs:start -->
 
-# React
+## React
 
 https://stackblitz.com/edit/react-ts-gpjzsm?file=components%2Futils.ts
 
@@ -157,11 +375,11 @@ const App = () => {
 render(<App />, document.getElementById('root'));
 ```
 
-# Angular
+## Angular
 
 // TODO
 
-# Vue
+## Vue
 
 // TODO: Add
 

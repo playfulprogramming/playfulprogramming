@@ -826,9 +826,89 @@ const App = {
 
 
 
+# Real world usage
 
 
 
+Creating a context menu component using refs
+
+
+
+
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+export default function App() {
+  const [bounds, setBounds] = React.useState({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const ref = React.useCallback((el) => {
+    if (!el) return;
+    const localBounds = el.getBoundingClientRect();
+    setBounds(localBounds);
+  }, []);
+
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const contextMenuRef = React.useRef();
+
+  React.useEffect(() => {
+    if (isOpen && contextMenuRef.current) {
+      contextMenuRef.current.focus();
+    }
+  }, [isOpen]);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  return (
+    <React.Fragment>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div ref={ref} onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <div
+          ref={contextMenuRef}
+          tabIndex={0}
+          style={{
+            position: 'fixed',
+            top: bounds.y + 20,
+            left: bounds.x + 20,
+            background: 'white',
+            border: '1px solid black',
+            borderRadius: 16,
+            padding: '1rem',
+          }}
+        >
+          <button onClick={() => setIsOpen(false)}>X</button>
+          This is a context menu
+        </div>
+      )}
+    </React.Fragment>
+  );
+}
+```
+
+## Angular
+
+// TODO: Add code sample
+
+## Vue
+
+// TODO: Add code sample
+
+<!-- tabs:end -->
 
 
 
@@ -840,27 +920,117 @@ const App = {
 
 
 
+# Challenge
+
+When you resize the browser, it does not recalculate the element's height and width.
+
+// TODO: Create demo GIF showcasing issue
+
+//  TODO: Simplify and explain
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+import * as React from 'react';
+import './style.css';
+
+const useElementBounds = () => {
+  let trackedEl = React.useRef<HTMLElement>();
+  const [bounds, setBounds] = React.useState<{
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+  }>({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
+  const resizeListener: React.UIEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      const localBounds = e.currentTarget.getBoundingClientRect();
+      setBounds(localBounds);
+    },
+    []
+  );
+
+  React.useEffect(() => {
+    if (!trackedEl.current) return;
+    return () =>
+      trackedEl.current.removeEventListener('resize', resizeListener as never);
+  }, [trackedEl, resizeListener]);
+
+  const ref = React.useCallback((el: HTMLElement) => {
+    if (!el) return;
+    trackedEl.current = el;
+    el.addEventListener('resize', resizeListener as never);
+    const localBounds = el.getBoundingClientRect();
+    setBounds(localBounds);
+  }, []);
+
+  return {
+    ref,
+    bounds,
+  };
+};
+
+export default function App() {
+  const files = ['File one', 'File two'];
+
+  const { ref: trackingRef, bounds: refBounds } = useElementBounds();
+
+  // An addEventListener is easier to tackle when inside of the conditional render
+  // Add that as an exploration for `useImperativeHandle`
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  return (
+    <React.Fragment>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div ref={trackingRef} onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: refBounds.y,
+            left: refBounds.x,
+            background: 'white',
+            border: '1px solid black',
+            borderRadius: 16,
+            padding: '1rem',
+          }}
+        >
+          <button onClick={() => setIsOpen(false)}>X</button>
+          This is a context menu
+        </div>
+      )}
+    </React.Fragment>
+  );
+}
+```
+
+## Angular
+
+// TODO: Add code sample
+
+## Vue
+
+// TODO: Add code sample
+
+<!-- tabs:end -->
 
 
-- Component reference
-  - `ref`/`forwardRef` / `useImperativeHandle` React
-    - Array of refs
-  - ViewChild/Angular
-    - `ViewChild`
-    - `ViewChildren`
-  - `ref` / Vue
-    - Array of refs
-  - Element reference
 
 
-
-Element reference first, introduce alternative to `onClick` using `document.addEventListener()`
-
-`element.focus()` example
-
-
-
-Then, move to component reference to introduce calling component method/data.
-
-https://stackblitz.com/edit/react-ts-gpjzsm?file=index.tsx
 
