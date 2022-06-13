@@ -1,7 +1,7 @@
 ---
 {
     title: "Component Reference",
-    description: "",
+    description: "While you usually want to pass data to child components, sometimes you need to access arbitrary data from the child without needing to explicitly pass the data.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],

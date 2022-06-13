@@ -1,7 +1,7 @@
 ---
 {
     title: "Dependency Injection",
-    description: "",
+    description: "Passing around props sucks. They're trivial get out of sync and easy to forget to pass. What if there was a better way to pass data between different parts of your app?",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
