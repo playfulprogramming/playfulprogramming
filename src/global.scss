@@ -294,6 +294,14 @@ $pendIconMarg: #{$baseUnit}px;
     border-radius: 8px;
     overflow: hidden;
   }
+
+  p > code {
+    display: inline;
+    padding: 0 0.4em;
+    font-size: 85%;
+    background-color: var(--codeInlineBackground);
+    border-radius: 4px;
+  }
 }
 
 .post-lower-area {
