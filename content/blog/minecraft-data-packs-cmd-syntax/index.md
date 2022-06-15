@@ -26,7 +26,7 @@ In the previous post, we ended on an interesting question &mdash; how do we writ
 
 Well, Minecraft actually has a specific command for checking preconditions and other attributes of a command before running it - the [`/execute`](https://minecraft.fandom.com/wiki/Commands/execute) command!
 
-This command can be used with an indefinite number of arguments, which might make it confusing to understand by reading its documentation &mdash; but this effectively means that you add any number of preconditions to this command.
+This command can be used with an indefinite number of arguments, which might make it confusing to understand by reading its documentation &mdash; but this effectively means that you can add any number of preconditions to this command.
 
 For example:
 
@@ -44,18 +44,16 @@ If we want to negate this condition, we can replace the `if` subcommand with `un
 execute unless block ~ ~ ~ air run say "You aren't standing in air!"
 ```
 
-## Command execution context
-
-In the following sections, it might help keep in mind that every command has a specific *context* that it executes in. This context consists of a **position in the world** and a **selected entity** that runs the command.
-
-This will make more sense after covering the following sections &mdash; but this context affects what blocks, locations, and entities certain commands and syntax will be referring to.
+> In the following sections, it might help keep in mind that every command has a specific *context* that it executes in. This context consists of a **position in the world** and a **selected entity** that runs the command.
+>
+> This will make more sense after covering the following sections &mdash; but this context affects what blocks, locations, and entities certain commands and syntax will be referring to.
 
 # Position syntax
 
 So what do the tildes (`~ ~ ~`) mean in the previous command? This is referring to *the current position* (in the X, Y, and Z axes) of the player that is executing the command. There are a few different ways to write positions like these in Minecraft, which I'll explain here:
 
 - ###### Absolute world coordinates
-  Coordinates can be written as a fixed position in the world - say, `32 60 -94` (these coordinates can be obtained by opening the [F3 debug screen](https://minecraft.fandom.com/wiki/Debug_screen) and findingthe "Targeted block" position.
+  Coordinates can be written as a fixed position in the world - say, `32 60 -94` (these coordinates can be obtained by opening the [F3 debug screen](https://minecraft.fandom.com/wiki/Debug_screen) and finding the "Targeted block" position.
 - ###### Current coordinates (tilde notation)
   Using the tilde symbols (`~ ~ ~`) will reference *the current position* that the command is executed at. This can also be mixed with static values, such as `32 ~ -94`, which will reference the block at (x: 32, z: -94) using the player's current y-axis.
 - ###### Relative world coordinates
@@ -65,7 +63,7 @@ So what do the tildes (`~ ~ ~`) mean in the previous command? This is referring 
 
 To experiment with the position syntax and see where certain positions end up in the world, we can add coordinates to the `/summon` command to spawn entities at a specific location. `/summon pig ~ ~ ~` would use the current position of the player (its default behavior), while `/summon pig ~ ~-4 ~` would probably spawn the pig underground. If you spawn too many pigs, you can use `/kill @e[type=pig]` to remove them.
 
-An important note when using these positions: for players (and most other entities), any positions will actually start *at the player's feet.* If we want to start at the player's head, we can use the `anchored eyes` subcommand to correct this &mdash; using directional coordinates, `/execute anchored eyes run summon pig ^ ^ ^4` should summon a pig 4 blocks in the exact center of wherever player is looking.
+An important note when using these positions: for players (and most other entities), any positions will actually start *at the player's feet.* If we want to start at the player's head, we can use the `anchored eyes` subcommand to correct this &mdash; using directional coordinates, `/execute anchored eyes run summon pig ^ ^ ^4` should summon a pig 4 blocks forward in the exact center of wherever player is looking.
 
 ## Positions in an "/execute" subcommand
 
@@ -76,7 +74,7 @@ execute anchored eyes run summon pig ^ ^ ^4
 execute anchored eyes positioned ^ ^ ^4 run summon pig ~ ~ ~
 ```
 
-These two commands do the same thing! But there might be some cases where this subcommand is useful &nbsp; for example, using our `fennifith:animals/spawn` function from the previous article in this series...
+These two commands do the same thing! But there might be some cases where this subcommand is useful &mdash; for example, using our `fennifith:animals/spawn` function from the previous article in this series...
 
 ```shell
 execute anchored eyes positioned ^ ^ ^4 run function fennifith:animals/spawn
@@ -133,7 +131,7 @@ execute as @e[type=pig] at @s if block ~ ~ ~ air run kill @s
 
 This command first selects all `@e[type=pig]` entities, then - for each pig - changes the position of the command to the position of `@s` (the selected entity). As a result, the position at `~ ~ ~` now refers to the position of `@s`.
 
-This can also be used with functions, same as before! However, I'm going to add a limit=5` onto our entity selector here &mdash; otherwise it might spawn an increasing number of entities each time it runs, which could cause lag in your game if executed repeatedly.
+This can also be used with functions, same as before! However, I'm going to add a `limit=5` onto our entity selector here &mdash; otherwise it might spawn an increasing number of entities each time it runs, which could cause lag in your game if executed repeatedly.
 
 ```shell
 execute as @e[type=pig,limit=5] at @s run function fennifith:animals/spawn
@@ -166,7 +164,7 @@ execute at @a if block ~ ~ ~ air run say "aaaaaaaaaaaaaaaaaaaa!"
   If you try to flip the order those two subcommands, `at @a as @s` won't actually select the right entity. You'll need to use `at @a as @p` to get the nearest player to the position of the selected player &mdash; which is a bit redundant, when `as @a` could simply select the player entities to begin with.
 </details>
 
-**Note:** If you use `as` and `at` together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity; so if `n = the number of players` it'll run its command `n * n` times in total.
+**Note:** If you use the `as` and `at` subcommands together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity; so if `n = the number of players` it'll run its command `n * n` times in total.
 
 You can try this with `@e[type=pig]` to see how many times it prints &mdash; `execute as @e[type=pig] at @e[type=pig] run say hi` will print far more messages than the number of pigs in your world.
 
@@ -174,7 +172,7 @@ You can try this with `@e[type=pig]` to see how many times it prints &mdash; `ex
 
 ## Radius selection
 
-## Box selection
+## Area selection
 
 # Conclusion
 
@@ -182,4 +180,4 @@ So far, we've started using conditional logic and covered most of the syntax you
 
 Between articles, feel free to experiment with other [Minecraft commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/tp`. Most of these won't be directly mentioned in this series, as we'll be moving on to more complex methods for storing data and detecting events &mdash; so it'll be useful to read through this list to figure out what each command can do.
 
-In the next post, we'll cover an entirely new feature of Minecraft: *player scoreboards!* These will allow us to keep count of different variables, detect certain in-game actions, and store a player-specific or global state in our data packs.
+In the next post, we'll cover an entirely different feature of Minecraft: *player scoreboards!* These will allow us to keep count of different variables, detect certain in-game actions, and store a player-specific or global state in our data packs.
