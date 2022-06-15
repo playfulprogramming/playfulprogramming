@@ -24,25 +24,25 @@ If you want to add new controls to the game, integrate with external services, o
 
 ## Advantages of Minecraft mods
 
-- <h6>Can communicate with external services</h6>
+- ###### Can communicate with external services
   Mods can perform HTTP requests, talk to other applications, or use any library that is compatible with Minecraft's Java runtime.
-- <h6>Able to modify the user interface and settings menus</h6>
-  Some data packs have used innovative (and highly complex) workarounds to this <a href="https://www.youtube.com/watch?v=z4tvTrqhBZE">using modified item textures</a>, but in general, Minecraft's controls and user interface cannot be fundamentally changed without the use of a mod.
-- <h6>Can add entirely new functionality to the game</h6>
-  While data packs <em>can</em> add things like custom mobs or items through a couple workarounds, there are always some limitations. Mods can add <em>any</em> code to the game with no restrictions on their behavior.
-- <h6>More performant than data packs when running large operations</h6>
+- ###### Able to modify the user interface and settings menus
+  Some data packs have used innovative (and highly complex) workarounds to this [using modified item textures](https://www.youtube.com/watch?v=z4tvTrqhBZE), but in general, Minecraft's controls and user interface cannot be fundamentally changed without the use of a mod.
+- ###### Can add entirely new functionality to the game
+  While data packs *can* add things like custom mobs or items through a couple workarounds, there are always some limitations. Mods can add *any* code to the game with no restrictions on their behavior.
+- ###### More performant than data packs when running large operations
   This obviously depends on how well their functionality is written, but mods can provide much better performance with multithreading, asynchronous code, and generally faster access to the data they need. In comparison, data packs are limited by the performance of the commands available to them.
 
 ## Advantages of data packs
 
-- <h6>Easy to install on any Minecraft (Java Edition) version</h6>
+- ###### Easy to install on any Minecraft (Java Edition) version
   Data packs are widely supported in almost any Minecraft launcher, mod loader, and hosting provider. In comparison, mods will require players to set up a specific Minecraft installation (such as Fabric or Forge) before they can be used.
-- <h6>Generally simpler to test and write</h6>
+- ###### Generally simpler to test and write
   While some modding tools can provide fairly seamless testing & debugging, they all require programming knowledge in Java and/or Kotlin, and it can be tedious to set up a development environment for that if you don't have one already. Most data pack behavior can be written in any text editor and tested right in the text chat of your game!
-- <h6>Safer to make mistakes with</h6>
+- ###### Safer to make mistakes with
   Since data packs are restricted to interacting with the commands Minecraft provides, it typically isn't possible to do anything that will entirely break your game. Mods can run any arbitrary code on your system, however &mdash; which means there's a higher chance that things can go wrong.
-- <h6>Typically better update compatibility</h6>
-  While some commands do change in new Minecraft updates, I have (anecdotally) found the changes to be less impactful than the work required to bring mods up to date with new versions. Since mods often use <a href="https://github.com/SpongePowered/Mixin/wiki">mixins</a> and directly interact with Minecraft's internal code, they can be affected by under-the-hood changes that wouldn't make any difference to a data pack.
+- ###### Typically better update compatibility
+  While some commands do change in new Minecraft updates, I have (anecdotally) found the changes to be less impactful than the work required to bring mods up to date with new versions. Since mods often use [mixins](https://github.com/SpongePowered/Mixin/wiki) and directly interact with Minecraft's internal code, they can be affected by under-the-hood changes that wouldn't make any difference to a data pack.
 
 ## Summary
 
