@@ -137,6 +137,34 @@ This can also be used with functions, same as before! However, I'm going to add 
 execute as @e[type=pig,limit=5] at @s run function fennifith:animals/spawn
 ```
 
+# Filtering entities by position
+
+In addition to the filter attributes we discussed earlier, the `[distance=<range>]` and `[x=<number>,dx=<number>]` attributes can be used to select entities based on their location in the world.
+
+Here are a few examples of this in use:
+
+## Radius selection
+
+With the `[distance=<range>]` attribute, entities will be selected if they are within a specific radius of a position. However, for this to work as expected, the value needs to be a **range**, not a number. For example, `[distance=6]` will only select entities at a distance of exactly 6 blocks away.
+
+Ranges can be specified by placing two dots (`..`) as the range between two numbers. If either side is left out, the range is interpreted as *open*, and will accept any number in that direction. By itself, `..` is a range that includes all numbers, `5..` will accept any number above 5, `..5` accepts any number below 5, and `1..5` accepts any number between 1 and 5.
+
+| `@e[distance=..5]` | `@e[distance=5..]` | `@e[distance=2..5]` |
+|--------------------|--------------------|---------------------|
+| ![A circle showing the selected area within a radius of 5 blocks](./select-radius-lt-5.svg) | ![A circle showing the selected area beyond a radius of 5 blocks](./select-radius-gt-5.svg) | ![A circle showing the selected area between a radius of 2 and 5 blocks](./select-radius-2-5.svg) |
+
+## Area selection
+
+The `[x=]`, `[y=]`, and `[z=]` attributes will filter entities by their exact position. However, since entities can move to positions in-between blocks, their coordinates usually aren't in whole numbers &mdash; so it is unlikely that these filters by themselves will select any entities.
+
+However, these attributes can be paired with `[dx=]`, `[dy=]`, and `[dz=]` to select a range of values on the X, Y, and Z axes. For example, `[y=10,dy=20]` will filter any entity with a position between `Y=10` and `Y=30`.
+
+Using all of these attributes togther can create a box area to search for entities within. For example, `@e[x=1,y=2,z=3,dx=10,dy=20,dz=30]` is effectively creating a box that is 10 blocks wide, 20 blocks high, 30 blocks deep, starting at the position (1, 2, 3).
+
+| `@e[x=5,z=1]` | `@e[x=5,dx=10]` | `@e[x=5,z=1,dx=10,dz=5]` |
+|---------------|-----------------|--------------------------|
+| ![A point showing the selected position at 5, 1](./select-area-5-1.svg) | ![An area showing the selected range on the X axis from 5 to 15](./select-area-x-5-15.svg) | ![A box showing the selected area from 5, 1 to 15, 6](./select-area-5-1-to-15-6.svg) |
+
 # Challenge: Using "/execute" in our tick.mcfunction
 
 In the previous post, we got our data pack to print a message on every game tick. Let's try to change that &mdash; see if you can write a command that will check *the block below the player* to see if it is `air`. If the player is standing on air, they are probably falling, so let's print "aaaaaaaaaaaaaaaaaaaa" in the text chat.
@@ -164,15 +192,14 @@ execute at @a if block ~ ~ ~ air run say "aaaaaaaaaaaaaaaaaaaa!"
   If you try to flip the order those two subcommands, `at @a as @s` won't actually select the right entity. You'll need to use `at @a as @p` to get the nearest player to the position of the selected player &mdash; which is a bit redundant, when `as @a` could simply select the player entities to begin with.
 </details>
 
-**Note:** If you use the `as` and `at` subcommands together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity; so if `n = the number of players` it'll run its command `n * n` times in total.
+**Note:** If you use the `as` and `at` subcommands together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity. If `n = the number of players`, this will result in the command running `n * n` times in total.
 
-You can try this with `@e[type=pig]` to see how many times it prints &mdash; `execute as @e[type=pig] at @e[type=pig] run say hi` will print far more messages than the number of pigs in your world.
+You can try this with `@e[type=pig]` to see how many times it prints:
 
-# Extra: Selecting entities by position
-
-## Radius selection
-
-## Area selection
+```shell
+# This command will print far more messages than the number of pigs in your world.
+execute as @e[type=pig] at @e[type=pig] run say hi
+```
 
 # Conclusion
 
