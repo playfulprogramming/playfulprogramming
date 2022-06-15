@@ -95,7 +95,7 @@ We then need to create a series of folders next to this file, which should be ne
 data/fennifith/functions/animals/
 ```
 
-In this path, the `fennifith/` folder can be called a *namespace* &mdash; this should be unique to avoid potential clashes if someone tries to use multiple datapacks at once; if two datapacks use exactly the same function name, at least one of them probably won't work as expected.
+In this path, the `fennifith/` folder can be called a *namespace* &mdash; this should be unique to avoid potential clashes if someone tries to use multiple data packs at once; if two data packs use exactly the same function name, at least one of them probably won't work as expected.
 
 The namespace and the `animals/` folder can be renamed as you like, but the `data/` and `functions/` folders must stay the same for the data pack to work. Additionally, it is important that the "functions" folder is exactly *one level* below the "data" folder. For example, `data/functions/` or `data/a/b/functions/` would **not** be valid structures.
 
@@ -231,6 +231,6 @@ Try experimenting! See if you can find a command that does this &mdash; and chec
 
 # Conclusion
 
-If your datapack hasn't worked first try &mdash; don't worry! There are a lot of steps here, and the slightest typo or misplacement will cause Minecraft to completely ignore your code altogether. If you're ever stuck and can't find the issue, the [Unicorn Utterances discord](https://discord.gg/FMcvc6T) is a great place to ask for help!
+If your data pack hasn't worked first try &mdash; don't worry! There are a lot of steps here, and the slightest typo or misplacement will cause Minecraft to completely ignore your code altogether. If you're ever stuck and can't find the issue, the [Unicorn Utterances discord](https://discord.gg/FMcvc6T) is a great place to ask for help!
 
-So far, we've covered the basics of data packs and how to write them &mdash; but there's a lot more to get into. Next, we'll start writing conditional behavior using block positions, entity selectors, and scoreboard data!
+So far, we've covered the basics of data packs and how to write them &mdash; but there's a lot more to get into. Next, we'll start writing conditional behavior using block positions and entity selectors!
