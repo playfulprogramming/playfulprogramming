@@ -65,6 +65,28 @@ To experiment with the position syntax and see where certain positions end up in
 
 An important note when using these positions: for players (and most other entities), any positions will actually start *at the player's feet.* If we want to start at the player's head, we can use the `anchored eyes` subcommand to correct this &mdash; using directional coordinates, `/execute anchored eyes run summon pig ^ ^ ^4` should summon a pig 4 blocks forward in the exact center of wherever player is looking.
 
+## Coordinate grid alignment
+
+In order to align a position with the edge of a block, we can use another subcommand: `/execute align xyz`. This will align the command's position on the X, Y, and Z axes. You can also omit any axes that don't need alignment, so `align x` or `align xz` would also work as expected.
+
+We can use this to ensure that a summoned entity is always spawned in alignment with the block grid, and not partway in-between block coordinates:
+
+```shell
+execute align xz run summon pig ~ ~ ~
+```
+
+However, an important thing to note about Minecraft's coordinate system is that **whole numbers do not refer to the center of a block.** Instead, they are aligned with the bottom corner in the negative direction of each axis.
+
+This means that, if you summon an entity at `0 ~ 0`, it will actually end up on the corner of the block at (0, 0). To fix this, you'll need to correct for the offset by moving it `0.5` on each axis; i.e. `0.5 ~ 0.5`.
+
+![A block grid showing the coordinate at 0,0 and the coordinate at 0.5,0.5](./coordinate-grid-0-5.svg)
+
+Thus, to summon an entity in the center of a block, we can use this command:
+
+```shell
+execute align xz run summon pig ~0.5 ~ ~0.5
+```
+
 ## Positions in an "/execute" subcommand
 
 The `/execute` command also has a subcommand that can set the position of the command it runs: `positioned ~ ~ ~`. Using this, we can rewrite our previous command:
@@ -84,7 +106,7 @@ Since our `spawn` function summons all of the animals at its position of executi
 
 # Entity selectors
 
-So we've figured out how to use positions for the player, but how can we refer to other entities in the world? If you've paid attention to the `/kill @e[type=pig]` command from earlier, this is actually using an *entity selector* to reference all of the pigs in the world. We're using the `@e` variable (all entities in the world), and filtering it by `type=pig` to only select the entities that are pigs.
+So we've figured out how to use the position of the player, but how can we refer to other entities in the world? If you've paid attention to the `/kill @e[type=pig]` command from earlier, this is actually using an *entity selector* to reference all of the pigs in the world. We're using the `@e` variable (all entities in the world), and filtering it by `type=pig` to only select the entities that are pigs.
 
 Here's a list of some other selector variables we can use:
 - `@p` targets only the **nearest player** to the command's execution
