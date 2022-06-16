@@ -209,12 +209,12 @@ In the previous post, we got our data pack to print a message on every game tick
 execute at @a if block ~ ~ ~ air run say "aaaaaaaaaaaaaaaaaaaa!"
   ```
 
-  There are a few different combinations of subcommands that could be used here &mdash; if you used `as @a at @s`, you'll notice that `say` actually prints your username before its message. This is because you've changed the selected entity to you, the player &mdash; so you're sending the message as yourself.
+  There are a few other approaches that could be used here &mdash; if you used `as @a at @s`, you'll notice that `say` actually prints your username before its message. This is because you've changed the selected entity to you, the player; so you're sending the message as yourself.
 
-  If you try to flip the order those two subcommands, `at @a as @s` won't actually select the right entity. You'll need to use `at @a as @p` to get the nearest player to the position of the selected player &mdash; which is a bit redundant, when `as @a` could simply select the player entities to begin with.
+  If you try to flip the order of those two subcommands, `at @a as @s` won't actually select the right entity. You'll need to use `at @a as @p` to get the nearest player to the position of the selected player &mdash; which is a bit redundant when `as @a` could simply select the player entities to begin with.
 </details>
 
-**Note:** If you use the `as` and `at` subcommands together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity. If `n = the number of players`, this will result in the command running `n * n` times in total.
+**Note:** If you use the `as` and `at` subcommands together, be aware that both will run any consecutive subcommands *for every entity they select.* So `as @a at @a`, on a multiplayer server, will first select every player entity, then (for every player entity) will run at the position of every player entity. If `n = the number of players`, this will result in the command running `n*n` times in total.
 
 You can try this with `@e[type=pig]` to see how many times it prints:
 
