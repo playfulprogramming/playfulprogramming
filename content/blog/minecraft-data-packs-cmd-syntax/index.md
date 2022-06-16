@@ -34,7 +34,7 @@ For example:
 execute if block ~ ~ ~ air run say "You're standing in air!"
 ```
 
-This uses two subcommands of the `execute` command: `if block ~ ~ ~ air` checks if the block at the player's location is air, and `run say hi` will invoke the `say hi` command if the previous conditions have passed.
+This uses two subcommands of the `execute` command: `if block ~ ~ ~ air` checks if the block at the player's location is air, and `run say "You're standing in air!"` will invoke the `say` command if the previous conditions have passed.
 
 Try running this command in Minecraft! As long as you're standing on a solid block (not in a slab or grass/foliage), you should see its message appear in the chat. If you stand underwater or in any block that isn't air, it should stop executing.
 
