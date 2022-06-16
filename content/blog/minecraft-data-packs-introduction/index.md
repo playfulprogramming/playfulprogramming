@@ -16,7 +16,7 @@
 
 # What is a data pack?
 
-Minecraft's data pack system allows players to fundamentally modify existing behavior of the game by "replacing" or adding to its data files. Data packs typically use `.mcfunction` files to specify their functionality as a list of commands for the game to run. Some behavior can also be changed by adding `.json` files certain parts of the pack's folder structure.
+Minecraft's data pack system allows players to fundamentally modify existing behavior of the game by "replacing" or adding to its data files. Data packs typically use `.mcfunction` files to specify their functionality as a list of commands for the game to run, and `.json` files for writing advancements or loot tables.
 
 One thing to note: While data packs are simple to use and enable a huge amount of functionality, they do have a couple drawbacks. One is that, while data packs allow most game features to be *changed*, they do not allow players to *add new features* into the game (although some can convincingly create that illusion with a few tricks).
 
@@ -46,7 +46,7 @@ If you want to add new controls to the game, integrate with external services, o
 
 ## Summary
 
-I typically prefer to write data packs for most things I work on, as I find them to be more useful to a wider audience because of the easier installation process. Some players simply don't want the trouble of setting up another installation folder or using a different Minecraft loader to use a specific mod, and data packs can work with almost any combination of other mods and server technology.
+I usually prefer to write data packs for most things I work on, as I find them to be more useful to a wider audience because of their easier installation process. Some players simply don't want the trouble of setting up another installation folder or using a different Minecraft loader to play with a specific mod, and data packs can work with almost any combination of other mods and server technology.
 
 With that said, data packs can certainly be tedious to write at times &mdash; while they are easier to build for simple functionality that can be directly invoked through commands, more complex behavior might be better off as a mod if those advantages are more appealing. Nothing is without its drawbacks, and any choice here is a valid one.
 
@@ -95,7 +95,7 @@ We then need to create a series of folders next to this file, which should be ne
 data/fennifith/functions/animals/
 ```
 
-In this path, the `fennifith/` folder can be called a *namespace* &mdash; this should be unique to avoid potential clashes if someone tries to use multiple data packs at once; if two data packs use exactly the same function name, at least one of them probably won't work as expected.
+In this path, the `fennifith/` folder can be called a *namespace* &mdash; this should be unique to avoid potential clashes if someone tries to use multiple data packs at once; if two data packs use exactly the same function name, at least one of them won't work as expected.
 
 The namespace and the `animals/` folder can be renamed as you like, but the `data/` and `functions/` folders must stay the same for the data pack to work. Additionally, it is important that the "functions" folder is exactly *one level* below the "data" folder. For example, `data/functions/` or `data/a/b/functions/` would **not** be valid structures.
 
