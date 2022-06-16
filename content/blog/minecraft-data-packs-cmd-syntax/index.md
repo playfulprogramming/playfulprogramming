@@ -225,8 +225,8 @@ execute as @e[type=pig] at @e[type=pig] run say hi
 
 # Conclusion
 
-So far, we've started using conditional logic and covered most of the syntax you need to add behavior to your data pack. Having discussed the uses of coordinate syntax and entity selectors, a lot of Minecraft's commands should start to make sense now.
+So far, we've started using conditional logic and covered most of the syntax you'll see in Minecraft commands.
 
-Between articles, feel free to experiment with other [Minecraft commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/tp`. Most of these won't be directly mentioned in this series, as we'll be moving on to more complex methods for storing data and detecting events &mdash; so it'll be useful to read through this list to figure out what each command can do.
+Between articles, feel free to experiment with [other commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/tp`. Most of these won't be directly mentioned in the rest of this series, so it'll be useful to read through this list to figure out what each command can do.
 
 In the next post, we'll cover an entirely different feature of Minecraft: *player scoreboards!* These will allow us to keep count of different variables, detect certain in-game actions, and store a player-specific or global state in our data packs.
