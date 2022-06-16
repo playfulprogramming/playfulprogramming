@@ -14,6 +14,8 @@
 
 > Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.fandom.com/wiki/Add-on).
 
+The data packs built in this series can be found in the [fennifith/mc-datapacks-tutorial](https://github.com/fennifith/mc-datapacks-tutorial/tree/main/2-command-syntax) repository. Feel free to use it for reference as you read through these articles!
+
 # A note on tooling
 
 At this point, we're starting to write more complex behavior in our data packs, and it might be useful to have some tools to check that our commands are valid while we're writing them.
@@ -206,7 +208,10 @@ In the previous post, we got our data pack to print a message on every game tick
   This command should select the player, get their position, and execute `say aaaaaaaaaaaaa` for every tick when the player is falling down or jumping in the air.
 
   ```shell
-execute at @a if block ~ ~ ~ air run say "aaaaaaaaaaaaaaaaaaaa!"
+#       at each player position...
+#       |     if the block below is air...
+#       |     |                        print "aaaaa" in the chat!
+execute at @a if block ~ ~-1 ~ air run say "aaaaaaaaaaaaaaaaaaaa!"
   ```
 
   There are a few other approaches that could be used here &mdash; if you used `as @a at @s`, you'll notice that `say` actually prints your username before its message. This is because you've changed the selected entity to you, the player; so you're sending the message as yourself.
@@ -227,6 +232,6 @@ execute as @e[type=pig] at @e[type=pig] run say hi
 
 So far, we've started using conditional logic and covered most of the syntax you'll see in Minecraft commands.
 
-Between articles, feel free to experiment with [other commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/tp`. Most of these won't be directly mentioned in the rest of this series, so it'll be useful to read through this list to figure out what each command can do.
+Between articles, feel free to experiment with [other commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/playsound`. Most of these won't be directly mentioned in the rest of this series, so it'll be useful to read through this list to figure out what each command can do.
 
 In the next post, we'll cover an entirely different feature of Minecraft: *player scoreboards!* These will allow us to keep count of different variables, detect certain in-game actions, and store a player-specific or global state in our data packs.

@@ -14,6 +14,8 @@
 
 > Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.fandom.com/wiki/Add-on).
 
+The data packs built in this series can be found in the [fennifith/mc-datapacks-tutorial](https://github.com/fennifith/mc-datapacks-tutorial/tree/main/1-introduction) repository. Feel free to use it for reference as you read through these articles!
+
 # What is a data pack?
 
 Minecraft's data pack system allows players to fundamentally modify existing behavior of the game by "replacing" or adding to its data files. Data packs typically use `.mcfunction` files to specify their functionality as a list of commands for the game to run, and `.json` files for writing advancements or loot tables.
@@ -76,18 +78,25 @@ Now let's see if we can put these into a function!
 
 ## Building a data pack folder structure
 
-We'll need to make a new folder to build our data pack in &mdash; I'll name mine "animal-spawner". We then need to place a "pack.mcmeta" file inside this folder to describe our pack.
+We'll need to make a new folder to build our data pack in &mdash; I'll name mine "1-introduction" to reflect the name of this article. We then need to place a "pack.mcmeta" file inside this folder to describe our pack.
 
 ```json
 {
     "pack": {
-        "pack_format": 8,
+        "pack_format": 10,
         "description": "Spawns a bunch of animals around the player"
     }
 }
 ```
 
-The `"pack_format": 8` in this file corresponds to Minecraft 1.18; typically, the format changes with each update, so 1.19 would be `"pack_format": 9` and so on...
+The `"pack_format": 10` in this file corresponds to Minecraft 1.19; typically, the format changes with each major update, so for newer versions you might need to increase this number...
+
+| Minecraft Version | `"pack_format"` value |
+|-------------------|-----------------------|
+| 1.19              | `"pack_format": 10`   |
+| 1.18.2            | `"pack_format": 9`    |
+| 1.18-1.18.1       | `"pack_format": 8`    |
+| 1.17-1.17.1       | `"pack_format": 7`    |
 
 We then need to create a series of folders next to this file, which should be nested inside each other as follows:
 
@@ -114,7 +123,7 @@ Note that, while a preceding `/` is needed to type these commands into the text 
 We should now have our data pack organized as follows:
 
 ```shell
-animal-spawner/
+1-introduction/
   pack.mcmeta
   data/
     fennifith/
@@ -125,7 +134,7 @@ animal-spawner/
 
 ## Installing & testing the data pack
 
-To turn this folder into a data pack, we simply need to convert the "animal-spawner" folder into a zip file.
+To turn this folder into a data pack, we simply need to convert the "1-introduction" folder into a zip file.
 
 <!-- tabs:start -->
 
@@ -154,11 +163,11 @@ In the Finder window that opens, enter the "datapacks" folder, then paste the zi
 This can be done using the `zip` command in your terminal. After `cd`-ing into the data pack folder, run the command below to create a zip file.
 
 ```shell
-cd animal-spawner/
-zip -R animal-spawner.zip ./*
+cd 1-introduction/
+zip -r 1-introduction.zip ./*
 ```
 
-Then, assuming you named your world "testing", the command `ls ~/.minecraft/saves/testing` should list that world's save files. Run `mv ./animal-spawner.zip ~/.minecraft/saves/testing/datapacks/` to move the zip file into the world's datapacks folder.
+Then, assuming you named your world "testing", the command `ls ~/.minecraft/saves/testing` should list that world's save files. Run `mv ./1-introduction.zip ~/.minecraft/saves/testing/datapacks/` to move the zip file into the world's datapacks folder.
 
 <!-- tabs:end -->
 
@@ -181,7 +190,7 @@ In order to run a function automatically, Minecraft provides two built-in [funct
 We'll start with `load` &mdash; for which we'll need to create two new files in our folder structure! Below, I'm creating a new `load.mcfunction` next to our previous function, and a `minecraft/tags/functions/load.json` file for the `load` tag.
 
 ```shell
-animal-spawner/
+1-introduction/
   pack.mcmeta
   data/
     minecraft/
@@ -221,7 +230,7 @@ To invoke the "load" tag manually, you can either use the `/reload` command, or 
 
 > **Be aware** that when using the tick event, it is very easy to do things that cause humongous amounts of lag in your game. For example, connecting this to our `spawn.mcfunction` from earlier might have some adverse consequences when summoning approximately 100 animals per second.
 
-Now, what if we try adding a file for the `tick.json` event with the same contents?
+Now, what if we try adding a file for the `tick` event with the same contents? We could add a `tick.json` file pointing to a `fennifith:animals/tick` function &mdash; and write a `tick.mcfunction` file for it to run.
 
 The chat window fills up with "Hello, world" messages! Every time the `tick` function tag is invoked (the game typically runs 20 ticks per second) it adds a new message! This is probably not something we want to do.
 

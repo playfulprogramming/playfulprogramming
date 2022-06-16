@@ -13,3 +13,5 @@
 This series covers everything needed to get started with Minecraft data pack development - including scoreboard manipulation, NBT data, advancement predicates, and more!
 
 We'll start with the basics of assembling a data pack, then build up to complex list sorting logic, ray casting techniques, and edge case hacks to make any in-game idea come to life.
+
+The data packs built in this series can be found in the [fennifith/mc-datapacks-tutorial](https://github.com/fennifith/mc-datapacks-tutorial/tree/main/1-introduction) repository. Feel free to use it for reference as you read through these articles!
