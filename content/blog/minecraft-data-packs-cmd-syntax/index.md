@@ -54,11 +54,11 @@ execute unless block ~ ~ ~ air run say "You aren't standing in air!"
 
 So what do the tildes (`~ ~ ~`) mean in the previous command? This is referring to *the current position* (in the X, Y, and Z axes) of the player that is executing the command. There are a few different ways to write positions like these in Minecraft, which I'll explain here:
 
-- ###### Absolute world coordinates
+- ###### Absolute coordinates
   Coordinates can be written as a fixed position in the world - say, `32 60 -94` (these coordinates can be obtained by opening the [F3 debug screen](https://minecraft.fandom.com/wiki/Debug_screen) and finding the "Targeted block" position.
 - ###### Current coordinates (tilde notation)
   Using the tilde symbols (`~ ~ ~`) will reference *the current position* that the command is executed at. This can also be mixed with static values, such as `32 ~ -94`, which will reference the block at (x: 32, z: -94) using the player's current y-axis.
-- ###### Relative world coordinates
+- ###### Relative coordinates
   These positions can also be *offset* by a certain number of blocks in any direction by adding a number after the tilde. For example, `~2 ~-4 ~3` will move 2 blocks horizontally from the player's x-axis, 4 blocks down in the y-axis, and 3 blocks horizontally in the z-axis.
 - ###### Directional coordinates (caret notation)
   Similar to relative coordinates, directional coordinates (`^ ^ ^`) will start from wherever the command is executed from. However, any offsets will be applied relative to *wherever the current player or entity is looking.* For example, `^2 ^-4 ^3` will move 2 blocks to the left of the player, 4 blocks downward, and 3 blocks in front of the direction the player faces.
