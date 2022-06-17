@@ -154,10 +154,7 @@ const Post = ({
                 ) : null}
                 {result}
                 {post.series ? (
-                  <SeriesNav
-                    post={post}
-                    postSeries={seriesPosts}
-                  />
+                  <SeriesNav post={post} postSeries={seriesPosts} />
                 ) : null}
               </main>
             </>

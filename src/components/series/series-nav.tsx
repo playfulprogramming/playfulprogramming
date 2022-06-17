@@ -10,14 +10,11 @@ interface SeriesNavProps {
   post: SlugPostInfo & RenderedPostInfo;
   postSeries: SeriesPostInfo[];
 }
-export const SeriesNav = ({
-  post,
-  postSeries,
-}: SeriesNavProps) => {
+export const SeriesNav = ({ post, postSeries }: SeriesNavProps) => {
   const postIndex = postSeries.findIndex((p) => p.order === post.order);
 
-  const prevPost = postSeries[postIndex-1];
-  const nextPost = postSeries[postIndex+1];
+  const prevPost = postSeries[postIndex - 1];
+  const nextPost = postSeries[postIndex + 1];
 
   return (
     <div className={styles.seriesNav}>
