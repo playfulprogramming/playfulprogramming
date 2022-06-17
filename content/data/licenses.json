@@ -33,7 +33,7 @@
   },
   {
     "id": "coderpad",
-    "footerImg": "/coderpad.png",
+    "footerImg": "/sponsors/coderpad.svg",
     "licenceType": "Owned by CoderPad",
     "explainLink": "https://coderpad.io/about-us/",
     "name": "Written for CoderPad, reposted to Unicorn Utterances",
