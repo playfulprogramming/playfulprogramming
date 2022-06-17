@@ -3,6 +3,7 @@ import { RenderedPostInfo } from "types/PostInfo";
 import { SeriesPostInfo, SlugPostInfo } from "constants/queries";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { getShortTitle } from "./base";
 
 interface SeriesToCListItem {
   post: SeriesTocProps["postSeries"][0];
@@ -17,13 +18,11 @@ const SeriesToCListItem = ({
 }: SeriesToCListItem) => {
   const liClass = isActive ? styles.isActive : "";
 
-  const titleName = post.title.replace(new RegExp(`^${post.series}: `), "");
-
   return (
     <li className={`${liClass || ""} ${className || ""}`} role="listitem">
       <Link href={`/posts/${post.slug}`} passHref>
         <a>
-          Part {post.order}: {titleName}
+          Part {post.order}: {getShortTitle(post)}
         </a>
       </Link>
     </li>
