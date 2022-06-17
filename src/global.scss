@@ -295,6 +295,15 @@ $pendIconMarg: #{$baseUnit}px;
     overflow: hidden;
   }
 
+  p > code {
+    display: inline;
+    padding: 0 0.4em;
+    font-size: 85%;
+    color: var(--black);
+    background-color: var(--codeInlineBackground);
+    border-radius: 4px;
+  }
+
   details {
     border: 2px solid var(--darkPrimary);
     border-radius: 0.5rem;

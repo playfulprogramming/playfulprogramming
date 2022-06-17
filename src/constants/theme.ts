@@ -25,6 +25,7 @@ export const COLORS = {
     dark: "0px 2px 4px rgba(0, 0, 0, 0.27), inset 0px 1px 0px #435e75",
   },
   codeBlockBackground: { light: "white", dark: "#202746" },
+  codeInlineBackground: { light: "#c6dbe5", dark: "#1d495e" },
   //code styles
   codeBackgroundColor: { light: "#fff", dark: "#161b1d" },
   textColor: { light: "#5e6687", dark: "#7ea2b4" },
