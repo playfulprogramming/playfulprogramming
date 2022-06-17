@@ -303,6 +303,24 @@ $pendIconMarg: #{$baseUnit}px;
     background-color: var(--codeInlineBackground);
     border-radius: 4px;
   }
+
+  details {
+    border: 2px solid var(--darkPrimary);
+    border-radius: 0.5rem;
+    margin-bottom: 1em;
+
+    summary {
+      padding: .5rem 1.5rem;
+      background: var(--darkPrimary);
+      color: var(--backgroundColor);
+      cursor: pointer;
+    }
+
+    summary ~ * {
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+    }
+  }
 }
 
 .post-lower-area {
