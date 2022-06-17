@@ -33,7 +33,9 @@ export const SeriesNav = ({ post, postSeries }: SeriesNavProps) => {
             <NavigateNext />
           </a>
         </Link>
-      ) : null}
+      ) : (
+        <div />
+      )}
     </div>
   );
 };
