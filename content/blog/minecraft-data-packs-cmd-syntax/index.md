@@ -38,7 +38,7 @@ execute if block ~ ~ ~ air run say "You're standing in air!"
 
 This uses two subcommands of the `execute` command: `if block ~ ~ ~ air` checks if the block identifier at the player's location is `minecraft:air`, and `run say "You're standing in air!"` will invoke the `say` command if the previous conditions have passed.
 
-Try running this command in Minecraft! As long as you're standing on a solid block (not in a slab or grass/foliage), you should see its message appear in the chat. If you stand underwater or in any block that isn't air, it should stop executing.
+Try running this command in Minecraft! As long as you're standing in an air block, you should see its message appear in the chat. If you stand underwater or in any block that isn't air (such as bushes/foliage), it should stop executing.
 
 | Standing in air | Standing in water |
 |-----------------|-------------------|
