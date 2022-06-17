@@ -4,6 +4,7 @@ import {
   collectionsDirectory,
   postsDirectory,
   unicorns,
+  licenses,
 } from "utils/fs/get-datas";
 import { isNotJunk } from "junk";
 import { DeepPartial, DeepReplaceKeys, PickDeep } from "ts-util-helpers";
@@ -167,6 +168,13 @@ export function getPostBySlug<ToPick extends PostKeysToPick>(
     pickedData.authors = (frontmatterData.authors as string[]).map(
       (author) => unicorns.find((unicorn) => unicorn.id === author)!
     );
+  }
+
+  if (fields.license) {
+    if (frontmatterData.license) {
+      pickedData.license = licenses.find((l) => l.id === frontmatterData.license);
+    }
+    if (!pickedData.license) pickedData.license = null;
   }
 
   if (fields.excerpt) {
