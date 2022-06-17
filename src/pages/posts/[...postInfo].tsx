@@ -29,7 +29,7 @@ import { ThemeContext } from "constants/theme-context";
 import { siteMetadata } from "constants/site-config";
 import "react-medium-image-zoom/dist/styles.css";
 import path from "path";
-import { SeriesToC } from "components/series-toc";
+import { SeriesNav, SeriesToC } from "components/series";
 import {
   getSuggestedArticles,
   OrderSuggestPosts,
@@ -153,6 +153,9 @@ const Post = ({
                   <TranslationsHeader post={post} />
                 ) : null}
                 {result}
+                {post.series ? (
+                  <SeriesNav post={post} postSeries={seriesPosts} />
+                ) : null}
               </main>
             </>
           }

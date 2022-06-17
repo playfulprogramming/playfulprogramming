@@ -1,0 +1,19 @@
+.seriesNav {
+	margin: 2rem 0;
+
+	&> * {
+		display: inline-flex;
+	}
+
+	&> *:last-child {
+		float: right;
+		margin-left: 1rem;
+	}
+
+	&::after {
+		clear: both;
+		display: block;
+		content: " ";
+	}
+}
+
