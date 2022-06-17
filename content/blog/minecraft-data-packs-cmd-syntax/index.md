@@ -36,9 +36,13 @@ For example:
 execute if block ~ ~ ~ air run say "You're standing in air!"
 ```
 
-This uses two subcommands of the `execute` command: `if block ~ ~ ~ air` checks if the block at the player's location is air, and `run say "You're standing in air!"` will invoke the `say` command if the previous conditions have passed.
+This uses two subcommands of the `execute` command: `if block ~ ~ ~ air` checks if the block identifier at the player's location is `minecraft:air`, and `run say "You're standing in air!"` will invoke the `say` command if the previous conditions have passed.
 
 Try running this command in Minecraft! As long as you're standing on a solid block (not in a slab or grass/foliage), you should see its message appear in the chat. If you stand underwater or in any block that isn't air, it should stop executing.
+
+| Standing in air | Standing in water |
+|-----------------|-------------------|
+| ![A Minecraft player standing on land, in a highlighted block of air](./if_block_air.png) | ![A Minecraft player standing in a pond, in a highlighted block of water](./if_block_water.png) |
 
 If we want to negate this condition, we can replace the `if` subcommand with `unless` &mdash; this will print its message as long as the player *isn't* standing in air.
 
@@ -46,9 +50,7 @@ If we want to negate this condition, we can replace the `if` subcommand with `un
 execute unless block ~ ~ ~ air run say "You aren't standing in air!"
 ```
 
-> In the following sections, it might help keep in mind that every command has a specific *context* that it executes in. This context consists of a **position in the world** and a **selected entity** that runs the command.
->
-> This will make more sense after covering the following sections &mdash; but this context affects what blocks, locations, and entities certain commands and syntax will be referring to.
+You could also change the block identifier to look for a different type of block. For example, `if block ~ ~ ~ water` would make sure that the player is standing in water.
 
 # Position syntax
 
@@ -65,7 +67,34 @@ So what do the tildes (`~ ~ ~`) mean in the previous command? This is referring 
 
 To experiment with the position syntax and see where certain positions end up in the world, we can add coordinates to the `/summon` command to spawn entities at a specific location. `/summon pig ~ ~ ~` would use the current position of the player (its default behavior), while `/summon pig ~ ~-4 ~` would probably spawn the pig underground. If you spawn too many pigs, you can use `/kill @e[type=pig]` to remove them.
 
-An important note when using these positions: for players (and most other entities), any positions will actually start *at the player's feet.* If we want to start at the player's head, we can use the `anchored eyes` subcommand to correct this &mdash; using directional coordinates, `/execute anchored eyes run summon pig ^ ^ ^4` should summon a pig 4 blocks forward in the exact center of wherever player is looking.
+An important note when using these positions: for players (and most other entities), any positions will actually start *at the player's feet.* If we want to start at the player's head, we can use the `anchored eyes` subcommand to correct this &mdash; using directional coordinates, `/execute anchored eyes run summon pig ^ ^ ^4` should summon a pig 4 blocks forward in the exact center of wherever the player is looking.
+
+## Positions in an "/execute" subcommand
+
+> In the following sections, it might help to keep in mind that every command has a specific *context* that it executes in. This context consists of a **position in the world** and a **selected entity** that runs the command. When you type a command in Minecraft's text chat, the **position** is your current location in the world, and the **selected entity** is your player.
+>
+> This context affects what blocks, locations, and entities certain commands and syntax will be referring to. The `/execute` command can change this context for any commands that it runs, which is what you'll see in the following example...
+
+The `/execute` command also has a subcommand that can change its location in the world: `positioned ~ ~ ~`. Using this, we can rewrite our previous command:
+
+```shell
+execute anchored eyes run summon pig ^ ^ ^4
+execute anchored eyes positioned ^ ^ ^4 run summon pig ~ ~ ~
+```
+
+These two commands do the same thing! When we use `positioned ^ ^ ^4`, we're moving the location of our command to those coordinates. Our `summon pig` command then uses its current position at `~ ~ ~`, which is in the location we've moved it to.
+
+### Using "/execute" with functions
+
+If you recall the function we created in the previous chapter, we ended up making a single command (`/function fennifith:animals/spawn`) that spawns a bunch of animals at once.
+
+If we use `/execute` to set the position of this function before it runs, this will also affect the location of *every command in that function.*
+
+```shell
+execute anchored eyes positioned ^ ^ ^4 run function fennifith:animals/spawn
+```
+
+Since our `spawn` function summons all of the animals at its **current coordinates**, we can use the `/execute` command to change that position! This command should now spawn all the animals in front of the player, rather than directly on top of them.
 
 ## Coordinate grid alignment
 
@@ -88,23 +117,6 @@ Thus, to summon an entity in the center of a block, we can use this command:
 ```shell
 execute align xz run summon pig ~0.5 ~ ~0.5
 ```
-
-## Positions in an "/execute" subcommand
-
-The `/execute` command also has a subcommand that can set the position of the command it runs: `positioned ~ ~ ~`. Using this, we can rewrite our previous command:
-
-```shell
-execute anchored eyes run summon pig ^ ^ ^4
-execute anchored eyes positioned ^ ^ ^4 run summon pig ~ ~ ~
-```
-
-These two commands do the same thing! But there might be some cases where this subcommand is useful &mdash; for example, using our `fennifith:animals/spawn` function from the previous article in this series...
-
-```shell
-execute anchored eyes positioned ^ ^ ^4 run function fennifith:animals/spawn
-```
-
-Since our `spawn` function summons all of the animals at its position of execution, we can use the `/execute` command to change that position! This command should now spawn the animals in front of the player, rather than directly on top of them.
 
 # Entity selectors
 
@@ -191,7 +203,7 @@ Using all of these attributes togther can create a box area to search for entiti
 
 # Challenge: Using "/execute" in our tick.mcfunction
 
-In the previous post, we got our data pack to print a message on every game tick. Let's try to change that &mdash; see if you can write a command that will check *the block below the player* to see if it is `air`. If the player is standing on air, they are probably falling, so let's print "aaaaaaaaaaaaaaaaaaaa" in the text chat.
+In the previous post, we got our data pack to print a message on every game tick. Let's try to change that &mdash; see if you can write a command that will check *the block below the player* to see if it is `air`. If the block underneath the player is air, they are probably falling, so let's print "aaaaaaaaaaaaaaaaaaaa" in the text chat.
 
 <details>
   <summary>Need a hint?</summary>
