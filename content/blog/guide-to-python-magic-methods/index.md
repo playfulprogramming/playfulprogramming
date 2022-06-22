@@ -50,7 +50,7 @@ This barely scratches the surface when it comes to the power that magic methods 
 
 If you’ve ever created a class, you’re likely familiar with the following method:
 
-`__init__(self, …args)` - `ClassName()
+`__init__(self, …args)` - `ClassName()`
 
 It’s probably the best-known magic method, Python’s __init__ acts as a class constructor. You can use this to pass initial arguments to a Python class.
 
@@ -75,7 +75,7 @@ Here, whenever the `Speaker` class is initialized, it will assign `self.message`
 
 In addition to a class initializer, there’s also a class deletion handler:
 
-`__del__(self)` - `del instance
+`__del__(self)` - `del instance`
 
 This method will run any time you call `del` on a class instance. This is particularly useful whenever you have an I/O operation in the constructor in order to cleanup said I/O operations.
 
@@ -220,7 +220,7 @@ This is because while we’ve told Python how to look up the overwritten values,
 
 To do this, we can use the `__dir__` magic method.
 
-`__dir__(self)` - `dir(instance)
+`__dir__(self)` - `dir(instance)`
 
 ```python
 class Test:
@@ -271,7 +271,7 @@ This is because, once we assign `test.string`, it no longer calls `getattr` the 
 
 To solve this problem, we need to use the `__setattr__` magic method to “listen” for property assignment.
 
-`__setattr__(self, key, val)` - `instance.property = newVal
+`__setattr__(self, key, val)` - `instance.property = newVal`
 
 ```python
 class Test:
@@ -296,7 +296,7 @@ Just as we can hook into the setting and getting behavior of an attribute, we ca
 
 For example, what if we wanted to create a class that acted like a dictionary. For each key created in this dictionary we’d want to automatically create a temporary file. Then, on cleanup (using `del`), let’s remove that file with `os.remove`:
 
-`__delattr__(self, key)` - `del instance.property
+`__delattr__(self, key)` - `del instance.property`
 
 ```python
 import os
@@ -341,9 +341,9 @@ We would quickly get an error from Python:
 To solve this problem, we need to migrate away from `__setattr__`, which only supports dot notation, to `__setitem__`, which only supports the dictionary-style notation.
 
 
-`__getitem__(self, key)` - `instance[property]
-`__setitem__(self, key, val)` - `instance[property] = newVal
-`__delitem__(self, key)` - `del instance[property]
+- `__getitem__(self, key)` - `instance[property]`
+- `__setitem__(self, key, val)` - `instance[property] = newVal`
+- `__delitem__(self, key)` - `del instance[property]`
 
 ```python
 import os
@@ -399,7 +399,7 @@ Luckily we can!
 
 For example, here’s how we can make the `+` symbol run custom logic:
 
-`__add__(self, other)` - `instance + other
+- `__add__(self, other)` - `instance + other`
 
 ```python
 class Test:
@@ -419,8 +419,8 @@ print(firstItem + secondItem)
 
 There’s also other math symbols you can overwrite:
 
-`__sub__(self, other)` - `instance - other
-`__mul__(self, other)` - `instance * other
+- `__sub__(self, other)` - `instance - other`
+- `__mul__(self, other)` - `instance * other`
 
 ### Manage comparison symbol behavior
 
@@ -428,7 +428,7 @@ Addition, subtraction, and multiplication aren’t the only usages for operator 
 
 Let’s say we want to check if two strings match, regardless of casing:
 
-`__eq__(self, other)` - `instance == other
+- `__eq__(self, other)` - `instance == other`
 
 ```python
 class Test():
@@ -448,17 +448,16 @@ print(firstItem == secondItem)
 
 You can also have different logic for `==` and `!=` using `__ne__`.
 
-`__ne__(self, other)` - `instance != other
-
+- `__ne__(self, other)` - `instance != other`
 
 However, if you don’t provide a `__ne__`, but **do** provide a `__eq__`, Python will simply negate the `__eq__` logic on your behalf when `instance != other` is called.
 
 There’s also a slew of magic methods for customizing other comparison operators:
 
-`__lt__(self, other)` - `instance < other
-`__gt__(self, other)` - `instance > other
-`__le__(self, other)` - `instance <= other
-`__ge__(self, other)` - `instance >= other
+- `__lt__(self, other)` - `instance < other`
+- `__gt__(self, other)` - `instance > other`
+- `__le__(self, other)` - `instance <= other`
+- `__ge__(self, other)` - `instance >= other`
 
 ### Overwrite a class’s type casting logic
 
@@ -470,7 +469,7 @@ For example, if you call `bool()` on a string, it will cast the truthy value to 
 
 What if you could customize the behavior of the `bool()` method? You see where we’re going with this…
 
-`__bool__(self)` - `bool(instance)
+- `__bool__(self)` - `bool(instance)`
 
 ```python
 from os.path import exists
@@ -492,8 +491,8 @@ print(bool(file))
 
 There’s also other type casts logic you can customize:
 
-`__int__(self)` - `int(instance)
-`__str__(self)` - `str(instance)
+- `__int__(self)` - `int(instance)`
+- `__str__(self)` - `str(instance)`
 
 
 ## How to make your classes iterable
@@ -539,7 +538,7 @@ Or any other kind of iteration on the ListLike. You’ll get the following confu
 
 This is because Python doesn’t know *how* to iterate through your class, and therefore attempts to access a property in the class. This is where `__iter__` comes into play: It allows you to return an iterable to utilize anytime Python might request iterating through the class, like in [a list comprehension](https://coderpad.io/blog/development/python-list-comprehension-guide/).
 
-`__iter__(self)` - `[x for x in instance]
+- `__iter__(self)` - `[x for x in instance]`
 
 ```python
 class ListLike:
@@ -583,7 +582,7 @@ listLike.append("World")
 
 The `__iter__` magic method isn’t the only way to customize traditionally list-like behavior for a class. You can also use the `__contains__` method to add support for simple “is this in the class” checks.
 
-`__contains__(self, item)` - `key in instance`
+- `__contains__(self, item)` - `key in instance`
 
 
 Something to keep in mind is that if `__contains__` isn't defined, Python will use the information provided by `__iter__` to check if the key is present. However, `__contains__` is a more optimized method, since the default `__iter__` checking behavior will iterate through every key until it finds a match.
