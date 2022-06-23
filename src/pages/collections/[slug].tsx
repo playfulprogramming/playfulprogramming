@@ -4,13 +4,13 @@ import {
   getAllCollections,
   getCollectionBySlug,
   collectionsDirectory,
+  collectionQuery,
+  CollectionQueryType,
 } from "utils/fs/api";
 import * as React from "react";
-import { CollectionInfo } from "types/CollectionInfo";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import path from "path";
 import { useMarkdownRenderer } from "utils/markdown/useMarkdownRenderer";
-import { PickDeep } from "ts-util-helpers";
 import Image from "next/image";
 import { getFullRelativePath } from "utils/url-paths";
 import styles from "../../page-components/collections/collections.module.scss";
@@ -21,34 +21,13 @@ import { SEO } from "components/seo";
 import { useRouter } from "next/router";
 import { Languages } from "types/index";
 import "react-medium-image-zoom/dist/styles.css";
-
-const collectionQuery = {
-  associatedSeries: true,
-  posts: true,
-  title: true,
-  authors: {
-    socials: true,
-    name: true,
-    lastName: true,
-    firstName: true,
-    id: true,
-  },
-  description: true,
-  content: true,
-  slug: true,
-  coverImg: true,
-  buttons: true,
-  published: true,
-  type: true,
-  chapterList: true,
-  socialImg: true,
-} as const;
+import { generateCollectionEPub } from "utils/generate-collection-epub";
 
 type Props = {
   markdownHTML: string;
   slug: string;
   collectionsDirectory: string;
-  collection: PickDeep<CollectionInfo, typeof collectionQuery>;
+  collection: CollectionQueryType;
 };
 
 const Collection = ({
@@ -82,6 +61,13 @@ const Collection = ({
         pathName={router.asPath}
         shareImage={collection.socialImg || coverImgPath}
       />
+      <button
+        onClick={() => {
+          generateCollectionEPub(collection);
+        }}
+      >
+        Generate epub
+      </button>
       <div className={styles.mainContainer}>
         <div className="listViewContent">
           <div className={styles.topHeader}>

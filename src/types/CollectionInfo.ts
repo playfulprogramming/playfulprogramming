@@ -1,5 +1,6 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { PostInfo } from "types/PostInfo";
+import { PickDeep } from "ts-util-helpers";
 
 export interface CollectionInfo {
   slug: string;
@@ -18,7 +19,13 @@ export interface CollectionInfo {
   socialImg?: string;
   posts: Pick<
     PostInfo,
-    "description" | "excerpt" | "title" | "order" | "series" | "slug"
+    | "description"
+    | "excerpt"
+    | "title"
+    | "order"
+    | "series"
+    | "slug"
+    | "authors"
   >[];
   content: string;
   buttons: Array<{ text: string; url: string }>;
