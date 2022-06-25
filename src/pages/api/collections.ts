@@ -96,7 +96,7 @@ async function generateCollectionEPub(
             collection.coverImg.relativePath
           )
         ),
-      // css: `body{background: #000}`,
+      css: `img{max-width: 100%}`,
       // fonts: ['/path/to/Merriweather.ttf'],
       lang: "en",
       content: await Promise.all(
