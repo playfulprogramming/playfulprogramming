@@ -61,16 +61,6 @@ const Collection = ({
         pathName={router.asPath}
         shareImage={collection.socialImg || coverImgPath}
       />
-      <button
-        onClick={async () => {
-          const res = await fetch(
-            `/api/collections?collectionName=${collection.slug}`
-          );
-          console.log(res.json());
-        }}
-      >
-        Generate epub
-      </button>
       <div className={styles.mainContainer}>
         <div className="listViewContent">
           <div className={styles.topHeader}>
