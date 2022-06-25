@@ -52,6 +52,8 @@ export function getCollectionBySlug<ToPick extends CollectionKeysToPick>(
         series: true,
         order: true,
         slug: true,
+        authors: true,
+        content: true,
       },
       "en",
       allPostsForCollectionQueryCache

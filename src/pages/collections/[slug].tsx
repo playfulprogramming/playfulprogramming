@@ -62,8 +62,11 @@ const Collection = ({
         shareImage={collection.socialImg || coverImgPath}
       />
       <button
-        onClick={() => {
-          generateCollectionEPub(collection);
+        onClick={async () => {
+          const res = await fetch(
+            `/api/collections?collectionName=${collection.slug}`
+          );
+          console.log(res.json());
         }}
       >
         Generate epub
