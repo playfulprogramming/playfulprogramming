@@ -21,7 +21,6 @@ import { SEO } from "components/seo";
 import { useRouter } from "next/router";
 import { Languages } from "types/index";
 import "react-medium-image-zoom/dist/styles.css";
-import { generateCollectionEPub } from "utils/generate-collection-epub";
 
 type Props = {
   markdownHTML: string;
