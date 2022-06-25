@@ -56,12 +56,21 @@ const Tabs: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   }, [state.selectedTabText]);
 
   const onSelect = React.useCallback(
-    (index: number) => {
+    (index: number, _: number, event: Event) => {
+      const target = event.target as HTMLElement;
       setSelectedIndex(index);
       dispatch({
         type: "SET_SELECTED_TAB_TEXT",
         payload: tabsHeadingText[index],
       });
+      // Scroll onto screen in order to avoid jumping page locations
+      setTimeout(() => {
+        target.scrollIntoView({
+          behavior: "auto",
+          block: "center",
+          inline: "center",
+        });
+      }, 0);
     },
     [dispatch, tabsHeadingText]
   );
