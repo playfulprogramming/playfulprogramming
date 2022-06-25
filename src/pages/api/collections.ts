@@ -51,6 +51,7 @@ export async function generateCollectionEPub(
     posts: true,
     slug: true,
     coverImg: true,
+    associatedSeries: true,
   });
   const epub = new EPub(
     {
@@ -70,7 +71,7 @@ export async function generateCollectionEPub(
       // fonts: ['/path/to/Merriweather.ttf'],
       lang: "en",
       content: await Promise.all(
-        [collection.posts[0]].map(async (post) => ({
+        collection.posts.map(async (post) => ({
           title: post.title,
           author: post.authors.map((author) => author.name),
           // data: await generateEpubHTML(post.content),
@@ -99,7 +100,7 @@ export default async function handler(
     const fileName = `${uuid.v4()}.epub`;
     await generateCollectionEPub(
       req.query.collectionName as string,
-      resolve(__dirname, "..", "..", "..", "public", fileName)
+      resolve(process.cwd(), "public", fileName)
     );
     res.status(200).json({ epubLocation: fileName });
   } catch (e) {
