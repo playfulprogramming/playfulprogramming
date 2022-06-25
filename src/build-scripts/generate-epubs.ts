@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { unifiedChain } from "utils/markdown/unified-chain";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
@@ -6,15 +5,16 @@ import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
-import * as uuid from "uuid";
-import { getCollectionBySlug } from "utils/fs/posts-and-collections-api";
+import {
+  getCollectionBySlug,
+  getCollectionSlugs,
+} from "utils/fs/posts-and-collections-api";
 import { join, resolve } from "path";
 import slash from "slash";
 import visit from "unist-util-visit";
 import { Element, Root } from "hast";
 import { isRelativePath } from "utils/url-paths";
-import * as path from "path";
-const { EPub } = require("@lesjoursfr/html-to-epub");
+import { EPub } from "@lesjoursfr/html-to-epub";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
   return (tree: Root) => {
@@ -41,7 +41,7 @@ async function generateEpubHTML(slug: string, content: string) {
       remarkGfm,
       remarkUnwrapImages,
       [
-        remarkTwoslash,
+        (remarkTwoslash as any).default,
         {
           themes: ["github-light"],
         } as UserConfigSettings,
@@ -53,7 +53,7 @@ async function generateEpubHTML(slug: string, content: string) {
       [
         rehypeMakeImagePathsAbsolute,
         {
-          path: path.resolve(process.cwd(), `content/blog/${slug}/`),
+          path: resolve(process.cwd(), `content/blog/${slug}/`),
         },
       ],
       [
@@ -69,6 +69,8 @@ async function generateEpubHTML(slug: string, content: string) {
 
   return result.toString();
 }
+
+type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
 async function generateCollectionEPub(
   collectionSlug: string,
@@ -87,15 +89,10 @@ async function generateCollectionEPub(
       title: collection.title,
       author: collection.authors.map((author) => author.name),
       publisher: "Unicorn Utterances",
-      cover:
-        "http://localhost:9000" +
-        slash(
-          join(
-            "/collections",
-            collection.slug,
-            collection.coverImg.relativePath
-          )
-        ),
+      cover: resolve(
+        process.cwd(),
+        `content/collections/${collection.slug}/${collection.coverImg.relativePath}`
+      ),
       css: `img{max-width: 100%}`,
       // fonts: ['/path/to/Merriweather.ttf'],
       lang: "en",
@@ -106,33 +103,19 @@ async function generateCollectionEPub(
           data: await generateEpubHTML(post.slug, post.content),
         }))
       ),
-    },
+    } as Partial<EpubOptions> as EpubOptions,
     fileLocation
   );
   return await epub.render();
 }
 
-type ResponseData = {
-  epubLocation: string;
-};
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  if (!req.query.collectionName) {
-    res.status(200).json({ epubLocation: "" });
-    return;
-  }
-  try {
-    const fileName = `${uuid.v4()}.epub`;
+const collectionSlugs = getCollectionSlugs();
+// @ts-ignore
+await Promise.all(
+  collectionSlugs.map(async (collectionSlug) => {
     await generateCollectionEPub(
-      req.query.collectionName as string,
-      resolve(process.cwd(), "public", fileName)
+      collectionSlug,
+      resolve(process.cwd(), `public/${collectionSlug}.epub`)
     );
-    res.status(200).json({ epubLocation: fileName });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ errorMessage: JSON.stringify(e) } as never);
-  }
-}
+  })
+);
