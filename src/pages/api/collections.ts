@@ -10,9 +10,32 @@ import * as uuid from "uuid";
 import { getCollectionBySlug } from "utils/fs/posts-and-collections-api";
 import { join, resolve } from "path";
 import slash from "slash";
+import visit from "unist-util-visit";
+import { Element, Root } from "hast";
+import { isRelativePath } from "utils/url-paths";
+import * as path from "path";
 const { EPub } = require("@lesjoursfr/html-to-epub");
 
-async function generateEpubHTML(content: string) {
+function rehypeMakeImagePathsAbsolute(options: { path: string }) {
+  return (tree: Root) => {
+    visit(tree, "element", visitor);
+
+    function visitor(node: Element) {
+      if (node.tagName === "img") {
+        let src = node.properties!.src as string;
+        if (src.startsWith("http")) {
+          return;
+        }
+        if (isRelativePath(src)) {
+          src = slash(join(options.path, src));
+        }
+        node.properties!.src = src;
+      }
+    }
+  };
+}
+
+async function generateEpubHTML(slug: string, content: string) {
   const result = await unifiedChain({
     remarkPlugins: [
       remarkGfm,
@@ -28,6 +51,12 @@ async function generateEpubHTML(content: string) {
       // This is required to handle unsafe HTML embedded into Markdown
       rehypeRaw,
       [
+        rehypeMakeImagePathsAbsolute,
+        {
+          path: path.resolve(process.cwd(), `content/blog/${slug}/`),
+        },
+      ],
+      [
         rehypeSlug,
         {
           maintainCase: true,
@@ -41,7 +70,7 @@ async function generateEpubHTML(content: string) {
   return result.toString();
 }
 
-export async function generateCollectionEPub(
+async function generateCollectionEPub(
   collectionSlug: string,
   fileLocation: string
 ) {
@@ -74,8 +103,7 @@ export async function generateCollectionEPub(
         collection.posts.map(async (post) => ({
           title: post.title,
           author: post.authors.map((author) => author.name),
-          // data: await generateEpubHTML(post.content),
-          data: "<div>Test</div>",
+          data: await generateEpubHTML(post.slug, post.content),
         }))
       ),
     },
