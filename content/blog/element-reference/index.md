@@ -644,7 +644,7 @@ Now our component works as intended and has minimal boilerplate to solve the pro
 
 # Vue
 
-// TODO
+Vue's ability to use the `this` keyword enables a super simplistic API to access DOM nodes.
 
 ```jsx
 const App = {
@@ -655,7 +655,9 @@ const App = {
 };
 ```
 
+Here, `this.$refs.el` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
 
+Vue also allows you to pass a function to `ref` in order to run a function when the `ref` is being set, like so:
 
 ```javascript
 const App = {
@@ -668,27 +670,25 @@ const App = {
 };
 ```
 
-
-
-
-
 <!-- tabs:end -->
-
-
 
 
 
 # How to keep an array of element references
 
+When we learned [how to access content that's been projected](/posts/content-reference), we had to learn different APIs in order both to access a single projected item and access multiple projected items at once. We have a similar challenge in front of us with element referencing.
 
+Let's say that we have an array of items that we want to be able to quickly scroll to the top or bottom of. One way of solving this is to store each item in the array into an element reference then use the top and bottom [elements' `scrollIntoView` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) to bring them onto the page visually.
 
-Array of items, for usage with `scrollIntoView` so that you can bring users to the right item.
-
-
+Let's see how that's done with each framework.
 
 <!-- tabs:start -->
 
 ## React
+
+React's ability to persist data within a `useRef` allows us to create an index-based array to store our elements into.
+
+Using this array, we can then access the `0`th and `.length - 1`th index to indicate the first and last element respectively. 
 
 ```jsx
 const chapters = [
@@ -731,7 +731,9 @@ export default function App() {
 
 ## Angular
 
-// TODO: Add more
+Just as there are both `ContentChild` and `ContentChildren` APIs to access a single and multiple projected elements, there's also `ViewChild` and `ViewChildren` to access more than one or more template elements using similar APIs.
+
+Using `ViewChildren`, we can access [template reference variables](https://crutchcorn-book.vercel.app/posts/content-reference#ng-templates) in order to `scrollIntoView` the first and last elements.
 
 ````typescript
 @Component({
@@ -778,7 +780,7 @@ class AppComponent {
 
 ## Vue
 
-// TODO: Add more
+Vue has a handy feature that [enables you to create an array of referenced elements using nothing more than a string inside of a `ref` attribute](https://vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for). This then turns the `this.$ref` reference into an array that we can access as-expected.
 
 ```javascript
 const App = {
@@ -828,17 +830,101 @@ const App = {
 
 # Real world usage
 
+These concepts are handy to know, but what good are they if we can't utilize them in a real-world use case?
+
+Let's take our existing [file hosting app project](/posts/intro-to-components#Whats-an-app-anyway) and think about a feature that we can build.
+
+Oh, I know! Let's add in a context menu, so that when you right-click a file in the files list, it allows you to take actions on it such as deleting or renaming.
+
+Let's first start by detecting when the user has right-clicked a `div`. We can use [the `contextmenu` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event) to detect a right-click event. From there, it's as simple as [conditionally rendering](https://crutchcorn-book.vercel.app/posts/dynamic-html#Conditional-Rendering) the context menu component when the user has right-clicked.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+// TODO: Check this code
+export default function App() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+
+  return (
+    <React.Fragment>
+      <div>
+        <div onContextMenu={onContextMenu}>
+          Right click on me!
+        </div>
+      </div>
+      {isOpen && (
+        <div>
+          <button onClick={() => setIsOpen(false)}>X</button>
+          This is a context menu
+        </div>
+      )}
+    </React.Fragment>
+  );
+}
+```
+
+## Angular
+
+```typescript
+// TODO: Check this code
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <div (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div *ngIf="isOpen">
+  <button (click)="close()">X</button>
+  This is a context menu
+</div>
+  `,
+})
+class AppComponent implements AfterViewInit {
+  isOpen = false;
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+```
+
+## Vue
+
+// TODO: Add code sample
+
+<!-- tabs:end -->
 
 
-Creating a context menu component using refs
 
+That works! That said, it's not an ideal experience for a context menu. After all, one of the defining traits of a context menu is that it opens on top of the element that you've right-clicked on.
 
+To do this, we need to [get the position of the base element using `getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect). Then, we can pass the base element's `x` and `y` values to a `position: fixed` context menu to have the appearance of a floating context menu.
+
+We also want to immediately [focus on the context menu using `element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) in order to make sure that keyboard users aren't lost when trying to use the feature.
 
 
 
 <!-- tabs:start -->
 
 ## React
+
+We can run `getBoundingClientRect` when the `ref` is set by simply passing a `callback` to the element's `ref`.
+
+From there, it's a basic `useRef` passing in order to `focus` on the context menu. We're able to do this despite a conditional rendering of the context menu because React will automatically update the value of `ref` depending on if the base element is rendered or not.
 
 ```jsx
 export default function App() {
@@ -901,6 +987,10 @@ export default function App() {
 ```
 
 ## Angular
+
+To get the base element's position, we're able to use our previous `ViewChild` to get the underlying DOM node.
+
+However, in order to `focus` on the context menu, we're relying on [the `changes` functionality of `ViewChildren`](https://angular.io/api/core/QueryList#changes) to run a function every time the context menu is rendered and unrendered.
 
 ```typescript
 @Component({
@@ -974,6 +1064,24 @@ class AppComponent implements AfterViewInit {
 // TODO: Add code sample
 
 <!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
