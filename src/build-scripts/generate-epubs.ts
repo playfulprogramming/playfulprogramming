@@ -18,9 +18,7 @@ import { EPub } from "@lesjoursfr/html-to-epub";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
   return (tree: Root) => {
-    visit(tree, "element", visitor);
-
-    function visitor(node: Element) {
+    function imgVisitor(node: Element) {
       if (node.tagName === "img") {
         let src = node.properties!.src as string;
         if (src.startsWith("http")) {
@@ -32,6 +30,28 @@ function rehypeMakeImagePathsAbsolute(options: { path: string }) {
         node.properties!.src = src;
       }
     }
+
+    visit(tree, "element", imgVisitor);
+    return tree;
+  };
+}
+
+function rehypeMakeHrefPathsAbsolute(options: { path: string }) {
+  return (tree: Root) => {
+    function aVisitor(node: Element) {
+      if (node.tagName === "a") {
+        let href = node.properties!.href as string;
+        if (href.startsWith("http")) {
+          return;
+        }
+        if (isRelativePath(href)) {
+          href = slash(join(options.path, href));
+        }
+        node.properties!.href = href;
+      }
+    }
+    visit(tree, "element", aVisitor);
+    return tree;
   };
 }
 
@@ -40,12 +60,12 @@ async function generateEpubHTML(slug: string, content: string) {
     remarkPlugins: [
       remarkGfm,
       remarkUnwrapImages,
-      [
-        (remarkTwoslash as any).default,
-        {
-          themes: ["github-light"],
-        } as UserConfigSettings,
-      ],
+      // [
+      //   (remarkTwoslash as any).default,
+      //   {
+      //     themes: ["github-light"],
+      //   } as UserConfigSettings,
+      // ],
     ],
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
@@ -54,6 +74,12 @@ async function generateEpubHTML(slug: string, content: string) {
         rehypeMakeImagePathsAbsolute,
         {
           path: resolve(process.cwd(), `content/blog/${slug}/`),
+        },
+      ],
+      [
+        rehypeMakeHrefPathsAbsolute,
+        {
+          path: `https://unicorn-utterances.com`,
         },
       ],
       [
