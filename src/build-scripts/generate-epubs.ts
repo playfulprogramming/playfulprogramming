@@ -13,7 +13,7 @@ import { join, resolve } from "path";
 import slash from "slash";
 import visit from "unist-util-visit";
 import { Element, Root } from "hast";
-import { isRelativePath } from "utils/url-paths";
+import { isRelativePath, trimTrailingSlash } from "utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
@@ -41,11 +41,11 @@ function rehypeMakeHrefPathsAbsolute(options: { path: string }) {
     function aVisitor(node: Element) {
       if (node.tagName === "a") {
         let href = node.properties!.href as string;
-        if (href.startsWith("http")) {
+        if (href.startsWith("#")) {
           return;
         }
         if (isRelativePath(href)) {
-          href = slash(join(options.path, href));
+          href = slash(trimTrailingSlash(options.path) + href);
         }
         node.properties!.href = href;
       }
@@ -173,7 +173,7 @@ async function generateCollectionEPub(
     } as Partial<EpubOptions> as EpubOptions,
     fileLocation
   );
-  return await epub.render();
+  await epub.render();
 }
 
 const collectionSlugs = getCollectionSlugs();
