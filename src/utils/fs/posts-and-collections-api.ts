@@ -52,6 +52,8 @@ export function getCollectionBySlug<ToPick extends CollectionKeysToPick>(
         series: true,
         order: true,
         slug: true,
+        authors: true,
+        content: true,
       },
       "en",
       allPostsForCollectionQueryCache
@@ -172,7 +174,9 @@ export function getPostBySlug<ToPick extends PostKeysToPick>(
 
   if (fields.license) {
     if (frontmatterData.license) {
-      pickedData.license = licenses.find((l) => l.id === frontmatterData.license);
+      pickedData.license = licenses.find(
+        (l) => l.id === frontmatterData.license
+      );
     }
     if (!pickedData.license) pickedData.license = null;
   }
@@ -236,3 +240,41 @@ export const getAllPostsForListView = () => {
 };
 
 export type ListViewPosts = ReturnType<typeof getAllPostsForListView>;
+
+export const collectionQuery = {
+  associatedSeries: true,
+  posts: {
+    description: true,
+    excerpt: true,
+    title: true,
+    order: true,
+    series: true,
+    slug: true,
+    authors: {
+      name: true,
+      id: true,
+    },
+  },
+  title: true,
+  authors: {
+    socials: true,
+    name: true,
+    lastName: true,
+    firstName: true,
+    id: true,
+  },
+  description: true,
+  content: true,
+  slug: true,
+  coverImg: true,
+  buttons: true,
+  published: true,
+  type: true,
+  chapterList: true,
+  socialImg: true,
+} as const;
+
+export type CollectionQueryType = PickDeep<
+  CollectionInfo,
+  typeof collectionQuery
+>;

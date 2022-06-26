@@ -1,8 +1,3 @@
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
-import remarkToRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import rehypeImageSize from "rehype-img-size";
@@ -15,28 +10,11 @@ import { rehypeHeaderText } from "./plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs, RehypeTabsProps } from "utils/markdown/plugins/tabs";
-import { PluggableList } from "unified";
 
 // TODO: Create types
 import behead from "remark-behead";
 import rehypeRaw from "rehype-raw";
-
-interface markdownChainProps {
-  remarkPlugins: PluggableList;
-  rehypePlugins: PluggableList;
-}
-
-const unifiedChain = ({ remarkPlugins, rehypePlugins }: markdownChainProps) => {
-  let unifiedChain = unified()
-    .use(remarkParse)
-    .use(remarkPlugins)
-    .use(remarkStringify)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypePlugins)
-    .use(rehypeStringify, { allowDangerousHtml: true });
-
-  return unifiedChain;
-};
+import { unifiedChain } from "utils/markdown/unified-chain";
 
 export default async function markdownToHtml(
   content: string,

@@ -19,7 +19,7 @@
   },
   "scripts": {
     "analyze": "env-cmd -f ./src/environments/analyze.env next build",
-    "build": "npm run lunr && npm run rss && next build && npm run sitemap && npm run social-previews:build",
+    "build": "npm run lunr && npm run rss && next build && npm run sitemap && npm run epub && npm run social-previews:build",
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
     "dev": "npm run lunr && env-cmd -f ./src/environments/dev.env next -p 9000",
@@ -30,11 +30,13 @@
     "sitemap": "node ./node_modules/next-sitemap/bin/next-sitemap",
     "social-previews:build": "node --experimental-loader esbuild-node-loader src/build-scripts/create-post-social-preview-png.ts",
     "social-previews:dev": "node --experimental-loader esbuild-node-loader src/build-scripts/preview-social-preview-site.ts",
+    "epub": "node --experimental-loader esbuild-node-loader src/build-scripts/generate-epubs.ts",
     "start": "next start",
     "test": "jest",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@lesjoursfr/html-to-epub": "^2.2.2",
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
     "@types/github-slugger": "^1.3.0",

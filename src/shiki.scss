@@ -1,5 +1,8 @@
 @import "./styles/text_styles";
 
+/*
+ * This code handles line of code counting
+ */
 code {
 	counter-reset: step;
 	counter-increment: step 0;
