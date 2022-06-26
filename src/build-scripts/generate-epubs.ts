@@ -93,7 +93,48 @@ async function generateCollectionEPub(
         process.cwd(),
         `content/collections/${collection.slug}/${collection.coverImg.relativePath}`
       ),
-      css: `img{max-width: 100%}`,
+      css: `
+        img {
+          max-width: 100%;
+        }
+        
+        /**
+         * Shiki styling
+         */
+        pre {
+          padding: 0.5rem;
+          border: 1px solid currentcolor;
+          border-radius: 8px;
+        }
+        
+        /** Don't show the language identifiers */
+        pre.shiki .language-id {
+          display: none;
+        }
+        
+        /*
+         * This code handles line of code counting
+         */
+        code {
+          counter-reset: step;
+          counter-increment: step 0;
+        }
+        
+        code .line::before {
+          content: counter(step);
+          counter-increment: step;
+          width: 1rem;
+          margin-right: 1.5rem;
+          display: inline-block;
+          text-align: right;
+          color: currentcolor;
+          opacity: 0.8;
+        }
+        
+        pre.shiki div.line {
+          white-space: normal;
+        }
+      `,
       // fonts: ['/path/to/Merriweather.ttf'],
       lang: "en",
       content: await Promise.all(
