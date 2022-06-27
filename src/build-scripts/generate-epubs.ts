@@ -60,6 +60,31 @@ function rehypeMakeHrefPathsAbsolute(options: { path: string }) {
   };
 }
 
+function rehypeMakeFixTwoSlashXHTML() {
+  return (tree: Root) => {
+    function preVisitor(node: Element) {
+      if (node.tagName === "pre") {
+        visit(node, "element", (childNode: Element) => {
+          if (childNode.tagName === "div") {
+            childNode.tagName = "span";
+            if (childNode.properties!.style) {
+              if ((childNode.properties!.style as string).endsWith(";")) {
+                (childNode.properties!.style as string) += "display: block;";
+              } else {
+                (childNode.properties!.style as string) += "; display: block;";
+              }
+            } else {
+              childNode.properties!.style = "display: block;";
+            }
+          }
+        });
+      }
+    }
+    visit(tree, "element", preVisitor);
+    return tree;
+  };
+}
+
 interface markdownChainProps {
   remarkPlugins: PluggableList;
   rehypePlugins: PluggableList;
@@ -99,6 +124,7 @@ async function generateEpubHTML(slug: string, content: string) {
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
       rehypeRaw,
+      rehypeMakeFixTwoSlashXHTML,
       [
         rehypeMakeImagePathsAbsolute,
         {
@@ -161,12 +187,12 @@ async function generateCollectionEPub(
           border: 1px solid currentcolor;
           border-radius: 8px;
         }
-        
+
         /** Don't show the language identifiers */
         pre.shiki .language-id {
-          display: none;
+          display: none !important;
         }
-        
+
         /*
          * This code handles line of code counting
          */
@@ -180,7 +206,7 @@ async function generateCollectionEPub(
           counter-increment: step;
           width: 1rem;
           margin-right: 1.5rem;
-          display: inline-block;
+          display: inline-block !important;
           text-align: right;
           color: currentcolor;
           opacity: 0.8;
