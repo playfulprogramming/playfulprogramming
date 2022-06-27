@@ -36,6 +36,12 @@ const getComponents = (
   comps: ComponentMap = {}
 ) => {
   return {
+    // Temp fix to remove HTML, BODY, and HEAD nodes from render. Not sure why,
+    // but it's being added to the markdown rendering in the `useMarkdownRenderer`
+    // step.
+    html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
     ...getTabs(props),
     ...getHeadings(props),
