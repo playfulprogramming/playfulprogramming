@@ -212,7 +212,7 @@ async function generateCollectionEPub(
           opacity: 0.8;
         }
         
-        pre.shiki div.line {
+        pre.shiki span.line {
           white-space: normal;
         }
       `,
@@ -221,7 +221,6 @@ async function generateCollectionEPub(
       content: await Promise.all(
         collection.posts.map(async (post) => ({
           title: post.title,
-          author: post.authors.map((author) => author.name),
           data: await generateEpubHTML(post.slug, post.content),
         }))
       ),
