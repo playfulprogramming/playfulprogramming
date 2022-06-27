@@ -20,6 +20,7 @@ import { PluggableList, unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import remarkToRehype from "remark-rehype";
+import { unifiedChain } from "utils/markdown/unified-chain";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
   return (tree: Root) => {
@@ -91,25 +92,6 @@ interface markdownChainProps {
 }
 
 async function generateEpubHTML(slug: string, content: string) {
-  const unifiedChain = ({
-    remarkPlugins,
-    rehypePlugins,
-  }: markdownChainProps) => {
-    return unified()
-      .use(remarkParse)
-      .use(remarkPlugins)
-      .use(remarkStringify)
-      .use(remarkToRehype, { allowDangerousHtml: true })
-      .use(rehypePlugins)
-      .use(function xmlStringify() {
-        Object.assign(this, { Compiler: compiler });
-
-        function compiler(tree: Node) {
-          return toXml(toXast(tree as never), { allowDangerousXml: true });
-        }
-      });
-  };
-
   const result = await unifiedChain({
     remarkPlugins: [
       remarkGfm,
@@ -227,6 +209,7 @@ async function generateCollectionEPub(
     } as Partial<EpubOptions> as EpubOptions,
     fileLocation
   );
+
   await epub.render();
 }
 
