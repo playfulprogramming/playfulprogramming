@@ -1,4 +1,3 @@
-import { unifiedChain } from "utils/markdown/unified-chain";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkTwoslash from "remark-shiki-twoslash";
@@ -12,9 +11,15 @@ import {
 import { join, resolve } from "path";
 import slash from "slash";
 import visit from "unist-util-visit";
+import { toXast } from "hast-util-to-xast";
+import { toXml } from "xast-util-to-xml";
 import { Element, Root } from "hast";
 import { isRelativePath, trimTrailingSlash } from "utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
+import { PluggableList, unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkStringify from "remark-stringify";
+import remarkToRehype from "remark-rehype";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
   return (tree: Root) => {
@@ -55,17 +60,41 @@ function rehypeMakeHrefPathsAbsolute(options: { path: string }) {
   };
 }
 
+interface markdownChainProps {
+  remarkPlugins: PluggableList;
+  rehypePlugins: PluggableList;
+}
+
 async function generateEpubHTML(slug: string, content: string) {
+  const unifiedChain = ({
+    remarkPlugins,
+    rehypePlugins,
+  }: markdownChainProps) => {
+    return unified()
+      .use(remarkParse)
+      .use(remarkPlugins)
+      .use(remarkStringify)
+      .use(remarkToRehype, { allowDangerousHtml: true })
+      .use(rehypePlugins)
+      .use(function xmlStringify() {
+        Object.assign(this, { Compiler: compiler });
+
+        function compiler(tree: Node) {
+          return toXml(toXast(tree as never), { allowDangerousXml: true });
+        }
+      });
+  };
+
   const result = await unifiedChain({
     remarkPlugins: [
       remarkGfm,
       remarkUnwrapImages,
-      // [
-      //   (remarkTwoslash as any).default,
-      //   {
-      //     themes: ["github-light"],
-      //   } as UserConfigSettings,
-      // ],
+      [
+        (remarkTwoslash as any).default,
+        {
+          themes: ["github-light"],
+        } as UserConfigSettings,
+      ],
     ],
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
