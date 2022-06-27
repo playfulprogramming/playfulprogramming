@@ -13,13 +13,14 @@ export const unifiedChain = ({
   remarkPlugins,
   rehypePlugins,
 }: markdownChainProps) => {
-  let unifiedChain = unified()
-    .use(remarkParse)
-    .use(remarkPlugins)
-    .use(remarkStringify)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypePlugins)
-    .use(rehypeStringify, { allowDangerousHtml: true });
-
-  return unifiedChain;
+  return (
+    unified()
+      .use(remarkParse, { fragment: true } as never)
+      .use(remarkPlugins)
+      .use(remarkStringify)
+      .use(remarkToRehype, { allowDangerousHtml: true })
+      .use(rehypePlugins)
+      // Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
+      .use(rehypeStringify, { allowDangerousHtml: true, voids: [] })
+  );
 };

@@ -20,3 +20,8 @@ export const getFullRelativePath = (...paths: string[]) => {
     ? slash(join(...paths))
     : paths[paths.length - 1];
 };
+
+export const trimTrailingSlash = (path: string) => {
+  if (path.endsWith("/")) return path.slice(0, path.length - 1);
+  return path;
+};
