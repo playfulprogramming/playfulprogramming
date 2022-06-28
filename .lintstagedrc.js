@@ -7,5 +7,5 @@ module.exports = {
         return path.relative(process.cwd(), file);
       })
       .join(" --file ")}`,
-  "**/*.md": "remark . -o --",
+  "**/*.md": (filenames) => `remark ${filenames.join(" ")} -o --`,
 };
