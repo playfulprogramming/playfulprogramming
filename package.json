@@ -23,7 +23,10 @@
     "build-beta": "env-cmd -f ./src/environments/beta.env npm run build",
     "debug": "npm run lunr && env-cmd -f ./src/environments/debug.env next -p 9000",
     "dev": "npm run lunr && env-cmd -f ./src/environments/dev.env next -p 9000",
-    "lint": "next lint",
+    "lint": "npm run lint:js && npm run lint:md",
+    "lint:js": "next lint",
+    "lint:md": "remark . --quiet --frail",
+    "format:md": "remark . --quiet --frail --output",
     "lunr": "node --experimental-loader esbuild-node-loader src/build-scripts/lunr-index.ts",
     "postinstall": "husky install",
     "rss": "node --experimental-loader esbuild-node-loader src/build-scripts/gen-rss.ts",
@@ -131,7 +134,23 @@
     "prettier": "^2.7.1",
     "puppeteer": "^14.0.0",
     "react-test-renderer": "^18.1.0",
-    "ts-jest": "^28.0.5",
+    "remark-cli": "^11.0.0",
+    "remark-frontmatter": "^4.0.1",
+    "remark-gfm": "^3.0.1",
+    "ts-jest": "^28.0.2",
     "unist-util-find-all-after": "^4.0.0"
+  },
+  "remarkConfig": {
+    "settings": {
+      "bullet": "-",
+      "emphasis": "_",
+      "fence": "`",
+      "strong": "*",
+      "rule": "-"
+    },
+    "plugins": [
+      "remark-gfm",
+      ["remark-frontmatter", {"type": "custom", "marker": {"open": "-", "close": "-"}}]
+    ]
   }
 }
