@@ -612,7 +612,7 @@ Let's fix that by replacing the copy-pasted components with a loop and an array.
 
 ## React
 
-```jsx {0-13,28-33}
+```jsx {0-16,31-37}
 const filesArray = [
     {
         fileName: "File one",
@@ -662,13 +662,13 @@ We can then use the second argument inside of the `map` to gain access to the in
 
 ## Angular
 
-```typescript {4-10,25-38}
+```typescript {4-11,26-42}
 @Component({
   selector: 'file-list',
   template: `
     <ul>
       <file
-      	*ngFor="let file of filesArray; let i = index"
+        *ngFor="let file of filesArray; let i = index"
         (selected)="onSelected(i)"
         [isSelected]="selectedIndex === i"
         [fileName]="file.fileName" 

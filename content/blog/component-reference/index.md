@@ -13,13 +13,11 @@
 
 
 
+In our previous chapter, we were able to use element reference to gain access to underlying DOM node APIs. Using this, we were able to hook into the `getBoundingClientRect` method in order to get the positional data from another element for a home-grown context menu.
 
+While the context menu we wrote worked, it lacked a key feature: The ability to close itself when a user clicks outside of the context menu.
 
------
-
-
-
-Continuing from previous example, let's add the ability to close the context menu when a user clicks outside of it.
+Let's add this functionality into our context menu component:
 
 <!-- tabs:start -->
 
@@ -40,8 +38,6 @@ export default function App() {
     setBounds(localBounds);
   }, []);
 
-  // An addEventListener is easier to tackle when inside of the conditional render
-  // Add that as an exploration for `useImperativeHandle`
   const [isOpen, setIsOpen] = React.useState(false);
 
   function onContextMenu(e) {
@@ -193,10 +189,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 
 
-
-This code is getting a bit out of hand, let's move our context menu code into it's own component.
-
-
+This code is _functional_, but this code is getting a bit out of hand, let's move our context menu code into it's own component.
 
 <!-- tabs:start -->
 
@@ -378,6 +371,16 @@ class AppComponent implements AfterViewInit, OnDestroy {
 // TODO: Add code sample
 
 <!-- tabs:end -->
+
+
+
+
+
+
+
+--------------
+
+
 
 
 

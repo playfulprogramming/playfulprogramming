@@ -257,7 +257,7 @@ This is also true for any other frameworks not mentioned in this series that uti
 
 ## Angular
 
-```typescript {2,20}
+```typescript {2,19}
 import { Component, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
@@ -462,7 +462,7 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {2-6,9-12,22}
+```typescript {2-6,12,22}
 import { Component } from "@angular/core";
 
 @Component({
@@ -496,7 +496,7 @@ export class FileListComponent {}
 
 ## Vue
 
-```javascript {0-2,4-5,14}
+```javascript {0-2,5,14}
 const FileDate = {
   template: `<span>12/03/21</span>`,
 };
@@ -570,7 +570,7 @@ const setDateStr = dateArr[1];
 
 ## Angular
 
-```typescript {6}
+```typescript {5}
 @Component({
   selector: 'file-date',
   template: `<span>12/03/21</span>`
