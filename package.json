@@ -146,11 +146,22 @@
       "emphasis": "_",
       "fence": "`",
       "strong": "*",
-      "rule": "-"
+      "rule": "-",
+      "fences": true,
+      "listItemIndent": "one"
     },
     "plugins": [
       "remark-gfm",
-      ["remark-frontmatter", {"type": "custom", "marker": {"open": "-", "close": "-"}}]
+      [
+        "remark-frontmatter",
+        {
+          "type": "custom",
+          "marker": {
+            "open": "-",
+            "close": "-"
+          }
+        }
+      ]
     ]
   }
 }
