@@ -75,21 +75,68 @@
   - onErrorCapture / Vue
   - Error boundary / React
   - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
+- Accessibility (A11Y)
+  - 
+
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality
 
 # Book 2: Ecosystem
 
+- Build Tooling
+  - Official Tooling
+    - Angular CLI
+    - React CLI
+    - Vue CLI
+
+  - Manual Bundling
+    - Webpack
+    - Rollup
+    - Parcel
+
+  - Best of Both Worlds
+    - Vite
+
+- Styling
+  - CSS Modules
+  - CSS-in-JS
+    - Emotion CSS
+      - React `styled` API
+      - [Angular](https://stackblitz.com/edit/angular-ivy-v7vjkp?file=src%2Fapp%2Fapp.component.ts,src%2Fapp%2Fapp.component.html)
+      - [Vue](https://stackblitz.com/edit/vue-ai8qpp?file=src%2FApp.vue)
 - Routing
   - React Router
   - Angular Router
   - Vue Router
-- HTTPS
-  - Angular HTTP library
-  - Fetch / React & Vue
+- API
+  - HTTPS
+    - Angular HTTP library
+    - Browser's Fetch / React & Vue
+
+  - GraphQL
+    - [Apollo Client](https://www.apollographql.com/docs/react/)
+
+- Internationalization (i18n)
+  - [React / i18next](https://react.i18next.com)
+  - [Angular Internationalization](https://angular.io/guide/i18n-overview)
+  - [Vue i18n](https://kazupon.github.io/vue-i18n/)
+
 - Testing
-  - Testing library, simply for ease of comparison
+  - Unit Testing
+    - [Vitest](vitest.dev/)
+
+  - Integration testing
+    - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+    - [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/)
+    - [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro/)
+
+  - End-to-end testing
+    - [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro)
+
+- Visual Playground
+  - [Storybook](storybook.js.org/)
+
 - SSR
   - NextJS / React
   - NuxtJS / Vue
@@ -114,11 +161,11 @@
 
 ----
 
-TODO:
+**Not sure about**
 
-- I18N
-- A11Y
 - TypeScript for React/Vue
+
+
 
 # Book 3: Internals
 
@@ -126,25 +173,27 @@ TODO:
   - OnPush/Angular
   - memo/React
   - [`v-once`](https://vuejs.org/guide/best-practices/performance.html#v-once) / Vue
-- Under-the-hood how do each framework render contents?
+- Rendering Behavior
   - Vue/React = Virtual DOM
+    - JSX Aside
+      - Explain `h` function
   - Angular = Incremental DOM
-- Under-the-hood how do each framework track changes?
+- Reactivity
   - React explicit
   - Angular = Zone.js
   - Vue = Proxies
     - Bad redux example
+- Alternative Syntaxes
+  - Angular
+    - Standalone Components (or Modules)
+
+  - Vue
+    - Composition API
+    - Setup Function
+    - RFC Sugar
+    - JSX
+
 - Building a demo app
 - API Comparison Table
 - Terminology/Glossary
-
-----
-
-TODO:
-
-- Vue alternative syntax
-  - Composition API
-  - Show Vue using JSX
-  - Show Vue `h` function
-    "In fact, Vue's [virtual DOM](// TODO: Link) is similar enough to React's that it's able to use JSX"
 
