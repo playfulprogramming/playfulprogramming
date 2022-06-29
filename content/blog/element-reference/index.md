@@ -843,7 +843,6 @@ Let's first start by detecting when the user has right-clicked a `div`. We can u
 ## React
 
 ```jsx
-// TODO: Check this code
 export default function App() {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -873,7 +872,6 @@ export default function App() {
 ## Angular
 
 ```typescript
-// TODO: Check this code
 @Component({
   selector: 'my-app',
   template: `
@@ -888,7 +886,7 @@ export default function App() {
 </div>
   `,
 })
-class AppComponent implements AfterViewInit {
+class AppComponent {
   isOpen = false;
 
   close() {
@@ -904,7 +902,35 @@ class AppComponent implements AfterViewInit {
 
 ## Vue
 
-// TODO: Add code sample
+```javascript
+const App = {
+  template: `
+  <div>
+    <div @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div v-if="isOpen">
+    <button @click="close()">X</button>
+    This is a context menu
+  </div>
+`,
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  methods: {
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+    },
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -1061,7 +1087,65 @@ class AppComponent implements AfterViewInit {
 
 ## Vue
 
-// TODO: Add code sample
+In Vue, we can pass a string to the context origin in order to run `getBoundingClientRect` on a component mount.
+
+We'll also use a callback ref in order to run a function every time the context menu is open. This function will then either do nothing or call `.focus` on the element depending on if it's rendered or not.
+
+```javascript
+const App = {
+  template: `
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    v-if="isOpen"
+    :ref="el => focusOnOpen(el)"
+    tabIndex="0"
+    :style="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button @click="close()">X</button>
+    This is a context menu
+  </div>
+`,
+  data() {
+    return {
+      isOpen: false,
+      bounds: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+    };
+  },
+  mounted() {
+    this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
+  },
+  methods: {
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+    },
+    focusOnOpen(el) {
+      if (!el) return;
+      el.focus();
+    },
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -1254,7 +1338,72 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-// TODO: Add code sample
+```javascript
+
+const App = {
+  template: `
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    v-if="isOpen"
+    :ref="el => focusOnOpen(el)"
+    tabIndex="0"
+    :style="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button @click="close()">X</button>
+    This is a context menu
+  </div>
+`,
+  data() {
+    return {
+      isOpen: false,
+      bounds: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+      resizeListenerBound: this.resizeListener.bind(this),
+    };
+  },
+  mounted() {
+    this.resizeListenerBound();
+
+    window.addEventListener('resize', this.resizeListenerBound);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.resizeListenerBound);
+  },
+  methods: {
+    resizeListener() {
+      if (!this.$refs.contextOrigin) return;
+      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
+    },
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+    },
+    focusOnOpen(el) {
+      if (!el) return;
+      el.focus();
+    },
+  },
+};
+```
 
 <!-- tabs:end -->
 
