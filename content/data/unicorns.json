@@ -13,7 +13,11 @@
     "pronouns": "they/themselves",
     "profileImg": "./crutchcorn.png",
     "color": "#ba68c8",
-    "roles": ["devops", "developer", "author"]
+    "roles": [
+      "devops",
+      "developer",
+      "author"
+    ]
   },
   {
     "id": "fennifith",
@@ -28,7 +32,10 @@
     "pronouns": "he",
     "profileImg": "./fennifith.jpg",
     "color": "#0091EA",
-    "roles": ["developer", "author"]
+    "roles": [
+      "developer",
+      "author"
+    ]
   },
   {
     "id": "evelynhathaway",
@@ -43,7 +50,10 @@
     "pronouns": "she",
     "profileImg": "proud.png",
     "color": "#ef5f17",
-    "roles": ["developer", "devops"]
+    "roles": [
+      "developer",
+      "devops"
+    ]
   },
   {
     "id": "adueppen",
@@ -59,7 +69,9 @@
     "pronouns": "he",
     "profileImg": "./adueppen.png",
     "color": "#69ffff",
-    "roles": ["developer"]
+    "roles": [
+      "developer"
+    ]
   },
   {
     "id": "zavukodlak",
@@ -75,7 +87,9 @@
     "pronouns": "he",
     "profileImg": "./vukashin.png",
     "color": "#3485FF",
-    "roles": ["designer"]
+    "roles": [
+      "designer"
+    ]
   },
   {
     "id": "tommyemo",
@@ -90,7 +104,9 @@
     "pronouns": "he",
     "profileImg": "./tommyemo.jpg",
     "color": "#8539EB",
-    "roles": ["designer"]
+    "roles": [
+      "designer"
+    ]
   },
   {
     "id": "edpratti",
@@ -105,7 +121,10 @@
     "pronouns": "he",
     "profileImg": "./edpratti.jpg",
     "color": "#FF3300",
-    "roles": ["designer", "author"]
+    "roles": [
+      "designer",
+      "author"
+    ]
   },
   {
     "id": "sarsamurmu",
@@ -121,7 +140,9 @@
     "pronouns": "he",
     "profileImg": "./sarsamurmu.png",
     "color": "#7C4DFF",
-    "roles": ["developer"]
+    "roles": [
+      "developer"
+    ]
   },
   {
     "id": "MDutro",
@@ -135,7 +156,10 @@
     "pronouns": "he",
     "profileImg": "./mdutro.jpg",
     "color": "#7C4DFF",
-    "roles": ["developer", "author"]
+    "roles": [
+      "developer",
+      "author"
+    ]
   },
   {
     "id": "reikaze",
@@ -150,7 +174,9 @@
     "pronouns": "he",
     "profileImg": "./reikaze.jpg",
     "color": "#ba68c8",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "thodges314",
@@ -165,7 +191,9 @@
     "pronouns": "he",
     "profileImg": "./thodges.png",
     "color": "#ba68c8",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "skatcat31",
@@ -180,7 +208,9 @@
     "color": "#ba68c8",
     "profileImg": "./hello.png",
     "pronouns": "he",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "seanmiller",
@@ -197,7 +227,9 @@
     "pronouns": "he",
     "profileImg": "./seanmiller.jpg",
     "color": "#551a8b",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "pierremtb",
@@ -214,7 +246,9 @@
     "pronouns": "he",
     "profileImg": "./pierremtb.jpg",
     "color": "#FFEB3B",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "maisydino",
@@ -230,7 +264,9 @@
     "pronouns": "she",
     "profileImg": "./maisydino.jpg",
     "color": "#FDF6E3",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "bobrossrtx",
@@ -246,7 +282,10 @@
     "pronouns": "he",
     "profileImg": "./bobrossrtx.jpg",
     "color": "#b7e11e",
-    "roles": ["developer", "author"]
+    "roles": [
+      "developer",
+      "author"
+    ]
   },
   {
     "id": "ljtech",
@@ -263,7 +302,9 @@
     "pronouns": "he",
     "profileImg": "./ljtechdotca.png",
     "color": "#7b61ff",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "SkyHawk_0",
@@ -275,7 +316,9 @@
     "pronouns": "he",
     "profileImg": "./goofy.png",
     "color": "#18BBC9",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "splatkillwill",
@@ -292,7 +335,9 @@
     "pronouns": "they/themselves",
     "profileImg": "./splatkillwill.jpg",
     "color": "#BF00FF",
-    "roles": ["author"]
+    "roles": [
+      "author"
+    ]
   },
   {
     "id": "fmothe",
@@ -308,7 +353,9 @@
     "pronouns": "he",
     "profileImg": "./fmothe.jpg",
     "color": "#18BBC9",
-    "roles": ["translator"]
+    "roles": [
+      "translator"
+    ]
   },
   {
     "id": "jahirfiquitiva",
@@ -325,6 +372,26 @@
     "pronouns": "he",
     "profileImg": "./jahirfiquitiva.jpg",
     "color": "#3867d6",
-    "roles": ["translator"]
+    "roles": [
+      "translator"
+    ]
+  },
+  {
+    "id": "Kaleem",
+    "name": "Kaleem",
+    "firstName": "Kaleem",
+    "lastName": "",
+    "description": "Software Engineer, Simplifying programming, writing about learnings and lessons learned.",
+    "socials": {
+      "twitter": "kaleemniz",
+      "github": "kaleem68",
+      "linkedIn": "nixamani5"
+    },
+    "pronouns": "he",
+    "profileImg": "./kaleem.jpeg",
+    "color": "#a8b3ba",
+    "roles": [
+      "developer"
+    ]
   }
 ]
