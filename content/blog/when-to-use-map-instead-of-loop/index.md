@@ -7,6 +7,7 @@
     authors: ['kaleem'],
     tags: ['javascript', 'computer science'],
     attached: [],
+    originalLink: 'https://dev.to/kaleemniz/when-to-use-map-instead-of-loop-3cda',
     license: 'cc-by-nc-nd-4'
 }
 ---
@@ -39,9 +40,9 @@ if (user) {
 ```
 The above solution has a time complexity of **O(n)**, where n represents the number of users. If there are 1 thousand users, in the worst case, we will search every user to find a match.
 
-```Considering user id will be unique for each user, this is a good indication to use a HashMap instead of a loop since all keys in the Map are Unique.```
+> Considering user id will be unique for each user, this is a good indication to use a HashMap instead of a loop since all keys in the Map are Unique.
 
-##Finding user by id using Map
+## Finding user by id using Map
 ```js
 let userIdToBeSearched = 103;
 const users = new Map();
