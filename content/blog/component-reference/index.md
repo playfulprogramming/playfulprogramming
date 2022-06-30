@@ -183,7 +183,85 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 # Vue
 
-// TODO: Add code sample
+```javascript
+const App = {
+  template: `
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    v-if="isOpen"
+    :ref="el => focusOnOpen(el)"
+    tabIndex="0"
+    :style="{
+      position: 'fixed',
+      top: bounds.y + 20,
+      left: bounds.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button @click="close()">X</button>
+    This is a context menu
+  </div>
+`,
+  data() {
+    return {
+      isOpen: false,
+      bounds: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+      contextMenuRef: null,
+      resizeListenerBound: this.resizeListener.bind(this),
+      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
+    };
+  },
+  mounted() {
+    this.resizeListenerBound();
+
+    window.addEventListener('resize', this.resizeListenerBound);
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.resizeListenerBound);
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  },
+  methods: {
+    resizeListener() {
+      if (!this.$refs.contextOrigin) return;
+      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
+    },
+    closeIfOutside(e) {
+      const contextMenuEl = this.contextMenuRef;
+      if (!contextMenuEl) return;
+      const isClickInside = contextMenuEl.contains(e.target);
+      if (isClickInside) return;
+      this.isOpen = false;
+    },
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+    },
+    focusOnOpen(el) {
+      this.contextMenuRef = el;
+      if (!el) return;
+      el.focus();
+    },
+  },
+};
+```
+
+
 
 <!-- tabs:end -->
 
@@ -295,7 +373,7 @@ export default function App() {
   `,
 })
 class ContextMenuComponent implements AfterViewInit, OnDestroy {
-  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('contextMenu') contextMenu: ElementRef<HTMLElement>;
 
   @Input() x: number;
   @Input() y: number;
@@ -310,7 +388,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   closeIfOutsideOfContext = (e: MouseEvent) => {
-    const contextMenuEl = this?.contextMenu?.first?.nativeElement;
+    const contextMenuEl = this?.contextMenu?.nativeElement;
     if (!contextMenuEl) return;
     const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
     if (isClickInside) return;
@@ -368,7 +446,97 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 # Vue
 
-// TODO: Add code sample
+```javascript
+const ContextMenu = {
+  template: `
+  <div
+    tabIndex="0"
+    ref="contextMenuRef"
+    :style="{
+      position: 'fixed',
+      top: y + 20,
+      left: x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button @click="$emit('close')">X</button>
+    This is a context menu
+  </div>
+  `,
+  props: ['x', 'y'],
+  emits: ['close'],
+  data() {
+    return {
+      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
+    };
+  },
+  mounted() {
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  },
+  methods: {
+    closeIfOutside(e) {
+      const contextMenuEl = this.$refs.contextMenuRef;
+      if (!contextMenuEl) return;
+      const isClickInside = contextMenuEl.contains(e.target);
+      if (isClickInside) return;
+      this.$emit('close');
+    },
+  },
+};
+
+const App = {
+  template: `
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <context-menu v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"></context-menu>
+`,
+  components: {
+    ContextMenu,
+  },
+  data() {
+    return {
+      isOpen: false,
+      bounds: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+      resizeListenerBound: this.resizeListener.bind(this),
+    };
+  },
+  mounted() {
+    this.resizeListenerBound();
+
+    window.addEventListener('resize', this.resizeListenerBound);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.resizeListenerBound);
+  },
+  methods: {
+    resizeListener() {
+      if (!this.$refs.contextOrigin) return;
+      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
+    },
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+    },
+  },
+};
+```
 
 <!-- tabs:end -->
 
@@ -489,15 +657,259 @@ export default function App() {
 
 ## Angular
 
+```typescript
+@Component({
+  selector: 'context-menu',
+  template: `
+  <div
+    #contextMenu
+    tabIndex="0"
+    [style]="{
+      position: 'fixed',
+      top: y + 20,
+      left: x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button (click)="close.emit()">X</button>
+    This is a context menu
+  </div>
+  `,
+})
+export class ContextMenuComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('contextMenu') contextMenu: ElementRef<HTMLElement>;
 
-// TODO: Add code sample
+  @Input() x: number;
+  @Input() y: number;
+  @Output() close = new EventEmitter();
+
+  focus() {
+    this.contextMenu.nativeElement.focus();
+  }
+
+  ngAfterViewInit() {
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  }
+
+  closeIfOutsideOfContext = (e: MouseEvent) => {
+    const contextMenuEl = this?.contextMenu?.nativeElement;
+    if (!contextMenuEl) return;
+    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+    if (isClickInside) return;
+    this.close.emit();
+  };
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div #contextOrigin (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <context-menu #contextMenu *ngIf="isOpen" [x]="bounds.x" [y]="bounds.y" (close)="close()"></context-menu>  
+  `,
+})
+export class AppComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+  @ViewChildren('contextMenu') contextMenu: QueryList<ContextMenuComponent>;
+
+  isOpen = false;
+
+  bounds = {
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  };
+
+  resizeListener = () => {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+  };
+
+  ngAfterViewInit() {
+    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+
+    window.addEventListener('resize', this.resizeListener);
+
+    this.contextMenu.changes.forEach(() => {
+      const isLoaded = this?.contextMenu?.first;
+      if (!isLoaded) return;
+      this.contextMenu.first.focus();
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: UIEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+  }
+}
+```
+
+
 
 ## Vue
 
-// TODO: Add code sample
+```javascript
+const ContextMenu = {
+  template: `
+  <div
+    tabIndex="0"
+    ref="contextMenuRef"
+    :style="{
+      position: 'fixed',
+      top: y + 20,
+      left: x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem'
+    }"
+  >
+    <button @click="$emit('close')">X</button>
+    This is a context menu
+  </div>
+  `,
+  props: ['x', 'y'],
+  emits: ['close'],
+  data() {
+    return {
+      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
+    };
+  },
+  mounted() {
+    document.addEventListener('click', this.closeIfOutsideOfContext);
+  },
+  unmounted() {
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
+  },
+  methods: {
+    focusMenu() {
+      this.$refs.contextMenuRef.focus();
+    },
+    closeIfOutside(e) {
+      const contextMenuEl = this.$refs.contextMenuRef;
+      if (!contextMenuEl) return;
+      const isClickInside = contextMenuEl.contains(e.target);
+      if (isClickInside) return;
+      this.$emit('close');
+    },
+  },
+};
+
+const App = {
+  template: `
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <context-menu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"></context-menu>
+`,
+  components: {
+    ContextMenu,
+  },
+  data() {
+    return {
+      isOpen: false,
+      bounds: {
+        height: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+      resizeListenerBound: this.resizeListener.bind(this),
+    };
+  },
+  mounted() {
+    this.resizeListenerBound();
+
+    window.addEventListener('resize', this.resizeListenerBound);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.resizeListenerBound);
+  },
+  methods: {
+    resizeListener() {
+      if (!this.$refs.contextOrigin) return;
+      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
+    },
+    close() {
+      this.isOpen = false;
+    },
+    open(e) {
+      e.preventDefault();
+      this.isOpen = true;
+      setTimeout(() => {
+        this.$refs.contextMenu.focusMenu();
+      }, 0);
+    },
+  },
+};
+```
+
+
 
 
 <!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
