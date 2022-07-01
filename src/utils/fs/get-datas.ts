@@ -13,7 +13,7 @@ export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
 const unicornsRaw: Array<
   Omit<UnicornInfo, "roles" | "pronouns" | "profileImg"> & {
     roles: string[];
-    pronouns: string;
+    pronouns?: string;
     profileImg: string;
   }
 > = JSON.parse(
@@ -56,8 +56,15 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   );
 
   newUnicorn.pronouns = pronounsRaw.find(
-    (proWithNouns) => proWithNouns.id === unicorn.pronouns
-  )!;
+    (proWithNouns) => proWithNouns.id === unicorn?.pronouns
+  ) || {
+    id: "",
+    they: "",
+    them: "",
+    their: "",
+    theirs: "",
+    themselves: "",
+  };
 
   return newUnicorn;
 });
