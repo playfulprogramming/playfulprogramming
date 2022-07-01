@@ -1,6 +1,5 @@
 import { PluggableList, unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 
@@ -17,7 +16,6 @@ export const unifiedChain = ({
     unified()
       .use(remarkParse, { fragment: true } as never)
       .use(remarkPlugins)
-      .use(remarkStringify)
       .use(remarkToRehype, { allowDangerousHtml: true })
       .use(rehypePlugins)
       // Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
