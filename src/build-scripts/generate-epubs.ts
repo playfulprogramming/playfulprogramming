@@ -11,15 +11,10 @@ import {
 import { join, resolve } from "path";
 import slash from "slash";
 import visit from "unist-util-visit";
-import { toXast } from "hast-util-to-xast";
-import { toXml } from "xast-util-to-xml";
 import { Element, Root } from "hast";
 import { isRelativePath, trimTrailingSlash } from "utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { PluggableList, unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
-import remarkToRehype from "remark-rehype";
 import { unifiedChain } from "utils/markdown/unified-chain";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {

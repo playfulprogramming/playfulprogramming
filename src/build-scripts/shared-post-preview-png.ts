@@ -10,7 +10,6 @@ import { COLORS } from "constants/theme";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkTwoslash from "remark-shiki-twoslash";
-import remarkStringify from "remark-stringify";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
@@ -43,7 +42,6 @@ const unifiedChain = () => {
       };
     })
     .use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
-    .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
     .use(rehypeStringify, { allowDangerousHtml: true });
 

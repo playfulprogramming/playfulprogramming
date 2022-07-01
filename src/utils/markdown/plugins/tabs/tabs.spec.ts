@@ -1,6 +1,5 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
 import remarkToRehype from "remark-rehype";
 import { rehypeTabs } from "utils/markdown/plugins/tabs/tabs";
 import rehypeStringify from "rehype-stringify";
@@ -8,7 +7,6 @@ import rehypeStringify from "rehype-stringify";
 test("headers are tabified", (done) => {
   unified()
     .use(remarkParse)
-    .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
     .use(rehypeTabs, {})
     .use(rehypeStringify, { allowDangerousHtml: true })
@@ -49,7 +47,6 @@ Bonjour!
 test("sub-headers are not tabified", (done) => {
   unified()
     .use(remarkParse)
-    .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
     .use(rehypeTabs, {})
     .use(rehypeStringify, { allowDangerousHtml: true })
@@ -96,7 +93,6 @@ Bonjour!
 test("tabs can have custom IDs", (done) => {
   unified()
     .use(remarkParse)
-    .use(remarkStringify)
     .use(remarkToRehype, { allowDangerousHtml: true })
     .use(rehypeTabs, { tabSlugifyProps: { enableCustomId: true } })
     .use(rehypeStringify, { allowDangerousHtml: true })
