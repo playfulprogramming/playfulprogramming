@@ -16,7 +16,8 @@
     "roles": [
       "devops",
       "developer",
-      "author"
+      "author",
+      "community"
     ]
   },
   {
@@ -34,7 +35,8 @@
     "color": "#0091EA",
     "roles": [
       "developer",
-      "author"
+      "author",
+      "community"
     ]
   },
   {
@@ -52,7 +54,8 @@
     "color": "#ef5f17",
     "roles": [
       "developer",
-      "devops"
+      "devops",
+      "community"
     ]
   },
   {
@@ -70,7 +73,8 @@
     "profileImg": "./adueppen.png",
     "color": "#69ffff",
     "roles": [
-      "developer"
+      "developer",
+      "community"
     ]
   },
   {
@@ -158,7 +162,8 @@
     "color": "#7C4DFF",
     "roles": [
       "developer",
-      "author"
+      "author",
+      "community"
     ]
   },
   {
@@ -209,7 +214,8 @@
     "profileImg": "./hello.png",
     "pronouns": "he",
     "roles": [
-      "author"
+      "author",
+      "community"
     ]
   },
   {
@@ -265,7 +271,8 @@
     "profileImg": "./maisydino.jpg",
     "color": "#FDF6E3",
     "roles": [
-      "author"
+      "author",
+      "community"
     ]
   },
   {
@@ -392,6 +399,24 @@
     "color": "#a8b3ba",
     "roles": [
       "author"
+    ]
+  },
+  {
+    "id": "qarnax",
+    "name": "Qarnax",
+    "firstName": "Olive",
+    "lastName": "Laine",
+    "description": "I'm a Frontend developer and indie game enthusiast 👾 \n I enjoy learning new things and building my own stuff 🔧, and I love helping people get into coding. 😊",
+    "socials": {
+      "twitch": "qarnax__",
+      "twitter": "qarnax",
+      "github": "qarnax801"
+    },
+    "pronouns": "she",
+    "profileImg": "./proud.png",
+    "color": "",
+    "roles": [
+      "community"
     ]
   }
 ]
