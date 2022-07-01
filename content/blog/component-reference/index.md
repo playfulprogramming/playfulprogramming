@@ -302,10 +302,6 @@ const App = {
 
 This code is _functional_, but this code is getting a bit out of hand, let's move our context menu code into it's own component. This way, we're able to do easier refactors, code cleanup, and more.
 
-
-
-For now, let's leave our the code pertaining to 
-
 <!-- tabs:start -->
 
 ## React
@@ -577,34 +573,59 @@ const App = {
 
 <!-- tabs:end -->
 
+You may have noticed that during this migration, we ended up removing a crucial accessibility feature: **We're no longer running `focus` on the context menu when it opens.**
 
-
-
-
-
-
-
-
-
-
-
-
---------------
-
-
-
-
-
-
-But now a new problem has arose - how do we `focus` the context menu from `App` when we aren't able to pass a `ref` directly to the child `div`?
-
-
+Why was it removed and how can we add it back?
 
 # Introducing Element Reference 
+
+**The reason we removed the context menu's focus management is to keep the control of the context menu in the parent. **
+
+While we could add the focus management feature into [the `ContextMenu` component's initial render lifecycle method](/posts/lifecycle-methods), but this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**. This allows you to re-use your context menu component in more places, should you ever want to use the component without forcing a focus change.
+
+To do this, let's move the `.focus` method out of our component. Moving from this:
+
+```javascript
+/* This is valid JS, but psuedocode of what each framework is doing */
+// Child component
+function onComponentRender() {
+    document.addEventListener('click', closeIfOutsideOfContext);
+    contextMenu.focus();
+}
+
+// Parent component
+function openContextMenu(e) {
+	e.preventDefault();
+	setOpen(true);
+}
+```
+
+To this:
+
+```javascript
+/* This is valid JS, but psuedocode of what each framework is doing */
+// Child component
+function onComponentRender() {
+    document.addEventListener('click', closeIfOutsideOfContext);
+}
+
+// Parent component
+function openContextMenu(e) {
+	e.preventDefault();
+	setOpen(true);
+    contextMenu.focus();
+}
+```
+
+While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside of a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/element-reference), but we need to access the `ContextMenu` component instance.
+
+Luckily for us, each framework enables us to do just that! Let's dive in:
 
 <!-- tabs:start -->
 
 ## React
+
+// TODO: Explain `forwardRef` first
 
 ```jsx {0-7,22,62,81}
 const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
