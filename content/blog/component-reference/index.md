@@ -11,13 +11,44 @@
 }
 ---
 
-
-
 In our previous chapter, we were able to use element reference to gain access to underlying DOM node APIs. Using this, we were able to hook into the `getBoundingClientRect` method in order to get the positional data from another element for a home-grown context menu.
 
 While the context menu we wrote worked, it lacked a key feature: The ability to close itself when a user clicks outside of the context menu.
 
-Let's add this functionality into our context menu component:
+![// TODO: Add alt](./context-close.png)
+
+Let's add this functionality into our context menu component. To do this, let's:
+
+- Add a listener for any time the user clicks on a page
+- Inside of that click listener, get [the event's `target` property](https://developer.mozilla.org/en-US/docs/Web/API/Event/target)
+  - The event target is the element that the user is taking an action on - AKA the element the user is currently clicking on
+- We then [check if that `target` is inside of the context menu or not using the `element.contains` method](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains).
+
+This code in vanilla JavaScript might look something like this:
+
+```html
+<button id="clickInside">
+    If you click outside of this button, it will hide
+</button>
+<script>
+const clickInsideButton = document.querySelector("#clickInside");
+
+function listenForOutsideClicks(e) {
+    // This check is saying "`true` if the clicked element is a child of the 'clickInside' button"
+    const isClickInside = clickInsideButton.contains(e.target);
+    if (isClickInside) return;
+    // Hide the button using CSS. In frameworks, we'd use conditional rendering.
+    clickInsideButton.style.display = 'none';
+}
+
+document.addEventListener('click', listenForOutsideClicks)
+</script>
+```
+
+
+
+
+Let's port this logic to React, Angular, and Vue:
 
 <!-- tabs:start -->
 
@@ -267,11 +298,17 @@ const App = {
 
 
 
-This code is _functional_, but this code is getting a bit out of hand, let's move our context menu code into it's own component.
+# Refactoring to dedicated components
+
+This code is _functional_, but this code is getting a bit out of hand, let's move our context menu code into it's own component. This way, we're able to do easier refactors, code cleanup, and more.
+
+
+
+For now, let's leave our the code pertaining to 
 
 <!-- tabs:start -->
 
-# React
+## React
 
 ```jsx {0-12}
 const ContextMenu = ({ x, y, onClose }) => {
@@ -348,7 +385,7 @@ export default function App() {
 }
 ```
 
-# Angular
+## Angular
 
 ```typescript {0-43}
 @Component({
@@ -444,7 +481,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-# Vue
+## Vue
 
 ```javascript
 const ContextMenu = {
@@ -539,6 +576,12 @@ const App = {
 ```
 
 <!-- tabs:end -->
+
+
+
+
+
+
 
 
 

@@ -836,6 +836,8 @@ Let's take our existing [file hosting app project](/posts/intro-to-components#Wh
 
 Oh, I know! Let's add in a context menu, so that when you right-click a file in the files list, it allows you to take actions on it such as deleting or renaming.
 
+![// TODO: Add alt text](./context-open.png)
+
 Let's first start by detecting when the user has right-clicked a `div`. We can use [the `contextmenu` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event) to detect a right-click event. From there, it's as simple as [conditionally rendering](https://crutchcorn-book.vercel.app/posts/dynamic-html#Conditional-Rendering) the context menu component when the user has right-clicked.
 
 <!-- tabs:start -->
