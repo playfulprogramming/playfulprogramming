@@ -1033,7 +1033,60 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-// TODO: Explain
+Using the same `$ref` API as element nodes, you can access a component's instance using a `ref` string:
+
+```javascript
+const Child = {
+	template: `<div></div>`,
+	data() {
+		return {
+			pi: 3.14,
+		};
+	},
+	methods: {
+		sayHi() {
+			console.log('Hello, world');
+		},
+	}
+}
+
+const Parent = {
+	template: `<child ref="childComp"></child>`,
+	mounted() {
+		console.log(this.$refs.childComp);
+	},
+	components: {
+		Child
+	}
+}
+```
+
+If we look at our console output, we might see something unexpected:
+
+```javascript
+Proxy { <target>: {…}, <handler>: {…} }
+```
+
+This is because of how [Vue works under-the-hood](// TODO: Link to Vue internals chapter). Rest assured, however; this `Proxy` is still our component instance.
+
+Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
+
+```javascript
+const Parent = {
+	template: `<child ref="childComp"></child>`,
+	mounted() {
+		console.log(this.$refs.childComp.pi); // Will log "3.14"
+		this.$refs.childComp.sayHi(); // Will log "Hello, world"
+	},
+	components: {
+		Child
+	}
+} 
+```
+
+
+
+
 
 ```javascript
 const ContextMenu = {
