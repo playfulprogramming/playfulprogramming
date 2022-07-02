@@ -625,7 +625,145 @@ Luckily for us, each framework enables us to do just that! Let's dive in:
 
 ## React
 
-// TODO: Explain `forwardRef` first
+React has two APIs that help us gain insights into a component's internals from it's parent:
+
+- [`forwardRef`](#forward-ref)
+- [`useImperativeHandle`](#imperative-handle)
+
+Let's start with the basics: `forwardRef`.
+
+### `forwardRef` {#forward-ref}
+
+`forwardRef` does what it says on the tin: It allows you to forward a `ref` through a component instance.
+
+See, in React, `ref` is a special property. This means that in order to be used properly, React has to have a special syntax to enable it's expected functionality.
+
+As a result, the following code does not work:
+
+```jsx
+const Component = ({ref, style}) => {
+	return <div ref={ref} style={style}/>
+}
+
+const App = () => {
+	return (
+      <Component
+        ref={el => console.log(el)}
+        style={{height: 100, width: 100, backgroundColor: 'red'}}
+      />
+    )
+}
+```
+
+Doing this will result in our `ref` callback not being called as expected, alongside two error messages explaining why:
+
+> Warning: Component: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)
+
+> Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use `React.forwardRef()`?
+
+To solve this, we have two options:
+
+1) Rename our `ref` property to another name, like `divRef`:
+
+```jsx
+const Component = ({divRef, style}) => {
+	return <div ref={divRef} style={style}/>
+}
+
+const App = () => {
+	return (
+        <Component
+            divRef={el => console.log(el)}
+            style={{height: 100, width: 100, backgroundColor: 'red'}}
+        />
+    );
+}
+```
+
+2. Use the `forwardRef` API, as suggested by the error message originally printed.
+
+```jsx
+import { forwardRef } from 'react';
+
+const Component = forwardRef((props, ref) => {
+	return <div ref={ref} style={props.style}/>
+});
+
+const App = () => {
+	return (
+        <Component
+            ref={el => console.log(el)}
+            style={{height: 100, width: 100, backgroundColor: 'red'}}
+        />
+    );
+}
+```
+
+As we can see, `forwardRef` accepts slightly modified component function. While the first argument might look familiar as our place to access properties, our special property `ref` is passed as a second argument.
+
+We can then _forward_ that `ref` to wherever we want to gain access to an underlying DOM node in the child.
+
+But what if we wanted _more_ control over our child component? What if we wanted to access data and methods from the child component using a `ref`?
+
+Luckily, `useImperativeHandle` does just that!
+
+### `useImerativeHandle` {#imperative-handle}
+
+While `forwardRef` enables us to pass a `ref` to a child component, `useImperativeHandle` allows us to fully customize this `ref` to our heart's content.
+
+```jsx
+import { forwardRef, useImperativeHandle } from 'react';
+
+const Component = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => {
+    // Anything returned here will be assigned to the forwarded `ref`
+    return {
+      pi: 3.14,
+      sayHi() {
+        console.log('Hello, world');
+      },
+    };
+  });
+
+  return <div />;
+});
+
+const App = () => {
+  return (
+    <Component
+      ref={(el) => console.log(el)}
+    />
+  );
+};
+```
+
+Here, we can assign properties, functions, or any other JavaScript values into the forwarded `ref`. If we look at the output of our `ref` callback from `App` it shows up the object that we assigned using `useImperativeHandle`:
+
+```javascript
+{ pi: 3.14, sayHi: sayHi() }
+```
+
+That `sayHi` function still works, too! If we change `App` to the following:
+
+```jsx
+const App = () => {
+  const compRef = useRef();
+  return (
+	<>
+		<button onClick={() => compRef.sayHi()}>
+        <Component
+          ref={compRef}
+        />
+    </>
+  );
+};
+```
+
+It will output `Hello, world` just as we would expect it to!
+
+###  Using them in the real world
+
+Awesome! Now that we know how `forwardRef` and `useImperative` handle work, let's add them to our `ContextMenu` component in order to run `focus` on the underlying `div`:
 
 ```jsx {0-7,22,62,81}
 const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
@@ -718,8 +856,9 @@ export default function App() {
 }
 ```
 
-
 ## Angular
+
+// TODO: Explain
 
 ```typescript
 @Component({
@@ -829,6 +968,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 
 ## Vue
+
+// TODO: Explain
 
 ```javascript
 const ContextMenu = {
