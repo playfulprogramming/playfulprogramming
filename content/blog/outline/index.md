@@ -60,9 +60,14 @@
   - Named content projection
 - [Content Reference](/posts/content-reference) ✅
   - Passing values to projected content  ✅
-- [Element Reference](/posts/element-reference)
-  - How to keep element reference array
-- [Component Reference](/posts/component-reference)
+- [Element Reference](/posts/element-reference) ✅
+  - How to keep element reference array ✅
+- [Component Reference](/posts/component-reference) ✅
+- Directives
+  - [Vue](https://vuejs.org/guide/reusability/custom-directives.html)
+  - Angular
+  - React / Nothing
+
 - [Dependency injection](/posts/dependency-injection)
   - `useContext` / React
   - `provide/inject` / Vue

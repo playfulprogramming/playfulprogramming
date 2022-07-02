@@ -102,8 +102,118 @@ export default function App() {
 
 // TODO: Code sample
 
+
+
+----
+
+
+
+
+
+```typescript
+
+class InjectedValue {
+  message = "Hello, world";
+}
+
+@Component({
+  selector: "child",
+  template: `<div></div>`
+})
+class ChildComponent implements OnInit {
+  constructor(private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    console.log(this.injectedValue);
+  }
+}
+
+@Component({
+  selector: "app-root",
+  providers: [InjectedValue],
+  template: `<child></child>`
+})
+class ParentComponent {
+}
+```
+
+
+
+
+
+----
+
+
+
+
+
+````typescript
+class InjectedValue {
+  message = "Hello, world";
+}
+
+@Component({
+  selector: "child",
+  template: `<div></div>`
+})
+class ChildComponent implements OnInit {
+  constructor(private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    setTimeout(() => {
+      console.log(this.injectedValue);
+    }, 0)
+  }
+}
+
+@Component({
+  selector: "app-root",
+  providers: [InjectedValue],
+  template: `<child></child>`
+})
+class ParentComponent {
+  constructor(private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    this.injectedValue.message = "Test";
+  }
+}
+````
+
+
+
+-------
+
+
+
+// TODO: Talk about `Injectable`
+
+
+
 # Vue
 
 // TODO: Code sample
 
 <!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+------
+
+
+
+
+
+
+
+
+
+`@Optional`
