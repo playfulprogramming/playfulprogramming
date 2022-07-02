@@ -858,7 +858,71 @@ export default function App() {
 
 ## Angular
 
-// TODO: Explain
+Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
+
+```typescript
+// TODO: Check this code
+@Component({
+	selector: "child",
+	template: `<div></div>`
+})
+class ChildComponent {
+  pi = 3.14;
+  sayHi() {
+    console.log('Hello, world');
+  }
+}
+
+@Component({
+	selector: "parent",
+	template: `<child #childVar></child>`
+})
+class ParentComponent implements AfterViewInit {
+  @ViewChild("childVar") childComp: ChildComponent;
+  
+  ngAfterViewInit() {
+    console.log(this.childComp);
+  }
+}
+```
+
+ Doing this, we'll see the console output:
+
+```javascript
+Object { pi: 3.14 }
+```
+
+But how do we know that this is properly the `ChildComponent` instance? Simple! We'll `console.log` `childComp.constructor` and we'll see:
+
+```typescript
+class ChildComponent {}
+```
+
+This means that, as a result, we can also call the `sayHi` method:
+
+```typescript
+@Component({
+	selector: "parent",
+	template: `<child #childVar></child>`
+})
+class ParentComponent implements AfterViewInit {
+  @ViewChild("childVar") childComp: ChildComponent;
+  
+  ngAfterViewInit() {
+    this.childComp.sayHi();
+  }
+}
+```
+
+And it will output:
+
+```
+Hello, world
+```
+
+### Using element reference in our `context-menu` component
+
+Knowing that we can access a component instance's methods and properties, we can use a combination of an element reference and a component reference to focus the `context-menu` underlying DOM node.
 
 ```typescript
 @Component({
