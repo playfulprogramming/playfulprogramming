@@ -619,7 +619,7 @@ function openContextMenu(e) {
 
 While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside of a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/element-reference), but we need to access the `ContextMenu` component instance.
 
-Luckily for us, each framework enables us to do just that! Let's dive in:
+Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 
 <!-- tabs:start -->
 
@@ -761,9 +761,151 @@ const App = () => {
 
 It will output `Hello, world` just as we would expect it to!
 
-###  Using them in the real world
+## Angular
 
-Awesome! Now that we know how `forwardRef` and `useImperative` handle work, let's add them to our `ContextMenu` component in order to run `focus` on the underlying `div`:
+Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
+
+```typescript
+// TODO: Check this code
+@Component({
+	selector: "child",
+	template: `<div></div>`
+})
+class ChildComponent {
+  pi = 3.14;
+  sayHi() {
+    console.log('Hello, world');
+  }
+}
+
+@Component({
+	selector: "parent",
+	template: `<child #childVar></child>`
+})
+class ParentComponent implements AfterViewInit {
+  @ViewChild("childVar") childComp: ChildComponent;
+  
+  ngAfterViewInit() {
+    console.log(this.childComp);
+  }
+}
+```
+
+ Doing this, we'll see the console output:
+
+```javascript
+Object { pi: 3.14 }
+```
+
+But how do we know that this is properly the `ChildComponent` instance? Simple! We'll `console.log` `childComp.constructor` and we'll see:
+
+```typescript
+class ChildComponent {}
+```
+
+This means that, as a result, we can also call the `sayHi` method:
+
+```typescript
+@Component({
+	selector: "parent",
+	template: `<child #childVar></child>`
+})
+class ParentComponent implements AfterViewInit {
+  @ViewChild("childVar") childComp: ChildComponent;
+  
+  ngAfterViewInit() {
+    this.childComp.sayHi();
+  }
+}
+```
+
+And it will output:
+
+```
+Hello, world
+```
+
+
+## Vue
+
+Using the same `$ref` API as element nodes, you can access a component's instance using a `ref` string:
+
+```javascript
+const Child = {
+	template: `<div></div>`,
+	data() {
+		return {
+			pi: 3.14,
+		};
+	},
+	methods: {
+		sayHi() {
+			console.log('Hello, world');
+		},
+	}
+}
+
+const Parent = {
+	template: `<child ref="childComp"></child>`,
+	mounted() {
+		console.log(this.$refs.childComp);
+	},
+	components: {
+		Child
+	}
+}
+```
+
+If we look at our console output, we might see something unexpected:
+
+```javascript
+Proxy { <target>: {…}, <handler>: {…} }
+```
+
+This is because of how [Vue works under-the-hood](// TODO: Link to Vue internals chapter). Rest assured, however; this `Proxy` is still our component instance.
+
+Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
+
+```javascript
+const Parent = {
+	template: `<child ref="childComp"></child>`,
+	mounted() {
+		console.log(this.$refs.childComp.pi); // Will log "3.14"
+		this.$refs.childComp.sayHi(); // Will log "Hello, world"
+	},
+	components: {
+		Child
+	}
+} 
+```
+
+<!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Using component reference to focus our context menu
+
+Now that we sufficiently understand what component references look like in each framework, let's add it into our `App` component.
+
+Knowing that we can access a component instance's methods and properties, we can use a combination of an element reference and a component reference to focus the `ContextMenu` underlying DOM node.
+
+<!-- tabs:start -->
+
+## React
 
 ```jsx {0-7,22,62,81}
 const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
@@ -857,72 +999,6 @@ export default function App() {
 ```
 
 ## Angular
-
-Just as we can use `ViewChild` to access an underlying DOM node, we can do the same thing with a component reference. In fact, we can use a template reference variable just like we would to access the DOM node.
-
-```typescript
-// TODO: Check this code
-@Component({
-	selector: "child",
-	template: `<div></div>`
-})
-class ChildComponent {
-  pi = 3.14;
-  sayHi() {
-    console.log('Hello, world');
-  }
-}
-
-@Component({
-	selector: "parent",
-	template: `<child #childVar></child>`
-})
-class ParentComponent implements AfterViewInit {
-  @ViewChild("childVar") childComp: ChildComponent;
-  
-  ngAfterViewInit() {
-    console.log(this.childComp);
-  }
-}
-```
-
- Doing this, we'll see the console output:
-
-```javascript
-Object { pi: 3.14 }
-```
-
-But how do we know that this is properly the `ChildComponent` instance? Simple! We'll `console.log` `childComp.constructor` and we'll see:
-
-```typescript
-class ChildComponent {}
-```
-
-This means that, as a result, we can also call the `sayHi` method:
-
-```typescript
-@Component({
-	selector: "parent",
-	template: `<child #childVar></child>`
-})
-class ParentComponent implements AfterViewInit {
-  @ViewChild("childVar") childComp: ChildComponent;
-  
-  ngAfterViewInit() {
-    this.childComp.sayHi();
-  }
-}
-```
-
-And it will output:
-
-```
-Hello, world
-```
-
-### Using element reference in our `context-menu` component
-
-Knowing that we can access a component instance's methods and properties, we can use a combination of an element reference and a component reference to focus the `context-menu` underlying DOM node.
 
 ```typescript
 @Component({
@@ -1029,63 +1105,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-
-
 ## Vue
-
-Using the same `$ref` API as element nodes, you can access a component's instance using a `ref` string:
-
-```javascript
-const Child = {
-	template: `<div></div>`,
-	data() {
-		return {
-			pi: 3.14,
-		};
-	},
-	methods: {
-		sayHi() {
-			console.log('Hello, world');
-		},
-	}
-}
-
-const Parent = {
-	template: `<child ref="childComp"></child>`,
-	mounted() {
-		console.log(this.$refs.childComp);
-	},
-	components: {
-		Child
-	}
-}
-```
-
-If we look at our console output, we might see something unexpected:
-
-```javascript
-Proxy { <target>: {…}, <handler>: {…} }
-```
-
-This is because of how [Vue works under-the-hood](// TODO: Link to Vue internals chapter). Rest assured, however; this `Proxy` is still our component instance.
-
-Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
-
-```javascript
-const Parent = {
-	template: `<child ref="childComp"></child>`,
-	mounted() {
-		console.log(this.$refs.childComp.pi); // Will log "3.14"
-		this.$refs.childComp.sayHi(); // Will log "Hello, world"
-	},
-	components: {
-		Child
-	}
-} 
-```
-
-
-
 
 
 ```javascript
@@ -1186,9 +1206,6 @@ const App = {
 };
 ```
 
-
-
-
 <!-- tabs:end -->
 
 
@@ -1205,33 +1222,7 @@ const App = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-------
 
 
 
