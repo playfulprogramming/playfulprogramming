@@ -81,8 +81,6 @@
   - Error boundary / React
   - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
 - Accessibility (A11Y)
-  - 
-
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality
