@@ -66,7 +66,7 @@
 - Directives
   - [Vue](https://vuejs.org/guide/reusability/custom-directives.html)
   - Angular
-  - React / Nothing
+  - React / Nothing / Custom Hooks & Passing Props
 
 - [Dependency injection](/posts/dependency-injection)
   - `useContext` / React
@@ -128,17 +128,22 @@
   - [Vue i18n](https://kazupon.github.io/vue-i18n/)
 
 - Testing
-  - Unit Testing
+  - Test Running & Unit Testing
     - [Vitest](vitest.dev/)
 
+    - Basic logic testing, no UI testing
+  
+    - Angular / [Service Testing](https://angular.io/guide/testing-services#testing-services)
+  
   - Integration testing
     - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
     - [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/)
     - [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro/)
-
+    - [MSW](https://mswjs.io/)
+  
   - End-to-end testing
     - [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro)
-
+  
 - Visual Playground
   - [Storybook](storybook.js.org/)
 
@@ -188,6 +193,7 @@
   - Angular = Zone.js
   - Vue = Proxies
     - Bad redux example
+- Angular Dependency Injection
 - Alternative Syntaxes
   - Angular
     - Standalone Components (or Modules)

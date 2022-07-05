@@ -6,7 +6,7 @@
     authors: ['crutchcorn'],
     tags: ['webdev'],
     attached: [],
-    order: 12,
+    order: 13,
     series: "The Framework Field Guide"
 }
 ---
@@ -104,14 +104,94 @@ export default function App() {
 
 
 
-----
+# Vue
+
+// TODO: Code sample
+
+<!-- tabs:end -->
 
 
 
 
+
+
+
+# Angular Notes
+
+
+
+## Basic Usage
+
+
+
+````typescript
+import { InjectionToken, Component, Inject} from '@angular/core';
+
+const WELCOME_MESSAGE_TOKEN = new InjectionToken('WELCOME_MESSAGE');
+
+@Component({
+  selector: 'child',
+  template: ``
+})
+export class ChildComponent {
+  constructor(@Inject(WELCOME_MESSAGE_TOKEN) private welcomeMsg: string) {}
+
+  ngOnInit() {
+    console.log(this.welcomeMsg);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `<child></child>`,
+  providers: [
+    {provide: WELCOME_MESSAGE_TOKEN, useValue: 'Hello, world!' },
+  ]
+})
+export class AppComponent {
+}
+````
+
+
+
+You can also use `inject` function instead.
 
 ```typescript
+import { InjectionToken, Component, inject} from '@angular/core';
 
+const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>('WELCOME_MESSAGE');
+
+@Component({
+  selector: 'child',
+  template: ``
+})
+export class ChildComponent {
+  welcomeMsg = inject(WELCOME_MESSAGE_TOKEN);
+
+  ngOnInit() {
+    console.log(this.welcomeMsg);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `<child></child>`,
+  providers: [
+    {provide: WELCOME_MESSAGE_TOKEN, useValue: 'Hello, world!' },
+  ]
+})
+export class AppComponent {
+}
+```
+
+
+
+
+
+## Class Usage
+
+```typescript
+@Injectable()
 class InjectedValue {
   message = "Hello, world";
 }
@@ -139,15 +219,10 @@ class ParentComponent {
 
 
 
-
-
-----
-
-
-
-
+## Setting values from the provider itself
 
 ````typescript
+@Injectable()
 class InjectedValue {
   message = "Hello, world";
 }
@@ -182,38 +257,111 @@ class ParentComponent {
 
 
 
--------
+## Optional DI
+
+If we remove the `providers` from `ParentComponent`, like so:
+
+```typescript
+@Component({
+  selector: "app-root",
+  template: `<child></child>`
+})
+class ParentComponent {
+  constructor(private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    this.injectedValue.message = "Test";
+  }
+}
+```
+
+We get the following error:
+
+> ```
+> ERROR NullInjectorError: R3InjectorError(AppModule)[InjectedValue -> InjectedValue -> InjectedValue]: 
+>   NullInjectorError: No provider for InjectedValue!
+> ```
+
+This is because Angular requires you to provide a value for an injected value by default.
+
+```typescript
+
+import { Injectable, Component, OnInit, Optional} from '@angular/core';
+
+@Injectable()
+class InjectedValue {
+  message = "Hello, world";
+}
+
+@Component({
+  selector: "child",
+  template: `<div></div>`
+})
+class ChildComponent implements OnInit {
+  constructor(@Optional() private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    console.log(this.injectedValue);
+  }
+}
+
+@Component({
+  selector: "app-root",
+  template: `<child></child>`
+})
+class ParentComponent {
+}
+```
 
 
 
-// TODO: Talk about `Injectable`
+
+
+## Global providers
+
+```typescript
+@Injectable({providedIn: 'root'})
+class InjectedValue {
+  message = "Hello, world";
+}
+
+@Component({
+  selector: "child",
+  template: `<div></div>`
+})
+class ChildComponent implements OnInit {
+  constructor(private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    console.log(this.injectedValue);
+  }
+}
+
+@Component({
+  selector: "app-root",
+  template: `<child></child>`
+})
+class ParentComponent {
+}
+```
 
 
 
-# Vue
-
-// TODO: Code sample
-
-<!-- tabs:end -->
 
 
+# Outline
 
+- Angular
+  - Basic component `providers` with `useValue`
+  - Basic component `providers` with classes
+  - `@Optional`
+  - `@Injectable{provideIn: 'root'}`
 
+## Not going to teach
 
+- Angular
+  - `Self` and `SkipSelf` - Too complex, not features in other frameworks
+  - `Host` - See above
+  - `factory(() => {})`
+  - `'platform'` and `'any'` `provideIn`
 
-
-
-
-
-
-------
-
-
-
-
-
-
-
-
-
-`@Optional`
