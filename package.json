@@ -38,6 +38,7 @@
     "junk": "^4.0.0",
     "preact": "^10.7.3",
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
+    "rehype-parse": "^8.0.4",
     "rehype-slug-custom-id": "^1.1.0",
     "rehype-stringify": "^9.0.3",
     "remark-behead": "^3.1.0",

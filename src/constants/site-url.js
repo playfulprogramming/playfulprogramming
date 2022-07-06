@@ -1,4 +1,4 @@
-module.exports = () => {
+export default () => {
   const buildMode = process.env.BUILD_ENV || "production";
   let siteUrl = process.env.SITE_URL || process.env.VERCEL_URL || "";
 

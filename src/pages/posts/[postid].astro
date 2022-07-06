@@ -1,0 +1,103 @@
+---
+import { objectMap } from "ts-util-helpers";
+import { languages } from "constants/index";
+import { Languages } from "types/index";
+import {
+  postBySlug,
+  seriesPostsPick,
+} from "constants/queries";
+import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
+import markdownToHtml from "utils/markdown/markdownToHtml";
+import * as path from 'path';
+
+export function getStaticPaths() {
+  const postsLangArr = objectMap(languages, (_, lang) => {
+    return getAllPosts({ slug: true }, lang);
+  });
+
+  const paths = (Object.keys(postsLangArr) as Array<Languages>)
+    .map((lang) =>
+      postsLangArr[lang].map((post) => {
+        return {
+          params: {
+            postid: post.slug,
+          }
+        };
+      })
+    )
+    .flat();
+
+  return paths;
+}
+
+const { postid } = Astro.params as {postid: string};
+
+const slugParam = postid;
+const lang = "en";
+const post = getPostBySlug(slugParam, lang, postBySlug);
+
+const isStr = (val: any): val is string => typeof val === "string";
+const slug = isStr(post.slug) ? post.slug : "";
+
+const seriesPostCacheKey = {};
+
+let seriesPosts: any[] = [];
+if (post.series && post.order) {
+const allPosts = getAllPosts(seriesPostsPick, lang, seriesPostCacheKey);
+
+seriesPosts = allPosts
+	.filter((filterPost) => filterPost.series === post.series)
+	.sort((postA, postB) => Number(postA.order) - Number(postB.order));
+}
+
+const { html: markdownHTML, headingsWithId } = await markdownToHtml(
+	post.content,
+	path.resolve(postsDirectory, post.slug)
+);
+
+---
+
+<html lang="en">
+	<head>
+		<style>
+			header {
+				width: 100%;
+				height: 100%;
+				background-color: var(--theme-bg-offset);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.content {
+				margin-top: 4rem;
+				margin-bottom: 8rem;
+			}
+
+			.content :global(main > * + *) {
+				margin-top: 1rem;
+			}
+
+			.intro {
+				padding-bottom: 4rem;
+				margin-bottom: 2rem;
+				border-bottom: 4px solid var(--theme-divider);
+			}
+
+			.intro > * {
+				margin: 0;
+			}
+
+			.latest {
+				font-size: 2.5rem;
+				font-weight: 700;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<Fragment set:html={markdownHTML}></Fragment>
+		</div>
+	</body>
+</html>
