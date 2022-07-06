@@ -3,11 +3,11 @@ import remarkGfm from "remark-gfm";
 import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
-import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch";
+import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "constants/site-config";
 import { rehypeHeaderText } from "./plugins/add-header-text";
-import remarkTwoslash from "remark-shiki-twoslash";
+import * as remarkTwoslashD from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs, RehypeTabsProps } from "utils/markdown/plugins/tabs";
 import rehypeSvimg from 'rehype-svimg';
@@ -23,6 +23,8 @@ import { visit } from "unist-util-visit";
 import { EMBED_SIZE } from "./constants";
 import { isRelativePath } from "../url-paths";
 import {fromHtml} from 'hast-util-from-html'
+
+const remarkTwoslash = remarkTwoslashD.default.default ?? remarkTwoslashD.default ?? remarkTwoslashD;
 
 export default async function markdownToHtml(
   content: string,
@@ -101,6 +103,7 @@ export default async function markdownToHtml(
         visit(tree, node => {
           const prefix = 'public';
           function removePrefix(path: string) {
+            if (!path) return path;
             if (path.startsWith(prefix)) {
               if (path.startsWith(prefix + "/")) {
                 return path.slice(prefix.length + 1, path.length);

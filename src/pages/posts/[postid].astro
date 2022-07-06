@@ -14,8 +14,6 @@ import "../../global.scss";
 
 import {COLORS} from 'constants/theme';
 
-import {PostBody} from '../../components/PostBody.tsx';
-
 const CSS_THEME = Object.entries(COLORS).reduce((prev, [key, val]) => {
   prev += `\n--${key}: ${val.light};`;
   return prev;
@@ -71,7 +69,7 @@ const { html: markdownHTML, headingsWithId } = await markdownToHtml(
 	<body>
     <article>
       <main class="post-body">
-        <PostBody client:load markdownHTML={markdownHTML} slug={post.slug}/>
+        <Fragment set:html={markdownHTML}/>
       </main>
     </article>
 	</body>
