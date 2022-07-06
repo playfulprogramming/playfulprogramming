@@ -1,10 +1,10 @@
-import {h} from 'preact';
+import React from 'react';
 import {
   createContext,
   FC,
   useEffect,
   useReducer,
-} from "preact/compat";
+} from "react";
 import { useIsomorphicLayoutEffect } from "utils/index";
 
 interface MarkdownDataContextType {

@@ -1,6 +1,7 @@
-import {h, createElement, Fragment} from 'preact';
+import React from 'react';
 import { unified } from "unified";
 import reactRehyped, {Options} from "rehype-react";
+import { ReactElement, ReactNode } from "react";
 import {
   getHeadings,
   getMedia,
@@ -30,9 +31,9 @@ const getComponents = (
     // Temp fix to remove HTML, BODY, and HEAD nodes from render. Not sure why,
     // but it's being added to the markdown rendering in the `useMarkdownRenderer`
     // step.
-    html: ({ children }: { children: JSX.Element[] }) => <>{children}</>,
-    body: ({ children }: { children: JSX.Element[] }) => <>{children}</>,
-    head: ({ children }: { children: JSX.Element[] }) => <>{children}</>,
+    html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
+    head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
     ...getTabs(props),
     ...getHeadings(props),
@@ -49,9 +50,9 @@ export const useMarkdownRenderer = (
   return unified()
     .use(rehypeParseIsomorphic)
     .use(reactRehyped, {
-      createElement: createElement,
+      createElement: React.createElement,
       components: getComponents(props, comps),
-      Fragment: Fragment
+      Fragment: React.Fragment
     } as Options)
-    .processSync(props.markdownHTML).result as JSX.Element
+    .processSync(props.markdownHTML).result as ReactElement
 };

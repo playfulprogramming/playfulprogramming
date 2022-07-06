@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import React from 'react';
 import { useMarkdownRendererProps } from "./types";
 import { isRelativePath } from "../../url-paths";
 
