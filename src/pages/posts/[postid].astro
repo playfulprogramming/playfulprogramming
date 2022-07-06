@@ -10,6 +10,8 @@ import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import * as path from 'path';
 
+import {PostBody} from '../../components/PostBody';
+
 export function getStaticPaths() {
   const postsLangArr = objectMap(languages, (_, lang) => {
     return getAllPosts({ slug: true }, lang);
@@ -58,46 +60,9 @@ const { html: markdownHTML, headingsWithId } = await markdownToHtml(
 ---
 
 <html lang="en">
-	<head>
-		<style>
-			header {
-				width: 100%;
-				height: 100%;
-				background-color: var(--theme-bg-offset);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.content {
-				margin-top: 4rem;
-				margin-bottom: 8rem;
-			}
-
-			.content :global(main > * + *) {
-				margin-top: 1rem;
-			}
-
-			.intro {
-				padding-bottom: 4rem;
-				margin-bottom: 2rem;
-				border-bottom: 4px solid var(--theme-divider);
-			}
-
-			.intro > * {
-				margin: 0;
-			}
-
-			.latest {
-				font-size: 2.5rem;
-				font-weight: 700;
-			}
-		</style>
-	</head>
-
 	<body>
 		<div>
-			<Fragment set:html={markdownHTML}></Fragment>
+			<PostBody client:load markdownHTML={markdownHTML} slug={post.slug}/>
 		</div>
 	</body>
 </html>

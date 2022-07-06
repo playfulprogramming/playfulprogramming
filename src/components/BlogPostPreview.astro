@@ -11,10 +11,10 @@ const { post } = Astro.props as Props;
 <article class="post-preview">
 	<header>
 		<p class="publish-date">{post.published}</p>
-		<a href={post.slug}><h1 class="title">{post.title}</h1></a>
+		<a href={'/posts/' + post.slug}><h1 class="title">{post.title}</h1></a>
 	</header>
 	<p>{post.description}</p>
-	<a href={post.slug}>Read more</a>
+	<a href={'/posts/' + post.slug}>Read more</a>
 </article>
 
 <style>

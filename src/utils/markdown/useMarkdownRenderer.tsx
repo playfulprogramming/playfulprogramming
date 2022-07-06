@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as Preact from "preact";
 import { unified } from "unified";
-// import reactRehyped from "rehype-react";
+import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
   getHeadings,
@@ -9,12 +9,11 @@ import {
   getTable,
 } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
-// import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
+import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 
 import rehypeParse from "rehype-parse";
 
-// type ComponentMap = ComponentsWithNodeOptions["components"];
-type ComponentMap = any;
+type ComponentMap = ComponentsWithNodeOptions["components"];
 
 const getComponents = (
   props: useMarkdownRendererProps,
@@ -28,6 +27,7 @@ const getComponents = (
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
+    // ...getTabs(props),
     ...getHeadings(props),
     ...getMedia(props),
     ...getLinks(props),
@@ -41,10 +41,10 @@ export const useMarkdownRenderer = (
 ) => {
   return unified()
     .use(rehypeParse)
-    // TODO: Create `rehypeAstro` plugin
-    // .use(reactRehyped, {
-    //   createElement: React.createElement,
-    //   components: getComponents(props, comps) as any,
-    // })
+    .use(reactRehyped, {
+      createElement: Preact.createElement,
+      components: getComponents(props, comps),
+      Fragment: Preact.Fragment
+    } as Options)
     .processSync(props.markdownHTML).result as ReactElement
 };
