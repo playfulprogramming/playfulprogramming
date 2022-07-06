@@ -144,6 +144,21 @@ export default async function markdownToHtml(
             }
           }
 
+          if (node.tagName === 'table' && !node.properties['has-changed']) {
+            const children = [...node.children];
+            const properties = {...node.properties, "has-changed": true};
+            node.tagName = 'div';
+            node.properties = {
+              class: "table-container"
+            };
+            node.children = [{
+              tagName: 'table',
+              type: "element",
+              children,
+              properties
+            }];
+          }
+
           if (
             node.tagName === 'h1' ||
             node.tagName === 'h2' ||

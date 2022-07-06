@@ -2,9 +2,6 @@ import React from 'react';
 import { unified } from "unified";
 import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";
-import {
-  getTable,
-} from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 
@@ -30,7 +27,6 @@ const getComponents = (
     html: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
-    ...getTable(props),
     ...comps,
   };
 };
