@@ -3,7 +3,6 @@ import { unified } from "unified";
 import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
-  getHeadings,
   getTable,
 } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
@@ -32,7 +31,6 @@ const getComponents = (
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
-    ...getHeadings(props),
     ...comps,
   };
 };

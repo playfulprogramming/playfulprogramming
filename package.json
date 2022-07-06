@@ -35,6 +35,7 @@
     "@remark-embedder/transformer-oembed": "^2.0.0",
     "gatsby-remark-embedder": "^6.0.1",
     "hast": "^1.0.0",
+    "hast-util-from-html": "^1.0.0",
     "hast-util-has-property": "^2.0.0",
     "hast-util-heading-rank": "^2.1.0",
     "junk": "^4.0.0",
