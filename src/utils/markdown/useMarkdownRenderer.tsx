@@ -1,4 +1,4 @@
-import * as Preact from "preact";
+import * as React from 'preact';
 import { unified } from "unified";
 import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";
@@ -6,12 +6,20 @@ import {
   getHeadings,
   getMedia,
   getLinks,
+  getTabs,
   getTable,
 } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
 import { ComponentsWithNodeOptions } from "rehype-react/lib/complex-types";
 
-import rehypeParse from "rehype-parse";
+// TODO: Add this back
+/**
+ * This is replaced with the smaller `rehype-dom-parse` using Webpack
+ * Bad idea? Sure, but trying the `isBrowser()` logic doesn't work for bundled stuff.
+ *
+ * Neither does the less obvious `if (isBrowser()) await import()`
+ */
+ import rehypeParseIsomorphic from "rehype-parse";
 
 type ComponentMap = ComponentsWithNodeOptions["components"];
 
@@ -27,7 +35,7 @@ const getComponents = (
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
-    // ...getTabs(props),
+    ...getTabs(props),
     ...getHeadings(props),
     ...getMedia(props),
     ...getLinks(props),
@@ -40,11 +48,11 @@ export const useMarkdownRenderer = (
   comps: ComponentMap = {}
 ) => {
   return unified()
-    .use(rehypeParse)
+    .use(rehypeParseIsomorphic)
     .use(reactRehyped, {
-      createElement: Preact.createElement,
+      createElement: React.createElement,
       components: getComponents(props, comps),
-      Fragment: Preact.Fragment
+      Fragment: React.Fragment
     } as Options)
     .processSync(props.markdownHTML).result as ReactElement
 };

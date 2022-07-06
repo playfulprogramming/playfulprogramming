@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'preact';
 import { useMarkdownRendererProps } from "./types";
 // import Image, { ImageProps } from "next/image";
 // import Zoom from "react-medium-image-zoom";
@@ -18,9 +18,7 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       const ZoomComp = false
         // ? Zoom
         ? () => null 
-        : ((({ children }) => <>{children}</>) as React.FC<
-            React.PropsWithChildren<unknown>
-          >);
+        : ((({ children }) => <>{children}</>) as any);
 
       // only "fill" is supported when height and width are not specified
       const beResponsive = !!(props2.height && props2.width);
@@ -37,9 +35,7 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       );
     },
     video: (
-      props: React.PropsWithChildren<
-        React.VideoHTMLAttributes<HTMLVideoElement>
-      >
+      props: any
     ) => {
       const { src, ...rest } = props;
       const srcStr = getFullRelativePath(...serverPath, src || "");
@@ -57,9 +53,7 @@ export const getMedia = ({ serverPath }: useMarkdownRendererProps) => {
       );
     },
     iframe: (
-      props: React.PropsWithChildren<
-        React.IframeHTMLAttributes<HTMLIFrameElement>
-      >
+      props: any
     ) => {
       const { src, ...rest } = props;
       return (

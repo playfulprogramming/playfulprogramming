@@ -10,7 +10,7 @@ import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import * as path from 'path';
 
-import {PostBody} from '../../components/PostBody';
+import {PostBody} from '../../components/PostBody.tsx';
 
 export function getStaticPaths() {
   const postsLangArr = objectMap(languages, (_, lang) => {

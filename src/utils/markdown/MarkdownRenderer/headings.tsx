@@ -1,7 +1,7 @@
-import * as Preact from "preact";
+import * as React from 'preact';
 import { useMarkdownRendererProps } from "./types";
 
-const HeaderLink: Preact.FunctionComponent<{ id: string; headerText: string }> = ({
+const HeaderLink: React.FunctionComponent<{ id: string; headerText: string }> = ({
   id,
   headerText,
 }) => {

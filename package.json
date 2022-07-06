@@ -18,6 +18,7 @@
     "url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
   },
   "scripts": {
+    "debug": "node --inspect-brk ./node_modules/astro/astro.js dev",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -37,6 +38,7 @@
     "hast-util-heading-rank": "^2.1.0",
     "junk": "^4.0.0",
     "preact": "^10.7.3",
+    "react-tabs": "^4.2.1",
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.4",
     "rehype-react": "^7.1.1",

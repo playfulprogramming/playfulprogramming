@@ -1,12 +1,10 @@
-import * as React from "react";
+import * as React from 'preact';
 import { useMarkdownRendererProps } from "./types";
 
 export const getTable = ({ serverPath }: useMarkdownRendererProps) => {
   return {
     table: (
-      props: React.PropsWithChildren<
-        React.TableHTMLAttributes<HTMLTableElement>
-      >
+      props: any
     ) => {
       return (
         <div className="table-container">

@@ -1,13 +1,11 @@
-import * as React from "react";
+import * as React from 'preact';
 import { useMarkdownRendererProps } from "./types";
 import { isRelativePath } from "../../url-paths";
 
 export const getLinks = (_: useMarkdownRendererProps) => {
   return {
     a(
-      props: React.PropsWithChildren<
-        React.AnchorHTMLAttributes<HTMLAnchorElement>
-      >
+      props: any
     ) {
       const { href, ...restProps } = props;
       const isInternalLink = isRelativePath(href || "");
