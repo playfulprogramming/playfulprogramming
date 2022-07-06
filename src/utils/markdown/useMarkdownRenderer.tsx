@@ -4,9 +4,6 @@ import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";
 import {
   getHeadings,
-  getMedia,
-  getLinks,
-  getTabs,
   getTable,
 } from "./MarkdownRenderer";
 import { useMarkdownRendererProps } from "./MarkdownRenderer/types";
@@ -35,10 +32,7 @@ const getComponents = (
     body: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     head: ({ children }: { children: ReactNode[] }) => <>{children}</>,
     ...getTable(props),
-    ...getTabs(props),
     ...getHeadings(props),
-    ...getMedia(props),
-    ...getLinks(props),
     ...comps,
   };
 };

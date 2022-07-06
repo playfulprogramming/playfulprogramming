@@ -20,6 +20,8 @@ import { unifiedChain } from "utils/markdown/unified-chain";
 import * as path from 'path';
 import {postsDirectory } from "utils/fs/api";
 import { visit } from "unist-util-visit";
+import { EMBED_SIZE } from "./constants";
+import { isRelativePath } from "../url-paths";
 
 export default async function markdownToHtml(
   content: string,
@@ -82,6 +84,9 @@ export default async function markdownToHtml(
         } as RehypeTabsProps,
       ],
       [rehypeHeaderText(renderData)],
+      /**
+       * Insert custom HTML generation code here
+       */
       [rehypeSvimg, {
         inputDir: imgDirectory,
         outputDir: `public/posts/${slug}`,
@@ -111,6 +116,33 @@ export default async function markdownToHtml(
           }
         })
         return tree;
+      }),
+      (() => tree => {
+        visit(tree, node => {
+          if (node.tagName === 'iframe') {
+            node.properties.width ??= EMBED_SIZE.w;
+            node.properties.height ??= EMBED_SIZE.h;
+            node.properties.loading ??= 'lazy';
+          }
+          
+          if (node.tagName === 'video') {
+            node.properties.muted ??= true;
+            node.properties.autoPlay ??= true;
+            node.properties.controls ??= true;
+            node.properties.loop ??= true;
+            node.properties.width ??= '100%';
+            node.properties.height ??= 'auto';
+          }
+
+          if (node.tagName === 'a') {
+            const href = node.properties.href;
+            const isInternalLink = isRelativePath(href || "");
+            if (!isInternalLink) {
+              node.properties.target = "_blank";
+              node.properties.rel = "nofollow noopener noreferrer";
+            }
+          }
+        })
       })
     ],
   }).process(content);
