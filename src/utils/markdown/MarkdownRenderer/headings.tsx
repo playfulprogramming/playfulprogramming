@@ -1,4 +1,4 @@
-import * as React from 'preact';
+import React from 'react';
 import { useMarkdownRendererProps } from "./types";
 
 const HeaderLink: React.FunctionComponent<{ id: string; headerText: string }> = ({
@@ -30,13 +30,6 @@ const HeaderLink: React.FunctionComponent<{ id: string; headerText: string }> = 
     </a>
   );
 };
-
-// type HeadingProps = Preact.FunctionComponent<
-//   React.HTMLAttributes<HTMLHeadingElement> & {
-//     ["data-header-text"]: string;
-//     children: Preact.ComponentChildren[]
-//   }
-// >;
 
 type HeadingProps = any;
 

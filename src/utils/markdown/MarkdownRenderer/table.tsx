@@ -1,4 +1,4 @@
-import * as React from 'preact';
+import React from 'react';
 import { useMarkdownRendererProps } from "./types";
 
 export const getTable = ({ serverPath }: useMarkdownRendererProps) => {

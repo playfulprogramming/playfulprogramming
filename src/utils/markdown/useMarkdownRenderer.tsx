@@ -1,4 +1,4 @@
-import * as React from 'preact';
+import React from 'react';
 import { unified } from "unified";
 import reactRehyped, {Options} from "rehype-react";
 import { ReactElement, ReactNode } from "react";

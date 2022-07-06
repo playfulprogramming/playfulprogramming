@@ -1,10 +1,10 @@
-import * as React from 'preact';
+import React from 'react';
 import {
   createContext,
   FC,
   useEffect,
   useReducer,
-} from "preact/compat";
+} from "react";
 import { useIsomorphicLayoutEffect } from "utils/index";
 
 interface MarkdownDataContextType {
@@ -32,7 +32,7 @@ const initialState: MarkdownDataContextType = { selectedTabText: "" };
 
 export const MarkdownDataContext = createContext<{
   state: MarkdownDataContextType;
-  dispatch: (props: SET_SELECTED_TAB_TEXT_ACTION) => void;
+  dispatch: any;
 }>({
   state: initialState,
   dispatch: () => {},

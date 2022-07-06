@@ -25,11 +25,11 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/preact": "^0.3.1",
     "@types/node": "^18.0.2",
     "astro": "^1.0.0-beta.63"
   },
   "dependencies": {
+    "@astrojs/react": "^0.2.0",
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
     "gatsby-remark-embedder": "^6.0.1",
@@ -37,7 +37,8 @@
     "hast-util-has-property": "^2.0.0",
     "hast-util-heading-rank": "^2.1.0",
     "junk": "^4.0.0",
-    "preact": "^10.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-tabs": "^4.2.1",
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.4",

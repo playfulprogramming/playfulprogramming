@@ -1,5 +1,4 @@
-/* jsxImportSource: preact */
-import * as Preact from "preact/compat";
+import React, {useState, useCallback, useMemo, Children} from "react";
 import { useMarkdownRendererProps } from "./types";
 import {
   Tab as ReactTab,
@@ -13,9 +12,9 @@ import { MarkdownDataContext } from "utils/markdown/MarkdownRenderer/data-contex
 /**
  * @see https://github.com/reactjs/react-tabs for layout of "HTML" nodes
  */
-const Tabs: Preact.FC<{children: JSX.Element}> = ({ children }) => {
-  const tabsHeadingText = Preact.useMemo(() => {
-    const childrenArr = Preact.Children.toArray(children);
+const Tabs: React.FC<{children: JSX.Element}> = ({ children }) => {
+  const tabsHeadingText = useMemo(() => {
+    const childrenArr = Children.toArray(children);
     const tabList = childrenArr.filter(
       (child) => (child as JSX.Element)?.type === ReactTabList
     )[0];
@@ -31,11 +30,11 @@ const Tabs: Preact.FC<{children: JSX.Element}> = ({ children }) => {
     return tabTextArr as string[];
   }, [children]);
 
-  const [selectedIndex, setSelectedIndex] = Preact.useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const { dispatch, state } = Preact.useContext(MarkdownDataContext);
+  const { dispatch, state } = React.useContext(MarkdownDataContext);
 
-  const matchTextToIndex = Preact.useCallback(
+  const matchTextToIndex = useCallback(
     (tabText: string) => {
       if (!tabsHeadingText?.length) {
         return -1;
@@ -55,7 +54,7 @@ const Tabs: Preact.FC<{children: JSX.Element}> = ({ children }) => {
     setSelectedIndex(selectedTextIdx);
   }, [state.selectedTabText]);
 
-  const onSelect = Preact.useCallback(
+  const onSelect = useCallback(
     (index: number, _: number, event: Event) => {
       const target = event.target as HTMLElement;
       setSelectedIndex(index);
