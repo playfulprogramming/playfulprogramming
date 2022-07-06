@@ -9,17 +9,20 @@
     "resolveJsonModule": true,
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     // Add type definitions for our Vite runtime.
-    "types": ["vite/client", "node"],
+    "types": ["node", "vite/client"],
+    "baseUrl": ".",
     "paths": {
-      "constants/*": ["src/constants/*"],
-      "uu-constants": ["src/constants"],
-      "types/*": ["src/types/*"],
-      "uu-types": ["src/types"],
-      "components/*": ["src/components/*"],
-      "utils/*": ["src/utils/*"],
-      "uu-utils": ["src/utils"],
-      "assets/*": ["src/assets/*"],
+      "constants/*": ["./src/constants/*"],
+      "uu-constants": ["./src/constants"],
+      "types/*": ["./src/types/*"],
+      "uu-types": ["./src/types"],
+      "components/*": ["./src/components/*"],
+      "utils/*": ["./src/utils/*"],
+      "uu-utils": ["./src/utils"],
+      "assets/*": ["./src/assets/*"],
     }
   }
 }

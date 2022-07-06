@@ -4,7 +4,7 @@ import {
   pickDeep,
   PickDeep,
 } from "ts-util-helpers";
-import fs from "fs";
+import * as fs from "fs";
 import matter from "gray-matter";
 import { countContent } from "utils/count-words";
 

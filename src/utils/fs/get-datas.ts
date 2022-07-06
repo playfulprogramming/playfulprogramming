@@ -1,5 +1,5 @@
 import { LicenseInfo, PronounInfo, RolesEnum, UnicornInfo } from "types/index";
-import fs from "fs";
+import * as fs from "fs";
 import { join } from "path";
 import { getImageSize } from "rehype-img-size";
 import { getFullRelativePath } from "utils/url-paths";

@@ -37,7 +37,7 @@
     "hast-util-heading-rank": "^2.1.0",
     "junk": "^4.0.0",
     "preact": "^10.7.3",
-    "rehype-img-size": "^1.0.1",
+    "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-slug-custom-id": "^1.1.0",
     "rehype-stringify": "^9.0.3",
     "remark-behead": "^3.1.0",
