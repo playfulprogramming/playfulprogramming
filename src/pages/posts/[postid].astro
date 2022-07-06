@@ -12,20 +12,20 @@ import * as path from 'path';
 
 import "../../global.scss";
 
-// import {COLORS} from 'constants/theme';
+import {COLORS} from 'constants/theme';
 
-// const CSS_THEME = Object.entries(COLORS).reduce((prev, test) => {
-//   prev += `\n--${test[0]}: ${test[1]};`;
-//   return prev;
-// }, "");
+import {PostBody} from '../../components/PostBody.tsx';
+
+const CSS_THEME = Object.entries(COLORS).reduce((prev, [key, val]) => {
+  prev += `\n--${key}: ${val.light};`;
+  return prev;
+}, "");
 
 const rawStylesCSS = `
   :root {
-    ${"TEST"}
+    ${CSS_THEME}
   }
 `
-
-import {PostBody} from '../../components/PostBody.tsx';
 
 export function getStaticPaths() {
   const postsLangArr = objectMap(languages, (_, lang) => {
@@ -47,7 +47,7 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { postid } = Astro.params;
+const { postid } = Astro.params as { postid: string };
 
 const slugParam = postid;
 const lang = "en";
@@ -65,6 +65,7 @@ const { html: markdownHTML, headingsWithId } = await markdownToHtml(
 
 <html lang="en">
   <head>
+    <Fragment set:html={`<style>${rawStylesCSS}</style>`}>
   </head>
 	<body>
     <article>
