@@ -10,6 +10,21 @@ import { getPostBySlug, getAllPosts, postsDirectory } from "utils/fs/api";
 import markdownToHtml from "utils/markdown/markdownToHtml";
 import * as path from 'path';
 
+import "../../global.scss";
+
+// import {COLORS} from 'constants/theme';
+
+// const CSS_THEME = Object.entries(COLORS).reduce((prev, test) => {
+//   prev += `\n--${test[0]}: ${test[1]};`;
+//   return prev;
+// }, "");
+
+const rawStylesCSS = `
+  :root {
+    ${"TEST"}
+  }
+`
+
 import {PostBody} from '../../components/PostBody.tsx';
 
 export function getStaticPaths() {
@@ -32,7 +47,7 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { postid } = Astro.params as {postid: string};
+const { postid } = Astro.params;
 
 const slugParam = postid;
 const lang = "en";
@@ -40,17 +55,6 @@ const post = getPostBySlug(slugParam, lang, postBySlug);
 
 const isStr = (val: any): val is string => typeof val === "string";
 const slug = isStr(post.slug) ? post.slug : "";
-
-const seriesPostCacheKey = {};
-
-let seriesPosts: any[] = [];
-if (post.series && post.order) {
-const allPosts = getAllPosts(seriesPostsPick, lang, seriesPostCacheKey);
-
-seriesPosts = allPosts
-	.filter((filterPost) => filterPost.series === post.series)
-	.sort((postA, postB) => Number(postA.order) - Number(postB.order));
-}
 
 const { html: markdownHTML, headingsWithId } = await markdownToHtml(
 	post.content,
@@ -60,9 +64,13 @@ const { html: markdownHTML, headingsWithId } = await markdownToHtml(
 ---
 
 <html lang="en">
+  <head>
+  </head>
 	<body>
-		<div>
-			<PostBody client:load markdownHTML={markdownHTML} slug={post.slug}/>
-		</div>
+    <article>
+      <main class="post-body">
+        <PostBody client:load markdownHTML={markdownHTML} slug={post.slug}/>
+      </main>
+    </article>
 	</body>
 </html>
