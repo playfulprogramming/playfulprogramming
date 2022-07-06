@@ -1,4 +1,4 @@
-import React from 'react';
+import {h} from 'preact';
 import { useMarkdownRendererProps } from "./types";
 
 const HeaderLink: React.FunctionComponent<{ id: string; headerText: string }> = ({

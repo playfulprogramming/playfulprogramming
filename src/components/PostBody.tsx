@@ -1,4 +1,4 @@
-import React from 'react';
+import {h} from 'preact';
 import { useMarkdownRenderer } from 'utils/markdown/useMarkdownRenderer';
 
 export const PostBody = ({markdownHTML, slug}) => {

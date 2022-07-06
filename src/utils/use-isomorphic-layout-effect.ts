@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "preact/compat";
 
 export const isBrowser = () => typeof window !== "undefined";
 

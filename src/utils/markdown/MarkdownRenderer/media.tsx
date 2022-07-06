@@ -1,4 +1,4 @@
-import React from 'react';
+import {h} from 'preact';
 import { useMarkdownRendererProps } from "./types";
 // import Image, { ImageProps } from "next/image";
 // import Zoom from "react-medium-image-zoom";

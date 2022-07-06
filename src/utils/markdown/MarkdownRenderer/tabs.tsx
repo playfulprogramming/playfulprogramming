@@ -1,4 +1,5 @@
-import React, {useState, useCallback, useMemo, Children} from "react";
+import {h} from 'preact';
+import React, {useState, useCallback, useMemo, Children} from "preact/compat";
 import { useMarkdownRendererProps } from "./types";
 import {
   Tab as ReactTab,
