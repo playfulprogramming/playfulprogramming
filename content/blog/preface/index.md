@@ -11,11 +11,11 @@
 }
 ---
 
-Welcome to the Web Framework Field Guide. This resource is the culmination of 7+ years of professional software development as well as over a year of writing, editing, and polishing.
+Welcome to the Web Framework Field Guide. This book is the culmination of 7+ years of professional software development as well as over a year of writing, editing, and polishing, and is the first of what will be a trilogy of books teaching frontend web development.
 
-This resource will teach you how to build applications, the concepts under the hood of modern web frameworks, and the advanced coding patterns to help you level up your engineering.
+This series will teach you how to build applications, the concepts under the hood of modern web frameworks, and the advanced coding patterns to help you level up your engineering.
 
-While other resources can help you learn these concepts for one framework at a time, **this collection will help you learn 3 different frameworks at once; React, Angular, and Vue alike.**
+While other resources can help you learn these concepts for one framework at a time, **this series will help you learn 3 different frameworks at once; React, Angular, and Vue alike.**
 
 Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 14, and Vue 3.
 
@@ -133,11 +133,10 @@ In fact, I will do my best to link out to anything that's expected to be known o
 
 ## What aren't we learning?
 
-Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this book/course**: 
+Before taking a look at some specifics of what we'll be learning, **let's talk about what we won't be spending dedicated time learning in this series**: 
 
 - Standalone JavaScript APIs
 - CSS
-- Bundling tooling, such as Webpack, Babel, Vite, ESBuild, SWC, or similar.
 - Linting tooling, such as ESLint or Prettier.
 - IDE functionality, such as VSCode, WebStorm, or Sublime Text.
 - TypeScript - while Angular code samples will include a bit of it, we won't be diving into the specifics.
@@ -154,89 +153,43 @@ With the understanding of what we won't be looking at out of the way, **let's ta
 
 <!-- TODO: // Link out to each chapter -->
 
-- What a component is <!-- Introduction to components -->
+- [What a "component" is](https://crutchcorn-book.vercel.app/posts/intro-to-components) <!-- Introduction to components -->
   - What "rendering" is
   - How to keep the DOM and JavaScript state in sync
   - How to bind DOM events to JavaScript functions
   - How to pass values from one part of the UI to another
-
-- How to update the DOM <!-- Dynamic HTML -->
+- [How to update the DOM](https://crutchcorn-book.vercel.app/posts/dynamic-html) <!-- Dynamic HTML -->
   - How to conditionally show data on screen
   - How to render lists on-screen
-
-- What a lifecycle method is <!-- Lifecycle methods -->
+- [What a lifecycle method is](https://crutchcorn-book.vercel.app/posts/lifecycle-methods) <!-- Lifecycle methods -->
   - What a "side effect" is
-
-- How to base the value of one variable off of another <!-- Derived values -->
-
-- How to create powerful forms in your app <!-- Forms -->
+- [How to base the value of one variable off of another](https://crutchcorn-book.vercel.app/posts/derived-values) <!-- Derived values -->
+- [How to create powerful forms in your app](https://crutchcorn-book.vercel.app/posts/forms) <!-- Forms -->
   - How to do form validation
   - How to handle non-text fields (like checkboxes)
-
-- How to handle segments of HTML as a group <!-- Partial DOM Application -->
-
-- How to build relationships between components <!-- Content projection -->
+- [How to handle segments of HTML as a group](https://crutchcorn-book.vercel.app/posts/partial-dom-application) <!-- Partial DOM Application -->
+- [How to build relationships between components](https://crutchcorn-book.vercel.app/posts/content-projection) <!-- Content projection -->
   - How to pass children to components
-
-- How to access a component's children programmatically <!-- Content reference -->
-
-- How to access a component instance programmatically <!-- Component reference -->
+- [How to access a component's children programmatically](https://crutchcorn-book.vercel.app/posts/content-reference) <!-- Content reference -->
+- [How to access underlying DOM nodes programmatically](https://crutchcorn-book.vercel.app/posts/element-reference) <!-- Element reference -->
+- [How to access a component instance programmatically](https://crutchcorn-book.vercel.app/posts/component-reference) <!-- Component reference -->
   - How to pass data from a component up to its parent
   - How to create complex event handling logic
+- [What "dependency injection" is](https://crutchcorn-book.vercel.app/posts/dependency-injection) <!-- Dependency injection -->
+- How to share component logic between components <!-- Shared component logic -->
+- [What a "directive" is](https://crutchcorn-book.vercel.app/posts/directives) <!-- Directives -->
+  - How to associate sharable code logic with DOM nodes
 
-- What "dependency injection" is <!-- Dependency injection -->
-
+- How to control where parts of your app show up <!-- Portals -->
 - How to handle errors in your apps <!-- Error handling -->
-
+- How to make your app accessible to everyone, including assistive technologies <!-- A11Y -->
 - How to structure your application <!-- Fundamentals/structure -->
   - What a "pure" function is
   - What "unidirectionality" is
 
-- How to add other screens to your app <!-- Routing -->
-
-- How to make network calls in your application <!-- HTTPS -->
-
-- How to write tests to automatically validate your code's functionality <!-- Testing -->
-
-- How to translate your app to other languages <!-- I18N -->
-
-- How to make your app accessible to everyone, including assistive technologies <!-- A11Y -->
-
-- What "Server-side rendering" (SSR) is <!-- SSR -->
-
-  - How to use [NextJS](https://nextjs.org/) for React
-  - How to use [Angular Universal](https://angular.io/guide/universal) for Angular
-  - How to use [NuxtJS](https://nuxtjs.org/) for Vue
-
-- What "static site generation" (SSG) is <!-- SSG -->
-  - How to use [Gatsby](https://gatsbyjs.com/) for React
-  - How to use [Scully](https://scully.io/) for Angular
-  - How to use [VuePress](https://vuepress.vuejs.org/) for Vue
-
-- What a "global store" is and how to persist data across multiple app screens  <!-- Store -->
-
-- How to debug your application using provided tools <!-- DevTools -->
-
-  - How to use devtools
-  - How to benchmark your apps
-  - How to detect memory leaks in your apps
-
-- How to fine-tune the performance of your app to be blazing fast <!-- performance -->
-
-- How each framework keeps track of what to show on-screen under the hood 
-
-  - What a "Virtual DOM" is
-  - What an "Incremental DOM" is
-
-- How each framework tracks changes to state under the hood
-
-  > This chapter will build minimal versions of each framework from scratch to show how they work under the hood
-
-  - How React uses explicit function calling
-  - What a "proxy" is and how Vue utilizes them
-  - What "Zone.js" is and how Angular uses it
-
 > This can seem overwhelming but remember that this book/course is meant to be a "newcomer" to "expert" resource. You absolutely do not need to tackle this all at once. You can stop at any point, go elsewhere, and come back at your leisure. This book/course isn't going anywhere and **will be free online forever**; it is [open-source to ensure this is the case](https://github.com/unicorn-utterances/unicorn-utterances/).
+
+But wait, there's more! While this is the outline for the first book in the series, there are going to be two more books teaching React, Angular, and Vue: The second book will focus on the ecosystem around these tools, and the third book will focus specifically on internals and advanced usage.
 
 Throughout this all, we will be attempting to build a single application as outlined in the "Introduction to Components" chapter. By the end of this book/course, you will have a fully functional user interface that you have built yourself through code samples and challenges displayed throughout.
 
@@ -251,7 +204,7 @@ As a final note, before I send you into the rest of the book/course, I want to t
 
 - **React has two different ways of writing code: Using classes and "Hooks".**
 
-While React classes are more similar to Angular or Vue's option API, **I've decided to write this book/course using React's "Hooks" method as references for the components.**
+While React classes are more similar to Angular or Vue's Option API, **I've decided to write this book/course using React's "Hooks" method as references for the components.**
 
 This is because, while classes are still a part of the most modern versions of React, they've drastically fallen out of favor in comparison to React Hooks. I want to try to make this book representative of real-world codebases you're likely to run into with modern versions of these frameworks, so I thought it only made sense to go with Hooks.
 
@@ -263,19 +216,13 @@ Despite the similarities in their names, these two are entirely distinct entitie
 
 - **Vue has two different ways of writing code: The "Options" API and the "Composition" API.**
 
-While the "Composition" API is newer and has become quite popular in Vue, **I've decided to use the Options API in this book.** This is for a few reasons:
+While the "Options" API has been around for longer and is more similar to Angular's classes, **this book will be using Vue's "Composition API"**. This is for a few reasons:
 
-1) In my opinion, the options API has a lower barrier of introductory concept explanation compared to the composition API. 
-2) The composition API is built on top of the Options API in the Vue codebase - The Options API is not going anywhere.
-3) The composition API is relatively trivial to learn once you have a strong grasp of the options API.
+1) The Composition API is newer and seemingly favored over the Options API for new applications.
+2) The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier. 
+3) The Options API is relatively trivial to learn once you have a strong grasp of the options API.
 4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
+5) [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
 
-- **[Vue typically stores files in `.vue` files in most production apps](https://vuejs.org/guide/scaling-up/sfc.html); we will not.**
+Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a future book in this series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another. 
 
-While Vue's `.vue` files (called "Single-file components" [SFCs]) are the most common method of creating Vue components, there are a few reasons we're not using them:
-
-1) It requires additional and more complex build tooling, which is out of the scope of this book.
-2) It reduces code sample sizes.
-3) It's easy to learn how to use SFCs once an understanding of Vue's basics is established. 
-
-Similarly, Vue provides other compiler-based syntax choices, such as [ `<script setup>`](https://vuejs.org/api/sfc-script-setup.html) or the [upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369), which will not be covered in this course.
