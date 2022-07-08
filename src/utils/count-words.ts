@@ -3,7 +3,7 @@ import parse from "remark-parse";
 import stringify from "remark-stringify";
 import english from "retext-english";
 import remark2retext from "remark-retext";
-import visit from "unist-util-visit";
+import {visit} from "unist-util-visit";
 import { Root, Node, Parent, Text } from "hast";
 import flatFilter from "unist-util-flat-filter";
 
