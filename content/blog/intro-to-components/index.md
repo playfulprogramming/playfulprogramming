@@ -130,23 +130,23 @@ const File = () => {
 };
 ```
 
-> Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
->
-> While JSX looks closer to HTML than standard JS, it is not supported in the language itself. Instead, a compiler (or transpiler) like [Babel](https://babeljs.io/) must compile down to regular JS. Under the hood, this JSX compiles down to function calls.
->
-> For example, the above would be turned into:
->
-> ```javascript
-> var spanTag = React.createElement("span", null, "12/03/21");
-> var aTag = React.createElement("a", {
->   href: "/file/file_one"
-> }, "File one", spanTag);
-> React.createElement("div", null, aTag);
-> ```
->
+Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
+
+While JSX looks closer to HTML than standard JS, it is not supported in the language itself. Instead, a compiler (or transpiler) like [Babel](https://babeljs.io/) must compile down to regular JS. Under the hood, this JSX compiles down to function calls.
+
+For example, the above would be turned into:
+
+ ```javascript
+var spanTag = React.createElement("span", null, "12/03/21");
+var aTag = React.createElement("a", {
+  href: "/file/file_one"
+}, "File one", spanTag);
+React.createElement("div", null, aTag);
+ ```
+> 
 > While the above seems intimidating, it's worth mentioning that you'll likely never need to fall back on using `createElement` in an actual production application. Instead, this demonstrates why you need Babel in React applications.
->
-> You also likely do not need to set up Babel yourself from scratch. [Create React App](https://create-react-app.dev) - the tool React team recommends to manage your React apps - handles it out-of-the-box for you invisibly.
+>   
+> You also likely do not need to set up Babel yourself from scratch. Most tools that integrate with React handles it out-of-the-box for you invisibly.
 
 ## Angular
 
@@ -162,17 +162,19 @@ import { Component } from "@angular/core";
 export class FileComponent {}
 ```
 
-> Here, we're using the `@Component` decorator to define a class component in Angular. However, it's important to note that decorators (`@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
->
-> Luckily for us, the Angular CLI handles all of that for us. You simply need to generate a new project to get started!
+Here, we're using the `@Component` decorator to define a class component in Angular. However, it's important to note that decorators (`@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
 
 ## Vue
 
-```javascript
-const File = { 
-  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>`
-}
+```vue
+<template>
+	<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
+</template>
 ```
+
+Here, we're using a `.vue` file to support HTML in a Vue component. Each Vue component uses an individual `.vue` file to contain all of it's layout, styling, and logic. As such, these `.vue` files are often called "Single File Components", or SFCs for short.
+
+While this SFC looks exactly like normal HTML with nothing special added at the moment, that will quickly change as we learn more about Vue.
 
 <!-- tabs:end -->
 
@@ -286,12 +288,21 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 ## Vue
 
-```javascript {4,6}
-const File = { 
-  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>`
-}
+Because Vue's components all live within dedicated `.vue` SFCs, we have to use two distinct files to render a basic Vue app. We start with our `App.vue` component:
 
+```vue
+<!-- File.vue -->
+<template>
+	<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
+</template>
+```
+
+Then can import this into our main JavaScript file:
+
+```javascript {4,6}
+// main.js
 import { createApp } from 'vue';
+import File from './File.vue';
 
 createApp(File).mount("#root");
 ```
@@ -346,24 +357,38 @@ export class FileListComponent {}
 
 ## Vue
 
-```javascript {4-13}
-const File = {
-  template: `<div><a href="/file/file_one">File one<span>12/03/21</span></a></li>`,
-};
+As we mentioned earlier, you can only have one component in a `.vue` SFC. Here, we have our existing `File` component: 
 
-const FileList = {
-  template: `
-    <ul>
-      <li><file></file></li>
-    </ul>
-  `,
-  components: {
-    File,
-  },
-};
+```vue
+<!-- File.vue -->
+<template>
+  <div>
+    <a href="/file/file_one">File one<span>12/03/21</span></a>
+  </div>
+</template>
 ```
 
-We need to register all of the components we'll be using in our component! Otherwise, Vue will throw an error:
+Which we can `import` into another component to use it there:
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <li><File/></li>
+  </ul>
+</template>
+
+<script setup>
+import File from './File.vue';
+</script>
+```
+
+The reason we're able to `import` a component and use it right away is because any variable that we expose inside of `<script setup>` is automatically available in the `<template>` portion of our SFC.
+
+> Notice that our `script` tag has a `setup` attribute! Without it, our code won't work the right way!
+
+
+We need to import all of the components we'll be using in our parent component! Otherwise, Vue will throw an error:
 
 > Failed to resolve component: file
 
@@ -407,19 +432,19 @@ export class FileListComponent {}
 
 ## Vue
 
-```javascript
-const FileList = {
-  template: `
-    <ul>
-      <li><file></file></li>
-      <li><file></file></li>
-      <li><file></file></li>
-    </ul>
-  `,
-  components: {
-    File,
-  },
-};
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <li><File/></li>
+    <li><File/></li>
+    <li><File/></li>
+  </ul>
+</template>
+
+<script setup>
+import File from './File.vue';
+</script>
 ```
 
 <!-- tabs:end -->
@@ -496,30 +521,38 @@ export class FileListComponent {}
 
 ## Vue
 
-```javascript {0-2,5,14}
-const FileDate = {
-  template: `<span>12/03/21</span>`,
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>12/03/21</span>
+</template>
+```
 
-const File = {
-  template: `<div><a href="/file/file_one">File one<file-date></file-date></a></div>`,
-  components: {
-    FileDate,
-  },
-};
+```vue
+<!-- File.vue -->
+<template>
+  <div><a href="/file/file_one">File one<FileDate/></a></div>
+</template>
 
-const FileList = {
-  template: `
-    <ul>
-      <li><file></file></li>
-      <li><file></file></li>
-      <li><file></file></li>
-    </ul>
-  `,
-  components: {
-    File,
-  },
-};
+<script setup>
+import FileDate from './FileDate.vue';
+</script>
+```
+
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <li><File/></li>
+    <li><File/></li>
+    <li><File/></li>
+  </ul>
+</template>
+
+<script setup>
+import File from './File.vue';
+</script>
 ```
 
 <!-- tabs:end -->
@@ -548,25 +581,10 @@ We'll start by adding a simple function to display the current date in a human-r
 import {useState} from 'react';
 
 const FileDate = () => {
-  // Don't worry what "setDateStr" is yet. We'll touch on it soon
-  const [dateStr, setDateStr] = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+  const dateStr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
   return <span>12/03/21</span>
 }
 ```
-
-`useState` is what React uses to store data that is set by the user. Its first argument (that we're passing a string into) is used to set the initial value.
-
-We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
-
-```jsx
-const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
-const dateStr = dateArr[0];
-const setDateStr = dateArr[1];
-```
-
-> `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
->
-> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
 
 ## Angular
 
@@ -582,15 +600,15 @@ export class FileDateComponent {
 
 ## Vue
 
-```javascript {2-6}
-const FileDate = { 
-  template: `<span>12/03/21</span>`,
-  data() {
-    return {
-      dateStr: `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
-    }
-  }
-}
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>12/03/21</span>
+</template>
+
+<script setup>
+const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+</script>
 ```
 
 <!-- tabs:end -->
@@ -653,30 +671,25 @@ export class FileDateComponent {
 
 ## Vue
 
-```javascript {2-16}
-const FileDate = {
-  template: `<span>12/03/21</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(),
-    };
-  },
-  methods: {
-    formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-    },
-  },
-};
-```
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>12/03/21</span>
+</template>
 
-> This syntax might look a bit off. After all, why are we using `this` when it's not a class we're calling within.
->
-> Luckily for us, Vue expects us to declare our methods and data in this way. As a result, it'll automatically bind `this` for us.
+<script setup>
+function formatDate() {
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
+}
+
+const dateStr = formatDate();
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -710,7 +723,7 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  const [dateStr, setDateStr] = formatDate();
+  const dateStr = formatDate();
 
   useEffect(() => {
     console.log(dateStr)
@@ -729,13 +742,13 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "file-date",
-  template: `<span>{{ dateStr }}</span>`,
+  template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent implements OnInit {
   dateStr = this.formatDate();
 
   ngOnInit() {
-    console.log(dateStr);
+    console.log(this.dateStr);
   }
 
   formatDate() {
@@ -751,28 +764,30 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript {7-9}
-const FileDate = {
-  template: `<span>{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(),
-    };
-  },
-  mounted() {
-    console.log(this.dateStr);
-  },
-  methods: {
-    formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + '/' + dateNum + '/' + yearNum;
-    },
-  },
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>12/03/21</span>
+</template>
+
+<script setup>
+import {onMounted} from 'vue';
+
+function formatDate() {
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
+}
+
+const dateStr = formatDate();
+
+onMounted(() => {
+  console.log(dateStr);
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -816,7 +831,7 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  const [dateStr, setDateStr] = useState(formatDate());
+  const dateStr = useState(formatDate());
   
   return <span>{dateStr}</span>
 }
@@ -845,28 +860,33 @@ export class FileDateComponent {
 }
 ```
 
+Every class property inside of the component instance is usable inside of the `@Component`'s `template`. 
+
 ### Vue
 
-```javascript {1}
-const FileDate = {
-  template: `<span>{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(),
-    };
-  },
-  methods: {
-    formatDate() {
-      const today = new Date();
-      // Month starts at 0, annoyingly
-      const monthNum = today.getMonth() + 1;
-      const dateNum = today.getDate();
-      const yearNum = today.getFullYear();
-      return monthNum + '/' + dateNum + '/' + yearNum;
-    },
-  },
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>{{dateStr}}</span>
+</template>
+
+<script setup>
+import {onMounted} from 'vue';
+
+function formatDate() {
+  const today = new Date();
+  // Month starts at 0, annoyingly
+  const monthNum = today.getMonth() + 1;
+  const dateNum = today.getDate();
+  const yearNum = today.getFullYear();
+  return monthNum + "/" + dateNum + "/" + yearNum;
+}
+
+const dateStr = formatDate();
+</script>
 ```
+
+Here, we're utilizing the fact that every variable inside of `<script setup>` is automatically exposed to our `<template>` code.
 
 <!-- tabs:end -->
 
@@ -877,9 +897,32 @@ Here, we're using each framework's method of injecting the state into a componen
 
 But what happens if we update `dateStr` after the fact? Say we have a `setTimeout` call that updates the date to tomorrow's date after 5 minutes.
 
+Let's think about what that code might look like:
+
+```javascript
+// This is non-framework-specific psuedocode
+setTimeout(() => {
+    // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+    const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    const tomorrowDate = formatDate(tomorrow);
+    dateStr = tomorrowDate;
+    // This is not a real method in any of these frameworks
+    // But the idea of re-rendering after data has changed IS
+    // an integral part of these frameworks. They just do it differently
+    rerender();
+}, 5000);
+```
+
+
+Let's see what that looks like in practice for each framework:
+
 <!-- tabs:start -->
 
 ### React
+
+In the pseudocode sample we wrote before, we update the value of `dateStr` and then re-render the containing component to update a value on-screen using two lines of code. 
+
+In React, we use a single line of code to do both, and have a special `useState` method to tell React what data needs changing. 
 
 ```jsx {13-20}
 import { useState, useEffect } from "react";
@@ -908,13 +951,29 @@ const FileDate = () => {
 };
 ```
 
-> Remember how we said we'd touch on `setDateStr`?
+`useState` is what React uses to store data that the developer tends to persist between renders. Its first argument (that we're passing a string into) is used to set the initial value.
+
+We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
+
+```jsx
+const dateArr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+const dateStr = dateArr[0];
+const setDateStr = dateArr[1];
+```
+
+> `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 >
-> Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to tell the framework when to re-render.
->
+> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
+
+Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to explicitly tell the framework when to re-render.
+
 > There are benefits and downsides to this method, which we'll touch on in a future section.
 
 ### Angular
+
+While React takes a very explicit method of telling the framework when to re-render a component, Angular does the opposite and implicitly knows when you need to re-render based on the data changed.
+
+All it takes in Angular to trigger a re-render is to update a variable's value:
 
 ```typescript {9-15}
 import { Component, OnInit } from "@angular/core";
@@ -946,40 +1005,48 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript {7-13}
-const FileDate = {
-  template: `<span>{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(new Date()),
-    };
-  },
-  mounted() {
-    setTimeout(() => {
-      // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      this.date = this.formatDate(tomorrow);
-    }, 5000);
-  },
-  methods: {
-    formatDate(inputDate) {
-      // Month starts at 0, annoyingly
-      const monthNum = inputDate.getMonth() + 1;
-      const dateNum = inputDate.getDate();
-      const yearNum = inputDate.getFullYear();
-      return monthNum + "/" + dateNum + "/" + yearNum;
-    },
-  },
-};
+Similar to how React has `useState` in order to set data in a component, Vue introduces an API called `ref` in order to have data updates trigger a re-render.
+
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span>{{ dateStr }}</span>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+function formatDate(inputDate) {
+  // Month starts at 0, annoyingly
+  const monthNum = inputDate.getMonth() + 1
+  const dateNum = inputDate.getDate()
+  const yearNum = inputDate.getFullYear()
+  return monthNum + '/' + dateNum + '/' + yearNum
+}
+
+const dateStr = ref(formatDate(new Date()))
+
+onMounted(() => {
+  setTimeout(() => {
+    // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+    const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    dateStr.value = formatDate(tomorrow)
+  }, 5000)
+})
+</script>
 ```
+
+> Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake - it's just how Vue's `ref` works!
 
 <!-- tabs:end -->
 
 If you sit on these screens for a while, you'll see that they update automatically!
 
-While the frameworks detect changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself. 
+**This idea of a data update triggering other code is called "reactivity"**, and is a central part of all of these components. 
 
-This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, many of these frameworks store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible. We'll explain in the future exactly how this works.
+While the frameworks detect reactive changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself. 
+
+This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, **two of these frameworks (React and Vue) store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible**. We'll explain in the future exactly how this works.
 
 
 
@@ -1029,16 +1096,18 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript {1}
-const FileDate = {
-  template: `<span aria-label="January 10th, 2023">{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(new Date()),
-    };
-  },
-  // ...
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span aria-label="January 10th, 2023">{{dateStr}}</span>
+</template>
+
+<script setup>
+// ...
+
+const dateStr = ref(formatDate(new Date()))
+
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1137,40 +1206,42 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```javascript {1,5}
-const FileDate = {
-  template: `<span v-bind:aria-label="labelText">{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(new Date()),
-      labelText: this.formatReadableDate(new Date())
-    };
-  },
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span v-bind:aria-label="labelText">{{dateStr}}</span>
+</template>
 
-  methods: {
-    dateSuffix(dayNumber) {
-   	 const lastDigit = dayNumber % 10;
-   	 if (lastDigit == 1 && dayNumber != 11) {
-    	    return dayNumber + "st";
-  	  }
-	    if (lastDigit == 2 && dayNumber != 12) {
-    	    return dayNumber + "nd";
-  	  }
-	    if (lastDigit == 3 && dayNumber != 13) {
-     	   return dayNumber + "rd";
-    	}
-    	return dayNumber + "th";
-		},
-    formatReadableDate(inputDate) {
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const monthStr = months[inputDate.getMonth()];
-      const dateSuffixStr = this.dateSuffix(inputDate.getDate());
-      const yearNum = inputDate.getFullYear();
-      return monthStr + " " + dateSuffixStr + "," + yearNum;
-    }
-    // ...
-  },
-};
+<script setup>
+// ...
+
+function formatReadableDate(inputDate) {
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthStr = months[inputDate.getMonth()];
+  const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+  const yearNum = inputDate.getFullYear();
+  return monthStr + " " + dateSuffixStr + "," + yearNum;
+}
+
+function dateSuffix(dayNumber) {
+  const lastDigit = dayNumber % 10;
+  if (lastDigit == 1 && dayNumber != 11) {
+    return dayNumber + "st";
+  }
+  if (lastDigit == 2 && dayNumber != 12) {
+    return dayNumber + "nd";
+  }
+  if (lastDigit == 3 && dayNumber != 13) {
+    return dayNumber + "rd";
+  }
+  return dayNumber + "th";
+}
+
+const dateStr = ref(formatDate(new Date()))
+const labelText = ref(formatReadableDate(new Date()))
+
+// ...
+</script>
 ```
 
 > In Vue, `v-bind` has a shorter syntax that does the same thing. If you ax the `v-bind` and leave the `:`, it works the same way.
@@ -1256,9 +1327,9 @@ export class FileComponent {
   selector: "file-list",
   template: `
     <ul>
-      <li><file [fileName]="File one"></file></li>
-      <li><file [fileName]="File two"></file></li>
-      <li><file [fileName]="File three"></file></li>
+      <li><file [fileName]="'File one'"></file></li>
+      <li><file [fileName]="'File two'"></file></li>
+      <li><file [fileName]="'File three'"></file></li>
     </ul>
   `,
 })
@@ -1271,35 +1342,43 @@ export class FileListComponent {}
 
 ## Vue
 
-```javascript {5,11}
-const File = {
-  template: `<div><a href="/file/file_one">{{fileName}}<file-date></file-date></a></div>`,
-  components: {
-    FileDate,
-  },
-  props: ["fileName"],
-};
+```vue
+<!-- File.vue -->
+<template>
+  <div>
+    <a href="/file/file_one">{{ props.fileName }}<FileDate></a>
+  </div>
+</template>
 
-const FileList = {
-  template: `
-    <ul>
-      <li><file :fileName="File one"></file></li>
-      <li><file :fileName="File two"></file></li>
-      <li><file :fileName="File three"></file></li>
-    </ul>
-  `,
-  components: {
-    File,
-  },
-};
+<script setup>
+import {defineProps} from 'vue';
+import FileDate from './FileDate.vue';
+
+const props = defineProps(['fileName'])
+</script>
 ```
 
-> Here, we need to declare each property using the `props` property on our component; otherwise, the input value won't be available to the rest of the component.
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <li><File :fileName="'File one'" /></li>
+    <li><File :fileName="'File two'" /></li>
+    <li><File :fileName="'File three'" /></li>
+  </ul>
+</template>
+
+<script setup>
+import File from './File.vue'
+</script>
+```
+
+> Here, we need to declare each property using `defineProps` on our component; otherwise, the input value won't be available to the rest of the component.
 >
-> Also, when we talked about atttribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
+> Also, when we talked about attribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
 >
 > ```html
-> <file v-bind:fileName="File three"></file>
+> <File v-bind:fileName="'File three'"/>
 > ```
 
 <!-- tabs:end -->
@@ -1353,9 +1432,9 @@ export class FileComponent {
   selector: "file-list",
   template: `
     <ul>
-      <li><file fileName="File one" href="/file/file_one"></file></li>
-      <li><file fileName="File two" href="/file/file_two"></file></li>
-      <li><file fileName="File three" href="/file/file_three"></file></li>
+      <li><file [fileName]="'File one'" [href]="'/file/file_one'"></file></li>
+      <li><file [fileName]="'File two'" [href]="'/file/file_two'"></file></li>
+      <li><file [fileName]="'File three'" [href]="'/file/file_three'"></file></li>
     </ul>
   `,
 })
@@ -1364,27 +1443,35 @@ export class FileListComponent {}
 
 ### Vue
 
-```javascript {5,11}
-const File = {
-  template: `<div><a :href="href">{{fileName}}<file-date></file-date></a></div>`,
-  components: {
-    FileDate,
-  },
-  props: ["fileName", "href"],
-};
+```vue
+<!-- File.vue -->
+<template>
+  <div>
+    <a :href="props.href">{{ props.fileName }}<FileDate/></a>
+  </div>
+</template>
 
-const FileList = {
-  template: `
-      <ul>
-        <li><file fileName="File one" href="/file/file_one"></file></li>
-        <li><file fileName="File two" href="/file/file_two"></file></li>
-        <li><file fileName="File three" href="/file/file_three"></file></li>
-      </ul>
-    `,
-  components: {
-    File,
-  },
-};
+<script setup>
+import {defineProps} from 'vue';
+import FileDate from './FileDate.vue';
+
+const props = defineProps(['fileName', 'href'])
+</script>
+```
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <li><File :fileName="'File one'" :href="'/file/file_one'"/></li>
+    <li><File :fileName="'File two'" :href="'/file/file_two'"/></li>
+    <li><File :fileName="'File three'" :href="'/file/file_three'"/></li>
+  </ul>
+</template>
+
+<script setup>
+import File from './File.vue'
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1461,43 +1548,46 @@ export class FileComponent {
 
 ### Vue
 
-```javascript {4-5,8,17,26}
-const FileDate = {
-  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(this.inputDate),
-      labelText: this.formatReadableDate(this.inputDate)
-    };
-  },
-  props: ['inputDate']
-  // ...
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span :aria-label="labelText">{{ dateStr }}</span>
+</template>
 
-const File = { 
-  template: `
-    <div>
-      <a :href="href">
-        {{fileName}}
-        <file-date :inputDate="inputDate"></file-date>
-      </a>
-    </div>
-  `,
-  components: {
-      FileDate
-  },
-  date() {
-    return {
-      inputDate: new Date()
-    }
-  }
-  props: ['fileName', 'href']
-}
+<script setup>
+// ...
+
+const props = defineProps(['inputDate'])
+
+const dateStr = ref(formatDate(props.inputDate))
+const labelText = ref(formatDate(props.inputDate))
+
+// ...
+</script>
+```
+
+```vue
+<!-- File.vue -->
+<template>
+  <div>
+    <a :href="props.href">{{ props.fileName }}
+    <FileDate :inputDate="inputDate"/>
+  </div>
+</template>
+
+<script setup>
+import {defineProps} from 'vue';
+import FileDate from './FileDate.vue'
+
+const props = defineProps(['fileName', 'href']);
+
+const inputDate = new Date();
+</script>
 ```
 
 <!-- tabs:end -->
 
-> Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `file-date`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
+> Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `FileDate`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
 >
 > Each framework has a way of live-updating this value for us, as we might usually expect, by [utilizing a derived value](/posts/derived-values), but we'll touch on that in a future section.
 
@@ -1545,16 +1635,19 @@ export class GenericListComponent implements OnInit {
 
 ### Vue
 
-```javascript
-const GenericList = {
-	// ...
-    mounted() {
-        // This is NOT allowed and will break things
-        this.inputArray.push("some value");
-    },
-    props: ['inputArray']
-    // ...
-};
+```vue
+<!-- GenericList.vue -->
+<!-- ... -->
+<script setup>
+import {onMounted} from 'vue';
+
+const props = defineProps(['inputArray']);
+
+onMounted(() => {
+    // This is NOT allowed and will break things
+	props.inputArray.push("some value");
+});
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1651,34 +1744,33 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 
 ### Vue
 
-```javascript {3-8,16,21-23}
-const File = {
-  template: `
+```vue
+<!-- File.vue -->
+<template>
   <button
     v-on:click="selectFile()"
-    :style="
-      isSelected ?
-        {backgroundColor: 'blue', color: 'white'} :
-        {backgroundColor: 'white', color: 'blue'}
-    ">
+    :style="isSelected ?
+      { backgroundColor: 'blue', color: 'white' } :
+      { backgroundColor: 'white', color: 'blue' }
+    "
+  >
     <a :href="href">
-    	{{fileName}}
-    	<file-date [inputDate]="inputDate"></file-date>
+      {{ fileName }}
+      <FileDate [inputDate]="inputDate" />
     </a>
-  </button>`,
-  data() {
-    return {
-      isSelected: false,
-      inputDate: new Date(),
-    };
-  },
-  methods: {
-    selectFile() {
-      this.isSelected = !this.isSelected;
-    },
-  },
-  // ...
-};
+  </button>
+</template>
+
+<script setup>
+// ...
+
+const isSelected = ref(false)
+const inputDate = new Date()
+
+function selectFile() {
+  isSelected.value = !isSelected.value
+}
+</script>
 ```
 
 We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
@@ -1848,65 +1940,70 @@ export class FileListComponent {
 
 ### Vue
 
-```javascript {3,13-14,20-25,40-53}
-const File = {
-  template: `
-    <button
-      v-on:click="$emit('selected')"
-      :style="
-        isSelected ?
-          {backgroundColor: 'blue', color: 'white'} :
-          {backgroundColor: 'white', color: 'blue'}
-      ">
-      <a :href="href">
-        {{ fileName }}
-      </a>
-    </button>`,
-  emits: ['selected'],
-  props: ['isSelected', 'fileName', 'href'],
-};
+```vue
+<!-- File.vue -->
+<template>
+  <button
+    v-on:click="$emit('selected')"
+    :style="isSelected ?
+      { backgroundColor: 'blue', color: 'white' } :
+      { backgroundColor: 'white', color: 'blue' }
+    "
+  >
+    <a :href="href">
+      {{ fileName }}
+    </a>
+  </button>
+</template>
 
-const FileList = {
-  template: `
-    <ul>
-      <li><file 
+<script setup>
+import {defineProps, defineEmits} from 'vue';
+
+const props = defineProps(['isSelected', 'fileName', 'href']);
+
+defineEmits(['selected']);
+</script>
+```
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+      <li><File 
         @selected="onSelected(0)" 
         :isSelected="selectedIndex === 0" 
         fileName="File one" 
         href="/file/file_one"
-      ></file></li>
-      <li><file 
+      /></li>
+      <li><File 
         @selected="onSelected(1)" 
         :isSelected="selectedIndex === 1" 
         fileName="File two" 
         href="/file/file_two"
-      ></file></li>
-      <li><file 
+      /></li>
+      <li><File 
         @selected="onSelected(2)" 
         :isSelected="selectedIndex === 2" 
         fileName="File three" 
         href="/file/file_three"
-      ></file></li>
+      /></li>
     </ul>
-  `,
-  data() {
-    return {
-      selectedIndex: -1,
-    };
-  },
-  methods: {
-    onSelected(idx) {
-      if (this.selectedIndex === idx) {
-        this.selectedIndex = -1;
-        return;
-      }
-      this.selectedIndex = idx;
-    },
-  },
-  components: {
-    File,
-  },
-};
+</template>
+
+<script setup>
+import {ref} from 'vue';
+import File from './File.vue';
+
+const selectedIndex = ref(-1);
+
+function onSelected(idx) {
+  if (selectedIndex.value === idx) {
+    selectedIndex.value = -1;
+    return;
+  }
+  selectedIndex.value = idx;
+}
+</script>
 ```
 
 <!-- tabs:end -->
