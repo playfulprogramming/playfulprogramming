@@ -1,20 +1,16 @@
 ---
-// Component Imports
-import BaseHead from '../components/BaseHead.astro';
-import BlogHeader from '../components/BlogHeader.astro';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
-import { getAllPostsForListView } from "utils/fs/api";
+import BlogPostPreview from '../components/post-card.astro';
+import { ListViewPosts } from "utils/fs/api";
 
-const posts = getAllPostsForListView();
+const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.md')
 ---
 
 <html lang="en">
 	<body>
-		<BlogHeader />
 		<div class="wrapper">
 			<main class="content">
 				<section aria-label="Blog post list">
-					{posts.map((p) => <BlogPostPreview post={p} />)}
+					{posts.map((p) => <BlogPostPreview post={p.frontmatter} />)}
 				</section>
 			</main>
 		</div>
