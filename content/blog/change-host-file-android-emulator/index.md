@@ -65,8 +65,8 @@ After this step, proceed to name the Android Device. *I’d suggest you name it 
 
 Once the AVD is initially setup, open your terminal, and find your installation path of Android Studio.
 
-- For MacOS, this should be under **~/Library/Android/sdk**
-- For Windows, this *should* be **C:\Users<username>\AppData\Local\Android\sdk**
+- For MacOS, this should be under `~/Library/Android/sdk`
+- For Windows, this *should* be `C:\Users<username>\AppData\Local\Android\sdk`
 
 Once in that path, you want to run a specific emulator command:
 

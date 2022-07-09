@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, AstroUserConfig } from 'astro/config';
 import react from '@astrojs/react';
 
 import remarkUnwrapImages from "remark-unwrap-images";
@@ -33,6 +33,9 @@ export default defineConfig({
 		}
 	},
 	markdown: {
+		shikiConfig: {
+			theme: "css-variables"
+		},
 		remarkPlugins: [
 			remarkGfm,
 			// Remove complaining about "div cannot be in p element"
@@ -45,16 +48,8 @@ export default defineConfig({
 			// 	  transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
 			// 	} as RemarkEmbedderOptions,
 			//   ],
-			  [
-				remarkTwoslash,
-				{
-				  themes: ["css-variables"],
-				} as UserConfigSettings,
-			  ],
 		],
 		rehypePlugins: [
-			   // This is required to handle unsafe HTML embedded into Markdown
-			   rehypeRaw,
 			   // Do not add the tabs before the slug. We rely on some of the heading
 			   // logic in order to do some of the subheading logic
 			   [
@@ -109,7 +104,7 @@ export default defineConfig({
 			// 	 return tree;
 			//    }),
 			   (() => tree => {
-				 visit(tree, node => {
+				 visit(tree, (node: any) => {
 				   if (node.tagName === 'iframe') {
 					 node.properties.width ??= EMBED_SIZE.w;
 					 node.properties.height ??= EMBED_SIZE.h;
@@ -162,6 +157,7 @@ export default defineConfig({
 					 node.properties.style = (node.properties.style||"") + "position: relative;";
 		 
 					 function escapeHTML(s) { 
+						if (!s) return s;
 					   return s.replace(/&/g, '&amp;')
 							   .replace(/"/g, '&quot;')
 							   .replace(/</g, '&lt;')
@@ -199,5 +195,5 @@ export default defineConfig({
 				 })
 			   })
 		]
-	}
+	} as AstroUserConfig['markdown'] as never
 });

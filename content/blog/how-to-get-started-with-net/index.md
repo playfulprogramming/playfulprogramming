@@ -44,7 +44,8 @@ then clicking new->project. You will be prompted to select the type of project y
 to name the project, and choose the location where you want to save it. Once you have created the project, you will be able to start writing code.
 
 You should be greeted with the following code:
-```cs
+
+```csharp
 using System;
 
 namespace BoilerPlateConsoleApp
@@ -72,7 +73,8 @@ We will create a new class called Film, and then we will create a new method cal
 We will also create a List of films, and then we will add a few films to the list.
 
 Lets get started with writing code:
-```cs
+
+```csharp
 using System;
 using System.Collections.Generic;
 

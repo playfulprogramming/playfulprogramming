@@ -21,9 +21,8 @@ const rawStylesCSS = `
 
 type Post = ListViewPosts[number];
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
   const postsMeta = await Astro.glob<Post>('../../../content/blog/**/*.md')
-  postsMeta[0].frontmatter
 
   return postsMeta.map(postMeta => {
     // Split based on `/` or `\` if in Windows vs not

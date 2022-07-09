@@ -18,7 +18,7 @@ A small preface, make sure that you create your account on [travis-ci.com](https
 
 There are a few basic things to do in order to build your project. Assuming that you have already [set up your account](https://docs.travis-ci.com/user/tutorial/) and authenticated it with your GitHub, you will next want to create a file named `.travis.yml` in your project's root directory. One thing to keep in mind here is that the YAML format in this file is heavily dependent on whitespace; tab characters are invalid, indents must be made only in spaces, and a sub-section or parameter **must** be indented or it will not be treated as such. To start, let's write a basic file that should properly build most up-to-date Android projects.
 
-```yml
+```yaml
 language: android
 android:
   components:
@@ -85,7 +85,7 @@ openssl aes-256-cbc -K "php" -iv "aaaaa" -in key.jks -out key.jks.enc
 
 Now, you will want to add a line to decrypt the file in `before_install` of your `.travis.yml`. You should not pass your key/password here, as this file will be pushed to git, and that would be bad. Instead, we will reference the environment variables.
 
-```yml
+```yaml
 before_install:
   - ...
   - openssl aes-256-cbc -K $enc_keystore_key -iv $enc_keystore_pass -in key.jks.enc -out key.jks -d
@@ -105,7 +105,7 @@ Full credit, this solution was taken from [this wonderful article](https://andro
 
 I'll create three environment variables that will be used here: the keystore password as "keystore_password", the keystore alias as "keystore_alias", and the alias's password as "keystore_alias_password". Note that special characters cannot be used in these either.
 
-```gradle
+```
 android {
     ...
     signingConfigs {
@@ -130,7 +130,7 @@ android {
 
 Of course, Travis isn't currently building a release variant (I think it defaults to `./gradlew build`), so this `signingConfig` won't be applied. We need to change that. Add the following to your `.travis.yml`...
 
-```yml
+```yaml
 script:
   - ./gradlew assembleRelease
 ```
@@ -141,7 +141,7 @@ Now it will create a proper release using these signing configs. Push everything
 
 This part is fairly simple, as Travis provides its own deployment functionality for this purpose. According to [their documentation](https://docs.travis-ci.com/user/deployment/releases/), for the bare minimum functionality all that you will need is to add the following to your `.travis.yml`...
 
-```yml
+```yaml
 deploy:
   - provider: releases
     api_key: "GITHUB OAUTH TOKEN"
@@ -162,7 +162,7 @@ What if you're lazy like me, though? What if you want to create a new release on
 
 A simple modification to the `on` section of the previous snippet does the trick.
 
-```yml
+```yaml
 deploy:
     ...
     on:
@@ -175,7 +175,7 @@ Well, it almost does the trick. The thing is, since we haven't created a tag, Tr
 
 Let's write a gradle task to print our version number! Place the following in your app's `build.gradle`.
 
-```gradle
+```
 task printVersionName {
     doLast {
         println android.defaultConfig.versionName
@@ -187,14 +187,14 @@ Now when you run `./gradlew :app:printVersionName`, your version name should be 
 
 Just as there is a `before_install` section of our `.travis.yml`, there is also a `before_deploy`. As such, we can add the following:
 
-```yml
+```yaml
 before_deploy:
   - export APP_VERSION=$(./gradlew :app:printVersionName)
 ```
 
 This creates an environment variable ("APP_VERSION") containing our app's version name, which we can then reference from the actual deployment as follows...
 
-```yml
+```yaml
 deploy:
   - provider: releases
     api_key: "$GITHUB_TOKEN"
@@ -224,7 +224,7 @@ You can either encrypt it as a separate file, or you can put them both in a tar 
 
 Now we can modify the `script` section of our `.travis.yml` to run the `./gradlew publish` command when a build is triggered from the master branch. This can be done using the "TRAVIS_BRANCH" environment variable which Travis handily creates for us. In other words...
 
-```yml
+```yaml
 script:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew publish; else ./gradlew build; fi
 ```
@@ -235,7 +235,7 @@ This should build a signed APK and upload it to the Play Store whenever a push i
 
 Now, gradle-play-publisher requires you to specify a changelog at `app/src/main/play/release-notes/en-US/default.txt` for it to publish an APK. What if we want to use the same changelog for GitHub releases? We'll add another line to the `before_deploy` section and GitHub deployment to do so.
 
-```yml
+```yaml
 before_deploy:
     ...
   - export APP_CHANGELOG=$(cat app/src/main/play/release-notes/en-US/default.txt)
