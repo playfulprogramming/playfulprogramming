@@ -10,7 +10,7 @@
 }
 ---
 
-# Article Overview {#overview}
+# [Article Overview](#overview)
 
 > This article was written with the idea that the reader is at least somewhat familiar with the introductory concepts of Angular. As a result, if you haven't done so already, it is highly suggested that you make your way through the fantastic [Angular getting started guide](https://angular.io/start).
 
@@ -39,9 +39,9 @@ Sound like a fun time? Let's goooo! 🏃🌈
 
 > The contents of this post was also presented in a talk under the same name. You can [find the slides here](./slides.pptx) or a live recording of that talk given by the post's author [on our YouTube channel](https://www.youtube.com/watch?v=7AilTMFPxqQ).
 
-# Introduction To Templates {#intro}
+# [Introduction To Templates](#intro)
 
-## `ng-template` {#ng-template}
+## [`ng-template`](#ng-template)
 
 Before we dive into the meat of this article, let's do a quick recap of what templates are and what they look like.
 
@@ -66,7 +66,7 @@ We are then adding the [`ngIf`](https://angular.io/api/common/NgIf) structural d
 
 If you had forgotten to include the `ngIf`, it would never render the `False` element because **a template is not rendered to the view unless explicitly told to — this includes templates created with `ng-template`**
 
-## Rendering Manually with `ngTemplateOutlet` {#ng-template-outlet}
+## [Rendering Manually with `ngTemplateOutlet`](#ng-template-outlet)
 
 But there's a ~~simpler~~ ~~much more complex~~ another way show the same template code above!
 
@@ -101,7 +101,7 @@ Knowing that, you can see that the following example would show the user three o
 
 With this, combined with template reference variables, you may find it easier to use a ternary operator to pass the correct template based on the value of `bool` to create an embedded view of that template.
 
-## Pass Data To Templates — The Template Context {#template-context}
+## [Pass Data To Templates — The Template Context](#template-context)
 
 Do you know how I mentioned that you can pass data between templates (at the start of the article)? This can be accomplished by defining the _context_ of the template. This context is defined by a JavaScript object you pass to the template with your desired key/value pairs (just like any other object). When looking at an example below, **think of it in terms of passing data from a parent component to a child component through property binding**. When you define the context of a template, you're simply giving it the data it needs to fulfill its purpose in much the same way.
 
@@ -133,9 +133,9 @@ Now let's see it in action!
 
 As a quick note, _I only named these template input variables differently from the context value key to make it clear that you may do so_. `let-personName="personName"` is not only valid, but it also can make the code's intentions clearer to other developers.
 
-# View References — `ViewChild`/`ContentChild` {#view-references}
+# [View References — `ViewChild`/`ContentChild`](#view-references)
 
-## Keeping Logic In Your Controller using `ViewChild` {#viewchild}
+## [Keeping Logic In Your Controller using `ViewChild`](#viewchild)
 
 While template reference variables are very useful for referencing values within the template itself, there may be times when you'll want to access a reference to an item in the template from the component logic. Luckily, there's a way to get a reference to any component, directive, or view within a component template.
 
@@ -163,7 +163,7 @@ export class AppComponent {
 
 _`ViewChild` is a "property decorator" utility for Angular that searches the component tree to find what you pass it as a query._ In the example above, when we pass the string `'templName'`, we are looking for something in the tree that is marked with the template variable `helloMsg`. In this case, it's an `ng-template`, which is then stored to the `helloMessageTemplate` property when this is found. Because it is a reference to a template, we are typing it as `TemplateRef<any>` to have TypeScript understand the typings whenever it sees this variable.
 
-### Not Just for Templates! {#viewchild-not-just-templates}
+### [Not Just for Templates!](#viewchild-not-just-templates)
 
 `ViewChild` isn't just for templates, either. You can get references to anything in the view tree:
 
@@ -199,7 +199,7 @@ Despite the examples thus far having only used a string as the query for `ViewCh
 
 For the particular example listed above, this code change would still yield the same results. _When using `ViewChild`, it might be dangerous to do this if you have many components with that class._ This is because when using `ViewChild`, _it only returns the first result that Angular can find_ — this could return results that are unexpected if you're not aware of that.
 
-### My Name is ~~Inigo Montoya~~ the `read` Prop {#viewchild-read-prop}
+### [My Name is ~~Inigo Montoya~~ the `read` Prop](#viewchild-read-prop)
 
 Awesome! But I wanted to get the value of the `data-unrelatedAttr` attribute dataset, and my component definition doesn't have an input for that. How do I get the dataset value?
 
@@ -226,7 +226,7 @@ console.log(myComponent.nativeElement.dataset.getAttribute('data-unrelatedAttr')
 
 `ViewChild` isn't an only child, though (get it?). There are other APIs similar to it that allow you to get references to other items in your templates from your component logic.
 
-## `ViewChildren`: More references then your nerdy pop culture friend {#viewchildren}
+## [`ViewChildren`: More references then your nerdy pop culture friend](#viewchildren)
 
 `ViewChildren` allows you to get a reference to any items in the view that match your `ViewChildren` query as an array of each item that matches:
 
@@ -249,7 +249,7 @@ export class AppComponent {
 
 Would give you a list of all components with that base class. You're also able to use the `{read: ElementRef}` property from the `ViewChild` property decorator to get a `QueryList<ElementRef>` (to be able to get a reference to the DOM [Elements](https://developer.mozilla.org/en-US/docs/Web/API/Element) themselves) instead of a query list of `MyComponentComponent` types.
 
-### What is `QueryList` {#viewchildren-querylist}
+### [What is `QueryList`](#viewchildren-querylist)
 
 While `QueryList` (from `@angular/core`) returns an array-like, and the core team has done an outstanding job at adding in all the usual methods (`reduce`, `map`, etc.) and it _extends an iterator interface_ (so it works with `*ngFor` in Angular templates and `for (let i of _)` in TypeScript/JavaScript logic), _it is not an array_. [A similar situation occurs when using `document.querySelectorAll` in plain JavaScript](https://developer.mozilla.org/en-US/docs/Web/API/NodeList). _If you're expecting an array from an API that returns `QueryList`, it might be best to use `Array.from`_ on the value (in this case the `myComponents` component prop) when you access it in logic later.
 
@@ -282,7 +282,7 @@ It might be a good idea to gain familiarity of doing this as the Angular docs gi
 
 > NOTE: In the future this class will implement an Observable interface.
 
-## `ContentChildren`: If this article had kids {#contentchildren}
+## [`ContentChildren`: If this article had kids](#contentchildren)
 
 Author's note:
 
@@ -376,7 +376,7 @@ If we change the `ViewChildren` line to read:
 
 We'll see that the code now runs as expected. The cards are recolored, the `consoles.log`s ran, and the developers are happy.
 
-### The Content Without the `ng` {#viewchildren-without-ng-content}
+### [The Content Without the `ng`](#viewchildren-without-ng-content)
 
 `ContentChild` even works when you're not using `ng-content` but still passing components and elements as children to the component. So, for example, if you wanted to pass a template as a child but wanted to render it in a very specific way, you could do so:
 
@@ -408,13 +408,13 @@ export class AppComponent {
 This is a perfect example of where you might want `@ContentChild` — not only are you unable to use `ng-content` to render this template without a template reference being passed to an outlet, but you're able to create a context that can pass information to the template being passed as a child.
 
 
-# How Does Angular Track the UI {#understand-the-tree}
+# [How Does Angular Track the UI](#understand-the-tree)
 
 Awesome! We've been blowing through some of the real-world uses of templates like a bullet-train through a tunnel. 🚆 But I have something to admit: I feel like I've been doing a pretty bad job at explaining the "nitty-gritty" of how this stuff works. While that can often be a bit more dry of a read, I think it's very important to be able to use these APIs to their fullest. As such, let's take a step back and read through some of the more abstract concepts behind them.
 
 One of these abstract concepts comes from how Angular tracks what’s on-screen; just like the browser has the _Document Object Model_ tree (often called the DOM), Angular has the _View Hierarchy Tree_.
 
-## The DOM Tree {#the-dom}
+## [The DOM Tree](#the-dom)
 
 Okay, I realize I just dropped some vocab on you without explaining first. Let's change that.
 
@@ -523,7 +523,7 @@ Little has changed, yet there's something new! A _view container_ is just what i
 
 _It is because Angular's view containers being able to be attached to views, templates, and elements that enable the dependency injection system to get a `ViewContainerRef` regardless of what you're requested the `ViewContainerRef` on_.
 
-## Host Views {#components-are-directives}
+## [Host Views](#components-are-directives)
 
 If you're looking for them, you might notice a few similarities between a component declaration's `template` and `ng-template`s:
 
@@ -647,9 +647,9 @@ In order to fix this behavior, we'd need to move the second `ng-template` into t
 
 <iframe src="https://stackblitz.com/edit/start-to-source-12-fixed-template-var?embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# The Bane of All JavaScipt Developer: Timings {#timings}
+# [The Bane of All JavaScipt Developer: Timings](#timings)
 
-## Understanding timings with `ViewChildren` {#viewchildren-timings}
+## [Understanding timings with `ViewChildren`](#viewchildren-timings)
 
 But the example immediately above doesn't have the same behavior as the one we likely intended. We wanted to get:
 
@@ -697,7 +697,7 @@ Why is this error happening? What can we do to fix it?
 
 This, my friends, is where the conversation regarding change detection, lifecycle methods, and the `static` prop come into play.
 
-## Change Detection, How Does It Work {#change-detection}
+## [Change Detection, How Does It Work](#change-detection)
 
 > Change detection in Angular is deserving of its own massive article: This is not that article. That said, understanding how change detection and how it affects the availability of templates is imperative to understanding some of the more ambiguous aspects of Angular template’s behaviors.
 >
@@ -755,7 +755,7 @@ Because of this — when using the `ngDoCheck` — you're manually running the v
 
 > If there’s more interest in an article from me about Angular change detection, reach out — I'd love to gauge interest!
 
-### Great Scott — You Control The Timing! The `static` Prop {#static-prop}
+### [Great Scott — You Control The Timing! The `static` Prop](#static-prop)
 
 That said, there might be times where having the value right off the bat from the `ngOnInit` might be useful. After all, if you're not embedding a view into a view, it would be extremely useful to be able to get the reference before the `ngAfterViewInit` and be able to avoid the fix mentioned above.
 
@@ -797,9 +797,9 @@ When taking the example with the `testingMessageCompVar` prop and changing the v
 
 <iframe src="https://stackblitz.com/edit/start-to-source-15-static-first-check?ctl=1&embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# View Manipulation {#view-manipulation}
+# [View Manipulation](#view-manipulation)
 
-## View Limitations {#view-limitations}
+## [View Limitations](#view-limitations)
 
 Having covered views in the last section, it's important to mention an important limitation regarding them:
 
@@ -807,7 +807,7 @@ Having covered views in the last section, it's important to mention an important
 >
 >\- Angular Docs
 
-## Embed Views {#embed-views}
+## [Embed Views](#embed-views)
 
 While we've covered how to insert a component using `ngTemplate`, Angular also allows you to find, reference, modify, and create them yourself in your component/directive logic! 🤯
 
@@ -994,7 +994,7 @@ EmbeddedViewRef<C> {
 }
 ```
 
-# Accessing Templates from a Directive {#directives}
+# [Accessing Templates from a Directive](#directives)
 
 Thus far, we've only used components to change and manipulate templates. However, [as we've covered before, directives and components are the same under-the-hood](#components-are-directives). As a result, _we have the ability to manipulate templates in the same way using directives rather than components_. Let's see what that might look like:
 
@@ -1030,7 +1030,7 @@ export class AppComponent {}
 
 You'll notice this code is almost exactly the same from some of our previous component code.
 
-## Reference More Than View Containers {#directive-template-ref}
+## [Reference More Than View Containers](#directive-template-ref)
 
 However, the lack of a template associated with the directive enables some fun stuff, for example, _we can use the same dependency injection trick we've been using to get the view container reference_ to get a reference to the template element that the directive is attached to and render it in the `ngOnInit` method like so:
 
@@ -1060,7 +1060,7 @@ export class AppComponent {}
 
 <iframe src="https://stackblitz.com/edit/start-to-source-22-directive-template-reference?ctl=1&embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-## Input Shorthand {#directive-same-name-input}
+## [Input Shorthand](#directive-same-name-input)
 
 With directives, we can even create an input with the same name, and just pass that input value directly to the template using a context:
 
@@ -1154,7 +1154,7 @@ export class NgTemplateOutlet implements OnChanges {
 }
 ```
 
-# Structural Directives — What Sorcery is this? {#structural-directives}
+# [Structural Directives — What Sorcery is this?](#structural-directives)
 
 If you've used Angular in any scale of application, you've ran into Angular helpers that look a lot like directives and start with a `*` such as `*ngIf` and `*ngFor`. These helpers are known as **structural directives** and are built upon all of the things we've learned to this point.
 
@@ -1298,7 +1298,7 @@ update(): void {
 
 Here, we're using the `clear` method on the parent view ref to remove the previous view when the value is false. Because our structural directive will contain a template only used for this directive, we can safely assume that `clear` will only remove templates created within this directive and not from an external source.
 
-#### How Angular Built It {#angular-ngif-source}
+#### [How Angular Built It](#angular-ngif-source)
 
 While Angular goes for a more verbose pattern due to additional features available in their structural directive, the implementation is not too different from our own.
 
@@ -1636,11 +1636,11 @@ If we [go back to the original section where we showed `ngIf` code from the Angu
 this._context.$implicit = this._context.ngIf = condition;
 ```
 
-## Syntax Rules {#microsyntax-rules}
+## [Syntax Rules](#microsyntax-rules)
 
 Thus far, I've been doing my best to keep the examples using a fairly consistent microsyntax. Because of this, you might think that you must use `;` to separate the calls, you need to have things in a certain order, or that there might be more rules you don't yet understand about how to use the syntax. This is not the case — the syntax is fairly loose, actually, although it can be hard to understand.
 
-### Parts Make Up The Whole {#microsyntax-parts}
+### [Parts Make Up The Whole](#microsyntax-parts)
 
 The rules behind microsyntax can seem overwhelming, so let's take a look at each part on their own before coming them together.
 
@@ -1653,7 +1653,7 @@ Angular's microsyntax has 4 building blocks, that when combined in a particular 
 
 ![A chart taking a microsyntax and turning it into a diagram. This diagram will be explained thoroughly via text in this section](./microsyntax.svg "A diagram showing the different parts of the microsyntax")
 
-#### Expressions {#microsyntax-explain-expressions}
+#### [Expressions](#microsyntax-explain-expressions)
 
 The way I describe expressions in simple terms is "anything that, when referenced, returns a value". Like the example above, it could mean using an operator (`5 + 3`), calling a function (`Math.random()`), a variable (assuming `const numberHere = 12`, `numberHere`) or just a value itself (`'a string here'`).
 
@@ -1669,7 +1669,7 @@ While "what is and isn’t an expression in JavaScript" could be its own post, s
 <p *makePigLatin="functionsAsWell()"></p>
 ```
 
-#### The `as` keyword {#microsyntax-explain-as}
+#### [The `as` keyword](#microsyntax-explain-as)
 
 The rules behind the `as` keyword as an alternative to `let` are fairly straightforward:
 
@@ -1678,7 +1678,7 @@ The rules behind the `as` keyword as an alternative to `let` are fairly straight
 
 So, if you had the context as `{personName: 'Corbin', personInterests: ['programming']}`, and wanted to save the value from `personInterests` to a template input variable `interestList`, you could use: `personInterests as interestList`.
 
-#### `keyExp` — Key Expressions {#microsyntax-explain-keyexp}
+#### [`keyExp` — Key Expressions](#microsyntax-explain-keyexp)
 
 A key expression is simply an expression that you’re able to bind to an input on a structural directive.
 
@@ -1695,7 +1695,7 @@ A key expression is simply an expression that you’re able to bind to an input 
 <p *makePigLatin="inputKey 'This is an expression'"></p>
 ```
 
-#### `let` bindings {#microsyntax-explain-let}
+#### [`let` bindings](#microsyntax-explain-let)
 
 The `let` binding:
 

@@ -14,13 +14,13 @@
 
 In the last article in the series, we outlined what a packet architected network was, what the OSI layers represent, and demonstrated how we could use physical mail as an analogy for how packet-based networks function. Since we've gone to a hundred-mile view in the last series, I figured we'd take a look at what we deliver in an HTTP network. You see, the internet, as you know it, is merely a large scale HTTP network; it's built upon the packet architecture. There are two common types of packets that are delivered in the HTTP network: UDP and TCP.
 
-# Commonalities {#udp-and-tcp-both}
+# [Commonalities](#udp-and-tcp-both)
 
 Let's start by talking about what similarities UDP and TCP have. While they do have their distinct differences, they share a lot in common. 
 
 Since they're both packet-based, they both require an "address" of sorts to infer where they've come from and where they're going.
 
-## IP Addresses {#ip-address}
+## [IP Addresses](#ip-address)
 
 The "address" used to identify the "to" and "from" metadata about a packet is an "IP Address." When you send a packet of data out, you label it with an IP address to go to; then, through a process of various other utilities processing that data, it's sent! An IP address might look something like this: `127.0.0.0`, or something like this: `0:0:0:0:0:0:0:1`
 
@@ -28,7 +28,7 @@ This IP address is then stored in a packet's header ([if you recall, that's wher
 
 ![A packet being directed to the correct client matching the IP in the header](./showing-an-ip-address.svg)
 
-### Different Types of IP Addresses {#ipv4-vs-ipv6}
+### [Different Types of IP Addresses](#ipv4-vs-ipv6)
 
 While IP addresses may seem somewhat arbitrary at first glance, there are important rules to abide by to have what's considered a "valid" IP address. What's considered "valid" is defined by the TCP/IP specification, which is lead by the [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force), a group created specifically to manage and handle network protocol standardization. As time has gone on, there have been various revisions to the IP validation methods. What was once valid is now considered outdated and migrated to a newer standard of IP address. The two most commonly used standards for defining IP addresses today are:
 
@@ -39,13 +39,13 @@ Due to the explosion of internet enabled-devices, we have had to make changes to
 
 ![A showcase of an example IPv4 address and an IPv6 address. IPv4 example is "131.198.246.34" while IPv6 is "4131:e0fd:ef8e:ed27:f5b:ac98:640c:bfa5"](./ip-comparison.svg)
 
-#### What Happened to version 5? {#ipv5}
+#### [What Happened to version 5?](#ipv5)
 
 As mentioned previously, the Internet Engineering Task Force manages various specifications regarding the standardization of internet communication. Back in 1995, they gathered to attempt to create a new version of the protocol to handle the growing use of live-streamed communication. To make a long story short, IPv5 was abandoned for various reasons, and they moved on to tackle the issue of unique identifiers rapidly diminishing. To avoid confusion with the attempted streaming protocol improvements, when a new version of the protocol was being worked on afterward, it was called IPv6.
 
 > If you'd like to read more about this version for fun, you can read through [the Wikipedia page](https://en.wikipedia.org/wiki/Internet_Stream_Protocol). Unfortunately, there's limited information, and things get very quickly highly technical due to the "in progress" nature that things were left at.
 
-## Ports  {#udp-ports}
+## [Ports](#udp-ports)
 
 Continuing with the mail analogy, just like an apartment complex can have a single mailbox for multiple apartments living within the same building, so too can a single machine have multiple landing sites for network packets.
 
@@ -53,17 +53,17 @@ These separated landing sites are called "ports"; called as such because they op
 
 This method of port address selection even has it's own shorthand. For example, if you wanted to send data to IP address `192.168.1.50` on port `3000`, you'd send that data to: `192.168.1.50:3000`, being sure to use a colon to delineate between the IP address and the port number.
 
-### Pre-Assigned Ports {#standard-ports}
+### [Pre-Assigned Ports](#standard-ports)
 
 Like an apartment complex may pre-assign individuals to specific rooms, so too does the specification for Internet Protocol pre-assign specific applications to specific ports. For example, port 21 is officially designated to the [File Transfer Protocol (FTP)](https://en.wikipedia.org/wiki/File_Transfer_Protocol), which can be used to transfer files if a server is set up on a machine to handle this protocol. As a result, it's strongly discouraged to use these ports that are reserved for your application stack if you want to use a specific port for networking in your app or project.
 
-### A Note On IP Addresses {#localhost}
+### [A Note On IP Addresses](#localhost)
 
 You might remember from [the start of this section](#ip-addresses) that I listed `127.0.0.1` and `0:0:0:0:0:0:0:1` as examples of IPv4 and IPv6 addresses. This isn't without reason! These addresses are known as "loopback" addresses, and forward all traffic addressed to those IP addresses back to your machine! Why might this be useful? Let's take the following real-world example:
 
 Let's say you're developing a web application using React and want to see it hosted on your local development environment without deploying it to the public internet to see. In this example, you could spin up a server to host the React code on `127.0.0.1:3000`, and you could then access it via `localhost:3000` in your browser. For programs like React, this functionality is built-in to [it's CLI utility](https://reactjs.org/docs/create-a-new-react-app.html), but this isn't limited to React; It's universal for any form of network communication you need to test locally.
 
-# UDP {#udp}
+# [UDP](#udp)
 
 Now that we've explained what IP addresses are and what ports are let's walk through how UDP is unique. _UDP stands for "User datagram protocol."_ You may be familiar with "User" and "Protocol," but the term **"datagram"** may be new. 
 
@@ -81,11 +81,11 @@ Likewise, if you've sent multiple packets at once, you have no way of knowing if
 
 
 
-## When is UDP Useful? {#udp-uses}
+## [When is UDP Useful?](#udp-uses)
 
 UDP is useful for various low-level communication used to set up networks in ways that we'll touch later in the series. That said, there are also application-level usages for UDP's core strength: Speed. See, because UDP does not engage in any form of delivery confirmation, it tends to be significantly faster than it's TCP counterpart. As such, if you require high-speed data throughput and can afford to lose some data, UDP is the way to go. This speed is why it's often utilized in video calling software. You can scale up/down the video quality based on which packets are able to make it through but keep latency low due to pressing forward when packets don't arrive in time.
 
-# TCP {#tcp}
+# [TCP](#tcp)
 
 If you've ever sent an expensive package through a mail courier service, you may have opted to have the recipient "sign" for the package, as a method of certifying that they did, in fact, get the package.
 

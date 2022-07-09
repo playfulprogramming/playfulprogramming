@@ -33,7 +33,7 @@ The first thing I do, _before looking at any tech whatsoever is think about it f
 
 These are all of the questions I layout before even thinking about coding. I first start by white-boarding these things, explaining them to both myself and my partners, and generally doing my due-diligence concerning project planning.
 
-# Wholistic Vision {#whats-your-vision}
+# [Wholistic Vision](#whats-your-vision)
 
 My holistic vision would consist of:
 
@@ -47,7 +47,7 @@ My holistic vision would consist of:
 
 While the first point doesn't inform us of much at this early stage (we'll touch on UI tooling selection later), we can glean from the second point that we'll have to maintain some kind of storage layer. This will be something we'll need to keep in mind as we structure our goals.
 
-# Target Audience {#who-are-you-targetting}
+# [Target Audience](#who-are-you-targetting)
 
 In this case, the groups of people I would want to appeal to are:
 
@@ -57,7 +57,7 @@ In this case, the groups of people I would want to appeal to are:
 
 This potentially broad appeal might be able to drive a lot of business, but without a focused plan and a solid profit model, the project would fall flat.
 
-# Profit Model {#layout-your-profit-model}
+# [Profit Model](#layout-your-profit-model)
 
 We'd plan to drive revenue by using the following profit model:
 
@@ -65,7 +65,7 @@ We'd plan to drive revenue by using the following profit model:
 - No students would pay for accounts but might pay for a subscription to course content
 - We'd likely take a cut of the subscription or charge for course features in some way
 
-# Budget {#define-your-budget}
+# [Budget](#define-your-budget)
 
 Finally, none of this can be done without resources. These resources should be budgeted upfront, so what have we got? We have:
 
@@ -77,7 +77,7 @@ Our limited budget tells us that we will have to be hyper-focused when it comes 
 
 Now that we have a more precise goal of what the problem space we're entering is, we can more clearly define our goals (next part)
 
-# Goals {#mvp}
+# [Goals](#mvp)
 
 Now that we're onto setting goals, I like to start thinking about "What is the bare minimum we need to show this to someone to spark a conversation." _This is often called the "minimum viable product" or "MVP" for short_.
 
@@ -93,7 +93,7 @@ Looking at what we need to do from the previous section, I can say that we could
 
 While thinking about these features, I want to keep the implementation details to a minimum, just enough to suffice with our resources by ignoring the nuances of certain permission features. However, notice how, despite thinking about the features minimally, *I'm also mentally mapping how the data should be structured and thinking about long-term implications* in such a way that we can add them later without refactoring everything. This balance during architecture can be tough to achieve and becomes more and more natural with experience.
 
-# Requirements {#data-requirements}
+# [Requirements](#data-requirements)
 
 Finally, I look at the data requirements and features and start thinking about what code requirements I'll run into to implement those data requirements.
 

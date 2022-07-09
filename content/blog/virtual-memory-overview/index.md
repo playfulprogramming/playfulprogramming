@@ -12,7 +12,7 @@
 
 Memory in your standard computer works in a much more abstract and complex way then you would initially expect. I'm writing this from the point of someone developing software and less about someone understanding each part of the hardware.
 
-# Virtual Memory {#virtual-memory}
+# [Virtual Memory](#virtual-memory)
 
 Operating systems (OS) are the ones in control of all of the physical memory in your computer. This is a safeguard to make sure that memory is being allocated fairly to all processes. The way this is done is by a concept called **Virtual Memory**. As the name suggests, it means that it's shrouding the physical memory in hardware with seemingly infinite storage (in reality, you're limited by various elements of your hardware, but the amount of memory you can assign to virtual memory is typically orders of magnitude higher than the amount you can store in physical memory) for each process that is created. This is accomplished by using more than just your main memory in the case that if you need more storage, then the OS can also store it on your hard drive or SSD. Even though it may seem like a slower alternative, it allows much more freedom for processes without wrecking your computer.
 
@@ -20,7 +20,7 @@ Operating systems (OS) are the ones in control of all of the physical memory in 
 
 Virtual Memory uses what are called **page tables** that point to a memory map which will then finally point to either your physical memory or something like an HDD. It works like a cache where each entry in a page table is only used when absolutely necessary. Whenever a process comes in it only stores the "pages" that the OS thinks the process will need in main memory while the rest stay behind. This reduces the amount of memory that is taken up as well as speeding up the overall time it would take to complete a process.
 
-## What Virtual Memory looks like in C/C++ {#virtual-memory-cpp}
+## [What Virtual Memory looks like in C/C++](#virtual-memory-cpp)
 
 In C/C++ your virtual memory is broken up into ~4 basic "blocks" for where different aspects of your code are stored. The four memory areas are Code, Static/Global contexts, Stack, and Heap. The code section as you can probably guess is where your local code is held, it's specifically for the syntax of the area of the code that is being read. The Static/Global contexts are also as expected, either your global variables or your static methods that are set. The last two are the more complex areas and the two that you will want to have the most understanding in if you are working with a language that doesn't have garbage collection.
 
@@ -29,7 +29,7 @@ In C/C++ your virtual memory is broken up into ~4 basic "blocks" for where diffe
 - Static/Global
 - Code
 
-# The Stack {#stack}
+# [The Stack](#stack)
 
 The stack is where all of your local variables from the inner contexts are stored. The more local the variable the higher they are on the stack to eventually be popped off. The stack data structure is the same one that is used in memory, and it works by placing objects in by **LIFO**(Last in First out). Just like a stack of papers, you can see the paper on top of the stack but none of the others. You also can't reach inside of the stack, you have to remove the papers on top to see the papers below.
 
@@ -38,7 +38,7 @@ The stack is where all of your local variables from the inner contexts are store
 int num = 12;
 ```
 
-# The Heap {#heap}
+# [The Heap](#heap)
 
 The heap is where you store objects that seem to be global in nature. In C/C++ when you're swapping between methods and you want an object that you are returning to go outside of the local context of the method, you use the **new** or **malloc()** keywords. The heap is another data structure that works like a binary tree held in a normal array or list. This shows that there is a hierarchical difference compared to the stack.
 
@@ -124,7 +124,7 @@ The other method, example2(), just creates a new local vector and sets vec equal
 
 What happens is you get a segfault. This segfault occurs because you're trying to assign a value to a pointer when that pointer isn't pointing anywhere. You're trying to access memory that doesn't exist.
 
-# Review/Conclusion {#conclusion}
+# [Review/Conclusion](#conclusion)
 
 Operating systems protect physical memory by giving each process a seemingly infinite amount of virtual memory where they each have their own address space that doesn't affect any other processes. Understanding this and how the virtual memory is represented is a fundamental building block in becoming a better and more efficient programmer.
 

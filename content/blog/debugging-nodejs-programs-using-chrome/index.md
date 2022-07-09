@@ -16,7 +16,7 @@ The tool I'm referring to is [the Node Debugger utility](https://nodejs.org/api/
 
 Let's look at how we can do so and how to use the Chrome debugger for such purposes.
 
-# Example Application {#example-code}
+# [Example Application](#example-code)
 
 Let's assume we're building an [Express server](https://expressjs.com/) in NodeJS. We want to `GET` an external endpoint and process that data, but we're having issues with the output data. Since it's not clear where the issue resides, we decide to turn to the debugger.
 
@@ -66,7 +66,7 @@ Instead of the ages of the employees as we might expect. We'll need to dive deep
 
 > You may have already spotted the error in this small code sample, but I'd still suggest you read on. Having the skillsets to run a debugger can help immeasurably when dealing with large-scale codebases with many moving parts or even when dealing with an unfamiliar or poorly documented API.
 
-# Starting the Debugger {#starting-the-debugger}
+# [Starting the Debugger](#starting-the-debugger)
 
 Whereas a typical Express application might have `package.json` file that looks something like this:
 
@@ -137,7 +137,7 @@ For help, see: https://nodejs.org/en/docs/inspector
 
 At this point, _it will hang and not process the code or run it_. That's okay though, as we'll be running the inspector to get the code to run again in the next step.
 
-# The Debugger {#the-debugger}
+# [The Debugger](#the-debugger)
 
 In order to access the debugger, you'll need to open up Chrome and go to the URL `chrome://inspect`. You should see a list of selectable debug devices, including the node instance you just started.
 
@@ -167,7 +167,7 @@ A race-car needs to drive around the track until the point where the pit-stop is
 >
 > This way, you should have the margins to add in a breakpoint where you'd like one beforehand.
 
-# Using The Debugging Tools {#using-debug-tools}
+# [Using The Debugging Tools](#using-debug-tools)
 
 Once your code runs through a breakpoint, this window should immediately raise to focus (even if it's in the background).
 
@@ -185,7 +185,7 @@ Once you do so, you're in full control of your code and its state. You can:
 - _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to:
   ![A screenshot of indexing the body using "body.slice(0, 100)"](./arbitrary_js.png)
 
-## Running Through Lines {#running-through-lines}
+## [Running Through Lines](#running-through-lines)
 
 But that's not all! Once you make changes (or inspect the values), you're also able to control the flow of your application. For example, you may have noticed the following buttons in the debug window:
 
@@ -221,7 +221,7 @@ We will have to run through the breakpoints we've set by pressing the "play" but
 
 There we go! We're able to get the expected "23"! That said, it was annoying to have to press "play" twice. Maybe there's something else we can do in similar scenarios like this?
 
-## Disabling Breakpoints {#disabling-breakpoints}
+## [Disabling Breakpoints](#disabling-breakpoints)
 
 As mentioned previously in an aside, you can disable breakpoints as simply as pressing the created breakpoint once again (pressing the line number will cause the blue arrow to disappear). However, you're also able to temporarily disable all breakpoints if you want to allow code to run normally for a time. To do this, you'll want to look in the same toolbar as the "play" and "skip" button. Pressing this button will toggle breakpoints from enabling or not. If breakpoints are disabled, you'll see that the blue color in the arrows next to the line number will become a lighter shade.
 
@@ -229,7 +229,7 @@ As mentioned previously in an aside, you can disable breakpoints as simply as pr
 
 Whereas code used to pause when reaching breakpoints, it will now ignore your custom set breakpoints and keep running as normal.
 
-## Step Into {#debugger-step-into}
+## [Step Into](#debugger-step-into)
 
 In many instances (such as the `map` we use in the following code), you may find yourself wanting to step _into_ a callback function (or an otherwise present function) rather than step over it. For example, [when pressing the "next" button in the previous section](#running-through-lines), it skipped over the `map` instead of running the line in it (line 10). This is because the arrow function that's created and passed to `map` is considered its own level of code. To dive deeper into the layers of code and therefore **into** that line of code, instead of the "next line" button to advance, you'll need to press the "step into" button.
 
@@ -266,7 +266,7 @@ Once inside the `map` function, there's even a button _to get you outside of tha
 >
 > You would still be able to "step into" `getEmployeeAges` and, once inside, "step outside" again in the same manor of the `map` function, as shown prior.
 
-# Saving Files {#editing-files-in-chrome}
+# [Saving Files](#editing-files-in-chrome)
 
 One more feature I'd like to touch on with the debugger before closing things out is the ability to edit the source files directly from the debugger. Using this feature, it can make the Chrome debugger a form of lite IDE, which may improve your workflow. So, let's revert our code to [the place it was at before we applied the fix we needed](#example-code) and go from there.
 
@@ -282,7 +282,7 @@ In order to make your changes persist, you'll need to press `Ctrl + S` or `Comma
 
 Not only does VS Code not recognize your changes, but once you close your debugging window, you won't know what you'd changed in order to get your code to work. While this may help in short debugging sessions, this won't do for a longer session of code changes. To do that, you'll want your changes to save to the local file system.
 
-## Persisting Changes {#chrome-as-ide-persist-changes}
+## [Persisting Changes](#chrome-as-ide-persist-changes)
 
 In order to save the changes from inside the Chrome to the file system, you need to permit Chrome access to read and write your files. To do this, you'll want to press the "Add folder to workspace" button off to the left of the code screen.
 

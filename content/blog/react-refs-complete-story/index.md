@@ -22,7 +22,7 @@ We'll also be exploring additional functionality to each of those two definition
 
 > As most of this content relies on the `useRef` hook, we'll be using functional components for all of our examples. However, there are APIs such as [`React.createRef`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs) and [class instance variables](https://www.seanmcp.com/articles/storing-data-in-state-vs-class-variable/) that can be used to recreate `React.useRef` functionality with classes.
 
-# Mutable Data Storage {#use-ref-mutate}
+# [Mutable Data Storage](#use-ref-mutate)
 
 While `useState` is the most commonly known hook for data storage, it's not the only one on the block. React's `useRef`  hook functions differently from `useState`, but they're both used for persisting data across renders.
 
@@ -115,7 +115,7 @@ Thanks to the lack of rendering on data storage, it's particularly useful for st
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-mutable-data?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# Visual Timer with Refs {#visual-timers}
+# [Visual Timer with Refs](#visual-timers)
 
 While there are usages for timers without rendered values, what would happen if we made the timer render a value in state?
 
@@ -194,7 +194,7 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
 > ```
 > We're simply using a `useRef` to outline one of the important properties about refs: mutation.
 
-# DOM Element References {#dom-ref}
+# [DOM Element References](#dom-ref)
 
 At the start of this article, I mentioned that `ref`s are not just a mutable data storage method but a way to reference DOM nodes from inside of React. The easiest of the methods to track a DOM node is by storing it in a `useRef` hook using any element's `ref` property:
 
@@ -232,7 +232,7 @@ Because `elRef.current` is now a `HTMLDivElement`, it means we now have access t
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-style?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-## Alternative Syntax {#ref-function}
+## [Alternative Syntax](#ref-function)
 
 It's worth noting that the `ref` attribute also accepts a function. While [we'll touch on the implications of this more in the future](#callback-refs), just note that this code example does exactly the same thing as `ref={elRef}`:
 
@@ -248,7 +248,7 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
   )
 ```
 
-#  Component References {#forward-ref}
+#  [Component References](#forward-ref)
 
 HTML elements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?
 
@@ -327,7 +327,7 @@ Now that we are using `forwardRef`, we can use the `ref` property name on the pa
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-effect-style-forward-ref?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# Class Component References {#class-ref}
+# [Class Component References](#class-ref)
 
 While I mentioned that we'll be using functional components and hooks for a majority of this article, I think it's important that I cover how class components handle the `ref` property. Take the following class component:
 
@@ -424,7 +424,7 @@ console.log(this.container.current.render);
 ƒ render()
 ```
 
-## Custom Properties and Methods {#class-ref-methods-props}
+## [Custom Properties and Methods](#class-ref-methods-props)
 
 Not only are React Component built-ins (like `render` and `props`) accessible from a class ref, but you can access data that you attach to that class as well. Because the `container.current` is an instance of the `Container` class, when you add custom properties and methods, they're visible from the ref!
 
@@ -466,7 +466,7 @@ function App() {
 
 <iframe src="https://stackblitz.com/edit/react-class-ref-instance-custom-props?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# Unidirectional Flow {#unidirectional-flow}
+# [Unidirectional Flow](#unidirectional-flow)
 
 While the concept of "universal directional flow" is a broader subject than what I originally wanted to cover with this article, I think it's important to understand why you shouldn't utilize the pattern outlined above. One of the reasons refs are so useful is one of the reasons they're so dangerous as a concept: They break unidirectional data flow.
 
@@ -523,7 +523,7 @@ This is what a proper React component _should_ look like. This pattern of raisin
 
 Now that we have a better understanding of the patterns to follow let's take a look at the wrong way to do things.
 
-## Breaking from Suggested Patterns {#bidirectionality-example}
+## [Breaking from Suggested Patterns](#bidirectionality-example)
 
 Doing the inverse of "lifting state," let's lower that state back into the `SimpleForm` component. Then, to access that data from `App`, we can use the `ref` property to access that data from the parent.
 
@@ -605,7 +605,7 @@ As you can see, while the number of steps is similar between these methods (and 
 
 This is why the React core team (and the community at large) highly suggests you use unidirectionality and rightfully shuns breaking away from that pattern when it's not required.
 
-# Add Data to Ref {#use-imperative-handle}
+# [Add Data to Ref](#use-imperative-handle)
 
 If you've never heard of the `useImperativeHandle` hook before, this is why. It enables you to add methods and properties to a `ref` forwarded/passed into a component. By doing this, you're able to access data from the child directly within the parent, rather than forcing you to raise state up, which can break unidirectionality.
 
@@ -708,7 +708,7 @@ That said, you're not limited to simply the names of native APIs. What do you th
 
 > When your focus is set to the `Container` element, try typing in the ["Konami code"](https://en.wikipedia.org/wiki/Konami_Code) using your arrow keys. What does it do when that's done?
 
-# React Refs in `useEffect ` {#refs-in-use-effect}
+# [React Refs in `useEffect `](#refs-in-use-effect)
 
 I have to make a confession: I've been lying to you. Not maliciously, but I've repeatedly used code in the previous samples that should not ever be used in production. This is because without hand-waving a bit, teaching these things can be tricky.
 
@@ -850,7 +850,7 @@ Now, once you've triggered the `useState` "add" button, do the same with the `us
 
 [TL;DR](https://www.dictionary.com/browse/tldr) - Try pressing `useState` "add" twice. The value on-screen will be 2. Then, try pressing the `useRef` "add" button thrice. The value on-screen will be 0. Press `useState`'s button once again and et voilà - both values are 3 again!
 
-## Comments from Core Team {#core-team-comments}
+## [Comments from Core Team](#core-team-comments)
 
 Because of the unintended effects of tracking a `ref` in a `useEffect`, the core team has explicitly suggested avoiding doing so.
 
@@ -870,7 +870,7 @@ Because of the unintended effects of tracking a `ref` in a `useEffect`, the core
 
 These are great points... But what does Dan mean by a "callback ref"?
 
-# Callback Refs {#callback-refs}
+# [Callback Refs](#callback-refs)
 
 Towards the start of this article, we mentioned an alternative way to assign refs. Instead of:
 
@@ -936,7 +936,7 @@ That's true. However, you _can_ combine the two behaviors to make a callback tha
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-callback-and-effect?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-# `useState` Refs {#usestate-refs}
+# [`useState` Refs](#usestate-refs)
 
 Sometimes the combination of `useRef` and callback refs is not enough. There are the rare instances where you need to re-render whenever you get a new value in `.current.`. The problem is that the inherent nature of `.current` prevents re-rendering. How do we get around that? Eliminate `.current` entirely by switching your `useRef` out for a `useState`.
 

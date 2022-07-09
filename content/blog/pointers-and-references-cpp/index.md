@@ -12,7 +12,7 @@
 
 Every new C/C++ programmer will eventually reach the point at which they are forced to work with pointers and will undoubtedly realize that they extremely dislike using them because they are a little complex. Today, we'll be looking at what pointers are, deconstructing their usage, and hopefully, making the usage of pointers easier to grok.
 
-# What is a Pointer? {#what-is-a-pointer}
+# [What is a Pointer?](#what-is-a-pointer)
 
 A pointer is simply a variable or object that instead of holding a value, holds a memory address to another spot in memory. You will commonly see a pointer being most recognizable by their declaration including the **\*** operator, also known as the **dereference operator**. This operator is called the dereference operator because when you try to access the value that the pointer is referencing, you have to use the **\*** operator to "de-reference" the value. Which is just a fancy way of saying, "go to that reference".
 
@@ -53,7 +53,7 @@ As you can see, the pointer p holds the memory address of num, and when you use 
 
 Pointers can also get a lot more complex and must be used in certain situations. For example, if you put an object on the heap (Check out my article on Virtual Memory to learn more about heap memory) then you will have to use a pointer because you can't access the heap directly. So, instead of having a pointer to an address on the stack, it will point to an address on the heap. You might even find yourself using double or triple pointers as you get more used to them.
 
-# What is a Reference? {#what-is-a-reference}
+# [What is a Reference?](#what-is-a-reference)
 
 In simple terms, a reference is simply the address of whatever you're passing. The difference between a pointer and a reference lies in the fact that a reference is simply the **address** to where a value is being stored and a pointer is simply a variable that has it's own address as well as the address it’s pointing to. I like to consider the **&** operator the "reference operator" even though I'm pretty sure that's not actually what it is called. I used this operator in the last example, and it's pretty straightforward.
 
@@ -89,7 +89,7 @@ Here’s what this looks like in memory with more easily understandable addresse
 
 **![Memory Example](./memory.png)**
 
-# Pass by Reference vs. Pass by Value {#passing}
+# [Pass by Reference vs. Pass by Value](#passing)
 
 This is another more complex topic that we as programmers need to be aware of in almost all languages - even languages without pointers. The idea of the two all stems from functions, sometimes called methods, and their parameters. Whenever you pass something into a function, does the original variable/object that is passed in get updated inside as well as outside the function, or is it hyperlocal and it just creates a copy of the original parameter? "Pass by reference" refers to when the parameter is changed both within the function and outside of it. "Pass by value" refers to when the parameters are merely a copy and have their own memory address, only being updated inside of the function.
 
@@ -139,6 +139,6 @@ As you can see, when passed by reference, the local value is changed, but when i
 
 This gets confusing after a while if you're not paying attention to your outputs. In fact, Python gets even more confusing, but that's a topic for another day; be sure to sign up for our newsletter to see when that lands 😉
 
-# Review/Conclusion {#conclusion}
+# [Review/Conclusion](#conclusion)
 
 Pointers and References are extremely important in your day to day work in languages like C/C++. C++ gives you a lot of manual control with the most common being memory. Knowing how each one of your pointers or variables are stored will help you write code faster and more efficiently. Knowing also how parameters are passed to your functions as well as how they are updated, will make your life **so** much easier.

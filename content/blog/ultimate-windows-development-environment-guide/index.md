@@ -24,7 +24,7 @@ What many don't know is that Windows has gained many of these options over the y
 
 Moreover, much of what we'll be taking a look at today is either free, open-source, or both! There will be a few mentions of paid software as alternatives to the free options, but I've personally used every piece of commercial software in this article. None of the paid software we mention here has been included as part of a sponsorship or financial deal in any way, I just like them and use them myself.
 
-# Package Management {#package-management}
+# [Package Management](#package-management)
 
 When it comes to CLI package management on Windows, you have two main choices:
 
@@ -35,7 +35,7 @@ Both of them are incredibly polished and ready-to-use today. While `winget` is M
 
 Let's look through both.
 
-## Winget {#winget}
+## [Winget](#winget)
 
 One of the strongest advantages of `winget` is that it's built right into all builds of Windows 11 and most newer builds of Windows 10. 
 
@@ -63,7 +63,7 @@ Finally, you can upgrade all of your `winget` installed packages simply by runni
 
 `winget upgrade --all`
 
-## Chocolatey {#chocolatey}
+## [Chocolatey](#chocolatey)
 
 [Chocolatey only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there either. Much like it's *nix-y counterparts, Chocolatey is an unofficial repository of software that includes checks of verification for a select number of popular packages.
 
@@ -75,7 +75,7 @@ You can also use `choco list --local-only` to see a list of all locally installe
 
 Finally, `choco upgrade all` will upgrade all locally installed packages.
 
-### Manage Packages via GUI {#chocolatey-gui}
+### [Manage Packages via GUI](#chocolatey-gui)
 
 Readers, I won't lie to you. I'm not the kind of person to use a CLI for everything. I absolutely see their worth, but remembering various command is simply not my strong suit even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie! More seriously, installing the GUI is as simple as:
 ```
@@ -88,7 +88,7 @@ You can see that it gives a list of installed packages with a simple at-glance v
 
 ![A search result of the Chocolatey GUI](./choco_gui_search.png)
 
-## Suggested Packages {#suggested-packages}
+## [Suggested Packages](#suggested-packages)
 
 While Chocolatey has a myriad of useful packages for developers, there are some that I have installed on my local machine that I'd like to highlight in particular.
 
@@ -104,7 +104,7 @@ Additionally, I know a lot of developers would like to have access to common GNU
 choco install git.install--params "/GitAndUnixToolsOnPath"
 ```
 
-### CLI Utilities {#cli-packages}
+### [CLI Utilities](#cli-packages)
 
 | Name                                              | Choco Package | Winget Package | Explanation                                                  |
 | ------------------------------------------------- | ------------- | -------------- | ------------------------------------------------------------ |
@@ -126,7 +126,7 @@ Or, the ones supported by `winget`:
 winget install --id=GitHub.cli -e  && winget install --id=Yarn.Yarn -e 
 ```
 
-### IDEs {#ides}
+### [IDEs](#ides)
 
 | Name                                                        | Choco Package                                                | Winget Package                                               | Explanation                                                |
 | ----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------------------------------------- |
@@ -147,7 +147,7 @@ Or, with `winget`:
 winget install --id=Microsoft.VisualStudioCode -e && winget install --id=SublimeHQ.SublimeText.4 -e && winget install --id=Microsoft.VisualStudio.2019.Community -e && winget install --id=JetBrains.Toolbox -e 
 ```
 
-### Others {#utilities}
+### [Others](#utilities)
 
 | Name                                                        | Choco Package                              | Winget Package                                    | Explanation                                                  |
 | ----------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
@@ -177,11 +177,11 @@ Or, the ones supported by `winget`:
 winget install --id=Microsoft.PowerToys -e && winget install --id=Oracle.VirtualBox -e && winget install --id=Typora.Typora -e && winget install --id=Postman.Postman -e && winget install --id=Mozilla.Firefox -e && winget install --id=Cockos.LICEcap -e && winget install --id=NickeManarin.ScreenToGif -e && winget install --id=7zip.7zip -e && winget install --id=Oracle.JDK.17 -e && winget install --id=Oracle.JavaRuntimeEnvironment -e
 ```
 
-### Missing from the List {#awesome-windows}
+### [Missing from the List](#awesome-windows)
 
 Didn't see your favorite utilities or tools? Unfortunately, I only can highlight a few options. That said, there's no shortage of utilities, tools, and customization options for Windows. A great collection of utilities to look through would be [the Awesome Windows list](https://github.com/Awesome-Windows/Awesome). At the time of writing, it includes over 300 programs with a short description and a link learn more.
 
-## Microsoft Store {#microsoft-store}
+## [Microsoft Store](#microsoft-store)
 
 I'm sure some avid Microsoft fans will have pointed out by now that I forgot something. You know, the official solution by Microsoft? Naturally, I haven't forgotten about the Microsoft Store.
 
@@ -189,17 +189,17 @@ While some of you may be surprised to hear this, the Microsoft Store has put tog
 
 ![A preview of the "Downloads and updates" tab in the Microsoft Store](./windows_store_update.png)
 
-# Terminal Usage {#terminal-usage}
+# [Terminal Usage](#terminal-usage)
 
 The terminal is essential for most developers. It's a relatively universal utility regardless of what form of programming you're into. It's important to make sure that your terminal is fully featured  both for functionality and so the user can customize to their taste.
 
-## Terminal Emulators {#terminals}
+## [Terminal Emulators](#terminals)
 
 One of the most important elements to one's experience with the terminal is, well, the terminal itself! While Windows has not historically had many options in this regard, things have turned around in recent years. Additional to the built-in CMD and PowerShell applications, we now have many newcomers, including one from Microsoft itself.
 
 First, let's start with the third party offerings. We have many options, but the two I want to highlight is `Cmder` and `Terminus`.
 
-### Cmder {#cmder}
+### [Cmder](#cmder)
 
 [Cmder is an open-source terminal offering](https://github.com/cmderdev/cmder) built on top of a long-standing base called [ConEmu](https://conemu.github.io/). Not only is it a terminal window for you to interface with, but it provides a massive set of configurations. It not only provides configurations for the CMD shell backend but for PowerShell as well, meaning you can freely switch between them (and WSL) to suit your current needs. These configurations can even be used without having to utilize the terminal window. I think the config makes the terminal much more useful and pretty. For example, this is the default view of Cmder:
 
@@ -216,13 +216,13 @@ The terminal itself contains all kinds of functionality:
 
 Those are just the features I can think of off the top of my head! What's nice about Cmder is that even if you don't use the terminal itself, you can use the configurations for CMD and PowerShell with other shells if you like. All of the screenshots for the other terminals will be shown using the Cmder configs.
 
-### Terminus {#terminus}
+### [Terminus](#terminus)
 
 Terminus is another excellent option for those looking for alternative terminal shells. Because it's rendered using web tech, it's UI is much more customizable. It also has an easy-to-install plugin system to add further functionality to the shell. What you're seeing is the initial out-of-the-box experience [with the Cmder configuration applied](https://github.com/cmderdev/cmder/wiki/Seamless-Terminus-Integration)
 
 ![A preview of the Terminus shell with the Cmder config](./terminus.png)
 
-### Windows Terminal {#windows-terminal}
+### [Windows Terminal](#windows-terminal)
 
 Last, but certainly not least, we have the newly-introduced Windows Terminal. This is the new terminal that's built by Microsoft itself. [The project is open-source](https://github.com/microsoft/terminal) and is available now [via the Microsoft Store](https://aka.ms/windowsterminal). In fact, in Windows 11, this terminal is now built-in and acts as the default terminal emulator.
 
@@ -230,7 +230,7 @@ Last, but certainly not least, we have the newly-introduced Windows Terminal. Th
 
 This terminal shell has been the most stable in my experience. It supports tabs, a highly customizable UI, and supports using multiple terminal applications in different tabs.
 
-#### Cmder Integration {#windows-terminal-cmder}
+#### [Cmder Integration](#windows-terminal-cmder)
 
 While Cmder integration with Windows Terminal is relatively trivial, it's not very well documented. Let's walk through how to get it up and running.
 
@@ -280,7 +280,7 @@ Finally, if you want to set one of these profiles as default (I wanted to make m
 "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
 ```
 
-#### Color Configuration {#windows-terminal-colors}
+#### [Color Configuration](#windows-terminal-colors)
 
 Windows Terminal also supports text and background color customization, among other things. The color settings I used for the screenshot above is the Dracula color theme.  You can add that color theme by adding the following to the `schemes` array in the `profiles.json` file:
 
@@ -329,7 +329,7 @@ Resulting in the following for my PowerShell config:
 }
 ```
 
-### Comparisons {#compare-different-terminals}
+### [Comparisons](#compare-different-terminals)
 
 While each of the three terminals offers something different, they each have their own set of pros and cons. Here's how I see it:
 
@@ -342,7 +342,7 @@ I only outlined three terminal emulators here. They are my favorites; I've used 
 - [Fluent Terminal](https://github.com/felixse/FluentTerminal)
 - [Hyper Terminal](https://hyper.is/)
 
-## Terminal Styling {#terminal-styling}
+## [Terminal Styling](#terminal-styling)
 
 Anyone that's used `ohmyzsh` on Mac or Linux before can tell you that customizing your terminal shell doesn't just stop at picking an emulator.
 
@@ -354,7 +354,7 @@ In fact, regardless of your emulator, you have a wide swath of customization opt
 
 [While some terminals have a quick single (or zero) config change to add some fancy styling](#windows-terminal-cmder), you can have full control over your terminal styling.
 
-### OhMyPosh {#oh-my-posh}
+### [OhMyPosh](#oh-my-posh)
 
 One option to customize your windows shell styling is [OhMyPosh](https://ohmyposh.dev/). Named after the similarly powerful [`OhMyZSH`](https://ohmyz.sh/), it allows you to have themes you can utilize for both PowerShell and CMD alike.
 
@@ -364,7 +364,7 @@ For example, this is [my terminal theme](https://github.com/crutchcorn/dotfiles/
 
 > That emoji at the start? That's randomized on every shell start with a preselected list of emoji. Pretty 🔥 if you ask me.
 
-### Powerline Fonts {#powerline-fonts}
+### [Powerline Fonts](#powerline-fonts)
 
 Once setting up OhMyPosh in CMD/PowerShell or OhMyZSH in WSL, you may notice that your terminal display looks weird with some themes:
 
@@ -394,7 +394,7 @@ Then, when you open the terminal, you should see the correct terminal display.
 
 
 
-## Make Configuration Changes {#terminal-system-config}
+## [Make Configuration Changes](#terminal-system-config)
 
 While terminals are important, another factor to be considered is the configuration of those terminal shells. It's important to keep system-level configuration settings in mind as well. For example, if you need to [make or modify environmental variables](#env-variables) or [make changes to the system path](#env-path). Luckily for us, they both live on the same path. As such, let's showcase how to reach the dialog that contains both of these settings before explaining each one in depth.
 
@@ -410,7 +410,7 @@ After this, a dialog should pop up. This dialog should contain as one of the low
 
 ![The "environmental variables" dialog](./environmental_variables_dialog.png)
 
-### Environmental Variables {#env-variables}
+### [Environmental Variables](#env-variables)
 
 When working with the CLI, it's often important to have environmental variables to customize the functionality of a utility or program. Because Windows has the concept of users, there are two kinds of environment variables that can be set:
 
@@ -427,7 +427,7 @@ Simply add the name of the variable and the value of the environmental variable 
 
 You're able to do the same with editing a variable. Simply find the variable, highlight it, then select "Edit" and follow the same process.
 
-### Adding Items to Path {#env-path}
+### [Adding Items to Path](#env-path)
 
 Have you ever run into one of these errors?
 
@@ -452,9 +452,9 @@ Just as before, you're able to delete and edit a value by highlighting and press
 
 > In order to get SCC running, you may have to close and then re-open an already opened terminal window. Otherwise, running `refreshenv` often updates the path so that you can use the new commands.
 
-## Git Configurations {#git-config}
+## [Git Configurations](#git-config)
 
-### Editor {#git-editor}
+### [Editor](#git-editor)
 
 Git, by default, uses `vim` to edit files. While I understand and respect the power of `vim`, I have never got the hang of `:!qnoWaitThatsNotRight!qq!helpMeLetMeOut`. As such, I tend to change my configuration to use `micro`, the CLI editor mentioned in [the CLI packages section](#cli-packages). In order to do so, I can just run:
 
@@ -468,7 +468,7 @@ However, we can go a step further. Let's say that we want the full power of VSCo
 git config --global core.editor "code --wait"
 ```
 
-### Difftool {#git-difftool}
+### [Difftool](#git-difftool)
 
 Not only are you able to set VSCode as your editor for rebase messages, but [you can use it as your difftool as well](https://code.visualstudio.com/docs/editor/versioncontrol#_vs-code-as-git-diff-tool)!
 
@@ -483,7 +483,7 @@ Simply edit your global git config (typically found under `%UserProfile%/.gitcon
 
 And it should take care of the rest for you.
 
-### Line Endings {#git-line-endings}
+### [Line Endings](#git-line-endings)
 
 While most high-level language code is interoperable between different OSes, one of the primary differences between high-level codebases in Windows vs. macOS or Linux is the line-endings. As you might know, Windows uses `\r\n` line-ending where Linux and macOS end with `\n`.
 Luckily for us, Git can automatically convert the Windows line-endings before committing them to the repository. To do so, simply run the following command:
@@ -492,7 +492,7 @@ Luckily for us, Git can automatically convert the Windows line-endings before co
 git config --global core.autocrlf true
 ```
 
-## WSL {#wsl}
+## [WSL](#wsl)
 
 Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. 
 
@@ -521,7 +521,7 @@ There are even tweaks that are done with Windows to make it easier to use. If yo
 
 The cross-WSL compatibility isn't uni-directional either. You can [open files from your Linux filesystem in Windows](#access-wsl-files), [call Windows executables from WSL](https://docs.microsoft.com/en-us/windows/wsl/interop#run-windows-tools-from-wsl), and much more!
 
-### Shell Configuration {#linux-shell}
+### [Shell Configuration](#linux-shell)
 
 If you prefer an alternative shell, such as ZSH or Fish, you can install those in your distro as well. For example, I have an [`oh-my-zsh`](https://ohmyz.sh/) instance that runs anytime I start-up `wsl`.
 
@@ -544,7 +544,7 @@ You can even able to tell Windows Terminal to use WSL as default! If you open Wi
 
 All you need to do is change the `defaultProfile` to match the `guid` of the WSL profile.
 
-### Accessing Linux Files {#access-wsl-files}
+### [Accessing Linux Files](#access-wsl-files)
 
 Since [Windows 10 (1903)](https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/), you're able to access your WSL Linux distro files directly from Windows explorer. To do this, simply look to the sidebar panel of your File Explorer.
 
@@ -552,7 +552,7 @@ Since [Windows 10 (1903)](https://devblogs.microsoft.com/commandline/whats-new-f
 
 Here, you can read and write files to and from your Linux installation in WSL.
 
-### Linux GUI Programs {#wsl-gui}
+### [Linux GUI Programs](#wsl-gui)
 
 [In Windows 11, you're now able to run Linux GUI apps with WSL](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps). Simply install them as you usually would using your distro's package manager and run them from the command line.
 
@@ -566,17 +566,17 @@ sudo apt install gedit
 
 
 
-### USB Pass-thru {#wsl-usb}
+### [USB Pass-thru](#wsl-usb)
 
 For some development usage, having USB access from Linux is immensely useful. In particular, when dealing with Linux-only software for flashing microcontrollers or other embedded devices it's an absolute necessity.
 
 Luckily, as of late [Microsoft has worked with a third party project to add support to WSL](https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl/) to directly connect USB to Linux. This allows you to do flashing with `dd` and similar
 
-# Keyboard Usage {#keyboard-usage}
+# [Keyboard Usage](#keyboard-usage)
 
 When asking many of my Linux-favoring friends why they love Linux so much, I've heard one answer time and time again. They love being able to control their computer front, back, and sideways without having to touch the mouse. Well, dear reader, I assure you that Windows provides the same level of control.
 
-## Built-Ins {#built-in-keyboard-shortcuts}
+## [Built-Ins](#built-in-keyboard-shortcuts)
 
 By default, Windows includes a myriad of shortcuts baked right in that allow you to have powerful usage of your system using nothing but your keyboard. Here are just a few that I think are useful to keep-in-mind:
 
@@ -598,7 +598,7 @@ By default, Windows includes a myriad of shortcuts baked right in that allow you
 | <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>F4</kbd>    | Close current virtual desktop                                |
 
 
-## Window Tiling {#window-tiling}
+## [Window Tiling](#window-tiling)
 
 "Surely, you can't forget about window tiling!"
 
@@ -614,11 +614,11 @@ Back at the (Redmond-based) ranch, the [previously mentioned Microsoft made Powe
 
 As you can see, there's an incredible amount of customization available with "FancyZones".
 
-# Customization {#customization}
+# [Customization](#customization)
 
 I'm not sure about you, but when I get a new machine, I want it to feel _mine_. This applies just as much to my wallpaper as it does the stickers I plaster my laptops with. The following software enables some new functionality or aesthetic difference that users might enjoy.
 
-## Free {#free-customization-software}
+## [Free](#free-customization-software)
 
 | Program Name                                                 | What It Is                                                   | Windows Compatibility |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------- |
@@ -649,11 +649,11 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 | [StartAllBack](https://www.startallback.com/) | Windows 11 start menu replacement |Windows 11|$5|
 | [StartIsBack](https://www.startisback.com/) | Windows 10 start menu replacement |Windows 10|$5|
 
-# Functionality {#functionality}
+# [Functionality](#functionality)
 
 Windows also has some differing functionality to Linux/macOS in some critical ways. Some of the functionality you might be used to simply doesn't have an obvious analog in Windows. Let's take a look at some of these that we have an alternative to.
 
-## Virtual Desktops {#virtual-desktops}
+## [Virtual Desktops](#virtual-desktops)
 
 Longtime users of Linux will be quick to note that they've had virtual desktops for years. While a newer feature to the Windows product line, it too was actually introduced in Windows 10! 
 
@@ -675,7 +675,7 @@ Finally, to delete a virtual desktop, you can hover over the preview of the desk
 
 > A feature that's soon-to-release is renaming a virtual desktop! This functionality is [being added in the 2020 stable release of Windows](https://blogs.windows.com/windowsexperience/2019/09/06/announcing-windows-10-insider-preview-build-18975/) launching soon!
 
-### Touchpad Users {#virtual-desktop-touchpad-users}
+### [Touchpad Users](#virtual-desktop-touchpad-users)
 
 If you're a laptop user (or have a touchpad for your desktop) that supports Windows gestures, you can configure a three or four finger feature to switch desktops with a simple swipe. Simply go to "Settings > Devices > Touchpad" to see if you're able to configure this or not. If you are able to, you should be able to select dropdowns to configure which one you'd like.
 
@@ -683,7 +683,7 @@ If you're a laptop user (or have a touchpad for your desktop) that supports Wind
 
 
 
-## Symbolic Links {#symlinks}
+## [Symbolic Links](#symlinks)
 
 Symbolic links are a method of having a shortcut of sorts from one file/folder to another. Think of it as Windows Shortcuts but baked directly into the filesystem level. This may come as a surprise to some developers, but Windows actually has support for symbolic links!
 
@@ -693,7 +693,7 @@ To use symbolic links from the CLI, you have to first enable developer mode on y
 
 Once done, you're able to run `mklink`, which provides you the ability to make a symbolic link.
 
-### Usage {#using-mklink}
+### [Usage](#using-mklink)
 
 By default, it creates a soft link from the first argument to the second. 
 ```
@@ -717,7 +717,7 @@ And `/J` for folders:
 mklink /J SymlinkDir SourceFolder
 ```
 
-### GUI Alternative {#link-shell-extension}
+### [GUI Alternative](#link-shell-extension)
 
 While the CLI enables you to make hard and soft symbolic links, it's far from graceful. It would be ideal to have that functionality baked right into the explorer menu options if used frequently. Luckily for us, there's an app for that! [Link Shell Extension](https://schinagl.priv.at/nt/hardlinkshellext/linkshellextension.html) adds the options to the context menu itself. It's even able to be installed using [Chocolatey](#package-management):
 
@@ -734,7 +734,7 @@ Then you're able to navigate to the folder you're looking for, right click, and 
 
 There are a myriad of options to choose from and should handle any type of symlink you'd need.
 
-# Additional Configuration {#additional-configuration}
+# [Additional Configuration](#additional-configuration)
 
 They may not really count as a customization or making up for a "missing feature,"  but there are a few more things you can do to configure your Windows 10 installation to make life as a developer just a little bit better.
 

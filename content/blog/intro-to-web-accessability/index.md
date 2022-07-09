@@ -66,7 +66,7 @@ By making your services accessible to more people, you are most importantly maki
 
 Accessibility isn't a pure science, however. If you aren’t a user of assistive technology, this may be an abstract idea at first. However, think of it like this: the colors an app uses or a button's visual placement may convey different messages and meanings depending on their context. This same problem applies to users of screen-readers and other accessible tech as well, just with different constraints. If the screen is visually cluttered, the content may be more difficult to read. Likewise, different accessibility methods will lead to different experiences for users of assistive technology. In both of these scenarios, there may not be objectively correct answers - some may prefer a button placed visually to the left, while others might advocate for it on the right. Similarly, how something is read using a screen reader may make sense to some, but might be confusingly expressed to others.
 
-# Sensible Standards {#wcag}
+# [Sensible Standards](#wcag)
 
 While accessibility has some levels of subjectivity, it's important to note that there _are_ standards surrounding web application's accessibility support. ["Web Content Accessibility Guidelines"](https://www.w3.org/WAI/) (shortened to "WCAG") are guidelines to follow when considering your app's accessibility.  These guidelines are published by a subgroup of the [World Wide Web Consortium](https://www.w3.org/) (shortened to "W3C"), the main international standards organization for the Internet. WCAG acts as the de-facto standard for accessibility guidelines.
 
@@ -100,7 +100,7 @@ Finally, AAA includes support for:
 
 Interested in reading the full list? [Read the quick reference to WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/).
 
-# Smartly using Semantic HTML Tags {#html-semantic-tags}
+# [Smartly using Semantic HTML Tags](#html-semantic-tags)
 
 One of the easiest things you can do for your application's accessibility is to use semantic HTML tags. 
 
@@ -138,7 +138,7 @@ As you may be able to hear, this screen reader is now able to read out that it's
 
 Not only does this enhance the experience of assistive technology users browsing your list, but because search engine crawlers rely on HTML tags to inform what's what, your site may rank better in search engine queries as well! This is a massive boon to your site's SEO score.
 
-# Understand `aria-` properties {#aria}
+# [Understand `aria-` properties](#aria)
 
 In our previous example, we used an HTML attribute [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) on our `ul`. [ARIA is collection of HTML attributes that allow you to enhance the accessibility in applications](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA). That said, _**it is highly encouraged to use the suggested HTML tags instead of `aria` attributes whenever possible**_. Think of `aria` as a complex low level API that can enhance your experience when done properly, but drastically harm user experience when improperly utilized.
 
@@ -154,7 +154,7 @@ A super small small subsection of `aria-` attributes includes:
 
 Additional to `aria` props, [the `role` property](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) tells the browser what an element's intended purpose is, thus changing its behavior with accessible tech. Again, this is a highly advanced (and often incorrectly deployed) API for complex apps. To learn more, [read through Mozilla's ARIA basics article.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics)
 
-# Classy CSS {#css}
+# [Classy CSS](#css)
 
 While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code. 
 
@@ -180,7 +180,7 @@ For this reason, there's a frequently used CSS class used to hide elements visua
 
  There are many ways which CSS can influence assistive technologies. [Ben Myers covers this more in his blog post](https://benmyers.dev/blog/css-can-influence-screenreaders/).
 
-# Contrast is Cool {#contrast}
+# [Contrast is Cool](#contrast)
 
 While screen readers are imperative to frontend accessibility testing, a site's visuals can help provide a good experience for many users. While a certain color palette may be aesthetically pleasing, it may be difficult to read for a colorblind user. Colorblind users aren't the only ones impacted, however.
 
@@ -200,7 +200,7 @@ This said, not all contrasts are the same. Per [WCAG guidelines](#wcag), you may
 
 In this example you can see that the text passes the WCAG AA requirements for large text, but fails the same requirements for small text.
 
-# Fantastic Fonts {#font-resize}
+# [Fantastic Fonts](#font-resize)
 
 One of the most widely used accessibility features is font scaling. While many browsers default to a font size of `16px`, the user is actually able to change settings on their device to configure websites to use a larger font size.
 
@@ -232,7 +232,7 @@ You can do the same in Firefox in [your preferences](about:preferences#general).
 ![Font settings in Firefox](./firefox_font_size.png)
 
 
-## Implementation {#font-rem}
+## [Implementation](#font-rem)
 
 While browsers have the ability to set the font size, if you're using `px`, `vw`, `vh`, or other unit values for your fonts, the browser will not update these font sizes for you. In order to have your application rescale the font size to match the browser settings, you'll need to use the `rem` unit.
 
@@ -256,7 +256,7 @@ Say site "A" sets their font size to `1rem`, and site "B" sets their font size t
 
 Want to learn more about `rem` and font sizing? [Take a look at this in-depth blog post that covers even more](https://www.24a11y.com/2019/pixels-vs-relative-units-in-css-why-its-still-a-big-deal/).
 
-# Keyboard is King {#keyboard}
+# [Keyboard is King](#keyboard)
 
 Just as developers have preferences with keyboard or mouse, so too do your end-users. Some people may only be able to utilize the keyboard to navigate the digital world. Not only is keyboard navigation critical for accessibility, but it enables power users of your application to be more efficient as well.
 
@@ -276,7 +276,7 @@ As such, many sites (including New York Times) include a "Skip to Content" butto
 
 This is far from the only considerations that should be made when considering a site's keyboard navigability, but is a prime example of a solution to a problem that might not be immediately obvious to users that primarily use the mouse.
 
-## Focus Indicators {#focus-indicator}
+## [Focus Indicators](#focus-indicator)
 
 Something to keep in mind is that not all keyboard users use screen readers. Because of this, it's important to have an outline around the element you're currently focused on. Without this outline, how would a sighted person know where they are on the page?
 
@@ -292,7 +292,7 @@ Instead, it's suggested to either:
 
 To learn more about the focus indicator and how to work alongside it, [check out this blog post from The A11Y Project](https://www.a11yproject.com/posts/2013-01-25-never-remove-css-outlines/).
 
-# Humans Can’t Be Automated {#no-automation}
+# [Humans Can’t Be Automated](#no-automation)
 
 The perception for some is that accessibility is something that can be 1:1 adapted from an existing design. This is often untrue. You may want to add a "Skip to contents" button that only shows up with tabbing for some sites, while the visual order and tab order might need to be flipped for a better experience for screen-reader users. Remember, accessibility is a form of user experience that has to be crafted by hand. Each decision has nuance to it, and there are rarely objectives of which experience is better than others. Because of this, many companies will have dedicated accessibility specialists alongside their design and engineering teams.
 
@@ -300,7 +300,7 @@ You also need to make sure to [test your application](#testing) as you would any
 
 If anyone is ever advertising to you that your inaccessible project can be made accessible (or prevent lawsuits) without any changes to your codebase, they're either lying to you or don't understand accessibility.
 
-## Assistance is Amicable {#eslint}
+## [Assistance is Amicable](#eslint)
 
 While full automation will never be possible for improving a project's accessibility, not everyone proposing assistance in the process is trying to sell snake oil. 
 
@@ -308,7 +308,7 @@ For example, [Deque's open-source Axe project](https://github.com/dequelabs/axe-
 
 However, keep in mind that these tools are not infallible and are meant to supplement accessibility experts working with your engineering team, not replace them.
 
-# Test, Test, Test Again {#testing}
+# [Test, Test, Test Again](#testing)
 
 Testing is a critical component of any application release. Whether using automated testing solutions or QA teams, they help ensure that your users are getting the best experience possible without regressions in an application's behavior.
 
@@ -318,7 +318,7 @@ You're also able to include automated tests that will help with accessibility re
 
 As mentioned in [a previous section](#no-automation), the process to make your app accessible cannot be fully automated. This extends to testing as well. While real-world automated tests are fine and well, you need someone to experience the application on a broader scale to make sure the experience is as fluid as it can be. While a specific component might be accessible by default, perhaps in specific usages, it falls flat. [Displaying an accessibility statement](https://www.w3.org/WAI/planning/statements/) while transforming your users' reported problems into bug tickets and performing user testing with disabled users are great ways to close the loop with the real people affected.
 
-# Fantastic Features {#features}
+# [Fantastic Features](#features)
 
 While there is plenty you can do to make existing functionality accessibility friendly, it's often forgotten that a strongly accessible app may opt to add specific functionality for its users with disabilities.
 
@@ -326,7 +326,7 @@ Some great examples of things like this are sites with lots of user-generated co
 
 Oftentimes, you'll find that these features benefit everyone, not just assistive technology users. You may want to watch a video in a crowded area; with closed captions, that's a much easier sell than trying to hear over others and interrupting everyone around you.
 
-# Radical Research {#further-reading}
+# [Radical Research](#further-reading)
 
 While we've done our best to have this article act as a starting point for accessibility, there's always more to cover.  Let's talk about some of the ways you can continue learning more.
 
@@ -376,7 +376,7 @@ Additionally, there are a few sites that contain extensive lists of additional r
 - [A11Y project's list of external resources](https://www.a11yproject.com/resources/)
 - [A11Y & Me resource list](https://a11y.me/)
 
-# Conclusion {#conclusion}
+# [Conclusion](#conclusion)
 
 We hope you've enjoyed learning from our accolade-worthy alliterative headlines.
 

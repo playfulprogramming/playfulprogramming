@@ -12,7 +12,7 @@
 
 Computers, on a very low level, are built upon binary (ones and zeros). Think about that — all of the text you're reading on your screen started life as either a one or a zero in some form. That's incredible! How can it turn something so simple into a sprawling sheet of characters that you can read on your device? Let's find out together!
 
-# Decimal {#decimal}
+# [Decimal](#decimal)
 
 When you or I count, we typically use 10 numbers in some variation of combination to do so: `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, and `9`.
 
@@ -31,7 +31,7 @@ Remember that the number **`10`** is a combination of **`1`** and **`0`**? That'
 
 ![A "9" in the tens column, and a "9" in the ones column which drop down to show "90 + 9" which equals 99](./base_10_99.svg)
 
-# Binary {#binary}
+# [Binary](#binary)
 
 Now this may seem rather simplistic, but it's an important distinction to be made to understand binary. Our typical decimal numeral system is known as the _base 10_ system. **It's called as such because there are 10 symbols used to construct all other numbers** (once again, that's: `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, and `9`).
 Binary, on the other hand, is _base two_. **This means that there are only two symbols that exist in this numeral system.**
@@ -93,7 +93,7 @@ And voilà, you have the binary representation of `50`: **`0110010`**.
 >
 > While there are plenty of ways to find the binary representation of a decimal number, this example uses a "greedy" algorithm. I find this algorithm to flow the best with learning the binary number system, but it's not the only way (or even the best way, oftentimes).
 
-# Hexadecimal {#hexadecimal}
+# [Hexadecimal](#hexadecimal)
 
 Binary isn't the only non-decimal system. You're able to use any number as your base as long as you have enough symbols to represent the digits. Let's look at another example of a non-decimal system: _hexadecimal_.
 
@@ -157,7 +157,7 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 >
 > _`732`_ for example, in base 10, can be written as (7 × 10<sup>2</sup>) + (3 × 10<sup>1</sup>) + (2 × 10<sup>0</sup>).
 
-## To Binary {#hexadecimal-to-binary}
+## [To Binary](#hexadecimal-to-binary)
 
 Remember that at the end of the day, hexadecimal is just another way to represent a value using a specific set of symbols. Just as we're able to convert from binary to decimal, we can convert from hexadecimal to binary and vice versa. 
 In binary, the set of symbols is much smaller than in hexadecimal, and as a result, the symbolic representation is longer.
@@ -168,7 +168,7 @@ After all, they're just reflections of the numbers that we represent using a spe
 
 # Applications
 
-## CSS Colors {#hex-css}
+## [CSS Colors](#hex-css)
 
 Funnily enough, if you've used a "hex" value in HTML and CSS, you may already be loosely familiar with a similar scenario to what we walked through with the hexadecimal section.
 
@@ -200,7 +200,7 @@ Even without seeing a visual representation, you can tell that this color likely
 
 ![A visual representation of the color above, including a color slider to show where it falls in the ROYGBIV spectrum](./F33BC6.png)
 
-## Text Encoding {#ascii}
+## [Text Encoding](#ascii)
 
 Although hexadecimal has a much more immediately noticeable application with colors, we started this post off with a question: "How does your computer know what letters to display on the screen from only binary?"
 

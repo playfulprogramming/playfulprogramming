@@ -18,7 +18,7 @@ But there are a few pitfalls out there for the unwary new React developer. One o
 
 What does that mean?
 
-# Browsing in Public {#public}
+# [Browsing in Public](#public)
 
 Well, as it turns out, anything that happens in the browser basically happens out in the open. Anyone who knows how to open a developer console can see the output of the JavaScript console, the results of network requests/responses, and anything hidden in the HTML or CSS of the current page. While you are able to mitigate this type of reverse-engineering by randomizing variable names in a build step (often called "Obfuscating" your code), even a fairly quick Google session can often undo all of the efforts you took to muddy the waters. The browser is a terrible place to try to store or use secret information like unencrypted passwords or API keys - and React runs in the browser!
 
@@ -28,7 +28,7 @@ So, what is the answer? How do you keep your API keys from falling into the hand
 
 We can't keep things like API keys a secret in React because it runs in the browser on the user's computer. The solution is to make sure your React application never sees the API key or uses it all - that way, it is never sent to the user's local machine. Instead, we have to get a proxy server to make our API calls and send the data back to the React app.
 
-# What is a Proxy Server? {#proxy}
+# [What is a Proxy Server?](#proxy)
 
 If you are unfamiliar with the term "proxy server", that's alright! If you think about how a React app would typically interface with an API, you'd have a `GET` call to the API server in order to get the data you want from the API. However, for APIs that require an API key of "client_secret", we have to include an API key along with the `GET` request in order to get the data we want. This is a perfectly understandable method for securing and limiting an API, but it introduces the problem pointed out above: We can't simply bundle the API key in our client-side code. As such, we need a way to keep the API key out of reach of our users but still make data accessible. To do so, we can utilize another server (that we make and host ourselves) that knows the API key and uses it to make the API call _for_ us. Here's what an API call would look like without a proxy server:
 
@@ -40,7 +40,7 @@ Meanwhile, this is what an API call looks like with a proxy server:
 
 As you can see, the proxy server takes calls that you would like to make, adds the API key, and returns the data from the API server. It's a straightforward concept that we can implement ourselves.
 
-# How to use a Proxy Server {#how-to-use}
+# [How to use a Proxy Server](#how-to-use)
 
 It might make more sense to talk about things the other way around and start with the front end. Instead of using React to make a direct request to an API for information, we tell React to send an HTTP request to our proxy server. Since we are writing our front end application in JavaScript, it makes life a little easier to write our server in Node, though you could use Ruby or Python or any other back end friendly language if you want.
 
@@ -112,7 +112,7 @@ app.get('/', async (req, res) => {
 
 With that out of the way, let's get to the good part - keeping your API keys out of your source code!
 
-# Environmental Variables and You {#environment}
+# [Environmental Variables and You](#environment)
 
 Most of the time, we want to keep things like API keys and other credentials out of the source code of an app. There are some very good security reasons for this practice. For one thing, if your project is open source and hosted on a place like GitHub, it will be exposed to anyone browsing the website, not to mention the fact that there are some less-than-savory people out there who have written web scraping scripts to look for publicly exposed API keys and exploit them. Furthermore, even for private projects API keys integrated into the source code is a potential security vulnerability. A hacker could find a way into your system and compromise the usage of the API key. Being able to hide them away in a more configurable manner might keep things safer.
 
@@ -138,7 +138,7 @@ The other potential "gotcha" is to make sure to include the `.env` file in your 
 
 Now, It's true that you can use environmental variables in React. But they [will not keep your secrets](https://create-react-app.dev/docs/adding-custom-environment-variables/) the way they do in Node! Those variables will be embedded into your React build, which means that anyone will be able to see them.
 
-# Conclusion {#conclusion}
+# [Conclusion](#conclusion)
 
 Now you know how to whip up a simple Node server and use environmental variables to keep your secrets when making API calls with front end libraries/frameworks like React. It's actually pretty easy and can serve as an introduction to the basics of Node and Express if you haven't had a reason to use them before.
 

@@ -28,7 +28,7 @@ We'll ask and answer the following questions:
 
 >  I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as possible before diving into the more complex territory. That said, we all learn in different ways, and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in-depth.
 
-# Source Code {#source-code}
+# [Source Code](#source-code)
 
 If you've spent any time with developers, you'll likely have heard of the term "source code." Source code simply refers to the text that programmers type  to make their programs. Take the following text:
 
@@ -58,7 +58,7 @@ How does your computer understand what to do when running a programming language
 
 The answer to all of these involves an understanding of how hardware works, and one of the best ways to learn programming is to learn how a computer works in the first place.
 
-# How A Computer Works {#computer-hardware}
+# [How A Computer Works](#computer-hardware)
 
 > This section won't be a complete "Computers 101" course. While we _will_ be writing material that dives deeper into these subject matters, this is meant as a short description to supplement explanations later on in the article. If you'd like to see that type of content in the future, be sure to [sign up for our newsletter](https://newsletter.unicorn-utterances.com/)
 
@@ -72,27 +72,27 @@ Your computer is comprised of many components, but today we'll be focusing on fi
 
 These are used to connect each of these parts together, make up the "brains" of your computer. Whenever you take an action on your computer, these components launch into action to bring you the output you'd expect. Be it auditory, visual, or some other form of output, these components will do the "thinking" required to make it happen.
 
-## Motherboard {#mobo}
+## [Motherboard](#mobo)
 
 **A motherboard is the platform in which all other components connect together and communicate through**. There are various integrated components to your motherboard, like storage controllers and chipsets necessary for your computer to work. Fancier motherboards include additional functionality like high-speed connectivity (PCI-E 4.0) and Wi-Fi. 
 
 When you turn on your computer, the first that will happen is your motherboard will do a "POST"; a hardware check to see if everything connected is functioning properly. Then the motherboard will start the boot sequence; which starts with storage
 
-## Long Term Storage {#hdd}
+## [Long Term Storage](#hdd)
 
 **There are 2 primary types of storage in computers; Solid State Drives (SSD), and Hard Disk Drives (HDD)**. When the boot sequence hits storage, your drive will scan the very first bit of its disk ([also known as the "boot sector"](https://en.wikipedia.org/wiki/Boot_sector)) to find the installed operating system. Once your storage is done finding the relevant files, your computer reads the rest of the information off of the drive to load your system. This includes configuration files that you've updated by setting up your computer (like your username, wallpaper, and more) and the system files set up when you installed your operating system (like Windows). Moreover, this is also where your documents live. If you've written a document in Microsoft Word, downloaded a song from iTunes, or anything in between, it lives on your hard drive.
 
-## Memory {#ram}
+## [Memory](#ram)
 
 **While SSDs and HDDs are fantastic for long-term file storage, they're too slow (in terms of reading speeds) to store data needed to run your computer**. This is why we have memory in the form of Registers and Random Access Memory (RAM).  **Registers are the closest memory to your processor and are extremely fast, but they are extremely small.** System Memory, or RAM, is outside of the processor but allows us to store entire programs in a responsive manner.  Everything from your operating system to your video player utilizes memory to store data while processing. We'll see how the computer utilized registers and RAM in programs [later in the article](#assembly-code).
 
 **While this information is magnitudes faster to access than hard-drives, it's volatile.** That means that when you turn off your computer, the data stored in RAM is lost forever. Memory is also much more expensive than Storage. This is why we don't store our files to RAM for long-term access.
 
-## GPU {#gpu}
+## [GPU](#gpu)
 
 Computers are a marvel, but without some ability to interact with them, their applications are limited. For many, that interaction comes through their computer screens - seeing the results of an action they've taken. **Your computer's "graphics processing unit" (GPU) is the hardware used to calculate the complex maths required to draw things on-screen.** The GPUs' complex mathematics prowess can also be utilized for things other than graphics (data analytics, cryptocurrency mining, scientific computation).
 
-## CPU {#cpu}
+## [CPU](#cpu)
 
 Your CPU is what does all of the computation needed to perform tasks you do on your computer. **It does the math and logic to figure out what the other components need to be doing, and it coordinates them.** An example of this is telling the GPU what to draw. While your GPU does the calculations for what's to be drawn, the command to do such comes from the CPU. If your interaction requires data to be stored, it's the one that dispatches those actions to your HDD or RAM.
 
@@ -103,7 +103,7 @@ You can think of these components working together similarly to this:
 > For those unaware, the visual cortex is the part of the brain that allows us to perceive and understand the information provided to us by our eyes. Our eyes simply pass the light information gathered to our brains, which makes sense of it all. Likewise, the GPU does the computation but does not display the data it processes; it passes that information to your monitor, which in turn displays the image source to you.
 
 
-# Assembly: What's that? {#assembly-code}
+# [Assembly: What's that?](#assembly-code)
 
 At the start of this article, one of the questions I promised to answer was, "What language does the computer speak natively?". The answer to this question is, as you may have guessed from the section title, assembly.
 
@@ -185,7 +185,7 @@ addu    $1,$2,$1   # Add (+) data from register 1 and 2, store the result back i
 
 > Editors note: There's a way to add the numbers together without using RAM. We're only doing things this way to demonstrate how you use RAM in assembly. If you can figure out how this is done (hint: move some lines around), leave a comment! 😉
 
-# This (code) Keeps Lifting me Higher {#introducing-c-code}
+# [This (code) Keeps Lifting me Higher](#introducing-c-code)
 
 As efficient as assembly code is, you may have noticed that it's not particularly readable. Further, for larger projects, it's impossible to manage a project of that scale without some abstractions that higher-level languages provide. This is where languages like C or JavaScript come into play.
 
@@ -216,7 +216,7 @@ int main() {
 }
 ```
 
-## Portability {#compilation}
+## [Portability](#compilation)
 
 While the previous example already demonstrates the readability that higher-level languages hold over assembly, when it comes to code complexity, there's no contest: High-level languages make I/O like printing something on-screen readily available.
 
@@ -284,7 +284,7 @@ Further, some abstractions make higher-level languages easier to build and scale
 
 This is why to run your C code, you need to run the compiler to convert your source code into an executable file to run your program.
 
-## Compiled vs. Runtime {#compiled-vs-runtime}
+## [Compiled vs. Runtime](#compiled-vs-runtime)
 
 At [the start of this section](#introducing-c-code), we mentioned that languages like C or JavaScript are higher-level languages than assembly. However, long-time developers will be quick to remind that these two languages are drastically different. The most significant difference between these being that C is a "compiled" language while JavaScript is a dynamic "runtime" language.
 
@@ -300,7 +300,7 @@ Simply because a language is compiled at run-time does not mean that there is a 
 
 In fact, many J.I.T languages - like Python - contain a way to optimize your code by **running your code through a pre-compiler to generate what's known as "bytecode."** This bytecode is often closer in resemblance to your instruction set, while not going so far as to compile all the way down to assembly. **You can think of this pre-optimization as pre-heating the oven** - you'll be faster to cook your food if much of the prep work is already handled. As such, you still need the runtime to run this optimized code, but because you've done the early optimization, the code will load much faster. In Python, once you [precompile your code](http://effbot.org/zone/python-compile.htm), it gets turned into a `.pyc` file, which is faster to run on first load.
 
-# Introducing the AST {#ast}
+# [Introducing the AST](#ast)
 
 While we've talked about compiled languages (A.O.T. and J.I.T. alike), we haven't yet talked about how computers can convert high-level language source code into assembly. How does it know what commands to map to which instructions?
 
@@ -314,7 +314,7 @@ const magicNumber = 185;
 
 While this code sample is extremely trivial (and doesn't do anything on its own), it contains enough complexity in how the computer understands it to use as an introductory example.
 
-## The Lexer {#lexer}
+## [The Lexer](#lexer)
 
 There are (typically) two steps to turning source code into something that the computer can transform into assembly instruction sets.
 
@@ -344,7 +344,7 @@ Uncaught SyntaxError: Unexpected token '='
 
 Notice how it reports "Unexpected token"? That's because the lexer is converting that symbol into a token before the parser recognizes that it's an invalid syntax.
 
-## The Parser {#parser} 
+## [The Parser](#parser) 
 
 Now that we've loosely touched on the parser at the end of the last section let's talk more about it!
 
@@ -401,7 +401,7 @@ This showcases how much metadata is stored during the parsing process. Everythin
 
 Whether you're using a compiled language or a runtime language, you're using an A.S.T. at some point in using the language.
 
-## Why Not English? {#english-vs-ast}
+## [Why Not English?](#english-vs-ast)
 
 An A.S.T. seems like it's a lot of work just to convert code into other code. Wouldn't it make development simpler if we were to cut out the middle-man and build computers that can understand English (or some other human native tongue)?
 
@@ -425,7 +425,7 @@ I'll make my point by presenting you an extremely confusing grammatically correc
 
 Yes, that's a complete and valid English sentence. Have fun writing a parser for that one.
 
-### The Future {#AI}
+### [The Future](#AI)
 
 While writing a parser for the English language is near-impossible to do perfectly, there is some hope for using English in the programming sphere in the future. This hope comes in the form of AI, natural language processing. 
 
@@ -437,7 +437,7 @@ Some folks have even been able to write [React code using GPT-3.0](https://twitt
 
 Only time travelers will know precisely how AI will play out with using English for our programming in the future, but there are many obstacles to overcome before it becomes the norm.
 
-# Conclusion {#conclusion}
+# [Conclusion](#conclusion)
 
 While computers can be incredibly complex, most of their foundation can be understood. We've touched on a lot in this article: a bit about hardware, some language design, even some linguistical parsing! This is both the blessing and the curse when it comes to a field as large as computer science: there are so many avenues to go down. If the path you're looking for is more in-depth explanations of how languages are parsed and understood by the computer, be sure to sign up for our newsletter down below! We're wanting to write an article explaining what "grammars" languages can follow.
 
