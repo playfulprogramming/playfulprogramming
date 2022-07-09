@@ -3,6 +3,8 @@ import BlogPostPreview from '../components/post-card.astro';
 import { ListViewPosts } from "utils/fs/api";
 
 const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.md')
+
+const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.published) - new Date(a.frontmatter.published));
 ---
 
 <html lang="en">
@@ -10,7 +12,7 @@ const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.m
 		<div class="wrapper">
 			<main class="content">
 				<section aria-label="Blog post list">
-					{posts.map((p) => <BlogPostPreview post={p.frontmatter} />)}
+					{sortedPosts.map((p) => <BlogPostPreview post={p.frontmatter} />)}
 				</section>
 			</main>
 		</div>
