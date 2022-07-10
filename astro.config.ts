@@ -44,6 +44,7 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
+		mode: 'md',
 		shikiConfig: {
 			theme: "css-variables"
 		},
