@@ -13,31 +13,39 @@
 
 .tocLi a {
 	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.tocLi:global(.toc-is-active) a {
+	font-weight: 700;
+	color: var(--darkPrimary) !important;
+}
+
+.tocH1 a {
+	color: var(--midImpactBlack);
 }
 
 .tocH2 {
 	@extend %body-1;
-	font-style: italic;
-	a {
-		color: var(--midImpactBlack);
-	}
 }
 
 .tocH3,
 .tocH4 {
-	// This should be body2
-	line-height: 135%;
+	@extend %body-2;
 }
 
-.tocH3 a {
-	color: var(--midImpactBlack);
-	font-style: italic;
-	font-size: 1rem;
+.tocH2, .tocH3, .tocH4 {
+	a {
+		color: var(--midImpactBlack);
+		font-style: italic;
+	}
 }
 
-.tocH4 a {
-	color: var(--midImpactBlack);
-	font-style: italic;
-	line-height: 135%;
-	font-size: 1rem;
+@for $i from 1 through 4 {
+	.tocH#{$i} {
+		margin-left: $i * 10px;
+	}
 }
