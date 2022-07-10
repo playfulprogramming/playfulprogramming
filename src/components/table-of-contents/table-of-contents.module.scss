@@ -9,10 +9,16 @@
 
 .tocLi {
 	margin-top: 12px;
+	margin-right: 3px;
+
+	&:focus-within {
+		outline: 3px solid var(--primary);
+	}
 }
 
 .tocLi a {
 	text-decoration: none;
+	outline: none;
 
 	&:hover {
 		text-decoration: underline;
