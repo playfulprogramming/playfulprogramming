@@ -41,13 +41,14 @@
 	color: var(--midImpactBlack);
 }
 
+.tocH1,
 .tocH2 {
-	@extend %body-1;
+	@extend %headline-uniwidth-1;
 }
 
 .tocH3,
 .tocH4 {
-	@extend %body-2;
+	@extend %headline-uniwidth-2;
 }
 
 .tocH2, .tocH3, .tocH4 {
