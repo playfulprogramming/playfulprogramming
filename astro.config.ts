@@ -24,6 +24,7 @@ import {fromHtml} from 'hast-util-from-html'
 
 import AutoImport from 'astro-auto-import';
 import image from '@astrojs/image';
+import path from 'path';
 
 function escapeHTML(s) { 
 	if (!s) return s;
@@ -61,6 +62,9 @@ export default defineConfig({
 			//   ],
 		],
 		rehypePlugins: [
+			  () => (tree, file) => {
+				return (rehypeImageSize as any)({dir: path.dirname(file['history'][0])})(tree, file)
+			  },
 			   // Do not add the tabs before the slug. We rely on some of the heading
 			   // logic in order to do some of the subheading logic
 			   [
