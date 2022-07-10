@@ -10,15 +10,22 @@
 .tocLi {
 	margin-top: 12px;
 	margin-right: 3px;
-
-	&:focus-within {
-		outline: 3px solid var(--primary);
-	}
 }
 
 .tocLi a {
+	display: block;
 	text-decoration: none;
 	outline: none;
+
+	@supports not selector(:focus-visible) {
+		&:focus {
+			outline: 3px solid var(--black);
+		}
+	}
+
+	&:focus-visible {
+		outline: 3px solid var(--black);
+	}
 
 	&:hover {
 		text-decoration: underline;
