@@ -16,7 +16,7 @@ This versioning complexity birthed _a set of tools that allows you to generate c
 
 If you _enforce a standardized set of commit messages_ (both header and body), then _a tool can automatically run through each commit_ since your last release _and generate the changelog_. Furthermore, because the commit message standards you'll follow outline when a new feature, bug fix, or breaking change is introduced, _this tooling can assume what portion of SEMVER (major, minor, or patch) to bump_. It can change the version numbers in your files as well!
 
-# [Step 0: Commit Rules](#conventional-commit)
+# Step 0: Commit Rules {#conventional-commit}
 
 Before we start setting up tooling (to generate the changelogs, commit message verification, and more), we need first to understand what the rules are that we're signing up for. As mentioned before, we'll need to standardize the way we write our commit messages for our tooling to work effectively. The standardized commit message template we'll be following in this article is called [Conventional Commits](https://www.conventionalcommits.org/). Conventional Commits generally follow an outline as such:
 
@@ -80,11 +80,11 @@ BREAKING CHANGE: If you're using the `first` or `last` events in the paginator, 
 
 The `BREAKING CHANGE:` at the start of your commit body tells your tooling that this should indicate a package bump of a MAJOR version, and will highlight this change at the top of your changelog as such.
 
-## [Commit Scope](#lerna-usage)
+## Commit Scope {#lerna-usage}
 
 An immediate question that might be asked is, "why would I put the scope of changes? How could this realistically help me?" One use-case where adding a commit scope is hugely advantageous is when using a monorepo for multiple packages in a single repo. When using [Lerna](https://github.com/lerna/lerna) to help manage a monorepo, there are even addons that enable [restricting your _scope_ to match one of the project's packages names](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-lerna-scopes). By doing so, you're able to generate individual `CHANGELOG.md` files for each package, enabling your tooling to scope with your project's scale.
 
-# [Step 1: Commit Message Enforcement](#commit-lint)
+# Step 1: Commit Message Enforcement {#commit-lint}
 
 Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
 
@@ -92,7 +92,7 @@ Just as you have many options regarding what linting ruleset you'd like to enfor
 
 Another similarity to their code syntax contemporaries is that your commit linter has [a myriad of configuration options available](https://commitlint.js.org/#/reference-rules?id=rules). These options allow you to overwrite the existing configuration you're utilizing or even create your configuration from scratch.
 
-## [Setup](#install-commit-lint)
+## Setup {#install-commit-lint}
 
 While you can go as in-depth as creating your own configuration, let's assume that we want to stick with the out-of-box settings. Let's assume that you already have a `package.json` configured. First thing's first, let's install the dependencies we need:
 
@@ -114,7 +114,7 @@ npx commitlint --from=HEAD~1
 
 It should either validate or fail, depending on whether the last commit message followed the ruleset.
 
-### [Husky Setup](#husky)
+### Husky Setup {#husky}
 
 While you _could_ set up a CI system with something like the `commitlint` command from above, it wouldn't be very effective at making sure you and your team remain vigilant with your commit schema. You're _able to enforce your commit messages directly from your development machine_ at the time of commit. To do so, we'll hookup git hooks to validate our commit messages before they finalize (and prevent a commit when they don't pass the linting rules). While there _are_ ways to do this manually, the easiest (and most sharable) method to do so using `package.json` is by installing a dependency called `husky`.
 
@@ -134,7 +134,7 @@ By installing `husky`, we can now add the following to our `package.json` to tel
 }
 ```
 
-## [Test The Hook](#testing-husky)
+## Test The Hook {#testing-husky}
 
 Now that we have `husky` configured properly, we're able to ensure that the linting is working as expected. Now, if you run `git commit` it will give the following behavior pattern:
 
@@ -151,7 +151,7 @@ No staged files match any of provided globs.
 husky > commit-msg hook failed (add --no-verify to bypass)
 ```
 
-# [Step 2: Manage Your Releases](#standard-version)
+# Step 2: Manage Your Releases {#standard-version}
 
 While contiguous commit consistency is cool (what a mouthful), our end goal is to have easier management of our releases. To this end, we have the [`standard-version` ](https://github.com/conventional-changelog/standard-version). This tool allows you to generate git tags, changelogs, and bump your `package.json` files. To start, we'll install the package as a developer dependency:
 
@@ -177,13 +177,13 @@ npm run release -- --first-release
 
 To generate your initial `CHANGELOG.md` file. This will also create a tag of the current state so that every subsequent release can change your version numbers. 
 
-## [Usage](#use-standard-version)
+## Usage {#use-standard-version}
 
 Having an initial starting point for releases is cool but ultimately useless without understanding how to cut a new release. Once you've made a series of commits, you'll want to re-run `npm run release`. This will do all of the standard release actions. [As mentioned before, the `type` of commits will dictate what number (patch, minor, major) is bumped](#conventional-commits). As all of your changes will make it into your `CHANGELOG.md`, you may want to consider squashing PRs before merging them, so that your changelog is clean and reflective of your public changes (not just the implementation detail).
 
 One thing to note is that you'll want to run `npm run release` _**before**_ running your build or release. This is because it bumps your package version, and as-such won't change the package version in your deployed updates.
 
-## [Changelog Customization](#customize-changelog)
+## Changelog Customization {#customize-changelog}
 
 From here, your `CHANGELOG.md` file should look like the following:
 
@@ -216,7 +216,7 @@ Let's say we introduce a new version that has a set of features and bug fixes:
 
 You might think "Well, this file is auto-generated. I shouldn't modify it, least it stop working!" Luckily for us, this is not the case! So long as we leave the headers as-is, we're able to customize the `CHANGELOG.md` file with further details. _We can even include images_ using the standard markdown `![]()` syntax! Using this knowledge, we can create extremely robust and explanative changelogs for our consumers.
 
-## [Bump Version Files](#bump-package-json)
+## Bump Version Files {#bump-package-json}
 
 While working in a monorepo, I often find myself needing to change the version number in more than a single file at a time. I've also found myself in need of multi-file version bumping when using a different `package.json` for release than the one I use for development.
 
@@ -247,7 +247,7 @@ You'll want to create a `.versionrc` file and put the following in it:
 
 Multiple different kinds of files that can be updated, and you can even [write your own `updater` method to update any file you'd so like](https://github.com/conventional-changelog/standard-version#custom-updaters).
 
-# [Conclusion](#conclusion)
+# Conclusion {#conclusion}
 
 Keep in mind, simply because you have a new tool to manage releases doesn't mean that you have a free pass on ignoring your branching strategy. If you're developing a developer tool that has breaking  changes every week, you're certainly going to alienate anyone that's not a staunch consumer. You'll want to keep following best practices for your use-cases to ensure that this tool isn't squandered by other project issues.
 

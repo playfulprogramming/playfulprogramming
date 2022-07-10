@@ -14,7 +14,7 @@ Any web application relies on some fundamental technologies: HTML, CSS, and Java
 
 > If you're unfamiliar with HTML, CSS, or JavaScript, you may want to take a look at [our post that introduces these three items](/posts/intro-to-html-css-and-javascript). They'll provide a good foundation for this article for newcomers to the programming scene or folks who may not be familiar with what those languages do.
 
-# [The DOM](#the-dom)
+# The DOM {#the-dom}
 
 Just as the source code of JavaScript programs are broken down to abstractions that are more easily understood by the computer, so too is HTML. HTML, initially being derived from [SGML (the basis for XML as well)](https://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language), actually _forms a tree structure in memory_ in order to [describe the relationships, layout, and executable tasks for items in the tree](#how-the-browser-uses-the-dom). This tree structure in memory is _called the Document Object Model_ (or _DOM_ for short).
 
@@ -71,7 +71,7 @@ There are some rules for the tree that's created from these nodes:
 
 ![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
 
-### [How It's Used By The Browser](#how-the-browser-uses-the-dom)
+### How It's Used By The Browser {#how-the-browser-uses-the-dom}
 
 This tree tells the browser all of the information it needs to execute tasks in order to display and handle interaction with the user. For example, when the following CSS is applied to this HTML file:
 
@@ -117,7 +117,7 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 
 
 
-# [Using The Correct Tags](#accessibility)
+# Using The Correct Tags {#accessibility}
 
 HTML, as a specification, has tons of tags that are able to be used at one's disposal. These tags contain various pieces of metadata internally to provide information to the browser about how they should be rendered in the DOM. This metadata can then be handled by the browser how it sees fit; it may apply default CSS styling, it may change the default interaction the user has with it, or even what behavior that element has upon clicking on it (in the case of a button in a form).
 
@@ -179,7 +179,7 @@ In fact, the metadata that specific tags have by default can be manually applied
 >
 > This is all to say, unless you have a **really** good reason for using `role` rather than an appropriate tag, stick with the related tag. Just as any other form of engineering, properly employing HTML requires nuance and logic to be deployed at the hand of the implementing developer.
 
-# [Element Metadata](#interacting-with-elements-using-js)
+# Element Metadata {#interacting-with-elements-using-js}
 
 If you've ever written a website that had back-and-forth communication between HTML and JavaScript, you're likely aware that you can access DOM elements from JavaScript: modifying, reading, and creating them to your heart's content.
 
@@ -189,7 +189,7 @@ Let's look at some of the built-in utilities at our disposal for doing so:
 - [The `Element` base class](element-class)
 - [The event system](#events)
 
-## [Document Global Object](#document-global-object)
+## Document Global Object {#document-global-object}
 
 [As mentioned before, the DOM tree must contain one root node](#the-dom). This node, for any instance of the DOM, is the document entry point. When in the browser, this entry point is exposed to the developer with [the global object `document`](https://developer.mozilla.org/en-US/docs/Web/API/Document). This object has various methods and properties to assist in a meaningful way. For example, given a standard HTML5 document:
 
@@ -248,7 +248,7 @@ console.log(boldedElements[0].innerHTML); // Will output the HTML for that eleme
 
 > It's worth mentioning that the way `querySelector` works is not the same [way that the browser checks a node against the CSS selector data when the browser "visits" that node](#how-the-browser-uses-the-dom). `querySelector` and `querySelectorAll` work from a more top-down perspective where it searches the elements one-by-one against the query. First, it finds the top-most layer of the CSS selector. Then it will move to the next item and so-on-so forth until it returns the expected results.
 
-## [Element Base Class](#element-class)
+## Element Base Class {#element-class}
 
 While `innerHTML` has been used to demonstrate that the element that's gathered is in fact the element that was queried, there are many _many_ more properties and methods that can be run on an element reference.
 
@@ -266,7 +266,7 @@ console.log(mainTextElement.getBoundingClientRect());
 >
 > This means that all queried elements will have their own `getBoundingClientRect` methods.
 
-### [Attributes](#html-attributes)
+### Attributes {#html-attributes}
 
 [As covered earlier, elements are able to have _attributes_ that will apply metadata to an element for the browser to utilize.](#accessibility) However, what I may not have mentioned is that you're able to read and write that metadata, as well as applying new metadata, using JavaScript.
 
@@ -319,7 +319,7 @@ Once this is run, if you inspect the elements tab in your debugger, you should b
 
 ... which is significantly more accessible for users that utilize screen readers, [as mentioned previously](#accessibility). You'll notice that despite not having any of the ARIA attributes prior, the `setAttribute` was able to implicitly create them with the newly placed values.
 
-### [Properties](#element-properties)
+### Properties {#element-properties}
 
 [As mentioned in a prior section, elements also have properties and methods associated with the instance of the underlying base class](#element-class). These properties are different from attributes as they are not part of the HTML specification. Instead, they're standardized JavaScript `Element` API additions. Some of these properties are able to be exposed to HTML and provide a two-way binding to-and-from the HTML API and the JavaScript `Element` API.
 
@@ -356,7 +356,7 @@ Will turn the element's background color red, for example.
 
 Somewhat silly, seeing as how the `<div>` is no longer green. 🤭
 
-#### [Limitations](#attribute-limitations)
+#### Limitations {#attribute-limitations}
 
 While attributes can be of great use to store data about an element, there's a limitation: Values are always stored as strings. This means that objects, arrays, and other non-string primitives must find a way to go to and from strings when being read and written.
 
@@ -407,7 +407,7 @@ console.log(element.dataset.userInfo); // "[object Object]"
 
 
 
-## [Events](#events)
+## Events {#events}
 
 Just as your browser uses the DOM to handle on-screen content visibility, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or when other noteworthy changes occur.
 
@@ -417,7 +417,7 @@ For example, say you have a form that includes a default `<button>` element. Whe
 
 _Bubbling_, as shown here, is the default behavior of any given event. Its behavior is to move an event up the DOM tree to the nodes above it, moving from child to parent until it hits the root. Parent nodes can respond to these events as expected, stop their upward motion on the tree, and more.
 
-### [Event Listening](#event-bubbling)
+### Event Listening {#event-bubbling}
 
 Much like many of the other internal uses of the DOM discussed in this article, you're able to hook into this event system to handle user interaction yourself.
 
@@ -471,7 +471,7 @@ You can see a running example of this here:
 
 <iframe src="https://stackblitz.com/edit/event-bubbling-demo?ctl=1&embed=1&file=index.js&hideExplorer=1&hideNavigation=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-### [Capturing](#event-capturing)
+### Capturing {#event-capturing}
 
 Bubbling isn't the only way events are able to move. Just as they can move up from the bottom, they can also move from the top down. This method of emitting events is known as _capture mode_.
 

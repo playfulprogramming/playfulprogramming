@@ -16,7 +16,7 @@ Luckily for us, Unity has a system of "plugins" that allow us to do just that. U
 
 > ⚠️ Be aware that this information is based on Unity 2018 versions. While this might be relevant for older versions of Unity, I have not tested much of this methodology of integration with older versions.
 
-# [Setting up Development Environment](#set-up-a-development-environment)
+# Setting up Development Environment {#set-up-a-development-environment}
 
 [Unity supports using either Java files or Kotlin source files as plugins](https://docs.unity3d.com/Manual/AndroidJavaSourcePlugins.html). This means that you're able to take Android source files (regardless of if they're written in Java or Kotlin) and treat them as callable compiled library code. Unity will then take these files and then include them into its own Gradle build process, allowing you — the developer — to focus on development rather than the build process.
 
@@ -42,11 +42,11 @@ This will naturally incur a question for developers who have tried to maintain a
 **How do you manage dependencies between these two folders?**
 
 
-## [Managing Android Dependencies](#android-dependencies)
+## Managing Android Dependencies {#android-dependencies}
 
 Luckily for us, managing Android code dependencies in Unity has a thought-out solution from a large company: Google. [Because Google writes a Firebase SDK for Unity](https://firebase.google.com/docs/unity/setup), they needed a solid way to manage native dependencies within Unity.
 
-### [Installing the Unity Jar Resolver](#installing-jar-resolver)
+### Installing the Unity Jar Resolver {#installing-jar-resolver}
 
 > ℹ️ If you've installed the Unity Firebase SDK already, you may skip the step of installing.
 
@@ -64,7 +64,7 @@ Then, you'll see a dialog screen that'll ask what files you want to import with 
 
 > Your screen may look slightly different from the one above. That's okay — so long as all of the files are selected, pressing "Import" is perfectly fine.
 
-### [Using the Jar Resolver](#using-jar-resolver)
+### Using the Jar Resolver {#using-jar-resolver}
 
 Using the Jar resolver is fairly straightforward. Whenever you want to use a dependency in your Android code, you can add them to a file within [the `Assets/AndroidCode` folder](#set-up-a-development-environment) that adds dependencies with the same keys as the ones typically found in a `build.gradle` file for dependencies.
 
@@ -97,7 +97,7 @@ After creating the files, in the menubar, go to `Assets > Play Services Resolver
 
 So long as your file ends with `Dependencies.xml`, it should be picked up by the plugin to resolve the AAR files.
 
-#### [Adding Support into Android Studio Environment](#add-android-studio-support)
+#### Adding Support into Android Studio Environment {#add-android-studio-support}
 
 But that's only half of the equation. When editing code in Android Studio, you won't be able to use the libraries you've downloaded in Unity. This means that you're stuck manually editing both of the locations for dependencies. This is where a simple trick with build files comes into play.
 
@@ -117,7 +117,7 @@ For more information on how to manage your app's dependencies from within Unity,
 
 
 
-# [Call Android code from C#](#call-android-from-c-sharp)
+# Call Android code from C# {#call-android-from-c-sharp}
 
 It's great that we're able to manage those dependencies, but they don't mean much if you're not able to utilize the code from them!
 
@@ -125,7 +125,7 @@ For example, take the following library: https://github.com/jaredrummler/Android
 
 That library allows you to grab metadata about a user's device. This might be useful for analytics or bug reporters you may be developing yourself. Let's see how we're able to integrate this Java library in our C# code when building for the Android platform.
 
-## [Introduction](#intro-call-android-from-c-sharp)
+## Introduction {#intro-call-android-from-c-sharp}
 
 You must make your callback extend the type of callback that is used in the library. For example, take the following code sample from the README of the library mentioned above:
 
@@ -170,7 +170,7 @@ You can see that we have a few steps here:
 
 For each of these steps, we need to have a mapping from the Java code to C# code. Let's walk through these steps one-by-one
 
-## [Create `Callback` Instance](#android-c-sharp-callback)
+## Create `Callback` Instance {#android-c-sharp-callback}
 
 In order to create an instance of a `Callback` in C# code, we first need a C# class that maps to the `Java` interface. To do so, let's start by extending the Android library interface. We can do this by using the `base` constructor of `AndroidJavaProxy` and the name of the Java package path. You're able to use `$` to refer to the interface name from within the Java package.
 
@@ -208,7 +208,7 @@ private class DeviceCallback : AndroidJavaProxy
 }
 ```
 
-## [Get Current Context](#get-unity-context)
+## Get Current Context {#get-unity-context}
 
 Just as all Android applications have some context to their running code, so too does the compiled Unity APK. When compiling down to Android, Unity includes a package called the "UnityPlayer" to run the compiled Unity code. The package path for the player in question is `com.unity3d.player.UnityPlayer`.
 
@@ -239,7 +239,7 @@ var deviceCallback = new DeviceCallback();
 withCallback.Call("request", deviceCallback);
 ```
 
-## [Complete Code Example](#android-c-sharp-code-sample)
+## Complete Code Example {#android-c-sharp-code-sample}
 
 Line-by-line explanations are great, but often miss the wholistic image of what we're trying to achieve. The following is a more complete code sample that can be used to get device information from an Android device from Unity.
 
@@ -278,7 +278,7 @@ class DeviceName : MonoBehaviour {
 }
 ```
 
-# [Calling Source Code from Unity](#call-source-from-unity)
+# Calling Source Code from Unity {#call-source-from-unity}
 
 Calling native Android code can be cool, but what if you have existing Android code you want to call from Unity? Well, that's supported as well. Let's take the following Kotlin file:
 
@@ -303,7 +303,7 @@ var testAndroidObj = new AndroidJavaObject("com.company.example.Test");
 testAndroidObj.Call("runDebugLog");
 ```
 
-# [AndroidManifest.XML Overwriting](#manifest-file)
+# AndroidManifest.XML Overwriting {#manifest-file}
 
 Many Android app developers know how important it can be to have the ability to customize their manifest file. By doing so, you're able to assign various metadata to your application that you otherwise would be unable to. Luckily for us, Unity provides the ability to overwrite the default XML file.
 
@@ -313,13 +313,13 @@ If you want to find what the default manifest file looks like, you'll want to lo
 
 > It's worth mentioning that if you use Firebase Unity SDK and wish to provide your own manifest file, you'll need to [customize the default manifest file to support Firebase opperations](https://firebase.google.com/docs/cloud-messaging/unity/client#configuring_an_android_entry_point_activity).
 
-# [Firebase Support](#firebase)
+# Firebase Support {#firebase}
 
 Let's say you're one of the users who utilizes the Firebase SDK for Unity. What happens if you want to send data from Android native code or even use background notification listeners in your mobile app?
 
 You're in luck! Thanks to the Unity Firebase plugin using native code in the background, you're able to share your configuration of Firebase between your native and Unity code. So long as you've [configured Firebase for Unity properly](https://firebase.google.com/docs/cloud-messaging/unity/client#add-config-file) and [added the config change to Android Studio](#add-android-studio-support), you should be able to simply call Firebase code from within your source files and have the project configs carry over. This means that you don't have to go through the tedium of setting up and synchronizing the Unity and Android config files to setup Firebase — simply call Firebase code from your source files, and you should be good-to-go! No dependency fiddling required!
 
-# [Conclusion](#conclusion)
+# Conclusion {#conclusion}
 
 I hope this article has been helpful to anyone hoping to use Android code in their Unity mobile game; I know how frustrating it can be sometimes to get multiple moving parts to mesh together to work. Rest assured, once it does, it's a satisfying result knowing that you're utilizing the tools that Unity and the Firebase team have so graciously provided to game developers.
 

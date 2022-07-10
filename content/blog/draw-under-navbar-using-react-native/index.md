@@ -19,7 +19,7 @@ The idea of drawing under the navbar intrigued me. After lots of research, I was
 
 Feel free to follow along with the code samples, but if you're looking for the easiest solution, [you might want to read to the bottom to see how to easily integrate it into your app without all of the manual work](#react-native-immersive-bars).  
 
-# [The Wrong Way](#flag-layout-no-limits)
+# The Wrong Way {#flag-layout-no-limits}
 
 After doing some initial research, I found myself presented with various StackOverflows and official documentation pointing towards a Window flag [`FLAG_LAYOUT_NO_LIMITS`](https://developer.android.com/reference/android/view/WindowManager.LayoutParams#FLAG_LAYOUT_NO_LIMITS) to, quote:
 
@@ -82,7 +82,7 @@ However, as you can see, it returned a height of `0`, which clearly wasn't the s
 
 After some research, [I found out that the `safe-area-context` package does not work properly when using this flag](https://github.com/th3rdwave/react-native-safe-area-context/issues/8). It doesn't work because of [the underlying APIs that the library uses for Android detection](https://github.com/th3rdwave/react-native-safe-area-context/blob/master/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewManager.java) ([InsetsAPI](https://medium.com/androiddevelopers/windowinsets-listeners-to-layouts-8f9ccc8fa4d1)), does not support the `FLAG_LAYOUT_NO_LIMITS.` This was an automatic no-go for my app: I didn't want the contents of the app to be stuck under the navbar without a way to access it. I had to start over from the drawing board.
 
-# [Translucent Bars](#translucentcy)
+# Translucent Bars {#translucentcy}
 
 After even further research, I'd found myself with a potential alternative: Translucent bars! I knew that the ability to draw under navbars was often accompanied with translucent bars in previous versions of Android! If we revert changes to the `MainActivity.java` file back to how they were initially, and simply update our `styles.xml` file located at:
 
@@ -120,7 +120,7 @@ Fantastic! It's not only drawing under the navbar, but it's also registering the
 
 Unfortunately for me, there was nothing brought about by this testing.
 
-## [Further Tests to no Avail](#fitsSystemWindows)
+## Further Tests to no Avail {#fitsSystemWindows}
 
 Before giving up on the `styles.xml` file, I tried two more flags that I thought might have helped.
 
@@ -180,7 +180,7 @@ That's done it! Not only is the button being drawn under the navbar fully transp
 >
 > Then you've forgotten to remove the `fitsSystemWindows` flag that we added in our `styles.xml` flag previously. Once that (and the `windowDrawsSystemBarBackgrounds` flag) was removed, it worked for me
 
-# [Other API Versions](#api-versions)
+# Other API Versions {#api-versions}
 
 While the code I've mentioned thus far works, it only really works _well_ on Android O (API Level 26) and above. That's only about 60% of Android devices out there! Why does this only work well on Android O? Well, if you have a light background, it only makes sense to have dark buttons in the navigation bar. That functionality has only existed since [Android introduced the `SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR` Vew flag in API 26](https://developer.android.com/reference/android/view/View#SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR). To edge-case this, we'll need to add some conditional logic to draw our own dark translucent bar for versions lower than this:
 
@@ -205,7 +205,7 @@ if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
 When viewing the app on older versions of Android (like M), you'll see the respective bars as a semi-transparent bar:
 ![The statusbar is transparent while the navbar is translucent](./transparent_m.png)
 
-# [The Easy Method](#react-native-immersive-bars)
+# The Easy Method {#react-native-immersive-bars}
 
 Let's not sugar coat it: It's tedious to make changes to native Android code in order to support all of the various API levels there are, the various forms of OEM issues that could arise. Likewise, if your app implements a dark mode, there's now another level of challenge: You have to toggle the light and dark navigation buttons yourself! 
 

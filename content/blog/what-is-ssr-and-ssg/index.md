@@ -27,7 +27,7 @@ While many sites today are built using a component-based framework like Angular,
 
 This is a reasonably straightforward flow once you get the hang of it. Let's take a look at what happens when you throw a component-based framework into the fray.
 
-# [Client Side Rendering](#csr)
+# Client Side Rendering {#csr}
 
 While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
 
@@ -41,7 +41,7 @@ While you may not be familiar with this term, you're more than likely familiar w
 
 This is because React's code has to initialize to render the components on screen before it can spit out HTML for the browser to parse. Sure, there's an initial HTML file that might have loading spinner, but until your components have time to render, that's hardly useful content for your user. _While these load times can be sufficient for smaller applications_, if you have many components loading on-screen, _you may be in trouble if you want to keep your time-to-interactive (TTI) low_. That scenario is where SSR often comes into play.
 
-# [Server Side Rendering (SSR)](#ssr)
+# Server Side Rendering (SSR) {#ssr}
 
 Because React has to initialize _somewhere_, what if we were to move the initial rendering off to the server? Imagine - for each request the user sends your way, you spin up an instance of React. Then, you're able to serve up the initial render (also called "fully hydrated") HTML and CSS to the user, ready to roll. That's just what server-side rendering is!
 
@@ -62,7 +62,7 @@ Moreover, if you have your server and database in the same hosting location, you
 
 That said because you're relying on server functionality to do this rendering, you have to have a custom server setup. No simple CDN hosting here - your server has to initialize and render each user's page on request.
 
-# [Static Site Generation (SSG)](#ssg)
+# Static Site Generation (SSG) {#ssg}
 
 If SSR is ["passing the buck"](https://en.wikipedia.org/wiki/Buck_passing) to the server to generate the initial page, then SSG is passing the buck to you - the developer.
 
@@ -80,7 +80,7 @@ This simply extends the existing build process that many front-end frameworks ha
 
 Since you're only hosting HTML and CSS again, you're able to host your site as you would a client-side rendered app: Using a CDN. This means that you can geo-sparse your hosting much more trivially but comes with the caveat that you're no longer to do rapid network queries to generate the UI as you could with SSR.
 
-# [Pros and Cons](#pros-and-cons)
+# Pros and Cons {#pros-and-cons}
 
 It may be tempting to look through these options, find one that you think is the best, and [overfit](https://en.wiktionary.org/wiki/overfit) yourself into a conclusion that one is superior to all the others. That said, each of these methods has its strengths and weaknesses.
 
@@ -96,7 +96,7 @@ Consider each of these utilities a tool in your toolbox. You may be working on a
 
 In fact, if you're using a framework that supports more than one of these methods ([like NextJS does as-of version 9.3](https://nextjs.org/blog/next-9-3)), knowing which of these utilities to use for which pages can be critical for optimizing your app.
 
-# [A Note Regarding Performance Benchmarks](#lighthouse)
+# A Note Regarding Performance Benchmarks {#lighthouse}
 
 I was once tasked with migrating a landing page with an associated blog from CSR to use SSG. Once I had done so, however, I noticed that [my Lighthouse score](https://developers.google.com/web/tools/lighthouse) had gone _down_ despite my page rendering a much more useful initial page significantly faster than it'd taken for my app's spinner to go away.
 

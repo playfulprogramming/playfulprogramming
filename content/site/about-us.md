@@ -76,7 +76,7 @@ If you want to learn more about our sponsorships and how they impact our site, y
  
 TLDR: No sponsor has any say about the content hosted on the site
 
-# [Statement of Ethics](#ethics)
+# Statement of Ethics {#ethics}
 
 We never want to end up in a place where our educational content, experience,
 or community is compromised by either financial sway or potentially harmful
@@ -89,4 +89,4 @@ through the project. Not every sponsorship contains a financial contribution,
 but if one does we will disclose both what those finances
 are going towards and what will be done in exchange.
 
-# [Contributors](#contributors)
+# Contributors {#contributors}

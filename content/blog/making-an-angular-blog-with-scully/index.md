@@ -20,7 +20,7 @@ In this article, we'll outline how to set up a new blog post site using Scully. 
 
 Without further ado, let's jump in, shall we?
 
-# [Initial Setup](#initial-setup)
+# Initial Setup {#initial-setup}
 
 First, we have some requirements:
 
@@ -41,7 +41,7 @@ If we pause here and run `ng serve`, we'll find ourselves greeted with the defau
 
 The file that this code lives under is the `app.component.html` file. We'll be modifying that code later on, as we don't want that UI to display on our blog site.
 
-## [Adding Scully](#adding-scully)
+## Adding Scully {#adding-scully}
 
 After that, open the `my-scully-blog` directory and run the following command to install and add Scully to the project:
 
@@ -66,7 +66,7 @@ While Scully [_does_ have a generator to add in blog support](https://github.com
 
 > This isn't a stab at Scully by any means, if anything I mean it as a compliment. The team consistently improves Scully and I had some suggestions for the blog generator at the time of writing. While I'm unsure of these suggestions making it into future versions, it'd sure stink to throw away an article if they were implemented.
 
-## [Angular Routes](#angular-blog-routes)
+## Angular Routes {#angular-blog-routes}
 
 Before we get into adding in the Scully configs, let's first set up the page that we'll want our blog to show up within. We want a `/blog` sub route, allowing us to have a `/blog` for the list of all posts and a `/blog/:postId` for the individual posts.
 
@@ -102,7 +102,7 @@ const routes: Routes = [
 
 This imports the `blog.module` file to use the further children routes defined there. If we now start serving the site and go to `localhost:4200/blog`, we should see the message "blog works!" at the bottom of the page. 
 
-### [Routing Fixes](#router-outlet)
+### Routing Fixes {#router-outlet}
 
 That said, you'll still be seeing the rest of the page. That's far from ideal, so let's remove the additional code in `app.component.html` to be only the following:
 
@@ -137,7 +137,7 @@ const routes: Routes = [
 
 Now, we have both `/blog` and `/` working as-expected!
 
-### [Adding Blog Post Route](#blog-post-route)
+### Adding Blog Post Route {#blog-post-route}
 
 Just as we added a new route to the existing `/` route, we're going to do the same thing now, but with `/blog` paths. Let's add a `blog-post` route to match an ID passed to `blog`. While we won't hookup any logic to grab the blog post by ID yet, it'll help to have that route configured.
 
@@ -157,7 +157,7 @@ const routes: Routes = [
 That's it! Now, if you go to `localhost:4200/blog`, you should see the `blog works!` message and on the `/blog/asdf` route, you should see `blog-post works!`. With this, we should be able to move onto the next steps!
 
 
-## [The Markdown Files](#frontmatter)
+## The Markdown Files {#frontmatter}
 
 To start, let's create a new folder at the root of your project called `blog`. It's in this root folder that we'll add our markdown files that our blog posts will live in. Let's create a new markdown file under `/blog/test-post.md`. 
 
@@ -189,7 +189,7 @@ authorTwitter: crutchcorn
 
 It's worth mentioning that the `publish` property has some built-in functionality with Scully that we'll see later on. We'll likely want to leave that field in and keep it `true` for now.
 
-## [Scully Routes](#scully-blog-route-config)
+## Scully Routes {#scully-blog-route-config}
 
 Now we'll tell Scully to generate one route for each markdown file inside of our `blog` folder. As such, we'll update our `scully.my-scully-blog.config.js` file to generate a new `/blog/:postId` route for each of the markdown files:
 
@@ -300,7 +300,7 @@ Finally, if we go to [http://localhost:1668/blog/test-post](http://localhost:166
 
 ![A preview of the post as seen on-screen](./hello_world_blog_post.png)
 
-## [Scully Build Additions](#scully-build-folder)
+## Scully Build Additions {#scully-build-folder}
 
 You'll notice that if you open your `dist` folder, you'll find two folders:
 
@@ -311,11 +311,11 @@ You'll notice that if you open your `dist` folder, you'll find two folders:
 
 The reason for the two separate folders is because Scully has it's own build folder. When you ran `ng build`, you generated the `my-scully-blog` folder, then when you later ran `npm run scully`, it generated the `static` folder. As such, if you want to host your app, you should use the `static` folder.
 
-## [Asset Routes](#scully-build-routes)
+## Asset Routes {#scully-build-routes}
 
 If you open the `/src/assets` folder, you'll notice another file you didn't have before `npm run scully`. This file is generated any time you run Scully and provides you the routing metadata during an `ng serve` session. [Remember how I mentioned that there was a way to access the Markdown frontmatter data?](#scully-blog-route-config) Well, this is how! After running a Scully build, you'll be provided metadata at your disposal. In the next section, we'll walk through how to access that metadata!
 
-# [Listing Posts](#scully-route-acess)
+# Listing Posts {#scully-route-acess}
 
 To get a list of posts, we're going to utilize Scully's route information service. To start, let's add that service to the `blog.component.ts` file:
 
@@ -372,7 +372,7 @@ And that'll give us what we're looking for:
 0: {route: "/blog/test-post", title: "Test post", description: "This is a post description", publish: true, authorName: "Corbin Crutchley", …}
 ```
 
-## [Final Blog List](#scully-avail-routes)
+## Final Blog List {#scully-avail-routes}
 
 We can cleanup the code a bit by using [the Angular `async` pipe](https://angular.io/api/common/AsyncPipe):
 
@@ -418,7 +418,7 @@ This code should give us a straight list of blog posts and turn them into links 
 
 While this isn't a pretty blog, it is a functional one! Now you're able to list routes; we can even get the metadata for a post
 
-## [Final Blog Post Page](#scully-avail-routes-filtered)
+## Final Blog Post Page {#scully-avail-routes-filtered}
 
 But what happens if you want to display metadata about a post on the post page itself? Surely being able to list the author metadata in the post would be useful as well, right?
 

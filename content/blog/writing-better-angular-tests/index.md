@@ -13,7 +13,7 @@
 
 Some evangelicals say that before code ever exists, there always needs to be a test to know how the code should be written. That frankly isn't true. A test isn't _strictly_ needed to determine how to code. What **is** needed are tests that give confidence that as code is written, a change to already existing functionality doesn't happen and that new functionality will behave properly as time goes on. To this end, a lot of testing libraries and frameworks exist. Often times, tests are written in regards to the library or framework used and not to the end product's specifications. For Angular, this is especially true when the default testing implementation is for testing angular, and not for testing what a developer would use Angular to build. **Tests should be written in the same way a user would use them.** We don't need to test Angular; we need to test what we make with Angular.
 
-# [Writing tests for an Angular application does not mean testing Angular](#test-the-web-not-angular)
+# Writing tests for an Angular application does not mean testing Angular {#test-the-web-not-angular}
 
 In regards to Angular and writing tests, we must first understand what the tests are for. For a great many projects, that means testing a webpage. In proper testing for a webpage, the underlying library should be able to be changed at any time for maintainability purposes, and the tests should still work. To that end, we must write tests for the web and not for Angular. When using the Angular CLI, it sets up some tests, but when looking closely at the tests, it becomes apparent that the tests are testing Angular and not the output.
 
@@ -53,13 +53,13 @@ This test no longer even needs Angular to be the library chosen. It just require
 
 Writing tests that don't rely on testing Angular, but instead rely on the DOM, allows the application to be tested in a way that a user would use the application instead of the way that Angular internally works.
 
-# [Fixing that shortcoming using Testing Library](#testing-library)
+# Fixing that shortcoming using Testing Library {#testing-library}
 
 Thankfully, writing tests like these have been made simple by a testing library simply called "[Testing Library](https://testing-library.com)." Testing Library is a collection of libraries for various frameworks and applications. One of the supported libraries is Angular, through the [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro). This can be used to test Angular apps in a simple DOM focused manner with some nice helpers to make it even easier to work with. It relies on [Jest](https://jestjs.io/) as an extension to the Jasmine testing framework to make testing easier, and more end-results focused. With that tooling, a project can have tests much less focused on Angular and much more focused on what is being made.
 
-## [Transitioning to Jest and Angular Testing Library](#transitioning-to-jest)
+## Transitioning to Jest and Angular Testing Library {#transitioning-to-jest}
 
-### [Get rid of Karma](#remove-karma)
+### Get rid of Karma {#remove-karma}
 
 Angular ships with Karma alongside Jasmine for running tests and collecting coverage. With Jest, an Angular project no longer needs Karma or the other packages that would be installed by the Angular CLI.
 
@@ -69,7 +69,7 @@ Angular ships with Karma alongside Jasmine for running tests and collecting cove
 npm uninstall karma karma-chrome-launcher karma-coverage-istanbul-reporter karma-jasmine karma-jasmine-html-reporter
 ```
 
-#### [Remove the leftover configurations](#remove-karma-config)
+#### Remove the leftover configurations {#remove-karma-config}
 
 Deleting the following will remove the leftover configuration files from the project:
 
@@ -119,7 +119,7 @@ tsconfig.spec.json
 
 Now the project is ready for installing any other test runner.
 
-### [Setting up Jest](#setup-jest)
+### Setting up Jest {#setup-jest}
 
 Now that the project has no Karma it can be setup with Jest
 
@@ -213,6 +213,6 @@ Now the project is ready to have better tests written for it and by using [Angul
 npm install --save-dev @testing-library/angular
 ```
 
-# [Ready, Steady, Test!](#conclusion)
+# Ready, Steady, Test! {#conclusion}
 
 Now that the project has a better testing library with some great helpers better tests can be written. There are plenty of [great examples](https://testing-library.com/docs/angular-testing-library/examples) for learning and [Tim Deschryver](https://timdeschryver.dev/blog/good-testing-practices-with-angular-testing-library) has more examples to help in that endeavor, and the Angular Testing Library will make tests much simpler to write and maintain. With Angular, good tests, and plenty of confidence anyone would be happy to ship a project with this setup.

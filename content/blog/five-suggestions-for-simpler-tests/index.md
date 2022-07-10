@@ -22,7 +22,7 @@ You may notice that our code samples use various libraries from [the Testing Lib
 > That said if you're looking to include Jest and Testing Library into your Angular app,
 > but don't know where to start, [we wrote a guide on how to do just that](/posts/writing-better-angular-tests/)
 
-# [Don't Include Application Logic in Tests](#dont-include-logic)
+# Don't Include Application Logic in Tests {#dont-include-logic}
 
 I'd like to make a confession: I love metaprogramming. Whether it's typings, complex libraries, babel plugins, it's all joyous for me to write.
 
@@ -82,7 +82,7 @@ When bringing up this point to a coworker, they reminded me of the expression "W
 
 Furthermore, there's another advantage to writing code simpler: Error messages. When using `for` loops, when an error is thrown, it's not known what piece of data is not rendering. You only know that _something_ isn't being rendered, but not what data, in particular, is missing. If I dropped the third row in its entirety, the error message in the `for` loop will not indicate what row was throwing the error. However, removing them from the for loop, it will immediately be clear which row, in particular, is throwing the error.
 
-# [Hardcode Your Testing Data](#hardcode-data)
+# Hardcode Your Testing Data {#hardcode-data}
 
 While we started our example previously by removing for loops, this can be difficult to do without doing this step first. Hard-coding data is one of the most important things you can do to simplify your tests and reduce potential errors in your tests.
 
@@ -146,7 +146,7 @@ fs.writeFileSync('mock_data.js', `module.exports = ${rows}`);
 
 You can then run `const mockData = require('./mock_data.js')` inside of your test file. Now, you should be able to hardcode your data, knowing what the first, second, and third index are.
 
-# [Keep Tests Focused](#seperate-tests)
+# Keep Tests Focused {#seperate-tests}
 
 While working on tests, it can be easy to group together actions into a single test. For example, let's say we want to test our table component for the following behaviors:
 
@@ -191,7 +191,7 @@ it('should not render people from page 2 when page 1 is focused', () => {
 While this may cause slower tests as a result of duplicating the `render` function's actions, it's worth mentioning that most of these tests should run in milliseconds, making the extended time minimally impact you.
 
 Even further, I would argue that the extended time is worth the offset of having clearer, more scope restricted tests. These tests will assist with debugging and maintainability of your tests.
-# [Don't Duplicate What You're Testing](#dont-duplicate)
+# Don't Duplicate What You're Testing  {#dont-duplicate}
 
 There's yet another advantage of keeping your tests separated by `it` blocks that I haven't mentioned yet: It frees you to reduce the amount of logic you include in the next test. Let's take the code example from before:
 
@@ -256,7 +256,7 @@ In this example, I would prefer the second test. It's closer to how I would manu
 
 Ultimately, when writing tests, a good rule to follow is "They should read like simple instructions that can be run, tested, and understood by a person with no technical knowledge"
 
-# [Don’t Include Network Logic in Your Render Tests](#seperate-network-logic)
+# Don’t Include Network Logic in Your Render Tests  {#seperate-network-logic}
 
 Let's say in a component we want to include some logic to implement some social features. We’ll follow all the best practices and have a wonderful looking app with GraphQL using ApolloGraphQL as our integration layer so we don’t need to import a bunch of APIs and can hide them behind our server. Now we’re writing out tests and we have a _ton_ of mocked network data services and mock providers. Why do we need all of this for our render?
 
@@ -335,7 +335,7 @@ The tests get drastically simplified and we can write tests with mocks for our s
 
 When using large amounts of network data that you'd like to mock, be sure to [hardcode that data using mock files](#hardcode-data).
 
-# [Conclusion](#conclusion)
+# Conclusion {#conclusion}
 
 Using these methods, tests can be simplified, often made faster, and typically shorten the length of a testing file. While this may sound straightforward on a surface level, writing tests is a skill that's grown like any other. Practice encourages growth, so don't be discouraged if your tests aren't as straightforward as you'd like to first.
 

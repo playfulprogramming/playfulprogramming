@@ -14,11 +14,11 @@ If you're new to web development, it can be difficult to figure out when (and ho
 
 In this article, we'll outline what Node and npm are, how to use both `npm` and `yarn` to install dependencies for your project, and point out some "gotcha's" that are good to keep in mind while using them.
 
-# [What's Node and `npm`, anyway?](#what-are-they)
+# What's Node and `npm`, anyway? {#what-are-they}
 
 If you're new to web development - well, firstly, welcome! - you may wonder what Node and `npm` are. Great questions!
 
-## [Node](#whats-node)
+## Node {#whats-node}
 
 Let's start with Node. Node is a [JavaScript runtime](/posts/how-computers-speak/#compiled-vs-runtime) that allows you to run JavaScript code on your machine without having to run your JavaScript in a browser. This means that you can write JavaScript that interacts with your computer in ways your browser cannot. For example, you can host a REST web server from Node, write files to your hard drive, interact with operating system APIs (like notifications), and more!
 
@@ -26,7 +26,7 @@ Let's start with Node. Node is a [JavaScript runtime](/posts/how-computers-speak
 
 Node also comes with an advantage over browsers for running JavaScript: you can interface with lower-level programming languages such as C via [Node's N-API](https://nodejs.org/api/n-api.html#n_api_node_api). This means that libraries you rely on can build on top of this N-API to provide a way to do things like send native desktop notifications, show something particular in your taskbar, or any other action that would require lower-level access to your local machine than JavaScript typically provides.
 
-## [`npm`](#whats-npm)
+## `npm` {#whats-npm}
 
 Any sufficiently useful programming language needs an ecosystem to rely on. One of the primary elements for an ecosystem is a collection of libraries that you can use to build out your own libraries and applications.
 
@@ -41,7 +41,7 @@ When, say, Facebook wants to publish a new version of `react`, someone from the 
 
 While the registry is vital for the usage of the CLI utility, most of the time we say `npm` in this article, we're referring to the CLI tool. We'll make sure to be explicit when talking about the registry itself
 
-# [Setting Up Node](#setup-node)
+# Setting Up Node {#setup-node}
 
 Before we explain how to install Node, let's explain something about the release process of the software. 
 
@@ -57,7 +57,7 @@ The "current" release, on the other hand, usually sees new features of JavaScrip
 
 NodeJS switches back and forth between LTS and non-LTS stable releases. For example, Node 12 and 14 were LTS releases, but Node 13 and 15 were not. You can [read more about their release cycle on their website](https://nodejs.org/en/about/releases/)
 
-## [Installing Node](#installing-node)
+## Installing Node {#installing-node}
 
 You can find pre-built binaries ready-to-install from [NodeJS' website](https://nodejs.org/en/download/). Simply download the package you want and install it. 
 
@@ -67,7 +67,7 @@ Node installs come pre-packaged with their own version of `npm`, so don't worry 
 
 However, the process of upgrading and changing version of NodeJS can be difficult. This is why I (and many others) recommend using NVM to manage your Node versions.
 
-### [NVM](#nvm)
+### NVM {#nvm}
 
 While Node has a fairly stable API (and their LTS releases are often supported for many years at a time), there may be instances where it's benificial to have the ability to quickly upgrade and change the currently installed Node versions.
 
@@ -85,7 +85,7 @@ Additionally, you can (and, in order to use `nvm`, **must** use `nvm` to do so) 
 nvm install --lts
 ```
 
-#### [Switching Node Versions](#nvm-switch-node-ver)
+#### Switching Node Versions {#nvm-switch-node-ver}
 
 NVM is a useful tool to switch Node versions, but there is something that should be noted before you do so. When you switch Node versions, it also resets the globally installed packages. This means that if you ran:
 
@@ -97,7 +97,7 @@ On Node 12, when you switch to Node 14, and attempt to run a `create-react-app` 
 
 It's also worth noting that some packages (like `sass`) have native dependencies. This means that they need to run specific commands on install depending on the version of Node you have installed. Because of this, if you switch from Node 12 to Node 14, you may need to re-run `npm i` on your packages before you attempt to re-run your applications.
 
-#### [Windows NVM](#windows-nvm)
+#### Windows NVM {#windows-nvm}
 
 It's worth noting that the Windows variant of `nvm` does not support the same commands as the macOS and Linux variants. As such, when you find instructions for `nvm` online, you may have to find the alternative versions of those commands for the Windows version
 
@@ -113,7 +113,7 @@ Then, simply declare it as your main version of node:
 nvm use 12.16.3
 ```
 
-### [Upgrading NPM](#upgrading-npm)
+### Upgrading NPM {#upgrading-npm}
 
 The version of `npm` that's shipped with Node is typically good enough for 99.99% of use-cases. Like any other software, however, bug fixes and features are added to new versions of `npm`. You can follow [the official `npm` blog](https://blog.npmjs.org/) to read about new features and bug fixes the versions introduce.
 
@@ -125,7 +125,7 @@ npm i -g npm@latest
 
 > Keep in mind that if you switch Node versions using `nvm`, you will need to re-run this command on every version of installed Node, as switching Node also switches the installed version of `npm`.
 
-## [Yarn](#yarn)
+## Yarn {#yarn}
 
 `npm` isn't the only game in town when it comes to installing packages for use in webdev. One of the biggest alternatives to `npm` is the `yarn` package manager.
 
@@ -149,7 +149,7 @@ However, the ways `npm` and `yarn` install packages on your local machine are di
 
 > Want to learn the differences between `npm` and `yarn` yourself? We're working on an article that covers that exact topic in-depth, both for newcomers and experiences devs alike. Be sure to subscribe to our update emails (at the bottom of the page right above the comments) to catch when that article lands!
 
-## [Installing Yarn](#install-yarn)
+## Installing Yarn {#install-yarn}
 
 Once you have node and npm installed, installing yarn is as simple as:
 
@@ -159,7 +159,7 @@ npm i -g yarn
 
 It's worth noting that, just like `npm` and any other globally installed packages, [when you change Node version using `nvm`, you'll need to re-run this command](#nvm-switch-node-ver). However, if you're able to natively install `yarn`, you can sidestep this issue and have `yarn` persist through `nvm` version changes.
 
-### [macOS](#yarn-mac)
+### macOS {#yarn-mac}
 
 If you're using macOS and want to utilize `nvm`, you can also use Homebrew (a third party package manager for Macs) to install `yarn` natively:
 
@@ -169,7 +169,7 @@ brew install yarn
 
 > There are other methods to install Yarn on macOS if you'd rather. [Look through `yarn`'s official docs for more](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
-### [Windows](#yarn-windows)
+### Windows {#yarn-windows}
 
 Just as there's a method for installing `yarn` natively on macOS, you can do the same on Windows using [the same third-party package manager we suggest using for installing and maintaining Windows programs on your machine, Chocolatey](https://unicorn-utterances.com/posts/ultimate-windows-development-environment-guide/#package-management):
 
@@ -181,7 +181,7 @@ choco install yarn
 > There are other methods to install Yarn on Windows if you'd rather. [Look through `yarn`'s official docs for more](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
 
-# [Using Node](#using-node)
+# Using Node {#using-node}
 
 Now that you have it setup, let's walk through how to use Node. First, start by opening your terminal.
 
@@ -211,7 +211,7 @@ From here, you can type in JavaScript code, and hit "enter" to execute:
 
 This view of Node - where you have an interactive terminal you can type code into - is known as the REPL.
 
-## [Executing JS Files](#node-run-file)
+## Executing JS Files {#node-run-file}
 
 While Node's REPL is super useful for application prototyping, the primary usage of Node comes into effect when running JavaScript files.
 
@@ -278,7 +278,7 @@ You'll need to re-start Node to catch that update.
 
 The way you restart a Node process is the same on Windows as it is on macOS - it's the same way you stop the process. simply type Ctrl+C in your terminal to stop the process running. Then, re-run your Node command.
 
-### [Hot Reload on File Edit](#nodemon)
+### Hot Reload on File Edit {#nodemon}
 
 Node being able to run JavaScript files is useful once you have a finished product ready-to-run. However, while you're actively developing a file, it can be frustrating to manually stop and restart Node every time you make a change. I've had so many instances where I've Googled "NodeJS not updating JavaScript file" at some point in my debugging, only to realize that I'd forgotten to restart the process.
 
@@ -292,7 +292,7 @@ npm i -g nodemon
 
 Then, simply replace your `node index.js` command with `nodemon index.js`.
 
-# [Using NPM/Yarn](#using-pkg-manager)
+# Using NPM/Yarn {#using-pkg-manager}
 
 With basic Node usage established, we can expand our abilities by learning how to use `npm`/`yarn` efficiently.
 
@@ -334,7 +334,7 @@ Or:
 yarn init
 ```
 
-## [Dependencies](#deps)
+## Dependencies {#deps}
 
 Most projects you'll run into will have at least one dependency. A dependency is a library that your project depends on for it's functionality. For example, if I use the [`classnames` library](https://www.npmjs.com/package/classnames) to generate CSS-friendly class names from a JavaScript object:
 
@@ -380,7 +380,7 @@ yarn add classnames
 
 > Just because using `classnames` as an example here, doesn't mean you have to. You can use the name of whatever dependency you're wanting to add.
 
-### [Semantic Versioning](#semver)
+### Semantic Versioning {#semver}
 
 For each dependency listed, there is a number with three dots associated with it. These numbers represent the version of the library to install when running commands like `npm i`.
 
@@ -408,7 +408,7 @@ Because minor and patch releases do not contain breaking changes (when following
 
 Again, this isn't the _only_ way to version a library, but it is an increasingly common method for making sure that new versions won't break your project's functionality.
 
-#### [SemVer Setting](#package-json-semver)
+#### SemVer Setting {#package-json-semver}
 
 How can we leverage SemVer in our `package.json`? If you looked at the `dependencies` object in our example previously, you may have noticed an odd character that's not a number: `^`.
 
@@ -462,7 +462,7 @@ This can be useful when a package isn't following SemVer and instead includes br
 
 There are other modifiers you can use such as version ranges that cross-over major releases, pre-release versions, and more. To learn more about these additional modifiers and to experiment with the tilde and caret modifiers, [NPM has setup a website that teaches you and lets you visually experiment with the modifiers](https://semver.npmjs.com/).
 
-### [Dev Dependencies](#dev-deps)
+### Dev Dependencies {#dev-deps}
 
 Let's take a closer look at the `package.json` we were using as an example.
 
@@ -487,7 +487,7 @@ If you include `prettier` and other tools you use to develop the library, it blo
 
 **`devDependency` allows you to keep a list of tools you'll utilize when developing, but which your code itself does not rely on to run.**
 
-### [Peer Dependencies](#peer-deps)
+### Peer Dependencies {#peer-deps}
 
 While dependencies are incredibly useful, if you're using a framework like React, having every dependency in your project install a separate version of React would potentially cause issues. Each dep would have a different version, which may act differently, and your `node_modules` would be bloated.
 
@@ -508,7 +508,7 @@ This would allow you to have `react` installed on your project and able to share
 
 It's worth noting in that in `npm 6`, you used to have to install these yourselves. However, `npm 7` made the change such that peer deps are installed automatically. If you see an error from a package saying that your peer dep doesn't match, find the project and make a pull request to add the correct versions of the peer deps. These warnings were not significant with `npm 6`, but with `npm 7`, these matter substantially more.
 
-## [Ignoring `node_modules `](#gitignore)
+## Ignoring `node_modules ` {#gitignore}
 
 Once you have your packages installed (either by using `yarn` or `npm`), **it's important that you _do not commit_ your `node_modules` folder** to your code hosting. By commiting `node_modules`, you:
 
@@ -526,7 +526,7 @@ node_modules/
 
 Worried that your dependencies might not resolve the same version on systems like CI where having replicable stable dependency installs matter a lot? That's where lock files comes into play
 
-## [Lock Files](#package-lock)
+## Lock Files {#package-lock}
 
 Once you run `npm i` on a project with dependencies, you'll notice a new file in your root folder: `package-lock.json`. This file is called your **"lockfile"**. **This file is auto-generated by `npm` and should not be manually modified.** 
 
@@ -540,7 +540,7 @@ While it's imperative not to track your `node_modules` folder, you **want to com
 
 > Something to keep in mind is that different major versions of `npm` use slightly differently formatted lock files. If part of your team is using `npm 6` and the other part uses `npm 7`, you'll find that each team replaces the lockfile every single time `npm i` is installed. To avoid this, make sure your team is using the same major version of `npm`.
 
-## [Scripts](#npm-scripts)
+## Scripts {#npm-scripts}
 
 You'll notice that the above `package.json` has a `start` script. When `npm run start` or `yarn start` is ran, it will execute `node index.js` to run the file with Node. While `node` usage is common, you're also able to leverage any command that's valid on your machine. You could have:
 

@@ -36,7 +36,7 @@ In this guide we'll cover:
 
 > [Download our Regex Cheat Sheet](https://coderpad.io/regular-expression-cheat-sheet/)
 
-# [What does a regex look like?](#what-does-a-regex-look-like)
+# What does a regex look like? {#what-does-a-regex-look-like}
 
 In its simplest form, a regex in usage might look something like this:
 
@@ -70,9 +70,9 @@ In fact, most regexes can be written in multiple ways, just like other forms of 
 >
 > In this article, we'll focus on the ECMAScript variant of Regex, which is used in JavaScript and shares a lot of commonalities with other languages' implementations of regex as well.
 
-# [How to read (and write) regexes](#how-to-read-write-regex)
+# How to read (and write) regexes {#how-to-read-write-regex}
 
-## [Quantifiers](#quantifiers)
+## Quantifiers {#quantifiers}
 
 Regex quantifiers check to see how many times you should search for a character.
 
@@ -159,7 +159,7 @@ H.*?llo
 
 ![We're using a regex /H.*?llo/ to look for the words "Hillo", "Hello", and partially match the "Hello" in "Helloollo"](./h_star_question_llo.png)
 
-## [Pattern collections](#pattern-collections)
+## Pattern collections {#pattern-collections}
 
 Pattern collections allow you to search for a collection of characters to match against. For example, using the following regex:
 
@@ -192,7 +192,7 @@ You can even combine these together:
 - `[0-9A-Z]` - Match any character that's either a number or a capital letter from "A" to "Z"
 - `[^a-z]` - Match any non-lowercase letter
 
-## [General tokens](#general-tokens)
+## General tokens {#general-tokens}
 
 Not every character is so easily identifiable. While keys like "a" to "z" make sense to match using regex, what about the newline character?
 
@@ -319,7 +319,7 @@ Or want to find every instance of this blog post's usage of the "\n" string. Wel
 \\n
 ```
 
-# [How to use a regex](#how-to-use-a-regex)
+# How to use a regex {#how-to-use-a-regex}
 
 Regular expressions aren't simply useful for *finding* strings, however. You're also able to use them in other methods to help modify or otherwise work with strings.
 
@@ -388,7 +388,7 @@ Here, we should expect to see both "Hello" and "Hi" matched, but we don't.
 
 This is because we need to utilize a Regex "flag" to match more than once.
 
-# [Flags](#flags)
+# Flags {#flags}
 
 A regex flag is a modifier to an existing regex. These flags are always appended after the last forward slash in a regex definition. 
 
@@ -455,7 +455,7 @@ To solve this problem, we can simply assign `lastIndex` to 0 before running each
 
 ![If we run `regex.lastIndex = 0` in between each `regex.exec`, then every single `exec` runs as intended](./consistent_regex_fix.png)
 
-# [Groups](#groups)
+# Groups {#groups}
 
 When searching with a regex, it can be helpful to search for more than one matched item at a time. This is where "groups" come into play. Groups allow you to search for more than a single item at a time.
 

@@ -14,7 +14,7 @@ Mientras trabajas en varios proyectos, puedes encontrarte con una sintaxis de as
 
 _Los tipos genéricos son una forma de manejar tipos abstractos en tu función._ **Actúan como una variable para los tipos en el sentido de que contienen información sobre la forma en que funcionarán tus tipos.** Son muy poderosos por derecho propio, y su uso no se limita a TypeScript. Verás muchos de estos conceptos aplicados bajo terminologías muy similares en varios lenguajes. Sin embargo, basta con esto. ¡Vamos a sumergirnos en cómo usarlos! 🏊
 
-# [El problema](#generico-usecase-setup)
+# El problema {#generico-usecase-setup}
 
 Los tipos genéricos — en el nivel más alto — _permiten aceptar datos arbitrarios en lugar de una tipificación estricta, lo que hace posible ampliar el alcance de un tipo_.
 
@@ -32,7 +32,7 @@ returnProp(4); // ❌ Esto falla porque `4` no es un string
 ```
 En este caso, queremos asegurarnos de que todos los tipos de entrada posibles estén disponibles para el tipo prop. Echemos un vistazo a algunas soluciones potenciales, con sus diversos pros y contras, y veamos si podemos encontrar una solución que se ajuste a los requisitos para proporcionar tipado a una función como ésta.
 
-## [Solución potencial 1: Unions](#generic-usecase-setup-union-solution)
+## Solución potencial 1: Unions {#generic-usecase-setup-union-solution}
 
 Una posible solución a este problema podrían ser las uniones de TypeScript. _Las uniones nos permiten definir una condición `or` para nuestros tipos_. Como queremos permitir varios tipos para las entradas y salidas, ¡quizás eso pueda ayudarnos!
 
@@ -57,7 +57,7 @@ const newNumber = shouldBeNumber + 4;
 
 La razón por la que la operación `shouldBeNumber + 4` produce este error es porque le has dicho a TypeScript que `shouldBeNumber` es o bien un número **o** una cadena haciendo que la salida esté explícitamente tipada como una unión. Como resultado, TypeScript es incapaz de hacer la suma entre un número y una cadena (que es uno de los valores potenciales) y por lo tanto arroja un error.
 
-### [Soluciones potenciales Descargo de responsabilidad](#silly-examples-disclaimer)
+### Soluciones potenciales Descargo de responsabilidad {#silly-examples-disclaimer}
 
 > Nota del autor:
 >
@@ -65,7 +65,7 @@ La razón por la que la operación `shouldBeNumber + 4` produce este error es po
 >
 > Dicho esto, estamos tratando de construir sobre los conceptos, por lo que estamos tratando de proporcionar algunos ejemplos de donde esto podría ser utilizado y lo que hace. También hay instancias, como los archivos de definición de tipos, donde esta inferencia podría no estar disponible para un autor de tipos, así como otras limitaciones con este método que veremos más adelante.
 
-## [Solución potencial 2: Sobrecarga de funciones](#generic-usecase-setup-overloading-solution)
+## Solución potencial 2: Sobrecarga de funciones {#generic-usecase-setup-overloading-solution}
 
 Para evitar los problemas de devolver explícitamente una unión, usted _PODRÍA_ utilizar la sobrecarga de funciones para proporcionar los tipos de retorno adecuados:
 
@@ -92,7 +92,7 @@ returnProp({}) // El argumento de tipo '{}' no es asignable a un parámetro de t
 
 Esto puede parecer obvio a partir de los tipos, pero _lo ideal es que queramos que `returnProp` acepte CUALQUIER tipo porque **no estamos usando ninguna operación que requiera conocer el tipo**._ (nada de sumas o restas, que requieran un número; nada de concatenación de cadenas que pueda restringir el paso de un objeto).
 
-## [Solución potencial 3: Any](#generic-usecase-setup-any-solution)
+## Solución potencial 3: Any {#generic-usecase-setup-any-solution}
 
 Por supuesto, podemos utilizar el tipo `any` para forzar cualquier tipo de entrada y retorno. (¡Dios sabe que he tenido mi parte justa de frustraciones que terminaron con unos cuantos `any`s en mi código base!)
 
@@ -109,7 +109,7 @@ returnedObject.test(); // esto no retorna un error pero debería 🙁
 returnedObject.objProperty; // Esto tambien (correctamente) no arroja un error, pero TS no sabrá que es un número ☹️
 ```
 
-# [La Solución Real](#generics-intro)
+# La Solución Real {#generics-intro}
 
 ¿Cuál es la respuesta? ¿Cómo podemos obtener datos de tipo preservado tanto en la entrada como en la salida?
 
@@ -145,7 +145,7 @@ returnedObject.objProperty;
 >
 > Recuerde, las variables de tipo son como otras variables en el sentido de que necesita mantenerlas y entender lo que están haciendo en su código.
 
-# [Está bien, ¿pero por qué?](#logger-example)
+# Está bien, ¿pero por qué? {#logger-example}
 
 ¿Por qué podríamos querer hacer esto? [Devolver un elemento como sí mismo en una función de identidad](#generic-usecase-setup) está bueno, pero no es muy útil en su estado actual. Dicho esto, hay **muchos** usos para los genéricos en las bases de código del mundo real.
 
@@ -202,7 +202,7 @@ Un ejemplo de esto sería una sintaxis como esta:
 logTheValue<number>(3);
 ```
 
-# [Non-Function Generics](#non-function-generics)
+# Non-Function Generics {#non-function-generics}
 
 Como has visto antes con la interfaz `LogTheValueReturnType` - las funciones no son las únicas con genéricos. Además de usarlos dentro de las funciones e interfaces, también puedes usarlos en las clases. 
 
@@ -246,7 +246,7 @@ interface ImageConvertMethods<DataType> {
 type ImageTypeWithConvertMethods<DataType> = ImageType<DataType> & ImageConvertMethods<DataType>
 ```
 
-# [De acuerdo, ¿pero por qué?](#polymorphic-functions)
+# De acuerdo, ¿pero por qué? {#polymorphic-functions}
 
 Vaya, parece que no te fías de mi palabra cuando te digo que los genéricos de tipo son útiles. Está bien, supongo; después de todo, la duda mientras se aprende puede llevar a grandes preguntas! 😉 .
 
@@ -277,7 +277,7 @@ function toPNG(data: DataType): DataType {
 
 Aunque esta función acepta varios tipos de datos, los maneja de forma diferente bajo el capó. Las funciones que tienen este tipo de comportamiento de "aceptar muchos, manejar cada uno ligeramente diferente" se llaman **Funciones Polimórficas**. Son particularmente útiles en las bibliotecas de utilidades.
 
-# [Restringiendo los tipos](#extends-keyword)
+# Restringiendo los tipos {#extends-keyword}
 
 Por desgracia, hay un problema con el código anterior: no sabemos qué tipo es `DataType`. ¿Por qué es importante? Bueno, si no es una cadena, un Buffer, o un tipo Array, ¡lanzará un error! Ese no es ciertamente un comportamiento para encontrarse en tiempo de ejecución.
 
@@ -291,7 +291,7 @@ function toPNG<DataType extends (string | Array<number> | Buffer)>(data: DataTyp
 
 En este ejemplo _estamos usando la palabra clave `extends` para imponer algún nivel de restricción de tipo en la definición, por lo demás amplia, de un tipo genérico_. Estamos usando una unión de TypeScript para decir que puede ser cualquiera de esos tipos, y todavía somos capaces de establecer el valor a la variable de tipo `DataType`.
 
-# [Expande tus horizontes](#imperative-casting-extends)
+# Expande tus horizontes {#imperative-casting-extends}
 
 También podemos mantener esa restricción amplia de tipos dentro de sí misma. Digamos que tenemos una función que sólo se preocupa si un objeto tiene una propiedad específica:
 

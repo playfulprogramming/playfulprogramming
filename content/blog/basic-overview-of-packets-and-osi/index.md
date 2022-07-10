@@ -21,7 +21,7 @@ It's important to note that _"networking" is a broad, catch-all term that infers
 >
 > That said, you need the right binary data to be input into the CPU for it to process, just like our brains need the right input to find the answer of what to do. Because of this, communication with the CPU is integral
 
-# [Architecture](#network-architectures)
+# Architecture {#network-architectures}
 There are a lot of ways that information can be connected and transferred. We use various types of architecture to connect them. 
 
 _Computers speak in `1`s and `0`s, known as binary_. These binary values come in incredibly long strings of combinations of one of the two symbols to _construct all of the data used in communication_.
@@ -30,7 +30,7 @@ _Computers speak in `1`s and `0`s, known as binary_. These binary values come in
 
 This is true regardless of the architecture used to send data - it’s all binary under-the-hood somewhere in the process. The architecture used to send data is simply a way of organizing the ones and zeros effectively to enable the types of communication required for a specific use-case.
 
-## [Bus Architecture](#bus-architecture)
+## Bus Architecture {#bus-architecture}
 
 For example, one of the ways that we can send and receive data is by, well, sending them. _The bus architecture_, often used in low-level hardware such as CPU inter-communication, _simply streams the ones and zeros directly_.
 
@@ -42,7 +42,7 @@ In this example, the bus icons are similar to binary data - either a one or a ze
 
 Furthermore, because error-handled bi-directional cancelable subscriptions (like the ones you make to servers to connect to the internet) are difficult using the bus architecture, _we typically don't use it for large-scale multi-device networks like the internet_.
 
-## [Packet Architecture](#packet-architecture)
+## Packet Architecture {#packet-architecture}
 
 The weaknesses of the bus architecture led to the creation of the packet architecture. The packet architecture requires a bit more of a higher-level understanding of how data is sent and received. To explain this concept, we'll use an analogy that fits really well. 
 
@@ -52,7 +52,7 @@ Let's say you want to send a note to your friend that's hours away from you. You
 
 Similarly, a packet is _sent from a single sender, received by a single recipient, addressed where to go, and contains a set of information_.
 
-### [Metadata](#packet-metadata)
+### Metadata {#packet-metadata}
 
 Letters may not give you the same kind of continuous stream of consciousness as in-person communications, but they do provide something in return: structure.
 
@@ -72,7 +72,7 @@ As a result, you might have a middleware packet handler that reads only the head
 
 <video src="./header_routing.mp4" title="An example of a small packet being sent to a small file server and a larger packet being sent to the large file server based on the data in the packet header"></video>
 
-# [[It Takes A Village](https://en.wikipedia.org/wiki/It_takes_a_village) To Send A Letter](#osi-layers)
+# [It Takes A Village](https://en.wikipedia.org/wiki/It_takes_a_village) To Send A Letter {#osi-layers}
 
 Understanding what a letter is likely the most important part of the communication aspect if you intend to write letters, but if someone asked you to deliver a letter it helps to have a broader understanding of how the letter gets sent. That's right: _there's a whole structure set in place to send the letters (packets) you want to be sent_. This structure is comprised of many levels, which we'll outline here.
 
@@ -96,35 +96,35 @@ This breakdown of layers is referred to as the [OSI model](https://en.wikipedia.
 
 Let's start from the bottom and make our way up. Remember that each of these layers builds on top of each other, allowing you to make more complex but efficient processes to send data on each step.
 
-## [Physical](#osi-layer-1-physical)
+## Physical {#osi-layer-1-physical}
 
 The physical layer is similar to the trucks, roads, and workers that are driving to send the data. Sure, you could send a letter just by handing letters one-by-one from driver to driver, but without some organization that's usually dispatched to higher levels, things can go wrong (as they often do [in a game of telephone](https://en.wikipedia.org/wiki/Chinese_whispers)).
 
 In the technical world, _this layer refers to the binary bits themselves_ ([which compose to makeup letters and the rest of structure to your data](/posts/non-decimal-numbers-in-tech/)) _and the physical wiring_ constructed to transfer those bits. As it is with the mail world, this layer alone _can_ be used alone, but often needs delegation from higher layers to be more effective.
 
-## [Data Link](#osi-layer-2-data-link)
+## Data Link {#osi-layer-2-data-link}
 
 Data link would be like UPS or FedEx offices: sending information between post office to post office. These offices don't have mail sorters yet (that's a layer up) but they do provide a means for drivers to arrive to exchange mail at a designated area. As a result, instead of having to meet the drivers in the road to receive my mail, I can simply go to a designated office to receive my mail.
 
 Likewise, _the data link layer is the layer that transfers binary data between different locations_. This becomes especially helpful when _dealing with local networks that only exchange data between a single physical location_, where you might not need the added complexity large-level packet sorting might come into play.
 
-## [Network](#osi-layer-3-network)
+## Network {#osi-layer-3-network}
 
 The network layer is similar to the mail sorters. Between being transferred from place to place, there may be instances where the mail is needed to be sorted and organized. This is _done with packets in the network layer to handle routing_ and other related activities between clients
 
-## [Transport](#osi-layer-4-transport)
+## Transport {#osi-layer-4-transport}
 
 The transport layer delivers it from the post office to my apartment building. This means that not only does the package gets delivered from post-office building to post-office building, but it gets to-and-from its destination as intended.
 
-## [Session](#osi-layer-5-session)
+## Session {#osi-layer-5-session}
 
 With newer packages delivered through services like UPS, you may want a tracking number for your package. This is similar to the session layer. With this layer, it includes a back-and-forth that can give you insight into the progress of the delivery or even include information like return-to-sender.
 
-## [Presentation](#osi-layer-6-presentation)
+## Presentation {#osi-layer-6-presentation}
 
 But when a package gets received by you, it doesn't stop there, does it? You want to bring the package inside your home. For most packages, this is relatively trivial - you simply take it inside. However, for some specialized instances, this may require hiring movers to get a couch in your house. In this same way, HTTP and other protocols don't typically differentiate between the presentation layer and the application layer, but some networks do. When they do, they use the presentation layer to outline how the data is formed for sending and receiving
 
-## [Application](#osi-layer-7-application)
+## Application {#osi-layer-7-application}
 
 You've just been delivered the fancy new blender you ordered for smoothies. After unwrapping the package, you plug it in and give it a whirl, making the most delicious lunch-time smoothie you've ever had. Congrats, you've just exemplified the application layer. In this layer, it encapsulates the layer your user (developer or end-user alike) will use, the application that communicates back-and-forth and the reason you wanted to send data in the first place.
 

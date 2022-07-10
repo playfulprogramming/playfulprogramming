@@ -14,7 +14,7 @@ In the past, Android Studio did not support AMD's CPUs for hardware emulation of
 
 However, while working on my Ryzen CPU powered desktop, I had difficulties getting the program working on my machine. 
 
-# [BIOS Setup](#bios)
+# BIOS Setup {#bios}
 
 To use Hyper-V, we have to have various settings configured on our motherboards.
 
@@ -25,7 +25,7 @@ Two of the settings we need to enable are:
 
 I personally have a Gigabyte motherboard (the Gigabyte GA-AB350M-Gaming 3), so I'll showcase the places I had to find the options for these motherboard settings.
 
-## [SVM Mode](#gigabyte-svm)
+## SVM Mode {#gigabyte-svm}
 
 To enable SVM mode, first start at the first screen to the left, labeled **"M.I.T"**.
 
@@ -41,7 +41,7 @@ Finally, open the **"Advanced CPU Core Settings"**.
 
 Once on this page, you should see **"SVM Mode"** as the fourth option from the bottom. _Toggle that to **"Enabled"**_, then move onto enabling IOMMU
 
-## [IOMMU](#gigabyte-iommu)
+## IOMMU {#gigabyte-iommu}
 
 Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mode. Simply _go to the **"Chipset"** root tab, and it should be the first option at the top_. Even if it's set to "Auto", go ahead and _update that to be **"Enabled"**_.
 
@@ -51,7 +51,7 @@ Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mo
 
 Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
-# [Windows Features Setup](#windows-features)
+# Windows Features Setup {#windows-features}
 
 Now that we have our BIOS (UEFI, really) configured correctly, we can enable the Windows features we need for the Android Emulator.
 
@@ -71,7 +71,7 @@ You'll want to turn on the following options:
 
 After these three settings are selected, press **"OK"** and allow the features to install. After your features are installed, your machine will need a reboot. Go ahead and restart your computer before proceeding to install Android Studio.
 
-# [Setup Android Studio](#android-studio)
+# Setup Android Studio {#android-studio}
 
 You have a few different methods for installing Android Studio. You can choose to use [Google's installer directly](https://developer.android.com/studio/install), you can [utilize the Chocolatey CLI installer](https://chocolatey.org/packages/AndroidStudio), or even use [JetBrain's Toolbox utility to install and manage an instance of Android Studio](https://www.jetbrains.com/toolbox-app/). _Any of these methods work perfectly well_, it's down to preference, really. 
 
@@ -89,7 +89,7 @@ Once you see the popup dialog, you'll want to _select the "SDK Tools" tab_. Ther
 
 Once you've selected it, press **"Apply"** to download the installer. _Because the "Apply" button only downloads the installer, we'll need to run it manually._ 
 
-## [Run the Installer](#amd-hypervisor-installer)
+## Run the Installer {#amd-hypervisor-installer}
 
 To find the location of the installer, you'll want to go to the install location for your Android SDK. For me (who used the Jetbrains Toolbox to install Android Studio), that path was: `%AppData%/../Local/Android/Sdk`. 
 
@@ -113,7 +113,7 @@ You should see the message _"DeleteService SUCCESS"_ if everything ran as expect
 
 > If you get an error `[SC] StartService FAILED with error 4294967201.`, make sure you've followed the steps to [enable BOTH settings in your BIOS](#bios) as well as ALL of the [features mentioned in Windows](#windows-features)
 
-## [AVD Setup](#avd)
+## AVD Setup {#avd}
 
 To run the emulator, you need to set up a device itself. You do this through the **"AVD Manager"** in the "configure" menu.
 

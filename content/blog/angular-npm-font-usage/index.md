@@ -18,7 +18,7 @@ However, we have multiple teams that rely on our shared component system, and we
 
 Let's walk through how we did that.
 
-# [Setup Assets Package](#assets-package)
+# Setup Assets Package {#assets-package}
 
 As we're wanting to ship our packages separately, we opted for two Git repositories for the component system and private assets. In a new repository, I have the following for the `package.json`:
 
@@ -51,7 +51,7 @@ As we're wanting to ship our packages separately, we opted for two Git repositor
 
 While this package will not maintain code, I still believe it important to maintain a semver for the package. If a path of the package changes, the semver will communicate that with your package's consumers alongside the changeling. As such, this `package.json` utilizes [Conventional Commit and `commitlint` to auto-generate changelogs and maintain history version](/posts/setup-standard-version/).
 
-## [Add Font Files](#font-files)
+## Add Font Files {#font-files}
 
 The "Foundry Stirling" font that I'm shipping is a combination of 7 `.otf` files. I start by creating a `fonts` directory. Inside that directory, I place the `.otf` files in the `fonts` directory.
 
@@ -74,7 +74,7 @@ Once done, your project repo should look something like this:
 └── package.json
 ```
 
-## [`@font-face` CSS Definition](#css-declare)
+## `@font-face` CSS Definition {#css-declare}
 
 Now that we have the fonts in their place, we need to create a common `foundry_stirling.css` file to access those fonts from CSS.
 
@@ -124,7 +124,7 @@ Because we're planning on using Angular CLI, we'll want to set the `src` propert
 > @include foundry_sterling("/assets")
 > ```
 
-### [Font Name Value Mapping](#font-val-mapping)
+### Font Name Value Mapping {#font-val-mapping}
 
 Because our font had multiple files to declare the different CSS values weights, we had to declare the `@font-face` for each of the font files. This is the mapping we used:
 
@@ -140,7 +140,7 @@ Because our font had multiple files to declare the different CSS values weights,
 | 800   | Extra-Bold / Ultra-Bold   | `foundry_sterling_extra_bold.otf` |
 | 900   | Black / Heavy             | N/A                               |
 
-# [Consume Assets Package in Angular CLI](#angular-cli)
+# Consume Assets Package in Angular CLI {#angular-cli}
 
 Now that we have our `npm` package configured for usage, we'll start preparing for consuming that package by installing it into our app's `package.json`:
 
@@ -150,7 +150,7 @@ npm i ecp-private-assets
 
 > Remember, `ecp-private-assets` is the name of our internal package. You'll need to replace this `npm i` command with your own package name
 
-## [`angular.json` modification](#angular-json)
+## `angular.json` modification {#angular-json}
 
 Once this is done, two steps are required. First, add the following to `angular.json`'s `assets` property. This will copy the files from `ecp-private-assets` to `/assets` once you setup a build. 
 
@@ -197,7 +197,7 @@ This way, when we use the CSS `url('/assets/')`, it will point to our newly appo
 }
 ```
 
-## [Import CSS](#css-import)
+## Import CSS {#css-import}
 
 Now that we have our assets in place, we need to import the CSS file into our app.
 

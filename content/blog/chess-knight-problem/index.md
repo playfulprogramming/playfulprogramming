@@ -20,7 +20,7 @@ This is a diagram showing all possible knight moves:
 
 The red mark above is an arbitrary starting point, and the green marks are all of the possible places that the knight can jump from that point.
 
-# [Solution Method](#solution-method)
+# Solution Method {#solution-method}
 
 At first glance, this may look like a bizarre maze navigation algorithm with complex rules, and inspires any number of thoughts of number of possible iterations, how to decide if a move is constructive or not, etc.
 
@@ -39,7 +39,7 @@ So, right now, we have all of the squares labelled that we can get to in zero, o
 
 If any of the labeled squares is the desired destination, then we know the minimum number of moves required to reach that square. So, all we have to do is start with our starting square and repeat this process until we happen to fill our ending destination with a number. The number in that square will be the minimal number of moves required to reach that spot.
 
-# [JavaScript Execution](#js-execution)
+# JavaScript Execution {#js-execution}
 
 So, let's get started. I hacked this together in CodePen, and I didn't build an interface for it, but that would be an easy enough step. We could do all kinds of animations in D3js, etc, but that's not for this blog post.
 
