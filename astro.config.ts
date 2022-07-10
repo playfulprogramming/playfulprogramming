@@ -62,6 +62,10 @@ export default defineConfig({
 			//   ],
 		],
 		rehypePlugins: [
+              // This is required to handle unsafe HTML embedded into Markdown
+			  [rehypeRaw, {
+				passThrough: ['mdxJsxTextElement', `mdxJsxFlowElement`, `mdxFlowExpression`]
+			  }],
 			  () => (tree, file) => {
 				return (rehypeImageSize as any)({dir: path.dirname(file['history'][0])})(tree, file)
 			  },
