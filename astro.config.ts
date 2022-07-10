@@ -1,5 +1,4 @@
 import { defineConfig, AstroUserConfig } from 'astro/config';
-import react from '@astrojs/react';
 
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
@@ -13,7 +12,6 @@ import { rehypeHeaderText } from "./src/utils/markdown/plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs } from "./src/utils/markdown/plugins/tabs";
-import rehypeSvimg from 'rehype-svimg';
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -24,14 +22,26 @@ import { EMBED_SIZE } from "./src/utils/markdown/constants";
 import { isRelativePath } from "./src/utils/url-paths";
 import {fromHtml} from 'hast-util-from-html'
 
+import AutoImport from 'astro-auto-import';
+import image from '@astrojs/image';
+
+function escapeHTML(s) { 
+	if (!s) return s;
+   return s.replace(/&/g, '&amp;')
+		   .replace(/"/g, '&quot;')
+		   .replace(/</g, '&lt;')
+		   .replace(/>/g, '&gt;');
+}
+
 export default defineConfig({
-	integrations: [react()],
-	// TODO: Remove
-	vite: {
-		optimizeDeps: {
-			exclude: ['rehype-svimg']
-		}
-	},
+	integrations: [
+		image(),
+		AutoImport({
+			imports: [{
+				'@astrojs/image/components': ['Image'],
+			}],
+		}),
+	],
 	markdown: {
 		shikiConfig: {
 			theme: "css-variables"
@@ -42,6 +52,7 @@ export default defineConfig({
 			remarkUnwrapImages,
 			/* start remark plugins here */
 			[behead, { after: 0, depth: 1 }],
+			// // TODO: Enable
 			// [
 			// 	remarkEmbedder as any,
 			// 	{
@@ -72,39 +83,14 @@ export default defineConfig({
 			   /**
 				* Insert custom HTML generation code here
 				*/
-			//    [rehypeSvimg, {
-			// 	 inputDir: imgDirectory,
-			// 	 outputDir: `public/posts/${slug}`,
-			// 	 webp: true,
-			// 	 avif: true,
-			// 	 generateImages: true,
-			//    }],
-			//    // TODO: Remove this when
-			//    // https://github.com/xiphux/rehype-svimg/issues/10
-			//    (() => tree => {
-			// 	 visit(tree, node => {
-			// 	   const prefix = 'public';
-			// 	   function removePrefix(path) {
-			// 		 if (!path) return path;
-			// 		 if (path.startsWith(prefix)) {
-			// 		   if (path.startsWith(prefix + "/")) {
-			// 			 return path.slice(prefix.length + 1, path.length);
-			// 		   }
-			// 		   return path.slice(prefix.length, path.length);
-			// 		 }
-			// 		 return path;
-			// 	   }
-			// 	   if (node.tagName === 's-image') {
-			// 		 node.properties.src = "/" + removePrefix(node.properties.src );
-			// 		 node.properties.srcset = "/" + removePrefix(node.properties.srcset);
-			// 		 node.properties.srcsetwebp = "/" + removePrefix(node.properties.srcsetwebp);
-			// 		 node.properties.srcsetavif = "/" + removePrefix(node.properties.srcsetavif);
-			// 	   }
-			// 	 })
-			// 	 return tree;
-			//    }),
 			   (() => tree => {
 				 visit(tree, (node: any) => {
+					if (node.tagName === 'img') {
+						node.tagName = 'Image'
+						// TODO: Remove this
+						node.properties.alt = "Test"
+					}
+
 				   if (node.tagName === 'iframe') {
 					 node.properties.width ??= EMBED_SIZE.w;
 					 node.properties.height ??= EMBED_SIZE.h;
@@ -155,14 +141,6 @@ export default defineConfig({
 					 const id = node.properties.id;
 					 const headerText = node.properties["data-header-text"]
 					 node.properties.style = (node.properties.style||"") + "position: relative;";
-		 
-					 function escapeHTML(s) { 
-						if (!s) return s;
-					   return s.replace(/&/g, '&amp;')
-							   .replace(/"/g, '&quot;')
-							   .replace(/</g, '&lt;')
-							   .replace(/>/g, '&gt;');
-				   }
 		 
 					 const headerLinkHTML = `
 					 <a

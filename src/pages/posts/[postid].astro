@@ -1,6 +1,4 @@
 ---
-import * as path from 'path';
-
 import "../../global.scss";
 
 import { COLORS } from 'constants/theme';
@@ -25,8 +23,7 @@ export async function getStaticPaths() {
   const postsMeta = await Astro.glob<Post>('../../../content/blog/**/*.md')
 
   return postsMeta.map(postMeta => {
-    // Split based on `/` or `\` if in Windows vs not
-    const directorySplit = postMeta.file.split(path.sep);
+    const directorySplit = postMeta.file.split('/');
     // This is the folder name, AKA how we generate the slug ID
     const slug = directorySplit.at(-2);
     // index.md or index.es.md

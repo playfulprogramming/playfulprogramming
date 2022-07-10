@@ -4,7 +4,18 @@ import { ListViewPosts } from "utils/fs/api";
 
 const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.md')
 
-const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.published) - new Date(a.frontmatter.published));
+const sortedPosts = posts
+	.map(post => {
+		// Split based on `/`, even in Windows
+		const directorySplit = post.file.split('/');
+		// This is the folder name, AKA how we generate the slug ID
+		const slug = directorySplit.at(-2);
+		return {
+			...post.frontmatter,
+			slug
+		};
+	})
+	.sort((a, b) => new Date(b.published) - new Date(a.published));
 ---
 
 <html lang="en">
@@ -12,7 +23,7 @@ const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.published) - new
 		<div class="wrapper">
 			<main class="content">
 				<section aria-label="Blog post list">
-					{sortedPosts.map((p) => <BlogPostPreview post={p.frontmatter} />)}
+					{sortedPosts.map((p) => <BlogPostPreview post={p} />)}
 				</section>
 			</main>
 		</div>
