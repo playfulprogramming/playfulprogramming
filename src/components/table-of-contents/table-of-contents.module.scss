@@ -8,11 +8,14 @@
 }
 
 .tocLi {
-	margin-top: 12px;
+	padding: 6px 0;
 	margin-right: 3px;
+
+	border-left: 3px solid rgba(0, 0, 0, 0.2);
 }
 
 .tocLi a {
+	color: var(--midImpactBlack);
 	display: block;
 	text-decoration: none;
 	outline: none;
@@ -32,13 +35,18 @@
 	}
 }
 
-.tocLi:global(.toc-is-active) a {
-	font-weight: 700;
-	color: var(--darkPrimary) !important;
+.tocLi:global(.toc-is-active) {
+	border-color: var(--darkPrimary);
+
+	a {
+		font-weight: 700;
+		color: var(--darkPrimary) !important;
+	}
 }
 
-.tocH1 a {
-	color: var(--midImpactBlack);
+.tocH1 {
+	padding-top: 0;
+	margin-top: 12px;
 }
 
 .tocH1,
@@ -53,13 +61,12 @@
 
 .tocH2, .tocH3, .tocH4 {
 	a {
-		color: var(--midImpactBlack);
 		font-style: italic;
 	}
 }
 
 @for $i from 1 through 4 {
 	.tocH#{$i} {
-		margin-left: $i * 10px;
+		padding-left: $i * 10px;
 	}
 }
