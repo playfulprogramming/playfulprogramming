@@ -18,6 +18,10 @@ export const COLORS = {
     light: "rgba(0, 0, 0, 0.58)",
     dark: "rgba(255, 255, 255, .58)",
   },
+  minImpactBlack: {
+    light: "rgba(0, 0, 0, 0.2)",
+    dark: "rgba(255, 255, 255, .2)",
+  },
   backgroundColor: { light: "#E4F4FF", dark: "#072a41" },
   cardActiveBackground: { light: "#EBF6FC", dark: "#163954" },
   cardActiveBoxShadow: {

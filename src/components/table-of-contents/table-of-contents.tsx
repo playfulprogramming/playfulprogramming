@@ -10,13 +10,17 @@ interface TableOfContentsProps {
 }
 
 export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
-  const headingsToDisplay = React.useMemo(
-    () =>
-      headingsWithId?.length
-        ? headingsWithId.filter((headingInfo) => headingInfo.depth <= 3)
-        : [],
-    [headingsWithId]
-  );
+  const headingsToDisplay = React.useMemo(() => {
+    const headings = headingsWithId?.length ? headingsWithId : [];
+
+    // get the "minimum" depth of heading used in the post (e.g. if the post only uses h2 and h3 -> minDepth=1)
+    const minDepth = Math.min(...headings.map((h) => h.depth));
+
+    // offset the heading depths by minDepth, so they always start at 1
+    return headings
+      .map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
+      .filter((headingInfo) => headingInfo.depth <= 3);
+  }, [headingsWithId]);
 
   const tocListRef = React.createRef<HTMLOListElement>();
 
@@ -56,7 +60,6 @@ export const TableOfContents = ({ headingsWithId }: TableOfContentsProps) => {
           return (
             <li
               key={headingInfo.slug}
-              style={{ marginLeft: `${10 * (headingInfo.depth - 1)}px` }}
               ref={linkRefs[i]}
               className={liClassNames}
             >

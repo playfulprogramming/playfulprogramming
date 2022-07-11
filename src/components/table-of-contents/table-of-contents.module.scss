@@ -8,36 +8,66 @@
 }
 
 .tocLi {
-	margin-top: 12px;
+	padding: 6px 0;
+	margin-right: 3px;
+
+	border-left: 3px solid var(--minImpactBlack);
 }
 
 .tocLi a {
+	color: var(--midImpactBlack);
+	display: block;
 	text-decoration: none;
+	outline: none;
+
+	@supports not selector(:focus-visible) {
+		&:focus {
+			outline: 3px solid var(--black);
+		}
+	}
+
+	&:focus-visible {
+		outline: 3px solid var(--black);
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
-.tocH2 {
-	@extend %body-1;
-	font-style: italic;
+.tocLi:global(.toc-is-active) {
+	border-color: var(--darkPrimary);
+
 	a {
-		color: var(--midImpactBlack);
+		font-weight: 700;
+		color: var(--darkPrimary) !important;
 	}
+}
+
+.tocH1 {
+	padding-top: 0;
+	margin-top: 16px;
+	border-left: none;
+}
+
+.tocH1,
+.tocH2 {
+	@extend %headline-uniwidth-1;
 }
 
 .tocH3,
 .tocH4 {
-	// This should be body2
-	line-height: 135%;
+	@extend %headline-uniwidth-2;
 }
 
-.tocH3 a {
-	color: var(--midImpactBlack);
-	font-style: italic;
-	font-size: 1rem;
+.tocH2, .tocH3, .tocH4 {
+	a {
+		font-style: italic;
+	}
 }
 
-.tocH4 a {
-	color: var(--midImpactBlack);
-	font-style: italic;
-	line-height: 135%;
-	font-size: 1rem;
+@for $i from 1 through 4 {
+	.tocH#{$i} {
+		padding-left: ($i - 1) * 10px;
+	}
 }
