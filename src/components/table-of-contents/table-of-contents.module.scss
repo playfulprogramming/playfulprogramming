@@ -46,7 +46,8 @@
 
 .tocH1 {
 	padding-top: 0;
-	margin-top: 12px;
+	margin-top: 16px;
+	border-left: none;
 }
 
 .tocH1,
@@ -67,6 +68,6 @@
 
 @for $i from 1 through 4 {
 	.tocH#{$i} {
-		padding-left: $i * 10px;
+		padding-left: ($i - 1) * 10px;
 	}
 }
