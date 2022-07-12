@@ -246,7 +246,6 @@ $pendIconMarg: #{$baseUnit}px;
     border: var(--cardOutlineStyle);
     border-radius: var(--cardRadius);
     border-spacing: 0;
-    // border-collapse: collapse;
     overflow: hidden;
 
     thead th {
@@ -307,6 +306,12 @@ $pendIconMarg: #{$baseUnit}px;
     color: var(--black);
     background-color: var(--codeInlineBackground);
     border-radius: 4px;
+  }
+
+  hr {
+    margin: 2rem 0;
+    border: 2px solid var(--darkPrimary);
+    border-radius: 2px;
   }
 
   details {
