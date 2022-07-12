@@ -237,18 +237,6 @@ $pendIconMarg: #{$baseUnit}px;
     margin-top: 0.75em;
   }
 
-  table tr:last-child th:first-child {
-    border-bottom-left-radius: 10px;
-  }
-
-  table tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-  }
-
-  table tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-  }
-
   .table-container {
     max-width: 100%;
     overflow: auto;
@@ -257,10 +245,27 @@ $pendIconMarg: #{$baseUnit}px;
   table {
     border: var(--cardOutlineStyle);
     border-radius: var(--cardRadius);
-    border-collapse: collapse;
-    // Border-collapse and border-radius don't mix. This is a workaround for that issue
-    box-shadow: 0 0 0 1px var(--primary);
+    border-spacing: 0;
+    // border-collapse: collapse;
     overflow: hidden;
+
+    thead th {
+      background-color: var(--codeInlineBackground);
+    }
+
+    tr > th, tr > td {
+      border: var(--cardOutlineStyle);
+      border-left: none;
+      border-top: none;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    thead:last-child th, tr:last-child > td {
+      border-bottom: none;
+    }
 
     @include until($endSmallScreenSize) {
       ul {
