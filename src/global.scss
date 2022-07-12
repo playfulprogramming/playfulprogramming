@@ -300,9 +300,9 @@ $pendIconMarg: #{$baseUnit}px;
     overflow: hidden;
   }
 
-  p > code {
+  p > code, li > code {
     display: inline;
-    padding: 0 0.4em;
+    padding: 0.1em 0.4em;
     font-size: 85%;
     color: var(--black);
     background-color: var(--codeInlineBackground);
