@@ -118,47 +118,53 @@ export class FileListComponent {
 
 # Vue
 
-```javascript
-const File = {
-  template: `
-    <button
-      v-on:click="$emit('selected')"
-      :style="
-        isSelected ?
-          {backgroundColor: 'blue', color: 'white'} :
-          {backgroundColor: 'white', color: 'blue'}
-      ">
-      <a :href="href">
-        {{ fileName }}
-        <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
-      </a>
-    </button>`,
-  emits: ['selected'],
-  props: ['isSelected', 'isFolder', 'fileName', 'href'],
-};
+```vue
+<!-- File.vue -->
+<template>
+  <button
+    v-on:click="$emit('selected')"
+    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+  >
+    <a :href="href">
+      {{ fileName }}
+      <FileDate v-if="isFolder" [inputDate]="inputDate" />
+    </a>
+  </button>
+</template>
 
-const FileList = {
-  template: `
-    <!-- ... -->
-    <ul>
-      <li
-        v-for="(file, i) in filesArray"
-        :key="file.id"
-      >
-      <file 
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
+
+defineEmits(['selected'])
+</script>
+
+```
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <!-- ... -->
+  <ul>
+    <li v-for="(file, i) in filesArray" :key="file.id">
+      <File
         v-if="onlyShowFiles ? !file.isFolder : true"
-        @selected="onSelected(i)" 
-        :isSelected="selectedIndex === i" 
-        :fileName="file.fileName" 
+        @selected="onSelected(i)"
+        :isSelected="selectedIndex === i"
+        :fileName="file.fileName"
         :href="file.href"
         :isFolder="file.isFolder"
-      ></file>
-      </li>
-    </ul>
-    <!-- ... -->
-  `,
-  // ...
-};
+      />
+    </li>
+  </ul>
+  <!-- ... -->
+</template>
+
+<script setup>
+// ...
+</script>
+
 ```
 
 <!-- tabs:end -->
@@ -283,7 +289,7 @@ Angular's version of the `nothing` element is the `ng-container` element.
         [href]="file.href" 
         [isFolder]="file.isFolder"
       ></file>
-    <li>
+    </li>
   </ng-container>
 </ul>
 ```
@@ -292,21 +298,23 @@ Angular's version of the `nothing` element is the `ng-container` element.
 
 In order to render out something akin to a `nothing` element, we can use a [`template`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) element with a `v-for` or `v-if` associated with it.
 
-```html
-<ul>
-  <template v-for="(file, i) of filesArray">
-    <li :key="file.id">
-      <file
-        v-if="onlyShowFiles ? !file.isFolder : true"
-        (selected)="onSelected(i)"
-        [isSelected]="selectedIndex === i"
-        [fileName]="file.fileName"
-        [href]="file.href"
-        [isFolder]="file.isFolder"
-      ></file>
-    <li>
-  </template>
-</ul>
+```vue
+<template>
+  <ul>
+    <template v-for="(file, i) of filesArray">
+      <li :key="file.id">
+        <File
+          v-if="onlyShowFiles ? !file.isFolder : true"
+          (selected)="onSelected(i)"
+          [isSelected]="selectedIndex === i"
+          [fileName]="file.fileName"
+          [href]="file.href"
+          [isFolder]="file.isFolder"
+        />
+      </li>
+    </template>
+  </ul>
+</template>
 ```
 
 <!-- tabs:end -->
@@ -351,11 +359,13 @@ Here's some code samples that render out the following:
 
 While the other frameworks have a more 1:1 mapping between our pseudo-syntax `nothing`, Vue has a slightly different approach due to its reuse of the [existing HTML `<template>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
 
-By default, if you render a `template` in Vue, it will render nothing to the screen:
+By default, if you render a `template` in Vue in any other place besides the root, it will render nothing to the screen:
 
-```html
+```vue
 <template>
-  <p>Test</p>
+  <template>
+    <p>Test</p>
+  </template>
 </template>
 ```
 
@@ -364,19 +374,23 @@ By default, if you render a `template` in Vue, it will render nothing to the scr
 However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/content-reference)), it will remove the `<template>` and only render out the children.
 
 This means that both:
-```html
-<template v-if="true">
-  <p>Test</p>
+```vue
+<template>
+  <template v-if="true">
+    <p>Test</p>
+  </template>
 </template>
 ```
 
 And:
 
-```html
-<template v-if="true">
+```vue
+<template>
   <template v-if="true">
     <template v-if="true">
-      <p>Test</p>
+      <template v-if="true">
+        <p>Test</p>
+      </template>
     </template>
   </template>
 </template>
@@ -387,6 +401,8 @@ Will both render out to the following HTML:
 ```html
 <p>Test</p>
 ```
+
+> Of course, these rules don't apply to the root-level `template`, that acts as a container for our template code. It's a bit confusing at first, but makes sense when you practice more.
 
 <!-- tabs:end -->
 
