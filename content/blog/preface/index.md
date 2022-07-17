@@ -220,7 +220,7 @@ While the "Options" API has been around for longer and is more similar to Angula
 
 1) The Composition API is newer and seemingly favored over the Options API for new applications.
 2) The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier. 
-3) The Options API is relatively trivial to learn once you have a strong grasp of the options API.
+3) The Composition API is relatively trivial to learn once you have a strong grasp of the Options API.
 4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
 5) [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
 
