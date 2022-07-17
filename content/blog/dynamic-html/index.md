@@ -68,24 +68,26 @@ export class FileComponent {
 
 ### Vue
 
-```javascript
-const File = {
-  template: `
-    <button
-      v-on:click="$emit('selected')"
-      :style="
-        isSelected ?
-          {backgroundColor: 'blue', color: 'white'} :
-          {backgroundColor: 'white', color: 'blue'}
-      ">
-      <a :href="href">
-        {{ fileName }}
-        <file-date [inputDate]="inputDate"></file-date>
-      </a>
-    </button>`,
-  emits: ['selected'],
-  props: ['isSelected', 'fileName', 'href'],
-};
+```vue
+<template>
+  <button
+    v-on:click="$emit('selected')"
+    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+  >
+    <a :href="href">
+      {{ fileName }}
+      <file-date [inputDate]="inputDate"></file-date>
+    </a>
+  </button>
+</template>
+
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps(['isSelected', 'fileName', 'href'])
+
+defineEmits(['selected'])
+</script>
 ```
 
 <!-- tabs:end -->
@@ -165,11 +167,16 @@ export class ConditionalRenderComponent {
 
 ### Vue
 
-```javascript {1}
-const ConditionalRender = {
-  template: `<div><p v-if="bool">Text here</p></div>`,
-  props: ['bool']
-};
+```vue
+<template>
+  <div><p v-if="bool">Text here</p></div>
+</template>
+
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps(['bool'])
+</script>
 ```
 
 <!-- tabs:end -->
@@ -258,24 +265,26 @@ export class FileComponent {
 
 ### Vue
 
-```javascript {11}
-const File = {
-  template: `
-    <button
-      v-on:click="$emit('selected')"
-      :style="
-        isSelected ?
-          {backgroundColor: 'blue', color: 'white'} :
-          {backgroundColor: 'white', color: 'blue'}
-      ">
-      <a :href="href">
-        {{ fileName }}
-        <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
-      </a>
-    </button>`,
-  emits: ['selected'],
-  props: ['isSelected', 'isFolder', 'fileName', 'href'],
-};
+```vue
+<template>
+  <button
+    v-on:click="$emit('selected')"
+    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+  >
+    <a :href="href">
+      {{ fileName }}
+      <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
+    </a>
+  </button>
+</template>
+
+<script setup>
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
+
+defineEmits(['selected'])
+</script>
 ```
 
 <!-- tabs:end -->
@@ -553,51 +562,47 @@ export class FileListComponent {
 
 ## Vue
 
-```javascript
-const FileList = {
-  template: `
-    <ul>
-      <file 
-        @selected="onSelected(0)" 
-        :isSelected="selectedIndex === 0" 
-        fileName="File one" 
-        href="/file/file_one"
-        :isFolder="false"
-      ></file>
-      <file 
-        @selected="onSelected(1)" 
-        :isSelected="selectedIndex === 1" 
-        fileName="File two" 
-        href="/file/file_two"
-        :isFolder="false"
-      ></file>
-      <file 
-        @selected="onSelected(2)" 
-        :isSelected="selectedIndex === 2" 
-        fileName="File three" 
-        href="/file/file_three"
-        :isFolder="false"
-      ></file>
-    </ul>
-  `,
-  data() {
-    return {
-      selectedIndex: -1,
-    };
-  },
-  methods: {
-    onSelected(idx) {
-      if (this.selectedIndex === idx) {
-        this.selectedIndex = -1;
-        return;
-      }
-      this.selectedIndex = idx;
-    },
-  },
-  components: {
-    File,
-  },
-};
+```vue
+<template>
+  <ul>
+    <file
+      @selected="onSelected(0)"
+      :isSelected="selectedIndex === 0"
+      fileName="File one"
+      href="/file/file_one"
+      :isFolder="false"
+    ></file>
+    <file
+      @selected="onSelected(1)"
+      :isSelected="selectedIndex === 1"
+      fileName="File two"
+      href="/file/file_two"
+      :isFolder="false"
+    ></file>
+    <file
+      @selected="onSelected(2)"
+      :isSelected="selectedIndex === 2"
+      fileName="File three"
+      href="/file/file_three"
+      :isFolder="false"
+    ></file>
+  </ul>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import File from './File.vue'
+
+const selectedIndex = ref(-1)
+
+function onSelected(idx) {
+  if (selectedIndex.value === idx) {
+    selectedIndex.value = -1
+    return
+  }
+  selectedIndex.value = idx
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -713,55 +718,52 @@ Inside our `ngFor`, `index` may not seem like it is being defined; however, Angu
 
 ## Vue
 
-```javascript {3-9,15-28}
-const FileList = {
-  template: `
-    <ul>
-      <file 
-        v-for="(file, i) in filesArray"
-        @selected="onSelected(i)" 
-        :isSelected="selectedIndex === i" 
-        :fileName="file.fileName" 
-        :href="file.href"
-        :isFolder="file.isFolder"
-      ></file>
-    </ul>
-  `,
-  data() {
-    return {
-      selectedIndex: -1,
-        filesArray: [
-          {
-              fileName: "File one",
-              href: "/file/file_one",
-              isFolder: false
-          },
-          {
-              fileName: "File two",
-              href: "/file/file_two",
-              isFolder: false
-          },
-          {
-              fileName: "File three",
-              href: "/file/file_three",
-              isFolder: false
-          }
-        ]
-    };
+```vue
+<template>
+  <ul>
+    <file
+      v-for="(file, i) in filesArray"
+      @selected="onSelected(i)"
+      :isSelected="selectedIndex === i"
+      :fileName="file.fileName"
+      :href="file.href"
+      :isFolder="file.isFolder"
+    ></file>
+  </ul>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import File from './File.vue'
+
+const filesArray = [
+  {
+    fileName: 'File one',
+    href: '/file/file_one',
+    isFolder: false,
   },
-  methods: {
-    onSelected(idx) {
-      if (this.selectedIndex === idx) {
-        this.selectedIndex = -1;
-        return;
-      }
-      this.selectedIndex = idx;
-    },
+  {
+    fileName: 'File two',
+    href: '/file/file_two',
+    isFolder: false,
   },
-  components: {
-    File,
+  {
+    fileName: 'File three',
+    href: '/file/file_three',
+    isFolder: false,
   },
-};
+]
+
+const selectedIndex = ref(-1)
+
+function onSelected(idx) {
+  if (selectedIndex.value === idx) {
+    selectedIndex.value = -1
+    return
+  }
+  selectedIndex.value = idx
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -870,30 +872,19 @@ function getRandomWord() {
 
 ### Vue
 
-```javascript
-const WordList = {
-  template: `
+```vue
+<!-- WordList.vue -->
+<template>
   <div>
-  <button @click="addWord()">Add word</button>
-  <ul>
-    <li v-for="word in words">{{word.word}}</li>
-  </ul>
-</div>
-`,
-  data() {
-    return {
-      words: [],
-    };
-  },
-  methods: {
-    addWord() {
-      const newWord = getRandomWord();
-      // Remove ability for duplicate words
-      if (this.words.includes(newWord)) return;
-      this.words = [...this.words, newWord];
-    },
-  },
-};
+    <button @click="addWord()">Add word</button>
+    <ul>
+      <li v-for="word in words">{{ word.word }}</li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
 
 const wordDatabase = [
   { word: 'who', id: 1 },
@@ -902,11 +893,21 @@ const wordDatabase = [
   { word: 'where', id: 4 },
   { word: 'why', id: 5 },
   { word: 'how', id: 6 },
-];
+]
 
 function getRandomWord() {
-  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+  return wordDatabase[Math.floor(Math.random() * wordDatabase.length)]
 }
+
+const words = ref([])
+
+function addWord() {
+  const newWord = getRandomWord()
+  // Remove ability for duplicate words
+  if (words.value.includes(newWord)) return
+  words.value.push(newWord)
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -969,18 +970,18 @@ While this works in some cases, for the most part, it's suggested to provide you
 
 ### Vue
 
-```javascript {5}
-const WordList = {
-  template: `
-    <div>
-      <button @click="addWord()">Add word</button>
-      <ul>
-        <li v-for="word in words" :key="word.id">{{word.word}}</li>
-      </ul>
-    </div>
-`,
- // ...
-}
+```vue
+<!-- WordList.vue -->
+<template>
+  <div>
+    <button @click="addWord()">Add word</button>
+    <ul>
+      <li v-for="word in words" :key="word.id">{{ word.word }}</li>
+    </ul>
+  </div>
+</template>
+
+<!-- ... -->
 ```
 
 Here, we're using the `key` property to tell Vue which `li` is related to which `word` via the `word`'s unique `id` field.
@@ -1029,24 +1030,23 @@ This isn't necessarily a bad thing, however. We'll touch on this more in a bit, 
 
 ### Vue
 
-```javascript {2}
-const KeyExample = {
-  template: `
+```vue
+<!-- KeyExample.vue -->
+<template>
     <input :key="num" />
     <button @click="increase()">Increase</button>
     <p>{{ num }}</p>
-  `,
-  data() {
-    return {
-      num: 0,
-    };
-  },
-  methods: {
-    increase() {
-      this.num++;
-    },
-  },
-};
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const num = ref(0);
+
+function increase() {
+  this.num.value++;
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1175,59 +1175,57 @@ export class FileListComponent {
 
 ## Vue
 
-```javascript {3-9,15-28}
-const FileList = {
-  template: `
-    <ul>
-      <file 
-        v-for="(file, i) in filesArray"
-        :key="file.id"
-        @selected="onSelected(i)" 
-        :isSelected="selectedIndex === i" 
-        :fileName="file.fileName" 
-        :href="file.href"
-        :isFolder="file.isFolder"
-      ></file>
-    </ul>
-  `,
-  data() {
-    return {
-      selectedIndex: -1,
-        filesArray: [
-          {
-              fileName: "File one",
-              href: "/file/file_one",
-              isFolder: false,
-              id: 1
-          },
-          {
-              fileName: "File two",
-              href: "/file/file_two",
-              isFolder: false,
-              id: 2
-          },
-          {
-              fileName: "File three",
-              href: "/file/file_three",
-              isFolder: false,
-              id: 3
-          }
-        ]
-    };
+```vue
+<!-- FileList.vue -->
+<template>
+  <ul>
+    <file
+      v-for="(file, i) in filesArray"
+      :key="file.id"
+      @selected="onSelected(i)"
+      :isSelected="selectedIndex === i"
+      :fileName="file.fileName"
+      :href="file.href"
+      :isFolder="file.isFolder"
+    ></file>
+  </ul>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import File from './File.vue'
+
+const filesArray = [
+  {
+    fileName: 'File one',
+    href: '/file/file_one',
+    isFolder: false,
+    id: 1,
   },
-  methods: {
-    onSelected(idx) {
-      if (this.selectedIndex === idx) {
-        this.selectedIndex = -1;
-        return;
-      }
-      this.selectedIndex = idx;
-    },
+  {
+    fileName: 'File two',
+    href: '/file/file_two',
+    isFolder: false,
+    id: 2,
   },
-  components: {
-    File,
+  {
+    fileName: 'File three',
+    href: '/file/file_three',
+    isFolder: false,
+    id: 3,
   },
-};
+]
+
+const selectedIndex = ref(-1)
+
+function onSelected(idx) {
+  if (selectedIndex.value === idx) {
+    selectedIndex.value = -1
+    return
+  }
+  selectedIndex.value = idx
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1313,43 +1311,41 @@ export class FileListComponent {
 
 ## Vue
 
-```javascript
-const FileList = {
-  template: `
-    <div>
-      <button (click)="toggleOnlyShow()">Only show files</button>
-      <ul>
-        <li
-          v-for="(file, i) in filesArray"
-          :key="file.id"
-        >
-        <file 
+```vue
+<!-- FileList.vue -->
+<template>
+  <div>
+    <button (click)="toggleOnlyShow()">Only show files</button>
+    <ul>
+      <li v-for="(file, i) in filesArray" :key="file.id">
+        <file
           v-if="onlyShowFiles ? !file.isFolder : true"
-          @selected="onSelected(i)" 
-          :isSelected="selectedIndex === i" 
-          :fileName="file.fileName" 
+          @selected="onSelected(i)"
+          :isSelected="selectedIndex === i"
+          :fileName="file.fileName"
           :href="file.href"
           :isFolder="file.isFolder"
         ></file>
-        </li>
-      </ul>
-    </div>
-  `,
-  data() {
-    return {
-      // ...
-      onlyShowFiles: false,
-    };
-  },
-  methods: {
-    // ...
+      </li>
+    </ul>
+  </div>
+</template>
 
-    toggleOnlyShow() {
-      this.onlyShowFiles = !onlyShowFiles;
-    }
-  },
-  // ...
-};
+<script setup>
+import { ref } from 'vue'
+
+// ...
+
+const onlyShowFiles = ref(false);
+
+// ...
+
+toggleOnlyShow() {
+  onlyShowFiles.value = !onlyShowFiles.value;
+}
+
+// ...
+</script>
 ```
 
 <!-- tabs:end -->
