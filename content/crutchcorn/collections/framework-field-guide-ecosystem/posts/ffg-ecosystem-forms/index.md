@@ -76,29 +76,28 @@ export class FormComponent {
 
 ## Vue
 
-```javascript
-const FormComp = {
-  template: `
+```vue
+<!-- FormComp.vue -->
+<template>
   <form @submit="onSubmit($event)">
-    <input type="text" @change="onChange($event)" :value="usersName"/>
+    <input type="text" @change="onChange($event)" :value="usersName" />
     <button type="submit">Submit</button>
   </form>
-  `,
-  data() {
-    return {
-      usersName: '',
-    };
-  },
-  methods: {
-    onChange(e) {
-      this.usersName = e.target.value;
-    },
-    onSubmit(e) {
-      e.preventDefault();
-      console.log(this.usersName);
-    },
-  },
-};
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const usersName = ref('')
+
+function onChange(e) {
+  this.usersName = e.target.value
+}
+function onSubmit(e) {
+  e.preventDefault()
+  console.log(this.usersName)
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -183,26 +182,25 @@ export class AppModule {}
 
 While Angular's two-way binding requires a special syntax, Vue instead relies on a custom element attribute called `v-model` to sync the variable to the element's value.
 
-```javascript {3,9}
-const FormComp = {
-  template: `
+```vue
+<!-- FormComp.vue -->
+<template>
   <form @submit="onSubmit($event)">
-    <input type="text" v-model="usersName"/>
+    <input type="text" v-model="usersName" />
     <button type="submit">Submit</button>
   </form>
-  `,
-  data() {
-    return {
-      usersName: '',
-    };
-  },
-  methods: {
-    onSubmit(e) {
-      e.preventDefault();
-      console.log(this.usersName);
-    },
-  },
-};
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const usersName = ref('')
+
+function onSubmit(e) {
+  e.preventDefault()
+  console.log(this.usersName)
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -541,41 +539,37 @@ While Vue has a large home-grown ecosystem of tools, Vue does not have an offici
 
 Here's a simple form using `vee-validate`:
 
-```javascript
-import {Form, Field} from 'vee-validate';
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit">
+    <div>
+      <label>
+        Name
+        <VField name="name" value="" />
+      </label>
+    </div>
 
-const FormComponent = {
-  template: `
-    <v-form @submit="onSubmit">
-      <div>
-        <label>
-          Name
-          <v-field name="name" value=""></v-field> 
-        </label>
-      </div>
+    <div>
+      <label>
+        Email
+        <VField name="email" value="" />
+      </label>
+    </div>
+    <button type="submit">Submit</button>
+  </VForm>
+</template>
 
-      <div>
-        <label>
-          Email
-          <v-field name="email" value=""></v-field> 
-        </label>
-      </div>
-      <button type="submit">Submit</button>
-    </v-form>
-`,
-  // We're importing these forms under a different name due to conflicts
-  // with the browser's built in `form` and `field` elements
-  components: {
-    VForm: Form,
-    VField: Field,
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    }
-  }
+<script setup>
+import { Form as VForm, Field as VField } from 'vee-validate'
+
+function onSubmit(values) {
+  console.log(values)
 }
+</script>
 ```
+
+Here, we'll use the `import {Something as SomethingElse}` syntax in order to avoid namespace collision (where two things are named the same, and the compiler has challenges figuring out which is which) with [HTML's default `form` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form).
 
 > We are currently using version 4 of `vee-validate`. Inevitably, its API will change, and this section will be out-of-date, but the core concepts at play likely will not change very much.
 
@@ -778,69 +772,66 @@ class AppComponent {
 
 ### Vue
 
-`vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `v-field` as well as each `v-form`.
+`vee-validate` exposes the `touched` and `dirty` fields via a `v-slot` associated with each `VField` as well as each `VForm`.
 
-`v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance, `v-form` and `v-field` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
+`v-slot` can be a bit confusing at first, but just think of it as "this component wants to expose a variable to the template that can then be used later". Basically, in this instance, `VForm` and `VField` both have an internal value called `meta` that we can expose via `v-slot` for our usage in reflecting information about the form in the DOM.
 
-> We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](/posts/content-reference Add link)
+> We'll touch on `v-slot` more in-depth (including how to implement support in your components) [in the chapter "Content reference"](/posts/content-reference)
 
-A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `v-field` where we did not have to do so earlier.
+A side effect of this exposing method, however, is that you now must `v-bind` an `input` inside of the `VField` where we did not have to do so earlier.
 
-```javascript
-const FormComponent = {
-  template: `
-    <v-form @submit="onSubmit" v-slot="{ meta }">
-      <div>
-        <label>
-          Name
-          <v-field name="name" value=""  v-slot="{ field, meta }">
-            <input v-bind="field" />
-            <p v-if="meta.dirty">Field is dirty</p>
-            <p v-if="meta.touched">Field has been touched</p>
-            <p v-if="!meta.dirty">Field is pristine</p>
-          </v-field> 
-        </label>
-      </div>
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit" v-slot="{ meta }">
+    <div>
+      <label>
+        Name
+        <VField name="name" value="" v-slot="{ field, meta }">
+          <input v-bind="field" />
+          <p v-if="meta.dirty">Field is dirty</p>
+          <p v-if="meta.touched">Field has been touched</p>
+          <p v-if="!meta.dirty">Field is pristine</p>
+        </VField>
+      </label>
+    </div>
 
-      <div>
-        <label>
-          Disabled field
-          <v-field disabled name="email" value=""></v-field> 
-        </label>
-      </div>
-      <p v-if="meta.dirty">Form is dirty</p>
-      <p v-if="!meta.dirty">Form is pristine</p>
-      <p v-if="meta.touched">Form has been touched</p>
-      <p v-if="submitted">Form submitted</p>
-      <p v-if="pending">Form is pending</p>
-      <button type="submit">Submit</button>
-    </v-form>
-`,
-  components: {
-    VForm: Form,
-    VField: Field,
-  },
-  data() {
-    return {
-      pending: false,
-      submitted: false,
-    };
-  },
-  methods: {
-    onSubmit(values) {
-      this.submitted = true;
-      this.pending = true;
-      this.sendToServer(values).then(() => {
-        this.pending = false;
-      });
-    },
-    // Pretend this is calling to a server
-    sendToServer(formData) {
-      // Wait 4 seconds, then resolve promise
-      return new Promise((resolve) => setTimeout(() => resolve(0), 4000));
-    },
-  },
-};
+    <div>
+      <label>
+        Disabled field
+        <VField disabled name="email" value="" />
+      </label>
+    </div>
+    <p v-if="meta.dirty">Form is dirty</p>
+    <p v-if="!meta.dirty">Form is pristine</p>
+    <p v-if="meta.touched">Form has been touched</p>
+    <p v-if="submitted">Form submitted</p>
+    <p v-if="pending">Form is pending</p>
+    <button type="submit">Submit</button>
+  </VForm>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { Form as VForm, Field as VField } from 'vee-validate'
+
+const pending = ref(false)
+const submitted = ref(false)
+
+function onSubmit(values) {
+  submitted.value = true
+  pending.value = true
+  sendToServer(values).then(() => {
+    pending.value = false
+  })
+}
+
+// Pretend this is calling to a server
+function sendToServer(formData) {
+  // Wait 4 seconds, then resolve promise
+  return new Promise((resolve) => setTimeout(() => resolve(0), 4000))
+}
+</script>
 ```
 
 > You may notice that `vee-validate`'s `dirty` only seems to be `true` when the form actively has data inside of it. This differs in behavior from the other frameworks and is worth noting.
@@ -992,45 +983,38 @@ class AppComponent {
 
 Similar to Angular, you're able to use `v-for` to iterate through each user index, then use said index to alias the `name` property of `v-field` to access a user's information.
 
-```javascript
-import {Form, Field, FieldArray} from 'vee-validate';
-
-const FormComponent = {
-  template: `
+```vue
+<!-- FormComp.vue -->
+<template>
   <div>
     <h1>Friend List</h1>
-    <v-form @submit="onSubmit" :initial-values="initialValues">
-      <field-array name="users" key-path="id" v-slot="{fields, push, remove }">
-      <div v-for="(field, idx) in fields" :key="field.key">
-        <label>
-          Name
-          <v-field :name="'users[' + idx + '].name'"></v-field> 
-        </label>
-        <button type="button" @click="remove(idx)">Remove User</button>
-      </div>
-      <button type="button" @click="push({name: '', id: ++id})">Add User</button>
-      </field-array>
+    <VForm @submit="onSubmit" :initial-values="initialValues">
+      <FieldArray name="users" key-path="id" v-slot="{ fields, push, remove }">
+        <div v-for="(field, idx) in fields" :key="field.key">
+          <label>
+            Name
+            <VField :name="'users[' + idx + '].name'" />
+          </label>
+          <button type="button" @click="remove(idx)">Remove User</button>
+        </div>
+        <button type="button" @click="push({ name: '', id: ++id })">Add User</button>
+      </FieldArray>
       <button type="submit">Submit</button>
-    </v-form>
+    </VForm>
   </div>
-`,
-  components: {
-    VForm: Form,
-    VField: Field,
-    FieldArray: FieldArray
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    }
-  },
-  data: {
-      return {
-    	id: 1,
-    	initialValues: {users: [{name: "", id: 0}]}
-	  }
-  }
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { Form as VForm, Field as VField, FieldArray } from 'vee-validate'
+
+const initialValues = { users: [{ name: '', id: 0 }] }
+const id = ref(1)
+
+function onSubmit(values) {
+  console.log(values)
 }
+</script>
 ```
 
 Our usage of `key-path` with the `id` to track which user is which is worth highlighting here.
@@ -1261,52 +1245,41 @@ class AppComponent {
 
 ## Vue
 
-React's Formik isn't alone in its ability to allow you to pass a function to validate a user's input. Similar to Formik, `vee-validate` allows you to pass a `rules` parameter that's a function. If the function returns anything other than `true`, it will display the value as the error in the `error-message` component.
+React's Formik isn't alone in its ability to allow you to pass a function to validate a user's input. Similar to Formik, `vee-validate` allows you to pass a `rules` parameter that's a function. If the function returns anything other than `true`, it will display the value as the error in the `ErrorMessage` component.
 
-```javascript
-import { Form, Field, ErrorMessage } from 'vee-validate';
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit">
+    <div>
+      <label>
+        Name
+        <VField name="name" value="" :rules="required" />
+      </label>
+    </div>
+    <div>
+      <ErrorMessage name="name" />
+    </div>
 
-const FormComponent = {
-  template: `
-    <v-form @submit="onSubmit">
-      <div>
-        <label>
-          Name
-          <v-field name="name" value="" :rules="required">
-          </v-field> 
-        </label>
-      </div>
-      <div>
-        <error-message name="name" />
-      </div>
+    <button type="submit">Submit</button>
+  </VForm>
+</template>
 
-      <button type="submit">Submit</button>
-    </v-form>
-`,
-  components: {
-    VForm: Form,
-    VField: Field,
-    ErrorMessage: ErrorMessage,
-  },
-  data() {
-    return {
-      pending: false,
-      submitted: false,
-    };
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    },
-    required(value) {
-      // Validation failed!
-      if (!value) return 'This field is required';
+<script setup>
+import { ref } from 'vue'
+import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate'
 
-      // Validation passed!
-      return true;
-    },
-  },
-};
+function onSubmit(values) {
+  console.log(values)
+}
+function required(value) {
+  // Validation failed!
+  if (!value) return 'This field is required'
+
+  // Validation passed!
+  return true
+}
+</script>
 ```
 
 ### Complex Data Schema
@@ -1315,55 +1288,45 @@ Instead of writing our own functions to validate user input, let's instead use a
 
 [`yup` is a library that allows us to do "schema" based validation](https://github.com/jquense/yup). A schema is simply another way of saying "a set of rules that should be followed". In this case, we want Yup to make sure that the user's inputs match the rules we set up in Yup's validation.
 
-We can then pass that Yup schema into `vee-validate`'s `v-form` `validationSchema` property.
+We can then pass that Yup schema into `vee-validate`'s `VForm` `validationSchema` property.
 
-```javascript
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import * as yup from 'yup';
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit" :validationSchema="formSchema">
+    <div>
+      <label>
+        Name
+        <VField name="name" value="" />
+      </label>
+    </div>
+    <div>
+      <ErrorMessage name="name" />
+    </div>
 
-const FormComponent = {
-  template: `
-    <v-form @submit="onSubmit" :validationSchema="formSchema">
-      <div>
-        <label>
-          Name
-          <v-field name="name" value="">
-          </v-field> 
-        </label>
-      </div>
-      <div>
-        <error-message name="name" />
-      </div>
+    <button type="submit">Submit</button>
+  </VForm>
+</template>
 
-      <button type="submit">Submit</button>
-    </v-form>
-`,
-  components: {
-    VForm: Form,
-    VField: Field,
-    ErrorMessage: ErrorMessage,
-  },
-  data() {
-    return {
-      pending: false,
-      submitted: false,
-      formSchema: yup.object().shape({
-        name: yup.string().required(),
-      })
-    };
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    },
-  },
-};
+<script setup>
+import { ref } from 'vue'
+import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+
+const formSchema = yup.object().shape({
+  name: yup.string().required(),
+})
+
+function onSubmit(values) {
+  console.log(values)
+}
+</script>
 ```
 
 By default, Yup will attempt to figure out the error message it should show based on the schema and the user's input. However, as we mentioned in our React section, we're able to change the error message displayed by Yup with the following:
 
 ```javascript
-const FormSchema = yup.object().shape({
+const formSchema = yup.object().shape({
   name: yup.string().required("You must input a name of the user to share with."),
 });
 ```
@@ -1577,82 +1540,73 @@ class AppComponent {
 
 ### Vue
 
-```javascript
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import * as yup from 'yup';
-
-const FormComponent = {
-  template: `
-  <v-form @submit="onSubmit" :validationSchema="formSchema">
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit" :validationSchema="formSchema">
     <div>
       <label>
         Minimum Length String (3)
-        <v-field name="minLenStr" value=""> </v-field>
+        <VField name="minLenStr" value="" />
       </label>
     </div>
     <div>
-      <error-message name="minLenStr" />
+      <ErrorMessage name="minLenStr" />
     </div>
     <div>
       <label>
         Maximum Length String (3)
-        <v-field name="maxLenStr" value=""> </v-field>
+        <VField name="maxLenStr" value="" />
       </label>
     </div>
     <div>
-      <error-message name="maxLenStr" />
+      <ErrorMessage name="maxLenStr" />
     </div>
     <div>
       <label>
         Regex
-        <v-field name="regex" value=""> </v-field>
+        <VField name="regex" value="" />
       </label>
     </div>
     <div>
-      <error-message name="regex" />
+      <ErrorMessage name="regex" />
     </div>
     <div>
       <label>
         Password
-        <v-field name="pass" type="password" value=""> </v-field>
+        <VField name="pass" type="password" value="" />
       </label>
     </div>
     <div>
       <label>
         Password Confirm
-        <v-field name="confirm" type="password" value=""> </v-field>
+        <VField name="confirm" type="password" value="" />
       </label>
     </div>
     <div>
-      <error-message name="confirm" />
+      <ErrorMessage name="confirm" />
     </div>
     <button type="submit">Submit</button>
-  </v-form>
-  `,
-  components: {
-    VForm: Form,
-    VField: Field,
-    ErrorMessage: ErrorMessage,
-  },
-  data() {
-    return {
-      formSchema: yup.object().shape({
-        minLenStr: yup.string().min(3),
-        maxLenStr: yup.string().max(3),
-        regex: yup.string().matches(/hello|hi/i),
-        pass: yup.string(),
-        confirm: yup
-          .string()
-          .oneOf([yup.ref('pass'), null], 'Must match "password" field value'),
-      }),
-    };
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    },
-  },
-};
+  </VForm>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+
+const formSchema = yup.object().shape({
+  minLenStr: yup.string().min(3),
+  maxLenStr: yup.string().max(3),
+  regex: yup.string().matches(/hello|hi/i),
+  pass: yup.string(),
+  confirm: yup.string().oneOf([yup.ref('pass'), null], 'Must match "password" field value'),
+})
+
+function onSubmit(values) {
+  console.log(values)
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1777,49 +1731,38 @@ class AppComponent {
 
 ## Vue
 
-`vee-validate` supports casting a `v-field` to a different `input` `type`, just like React's Formik. Luckily for us, usage with `yup` is for checkboxes as simple as adding the `required` validator to Yup's schema shape.
+`vee-validate` supports casting a `VField` to a different `input` `type`, just like React's Formik. Luckily for us, usage with `yup` is for checkboxes as simple as adding the `required` validator to Yup's schema shape.
 
-```javascript
-import { Form, Field, ErrorMessage } from 'vee-validate';
-import * as yup from 'yup';
+```vue
+<!-- FormComp.vue -->
+<template>
+  <VForm @submit="onSubmit" :validationSchema="formSchema">
+    <div>
+      <label>
+        Terms and Conditions
+        <VField name="termsAndConditions" type="checkbox" :value="true" />
+      </label>
+    </div>
+    <div>
+      <ErrorMessage name="termsAndConditions" />
+    </div>
 
-const FormComponent = {
-  template: `
-    <v-form @submit="onSubmit" :validationSchema="formSchema">
-      <div>
-        <label>
-          Name
-          <v-field name="termsAndConditions" type="checkbox" :value="true">
-          </v-field> 
-        </label>
-      </div>
-      <div>
-        <error-message name="termsAndConditions" />
-      </div>
+    <button type="submit">Submit</button>
+  </VForm>
+</template>
 
-      <button type="submit">Submit</button>
-    </v-form>
-`,
-  components: {
-    VForm: Form,
-    VField: Field,
-    ErrorMessage: ErrorMessage,
-  },
-  data() {
-    return {
-      formSchema: yup.object().shape({
-        termsAndConditions: yup
-          .bool()
-          .required('You need to accept the terms and conditions'),
-      }),
-    };
-  },
-  methods: {
-    onSubmit(values) {
-      console.log(values);
-    },
-  },
-};
+<script setup>
+import { Form as VForm, Field as VField, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
+
+const formSchema = yup.object().shape({
+  termsAndConditions: yup.bool().required('You need to accept the terms and conditions'),
+})
+
+function onSubmit(values) {
+  console.log(values)
+}
+</script>
 ```
 
 <!-- tabs:end -->
