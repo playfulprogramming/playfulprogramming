@@ -49,18 +49,22 @@ export class FileDateComponent implements OnInit {
 
 # Vue
 
-```javascript
-const FileDate = {
-  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(this.inputDate),
-      labelText: this.formatReadableDate(this.inputDate)
-    };
-  },
-  props: ['inputDate']
-  // ...
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span :aria-label="labelText">{{dateStr}}</span>
+</template>
+
+<script setup>
+// ...
+
+const props = defineProps(['inputDate'])
+
+const dateStr = ref(formatDate(props.inputDate))
+const labelText = ref(formatReadableDate(props.inputDate))
+
+// ...
+</script>
 ```
 
 <!-- tabs:end -->
@@ -122,27 +126,32 @@ export class FileComponent implements OnInit, OnDestroy {
 
 # Vue
 
-```javascript
-const File = {
-  template: `<file-date :inputDate="inputDate"></file-date>`,
-  data() {
-    return {
-      inputDate: new Date(),
-      interval: null
-    };
-  },
-  mounted() {
-    // Check if it's a new day every 10 minutes
-    this.interval = setInterval(() => {
-      const newDate = new Date();
-      if (this.inputDate.getDate() === newDate.getDate()) return;
-      this.inputDate = newDate;
-    }, 10 * 60 * 1000);
-  },
-  unmounted() {
-    clearInterval(this.interval);
-  }
-};
+```vue
+<!-- File.vue -->
+<template>
+  <!-- ... -->
+  <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
+  <!-- ... -->
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const inputDate = ref(new Date())
+const interval = ref(null)
+
+onMounted(() => {
+  interval.value = setInterval(() => {
+    const newDate = new Date()
+    if (inputDate.value.getDate() === newDate.getDate()) return
+    inputDate.value = newDate
+  }, 10 * 60 * 1000)
+})
+
+onUnmounted(() => {
+  clearInterval(interval.value)
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -212,29 +221,34 @@ Here, we're using a new lifecycle method — specific to Angular — called `ngO
 
 ## Vue
 
-```javascript
-const FileDate = {
-  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
-  data() {
-    return {
-      dateStr: this.formatDate(this.inputDate),
-      labelText: this.formatReadableDate(this.inputDate)
-    };
-  },
-  props: ['inputDate'],
-  watch: {
-    // The key here must match the property name you want to watch changes of
-    inputDate(newDate, oldDate) {
-      this.dateStr = this.formatDate(newDate),
-      this.labelText = this.formatReadableDate(newDate)        
-    }
-  }
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span :aria-label="labelText">{{ dateStr }}</span>
+</template>
+
+<script setup>
+import {defineProps, ref, watch} from 'vue';
+
+// ...
+
+const props = defineProps(['inputDate'])
+
+const dateStr = ref(formatDate(props.inputDate))
+const labelText = ref(formatReadableDate(props.inputDate))
+
+watch(() => props.inputDate, (newDate, oldDate) => {
+      dateStr.value = formatDate(newDate),
+      labelText.value = formatReadableDate(newDate)     
+})
+
+// ...
+</script>
 ```
 
 Vue's `watch` logic allows you to track a given property or state value changes based on its key.
 
-Here, we're watching the `inputDate` input key and, when changed, updating `dateStr` and `labelText` based off of the new property value.
+Here, we're watching the `inputDate` props key and, when changed, updating `dateStr` and `labelText` based off of the new property value.
 
 <!-- tabs:end -->
 
@@ -412,24 +426,31 @@ export class FileDateComponent {
 
 ## Vue
 
-```javascript
-const FileDate = {
-  template: `<span :aria-label="labelText">{{dateStr}}</span>`,
-  props: ['inputDate'],
-  computed: {
-    dateStr() {
-      return this.formatDate(this.inputDate)
-    },
-    labelText() {
-      return this.formatReadableDate(this.inputDate)
-    }
-  }
-};
+```vue
+<!-- FileDate.vue -->
+<template>
+  <span :aria-label="labelText">{{ dateStr }}</span>
+</template>
+
+<script setup>
+import { defineProps, computed } from 'vue'
+
+// ...
+
+const props = defineProps(['inputDate'])
+
+const dateStr = computed(() => formatDate(props.inputDate));
+const labelText = computed(() => formatReadableDate(props.inputDate));
+
+// ...
+</script>
 ```
 
-Instead of using `data` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
+Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
-These props are then accessible in the same way a `data` property is, both from the template and from Vue's logic layer alike.
+Vue is able to ✨ magically ✨ detect what data inside of the `computed` function is dynamic. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+
+These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's logic layer alike.
 
 <!-- tabs:end -->
 
@@ -476,7 +497,7 @@ export class DoubleNumPipe implements PipeTransform {
   </div>
   `,
 })
-export class FileDateComponent {
+export class CountAndDoubleComponent {
   number = 0;
   
 	addOne() {
@@ -487,31 +508,27 @@ export class FileDateComponent {
 
 ## Vue
 
-```javascript
-const FileDate = {
-  template: `
-    <div>
-   	 <p>{{number}}</p>
-   	 <p>{{number | doubleNum}}</p>
-   	 <button (click)="addOne()">Add one</button>
-	  </div>
-  `,
-	data() {
-    return {
-      number: 0
-    }
-  },
-  methods: {
-    addOne() {
-      this.number++;
-    }
-  },
-  computed: {
-    doubleNum() {
-      return this.number*2;
-    }
-  }
-};
+```vue
+<!-- CountAndDouble.vue -->
+<template>
+  <div>
+    <p>{{ number }}</p>
+    <p>{{ doubleNum }}</p>
+    <button @click="addOne()">Add one</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const number = ref(0)
+
+function addOne() {
+  number.value++
+}
+
+const doubleNum = computed(() => number.value * 2)
+</script>
 ```
 
 <!-- tabs:end -->
