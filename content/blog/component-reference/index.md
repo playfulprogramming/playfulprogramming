@@ -214,19 +214,19 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 # Vue
 
-```javascript
-const App = {
-  template: `
+```vue
+<!-- App.vue -->
+<template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">
       Right click on me!
     </div>
   </div>
   <div
-    v-if="isOpen"
-    :ref="el => focusOnOpen(el)"
-    tabIndex="0"
-    :style="{
+      v-if="isOpen"
+      :ref="el => focusOnOpen(el)"
+      tabIndex="0"
+      :style="{
       position: 'fixed',
       top: bounds.y + 20,
       left: bounds.x + 20,
@@ -239,57 +239,62 @@ const App = {
     <button @click="close()">X</button>
     This is a context menu
   </div>
-`,
-  data() {
-    return {
-      isOpen: false,
-      bounds: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0,
-      },
-      contextMenuRef: null,
-      resizeListenerBound: this.resizeListener.bind(this),
-      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
-    };
-  },
-  mounted() {
-    this.resizeListenerBound();
+</template>
 
-    window.addEventListener('resize', this.resizeListenerBound);
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.resizeListenerBound);
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-  },
-  methods: {
-    resizeListener() {
-      if (!this.$refs.contextOrigin) return;
-      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
-    },
-    closeIfOutside(e) {
-      const contextMenuEl = this.contextMenuRef;
-      if (!contextMenuEl) return;
-      const isClickInside = contextMenuEl.contains(e.target);
-      if (isClickInside) return;
-      this.isOpen = false;
-    },
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-    },
-    focusOnOpen(el) {
-      this.contextMenuRef = el;
-      if (!el) return;
-      el.focus();
-    },
-  },
-};
+<script setup>
+import {onMounted, onUnmounted, ref} from 'vue';
+
+const isOpen = ref(false);
+const bounds = ref({
+  height: 0,
+  width: 0,
+  x: 0,
+  y: 0,
+});
+
+const contextOrigin = ref();
+const contextMenuRef = ref(null);
+
+function resizeListener() {
+  if (!contextOrigin.value) return;
+  bounds.value = contextOrigin.value.getBoundingClientRect();
+}
+
+function closeIfOutside(e) {
+  const contextMenuEl = contextMenuRef.value;
+  if (!contextMenuEl) return;
+  const isClickInside = contextMenuEl.contains(e.target);
+  if (isClickInside) return;
+  isOpen.value = false;
+}
+
+onMounted(() => {
+  resizeListener();
+
+  window.addEventListener('resize', resizeListener);
+  document.addEventListener('click', closeIfOutside);
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeListener);
+  document.removeEventListener('click', closeIfOutside);
+})
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+}
+
+function focusOnOpen(el) {
+  contextMenuRef.value = el;
+  if (!el) return;
+  el.focus();
+}
+</script>
 ```
 
 
@@ -479,16 +484,16 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-```javascript
-const ContextMenu = {
-  template: `
+```vue
+<!-- ContextMenu.vue -->
+<template>
   <div
-    tabIndex="0"
-    ref="contextMenuRef"
-    :style="{
+      tabIndex="0"
+      ref="contextMenuRef"
+      :style="{
       position: 'fixed',
-      top: y + 20,
-      left: x + 20,
+      top: props.y + 20,
+      left: props.x + 20,
       background: 'white',
       border: '1px solid black',
       borderRadius: 16,
@@ -498,77 +503,83 @@ const ContextMenu = {
     <button @click="$emit('close')">X</button>
     This is a context menu
   </div>
-  `,
-  props: ['x', 'y'],
-  emits: ['close'],
-  data() {
-    return {
-      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
-    };
-  },
-  mounted() {
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  },
-  unmounted() {
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-  },
-  methods: {
-    closeIfOutside(e) {
-      const contextMenuEl = this.$refs.contextMenuRef;
-      if (!contextMenuEl) return;
-      const isClickInside = contextMenuEl.contains(e.target);
-      if (isClickInside) return;
-      this.$emit('close');
-    },
-  },
-};
+</template>
 
-const App = {
-  template: `
+<script setup>
+import {defineProps, defineEmits, onMounted, onUnmounted, ref} from 'vue';
+
+const props = defineProps(['x', 'y']);
+const emit = defineEmits(['close']);
+
+const contextMenuRef = ref(null);
+
+function closeIfOutside(e) {
+  const contextMenuEl = contextMenuRef.value;
+  if (!contextMenuEl) return;
+  const isClickInside = contextMenuEl.contains(e.target);
+  if (isClickInside) return;
+  emit('close');
+}
+
+onMounted(() => {
+  document.addEventListener('click', closeIfOutside);
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeIfOutside);
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">
       Right click on me!
     </div>
   </div>
-  <context-menu v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"></context-menu>
-`,
-  components: {
-    ContextMenu,
-  },
-  data() {
-    return {
-      isOpen: false,
-      bounds: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0,
-      },
-      resizeListenerBound: this.resizeListener.bind(this),
-    };
-  },
-  mounted() {
-    this.resizeListenerBound();
+  <ContextMenu v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"/>
+</template>
 
-    window.addEventListener('resize', this.resizeListenerBound);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.resizeListenerBound);
-  },
-  methods: {
-    resizeListener() {
-      if (!this.$refs.contextOrigin) return;
-      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
-    },
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-    },
-  },
-};
+<script setup>
+import {onMounted, onUnmounted, ref} from 'vue';
+import ContextMenu from './ContextMenu.vue';
+
+const isOpen = ref(false);
+const bounds = ref({
+  height: 0,
+  width: 0,
+  x: 0,
+  y: 0,
+});
+
+const contextOrigin = ref();
+
+function resizeListener() {
+  if (!contextOrigin.value) return;
+  bounds.value = contextOrigin.value.getBoundingClientRect();
+}
+
+onMounted(() => {
+  resizeListener();
+
+  window.addEventListener('resize', resizeListener);
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeListener);
+})
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -828,7 +839,7 @@ Hello, world
 
 ## Vue
 
-Using the same `$ref` API as element nodes, you can access a component's instance using a `ref` string:
+Using the same `ref` API as element nodes, you can access a component's instance:
 
 ```javascript
 const Child = {
@@ -864,19 +875,73 @@ Proxy { <target>: {…}, <handler>: {…} }
 
 This is because of how [Vue works under-the-hood](// TODO: Link to Vue internals chapter). Rest assured, however; this `Proxy` is still our component instance.
 
+### Exposing Component Variables to References 
+
+We're not able to do much with this component instance currently. If we change out `Parent` component to `console.log` the `pi` value from `Child`:
+
+```vue
+<!-- Parent.vue -->
+<template>
+  <Child ref="childComp"/>
+</template>
+
+<script setup>
+import {ref, onMounted} from "vue";
+import Child from './Child.vue';
+
+const childComp = ref();
+
+onMounted(() => {
+  console.log(childComp.value.pi);
+})
+</script>
+```
+
+ We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
+
+To fix this, we can use Vue's `defineExpose` API to allow parent components to access a child component's variables and methods:
+
+```vue
+<!-- Child.vue -->
+<template>
+  <div></div>
+</template>
+
+<script setup>
+import {defineExpose} from "vue";
+
+const pi = 3.14;
+
+function sayHi() {
+  console.log('Hello, world');
+}
+
+defineExpose({
+  pi,
+  sayHi
+})
+</script>
+```
+
 Because we now have access to the component instance, we can access data and call methods similar to how we're able to access data and call a methods from an element reference.
 
-```javascript
-const Parent = {
-	template: `<child ref="childComp"></child>`,
-	mounted() {
-		console.log(this.$refs.childComp.pi); // Will log "3.14"
-		this.$refs.childComp.sayHi(); // Will log "Hello, world"
-	},
-	components: {
-		Child
-	}
-} 
+```vue
+<!-- Parent.vue -->
+<template>
+  <Child ref="childComp"/>
+</template>
+
+<script setup>
+import {ref, onMounted} from "vue";
+import Child from './Child.vue';
+
+const childComp = ref();
+
+onMounted(() => {
+  console.log(childComp.value.pi);
+  childComp.value.sayHi();
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1107,17 +1172,16 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-
-```javascript
-const ContextMenu = {
-  template: `
+```vue
+<!-- ContextMenu.vue -->
+<template>
   <div
-    tabIndex="0"
-    ref="contextMenuRef"
-    :style="{
+      tabIndex="0"
+      ref="contextMenuRef"
+      :style="{
       position: 'fixed',
-      top: y + 20,
-      left: x + 20,
+      top: props.y + 20,
+      left: props.x + 20,
       background: 'white',
       border: '1px solid black',
       borderRadius: 16,
@@ -1127,83 +1191,95 @@ const ContextMenu = {
     <button @click="$emit('close')">X</button>
     This is a context menu
   </div>
-  `,
-  props: ['x', 'y'],
-  emits: ['close'],
-  data() {
-    return {
-      closeIfOutsideOfContext: this.closeIfOutside.bind(this),
-    };
-  },
-  mounted() {
-    document.addEventListener('click', this.closeIfOutsideOfContext);
-  },
-  unmounted() {
-    document.removeEventListener('click', this.closeIfOutsideOfContext);
-  },
-  methods: {
-    focusMenu() {
-      this.$refs.contextMenuRef.focus();
-    },
-    closeIfOutside(e) {
-      const contextMenuEl = this.$refs.contextMenuRef;
-      if (!contextMenuEl) return;
-      const isClickInside = contextMenuEl.contains(e.target);
-      if (isClickInside) return;
-      this.$emit('close');
-    },
-  },
-};
+</template>
 
-const App = {
-  template: `
+<script setup>
+import {defineProps, defineEmits, onMounted, onUnmounted, ref} from 'vue';
+
+const props = defineProps(['x', 'y']);
+const emit = defineEmits(['close']);
+
+const contextMenuRef = ref(null);
+
+function closeIfOutside(e) {
+  const contextMenuEl = contextMenuRef.value;
+  if (!contextMenuEl) return;
+  const isClickInside = contextMenuEl.contains(e.target);
+  if (isClickInside) return;
+  emit('close');
+}
+
+onMounted(() => {
+  document.addEventListener('click', closeIfOutside);
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeIfOutside);
+})
+
+function focusMenu() {
+  contextMenuRef.value.focus();
+}
+
+defineExpose({
+  focusMenu
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">
       Right click on me!
     </div>
   </div>
-  <context-menu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"></context-menu>
-`,
-  components: {
-    ContextMenu,
-  },
-  data() {
-    return {
-      isOpen: false,
-      bounds: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0,
-      },
-      resizeListenerBound: this.resizeListener.bind(this),
-    };
-  },
-  mounted() {
-    this.resizeListenerBound();
+  <ContextMenu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()"/>
+</template>
 
-    window.addEventListener('resize', this.resizeListenerBound);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.resizeListenerBound);
-  },
-  methods: {
-    resizeListener() {
-      if (!this.$refs.contextOrigin) return;
-      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
-    },
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-      setTimeout(() => {
-        this.$refs.contextMenu.focusMenu();
-      }, 0);
-    },
-  },
-};
+<script setup>
+import {onMounted, onUnmounted, ref} from 'vue';
+import ContextMenu from './ContextMenu.vue';
+
+const isOpen = ref(false);
+const bounds = ref({
+  height: 0,
+  width: 0,
+  x: 0,
+  y: 0,
+});
+
+const contextOrigin = ref();
+const contextMenu = ref();
+
+function resizeListener() {
+  if (!contextOrigin.value) return;
+  bounds.value = contextOrigin.value.getBoundingClientRect();
+}
+
+onMounted(() => {
+  resizeListener();
+
+  window.addEventListener('resize', resizeListener);
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeListener);
+})
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+  setTimeout(() => {
+    contextMenu.value.focusMenu();
+  }, 0);
+}
+</script>
 ```
 
 <!-- tabs:end -->
