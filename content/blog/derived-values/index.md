@@ -228,7 +228,7 @@ Here, we're using a new lifecycle method — specific to Angular — called `ngO
 </template>
 
 <script setup>
-import {defineProps, ref, watch} from 'vue';
+import {ref, watch} from 'vue';
 
 // ...
 
@@ -433,7 +433,7 @@ export class FileDateComponent {
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 
 // ...
 

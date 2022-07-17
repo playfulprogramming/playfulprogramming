@@ -506,7 +506,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
 </template>
 
 <script setup>
-import {defineProps, defineEmits, onMounted, onUnmounted, ref} from 'vue';
+import { onMounted, onUnmounted, ref} from 'vue';
 
 const props = defineProps(['x', 'y']);
 const emit = defineEmits(['close']);
@@ -899,7 +899,7 @@ onMounted(() => {
 
  We'll see that `childComp.value.pi` is `undefined` currently. This is because, by default, Vue's `setup script` does not "expose" internal variables to component refences externally.
 
-To fix this, we can use Vue's `defineExpose` API to allow parent components to access a child component's variables and methods:
+To fix this, we can use Vue's `defineExpose` global API to allow parent components to access a child component's variables and methods:
 
 ```vue
 <!-- Child.vue -->
@@ -908,8 +908,6 @@ To fix this, we can use Vue's `defineExpose` API to allow parent components to a
 </template>
 
 <script setup>
-import {defineExpose} from "vue";
-
 const pi = 3.14;
 
 function sayHi() {
@@ -1194,7 +1192,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 </template>
 
 <script setup>
-import {defineProps, defineEmits, onMounted, onUnmounted, ref} from 'vue';
+import { onMounted, onUnmounted, ref} from 'vue';
 
 const props = defineProps(['x', 'y']);
 const emit = defineEmits(['close']);

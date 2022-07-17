@@ -1351,7 +1351,6 @@ export class FileListComponent {}
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
 import FileDate from './FileDate.vue';
 
 const props = defineProps(['fileName'])
@@ -1373,8 +1372,10 @@ import File from './File.vue'
 </script>
 ```
 
-> Here, we need to declare each property using `defineProps` on our component; otherwise, the input value won't be available to the rest of the component.
+> We don't need to import `defineProps`, instead, Vue uses some compiler magic in order to provide it as a globally accessible method.
 >
+> Here, we need to declare each property using `defineProps` on our component; otherwise, the input value won't be available to the rest of the component.
+> 
 > Also, when we talked about attribute binding, we mentioned `:` is shorthand for `v-bind:`. The same applies here too. You could alternatively write:
 >
 > ```html
@@ -1452,7 +1453,6 @@ export class FileListComponent {}
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
 import FileDate from './FileDate.vue';
 
 const props = defineProps(['fileName', 'href'])
@@ -1797,19 +1797,19 @@ We're also using a [ternary statement](https://developer.mozilla.org/en-US/docs/
 
 # Outputs
 
-Components aren't simply able to receive a value from its parent. You're also able to send values back to the parent.
+Components aren't limited to only being able to receive a value from its parent; You're also able to send values back to the parent from the child component.
 
- These values are sent back to the parent component, usually via a custom event, much like those emitted by the browser. Just like the event binding that we did earlier, we'll use the same syntax to bind the custom events, alongside some new syntax, in order to emit them.
+The way this usually works is by passing data upwards via a custom event, much like those emitted by the browser. Similar to how our event binding used some new syntax along with familiar concepts, we'll do the same with event emitting.
 
-> Something work mentioning is that, like event binding, React typically expects you to pass in a function as opposed to emitting an event and listening for it.
->
-> This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component".
-
-While listening for a `click` event in our `file` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior and instead emit a `selected` custom event to allow for only one selected file at a time.
+While listening for a `click` event in our `File` component works well enough when we only have one file, it introduces some odd behavior with multiple files. Namely, it allows us to select more than one file at a time simply by clicking. Let's assume this isn't the expected behavior and instead emit a `selected` custom event to allow for only one selected file at a time.
 
 <!-- tabs:start -->
 
 ### React
+
+React expects you to pass in a function as opposed to emitting an event and listening for it.
+
+This differs slightly from Vue and Angular but has the same fundamental idea of "sending data to a parent component".
 
 ```jsx {2,5,19-27,31-36}
 import { useState } from 'react';
@@ -1867,6 +1867,8 @@ const FileList = () => {
 ```
 
 ### Angular
+
+Angular provides us a simple `@Output` decorator that enables us to `emit()` events from a child component up to the parent. This is fairly similar to how we pass _in_ data using an `@Input` decorator.
 
 ```typescript {11,27-28,35-40,57-65}
 import {
@@ -1940,6 +1942,8 @@ export class FileListComponent {
 
 ### Vue
 
+Vue introduces the idea of an emitted event using the `defineEmits` global function:
+
 ```vue
 <!-- File.vue -->
 <template>
@@ -1957,13 +1961,13 @@ export class FileListComponent {
 </template>
 
 <script setup>
-import {defineProps, defineEmits} from 'vue';
-
 const props = defineProps(['isSelected', 'fileName', 'href']);
 
 defineEmits(['selected']);
 </script>
 ```
+
+>  The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
 
 ```vue
 <!-- FileList.vue -->

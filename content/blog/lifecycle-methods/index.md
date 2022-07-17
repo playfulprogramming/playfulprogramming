@@ -684,7 +684,7 @@ To answer "why" is a much longer topic, [which we'll touch on in our "Angular In
 </template>
 
 <script setup>
-import { defineProps, onUpdated } from 'vue'
+import { onUpdated } from 'vue'
 
 const props = defineProps(['val'])
 

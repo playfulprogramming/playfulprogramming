@@ -245,7 +245,7 @@ export class ToggleButtonListComponent {}
 </template>
 
 <script setup>
-import {ref, defineProps} from 'vue';
+import {ref} from 'vue';
 
 const pressed = ref(false);
 
@@ -674,7 +674,6 @@ class FileTableComponent {}
 </template>
 
 <script setup>
-import {defineProps, defineEmits} from "vue";
 import FileDate from './FileDate.vue';
 
 const props = defineProps(['fileName', 'href', 'isSelected', 'isFolder']);

@@ -82,8 +82,6 @@ export class FileComponent {
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 const props = defineProps(['isSelected', 'fileName', 'href'])
 
 defineEmits(['selected'])
@@ -173,8 +171,6 @@ export class ConditionalRenderComponent {
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
 const props = defineProps(['bool'])
 </script>
 ```

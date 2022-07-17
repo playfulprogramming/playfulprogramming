@@ -133,8 +133,6 @@ export class FileListComponent {
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
-
 const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
 
 defineEmits(['selected'])

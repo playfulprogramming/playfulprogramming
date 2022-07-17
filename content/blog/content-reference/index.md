@@ -318,8 +318,6 @@ And instead generate each `li` using a `v-for` and pass the `list.length` to `pa
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
-
 const props = defineProps(['list']);
 </script>
 ```
@@ -737,8 +735,6 @@ Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attri
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
-
 const props = defineProps(['list'])
 </script>
 ```
