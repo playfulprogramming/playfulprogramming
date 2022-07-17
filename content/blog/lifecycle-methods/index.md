@@ -77,34 +77,32 @@ export class ChildComponent {
 
 ## Vue
 
-```javascript
-const Child = {
-  template: `<p>I am the child</p>`
-};
+```vue
+<!-- Child.vue -->
+<template>
+  <p>I am the child</p>
+</template>
+```
 
-const Parent = {
-  template: `
+```vue
+<!-- Parent.vue -->
+<template>
   <div>
-  	<button @click="setShowChild()">
-  		Toggle Child
-  	</button>
+    <button @click="setShowChild()">Toggle Child</button>
     <child v-if="showChild"></child>
   </div>
-  `,
-  components: {
-    Child: Child,
-  },
-  data() {
-    return {
-      showChild: false,
-    };
-  },
-  methods: {
-    setShowChild() {
-      this.showChild = !this.showChild;
-    },
-  },
-};
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import Child from './Child.vue'
+
+const showChild = ref(false)
+
+function setShowChild() {
+  showChild.value = !showChild.value
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -157,16 +155,24 @@ If you forget the `implements`, your lifecycle method will not run when you expe
 
 ## Vue
 
-```javascript {2-4}
-const Child = {
-  template: `<p>I am the child</p>`,
-  mounted() {
-    console.log('I am rendering');
-  },
-};
+```vue
+<!-- Child.vue -->
+<template>
+  <p>I am the child</p>
+</template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  console.log('I am rendering')
+})
+</script>
 ```
 
-Despite Vue's lifecycle methods being called "methods", they do not live in a component's "methods" object. Instead, they live at the root of the component declaration.
+Despite some other frameworks having their lifecycle methods called implicitly, Vue requires you to import them from the `vue` root package. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
+
+This means that if you see me talking about a "mounted" lifecycle method, it's imported via `onMounted` instead. 
 
 <!-- tabs:end -->
 
@@ -266,21 +272,19 @@ export class WindowSizeComponent {
 
 ### Vue
 
-```javascript
-const Child = {
-  template: `
-   <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
+```vue
+<!-- WindowSize.vue -->
+<template>
+  <div>
+    <p>Height: {{ height }}</p>
+    <p>Width: {{ width }}</p>
   </div>
-  `,
-  data() {
-  	return {
-      height: window.innerHeight,
-  	  width: window.innerWidth
-  	}
-  },
-};
+</template>
+
+<script setup>
+const height = window.innerHeight
+const width = window.innerWidth
+</script>
 ```
 
 <!-- tabs:end -->
@@ -344,30 +348,30 @@ export class WindowSizeComponent implements OnInit {
 
 ### Vue
 
-```javascript {13-21}
-const WindowSize = {
-  template: `
-   <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
+```vue
+<!-- WindowSize.vue -->
+<template>
+  <div>
+    <p>Height: {{ height }}</p>
+    <p>Width: {{ width }}</p>
   </div>
-  `,
-  data() {
-  	return {
-      height: window.innerHeight,
-  	  width: window.innerWidth
-  	}
-  },
-  methods: {
-    resizeHandler() {
-      this.height = window.innerHeight;
-      this.width = window.innerWidth;
-    }
-  },
-  mounted() {
-    window.addEventListener('resize', this.resizeHandler);
-  }
-};
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const height = ref(window.innerHeight)
+const width = ref(window.innerWidth)
+
+function resizeHandler() {
+  height.value = window.innerHeight
+  width.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -465,16 +469,23 @@ export class ChildComponent implements OnInit, OnDestroy {
 
 ## Vue
 
-```javascript {5-7}
-const Child = {
-  template: `<p>I am the child</p>`,
-  mounted() {
-    console.log('I am rendering');
-  },
-  unmounted() {
-    console.log('I am unrendering');      
-  }
-};
+```vue
+<!-- Child.vue -->
+<template>
+  <p>I am the child</p>
+</template>
+
+<script setup>
+import { onMounted, onUnmounted } from 'vue'
+
+onMounted(() => {
+  console.log('I am rendering')
+})
+
+onUnmounted(() => {
+  console.log('I am unrendering')
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -540,33 +551,34 @@ export class WindowSizeComponent implements OnInit, OnDestroy {
 
 ## Vue
 
-```javascript
-const WindowSize = {
-  template: `
-   <div>
-  	<p>Height: {{height}}</p>
-  	<p>Width: {{width}}</p>
+```vue
+<!-- WindowSize.vue -->
+<template>
+  <div>
+    <p>Height: {{ height }}</p>
+    <p>Width: {{ width }}</p>
   </div>
-  `,
-  data() {
-  	return {
-      height: window.innerHeight,
-  	  width: window.innerWidth
-  	}
-  },
-  methods: {
-    resizeHandler() {
-      this.height = window.innerHeight;
-      this.width = window.innerWidth;
-    }
-  },
-  mounted() {
-    window.addEventListener('resize', this.resizeHandler);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.resizeHandler);
-  }
-};
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const height = ref(window.innerHeight)
+const width = ref(window.innerWidth)
+
+function resizeHandler() {
+  height.value = window.innerHeight
+  width.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeHandler)
+})
+</script>
 ```
 
 <!-- tabs:end -->
@@ -665,34 +677,43 @@ To answer "why" is a much longer topic, [which we'll touch on in our "Angular In
 
 ## Vue
 
-```javascript
-const ReRenderListener = {
-  template: `
-   <div>{{val}}</div>
-  `,
-  props: ['val'],
-  updated() {
-    console.log("Component was painted")
-  }
-};
+```vue
+<!-- ReRenderListener.vue -->
+<template>
+  <div>{{ val }}</div>
+</template>
+
+<script setup>
+import { defineProps, onUpdated } from 'vue'
+
+const props = defineProps(['val'])
+
+onUpdated(() => {
+  console.log('Component was painted')
+})
+</script>
 ```
 
 Every time the `ReRenderListener` component is re-rendered **and the DOM is painted with the changes**, the `updated` method will run.
 
 Vue also exposes a lifecycle method, called `renderTriggered`, for when a re-render occurs in general, regardless of if a paint has also occurred. 
 
-```javascript
-const ReRenderListener = {
-  template: `
-   <div></div>
-  `,
-  renderTriggered() {
-    console.log("Component was re-rendered, paint may not have occured")
-  }
-};
+```vue
+<!-- ReRenderListener.vue -->
+<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onRenderTriggered } from 'vue'
+
+onRenderTriggered(() => {
+  console.log('Component was re-rendered, paint may not have occured')
+})
+</script>
 ```
 
-Something worth mentioning is that `renderTriggered` only runs in Vue's `dev` mode and, therefore, cannot be used in production apps.
+Something worth mentioning is that `onRenderTriggered` only runs in Vue's `dev` mode and, therefore, cannot be used in production apps.
 
 <!-- tabs:end -->
 
