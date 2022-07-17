@@ -644,30 +644,36 @@ Now our component works as intended and has minimal boilerplate to solve the pro
 
 # Vue
 
-Vue's ability to use the `this` keyword enables a super simplistic API to access DOM nodes.
+Vue's ability to store reactive data using `ref` enables a super simplistic API to access DOM nodes; Simply create a `ref` with the same variable name as a `ref` property of an element's `ref` attribute value.
 
-```jsx
-const App = {
-  template: '<p ref="el"></p>',
-  mounted() {
-    console.log(this.$refs.el);
-  },
-};
+```vue
+<!-- App.vue -->
+<template>
+  <p ref="el"></p>
+</template>
+
+<script setup>
+import {ref} from "vue";
+
+const el = ref();
+</script>
 ```
 
-Here, `this.$refs.el` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
+Here, `el.value` points to an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) of the `p` tag within `template`.
 
 Vue also allows you to pass a function to `ref` in order to run a function when the `ref` is being set, like so:
 
-```javascript
-const App = {
-  template: '<p :ref="logEl"></p>',
-  methods: {
-    logEl(el) {
-      console.log(el);
-    },
-  },
-};
+```vue
+<!-- App.vue -->
+<template>
+  <p :ref="logEl"></p>
+</template>
+
+<script setup>
+function logEl(el) {
+  console.log(el);
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -780,49 +786,49 @@ class AppComponent {
 
 ## Vue
 
-Vue has a handy feature that [enables you to create an array of referenced elements using nothing more than a string inside of a `ref` attribute](https://vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for). This then turns the `this.$ref` reference into an array that we can access as-expected.
+Vue has a handy feature that [enables you to create an array of referenced elements using nothing more than a string inside of a `ref` attribute](https://vuejs.org/guide/essentials/template-refs.html#refs-inside-v-for). This then turns the `ref` of the same name into an array that we can access as-expected.
 
-```javascript
-const App = {
-  template: `
+```vue
+<!-- App.vue -->
+<template>
   <div>
-  <button @click="scrollToTop()">Scroll to top</button>
-  <ul style="height: 100px; overflow: scroll">
-    <li #listItem v-for="(chapter, i) of chapters" ref="items">
-      {{chapter}}
-    </li>
-  </ul>
-  <button @click="scrollToBottom()">Scroll to bottom</button>
-</div>
-  `,
-  methods: {
-    scrollToTop() {
-      this.$refs.items[0].scrollIntoView();
-    },
-    scrollToBottom() {
-      this.$refs.items[this.$refs.items.length - 1].scrollIntoView();
-    },
-  },
-  data() {
-    return {
-      chapters: [
-        'Preface',
-        'Introduction to Components',
-        'Dynamic HTML',
-        'Lifecycle Methods',
-        'Derived Values',
-        'Forms',
-        'Partial DOM Application',
-        'Content Projection',
-        'Content Reference',
-        'Element Reference',
-      ],
-    };
-  },
-};
+    <button @click="scrollToTop()">Scroll to top</button>
+    <ul style="height: 100px; overflow: scroll">
+      <li v-for="(chapter, i) of chapters" ref="items">
+        {{chapter}}
+      </li>
+    </ul>
+    <button @click="scrollToBottom()">Scroll to bottom</button>
+  </div>
+</template>
+
+<script setup>
+import {ref} from 'vue';
+
+const items = ref([]);
+
+function scrollToTop() {
+  items.value[0].scrollIntoView();
+}
+
+function scrollToBottom() {
+  items.value[this.$refs.items.length - 1].scrollIntoView();
+}
+
+const chapters = [
+  'Preface',
+  'Introduction to Components',
+  'Dynamic HTML',
+  'Lifecycle Methods',
+  'Derived Values',
+  'Forms',
+  'Partial DOM Application',
+  'Content Projection',
+  'Content Reference',
+  'Element Reference',
+];
+</script>
 ```
-
-
 
 <!-- tabs:end -->
 
@@ -904,9 +910,9 @@ class AppComponent {
 
 ## Vue
 
-```javascript
-const App = {
-  template: `
+```vue
+<!-- App.vue -->
+<template>
   <div>
     <div @contextmenu="open($event)">
       Right click on me!
@@ -916,22 +922,22 @@ const App = {
     <button @click="close()">X</button>
     This is a context menu
   </div>
-`,
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  methods: {
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-    },
-  },
-};
+</template>
+
+<script setup>
+import {ref} from 'vue';
+
+const isOpen = ref(false);
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1093,19 +1099,19 @@ In Vue, we can pass a string to the context origin in order to run `getBoundingC
 
 We'll also use a callback ref in order to run a function every time the context menu is open. This function will then either do nothing or call `.focus` on the element depending on if it's rendered or not.
 
-```javascript
-const App = {
-  template: `
+```vue
+<!-- App.vue -->
+<template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">
       Right click on me!
     </div>
   </div>
   <div
-    v-if="isOpen"
-    :ref="el => focusOnOpen(el)"
-    tabIndex="0"
-    :style="{
+      v-if="isOpen"
+      :ref="el => focusOnOpen(el)"
+      tabIndex="0"
+      :style="{
       position: 'fixed',
       top: bounds.y + 20,
       left: bounds.x + 20,
@@ -1118,35 +1124,39 @@ const App = {
     <button @click="close()">X</button>
     This is a context menu
   </div>
-`,
-  data() {
-    return {
-      isOpen: false,
-      bounds: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0,
-      },
-    };
-  },
-  mounted() {
-    this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
-  },
-  methods: {
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-    },
-    focusOnOpen(el) {
-      if (!el) return;
-      el.focus();
-    },
-  },
-};
+</template>
+
+<script setup>
+import {onMounted, ref} from 'vue';
+
+const isOpen = ref(false);
+const bounds = ref({
+  height: 0,
+  width: 0,
+  x: 0,
+  y: 0,
+});
+
+const contextOrigin = ref();
+
+onMounted(() => {
+  bounds.value = contextOrigin.value.getBoundingClientRect();
+})
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+}
+
+function focusOnOpen(el) {
+  if (!el) return;
+  el.focus();
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1340,20 +1350,19 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-```javascript
-
-const App = {
-  template: `
+```vue
+<!-- App.vue -->
+<template>
   <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div ref="contextOrigin" @contextmenu="open($event)">
       Right click on me!
     </div>
   </div>
   <div
-    v-if="isOpen"
-    :ref="el => focusOnOpen(el)"
-    tabIndex="0"
-    :style="{
+      v-if="isOpen"
+      :ref="el => focusOnOpen(el)"
+      tabIndex="0"
+      :style="{
       position: 'fixed',
       top: bounds.y + 20,
       left: bounds.x + 20,
@@ -1366,45 +1375,50 @@ const App = {
     <button @click="close()">X</button>
     This is a context menu
   </div>
-`,
-  data() {
-    return {
-      isOpen: false,
-      bounds: {
-        height: 0,
-        width: 0,
-        x: 0,
-        y: 0,
-      },
-      resizeListenerBound: this.resizeListener.bind(this),
-    };
-  },
-  mounted() {
-    this.resizeListenerBound();
+</template>
 
-    window.addEventListener('resize', this.resizeListenerBound);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.resizeListenerBound);
-  },
-  methods: {
-    resizeListener() {
-      if (!this.$refs.contextOrigin) return;
-      this.bounds = this.$refs.contextOrigin.getBoundingClientRect();
-    },
-    close() {
-      this.isOpen = false;
-    },
-    open(e) {
-      e.preventDefault();
-      this.isOpen = true;
-    },
-    focusOnOpen(el) {
-      if (!el) return;
-      el.focus();
-    },
-  },
-};
+<script setup>
+import {onMounted, onUnmounted, ref} from 'vue';
+
+const isOpen = ref(false);
+const bounds = ref({
+  height: 0,
+  width: 0,
+  x: 0,
+  y: 0,
+});
+
+const contextOrigin = ref();
+
+function resizeListener() {
+  if (!contextOrigin.value) return;
+  bounds.value = contextOrigin.value.getBoundingClientRect();
+}
+
+onMounted(() => {
+  resizeListener();
+
+  window.addEventListener('resize', resizeListener);
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeListener);
+})
+
+function close() {
+  isOpen.value = false;
+}
+
+function open(e) {
+  e.preventDefault();
+  isOpen.value = true;
+}
+
+function focusOnOpen(el) {
+  if (!el) return;
+  el.focus();
+}
+</script>
 ```
 
 <!-- tabs:end -->
