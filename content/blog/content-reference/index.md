@@ -281,84 +281,88 @@ Generally, this is because while you _can_ access children from the other framew
 
 This means that you might take the following code:
 
-```javascript
-const ParentList = {
-  template: `
+```vue
+<!-- ParentList -->
+<template>
+  <p>There are ? number of items in this array</p>
   <ul>
-   	<p>There are ? number of items in this array</p>
     <slot></slot>
   </ul>
-  `,
-};
+</template>
+```
 
-const App = {
-  template: `
-    <parent-list>
-	  <li>Item 1</li>
-	  <li>Item 2</li>
-      <li>Item 3</li>
-    </parent-list>
-  `,
-  components: {
-    ParentList,
-  },
-};
+```vue
+<!-- App.vue -->
+<template>
+  <ParentList>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ParentList>
+</template>
+
+<script setup>
+import ParentList from './ParentList.vue'
+</script>
 ```
 
 And instead generate each `li` using a `v-for` and pass the `list.length` to `parent-list` like so:
 
-```javascript
-const ParentList = {
-  template: `
+```vue
+<!-- ParentList -->
+<template>
+  <p>There are {{props.list.length}} number of items in this array</p>
   <ul>
-  	 <p>There are {{list.length}} number of items in this array</p>
     <slot></slot>
   </ul>
-  `,
-  props: ['list']
-};
+</template>
 
-const App = {
-  template: `
-    <parent-list :list="list">
-	  <li v-for="i in list">Item {{i}}</li>
-    </parent-list>
-  `,
-  components: {
-    ParentList,
-  },
-  data() {
-  	return {
-  		list: [1, 2, 3]
-  	}
-  }
-};
+<script setup>
+import {defineProps} from 'vue';
+
+const props = defineProps(['list']);
+</script>
 ```
 
-However, if you absolutely positively really, no, for sure just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector ` in [the `mounted` lifecycle method](lifecycle-methods#Lifecycle-Chart).
+```vue
+<!-- App.vue -->
+<template>
+  <ParentList :list="list">
+    <li v-for="i in list">Item {{ i }}</li>
+  </ParentList>
+</template>
 
-```javascript
-const ParentList = {
-  template: `
-  <p>There are {{children.length}} number of items in this array</p>
+<script setup>
+import ParentList from './ParentList.vue'
+
+const list = [1, 2, 3];
+</script>
+```
+
+However, if you absolutely positively, really, no, for sure, just needed a way to count `children` on the `ul` element, you could do so using `document.querySelector ` in [the `mounted` lifecycle method](lifecycle-methods#Lifecycle-Chart).
+
+```vue
+<!-- ParentList -->
+<template>
+  <p>There are {{ children.length }} number of items in this array</p>
   <ul id="parentList">
     <slot></slot>
   </ul>
-  `,
-  data() {
-    return {
-      children: [],
-    };
-  },
-  methods: {
-    findChildren() {
-      return document.querySelectorAll('#parentList > li');
-    },
-  },
-  mounted() {
-    this.children = this.findChildren();
-  }
-};
+</template>
+
+<script setup>
+import {ref, onMounted} from 'vue';
+
+const children = ref([])
+
+function findChildren() {
+  return document.querySelectorAll('#parentList > li');
+}
+
+onMounted(() => {
+  children.value = findChildren();
+})
+</script>
 ```
 
 This doesn't _quite_ follow the same internal logic pattern as our examples in React or Angular, however, which is why it's a bit of an aside.
@@ -504,31 +508,32 @@ This isn't to say that the lack of the ability to easily count slotted children 
 
 > If you wanted to continue listening for events using the `querySelectorAll` trick, you can listen for re-renders using [the `updated()` lifecycle method](lifecycle-methods#Lifecycle-Chart) to live refresh the number of lists of items in the array.
 >
-> ```javascript
-> const ParentList = {
->   template: `
->   <p>There are {{children.length}} number of items in this array</p>
+> ```vue
+> <!-- ParentList -->
+> <template>
+>   <p>There are {{ children.length }} number of items in this array</p>
 >   <ul id="parentList">
 >     <slot></slot>
 >   </ul>
->   `,
->   data() {
->     return {
->       children: [],
->     };
->   },
->   methods: {
->     findChildren() {
->       return document.querySelectorAll('#parentList > li');
->     },
->   },
->   mounted() {
->     this.children = this.findChildren();
->   },
->   updated() {
->     this.children = this.findChildren();
->   },
-> };
+> </template>
+> 
+> <script setup>
+> import {ref, onMounted, onUpdated} from 'vue';
+> 
+> const children = ref([])
+> 
+> function findChildren() {
+>   return document.querySelectorAll('#parentList > li');
+> }
+> 
+> onMounted(() => {
+>   children.value = findChildren();
+> })
+> 
+> onUpdated(() => {
+>   children.value = findChildren();
+> })
+> </script>
 > ```
 > Just remember that this isn't working the same way the other frameworks are counting the passed content items under-the-hood, which is again why this is an aside.
 
@@ -687,73 +692,80 @@ Whew! What a mouthful.
 
 In order to color the background of each list item, let's continue off of the code of our "raised state" where we're rendering our `list` with a `v-for`:
 
-```javascript
-const ParentList = {
-  template: `
+```vue
+<!-- ParentList -->
+<template>
+  <p>There are {{props.length}} number of items in this array</p>
   <ul>
-  	 <p>There are {{length}} number of items in this array</p>
     <slot></slot>
   </ul>
-  `,
-  props: ['length']
-};
+</template>
 
-const App = {
-  template: `
-    <parent-list :length="list.legnth">
-	  <li v-for="i in list">Item {{i}}</li>
-    </parent-list>
-  `,
-  components: {
-    ParentList,
-  },
-  data() {
-  	return {
-  		list: [1, 2, 3]
-  	}
-  }
-};
+<script setup>
+import {defineProps} from 'vue';
+
+const props = defineProps(['length'])
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <ParentList :length="list.length">
+    <li v-for="i in list">Item {{ i }}</li>
+  </ParentList>
+</template>
+
+<script setup>
+import ParentList from './ParentList.vue'
+
+const list = [1, 2, 3];
+</script>
 ```
 
 While this works, it's obnoxious that we have to reference `list` in more than one component template at a time. Currently, we're using `list` in both our `App` template as well as our `ParentList` template.
 
 Luckily, we can utilize `slot` to pass data to a `template` via a `v-slot` attribute:
 
-```javascript
-const ParentList = {
-  template: `
-  <p>There are {{list.length}} number of items in this array</p>
+```vue
+<!-- ParentList -->
+<template>
+  <p>There are {{props.list.length}} number of items in this array</p>
   <ul id="parentList">
-    <slot v-for="(item, i) in list" :item="item" :i="i"></slot>
+    <slot v-for="(item, i) in props.list" :item="item" :i="i"></slot>
   </ul>
-  `,
-  props: ['list'],
-};
+</template>
 
-const App = {
-  template: `
-    <parent-list :list="list">
-      <template v-slot="props">
-        <li>{{props.i}} {{props.item}}</li>
-      </template>
-    </parent-list>
-    <button @click="addOne()">Add</button>
-  `,
-  data() {
-    return {
-      list: [1, 42, 13],
-    };
-  },
-  methods: {
-    addOne() {
-      const randomNum = Math.floor(Math.random() * 100);
-      this.list.push(randomNum);
-    },
-  },
-  components: {
-    ParentList,
-  },
-};
+<script setup>
+import {defineProps} from 'vue';
+
+const props = defineProps(['list'])
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <ParentList :list="list">
+    <template v-slot="props">
+      <li>{{ props.i }} {{ props.item }}</li>
+    </template>
+  </ParentList>
+  <button @click="addOne()">Add</button>
+</template>
+
+<script setup>
+import {ref} from "vue";
+import ParentList from './ParentList.vue'
+
+const list = ref([1, 2, 3]);
+
+function addOne() {
+  const randomNum = Math.floor(Math.random() * 100);
+  list.value.push(randomNum);
+}
+</script>
+
 ```
 
 This `v-slot` is similar to how you might pass properties to a component, but instead we're passing data directly to a `template` to be rendered by `v-slot`.
