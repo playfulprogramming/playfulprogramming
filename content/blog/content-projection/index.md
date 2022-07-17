@@ -65,22 +65,26 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-```javascript
-const ToggleButtonList = {
-  template: `
-  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
-  Hello world!
-</button>
-`,
-  data() {
-    return { pressed: false };
-  },
-  methods: {
-    togglePressed() {
-      this.pressed = !this.pressed;
-    },
-  },
-};
+```vue
+<!-- ToggleButtonList.vue -->
+<template>
+  <button @click="togglePressed()"
+          :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}"
+          type="button"
+          :aria-pressed="pressed">
+    Hello world!
+  </button>
+</template>
+
+<script setup>
+import {ref} from 'vue';
+
+const pressed = ref(false);
+
+function togglePressed() {
+  pressed.value = !pressed.value;
+}
+</script>
 ```
 
 <!-- tabs:end -->
@@ -138,32 +142,36 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-```javascript
-const ToggleButtonList = {
-  template: `
-  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
-  Hello world!
-</button>
-<button @click="togglePressed2()" :style="{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}" type="button" :aria-pressed="pressed2">
-Hello world!
-</button>
-`,
-  data() {
-    return { pressed: false, pressed2: false };
-  },
-  methods: {
-    togglePressed() {
-      this.pressed = !this.pressed;
-    },
+```vue
+<!-- ToggleButtonList.vue -->
+<template>
+  <button @click="togglePressed()"
+          :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button"
+          :aria-pressed="pressed">
+    Hello world!
+  </button>
+  <button @click="togglePressed2()"
+          :style="{backgroundColor: pressed2 ? 'black' : 'white', color: pressed2 ? 'white' : 'black'}" type="button"
+          :aria-pressed="pressed2">
+    Hello world!
+  </button>
+</template>
 
-    togglePressed2() {
-      this.pressed2 = !this.pressed2;
-    },
-  },
-};
+<script setup>
+import {ref} from 'vue';
+
+const pressed = ref(false);
+const pressed2 = ref(false);
+
+function togglePressed() {
+  pressed.value = !pressed.value;
+}
+
+function togglePressed2() {
+  pressed2.value = !pressed2.value;
+}
+</script>
 ```
-
-
 
 <!-- tabs:end -->
 
@@ -226,33 +234,39 @@ export class ToggleButtonListComponent {}
 
 # Vue
 
-```javascript
-const ToggleButton = {
-  template: `
-  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
-  {{text}}
-</button>
-  `,
-  props: ['text'],
-  data() {
-    return { pressed: false };
-  },
-  methods: {
-    togglePressed() {
-      this.pressed = !this.pressed;
-    },
-  },
-};
+```vue
+<!-- ToggleButton.vue -->
+<template>
+  <button @click="togglePressed()"
+          :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button"
+          :aria-pressed="pressed">
+    {{ props.text }}
+  </button>
+</template>
 
-const ToggleButtonList = {
-  template: `
-  <toggle-button text="Hello world!"></toggle-button>
-  <toggle-button text="Hello other friends!"></toggle-button>
-`,
-  components: {
-    ToggleButton,
-  },
-};
+<script setup>
+import {ref, defineProps} from 'vue';
+
+const pressed = ref(false);
+
+const props = defineProps(['text'])
+
+function togglePressed() {
+  pressed.value = !pressed.value;
+}
+</script>
+```
+
+```vue
+<!-- ToggleButtonList.vue -->
+<template>
+  <ToggleButton text="Hello world!"></ToggleButton>
+  <ToggleButton text="Hello other friends!"></ToggleButton>
+</template>
+
+<script setup>
+import ToggleButton from './ToggleButton.vue';
+</script>
 ```
 
 <!-- tabs:end -->
@@ -322,36 +336,40 @@ Because `ng-content` is built-in to [Angular's compiler](// TODO: Link to Angula
 
 When in Vue-land, the `slot` tag is utilized in order to pass children through to a component's template. 
 
-```javascript
-const ToggleButton = {
-  template: `
-  <button @click="togglePressed()" :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button" :aria-pressed="pressed">
-  <slot></slot>
-</button>
-  `,
-  props: ['text'],
-  data() {
-    return { pressed: false };
-  },
-  methods: {
-    togglePressed() {
-      this.pressed = !this.pressed;
-    },
-  },
-};
+```vue
+<!-- ToggleButton.vue -->
+<template>
+  <button @click="togglePressed()"
+          :style="{backgroundColor: pressed ? 'black' : 'white', color: pressed ? 'white' : 'black'}" type="button"
+          :aria-pressed="pressed">
+    <slot></slot>
+  </button>
+</template>
 
-const ToggleButtonList = {
-  template: `
-  <toggle-button>Hello <span style="font-weight: bold">world</span>!</toggle-button>
-  <toggle-button>Hello other friends!</toggle-button>
-`,
-  components: {
-    ToggleButton,
-  },
-};
+<script setup>
+import {ref} from 'vue';
+
+const pressed = ref(false);
+
+function togglePressed() {
+  pressed.value = !pressed.value;
+}
+</script>
 ```
 
-Because `slot` is a built-in component to Vue, we do not need to register it as a `components` item.
+```vue
+<!-- ToggleButtonList.vue -->
+<template>
+  <ToggleButton>Hello <span style="font-weight: bold">world</span>!</ToggleButton>
+  <ToggleButton>Hello other friends!</ToggleButton>
+</template>
+
+<script setup>
+import ToggleButton from './ToggleButton.vue';
+</script>
+```
+
+Because `slot` is a built-in component to Vue, we do not need to import it from the `vue` package.
 
 <!-- tabs:end -->
 
@@ -431,45 +449,43 @@ export class ToggleButtonListComponent {
 
 # Vue
 
-```javascript
-const RainbowExclamationMark = {
-  template: `
-  <span
-  :style="{
-    fontSize: '3rem',
-    background: rainbowGradient,
-    backgroundSize: '100%',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    MozBackgroundClip: 'text'
-  }"
->
-  !
-</span>
-  `,
-  data() {
-    return {
-      rainbowGradient:
-        'linear-gradient(180deg, #FE0000 16.66%, #FD8C00 16.66%, 33.32%, #FFE500 33.32%, 49.98%, #119F0B 49.98%, 66.64%, #0644B3 66.64%, 83.3%, #C22EDC 83.3%)',
-    };
-  },
-};
+```vue
+<!-- RainbowExclamationMark.vue -->
+<template>
+    <span
+        :style="{
+          fontSize: '3rem',
+          background: rainbowGradient,
+          backgroundSize: '100%',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          MozBackgroundClip: 'text'
+        }"
+    >
+    !
+  </span>
+</template>
 
-const ToggleButtonList = {
-  template: `
-  <toggle-button>Hello <span v-for="friend of friends">{{friend}} </span>!</toggle-button>
-  <toggle-button>Hello other friends<rainbow-exclamation-mark></rainbow-exclamation-mark></toggle-button></toggle-button>
-`,
-  components: {
-    ToggleButton,
-    RainbowExclamationMark,
-  },
-  data() {
-    return {
-      friends: ['Kevin,', 'Evelyn,', 'and James'],
-    };
-  },
-};
+<script setup>
+const rainbowGradient = 'linear-gradient(180deg, #FE0000 16.66%, #FD8C00 16.66%, 33.32%, #FFE500 33.32%, 49.98%, #119F0B 49.98%, 66.64%, #0644B3 66.64%, 83.3%, #C22EDC 83.3%)';
+</script>
+```
+
+```vue
+<!-- ToggleButtonList.vue -->
+<template>
+  <ToggleButton>Hello <span v-for="friend of friends">{{ friend }} </span>!</ToggleButton>
+  <ToggleButton>Hello other friends
+    <RainbowExclamationMark></RainbowExclamationMark>
+  </ToggleButton>
+</template>
+
+<script setup>
+import ToggleButton from './ToggleButton.vue';
+import RainbowExclamationMark from './RainbowExclamationMark.vue';
+
+const friends = ['Kevin,', 'Evelyn,', 'and James']
+</script>
 ```
 
 <!-- tabs:end -->
@@ -640,77 +656,81 @@ class FileTableComponent {}
 
 ## Vue
 
-```jsx
-
-const File = {
-  template: `
+```vue
+<!-- File.vue -->
+<template>
   <tr
-    @click="selected.emit()"
-    :aria-selected="isSelected"
-    :style="
-      isSelected
+      @click="emit('selected')"
+      :aria-selected="props.isSelected"
+      :style="
+      props.isSelected
         ? { backgroundColor: 'blue', color: 'white' }
         : { backgroundColor: 'white', color: 'blue' }
     "
   >
-    <td><a :href="href">{{fileName}}</a></td>
-    <td v-if="isFolder"><file-date :inputDate="new Date()"></file-date></td>
+    <td><a :href="props.href">{{props.fileName}}</a></td>
+    <td v-if="props.isFolder"><FileDate :inputDate="new Date()"></FileDate></td>
   </tr>
-  `,
-  components: {
-    FileDate,
-  },
-  props: ['fileName', 'href', 'isSelected', 'isFolder'],
-  emits: ['selected'],
-};
+</template>
 
-// This was previously called "FileList"
-const FileTableBody = {
-  template: `
+<script setup>
+import {defineProps, defineEmits} from "vue";
+import FileDate from './FileDate.vue';
+
+const props = defineProps(['fileName', 'href', 'isSelected', 'isFolder']);
+const emit = defineEmits(['selected']);
+</script>
+```
+
+```vue
+<!-- FileTableBody -->
+<!-- This was previously called "FileList" -->
+<template>
   <tbody>
     <template v-for="file in filesArray">
-      <file
-        v-if="!file.isFolder"
-        :fileName="file.fileName"
-        :href="file.href"
-        :isSelected="false"
-        :isFolder="file.isFolder"
-        ></file>
-        </template>
-    </tbody>`,
-  components: { File },
-  data() {
-    return {
-      filesArray: [
-        {
-          fileName: 'File one',
-          href: '/file/file_one',
-          isFolder: false,
-        },
-        {
-          fileName: 'File two',
-          href: '/file/file_two',
-          isFolder: false,
-        },
-        {
-          fileName: 'File three',
-          href: '/file/file_three',
-          isFolder: false,
-        },
-      ],
-    };
-  },
-};
+      <File
+          v-if="!file.isFolder"
+          :fileName="file.fileName"
+          :href="file.href"
+          :isFolder="file.isFolder"
+          :isSelected="false"
+      />
+    </template>
+  </tbody>
+</template>
 
-// This is a new component
-const FileTable = {
-  template: `
-    <table><file-table-body></file-table-body></table>
-  `,
-  components: {
-    FileTableBody,
+<script setup>
+import File from './File.vue';
+
+const filesArray = [
+  {
+    fileName: 'File one',
+    href: '/file/file_one',
+    isFolder: false,
   },
-};
+  {
+    fileName: 'File two',
+    href: '/file/file_two',
+    isFolder: false,
+  },
+  {
+    fileName: 'File three',
+    href: '/file/file_three',
+    isFolder: false,
+  },
+]
+</script>
+```
+
+```vue
+<!-- FileTable -->
+<template>
+  <table><FileTableBody/></table>
+</template>
+
+<script setup>
+import FileTableBody from './FileTableBody.vue';
+</script>
 ```
 
 <!-- tabs:end -->
@@ -765,24 +785,25 @@ class FileTableComponent {}
 
 ## Vue
 
-```javascript
-const FileTableContainer = {
-  template: `
+```vue
+<!-- FileTableContainer -->
+<template>
   <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
     <slot></slot>
   </table>
-  `,
-};
+</template>
+```
 
-const FileTable = {
-  template: `
-    <file-table-container><file-table-body></file-table-body></file-table-container>
-  `,
-  components: {
-    FileTableBody,
-    FileTableContainer,
-  },
-};
+```vue
+<!-- FileTable -->
+<template>
+  <FileTableContainer><FileTableBody/></FileTableContainer>
+</template>
+
+<script setup>
+import FileTableContainer from './FileTableContainer.vue';
+import FileTableBody from './FileTableBody.vue';
+</script>
 ```
 
 <!-- tabs:end -->
@@ -882,37 +903,59 @@ Once `ng-content` finds related elements that match the `select` query, they wil
 
 Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
 
-```javascript
-
-const FileTableContainer = {
-  template: `
+```vue
+<!-- FileTableContainer -->
+<template>
   <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
     <thead><slot name="header"></slot></thead>
     <slot></slot>
   </table>
-  `,
-};
-
-const FileTable = {
-  template: `
-    <file-table-container>
-      <header>
-        <tr>
-        <th>Name</th>
-        <th>Date</th>
-        </tr>
-      </header>
-      <file-table-body></file-table-body>
-    </file-table-container>
-  `,
-  components: {
-    FileTableBody,
-    FileTableContainer,
-  },
-};
+</template>
 ```
 
-Here, we can see that `slot` is querying for a `header` element. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
+````vue
+<!-- FileTable -->
+<template>
+  <FileTableContainer>
+    <template v-slot:header>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+      </tr>
+    </template>
+    <FileTableBody/>
+  </FileTableContainer>
+</template>
+
+<script setup>
+import FileTableContainer from './FileTableContainer.vue';
+import FileTableBody from './FileTableBody.vue';
+</script>
+````
+
+Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
+
+`v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `FileTable` component to look like:
+
+```vue
+<!-- FileTable -->
+<template>
+  <FileTableContainer>
+    <template #header>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+      </tr>
+    </template>
+    <FileTableBody/>
+  </FileTableContainer>
+</template>
+
+<script setup>
+import FileTableContainer from './FileTableContainer.vue';
+import FileTableBody from './FileTableBody.vue';
+</script>
+```
 
 <!-- tabs:end -->
 
