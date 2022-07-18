@@ -1,0 +1,38 @@
+---
+import styles from "./user-profile-pic.module.scss";
+import { UnicornInfo } from "uu-types";
+import {Image} from '@astrojs/image/components';
+
+interface UserProfilePicProps {
+  authors: Array<UnicornInfo>;
+  className: string;
+}
+
+const { authors, className } = Astro.props as UserProfilePicProps
+
+const hasTwoAuthors = authors.length !== 1;
+---
+    <div class={`${styles.container} ${className || ""}`}>
+      {authors.map((unicorn, i) => {
+        const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
+    
+        return (
+          <div
+            class={`pointer ${styles.profilePicContainer} ${classesToApply}`}
+            style={`border-color: ${unicorn.color};`}
+          >
+            <Image
+              data-testid={`author-pic-${i}`}
+              src={unicorn.profileImg.relativeServerPath}
+              alt={unicorn.name}
+              sizes={"85px"}
+              height={85}
+              width={85}
+              format={'png'}
+              class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );

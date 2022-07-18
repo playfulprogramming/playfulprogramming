@@ -34,6 +34,7 @@
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
     "astro-auto-import": "^0.1.2",
+    "dayjs": "^1.11.3",
     "gatsby-remark-embedder": "^6.0.1",
     "hast": "^1.0.0",
     "hast-util-from-html": "^1.0.0",

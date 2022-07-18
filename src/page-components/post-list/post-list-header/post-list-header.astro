@@ -1,0 +1,26 @@
+---
+import styles from "./post-list-header.module.scss";
+import {Image} from '@astrojs/image/components';
+import unicornLogo from "../../../assets/unicorn_utterances_logo_512.png";
+
+interface PostListHeaderProps {
+  siteDescription: string;
+}
+
+const { siteDescription } = Astro.props as PostListHeaderProps;
+---
+
+<div class={styles.container} role="banner" aria-label={`Banner for Unicorn Utterances`}>
+  <div class={styles.headerPic}>
+    <Image format={'png'} loading={"eager"} sizes={"300px"} alt={`Smiling cartoon unicorn with a
+      bowtie`} src={unicornLogo} height={300} width={300} />
+  </div>
+  <div class={styles.noMgContainer}>
+    <h1 class={styles.title}>Unicorn Utterances</h1>
+    <div class={styles.subheader}>
+      {siteDescription}
+      <br />
+      <a href={"/about"}>About Us</a>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 ---
-import BlogPostPreview from '../components/post-card.astro';
+import PostListTemplate from '../page-components/post-list/post-list.astro';
 import { ListViewPosts } from "utils/fs/api";
 
 const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.md')
@@ -20,12 +20,6 @@ const sortedPosts = posts
 
 <html lang="en">
 	<body>
-		<div class="wrapper">
-			<main class="content">
-				<section aria-label="Blog post list">
-					{sortedPosts.map((p) => <BlogPostPreview post={p} />)}
-				</section>
-			</main>
-		</div>
+		<PostListTemplate posts={sortedPosts}/>
 	</body>
 </html>

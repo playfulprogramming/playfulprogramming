@@ -1,0 +1,46 @@
+---
+// TODO: Add pagination component
+// TODO: Add SEO component
+// TODO: Add FilterSearchBar
+// import { SEO } from "components/seo";
+import { PostListHeader } from "./post-list-header/post-list-header.astro";
+import PostList from "components/post-card-list/post-card-list.astro";
+// import { PostListProvider } from "constants/post-list-context";
+// import { Pagination } from "components/pagination";
+// import { FilterSearchBar } from "components/filter-search-bar";
+import { siteMetadata } from "constants/site-config";
+import { ListViewPosts } from "utils/fs/api";
+
+interface PostListTemplateProps {
+  numberOfPages: number;
+  limitNumber: number;
+  pageIndex: number;
+  posts: ListViewPosts;
+}
+
+const { 
+  // numberOfPages,
+  // limitNumber,
+  // pageIndex,
+  posts
+} = Astro.props as PostListTemplateProps;
+
+// const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
+---
+
+<!-- <SEO title={SEOTitle} /> -->
+<div>
+  <!-- <PostListProvider
+    posts={posts}
+    numberOfPages={numberOfPages}
+    limitNumber={limitNumber}
+    pageIndex={pageIndex}
+  > -->
+    <PostListHeader siteDescription={siteMetadata.description} />
+    <main>
+      <!-- <FilterSearchBar /> -->
+      <PostList listAriaLabel="List of posts" postsToDisplay={posts} />
+    </main>
+    <!-- <Pagination absolutePath={router.basePath} /> -->
+  <!-- </PostListProvider> -->
+</div>
