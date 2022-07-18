@@ -1,0 +1,34 @@
+---
+
+import { removePrefixLanguageFromPath } from 'utils/translations';
+import {SEOProps} from './shared';
+
+type Props = Pick<SEOProps, 'langData'> & {
+  pathName: string;
+  siteMetadata: {siteUrl: string}
+};
+
+const {langData, siteMetadata, pathName} = Astro.props as Props;
+---
+{langData?.currentLang && (
+    <link
+      rel="alternate"
+      href={
+        siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
+      }
+      href-lang="x-default"
+    />
+  )}
+  {langData?.otherLangs &&
+    langData.otherLangs.map((lang) => (
+      <link
+        rel="alternate"
+        href={
+          siteMetadata.siteUrl +
+          `${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
+          removePrefixLanguageFromPath(pathName || "")
+        }
+        href-lang={lang}
+      />
+    ))}
+  

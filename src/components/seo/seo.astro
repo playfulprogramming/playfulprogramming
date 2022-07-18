@@ -1,0 +1,60 @@
+---
+import { siteMetadata, siteUrl } from "constants/site-config";
+import Analytics from "./analytics.astro";
+import Article from "./article.astro";
+import Book from "./book.astro";
+import Locale from "./locale.astro";
+import OpenGraph from "./open-graph.astro";
+import Profile from "./profile.astro";
+import { SEOProps } from "./shared";
+import Twitter from "./twitter.astro";
+
+const {
+  description = "",
+  title,
+  keywords,
+  canonical,
+  type,
+  unicornsData,
+  publishedTime,
+  editedTime,
+  pathName,
+  isbn,
+  langData,
+  shareImage,
+} = Astro.props as SEOProps;
+
+const metaDescription = description || siteMetadata.description;
+const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
+const metaImage = `${siteUrl}${shareImage ?? "/share-banner.png"}`;
+
+const ogType = type ?? "blog";
+
+const socialUnicorn = unicornsData?.find((uni) => uni.socials);
+const uniTwitter =
+  socialUnicorn && socialUnicorn.socials && socialUnicorn.socials.twitter;
+
+const currentPath = siteMetadata.siteUrl + (pathName || "");
+---
+
+<title>
+  {title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}
+</title>
+{canonical ?
+<link rel="canonical" href={canonical} /> : null}
+<meta property="name" content={siteMetadata.title} />
+<meta name="description" content={metaDescription} />
+<meta property="keywords" content={metaKeywords} />
+<Analytics />
+<Twitter title={title} metaDescription={metaDescription} siteMetadata={siteMetadata} metaImage={metaImage}
+  unicornsData={unicornsData} uniTwitter={uniTwitter} type={type} />
+<OpenGraph currentPath={currentPath} siteMetadata={siteMetadata} title={title} langData={langData}
+  metaDescription={metaDescription} metaImage={metaImage} ogType={ogType} />
+<Locale langData={langData} siteMetadata={siteMetadata} pathName={pathName} />
+{type === 'article' &&
+<Article keywords={keywords} editedTime={editedTime} publishedTime={publishedTime} unicornsData={unicornsData} />}
+{type === 'book' &&
+<Book publishedTime={publishedTime} unicornsData={unicornsData} isbn={isbn} />}
+{type === 'profile' &&
+<Profile unicornsData={unicornsData} />}
+<slot />
