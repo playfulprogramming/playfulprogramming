@@ -1,0 +1,22 @@
+---
+import React from "react";
+import styles from "./post-title-header.module.scss";
+import { PostInfo } from "types/index";
+
+interface PostTitleHeaderProps {
+  post: PostInfo;
+}
+const {post} = Astro.props as PostTitleHeaderProps;
+const { title, tags } = post;
+---
+
+<div class={styles.container}>
+  <h1 class={styles.title}>{title}</h1>
+  <ul aria-label="Post tags" role="list" class={styles.tags}>
+    {tags.map((tag) => (
+      <li role="listitem">
+        {tag}
+      </li>
+    ))}
+  </ul>
+</div>

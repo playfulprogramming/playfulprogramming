@@ -3,6 +3,8 @@ import Document from '../../layouts/document.astro';
 
 import SEO from "components/seo/seo.astro";
 import BlogPostLayout from 'components/blog-post-layout/blog-post-layout.astro';
+import PostTitleHeader from 'src/page-components/blog-post/post-title-header/post-title-header.astro';
+import PostMetadata from 'src/page-components/blog-post/post-metadata/post-metadata.astro';
 
 import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
@@ -69,8 +71,8 @@ const otherLangs = translations
       <div slot="left">Table of contents</div>
       <div slot="right">Suggested articles</div>
       <header role="banner" class="marginZeroAutoChild">
-        <!-- <PostTitleHeader post={post} />
-        <PostMetadata post={post} /> -->
+        <PostTitleHeader post={post} />
+        <PostMetadata post={post} />
       </header>
       <main class="post-body" data-testid={"post-body-div"}>
         <!-- {post.series ? (
