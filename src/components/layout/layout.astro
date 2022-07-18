@@ -1,0 +1,37 @@
+---
+import layoutStyles from "./layout.module.scss";
+import BackIcon from "assets/icons/back.svg";
+import DiscordIcon from "assets/icons/discord.svg";
+
+// const { back } = useHistory();
+
+const rootPath = `/`;
+
+const isBase = Astro.canonicalURL.pathname === rootPath;
+const isBlogPost = Astro.canonicalURL.pathname.startsWith(`${rootPath}posts`);
+const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collections`);
+
+---
+<div class={layoutStyles.horizCenter}>
+    <header class={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
+        <div class={layoutStyles.headerInsideContainer}>
+            {!isBase ? (
+            <button class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back" onclick="history.back()">
+                <BackIcon />
+            </button>
+            ) : (
+            <div />
+            )}
+            <div class={layoutStyles.iconList}>
+                <!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
+                    aria-label={"Join the Discord"}> -->
+                    <DiscordIcon />
+                <!-- </AnalyticsLink>
+                <DarkLightButton /> -->
+            </div>
+        </div>
+    </header>
+    <div class={ isCollection ? "" : !isBlogPost ? "listViewContent" : "postViewContent" }>
+        <slot />
+    </div>
+</div>

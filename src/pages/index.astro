@@ -16,7 +16,6 @@ const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 ---
 
 <Document>
-	
 	<SEO slot="head" title={SEOTitle} />
 	<PostListTemplate posts={postsToDisplay}/>
 </Document>
