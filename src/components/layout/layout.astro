@@ -1,5 +1,6 @@
 ---
 import layoutStyles from "./layout.module.scss";
+import DarkLightButton from "components/dark-light-button/dark-light-button.astro";
 import { Icon } from 'astro-icon';
 
 // const { back } = useHistory();
@@ -25,8 +26,8 @@ const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collecti
                 <!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
                     aria-label={"Join the Discord"}> -->
                     <Icon height="36" width="36" name="discord" />
-                <!-- </AnalyticsLink>
-                <DarkLightButton /> -->
+                <!-- </AnalyticsLink> -->
+                <DarkLightButton />
             </div>
         </div>
     </header>

@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon';
+import btnStyles from "./dark-light-button.module.scss";
+
+import {
+  COLOR_MODE_STORAGE_KEY,
+} from "constants/index";
+
+---
+
+<button
+  class={`${btnStyles.darkLightBtn} baseBtn`}
+  id="theme-toggle-button"
+  aria-pressed="false"
+  aria-label={"Is dark mode enabled?"}
+>
+  <Icon name="dark" height="36" width="36" id="dark-icon" style="display: none;"/>
+  <Icon name="light" height="36" width="36" id="light-icon" style="display: none;"/>
+</button>
+
+<!-- DO NOT SWITCH THE ORDER OF THESE TWO TAGS, IT WILL BREAK FUNCTIONALITY -->
+
+<script is:inline define:vars={{COLOR_MODE_STORAGE_KEY}}>
+const themeToggleBtn = document.querySelector('#theme-toggle-button');
+const darkIconEl = document.querySelector('#dark-icon');
+const lightIconEl = document.querySelector('#light-icon');
+function toggleButton(theme) {
+  themeToggleBtn.ariaPressed = `${theme === 'dark'}`;
+  if (theme === 'light') {
+    lightIconEl.style.display = null;
+    darkIconEl.style.display = 'none';
+  } else {
+    lightIconEl.style.display = 'none';
+    darkIconEl.style.display = null;
+  }
+}
+
+// TODO: Migrate to `classList`
+const initialTheme = document.documentElement.className;
+toggleButton(initialTheme);
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.className;
+  document.documentElement.className = currentTheme === 'light' ? 'dark' : 'light';
+  // TODO: Persist new setting
+  const newTheme = document.documentElement.className;
+  toggleButton(newTheme);
+  localStorage.setItem(COLOR_MODE_STORAGE_KEY, newTheme)
+})
+</script>
