@@ -1,11 +1,12 @@
 ---
-import "../../global.scss";
+import Document from '../../layouts/document.astro';
 
-import { COLORS } from 'constants/theme';
+import SEO from "components/seo/seo.astro";
 
 import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
 import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
+import { Languages } from 'types/index';
 
 export async function getStaticPaths() {
   const postsMeta = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
@@ -21,33 +22,50 @@ export async function getStaticPaths() {
       props: {
         Content: post.Content,
         slug: post.slug,
-        locale: post.locale
+        locale: post.locale,
+        post
       }
     }
   })
 }
 
-const { Content, slug, locale } = Astro.props as {
+const { Content, slug, locale, post } = Astro.props as {
   slug: string,
-  // TODO: Make more type strict
-  locale: string,
-  frontmatter: PostInfo,
+  locale: Languages,
+  post: PostInfo,
   Content: MarkdownInstance<any>['Content']
 }
+
+const translations = post?.translations || [];
+
+const otherLangs = translations
+      ? (Object.keys(translations).filter(
+          (t) => t !== locale
+        ) as Languages[])
+      : [];
 ---
 
-<html lang="en">
-
-<head>
-  <Fragment set:html={`<style>${rawStylesCSS}</style>`} />
-</head>
-
-<body>
+<Document>
+  <!-- TODO: Add this -->
+  <!-- pathName={router.asPath} -->
+  <SEO
+    title={post.title}
+    description={post.description || post.excerpt}
+    unicornsData={post.authors}
+    publishedTime={post.published}
+    editedTime={post.edited}
+    keywords={post.tags}
+    type="article"
+    canonical={post.originalLink}
+    langData={{
+      otherLangs,
+      currentLang: locale,
+    }}
+    shareImage={`/${post.slug}.twitter-preview.png`}
+  />
   <article>
     <main class="post-body">
       <Content />
     </main>
   </article>
-</body>
-
-</html>
+</Document>

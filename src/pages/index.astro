@@ -3,12 +3,20 @@ import Document from '../layouts/document.astro';
 import PostListTemplate from '../page-components/post-list/post-list.astro';
 import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
 import {PostInfo} from 'types/PostInfo';
+import SEO from "components/seo/seo.astro";
 
 const posts = await Astro.glob<PostInfo>('../../content/blog/**/*.md')
 
 const postsToDisplay = getAllPostsForListView(posts, 'en');
+
+// TODO: Change this
+const pageIndex = 1;
+
+const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 ---
 
 <Document>
+	
+	<SEO slot="head" title={SEOTitle} />
 	<PostListTemplate posts={postsToDisplay}/>
 </Document>

@@ -1,8 +1,6 @@
 ---
 // TODO: Add pagination component
-// TODO: Add SEO component
 // TODO: Add FilterSearchBar
-// import { SEO } from "components/seo";
 import PostListHeader from "./post-list-header/post-list-header.astro";
 import PostList from "components/post-card-list/post-card-list.astro";
 // import { PostListProvider } from "constants/post-list-context";
@@ -24,11 +22,8 @@ const {
   // pageIndex,
   posts
 } = Astro.props as PostListTemplateProps;
-
-// const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
 ---
 
-<!-- <SEO title={SEOTitle} /> -->
 <div>
   <!-- <PostListProvider
     posts={posts}
