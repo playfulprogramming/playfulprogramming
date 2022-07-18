@@ -1,0 +1,15 @@
+---
+import layoutStyles from "./blog-post-layout.module.scss";
+---
+
+<div class={layoutStyles.blogPostLayoutContainer}>
+  <div class={layoutStyles.leftContainer}>
+    <slot name="left"/>
+  </div>
+  <div class={layoutStyles.centerContainer}>
+    <slot/>
+  </div>
+  <div class={layoutStyles.rightContainer}>
+    <slot name="right"/>
+  </div>
+</div>
