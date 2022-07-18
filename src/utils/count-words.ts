@@ -54,5 +54,16 @@ export function countContent(content: string) {
     .use(stringify)
     .processSync(content);
 
-  return counts;
+  return counts as {
+    InlineCodeWords: number;
+    RootNode: number;
+    ParagraphNode: number;
+    SentenceNode: number;
+    WordNode: number;
+    TextNode: number;
+    WhiteSpaceNode: number;
+    PunctuationNode: number;
+    SymbolNode: number;
+    SourceNode: number;
+  };;
 }

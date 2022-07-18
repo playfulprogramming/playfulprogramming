@@ -28,18 +28,7 @@ export function readMarkdownFile<
 } {
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data: frontmatterData, content } = matter(fileContents);
-  const counts = countContent(content) as {
-    InlineCodeWords: number;
-    RootNode: number;
-    ParagraphNode: number;
-    SentenceNode: number;
-    WordNode: number;
-    TextNode: number;
-    WhiteSpaceNode: number;
-    PunctuationNode: number;
-    SymbolNode: number;
-    SourceNode: number;
-  };
+  const counts = countContent(content)
 
   // Ensure only the minimal needed data is exposed
   const pickedData = pickDeep(

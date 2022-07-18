@@ -1,34 +1,15 @@
 ---
 import PostListTemplate from '../page-components/post-list/post-list.astro';
-import { ListViewPosts } from "utils/fs/api";
-import { unicorns } from 'utils/fs/get-datas';
+import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
+import {PostInfo} from 'types/PostInfo';
 
-const posts = await Astro.glob<ListViewPosts[number]>('../../content/blog/**/*.md')
+const posts = await Astro.glob<PostInfo>('../../content/blog/**/*.md')
 
-const sortedPosts = posts
-	.map(post => {
-		// Split based on `/`, even in Windows
-		const directorySplit = post.file.split('/');
-		// This is the folder name, AKA how we generate the slug ID
-		const slug = directorySplit.at(-2);
-		return {
-			...post.frontmatter,
-			slug
-		};
-	})
-	.sort((a, b) => new Date(b.published) - new Date(a.published))
-	.map(post => {
-		post.authors = post.authors.map(author => 
-			unicorns.find(uni => uni.id === author as never as string)
-		)
-		return post;
-	});
-
-	console.log(sortedPosts[0].authors[0])
+const postsToDisplay = getAllPostsForListView(posts, 'en');
 ---
 
 <html lang="en">
 	<body>
-		<PostListTemplate posts={sortedPosts}/>
+		<PostListTemplate posts={postsToDisplay}/>
 	</body>
 </html>

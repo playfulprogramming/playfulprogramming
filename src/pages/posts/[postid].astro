@@ -4,7 +4,8 @@ import "../../global.scss";
 import { COLORS } from 'constants/theme';
 
 import type { MarkdownInstance } from 'astro';
-import { ListViewPosts } from "utils/fs/api";
+import {PostInfo} from 'types/PostInfo';
+import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
 
 const CSS_THEME = Object.entries(COLORS).reduce((prev, [key, val]) => {
   prev += `\n--${key}: ${val.light};`;
@@ -17,43 +18,31 @@ const rawStylesCSS = `
   }
 `
 
-type Post = ListViewPosts[number];
-
 export async function getStaticPaths() {
-  const postsMeta = await Astro.glob<Post>('../../../content/blog/**/*.md')
+  const postsMeta = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
 
-  return postsMeta.map(postMeta => {
-    const directorySplit = postMeta.file.split('/');
-    // This is the folder name, AKA how we generate the slug ID
-    const slug = directorySplit.at(-2);
-    // index.md or index.es.md
-    const indexName = directorySplit.at(-1);
-    const indexSplit = indexName.split('.');
-    let locale = indexSplit.at(-2);
-    if (locale === 'index') {
-      locale = 'en';
-    }
+    const postsExpanded = getAllPostsForListView(postsMeta, 'en');
 
+  return postsExpanded.map(post => {
     return {
       params: {
         // TODO: Pass locale
-        postid: slug
+        postid: post.slug
       },
       props: {
-        Content: postMeta.Content,
-        frontmatter: postMeta.frontmatter,
-        slug,
-        locale
+        Content: post.Content,
+        slug: post.slug,
+        locale: post.locale
       }
     }
   })
 }
 
-const { Content, frontmatter, slug, locale } = Astro.props as {
+const { Content, slug, locale } = Astro.props as {
   slug: string,
   // TODO: Make more type strict
   locale: string,
-  frontmatter: Post,
+  frontmatter: PostInfo,
   Content: MarkdownInstance<any>['Content']
 }
 ---
