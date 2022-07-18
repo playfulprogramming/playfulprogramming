@@ -15,10 +15,35 @@ const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collecti
 <div class={layoutStyles.horizCenter}>
     <header class={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
         <div class={layoutStyles.headerInsideContainer}>
-            {!isBase ? (
-            <button class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back" onclick="history.back()">
+            {!isBase ? (<>
+            <button id="backbtn" class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back">
                 <Icon height="36" width="36" name="back" />
             </button>
+            <script is:inline>
+                const backBtn = document.querySelector('#backbtn');
+
+                let hasHistory = false;
+                window.addEventListener('beforeunload', () => {
+                    hasHistory = true;
+                })
+
+                backBtn.addEventListener('click', () => {
+                    if (!document.referrer) {
+                        // This is the first page the user has visited on the site in this session
+                        window.location.href = '/';
+                        return;
+                    }
+                    history.back();
+
+                    // User cannot go back, meaning that we're at the first page of the site session             
+                    setTimeout(() => {
+                        if (!hasHistory){
+                            window.location.href = "/";
+                        }
+                    }, 200);
+                })
+            </script>
+            </>
             ) : (
             <div />
             )}
