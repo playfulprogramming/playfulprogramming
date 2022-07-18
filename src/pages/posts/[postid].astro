@@ -7,17 +7,6 @@ import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
 import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
 
-const CSS_THEME = Object.entries(COLORS).reduce((prev, [key, val]) => {
-  prev += `\n--${key}: ${val.light};`;
-  return prev;
-}, "");
-
-const rawStylesCSS = `
-  :root {
-    ${CSS_THEME}
-  }
-`
-
 export async function getStaticPaths() {
   const postsMeta = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
 

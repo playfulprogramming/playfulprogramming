@@ -63,5 +63,4 @@ export const COLORS = {
   scrollBarThumb: { light: "var(--primary)", dark: "var(--darkPrimary)" },
 };
 
-export const COLOR_MODE_KEY = "currentTheme";
-export const INITIAL_COLOR_MODE_CSS_PROP = "--initial-color-mode";
+export const COLOR_MODE_STORAGE_KEY = "currentTheme";

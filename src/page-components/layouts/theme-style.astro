@@ -1,0 +1,25 @@
+---
+import {
+  COLORS
+} from "../../constants";
+
+function getThemeStyling(theme: 'light' | 'dark') {
+  const CSS_THEME = Object.entries(COLORS).reduce((prev, [key, val]) => {
+    prev += `\n--${key}: ${val[theme]};`;
+    return prev;
+  }, "");
+
+  return CSS_THEME;
+}
+
+const rawStylesCSS = `
+  html.light, body.light {
+    ${getThemeStyling('light')}
+  }
+  html.dark, body.dark {
+    ${getThemeStyling('dark')}
+  }
+`
+---
+
+<style set:html={rawStylesCSS} />
