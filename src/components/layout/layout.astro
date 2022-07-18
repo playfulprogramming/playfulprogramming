@@ -1,7 +1,6 @@
 ---
 import layoutStyles from "./layout.module.scss";
-import BackIcon from "assets/icons/back.svg";
-import DiscordIcon from "assets/icons/discord.svg";
+import { Icon } from 'astro-icon';
 
 // const { back } = useHistory();
 
@@ -17,7 +16,7 @@ const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collecti
         <div class={layoutStyles.headerInsideContainer}>
             {!isBase ? (
             <button class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back" onclick="history.back()">
-                <BackIcon />
+                <Icon height="36" width="36" name="back" />
             </button>
             ) : (
             <div />
@@ -25,7 +24,7 @@ const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collecti
             <div class={layoutStyles.iconList}>
                 <!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
                     aria-label={"Join the Discord"}> -->
-                    <DiscordIcon />
+                    <Icon height="36" width="36" name="discord" />
                 <!-- </AnalyticsLink>
                 <DarkLightButton /> -->
             </div>

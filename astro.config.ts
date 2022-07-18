@@ -43,6 +43,11 @@ export default defineConfig({
 			}],
 		}),
 	],
+	vite: {
+		ssr: {
+			external: ["svgo"],
+		},
+	},
 	markdown: {
 		mode: 'md',
 		shikiConfig: {
