@@ -4,7 +4,7 @@
 	description: "Primitive obsession is an extremely common code smell, and when identified and fix, it greatly helps to reduce the amount of bugs that you may find in your code.",
 	published: '2022-07-19T14:52:03.000Z',
 	authors: ['alexchadwick'],
-	tags: ['code-smells', 'windows', 'computer science'],
+	tags: ['opinion', 'csharp', 'computer science'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 	originalLink: 'https://alexchadwick.com/what-is-primitive-obsession-and-how-do-you-fix-it'
