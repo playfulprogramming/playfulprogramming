@@ -435,7 +435,8 @@
     "profileImg": "./alexchadwick.jpg",
     "color": "",
     "roles": [
-      "author"
+      "author",
+      "translator"
     ]
   }
 ]
