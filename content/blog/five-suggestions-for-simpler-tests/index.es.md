@@ -3,7 +3,8 @@
   title: "Write Simpler Tests - 5 Suggestions for Better Tests",
   description: "Writing tests is a big skill for any engineer, but we often over-complicate them. Let's simplify our tests for better testing overall!",
   published: '2020-05-26T05:12:03.284Z',
-  authors: ['crutchcorn', 'skatcat31', 'alexchadwickp'],
+  authors: ['crutchcorn', 'skatcat31'],
+  translators: ['alexchadwickp'],
   tags: ['testing', 'jest'],
   attached: [],
   license: 'cc-by-nc-sa-4'
