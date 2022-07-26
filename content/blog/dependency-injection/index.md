@@ -499,7 +499,7 @@ function updateMessage() {
 import { inject } from 'vue'
 
 // Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
-// If you needed to modify `welcomeMessage` inside of `<script setup>`, you'd
+// If you needed to use `welcomeMessage` inside of `<script setup>`, you'd
 // need to use `.value`
 const welcomeMessage = inject('WELCOME_MESSAGE')
 </script>
@@ -507,38 +507,202 @@ const welcomeMessage = inject('WELCOME_MESSAGE')
 
 <!-- tabs:end -->
 
-
-
-
-
---------------------
-
----------------
-
----------------------
-
-
-
-
-
-
-
 ## Changing Injected Values from Child
 
+While mutating the injected value is intrinsically valuable, we often want to change the value from the child component instead of from the root. However, because dependency injection is usually unidirectional (from the parent to the child), we have to rely on specific functionality of the frameworks to enable this functionality. 
 
-// TODO: Write
+Let's see how that's done:
 
 <!-- tabs:start -->
 
-
-
 ### React
 
-1) `useState` and `useContext`
+Before, we utilized the ability to use `useState` in our `Provider` in order to handle data changes from the parent provider.
 
-2) `useReducer` and `useContext`
+Luckily, React's `useContext` enables us to pass data of _any_ kind, functions included. This means that we can pass both the getter and setter function of `useState`, like so:
 
-> Warning, [point towards Redux for perf](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/)
+```jsx
+
+const HelloMessageContext = createContext();
+
+function Parent() {
+  const [message, setMessage] = useState('Initial value');
+  // We can pass both the setter and getter
+  const providedValue = { message, setMessage };
+  return (
+    <HelloMessageContext.Provider value={providedValue}>
+      <Child />
+    </HelloMessageContext.Provider>
+  );
+}
+
+function Child() {
+  // And later, access them both as if they were local to the component
+  const { message, setMessage } = useContext(HelloMessageContext);
+  return (
+    <>
+      <p>{message}</p>
+      <button onClick={() => setMessage('Updated value')}>
+        Update the message
+      </button>
+    </>
+  );
+}
+```
+
+#### Using a reducer pattern
+
+While `useState` and `useContext` make a powerful combination for simple data passing using dependency injection, it's far from a perfect solution when dealing with large data sets.
+
+For example, what happens if we want to implement a counter, that includes an `increment` and `decrement` function?
+
+This is where `useReducer` might come into play. Let's take a step back for a moment, and remove the `useContext` method.
+
+A "reducer" pattern involves a list of actions that the user can take. These actions are provided the current `state` value, which will be updated based on the returned value from the reducer.
+
+> It's worth mentioning that the reducer pattern is not unique to React. That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks. 
+
+Let's take a look at the most basic version of a `reducer` that only can count up from `0`:
+
+```jsx
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  return {count: state.count + 1}
+}
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      <p>{state.count}</p>
+      <button onClick={() => dispatch()}>Add one</button>
+    </>
+  );
+}
+```
+
+Here, whenever `dispatch` is called, it will run the `reducer` with no arguments for `action`, and React will automatically pass `state` for us. Then, when we `return` inside of the reducer, React will automatically keep track of the returned value as the new `state` value.
+
+However, this isn't particularly useful and seems like more boilerplate than needed for what's effectively a simple `useState`. To make `useReducer` more worthwhile, we need to add more actions.
+
+ For example, we'll have an `increment` and `decrement` action that will respectively add one and remove one from the `state`.
+
+```jsx
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      <p>{state.count}</p>
+      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>
+        Remove one
+      </button>
+    </>
+  );
+}
+```
+
+Here, we can pass a `type` object as a parameter of `reducer`'s `action`, run a `switch`/`case` over it, and return relevant data changes as-needed.
+
+But that's not all we can do with a reducer! We can also pass in what's often called a `payload` in order to set raw data to our `state` as well:
+
+```jsx
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'set':
+      return { count: action.payload };
+    default:
+      return state;
+  }
+}
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      <p>{state.count}</p>
+      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>
+        Remove one
+      </button>
+      <button onClick={() => dispatch({ type: 'set', payload: 0 })}>
+        Set to zero
+      </button>
+    </>
+  );
+}
+```
+
+#### Reducer patterns within Contexts
+
+Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components. 
+
+```jsx
+const HelloMessageContext = createContext();
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'set':
+      return { count: action.payload };
+    default:
+      return state;
+  }
+}
+
+function Parent() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const providedValue = { state, dispatch };
+  return (
+    <HelloMessageContext.Provider value={providedValue}>
+      <Child />
+    </HelloMessageContext.Provider>
+  );
+}
+
+function Child() {
+  const { state, dispatch } = useContext(HelloMessageContext);
+  return (
+    <>
+      <p>{state.count}</p>
+      <button onClick={() => dispatch({ type: 'increment' })}>Add one</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>
+        Remove one
+      </button>
+      <button onClick={() => dispatch({ type: 'set', payload: 0 })}>
+        Set to zero
+      </button>
+    </>
+  );
+}
+```
+
+> It's worth mentioning that while this works at a relatively small-scale, you [should not use this pattern for large data sets across huge swaths of your program. Instead, you should likely be using a library like Redux for performance reasons.](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/)
 
 ### Angular
 
@@ -580,13 +744,25 @@ class ChildComponent {
 
 ### Vue
 
-???
+// TODO: Write
+
+`ref`
 
 <!-- tabs:end -->
 
 
 
 
+
+---
+
+---
+
+---
+
+---
+
+---
 
 # Optional Injected Values
 
