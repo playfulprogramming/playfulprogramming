@@ -394,75 +394,132 @@ const welcomeMsgObj = inject('WELCOME_MESSAGE')
 
 <!-- tabs:end -->
 
-----
-
-----
-
-----
-
----
-
----
-
-
-
 # Changing Values After Injection
 
 While providing values from a parent node down to a child component is useful on its own, it's made even more powerful by the inclusion of data manipulation.
 
-For example, what happens when your user wants to change their name with some kind of rename functionality? You should be able to change how the data is stored in your dependency injection to propagate those changes throughout your whole application immediately.  
+For example, what happens when your user wants to change their name with some kind of rename functionality? You should be able to change how the data is stored in your dependency injection to propagate those changes throughout your whole application immediately.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Add
+Because our `Provider` is able to pass down values of any kind, we can combine this with `useState` in order to allow React to update the values for children.
+
+```jsx
+const HelloMessageContext = createContext();
+
+const Child = () => {
+  const helloMessage = useContext(HelloMessageContext);
+  return <p>{helloMessage}</p>;
+};
+
+const Parent = () => {
+  const [message, setMessage] = useState('Initial value');
+  return (
+    <HelloMessageContext.Provider value={message}>
+      <Child />
+      <button onClick={() => setMessage('Updated value')}>
+        Update the message
+      </button>
+    </HelloMessageContext.Provider>
+  );
+};
+```
+
+When we update the `message` value, it will trigger a re-render on the `Child` component and, in turn, update the displayed message.
 
 ## Angular
 
-// TODO: Write
+Because we've marked our `InjectedValue` class as an `Injectable`, we can simply have the parent component request access in the `constructor` in order to mutate the class instance.
 
 ````typescript
 @Injectable()
 class InjectedValue {
-  message = "Hello, world";
+  message = 'Initial value';
 }
 
 @Component({
-  selector: "child",
-  template: `<div></div>`
-})
-class ChildComponent implements OnInit {
-  constructor(private injectedValue: InjectedValue) {}
-
-  ngOnInit() {
-    setTimeout(() => {
-      console.log(this.injectedValue);
-    }, 0)
-  }
-}
-
-@Component({
-  selector: "app-root",
+  selector: 'app-root',
   providers: [InjectedValue],
-  template: `<child></child>`
+  template: `
+    <child></child>
+    <button (click)="updateMessage()">Update the message</button>
+  `,
 })
 class ParentComponent {
+  // We can access the `injectedValue` from the same component we provide it from
   constructor(private injectedValue: InjectedValue) {}
 
-  ngOnInit() {
-    this.injectedValue.message = "Test";
+  updateMessage() {
+    this.injectedValue.message = 'Updated value';
   }
+}
+
+@Component({
+  selector: 'child',
+  template: `<p>{{injectedValue.message}}</p>`,
+})
+class ChildComponent {
+  constructor(public injectedValue: InjectedValue) {}
 }
 ````
 
 ## Vue
 
-Use `ref` in combination with `inject`
+Vue's minimal API surface allows us to easily compose `ref` and `provide` usage in order to provide values that we can change after injection. 
 
+```vue
+<!-- Parent.vue -->
+<template>
+  <child />
+  <button @click="updateMessage()">Update the message</button>
+</template>
 
+<script setup>
+import { provide, ref } from 'vue'
+import Child from './Child.vue'
+
+const welcomeMessage = ref('Initial value')
+provide('WELCOME_MESSAGE', welcomeMessage)
+
+function updateMessage() {
+  welcomeMessage.value = 'Updated value'
+}
+</script>
+```
+
+```vue
+<!-- Child.vue -->
+<template>
+  <p>{{ welcomeMessage }}</p>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+// Worth mentioning, `welcomeMessage` is now _not_ a string, but rather a `ref`
+// If you needed to modify `welcomeMessage` inside of `<script setup>`, you'd
+// need to use `.value`
+const welcomeMessage = inject('WELCOME_MESSAGE')
+</script>
+```
 
 <!-- tabs:end -->
+
+
+
+
+
+--------------------
+
+---------------
+
+---------------------
+
+
+
+
 
 
 
