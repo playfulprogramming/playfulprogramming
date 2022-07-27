@@ -121,7 +121,7 @@ Whether it's well defined or not defined at all, you inevitably have some sort o
 
 ### 4. Miscellaneous bits
 
-There are many other things that you can add to your methodology, but I chose to skip in mine. For example, a priority system, the fields you want your task types to have, do you want an effort system?, do you want to write a word document for a major feature? do you want to include notes in the task?
+There are many other things that you can add to your methodology, but I chose to skip in mine. For example, a priority system, the fields you want your task types to have, do you want an effort system? Do you want to write a word document for a major feature? Do you want to include notes in the task?
 
 You can also work out how your pipelines are going to work. Do you want CI to be separate from your CD? Do you want the CI/CD pipeline run automatically or manually?
 
