@@ -1,7 +1,7 @@
 ---
 {
-	title: "How to ask good questions",
-	description: "We all ask questions from time to time, so here are some of my favourite tips when it comes to how to ask questions properly.",
+	title: "How to ask better questions",
+	description: "We all ask questions from time to time, so here are some of my favourite tips when it comes to how to improve the quality of your questions.",
 	published: '2022-07-20T20:10:03.000Z',
 	authors: ['alexchadwick'],
 	tags: ['opinion'],
@@ -15,11 +15,11 @@
 
 In this day and age, the programming ecosystem has become so rich and complex that asking questions is inevitable for any developer, regardless of what stage of their career they find themselves in.
 
-However, it is not always easy to ask a good question, and often you'll see StackOverflow questions being downvoted or taken down due to the question being of poor quality.
+However, it is not always easy to ask a question, and often you'll see StackOverflow questions being downvoted or taken down due to the question being of poor quality.
 
-Asking good questions is essential to getting help quickly, as whoever is reading your question will have immediate access to most of the information they need to come up with an answer that could potentially answer your doubts.
+Asking the best possible questions is essential to getting help quickly, as whoever is reading your question will have immediate access to most of the information they need to come up with an answer that could potentially answer your doubts.
 
-So in this article, I wanted to cover the basics on how to ask a good question, in order to get good answers.
+So in this article, I wanted to cover the basics on how to improve your questions, in order to get good answers.
 
 Note: Most of these concepts could also apply to opening issues on OSS projects, or to give feedback to different pieces of software
 
