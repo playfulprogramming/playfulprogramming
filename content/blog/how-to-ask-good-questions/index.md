@@ -54,7 +54,7 @@ In my previous example I would do the following:
 > const result = sum(1, 1); // result == 1?
 > ```
 
-It also helps to introduce some comments if you don't have them already to add notes or explain some complex piece of code or maybe a function that is defined elsewhere.
+It also helps to introduce some comments if you don't have them already. These can add notes, explain a complex piece of code, or describe a function that is defined elsewhere.
 
 ## Share what you have tried
 
