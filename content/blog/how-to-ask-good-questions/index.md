@@ -80,23 +80,23 @@ Sharing what you've tried helps people to rule out anything you've already tried
 
 Those are the main tips that are applicable to any programming question, regardless of  where / when you're asking the question. But there are other tips that may apply to more specific situations that I want to talk about in this section:
 
-* **Choose the right time and the right person**
+* ###### Choose the right time and the right person
   Are you asking someone at work or in your household? Firstly make sure that it's a good time for them. If they're busy working away then don't disturb them.
 
-* **Do some research**
+* ###### Do some research
   Are there any terms you're unsure of that are relevant to your question? Look around first and make sure *you* know the entire problem before expecting other people to.
 
-* **If something's not clear then ask about it**
+* ###### If something's not clear then ask about it
   It's easy to feel bad when someone explains something to you and you still don't fully understand and need to ask again. There is no shame in asking someone to be clearer as long as you're being respectful about it. They're already helping you which means they're probably happy to give away some of their time to help you out!
 
-* **Don't take up too much of someone's time**
+* ###### Don't take up too much of someone's time
   It's fine if you ask for help and it takes someone 15 minutes to help you out. However if you know this is going to take a longer amount of time, or you notice like the person helping you is starting to get impatient, it's fine to leave it for another time! You could simply ask them when is a more convenient time for you two to have another go at it? Something like:
   
   > *"This is taking more time than it thought it would, is it OK if I asked you if we could give it another go maybe when you've got a bit more time?"*
   
   Most times people will be happy to!
 
-* **Finally, asking bad questions from time to time is fine**
+* ###### Finally, asking bad questions from time to time is fine
   Don't feel bad if you've asked a bad question. It's easy to forget that sometimes Google exists and you ask a coworker something that could've been answered faster by the internet! Similarly, don't lash out when someone asks you a bad question. Instead kindly teach them how to ask good questions for future reference!
 
 ## Conclusion
