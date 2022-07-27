@@ -43,7 +43,7 @@ If you can pinpoint the problematic code, then it's important that you share it.
 
 In my previous example I would do the following:
 
-> *This is where `sum` is defined and how I'm calling `sum`:
+> *This is where `sum` is defined and how I'm calling `sum`:*
 > 
 > ```javascript
 > function sum(a, b) {
@@ -53,8 +53,6 @@ In my previous example I would do the following:
 > 
 > const result = sum(1, 1); // result == 1?
 > ```
-> 
-> *
 
 It also helps to introduce some comments if you don't have them already to add notes or explain some complex piece of code or maybe a function that is defined elsewhere.
 
