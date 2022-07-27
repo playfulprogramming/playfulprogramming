@@ -51,7 +51,7 @@ There are a few tags that I like to use when defining bugs and tasks:
 
 * Refactor: For tasks that relate to a refactor of some sorts
 
-* Chore: For tasks that may be boring / don't affect the end result too much (documentation)
+* Chore: For tasks that may be boring / don't affect the end result too much like internal documentation and configuration
 
 * Test: For tasks or bugs about testing
 
