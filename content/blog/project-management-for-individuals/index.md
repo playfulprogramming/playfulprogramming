@@ -31,7 +31,7 @@ So what I went and did, was develop a methodology of my own, that was tailored t
 
 ## My Methodology
 
-I was looking for a methodology that would fit nicely in Azure DevOps Boards, so I could use it there, and that was clear enough that if more people were to join my team they would understand immediately how it worked.
+I was looking for a methodology that would fit nicely in Azure DevOps Boards, so I could use it there, and that was clear enough that if more people were to join my team they would understand immediately how it worked, however the tips that I'll describe later on in this blog post will be aplicable to other software, as well as physical boards!
 
 So I developed the most simple thing that would work.
 
@@ -97,7 +97,7 @@ This is what my usual development cycle looks like:
 
 6. CI: Now I will push all of my commits, and wait for the Continuous Integration pipeline to verify that all the testing, linting and building is successful
 
-7. (Optional) CD: This step is optional because I don't always deploy the changes I make immediately. If I'm fixing an important bug then this step will take place immediately after CI. If not then I'll wait to accumulate a few features to deploy my updated application
+7. (Optional) CD: This step is optional because I don't always deploy the changes I make immediately. I'll only run a Continuous Delivery pipeline if I'm fixing an important bug, in which case, this step will take place immediately after CI. If not then I'll wait to accumulate a few features to deliver my updated application
 
 8. Start again
 
