@@ -39,7 +39,7 @@ Also feel free to share screenshots if whatever you're working on has graphics, 
 
 ## Share your problematic code
 
-If you can pinpoint the problematic code, then it's important that you share it. If it's too large introduce a link to a pastebin or github repository and explain what you're linking to so people know where to find your code, but remember not to link your entire repository as people don't have the time to be searching through your code to find the problem.
+If you can pinpoint the problematic code, then it's important that you share it. If it's too large to share directly, introduce a link to a pastebin or github repository and explain what you're linking to so people know where to find your code. Remember not to link your entire repository as people don't have the time to be searching through your code to find the problem.
 
 In my previous example I would do the following:
 
