@@ -10,7 +10,6 @@
 }
 ---
 
-# How to ask good questions
 
 ## Introduction
 
