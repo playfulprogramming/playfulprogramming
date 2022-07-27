@@ -117,7 +117,7 @@ There are many options. I like to go for a simple branching strategy as it's jus
 
 ### 3. What will your development cycle look like?
 
-Whether it's well defined or not defined at all you inevitable have some sort of routine that you follow when programming. Write this down and also maybe consider if there are any improvements you could easily add to your routine. If you have trouble remembering when to commit for example (like me!) then try to set some sort time when you commit, like for example, when you've written 5 functions or when you've finished a step in your development cycle.
+Whether it's well defined or not defined at all, you inevitably have some sort of routine that you follow when programming. Write this down, and also maybe consider if there are any improvements you could easily add to your routine. If you have trouble remembering when to commit for example (like me!) then try to set some sort time when you commit, like for example, when you've written 5 functions or when you've finished a step in your development cycle.
 
 ### 4. Miscellaneous bits
 
