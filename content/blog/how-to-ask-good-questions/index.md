@@ -35,7 +35,7 @@ Now whoever is reading my question knows what I'm trying to achieve and what is 
 
 I see a lot of questions where people describe their expected behaviour but omit their current behaviour, or the other way around.
 
-Also feel free to share screenshots if whatever you're working on has graphics, however **never** use screenshots for code, output, or errors that may display on the command line. Most people prefer that you copy and paste them instead, and it ensures it remains accessible for people with disabilities and translateable for people that speak different languages. Only use images when you need to if possible.
+Also feel free to share screenshots if whatever you're working on has graphics, however **never** use screenshots for code, output, or errors that may display on the command line. Most people prefer that you copy and paste them instead, and it ensures it remains accessible for people with disabilities and translatable for people that speak different languages. Only use images when you need to if possible.
 
 ## Share your problematic code
 
