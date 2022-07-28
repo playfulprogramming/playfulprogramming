@@ -11,7 +11,7 @@
 ---
 
 
-## Defining Mutable and Immutable
+# Defining Mutable and Immutable
 
 Mutable means "can change". Immutable means "cannot change". And these meanings  remain the same in the technology world. For example, a mutable string can be changed, and an immutable string cannot be changed.
 
