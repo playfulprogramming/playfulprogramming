@@ -89,8 +89,8 @@ Those are the main tips that are applicable to any programming question, regardl
 * ###### If something's not clear then ask about it
   It's easy to feel bad when someone explains something to you and you still don't fully understand and need to ask again. There is no shame in asking someone to be clearer as long as you're being respectful about it. They're already helping you which means they're probably happy to give away some of their time to help you out!
 
-* ###### Don't take up too much of someone's time
-  It's fine if you ask for help and it takes someone 15 minutes to help you out. However if you know this is going to take a longer amount of time, or you notice like the person helping you is starting to get impatient, it's fine to leave it for another time! You could simply ask them when is a more convenient time for you two to have another go at it? Something like:
+* ###### Be understanding of other people's time
+  Most clearly defined questions can be solved in 15 minutes or less. If you find that a problem is taking longer than that, or you notice the person helping you is taking longer to reply, it's okay to ask for continued help for another time! You could simply ask them when is a more convenient time for you two to have another go at it? Something like:
   
   > *"This is taking more time than it thought it would, is it OK if I asked you if we could give it another go maybe when you've got a bit more time?"*
   
