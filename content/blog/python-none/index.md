@@ -2,13 +2,13 @@
 ---
 {
     title: 'Python None',
-    description: 'Interpreted Languages And Their Footguns',
+    description: "Interpreted languages have various footguns. Let's explore one such footgun I ran into recently with Python and how I fixed it.",
     published: '2022-07-27T20:00:00.945Z',
-    edited: '2022-07-27T20:00:00.945ZZ',
     authors: ['williamcook'],
-    tags: ['python', 'go', 'bugs'],
+    tags: ['python', 'go'],
     attached: [],
-    license: 'cc-by-nc-nd-4'
+    license: 'cc-by-nc-nd-4',
+    originalLink: "https://williamgeorgecook.com/posts/python_none/"
 }
 ---
 
