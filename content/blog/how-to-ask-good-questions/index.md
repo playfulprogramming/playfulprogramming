@@ -96,8 +96,8 @@ Those are the main tips that are applicable to any programming question, regardl
   
   Most times people will be happy to!
 
-* ###### Finally, asking bad questions from time to time is fine
-  Don't feel bad if you've asked a bad question. It's easy to forget that sometimes Google exists and you ask a coworker something that could've been answered faster by the internet! Similarly, don't lash out when someone asks you a bad question. Instead kindly teach them how to ask good questions for future reference!
+* ###### Finally, asking "bad" questions from time to time is fine
+  Don't feel bad if you've asked a question that you're worried is low quality. It's easy to forget that sometimes Google exists and you ask a coworker something that could've been answered faster by the internet! Similarly, don't lash out when someone asks you a bad question. Instead, kindly teach them how to ask better questions for future reference!
 
 ## Conclusion
 
