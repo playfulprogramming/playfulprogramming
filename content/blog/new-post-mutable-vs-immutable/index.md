@@ -60,7 +60,7 @@ Now imagine if we had 5 checkout lanes, each one with one clerk, but only 1 shar
 
 The solution is to ensure that only 1 clerk will have access at any one time to the register (a lock), and no other clerks can use the register until my 10 items are scanned.
 
-## How does immutability solve this issue?
+# How does immutability solve this issue?
 
 Immutability solves this issue by ensuring that a data structure cannot be modified, only read. Create once, read many times. So what if you need to perform an operation on an immutable data structure? You'd return the result in a *new* immutable instance of the data structure.
 
