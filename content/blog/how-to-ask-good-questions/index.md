@@ -81,7 +81,7 @@ Sharing what you've tried helps people to rule out anything you've already tried
 Those are the main tips that are applicable to any programming question, regardless of  where / when you're asking the question. But there are other tips that may apply to more specific situations that I want to talk about in this section:
 
 * ###### Choose the right time and the right person
-  Are you asking someone at work or in your household? Firstly make sure that it's a good time for them. If they're busy working away then don't disturb them.
+  Are you asking someone at work or in your household? Firstly make sure that it's a good time for them. If they're busy working away then you might want to try to find a different time to ask your question.
 
 * ###### Do some research
   Are there any terms you're unsure of that are relevant to your question? Look around first and make sure *you* know the entire problem before expecting other people to.
