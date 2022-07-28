@@ -48,7 +48,7 @@ myObj = {
 
 And the same is the case with arrays.
 
-## What is the problem with mutable variables?
+# What is the problem with mutable variables?
 
 The biggest problem with mutable variables is that they are not thread-safe. Thread safe code is defined as: "Thread-safe code only manipulates shared data structures in a way that ensures that all threads behave properly and fulfill their design specifications without unintended interaction." (src: [Thread safety - Wikipedia](https://en.wikipedia.org/wiki/Thread_safety))
 
