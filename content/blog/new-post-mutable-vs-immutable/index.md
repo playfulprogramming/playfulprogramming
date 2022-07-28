@@ -10,7 +10,6 @@
 }
 ---
 
-# Mutable vs Immutable Data Types
 
 ## Defining Mutable and Immutable
 
