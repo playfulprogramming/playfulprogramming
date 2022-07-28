@@ -15,7 +15,7 @@
 
 In this day and age, the programming ecosystem has become so rich and complex that asking questions is inevitable for any developer, regardless of what stage of their career they find themselves in.
 
-However, it is not always easy to ask a question, and often you'll see StackOverflow questions being downvoted or taken down due to the question being of poor quality.
+However, it is not always easy to ask a question, and often you'll see StackOverflow questions being downvoted or taken down because of a sense of confusion around the question itself.
 
 Asking the best possible questions is essential to getting help quickly, as whoever is reading your question will have immediate access to most of the information they need to come up with an answer that could potentially answer your doubts.
 
