@@ -81,17 +81,22 @@ const Hello = () => {
 ```typescript
 @Component({
   selector: "my-app",
-  template: `<p>Hello, world!</p>`
+  template: `<p>Hello, world!</p>`,
+  standalone: true
 })
 class HelloWorldComp {}
 ```
 
 # Vue
 
-```javascript
-const Hello = {
-	template: `<p>Hello, world!</p>`
-}
+```vue
+<!-- Hello.vue -->
+<template>
+  <p>Hello, world!</p>
+</template>
+
+<script setup>
+</script>
 ```
 
 <!-- tabs:end -->
