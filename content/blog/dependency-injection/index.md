@@ -658,7 +658,7 @@ function App() {
 Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components. 
 
 ```jsx
-const HelloMessageContext = createContext();
+const CounterContext = createContext();
 
 const initialState = { count: 0 };
 
@@ -679,14 +679,14 @@ function Parent() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const providedValue = { state, dispatch };
   return (
-    <HelloMessageContext.Provider value={providedValue}>
+    <CounterContext.Provider value={providedValue}>
       <Child />
-    </HelloMessageContext.Provider>
+    </CounterContext.Provider>
   );
 }
 
 function Child() {
-  const { state, dispatch } = useContext(HelloMessageContext);
+  const { state, dispatch } = useContext(CounterContext);
   return (
     <>
       <p>{state.count}</p>
@@ -706,12 +706,13 @@ function Child() {
 
 ### Angular
 
-// TODO: Write
+Because we're able to inject a full class instance into a child component, we can utilize methods in said class to mutate data of the injected class instance.
 
 ```typescript
 @Injectable()
 class InjectedValue {
   message = 'Hello, world';
+  // `this` is referring to the `InjectedValue` instance
   changeMessage(val: string) {
     this.message = val;
   }
@@ -735,49 +736,124 @@ class ChildComponent {
   constructor(public injectedValue: InjectedValue) {}
 
   changeMessage() {
+    // This will update the value of the class, and 
+    // re-render the component to reflect the new value
     this.injectedValue.changeMessage('TESTING');
   }
 }
 ```
 
-
-
 ### Vue
 
-// TODO: Write
+In our previous example, we used `provide` to inject a `ref` into the child component. Luckily for us, because of Vue's reactivity system, we can simply change the `.value` of the `ref` in the child itself.
 
-`ref`
+```vue
+<!-- Parent.vue -->
+<template>
+  <child />
+</template>
+
+<script setup>
+import { provide, ref } from 'vue'
+import Child from './Child.vue'
+
+const welcomeMessage = ref('Initial value')
+provide('WELCOME_MESSAGE', welcomeMessage)
+</script>
+```
+
+```vue
+<!-- Child.vue -->
+<template>
+  <p>{{ welcomeMessage }}</p>
+  <button @click="updateMessage()">Update the message</button>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+const welcomeMessage = inject('WELCOME_MESSAGE')
+
+function updateMessage() {
+  welcomeMessage.value = 'Updated value'
+}
+</script>
+```
 
 <!-- tabs:end -->
 
-
-
-
-
----
-
----
-
----
-
----
-
----
-
 # Optional Injected Values
 
-When your user first creates their account, they may opt out of inputting their name. When this is the case, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need some method of providing that default value in our dependency injection system.
+Let's think back to the start of this chapter. The original goal of introducing dependency injection was to enable sharing user login information throughout multiple components.
+
+While you might expect the user's login information to always be present, what if it wasn't? What if, when the user first creates their account, they opt out of inputting their name and profile picture? Even if this seems unlikely, a robust application should handle edge-cases like this.
+
+Lukcily, React, Angular, and Vue are all able to withstand no value provided to the child component via dependency injection. This is because all three frameworks have the ability to mark a dependency as "optional" in the dependency injection system.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Add
+In React, handling optionally injected values is fairly straightforward. We can still use the `useContext` hook in the child component, even if there is no provider.
+
+```jsx
+import { createContext, useContext } from 'react';
+
+const HelloMessageContext = createContext();
+
+function Parent() {
+  // Notice no provider was set
+  return (
+    <Child />
+  );
+}
+
+function Child() {
+  // `messageData` is `undefined` if nothing is injected 
+  const messageData = useContext(HelloMessageContext);
+
+  // If no value is passed, we can simply
+  // not render anything in this component
+  if (!messageData) return null;
+
+  return (
+    <p>{messageData}</p>
+  );
+}
+
+export default Parent;
+```
+
+When this is done, `useContext` is `undefined` if no value is injected when it should be.
 
 ## Angular
 
+In Angular, we provide values to be injected using the `providers` array on a component. 
 
-If we remove the `providers` from `ParentComponent`, like so:
+```typescript
+@Injectable()
+class InjectedValue {
+  message = 'Initial value';
+}
+
+@Component({
+  selector: 'app-root',
+  providers: [InjectedValue],
+  template: `<child></child>`,
+})
+class ParentComponent {
+}
+
+@Component({
+  selector: 'child',
+  template: `<p>{{injectedValue.message}}</p>`,
+})
+class ChildComponent {
+  constructor(public injectedValue: InjectedValue) {}
+}
+```
+
+However, if we remove the `providers` from `ParentComponent`, in order to test our application without any user data, like so:
 
 ```typescript
 @Component({
@@ -785,11 +861,6 @@ If we remove the `providers` from `ParentComponent`, like so:
   template: `<child></child>`
 })
 class ParentComponent {
-  constructor(private injectedValue: InjectedValue) {}
-
-  ngOnInit() {
-    this.injectedValue.message = "Test";
-  }
 }
 ```
 
@@ -800,10 +871,11 @@ We get the following error:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
-This is because Angular requires you to provide a value for an injected value by default.
+This is because our constructor inside of `ChildComponent` is marked as a required dependency by default, hence the error. 
+
+Luckily for us, there's a way to tell Angular to mark that dependency as "optional", using the `@Optional` decorator in `ChildComponent`'s `constructor`:
 
 ```typescript
-
 import { Injectable, Component, OnInit, Optional} from '@angular/core';
 
 @Injectable()
@@ -812,39 +884,87 @@ class InjectedValue {
 }
 
 @Component({
-  selector: "child",
-  template: `<div></div>`
-})
-class ChildComponent implements OnInit {
-  constructor(@Optional() private injectedValue: InjectedValue) {}
-
-  ngOnInit() {
-    console.log(this.injectedValue);
-  }
-}
-
-@Component({
   selector: "app-root",
   template: `<child></child>`
 })
 class ParentComponent {
 }
+
+@Component({
+  selector: "child",
+  template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
+})
+class ChildComponent implements OnInit {
+  constructor(@Optional() private injectedValue: InjectedValue) {}
+
+  ngOnInit() {
+    // undefined
+    console.log(this.injectedValue);
+  }
+}
 ```
+
+Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `undefined`, which we can gaurd against using `ngIf` inside our template.
 
 ## Vue
 
-// TODO: Add
+Much like React's dependency injection system, when using Vue's `inject` without a parent `provide`, the `inject` simply defaults it's value to `undefined`.
+
+``` vue
+<!-- Parent.vue -->
+<template>
+  <child />
+</template>
+
+<script setup>
+import Child from './Child.vue'
+</script>
+```
+
+```vue
+<!-- Child.vue -->
+<template>
+  <p v-if="welcomeMessage">{{ welcomeMessage }}</p>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+const welcomeMessage = inject('WELCOME_MESSAGE')
+
+// undefined
+console.log(welcomeMessage)
+</script>
+```
+
+> You may see a warning like this in your `console` if you do this:
+>
+> `[Vue warn]: injection "WELCOME_MESSAGE" not found. `
+>
+> This is normal and expected - keep calm and code on.
 
 <!-- tabs:end -->
 
 
+
+---
+
+---
+
+---
+
+---
+
+
+
+
+
+
 ## Default Values for Optional Values
 
+// TODO: Write
 
-
-
-
-
+Let's decide that when this is the case, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need some method of providing that default value in our dependency injection system.
 
 
 
@@ -904,13 +1024,13 @@ It's worth mentioning that
 
 
 
+<!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
+<!-- `@Self` and `@SkipSelf` - too complex, not features in other frameworks -->
 
+<!-- `@Host`  - for the same reasons as `@Self` -->
 
-# Not going to teach
+<!-- `factory(() => {})` - this is getting too in the weeds of OOP paradigms IMO -->
 
-- Angular
-  - `Self` and `SkipSelf` - Too complex, not features in other frameworks
-  - `Host` - See above
-  - `factory(() => {})`
-  - `'platform'` and `'any'` `provideIn`
+<!-- `'platform'` and `'any'` in `provideIn` - Too niche and nuanced for THIS book. Maybe in Internals -->
+
 
