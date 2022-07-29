@@ -904,7 +904,7 @@ class ChildComponent implements OnInit {
 }
 ```
 
-Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `undefined`, which we can gaurd against using `ngIf` inside our template.
+Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can gaurd against using `ngIf` inside our template.
 
 ## Vue
 
@@ -947,37 +947,225 @@ console.log(welcomeMessage)
 
 
 
----
-
----
-
----
-
----
-
-
-
-
-
 
 ## Default Values for Optional Values
 
-// TODO: Write
+While it's good that we were able to create code that can handle nothing being dependency injected, it's not a great user experience to simply have parts of the app missing when data isn't present.
 
-Let's decide that when this is the case, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need some method of providing that default value in our dependency injection system.
+Instead, let's decide that when the user doesn't have a provided name, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need some method of providing that default value in our dependency injection system.
+
+<!-- tabs:start -->
+
+### React
+
+Because of React's minimalistic dependency injection API, providing a default value to an optionally injected value can be done using [JavaScript's built-in "OR" operator (`||`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR).
+
+```jsx
+function Child() {
+  const injectedMessageData = useContext(HelloMessageContext);
+
+  const messageData = injectedMessageData || "Hello, world!";
+
+  return (
+    <p>{messageData}</p>
+  );
+}
+```
+
+### Angular
+
+<!-- Editor's note: Angular, as-of v14, cannot do the default `private thing = Val` API becuase `Optional` is `null`, not `undefined` -->
+
+As-of today, there's no built-in way to provide an optional value to Angular's `@Optional`ly injected values, despite [an open GitHub issue requesting this feature](https://github.com/angular/angular/issues/25395). 
+
+As a result, we have to handle this edge-case ourselves by creating a second variable in our `ChildComponent` class instance and assigning the value of it to match _either_ our injected value, or a default value.
+
+```typescript
+@Injectable()
+class InjectedValue {
+  message = 'Initial value';
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <child></child>
+  `,
+})
+class ParentComponent {}
+
+@Component({
+  selector: 'child',
+  template: `<p>{{injectedValue.message}}</p>`,
+})
+class ChildComponent {
+  injectedValue: InjectedValue;
+
+  constructor(@Optional() private _injectedValue: InjectedValue) {
+    this.injectedValue = this._injectedValue || { message: 'Default Value' };
+  }
+}
+```
+
+> You may notice that we're using `||` here; [that symbol stands for "or" and can be used to say "this value OR that value if the first is undefined""](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR).
+
+### Vue
+
+Vue is the only framework of the three that supports a built-in way to provide a default value for dependency injected values. Simply pass a second argument to the `inject` method and it will be used as your default value.
+
+```vue
+<!-- Child.vue -->
+<template>
+  <p>{{ welcomeMessage }}</p>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+const welcomeMessage = inject('WELCOME_MESSAGE', 'Default value')
+
+// "Default value"
+console.log(welcomeMessage)
+</script>
+```
+
+<!-- tabs:end -->
 
 
 
 # Application Wide Providers
 
+Generally, it's suggested to keep your dependency injection providers as close to the injected children as possible. That said, it's not always feasible to do so, and you may want to have a dependency injector at the root of your application if _most_ components in your app will be using the same data.
+
+How can we implement this in our code?
 
 <!-- tabs:start --> 
 
 ## React
 
-// TODO: Add
+React doesn't have a specific method of providing values at the root of the application. Instead, you simply use a `Provider`  in your top-level `App` component.
+
+```jsx
+function App() {
+  const [message, setMessage] = useState('Initial value');
+  const providedValue = { message, setMessage };
+  return (
+    <HelloMessageContext.Provider value={providedValue}>
+      <Child />
+    </HelloMessageContext.Provider>
+  );
+}
+```
+
+### Consolidate Providers and Your Logic
+
+When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place. To do this, simply move your provider and logic into the same place:
+
+```jsx
+const HelloMessageProvider = ({children}) => {
+  const [message, setMessage] = useState('Initial value');
+  const providedValue = { message, setMessage };
+	return (
+    <HelloMessageContext.Provider value={providedValue}>
+			{children}
+		</HelloMessageContext.Provider>
+	)
+}
+
+function App() {
+  return (
+  	<HelloMessageProvider>
+      <Child />
+    </HelloMessageProvider>
+  );
+}
+```
+
+### Provider Christmas Trees are Okay!
+
+When you have a large enough application, you may end up having an `App` component that looks like this:
+
+```jsx
+const App = () => {
+  const {isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode} =
+    useLocalDarkMode();
+
+  return (
+    <NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
+      <PaperProvider theme={paperTheme}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={'transparent'}
+        />
+        <SetDarkModeContext.Provider
+          value={{
+            setDarkMode: updateLocalDarkMode,
+            localDarkMode,
+          }}>
+          <ColorSchemeProvider mode={isDarkMode ? 'dark' : 'light'}>
+            <ErrorBoundary FallbackComponent={CustomFallback}>
+              <Provider store={store}>
+                <AppContents />
+              </Provider>
+            </ErrorBoundary>
+          </ColorSchemeProvider>
+        </SetDarkModeContext.Provider>
+      </PaperProvider>
+    </NavigationContainer>
+  );
+};
+```
+
+> [This is actual source code pulled from my React Native app, GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
+
+This code is colloqually called the "Provider Christmas Tree" because of it's formatted structure.
+
+Despite looking ugly, this code is okay! If you _really_ want to break things up, take one step further in componentizing your codebase and move similar providers into their own `StyleProvider` component to help flattern this code:
+
+```jsx
+const StyleProvider = ({ children }) => {
+    return (
+        <PaperProvider theme={paperTheme}>
+            <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                backgroundColor={'transparent'}
+            />
+            <SetDarkModeContext.Provider
+                value={{
+                    setDarkMode: updateLocalDarkMode,
+                    localDarkMode,
+                }}>
+                <ColorSchemeProvider mode={isDarkMode ? 'dark' : 'light'}>
+                    {children}
+                </ColorSchemeProvider>
+            </SetDarkModeContext.Provider>
+        </PaperProvider>
+    )
+}
+
+const App = () => {
+    const { isDarkMode, paperTheme, updateLocalDarkMode, localDarkMode } =
+        useLocalDarkMode();
+
+    return (
+        <NavigationContainer theme={isDarkMode ? darkNavTheme : lightNavTheme}>
+            <ErrorBoundary FallbackComponent={CustomFallback}>
+                <Provider store={store}>
+                  <StyleProvider>
+                    <AppContents />
+                  </StyleProvider>
+                </Provider>
+            </ErrorBoundary>
+        </NavigationContainer>
+    );
+};
+```
+
+Just remember, the order of these providers can matter and cause bugs if some of them are out-of-order!
 
 ## Angular
+
+// TODO: Write
 
 
 ```typescript
@@ -1007,20 +1195,43 @@ class ParentComponent {
 ```
 
 
+
 ## Vue
 
-// TODO: Add
+// TODO: Write
 
 <!-- tabs:end -->
 
 
+
+> It's worth mentioning that if you're extensively using dependency injection at the root of your application, you might be better served by tools purpose-built for this problem such as [Redux Toolkit](https://redux-toolkit.js.org/), [NgRx](https://ngrx.io/), and [Pinia](https://pinia.vuejs.org/) for React, Angular, and Vue respectively. 
+>
+> These tools offer much better performance and debugging than trying to hand-roll your own app-wide dependency injection tools. We'll touch more on the tools in our second book titled ["The Framework Field Guide: Ecosystem"](// TODO: Add link)
+
+
+
+# Overwriting Dependency Injection Specificity
+
+DI will read from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
+
+// TODO: Write
+
+// TODO: Make image
+
+
+
+
+
+
 # Conclusion
 
-It's worth mentioning that 
+// TODO: Write
 
 
 
+It's worth mentioning that while Angular's dependency injection API may seem more complex than the other frameworks, it's also significantly more robust and flexible. We've only touched the surface of what Angular's dependency injection system is capable of.
 
+While [we will dive deeper into how Angular's (and other frameworks') dependency injection system works in our future "Framework Field Guide: Internals" book](// TODO: Add link), for now it's suggested to [read through Angular's documentation for more](https://angular.io/guide/dependency-injection-providers).
 
 
 
@@ -1032,5 +1243,4 @@ It's worth mentioning that
 <!-- `factory(() => {})` - this is getting too in the weeds of OOP paradigms IMO -->
 
 <!-- `'platform'` and `'any'` in `provideIn` - Too niche and nuanced for THIS book. Maybe in Internals -->
-
 
