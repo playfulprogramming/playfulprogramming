@@ -95,8 +95,5 @@ testUser = testUser.increaseAgeByOne(); // instance B
 
 Now in the scenario that Thread 1 is reading `instance A` and Thread 2 wants to increase the age, it will have to do so by creating an `instance B` instead of directly modifying `instance A`, so it is assured that Thread 1 will produce expected behaviour.
 
-# Conclusion
-
-Thread safety is a very complicated topic, but it's important to understand the concept
-
+Thanks for taking the time to read this article, and make sure to check other Unicorn Utterance's blog posts!
 
