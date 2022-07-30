@@ -1239,21 +1239,33 @@ provide('WELCOME_MESSAGE', welcomeMessage)
 
 # Overwriting Dependency Injection Specificity
 
-DI will read from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
+Large apps get complicated fast. Consider the following example:
 
-// TODO: Write
+You have an app that provides user data at the root of the application - the `App` component. However, you need to replace that user data at a lower level component for the rest of the component tree.
 
-Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data.
-
-Let's continue that analogy: if you have multiple buffet tables and they all serve the same food, you're going to grab food from the closest table. Likewise, when you provide a value in dependency injection 
+For these instances, these larger apps can replace dependency injection values mid-tree, like so:
 
 ![// TODO: Write alt](./multiple_providers.svg)
 
-// TODO: Make image
+While it's rare, this ability is an incredibly powerful feature you can leverage in your applications. 
 
------
+> Why would you want to do this?
+
+Admittedly, there are very few practical reasons to need to reach for this API. We'll touch on some of them as we go along, but for now, take this section as a bookmark of knowledge for potential future usage.
+
+Back to the concepts!
+
+A child component will have it's dependency injection resolved from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
+
+Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data. Let's continue that analogy: if you have multiple buffet tables and they all serve the same food, you're going to grab food from the closest table.
+
+![// TODO: Add alt](./buffet_table.svg)
+
+ Likewise, when you provide a value in dependency injection that's closer than another provider, the child will receive that value.
 
 ## Consistency Between Data Providers
+
+// TODO: Write this
 
 These providers must provide a value of the same _shape_.
 
@@ -1263,13 +1275,15 @@ These providers must provide a value of the same _shape_.
 
 
 
-Just like a buffet has to have tables with the same food on them dispursed throughout the building to keep customers happy.
+Just like a buffet has to have tables with the same food on them dispersed throughout the building to keep customers happy.
 
 Otherwise, if the buffet stocks different dishes at each table the customers (AKA components in this analogy) might look at the other table to find more specific food they're looking for. 
 
 
 
 ## Variance in Localized Injected Values
+
+// TODO: Write this
 
 This doesn't mean, however, that the data provided at each provider must be exactly the same.
 
