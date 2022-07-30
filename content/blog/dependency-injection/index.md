@@ -107,13 +107,17 @@ render(App);
 
 While this isn't real code, we can make a simple discovery by looking at our code laid out like this: We're passing `currentUser` to almost every single component!
 
+If we chart out what the flow of data looks like, it might look something like this:
+
+![// TODO: Write alt](./passing_props.svg)
+
 While it's obnoxious to pass `currentUser` in every component, we need that data in all of these components, so we can't simply remove the inputs, can we?
 
 Well, we can! Sort of...
 
 What we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise it's hand and ask for data.
 
-<!-- Editor's TODO: Add image to go alongside the buffet analogy -->
+<!-- Editor's TODO: Add image to go alongside the buffet analogy? -->
 
 Think of this like a food buffet. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
 
@@ -121,7 +125,13 @@ We do this method of implicit data passing using a methodology called "dependenc
 
 # Providing Basic Values with Dependency Injection
 
-When we talk about dependency injection, we talk about a method of providing data from a parent component down to a child component. Each of these three frameworks provides a simple way of injecting data implicitly into their components.
+When we talk about dependency injection, we talk about a method of providing data from a parent component down to a child component through implicit means.
+
+Using dependency injection, we can take our previous anxiety-inducing chart and redesign the app to reflect something like this instead:
+
+![// TODO: Write alt](./basic_di.svg)
+
+Each of these three frameworks provides a simple way of injecting data implicitly into their components.
 
 Let's start with the most basic method of dependency injection by providing some simple values, like a number or string, down to a child component.
 
@@ -1165,7 +1175,11 @@ Just remember, the order of these providers can matter and cause bugs if some of
 
 ## Angular
 
-// TODO: Write
+While other frameworks require you to explicitly provide your dependency injected values at the root of your application, Angular does not.
+
+Remember earlier when we utilized `@Injectable`  to mark a class as an injectable class instance? Well, this decorator has a trick up its sleave: [the `providedIn` property](https://angular.io/guide/providers#providedin-and-ngmodules).
+
+When you pass `{providedIn: 'root'}` to the `@Injectable` decorator, you no longer have to explicitly place the class inside of a `providers` array; instead, Angular will simply provide this class to the root of your application.
 
 
 ```typescript
@@ -1182,6 +1196,8 @@ class ChildComponent implements OnInit {
   constructor(private injectedValue: InjectedValue) {}
 
   ngOnInit() {
+    // This will include the `message` property, alongside 
+    // any other methods and properties on the class instance
     console.log(this.injectedValue);
   }
 }
@@ -1194,15 +1210,26 @@ class ParentComponent {
 }
 ```
 
-
-
 ## Vue
 
-// TODO: Write
+The simplicity in Vue's dependency injection API continues! Providing a value at your application's root is just as simple in Vue as providing a value anywhere else in your codebase. Simply add a `provide` method call inside your root `App` component, and you're off the races.
+
+```vue
+<!-- App.vue -->
+<template>
+  <child />
+</template>
+
+<script setup>
+import { provide, ref } from 'vue'
+import Child from './Child.vue'
+
+const welcomeMessage = ref('Hello, world!')
+provide('WELCOME_MESSAGE', welcomeMessage)
+</script>
+```
 
 <!-- tabs:end -->
-
-
 
 > It's worth mentioning that if you're extensively using dependency injection at the root of your application, you might be better served by tools purpose-built for this problem such as [Redux Toolkit](https://redux-toolkit.js.org/), [NgRx](https://ngrx.io/), and [Pinia](https://pinia.vuejs.org/) for React, Angular, and Vue respectively. 
 >
@@ -1216,9 +1243,43 @@ DI will read from the closest parent. This means that if you have two providers,
 
 // TODO: Write
 
+Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data.
+
+Let's continue that analogy: if you have multiple buffet tables and they all serve the same food, you're going to grab food from the closest table. Likewise, when you provide a value in dependency injection 
+
+![// TODO: Write alt](./multiple_providers.svg)
+
 // TODO: Make image
 
+-----
 
+## Consistency Between Data Providers
+
+These providers must provide a value of the same _shape_.
+
+![// TODO: Add alt](./same_color_shapes.svg)
+
+
+
+
+
+Just like a buffet has to have tables with the same food on them dispursed throughout the building to keep customers happy.
+
+Otherwise, if the buffet stocks different dishes at each table the customers (AKA components in this analogy) might look at the other table to find more specific food they're looking for. 
+
+
+
+## Variance in Localized Injected Values
+
+This doesn't mean, however, that the data provided at each provider must be exactly the same.
+
+Just like each buffet table might have slightly different spices in each plate of food, so too can the individual data providers inject variance into their provided values.
+
+![// TODO: Add alt](./different_color_shapes.svg)
+
+
+
+<!-- Editor's note: Okay, SHOULD we cover `@Self` and `@SkipSelf` here in Angular? I guess we could... I'm split on it -->
 
 
 
