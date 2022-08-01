@@ -36,6 +36,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@builder.io/partytown": "^0.6.4",
     "@lesjoursfr/html-to-epub": "github:unicorn-utterances/html-to-epub#built",
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",

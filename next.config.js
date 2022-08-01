@@ -14,6 +14,9 @@ module.exports = withPlugins([withBundleAnalyzer], {
     defaultLocale: "en",
     localeDetection: false,
   },
+  experimental: {
+    nextScriptWorkers: true,
+  },
   webpack: (config) => {
     config.plugins.push(
       new CopyPlugin({
