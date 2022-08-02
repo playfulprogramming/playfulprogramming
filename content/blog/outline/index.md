@@ -63,10 +63,10 @@
 - [Element Reference](/posts/element-reference) ✅
   - How to keep element reference array ✅
 - [Component Reference](/posts/component-reference) ✅
-- [Dependency injection](/posts/dependency-injection)
-  - `useContext` / React
-  - `provide/inject` / Vue
-  - Angular DI
+- [Dependency injection](/posts/dependency-injection) ✅
+  - `useContext` / React ✅
+  - `provide/inject` / Vue ✅
+  - Angular DI ✅
 - [Shared Component Logic](/posts/shared-component-logic)
   - React / Custom Hooks
   - Angular / Services
@@ -105,7 +105,6 @@
 
   - Best of Both Worlds
     - Vite
-
 - Styling
   - CSS Modules
   - CSS-in-JS
@@ -117,6 +116,9 @@
   - React Router
   - Angular Router
   - Vue Router
+- Observables
+  - RxJS
+
 - API
   - HTTPS
     - Angular HTTP library
@@ -124,32 +126,28 @@
 
   - GraphQL
     - [Apollo Client](https://www.apollographql.com/docs/react/)
-
 - Internationalization (i18n)
   - [React / i18next](https://react.i18next.com)
   - [Angular Internationalization](https://angular.io/guide/i18n-overview)
   - [Vue i18n](https://kazupon.github.io/vue-i18n/)
-
 - Testing
   - Test Running & Unit Testing
     - [Vitest](vitest.dev/)
 
     - Basic logic testing, no UI testing
-  
+
     - Angular / [Service Testing](https://angular.io/guide/testing-services#testing-services)
-  
+
   - Integration testing
     - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
     - [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/)
     - [Vue Testing Library](https://testing-library.com/docs/vue-testing-library/intro/)
     - [MSW](https://mswjs.io/)
-  
+
   - End-to-end testing
     - [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro)
-  
 - Visual Playground
   - [Storybook](storybook.js.org/)
-
 - SSR
   - NextJS / React
   - NuxtJS / Vue

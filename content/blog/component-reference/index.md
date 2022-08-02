@@ -76,7 +76,7 @@ export default function App() {
     setIsOpen(true);
   }
 
-  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
+  const [contextMenu, setContextMenu] = React.useState();
 
   React.useEffect(() => {
     if (contextMenu) {
@@ -313,7 +313,7 @@ This code is _functional_, but this code is getting a bit out of hand, let's mov
 
 ```jsx {0-12}
 const ContextMenu = ({ x, y, onClose }) => {
-  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
+  const [contextMenu, setContextMenu] = React.useState();
 
   React.useEffect(() => {
     if (!contextMenu) return;
@@ -970,7 +970,7 @@ Knowing that we can access a component instance's methods and properties, we can
 
 ## React
 
-```jsx {0-7,22,62,81}
+```jsx
 const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
   const divRef = React.useRef();
 
@@ -978,18 +978,15 @@ const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
     focus: () => divRef.current && divRef.current.focus(),
   }));
 
-  const [contextMenu, setContextMenu] = React.useState<HTMLElement>();
-
   React.useEffect(() => {
-    if (!contextMenu) return;
     const closeIfOutsideOfContext = (e) => {
-      const isClickInside = contextMenu.contains(e.target);
+      const isClickInside = divRef.current.contains(e.target);
       if (isClickInside) return;
       onClose();
     };
     document.addEventListener('click', closeIfOutsideOfContext);
     return () => document.removeEventListener('click', closeIfOutsideOfContext);
-  }, [contextMenu, onClose]);
+  }, [onClose]);
 
   return (
     <div
