@@ -406,7 +406,7 @@
     "name": "Qarnax",
     "firstName": "",
     "lastName": "",
-    "description": "I'm a Frontend developer and indie game enthusiast 👾 \n I enjoy learning new things and building my own stuff 🔧 and I love helping people get into coding. 😊",
+    "description": "I'm a frontend developer and indie game enthusiast 👾 \n I enjoy learning new things and building my own stuff 🔧 and I love helping people get into coding 😊",
     "socials": {
       "twitch": "qarnax__",
       "twitter": "qarnax",
@@ -415,7 +415,7 @@
     "profileImg": "./qarnax.jpg",
     "color": "",
     "roles": [
-      "community"
+      "community", "translator"
     ]
   },
   {
