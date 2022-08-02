@@ -2,7 +2,7 @@ import * as React from "react";
 import layoutStyles from "./layout.module.scss";
 import BackIcon from "assets/icons/back.svg";
 import { DarkLightButton } from "../dark-light-button";
-import { ThemeProvider } from "constants/theme-context";
+import { ThemeProvider, ThemeClassDiv } from "constants/theme-context";
 import { useRouter } from "next/router";
 import { AnalyticsLink } from "components/analytics-link";
 import DiscordIcon from "assets/icons/discord.svg";
@@ -22,50 +22,52 @@ export const Layout: React.FC<React.PropsWithChildren<unknown>> = ({
 
   return (
     <ThemeProvider>
-      <div className={layoutStyles.horizCenter}>
-        <header
-          className={layoutStyles.header}
-          aria-label={"Toolbar for primary action buttons"}
-        >
-          <div className={layoutStyles.headerInsideContainer}>
-            {!isBase ? (
-              <button
-                className={`${layoutStyles.backBtn} baseBtn`}
-                aria-label="Go back"
-                onClick={() => {
-                  back("/");
-                }}
-              >
-                <BackIcon />
-              </button>
-            ) : (
-              <div />
-            )}
-            <div className={layoutStyles.iconList}>
-              <AnalyticsLink
-                category={"outbound"}
-                href="https://discord.gg/FMcvc6T"
-                className={"baseBtn"}
-                aria-label={"Join the Discord"}
-              >
-                <DiscordIcon />
-              </AnalyticsLink>
-              <DarkLightButton />
+      <ThemeClassDiv>
+        <div className={layoutStyles.horizCenter}>
+          <header
+            className={layoutStyles.header}
+            aria-label={"Toolbar for primary action buttons"}
+          >
+            <div className={layoutStyles.headerInsideContainer}>
+              {!isBase ? (
+                <button
+                  className={`${layoutStyles.backBtn} baseBtn`}
+                  aria-label="Go back"
+                  onClick={() => {
+                    back("/");
+                  }}
+                >
+                  <BackIcon />
+                </button>
+              ) : (
+                <div />
+              )}
+              <div className={layoutStyles.iconList}>
+                <AnalyticsLink
+                  category={"outbound"}
+                  href="https://discord.gg/FMcvc6T"
+                  className={"baseBtn"}
+                  aria-label={"Join the Discord"}
+                >
+                  <DiscordIcon />
+                </AnalyticsLink>
+                <DarkLightButton />
+              </div>
             </div>
+          </header>
+          <div
+            className={
+              isCollection
+                ? ""
+                : !isBlogPost
+                ? "listViewContent"
+                : "postViewContent"
+            }
+          >
+            {children}
           </div>
-        </header>
-        <div
-          className={
-            isCollection
-              ? ""
-              : !isBlogPost
-              ? "listViewContent"
-              : "postViewContent"
-          }
-        >
-          {children}
         </div>
-      </div>
+      </ThemeClassDiv>
     </ThemeProvider>
   );
 };

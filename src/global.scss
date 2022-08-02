@@ -427,3 +427,17 @@ kbd {
   padding: 2px 4px;
   white-space: nowrap;
 }
+
+.hide-for-mobile {
+  @include until($endSmallScreenSize) {
+    display: none;
+  }
+}
+
+.dark .hide-on-dark {
+  display: none;
+}
+
+.light .show-on-dark {
+  display: none;
+}
