@@ -117,9 +117,9 @@ Well, we can! Sort of...
 
 What we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise it's hand and ask for data.
 
-<!-- Editor's TODO: Add image to go alongside the buffet analogy? -->
-
 Think of this like a food buffet. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
+
+![// TODO: Write alt](./buffet_analogy.svg)
 
 We do this method of implicit data passing using a methodology called "dependency injection".
 
