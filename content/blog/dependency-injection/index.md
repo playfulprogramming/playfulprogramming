@@ -1265,9 +1265,61 @@ Earlier, we talked about how dependency injection is like a buffet of data; comp
 
 ## Consistency Between Data Providers
 
-// TODO: Write this
+Just because we can have multiple providers throughout an application doesn't mean that it's a free-for-all with what data we can provide.
 
-These providers must provide a value of the same _shape_.
+If we have three different buffet tables, two with fish and one with pizza, and the user wants pizza, they'd likely walk past the other two tables to get the pizza they want; even if the pizza table is further away.
+
+![// TODO: Add alt](./buffet_table_with_pizza.svg)
+
+Likewise, if you have a data provider that is hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
+
+ This concept of "related data" is considered your data's "shape".
+
+For example, if you have the following object:
+
+```javascript
+const obj1 = {a: 1, b: 2};
+```
+
+It would be considered to have the same "shape" as this other object:
+
+```javascript
+const obj2 = {a: 2, b: 3};
+```
+
+Even if the two objects contain slightly different values. The "shape" of an object is defined by:
+
+1) The names of properties
+2) The types of data being stored in each properties
+3) The number of properties
+
+While the above have the same shapes, here's some examples that don't:
+
+```javascript
+const obj1 = {a: 1, b: 2};
+const obj2 = {c: 1, d: 2};
+
+isSameShape(obj1, obj2); // false
+```
+
+```javascript
+const obj1 = {a: 1, b: 2};
+const obj2 = {a: "1", b: 2};
+
+isSameShape(obj1, obj2); // false
+```
+
+```javascript
+const obj1 = {a: 1, b: 2};
+const obj2 = {a: 1, b: 2, c: 3};
+
+isSameShape(obj1, obj2, 'exact'); // false
+isSameShape(obj1, obj2, 'similar'); // true
+```
+
+While #1 and #2 are strict requirements, the number of properties can shift a bit and still be considered of a similar "shape", even if it's not an exact match.
+
+You can visualize an object's _shape_ as comparing two geometrical shapes to one another: A triangle is not the same as a diamond.
 
 ![// TODO: Add alt](./same_color_shapes.svg)
 
@@ -1275,19 +1327,52 @@ These providers must provide a value of the same _shape_.
 
 
 
-Just like a buffet has to have tables with the same food on them dispersed throughout the building to keep customers happy.
-
-Otherwise, if the buffet stocks different dishes at each table the customers (AKA components in this analogy) might look at the other table to find more specific food they're looking for. 
-
-
-
 ## Variance in Localized Injected Values
-
-// TODO: Write this
 
 This doesn't mean, however, that the data provided at each provider must be exactly the same.
 
 Just like each buffet table might have slightly different spices in each plate of food, so too can the individual data providers inject variance into their provided values.
+
+For example, while methods of an injected object should have the same type, you can change the logic inside of injected objects.
+
+Say you want to change the profile picture of a user, and have the following code in production that's provided to your children:
+
+```javascript
+const currentUser = {
+  name: "Corbin Crutchley",
+  profilePictureURL: "https://avatars.githubusercontent.com/u/9100169",
+  changeName(newName) {
+  	fetch("/api/changeUsername", {
+  		body: JSON.stringify({name: newName})
+  	})
+      .then(() => {
+        this.name = newName;
+      })
+  }
+}
+```
+
+> While this is valid JavaScript that will work in all three frameworks, each framework might have minor preferences for how to do network calls. We'll touch on these preferences in [our second book, "The Framework Field Guide: Ecosystem"](// TODO: Add link).
+
+While this functions as-indented in our app, this might cause some headaches when trying to do [integration tests](https://wikipedia.org/wiki/Integration_testing), where we likely want to avoid doing networking to make our tests more stable.
+
+> If you're unfamiliar with integration tests, we'll touch on them more in [the second book of this trilogy](// TODO: Add link).
+
+To do avoid this problem, we could modify what we inject within our integration tests by providing a closer dependency injection site:
+
+```javascript
+const currentUser = {
+  name: "Corbin Crutchley",
+  profilePictureURL: "https://avatars.githubusercontent.com/u/9100169",
+  changeName(newName) {
+  	this.name = newName;
+  }
+}
+```
+
+You can think of this like variance within a geometrical shape's color. If you have two triangles, but one is red and one is blue, you can still recognize the triangles as the same shape.
+
+
 
 ![// TODO: Add alt](./different_color_shapes.svg)
 
