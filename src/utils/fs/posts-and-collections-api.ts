@@ -64,6 +64,18 @@ export function getCollectionBySlug<ToPick extends CollectionKeysToPick>(
       .sort((a, b) => (a.order! < b.order! ? -1 : 1));
   }
 
+  if (fields.aboveFoldMarkdown) {
+    if (pickedData.aboveFoldMarkdown) {
+      const { content } = readMarkdownFile(
+        join(collectionsDirectory, realSlug, pickedData.aboveFoldMarkdown),
+        { content: true }
+      );
+      pickedData.aboveFoldMarkdown = content;
+    } else {
+      pickedData.aboveFoldMarkdown = null;
+    }
+  }
+
   if (fields.coverImg) {
     const absoluteFSPath = join(
       collectionsDirectory,
@@ -272,6 +284,7 @@ export const collectionQuery = {
   type: true,
   chapterList: true,
   socialImg: true,
+  aboveFoldMarkdown: true,
 } as const;
 
 export type CollectionQueryType = PickDeep<

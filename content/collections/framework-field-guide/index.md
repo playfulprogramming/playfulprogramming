@@ -7,6 +7,7 @@
   coverImg: "./cover.png",
   socialImg: "/framework_field_guide_social.png",
   type: "book",
+  aboveFoldMarkdown: "above.md",
   published: "2023-01-01T13:45:00.284Z",
   buttons: [{ text: "Get Notified of Release", url: "https://mailinglist.unicorn-utterances.com/subscribe" }],
   chapterList: [

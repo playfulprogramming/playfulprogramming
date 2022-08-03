@@ -24,6 +24,7 @@ import "react-medium-image-zoom/dist/styles.css";
 
 type Props = {
   markdownHTML: string;
+  aboveMarkdownHTML?: string;
   slug: string;
   collectionsDirectory: string;
   collection: CollectionQueryType;
@@ -33,6 +34,7 @@ const Collection = ({
   slug,
   collectionsDirectory,
   markdownHTML,
+  aboveMarkdownHTML,
   collection,
 }: Props) => {
   const { colorMode } = React.useContext(ThemeContext);
@@ -40,6 +42,11 @@ const Collection = ({
 
   const result = useMarkdownRenderer({
     markdownHTML,
+    serverPath: ["/collections", slug],
+  });
+
+  const aboveResult = useMarkdownRenderer({
+    markdownHTML: aboveMarkdownHTML || "",
     serverPath: ["/collections", slug],
   });
 
@@ -112,6 +119,11 @@ const Collection = ({
               </div>
             </div>
           </div>
+          {aboveMarkdownHTML && (
+            <div className={`post-body ${styles.markdownContainer}`}>
+              {aboveResult}
+            </div>
+          )}
         </div>
         <div className={styles.stitchedAreaContainer}>
           <div
@@ -210,12 +222,22 @@ export async function getStaticProps({
     path.resolve(collectionsDirectory, collection.slug)
   );
 
+  let aboveMarkdownHTML = "";
+  if (collection.aboveFoldMarkdown) {
+    const { html } = await markdownToHtml(
+      collection.aboveFoldMarkdown,
+      path.resolve(collectionsDirectory, collection.slug)
+    );
+    aboveMarkdownHTML = html;
+  }
+
   return {
     props: {
       collection: {
         ...collection,
       },
       markdownHTML,
+      aboveMarkdownHTML,
       collectionsDirectory,
       slug: params.slug,
     } as Props,
