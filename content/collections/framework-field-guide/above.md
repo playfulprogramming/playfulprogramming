@@ -14,12 +14,12 @@ Don't want to learn all three? **That's okay.** You can easily select a single f
 </div>
 
 <div class="hide-for-mobile hide-on-dark">
-<img src="./hiker_with_bag.png" height="100%" alt="" />
+<img src="./hiker_with_bag.png" height="100%" alt="" data-nozoom="true" />
 </div>
 
 
 <div class="hide-for-mobile show-on-dark">
-<img src="./hiker_with_bag_dark.png" height="100%" alt="" />
+<img src="./hiker_with_bag_dark.png" height="100%" alt="" data-nozoom="true" />
 </div>
 
 
