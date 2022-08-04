@@ -4,8 +4,8 @@ import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
-// import oembedTransformer from "@remark-embedder/transformer-oembed";
-// import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
+import oembedTransformer from "@remark-embedder/transformer-oembed";
+import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
 import { rehypeHeaderText } from "./src/utils/markdown/plugins/add-header-text";
@@ -53,12 +53,12 @@ export default defineConfig({
       /* start remark plugins here */
       [behead, { depth: 1 }],
       // // TODO: Enable
-      // [
-      //   remarkEmbedder as any,
-      //   {
-      //     transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
-      //   } as RemarkEmbedderOptions,
-      // ],
+      [
+        remarkEmbedder as any,
+        {
+          transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
+        } as RemarkEmbedderOptions,
+      ],
     ],
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
