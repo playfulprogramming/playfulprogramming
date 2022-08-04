@@ -153,9 +153,7 @@ export default defineConfig({
             width: dimensions.width,
           });
 
-          for (let imgProp of Object.keys(imgProps)) {
-            node.properties[imgProp] = imgProps[imgProp];
-          }
+          node.properties.src = imgProps.src;
         }))
       },
       () => async (tree, file) => {

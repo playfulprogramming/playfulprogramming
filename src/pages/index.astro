@@ -7,7 +7,7 @@ import SEO from "components/seo/seo.astro";
 
 const posts = await Astro.glob<PostInfo>('../../content/blog/**/*.md')
 
-const postsToDisplay = getAllPostsForListView(posts, 'en');
+const postsToDisplay = getAllPostsForListView(posts, 'en').slice(0, 6);
 
 // TODO: Change this
 const pageIndex = 1;
