@@ -1,8 +1,21 @@
+diff --git a/node_modules/@astrojs/image/dist/lib/get-image.js b/node_modules/@astrojs/image/dist/lib/get-image.js
+index 6c59228..b451a4a 100644
+--- a/node_modules/@astrojs/image/dist/lib/get-image.js
++++ b/node_modules/@astrojs/image/dist/lib/get-image.js
+@@ -76,7 +76,7 @@ async function getImage(transform) {
+   }
+   const resolved = await resolveTransform(transform);
+   const attributes = await loader.getImageAttributes(resolved);
+-  const isDev = import.meta.env.DEV;
++  const isDev = import.meta.env && import.meta.env.DEV;
+   const isLocalImage = !isRemoteImage(resolved.src);
+   const _loader = isDev && isLocalImage ? sharp : loader;
+   if (!_loader) {
 diff --git a/node_modules/@astrojs/image/package.json b/node_modules/@astrojs/image/package.json
-index 97e2841..7fd1ac7 100644
+index 97e2841..80159b7 100644
 --- a/node_modules/@astrojs/image/package.json
 +++ b/node_modules/@astrojs/image/package.json
-@@ -24,6 +24,10 @@
+@@ -24,6 +24,12 @@
      "./sharp": "./dist/loaders/sharp.js",
      "./endpoints/dev": "./dist/endpoints/dev.js",
      "./endpoints/prod": "./dist/endpoints/prod.js",
@@ -10,6 +23,8 @@ index 97e2841..7fd1ac7 100644
 +    "./dist/endpoints/prod": "./dist/endpoints/prod.js",
 +    "./dist/endpoints/dev.js": "./dist/endpoints/dev.js",
 +    "./dist/endpoints/prod.js": "./dist/endpoints/prod.js",
++    "./dist/loaders/sharp": "./dist/loaders/sharp.js",
++    "./dist/loaders/sharp.js": "./dist/loaders/sharp.js",
      "./components": "./components/index.js",
      "./package.json": "./package.json",
      "./client": "./client.d.ts"

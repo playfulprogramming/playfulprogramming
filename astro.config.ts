@@ -22,8 +22,10 @@ import { EMBED_SIZE } from "./src/utils/markdown/constants";
 import { isRelativePath } from "./src/utils/url-paths";
 import { fromHtml } from "hast-util-from-html";
 
-import image from "@astrojs/image";
+import image, {getImage} from "@astrojs/image";
+import sharp_service from "./node_modules/@astrojs/image/dist/loaders/sharp";
 import path from "path";
+import {pathToFileURL} from 'url';
 
 function escapeHTML(s) {
   if (!s) return s;
@@ -52,7 +54,6 @@ export default defineConfig({
       remarkUnwrapImages,
       /* start remark plugins here */
       [behead, { depth: 1 }],
-      // // TODO: Enable
       [
         remarkEmbedder as any,
         {
@@ -62,19 +63,10 @@ export default defineConfig({
     ],
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
-      [
-        rehypeRaw,
-        {
-          passThrough: [
-            "mdxJsxTextElement",
-            `mdxJsxFlowElement`,
-            `mdxFlowExpression`,
-          ],
-        },
-      ],
+      rehypeRaw,
       () => (tree, file) => {
         return (rehypeImageSize as any)({
-          dir: path.dirname(file["history"][0]),
+          dir: path.dirname(file.path),
         })(tree, file);
       },
       // Do not add the tabs before the slug. We rely on some of the heading
@@ -99,12 +91,73 @@ export default defineConfig({
       /**
        * Insert custom HTML generation code here
        */
-      () => (tree) => {
+      () => async (tree, file) => {
+
+        /**
+         * I hate this code...
+         * 
+         * But darn it, we need it.
+         * 
+         * TLDR: `visit` doesn't support `async`, we need `async`, forking `visit` is too hard for now.
+         * 
+         * What this code does is that it effectively acts as a "timer" for the `visit` to be `async`. It will wait `100ms` 
+         * and, if it doesn't get a reply within that time, it will assume work is finished. 
+         * 
+         * Otherwise, for each iteration within `visit`, it will reset this timer.
+         * 
+         * Forgive me, programmer gods.
+         */
+
+        let _resolve: () => void = undefined;
+        let _reject: () => void = undefined;
+        let resolved = false;
+        new Promise((resolve, reject) => {
+          _resolve = (...props) => {
+            (resolve as any)(...props);
+            resolved = true;
+          }
+          _reject = (...props) => {
+            (reject as any)(...props);
+            resolved = true;
+          }
+        })
+
+        const createNewSetTimeout = () => {
+          return setTimeout(() => {
+            _resolve();
+          }, 100);
+        }
+        let timer = createNewSetTimeout();
+
+        // HACK: This is a hack that heavily relies on `getImage`'s internals :(
+        
+        globalThis.astroImage = {
+          loader: sharp_service
+        }
+
         visit(tree, (node: any) => {
+          if (resolved) return;
+          clearTimeout(timer);
+          timer = createNewSetTimeout();
+
           if (node.tagName === "img") {
-            node.tagName = "Image";
-            // TODO: Remove this
-            node.properties.alt = "Test";
+            if (node.properties.src) {
+              const absoluteSrcPath = path.resolve(
+                path.dirname(file.path),
+                node.properties.src
+              );
+              console.log({absoluteSrcPath});
+              
+              getImage({src: absoluteSrcPath, height: node.properties.height, width: node.properties.width}).then(props => {
+                console.log({props});
+                // TODO: Remove this
+                for (let prop of Object.keys(props)) {
+                  node.properties[prop] = props[prop];
+                }
+                node.properties.alt = "Test";
+              })
+              .catch(_reject)
+            }
           }
 
           if (node.tagName === "iframe") {
