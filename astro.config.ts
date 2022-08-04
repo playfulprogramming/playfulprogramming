@@ -23,11 +23,10 @@ import { isRelativePath } from "./src/utils/url-paths";
 import { fromHtml } from "hast-util-from-html";
 
 import image from "@astrojs/image";
-import { createSyncFn } from "synckit";
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const getImageSync = createSyncFn(require.resolve("./worker"));
 import path from "path";
+
+import { getImage } from "@astrojs/image";
+import sharp_service from "./node_modules/@astrojs/image/dist/loaders/sharp.js";
 
 function escapeHTML(s) {
   if (!s) return s;
@@ -94,27 +93,37 @@ export default defineConfig({
        * Insert custom HTML generation code here
        */
       () => async (tree, file) => {
+        
+        // HACK: This is a hack that heavily relies on `getImage`'s internals :(
+        globalThis.astroImage = {
+          loader: sharp_service
+        }
+
+        let imgNodes: any[] = [];
         visit(tree, (node: any) => {
-          if (node.tagName === "img") {
-            if (node.properties.src) {
-              const absoluteSrcPath = path.resolve(
-                path.dirname(file.path),
-                node.properties.src
-              );
-
-              const props = getImageSync({
-                src: absoluteSrcPath,
-                height: node.properties.height,
-                width: node.properties.width,
-              });
-              for (let prop of Object.keys(props)) {
-                node.properties[prop] = props[prop];
-              }
-              // TODO: Remove this
-              // node.properties.alt = "Test";
-            }
+          if (node.tagName === 'img') {
+            imgNodes.push(node);
           }
+        })
+        await Promise.all(imgNodes.map(async (node) => {
+          const absoluteSrcPath = path.resolve(
+            path.dirname(file.path),
+            node.properties.src
+          );
 
+          const props = await getImage({
+            src: absoluteSrcPath,
+            height: node.properties.height,
+            width: node.properties.width,
+          });
+
+          for (let prop of Object.keys(props)) {
+            node.properties[prop] = props[prop];
+          }
+        }))
+      },
+      () => async (tree, file) => {
+        visit(tree, (node: any) => {
           if (node.tagName === "iframe") {
             node.properties.width ??= EMBED_SIZE.w;
             node.properties.height ??= EMBED_SIZE.h;
