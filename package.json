@@ -22,20 +22,22 @@
     "dev": "astro dev --experimental-integrations",
     "start": "astro dev --experimental-integrations",
     "build": "astro build --experimental-integrations",
-    "preview": "astro preview --experimental-integrations"
+    "preview": "astro preview --experimental-integrations",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
-    "@types/node": "^18.0.2",
-    "astro": "^1.0.0-beta.70",
-    "sass": "^1.53.0"
+    "astro": "1.0.0-rc.4",
+    "patch-package": "^6.4.7",
+    "sass": "^1.54.2"
   },
   "dependencies": {
-    "@astrojs/image": "^0.1.0",
-    "@remark-embedder/core": "^2.0.0",
-    "@remark-embedder/transformer-oembed": "^2.0.0",
+    "@astrojs/image": "0.3.0",
+    "@remark-embedder/core": "^3.0.1",
+    "@remark-embedder/transformer-oembed": "^3.0.0",
+    "@types/node": "^18.6.3",
     "astro-auto-import": "^0.1.2",
-    "astro-icon": "^0.7.1",
-    "dayjs": "^1.11.3",
+    "astro-icon": "^0.7.3",
+    "dayjs": "^1.11.4",
     "gatsby-remark-embedder": "^6.0.1",
     "hast": "^1.0.0",
     "hast-util-from-html": "^1.0.0",

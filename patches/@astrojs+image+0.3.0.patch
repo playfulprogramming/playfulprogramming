@@ -1,0 +1,15 @@
+diff --git a/node_modules/@astrojs/image/package.json b/node_modules/@astrojs/image/package.json
+index 97e2841..7fd1ac7 100644
+--- a/node_modules/@astrojs/image/package.json
++++ b/node_modules/@astrojs/image/package.json
+@@ -24,6 +24,10 @@
+     "./sharp": "./dist/loaders/sharp.js",
+     "./endpoints/dev": "./dist/endpoints/dev.js",
+     "./endpoints/prod": "./dist/endpoints/prod.js",
++    "./dist/endpoints/dev": "./dist/endpoints/dev.js",
++    "./dist/endpoints/prod": "./dist/endpoints/prod.js",
++    "./dist/endpoints/dev.js": "./dist/endpoints/dev.js",
++    "./dist/endpoints/prod.js": "./dist/endpoints/prod.js",
+     "./components": "./components/index.js",
+     "./package.json": "./package.json",
+     "./client": "./client.d.ts"

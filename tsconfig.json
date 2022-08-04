@@ -14,7 +14,7 @@
     "jsxImportSource": "preact",
     "allowSyntheticDefaultImports": true,
     // Add type definitions for our Vite runtime.
-    "types": ["node", "vite/client"],
+    "types": ["@astrojs/image/client"],
     "baseUrl": ".",
     "paths": {
       "constants/*": ["./src/constants/*"],

@@ -7,9 +7,9 @@ import { Icon } from 'astro-icon';
 
 const rootPath = `/`;
 
-const isBase = Astro.canonicalURL.pathname === rootPath;
-const isBlogPost = Astro.canonicalURL.pathname.startsWith(`${rootPath}posts`);
-const isCollection = Astro.canonicalURL.pathname.startsWith(`${rootPath}collections`);
+const isBase = Astro.url.pathname === rootPath;
+const isBlogPost = Astro.url.pathname.startsWith(`${rootPath}posts`);
+const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 
 ---
 <div class={layoutStyles.horizCenter}>

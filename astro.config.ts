@@ -1,10 +1,10 @@
-import { defineConfig, AstroUserConfig } from 'astro/config';
+import { defineConfig, AstroUserConfig } from "astro/config";
 
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
-import oembedTransformer from "@remark-embedder/transformer-oembed";
+// import oembedTransformer from "@remark-embedder/transformer-oembed";
 // import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
@@ -20,143 +20,148 @@ import rehypeRaw from "rehype-raw";
 import { visit } from "unist-util-visit";
 import { EMBED_SIZE } from "./src/utils/markdown/constants";
 import { isRelativePath } from "./src/utils/url-paths";
-import {fromHtml} from 'hast-util-from-html'
+import { fromHtml } from "hast-util-from-html";
 
-import AutoImport from 'astro-auto-import';
-import image from '@astrojs/image';
-import path from 'path';
+import image from "@astrojs/image";
+import path from "path";
 
-function escapeHTML(s) { 
-	if (!s) return s;
-   return s.replace(/&/g, '&amp;')
-		   .replace(/"/g, '&quot;')
-		   .replace(/</g, '&lt;')
-		   .replace(/>/g, '&gt;');
+function escapeHTML(s) {
+  if (!s) return s;
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 export default defineConfig({
-	integrations: [
-		image(),
-		AutoImport({
-			imports: [{
-				'@astrojs/image/components': ['Image'],
-			}],
-		}),
-	],
-	vite: {
-		ssr: {
-			external: ["svgo"],
-		},
-	},
-	markdown: {
-		mode: 'md',
-		shikiConfig: {
-			theme: "css-variables"
-		},
-		remarkPlugins: [
-			remarkGfm,
-			// Remove complaining about "div cannot be in p element"
-			remarkUnwrapImages,
-			/* start remark plugins here */
-			[behead, { after: 0, depth: 1 }],
-			// // TODO: Enable
-			// [
-			// 	remarkEmbedder as any,
-			// 	{
-			// 	  transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
-			// 	} as RemarkEmbedderOptions,
-			//   ],
-		],
-		rehypePlugins: [
-              // This is required to handle unsafe HTML embedded into Markdown
-			  [rehypeRaw, {
-				passThrough: ['mdxJsxTextElement', `mdxJsxFlowElement`, `mdxFlowExpression`]
-			  }],
-			  () => (tree, file) => {
-				return (rehypeImageSize as any)({dir: path.dirname(file['history'][0])})(tree, file)
-			  },
-			   // Do not add the tabs before the slug. We rely on some of the heading
-			   // logic in order to do some of the subheading logic
-			   [
-				 rehypeSlug,
-				 {
-				   maintainCase: true,
-				   removeAccents: true,
-				   enableCustomId: true,
-				 },
-			   ],
-			   [
-				 rehypeTabs,
-				 {
-				   injectSubheaderProps: true,
-				   tabSlugifyProps: {
-					 enableCustomId: true,
-				   },
-				 },
-			   ],
-			   /**
-				* Insert custom HTML generation code here
-				*/
-			   (() => tree => {
-				 visit(tree, (node: any) => {
-					if (node.tagName === 'img') {
-						node.tagName = 'Image'
-						// TODO: Remove this
-						node.properties.alt = "Test"
-					}
+  integrations: [image()],
+  vite: {
+    ssr: {
+      external: ["svgo"],
+    },
+  },
+  markdown: {
+    mode: "md",
+    shikiConfig: {
+      theme: "css-variables",
+    },
+    remarkPlugins: [
+      remarkGfm,
+      // Remove complaining about "div cannot be in p element"
+      remarkUnwrapImages,
+      /* start remark plugins here */
+      [behead, { depth: 1 }],
+      // // TODO: Enable
+      // [
+      //   remarkEmbedder as any,
+      //   {
+      //     transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
+      //   } as RemarkEmbedderOptions,
+      // ],
+    ],
+    rehypePlugins: [
+      // This is required to handle unsafe HTML embedded into Markdown
+      [
+        rehypeRaw,
+        {
+          passThrough: [
+            "mdxJsxTextElement",
+            `mdxJsxFlowElement`,
+            `mdxFlowExpression`,
+          ],
+        },
+      ],
+      () => (tree, file) => {
+        return (rehypeImageSize as any)({
+          dir: path.dirname(file["history"][0]),
+        })(tree, file);
+      },
+      // Do not add the tabs before the slug. We rely on some of the heading
+      // logic in order to do some of the subheading logic
+      [
+        rehypeSlug,
+        {
+          maintainCase: true,
+          removeAccents: true,
+          enableCustomId: true,
+        },
+      ],
+      [
+        rehypeTabs,
+        {
+          injectSubheaderProps: true,
+          tabSlugifyProps: {
+            enableCustomId: true,
+          },
+        },
+      ],
+      /**
+       * Insert custom HTML generation code here
+       */
+      () => (tree) => {
+        visit(tree, (node: any) => {
+          if (node.tagName === "img") {
+            node.tagName = "Image";
+            // TODO: Remove this
+            node.properties.alt = "Test";
+          }
 
-				   if (node.tagName === 'iframe') {
-					 node.properties.width ??= EMBED_SIZE.w;
-					 node.properties.height ??= EMBED_SIZE.h;
-					 node.properties.loading ??= 'lazy';
-				   }
-				   
-				   if (node.tagName === 'video') {
-					 node.properties.muted ??= true;
-					 node.properties.autoPlay ??= true;
-					 node.properties.controls ??= true;
-					 node.properties.loop ??= true;
-					 node.properties.width ??= '100%';
-					 node.properties.height ??= 'auto';
-				   }
-		 
-				   if (node.tagName === 'a') {
-					 const href = node.properties.href;
-					 const isInternalLink = isRelativePath(href || "");
-					 if (!isInternalLink) {
-					   node.properties.target = "_blank";
-					   node.properties.rel = "nofollow noopener noreferrer";
-					 }
-				   }
-		 
-				   if (node.tagName === 'table' && !node.properties['has-changed']) {
-					 const children = [...node.children];
-					 const properties = {...node.properties, "has-changed": true};
-					 node.tagName = 'div';
-					 node.properties = {
-					   class: "table-container"
-					 };
-					 node.children = [{
-					   tagName: 'table',
-					   type: "element",
-					   children,
-					   properties
-					 }];
-				   }
-		 
-				   if (
-					 node.tagName === 'h1' ||
-					 node.tagName === 'h2' ||
-					 node.tagName === 'h3' ||
-					 node.tagName === 'h4' ||
-					 node.tagName === 'h5' ||
-					 node.tagName === 'h6'
-				   ) {
-					 const id = node.properties.id;
-					 const headerText = node.properties["data-header-text"]
-					 node.properties.style = (node.properties.style||"") + "position: relative;";
-		 
-					 const headerLinkHTML = `
+          if (node.tagName === "iframe") {
+            node.properties.width ??= EMBED_SIZE.w;
+            node.properties.height ??= EMBED_SIZE.h;
+            node.properties.loading ??= "lazy";
+          }
+
+          if (node.tagName === "video") {
+            node.properties.muted ??= true;
+            node.properties.autoPlay ??= true;
+            node.properties.controls ??= true;
+            node.properties.loop ??= true;
+            node.properties.width ??= "100%";
+            node.properties.height ??= "auto";
+          }
+
+          if (node.tagName === "a") {
+            const href = node.properties.href;
+            const isInternalLink = isRelativePath(href || "");
+            if (!isInternalLink) {
+              node.properties.target = "_blank";
+              node.properties.rel = "nofollow noopener noreferrer";
+            }
+          }
+
+          if (node.tagName === "table" && !node.properties["has-changed"]) {
+            const children = [...node.children];
+            const properties = { ...node.properties, "has-changed": true };
+            node.tagName = "div";
+            node.properties = {
+              class: "table-container",
+            };
+            node.children = [
+              {
+                tagName: "table",
+                type: "element",
+                children,
+                properties,
+              },
+            ];
+          }
+
+          if (
+            node.tagName === "h1" ||
+            node.tagName === "h2" ||
+            node.tagName === "h3" ||
+            node.tagName === "h4" ||
+            node.tagName === "h5" ||
+            node.tagName === "h6"
+          ) {
+            const id = node.properties.id;
+            const headerText = node.properties["data-header-text"];
+            node.properties.style =
+              (node.properties.style || "") + "position: relative;";
+
+            const headerLinkHTML = `
 					 <a
 					   href="#${id}"
 					   aria-label="Permalink for &quot;${escapeHTML(headerText)}&quot;"
@@ -180,12 +185,12 @@ export default defineConfig({
 					   </svg>
 					 </a>
 					 `;
-		 
-					 const hastHeader = fromHtml(headerLinkHTML, {fragment: true})
-					 node.children = [hastHeader, ...node.children];
-				   }
-				 })
-			   })
-		]
-	} as AstroUserConfig['markdown'] as never
+
+            const hastHeader = fromHtml(headerLinkHTML, { fragment: true });
+            node.children = [hastHeader, ...node.children];
+          }
+        });
+      },
+    ],
+  } as AstroUserConfig["markdown"] as never,
 });
