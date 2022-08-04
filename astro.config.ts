@@ -12,6 +12,7 @@ import { rehypeHeaderText } from "./src/utils/markdown/plugins/add-header-text";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs } from "./src/utils/markdown/plugins/tabs";
+import sizeOf from 'image-size'
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -65,11 +66,6 @@ export default defineConfig({
     rehypePlugins: [
       // This is required to handle unsafe HTML embedded into Markdown
       rehypeRaw,
-      () => (tree, file) => {
-        return (rehypeImageSize as any)({
-          dir: path.dirname(file.path),
-        })(tree, file);
-      },
       // Do not add the tabs before the slug. We rely on some of the heading
       // logic in order to do some of the subheading logic
       [
@@ -93,7 +89,28 @@ export default defineConfig({
        * Insert custom HTML generation code here
        */
       () => async (tree, file) => {
-        
+        // TODO: Move this into a plugin option
+        const props = {
+          maxHeight: 768,
+          maxWidth: 768
+        };
+         
+        // TODO: How should remote images be handled?
+        const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
+
+        function getImageSize(src, dir) {
+          if (absolutePathRegex.exec(src)) {
+            return
+          }
+          // Treat `/` as a relative path, according to the server
+          const shouldJoin = !path.isAbsolute(src) || src.startsWith('/');
+
+          if (dir && shouldJoin) {
+            src = path.join(dir, src);
+          }
+          return sizeOf(src)
+        }
+
         // HACK: This is a hack that heavily relies on `getImage`'s internals :(
         globalThis.astroImage = {
           loader: sharp_service
@@ -104,21 +121,40 @@ export default defineConfig({
           if (node.tagName === 'img') {
             imgNodes.push(node);
           }
-        })
+        });
+
         await Promise.all(imgNodes.map(async (node) => {
+          const filePathDir =  path.dirname(file.path)
+          const dimensions = getImageSize(node.properties.src, filePathDir) || {height: undefined, width: undefined};
+
+          // TODO: Remote images?
+          if (!dimensions.height || !dimensions.width) return;
+
+          const imgRatioHeight = dimensions.height / dimensions.width;
+          const imgRatioWidth = dimensions.width / dimensions.height;
+          if (dimensions.height > props.maxHeight) {
+            dimensions.height = props.maxHeight;
+            dimensions.width = props.maxHeight * imgRatioWidth;
+          }
+
+          if (dimensions.width > props.maxWidth) {
+            dimensions.width = props.maxWidth;
+            dimensions.height = props.maxWidth * imgRatioHeight;
+          }
+
           const absoluteSrcPath = path.resolve(
-            path.dirname(file.path),
+            filePathDir,
             node.properties.src
           );
 
-          const props = await getImage({
+          const imgProps = await getImage({
             src: absoluteSrcPath,
-            height: node.properties.height,
-            width: node.properties.width,
+            height: dimensions.height,
+            width: dimensions.width,
           });
 
-          for (let prop of Object.keys(props)) {
-            node.properties[prop] = props[prop];
+          for (let imgProp of Object.keys(imgProps)) {
+            node.properties[imgProp] = imgProps[imgProp];
           }
         }))
       },
