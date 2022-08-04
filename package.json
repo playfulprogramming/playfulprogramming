@@ -23,7 +23,8 @@
     "start": "astro dev --experimental-integrations",
     "build": "astro build --experimental-integrations",
     "preview": "astro preview --experimental-integrations",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "host:local": "cd dist && ws --http2 --compress"
   },
   "devDependencies": {
     "astro": "1.0.0-rc.5",
@@ -44,6 +45,7 @@
     "hast-util-has-property": "^2.0.0",
     "hast-util-heading-rank": "^2.1.0",
     "junk": "^4.0.0",
+    "local-web-server": "^5.2.1",
     "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.4",
     "rehype-slug-custom-id": "^1.1.0",
