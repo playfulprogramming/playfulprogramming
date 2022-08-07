@@ -37,6 +37,8 @@
 
 
   <script>
+    const LOCAL_STORAGE_KEY = "tabs-selection";
+
     window.addEventListener('DOMContentLoaded', () => {
       const tabLists = document.querySelectorAll('[role="tablist"]');
 
@@ -76,6 +78,12 @@
           }
         });
       });
+
+      const currentTab = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (currentTab) {
+        const el = document.querySelector(`[data-tabname="${currentTab}"]`);
+        if (el) el.click();
+      }
     });
 
     function changeTabs(e) {
@@ -91,7 +99,10 @@
       // Set this tab as selected
       target.setAttribute('aria-selected', true);
 
+      const tabName = target.dataset.tabname;
       const relatedTabs = document.querySelectorAll(`[data-tabname="${target.dataset.tabname}"]`)
+
+      localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
 
       for (let relatedTab of relatedTabs) {
         if (relatedTab === target) continue;
