@@ -12,7 +12,18 @@
 
             // Add a click event handler to each tab
             tabs.forEach((tab) => {
-                tab.addEventListener('click', changeTabs);
+                tab.addEventListener('click', e => {
+                    const target = e.target as HTMLElement;
+                    // Scroll onto screen in order to avoid jumping page locations
+                    setTimeout(() => {
+                        target.scrollIntoView({
+                            behavior: "auto",
+                            block: "center",
+                            inline: "center",
+                        });
+                    }, 0);
+                    changeTabs({ target })
+                });
             });
 
             // Enable arrow navigation between tabs in the tab list
@@ -47,11 +58,10 @@
         const currentTab = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (currentTab) {
             const el = document.querySelector(`[data-tabname="${currentTab}"]`) as HTMLElement;
-            if (el) el.click();
+            if (el) changeTabs({target: el});
         }
 
-        // TODO: Add tab scroll
-        function changeTabs(e) {
+        function changeTabs(e: { target: HTMLElement }) {
             const target = e.target;
             const parent = target.parentNode;
             const grandparent = parent.parentNode;
@@ -59,25 +69,25 @@
             // Remove all current selected tabs
             parent
                 .querySelectorAll('[aria-selected="true"]')
-                .forEach((t) => t.setAttribute('aria-selected', false));
+                .forEach((t) => t.setAttribute('aria-selected', `false`));
 
             // Set this tab as selected
-            target.setAttribute('aria-selected', true);
+            target.setAttribute('aria-selected', `true`);
 
             const tabName = target.dataset.tabname;
-            const relatedTabs: NodeListOf<HTMLElement> = document.querySelectorAll(`[data-tabname="${target.dataset.tabname}"]`);
+            const relatedTabs: NodeListOf<HTMLElement> = document.querySelectorAll(`[role="tab"][data-tabname="${target.dataset.tabname}"]`);
 
             localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
 
             for (let relatedTab of relatedTabs) {
                 if (relatedTab === target) continue;
-                relatedTab.click();
+                changeTabs({target: relatedTab});
             }
 
             // Hide all tab panels
             grandparent
                 .querySelectorAll('[role="tabpanel"]')
-                .forEach((p) => p.setAttribute('hidden', true));
+                .forEach((p) => p.setAttribute('hidden', `true`));
 
             // Show the selected panel
             grandparent.parentNode
@@ -102,14 +112,12 @@
         (() => {
             // If user has linked to a heading that's inside of a tab
             const hash = window.location.hash;
-            console.log({ hash });
             if (!hash) return;
             const heading = document.querySelector<HTMLElement>(hash);
             if (!heading) return;
             const isHidden = checkElementsParents(heading, el =>
                 el.hasAttribute('hidden') && el.getAttribute('hidden') !== "false"
             )
-            console.log(isHidden)
             // If it's not hidden, then we can assume that the browser will auto-scroll to it
             if (!isHidden) return;
             const partialHash = hash.slice(1);
@@ -117,11 +125,9 @@
                 const matchingTab = document.querySelector<HTMLElement>(
                     `[data-headers*="${partialHash}"`
                 );
-                console.log({ matchingTab });
                 if (!matchingTab) return;
                 // If header is not in a tab
                 const tabName = matchingTab.getAttribute("data-tabname");
-                console.log({ tabName });
                 if (!tabName) return;
                 matchingTab.click();
                 setTimeout(() => {
