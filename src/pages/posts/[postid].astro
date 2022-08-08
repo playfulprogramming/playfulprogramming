@@ -5,6 +5,7 @@ import SEO from "components/seo/seo.astro";
 import BlogPostLayout from 'components/blog-post-layout/blog-post-layout.astro';
 import PostTitleHeader from 'src/page-components/blog-post/post-title-header/post-title-header.astro';
 import PostMetadata from 'src/page-components/blog-post/post-metadata/post-metadata.astro';
+import TabsScript from 'src/page-components/blog-post/tabs-script/tabs-script.astro';
 
 import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
@@ -14,7 +15,7 @@ import { Languages } from 'types/index';
 export async function getStaticPaths() {
   const postsMeta = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
 
-    const postsExpanded = getAllPostsForListView(postsMeta, 'en');
+  const postsExpanded = getAllPostsForListView(postsMeta, 'en');
 
   return postsExpanded.map(post => {
     return {
@@ -49,6 +50,7 @@ const otherLangs = translations
 ---
 
 <Document>
+  <TabsScript/>
   <!-- TODO: Add this -->
   <!-- pathName={router.asPath} -->
   <SEO

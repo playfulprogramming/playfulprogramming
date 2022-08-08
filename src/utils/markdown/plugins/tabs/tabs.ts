@@ -102,8 +102,8 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
               class: "tabs__tab",
               "data-tabname": headerSlug,
               "aria-selected": idx === 0 ? "true" : 'false',
-              "aria-controls": "",
-              "id": "",
+              "aria-controls": `panel-${idx}`,
+              "id": `tab-${idx}`,
               tabIndex: idx === 0 ? "0" : "-1"
             },
           };
@@ -113,11 +113,11 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             tagName: "div",
             children: [],
             properties: {
-              id: "",
+              id: `panel-${idx}`,
               role: "tabpanel",
               class: "tabs__tab-panel",
               tabindex: 0,
-              "aria-labelledby": "",
+              "aria-labelledby": `tab-${idx}`,
               ...(idx === 0 ? {} : {hidden: "true"})
             },
           };
