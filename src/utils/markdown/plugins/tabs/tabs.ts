@@ -36,12 +36,12 @@ export interface RehypeTabsProps {
  *
  * Given that syntax, output the following:
  * ```
- * <tabs>
- *  <tab-list>
- *    <tab>Header Contents</tab>
- *  </tab-list>
- *  <tab-panel>Body contents</tab-panel>
- * </tabs>
+ * <div class="tabs">
+ *  <ul role="tablist">
+ *    <li role="tab">Header Contents</li>
+ *  </ul>
+ *  <div role="tabpanel">Body contents</div>
+ * </div>
  * ```
  *
  * To align with React Tabs package:
@@ -59,11 +59,17 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 
       const tabsContainer = {
         type: "element",
-        tagName: "tabs",
+        tagName: "div",
+        properties: {
+          class: "tabs"
+        },
         children: [
           {
             type: "element",
-            tagName: "tab-list",
+            tagName: "ul",
+            properties: {
+              role: 'tablist'
+            },
             children: [] as ElementNode[],
           },
         ],
@@ -83,21 +89,33 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             tabSlugifyProps
           );
 
+          // - 1 because the tabs are part of the header
+          const idx = tabsContainer.children.length - 1;
+
           const header = {
             type: "element",
-            tagName: "tab",
+            tagName: "li",
             children: localNode.children,
             properties: {
+              role: 'tab',
               "data-tabname": headerSlug,
+              "aria-selected": idx === 0 ? "true" : 'false',
+              "aria-controls": "",
+              "id": "",
+              tabIndex: idx === 0 ? "0" : "-1"
             },
           };
 
           const contents = {
             type: "element",
-            tagName: "tab-panel",
+            tagName: "div",
             children: [],
             properties: {
-              "data-tabname": headerSlug,
+              id: "",
+              role: "tabpanel",
+              tabindex: 0,
+              "aria-labelledby": "",
+              ...(idx === 0 ? {} : {hidden: "true"})
             },
           };
 
