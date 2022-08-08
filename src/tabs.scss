@@ -1,4 +1,4 @@
-.react-tabs {
+.tabs {
   -webkit-tap-highlight-color: transparent;
 
   &__tab-list {
@@ -21,7 +21,7 @@
     border-radius: 0.5rem 0.5rem 0 0;
     margin-right: 4px;
 
-    &--selected {
+    &[aria-selected="true"] {
       background: var(--backgroundColor);
       border: 2px solid var(--darkPrimary);
       border-bottom: 0px;
@@ -29,7 +29,7 @@
       color: var(--darkPrimary);
     }
 
-    &--disabled {
+    &[aria-disabled="true"] {
       color: GrayText;
       cursor: default;
     }
@@ -52,13 +52,8 @@
   }
 
   &__tab-panel {
-    display: none;
     border: 2px solid var(--darkPrimary);
     border-radius: 0.5rem;
     padding: 1.5rem;
-
-    &--selected {
-      display: block;
-    }
   }
 }

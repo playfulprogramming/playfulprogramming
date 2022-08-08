@@ -68,7 +68,8 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             type: "element",
             tagName: "ul",
             properties: {
-              role: 'tablist'
+              role: 'tablist',
+              class: "tabs__tab-list"
             },
             children: [] as ElementNode[],
           },
@@ -98,6 +99,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             children: localNode.children,
             properties: {
               role: 'tab',
+              class: "tabs__tab",
               "data-tabname": headerSlug,
               "aria-selected": idx === 0 ? "true" : 'false',
               "aria-controls": "",
@@ -113,6 +115,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
             properties: {
               id: "",
               role: "tabpanel",
+              class: "tabs__tab-panel",
               tabindex: 0,
               "aria-labelledby": "",
               ...(idx === 0 ? {} : {hidden: "true"})
