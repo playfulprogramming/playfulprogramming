@@ -1,3 +1,6 @@
+---
+---
+
 <script>
     const LOCAL_STORAGE_KEY = "tabs-selection";
 
@@ -46,40 +49,90 @@
             const el = document.querySelector(`[data-tabname="${currentTab}"]`) as HTMLElement;
             if (el) el.click();
         }
-    });
 
-    // TODO: Add tab scroll
-    function changeTabs(e) {
-        const target = e.target;
-        const parent = target.parentNode;
-        const grandparent = parent.parentNode;
+        // TODO: Add tab scroll
+        function changeTabs(e) {
+            const target = e.target;
+            const parent = target.parentNode;
+            const grandparent = parent.parentNode;
 
-        // Remove all current selected tabs
-        parent
-            .querySelectorAll('[aria-selected="true"]')
-            .forEach((t) => t.setAttribute('aria-selected', false));
+            // Remove all current selected tabs
+            parent
+                .querySelectorAll('[aria-selected="true"]')
+                .forEach((t) => t.setAttribute('aria-selected', false));
 
-        // Set this tab as selected
-        target.setAttribute('aria-selected', true);
+            // Set this tab as selected
+            target.setAttribute('aria-selected', true);
 
-        const tabName = target.dataset.tabname;
-        const relatedTabs: NodeListOf<HTMLElement> = document.querySelectorAll(`[data-tabname="${target.dataset.tabname}"]`);
+            const tabName = target.dataset.tabname;
+            const relatedTabs: NodeListOf<HTMLElement> = document.querySelectorAll(`[data-tabname="${target.dataset.tabname}"]`);
 
-        localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
+            localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
 
-        for (let relatedTab of relatedTabs) {
-            if (relatedTab === target) continue;
-            relatedTab.click();
+            for (let relatedTab of relatedTabs) {
+                if (relatedTab === target) continue;
+                relatedTab.click();
+            }
+
+            // Hide all tab panels
+            grandparent
+                .querySelectorAll('[role="tabpanel"]')
+                .forEach((p) => p.setAttribute('hidden', true));
+
+            // Show the selected panel
+            grandparent.parentNode
+                .querySelector(`#${target.getAttribute('aria-controls')}`)
+                .removeAttribute('hidden');
         }
 
-        // Hide all tab panels
-        grandparent
-            .querySelectorAll('[role="tabpanel"]')
-            .forEach((p) => p.setAttribute('hidden', true));
+        /* -------------------- */
 
-        // Show the selected panel
-        grandparent.parentNode
-            .querySelector(`#${target.getAttribute('aria-controls')}`)
-            .removeAttribute('hidden');
-    }
+        function checkElementsParents(el: HTMLElement, check: (el: HTMLElement) => boolean): boolean {
+            if (el.parentElement) {
+                if (!check(el.parentElement)) {
+                    return checkElementsParents(el.parentElement, check);
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        (() => {
+            // If user has linked to a heading that's inside of a tab
+            const hash = window.location.hash;
+            console.log({ hash });
+            if (!hash) return;
+            const heading = document.querySelector<HTMLElement>(hash);
+            if (!heading) return;
+            const isHidden = checkElementsParents(heading, el =>
+                el.hasAttribute('hidden') && el.getAttribute('hidden') !== "false"
+            )
+            console.log(isHidden)
+            // If it's not hidden, then we can assume that the browser will auto-scroll to it
+            if (!isHidden) return;
+            const partialHash = hash.slice(1);
+            try {
+                const matchingTab = document.querySelector<HTMLElement>(
+                    `[data-headers*="${partialHash}"`
+                );
+                console.log({ matchingTab });
+                if (!matchingTab) return;
+                // If header is not in a tab
+                const tabName = matchingTab.getAttribute("data-tabname");
+                console.log({ tabName });
+                if (!tabName) return;
+                matchingTab.click();
+                setTimeout(() => {
+                    const el = document.querySelector(hash);
+                    if (!el) return;
+                    el.scrollIntoView(true);
+                }, 0);
+            } catch (e) {
+                console.error("Error finding matching tab", e);
+            }
+        })()
+
+    });
 </script>
