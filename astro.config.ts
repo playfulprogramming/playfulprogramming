@@ -2,17 +2,14 @@ import { defineConfig, AstroUserConfig } from "astro/config";
 
 import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
-import rehypeImageSize from "rehype-img-size";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
 import { rehypeHeaderText } from "./src/utils/markdown/plugins/add-header-text";
-import remarkTwoslash from "remark-shiki-twoslash";
-import { UserConfigSettings } from "shiki-twoslash";
 import { rehypeTabs } from "./src/utils/markdown/plugins/tabs";
-import sizeOf from 'image-size'
+import { rehypeAstroImageMd } from "./src/utils/markdown/plugins/rehype-astro-image-md";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -24,10 +21,6 @@ import { isRelativePath } from "./src/utils/url-paths";
 import { fromHtml } from "hast-util-from-html";
 
 import image from "@astrojs/image";
-import path from "path";
-
-import { getImage } from "@astrojs/image";
-import sharp_service from "./node_modules/@astrojs/image/dist/loaders/sharp.js";
 
 function escapeHTML(s) {
   if (!s) return s;
@@ -88,74 +81,13 @@ export default defineConfig({
       /**
        * Insert custom HTML generation code here
        */
-      () => async (tree, file) => {
-        // TODO: Move this into a plugin option
-        const props = {
+      [
+        rehypeAstroImageMd,
+        {
           maxHeight: 768,
-          maxWidth: 768
-        };
-         
-        // TODO: How should remote images be handled?
-        const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
-
-        function getImageSize(src, dir) {
-          if (absolutePathRegex.exec(src)) {
-            return
-          }
-          // Treat `/` as a relative path, according to the server
-          const shouldJoin = !path.isAbsolute(src) || src.startsWith('/');
-
-          if (dir && shouldJoin) {
-            src = path.join(dir, src);
-          }
-          return sizeOf(src)
+          maxWidth: 768,
         }
-
-        // HACK: This is a hack that heavily relies on `getImage`'s internals :(
-        globalThis.astroImage = {
-          loader: sharp_service
-        }
-
-        let imgNodes: any[] = [];
-        visit(tree, (node: any) => {
-          if (node.tagName === 'img') {
-            imgNodes.push(node);
-          }
-        });
-
-        await Promise.all(imgNodes.map(async (node) => {
-          const filePathDir =  path.dirname(file.path)
-          const dimensions = getImageSize(node.properties.src, filePathDir) || {height: undefined, width: undefined};
-
-          // TODO: Remote images?
-          if (!dimensions.height || !dimensions.width) return;
-
-          const imgRatioHeight = dimensions.height / dimensions.width;
-          const imgRatioWidth = dimensions.width / dimensions.height;
-          if (dimensions.height > props.maxHeight) {
-            dimensions.height = props.maxHeight;
-            dimensions.width = props.maxHeight * imgRatioWidth;
-          }
-
-          if (dimensions.width > props.maxWidth) {
-            dimensions.width = props.maxWidth;
-            dimensions.height = props.maxWidth * imgRatioHeight;
-          }
-
-          const absoluteSrcPath = path.resolve(
-            filePathDir,
-            node.properties.src
-          );
-
-          const imgProps = await getImage({
-            src: absoluteSrcPath,
-            height: dimensions.height,
-            width: dimensions.width,
-          });
-
-          node.properties.src = imgProps.src;
-        }))
-      },
+      ],
       () => async (tree, file) => {
         visit(tree, (node: any) => {
           if (node.tagName === "iframe") {

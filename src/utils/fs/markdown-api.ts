@@ -6,7 +6,7 @@ import {
 } from "ts-util-helpers";
 import * as fs from "fs";
 import matter from "gray-matter";
-import { countContent } from "utils/count-words";
+import { countContent } from "utils/markdown/count-words";
 
 interface MarkdownAdditions {
   content: string;
