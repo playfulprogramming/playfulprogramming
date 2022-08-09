@@ -9,33 +9,26 @@ import TabsScript from 'src/page-components/blog-post/tabs-script/tabs-script.as
 
 import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
-import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
 import { Languages } from 'types/index';
 
 export async function getStaticPaths() {
-  const postsMeta = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
+  const posts = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
 
-  const postsExpanded = getAllPostsForListView(postsMeta, 'en');
-
-  return postsExpanded.map(post => {
+  return posts.map(post => {
     return {
       params: {
         // TODO: Pass locale
-        postid: post.slug
+        postid: post.frontmatter.slug
       },
       props: {
         Content: post.Content,
-        slug: post.slug,
-        locale: post.locale,
-        post
+        post: post.frontmatter
       }
     }
   })
 }
 
-const { Content, slug, locale, post } = Astro.props as {
-  slug: string,
-  locale: Languages,
+const { Content, post } = Astro.props as {
   post: PostInfo,
   Content: MarkdownInstance<any>['Content']
 }
@@ -44,7 +37,7 @@ const translations = post?.translations || [];
 
 const otherLangs = translations
       ? (Object.keys(translations).filter(
-          (t) => t !== locale
+          (t) => t !== post.locale
         ) as Languages[])
       : [];
 ---
@@ -64,7 +57,7 @@ const otherLangs = translations
     canonical={post.originalLink}
     langData={{
       otherLangs,
-      currentLang: locale,
+      currentLang: post.locale,
     }}
     shareImage={`/${post.slug}.twitter-preview.png`}
   />

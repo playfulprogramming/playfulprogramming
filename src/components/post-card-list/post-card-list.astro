@@ -1,19 +1,16 @@
 ---
 import listStyle from "./post-card-list.module.scss";
 import PostCard from "../post-card/post-card.astro";
+import { PostInfo } from "types/PostInfo";
 // import { PostListContext } from "constants/post-list-context";
-// import { ListViewPosts } from "utils/fs/api";
 
 export interface PostListProps {
   showWordCount?: boolean;
   numberOfArticles?: number;
   wordCount?: number;
-  // unicornData?: ListViewPosts[number]["authors"];
-  unicornData?: any
+  unicornData?: PostInfo['authorsMeta'];
   listAriaLabel: string;
-  // Added
-  // postsToDisplay: ListViewPosts
-  postsToDisplay: any
+  postsToDisplay: PostInfo[]
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page
@@ -26,22 +23,7 @@ const { listAriaLabel, postsToDisplay } = Astro.props as PostListProps;
   aria-label={listAriaLabel}
   role="list"
 >
-  {postsToDisplay.map((post) => {
-    const slug = post.slug;
-
-    const title = post.title || slug;
-
-    return (
-      <PostCard
-        slug={post.slug}
-        key={post.slug}
-        excerpt={post.excerpt}
-        title={title}
-        authors={post.authors}
-        published={post.published}
-        tags={post.tags}
-        description={post.description}
-      />
-    );
-  })}
+  {postsToDisplay.map((post) => (
+    <PostCard post={post}/>
+  ))}
 </ul>

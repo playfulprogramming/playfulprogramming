@@ -1,10 +1,9 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
-import {visit} from 'unist-util-visit'
 import matter from "gray-matter";
 import { readFileSync } from "fs";
 import * as path from "path";
-import { licenses, unicorns } from "utils/data";
+import { licenses, unicorns } from "../data";
 
 interface RehypeUnicornPopulatePostProps {
 }

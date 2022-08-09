@@ -1,18 +1,14 @@
-import {
-  unicorns,
-  licenses,
-} from "../data";
 import { PostInfo } from "types/PostInfo";
 import { Languages } from "types/index";
 import { MarkdownInstance } from "astro";
 
-let allPostsCache = new WeakMap<object, PostInfo[]>();
+let allPostsCache = new WeakMap<object, MarkdownInstance<PostInfo>[]>();
 
 export function getAllPosts(
   posts: MarkdownInstance<PostInfo>[],
   language: Languages,
   cacheString: null | object = null
-) {
+): MarkdownInstance<PostInfo>[] {
   if (cacheString) {
     const cacheData = allPostsCache.get(cacheString);
     if (cacheData) return cacheData as any;
@@ -34,10 +30,10 @@ export const getAllPostsForListView = (
 
   // sort posts by date in descending order
   allPosts = allPosts.sort((post1, post2) => {
-    const date1 = new Date(post1.published);
-    const date2 = new Date(post2.published);
+    const date1 = new Date(post1.frontmatter.published);
+    const date2 = new Date(post2.frontmatter.published);
     return date1 > date2 ? -1 : 1;
   });
 
-  return allPosts;
+  return allPosts.map(post => post.frontmatter);
 };

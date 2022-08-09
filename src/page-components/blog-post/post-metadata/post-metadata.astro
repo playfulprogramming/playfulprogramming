@@ -1,15 +1,16 @@
 ---
 import styles from "./post-metadata.module.scss";
 import UserProfilePic from "components/user-profile-pic/user-profile-pic.astro";
-import { SlugPostInfo } from "constants/queries";
 import dayjs from "dayjs";
+import { PostInfo } from "types/PostInfo";
 
 interface PostMetadataProps {
-  post: SlugPostInfo;
+  post: PostInfo;
 }
 
 const { post } = Astro.props as PostMetadataProps;
-const { authors } = post;
+
+const { authorsMeta } = post;
 
 let originalHost;
 if (post.originalLink) {
@@ -23,11 +24,11 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 ---
 
 <div class={styles.container}>
-  <UserProfilePic authors={authors} class={styles.postMetadataAuthorImagesContainer} />
+  <UserProfilePic authors={authorsMeta} class={styles.postMetadataAuthorImagesContainer} />
   <div class={styles.textDiv}>
     <h2 class={styles.authorName} data-testid="post-meta-author-name">
       <span>by </span>
-      {authors.map((author, i) => {
+      {authorsMeta.map((author, i) => {
       return (
       <>
         {i !== 0 && <span>{", "}</span>}
