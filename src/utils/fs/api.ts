@@ -9,7 +9,6 @@ import {
 } from "./get-datas";
 
 export * from "./posts-and-collections-api";
-export * from "./markdown-api";
 
 export {
   unicorns,

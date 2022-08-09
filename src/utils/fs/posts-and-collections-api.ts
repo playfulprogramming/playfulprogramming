@@ -1,21 +1,10 @@
-import * as fs from "fs";
-import * as path from "path";
 import {
-  collectionsDirectory,
-  postsDirectory,
   unicorns,
   licenses,
 } from "utils/fs/get-datas";
-import { isNotJunk } from "junk";
-import { DeepPartial, DeepReplaceKeys, PickDeep } from "ts-util-helpers";
-import { CollectionInfo } from "types/CollectionInfo";
 import { PostInfo } from "types/PostInfo";
-import { join, dirname, resolve } from "path";
-import { readMarkdownFile } from "utils/fs/markdown-api";
-import { getImageSize } from "rehype-img-size";
 import { getExcerpt } from "utils/markdown/getExcerpt";
 import { Languages } from "types/index";
-import { languages } from "constants/index";
 import { MarkdownInstance } from "astro";
 
 // const getIndexPath = (lang: Languages) => {
@@ -78,12 +67,9 @@ export function extendPostMetadata(
   }
   if (!license) license = null;
 
-  const excerpt = getExcerpt(post.rawContent());
-
   return {
     ...post.frontmatter,
     Content: post.Content,
-    excerpt,
     slug,
     locale,
     authors,

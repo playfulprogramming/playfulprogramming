@@ -7,10 +7,11 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
-import { rehypeHeaderText } from "./src/utils/markdown/plugins/add-header-text";
+import { rehypeHeaderText } from "./src/utils/markdown/plugins/rehype-header-text";
 import { rehypeTabs } from "./src/utils/markdown/plugins/tabs";
 import { rehypeAstroImageMd } from "./src/utils/markdown/plugins/rehype-astro-image-md";
 import { rehypeUnicornElementMap } from "./src/utils/markdown/plugins/rehype-unicorn-element-map";
+import { rehypeExcerpt } from "./src/utils/markdown/plugins/rehype-excerpt";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -65,6 +66,7 @@ export default defineConfig({
           },
         },
       ],
+      rehypeHeaderText,
       /**
        * Insert custom HTML generation code here
        */
@@ -75,7 +77,10 @@ export default defineConfig({
           maxWidth: 768,
         }
       ],
-      rehypeUnicornElementMap
+      rehypeUnicornElementMap,
+      [rehypeExcerpt, {
+        maxLength: 150
+      }]
     ],
   } as AstroUserConfig["markdown"] as never,
 });

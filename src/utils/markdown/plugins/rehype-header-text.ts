@@ -3,14 +3,12 @@ import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
 import {visit} from "unist-util-visit";
-import { RenderedPostInfo } from "types/PostInfo";
 
 /**
  * Plugin to add `data-header-text`s to headings.
  */
-export const rehypeHeaderText =
-  (post: Pick<RenderedPostInfo, "headingsWithId">) => () => {
-    return (tree: Root) => {
+export const rehypeHeaderText = () => {
+    return (tree: Root, file) => {
       visit(tree, "element", (node: Parent["children"][number]) => {
         if (
           headingRank(node) &&
@@ -20,11 +18,18 @@ export const rehypeHeaderText =
         ) {
           const headerText = toString(node);
           node.properties["data-header-text"] = headerText;
-          post.headingsWithId?.push({
+
+          const headingWithID = {
             value: headerText,
             depth: headingRank(node)!,
             slug: node.properties["id"] as string,
-          });
+          };
+
+          if (file.data.astro.frontmatter.headingsWithId) {
+            file.data.astro.frontmatter.headingsWithId.push(headingWithID)
+          } else {
+            file.data.astro.frontmatter.headingsWithId = [headingWithID];
+          }
         }
       });
     };
