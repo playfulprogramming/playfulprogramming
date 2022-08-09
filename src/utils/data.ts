@@ -13,7 +13,7 @@ export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
 const unicornsRaw: Array<
   Omit<UnicornInfo, "roles" | "pronouns" | "profileImg"> & {
     roles: string[];
-    pronouns?: string;
+    pronouns: string;
     profileImg: string;
   }
 > = JSON.parse(
@@ -43,7 +43,7 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   // Mutation go BRR
   const newUnicorn: UnicornInfo = unicorn as never;
 
-  newUnicorn.profileImg = {
+  newUnicorn.profileImgMeta = {
     height: profileImgSize.height as number,
     width: profileImgSize.width as number,
     relativePath: unicorn.profileImg,
@@ -51,20 +51,13 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
     absoluteFSPath,
   };
 
-  newUnicorn.roles = unicorn.roles.map(
+  newUnicorn.rolesMeta = unicorn.roles.map(
     (role) => rolesRaw.find((rRole) => rRole.id === role)!
   );
 
-  newUnicorn.pronouns = pronounsRaw.find(
-    (proWithNouns) => proWithNouns.id === unicorn?.pronouns
-  ) || {
-    id: "",
-    they: "",
-    them: "",
-    their: "",
-    theirs: "",
-    themselves: "",
-  };
+  newUnicorn.pronounsMeta = pronounsRaw.find(
+    (proWithNouns) => proWithNouns.id === unicorn.pronouns
+  )!;
 
   return newUnicorn;
 });

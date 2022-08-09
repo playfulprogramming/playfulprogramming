@@ -3,28 +3,30 @@ import { LicenseInfo } from "./LicenseInfo";
 import { Languages } from "types/index";
 import { MarkdownInstance } from "astro";
 
-export interface PostInfo {
+export interface RawPostInfo {
+  title: string;
+  published: string;
+  authors: string[];
+  tags: string[];
+  attached: string[];
+  license: string;
+  description?: string;
+  edited?: string;
+  series?: string;
+  order?: number;
+  originalLink?: string;
+}
+
+export interface PostInfo extends RawPostInfo {
   slug: string;
   locale: Languages;
   Content: MarkdownInstance<never>['Content'];
-  title: string;
-  published: string;
-  edited?: string;
-  authors: UnicornInfo[];
-  license: LicenseInfo;
+  authorsMeta: UnicornInfo[];
+  licenseMeta: LicenseInfo;
   excerpt: string;
   wordCount: number;
-  description?: string;
-  series?: string;
   collectionSlug?: string | null;
-  order?: number;
-  originalLink?: string;
-  content: string;
-  tags: string[];
   translations: Partial<Record<Languages, string>>;
-}
-
-export interface RenderedPostInfo {
   headingsWithId?: Array<{
     // Title value
     value: string;

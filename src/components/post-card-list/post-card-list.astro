@@ -2,16 +2,18 @@
 import listStyle from "./post-card-list.module.scss";
 import PostCard from "../post-card/post-card.astro";
 // import { PostListContext } from "constants/post-list-context";
-import { ListViewPosts } from "utils/fs/api";
+// import { ListViewPosts } from "utils/fs/api";
 
 export interface PostListProps {
   showWordCount?: boolean;
   numberOfArticles?: number;
   wordCount?: number;
-  unicornData?: ListViewPosts[number]["authors"];
+  // unicornData?: ListViewPosts[number]["authors"];
+  unicornData?: any
   listAriaLabel: string;
   // Added
-  postsToDisplay: ListViewPosts
+  // postsToDisplay: ListViewPosts
+  postsToDisplay: any
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page

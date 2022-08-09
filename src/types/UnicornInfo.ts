@@ -1,14 +1,12 @@
 import { PronounInfo } from "./PronounInfo";
 import { RolesEnum } from "./RolesInfo";
 
-export interface UnicornInfo {
+export interface RawUnicornInfo {
+  id: string;
   name: string;
   firstName: string;
   lastName: string;
-  id: string;
   description: string;
-  color: string;
-  roles: RolesEnum[];
   socials: {
     twitter?: string;
     github?: string;
@@ -17,8 +15,16 @@ export interface UnicornInfo {
     twitch?: string;
     dribbble?: string;
   };
-  pronouns: PronounInfo;
-  profileImg: {
+  pronouns: string;
+  profileImg: string;
+  color: string;
+  roles: Array<RolesEnum['id']>;
+}
+
+export interface UnicornInfo extends RawUnicornInfo {
+  rolesMeta: RolesEnum[];
+  pronounsMeta: PronounInfo;
+  profileImgMeta: {
     // Relative to "public/unicorns"
     relativePath: string;
     // Relative to site root

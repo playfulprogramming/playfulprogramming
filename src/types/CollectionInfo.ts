@@ -1,6 +1,5 @@
 import { UnicornInfo } from "./UnicornInfo";
 import { PostInfo } from "types/PostInfo";
-import { PickDeep } from "ts-util-helpers";
 
 export interface CollectionInfo {
   slug: string;

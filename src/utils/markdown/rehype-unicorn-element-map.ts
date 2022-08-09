@@ -3,8 +3,8 @@ import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
 
-import { EMBED_SIZE } from "../constants";
-import { isRelativePath } from "../../../utils/url-paths";
+import { EMBED_SIZE } from "./constants";
+import { isRelativePath } from "../../utils/url-paths";
 import { fromHtml } from "hast-util-from-html";
 
 import path from "path";

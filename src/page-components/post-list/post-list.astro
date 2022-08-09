@@ -7,13 +7,14 @@ import PostList from "components/post-card-list/post-card-list.astro";
 // import { Pagination } from "components/pagination";
 // import { FilterSearchBar } from "components/filter-search-bar";
 import { siteMetadata } from "constants/site-config";
-import { ListViewPosts } from "utils/fs/api";
+// import { ListViewPosts } from "utils/fs/api";
 
 interface PostListTemplateProps {
   numberOfPages: number;
   limitNumber: number;
   pageIndex: number;
-  posts: ListViewPosts;
+  // posts: ListViewPosts;
+  posts: any;
 }
 
 const { 

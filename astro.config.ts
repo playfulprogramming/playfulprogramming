@@ -7,11 +7,12 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
-import { rehypeHeaderText } from "./src/utils/markdown/plugins/rehype-header-text";
-import { rehypeTabs } from "./src/utils/markdown/plugins/tabs";
-import { rehypeAstroImageMd } from "./src/utils/markdown/plugins/rehype-astro-image-md";
-import { rehypeUnicornElementMap } from "./src/utils/markdown/plugins/rehype-unicorn-element-map";
-import { rehypeExcerpt } from "./src/utils/markdown/plugins/rehype-excerpt";
+import { rehypeHeaderText } from "./src/utils/markdown/rehype-header-text";
+import { rehypeTabs } from "./src/utils/markdown/tabs";
+import { rehypeAstroImageMd } from "./src/utils/markdown/rehype-astro-image-md";
+import { rehypeUnicornElementMap } from "./src/utils/markdown/rehype-unicorn-element-map";
+import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
+import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -45,6 +46,7 @@ export default defineConfig({
       ],
     ],
     rehypePlugins: [
+      rehypeUnicornPopulatePost,
       // This is required to handle unsafe HTML embedded into Markdown
       rehypeRaw,
       // Do not add the tabs before the slug. We rely on some of the heading

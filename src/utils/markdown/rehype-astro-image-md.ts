@@ -10,8 +10,8 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getImage } from "../../../../node_modules/@astrojs/image";
-import sharp_service from "../../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
+import { getImage } from "../../../node_modules/@astrojs/image";
+import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 
 interface RehypeAstroImageProps {
   maxHeight?: number;
