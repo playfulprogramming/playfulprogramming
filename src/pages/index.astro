@@ -7,15 +7,10 @@ import SEO from "components/seo/seo.astro";
 
 const posts = await Astro.glob<PostInfo>('../../content/blog/**/*.md')
 
-const postsToDisplay = getAllPostsForListView(posts, 'en').slice(0, 6);
-
-// TODO: Change this
-const pageIndex = 1;
-
-const SEOTitle = pageIndex === 1 ? "Homepage" : `Post page ${pageIndex}`;
+const postsToDisplay = getAllPostsForListView(posts, 'en').slice(0, 8);
 ---
 
 <Document>
-	<SEO slot="head" title={SEOTitle} />
+	<SEO slot="head" title="Homepage" />
 	<PostListTemplate posts={postsToDisplay}/>
 </Document>

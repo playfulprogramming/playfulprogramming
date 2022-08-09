@@ -1,0 +1,26 @@
+---
+import Document from '../../layouts/document.astro';
+import PostListTemplate from '../../page-components/post-list/post-list.astro';
+import { getAllPostsForListView } from 'utils/fs/posts-and-collections-api';
+import {PostInfo} from 'types/PostInfo';
+import SEO from "components/seo/seo.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const posts = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
+
+  const postsToDisplay = getAllPostsForListView(posts, 'en');
+
+  return paginate(postsToDisplay, { pageSize: 8 });
+}
+
+const { page } = Astro.props;
+
+const pageIndex = page.currentPage;
+
+const SEOTitle = `Post page ${pageIndex}`;
+---
+
+<Document>
+	<SEO slot="head" title={SEOTitle} />
+	<PostListTemplate posts={page.data}/>
+</Document>
