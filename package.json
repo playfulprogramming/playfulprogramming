@@ -26,15 +26,14 @@
     "host:local": "cd dist && ws --http2 --compress"
   },
   "devDependencies": {
-    "astro": "^1.0.0-rc.8",
+    "astro": "^1.0.1",
     "sass": "^1.54.2"
   },
   "dependencies": {
-    "@astrojs/image": "^0.3.2",
+    "@astrojs/image": "^0.3.3",
     "@remark-embedder/core": "^3.0.1",
     "@remark-embedder/transformer-oembed": "^3.0.0",
     "@types/node": "^18.6.3",
-    "astro-auto-import": "^0.1.2",
     "astro-icon": "^0.7.3",
     "dayjs": "^1.11.4",
     "gatsby-remark-embedder": "^6.0.1",
@@ -42,9 +41,9 @@
     "hast-util-from-html": "^1.0.0",
     "hast-util-has-property": "^2.0.0",
     "hast-util-heading-rank": "^2.1.0",
+    "image-size": "^1.0.2",
     "junk": "^4.0.0",
     "local-web-server": "^5.2.1",
-    "rehype-img-size": "github:unicorn-utterances/rehype-img-size#relative-path-full",
     "rehype-parse": "^8.0.4",
     "rehype-slug-custom-id": "^1.1.0",
     "rehype-stringify": "^9.0.3",

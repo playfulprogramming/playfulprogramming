@@ -1,8 +1,6 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 
-import sizeOf from 'image-size'
-
 import { visit } from "unist-util-visit";
 
 import path from "path";
@@ -12,6 +10,7 @@ import path from "path";
  */
 import { getImage } from "../../../node_modules/@astrojs/image";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
+import {getImageSize} from "../get-image-size";
 
 interface RehypeAstroImageProps {
   maxHeight?: number;
@@ -23,22 +22,6 @@ export const rehypeAstroImageMd: Plugin<
   Root
 > = ({ maxHeight, maxWidth }) => {
   return async (tree, file) => {
-    // TODO: How should remote images be handled?
-    const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
-
-    function getImageSize(src, dir) {
-      if (absolutePathRegex.exec(src)) {
-        return;
-      }
-      // Treat `/` as a relative path, according to the server
-      const shouldJoin = !path.isAbsolute(src) || src.startsWith("/");
-
-      if (dir && shouldJoin) {
-        src = path.join(dir, src);
-      }
-      return sizeOf(src);
-    }
-
     // HACK: This is a hack that heavily relies on `getImage`'s internals :(
     globalThis.astroImage = {
       loader: sharp_service ?? globalThis.astroImage?.loader,
@@ -54,6 +37,7 @@ export const rehypeAstroImageMd: Plugin<
     await Promise.all(
       imgNodes.map(async (node) => {
         const filePathDir = path.dirname(file.path);
+        // TODO: How should remote images be handled?
         const dimensions = getImageSize(node.properties.src, filePathDir) || {
           height: undefined,
           width: undefined,

@@ -1,7 +1,7 @@
 import { LicenseInfo, PronounInfo, RolesEnum, UnicornInfo } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
-import { getImageSize } from "rehype-img-size";
+import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
