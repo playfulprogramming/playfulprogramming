@@ -14,47 +14,87 @@
 
 Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes; but sometimes you need code logic you can share between components that have no associated DOM nodes.
 
- 
+For example, let's say that you have some component code that detects the current window size. While this might seem like a simple problem at first, it requires you to:
 
+- Get the initial window size and share that data with the component
+- Add and cleanup event listeners for when the user resizes their browser window
+- Compose the window sizing logic inside of other shared logic, such as a `onlyShowOnMobile` boolean
 
+ The method how this logic is shared between components differs from framework to framework.
 
-// TODO: Move context menu code into custom hook/composition
+| Framework | Method Of Logic Sharing |
+| --------- | ----------------------- |
+| React     | Custom Hooks            |
+| Angular     | Services            |
+| Vue     | Compositions            |
 
-// TODO: /posts/component-reference
+We'll spend the chapter talking about how to do all of this and see how we can apply these methods to production code.
 
+But here's my favorite part about these methods: We don't have to introduce any new APIs to use them. Instead, we'll combine a culmination of other APIs we've learned to this point.
 
-
-
-
-- React / Custom Hooks
-- Angular / Services
-- Vue / Custom Compositions
-
-
-
-Here's my favorite part about this chapter: We don't have to introduce any new APIs. Instead, we'll combine a culmination of every other API we've learned to this point in order to 
-
-
-
-
+Without further ado, let's build the window size shared logic.
 
 # Sharing Data Storage Methods
 
+The first step to sharing component logic between multiple components is sharing data storage mechanisms.
 
+This doesn't mean that we're going to be sharing data between mutliple components: we won't be.
+
+Instead, we're going to be providing some logic that allows a consistent set of data every time you create a new component that extends this shared logic.
 
 <!-- tabs:start -->
 
 ## React
 
-`useState`
+In a normal React component, we'd store data using `useState` or `useReducer` hook. Using React's custom hooks, we'll use the same APIs to create our own hook that combines (or, composes) these other APIs:
 
-`useReducer`
+```jsx
+const useWindowSize = () => {
+    const [height, setHeight] = useState(window.innerHeight);
+    const [width, setWidth] = useState(window.innerWidth);
+  
+    return {height, width};
+}
+```
+
+We can then use this `useWindowSize` custom hook just as we would any other hook:
+
+```jsx
+const App = () => {
+    const {height, width} = useWindowSize();
+  
+  	return <p>The window is {height}px high and {width}px wide</p>
+}
+```
+
+<!-- Editor's note: We should probably move these much earlier in the book -->
+
+### Rules of Custom Hooks
+
+While creating a custom hook like `useWindowSize` is undoubtably useful, there are some limitations around all custom hooks. 
+
+Namely, any custom hook hook must:
+
+- Have a variable name that starts with `use`
+- Be called from within another hook or component (no normal function)
+- Not be called conditionally inside of a component
+- Not be called inside of a loop 
+
+
 
 // TODO: Write
 
 ## Angular
 
-Class properties
+// TODO: Write
+
+Class properties and DI
+
+
+
+While we mentioned that we won't be sharing data between mutliple components, Angular's services **do** share logic by default.
+
+
 
 ## Vue
 
