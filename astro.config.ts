@@ -13,6 +13,7 @@ import { rehypeAstroImageMd } from "./src/utils/markdown/rehype-astro-image-md";
 import { rehypeUnicornElementMap } from "./src/utils/markdown/rehype-unicorn-element-map";
 import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
+import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -43,7 +44,7 @@ export default defineConfig({
         {
           transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
         } as RemarkEmbedderOptions,
-      ],
+      ]
     ],
     rehypePlugins: [
       rehypeUnicornPopulatePost,
@@ -82,7 +83,8 @@ export default defineConfig({
       rehypeUnicornElementMap,
       [rehypeExcerpt, {
         maxLength: 150
-      }]
+      }],
+      rehypeWordCount
     ],
   } as AstroUserConfig["markdown"] as never,
 });

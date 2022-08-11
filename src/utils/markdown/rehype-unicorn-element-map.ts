@@ -19,8 +19,8 @@ function escapeHTML(s) {
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-  }
-  
+}
+
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornElementMap: Plugin<
   [RehypeUnicornElementMapProps | never],
