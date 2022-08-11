@@ -7,6 +7,7 @@ import PostTitleHeader from 'src/page-components/blog-post/post-title-header/pos
 import PostMetadata from 'src/page-components/blog-post/post-metadata/post-metadata.astro';
 import TabsScript from 'src/page-components/blog-post/tabs-script/tabs-script.astro';
 import SuggestedArticles from 'src/page-components/blog-post/suggested-articles/suggested-articles.astro';
+import TableOfContents from 'components/table-of-contents/table-of-contents.astro';
 
 import type { MarkdownInstance } from 'astro';
 import {PostInfo} from 'types/PostInfo';
@@ -64,7 +65,9 @@ const otherLangs = translations
   />
   <article>
     <BlogPostLayout>
-      <div slot="left">Table of contents</div>
+      <div slot="left">
+        <TableOfContents headingsWithId={post.headingsWithId} />
+      </div>
       <div slot="right">
         <SuggestedArticles suggestedArticles={post.suggestedArticles} lang={"en"} />
       </div>
