@@ -3,6 +3,7 @@ import tableOfContentsStyle from "./table-of-contents.module.scss";
 // import { useHeadingIntersectionObserver } from "./use-heading-intersection-observer";
 import classnames from "classnames";
 import { PostInfo } from "types/PostInfo";
+import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
 
 interface TableOfContentsProps {
   headingsWithId: PostInfo["headingsWithId"];
@@ -19,12 +20,15 @@ const minDepth = Math.min(...headings.map((h) => h.depth));
 const headingsToDisplay = headings
   .map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
   .filter((headingInfo) => headingInfo.depth <= 3);
+
+const headingsToDisplaySlugs = headingsToDisplay.map(item => item.slug);
 ---
 
 <aside aria-label={"Table of Contents"}>
   <ol
     class={tableOfContentsStyle.tableList}
-    role={"list"}
+    role="list"
+    id="tocList"
   >
     {headingsToDisplay.map((headingInfo, i) => {
       const liClassNames = classnames(tableOfContentsStyle.tocLi, {
@@ -35,6 +39,7 @@ const headingsToDisplay = headings
       return (
         <li
           class={liClassNames}
+          data-headingitem="true"
         >
           <a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
         </li>
@@ -42,3 +47,4 @@ const headingsToDisplay = headings
     })}
   </ol>
 </aside>
+<HeadingIntersectionObserverScript headingsToDisplaySlugs={headingsToDisplaySlugs} />

@@ -1,0 +1,68 @@
+---
+const {headingsToDisplaySlugs} = Astro.props as {headingsToDisplaySlugs: Array<string>}
+---
+
+<script define:vars={{headingsToDisplaySlugs}}>
+  window.onload = () => {
+  const tocListRef = document.querySelector('#tocList');
+
+  const linkRefs = [...document.querySelectorAll('[data-headingitem="true"]')]
+
+  let previousSection = {current: ""} 
+
+  const handleObserver = (entries) => {
+    const highlightFirstActive = () => {
+      if (!tocListRef) return;
+      let firstVisibleLink =
+        tocListRef.querySelector(".toc-is-visible");
+
+      linkRefs.forEach((linkRef) => {
+        linkRef.classList.remove("toc-is-active");
+      });
+
+      if (firstVisibleLink) {
+        firstVisibleLink.classList.add("toc-is-active");
+      }
+
+      if (!firstVisibleLink && previousSection.current) {
+        tocListRef
+          .querySelector(`a[href="#${previousSection.current}"]`)
+          .parentElement.classList.add("toc-is-active");
+      }
+    };
+
+    entries.forEach((entry) => {
+      let href = `#${entry.target.getAttribute("id")}`,
+        link = linkRefs.find(
+          (l) => l.firstElementChild.getAttribute("href") === href
+        );
+
+      if (!link) return;
+      if (entry.isIntersecting && entry.intersectionRatio >= 1) {
+        link.classList.add("toc-is-visible");
+        const newPreviousSection = entry.target.getAttribute("id");
+        previousSection.current = newPreviousSection;
+      } else {
+        link.classList.remove("toc-is-visible");
+      }
+
+      highlightFirstActive();
+    });
+  };
+
+  const observer = new IntersectionObserver(handleObserver, {
+    rootMargin: "0px",
+    threshold: 1,
+  });
+
+  const headingsEls = headingsToDisplaySlugs.map((headingToDisplay) => {
+    return document.getElementById(headingToDisplay);
+  });
+
+  headingsEls
+    .filter((a) => a)
+    .forEach((heading) => {
+      observer.observe(heading);
+    });
+  }
+</script>
