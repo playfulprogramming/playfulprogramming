@@ -27,6 +27,7 @@ export interface PostInfo extends RawPostInfo {
   wordCount: number;
   collectionSlug?: string | null;
   translations: Partial<Record<Languages, string>>;
+  suggestedArticles: [PostInfo, PostInfo, PostInfo];
   headingsWithId?: Array<{
     // Title value
     value: string;

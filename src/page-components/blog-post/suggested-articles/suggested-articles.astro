@@ -1,0 +1,46 @@
+---
+import suggestedStyle from "./suggested-articles.module.scss";
+import { Languages, PostInfo } from "types/index";
+
+interface TableOfContentsProps {
+  suggestedArticles: PostInfo[];
+  lang?: Languages;
+}
+
+const {
+  suggestedArticles,
+  lang,
+} = Astro.props as TableOfContentsProps;
+---
+
+{!suggestedArticles.length ? null : <aside aria-label={"Suggested Articles"}>
+  <ol role={"list"} class={suggestedStyle.list}>
+    <h2 class={suggestedStyle.header}>Related posts</h2>
+    {suggestedArticles.map((suggestedArticle, i) => {
+      const authorNames = suggestedArticle.authorsMeta
+        .map((author) => author.name)
+        .join(", ");
+      return (
+        <li
+          class={`${suggestedStyle.card} ${suggestedStyle.localCard}`}
+        >
+            <a
+              href={`/${lang !== "en" ? `${lang}/` : ""}posts/${
+                suggestedArticle.slug
+              }`}
+              data-type="Analytics link"
+              data-category="suggested_article"
+              class={suggestedStyle.aTag}
+            >
+              <span class={suggestedStyle.titleTag}>
+                {suggestedArticle.title}
+              </span>
+              <br />
+              <span class={suggestedStyle.srOnly}>by</span>
+              <span class={suggestedStyle.author}> {authorNames}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
+</aside>}
