@@ -14,6 +14,7 @@ import { rehypeUnicornElementMap } from "./src/utils/markdown/rehype-unicorn-ele
 import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
+import {rehypeUnicornGetSuggestedPosts} from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -48,6 +49,7 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeUnicornPopulatePost,
+      rehypeUnicornGetSuggestedPosts,
       // This is required to handle unsafe HTML embedded into Markdown
       rehypeRaw,
       // Do not add the tabs before the slug. We rely on some of the heading

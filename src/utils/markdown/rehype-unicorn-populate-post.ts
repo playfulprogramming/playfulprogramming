@@ -12,7 +12,7 @@ export const rehypeUnicornPopulatePost: Plugin<
   [RehypeUnicornPopulatePostProps | never],
   Root
 > = () => {
-  return (tree, file) => {
+  return (_, file) => {
 
     function setData(key: string, val: any) {
         (file.data.astro as any).frontmatter[key] = val;
@@ -76,5 +76,6 @@ export const rehypeUnicornPopulatePost: Plugin<
       setData('locale', locale);
       setData('authorsMeta', authorsMeta);
       setData('license', license);
+      setData('frontmatterBackup', frontmatter);
   };
 };
