@@ -416,7 +416,9 @@
     "profileImg": "./qarnax.png",
     "color": "",
     "roles": [
-      "community", "translator"
+      "developer",
+      "community",
+      "translator"
     ]
   },
   {
