@@ -8,19 +8,17 @@ import PostList from "components/post-card-list/post-card-list.astro";
 // import { FilterSearchBar } from "components/filter-search-bar";
 import { siteMetadata } from "constants/site-config";
 import { PostInfo } from "types/PostInfo";
+import { Page } from "astro";
+import Pagination from "components/pagination/pagination.astro";
 
-interface PostListTemplateProps {
-  numberOfPages: number;
-  limitNumber: number;
-  pageIndex: number;
+export interface PostListTemplateProps {
   posts: PostInfo[];
+  page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>
 }
 
 const { 
-  // numberOfPages,
-  // limitNumber,
-  // pageIndex,
-  posts
+  posts,
+  page
 } = Astro.props as PostListTemplateProps;
 ---
 
@@ -36,6 +34,7 @@ const {
       <!-- <FilterSearchBar /> -->
       <PostList listAriaLabel="List of posts" postsToDisplay={posts} />
     </main>
+    <Pagination page={page} />
     <!-- <Pagination absolutePath={router.basePath} /> -->
   <!-- </PostListProvider> -->
 </div>

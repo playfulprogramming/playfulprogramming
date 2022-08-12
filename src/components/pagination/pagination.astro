@@ -1,0 +1,71 @@
+---
+import { getPaginationRange, DR, DL } from './pagination-logic';
+import { Page } from 'astro';
+import { PostInfo } from 'types/PostInfo';
+// import './pagination.scss';
+
+interface PaginationProps {
+    page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>;
+    class: string;
+}
+
+const {
+    page,
+    class: className = ""
+} = Astro.props as PaginationProps;
+
+const paginationRange = getPaginationRange({
+    currentPage: page.currentPage,
+    totalCount: page.total,
+    siblingCount: 1,
+    pageSize: page.size
+});
+
+const dontShowAnything = page.currentPage === 0 || paginationRange.length < 2;
+
+const getPageHref = (pageNum: number) => pageNum === 0 ? '/' : `/page/${pageNum}`;
+
+let lastPage = paginationRange[paginationRange.length - 1];
+---
+
+{dontShowAnything ? null : <ul class={`pagination-container ${className}`}>
+    <li class={`pagination-item ${ page.currentPage===1 ? 'disabled' : '' }`}>
+        <a href={getPageHref(page.currentPage - 1)}>
+            <div class="arrow left" />
+        </a>
+    </li>
+
+    {paginationRange.map(pageNumber => {
+        const isSelected = pageNumber === page.currentPage;
+
+        if (pageNumber === DR) {
+            return <li class="pagination-item dots">
+                <a href={getPageHref(page.currentPage + 2)}>
+                    {DR.dots}
+                </a>
+            </li>;
+        }
+
+        if (pageNumber === DL) {
+            return <li class="pagination-item dots">
+                <a href={getPageHref(page.currentPage - 2)}>
+                    {DL.dots}
+                </a>
+            </li>;
+        }
+
+        return (
+        <li class={`pagination-item ${ isSelected ? 'selected' : '' }`}>
+            <a href={getPageHref(typeof pageNumber == 'number' ? pageNumber : 0)}>
+                {pageNumber}
+            </a>
+        </li>
+        );
+    })}
+
+    <li class={`pagination-item ${ page.currentPage===lastPage ? 'disabled' : '' }`}>
+        <a href={getPageHref(page.currentPage + 1)}>
+            <div class="arrow right" />
+        </a>
+    </li>
+</ul>}
