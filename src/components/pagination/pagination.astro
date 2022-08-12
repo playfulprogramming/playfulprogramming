@@ -1,7 +1,8 @@
 ---
-import { getPaginationRange, DR, DL } from './pagination-logic';
+import { getPaginationRange } from './pagination-logic';
 import { Page } from 'astro';
 import { PostInfo } from 'types/PostInfo';
+import styles from './pagination.module.scss';
 
 interface PaginationProps {
     page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>;
@@ -16,7 +17,7 @@ const {
 const paginationRange = getPaginationRange({
     currentPage: page.currentPage,
     totalCount: page.total,
-    siblingCount: 1,
+    siblingCount: 0,
     pageSize: page.size
 });
 
@@ -31,27 +32,27 @@ const disablePrevious = page.currentPage === firstPage.pageNumber;
 const disableNext = page.currentPage === lastPage.pageNumber;
 ---
 
-{dontShowAnything ? null : <ul class={`pagination-container ${className}`}>
-    {!disablePrevious && <li class={`pagination-item`}>
-        <a href={getPageHref(page.currentPage - 1)}>
-            Previous
+{dontShowAnything ? null : <ul role="navigation"  aria-label="Pagination Navigation" class={`${styles.pagination} ${className}`}>
+    {!disablePrevious && <li class={`${styles.paginationItem} ${styles.previous}`}>
+        <a href={getPageHref(page.currentPage - 1)} aria-label="Previous">
+            {"<"}
         </a>
     </li>}
 
     {paginationRange.map(pageItem => {
         const isSelected = pageItem.pageNumber === page.currentPage;
         return (
-            <li class={`pagination-item ${ isSelected ? 'selected' : '' }`}>
-                <a href={getPageHref(pageItem.pageNumber)} aria-label={pageItem.ariaLabel}>
+            <li class={`${styles.paginationItem} ${ isSelected ? styles.active : '' }`}>
+                <a href={getPageHref(pageItem.pageNumber)} aria-label={pageItem.ariaLabel} aria-current={isSelected || undefined}>
                     {pageItem.display}
                 </a>
             </li>
         );
     })}
 
-    {!disableNext && <li class={`pagination-item`}>
-        <a href={getPageHref(page.currentPage + 1)}>
-            Next
+    {!disableNext && <li class={`${styles.paginationItem} ${styles.next}`}>
+        <a href={getPageHref(page.currentPage + 1)} aria-label="Next">
+            {">"}
         </a>
     </li>}
 </ul>}

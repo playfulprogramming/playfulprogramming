@@ -20,7 +20,8 @@ const range = (start: number, end: number): Page[] => {
     const page = idx + start;
     return {
       display: String(page),
-      pageNumber: page
+      pageNumber: page,
+      ariaLabel: `Goto page ${page}`
     }
   });
 };
