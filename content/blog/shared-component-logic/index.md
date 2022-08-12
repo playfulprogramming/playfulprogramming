@@ -50,10 +50,10 @@ In a normal React component, we'd store data using `useState` or `useReducer` ho
 
 ```jsx
 const useWindowSize = () => {
-    const [height, setHeight] = useState(window.innerHeight);
-    const [width, setWidth] = useState(window.innerWidth);
-  
-    return {height, width};
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  return {height, width};
 }
 ```
 
@@ -61,9 +61,9 @@ We can then use this `useWindowSize` custom hook just as we would any other hook
 
 ```jsx
 const App = () => {
-    const {height, width} = useWindowSize();
-  
-  	return <p>The window is {height}px high and {width}px wide</p>
+  const {height, width} = useWindowSize();
+
+  return <p>The window is {height}px high and {width}px wide</p>
 }
 ```
 
@@ -85,19 +85,19 @@ This means that **the following custom hooks are not allowed**:
 ```jsx
 // ❌ Not allowed, the function name must start with `use`
 const getWindowSize = () => {
-    const [height, setHeight] = useState(window.innerHeight);
-    const [width, setWidth] = useState(window.innerWidth);
-  
-    return {height, width};
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  return {height, width};
 }
 ```
 
 ```jsx
 const useWindowSize = () => {
-		const [height, setHeight] = useState(window.innerHeight);
-  	const [width, setWidth] = useState(window.innerWidth);
-  
-    return {height, width};
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  return {height, width};
 }
 
 // ❌ Not allowed, you must use a hook _inside_ a component or another hook
@@ -110,25 +110,25 @@ const Component = () => {
 
 ```jsx
 const useWindowSize = () => {
-		const [height, setHeight] = useState(window.innerHeight);
-  	const [width, setWidth] = useState(window.innerWidth);
-  
-    return {height, width};
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  return {height, width};
 }
 
 function getWindowSize() {
   // ❌ Not allowed, you cannot use a hook inside of a non-hook function
   const {height, width} = useWindowSize();
-	return {height, width};
+  return {height, width};
 }
 ```
 
 ```jsx
 const useWindowSize = () => {
-		// ❌ Not allowed, you cannot `return` before using a hook
-  	if (bool) return {height: 0, width: 0}
+    // ❌ Not allowed, you cannot `return` before using a hook
+    if (bool) return {height: 0, width: 0}
     const [height, setHeight] = useState(window.innerHeight);
-  	const [width, setWidth] = useState(window.innerWidth);
+    const [width, setWidth] = useState(window.innerWidth);
   
     return {height, width};
 }
@@ -159,21 +159,71 @@ While we mentioned that we won't be sharing data between mutliple components, An
 
 # Sharing Lifecycle Methods
 
+While sharing a consistent set of data setup for each consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
+One of the most powerful things that can be reused between components is [lifecycle method](/posts/lifecycle-methods) logic.
+
+Using this, we can say something alone the lines of:
+
+> When a component that implements this shared bit of code renders, do this behavior.
+
+And combine it with our data storage to say:
+
+> When the component renders, store some calculation and expose it back to the consuming component.
+
+This can be a bit vague to discuss without code, so let's dive in.
+
+While our last code sample was able to expose the browser window's height and width, it didn't respond to window resizing. This means that if you resized the browser window, the value of `height` and `width` would no longer be accurate.
+
+Let's hook into [a consuming component's `rendered` lifecycle method](/posts/lifecycle-methods#Render-Lifecycle) in order to add an event handler to listen for window resizing.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Write
+If we look back to the Lifecycle Method chapter's insights, we'll remember that we can simulate a `rendered` lifecycle method using an `useEffect` alongside an empty dependency array:
 
-`useEffect` inside of `useX`
+```jsx
+const useWindowSize = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function onResize() {
+      setHeight(window.innerHeight);
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', onResize);
+
+    // Don't forget to cleanup the listener
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  return {height, width};
+}
+```
+
+... That's it!
+
+There's nothing more we need to do inside of our `useWindowSize` consuming component, it simply works transparently as-if we had placed the `useEffect` in the component itself.
+
+```jsx
+const App = () => {
+  const {height, width} = useWindowSize();
+  return <p>The window is {height}px high and {width}px wide</p>
+}
+```
+
+> Notice that we've changed exactly zero lines of code from our previous example of this component! ✨ Magic ✨
 
 ## Angular
 
 While Angular can _technically_ do this, it's messy, fragile, and overall considered a malpractice.
 
 This is one of Angular's greatest weaknesses when it comes to Angular's code reuse stories.
+
+// TODO: Write
 
 ## Vue
 
@@ -189,15 +239,70 @@ This is one of Angular's greatest weaknesses when it comes to Angular's code reu
 
 # Composing Custom Logic
 
-Here's where these abilities get really powerful: Not only can you call your custom logic from components, but you can call them from other custom logic compossible.
+We've covered how shared logic can access data storage and lifecycle methods, now let's talk about the fun stuff: Composability.
+
+Not only can you call your custom logic from components, but you can call them from other shared logic fragments.
+
+For example, let's say that we want to take our window size getter and create another custom logic fragment that composes it.
+
+If we were using plain-ole functions, it might look something like this:
+
+```javascript
+function getWindowSize() {
+	return {
+	  height: window.innerHeight,
+    width: window.innerWidth
+	}
+}
+
+function isMobile() {
+  const {height, width} = getWindowSize();
+  if (width <= 480) return true;
+  else return false;
+}
+```
+
+But of course, this comes with downsides when trying to include this logic into a framework, such as:
+
+- No access to lifecycle methods
+- No automatic-re-rendering when `height` or `width` changes
+
+Luckily for us, we can do this with our frameworks with full access to all of the other framework-specific APIs we've covered until now.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Write
+So, you remember how we used `useState` inside of `useWindowSize`? That's because all hooks are composable: meaning that you can use a hook inside of another hook.
 
-`useX` in other `useX`
+This is true for custom hooks as well, meaning that we can do the following code:
+
+```jsx
+const useMobileCheck = () => {
+  const {height, width} = useWindowSize();
+
+  if (width <= 480) return {isMobile: true}
+  else return {isMobile: false}
+}
+```
+
+Without modifying the `useWindowSize` component. To consume our new `useMobileCheck` component is just as straightforward as it was to use `useWindowSize`:
+
+```jsx
+const Component = () => {
+  const {isMobile} = useMobileCheck();
+
+  return <p>Is this a mobile device? {isMobile ? "Yes" : "No"}</p>
+}
+```
+
+> Remember, custom hooks are still hooks!
+>
+> This means that our custom hooks (both `useWindowSize` and `useMobileCheck` alike) are subject to the same rules as built-in hooks. We still need to:
+>
+> - Name the function starting with `use`
+> - Not place the hooks in a conditional (`if`) statement
+> - Use the hooks inside of components or other hooks
 
 ## Angular
 
