@@ -80,9 +80,60 @@ Namely, any custom hook hook must:
 - Not be called conditionally inside of a component
 - Not be called inside of a loop 
 
+This means that **the following custom hooks are not allowed**: 
 
+```jsx
+// ❌ Not allowed, the function name must start with `use`
+const getWindowSize = () => {
+    const [height, setHeight] = useState(window.innerHeight);
+    const [width, setWidth] = useState(window.innerWidth);
+  
+    return {height, width};
+}
+```
 
-// TODO: Write
+```jsx
+const useWindowSize = () => {
+		const [height, setHeight] = useState(window.innerHeight);
+  	const [width, setWidth] = useState(window.innerWidth);
+  
+    return {height, width};
+}
+
+// ❌ Not allowed, you must use a hook _inside_ a component or another hook
+const {height, width} = useWindowSize();
+
+const Component = () => {
+  return <p>Height is: {height}</p>
+}
+```
+
+```jsx
+const useWindowSize = () => {
+		const [height, setHeight] = useState(window.innerHeight);
+  	const [width, setWidth] = useState(window.innerWidth);
+  
+    return {height, width};
+}
+
+function getWindowSize() {
+  // ❌ Not allowed, you cannot use a hook inside of a non-hook function
+  const {height, width} = useWindowSize();
+	return {height, width};
+}
+```
+
+```jsx
+const useWindowSize = () => {
+		// ❌ Not allowed, you cannot `return` before using a hook
+  	if (bool) return {height: 0, width: 0}
+    const [height, setHeight] = useState(window.innerHeight);
+  	const [width, setWidth] = useState(window.innerWidth);
+  
+    return {height, width};
+}
+```
+
 
 ## Angular
 
@@ -431,3 +482,17 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 
 <!-- tabs:end -->
+
+
+
+
+
+
+
+-----
+
+
+
+
+
+- Angular Pipes
