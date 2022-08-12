@@ -1,19 +1,28 @@
+export interface Page {
+  display: string;
+  pageNumber: number;
+  ariaLabel?: string;
+}
 
 export const DR = {
-  orientation: "right",
   ariaLabel: "Go to the next set of pages",
-  dots: '...'
+  display: '...'
 };
 
 export const DL = {
-  orientation: "left",
   ariaLabel: "Go to previous set of pages",
-  dots: '...'
+  display: '...'
 };
 
-const range = (start: number, end: number) => {
+const range = (start: number, end: number): Page[] => {
   let length = end - start + 1;
-  return Array.from({ length }, (_, idx) => idx + start);
+  return Array.from({ length }, (_, idx) => {
+    const page = idx + start;
+    return {
+      display: String(page),
+      pageNumber: page
+    }
+  });
 };
 
 interface GetPaginationRangeProps {
@@ -28,8 +37,13 @@ export const getPaginationRange = ({
   pageSize,
   siblingCount = 1,
   currentPage
-}: GetPaginationRangeProps) => {
+}: GetPaginationRangeProps): Page[] => {
     const totalPageCount = Math.ceil(totalCount / pageSize);
+
+    const totalPageCountPage: Page = {
+      display: `${totalPageCount}`,
+      pageNumber: totalPageCount
+    }
 
     const totalPageNumbers = siblingCount + 5;
 
@@ -46,14 +60,25 @@ export const getPaginationRange = ({
     const shouldShowLeftDots = leftSiblingIndex > 2;
     const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
 
-    const firstPageIndex = 1;
-    const lastPageIndex = totalPageCount;
+    const firstPageIndex: Page = {
+      display: "1",
+      pageNumber: 1
+    };
+    const lastPageIndex: Page = {
+      display: `${totalPageCount}`,
+      pageNumber: totalPageCount
+    };
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
       let leftItemCount = 3 + 2 * siblingCount;
       let leftRange = range(1, leftItemCount);
+      const lastPage = leftRange[leftRange.length - 1]
+      const DR_Page: Page = {
+        ...DR,
+        pageNumber: currentPage + 2
+      }
 
-      return [...leftRange, DR, totalPageCount];
+      return [...leftRange, DR_Page, totalPageCountPage];
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
@@ -62,11 +87,23 @@ export const getPaginationRange = ({
         totalPageCount - rightItemCount + 1,
         totalPageCount
       );
-      return [firstPageIndex, DL, ...rightRange];
+      const DL_Page: Page = {
+        ...DL,
+        pageNumber: currentPage - 2
+      }
+      return [firstPageIndex, DL_Page, ...rightRange];
     }
 
     if (shouldShowLeftDots && shouldShowRightDots) {
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
-      return [firstPageIndex, DL, ...middleRange, DR, lastPageIndex];
+      const DL_Page: Page = {
+        ...DL,
+        pageNumber: currentPage - 2
+      }
+      const DR_Page: Page = {
+        ...DR,
+        pageNumber: currentPage + 2
+      }
+      return [firstPageIndex, DL_Page, ...middleRange, DR_Page, lastPageIndex];
     }
 };

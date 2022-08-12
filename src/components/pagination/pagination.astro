@@ -2,7 +2,6 @@
 import { getPaginationRange, DR, DL } from './pagination-logic';
 import { Page } from 'astro';
 import { PostInfo } from 'types/PostInfo';
-// import './pagination.scss';
 
 interface PaginationProps {
     page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>;
@@ -23,49 +22,36 @@ const paginationRange = getPaginationRange({
 
 const dontShowAnything = page.currentPage === 0 || paginationRange.length < 2;
 
-const getPageHref = (pageNum: number) => pageNum === 0 ? '/' : `/page/${pageNum}`;
+const getPageHref = (pageNum: number) => pageNum === 0 || pageNum === 1 ? '/' : `/page/${pageNum}`;
 
-let lastPage = paginationRange[paginationRange.length - 1];
+const lastPage = paginationRange[paginationRange.length - 1];
+const firstPage = paginationRange[0];
+
+const disablePrevious = page.currentPage === firstPage.pageNumber;
+const disableNext = page.currentPage === lastPage.pageNumber;
 ---
 
 {dontShowAnything ? null : <ul class={`pagination-container ${className}`}>
-    <li class={`pagination-item ${ page.currentPage===1 ? 'disabled' : '' }`}>
+    {!disablePrevious && <li class={`pagination-item`}>
         <a href={getPageHref(page.currentPage - 1)}>
-            <div class="arrow left" />
+            Previous
         </a>
-    </li>
+    </li>}
 
-    {paginationRange.map(pageNumber => {
-        const isSelected = pageNumber === page.currentPage;
-
-        if (pageNumber === DR) {
-            return <li class="pagination-item dots">
-                <a href={getPageHref(page.currentPage + 2)}>
-                    {DR.dots}
-                </a>
-            </li>;
-        }
-
-        if (pageNumber === DL) {
-            return <li class="pagination-item dots">
-                <a href={getPageHref(page.currentPage - 2)}>
-                    {DL.dots}
-                </a>
-            </li>;
-        }
-
+    {paginationRange.map(pageItem => {
+        const isSelected = pageItem.pageNumber === page.currentPage;
         return (
-        <li class={`pagination-item ${ isSelected ? 'selected' : '' }`}>
-            <a href={getPageHref(typeof pageNumber == 'number' ? pageNumber : 0)}>
-                {pageNumber}
-            </a>
-        </li>
+            <li class={`pagination-item ${ isSelected ? 'selected' : '' }`}>
+                <a href={getPageHref(pageItem.pageNumber)} aria-label={pageItem.ariaLabel}>
+                    {pageItem.display}
+                </a>
+            </li>
         );
     })}
 
-    <li class={`pagination-item ${ page.currentPage===lastPage ? 'disabled' : '' }`}>
+    {!disableNext && <li class={`pagination-item`}>
         <a href={getPageHref(page.currentPage + 1)}>
-            <div class="arrow right" />
+            Next
         </a>
-    </li>
+    </li>}
 </ul>}
