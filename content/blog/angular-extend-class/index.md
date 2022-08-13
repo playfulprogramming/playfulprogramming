@@ -18,13 +18,81 @@ Before we go on **please note that this method of extending lifecycle methods is
 
 
 
+
+
+
+
+
+
+
+
+
+
+```typescript
+@Component({
+  selector: 'base-component',
+  template: ''
+})
+class BaseComponent implements OnInit {
+  constructor(@Inject(DOCUMENT) public document: Document) {}
+  ngOnInit() {
+    console.log(document.title);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>Test</p>
+  `,
+})
+class AppComponent extends BaseComponent implements OnInit {
+  constructor(@Inject(DOCUMENT) public override document: Document) {
+    super(document);
+    console.log(document.body);
+  }
+}
+```
+
+
+
+> On further testing, it seems like you do not need to add the `implements` keyword on `AppComponent` in order for the `BaseComponent`'s `OnInit` to run. This makes little sense to me, since it's well known that Angular typically uses the `implements` keyword as a compiler flag to run the lifecycle methods.
+>
+> As such, and for code maintaince purposes, it's suggested to add the `implements` keyword on `AppComponent` regardless.
+
+
+
+
+
+
+
+# Simplifying Base Component Usage
+
+That said, as of Angular 9, you can remove the `selector` 
+
+```typescript
+@Component({
+  template: ''
+})
+class BaseComponent implements OnInit {
+  constructor(@Inject(DOCUMENT) public document: Document) {}
+  ngOnInit() {
+    console.log(document.title);
+  }
+}
+```
+
+
+
+
+
 One downside is that you must add a declaration of the `BaseComponent` into your root `NgModule`. Otherwise, you'll end up with the following error during compilation:
 
 ```
 BaseComponent is not declared in any Angular module 
 ```
 
-Luckily, since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead. This sidesteps the problem because `Injectable`s do not need to be declared:
+Luckily, [since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead](https://angular.io/guide/migration-injectable). This sidesteps the problem because `Injectable`s do not need to be declared:
 
 ```typescript
 @Injectable()
