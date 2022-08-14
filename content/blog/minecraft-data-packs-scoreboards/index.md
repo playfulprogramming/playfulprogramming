@@ -234,7 +234,7 @@ The `/tellraw` command can be used to send a formatted message in the game chat.
 `/tellraw` accepts an array of arguments which it concatenates together to form its message. To reference a score in this array, we can write an element with the structure `{"score":{"name":"<selector>","objective":"<objective>"}}`. For example, here is a command that prints the number of animals that the player (`@s`) has spawned:
 
 ```shell
-tellraw @a ["You have summoned ",{"score":{"name":"@s","objective":"fennifith.animals_spawned"}}," animals!"]
+tellraw @s ["You have summoned ",{"score":{"name":"@s","objective":"fennifith.animals_spawned"}}," animals!"]
 ```
 
 # Tracking statistics
@@ -289,7 +289,7 @@ In the previous article, you may have noticed the `/execute if score` subcommand
 If we have an entity selector, such as `@e[type=pig]`, we might want to assign a different scoreboard value to each entity. This can be done somewhat concisely using the `execute store result` subcommand...
 
 ```shell
-# create a dummy objective named "fennifith.animals_id"
+# create a dummy objective to store unique pig entity ids
 scoreboard objectives add fennifith.animals_id dummy
 
 # set a $counter variable to 0
@@ -306,38 +306,38 @@ For each pig entity, the `scoreboard add` command increments our `$counter` vari
 
 ## Challenge: Maximum value of a scoreboard
 
-Let's assume that the `fennifith.animals_spawned` scoreboard has several entries in it, and we want to find its highest score.
+Now that the `fennifith.animals_id` scoreboard has a few entries in it, how can we find the highest score it contains? (without using the `$counter` variable...)
 
-To accomplish this, we can use the `@a` selector to target every player in the game, and store the result in `$max fennifith.animals_spawned`.
+To accomplish this, we can use the `@e[type=pig]` selector to target every pig entity in the game, and store the result in `$max fennifith.animals_id`.
 
 <details>
 <summary>Hint</summary>
 
 Consider using the scoreboard operations that we have available, such as `>`. Remember that any command can also be used with `execute` to run it multiple times.
 
-You might want to set an initial value of `0` to `$max fennifith.animals_spawned`, then apply some operations to increase it to the highest value in the scoreboard.
+You might want to set an initial value of `0` to `$max fennifith.animals_id`, then apply some operations to increase it to the highest value in the scoreboard.
 
 </details>
 
 <details>
 <summary>Solution</summary>
 
-First, we set our `$max` variable to an initial value of 0. Then, we use an `execute` command to run through each player in `@a`. For each player, the `$max > @s` operation sets the value of `$max` only if the player's score is greater than its current value.
+First, we set our `$max` variable to an initial value of 0. Then, we use an `execute` command to run through each entity in `@e[type=pig]`. For each player, the `$max > @s` operation sets the value of `$max` only if the player's score is greater than its current value.
 
 ```shell
 # initially, set the max value to 0
-scoreboard players set $max fennifith.animals_spawned 0
+scoreboard players set $max fennifith.animals_id 0
 
-#       for every player in the game...
-#       |         run a scoreboard operation...
-#       |         |                            set $max in fennifith.animals_spawned...
-#       |         |                            |                              if the following value is larger...
-#       |         |                            |                              | to @s in fennifith.animals_spawned...
-#       |         |                            |                              | |
-execute as @a run scoreboard players operation $max fennifith.animals_spawned > @s fennifith.animals_spawned
+#       for every pig entity in the game...
+#       |               run a scoreboard operation...
+#       |               |                                set $max in fennifith.animals_id...
+#       |               |                                |                         if the following value is larger...
+#       |               |                                |                         | to @s in fennifith.animals_id.
+#       |               |                                |                         | |
+execute as @e[type=pig] run scoreboard players operation $max fennifith.animals_id > @s fennifith.animals_id
 ```
 
-This results in `$max` holding the highest value in the scoreboard - you can use the `scoreboard players get $max fennifith.animals_spawned` to check this!
+This results in `$max` holding the highest value in the scoreboard - you can use the command `scoreboard players get $max fennifith.animals_id` to confirm this!
 
 </details>
 
