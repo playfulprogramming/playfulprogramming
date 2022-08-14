@@ -137,15 +137,28 @@ const useWindowSize = () => {
 
 ## Angular
 
-// TODO: Write
+To share data setup between components in Angular, we'll create an instance of a class that can be provided by each consuming component.
 
-Class properties and DI
+Just as we covered [in the dependency injection chapter](/posts/dependency-injection#Providing-Basic-Values-with-Dependency-Injection), we'll use `Injectable` to create a class that can be provided to a component instance.
 
+```typescript
+@Injectable()
+class WindowSize {
+  height = window.innerHeight;
+  width = window.innerWidth;
+}
 
-
-While we mentioned that we won't be sharing data between mutliple components, Angular's services **do** share logic by default.
-
-
+@Component({
+  selector: 'my-app',
+  template: `
+    <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
+  `,
+  providers: [WindowSize],
+})
+class AppComponent {
+  constructor(public windowSize: WindowSize) {}
+}
+```
 
 ## Vue
 
@@ -219,7 +232,9 @@ const App = () => {
 
 ## Angular
 
-While Angular can _technically_ do this, it's messy, fragile, and overall considered a malpractice.
+While Angular can _technically_ create a base component that shares its lifecycle with a consuming component, it's messy, fragile, and overall considered a malpractice.
+
+<!-- Editor's note: This is done by creating a component class and extending it -->
 
 This is one of Angular's greatest weaknesses when it comes to Angular's code reuse stories.
 
@@ -588,16 +603,3 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 <!-- tabs:end -->
 
-
-
-
-
-
-
------
-
-
-
-
-
-- Angular Pipes

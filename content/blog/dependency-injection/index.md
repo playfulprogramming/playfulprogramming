@@ -1210,6 +1210,8 @@ class ParentComponent {
 }
 ```
 
+In Angular, these globally provided values are called "Services". They're often used to break up and move application logic out of components in order to be more widely re-used. 
+
 ## Vue
 
 The simplicity in Vue's dependency injection API continues! Providing a value at your application's root is just as simple in Vue as providing a value anywhere else in your codebase. Simply add a `provide` method call inside your root `App` component, and you're off the races.
@@ -1231,11 +1233,11 @@ provide('WELCOME_MESSAGE', welcomeMessage)
 
 <!-- tabs:end -->
 
-> It's worth mentioning that if you're extensively using dependency injection at the root of your application, you might be better served by tools purpose-built for this problem such as [Redux Toolkit](https://redux-toolkit.js.org/), [NgRx](https://ngrx.io/), and [Pinia](https://pinia.vuejs.org/) for React, Angular, and Vue respectively. 
+These globally provided values are also called "singletons". When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value, and mutate said value, it will update all of the consuming components.
+
+> It's worth mentioning that if you're extensively using global singletons in your application, you might be better served by tools purpose-built for this problem such as [Redux Toolkit](https://redux-toolkit.js.org/), [NgRx](https://ngrx.io/), and [Pinia](https://pinia.vuejs.org/) for React, Angular, and Vue respectively. 
 >
 > These tools offer much better performance and debugging than trying to hand-roll your own app-wide dependency injection tools. We'll touch more on the tools in our second book titled ["The Framework Field Guide: Ecosystem"](// TODO: Add link)
-
-
 
 # Overwriting Dependency Injection Specificity
 
