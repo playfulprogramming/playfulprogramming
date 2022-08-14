@@ -10,15 +10,341 @@
 }
 ---
 
+In recent years, we've seen frameworks like React and Vue develop utilities to share code that uses lifecycle methods. What does that look like?
+
+> I promise this article is about Angular, stick with me on this.
+
+For example, if you wanted to have a component that measures the browser window, you might write some code like so:
+
+<!-- tabs:start -->
+
+# React
+
+```jsx
+const App = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function onResize() {
+      setHeight(window.innerHeight);
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  
+  return <p>The window is {height}px high and {width}px wide</p>
+}
+```
+
+# Vue
+
+```vue
+<!-- App.vue -->
+<template>
+	<p>The window is {{height}}px high and {{width}}px wide</p>
+</template>
+
+<script setup>
+import {ref, onMounted, onUnMounted} from 'vue';
+  
+const height = ref(window.innerHeight);
+const width = ref(window.innerWidth);
+  
+function onResize() {
+  height.value = window.innerHeight;
+  width.value = window.innerWidth;
+}
+  
+onMounted(() => {
+  window.addEventListener('resize', onResize);
+});
+
+onUnMounted(() => {
+  window.removeEventListener('resize', onResize);
+});
+</script>
+```
+
+<!-- tabs:end -->
+
+> Like seeing equivical code between multiple frameworks at once? You might like the book I'm writing called ["The Framework Field Guide", which teaches React, Angular, and Vue all at once](https://framework.guide).
+
+This works great for a single component, but what if you want to reuse this `window` logic in more than one component?
+
+While you _could_ copy and paste the code between multiple components, or even export functions to setup and take down the event listeners, both of these methods are clunky. This is where the aforementioned Hooks and Composition APIs come into play for React and Vue respectively.
+
+<!-- tabs:start -->
+
+# React
+
+```jsx
+const useWindowSize = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function onResize() {
+      setHeight(window.innerHeight);
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+	return {height, width};  
+}
+
+const App = () => {
+  const {height, width} = useWindowSize();
+  return <p>The window is {height}px high and {width}px wide</p>
+}
+```
+
+# Vue
+
+```typescript
+// useWindowSize.ts
+import {ref, onMounted, onUnMounted} from 'vue';
+
+export const useWindowSize = () => {
+  const height = ref(window.innerHeight);
+  const width = ref(window.innerWidth);
+
+  function onResize() {
+    height.value = window.innerHeight;
+    width.value = window.innerWidth;
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', onResize);
+  });
+
+  onUnMounted(() => {
+    window.removeEventListener('resize', onResize);
+  });
+  
+  return {height, width};
+}
+```
+
+```vue
+<!-- App.vue -->
+<template>
+	<p>The window is {{height}}px high and {{width}}px wide</p>
+</template>
+
+<script setup>
+import {useWindowSize} from './useWindowSize';
+  
+const {height, width} = useWindowSize();
+</script>
+```
+
+<!-- tabs:end -->
+
+This enables us to use the `useWindowSize` logic in more than one component - lifecycle methods and all.
+
+But what about Angular? How can you reuse code logic, including lifecycle methods, without having to copy and paste code?
+
+Answer: A base component class that you extend. 
+
+>  Before we go on **please note that this method of extending lifecycle methods is generally frowned upon by Angular experts, as it's difficult to maintain and is often brittle. Instead, it's suggested to use a per-component dependency injection provided class instance with functions you call manually.**
+>
+> This article is mostly for educational purposes to explain _how_ to do this base component method. Make sure you have a good reason for doing so if you want to continue.
 
 
-Before we go on **please note that this method of extending lifecycle methods is generally frowned upon by Angular experts. Instead, it's suggested to use a per-component dependency injection provided class instance with functions you call manually.**
 
-> I write about this more in my [upcoming free book called "The Framework Field Guide", which teaches React, Angular, and Vue all at once](https://framework.guide).
+# What is an extension class, anyway?
+
+Let's work off of the assumption that you're familiar with what a class is, but may not be familiar with what class extension or inheretence is.
+
+Very quickly, let's assume that we have this JavaScript class:
+
+```javascript
+class HelloMessage {
+	message = "Hello";
+ 	name = "";
+  
+  constructor(name) {
+    this.name = name;
+  }
+  
+  sayHi() {
+    console.log(`${this.message} ${this.name}`);
+  }
+}
+
+const messageInstance = new HelloMessage("Corbin");
+messageInstance.sayHi(); // Will log "Hello Corbin"
+```
+
+This class has a few things going on:
+
+- Two properties: `message` and `name`
+- A constructor, with a parameter to set `name` to a new value
+- A method of `sayHi`
+
+When we create an "instance" of this class, it will in turn call the `constructor` and give us an object with all of the properties and methods associated with `HelloMessage` as an "instance" of that class.
+
+
+
+Now, let's say that we want to reuse the `sayHi` logic in multiple classes at a time.
+
+> Sounds like a familiar problem, doesn't it?
+
+We can create a class that provides the `sayHi` method:
+
+```javascript
+class BaseHelloMessage {
+	message = "Hey there!";
+ 	name = "";
+  
+  constructor(name) {
+    this.name = name;
+  }
+  
+  sayHi() {
+    console.log(`${this.message} ${this.name}`);
+  }
+}
+```
+
+Now, we can create multiple classes that have the same properties and methods as `BaseHelloMessage` by using `extends`:
+
+```javascript
+class HelloMessage extends BaseHelloMessage {
+}
+
+const helloMsgInstance = new HelloMessage("Corbin");
+// Inhereted from "BaseHelloMessage"
+helloMsgInstance.sayHi();
+
+class OtherHelloMessage extends BaseHelloMessage {
+}
+
+const otherHelloMsgInstance = new OtherHelloMessage("Corbin");
+// Also inhereted from "BaseHelloMessage"
+console.log(otherHelloMsgInstance.name);
+```
+
+But oh no! `message` is set to `"Hey there!"`, which isn't what we want for `OtherHelloMessage`. Instead, let's _overwrite_ the `message` property to be `"Hi-a!"`
+
+We can easily do this by using an "Override":
+
+```javascript
+// `sayHi` will output "Hey there! Corbin"
+class HelloMessage extends BaseHelloMessage {
+}
+
+// `sayHi` will output "Hi-a! Corbin"
+class OtherHelloMessage extends BaseHelloMessage {
+  message = "Hi-a!";
+}
+```
+
+This works in JavaScript, but TypeScript will give you a small warning:
+
+> TS4114: This member must have an 'override' modifier because it overrides a member in the base class 'BaseComponent'.
+
+To solve this, we can simply change `OtherHelloMessage` to be:
+
+```typescript
+// `sayHi` will output "Hi-a! Corbin"
+class OtherHelloMessage extends BaseHelloMessage {
+  override message = "Hi-a!";
+}
+```
+
+Okay, now that we understand class extensions, let's see how we can use them in Angular!
+
+# How to use basic class extension usage in Angular
+
+Let's assume that we're writing the following class in Angular, in order to get the window size and display it to the user:
+
+```typescript
+@Component({
+  template: `
+    <p>The window is {{height}}px high and {{width}}px wide</p>
+  `,
+  selector: 'app-root'
+})
+class AppComponent implements OnInit, OnDestroy {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  // This needs to be an arrow function
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+
+  ngOnInit() {
+    window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+```
+
+But still wanted to share this logic between mutliple components.
+
+Luckily, we can do this using a traditional Object-Oriented Programming (OOP) method: Create a base class that we extend later.
 
 
 
 
+
+
+
+
+
+
+
+Let's try this really quick and create a `BaseComponent` class:
+
+```typescript
+class BaseComponent implements OnInit, OnDestroy {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  // This needs to be an arrow function
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+
+  ngOnInit() {
+    window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>The window is {{height}}px high and {{width}}px wide</p>
+  `,
+})
+class AppComponent extends BaseComponent {
+}
+```
+
+This might look correct, but yeilds us a compiler error:
+
+```
+Error: src/app/app.module.ts:5:7 - error NG2007: Class is using Angular features but is not decorated. Please add an explicit Angular decorator.
+```
 
 
 
@@ -30,27 +356,36 @@ Before we go on **please note that this method of extending lifecycle methods is
 
 ```typescript
 @Component({
-  selector: 'base-component',
-  template: ''
+  template: '',
+  selector: 'base-component'
 })
-class BaseComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) public document: Document) {}
+class BaseComponent implements OnInit, OnDestroy {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  // This needs to be an arrow function, otherwise `this` will bind to the Window
+  // For more, see: https://twitter.com/crutchcorn/status/1530104879271645184
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+
   ngOnInit() {
-    console.log(document.title);
+    window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onResize);
   }
 }
 
 @Component({
   selector: 'app-root',
   template: `
-    <p>Test</p>
+    <p>The window is {{height}}px high and {{width}}px wide</p>
   `,
 })
-class AppComponent extends BaseComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) public override document: Document) {
-    super(document);
-    console.log(document.body);
-  }
+class AppComponent extends BaseComponent {
 }
 ```
 
@@ -66,7 +401,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 
 
-# Simplifying Base Component Usage
+# Simplifying Base Component Usage by using `@Injectable`
 
 That said, as of Angular 9, you can remove the `selector` 
 
@@ -162,7 +497,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 
 
-# Merging with Dependency Injection
+# Merging Base Classes with Dependency Injection
 
 
 
@@ -192,7 +527,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 
 
-## Overwriting `constructor`
+# Overwriting `constructor` behavior
 
 
 
