@@ -739,7 +739,7 @@ Now that we've learned how to extend base classes in Angular to share lifecycle 
 
 **You shouldn't use a base class in Angular**.
 
-<video title="A shocked sock puppet monkey" src="./shocked-monkey-gif.mp4"/>
+<video title="A shocked sock puppet monkey" src="./shocked-monkey-gif.mp4"></video>
 
 Why?
 
