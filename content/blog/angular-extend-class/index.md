@@ -152,15 +152,18 @@ This enables us to use the `useWindowSize` logic in more than one component - li
 
 But what about Angular? How can you reuse code logic, including lifecycle methods, without having to copy and paste code?
 
-Answer: A base component class that you extend. 
+Answer: A base component class that you extend.
 
->  Before we go on **please note that this method of extending lifecycle methods is generally frowned upon by Angular experts, as it's difficult to maintain and is often brittle. Instead, it's suggested to use a per-component dependency injection provided class instance with functions you call manually.**
->
-> This article is mostly for educational purposes to explain _how_ to do this base component method. Make sure you have a good reason for doing so if you want to continue.
+In this article we'll learn:
 
+- [What a base component class is](#base-class)
+- [How to use a base class in Angular](#base-class-angular)
+- [How to simplify Angular base class usage using `@Injectable`](#injectable)
+- [Overwriting lifecycle methods in Angular extended classes](#lifecycle-methods)
+- [Using dependency injection with your extended class](#dependency injection)
+- [Why you don't want to use base classes with Angular](#conclusion)
 
-
-# What is an extension class, anyway?
+# What is an extension class, anyway? {#base-class}
 
 Let's work off of the assumption that you're familiar with what a class is, but may not be familiar with what class extension or inheretence is.
 
@@ -263,7 +266,7 @@ class OtherHelloMessage extends BaseHelloMessage {
 
 Okay, now that we understand class extensions, let's see how we can use them in Angular!
 
-# How to use basic class extension usage in Angular
+# How to use basic class extension usage in Angular {#base-class-angular}
 
 Let's assume that we're writing the following class in Angular, in order to get the window size and display it to the user:
 
@@ -390,7 +393,7 @@ class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
 This is because it's easier to glance at the `AppComponent` code and see what lifecycle methods are used in the extended class or not.
 
-# Simplifying Base Component Usage by using `@Injectable`
+# Simplifying Base Component Usage by using `@Injectable` {#injectable}
 
 While our `BaseComponent` is extendible now, there's a new frustration that's arose as a result of using the `@Component`: We just registered a new component that can be accidentally used in another component's template.
 
@@ -448,11 +451,13 @@ class AppComponent extends BaseComponent {
 }
 ```
 
-# Overwriting Lifecycle Methods
+# Overwriting Lifecycle Methods {#lifecycle-methods}
 
-// TODO: Write
+If you recall from our quick overview of what a base class does, you can replace the base class implementation of both methods and properties.
 
-```
+The same is true for lifecycle methods, since they're just a type of method on the component class instance.
+
+```typescript
 @Injectable()
 class BaseComponent implements OnInit {
   ngOnInit() {
@@ -468,27 +473,158 @@ class BaseComponent implements OnInit {
 })
 class AppComponent extends BaseComponent implements OnInit {
   override ngOnInit() {
-    super.ngOnInit();
+    console.log("And I am the AppComponent")
   }
+}
+```
+
+The downside here, however, is that `ngOnInit` on `AppComponent` will no longer call the `BaseComponent`'s `ngOnInit` logic. After all, what if you wanted to simply _add_ behavior to `ngOnInit`, rather than replace it entirely?
+
+Luckily, we can use the `super` keyword to refer to the base class instance and call the original method inside of the overwritten method:
+
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>Test</p>
+  `,
+})
+class AppComponent extends BaseComponent implements OnInit {
+  override ngOnInit() {
+    // This will log `I AM BASE COMPONENT`
+  	super.ngOnInit();
+    console.log("And I am the AppComponent")
+  }
+}
+```
+
+# Use Dependency Injection with your extended class {#dependency-injection}
+
+While you're able to use global `window` variable in a browser environment, if you're attempting to use `window` in a [server-side rendered](/posts/what-is-ssr-and-ssg) Angular application, it will throw an error.
+
+```
+window is not defined
+```
+
+To solve this problem you can use Angular's dependency injection to inject an instance of `document` to `BaseComponent`, and get access to the `window` through `defaultView` that way:
+
+```javascript
+@Injectable()
+class BaseComponent implements OnInit, OnDestroy {
+  window!: Window;
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.window = document.defaultView!;
+  }
+}
+```
+
+Because of this, this is the recommended way to get access to both the `document` and `window` instance inside of an Angular component, even if it's a non-SSR app.
+
+Luckily, this works out-of-the-box with extended Angular component classes:
+
+```typescript
+import {Component, Inject, Injectable, OnDestroy, OnInit} from '@angular/core';
+import {DOCUMENT} from "@angular/common";
+
+@Injectable()
+class BaseComponent implements OnInit, OnDestroy {
+  window!: Window;
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.window = document.defaultView!;
+  }
+
+  height = this.window.innerHeight;
+  width = this.window.innerWidth;
+
+  // This needs to be an arrow function
+  onResize = () => {
+    this.height = this.window.innerHeight;
+    this.width = this.window.innerWidth;
+  }
+
+  ngOnInit() {
+    this.window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    this.window.removeEventListener('resize', this.onResize);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>The window is {{height}}px high and {{width}}px wide</p>
+  `,
+})
+class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 }
 ```
 
 
 
-# Use Dependency Injection with your extended class
+## Overwriting `constructor` behavior {#overwriting-constructors}
 
-// TODO: Write
+When working with class extension, regardless of being used in Angular or in JavaScript itself, you need to call `super()` when trying to overwrite a constructor:
+
+```javascript
+class BaseClass {
+  name = "";
+  constructor() {
+    name = "Frank";
+  }
+}
+
+class AppClass extends BaseClass {
+	constructor() {
+		// This is required
+    super();
+	}
+}
+```
+
+Without calling `super`, you'll get the following error:
+
+```
+Uncaught ReferenceError: must call super constructor before using 'this' in derived class constructor
+```
+
+Likewise, you need to call `super` when overwriting a class component's `constructor` as well.
 
 ```typescript
-import {Component, Inject, Injectable, NgModule, OnInit} from '@angular/core';
-import {DOCUMENT} from "@angular/common";
-
 @Injectable()
-class BaseComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-  ngOnInit() {
-    console.log(document.title);
+class BaseComponent {
+  name = "";
+  constructor() {
+    this.name = "Kevin";
   }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>{{name}}</p>
+  `,
+})
+class AppComponent extends BaseComponent {
+  constructor() {
+    super();
+    this.name = "Corbin";
+  }
+}
+```
+
+This water gets muddied when using dependency injection in a base component that utilizes dependency injection.
+
+```typescript
+@Injectable()
+class BaseComponent {
+  window!: Window;
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.window = document.defaultView!;
+  }
+
+  // ...
 }
 
 @Component({
@@ -497,25 +633,22 @@ class BaseComponent implements OnInit {
     <p>Test</p>
   `,
 })
-class AppComponent extends BaseComponent implements OnInit {
+class AppComponent extends BaseComponent {
+  // This code doesn't work. Read on to learn why
+  constructor() {
+    super();
+  }
 }
 ```
 
-
-
-
-
-# Overwriting `constructor` behavior
-
-// TODO: Write
+As the `super` method needs to be passed with the same arguments from dependenct injection, least we see the following error:
 
 ```
 TS2554: Expected 1 arguments, but got 0.
-
-app.module.ts(7, 15): An argument for 'document' was not provided.
+  app.component.ts(8, 15): An argument for 'document' was not provided.
 ```
 
-
+To solve this, we need to pass `document` from a new instance of `AppComponent`'s dependency injection to `BaseComponent`:
 
 ```typescript
 @Component({
@@ -533,7 +666,9 @@ class AppComponent extends BaseComponent implements OnInit {
 }
 ```
 
-Similar to how we had to add `override` to our `AppComponent`'s lifecycle methods, we need to do the same with our constructor. Otherwise, we'll see the following error:
+But alas, this does not work!
+
+Similar to how we had to add `override` to our `AppComponent`'s lifecycle methods, we need to do the same with our constructor. Otherwise, we'll get this error:
 
 ```
 TS4115: This parameter property must have an 'override' modifier because it overrides a member in base class 'BaseComponent'.
@@ -564,7 +699,7 @@ class AppComponent extends BaseComponent implements OnInit {
 }
 ```
 
-While this might appear to work at first, you'll quickly find a compiler error with the following code:
+Something worth mentioning is that this code _still_ doesn't work. You'll see a compiler error with the following code:
 
 ```
 TS2415: Class 'AppComponent' incorrectly extends base class 'BaseComponent'.
@@ -597,3 +732,26 @@ class AppComponent extends BaseComponent implements OnInit {
 ```
 
 > Remember to keep your `override` property in the `AppComponent` `constructor`, otherwise you'll have errors.
+
+# Why you don't want to extend Angular base classes {#conclusion}
+
+Now that we've learned how to extend base classes in Angular to share lifecycle methods, allow me to flip the script:
+
+**You shouldn't use a base class in Angular**.
+
+<video title="A shocked sock puppet monkey" src="./shocked-monkey-gif.mp4"/>
+
+Why?
+
+Well, it's often sited by Angular experts that using a base class is brittle and difficult to maintain.
+
+For example, let's say that you have a base component that doesn't use dependency injection, but then suddenly need to add dependency injection. What do you do?
+
+Well, you'd have to refactor every instance that you extended that class.
+
+Similarly, if you add a lifecycle method that you want to overwrite in the future, there can be someheadaches depending in which order you do things in.
+
+Ultimately, it's best to use a per-component injected class that has `setup` and `cleanup` methods that you call manually.
+
+Want to learn how to do that? I'm writing [a free book called "The Framework Field Guide" that teaches you how to do this and more in Angular, React, and Vue all at once](https://framework.guide).
+
