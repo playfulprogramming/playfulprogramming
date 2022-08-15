@@ -294,19 +294,9 @@ class AppComponent implements OnInit, OnDestroy {
 }
 ```
 
-But still wanted to share this logic between mutliple components.
+But still wanted to share this `window` size logic between multiple components.
 
 Luckily, we can do this using a traditional Object-Oriented Programming (OOP) method: Create a base class that we extend later.
-
-
-
-
-
-
-
-
-
-
 
 Let's try this really quick and create a `BaseComponent` class:
 
@@ -346,13 +336,7 @@ This might look correct, but yeilds us a compiler error:
 Error: src/app/app.module.ts:5:7 - error NG2007: Class is using Angular features but is not decorated. Please add an explicit Angular decorator.
 ```
 
-
-
-
-
-
-
-
+To fix this, we simply need to follow the instructions of the TypeScript compiler warning. Because `BaseComponent` could be almost considered to be a component, let's create it as an instance of such:
 
 ```typescript
 @Component({
@@ -389,39 +373,47 @@ class AppComponent extends BaseComponent {
 }
 ```
 
+This solves the error and now `AppComponent` tracks resizing as-expected!
 
+You'll notice, however, that while `BaseComponent` does have the `implements` keyword, the `AppComponent` does not. While it's seemingly not a _requirement_ to have the `implements` keyword on `AppComponent` in modern versions of Angular, it's still highly suggested.
 
-> On further testing, it seems like you do not need to add the `implements` keyword on `AppComponent` in order for the `BaseComponent`'s `OnInit` to run. This makes little sense to me, since it's well known that Angular typically uses the `implements` keyword as a compiler flag to run the lifecycle methods.
->
-> As such, and for code maintaince purposes, it's suggested to add the `implements` keyword on `AppComponent` regardless.
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>The window is {{height}}px high and {{width}}px wide</p>
+  `,
+})
+class AppComponent extends BaseComponent implements OnInit, OnDestroy {
+}
+```
 
-
-
-
-
-
+This is because it's easier to glance at the `AppComponent` code and see what lifecycle methods are used in the extended class or not.
 
 # Simplifying Base Component Usage by using `@Injectable`
 
-That said, as of Angular 9, you can remove the `selector` 
+While our `BaseComponent` is extendible now, there's a new frustration that's arose as a result of using the `@Component`: We just registered a new component that can be accidentally used in another component's template.
+
+For example, if we had a template that looked like:
+
+```html
+<base-component></base-component>
+```
+
+We wouldn't get a compiler error, but would have a loose bit of code running needlessly. Ideally we'd like to have `BaseComponent` still able to use lifecycle methods without registering a new template tag.
+
+Fortunately, that's possible, as of Angular 9; simply remove `BaseComponent`'s `@Component` `selector` property and it won't register a new tag.
 
 ```typescript
 @Component({
   template: ''
 })
-class BaseComponent implements OnInit {
-  constructor(@Inject(DOCUMENT) public document: Document) {}
-  ngOnInit() {
-    console.log(document.title);
-  }
+class BaseComponent implements OnInit, OnDestroy {
+  // ...
 }
 ```
 
-
-
-
-
-One downside is that you must add a declaration of the `BaseComponent` into your root `NgModule`. Otherwise, you'll end up with the following error during compilation:
+That solves one problem, but still leaves one present with using `@Component`: you must add a declaration of the `BaseComponent` into an `NgModule`. Otherwise, you'll end up with the following error during compilation:
 
 ```
 BaseComponent is not declared in any Angular module 
@@ -431,24 +423,14 @@ Luckily, [since Angular 10 you can now use `@Injectable` to declare your `BaseCo
 
 ```typescript
 @Injectable()
-class BaseComponent implements OnInit {
-  ngOnInit() {
-    console.log('I AM BASE COMPONENT');
-  }
+class BaseComponent implements OnInit, OnDestroy {
+  // ...
 }
 ```
 
+You might expect there to be some migration of `AppComponent` when you're using `@Injectable` instead of `@Component` for the `BaseComponent`, but alas there is not.
 
-
-
-
-
-
----
-
-
-
-```
+```typescript
 @Injectable()
 class BaseComponent implements OnInit {
   ngOnInit() {
@@ -466,13 +448,9 @@ class AppComponent extends BaseComponent {
 }
 ```
 
-
-
-----
-
-
-
 # Overwriting Lifecycle Methods
+
+// TODO: Write
 
 ```
 @Injectable()
@@ -497,9 +475,9 @@ class AppComponent extends BaseComponent implements OnInit {
 
 
 
-# Merging Base Classes with Dependency Injection
+# Use Dependency Injection with your extended class
 
-
+// TODO: Write
 
 ```typescript
 import {Component, Inject, Injectable, NgModule, OnInit} from '@angular/core';
@@ -529,7 +507,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 # Overwriting `constructor` behavior
 
-
+// TODO: Write
 
 ```
 TS2554: Expected 1 arguments, but got 0.
