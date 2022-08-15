@@ -1,8 +1,8 @@
 ---
 {
     title: "Share Lifecycle Methods in Angular using Base Classes",
-    description: "",
-    published: '2022-09-13T22:12:03.284Z',
+    description: "Sharing code between components in Angular is TOUGH. Here's one way you can do so by utilizing base components that you extend - and why you shouldn't use them.",
+    published: '2022-09-15T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['angular', 'javascript', 'webdev'],
     attached: [],
