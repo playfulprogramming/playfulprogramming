@@ -59,9 +59,9 @@ scoreboard players set @s fennifith.animals_spawned 1
 
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 1     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 1                         |
 
 </div>
 
@@ -76,9 +76,9 @@ scoreboard players add @s fennifith.animals_spawned 2
 ```
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
 
 </div>
 
@@ -86,7 +86,7 @@ scoreboard players add @s fennifith.animals_spawned 2
 
 In certain cases, we want to store values that aren't player specific, but instead affect our entire data pack. For example, we might want to track the total number of animals spawned in our world in addition to the number of animals for each player.
 
-We can do this by referencing a *nonexistent player*. The scoreboard will include an entry for any entity or name, regardless of whether it actually exists in our world - so by using an invalid name as the target, we can reference it globally from anywhere in our code.
+We can do this by referencing a *nonexistent player*. The scoreboard will include an entry for any entity or name, regardless of whether it actually exists in our world - so by using a name that will never exist, we can reference it globally from anywhere in our code.
 
 ```shell
 scoreboard players set $global fennifith.animals_spawned 4
@@ -94,14 +94,16 @@ scoreboard players set $global fennifith.animals_spawned 4
 
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
-| $global   | 4     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
+| $global   | 4                         |
 
 </div>
 
-If we didn't include the `$` before our variable name in this snippet, our code would still work! However, what would happen if a player registered the username `global` and tried to use our data pack?
+This trick works because `$` is not a character that Minecraft players can register in their username. As such, we can ensure that the `$global` entry will never be used by any actual player or entity in the world.
+
+If we didn't include the `$` before our variable name in this snippet, our code would still work! However, what would happen if a player registered the username `global` and tried to use our data pack? Their score would use the same entry as our global variable, and both would attempt to store their values in the same place - causing any logic we write to appear broken.
 
 Since the `$` is an invalid username character, we can safely use it for global values without that possibility.
 
@@ -123,11 +125,11 @@ execute store result score $global_2 fennifith.animals_spawned run scoreboard pl
 
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
-| $global   | 4     |
-| $global_2 | 4     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
+| $global   | 4                         |
+| $global_2 | 4                         |
 
 </div>
 
@@ -151,10 +153,11 @@ scoreboard players operation $global fennifith.animals_spawned = @s fennifith.an
 ```
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
-| $global   | 3     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
+| $global   | 3                         |
+| $global_2 | 4                         |
 
 </div>
 
@@ -173,14 +176,17 @@ scoreboard players operation $global fennifith.animals_spawned += @s fennifith.a
 ```
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
-| $global   | 6     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
+| $global   | 6                         |
+| $global_2 | 4                         |
 
 </div>
 
-**Note:** the `operation` subcommand only runs on scoreboard entries, so we cannot pass constant values to it. For example, if we want to divide our `$global` entry by two, we need to write the divisor value to another temporary scoreboard first.
+The `operation` subcommand only runs on scoreboard entries, so we cannot pass constant values to it. `scoreboard players operation $global fennifith.animals_spawned /= 2` is, unfortunately, not a command that the game will run.
+
+If we want to divide our `$global` entry by two, we need to write the divisor value to another temporary scoreboard first.
 
 ```shell
 # set the "$divisor" variable to "2"
@@ -191,13 +197,16 @@ scoreboard players operation $global fennifith.animals_spawned /= $divisor fenni
 
 <div style="margin-top: -2em;">
 
-| Entry     | Value |
-| --------- | ----- |
-| fennifith | 3     |
-| $global   | 3     |
-| $divisor  | 2     |
+| Entry     | fennifith.animals_spawned |
+| --------- | ------------------------- |
+| fennifith | 3                         |
+| $divisor  | 2                         |
+| $global   | 3                         |
+| $global_2 | 4                         |
 
 </div>
+
+This results in `$global`, which was previously `6`, being divided by `2` - as such, its value is now `3`.
 
 Here is a list of all the other operations that can be performed with this command.
 `lhs` denotes the *left hand side* of the operation (the scoreboard entry being written to), while `rhs` denotes the *right hand side*.
@@ -259,6 +268,8 @@ For example, we can create the scoreboard above to track the number of times a "
 We can use this behavior in our `tick.mcfunction` (which runs on every game tick) to detect when a player has used the carrot on a stick. We'll first set the value for all players to 0, then check the scoreboard on every tick to see if it has increased. If it has, we know that the item has been used, and can reset it to 0 to detect it again.
 
 In the previous article, you may have noticed the `/execute if score` subcommand for checking scoreboards in a condition. We can use this along with a *number range* to conditionally execute our function if the scoreboard has a value >= 1.
+
+If it does, we'll run the `fennifith:animals/spawn` function - which was created in the previous article - to spawn a group of animals.
 
 1. We first need to create our scoreboard when our data pack is loaded by the game - so we'll place the following line in our `load.mcfunction`:
 	```shell
