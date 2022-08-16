@@ -1,6 +1,6 @@
 ---
 {
-    title: "Share Lifecycle Methods in Angular using Base Classes",
+    title: "How to Share Lifecycle Methods Between Components in Angular",
     description: "Sharing code between components in Angular is TOUGH. Here's one way you can do so by utilizing base components that you extend - and why you shouldn't use them.",
     published: '2022-09-15T22:12:03.284Z',
     authors: ['crutchcorn'],
@@ -158,10 +158,10 @@ In this article we'll learn:
 
 - [What a base component class is](#base-class)
 - [How to use a base class in Angular](#base-class-angular)
-- [How to simplify Angular base class usage using `@Injectable`](#injectable)
+- [How to simplify Angular base class usage using an abstract class](#abstract-class)
 - [Overwriting lifecycle methods in Angular extended classes](#lifecycle-methods)
 - [Using dependency injection with your extended class](#dependency injection)
-- [Why you don't want to use base classes with Angular](#conclusion)
+- [Why you don't want to use base classes with Angular](#dont-extend-base-classes)
 
 # What is an extension class, anyway? {#base-class}
 
@@ -333,7 +333,7 @@ class AppComponent extends BaseComponent {
 }
 ```
 
-This might look correct, but yeilds us a compiler error:
+This might look correct, but yields us a compiler error:
 
 ```
 Error: src/app/app.module.ts:5:7 - error NG2007: Class is using Angular features but is not decorated. Please add an explicit Angular decorator.
@@ -378,7 +378,7 @@ class AppComponent extends BaseComponent {
 
 This solves the error and now `AppComponent` tracks resizing as-expected!
 
-You'll notice, however, that while `BaseComponent` does have the `implements` keyword, the `AppComponent` does not. While it's seemingly not a _requirement_ to have the `implements` keyword on `AppComponent` in modern versions of Angular, it's still highly suggested.
+You'll notice, however, that while `BaseComponent` does have the `implements` keyword, the `AppComponent` does not. While it's seemingly not a _requirement_ to have the `implements` keyword on `AppComponent` in modern versions of Angular, I'd personally still highly suggested.
 
 ```typescript
 @Component({
@@ -393,7 +393,7 @@ class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
 This is because it's easier to glance at the `AppComponent` code and see what lifecycle methods are used in the extended class or not.
 
-# Simplifying Base Component Usage by using `@Injectable` {#injectable}
+# Simplify Base Component Usage by using an abstract class {#abstract-class}
 
 While our `BaseComponent` is extendible now, there's a new frustration that's arose as a result of using the `@Component`: We just registered a new component that can be accidentally used in another component's template.
 
@@ -422,7 +422,20 @@ That solves one problem, but still leaves one present with using `@Component`: y
 BaseComponent is not declared in any Angular module 
 ```
 
-Luckily, [since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead](https://angular.io/guide/migration-injectable). This sidesteps the problem because `Injectable`s do not need to be declared:
+To solve this, we can either import `BaseComponent` in an `NgModule` or, alternatively, mark `BaseComponent` as an abstract class:
+
+```typescript
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit, OnDestroy {
+  // ...
+}
+```
+
+## `@Injectable` is an alternative of an abstract class {#injectable}
+
+[Since Angular 10 you can now use `@Injectable` to declare your `BaseComponent` instead](https://angular.io/guide/migration-injectable). This sidesteps the problem of having to mark a component `class` as abstract because even without it `Injectable`s do not need to be declared in a module:
 
 ```typescript
 @Injectable()
@@ -451,6 +464,10 @@ class AppComponent extends BaseComponent {
 }
 ```
 
+That said, [while using `@Injectable` is explicitly supported](https://github.com/angular/angular/issues/41229#issuecomment-800310757), it's very hacky to use this in place of `@Component`. This is because Angular's `@Injectable`s do not support lifecycle methods without a `Component` that extends it.
+
+As such, we'll be sticking to the `abstract` class solution.
+
 # Overwriting Lifecycle Methods {#lifecycle-methods}
 
 If you recall from our quick overview of what a base class does, you can replace the base class implementation of both methods and properties.
@@ -458,8 +475,10 @@ If you recall from our quick overview of what a base class does, you can replace
 The same is true for lifecycle methods, since they're just a type of method on the component class instance.
 
 ```typescript
-@Injectable()
-class BaseComponent implements OnInit {
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit {
   ngOnInit() {
     console.log('I AM BASE COMPONENT');
   }
@@ -509,8 +528,10 @@ window is not defined
 To solve this problem you can use Angular's dependency injection to inject an instance of `document` to `BaseComponent`, and get access to the `window` through `defaultView` that way:
 
 ```javascript
-@Injectable()
-class BaseComponent implements OnInit, OnDestroy {
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit, OnDestroy {
   window!: Window;
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.window = document.defaultView!;
@@ -526,8 +547,10 @@ Luckily, this works out-of-the-box with extended Angular component classes:
 import {Component, Inject, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 
-@Injectable()
-class BaseComponent implements OnInit, OnDestroy {
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit, OnDestroy {
   window!: Window;
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.window = document.defaultView!;
@@ -592,8 +615,10 @@ Uncaught ReferenceError: must call super constructor before using 'this' in deri
 Likewise, you need to call `super` when overwriting a class component's `constructor` as well.
 
 ```typescript
-@Injectable()
-class BaseComponent {
+@Component({
+  template: ''
+})
+abstract class BaseComponent {
   name = "";
   constructor() {
     this.name = "Kevin";
@@ -617,8 +642,10 @@ class AppComponent extends BaseComponent {
 This water gets muddied when using dependency injection in a base component that utilizes dependency injection.
 
 ```typescript
-@Injectable()
-class BaseComponent {
+@Component({
+  template: ''
+})
+abstract class BaseComponent {
   window!: Window;
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.window = document.defaultView!;
@@ -677,8 +704,10 @@ TS4115: This parameter property must have an 'override' modifier because it over
 Let's update the code to show what that might look like:
 
 ```typescript
-@Injectable()
-class BaseComponent implements OnInit {
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document) {}
   ngOnInit() {
     console.log(document.title);
@@ -709,8 +738,10 @@ TS2415: Class 'AppComponent' incorrectly extends base class 'BaseComponent'.
 To solve this, we simply need to make our `BaseComponent`'s `constructor` properties `public` instead of `private`:
 
 ```typescript
-@Injectable()
-class BaseComponent implements OnInit {
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit {
   constructor(@Inject(DOCUMENT) public document: Document) {}
   ngOnInit() {
     console.log(document.title);
@@ -733,7 +764,7 @@ class AppComponent extends BaseComponent implements OnInit {
 
 > Remember to keep your `override` property in the `AppComponent` `constructor`, otherwise you'll have errors.
 
-# Why you don't want to extend Angular base classes {#conclusion}
+# Why you don't want to extend Angular base classes {#dont-extend-base-classes}
 
 Now that we've learned how to extend base classes in Angular to share lifecycle methods, allow me to flip the script:
 
@@ -751,7 +782,61 @@ Well, you'd have to refactor every instance that you extended that class.
 
 Similarly, if you add a lifecycle method that you want to overwrite in the future, there can be someheadaches depending in which order you do things in.
 
-Ultimately, it's best to use a per-component injected class that has `setup` and `cleanup` methods that you call manually.
+There are more than a few ways to write this code in a different, more stable, way.
 
-Want to learn how to do that? I'm writing [a free book called "The Framework Field Guide" that teaches you how to do this and more in Angular, React, and Vue all at once](https://framework.guide).
+## Fixing things the right way {#the-fix}
 
+There is a better way to write this code differently today that solve the problems of maintainability a bit better.
+
+Namely, using an `@Injectable` class that's provided on a per-class level enables you to have explicit `setup` and `takedown` functions that you call manually:
+
+```typescript
+@Injectable()
+class WindowSizeService {
+  height = window.innerHeight;
+  width = window.innerWidth;
+ 
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+
+  addListeners() {
+    window.addEventListener('resize', this.onResize);
+  }
+
+  removeListeners() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
+  `,
+  providers: [WindowSizeService]
+})
+class AppComponent implements OnInit, OnDestroy {
+  constructor(public windowSize: WindowSizeService) {
+  }
+
+  ngOnInit() {
+    this.windowSize.addListeners();
+  }
+
+  ngOnDestroy() {
+    this.windowSize.removeListeners();
+  }
+}
+```
+
+# Conclusion
+
+And that's it! I hope this has been an insightful look into how you can extend component logic.
+
+And this isn't an area of stagnation within Angular - they're introducing new functionality to share component logic using [the upcoming `hostDirectives` API](https://github.com/angular/angular/pull/46868).
+
+Hey, while you're here - do you want to learn more Angular in-depth like this? Maybe you've been working in Angular for some time and want to learn React or Vue, but not start from scratch?
+
+Check out [my free book, "The Framework Field Guide", that teaches React, Angular, and Vue all at the same time.](https://framework.guide).
