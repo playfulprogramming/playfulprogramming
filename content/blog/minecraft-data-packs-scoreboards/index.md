@@ -2,7 +2,7 @@
 {
 	title: "Minecraft Data Pack Programming: Scoreboard Usage",
 	description: "Learn data pack development in Minecraft - using player scoreboards, variables, and operations!",
-	published: '2022-08-12T23:20:03.284Z',
+	published: '2022-08-13T23:20:03.284Z',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
@@ -22,7 +22,7 @@ In many data packs, you might find a need to store information that can't be dir
 
 ## Creating a scoreboard
 
-We can use the subcommands of `/scoreboard objectives` to create and modify any scoreboards that we use. Let's try making a scoreboard to track the number of animals that each player has spawned through our data pack.
+We can use the subcommands of `/scoreboard objectives` to create and modify scoreboards in a world. Let's try making a scoreboard to track the number of animals that each player has spawned through our data pack.
 
 ```shell
 scoreboard objectives add fennifith.animals_spawned dummy
@@ -38,44 +38,45 @@ Players often want to have multiple data packs installed in their world at once.
 
 To accomplish this, it is common to "namespace" your scoreboard names within your data pack by adding a certain prefix. Here, I've started my scoreboard names with `fennifith.animals` to indicate that they belong to my data pack.
 
-### Creating / removing Scoreboards
+### Creating & removing scoreboards
 
-Typically, all data packs will create any scoreboards they need in a `load.mcfunction` function, connected to the `#minecraft:load` function tag.
+Typically, you'll want to create any scoreboards you need in a `load.mcfunction` function, connected to the `#minecraft:load` function tag.
 
 Some data packs additionally create an `uninstall.mcfunction` file, not connected to any function tag, that can be executed to remove all of the data pack's scoreboard objectives. This is useful for when a player wants to remove your data pack from their world without leaving any of its behavior behind.
 
 ## Setting values
 
-We can set values of a scoreboard using the `/scoreboard players` subcommands. Most of these subcommands accept two arguments for the `<targets>` and `<objective>` of the score to change. For example, the following command will set our entry in the `fennifith.animals_spawned` table to `1`.
+We can set values of a scoreboard using the `/scoreboard players` subcommands. Most of these subcommands accept two arguments for the `<selector>` and `<objective>` of the score to change. For example, the following command will set our entry in the `fennifith.animals_spawned` table to `1`.
 
 ```shell
-#                     set our scoreboard entry
-#                     |   use the entry of the current player
-#                     |   |                    use "1" as the value to add
-#                     |   |                    |
-scoreboard objectives set @s fennifith.animals_spawned 1
+#                  set our scoreboard entry
+#                  |   use the entry of the current player ("fennifith")
+#                  |   |  modify the scoreboard named "fennifith.animals_spawned"
+#                  |   |  |                         set "1" as the value of this entry
+#                  |   |  |                         |
+scoreboard players set @s fennifith.animals_spawned 1
 ```
 
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 1     |
 
 </div>
 
-If we want to add to this value, we can use the `scoreboard objectives add` subcommand instead. Likewise, `scoreboard objectives remove` will subtract a value from our scoreboard.
+If we want to add to this value, we can use the `scoreboard players add` subcommand instead. Likewise, `scoreboard players remove` will subtract a value from our scoreboard.
 
 ```shell
-#                     add a number to the current scoreboard value
-#                     |   use the entry of the current player
-#                     |   |                    use "2" as the number to add
-#                     |   |                    |
-scoreboard objectives add @s fennifith.animals_spawned 2
+#                  add a number to the current scoreboard value
+#                  |   use the entry of the current player
+#                  |   |                    use "2" as the number to add
+#                  |   |                    |
+scoreboard players add @s fennifith.animals_spawned 2
 ```
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 
@@ -83,17 +84,17 @@ scoreboard objectives add @s fennifith.animals_spawned 2
 
 ### Using global entries
 
-While these entries allow us to store player-specific numbers, we might also want a value that affects our entire data pack. For example, we might want to track the total number of animals spawned in our world in addition to the number of animals for each player.
+In certain cases, we want to store values that aren't player specific, but instead affect our entire data pack. For example, we might want to track the total number of animals spawned in our world in addition to the number of animals for each player.
 
 We can do this by referencing a *nonexistent player*. The scoreboard will include an entry for any entity or name, regardless of whether it actually exists in our world - so by using an invalid name as the target, we can reference it globally from anywhere in our code.
 
 ```shell
-scoreboard objectives set $global fennifith.animals_spawned 4
+scoreboard players set $global fennifith.animals_spawned 4
 ```
 
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 | $global   | 4     |
@@ -122,7 +123,7 @@ execute store result score $global_2 fennifith.animals_spawned run scoreboard pl
 
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 | $global   | 4     |
@@ -150,7 +151,7 @@ scoreboard players operation $global fennifith.animals_spawned = @s fennifith.an
 ```
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 | $global   | 3     |
@@ -172,7 +173,7 @@ scoreboard players operation $global fennifith.animals_spawned += @s fennifith.a
 ```
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 | $global   | 6     |
@@ -190,7 +191,7 @@ scoreboard players operation $global fennifith.animals_spawned /= $divisor fenni
 
 <div style="margin-top: -2em;">
 
-| Target    | Value |
+| Entry     | Value |
 | --------- | ----- |
 | fennifith | 3     |
 | $global   | 3     |
