@@ -774,7 +774,7 @@ Now that we've learned how to extend base classes in Angular to share lifecycle 
 
 Why?
 
-Well, it's often sited by Angular experts that using a base class is brittle and difficult to maintain.
+Well, it's often cited by Angular experts that using a base class is brittle and difficult to maintain.
 
 For example, let's say that you have a base component that doesn't use dependency injection, but then suddenly need to add dependency injection. What do you do?
 
