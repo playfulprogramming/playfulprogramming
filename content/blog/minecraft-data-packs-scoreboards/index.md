@@ -86,7 +86,7 @@ scoreboard players add @s fennifith.animals_spawned 2
 
 In certain cases, we want to store values that aren't player specific, but instead affect our entire data pack. For example, we might want to track the total number of animals spawned in our world in addition to the number of animals for each player.
 
-We can do this by referencing a *nonexistent player*. The scoreboard will include an entry for any entity or name, regardless of whether it actually exists in our world - so by using a name that will never exist, we can reference it globally from anywhere in our code.
+We can do this by referencing a *nonexistent player*. The scoreboard will include an entry for any entity or name, regardless of whether it actually exists in our world — so by using a name that will never exist, we can reference it globally from anywhere in our code.
 
 ```shell
 scoreboard players set $global fennifith.animals_spawned 4
@@ -103,13 +103,13 @@ scoreboard players set $global fennifith.animals_spawned 4
 
 This trick works because `$` is not a character that Minecraft players can register in their username. As such, we can ensure that the `$global` entry will never be used by any actual player or entity in the world.
 
-If we didn't include the `$` before our variable name in this snippet, our code would still work! However, what would happen if a player registered the username `global` and tried to use our data pack? Their score would use the same entry as our global variable, and both would attempt to store their values in the same place - causing any logic we write to appear broken.
+If we didn't include the `$` before our variable name in this snippet, our code would still work! However, what would happen if a player registered the username `global` and tried to use our data pack? Their score would use the same entry as our global variable, and both would attempt to store their values in the same place — causing any logic we write to appear broken.
 
 Since the `$` is an invalid username character, we can safely use it for global values without that possibility.
 
 ### Using the "/execute store" subcommand
 
-Each Minecraft command provides a "success" and a "result" value which specify if the command was successful - and if so, what value it returned.
+Each Minecraft command provides a "success" and a "result" value which specify if the command was successful — and if so, what value it returned.
 
 The `execute store` subcommand can be used to designate a place to store these values, such as a scoreboard entry.
 
@@ -206,7 +206,7 @@ scoreboard players operation $global fennifith.animals_spawned /= $divisor fenni
 
 </div>
 
-This results in `$global`, which was previously `6`, being divided by `2` - as such, its value is now `3`.
+This results in `$global`, which was previously `6`, being divided by `2` — as such, its value is now `3`.
 
 Here is a list of all the other operations that can be performed with this command.
 `lhs` denotes the *left hand side* of the operation (the scoreboard entry being written to), while `rhs` denotes the *right hand side*.
@@ -247,11 +247,75 @@ The `/tellraw` command can be used to send a formatted message in the game chat.
 tellraw @s ["You have summoned ",{"score":{"name":"@s","objective":"fennifith.animals_spawned"}}," animals!"]
 ```
 
+# Conditions with scoreboard values
+
+What if we have a command that we only want to run if the player has a certain score?
+
+In the previous article, you may have noticed that `/execute` has an additional `if score` subcommand. We can use this to check our scoreboard values as a condition!
+
+## Comparing values between scoreboards
+
+With the `<`, `<=`, `=`, `>=`, or `>` symbols, we can use this command to compare values between different scoreboard entries. For example, the following command compares a player's score between the `fennifith.animals_spawned` and `fennifith.berries_eaten` scoreboards...
+
+```shell
+#       check a score condition...
+#       |        if the player's "fennifith.animals_spawned" score...
+#       |        |                            is greater than...
+#       |        |                            | the player's "fennifith.berries_eaten" score...
+#       |        |                            | |                              send the player a message!
+#       |        |                            | |                              |
+execute if score @s fennifith.animals_spawned > @s fennifith.berries_eaten run tellraw @s "You've spawned more animals than berries!"
+```
+
+In this example, if the player's score for `fennifith.animals_spawned` is greater than `fennifith.berries_eaten`, the condition will be valid — and it will run the `tellraw` command that follows it.
+
+## Comparing number ranges with "matches"
+
+Using the `matches` option, it is also possible to directly compare a scoreboard with a number range.
+
+```shell
+#       if this score condition is valid...
+#       |        for the current player's entry in "fennifith.animals_spawned"...
+#       |        |                            if its value matches "0"...
+#       |        |                            |             send the player a message!
+#       |        |                            |             |
+execute if score @s fennifith.animals_spawned matches 0 run tellraw @s "You haven't summoned any animals yet!"
+```
+
+This command checks if the player's score in "fennifith.animals_spawned" is exactly equal to 0. However, we could also use `..0` for "less than or equal", `0..` for "greater than or equal", and so on.
+
+Number ranges can also be bound on both sides — such as `10..50` for "between 10 and 50" — and are *inclusively bound*, meaning that a range of `10..50` will also include both `10` and `50` in addition to any numbers in-between.
+
+## Checking nonexistent scores
+
+What happens if we access a scoreboard entry that doesn't exist? Normally, the game treats nonexistent scoreboard entries as "0" — the `/scoreboard players add` command, for example, will increase any nonexistent score to "1".
+
+However, this works a bit differently for `if score` conditions. If we check the condition `$nonexistent fennifith.animals_spawned matches 0..`, it won't run the command — because `$nonexistent` doesn't have a value. Both the range `0..` and `..0` will fail — if the score has a value, we would expect at least one of those conditions to be true.
+
+Normally, this behavior is not a concern — if you are checking a scoreboard in a condition, it is generally expected that the condition will not work for any unset scores. However, if you want to directly check if a score exists, the following command is one way to do that...
+
+```shell
+#       check that $nonexistent <= 0
+#       |                                                               check that $nonexistent >= 0
+#       |                                                               |                                                                   if neither are true, the score cannot exist
+#       |                                                               |                                                                   |
+execute unless score $nonexistent fennifith.animals_spawned matches ..0 unless score $nonexistent fennifith.animals_spawned matches 0.. run tellraw @s "The score for $nonexistent in fennifith.animals_spawned doesn't exist!"
+```
+
+There's another slightly simpler way to check this, which takes advantage of the maximum value that the game can store in a scoreboard. Minecraft's scoreboards are limited by Java's minimum/maximum integer size of 32 bits, or a range from `-2147483648` to `2147483647`. We can write this in a single condition to check if the score is anywhere within that range.
+
+```shell
+#       check if the score is anywhere within Java's integer bounds
+#       |                                                                                       if not, the score cannot exist
+#       |                                                                                       |
+execute unless score $nonexistent fennifith.animals_spawned matches -2147483648..2147483647 run tellraw @s "The score for $nonexistent in fennifith.animals_spawned doesn't exist!"
+```
+
 # Tracking statistics
 
-Scoreboards can also be created to track *game statistics*, such as the number of blocks mined or number of times an item has been used. These can be found in the game by opening the pause menu in any world or server and clicking the "Statistics" button - and the names used to reference them can be found [on the Minecraft wiki](https://minecraft.fandom.com/wiki/Scoreboard#Criteria).
+Scoreboards can also be created to track *game statistics*, such as the number of blocks mined or number of times an item has been used. These can be found in the game by opening the pause menu in any world or server and clicking the "Statistics" button — and the names used to reference them can be found [on the Minecraft wiki](https://minecraft.fandom.com/wiki/Scoreboard#Criteria).
 
-We can use any statistic as the second argument of `/scoreboard objectives add` - for example:
+We can use any statistic as the second argument of `/scoreboard objectives add` — for example:
 
 ```shell
 scoreboard objectives add fennifith.animals_carrot_stick minecraft.used:minecraft.carrot_on_a_stick
@@ -267,11 +331,11 @@ For example, we can create the scoreboard above to track the number of times a "
 
 We can use this behavior in our `tick.mcfunction` (which runs on every game tick) to detect when a player has used the carrot on a stick. We'll first set the value for all players to 0, then check the scoreboard on every tick to see if it has increased. If it has, we know that the item has been used, and can reset it to 0 to detect it again.
 
-In the previous article, you may have noticed the `/execute if score` subcommand for checking scoreboards in a condition. We can use this along with a *number range* to conditionally execute our function if the scoreboard has a value >= 1.
+To check each player's value in our scoreboard, we can use the `/execute if score` subcommand along with a number range to conditionally execute our function if the scoreboard has a value >= 1.
 
-If it does, we'll run the `fennifith:animals/spawn` function - which was created in the previous article - to spawn a group of animals.
+If it does, we'll run the `fennifith:animals/spawn` function — which was created in the previous article — to spawn a group of animals.
 
-1. We first need to create our scoreboard when our data pack is loaded by the game - so we'll place the following line in our `load.mcfunction`:
+1. We first need to create our scoreboard when our data pack is loaded by the game — so we'll place the following line in our `load.mcfunction`:
 	```shell
 	# data/fennifith/functions/animals/load.mcfunction
 
@@ -349,7 +413,7 @@ scoreboard players set $max fennifith.animals_id 0
 execute as @e[type=pig] run scoreboard players operation $max fennifith.animals_id > @s fennifith.animals_id
 ```
 
-This results in `$max` holding the highest value in the scoreboard - you can use the command `scoreboard players get $max fennifith.animals_id` to confirm this!
+This results in `$max` holding the highest value in the scoreboard — you can use the command `scoreboard players get $max fennifith.animals_id` to confirm this!
 
 </details>
 
@@ -357,4 +421,4 @@ This results in `$max` holding the highest value in the scoreboard - you can use
 
 This article has covered most of the scoreboard commands we can use, but there is a lot more that can be done with them. These can be used throughout functions to write almost any numerical logic; try experimenting to see what you can accomplish!
 
-In the next post, we'll cover *NBT Data*, which is another way to store and query data in a program - except it also allows for decimals and text!
+In the next post, we'll cover *NBT Data*, which is another way to store and query data in a program — except it also allows for decimals and text!
