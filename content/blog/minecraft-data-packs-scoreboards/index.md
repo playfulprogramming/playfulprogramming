@@ -28,7 +28,13 @@ We can use the subcommands of `/scoreboard objectives` to create and modify scor
 scoreboard objectives add fennifith.animals_spawned dummy
 ```
 
-This creates an objective named `fennifith.animals_spawned` that is connected to the `dummy` game statistic. We'll talk about what that means later on, but this effectively means the scoreboard will only be modified if you set its values yourself.
+This creates an objective named `fennifith.animals_spawned` that is connected to the `dummy` game statistic. We'll talk about other statistics later on, but the `dummy` statistic effectively means the scoreboard will only be modified if you set its values yourself.
+
+### What is an objective?
+
+The naming of "objective" and "scoreboard" can be a point of confusion. In this article, for simplicity's sake, they can be considered as two names for the same thing, even though they might have slightly different meanings.
+
+Generally speaking, an "objective" is a relation between a set of scores and a statistic. Here, the objective name is `fennifith.animals_spawned` and the statistic is `dummy`. The objective contains its scores for each player in the form of a scoreboard.
 
 ## Scoreboard conventions
 
@@ -36,7 +42,9 @@ This creates an objective named `fennifith.animals_spawned` that is connected to
 
 Players often want to have multiple data packs installed in their world at once. Since all scoreboards operate globally in the world, we need to make sure that our scoreboard names will not conflict with any scoreboards used by other data packs.
 
-To accomplish this, it is common to "namespace" your scoreboard names within your data pack by adding a certain prefix. Here, I've started my scoreboard names with `fennifith.animals` to indicate that they belong to my data pack.
+For example, what might happen if two data packs want to track different blocks that the player has mined? The first might create a scoreboard for `blocksMined` that tracks stone, while the second might use `blocksMined` to track dirt. However, both data packs will be referencing the same `blocksMined` scoreboard in the world, which could end up tracking both stone and dirt, mixing up the behavior of both. We need a way to separate the scores of these data packs and prevent them from conflicting with each other.
+
+To accomplish this, it is common to "namespace" the scoreboard names within your data pack by adding a certain prefix. Here, I've started my scoreboard names with `fennifith.animals` to indicate that they belong to my data pack.
 
 ### Creating & removing scoreboards
 
@@ -81,6 +89,10 @@ scoreboard players add @s fennifith.animals_spawned 2
 | fennifith | 3                         |
 
 </div>
+
+> **Note:** Be wary of the difference between `/scoreboard objectives add` and `/scoreboard players add`, as they are easy to confuse — I even mixed them up a few times while writing this article! The `objectives` subcommands are used exclusively for creating or removing entire scoreboards, while the `players` subcommands can modify specific entries in existing scoreboards to change their values.
+>
+> `objectives add` is saying to "add a new scoreboard", while `players add` is increasing the value of a scoreboard entry by a given number.
 
 ### Using global entries
 
@@ -315,7 +327,7 @@ execute unless score $nonexistent fennifith.animals_spawned matches -2147483648.
 
 Scoreboards can also be created to track *game statistics*, such as the number of blocks mined or number of times an item has been used. These can be found in the game by opening the pause menu in any world or server and clicking the "Statistics" button — and the names used to reference them can be found [on the Minecraft wiki](https://minecraft.fandom.com/wiki/Scoreboard#Criteria).
 
-We can use any statistic as the second argument of `/scoreboard objectives add` — for example:
+We can use any statistic as the second argument of `/scoreboard objectives add` when we create a new objective — for example:
 
 ```shell
 scoreboard objectives add fennifith.animals_carrot_stick minecraft.used:minecraft.carrot_on_a_stick
