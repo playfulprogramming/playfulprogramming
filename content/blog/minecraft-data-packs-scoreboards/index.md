@@ -16,6 +16,8 @@
 
 The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/3-scoreboards) repository. Feel free to use it for reference as you read through these articles!
 
+Previously, this series has covered the structure of a data pack, conditional statements, and other command syntax. This article will build on top of that to cover scoreboards, which allows us to keep track of player information and store variables in our programs.
+
 # Storing scores
 
 In many data packs, you might find a need to store information that can't be directly accessed through an entity or another command. A common way to do this is through the use of *scoreboards,* which can store a table of numbers for each entity or player. These can be used to reference player statistics, such as the number of blocks mined, or keep track of arbitrary values in your code.
@@ -32,7 +34,7 @@ This creates an objective named `fennifith.animals_spawned` that is connected to
 
 ### What is an objective?
 
-The naming of "objective" and "scoreboard" can be a point of confusion. In this article, for simplicity's sake, they can be considered as two names for the same thing, even though they might have slightly different meanings.
+The naming of "objective" and "scoreboard" can be a point of confusion. In this article, for simplicity's sake, they can be considered as two names for the same thing — even though they might have slightly different meanings.
 
 Generally speaking, an "objective" is a relation between a set of scores and a statistic. Here, the objective name is `fennifith.animals_spawned` and the statistic is `dummy`. The objective contains its scores for each player in the form of a scoreboard.
 
@@ -248,6 +250,10 @@ The `/scoreboard objectives setdisplay` subcommand can be used to set a particul
 More areas other than `sidebar` include:
 - `list`, which shows the scores next to player names in the tab menu (in Multiplayer only)
 - `belowName`, which displays a player's score underneath their name tag
+
+| Sidebar | List | Below Name |
+| ------- | ---- | ---------- |
+| ![A sidebar with two player entries on the right of the screen](./scoreboard.png) | ![The online player list, with scores next to the player names](./list.png) | ![A player's nametag with a score displayed below it](./belowName.png) |
 
 ## `/tellraw` command
 
