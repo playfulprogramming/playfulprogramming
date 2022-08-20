@@ -2,7 +2,7 @@
 {
 	title: "Minecraft Data Pack Programming: Scoreboard Usage",
 	description: "Learn data pack development in Minecraft - using player scoreboards, variables, and operations!",
-	published: '2022-08-13T23:20:03.284Z',
+	published: '2022-08-20T19:10:03.284Z',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
@@ -439,4 +439,4 @@ This results in `$max` holding the highest value in the scoreboard — you can u
 
 This article has covered most of the scoreboard commands we can use, but there is a lot more that can be done with them. These can be used throughout functions to write almost any numerical logic; try experimenting to see what you can accomplish!
 
-In the next post, we'll cover *NBT Data*, which is another way to store and query data in a program — except it also allows for decimals and text!
+In the next post, we'll cover *advancements*, which provide some alternative ways to detect specific player actions and other conditions.
