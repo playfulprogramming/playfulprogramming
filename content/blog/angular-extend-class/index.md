@@ -3,7 +3,7 @@
     title: "How to Share Lifecycle Methods Between Components in Angular",
     description: "Sharing code between components in Angular is TOUGH. Here's one way you can do so by utilizing base components that you extend - and why you shouldn't use them.",
     published: '2022-09-15T22:12:03.284Z',
-    authors: ['crutchcorn'],
+    authors: ['crutchcorn', 'LayZee'],
     tags: ['angular', 'javascript', 'webdev'],
     attached: [],
     license: 'cc-by-4'
