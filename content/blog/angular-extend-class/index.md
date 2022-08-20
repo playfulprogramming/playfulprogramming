@@ -1006,5 +1006,3 @@ And this isn't an area of stagnation within Angular - they're introducing new fu
 Hey, while you're here - do you want to learn more Angular in-depth like this? Maybe you've been working in Angular for some time and want to learn React or Vue, but not start from scratch?
 
 Check out [my free book, "The Framework Field Guide", that teaches React, Angular, and Vue all at the same time.](https://framework.guide).
-
-> A huge huge thank you to [Lars Gyrup Brink Nielsen](https://twitter.com/LayZeeDK) for helping revise this article, and providing some of the methodologies and code samples present throughout, including the wonderful RxJS code sample.
