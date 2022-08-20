@@ -539,7 +539,7 @@ abstract class BaseComponent implements OnInit, OnDestroy {
 }
 ```
 
-Because of this, this is the recommended way to get access to both the `document` and `window` instance inside of an Angular component, even if it's a non-SSR app.
+Because of this, this is the recommended way to get access to the `document` and `window` instance inside of an Angular component, even if it's a non-SSR app.
 
 Luckily, this works out-of-the-box with extended Angular component classes:
 
@@ -764,6 +764,81 @@ class AppComponent extends BaseComponent implements OnInit {
 
 > Remember to keep your `override` property in the `AppComponent` `constructor`, otherwise you'll have errors.
 
+Alternatively, we can stop using parmeter properties in `BaseComponent` and just not mark the field as `public` _or_ `private`, like so:
+
+```typescript
+@Component({
+  template: ''
+})
+abstract class BaseComponent implements OnInit {
+  private document: Document;
+
+  constructor(@Inject(DOCUMENT) document: Document) {
+    this.document = document;
+  }
+
+  ngOnInit() {
+    console.log(document.title);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>Test</p>
+  `,
+})
+class AppComponent extends BaseComponent implements OnInit {
+  constructor(@Inject(DOCUMENT) document: Document) {
+    super(document);
+    console.log(document.body);
+  }
+}
+```
+
+## You don't need to use `constructor` to use Dependency Injection {#inject-function}
+
+While our previous code works, it comes with the caveat that you have to still refactor your extended classes in the instance that you want to add a new injection into your base class.
+
+Luckily, Angular 14 introduces the ability to use the `inject` function which removes the need to use `constructor` to use dependency injection. The API is relatively straightforward, replace `constructor` usage of Dependency Injection with the `inject` function as a property initializer:
+
+```tsx
+import { inject } from '@angular/core';
+
+@Component({
+  template: ''
+})
+abstract class BaseComponent {
+  // The `Document` type annotation is optional as it can be inferred by the `inject` function
+  private document: Document = inject(DOCUMENT);
+  
+  window!: Window = this.document.defaultView;
+
+  // No constructor needed as we use property injection instead of constructor injection
+  
+  // ...
+}
+```
+
+Because of this, our `AppComponent` class can be much simpler:
+
+```tsx
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>Test</p>
+  `,
+})
+class AppComponent extends BaseComponent {
+  // This code now works as the base class doesn't have constructor parameters anymore
+  constructor() {
+    super();
+  }
+}
+```
+
+
+
 # Why you don't want to extend Angular base classes {#dont-extend-base-classes}
 
 Now that we've learned how to extend base classes in Angular to share lifecycle methods, allow me to flip the script:
@@ -782,20 +857,39 @@ Well, you'd have to refactor every instance that you extended that class.
 
 Similarly, if you add a lifecycle method that you want to overwrite in the future, there can be someheadaches depending in which order you do things in.
 
-There are more than a few ways to write this code in a different, more stable, way.
+While [the `inject` function](#inject-function) solves some of these problems, it implicitly introduces a new dependency, which might:
+
+- Result in run-time errors thanks to missing providers
+- Break or make testing more difficult for the same reason
+
+Plus, there are more than a few ways to write this code in a different, more stable, way.
 
 ## Fixing things the right way {#the-fix}
 
-There is a better way to write this code differently today that solve the problems of maintainability a bit better.
+There are better ways to write the `WindowSize` code differently today that solve the problems of maintainability a bit better.
 
-Namely, using an `@Injectable` class that's provided on a per-class level enables you to have explicit `setup` and `takedown` functions that you call manually:
+Let's take a look at two different methods for fixing the problem:
+
+- A naïve implementation that replaces lifecycle methods for manual function calls
+- A more "Angular" way of fixing the issue, using RxJS
+
+## The naïve way to fix the issue
+
+A simple way of fixing some of the maintainability problems of using lifecyle methods , using an `@Injectable` class that's provided on a per-class level enables you to have explicit `setup` and `takedown` functions that you call manually:
 
 ```typescript
 @Injectable()
 class WindowSizeService {
-  height = window.innerHeight;
-  width = window.innerWidth;
- 
+  private window!: Window;
+  height = 0;
+  width = 0;
+
+  constructor(@Inject(DOCUMENT) document: Document) {
+    this.window = document.defaultView!;
+    this.height = this.window.innerHeight
+    this.width = this.window.innerWidth
+  }
+
   onResize = () => {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
@@ -831,6 +925,78 @@ class AppComponent implements OnInit, OnDestroy {
 }
 ```
 
+This code functions, but introduces similar issues when it comes to maintainability. After all, if you want to pass something into `addListeners` or `removeListeners`, you introduce the same refactoring issue you had previously.
+
+Further, there's a bit of a code smell present by manually calling these functions.
+
+Fortunately, there's a better way...
+
+## The Angular way to fix the code
+
+While mutable properties can get the job done, they're far from optimal. Let's instead leverage `rxjs`, which is built into Angular after all, to create an observable.
+
+For this type of DOM event listening, RxJS exposes a [`fromEvent`](https://rxjs.dev/api/index/function/fromEvent) method that we can pipe into a [`map`](https://rxjs.dev/api/operators/map) to create an [Observable](https://rxjs.dev/guide/observable).
+
+```typescript
+import {fromEvent, debounceTime, map, Subject, takeUntil, Observable} from 'rxjs';
+
+interface WindowSize {
+  readonly height: number;
+  readonly width: number;
+}
+
+@Injectable()
+class WindowSizeService {
+  private destroy$ = new Subject<void>();
+
+  size$: Observable<WindowSize>;
+
+  constructor(@Inject(DOCUMENT) document: Document) {
+    const window = document.defaultView!;
+    this.size$ = fromEvent(window, 'resize').pipe(
+      debounceTime(50),
+      map(() => ({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      })),
+      takeUntil(this.destroy$),
+      startWith({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      })
+    );
+  }
+
+  cleanup() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+}
+```
+
+While we still need a `cleanup` method, this is a much more straightforward setup process that's much more Angular-ific!
+
+As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.io/api/common/AsyncPipe) in order to listen for changes on the `size$` observable:
+
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `
+    <p *ngIf="windowSize.size$ | async as size">The window is {{size.height}}px high and {{size.width}}px wide</p>
+  `,
+  providers: [WindowSizeService]
+})
+class AppComponent implements OnDestroy {
+  windowSize = inject(WindowSizeService);
+
+  ngOnDestroy() {
+    this.windowSize.cleanup();
+  }
+}
+```
+
+
+
 # Conclusion
 
 And that's it! I hope this has been an insightful look into how you can extend component logic.
@@ -840,3 +1006,5 @@ And this isn't an area of stagnation within Angular - they're introducing new fu
 Hey, while you're here - do you want to learn more Angular in-depth like this? Maybe you've been working in Angular for some time and want to learn React or Vue, but not start from scratch?
 
 Check out [my free book, "The Framework Field Guide", that teaches React, Angular, and Vue all at the same time.](https://framework.guide).
+
+> A huge huge thank you to [Lars Gyrup Brink Nielsen](https://twitter.com/LayZeeDK) for helping revise this article, and providing some of the methodologies and code samples present throughout, including the wonderful RxJS code sample.
