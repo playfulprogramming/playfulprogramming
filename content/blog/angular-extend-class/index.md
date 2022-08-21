@@ -959,11 +959,11 @@ class WindowSizeService {
         height: window.innerHeight,
         width: window.innerWidth,
       })),
-      takeUntil(this.destroy$),
       startWith({
         height: window.innerHeight,
         width: window.innerWidth,
-      })
+      }),
+      takeUntil(this.destroy$)
     );
   }
 
