@@ -128,22 +128,172 @@ Now that we've seen what a directive looks like, let's apply it to some real-wor
 
 # Basic Directives
 
+Now that we have a reference to the underlying DOM node, we can utilize that to do various things with the element.
+
+For example, let's say that we wanted to change the color of a button using nothing more than an HTML attribute - we can do that now using [the HTMLElement's `style` property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style):
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const useStyleBackground = () => {
+  const ref = (el) => {
+    el.style.background = 'red';
+  };
+  return { ref };
+};
+
+const App = () => {
+  const { ref } = useStyleBackground();
+  return <button ref={ref}>Hello, world</button>;
+};
+```
+
+## Angular
+
+```typescript
+@Directive({
+  selector: '[styleBackground]',
+})
+class StyleBackgroundDirective {
+  constructor(private el: ElementRef<any>) {
+    this.el.nativeElement.style.background = 'red';
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button styleBackground>Hello, world</button>
+  `,
+})
+class AppComponent {}
+```
+
+## Vue
+
 // TODO: Write
 
-Add CSS to button
+<!-- tabs:end -->
 
-
+>While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
 
 # Lifecycle Methods in Directives
 
+[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
+
+Luckily, with attributes we can!
+
+See, while a component has a lifecycle of being rendered, updated, cleaned up, and beyond - so too does an element that's bound to a directive!
+
+Because of this, we can hook into the ability to use lifecycle methods within directives to [add a side effect](/posts/lifecycle-methods#Side-Effects) that focuses when an element is rendered.
+
+<!-- tabs:start -->
+
+## React
+
 // TODO: Write
 
-`focus` when component is rendered
-
 - React / `useEffect` inside of custom hook
+
+## Angular
+
+// TODO: Write
+
 - Angular is `implements` hooks
 
-- Vue / [Directive Hooks](https://vuejs.org/guide/reusability/custom-directives.html#directive-hooks)
+## Vue
+
+// TODO: Write
+
+Vue / [Directive Hooks](https://vuejs.org/guide/reusability/custom-directives.html#directive-hooks)
+
+<!-- tabs:end -->
+
+
+
+
+
+# Passing Data to Directives
+
+
+
+
+
+But you know, that red we're applying to the `button` element is rather harsh, isn't it?
+
+We could just set the color to a nicer shade of red — say, `#FFAEAE` — but then what if we wanted to re-use that code elsewhere to set a different button to blue?
+
+
+
+To solve this issue of per-instance customization of a directive, let's add the ability to pass in data to a directive.
+
+<!-- tabs:start -->
+
+## React
+
+Because a React Hook is a function at heart, we're able to just pass values as we would to any other function:
+
+```jsx
+const useStyleBackground = (color) => {
+  const ref = (el) => {
+    el.style.background = color;
+  };
+  return { ref };
+};
+
+const App = () => {
+  const { ref } = useStyleBackground('#FFAEAE');
+  return <button ref={ref}>Hello, world</button>;
+};
+```
+
+## Angular
+
+// TODO: Write
+
+## Vue
+
+// TODO: Write
+
+<!-- tabs:end -->
+
+
+
+// TODO: Write
+
+Button color custom set
+
+
+
+This works similarly to how a component's inputs might work, and as such you can pass any valid JavaScript in as a property value.
+
+
+
+// TODO: `Color` class instance
+
+
+
+<!-- tabs:start -->
+
+## React
+
+// TODO: Write
+
+## Angular
+
+// TODO: Write
+
+// TODO: Multiple inputs
+
+## Vue
+
+// TODO: Write
+
+<!-- tabs:end -->
+
+
 
 
 
