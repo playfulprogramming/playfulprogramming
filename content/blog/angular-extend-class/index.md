@@ -160,7 +160,7 @@ In this article we'll learn:
 - [How to use a base class in Angular](#base-class-angular)
 - [How to simplify Angular base class usage using an abstract class](#abstract-class)
 - [Overwriting lifecycle methods in Angular extended classes](#lifecycle-methods)
-- [Using dependency injection with your extended class](#dependency injection)
+- [Using dependency injection with your extended class](#dependency-injection)
 - [Why you don't want to use base classes with Angular](#dont-extend-base-classes)
 
 # What is an extension class, anyway? {#base-class}
