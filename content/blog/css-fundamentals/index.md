@@ -55,7 +55,7 @@ Every element on the browser has a box model. You can inspect them using browser
 
 Nearly every HTML element has some default browser styles. These styles are called HTML defaults. These defaults may change depending on the browsers rendering engine.
 
-> 🤓 Not every browser supports every CSS property! For up-to-date browser support I suggest checking out [Can I Use?](https://www.google.com/search?q=caniuse&rlz=1C1CHBF_enCA963CA963&oq=caniuse&aqs=chrome.0.69i59j69i60l3.1776j0j4&sourceid=chrome&ie=UTF-8)
+> 🤓 Not every browser supports every CSS property! For up-to-date browser support I suggest checking out [Can I Use?](https://www.google.com/search?q=caniuse\&rlz=1C1CHBF_enCA963CA963\&oq=caniuse\&aqs=chrome.0.69i59j69i60l3.1776j0j4\&sourceid=chrome\&ie=UTF-8)
 
 Every HTML element has a place and a purpose. Some HTML elements are strictly used for grouping content and are generally referred to as containers, while other HTML elements are used for text, images and more.
 
@@ -203,7 +203,7 @@ justify-content: space-evenly;
 
 > 🤓 Space your content out with justify-content
 
-Here is a list of CSS properties used to control flexbox properties: 
+Here is a list of CSS properties used to control flexbox properties:
 
 - [`flex-direction`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction) - controls flexbox direction
 - [`flex-grow`](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow) - controls a flex items grow factor
@@ -337,9 +337,9 @@ There are five types of element positions:
 
 #### Flexbox:
 
- - Used in headers, lists, tags, or any other block or inline content with the correct flex-direction
- - Primary method to align and justify content in small components
- - Easy to use
+- Used in headers, lists, tags, or any other block or inline content with the correct flex-direction
+- Primary method to align and justify content in small components
+- Easy to use
 
 For example, YouTube uses a flexbox to space out their headers children elements:
 
@@ -347,20 +347,20 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 > 🤓 Mastering the flexbox will take you very far in CSS as it is used everywhere
 
-#### Gridbox: 
+#### Gridbox:
 
- - Used in creating complex layouts that require both columns and rows
- - Provides the easiest and shortest way to center elements
- - Verbose and powerful
+- Used in creating complex layouts that require both columns and rows
+- Provides the easiest and shortest way to center elements
+- Verbose and powerful
 
 For example, Spotify uses a gridbox to achieve their playlist player layout:
 
 ![spotify.png](./spotify.png)
 
-#### Positioning: 
+#### Positioning:
 
- - Used in lightboxes, mobile menus, modal windows, and similar overlaying elements
- - Primarily used to remove elements from document flow
+- Used in lightboxes, mobile menus, modal windows, and similar overlaying elements
+- Primarily used to remove elements from document flow
 
 For example, the cookies modal on stackoverflow uses a fixed position to stay on your screen while hovering above other document elements:
 
@@ -422,7 +422,7 @@ There are five basic CSS selectors:
 - **Type (`h1`)** - Targets all with the given type
 - **Attribute (`[type="submit"]`)** Targets all with the given attribute
 
-> 🤓 I recommend using the `.class` selector over the `#id` selector as ID attributes are unique 
+> 🤓 I recommend using the `.class` selector over the `#id` selector as ID attributes are unique
 
 You can group selectors under one CSS rule using commas to share properties among multiple selectors:
 

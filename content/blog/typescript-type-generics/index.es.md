@@ -30,6 +30,7 @@ function returnProp(returnProp: string): string {
 returnProp('Test'); // ✅ Esto esta bien
 returnProp(4); // ❌ Esto falla porque `4` no es un string
 ```
+
 En este caso, queremos asegurarnos de que todos los tipos de entrada posibles estén disponibles para el tipo prop. Echemos un vistazo a algunas soluciones potenciales, con sus diversos pros y contras, y veamos si podemos encontrar una solución que se ajuste a los requisitos para proporcionar tipado a una función como ésta.
 
 ## Solución potencial 1: Unions {#generic-usecase-setup-union-solution}
@@ -69,7 +70,6 @@ La razón por la que la operación `shouldBeNumber + 4` produce este error es po
 
 Para evitar los problemas de devolver explícitamente una unión, usted _PODRÍA_ utilizar la sobrecarga de funciones para proporcionar los tipos de retorno adecuados:
 
-
 ```typescript
 function returnProp(returnProp: number): number;
 function returnProp(returnProp: string): string;
@@ -84,7 +84,6 @@ function returnProp(returnProp: string | number): string | number {
 Dicho esto, además de tener una odiosa información duplicada del tipo , este método también tiene sus limitaciones.
 
 Por ejemplo, si quisiéramos pasar un objeto de algún tipo (como `{}`, un simple objeto vacío), no sería válido:
-
 
 ```typescript
 returnProp({}) // El argumento de tipo '{}' no es asignable a un parámetro de tipo 'string'.
@@ -183,6 +182,7 @@ async function logTheValue(item) {
 	}
 }
 ```
+
 Si quisiéramos tipar la función `logTheValue`, querríamos asegurarnos de utilizar un tipo genérico para el parámetro de entrada `item`. Haciendo esto, podríamos usar ese mismo genérico para el prop de retorno de `loggedValue` para asegurar que ambos tienen la misma tipificación. Para ello, podríamos hacerlo inline:
 
 ```typescript
@@ -192,7 +192,7 @@ async function logTheValue<ItemT>(item: ItemT): Promise<{loggedValue: string, or
 }
 ```
 
-Con estas características, somos capaces de utilizar gran parte de la funcionalidad de los genéricos. 
+Con estas características, somos capaces de utilizar gran parte de la funcionalidad de los genéricos.
 
 Sin embargo, sé que no he respondido para qué sirve realmente el `<>`. Bueno, al igual que las variables de tipo, también existe la posibilidad de pasar tipos como "argumentos de tipo" cuando los genéricos se aplican a una función.
 
@@ -204,7 +204,7 @@ logTheValue<number>(3);
 
 # Non-Function Generics {#non-function-generics}
 
-Como has visto antes con la interfaz `LogTheValueReturnType` - las funciones no son las únicas con genéricos. Además de usarlos dentro de las funciones e interfaces, también puedes usarlos en las clases. 
+Como has visto antes con la interfaz `LogTheValueReturnType` - las funciones no son las únicas con genéricos. Además de usarlos dentro de las funciones e interfaces, también puedes usarlos en las clases.
 
 Las clases con genéricos pueden ser especialmente útiles para estructuras de datos como ésta:
 
@@ -321,8 +321,8 @@ const checkTimeStamp = <T extends {time: Date}>(obj: T): TimestampReturn<T> => {
 
 En este caso, podemos confiar en el casting implícito de tipos para asegurarnos de que podemos pasar `{time: new Date()}` pero no `{}` como valores para `obj`.
 
-# Conclusión 
+# Conclusión
 
-¡Y eso es todo lo que tengo para los genérics! Sus usos son muy variados, ¡y ahora puedes aplicar tus conocimientos en el código! Esperamos tener más posts sobre TypeScript pronto - tanto más introductorios como avanzados. 
+¡Y eso es todo lo que tengo para los genérics! Sus usos son muy variados, ¡y ahora puedes aplicar tus conocimientos en el código! Esperamos tener más posts sobre TypeScript pronto - tanto más introductorios como avanzados.
 
 ¿Preguntas? ¿Opinión? Háblanos en los comentarios de abajo; ¡nos encantaría escucharte!

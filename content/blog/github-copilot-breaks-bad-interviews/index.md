@@ -43,7 +43,7 @@ function calculateDaysBetweenDates(date1, date2) {
 }
 ```
 
-While every new tech has its naysayers, and even some on our team are skeptical of its true utility, it’s undoubtedly a powerful tool that will, for some, change the way they write code. 
+While every new tech has its naysayers, and even some on our team are skeptical of its true utility, it’s undoubtedly a powerful tool that will, for some, change the way they write code.
 
 GitHub’s not alone in this venture of AI-powered code generation, either! Other companies, such as [Kite](https://www.kite.com/) or [TabNine](https://www.tabnine.com/) are working hard at this problem space as well! Whether we want it to or not, AI-generated code helpers are here to stay.
 
@@ -55,7 +55,7 @@ Let’s see how Copilot interacts with some common interview questions.
 
 One common question that’s a favorite of interviewers hoping to quickly glean mathematical competency is a function to check if a given number is prime or not.
 
-Well, it’s been a few years since I’ve refreshed my math skills, so they might be a little shakey. I should be able to figure it out all the same. 
+Well, it’s been a few years since I’ve refreshed my math skills, so they might be a little shakey. I should be able to figure it out all the same.
 
 Let’s open VSCode and start implementing the function.
 
@@ -77,11 +77,11 @@ function isPrime(n) {
 
 Sure, we could change the `var` to a `const`, but this is code that I wouldn’t blink twice at in a code review!
 
-While this may seem like an outlier, Copilot seems to excel in these algorithm-based questions. 
+While this may seem like an outlier, Copilot seems to excel in these algorithm-based questions.
 
-But surely `isPrime` would be too trivial for a *real* interview question, right? Perhaps, but watch what happens when a popular coding YouTuber attempts to utilize Copilot to solve Leetcode interview questions
+But surely `isPrime` would be too trivial for a _real_ interview question, right? Perhaps, but watch what happens when a popular coding YouTuber attempts to utilize Copilot to solve Leetcode interview questions
 
-https://www.youtube.com/watch?v=FHwnrYm0mNc
+<https://www.youtube.com/watch?v=FHwnrYm0mNc>
 
 Without fail, Copilot is able to generate usable code for each difficulty level of algorithms given to it. Further, the solutions are all more performant than the average of submissions. For the permutation question, it’s able to be faster than 88% of other submissions!
 
@@ -91,7 +91,7 @@ While this may be true for some interviews, if your interviews are susceptible t
 
 ## Algorithms Are Breaking Your Interviews
 
-On paper, algorithm based interview questions sound like a great way to assess a candidate's skills. They can help give guidance on a candidate's understanding of logic complexity, how efficient (or inefficient) a specific solution is, and is usually an insight into a candidate’s ability to think in abstract manners. 
+On paper, algorithm based interview questions sound like a great way to assess a candidate's skills. They can help give guidance on a candidate's understanding of logic complexity, how efficient (or inefficient) a specific solution is, and is usually an insight into a candidate’s ability to think in abstract manners.
 
 However, in practice algorithm questions tend to go against the grain of real-world engineering. Ideally, an interview process should act as a way to evaluate a candidate’s ability to do the same kind of engineering they’d be using in their projects at your company. While a developer may, with resources, implement an algorithm once in a while, they’re more than likely doing things like refactoring significantly more often.
 
@@ -99,12 +99,11 @@ We’ve written more about how [algorithms aren’t often effective as interview
 
 But more than being unrepresentative of the job, algorithm questions are often easy to cheat - without the use of GitHub Copilot. Because most algorithm questions are significantly similar to each other, there’s often a small selection of tips and tricks a candidate can memorize in order to drastically improve their output in these styles of interviews.
 
-
 There’s even the potential for a candidate to be able to output an algorithm verbatim. There are hundreds of sites that will give a candidate one algorithm question after another in the hopes of improving their understanding of these algorithms.
 
 But with GitHub Copilot, the propensity for cheating on an algorithm question rises significantly. As we’ve demonstrated previously in the article, it’s capable of generating significant portions of code at a time. In fact, Copilot is so proficient at algorithm questions that a [non-trivial number of algorithm questions we asked it to solve were done](https://github.com/CoderPad/github-copilot-interview-question) before we could even finish the function signature. All it takes is a candidate to give Copilot the name of the function and paste the results into their assessment editor.
 
-Further, folks wanting to cheat have had the ability to do something similar for some time now in the form of forum questions. Simply lookup any algorithm on a code forum or site like [StackOverflow](http://stackoverflow.com/) and you can find hundreds of answers at your disposal. 
+Further, folks wanting to cheat have had the ability to do something similar for some time now in the form of forum questions. Simply lookup any algorithm on a code forum or site like [StackOverflow](http://stackoverflow.com/) and you can find hundreds of answers at your disposal.
 
 In fact, many have pointed out that Copilot’s process of looking up code based on its expected constraints is similar to one that a developer might experience by searching StackOverflow for code snippets. Funnily, some thought the idea so similar they decided to build an alternative VSCode plugin to Copilot that simply [looks up StackOverflow answers as suggestions](https://github.com/hieunc229/copilot-clone).
 
@@ -112,9 +111,9 @@ Regardless of how the question is answered, a candidate’s skill at these types
 
 ## How to Fix Your Interviews
 
-While you *could* simply require candidates to use a non-VSCode IDE for your technical assessments, there are no guarantees that your take-homes will be spared the same fate. Further, while VSCode is the launch platform for Copilot, it’s more than likely to gain plugins for other IDEs in the future as well.
+While you _could_ simply require candidates to use a non-VSCode IDE for your technical assessments, there are no guarantees that your take-homes will be spared the same fate. Further, while VSCode is the launch platform for Copilot, it’s more than likely to gain plugins for other IDEs in the future as well.
 
-But what of it? Let’s say your company doesn’t do take-homes ([even though you totally should](https://coderpad.io/blog/hire-better-faster-and-in-a-more-human-way-with-take-homes/)), what of it? Well, even if restricting VSCode would work to avoid Copilot for a while, you ideally want to be able to standardize your IDE platform for all candidates. 
+But what of it? Let’s say your company doesn’t do take-homes ([even though you totally should](https://coderpad.io/blog/hire-better-faster-and-in-a-more-human-way-with-take-homes/)), what of it? Well, even if restricting VSCode would work to avoid Copilot for a while, you ideally want to be able to standardize your IDE platform for all candidates.
 
 Plus, as we touched on in the previous section, algorithm-based interview questions are still able to be manipulated - with or without Copilot.
 

@@ -19,9 +19,9 @@ Es posible que notes que nuestros ejemplos utilizan varias librería de [the Tes
 
 > Ten en cuenta que Jest (y por entonces, Testing Library) no es exclusivo a
 > ninguna herramienta o framework. Este artículo pretende dar consejos generales sobre testing
-> 
+>
 > Con eso dicho, si estas planeando en incluir Jest y Testing Library en tu aplicación de Angular,
-> pero no sabes por donde empezar, [hemos escrito una guía en como hacerlo]
+> pero no sabes por donde empezar, \[hemos escrito una guía en como hacerlo]
 
 # No incluyas lógica que pertenece a tu aplicación en tus tests {#dont-include-logic}
 
@@ -29,7 +29,8 @@ Tengo una confesión que hacer: me gusta la metaprogramación. Ya sea que trate 
 
 El problema con el que me encuentro es que a veces no es un placer para otra gente tener que leer (o depurar) este tipo de código. Esto es más notable cuando escribo tests: cuando no me aseguro de mantenerlos sencillos, mis tests tienden a sufrir.
 
-Para demonstrar este argumento, vamos a utilizar un componente de ejemplo: Una tabla. Este componente debería tener esta funcionalidad: 
+Para demonstrar este argumento, vamos a utilizar un componente de ejemplo: Una tabla. Este componente debería tener esta funcionalidad:
+
 - Paginación opcional
 - Cuando la paginación está  desactivada, debería enumerar todos los elementos
 - Mostrar una fila de varios conjuntos de datos
@@ -125,6 +126,7 @@ Eso nos lleva a otro argumento para hacer hard-coding de datos y simplificar nue
 Asi que ahora la pregunta es: ¿cómo generamos grandes porciones de datos sin tener que incluirlos de forma manual?
 
 Todavía puede hacerlo programáticamente como lo hicimos antes, simplemente tienes que guardarlo en un archivo separado. Por ejemplo:
+
 ```javascript
  const faker = require('faker')
  const fs = require('fs')
@@ -311,7 +313,6 @@ export default () => {
 ```
 
 Ahora los tests para el componente se ven mucho mas sencillos:
-
 
 ```javascript
 // ComponenteConectado.spec.tsx

@@ -12,7 +12,7 @@
 
 In the past, Android Studio did not support AMD's CPUs for hardware emulation of an Android device. [That all changed in 2018 when Google added Hyper-V support to the Android Emulator](https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html).
 
-However, while working on my Ryzen CPU powered desktop, I had difficulties getting the program working on my machine. 
+However, while working on my Ryzen CPU powered desktop, I had difficulties getting the program working on my machine.
 
 # BIOS Setup {#bios}
 
@@ -47,15 +47,13 @@ Enabling IOMMU on a Gigabyte AMD motherboard is much easier than enabling SVM mo
 
 ![The chipset tab](./iommu.jpg)
 
-
-
 Once changed, tab over to "Save & Exit" and select "Exit and save changes".
 
 # Windows Features Setup {#windows-features}
 
 Now that we have our BIOS (UEFI, really) configured correctly, we can enable the Windows features we need for the Android Emulator.
 
-To start, press <kbd>Win</kbd> + <kbd>R</kbd>, which should bring up the **"Run"** dialog. Once open, _type `OptionalFeatures` and press **"OK"**_. 
+To start, press <kbd>Win</kbd> + <kbd>R</kbd>, which should bring up the **"Run"** dialog. Once open, _type `OptionalFeatures` and press **"OK"**_.
 
 ![The "run dialog" box with the typed suggestion](./run_dialog.png)
 
@@ -73,7 +71,7 @@ After these three settings are selected, press **"OK"** and allow the features t
 
 # Setup Android Studio {#android-studio}
 
-You have a few different methods for installing Android Studio. You can choose to use [Google's installer directly](https://developer.android.com/studio/install), you can [utilize the Chocolatey CLI installer](https://chocolatey.org/packages/AndroidStudio), or even use [JetBrain's Toolbox utility to install and manage an instance of Android Studio](https://www.jetbrains.com/toolbox-app/). _Any of these methods work perfectly well_, it's down to preference, really. 
+You have a few different methods for installing Android Studio. You can choose to use [Google's installer directly](https://developer.android.com/studio/install), you can [utilize the Chocolatey CLI installer](https://chocolatey.org/packages/AndroidStudio), or even use [JetBrain's Toolbox utility to install and manage an instance of Android Studio](https://www.jetbrains.com/toolbox-app/). _Any of these methods work perfectly well_, it's down to preference, really.
 
 Once you get Android Studio installed, go ahead and _open the SDK Manager settings screen_ from the **"Configure"** dropdown.
 
@@ -83,15 +81,11 @@ Once you see the popup dialog, you'll want to _select the "SDK Tools" tab_. Ther
 
 ![The mentioned screen with the AMD hypervisor selected](./select_amd_hypervisor.png)
 
-
-
-
-
-Once you've selected it, press **"Apply"** to download the installer. _Because the "Apply" button only downloads the installer, we'll need to run it manually._ 
+Once you've selected it, press **"Apply"** to download the installer. _Because the "Apply" button only downloads the installer, we'll need to run it manually._
 
 ## Run the Installer {#amd-hypervisor-installer}
 
-To find the location of the installer, you'll want to go to the install location for your Android SDK. For me (who used the Jetbrains Toolbox to install Android Studio), that path was: `%AppData%/../Local/Android/Sdk`. 
+To find the location of the installer, you'll want to go to the install location for your Android SDK. For me (who used the Jetbrains Toolbox to install Android Studio), that path was: `%AppData%/../Local/Android/Sdk`.
 
 The hypervisor installer is located under the following subpath of that path:
 
@@ -125,13 +119,13 @@ You'll then see a list of the devices that you currently have setup. I, for exam
 
 You can create a new one by _pressing **"Create Virtual Device"**_.
 
-Upon the dialog creation, you'll see a list of devices that you can use as a baseline for your emulator. This sets the hardware information (screen size and such). Even if you pick a device, it does not restrict the versions of Android you can use with it. I picked Pixel 2 and KitKat for my KK testing device, despite the Pixel 2 being released well after that OS release. 
+Upon the dialog creation, you'll see a list of devices that you can use as a baseline for your emulator. This sets the hardware information (screen size and such). Even if you pick a device, it does not restrict the versions of Android you can use with it. I picked Pixel 2 and KitKat for my KK testing device, despite the Pixel 2 being released well after that OS release.
 
 ![The "select hardware" screen as mentioned](./select_virtual_device.png)
 
 Once you've selected a device, you can pick the version of Android to run. You'll want to select an `x86` or `x86_64` build of Android you're looking for. I've noticed better performance from `x86_64` emulators myself, so I went with an `x86_64` build of Android Pie.
 
-![The selected image for x86_64 Pie](./pie_device.png)
+![The selected image for x86\_64 Pie](./pie_device.png)
 
 Afterward, you'll want to name your emulator. I try to keep them without strings and not too long, so if I need to run the emulator manually in the CLI, I can do so with the name of the emulator easily.
 
@@ -139,13 +133,12 @@ Afterward, you'll want to name your emulator. I try to keep them without strings
 
 Finally, once you've selected **"Finish"**, it should save the emulator's settings and start the emulator itself.
 
-
 > You may get an error such as `HAXM is not installed` when trying to set up an emulator. If you get this error, it's most likely that you have not [enabled the settings in BIOS](#bios). I know in my case, I had recently performed a BIOS upgrade, and it had reset my BIOS settings, making me go back and re-enable them.
 
 ![The emulator once ran](./device_running.png)
 
 # Conclusion
 
-I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully, this article has been able to help you set up your machine as well. 
+I've had incredible success with my Ryzen powered desktop during my Android development. Not only is it cost-efficient for my usage compared to the Intel option, but it's able to run the emulator quickly. Hopefully, this article has been able to help you set up your machine as well.
 
 Let us know what your thoughts on this article were! We not only have our comments down below, but we have [a Discord community](https://discord.gg/FMcvc6T) as well that we invite you to join! We chat about all kinds of programming and CS related topics there!

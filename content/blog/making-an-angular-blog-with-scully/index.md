@@ -12,7 +12,7 @@
 
 If you've ever used something like [Gatsby](https://www.gatsbyjs.org/) or [NuxtJS](https://nuxtjs.org/), you may already be familiar with Static Site Generation (SSG). If not, here's a quick rundown: You're able to export a React application to simple HTML and CSS during a build-step. This export means that (in some cases), you can disable JavaScript and still navigate your website as if you'd had it enabled. It also often means much faster time-to-interactive times, as you no longer have to run your JavaScript to render your HTML and CSS.
 
-For a long time, React and Vue have had all of the SSG fun... Until now. 
+For a long time, React and Vue have had all of the SSG fun... Until now.
 
 Recently, a group of extremely knowledgeable developers has created [Scully, a static site generator for Angular projects](https://github.com/scullyio/scully). If you prefer Angular for your stack, you too can join in the fun! You can even trivially migrate existing Angular projects to use Scully!
 
@@ -62,7 +62,7 @@ We'll need to run the `npm run scully` command later on, but for now, let's focu
 
 # Adding Markdown Support
 
-While Scully [_does_ have a generator to add in blog support](https://github.com/scullyio/scully/blob/master/docs/blog.md), we're going to add it in manually. Not only will this force us to understand our actions a bit more to familiarize ourselves with how Scully works, but it means this article is not reliant on the whims of a changing generator. 
+While Scully [_does_ have a generator to add in blog support](https://github.com/scullyio/scully/blob/master/docs/blog.md), we're going to add it in manually. Not only will this force us to understand our actions a bit more to familiarize ourselves with how Scully works, but it means this article is not reliant on the whims of a changing generator.
 
 > This isn't a stab at Scully by any means, if anything I mean it as a compliment. The team consistently improves Scully and I had some suggestions for the blog generator at the time of writing. While I'm unsure of these suggestions making it into future versions, it'd sure stink to throw away an article if they were implemented.
 
@@ -100,7 +100,7 @@ const routes: Routes = [
 ]
 ```
 
-This imports the `blog.module` file to use the further children routes defined there. If we now start serving the site and go to `localhost:4200/blog`, we should see the message "blog works!" at the bottom of the page. 
+This imports the `blog.module` file to use the further children routes defined there. If we now start serving the site and go to `localhost:4200/blog`, we should see the message "blog works!" at the bottom of the page.
 
 ### Routing Fixes {#router-outlet}
 
@@ -119,6 +119,7 @@ ng g component homepage -m App
 ```
 
 This will create a new `homepage` component under `src/app/homepage`. It's only got a basic HTML file with `homepage works!` present, but it'll suffice for now. Now we just need to update the `app-routing.module.ts` file to tell it that we want this to be our new home route:
+
 ```typescript
 import { HomepageComponent } from "./homepage/homepage.component";
 
@@ -156,10 +157,9 @@ const routes: Routes = [
 
 That's it! Now, if you go to `localhost:4200/blog`, you should see the `blog works!` message and on the `/blog/asdf` route, you should see `blog-post works!`. With this, we should be able to move onto the next steps!
 
-
 ## The Markdown Files {#frontmatter}
 
-To start, let's create a new folder at the root of your project called `blog`. It's in this root folder that we'll add our markdown files that our blog posts will live in. Let's create a new markdown file under `/blog/test-post.md`. 
+To start, let's create a new folder at the root of your project called `blog`. It's in this root folder that we'll add our markdown files that our blog posts will live in. Let's create a new markdown file under `/blog/test-post.md`.
 
 ```markdown
 ---
@@ -175,7 +175,7 @@ How are you doing?
 
 > Keep in mind that the file name will be the URL for the blog post later on. In this case, the URL for this post will be `/blog/test-post`.
 
-The top of the file `---` block is called the "frontmatter"_. You're able to put metadata in this block with a key/value pair. We're then able to use that metadata in the Angular code to generate specific UI based on this information in the markdown file. Knowing that we can store arbitrary metadata in this frontmatter allows us to expand the current frontmatter with some useful information:
+The top of the file `---` block is called the "frontmatter"\_. You're able to put metadata in this block with a key/value pair. We're then able to use that metadata in the Angular code to generate specific UI based on this information in the markdown file. Knowing that we can store arbitrary metadata in this frontmatter allows us to expand the current frontmatter with some useful information:
 
 ```markdown
 ---
@@ -296,7 +296,7 @@ Now, we can access the server at the bottom of the build output:
 The server is available on "http://localhost:1668/"
 ```
 
-Finally, if we go to [http://localhost:1668/blog/test-post](http://localhost:1668/blog/test-post), we can see the post contents alongside our header and footer.
+Finally, if we go to <http://localhost:1668/blog/test-post>, we can see the post contents alongside our header and footer.
 
 ![A preview of the post as seen on-screen](./hello_world_blog_post.png)
 
@@ -412,7 +412,7 @@ export class BlogComponent {
 </ul>
 ```
 
-This code should give us a straight list of blog posts and turn them into links for us to access our posts with! 
+This code should give us a straight list of blog posts and turn them into links for us to access our posts with!
 
 ![A preview of the post list as seen on-screen](./post_list_preview.png)
 
@@ -465,10 +465,6 @@ export class BlogPostComponent {
 ```
 
 ![A preview of the post list as seen on-screen](./post_page_preview.png)
-
-
-
-
 
 # Conclusion
 

@@ -39,7 +39,7 @@ Here's an example:
 	// Prints out the value num
 	cout << num << endl;
 ```
-  
+
 This should print out something like...
 
 ```
@@ -57,7 +57,7 @@ Pointers can also get a lot more complex and must be used in certain situations.
 
 In simple terms, a reference is simply the address of whatever you're passing. The difference between a pointer and a reference lies in the fact that a reference is simply the **address** to where a value is being stored and a pointer is simply a variable that has it's own address as well as the address it’s pointing to. I like to consider the **&** operator the "reference operator" even though I'm pretty sure that's not actually what it is called. I used this operator in the last example, and it's pretty straightforward.
 
-```cpp  
+```cpp
 	int num = 12;
 	int *val = &num;
 	int **doublePointer = &val;
@@ -82,7 +82,7 @@ The output will look something like this...
 	Address of val: 0xffffcc10
 	0xffffcc08 : 0xffffcc10 : 0xffffcc1c : 12
 ```
-  
+
 As you can see, all the **&** operator does is gives you the memory address at its specific spot in memory. I also included a small example of a double-pointer which just contains one more layer of abstraction then a single pointer. You can see how the memory addresses line up in the output.
 
 Here’s what this looks like in memory with more easily understandable addresses in a “0x…” format.

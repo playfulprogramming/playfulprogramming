@@ -58,7 +58,7 @@ Something to keep in mind is that these disabilities may not be permanent. For i
 
 > Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual
 
-Creating an application that's accessible means that you're making a better experience for *all* of your users.
+Creating an application that's accessible means that you're making a better experience for _all_ of your users.
 
 By making your services accessible to more people, you are most importantly making them more equitable, but there is often a business case for accessibility. Opening your doors to more users may create an additional financial incentive, and many organizations have a legal requirement to meet accessibility guidelines. For instance, the U.S. Federal Government is subject to [Section 508](https://www.section508.gov/manage/laws-and-policies), which requires compliance with [Web Content Accessibility Guidelines (also known as WCAG, which we'll touch on later)](#wcag). Likewise, private US companies may be subject to compliance due to the "Americans with Disabilities Act" (shortened to "ADA"). The U.S. isn't the only country with these requirements, either. According to [WCAG's reference page for various legal laws](https://www.w3.org/WAI/policies/), there are at least 40 such laws in place around the world.
 
@@ -76,7 +76,7 @@ There are different scales of accessibility as well. [WCAG includes three differ
 > - Level AA includes all Level A and AA requirements. Many organizations strive to meet Level AA.
 > - Level AAA includes all Level A, AA, and AAA requirements.
 
-Meeting AA requirements is typically seen as a good commitment to accessibility, but AAA will open more doors to your users and is the gold standard for accessible user experience. 
+Meeting AA requirements is typically seen as a good commitment to accessibility, but AAA will open more doors to your users and is the gold standard for accessible user experience.
 
 Far from a comprehensive list, A requires:
 
@@ -102,7 +102,7 @@ Interested in reading the full list? [Read the quick reference to WCAG 2.1](http
 
 # Smartly using Semantic HTML Tags {#html-semantic-tags}
 
-One of the easiest things you can do for your application's accessibility is to use semantic HTML tags. 
+One of the easiest things you can do for your application's accessibility is to use semantic HTML tags.
 
 Let's say we have HTML to display fruits in a list:
 
@@ -147,7 +147,7 @@ In our previous example, we used an HTML attribute [`aria-label`](https://develo
 
 A super small small subsection of `aria-` attributes includes:
 
-- [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) — Associate the element with another element's text as the label 
+- [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute) — Associate the element with another element's text as the label
 - `aria-expanded` — A Boolean value meant to communicate when a dropdown is expanded
 - `aria-valuemin` — The minimum allowed value in a numerical input
 - `aria-valuemax` — The maximum allowed value of a numerical input
@@ -156,7 +156,7 @@ Additional to `aria` props, [the `role` property](https://developer.mozilla.org/
 
 # Classy CSS {#css}
 
-While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code. 
+While HTML relays a significant amount of information to assistive technologies like screen readers, it's not the only thing used to inform those tools. Certain CSS rules can change the functionality as well. After all, screen readers (and other tools) don't look through the source code of a website. Instead, they're looking at [the accessibility tree](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree): a modified version of the DOM. The accessibility tree and the DOM are both constructed by the browser from the website's source code.
 
 > Want to learn more about the DOM, how the browser constructs it, and what it's used for internally? [This article helps explain this in detail](https://unicorn-utterances.com/posts/understanding-the-dom/).
 
@@ -178,7 +178,7 @@ For this reason, there's a frequently used CSS class used to hide elements visua
 }
 ```
 
- There are many ways which CSS can influence assistive technologies. [Ben Myers covers this more in his blog post](https://benmyers.dev/blog/css-can-influence-screenreaders/).
+There are many ways which CSS can influence assistive technologies. [Ben Myers covers this more in his blog post](https://benmyers.dev/blog/css-can-influence-screenreaders/).
 
 # Contrast is Cool {#contrast}
 
@@ -188,7 +188,7 @@ While there are various reasons a user might not be able to see weakly contraste
 
 <img alt="Dark gray text on a black background" src="./color_fail.png" style="max-width: 600px; width: 100%"/>
 
-Now, compare that to highly contrasting colors: 
+Now, compare that to highly contrasting colors:
 
 <img alt="White text on a black background" src="./color_pass.png" style="max-width: 600px; width: 100%"/>
 
@@ -221,7 +221,7 @@ Many phones using iOS and Android allow users to change the font size on their m
     </figure>
 </div>
 
-Not only do you have these settings on mobile devices, but they're available on desktop as well. 
+Not only do you have these settings on mobile devices, but they're available on desktop as well.
 
 Using Chrome, go to [your settings page](chrome://settings/?search=font+size), and you should be able to set your font size.
 
@@ -231,22 +231,21 @@ You can do the same in Firefox in [your preferences](about:preferences#general).
 
 ![Font settings in Firefox](./firefox_font_size.png)
 
-
 ## Implementation {#font-rem}
 
 While browsers have the ability to set the font size, if you're using `px`, `vw`, `vh`, or other unit values for your fonts, the browser will not update these font sizes for you. In order to have your application rescale the font size to match the browser settings, you'll need to use the `rem` unit.
 
 You can think of `rem` as a multiplier to apply to the default font size. When the browser's font size is set to `16px`:
 
-- `1rem` will be `16px` (1 * 16px)
-- `1.5rem` will be `24px` (1.5 * 16px)
-- `3rem` will be `48px` (3 * 16px)
+- `1rem` will be `16px` (1 \* 16px)
+- `1.5rem` will be `24px` (1.5 \* 16px)
+- `3rem` will be `48px` (3 \* 16px)
 
 Likewise, when the browser's font size is set to `20px`:
 
-- `1rem` will be `20px` (1 * 20px)
-- `1.5rem` will be `30px` (1.5 * 20px)
-- `3rem` will be `60px` (3 * 20px)
+- `1rem` will be `20px` (1 \* 20px)
+- `1.5rem` will be `30px` (1.5 \* 20px)
+- `3rem` will be `60px` (3 \* 20px)
 
 > Something to keep in mind is that `rem` is a _relative_ font size. It's relative to the root element's font size. _This means that you cannot set a default `px` value font size in CSS to the `<html>` tag or to the `:root` selector, as it will disable font scaling, even if the rest of your page is using `rem` values._
 
@@ -302,7 +301,7 @@ If anyone is ever advertising to you that your inaccessible project can be made 
 
 ## Assistance is Amicable {#eslint}
 
-While full automation will never be possible for improving a project's accessibility, not everyone proposing assistance in the process is trying to sell snake oil. 
+While full automation will never be possible for improving a project's accessibility, not everyone proposing assistance in the process is trying to sell snake oil.
 
 For example, [Deque's open-source Axe project](https://github.com/dequelabs/axe-core) can help identify issues such as common HTML semantic errors, contrast problems, and more. There are even libraries that help integrate Axe into your project's linters, such as one for React called [`eslint-plugin-jsx-a11y`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y).
 
@@ -322,7 +321,7 @@ As mentioned in [a previous section](#no-automation), the process to make your a
 
 While there is plenty you can do to make existing functionality accessibility friendly, it's often forgotten that a strongly accessible app may opt to add specific functionality for its users with disabilities.
 
-Some great examples of things like this are sites with lots of user-generated content. For example, Twitter allows its users to [add alternative (alt) text to their uploaded images and GIFs](https://help.twitter.com/en/using-twitter/picture-descriptions). Likewise, YouTube has the ability to [add subtitles and captions](https://support.google.com/youtube/answer/2734796?hl=en) to uploaded videos on their platform. 
+Some great examples of things like this are sites with lots of user-generated content. For example, Twitter allows its users to [add alternative (alt) text to their uploaded images and GIFs](https://help.twitter.com/en/using-twitter/picture-descriptions). Likewise, YouTube has the ability to [add subtitles and captions](https://support.google.com/youtube/answer/2734796?hl=en) to uploaded videos on their platform.
 
 Oftentimes, you'll find that these features benefit everyone, not just assistive technology users. You may want to watch a video in a crowded area; with closed captions, that's a much easier sell than trying to hear over others and interrupting everyone around you.
 
@@ -382,4 +381,4 @@ We hope you've enjoyed learning from our accolade-worthy alliterative headlines.
 
 There are so many things that we wanted to include in this article but couldn't. Like most parts of engineering, the field of accessible design and the nuances within can be incredibly complex in fringe scenarios. Getting accessibility in a great place for your users takes active effort - just like any other part of building your app. Because of this, we encourage you to do [further research](#further-reading) on the topic. Don't be afraid to ask questions of community members, either! Many in the community are incredibly helpful and friendly.
 
-Speaking of community, we'd love to hear your thoughts on this article. Did you learn something from it? Have questions about something accessibility-related? Think we missed something? [Join our Slack community](https://bit.ly/coderpad-slack) and chat with us or [send us a Tweet](https://twitter.com/coderpad)! 
+Speaking of community, we'd love to hear your thoughts on this article. Did you learn something from it? Have questions about something accessibility-related? Think we missed something? [Join our Slack community](https://bit.ly/coderpad-slack) and chat with us or [send us a Tweet](https://twitter.com/coderpad)!

@@ -15,7 +15,7 @@
 
 Alright alright, I know for a lot of the last article seemed like a big ad for Lit. That said, I promise I’m not unable to see the advantages of other frameworks. Lit is a tool in a web developer’s toolbox. Like any tool, it has its pros and cons: times when it’s the right tool for the job, and other times when it’s less so.
 
-That said, I’d argue that using an existing framework is more often the better tool for the job than vanilla web components. 
+That said, I’d argue that using an existing framework is more often the better tool for the job than vanilla web components.
 
 To showcase this, let’s walk through some of these frameworks and compare and contrast them to home-growing web components.
 
@@ -37,8 +37,7 @@ That said, it’s not all roses. After all, this series has already demonstrated
 
 ## Incremental Rendering
 
-
-On top of the aforementioned issues with avoiding a framework like Lit, something we haven’t talked about much is incremental rendering. A great example of this would come into play if we had an array of items we wanted to render, and weren’t using Lit. 
+On top of the aforementioned issues with avoiding a framework like Lit, something we haven’t talked about much is incremental rendering. A great example of this would come into play if we had an array of items we wanted to render, and weren’t using Lit.
 
 Every time we needed to add a single item to that list, our `innerHTML` trick would end up constructing a new element for every single item in the list. What’s worse is that every subelement would render as well!
 
@@ -178,7 +177,6 @@ Namely, this table highlights the fact that Lit isn’t the only framework for b
 
 However, Lit has a key advantage over them, ignoring being able to output to web components for a moment - we’ll come back to that.
 
-
 Even compared to other frameworks, Lit is uniquely lightweight.
 
 Compare the bundle sizes of Vue - a lightweight framework in it’s own right - compared to Lit.
@@ -187,10 +185,9 @@ Compare the bundle sizes of Vue - a lightweight framework in it’s own right - 
 
 While tree shaking will drastically reduce the bundle size of Vue for smaller applications, Lit will still likely win out for a simple component system.
 
-# Other Frameworks 
+# Other Frameworks
 
 Lit framework isn’t alone in being able to output to web components, however. In recent years, other frameworks have explored and implemented various methods of writing code for a framework that outputs to web components.
-
 
 For example, the following frameworks have official support for creating web components without changing implementation code:
 

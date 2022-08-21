@@ -18,15 +18,20 @@ In this article, we're going to introduce you to various concepts to helping you
 We'll ask and answer the following questions:
 
 - [What is "source code"?](#source-code)
+
 - [What are the major components of a computer, and how do they tie together?](#computer-hardware)
+
 - [What language does the computer speak natively?](#assembly-code)
 
 - [Why do I need a custom program to run some programming languages?](#compiled-vs-runtime)
+
 - [How does a computer turn letters and symbols into instructions that it knows how to run?](#lexer)
+
 - [Why do some programming languages have different rules and look different from one another?](#parser)
+
 - [Why can't we simply give the computer English instructions and have it run those with a special program?](#english-vs-ast)
 
->  I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as possible before diving into the more complex territory. That said, we all learn in different ways, and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in-depth.
+> I'm writing this article as a starting point to a developer's journey or even just to learn more about how computers work under-the-hood. I'll make sure to cover as many of the basics as possible before diving into the more complex territory. That said, we all learn in different ways, and I am not a perfect author. If you have questions or find yourself stuck reading through this, drop a comment down below or [join our Discord](https://discord.gg/FMcvc6T) and ask questions there. We have a very friendly and understanding community that would love to explain more in-depth.
 
 # Source Code {#source-code}
 
@@ -74,7 +79,7 @@ These are used to connect each of these parts together, make up the "brains" of 
 
 ## Motherboard {#mobo}
 
-**A motherboard is the platform in which all other components connect together and communicate through**. There are various integrated components to your motherboard, like storage controllers and chipsets necessary for your computer to work. Fancier motherboards include additional functionality like high-speed connectivity (PCI-E 4.0) and Wi-Fi. 
+**A motherboard is the platform in which all other components connect together and communicate through**. There are various integrated components to your motherboard, like storage controllers and chipsets necessary for your computer to work. Fancier motherboards include additional functionality like high-speed connectivity (PCI-E 4.0) and Wi-Fi.
 
 When you turn on your computer, the first that will happen is your motherboard will do a "POST"; a hardware check to see if everything connected is functioning properly. Then the motherboard will start the boot sequence; which starts with storage
 
@@ -101,7 +106,6 @@ You can think of these components working together similarly to this:
 ![](./hardware_devices.svg)
 
 > For those unaware, the visual cortex is the part of the brain that allows us to perceive and understand the information provided to us by our eyes. Our eyes simply pass the light information gathered to our brains, which makes sense of it all. Likewise, the GPU does the computation but does not display the data it processes; it passes that information to your monitor, which in turn displays the image source to you.
-
 
 # Assembly: What's that? {#assembly-code}
 
@@ -144,7 +148,7 @@ Now that we have that data loaded into registers, we can now do the `addu` instr
 addu    $1,$2,$1   # Add (+) data from registers 1 and 2, store the result back into register 1
 ```
 
-Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`. 
+Finally, if you were to inspect the value within register 1, you'd find a value representing the number `185`.
 
 This works well, but what happens if we want to add 3 numbers together? We don't have enough registers to store all of these values at once!
 
@@ -234,9 +238,9 @@ int main() {
 
 This code simply says, "print the number 185 to the screen so the user can see it". **To do the same in assembly requires a massive amount of knowledge about the system** you're intending to run code on, due to the lack of portability granted by higher-level languages.
 
-What do I mean by portability? Well, let's say you want to write code that runs on both low-end Chromebooks and high-end Desktops alike, you need to adapt your code to run on their respective processors. Most low-end Chromebooks use a type of CPU called "ARM", while most high-end Desktops run "x86_64" processors. **This difference in CPU architecture means an entirely different instruction set, which requires a different set of assembly instructions to be written to do the same thing in both**.
+What do I mean by portability? Well, let's say you want to write code that runs on both low-end Chromebooks and high-end Desktops alike, you need to adapt your code to run on their respective processors. Most low-end Chromebooks use a type of CPU called "ARM", while most high-end Desktops run "x86\_64" processors. **This difference in CPU architecture means an entirely different instruction set, which requires a different set of assembly instructions to be written to do the same thing in both**.
 
-Meanwhile (with a few exceptions), simple C code will run both platforms equally with some minor changes. This is because of C's _compiler_. 
+Meanwhile (with a few exceptions), simple C code will run both platforms equally with some minor changes. This is because of C's _compiler_.
 
 What is a compiler?
 
@@ -344,7 +348,7 @@ Uncaught SyntaxError: Unexpected token '='
 
 Notice how it reports "Unexpected token"? That's because the lexer is converting that symbol into a token before the parser recognizes that it's an invalid syntax.
 
-## The Parser {#parser} 
+## The Parser {#parser}
 
 Now that we've loosely touched on the parser at the end of the last section let's talk more about it!
 
@@ -355,7 +359,6 @@ After the lexer has converted the code into a series of tokens (complete with me
 > ![](../understanding-the-dom/dom_tree.svg)
 >
 > Once a set of data is turned into a tree, the computer knows how to "walk" through this tree and utilize the data (and metadata of their relationships) to take actions. In this case, the tree that is created by the parser is traversed to compile the code into instruction sets.
-
 
 Once the tokenized code is ran through the parser, we're left with the "syntax tree" of the code in question. For example, when run through Babel's parser (A JavaScript parser that's written itself in JavaScript), we're left with something like the following:
 
@@ -421,17 +424,17 @@ While humans have grown to parse this type of language, doing so for computers i
 
 I'll make my point by presenting you an extremely confusing grammatically correct sentence:
 
->  ["Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo."](https://simple.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo)
+> ["Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo."](https://simple.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo)
 
 Yes, that's a complete and valid English sentence. Have fun writing a parser for that one.
 
 ### The Future {#AI}
 
-While writing a parser for the English language is near-impossible to do perfectly, there is some hope for using English in the programming sphere in the future. This hope comes in the form of AI, natural language processing. 
+While writing a parser for the English language is near-impossible to do perfectly, there is some hope for using English in the programming sphere in the future. This hope comes in the form of AI, natural language processing.
 
 AI has been used for years to help computers understand our language. If you've ever used a Google Home, Amazon Alexa, or Apple's Siri, you've utilized an AI that tries its best to parse your language into instructions pre-determined by the parent company's developers.
 
-Likewise, there are projects such as [OpenAPI's GPT-3.0](https://beta.openai.com/) that make some moonshot ideas closer to reality. 
+Likewise, there are projects such as [OpenAPI's GPT-3.0](https://beta.openai.com/) that make some moonshot ideas closer to reality.
 
 Some folks have even been able to write [React code using GPT-3.0](https://twitter.com/sharifshameem/status/1284807152603820032).
 

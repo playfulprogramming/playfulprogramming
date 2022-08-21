@@ -10,7 +10,6 @@
 }
 ---
 
-
 ## Introduction
 
 In this day and age, the programming ecosystem has become so rich and complex that asking questions is inevitable for any developer, regardless of what stage of their career they find themselves in.
@@ -29,7 +28,7 @@ Now whilst this sounds simple, there are many people who struggle to define thei
 
 The most basic way to define your problem is to explain what the expected behaviour is, and what the actual behaviour is. For example:
 
-> *I've written a function `sum` that is meant to return the sum of 2 numbers. When I do `sum(1, 1);` I'm expecting it to return 2, however it's returning 1.*
+> _I've written a function `sum` that is meant to return the sum of 2 numbers. When I do `sum(1, 1);` I'm expecting it to return 2, however it's returning 1._
 
 Now whoever is reading my question knows what I'm trying to achieve and what is currently happening.
 
@@ -43,14 +42,14 @@ If you can pinpoint the problematic code, then it's important that you share it.
 
 In my previous example I would do the following:
 
-> *This is where `sum` is defined and how I'm calling `sum`:*
-> 
+> _This is where `sum` is defined and how I'm calling `sum`:_
+>
 > ```javascript
 > function sum(a, b) {
 >     return a * b;
 > }
-> 
-> 
+>
+>
 > const result = sum(1, 1); // result == 1?
 > ```
 
@@ -62,49 +61,44 @@ Just to save everyone some time, and also get a better understanding of the enti
 
 Sharing what you've tried helps people to rule out anything you've already tried and they can concentrate on thinking of another solution that might work. Following my basic example:
 
-> *I've also tried to pass in 2 and 2 and that seemed to work, but then if I passed in 3 and 2 I would get 6.*
-> 
-> 
-> 
-> *Finally I've tried to do sum like the following but that also didn't work:*
-> 
+> _I've also tried to pass in 2 and 2 and that seemed to work, but then if I passed in 3 and 2 I would get 6._
+>
+> _Finally I've tried to do sum like the following but that also didn't work:_
+>
 > ```javascript
 > function sum(a, b) {
 >     return b * a;
 > }
 > ```
 
-
-
 ## Other tips for asking questions
 
 Those are the main tips that are applicable to any programming question, regardless of  where / when you're asking the question. But there are other tips that may apply to more specific situations that I want to talk about in this section:
 
-* ###### Choose the right time and the right person
+- ###### Choose the right time and the right person
   Are you asking someone at work or in your household? Firstly make sure that it's a good time for them. If they're busy working away then you might want to try to find a different time to ask your question.
 
-* ###### Do some research
-  Are there any terms you're unsure of that are relevant to your question? Look around first and make sure *you* know the entire problem before expecting other people to.
+- ###### Do some research
+  Are there any terms you're unsure of that are relevant to your question? Look around first and make sure _you_ know the entire problem before expecting other people to.
 
-* ###### If something's not clear then ask about it
+- ###### If something's not clear then ask about it
   It's easy to feel bad when someone explains something to you and you still don't fully understand and need to ask again. There is no shame in asking someone to be clearer as long as you're being respectful about it. They're already helping you which means they're probably happy to give away some of their time to help you out!
 
-* ###### Be understanding of other people's time
+- ###### Be understanding of other people's time
+
   Most clearly defined questions can be solved in 15 minutes or less. If you find that a problem is taking longer than that, or you notice the person helping you is taking longer to reply, it's okay to ask for continued help for another time! You could simply ask them when is a more convenient time for you two to have another go at it? Something like:
-  
-  > *"This is taking more time than it thought it would, is it OK if I asked you if we could give it another go maybe when you've got a bit more time?"*
-  
+
+  > _"This is taking more time than it thought it would, is it OK if I asked you if we could give it another go maybe when you've got a bit more time?"_
+
   Most times people will be happy to!
 
-* ###### Finally, asking "bad" questions from time to time is fine
+- ###### Finally, asking "bad" questions from time to time is fine
   Don't feel bad if you've asked a question that you're worried is low quality. It's easy to forget that sometimes Google exists and you ask a coworker something that could've been answered faster by the internet! Similarly, don't lash out when someone asks you a bad question. Instead, kindly teach them how to ask better questions for future reference!
 
 ## Conclusion
 
-Asking questions is easy, and asking *good questions* can also be easy if you follow the general rules described in this article. But most importantly of all, remember that people answering your questions are often giving up their time for you, so don't forget to be polite, grateful and happy that they're giving you a helping hand.
+Asking questions is easy, and asking _good questions_ can also be easy if you follow the general rules described in this article. But most importantly of all, remember that people answering your questions are often giving up their time for you, so don't forget to be polite, grateful and happy that they're giving you a helping hand.
 
 Similarly, if you're answering a question, make sure to always be polite as well! It only takes a couple people to answer a question rudely or patronisingly to put someone off asking questions and clearing their doubts. We were all beginners once, and many of us still are!
 
 Thanks for the time you've dedicated to reading this article, I really appreciate it. Have a good one!
-
-

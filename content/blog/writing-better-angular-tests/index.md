@@ -92,6 +92,7 @@ tsconfig.spec.json
 ```
 
 The project also no longer needs the `test` key inside of `angular.json` as it stands, and thus it's contents can be removed. Don't worry, we'll be making `ng test` work again later.
+
 ```json
 angular.json
 {

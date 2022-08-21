@@ -10,13 +10,13 @@
 }
 ---
 
-Learning itself is such an interesting thing to think about. 
+Learning itself is such an interesting thing to think about.
 
 I have always been driven to learn more about the world around me. I find the act of simply understanding a topic fascinating. One of the things I've come to love learning about the most is Computer Science. There are so many people with exceptional knowledge that I've been blessed to be mentored by, be adjacent to, or even be friends with. Because of them, I am where I am today.
 
-Likewise, I love being able to relay the things that others have taught me in a way that I feel to be expressive and accessible to others. As I've grown as a developer and person, I've found that there seems to be a lack of resources in a number of topics that I've come across. As a result, I've spent countless hours pouring over confusing, loosely compiled, or otherwise inaccessible resources. Oftentimes, I would find myself unable to learn with resources and had to rely on "playing" with the code itself or turning to others and relying on verbal affirmation of information in order to learn some topics better. Being able to take that experience and improve upon it and share it is always an exciting idea for me. 
+Likewise, I love being able to relay the things that others have taught me in a way that I feel to be expressive and accessible to others. As I've grown as a developer and person, I've found that there seems to be a lack of resources in a number of topics that I've come across. As a result, I've spent countless hours pouring over confusing, loosely compiled, or otherwise inaccessible resources. Oftentimes, I would find myself unable to learn with resources and had to rely on "playing" with the code itself or turning to others and relying on verbal affirmation of information in order to learn some topics better. Being able to take that experience and improve upon it and share it is always an exciting idea for me.
 
-Over time, I've found myself wanting to share that information more and more: joining bootcamps to become a TA, writing some small-scale blog posts, giving talks. It's been a blast! I love meeting new people, hearing their experience, and often learning not only from talking to them, but by having to teach (which requires me to gain a deeper understanding in the things I want to teach and share). 
+Over time, I've found myself wanting to share that information more and more: joining bootcamps to become a TA, writing some small-scale blog posts, giving talks. It's been a blast! I love meeting new people, hearing their experience, and often learning not only from talking to them, but by having to teach (which requires me to gain a deeper understanding in the things I want to teach and share).
 
 Today, I'm starting on a new project to share even more. One of the goals of said project is to grow what I hope to be a fantastic community that is able to benefit from the things shared here and contribute to even further community engagement. I want to start a blog. Well, that might be what it is now, but I want it to be more in the future and leaving it like that is underselling the idea. Let's talk about the project's ultimate goals.
 

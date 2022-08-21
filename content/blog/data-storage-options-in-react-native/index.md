@@ -62,14 +62,14 @@ While you're more than able to cache database calls manually, sometimes it's con
 
 # Pros and Cons {#pros-and-cons}
 
-| Option                                        | Pros                                                         | Cons                                                         |
-| --------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Key-Value Pair Storage](#default-preference) | <ul><li>Extremely fast</li><li>Useful for simple data storing</li></ul> | <ul><li>Can only store serializable data</li><li>Not very cleanly separated</li><li>Not very secure</li></ul> |
-| [Secure Key-Value Storage](#secure-key-store) | <ul><li>Fast</li><li>A secure method of data storing</li></ul> | <ul><li>Can only store serializable data</li><li>Not very cleanly separated</li></ul> |
-| [SQLite without ORM](#sqlite-storage)         | <ul><li>Cleanly separated data</li></ul>                     | <ul><li>Difficult to maintain code and table migrations manually</li><li>Not very fast compared to key-value pairs</li></ul> |
-| [SQLite with ORM](#orms)                      | <ul><li>Cleanly separated data</li><li>Much more easy to maintain than writing SQL itself</li></ul> | <ul><li>Often slower than writing SQL by hand</li><li>More work to get setup</li></ul> |
-| [Serverless](#serverless)                     | <ul><li>Simple setup</li><li>No need to schema or migrate a database when data requirements change</li></ul> | <ul><li>Potentially difficult to cache</li><li>Not on-device</li></ul> |
-| [RealmDB](#realm)                             | <ul><li>An easy-to-sync on-device and cloud storage</li></ul> | <ul><li>A heavier requirement of investment than something more standard</li><li>Large migrations on the horizon</li></ul> |
+| Option                                        | Pros                                                                                                         | Cons                                                                                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| [Key-Value Pair Storage](#default-preference) | <ul><li>Extremely fast</li><li>Useful for simple data storing</li></ul>                                      | <ul><li>Can only store serializable data</li><li>Not very cleanly separated</li><li>Not very secure</li></ul>                |
+| [Secure Key-Value Storage](#secure-key-store) | <ul><li>Fast</li><li>A secure method of data storing</li></ul>                                               | <ul><li>Can only store serializable data</li><li>Not very cleanly separated</li></ul>                                        |
+| [SQLite without ORM](#sqlite-storage)         | <ul><li>Cleanly separated data</li></ul>                                                                     | <ul><li>Difficult to maintain code and table migrations manually</li><li>Not very fast compared to key-value pairs</li></ul> |
+| [SQLite with ORM](#orms)                      | <ul><li>Cleanly separated data</li><li>Much more easy to maintain than writing SQL itself</li></ul>          | <ul><li>Often slower than writing SQL by hand</li><li>More work to get setup</li></ul>                                       |
+| [Serverless](#serverless)                     | <ul><li>Simple setup</li><li>No need to schema or migrate a database when data requirements change</li></ul> | <ul><li>Potentially difficult to cache</li><li>Not on-device</li></ul>                                                       |
+| [RealmDB](#realm)                             | <ul><li>An easy-to-sync on-device and cloud storage</li></ul>                                                | <ul><li>A heavier requirement of investment than something more standard</li><li>Large migrations on the horizon</li></ul>   |
 
 # Conclusion
 

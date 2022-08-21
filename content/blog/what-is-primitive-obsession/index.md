@@ -14,20 +14,21 @@
 Primitive obsession is an extremely common code smell, and when identified and fix, it greatly helps to reduce the amount of bugs that you may find in your code. This code smell is one that most developers can't intuitively identify.
 
 # What are primitive types?
+
 In order to know what primitive obsession is about, it's useful to firstly define primitive types. Primitive types are essentially the **basic building blocks** of a language. These are integers, strings, chars, floating-point numbers etc.
 
 # What is Primitive obsession?
+
 Primitive obsession is when your codebase relies on primitive types more than it should, and this results in them being able to control the logic of your application to some extent.
 
 For example, you may have the following in C#:
-
 
 ```cs
 class User {
   public int Id { get; set; }
   public string Name { get; set; }
 }
-``` 
+```
 
 And this may look like a perfectly good type. However it is flawed in various ways. For example, we're not able to easily enforce any sort of constraints.
 
@@ -98,6 +99,7 @@ Now we know for absolute certain that the `Password` of a `User` is always going
 You could even go a step further and make it immutable, but I'll leave that for another time!
 
 # Conclusion
+
 Primitive Obsession is one of the least identified code smells, and for some reason isn't as popular as others.
 
 A good way I've found to identify primitive obsession is to see if you often find yourself checking if a variable satisfies a set of rules. If that's the case then you're better of making a custom type for it, with a constructor that is able to validate the input of the value you're trying to assign to it.

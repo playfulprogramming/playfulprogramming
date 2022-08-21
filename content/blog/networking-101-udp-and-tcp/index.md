@@ -16,7 +16,7 @@ In the last article in the series, we outlined what a packet architected network
 
 # Commonalities {#udp-and-tcp-both}
 
-Let's start by talking about what similarities UDP and TCP have. While they do have their distinct differences, they share a lot in common. 
+Let's start by talking about what similarities UDP and TCP have. While they do have their distinct differences, they share a lot in common.
 
 Since they're both packet-based, they both require an "address" of sorts to infer where they've come from and where they're going.
 
@@ -65,21 +65,19 @@ Let's say you're developing a web application using React and want to see it hos
 
 # UDP {#udp}
 
-Now that we've explained what IP addresses are and what ports are let's walk through how UDP is unique. _UDP stands for "User datagram protocol."_ You may be familiar with "User" and "Protocol," but the term **"datagram"** may be new. 
+Now that we've explained what IP addresses are and what ports are let's walk through how UDP is unique. _UDP stands for "User datagram protocol."_ You may be familiar with "User" and "Protocol," but the term **"datagram"** may be new.
 
 If you're familiar with how a telegram (like the old-school messaging method, not the new-age messaging platform) used to work, you may already be familiar with how a datagram works.
 
-*A datagram is a unidirectional, non-verifiably-sent piece of communication that contains data.*
+_A datagram is a unidirectional, non-verifiably-sent piece of communication that contains data._
 
 Whoa. What's that even mean?
 
-When you send a letter through the mail (barring any additional "protections" you might add to a valuable package. We'll get to that later), you have no way of knowing if it made it to the intended recipient. 
+When you send a letter through the mail (barring any additional "protections" you might add to a valuable package. We'll get to that later), you have no way of knowing if it made it to the intended recipient.
 
 Because the packet of information could be lost somewhere or sustain damage, which makes the data unreadable (say, via data corruption), you are unable to reliably ensure that it was received.
 
 Likewise, if you've sent multiple packets at once, you have no way of knowing if your data is received in the same order they came in. While this isn't much of a problem for small-scale communication, this can become a problem for larger-scale bi-directional data transfer.
-
-
 
 ## When is UDP Useful? {#udp-uses}
 
@@ -93,11 +91,11 @@ That's what TCP is for HTTP packets. TCP stands for "Transmission Control Protoc
 
 The three-step handshake is broken down to these steps:
 
-1) The client sends a request to the host, asking if it's acceptable to connect. It includes a "Synchronize Sequence Number" (SYN), which tells which packet number the communication is going to start with. This step is formally known as SYN
+1. The client sends a request to the host, asking if it's acceptable to connect. It includes a "Synchronize Sequence Number" (SYN), which tells which packet number the communication is going to start with. This step is formally known as SYN
 
-2) The host then acknowledges (ACK) the request, and sends it's own SYN. This step is formally known as SYN/ACK
+2. The host then acknowledges (ACK) the request, and sends it's own SYN. This step is formally known as SYN/ACK
 
-3) The client acknowledges the SYN from the host, and data starts transmitting. This step is formally known as ACK.
+3. The client acknowledges the SYN from the host, and data starts transmitting. This step is formally known as ACK.
 
 When you disconnect from the host, a similar disconnect handshake is done. Once the setup handshake is completed, and data starts flowing, every request to host will be returned by an acknowledgment of delivery. This ACK makes sure that you know your packets are delivered. If your packet acknowledgment is not resolved within a certain time, TCP includes the idea of timers running on the client that will re-send the packet.
 

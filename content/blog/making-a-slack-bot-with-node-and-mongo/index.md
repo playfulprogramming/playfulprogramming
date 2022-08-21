@@ -174,7 +174,7 @@ Once this is done, you can send a test message to a public channel and see it pr
 
 # App Interactivity {#interactive-message-package}
 
-While listening to events alone can be very useful in some circumstances, oftentimes having a way to interact with your application can be very helpful. As a result, the Slack SDK also includes the `@slack/interactive-messages` package to help you provide interactions with the user more directly. Using this package, you can respond to the user's input. For example, let's say we wanted to replicate the [PlusPlus](https://go.pluspl.us/) Slack bot as a way to track a user's score. 
+While listening to events alone can be very useful in some circumstances, oftentimes having a way to interact with your application can be very helpful. As a result, the Slack SDK also includes the `@slack/interactive-messages` package to help you provide interactions with the user more directly. Using this package, you can respond to the user's input. For example, let's say we wanted to replicate the [PlusPlus](https://go.pluspl.us/) Slack bot as a way to track a user's score.
 
 We want to have the following functionality for an MVP:
 
@@ -187,7 +187,7 @@ Each of these messages will prompt the bot to respond with a message in the same
 ## Setup {#interactive-bot-setup}
 
 First and foremost, something you'll need to do is add a new OAuth permission to enable the functionality for the bot to write to the channel. Go into the dashboard and go to the "OAuth & Permissions" tab. The second section of the screen should be called "Scopes", where you can add the `chat:write:bot` permission.
-![The permissions searching for "chat" which shows that "chat:write:bot" permission we need to add](./chat_write_bot_oauth.png) 
+![The permissions searching for "chat" which shows that "chat:write:bot" permission we need to add](./chat_write_bot_oauth.png)
 
 After enabling the new OAuth permission, you'll need to reinstall your app. This is because you're changing the permissions of your apps and you need to accept the new permissions when you reinstall the app. If you scroll to the top of the same OAuth page, you should see a `Reinstall App` button that will help you do this easily.
 
@@ -281,7 +281,7 @@ console.log(state); // {word1: 2, word2: -1}
 
 Following this pattern, let's go through and add a few lines of code to the last example to fulfill the expected behavior:
 
-```javascript
+````javascript
 const { tablize } = require('batteries-not-included/utils');
 
 /**
@@ -342,7 +342,7 @@ slackEvents.on('message', async event => {
 		console.log(`Successfully send message ${result.ts} in conversation ${event.channel}`);
 	}
 });
-```
+````
 
 As you can see, we're able to add in the functionality for the score-keeping relatively easily with little additional code. Slightly cheating, but to pretty-print the score table, we're using a `tablize` package that's part of [the "batteries not included" library we've built](https://github.com/unicorn-utterances/batteries-not-included) in order to provide an ASCII table for our output.
 
@@ -352,7 +352,7 @@ Even though the bot works well so far, it's not ideal to keep a score in memory.
 
 > This section will cover the setup of MongoDB Atlas, if you'd like to [skip ahead to the code section where we switch our in-memory store with a MongoDB database, you can click here](#mongodb-code)
 
-To remain consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB service at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile). 
+To remain consistent in keeping our app setup as trivial as possible, we'll be using MongoDB Atlas. Atlas enables us to have a serverless MongoDB service at our disposal. In order to use Atlas, you'll need to [sign up for an account](https://cloud.mongodb.com/user#/atlas/register/accountProfile).
 
 Once done, you'll need to "Build a new cluster" in order to create a database cluster for your Slack app.
 
@@ -398,7 +398,7 @@ Now that we understand the URI we need to pass to the Node driver to connect to 
 
 ## The Code {#mongodb-code}
 
-```javascript
+````javascript
 const { createEventAdapter } = require('@slack/events-api');
 const { WebClient } = require('@slack/web-api');
 const { MongoClient } = require('mongodb');
@@ -499,7 +499,7 @@ dbClient.connect(err => {
 		console.log(`server listening on port ${port}`);
 	});
 });
-```
+````
 
 If you do a diff against the previous code, you'll see that we were able to add the database using only 4 or 5 new operations. These operations are to:
 
@@ -576,7 +576,7 @@ We'll want to update it so that the `start` command uses the signing secret from
 "start": "npm run verify",
 ```
 
-We need to allow Heroku to dictate the port to host our verification command as well, to get past their firewall they automatically route to the app's subdomain; hence the `--port` attribute. 
+We need to allow Heroku to dictate the port to host our verification command as well, to get past their firewall they automatically route to the app's subdomain; hence the `--port` attribute.
 
 After making this change, we'll run:
 
@@ -585,7 +585,7 @@ After making this change, we'll run:
 
 And watch as our app gets deployed:
 
-![The app being deployed during the `git push`](./heroku_initial_deploy.png)
+![The app being deployed during the git push](./heroku_initial_deploy.png)
 
 After this, we can go back to the Slack app dashboard and change the Event Subscription URL.
 

@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 app.listen(3000);
 ```
 
-You'll notice that we're using the dummy endpoint http://www.mocky.io/v2/5e1a9abe3100004e004f316b. This endpoint returns an array of values with a shape much like this:
+You'll notice that we're using the dummy endpoint <http://www.mocky.io/v2/5e1a9abe3100004e004f316b>. This endpoint returns an array of values with a shape much like this:
 
 ```json
 [
@@ -145,7 +145,7 @@ In order to access the debugger, you'll need to open up Chrome and go to the URL
 
 Then you'll want to select `inspect` on the node instance.
 
-Doing so will bring up a screen of your entrypoint file with the source code in a window with line numbers. 
+Doing so will bring up a screen of your entrypoint file with the source code in a window with line numbers.
 
 ![The aforementioned code screen](./initial_debugger.png)
 
@@ -155,7 +155,7 @@ Think about running your code like driving an experimental race-car. This car ha
 
 It's similar to a debug mode of your program. You can evaluate data using `console.log`, but _to gain greater insight, you may want to pause your application_, inspect the small details in the code during a specific state,  and to do so you must pause your code. This is where breakpoints come into play: they allow you to place "pause" points into your code so that when you reach the part of code that a breakpoint is present on, your code will pause and you'll be given much better insight to what your code is doing.
 
-To set a breakpoint from within the debugging screen, you'll want to select a code line number off to the left side of the screen. This will create a blue arrow on the line number. 
+To set a breakpoint from within the debugging screen, you'll want to select a code line number off to the left side of the screen. This will create a blue arrow on the line number.
 
 > If you accidentally select a line you didn't mean to, that's okay. Pressing this line again will disable the breakpoint you just created
 
@@ -163,7 +163,7 @@ To set a breakpoint from within the debugging screen, you'll want to select a co
 
 A race-car needs to drive around the track until the point where the pit-stop is in order to be inspected; _your code needs to run through a breakpoint in order to pause and give you the expected debugging experience_. This means that, with only the above breakpoint enabled, the code will not enter into debug mode until you access  `localhost:3000` in your browser to run the `app.get('/')`  route.
 
-> Some applications may be a bit [quick-on-the-draw](https://en.wiktionary.org/wiki/quick_on_the_draw) in regards to finding an acceptable place to put a breakpoint. If you're having difficulties beating your code running, feel free to replace the `--inspect` flag with `--inspect-brk` which will automatically add in a breakpoint to the first line of code in your running file. 
+> Some applications may be a bit [quick-on-the-draw](https://en.wiktionary.org/wiki/quick_on_the_draw) in regards to finding an acceptable place to put a breakpoint. If you're having difficulties beating your code running, feel free to replace the `--inspect` flag with `--inspect-brk` which will automatically add in a breakpoint to the first line of code in your running file.
 >
 > This way, you should have the margins to add in a breakpoint where you'd like one beforehand.
 
@@ -179,7 +179,7 @@ Once you do so, you're in full control of your code and its state. You can:
 
 - _Inspect the values of variables_ (either by highlighting the variable you're interested in, looking under the "scope" tab on the right sidebar, or using the `Console` tab to run inspection commands à la [`console.table`](https://developer.mozilla.org/en-US/docs/Web/API/Console/table) or [`console.log`](https://developer.mozilla.org/en-US/docs/Web/API/Console/log)):
 
-	![A screenshot of all three of the mentioned methods to inspect a variable's value](./inspect_variable_value.png)
+  ![A screenshot of all three of the mentioned methods to inspect a variable's value](./inspect_variable_value.png)
 - _Change the value of a variable:_
   ![A screenshot of using the Console tab in order to change the value of a variable as you would any other JavaScript variable](./change_variable_value.png)
 - _Run arbitrary JavaScript commands_, similar to how a code playground might allow you to:
@@ -199,7 +199,7 @@ So, if we want to see what happens after the `body` JSON variable is parsed into
 
 Knowing this, let's move through the next few lines manually by pressing each item. The ran values of the variables as they're assigned should show up to the right of the code itself in a little yellow box; This should help you understand what each line of code is running and returning without `console.log`ging or otherwise manually.
 
-![A screenshot showing ran lines until line 12 of the "console.log". It shows that "employeeAges" is "[undefined]"](./next_few_lines.png)
+![A screenshot showing ran lines until line 12 of the "console.log". It shows that "employeeAges" is "\[undefined\]"](./next_few_lines.png)
 
 But oh no! You can see, `employeeAges` on line `9` is the one that results in the unintended `[undefined]`. It seems to be occurring during the `map` phase, so let's add in a breakpoint to line `10` and reload the `localhost:3000` page (to re-run the function in question).
 
@@ -209,15 +209,13 @@ Once you hit the first breakpoint on line `7`, you can press "play" once again t
 
 This will allow us to see the value of `employee` to see what's going wrong in our application to cause an `undefined` value.
 
-![A show of the "employee" object that has a property "employee_age"](./inspect_employee.png) 
+![A show of the "employee" object that has a property "employee\_age"](./inspect_employee.png)
 
 Oh! As we can see, the name of the field we're trying to query is `employee_age`, not the mistakenly typo'd `employeeAge` property name we're currently using in our code. Let's stop our server, make the required changes, and then restart the application.
 
 We will have to run through the breakpoints we've set by pressing the "play" button twice once our code is paused, but once we get through them we should see something like the following:
 
 ![Showing that the console log works out the way expected once the map is changed](./working_ran_debugger_code.png)
-
-
 
 There we go! We're able to get the expected "23"! That said, it was annoying to have to press "play" twice. Maybe there's something else we can do in similar scenarios like this?
 
@@ -253,7 +251,7 @@ Once inside the `map` function, there's even a button _to get you outside of tha
 >   }
 >   return ageArray;
 > };
-> 
+>
 > app.get('/', (req, res) => {
 >   request('http://www.mocky.io/v2/5e1a9abe3100004e004f316b', (error, response, body) => {
 >     const responseList = JSON.parse(body);

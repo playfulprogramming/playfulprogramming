@@ -46,12 +46,13 @@ For a more detailed explanation of connecting to freenode, [Freenode's documenta
 
 First, you'll want to choose a nick. This will be something that all users will see and address you by, so it should be easy to remember. If you have a twitter or github handle, it is best to make it as similar as possible to that in order to stay consistent. In the following steps, replace the information surrounded by `<>` with the relevant data.
 
-1. Send the command `/nick <username>`, followed by a message to `NickServ` by running `/msg NickServ REGISTER <password> <email@example.com>`. 
+1. Send the command `/nick <username>`, followed by a message to `NickServ` by running `/msg NickServ REGISTER <password> <email@example.com>`.
 2. You should receive an email with another command to run, along the lines of `/msg NickServ VERIFY REGISTER <username> <code>`. This will confirm your identity to freenode and reserve the nickname for your use.
 3. If you plan to use your account from multiple devices simultaneously, you will need to have one username for each. You can join them to your current account by:
-  - Setting your nick to a new username: `/nick <username2>`
-  - Identifying with your existing credentials: `/msg NickServ IDENTIFY <username> <password>`
-  - Grouping the nick with your account: `/msg NickServ GROUP`
+
+- Setting your nick to a new username: `/nick <username2>`
+- Identifying with your existing credentials: `/msg NickServ IDENTIFY <username> <password>`
+- Grouping the nick with your account: `/msg NickServ GROUP`
 
 Each time you reconnect to freenode, you will need to log in. [Freenode's registration docs](https://freenode.net/kb/answer/registration) have more information on this, but it is possible to simply run `/msg NickServ IDENTIFY <username> <password>` each time you connect.
 

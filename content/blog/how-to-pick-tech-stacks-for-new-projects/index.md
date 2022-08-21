@@ -42,7 +42,9 @@ My holistic vision would consist of:
 - Lots of full-filled content, such as video courses or pictures to serve alongside their written content
 
 - A single place to host a course for someone
+
 - An independent creator feeling comfortable enough to host content here without having to make their landing page in a separate service. As such, we'll need to provide a lightweight customization of a page to showcase their own brand/course.
+
 - Focus on groups rather than single courses. Subscribing to a single content group/creator rather than "React course #1" which has no clear distinction from another "React course #1"
 
 While the first point doesn't inform us of much at this early stage (we'll touch on UI tooling selection later), we can glean from the second point that we'll have to maintain some kind of storage layer. This will be something we'll need to keep in mind as we structure our goals.
@@ -91,7 +93,7 @@ Looking at what we need to do from the previous section, I can say that we could
 
 - Courses will need content, so a way to upload/view content on courses
 
-While thinking about these features, I want to keep the implementation details to a minimum, just enough to suffice with our resources by ignoring the nuances of certain permission features. However, notice how, despite thinking about the features minimally, *I'm also mentally mapping how the data should be structured and thinking about long-term implications* in such a way that we can add them later without refactoring everything. This balance during architecture can be tough to achieve and becomes more and more natural with experience.
+While thinking about these features, I want to keep the implementation details to a minimum, just enough to suffice with our resources by ignoring the nuances of certain permission features. However, notice how, despite thinking about the features minimally, _I'm also mentally mapping how the data should be structured and thinking about long-term implications_ in such a way that we can add them later without refactoring everything. This balance during architecture can be tough to achieve and becomes more and more natural with experience.
 
 # Requirements {#data-requirements}
 
@@ -103,23 +105,23 @@ Finally, I look at the data requirements and features and start thinking about w
 
 - My data isn't likely to change structure very much
 
-	As a result, I'd feel comfortable using SQL for something like this.
+  As a result, I'd feel comfortable using SQL for something like this.
 
 - I need user authentication
 
-	I don't like rolling my own auth solution, so I'll probably use [passport](https://www.npmjs.com/package/passport) since it's been well tested and stable. If I want to enable users to sign in from their Google accounts or something in the future, I should keep that in mind even if I'm not building that functionality right away
+  I don't like rolling my own auth solution, so I'll probably use [passport](https://www.npmjs.com/package/passport) since it's been well tested and stable. If I want to enable users to sign in from their Google accounts or something in the future, I should keep that in mind even if I'm not building that functionality right away
 
 - I am going to be focusing on per-user UI (achievements, dashboards, etc.)
 
-	As such, my use of something like [Gatsby](https://www.gatsbyjs.org/) for static site generation (SSG) isn't realistically beneficial. We could go with server-side rendering (SSR) with something like [Next.JS](https://nextjs.org/), but due to using a lot of media (video/picture), I'd argue there's not much of a return-on-investment (ROI) by building SSR-first since the content has to be loaded by the DOM regardless.
+  As such, my use of something like [Gatsby](https://www.gatsbyjs.org/) for static site generation (SSG) isn't realistically beneficial. We could go with server-side rendering (SSR) with something like [Next.JS](https://nextjs.org/), but due to using a lot of media (video/picture), I'd argue there's not much of a return-on-investment (ROI) by building SSR-first since the content has to be loaded by the DOM regardless.
 
 - I'm not likely to have many forms in my application - primarily focusing on viewing rather than form creation
 
-	Sometimes it's important to know what an application is and _isn't_ going to be using. If we were highly focused on forms, I might advocate for [Angular](https://angular.io/) to be used in the front-end (since I have found their form system to be quite robust). However, since I know my team is not as familiar with Angular as other options and we have a limited budget, we likely won't be moving forward with it
+  Sometimes it's important to know what an application is and _isn't_ going to be using. If we were highly focused on forms, I might advocate for [Angular](https://angular.io/) to be used in the front-end (since I have found their form system to be quite robust). However, since I know my team is not as familiar with Angular as other options and we have a limited budget, we likely won't be moving forward with it
 
 - However, we'll be hoping to have a lot of live-streamed user content in the future
 
-	Stuff like "live quizzes," live streaming/playback of video, anything that requires tracking of time/etc is all a great use case for event-based programming. One of the most prominent implementations of this in JavaScript is [RxJS](https://github.com/ReactiveX/rxjs).
+  Stuff like "live quizzes," live streaming/playback of video, anything that requires tracking of time/etc is all a great use case for event-based programming. One of the most prominent implementations of this in JavaScript is [RxJS](https://github.com/ReactiveX/rxjs).
 
 So there we have it - a non-Angular, REST API, Passport authenticated, SQL DB, non-SSR, RxJS powered application
 
@@ -131,7 +133,7 @@ From here, things start becoming a lot more subjective and a lot more social.
 
 While I personally prefer Vue, after talking with my team, it became clear that they're much more comfortable with React. Because React has a large ecosystem with a sturdy backing, I'm not against using it since I feel it can sustain our product's growth over time.
 
-Moving onto CSS was more of the same: It was less "what can support this specific use-case" and more "what is familiar and can sustain our growth?".  
+Moving onto CSS was more of the same: It was less "what can support this specific use-case" and more "what is familiar and can sustain our growth?".
 
 This example is where things get really tricky because you often are not just picking a framework or library, but often a philosophy of CSS as well. After a long-form discussion with my (front-end focused) team about this, we decided to go with Styled Components and Material UI. These tools were decided on due to their flexibility, general A11Y support (for MUI), themability, and our comfort with the tools. The size and stability also took a role in this discussion.
 
@@ -149,15 +151,16 @@ Each tool and usage will weigh these questions differently. If I'm looking for a
 # Conclusion
 
 To recap, it's a mixture of:
+
 - Proper planning (focusing on features and experience rather than tech)
-    - This point should take double priority, as understanding what to start building after picking the tech is important
+  - This point should take double priority, as understanding what to start building after picking the tech is important
 - Expertise
-    I knew that SQL would suffice for our data thanks to my experience scaffolding various applications with SQL and NoSQL alike
+  I knew that SQL would suffice for our data thanks to my experience scaffolding various applications with SQL and NoSQL alike
 - Research
-    The only reason I knew that working with binary data over GQL is due to research I did ahead of time before even writing any product code
+  The only reason I knew that working with binary data over GQL is due to research I did ahead of time before even writing any product code
 - Communication
-    This one is often overlooked but is **critical** - especially within teams. _Leverage each other's strengths and weaknesses and be open and receptive to suggestions/concerns_
+  This one is often overlooked but is **critical** - especially within teams. _Leverage each other's strengths and weaknesses and be open and receptive to suggestions/concerns_
 
 That's by **no** means an easy feat to do, despite reading as if they were. Don't worry if you're not able to execute these skills flawlessly - goodness knows I can't! I'm sure a lot of the decisions I made here, even with the group I spoke to, could have been better guided in different ways. These are the skills that I think I value the most in seniors developer, especially communication. _Communication becomes critical when working with medium/larger teams (or really, groups of any size) since reasonable minds may differ on toolsets that they might see strengths/weaknesses in_.
 
-Have a similar question to the one Lindsey asked? Like conversations like this? Have something to add? [Join us in our Discord server](https://discord.gg/FMcvc6T) to jump into the community and engage in conversations like this! We wouldn't have the quality of our content without our community! 
+Have a similar question to the one Lindsey asked? Like conversations like this? Have something to add? [Join us in our Discord server](https://discord.gg/FMcvc6T) to jump into the community and engage in conversations like this! We wouldn't have the quality of our content without our community!

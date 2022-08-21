@@ -18,7 +18,7 @@ While React Native ships with Cocoapods support out-of-the-box, it's not immedia
 
 # Install
 
-Let's start with a caveat to adding Carthage to your projects: You cannot migrate your entire app's dependencies to use it. This is because React Native's dependencies [have not been packaged for usage in Carthage](https://github.com/facebook/react-native/issues/13835). 
+Let's start with a caveat to adding Carthage to your projects: You cannot migrate your entire app's dependencies to use it. This is because React Native's dependencies [have not been packaged for usage in Carthage](https://github.com/facebook/react-native/issues/13835).
 
 As such, you will always have an additional package manager to consider with your native dependencies.
 
@@ -34,7 +34,7 @@ Now that you have Carthage installed, you can start using it in your projects.
 
 # Usage
 
-Just as npm has the `package.json` file, Carthage has the `Cartfile`. You'll want to create a file named `Cartfile` next to your `.xcworkspace` file. If your project was configured with the [React Native CLI](https://github.com/react-native-community/cli), this folder would be your `:projectRoot/ios` directory. 
+Just as npm has the `package.json` file, Carthage has the `Cartfile`. You'll want to create a file named `Cartfile` next to your `.xcworkspace` file. If your project was configured with the [React Native CLI](https://github.com/react-native-community/cli), this folder would be your `:projectRoot/ios` directory.
 
 Once this file is created, you want to store your dependencies in the `ios/Cartfile` file. For [my React Native Git Client](https://gitshark.dev), we wanted to add a dependency called [Objective-Git](https://github.com/libgit2/objective-git) to our project. As such, our `Cartfile` looks like the following:
 
@@ -103,4 +103,3 @@ Please keep in mind that there may be additional steps that some dependencies wa
 As with any decision made in engineering, the choice to add Carthage as a secondary native dependency for your React Native projects is a high contextual one. However, I hope that with the information on utilizing it properly, it alleviates some of the stress in integrating it.
 
 If you run into any problems integrating Carthage, you can always ask for help in the comments down below or [join our Discord](https://discord.gg/FMcvc6T) and ask for help there as well.
-

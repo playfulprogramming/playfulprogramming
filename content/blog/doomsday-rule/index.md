@@ -27,7 +27,8 @@ If you didn't know already, when you get the MOD of something, you divide the fi
 ## The days of the week
 
 The days of the week have numbers, I have put ways of remembering them in brackets:
-```  
+
+```
 0 = Sunday (Noneday)  
 1 = Monday (Oneday)  
 2 = Tuesday (Twosday)  
@@ -36,6 +37,7 @@ The days of the week have numbers, I have put ways of remembering them in bracke
 5 = Friday (Fiveday)  
 6 = Saturday (Six-a-day)  
 ```
+
 This makes it very easy to add numbers to them.
 
 ## Anchor Days
@@ -53,7 +55,7 @@ For examples of this, let's use the 18th of March 1898 for reference. To start, 
 - 4th of April
 - 6th of June
 - 8th of August
-- 10th of October 
+- 10th of October
 - 12th of December
 
 There is one for every month, but I have only listed the 4th, 6th, 8th, 10th, and 12th months; This leaves January, February, March, May, July, September, and November, or the 1st, 2nd, 3rd, 5th, 7th, 9th and 11th month. I say the numbers and will from now on as it helps with the calculations later on.
@@ -68,7 +70,7 @@ For the 5th month, the 9th is a doomsday. An easy way of remembering it is "work
 
 Now it’s just the 7th month and the 11th month. This is where the rest of the mnemonic comes. For the 7th month, the 11th is a doomsday, and the same the other way, for the 11th month, the 7th is a doomsday. So the full mnemonic is "working 9 to 5, at 7-11"
 
-List of all doomsdays (written is day/month):   
+List of all doomsdays (written is day/month):
 
 - 3/1 or 4/1
 - 28/2 or 29/2
@@ -120,6 +122,7 @@ After these calculations, you finally do:
 Then you get the MOD of offset. Think of MOD as if you were to add 7 to Wednesday (3), then run MOD over that new number (10), you are back to Wednesday. (3)
 
 So using the example you would do:
+
 ```
 a = 69 / 12
 
@@ -135,6 +138,7 @@ c = 2
 
 So, 5 + 9 + 2 = 16
 ```
+
 Then get the MOD which is, 2.
 
 So we now know that the year offset is 2, and we know that the anchor day for the century is Wednesday, or 3. We add the two numbers together to get 5 and match that to our date chart, so for 1969, the doomsday is Friday.
@@ -151,7 +155,7 @@ Then we add this to the doomsday. So `5 + 2 = 7`. But there isn't a 7 in our cha
 
 I wrote the script using functions so that it would be easy to edit the code.
 
-### Coding part 1 *The backbone of this project*
+### Coding part 1 _The backbone of this project_
 
 First, I thought it would be good to start with the harder bit, which is the actual solver; But what is the first part you need for the calculations? Inputs. Let's build a script to generate those inputs.
 
@@ -217,6 +221,7 @@ Doomsday = Doomsday % 7
 ```
 
 So far the script looks like:
+
 ```python
 day = int(input("What day do you want? (number needed) "))
 month = int(input("What month do you want? (number needed) "))
@@ -253,6 +258,7 @@ for a in range(len(DoomsdayList)):
     if DoomsdayList[a][1] == month:
         location = a
 ```
+
 But this causes a problem; `DoomsdayList` has only the dates for a leap year. But what if it's not a leap year? We can solve this problem by adding an if statement after our check. This if statement should check if `year MOD 4` is greater than or equal to 1. If this statement is true, set the 10th item of the list to `[3, 1]` and the 11th item to `[28, 2]`.
 
 ```python
@@ -262,9 +268,11 @@ if year % 4 >= 1:
 ```
 
 ### Quick summary
+
 Just summarizing what we have done so far, we have three inputs: year, month, and day. The script calculates the anchor day for the century. It gets the last two digits of the year then uses the a, b and c calculations. Once this is done, it adds them together, gets the MOD 7 of that then adds the anchor. Next, it receives the MOD 7 of that answer. The answer for the last MOD is the doomsday. We have a `DoomsdayList` which contains the doomsdays. We have an if statement that changes the 10th and 11th item if it's not a leap year. Then we have a loop that looks for the location of the doomsday in the picked month.
 
 The code should look like this now:
+
 ```python
 day = int(input("What day do you want? (number needed) "))
 month = int(input("What month do you want? (number needed) "))
@@ -298,13 +306,14 @@ for a in range(len(DoomsdayList)):
         location = a
 ```
 
-### Coding part 2 *Doomsday and printing the right day of the week*
+### Coding part 2 _Doomsday and printing the right day of the week_
 
 The most difficult bit is now done. Now, we only need to worry about the day of the month. After all, the script now knows the location of the closest doomsday. But this is only half true; we haven't told it to get the item in that location, which is luckily pretty easy to do:
 
 ```python
 ClosestDoomsday = DoomsdayList[location]
 ```
+
 Now we need the difference of day and `ClosestDoomsday[0]`, we put the zero there as that is the day of the month.
 
 ```python
@@ -330,22 +339,26 @@ DayOfWeek = DayOfWeek % 7
 ```
 
 Then we can just output the number:
+
 ```python
 print("This date falls on a", DayOfWeek)
 ```
 
 But this just would print out a number, so we will create another list called `weekList` we put this just above `DoomsdayList`:
+
 ```python
 #            0         1         2          3            4           5         6
 weekList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 ```
 
 Then we can change the output command to:
+
 ```python
 print("This date falls on a", weekList[DayOfWeek])
 ```
 
 Finally, the completed script should look like this:
+
 ```python
 day = int(input("What day do you want? (number needed) "))
 month = int(input("What month do you want? (number needed) "))
@@ -399,10 +412,12 @@ print("This date falls on a", weekList[DayOfWeek])
 With the hardest bit now out of the way and put into functions, we can now relax. Make a new file but keep the old when as you can look back at it to see how it works and even modify it. We built it to be used to understand what our logic should do and can be used as a template for other programs that will use it: like the tester.
 
 I built the tester using `randint` from the module `random`. This should be your first line of code:
+
 ```python
 from random import randint
 ```
-### Coding part 1: *The functions*
+
+### Coding part 1: _The functions_
 
 In the previous program, we made three inputs: Year, Month, Day. We still need to pass these to the doomsday program, but we need to do it randomly. To keep our code's structure, we will use functions.
 
@@ -420,6 +435,7 @@ So when ever `randomYear` is called it will pick a random number between `StartY
 #### Random Month
 
 `randomMonth` is the easiest out of the three. We don't need any arguments just a line that picks a random number between one and twelve. As there are 12 months in a year:
+
 ```python
 def randomMonth():
     return randint(1, 12)
@@ -430,6 +446,7 @@ def randomMonth():
 `randomDay` is the hardest out of the three, as there 4 possibilities that can come out of the function. `31`, `30`, `29` and `28`
 
 we need two arguments which will be the `month` and `Year`. We need the month to see how many days there are in the month. but if it's a leap year (That's why we need the year) and it is February we need to know if its 28 days or 29 days the code looks like this for starters:
+
 ```python
 def randomDay(Month, Year):
     IsLeap = Year % 4 == 0
@@ -443,16 +460,21 @@ def randomDay(Month, Year):
     elif IsLeap == False and Month == 2:
         DaysInMonth = 28
 ```
+
 After we have done this all we need to do is get a random number between 1 and `DaysInMonth`:
+
 ```python
 Day = randint(1, DaysInMonth)
 ```
+
 Then we just return `Day`:
+
 ```python
 return Day
 ```
 
 so altogther the `randomDay()` function should look like this:
+
 ```python
 def randomDay(Month, Year):
     IsLeap = Year % 4 == 0
@@ -475,6 +497,7 @@ def randomDay(Month, Year):
 
 So now we have a random day, month and year. We can now make a function from The solver segment code, we need to change it slightly, like getting rid of the inputs and putting a `return` at the end. We will have three arguments and so we don't need to go through and change the variable names we will call them `day`, `month` and `year`. Then we need to put a `return` at the end that returns the day of the week.
 As I have already talked about how this code works I will just give you the whole function:
+
 ```python
 def Finder(day, month, year):
     #            0         1         2          3            4           5         6
@@ -520,28 +543,34 @@ def Finder(day, month, year):
     return weekList[DayOfWeek]
 ```
 
-### Coding Part 2 *Making the question code __almost there__*
+### Coding Part 2 _Making the question code **almost there**_
 
 We will start by making a variable called `questions`. This will simply just be to see how many questions the user wants:
+
 ```python
 questions = int(input("How many questions? "))
 ```
 
 then we will have a `for` loop that repeats for how many questions the user wants:
+
 ```python
 for a in range(questions):
 ```
+
 Until I say, all the code from now on will be inside this loop.
 
 We want to get random `Year`, `Month` and `Day` first:
+
 ```python
     Year = randomYear(1800, 2200)
     Month = randomMonth()
     Day = randomDay(Month, Year)
 ```
+
 So this will get a random year between 1800 and 2200, a random month, then a random day using the data from Month and Year.
 
 We then want the code to figure out the correct day, this is easy as we have a function that we just built that does this:
+
 ```python
     DayOfWeek = Finder(Day, Month, Year)
 ```
@@ -549,22 +578,28 @@ We then want the code to figure out the correct day, this is easy as we have a f
 So even before the question is asked the code already knows the answer.
 
 Then we ask the user what the day is:
+
 ```python
     print(a+1, ". What day is ", Day, "/", Month, "/", Year, sep="", end="    ", flush=True)
 ```
+
 This will show the question number (The `+1` is there as the loop starts on 0) then the date, then will add space for the input.
 
 We then need to get the input. Very easy. We will then convert the string to uppercase so that if they put `Monday`, `monday` or `mOnday` it would just set it to `MONDAY`:
+
 ```python
     guess = input()
     guessUpper = guess.upper()
 ```
+
 We also want to do this to the answer that the code got as well:
+
 ```python
     DayOfWeekUpper = DayOfWeek.upper()
 ```
 
 Then we can find out if the user was right using a `if` statement:
+
 ```python
     if guessUpper == DayOfWeekUpper:
         Correct = True
@@ -573,6 +608,7 @@ Then we can find out if the user was right using a `if` statement:
 ```
 
 Then we need the code to do something if they got it right we can have another `if` statementL
+
 ```python
     if Correct:
         print("That is correct.")
@@ -580,19 +616,25 @@ Then we need the code to do something if they got it right we can have another `
     else:
         print("That is incorrect. The correct answer is", DayOfWeek)
 ```
+
 Here we have used a variable called `score` which we haven't set anywhere so just above the `for` loop we will put:
+
 ```python
 score = 0
 ```
+
 We put it outside the loop as if it was in the loop it would set `score` back to zero, after each question so it would only be 1 or 0.
 
 So now outside the `for` loop we will show the percentage of correct answers:
+
 ```python
 print("Your percentage is", (score / questions) * 100)
 ```
 
 And thats it! I will put the whole code here so that you can check errors and stuff:
+
 # If you just want the code and don't care how it works, look here!
+
 ```python
 from random import randint
 

@@ -130,7 +130,6 @@ With this, we'll finally be able to use these methods to control our component.
 
 > If you're wondering why you don't need to do something like this with `ngOnInit`, it's because that functionality is baked right into Angular. Angular _always_ looks for an `onInit` function and tries to call it when the respective lifecycle method is run. `implements` is just a type-safe way to ensure that you're explicitly wanting to call that method.
 
-
 ## `writeValue` {#write-value}
 
 `writeValue` is a method that acts exactly as you'd expect it to: It simply writes a value to your component's value. As your value has more than a single write method (from your component and from the parent), it's suggested to have a setter, getter, and private internal value for your property.
@@ -302,7 +301,6 @@ Finally, you can pass these options to `ngModel` and `formControl` (or even `for
 
 If done properly, you should see something like this:
 
-
 <iframe src="https://stackblitz.com/edit/angular-value-accessor-example?ctl=1&embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 # Form Control Classes
@@ -310,7 +308,6 @@ If done properly, you should see something like this:
 Angular CSS masters might point to [classes that's applied to inputs when various state changes are made](https://angular.io/api/forms/NgControlStatus#css-classes-applied).
 
 These classes include:
-
 
 - `ng-pristine`
 - `ng-dirty`
@@ -408,7 +405,6 @@ export class AppComponent  {
 ```
 
 <iframe src="https://stackblitz.com/edit/angular-value-accessor-dep-inject?ctl=1&embed=1&file=src/app/app.component.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
 
 Not only do you have [a wide range of Angular-built validators at your disposal](https://angular.io/api/forms/Validators), but you're even able to [make your own validator](https://angular.io/api/forms/Validator)!
 

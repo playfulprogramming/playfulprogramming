@@ -10,7 +10,6 @@
 }
 ---
 
-
 # Defining Mutable and Immutable
 
 Mutable means "can change". Immutable means "cannot change". And these meanings  remain the same in the technology world. For example, a mutable string can be changed, and an immutable string cannot be changed.
@@ -54,7 +53,7 @@ The biggest problem with mutable variables is that they are not thread-safe. Thr
 
 What this means is that threads can access a data structure without producing unexpected results.
 
-Take this example from [Statics &amp; Thread Safety: Part I](https://odetocode.com/Articles/313.aspx) for instance: Say I've got a shopping cart with 10 items at my local shop. I go to checkout and the clerk grabs each item and puts it through the register and then computes my cost. Without human error, we would expect the correct total to be shown.
+Take this example from [Statics & Thread Safety: Part I](https://odetocode.com/Articles/313.aspx) for instance: Say I've got a shopping cart with 10 items at my local shop. I go to checkout and the clerk grabs each item and puts it through the register and then computes my cost. Without human error, we would expect the correct total to be shown.
 
 Now imagine if we had 5 checkout lanes, each one with one clerk, but only 1 shared register. If multiple clerks are putting in items through the register at the same time, no one would get their correct total.
 
@@ -62,7 +61,7 @@ The solution is to ensure that only 1 clerk will have access at any one time to 
 
 # How does immutability solve this issue?
 
-Immutability solves this issue by ensuring that a data structure cannot be modified, only read. Create once, read many times. So what if you need to perform an operation on an immutable data structure? You'd return the result in a *new* immutable instance of the data structure.
+Immutability solves this issue by ensuring that a data structure cannot be modified, only read. Create once, read many times. So what if you need to perform an operation on an immutable data structure? You'd return the result in a _new_ immutable instance of the data structure.
 
 So how does this look in typescript?
 
@@ -96,4 +95,3 @@ testUser = testUser.increaseAgeByOne(); // instance B
 Now in the scenario that Thread 1 is reading `instance A` and Thread 2 wants to increase the age, it will have to do so by creating an `instance B` instead of directly modifying `instance A`, so it is assured that Thread 1 will produce expected behaviour.
 
 Thanks for taking the time to read this article, and make sure to check other Unicorn Utterance's blog posts!
-

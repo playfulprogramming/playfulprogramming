@@ -11,7 +11,7 @@
 }
 ---
 
-Python list comprehensions allow for powerful and readable list mutations. In this article, we'll learn many different ways in how they can be used and where they're most useful. 
+Python list comprehensions allow for powerful and readable list mutations. In this article, we'll learn many different ways in how they can be used and where they're most useful.
 
 Python is an incredibly powerful language that’s widely adopted across a wide range of applications. As with any language of sufficient complexity, Python enables multiple ways of doing things. However, the community at large has agreed that code should follow a specific pattern: be “Pythonic”. While “Pythonic” is a community term, the official language defines what they call [“The Zen of Python” in PEP 20](https://www.python.org/dev/peps/pep-0020/). To quote just a small bit of it:
 
@@ -23,11 +23,9 @@ Python is an incredibly powerful language that’s widely adopted across a wide 
 >
 > Flat is better than nested.
 
-
 Introduced in Python 2.0 with [PEP 202](https://www.python.org/dev/peps/pep-0202/), list comprehensions help align some of these goals for common operations in Python. Let’s explore how we can use list comprehensions and where they serve the Zen of Python better than alternatives.
 
 ## What is List Comprehension?
-
 
 Let’s say that we want to make an array of numbers, counting up from 0 to 2. We could assign an empty array, use `range` to create a generator, then `append` to that array using a `for` loop
 
@@ -233,7 +231,6 @@ safe_numbers = [x for x in range(6) if (x%2==0 or x%3==0) and x is not restricte
 ```
 
 ## Conclusion & Challenge
-
 
 We’ve covered a lot about list comprehension in Python today! We’re able to build complex logic into our applications while maintaining readability in most situations. However, like any tool, list comprehension can be abused. When you start including too many logical operations to comfortably read, you should likely migrate away from list comprehension to use full-bodied `for` loops.
 

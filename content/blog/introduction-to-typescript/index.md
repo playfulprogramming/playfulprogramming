@@ -151,6 +151,7 @@ What if you had a way to mutate or modify this function? What if this way of mut
 > As always, feel free to search more on them (the terms "JavaScript ORM" might help) and always know that not knowing a thing is always okay 🤗
 
 Here's an example [from a library built to do just that](https://typeorm.io/#/) that allows you to preserve the TypeScript type to save data in specified field types in your database:
+
 ```typescript
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 

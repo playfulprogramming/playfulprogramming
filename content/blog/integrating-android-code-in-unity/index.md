@@ -41,7 +41,6 @@ Once the copying of the files from the Android Studio environment to `Assets` ha
 This will naturally incur a question for developers who have tried to maintain a system of duplication of any size:
 **How do you manage dependencies between these two folders?**
 
-
 ## Managing Android Dependencies {#android-dependencies}
 
 Luckily for us, managing Android code dependencies in Unity has a thought-out solution from a large company: Google. [Because Google writes a Firebase SDK for Unity](https://firebase.google.com/docs/unity/setup), they needed a solid way to manage native dependencies within Unity.
@@ -111,17 +110,13 @@ dependencies {
 
 This will take all of the AAR files and JAR files and treat them as if they were synced by Android Studio's Gradle sync.
 
-
-
 For more information on how to manage your app's dependencies from within Unity, you may want to check out [this article created by the Firebase developers](https://medium.com/firebase-developers/how-to-manage-your-native-ios-and-android-dependencies-in-unity-like-firebase-921659843aef), who coincidentally made the plugin for managing Android dependencies in Unity.
-
-
 
 # Call Android code from C# {#call-android-from-c-sharp}
 
 It's great that we're able to manage those dependencies, but they don't mean much if you're not able to utilize the code from them!
 
-For example, take the following library: https://github.com/jaredrummler/AndroidDeviceNames
+For example, take the following library: <https://github.com/jaredrummler/AndroidDeviceNames>
 
 That library allows you to grab metadata about a user's device. This might be useful for analytics or bug reporters you may be developing yourself. Let's see how we're able to integrate this Java library in our C# code when building for the Android platform.
 
@@ -162,11 +157,11 @@ withInstance.request(handleOnFinished);
 
 You can see that we have a few steps here:
 
-1) Make a new `Callback` instance
-	- Provide an implementation of `onFinished` for said instance
-2) Call `DeviceName.with` to create a request we can use later
-	- This means that we have to gain access to the currently running context to gain device access. When calling the code from Unity, it means we have to get access to the `UnityPlayer` context that Unity engine runs on
-3) Call that request's `request` method with the `Callback` instance
+1. Make a new `Callback` instance
+   - Provide an implementation of `onFinished` for said instance
+2. Call `DeviceName.with` to create a request we can use later
+   - This means that we have to gain access to the currently running context to gain device access. When calling the code from Unity, it means we have to get access to the `UnityPlayer` context that Unity engine runs on
+3. Call that request's `request` method with the `Callback` instance
 
 For each of these steps, we need to have a mapping from the Java code to C# code. Let's walk through these steps one-by-one
 

@@ -113,7 +113,7 @@ Because we're planning on using Angular CLI, we'll want to set the `src` propert
 >  font-weight: 800;
 >  src: url("#{$base_path}/foundry_sterling_extra_bold.otf") format('opentype')
 > }
-> 
+>
 > // ... Other @font-face declarations
 > }
 > ```
@@ -152,7 +152,7 @@ npm i ecp-private-assets
 
 ## `angular.json` modification {#angular-json}
 
-Once this is done, two steps are required. First, add the following to `angular.json`'s `assets` property. This will copy the files from `ecp-private-assets` to `/assets` once you setup a build. 
+Once this is done, two steps are required. First, add the following to `angular.json`'s `assets` property. This will copy the files from `ecp-private-assets` to `/assets` once you setup a build.
 
 ```json
 {
@@ -201,14 +201,13 @@ This way, when we use the CSS `url('/assets/')`, it will point to our newly appo
 
 Now that we have our assets in place, we need to import the CSS file into our app.
 
-
 If your app utilizes `postcss`'s `import` plugin or if you're using vanilla CSS, add the following line to your `main.scss` file:
 
 ```css
 @import "ecp-private-assets/fonts/foundry_sterling.css";
 ```
 
-> Remember to keep the `@import`s at the top of your file, as you will receive an error otherwise. 
+> Remember to keep the `@import`s at the top of your file, as you will receive an error otherwise.
 
 However, if you're not using `postcss` and have SCSS installed, you can use the following:
 

@@ -65,8 +65,8 @@ There are some rules for the tree that's created from these nodes:
 
 - There must be one "root" or "trunk" node, and there cannot be more than one root
 - There must be a one-to-many relationship with parents and children. A node:
-	- May have many children
-	- Cannot have more than one parent
+  - May have many children
+  - Cannot have more than one parent
 - A non-root node may have many siblings as a result of the parent having many children
 
 ![A chart showing the aforementioned rules of the node relationships](./dom_relationship_rules.svg)
@@ -114,8 +114,6 @@ This tree relationship also enables CSS selectors such as the [general sibling s
 > This happens because browsers read from top-to-bottom in the DOM and apply CSS as they find matching nodes; CSS doesn't command the browser to do anything to the DOM, but rather provides the metadata for the DOM to apply the relevant CSS when the browser comes across that specific node.
 >
 > As mentioned before, they start at the root node, keep notes on what they've seen, then move to children. Then, they move to siblings, etc. Specific browsers may have slight deviations on this algorithm, but for the most part, they don't allow for upwards vertical movement of nodes within the DOM.
-
-
 
 # Using The Correct Tags {#accessibility}
 
@@ -405,15 +403,13 @@ console.log(element.dataset.userInfo); // "[object Object]"
 >
 > For now, it will suffice just to know that you're only able to store strings in an element attribute.
 
-
-
 ## Events {#events}
 
 Just as your browser uses the DOM to handle on-screen content visibility, your browser also utilizes the DOM for knowing how to handle user interactions. The way your browser handles user interaction is by listening for _events_ that occur when the user takes action or when other noteworthy changes occur.
 
 For example, say you have a form that includes a default `<button>` element. When that button is pressed, it fires a `submit` event that then _bubbles_ up the DOM tree until it finds a [`<form>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form). By default, this `<form>` element sends a [`GET` HTML request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) to the server once it receives the `submit` event.
 
-![The bubble flow of the `submit` event](./submit_form.svg)
+![The bubble flow of the submit event](./submit_form.svg)
 
 _Bubbling_, as shown here, is the default behavior of any given event. Its behavior is to move an event up the DOM tree to the nodes above it, moving from child to parent until it hits the root. Parent nodes can respond to these events as expected, stop their upward motion on the tree, and more.
 
@@ -460,7 +456,6 @@ Let's look at an example of some code doing so:
 </html>
 ```
 
-
 In this example, we're adding click listeners to three squares, each one smaller than their parent square. This allows us to see the effect of bubbling in our console. If you click on the red square, you'd expect the event to bubble up to `<body>`, but not down to `#green`. Likewise, if you clicked on the green square, you'd expect the event to bubble up to both `#blue` and `#red` as well as `<body>`.
 
 However, as you can see, we're running `stopPropagation` on the event in the blue square. This will make the click event stop bubbling. This means that any click events that are called on `#green` will not make it to `#red` as they will be stopped at `#blue`.
@@ -497,9 +492,7 @@ greenEl.addEventListener('click', () => {
 
 As demonstrated by the code above, `stopPropagation` works as you might expect it to in capture mode as well!
 
-
-
-![stopPropagation works similarly to how it does in bubble mode, just that it stops events from moving _down_ the tree](./capture_stop_propagation.svg)
+![stopPropagation works similarly to how it does in bubble mode, just that it stops events from moving down the tree](./capture_stop_propagation.svg)
 
 This means that when the user clicks on the red square, you'll see the following in your console:
 

@@ -35,7 +35,7 @@ While the Shadow DOM and HTML templates are undoubtedly useful in applications, 
 
 ## What are Custom Elements?
 
-At their core, custom elements essentially allow you to create new HTML tags. These tags are then used to implement custom UI and logic that can be used throughout your application. 
+At their core, custom elements essentially allow you to create new HTML tags. These tags are then used to implement custom UI and logic that can be used throughout your application.
 
 ```
 <!-- page.html -->
@@ -52,7 +52,7 @@ While we tend to think of HTML tags as directly mapping to a single DOM element,
 
 ![Chrome DevTools showing the page header element expand into multiple tags](./chrome.png)
 
-Because of this, we’re able to improve an app’s organization by reducing the amount of tags visible in a single file to read with better flow. 
+Because of this, we’re able to improve an app’s organization by reducing the amount of tags visible in a single file to read with better flow.
 
 But custom elements aren’t just made up of HTML - you’re able to associate JavaScript logic with these tags as well! This enables you to keep your logic alongside it’s associated UI. Say your header is a dropdown that’s powered by JavaScript. Now you can keep that JavaScript inside of your “page-header” component, keeping your logic consolidated.
 
@@ -62,16 +62,15 @@ Finally, a significant improvement that components provide is composability. You
 
 While many implementations of components have differences, one concept that is fairly universal is “lifecycle methods”. At their core, lifecycle methods enable you to run code when events occur on an element. Even frameworks like React, which haved moved away from classes, still have similar concepts of doing actions when a component is changed in some way.
 
-
 Let’s take a look at some of the lifecycle methods that are baked into the browser’s implementation.
 
 Custom elements have 4 lifecycle methods that can be attached to a component.
 
-| connectedCallback        | Ran when attached to the DOM                                 |
-| ------------------------ | ------------------------------------------------------------ |
-| disconnectedCallback     | Ran when unattached to the DOM                               |
+| connectedCallback        | Ran when attached to the DOM                                                     |
+| ------------------------ | -------------------------------------------------------------------------------- |
+| disconnectedCallback     | Ran when unattached to the DOM                                                   |
 | attributeChangedCallback | Ran when one of the web component’s attributes is changed. Must explicitly track |
-| adoptedCallback          | Ran when moved from one HTML document to another             |
+| adoptedCallback          | Ran when moved from one HTML document to another                                 |
 
 > While each of them has their uses, we’ll primarily be focusing on the first 3. `adoptedCallback` is primarily useful in niche circumstances and is therefore difficult to make a straightforward demo of.
 
@@ -158,7 +157,6 @@ Because this JavaScript object is simple and only utilizes [primitive data types
 
 ### Serializing Limitations
 
-
 While simple objects and arrays can be serialized relatively trivially, there are limitations. For example, take the following code:
 
 ```javascript
@@ -175,8 +173,7 @@ If we wanted to send this object to a server from a client remotely with the met
 
 `window`, while available in the browser, is not available in NodeJS, which the server may likely be written in. Should we attempt to serialize the `window` object and pass it along with the method? What about methods on the `window` object? Should we do the same with those methods?
 
-On the other end of the scale, while `console.log` ***is\*** implemented in both NodeJS and browsers alike, it’s implemented using native code in both runtimes. How would we even begin to serialize native methods, even if we wanted to? *Maybe* we could pass machine code? Even ignoring the security concerns, how would we handle the differences in machine code between a user’s ARM device and a server’s x86_64 architecture?
-
+On the other end of the scale, while `console.log` \***is\*** implemented in both NodeJS and browsers alike, it’s implemented using native code in both runtimes. How would we even begin to serialize native methods, even if we wanted to? _Maybe_ we could pass machine code? Even ignoring the security concerns, how would we handle the differences in machine code between a user’s ARM device and a server’s x86\_64 architecture?
 
 All of this becomes a problem before you even consider that your server may well not be running NodeJS. How would you even begin to represent the concept of `this` in a language like Java? How would you handle the differences between a dynamically typed language like JavaScript and C++?
 
@@ -198,7 +195,6 @@ It simply omits the key from the JSON string. This is important to keep in mind 
 
 ### HTML Attribute Strings
 
-
 Why are we talking about serialization in this article? To answer that, I want to mention two truths about HTML elements.
 
 - HTML attributes are case insensitive
@@ -210,13 +206,11 @@ The first of these truths is simply that for any attribute, you can change the k
 <input type="checkbox"/>
 ```
 
-
 And:
 
 ```html
 <input tYpE="checkbox"/>
 ```
-
 
 The second truth is much more relevant to us in this discussion. While it might seem like you can assign non-string values to an attribute, they’re always parsed as strings under-the-hood.
 
@@ -282,7 +276,7 @@ While this tends to be the extent of HTML element’s deserializing of attribute
 
 As we touched on shortly, if we simply try to pass an array to an attribute using JavaScript’s `setAttribute`, it will not include the brackets. This is due to `Array.toString()`’s output.
 
-If we attempted to pass the array ``["test", "another", "hello"]`` from JS to an attribute, the output would look like this:
+If we attempted to pass the array `["test", "another", "hello"]` from JS to an attribute, the output would look like this:
 
 ```javascript
 <script>
@@ -312,7 +306,6 @@ If we attempted to pass the array ``["test", "another", "hello"]`` from JS to an
 ```
 
 Because of the output of `toString`, it’s difficult to convert the attribute value back into a string. As such, we only display the data inside of a `<p>` tag. But lists don’t belong in a single paragraph tag! They belong in a `ul` with individual `li`s per item in the list. After all, [semantic HTML is integral for an accessible website](https://coderpad.io/blog/introduction-to-web-accessibility-a11y/)!
-
 
 Lets instead use `JSON.stringify` to serialize this data, pass that string to the attribute value, then deserialize that in the element using `JSON.parse`.
 
@@ -350,9 +343,7 @@ Using this method, we’re able to get an array in our `render` method. From the
 
 ## Pass Array of Objects
 
-
-While an array of strings is a straightforward demonstration of serializing attributes, it’s hardly representative of real-world data structures. 
-
+While an array of strings is a straightforward demonstration of serializing attributes, it’s hardly representative of real-world data structures.
 
 Let’s start working towards making our data more realistic. A good start might be to turn our array of strings into an array of objects. After all, we want to be able to mark items “completed” in a todo app.
 
@@ -403,11 +394,9 @@ Let’s take a look at how we can display this in a reasonable manner using our 
 </my-component>
 ```
 
-
-
 > Remember, checked=”false” will leave a checkbox checked. This is because “false” is a truthy string. Reference our “serializing limitations” sections for more reading.
 
-Now that we’re displaying these checkboxes, let’s add a way to toggle them! 
+Now that we’re displaying these checkboxes, let’s add a way to toggle them!
 
 ```javascript
 var todoList = [];
@@ -422,7 +411,6 @@ function changeElement() {
   compEl.attributes.todos.value = JSON.stringify(todoList);     
 }
 ```
-
 
 Now, all we need to do is run the function “toggleAll” on a button press and it will update the checkboxes in our custom element.
 
@@ -531,13 +519,13 @@ If this isn’t a good long-term solution, what can we do to fix our issue with 
 
 ## Pass via Props, not Attributes
 
-Attributes provide a simple method of passing primitive data to your custom elements. However, as we’ve demonstrated, it falls flat in more complex usage due to the requirement to serialize your data. 
+Attributes provide a simple method of passing primitive data to your custom elements. However, as we’ve demonstrated, it falls flat in more complex usage due to the requirement to serialize your data.
 
 Knowing that we’re unable to bypass this limitation using attributes, let’s instead take advantage of JavaScript classes to pass data more directly.
 
 Because our components are classes that extend `HTMLElement`, we’re able to access our properties and methods from our custom element’s parent. Let’s say we want to update `todos` and render once the property is changed.
 
-To do this, we’ll simply add a method to our component’s class called “`setTodos`”. This method will then be accessible when we query for our element using `document.querySelector`. 
+To do this, we’ll simply add a method to our component’s class called “`setTodos`”. This method will then be accessible when we query for our element using `document.querySelector`.
 
 ```javascript
 class MyComponent extends HTMLElement {
@@ -568,16 +556,15 @@ function changeElement() {
 
 Now, if we toggle items in our todo list, our `h1` tag updates as we would expect: we’ve solved the mismatch between our DOM and our data layer!
 
-Because we’re updating the *properties* of our custom elements, we call this “passing via properties”, which solves the serialization issues of “passing via attributes”.
+Because we’re updating the _properties_ of our custom elements, we call this “passing via properties”, which solves the serialization issues of “passing via attributes”.
 
 But that’s not all! Properties have a hidden advantage over attributes for data passing as well: memory size.
 
 When we were serializing our todos into attributes, we were duplicating our data. Not only were we keeping the todo list in-memory within our JavaScript, but the browser keeps loaded DOM elements in memory as well. This means that for every todo we added, not only were we keeping a copy in JavaScript, but in the DOM as well (via attribute string).
 
-
 But surely, that’s the only way memory is improved when migrating to properties, right? Wrong!
 
-Because keep in mind, on top of being loaded in-memory in JS in our main `script` tag, and in the browser via the DOM, we were also deserializing it in our custom element as well! This meant that we were keeping a *third* copy of our data initialized in-memory simultaneously!
+Because keep in mind, on top of being loaded in-memory in JS in our main `script` tag, and in the browser via the DOM, we were also deserializing it in our custom element as well! This meant that we were keeping a _third_ copy of our data initialized in-memory simultaneously!
 
 While these performance considerations might not matter in a demo application, they would add significant complications in production-scale apps.
 
@@ -586,7 +573,6 @@ While these performance considerations might not matter in a demo application, t
 We’ve covered a lot today! We’ve introduced some of the core concepts at play with web components, how we’re able to best implement various functionality, and the limitations of the DOM.
 
 While we spoke a lot about passing data by attributes vs. properties today, there are pros and cons to both. Ideally, we would want the best of both worlds: the ability to pass data via property in order to avoid serialization, but keep the simplicity of attributes by reflecting their value alongside the related DOM element.
-
 
 Something else we’ve lost since the start of this article is code readability in element creation. Originally, when we were using `innerHTML`, we were able to see a visual representation of the output DOM. When we needed to add event listeners, however, we were required to switch to `document.createElement`. Preferably, we could attach event listeners without sacrificing the in-code HTML representation of our custom element’s rendered output.
 

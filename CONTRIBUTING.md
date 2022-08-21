@@ -28,7 +28,7 @@ as a new JSON object in the array.
 This information includes:
 
 - A username for your profile (used in your profile URL).
-	[IE, our founder's username is `crutchcorn`, and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]
+  \[IE, our founder's username is `crutchcorn`, and [their page can be found here](https://unicorn-utterances.com/unicorns/crutchcorn)]
 
 - Full name
 
@@ -74,7 +74,7 @@ Now that we have your user attribution data, we can move onto the post data itse
 #### Save Location
 
 Once you have your `.md` file, we'll need a place to put it. We place a subdirectory in our [`content/blog` folder](./content/blog) for each of the blog posts on the site. The naming of these subdirectories is integral to keep in mind, as they reflect the URL path of the article once finished. For example, the folder [`what-is-ssr-and-ssg`](./content/blog/what-is-ssr-and-ssg) will turn into the URL for the article:
-[https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/)
+<https://unicorn-utterances.com/posts/what-is-ssr-and-ssg/>
 
 Once you've created a subfolder with the URI you'd like your article to have, move the `.md` file into the folder with the name `index.md`. If you have linked images or videos, you'll need to save those files in the same folder and change your markdown file to reference them locally:
 
@@ -121,16 +121,20 @@ The following data **must** be present:
 
 - Title for the article
   - We ask that your titles are less than 80 characters.
+
 - A description of the article
   - We ask that your descriptions are less than 190 characters.
 
 - A published date
   - Please follow the format as seen above
+
 - An array of authors
   - This array must have every value match [one of the `id`s of the `unicorns.json` file](./content/data/unicorns.json)
+
 - An array of related tags
   - Please try to use existing tags if possible. If you don't find any, that's alright
   - We ask that you keep it to 4 tags maximum
+
 - A `license` to be associated with the post
   - This must match the `id` field for one of the values [in our `license.json` file](./content/data/licenses.json)
   - If you're not familiar with what these licenses mean, view the `explainLink` for each of them in the `license.json` file. It'll help you understand what permissions the public has to the post

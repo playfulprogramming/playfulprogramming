@@ -13,26 +13,23 @@
 
 Tech recruiting is difficult. Interviews are tricky for candidates - and for interviewers. One of the untold challenges of interviewing is knowing how to set up good candidates for success. After all, you want a process that tests the right skills, and filters out the noise that is not helpful to evaluating candidates.
 
-
 This can be done in many ways, but let’s talk about a few today.
 
 # Don’t Be Afraid To Help
 
-Something to keep in mind while interviewing candidates is that they’re just like you and me: people. People that make mistakes from time-to-time or might get stuck on a certain phrasing of a question. 
+Something to keep in mind while interviewing candidates is that they’re just like you and me: people. People that make mistakes from time-to-time or might get stuck on a certain phrasing of a question.
 
 Oftentimes, lending a gentle helping hand can be the ticket to a successful interview. It can be as simple as rephrasing the question in a way that points towards the solution, or providing a structural bit of code that needs tweaking in order to be solved.
 
 This is particularly beneficial for junior engineers, who’s interviews should focus more on “thought process” and “ability to learn and communicate” than existing skill sets. However, even senior engineers can have the solution escape them until it finally clicks with some small assistance.
 
-
 While this all might seem counterintuitive to assist a candidate (even in small ways) during an interview, you have to remember that they need support. In their future role with your company, they won’t (and shouldn’t) be working in isolation. Instead, they will have a team to lean on. By giving a small hint here and there, you’re able to understand how they receive feedback and when they need help.
 
 # Allow for Resources
 
-As mentioned earlier, candidates are just people. Because of that, you will never find an all-knowing candidate who only ever relies solely on their existing knowledge to fix an issue (no matter what big-ego Jim says). Time-and-time again I’ve heard from seasoned developers that research and cheat-sheets are part of their daily engineering work. 
+As mentioned earlier, candidates are just people. Because of that, you will never find an all-knowing candidate who only ever relies solely on their existing knowledge to fix an issue (no matter what big-ego Jim says). Time-and-time again I’ve heard from seasoned developers that research and cheat-sheets are part of their daily engineering work.
 
 While it might not be immediately obvious, knowing how to search for and find the relevant content is incredibly important. Not only that, it’s something that’s developed gradually alongside a developer’s journey - just like any other skill.
-
 
 After all, the point of coding interviews is to see how capable a developer is at the job they’re applying for. You want to test in real-world situations, not in an isolated environment that doesn’t represent the daily aspects of the job.
 
@@ -40,9 +37,9 @@ After all, the point of coding interviews is to see how capable a developer is a
 
 Speaking of representing a job in a more realistic light: think about the last time you had a ticket in your backlog that required discussion of tree reversal (or similar algorithm). Now think of the last time you asked a question like that in your interviews. See where I’m going here? I’m not implying that algorithm questions are inherently bad for every position, but in this industry they’ve been used as a stop-gap for more relevant questions.
 
-Many engineers can attest to being asked algorithmic questions in an interview - only to be working with styling and application state management in their day jobs. The usage of complex algorithms are far-and-few between - especially in front-end engineering. 
+Many engineers can attest to being asked algorithmic questions in an interview - only to be working with styling and application state management in their day jobs. The usage of complex algorithms are far-and-few between - especially in front-end engineering.
 
-Even when algorithms ***are\*** relevant, there’s usually a team to discuss with, research to be done, and benchmarking to verify the usage of a given algorithm for key application logic. These discussions can take significantly longer than an hour long interview.
+Even when algorithms \***are\*** relevant, there’s usually a team to discuss with, research to be done, and benchmarking to verify the usage of a given algorithm for key application logic. These discussions can take significantly longer than an hour long interview.
 
 Not only are these questions rarely representative of the actual job, they’re also easy to cheat with someone with enough free-time to dedicate towards algorithm memorization. Googling “interview algorithm questions” provides over 17 million results. Even the first page of results promises to teach you how to instantly solve dozens of common algorithm questions.
 
@@ -62,7 +59,7 @@ While real-world code samples provide many upsides, setting up a real-world exam
 
 # Take-Homes
 
-We at CoderPad are ***strong\*** advocates of take-home interviews for technical assessments. While [we’ve written about many of the benefits of take-homes before](https://coderpad.io/blog/hire-better-faster-and-in-a-more-human-way-with-take-homes/), we’ll touch on some of the advantages here:
+We at CoderPad are \***strong\*** advocates of take-home interviews for technical assessments. While [we’ve written about many of the benefits of take-homes before](https://coderpad.io/blog/hire-better-faster-and-in-a-more-human-way-with-take-homes/), we’ll touch on some of the advantages here:
 
 - Lower stress environment for candidate
   - We’ve heard a lot from the autistic community and those with anxiety that this helps a lot

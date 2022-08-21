@@ -67,11 +67,11 @@ window.customElements.define('hello-component', HelloElement);
 
 <iframe src="https://app.coderpad.io/sandbox?question_id=194516" loading="lazy"></iframe>
 
-There are two primary differences from the vanilla JavaScript example. First, we no longer need to use the `connectedCallback` to call `render`. The LitElement’s `render` function is called by Lit itself whenever needed - such as when data changes or for an initial render - avoiding the need to manually re-call the render method. 
+There are two primary differences from the vanilla JavaScript example. First, we no longer need to use the `connectedCallback` to call `render`. The LitElement’s `render` function is called by Lit itself whenever needed - such as when data changes or for an initial render - avoiding the need to manually re-call the render method.
 
 That said, Lit components fully support the same lifecycle methods as a vanilla custom elements.
 
-The second, easier-to-miss change from the vanilla JavaScript component to the Lit implementation, is that when we set our HTML, we don’t simply use a basic template literal (`<p>test</p>`): we pass the function `html` to the template literal (`html\`<p>test</p>\``).
+The second, easier-to-miss change from the vanilla JavaScript component to the Lit implementation, is that when we set our HTML, we don’t simply use a basic template literal (`<p>test</p>`): we pass the function `html` to the template literal (`html\`<p>test</p>\`\`).
 
 This leverages [a somewhat infrequently used feature of template literals called tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates). Tagged templates allow a template literal to be passed to a function. This function can then transform the output based on the string input and expected interpolated placeholders.
 
@@ -123,7 +123,7 @@ window.customElements.define('hello-component', MyComponent);
 <hello-component></hello-component>
 ```
 
-While this works for the initial render, it doesn’t handle any of the edgecases that,at scale,can cause long-term damage to your app’s maintainability & performance. 
+While this works for the initial render, it doesn’t handle any of the edgecases that,at scale,can cause long-term damage to your app’s maintainability & performance.
 
 For example, future re-renders of the element will duplicate the button. To solve this, you must iterate through all of the element’s [`children`](https://developer.mozilla.org/en-US/docs/Web/API/Element/children) and [`remove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) them one-by-one.
 
@@ -133,7 +133,7 @@ To solve this, you’d need to assign a variable for every `addEventListener` yo
 
 And all of this ignores the maintenance standpoint: What does that code do at a glance?
 
-It doesn't look anything like HTML and as a result, requires you to consistently context shift between writing standard HTML in a string and using the DOM APIs to construct elements. 
+It doesn't look anything like HTML and as a result, requires you to consistently context shift between writing standard HTML in a string and using the DOM APIs to construct elements.
 
 Luckily, Lit doesn’t have these issues. Here’s the same button construction and rendering to a custom element using Lit instead of vanilla JavaScript:
 
@@ -258,7 +258,6 @@ window.customElements.define('hello-component', HelloElement);
 
 ## Attribute Reactivity
 
-
 One of the biggest benefits of not having to call `render` manually is that Lit is able to render contents when they need to update.
 
 For example, given this example, the contents will render properly to update with new values.
@@ -334,7 +333,7 @@ export class FormElement extends LitElement {
 
 <iframe src="https://app.coderpad.io/sandbox?question_id=181090" loading="lazy"></iframe>
 
-You may also notice that we’re binding both the user’s input and output to set and reflect the state. [This is exactly how other frameworks like React also expect you to manage user state](https://coderpad.io/blog/master-react-unidirectional-data-flow/). 
+You may also notice that we’re binding both the user’s input and output to set and reflect the state. [This is exactly how other frameworks like React also expect you to manage user state](https://coderpad.io/blog/master-react-unidirectional-data-flow/).
 
 # Prop Passing with Lit’s Dot Synax
 
@@ -493,7 +492,7 @@ class FormElement extends LitElement {
 
 Now that we have a form that contains an array, an important question arises: how do we iterate through an array in order to create individual elements for a list?
 
-Well, while [React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://v3.vuejs.org/guide/list.html#mapping-an-array-to-elements-with-v-for), Lit uses a `repeat` function. Here’s an example:
+Well, while \[React has `Array.map](https://reactjs.org/docs/lists-and-keys.html)` and [Vue has `v-for`](https://v3.vuejs.org/guide/list.html#mapping-an-array-to-elements-with-v-for), Lit uses a `repeat` function. Here’s an example:
 
 ```javascript
 class TodoElement extends LitElement {

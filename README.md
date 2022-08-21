@@ -16,9 +16,7 @@ This repository acts as the source code location for [the Unicorn Utterances blo
 
 ## Sponsors
 
-<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
-<a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a>
-<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored"><img alt="CoderPad" src="https://unicorn-utterances.com/sponsors/coderpad.svg" width="300"/></a>
+<a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a> <a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a> <a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored"><img alt="CoderPad" src="https://unicorn-utterances.com/sponsors/coderpad.svg" width="300"/></a>
 
 [We disclose every sponsorship we share openly on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
@@ -42,4 +40,3 @@ We highly encourage and celebrate others contributing to our site and our commun
 Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
 
 We extend this invitation to those who may be unfamiliar with our processes. Be sure to check out [our CONTRIBUTING.md](./CONTRIBUTING.md) file first, but don't be afraid to join in and ask questions if you're uncertain of anything
-

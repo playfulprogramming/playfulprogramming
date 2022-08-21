@@ -68,7 +68,7 @@ fix(pagination): fixed pagination throwing errors when an odd number of items in
 feat(pagination): added new "first" and "last" events when pagination is moved to first or the last page 
 ```
 
-Your tooling knows only to bump the patch release because your first example is listed as a *type* of `fix`. However, in the second example, you have a _type_ of `feat` that tells your tooling to bump your release version by a minor number.
+Your tooling knows only to bump the patch release because your first example is listed as a _type_ of `fix`. However, in the second example, you have a _type_ of `feat` that tells your tooling to bump your release version by a minor number.
 
 Likewise, to tell your tooling that a commit introduces a breaking change, you'll do something along the lines of this:
 
@@ -86,7 +86,7 @@ An immediate question that might be asked is, "why would I put the scope of chan
 
 # Step 1: Commit Message Enforcement {#commit-lint}
 
-Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax. 
+Any suitable set of tooling should have guide-rails that help you follow the rules you set for yourself (and your team). Like a linter helps keeps your codebase syntactically consistent, _Conventional Commit setups often have a linter setup of their own_. This linter isn't concerned about your code syntax, but rather your commit message syntax.
 
 Just as you have many options regarding what linting ruleset you'd like to enforce on your codebase, you have a few options provided to you for your commit messages. You can utilize [the default linting rules out-of-the-box](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional), follow [the Angular Team's guidelines](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-angular), or even [utilize the format that Jira has set out](https://github.com/Gherciu/commitlint-jira).
 
@@ -175,7 +175,7 @@ Finally, `standard-version` needs to have a starting point to append the CHANGEL
 npm run release -- --first-release
 ```
 
-To generate your initial `CHANGELOG.md` file. This will also create a tag of the current state so that every subsequent release can change your version numbers. 
+To generate your initial `CHANGELOG.md` file. This will also create a tag of the current state so that every subsequent release can change your version numbers.
 
 ## Usage {#use-standard-version}
 
@@ -196,7 +196,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 Initial release
 ```
-
 
 Let's say we introduce a new version that has a set of features and bug fixes:
 
@@ -254,4 +253,3 @@ Keep in mind, simply because you have a new tool to manage releases doesn't mean
 While the outline we've provided should suffice for most usage, each of these tools includes many options that you're able to utilize customize the process to your liking.
 
 Find options you think we should cover in this article? Have questions about how to get `conventional-commit` and `standard-version` working? Let us know! We've got a comments section down below as well as [a Discord Community](https://discord.gg/FMcvc6T) that we use to chat.
-

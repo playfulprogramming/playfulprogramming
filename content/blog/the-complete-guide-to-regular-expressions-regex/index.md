@@ -21,7 +21,7 @@ Regex can be used any time you need to query string-based data, such as:
 - Reading configuration files
 - Searching and refactoring code
 
-While doing all of these is *theoretically* possible without regex, when regexes hit the scene they act as a superpower for doing all of these tasks.
+While doing all of these is _theoretically_ possible without regex, when regexes hit the scene they act as a superpower for doing all of these tasks.
 
 In this guide we'll cover:
 
@@ -83,7 +83,7 @@ Here is a list of all quantifiers:
 - `+` - one or more
 - `*` - zero or more
 - `{N}` - Exactly N number of times (where N is a number)
--  `{N,}` - N or more number of times (where N is a number)
+- `{N,}` - N or more number of times (where N is a number)
 - `{N,M}` - Between N and M number of times (where N and M are numbers and N < M)
 - `*?` - Zero or more, but stop after first match
 
@@ -147,7 +147,7 @@ H.*llo
 
 You can match everything from "Hillo" to "Hello" to "Hellollollo".
 
-![We're using a regex /H.*llo/ to look for the words "Hillo", "Hello", and "Helloollo"](./h_star_llo.png)
+![We're using a regex /H.\*llo/ to look for the words "Hillo", "Hello", and "Helloollo"](./h_star_llo.png)
 
 However, what if you want to only match "Hello" from the final example?
 
@@ -157,7 +157,7 @@ Well, simply make the search lazy with a `?` and it'll work as we want:
 H.*?llo
 ```
 
-![We're using a regex /H.*?llo/ to look for the words "Hillo", "Hello", and partially match the "Hello" in "Helloollo"](./h_star_question_llo.png)
+![We're using a regex /H.\*?llo/ to look for the words "Hillo", "Hello", and partially match the "Hello" in "Helloollo"](./h_star_question_llo.png)
 
 ## Pattern collections {#pattern-collections}
 
@@ -208,8 +208,8 @@ Not every character is so easily identifiable. While keys like "a" to "z" make s
 - `\b` - Word boundary: The boundaries between `\w` and `\W`, but matches in-between characters
 - `\B` - Non-word boundary: The inverse of `\b`
 - `^` - The start of a line
-- `$` - The end of a line 
-- `\\ `- The literal character "\"
+- `$` - The end of a line
+- `\\ `- The literal character ""
 
 So if you wanted to remove every character that starts a new word you could use something like the following regex:
 
@@ -246,8 +246,6 @@ But we can actually merge these together and place our `\s` token into the colle
 ```
 
 ![An explaination can be found in the next line. Apologies, Markdown formatting broke for this example](./a_through_z_whitespace.png)
-
-
 
 We're using a regex `/[A-Z\s]/` to look for uppercase letters and whitespaces in the string "Hello World how are you"
 
@@ -295,7 +293,7 @@ Likewise, if you want to find the last word your regex might look something like
 
 However, just because these tokens **typically** end a line doesn't mean that they can't have characters after them.
 
-For example, what if we wanted to find every whitespace character between newlines to act as a basic [JavaScript minifier](https://en.wikipedia.org/wiki/Minification_(programming))? 
+For example, what if we wanted to find every whitespace character between newlines to act as a basic [JavaScript minifier](https://en.wikipedia.org/wiki/Minification_\(programming\))?
 
 Well, we can say "Find all whitespace characters after the end of a line" using the following regex:
 
@@ -321,13 +319,13 @@ Or want to find every instance of this blog post's usage of the "\n" string. Wel
 
 # How to use a regex {#how-to-use-a-regex}
 
-Regular expressions aren't simply useful for *finding* strings, however. You're also able to use them in other methods to help modify or otherwise work with strings.
+Regular expressions aren't simply useful for _finding_ strings, however. You're also able to use them in other methods to help modify or otherwise work with strings.
 
 While many languages have similar methods, let's use JavaScript as an example.
 
 ## Creating and searching using regex
 
-First, let's look at how regex strings are constructed. 
+First, let's look at how regex strings are constructed.
 
 In JavaScript (along with many other languages), we place our regex inside of `//` blocks. The regex searching for a lowercase letter looks like this:
 
@@ -382,7 +380,7 @@ However, something you might notice is that if you run `youSayHelloISayGoodbye` 
 
 ![An explanation for this image is in the next sentence. Apologies - there are issues with the markdown processing on this one](./hello_hey_hi_insensative_1.png)
 
-If the regex /[Hh]ello|[Hh]i|[Hh]ey/ is used on the string "Hello, Hi there", it will only match "Hello" by default.
+If the regex /\[Hh]ello|\[Hh]i|\[Hh]ey/ is used on the string "Hello, Hi there", it will only match "Hello" by default.
 
 Here, we should expect to see both "Hello" and "Hi" matched, but we don't.
 
@@ -390,7 +388,7 @@ This is because we need to utilize a Regex "flag" to match more than once.
 
 # Flags {#flags}
 
-A regex flag is a modifier to an existing regex. These flags are always appended after the last forward slash in a regex definition. 
+A regex flag is a modifier to an existing regex. These flags are always appended after the last forward slash in a regex definition.
 
 Here's a shortlist of some of the flags available to you.
 
@@ -445,7 +443,7 @@ When using a global JavaScript regex, you might run into some strange behavior w
 
 In particular, if you run `exec` with a global regex, it will return `null` every other time:
 
-![If we assign a regex to a variable then run `exec` on said variable, it will find the results properly the first and third time, but return `null` the second time](./inconsistent_regex.png)This is because, as [MDN explains](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec):
+![If we assign a regex to a variable then run exec on said variable, it will find the results properly the first and third time, but return null the second time](./inconsistent_regex.png)This is because, as [MDN explains](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec):
 
 > JavaScript[ RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) objects are **stateful** when they have the[ global](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/global) or[ sticky](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/sticky) flags set… They store a[ lastIndex](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex) from the previous match. Using this internally, exec() can be used to iterate over multiple matches in a string of text…
 
@@ -453,7 +451,7 @@ The `exec` command attempts to start looking through the `lastIndex` moving forw
 
 To solve this problem, we can simply assign `lastIndex` to 0 before running each `exec` command:
 
-![If we run `regex.lastIndex = 0` in between each `regex.exec`, then every single `exec` runs as intended](./consistent_regex_fix.png)
+![If we run regex.lastIndex = 0 in between each regex.exec, then every single exec runs as intended](./consistent_regex_fix.png)
 
 # Groups {#groups}
 
@@ -470,7 +468,7 @@ Here, we can see matching against both `Testing 123` and `Tests 123` without dup
 - `(...)` - Group matching any three characters
 - `(?:...)` - Non-capturing group matching any three characters
 
-The difference between these two typically comes up in the conversation when "replace" is part of the equation. 
+The difference between these two typically comes up in the conversation when "replace" is part of the equation.
 
 For example, using the regex above, we can use the following JavaScript to replace the text with "Testing 234" and "tests 234":
 
@@ -596,7 +594,7 @@ There are four different types of lookahead and behinds:
 - `(?<=)` - positive lookbehind
 - `(?<!)` - negative lookbehind
 
-Lookahead works like it sounds like: It either looks to see that something *is* after the lookahead group or *is not* after the lookahead group, depending on if it's positive or negative.
+Lookahead works like it sounds like: It either looks to see that something _is_ after the lookahead group or _is not_ after the lookahead group, depending on if it's positive or negative.
 
 As such, using the negative lookahead like so:
 
@@ -614,7 +612,7 @@ You can even combine these with `^` and `$` tokens to try to match full strings.
 /^(?!Test).*$/gm
 ```
 
-![/^(?!Test).*$/gm lets us match "Hello" and "Other", but not "Testing 123" and "Tests 123"](./start_not_test_end.png)
+![/^(?!Test).\*$/gm lets us match "Hello" and "Other", but not "Testing 123" and "Tests 123"](./start_not_test_end.png)
 
 Likewise, we can switch this to a positive lookahead to enforce that our string **must** start with "Test"
 
@@ -622,7 +620,7 @@ Likewise, we can switch this to a positive lookahead to enforce that our string 
 /^(?=Test).*$/gm
 ```
 
-![Inversing our previous item - /^(?=Test).*$/gm lets us match "Testing 123" and "Tests 123", but not "Hello" and "Other"](./require_test_start.png)
+![Inversing our previous item - /^(?=Test).\*$/gm lets us match "Testing 123" and "Tests 123", but not "Hello" and "Other"](./require_test_start.png)
 
 # Putting it all together
 

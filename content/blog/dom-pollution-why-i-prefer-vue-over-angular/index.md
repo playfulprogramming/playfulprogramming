@@ -41,6 +41,7 @@ Then if you tried the same in Angular:
 What happened? Lets compare the custom components.
 
 `MyTextCell.vue`
+
 <iframe src="https://codesandbox.io/embed/async-leftpad-gjxmqv?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FMyTextCell.vue&theme=dark&view=editor"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="MyTextCell.vue"
@@ -48,6 +49,7 @@ What happened? Lets compare the custom components.
 ></iframe>
 
 `text-cell.component.ts`
+
 <iframe src="https://codesandbox.io/embed/cranky-shadow-frukfg?codemirror=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fapp%2Ftext-cell.component.ts&theme=dark&view=editor"
   style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
   title="text-cell.component.ts"
@@ -70,6 +72,7 @@ Vue output:
 ```
 
 Angular output:
+
 ```html
 <my-table _ngcontent-rbt-c270="" _nghost-rbt-c271="">
     <table _ngcontent-rbt-c271="">
@@ -90,6 +93,6 @@ Angular output:
 
 So much more going on. This is because, even though the components look like they are doing the same thing, the renderer has, and must, output extra tags. Now this isn't how I'd make a table in Angular and there are ways to address this like using `display: table-cell` and `role` attributes on the host but it could still be a hindrance.
 
-This doesn't mean Angular is all that bad. Actually, the reason Angular components are written this way is to closely resemble a proposed standard; Web Components. 
+This doesn't mean Angular is all that bad. Actually, the reason Angular components are written this way is to closely resemble a proposed standard; Web Components.
 
 Speaking of that checkout [Corbin](/unicorns/crutchcorn)'s [series on Web Components](/collections/web-components-101) and also [Angular elements](https://angular.io/guide/elements).

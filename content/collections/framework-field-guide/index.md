@@ -69,6 +69,7 @@ For instances where the frameworks diverge, you'll see tabs to see the relevant 
 For example, here's a "Hello world" component in each framework:
 
 <!-- tabs:start -->
+
 # React
 
 ```jsx
@@ -108,9 +109,9 @@ In the book print, these tabs will be turned into sub-headings.
 
 This book is primarily for three sets of people:
 
-1) Newcomers, who are looking to learn these frameworks for the first time.
-2) Engineers who've learned one framework and are looking for an easy way to learn one of the others.
-3) Those looking to 1-up their knowledge of these frameworks' internals
+1. Newcomers, who are looking to learn these frameworks for the first time.
+2. Engineers who've learned one framework and are looking for an easy way to learn one of the others.
+3. Those looking to 1-up their knowledge of these frameworks' internals
 
 This book will be starting with the very basics of what a component is, all the way into re-creating the core elements of
 these frameworks from scratch. Don't believe me? [**Here's sneak peek of the "React Internals" chapter I wrote via a Twitter thread where I build `useState` in Vanilla JS**](https://twitter.com/crutchcorn/status/1527059744392814592).

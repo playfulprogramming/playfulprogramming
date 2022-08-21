@@ -14,7 +14,7 @@
 
 Windows Subsystem for Linux (WSL) lets you run software designed for Linux. This gives Windows users access to tools and web developers environments closer resembling that of their peers or the webservers hosting their code.
 
-## Getting Started 
+## Getting Started
 
 First make sure Windows is updated, WSL required additional setup steps prior to version 2004. Then run open PowerShell (as Admin) and run `wsl --list --online`. This will list all the available OS's for WSL.
 
@@ -34,7 +34,7 @@ Ubuntu-18.04    Ubuntu 18.04 LTS
 Ubuntu-20.04    Ubuntu 20.04 LTS
 ```
 
-## Installing 
+## Installing
 
 Pick your favorite flavor, mine is Ubuntu or Debian if I think I might need any older tools. Then run `wsl --install -d <Distro>`.
 
@@ -63,7 +63,7 @@ Installation successful!
 user@MACHINE_NAME:~$
 ```
 
-## Setup 
+## Setup
 
 Run `sudo apt update` to refresh all your apt-get repos.
 

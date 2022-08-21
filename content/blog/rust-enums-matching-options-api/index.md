@@ -47,11 +47,11 @@ fn get_version(_lang: CodeLang) -> &'static str {
 }
 ```
 
-While this code *works*, it’s not very functional. If you pass in “CodeLang::JavaScript”, the version number isn’t correct. Let’s take a look at how we can fix that in the next section.
+While this code _works_, it’s not very functional. If you pass in “CodeLang::JavaScript”, the version number isn’t correct. Let’s take a look at how we can fix that in the next section.
 
 # Matching
 
-While you *could* use `if` statements to detect which enum is passed in, like so:
+While you _could_ use `if` statements to detect which enum is passed in, like so:
 
 ```rust
 fn get_version(lang: CodeLang) -> &'static str {
@@ -138,7 +138,6 @@ fn main() {
 }
 ```
 
-
 We’re able to expand our `if let` expression from before to access the value within:
 
 ```rust
@@ -185,7 +184,7 @@ fn get_version<'a>(lang: CodeLang) -> Option<&'a str> {
 }
 ```
 
-By doing this, we can make our logic more representative and check if a value is `None` 
+By doing this, we can make our logic more representative and check if a value is `None`
 
 ```rust
 fn main() {
@@ -272,7 +271,7 @@ pub fn map<U, F: FnOnce(T) -> U>(self, f: F) -> Option<U> {
 }
 ```
 
-As you can see, we matched our implementation very similarly, matching `Some` to another `Some` and `None` to another `None` 
+As you can see, we matched our implementation very similarly, matching `Some` to another `Some` and `None` to another `None`
 
 ## And Then Operator
 
@@ -489,7 +488,6 @@ fn main() {
 All of these features are used regularly in Rust applications: enums, matching, option operators. We hope that you can take these features and utilize them in your applications along your journey to learn Rust.
 
 Let’s close with a challenge. If you get stuck anywhere along the way or have comments/questions about this article, you can join our[ public chat community where we talk about general coding topics as well as interviewing](http://bit.ly/coderpad-slack).
-
 
 Let’s say that we have the “patch” version of a software tracked. We want to expand the logic of our code to support checking “5.1.2” and return “2” as the “patch” version. Given the modified regex to support three optional capture groups:
 

@@ -37,7 +37,7 @@ Let's look through both.
 
 ## Winget {#winget}
 
-One of the strongest advantages of `winget` is that it's built right into all builds of Windows 11 and most newer builds of Windows 10. 
+One of the strongest advantages of `winget` is that it's built right into all builds of Windows 11 and most newer builds of Windows 10.
 
 What's more, you don't need to be in an elevated admin shell to install packages. Instead, installers will individually ask you to accept the dialog to give admin rights.
 
@@ -65,19 +65,20 @@ Finally, you can upgrade all of your `winget` installed packages simply by runni
 
 ## Chocolatey {#chocolatey}
 
-[Chocolatey only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there either. Much like it's *nix-y counterparts, Chocolatey is an unofficial repository of software that includes checks of verification for a select number of popular packages.
+[Chocolatey only takes a single PowerShell command to install](https://chocolatey.org/install), not unlike [Homebrew for macOS](https://brew.sh/). The comparisons with Homebrew don't stop there either. Much like it's \*nix-y counterparts, Chocolatey is an unofficial repository of software that includes checks of verification for a select number of popular packages.
 
 It's also popular amongst sysadmins due to its ease of deployment across multiple devices and stability.
 
 You'll need to run it in an administrator window, but once you do, you'll find the utility straightforward. A simple `choco search package-name` will find related packages to the name you input where areas `choco install package-name` will install the package.
 
-You can also use `choco list --local-only` to see a list of all locally installed packages. 
+You can also use `choco list --local-only` to see a list of all locally installed packages.
 
 Finally, `choco upgrade all` will upgrade all locally installed packages.
 
 ### Manage Packages via GUI {#chocolatey-gui}
 
 Readers, I won't lie to you. I'm not the kind of person to use a CLI for everything. I absolutely see their worth, but remembering various command is simply not my strong suit even if I understand the core concepts entirely. For people like me, you might be glad to hear that _Chocolatey has a GUI for installing, uninstalling, updating, and searching packages_. It's as simple as (Chocolate) pie! More seriously, installing the GUI is as simple as:
+
 ```
 choco install ChocolateyGUI
 ```
@@ -106,11 +107,11 @@ choco install git.install--params "/GitAndUnixToolsOnPath"
 
 ### CLI Utilities {#cli-packages}
 
-| Name                                              | Choco Package | Winget Package | Explanation                                                  |
-| ------------------------------------------------- | ------------- | -------------- | ------------------------------------------------------------ |
-| [Micro Editor](https://github.com/zyedidia/micro) | `micro`       | N/A            | A great terminal editor (ala Nano). It even supports using the mouse! |
-| [Bat](https://github.com/sharkdp/bat)             | `bat`         | N/A            | A great alternative to `cat` with line numbers and syntax highlighting |
-| [GitHub CLI](https://cli.github.com/)             | `gh`          | `GitHub.cli`   | GitHub's official CLI for managing issues, PRs, and more     |
+| Name                                              | Choco Package | Winget Package | Explanation                                                                                                                     |
+| ------------------------------------------------- | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [Micro Editor](https://github.com/zyedidia/micro) | `micro`       | N/A            | A great terminal editor (ala Nano). It even supports using the mouse!                                                           |
+| [Bat](https://github.com/sharkdp/bat)             | `bat`         | N/A            | A great alternative to `cat` with line numbers and syntax highlighting                                                          |
+| [GitHub CLI](https://cli.github.com/)             | `gh`          | `GitHub.cli`   | GitHub's official CLI for managing issues, PRs, and more                                                                        |
 | [NVM](https://github.com/coreybutler/nvm-windows) | `nvm`         | N/A            | "Node version manager" - Enables users to have multiple installs of different Node versions and dynamically switch between them |
 | [Yarn](https://yarnpkg.com/)                      | `yarn`        | `Yarn.Yarn`    | An alternative to `npm` with better monorepo support. If installed through `choco`, it will support `nvm` switching seamlessly. |
 
@@ -128,12 +129,12 @@ winget install --id=GitHub.cli -e  && winget install --id=Yarn.Yarn -e
 
 ### IDEs {#ides}
 
-| Name                                                        | Choco Package                                                | Winget Package                                               | Explanation                                                |
-| ----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------------------------------------- |
-| [Visual Studio Code](https://code.visualstudio.com/)        | `vscode`                                                     | `Microsoft.VisualStudioCode`                                 | Popular Microsoft IDE for many languages                   |
-| [Sublime Text](https://www.sublimetext.com/)                | `sublimetext4`                                               | `SublimeHQ.SublimeText.4`                                    | Popular text editor with syntax support for many languages |
+| Name                                                        | Choco Package                                                | Winget Package                                                                       | Explanation                                                |
+| ----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| [Visual Studio Code](https://code.visualstudio.com/)        | `vscode`                                                     | `Microsoft.VisualStudioCode`                                                         | Popular Microsoft IDE for many languages                   |
+| [Sublime Text](https://www.sublimetext.com/)                | `sublimetext4`                                               | `SublimeHQ.SublimeText.4`                                                            | Popular text editor with syntax support for many languages |
 | [Visual Studio](https://visualstudio.microsoft.com/)        | `visualstudio2019professional` / `visualstudio2019community` | `Microsoft.VisualStudio.2019.Professional` / `Microsoft.VisualStudio.2019.Community` | Microsoft's flagship IDE                                   |
-| [Jetbrains Toolbox](https://www.jetbrains.com/toolbox-app/) | `jetbrainstoolbox`                                           | `JetBrains.Toolbox`                                          | The installer/updater for JetBrains' popular IDEs          |
+| [Jetbrains Toolbox](https://www.jetbrains.com/toolbox-app/) | `jetbrainstoolbox`                                           | `JetBrains.Toolbox`                                                                  | The installer/updater for JetBrains' popular IDEs          |
 
 You're able to install all of these packages using `choco`:
 
@@ -149,21 +150,21 @@ winget install --id=Microsoft.VisualStudioCode -e && winget install --id=Sublime
 
 ### Others {#utilities}
 
-| Name                                                        | Choco Package                              | Winget Package                                    | Explanation                                                  |
-| ----------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| Name                                                        | Choco Package                              | Winget Package                                    | Explanation                                                                                                                                                                                                                 |
+| ----------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [PowerToys](https://github.com/microsoft/PowerToys)         | `powertoys`                                | `Microsoft.PowerToys`                             | Built by MS itself, provides SVG/Markdown previews, provides utility for mass renaming, image resizing all from the file explorer itself. It also allows you to configure tiling and more. We'll talk about this more later |
-| [Ext2Fsd](https://sourceforge.net/projects/ext2fsd/)        | `ext2fsd`                                  | N/A                                               | A program that enables you to read/write from ex2/ex3/ex4 formatted filesystems |
-| [VirtualBox](https://www.virtualbox.org/)                   | `virtualbox`                               | `Oracle.VirtualBox`                               | A program that allows you to create, run, and edit virtual machines |
-| [VirtualBox Guest Additions](https://www.virtualbox.org/)   | `virtualbox-guest-additions-guest.install` | N/A                                               | The extension to `virtualbox` that provides better USB passthrough support |
-| [FiraCode](https://github.com/tonsky/FiraCode)              | `firacode`                                 | N/A                                               | A popular programming font that supports ligatures           |
-| [`scrcpy`](https://github.com/Genymobile/scrcpy)            | `scrcpy`                                   | N/A                                               | A utility that allows you to mirror your Android phone screen via ADB |
-| [Typora](https://typora.io/)                                | `typora`                                   | `Typora.Typora`                                   | A paid markdown editor with a "preview edit" mode allowing you to edit markdown files similarly to Word |
-| [Postman](https://www.postman.com/)                         | `postman`                                  | `Postman.Postman`                                 | A REST API tester                                            |
-| [Firefox](https://www.mozilla.org/en-US/firefox/new/)       | `Firefox`                                  | `Mozilla.Firefox`                                 | The popular web browser by Mozilla                           |
-| [Licecap](https://www.cockos.com/licecap/)                  | `licecap`                                  | `Cockos.LICEcap`                                  | A quick-and-easy GIF capture software                        |
-| [ScreenToGIF](https://www.screentogif.com/)                 | `screentogif`                              | `NickeManarin.ScreenToGif`                        | Another quick-and-easy GIF capture software with more software options |
-| [7Zip](https://www.7-zip.org/)                              | `7zip`                                     | `7zip.7zip`                                       | Compressed file format manager. Allows you to extract files from various formats |
-| [Java](https://www.oracle.com/java/technologies/downloads/) | `jdk` / `jre`                              | `Oracle.JDK.17` / `Oracle.JavaRuntimeEnvironment` | Java runtime and development kit                             |
+| [Ext2Fsd](https://sourceforge.net/projects/ext2fsd/)        | `ext2fsd`                                  | N/A                                               | A program that enables you to read/write from ex2/ex3/ex4 formatted filesystems                                                                                                                                             |
+| [VirtualBox](https://www.virtualbox.org/)                   | `virtualbox`                               | `Oracle.VirtualBox`                               | A program that allows you to create, run, and edit virtual machines                                                                                                                                                         |
+| [VirtualBox Guest Additions](https://www.virtualbox.org/)   | `virtualbox-guest-additions-guest.install` | N/A                                               | The extension to `virtualbox` that provides better USB passthrough support                                                                                                                                                  |
+| [FiraCode](https://github.com/tonsky/FiraCode)              | `firacode`                                 | N/A                                               | A popular programming font that supports ligatures                                                                                                                                                                          |
+| [`scrcpy`](https://github.com/Genymobile/scrcpy)            | `scrcpy`                                   | N/A                                               | A utility that allows you to mirror your Android phone screen via ADB                                                                                                                                                       |
+| [Typora](https://typora.io/)                                | `typora`                                   | `Typora.Typora`                                   | A paid markdown editor with a "preview edit" mode allowing you to edit markdown files similarly to Word                                                                                                                     |
+| [Postman](https://www.postman.com/)                         | `postman`                                  | `Postman.Postman`                                 | A REST API tester                                                                                                                                                                                                           |
+| [Firefox](https://www.mozilla.org/en-US/firefox/new/)       | `Firefox`                                  | `Mozilla.Firefox`                                 | The popular web browser by Mozilla                                                                                                                                                                                          |
+| [Licecap](https://www.cockos.com/licecap/)                  | `licecap`                                  | `Cockos.LICEcap`                                  | A quick-and-easy GIF capture software                                                                                                                                                                                       |
+| [ScreenToGIF](https://www.screentogif.com/)                 | `screentogif`                              | `NickeManarin.ScreenToGif`                        | Another quick-and-easy GIF capture software with more software options                                                                                                                                                      |
+| [7Zip](https://www.7-zip.org/)                              | `7zip`                                     | `7zip.7zip`                                       | Compressed file format manager. Allows you to extract files from various formats                                                                                                                                            |
+| [Java](https://www.oracle.com/java/technologies/downloads/) | `jdk` / `jre`                              | `Oracle.JDK.17` / `Oracle.JavaRuntimeEnvironment` | Java runtime and development kit                                                                                                                                                                                            |
 
 You're able to install all of these packages using `choco`:
 
@@ -205,7 +206,7 @@ First, let's start with the third party offerings. We have many options, but the
 
 ![A preview of the cmder terminal open on the UU repo](./cmder.png)
 
-As you can see, there's some custom logic for embedding Git metadata in the prompt, a custom `λ` prompt, and even contains some logic for more effective tab autocomplete. You're even able to install it via Chocolatey using `choco install cmder`! 
+As you can see, there's some custom logic for embedding Git metadata in the prompt, a custom `λ` prompt, and even contains some logic for more effective tab autocomplete. You're even able to install it via Chocolatey using `choco install cmder`!
 
 The terminal itself contains all kinds of functionality:
 
@@ -360,7 +361,7 @@ One option to customize your windows shell styling is [OhMyPosh](https://ohmypos
 
 For example, this is [my terminal theme](https://github.com/crutchcorn/dotfiles/blob/master/.myposh.json) that's being used in PowerShell
 
-![My PowerShell terminal with an emoji at the start and a plethora of colors and arrows. It's running `wsl exa -l`](./my_terminal_example.png)
+![My PowerShell terminal with an emoji at the start and a plethora of colors and arrows. It's running wsl exa -l](./my_terminal_example.png)
 
 > That emoji at the start? That's randomized on every shell start with a preselected list of emoji. Pretty 🔥 if you ask me.
 
@@ -370,7 +371,7 @@ Once setting up OhMyPosh in CMD/PowerShell or OhMyZSH in WSL, you may notice tha
 
 ![A preview of ZSH theme "agnoster" without a proper font installed](./no_powerline.png)
 
-To get some of these themes working properly, you may need to install a [powerline](https://github.com/ryanoasis/powerline-extra-symbols) enabled font. You have a few options to do this. 
+To get some of these themes working properly, you may need to install a [powerline](https://github.com/ryanoasis/powerline-extra-symbols) enabled font. You have a few options to do this.
 
 You can do so by [cloning this repository using PowerShell](https://github.com/powerline/fonts). Then `cd fonts` and `./install.ps1`. This script will install all of the fonts one-by-one on your system, fixing the font issues in your terminal. Find which font is your favorite and remember the name of it.
 
@@ -391,8 +392,6 @@ The final step is to configure your terminal editor to use the new font. Let's u
 Then, when you open the terminal, you should see the correct terminal display.
 
 ![A preview of ZSH theme "agnoster" with the proper font installed](./powerline.png)
-
-
 
 ## Make Configuration Changes {#terminal-system-config}
 
@@ -417,7 +416,7 @@ When working with the CLI, it's often important to have environmental variables 
 - User-specific
 - System-level
 
-Each of them follows their namesakes in their usage. If I set a user-specific environmental variable and change users, I will not receive the same value as the user I'd set the variable for. Likewise, if I set it for the system, it will apply to all users. The top of the "environmental variables" section applies to the user-level, whereas the bottom level applies to the system. 
+Each of them follows their namesakes in their usage. If I set a user-specific environmental variable and change users, I will not receive the same value as the user I'd set the variable for. Likewise, if I set it for the system, it will apply to all users. The top of the "environmental variables" section applies to the user-level, whereas the bottom level applies to the system.
 
 In order to add a new one, simply select "New" on whichever level you want to create the environmental variables on. You should see this dialog appear:
 
@@ -440,13 +439,11 @@ It could be because you don't have the program attached to your system path. You
 
 In order to add the file to the path, I need to edit the `path` environmental variable.
 
-> [Just as there are two sets of environmental variables](#env-path), there are two sets of `path` env variables. As such, you'll have to decide if you want all users to access a variable or if you want to restrict it to your current user. In this example, I'll be adding it to the system. 
+> [Just as there are two sets of environmental variables](#env-path), there are two sets of `path` env variables. As such, you'll have to decide if you want all users to access a variable or if you want to restrict it to your current user. In this example, I'll be adding it to the system.
 
-Find the `path` environmental variable and select `"Edit."` 
+Find the `path` environmental variable and select `"Edit."`
 
 ![The path dialog value](./path_dialog.png)
-
-
 
 Just as before, you're able to delete and edit a value by highlighting and pressing the respective buttons to the left. Otherwise, you can press "new" which will allow you to start typing. Once you're done, you can press "OK" to save your new path settings.
 
@@ -458,7 +455,7 @@ Just as before, you're able to delete and edit a value by highlighting and press
 
 Git, by default, uses `vim` to edit files. While I understand and respect the power of `vim`, I have never got the hang of `:!qnoWaitThatsNotRight!qq!helpMeLetMeOut`. As such, I tend to change my configuration to use `micro`, the CLI editor mentioned in [the CLI packages section](#cli-packages). In order to do so, I can just run:
 
-``` 
+```
 git config --global core.editor "micro"
 ```
 
@@ -494,9 +491,9 @@ git config --global core.autocrlf true
 
 ## WSL {#wsl}
 
-Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves. 
+Alright, alright, I'm sure you've been expecting to see this here. I can't beat around the bush any longer. Windows Subsystem for Linux (WSL) enables users to run commands on a Linux instance without having to dual-boot or run a virtual machine themselves.
 
-> While the initial v1 worked by mapping system calls from Windows to Linux in a somewhat complex method, the new version (WSL2) works differently. WSL2 utilizes a Linux container in the background and enabling you to call into that container. 
+> While the initial v1 worked by mapping system calls from Windows to Linux in a somewhat complex method, the new version (WSL2) works differently. WSL2 utilizes a Linux container in the background and enabling you to call into that container.
 >
 > Because of the foundational differences, compatibility with programs should be better in WSL2. If you last tried WSL when it first launched and were underwhelmed, try it again today.
 
@@ -564,8 +561,6 @@ sudo apt install gedit
 
 ![Gedit running alongside Notepad](./linux_gui.png)
 
-
-
 ### USB Pass-thru {#wsl-usb}
 
 For some development usage, having USB access from Linux is immensely useful. In particular, when dealing with Linux-only software for flashing microcontrollers or other embedded devices it's an absolute necessity.
@@ -580,23 +575,22 @@ When asking many of my Linux-favoring friends why they love Linux so much, I've 
 
 By default, Windows includes a myriad of shortcuts baked right in that allow you to have powerful usage of your system using nothing but your keyboard. Here are just a few that I think are useful to keep-in-mind:
 
-| Key Combo                                           | What It Does                                                 |
-| --------------------------------------------------- | ------------------------------------------------------------ |
-| <kbd>Win</kbd> + <kbd>S</kbd>                       | Perform a partial screenshot. Allow you to select what you want screenshotted |
-| <kbd>Win</kbd> + <kbd>.</kbd>                       | Bring up the emoji picker. After pressing, start typing to search. |
+| Key Combo                                           | What It Does                                                                                |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| <kbd>Win</kbd> + <kbd>S</kbd>                       | Perform a partial screenshot. Allow you to select what you want screenshotted               |
+| <kbd>Win</kbd> + <kbd>.</kbd>                       | Bring up the emoji picker. After pressing, start typing to search.                          |
 | <kbd>Win</kbd> + <kbd>R</kbd>                       | Bring up the "Run" dialog. Will allow you to type in the internal executable name to run it |
-| <kbd>Win</kbd> + <kbd>V</kbd>                       | Open the Windows clipboard manager                           |
-| <kbd>Win</kbd> + <kbd>X</kbd>                       | Bring up a list of actions, including "Start PowerShell as Admin" |
-| <kbd>Win</kbd> + <kbd>L</kbd>                       | Lock your screen                                             |
-| <kbd>Win</kbd> + <kbd>Tab</kbd>                     | Bring up the overview mode of all windows                    |
-| <kbd>Win</kbd> + <kbd>E</kbd>                       | Open file explorer                                           |
-| <kbd>Win</kbd> + <kbd>S</kbd>                       | Open search dialog                                           |
-| <kbd>Win</kbd> + <kbd>D</kbd>                       | Show/hide the desktop                                        |
-| <kbd>Shift</kbd> + <kbd>F10</kbd>                   | Bring up the context menu for the selected item              |
-| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>D</kbd>     | Add a new virtual desktop                                    |
-| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>Arrow</kbd> | Move between virtual desktops                                |
-| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>F4</kbd>    | Close current virtual desktop                                |
-
+| <kbd>Win</kbd> + <kbd>V</kbd>                       | Open the Windows clipboard manager                                                          |
+| <kbd>Win</kbd> + <kbd>X</kbd>                       | Bring up a list of actions, including "Start PowerShell as Admin"                           |
+| <kbd>Win</kbd> + <kbd>L</kbd>                       | Lock your screen                                                                            |
+| <kbd>Win</kbd> + <kbd>Tab</kbd>                     | Bring up the overview mode of all windows                                                   |
+| <kbd>Win</kbd> + <kbd>E</kbd>                       | Open file explorer                                                                          |
+| <kbd>Win</kbd> + <kbd>S</kbd>                       | Open search dialog                                                                          |
+| <kbd>Win</kbd> + <kbd>D</kbd>                       | Show/hide the desktop                                                                       |
+| <kbd>Shift</kbd> + <kbd>F10</kbd>                   | Bring up the context menu for the selected item                                             |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>D</kbd>     | Add a new virtual desktop                                                                   |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>Arrow</kbd> | Move between virtual desktops                                                               |
+| <kbd>Win</kbd> + <kbd>Ctrl</kbd> + <kbd>F4</kbd>    | Close current virtual desktop                                                               |
 
 ## Window Tiling {#window-tiling}
 
@@ -620,17 +614,17 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 
 ## Free {#free-customization-software}
 
-| Program Name                                                 | What It Is                                                   | Windows Compatibility |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------- |
-| [Audio Band](https://github.com/dsafa/audio-band)            | Adds an interactive music preview to the taskbar. Integrates with Spotify and others | Windows 10            |
-| [QuickLook](https://github.com/QL-Win/QuickLook)             | Adds MacOS like file preview on pressing spacebar            | Windows 10, 11        |
-| [EarTrumpet](https://github.com/File-New-Project/EarTrumpet) | Allows a more complex audio mixer. Support per-app volume control | Windows 10, 11        |
-| [Rainmeter](https://www.rainmeter.net/)                      | Enables new interactive desktop widgets                      | Windows 7, 8, 10, 11  |
-| [TranslucentTB](https://github.com/TranslucentTB/TranslucentTB) | Allows for more flexibility of taskbar                       | Windows 10, 11*       |
-| [RoundedTB](https://github.com/torchgm/RoundedTB)            | Allows for a rounded, more macOS-dock-like taskbar           | Windows 10, 11        |
-| [TaskbarX](https://github.com/ChrisAnd1998/TaskbarX)         | Like TranslucentTB but also supports centering icons in the TaskBar in Windows 10 | Windows 10, 11*       |
-| [Files UWP](https://github.com/duke7553/files-uwp/releases)  | A modern rewrite of the file explorer in UWP                 | Windows 10, 11        |
-| [Open-Shell](https://github.com/Open-Shell/Open-Shell-Menu)  | An open-source replacement for the start menu                | Windows 7, 8, 10      |
+| Program Name                                                    | What It Is                                                                           | Windows Compatibility |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------- |
+| [Audio Band](https://github.com/dsafa/audio-band)               | Adds an interactive music preview to the taskbar. Integrates with Spotify and others | Windows 10            |
+| [QuickLook](https://github.com/QL-Win/QuickLook)                | Adds MacOS like file preview on pressing spacebar                                    | Windows 10, 11        |
+| [EarTrumpet](https://github.com/File-New-Project/EarTrumpet)    | Allows a more complex audio mixer. Support per-app volume control                    | Windows 10, 11        |
+| [Rainmeter](https://www.rainmeter.net/)                         | Enables new interactive desktop widgets                                              | Windows 7, 8, 10, 11  |
+| [TranslucentTB](https://github.com/TranslucentTB/TranslucentTB) | Allows for more flexibility of taskbar                                               | Windows 10, 11\*      |
+| [RoundedTB](https://github.com/torchgm/RoundedTB)               | Allows for a rounded, more macOS-dock-like taskbar                                   | Windows 10, 11        |
+| [TaskbarX](https://github.com/ChrisAnd1998/TaskbarX)            | Like TranslucentTB but also supports centering icons in the TaskBar in Windows 10    | Windows 10, 11\*      |
+| [Files UWP](https://github.com/duke7553/files-uwp/releases)     | A modern rewrite of the file explorer in UWP                                         | Windows 10, 11        |
+| [Open-Shell](https://github.com/Open-Shell/Open-Shell-Menu)     | An open-source replacement for the start menu                                        | Windows 7, 8, 10      |
 
 > \* Functionality may be limited or require further modification for some reason
 
@@ -638,16 +632,16 @@ I'm not sure about you, but when I get a new machine, I want it to feel _mine_. 
 
 > Just a reminder that none of this software mentioned here due to a sponsorship or financial arrangement of any kind. Please understand that this is all software that I personally use and wanted to share. I've tried my best to find some form of free/open-source replacement and linked them in the "Free" section.
 
-| Program Name                                          | What It Is                                                   | Windows Compatibility | Price         |
-| ----------------------------------------------------- | ------------------------------------------------------------ | --------------------- | ------------- |
-| [DisplayFusion](http://www.displayfusion.com/)        | A multi-monitor utility program. Enables tons of functionality to help manage multiple monitors | Windows 7, 8, 10, 11  | Starts at $29 |
-| [OneCommander](http://onecommander.com/)              | A replacement for the File Explorer with various improvements | Windows 10, 11        | $5            |
-| [TrayStatus](https://www.traystatus.com/)             | Status tray indicators for HDD, CPU, Capslock, and more      | Windows 10, 11        | Starts at $10 |
+| Program Name                                          | What It Is                                                                                                                                                                                                                          | Windows Compatibility | Price         |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------- |
+| [DisplayFusion](http://www.displayfusion.com/)        | A multi-monitor utility program. Enables tons of functionality to help manage multiple monitors                                                                                                                                     | Windows 7, 8, 10, 11  | Starts at $29 |
+| [OneCommander](http://onecommander.com/)              | A replacement for the File Explorer with various improvements                                                                                                                                                                       | Windows 10, 11        | $5            |
+| [TrayStatus](https://www.traystatus.com/)             | Status tray indicators for HDD, CPU, Capslock, and more                                                                                                                                                                             | Windows 10, 11        | Starts at $10 |
 | [Groupy](https://www.stardock.com/products/groupy/)   | A replacement for the [now-defunct Sets](https://www.zdnet.com/article/windows-10s-sets-feature-is-gone-and-not-expected-to-return/) functionality. Group unrelated programs into tabs, even if they didn't previously support tabs | Windows 10, 11        | $10           |
-| [Start10](https://www.stardock.com/products/start10/) | A replacement for the Windows 10 start menu                  | Windows 10            | $5            |
-| [Start11](https://www.stardock.com/products/start11/) | A replacement for the Windows 11 start menu | Windows 11            | $6            |
-| [StartAllBack](https://www.startallback.com/) | Windows 11 start menu replacement |Windows 11|$5|
-| [StartIsBack](https://www.startisback.com/) | Windows 10 start menu replacement |Windows 10|$5|
+| [Start10](https://www.stardock.com/products/start10/) | A replacement for the Windows 10 start menu                                                                                                                                                                                         | Windows 10            | $5            |
+| [Start11](https://www.stardock.com/products/start11/) | A replacement for the Windows 11 start menu                                                                                                                                                                                         | Windows 11            | $6            |
+| [StartAllBack](https://www.startallback.com/)         | Windows 11 start menu replacement                                                                                                                                                                                                   | Windows 11            | $5            |
+| [StartIsBack](https://www.startisback.com/)           | Windows 10 start menu replacement                                                                                                                                                                                                   | Windows 10            | $5            |
 
 # Functionality {#functionality}
 
@@ -655,7 +649,7 @@ Windows also has some differing functionality to Linux/macOS in some critical wa
 
 ## Virtual Desktops {#virtual-desktops}
 
-Longtime users of Linux will be quick to note that they've had virtual desktops for years. While a newer feature to the Windows product line, it too was actually introduced in Windows 10! 
+Longtime users of Linux will be quick to note that they've had virtual desktops for years. While a newer feature to the Windows product line, it too was actually introduced in Windows 10!
 
 If [you press <kbd>Win</kbd> + <kbd>Tab</kbd>, it will open a task view](#built-in-keyboard-shortcuts). On the top right of your screen, you should see a "New desktop" button. If you press it, it will create a new desktop.
 
@@ -681,8 +675,6 @@ If you're a laptop user (or have a touchpad for your desktop) that supports Wind
 
 ![A preview of the touchpad settings page](./touchpad_virtual_desktop.png)
 
-
-
 ## Symbolic Links {#symlinks}
 
 Symbolic links are a method of having a shortcut of sorts from one file/folder to another. Think of it as Windows Shortcuts but baked directly into the filesystem level. This may come as a surprise to some developers, but Windows actually has support for symbolic links!
@@ -695,12 +687,14 @@ Once done, you're able to run `mklink`, which provides you the ability to make a
 
 ### Usage {#using-mklink}
 
-By default, it creates a soft link from the first argument to the second. 
+By default, it creates a soft link from the first argument to the second.
+
 ```
 mklink Symlink SourceFile
 ```
 
 You're also able to add `/D` to make a soft link to a directory:
+
 ```
 mklink /D SymlinkDir SourceFolder
 ```
@@ -750,13 +744,13 @@ Users that have switched from macOS or Linux can tell you that most systems care
 fsutil.exe file setCaseSensitiveInfo C:\path\to\folder enable
 ```
 
-Once this is done, tada! Your directory is now case sensitive. That said, be warned that this setting does not trickle down to your subfolders: Only the parent will be case sensitive. 
+Once this is done, tada! Your directory is now case sensitive. That said, be warned that this setting does not trickle down to your subfolders: Only the parent will be case sensitive.
 
 Luckily, any folders you create using WSL will be case sensitive by default, enabling you to have files with the same name present with only casing differences between them.
 
 # Conclusion
 
-You'll notice that despite the raw power and capabilities that WSL2 will be bringing to us right around the corner, that I didn't touch on it until later in the article. That's because, while it's an amazing toolset to be able to utilize for those that need it, it's not the only thing that you can do to enable your Windows instance to be powerful for development. Windows (and Microsoft as a whole) has come a long way in the past 10 years, and with their continued effort on projects like WSL, VS Code, and the Windows Terminal, the future looks brighter than ever. 
+You'll notice that despite the raw power and capabilities that WSL2 will be bringing to us right around the corner, that I didn't touch on it until later in the article. That's because, while it's an amazing toolset to be able to utilize for those that need it, it's not the only thing that you can do to enable your Windows instance to be powerful for development. Windows (and Microsoft as a whole) has come a long way in the past 10 years, and with their continued effort on projects like WSL, VS Code, and the Windows Terminal, the future looks brighter than ever.
 
 I want to take a moment to stop and appreciate all of the hard work that the folks at Microsoft and everyone involved in the projects mentioned have done to enable the kind of work I do daily. Thank you.
 

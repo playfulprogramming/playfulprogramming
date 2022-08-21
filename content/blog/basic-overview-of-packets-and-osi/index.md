@@ -22,7 +22,8 @@ It's important to note that _"networking" is a broad, catch-all term that infers
 > That said, you need the right binary data to be input into the CPU for it to process, just like our brains need the right input to find the answer of what to do. Because of this, communication with the CPU is integral
 
 # Architecture {#network-architectures}
-There are a lot of ways that information can be connected and transferred. We use various types of architecture to connect them. 
+
+There are a lot of ways that information can be connected and transferred. We use various types of architecture to connect them.
 
 _Computers speak in `1`s and `0`s, known as binary_. These binary values come in incredibly long strings of combinations of one of the two symbols to _construct all of the data used in communication_.
 
@@ -44,7 +45,7 @@ Furthermore, because error-handled bi-directional cancelable subscriptions (like
 
 ## Packet Architecture {#packet-architecture}
 
-The weaknesses of the bus architecture led to the creation of the packet architecture. The packet architecture requires a bit more of a higher-level understanding of how data is sent and received. To explain this concept, we'll use an analogy that fits really well. 
+The weaknesses of the bus architecture led to the creation of the packet architecture. The packet architecture requires a bit more of a higher-level understanding of how data is sent and received. To explain this concept, we'll use an analogy that fits really well.
 
 Let's say you want to send a note to your friend that's hours away from you. You don't have the internet so you decide to send a letter. In a typical correspondence, you'd send off a letter, include a return address, and wait for a response back. That said, _there's nothing stopping someone from sending more than a single letter before receiving a response_. This chart is a good example of that:
 
@@ -56,7 +57,7 @@ Similarly, a packet is _sent from a single sender, received by a single recipien
 
 Letters may not give you the same kind of continuous stream of consciousness as in-person communications, but they do provide something in return: structure.
 
-The way you might structure your thoughts when speaking is significantly different from how you might organize your thoughts on paper. For example, in this article, there is a clear beginning, end, and structured headings to each of the items in this article. Such verbose metadata (such as overall length) cannot be communicated via in-person talking. _The way you may structure data in a packet may also differ from how you might communicate data via a bus_. 
+The way you might structure your thoughts when speaking is significantly different from how you might organize your thoughts on paper. For example, in this article, there is a clear beginning, end, and structured headings to each of the items in this article. Such verbose metadata (such as overall length) cannot be communicated via in-person talking. _The way you may structure data in a packet may also differ from how you might communicate data via a bus_.
 
 That said, simply because there's a defined start and an end does not mean that you cannot _send large sequences of data through multiple packets and stitch them together_. Neither is true for the written word. This article does not contain the full set of information the series we hope to share, but rather provides a baseline and structure for how the rest of the information is to be consumed. So too can packets provide addendums to other packets, if you so wish.
 

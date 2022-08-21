@@ -39,7 +39,7 @@ Binary, on the other hand, is _base two_. **This means that there are only two s
 > For the Latin enthusiasts, binary comes from "binarius" meaning "two together". _Deca_, meaning 10, is where "decimal" comes from.
 > Additionally, the term "radix" is sometimes used instead of "base" when describing numeral systems, especially in programming.
 
-Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use **`X`**s and **`O`**s as our two symbols for our first few examples. _An **`X`** represents if a number is present and that we should add it to the final sum; an **`O`** means that the number is not present and that we should not add it_.
+Instead of using numbers, which can get very confusing very quickly while learning for the first time, let's use \*\*`X`\*\*s and \*\*`O`\*\*s as our two symbols for our first few examples. _An **`X`** represents if a number is present and that we should add it to the final sum; an **`O`** means that the number is not present and that we should not add it_.
 Take the following example:
 
 ![A "X" on the two column and a "X" on the ones column which add together to make 3](./base_2_3_symbols.svg)
@@ -66,26 +66,26 @@ Once each of these powers is laid out, we can start adding `1`s where we have th
 
 - Is `64` less than or equal to `50`? No. That's a **`0`**.
 - Is `32 <= 50`? Yes, therefore that's a **`1`**.
-    - `50 - 32 = 18`
+  - `50 - 32 = 18`
 - Moving down the list, is `16 <= 18`? Yes, that's a **`1`**.
-    -`18 - 16 = 2`
+  \-`18 - 16 = 2`
 - Is `8 <= 2`? No, that's a **`0`**.
 - `4 <= 2`? No, that's a **`0`** as well.
 - `2 <= 2`? Yes, that's a **`1`**.
-    - `2 - 2 = 0`
+  - `2 - 2 = 0`
 - Now that we're left with `0`, we know that the rest of the digits will be `0`.
 
 Add up all those numbers:
 
-| Column | Value   |  
-| ------ | ------- |  
-| `64`   | **`0`** |  
-| `32`   | **`1`** |  
-| `16`   | **`1`** |  
-| `8`    | **`0`** |  
-| `4`    | **`0`** |  
-| `2`    | **`1`** |  
-| `1`    | **`0`** |  
+| Column | Value   |
+| ------ | ------- |
+| `64`   | **`0`** |
+| `32`   | **`1`** |
+| `16`   | **`1`** |
+| `8`    | **`0`** |
+| `4`    | **`0`** |
+| `2`    | **`1`** |
+| `1`    | **`0`** |
 
 And voilà, you have the binary representation of `50`: **`0110010`**.
 
@@ -115,15 +115,15 @@ Assuming we have a _ones_ column, a _sixteens_ column, and a _two-hundred fifty 
 
 - Is `256` less than or equal to `50`? No. That's a **`0`**
 - Is `16 <= 50`? Yes. So we know it's _at least `1`_.
-    - Now, how many times can you put `16` in `50`?
-        - `16 * 2 = 32` and `32 <= 50`, so it's _at least_ _`2`_.
-        - `16 * 3 = 48` and `48 <= 50` so it's _at least_ _`3`_.
-        - `16 * 4 = 64`. However, `64 > 50`, therefor the _sixteenth_ place cannot be _`4`_, therefore it must be **`3`**.
-    - Now that we know the most we can have in the _sixteenth_ place, we can subtract the sum (`48`) from our result (`50`).
-        - `50 - 48 = 2`
+  - Now, how many times can you put `16` in `50`?
+    - `16 * 2 = 32` and `32 <= 50`, so it's _at least_ _`2`_.
+    - `16 * 3 = 48` and `48 <= 50` so it's _at least_ _`3`_.
+    - `16 * 4 = 64`. However, `64 > 50`, therefor the _sixteenth_ place cannot be _`4`_, therefore it must be **`3`**.
+  - Now that we know the most we can have in the _sixteenth_ place, we can subtract the sum (`48`) from our result (`50`).
+    - `50 - 48 = 2`
 - Now onto the _ones_ place: how many _ones_ can fit into _`2`_?
-    - `1 * 1 = 1` and `1 <= 2`, so it's _at least_ _`1`_.
-    - `1 * 2 = 2` and `2 <= 2` and because these numbers are equal, we know that there must be **`2`** _twos_.
+  - `1 * 1 = 1` and `1 <= 2`, so it's _at least_ _`1`_.
+  - `1 * 2 = 2` and `2 <= 2` and because these numbers are equal, we know that there must be **`2`** _twos_.
 
 Now if we add up these numbers:
 
@@ -153,13 +153,13 @@ In order to add a number larger than `15` in the hexadecimal system, we need to 
 >
 > Binary works in the same manner. The first 5 columns/digits of binary are: `1`, `2`, `4`, `8`, `16`. These numbers align respectively to their binary exponents: 2<sup>0</sup>, 2<sup>1</sup>, 2<sup>2</sup>, 2<sup>3</sup>, 2<sup>4</sup>.
 >
-> It's also worth noting that decimal numbers can be written out the same way. 
+> It's also worth noting that decimal numbers can be written out the same way.
 >
 > _`732`_ for example, in base 10, can be written as (7 × 10<sup>2</sup>) + (3 × 10<sup>1</sup>) + (2 × 10<sup>0</sup>).
 
 ## To Binary {#hexadecimal-to-binary}
 
-Remember that at the end of the day, hexadecimal is just another way to represent a value using a specific set of symbols. Just as we're able to convert from binary to decimal, we can convert from hexadecimal to binary and vice versa. 
+Remember that at the end of the day, hexadecimal is just another way to represent a value using a specific set of symbols. Just as we're able to convert from binary to decimal, we can convert from hexadecimal to binary and vice versa.
 In binary, the set of symbols is much smaller than in hexadecimal, and as a result, the symbolic representation is longer.
 
 ![The hexadecimal number "032" and the binary number "110010" which both represent the decimal value 50](./binary_vs_hexadecimal.svg)

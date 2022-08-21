@@ -160,7 +160,7 @@ In this article we'll learn:
 - [How to use a base class in Angular](#base-class-angular)
 - [How to simplify Angular base class usage using an abstract class](#abstract-class)
 - [Overwriting lifecycle methods in Angular extended classes](#lifecycle-methods)
-- [Using dependency injection with your extended class](#dependency injection)
+- \[Using dependency injection with your extended class]\(#dependency injection)
 - [Why you don't want to use base classes with Angular](#dont-extend-base-classes)
 
 # What is an extension class, anyway? {#base-class}
@@ -194,8 +194,6 @@ This class has a few things going on:
 - A method of `sayHi`
 
 When we create an "instance" of this class, it will in turn call the `constructor` and give us an object with all of the properties and methods associated with `HelloMessage` as an "instance" of that class.
-
-
 
 Now, let's say that we want to reuse the `sayHi` logic in multiple classes at a time.
 
@@ -584,8 +582,6 @@ class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 }
 ```
 
-
-
 ## Overwriting `constructor` behavior {#overwriting-constructors}
 
 When working with class extension, regardless of being used in Angular or in JavaScript itself, you need to call `super()` when trying to overwrite a constructor:
@@ -837,8 +833,6 @@ class AppComponent extends BaseComponent {
 }
 ```
 
-
-
 # Why you don't want to extend Angular base classes {#dont-extend-base-classes}
 
 Now that we've learned how to extend base classes in Angular to share lifecycle methods, allow me to flip the script:
@@ -994,8 +988,6 @@ class AppComponent implements OnDestroy {
   }
 }
 ```
-
-
 
 # Conclusion
 

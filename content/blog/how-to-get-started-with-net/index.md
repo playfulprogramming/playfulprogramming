@@ -29,13 +29,13 @@ It was no different to learning another language, like Python, JavaScript, or ev
 
 First of, we are going to start with something extremely simple. We are going to create a simple Console Application. There is just one small, but important
 step we must take before we can start writing code. Now unfortunately, if you use a Linux based system, you will need to install the .NET Core SDK, which can
-be tedious. You can download the SDK from the following link: https://www.microsoft.com/net/core
+be tedious. You can download the SDK from the following link: <https://www.microsoft.com/net/core>
 
 On Windows or MacOS, you can install Visual Studio, which comes with the .NET Core SDK already installed. You can download Visual Studio from the following
-link: https://visualstudio.microsoft.com/downloads
+link: <https://visualstudio.microsoft.com/downloads>
 
 This article is directed at windows users, but you can also use Visual Studio on MacOS. If you are using Linux, you will need to use another IDE/Text Editor
-and the dotnet CLI. You can download the dotnet CLI from the following link: https://dotnet.microsoft.com/download
+and the dotnet CLI. You can download the dotnet CLI from the following link: <https://dotnet.microsoft.com/download>
 
 # Creating a project
 
@@ -44,6 +44,7 @@ then clicking new->project. You will be prompted to select the type of project y
 to name the project, and choose the location where you want to save it. Once you have created the project, you will be able to start writing code.
 
 You should be greeted with the following code:
+
 ```cs
 using System;
 
@@ -72,6 +73,7 @@ We will create a new class called Film, and then we will create a new method cal
 We will also create a List of films, and then we will add a few films to the list.
 
 Lets get started with writing code:
+
 ```cs
 using System;
 using System.Collections.Generic;
@@ -116,10 +118,10 @@ The `List<Film>` is a data structure that is used to store a list of items. The 
 Inside of the `Film` class, we have three properties, `Title`, `Year`, and `Director`. Properties are like variables, and they are used to store information.
 
 I'm not going to go into nitty gritty details about what is going on here, as I expect you to be familiar with some of the concepts already. I really recommend
-reading up on the C# language, and reading the documentation, at https://docs.microsoft.com/dotnet/csharp to get a better understanding of what is going on here.
+reading up on the C# language, and reading the documentation, at <https://docs.microsoft.com/dotnet/csharp> to get a better understanding of what is going on here.
 
 I fully understand that dotnet can be a bit confusing at first, but I hope that this article will help you get started with .NET. I hope you enjoyed the article!
 
 # Contact
 
-If you have any questions, comments, or concerns, feel free to contact me at https://www.owenboreham.tech/contact
+If you have any questions, comments, or concerns, feel free to contact me at <https://www.owenboreham.tech/contact>

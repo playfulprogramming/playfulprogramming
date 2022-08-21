@@ -18,7 +18,7 @@ Today, we'll be walking through two definitions of refs:
 
 - A [reference to DOM elements](#dom-ref)
 
-We'll also be exploring additional functionality to each of those two definitions, such as [component refs](#forward-ref), [adding more properties to a ref](#use-imperative-handle), and even exploring [common code gotchas associated with using `useRef`](#refs-in-use-effect). 
+We'll also be exploring additional functionality to each of those two definitions, such as [component refs](#forward-ref), [adding more properties to a ref](#use-imperative-handle), and even exploring [common code gotchas associated with using `useRef`](#refs-in-use-effect).
 
 > As most of this content relies on the `useRef` hook, we'll be using functional components for all of our examples. However, there are APIs such as [`React.createRef`](https://reactjs.org/docs/refs-and-the-dom.html#creating-refs) and [class instance variables](https://www.seanmcp.com/articles/storing-data-in-state-vs-class-variable/) that can be used to recreate `React.useRef` functionality with classes.
 
@@ -90,8 +90,6 @@ However, that's not the case. [To quote Dan Abramov](https://github.com/facebook
 >   return ref
 > }
 > ```
-
-
 
 Because of this implementation, when you mutate the `current` value, it will not cause a re-render.
 
@@ -173,25 +171,26 @@ Because `useRef` relies on passing by reference and mutating that reference, if 
 
 <iframe src="https://stackblitz.com/edit/react-use-ref-mutable-fixed-code?ctl=1&embed=1" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
-> * I would not solve it this way in production. `useState` accepts a callback which you can use as an alternative (much more recommended) route:
+> - I would not solve it this way in production. `useState` accepts a callback which you can use as an alternative (much more recommended) route:
 >
 > ```jsx
 >   const dataRef = React.useRef();
-> 
+>
 >   const [timerVal, setTimerVal] = React.useState(0);
-> 
+>
 >   const clearTimer = () => {
 >     clearInterval(dataRef.current);
 >   };
-> 
+>
 >   React.useEffect(() => {
 >     dataRef.current = setInterval(() => {
 >       setTimerVal(tVal => tVal + 1);
 >     }, 500);
-> 
+>
 >     return () => clearInterval(dataRef.current);
 >   }, [dataRef]);
 > ```
+>
 > We're simply using a `useRef` to outline one of the important properties about refs: mutation.
 
 # DOM Element References {#dom-ref}
@@ -248,7 +247,7 @@ It's worth noting that the `ref` attribute also accepts a function. While [we'll
   )
 ```
 
-#  Component References {#forward-ref}
+# Component References {#forward-ref}
 
 HTML elements are a great use-case for `ref`s. However, there are many instances where you need a ref for an element that's part of a child's render process. How are we able to pass a ref from a parent component to a child component?
 
@@ -363,11 +362,11 @@ const App = () => {
 > ```jsx
 > class App extends React.Component {
 >   compRef = React.createRef();
-> 
+>
 >   componentDidMount() {
 >     console.log(this.compRef.current);
 >   }
-> 
+>
 >   render() {
 >     return (
 >       <Container ref={this.compRef}>
@@ -753,9 +752,11 @@ The way `useEffect` _actually_ works is much more passive. During a render, `use
 Why does this come into play when `ref`s are used? Well, there are two things to keep in mind:
 
 - Refs rely on object mutation rather than reassignment
+
 - When a `ref` is mutated, it does not trigger a re-render
 
 - `useEffect` only does the array check on re-render
+
 - Ref's current property set doesn't trigger a re-render ([remember how `useRef` is _actually_ implemented](#use-ref-mutate))
 
 Knowing this, let's take a look at an offending example once more:
@@ -782,7 +783,6 @@ export default function App() {
 This code behaves as we might initially expect, not because we've done things properly, but instead, thanks to the nature of React's `useEffect` hook's timing.
 
 Because `useEffect` happens _after_ the first render, `elRef` is already assigned by the time `elRef.current.style` has its new value assigned to it. However, if we somehow broke that timing expectancy, we'd see different behavior.
-
 
 What do you think will happen if you make the `div` render happen _after_ the initial render?
 
@@ -856,7 +856,7 @@ Because of the unintended effects of tracking a `ref` in a `useEffect`, the core
 
 [Dan Abramov Said on GitHub:](https://github.com/facebook/react/issues/14387#issuecomment-503616820)
 
-> As I mentioned earlier, if you put [ref.current] in dependencies, you're likely making a mistake. Refs are for values whose changes don't need to trigger a re-render.
+> As I mentioned earlier, if you put \[ref.current] in dependencies, you're likely making a mistake. Refs are for values whose changes don't need to trigger a re-render.
 >
 > If you want to re-run effect when a ref changes, you probably want a callback ref instead.
 

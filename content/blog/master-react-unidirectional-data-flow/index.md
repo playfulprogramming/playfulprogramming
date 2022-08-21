@@ -35,7 +35,7 @@ As you can see we're passing the `onChange` and value props to `SimpleForm`. Thi
 
 While `SimpleForm` is displaying the data to the user, the logic itself stays within `App`. `SimpleForm` contains no state or application logic; we call components like these "dumb" components. "Dumb" components are utilized for styling and composability, but not for app logic or state.
 
-This is what a set of proper React components *should* look like. This pattern of raising state out of the component itself and leaving "dumb" component comes from the guidance of the React team itself. This pattern is called[ "lifting state up"](https://reactjs.org/docs/lifting-state-up.html).
+This is what a set of proper React components _should_ look like. This pattern of raising state out of the component itself and leaving "dumb" component comes from the guidance of the React team itself. This pattern is called[ "lifting state up"](https://reactjs.org/docs/lifting-state-up.html).
 
 Now that we have a better understanding of the patterns to follow let's take a look at the wrong way to do things.
 

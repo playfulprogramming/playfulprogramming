@@ -173,22 +173,27 @@ can interact with it. From here, a few different events can occur...
 
 Let's say that another Activity comes into the foreground (but this activity is still visible behind
 it; imagine a popup or something that the user will return to your app from).
+
 - `onPause()` called; stop doing anything significant - playing music or any continuous task not running
-    in another component (like a `Service`) should be ceased.
+  in another component (like a `Service`) should be ceased.
 
 Then, if the user returns to the activity...
+
 - `onResume()` called; resume whatever was paused previously
 
 If the user leaves your activity completely, then you will get:
+
 - `onPause()` called; probably stop doing stuff maybe
 - `onStop()` called; okay, REALLY stop doing stuff now
 
 Then, if the user navigates back to your activity...
+
 - `onRestart()` called
 - `onStart()` called
 - `onResume()` called
 
 When the application is completely closed by the user, then you will receive:
+
 - `onPause()` called
 - `onStop()` called
 - `onDestroy()` called
@@ -215,7 +220,7 @@ See: [Service documentation](https://developer.android.com/reference/android/app
 
 A broadcast receiver can be seen as more of an "event" that occurs once and is over. They can run
 independently from a UI, the same a Service, but only for a short period of time (I believe they are
-terminated by the system after ~10 seconds - citation needed). However, they are given a `Context`,
+terminated by the system after \~10 seconds - citation needed). However, they are given a `Context`,
 and can fire an intent to start other components of the app if needed.
 
 Broadcast receivers are a little special in that they don't have to be declared explicitly in the

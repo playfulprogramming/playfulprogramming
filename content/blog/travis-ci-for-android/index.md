@@ -10,7 +10,7 @@
 }
 ---
 
-Last week, I started setting up continuous integrations for some of my projects. The basic idea of a continuous integration is that you have a server to build your project on a regular basis, verify that it works correctly, and deploy it to wherever your project is published. In this case, my project will be deployed to the releases of its GitHub repository and an alpha channel on the Google Play Store. In order to do this, I decided to use [Travis CI](https://travis-ci.com/), as it seems to be the most used and documented solution (though there are others as well). Throughout this blog, I will add small snippets of the files I am editing, but (save for the initial `.travis.yml`) never an entire file. If you get lost or would like to see a working example of this, you can find a sample project [here](/redirects/?t=github&d=TravisAndroidExample).
+Last week, I started setting up continuous integrations for some of my projects. The basic idea of a continuous integration is that you have a server to build your project on a regular basis, verify that it works correctly, and deploy it to wherever your project is published. In this case, my project will be deployed to the releases of its GitHub repository and an alpha channel on the Google Play Store. In order to do this, I decided to use [Travis CI](https://travis-ci.com/), as it seems to be the most used and documented solution (though there are others as well). Throughout this blog, I will add small snippets of the files I am editing, but (save for the initial `.travis.yml`) never an entire file. If you get lost or would like to see a working example of this, you can find a sample project [here](/redirects/?t=github\&d=TravisAndroidExample).
 
 A small preface, make sure that you create your account on [travis-ci.com](https://travis-ci.com/), not [travis-ci.org](https://travis-ci.org/). Travis previously had their free plans on their .org site and only took paying customers on .com, but they have since begun [migrating all of their users](https://docs.travis-ci.com/user/open-source-on-travis-ci-com/) to travis-ci.com. However, for some reason they have decided _not to say anything about it_ when you create a new account, so it would be very easy to set up all of your projects on their .org site, then (X months later) realize that you have to move to .com. This isn't a huge issue, but it could be a little annoying if you have _almost 100 repositories_ like I do which you would have to change (though I have only just started using Travis, so it doesn't actually affect me). Just something to note.
 
@@ -51,7 +51,7 @@ Not a bad idea. This will easily give Travis the ability to sign our APK. Isn't 
 
 No, they can't. This is because the values passed to the command are two [environment variables](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) which are stored only on Travis. As long as you _don't_ check the "show value in log" box when you create an environment variable, they will never be output anywhere in your build logs, and nobody will be able to see them or know what they are.
 
-If you are worried about security (or if you aren't worried enough), I highly recommend that you read [Travis's documentation](https://docs.travis-ci.com/user/best-practices-security/#Steps-Travis-CI-takes-to-secure-your-data) on best practices regarding secure data. 
+If you are worried about security (or if you aren't worried enough), I highly recommend that you read [Travis's documentation](https://docs.travis-ci.com/user/best-practices-security/#Steps-Travis-CI-takes-to-secure-your-data) on best practices regarding secure data.
 
 ## Part A. Encrypting files
 
@@ -75,7 +75,7 @@ Side-note: if your keystore is a `.keystore` file, it shouldn't make a differenc
 
 Pick a key and a password. They shouldn't be excessively long, but not tiny either. Do not use special characters. In this example, I will use "php" as the key and "aaaaa" as the password.
 
-Add them to Travis CI as environment variables. You can do this by going to your project page in Travis, clicking on "More Options > Settings", then scrolling down to "Environment Variables". I will name mine "enc_keystore_key" and "enc_keystore_pass", respectively.
+Add them to Travis CI as environment variables. You can do this by going to your project page in Travis, clicking on "More Options > Settings", then scrolling down to "Environment Variables". I will name mine "enc\_keystore\_key" and "enc\_keystore\_pass", respectively.
 
 Now, time to encrypt the file. Run this command in the terminal:
 
@@ -95,7 +95,7 @@ That's it! Push your changes to `.travis.yml` as well as `key.jks.enc`, and Jeky
 
 ## Part B. Dummy files
 
-This isn't entirely necessary, but you can use some fake "dummy" files to add to version control alongside the "real" encrypted ones. When Travis decrypts your encrypted files, they will be overwritten, but otherwise they serve as quite a nice substitute to prevent anyone from getting their hands on the real files (and to prevent you from uploading the real ones by accident). You can find a few (`key.jks`, `service.json`, and `secrets.tar`) in the sample project [here](/redirects/?t=github&d=TravisAndroidExample).
+This isn't entirely necessary, but you can use some fake "dummy" files to add to version control alongside the "real" encrypted ones. When Travis decrypts your encrypted files, they will be overwritten, but otherwise they serve as quite a nice substitute to prevent anyone from getting their hands on the real files (and to prevent you from uploading the real ones by accident). You can find a few (`key.jks`, `service.json`, and `secrets.tar`) in the sample project [here](/redirects/?t=github\&d=TravisAndroidExample).
 
 ## Part C. Signing the APK
 
@@ -103,7 +103,7 @@ Now we want to actually use the key to sign our APKs. This requires a few change
 
 Full credit, this solution was taken from [this wonderful article](https://android.jlelse.eu/using-travisci-to-securely-build-and-deploy-a-signed-version-of-your-android-app-94afdf5cf5b4) that describes almost the same thing that I have been explaining since the start of this article.
 
-I'll create three environment variables that will be used here: the keystore password as "keystore_password", the keystore alias as "keystore_alias", and the alias's password as "keystore_alias_password". Note that special characters cannot be used in these either.
+I'll create three environment variables that will be used here: the keystore password as "keystore\_password", the keystore alias as "keystore\_alias", and the alias's password as "keystore\_alias\_password". Note that special characters cannot be used in these either.
 
 ```gradle
 android {
@@ -152,7 +152,7 @@ deploy:
         tags: true
 ```
 
-Now, you _could_ follow this exactly and place your GitHub token directly in your `.travis.yml`, but that's just asking for trouble. Luckily, you can use MORE ENVIRONMENT VARIABLES! Enter your API key with the name ex. "GITHUB_TOKEN", and write `api_key: "$GITHUB_TOKEN"` instead.
+Now, you _could_ follow this exactly and place your GitHub token directly in your `.travis.yml`, but that's just asking for trouble. Luckily, you can use MORE ENVIRONMENT VARIABLES! Enter your API key with the name ex. "GITHUB\_TOKEN", and write `api_key: "$GITHUB_TOKEN"` instead.
 
 This should now create a release with a built (and signed) APK each time there is a new tag. Fair enough; all you have to do for it to deploy is create a new tag.
 
@@ -192,7 +192,7 @@ before_deploy:
   - export APP_VERSION=$(./gradlew :app:printVersionName)
 ```
 
-This creates an environment variable ("APP_VERSION") containing our app's version name, which we can then reference from the actual deployment as follows...
+This creates an environment variable ("APP\_VERSION") containing our app's version name, which we can then reference from the actual deployment as follows...
 
 ```yml
 deploy:
@@ -212,7 +212,7 @@ Yay! Now we have fully automated releases on each push to master. Because of the
 
 # Step 4. Deploying to the Play Store
 
-Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](https://jfenn.me/redirects/?t=twitter&d=status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the master branch.
+Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](https://jfenn.me/redirects/?t=twitter\&d=status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the master branch.
 
 ## Part A. Setup
 
@@ -222,7 +222,7 @@ You can either encrypt it as a separate file, or you can put them both in a tar 
 
 ## Part B. Publishing
 
-Now we can modify the `script` section of our `.travis.yml` to run the `./gradlew publish` command when a build is triggered from the master branch. This can be done using the "TRAVIS_BRANCH" environment variable which Travis handily creates for us. In other words...
+Now we can modify the `script` section of our `.travis.yml` to run the `./gradlew publish` command when a build is triggered from the master branch. This can be done using the "TRAVIS\_BRANCH" environment variable which Travis handily creates for us. In other words...
 
 ```yml
 script:
@@ -249,4 +249,4 @@ deploy:
 
 Hopefully this blog has gone over the basics of using Travis to deploy to GitHub and the Play Store. In later blogs, I hope to also cover how to implement UI and Unit tests, though I have yet to actually use them myself so I cannot yet write an article about them.
 
-If you would like to see a working example of all of this, you can find it in a sample project [here](https://jfenn.me/redirects/?t=github&d=TravisAndroidExample).
+If you would like to see a working example of all of this, you can find it in a sample project [here](https://jfenn.me/redirects/?t=github\&d=TravisAndroidExample).

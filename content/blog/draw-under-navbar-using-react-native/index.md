@@ -10,14 +10,13 @@
 }
 ---
 
-
 While working on [my React Native mobile app](https://gitshark.dev), [the super-talented designer for the project](/unicorns/edpratti) raised an interesting question to me:
 
 > "Are we able to draw under the navigation bar and status bar? [Google officially recommends new apps to do so](https://youtu.be/Nf-fP2u9vjI).
 
 The idea of drawing under the navbar intrigued me. After lots of research, I was finally able to implement it in my app, but not without struggles. Let's walk through how to do it manually and what I ended up doing to solve the issue myself.
 
-Feel free to follow along with the code samples, but if you're looking for the easiest solution, [you might want to read to the bottom to see how to easily integrate it into your app without all of the manual work](#react-native-immersive-bars).  
+Feel free to follow along with the code samples, but if you're looking for the easiest solution, [you might want to read to the bottom to see how to easily integrate it into your app without all of the manual work](#react-native-immersive-bars).
 
 # The Wrong Way {#flag-layout-no-limits}
 
@@ -54,8 +53,6 @@ protected void onCreate(Bundle savedInstanceState) {
 Once this was done, I loaded my app and "et voilà"!
 
 ![The FAB is placed under the navbar as expected](./flag_layout_no_limits.png)
-
-
 
 "Success," I'd thought to myself. Since the FAB was drawn under the navbar, I thought the goal had been achieved! However, once I tried [the `safe-area-context` package](https://github.com/th3rdwave/react-native-safe-area-context) to draw margins and paddings (to move the FAB above the navbar), I faced difficulties.
 
@@ -207,11 +204,11 @@ When viewing the app on older versions of Android (like M), you'll see the respe
 
 # The Easy Method {#react-native-immersive-bars}
 
-Let's not sugar coat it: It's tedious to make changes to native Android code in order to support all of the various API levels there are, the various forms of OEM issues that could arise. Likewise, if your app implements a dark mode, there's now another level of challenge: You have to toggle the light and dark navigation buttons yourself! 
+Let's not sugar coat it: It's tedious to make changes to native Android code in order to support all of the various API levels there are, the various forms of OEM issues that could arise. Likewise, if your app implements a dark mode, there's now another level of challenge: You have to toggle the light and dark navigation buttons yourself!
 
 Fear not, fellow developer! I've taken my learnings from implementing this into [my mobile Git Client](https://gitshark.dev) and created a package for you to utilize!
 
-https://github.com/crutchcorn/react-native-immersive-bars
+<https://github.com/crutchcorn/react-native-immersive-bars>
 
 It's as simple to add as:
 
@@ -238,4 +235,3 @@ It supports dark mode switching, as many API levels as React Native does, and mu
 This feature was not a trivial one for me to implement. Not often is it that such a short article reflects how long I'd spent debugging and researching this issue. I want to make sure to thank [James Fenn](/unicorns/fennifith) and [Sasi Kanth](https://github.com/msasikanth) for helping me debug and research for this. I'm happy I did so, though. I think it adds a nice level of polish to my app, and I think you'll find the same in your app as well. Hopefully, the package I made is able to ease the process for you. If you have any comments or questions regarding the package, please refer to the GitHub issues for said project.
 
 Otherwise, if you have comments or questions about the article, you can leave them in the comments down below. We also have a newsletter that you can subscribe to for more articles like this: I plan on writing much more about React Native as I develop my app.
-

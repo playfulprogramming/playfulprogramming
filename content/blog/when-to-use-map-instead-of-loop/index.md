@@ -11,9 +11,11 @@
     license: 'cc-by-nc-nd-4'
 }
 ---
+
 Many programmers use a **loop** or **filter** where HashMap data structure could be considered.
 
 ## Finding user by id using Loops
+
 ```js
 let userIdToBeSearched = 103;
 const users = [
@@ -38,11 +40,13 @@ if (user) {
     console.log("user does not exit with id: ", userIdToBeSearched);
 }
 ```
+
 The above solution has a time complexity of **O(n)**, where n represents the number of users. If there are 1 thousand users, in the worst case, we will search every user to find a match.
 
 > Considering user id will be unique for each user, this is a good indication to use a HashMap instead of a loop since all keys in the Map are Unique.
 
 ## Finding user by id using Map
+
 ```js
 let userIdToBeSearched = 103;
 const users = new Map();
@@ -59,6 +63,7 @@ else {
   console.log("user does not exit with id: ", userIdToBeSearched);
 }
 ```
+
 When using a **Map**, it takes constant time **O(1)** to find the user! All great, but note constructing the HashMap from the array still requires **O(n)** time.
 
 In conclusion, use Map when frequently searching based on the **unique** field such as **id**. Please note Map cannot be used in case of searching based on the non-unique field such as **name**

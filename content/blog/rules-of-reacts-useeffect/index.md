@@ -11,7 +11,7 @@
 }
 ---
 
-React’s `useEffect` is a powerful API with lots of capabilities, and therefore flexibility. Unfortunately, this flexibility often leads to abuse and misuse, which can greatly damage an app’s stability. 
+React’s `useEffect` is a powerful API with lots of capabilities, and therefore flexibility. Unfortunately, this flexibility often leads to abuse and misuse, which can greatly damage an app’s stability.
 
 The good news is that if you follow a set of rules designated to protect you during coding, your application can be secure and performant.
 
@@ -57,7 +57,7 @@ const EffectComp = () => {
 
 <iframe src="https://app.coderpad.io/sandbox?question_id=205251" loading="lazy"></iframe>
 
-Huh. It works first try without any immediately noticeable downsides. This works because `fetch` is asynchronous, meaning that it doesn’t block the [event loop](https://www.youtube.com/watch?v=8aGhZQkoFbQ&vl=en). Instead, let’s change that code to be a synchronous `XHR` request and see if that works too.
+Huh. It works first try without any immediately noticeable downsides. This works because `fetch` is asynchronous, meaning that it doesn’t block the [event loop](https://www.youtube.com/watch?v=8aGhZQkoFbQ\&vl=en). Instead, let’s change that code to be a synchronous `XHR` request and see if that works too.
 
 ```
 function getActivity() {
@@ -124,11 +124,11 @@ Those among you that know of “useLayoutEffect” may think you have found a go
 
 “Ahh, but wouldn’t useLayoutEffect also prevent the browser from drawing until the network call is completed?”
 
-Not quite! You see, while useMemo runs during the render phase, useLayoutEffect runs during the “*commit”* phase and therefore renders the initial contents to screen first.
+Not quite! You see, while useMemo runs during the render phase, useLayoutEffect runs during the “_commit”_ phase and therefore renders the initial contents to screen first.
 
 > [useLayoutEffect’s signature is identical to useEffect, but it fires synchronously after all DOM mutations.](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)
 
-See, the commit phase is the part of a component’s lifecycle *after* React is done asking all the components what they want the UI to look like, has done all the diffing, and is ready to update the DOM.
+See, the commit phase is the part of a component’s lifecycle _after_ React is done asking all the components what they want the UI to look like, has done all the diffing, and is ready to update the DOM.
 
 ![img](./hooks_lifecycle.png)
 
@@ -170,7 +170,7 @@ const EffectComp = () => {
 }
 ```
 
-While this works for a single activity, what happens when the user completes the activity? 
+While this works for a single activity, what happens when the user completes the activity?
 
 Let’s give them a button to rotate between new activities and include a count of how many times the user has requested an activity.
 
@@ -237,7 +237,7 @@ const EffectComp = () => {
 }
 ```
 
-If we open our network request tab, you’ll notice how our network calls are now being canceled when we initialize a new one. 
+If we open our network request tab, you’ll notice how our network calls are now being canceled when we initialize a new one.
 
 ![img](./cancelled_request.png)
 
@@ -401,7 +401,7 @@ const RefEffectComp = ()=>{
 
 This will force the re-render when `ref` is set after the initial render and, in turn, cause the `useEffect` to trigger as expected.
 
-To be fair, this “rule” is more of a soft rule than anything. There are absolutely instances - such as setTimeout timers - where utilizing a ref inside of a useEffect make sense. Just make sure you have a proper mental model about refs and useEffect and you’ll be fine. 
+To be fair, this “rule” is more of a soft rule than anything. There are absolutely instances - such as setTimeout timers - where utilizing a ref inside of a useEffect make sense. Just make sure you have a proper mental model about refs and useEffect and you’ll be fine.
 
 > Want to refine your understanding of refs even further? [See my article outlining the important details of refs for more.](https://unicorn-utterances.com/posts/react-refs-complete-story)
 

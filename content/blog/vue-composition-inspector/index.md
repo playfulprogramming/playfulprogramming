@@ -67,7 +67,6 @@ If you look at Vue's SFC (single file component) compiler source, there is a fun
 
 What I came up with is a little script that will take a .vue file of the SFC and spit out how Vue interpretes the TypeScript.
 
-
 ```js
 import { readFile, writeFile } from "fs";
 import parseArgs from "minimist";

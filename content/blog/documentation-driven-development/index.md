@@ -66,7 +66,7 @@ function calculateUserScore({killsArr, deaths, assists}) {
 }
 ```
 
-While we've seen the function change, remember that your game may be making this calculation in multiple parts of the codebase. On top of this, maybe your API *still* isn't perfect for this function. What if you want to display the special kills with additional points after a match?
+While we've seen the function change, remember that your game may be making this calculation in multiple parts of the codebase. On top of this, maybe your API _still_ isn't perfect for this function. What if you want to display the special kills with additional points after a match?
 
 These drastic refactors mean that each iteration requires additional refactor work, likely delaying the time to ticket completion. This can impact releases dates or other scheduled launches.
 
@@ -148,19 +148,19 @@ In fact, this _includes_ tests. 😱 Tests are a good way of conveying API examp
 
 In particular, if you're good about [writing primarily integration tests](https://kentcdodds.com/blog/write-tests), you're actually writing out usage API docs while writing testing code.
 
-This is particularly true when writing developer tooling or libraries. Seeing a usage example of how to do something is extremely helpful, especially with a test to validate its behavior alongside it. 
+This is particularly true when writing developer tooling or libraries. Seeing a usage example of how to do something is extremely helpful, especially with a test to validate its behavior alongside it.
 
--------
+---
 
 Another thing "documentation-driven development" does not prescribe is "write once and done." This idea is a myth and may be harmful to your scope and budgets - time or otherwise.
 
 As we showed with the `calculateUserScore` example, you may need to modify your designs before moving forward for the final release: that's okay. Docs influence code influence docs. The same is true for TDD.
 
---------
+---
 
 DDD isn't just useful for developing code for production, either. In interviews, some good advice to communicate your development workflow is to write code comments and **then** write the solution. This allows you to make mistakes in the documentation phase (of writing comments) that will be less time-costly than if you'd made a mistake in implementation.
 
-By doing this, you can communicate with your interviewer that you know how to work in a team and find well-defined goals. These will allow you to work towards an edgecase-free* implementation with those understandings.
+By doing this, you can communicate with your interviewer that you know how to work in a team and find well-defined goals. These will allow you to work towards an edgecase-free\* implementation with those understandings.
 
 # Bring it back now y'all
 
@@ -173,10 +173,10 @@ Each of these refers to a form of validating the functionality of code behind us
 
 # Conclusion
 
-I've been using documentation-driven development as a concept to drive my coding on some projects. Among them was my project [`CLI Testing Library`](https://github.com/crutchcorn/cli-testing-library), which allowed me to write a [myriad of documentation pages](https://github.com/crutchcorn/cli-testing-library/tree/main/docs) as well as [verbose GitHub issues](https://github.com/crutchcorn/cli-testing-library/issues/2). 
+I've been using documentation-driven development as a concept to drive my coding on some projects. Among them was my project [`CLI Testing Library`](https://github.com/crutchcorn/cli-testing-library), which allowed me to write a [myriad of documentation pages](https://github.com/crutchcorn/cli-testing-library/tree/main/docs) as well as [verbose GitHub issues](https://github.com/crutchcorn/cli-testing-library/issues/2).
 
 Both of these forced me to better refine my goals and what I was looking for. The end-product, I believe, is better as a result.
 
 What do you think? Is "DDD" a good idea? Will you be using it for your next project?
 
-Let us know what you think, and [join our Discord](https://discord.gg/FMcvc6T) to talk to us more about it! 
+Let us know what you think, and [join our Discord](https://discord.gg/FMcvc6T) to talk to us more about it!

@@ -13,12 +13,11 @@
 
 React 18 is the latest in a long line of major releases of React. With it you gain access to: [new features for Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html), new [useId](https://github.com/reactwg/react-18/discussions/111), [useSyncExternalStore](https://github.com/reactwg/react-18/discussions/86), and [useDeferredValue](https://github.com/reactwg/react-18/discussions/100) hooks, as well as the new [startTransition](https://github.com/reactwg/react-18/discussions/100) API.
 
-While React 18 is not yet a stable release, testing out your application can be useful. 
+While React 18 is not yet a stable release, testing out your application can be useful.
 
 Like with previous major releases of React, React 18 is a fairly easy migration for most apps.
 
 While [Strict Mode has received some changes](https://github.com/reactwg/react-18/discussions/19) that may impact your app, and [automatic batching](https://github.com/reactwg/react-18/discussions/21) may introduce some new edge cases, they only impact apps that don’t [follow the Rules of React properly](https://reactjs.org/docs/hooks-rules.html).
-
 
 Outside of those considerations, let’s upgrade!
 
@@ -82,7 +81,7 @@ When finished, you should be able to verify the version of React you’re using 
 
 ## Conclusion
 
-As promised, the update to React 18 is fairly straightforward! Most applications should be able to upgrade without too many problems. 
+As promised, the update to React 18 is fairly straightforward! Most applications should be able to upgrade without too many problems.
 
 If you run into issues during your migration and you’re using `StrictMode`, try temporarily removing it to see if you run into any issues. [React 18 introduced some changes that may impact some apps.](https://github.com/reactwg/react-18/discussions/19)
 

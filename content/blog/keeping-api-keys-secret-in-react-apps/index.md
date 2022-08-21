@@ -22,7 +22,7 @@ What does that mean?
 
 Well, as it turns out, anything that happens in the browser basically happens out in the open. Anyone who knows how to open a developer console can see the output of the JavaScript console, the results of network requests/responses, and anything hidden in the HTML or CSS of the current page. While you are able to mitigate this type of reverse-engineering by randomizing variable names in a build step (often called "Obfuscating" your code), even a fairly quick Google session can often undo all of the efforts you took to muddy the waters. The browser is a terrible place to try to store or use secret information like unencrypted passwords or API keys - and React runs in the browser!
 
-In other words, React keeps no secrets from the user which means that it's a terrible place to keep *your* secrets.
+In other words, React keeps no secrets from the user which means that it's a terrible place to keep _your_ secrets.
 
 So, what is the answer? How do you keep your API keys from falling into the hands of vicious web scraping bots in React? It's simple, really. You don't keep your secrets in React at all.
 
@@ -30,7 +30,7 @@ We can't keep things like API keys a secret in React because it runs in the brow
 
 # What is a Proxy Server? {#proxy}
 
-If you are unfamiliar with the term "proxy server", that's alright! If you think about how a React app would typically interface with an API, you'd have a `GET` call to the API server in order to get the data you want from the API. However, for APIs that require an API key of "client_secret", we have to include an API key along with the `GET` request in order to get the data we want. This is a perfectly understandable method for securing and limiting an API, but it introduces the problem pointed out above: We can't simply bundle the API key in our client-side code. As such, we need a way to keep the API key out of reach of our users but still make data accessible. To do so, we can utilize another server (that we make and host ourselves) that knows the API key and uses it to make the API call _for_ us. Here's what an API call would look like without a proxy server:
+If you are unfamiliar with the term "proxy server", that's alright! If you think about how a React app would typically interface with an API, you'd have a `GET` call to the API server in order to get the data you want from the API. However, for APIs that require an API key of "client\_secret", we have to include an API key along with the `GET` request in order to get the data we want. This is a perfectly understandable method for securing and limiting an API, but it introduces the problem pointed out above: We can't simply bundle the API key in our client-side code. As such, we need a way to keep the API key out of reach of our users but still make data accessible. To do so, we can utilize another server (that we make and host ourselves) that knows the API key and uses it to make the API call _for_ us. Here's what an API call would look like without a proxy server:
 
 ![API request](./api_request.svg)
 

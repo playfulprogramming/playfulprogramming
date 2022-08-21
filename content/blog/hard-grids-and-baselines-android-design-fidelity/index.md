@@ -60,11 +60,11 @@ As you can probably tell, Android `TextViews` are always smaller than the ones g
 
 ![A further comparison of the above image's demo of spacing around on Figma and spacing between on Android](./under_the_hood_02.png "Another comparison between Figma and Android line-spacing")
 
-Now you might ask yourself, “*How can I calculate the height of each `TextView`, then?*”
+Now you might ask yourself, “_How can I calculate the height of each `TextView`, then?_”
 
 When you use a `TextView`, it has one parameter turned on by default: **`includeFontPadding`**. `includeFontPadding` increases the height of a `TextView` to give room to ascenders and descenders that might not fit within the regular bounds.
 
-![A comparison between having "includeFontPadding" on and off. When it's off the height is "19sp" and when it's on it is "21.33sp". It shows the formula "includeFontPadding = TextSize * 1.33"](includefontpadding.png "A comparison of having the 'includeFontPadding' property enabled")
+![A comparison between having "includeFontPadding" on and off. When it's off the height is "19sp" and when it's on it is "21.33sp". It shows the formula "includeFontPadding = TextSize \* 1.33"](includefontpadding.png "A comparison of having the 'includeFontPadding' property enabled")
 
 Now that we know how Android’s typography works, let’s look at an example.
 
@@ -72,9 +72,9 @@ Here’s a simple mockup, detailing the spacing between a title and a subtitle. 
 
 ![A spec file of a phone dailing application](./specs.png)
 
-![A mockup with spec lines enabled of a call log app](./implementation.png )
+![A mockup with spec lines enabled of a call log app](./implementation.png)
 
-*Of course, because it’s Android, the line height has no effect on the height of the `TextView`, and the layout is therefore `8dp` too short of the mockups.*
+_Of course, because it’s Android, the line height has no effect on the height of the `TextView`, and the layout is therefore `8dp` too short of the mockups._
 
 But even if it did have an effect, the problems wouldn’t stop there; the issue is more complex than that.
 
@@ -94,11 +94,11 @@ _`firstBaselineToTopHeight`_ and _`lastBaselineToBottomHeight`_ are powerful too
 
 This means that designers, alongside developers, can force the bounds of a `TextView` to match the design specs and open the door to perfect implementations of their mockups.
 
-This is something I’ve personally tested in an app I designed. [**Memoire**, a note-taking app](http://tiny.cc/getmemoire) for Android, is a 1:1 recreation of its mockups — for every single screen. This was made possible due to these APIs — *and because [**@sasikanth**](https://twitter.com/its\_sasikanth) is not confrontational* — since text is what almost always makes baseline alignment and hard grids impossible to implement in production.
+This is something I’ve personally tested in an app I designed. [**Memoire**, a note-taking app](http://tiny.cc/getmemoire) for Android, is a 1:1 recreation of its mockups — for every single screen. This was made possible due to these APIs — _and because [**@sasikanth**](https://twitter.com/its_sasikanth) is not confrontational_ — since text is what almost always makes baseline alignment and hard grids impossible to implement in production.
 
 <video src="./memoire_bounds_and_baselines.mp4" title="Near-perfect duplication of guidelines against Memoire's mockups and actual app"></video>
 
-*Memoire’s TextViews are all customized using these APIs.*
+_Memoire’s TextViews are all customized using these APIs._
 
 # What is the purpose of firstBaselineToTopHeight and lastBaselineToBottomHeight?
 
@@ -114,9 +114,9 @@ As you might imagine, **if we want to keep our text aligned to a baseline grid, 
 
 ![A comparison table of Dos and Donts that matches the below table](./dos_donts.png)
 
-|✅ Good|🛑 Bad|
-|--|--|
-|Applying `firstBaseline` and `lastBaseline` in styles allows you to know exactly what the distance between baselines is, without having to set them one by one to ensure they properly align to a `4dp` grid. | Without applying `firstBaseline` and `lastBaseline` in styles, you can’t detect what the default values are, so you are forced to apply these one by one to every `TextView` to ensure they align to a `4dp` grid. |
+| ✅ Good                                                                                                                                                                                                        | 🛑 Bad                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Applying `firstBaseline` and `lastBaseline` in styles allows you to know exactly what the distance between baselines is, without having to set them one by one to ensure they properly align to a `4dp` grid. | Without applying `firstBaseline` and `lastBaseline` in styles, you can’t detect what the default values are, so you are forced to apply these one by one to every `TextView` to ensure they align to a `4dp` grid. |
 
 <video src="./ios_vs_android.mp4" title="A comparison of how text spacing is applied on iOS and Android"></video>
 
@@ -140,35 +140,35 @@ It’s actually pretty simple. Let’s walk through how to adapt one of Material
 
 ![A headline 6 within Figma showing "32pt" height](./figma_textbox_size.png "Text box within Figma")
 
-*Text box within Figma.*
+_Text box within Figma._
 
-Here we can see that the text box has a height of `32`. This is inherited from the line height set in Figma, but we need to know the minimum height on Android. We can easily calculate the minimum height in production using *includeFontPadding*.
+Here we can see that the text box has a height of `32`. This is inherited from the line height set in Figma, but we need to know the minimum height on Android. We can easily calculate the minimum height in production using _includeFontPadding_.
 
 > Headline 6 = `20` (text size) `* 1.33` (`includeFontPadding`) = `26.667sp`
 
 ![An image showcasing the headline height mentioned above](./android_textview_size.png "TextView on Android")
 
-*`TextView` on Android.*
+_`TextView` on Android._
 
-Now resize your Figma text box to `26.6` — *it will round it to `27`, but that’s fine.*
+Now resize your Figma text box to `26.6` — _it will round it to `27`, but that’s fine._
 
 **Step 2: With the resized text box, align its baseline with the nearest `4dp` breakpoint in your grid.**
 
 ![Baseline now sits on the "4dp" grid.](./step_01.png)
 
-*Baseline now sits on the `4dp` grid.*
+_Baseline now sits on the `4dp` grid._
 
 **Step 3: Measure the distance between the baseline and the top and bottom of the text box.**
 
 ![Showcasing the above effect by having 'firstBaselineToTopHeight' set to 20.66 and 'lastBaselineToBottomHeight' to 6.0](step_02.png)
 
-*`firstBaselineToTopHeight`: `20.66` | `lastBaselineToBottomHeight`: `6.0`*
+_`firstBaselineToTopHeight`: `20.66` | `lastBaselineToBottomHeight`: `6.0`_
 
 **Step 4: Now right click the text box and select Frame Selection.**
 
 ![The right-click dialog hovering over Frame Selection, key binding Ctrl+Alt+G](./step_03.png "The right-click dialog hovering over Frame Selection")
 
-*When created from an object, a frame’s dimensions are dependent on the content inside it.*
+_When created from an object, a frame’s dimensions are dependent on the content inside it._
 
 **Step 5: While holding Ctrl / Command, drag the frame handles and resize it so that the top and bottom align with the nearest baselines beyond the minimum values.**
 
@@ -190,13 +190,13 @@ This will cause the text box to return to its original height of `32sp` — inhe
 
 ![A showcase of the text box being "1sp" down from the frame](./step_07.png)
 
-*The text box is 1sp down from the frame, but that’s normal. We no longer care about the text box height.*
+_The text box is 1sp down from the frame, but that’s normal. We no longer care about the text box height._
 
-**Step 7: With the text box selected, set its constraints to *Left & Right* and *Top & Bottom*.**
+**Step 7: With the text box selected, set its constraints to _Left & Right_ and _Top & Bottom_.**
 
 ![A view of the constraints dialog in Figma on the headline](./step_08.png)
 
-*Now your text box will resize with your frame. This is essential when using the text components.*
+_Now your text box will resize with your frame. This is essential when using the text components._
 
 You would need to find these values for every text style in your app, but if you’re taking the Material Design Type Spec as a base for your own, I have already measured and picked the right values for each! _**Resources at the end.**_
 
@@ -224,7 +224,6 @@ We first set up a `TextAppearance` — which your app probably already has —  
 <!-- **TEXT_STYLE** -->
 ```
 
-
 Let’s use Memoire once again as an example.
 
 ![An example of the Memoire codebase showing the headline of 4](./memoire_headline_4_code.png)
@@ -240,7 +239,7 @@ For example, _**`textAppearanceCaption`**_, _**`textAppearanceBody1`**_, etc.
 
 ![A display of code styling when "TextStyle" is properly applied. See 'styles.xml' at the bottom of the post for an example](text_style_applied_properly.png "A display of code styling when TextStyle is properly applied")
 
-*What happens to a `TextView` when a `TextStyle` is properly applied.*
+_What happens to a `TextView` when a `TextStyle` is properly applied._
 
 # And now, a couple of warnings
 
@@ -254,9 +253,9 @@ Applying a `TextStyle` to a component — instead of a `TextAppearance` — caus
 
 ![A showcase of a "button" component not having the text align to the height of the component](./textstyle_buttons.png)
 
-*Uh-oh…*
+_Uh-oh…_
 
-This happens because Material Components already have padding that _**IS NOT**_ overridden by `firstBaseline` and `lastBaseline` values. Buttons, in particular, have a **maximum height *and* padding**, meaning we’re effectively trying to fit a large text box into a very narrow container, causing the text to shrink as a result.
+This happens because Material Components already have padding that _**IS NOT**_ overridden by `firstBaseline` and `lastBaseline` values. Buttons, in particular, have a **maximum height _and_ padding**, meaning we’re effectively trying to fit a large text box into a very narrow container, causing the text to shrink as a result.
 
 As far as other issues, I haven’t been able to find any.
 
@@ -266,27 +265,26 @@ Now that you’ve scrolled all the way down without reading a single word, here�
 
 ![A preview of the Figma document with code and layout samples](./preview.png)
 
-*Figma document with code and layout samples.*
+_Figma document with code and layout samples._
 
 ## For designers: [Figma Document](https://www.figma.com/file/F1RVpdJh73KmvOi06IJE8o/Hard-Grid-—-Text-Components/duplicate)
 
 Document containing:
 
-* A slight introduction
+- A slight introduction
 
-* All the text components
+- All the text components
 
-* A small tutorial on how to use them effectively
+- A small tutorial on how to use them effectively
 
-* Prebuilt layout examples to get you started
+- Prebuilt layout examples to get you started
 
-* Customizable code blocks for each style in a text box, so you can change each depending on your theme and hand it to developers
+- Customizable code blocks for each style in a text box, so you can change each depending on your theme and hand it to developers
 
 ## For developers: [styles.xml](./styles.xml)
 
 A styles.xml file containing:
 
-* All the `TextAppearance`s that can be used with Material Components
+- All the `TextAppearance`s that can be used with Material Components
 
-* All the `TextStyle`s to theme `TextView`s accordingly
-
+- All the `TextStyle`s to theme `TextView`s accordingly

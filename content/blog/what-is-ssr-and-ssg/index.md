@@ -18,10 +18,10 @@ We'll walk through all of these questions and provide answers for each. First, w
 
 While many sites today are built using a component-based framework like Angular, React, or Vue, there's nothing wrong with good ole' HTML. For sites like this, you typically provide an HTML file for each of the routes of your site. When the user requests one of the routes, your server will return the HTML for it. From there, [your browser parses that code and provides the content directly to the user](/posts/understanding-the-dom/). All in all, the process looks something like this:
 
-1) You build HTML, CSS, JS
-2) You put it on a server
-3) The client downloads the HTML, CSS, JS from server
-4) The client immediately sees content on screen
+1. You build HTML, CSS, JS
+2. You put it on a server
+3. The client downloads the HTML, CSS, JS from server
+4. The client immediately sees content on screen
 
 ![A diagram explaining how the steps above would flow](./normal.svg)
 
@@ -31,11 +31,11 @@ This is a reasonably straightforward flow once you get the hang of it. Let's tak
 
 While you may not be familiar with this term, you're more than likely familiar with how you'd implement one of these; After all, this is the default when building an Angular, React, or Vue site. Let's use a React site as an example. When you build a typical React SPA without utilizing a framework like NextJS or Gatsby, you'd:
 
-1) You build the React code
-2) You put it on a server
-3) The client downloads the React code from the server
-4) The React code runs and generates the HTML/CSS on the client's computer
-5) The user **then** sees the content on screen after React runs
+1. You build the React code
+2. You put it on a server
+3. The client downloads the React code from the server
+4. The React code runs and generates the HTML/CSS on the client's computer
+5. The user **then** sees the content on screen after React runs
 
 ![A diagram explaining how the steps above would flow](./csr.svg)
 
@@ -45,12 +45,12 @@ This is because React's code has to initialize to render the components on scree
 
 Because React has to initialize _somewhere_, what if we were to move the initial rendering off to the server? Imagine - for each request the user sends your way, you spin up an instance of React. Then, you're able to serve up the initial render (also called "fully hydrated") HTML and CSS to the user, ready to roll. That's just what server-side rendering is!
 
-1) You build the React code
-2) You put it on a server
-3) The client requests data
-4) The server runs the React code on the server to generate the HTML/CSS
-5) The server then sends the generated HTML/CSS on screen
-6) The user then sees the content on screen. React doesn't have to run on their computer
+1. You build the React code
+2. You put it on a server
+3. The client requests data
+4. The server runs the React code on the server to generate the HTML/CSS
+5. The server then sends the generated HTML/CSS on screen
+6. The user then sees the content on screen. React doesn't have to run on their computer
 
 ![A diagram explaining how the steps above would flow](./ssr.svg)
 
@@ -68,15 +68,15 @@ If SSR is ["passing the buck"](https://en.wikipedia.org/wiki/Buck_passing) to th
 
 While the industry widely recognizes the term "Static Site Generation," I prefer the term "compile-side rendering" or "compile-time server-side rendering." This is because I feel they outline a better explanation of the flow of displaying content to the user. On an SSG site, you'd:
 
-1) You build the React code
-2) You generate the HTML and CSS on your development machine before deploying to a server (run build)
-3) You put the generated built code on a server
-4) The client downloads the HTML, CSS, JS from the built code on the server
-5) The client immediately sees content on screen
+1. You build the React code
+2. You generate the HTML and CSS on your development machine before deploying to a server (run build)
+3. You put the generated built code on a server
+4. The client downloads the HTML, CSS, JS from the built code on the server
+5. The client immediately sees content on screen
 
 ![A diagram explaining how the aforementioned steps would flow](./ssg.svg)
 
-This simply extends the existing build process that many front-end frameworks have. After [Babel's done with its transpilation](https://babeljs.io/), it merely executes code to compile your initial screen into static HTML and CSS. This isn't entirely dissimilar from how SSR hydrates your initial screen, but it's done at compile-time, not at request time. 
+This simply extends the existing build process that many front-end frameworks have. After [Babel's done with its transpilation](https://babeljs.io/), it merely executes code to compile your initial screen into static HTML and CSS. This isn't entirely dissimilar from how SSR hydrates your initial screen, but it's done at compile-time, not at request time.
 
 Since you're only hosting HTML and CSS again, you're able to host your site as you would a client-side rendered app: Using a CDN. This means that you can geo-sparse your hosting much more trivially but comes with the caveat that you're no longer to do rapid network queries to generate the UI as you could with SSR.
 
@@ -84,13 +84,12 @@ Since you're only hosting HTML and CSS again, you're able to host your site as y
 
 It may be tempting to look through these options, find one that you think is the best, and [overfit](https://en.wiktionary.org/wiki/overfit) yourself into a conclusion that one is superior to all the others. That said, each of these methods has its strengths and weaknesses.
 
-
-| Tool                         | Pros                                                         | Cons                                                         |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Vanilla HTM                  | <ul aria-label="HTML Pros"><li>Fast</li></ul>                | <ul aria-label="HTML Cons"><li>Hard to scale</li></ul>       |
-| Client Side Rendering (CSR)  | <ul aria-label="CSR Pros"><li>Easy to scale</li><li>Ease of engineering</li></ul> | <ul aria-label="CSR Cons"><li>Slow JS initialization</li><li>SEO concerns</li></ul> |
-| Server Server Render (SSR)   | <ul aria-label="SSR Pros"><li>Query based optimization</li><li>Better SEO handling</li><li>Usable without client JS enabled</li></ul> | <ul aria-label="SSR Cons"><li>Heavier server load</li><li>Needs specific server</li><li>More dev effort than CSR</li></ul> |
-| Compile Time Rendering (SSG) | <ul aria-label="SSG Pros"><li>Layout based optimization</li><li>Better SEO handling</li><li>Usable without client JS enabled</li><li>CDN hostable</li></ul> | <ul aria-label="SSG Cons"><li>No access to query data</li><li>More dev effort than CSR</li></ul> |
+| Tool                         | Pros                                                                                                                                                        | Cons                                                                                                                       |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Vanilla HTM                  | <ul aria-label="HTML Pros"><li>Fast</li></ul>                                                                                                               | <ul aria-label="HTML Cons"><li>Hard to scale</li></ul>                                                                     |
+| Client Side Rendering (CSR)  | <ul aria-label="CSR Pros"><li>Easy to scale</li><li>Ease of engineering</li></ul>                                                                           | <ul aria-label="CSR Cons"><li>Slow JS initialization</li><li>SEO concerns</li></ul>                                        |
+| Server Server Render (SSR)   | <ul aria-label="SSR Pros"><li>Query based optimization</li><li>Better SEO handling</li><li>Usable without client JS enabled</li></ul>                       | <ul aria-label="SSR Cons"><li>Heavier server load</li><li>Needs specific server</li><li>More dev effort than CSR</li></ul> |
+| Compile Time Rendering (SSG) | <ul aria-label="SSG Pros"><li>Layout based optimization</li><li>Better SEO handling</li><li>Usable without client JS enabled</li><li>CDN hostable</li></ul> | <ul aria-label="SSG Cons"><li>No access to query data</li><li>More dev effort than CSR</li></ul>                           |
 
 Consider each of these utilities a tool in your toolbox. You may be working on a landing page for a client where SSG would fit best — working on an internal SPA that only has a limited budget allocated to it? Client-side rendering might be your best bet there! Are you working on a public-facing app that highly depends on real-time data? SSR's for you! Each of these has its utility in their problem-space. It's good to keep that in mind when selecting one for your next project.
 
@@ -122,9 +121,6 @@ All in all, while lighthouse might score you lower, you can rest assured that yo
 
 As mentioned previously, having SSR and SSG in your toolbox are incredibly useful to have at your disposal. While not appropriate for every application, those that are tend to see great advantages from the concepts. Hopefully we've been able to provide a bit of insight that'll spark further learning and research into them.
 
-
-
 Now you have familiarity with what SSR and SSG are, maybe you want to take a stab at implementing it? [We took a look recently at creating a blog using an Angular SSG solution called Scully](/posts/making-an-angular-blog-with-scully/).
-
 
 As always, let us know what you think down in the comments below or [in our community Discord](https://discord.gg/FMcvc6T).

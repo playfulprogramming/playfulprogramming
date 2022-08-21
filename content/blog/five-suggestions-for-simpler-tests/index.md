@@ -16,7 +16,7 @@ We’ve collected five methods for simplifying your tests while making them easi
 
 You may notice that our code samples use various libraries from [the Testing Library suite of libraries](https://testing-library.com/). This is because we feel that these testing methodologies mesh well with the user-centric testing that the library encourages.
 
-> Keep in mind that Jest (and furthermore, Testing Library) is not exclusive to 
+> Keep in mind that Jest (and furthermore, Testing Library) is not exclusive to
 > any specific framework or toolset. This article is meant just as general advice for testing.
 >
 > That said if you're looking to include Jest and Testing Library into your Angular app,
@@ -150,7 +150,6 @@ You can then run `const mockData = require('./mock_data.js')` inside of your tes
 
 While working on tests, it can be easy to group together actions into a single test. For example, let's say we want to test our table component for the following behaviors:
 
-
 Shows all of the column data on users
 Make sure a user on page 2 does not show when looking at page one
 
@@ -191,6 +190,7 @@ it('should not render people from page 2 when page 1 is focused', () => {
 While this may cause slower tests as a result of duplicating the `render` function's actions, it's worth mentioning that most of these tests should run in milliseconds, making the extended time minimally impact you.
 
 Even further, I would argue that the extended time is worth the offset of having clearer, more scope restricted tests. These tests will assist with debugging and maintainability of your tests.
+
 # Don't Duplicate What You're Testing  {#dont-duplicate}
 
 There's yet another advantage of keeping your tests separated by `it` blocks that I haven't mentioned yet: It frees you to reduce the amount of logic you include in the next test. Let's take the code example from before:
@@ -234,7 +234,6 @@ it('should render all of the users', () => {
 ```
 
 Or, we could write our test like this:
-
 
 ```javascript
 it('should render all columns of data', () => {
@@ -339,4 +338,4 @@ When using large amounts of network data that you'd like to mock, be sure to [ha
 
 Using these methods, tests can be simplified, often made faster, and typically shorten the length of a testing file. While this may sound straightforward on a surface level, writing tests is a skill that's grown like any other. Practice encourages growth, so don't be discouraged if your tests aren't as straightforward as you'd like to first.
 
-If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able. 
+If you have any questions about testing, or maybe have a test you're unsure how to simplify, be sure to join [our Discord Server](https://discord.gg/FMcvc6T). We engage in tons of engineering discussions there and even live pair-program solutions when able.

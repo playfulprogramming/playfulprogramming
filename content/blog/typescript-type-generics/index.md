@@ -207,7 +207,7 @@ async function logTheValue<ItemT>(item: ItemT): Promise<LogTheValueReturnType<It
 }
 ```
 
-With these few features, we're able to utilize much of the functionality of generics. 
+With these few features, we're able to utilize much of the functionality of generics.
 
 However, I know I haven't answered what the `<>` really is for. Well, much like type variables, there's also the ability to pass types as "type arguments" when generics are applied to a function.
 
@@ -219,7 +219,7 @@ logTheValue<number>(3);
 
 # Non-Function Generics {#non-function-generics}
 
-As you saw before with the `LogTheValueReturnType` interface — functions aren't the only ones with generics. In addition to using them within functions and interfaces, you can also use them in classes. 
+As you saw before with the `LogTheValueReturnType` interface — functions aren't the only ones with generics. In addition to using them within functions and interfaces, you can also use them in classes.
 
 Classes with generics can be particularly helpful for data structures like this:
 
@@ -338,6 +338,6 @@ In this case, we can rely on implicit type casting to ensure that we're able to 
 
 # Conclusion
 
-And that's all I have for generics! Their usages are far and wide, and now you're able to apply your knowledge in code! We're hoping to have more posts on TypeScript soon - both more introductory and advanced. 
+And that's all I have for generics! Their usages are far and wide, and now you're able to apply your knowledge in code! We're hoping to have more posts on TypeScript soon - both more introductory and advanced.
 
 Questions? Feedback? Sound off in the comments below; we'd love to hear from you!

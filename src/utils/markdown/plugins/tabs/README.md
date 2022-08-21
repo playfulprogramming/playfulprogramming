@@ -1,6 +1,5 @@
 A rehype plugin for rendering tabbed content from HTML comments and headings.
 
-
 ![preview](https://user-images.githubusercontent.com/9100169/148681602-03f6f446-7dea-4efb-ad82-132f6a8debdd.gif)
 
 This is particularly useful when paired with a `remark` parsing step.
@@ -26,7 +25,6 @@ Ciao!
 
 <!-- tabs:end -->
 ```
-
 
 ### Markdown Example
 
@@ -99,4 +97,4 @@ It would render "One" and "Three" as tab headings, but "Two" would be listed as 
 
 ## Special Thanks
 
-This syntax is inspired by: https://jhildenbiddle.github.io/docsify-tabs/#/
+This syntax is inspired by: <https://jhildenbiddle.github.io/docsify-tabs/#/>

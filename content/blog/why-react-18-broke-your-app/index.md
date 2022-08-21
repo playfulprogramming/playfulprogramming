@@ -43,7 +43,6 @@ render(
 
 All of the bugs that were seemingly introduced within your app in React 18 are suddenly gone.
 
-
 Only one problem: These bugs are real and existed in your codebase before React 18 - you just didn’t realize it.
 
 ## Proof of broken component
@@ -52,7 +51,7 @@ Looking at our example from before, we’re using [React 18’s `createRoot` API
 
 <iframe src="https://app.coderpad.io/sandbox?question_id=200065"  loading="lazy"></iframe>
 
-Currently, when you press the button, it doesn’t do anything. However, if you remove the 
+Currently, when you press the button, it doesn’t do anything. However, if you remove the
 
 `StrictMode` and reload the page, you can see an `Alert` after a second of being debounced.
 
@@ -117,7 +116,7 @@ However, this behavior shift in Strict Mode within React 18 isn’t just protect
 
 After all, the [React team themselves have been warning that an empty dependent array](https://reactjs.org/docs/hooks-reference.html#usememo) (`[]` as the second argument) should not guarantee that it only runs once for ages now.
 
-In fact, this article may be a bit of a misnomer - [the React team says they’ve upgraded thousands of components in Facebook’s core codebase without significant issues](https://github.com/reactwg/react-18/discussions/19#discussioncomment-796197=). More than likely, a majority of applications out there will be able to upgrade to the newest version of React without any problems. 
+In fact, this article may be a bit of a misnomer - [the React team says they’ve upgraded thousands of components in Facebook’s core codebase without significant issues](https://github.com/reactwg/react-18/discussions/19#discussioncomment-796197=). More than likely, a majority of applications out there will be able to upgrade to the newest version of React without any problems.
 
 All that said, these React missteps crawl their way into our applications regardless. While the React team may not anticipate many breaking apps, these errors seem relatively common enough to warrant an explanation.
 

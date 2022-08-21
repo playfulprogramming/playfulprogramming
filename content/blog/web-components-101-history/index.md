@@ -13,7 +13,7 @@
 }
 ---
 
-Web components enjoy large-scale usage today. From YouTube to GitHub and many other major organizations, it’s safe to say they’ve made their way into commonplace frontend development practices. 
+Web components enjoy large-scale usage today. From YouTube to GitHub and many other major organizations, it’s safe to say they’ve made their way into commonplace frontend development practices.
 
 That wasn’t always the case. After all, web components had to start somewhere. And web development can be particularly picky with what succeeds and what doesn’t.
 
@@ -54,7 +54,7 @@ ko.applyBindings(new WebmailViewModel());
 
 While this works great for UI binding, it lacks the componentization aspect we’ve come to expect from modern frameworks.
 
-------
+---
 
 This was improved in the ecosystem when [Backbone saw its first release in October 2010](https://github.com/jashkenas/backbone/releases/tag/0.1.0). It introduced a `[View](https://backbonejs.org/#View-extend)`, similar to what we might expect a component to be like today.
 
@@ -78,7 +78,7 @@ var DocumentRow = Backbone.View.extend({
 
 Here, we can see that we can now bind events, classes, and more to a single tag. This aligns better with the types of components we’d see in, say, React or Lit.
 
-------
+---
 
 But that’s not all we saw in October that year. We also saw the [initial release of Angular.js](https://github.com/angular/angular.js/releases/tag/v0.9.0) only 10 days after Backbone’s release.
 
@@ -154,7 +154,7 @@ document.body.appendChild(c);
 
 Here, he utilized the [TraceUR compiler](https://web.archive.org/web/20210311050620/https://github.com/google/traceur-compiler) (a precursor to Babel) to add classes (remember, [`class` wouldn’t land in JavaScript stable until ES6 in 2015](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)) to build a new “custom element”.
 
-This combined with their [new MDV library](https://web.archive.org/web/20110509081454/http://code.google.com/p/mdv) in order to create a similar development environment to what we have in browser APIs today. 
+This combined with their [new MDV library](https://web.archive.org/web/20110509081454/http://code.google.com/p/mdv) in order to create a similar development environment to what we have in browser APIs today.
 
 It’s important to note that at this stage, nothing was formalized inside of a specification - It was all experimental libraries acting as playgrounds for APIs.
 
@@ -166,12 +166,11 @@ In early 2013 the Google team created a [Working Draft of a specification for Cu
 
 With [Google Chrome’s release in 2008](https://googleblog.blogspot.com/2008/09/fresh-take-on-browser.html), they had the ability to quickly implement these non-standard APIs into Chrome in order to allow application developers to utilize them before specification stabilization.
 
-
 One such example of this was [Polymer, which was a component library based on v0 APIs to provide two-way UI binding using MVC.](https://web.archive.org/web/20130515211406/http://www.polymer-project.org/) It’s initial alpha release was announced in early 2013, alongside the specifications.
 
 At [Google Dev Summit 2013, they walked through its capabilities ](https://www.youtube.com/watch?v=DH1vTVkqCDQ)and how it was able to run in other browsers by utilizing polyfills.
 
-------
+---
 
 Facebook, not one to be outdone on the technical engineering front, [introduced React into public in 2013](https://www.youtube.com/watch?v=GW0rj4sNH2w)
 
@@ -180,7 +179,6 @@ While Polymer went deeper into the MVC route, [React relied more heavily on unid
 # 2016 & 2017: Formative Years
 
 While only the year prior, Polymer 1.0 was released with the usage of v0 custom element spec, [2016 saw the release of the custom element v1 specification](https://web.archive.org/web/20161030051600/http://w3c.github.io/webcomponents/spec/custom/).
-
 
 This new version of the specification was not backwards compatible, and as a result required a shift to the new version of the specification in order to function properly. Polyfills were continued to be used as a stop-gate for browsers that didn’t have a v0 implementation.
 
@@ -202,7 +200,7 @@ That `LitElement` would then turn into a dedicated framework called “[Lit](htt
 
 Whew! That’s a lot to take in. Let’s see it all from a thousand foot view:
 
-- 2010: 
+- 2010:
   - [Knockout.js released](https://github.com/knockout/knockout/releases/tag/v1.0.0)
   - [Backbone.js alpha released](https://github.com/jashkenas/backbone/releases/tag/0.1.0)
   - [Angular.js made open-source](https://web.archive.org/web/20100413141437/http://getangular.com/)
@@ -221,6 +219,7 @@ Whew! That’s a lot to take in. Let’s see it all from a thousand foot view:
 - 2016:
   - [Custom elements v1 spec released](https://web.archive.org/web/20161030051600/http://w3c.github.io/webcomponents/spec/custom/)
   - [YouTube rewritten in Polymer](https://blog.youtube/news-and-events/a-sneak-peek-at-youtubes-new-look-and/)
+
 - 2017:
   - [Polymer 2.0 released](https://github.com/Polymer/polymer/releases/tag/v2.0.0)
 

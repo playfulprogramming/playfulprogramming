@@ -52,7 +52,7 @@ If you’ve ever created a class, you’re likely familiar with the following me
 
 `__init__(self, …args)` - `ClassName()`
 
-It’s probably the best-known magic method, Python’s __init__ acts as a class constructor. You can use this to pass initial arguments to a Python class.
+It’s probably the best-known magic method, Python’s **init** acts as a class constructor. You can use this to pass initial arguments to a Python class.
 
 For example, take the following:
 
@@ -123,7 +123,7 @@ print(test.number) # Will print `1`
 print(test.string) # Will print `"Test"`
 ```
 
-There also exists a slightly different __getattribute__ built-in:
+There also exists a slightly different **getattribute** built-in:
 
 `__getattribute__(self, key)` - `instance.property` (regardless of if `property` exists)
 
@@ -216,7 +216,6 @@ Now, when we run `simpledir(test)`, we only see:
 But where is our `’string’` field? It doesn’t show up.
 
 This is because while we’ve told Python how to look up the overwritten values, we’ve not told Python which keys we’ve added.
-
 
 To do this, we can use the `__dir__` magic method.
 
@@ -340,7 +339,6 @@ We would quickly get an error from Python:
 
 To solve this problem, we need to migrate away from `__setattr__`, which only supports dot notation, to `__setitem__`, which only supports the dictionary-style notation.
 
-
 - `__getitem__(self, key)` - `instance[property]`
 - `__setitem__(self, key, val)` - `instance[property] = newVal`
 - `__delitem__(self, key)` - `del instance[property]`
@@ -395,7 +393,6 @@ sum = numInstance + numInstance;
 ```
 
 Luckily we can!
-
 
 For example, here’s how we can make the `+` symbol run custom logic:
 
@@ -463,9 +460,7 @@ There’s also a slew of magic methods for customizing other comparison operator
 
 Python, like any other programming language, has the concept of data types. Similarly, you’re able to convert easily from any of those types to another type using built-in methods of type-casting data.
 
-
 For example, if you call `bool()` on a string, it will cast the truthy value to a Boolean.
-
 
 What if you could customize the behavior of the `bool()` method? You see where we’re going with this…
 
@@ -493,7 +488,6 @@ There’s also other type casts logic you can customize:
 
 - `__int__(self)` - `int(instance)`
 - `__str__(self)` - `str(instance)`
-
 
 ## How to make your classes iterable
 
@@ -536,7 +530,7 @@ Or any other kind of iteration on the ListLike. You’ll get the following confu
 'ListLike' object has no attribute '2'
 ```
 
-This is because Python doesn’t know *how* to iterate through your class, and therefore attempts to access a property in the class. This is where `__iter__` comes into play: It allows you to return an iterable to utilize anytime Python might request iterating through the class, like in [a list comprehension](https://coderpad.io/blog/development/python-list-comprehension-guide/).
+This is because Python doesn’t know _how_ to iterate through your class, and therefore attempts to access a property in the class. This is where `__iter__` comes into play: It allows you to return an iterable to utilize anytime Python might request iterating through the class, like in [a list comprehension](https://coderpad.io/blog/development/python-list-comprehension-guide/).
 
 - `__iter__(self)` - `[x for x in instance]`
 
@@ -570,7 +564,7 @@ listLike.append("World")
 [print(x) for x in listLike]
 ```
 
-> Notice that we’re having to return a real list wrapped in the `iter` method for the `__iter__` return value: This is required by Python. 
+> Notice that we’re having to return a real list wrapped in the `iter` method for the `__iter__` return value: This is required by Python.
 >
 > If you don't do this, you'll get the error:
 >
@@ -584,13 +578,12 @@ The `__iter__` magic method isn’t the only way to customize traditionally list
 
 - `__contains__(self, item)` - `key in instance`
 
-
 Something to keep in mind is that if `__contains__` isn't defined, Python will use the information provided by `__iter__` to check if the key is present. However, `__contains__` is a more optimized method, since the default `__iter__` checking behavior will iterate through every key until it finds a match.
 
 ## Python magic method cheat sheet
 
 Python magic methods can level up your application logic by reducing the amount of boilerplate required to do specific actions, but that’s not its only usecase. Othertimes, you might want to use magic methods to provide an API with a nicer development experience for consuming developers.
 
-That said, we know that with so many magic methods it can be difficult to remember them all. This is why we made a cheat sheet that you can download or print out to reference when writing code. 
+That said, we know that with so many magic methods it can be difficult to remember them all. This is why we made a cheat sheet that you can download or print out to reference when writing code.
 
 > [Download the related Magic Methods Cheat Sheet](https://coderpad.io/python-magic-methods-cheat-sheet/)

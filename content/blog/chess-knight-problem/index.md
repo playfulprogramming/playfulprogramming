@@ -118,7 +118,7 @@ console.log(findPath(3, 3, 2, 1));
 
 I correctly got 1.
 
-One of the spots that we can reach in 2 moves is \[4,6\].
+One of the spots that we can reach in 2 moves is \[4,6].
 
 ```javascript
 console.log(findPath(3, 3, 4, 6));

@@ -39,23 +39,23 @@ So I developed the most simple thing that would work.
 
 There are 2 task types:
 
-* Tasks: You can nest tasks within tasks. They can be anything: feature implementation, refactoring, writing tests, chores, etc. Anything except issues or bugs
+- Tasks: You can nest tasks within tasks. They can be anything: feature implementation, refactoring, writing tests, chores, etc. Anything except issues or bugs
 
-* Bugs: They can be nested under tasks, but not under other bugs. They must be atomic, meaning they can't be broken down into smaller pieces
+- Bugs: They can be nested under tasks, but not under other bugs. They must be atomic, meaning they can't be broken down into smaller pieces
 
 ### Tags
 
 There are a few tags that I like to use when defining bugs and tasks:
 
-* Feature: For tasks the implement a feature
+- Feature: For tasks the implement a feature
 
-* Refactor: For tasks that relate to a refactor of some sorts
+- Refactor: For tasks that relate to a refactor of some sorts
 
-* Chore: For tasks that may be boring / don't affect the end result too much like internal documentation and configuration
+- Chore: For tasks that may be boring / don't affect the end result too much like internal documentation and configuration
 
-* Test: For tasks or bugs about testing
+- Test: For tasks or bugs about testing
 
-* Blocker: For bugs that are very urgent
+- Blocker: For bugs that are very urgent
 
 By using these tags it becomes easier to manage tasks and bugs as you can filter through them. Some people might prefer making each tag it's own task type, but personally I prefer to have the one type of task with one or more tags instead.
 
@@ -109,7 +109,7 @@ But I still wanted to put out a general sort of guide to coming up with your own
 
 ### 1. How do you want to break down your to-dos?
 
-In my case, I wanted to break them down into Tasks and Bugs, each with optional tags. And it works great for me because it integrates well with Azure DevOps. But if you're using a different system then maybe you want to rethink this. Maybe you want Test Writing to be it's own type of task because you find it feels better in your system. It's *your* methodology so remember to tailor it to yourself.
+In my case, I wanted to break them down into Tasks and Bugs, each with optional tags. And it works great for me because it integrates well with Azure DevOps. But if you're using a different system then maybe you want to rethink this. Maybe you want Test Writing to be it's own type of task because you find it feels better in your system. It's _your_ methodology so remember to tailor it to yourself.
 
 ### 2. Which branching strategy do you want?
 

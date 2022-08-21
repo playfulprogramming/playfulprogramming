@@ -41,7 +41,7 @@ This “intuitive” code comes loaded with assumptions and processes that we re
 - What is this doing under the hood?
 - Are we able to utilize functions in potentially unexpected ways?
 
-While you *could* get away with never knowing the answers to these questions, being a great developer often involves understanding how the tools we use actually work – and JavaScript functions are no exception.
+While you _could_ get away with never knowing the answers to these questions, being a great developer often involves understanding how the tools we use actually work – and JavaScript functions are no exception.
 
 For example, do you know what “function currying” is and why it’s useful? Or do you know how `[].map()` and `[].filter` are implemented?
 
@@ -49,7 +49,7 @@ Fret not, dear reader, as we will now take a look at all these questions.
 
 # Why are we able to assign a function to a variable?
 
-To understand why we're able to assign a function to a variable, let's analyze what happens when *anything* is assigned to a variable.
+To understand why we're able to assign a function to a variable, let's analyze what happens when _anything_ is assigned to a variable.
 
 ## How memory works
 
@@ -68,13 +68,13 @@ This will create two sections of memory that your compiler will keep around for 
 
 This might be visually represented like so:
 
-![A big block called "memory" with two items in it. One of them has a name of "helloMessage" and is address `0x7de35306` and the other is "byeMessage" with an address of `0x7de35306`.](./memory_block.png)
+![A big block called "memory" with two items in it. One of them has a name of "helloMessage" and is address 0x7de35306 and the other is "byeMessage" with an address of 0x7de35306.](./memory_block.png)
 
 It's important to remember that the memory address itself doesn't store the name, your compiler does. When you create blocks of memory via variables, the compiler gets back a number that it can use to look up the variable's value inside of a "stack" of memory.
 
-You can *loosely* think of this memory stack as an array that the compiler looks through in order to get the data based on an index. This number can be huge because your computer likely has multiple gigabytes of RAM. Even 16GB is equivalent to 1.28e+11 bytes. Because of this, memory addresses are often colloquially shortened to [hexadecimal representations](https://unicorn-utterances.com/posts/non-decimal-numbers-in-tech).
+You can _loosely_ think of this memory stack as an array that the compiler looks through in order to get the data based on an index. This number can be huge because your computer likely has multiple gigabytes of RAM. Even 16GB is equivalent to 1.28e+11 bytes. Because of this, memory addresses are often colloquially shortened to [hexadecimal representations](https://unicorn-utterances.com/posts/non-decimal-numbers-in-tech).
 
-This means that our *0x7de35306* memory address is associated with bit number 2112049926, or just over the 0.2GB mark.
+This means that our _0x7de35306_ memory address is associated with bit number 2112049926, or just over the 0.2GB mark.
 
 > This explanation of memory is a very generalized explanation of how memory allocation works. [You can read more about memory stacks here.](https://en.wikipedia.org/wiki/Stack-based_memory_allocation)
 
@@ -98,7 +98,7 @@ console.log(memoryBlocks[0x7de35306]);
 console.log(memoryBlocks[0x7de35307]);
 ```
 
-> This code is simply pseudocode and will not actually run. Instead, your computer will compile down to ["machine code" or "assembly code"](https://unicorn-utterances.com/posts/how-computers-speak#assembly-code), which will in turn run on "bare metal". What's more, this is a drastic oversimplification of how your browser's JIT compiler and your system's memory management*actually* works under-the-hood.
+> This code is simply pseudocode and will not actually run. Instead, your computer will compile down to ["machine code" or "assembly code"](https://unicorn-utterances.com/posts/how-computers-speak#assembly-code), which will in turn run on "bare metal". What's more, this is a drastic oversimplification of how your browser's JIT compiler and your system's memory management\_actually\_ works under-the-hood.
 
 ## How does this relate to function storage?
 
@@ -122,7 +122,7 @@ const sayHello = () => {
 sayHello();
 ```
 
-As you might correctly assume, this means that both of these syntaxes allow a function to be stored in memory. 
+As you might correctly assume, this means that both of these syntaxes allow a function to be stored in memory.
 
 Using our pseudocode again, this might look like:
 
@@ -181,7 +181,7 @@ function sayThis(message) {
 sayThis("Hello");
 ```
 
-Here, we're passing a string as a property to the `sayThis` function. 
+Here, we're passing a string as a property to the `sayThis` function.
 
 Just like you can pass in integers, strings, or arrays to a function, you might be surprised to know you can also pass in functions into a function:
 
@@ -199,7 +199,7 @@ doThis(sayHello);
 
 This will output the same "Hello" as our previous`sayThis` usage.
 
-Not only can you call these functions that are passed as parameters, but you can pass parameters to *those* functions as well.
+Not only can you call these functions that are passed as parameters, but you can pass parameters to _those_ functions as well.
 
 ```javascript
 function callThisFn(callback) {
@@ -225,7 +225,7 @@ In case this isn't clear, let's do our previous trick of calling a function with
 
 # What about returning a function from another function?
 
-As a function’s input, parameters are only half of the story of any function's capabilities – just as any function can output a regular variable, they can also output another function: 
+As a function’s input, parameters are only half of the story of any function's capabilities – just as any function can output a regular variable, they can also output another function:
 
 ```javascript
 function getMessage() {
@@ -255,7 +255,7 @@ messageFn();
 getMessageFn()();
 ```
 
-This code block is an extension on the "returned value" idea. Here, we're returning*another* *function* from `getMessageFn`. This function is then assigned to `messageFn` which we can then in turn call itself.
+This code block is an extension on the "returned value" idea. Here, we're returning\_another\_ _function_ from `getMessageFn`. This function is then assigned to `messageFn` which we can then in turn call itself.
 
 Meta, right?
 
@@ -292,7 +292,7 @@ sayHello(); // Will log "Hello, world"
 
 # How do you pass data from one function to another? A pipe function!
 
-The concepts we've spoken about today are commonly utilized when programming in a style called "functional programming." Functional programming is a style of programming - similar to["Object Oriented Programming" (OOP)](https://www.educative.io/blog/object-oriented-programming) - that utilizes functions as a method to pass, change, and structure data. 
+The concepts we've spoken about today are commonly utilized when programming in a style called "functional programming." Functional programming is a style of programming - similar to["Object Oriented Programming" (OOP)](https://www.educative.io/blog/object-oriented-programming) - that utilizes functions as a method to pass, change, and structure data.
 
 Functional programming relies heavily on the properties of functions that we've looked at today: passing functions to other functions, returning functions from functions, and more.
 
@@ -531,7 +531,6 @@ console.log(sum); // 6
 # Functional programming methods can be applied everywhere
 
 Now that you've mastered the fundamentals of JavaScript functions, you can build more kinds of APIs for your applications. These APIs can help you make debugging easier, consolidate your application logic, and more.
-
 
 The functional programming paradigms we've touched on today are immensely popular in ecosystems like React applications and library development. In particular, [React uses these concepts alongside its `useEffect` API.](https://coderpad.io/blog/development/rules-of-reacts-useeffect/)
 

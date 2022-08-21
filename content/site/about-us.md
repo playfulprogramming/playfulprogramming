@@ -73,7 +73,7 @@ As mentioned previously, we also have a Discord where we chat tech, help out wit
 </ul>
 
 If you want to learn more about our sponsorships and how they impact our site, you can read through [our disclosures that we've posted on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed).
- 
+
 TLDR: No sponsor has any say about the content hosted on the site
 
 # Statement of Ethics {#ethics}
