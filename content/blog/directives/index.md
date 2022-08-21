@@ -193,15 +193,51 @@ Because of this, we can hook into the ability to use lifecycle methods within di
 
 ## React
 
-// TODO: Write
+```jsx
+const useFocusElement = () => {
+  const [el, setEl] = useState();
 
-- React / `useEffect` inside of custom hook
+  useEffect(() => {
+    if (!el) return;
+    el.focus();
+  }, [el])
+
+  const ref = (localEl) => {
+    setEl(localEl);
+  };
+  return { ref };
+};
+
+const App = () => {
+  const { ref } = useFocusElement();
+  return <button ref={ref}>Hello, world</button>;
+};
+```
+
+> Truthfully, this is a bad example for `useEffect`. Instead, I would simply run `localEl.focus()` inside of the `ref` function.
 
 ## Angular
 
-// TODO: Write
+```typescript
+@Directive({
+  selector: '[focusElement]',
+})
+class StyleBackgroundDirective {
+  constructor(private el: ElementRef<any>) {}
 
-- Angular is `implements` hooks
+  ngOnInit() {
+    this.el.nativeElement.focus();
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button focusElement>Hello, world</button>
+  `,
+})
+class AppComponent {}
+```
 
 ## Vue
 
@@ -213,19 +249,11 @@ Vue / [Directive Hooks](https://vuejs.org/guide/reusability/custom-directives.ht
 
 
 
-
-
 # Passing Data to Directives
 
-
-
-
-
-But you know, that red we're applying to the `button` element is rather harsh, isn't it?
+Let's look back at our directive we wrote to add colors to our button. It worked, but that red we were applying to the `button` element was rather harsh, wasn't it?
 
 We could just set the color to a nicer shade of red — say, `#FFAEAE` — but then what if we wanted to re-use that code elsewhere to set a different button to blue?
-
-
 
 To solve this issue of per-instance customization of a directive, let's add the ability to pass in data to a directive.
 
@@ -251,7 +279,32 @@ const App = () => {
 
 ## Angular
 
-// TODO: Write
+In order to pass a value to an Angular directive, we can use the `@Input` directive, the same as a component. 
+
+However, one way that a directive's inputs differ from a component's is that you need to prepend the `selector` value as the `Input` variable name, like so:
+
+```typescript
+@Directive({
+  selector: '[styleBackground]',
+})
+class StyleBackgroundDirective implements OnInit {
+  @Input() styleBackground: string;
+
+  constructor(private el: ElementRef<any>) {}
+
+  ngOnInit() {
+    this.el.nativeElement.style.background = this.styleBackground;
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button styleBackground="red">Hello, world</button>
+  `,
+})
+class AppComponent {}
+```
 
 ## Vue
 
@@ -259,39 +312,123 @@ const App = () => {
 
 <!-- tabs:end -->
 
+## Passing JavaScript Values
 
+Similar to how you can pass any valid JavaScript object to a component's inputs; you can do the same with a directive.
+
+To demonstrate this, let's create a `Color` class that includes the following properties:
+
+```javascript
+class Color {
+    constructor(r, g, b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+}
+```
+
+Then, we can render out this color inside of our background styling directive:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+class Color {
+  constructor(r, g, b) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+}
+
+const colorInstance = new Color(255, 174, 174);
+
+const useStyleBackground = (color) => {
+  const ref = (el) => {
+    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+  };
+  return { ref };
+};
+
+const App = () => {
+  const { ref } = useStyleBackground(colorInstance);
+  return <button ref={ref}>Hello, world</button>;
+};
+```
+
+### Angular
+
+```typescript
+class Color {
+  r: number;
+  g: number;
+  b: number;
+
+  constructor(r, g, b) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+}
+
+@Directive({
+  selector: '[styleBackground]',
+})
+class StyleBackgroundDirective implements OnInit {
+  @Input() styleBackground: Color;
+
+  constructor(private el: ElementRef<any>) {}
+
+  ngOnInit() {
+    const color = this.styleBackground;
+    this.el.nativeElement.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`;
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button [styleBackground]="color">Hello, world</button>
+  `,
+})
+class AppComponent {
+  color = new Color(255, 174, 174);
+}
+```
+
+### Vue
 
 // TODO: Write
 
-Button color custom set
+<!-- tabs:end -->
 
 
 
-This works similarly to how a component's inputs might work, and as such you can pass any valid JavaScript in as a property value.
-
-
-
-// TODO: `Color` class instance
+## Passing Multiple Values
 
 
 
 <!-- tabs:start -->
 
-## React
+### React
 
 // TODO: Write
 
-## Angular
+### Angular
 
 // TODO: Write
 
-// TODO: Multiple inputs
-
-## Vue
+### Vue
 
 // TODO: Write
+
+https://vuejs.org/guide/reusability/custom-directives.html#object-literals
 
 <!-- tabs:end -->
+
+
 
 
 
