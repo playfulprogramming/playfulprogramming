@@ -1,7 +1,7 @@
 ---
 {
     title: "Shared Component Logic",
-    description: "",
+    description: "Components provide a great way to share layout, styling, and logic between multiple parts of your app. But what about times you only need to share logic in React, Angular, and Vue?",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -9,7 +9,6 @@
     order: 13,
     series: "The Framework Field Guide"
 }
-
 ---
 
 Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes; but sometimes you need code logic you can share between components that have no associated DOM nodes.
@@ -232,13 +231,54 @@ const App = () => {
 
 ## Angular
 
-While Angular can _technically_ create a base component that shares its lifecycle with a consuming component, it's messy, fragile, and overall considered a malpractice.
+While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](https://unicorn-utterances.com/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
 
-<!-- Editor's note: This is done by creating a component class and extending it -->
+As a result, we'll continue to use a per-component class instance. This will allow us to have an `addListeners` and `removeListeners` logic that we can manually call in our consuming class instances.
 
-This is one of Angular's greatest weaknesses when it comes to Angular's code reuse stories.
+```typescript
+@Injectable()
+class WindowSize {
+  height = 0;
+  width = 0;
 
-// TODO: Write
+  constructor() {
+    this.height = window.innerHeight
+    this.width = window.innerWidth
+  }
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+  addListeners() {
+    window.addEventListener('resize', this.onResize);
+  }
+  removeListeners() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
+  `,
+  providers: [WindowSize]
+})
+class AppComponent implements OnInit, OnDestroy {
+  constructor(public windowSize: WindowSize) {
+  }
+  ngOnInit() {
+    this.windowSize.addListeners();
+  }
+  ngOnDestroy() {
+    this.windowSize.removeListeners();
+  }
+}
+```
+
+> I acknoledge that this method of sharing lifecylce methods is far from perfect; This is one of Angular's greatest weaknesses when it comes to Angular's code reuse story.
+
+> While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](https://unicorn-utterances.com/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
 
 ## Vue
 
@@ -321,9 +361,92 @@ const Component = () => {
 
 ## Angular
 
-// TODO: Write
+Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instnace of our provided `WindowSize` class inside of a new `IsMobile` class, that's also provided in a class.
 
-DI in services from other services
+First, though, we need to provide a way to add behavior to our `onResize` class:
+
+````typescript
+@Injectable()
+class WindowSize {
+  height = 0;
+  width = 0;
+  
+  // We'll overwrite this behavior in another service
+  _listener: () => void | undefined;
+
+  constructor() {
+    this.onResize();
+  }
+
+  onResize = () => {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+    // We will call this "listener" function if it's present
+    if (this._listener) {
+      this._listener();
+    }
+  };
+  addListeners() {
+    window.addEventListener('resize', this.onResize);
+  }
+  removeListeners() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+````
+
+Now that we have this ability to tap into the `resize` event handler, let's write our own `IsMobile` class:
+
+```typescript
+@Injectable()
+class IsMobile {
+  isMobile = false;
+
+  constructor(private windowSize: WindowSize) {
+    windowSize._listener = () => {
+      if (windowSize.width <= 480) this.isMobile = true;
+      else this.isMobile = false;
+    };
+  }
+
+  addListeners() {
+    this.windowSize.addListeners();
+  }
+  removeListeners() {
+    this.windowSize.removeListeners();
+  }
+}
+```
+
+This allows us to have a `isMobile` field that we can access from our `AppComponent` class:
+
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `
+    <p>Is mobile? {{isMobile.isMobile}}</p>
+  `,
+  providers: [WindowSize, IsMobile],
+})
+class AppComponent implements OnInit, OnDestroy {
+  constructor(public isMobile: IsMobile) {}
+  ngOnInit() {
+    this.isMobile.addListeners();
+  }
+  ngOnDestroy() {
+    this.isMobile.removeListeners();
+  }
+}
+```
+
+Something worth mentioning is that we need to provide both `WindowSize` and `IsMobile`, otherwise we'll get an error like so:
+
+```
+Error: R3InjectorError(AppModule)[WindowSize -> WindowSize -> WindowSize]:
+NullInjectorError: No provider for WindowSize!
+```
+
+> This process of creating an `isMobile` field would be a lot easier with [`RxJS`](https://rxjs.dev/), which is widely used amongst Angular apps. However, I'm holding off on teaching RxJS until [the second "Framework Field Guide" book, which covers the "Ecosystem" of the frameworks more in-depth.](https://framework.guide)
 
 ## Vue
 
@@ -339,7 +462,7 @@ Compositions in compositions
 
 Take code from `component-reference` and refactor to use custom hooks/services/etc.
 
-
+// TODO: Write
 
 <!-- tabs:start -->
 
