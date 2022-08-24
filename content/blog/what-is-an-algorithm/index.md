@@ -24,7 +24,7 @@ However, if you understand what an algorithm is, and how to break down tasks int
 To emphasize why the concept of algorithms is very important, you have to understand that an algorithm describes the steps that need to be taken (from **START** to **END**) to do a certain task, independently from any programming language.
 In other words, no matter what programming language people use for a certain task, the same “thought process” can be applied everywhere.
 
-Let’s say you are asked to write down the instructions needed to go from point A to point B as shown in this map below:
+Let’s say you are asked to write down the instructions needed to go from point **A** to point **B** as shown in this map below:
 
 ![Point A to Point B - One](./mapOne.png)
 
@@ -38,7 +38,7 @@ START
 END
 ```
 
-Of course there are other routes you can take to get to point B, so you can make your set of instructions as simple or as complex as you want to, but you’ll learn with time that sometimes, just because there are very few instructions, doesn’t mean that your algorithm is the most efficient.
+The instructions are pretty straightforward, so anyone can follow them. Of course there are other routes you can take to get to point **B**, so you can make your set of instructions as simple or as complex as you want to, but you’ll learn with time that sometimes, just because there are very few instructions, doesn’t mean that your algorithm is the most efficient.
 
 Let’s look at the example here below:
 
@@ -64,7 +64,7 @@ START
 END
 ```
 
-While Algorithm N°1 only has **2 instructions**, it would take someone more time and energy to walk from point A to B, while if you follow Algorithm N°2, it has **4 instructions**, but you save time and energy.
+While Algorithm N°1 has only **2 instructions**, it would take someone more time and energy to walk from point A to B, while if you follow Algorithm N°2, it has **4 instructions**, but you get to save time and energy compared to the first Algorithm.
 
 The same thing goes for a computer program, sometimes, just because there are a few lines of code, doesn’t mean it’s gonna run the fastest or be the most performant.
 
@@ -85,11 +85,11 @@ START
 END
 ```
 
-Pretty simple algorithm. But for a computer to be able to take two values and apply an arithmetic operation between them, it needs to store them somewhere first, which brings us to out next point: **Variables**
+That's a pretty simple algorithm. But for a computer to be able to take two values and apply an arithmetic operation between them, it needs to store them somewhere first before it does anything with them, which brings us to out next point: "**Variables**"
 
 ## Variables
 
-In any computer program, we often have to temporarily store values for different operations. These values can be inputs (from the user through the keyboard) or from the computer storage, or sometimes even be values from other operations made by the computer itself as shown in this example:
+In any computer program, we often have to temporarily store values for different operations. These values can be inputs _(from the user through the keyboard)_ or from the computer storage, or sometimes even values from other operations made by the computer itself as shown in this example:
 
 **_Calculating 2 to the power of 3_**:
 ```Lua
@@ -104,9 +104,9 @@ START
 END
 ```
 
-In step 4, we have to store the value 4 which is returned by the computer itself, in order to multiply it again by the number 2 to get the final result.
+In the fourth step, we have to store the value **4** which is returned by the computer itself, in order to multiply it again by the number **2** to get the final result.
 
-Values stored by a computer don’t always have to be numbers though, they can also be letters _(known in programming languages as characters, like a, b, k, y…)_, words _(known as “strings”, which means “strings of characters”)_, and other types of variables that you’ll meet later on as you deal with programming languages.
+> Values stored by a computer don’t always have to be numbers though, they can also be letters *(known in programming languages as characters, like a, b, k, y…)*, words *(known as “strings”, which means “strings of characters”)*, and other types of variables that you’ll meet later on as you deal with programming languages.
 
 Whenever the computer needs to store a value of any kind, it uses what we call a “Variable”.
 
@@ -152,7 +152,7 @@ If we compare the 3 different programs line by line, we can see that the steps a
 - We “Add the two values together” using the + operator.
 - We get the result, which is 3
 
-Note that `console.log` and `print` are functions in JavaScript and Python respectively, used to log values for the user to see on screen.
+> Note that `console.log` and `print` are functions in JavaScript and Python respectively, used to log values for the user to see on screen.
 
 Of course there’s a lot more to programming languages than these steps, but this will hopefully give you an idea on how they work in general, and how you can break down any process before you actually write in in JavaScript or Python or any other language you may get into as you go further into coding.
 
