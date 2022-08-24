@@ -1,7 +1,7 @@
 ---
 {
     title: "Directives",
-    description: "",
+    description: "If components are a way to share JS logic between mutliple, composible DOM nodes; directives are a way to assign logic to any single DOM node.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -404,21 +404,70 @@ class AppComponent {
 
 <!-- tabs:end -->
 
-
+Now we can customize the color using incremental updates to the RGB values of a color we're passing.
 
 ## Passing Multiple Values
 
+While a class instance of `Color` may be useful in production apps, for smaller projects it might be nicer to manually pass the  `r`, `g`, and `b` values directly to a directive, without needing a class.
 
+Just like we're able to pass mutliple values to a component, we can do the same within a directive. Let's see how it's done for each of the three frameworks:
 
 <!-- tabs:start -->
 
 ### React
 
-// TODO: Write
+Once again, the fact that a custom hook is still just a normal function provides us the ability to pass multiple arguments, as if they are any other function.
+
+```jsx
+const useStyleBackground = (r, g, b) => {
+  const ref = (el) => {
+    el.style.background = `rgb(${r}, ${g}, ${b})`;
+  };
+  return { ref };
+};
+
+const App = () => {
+  const { ref } = useStyleBackground(255, 174, 174);
+  return <button ref={ref}>Hello, world</button>;
+};
+```
 
 ### Angular
 
-// TODO: Write
+I have to come clean about something: when I said "a directive's input must be named the same as the attribute's selector", I was lying to keep things simple to explain.
+
+In reality, you can name an input anything you'd like, but then need to have an empty attribute with the same name as the selector.
+
+```typescript
+@Directive({
+  selector: '[styleBackground]',
+})
+class StyleBackgroundDirective implements OnInit {
+  @Input() r: number;
+  @Input() g: number;
+  @Input() b: number;
+
+  constructor(private el: ElementRef<any>) {}
+
+  ngOnInit() {
+    this.el.nativeElement.style.background = `rgb(${this.r}, ${this.g}, ${this.b})`;
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button styleBackground [r]="255" [g]="174" [b]="174">Hello, world</button>
+  `,
+})
+class AppComponent {}
+```
+
+> If you forget to include the attribute with the same selector (in this case,  `styleBackground`), you'll get the following error:
+> 
+> ```
+> Can't bind to 'r' since it isn't a known property of 'button'.
+> ```
 
 ### Vue
 
@@ -473,9 +522,209 @@ export default function App() {
 
 ## Angular
 
-// TODO: Structural directives
+Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define partial application of HTML elements that can then be rendered after-the-fact](/posts/content-reference#Back-to-the-start-ng-template-rendering).
+
+Remember from this chapter that you're able to pass an `ng-template` to another component like so:
+
+```typescript
+@Component({
+  selector: 'parent-list',
+  template: `
+    <div>
+      <ng-template *ngFor="let template of children" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{backgroundColor: 'grey'}"></ng-template>
+    </div>
+  `,
+})
+class ParentListComponent {
+  @ContentChildren('item', { read: TemplateRef }) children: QueryList<
+    TemplateRef<any>
+  >;
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <parent-container>
+    <ng-template #item let-backgroundColor="backgroundColor">
+      <p [style]="{backgroundColor}">Hello, world!</p>
+    </ng-template>
+  </parent-container>
+  `,
+})
+class AppComponent {
+}
+```
+
+Well, what if I said that you can pass a template to a directive as well? The syntax is a bit different, but in the end you get access to an `ng-template` all the same.
+
+### Use Templates to Pass Parts of the DOM to Directives 
+
+Here, we'll use dependency injection to get access to an `ng-template`:
+
+```typescript
+@Directive({
+  selector: '[item]',
+})
+class ItemDirective {
+  constructor(
+    private template: TemplateRef<any>
+  ) {
+    console.log(this.template);
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <div>
+      <ng-template item>
+        <p>Hello, world!</p>
+      </ng-template>
+    </div>
+  `,
+})
+class AppComponent {}
+```
+
+> Because we're expecting Angular to pass an `ng-template` reference to `ItemDirective`, if we use the `item` attribute on anything other than a template, we'll end up with the following error:
+>
+> ```
+> Property 'backgroundColor' does not exist on type 'AppComponent'.
+> ```
+
+Doing this, we'll see that we get the `TemplateRef` as expected in our console:
+
+```
+TemplateRef {_declarationLView: Array[34], _declarationTContainer: {…}, elementRef: {…}}
+```
+
+But wait, if you don't have a template, how can you render this `template`? After all, without a template, you don't have `ngTemplateOutlet` to render the template like we were doing before.
+
+This is where `ViewContainerRef` comes into play.
+
+### Render templates from directives using `ViewContainerRef`
+
+See, in Angular, there's always an instance of the parent element called a "View Container". This allows us to render a template into the "View Container" using [the `ViewContainerRef` API](https://angular.io/api/core/ViewContainerRef).
+
+This `ViewContainerRef` has the ability to render a `TemplateRef` using `createEmbeddedView`:
+
+```typescript
+@Directive({
+  selector: '[passBackground]',
+})
+class PassBackgroundDirective {
+  constructor(
+    private parentViewRef: ViewContainerRef,
+    private templToRender: TemplateRef<any>
+  ) {
+    this.parentViewRef.createEmbeddedView(this.templToRender);
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <div>
+      <ng-template passBackground>
+        <p>Hello, world!</p>
+      </ng-template>
+    </div>
+  `,
+})
+class AppComponent {}
+```
+
+Now we should be able to see the `p` tag rendering!
+
+> While I'd love to explain more about how `ViewContainerRef` gets set up in Angular, and what `createEmbeddedView` is doing under-the-hood this get a little into the weeds of how Angular works internally. I'll explain this more in-depth in [the third book in the "Framework Field Guide" series, titled "Internals"](https://framework.guide).
+
+> Don't want to wait for the third book in order to learn what a `ViewContainerRef` is? [I wrote an article explaining what it is for Unicorn Utterances](https://unicorn-utterances.com/posts/angular-templates-start-to-source#components-are-directives).
+
+
+
+### Pass data to rendered templates inside of Directives
+
+Just as we could [pass data to a template inside of a component using `ngTemplateOutletContext`](/posts/content-reference#Template-Contexts), we can do the same using a second argument of `createEmbeddedView`:
+
+```typescript
+@Directive({
+  selector: '[passBackground]',
+})
+class PassBackgroundDirective {
+  constructor(
+    private parentViewRef: ViewContainerRef,
+    private templToRender: TemplateRef<any>
+  ) {
+    this.parentViewRef.createEmbeddedView(this.templToRender, {
+      backgroundColor: 'grey',
+    });
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <div>
+      <ng-template passBackground let-backgroundColor="backgroundColor">
+        <p [style]="{backgroundColor}">Hello, world!</p>
+      </ng-template>
+    </div>
+  `,
+})
+class AppComponent {}
+```
+
+We can also simplify our `AppComponent` template to use [structural directives](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives) instead of an explicit `ng-template`:
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+    <div *passBackground let-backgroundColor="backgroundColor">
+        <p [style]="{backgroundColor}">Hello, world!</p>
+    </div>
+  `,
+})
+class AppComponent {}
+```
+
+### Build the Feature Flag Behavior using Structural Templates
+
+Now that we have our foundation written out, we can finally build a simple `featureFlag` directive that renders nothing if a `flag` is false, but renders the contents if a flag is `true`:
+
+````typescript
+const flags = {
+  testing: true,
+};
+
+@Directive({
+  selector: '[featureFlag]',
+})
+class StyleBackgroundDirective {
+  @Input() featureFlag: string;
+
+  constructor(
+    private parentViewRef: ViewContainerRef,
+    private templToRender: TemplateRef<any>
+  ) {
+    this.parentViewRef.createEmbeddedView(this.templToRender);
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <div>
+    	<p *featureFlag="'testing'">Testing</p>
+    </div>
+  `,
+})
+class AppComponent {}
+````
 
 ## Vue
+
+// TODO: Write
 
 Does this work? How do we pass data into the `template`?
 
