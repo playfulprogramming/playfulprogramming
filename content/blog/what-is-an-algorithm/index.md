@@ -16,6 +16,7 @@ In simple terms, an algorithm is a set of instructions that lead to a certain re
 But if you somehow mess up an instruction (like leaving the pie in the oven for 2 hours instead of 1 hour like the recipe book tells you to) then you end up with a bad result, and you would have to start over.
 
 The same thing applies for machines. If you give a computer a clear set of instructions, it’ll execute them in order to reach the desired result. There is, however, a huge difference between telling another person how to solve a certain equation, and telling a computer to do the same thing, because computers have [their own language](https://unicorn-utterances.com/posts/how-computers-speak#hdd), which is very different from human language.
+
 However, if you understand what an algorithm is, and how to break down tasks into a small set of very basic instructions, it will be a lot easier to deal with Programming languages later in your learning journey.
 
 # Algorithms & Computers
@@ -24,40 +25,50 @@ To emphasize why the concept of algorithms is very important, you have to unders
 In other words, no matter what programming language people use for a certain task, the same “thought process” can be applied everywhere.
 
 Let’s say you are asked to write down the instructions needed to go from point A to point B as shown in this map below:
+
 ![Point A to Point B - One](./mapOne.png)
 
 A very basic algorithm can be written down as such:
-**START**
-- Head East
-- Head South to the intersection
-- Head East to the intersection
-**END**
+
+```Lua
+START
+	- Head East
+	- Head South to the intersection
+	- Head East to the intersection
+END
+```
 
 Of course there are other routes you can take to get to point B, so you can make your set of instructions as simple or as complex as you want to, but you’ll learn with time that sometimes, just because there are very few instructions, doesn’t mean that your algorithm is the most efficient.
 
 Let’s look at the example here below:
+
 ![Point A to Point B - Two](./mapTwo.png)
 
 Here we can do one of two algorithms to get from point A to point B:
-#### Algorithm N°1:
-**START**
-- Head South
-- Head East
-**END**
 
-#### Algorithm N°2:
-**START**
-- Enter “Subway station A”
-- Take the subway to “Subway station B”
-- Exit “Subway station B”
-- Head East
-**END**
+**Algorithm N°1:**
+```
+START
+	- Head South
+	- Head East
+END
+```
+
+**Algorithm N°2:**
+```
+START
+	- Enter “Subway station A”
+	- Take the subway to “Subway station B”
+	- Exit “Subway station B”
+	- Head East
+END
+```
 
 While Algorithm N°1 only has **2 instructions**, it would take someone more time and energy to walk from point A to B, while if you follow Algorithm N°2, it has **4 instructions**, but you save time and energy.
 
 The same thing goes for a computer program, sometimes, just because there are a few lines of code, doesn’t mean it’s gonna run the fastest or be the most performant.
 
-# 1 + 1
+## Arithmetic operations
 
 Let’s now take a look at an example that has something more to do with computers: *a basic arithmetic operation.*
 
@@ -65,12 +76,14 @@ If you were asked to calculate 1 + 2, it would take you less than a second, beca
 
 If we follow the same thought process as before, we could write something like this:
 
-**START**
-- Take the number 1
-- Take the number 2
-- Add them together
-- Obtain the number 3
-**END**
+```
+START
+	- Take the number 1
+	- Take the number 2
+	- Add them together
+	- Obtain the number 3
+END
+```
 
 Pretty simple algorithm. But for a computer to be able to take two values and apply an arithmetic operation between them, it needs to store them somewhere first, which brings us to out next point: **Variables**
 
@@ -78,16 +91,18 @@ Pretty simple algorithm. But for a computer to be able to take two values and ap
 
 In any computer program, we often have to temporarily store values for different operations. These values can be inputs (from the user through the keyboard) or from the computer storage, or sometimes even be values from other operations made by the computer itself as shown in this example:
 
-#### Calculating 2 to the power of 3:
-**START**
-- Take the number 2
-- Take another number 2
-- Multiply 2 by 2
-- Obtain the number 4
-- Take another number 2
-- Multiply 2 by 4
-- Obtain the number 8
-**END**
+**_Calculating 2 to the power of 3_**:
+```
+START
+	- Take the number 2
+	- Take another number 2
+	- Multiply 2 by 2
+	- Obtain the number 4
+	- Take another number 2
+	- Multiply 2 by 4
+	- Obtain the number 8
+END
+```
 
 In step 4, we have to store the value 4 which is returned by the computer itself, in order to multiply it again by the number 2 to get the final result.
 
@@ -104,12 +119,14 @@ Now that we covered the essentials of what an algorithm is and how to break down
 
 Let’s take our previous example where we calculated 1 + 2, and see how it’s written in two of the most popular programming languages nowadays: JavaScript and Python.
 
-**START**
-- Take the number 1
-- Take the number 2
-- Add them together
-- Obtain the number 3
-**END**
+```
+START
+	- Take the number 1
+	- Take the number 2
+	- Add them together
+	- Obtain the number 3
+END
+```
 
 ```JavaScript
 JavaScript:
