@@ -47,7 +47,7 @@ Let’s look at the example here below:
 Here we can do one of two algorithms to get from point A to point B:
 
 **Algorithm N°1:**
-```
+```Lua
 START
 	- Head South
 	- Head East
@@ -55,7 +55,7 @@ END
 ```
 
 **Algorithm N°2:**
-```
+```Lua
 START
 	- Enter “Subway station A”
 	- Take the subway to “Subway station B”
@@ -76,7 +76,7 @@ If you were asked to calculate 1 + 2, it would take you less than a second, beca
 
 If we follow the same thought process as before, we could write something like this:
 
-```
+```Lua
 START
 	- Take the number 1
 	- Take the number 2
@@ -92,7 +92,7 @@ Pretty simple algorithm. But for a computer to be able to take two values and ap
 In any computer program, we often have to temporarily store values for different operations. These values can be inputs (from the user through the keyboard) or from the computer storage, or sometimes even be values from other operations made by the computer itself as shown in this example:
 
 **_Calculating 2 to the power of 3_**:
-```
+```Lua
 START
 	- Take the number 2
 	- Take another number 2
@@ -120,7 +120,7 @@ Now that we covered the essentials of what an algorithm is and how to break down
 Let’s take our previous example where we calculated 1 + 2, and see how it’s written in two of the most popular programming languages nowadays: JavaScript and Python.
 
 **Pseudo-code:**
-```
+```Lua
 START
 	- Take the number 1
 	- Take the number 2
