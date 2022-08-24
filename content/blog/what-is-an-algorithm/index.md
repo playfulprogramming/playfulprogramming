@@ -87,7 +87,7 @@ END
 
 Pretty simple algorithm. But for a computer to be able to take two values and apply an arithmetic operation between them, it needs to store them somewhere first, which brings us to out next point: **Variables**
 
-# Variables
+## Variables
 
 In any computer program, we often have to temporarily store values for different operations. These values can be inputs (from the user through the keyboard) or from the computer storage, or sometimes even be values from other operations made by the computer itself as shown in this example:
 
@@ -106,19 +106,20 @@ END
 
 In step 4, we have to store the value 4 which is returned by the computer itself, in order to multiply it again by the number 2 to get the final result.
 
-Values stored by a computer don’t always have to be numbers though, they can also be letters (known in programming languages as characters, like a, b, k, y…), words (known as “strings”, which means “strings of characters”), and other types of variables that you’ll meet later on as you deal with programming languages.
+Values stored by a computer don’t always have to be numbers though, they can also be letters _(known in programming languages as characters, like a, b, k, y…)_, words _(known as “strings”, which means “strings of characters”)_, and other types of variables that you’ll meet later on as you deal with programming languages.
 
 Whenever the computer needs to store a value of any kind, it uses what we call a “Variable”.
 
 A variable can be initially considered as a box with a tag on it that has its name and where it belongs in the memory (also called “address”) to differentiate it from other variables.
 A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
 
-# Algorithm Structure
+## Pseudo-code vs. Programming languages
 
 Now that we covered the essentials of what an algorithm is and how to break down tasks into instructions or “pseudo-code”, let’s have a little taste of programming languages, by comparing an algorithm (written in English) to how it’s written in two different programming languages.
 
 Let’s take our previous example where we calculated 1 + 2, and see how it’s written in two of the most popular programming languages nowadays: JavaScript and Python.
 
+**Pseudo-code:**
 ```
 START
 	- Take the number 1
@@ -128,14 +129,16 @@ START
 END
 ```
 
+**JavaScript:**
 ```JavaScript
-JavaScript:
+
 variableOne = 1;
 variableTwo = 2;
 console.log(variableOne + variableTwo)
 // We obtain the number 3
 ```
 
+**Python**
 ```Python
 variableOne = 1
 variableTwo = 2
@@ -157,4 +160,4 @@ Of course there’s a lot more to programming languages than these steps, but th
 
 Algorithms are not an alien concept to anyone, since each of us tends to follow different sets of steps to achieve the different tasks we run into everyday, and in this article we covered how to break down any task into very small steps and how that concept is exactly how a computer runs programs.
 We’ve also seen how different programs can be written in many different ways, and that there's no correlation whatsoever between how long the code is and how performant it is.
-Those basics, along with the sneak peek we had into actual programming languages, will hopefully serve as a good base for the coding splendor up ahead! And If you have any questions at all, make sure you drop a comment or [join our discord community]().
+Those basics, along with the sneak peek we had into actual programming languages, will hopefully serve as a good base for the coding splendor up ahead! And If you have any questions at all, make sure you drop a comment or [join our discord community](https://discord.gg/FMcvc6T).
