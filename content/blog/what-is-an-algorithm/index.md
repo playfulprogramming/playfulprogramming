@@ -68,9 +68,11 @@ While Algorithm N°1 has only **2 instructions**, it would take someone more tim
 
 The same thing goes for a computer program, sometimes, just because there are a few lines of code, doesn’t mean it’s gonna run the fastest or be the most performant.
 
-## Arithmetic operations
+But before we can get into what makes an algorithm fast or better suited for one task or the other, let's first look at what an algorithm can be made of.
 
-Let’s now take a look at an example that has something more to do with computers: *a basic arithmetic operation.*
+# Building blocks of an algorithm
+
+Let’s take a look at an example that has something more to do with computers: *a basic arithmetic operation.*
 
 If you were asked to calculate 1 + 2, it would take you less than a second, because in your brain “it’s obviously 3”, right? But what if you were asked to break down that operation into steps like we did in the previous example?
 
@@ -110,8 +112,52 @@ In the fourth step, we have to store the value **4** which is returned by the co
 
 Whenever the computer needs to store a value of any kind, it uses what we call a “Variable”.
 
-A variable can be initially considered as a box with a tag on it that has its name and where it belongs in the memory (also called “address”) to differentiate it from other variables.
+A variable can be initially considered as a box to keep things in. And since there can be millions of "boxes" inside a computer, we need to differentiate them. So let's say that each one has a unique tag on it that has its name and where it belongs in the memory (also called “address”)
+
+So for any value that needs to be used, we can ask the computer to create a **variable** and **affect** that value to the variable so that we're able to use it throughout the code.
+
+![Representation of a variable](./variable.png)
+
 A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
+
+Now that we've established how values are stored, comes the part where the computer handles the different instructions given, with the help of what we can call "**Operators**"
+
+## Operators
+
+In any programming language, you'll find a set of different symbols used to execute specific operations on either one variable, or between 2 or more variables.
+
+The simplest (and most common) ones are arithmetic operators: **Addition (+), Subtraction (-), Multiplication(x) and Division (÷)**
+
+> Note that in several programming languages, the 4 arithmetic operators can be used for more than just mathematical operations between numbers. A simple example is adding two words together in JavaScript to form another word, as such: `"Mathe" + "matical"`
+
+There are of course other operators that you'll get into as you start coding, but we won't get into all of them. Instead we'll look into one that is very common, and that's the **Equal sign =**
+As opposed to how it's usually used in simple arithmetics, as the part to indicate "this is the result", in most programming languages, it actually means something completely different.
+
+Let's take a look at the same example we used before, where we added two numbers together, and take the first instruction: `- Take the number 1`
+
+If we take into consideration the part where we talked about "storing values", we mentioned "**affecting**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be `- Affect the number 1 to a variable`.
+
+With all of that put into consideration, let's try to write an algorithm that is a little bit more comprehensible to a computer:
+
+```Lua
+START
+	- Affect the number 1 to a variable
+	- Affect the number 2 to another variable
+	- Add the values of the two variables together
+	- Obtain the number 3
+END
+```
+
+All of this sounds great! However, we're still dealing with very simple operations. So what about big complex instructions? Like if we take a calculator, and try to calculate the **square root** of a certain number, how does it do that? Especially considering that the computer can't understand "Square root", and can only do very basic operations.
+
+To do that, we'd have to create specific "sets of instructions" that we can call for specific steps. Those sets of instructions are called "**Functions**"
+
+## Functions
+
+A function is a set of instructions that is defined _once_, but can be used _as many times as necessary_. In other words, it's a "pre-made chunk of simple instructions used to perform a complex task".
+For different purposes, we can create different functions to make performing tasks easier for ourselves.
+
+The big advantage of making a function is to be able to quickly and easily use it without having to write the entire set of instructions over and over again, because over time you'll see that some tasks have to be performed hundreds of times in an applications, and to make all of that easier, functions are the way to go.
 
 ## Pseudo-code vs. Programming languages
 
@@ -122,9 +168,9 @@ Let’s take our previous example where we calculated 1 + 2, and see how it’s 
 **Pseudo-code:**
 ```Lua
 START
-	- Take the number 1
-	- Take the number 2
-	- Add them together
+	- Affect the number 1 to a variable
+	- Affect the number 2 to another variable
+	- Add the values of the two variables together
 	- Obtain the number 3
 END
 ```
@@ -154,10 +200,12 @@ If we compare the 3 different programs line by line, we can see that the steps a
 
 > Note that `console.log` and `print` are functions in JavaScript and Python respectively, used to log values for the user to see on screen.
 
-Of course there’s a lot more to programming languages than these steps, but this will hopefully give you an idea on how they work in general, and how you can break down any process before you actually write in in JavaScript or Python or any other language you may get into as you go further into coding.
+So, as we already mentioned in the beginning of this article, we can see that the thought process is in fact the same whether we use pseudo-code, JavaScript or Python (as is the case with so many other programming languages).
+
+Of course there’s a lot more to programming languages than these steps, especially considering what we've talked about in the "Functions" section. But this will hopefully give you an idea on how they work in general, and how you can break down any process before you actually write in in JavaScript or Python or any other language you may get into as you go further into coding.
 
 # Conclusion
 
 Algorithms are not an alien concept to anyone, since each of us tends to follow different sets of steps to achieve the different tasks we run into everyday, and in this article we covered how to break down any task into very small steps and how that concept is exactly how a computer runs programs.
-We’ve also seen how different programs can be written in many different ways, and that there's no correlation whatsoever between how long the code is and how performant it is.
-Those basics, along with the sneak peek we had into actual programming languages, will hopefully serve as a good base for the coding splendor up ahead! And If you have any questions at all, make sure you drop a comment or [join our discord community](https://discord.gg/FMcvc6T).
+And despite the many different ways a program can be written, there's no correlation whatsoever between how long the code is and how performant it is, because as we've seen, an algorithm can be made of multiple instructions that could require either small operations (like addition or subtraction) or complex functions (made up of multiple small operations).
+Those basics, along with the sneak peek we had into actual programming languages, will hopefully serve as a good base for what's up ahead! But If you have any questions at all, make sure you drop a comment below, or [join our discord community](https://discord.gg/FMcvc6T).
