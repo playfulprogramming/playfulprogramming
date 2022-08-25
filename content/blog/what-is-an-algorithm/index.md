@@ -30,7 +30,7 @@ Let’s say you are asked to write down the instructions needed to go from point
 
 A very basic algorithm can be written down as such:
 
-```Lua
+```haskell
 START
 	- Head East
 	- Head South to the intersection
@@ -47,7 +47,7 @@ Let’s look at the example here below:
 Here we can do one of two algorithms to get from point A to point B:
 
 **Algorithm N°1:**
-```Lua
+```haskell
 START
 	- Head South
 	- Head East
@@ -55,7 +55,7 @@ END
 ```
 
 **Algorithm N°2:**
-```Lua
+```haskell
 START
 	- Enter “Subway station A”
 	- Take the subway to “Subway station B”
@@ -78,7 +78,7 @@ If you were asked to calculate 1 + 2, it would take you less than a second, beca
 
 If we follow the same thought process as before, we could write something like this:
 
-```Lua
+```haskell
 START
 	- Take the number 1
 	- Take the number 2
@@ -94,7 +94,7 @@ That's a pretty simple algorithm. But for a computer to be able to take two valu
 In any computer program, we often have to temporarily store values for different operations. These values can be inputs _(from the user through the keyboard)_ or from the computer storage, or sometimes even values from other operations made by the computer itself as shown in this example:
 
 **_Calculating 2 to the power of 3_**:
-```Lua
+```haskell
 START
 	- Take the number 2
 	- Take another number 2
@@ -139,11 +139,11 @@ Let's take a look at the same example we used before, where we added two numbers
 
 If we take into consideration the part where we talked about "storing values", we mentioned "**affecting**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be:
 
-`- Affect the number 1 to a variable`.
+`- Affect the number 1 to a variable`
 
 With all of that put into consideration, let's try to write an algorithm that is a little bit more comprehensible to a computer:
 
-```Lua
+```haskell
 START
 	- Affect the number 1 to a variable
 	- Affect the number 2 to another variable
@@ -170,7 +170,7 @@ Now that we covered the essentials of what an algorithm is and how to break down
 Let’s take our previous example where we calculated 1 + 2, and see how it’s written in two of the most popular programming languages nowadays: JavaScript and Python.
 
 **Pseudo-code:**
-```Lua
+```haskell
 START
 	- Affect the number 1 to a variable
 	- Affect the number 2 to another variable
@@ -180,8 +180,7 @@ END
 ```
 
 **JavaScript:**
-```JavaScript
-
+```javascript
 variableOne = 1;
 variableTwo = 2;
 console.log(variableOne + variableTwo)
@@ -189,7 +188,7 @@ console.log(variableOne + variableTwo)
 ```
 
 **Python**
-```Python
+```python
 variableOne = 1
 variableTwo = 2
 print(variableOne + variableTwo)
