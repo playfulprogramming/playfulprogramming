@@ -116,7 +116,7 @@ A variable can be initially considered as a box to keep things in. And since the
 
 So for any value that needs to be used, we can ask the computer to create a **variable** and **affect** that value to the variable so that we're able to use it throughout the code.
 
-![Representation of a variable](./variable.png)
+![Representation of a variable](./variableRep.png)
 
 A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
 
@@ -133,9 +133,13 @@ The simplest (and most common) ones are arithmetic operators: **Addition (+), Su
 There are of course other operators that you'll get into as you start coding, but we won't get into all of them. Instead we'll look into one that is very common, and that's the **Equal sign =**
 As opposed to how it's usually used in simple arithmetics, as the part to indicate "this is the result", in most programming languages, it actually means something completely different.
 
-Let's take a look at the same example we used before, where we added two numbers together, and take the first instruction: `- Take the number 1`
+Let's take a look at the same example we used before, where we added two numbers together, and take the first instruction:
 
-If we take into consideration the part where we talked about "storing values", we mentioned "**affecting**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be `- Affect the number 1 to a variable`.
+`- Take the number 1`
+
+If we take into consideration the part where we talked about "storing values", we mentioned "**affecting**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be:
+
+`- Affect the number 1 to a variable`.
 
 With all of that put into consideration, let's try to write an algorithm that is a little bit more comprehensible to a computer:
 
@@ -154,7 +158,7 @@ To do that, we'd have to create specific "sets of instructions" that we can call
 
 ## Functions
 
-A function is a set of instructions that is defined _once_, but can be used _as many times as necessary_. In other words, it's a "pre-made chunk of simple instructions used to perform a complex task".
+A function is a set of instructions that is defined _once_, but can be used _as many times as necessary_. In other words, it's a "pre-made chunk of simple instructions used to perform a complex task on demand".
 For different purposes, we can create different functions to make performing tasks easier for ourselves.
 
 The big advantage of making a function is to be able to quickly and easily use it without having to write the entire set of instructions over and over again, because over time you'll see that some tasks have to be performed hundreds of times in an applications, and to make all of that easier, functions are the way to go.
