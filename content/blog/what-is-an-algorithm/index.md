@@ -1,10 +1,10 @@
 ---
 {
 	title: "What's An Algorithm?",
-	description: "",
-	published: '',
+	description: "A quick introduction into what algorithms are, what they're made of and why they're an important part of understanding how programming languages work",
+	published: '2022-08-25T18:00:00.000Z',
 	authors: ['qarnax'],
-	tags: [],
+	tags: ['computer science'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 }
