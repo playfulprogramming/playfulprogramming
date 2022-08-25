@@ -163,7 +163,7 @@ For different purposes, we can create different functions to make performing tas
 
 The big advantage of making a function is to be able to quickly and easily use it without having to write the entire set of instructions over and over again, because over time you'll see that some tasks have to be performed hundreds of times in an applications, and to make all of that easier, functions are the way to go.
 
-## Pseudo-code vs. Programming languages
+# Pseudo-code vs. Programming languages
 
 Now that we covered the essentials of what an algorithm is and how to break down tasks into instructions or “pseudo-code”, let’s have a little taste of programming languages, by comparing an algorithm (written in English) to how it’s written in two different programming languages.
 
