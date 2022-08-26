@@ -114,7 +114,7 @@ Whenever the computer needs to store a value of any kind, it uses what we call a
 
 A variable can be initially considered as a box to keep things in. And since there can be millions of "boxes" inside a computer, we need to differentiate them, which is why each one has a unique name, address (where it's kept in the memory), etc.
 
-So, for any value that needs to be used, we can ask the computer to create a unique **variable** and **affect** our value to that variable so that we're able to use it throughout the code.
+So, for any value that needs to be used, we can ask the computer to create a unique **variable** and **assign** our value to that variable so that we're able to use it throughout the code.
 
 > A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
 
@@ -135,16 +135,16 @@ Let's take a look at the same example we used before, where we added two numbers
 
 `- Take the number 1`
 
-If we take into consideration the part where we talked about "storing values", we mentioned "**affecting**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be:
+If we take into consideration the part where we talked about "storing values", we mentioned "**assigning**" values to variables. The **Equal sign (=)** is what we can use to _'put'_ values into variables. So a more exact way of describing that instruction would be:
 
-`- Affect the number 1 to a variable`
+`- Assign the number 1 to a variable`
 
 With all of that put into consideration, let's try to write an algorithm that is a little bit more comprehensible to a computer:
 
 ```elixir
 START
-	- Affect the number 1 to a variable
-	- Affect the number 2 to another variable
+	- Assign the number 1 to a variable
+	- Assign the number 2 to another variable
 	- Add the values of the two variables together
 	- Obtain the number 3
 END
@@ -170,8 +170,8 @@ Let’s take our previous example where we calculated 1 + 2, and see how it’s 
 **Pseudo-code:**
 ```elixir
 START
-	- Affect the number 1 to a variable
-	- Affect the number 2 to another variable
+	- Assign the number 1 to a variable
+	- Assign the number 2 to another variable
 	- Add the values of the two variables together
 	- Obtain the number 3
 END
