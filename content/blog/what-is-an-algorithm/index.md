@@ -2,7 +2,7 @@
 {
 	title: "What's An Algorithm?",
 	description: "A quick introduction into what algorithms are, what they're made of and why they're an important part of understanding how programming languages work",
-	published: '2022-08-25T18:00:00.000Z',
+	published: '2022-08-26T18:00:00.000Z',
 	authors: ['qarnax'],
 	tags: ['computer science'],
 	attached: [],
@@ -30,7 +30,7 @@ Let’s say you are asked to write down the instructions needed to go from point
 
 A very basic algorithm can be written down as such:
 
-```haskell
+```elixir
 START
 	- Head East
 	- Head South to the intersection
@@ -47,7 +47,7 @@ Let’s look at the example here below:
 Here we can do one of two algorithms to get from point A to point B:
 
 **Algorithm N°1:**
-```haskell
+```elixir
 START
 	- Head South
 	- Head East
@@ -55,11 +55,11 @@ END
 ```
 
 **Algorithm N°2:**
-```haskell
+```elixir
 START
-	- Enter “Subway station A”
-	- Take the subway to “Subway station B”
-	- Exit “Subway station B”
+	- Enter subway station 'A'
+	- Take the subway to subway station 'B'
+	- Exit subway station 'B'
 	- Head East
 END
 ```
@@ -78,7 +78,7 @@ If you were asked to calculate 1 + 2, it would take you less than a second, beca
 
 If we follow the same thought process as before, we could write something like this:
 
-```haskell
+```elixir
 START
 	- Take the number 1
 	- Take the number 2
@@ -94,14 +94,14 @@ That's a pretty simple algorithm. But for a computer to be able to take two valu
 In any computer program, we often have to temporarily store values for different operations. These values can be inputs _(from the user through the keyboard)_ or from the computer storage, or sometimes even values from other operations made by the computer itself as shown in this example:
 
 **_Calculating 2 to the power of 3_**:
-```haskell
+```elixir
 START
 	- Take the number 2
 	- Take another number 2
 	- Multiply 2 by 2
 	- Obtain the number 4
 	- Take another number 2
-	- Multiply 2 by 4
+	- Multiply 4 by 2
 	- Obtain the number 8
 END
 ```
@@ -112,13 +112,11 @@ In the fourth step, we have to store the value **4** which is returned by the co
 
 Whenever the computer needs to store a value of any kind, it uses what we call a “Variable”.
 
-A variable can be initially considered as a box to keep things in. And since there can be millions of "boxes" inside a computer, we need to differentiate them. So let's say that each one has a unique tag on it that has its name and where it belongs in the memory (also called “address”)
+A variable can be initially considered as a box to keep things in. And since there can be millions of "boxes" inside a computer, we need to differentiate them, which is why each one has a unique name, address (where it's kept in the memory), etc.
 
-So for any value that needs to be used, we can ask the computer to create a **variable** and **affect** that value to the variable so that we're able to use it throughout the code.
+So, for any value that needs to be used, we can ask the computer to create a unique **variable** and **affect** our value to that variable so that we're able to use it throughout the code.
 
-![Representation of a variable](./variableRep.png)
-
-A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
+> A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
 
 Now that we've established how values are stored, comes the part where the computer handles the different instructions given, with the help of what we can call "**Operators**"
 
@@ -143,7 +141,7 @@ If we take into consideration the part where we talked about "storing values", w
 
 With all of that put into consideration, let's try to write an algorithm that is a little bit more comprehensible to a computer:
 
-```haskell
+```elixir
 START
 	- Affect the number 1 to a variable
 	- Affect the number 2 to another variable
@@ -170,7 +168,7 @@ Now that we covered the essentials of what an algorithm is and how to break down
 Let’s take our previous example where we calculated 1 + 2, and see how it’s written in two of the most popular programming languages nowadays: JavaScript and Python.
 
 **Pseudo-code:**
-```haskell
+```elixir
 START
 	- Affect the number 1 to a variable
 	- Affect the number 2 to another variable
