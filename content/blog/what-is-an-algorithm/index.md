@@ -17,7 +17,7 @@ But if you somehow mess up an instruction (like leaving the pie in the oven for 
 
 The same thing applies for machines. If you give a computer a clear set of instructions, it’ll execute them in order to reach the desired result. There is, however, a huge difference between telling another person how to solve a certain equation, and telling a computer to do the same thing, because computers have [their own language](https://unicorn-utterances.com/posts/how-computers-speak#hdd), which is very different from human language.
 
-However, if you understand what an algorithm is, and how to break down tasks into a small set of very basic instructions, it will be a lot easier to deal with Programming languages later in your learning journey.
+However, if you understand what an algorithm is, and how to break down tasks into a small set of very basic instructions, it will be a lot easier to deal with programming languages later in your learning journey.
 
 # Algorithms & Computers
 
@@ -26,7 +26,7 @@ In other words, no matter what programming language people use for a certain tas
 
 Let’s say you are asked to write down the instructions needed to go from point **A** to point **B** as shown in this map below:
 
-![Point A to Point B - One](./mapOne.png)
+![A maze with a series of blocks oriented cleanly in a North East South West direction. Point 'A' is to the top right, while 'B' is to the bottom left, with a few blocks in between.](./mapOne.png)
 
 A very basic algorithm can be written down as such:
 
@@ -42,7 +42,7 @@ The instructions are pretty straightforward, so anyone can follow them. Of cours
 
 Let’s look at the example here below:
 
-![Point A to Point B - Two](./mapTwo.png)
+![ maze with a series of blocks oriented cleanly in a North East South West direction. Point 'A' is right next to a subway station 'A', while point 'B' is right next to a subway station 'B'.](./mapTwo.png)
 
 Here we can do one of two algorithms to get from point A to point B:
 
