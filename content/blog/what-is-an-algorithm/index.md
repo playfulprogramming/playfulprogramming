@@ -42,7 +42,7 @@ The instructions are pretty straightforward, so anyone can follow them. Of cours
 
 Let’s look at the example here below:
 
-![ maze with a series of blocks oriented cleanly in a North East South West direction. Point 'A' is right next to a subway station 'A', while point 'B' is right next to a subway station 'B'.](./mapTwo.png)
+![A maze with a series of blocks oriented cleanly in a North East South West direction. Point 'A' is right next to a subway station 'A', while point 'B' is right next to a subway station 'B'.](./mapTwo.png)
 
 Here we can do one of two algorithms to get from point A to point B:
 
@@ -115,6 +115,23 @@ Whenever the computer needs to store a value of any kind, it uses what we call a
 A variable can be initially considered as a box to keep things in. And since there can be millions of "boxes" inside a computer, we need to differentiate them, which is why each one has a unique name, address (where it's kept in the memory), etc.
 
 So, for any value that needs to be used, we can ask the computer to create a unique **variable** and **assign** our value to that variable so that we're able to use it throughout the code.
+
+To illustrate how that works, let's look at this visual representation of how addition between two values happens:
+
+![Visual representation of how adding two values happens in an algorithm with the help of variables](./variables.png)
+
+If we want to be even more specific on what happens inside the computer, we could re-write the algorithm like this:
+
+```elixir
+START
+	- Take the number 1 and put it in a box called Box1
+	- Take the number 2 and put it in a box called Box2
+	- Add them together and put that value in a box called Box3
+	- Display the value of Box3 on the screen
+END
+```
+
+You will notice in our illustration that there's a block that says "A function that displays values", but ignore that for the moment because we'll get to what functions are in a few.
 
 > A more extensive explanation on how computers store and handle variables can be found [here](https://unicorn-utterances.com/posts/how-computers-speak).
 
