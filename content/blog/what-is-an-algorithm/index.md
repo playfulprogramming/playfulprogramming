@@ -161,6 +161,25 @@ For different purposes, we can create different functions to make performing tas
 
 The big advantage of making a function is to be able to quickly and easily use it without having to write the entire set of instructions over and over again, because over time you'll see that some tasks have to be performed hundreds of times in an applications, and to make all of that easier, functions are the way to go.
 
+A good example where these functions can come in handy is when trying to do bulk-tasks, like cooking multiple pies at once:
+
+```elixir
+BAKE_START
+   - Pre-heat the oven to 350
+   - Put the pie in the oven
+   - Wait an hour
+   - Take the pie out of the oven
+BAKE_END
+START
+	- Prepare apple pie
+	- Prepare rhubarb pie
+	- BAKE apple pie
+	- BAKE rhubarb pie 
+END
+```
+
+Here we are calling the `BAKE` function instead of writing the instructions over and over each time we need them.
+
 # Pseudo-code vs. Programming languages
 
 Now that we covered the essentials of what an algorithm is and how to break down tasks into instructions or “pseudo-code”, let’s have a little taste of programming languages, by comparing an algorithm (written in English) to how it’s written in two different programming languages.
