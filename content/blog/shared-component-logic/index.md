@@ -574,6 +574,8 @@ Take code from `component-reference` and refactor to use custom hooks/services/e
 
 ## React
 
+// TODO: This is missing the `reisze` listener for the bounds
+
 ```jsx
 import React from 'react';
 
@@ -827,6 +829,146 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 ## Vue
 
 // TODO: Write code
+
+```javascript
+// use-outside-click.js
+import { onMounted, onUnmounted } from 'vue'
+
+export const useOutsideClick = ({ ref, onClose }) => {
+  const closeIfOutsideOfContext = (e) => {
+    const isClickInside = ref.value.contains(e.target)
+    if (isClickInside) return
+    onClose()
+  }
+
+  onMounted(() => {
+    document.addEventListener('click', closeIfOutsideOfContext)
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutsideOfContext)
+  })
+}
+```
+
+
+
+Then
+
+
+
+```vue
+<!-- ContextMenu.vue -->
+<template>
+  <div
+    tabIndex="0"
+    ref="contextMenuRef"
+    :style="{
+      position: 'fixed',
+      top: props.y + 20,
+      left: props.x + 20,
+      background: 'white',
+      border: '1px solid black',
+      borderRadius: 16,
+      padding: '1rem',
+    }"
+  >
+    <button @click="$emit('close')">X</button>
+    This is a context menu
+  </div>
+</template>
+<script setup>
+import { onMounted, onUnmounted, ref } from 'vue'
+import { useOutsideClick } from './use-outside-click'
+
+const props = defineProps(['x', 'y'])
+const emit = defineEmits(['close'])
+const contextMenuRef = ref(null)
+
+useOutsideClick({ ref: contextMenuRef, onClose: () => emit('close') })
+
+function focusMenu() {
+  contextMenuRef.value.focus()
+}
+defineExpose({
+  focusMenu,
+})
+</script>
+```
+
+
+
+Also
+
+```javascript
+// use-bounds.js
+import { ref, onMounted, onUnmounted } from 'vue'
+
+export const useBounds = () => {
+  const elRef = ref()
+
+  const bounds = ref({
+    height: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  })
+
+  function resizeListener() {
+    if (!elRef.value) return
+    bounds.value = elRef.value.getBoundingClientRect()
+  }
+  onMounted(() => {
+    resizeListener()
+    window.addEventListener('resize', resizeListener)
+  })
+  onUnmounted(() => {
+    window.removeEventListener('resize', resizeListener)
+  })
+
+  return { bounds, ref: elRef }
+}
+```
+
+
+
+Which allows
+
+
+
+```vue
+<!-- App.vue -->
+<template>
+  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
+    <div ref="contextOrigin" @contextmenu="open($event)">Right click on me!</div>
+  </div>
+  <ContextMenu ref="contextMenu" v-if="isOpen" :x="bounds.x" :y="bounds.y" @close="close()" />
+</template>
+<script setup>
+import { onMounted, onUnmounted, ref } from 'vue'
+import ContextMenu from './ContextMenu.vue'
+import { useBounds } from './use-bounds'
+const isOpen = ref(false)
+
+const { ref: contextOrigin, bounds } = useBounds()
+const contextMenu = ref()
+
+function close() {
+  isOpen.value = false
+}
+function open(e) {
+  e.preventDefault()
+  isOpen.value = true
+  setTimeout(() => {
+    contextMenu.value.focusMenu()
+  }, 0)
+}
+</script>
+```
+
+
+
+
 
 
 
