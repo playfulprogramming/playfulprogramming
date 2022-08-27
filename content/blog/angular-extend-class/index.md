@@ -875,11 +875,13 @@ Let's take a look at two different methods for fixing the problem:
 
 ## The naïve way to fix the issue
 
-A simple way of fixing some of the maintainability problems of using lifecyle methods , using an `@Injectable` class that's provided on a per-class level enables you to have explicit `setup` and `takedown` functions that you call manually:
+A simple way of fixing some of the maintainability problems of using lifecyle methods , using an `@Injectable` class that's provided on a per-class level enables you to have the `constructor` method setup side effects and the `Injectable`'s `ngOnDestroy` lifecycle method take it down:
+
+> Remember, `Injectable`s don't have `ngOnInit`!
 
 ```typescript
 @Injectable()
-class WindowSizeService {
+class WindowSizeService implements OnDestroy {
   private window!: Window;
   height = 0;
   width = 0;
@@ -888,6 +890,7 @@ class WindowSizeService {
     this.window = document.defaultView!;
     this.height = this.window.innerHeight
     this.width = this.window.innerWidth
+    window.addEventListener('resize', this.onResize);
   }
 
   onResize = () => {
@@ -895,11 +898,7 @@ class WindowSizeService {
     this.width = window.innerWidth;
   }
 
-  addListeners() {
-    window.addEventListener('resize', this.onResize);
-  }
-
-  removeListeners() {
+  ngOnDestroy() {
     window.removeEventListener('resize', this.onResize);
   }
 }
@@ -911,25 +910,19 @@ class WindowSizeService {
   `,
   providers: [WindowSizeService]
 })
-class AppComponent implements OnInit, OnDestroy {
+class AppComponent {
   constructor(public windowSize: WindowSizeService) {
-  }
-
-  ngOnInit() {
-    this.windowSize.addListeners();
-  }
-
-  ngOnDestroy() {
-    this.windowSize.removeListeners();
   }
 }
 ```
 
-This code functions, but introduces similar issues when it comes to maintainability. After all, if you want to pass something into `addListeners` or `removeListeners`, you introduce the same refactoring issue you had previously.
+This code functions, but introduces other issues when it comes to maintainability. After all, if you want to pass something into `addListeners` or `removeListeners`, you introduce the same refactoring issue you had previously.
 
-Further, there's a bit of a code smell present by manually calling these functions.
+Further, `height` and `width` are simply mutated which, while will still trigger change detection, makes it difficult to impossile to track when they've changed. Ideally, we should have a way to know when `height` and `width` are changed.
 
-Fortunately, there's a better way...
+If only Angular had a way to track a series of changes in some kind of... Observable...
+
+Oh!
 
 ## The Angular way to fix the code
 
@@ -946,7 +939,7 @@ interface WindowSize {
 }
 
 @Injectable()
-class WindowSizeService {
+class WindowSizeService implements OnDestroy {
   private destroy$ = new Subject<void>();
 
   size$: Observable<WindowSize>;
@@ -967,14 +960,14 @@ class WindowSizeService {
     );
   }
 
-  cleanup() {
+  ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 }
 ```
 
-While we still need a `cleanup` method, this is a much more straightforward setup process that's much more Angular-ific!
+This is a much more straightforward setup process that's much more Angular-ific!
 
 As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.io/api/common/AsyncPipe) in order to listen for changes on the `size$` observable:
 
@@ -986,12 +979,8 @@ As an added benifit, we now can utilize an [`AsyncPipe`](https://angular.io/api/
   `,
   providers: [WindowSizeService]
 })
-class AppComponent implements OnDestroy {
+class AppComponent {
   windowSize = inject(WindowSizeService);
-
-  ngOnDestroy() {
-    this.windowSize.cleanup();
-  }
 }
 ```
 
