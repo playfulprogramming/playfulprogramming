@@ -163,6 +163,37 @@ class AppComponent {
 
 `ref`, `reactive`
 
+
+
+```javascript
+// use-window-size.js
+import { ref } from 'vue'
+
+export const useWindowSize = () => {
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+  return { height, width }
+}
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <p>The window is {{ height }}px high and {{ width }}px wide</p>
+</template>
+
+<script setup>
+import { useWindowSize } from './use-window-size'
+
+const { height, width } = useWindowSize()
+</script>
+
+```
+
+
+
+
+
 // TODO: Write
 
 <!-- tabs:end -->
@@ -283,6 +314,48 @@ class AppComponent implements OnInit, OnDestroy {
 ## Vue
 
 // TODO: Write
+
+```javascript
+// use-window-size.js
+import { onMounted, onUnmounted, ref } from 'vue'
+
+export const useWindowSize = () => {
+  const height = ref(window.innerHeight)
+  const width = ref(window.innerWidth)
+
+  function onResize() {
+    height.value = window.innerHeight
+    width.value = window.innerWidth
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', onResize)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', onResize)
+  })
+
+  return { height, width }
+}
+```
+
+
+
+```vue
+<!-- App.vue -->
+<template>
+  <p>The window is {{ height }}px high and {{ width }}px wide</p>
+</template>
+
+<script setup>
+import { useWindowSize } from './use-window-size'
+
+const { height, width } = useWindowSize()
+</script>
+```
+
+
 
 `onMounted` inside of `useX`
 
@@ -451,6 +524,39 @@ NullInjectorError: No provider for WindowSize!
 ## Vue
 
 // TODO: Write
+
+```javascript
+// use-mobile-check.js
+import { computed } from 'vue'
+import { useWindowSize } from './use-window-size.js'
+
+export const useMobileCheck = () => {
+  const { height, width } = useWindowSize()
+  const isMobile = computed(() => {
+    if (width.value <= 480) return true
+    else return false
+  })
+
+  return { isMobile }
+}
+```
+
+
+
+````vue
+<!-- App.vue -->
+<template>
+  <p>Is this a mobile device? {{ isMobile ? 'Yes' : 'No' }}</p>
+</template>
+
+<script setup>
+import { useMobileCheck } from './use-mobile-check'
+
+const { isMobile } = useMobileCheck()
+</script>
+````
+
+
 
 Compositions in compositions
 
