@@ -191,25 +191,7 @@ export class AppComponent {
 
 This API uses `useValue` to provide the value associated with the token we pass.
 
-Finally, we use an `@Inject` decorator in our constructor to tell Angular "We want this value in our component".  
-
-````typescript
-@Component({
-  selector: 'child',
-  template: `<p>{{welcomeMsg}}</p>`
-})
-export class ChildComponent {
-  constructor(@Inject(WELCOME_MESSAGE_TOKEN) public welcomeMsg: string) {}
-
-  ngOnInit() {
-    console.log(this.welcomeMsg);
-  }
-}
-````
-
-### `inject` function
-
-Alongside Angular's `@Inject` decorator, there's a function called `inject` that we can use in our `ChildComponent` component to inject the value from our `InjectionToken` instead:
+Finally, we use an `inject` function in our component class to tell Angular "We want this value in our component".  
 
 ```typescript
 import { InjectionToken, Component, inject} from '@angular/core';
@@ -219,7 +201,27 @@ import { InjectionToken, Component, inject} from '@angular/core';
   template: `<p>{{welcomeMsg}}</p>`
 })
 export class ChildComponent {
-  welcomeMsg = inject(WELCOME_MESSAGE_TOKEN);
+  welcomeMsg: string = inject(WELCOME_MESSAGE_TOKEN);
+
+  ngOnInit() {
+    console.log(this.welcomeMsg);
+  }
+}
+```
+
+Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class. To get around this, we'll need to use an alternative API that Angular allows us to leverage.
+
+### `constructor` injection 
+
+Alongside Angular's `inject` function, there's a Decorator called `@Inject` that we can use in our `ChildComponent`'s `constructor` to inject the value from our `InjectionToken` instead:
+
+```typescript
+@Component({
+  selector: 'child',
+  template: `<p>{{welcomeMsg}}</p>`
+})
+export class ChildComponent {
+  constructor(@Inject(WELCOME_MESSAGE_TOKEN) public welcomeMsg: string) {}
 
   ngOnInit() {
     console.log(this.welcomeMsg);
@@ -315,17 +317,15 @@ export class AppComponent {}
   template: `<p>{{welcomeMsg.message}}</p>`,
 })
 export class ChildComponent {
-  constructor(
-    @Inject(WELCOME_MESSAGE_TOKEN) public welcomeMsg: { message: string }
-  ) {}
+  welcomeMsg: { message: string } = inject(WELCOME_MESSAGE_TOKEN);
 }
 ```
 
 While this functions, it's not very clean. In particular, some of the headaches present with this method include:
 
-- Duplicative TypeScript typings between `@Inject` usage and `useValue` providing
+- Duplicative TypeScript typings between `inject` usage and `useValue` providing
   - Mismatches can cause `undefined` bugs intentionally
-- Needing to use `@Inject` decorator is overly verbose
+- When using a `constructor`, needing to use `@Inject` decorator is overly verbose
 
 Luckily for us, Angular provides a better solution for this problem than `useValue` and `InjectionToken`. 
 
@@ -352,7 +352,23 @@ class ParentComponent {
 }
 ```
 
-Finally, because our `InjectedValue` class was marked with `@Injectable`, we can remove our previous usage of `@Inject` inside of our child constructor:
+Now that our `InjectedValue` is a known type, we can remove our explicit type declaration to our consuming `inject` function in `ChildComponent`
+
+```typescript
+@Component({
+  selector: "child",
+  template: `<div>{{injectedValue.message}}</div>`
+})
+class ChildComponent implements OnInit {
+  injectedValue = inject(InjectedValue);
+
+  ngOnInit() {
+    console.log(this.injectedValue);
+  }
+}
+```
+
+Alternatively, if we need to use a `constructor` to do dependency injection, it's now been made much less verbose because our `InjectedValue` class was marked with `@Injectable`. As a result, we can remove our previous usage of `@Inject` inside of our child constructor:
 
 ```typescript
 @Component({
@@ -459,7 +475,7 @@ class InjectedValue {
 })
 class ParentComponent {
   // We can access the `injectedValue` from the same component we provide it from
-  constructor(private injectedValue: InjectedValue) {}
+  injectedValue = inject(InjectedValue);
 
   updateMessage() {
     this.injectedValue.message = 'Updated value';
@@ -471,7 +487,7 @@ class ParentComponent {
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
-  constructor(public injectedValue: InjectedValue) {}
+  injectedValue = inject(InjectedValue);
 }
 ````
 
@@ -743,7 +759,7 @@ class ParentComponent {}
   `,
 })
 class ChildComponent {
-  constructor(public injectedValue: InjectedValue) {}
+  injectedValue = inject(InjectedValue);
 
   changeMessage() {
     // This will update the value of the class, and 
@@ -859,7 +875,7 @@ class ParentComponent {
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
-  constructor(public injectedValue: InjectedValue) {}
+  injectedValue = inject(InjectedValue);
 }
 ```
 
@@ -883,7 +899,37 @@ We get the following error:
 
 This is because our constructor inside of `ChildComponent` is marked as a required dependency by default, hence the error. 
 
-Luckily for us, there's a way to tell Angular to mark that dependency as "optional", using the `@Optional` decorator in `ChildComponent`'s `constructor`:
+Luckily for us, there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
+
+```typescript
+@Injectable()
+class InjectedValue {
+  message = "Hello, world";
+}
+
+@Component({
+  selector: "app-root",
+  template: `<child></child>`
+})
+class ParentComponent {
+}
+
+@Component({
+  selector: "child",
+  template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
+})
+class ChildComponent implements OnInit {
+  injectedValue = inject(InjectedValue, {optional: true});
+
+  ngOnInit() {
+    // undefined
+    console.log(this.injectedValue);
+  }
+}
+```
+
+
+Likewise, if we need to mark a dependency as optional in our constructor, using the `@Optional` decorator in `ChildComponent`'s `constructor` will do the job:
 
 ```typescript
 import { Injectable, Component, OnInit, Optional} from '@angular/core';
@@ -986,9 +1032,34 @@ function Child() {
 
 <!-- Editor's note: Angular, as-of v14, cannot do the default `private thing = Val` API becuase `Optional` is `null`, not `undefined` -->
 
-As-of today, there's no built-in way to provide an optional value to Angular's `@Optional`ly injected values, despite [an open GitHub issue requesting this feature](https://github.com/angular/angular/issues/25395). 
+As-of today, there's no built-in way to provide an optional value to Angular's optionally injected values, despite [an open GitHub issue requesting this feature](https://github.com/angular/angular/issues/25395). 
 
 As a result, we have to handle this edge-case ourselves by creating a second variable in our `ChildComponent` class instance and assigning the value of it to match _either_ our injected value, or a default value.
+
+```typescript
+@Injectable()
+class InjectedValue {
+  message = 'Initial value';
+}
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <child></child>
+  `,
+})
+class ParentComponent {}
+
+@Component({
+  selector: 'child',
+  template: `<p>{{injectedValue.message}}</p>`,
+})
+class ChildComponent {
+  injectedValue = inject(InjectedValue)  || { message: 'Default Value' };
+}
+```
+
+Alternatively, if you're using the `constructor` method of dependency injection, you can do something similar within your `constructor`:
 
 ```typescript
 @Injectable()
@@ -1193,7 +1264,7 @@ class InjectedValue {
   template: `<div></div>`
 })
 class ChildComponent implements OnInit {
-  constructor(private injectedValue: InjectedValue) {}
+  injectedValue = inject(InjectedValue);
 
   ngOnInit() {
     // This will include the `message` property, alongside 
