@@ -155,15 +155,13 @@ class WindowSize {
   providers: [WindowSize],
 })
 class AppComponent {
-  constructor(public windowSize: WindowSize) {}
+  windowSize = inject(WindowSize);
 }
 ```
 
 ## Vue
 
-`ref`, `reactive`
-
-
+Because Vue's `ref` and `reactive` data reactivity systems work anywhere, we can extract these values to a dedicated function called `useWindowSize`.
 
 ```javascript
 // use-window-size.js
@@ -175,6 +173,8 @@ export const useWindowSize = () => {
   return { height, width }
 }
 ```
+
+This custom function is often called a "composition", since we're using Vue's Composition API inside of it. We can then use this composition inside of our setup `script`, like so:
 
 ```vue
 <!-- App.vue -->
@@ -190,11 +190,9 @@ const { height, width } = useWindowSize()
 
 ```
 
-
-
-
-
-// TODO: Write
+> While React requires you to name your custom hooks "useX", you don't have to do the same with custom compositions. We could have easily called this code `createWindowSize` and have it work just as well.
+>
+> We still use the `use` composition prefix to keep things readible. While this is subjective, it's the naming convention the ecosystem seems to favor for compositions like this.
 
 <!-- tabs:end -->
 
@@ -264,26 +262,29 @@ const App = () => {
 
 While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](https://unicorn-utterances.com/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
 
-As a result, we'll continue to use a per-component class instance. This will allow us to have an `addListeners` and `removeListeners` logic that we can manually call in our consuming class instances.
+Instead, we can use a per-component instance injectable that uses its own `constructor` and `ngOnDestroy` lifecycle methods.
+
+> Yes, technically `constructor` isn't strictly a lifecycle method, but `Injectable`s don't have access to `ngOnInit`; only `ngOnDestroy`.
+>
+> The reason `Injectable`s don't have `ngOnInit` is because that method means something very specific under-the-hood, pertaining to UI data binding. Because an `Injectable` can't UI data bind, it has no need for `ngOnInit` and instead the `constructor` takes the role of setting up side effects.
 
 ```typescript
 @Injectable()
-class WindowSize {
+class WindowSize implements OnDestroy {
   height = 0;
   width = 0;
 
   constructor() {
     this.height = window.innerHeight
     this.width = window.innerWidth
+    // In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
+    window.addEventListener('resize', this.onResize);
   }
   onResize = () => {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
   }
-  addListeners() {
-    window.addEventListener('resize', this.onResize);
-  }
-  removeListeners() {
+  ngOnDestroy() {
     window.removeEventListener('resize', this.onResize);
   }
 }
@@ -295,25 +296,18 @@ class WindowSize {
   `,
   providers: [WindowSize]
 })
-class AppComponent implements OnInit, OnDestroy {
-  constructor(public windowSize: WindowSize) {
-  }
-  ngOnInit() {
-    this.windowSize.addListeners();
-  }
-  ngOnDestroy() {
-    this.windowSize.removeListeners();
-  }
+class AppComponent {
+  windowSize = inject(WindowSize);
 }
 ```
 
-> I acknoledge that this method of sharing lifecylce methods is far from perfect; This is one of Angular's greatest weaknesses when it comes to Angular's code reuse story.
+> I acknowledge that this method of sharing lifecycle methods is far from perfect; This is one of Angular's greatest weaknesses when it comes to Angular's code reuse story.
 
 > While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](https://unicorn-utterances.com/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
 
 ## Vue
 
-// TODO: Write
+Sharing lifecycle methods within custom compositions is just as straightforward as using them within components. We can simply use the same `onMounted` and `onUnmounted` lifecycle methods as we do within our `setup` `script`.
 
 ```javascript
 // use-window-size.js
@@ -440,7 +434,7 @@ First, though, we need to provide a way to add behavior to our `onResize` class:
 
 ````typescript
 @Injectable()
-class WindowSize {
+class WindowSize implements OnDestroy {
   height = 0;
   width = 0;
   
@@ -449,6 +443,7 @@ class WindowSize {
 
   constructor() {
     this.onResize();
+    window.addEventListener('resize', this.onResize);
   }
 
   onResize = () => {
@@ -459,10 +454,8 @@ class WindowSize {
       this._listener();
     }
   };
-  addListeners() {
-    window.addEventListener('resize', this.onResize);
-  }
-  removeListeners() {
+
+  ngOnDestroy() {
     window.removeEventListener('resize', this.onResize);
   }
 }
@@ -472,21 +465,16 @@ Now that we have this ability to tap into the `resize` event handler, let's writ
 
 ```typescript
 @Injectable()
-class IsMobile {
+class IsMobile implements OnDestroy {
   isMobile = false;
 
+  // We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
+  // and it's an either-or decision to use `constructor` or the `inject` function
   constructor(private windowSize: WindowSize) {
     windowSize._listener = () => {
       if (windowSize.width <= 480) this.isMobile = true;
       else this.isMobile = false;
     };
-  }
-
-  addListeners() {
-    this.windowSize.addListeners();
-  }
-  removeListeners() {
-    this.windowSize.removeListeners();
   }
 }
 ```
@@ -502,13 +490,7 @@ This allows us to have a `isMobile` field that we can access from our `AppCompon
   providers: [WindowSize, IsMobile],
 })
 class AppComponent implements OnInit, OnDestroy {
-  constructor(public isMobile: IsMobile) {}
-  ngOnInit() {
-    this.isMobile.addListeners();
-  }
-  ngOnDestroy() {
-    this.isMobile.removeListeners();
-  }
+  isMobile = inject(IsMobile);
 }
 ```
 
@@ -678,9 +660,15 @@ export default function App() {
 
 ## Angular
 
+// TODO: Write
+
+While we were able to use the `constructor` to set up our event listeners in previous code samples, we need to explicitly have a `setup` function in this code sample. This is because our `ViewChild` element reference isn't available until `AfterViewInit`, and isn't immediately accessible from `constructor`
+
+<!-- Editor's note: What about `{static: true}`? Is the above still true in this instance? -->
+
 ```typescript
 @Injectable()
-class CloseIfOutSideContext {
+class CloseIfOutSideContext implements OnDestroy {
   getCloseIfOutsideFunction = (contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) => {
     return (e: MouseEvent) => {
       const contextMenuEl = contextMenu?.nativeElement;
@@ -696,7 +684,7 @@ class CloseIfOutSideContext {
     document.addEventListener('click', this.closeIfOutsideOfContext);
   }
 
-  cleanup() {
+  ngOnDestroy() {
     document.removeEventListener('click', this.closeIfOutsideOfContext);
     this.closeIfOutsideOfContext = () => {};
   }
@@ -726,7 +714,7 @@ class CloseIfOutSideContext {
   `,
   providers: [CloseIfOutSideContext]
 })
-export class ContextMenuComponent implements AfterViewInit, OnDestroy {
+export class ContextMenuComponent implements AfterViewInit {
   @ViewChild('contextMenu') contextMenu!: ElementRef<HTMLElement>;
 
   @Input() x: number = 0;
@@ -742,10 +730,6 @@ export class ContextMenuComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.closeIfOutsideContext.setup(this.contextMenu, this.close);
-  }
-
-  ngOnDestroy() {
-    this.closeIfOutsideContext.cleanup();
   }
 }
 
