@@ -175,6 +175,26 @@ class AppComponent implements AfterViewInit {
 
 // TODO: Write this
 
+```vue
+<!-- App.vue -->
+<script setup>
+import { ref } from 'vue'
+
+const portalContainerEl = ref(null)
+</script>
+
+<template>
+  <div style="height: 100px; width: 100px; border: 2px solid black">
+    <div ref="portalContainerEl"></div>
+  </div>
+  <div v-if="portalContainerEl">
+    <Teleport :to="portalContainerEl">Hello, world!</Teleport>
+  </div>
+</template>
+```
+
+We need this `v-if` in order to ensure that `portalContainerEl` has already been rendered and is ready to project content.
+
 <!-- tabs:end -->
 
 // TODO: Write this
@@ -183,7 +203,7 @@ class AppComponent implements AfterViewInit {
 
 
 
-# Global Portals
+# Application-Wide Portals
 
 // TODO: Write this
 
@@ -220,28 +240,6 @@ export default function App() {
       <ChildComponent />
     </PortalContext.Provider>
   );
-}
-```
-
-
-
-### Rendering to HTML `body`
-
-Alternatively, `ReactDOM.createPortal` supports passing an arbitrary HTML DOM node, such as `html.body`:
-
-```jsx
-import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
-
-function ChildComponent() {
-  const bodyEl = useMemo(() => {
-    return document.querySelector('body');
-  }, []);
-  return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
-}
-
-export default function App() {
-  return <ChildComponent />;
 }
 ```
 
@@ -312,9 +310,90 @@ class AppComponent {
 
 ## Vue
 
-// TODO: Write this
+```
+<!-- App.vue -->
+<script setup>
+import { ref, provide } from 'vue'
+import Child from './Child.vue'
+
+const portalContainerEl = ref(null)
+provide('portalContainerEl', portalContainerEl)
+</script>
+
+<template>
+  <div style="height: 100px; width: 100px; border: 2px solid black">
+    <div ref="portalContainerEl"></div>
+  </div>
+  <Child />
+</template>
+```
+
+
 
 <!-- tabs:end -->
 
 // TODO: Write this
 
+
+
+# HTML-Wide Portals
+
+// TODO: Write
+
+<!-- tabs:start -->
+
+## React
+
+// TODO: Write
+
+Alternatively, `ReactDOM.createPortal` supports passing an arbitrary HTML DOM node, such as `html.body`:
+
+```jsx
+import React, { useMemo } from 'react';
+import ReactDOM from 'react-dom';
+
+function ChildComponent() {
+  const bodyEl = useMemo(() => {
+    return document.querySelector('body');
+  }, []);
+  return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
+}
+
+export default function App() {
+  return <ChildComponent />;
+}
+```
+
+## Angular
+
+// TODO: Write
+
+Can't do this
+
+## Vue
+
+// TODO: Write
+
+```vue
+<!-- Child.vue -->
+<script setup></script>
+
+<template>
+  <Teleport to="body">Hello, world!</Teleport>
+</template>
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import Child from './Child.vue'
+</script>
+    
+<template>
+  <Child />
+</template>
+```
+
+
+
+<!-- tabs:end -->
