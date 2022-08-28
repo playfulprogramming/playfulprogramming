@@ -81,10 +81,10 @@
   - `Portal` / React ✅
   - `Portal` CDK / Angular ✅
   - `Teleport` / Vue ✅
-- Error handling
+- [Error handling](/posts/error-handling)
   - Error boundary / React ✅
-  - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
-  - onErrorCapture / Vue
+  - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular ✅
+  - onErrorCapture / Vue ✅
 - Accessibility (A11Y)
 - Fundamentals/Structure
   - Pure vs impure logic

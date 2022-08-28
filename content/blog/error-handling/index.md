@@ -48,6 +48,47 @@ class ErrorBoundary extends React.Component {
 
 // TODO: Write
 
+```typescript
+class MyErrorHandler implements ErrorHandler {
+  handleError(error) {
+    console.log(error);
+  }
+}
+
+@Component({
+  selector: 'child',
+  template: `
+    <p>Testing</p>
+  `,
+})
+class ChildComponent implements OnInit {
+  ngOnInit() {
+    throw 'Test';
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <child></child>
+  `,
+})
+class AppComponent {
+}
+
+@NgModule({
+  declarations: [AppComponent, ChildComponent],
+  imports: [BrowserModule],
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Providing within our component doesn't work - this needs to be a global instance of `ErrorHandler`.
+
+// TODO: migrate to standalone APIs
+
 ## Vue
 
 // TODO: Write
@@ -107,6 +148,8 @@ React cannot do this, because functional components are normal functions
 ## Angular
 
 // TODO: Write
+
+This is the default behavior of an Angular component, anyway. No code changes from the previous example is needed. 
 
 ## Vue
 
@@ -193,6 +236,58 @@ class ErrorBoundary extends React.Component {
 
 // TODO: Write
 
+```typescript
+import {
+  Component,
+  NgModule,
+  inject,
+  ErrorHandler,
+  OnInit,
+} from '@angular/core';
+
+class MyErrorHandler implements ErrorHandler {
+  hadError = false;
+
+  handleError(error) {
+    console.log(error);
+    this.hadError = true;
+  }
+}
+
+@Component({
+  selector: 'child',
+  template: `
+    <p>Testing</p>
+  `,
+})
+class ChildComponent implements OnInit {
+  ngOnInit() {
+    throw 'Test';
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <p *ngIf="errorHandler.hadError">There was an error</p>
+    <child *ngIf="!errorHandler.hadError"></child>
+  `,
+})
+class AppComponent {
+  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+}
+
+@NgModule({
+  declarations: [AppComponent, ChildComponent],
+  imports: [BrowserModule],
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we set.
+
 ## Vue
 
 // TODO: Write
@@ -263,6 +358,60 @@ class ErrorBoundary extends React.Component {
 ### Angular
 
 // TODO: Write
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+
+import {
+  Component,
+  NgModule,
+  inject,
+  ErrorHandler,
+  OnInit,
+} from '@angular/core';
+
+class MyErrorHandler implements ErrorHandler {
+  hadError = false;
+
+  handleError(error) {
+    console.log(error);
+    this.hadError = error;
+  }
+}
+
+@Component({
+  selector: 'child',
+  template: `
+    <p>Testing</p>
+  `,
+})
+class ChildComponent implements OnInit {
+  ngOnInit() {
+    throw 'Test';
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <p *ngIf="errorHandler.hadError">{{errorHandler.hadError}}</p>
+    <child *ngIf="!errorHandler.hadError"></child>
+  `,
+})
+class AppComponent {
+  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+}
+
+@NgModule({
+  declarations: [AppComponent, ChildComponent],
+  imports: [BrowserModule],
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+
 
 ### Vue
 
