@@ -19,6 +19,27 @@
 
 
 
+# What are portals?
+
+// TODO: Write
+
+# Why do you need portals?
+
+
+// TODO: Write
+
+Z-index example
+
+
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+
+https://www.joshwcomeau.com/css/stacking-contexts/
+
+https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+
+
+
 # Using Local Portals
 
 // TODO: Write this
@@ -30,6 +51,34 @@
 ## React
 
 // TODO: Write this
+
+```jsx
+import React, { useMemo, useState } from 'react';
+import ReactDOM from 'react-dom';
+
+export default function App() {
+  const [portalRef, setPortalRef] = useState(null);
+
+  const portal = useMemo(() => {
+    if (!portalRef) return null;
+    return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
+  }, [portalRef]);
+
+  return (
+    <>
+      <div
+        ref={(el) => setPortalRef(el)}
+        style={{ height: '100px', width: '100px', border: '2px solid black' }}
+      >
+        <div />
+      </div>
+      {portal}
+    </>
+  );
+}
+```
+
+
 
 ## Angular
 
@@ -53,7 +102,7 @@ import { DomPortal } from '@angular/cdk/portal';
   <div style="height: 100px; width: 100px; border: 2px solid black;">
     <ng-template [cdkPortalOutlet]="domPortal"></ng-template>
   </div>
-  <div #portalContent>Hello, this is a DOM portal</div>
+  <div #portalContent>Hello, world!</div>
   `,
 })
 class AppComponent implements AfterViewInit {
@@ -143,6 +192,60 @@ class AppComponent implements AfterViewInit {
 ## React
 
 // TODO: Write this
+
+```jsx
+import React, { useState, createContext, useContext } from 'react';
+import ReactDOM from 'react-dom';
+
+// We start by creating a context name
+const PortalContext = React.createContext();
+
+function ChildComponent() {
+  const portalRef = useContext(PortalContext);
+  if (!portalRef) return null;
+  return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
+}
+
+export default function App() {
+  const [portalRef, setPortalRef] = useState(null);
+
+  return (
+    <PortalContext.Provider value={portalRef}>
+      <div
+        ref={(el) => setPortalRef(el)}
+        style={{ height: '100px', width: '100px', border: '2px solid black' }}
+      >
+        <div />
+      </div>
+      <ChildComponent />
+    </PortalContext.Provider>
+  );
+}
+```
+
+
+
+### Rendering to HTML `body`
+
+Alternatively, `ReactDOM.createPortal` supports passing an arbitrary HTML DOM node, such as `html.body`:
+
+```jsx
+import React, { useMemo } from 'react';
+import ReactDOM from 'react-dom';
+
+function ChildComponent() {
+  const bodyEl = useMemo(() => {
+    return document.querySelector('body');
+  }, []);
+  return ReactDOM.createPortal(<div>Hello, world!</div>, bodyEl);
+}
+
+export default function App() {
+  return <ChildComponent />;
+}
+```
+
+
 
 ## Angular
 
