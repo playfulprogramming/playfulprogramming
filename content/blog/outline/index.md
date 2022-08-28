@@ -77,14 +77,14 @@
   - Angular ✅
   - [Vue](https://vuejs.org/guide/reusability/custom-directives.html) ✅
 
-- Portals
-  - `Portal` / React
-  - `Portal` CDK / Angular
-  - `Teleport` / Vue
+- [Portals](/posts/portals)
+  - `Portal` / React ✅
+  - `Portal` CDK / Angular ✅
+  - `Teleport` / Vue ✅
 - Error handling
-  - onErrorCapture / Vue
-  - Error boundary / React
+  - Error boundary / React ✅
   - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular
+  - onErrorCapture / Vue
 - Accessibility (A11Y)
 - Fundamentals/Structure
   - Pure vs impure logic
