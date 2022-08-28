@@ -117,6 +117,21 @@ class AppComponent {}
 
 // TODO: Write
 
+```vue
+<!-- App.vue -->
+<script setup>
+const vSayHi = {
+  created: () => console.log('Hello, world!'),
+}
+</script>
+
+<template>
+  <p v-say-hi>Hello, world</p>
+</template>
+```
+
+Directives in Vue must start with `v-` prefix and are `dash-cased` when presented inside of a `template`
+
 <!-- tabs:end -->
 
 Once our apps load up, you should see a `console.log` execute that prints out the [HTMLParagraphElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLParagraphElement) reference.
@@ -174,6 +189,23 @@ class AppComponent {}
 ## Vue
 
 // TODO: Write
+
+```vue
+<!-- App.vue -->
+<script setup>
+const vStyleBackground = {
+  created: (el) => {
+    el.style.background = 'red'
+  },
+}
+</script>
+
+<template>
+  <button v-style-background>Hello, world</button>
+</template>
+```
+
+
 
 <!-- tabs:end -->
 
@@ -243,6 +275,21 @@ class AppComponent {}
 
 // TODO: Write
 
+```vue
+<!-- App.vue -->
+<script setup>
+const vFocusElement = {
+  mounted: (el) => {
+    el.focus()
+  },
+}
+</script>
+
+<template>
+  <button v-focus-element>Hello, world</button>
+</template>
+```
+
 Vue / [Directive Hooks](https://vuejs.org/guide/reusability/custom-directives.html#directive-hooks)
 
 <!-- tabs:end -->
@@ -309,6 +356,21 @@ class AppComponent {}
 ## Vue
 
 // TODO: Write
+
+```vue
+<!-- App.vue -->
+<script setup>
+const vStyleBackground = {
+  mounted: (el, binding) => {
+    el.style.background = binding.value
+  },
+}
+</script>
+
+<template>
+  <button v-style-background="'red'">Hello, world</button>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -402,6 +464,32 @@ class AppComponent {
 
 // TODO: Write
 
+```vue
+<!-- App.vue -->
+<script setup>
+class Color {
+  constructor(r, g, b) {
+    this.r = r
+    this.g = g
+    this.b = b
+  }
+}
+
+const colorInstance = new Color(255, 174, 174)
+
+const vStyleBackground = {
+  mounted: (el, binding) => {
+    const color = binding.value
+    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`
+  },
+}
+</script>
+
+<template>
+  <button v-style-background="colorInstance">Hello, world</button>
+</template>
+```
+
 <!-- tabs:end -->
 
 Now we can customize the color using incremental updates to the RGB values of a color we're passing.
@@ -472,6 +560,24 @@ class AppComponent {}
 ### Vue
 
 // TODO: Write
+
+```vue
+<!-- App.vue -->
+<script setup>
+const vStyleBackground = {
+  mounted: (el, binding) => {
+    const color = binding.value
+    el.style.background = `rgb(${color.r}, ${color.g}, ${color.b})`
+  },
+}
+</script>
+
+<template>
+  <button v-style-background="{ r: 255, g: 174, b: 174 }">Hello, world</button>
+</template>
+```
+
+
 
 https://vuejs.org/guide/reusability/custom-directives.html#object-literals
 

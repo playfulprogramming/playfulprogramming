@@ -70,12 +70,12 @@
 - [Shared Component Logic](/posts/shared-component-logic)
   - React / Custom Hooks ✅
   - Angular / Services ✅
-  - Vue / Custom Compositions
+  - Vue / Custom Compositions ✅
 
 - [Directives](/posts/directives)
   - React / Custom Hooks & Passing Props ✅
   - Angular ✅
-  - [Vue](https://vuejs.org/guide/reusability/custom-directives.html)
+  - [Vue](https://vuejs.org/guide/reusability/custom-directives.html) ✅
 
 - Portals
   - `Portal` / React
