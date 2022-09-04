@@ -115,7 +115,9 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+Setting up a directive in Vue is as simple as creating an object within our `setup` `script`.
+
+Inside of this object, we'll add a key for `created` and assign it a function in order to let Vue know to run said function when the directive is instantiated.
 
 ```vue
 <!-- App.vue -->
@@ -130,7 +132,7 @@ const vSayHi = {
 </template>
 ```
 
-Directives in Vue must start with `v-` prefix and are `dash-cased` when presented inside of a `template`
+Directives in Vue must start with `v-` prefix (which is why our object starts with `v`) and are `dash-cased` when presented inside of a `template`. This means that our `vSayHi` object directive is turned into `v-say-hi` when used in the template.
 
 <!-- tabs:end -->
 
@@ -188,7 +190,9 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+When using the `created` property function inside of a directive, we can gain access to the underlying DOM node the directive is applied to using the function's arguments.
+
+The first argument that's passed to `created` is an DOM node reference that we can change the `style` property of in order to style our `button`.
 
 ```vue
 <!-- App.vue -->
@@ -204,8 +208,6 @@ const vStyleBackground = {
   <button v-style-background>Hello, world</button>
 </template>
 ```
-
-
 
 <!-- tabs:end -->
 
@@ -224,6 +226,8 @@ Because of this, we can hook into the ability to use lifecycle methods within di
 <!-- tabs:start -->
 
 ## React
+
+As we already know, we can use built-in React hooks into our custom hooks, which means that we can use `useEffect` just like we could inside of any other component.
 
 ```jsx
 const useFocusElement = () => {
@@ -250,11 +254,13 @@ const App = () => {
 
 ## Angular
 
+Angular uses the same `implements` implementation for classes to use lifecycle methods in directives as it does components.
+
 ```typescript
 @Directive({
   selector: '[focusElement]',
 })
-class StyleBackgroundDirective {
+class StyleBackgroundDirective implements OnInit {
   constructor(private el: ElementRef<any>) {}
 
   ngOnInit() {
@@ -273,7 +279,7 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+Just as you can use the `created` property on a directive object, you can change this property's name to match any of Vue's component lifecycle method names. 
 
 ```vue
 <!-- App.vue -->
@@ -290,7 +296,7 @@ const vFocusElement = {
 </template>
 ```
 
-Vue / [Directive Hooks](https://vuejs.org/guide/reusability/custom-directives.html#directive-hooks)
+For example, if we wanted to add a cleanup to this directive, we could change `mounted` to be `unmounted` instead.
 
 <!-- tabs:end -->
 
@@ -355,7 +361,9 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+While Vue's directives are not simply functions, as they're objects that contain functions, they are able to access the value bound to the directive through a function argument on each property. 
+
+While the first argument of each lifecycle's key is an element reference (`el`) , the second argument will always be the value that's assigned to the directive.
 
 ```vue
 <!-- App.vue -->
@@ -371,6 +379,8 @@ const vStyleBackground = {
   <button v-style-background="'red'">Hello, world</button>
 </template>
 ```
+
+You access the bindings' value through `binding.value`, but can also access things like the previous value by using `binding.oldValue`.
 
 <!-- tabs:end -->
 
@@ -461,8 +471,6 @@ class AppComponent {
 ```
 
 ### Vue
-
-// TODO: Write
 
 ```vue
 <!-- App.vue -->
@@ -559,7 +567,9 @@ class AppComponent {}
 
 ### Vue
 
-// TODO: Write
+Vue's directives do not directly support multiple arguments, as there's only one syntax to bind a value into a directive.
+
+However, you can get around this limitation by passing an argument to the directive instead, like so:
 
 ```vue
 <!-- App.vue -->
@@ -576,10 +586,6 @@ const vStyleBackground = {
   <button v-style-background="{ r: 255, g: 174, b: 174 }">Hello, world</button>
 </template>
 ```
-
-
-
-https://vuejs.org/guide/reusability/custom-directives.html#object-literals
 
 <!-- tabs:end -->
 
