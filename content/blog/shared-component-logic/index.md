@@ -334,8 +334,6 @@ export const useWindowSize = () => {
 }
 ```
 
-
-
 ```vue
 <!-- App.vue -->
 <template>
@@ -348,10 +346,6 @@ import { useWindowSize } from './use-window-size'
 const { height, width } = useWindowSize()
 </script>
 ```
-
-
-
-`onMounted` inside of `useX`
 
 <!-- tabs:end -->
 
@@ -505,7 +499,7 @@ NullInjectorError: No provider for WindowSize!
 
 ## Vue
 
-// TODO: Write
+Composing custom composables (say that 10 times fast) is a straightforward task, thanks to custom composables acting like normal functions. 
 
 ```javascript
 // use-mobile-check.js
@@ -523,7 +517,9 @@ export const useMobileCheck = () => {
 }
 ```
 
+> Notice that we aren't showing the source code for `useWindowSize` again, that's because we haven't changed it!
 
+Then, to use this new composable in our components we use it just like we did our previous composables:
 
 ````vue
 <!-- App.vue -->
@@ -537,10 +533,6 @@ import { useMobileCheck } from './use-mobile-check'
 const { isMobile } = useMobileCheck()
 </script>
 ````
-
-
-
-Compositions in compositions
 
 <!-- tabs:end -->
 
@@ -556,7 +548,7 @@ Take code from `component-reference` and refactor to use custom hooks/services/e
 
 ## React
 
-// TODO: This is missing the `reisze` listener for the bounds
+// TODO: This is missing the `resize` listener for the bounds
 
 ```jsx
 import React from 'react';
