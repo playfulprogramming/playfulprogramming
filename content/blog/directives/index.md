@@ -597,17 +597,63 @@ const vStyleBackground = {
 
 # Conditionally Rendered UI Via Directives
 
-// TODO: Write
+The examples we've used to build out basic directives have previously all mutated elements that don't change their visibility; these elements are always rendered on screen and don't change that behavior programatically.
 
-Feature flags
+But what if we wanted a directive that helped us dynamically render an element, [like we do with our conditional rendering](/posts/dynamic-html#Conditional-Rendering), but using only an attribute to trigger the render?
+
+Luckily, we can do that!
+
+---
+
+Let's build out a basic "[feature flags](https://www.youtube.com/watch?v=c8KgKTgyFUE)" implementation, where we can decide if we want a part of the UI rendered based on specific values.
+
+The basic idea of a feature flag is that you have multiple different UIs that you'd like to display to different users in order to test their effectivity.
+
+For example, say you want to test two different buttons and see which button gets your users to click on more items to purchase:
+
+```html
+<button>Add to cart</button>
+```
+
+```html
+<button>Purchase this item</button>
+```
+
+You'd start a "feature flag" that separates your audience into two groups, show each group their respective button terminology, and measure their outcome on user's behaviors when purchasing. You'd then take these measured results and use them to change the roadmap and functionality of your app.
+
+While the separation of your users into "groups" (or "buckets") is typically done on the backend, let's just use a simple object for this demo.
+
+```javascript
+const flags = {
+  addToCartButton: true,
+  purchaseThisItemButton: false
+};
+```
+
+In this instance, we might render something like:
+
+```html
+<button id="addToCart">Add to Cart</button>
+```
+
+Let's build a basic version of this in each of our frameworks.
 
 <!-- tabs:start -->
 
 ## React
 
+React has a special ability that the other frameworks do not. Using JSX, you're able to assign a bit of HTML template into a variable... But that doesn't mean that you have to use that variable.
+
+The idea in a feature flag is that you conditionally render UI components.
+
+See where I'm going with this?
+
+Let's store a bit of UI into a JSX variable and pass it to a custom React Hook that either returns the JSX or `null` to render nothing, based on the `flags` named boolean.
+
 ```jsx
 const flags = {
-  testing: true,
+  addToCartButton: true,
+  purchaseThisItemButton: false
 };
 
 const useFeatureFlag = ({
@@ -624,11 +670,22 @@ const useFeatureFlag = ({
 };
 
 export default function App() {
-  const { comp } = useFeatureFlag({
-    flag: 'testing',
-    enabledComponent: <p>Testing</p>,
+  const { comp: addToCartComp } = useFeatureFlag({
+    flag: 'addToCartButton',
+    enabledComponent: <button>Add to cart</button>,
   });
-  return <div>{comp}</div>;
+  
+  const { comp: purchaseComp } = useFeatureFlag({
+    flag: 'purchaseThisItemButton',
+    enabledComponent: <button>Purchase this item</button>,
+  });
+    
+  return (
+    <div>
+      {addToCartComp}
+      {purchaseComp}
+  	</div>
+  );
 }
 ```
 
@@ -806,7 +863,8 @@ Now that we have our foundation written out, we can finally build a simple `feat
 
 ````typescript
 const flags = {
-  testing: true,
+  addToCartButton: true,
+  purchaseThisItemButton: false
 };
 
 @Directive({
@@ -827,7 +885,8 @@ class StyleBackgroundDirective {
   selector: 'my-app',
   template: `
     <div>
-    	<p *featureFlag="'testing'">Testing</p>
+	    <button *featureFlag="'addToCartButton'">Add to cart</button>
+    	<button *featureFlag="'purchaseThisItemButton'">Purchase this item</button>
     </div>
   `,
 })
@@ -836,50 +895,55 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+Unlike React and Angular, Vue does not have a way of storing parts of a template inside of a variable without rendering it on-screen.
 
-Does this work? How do we pass data into the `template`?
+> While Vue _does_ [have the ability to use the `template` tag in some ways](/posts/partial-dom-application), it ultimately serves a different purpose than the one we're trying to implement here.
+
+As a result, **Vue is unable to implement a `featureFlag` directive out-of-the-box** without some major code overhaul.
+
+Instead, it's suggested to use a component to conditionally render parts of the UI instead:
 
 ```vue
-<template>
-  <ul>
-    <li>1</li>
-    <template v-render="'#here'">
-      <li>2</li>
-    </template>
-    <li>3</li>
-  </ul>
-</template>
+<!-- FeatureFlag.vue -->
+<script setup>
+const flags = {
+  addToCartButton: true,
+  purchaseThisItemButton: false,
+}
 
-<script>
-const render = {
-  mounted: (el) => {
-    el.after(...el.children);
-  },
-};
-
-export default {
-  name: 'App',
-  directives: {
-    // enables v-focus in template
-    render,
-  },
-};
+const props = defineProps(['name'])
 </script>
 
-<style></style>
+<template>
+  <slot v-if="flags[props.name]"></slot>
+</template>
 ```
 
-Answer: We don't. That's the job of a Vue component. Namely an [async Vue component](https://vuejs.org/guide/components/async.html)
+```vue
+<!-- App.vue -->
+<script setup>
+import FeatureFlag from './FeatureFlag.vue'
+</script>
 
+<template>
+  <FeatureFlag name="addToCartButton">
+    <button>Add to cart</button>
+  </FeatureFlag>
+  <FeatureFlag name="purchaseThisItemButton">
+    <button>Purchase this item</button>
+  </FeatureFlag>
+</template>
+```
 
+In my opinion, this is not as clean as using a directive, since you need to have two additional HTML tags, but that's just one of the limitations with Vue's directive.
 
-> On top of that, you shouldn't use Vue directives on components, which is what we'd want to do anyway
+That said, this method is fairly extensible as you can even use this `FeatureFlag` component to [fetch data from the server using an Async Component, which is a concept that's built into Vue](https://vuejs.org/guide/components/async.html#basic-usage).
 
-> https://vuejs.org/guide/reusability/custom-directives.html#usage-on-components
-
-
-
-This is why directives are a bad solution to this problem in Vue
+> While you _could_ theoretically use things like `el.innerHTML` to mutate the HTML of a DOM node inside of a directive in order to display what you'd like to, there are a few major limitations:
+>
+> - No live updating the values within said HTML
+> - Difficult to capture DOM events
+> - Slow performance
+> - Brittle and easy to break
 
 <!-- tabs:end -->
