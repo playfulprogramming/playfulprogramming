@@ -15,7 +15,7 @@
 
 While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
 
-Let's use some CSS and HTML in order to build a basic modal:
+While we'll loop back to JavaScript (using React, Angular, and Vue) in a bit, let's use some CSS and HTML in order to build a basic modal:
 
 ```html
 <div>
@@ -402,11 +402,98 @@ You would see the following order of elements:
 
 ![A square of blocks demonstrating the order as laid out above](./blocks_square_html_order.png)
 
-This is because the `lime` and `slate` take priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority. 
+This is because the `lime` and `slate` take priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority and within the same stacking context. 
 
 ### Creating Stacking Contexts
 
-// TODO: Write
+> "Welp, that's enough reading in the book today"
+
+You think to yourself. You go lay down and get some sleep. In your dreams, you can still hear the book speaking to you:
+
+> [...] are still in HTML order within the same `z` level priority and within the same stacking context
+
+> [...] within the same stacking context
+
+The book repeats itself:
+
+> [...] within the same stacking context
+
+You wake up, realize that you don't yet know what that sentence means, and think to yourself:
+
+> There's no way this gets even more complicated.
+
+Unfortunately, it does.
+
+----
+
+At its heart, a stacking context is a group that you can move multiple items up or down the `z` axis at the same time.
+
+Take the following HTML:
+
+```html
+<div class="container">
+  <div id="top-container" style="position: relative">
+    <div class="box slate" style="position: relative">Slate</div>
+    <div class="box yellow" style="">Yellow</div>
+  </div>
+  <div id="bottom-container">
+    <div class="box lime" style="position: relative">Lime</div>
+    <div class="box cyan" style="">Cyan</div>
+  </div>
+</div>
+```
+
+What order do you think the `box`es are going to be in?
+
+![Colored boxes in the order as described below](./new_stacking_context_before.png)
+
+The answer is:
+
+- Slate
+- Lime
+- Cyan
+- Yellow
+
+This is because, despite the parent `top-container` having `position: relative`, the `box`es are still within the same stacking context. This stacking context follows the same ordering rules as outlined before, which means that the positioned `slate` and `lime` `box`es take `z` priority over `cyan` and `yellow`.
+
+Ready for the twist?
+
+Let's add `z-index` to our `top-container`:
+
+```html
+<div class="container">
+  <div style="position: relative; z-index: 1">
+    <div class="box slate" style="position: relative">Slate</div>
+    <div class="box yellow" style="">Yellow</div>
+  </div>
+  <div>
+    <div class="box lime" style="position: relative">Lime</div>
+    <div class="box cyan" style="">Cyan</div>
+  </div>
+</div>
+```
+
+Now what order do you think they'll be in?
+
+![The colored boxes reordered in the manner outlined below](./new_stacking_context_after.png)
+
+- Slate
+- Yellow
+- Lime
+- Cyan
+
+This is because, in reality, what we're ordering here is not the `box`es, but instead is the `top-container` and `bottom-container` `div`s, **then** the `box`es, like so:
+
+- `top-container`
+  - `slate`
+  - `yellow`
+- `bottom-container`
+  - `lime`
+  - `cyan`
+
+The reason this only occurred when we added a `z-index` to `top-container` is because that's when a new stacking context was created. When that context was created, we raised it to a higher `z` axis due to the same ordering rules as before.
+
+> Remember, a stacking context is a grouping of elements that move together as a collection when the parent's `z` axis location is changed.
 
 Stacking Contexts are created when:
 
@@ -424,7 +511,25 @@ Stacking Contexts are created when:
 
 > This list is non-exhaustive, but contains most of the highlights of when a stacking context is created.
 
-Confusingly, when a stacking context is created, it does not overwrite the position of an element within the parent stacking context.
+### Stacking Stacking Contexts
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is where things get mind melting: You can contain stacking contexts within other stacking contexts. 🤯
+
+
+
+
 
 
 
@@ -440,18 +545,9 @@ Confusingly, when a stacking context is created, it does not overwrite the posit
 
 # What is a JavaScript portals?
 
+> What does any of that CSS stuff have to do with my JavaScript?!
 
-// TODO: Write
-
-Z-index example
-
-
-
-https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
-
-https://www.joshwcomeau.com/css/stacking-contexts/
-
-https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+First: Tone. Second: Everything.
 
 
 
