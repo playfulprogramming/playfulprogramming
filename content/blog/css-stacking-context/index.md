@@ -10,7 +10,7 @@
 }
 ---
 
-[Despite some some UX headaches modals can introduce into an app](modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today.
+[Despite some some UX headaches modals can introduce into an app](https://modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today.
 
 While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
 
