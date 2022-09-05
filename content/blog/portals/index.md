@@ -56,7 +56,7 @@ Tada! 🎉 Now we have a fairly basic modal to display whatever HTML we want ins
 But let's say that we keep building out the page. As we do, we might, for example, want to have a `footer` beneath our main page's content.
 
 ```html
-<template>
+<div>
   <div id="body" style="min-height: 50vh">
     <p>This is some text, pretend it's an app back here</p>
   </div>
@@ -64,7 +64,7 @@ But let's say that we keep building out the page. As we do, we might, for exampl
     <div id="modal">This is a modal</div>
   </div>
   <footer style="min-height: 50vh">App Name</footer>
-</template>
+</div>
 
 <style>
 #modal-container {
@@ -118,9 +118,6 @@ While we often think about our browser as displaying a 2-dimensional image as a 
 <style>
 #container {
   display: relative;
-  height: 325px;
-  width: 325px;
-  border: 1px solid;
 }
 
 #blue,
@@ -131,6 +128,8 @@ While we often think about our browser as displaying a 2-dimensional image as a 
   position: absolute;
   padding: 8px;
   color: white;
+  border: 4px solid black;
+  border-radius: 4px;
 }
 
 #blue {
@@ -208,6 +207,7 @@ Ready to see the answer?
 <br/>
 
 OK, here it is:
+
 ![The three colored boxes are, in order from top to bottom: Purple, green, then blue.](./boxes_demo.png)
 
 While some CSS pros might assume that purple is the priority [due to order in which the CSS is laid out, just like other CSS rules](https://wattenberger.com/blog/css-cascade#position), this isn't what's happening here.
@@ -265,20 +265,15 @@ Now our boxes have reversed their height order! This is because one of the decid
 While we were using `absolute`ly positioned elements for a simple demo before, let's take a step back and change our elements to be positioned using `margin` instead:
 
 ```css
-<template>
-  <div id="container">
-    <div id="purple">Purple</div>
-    <div id="green">Green</div>
-    <div id="blue">Blue</div>
-  </div>
-</template>
+<div id="container">
+  <div id="purple">Purple</div>
+  <div id="green">Green</div>
+  <div id="blue">Blue</div>
+</div>
 
 <style>
 #container {
   display: relative;
-  height: 350px;
-  width: 350px;
-  border: 1px solid;
 }
 
 #container > div:nth-child(1) {
@@ -303,6 +298,8 @@ While we were using `absolute`ly positioned elements for a simple demo before, l
   width: 100px;
   padding: 8px;
   color: white;
+  border: 4px solid black;
+  border-radius: 4px;
 }
 
 #blue {
@@ -513,23 +510,13 @@ Stacking Contexts are created when:
 
 ### Stacking Stacking Contexts
 
+While the previous sections have been head scratchers, let's dive into mind melting territory: You can contain stacking contexts within other stacking contexts. 🤯
 
 
 
 
 
-
-
-
-
-
-
-
-This is where things get mind melting: You can contain stacking contexts within other stacking contexts. 🤯
-
-
-
-
+### The Problem with Stacking Contexts
 
 
 
