@@ -10,9 +10,21 @@
 }
 ---
 
-[Despite some some UX headaches modals can introduce into an app](https://modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today.
+Dimensions are weird. While most web apps seem to focus on the `x` and `y` axis, representing a 2D plane that the user interacts with, there's actually a `z` axis that's often ignored. Some browsers, such as [Microsoft Edge, even provide a way to see a website blown up into a 3D view](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/3d-view/):
 
-While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
+![A view of Google in Microsoft Edge's 3D View debugger mode](./google_3d_view.png)
+
+While this is cool, by introducing a third dimension to our webpages, we introduces the ability for elements to overlap with one another. Managing overlapping issues using CSS is _tricky_. 
+
+Sure, you have [`z-index`](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index), which many claim is an easy way to manage an element's `z` axis, but it seems so brittle and inconsistent!
+
+> This article doesn't expect you to have pre-existing `z-index` knowledge. If you're being sent this article to learn how `z-index` works, you're in the right place.
+
+For example, let's think about modals. Modals are UI elements that enable you to display information in a box that rests above the rest of your page's contents. This is what an example modal looks like from [Google Drive](https://drive.google.com/):
+
+![A box resting above other elements of Google Drive showing "New folder" with a "Create" and "Cancel" button](./example_dialog.png)
+
+[Despite some some UX headaches modals can introduce into an app](https://modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today. While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
 
 Let's use some CSS and HTML in order to build a basic modal:
 
