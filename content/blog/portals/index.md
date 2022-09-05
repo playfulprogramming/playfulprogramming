@@ -352,7 +352,7 @@ While `relative` positioning is one way that you can take priority in a stacked 
 - Non-positioned elements
 - Elements with a `float` style applied
 - Non-positioned inline elements
-- Positioned elements without a `z-index` applied
+- Positioned elements without a `z-index` applied, or with a `z-index` of `0`
 
 So, if we have the following HTML:
 
@@ -507,6 +507,21 @@ Stacking Contexts are created when:
   - [`mask`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask) / [`mask-image`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image) / [`mask-border`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border)
 
 > This list is non-exhaustive, but contains most of the highlights of when a stacking context is created.
+
+It's worth mentioning that if a stacking context is created, then the element that created said stacking context is treated with priority `z` axis ordering.
+
+For example, if you have:
+
+```html
+<div>
+	<div style="position: absolute; top: 0; background: white">Absolute</div>
+	<div style="opacity: 0.99; background: white">Opacity</div>
+</div>
+```
+
+Then it will show "Absolute" above "Opacity", thanks to the order of the HTML sequence; this is all despite positioned elements typically being prioritized above HTML sequencing.
+
+If we remove the `opacity: 0.99` from the `"Opacity"` `div`, then `"Absolute`" will be on top.
 
 ### Stacking Stacking Contexts
 
