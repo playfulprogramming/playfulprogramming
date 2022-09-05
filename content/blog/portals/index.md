@@ -384,16 +384,29 @@ We would see, from top to bottom:
 
 All of these rules are superseded by the order of the elements within the HTML, as we learned before. For example, with the following HTML:
 
+```html
+<div class="container" style="background: rgba(0, 0, 0, 0.8)">
+  <div class="box slate" style="position: relative">Slate</div>
+  <div class="box yellow" style="">Yellow</div>
+  <div class="box lime" style="position: relative">Lime</div>
+  <div class="box cyan" style="">Cyan</div>
+</div>
 ```
-```
 
- 
+You would see the following order of elements:
 
+-  Lime
+- Slate
+- Cyan
+- Yellow
 
+![A square of blocks demonstrating the order as laid out above](./blocks_square_html_order.png)
 
+This is because the `lime` and `slate` take priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority. 
 
+### Creating Stacking Contexts
 
-
+// TODO: Write
 
 Stacking Contexts are created when:
 
