@@ -111,13 +111,23 @@ At first glance, this might look like it's been successful, but let's take a loo
 
 Oh dear! Why is the footer rendered above the modal?
 
-Well, my friends, the modal is rendering under the footer due to something called "The Stacking Context".
+Well, my friends, the modal is rendering under the footer due to something called "Painting Order".
 
-# What is the stacking context?
+# What is painting order?
 
-While the concept of the "Stacking Context" in the DOM is quite complex, here's the gist of it:
+While the concept of the "painting order" in the DOM is quite complex, here's the gist of it:
 
-While we often think about our browser as displaying a 2-dimensional image as a result of our HTML and CSS, this isn't the case. Take the following code example:
+Your browser is fed information from HTML and CSS in order to figure out what to show on screen. While we often think of this process as instantaneous, nothing in computer science truly is. 
+
+**This process of showing HTML and CSS on the screen is called "painting" or "drawing" the screen.**
+
+Painting contents on the screen might sound straightforward at first, but think about what that entails:
+
+Given every bit of HTML and CSS, figure out where they belong and display it.
+
+There's a lot of naunce there; Nuance that's dictated by a strict set of rules.
+
+While we'll take a look into the specific rules of painting in a moment, let's start by taking a look at the following code example:
 
 ```html
 <div id="container">
@@ -221,7 +231,9 @@ OK, here it is:
 
 ![The three colored boxes are, in order from top to bottom: Purple, green, then blue.](./boxes_demo.png)
 
-While some CSS pros might assume that purple is the priority [due to order in which the CSS is laid out, just like other CSS rules](https://wattenberger.com/blog/css-cascade#position), this isn't what's happening here.
+The reason these colored boxes are in the order they're in is thanks to their respective "paint order". The browser walked through its rules of "what order should I paint things in" and settled on this order.
+
+While some CSS pros might assume that purple is seemingly on the top is [due to order in which the CSS is laid out, just like other CSS rules](https://wattenberger.com/blog/css-cascade#position), this isn't what's happening here.
 
 Notice how the purple box seemingly remains on "top" when we re-arrange the CSS rules:
 
@@ -247,11 +259,11 @@ Notice how the purple box seemingly remains on "top" when we re-arrange the CSS 
 
 ![The three colored boxes remain in the same order from top to bottom: Purple, green, then blue.](./boxes_demo.png)
 
-> If changing the CSS order doesn't re-arrange the boxes, then what does?
+> If changing the CSS order doesn't re-arrange the boxes and change the paint order, then what does?
 
 Well...
 
-# Re-arrange HTML Elements to Change the Stacking Order
+# Re-arrange HTML Elements to Change the Painting Order
 
 Let's take the HTML we had before, and re-arrange it a bit:
 
@@ -267,7 +279,7 @@ Now if we look at the box order, we'll see...
 
 ![The box orders have flipped! Now, in order from top to bottom, it's: Blue, green, then purple.](./boxes_reverse_demo.png)
 
-Now our boxes have reversed their height order! This is because one of the deciding factors of an element's `z` position is its relationship to other elements.
+Now our boxes have reversed their height order! This is because one of the deciding factors of an element's painting order is its relationship to other elements.
 
 # Positioned Elements Behave Differently Than Non-Positioned Elements
 
@@ -352,18 +364,18 @@ While our green button now smoothly moves left when you hover over it, there's a
 
 ![The same colored boxes but green appears to be on top](./boxes_green_top.png)
 
-This is because positioning an element introduces a "stacked context". This means that our `relative` positioned element takes priority in the `z` layer over non-positioned elements.
+This is because browsers paint positioned elements before non-positioned elements. This means that our `relative` positioned element is painted first, and seems to takes priority in the `z` layer over non-positioned elements.
 
-# Understanding more rules of Stacked Contexts
+# Understanding more rules of Painting Order
 
-While `relative` positioning is one way that you can take priority in a stacked context, it's far from the only way to do so. Here's a list of CSS rules that will take priority in a stacked context, from the lowest priority to the highest priority:
+While `relative` positioning is one way that you can tell the browser to paint an element first, it's far from the only way to do so. Here's a list of CSS rules that will change the order an element paints in, from the lowest priority to the highest priority:
 
-- Positioned elements with a negative `z-index`
-- The background and borders of the parent element
-- Non-positioned elements
-- Elements with a `float` style applied
-- Non-positioned inline elements
-- Positioned elements without a `z-index` applied, or with a `z-index` of `0`
+1) Positioned elements with a negative `z-index`
+2) The background and borders of the parent element
+3) Non-positioned elements
+4) Elements with a `float` style applied
+5) Non-positioned inline elements
+6) Positioned elements without a `z-index` applied, or with a `z-index` of `0`
 
 So, if we have the following HTML:
 
@@ -388,7 +400,7 @@ We would see, from top to bottom:
 
 ![The boxes in order as mentioned above](./boxes_stacked_order.png)
 
-<!-- Editor's note: I'm cheating in that screenshot. `float` and `inline-display` are hard to makee elements align again, so I'm just using `z-index` for demonstration purposes -->
+<!-- Editor's note: I'm cheating in that screenshot. `float` and `inline-display` are hard to make elements align again, so I'm just using `z-index` for demonstration purposes -->
 
 All of these rules are superseded by the order of the elements within the HTML, as we learned before. For example, with the following HTML:
 
@@ -410,7 +422,7 @@ You would see the following order of elements:
 
 ![A square of blocks demonstrating the order as laid out above](./blocks_square_html_order.png)
 
-This is because the `lime` and `slate` take priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority and within the same stacking context. 
+This is because the `lime` and `slate` take painting priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority and within the same stacking context. 
 
 # Creating Stacking Contexts
 
