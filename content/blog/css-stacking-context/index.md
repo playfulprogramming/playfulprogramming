@@ -370,12 +370,29 @@ This is because browsers paint positioned elements before non-positioned element
 
 While `relative` positioning is one way that you can tell the browser to paint an element first, it's far from the only way to do so. Here's a list of CSS rules that will change the order an element paints in, from the lowest priority to the highest priority:
 
-1) Positioned elements with a negative `z-index`
-2) The background and borders of the parent element
-3) Non-positioned elements
-4) Elements with a `float` style applied
-5) Non-positioned inline elements
-6) Positioned elements without a `z-index` applied, or with a `z-index` of `0`
+1. The `background` of the following tags: `html`, `:root`, `body` 
+
+2. The `background` of the [stacking context root element](#stacking-contexts)
+
+   > Come back to this at the end of the article, it won't make sense now.
+
+3. Positioned elements with a negative `z-index`
+
+4. Non-positioned elements
+
+5. Elements with a `float` style applied without a `position` applied
+
+6. Non-positioned `inline` elements
+
+7. ???
+
+8. Positioned elements without a `z-index` applied, or with a `z-index` of `0`, as well as a few other rules
+
+9. Elements with `z-index` of `1` or more
+
+10. Depending on your browser, [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline)s
+
+> While this includes [all of steps of painting order according to the CSS specification](https://www.w3.org/TR/CSS22/zindex.html), this is a non-comprehensive list in order to keep the list readable.
 
 So, if we have the following HTML:
 
@@ -424,7 +441,7 @@ You would see the following order of elements:
 
 This is because the `lime` and `slate` take painting priority over `yellow` and `cyan` thanks to their `relative` positioning, but are still in HTML order within the same `z` level priority and within the same stacking context. 
 
-# Creating Stacking Contexts
+# Creating Stacking Contexts {#stacking-contexts}
 
 > "Welp, that's enough reading in the book today"
 
