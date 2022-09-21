@@ -35,10 +35,10 @@ const licensesRaw: LicenseInfo[] = JSON.parse(
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
   const relativeServerPath = getFullRelativePath(
-    "/unicorns",
+    "/content/data/",
     unicorn.profileImg
   );
-  const profileImgSize = getImageSize(absoluteFSPath);
+  const profileImgSize = getImageSize(unicorn.profileImg, dataDirectory);
 
   // Mutation go BRR
   const newUnicorn: UnicornInfo = unicorn as never;

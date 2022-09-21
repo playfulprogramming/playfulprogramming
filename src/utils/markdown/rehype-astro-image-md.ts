@@ -41,7 +41,7 @@ export const rehypeAstroImageMd: Plugin<
       imgNodes.map(async (node) => {
         const slug = path.dirname(file.path).split('/').at(-1);
 
-        const filePathDir = path.resolve(__dirname, '../../../public/blog', slug)
+        const filePathDir = path.resolve(__dirname, '../../../public/content/blog', slug)
 
         // TODO: How should remote images be handled?
         const dimensions = getImageSize(node.properties.src, filePathDir) || {
@@ -65,7 +65,7 @@ export const rehypeAstroImageMd: Plugin<
         }
 
         const imgProps = await getImage({
-          src: `/blog/${slug}/${node.properties.src}`,
+          src: `/content/blog/${slug}/${node.properties.src}`,
           height: dimensions.height,
           width: dimensions.width,
         });

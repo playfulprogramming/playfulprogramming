@@ -35,8 +35,8 @@ export default defineConfig({
           flatten: false,
           targets: [
             {
-              src: 'content/blog/**/*',
-              dest: 'public'
+              src: 'content/**/*',
+              dest: 'public/content'
             }
           ]
         })
