@@ -11,6 +11,9 @@ import path from "path";
 import { getImage } from "../../../node_modules/@astrojs/image";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 import {getImageSize} from "../get-image-size";
+import {fileURLToPath} from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 interface RehypeAstroImageProps {
   maxHeight?: number;
@@ -36,7 +39,10 @@ export const rehypeAstroImageMd: Plugin<
 
     await Promise.all(
       imgNodes.map(async (node) => {
-        const filePathDir = path.dirname(file.path);
+        const slug = path.dirname(file.path).split('/').at(-1);
+
+        const filePathDir = path.resolve(__dirname, '../../../public/blog', slug)
+
         // TODO: How should remote images be handled?
         const dimensions = getImageSize(node.properties.src, filePathDir) || {
           height: undefined,
@@ -58,10 +64,8 @@ export const rehypeAstroImageMd: Plugin<
           dimensions.height = maxWidth * imgRatioHeight;
         }
 
-        const absoluteSrcPath = path.resolve(filePathDir, node.properties.src);
-
         const imgProps = await getImage({
-          src: absoluteSrcPath,
+          src: `/blog/${slug}/${node.properties.src}`,
           height: dimensions.height,
           width: dimensions.width,
         });

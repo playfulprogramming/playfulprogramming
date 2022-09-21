@@ -15,6 +15,7 @@ import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import {rehypeUnicornGetSuggestedPosts} from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
+import copy from 'rollup-plugin-copy'
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -28,6 +29,18 @@ export default defineConfig({
     ssr: {
       external: ["svgo"],
     },
+    plugins: [
+        copy({
+          hook: 'options',
+          flatten: false,
+          targets: [
+            {
+              src: 'content/blog/**/*',
+              dest: 'public'
+            }
+          ]
+        })
+    ]
   },
   markdown: {
     mode: "md",

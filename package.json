@@ -51,6 +51,7 @@
     "remark-gfm": "^3.0.1",
     "remark-unwrap-images": "^3.0.1",
     "retext-english": "^4.1.0",
+    "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.54.9",
     "slash": "^4.0.0",
     "terser": "^5.15.0",
