@@ -26,15 +26,15 @@
     "host:local": "cd dist && ws --http2 --compress"
   },
   "devDependencies": {
-    "@astrojs/image": "^0.3.3",
+    "@astrojs/image": "^0.7.1",
     "@remark-embedder/core": "^3.0.1",
     "@remark-embedder/transformer-oembed": "^3.0.0",
     "@types/classnames": "^2.3.1",
-    "@types/node": "^18.6.3",
-    "astro": "^1.0.1",
+    "@types/node": "^18.7.18",
+    "astro": "^1.2.8",
     "astro-icon": "^0.7.3",
-    "classnames": "^2.3.1",
-    "dayjs": "^1.11.4",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.5",
     "gatsby-remark-embedder": "^6.0.1",
     "gray-matter": "^4.0.3",
     "hast": "^1.0.0",
@@ -51,11 +51,11 @@
     "remark-gfm": "^3.0.1",
     "remark-unwrap-images": "^3.0.1",
     "retext-english": "^4.1.0",
-    "sass": "^1.54.2",
+    "sass": "^1.54.9",
     "slash": "^4.0.0",
-    "terser": "^5.14.2",
+    "terser": "^5.15.0",
     "unified": "^10.1.2",
     "unist-util-replace-all-between": "^0.1.1",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-visit": "^4.1.1"
   }
 }
