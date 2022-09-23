@@ -34,8 +34,11 @@ const licensesRaw: LicenseInfo[] = JSON.parse(
 
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
   const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
-  const relativeServerPath = getFullRelativePath(
-    "/content/data/",
+  /**
+   * `getFullRelativePath` strips all prefixing `/`, so we must add one manually
+   */
+  const relativeServerPath = '/' + getFullRelativePath(
+    "content/data/",
     unicorn.profileImg
   );
   const profileImgSize = getImageSize(unicorn.profileImg, dataDirectory);
