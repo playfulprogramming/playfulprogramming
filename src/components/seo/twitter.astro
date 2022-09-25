@@ -24,6 +24,6 @@ const {
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content={siteMetadata.twitterHandle} />
 <meta name="twitter:image" content={metaImage} />
-{type === "article" && unicornsData!.length === 1 && uniTwitter ? (
+{type === "article" && unicornsData?.length === 1 && uniTwitter ? (
   <meta property="twitter:creator" content={`@${uniTwitter}`} />
 ) : null}

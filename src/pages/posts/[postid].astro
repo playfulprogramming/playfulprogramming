@@ -45,10 +45,11 @@ const otherLangs = translations
 ---
 
 <Document>
-  <TabsScript/>
+  <TabsScript slot="head"/>
   <!-- TODO: Add this -->
   <!-- pathName={router.asPath} -->
   <SEO
+    slot="head"
     title={post.title}
     description={post.description || post.excerpt}
     unicornsData={post.authors}

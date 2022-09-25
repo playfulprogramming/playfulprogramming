@@ -19,7 +19,7 @@ const {langData, siteMetadata, pathName} = Astro.props as Props;
       href-lang="x-default"
     />
   )}
-  {langData?.otherLangs &&
+  {langData?.otherLangs?.length ?
     langData.otherLangs.map((lang) => (
       <link
         rel="alternate"
@@ -30,5 +30,5 @@ const {langData, siteMetadata, pathName} = Astro.props as Props;
         }
         href-lang={lang}
       />
-    ))}
+    )) : null}
   

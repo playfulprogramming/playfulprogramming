@@ -6,10 +6,10 @@ const { keywords, editedTime, publishedTime, unicornsData } = Astro.props as Pro
 const author = unicornsData.map(uni => uni.name).join(",");
 ---
 
-<>{keywords.map(keyword =>
-    <meta property="article:tag" content={keyword} />)}
+<>{keywords?.length ? keywords.map(keyword =>
+    <meta property="article:tag" content={keyword} />) : null}
 </>
-<meta property="article:section" content="Technology" />,
+<meta property="article:section" content="Technology" />
 <meta property="article:author" content={author}/>
 <>{editedTime &&
     <meta property="article:modified_time" content={editedTime} />}

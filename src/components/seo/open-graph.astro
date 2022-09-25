@@ -32,13 +32,13 @@ const {
     langData ? fileToOpenGraphConverter(langData.currentLang) : "en"
   }
 />
-{langData?.otherLangs &&
+{langData?.otherLangs?.length ?
   langData.otherLangs.map((lang) => (
     <meta
       property="og:locale:alternate"
       content={fileToOpenGraphConverter(lang)}
     />
-  ))}
+  )) : null}
 <meta property="og:description" content={metaDescription} />
 <meta property="og:image" content={metaImage} />
 <meta property="og:type" content={ogType} />
