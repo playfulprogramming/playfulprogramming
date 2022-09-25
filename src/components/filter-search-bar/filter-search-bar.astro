@@ -3,12 +3,6 @@ import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import styles from "./filter-search-bar.module.scss";
 import SearchField from "./search-field/search-field.astro";
 // import FilterListbox from "./filter-listbox/filter-listbox.astro";
-
-export interface FilterSearchBarProps {
-	unicornProfilePicMap: ProfilePictureMap;
-}
-
-const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 ---
 
 <div class={styles.iconContainer}>
@@ -18,14 +12,11 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 	</div>
 	<!-- <FilterListbox class={styles.filterField} /> -->
 </div>
-<script define:vars={{ unicornProfilePicMap }}>
-	window.unicornProfilePicMap =
-		window.unicornProfilePicMap || unicornProfilePicMap;
-</script>
 <script>
 	import { render, createElement, Fragment } from "preact";
 	import { PostInfo } from "types/PostInfo";
 	import { debounce } from "utils/debounce";
+	import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 	import { PostCard } from "../../components/post-card/post-card";
 
 	const searchInput: HTMLElement = document.querySelector("#search-input");
@@ -46,7 +37,6 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 	let abortController: AbortController | undefined;
 
 	function doSearch(val) {
-		const unicornProfilePicMap = (window as any).unicornProfilePicMap || [];
 		if (abortController) {
 			abortController.abort();
 			abortController = undefined;
@@ -54,23 +44,28 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 		abortController = new AbortController();
 		fetch(`/api/search?query=${val}`, { signal: abortController.signal })
 			.then((res) => res.json())
-			.then((serverVal: PostInfo[]) => {
-				// TODO: Debounce to avoid server kill
-				const FilledPostCard = createElement(
-					Fragment,
-					{},
-					serverVal.map((post) =>
-						createElement(PostCard, {
-							unicornProfilePicMap,
-							post,
-						})
-					)
-				);
-				render(FilledPostCard, searchPostList);
-				loadingEl && loadingEl.remove();
-				loadingEl = undefined;
-				abortController = undefined;
-			});
+			.then(
+				(serverVal: {
+					posts: PostInfo[];
+					totalPosts: number;
+					unicornProfilePicMap: ProfilePictureMap;
+				}) => {
+					const FilledPostCard = createElement(
+						Fragment,
+						{},
+						serverVal.posts.map((post) =>
+							createElement(PostCard, {
+								unicornProfilePicMap: serverVal.unicornProfilePicMap,
+								post,
+							})
+						)
+					);
+					render(FilledPostCard, searchPostList);
+					loadingEl && loadingEl.remove();
+					loadingEl = undefined;
+					abortController = undefined;
+				}
+			);
 	}
 
 	const debounceDoSearch = debounce(doSearch, 1000, false);

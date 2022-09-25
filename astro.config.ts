@@ -17,6 +17,7 @@ import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
+import generateUnicornProfilePicMap from "./src/utils/rollup/generate-unicorn-profile-pic-map";
 import copy from "rollup-plugin-copy";
 import preact from "@astrojs/preact";
 
@@ -25,6 +26,7 @@ import behead from "remark-behead";
 import rehypeRaw from "rehype-raw";
 
 import image from "@astrojs/image";
+import path from "path";
 
 export default defineConfig({
 	integrations: [image(), preact()],
@@ -43,6 +45,12 @@ export default defineConfig({
 							dest: "public/content",
 						},
 					],
+				}),
+				enforce: "pre",
+			},
+			{
+				...generateUnicornProfilePicMap({
+					output: path.resolve("./public/unicorn-profile-pic-map.ts"),
 				}),
 				enforce: "pre",
 			},
