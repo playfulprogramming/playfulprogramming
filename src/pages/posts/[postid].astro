@@ -8,6 +8,7 @@ import PostMetadata from "src/page-components/blog-post/post-metadata/post-metad
 import TabsScript from "src/page-components/blog-post/tabs-script/tabs-script.astro";
 import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
 import TableOfContents from "components/table-of-contents/table-of-contents.astro";
+import Disqus from "components/disqus/disqus.astro";
 
 import type { MarkdownInstance } from "astro";
 import { PostInfo } from "types/PostInfo";
@@ -94,5 +95,8 @@ const otherLangs = translations
         ) : null} -->
 			</main>
 		</BlogPostLayout>
+		<footer role="contentinfo" class="post-lower-area">
+			<Disqus slug={post.slug} title={post.title} />
+		</footer>
 	</article>
 </Document>

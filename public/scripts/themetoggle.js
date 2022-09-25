@@ -13,6 +13,7 @@ function toggleButton(theme) {
 		lightIconEl.style.display = "none";
 		darkIconEl.style.display = null;
 	}
+	setTimeout(() => window.reloadDisqus && window.reloadDisqus(), 100);
 }
 
 // TODO: Migrate to `classList`

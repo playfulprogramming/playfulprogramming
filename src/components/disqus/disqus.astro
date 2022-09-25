@@ -1,0 +1,38 @@
+---
+import { siteMetadata } from "constants/site-config";
+
+interface DisqusProps {
+	slug: string;
+	title: string;
+}
+
+const { slug, title } = Astro.props as DisqusProps;
+---
+
+<div id="disqus_thread"></div>
+<script define:vars={{ slug, siteMetadata, title }}>
+	var disqus_config = function () {
+		this.page.url = `${siteMetadata.siteUrl}/posts/${slug}`;
+		this.page.title = title;
+		this.page.identifier = "/" + slug;
+	};
+
+	const loadDisqus = () => {
+		var d = document,
+			s = d.createElement("script");
+
+		s.src = `https://${siteMetadata.disqusShortname}.disqus.com/embed.js`;
+
+		s.setAttribute("data-timestamp", +new Date());
+		(d.head || d.body).appendChild(s);
+		return s;
+	};
+
+	(function () {
+		let s = { current: loadDisqus() };
+		window.reloadDisqus = () => {
+			s.current.remove();
+			s.current = loadDisqus();
+		};
+	})();
+</script>
