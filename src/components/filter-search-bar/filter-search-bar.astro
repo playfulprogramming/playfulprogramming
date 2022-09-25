@@ -24,6 +24,7 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 <script>
 	import { render, createElement, Fragment } from "preact";
 	import { PostInfo } from "types/PostInfo";
+	import { debounce } from "utils/debounce";
 	import { PostCard } from "../../components/post-card/post-card";
 
 	const searchInput: HTMLElement = document.querySelector("#search-input");
@@ -43,6 +44,36 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 	let loadingEl: HTMLElement | undefined;
 	let abortController: AbortController | undefined;
 
+	function doSearch(val) {
+		const unicornProfilePicMap = (window as any).unicornProfilePicMap || [];
+		if (abortController) {
+			abortController.abort();
+			abortController = undefined;
+		}
+		abortController = new AbortController();
+		fetch(`/api/search?query=${val}`, { signal: abortController.signal })
+			.then((res) => res.json())
+			.then((serverVal: PostInfo[]) => {
+				// TODO: Debounce to avoid server kill
+				const FilledPostCard = createElement(
+					Fragment,
+					{},
+					serverVal.map((post) =>
+						createElement(PostCard, {
+							unicornProfilePicMap,
+							post,
+						})
+					)
+				);
+				render(FilledPostCard, searchPostList);
+				loadingEl && loadingEl.remove();
+				loadingEl = undefined;
+				abortController = undefined;
+			});
+	}
+
+	const debounceDoSearch = debounce(doSearch, 1000, false);
+
 	searchInput.addEventListener(
 		"input",
 		(e: InputEvent & { target: HTMLInputElement }) => {
@@ -60,36 +91,11 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 			postListContainer.style.display = "none";
 			searchPostListContainer.style.display = "block";
 
-			const unicornProfilePicMap = (window as any).unicornProfilePicMap || [];
 			loadingEl && loadingEl.remove();
 			loadingEl = document.createElement("p");
 			loadingEl.innerText = "Loading...";
 			searchPostListContainer.append(loadingEl);
-
-			if (abortController) {
-				abortController.abort();
-				abortController = undefined;
-			}
-			abortController = new AbortController();
-			fetch(`/api/search?query=${val}`, { signal: abortController.signal })
-				.then((res) => res.json())
-				.then((serverVal: PostInfo[]) => {
-					// TODO: Debounce to avoid server kill
-					const FilledPostCard = createElement(
-						Fragment,
-						{},
-						serverVal.map((post) =>
-							createElement(PostCard, {
-								unicornProfilePicMap,
-								post,
-							})
-						)
-					);
-					render(FilledPostCard, searchPostList);
-					loadingEl && loadingEl.remove();
-					loadingEl = undefined;
-					abortController = undefined;
-				});
+			debounceDoSearch(val);
 		}
 	);
 </script>
