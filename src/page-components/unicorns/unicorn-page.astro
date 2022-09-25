@@ -4,6 +4,7 @@ import Pagination from "components/pagination/pagination.astro";
 import { Page } from "astro";
 import { PostInfo } from "types/PostInfo";
 import ProfileHeader from "./profile-header/profile-header.astro";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
 export interface UnicornTemplateProps {
 	unicorn: any;
@@ -16,6 +17,7 @@ export interface UnicornTemplateProps {
 }
 
 const { unicorn, page, rootURL, posts } = Astro.props as UnicornTemplateProps;
+const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
 <!-- <PostListProvider
@@ -35,6 +37,7 @@ pageIndex={pageNum}
 	<PostList
 		listAriaLabel={`List of posts written by ${unicorn.name}`}
 		postsToDisplay={posts}
+		unicornProfilePicMap={unicornProfilePicMap}
 	/>
 </main>
 <Pagination page={page} rootURL={rootURL} />

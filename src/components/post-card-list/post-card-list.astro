@@ -11,14 +11,20 @@ export interface PostListProps {
 	unicornData?: PostInfo["authorsMeta"];
 	listAriaLabel: string;
 	postsToDisplay: PostInfo[];
+	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page
  */
 
-const { listAriaLabel, postsToDisplay } = Astro.props as PostListProps;
+const { listAriaLabel, postsToDisplay, unicornProfilePicMap } =
+	Astro.props as PostListProps;
 ---
 
 <ul class={listStyle.postsListContainer} aria-label={listAriaLabel} role="list">
-	{postsToDisplay.map((post) => <PostCard post={post} />)}
+	{
+		postsToDisplay.map((post) => (
+			<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />
+		))
+	}
 </ul>

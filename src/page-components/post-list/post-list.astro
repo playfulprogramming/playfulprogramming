@@ -10,6 +10,7 @@ import { siteMetadata } from "constants/site-config";
 import { PostInfo } from "types/PostInfo";
 import { Page } from "astro";
 import Pagination from "components/pagination/pagination.astro";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
 export interface PostListTemplateProps {
 	posts: PostInfo[];
@@ -21,6 +22,8 @@ export interface PostListTemplateProps {
 }
 
 const { posts, page, rootURL } = Astro.props as PostListTemplateProps;
+
+const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
 <div>
@@ -33,7 +36,11 @@ const { posts, page, rootURL } = Astro.props as PostListTemplateProps;
 	<PostListHeader siteDescription={siteMetadata.description} />
 	<main>
 		<!-- <FilterSearchBar /> -->
-		<PostList listAriaLabel="List of posts" postsToDisplay={posts} />
+		<PostList
+			listAriaLabel="List of posts"
+			postsToDisplay={posts}
+			unicornProfilePicMap={unicornProfilePicMap}
+		/>
 	</main>
 	<Pagination page={page} rootURL={rootURL} />
 	<!-- <Pagination absolutePath={router.basePath} /> -->

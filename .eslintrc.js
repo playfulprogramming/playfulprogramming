@@ -13,6 +13,9 @@ module.exports = {
 		ecmaVersion: "latest",
 		sourceType: "module",
 	},
+	globals: {
+		astroHTML: true,
+	},
 	rules: {
 		"no-unused-vars": "off",
 		"no-mixed-spaces-and-tabs": "off",
