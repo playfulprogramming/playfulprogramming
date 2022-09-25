@@ -1,42 +1,23 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-// import {getAllPosts} from '../src/utils/get-all-posts';
-
 import exportedIndex from "../searchIndex";
-import flex from "flexsearch";
+import Fuse from "fuse.js";
 
-const { Document } = flex;
+const myIndex = Fuse.parseIndex(exportedIndex.index);
 
-const document = new Document({
-	context: true,
-	document: {
-		id: "slug",
-		index: [
-			"slug",
-			"title",
-			"excerpt",
-			"description",
-			"contentMeta",
-			"tags",
-			"authorsMeta",
-		],
-		store: ["slug", "title", "excerpt", "description", "tags", "authorsMeta"],
+const posts = exportedIndex.posts;
+
+const fuse = new Fuse(
+	posts,
+	{
+		threshold: 0.3,
+		ignoreLocation: true,
+		includeScore: true,
+		ignoreFieldNorm: true,
 	},
-});
+	myIndex
+);
 
-const keys = Object.keys(exportedIndex);
-
-let cache = null;
-
-// const posts = getAllPosts('en');
-
-export default async (_req: VercelRequest, res: VercelResponse) => {
-	if (!cache) {
-		cache = await Promise.all(
-			keys.map((key) => {
-				return document.import(key, exportedIndex[key]);
-			})
-		);
-	}
-	res.send(document.search("Angular", { enrich: true }));
+export default async (req: VercelRequest, res: VercelResponse) => {
+	res.send(fuse.search(req.query.query));
 };

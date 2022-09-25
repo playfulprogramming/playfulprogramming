@@ -1,51 +1,50 @@
-import flex from "flexsearch";
-
-const { Document } = flex;
-
+import Fuse from "fuse.js";
 import { getAllPosts } from "../utils/get-all-posts";
 
 import * as fs from "fs";
 import * as path from "path";
-import { PostInfo } from "types/PostInfo";
+
+const posts = getAllPosts("en");
 
 export const createIndex = async () => {
-	const posts = getAllPosts("en");
-	const document = new Document<PostInfo, Array<keyof PostInfo>>({
-		context: true,
-		document: {
-			id: "slug",
-			index: [
-				"slug",
-				"title",
-				"excerpt",
-				"description",
-				"contentMeta",
-				"tags",
-				"authorsMeta",
-			],
-			store: ["slug", "title", "excerpt", "description", "tags", "authorsMeta"],
-		},
-	});
-
-	posts.forEach((post) => {
-		document.add(post.slug, post);
-	});
-
-	const exportedIndex: Record<string | number, PostInfo> = {};
-	await document.export((key, data) => {
-		exportedIndex[key] = data;
-	});
-
-	// Temporary hotpatch for issue with `export` async
-	// @see https://github.com/nextapps-de/flexsearch/pull/253
-	await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
-
-	return exportedIndex;
+	return Fuse.createIndex(
+		[
+			{
+				name: "title",
+				weight: 2,
+			},
+			{
+				name: "authorName",
+				getFn: (post) => {
+					return (post as any).authorsMeta
+						.map((author) => author.name)
+						.join(", ");
+				},
+				weight: 1.8,
+			},
+			{
+				name: "authorHandles",
+				getFn: (post) => {
+					return (post as any).authorsMeta
+						.flatMap((author) => Object.values(author.socials))
+						.join(", ");
+				},
+				weight: 1.2,
+			},
+			{ name: "tags", weight: 1.5, getFn: (post) => post.tags.join(", ") },
+			{ name: "description", weight: 1.2 },
+			{ name: "excerpt", weight: 1.2 },
+		],
+		posts
+	).toJSON();
 };
 
 const index = await createIndex();
 
-const js = `const index = ${JSON.stringify(index)};
+const js = `const index = {
+    index: ${JSON.stringify(index)},
+    posts: ${JSON.stringify(posts)}
+}
 
 export default index;
 `;
