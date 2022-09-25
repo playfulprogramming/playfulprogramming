@@ -4,6 +4,7 @@ import cardStyles from "./post-card.module.scss";
 import { UserProfilePic } from "../user-profile-pic/user-profile-pic";
 import dayjs from "dayjs";
 import { PostInfo } from "types/PostInfo";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 interface PostCardProps {
 	post: Pick<
@@ -15,7 +16,7 @@ interface PostCardProps {
 		>;
 	}; // Info on the authors of the post
 	class?: string; // class to pass to the post card element
-	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+	unicornProfilePicMap: ProfilePictureMap;
 }
 
 export const PostCard = ({

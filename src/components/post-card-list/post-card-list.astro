@@ -2,6 +2,7 @@
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card/post-card";
 import { PostInfo } from "types/PostInfo";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 // import { PostListContext } from "constants/post-list-context";
 
 export interface PostListProps {
@@ -11,7 +12,7 @@ export interface PostListProps {
 	unicornData?: PostInfo["authorsMeta"];
 	listAriaLabel: string;
 	postsToDisplay: PostInfo[];
-	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+	unicornProfilePicMap: ProfilePictureMap;
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page

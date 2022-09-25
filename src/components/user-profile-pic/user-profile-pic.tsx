@@ -1,10 +1,11 @@
 import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "uu-types";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 // TODO: Fix image loading and image 'onClick'
 interface UserProfilePicProps {
 	authors: Array<Pick<UnicornInfo, "id" | "color" | "name">>;
-	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+	unicornProfilePicMap: ProfilePictureMap;
 	className: string;
 }
 
@@ -25,12 +26,10 @@ export const UserProfilePic = ({
 						class={`pointer ${styles.profilePicContainer} ${classesToApply}`}
 						style={`border-color: ${unicorn.color};`}
 					>
-						<img
-							data-testid={`author-pic-${i}`}
-							alt={unicorn.name}
-							class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
-							{...(imgAttrs as any)}
-						/>
+						<picture>
+							{imgAttrs.sources.map((attrs) => <source {...attrs} />)}
+							<img data-testid={`author-pic-${i}`} {...imgAttrs.image as any} alt={unicorn.name} class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`} />
+						</picture>
 					</div>
 				);
 			})}

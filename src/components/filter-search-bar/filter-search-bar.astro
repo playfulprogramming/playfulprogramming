@@ -1,10 +1,11 @@
 ---
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import styles from "./filter-search-bar.module.scss";
 import SearchField from "./search-field/search-field.astro";
 // import FilterListbox from "./filter-listbox/filter-listbox.astro";
 
 export interface FilterSearchBarProps {
-	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+	unicornProfilePicMap: ProfilePictureMap;
 }
 
 const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
