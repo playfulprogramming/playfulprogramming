@@ -3,7 +3,7 @@ import styles from "./post-metadata.module.scss";
 import dayjs from "dayjs";
 import { PostInfo } from "types/PostInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
-import { getUserProfilePic } from "components/user-profile-pic/get-user-profile-pic";
+import { UserProfilePic } from "components/user-profile-pic/user-profile-pic";
 
 interface PostMetadataProps {
 	post: PostInfo;
@@ -22,17 +22,16 @@ if (post.originalLink) {
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
-const postCardHTML = getUserProfilePic({
-	unicornProfilePicMap,
-	authors: post.authorsMeta,
-	className: styles.postMetadataAuthorImagesContainer,
-});
 
 // TODO: Add profile picture clicking back
 ---
 
 <div class={styles.container}>
-	<Fragment set:html={postCardHTML} />
+	<UserProfilePic
+		unicornProfilePicMap={unicornProfilePicMap}
+		authors={post.authorsMeta}
+		className={styles.postMetadataAuthorImagesContainer}
+	/>
 	<div class={styles.textDiv}>
 		<h2 class={styles.authorName} data-testid="post-meta-author-name">
 			<span>by</span>

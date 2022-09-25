@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.7.1",
+		"@astrojs/preact": "^1.1.0",
 		"@remark-embedder/core": "^3.0.1",
 		"@remark-embedder/transformer-oembed": "^3.0.0",
 		"@types/classnames": "^2.3.1",
@@ -83,5 +84,8 @@
 	"lint-staged": {
 		"*.{js,ts,astro}": "eslint --cache --fix",
 		"*.{js,ts,astro,jsx}": "prettier --write"
+	},
+	"dependencies": {
+		"preact": "^10.11.0"
 	}
 }

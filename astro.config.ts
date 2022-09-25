@@ -18,6 +18,7 @@ import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-p
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
 import copy from "rollup-plugin-copy";
+import preact from "@astrojs/preact";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -26,7 +27,7 @@ import rehypeRaw from "rehype-raw";
 import image from "@astrojs/image";
 
 export default defineConfig({
-	integrations: [image()],
+	integrations: [image(), preact()],
 	vite: {
 		ssr: {
 			external: ["svgo"],
