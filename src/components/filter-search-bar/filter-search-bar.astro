@@ -22,7 +22,8 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 		window.unicornProfilePicMap || unicornProfilePicMap;
 </script>
 <script>
-	import { render, createElement } from "preact";
+	import { render, createElement, Fragment } from "preact";
+	import { PostInfo } from "types/PostInfo";
 	import { PostCard } from "../../components/post-card/post-card";
 
 	const searchInput: HTMLElement = document.querySelector("#search-input");
@@ -39,6 +40,9 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 
 	const initDisplayVal = postListContainer.style.display;
 
+	let loadingEl: HTMLElement | undefined;
+	let abortController: AbortController | undefined;
+
 	searchInput.addEventListener(
 		"input",
 		(e: InputEvent & { target: HTMLInputElement }) => {
@@ -52,29 +56,40 @@ const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 				searchPostListContainer.style.display = "none";
 				return;
 			}
+
 			postListContainer.style.display = "none";
 			searchPostListContainer.style.display = "block";
-			// searchPostListContainer.innerText = val;
+
 			const unicornProfilePicMap = (window as any).unicornProfilePicMap || [];
-			const FilledPostCard = createElement(PostCard, {
-				unicornProfilePicMap,
-				post: {
-					published: new Date().toUTCString(),
-					slug: "",
-					title: val,
-					authorsMeta: [
-						{
-							name: "Corbin Crutchley",
-							id: "crutchcorn",
-							color: "",
-						},
-					],
-					tags: [],
-					description: "Hello, world!",
-					excerpt: "",
-				},
-			});
-			render(FilledPostCard, searchPostList);
+			loadingEl && loadingEl.remove();
+			loadingEl = document.createElement("p");
+			loadingEl.innerText = "Loading...";
+			searchPostListContainer.append(loadingEl);
+
+			if (abortController) {
+				abortController.abort();
+				abortController = undefined;
+			}
+			abortController = new AbortController();
+			fetch(`/api/search?query=${val}`, { signal: abortController.signal })
+				.then((res) => res.json())
+				.then((serverVal: PostInfo[]) => {
+					// TODO: Debounce to avoid server kill
+					const FilledPostCard = createElement(
+						Fragment,
+						{},
+						serverVal.map((post) =>
+							createElement(PostCard, {
+								unicornProfilePicMap,
+								post,
+							})
+						)
+					);
+					render(FilledPostCard, searchPostList);
+					loadingEl && loadingEl.remove();
+					loadingEl = undefined;
+					abortController = undefined;
+				});
 		}
 	);
 </script>
