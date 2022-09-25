@@ -19,30 +19,7 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
             <button id="backbtn" class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back">
                 <Icon height="36" width="36" name="back" />
             </button>
-            <script is:inline>
-                const backBtn = document.querySelector('#backbtn');
-
-                let hasHistory = false;
-                window.addEventListener('beforeunload', () => {
-                    hasHistory = true;
-                })
-
-                backBtn.addEventListener('click', () => {
-                    if (!document.referrer) {
-                        // This is the first page the user has visited on the site in this session
-                        window.location.href = '/';
-                        return;
-                    }
-                    history.back();
-
-                    // User cannot go back, meaning that we're at the first page of the site session             
-                    setTimeout(() => {
-                        if (!hasHistory){
-                            window.location.href = "/";
-                        }
-                    }, 200);
-                })
-            </script>
+            <script is:inline defer src="/scripts/backbtn.min.js"/>
             </>
             ) : (
             <div />
