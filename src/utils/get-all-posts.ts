@@ -12,37 +12,37 @@ import * as fs from "fs";
 import * as path from "path";
 
 const getIndexPath = (lang: Languages) => {
-  const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
-  return indexPath;
+	const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
+	return indexPath;
 };
 
 export function getPostSlugs(lang: Languages) {
-  // Avoid errors trying to read from `.DS_Store` files
-  return fs
-    .readdirSync(postsDirectory)
-    .filter(isNotJunk)
-    .filter((dir) =>
-      fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
-    );
+	// Avoid errors trying to read from `.DS_Store` files
+	return fs
+		.readdirSync(postsDirectory)
+		.filter(isNotJunk)
+		.filter((dir) =>
+			fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
+		);
 }
 
 export const getAllPosts = (lang: Languages): PostInfo[] => {
-  const slugs = getPostSlugs(lang);
-  return slugs.map(slug => {
-    const file = {
-      path: path.join(postsDirectory, slug, getIndexPath(lang)),
-      data: {
-        astro: {
-          frontmatter: {},
-        },
-      },
-    };
+	const slugs = getPostSlugs(lang);
+	return slugs.map((slug) => {
+		const file = {
+			path: path.join(postsDirectory, slug, getIndexPath(lang)),
+			data: {
+				astro: {
+					frontmatter: {},
+				},
+			},
+		};
 
-    (rehypeUnicornPopulatePost as any)()(undefined, file);
+		(rehypeUnicornPopulatePost as any)()(undefined, file);
 
-    return {
-      ...(file.data.astro.frontmatter as any || {}).frontmatterBackup,
-      ...file.data.astro.frontmatter
-    };
-  })
-}
+		return {
+			...((file.data.astro.frontmatter as any) || {}).frontmatterBackup,
+			...file.data.astro.frontmatter,
+		};
+	});
+};

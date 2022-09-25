@@ -1,7 +1,7 @@
 ---
 import layoutStyles from "./layout.module.scss";
 import DarkLightButton from "components/dark-light-button/dark-light-button.astro";
-import { Icon } from 'astro-icon';
+import { Icon } from "astro-icon";
 
 // const { back } = useHistory();
 
@@ -10,30 +10,46 @@ const rootPath = `/`;
 const isBase = Astro.url.pathname === rootPath;
 const isBlogPost = Astro.url.pathname.startsWith(`${rootPath}posts`);
 const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
-
 ---
+
 <div class={layoutStyles.horizCenter}>
-    <header class={layoutStyles.header} aria-label={"Toolbar for primary action buttons"}>
-        <div class={layoutStyles.headerInsideContainer}>
-            {!isBase ? (<>
-            <button id="backbtn" class={`${layoutStyles.backBtn} baseBtn`} aria-label="Go back">
-                <Icon height="36" width="36" name="back" />
-            </button>
-            <script is:inline defer src="/scripts/backbtn.min.js"/>
-            </>
-            ) : (
-            <div />
-            )}
-            <div class={layoutStyles.iconList}>
-                <!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
+	<header
+		class={layoutStyles.header}
+		aria-label={"Toolbar for primary action buttons"}
+	>
+		<div class={layoutStyles.headerInsideContainer}>
+			{
+				!isBase ? (
+					<>
+						<button
+							id="backbtn"
+							class={`${layoutStyles.backBtn} baseBtn`}
+							aria-label="Go back"
+						>
+							<Icon height="36" width="36" name="back" />
+						</button>
+						<script is:inline defer src="/scripts/backbtn.min.js" />
+					</>
+				) : (
+					<div />
+				)
+			}
+			<div class={layoutStyles.iconList}>
+				<!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
                     aria-label={"Join the Discord"}> -->
-                    <Icon height="36" width="36" name="discord" />
-                <!-- </AnalyticsLink> -->
-                <DarkLightButton />
-            </div>
-        </div>
-    </header>
-    <div class={ isCollection ? "" : !isBlogPost ? "listViewContent" : "postViewContent" }>
-        <slot />
-    </div>
+				<Icon height="36" width="36" name="discord" />
+				<!-- </AnalyticsLink> -->
+				<DarkLightButton />
+			</div>
+		</div>
+	</header>
+	<div
+		class={isCollection
+			? ""
+			: !isBlogPost
+			? "listViewContent"
+			: "postViewContent"}
+	>
+		<slot />
+	</div>
 </div>

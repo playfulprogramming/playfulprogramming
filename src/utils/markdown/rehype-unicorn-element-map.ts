@@ -9,83 +9,84 @@ import { fromHtml } from "hast-util-from-html";
 
 import path from "path";
 
-interface RehypeUnicornElementMapProps {
-}
+interface RehypeUnicornElementMapProps {}
 
 function escapeHTML(s) {
-    if (!s) return s;
-    return s
-      .replace(/&/g, "&amp;")
-      .replace(/"/g, "&quot;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+	if (!s) return s;
+	return s
+		.replace(/&/g, "&amp;")
+		.replace(/"/g, "&quot;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;");
 }
 
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornElementMap: Plugin<
-  [RehypeUnicornElementMapProps | never],
-  Root
+	[RehypeUnicornElementMapProps | never],
+	Root
 > = () => {
-  return async (tree, file) => {
-    visit(tree, (node: any) => {
-        if (node.tagName === "iframe") {
-          node.properties.width ??= EMBED_SIZE.w;
-          node.properties.height ??= EMBED_SIZE.h;
-          node.properties.loading ??= "lazy";
-        }
+	return async (tree, file) => {
+		visit(tree, (node: any) => {
+			if (node.tagName === "iframe") {
+				node.properties.width ??= EMBED_SIZE.w;
+				node.properties.height ??= EMBED_SIZE.h;
+				node.properties.loading ??= "lazy";
+			}
 
-        if (node.tagName === "video") {
-          node.properties.muted ??= true;
-          node.properties.autoPlay ??= true;
-          node.properties.controls ??= true;
-          node.properties.loop ??= true;
-          node.properties.width ??= "100%";
-          node.properties.height ??= "auto";
-        }
+			if (node.tagName === "video") {
+				node.properties.muted ??= true;
+				node.properties.autoPlay ??= true;
+				node.properties.controls ??= true;
+				node.properties.loop ??= true;
+				node.properties.width ??= "100%";
+				node.properties.height ??= "auto";
+			}
 
-        if (node.tagName === "a") {
-          const href = node.properties.href;
-          const isInternalLink = isRelativePath(href || "");
-          if (!isInternalLink) {
-            node.properties.target = "_blank";
-            node.properties.rel = "nofollow noopener noreferrer";
-          }
-        }
+			if (node.tagName === "a") {
+				const href = node.properties.href;
+				const isInternalLink = isRelativePath(href || "");
+				if (!isInternalLink) {
+					node.properties.target = "_blank";
+					node.properties.rel = "nofollow noopener noreferrer";
+				}
+			}
 
-        if (node.tagName === "table" && !node.properties["has-changed"]) {
-          const children = [...node.children];
-          const properties = { ...node.properties, "has-changed": true };
-          node.tagName = "div";
-          node.properties = {
-            class: "table-container",
-          };
-          node.children = [
-            {
-              tagName: "table",
-              type: "element",
-              children,
-              properties,
-            },
-          ];
-        }
+			if (node.tagName === "table" && !node.properties["has-changed"]) {
+				const children = [...node.children];
+				const properties = { ...node.properties, "has-changed": true };
+				node.tagName = "div";
+				node.properties = {
+					class: "table-container",
+				};
+				node.children = [
+					{
+						tagName: "table",
+						type: "element",
+						children,
+						properties,
+					},
+				];
+			}
 
-        if (
-          node.tagName === "h1" ||
-          node.tagName === "h2" ||
-          node.tagName === "h3" ||
-          node.tagName === "h4" ||
-          node.tagName === "h5" ||
-          node.tagName === "h6"
-        ) {
-          const id = node.properties.id;
-          const headerText = node.properties["data-header-text"];
-          node.properties.style =
-            (node.properties.style || "") + "position: relative;";
+			if (
+				node.tagName === "h1" ||
+				node.tagName === "h2" ||
+				node.tagName === "h3" ||
+				node.tagName === "h4" ||
+				node.tagName === "h5" ||
+				node.tagName === "h6"
+			) {
+				const id = node.properties.id;
+				const headerText = node.properties["data-header-text"];
+				node.properties.style =
+					(node.properties.style || "") + "position: relative;";
 
-          const headerLinkHTML = `
+				const headerLinkHTML = `
                    <a
                      href="#${id}"
-                     aria-label="Permalink for &quot;${escapeHTML(headerText)}&quot;"
+                     aria-label="Permalink for &quot;${escapeHTML(
+												headerText
+											)}&quot;"
                      class="anchor before"
                    >
                      <svg
@@ -107,9 +108,9 @@ export const rehypeUnicornElementMap: Plugin<
                    </a>
                    `;
 
-          const hastHeader = fromHtml(headerLinkHTML, { fragment: true });
-          node.children = [hastHeader, ...node.children];
-        }
-      });
-  };
+				const hastHeader = fromHtml(headerLinkHTML, { fragment: true });
+				node.children = [hastHeader, ...node.children];
+			}
+		});
+	};
 };

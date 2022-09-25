@@ -1,20 +1,20 @@
 ---
-import Document from '../../layouts/document.astro';
-import PostListTemplate from '../../page-components/post-list/post-list.astro';
-import { getAllPostsForListView } from 'utils/api';
-import {PostInfo} from 'types/PostInfo';
+import Document from "../../layouts/document.astro";
+import PostListTemplate from "../../page-components/post-list/post-list.astro";
+import { getAllPostsForListView } from "utils/api";
+import { PostInfo } from "types/PostInfo";
 import SEO from "components/seo/seo.astro";
-import { Page } from 'astro';
+import { Page } from "astro";
 
 export async function getStaticPaths({ paginate }) {
-  const posts = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
+	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");
 
-  const postsToDisplay = getAllPostsForListView(posts, 'en');
+	const postsToDisplay = getAllPostsForListView(posts, "en");
 
-  return paginate(postsToDisplay, { pageSize: 8 });
+	return paginate(postsToDisplay, { pageSize: 8 });
 }
 
-const { page } = Astro.props as {page: Page<PostInfo>};
+const { page } = Astro.props as { page: Page<PostInfo> };
 
 const pageIndex = page.currentPage;
 
@@ -23,5 +23,5 @@ const SEOTitle = `Post page ${pageIndex}`;
 
 <Document>
 	<SEO slot="head" title={SEOTitle} />
-	<PostListTemplate posts={page.data} page={page} rootURL={'/'}/>
+	<PostListTemplate posts={page.data} page={page} rootURL={"/"} />
 </Document>

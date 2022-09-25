@@ -1,15 +1,11 @@
 ---
-import {SEOProps} from './shared';
+import { SEOProps } from "./shared";
 
-type Props = Pick<SEOProps, 'publishedTime' | 'isbn' | 'unicornsData'>;
+type Props = Pick<SEOProps, "publishedTime" | "isbn" | "unicornsData">;
 
-const {
-    publishedTime,
-    unicornsData,
-    isbn
-} = Astro.props as Props;
+const { publishedTime, unicornsData, isbn } = Astro.props as Props;
 
-const author = unicornsData!.map((uni)=> uni.name).join(",");
+const author = unicornsData!.map((uni) => uni.name).join(",");
 ---
 
 <meta property="book:release_date" content={publishedTime} />

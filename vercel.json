@@ -1,20 +1,20 @@
 {
-  "framework": "astro",
-  "redirects": [
-    {
-      "source": "/authors/crutchcorn/",
-      "destination": "/unicorns/crutchcorn",
-      "permanent": true
-    },
-    {
-      "source": "/unicorns/",
-      "destination": "/about",
-      "permanent": false
-    },
-    {
-      "source": "/posts/",
-      "destination": "/",
-      "permanent": true
-    }
-  ]
+	"framework": "astro",
+	"redirects": [
+		{
+			"source": "/authors/crutchcorn/",
+			"destination": "/unicorns/crutchcorn",
+			"permanent": true
+		},
+		{
+			"source": "/unicorns/",
+			"destination": "/about",
+			"permanent": false
+		},
+		{
+			"source": "/posts/",
+			"destination": "/",
+			"permanent": true
+		}
+	]
 }

@@ -1,117 +1,115 @@
 ---
 import styles from "./profile-header.module.scss";
 import { UnicornInfo } from "uu-types";
-import {Image} from '@astrojs/image/components';
-import { Icon } from 'astro-icon';
+import { Image } from "@astrojs/image/components";
+import { Icon } from "astro-icon";
 
 import SocialBtn from "./social-button.astro";
 
 const getNamePossessive = (name: string) => {
-  if (name.endsWith("s")) return `${name}'`;
-  return `${name}'s`;
+	if (name.endsWith("s")) return `${name}'`;
+	return `${name}'s`;
 };
 
 interface PicTitleHeaderProps {
-  unicornData: UnicornInfo;
+	unicornData: UnicornInfo;
 }
 const { unicornData } = Astro.props as PicTitleHeaderProps;
 
 const possessiveName = getNamePossessive(unicornData.name);
-
 ---
 
-    <div
-      class={styles.container}
-      role="banner"
-      aria-label={`Banner for ${unicornData.name}`}
-    >
-      <div
-        class={styles.headerPic}
-        style={{
-          height: "300px",
-          width: "300px",
-          borderRadius: "50%",
-          overflow: "hidden",
-        }}
-      >
-        <Image
-          src={unicornData.profileImgMeta.relativeServerPath}
-          height={192}
-          width={192}
-          sizes={"192px"}
-          format={'png'}
-          loading={"eager"}
-          alt={`${possessiveName} profile picture`}
-        />
-      </div>
-      <div class={styles.noMgContainer}>
-        <h1 class={`${styles.title} ${styles.mobileTitle}`}>
-          {unicornData.name}
-        </h1>
-        <h1 class={`${styles.title} ${styles.desktopTitle}`}>
-          {unicornData.name}
-        </h1>
-        <div
-          class={styles.subheader}
-          aria-label={`A description of ${unicornData.name}`}
-        >
-          {unicornData.description}
-        </div>
-        {unicornData.socials && (
-          <ul
-            class={styles.socialsContainer}
-            aria-label={`${possessiveName} social media links`}
-            role="list"
-          >
-            {unicornData.socials.twitter && (
-              <SocialBtn
-                text={"Twitter"}
-                url={`https://twitter.com/${unicornData.socials.twitter}`}
-              >
-                <Icon name="twitter" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-            {unicornData.socials.github && (
-              <SocialBtn
-                text={"GitHub"}
-                url={`https://github.com/${unicornData.socials.github}`}
-              >
-                <Icon name="github" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-            {unicornData.socials.linkedIn && (
-              <SocialBtn
-                text={"LinkedIn"}
-                url={`https://www.linkedin.com/in/${unicornData.socials.linkedIn}`}
-              >
-                <Icon name="linkedin" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-            {unicornData.socials.twitch && (
-              <SocialBtn
-                text={"Twitch"}
-                url={`https://twitch.tv/${unicornData.socials.twitch}`}
-              >
-                <Icon name="twitch" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-            {unicornData.socials.dribbble && (
-              <SocialBtn
-                text={"Dribbble"}
-                url={`https://dribbble.com/${unicornData.socials.dribbble}`}
-              >
-                <Icon name="dribbble" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-            {unicornData.socials.website && (
-              <SocialBtn
-                text={"Website"}
-                url={unicornData.socials.website}
-              >
-                <Icon name="site" height="36" width="36" slot="icon"/>
-              </SocialBtn>
-            )}
-          </ul>
-        )}
-      </div>
-    </div>
+<div
+	class={styles.container}
+	role="banner"
+	aria-label={`Banner for ${unicornData.name}`}
+>
+	<div
+		class={styles.headerPic}
+		style={{
+			height: "300px",
+			width: "300px",
+			borderRadius: "50%",
+			overflow: "hidden",
+		}}
+	>
+		<Image
+			src={unicornData.profileImgMeta.relativeServerPath}
+			height={192}
+			width={192}
+			sizes={"192px"}
+			format={"png"}
+			loading={"eager"}
+			alt={`${possessiveName} profile picture`}
+		/>
+	</div>
+	<div class={styles.noMgContainer}>
+		<h1 class={`${styles.title} ${styles.mobileTitle}`}>
+			{unicornData.name}
+		</h1>
+		<h1 class={`${styles.title} ${styles.desktopTitle}`}>
+			{unicornData.name}
+		</h1>
+		<div
+			class={styles.subheader}
+			aria-label={`A description of ${unicornData.name}`}
+		>
+			{unicornData.description}
+		</div>
+		{
+			unicornData.socials && (
+				<ul
+					class={styles.socialsContainer}
+					aria-label={`${possessiveName} social media links`}
+					role="list"
+				>
+					{unicornData.socials.twitter && (
+						<SocialBtn
+							text={"Twitter"}
+							url={`https://twitter.com/${unicornData.socials.twitter}`}
+						>
+							<Icon name="twitter" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+					{unicornData.socials.github && (
+						<SocialBtn
+							text={"GitHub"}
+							url={`https://github.com/${unicornData.socials.github}`}
+						>
+							<Icon name="github" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+					{unicornData.socials.linkedIn && (
+						<SocialBtn
+							text={"LinkedIn"}
+							url={`https://www.linkedin.com/in/${unicornData.socials.linkedIn}`}
+						>
+							<Icon name="linkedin" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+					{unicornData.socials.twitch && (
+						<SocialBtn
+							text={"Twitch"}
+							url={`https://twitch.tv/${unicornData.socials.twitch}`}
+						>
+							<Icon name="twitch" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+					{unicornData.socials.dribbble && (
+						<SocialBtn
+							text={"Dribbble"}
+							url={`https://dribbble.com/${unicornData.socials.dribbble}`}
+						>
+							<Icon name="dribbble" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+					{unicornData.socials.website && (
+						<SocialBtn text={"Website"} url={unicornData.socials.website}>
+							<Icon name="site" height="36" width="36" slot="icon" />
+						</SocialBtn>
+					)}
+				</ul>
+			)
+		}
+	</div>
+</div>

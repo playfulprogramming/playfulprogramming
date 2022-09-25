@@ -60,7 +60,9 @@
 	@extend %headline-uniwidth-2;
 }
 
-.tocH2, .tocH3, .tocH4 {
+.tocH2,
+.tocH3,
+.tocH4 {
 	a {
 		font-style: italic;
 	}

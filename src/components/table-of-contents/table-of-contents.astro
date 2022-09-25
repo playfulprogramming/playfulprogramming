@@ -6,7 +6,7 @@ import { PostInfo } from "types/PostInfo";
 import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
 
 interface TableOfContentsProps {
-  headingsWithId: PostInfo["headingsWithId"];
+	headingsWithId: PostInfo["headingsWithId"];
 }
 
 const { headingsWithId } = Astro.props as TableOfContentsProps;
@@ -18,33 +18,30 @@ const minDepth = Math.min(...headings.map((h) => h.depth));
 
 // offset the heading depths by minDepth, so they always start at 1
 const headingsToDisplay = headings
-  .map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
-  .filter((headingInfo) => headingInfo.depth <= 3);
+	.map((h) => Object.assign({}, h, { depth: h.depth - minDepth + 1 }))
+	.filter((headingInfo) => headingInfo.depth <= 3);
 
-const headingsToDisplaySlugs = headingsToDisplay.map(item => item.slug);
+const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 ---
 
 <aside aria-label={"Table of Contents"}>
-  <ol
-    class={tableOfContentsStyle.tableList}
-    role="list"
-    id="tocList"
-  >
-    {headingsToDisplay.map((headingInfo, i) => {
-      const liClassNames = classnames(tableOfContentsStyle.tocLi, {
-        [tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
-        [tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
-        [tableOfContentsStyle.tocH3]: headingInfo.depth === 3,
-      });
-      return (
-        <li
-          class={liClassNames}
-          data-headingitem="true"
-        >
-          <a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
-        </li>
-      );
-    })}
-  </ol>
+	<ol class={tableOfContentsStyle.tableList} role="list" id="tocList">
+		{
+			headingsToDisplay.map((headingInfo, i) => {
+				const liClassNames = classnames(tableOfContentsStyle.tocLi, {
+					[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
+					[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
+					[tableOfContentsStyle.tocH3]: headingInfo.depth === 3,
+				});
+				return (
+					<li class={liClassNames} data-headingitem="true">
+						<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
+					</li>
+				);
+			})
+		}
+	</ol>
 </aside>
-<HeadingIntersectionObserverScript headingsToDisplaySlugs={headingsToDisplaySlugs} />
+<HeadingIntersectionObserverScript
+	headingsToDisplaySlugs={headingsToDisplaySlugs}
+/>

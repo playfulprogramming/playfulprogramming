@@ -5,12 +5,12 @@ import { PostInfo } from "types/PostInfo";
 // import { PostListContext } from "constants/post-list-context";
 
 export interface PostListProps {
-  showWordCount?: boolean;
-  numberOfArticles?: number;
-  wordCount?: number;
-  unicornData?: PostInfo['authorsMeta'];
-  listAriaLabel: string;
-  postsToDisplay: PostInfo[]
+	showWordCount?: boolean;
+	numberOfArticles?: number;
+	wordCount?: number;
+	unicornData?: PostInfo["authorsMeta"];
+	listAriaLabel: string;
+	postsToDisplay: PostInfo[];
 }
 /**
  * unicornData - The data with the associated post. If present - you're on profile page
@@ -18,12 +18,7 @@ export interface PostListProps {
 
 const { listAriaLabel, postsToDisplay } = Astro.props as PostListProps;
 ---
-<ul
-  class={listStyle.postsListContainer}
-  aria-label={listAriaLabel}
-  role="list"
->
-  {postsToDisplay.map((post) => (
-    <PostCard post={post}/>
-  ))}
+
+<ul class={listStyle.postsListContainer} aria-label={listAriaLabel} role="list">
+	{postsToDisplay.map((post) => <PostCard post={post} />)}
 </ul>

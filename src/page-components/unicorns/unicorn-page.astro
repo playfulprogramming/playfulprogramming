@@ -3,23 +3,20 @@ import PostList from "components/post-card-list/post-card-list.astro";
 import Pagination from "components/pagination/pagination.astro";
 import { Page } from "astro";
 import { PostInfo } from "types/PostInfo";
-import ProfileHeader from './profile-header/profile-header.astro';
+import ProfileHeader from "./profile-header/profile-header.astro";
 
 export interface UnicornTemplateProps {
-  unicorn: any;
-  posts: PostInfo[];
-  rootURL: string;
-  page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>
+	unicorn: any;
+	posts: PostInfo[];
+	rootURL: string;
+	page: Pick<
+		Page<PostInfo>,
+		"total" | "currentPage" | "size" | "lastPage" | "url"
+	>;
 }
 
-const {
-  unicorn,
-  page,
-  rootURL,
-  posts
-} = Astro.props as UnicornTemplateProps;
+const { unicorn, page, rootURL, posts } = Astro.props as UnicornTemplateProps;
 ---
-
 
 <!-- <PostListProvider
 posts={authoredPosts}
@@ -29,16 +26,16 @@ pageIndex={pageNum}
 > -->
 <ProfileHeader unicornData={unicorn} />
 <main>
-  <!-- <FilterSearchBar>
+	<!-- <FilterSearchBar>
     <WordCount
       wordCount={wordCount}
       numberOfArticles={authoredPosts.length}
     />
   </FilterSearchBar> -->
-  <PostList
-    listAriaLabel={`List of posts written by ${unicorn.name}`}
-    postsToDisplay={posts}
-  />
+	<PostList
+		listAriaLabel={`List of posts written by ${unicorn.name}`}
+		postsToDisplay={posts}
+	/>
 </main>
 <Pagination page={page} rootURL={rootURL} />
 <!-- <Pagination absolutePath={basePath} />

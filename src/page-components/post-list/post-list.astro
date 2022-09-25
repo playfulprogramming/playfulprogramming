@@ -12,31 +12,30 @@ import { Page } from "astro";
 import Pagination from "components/pagination/pagination.astro";
 
 export interface PostListTemplateProps {
-  posts: PostInfo[];
-  rootURL: string;
-  page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>
+	posts: PostInfo[];
+	rootURL: string;
+	page: Pick<
+		Page<PostInfo>,
+		"total" | "currentPage" | "size" | "lastPage" | "url"
+	>;
 }
 
-const { 
-  posts,
-  page,
-  rootURL
-} = Astro.props as PostListTemplateProps;
+const { posts, page, rootURL } = Astro.props as PostListTemplateProps;
 ---
 
 <div>
-  <!-- <PostListProvider
+	<!-- <PostListProvider
     posts={posts}
     numberOfPages={numberOfPages}
     limitNumber={limitNumber}
     pageIndex={pageIndex}
   > -->
-    <PostListHeader siteDescription={siteMetadata.description} />
-    <main>
-      <!-- <FilterSearchBar /> -->
-      <PostList listAriaLabel="List of posts" postsToDisplay={posts} />
-    </main>
-    <Pagination page={page} rootURL={rootURL} />
-    <!-- <Pagination absolutePath={router.basePath} /> -->
-  <!-- </PostListProvider> -->
+	<PostListHeader siteDescription={siteMetadata.description} />
+	<main>
+		<!-- <FilterSearchBar /> -->
+		<PostList listAriaLabel="List of posts" postsToDisplay={posts} />
+	</main>
+	<Pagination page={page} rootURL={rootURL} />
+	<!-- <Pagination absolutePath={router.basePath} /> -->
+	<!-- </PostListProvider> -->
 </div>
