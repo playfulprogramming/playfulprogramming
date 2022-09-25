@@ -26,7 +26,8 @@
 		"host:local": "cd dist && ws --http2 --compress",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint . --ext .js,.ts,.astro",
-		"tsc": "tsc --noEmit && astro check"
+		"tsc": "tsc --noEmit && astro check",
+		"test": ""
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.7.1",
