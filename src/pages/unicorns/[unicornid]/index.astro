@@ -13,8 +13,6 @@ export async function getStaticPaths() {
 
 const params = Astro.params as {unicornid: string};
 
-console.log({params})
-
 const unicorn = unicorns.find(unicorn => unicorn.id === params.unicornid);
 
 const posts = await Astro.glob<PostInfo>('../../../../content/blog/**/*.md')
@@ -31,6 +29,8 @@ const page = {
 		next: `/unicorns/${unicorn.id}/page/2`
 	}
 } as Page<PostInfo>;
+
+const rootURL = `/unicorns/${unicorn.id}/`;
 ---
 
 <Document>
@@ -41,5 +41,5 @@ const page = {
     unicornsData={[unicorn]}
     type="profile"
   />
-  <UnicornsPage unicorn={unicorn} page={page} posts={postsToDisplay}/>
+  <UnicornsPage unicorn={unicorn} page={page} posts={postsToDisplay} rootURL={rootURL}/>
 </Document>

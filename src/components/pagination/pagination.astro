@@ -7,10 +7,12 @@ import styles from './pagination.module.scss';
 interface PaginationProps {
     page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>;
     class: string;
+    rootURL: string;
 }
 
 const {
     page,
+    rootURL,
     class: className = ""
 } = Astro.props as PaginationProps;
 
@@ -23,7 +25,7 @@ const paginationRange = getPaginationRange({
 
 const dontShowAnything = page.currentPage === 0 || paginationRange.length < 2;
 
-const getPageHref = (pageNum: number) => pageNum === 0 || pageNum === 1 ? '/' : `/page/${pageNum}`;
+const getPageHref = (pageNum: number) => pageNum === 0 || pageNum === 1 ? rootURL : `${rootURL}page/${pageNum}`;
 
 const lastPage = paginationRange[paginationRange.length - 1];
 const firstPage = paginationRange[0];

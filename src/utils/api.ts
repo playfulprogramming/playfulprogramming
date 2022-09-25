@@ -35,7 +35,7 @@ export const getAllPostsForListView = (
     return date1 > date2 ? -1 : 1;
   });
 
-  return allPosts.map(post => post.frontmatter);
+  return allPosts.map(post => post.frontmatter).filter(post => post.locale === language);
 };
 
 export const getAllPostsForUnicornListView = (

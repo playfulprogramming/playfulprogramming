@@ -8,12 +8,14 @@ import ProfileHeader from './profile-header/profile-header.astro';
 export interface UnicornTemplateProps {
   unicorn: any;
   posts: PostInfo[];
+  rootURL: string;
   page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>
 }
 
 const {
   unicorn,
   page,
+  rootURL,
   posts
 } = Astro.props as UnicornTemplateProps;
 ---
@@ -38,6 +40,6 @@ pageIndex={pageNum}
     postsToDisplay={posts}
   />
 </main>
-<Pagination page={page} />
+<Pagination page={page} rootURL={rootURL} />
 <!-- <Pagination absolutePath={basePath} />
 </PostListProvider> -->

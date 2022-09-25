@@ -23,5 +23,5 @@ const SEOTitle = `Post page ${pageIndex}`;
 
 <Document>
 	<SEO slot="head" title={SEOTitle} />
-	<PostListTemplate posts={page.data} page={page}/>
+	<PostListTemplate posts={page.data} page={page} rootURL={'/'}/>
 </Document>

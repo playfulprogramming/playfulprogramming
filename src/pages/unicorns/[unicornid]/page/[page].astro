@@ -19,6 +19,7 @@ const { page } = Astro.props as {page: Page<PostInfo>};
 const params = Astro.params as {unicornid: string};
 
 const unicorn = unicorns.find(unicorn => unicorn.id === params.unicornid);
+const rootURL = `/unicorns/${unicorn.id}/`;
 ---
 
 <Document>
@@ -29,5 +30,5 @@ const unicorn = unicorns.find(unicorn => unicorn.id === params.unicornid);
     unicornsData={[unicorn]}
     type="profile"
   />
-  <UnicornsPage unicorn={unicorn} page={page} posts={page.data}/>
+  <UnicornsPage unicorn={unicorn} page={page} posts={page.data} rootURL={rootURL}/>
 </Document>
