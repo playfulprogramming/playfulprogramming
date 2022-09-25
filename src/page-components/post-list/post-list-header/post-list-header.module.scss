@@ -29,6 +29,11 @@
 	height: 100%;
 	width: 100%;
 
+	& > picture > img {
+		height: 100%;
+		width: 100%;
+	}
+
 	@include until($endSmallScreenSize) {
 		$mobileImgSize: 150px;
 		max-width: $mobileImgSize;

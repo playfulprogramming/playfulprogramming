@@ -1,7 +1,7 @@
 ---
 import styles from "./profile-header.module.scss";
 import { UnicornInfo } from "uu-types";
-import { Image } from "@astrojs/image/components";
+import { Image, Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
 
 import SocialBtn from "./social-button.astro";
@@ -33,13 +33,13 @@ const possessiveName = getNamePossessive(unicornData.name);
 			overflow: "hidden",
 		}}
 	>
-		<Image
+		<Picture
 			src={unicornData.profileImgMeta.relativeServerPath}
-			height={192}
-			width={192}
+			widths={[192]}
 			sizes={"192px"}
-			format={"png"}
 			loading={"eager"}
+			aspectRatio={1}
+			formats={["webp", "png"]}
 			alt={`${possessiveName} profile picture`}
 		/>
 	</div>
