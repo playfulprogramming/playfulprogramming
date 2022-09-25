@@ -25,6 +25,11 @@
 	margin-right: 0;
 	flex-shrink: 0;
 
+	& > img {
+		height: 100%;
+		width: 100%;
+	}
+
 	@include from($endSmallScreenSize) {
 		$desktopImgSize: 192px;
 		max-width: $desktopImgSize;

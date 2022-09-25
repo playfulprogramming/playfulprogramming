@@ -1,4 +1,5 @@
 ---
+import Document from '../../../layouts/document.astro';
 import SEO from "components/seo/seo.astro";
 import UnicornsPage from '../../../page-components/unicorns/unicorn-page.astro';
 import { getAllPostsForUnicornListView } from 'utils/api';
@@ -26,7 +27,7 @@ const page = {
 	size: postsToDisplay.length,
 	lastPage: Math.floor(enPosts.length / postsToDisplay.length),
 	url: {
-		current: Astro.url.href,
+		current: `/unicorns/${unicorn.id}`,
 		next: `/unicorns/${unicorn.id}/page/2`
 	}
 } as Page<PostInfo>;
