@@ -1,0 +1,32 @@
+---
+import SEO from "components/seo/seo.astro";
+import UnicornsPage from '../../../page-components/unicorns/unicorn-page.astro';
+import { getAllPostsForUnicornListView } from 'utils/api';
+import {PostInfo} from 'types/PostInfo';
+import { unicorns } from "utils/data";
+import { Page } from 'astro';
+
+export async function getStaticPaths({ paginate }) {
+  const posts = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
+  return unicorns.map(unicorn => {
+    const postsToDisplay = getAllPostsForUnicornListView(unicorn.id, posts, 'en');
+    return paginate(postsToDisplay, { params: {unicornid: unicorn.id}, pageSize: 8 });
+  })
+}
+
+const { page } = Astro.props as {page: Page<PostInfo>};
+const params = Astro.params as {unicornid: string};
+
+const unicorn = unicorns[params.unicornid];
+---
+
+<Document>
+  <SEO
+    slot="head"
+    title={unicorn.name}
+    description={unicorn.description}
+    unicornsData={[unicorn]}
+    type="profile"
+  />
+  <UnicornsPage unicorn={unicorn} page={page}/>
+</Document>

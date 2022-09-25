@@ -1,0 +1,60 @@
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
+
+.svgContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.socialBtnLink {
+	&:not(:last-of-type) {
+		margin-right: 32px;
+
+		@include from($endSmallScreenSize) {
+			margin-right: 24px;
+		}
+	}
+
+	.socialText {
+		margin-left: 0.5rem;
+		@extend %subheader-3;
+
+		// Make it so that the next and prev label text is hidden on mobile
+		// but not removed from the aria-reading role
+		@include until($endSmallScreenSize) {
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			opacity: 0;
+			display: inline-block;
+		}
+	}
+
+	& > a {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+
+		$mobileSvgSize: 32px;
+
+		@include until($endSmallScreenSize) {
+			height: $mobileSvgSize;
+			width: $mobileSvgSize;
+		}
+
+		svg {
+			$desktopSvgSize: 36px;
+			height: $desktopSvgSize;
+			width: $desktopSvgSize;
+			fill: none;
+
+			@include until($endSmallScreenSize) {
+				height: $mobileSvgSize;
+				width: $mobileSvgSize;
+			}
+		}
+	}
+}

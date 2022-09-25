@@ -1,0 +1,40 @@
+---
+import PostList from "components/post-card-list/post-card-list.astro";
+import Pagination from "components/pagination/pagination.astro";
+import { Page } from "astro";
+import { PostInfo } from "types/PostInfo";
+import ProfileHeader from './profile-header/profile-header.astro';
+
+export interface UnicornTemplateProps {
+  unicorn: any;
+  page: Pick<Page<PostInfo>, 'total' | 'currentPage' | 'size' | 'lastPage' | 'url'>
+}
+
+const {
+  unicorn,
+  page
+} = Astro.props as UnicornTemplateProps;
+---
+
+
+<!-- <PostListProvider
+posts={authoredPosts}
+numberOfPages={numberOfPages}
+limitNumber={postsPerPage}
+pageIndex={pageNum}
+> -->
+<ProfileHeader unicornData={unicorn} />
+<main>
+  <!-- <FilterSearchBar>
+    <WordCount
+      wordCount={wordCount}
+      numberOfArticles={authoredPosts.length}
+    />
+  </FilterSearchBar> -->
+  <PostList
+    listAriaLabel={`List of posts written by ${unicorn.name}`}
+  />
+</main>
+<Pagination page={page} />
+<!-- <Pagination absolutePath={basePath} />
+</PostListProvider> -->

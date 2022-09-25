@@ -37,3 +37,14 @@ export const getAllPostsForListView = (
 
   return allPosts.map(post => post.frontmatter);
 };
+
+export const getAllPostsForUnicornListView = (
+  authorId: string,
+  posts: MarkdownInstance<PostInfo>[],
+  language: Languages,
+): PostInfo[] => {
+  return getAllPostsForListView(posts, language)
+  .filter(post => 
+    post.authorsMeta.find(postAuthor => postAuthor.id === authorId)
+  );
+};

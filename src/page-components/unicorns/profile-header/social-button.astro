@@ -1,0 +1,29 @@
+---
+interface SocialBtnProps {
+    text: string;
+    url: string;
+}
+const { text, url } = Astro.props as SocialBtnProps;
+import styles from './social-button.module.scss';
+---
+
+<li class={`baseBtn ${styles.socialBtnLink}`} role="listitem">
+    <!-- <AnalyticsLink
+        category="outbound"
+        class="unlink"
+        target="_blank"
+        rel="noreferrer"
+        href={url}
+    > -->
+    <a
+        class="unlink"
+        target="_blank"
+        rel="noreferrer"
+        href={url}
+    >
+        <span class={styles.svgContainer} aria-hidden={true}>
+        <slot name="icon"/>
+        </span>
+        <span class={styles.socialText}>{text}</span>
+    </a>
+</li>
