@@ -20,6 +20,7 @@ export interface RawPostInfo {
 export interface PostInfo extends RawPostInfo {
 	slug: string;
 	locale: Languages;
+	contentMeta: string;
 	Content: MarkdownInstance<never>["Content"];
 	authorsMeta: UnicornInfo[];
 	licenseMeta: LicenseInfo;

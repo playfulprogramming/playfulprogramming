@@ -17,7 +17,7 @@ export const rehypeUnicornPopulatePost: Plugin<
 		}
 
 		const fileContents = readFileSync(file.path, "utf8");
-		const { data: frontmatter } = matter(fileContents);
+		const { data: frontmatter, content } = matter(fileContents);
 
 		const directorySplit = file.path.split(path.sep);
 
@@ -73,5 +73,6 @@ export const rehypeUnicornPopulatePost: Plugin<
 		setData("authorsMeta", authorsMeta);
 		setData("license", license);
 		setData("frontmatterBackup", frontmatter);
+		setData("contentMeta", content);
 	};
 };

@@ -31,21 +31,7 @@ export default defineConfig({
 		ssr: {
 			external: ["svgo"],
 		},
-		plugins: [
-			{
-				...copy({
-					hook: "options",
-					flatten: false,
-					targets: [
-						{
-							src: "content/**/*",
-							dest: "public/content",
-						},
-					],
-				}),
-				enforce: "pre",
-			},
-		],
+		plugins: [],
 	},
 	markdown: {
 		mode: "md",
