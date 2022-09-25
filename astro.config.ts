@@ -5,6 +5,8 @@ import remarkGfm from "remark-gfm";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
 import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
+import remarkTwoslash from "remark-shiki-twoslash";
+import { UserConfigSettings } from "shiki-twoslash";
 import rehypeSlug from "rehype-slug-custom-id";
 import { parent } from "./src/constants/site-config";
 import { rehypeHeaderText } from "./src/utils/markdown/rehype-header-text";
@@ -44,9 +46,8 @@ export default defineConfig({
   },
   markdown: {
     mode: "md",
-    shikiConfig: {
-      theme: "css-variables",
-    },
+    syntaxHighlight: false,
+    extendDefaultPlugins: false,
     remarkPlugins: [
       remarkGfm,
       // Remove complaining about "div cannot be in p element"
@@ -58,7 +59,13 @@ export default defineConfig({
         {
           transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
         } as RemarkEmbedderOptions,
-      ]
+      ],
+      [
+        remarkTwoslash,
+        {
+          themes: ["css-variables"],
+        } as UserConfigSettings,
+      ],
     ],
     rehypePlugins: [
       rehypeUnicornPopulatePost,

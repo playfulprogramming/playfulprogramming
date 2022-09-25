@@ -49,6 +49,7 @@
     "rehype-slug-custom-id": "^1.1.0",
     "remark-behead": "^3.1.0",
     "remark-gfm": "^3.0.1",
+    "remark-shiki-twoslash": "^3.1.0",
     "remark-unwrap-images": "^3.0.1",
     "retext-english": "^4.1.0",
     "rollup-plugin-copy": "^3.4.0",
