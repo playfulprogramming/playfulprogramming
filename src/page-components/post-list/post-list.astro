@@ -5,7 +5,7 @@ import PostListHeader from "./post-list-header/post-list-header.astro";
 import PostList from "components/post-card-list/post-card-list.astro";
 // import { PostListProvider } from "constants/post-list-context";
 // import { Pagination } from "components/pagination";
-// import { FilterSearchBar } from "components/filter-search-bar";
+import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
 import { siteMetadata } from "constants/site-config";
 import { PostInfo } from "types/PostInfo";
 import { Page } from "astro";
@@ -35,7 +35,7 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
   > -->
 	<PostListHeader siteDescription={siteMetadata.description} />
 	<main>
-		<!-- <FilterSearchBar /> -->
+		<FilterSearchBar />
 		<PostList
 			listAriaLabel="List of posts"
 			postsToDisplay={posts}

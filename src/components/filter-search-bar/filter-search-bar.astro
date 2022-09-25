@@ -1,0 +1,13 @@
+---
+import styles from "./filter-search-bar.module.scss";
+import SearchField from "./search-field/search-field.astro";
+// import FilterListbox from "./filter-listbox/filter-listbox.astro";
+---
+
+<div class={styles.iconContainer}>
+	<SearchField class={styles.searchField} />
+	<div class={styles.midContainer}>
+		<slot />
+	</div>
+	<!-- <FilterListbox class={styles.filterField} /> -->
+</div>
