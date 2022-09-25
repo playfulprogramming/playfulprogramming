@@ -44,12 +44,12 @@ export const getPostCardHTML = ({
                     ${authorsMeta
 											.slice(1)
 											.map((author, i) => {
-												return `<>
+												return `
                                     <span>, </span>
                                     <a href="/unicorns/${author.id}" class="${cardStyles.authorLink}">
                                         ${author.name}
                                     </a>
-                                </>`;
+                                `;
 											})
 											.join("")}
                 </p>
