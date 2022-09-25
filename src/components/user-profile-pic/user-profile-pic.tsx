@@ -3,7 +3,7 @@ import { UnicornInfo } from "uu-types";
 
 // TODO: Fix image loading and image 'onClick'
 interface UserProfilePicProps {
-	authors: Array<UnicornInfo>;
+	authors: Array<Pick<UnicornInfo, "id" | "color" | "name">>;
 	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
 	className: string;
 }

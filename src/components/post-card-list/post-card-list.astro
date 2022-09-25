@@ -21,7 +21,15 @@ const { listAriaLabel, postsToDisplay, unicornProfilePicMap } =
 	Astro.props as PostListProps;
 ---
 
-<ul class={listStyle.postsListContainer} aria-label={listAriaLabel} role="list">
+<div style={{ display: "none" }} id="search-post-list-container">
+	<ul class={listStyle.postsListContainer}></ul>
+</div>
+<ul
+	class={listStyle.postsListContainer}
+	aria-label={listAriaLabel}
+	role="list"
+	id="post-list-container"
+>
 	{
 		postsToDisplay.map((post) => (
 			<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />

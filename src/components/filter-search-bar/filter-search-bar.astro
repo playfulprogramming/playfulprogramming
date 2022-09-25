@@ -2,6 +2,12 @@
 import styles from "./filter-search-bar.module.scss";
 import SearchField from "./search-field/search-field.astro";
 // import FilterListbox from "./filter-listbox/filter-listbox.astro";
+
+export interface FilterSearchBarProps {
+	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+}
+
+const { unicornProfilePicMap } = Astro.props as FilterSearchBarProps;
 ---
 
 <div class={styles.iconContainer}>
@@ -11,3 +17,64 @@ import SearchField from "./search-field/search-field.astro";
 	</div>
 	<!-- <FilterListbox class={styles.filterField} /> -->
 </div>
+<script define:vars={{ unicornProfilePicMap }}>
+	window.unicornProfilePicMap =
+		window.unicornProfilePicMap || unicornProfilePicMap;
+</script>
+<script>
+	import { render, createElement } from "preact";
+	import { PostCard } from "../../components/post-card/post-card";
+
+	const searchInput: HTMLElement = document.querySelector("#search-input");
+	const postListContainer: HTMLElement = document.querySelector(
+		"#post-list-container"
+	);
+	const searchPostListContainer: HTMLElement = document.querySelector(
+		"#search-post-list-container"
+	);
+
+	const searchPostList = document.querySelector(
+		"#search-post-list-container > ul"
+	);
+
+	const initDisplayVal = postListContainer.style.display;
+
+	searchInput.addEventListener(
+		"input",
+		(e: InputEvent & { target: HTMLInputElement }) => {
+			const val = e.target.value;
+			const children: HTMLElement[] = searchPostList.children as never;
+			for (let child of [...children]) {
+				child.remove();
+			}
+			if (!val) {
+				postListContainer.style.display = initDisplayVal;
+				searchPostListContainer.style.display = "none";
+				return;
+			}
+			postListContainer.style.display = "none";
+			searchPostListContainer.style.display = "block";
+			// searchPostListContainer.innerText = val;
+			const unicornProfilePicMap = (window as any).unicornProfilePicMap || [];
+			const FilledPostCard = createElement(PostCard, {
+				unicornProfilePicMap,
+				post: {
+					published: new Date().toUTCString(),
+					slug: "",
+					title: val,
+					authorsMeta: [
+						{
+							name: "Corbin Crutchley",
+							id: "crutchcorn",
+							color: "",
+						},
+					],
+					tags: [],
+					description: "Hello, world!",
+					excerpt: "",
+				},
+			});
+			render(FilledPostCard, searchPostList);
+		}
+	);
+</script>

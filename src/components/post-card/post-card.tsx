@@ -1,17 +1,28 @@
 // TODO: Add click back to `li`
 // TODO: Make user-profile-pic clickable again
 import cardStyles from "./post-card.module.scss";
-import {UserProfilePic} from "../user-profile-pic/user-profile-pic";
+import { UserProfilePic } from "../user-profile-pic/user-profile-pic";
 import dayjs from "dayjs";
 import { PostInfo } from "types/PostInfo";
 
 interface PostCardProps {
-	post: PostInfo; // Info on the authors of the post
+	post: Pick<
+		PostInfo,
+		"published" | "slug" | "title" | "tags" | "description" | "excerpt"
+	> & {
+		authorsMeta: Array<
+			Pick<PostInfo["authorsMeta"][number], "id" | "color" | "name">
+		>;
+	}; // Info on the authors of the post
 	class?: string; // class to pass to the post card element
-    unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
+	unicornProfilePicMap: astroHTML.JSX.ImgHTMLAttributes[];
 }
 
-export const PostCard = ({ post, class: className = "", unicornProfilePicMap }: PostCardProps) => {
+export const PostCard = ({
+	post,
+	class: className = "",
+	unicornProfilePicMap,
+}: PostCardProps) => {
 	const { published, slug, title, authorsMeta, tags, description, excerpt } =
 		post;
 
@@ -52,12 +63,15 @@ export const PostCard = ({ post, class: className = "", unicornProfilePicMap }: 
 						<span class={cardStyles.tag}>{tag}</span>
 					))}
 				</div>
-				<p class={cardStyles.excerpt} dangerouslySetInnerHTML={{__html: description || excerpt}}></p>
+				<p
+					class={cardStyles.excerpt}
+					dangerouslySetInnerHTML={{ __html: description || excerpt }}
+				></p>
 			</div>
 			<UserProfilePic
 				authors={authorsMeta}
 				className={cardStyles.authorImagesContainer}
-                unicornProfilePicMap={unicornProfilePicMap}
+				unicornProfilePicMap={unicornProfilePicMap}
 			/>
 		</li>
 	);
