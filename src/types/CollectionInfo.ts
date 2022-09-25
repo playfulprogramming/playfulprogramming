@@ -25,7 +25,6 @@ export interface CollectionInfo {
 		| "series"
 		| "slug"
 		| "authors"
-		| "content"
 	>[];
 	content: string;
 	buttons: Array<{ text: string; url: string }>;

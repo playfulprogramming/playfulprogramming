@@ -28,7 +28,6 @@ import { visit } from "unist-util-visit";
 import { unified } from "unified";
 import english from "retext-english";
 import rehypeRetext from "rehype-retext";
-import { validateConfig } from "astro/dist/types/core/config";
 
 interface RemarkCountProps {}
 

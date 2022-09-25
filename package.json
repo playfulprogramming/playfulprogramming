@@ -25,7 +25,8 @@
 		"preview": "astro preview --experimental-integrations",
 		"host:local": "cd dist && ws --http2 --compress",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
-		"lint": "eslint . --ext .js,.ts,.astro"
+		"lint": "eslint . --ext .js,.ts,.astro",
+		"tsc": "tsc --noEmit && astro check"
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.7.1",
@@ -33,6 +34,8 @@
 		"@remark-embedder/transformer-oembed": "^3.0.0",
 		"@types/classnames": "^2.3.1",
 		"@types/node": "^18.7.18",
+		"@types/parse5": "^7.0.0",
+		"@types/uuid": "^8.3.4",
 		"@typescript-eslint/parser": "^4.33.0",
 		"astro": "^1.2.8",
 		"astro-icon": "^0.7.3",

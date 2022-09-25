@@ -9,6 +9,6 @@ declare module "remark-behead" {
 		before: number | string | Node;
 		between: [number | string | Node, number | string | Node];
 	}
-	declare const plugin: Plugin<[BeheadOptions?] | void[], Root, string>;
+	const plugin: Plugin<[BeheadOptions?] | void[], Root, string>;
 	export default plugin;
 }

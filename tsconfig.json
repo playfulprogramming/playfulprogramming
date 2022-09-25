@@ -15,6 +15,7 @@
 		"allowSyntheticDefaultImports": true,
 		// Add type definitions for our Vite runtime.
 		"types": ["@astrojs/image/client"],
+		"lib": ["DOM"],
 		"baseUrl": ".",
 		"paths": {
 			"constants/*": ["./src/constants/*"],
