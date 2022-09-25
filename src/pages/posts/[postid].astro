@@ -8,11 +8,14 @@ import PostMetadata from "src/page-components/blog-post/post-metadata/post-metad
 import TabsScript from "src/page-components/blog-post/tabs-script/tabs-script.astro";
 import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
 import TableOfContents from "components/table-of-contents/table-of-contents.astro";
+import MailingList from "components/mailing-list/mailing-list.astro";
 import Disqus from "components/disqus/disqus.astro";
+import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
 import { PostInfo } from "types/PostInfo";
 import { Languages } from "types/index";
+import { siteMetadata } from "constants/site-config";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");
@@ -41,12 +44,12 @@ const translations = post?.translations || [];
 const otherLangs = translations
 	? (Object.keys(translations).filter((t) => t !== post.locale) as Languages[])
 	: [];
+
+const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 ---
 
 <Document>
 	<TabsScript slot="head" />
-	<!-- TODO: Add this -->
-	<!-- pathName={router.asPath} -->
 	<SEO
 		slot="head"
 		title={post.title}
@@ -96,6 +99,38 @@ const otherLangs = translations
 			</main>
 		</BlogPostLayout>
 		<footer role="contentinfo" class="post-lower-area">
+			<div>
+				<a
+					aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+					href={post.licenseMeta.explainLink}
+					style={{ display: "table", margin: "0 auto" }}
+				>
+					<img
+						src={post.licenseMeta.footerImg}
+						alt={post.licenseMeta.licenceType}
+					/>
+				</a>
+			</div>
+			<MailingList />
+			<div class="postBottom">
+				<div class="btnLike prependIcon">
+					<Icon height="36" width="36" name="message" />
+					<p>Comments</p>
+				</div>
+
+				<!-- <AnalyticsLink
+              category="outbound"
+            > -->
+				<a
+					class="baseBtn prependIcon"
+					href={GHLink}
+					target="_blank"
+					rel="nofollow noopener noreferrer"
+				>
+					<Icon height="36" width="36" name="github" class="strokeicon" />
+					View this Post on GitHub
+				</a>
+			</div>
 			<Disqus slug={post.slug} title={post.title} />
 		</footer>
 	</article>

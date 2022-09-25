@@ -15,7 +15,7 @@ module.exports = {
 	},
 	rules: {
 		"no-unused-vars": "off",
-		"no-mixed-spaces-and-tabs": "off"
+		"no-mixed-spaces-and-tabs": "off",
 	},
 	overrides: [
 		{

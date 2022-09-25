@@ -71,7 +71,7 @@ export const rehypeUnicornPopulatePost: Plugin<
 		setData("slug", slug);
 		setData("locale", locale);
 		setData("authorsMeta", authorsMeta);
-		setData("license", license);
+		setData("licenseMeta", license);
 		setData("frontmatterBackup", frontmatter);
 		setData("contentMeta", content);
 	};

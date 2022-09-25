@@ -76,7 +76,13 @@ const possessiveName = getNamePossessive(unicornData.name);
 							text={"GitHub"}
 							url={`https://github.com/${unicornData.socials.github}`}
 						>
-							<Icon name="github" height="36" width="36" slot="icon" />
+							<Icon
+								name="github"
+								height="36"
+								width="36"
+								slot="icon"
+								class="strokeicon"
+							/>
 						</SocialBtn>
 					)}
 					{unicornData.socials.linkedIn && (
