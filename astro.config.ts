@@ -32,7 +32,8 @@ export default defineConfig({
       external: ["svgo"],
     },
     plugins: [
-        copy({
+        {
+          ...copy({
           hook: 'options',
           flatten: false,
           targets: [
@@ -41,7 +42,9 @@ export default defineConfig({
               dest: 'public/content'
             }
           ]
-        })
+        }),
+        enforce: 'pre'
+      }
     ]
   },
   markdown: {
