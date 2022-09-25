@@ -7,7 +7,7 @@ import { unicorns } from "utils/data";
 import { Page } from 'astro';
 
 export async function getStaticPaths({ paginate }) {
-  const posts = await Astro.glob<PostInfo>('../../../content/blog/**/*.md')
+  const posts = await Astro.glob<PostInfo>('../../../../content/blog/**/*.md')
   return unicorns.map(unicorn => {
     const postsToDisplay = getAllPostsForUnicornListView(unicorn.id, posts, 'en');
     return paginate(postsToDisplay, { params: {unicornid: unicorn.id}, pageSize: 8 });
@@ -17,7 +17,7 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props as {page: Page<PostInfo>};
 const params = Astro.params as {unicornid: string};
 
-const unicorn = unicorns[params.unicornid];
+const unicorn = unicorns.find(unicorn => unicorn.id === params.unicornid);
 ---
 
 <Document>
@@ -28,5 +28,5 @@ const unicorn = unicorns[params.unicornid];
     unicornsData={[unicorn]}
     type="profile"
   />
-  <UnicornsPage unicorn={unicorn} page={page}/>
+  <UnicornsPage unicorn={unicorn} page={page} posts={page.data}/>
 </Document>
