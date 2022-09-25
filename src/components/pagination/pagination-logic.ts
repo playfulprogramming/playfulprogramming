@@ -107,4 +107,6 @@ export const getPaginationRange = ({
       }
       return [firstPageIndex, DL_Page, ...middleRange, DR_Page, lastPageIndex];
     }
+
+    return [];
 };
