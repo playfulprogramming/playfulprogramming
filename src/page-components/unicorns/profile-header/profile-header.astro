@@ -8,6 +8,7 @@ import TwitchIcon from "assets/icons/twitch.svg";
 import DribbbleIcon from "assets/icons/dribbble.svg";
 import { UnicornInfo } from "uu-types";
 import {Image} from '@astrojs/image/components';
+import { Icon } from 'astro-icon';
 
 import SocialBtn from "./social-button.astro";
 
@@ -73,7 +74,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"Twitter"}
                 url={`https://twitter.com/${unicornData.socials.twitter}`}
               >
-                <TwitterIcon slot="icon"/>
+                <Icon name="twitter" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
             {unicornData.socials.github && (
@@ -81,7 +82,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"GitHub"}
                 url={`https://github.com/${unicornData.socials.github}`}
               >
-                <GitHubIcon slot="icon"/>
+                <Icon name="github" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
             {unicornData.socials.linkedIn && (
@@ -89,7 +90,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"LinkedIn"}
                 url={`https://www.linkedin.com/in/${unicornData.socials.linkedIn}`}
               >
-                <LinkedInIcon slot="icon"/>
+                <Icon name="linkedin" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
             {unicornData.socials.twitch && (
@@ -97,7 +98,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"Twitch"}
                 url={`https://twitch.tv/${unicornData.socials.twitch}`}
               >
-                <TwitchIcon slot="icon"/>
+                <Icon name="twitch" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
             {unicornData.socials.dribbble && (
@@ -105,7 +106,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"Dribbble"}
                 url={`https://dribbble.com/${unicornData.socials.dribbble}`}
               >
-                <DribbbleIcon slot="icon"/>
+                <Icon name="dribbble" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
             {unicornData.socials.website && (
@@ -113,7 +114,7 @@ const possessiveName = getNamePossessive(unicornData.name);
                 text={"Website"}
                 url={unicornData.socials.website}
               >
-                <SiteIcon slot="icon"/>
+                <Icon name="site" height="36" width="36" slot="icon"/>
               </SocialBtn>
             )}
           </ul>
