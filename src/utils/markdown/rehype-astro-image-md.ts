@@ -27,6 +27,7 @@ export const rehypeAstroImageMd: Plugin<
 	return async (tree, file) => {
 		// HACK: This is a hack that heavily relies on `getImage`'s internals :(
 		globalThis.astroImage = {
+			...(globalThis.astroImage || {}),
 			loader: sharp_service ?? globalThis.astroImage?.loader,
 		};
 
@@ -39,7 +40,7 @@ export const rehypeAstroImageMd: Plugin<
 
 		await Promise.all(
 			imgNodes.map(async (node) => {
-				const slug = path.dirname(file.path).split("/").at(-1);
+				const slug = path.dirname(file.path).split(path.sep).at(-1);
 
 				const filePathDir = path.resolve(
 					__dirname,
