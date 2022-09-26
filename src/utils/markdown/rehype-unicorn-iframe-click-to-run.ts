@@ -32,6 +32,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const req = await fetch(iframeNode.properties.src);
 				let pageTitleString: string | undefined;
 				let iconLink: string | undefined;
+				const iframeOrigin = new URL(iframeNode.properties.src).origin;
 				if (req.status === 200) {
 					const srcHTML = await req.text();
 					const srcHast = fromHtml(srcHTML);
@@ -42,37 +43,32 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					// <link rel="manifest" href="/manifest.json">
 					const manifestPath = find(
 						srcHast,
-						(node) => node?.properties?.rel === "manifest"
+						(node) => node?.properties?.rel?.[0] === "manifest"
 					);
 
 					if (manifestPath) {
 						// `/manifest.json`
-						const manifestRelativeURL = manifestPath
-							? manifestPath.properties.href
-							: null;
-						console.log({ manifestRelativeURL });
-						const fullManifestURL = getFullRelativePath(
-							iframeNode.properties.src,
-							manifestRelativeURL
-						);
+						const manifestRelativeURL = manifestPath.properties.href;
+						const fullManifestURL = new URL(
+							manifestRelativeURL,
+							iframeNode.properties.src
+						).href;
 						const manifestReq = await fetch(fullManifestURL);
 						if (manifestReq.status === 200) {
 							const manifestContents = await manifestReq.text();
 							const manifestJSON: Manifest = JSON.parse(manifestContents);
 							const largestIcon = getLargestManifestIcon(manifestJSON);
-							console.log({ largestIcon });
-							iconLink = largestIcon.icon.src;
+							iconLink = new URL(largestIcon.icon.src, iframeOrigin).href;
 						}
 					} else {
 						// fetch `favicon.ico`
 						// <link rel="icon" type="image/png" href="https://example.com/img.png">
 						const favicon = find(
 							srcHast,
-							(node) => node?.properties?.rel === "icon"
+							(node) => node?.properties?.rel?.[0] === "icon"
 						);
 						if (favicon) {
-							iconLink = favicon.properties.href;
-							console.log({ iconLink });
+							iconLink = new URL(favicon.properties.href, iframeOrigin).href;
 						}
 					}
 				}
@@ -89,7 +85,8 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						style: `height: ${height}px; width: ${width}px;`,
 					},
 					[
-						h("p", { class: "iframe-replacement-title" }, ["Test"]),
+						h("img", { src: iconLink }),
+						h("p", { class: "iframe-replacement-title" }, [pageTitleString]),
 						h("button", "Run embed"),
 					]
 				);
