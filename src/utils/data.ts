@@ -37,8 +37,10 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	/**
 	 * `getFullRelativePath` strips all prefixing `/`, so we must add one manually
 	 */
-	const relativeServerPath =
-		"/" + getFullRelativePath("content/data/", unicorn.profileImg);
+	const relativeServerPath = getFullRelativePath(
+		"content/data/",
+		unicorn.profileImg
+	);
 	const profileImgSize = getImageSize(unicorn.profileImg, dataDirectory);
 
 	// Mutation go BRR

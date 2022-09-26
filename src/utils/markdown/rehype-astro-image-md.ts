@@ -13,6 +13,7 @@ import { getPicture } from "../../../node_modules/@astrojs/image";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";
+import { getFullRelativePath } from "../url-paths";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -40,7 +41,7 @@ export const rehypeAstroImageMd: Plugin<
 		});
 
 		await Promise.all(
-			imgNodes.map(async (node, i) => {
+			imgNodes.map(async (node) => {
 				const slug = path.dirname(file.path).split(path.sep).at(-1);
 
 				const filePathDir = path.resolve(
@@ -58,6 +59,16 @@ export const rehypeAstroImageMd: Plugin<
 				// TODO: Remote images?
 				if (!dimensions.height || !dimensions.width) return;
 
+				const src = getFullRelativePath(
+					`/content/blog/${slug}/`,
+					node.properties.src
+				);
+
+				if (src.endsWith(".svg")) {
+					node.properties.src = src;
+					return;
+				}
+
 				const imgRatioHeight = dimensions.height / dimensions.width;
 				const imgRatioWidth = dimensions.width / dimensions.height;
 				if (maxHeight && dimensions.height > maxHeight) {
@@ -71,7 +82,7 @@ export const rehypeAstroImageMd: Plugin<
 				}
 
 				const pictureResult = await getPicture({
-					src: `/content/blog/${slug}/${node.properties.src}`,
+					src: src,
 					widths: [dimensions.width],
 					formats: ["webp", "png"],
 					aspectRatio: imgRatioWidth,
