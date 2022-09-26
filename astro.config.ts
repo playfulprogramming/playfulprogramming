@@ -17,6 +17,7 @@ import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
+import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unicorn-iframe-click-to-run";
 import generateUnicornProfilePicMap from "./src/utils/rollup/generate-unicorn-profile-pic-map";
 import copy from "rollup-plugin-copy";
 import preact from "@astrojs/preact";
@@ -114,6 +115,7 @@ export default defineConfig({
 					maxWidth: 768,
 				},
 			],
+			rehypeUnicornIFrameClickToRun,
 			rehypeUnicornElementMap,
 			[
 				rehypeExcerpt,

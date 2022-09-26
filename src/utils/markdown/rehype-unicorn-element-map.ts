@@ -27,12 +27,6 @@ export const rehypeUnicornElementMap: Plugin<
 > = () => {
 	return async (tree, file) => {
 		visit(tree, (node: any) => {
-			if (node.tagName === "iframe") {
-				node.properties.width ??= EMBED_SIZE.w;
-				node.properties.height ??= EMBED_SIZE.h;
-				node.properties.loading ??= "lazy";
-			}
-
 			if (node.tagName === "video") {
 				node.properties.muted ??= true;
 				node.properties.autoPlay ??= true;

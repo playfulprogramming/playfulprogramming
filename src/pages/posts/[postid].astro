@@ -57,6 +57,10 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMet
 		import { enableTabs } from "../../utils/markdown/scripts/tabs";
 		enableTabs();
 	</script>
+	<script>
+		import { iFrameClickToRun } from "../../utils/markdown/scripts/iframe-click-to-run";
+		iFrameClickToRun();
+	</script>
 	<SEO
 		slot="head"
 		title={post.title}
