@@ -32,7 +32,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const req = await fetch(iframeNode.properties.src);
 				let pageTitleString: string | undefined;
 				let iconLink: string | undefined;
-				if (req.status !== 200) {
+				if (req.status === 200) {
 					const srcHTML = await req.text();
 					const srcHast = fromHtml(srcHTML);
 					const titleEl = find(srcHast, { tagName: "title" });
@@ -40,9 +40,10 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					pageTitleString = titleEl.children[0].value;
 
 					// <link rel="manifest" href="/manifest.json">
-					const manifestPath = find(srcHast, {
-						properties: { rel: "manifest" },
-					});
+					const manifestPath = find(
+						srcHast,
+						(node) => node?.properties?.rel === "manifest"
+					);
 
 					if (manifestPath) {
 						// `/manifest.json`
@@ -65,7 +66,10 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					} else {
 						// fetch `favicon.ico`
 						// <link rel="icon" type="image/png" href="https://example.com/img.png">
-						const favicon = find(srcHast, { properties: { rel: "icon" } });
+						const favicon = find(
+							srcHast,
+							(node) => node?.properties?.rel === "icon"
+						);
 						if (favicon) {
 							iconLink = favicon.properties.href;
 							console.log({ iconLink });
@@ -78,6 +82,8 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					{
 						class: "iframe-replacement-container",
 						"data-iframeurl": iframeNode.properties.src,
+						"data-pagetitle": pageTitleString,
+						"data-pageicon": iconLink,
 						"data-width": width,
 						"data-height": height,
 						style: `height: ${height}px; width: ${width}px;`,
