@@ -28,7 +28,10 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 						>
 							<Icon height="36" width="36" name="back" />
 						</button>
-						<script is:inline defer src="/scripts/backbtn.min.js" />
+						<script>
+							import {backButtonListener} from './backbtn';
+							backButtonListener();
+						</script>
 					</>
 				) : (
 					<div />

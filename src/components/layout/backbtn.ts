@@ -1,6 +1,4 @@
-/* AFTER CHANGING THIS FILE, PLEASE MANUALLY MINIFY IT AND PUT INTO backbtn.min.js */
-/* TODO: Add minifier to build script */
-window.onload = () => {
+export const backButtonListener = () => {
 	const backBtn = document.querySelector("#backbtn");
 
 	let hasHistory = false;

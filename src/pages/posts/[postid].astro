@@ -5,7 +5,6 @@ import SEO from "components/seo/seo.astro";
 import BlogPostLayout from "components/blog-post-layout/blog-post-layout.astro";
 import PostTitleHeader from "src/page-components/blog-post/post-title-header/post-title-header.astro";
 import PostMetadata from "src/page-components/blog-post/post-metadata/post-metadata.astro";
-import TabsScript from "src/page-components/blog-post/tabs-script/tabs-script.astro";
 import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
 import TableOfContents from "components/table-of-contents/table-of-contents.astro";
 import MailingList from "components/mailing-list/mailing-list.astro";
@@ -54,7 +53,10 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMet
 ---
 
 <Document>
-	<TabsScript slot="head" />
+	<script>
+		import { enableTabs } from "../../utils/markdown/scripts/tabs";
+		enableTabs();
+	</script>
 	<SEO
 		slot="head"
 		title={post.title}
