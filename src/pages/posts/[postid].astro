@@ -16,6 +16,11 @@ import type { MarkdownInstance } from "astro";
 import { PostInfo } from "types/PostInfo";
 import { Languages } from "types/index";
 import { siteMetadata } from "constants/site-config";
+import "../../page-components/post-list/post-list.scss";
+import "../../styles/post-body.scss";
+import "../../styles/shiki.scss";
+import "../../styles/tabs.scss";
+import "../../styles/convertkit.scss";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");

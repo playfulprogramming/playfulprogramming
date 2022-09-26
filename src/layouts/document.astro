@@ -1,5 +1,4 @@
 ---
-import ThemeStyle from "../page-components/layouts/theme-style.astro";
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
 import Layout from "../components/layout/layout.astro";
 import "../global.scss";
@@ -58,7 +57,6 @@ import "../global.scss";
 			href="/icons/icon-512x512.png?v=2a"
 		/>
 		<script defer src="/uninstall-sw.js" is:inline></script>
-		<ThemeStyle />
 		<slot name="head" />
 	</head>
 	<body>

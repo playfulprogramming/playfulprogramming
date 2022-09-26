@@ -1,4 +1,4 @@
-@import "./styles/text_styles";
+@import "./text_styles";
 
 /*
  * This code handles line of code counting
@@ -347,72 +347,4 @@ pre .logger.log-log {
 pre .logger.log-log svg {
 	margin-left: 6px;
 	margin-right: 9px;
-}
-
-blockquote {
-	position: relative;
-	margin-left: 1em;
-	color: var(--midImpactBlack);
-
-	&::before {
-		content: " ";
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 100%;
-		width: 3px;
-		background: var(--darkPrimary);
-		left: -1em;
-	}
-
-	/*a {
-    color: rgba(0, 10, 125, 0.6);
-  }*/
-}
-
-h1 {
-	@extend %headline-1;
-	font-size: 1.825rem;
-
-	@include from($endSmallScreenSize) {
-		font-size: 2.4rem;
-	}
-}
-
-h2 {
-	@extend %headline-2;
-}
-
-h3 {
-	@extend %headline-3;
-}
-
-h4 {
-	@extend %headline-4;
-}
-
-h5 {
-	@extend %headline-5;
-}
-
-h6 {
-	@extend %headline-6;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	code[class*="language-"] {
-		font-size: inherit;
-	}
-}
-
-blockquote.bigBlock {
-	&,
-	& * {
-		font-size: 1.5rem;
-	}
 }

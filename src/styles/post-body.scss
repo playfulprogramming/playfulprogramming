@@ -1,0 +1,213 @@
+@import "./vars";
+@import "./utils";
+@import "./text_styles";
+
+.post-body {
+	margin: 0 auto #{$baseUnit * 4}px;
+	max-width: 768px;
+	line-height: 1.7;
+
+	// Fix autolink-headings anchors positioning
+	.anchor {
+		line-height: 1;
+		padding-right: 24px;
+
+		svg {
+			vertical-align: middle;
+		}
+	}
+
+	.anchor.before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translateX(-100%);
+		padding-right: 24px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	h1 .anchor svg,
+	h2 .anchor svg,
+	h3 .anchor svg,
+	h4 .anchor svg,
+	h5 .anchor svg,
+	h6 .anchor svg {
+		visibility: hidden;
+	}
+
+	h1:hover .anchor svg,
+	h2:hover .anchor svg,
+	h3:hover .anchor svg,
+	h4:hover .anchor svg,
+	h5:hover .anchor svg,
+	h6:hover .anchor svg,
+	h1 .anchor:focus svg,
+	h2 .anchor:focus svg,
+	h3 .anchor:focus svg,
+	h4 .anchor:focus svg,
+	h5 .anchor:focus svg,
+	h6 .anchor:focus svg {
+		visibility: visible;
+	}
+
+	img {
+		margin: 0 auto;
+		display: block;
+		max-width: 100%;
+
+		&[src$=".svg"] {
+			width: 100%;
+			max-height: 50vh;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 1.25em;
+		line-height: 1.5;
+		margin-bottom: 0;
+	}
+
+	h1 + h2,
+	h2 + h3,
+	h3 + h4,
+	h4 + h5,
+	h5 + h6 {
+		margin-top: 0.75em;
+	}
+
+	table tr:last-child th:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:first-child {
+		border-bottom-left-radius: 10px;
+	}
+
+	table tr:last-child td:last-child {
+		border-bottom-right-radius: 10px;
+	}
+
+	.table-container {
+		max-width: 100%;
+		overflow: auto;
+	}
+
+	table {
+		border: var(--cardOutlineStyle);
+		border-radius: var(--cardRadius);
+		border-collapse: collapse;
+		// Border-collapse and border-radius don't mix. This is a workaround for that issue
+		box-shadow: 0 0 0 1px var(--primary);
+		overflow: hidden;
+
+		@include until($endSmallScreenSize) {
+			ul {
+				padding: 0;
+				list-style: none;
+			}
+		}
+	}
+
+	tr,
+	td,
+	th {
+		border: var(--cardOutlineStyle);
+	}
+
+	td,
+	th {
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		@include until($endSmallScreenSize) {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+
+	iframe {
+		width: 100%;
+		min-height: 500px;
+		border: var(--cardOutlineStyle);
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	p > code {
+		display: inline;
+		padding: 0 0.4em;
+		font-size: 85%;
+		color: var(--black);
+		background-color: var(--codeInlineBackground);
+		border-radius: 4px;
+	}
+
+	details {
+		border: 2px solid var(--darkPrimary);
+		border-radius: 0.5rem;
+		margin-bottom: 1em;
+
+		summary {
+			padding: 0.5rem 1.5rem;
+			background: var(--darkPrimary);
+			color: var(--backgroundColor);
+			cursor: pointer;
+		}
+
+		summary ~ * {
+			margin-left: 1.5rem;
+			margin-right: 1.5rem;
+		}
+	}
+
+    kbd {
+        background-color: #eee;
+        border-radius: 3px;
+        border: 1px solid #b4b4b4;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+            0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+        color: #333;
+        display: inline-block;
+        font-size: 0.85em;
+        font-weight: 700;
+        line-height: 1;
+        padding: 2px 4px;
+        white-space: nowrap;
+    }
+    
+    blockquote {
+        position: relative;
+        margin-left: 1em;
+        color: var(--midImpactBlack);
+
+        &::before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--darkPrimary);
+            left: -1em;
+        }
+
+        /*a {
+        color: rgba(0, 10, 125, 0.6);
+    }*/
+    }
+
+    blockquote.bigBlock {
+        &,
+        & * {
+            font-size: 1.5rem;
+        }
+    }
+}

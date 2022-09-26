@@ -35,6 +35,14 @@
 	}
 }
 
+.toc-is-active {
+	font-weight: bold;
+
+	a {
+		color: var(--darkPrimary) !important;
+	}
+}
+
 .tocLi:global(.toc-is-active) {
 	border-color: var(--darkPrimary);
 
