@@ -1,4 +1,5 @@
 ---
+import styles from "./disqus.module.scss";
 import { siteMetadata } from "constants/site-config";
 
 interface DisqusProps {
@@ -9,8 +10,12 @@ interface DisqusProps {
 const { slug, title } = Astro.props as DisqusProps;
 ---
 
+<button class={`baseBtn ${styles.loadCommentsBtn}`} id="load-comments"
+	>Load comments</button
+>
 <div id="disqus_thread"></div>
 <script define:vars={{ slug, siteMetadata, title }}>
+	const loadComments = document.querySelector("#load-comments");
 	var disqus_config = function () {
 		this.page.url = `${siteMetadata.siteUrl}/posts/${slug}`;
 		this.page.title = title;
@@ -28,11 +33,12 @@ const { slug, title } = Astro.props as DisqusProps;
 		return s;
 	};
 
-	(function () {
+	loadComments.addEventListener("click", () => {
+		loadComments.style.display = "none";
 		let s = { current: loadDisqus() };
 		window.reloadDisqus = () => {
 			s.current.remove();
 			s.current = loadDisqus();
 		};
-	})();
+	});
 </script>
