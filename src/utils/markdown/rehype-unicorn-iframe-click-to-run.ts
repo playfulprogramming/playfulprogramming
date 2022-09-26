@@ -12,6 +12,9 @@ import { getLargestManifestIcon, Manifest } from "../get-largest-manifest-icon";
 
 interface RehypeUnicornIFrameClickToRunProps {}
 
+// "https://example.com": "https://example.com/favicon.ico"
+const ManifestIconMap = new Map<string, string>();
+
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
@@ -40,38 +43,44 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 					pageTitleString = titleEl.children[0].value;
 
-					// <link rel="manifest" href="/manifest.json">
-					const manifestPath = find(
-						srcHast,
-						(node) => node?.properties?.rel?.[0] === "manifest"
-					);
-
-					if (manifestPath) {
-						// `/manifest.json`
-						const manifestRelativeURL = manifestPath.properties.href;
-						const fullManifestURL = new URL(
-							manifestRelativeURL,
-							iframeNode.properties.src
-						).href;
-						const manifestReq = await fetch(fullManifestURL);
-						if (manifestReq.status === 200) {
-							const manifestContents = await manifestReq.text();
-							const manifestJSON: Manifest = JSON.parse(manifestContents);
-							const largestIcon = getLargestManifestIcon(manifestJSON);
-							iconLink = new URL(largestIcon.icon.src, iframeOrigin).href;
-						}
+					if (ManifestIconMap.has(iframeOrigin)) {
+						iconLink = ManifestIconMap.get(iframeOrigin);
 					} else {
-						// fetch `favicon.ico`
-						// <link rel="icon" type="image/png" href="https://example.com/img.png">
-						const favicon = find(
+						// <link rel="manifest" href="/manifest.json">
+						const manifestPath = find(
 							srcHast,
-							(node) => node?.properties?.rel?.[0] === "icon"
+							(node) => node?.properties?.rel?.[0] === "manifest"
 						);
-						if (favicon) {
-							iconLink = new URL(favicon.properties.href, iframeOrigin).href;
+
+						if (manifestPath) {
+							// `/manifest.json`
+							const manifestRelativeURL = manifestPath.properties.href;
+							const fullManifestURL = new URL(
+								manifestRelativeURL,
+								iframeNode.properties.src
+							).href;
+							const manifestReq = await fetch(fullManifestURL);
+							if (manifestReq.status === 200) {
+								const manifestContents = await manifestReq.text();
+								const manifestJSON: Manifest = JSON.parse(manifestContents);
+								const largestIcon = getLargestManifestIcon(manifestJSON);
+								iconLink = new URL(largestIcon.icon.src, iframeOrigin).href;
+							}
+						} else {
+							// fetch `favicon.ico`
+							// <link rel="icon" type="image/png" href="https://example.com/img.png">
+							const favicon = find(
+								srcHast,
+								(node) => node?.properties?.rel?.[0] === "icon"
+							);
+							if (favicon) {
+								iconLink = new URL(favicon.properties.href, iframeOrigin).href;
+							}
 						}
 					}
 				}
+
+				// TODO: `getPictures` on `iconLink` if present
 
 				const iframeReplacement = h(
 					"div",
