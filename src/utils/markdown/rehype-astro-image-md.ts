@@ -1,6 +1,7 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 
+import { h } from "hastscript";
 import { visit } from "unist-util-visit";
 
 import path from "path";
@@ -8,7 +9,7 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getImage } from "../../../node_modules/@astrojs/image";
+import { getPicture } from "../../../node_modules/@astrojs/image";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";
@@ -39,7 +40,7 @@ export const rehypeAstroImageMd: Plugin<
 		});
 
 		await Promise.all(
-			imgNodes.map(async (node) => {
+			imgNodes.map(async (node, i) => {
 				const slug = path.dirname(file.path).split(path.sep).at(-1);
 
 				const filePathDir = path.resolve(
@@ -69,13 +70,28 @@ export const rehypeAstroImageMd: Plugin<
 					dimensions.height = maxWidth * imgRatioHeight;
 				}
 
-				const imgProps = await getImage({
+				const pictureResult = await getPicture({
 					src: `/content/blog/${slug}/${node.properties.src}`,
-					height: dimensions.height,
-					width: dimensions.width,
+					widths: [dimensions.width],
+					formats: ["webp", "png"],
+					aspectRatio: imgRatioWidth,
 				});
 
-				node.properties.src = imgProps.src;
+				const sources = pictureResult.sources.map((attrs) => {
+					return h("source", attrs);
+				});
+
+				Object.assign(
+					node,
+					h("picture", [
+						...sources,
+						h("img", {
+							alt: node.properties.alt,
+							loading: "lazy",
+							decoding: "async",
+						}),
+					])
+				);
 			})
 		);
 	};
