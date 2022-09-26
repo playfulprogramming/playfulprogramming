@@ -27,8 +27,15 @@ export const UserProfilePic = ({
 						style={`border-color: ${unicorn.color};`}
 					>
 						<picture>
-							{imgAttrs.sources.map((attrs) => <source {...attrs} />)}
-							<img data-testid={`author-pic-${i}`} {...imgAttrs.image as any} alt={unicorn.name} class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`} />
+							{imgAttrs.sources.map((attrs) => (
+								<source {...attrs} />
+							))}
+							<img
+								data-testid={`author-pic-${i}`}
+								{...(imgAttrs.image as any)}
+								alt={unicorn.name}
+								class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
+							/>
 						</picture>
 					</div>
 				);

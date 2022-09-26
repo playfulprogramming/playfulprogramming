@@ -23,8 +23,15 @@ export const PostCard = ({
 	class: className = "",
 	unicornProfilePicMap,
 }: PostCardProps) => {
-	const { publishedMeta, slug, title, authorsMeta, tags, description, excerpt } =
-		post;
+	const {
+		publishedMeta,
+		slug,
+		title,
+		authorsMeta,
+		tags,
+		description,
+		excerpt,
+	} = post;
 
 	return (
 		<li class={`${cardStyles.card} ${className}`} role="listitem">
