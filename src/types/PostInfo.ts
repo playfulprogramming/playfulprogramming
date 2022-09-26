@@ -24,6 +24,8 @@ export interface PostInfo extends RawPostInfo {
 	Content: MarkdownInstance<never>["Content"];
 	authorsMeta: UnicornInfo[];
 	licenseMeta: LicenseInfo;
+	publishedMeta: string;
+	editedMeta?: string;
 	excerpt: string;
 	wordCount: number;
 	collectionSlug?: string | null;

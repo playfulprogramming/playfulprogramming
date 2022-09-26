@@ -2,14 +2,13 @@
 // TODO: Make user-profile-pic clickable again
 import cardStyles from "./post-card.module.scss";
 import { UserProfilePic } from "../user-profile-pic/user-profile-pic";
-import dayjs from "dayjs";
 import { PostInfo } from "types/PostInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 interface PostCardProps {
 	post: Pick<
 		PostInfo,
-		"published" | "slug" | "title" | "tags" | "description" | "excerpt"
+		"publishedMeta" | "slug" | "title" | "tags" | "description" | "excerpt"
 	> & {
 		authorsMeta: Array<
 			Pick<PostInfo["authorsMeta"][number], "id" | "color" | "name">
@@ -24,10 +23,8 @@ export const PostCard = ({
 	class: className = "",
 	unicornProfilePicMap,
 }: PostCardProps) => {
-	const { published, slug, title, authorsMeta, tags, description, excerpt } =
+	const { publishedMeta, slug, title, authorsMeta, tags, description, excerpt } =
 		post;
-
-	const publishedStr = dayjs(published).format("MMMM D, YYYY");
 
 	return (
 		<li class={`${cardStyles.card} ${className}`} role="listitem">
@@ -59,7 +56,7 @@ export const PostCard = ({
 					})}
 				</p>
 				<div class={cardStyles.dateTagSubheader}>
-					<p class={cardStyles.date}>{publishedStr}</p>
+					<p class={cardStyles.date}>{publishedMeta}</p>
 					{tags.map((tag) => (
 						<span class={cardStyles.tag}>{tag}</span>
 					))}

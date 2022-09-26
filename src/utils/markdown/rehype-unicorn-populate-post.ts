@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { readFileSync } from "fs";
 import * as path from "path";
 import { licenses, unicorns } from "../data";
+import dayjs from "dayjs";
 
 interface RehypeUnicornPopulatePostProps {}
 
@@ -68,11 +69,18 @@ export const rehypeUnicornPopulatePost: Plugin<
 		}
 		if (!license) license = null;
 
+		const publishedMeta = dayjs(frontmatter.published).format("MMMM D, YYYY");
+		const editedMeta = frontmatter.edited
+			? dayjs(frontmatter.edited).format("MMMM D, YYYY")
+			: undefined;
+
 		setData("slug", slug);
 		setData("locale", locale);
 		setData("authorsMeta", authorsMeta);
 		setData("licenseMeta", license);
 		setData("frontmatterBackup", frontmatter);
 		setData("contentMeta", content);
+		setData("publishedMeta", publishedMeta);
+		setData("editedMeta", editedMeta);
 	};
 };
