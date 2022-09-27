@@ -100,18 +100,23 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				}
 
 				if (iconLink) {
-					const { height: imgHeight, width: imgWidth } = await probe(iconLink);
-					const aspectRatio = imgHeight / imgWidth;
-					const result = await getPicture({
-						src: iconLink,
-						widths: [50],
-						formats: ["webp", "png"],
-						aspectRatio: aspectRatio,
-					});
+					try {
+						const { height: imgHeight, width: imgWidth } = await probe(
+							iconLink
+						);
+						const aspectRatio = imgHeight / imgWidth;
+						const result = await getPicture({
+							src: iconLink,
+							widths: [50],
+							formats: ["webp", "png"],
+							aspectRatio: aspectRatio,
+						});
 
-					iframePicture = { result, height: imgHeight, width: imgWidth };
+						iframePicture = { result, height: imgHeight, width: imgWidth };
 
-					ManifestIconMap.set(iframeOrigin, iframePicture);
+						ManifestIconMap.set(iframeOrigin, iframePicture);
+						// eslint-disable-next-line no-empty
+					} catch (_e) {}
 				}
 
 				// TODO: Add placeholder image
@@ -151,7 +156,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 							h("span", { class: "visually-hidden" }, ["An embedded webpage:"]),
 							pageTitleString,
 						]),
-						h("button", "Run embed"),
+						h("button", { class: "baseBtn iframe-replacement-button" }, [
+							"Run embed",
+						]),
 					]
 				);
 				Object.assign(iframeNode, iframeReplacement);
