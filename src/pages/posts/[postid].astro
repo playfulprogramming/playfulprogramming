@@ -20,6 +20,7 @@ import "../../styles/post-body.scss";
 import "../../styles/shiki.scss";
 import "../../styles/tabs.scss";
 import "../../styles/convertkit.scss";
+import "../../styles/iframe-replacement.scss";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");

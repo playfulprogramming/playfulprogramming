@@ -104,7 +104,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					const aspectRatio = imgHeight / imgWidth;
 					const result = await getPicture({
 						src: iconLink,
-						widths: [100],
+						widths: [50],
 						formats: ["webp", "png"],
 						aspectRatio: aspectRatio,
 					});
@@ -139,6 +139,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 							? h("picture", [
 									...sources,
 									h("img", {
+										...(iframePicture.result.image as never as object),
 										class: "iframe-replacement-icon",
 										alt: "",
 										loading: "lazy",
