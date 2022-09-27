@@ -7,19 +7,35 @@ import { EMBED_SIZE } from "./constants";
 import { h } from "hastscript";
 import { fromHtml } from "hast-util-from-html";
 import find from "unist-util-find";
-import { getFullRelativePath } from "../url-paths";
 import { getLargestManifestIcon, Manifest } from "../get-largest-manifest-icon";
+
+/**
+ * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
+ */
+import { getPicture } from "../../../node_modules/@astrojs/image";
+import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
+import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+// This does not download the whole file to get the file size
+import probe from "probe-image-size";
 
 interface RehypeUnicornIFrameClickToRunProps {}
 
-// "https://example.com": "https://example.com/favicon.ico"
-const ManifestIconMap = new Map<string, string>();
+const ManifestIconMap = new Map<
+	string,
+	{ result: GetPictureResult; height: number; width: number }
+>();
 
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
 > = () => {
+	// HACK: This is a hack that heavily relies on `getImage`'s internals :(
+	globalThis.astroImage = {
+		...(globalThis.astroImage || {}),
+		loader: sharp_service ?? globalThis.astroImage?.loader,
+	};
+
 	return async (tree, file) => {
 		const iframeNodes: any[] = [];
 		visit(tree, (node: any) => {
@@ -35,6 +51,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const req = await fetch(iframeNode.properties.src);
 				let pageTitleString: string | undefined;
 				let iconLink: string | undefined;
+				let iframePicture:
+					| ReturnType<typeof ManifestIconMap["get"]>
+					| undefined;
 				const iframeOrigin = new URL(iframeNode.properties.src).origin;
 				if (req.status === 200) {
 					const srcHTML = await req.text();
@@ -44,7 +63,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					pageTitleString = titleEl.children[0].value;
 
 					if (ManifestIconMap.has(iframeOrigin)) {
-						iconLink = ManifestIconMap.get(iframeOrigin);
+						iframePicture = ManifestIconMap.get(iframeOrigin);
 					} else {
 						// <link rel="manifest" href="/manifest.json">
 						const manifestPath = find(
@@ -80,7 +99,27 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					}
 				}
 
-				// TODO: `getPictures` on `iconLink` if present
+				if (iconLink) {
+					const { height: imgHeight, width: imgWidth } = await probe(iconLink);
+					const aspectRatio = imgHeight / imgWidth;
+					const result = await getPicture({
+						src: iconLink,
+						widths: [100],
+						formats: ["webp", "png"],
+						aspectRatio: aspectRatio,
+					});
+
+					iframePicture = { result, height: imgHeight, width: imgWidth };
+
+					ManifestIconMap.set(iframeOrigin, iframePicture);
+				}
+
+				// TODO: Add placeholder image
+				const sources =
+					iframePicture &&
+					iframePicture.result.sources.map((attrs) => {
+						return h("source", attrs);
+					});
 
 				const iframeReplacement = h(
 					"div",
@@ -88,14 +127,29 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						class: "iframe-replacement-container",
 						"data-iframeurl": iframeNode.properties.src,
 						"data-pagetitle": pageTitleString,
-						"data-pageicon": iconLink,
+						"data-pageicon": iframePicture
+							? JSON.stringify(iframePicture)
+							: undefined,
 						"data-width": width,
 						"data-height": height,
 						style: `height: ${height}px; width: ${width}px;`,
 					},
 					[
-						h("img", { src: iconLink }),
-						h("p", { class: "iframe-replacement-title" }, [pageTitleString]),
+						iframePicture
+							? h("picture", [
+									...sources,
+									h("img", {
+										class: "iframe-replacement-icon",
+										alt: "",
+										loading: "lazy",
+										decoding: "async",
+									}),
+							  ])
+							: null,
+						h("p", { class: "iframe-replacement-title" }, [
+							h("span", { class: "visually-hidden" }, ["An embedded webpage:"]),
+							pageTitleString,
+						]),
 						h("button", "Run embed"),
 					]
 				);
