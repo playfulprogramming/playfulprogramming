@@ -378,13 +378,13 @@ While `relative` positioning is one way that you can tell the browser to paint a
 
 3. Positioned elements with a negative `z-index`
 
-4. Non-positioned elements
+4. Non-positioned elements' `background`
 
 5. Elements with a `float` style applied without a `position` applied
 
 6. Non-positioned `inline` elements
 
-7. ???
+7. The text contents of non-positioned, non-floating elements, as well as a few other rules
 
 8. Positioned elements without a `z-index` applied, or with a `z-index` of `0`, as well as a few other rules
 
@@ -392,7 +392,7 @@ While `relative` positioning is one way that you can tell the browser to paint a
 
 10. Depending on your browser, [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline)s
 
-> While this includes [all of steps of painting order according to the CSS specification](https://www.w3.org/TR/CSS22/zindex.html), this is a non-comprehensive list in order to keep the list readable.
+> While this includes [all of steps of painting order according to the CSS specification](https://www.w3.org/TR/CSS22/zindex.html), those steps may have more sub-steps. Overall, this list is non-comprehensive in order to keep the list readable.
 
 So, if we have the following HTML:
 
@@ -563,11 +563,153 @@ Then it will show "Absolute" above "Opacity", thanks to the order of the HTML se
 
 If we remove the `opacity: 0.99` from the `"Opacity"` `div`, then `"Absolute`" will be on top.
 
+# Another Modal Stacking Context Example
+
+Let's take a look at what we've learned thus far.
+
+We know from the previous section that `position: relative` and a `z-index` greater than `1` should create a stacking context.
+
+Given this knowledge, what do we expect the following code to render?
+
+```html
+<header
+  class="container-box"
+  style="position: relative; z-index: 1; background: #007a70"
+>
+  Header
+</header>
+<footer
+  class="container-box"
+  style="position: relative; z-index: 2; background: #0f2cbd"
+>
+  Footer
+</footer>
+<style>
+.container-box {
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.25rem solid black;
+}
+</style>
+```
+
+No major suprises here; it renders a green-ish rectangle positioned atop a blue rectangle with the text of "Header" and "Footer" respectively.
+
+![Two rectangles shown in the same manner as described in the last sentence.](./header_footer_stacked_context.png)
+
+Now, let's say that we want to show a modal on top of the footer, to show the user information they might think is relevant.
+
+Now what do you think happens if we add in said modal using `position: absolute; z-index: 99` within the `<header>`?
+
+```html
+<header
+  class="container-box"
+  style="position: relative; z-index: 1; background: #007a70"
+>
+  Header
+  <div
+    id="modal"
+    class="container-box"
+    style="
+      position: absolute;
+      z-index: 99;
+      background: #007a70;
+      width: 100%;
+      box-sizing: border-box;
+      bottom: -3.75rem;
+      left: 0;
+    "
+  >
+    Modal in header
+  </div>
+</header>
+<footer
+  class="container-box"
+  style="position: relative; z-index: 2; background: #0f2cbd"
+>
+  Footer
+</footer>
+<style>
+.container-box {
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.25rem solid black;
+}
+</style>
+```
+
+You might be suprised to find that nothing changes - it seemingly doesn't show the modal anywhere, and instead shows the same two "Header" and "Footer" elements as before:
+
+![The same two rectangles as before](./header_footer_stacked_context.png)
+
+
+
+However, if we change the `footer` code to the following:
+
+```html
+<footer
+  class="container-box"
+  style="position: relative; z-index: 0; background: #0f2cbd"
+>
+  Footer
+</footer>
+```
+
+> The only thing we changed was `z-index` from `1` to `0`
+
+Then suddenly we see the modal above the `Footer` as expected:
+
+![Two green rectangles with "header" and "modal in the header" repectively](./header_footer_stacked_context_modal.png)
+
+> Why is this happenening?
+
+
+
+Well, this occurs because we create a stacking context inside of `header ` when we do `position: relative; z-index: 1`. This in turn places the containing `id="modal"` `div` inside of the stacking context of `header`.
+
+As a result, `id="modal"`'s `z-index` does not apply outside of the stacking context, and the group of elements under `header` is treated as `z-index: 1` from the perspective of the `footer`.
+
+Here's a diagram showing what I mean:
+
+![// TODO: Write alt](./css_stacking_context_level_1.svg)
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Stacking Stacking Contexts
+
+Let's take the previous example to an extreme of sorts.
+
+
+
+
+
+
+
+
+
+
 
 While the previous sections have been head scratchers, let's dive into mind melting territory: You can contain stacking contexts within other stacking contexts. 🤯
 
-// TODO: Write
+
+
+![// TODO: Write alt](./css_stacking_context_level_2.svg)
+
+
+
+
 
 
 
