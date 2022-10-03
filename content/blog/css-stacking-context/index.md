@@ -675,15 +675,9 @@ Here's a diagram showing what I mean:
 
 ![// TODO: Write alt](./css_stacking_context_level_1.svg)
 
+You'll see that both `<header>` and `<div id="modal">` are both contained within a box that's labeled `z-index: 1`. This is because they're both contained within the `header`'s stacking context.
 
-
-
-
-
-
-
-
-
+Even though `id="modal"` has a `z-index` of `99`, it's only applicable within the `header` stacking context, which means that it can never be placed above the `footer` element, which has a higher `z-index` of the `header` stacking context.
 
 
 
@@ -691,25 +685,77 @@ Here's a diagram showing what I mean:
 
 Let's take the previous example to an extreme of sorts.
 
+Let's say that we wanted our modal to have its own header, that allowed you to scroll through the contents of the modal while the header stayed at the top.
+
+```html
+<header
+  class="container-box"
+  style="position: relative; z-index: 1; background: #007a70"
+>
+  Header
+  <div
+    id="modal"
+    class="container-box"
+    style="
+      position: absolute;
+      z-index: 99;
+      background: #007a70;
+      width: 100%;
+      box-sizing: border-box;
+      top: 50%;
+      left: 0;
+      overflow: auto;
+      height: 10rem;
+      padding: 0;
+    "
+  >
+    <div
+      style="
+        background: #B92015;
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+      "
+      id="modal-title"
+    >
+      Modal Title
+    </div>
+    <div style="padding: 1rem; height: 10rem" id="modal-body">Modal in header</div>
+  </div>
+</header>
+<footer
+  class="container-box"
+  style="position: relative; z-index: 2; background: #0f2cbd"
+>
+  Footer
+</footer>
+```
 
 
+At first, it might look a bit odd since the footer is on top of the modal (for the reasons we outlined before).
+
+![// TODO: Write alt](./modal_footer_above.png)
+
+However, if we remove the footer temporarily, we can see a modal rendering on top of the header as expected:
+
+![// TODO: Write alt](./modal_no_footer.png)
 
 
+You might be wondering:
 
+> Why isn't the modal header above the footer? After all, `z-index` of `10` should beat a `z-index` of 2.
 
+This is again because of stacking contexts being created. In this case, not only does `header` create a stacking context, but `id="modal"` does as well! Because `modal-header` is inside of the `modal` stacking context, and `modal` is inside the `header` stacking context, it's still below the `footer`.
 
-
-
-
-While the previous sections have been head scratchers, let's dive into mind melting territory: You can contain stacking contexts within other stacking contexts. 🤯
-
-
+We can see what these stacking contexts look like here:
 
 ![// TODO: Write alt](./css_stacking_context_level_2.svg)
 
-
-
-
+That's right, you heard that right; You can contain stacking contexts within other stacking contexts. 🤯
 
 
 
