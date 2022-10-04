@@ -10,13 +10,13 @@
 }
 ---
 
-Dimensions are weird. While most web apps seem to focus on the `x` and `y` axis, representing a 2D plane that the user interacts with, there's actually a `z` axis that's often ignored. Some browsers, such as [Microsoft Edge, even provide a way to see a website blown up into a 3D view](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/3d-view/):
+Dimensions are weird. While most web apps seem to focus on the `x` and `y` axis, representing a 2D plane that the user interacts with, there's actually a `z`-axis that's often ignored. Some browsers, such as [Microsoft Edge, even provide a way to see a website blown up into a 3D view](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/3d-view/):
 
 ![A view of Google in Microsoft Edge's 3D View debugger mode](./google_3d_view.png)
 
-While this is cool, by introducing a third dimension to our webpages, we introduces the ability for elements to overlap with one another. Managing overlapping issues using CSS is _tricky_. 
+While this is cool, by introducing a third dimension to our web pages, we introduce the ability for elements to overlap with one another. Managing overlapping issues using CSS is _tricky_. 
 
-Sure, you have [`z-index`](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index), which many claim is an easy way to manage an element's `z` axis, but it seems so brittle and inconsistent!
+Sure, you have a [`z-index`](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index), which many claim is an easy way to manage an element's `z` axis, but it seems so brittle and inconsistent!
 
 > This article doesn't expect you to have pre-existing `z-index` knowledge. If you're being sent this article to learn how `z-index` works, you're in the right place.
 
@@ -24,9 +24,9 @@ For example, let's think about modals. Modals are UI elements that enable you to
 
 ![A box resting above other elements of Google Drive showing "New folder" with a "Create" and "Cancel" button](./example_dialog.png)
 
-[Despite some some UX headaches modals can introduce into an app](https://modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today. While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
+[Despite some UX headaches that modals can introduce into an app](https://modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today. While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
 
-Let's use some CSS and HTML in order to build a basic modal:
+Let's use some CSS and HTML to build a basic modal:
 
 ```html
 <div>
@@ -117,15 +117,15 @@ Well, my friends, the modal is rendering under the footer due to something calle
 
 While the concept of the "painting order" in the DOM is quite complex, here's the gist of it:
 
-Your browser is fed information from HTML and CSS in order to figure out what to show on screen. While we often think of this process as instantaneous, nothing in computer science truly is. 
+Your browser is fed information from HTML and CSS to figure out what to show on-screen. While we often think of this process as instantaneous, nothing in computer science truly is. 
 
 **This process of showing HTML and CSS on the screen is called "painting" or "drawing" the screen.**
 
 Painting contents on the screen might sound straightforward at first, but think about what that entails:
 
-Given every bit of HTML and CSS, figure out where they belong and display it.
+Given every bit of HTML and CSS, figure out where they belong and display them.
 
-There's a lot of naunce there; Nuance that's dictated by a strict set of rules.
+There are a lot of nuances there; Nuance that's dictated by a strict set of rules.
 
 While we'll take a look into the specific rules of painting in a moment, let's start by taking a look at the following code example:
 
@@ -173,7 +173,7 @@ While we'll take a look into the specific rules of painting in a moment, let's s
 </style>
 ```
 
-Here, we have three different boxes that overlap on one another. Given that they overlap, **which one do you think takes priority and, at least visually, is on top of the other boxes**?
+Here, we have three different boxes that overlap with one another. Given that they overlap, **which one do you think takes priority and, at least visually, is on top of the other boxes**?
 
 <br/>
 
@@ -233,7 +233,7 @@ OK, here it is:
 
 The reason these colored boxes are in the order they're in is thanks to their respective "paint order". The browser walked through its rules of "what order should I paint things in" and settled on this order.
 
-While some CSS pros might assume that purple is seemingly on the top is [due to order in which the CSS is laid out, just like other CSS rules](https://wattenberger.com/blog/css-cascade#position), this isn't what's happening here.
+While some CSS pros might assume that purple is seemingly on the top [due to the order in which the CSS is laid out, just like other CSS rules](https://wattenberger.com/blog/css-cascade#position), this isn't what's happening here.
 
 Notice how the purple box seemingly remains on "top" when we re-arrange the CSS rules:
 
@@ -265,7 +265,7 @@ Well...
 
 # Re-arrange HTML Elements to Change the Painting Order
 
-Let's take the HTML we had before, and re-arrange it a bit:
+Let's take the HTML we had before and re-arrange it a bit:
 
 ```html
 <div id="container">
@@ -275,7 +275,7 @@ Let's take the HTML we had before, and re-arrange it a bit:
 </div>
 ```
 
-Now if we look at the box order, we'll see...
+Now, if we look at the box order, we'll see...
 
 ![The box orders have flipped! Now, in order from top to bottom, it's: Blue, green, then purple.](./boxes_reverse_demo.png)
 
@@ -283,7 +283,7 @@ Now our boxes have reversed their height order! This is because one of the decid
 
 # Positioned Elements Behave Differently Than Non-Positioned Elements
 
-> This is where things get confusing. Take your time with this chapter, it's okay to have to re-read this section multiple times.
+> This is where things get confusing. Take your time with this chapter; it's okay to have to re-read this section multiple times.
 
 While we were using `absolute`ly positioned elements for a simple demo before, let's take a step back and change our elements to be positioned using `margin` instead:
 
@@ -345,7 +345,7 @@ Looks like a familiar output:
 
 
 
-While working on styling, we wanted our `green` box to move to the left when you hover over it. This is straightforward enough to do [using CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations), let's add it:
+While working on styling, we wanted our `green` box to move to the left when you hover over it. This is straightforward enough to do [using CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations); let's add it:
 
 ```css
 #green {
@@ -364,7 +364,7 @@ While our green button now smoothly moves left when you hover over it, there's a
 
 ![The same colored boxes but green appears to be on top](./boxes_green_top.png)
 
-This is because browsers paint positioned elements before non-positioned elements. This means that our `relative` positioned element is painted first, and seems to takes priority in the `z` layer over non-positioned elements.
+This is because browsers paint positioned elements before non-positioned elements. This means that our `relative` positioned element is painted first and seems to take priority in the `z` layer over non-positioned elements.
 
 # Understanding more rules of Painting Order
 
@@ -374,7 +374,7 @@ While `relative` positioning is one way that you can tell the browser to paint a
 
 2. The `background` of the [stacking context root element](#stacking-contexts)
 
-   > Come back to this at the end of the article, it won't make sense now.
+   > Come back to this at the end of the article; it won't make sense now.
 
 3. Positioned elements with a negative `z-index`
 
@@ -386,13 +386,13 @@ While `relative` positioning is one way that you can tell the browser to paint a
 
 7. The text contents of non-positioned, non-floating elements, as well as a few other rules
 
-8. Positioned elements without a `z-index` applied, or with a `z-index` of `0`, as well as a few other rules
+8. Positioned elements without a `z-index` applied or with a `z-index` of `0`, as well as a few other rules
 
-9. Elements with `z-index` of `1` or more
+9. Elements with a `z-index` of `1` or more
 
 10. Depending on your browser, [`outline`](https://developer.mozilla.org/en-US/docs/Web/CSS/outline)s
 
-> While this includes [all of steps of painting order according to the CSS specification](https://www.w3.org/TR/CSS22/zindex.html), those steps may have more sub-steps. Overall, this list is non-comprehensive in order to keep the list readable.
+> While this includes [all of the steps of painting order according to the CSS specification](https://www.w3.org/TR/CSS22/zindex.html), those steps may have more sub-steps. Overall, this list is non-comprehensive to keep the list readable.
 
 So, if we have the following HTML:
 
@@ -463,7 +463,7 @@ Unfortunately, it does.
 
 ----
 
-At its heart, a stacking context is a group that you can move multiple items up or down the `z` axis at the same time.
+At its heart, a stacking context is a group that you can move multiple items up or down the `z`-axis at the same time.
 
 Take the following HTML:
 
@@ -519,7 +519,7 @@ Now what order do you think they'll be in?
 - Lime
 - Cyan
 
-This is because, in reality, what we're ordering here is not the `box`es, but instead is the `top-container` and `bottom-container` `div`s, **then** the `box`es, like so:
+This is because, in reality, what we're ordering here is not the `box`es. Instead, what we are ordering is the `top-container` and `bottom-container` `div`s, **then** the `box`es, like so:
 
 - `top-container`
   - `slate`
@@ -528,16 +528,16 @@ This is because, in reality, what we're ordering here is not the `box`es, but in
   - `lime`
   - `cyan`
 
-The reason this only occurred when we added a `z-index` to `top-container` is because that's when a new stacking context was created. When that context was created, we raised it to a higher `z` axis due to the same ordering rules as before.
+This only occurred when we added a `z-index` to `top-container` because that's when a new stacking context was created. When that context was created, we raised it to a higher `z`-axis due to the same ordering rules as before.
 
-> Remember, a stacking context is a grouping of elements that move together as a collection when the parent's `z` axis location is changed.
+> Remember, a stacking context is a grouping of elements that move together as a collection when the parent's `z`-axis location is changed.
 
 Stacking Contexts are created when:
 
 - `z-index` is applied to a positioned element
 - `z-index` is applied to a child of a `grid` or `flex` element
 
-- Element with an [`opacity`](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity) less than `1` 
+- Element with an [`opacity`](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity) of less than `1` 
 - Element with any of the following properties:
   - [`transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform)
   - [`filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
@@ -546,7 +546,7 @@ Stacking Contexts are created when:
   - [`clip-path`](https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path)
   - [`mask`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask) / [`mask-image`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image) / [`mask-border`](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-border)
 
-> This list is non-exhaustive, but contains most of the highlights of when a stacking context is created.
+> This list is non-exhaustive but contains most of the highlights of when a stacking context is created.
 
 It's worth mentioning that if a stacking context is created, then the element that created said stacking context is treated with priority `z` axis ordering.
 
@@ -594,13 +594,13 @@ Given this knowledge, what do we expect the following code to render?
 </style>
 ```
 
-No major suprises here; it renders a green-ish rectangle positioned atop a blue rectangle with the text of "Header" and "Footer" respectively.
+No major surprises here; it renders a greenish rectangle positioned atop a blue rectangle with the text of "Header" and "Footer", respectively.
 
 ![Two rectangles shown in the same manner as described in the last sentence.](./header_footer_stacked_context.png)
 
-Now, let's say that we want to show a modal on top of the footer, to show the user information they might think is relevant.
+Now, let's say that we want to show a modal on top of the footer to show the user information they might think is relevant.
 
-Now what do you think happens if we add in said modal using `position: absolute; z-index: 99` within the `<header>`?
+Now, what do you think happens if we add in said modal using `position: absolute; z-index: 99` within the `<header>`?
 
 ```html
 <header
@@ -640,7 +640,7 @@ Now what do you think happens if we add in said modal using `position: absolute;
 </style>
 ```
 
-You might be suprised to find that nothing changes - it seemingly doesn't show the modal anywhere, and instead shows the same two "Header" and "Footer" elements as before:
+You might be surprised to find that nothing changes - it seemingly doesn't show the modal anywhere and instead shows the same two "Header" and "Footer" elements as before:
 
 ![The same two rectangles as before](./header_footer_stacked_context.png)
 
@@ -659,15 +659,15 @@ However, if we change the `footer` code to the following:
 
 > The only thing we changed was `z-index` from `1` to `0`
 
-Then suddenly we see the modal above the `Footer` as expected:
+Then suddenly, we see the modal above the `Footer` as expected:
 
 ![Two green rectangles with "header" and "modal in the header" repectively](./header_footer_stacked_context_modal.png)
 
-> Why is this happenening?
+> Why is this happening?
 
 
 
-Well, this occurs because we create a stacking context inside of `header ` when we do `position: relative; z-index: 1`. This in turn places the containing `id="modal"` `div` inside of the stacking context of `header`.
+Well, this occurs because we create a stacking context inside of `header ` when we do `position: relative; z-index: 1`. This, in turn, places the containing `id="modal"` `div` inside of the stacking context of `header`.
 
 As a result, `id="modal"`'s `z-index` does not apply outside of the stacking context, and the group of elements under `header` is treated as `z-index: 1` from the perspective of the `footer`.
 
@@ -685,7 +685,7 @@ Even though `id="modal"` has a `z-index` of `99`, it's only applicable within th
 
 Let's take the previous example to an extreme of sorts.
 
-Let's say that we wanted our modal to have its own header, that allowed you to scroll through the contents of the modal while the header stayed at the top.
+Let's say that we wanted our modal to have its own header that allowed you to scroll through the contents of the modal while the header stayed at the top.
 
 ```html
 <header
@@ -747,7 +747,7 @@ However, if we remove the footer temporarily, we can see a modal rendering on to
 
 You might be wondering:
 
-> Why isn't the modal header above the footer? After all, `z-index` of `10` should beat a `z-index` of 2.
+> Why isn't the modal header above the footer? After all, a `z-index` of `10` should beat a `z-index` of 2.
 
 This is again because of stacking contexts being created. In this case, not only does `header` create a stacking context, but `id="modal"` does as well! Because `modal-header` is inside of the `modal` stacking context, and `modal` is inside the `header` stacking context, it's still below the `footer`.
 
@@ -761,13 +761,13 @@ That's right; You can contain stacking contexts within other stacking contexts. 
 
 # The Problem with Stacking Contexts
 
-> So what's the problem here? If you control the HTML, you can simply move the `modal` out of the `header` and placed after `footer`. That'll make it overlap the footer and everything before, so long as it doesn't have a higher `z-index`, right?
+> So what's the problem here? If you control the HTML, you can simply move the `modal` out of the `header` and place it after `footer`. That'll make it overlap the footer and everything before, so long as it doesn't have a higher `z-index`, right?
 
 Well, that's true...
 
 > AHA!
 
-With a major caveat.
+... with a major caveat.
 
 In modern web development, it can be easier said than done to control exactly where HTML elements render.
 
