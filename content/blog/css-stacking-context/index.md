@@ -673,7 +673,7 @@ As a result, `id="modal"`'s `z-index` does not apply outside of the stacking con
 
 Here's a diagram showing what I mean:
 
-![// TODO: Write alt](./css_stacking_context_level_1.svg)
+![The header and the modal div are in the same stacking context with the z-index of 1](./css_stacking_context_level_1.svg)
 
 You'll see that both `<header>` and `<div id="modal">` are both contained within a box that's labeled `z-index: 1`. This is because they're both contained within the `header`'s stacking context.
 
@@ -738,11 +738,11 @@ Let's say that we wanted our modal to have its own header that allowed you to sc
 
 At first, it might look a bit odd since the footer is on top of the modal (for the reasons we outlined before).
 
-![// TODO: Write alt](./modal_footer_above.png)
+![The footer is visibly above the modal div](./modal_footer_above.png)
 
 However, if we remove the footer temporarily, we can see a modal rendering on top of the header as expected:
 
-![// TODO: Write alt](./modal_no_footer.png)
+![The modal is above the header](./modal_no_footer.png)
 
 
 You might be wondering:
@@ -753,7 +753,7 @@ This is again because of stacking contexts being created. In this case, not only
 
 We can see what these stacking contexts look like here:
 
-![// TODO: Write alt](./css_stacking_context_level_2.svg)
+![The header and all of its children is under a stacking context that has a z-index of 1. The footer is a z-index of 2](./css_stacking_context_level_2.svg)
 
 That's right; You can contain stacking contexts within other stacking contexts. 🤯
 
