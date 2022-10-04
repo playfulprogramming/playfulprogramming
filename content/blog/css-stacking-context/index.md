@@ -755,21 +755,99 @@ We can see what these stacking contexts look like here:
 
 ![// TODO: Write alt](./css_stacking_context_level_2.svg)
 
-That's right, you heard that right; You can contain stacking contexts within other stacking contexts. 🤯
+That's right; You can contain stacking contexts within other stacking contexts. 🤯
 
 
 
 # The Problem with Stacking Contexts
 
-// TODO: Explain that `z-index` cannot escape
+> So what's the problem here? If you control the HTML, you can simply move the `modal` out of the `header` and placed after `footer`. That'll make it overlap the footer and everything before, so long as it doesn't have a higher `z-index`, right?
 
+Well, that's true...
 
+> AHA!
 
-> If you want to learn more about the "stacking context", I'd suggest reading through the following resources:
+With a major caveat.
+
+In modern web development, it can be easier said than done to control exactly where HTML elements render.
+
+In particular, if you use a framework such as React, Angular, or Vue, your components might look something like this:
+
+```jsx
+<Header/>
+<Footer/>
+```
+
+Where `Header` is a component with the following:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const Header = () => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  return <>
+    <button onClick={() => setDialogOpen(true)}>Open dialog</button>
+    {isDialogOpen && <Dialog/>}
+  </>
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+	selector: 'Header',
+	standalone: true,
+	template: `
+		<button (click)="openDialog()">Open dialog</button>
+		<Dialog *ngIf="isDialogOpen"></Dialog>
+	`
+})
+class HeaderComponent {
+	isDialogOpen = false;
+	
+	openDialog() {
+	   this.isDialogOpen = true;
+	}
+}
+```
+
+## Vue
+
+```vue
+<!-- Header.vue -->
+<template>
+	<button @click="openDialog()">Open dialog</button>
+  <Dialog v-if="isDialogOpen"></Dialog>
+</template>
+
+<script setup>
+import {ref} from 'vue';
+  
+const isDialogOpen = ref(false);
+  
+function openDialog() {
+  isDialogOpen.value = true;
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+In this instance, [without moving the state out of dialog](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow), how would you render the contents of `Dialog` after the `Footer` component?
+
+The answer? JavaScript Portals.
+
+[React has `createPortal`](https://reactjs.org/docs/portals.html), [Angular has the CDK Portal API](https://material.angular.io/cdk/portal/overview), and [Vue has their `<Teleport>` component](https://vuejs.org/guide/built-ins/teleport.html).
+
+Want to learn more about how React, Angular, and Vue solve this problem? [Check out my upcoming book called "The Framework Field Guide", which teaches all three frameworks at the same time; Portals included.](https://framework.guide)
+
+> Want to learn more about the "stacking context", I'd suggest reading through the following resources:
 >
 > - [Stacking elements - CSS z-index and stacking context explained - NetGen](https://netgen.io/blog/stacking-elements-css-z-index-and-stacking-context-explained)
 > - [The stacking context - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)
 > - [What The Heck, z-index?? - Josh W Comeau](https://www.joshwcomeau.com/css/stacking-contexts/)
 > - [What No One Told You About Z-Index - Philip Walton](https://philipwalton.com/articles/what-no-one-told-you-about-z-index/)
 > - [Appendix E. Elaborate description of Stacking Contexts - W3C](https://www.w3.org/TR/CSS2/zindex.html)
-
