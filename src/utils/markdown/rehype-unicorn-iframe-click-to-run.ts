@@ -34,6 +34,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 	globalThis.astroImage = {
 		...(globalThis.astroImage || {}),
 		loader: sharp_service ?? globalThis.astroImage?.loader,
+		defaultLoader: sharp_service ?? globalThis.astroImage?.defaultLoader,
 	};
 
 	return async (tree, file) => {

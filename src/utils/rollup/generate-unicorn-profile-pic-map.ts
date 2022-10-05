@@ -28,6 +28,7 @@ function generateUnicornProfilePicMap(
 			globalThis.astroImage = {
 				...(globalThis.astroImage || {}),
 				loader: sharp_service ?? globalThis.astroImage?.loader,
+				defaultLoader: sharp_service ?? globalThis.astroImage?.defaultLoader,
 			};
 
 			/**

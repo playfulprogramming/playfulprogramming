@@ -31,6 +31,7 @@ export const rehypeAstroImageMd: Plugin<
 		globalThis.astroImage = {
 			...(globalThis.astroImage || {}),
 			loader: sharp_service ?? globalThis.astroImage?.loader,
+			defaultLoader: sharp_service ?? globalThis.astroImage?.defaultLoader,
 		};
 
 		const imgNodes: any[] = [];
