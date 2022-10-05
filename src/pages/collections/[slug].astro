@@ -7,7 +7,11 @@ import { getFullRelativePath } from "utils/url-paths";
 import styles from "../../page-components/collections/collections.module.scss";
 import SEO from "src/components/seo/seo.astro";
 // import "react-medium-image-zoom/dist/styles.css";
-import { fileURLToPath } from "url";
+import "../../styles/post-body.scss";
+import "../../styles/tabs.scss";
+import "../../styles/shiki.scss";
+import "../../styles/convertkit.scss";
+import Document from "src/layouts/document.astro";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -70,28 +74,20 @@ const { default: localCoverImgPath } = await import(
 const colorMode = "light";
 ---
 
-<SEO
-	title={collection.title}
-	description={collection.description}
-	unicornsData={collection.authors}
-	publishedTime={collection.published}
-	type={collection.type}
-	shareImage={collection.socialImg || coverImgPath}
-/>
-<div class={styles.mainContainer}>
-	<div class="listViewContent">
-		<div class={styles.topHeader}>
-			<div
-				class={`${styles.bigImageContainer} ${
-					colorMode === "light" ? styles.lightImage : styles.darkImage
-				}`}
-			>
-				<Picture alt="" src={localCoverImgPath} sizes={`600`} widths={[600]} />
-			</div>
-			<div class={styles.topDescContainer}>
-				<h1 class={styles.title}>{collection.title}</h1>
+<Document>
+	<SEO
+		title={collection.title}
+		description={collection.description}
+		unicornsData={collection.authors}
+		publishedTime={collection.published}
+		type={collection.type}
+		shareImage={collection.socialImg || coverImgPath}
+	/>
+	<div class={styles.mainContainer}>
+		<div class="listViewContent">
+			<div class={styles.topHeader}>
 				<div
-					class={`${styles.smallImageContainer} ${
+					class={`${styles.bigImageContainer} ${
 						colorMode === "light" ? styles.lightImage : styles.darkImage
 					}`}
 				>
@@ -102,54 +98,68 @@ const colorMode = "light";
 						widths={[600]}
 					/>
 				</div>
-				<p class={styles.description}>{collection.description}</p>
-				<div class={styles.buttonContainer}>
-					{
-						collection.buttons?.map((button) => {
-							return (
-								// <AnalyticsLink
-								// 	class={`baseBtn ${styles.collectionButton}`}
-								// 	key={button.url}
-								// 	category="outbound"
-								// 	href={button.url}
-								// >
-								<a
-									href={button.url}
-									class={`baseBtn ${styles.collectionButton}`}
-								>
-									{button.text}
-								</a>
-							);
-						})
-					}
+				<div class={styles.topDescContainer}>
+					<h1 class={styles.title}>{collection.title}</h1>
+					<div
+						class={`${styles.smallImageContainer} ${
+							colorMode === "light" ? styles.lightImage : styles.darkImage
+						}`}
+					>
+						<Picture
+							alt=""
+							src={localCoverImgPath}
+							sizes={`600`}
+							widths={[600]}
+						/>
+					</div>
+					<p class={styles.description}>{collection.description}</p>
+					<div class={styles.buttonContainer}>
+						{
+							collection.buttons?.map((button) => {
+								return (
+									// <AnalyticsLink
+									// 	class={`baseBtn ${styles.collectionButton}`}
+									// 	key={button.url}
+									// 	category="outbound"
+									// 	href={button.url}
+									// >
+									<a
+										href={button.url}
+										class={`baseBtn ${styles.collectionButton}`}
+									>
+										{button.text}
+									</a>
+								);
+							})
+						}
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- {
+			<!-- {
 			aboveMarkdownHTML && (
 				<div class={`post-body ${styles.markdownContainer}`}>
 					{aboveResult}
 				</div>
 			)
 		} -->
-	</div>
-	<div class={styles.stitchedAreaContainer}>
-		<div
-			class={`${styles.topBorderArea} ${
-				colorMode === "light" ? "" : styles.darkAreaBorder
-			}`}
-		>
 		</div>
-		<div class={styles.postsContainer}>
-			<div class={`listViewContent ${styles.postsInnerContainer}`}>
-				<h2 id="chapter-listing-heading" class={styles.chapterListingHeader}>
-					Chapter Listing:
-				</h2>
-				<ul
-					aria-describedby="chapter-listing-heading"
-					class={styles.collectionPostList}
-				>
-					<!-- {
+		<div class={styles.stitchedAreaContainer}>
+			<div
+				class={`${styles.topBorderArea} ${
+					colorMode === "light" ? "" : styles.darkAreaBorder
+				}`}
+			>
+			</div>
+			<div class={styles.postsContainer}>
+				<div class={`listViewContent ${styles.postsInnerContainer}`}>
+					<h2 id="chapter-listing-heading" class={styles.chapterListingHeader}>
+						Chapter Listing:
+					</h2>
+					<ul
+						aria-describedby="chapter-listing-heading"
+						class={styles.collectionPostList}
+					>
+						<!-- {
 						collection.posts.map((post) => {
 							return (
 								<li class={styles.postContainer}>
@@ -164,34 +174,35 @@ const colorMode = "light";
 							);
 						})
 					} -->
-					{
-						(collection.chapterList || []).map((post, i) => {
-							return (
-								<li class={styles.postContainer}>
-									<div class={styles.postLink}>
-										<div class={styles.orderContainer}>{post.order}</div>
-										<div>
-											<h3 class={`${styles.postTitle} ${styles.noLink}`}>
-												{post.title}
-											</h3>
-											<p class={styles.postDesc}>{post.description}</p>
+						{
+							(collection.chapterList || []).map((post, i) => {
+								return (
+									<li class={styles.postContainer}>
+										<div class={styles.postLink}>
+											<div class={styles.orderContainer}>{post.order}</div>
+											<div>
+												<h3 class={`${styles.postTitle} ${styles.noLink}`}>
+													{post.title}
+												</h3>
+												<p class={styles.postDesc}>{post.description}</p>
+											</div>
 										</div>
-									</div>
-								</li>
-							);
-						})
-					}
-				</ul>
+									</li>
+								);
+							})
+						}
+					</ul>
+				</div>
+			</div>
+			<div
+				class={`${styles.bottomBorderArea} ${
+					colorMode === "light" ? "" : styles.darkAreaBorder
+				}`}
+			>
 			</div>
 		</div>
-		<div
-			class={`${styles.bottomBorderArea} ${
-				colorMode === "light" ? "" : styles.darkAreaBorder
-			}`}
-		>
+		<div class={`post-body ${styles.markdownContainer}`}>
+			<Content />
 		</div>
 	</div>
-	<div class={`post-body ${styles.markdownContainer}`}>
-		<Content />
-	</div>
-</div>
+</Document>
