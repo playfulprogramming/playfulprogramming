@@ -3,7 +3,7 @@ import sizeOf from "image-size";
 
 const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
 
-export function getImageSize(src, dir) {
+export function getImageSize(src: string, dir: string) {
 	if (absolutePathRegex.exec(src)) {
 		return;
 	}

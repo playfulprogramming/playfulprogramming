@@ -12,13 +12,12 @@ import "../../styles/tabs.scss";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 import Document from "src/layouts/document.astro";
+import { getImageSize } from "../../utils/get-image-size";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
 		"../../../content/collections/**/index.md"
 	);
-
-	console.log(collections[0].frontmatter);
 
 	return collections.map((collection) => {
 		return {
@@ -61,14 +60,14 @@ const { slug } = collection;
 // });
 
 const coverImgPath = getFullRelativePath(
-	"/collections",
+	"/public/content/collections",
 	slug,
 	collection.coverImg
 );
 
-const { default: localCoverImgPath } = await import(
-	"../content/." + coverImgPath
-);
+const coverImgSize = getImageSize("." + coverImgPath, process.cwd());
+
+const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 
 // HACK: Remove
 const colorMode = "light";
@@ -97,7 +96,8 @@ const colorMode = "light";
 				>
 					<Picture
 						alt=""
-						src={localCoverImgPath}
+						src={coverImgPath}
+						aspectRatio={coverImgAspectRatio}
 						sizes={`600`}
 						widths={[600]}
 						loading="eager"
@@ -112,7 +112,8 @@ const colorMode = "light";
 					>
 						<Picture
 							alt=""
-							src={localCoverImgPath}
+							src={coverImgPath}
+							aspectRatio={coverImgAspectRatio}
 							sizes={`600`}
 							widths={[600]}
 							loading="eager"
