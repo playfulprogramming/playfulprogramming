@@ -2,9 +2,8 @@
 @import "../../styles/utils";
 @import "../../styles/text_styles";
 
-.mainContainer {
+.collectionsContainer {
   padding-bottom: 4rem;
-}
 
 .topHeader {
   display: flex;
@@ -72,10 +71,10 @@
 }
 
 .collectionButton {
-  border: var(--cardOutlineStyle);
+  border: var(--cardOutlineStyle) !important;
   @extend %button;
-  margin-right: 1rem;
-  padding: 0.5rem;
+  margin-right: 1rem !important;
+  padding: 0.5rem !important;
 }
 
 .stitchedAreaContainer {
@@ -83,30 +82,6 @@
   flex-direction: column;
   margin-top: 4rem;
   margin-bottom: 4rem;
-}
-
-.topBorderArea.darkAreaBorder {
-  background-image: url("/collections_top_border_dark.png");
-}
-.topBorderArea {
-  height: 1rem;
-  background-size: contain;
-  background-image: url("/collections_top_border_light.png");
-  background-repeat: repeat-x;
-  margin: 0;
-  padding: 0;
-}
-
-.bottomBorderArea.darkAreaBorder {
-  background-image: url("/collections_bottom_border_dark.png");
-}
-.bottomBorderArea {
-  height: 1rem;
-  background-size: contain;
-  background-image: url("/collections_bottom_border_light.png");
-  background-repeat: repeat-x;
-  margin: 0;
-  padding: 0;
 }
 
 .postsContainer {
@@ -175,15 +150,42 @@
   color: var(--darkPrimary);
   padding: 0 2rem;
 }
+}
 
-.lightImage {
+.collectionsContainer .topBorderArea {
+  height: 1rem;
+  background-size: contain;
+  background-image: url("/collections_top_border_light.png");
+  background-repeat: repeat-x;
+  margin: 0;
+  padding: 0;
+}
+
+.dark .collectionsContainer .topBorderArea {
+  background-image: url("/collections_top_border_dark.png");
+}
+
+.collectionsContainer .bottomBorderArea {
+  height: 1rem;
+  background-size: contain;
+  background-image: url("/collections_bottom_border_light.png");
+  background-repeat: repeat-x;
+  margin: 0;
+  padding: 0;
+}
+
+.dark .collectionsContainer .bottomBorderArea {
+  background-image: url("/collections_bottom_border_dark.png");
+}
+
+.collectionsContainer .themedImage {
   filter: drop-shadow(0 3px 4px rgba(21, 62, 103, 0.12))
     drop-shadow(0 3px 3px rgba(21, 62, 103, 0.14))
     drop-shadow(0 1px 8px rgba(21, 62, 103, 0.12))
     drop-shadow(0 -2px 2px rgba(21, 62, 103, 0.1));
 }
 
-.darkImage {
+.dark .collectionsContainer .themedImage {
   filter: drop-shadow(0 3px 4px rgba(228, 244, 255, 0.04))
   drop-shadow(0 3px 3px rgba(228, 244, 255, 0.05))
   drop-shadow(0 1px 8px rgba(228, 244, 255, 0.04))
