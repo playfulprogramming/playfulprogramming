@@ -43,11 +43,14 @@ export const rehypeAstroImageMd: Plugin<
 
 		await Promise.all(
 			imgNodes.map(async (node) => {
-				const slug = path.dirname(file.path).split(path.sep).at(-1);
+				const splitFilePath = path.dirname(file.path).split(path.sep);
+				const slug = splitFilePath.at(-1);
+				// "collections" | "blog"
+				const parentFolder = splitFilePath.at(-2);
 
 				const filePathDir = path.resolve(
 					__dirname,
-					"../../../public/content/blog",
+					`../../../public/content/${parentFolder}`,
 					slug
 				);
 

@@ -1,6 +1,7 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 import { getSuggestedArticles } from "../get-suggested-articles";
+import path from "path";
 
 interface RehypeUnicornGetSuggestedPostsProps {}
 
@@ -9,6 +10,12 @@ export const rehypeUnicornGetSuggestedPosts: Plugin<
 	Root
 > = () => {
 	return (_, file) => {
+		const splitFilePath = path.dirname(file.path).split(path.sep);
+		// "collections" | "blog"
+		const parentFolder = splitFilePath.at(-2);
+
+		if (parentFolder === "collections") return;
+
 		function setData(key: string, val: any) {
 			(file.data.astro as any).frontmatter[key] = val;
 		}
