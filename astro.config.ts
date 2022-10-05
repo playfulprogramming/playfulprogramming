@@ -27,10 +27,11 @@ import behead from "remark-behead";
 import rehypeRaw from "rehype-raw";
 
 import image from "@astrojs/image";
+import mdx from "@astrojs/mdx";
 import path from "path";
 
 export default defineConfig({
-	integrations: [image(), preact()],
+	integrations: [image(), preact(), mdx()],
 	vite: {
 		ssr: {
 			external: ["svgo"],
@@ -84,7 +85,7 @@ export default defineConfig({
 			rehypeUnicornPopulatePost,
 			rehypeUnicornGetSuggestedPosts,
 			// This is required to handle unsafe HTML embedded into Markdown
-			rehypeRaw,
+			[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
 			// Do not add the tabs before the slug. We rely on some of the heading
 			// logic in order to do some of the subheading logic
 			[

@@ -1,18 +1,15 @@
 ---
-// import { useRouter } from 'next/router'
-// import ErrorPage from 'next/error'
-import path from "path";
-import { Picture } from "@astrojs/image/components";
 import { getFullRelativePath } from "utils/url-paths";
-import styles from "../../page-components/collections/collections.scss";
 import SEO from "src/components/seo/seo.astro";
-// import "react-medium-image-zoom/dist/styles.css";
+import "../../page-components/collections/collections.scss";
 import "../../styles/post-body.scss";
 import "../../styles/tabs.scss";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
 import Document from "src/layouts/document.astro";
 import { getImageSize } from "../../utils/get-image-size";
+import CollectionHeaderDefault from "src/page-components/collections/collection-header-default.astro";
+import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -33,10 +30,6 @@ export async function getStaticPaths() {
 }
 
 interface CollectionProps {
-	markdownHTML: string;
-	aboveMarkdownHTML?: string;
-	slug: string;
-	collectionsDirectory: string;
 	collection: any;
 	Content: any;
 }
@@ -71,10 +64,6 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 ---
 
 <Document>
-	<script>
-		import { enableTabs } from "../../utils/markdown/scripts/tabs";
-		enableTabs();
-	</script>
 	<SEO
 		title={collection.title}
 		description={collection.description}
@@ -84,104 +73,12 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 		shareImage={collection.socialImg || coverImgPath}
 	/>
 	<div class="collectionsContainer">
-		<div class="listViewContent">
-			<div class="topHeader">
-				<div class="bigImageContainer themedImage">
-					<Picture
-						alt=""
-						src={coverImgPath}
-						aspectRatio={coverImgAspectRatio}
-						sizes={`600`}
-						widths={[600]}
-						loading="eager"
-					/>
-				</div>
-				<div class="topDescContainer">
-					<h1 class="title">{collection.title}</h1>
-					<div class="smallImageContainer themedImage">
-						<Picture
-							alt=""
-							src={coverImgPath}
-							aspectRatio={coverImgAspectRatio}
-							sizes={`600`}
-							widths={[600]}
-							loading="eager"
-						/>
-					</div>
-					<p class="description">{collection.description}</p>
-					<div class="buttonContainer">
-						{
-							collection.buttons?.map((button) => {
-								return (
-									// <AnalyticsLink
-									// 	class="baseBtn collectionButton"
-									// 	key={button.url}
-									// 	category="outbound"
-									// 	href={button.url}
-									// >
-									<a href={button.url} class="baseBtn collectionButton">
-										{button.text}
-									</a>
-								);
-							})
-						}
-					</div>
-				</div>
-			</div>
-			<!-- {
-			aboveMarkdownHTML && (
-				<div class="post-body markdownContainer">
-					{aboveResult}
-				</div>
-			)
-		} -->
-		</div>
-		<div class="stitchedAreaContainer">
-			<div class="topBorderArea"></div>
-			<div class="postsContainer">
-				<div class="listViewContent postsInnerContainer">
-					<h2 id="chapter-listing-heading" class="chapterListingHeader">
-						Chapter Listing:
-					</h2>
-					<ul
-						aria-describedby="chapter-listing-heading"
-						class="collectionPostList"
-					>
-						<!-- {
-						collection.posts.map((post) => {
-							return (
-								<li class="postContainer">
-										<a href={"/posts/" + post.slug} class="postLink">
-											<div class="orderContainer">{post.order}</div>
-											<div>
-												<h3 class="postTitle">{post.title}</h3>
-												<p class="postDesc">{post.description}</p>
-											</div>
-										</a>
-								</li>
-							);
-						})
-					} -->
-						{
-							(collection.chapterList || []).map((post, i) => {
-								return (
-									<li class="postContainer">
-										<div class="postLink">
-											<div class="orderContainer">{post.order}</div>
-											<div>
-												<h3 class="postTitle noLink">{post.title}</h3>
-												<p class="postDesc">{post.description}</p>
-											</div>
-										</div>
-									</li>
-								);
-							})
-						}
-					</ul>
-				</div>
-			</div>
-			<div class="bottomBorderArea"></div>
-		</div>
+		<CollectionHeaderDefault
+			coverImgPath={coverImgPath}
+			coverImgAspectRatio={coverImgAspectRatio}
+			collection={collection}
+		/>
+		<CollectionTableOfContents collection={collection} />
 		<div class="post-body markdownContainer">
 			<Content />
 		</div>

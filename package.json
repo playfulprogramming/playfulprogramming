@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.9.1",
+		"@astrojs/mdx": "^0.11.4",
 		"@astrojs/preact": "^1.1.1",
 		"@remark-embedder/core": "^3.0.1",
 		"@remark-embedder/transformer-oembed": "^3.0.0",

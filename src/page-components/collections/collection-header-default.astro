@@ -1,0 +1,62 @@
+---
+import { Picture } from "@astrojs/image/components";
+
+interface CollectionHeaderDefaultProps {
+	coverImgPath: string;
+	coverImgAspectRatio: number;
+	collection: {
+		title: string;
+		description: string;
+		buttons: Array<{ url: string; text: string }>;
+	};
+}
+
+const { coverImgPath, coverImgAspectRatio, collection } =
+	Astro.props as CollectionHeaderDefaultProps;
+---
+
+<div class="listViewContent">
+	<div class="topHeader">
+		<div class="bigImageContainer themedImage">
+			<Picture
+				alt=""
+				src={coverImgPath}
+				aspectRatio={coverImgAspectRatio}
+				sizes={`600`}
+				widths={[600]}
+				loading="eager"
+			/>
+		</div>
+		<div class="topDescContainer">
+			<h1 class="title">{collection.title}</h1>
+			<div class="smallImageContainer themedImage">
+				<Picture
+					alt=""
+					src={coverImgPath}
+					aspectRatio={coverImgAspectRatio}
+					sizes={`600`}
+					widths={[600]}
+					loading="eager"
+				/>
+			</div>
+			<p class="description">{collection.description}</p>
+			<div class="buttonContainer">
+				{
+					collection.buttons?.map((button) => {
+						return (
+							// <AnalyticsLink
+							// 	class="baseBtn collectionButton"
+							// 	key={button.url}
+							// 	category="outbound"
+							// 	href={button.url}
+							// >
+							<a href={button.url} class="baseBtn collectionButton">
+								{button.text}
+							</a>
+						);
+					})
+				}
+			</div>
+		</div>
+	</div>
+</div>
