@@ -64,7 +64,7 @@ export const rehypeAstroImageMd: Plugin<
 				if (!dimensions.height || !dimensions.width) return;
 
 				const src = getFullRelativePath(
-					`/content/blog/${slug}/`,
+					`/content/${parentFolder}/${slug}/`,
 					node.properties.src
 				);
 
