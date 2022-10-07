@@ -65,6 +65,20 @@ export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 			SourceNode: number;
 		};
 
+		/**
+		 * Boy oh howdy, if you thought counting words was hard with Markdown...
+		 *
+		 * Let's put it this way;
+		 *
+		 * None of our blog posts use MDX, so it doesn't matter.
+		 *
+		 * Plus, there's weird syntax parsing issues.
+		 */
+		if (file.path.includes(".mdx")) {
+			(file.data.astro as any).frontmatter.wordCount = 0;
+			return;
+		}
+
 		await unified()
 			.use(rehypeRetext, unified().use(english).use(count(counts)))
 			.run(tree);
