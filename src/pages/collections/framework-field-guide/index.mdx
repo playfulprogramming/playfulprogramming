@@ -12,6 +12,7 @@
 }
 ---
 
+import styles from './index.module.scss';
 import CollectionHeaderDefault from '../../../page-components/collections/collection-header-default.astro';
 import CollectionTableOfContents from '../../../page-components/collections/collection-table-of-contents.astro';
 import MailingListInline from '../../../components/mailing-list/mailing-list-inline.astro';
@@ -70,6 +71,8 @@ export const chapterList = [
 
 <CollectionHeaderDefault coverImgPath={import('../public/custom-content/collections/framework-field-guide/cover.png')} collection={frontmatter}/>
 
+<div class="post-body markdownContainer">
+
 <div style="display: flex; flex-wrap: nowrap;">
 <div>
 
@@ -86,27 +89,31 @@ Don't want to learn all three? **That's okay.** You can easily select a single f
 </div>
 
 <div class="hide-for-mobile hide-on-dark">
-<Picture src={import('./hiker_with_bag.png')} widths={[230]} formats={['webp', 'png']} alt="" />
+<Picture src={import('./hiker_with_bag.png')} class={styles.hikerPic} widths={[230]} formats={['webp', 'png']} alt="" />
 </div>
 
 
 <div class="hide-for-mobile show-on-dark">
-<Picture src={import('./hiker_with_bag_dark.png')} widths={[230]} formats={['webp', 'png']} alt="" />
+<Picture src={import('./hiker_with_bag_dark.png')} class={styles.hikerPic} widths={[230]} formats={['webp', 'png']} alt="" />
 </div>
 
 
 </div>
+</div>
+
 
 <CollectionTableOfContents collection={{...frontmatter, chapterList}}/>
 
+<div class="post-body markdownContainer">
+
 <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap">
 	<div style="margin: 1rem; width: 128px; flex-shrink: 0;">
-		<Picture src={import('./crutchcorn.png')} widths={[128]} formats={['webp', 'png']} alt="" />
+		<Picture class={styles.authorPic} src={import('./crutchcorn.png')} widths={[128]} formats={['webp', 'png']} alt="" />
 	</div>
-	<p style="width: 1px; flex-grow: 1; flex-shrink: 1; min-width: 350px; font-weight: bold;">
+	<div style="width: 1px; flex-grow: 1; flex-shrink: 1; min-width: 350px; font-weight: bold;">
 		Hi! I'm <a href="https://crutchcorn.dev">Corbin Crutchley</a>, the author of
 		"The Framework Field Guide" - the outline of which you're looking at!
-	</p>
+	</div>
 </div>
 
 The Framework Field Guide will be available **for free** online alongside paid physical edition and will teach React, Angular, and Vue all at the same time.
@@ -144,3 +151,7 @@ or sign up to be notified via email when the book releases.
 <MailingListInline/>
 
 > I promise you won't get spammed with emails if you sign up for notifications. Again, the book is free and we will never share or sell your email with anyone.
+
+</div>
+
+Test
