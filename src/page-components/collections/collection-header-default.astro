@@ -2,8 +2,8 @@
 import { Picture } from "@astrojs/image/components";
 
 interface CollectionHeaderDefaultProps {
-	coverImgPath: string;
-	coverImgAspectRatio: number;
+	coverImgPath: string | Promise<{default: {src: string, height: number, width: number, format: string}}>;
+	coverImgAspectRatio?: number;
 	collection: {
 		title: string;
 		description: string;
@@ -11,8 +11,15 @@ interface CollectionHeaderDefaultProps {
 	};
 }
 
-const { coverImgPath, coverImgAspectRatio, collection } =
+let { coverImgPath, coverImgAspectRatio, collection } =
 	Astro.props as CollectionHeaderDefaultProps;
+
+// dynamic import of `coverImgPath`
+if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
+	const coverImgData = await coverImgPath;
+	coverImgPath = coverImgData.default.src
+	coverImgAspectRatio = coverImgData.default.width / coverImgData.default.height ;
+}
 ---
 
 <div class="listViewContent">

@@ -1,12 +1,24 @@
 ---
 import Document from "./document.astro";
+import SEO from "components/seo/seo.astro";
 import "../page-components/collections/collections.scss";
 import "../styles/post-body.scss";
-import "../styles/tabs.scss";
 import "../styles/shiki.scss";
 import "../styles/convertkit.scss";
+
+const {frontmatter} = Astro.props;
 ---
 
-<Document>
+<Document>  
+    <div class="collectionsContainer">
+	<SEO
+        title={frontmatter.title}
+        description={frontmatter.description}
+        unicornsData={frontmatter.authorsMeta}
+        publishedTime={frontmatter.published}
+        type={frontmatter.type}
+        shareImage={frontmatter.socialImg || frontmatter.coverImgPath}
+    />
 	<slot />
+    </div>
 </Document>

@@ -4,8 +4,8 @@
   associatedSeries: "Framework Field Guide",
   description: "A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
   authors: ["crutchcorn"],
-  coverImg: "./cover.png",
-  socialImg: "/framework_field_guide_social.png",
+  coverImg: "/custom-content/collections/framework-field-guide/cover.png",
+  socialImg: "/custom-content/collections/framework-field-guide/framework_field_guide_social.png",
   type: "book",
   published: "2023-01-01T13:45:00.284Z",
   layout: "../../../layouts/collections-mdx.astro",
@@ -14,6 +14,8 @@
 
 import CollectionHeaderDefault from '../../../page-components/collections/collection-header-default.astro';
 import CollectionTableOfContents from '../../../page-components/collections/collection-table-of-contents.astro';
+import MailingListInline from '../../../components/mailing-list/mailing-list-inline.astro';
+import {Picture} from '@astrojs/image/components';
 
 export const buttons = [
 	{
@@ -66,7 +68,7 @@ export const chapterList = [
 	},
 ];
 
-<CollectionHeaderDefault coverImgPath="/ffg-cover.png" coverImgAspectRatio={1} collection={frontmatter}/>
+<CollectionHeaderDefault coverImgPath={import('../public/custom-content/collections/framework-field-guide/cover.png')} collection={frontmatter}/>
 
 <div style="display: flex; flex-wrap: nowrap;">
 <div>
@@ -84,12 +86,12 @@ Don't want to learn all three? **That's okay.** You can easily select a single f
 </div>
 
 <div class="hide-for-mobile hide-on-dark">
-<img src="./hiker_with_bag.png" height="100%" alt="" data-nozoom="true" />
+<Picture src={import('./hiker_with_bag.png')} widths={[230]} formats={['webp', 'png']} alt="" />
 </div>
 
 
 <div class="hide-for-mobile show-on-dark">
-<img src="./hiker_with_bag_dark.png" height="100%" alt="" data-nozoom="true" />
+<Picture src={import('./hiker_with_bag_dark.png')} widths={[230]} formats={['webp', 'png']} alt="" />
 </div>
 
 
@@ -99,7 +101,7 @@ Don't want to learn all three? **That's okay.** You can easily select a single f
 
 <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap">
 	<div style="margin: 1rem; width: 128px; flex-shrink: 0;">
-		<img src="./crutchcorn.png" alt="" data-nozoom="true" />
+		<Picture src={import('./crutchcorn.png')} widths={[128]} formats={['webp', 'png']} alt="" />
 	</div>
 	<p style="width: 1px; flex-grow: 1; flex-shrink: 1; min-width: 350px; font-weight: bold;">
 		Hi! I'm <a href="https://crutchcorn.dev">Corbin Crutchley</a>, the author of
@@ -139,64 +141,6 @@ while it's being worked on, feel free to [reach out to me on Twitter](https://tw
 Otherwise, if you want to be notified when the book releases, you can [join our Discord](https://discord.com/invite/FMcvc6T)
 or sign up to be notified via email when the book releases.
 
-<form
-	action="https://app.convertkit.com/forms/1254394/subscriptions"
-	class="seva-form formkit-form"
-	method="post"
-	style="border: none;"
-	data-sv-form="1254394"
-	data-uid="882d42bb6f"
-	data-format="inline"
-	data-version="5"
-	data-options='{"settings":{"after_subscribe":{"action":"redirect","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":"https://unicorn-utterances.com/confirm"},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":"https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"hide","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
-	min-width="400 500 600 700 800"
->
-	<div data-style="clean">
-		<ul
-			class="formkit-alert formkit-alert-error"
-			data-element="errors"
-			data-group="alert"
-		></ul>
-		<div
-			data-element="fields"
-			data-stacked="false"
-			class="seva-fields formkit-fields"
-		>
-			<div class="formkit-field">
-				<input
-					class="formkit-input"
-					aria-label="Your first name"
-					style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400;"
-					name="fields[first_name]"
-					placeholder="Your first name"
-					type="text"
-				/>
-			</div>
-			<div class="formkit-field">
-				<input
-					class="formkit-input"
-					name="email_address"
-					style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400;"
-					aria-label="Your email address"
-					placeholder="Your email address"
-					required=""
-					type="email"
-				/>
-			</div>
-			<button
-				data-element="submit"
-				class="formkit-submit formkit-submit"
-				style="color: rgb(255, 255, 255); background-color: rgb(18, 125, 179); border-radius: 4px; font-weight: 400;"
-			>
-				<div class="formkit-spinner">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-				<span class="">Notify Me</span>
-			</button>
-		</div>
-	</div>
-</form>
+<MailingListInline/>
 
 > I promise you won't get spammed with emails if you sign up for notifications. Again, the book is free and we will never share or sell your email with anyone.

@@ -7,7 +7,7 @@ import PostTitleHeader from "src/page-components/blog-post/post-title-header/pos
 import PostMetadata from "src/page-components/blog-post/post-metadata/post-metadata.astro";
 import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
 import TableOfContents from "components/table-of-contents/table-of-contents.astro";
-import MailingList from "components/mailing-list/mailing-list.astro";
+import MailingListFull from "components/mailing-list/mailing-list-full.astro";
 import Disqus from "components/disqus/disqus.astro";
 import { Icon } from "astro-icon";
 
@@ -123,7 +123,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMet
 					/>
 				</a>
 			</div>
-			<MailingList />
+			<MailingListFull />
 			<div class="postBottom">
 				<div class="btnLike prependIcon">
 					<Icon height="36" width="36" name="message" />
