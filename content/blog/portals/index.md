@@ -11,115 +11,13 @@
 }
 ---
 
-[Despite some some UX headaches modals can introduce into an app](modalzmodalzmodalz.com/), they're still a widely used UI element in many applications today.
 
-While building sufficiently useful modals can be a challenging task, a rudimentary modal can be completed even without JavaScript.
-
-Let's use some CSS and HTML in order to build a basic modal:
-
-```html
-<div>
-  <div id="body">
-    <p>This is some text, pretend it's an app back here</p>
-  </div>
-  <div id="modal-container">
-    <div id="modal">This is a modal</div>
-  </div>
-</div>
-
-<style>
-#modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-#modal {
-  background: white;
-  border: 1px solid black;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-</style>
-```
-
-![A modal that's focused in the foreground, with a semi-transparent black background that dims all other elements](./initial_modal.png)
-
-Tada! 🎉 Now we have a fairly basic modal to display whatever HTML we want inside.
-
-But let's say that we keep building out the page. As we do, we might, for example, want to have a `footer` beneath our main page's content.
-
-```html
-<template>
-  <div id="body" style="min-height: 50vh">
-    <p>This is some text, pretend it's an app back here</p>
-  </div>
-  <div id="modal-container">
-    <div id="modal">This is a modal</div>
-  </div>
-  <footer style="min-height: 50vh">App Name</footer>
-</template>
-
-<style>
-#modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-#modal {
-  background: white;
-  border: 1px solid black;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-footer {
-  position: relative;
-  background: lightblue;
-  padding: 1rem;
-}
-</style>
-```
-
-At first glance, this might look like it's been successful, but let's take a look at the rendered output:
-
-![The footer is on top of the modal, instead of beneath it](./partially_hidden_modal.png)
-
-Oh dear! Why is the footer rendered above the modal?
-
-Well, my friends, the modal is rendering under the footer due to something called "The Stacking Context".
-
-# What is the stacking context?
-
-// TODO: Write
 
 # What is a JavaScript portals?
 
+> What does any of that CSS stuff have to do with my JavaScript?!
 
-// TODO: Write
-
-Z-index example
-
-
-
-https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
-
-https://www.joshwcomeau.com/css/stacking-contexts/
-
-https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+First: Tone. Second: Everything.
 
 
 
