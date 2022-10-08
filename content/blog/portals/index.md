@@ -619,7 +619,7 @@ But wait... Now when we render the app and open our dialog it looks like it's _u
 Why is that? After all, `Modal` has a `z-index` of `99`, while `Footer` only has a `z-index` of `2`!
 
 
-Why is this happening? While the long answer of "why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
+While the long answer of "why is the modal rendering under the footer in this example" includes a mention of [stacking contexts](https://unicorn-utterances.com/posts/css-stacking-context), the short answer is ["A higher `z-index` number doesn't always guarantee that your element is always on the top."](https://unicorn-utterances.com/posts/css-stacking-context)
 
 > While both of those links lead to the same place, I worry that this might still be too subtle of a hint to [**go read the article I wrote that explains exactly why this `z-index` behavior occurs.**](https://unicorn-utterances.com/posts/css-stacking-context)
 
@@ -633,11 +633,45 @@ Introducing: Portals.
 
 
 
-# What is a JavaScript portal?
+# What is a JavaScript Portal?
 
-> What does any of that CSS stuff have to do with my JavaScript?!
+The basic idea behind a JavaScript Portal builds on top of [the concepts of components we introduced in our first chapter](/posts/intro-to-components).
 
-First: Tone. Second: Everything.
+Imagine you have a set of components that represent the small app we just built:
+
+
+
+![// TODO: Add alt](./mini_app_chart.svg)
+
+
+
+In this component layout, the `Modal` was showing under the `Footer` component. The reason this was happening is because the `Modal` is trapped under a ["CSS Stacking Context"](https://unicorn-utterances.com/posts/css-stacking-context).
+
+Let's simplify the chart and see what I mean; 
+
+
+
+
+
+![// TODO: Write alt](./simplified_app_chart.svg)
+
+Here, we can see that despite `Modal` being assigned a `z-index` of `99`, it's trapped under the `Header`, which is a `z-index` of `1`. The `Modal` cannot escape this encapsulated `z-index` painting order, and as a result, `Footer` shows up on top.
+
+Ideally, to solve this problem, we'd want to move `Modal` to be in our HTML after the `Footer`, like so: 
+
+
+
+
+
+![// TODO: Write alt](./how_to_flatten_css_stacking_contexts.svg)
+
+But how can we do this without moving the `Modal` component outside of the `Header` component?
+
+This is where JavaScript portals come into play. **Portals allow you to render the HTML for a component in a different location of the DOM tree than the location of our component tree**.
+
+This is to say that your framework components will be laid out like the tree on the left, but will render out like the flat structure on the right.
+
+Without further ado, let's take a look at how we can build these portals ourselves.
 
 
 
