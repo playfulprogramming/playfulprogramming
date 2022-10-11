@@ -108,7 +108,7 @@
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "@types/webpack-env": "^1.17.0",
-    "@xmldom/xmldom": "^0.8.2",
+    "@xmldom/xmldom": "^0.8.3",
     "babel-jest": "^28.1.2",
     "babel-plugin-transform-require-context": "^0.1.1",
     "chokidar": "^3.5.3",
