@@ -854,13 +854,23 @@ Let's move on to application-wide portals, where the story starts to make more s
 
 # Application-Wide Portals
 
-// TODO: Write this
+In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/element-reference) to be set to a variable. This tells us where we should render our portal's contents into.
+
+While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping stacking contexts.
+
+If there was a way that we could provide a variable to all of the application's components, then we could have a way to solve the stacking context problem within our apps...
+
+> But wait, Corbin, there _is_ a way we can provide all a variable to the rest of our app! We learned how to do that using [dependency injection from the root of the app!](/posts/dependency-injection)
+
+Good call, keen reader! Let's do that.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Write this
+If we remember [our dependency injection chapter, React uses a `context` to provide and consume data using dependency injection](/posts/dependency-injection).
+
+We can pair this with our `createPortal` API to easily keep track of where we want to provide a portal:
 
 ```jsx
 import React, { useState, createContext, useContext } from 'react';
@@ -892,11 +902,9 @@ export default function App() {
 }
 ```
 
-
-
 ## Angular
 
-We can use a basic service to share our instance of a `Portal` between multiple components, parent and child alike.
+In Angular, we can use a basic service to share our instance of a `Portal` between multiple components, parent and child alike.
 
 ```typescript
 import { Portal, PortalModule, TemplatePortal } from '@angular/cdk/portal';
@@ -953,13 +961,15 @@ class AppComponent {
 }
 ```
 
+We then `inject` that value to provide data into it and read from it in any related components.
 
-
-
+We're also making sure that our portal exists before rending it in our `AppComponent` using `*ngIf="portalService.portal"`.
 
 ## Vue
 
-```
+Once again Vue's simplicity is visible through the pairing of its `provide` API, which hosts a variable of the location to present portals into, and its `Teleport` API which enables the portal's usage.
+
+```vue
 <!-- App.vue -->
 <script setup>
 import { ref, provide } from 'vue'
@@ -977,17 +987,69 @@ provide('portalContainerEl', portalContainerEl)
 </template>
 ```
 
+```vue
+<!-- Child.vue -->
+<script setup>
+import { inject } from 'vue'
 
+const portalContainerEl = inject('portalContainerEl')
+</script>
+
+<template>
+  <div v-if="portalContainerEl">
+    <Teleport :to="portalContainerEl">Hello, world!</Teleport>
+  </div>
+</template>
+```
 
 <!-- tabs:end -->
 
-// TODO: Write this
-
-
+Now our portals should be able to render over all the other content we draw within our apps!
 
 # HTML-Wide Portals
 
-// TODO: Write
+If you only use React, Angular, or Vue in your apps, you can fairly safely use application-wide portals without any major hiccups... But most applications don't _just_ use React, Angular, or Vue.
+
+Consider the following scenario:
+
+You're tasked with implementing a chat overlay system on your marketing website; something to help users when they get stuck in a pinch get in touch with a customer support rep.
+
+They want the UI to look something like this:
+
+![// TODO: Write alt](./files_app_chat_demo.png)
+
+While you could build this out yourself, it's often costly to do so. Not only do you have to build out your own chat UI, but the backend login system for your customer reps to use, the server communciation between them, and more.
+
+Luckily for you, it just so happens that there a service called "UnicornChat" that solves this exact problem!
+
+> UnicornChat doesn't exist, but many other services exist like it. Any reference you see to "UnicornChat" in this article is purely fictional, but based on real companies that exist to solve this problem. The APIs I'll demonstrate are often very similar to what these companies really offer.
+
+UnicornChat integrates with your app by adding in a `script` tag to your HTML's `head` tag:
+
+```html
+<!-- This is an example and does not really work -->
+<script src="https://example.com/unicorn-chat.min.js"></script>
+```
+
+It handles everything else for you! It will add a button to the end of your `<body>` tag, like so:
+
+```html
+<body>
+<div id="app"><!-- Your React app here --></div>
+<div id="unicorn-chat-contents"><!-- UnicornChat UI here --></div>
+</body>
+```
+
+This is awesome and solved your ticket immediately... Or so you thought.
+
+When QA goes to test your app, they come back with a brand new bug you've never seen before; The UnicornChat UI draws on top of your file deletion confirm dialog.
+
+![// TODO: Write alt](./file_app_chat_above_delete_dialog.png)
+
+This is because the contents of your React app are rendered before the UnicornChat UI, since the UnicornChat code is in a `div` that's after your React's container `div`.
+
+
+How can we solve this? By placing our portal's contents in the `body` itself after the UnicornChat UI.
 
 <!-- tabs:start -->
 
@@ -1015,9 +1077,58 @@ export default function App() {
 
 ## Angular
 
-// TODO: Write
+To use a portal that attaches directly to `body` in Angular, we need to switch from using a `cdkPortalOutlet` to manually attaching and detaching a portal to a `DomPortalOutlet`.
 
-Can't do this
+We can reuse our existing global service to create one of these `DomPortalOutlet`s and attach and detach in our `modal` component, like so:
+
+```typescript
+import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+
+@Injectable({
+  providedIn: 'root',
+})
+class PortalService {
+  outlet = new DomPortalOutlet(document.querySelector('body'));
+}
+
+@Component({
+  selector: 'modal',
+  template: `
+    <ng-template #portalContent>Test</ng-template>
+  `,
+})
+class ModalComponent implements OnDestroy {
+  @ViewChild('portalContent') portalContent: TemplateRef<unknown>;
+
+  viewContainerRef = inject(ViewContainerRef);
+  domPortal: TemplatePortal<any>;
+
+  portalService = inject(PortalService);
+
+  ngAfterViewInit() {
+    // This is to avoid an:
+    // "Expression has changed after it was checked"
+    // error when trying to set domPortal
+    setTimeout(() => {
+      this.portalService.outlet.attach(
+        new TemplatePortal(this.portalContent, this.viewContainerRef)
+      );
+    });
+  }
+
+  ngOnDestroy() {
+    this.portalService.outlet.detach();
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <modal></modal>
+  `,
+})
+class AppComponent {}
+```
 
 ## Vue
 
@@ -1046,3 +1157,8 @@ import Child from './Child.vue'
 
 
 <!-- tabs:end -->
+
+
+Now when you test the issue again, you find your modal is above the UnicornChat UI.
+
+![// TODO: Write alt](./file_app_chat_below_delete_dialog.png)
