@@ -677,15 +677,15 @@ Without further ado, let's take a look at how we can build these portals ourselv
 
 # Using Local Portals
 
-// TODO: Write this
-
-
+While it's not the most useful example of using a portal, for reasons we'll explain later, let's see how we can use a portal to teleport part of a UI to another part of the same component:
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Write this
+While most of React's APIs can be imported directly from `react`, the ability to create portals actually comes from the `react-dom` package.
+
+Once imported, we can use `ReactDOM.createPortal` to render JSX into an HTML element. 
 
 ```jsx
 import React, { useMemo, useState } from 'react';
@@ -696,7 +696,7 @@ export default function App() {
 
   const portal = useMemo(() => {
     if (!portalRef) return null;
-    return ReactDOM.createPortal(<div>Hello, world!</div>, portalRef);
+    return ReactDOM.createPortal(<div>Hello world!</div>, portalRef);
   }, [portalRef]);
 
   return (
@@ -713,7 +713,7 @@ export default function App() {
 }
 ```
 
-
+You'll notice that we're then displaying the return of `createPortal` - `portal` - within the component. This allows the portal to be activated, which will place the `Hello world!` inside of the `div`.
 
 ## Angular
 
@@ -737,7 +737,7 @@ import { DomPortal } from '@angular/cdk/portal';
   <div style="height: 100px; width: 100px; border: 2px solid black;">
     <ng-template [cdkPortalOutlet]="domPortal"></ng-template>
   </div>
-  <div #portalContent>Hello, world!</div>
+  <div #portalContent>Hello world!</div>
   `,
 })
 class AppComponent implements AfterViewInit {
@@ -751,7 +751,7 @@ class AppComponent implements AfterViewInit {
     // error when trying to set domPortal
     setTimeout(() => {
       this.domPortal = new DomPortal(this.portalContent);
-    });
+    }, 0);
   }
 }
 
@@ -764,11 +764,27 @@ class AppComponent implements AfterViewInit {
 export class AppModule {}
 ```
 
+You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
+
+This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s  when `PortalModule` is imported; without `PortalModule` you'll see an error.
+
+This `cdkPortalOutlet` is where the captured HTML is then projected into.
+
+> Our code here uses a `setTimeout` to avoid an error of "Expression has changed after it was checked". 
+>
+> The reason for this occuring is quite complex (and out of scope), but you can read about it more with the following resources:
+>
+> - [Official Angular video explaining "Expression has changed"](https://angular.io/errors/NG0100)
+>
+> - [Everything you need to know about the `ExpressionChangedAfterItHasBeenCheckedError` error](https://indepth.dev/posts/1001/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error)
+>
+> - [Angular Debugging "Expression has changed after it was checked": Simple Explanation (and Fix)](https://blog.angular-university.io/angular-debugging/)
+
 ### Rendering `ng-template`
 
-There might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. As such, we may want to use an `ng-template`:
+Because we're using a `div` to act as the parent element of the portal's contents, there might be a flash of the `div` on screen before our `ngAfterViewInit` occurs. This flash happens because a `div` is an HTML element, which renders its contents on screen, then our `ngAfterViewInit` goes back and removes the `div` from the DOM.
 
-// TODO: Write
+As such, we may want to use an `ng-template`, which does not render to the DOM in the first place:
 
 ```typescript
 import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
@@ -797,18 +813,14 @@ class AppComponent implements AfterViewInit {
         this.portalContent,
         this.viewContainerRef
       );
-    });
+    }, 0);
   }
 }
 ```
 
-
-
-
-
 ## Vue
 
-// TODO: Write this
+Vue may have the simpliest portal API of them all; Simply use the built-in `Teleport` component, and tell it which HTML element you want it to render to using the `to` input.
 
 ```vue
 <!-- App.vue -->
@@ -828,13 +840,15 @@ const portalContainerEl = ref(null)
 </template>
 ```
 
-We need this `v-if` in order to ensure that `portalContainerEl` has already been rendered and is ready to project content.
+> We need the `v-if` in this code to ensure that `portalContainerEl` has already been rendered and is ready to project content.
 
 <!-- tabs:end -->
 
-// TODO: Write this
 
 
+As mentioned previously this is not the most useful example of a portal, because if we are within the same component, we could simply move the elements around freely, with full control over a component.
+
+Let's move on to application-wide portals, where the story starts to make more sense.
 
 
 
