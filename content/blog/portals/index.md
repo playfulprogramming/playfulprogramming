@@ -680,7 +680,6 @@ import { Component } from '@angular/core';
   selector: 'header-comp',
   template: `
   <div class="header-container">
-    <modal *ngIf="shouldShowModal"></modal>
     <span class="icon-container">
       <folder-icon></folder-icon>
     </span>
@@ -690,7 +689,6 @@ import { Component } from '@angular/core';
       <delete-icon></delete-icon>
     </button>
   </div>
-  <!-- ... -->
   <style>
   .header-container {
     display: flex;
@@ -983,7 +981,6 @@ function showModal() {
 </script>
 <template>
   <div class="header-container">
-    <modal v-if="shouldShowModal"></modal>
     <span class="icon-container">
       <FolderIcon />
     </span>
@@ -993,7 +990,6 @@ function showModal() {
       <DeleteIcon />
     </button>
   </div>
-  <!-- ... -->
 </template>
 <style>
 .header-container {
@@ -1184,11 +1180,65 @@ export const Header = () => {
 
 ## Angular
 
-// TODO: Port React code
+```typescript
+@Component({
+  selector: 'header-comp',
+  template: `
+  <div class="header-container">
+    <modal *ngIf="shouldShowModal"></modal>
+    <span class="icon-container">
+      <folder-icon></folder-icon>
+    </span>
+    <span class="header-title">Main folder</span>
+    <span class="auto"></span>
+    <button class="icon-btn" (click)="showModal()">
+      <delete-icon></delete-icon>
+    </button>
+  </div>
+  <!-- ... -->
+`,
+})
+export class HeaderComponent {
+  shouldShowModal = false;
+
+  showModal() {
+    this.shouldShowModal = true;
+  }
+}
+```
 
 ## Vue
 
-// TODO: Port React code
+```vue
+<!-- Header.vue -->
+
+<script setup>
+import FolderIcon from './FolderIcon.vue'
+import DeleteIcon from './DeleteIcon.vue'
+import Modal from './Modal.vue'
+import { ref } from 'vue'
+const shouldShowModal = ref(false)
+
+function showModal() {
+  shouldShowModal.value = true
+}
+</script>
+<template>
+  <div class="header-container">
+    <Modal v-if="shouldShowModal" />
+    <span class="icon-container">
+      <FolderIcon />
+    </span>
+    <span class="header-title">Main folder</span>
+    <span class="auto"></span>
+    <button class="icon-btn" @click="showModal()">
+      <DeleteIcon />
+    </button>
+  </div>
+</template>
+
+<!-- ... -->
+```
 
 <!-- tabs:end -->
 
