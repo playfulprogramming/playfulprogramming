@@ -1,7 +1,7 @@
 ---
 {
     title: "Portals",
-    description: "",
+    description: "When building an app in React, Angular, or Vue, you'll often find that overlapping components can become a real problem. Rendering order can be confusing; let's fix that with portals.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -1687,9 +1687,9 @@ How can we solve this? By placing our portal's contents in the `body` itself aft
 
 ## React
 
-// TODO: Write
+Using the second argument of `createPortal`, we can pass a reference to the HTML `body` element by simply using a `querySelector`.
 
-Alternatively, `ReactDOM.createPortal` supports passing an arbitrary HTML DOM node, such as `html.body`:
+We'll then wrap that `querySelector` into a `useMemo` so that we know not to re-fetch that reference again after it is grabbed once.
 
 ```jsx
 import React, { useMemo } from 'react';
@@ -1764,7 +1764,9 @@ class AppComponent {}
 
 ## Vue
 
-// TODO: Write
+While we've previously been passing a `ref` to `Teleport`'s `to` property, we can instead use a string of an element to query using `document.querySelector`.
+
+This means that we can pass `"body"` to our `Teleport` component and have it render the portal contents at the end of the DOM body.
 
 ```vue
 <!-- Child.vue -->
@@ -1785,8 +1787,6 @@ import Child from './Child.vue'
   <Child />
 </template>
 ```
-
-
 
 <!-- tabs:end -->
 

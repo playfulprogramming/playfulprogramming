@@ -77,7 +77,7 @@
   - Angular ✅
   - [Vue](https://vuejs.org/guide/reusability/custom-directives.html) ✅
 
-- [Portals](/posts/portals)
+- [Portals](/posts/portals) ✅
   - `Portal` / React ✅
   - `Portal` CDK / Angular ✅
   - `Teleport` / Vue ✅
