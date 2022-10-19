@@ -224,7 +224,11 @@ Now, while our screen will still be white when the error is thrown, it will hit 
 
 ## Angular
 
-// TODO: Write
+Angular utilizes its [dependency injection system](/posts/dependency-injection) to allow developers to keep track of errors as they occur.
+
+However, in order to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
+
+<!-- // TODO: migrate to standalone APIs -->
 
 ```typescript
 class MyErrorHandler implements ErrorHandler {
@@ -234,6 +238,19 @@ class MyErrorHandler implements ErrorHandler {
   }
 }
 
+@NgModule({
+  declarations: [/*...*/],
+  imports: [/*...*/],
+  // Declare your custom error handler here
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+  bootstrap: [/*...*/],
+})
+export class AppModule {}
+```
+
+Now that we've set up our `ErrorHandler` instance, we can test that it works using a component that throws an error:
+
+```typescript
 @Component({
   selector: 'child',
   template: `
@@ -242,6 +259,7 @@ class MyErrorHandler implements ErrorHandler {
 })
 class ChildComponent implements OnInit {
   ngOnInit() {
+    // This is an example of an error being thrown
     throw 'Test';
   }
 }
@@ -254,23 +272,11 @@ class ChildComponent implements OnInit {
 })
 class AppComponent {
 }
-
-@NgModule({
-  declarations: [AppComponent, ChildComponent],
-  imports: [BrowserModule],
-  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
 ```
-
-Providing within our component doesn't work - this needs to be a global instance of `ErrorHandler`.
-
-<!-- // TODO: migrate to standalone APIs -->
 
 ## Vue
 
-// TODO: Write
+Vue enables us to track errors in an application with a simple `onErrorCaptured` composition API.
 
 ```vue
 <!-- App.vue -->
@@ -290,7 +296,7 @@ onErrorCaptured((err, instance, info) => {
 </template>
 ```
 
-
+Now when we throw an error inside of a child component, like so:
 
 ```vue
 <!-- Child.vue -->
@@ -303,39 +309,37 @@ throw 'Test'
 </template>
 ```
 
-
-
-
+It will run the function inside of `onErrorCaptured`.
 
 <!-- tabs:end -->
 
+Great! We're now able to keep track of what errors are occurring in our app. Hopefully, this allows us to address bugs as the user experiences them, making the app feel more stable as time goes on.
 
+Now let's see if we're not able to make the experience a bit nicer for our users when they _do_ hit an error.
 
 # Ignoring the Error
 
-Sometimes, it's ideal to ignore the error and pretend that nothing ever happened, allowing the app to continue on as normal
+Some bugs? They're show stoppers. When the happen, you can't do anything to recover from the error and as a result you have to halt the user's ability to interact with the page.
 
-// TODO: write
+Other bugs on the other hand may not require such harsh actions. For example, if you can silently log an error, pretending that nothing ever happened and allowing the app to continue on as normal, that is oftentimes a better user experience.
+
+Let's see how we can implement this in our apps.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: write
-
-React cannot do this, because functional components are normal functions
+Unfortunately, React is not able to handle thrown errors invisibly to the user when they're thrown within a functional component. This is ultimately because React functional components are simply functions, which do not have an escape mechanism built into them for errors being thrown.
 
 ## Angular
 
-// TODO: Write
+Luckily for Angular developers, this idea of silently swallowing errors, rather than making the page go blank, is the default behavior of a custom error handler.
 
-This is the default behavior of an Angular component, anyway. No code changes from the previous example is needed. 
+This isn't always ideal, however, and oftentimes you want to present an error that occurs to the user. We'll take a look at how to do this in the next section.
 
 ## Vue
 
-// TODO: Write
-
-Return `false` in `onErrorCaptured`
+In order to avoid an error blanking out your Vue application, simply return `false` from your `onErrorCaptured` composition.
 
 ```vue
 <!-- App.vue -->
