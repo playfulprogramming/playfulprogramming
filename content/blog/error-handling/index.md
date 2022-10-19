@@ -1,7 +1,7 @@
 ---
 {
     title: "Error Handling",
-    description: "",
+    description: "Bug are a constant in development. How can we make error handling lead to a nicer user experience when they occur in React, Angular, and Vue?",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -12,12 +12,112 @@
 ---
 
 
+Despite our best efforts, bugs will find their way into our applications. Unfortunately, we can't simply ignore them or else the user experience suffers greatly.
 
-// TODO: Write
+Take the following code:
+
+<!-- tabs:start -->
+
+# React
+
+```jsx
+export const App = () => {
+  const items = [
+    { id: 1, name: 'Take out the trash', priority: 1 },
+    { id: 2, name: 'Cook dinner', priority: 1 },
+    { id: 3, name: 'Play video games', priority: 2 },
+  ];
+
+  const priorityItems = items.filter((item) => item.item.priority === 1);
+
+  return (
+    <>
+      <h1>To-do items</h1>
+      <ul>
+        {priorityItems.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
+```
+
+# Angular
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1>To-do items</h1>
+    <ul>
+      <li *ngFor="let item of priorityItems">{{ item.name }}</li>
+    </ul>
+  `,
+})
+export class AppComponent {
+  items = [
+    { id: 1, name: 'Take out the trash', priority: 1 },
+    { id: 2, name: 'Cook dinner', priority: 1 },
+    { id: 3, name: 'Play video games', priority: 2 },
+  ];
+
+  priorityItems = this.items.filter((item: any) => item.item.priority === 1);
+}
+```
+
+# Vue
+
+```vue
+<!-- App.vue -->
+<script setup>
+const items = [
+  { id: 1, name: 'Take out the trash', priority: 1 },
+  { id: 2, name: 'Cook dinner', priority: 1 },
+  { id: 3, name: 'Play video games', priority: 2 },
+]
+
+const priorityItems = items.filter((item) => item.item.priority === 1)
+</script>
+
+<template>
+  <h1>To-do items</h1>
+  <ul>
+    <li v-for="item of priorityItems" :key="item.id">{{ item.name }}</li>
+  </ul>
+</template>
+```
+
+<!-- tabs:end -->
+
+Without running the code, everything looks pretty good, right?
+
+> Maybe you've spotted the error by now - that's great! Just remember - we all make these small mistakes from time-to-time. Don't dismiss the idea of error handling out of hand as we go forward.
+
+But oh no! When you run the application, it's not showing the `h1` or any of the list items like we would expect it to.
+
+The reason those items aren't showing on-screen is because an error is being thrown. Open your console on any of these examples and you'll find an error waiting for you:
+
+> Error: can't access property "priority", item.item is undefined
+
+Luckily, this error is a fairly easy fix, but even if we do; bugs will inevitably be introduced into our apps. A white screen is a pretty sub-par experience for our end users - they likely won't even understand what happened that lead them to this broken page.
 
 
+While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experince _better_, at least?
 
 # Logging Errors
+
+The first step to providing a better end-user experience when it comes to errors is to reduce how many are made.
+
+> Well, duh
+
+Sure, this seems obvious, but consider this: If an error occurs on the user's machine, and it isn't caught during internally, how are you supposed to know how to fix it?
+
+This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors, and provide a way to export this data so that your user can send it to you to debug.
+
+While this logging often involves submitting data to the server, let's evaluate how you're able to use 
 
 <!-- tabs:start -->
 
@@ -33,6 +133,7 @@ class ErrorBoundary extends React.Component {
   }
   
   componentDidCatch(error, errorInfo) {
+    	// Do something with the error
       console.log(error, errorInfo);  
   }
   
@@ -51,6 +152,7 @@ class ErrorBoundary extends React.Component {
 ```typescript
 class MyErrorHandler implements ErrorHandler {
   handleError(error) {
+    // Do something with the error
     console.log(error);
   }
 }
@@ -87,7 +189,7 @@ export class AppModule {}
 
 Providing within our component doesn't work - this needs to be a global instance of `ErrorHandler`.
 
-// TODO: migrate to standalone APIs
+<!-- // TODO: migrate to standalone APIs -->
 
 ## Vue
 
@@ -101,6 +203,7 @@ import { onErrorCaptured } from 'vue'
 import Child from './Child.vue'
 
 onErrorCaptured((err, instance, info) => {
+  // Do something with the error
   console.log(err, instance, info)
 })
 </script>
