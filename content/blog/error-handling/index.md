@@ -117,21 +117,81 @@ Sure, this seems obvious, but consider this: If an error occurs on the user's ma
 
 This is where the concept of "logging" comes into play. The general idea behind logging is that you can capture a collection of errors and information about the events that led up to the errors, and provide a way to export this data so that your user can send it to you to debug.
 
-While this logging often involves submitting data to the server, let's evaluate how you're able to use 
+While this logging often involves submitting data to a server, let's keep things local to the user's machine for now. 
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: write
+Up to this point, all of our React components have been functions. While this _is_ how most modern React applications are built today there is another way of writing a React component; this being the "class" API.
+
+Class-based React components have existed _well_ before functional components have. Class-based components were in React since day one and functional components were only truly made viable with a significant revamp [in React 16.8; coinciding with the introduction of React Hooks](https://reactjs.org/docs/hooks-intro.html).
+
+Here's a simple React component in both functional and class based APIs:
 
 ```jsx
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  
+// Functional component
+const Counter = (props) => {
+    // Setting up state
+    const [count, setCount] = useState(0);
+    
+    // Function to update state
+    const addOne = () => setCount(count + 1);
+    
+    // Rendered UI via JSX
+    return <div>
+        <p>You have pushed the button {count} times</p>
+    	<button onClick={addOne}>Add one</button>
+        {/* Using props to project children */}
+        {props.children}
+    </div>
+}
+```
+
+```jsx
+// Class component
+import {Component} from 'react';
+
+class Counter extends Component {
+    // Setting up state
+    state = {count: 0};
+
+    // Function to update state
+    addOne() {
+        // Notice we use an object and `setState` to update state
+        this.setState({count: this.state.count + 1});
+    }
+    
+    // Rendered UI via JSX
+    render() {
+        <div>
+            <p>You have pushed the button {this.state.count} times</p>
+            <button onClick={this.addOne}>Add one</button>
+            {/* Using props to project children */}
+            {this.props.children}
+        </div>
+    }
+}
+```
+
+Both of these components work exactly the same, with no functional differences between them. This is because almost every API that was available to class components made its way over to functional components through React Hooks. 
+
+_**Almost** every API made the migration to Hooks._
+
+One of the few exceptions to that rule is the ability to catch and track errors that are thrown within a React application.
+
+### Use class components to build an error boundary
+
+Now that we understand what a class component is, and why it's required to use one for error handling, let's build one ourselves!
+
+Just like any other class component, we start with an `extends` clause to tell React that this class is, in fact, a component.
+
+From there, we add in a special `componentDidCatch` method, like so:
+
+```jsx
+import {Component} from 'react';
+
+class ErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     	// Do something with the error
       console.log(error, errorInfo);  
@@ -143,7 +203,24 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
+This method is then called any time a child component throws an error.
 
+Luckily for us, we can mix-and-match class components and functional components. This means that we can demonstrate the `componentDidCatch` handler using the following code:
+
+```jsx
+const ErrorThrowingComponent = () => {
+    // This is an example of an error being thrown
+    throw "Error";
+}
+
+const App = () => {
+    return <ErrorBoundary>
+    	<ErrorThrowingComponent/>
+    </ErrorBoundary>
+}
+```
+
+Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
 
 ## Angular
 
@@ -311,10 +388,7 @@ To still render their contents, while logging the error.
 
 ```jsx
 class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+  state = { hasError: false };
 
   static getDerivedStateFromError(error) { 
       return { hasError: true };  
@@ -434,10 +508,7 @@ onErrorCaptured((err, instance, info) => {
 
 ```jsx
 class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+  state = { hasError: false };
 
   static getDerivedStateFromError(error) {
       return { hasError: error };  
