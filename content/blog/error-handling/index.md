@@ -378,17 +378,17 @@ To still render their contents, while logging the error.
 
 
 
-
-
 # Fallback UI
 
+While silently failing _can_ be a valid strategy to hiding errors from your user, other times you may want to display a different UI when an error is thrown.
 
+For example, let's build a screen that tells the user that an unknown error has occurred when something is thrown.
 
 <!-- tabs:start -->
 
 ## React
 
-// TODO: write
+Because our `ErrorBoundary` component renders the children that's passed in, we can update our state when an error occurs. To do this, React provide a special _static_ handler method called `getDerivedStateFromError` which allows us to set a property in our `state` object when an error is hit.
 
 ```jsx
 class ErrorBoundary extends React.Component {
@@ -415,7 +415,9 @@ class ErrorBoundary extends React.Component {
 
 ## Angular
 
-// TODO: Write
+Because a custom error handler is implemented using an Angular service, we can use our `inject` function to gain access to the error handler.
+
+From there, it's as simple as storing a Boolean when an error _is_ thrown and using that Boolean to render out a fallback UI when `true`. 
 
 ```typescript
 import {
@@ -436,18 +438,6 @@ class MyErrorHandler implements ErrorHandler {
 }
 
 @Component({
-  selector: 'child',
-  template: `
-    <p>Testing</p>
-  `,
-})
-class ChildComponent implements OnInit {
-  ngOnInit() {
-    throw 'Test';
-  }
-}
-
-@Component({
   selector: 'my-app',
   template: `
     <p *ngIf="errorHandler.hadError">There was an error</p>
@@ -458,20 +448,16 @@ class AppComponent {
   errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 
-@NgModule({
-  declarations: [AppComponent, ChildComponent],
-  imports: [BrowserModule],
-  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+// Provide the error handler
 ```
 
-Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we set.
+> Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we just set.
 
 ## Vue
 
-// TODO: Write
+Because we still have full access to our component's state within `onErrorCaptured`, we can change a `ref` from `false` to `true` to keep track of if an error occurred.
+
+If it hasn't render our main app, otherwise render our fallback UI.
 
 ```vue
 <!-- App.vue -->
@@ -495,27 +481,29 @@ onErrorCaptured((err, instance, info) => {
 </template>
 ```
 
-
-
 <!-- tabs:end -->
+
+
 
 
 ## Displaying the Error
 
+While displaying a fallback UI is often to the user's benefit, most users want some indication of _what_ went wrong, rather than simply "something" went wrong.
 
+Let's display to our users the error that's thrown by the component.
 
 <!-- tabs:start -->
 
 ### React
 
-// TODO: write
+While we previously used `getDerivedStateFromError` to set a Boolean in our `state` object, we can instead use the first argument of the static handler to assign the object to an [`Error` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error). 
 
 ```jsx
 class ErrorBoundary extends React.Component {
-  state = { hasError: false };
+  state = { error: null };
 
   static getDerivedStateFromError(error) {
-      return { hasError: error };  
+      return { error: error };  
   }
   
   componentDidCatch(error, errorInfo) {
@@ -523,8 +511,8 @@ class ErrorBoundary extends React.Component {
   }
   
   render() {
-    if (this.state.hasError) {
-    	return <h1>{this.state.hasError}</h1>;    
+    if (this.state.error) {
+    	return <h1>{this.state.error}</h1>;    
     }
     return this.props.children; 
   }
@@ -535,11 +523,9 @@ class ErrorBoundary extends React.Component {
 
 ### Angular
 
-// TODO: Write
+Rather than storing a Boolean when an error occurs, we can store [the error value itself](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) within an `error` object, and display the underlying value when present.
 
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-
 import {
   Component,
   NgModule,
@@ -549,51 +535,33 @@ import {
 } from '@angular/core';
 
 class MyErrorHandler implements ErrorHandler {
-  hadError = false;
+  error = null;
 
   handleError(error) {
     console.log(error);
-    this.hadError = error;
-  }
-}
-
-@Component({
-  selector: 'child',
-  template: `
-    <p>Testing</p>
-  `,
-})
-class ChildComponent implements OnInit {
-  ngOnInit() {
-    throw 'Test';
+    this.error = error;
   }
 }
 
 @Component({
   selector: 'my-app',
   template: `
-    <p *ngIf="errorHandler.hadError">{{errorHandler.hadError}}</p>
-    <child *ngIf="!errorHandler.hadError"></child>
+    <p *ngIf="errorHandler.error">{{errorHandler.error}}</p>
+    <child *ngIf="!errorHandler.error"></child>
   `,
 })
 class AppComponent {
   errorHandler = inject(ErrorHandler) as MyErrorHandler;
 }
 
-@NgModule({
-  declarations: [AppComponent, ChildComponent],
-  imports: [BrowserModule],
-  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+// ...
 ```
 
 
 
 ### Vue
 
-// TODO: Write
+Using our `ref` to keep track of the error, we can then display the error's contents on-screen when it occurs.
 
 ```vue
 <!-- App.vue -->
@@ -602,11 +570,11 @@ import { onErrorCaptured, ref } from 'vue'
 
 import Child from './Child.vue'
 
-const hadError = ref(false)
+const error = ref(null)
 
 onErrorCaptured((err, instance, info) => {
   console.log(err, instance, info)
-  hadError.value = error
+  error.value = error
   return false
 })
 </script>
