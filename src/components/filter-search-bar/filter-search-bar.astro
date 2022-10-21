@@ -42,6 +42,8 @@ import SearchField from "./search-field/search-field.astro";
 			abortController = undefined;
 		}
 		abortController = new AbortController();
+		// eslint-disable-next-line no-undef
+		plausible("search", { props: { searchVal: val } });
 		fetch(`/api/search?query=${val}`, { signal: abortController.signal })
 			.then((res) => res.json())
 			.then(

@@ -38,10 +38,13 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 				)
 			}
 			<div class={layoutStyles.iconList}>
-				<!-- <AnalyticsLink category={"outbound"} href="https://discord.gg/FMcvc6T" className={"baseBtn"}
-                    aria-label={"Join the Discord"}> -->
-				<Icon height="36" width="36" name="discord" />
-				<!-- </AnalyticsLink> -->
+				<a
+					href="https://discord.gg/FMcvc6T"
+					class="baseBtn"
+					aria-label="Join the Discord"
+				>
+					<Icon height="36" width="36" name="discord" />
+				</a>
 				<DarkLightButton />
 			</div>
 		</div>

@@ -2,7 +2,11 @@
 import { Picture } from "@astrojs/image/components";
 
 interface CollectionHeaderDefaultProps {
-	coverImgPath: string | Promise<{default: {src: string, height: number, width: number, format: string}}>;
+	coverImgPath:
+		| string
+		| Promise<{
+				default: { src: string; height: number; width: number; format: string };
+		  }>;
 	coverImgAspectRatio?: number;
 	collection: {
 		title: string;
@@ -17,8 +21,9 @@ let { coverImgPath, coverImgAspectRatio, collection } =
 // dynamic import of `coverImgPath`
 if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
 	const coverImgData = await coverImgPath;
-	coverImgPath = coverImgData.default.src
-	coverImgAspectRatio = coverImgData.default.width / coverImgData.default.height ;
+	coverImgPath = coverImgData.default.src;
+	coverImgAspectRatio =
+		coverImgData.default.width / coverImgData.default.height;
 }
 ---
 
@@ -51,12 +56,6 @@ if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
 				{
 					collection.buttons?.map((button) => {
 						return (
-							// <AnalyticsLink
-							// 	class="baseBtn collectionButton"
-							// 	key={button.url}
-							// 	category="outbound"
-							// 	href={button.url}
-							// >
 							<a href={button.url} class="baseBtn collectionButton">
 								{button.text}
 							</a>
