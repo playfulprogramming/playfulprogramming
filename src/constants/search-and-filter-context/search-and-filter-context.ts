@@ -2,8 +2,8 @@ import { createContext, useEffect, useMemo, useState } from "react";
 import { useLunr } from "uu-utils";
 import { UseSelectableArrayInternalVal } from "batteries-not-included";
 import { PostInfo } from "types/PostInfo";
-import * as ga from "utils/ga";
 import { debounce } from "utils/debounce";
+import { usePlausible } from "next-plausible";
 
 // We only have dark and light right now
 export const defaultSearchAndFilterContextVal = {
@@ -35,14 +35,13 @@ export const usePostTagsFromNodes = <T extends { tags: PostInfo["tags"] }>(
   return postTags.sort();
 };
 
+type UsePlausible = ReturnType<typeof usePlausible>;
+
 const debouncedFilterGA = debounce(
-  (filterVal: Array<{ val: string }>) => {
-    ga.event({
-      action: "click",
-      params: {
-        event_category: "filter",
+  (plausible: UsePlausible, filterVal: Array<{ val: string }>) => {
+    plausible("filter", {
+      props: {
         event_label: filterVal.map((v) => v.val).join(" "),
-        transport_type: ``,
       },
     });
   },
@@ -51,15 +50,10 @@ const debouncedFilterGA = debounce(
 );
 
 const debouncedSearchGA = debounce(
-  (searchVal: string) => {
+  (plausible: UsePlausible, searchVal: string) => {
     if (!searchVal) return;
-    ga.event({
-      action: "click",
-      params: {
-        event_category: "search",
-        event_label: searchVal,
-        transport_type: ``,
-      },
+    plausible("search", {
+      props: { searchVal },
     });
   },
   1000,
@@ -70,6 +64,8 @@ const debouncedSearchGA = debounce(
  * Get the default value for the search and filter context provider
  */
 export const useSearchFilterValue = () => {
+  const plausible = usePlausible();
+
   /**
    * The local states of the filter and search
    *
@@ -98,22 +94,20 @@ export const useSearchFilterValue = () => {
     } else {
       filterUsingLunr(`tags: ${filterVal.map((v) => v.val).join(" ")}`);
 
-      if (!!window.gtag) {
-        debouncedFilterGA(filterVal);
-      }
+      debouncedFilterGA(plausible, filterVal);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterVal]);
+  }, [plausible, filterVal]);
 
   useEffect(() => {
     searchUsingLunr(searchVal);
 
-    if (!!window.gtag) {
-      debouncedSearchGA(searchVal);
+    if (searchVal) {
+      debouncedSearchGA(plausible, searchVal);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVal]);
+  }, [plausible, searchVal]);
 
   /**
    * An array of all allowed posts to be shown to the user
