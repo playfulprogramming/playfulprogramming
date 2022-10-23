@@ -58,7 +58,11 @@ const coverImgPath = getFullRelativePath(
 	collection.coverImg
 );
 
-const coverImgSize = getImageSize("." + coverImgPath, process.cwd());
+const coverImgSize = getImageSize(
+	"." + coverImgPath,
+	process.cwd(),
+	process.cwd()
+);
 
 const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 ---

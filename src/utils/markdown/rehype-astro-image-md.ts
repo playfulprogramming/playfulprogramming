@@ -54,8 +54,14 @@ export const rehypeAstroImageMd: Plugin<
 					slug
 				);
 
+				const rootFileDir = path.resolve(__dirname, `../../../public/`);
+
 				// TODO: How should remote images be handled?
-				const dimensions = getImageSize(node.properties.src, filePathDir) || {
+				const dimensions = getImageSize(
+					node.properties.src,
+					filePathDir,
+					rootFileDir
+				) || {
 					height: undefined,
 					width: undefined,
 				};

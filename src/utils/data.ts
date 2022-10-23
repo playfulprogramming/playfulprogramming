@@ -41,7 +41,11 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 		"/content/data/",
 		unicorn.profileImg
 	);
-	const profileImgSize = getImageSize(unicorn.profileImg, dataDirectory);
+	const profileImgSize = getImageSize(
+		unicorn.profileImg,
+		dataDirectory,
+		dataDirectory
+	);
 
 	// Mutation go BRR
 	const newUnicorn: UnicornInfo = unicorn as never;

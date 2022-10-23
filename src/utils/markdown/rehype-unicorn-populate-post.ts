@@ -59,9 +59,11 @@ export const rehypeUnicornPopulatePost: Plugin<
 		//   if (!pickedData.collectionSlug) pickedData.collectionSlug = null;
 		// }
 
-		const authorsMeta = (frontmatter.authors as string[]).map(
-			(author) => unicorns.find((unicorn) => unicorn.id === author)!
-		);
+		const authorsMeta = frontmatter.authors
+			? (frontmatter.authors as string[]).map(
+					(author) => unicorns.find((unicorn) => unicorn.id === author)!
+			  )
+			: undefined;
 
 		let license;
 		if (frontmatter.license) {
@@ -69,7 +71,9 @@ export const rehypeUnicornPopulatePost: Plugin<
 		}
 		if (!license) license = null;
 
-		const publishedMeta = dayjs(frontmatter.published).format("MMMM D, YYYY");
+		const publishedMeta = frontmatter.published
+			? dayjs(frontmatter.published).format("MMMM D, YYYY")
+			: undefined;
 		const editedMeta = frontmatter.edited
 			? dayjs(frontmatter.edited).format("MMMM D, YYYY")
 			: undefined;
