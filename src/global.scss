@@ -292,7 +292,7 @@ pre {
 	cursor: pointer;
 }
 
-.circleImg {
+img.circleImg, .circleImg img {
 	flex-shrink: 0;
 	flex-grow: 0;
 	border-radius: 50%;

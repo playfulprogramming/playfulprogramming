@@ -7,6 +7,7 @@ import { join, resolve } from "path";
 import { Picture } from "@astrojs/image/components";
 import SEO from "components/seo/seo.astro";
 import { MarkdownInstance } from "astro";
+import "../styles/post-body.scss";
 
 const aboutUsLocales = await Astro.glob("../../content/site/about-us*.md");
 
@@ -45,8 +46,10 @@ const Content = usAboutLocale.Content;
 							const shouldShowComma = arr[i + 1];
 							return (
 								<li role="listitem">
-									{role.prettyname}
-									{shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
+									<>
+										{role.prettyname}
+										{shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
+									</>
 								</li>
 							);
 						});

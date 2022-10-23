@@ -69,10 +69,15 @@ export const rehypeAstroImageMd: Plugin<
 				// TODO: Remote images?
 				if (!dimensions.height || !dimensions.width) return;
 
-				const src = getFullRelativePath(
-					`/content/${parentFolder}/${slug}/`,
-					node.properties.src
-				);
+				let src: string;
+				if (node.properties.src.startsWith("/")) {
+					src = node.properties.src;
+				} else {
+					src = getFullRelativePath(
+						`/content/${parentFolder}/${slug}/`,
+						node.properties.src
+					);
+				}
 
 				if (src.endsWith(".svg")) {
 					node.properties.src = src;
