@@ -72,7 +72,7 @@ The first button is clearly not a good contender, since it's invisible to the en
 
 It's important, however, to acknowledge that your decisions on the UX can impact your users long into their usage. We should be sure to test our behaviors and verify with those users that they enjoy using your app.
 
-> Why are you talking about this now? What does it matter?
+> Why are you talking about this now? How does it matter?
 
 It matters because if the end users don't enjoy the experience of working with our apps, we have some work to do.
 
@@ -116,7 +116,18 @@ A screen reader is one of many examples of assistive technologies, but is far fr
 - Vibration motors, for non-visual alerts
 - Buttons, for those with limited mobility ([one such workflow is demonstrated by this Apple ad](https://www.youtube.com/watch?v=XB4cjbYywqg))
 
+> How does accessibility pertain to React, Angular, and Vue?
 
+Like every other aspect of application development; you don't get perfect results without putting in the effort to making sure that aspect of your app works well.
+
+To ensure your app is accessible, you need to:
+
+- Learn what makes an app accessible
+- Make programming considerations in your markup and styling
+- Build out dedicated features to make your apps more accessible
+- Test your app using assistive technologies
+
+This _can_ be a lot of work, which may lead some to ask: "Why?"
 
 ## Why you should make your apps accessible
 
@@ -129,6 +140,51 @@ Well, there's some major points I'd like to speak to:
 3) It enhances the user experience for everyone.
 4) There may be legal requirements to do so.
 5) It's the right thing to do.
+
+
+
+### 3. It enhances the user experience for everyone
+
+For example:
+
+<table>
+	<tr>
+	  <th></th>
+		<th scope="col">Permanent</th>
+		<th scope="col">Temporary</th>
+		<th scope="col">Situational</th>
+	</tr>
+	<tr>
+		<th scope="row">Touch</th>
+		<td><img src="./one_arm.png" style="height: 200px"/><br/>One arm</td>
+		<td><img src="./arm_injury.png" style="height: 200px"/><br/>Arm injury</td>
+		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
+	</tr>
+	<tr>
+		<th scope="row">See</th>
+		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
+		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
+		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
+	</tr>
+	<tr>
+		<th scope="row">Hear</th>
+		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
+		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
+		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
+	</tr>
+	<tr>
+		<th scope="row">Speak</th>
+		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
+		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
+		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
+	</tr>
+</table>
+
+> Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual.
+
+
+
+
 
 
 
