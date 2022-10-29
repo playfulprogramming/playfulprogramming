@@ -24,7 +24,7 @@ export const Pagination = ({
 		pageSize: page.size,
 	});
 
-	const dontShowAnything = page.currentPage === 0 || paginationRange.length < 2;
+	const dontShowAnything = page.currentPage === 1 && paginationRange.length < 2;
 
 	const lastPage = paginationRange[paginationRange.length - 1];
 	const firstPage = paginationRange[0];

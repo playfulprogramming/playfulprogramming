@@ -27,14 +27,14 @@ export const SearchBarHandler = ({
 	totalPosts,
 }: SearchBarHandlerProps) => {
 	// Replace this initial value with parsing the QS of the browser and getting `searchPage`
-	const [page, setPage] = useState(getPageFromQueryParams() ?? 0);
+	const [page, setPage] = useState(getPageFromQueryParams() ?? 1);
 
 	useLayoutEffect(() => {
 		let previousUrl = "";
 		const observer = new MutationObserver(function (mutations) {
 			if (window.location.href !== previousUrl) {
 				previousUrl = window.location.href;
-				setPage(getPageFromQueryParams() ?? 0);
+				setPage(getPageFromQueryParams() ?? 1);
 			}
 		});
 		const config = { subtree: true, childList: true };
@@ -44,8 +44,8 @@ export const SearchBarHandler = ({
 	}, []);
 
 	const currentPosts = posts.slice(
-		PAGE_SIZE * page,
-		PAGE_SIZE * page + PAGE_SIZE
+		PAGE_SIZE * (page - 1),
+		PAGE_SIZE * (page - 1) + PAGE_SIZE
 	);
 
 	return (
