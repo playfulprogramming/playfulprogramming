@@ -9,14 +9,11 @@ export function getImageSize(src: string, dir: string, rootDir: string) {
 	}
 	// Treat `/` as a relative path, according to the server
 	const shouldJoin = !path.isAbsolute(src);
+	const shouldJoinAtRoot = src.startsWith("/");
 
 	if (dir && shouldJoin) {
 		src = path.join(dir, src);
-	}
-
-	const shouldJoinAtRoot = src.startsWith("/");
-
-	if (rootDir && shouldJoinAtRoot) {
+	} else if (rootDir && shouldJoinAtRoot) {
 		src = path.join(rootDir, src);
 	}
 
