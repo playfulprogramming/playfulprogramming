@@ -10,9 +10,7 @@
 }
 ---
 
-Last week, I started setting up continuous integrations for some of my projects. The basic idea of a continuous integration is that you have a server to build your project on a regular basis, verify that it works correctly, and deploy it to wherever your project is published. In this case, my project will be deployed to the releases of its GitHub repository and an alpha channel on the Google Play Store. In order to do this, I decided to use [Travis CI](https://travis-ci.com/), as it seems to be the most used and documented solution (though there are others as well). Throughout this blog, I will add small snippets of the files I am editing, but (save for the initial `.travis.yml`) never an entire file. If you get lost or would like to see a working example of this, you can find a sample project [here](/redirects/?t=github&d=TravisAndroidExample).
-
-A small preface, make sure that you create your account on [travis-ci.com](https://travis-ci.com/), not [travis-ci.org](https://travis-ci.org/). Travis previously had their free plans on their .org site and only took paying customers on .com, but they have since begun [migrating all of their users](https://docs.travis-ci.com/user/open-source-on-travis-ci-com/) to travis-ci.com. However, for some reason they have decided _not to say anything about it_ when you create a new account, so it would be very easy to set up all of your projects on their .org site, then (X months later) realize that you have to move to .com. This isn't a huge issue, but it could be a little annoying if you have _almost 100 repositories_ like I do which you would have to change (though I have only just started using Travis, so it doesn't actually affect me). Just something to note.
+Last week, I started setting up continuous integrations for some of my projects. The idea of continuous integration is to have a server that can build your project on a regular basis, verify that it works correctly, and deploy it to users without any manual intervention. In this case, my project will be deployed to the releases of its GitHub repository and an alpha channel on the Google Play Store. In order to do this, I decided to use [Travis CI](https://travis-ci.com/), as it seems to be the most used and documented solution (though there are others as well). Throughout this blog, I will add small snippets of the files I am editing, but (save for the initial `.travis.yml`) never an entire file. If you get lost or would like to see a working example of this, you can find a sample project [here](https://github.com/fennifith/TravisAndroidExample).
 
 # Step 1: Start your first build
 
@@ -95,7 +93,7 @@ That's it! Push your changes to `.travis.yml` as well as `key.jks.enc`, and Jeky
 
 ## Part B. Dummy files
 
-This isn't entirely necessary, but you can use some fake "dummy" files to add to version control alongside the "real" encrypted ones. When Travis decrypts your encrypted files, they will be overwritten, but otherwise they serve as quite a nice substitute to prevent anyone from getting their hands on the real files (and to prevent you from uploading the real ones by accident). You can find a few (`key.jks`, `service.json`, and `secrets.tar`) in the sample project [here](/redirects/?t=github&d=TravisAndroidExample).
+This isn't entirely necessary, but you can use some fake "dummy" files to add to version control alongside the "real" encrypted ones. When Travis decrypts your encrypted files, they will be overwritten, but otherwise they serve as quite a nice substitute to prevent anyone from getting their hands on the real files (and to prevent you from uploading the real ones by accident). You can find a few (`key.jks`, `service.json`, and `secrets.tar`) in the sample project [here](https://github.com/fennifith/TravisAndroidExample).
 
 ## Part C. Signing the APK
 
@@ -158,7 +156,7 @@ This should now create a release with a built (and signed) APK each time there i
 
 ## Part A. Creating tags
 
-What if you're lazy like me, though? What if you want to create a new release on each push to the master branch? (I have two branches in most of my projects, `develop` and `master`, for this purpose - only the commits currently in production are in the `master` branch)
+What if you're lazy like me, though? What if you want to create a new release on each push to the main branch? (I have two branches in most of my projects, `develop` and `main`, for this purpose - only the commits currently in production are in the `main` branch)
 
 A simple modification to the `on` section of the previous snippet does the trick.
 
@@ -166,7 +164,7 @@ A simple modification to the `on` section of the previous snippet does the trick
 deploy:
     ...
     on:
-        branch: master
+        branch: main
 ```
 
 Well, it almost does the trick. The thing is, since we haven't created a tag, Travis doesn't know what version number we want to use. It just creates a new release using the commit hash as a title. That isn't very good. I wonder if we could somehow get the version number from our build.gradle file and use that instead...
@@ -205,14 +203,14 @@ deploy:
     name: "$APP_VERSION"
     tag_name: "$APP_VERSION"
     on:
-        branch: master
+        branch: main
 ```
 
-Yay! Now we have fully automated releases on each push to master. Because of the `overwrite` parameter, it will overwrite existing releases if the version number has not been changed (a new release will be created if it has), so they will always be up to date.
+Yay! Now we have fully automated releases on each push to main. Because of the `overwrite` parameter, it will overwrite existing releases if the version number has not been changed (a new release will be created if it has), so they will always be up to date.
 
 # Step 4. Deploying to the Play Store
 
-Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](https://jfenn.me/redirects/?t=twitter&d=status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the master branch.
+Travis doesn't have a deployment for the Play Store, so we will have to use a third party tool. I found [Triple-T/gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher/), which should work, except there isn't an option to deploy an existing APK without building the project. Not only would a deployment that requires building a project _twice_ be super wasteful and take... well, twice as long, [I ran into problems signing the APK](twitter.com/fennifith/status/1061620100409761792) when I tried it, so... let's not. Instead, we'll modify the `script` to run the `./gradlew publish` command when a build is triggered from the main branch.
 
 ## Part A. Setup
 
@@ -222,14 +220,14 @@ You can either encrypt it as a separate file, or you can put them both in a tar 
 
 ## Part B. Publishing
 
-Now we can modify the `script` section of our `.travis.yml` to run the `./gradlew publish` command when a build is triggered from the master branch. This can be done using the "TRAVIS_BRANCH" environment variable which Travis handily creates for us. In other words...
+Now we can modify the `script` section of our `.travis.yml` to run the `./gradlew publish` command when a build is triggered from the main branch. This can be done using the "TRAVIS_BRANCH" environment variable which Travis handily creates for us. In other words...
 
 ```yaml
 script:
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew publish; else ./gradlew build; fi
+  - if [ "$TRAVIS_BRANCH" = "main" ]; then ./gradlew publish; else ./gradlew build; fi
 ```
 
-This should build a signed APK and upload it to the Play Store whenever a push is made to the `master` branch, then deploy the same APK to GitHub if it was built successfully. Important to note that using this method, the build will also fail if it has failed to upload the APK to the Play Store - so it _might_ not be an issue with your project if it results in a failure unexpectedly.
+This should build a signed APK and upload it to the Play Store whenever a push is made to the `main` branch, then deploy the same APK to GitHub if it was built successfully. Important to note that using this method, the build will also fail if it has failed to upload the APK to the Play Store - so it _might_ not be an issue with your project if it results in a failure unexpectedly.
 
 ## Part C. Changelogs
 
@@ -249,4 +247,4 @@ deploy:
 
 Hopefully this blog has gone over the basics of using Travis to deploy to GitHub and the Play Store. In later blogs, I hope to also cover how to implement UI and Unit tests, though I have yet to actually use them myself so I cannot yet write an article about them.
 
-If you would like to see a working example of all of this, you can find it in a sample project [here](https://jfenn.me/redirects/?t=github&d=TravisAndroidExample).
+If you would like to see a working example of all of this, you can find it in a sample project [here](https://github.com/fennifith/TravisAndroidExample).
