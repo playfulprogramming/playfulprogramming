@@ -1,4 +1,4 @@
-import { getPaginationRange } from "./pagination-logic";
+import { usePaginationRange } from "./pagination-logic";
 import { Page } from "astro";
 import { PostInfo } from "types/PostInfo";
 import styles from "./pagination.module.scss";
@@ -17,7 +17,7 @@ export const Pagination = ({
 	getPageHref = (pageNum: number) =>
 		pageNum === 0 || pageNum === 1 ? rootURL : `${rootURL}page/${pageNum}`,
 }: PaginationProps) => {
-	const paginationRange = getPaginationRange({
+	const paginationRange = usePaginationRange({
 		currentPage: page.currentPage,
 		totalCount: page.total,
 		siblingCount: 0,

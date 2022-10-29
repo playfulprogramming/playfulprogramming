@@ -33,7 +33,7 @@ interface GetPaginationRangeProps {
 	currentPage: number;
 }
 
-export const getPaginationRange = ({
+export const usePaginationRange = ({
 	totalCount,
 	pageSize,
 	siblingCount = 1,
