@@ -18,6 +18,7 @@ import SearchField from "./search-field/search-field.astro";
 	import { debounce } from "utils/debounce";
 	import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 	import { PostCard } from "../../components/post-card/post-card";
+	import { Pagination } from "../../components/pagination/pagination";
 
 	const searchInput: HTMLElement = document.querySelector("#search-input");
 	const postListContainer: HTMLElement = document.querySelector(
@@ -52,16 +53,28 @@ import SearchField from "./search-field/search-field.astro";
 					totalPosts: number;
 					unicornProfilePicMap: ProfilePictureMap;
 				}) => {
-					const FilledPostCard = createElement(
-						Fragment,
-						{},
-						serverVal.posts.map((post) =>
-							createElement(PostCard, {
-								unicornProfilePicMap: serverVal.unicornProfilePicMap,
-								post,
-							})
-						)
+					const children = serverVal.posts.map((post) =>
+						createElement(PostCard, {
+							unicornProfilePicMap: serverVal.unicornProfilePicMap,
+							post,
+						})
 					);
+
+					children.push(
+						createElement(Pagination, {
+							rootURL: "",
+							class: "",
+							getPageHref: (pageNum: number) =>
+								`${window.location.pathname}?searchPage=${pageNum}`,
+							page: {
+								total: serverVal.totalPosts,
+								currentPage: 0,
+								size: 8,
+							},
+						})
+					);
+
+					const FilledPostCard = createElement(Fragment, {}, children);
 					render(FilledPostCard, searchPostList);
 					loadingEl && loadingEl.remove();
 					loadingEl = undefined;
