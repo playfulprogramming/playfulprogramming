@@ -6,6 +6,7 @@ import styles from "./pagination.module.scss";
 interface PaginationProps {
 	page: Pick<Page<PostInfo>, "total" | "currentPage" | "size">;
 	class?: string;
+	id?: string;
 	rootURL: string;
 	getPageHref?: (pageNum: number) => string;
 }
@@ -14,6 +15,7 @@ export const Pagination = ({
 	page,
 	rootURL,
 	class: className = "",
+	id = "post-list-pagination",
 	getPageHref = (pageNum: number) =>
 		pageNum === 0 || pageNum === 1 ? rootURL : `${rootURL}page/${pageNum}`,
 }: PaginationProps) => {
@@ -37,6 +39,7 @@ export const Pagination = ({
 		<>
 			{dontShowAnything ? null : (
 				<ul
+					id={id}
 					role="navigation"
 					aria-label="Pagination Navigation"
 					class={`${styles.pagination} ${className}`}

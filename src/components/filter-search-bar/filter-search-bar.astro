@@ -30,6 +30,9 @@ import SearchField from "./search-field/search-field.astro";
 	const postListContainer: HTMLElement = document.querySelector(
 		"#post-list-container"
 	);
+	const postListPagination: HTMLElement = document.querySelector(
+		"#post-list-pagination"
+	);
 	const searchPostListContainer: HTMLElement = document.querySelector(
 		"#search-post-list-container"
 	);
@@ -38,7 +41,8 @@ import SearchField from "./search-field/search-field.astro";
 		"#search-post-list-container > div"
 	);
 
-	const initDisplayVal = postListContainer.style.display;
+	const initPostContainerDisplayVal = postListContainer.style.display;
+	const initPostPaginationDisplayVal = postListPagination.style.display;
 
 	let loadingEl: HTMLElement | undefined;
 	let abortController: AbortController | undefined;
@@ -49,12 +53,14 @@ import SearchField from "./search-field/search-field.astro";
 			child.remove();
 		}
 		if (!val) {
-			postListContainer.style.display = initDisplayVal;
+			postListContainer.style.display = initPostContainerDisplayVal;
+			postListPagination.style.display = initPostPaginationDisplayVal;
 			searchPostListContainer.style.display = "none";
 			return;
 		}
 
 		postListContainer.style.display = "none";
+		postListPagination.style.display = "none";
 		searchPostListContainer.style.display = "block";
 
 		loadingEl && loadingEl.remove();
@@ -64,7 +70,7 @@ import SearchField from "./search-field/search-field.astro";
 
 		const url = new URL(window.location as never);
 		if (resetPage) {
-			url.searchParams.set(SEARCH_PAGE_KEY, "0");
+			url.searchParams.set(SEARCH_PAGE_KEY, "1");
 		}
 		url.searchParams.set(SEARCH_QUERY_KEY, val);
 		window.history.pushState({}, "", url);

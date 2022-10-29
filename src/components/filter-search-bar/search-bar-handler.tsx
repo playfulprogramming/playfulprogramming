@@ -55,13 +55,12 @@ export const SearchBarHandler = ({
 					<PostCard unicornProfilePicMap={unicornProfilePicMap} post={post} />
 				))}
 			</ul>
-			{totalPosts}
-			{page}
 			<Pagination
+				id=""
 				rootURL={""}
 				getPageHref={(pageNum: number) => {
 					const url = new URL(window.location as never);
-					url.searchParams.set(SEARCH_PAGE_KEY, '' + pageNum);
+					url.searchParams.set(SEARCH_PAGE_KEY, "" + pageNum);
 					return url.href;
 				}}
 				page={{
