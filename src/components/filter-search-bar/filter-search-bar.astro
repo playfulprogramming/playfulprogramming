@@ -52,10 +52,16 @@ import SearchField from "./search-field/search-field.astro";
 		for (let child of [...children]) {
 			child.remove();
 		}
+
+		const url = new URL(window.location as never);
+
 		if (!val) {
+			url.searchParams.delete(SEARCH_PAGE_KEY);
+			url.searchParams.delete(SEARCH_QUERY_KEY);
 			postListContainer.style.display = initPostContainerDisplayVal;
 			postListPagination.style.display = initPostPaginationDisplayVal;
 			searchPostListContainer.style.display = "none";
+			window.history.pushState({}, "", url);
 			return;
 		}
 
@@ -68,7 +74,6 @@ import SearchField from "./search-field/search-field.astro";
 		loadingEl.innerText = "Loading...";
 		searchPostListContainer.append(loadingEl);
 
-		const url = new URL(window.location as never);
 		if (resetPage) {
 			url.searchParams.set(SEARCH_PAGE_KEY, "1");
 		}
