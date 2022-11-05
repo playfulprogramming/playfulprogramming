@@ -11,13 +11,8 @@
 
 	--outline: var(--slate-500);
 
-	--text-gradient-start: var(--slate-50);
+	--text-gradient-start: var(--slate-050);
 	--text-gradient-end: var(--slate-200);
-	--text-gradient: linear-gradient(
-		90deg,
-		var(--text-gradient-start),
-		var(--text-gradient-end)
-	);
 
 	--cta-foreground: var(--slate-900);
 	--cta-background: var(--slate-100);
@@ -42,7 +37,7 @@
 
 	--outline: var(--fund-500);
 
-	--text-gradient-start: var(--fund-50);
+	--text-gradient-start: var(--fund-050);
 	--text-gradient-end: var(--fund-200);
 
 	--cta-foreground: var(--fund-900);
@@ -62,7 +57,7 @@
 
 	--outline: var(--ecos-500);
 
-	--text-gradient-start: var(--ecos-50);
+	--text-gradient-start: var(--ecos-050);
 	--text-gradient-end: var(--ecos-200);
 
 	--cta-foreground: var(--ecos-900);
@@ -82,7 +77,7 @@
 
 	--outline: var(--inter-500);
 
-	--text-gradient-start: var(--inter-50);
+	--text-gradient-start: var(--inter-050);
 	--text-gradient-end: var(--inter-200);
 
 	--cta-foreground: var(--inter-900);
