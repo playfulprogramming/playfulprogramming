@@ -53,11 +53,15 @@
 
 .section-metrics-main-container {}
 
-.section-metric-subtitle, .text-style-main-text-only, .section-metric-asterisk {
+.text-style-main-text-only, .section-metric-asterisk {
     background: var(--text-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+.section-metric-subtitle {
+    color: var(--on-dark-emphasis-medium);
 }
 
 .text-style-main-text {
