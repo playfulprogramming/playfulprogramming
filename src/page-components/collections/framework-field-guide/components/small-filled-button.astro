@@ -10,8 +10,9 @@ const props = Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
 		border-radius: var(--btn-corner-radius);
 		border-width: var(--btn-border-width);
 		border-color: var(--btn-background_filled);
+		border-style: solid;
 	}
 </style>
-<button {...props} class="small-filled-button">
+<button {...props} class="text-style-button small-filled-button">
 	<slot />
 </button>

@@ -18,12 +18,6 @@
 	--cta-background: var(--slate-100);
 }
 
-.class-book-hero {
-	--cta-foreground: var(--fund-050);
-	--cta-background: var(--fund-800);
-	--outline: var(--fund-500);
-}
-
 .class-book-1 {
 	--section-background: var(--fund-900);
 
@@ -42,6 +36,16 @@
 
 	--cta-foreground: var(--fund-900);
 	--cta-background: var(--fund-100);
+}
+
+.class-book-hero {
+	--cta-foreground: var(--fund-050);
+	--cta-background: var(--fund-800);
+	--outline: var(--fund-500);
+
+	.book-section {
+		--btn-foreground_outlined: var(--on-light-emphasis-high);
+	}
 }
 
 .class-book-2 {
