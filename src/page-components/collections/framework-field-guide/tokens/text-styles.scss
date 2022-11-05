@@ -1,154 +1,6 @@
-.text-style-desktop-display-1 {
-	font-size: 7rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 800;
-	font-style: normal;
-	line-height: 7rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-display-2 {
-	font-size: 9rem;
-	font-family: "Changa One";
-	font-weight: 400;
-	font-style: normal;
-	line-height: 8rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-1 {
-	font-size: 4.5rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 800;
-	font-style: normal;
-	line-height: 4.5rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-2 {
-	font-size: 3.5rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 800;
-	font-style: normal;
-	line-height: 4rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-3 {
-	font-size: 2.75rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 800;
-	font-style: normal;
-	line-height: 3.5rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-4 {
-	font-size: 2.25rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 2.75rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-5 {
-	font-size: 1.75rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 600;
-	font-style: normal;
-	line-height: 2.25rem;
-	letter-spacing: 0.01em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-headline-6 {
-	font-size: 1.25rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.75rem;
-	letter-spacing: 0.03em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-button {
-	font-size: 1.125rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.5rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-large {
-	font-size: 1.125rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 500;
-	font-style: normal;
-	line-height: 1.75rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-large-bold {
-	font-size: 1.125rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.75rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-medium {
-	font-size: 1rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 500;
-	font-style: normal;
-	line-height: 1.5rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-medium-bold {
-	font-size: 1rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.5rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-small {
-	font-size: 0.875rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 400;
-	font-style: normal;
-	line-height: 1.25rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-body-small-bold {
-	font-size: 0.875rem;
-	font-family: "Plus Jakarta Sans";
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.25rem;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-desktop-code {
-	font-size: 1rem;
-	font-family: "Fira Code";
-	line-height: 1.5rem;
-	text-decoration: none;
-	text-transform: none;
-}
-.text-style-mobile-display-1 {
+@import "./breakpoints";
+
+.text-style-display-1 {
 	font-size: 2.75rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 800;
@@ -157,7 +9,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-display-2 {
+.text-style-display-2 {
 	font-size: 4rem;
 	font-family: "Changa One";
 	font-weight: 400;
@@ -166,7 +18,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-1 {
+.text-style-headline-1 {
 	font-size: 2.25rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 800;
@@ -175,7 +27,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-2 {
+.text-style-headline-2 {
 	font-size: 2rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 800;
@@ -184,7 +36,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-3 {
+.text-style-headline-3 {
 	font-size: 1.75rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 800;
@@ -193,7 +45,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-4 {
+.text-style-headline-4 {
 	font-size: 1.5rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -202,7 +54,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-5 {
+.text-style-headline-5 {
 	font-size: 1.25rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 600;
@@ -212,7 +64,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-headline-6 {
+.text-style-headline-6 {
 	font-size: 1.125rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -222,7 +74,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-button {
+.text-style-button {
 	font-size: 0.875rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -232,7 +84,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-large {
+.text-style-body-large {
 	font-size: 1rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 500;
@@ -242,7 +94,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-large-bold {
+.text-style-body-large-bold {
 	font-size: 1rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -252,7 +104,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-medium {
+.text-style-body-medium {
 	font-size: 0.75rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 400;
@@ -262,7 +114,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-medium-bold {
+.text-style-body-medium-bold {
 	font-size: 0.75rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -272,7 +124,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-small {
+.text-style-body-small {
 	font-size: 0.625rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 400;
@@ -282,7 +134,7 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-body-small-bold {
+.text-style-body-small-bold {
 	font-size: 0.625rem;
 	font-family: "Plus Jakarta Sans";
 	font-weight: 700;
@@ -292,10 +144,163 @@
 	text-decoration: none;
 	text-transform: none;
 }
-.text-style-mobile-code {
+.text-style-code {
 	font-size: 0.75rem;
 	font-family: "Fira Code";
 	line-height: 1rem;
 	text-decoration: none;
 	text-transform: none;
+}
+
+@include from($desktop) {
+	.text-style-display-1 {
+		font-size: 7rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 800;
+		font-style: normal;
+		line-height: 7rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-display-2 {
+		font-size: 9rem;
+		font-family: "Changa One";
+		font-weight: 400;
+		font-style: normal;
+		line-height: 8rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-1 {
+		font-size: 4.5rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 800;
+		font-style: normal;
+		line-height: 4.5rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-2 {
+		font-size: 3.5rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 800;
+		font-style: normal;
+		line-height: 4rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-3 {
+		font-size: 2.75rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 800;
+		font-style: normal;
+		line-height: 3.5rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-4 {
+		font-size: 2.25rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 2.75rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-5 {
+		font-size: 1.75rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 600;
+		font-style: normal;
+		line-height: 2.25rem;
+		letter-spacing: 0.01em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-headline-6 {
+		font-size: 1.25rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.75rem;
+		letter-spacing: 0.03em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-button {
+		font-size: 1.125rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.5rem;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-large {
+		font-size: 1.125rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 500;
+		font-style: normal;
+		line-height: 1.75rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-large-bold {
+		font-size: 1.125rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.75rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-medium {
+		font-size: 1rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 500;
+		font-style: normal;
+		line-height: 1.5rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-medium-bold {
+		font-size: 1rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.5rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-small {
+		font-size: 0.875rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 400;
+		font-style: normal;
+		line-height: 1.25rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-body-small-bold {
+		font-size: 0.875rem;
+		font-family: "Plus Jakarta Sans";
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.25rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+	.text-style-code {
+		font-size: 1rem;
+		font-family: "Fira Code";
+		line-height: 1.5rem;
+		text-decoration: none;
+		text-transform: none;
+	}
 }
