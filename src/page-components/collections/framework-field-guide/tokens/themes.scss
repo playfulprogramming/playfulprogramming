@@ -1,0 +1,62 @@
+:root {
+	--on-light-emphasis-high: var(--slate-900);
+	--on-light-emphasis-medium: var(--slate-700);
+	--on-light-emphasis-low: var(--slate-500);
+
+	--on-dark-emphasis-high: var(--slate-050);
+	--on-dark-emphasis-medium: var(--slate-300);
+	--on-dark-emphasis-low: var(--slate-500);
+
+	--outline: var(--slate-500);
+
+	--text-gradient-start: var(--slate-50);
+	--text-gradient-end: var(--slate-200);
+	--text-gradient: linear-gradient(
+		90deg,
+		var(--text-gradient-start),
+		var(--text-gradient-end)
+	);
+}
+
+.class-book-1 {
+	--on-light-emphasis-high: var(--fund-900);
+	--on-light-emphasis-medium: var(--fund-700);
+	--on-light-emphasis-low: var(--fund-500);
+
+	--on-dark-emphasis-high: var(--fund-050);
+	--on-dark-emphasis-medium: var(--fund-300);
+	--on-dark-emphasis-low: var(--fund-500);
+
+	--outline: var(--fund-500);
+	--text-gradient-start: var(--fund-50);
+	--text-gradient-end: var(--fund-200);
+}
+
+.class-book-2 {
+	--on-light-emphasis-high: var(--ecos-900);
+	--on-light-emphasis-medium: var(--ecos-700);
+	--on-light-emphasis-low: var(--ecos-500);
+
+	--on-dark-emphasis-high: var(--ecos-050);
+	--on-dark-emphasis-medium: var(--ecos-300);
+	--on-dark-emphasis-low: var(--ecos-500);
+
+	--outline: var(--ecos-500);
+	--text-gradient-start: var(--ecos-50);
+	--text-gradient-end: var(--ecos-200);
+}
+
+.class-book-3 {
+	--on-light-emphasis-high: var(--inter-900);
+	--on-light-emphasis-medium: var(--inter-700);
+	--on-light-emphasis-low: var(--inter-500);
+
+	--on-dark-emphasis-high: var(--inter-050);
+	--on-dark-emphasis-medium: var(--inter-300);
+	--on-dark-emphasis-low: var(--inter-500);
+
+	--outline: var(--inter-500);
+
+	--text-gradient-start: var(--inter-50);
+	--text-gradient-end: var(--inter-200);
+}

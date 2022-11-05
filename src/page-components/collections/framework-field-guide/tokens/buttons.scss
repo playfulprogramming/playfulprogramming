@@ -1,0 +1,32 @@
+@import "./breakpoints";
+
+:root {
+	// Buttons
+
+	--btn-ver-padding: var(--spc-1x);
+	--btn-hor-padding: var(--spc-3x);
+	--btn-ver-padding-large: var(--spc-2x);
+	--btn-hor-padding-large: var(--spc-4x);
+	--btn-border-width: var(--border-default);
+	--btn-border-width-large: var(--border-thick);
+
+	--btn-corner-radius: var(--corner-radius-circular);
+
+	--btn-border-color: var(--outline);
+
+	--btn-foreground_on-light_filled: var(--on-dark-emphasis-high);
+	--btn-background_on-dark_filled: var(-on-light-emphasis-high);
+}
+
+@include from($desktop) {
+	:root {
+		// Buttons
+
+		--btn-ver-padding: var(--spc-2x);
+		--btn-hor-padding: var(--spc-4x);
+		--btn-ver-padding-large: var(--spc-3x);
+		--btn-hor-padding-large: var(--spc-6x);
+		--btn-border-width: var(--border-thick);
+		--btn-border-width-large: var(--border-thicker);
+	}
+}
