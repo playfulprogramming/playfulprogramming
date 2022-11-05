@@ -28,7 +28,7 @@ import SmallOutlinedButton from "./small-outlined-button.astro";
 			<span class={styles.frameworkName}>Vue</span> all at once
 		</p>
 		<div class={styles.booksContainer}>
-			<div>
+			<div class={styles.bookItemContainer}>
 				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 1</p>
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>
 					Fundamentals
@@ -36,8 +36,9 @@ import SmallOutlinedButton from "./small-outlined-button.astro";
 				<SmallFilledButton>Read now</SmallFilledButton>
 				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 				</p>
+				<div class={styles.heroLine}></div>
 			</div>
-			<div>
+			<div class={styles.bookItemContainer}>
 				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 2</p>
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Ecosystem</p>
 				<SmallOutlinedButton>Learn more</SmallOutlinedButton>
@@ -45,13 +46,14 @@ import SmallOutlinedButton from "./small-outlined-button.astro";
 					Early Access
 				</p>
 			</div>
-			<div>
+			<div class={styles.bookItemContainer}>
 				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 3</p>
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Internals</p>
 				<SmallOutlinedButton>Learn more</SmallOutlinedButton>
 				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 					Coming 2024
 				</p>
+				<div class={styles.heroLineBottomHider}></div>
 			</div>
 		</div>
 		<h2 class={`text-style-headline-2 ${styles.readyToStart}`}>

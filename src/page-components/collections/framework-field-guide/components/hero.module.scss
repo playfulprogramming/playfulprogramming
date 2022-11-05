@@ -1,6 +1,10 @@
 @import "../../../../styles/utils";
 @import "../tokens/breakpoints.scss";
 
+body {
+	--backgroundColor:  var(--fund-200) !important;
+}
+
 .heroContainer {
 	padding: var(--spc-6x) var(--section-hor-padding);
 	text-align: center;
@@ -49,18 +53,54 @@
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: repeat(2, 1fr);
 
-	> div:first-child {
+	.bookItemContainer:first-child {
 		grid-column: span 2
+	}
+
+	.heroLine {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: -2;
+		height: calc(100%);
+		width: 100%;
+		top: 0.75rem;
+		border-radius: var(--corner-radius-1x);
+		box-sizing: border-box;
+		border: 2px dotted var(--outline);
+	}
+
+	.heroLineBottomHider {
+		position: relative;
+		left: -50%;
+		height: 1rem;
+		background: var(--fund-200);
+		z-index: -1;
+		top: 0;
+		position: absolute;
+		width: 100%;
 	}
 
 	@include from($tablet) {
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: 1fr;
 
-		> div:first-child {
+		.bookItemContainer:first-child {
 			grid-column: unset;
-		}	
+		}
+
+		.heroLine {
+			all: unset;
+		}
+
+		.heroLineBottomHider {
+			all: unset;
+		}
 	}
+}
+
+.bookItemContainer {
+	position: relative;
 }
 
 .explainer {
