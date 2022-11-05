@@ -1,4 +1,6 @@
 :root {
+	--section-background: var(--slate-900);
+
 	--on-light-emphasis-high: var(--slate-900);
 	--on-light-emphasis-medium: var(--slate-700);
 	--on-light-emphasis-low: var(--slate-500);
@@ -16,9 +18,20 @@
 		var(--text-gradient-start),
 		var(--text-gradient-end)
 	);
+
+	--cta-foreground: var(--slate-900);
+	--cta-background: var(--slate-100);
+}
+
+.class-book-hero {
+	--cta-foreground: var(--fund-050);
+	--cta-background: var(--fund-800);
+	--outline: var(--fund-500);
 }
 
 .class-book-1 {
+	--section-background: var(--fund-900);
+
 	--on-light-emphasis-high: var(--fund-900);
 	--on-light-emphasis-medium: var(--fund-700);
 	--on-light-emphasis-low: var(--fund-500);
@@ -28,11 +41,17 @@
 	--on-dark-emphasis-low: var(--fund-500);
 
 	--outline: var(--fund-500);
+
 	--text-gradient-start: var(--fund-50);
 	--text-gradient-end: var(--fund-200);
+
+	--cta-foreground: var(--fund-900);
+	--cta-background: var(--fund-100);
 }
 
 .class-book-2 {
+	--section-background: var(--ecos-900);
+
 	--on-light-emphasis-high: var(--ecos-900);
 	--on-light-emphasis-medium: var(--ecos-700);
 	--on-light-emphasis-low: var(--ecos-500);
@@ -42,11 +61,17 @@
 	--on-dark-emphasis-low: var(--ecos-500);
 
 	--outline: var(--ecos-500);
+
 	--text-gradient-start: var(--ecos-50);
 	--text-gradient-end: var(--ecos-200);
+
+	--cta-foreground: var(--ecos-900);
+	--cta-background: var(--ecos-100);
 }
 
 .class-book-3 {
+	--section-background: var(--inter-900);
+
 	--on-light-emphasis-high: var(--inter-900);
 	--on-light-emphasis-medium: var(--inter-700);
 	--on-light-emphasis-low: var(--inter-500);
@@ -59,4 +84,7 @@
 
 	--text-gradient-start: var(--inter-50);
 	--text-gradient-end: var(--inter-200);
+
+	--cta-foreground: var(--inter-900);
+	--cta-background: var(--inter-100);
 }
