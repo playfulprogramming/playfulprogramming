@@ -87,3 +87,7 @@
 	--cta-foreground: var(--inter-900);
 	--cta-background: var(--inter-100);
 }
+
+.book-section {
+	--text-gradient: linear-gradient(180deg, var(--text-gradient-start), var(--text-gradient-end));
+}

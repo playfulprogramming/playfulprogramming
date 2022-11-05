@@ -17,7 +17,7 @@
 }
 
 .book-title {
-    background: linear-gradient(180deg, var(--text-gradient-start), var(--text-gradient-end));
+    background: var(--text-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -49,4 +49,23 @@
 
 .book-coming-soon {
     color: var(--on-dark-emphasis-medium);
+}
+
+.section-metrics-main-container {}
+
+.section-metric-subtitle, .text-style-main-text-only, .section-metric-asterisk {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.text-style-main-text {
+    position: relative;
+}
+
+.section-metric-asterisk {
+    position: absolute;
+    right: 0;
+    top: calc(0px - var(--spc-1x));
 }
