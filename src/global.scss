@@ -310,7 +310,7 @@ svg.strokeicon {
 	}
 }
 
-svg:not(.strokeicon) {
+svg:not(.strokeicon):not(.nofill) {
 	&,
 	* {
 		transition: fill var(--animStyle) var(--animSpeed);

@@ -26,10 +26,12 @@
 .sparkContainer > svg {
 	height: 100%;
     width: 100%;
+	fill: var(--outline) !important;
 }
 
 .introducing {
-	letter-spacing: 0.25em;
+	letter-spacing: 0.25em !important;
+	text-transform: uppercase !important;
 	color: var(--on-light-emphasis-high);
 }
 
@@ -44,9 +46,20 @@
 	margin-bottom: var(--spc-6x);
 	display: grid;
 
-	@include from($desktop) {
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+
+	> div:first-child {
+		grid-column: span 2
+	}
+
+	@include from($tablet) {
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: 1fr;
+
+		> div:first-child {
+			grid-column: unset;
+		}	
 	}
 }
 
@@ -63,6 +76,7 @@
 }
 
 .bookPart {
+	text-transform: uppercase !important;
 	display: inline-block;
 	border-radius: var(--corner-radius-circular);
 	padding: 0 var(--spc-2x);
