@@ -1,6 +1,7 @@
 ---
 import BigFilledButton from "./big-filled-button.astro";
 import BigOutlinedButton from "./big-outlined-button.astro";
+import SectionMetric from "./section-metric.astro";
 import "./shared-section-styling.scss";
 ---
 
@@ -25,25 +26,8 @@ import "./shared-section-styling.scss";
 			Coming soon — in early access now!
 		</p>
 		<div class="section-metrics-main-container" data-no-horiz-pad>
-			<div>
-				<p class="section-metric-text text-style-display-2">
-					<span class="text-style-main-text">
-						<span class="text-style-main-text-only">40K</span>
-					</span><span class="text-style-headline-4 section-metric-subtitle"
-						>{" "}words</span
-					>
-				</p>
-			</div>
-			<div>
-				<p class="section-metric-text text-style-display-2">
-					<span class="text-style-main-text">
-						<span class="text-style-main-text-only">18</span>
-						<span class="text-style-headline-1 section-metric-asterisk">*</span>
-					</span><span class="text-style-headline-4 section-metric-subtitle">
-						{" "}chapters</span
-					>
-				</p>
-			</div>
+			<SectionMetric numberStr="40K" subtitle="words" asterisk={false} />
+			<SectionMetric numberStr="18" subtitle="chapters" asterisk={true} />
 		</div>
 	</div>
 </div>
