@@ -91,6 +91,12 @@ body {
 
 		.heroLine {
 			all: unset;
+			width: 200%;
+			position: absolute;
+			top: 0.75rem;
+			height: 0px;
+			border-bottom: 2px dotted var(--outline);
+			z-index: -1;
 		}
 
 		.heroLineBottomHider {
