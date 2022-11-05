@@ -62,14 +62,16 @@
 
 .section-metric-subtitle {
     color: var(--on-dark-emphasis-medium);
+    display: block;
 }
 
 .text-style-main-text {
     position: relative;
+    display: inline-block;
 }
 
 .section-metric-asterisk {
     position: absolute;
-    right: 0;
+    left: 100%;
     top: calc(0px - var(--spc-1x));
 }
