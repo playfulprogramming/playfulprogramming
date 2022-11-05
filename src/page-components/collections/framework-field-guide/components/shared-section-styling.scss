@@ -51,7 +51,17 @@
     color: var(--on-dark-emphasis-medium);
 }
 
-.section-metrics-main-container {}
+.section-metrics-main-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.section-metric-container {
+    padding: var(--spc-2x) var(--1x);
+    @include from($desktop) {
+        padding: var(--spc-4x) var(--2x);
+    }
+}
 
 .text-style-main-text-only, .section-metric-asterisk {
     background: var(--text-gradient);
