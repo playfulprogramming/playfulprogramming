@@ -1,5 +1,7 @@
 ---
 import styles from "./hero.module.scss";
+import LeftTitleSpark from "./left-title-spark.astro";
+import RightTitleSpark from "./right-title-spark.astro";
 import SmallFilledButton from "./small-filled-button.astro";
 import SmallOutlinedButton from "./small-outlined-button.astro";
 ---
@@ -10,9 +12,15 @@ import SmallOutlinedButton from "./small-outlined-button.astro";
 		<p class={`text-style-body-medium-bold ${styles.introducing}`}>
 			Introducing
 		</p>
-		<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
-			The Framework Field Guide
-		</h1>
+		<div class={styles.titleContainer} data-no-max-width>
+			<div></div>
+			<div class={styles.sparkContainer}><LeftTitleSpark /></div>
+			<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
+				The Framework Field Guide
+			</h1>
+			<div class={styles.sparkContainer}><RightTitleSpark /></div>
+			<div></div>
+		</div>
 		<p class={`text-style-headline-5 ${styles.explainer}`}>
 			A free and practical way to learn <span class={styles.frameworkName}
 				>Angular</span

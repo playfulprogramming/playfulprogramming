@@ -2,65 +2,88 @@
 @import "../tokens/breakpoints.scss";
 
 .heroContainer {
-    padding: var(--spc-6x) var(--section-hor-padding);
-    text-align: center;
+	padding: var(--spc-6x) var(--section-hor-padding);
+	text-align: center;
+}
+
+.titleContainer {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+
+	display: grid;
+    position: relative;
+    grid-template-columns: 1fr auto auto auto 1fr;
+    grid-template-rows: 1fr;
+}
+
+.sparkContainer {
+	height: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.sparkContainer > svg {
+	height: 100%;
+    width: 100%;
 }
 
 .introducing {
-    letter-spacing: 0.25em;
-    color: var(--on-light-emphasis-high);
+	letter-spacing: 0.25em;
+	color: var(--on-light-emphasis-high);
 }
 
 .seriesTitle {
-    margin-top: var(--spc-2x);
-    margin-bottom: var(--spc-3x);
-    color: var(--on-light-emphasis-high);
+	margin-top: var(--spc-2x);
+	margin-bottom: var(--spc-3x);
+	color: var(--on-light-emphasis-high);
 }
 
 .booksContainer {
-    margin-top: var(--spc-6x);
-    margin-bottom: var(--spc-6x);
-    display: grid;
-    
-    @include from($desktop) {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 1fr;
-    }
+	margin-top: var(--spc-6x);
+	margin-bottom: var(--spc-6x);
+	display: grid;
+
+	@include from($desktop) {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: 1fr;
+	}
 }
 
 .explainer {
-    color: var(--on-light-emphasis-medium);
+	color: var(--on-light-emphasis-medium);
 }
 
 .frameworkName {
-    color: var(--on-light-emphasis-high);
+	color: var(--on-light-emphasis-high);
 }
 
 .readyToStart {
-    color: var(--on-light-emphasis-high);
+	color: var(--on-light-emphasis-high);
 }
 
 .bookPart {
-    display: inline-block;
-    border-radius: var(--corner-radius-circular);
-    padding: 0 var(--spc-2x);
-    background: var(--fund-200);
-    color: var(--on-light-emphasis-low);
+	display: inline-block;
+	border-radius: var(--corner-radius-circular);
+	padding: 0 var(--spc-2x);
+	background: var(--fund-200);
+	color: var(--on-light-emphasis-low);
+	margin: 0;
 }
 
 .bookPartName {
-    color: var(--on-light-emphasis-high);
-    
-    margin-top: 0;
-    margin-bottom: var(--spc-2x);
+	color: var(--on-light-emphasis-high);
 
-    @include from($desktop) {
-        margin-top: var(--spc-1x);
-        margin-bottom: var(--spc-4x);
-    }
+	margin-top: 0;
+	margin-bottom: var(--spc-2x);
+
+	@include from($desktop) {
+		margin-top: var(--spc-1x);
+		margin-bottom: var(--spc-4x);
+	}
 }
 
 .bookPartBottomText {
-    margin-top: var(--spc-1x);
-    color: var(--on-light-emphasis-medium);
+	margin-top: var(--spc-1x);
+	color: var(--on-light-emphasis-medium);
 }
