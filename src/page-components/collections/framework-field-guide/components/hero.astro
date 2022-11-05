@@ -1,0 +1,44 @@
+---
+import styles from "./hero.module.scss";
+---
+
+<div class={styles.heroContainer}>
+	<!-- TODO: Come back to this for mobile -->
+	<p class={`text-style-body-medium-bold ${styles.introducing}`}>Introducing</p>
+	<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
+		The Framework Field Guide
+	</h1>
+	<p class={`text-style-headline-5 ${styles.explainer}`}>
+		A free and practical way to learn <span class={styles.frameworkName}
+			>Angular</span
+		>, <span class={styles.frameworkName}>React</span> &
+		<span class={styles.frameworkName}>Vue</span> all at once
+	</p>
+	<div class={styles.booksContainer}>
+		<div>
+			<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 1</p>
+			<p class={`text-style-headline-4 ${styles.bookPartName}`}>Fundamentals</p>
+			<button>Read now</button>
+			<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}></p>
+		</div>
+		<div>
+			<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 2</p>
+			<p class={`text-style-headline-4 ${styles.bookPartName}`}>Ecosystem</p>
+			<button>Learn more</button>
+			<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+				Early Access
+			</p>
+		</div>
+		<div>
+			<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 3</p>
+			<p class={`text-style-headline-4 ${styles.bookPartName}`}>Internals</p>
+			<button>Learn more</button>
+			<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+				Coming 2024
+			</p>
+		</div>
+	</div>
+	<h2 class={`text-style-headline-2 ${styles.readyToStart}`}>
+		Ready to start your journey?
+	</h2>
+</div>
