@@ -14,8 +14,10 @@
 	--btn-corner-radius: var(--corner-radius-circular);
 
 	--btn-border: var(--outline);
-	--btn-foreground: var(--cta-foreground);
-	--btn-background: var(--cta-background);
+
+	--btn-foreground_outlined: var(--on-dark-emphasis-high);
+	--btn-foreground_filled: var(--cta-foreground);
+	--btn-background_filled: var(--cta-background);
 }
 
 @include from($desktop) {

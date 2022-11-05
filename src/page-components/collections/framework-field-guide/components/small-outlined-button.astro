@@ -1,0 +1,17 @@
+---
+const props = Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
+---
+
+<style>
+	.small-outlined-button {
+		padding: var(--btn-ver-padding) var(--btn-hor-padding);
+		background: transparent;
+		color: var(--btn-foreground_outlined);
+		border-radius: var(--btn-corner-radius);
+		border-width: var(--btn-border-width);
+		border-color: var(--btn-border);
+	}
+</style>
+<button {...props} class="small-outlined-button">
+	<slot />
+</button>
