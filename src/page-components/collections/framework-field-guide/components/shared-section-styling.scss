@@ -57,9 +57,9 @@
 }
 
 .section-metric-container {
-    padding: var(--spc-2x) var(--1x);
+    padding: var(--spc-2x) var(--spc-1x);
     @include from($desktop) {
-        padding: var(--spc-4x) var(--2x);
+        padding: var(--spc-4x) var(--spc-2x);
     }
 }
 
