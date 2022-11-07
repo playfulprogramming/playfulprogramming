@@ -51,6 +51,16 @@ const tagTable = [...new Array(ROWS)].map((_) =>
 		animation-play-state: paused;
 	}
 
+	.tag-list:hover .loop-slider .inner {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tag-list .loop-slider .inner {
+			animation-play-state: paused;
+		}
+	}
+
 	.tag {
 		color: var(--chip-foreground);
 		background-color: var(--chip-background);
