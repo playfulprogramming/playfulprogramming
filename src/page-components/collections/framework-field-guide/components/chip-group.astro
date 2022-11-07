@@ -16,7 +16,7 @@ const tagTable = [...new Array(ROWS)].map((_) =>
 );
 ---
 
-<div class="tag-list" data-no-max-width>
+<div class="tag-list">
 	{
 		tagTable.map((_, i) => (
 			<InfiniteLoopSlider duration={DURATION} reverse={i % 2}>
