@@ -1,0 +1,69 @@
+---
+import InfiniteLoopSlider from "./infinite-loop-slider.astro";
+const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+
+const DURATION = 18000;
+const ROWS = 3;
+const TAGS_PER_ROW = 2;
+
+interface ChipGroupProps {
+	tags: string[];
+}
+
+const { tags } = Astro.props as ChipGroupProps;
+---
+
+<div class="tag-list" data-no-max-width>
+	{
+		[...new Array(ROWS)].map((_, i) => (
+			<InfiniteLoopSlider duration={DURATION} reverse={i % 2}>
+				{shuffle(tags)
+					.slice(0, TAGS_PER_ROW)
+					.map((tag) => (
+						<div class="text-style-body-medium-bold tag">{tag}</div>
+					))}
+			</InfiniteLoopSlider>
+		))
+	}
+	<div class="fade"></div>
+</div>
+<style is:global>
+	.tag-list {
+		margin: 0 auto;
+		width: 100%;
+		max-width: var(--max-width-large);
+		display: flex;
+		flex-shrink: 0;
+		flex-direction: column;
+		gap: var(--chip-group-gap) 0;
+		position: relative;
+		padding: 1.5rem 0;
+		overflow: hidden;
+	}
+
+	.tag-list:hover .loop-slider .inner {
+		animation-play-state: paused;
+	}
+
+	.tag {
+		color: var(--chip-foreground);
+		background-color: var(--chip-background);
+		border-radius: var(--corner-radius-circular);
+		padding: var(--chip-ver-padding) var(--chip-hor-padding);
+		/* Must used margin-right instead of gap for the loop to be smooth */
+		margin-right: var(--chip-group-gap);
+	}
+
+	.fade {
+		pointer-events: none;
+		background: linear-gradient(
+			90deg,
+			var(--section-background),
+			transparent 30%,
+			transparent 70%,
+			var(--section-background)
+		);
+		position: absolute;
+		inset: 0;
+	}
+</style>

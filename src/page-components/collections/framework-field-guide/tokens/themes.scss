@@ -18,6 +18,16 @@
 	--cta-background: var(--slate-100);
 }
 
+.class-book-hero {
+	--cta-foreground: var(--fund-050);
+	--cta-background: var(--fund-800);
+	--outline: var(--fund-500);
+
+	.book-section {
+		--btn-foreground_outlined: var(--on-light-emphasis-high);
+	}
+}
+
 .class-book-1 {
 	--section-background: var(--fund-900);
 
@@ -36,16 +46,9 @@
 
 	--cta-foreground: var(--fund-900);
 	--cta-background: var(--fund-100);
-}
 
-.class-book-hero {
-	--cta-foreground: var(--fund-050);
-	--cta-background: var(--fund-800);
-	--outline: var(--fund-500);
-
-	.book-section {
-		--btn-foreground_outlined: var(--on-light-emphasis-high);
-	}
+	--chip-foreground: var(--fund-100);
+	--chip-background: var(--fund-800);
 }
 
 .class-book-2 {
@@ -66,6 +69,9 @@
 
 	--cta-foreground: var(--ecos-900);
 	--cta-background: var(--ecos-100);
+
+	--chip-foreground: var(--ecos-100);
+	--chip-background: var(--ecos-800);
 }
 
 .class-book-3 {
@@ -86,8 +92,15 @@
 
 	--cta-foreground: var(--inter-900);
 	--cta-background: var(--inter-100);
+
+	--chip-foreground: var(--inter-100);
+	--chip-background: var(--inter-800);
 }
 
 .book-section {
-	--text-gradient: linear-gradient(180deg, var(--text-gradient-start), var(--text-gradient-end));
+	--text-gradient: linear-gradient(
+		180deg,
+		var(--text-gradient-start),
+		var(--text-gradient-end)
+	);
 }

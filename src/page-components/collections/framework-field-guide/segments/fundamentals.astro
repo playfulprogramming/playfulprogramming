@@ -1,8 +1,24 @@
 ---
-import BigFilledButton from "./big-filled-button.astro";
-import BigOutlinedButton from "./big-outlined-button.astro";
-import SectionMetric from "./section-metric.astro";
-import "./shared-section-styling.scss";
+import BigFilledButton from "../components/big-filled-button.astro";
+import BigOutlinedButton from "../components/big-outlined-button.astro";
+import ChipGroup from "../components/chip-group.astro";
+import SectionMetric from "../components/section-metric.astro";
+import "../components/shared-section-styling.scss";
+
+const tags = [
+	"HTML",
+	"CSS",
+	"JavaScript",
+	"Typescript",
+	"Tailwind",
+	"React",
+	"Next.js",
+	"Gatsby",
+	"UI/UX",
+	"SVG",
+	"animation",
+	"webdev",
+];
 ---
 
 <div class="class-book-1">
@@ -29,5 +45,6 @@ import "./shared-section-styling.scss";
 			<SectionMetric numberStr="40K" subtitle="words" asterisk={false} />
 			<SectionMetric numberStr="18" subtitle="chapters" asterisk={true} />
 		</div>
+		<ChipGroup tags={tags} />
 	</div>
 </div>
