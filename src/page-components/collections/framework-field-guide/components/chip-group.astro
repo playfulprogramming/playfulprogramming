@@ -1,8 +1,10 @@
 ---
 import InfiniteLoopSlider from "./infinite-loop-slider.astro";
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
 
-const DURATION = 18000;
+const MAX_DURATION = 56000 * 2;
+const MIN_DURATION = 56000;
 const ROWS = 3;
 const TAGS_PER_ROW = 10;
 
@@ -19,7 +21,10 @@ const tagTable = [...new Array(ROWS)].map((_) =>
 <div class="tag-list">
 	{
 		tagTable.map((_, i) => (
-			<InfiniteLoopSlider duration={DURATION} reverse={i % 2}>
+			<InfiniteLoopSlider
+				duration={random(MIN_DURATION, MAX_DURATION)}
+				reverse={i % 2}
+			>
 				{tagTable[i].map((tag) => (
 					<div class="text-style-body-medium-bold tag">{tag}</div>
 				))}
