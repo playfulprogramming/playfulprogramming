@@ -4,24 +4,25 @@ const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
 
 const DURATION = 18000;
 const ROWS = 3;
-const TAGS_PER_ROW = 2;
+const TAGS_PER_ROW = 10;
 
 interface ChipGroupProps {
 	tags: string[];
 }
 
 const { tags } = Astro.props as ChipGroupProps;
+const tagTable = [...new Array(ROWS)].map((_) =>
+	shuffle(tags).slice(0, TAGS_PER_ROW)
+);
 ---
 
 <div class="tag-list" data-no-max-width>
 	{
-		[...new Array(ROWS)].map((_, i) => (
+		tagTable.map((_, i) => (
 			<InfiniteLoopSlider duration={DURATION} reverse={i % 2}>
-				{shuffle(tags)
-					.slice(0, TAGS_PER_ROW)
-					.map((tag) => (
-						<div class="text-style-body-medium-bold tag">{tag}</div>
-					))}
+				{tagTable[i].map((tag) => (
+					<div class="text-style-body-medium-bold tag">{tag}</div>
+				))}
 			</InfiniteLoopSlider>
 		))
 	}
