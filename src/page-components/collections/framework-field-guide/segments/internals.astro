@@ -1,24 +1,42 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
 import BigOutlinedButton from "../components/big-outlined-button.astro";
-import ChipGroup from "../components/chip-group.astro";
+import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
 
-const tags = [
-	"HTML",
-	"CSS",
-	"JavaScript",
-	"Typescript",
-	"Tailwind",
-	"React",
-	"Next.js",
-	"Gatsby",
-	"UI/UX",
-	"SVG",
-	"animation",
-	"webdev",
-];
+const tags: TagList = [
+	"Performance",
+	"OnPush",
+	"Memoization",
+	"v-once",
+	"Rendering Behavior",
+	"Virtual DOM",
+	"Incremental DOM",
+	'"h" function',
+	"Reactivity",
+	"Zone.js internals",
+	"Proxies",
+	"Vue RFC sugar",
+	"Vue JSX usage",
+	"DOM diffing",
+	'"createElement"',
+	"Hook state persistence",
+	"Hook call order",
+	"Change detection",
+	"ApplicationRef.tick",
+	"Angular Ivy",
+	"NgZone",
+	"Custom renderers",
+	"Template compilers",
+	"Immutability",
+	"Write your own framework",
+	"Vue's internals",
+	"React's interals",
+	"Angular's internals",
+	"nextTick",
+	"Non-DOM usage",
+] as const;
 ---
 
 <div class="class-book-3">
