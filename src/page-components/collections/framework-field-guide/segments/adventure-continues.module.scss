@@ -37,9 +37,22 @@
 }
 
 .gridItem {
+    position: relative;
     border-style: solid;
     border-color: var(--on-light-emphasis-low);
     border-width: var(--grid-item-border-width);
     border-radius: var(--grid-item-corner-radius);
     padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal) var(--grid-item-padding_bottom);
+}
+
+.gridItem svg {
+    position: absolute;
+    left: 50%;
+    background: var(--section-background);
+    padding-left: var(--grid-icon-padding);
+    padding-right: var(--grid-icon-padding);
+    height: var(--grid-icon-size) !important;
+    width: var(--grid-icon-size) !important;
+    transform: translateX(-50%);
+    top: calc(0px - (var(--grid-icon-size) / 2));
 }
