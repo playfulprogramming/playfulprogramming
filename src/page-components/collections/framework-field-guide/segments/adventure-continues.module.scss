@@ -4,6 +4,8 @@
 .adventureContinuesContainer {
     padding: var(--section-ver-padding) var(--section-hor-padding);
     text-align: center;
+    max-width: var(--max-width-large);
+    margin: 0 auto;
 }
 
 .title {
