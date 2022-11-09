@@ -1,24 +1,42 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
 import BigOutlinedButton from "../components/big-outlined-button.astro";
-import ChipGroup from "../components/chip-group.astro";
+import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
 
-const tags = [
-	"HTML",
-	"CSS",
-	"JavaScript",
-	"Typescript",
-	"Tailwind",
+const tags: TagList = [
+	"What is a component?",
+	"Component relationships",
+	"Lifecycle methods",
+	"Dynamic HTML",
+	"Attribute binding",
+	"Rendering",
+	"Un-rendering",
+	"Prop listening",
+	"Derived values",
+	"Element reference",
+	"Component reference",
+	"Dependency injection",
+	"Custom hooks",
+	"Error handling",
+	"Accessibility (A11Y)",
+	"Forms and data binding",
+	"DOM updating",
 	"React",
-	"Next.js",
-	"Gatsby",
-	"UI/UX",
-	"SVG",
-	"animation",
-	"webdev",
-];
+	"Angular",
+	"Vue",
+	"Live updating values",
+	"Inputs",
+	"Outputs",
+	"Event bindings",
+	"Directives",
+	"Portals",
+	"Side effects",
+	"Event bubbling",
+	"Pipes",
+	"Custom hooks",
+] as const;
 ---
 
 <div class="class-book-1">
