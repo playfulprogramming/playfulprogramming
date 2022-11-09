@@ -1,5 +1,6 @@
 ---
 import Document from "../../../layouts/document.astro";
+import "../../../page-components/collections/framework-field-guide/tokens/adventure.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/buttons.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/colors.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/corner-radius.scss";
@@ -11,6 +12,8 @@ import Hero from "src/page-components/collections/framework-field-guide/segments
 import Fundamentals from "src/page-components/collections/framework-field-guide/segments/fundamentals.astro";
 import Ecosystem from "src/page-components/collections/framework-field-guide/segments/ecosystem.astro";
 import Internals from "src/page-components/collections/framework-field-guide/segments/internals.astro";
+import AdventureContinues from "src/page-components/collections/framework-field-guide/segments/adventure-continues.astro";
+import TheRestContainer from "src/page-components/collections/framework-field-guide/segments/the-rest-container.astro";
 ---
 
 <Document>
@@ -34,3 +37,6 @@ import Internals from "src/page-components/collections/framework-field-guide/seg
 <Fundamentals />
 <Ecosystem />
 <Internals />
+<TheRestContainer>
+	<AdventureContinues />
+</TheRestContainer>
