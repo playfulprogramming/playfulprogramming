@@ -2,7 +2,35 @@
 @import "../tokens/breakpoints.scss";
 
 body {
-	--backgroundColor:  var(--fund-200) !important;
+	--backgroundColor: var(--fund-200) !important;
+}
+
+.sunContainerContainer > div {
+	position: relative;
+}
+
+.sunContainerContainer > div > svg {
+	position: absolute;
+	left: -30%;
+	top: -100px;
+	z-index: -1;
+
+	transition: all 300ms ease-in-out;
+
+	height: 320px;
+	width: 320px;
+
+	@include from($tablet) {
+		left: -40%;
+		height: 480px;
+		width: 480px;
+	}
+
+	@include from($desktop) {
+		left: -40%;
+		height: 560px;
+		width: 560px;
+	}
 }
 
 .heroContainer {
@@ -16,20 +44,20 @@ body {
 	align-items: center;
 
 	display: grid;
-    position: relative;
-    grid-template-columns: 1fr auto auto auto 1fr;
-    grid-template-rows: 1fr;
+	position: relative;
+	grid-template-columns: 1fr auto auto auto 1fr;
+	grid-template-rows: 1fr;
 }
 
 .sparkContainer {
 	height: 100%;
-    box-sizing: border-box;
-    padding: 1rem;
+	box-sizing: border-box;
+	padding: 1rem;
 }
 
 .sparkContainer > svg {
 	height: 100%;
-    width: 100%;
+	width: 100%;
 	fill: var(--outline) !important;
 }
 
@@ -54,7 +82,7 @@ body {
 	grid-template-rows: repeat(2, 1fr);
 
 	.bookItemContainer:first-child {
-		grid-column: span 2
+		grid-column: span 2;
 	}
 
 	.heroLine {

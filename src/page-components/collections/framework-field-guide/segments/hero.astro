@@ -4,10 +4,16 @@ import LeftTitleSpark from "../components/left-title-spark.astro";
 import RightTitleSpark from "../components/right-title-spark.astro";
 import SmallFilledButton from "../components/small-filled-button.astro";
 import SmallOutlinedButton from "../components/small-outlined-button.astro";
+import Sun from "../cover-layers/fundamentals/sun.astro";
 ---
 
 <div class={`class-book-1 class-book-hero`}>
 	<div class={`book-section ${styles.heroContainer}`}>
+		<div class={styles.sunContainerContainer}>
+			<div>
+				<Sun />
+			</div>
+		</div>
 		<!-- TODO: Come back to this for mobile -->
 		<p class={`text-style-body-medium-bold ${styles.introducing}`}>
 			Introducing
