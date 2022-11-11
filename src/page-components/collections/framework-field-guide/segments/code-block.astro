@@ -8,6 +8,7 @@ import "../../../../styles/shiki.scss";
 </div>
 <style is:global>
 	pre {
+		margin: 0;
 		border: none;
 	}
 
@@ -29,7 +30,39 @@ import "../../../../styles/shiki.scss";
 	}
 
 	.tabs {
-		border-radius: var(--code-block-corder-radius);
+		border-radius: var(--code-block-corner-radius);
 		padding: var(--code-block-padding);
+		background: var(--slate-800);
+	}
+
+	.tabs__tab-list {
+		padding: 0;
+		margin: 0;
+	}
+
+	.tabs__tab {
+		list-style: none;
+		margin: 0;
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		color: var(--on-dark-emphasis-high);
+		min-width: var(--code-block-tab-min-size);
+		border-radius: var(--code-block-tab-corner-radius)
+			var(--code-block-tab-corner-radius) 0 0;
+		background: var(--slate-800);
+		/* Replace with tokens */
+		padding: 20px 24px 20px 24px;
+	}
+
+	.tabs__tab[aria-selected="true"] {
+		background: var(--slate-700);
+	}
+
+	.tabs__tab-panel {
+		border-radius: 0 0 var(--code-block-corner-radius)
+			var(--code-block-corner-radius);
+		background: var(--slate-700);
+		padding: var(--code-block-spacing);
 	}
 </style>
