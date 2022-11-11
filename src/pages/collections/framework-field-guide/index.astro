@@ -40,17 +40,23 @@ import TheRestContainer from "src/page-components/collections/framework-field-gu
 		rel="stylesheet"
 	/>
 </Document>
-<script client:only>
+<script>
 	window.onload = () => {
 		const els = document.querySelectorAll("[data-move-on-scroll-by]");
-		window.addEventListener("scroll", () => {
+		function moveItems() {
 			els.forEach((el) => {
-				const px =
+				let px =
 					document.documentElement.scrollTop *
 					Number(el.dataset.moveOnScrollBy);
+				// Mobile
+				if (window.innerWidth < 600) {
+					px = px / 3;
+				}
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
 			});
-		});
+		}
+		window.addEventListener("scroll", moveItems);
+		window.addEventListener("touchmove", moveItems);
 	};
 </script>
 <Hero />
