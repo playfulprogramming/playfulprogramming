@@ -1,4 +1,12 @@
-<div class="data-no-max-width bookCoverLayer">
+---
+interface BookCoverLayerProps {
+	class?: string;
+}
+
+const { class: className } = Astro.props as BookCoverLayerProps;
+---
+
+<div class={`data-no-max-width bookCoverLayer ${className}`}>
 	<slot name="left" />
 	<slot name="center" />
 	<slot name="right" />
