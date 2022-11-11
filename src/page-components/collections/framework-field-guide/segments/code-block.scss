@@ -1,0 +1,84 @@
+@import "../../../../styles/utils";
+@import "../tokens/breakpoints.scss";
+
+pre {
+    margin: 0;
+    border: none;
+}
+
+code .line::before {
+    color: var(--slate-300);
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 450;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+pre code {
+    font-family: "Fira Code";
+    font-style: normal;
+    font-weight: 450;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.tabs {
+    border-radius: var(--code-block-corner-radius);
+    padding: var(--code-block-padding);
+    background: var(--slate-800);
+}
+
+.tabs__tab-list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.tabs__tab {
+    list-style: none;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    color: var(--on-dark-emphasis-high);
+    min-width: var(--code-block-tab-min-size);
+    border-radius: var(--code-block-tab-corner-radius)
+        var(--code-block-tab-corner-radius) 0 0;
+    background: var(--slate-800);
+    text-align: center;
+    /* Replace with tokens */
+    padding: 20px 24px 20px 24px;
+
+    width: calc(100% / 3);
+    @include from($tablet) {
+        width: unset;
+    }
+}
+
+:not([aria-selected="true"]) + .tabs__tab::before {
+    position: absolute;
+    content: " ";
+    display: block;
+    left: 0;
+    top: 12px;
+    height: calc(100% - 24px);
+    width: 2px;
+    border-radius: 99px;
+    background: var(--slate-700);
+}
+
+.tabs__tab:not([aria-selected="true"]) {
+    text-decoration: underline;
+}
+
+.tabs__tab[aria-selected="true"] {
+    background: var(--slate-700);
+}
+
+.tabs__tab-panel {
+    border-radius: 0 0 var(--code-block-corner-radius)
+        var(--code-block-corner-radius);
+    background: var(--slate-700);
+    padding: var(--code-block-spacing);
+}
