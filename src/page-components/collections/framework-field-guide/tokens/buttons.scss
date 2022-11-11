@@ -4,17 +4,16 @@
 .book-section {
 	// Buttons
 
-	--btn-ver-padding: var(--spc-1x);
-	--btn-hor-padding: var(--spc-3x);
-	--btn-ver-padding-large: var(--spc-2x);
-	--btn-hor-padding-large: var(--spc-4x);
-	--btn-border-width: var(--border-width-1x);
-	--btn-border-width-large: var(--border-width-2x);
+	--btn-ver-padding_small: var(--spc-1x);
+	--btn-hor-padding_small: var(--spc-3x);
+	--btn-ver-padding_large: var(--spc-2x);
+	--btn-hor-padding_large: var(--spc-4x);
+	--btn-border-width_small: var(--border-1x);
+	--btn-border-width_large: var(--border-2x);
 
 	--btn-corner-radius: var(--corner-radius-circular);
 
 	--btn-border: var(--outline);
-
 	--btn-foreground_outlined: var(--on-dark-emphasis-high);
 	--btn-foreground_filled: var(--cta-foreground);
 	--btn-background_filled: var(--cta-background);
@@ -24,11 +23,11 @@
 	.book-section {
 		// Buttons
 
-		--btn-ver-padding: var(--spc-2x);
-		--btn-hor-padding: var(--spc-4x);
-		--btn-ver-padding-large: var(--spc-3x);
-		--btn-hor-padding-large: var(--spc-6x);
-		--btn-border-width: var(--border-width-2x);
-		--btn-border-width-large: var(--border-width-3x);
+		--btn-ver-padding_small: var(--spc-2x);
+		--btn-hor-padding_small: var(--spc-4x);
+		--btn-ver-padding_large: var(--spc-3x);
+		--btn-hor-padding_large: var(--spc-6x);
+		--btn-border-width_small: var(--border-2x);
+		--btn-border-width_large: var(--border-3x);
 	}
 }
