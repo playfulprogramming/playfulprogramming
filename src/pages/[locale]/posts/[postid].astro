@@ -1,5 +1,5 @@
 ---
-import Document from "../../layouts/document.astro";
+import Document from "../../../layouts/document.astro";
 
 import SEO from "components/seo/seo.astro";
 
@@ -9,12 +9,14 @@ import BlogPost from "src/page-components/blog-post/blog-post.astro";
 import { Languages } from "types/index";
 
 export async function getStaticPaths() {
-	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");
+	const posts = await Astro.glob<PostInfo>("../../../../content/blog/**/*.md");
 
 	return posts.reduce((arr, post) => {
-		if (post.frontmatter.locale !== "en") return arr;
+		if (post.frontmatter.locale === "en") return arr;
+
 		arr.push({
 			params: {
+				locale: post.frontmatter.locale,
 				postid: post.frontmatter.slug,
 			},
 			props: {
