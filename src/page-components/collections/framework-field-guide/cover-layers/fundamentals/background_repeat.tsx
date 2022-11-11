@@ -6,8 +6,7 @@ export const BackgroundRepeat = () => {
 				width: '100%',
 				backgroundPosition: 'bottom center',
 				height: '100%',
-				backgroundRepeatY: 'no-repeat',
-				backgroundRepeatX: 'repeat',
+				backgroundRepeat: "repeat no-repeat",
                 marginBottom: '-4px'
 			}}
 		/>
