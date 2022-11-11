@@ -30,7 +30,11 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer name="right-repeat" class="background-repeat-layer">
+	<BookCoverLayer
+		moveOnScrollBy={0.06}
+		name="right-repeat"
+		class="background-repeat-layer"
+	>
 		<div slot="left"></div>
 		<div
 			slot="center"
@@ -40,11 +44,7 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 		</div>
 		<div slot="right"><BackgroundRepeat /></div>
 	</BookCoverLayer>
-	<BookCoverLayer
-		moveOnScrollBy={0.06}
-		name="left-repeat"
-		class="background-repeat-layer"
-	>
+	<BookCoverLayer name="left-repeat" class="background-repeat-layer">
 		<div slot="left"><BackgroundRepeat /></div>
 		<div
 			slot="center"
