@@ -1,4 +1,4 @@
-export const Trees = ({ className }) => {
+export const Trees = () => {
 	return (
 		<div
 			style={{

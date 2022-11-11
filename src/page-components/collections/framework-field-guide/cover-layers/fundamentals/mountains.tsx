@@ -1,4 +1,4 @@
-export const Mountains = ({ className }) => {
+export const Mountains = () => {
 	return (
 		<div
 			style={{

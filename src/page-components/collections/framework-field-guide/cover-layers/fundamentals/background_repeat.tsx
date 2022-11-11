@@ -1,4 +1,4 @@
-export const BackgroundRepeat = ({ className }) => {
+export const BackgroundRepeat = () => {
 	return (
 		<div
 			style={{
