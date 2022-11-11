@@ -8,6 +8,7 @@ import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
 import { GroundAndManSvg } from "../cover-layers/fundamentals/ground_and_man";
 import { SignGroundReflection } from "../cover-layers/fundamentals/sign_ground_reflection";
+import { Trees } from "../cover-layers/fundamentals/trees";
 
 const tags: TagList = [
 	"What is a component?",
@@ -44,6 +45,13 @@ const tags: TagList = [
 ---
 
 <BookCoverContainer>
+	<BookCoverLayer>
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<Trees />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
 	<BookCoverLayer>
 		<div slot="left"></div>
 		<div slot="center">
