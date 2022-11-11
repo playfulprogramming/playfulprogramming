@@ -6,14 +6,25 @@
 
 <style>
 	.bookCoverLayer {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
 		display: grid;
 		grid-template-columns: auto 1fr auto;
-		overflow-x: hidden;
+		overflow: hidden;
+	}
+
+	.bookCoverLayer > :global(div) {
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: column;
 	}
 
 	.bookCoverLayer :global(svg) {
 		max-height: var(--max-width-small);
-		height: 100vw;
+		height: fit-content;
 		width: 100%;
 	}
 </style>

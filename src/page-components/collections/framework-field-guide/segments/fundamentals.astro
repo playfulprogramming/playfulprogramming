@@ -1,11 +1,13 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
 import BigOutlinedButton from "../components/big-outlined-button.astro";
+import BookCoverContainer from "../components/book-cover-container.astro";
 import BookCoverLayer from "../components/book-cover-layer.astro";
 import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
 import { GroundAndManSvg } from "../cover-layers/fundamentals/ground_and_man";
+import { SignGroundReflection } from "../cover-layers/fundamentals/sign_ground_reflection";
 
 const tags: TagList = [
 	"What is a component?",
@@ -41,13 +43,22 @@ const tags: TagList = [
 ] as const;
 ---
 
-<BookCoverLayer>
-	<div slot="left"></div>
-	<div slot="center">
-		<GroundAndManSvg />
-	</div>
-	<div slot="right"></div>
-</BookCoverLayer>
+<BookCoverContainer>
+	<BookCoverLayer>
+		<div slot="left"></div>
+		<div slot="center">
+			<SignGroundReflection />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer>
+		<div slot="left"></div>
+		<div slot="center">
+			<GroundAndManSvg />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+</BookCoverContainer>
 <div class="class-book-1">
 	<div class="book-section" style="background: var(--section-background);">
 		<h3 class={`text-style-display-1 book-title`}>Fundamentals</h3>
