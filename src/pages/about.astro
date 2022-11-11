@@ -5,14 +5,10 @@ import About from "../page-components/about/about.astro";
 
 const aboutUsLocales = await Astro.glob("../../content/site/about-us*.md");
 
-const usAboutLocale = aboutUsLocales.find((aboutUs) =>
-	aboutUs.file.endsWith("about-us.md")
-);
-
-const Content = usAboutLocale.Content;
+const locale = "en";
 ---
 
 <Document>
 	<SEO title="About Us" />
-	<About Content={Content} />
+	<About globResults={aboutUsLocales} locale={locale} />
 </Document>

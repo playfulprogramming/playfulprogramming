@@ -2,23 +2,33 @@
 import style from "./about.module.scss";
 import { Languages, UnicornInfo } from "uu-types";
 import { unicorns } from "../../utils/data";
-import { join, resolve } from "path";
 import { Picture } from "@astrojs/image/components";
 import { MarkdownInstance } from "astro";
 import "../../styles/post-body.scss";
 
 interface AboutProps {
-	Content?: MarkdownInstance<any>["Content"];
+	locale: Languages;
+	globResults: Array<MarkdownInstance<Record<string, any>>>;
 }
 
-const { Content } = Astro.props as AboutProps;
+const { locale, globResults } = Astro.props as AboutProps;
+
+const matchedResult = globResults.find((aboutUs) => {
+	if (locale === "en") {
+		return aboutUs.file.endsWith("about-us.md");
+	} else {
+		return aboutUs.file.endsWith(`about-us.${locale}.md`);
+	}
+});
+
+const Content = matchedResult.Content;
 ---
 
 <div class={style.container}>
 	<div class={style.headerTitle}>
 		<div class={style.unicornLogo}>
 			<Picture
-				src={import("../assets/unicorn_head_1024.png")}
+				src={import("../../assets/unicorn_head_1024.png")}
 				loading={"eager"}
 				widths={[192]}
 				sizes={"192px"}
