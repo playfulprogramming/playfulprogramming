@@ -1,0 +1,53 @@
+@import "../../../../styles/utils";
+@import "../tokens/breakpoints.scss";
+
+.guideContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	max-width: var(--max-width_small);
+	width: 100%;
+	margin: 0 auto;
+    text-align: center;
+}
+
+.sectionTitle {
+	color: var(--on-dark-emphasis-high);
+    margin: 0;
+}
+
+.authorIntro {
+	color: var(--on-dark-emphasis-high);
+    margin: 0;
+}
+
+.authorName {
+	background: var(--gradient-corbin);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+    margin: 0;
+}
+
+.seriesName {
+	background: var(--gradient-ffg);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+    margin: 0;
+}
+
+.guidePicture img {
+	height: var(--avatar-size_large);
+	width: var(--avatar-size_large);
+    border-radius: var(--corner-radius-circular);
+    margin: var(--spc-6x) auto var(--section-gap);
+    
+	@include from($desktop) {
+		height: var(--avatar-size_huge);
+		width: var(--avatar-size_huge);
+	}
+}
+
+.guideText {
+	color: var(--on-dark-emphasis-medium);
+    margin: var(--section-gap) 0;
+}
