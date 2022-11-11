@@ -40,6 +40,19 @@ import TheRestContainer from "src/page-components/collections/framework-field-gu
 		rel="stylesheet"
 	/>
 </Document>
+<script client:only>
+	window.onload = () => {
+		const els = document.querySelectorAll("[data-move-on-scroll-by]");
+		window.addEventListener("scroll", () => {
+			els.forEach((el) => {
+				const px =
+					document.documentElement.scrollTop *
+					Number(el.dataset.moveOnScrollBy);
+				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
+			});
+		});
+	};
+</script>
 <Hero />
 <Fundamentals />
 <Ecosystem />

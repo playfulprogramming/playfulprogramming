@@ -1,4 +1,4 @@
-<div class="data-no-max-width bookCoverContainer">
+<div class="bookCoverContainer">
 	<slot />
 </div>
 
@@ -7,6 +7,7 @@
 		max-height: min(var(--max-width_small), 100vw);
 		height: 100vh;
 		position: relative;
+		z-index: -1;
 		/* Just to be safe */
 		margin-bottom: -4px;
 	}
