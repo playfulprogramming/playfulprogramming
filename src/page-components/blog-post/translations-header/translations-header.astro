@@ -1,0 +1,26 @@
+---
+import styles from "./translations-header.module.scss";
+import { Languages, PostInfo } from "types/index";
+
+interface TranslationsHeaderProps {
+	post: PostInfo;
+}
+const { post } = Astro.props as TranslationsHeaderProps;
+---
+
+<div class={styles.translationContainer}>
+	Translated by our community into:{" "}
+	{
+		(Object.keys(post.translations) as Languages[]).map((lang, i, arr) => {
+			const href =
+				lang === "en" ? `/posts/${post.slug}` : `/${lang}/posts/${post.slug}`;
+
+			return (
+				<>
+					<a href={href}>{post.translations[lang]}</a>
+					{i !== arr.length - 1 ? <span>, </span> : null}
+				</>
+			);
+		})
+	}
+</div>

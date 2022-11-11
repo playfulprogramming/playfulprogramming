@@ -1,10 +1,18 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 import matter from "gray-matter";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import * as path from "path";
 import { licenses, unicorns } from "../data";
 import dayjs from "dayjs";
+import { Languages } from "../../types/index";
+import { languages } from "../../constants/index";
+import { dirname, resolve } from "path";
+
+const getIndexPath = (lang: Languages) => {
+	const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
+	return indexPath;
+};
 
 interface RehypeUnicornPopulatePostProps {}
 
@@ -34,20 +42,17 @@ export const rehypeUnicornPopulatePost: Plugin<
 			locale = "en";
 		}
 
-		// // TODO: Add translations
-		// if (fields.translations) {
-		//   const langsToQuery: Languages[] = Object.keys(languages).filter(
-		//     (l) => l !== lang
-		//   ) as never;
-		//   pickedData.translations = langsToQuery
-		//     .filter((lang) =>
-		//       fs.existsSync(resolve(dirname(fullPath), getIndexPath(lang)))
-		//     )
-		//     .reduce((prev, lang) => {
-		//       prev[lang] = languages[lang];
-		//       return prev;
-		//     }, {} as Record<Languages, string>);
-		// }
+		const langsToQuery: Languages[] = Object.keys(languages).filter(
+			(l) => l !== locale
+		) as never;
+		const translations = langsToQuery
+			.filter((lang) =>
+				existsSync(resolve(dirname(file.path), getIndexPath(lang)))
+			)
+			.reduce((prev, lang) => {
+				prev[lang] = languages[lang];
+				return prev;
+			}, {} as Record<Languages, string>);
 
 		// // TODO: Add collection slug
 		// if (fields.collectionSlug) {
@@ -80,6 +85,7 @@ export const rehypeUnicornPopulatePost: Plugin<
 
 		setData("slug", slug);
 		setData("locale", locale);
+		setData("translations", translations);
 		setData("authorsMeta", authorsMeta);
 		setData("licenseMeta", license);
 		setData("frontmatterBackup", frontmatter);

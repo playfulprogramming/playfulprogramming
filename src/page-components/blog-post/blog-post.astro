@@ -6,6 +6,7 @@ import SuggestedArticles from "src/page-components/blog-post/suggested-articles/
 import TableOfContents from "components/table-of-contents/table-of-contents.astro";
 import MailingListFull from "components/mailing-list/mailing-list-full.astro";
 import Disqus from "components/disqus/disqus.astro";
+import TranslationsHeader from "./translations-header/translations-header.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
@@ -58,10 +59,12 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMet
         postSeries={seriesPosts}
         collectionSlug={post.collectionSlug}
       />
-    ) : null}
-    {post.translations && Object.keys(post.translations).length ? (
-      <TranslationsHeader post={post} />
     ) : null} -->
+			{
+				post.translations && Object.keys(post.translations).length ? (
+					<TranslationsHeader post={post} />
+				) : null
+			}
 			<Content />
 			<!-- {post.series ? (
       <SeriesNav post={post} postSeries={seriesPosts} />
