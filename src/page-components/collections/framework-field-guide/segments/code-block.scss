@@ -47,12 +47,31 @@ pre code {
         var(--code-block-tab-corner-radius) 0 0;
     background: var(--slate-800);
     text-align: center;
-    /* Replace with tokens */
-    padding: 20px 24px 20px 24px;
-
+    padding: var(--code-block-spacing);
     width: calc(100% / 3);
+
+    /* .text-style-body-medium-bold */
+	font-size: 0.75rem;
+	font-family: "Plus Jakarta Sans", sans-serif;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 1rem;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
     @include from($tablet) {
         width: unset;
+
+        /* .text-style-body-medium-bold */
+		font-size: 1rem;
+		font-family: "Plus Jakarta Sans", sans-serif;
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.5rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
     }
 }
 
