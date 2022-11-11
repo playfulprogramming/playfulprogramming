@@ -6,17 +6,18 @@
 	max-width: var(--max-width_small);
 	width: 100%;
 	margin: 0 auto;
-    text-align: center;
+	text-align: center;
+	box-sizing: border-box;
 }
 
 .sectionTitle {
 	color: var(--on-dark-emphasis-high);
-    margin: 0;
+	margin: 0;
 }
 
 .authorIntro {
 	color: var(--on-dark-emphasis-high);
-    margin: 0;
+	margin: 0;
 }
 
 .authorName {
@@ -24,7 +25,7 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-    margin: 0;
+	margin: 0;
 }
 
 .seriesName {
@@ -32,15 +33,15 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-    margin: 0;
+	margin: 0;
 }
 
 .guidePicture img {
 	height: var(--avatar-size_large);
 	width: var(--avatar-size_large);
-    border-radius: var(--corner-radius-circular);
-    margin: var(--spc-6x) auto var(--section-gap);
-    
+	border-radius: var(--corner-radius-circular);
+	margin: var(--spc-6x) auto var(--section-gap);
+
 	@include from($desktop) {
 		height: var(--avatar-size_huge);
 		width: var(--avatar-size_huge);
@@ -49,5 +50,53 @@
 
 .guideText {
 	color: var(--on-dark-emphasis-medium);
-    margin: var(--section-gap) 0;
+	margin: var(--section-gap) 0;
+}
+
+.metricsContainer {
+	display: grid;
+	gap: var(--section-gap);
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+
+	@include from($desktop) {
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: repeat(1, 1fr);
+	}
+}
+
+.metricNumber,
+.metricNumberInfinity {
+	background: var(--gradient-ffg);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	margin: 0;
+	display: inline-block;
+	height: 1.75rem;
+	overflow: hidden;
+
+	@include from($desktop) {
+		height: 2.75rem;
+	}
+}
+
+.metricNumberInfinity {
+	font-family: "Plus Jakarta Sans", sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 2.5rem;
+	line-height: 2.25rem;
+
+	@include from($desktop) {
+		font-size: 4.5rem;
+		line-height: 3rem;
+	}
+}
+
+.metricName {
+	margin: 0;
 }
