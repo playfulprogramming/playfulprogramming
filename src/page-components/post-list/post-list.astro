@@ -1,10 +1,6 @@
 ---
-// TODO: Add pagination component
-// TODO: Add FilterSearchBar
 import PostListHeader from "./post-list-header/post-list-header.astro";
 import PostList from "components/post-card-list/post-card-list.astro";
-// import { PostListProvider } from "constants/post-list-context";
-// import { Pagination } from "components/pagination";
 import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
 import { siteMetadata } from "constants/site-config";
 import { PostInfo } from "types/PostInfo";
@@ -27,12 +23,6 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
 <div>
-	<!-- <PostListProvider
-    posts={posts}
-    numberOfPages={numberOfPages}
-    limitNumber={limitNumber}
-    pageIndex={pageIndex}
-  > -->
 	<PostListHeader siteDescription={siteMetadata.description} />
 	<main>
 		<FilterSearchBar />
@@ -43,6 +33,4 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 		/>
 	</main>
 	<Pagination page={page} rootURL={rootURL} />
-	<!-- <Pagination absolutePath={router.basePath} /> -->
-	<!-- </PostListProvider> -->
 </div>

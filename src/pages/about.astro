@@ -1,13 +1,7 @@
 ---
 import Document from "../layouts/document.astro";
-import style from "../page-components/about/about.module.scss";
-import { Languages, UnicornInfo } from "uu-types";
-import { unicorns } from "../utils/data";
-import { join, resolve } from "path";
-import { Picture } from "@astrojs/image/components";
 import SEO from "components/seo/seo.astro";
-import { MarkdownInstance } from "astro";
-import "../styles/post-body.scss";
+import About from "../page-components/about/about.astro";
 
 const aboutUsLocales = await Astro.glob("../../content/site/about-us*.md");
 
@@ -20,75 +14,5 @@ const Content = usAboutLocale.Content;
 
 <Document>
 	<SEO title="About Us" />
-	<div class={style.container}>
-		<div class={style.headerTitle}>
-			<div class={style.unicornLogo}>
-				<Picture
-					src={import("../assets/unicorn_head_1024.png")}
-					loading={"eager"}
-					widths={[192]}
-					sizes={"192px"}
-					alt={"Unicorn Utterances logo"}
-				/>
-			</div>
-			<h1>About Us</h1>
-		</div>
-		<main class={`${style.aboutBody} post-body`}>
-			<!-- <AboutUsTranslationsHeader translations={translations} lang={lang} /> -->
-			<div><Content /></div>
-			{
-				unicorns.map((unicornInfo) => {
-					const getUnicornRoleListItems = (unicornInfo: UnicornInfo) => {
-						const unicornRoles = unicornInfo.rolesMeta.slice(0);
-
-						return unicornRoles.map((role, i, arr) => {
-							// If there is an item ahead
-							const shouldShowComma = arr[i + 1];
-							return (
-								<li role="listitem">
-									<>
-										{role.prettyname}
-										{shouldShowComma && <span aria-hidden={true}>,&nbsp;</span>}
-									</>
-								</li>
-							);
-						});
-					};
-
-					const roleListItems = getUnicornRoleListItems(unicornInfo);
-
-					return (
-						<div class={style.contributorContainer}>
-							<div
-								class={`pointer ${style.userProfilePicture}`}
-								{
-								/* onClick={navigateToUni} */ }
-							>
-								<Picture
-									alt={unicornInfo.name + " profile picture"}
-									class="circleImg"
-									layout="responsive"
-									sizes="85px"
-									widths={[85]}
-									aspectRatio={1}
-									formats={["webp", "png"]}
-									src={unicornInfo.profileImgMeta.relativeServerPath}
-								/>
-							</div>
-							<div class={style.nameRoleDiv}>
-								<a href={`/unicorns/${unicornInfo.id}`}>{unicornInfo.name}</a>
-								<ul
-									aria-label="Roles assigned to this user"
-									class={style.rolesList}
-									role="list"
-								>
-									{roleListItems}
-								</ul>
-							</div>
-						</div>
-					);
-				})
-			}
-		</main>
-	</div>
+	<About Content={Content} />
 </Document>
