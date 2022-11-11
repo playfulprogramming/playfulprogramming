@@ -1,17 +1,10 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
 import BigOutlinedButton from "../components/big-outlined-button.astro";
-import BookCoverContainer from "../components/book-cover-container.astro";
-import BookCoverLayer from "../components/book-cover-layer.astro";
 import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
-import { GroundAndManSvg } from "../cover-layers/fundamentals/ground_and_man";
-import { SignGroundReflection } from "../cover-layers/fundamentals/sign_ground_reflection";
-import { Trees } from "../cover-layers/fundamentals/trees";
-import { Mountains } from "../cover-layers/fundamentals/mountains";
-import { BackgroundRepeat } from "../cover-layers/fundamentals/background_repeat";
-import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
+import FundamentalsBookCover from "./fundamentals-book-cover.astro";
 
 const tags: TagList = [
 	"What is a component?",
@@ -47,61 +40,7 @@ const tags: TagList = [
 ] as const;
 ---
 
-<style>
-	.background-repeat-layer {
-		grid-template-columns: 1fr auto 1fr !important;
-	}
-</style>
-<BookCoverContainer>
-	<BookCoverLayer>
-		<div slot="left"></div>
-		<div slot="center" style="height: 100%; width: 100vw !important">
-			<Mountains />
-		</div>
-		<div slot="right"></div>
-	</BookCoverLayer>
-	<BookCoverLayer>
-		<div slot="left"></div>
-		<div slot="center" style="height: 100%; width: 100vw !important">
-			<Trees />
-		</div>
-		<div slot="right"></div>
-	</BookCoverLayer>
-	<BookCoverLayer class="background-repeat-layer">
-		<div slot="left"></div>
-		<div
-			slot="center"
-			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
-		>
-			<SafeArea />
-		</div>
-		<div slot="right"><BackgroundRepeat /></div>
-	</BookCoverLayer>
-	<BookCoverLayer class="background-repeat-layer">
-		<div slot="left"><BackgroundRepeat /></div>
-		<div
-			slot="center"
-			style="max-width: min(var(--max-width_small),100vw,100vh); width: 100vw;"
-		>
-			<SafeArea />
-		</div>
-		<div slot="right"></div>
-	</BookCoverLayer>
-	<BookCoverLayer>
-		<div slot="left"></div>
-		<div slot="center">
-			<SignGroundReflection />
-		</div>
-		<div slot="right"></div>
-	</BookCoverLayer>
-	<BookCoverLayer>
-		<div slot="left"></div>
-		<div slot="center">
-			<GroundAndManSvg />
-		</div>
-		<div slot="right"></div>
-	</BookCoverLayer>
-</BookCoverContainer>
+<FundamentalsBookCover />
 <div class="class-book-1">
 	<div class="book-section" style="background: var(--section-background);">
 		<h3 class={`text-style-display-1 book-title`}>Fundamentals</h3>
