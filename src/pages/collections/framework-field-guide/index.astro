@@ -43,8 +43,10 @@ import TheRestContainer from "src/page-components/collections/framework-field-gu
 <script>
 	window.onload = () => {
 		const els = document.querySelectorAll("[data-move-on-scroll-by]");
+		const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 		function moveItems() {
-			els.forEach((el) => {
+			els.forEach((el: HTMLElement) => {
 				let px =
 					document.documentElement.scrollTop *
 					Number(el.dataset.moveOnScrollBy);
@@ -55,8 +57,20 @@ import TheRestContainer from "src/page-components/collections/framework-field-gu
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
 			});
 		}
-		window.addEventListener("scroll", moveItems);
-		window.addEventListener("touchmove", moveItems);
+		if (!mediaQuery.matches) {
+			window.addEventListener("scroll", moveItems);
+			window.addEventListener("touchmove", moveItems);
+		}
+		mediaQuery.addEventListener("change", () => {
+			if (mediaQuery.matches) {
+				els.forEach((el: HTMLElement) => (el.style.transform = ""));
+				window.removeEventListener("scroll", moveItems);
+				window.removeEventListener("touchmove", moveItems);
+			} else {
+				window.addEventListener("scroll", moveItems);
+				window.addEventListener("touchmove", moveItems);
+			}
+		});
 	};
 </script>
 <Hero />
