@@ -1,0 +1,23 @@
+@import "./breakpoints";
+@import "../../../../styles/utils";
+
+:root {
+	--code-block-corner-radius: var(--corner-radius-2x);
+	--code-block-padding: 4px;
+
+	--code-block-tab-min-size: var(--spc-6x);
+	--code-block-tab-corner-radius: calc(
+		var(--code-block-corner-radius) - var(--code-block-padding)
+	);
+
+	--code-block-spacing: var(--spc-2x);
+
+	--code-block-primary-text-color: var(--on-dark-emphasis-high);
+	--code-block-secondary-text-color: var(--on-dark-emphasis-medium);
+}
+
+@include from($desktop) {
+	:root {
+		--code-block-spacing: var(--spc-3x);
+	}
+}

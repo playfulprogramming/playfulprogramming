@@ -31,7 +31,7 @@ Code blocks structurally look like:
   </pre>
 */
 
-:root {
+:root, .darkTheme {
 	--shiki-color-background: var(--white);
 	--shiki-token-function: var(--functionColor);
 	--shiki-color-text: var(--punctuationColor);

@@ -1,0 +1,35 @@
+---
+const [codeBlock] = await Astro.glob("../code-block/index.md");
+import "../../../../styles/shiki.scss";
+---
+
+<div class="darkTheme" style="--shiki-color-background: transparent;">
+	<codeBlock.Content />
+</div>
+<style is:global>
+	pre {
+		border: none;
+	}
+
+	code .line::before {
+		color: var(--slate-300);
+		font-family: "Fira Code";
+		font-style: normal;
+		font-weight: 450;
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+
+	pre code {
+		font-family: "Fira Code";
+		font-style: normal;
+		font-weight: 450;
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+
+	.tabs {
+		border-radius: var(--code-block-corder-radius);
+		padding: var(--code-block-padding);
+	}
+</style>

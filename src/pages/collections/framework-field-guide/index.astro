@@ -2,6 +2,7 @@
 import Document from "../../../layouts/document.astro";
 import "../../../page-components/collections/framework-field-guide/tokens/adventure.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/buttons.scss";
+import "../../../page-components/collections/framework-field-guide/tokens/code-block.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/colors.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/corner-radius.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/sections.scss";
@@ -14,6 +15,7 @@ import Ecosystem from "src/page-components/collections/framework-field-guide/seg
 import Internals from "src/page-components/collections/framework-field-guide/segments/internals.astro";
 import AdventureContinues from "src/page-components/collections/framework-field-guide/segments/adventure-continues.astro";
 import YourGuide from "src/page-components/collections/framework-field-guide/segments/your-guide.astro";
+import CodeBlock from "src/page-components/collections/framework-field-guide/segments/code-block.astro";
 import TheRestContainer from "src/page-components/collections/framework-field-guide/segments/the-rest-container.astro";
 ---
 
@@ -40,5 +42,6 @@ import TheRestContainer from "src/page-components/collections/framework-field-gu
 <Internals />
 <TheRestContainer>
 	<YourGuide />
+	<CodeBlock />
 	<AdventureContinues />
 </TheRestContainer>
