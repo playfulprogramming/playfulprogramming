@@ -51,8 +51,25 @@ import "../../../../styles/shiki.scss";
 		border-radius: var(--code-block-tab-corner-radius)
 			var(--code-block-tab-corner-radius) 0 0;
 		background: var(--slate-800);
+		text-align: center;
 		/* Replace with tokens */
 		padding: 20px 24px 20px 24px;
+	}
+
+	:not([aria-selected="true"]) + .tabs__tab::before {
+		position: absolute;
+		content: " ";
+		display: block;
+		left: 0;
+		top: 12px;
+		height: calc(100% - 24px);
+		width: 2px;
+		border-radius: 99px;
+		background: var(--slate-700);
+	}
+
+	.tabs__tab:not([aria-selected="true"]) {
+		text-decoration: underline;
 	}
 
 	.tabs__tab[aria-selected="true"] {
