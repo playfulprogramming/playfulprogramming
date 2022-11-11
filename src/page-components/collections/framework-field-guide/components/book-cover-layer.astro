@@ -1,0 +1,19 @@
+<div class="data-no-max-width bookCoverLayer">
+	<slot name="left" />
+	<slot name="center" />
+	<slot name="right" />
+</div>
+
+<style>
+	.bookCoverLayer {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		overflow-x: hidden;
+	}
+
+	.bookCoverLayer :global(svg) {
+		max-height: var(--max-width-small);
+		height: 100vw;
+		width: 100%;
+	}
+</style>
