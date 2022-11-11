@@ -39,6 +39,9 @@
 }
 
 .gridItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     border-style: solid;
     border-color: var(--outline);
