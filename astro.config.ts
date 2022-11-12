@@ -30,6 +30,8 @@ import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import path from "path";
 
+import svgr from "vite-plugin-svgr";
+
 export default defineConfig({
 	integrations: [image(), preact(), mdx()],
 	vite: {
@@ -37,6 +39,7 @@ export default defineConfig({
 			external: ["svgo"],
 		},
 		plugins: [
+			svgr(),
 			{
 				...copy({
 					hook: "options",

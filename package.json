@@ -88,6 +88,7 @@
 	},
 	"dependencies": {
 		"preact": "^10.11.2",
-		"probe-image-size": "^7.2.3"
+		"probe-image-size": "^7.2.3",
+		"vite-plugin-svgr": "^2.2.2"
 	}
 }

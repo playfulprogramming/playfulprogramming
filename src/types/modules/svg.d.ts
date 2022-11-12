@@ -1,4 +1,1 @@
-declare module "*.svg" {
-	const str: string;
-	export default str;
-}
+/// <reference types="vite-plugin-svgr/client" />
