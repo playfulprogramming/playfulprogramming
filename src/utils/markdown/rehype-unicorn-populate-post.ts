@@ -61,7 +61,6 @@ export const rehypeUnicornPopulatePost: Plugin<
 			)?.slug;
 		}
 		if (!collectionSlug) collectionSlug = null;
-
 		const authorsMeta = frontmatter.authors
 			? (frontmatter.authors as string[]).map(
 					(author) => unicorns.find((unicorn) => unicorn.id === author)!
