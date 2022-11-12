@@ -38,20 +38,6 @@ const { Content, collection } = Astro.props as CollectionProps;
 
 const { slug } = collection;
 
-// let aboveMarkdownHTML = "";
-// if (collection.aboveFoldMarkdown) {
-//     const { html } = await markdownToHtml(
-//         collection.aboveFoldMarkdown,
-//         path.resolve(collectionsDirectory, collection.slug)
-//     );
-//     aboveMarkdownHTML = html;
-// }
-
-// const aboveResult = useMarkdownRenderer({
-// 	markdownHTML: aboveMarkdownHTML || "",
-// 	serverPath: ["/collections", slug],
-// });
-
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
 	slug,

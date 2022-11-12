@@ -1,8 +1,15 @@
-import { LicenseInfo, PronounInfo, RolesEnum, UnicornInfo } from "types/index";
+import {
+	LicenseInfo,
+	PronounInfo,
+	RawCollectionInfo,
+	RolesEnum,
+	UnicornInfo,
+} from "types/index";
 import * as fs from "fs";
 import { join } from "path";
 import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
+import matter from "gray-matter";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -69,9 +76,28 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
+function getRawCollections(): Array<RawCollectionInfo & { slug: string }> {
+	const slugs = fs.readdirSync(collectionsDirectory);
+	const collections = slugs.map((slug) => {
+		const fileContents = fs.readFileSync(
+			join(collectionsDirectory, slug, "index.md"),
+			"utf8"
+		);
+		const { data: frontmatter } = matter(fileContents);
+		return {
+			...(frontmatter as RawCollectionInfo),
+			slug,
+		};
+	});
+	return collections;
+}
+
+const collectionsRaw = getRawCollections();
+
 export {
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
 	pronounsRaw as pronouns,
 	licensesRaw as licenses,
+	collectionsRaw as collections,
 };

@@ -3,7 +3,7 @@ import { Plugin } from "unified";
 import matter from "gray-matter";
 import { readFileSync, existsSync } from "fs";
 import * as path from "path";
-import { licenses, unicorns } from "../data";
+import { collections, licenses, unicorns } from "../data";
 import dayjs from "dayjs";
 import { Languages } from "../../types/index";
 import { languages } from "../../constants/index";
@@ -54,15 +54,13 @@ export const rehypeUnicornPopulatePost: Plugin<
 				return prev;
 			}, {} as Record<Languages, string>);
 
-		// // TODO: Add collection slug
-		// if (fields.collectionSlug) {
-		//   if (frontmatterData.series) {
-		//     pickedData.collectionSlug = collectionsByName.find(
-		//       (collection) => collection.associatedSeries === frontmatterData.series
-		//     )?.slug;
-		//   }
-		//   if (!pickedData.collectionSlug) pickedData.collectionSlug = null;
-		// }
+		let collectionSlug;
+		if (frontmatter.series) {
+			collectionSlug = collections.find(
+				(collection) => collection.associatedSeries === frontmatter.series
+			)?.slug;
+		}
+		if (!collectionSlug) collectionSlug = null;
 
 		const authorsMeta = frontmatter.authors
 			? (frontmatter.authors as string[]).map(
@@ -92,5 +90,6 @@ export const rehypeUnicornPopulatePost: Plugin<
 		setData("contentMeta", content);
 		setData("publishedMeta", publishedMeta);
 		setData("editedMeta", editedMeta);
+		setData("collectionSlug", collectionSlug);
 	};
 };
