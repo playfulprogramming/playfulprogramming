@@ -25,7 +25,7 @@ export const rehypeUnicornGetSuggestedPosts: Plugin<
 			...(file.data.astro as any).frontmatter,
 		};
 
-		const suggestedArticles = getSuggestedArticles(post, "en");
+		const suggestedArticles = getSuggestedArticles(post, post.locale);
 		setData("suggestedArticles", suggestedArticles);
 	};
 };

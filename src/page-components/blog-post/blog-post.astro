@@ -19,9 +19,11 @@ import "../../styles/shiki.scss";
 import "../../styles/tabs.scss";
 import "../../styles/convertkit.scss";
 import "../../styles/iframe-replacement.scss";
+import { Languages } from "types/index";
 
-const { Content, post, posts } = Astro.props as {
+const { Content, post, posts, locale } = Astro.props as {
 	post: PostInfo;
+	locale: Languages;
 	Content: MarkdownInstance<any>["Content"];
 	posts: MarkdownInstance<PostInfo>[];
 };
@@ -45,7 +47,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMet
 		<div slot="right">
 			<SuggestedArticles
 				suggestedArticles={post.suggestedArticles}
-				lang={"en"}
+				lang={locale}
 			/>
 		</div>
 		<header role="banner" class="marginZeroAutoChild">

@@ -20,6 +20,7 @@ export async function getStaticPaths() {
 				postid: post.frontmatter.slug,
 			},
 			props: {
+				locale: post.frontmatter.locale,
 				Content: post.Content,
 				post: post.frontmatter,
 				posts,
@@ -29,8 +30,9 @@ export async function getStaticPaths() {
 	}, []);
 }
 
-const { Content, post, posts } = Astro.props as {
+const { Content, post, posts, locale } = Astro.props as {
 	post: PostInfo;
+	locale: Languages;
 	posts: MarkdownInstance<PostInfo>[];
 	Content: MarkdownInstance<any>["Content"];
 };
@@ -59,5 +61,5 @@ const otherLangs = translations
 		}}
 		shareImage={`/${post.slug}.twitter-preview.png`}
 	/>
-	<BlogPost Content={Content} post={post} posts={posts} />
+	<BlogPost locale={locale} Content={Content} post={post} posts={posts} />
 </Document>
