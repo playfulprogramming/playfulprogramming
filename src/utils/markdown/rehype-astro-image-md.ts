@@ -14,6 +14,7 @@ import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sha
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";
 import { getFullRelativePath } from "../url-paths";
+import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -103,6 +104,32 @@ export const rehypeAstroImageMd: Plugin<
 					aspectRatio: imgRatioWidth,
 				});
 
+				const pngSource = pictureResult.sources.reduce((prev, source) => {
+					const largestSrc = getLargestSourceSetSrc(source.srcset);
+					// select first option
+					if (!prev) return largestSrc;
+					// SVG first
+					if (prev.src.endsWith(".svg")) return prev;
+					if (largestSrc.src.endsWith(".svg")) return prev;
+					// Prefer `w`
+					if (prev.sizeType === "w" && largestSrc.sizeType === "x") return prev;
+					if (largestSrc.sizeType === "w" && prev.sizeType === "x")
+						return largestSrc;
+					// Get the bigger of the two
+					if (largestSrc.size > prev.size) return largestSrc;
+					// Prefer PNG and JPG
+					if (largestSrc.size === prev.size) {
+						if (
+							prev.src.endsWith(".webp") &&
+							(largestSrc.src.endsWith(".png") ||
+								largestSrc.src.endsWith(".jpg") ||
+								largestSrc.src.endsWith(".jpeg"))
+						)
+							return largestSrc;
+					}
+					return prev;
+				}, null as ReturnType<typeof getLargestSourceSetSrc>);
+
 				const sources = pictureResult.sources.map((attrs) => {
 					return h("source", attrs);
 				});
@@ -115,6 +142,7 @@ export const rehypeAstroImageMd: Plugin<
 							alt: node.properties.alt,
 							loading: "lazy",
 							decoding: "async",
+							"data-zoom-src": pngSource.src,
 						}),
 					])
 				);
