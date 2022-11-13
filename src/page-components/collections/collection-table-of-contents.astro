@@ -28,19 +28,20 @@ const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
 			</h2>
 			<ul aria-describedby="chapter-listing-heading" class="collectionPostList">
 				{
-					posts.map((post) => {
-						return (
-							<li class="postContainer">
-								<a href={"/posts/" + post.slug} class="postLink">
-									<div class="orderContainer">{post.order}</div>
-									<div>
-										<h3 class="postTitle">{post.title}</h3>
-										<p class="postDesc">{post.description}</p>
-									</div>
-								</a>
-							</li>
-						);
-					})
+					posts &&
+						posts.map((post) => {
+							return (
+								<li class="postContainer">
+									<a href={"/posts/" + post.slug} class="postLink">
+										<div class="orderContainer">{post.order}</div>
+										<div>
+											<h3 class="postTitle">{post.title}</h3>
+											<p class="postDesc">{post.description}</p>
+										</div>
+									</a>
+								</li>
+							);
+						})
 				}
 				{
 					(collection.chapterList || []).map((post, i) => {
