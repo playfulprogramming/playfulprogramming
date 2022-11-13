@@ -1,6 +1,8 @@
 export const backButtonListener = () => {
 	const backBtn = document.querySelector("#backbtn");
 
+	if (!backBtn) return;
+
 	let hasHistory = false;
 	window.addEventListener("beforeunload", () => {
 		hasHistory = true;

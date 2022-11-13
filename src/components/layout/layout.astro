@@ -18,6 +18,11 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 		aria-label={"Toolbar for primary action buttons"}
 	>
 		<div class={layoutStyles.headerInsideContainer}>
+			<!-- We cannot put this in a conditional, a bug in Astro preventing us? -->
+			<script>
+				import { backButtonListener } from "./backbtn";
+				backButtonListener();
+			</script>
 			{
 				!isBase ? (
 					<>
@@ -28,10 +33,6 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 						>
 							<Icon height="36" width="36" name="back" />
 						</button>
-						<script>
-							import {backButtonListener} from './backbtn';
-							backButtonListener();
-						</script>
 					</>
 				) : (
 					<div />
