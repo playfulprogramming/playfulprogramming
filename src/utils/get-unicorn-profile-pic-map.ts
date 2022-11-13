@@ -1,3 +1,4 @@
+// @ts-ignore
 import unicornProfilePicMap from "../../public/unicorn-profile-pic-map";
 
 export const getUnicornProfilePicMap = async () => {

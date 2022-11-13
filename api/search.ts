@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 import exportedIndex from "../searchIndex";
+// @ts-ignore
 import unicornProfilePicMap from "../public/unicorn-profile-pic-map";
 import Fuse from "fuse.js";
 import type { PostInfo } from "../src/types/PostInfo";
