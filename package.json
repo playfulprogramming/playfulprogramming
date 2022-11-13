@@ -88,6 +88,7 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@astrojs/sitemap": "^1.0.0",
 		"medium-zoom": "^1.0.6",
 		"preact": "^10.11.2",
 		"probe-image-size": "^7.2.3",
