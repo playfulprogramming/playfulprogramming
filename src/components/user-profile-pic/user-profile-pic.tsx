@@ -22,7 +22,9 @@ export const UserProfilePic = ({
 				const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
 
 				return (
-					<div
+					<a
+						aria-hidden={true}
+						href={`/unicorns/${unicorn.id}`}
 						class={`pointer ${styles.profilePicContainer} ${classesToApply}`}
 						style={`border-color: ${unicorn.color};`}
 					>
@@ -37,7 +39,7 @@ export const UserProfilePic = ({
 								class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
 							/>
 						</picture>
-					</div>
+					</a>
 				);
 			})}
 		</div>
