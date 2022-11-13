@@ -1,4 +1,6 @@
 ---
+import { PostInfo } from "types/PostInfo";
+
 interface CollectionTableOfContentsProps {
 	collection: {
 		chapterList: Array<{
@@ -7,9 +9,10 @@ interface CollectionTableOfContentsProps {
 			description: string;
 		}>;
 	};
+	posts?: PostInfo[];
 }
 
-const { collection } = Astro.props as CollectionTableOfContentsProps;
+const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
 
 /**
  * TODO: Get a list of collection posts
@@ -24,21 +27,21 @@ const { collection } = Astro.props as CollectionTableOfContentsProps;
 				Chapter Listing:
 			</h2>
 			<ul aria-describedby="chapter-listing-heading" class="collectionPostList">
-				<!-- {
-                collection.posts.map((post) => {
-                    return (
-                        <li class="postContainer">
-                                <a href={"/posts/" + post.slug} class="postLink">
-                                    <div class="orderContainer">{post.order}</div>
-                                    <div>
-                                        <h3 class="postTitle">{post.title}</h3>
-                                        <p class="postDesc">{post.description}</p>
-                                    </div>
-                                </a>
-                        </li>
-                    );
-                })
-            } -->
+				{
+					posts.map((post) => {
+						return (
+							<li class="postContainer">
+								<a href={"/posts/" + post.slug} class="postLink">
+									<div class="orderContainer">{post.order}</div>
+									<div>
+										<h3 class="postTitle">{post.title}</h3>
+										<p class="postDesc">{post.description}</p>
+									</div>
+								</a>
+							</li>
+						);
+					})
+				}
 				{
 					(collection.chapterList || []).map((post, i) => {
 						return (

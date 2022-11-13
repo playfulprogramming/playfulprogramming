@@ -10,6 +10,8 @@ import Document from "src/layouts/document.astro";
 import { getImageSize } from "../../utils/get-image-size";
 import CollectionHeaderDefault from "src/page-components/collections/collection-header-default.astro";
 import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
+import { PostInfo } from "types/PostInfo";
+import { PostCard } from "components/post-card/post-card";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -37,6 +39,14 @@ interface CollectionProps {
 const { Content, collection } = Astro.props as CollectionProps;
 
 const { slug } = collection;
+
+// TODO: support localization
+const posts = await Astro.glob<PostInfo>("../../../content/blog/**/index.md");
+
+const collectionPosts = posts
+	.map((post) => post.frontmatter)
+	.filter((post) => post.collectionSlug === slug)
+	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
 
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
@@ -68,7 +78,10 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 			coverImgAspectRatio={coverImgAspectRatio}
 			collection={collection}
 		/>
-		<CollectionTableOfContents collection={collection} />
+		<CollectionTableOfContents
+			collection={collection}
+			posts={collectionPosts}
+		/>
 		<div class="post-body markdownContainer">
 			<Content />
 		</div>
