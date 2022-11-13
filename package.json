@@ -87,6 +87,7 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@astrojs/rss": "^1.0.3",
 		"medium-zoom": "^1.0.6",
 		"preact": "^10.11.2",
 		"probe-image-size": "^7.2.3",
