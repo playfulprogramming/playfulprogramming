@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-import exportedIndex from "../searchIndex";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import exportedIndex from "../public/searchIndex";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import unicornProfilePicMap from "../public/unicorn-profile-pic-map";

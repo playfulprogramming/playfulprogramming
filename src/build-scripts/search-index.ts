@@ -49,4 +49,4 @@ const js = `const index = {
 export default index;
 `;
 
-fs.writeFileSync(path.resolve(process.cwd(), "./searchIndex.js"), js);
+fs.writeFileSync(path.resolve(process.cwd(), "./public/searchIndex.js"), js);
