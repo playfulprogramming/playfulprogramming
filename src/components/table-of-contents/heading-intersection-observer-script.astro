@@ -5,11 +5,17 @@ const { headingsToDisplaySlugs } = Astro.props as {
 ---
 
 <script define:vars={{ headingsToDisplaySlugs }}>
+	window.headingsToDisplaySlugs = headingsToDisplaySlugs;
+</script>
+
+<script>
 	window.onload = () => {
 		const tocListRef = document.querySelector("#tocList");
 
 		const linkRefs = [
-			...document.querySelectorAll('[data-headingitem="true"]'),
+			...(document.querySelectorAll(
+				'[data-headingitem="true"]'
+			) as never as HTMLElement[]),
 		];
 
 		let previousSection = { current: "" };
@@ -58,9 +64,11 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			threshold: 1,
 		});
 
-		const headingsEls = headingsToDisplaySlugs.map((headingToDisplay) => {
-			return document.getElementById(headingToDisplay);
-		});
+		const headingsEls = (window as any).headingsToDisplaySlugs.map(
+			(headingToDisplay) => {
+				return document.getElementById(headingToDisplay);
+			}
+		);
 
 		headingsEls
 			.filter((a) => a)
