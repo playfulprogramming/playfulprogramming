@@ -5,10 +5,13 @@ import { Page } from "astro";
 import { PostInfo } from "types/PostInfo";
 import ProfileHeader from "./profile-header/profile-header.astro";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
+import WordCount from "./word-count/word-count.astro";
 
 export interface UnicornTemplateProps {
 	unicorn: any;
 	posts: PostInfo[];
+	allPosts: PostInfo[];
 	rootURL: string;
 	page: Pick<
 		Page<PostInfo>,
@@ -16,24 +19,20 @@ export interface UnicornTemplateProps {
 	>;
 }
 
-const { unicorn, page, rootURL, posts } = Astro.props as UnicornTemplateProps;
+const { unicorn, page, rootURL, posts, allPosts } =
+	Astro.props as UnicornTemplateProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const wordCount = allPosts.reduce((prev, post) => {
+	return prev + post.wordCount;
+}, 0);
 ---
 
-<!-- <PostListProvider
-posts={authoredPosts}
-numberOfPages={numberOfPages}
-limitNumber={postsPerPage}
-pageIndex={pageNum}
-> -->
 <ProfileHeader unicornData={unicorn} />
 <main>
-	<!-- <FilterSearchBar>
-    <WordCount
-      wordCount={wordCount}
-      numberOfArticles={authoredPosts.length}
-    />
-  </FilterSearchBar> -->
+	<FilterSearchBar>
+		<WordCount wordCount={wordCount} numberOfArticles={allPosts.length} />
+	</FilterSearchBar>
 	<PostList
 		listAriaLabel={`List of posts written by ${unicorn.name}`}
 		postsToDisplay={posts}
@@ -41,5 +40,3 @@ pageIndex={pageNum}
 	/>
 </main>
 <Pagination page={page} rootURL={rootURL} />
-<!-- <Pagination absolutePath={basePath} />
-</PostListProvider> -->
