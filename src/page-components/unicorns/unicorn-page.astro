@@ -7,9 +7,10 @@ import ProfileHeader from "./profile-header/profile-header.astro";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
 import WordCount from "./word-count/word-count.astro";
+import { UnicornInfo } from "types/UnicornInfo";
 
 export interface UnicornTemplateProps {
-	unicorn: any;
+	unicorn: UnicornInfo;
 	posts: PostInfo[];
 	allPosts: PostInfo[];
 	rootURL: string;
@@ -26,8 +27,13 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 const wordCount = allPosts.reduce((prev, post) => {
 	return prev + post.wordCount;
 }, 0);
+
+const authorId = unicorn.id;
 ---
 
+<script define:vars={{ authorId }}>
+	window.authorId = authorId;
+</script>
 <ProfileHeader unicornData={unicorn} />
 <main>
 	<FilterSearchBar>

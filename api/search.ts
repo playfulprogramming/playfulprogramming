@@ -30,9 +30,13 @@ for (const picMapItem of unicornProfilePicMap) {
 export default async (req: VercelRequest, res: VercelResponse) => {
 	// TODO: `pickdeep` only required fields
 	const searchStr = req?.query?.query as string;
+	const authorStr = req?.query?.authorId as string;
 	if (!searchStr) return [];
 	if (Array.isArray(searchStr)) return [];
-	const posts = fuse.search(searchStr).map((item) => item.item as PostInfo);
+	let posts = fuse.search(searchStr).map((item) => item.item as PostInfo);
+	if (authorStr) {
+		posts = posts.filter((post) => post.authors.includes(authorStr));
+	}
 	const unicornProfilePicMap = posts.flatMap((post) =>
 		post.authorsMeta.map((authorMeta) => unicornProfilePicObj[authorMeta.id])
 	);

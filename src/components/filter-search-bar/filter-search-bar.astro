@@ -1,8 +1,6 @@
 ---
-import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import styles from "./filter-search-bar.module.scss";
 import SearchField from "./search-field/search-field.astro";
-// import FilterListbox from "./filter-listbox/filter-listbox.astro";
 ---
 
 <div class={styles.iconContainer}>
@@ -11,21 +9,15 @@ import SearchField from "./search-field/search-field.astro";
 		<slot />
 	</div>
 	<div></div>
-	<!-- <FilterListbox class={styles.filterField} /> -->
 </div>
 <script>
 	const SEARCH_QUERY_KEY = "searchQuery";
 
-	import { render, createElement, Fragment } from "preact";
-	import { useState } from "preact/hooks";
+	import { render, createElement } from "preact";
 	import { PostInfo } from "types/PostInfo";
 	import { debounce } from "utils/debounce";
 	import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
-	import {
-		SearchBarHandler,
-		getPageFromQueryParams,
-		SEARCH_PAGE_KEY,
-	} from "./search-bar-handler";
+	import { SearchBarHandler, SEARCH_PAGE_KEY } from "./search-bar-handler";
 
 	const searchInput: HTMLInputElement = document.querySelector("#search-input");
 	const postListContainer: HTMLElement = document.querySelector(
@@ -87,7 +79,11 @@ import SearchField from "./search-field/search-field.astro";
 		abortController = new AbortController();
 		// eslint-disable-next-line no-undef
 		plausible("search", { props: { searchVal: val } });
-		fetch(`/api/search?query=${val}`, { signal: abortController.signal })
+		const authorId: string | undefined = (window as any).authorId;
+		fetch(
+			`/api/search?query=${val}${authorId ? "&authorId=" + authorId : ""}`,
+			{ signal: abortController.signal }
+		)
 			.then((res) => res.json())
 			.then(
 				(serverVal: {
