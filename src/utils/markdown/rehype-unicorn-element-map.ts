@@ -4,7 +4,7 @@ import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
 import { EMBED_SIZE } from "./constants";
-import { isRelativePath } from "../url-paths";
+import { getFullRelativePath, isRelativePath } from "../url-paths";
 import { fromHtml } from "hast-util-from-html";
 
 import path from "path";
@@ -26,6 +26,11 @@ export const rehypeUnicornElementMap: Plugin<
 	Root
 > = () => {
 	return async (tree, file) => {
+		const splitFilePath = path.dirname(file.path).split(path.sep);
+		// "collections" | "blog"
+		const parentFolder = splitFilePath.at(-2);
+		const slug = splitFilePath.at(-1);
+
 		visit(tree, (node: any) => {
 			if (node.tagName === "video") {
 				node.properties.muted ??= true;
@@ -34,6 +39,12 @@ export const rehypeUnicornElementMap: Plugin<
 				node.properties.loop ??= true;
 				node.properties.width ??= "100%";
 				node.properties.height ??= "auto";
+				node.properties.src = getFullRelativePath(
+					"/content/",
+					parentFolder,
+					slug,
+					node.properties.src
+				);
 			}
 
 			if (node.tagName === "a") {
