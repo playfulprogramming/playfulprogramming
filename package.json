@@ -18,10 +18,12 @@
 		"url": "git+https://github.com/unicorn-utterances/unicorn-utterances.git"
 	},
 	"scripts": {
-		"debug": "node --inspect-brk ./node_modules/astro/astro.js dev --experimental-integrations",
-		"dev": "astro dev --experimental-integrations",
+		"debug": "env-cmd -f ./src/environments/debug.env astro dev --experimental-integrations",
+		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
+		"dev:vercel": "env-cmd -f ./src/environments/dev.env vercel dev",
 		"start": "astro dev --experimental-integrations",
 		"build": "astro build --experimental-integrations",
+		"build-beta": "env-cmd -f ./src/environments/beta.env astro build --experimental-integrations",
 		"preview": "astro preview --experimental-integrations",
 		"host:local": "cd dist && ws --http2 --compress",
 		"format": "prettier -w . --cache --plugin-search-dir=.",
@@ -52,6 +54,7 @@
 		"eslint": "^8.27.0",
 		"eslint-plugin-astro": "^0.21.0",
 		"eslint-plugin-jsx-a11y": "^6.6.1",
+		"env-cmd": "^10.1.0",
 		"feed": "^4.2.2",
 		"fuse.js": "^6.6.2",
 		"gatsby-remark-embedder": "^6.0.1",

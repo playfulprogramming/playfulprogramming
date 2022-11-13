@@ -8,7 +8,7 @@ export default () => {
 				siteUrl = "https://unicorn-utterances.com";
 				break;
 			case "development":
-				siteUrl = "http://localhost:9000";
+				siteUrl = "http://localhost:3000";
 				break;
 			default:
 				siteUrl = "https://beta.unicorn-utterances.com";
