@@ -39,14 +39,14 @@ export const createIndex = async () => {
 	).toJSON();
 };
 
-const index = await createIndex();
+createIndex().then((index) => {
+	const js = `const index = {
+		index: ${JSON.stringify(index)},
+		posts: ${JSON.stringify(posts)}
+	}
+	
+	export default index;
+	`;
 
-const js = `const index = {
-    index: ${JSON.stringify(index)},
-    posts: ${JSON.stringify(posts)}
-}
-
-export default index;
-`;
-
-fs.writeFileSync(path.resolve(process.cwd(), "./public/searchIndex.js"), js);
+	fs.writeFileSync(path.resolve(process.cwd(), "./public/searchIndex.js"), js);
+});
