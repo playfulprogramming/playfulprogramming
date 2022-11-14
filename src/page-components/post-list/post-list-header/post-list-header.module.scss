@@ -22,12 +22,12 @@
 
 .headerPic {
 	$desktopImgSize: 300px;
-	max-width: $desktopImgSize;
-	max-height: $desktopImgSize;
+	width: $desktopImgSize;
+	height: $desktopImgSize;
 	margin-right: 48px;
 	margin-bottom: 16px;
-	height: 100%;
-	width: 100%;
+	max-height: 100%;
+	max-width: 100%;
 
 	& > picture > img {
 		height: 100%;
@@ -36,8 +36,8 @@
 
 	@include until($endSmallScreenSize) {
 		$mobileImgSize: 150px;
-		max-width: $mobileImgSize;
-		max-height: $mobileImgSize;
+		width: $mobileImgSize;
+		height: $mobileImgSize;
 		margin-right: 0;
 	}
 }
