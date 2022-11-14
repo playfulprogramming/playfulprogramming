@@ -34,7 +34,12 @@ export const PostCard = ({
 	} = post;
 
 	return (
-		<li class={`${cardStyles.card} ${className}`} role="listitem">
+		<li
+			class={`${cardStyles.card} ${className}`}
+			// @ts-ignore No, typescript, the onclick attr is perfectly fine and I'm sure that it works.
+			onclick={`location.href='/posts/${slug}'`}
+			role="listitem"
+		>
 			<div class={cardStyles.cardContents}>
 				<a href={`/posts/${slug}`} class="unlink">
 					<h2 class={cardStyles.header}>{title}</h2>
