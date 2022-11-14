@@ -193,6 +193,11 @@ body {
 	background: var(--backgroundColor) !important;
 }
 
+.medium-zoom-image--opened:not(:last-child) {
+	/* TODO: This is a temporary fix to visually hide the cloned <img/> tag created by medium-zoom when a data-zoom-src is specified */
+	visibility: hidden;
+}
+
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
 .visually-hidden {
 	position: absolute !important;
