@@ -36,7 +36,7 @@
 	margin: 0;
 }
 
-.guidePicture img {
+img.guidePicture, .guidePicture img {
 	height: var(--avatar-size_large);
 	width: var(--avatar-size_large);
 	border-radius: var(--corner-radius-circular);
