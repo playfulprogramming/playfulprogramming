@@ -9,7 +9,7 @@
 	flex-wrap: wrap;
 
 	@include from($endSmallScreenSize) {
-		margin-bottom: 24px;
+		margin-bottom: 24px !important;
 		flex-wrap: nowrap;
 	}
 }

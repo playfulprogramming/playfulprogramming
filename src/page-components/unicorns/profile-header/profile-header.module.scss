@@ -73,7 +73,6 @@
 	margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
-	white-space: pre-line;
 
 	@include until($endSmallScreenSize) {
 		margin: 16px 16px 0;
