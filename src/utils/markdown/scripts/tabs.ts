@@ -62,41 +62,35 @@ export const enableTabs = () => {
 
 	function changeTabs(e: { target: HTMLElement }) {
 		const target = e.target;
-		const parent = target.parentNode;
-		const grandparent = parent.parentNode;
-
-		// Remove all current selected tabs
-		parent
-			.querySelectorAll('[aria-selected="true"]')
-			.forEach((t) => t.setAttribute("aria-selected", `false`));
-
-		// Set this tab as selected
-		target.setAttribute("aria-selected", `true`);
-
 		const tabName = target.dataset.tabname;
-		/**
-		 * @type {NodeListOf<HTMLElement>}
-		 */
-		const relatedTabs: NodeListOf<HTMLElement> = document.querySelectorAll(
-			`[role="tab"][data-tabname="${target.dataset.tabname}"]`
-		);
+
+		// find all tabs on the page that match the selected tabname
+		document
+			.querySelectorAll(`[role="tab"][data-tabname="${tabName}"]`)
+			.forEach((tab) => {
+				const parent = tab.parentNode;
+				const grandparent = parent.parentNode;
+
+				// Set all encountered tabs as selected
+				tab.setAttribute("aria-selected", "true");
+
+				// Set all sibling tabs as unselected
+				parent
+					.querySelectorAll(`[role="tab"]:not([data-tabname="${tabName}"])`)
+					.forEach((tab) => tab.setAttribute("aria-selected", "false"));
+
+				// Hide all tab panels
+				grandparent
+					.querySelectorAll('[role="tabpanel"]')
+					.forEach((p) => p.setAttribute("hidden", `true`));
+
+				// Show the selected panel
+				grandparent
+					.querySelector(`#${tab.getAttribute("aria-controls")}`)
+					.removeAttribute("hidden");
+			});
 
 		localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
-
-		for (const relatedTab of Array.from(relatedTabs)) {
-			if (relatedTab === target) continue;
-			changeTabs({ target: relatedTab });
-		}
-
-		// Hide all tab panels
-		grandparent
-			.querySelectorAll('[role="tabpanel"]')
-			.forEach((p) => p.setAttribute("hidden", `true`));
-
-		// Show the selected panel
-		grandparent.parentNode
-			.querySelector(`#${target.getAttribute("aria-controls")}`)
-			.removeAttribute("hidden");
 	}
 
 	/* -------------------- */
