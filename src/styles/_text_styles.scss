@@ -1,5 +1,77 @@
 @import "./utils";
 
+@font-face {
+	font-family: "Asap";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Asap/Asap-Regular.woff2") format("woff2"),
+		url("/fonts/Asap/Asap-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Asap";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/fonts/Asap/Asap-Bold.woff2") format("woff2"),
+		url("/fonts/Asap/Asap-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Regular.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Medium.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Medium.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-SemiBold.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Bold.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Archivo";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Archivo/Archivo-Regular.woff2") format("woff2"),
+		url("/fonts/Archivo/Archivo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Roboto_Mono/RobotoMono-Regular.woff2") format("woff2"),
+		url("/fonts/Roboto_Mono/RobotoMono-Regular.ttf") format("truetype");
+}
+
 $asap: "Asap", "Archivo", sans-serif;
 $workSans: "Work Sans", "Archivo", sans-serif;
 $archivo: "Archivo", sans-serif;
