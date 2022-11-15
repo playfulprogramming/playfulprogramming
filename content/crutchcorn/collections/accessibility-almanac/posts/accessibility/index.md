@@ -129,7 +129,7 @@ To ensure your app is accessible, you need to:
 
 This _can_ be a lot of work, which may lead some to ask: "Why?"
 
-## Why you should make your apps accessible
+# Why you should make your apps accessible
 
 > Why would I spend time supporting devices like screen readers? How many of my users are blind or hard of sight?
 
@@ -140,7 +140,7 @@ Well, there's some major points I'd like to speak to:
 3) You may have a legal requirement to be accessible.
 4) Being accessible is the right thing to do.
 
-### 1. Accessibility leads to more users, and even more funds
+## 1. Accessibility leads to more users, and even more funds
 
 If you build something, isn't there a certain draw to having as many people engage with it as possible?
 
@@ -156,7 +156,7 @@ Likewise, word of mouth can make a massive impact to custom success and growth. 
 
 Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
 
-### 2. Accessibility enhances the user experience for everyone
+## 2. Accessibility enhances the user experience for everyone
 
 Are you sighted? Have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
 
@@ -205,7 +205,7 @@ Similarly, even if you're not disabled in any way, you may still take advantage 
 
 By making sure that your apps are accessible, you're making sure your users are being respected and taken care of, regardless of scenario.
 
-### 3. You may have a legal requirement to be accessible
+## 3. You may have a legal requirement to be accessible
 
 Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
 
@@ -217,7 +217,7 @@ Maybe you're in the United Kingdom? You may have to comply with [The Equality Ac
 
 These laws are regulations are not only applicable in English speaking countries, either; [there is a wide range of countries that have legal requirements for applications to be accessible.](https://www.w3.org/WAI/policies/)
 
-#### Legal Repercussions
+### Legal Repercussions
 
 It may be easy to hear about some of these rules and assume they're not enforced; dead wrong.
 
@@ -225,7 +225,7 @@ In the U.S. alone, there have been a wide range of cases where these laws have b
 
 From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice.gov/opa/pr/justice-department-reaches-agreement-hilton-worldwide-inc-over-ada-violations-hilton-hotels), to [H&R Block paying a combined $145,000 to plaintiffs and civil penalties](https://www.justice.gov/opa/pr/justice-department-enters-consent-decree-national-tax-preparer-hr-block-requiring), to [a case brought against Target yielding $3.7 million dollars awarded to the plaintiffs](https://www.courtlistener.com/docket/4165835/214/national-federation-of-the-blind-v-target-corporation/), there are a swath of cases that have come forth in favor of ensuring an accessible web for all.
 
-### 4. Accessibility is the right thing to do
+## 4. Accessibility is the right thing to do
 
 While the other points make for good business sense, ensuring our tools and products are accessible for as many people as possible is a moral imperative. 
 
@@ -235,26 +235,112 @@ Building products for human beings requires empathy, something best shown by fix
 
 # Semantic HTML
 
+You ever look through a codebase and just see a sea of `div`s as far as the eye can see?
+
+```html
+<div>
+	<div>Add todo item</div>
+	<div class="todos">
+		<div>Play games</div>
+		<div>Eat ice cream</div>
+		<div>Do chores</div>
+	</div>
+</div>
+```
+
+While this may show the contents on screen, it's not the most readable code there is. Instead, let's replace these `div`s with elements that describe what they're doing:
+
+```html
+<div>
+	<button>Add todo item</button>
+	<ul class="todos">
+		<li>Play games</li>
+		<li>Eat ice cream</li>
+		<li>Do chores</li>
+	</ul>
+</div>
+```
+
+See, the HTML specification gives us a wide range of HTML elements we can use, each with their own meaning and intent behind them.
+
+A `ul` is an `unordered list`, while a `li` is a `list item`.
+
+Not only does this help codebase readability, it helps immensely with accessibility and UX. For example, compare and contrast the two versions of HTML without any added CSS or JavaScript.
+
+---
+
+**The `div` soup:**
+
+<div>
+	<div>Add todo item</div>
+	<div class="todos">
+		<div>Play games</div>
+		<div>Eat ice cream</div>
+		<div>Do chores</div>
+	</div>
+</div>
+----
+
+**The correct HTML tags:**
+
+<div>
+	<button>Add todo item</button>
+	<ul class="todos">
+		<li>Play games</li>
+		<li>Eat ice cream</li>
+		<li>Do chores</li>
+	</ul>
+</div>
+
+-----
+
+Notice how, by default, the correct HTML tags show bullet points next to the list? Or how the button actually is clickable?
+
+This is because the browser knows what a `button` is, and will apply default styling and behavior to the element, that you can then overwrite if need be. Without this information, it doesn't know how to handle a `div` in any special kind of way.
+
+Similarly, a screen-reader doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
+
+These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
+
+
+
 # ARIA
 
 
 
-----
+# Element Association
 
-- WCAG/Intro to A11Y
-- Semantic HTML
-- Aria
-- Element association
-    - Implicit element attribution (label<->input)
-    - Explicit element attribution
-        - Unique ID Generation/handling
-- Tab focusing 
-    - Outline styles
-    - TabIndex handling
-    - `ref` usage with `focus()`
-- Live announcement
-- Mouse events
-    - Use CSS!, not JS (for hover states, focus states)
-- External resources
-    - Official WCAG guidelines
-    - Unofficial resources
+
+
+## Implicit Element Attribution
+
+(label<->input)
+
+## Explicit Element Attribution
+
+Unique ID Generation/handling
+
+
+# Tab focusing
+
+- Outline styles
+
+- TabIndex handling
+- `ref` usage with `focus()`
+
+
+
+# Live announcements
+
+
+
+# Mouse events
+
+Use CSS!, not JS (for hover states, focus states)
+
+
+
+# External resources
+
+- Official WCAG guidelines
+- Unofficial resources
