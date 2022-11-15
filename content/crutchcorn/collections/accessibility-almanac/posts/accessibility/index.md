@@ -135,17 +135,22 @@ This _can_ be a lot of work, which may lead some to ask: "Why?"
 
 Well, there's some major points I'd like to speak to:
 
-1) There's likely more users than you're aware of.
+1) It enhances the user experience for everyone.
 2) Users are still users - leading to more cash flow.
-3) It enhances the user experience for everyone.
-4) There may be legal requirements to do so.
-5) It's the right thing to do.
+3) There may be legal requirements to do so.
+4) It's the right thing to do.
 
+### 1. Accessibility enhances the user experience for everyone
 
+Are you sighted? Have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
 
-### 3. It enhances the user experience for everyone
+Maybe you're able to hear, but have been in a loud club where you were unable to hear your phone ring?
 
-For example:
+If so, you've experienced a situational disability; one that an applications with considerations for accessibility could have helped with.
+
+That bar example? A vibration motor could help you notice receiving a phone call.
+
+As [Microsoft's Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) points out, there are a myriad of these scenarios that could lead someone to use assistive technologies. Here's a few they were able to mention in the toolkit specifically:
 
 <table>
 	<tr>
@@ -161,30 +166,78 @@ For example:
 		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
 	</tr>
 	<tr>
-		<th scope="row">See</th>
+		<th scope="row">Sight</th>
 		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
 		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
 		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
 	</tr>
 	<tr>
-		<th scope="row">Hear</th>
+		<th scope="row">Hearing</th>
 		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
 		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
 		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
 	</tr>
 	<tr>
-		<th scope="row">Speak</th>
+		<th scope="row">Speaking</th>
 		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
 		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
 		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
 	</tr>
 </table>
 
-> Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual.
+Similarly, even if you're not disabled in any way, you may still take advantage of accessibility features. Take keyboard navigation, for example; many power users of their machines don't take their fingers off of their keyboard row for many reasons.
+
+By making sure that your apps are accessible, you're making sure your users are being respected and taken care of, regardless of scenario.
+
+### 2. Accessibility leads to more funds
+
+Keep in mind, any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
+
+If I, the end user, aren't able to make the most of your services, why would I pay for them?
+
+Likewise, word of mouth can make a massive impact to custom success and growth. I'm much more likely to use a product that has universally glowing reviews as opposed to one that has a range of usability issues.
+
+Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
+
+### 3. You may have a legal requirement to be accessible
+
+Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
+
+See, there are a wide range of businesses that have a legal obligation to be accessible. 
+
+Do government contracts? If those government contracts are in the U.S, they're often subject to [Section 508](https://www.section508.gov/manage/laws-and-policies/) compliance. 
+
+Maybe you're in the United Kingdom? You may have to comply with [The Equality Act of 2010](https://www.legislation.gov.uk/ukpga/2010/15/contents).
+
+These laws are regulations are not only applicable in English speaking countries, either; [there is a wide range of countries that have legal requirements for applications to be accessible.](https://www.w3.org/WAI/policies/)
+
+#### Legal Repercussions
+
+It may be easy to hear about some of these rules and assume they're not enforced; dead wrong.
+
+In the U.S. alone, there have been a wide range of cases where these laws have been enforced.
+
+From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice.gov/opa/pr/justice-department-reaches-agreement-hilton-worldwide-inc-over-ada-violations-hilton-hotels), to [H&R Block paying a combined $145,000 to plaintiffs and civil penalties](https://www.justice.gov/opa/pr/justice-department-enters-consent-decree-national-tax-preparer-hr-block-requiring), to [a case brought against Target yielding $3.7 million dollars awarded to the plaintiffs](https://www.courtlistener.com/docket/4165835/214/national-federation-of-the-blind-v-target-corporation/), there are a swath of cases that have come forth in favor of ensuring an accessible web for all.
+
+### 4. Accessibility is the right thing to do
+
+OK legal requirements are good and well, but let's talk seriously for a moment. Ensuring your tools and products are accessible for as many people as possible is just the morally correct thing to do.
+
+I implore you, think about what an application's usability may mean for your end-user. 
+
+Unfair challenges against a specific group of people - caused by a reckless disregard for inclusion of all users - imposes frustration, heartache, and pain for those users. Even small putfalls in a user's experience, that other users may not have to deal with, adds up to an immense mental toll.
+
+Now imagine that frustration multiplied across all the services you use; every interaction providing a potential for disappointment day in and day out. 
+
+We can fix this problem in our services - it's within our capabilities as engineers.
+
+Remember; our users are human beings, the same as you and me. Let's have some empathy for our users the same we might for our family and friends.
 
 
 
+# Semantic HTML
 
+# ARIA
 
 
 
