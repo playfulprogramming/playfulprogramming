@@ -22,24 +22,23 @@ export const UserProfilePic = ({
 				const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
 
 				return (
-					<a
-						aria-hidden={true}
-						href={`/unicorns/${unicorn.id}`}
+					<picture
+						// @ts-ignore No, typescript, the onclick attr is perfectly fine and I'm sure that it works.
+						onclick={`location.href='/unicorns/${unicorn.id}';`}
 						class={`pointer ${styles.profilePicContainer} ${classesToApply}`}
 						style={`border-color: ${unicorn.color};`}
 					>
-						<picture>
-							{imgAttrs.sources.map((attrs) => (
-								<source {...attrs} />
-							))}
-							<img
-								data-testid={`author-pic-${i}`}
-								{...(imgAttrs.image as any)}
-								alt={unicorn.name}
-								class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
-							/>
-						</picture>
-					</a>
+						{imgAttrs.sources.map((attrs) => (
+							<source {...attrs} />
+						))}
+						<img
+							data-testid={`author-pic-${i}`}
+							{...(imgAttrs.image as any)}
+							alt={unicorn.name}
+							class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
+							onclick
+						/>
+					</picture>
 				);
 			})}
 		</div>

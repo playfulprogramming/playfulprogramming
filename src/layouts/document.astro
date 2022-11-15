@@ -2,9 +2,12 @@
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
 import Layout from "../components/layout/layout.astro";
 import "../global.scss";
+
+let { lang } = Astro.props;
+lang ??= "en";
 ---
 
-<html class="light">
+<html {lang} class="light">
 	<head>
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />

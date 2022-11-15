@@ -38,47 +38,47 @@ export const Pagination = ({
 	return (
 		<>
 			{dontShowAnything ? null : (
-				<ul
-					id={id}
-					role="navigation"
-					aria-label="Pagination Navigation"
-					class={`${styles.pagination} ${className}`}
-				>
-					{!disablePrevious && (
-						<li class={`${styles.paginationItem} ${styles.previous}`}>
-							<a href={getPageHref(page.currentPage - 1)} aria-label="Previous">
-								{"<"}
-							</a>
-						</li>
-					)}
-
-					{paginationRange.map((pageItem) => {
-						const isSelected = pageItem.pageNumber === page.currentPage;
-						return (
-							<li
-								class={`${styles.paginationItem} ${
-									isSelected ? styles.active : ""
-								}`}
-							>
-								<a
-									href={getPageHref(pageItem.pageNumber)}
-									aria-label={pageItem.ariaLabel}
-									aria-current={isSelected || undefined}
-								>
-									{pageItem.display}
+				<div role="navigation" aria-label="Pagination Navigation">
+					<ul
+						id={id}
+						class={`${styles.pagination} ${className}`}
+					>
+						{!disablePrevious && (
+							<li class={`${styles.paginationItem} ${styles.previous}`}>
+								<a href={getPageHref(page.currentPage - 1)} aria-label="Previous">
+									{"<"}
 								</a>
 							</li>
-						);
-					})}
+						)}
 
-					{!disableNext && (
-						<li class={`${styles.paginationItem} ${styles.next}`}>
-							<a href={getPageHref(page.currentPage + 1)} aria-label="Next">
-								{">"}
-							</a>
-						</li>
-					)}
-				</ul>
+						{paginationRange.map((pageItem) => {
+							const isSelected = pageItem.pageNumber === page.currentPage;
+							return (
+								<li
+									class={`${styles.paginationItem} ${
+										isSelected ? styles.active : ""
+									}`}
+								>
+									<a
+										href={getPageHref(pageItem.pageNumber)}
+										aria-label={pageItem.ariaLabel}
+										aria-current={isSelected || undefined}
+									>
+										{pageItem.display}
+									</a>
+								</li>
+							);
+						})}
+
+						{!disableNext && (
+							<li class={`${styles.paginationItem} ${styles.next}`}>
+								<a href={getPageHref(page.currentPage + 1)} aria-label="Next">
+									{">"}
+								</a>
+							</li>
+						)}
+					</ul>
+				</div>
 			)}
 		</>
 	);

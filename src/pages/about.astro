@@ -8,7 +8,7 @@ const aboutUsLocales = await Astro.glob("../../content/site/about-us*.md");
 const locale = "en";
 ---
 
-<Document>
+<Document lang={locale}>
 	<SEO title="About Us" />
 	<About globResults={aboutUsLocales} locale={locale} />
 </Document>

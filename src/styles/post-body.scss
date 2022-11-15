@@ -53,15 +53,15 @@
 		visibility: visible;
 	}
 
-	img {
+	picture, img {
 		margin: 0 auto;
 		display: block;
 		max-width: 100%;
+	}
 
-		&[src$=".svg"] {
-			width: 100%;
-			max-height: 50vh;
-		}
+	img[src$=".svg"] {
+		width: 100%;
+		max-height: 50vh;
 	}
 
 	h1,
