@@ -135,12 +135,28 @@ This _can_ be a lot of work, which may lead some to ask: "Why?"
 
 Well, there's some major points I'd like to speak to:
 
-1) It enhances the user experience for everyone.
-2) Users are still users - leading to more cash flow.
-3) There may be legal requirements to do so.
-4) It's the right thing to do.
+1) Accessibility leads to more users, and even more funds.
+2) Accessibility enhances the user experience for everyone.
+3) You may have a legal requirement to be accessible.
+4) Being accessible is the right thing to do.
 
-### 1. Accessibility enhances the user experience for everyone
+### 1. Accessibility leads to more users, and even more funds
+
+If you build something, isn't there a certain draw to having as many people engage with it as possible?
+
+There's an appeal to having your work appreciated by an audience, especially for side projects.
+
+Worried about the bottom line? Accessibility helps here, too.
+
+Keep in mind, any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
+
+If I, the end user, aren't able to make the most of your services, why would I pay for them?
+
+Likewise, word of mouth can make a massive impact to custom success and growth. I'm much more likely to use a product that has universally glowing reviews as opposed to one that has a range of usability issues.
+
+Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
+
+### 2. Accessibility enhances the user experience for everyone
 
 Are you sighted? Have you ever stepped outside from a dark interior to the bright outdoors and been unable to see momentarily?
 
@@ -189,16 +205,6 @@ Similarly, even if you're not disabled in any way, you may still take advantage 
 
 By making sure that your apps are accessible, you're making sure your users are being respected and taken care of, regardless of scenario.
 
-### 2. Accessibility leads to more funds
-
-Keep in mind, any user is potentially a paying user. By widening the pool of users that are able to utilize your application, you're enabling the ability for these users to pay for your services.
-
-If I, the end user, aren't able to make the most of your services, why would I pay for them?
-
-Likewise, word of mouth can make a massive impact to custom success and growth. I'm much more likely to use a product that has universally glowing reviews as opposed to one that has a range of usability issues.
-
-Given all of this; It's no surprise that the classic verbiage of a product's success isn't "Gate away as many users as you can". Rather, a wise business person will make their doors as open as possible to new customers.
-
 ### 3. You may have a legal requirement to be accessible
 
 Not only do you make money by making your tools accessible, but you may likely save money by dodging legal action against your company.
@@ -221,17 +227,11 @@ From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice
 
 ### 4. Accessibility is the right thing to do
 
-While the other points make for good business sense, from my perspective ensuring our tools and products are accessible for as many people as possible is just the morally correct thing to do.
+While the other points make for good business sense, ensuring our tools and products are accessible for as many people as possible is a moral imperative. 
 
-Let's think from the perspective of our end-users.
+Unfair challenges against a specific group of people - intentional or not - impose frustration, heartache, and pain for those users. Even small pitfalls in their experience, which others may not have to deal with, add up to an immense mental toll, as users go from application to application and face similar difficulties. 
 
-Unfair challenges against a specific group of people - intentional or not - imposes frustration, heartache, and pain for those users. Even small pitfalls in a user's experience, that other users may not have to deal with, adds up to an immense mental toll. 
-
-We can fix this problem in our services - it's within our capabilities as engineers.
-
-Remember; our users are human beings, the same as you and me. Let's have some empathy for our users the same we might for our family and friends.
-
-
+Building products for human beings requires empathy, something best shown by fixing issues and enabling inclusion; all of which is within our capabilities as engineers.
 
 # Semantic HTML
 
