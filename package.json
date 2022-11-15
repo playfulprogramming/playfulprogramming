@@ -92,7 +92,7 @@
 	},
 	"dependencies": {
 		"@astrojs/sitemap": "^1.0.0",
-		"medium-zoom": "^1.0.7",
+		"medium-zoom": "^1.0.8",
 		"preact": "^10.11.2",
 		"probe-image-size": "^7.2.3",
 		"vite-plugin-svgr": "^2.2.2"
