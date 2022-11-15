@@ -221,13 +221,11 @@ From [Hilton being forced to pay a civil penalty of $50,000](https://www.justice
 
 ### 4. Accessibility is the right thing to do
 
-OK legal requirements are good and well, but let's talk seriously for a moment. Ensuring your tools and products are accessible for as many people as possible is just the morally correct thing to do.
+While the other points make for good business sense, from my perspective ensuring our tools and products are accessible for as many people as possible is just the morally correct thing to do.
 
-I implore you, think about what an application's usability may mean for your end-user. 
+Let's think from the perspective of our end-users.
 
-Unfair challenges against a specific group of people - caused by a reckless disregard for inclusion of all users - imposes frustration, heartache, and pain for those users. Even small putfalls in a user's experience, that other users may not have to deal with, adds up to an immense mental toll.
-
-Now imagine that frustration multiplied across all the services you use; every interaction providing a potential for disappointment day in and day out. 
+Unfair challenges against a specific group of people - intentional or not - imposes frustration, heartache, and pain for those users. Even small pitfalls in a user's experience, that other users may not have to deal with, adds up to an immense mental toll. 
 
 We can fix this problem in our services - it's within our capabilities as engineers.
 
