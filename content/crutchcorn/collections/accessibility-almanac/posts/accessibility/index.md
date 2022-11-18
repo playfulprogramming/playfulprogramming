@@ -422,9 +422,13 @@ This is why it's often **highly discouraged to use `role` in place of an HTML el
 
 ## Building a tab component with ARIA
 
-// TODO: Write
+Now that we've seen a few examples of accessible, but non-interactive, markup let's see what we can do to breath life into these UI components using a framework.
+
+Namely, I want to demonstrate how we can build our own accessible tab component using aria attributes.
 
 
+
+Let's start by reusing our markup from the previous section, and adding in some JavaScript to make the tabs interactive.
 
 <!-- tabs:start -->
 
@@ -579,7 +583,17 @@ function setActiveTab(val) {
 
 <!-- tabs:end -->
 
-Make sure you don't forget your styling!
+
+
+> 🎉 Tad-whoa. 😵‍💫
+
+![// TODO: Write alt](./unstyled_tabs.png)
+
+> Are we sure this worked?
+
+Well, it's not the prettiest UI visually, but we can verify it's functionality by clicking on the `JavaScript` or `Python` text in order to show the `console.log` or `print` statements respectively.
+
+Now all we need to do is add a bit of CSS...
 
 ```css
 /* index.css */
@@ -619,7 +633,41 @@ Make sure you don't forget your styling!
 }
 ```
 
+And tada! 🎉 (For real this time.)
 
+![// TODO: Write alt](./styled_tabs.png)
+
+Now these are some tabs we can work with.
+
+### Adding in Keyboard Interactions to Our Tab Component
+
+While our _markup_ might be fairly accessible, the component as a whole is missing a few things.
+
+Namely, we should make sure that our tabs are accessible using only the keyboard. As things stand right now, we cannot tab to the other tabs and enable them using only our keyboard.
+
+We can fix this by adding in a `tabindex` attribute with a value of `0`. While [the `tabindex` has more nuance to it than this](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex), you can think of `tabindex` as a way of manually adding or removing the ability to tab to an HTML element.
+
+A `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element. 
+
+> A negative `tabindex` value also provides us a way to `focus` an element using JavaScript, but more on that later... 🤫
+
+---
+
+// TODO: Write
+
+----
+
+While we _could_ force keyboard users to tab over every single tab, this is a bit of an obnoxious user experience.
+
+Let's change it up a bit. Instead of marking every single `tab` element as `tabindex="0"`, let's instead only mark one tab with a `tabindex="0"` and allow the user to change the focused tab using the left and right arrow keys.
+
+That way, instead of having to tab through `n` tabs, they can simply tab through a single tab list, and use arrow key navigation to access the other tabs - much better!
+
+---
+
+// TODO: Write
+
+---
 
 # Element Association
 
