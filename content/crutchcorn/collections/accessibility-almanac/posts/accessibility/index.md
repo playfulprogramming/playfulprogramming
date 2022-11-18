@@ -302,9 +302,129 @@ Similarly, a screen-reader doesn't know that our first `<div class="todos">` was
 
 These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
 
-
-
 # ARIA
+
+Sometimes we have custom UI requirements. Like, _really_ custom UI requirements. We may want a dropdown that also has the ability to filter results as the user types.
+
+![// TODO: Write alt](dropdown_combobox.png)
+
+While some of this component has clear analogs in HTML elements:
+
+- The search input should be an `input` component
+- The dropdown list should be an `ul` with `li` to indicate that it's a list
+
+Other parts of this UI are unclear how to communicate to the user at first glance.
+
+How do we indicate to the user that the suggestion dropdown is active? How can we associate the text input element with the suggestion list element for screen readers?
+
+This type of ultra-custom UI is where ARIA comes into play.
+
+ARIA is an acronym for "Accessible Rich Internet Applications", and is a collection of HTML attributes that help provide additional UI information to the end user.
+
+ For example, the dropdown arrow might have an attribute of `aria-expanded="true"` or `aria-expanded="false"` to indicate to screen readers that the dropdown is expanded or not.
+
+The following HTML:
+
+```html
+<button aria-expanded="true">States</button>
+```
+
+Might be read by a screen reader as "States button, expanded", which tells our user that they have more information they can access pertaining to the button.
+
+Likewise, the `aria-controls` attribute tells the assistive technology which element the button expands. This attribute takes an HTML `id`'s name and enables the user to quickly jump to the controlled element using a user-defined key combo.
+
+```html
+<button aria-expanded="true" aria-controls="states-list">States</button>
+<ul id="states-list">
+   <li>Alabama</li>
+   <li>Alaska</li>
+   <li>Arizona</li>
+   <!-- ... -->
+</ul>
+```
+
+> This is an wildly incomplete example of an "Editable Combobox with Autocomplete" UI component. A more complete example of such a component [can be found on the W3C's website](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-autocomplete-list), though even they admit their example is for demonstration purposes only.
+>
+> This component in particular has significantly more nuance than you might assume, and as such is an extremely tricky component to implement properly. If you're looking to add one to your production site, make sure you do sufficient user testing before shipping to your generalized end-users.
+
+While a complete list of these ARIA attributes are out of the scope of this book, [you can find a reference to them on MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes). Each comes with their own use-cases and nuance.
+
+## ARIA Roles
+
+While ARIA attributes can be a massive boon to accessibility, there's an attribute that we should proceed with immense caution when using; `role`.
+
+The `role` attribute allows us to signal the an element maps to a select list of UI components. For example, if we had a list of tabs, our markup _might_ look something like:
+
+```html
+<div>
+    <ul role="tablist">
+        <li role="tab" id="javascript-tab" aria-selected="true" aria-controls="javascript-panel">
+            JavaScript
+        </li>
+        <li role="tab" id="python-tab" aria-selected="false" aria-controls="python-panel">
+            Python
+        </li>
+    </ul>
+    <div role="tabpanel" id="javascript-panel" aria-labelledby="javascript-tab">
+        <code>console.log("Hello, world!");</code>
+    </div>
+    <div role="tabpanel" id="python-panel" aria-labelledby="python-tab">
+        <code>print("Hello, world!")</code>
+    </div>
+</div>
+```
+
+Here, the `role` enables us to tell the user that there is a list of tabs, `aria-controls` and `aria-labelledby` tells the user which contents belong to which tab, and `aria-selected` informs the user which tab is currently selected.
+
+> Keep in mind, we have to change these `aria` attributes on-the-fly as the information changes; say, with the `aria-selected` indicating which tab is active.
+>
+> HTML does not provide a way to automatically change the `aria` attributes for us without JavaScript.
+>
+> We'll build an interactive version of this `tab` component using React, Angular, and Vue momentarily.
+
+While `role` is imperative in its usage here, it can lead to subpar or even actively hostile user experiences for assistive technologies.
+
+This is because, using `role`, you have the ability to tell HTML that one element should be reflected to the end-user as an entirely different element, without actually providing any of the expected functionality.
+
+To explain this more, let's look at how an HTML `button` works.
+
+When you create an HTML element like `button`, the browser implicitly assigns it a`role` internally, regardless of if you assigned one or not.
+
+In this case:
+
+```html
+<button>Click me!</button>
+```
+
+Is implicitly treated by the browser as having `role="button"` assigned to it.
+
+> If that's the case, then surely `<div type="button">` must act the same as a `<button>`, right?
+
+Not quite.
+
+While you could create a partially analogous `button` element using a `div`:
+
+```html
+<div tabindex="0" role="button">Save</div>
+```
+
+ You might notice a problem with it when displayed on a web page:
+
+---
+
+<div tabindex="0" role="button">Save</div>
+
+---
+
+Notice that the fake "button" here doesn't appear to "press" down? There's no styling to indicate when the user is hovered over the "button", nor is there any visual indication when the user is hovered over the "button" with their mouse.
+
+This is why it's often **highly discouraged to use `role` in place of an HTML element with an implicit `role` enabled**; they simply don't have feature parity without a substantial amount of work and expertise.
+
+## Building a tab component with ARIA
+
+
+
+
 
 
 
