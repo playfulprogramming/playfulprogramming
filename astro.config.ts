@@ -21,6 +21,9 @@ import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unico
 import generateUnicornProfilePicMap from "./src/utils/rollup/generate-unicorn-profile-pic-map";
 import copy from "rollup-plugin-copy";
 import preact from "@astrojs/preact";
+import sitemap from "@astrojs/sitemap";
+import { EnumChangefreq as ChangeFreq } from "sitemap";
+import { siteUrl } from "./src/constants/site-config";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -33,7 +36,24 @@ import path from "path";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
-	integrations: [image(), preact(), mdx()],
+	site: siteUrl,
+	integrations: [
+		image(),
+		preact(),
+		mdx(),
+		sitemap({
+			changefreq: ChangeFreq.DAILY,
+			priority: 0.7,
+			lastmod: new Date(),
+			serialize({ url, ...rest }) {
+				return {
+					// remove trailing slash from sitemap URLs
+					url: url.replace(/\/$/g, ""),
+					...rest,
+				};
+			},
+		}),
+	],
 	vite: {
 		ssr: {
 			external: ["svgo"],

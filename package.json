@@ -37,6 +37,7 @@
 		"@astrojs/image": "^0.11.4",
 		"@astrojs/mdx": "^0.11.6",
 		"@astrojs/preact": "^1.2.0",
+		"@astrojs/sitemap": "^1.0.0",
 		"@remark-embedder/core": "^3.0.1",
 		"@remark-embedder/transformer-oembed": "^3.0.0",
 		"@types/classnames": "^2.3.1",
@@ -79,6 +80,7 @@
 		"retext-english": "^4.1.0",
 		"rollup-plugin-copy": "^3.4.0",
 		"sass": "^1.56.1",
+		"sitemap": "^7.1.1",
 		"slash": "^5.0.0",
 		"terser": "^5.15.1",
 		"tsx": "^3.12.1",
@@ -91,7 +93,6 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
-		"@astrojs/sitemap": "^1.0.0",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.11.2",
 		"probe-image-size": "^7.2.3",
