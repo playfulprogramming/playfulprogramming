@@ -28,7 +28,9 @@ const unifiedChain = () => {
 					.join("\n")
 					.trim() +
 				"\n" +
-				renderPostPreviewToString.toString();
+				renderPostPreviewToString
+					.toString()
+					.replace(/([;,])/g, (s) => s + "\n");
 
 			return {
 				type: "root",
@@ -41,7 +43,7 @@ const unifiedChain = () => {
 				],
 			};
 		})
-		.use([[(remarkTwoslash as any).default, { themes: ["css-variables"] }]])
+		.use([[remarkTwoslash, { themes: ["css-variables"] }]])
 		.use(remarkToRehype, { allowDangerousHtml: true })
 		.use(rehypeStringify, { allowDangerousHtml: true });
 
@@ -52,7 +54,7 @@ async function markdownToHtml(content: string) {
 	return await (await unifiedChain().process(content)).toString();
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+//const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 	(stylesheetStr, colorKey, i, arr) => {
@@ -83,7 +85,7 @@ export const renderPostPreviewToString = async (post: PostInfo) => {
 	// This needs to happen here, since otherwise the `import` is stale at runtime,
 	// thus breaking live refresh
 	const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
-		(await import(`./twitter-large-card?update=${Date.now()}`)).default;
+		(await import(`./twitter-large-card.tsx?update=${Date.now()}`)).default;
 
 	const authorImagesStrs = post.authorsMeta.map((author) =>
 		readFileAsBase64(author.profileImgMeta.absoluteFSPath)

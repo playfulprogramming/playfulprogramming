@@ -1,4 +1,3 @@
-import slash from "slash";
 import { join } from "path";
 
 /**
@@ -9,6 +8,10 @@ import { join } from "path";
  */
 export const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
 
+const fixSlash = (path: string) => {
+	return /^\\\\\?\\/.test(path) ? path : path.replace(/\\/g, "/");
+};
+
 export const isRelativePath = (str: string) => {
 	const isAbsolute = absolutePathRegex.exec(str);
 	if (isAbsolute) return false;
@@ -17,6 +20,6 @@ export const isRelativePath = (str: string) => {
 
 export const getFullRelativePath = (...paths: string[]) => {
 	return isRelativePath(paths[paths.length - 1])
-		? slash(join(...paths))
+		? fixSlash(join(...paths))
 		: paths[paths.length - 1];
 };

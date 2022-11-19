@@ -29,8 +29,7 @@ const createPostSocialPreviewPng = async (post: PostInfo) => {
 	return (await page.screenshot()) as Buffer;
 };
 
-// For non-prod builds, this isn't needed
-if (!process.env.BUILD_ENV || process.env.BUILD_ENV !== "dev") {
+const build = async () => {
 	const posts = getAllPosts("en");
 
 	/**
@@ -48,4 +47,7 @@ if (!process.env.BUILD_ENV || process.env.BUILD_ENV !== "dev") {
 	}
 
 	await browser.close();
-}
+};
+
+// For non-prod builds, this isn't needed
+if (!process.env.BUILD_ENV || process.env.BUILD_ENV !== "dev") build();
