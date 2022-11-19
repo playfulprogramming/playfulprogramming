@@ -5,7 +5,7 @@
  * when the Astro runtime isn't available, such as getting suggested articles and other instances.
  */
 import { rehypeUnicornPopulatePost } from "./markdown/rehype-unicorn-populate-post";
-//import { isNotJunk } from "junk";
+import { isNotJunk } from "junk";
 import { postsDirectory } from "./data";
 import { Languages, PostInfo } from "types/index";
 import * as fs from "fs";
@@ -18,14 +18,12 @@ const getIndexPath = (lang: Languages) => {
 
 export function getPostSlugs(lang: Languages) {
 	// Avoid errors trying to read from `.DS_Store` files
-	return (
-		fs
-			.readdirSync(postsDirectory)
-			//.filter(isNotJunk)
-			.filter((dir) =>
-				fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
-			)
-	);
+	return fs
+		.readdirSync(postsDirectory)
+		.filter(isNotJunk)
+		.filter((dir) =>
+			fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
+		);
 }
 
 export const getAllPosts = (lang: Languages): PostInfo[] => {
