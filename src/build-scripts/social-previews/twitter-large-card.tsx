@@ -1,5 +1,5 @@
 import * as React from 'preact';
-import { PreviewPost } from "./get-posts";
+import { PostInfo } from "types/PostInfo";
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -67,7 +67,7 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
 };
 
 interface TwitterLargeCardProps {
-  post: PreviewPost;
+  post: PostInfo;
   postHtml: string;
   height: number;
   width: number;

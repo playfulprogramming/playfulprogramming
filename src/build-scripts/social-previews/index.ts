@@ -26,8 +26,7 @@ const createPostSocialPreviewPng = async (post: PostInfo) => {
 	}
 
 	await page.setContent(await renderPostPreviewToString(post));
-	const screenShotBuffer = await page.screenshot();
-	return screenShotBuffer;
+	return (await page.screenshot()) as Buffer;
 };
 
 // For non-prod builds, this isn't needed
@@ -38,26 +37,15 @@ if (!process.env.BUILD_ENV || process.env.BUILD_ENV === "production") {
 	 * This is done synchronously, in order to prevent more than a single instance
 	 * of the browser from running at the same time.
 	 */
-	const postPngs = [] as Array<{ png: Buffer; post: typeof posts[number] }>;
 	for (const post of posts) {
-		postPngs.push({
-			post,
-			png: (await createPostSocialPreviewPng(post)) as Buffer,
-		});
-	}
+		const png = await createPostSocialPreviewPng(post);
 
-	await Promise.all(
-		postPngs.map(async (postData) => {
-			await fsPromises.writeFile(
-				// Relative to root
-				resolve(
-					process.cwd(),
-					`./public/${postData.post.slug}.twitter-preview.png`
-				),
-				postData.png
-			);
-		})
-	);
+		await fsPromises.writeFile(
+			// Relative to root
+			resolve(process.cwd(), `./public/${post.slug}.twitter-preview.png`),
+			png
+		);
+	}
 
 	await browser.close();
 }
