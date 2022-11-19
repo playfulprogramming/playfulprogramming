@@ -2,8 +2,8 @@ import { readFileAsBase64 } from "./read-file-as-base64";
 import { dirname, resolve } from "path";
 import { PostInfo } from "types/index";
 import { promises as fs } from "fs";
-import { renderToStaticMarkup } from "react-dom/server";
-import { createElement } from "react";
+import { render } from "preact-render-to-string";
+import { createElement } from "preact";
 import { fileURLToPath } from "url";
 import { COLORS } from "constants/theme";
 
@@ -71,20 +71,19 @@ const unicornUtterancesHead = readFileAsBase64(
 
 export const renderPostPreviewToString = async (post: PostInfo) => {
 	const shikiSCSS = await fs.readFile(
-		resolve(__dirname, "../shiki.scss"),
+		resolve(__dirname, "../../styles/shiki.scss"),
 		"utf8"
 	);
 
 	const twitterLargeCardPreviewCSS = await fs.readFile(
-		resolve(__dirname, "./social-previews/twitter-large-card.css"),
+		resolve(__dirname, "./twitter-large-card.css"),
 		"utf8"
 	);
 
 	// This needs to happen here, since otherwise the `import` is stale at runtime,
 	// thus breaking live refresh
 	const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
-		(await import(`./social-previews/twitter-large-card?update=${Date.now()}`))
-			.default;
+		(await import(`./twitter-large-card?update=${Date.now()}`)).default;
 
 	const authorImagesStrs = post.authorsMeta.map((author) =>
 		readFileAsBase64(author.profileImgMeta.absoluteFSPath)
@@ -107,7 +106,7 @@ export const renderPostPreviewToString = async (post: PostInfo) => {
 	</style>
 	</head>
 	<body>
-	${renderToStaticMarkup(
+	${render(
 		createElement(TwitterLargeCard, {
 			post,
 			postHtml,

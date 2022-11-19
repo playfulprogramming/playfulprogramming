@@ -1,3 +1,4 @@
+import * as React from 'preact';
 import { PreviewPost } from "./get-posts";
 
 export function splitSentence(str: string): [string, string] {
