@@ -30,7 +30,7 @@ const createPostSocialPreviewPng = async (post: PostInfo) => {
 };
 
 // For non-prod builds, this isn't needed
-if (!process.env.BUILD_ENV || process.env.BUILD_ENV === "production") {
+if (!process.env.BUILD_ENV || process.env.BUILD_ENV !== "dev") {
 	const posts = getAllPosts("en");
 
 	/**
