@@ -22,7 +22,7 @@
 		"dev": "env-cmd -f ./src/environments/dev.env astro dev --experimental-integrations",
 		"dev:vercel": "env-cmd -f ./src/environments/dev.env vercel dev",
 		"start": "astro dev --experimental-integrations",
-		"build": "npm run search-index && astro build --experimental-integrations",
+		"build": "npm run search-index && astro build --experimental-integrations && npm run social-previews:build",
 		"build-beta": "npm run search-index && env-cmd -f ./src/environments/beta.env astro build --experimental-integrations",
 		"preview": "astro preview --experimental-integrations",
 		"host:local": "cd dist && ws --http2 --compress",
