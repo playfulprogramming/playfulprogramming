@@ -2,6 +2,7 @@ import {
 	LicenseInfo,
 	PronounInfo,
 	RawCollectionInfo,
+	CollectionInfo,
 	RolesEnum,
 	UnicornInfo,
 } from "types/index";
@@ -76,28 +77,48 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
-function getRawCollections(): Array<RawCollectionInfo & { slug: string }> {
+function getCollections(): Array<CollectionInfo> {
 	const slugs = fs.readdirSync(collectionsDirectory);
 	const collections = slugs.map((slug) => {
 		const fileContents = fs.readFileSync(
 			join(collectionsDirectory, slug, "index.md"),
 			"utf8"
 		);
-		const { data: frontmatter } = matter(fileContents);
+
+		const frontmatter = matter(fileContents).data as RawCollectionInfo;
+
+		const coverImgSize = getImageSize(
+			frontmatter.coverImg,
+			join(collectionsDirectory, slug),
+			join(collectionsDirectory, slug)
+		);
+
+		const coverImgMeta = {
+			height: coverImgSize.height as number,
+			width: coverImgSize.width as number,
+			relativePath: frontmatter.coverImg,
+			relativeServerPath: getFullRelativePath(
+				`/content/collections/${slug}`,
+				frontmatter.coverImg
+			),
+			absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg)
+		};
+
 		return {
 			...(frontmatter as RawCollectionInfo),
 			slug,
+			coverImgMeta,
 		};
 	});
 	return collections;
 }
 
-const collectionsRaw = getRawCollections();
+const collections = getCollections();
 
 export {
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
 	pronounsRaw as pronouns,
 	licensesRaw as licenses,
-	collectionsRaw as collections,
+	collections,
 };
