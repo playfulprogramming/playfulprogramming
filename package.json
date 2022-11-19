@@ -77,6 +77,7 @@
 		"hast-util-to-string": "^2.0.0",
 		"husky": "^8.0.2",
 		"image-size": "^1.0.2",
+		"jest-environment-jsdom": "^29.3.1",
 		"jest-watch-typeahead": "^2.2.1",
 		"junk": "^4.0.0",
 		"lint-staged": "^13.0.3",

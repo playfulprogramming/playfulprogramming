@@ -1,3 +1,4 @@
+import * as React from 'preact';
 import { render } from "@testing-library/preact";
 import { MockPost } from "__mocks__/data/mock-post";
 import TwitterLargeCard, { splitSentence } from "./twitter-large-card";
