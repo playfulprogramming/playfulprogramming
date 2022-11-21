@@ -17,14 +17,14 @@ import { ForrestMiddleground } from "../cover-layers/ecosystem/forrest_middlegro
 </style>
 
 <BookCoverContainer class="ecosystem-cover">
-	<BookCoverLayer name="forrest-background">
+	<BookCoverLayer moveOnScrollBy={0.2} name="forrest-background">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
 			<ForrestBackground />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer name="forrest-middleground">
+	<BookCoverLayer moveOnScrollBy={0.1} name="forrest-middleground">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
 			<ForrestMiddleground />
