@@ -1,7 +1,7 @@
 @import "./breakpoints";
 @import "../../../../styles/utils";
 
-.book-section {
+:root, .book-section {
 	// Buttons
 
 	--btn-ver-padding_small: var(--spc-1x);
@@ -20,7 +20,7 @@
 }
 
 @include from($desktop) {
-	.book-section {
+	:root, .book-section {
 		// Buttons
 
 		--btn-ver-padding_small: var(--spc-2x);

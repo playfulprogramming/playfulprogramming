@@ -1,0 +1,20 @@
+@import "./breakpoints";
+@import "../../../../styles/utils";
+
+:root {
+	--pricing-container_default: var(--slate-800);
+	--pricing-container_highlighted: var(--slate-700);
+	--bullet-list-item-gap: 4px;
+	--bullet-list-item-icon-size: 12px;
+	--sale-badge-size: 72px;
+	--sale-badge-offset: -16px;
+	--sale-badge-rotation: -30deg;
+}
+
+@include from($desktop) {
+	:root {
+		--bullet-list-item-icon-size: 16px;
+		--sale-badge-size: 128px;
+		--sale-badge-offset: -48px;
+	}
+}

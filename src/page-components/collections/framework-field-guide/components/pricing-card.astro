@@ -1,0 +1,69 @@
+---
+import SmallOutlinedButton from "./small-outlined-button.astro";
+import SmallFilledButton from "./small-filled-button.astro";
+
+interface PricingCardProps {
+	class: string;
+	isSale: boolean;
+	title: string;
+	description: string;
+	price: string;
+	enterpriseToggle: boolean;
+	enterpriseExplainer: string;
+	ctaButtonType: "outlined" | "filled";
+	ctaButtonText: string;
+	ctaLink: string;
+	bulletPoints: string[];
+	starPoints: string[];
+}
+
+const {
+	class: className,
+	isSale,
+	title,
+	description,
+	price,
+	enterpriseToggle,
+	enterpriseExplainer,
+	ctaButtonText,
+	ctaLink,
+	ctaButtonType,
+	bulletPoints,
+	starPoints,
+} = Astro.props as PricingCardProps;
+
+const CTAButton =
+	ctaButtonType === "outlined" ? SmallOutlinedButton : SmallFilledButton;
+---
+
+<div class={className}>
+	<p class="text-style-headline-4">{title}</p>
+	<p class="text-style-body-medium">{description}</p>
+	<p class="text-style-headline-1">{price}</p>
+	<p class="text-style-body-small-bold">{enterpriseExplainer}</p>
+	{
+		enterpriseToggle && (
+			<div>
+				<p>Hi</p>
+			</div>
+		)
+	}
+	<!-- TODO: Make it an `a` tag -->
+	<CTAButton>{ctaButtonText}</CTAButton>
+	<hr />
+	<ul class="bulletPoints">
+		{bulletPoints.map((bulletPoint) => <li>{bulletPoint}</li>)}
+	</ul>
+	<ul class="starPoints">
+		{starPoints.map((starPoint) => <li>{starPoint}</li>)}
+	</ul>
+</div>
+
+<style>
+	.starPoints,
+	.bulletPoints {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+</style>
