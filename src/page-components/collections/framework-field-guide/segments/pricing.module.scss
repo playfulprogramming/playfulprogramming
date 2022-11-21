@@ -2,10 +2,34 @@
 @import "../tokens/breakpoints.scss";
 
 .pricingContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
 	max-width: var(--max-width_large);
+	margin: 0 auto;
+	text-align: center;
 	display: flex;
 	flex-direction: column;
-    margin: 0 auto;
+	gap: var(--spc-1x);
+}
+
+.pricingTitle {
+	color: var(--on-dark-emphasis-high);
+	margin: 0;
+}
+
+.pricingSubtitle {
+	color: var(--on-dark-emphasis-medium);
+	margin: 0;
+}
+
+.pricingSubsubtitle {
+	color: var(--on-dark-emphasis-low);
+	margin: 0;
+}
+
+.pricingCardContainer {
+	margin-top: var(--spc-3x);
+	display: flex;
+	flex-direction: column;
 }
 
 .fundamentalsPricingCard {
@@ -18,26 +42,27 @@
 }
 
 @include from($desktop) {
-	.pricingContainer {
+	.pricingCardContainer {
 		flex-direction: row;
 		flex-wrap: nowrap;
-        align-items: center;
+		align-items: center;
+		margin-top: var(--spc-6x)
 	}
 
-    .fundamentalsPricingCard {
+	.fundamentalsPricingCard {
 		order: 2;
-        z-index: 1;
+		z-index: 1;
 	}
 
-    .ecosystemPricingCard {
+	.ecosystemPricingCard {
 		order: 1;
 		margin-right: calc(0px - var(--pricing-container-radius));
-        height: fit-content;
+		height: fit-content;
 	}
 
 	.internalsPricingCard {
 		order: 3;
 		margin-left: calc(0px - var(--pricing-container-radius));
-        height: fit-content;
+		height: fit-content;
 	}
 }

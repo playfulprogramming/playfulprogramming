@@ -4,99 +4,108 @@ import styles from "./pricing.module.scss";
 ---
 
 <div class={styles.pricingContainer}>
-	<PricingCard
-		class={styles.fundamentalsPricingCard}
-		isSale={true}
-		isHighlighted={true}
-		title={"Fundamentals"}
-		description={`
+	<h2 class={`text-style-headline-2 ${styles.pricingTitle}`}>Pricing</h2>
+	<h2 class={`text-style-body-large ${styles.pricingSubtitle}`}>
+		Sign up today for 50% off of the final price.
+	</h2>
+	<h2 class={`text-style-body-medium ${styles.pricingSubsubtitle}`}>
+		(That means it’ll still be free, as it will always be.)
+	</h2>
+	<div class={styles.pricingCardContainer}>
+		<PricingCard
+			class={styles.fundamentalsPricingCard}
+			isSale={true}
+			isHighlighted={true}
+			title={"Fundamentals"}
+			description={`
 Learn the core concepts behind your favorite frameworks and develop skillsets to build your first apps.    
     `.trim()}
-		price={`Free`}
-		enterpriseToggle={true}
-		enterpriseExplainer={`Absolutely nothing changes. Still free.`}
-		ctaButtonType="filled"
-		ctaButtonText={"Read now"}
-		ctaLink={"#"}
-		bulletPoints={[
-			"Introduction to Components",
-			"Lifecycle methods",
-			"Forms",
-			"Dependency injection",
-			"Shared component logic",
-			"Portals",
-			"Accessibility",
-			"Code structure",
-		]}
-		starPoints={[
-			"18 jampacked chapters",
-			"Lifetime access to content",
-			"Discord community access",
-			"Office hours and Q&A session",
-			"Money-back guarantee",
-			"Bonus: Offline download",
-		]}
-	/>
-	<PricingCard
-		class={styles.ecosystemPricingCard}
-		isSale={false}
-		false
-		title={"Ecosystem"}
-		description={`
+			price={`Free`}
+			enterpriseToggle={true}
+			enterpriseExplainer={`Absolutely nothing changes. Still free.`}
+			ctaButtonType="filled"
+			ctaButtonText={"Read now"}
+			ctaLink={"#"}
+			bulletPoints={[
+				"Introduction to Components",
+				"Lifecycle methods",
+				"Forms",
+				"Dependency injection",
+				"Shared component logic",
+				"Portals",
+				"Accessibility",
+				"Code structure",
+			]}
+			starPoints={[
+				"18 jampacked chapters",
+				"Lifetime access to content",
+				"Discord community access",
+				"Office hours and Q&A session",
+				"Money-back guarantee",
+				"Bonus: Offline download",
+			]}
+		/>
+		<PricingCard
+			class={styles.ecosystemPricingCard}
+			isSale={false}
+			false
+			title={"Ecosystem"}
+			description={`
 Build out production-ready applications with all of the bells and whistles your users expect.
     `.trim()}
-		price={`Gratis`}
-		enterpriseToggle={false}
-		enterpriseExplainer={`Shipping not included`}
-		ctaButtonType="outlined"
-		ctaButtonText={"Sign up for updates"}
-		ctaLink={"#"}
-		bulletPoints={[
-			"Build tooling",
-			"Developer tooling",
-			"Component styling",
-			"Page routing",
-			"Testing methodologies",
-			"Server-side rendering",
-			"Static site generation",
-			"Global data store",
-		]}
-		starPoints={[
-			"12 comprehensive chapters",
-			"Lifetime access to content",
-			"Discord community access",
-			"Office hours and Q&A session",
-		]}
-	/>
-	<PricingCard
-		class={styles.internalsPricingCard}
-		isSale={false}
-		isHighlighted={false}
-		title={"Internals"}
-		description={`
+			price={`Gratis`}
+			enterpriseToggle={false}
+			enterpriseExplainer={`Shipping not included`}
+			ctaButtonType="outlined"
+			ctaButtonText={"Sign up for updates"}
+			ctaLink={"#"}
+			bulletPoints={[
+				"Build tooling",
+				"Developer tooling",
+				"Component styling",
+				"Page routing",
+				"Testing methodologies",
+				"Server-side rendering",
+				"Static site generation",
+				"Global data store",
+			]}
+			starPoints={[
+				"12 comprehensive chapters",
+				"Lifetime access to content",
+				"Discord community access",
+				"Office hours and Q&A session",
+			]}
+		/>
+		<PricingCard
+			class={styles.internalsPricingCard}
+			isSale={false}
+			isHighlighted={false}
+			title={"Internals"}
+			description={`
 Take a deeper dive into understanding how your apps work under-the-hood, including rewriting internals from scratch.
     `.trim()}
-		price={`$0`}
-		enterpriseToggle={false}
-		enterpriseExplainer={`Tax not included`}
-		ctaButtonType="outlined"
-		ctaButtonText={"Sign up for updates"}
-		ctaLink={"#"}
-		bulletPoints={[
-			"Performance optimizations",
-			"Virtual DOM",
-			"Incremental DOM",
-			"Custom renderers",
-			"Explicit reactivity",
-			"Zone.js",
-			"JavaScript proxies",
-			"JSX internals",
-		]}
-		starPoints={[
-			"12 comprehensive chapters",
-			"Lifetime access to content",
-			"Discord community access",
-			"Office hours and Q&A session",
-		]}
-	/>
+			price={`$0`}
+			enterpriseToggle={false}
+			enterpriseExplainer={`Tax not included`}
+			ctaButtonType="outlined"
+			ctaButtonText={"Sign up for updates"}
+			ctaLink={"#"}
+			bulletPoints={[
+				"Performance optimizations",
+				"Virtual DOM",
+				"Incremental DOM",
+				"Custom renderers",
+				"Explicit reactivity",
+				"Zone.js",
+				"JavaScript proxies",
+				"JSX internals",
+			]}
+			starPoints={[
+				"12 comprehensive chapters",
+				"Lifetime access to content",
+				"Discord community access",
+				"Office hours and Q&A session",
+			]}
+		/>
+	</div>
 </div>
