@@ -43,6 +43,10 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 	/>
 </Document>
 <script>
+	// x == 0 <-> 1
+	function easeInCirc(x: number): number {
+		return Math.sqrt(1 - Math.pow(x - 1, 2));
+	}
 	window.onload = () => {
 		const els = Array.from(
 			document.querySelectorAll("[data-move-on-scroll-by]")
@@ -78,11 +82,18 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 					Number(el.dataset.moveOnScrollBy);
 
 				// Only allow the animation to go up by 10% of the height of the element at most
-				const maxNegative =
-					(0 - el.parentElement.clientHeight * 0.1) *
-					Number(el.dataset.moveOnScrollBy);
+				const maximumNegative =
+					0 -
+					el.parentElement.clientHeight *
+						0.4 *
+						Number(el.dataset.moveOnScrollBy);
 
-				if (px < maxNegative) px = maxNegative;
+				if (px < maximumNegative) {
+					const multiplier = easeInCirc(maximumNegative / px);
+					px = maximumNegative / multiplier;
+					// px = maximumNegative;
+				}
+
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
 			});
 		}
