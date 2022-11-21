@@ -46,6 +46,7 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 	function easeOutExpo(x: number): number {
 		return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
 	}
+
 	window.onload = () => {
 		const els = Array.from(
 			document.querySelectorAll("[data-move-on-scroll-by]")
@@ -87,19 +88,17 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 						0.4 *
 						Number(el.dataset.moveOnScrollBy);
 
-				// (maximumNegativeAllowed, 0, px);
-
-				if (px > maximumNegativeAllowed && px < 1) {
+				if (px > maximumNegativeAllowed && px < -1) {
 					// const multiplier = 1 / (0 - px);
 					const positivePx = 0 - px;
 					const positiveMaxAllowed = 0 - maximumNegativeAllowed;
 
-					const multiplier = easeOutExpo(positiveMaxAllowed / positivePx);
-					px = multiplier * maximumNegativeAllowed;
+					const multiplier = easeOutExpo(positivePx / positiveMaxAllowed);
+					px = px * multiplier;
+				}
 
-					if (el.dataset.layerName == "forrest-background") {
-						console.log(px, positivePx, multiplier, maximumNegativeAllowed);
-					}
+				if (px < maximumNegativeAllowed) {
+					px = maximumNegativeAllowed;
 				}
 
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
