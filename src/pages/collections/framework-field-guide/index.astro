@@ -43,9 +43,8 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 	/>
 </Document>
 <script>
-	// x == 0 <-> 1
-	function easeInCirc(x: number): number {
-		return Math.sqrt(1 - Math.pow(x - 1, 2));
+	function easeOutExpo(x: number): number {
+		return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
 	}
 	window.onload = () => {
 		const els = Array.from(
@@ -82,16 +81,25 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 					Number(el.dataset.moveOnScrollBy);
 
 				// Only allow the animation to go up by 10% of the height of the element at most
-				const maximumNegative =
+				const maximumNegativeAllowed =
 					0 -
 					el.parentElement.clientHeight *
 						0.4 *
 						Number(el.dataset.moveOnScrollBy);
 
-				if (px < maximumNegative) {
-					const multiplier = easeInCirc(maximumNegative / px);
-					px = maximumNegative / multiplier;
-					// px = maximumNegative;
+				// (maximumNegativeAllowed, 0, px);
+
+				if (px > maximumNegativeAllowed && px < 1) {
+					// const multiplier = 1 / (0 - px);
+					const positivePx = 0 - px;
+					const positiveMaxAllowed = 0 - maximumNegativeAllowed;
+
+					const multiplier = easeOutExpo(positiveMaxAllowed / positivePx);
+					px = multiplier * maximumNegativeAllowed;
+
+					if (el.dataset.layerName == "forrest-background") {
+						console.log(px, positivePx, multiplier, maximumNegativeAllowed);
+					}
 				}
 
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
