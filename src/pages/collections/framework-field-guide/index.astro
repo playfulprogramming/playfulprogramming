@@ -52,12 +52,14 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 		const getElTops = () =>
 			els.map((el) => {
 				el.style.transform = "";
-				var { top: topRect } = el.getBoundingClientRect();
+				var { top: topRect, height } = el.getBoundingClientRect();
 
 				return (
 					topRect +
 					document.documentElement.scrollTop -
-					(document.documentElement.clientTop || 0)
+					(document.documentElement.clientTop || 0) -
+					// Start animating once the element is midway down the screen
+					(window.innerHeight - height) / 2
 				);
 			});
 
@@ -74,6 +76,13 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 				let px =
 					(document.documentElement.scrollTop - top) *
 					Number(el.dataset.moveOnScrollBy);
+
+				// Only allow the animation to go up by 10% of the height of the element at most
+				const maxNegative =
+					(0 - el.parentElement.clientHeight * 0.1) *
+					Number(el.dataset.moveOnScrollBy);
+
+				if (px < maxNegative) px = maxNegative;
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
 			});
 		}
