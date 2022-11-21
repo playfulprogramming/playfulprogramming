@@ -1,0 +1,41 @@
+---
+import BookCoverContainer from "../components/book-cover-container.astro";
+import BookCoverLayer from "../components/book-cover-layer.astro";
+import { ForrestBackground } from "../cover-layers/ecosystem/forrest_background";
+import { ForrestForeground } from "../cover-layers/ecosystem/forrest_foreground";
+import { ForrestMiddleground } from "../cover-layers/ecosystem/forrest_middleground";
+---
+
+<style>
+	.background-repeat-layer {
+		grid-template-columns: 1fr auto 1fr !important;
+	}
+
+	.ecosystem-cover {
+		background-color: var(--ecos-600);
+	}
+</style>
+
+<BookCoverContainer class="ecosystem-cover">
+	<BookCoverLayer name="forrest-background">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<ForrestBackground />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="forrest-middleground">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<ForrestMiddleground />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+	<BookCoverLayer name="forrest-foreground">
+		<div slot="left"></div>
+		<div slot="center" style="height: 100%; width: 100vw !important">
+			<ForrestForeground />
+		</div>
+		<div slot="right"></div>
+	</BookCoverLayer>
+</BookCoverContainer>

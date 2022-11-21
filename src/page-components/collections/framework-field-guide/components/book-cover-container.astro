@@ -1,4 +1,12 @@
-<div class="bookCoverContainer">
+---
+interface BookCoverContainerProps {
+	class?: string;
+}
+
+const { class: className } = Astro.props as BookCoverContainerProps;
+---
+
+<div class={`bookCoverContainer ${className ? className : ""}`}>
 	<slot />
 </div>
 

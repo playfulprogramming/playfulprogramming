@@ -4,6 +4,7 @@ import BigOutlinedButton from "../components/big-outlined-button.astro";
 import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
+import EcosystemBookCover from "./ecosystem-book-cover.astro";
 
 const tags: TagList = [
 	"Static site generation",
@@ -39,6 +40,7 @@ const tags: TagList = [
 ] as const;
 ---
 
+<EcosystemBookCover />
 <div class="class-book-2">
 	<div class="book-section" style="background: var(--section-background);">
 		<h3 class={`text-style-display-1 book-title`}>Ecosystem</h3>
