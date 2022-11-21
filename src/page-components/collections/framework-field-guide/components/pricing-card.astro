@@ -5,6 +5,7 @@ import SmallFilledButton from "./small-filled-button.astro";
 interface PricingCardProps {
 	class: string;
 	isSale: boolean;
+	isHighlighted: boolean;
 	title: string;
 	description: string;
 	price: string;
@@ -20,6 +21,7 @@ interface PricingCardProps {
 const {
 	class: className,
 	isSale,
+	isHighlighted,
 	title,
 	description,
 	price,
@@ -36,30 +38,85 @@ const CTAButton =
 	ctaButtonType === "outlined" ? SmallOutlinedButton : SmallFilledButton;
 ---
 
-<div class={className}>
-	<p class="text-style-headline-4">{title}</p>
-	<p class="text-style-body-medium">{description}</p>
-	<p class="text-style-headline-1">{price}</p>
-	<p class="text-style-body-small-bold">{enterpriseExplainer}</p>
+<div
+	class={`pricing-card-container ${
+		isHighlighted ? "highlighted" : ""
+	} ${className}`}
+>
+	<div>
+		<p class="text-style-headline-4 pricing-title">{title}</p>
+		<p class="text-style-body-medium pricing-description">{description}</p>
+		<p class="text-style-headline-1 pricing-price">{price}</p>
+		<p class="text-style-body-small-bold pricing-enterpriseExplainer">
+			{enterpriseExplainer}
+		</p>
+	</div>
 	{
 		enterpriseToggle && (
 			<div>
-				<p>Hi</p>
+				<p>
+					https://stackblitz.com/edit/vanilla-css-toggle-btn-i4fcnv?file=index.html
+				</p>
 			</div>
 		)
 	}
-	<!-- TODO: Make it an `a` tag -->
-	<CTAButton>{ctaButtonText}</CTAButton>
-	<hr />
-	<ul class="bulletPoints">
-		{bulletPoints.map((bulletPoint) => <li>{bulletPoint}</li>)}
-	</ul>
-	<ul class="starPoints">
-		{starPoints.map((starPoint) => <li>{starPoint}</li>)}
-	</ul>
+	<div>
+		<!-- TODO: Make it an `a` tag -->
+		<CTAButton>{ctaButtonText}</CTAButton>
+	</div>
+	<div>
+		<hr />
+	</div>
+	<div>
+		<ul class="bulletPoints">
+			{bulletPoints.map((bulletPoint) => <li>{bulletPoint}</li>)}
+		</ul>
+		<ul class="starPoints">
+			{starPoints.map((starPoint) => <li>{starPoint}</li>)}
+		</ul>
+	</div>
 </div>
 
 <style>
+	.pricing-card-container {
+		padding: var(--section-ver-padding) var(--section-hor-padding);
+		display: flex;
+		flex-direction: column;
+		gap: var(--section-gap);
+		border-radius: var(--pricing-container-radius);
+		background: var(--pricing-container_default);
+		width: calc(100% / 3 - var(--pricing-container-radius));
+		text-align: center;
+	}
+
+	.pricing-card-container.highlighted {
+		background: var(--pricing-container_highlighted);
+		width: calc(100% / 3);
+	}
+
+	.pricing-title {
+		color: var(--on-dark-emphasis-high);
+		margin: 0;
+		margin-bottom: var(--spc-1x);
+	}
+
+	.pricing-description {
+		color: var(--on-dark-emphasis-medium);
+		margin: 0;
+		margin-bottom: var(--section-gap);
+	}
+
+	.pricing-price {
+		color: var(--on-dark-emphasis-high);
+		margin: 0;
+		margin-bottom: var(--spc-1x);
+	}
+
+	.pricing-enterpriseExplainer {
+		color: var(--on-dark-emphasis-medium);
+		margin: 0;
+	}
+
 	.starPoints,
 	.bulletPoints {
 		list-style: none;

@@ -4,6 +4,7 @@
 :root {
 	--pricing-container_default: var(--slate-800);
 	--pricing-container_highlighted: var(--slate-700);
+	--pricing-container-radius: var(--corner-2x);
 	--bullet-list-item-gap: 4px;
 	--bullet-list-item-icon-size: 12px;
 	--sale-badge-size: 72px;
@@ -16,5 +17,6 @@
 		--bullet-list-item-icon-size: 16px;
 		--sale-badge-size: 128px;
 		--sale-badge-offset: -48px;
+		--pricing-container-radius: var(--corner-3x);
 	}
 }

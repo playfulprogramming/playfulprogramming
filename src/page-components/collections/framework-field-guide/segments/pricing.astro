@@ -6,6 +6,7 @@ import PricingCard from "../components/pricing-card.astro";
 	<PricingCard
 		class="fundamentals-pricing-card"
 		isSale={true}
+		isHighlighted={true}
 		title={"Fundamentals"}
 		description={`
 Learn the core concepts behind your favorite frameworks and develop skillsets to build your first apps.    
@@ -38,6 +39,7 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 	<PricingCard
 		class="ecosystem-pricing-card"
 		isSale={false}
+		false
 		title={"Ecosystem"}
 		description={`
 Build out production-ready applications with all of the bells and whistles your users expect.
@@ -68,6 +70,7 @@ Build out production-ready applications with all of the bells and whistles your 
 	<PricingCard
 		class="internals-pricing-card"
 		isSale={false}
+		isHighlighted={false}
 		title={"Internals"}
 		description={`
 Take a deeper dive into understanding how your apps work under-the-hood, including rewriting internals from scratch.
@@ -98,6 +101,7 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 </div>
 <style>
 	.pricing-container {
+		max-width: var(--max-width-large);
 	}
 
 	.fundamentals-pricing-card {
