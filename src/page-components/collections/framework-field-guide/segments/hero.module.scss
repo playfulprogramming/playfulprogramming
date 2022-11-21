@@ -5,6 +5,12 @@ body {
 	--backgroundColor: var(--fund-200) !important;
 }
 
+.sunContainerContainer {
+	position: relative;
+	z-index: -1;
+	transition: transform 1ms;
+}
+
 .sunContainerContainer > div {
 	position: relative;
 }
