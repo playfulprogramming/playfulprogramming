@@ -1,5 +1,6 @@
 ---
-const props = Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
 ---
 
 <style>
@@ -13,6 +14,11 @@ const props = Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
 		border-style: solid;
 	}
 </style>
-<button {...props} class="text-style-button small-outlined-button">
+<button
+	{...props}
+	class={`text-style-button small-outlined-button ${
+		className ? className : ""
+	}`}
+>
 	<slot />
 </button>
