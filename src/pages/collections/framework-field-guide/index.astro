@@ -82,8 +82,13 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 		function moveItems() {
 			els.forEach((el, i) => {
 				const top = initialElTops[i];
+
+				const disableTop = top < window.innerHeight;
+
+				const topCalc = disableTop ? 0 : top;
+
 				let px =
-					(document.documentElement.scrollTop - top) *
+					(document.documentElement.scrollTop - topCalc) *
 					Number(el.dataset.moveOnScrollBy);
 
 				// Only allow the animation to go up by 10% of the height of the element at most
@@ -93,17 +98,18 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 						0.4 *
 						Number(el.dataset.moveOnScrollBy);
 
-				if (px > maximumNegativeAllowed && px < -1) {
-					// const multiplier = 1 / (0 - px);
-					const positivePx = 0 - px;
-					const positiveMaxAllowed = 0 - maximumNegativeAllowed;
+				if (top >= window.innerHeight) {
+					if (px > maximumNegativeAllowed && px < -1) {
+						const positivePx = 0 - px;
+						const positiveMaxAllowed = 0 - maximumNegativeAllowed;
 
-					const multiplier = easeOutExpo(positivePx / positiveMaxAllowed);
-					px = px * multiplier;
-				}
+						const multiplier = easeOutExpo(positivePx / positiveMaxAllowed);
+						px = px * multiplier;
+					}
 
-				if (px < maximumNegativeAllowed) {
-					px = maximumNegativeAllowed;
+					if (px < maximumNegativeAllowed) {
+						px = maximumNegativeAllowed;
+					}
 				}
 
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
