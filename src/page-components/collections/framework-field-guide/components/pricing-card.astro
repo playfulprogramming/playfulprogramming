@@ -65,9 +65,9 @@ const CTAButton =
 		<CTAButton>{ctaButtonText}</CTAButton>
 	</div>
 	<div>
-		<hr />
+		<hr class="divider" />
 	</div>
-	<div>
+	<div class="list-items">
 		<ul class="bulletPoints">
 			{bulletPoints.map((bulletPoint) => <li>{bulletPoint}</li>)}
 		</ul>
@@ -115,6 +115,15 @@ const CTAButton =
 	.pricing-enterpriseExplainer {
 		color: var(--on-dark-emphasis-medium);
 		margin: 0;
+	}
+
+	.divider {
+		border: none;
+		border-top: 2px dotted #607090;
+	}
+
+	.list-items {
+		text-align: start;
 	}
 
 	.starPoints,
