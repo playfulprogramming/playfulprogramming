@@ -1,0 +1,43 @@
+@import "../../../../styles/utils";
+@import "../tokens/breakpoints.scss";
+
+.pricingContainer {
+	max-width: var(--max-width_large);
+	display: flex;
+	flex-direction: column;
+    margin: 0 auto;
+}
+
+.fundamentalsPricingCard {
+}
+
+.ecosystemPricingCard {
+}
+
+.internalsPricingCard {
+}
+
+@include from($desktop) {
+	.pricingContainer {
+		flex-direction: row;
+		flex-wrap: nowrap;
+        align-items: center;
+	}
+
+    .fundamentalsPricingCard {
+		order: 2;
+        z-index: 1;
+	}
+
+    .ecosystemPricingCard {
+		order: 1;
+		margin-right: calc(0px - var(--pricing-container-radius));
+        height: fit-content;
+	}
+
+	.internalsPricingCard {
+		order: 3;
+		margin-left: calc(0px - var(--pricing-container-radius));
+        height: fit-content;
+	}
+}

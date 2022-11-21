@@ -1,10 +1,11 @@
 ---
 import PricingCard from "../components/pricing-card.astro";
+import styles from "./pricing.module.scss";
 ---
 
-<div class="pricing-container">
+<div class={styles.pricingContainer}>
 	<PricingCard
-		class="fundamentals-pricing-card"
+		class={styles.fundamentalsPricingCard}
 		isSale={true}
 		isHighlighted={true}
 		title={"Fundamentals"}
@@ -37,7 +38,7 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 		]}
 	/>
 	<PricingCard
-		class="ecosystem-pricing-card"
+		class={styles.ecosystemPricingCard}
 		isSale={false}
 		false
 		title={"Ecosystem"}
@@ -68,7 +69,7 @@ Build out production-ready applications with all of the bells and whistles your 
 		]}
 	/>
 	<PricingCard
-		class="internals-pricing-card"
+		class={styles.internalsPricingCard}
 		isSale={false}
 		isHighlighted={false}
 		title={"Internals"}
@@ -99,17 +100,3 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 		]}
 	/>
 </div>
-<style>
-	.pricing-container {
-		max-width: var(--max-width-large);
-	}
-
-	.fundamentals-pricing-card {
-	}
-
-	.ecosystem-pricing-card {
-	}
-
-	.internals-pricing-card {
-	}
-</style>
