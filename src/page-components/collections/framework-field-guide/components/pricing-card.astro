@@ -4,6 +4,7 @@ import SmallFilledButton from "./small-filled-button.astro";
 import ffgArrow from "../icons/ffg-arrow.svg";
 import ffgStar from "../icons/ffg-star.svg";
 import FfgSale from "../icons/ffg-sale.astro";
+import styles from "./pricing-card.module.scss";
 
 interface PricingCardProps {
 	class: string;
@@ -42,16 +43,20 @@ const CTAButton =
 ---
 
 <div
-	class={`pricing-card-container ${
-		isHighlighted ? "highlighted" : ""
+	class={`${styles.pricingCardContainer} ${
+		isHighlighted ? styles.highlighted : ""
 	} ${className}`}
 >
-	{isSale && <FfgSale class="saleTag" aria-hidden="true" />}
+	{isSale && <FfgSale class={styles.saleTag} aria-hidden="true" />}
 	<div>
-		<p class="text-style-headline-4 pricing-title">{title}</p>
-		<p class="text-style-body-medium pricing-description">{description}</p>
-		<p class="text-style-headline-1 pricing-price">{price}</p>
-		<p class="text-style-body-small-bold pricing-enterpriseExplainer">
+		<p class={`text-style-headline-4 ${styles.pricingTitle}`}>{title}</p>
+		<p class={`text-style-body-medium ${styles.pricingDescription}`}>
+			{description}
+		</p>
+		<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
+		<p
+			class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
+		>
 			{enterpriseExplainer}
 		</p>
 	</div>
@@ -69,24 +74,24 @@ const CTAButton =
 		<CTAButton>{ctaButtonText}</CTAButton>
 	</div>
 	<div>
-		<hr class="divider" />
+		<hr class={styles.divider} />
 	</div>
-	<div class="list-items">
-		<ul class="bulletPoints">
+	<div class={styles.listItems}>
+		<ul class={styles.bulletPoints}>
 			{
 				bulletPoints.map((bulletPoint) => (
 					<li class="text-style-body-small-bold">
-						<img alt="" src={ffgArrow} class="list-item-bullet" />
+						<img alt="" src={ffgArrow} class={styles.listItemBullet} />
 						{bulletPoint}
 					</li>
 				))
 			}
 		</ul>
-		<ul class="starPoints">
+		<ul class={styles.starPoints}>
 			{
 				starPoints.map((starPoint) => (
 					<li class="text-style-body-small-bold">
-						<img alt="" src={ffgStar} class="list-item-bullet" />
+						<img alt="" src={ffgStar} class={styles.listItemBullet} />
 						{starPoint}
 					</li>
 				))
@@ -94,84 +99,3 @@ const CTAButton =
 		</ul>
 	</div>
 </div>
-
-<style>
-	.pricing-card-container {
-		padding: var(--section-ver-padding) var(--section-hor-padding);
-		display: flex;
-		flex-direction: column;
-		gap: var(--section-gap);
-		border-radius: var(--pricing-container-radius);
-		background: var(--pricing-container_default);
-		width: calc(100% / 3 - var(--pricing-container-radius));
-		text-align: center;
-		position: relative;
-	}
-
-	.saleTag {
-		position: absolute;
-		height: var(--sale-badge-size);
-		width: var(--sale-badge-size);
-		top: var(--sale-badge-offset);
-		right: var(--sale-badge-offset);
-		transform: rotate(var(--sale-badge-rotation));
-	}
-
-	.pricing-card-container.highlighted {
-		background: var(--pricing-container_highlighted);
-		width: calc(100% / 3);
-	}
-
-	.pricing-title {
-		color: var(--on-dark-emphasis-high);
-		margin: 0;
-		margin-bottom: var(--spc-1x);
-	}
-
-	.pricing-description {
-		color: var(--on-dark-emphasis-medium);
-		margin: 0;
-		margin-bottom: var(--section-gap);
-	}
-
-	.pricing-price {
-		color: var(--on-dark-emphasis-high);
-		margin: 0;
-		margin-bottom: var(--spc-1x);
-	}
-
-	.pricing-enterpriseExplainer {
-		color: var(--on-dark-emphasis-medium);
-		margin: 0;
-	}
-
-	.divider {
-		border: none;
-		border-top: 2px dotted #607090;
-	}
-
-	.list-items {
-		text-align: start;
-	}
-
-	.list-item-bullet {
-		height: var(--bullet-list-item-icon-size);
-		width: var(--bullet-list-item-icon-size);
-		margin-right: var(--spc-1x);
-	}
-
-	.starPoints,
-	.bulletPoints {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		flex-wrap: nowrap;
-		gap: var(--bullet-list-item-gap);
-	}
-
-	.bulletPoints {
-		margin-bottom: var(--section-gap);
-	}
-</style>

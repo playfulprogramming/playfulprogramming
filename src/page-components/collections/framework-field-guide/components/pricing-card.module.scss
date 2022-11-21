@@ -1,0 +1,78 @@
+.pricingCardContainer {
+    padding: var(--section-ver-padding) var(--section-hor-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+    border-radius: var(--pricing-container-radius);
+    background: var(--pricing-container_default);
+    width: calc(100% / 3 - var(--pricing-container-radius));
+    text-align: center;
+    position: relative;
+}
+
+.saleTag {
+    position: absolute;
+    height: var(--sale-badge-size);
+    width: var(--sale-badge-size);
+    top: var(--sale-badge-offset);
+    right: var(--sale-badge-offset);
+    transform: rotate(var(--sale-badge-rotation));
+}
+
+.pricingCardContainer.highlighted {
+    background: var(--pricing-container_highlighted);
+    width: calc(100% / 3);
+}
+
+.pricingTitle {
+    color: var(--on-dark-emphasis-high);
+    margin: 0;
+    margin-bottom: var(--spc-1x);
+}
+
+.pricingDescription {
+    color: var(--on-dark-emphasis-medium);
+    margin: 0;
+    margin-bottom: var(--section-gap);
+}
+
+.pricingPrice {
+    color: var(--on-dark-emphasis-high);
+    margin: 0;
+    margin-bottom: var(--spc-1x);
+}
+
+.pricingEnterpriseExplainer {
+    color: var(--on-dark-emphasis-medium);
+    margin: 0;
+}
+
+.divider {
+    border: none;
+    border-top: 2px dotted #607090;
+}
+
+.listItems {
+    text-align: start;
+}
+
+.listItemBullet {
+    height: var(--bullet-list-item-icon-size);
+    width: var(--bullet-list-item-icon-size);
+    margin-right: var(--spc-1x);
+}
+
+.starPoints,
+.bulletPoints {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: var(--bullet-list-item-gap);
+}
+
+.bulletPoints {
+    margin-bottom: var(--section-gap);
+}
