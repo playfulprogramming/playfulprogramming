@@ -3,6 +3,7 @@ import SmallOutlinedButton from "./small-outlined-button.astro";
 import SmallFilledButton from "./small-filled-button.astro";
 import ffgArrow from "../icons/ffg-arrow.svg";
 import ffgStar from "../icons/ffg-star.svg";
+import FfgSale from "../icons/ffg-sale.astro";
 
 interface PricingCardProps {
 	class: string;
@@ -45,6 +46,7 @@ const CTAButton =
 		isHighlighted ? "highlighted" : ""
 	} ${className}`}
 >
+	{isSale && <FfgSale class="saleTag" aria-hidden="true" />}
 	<div>
 		<p class="text-style-headline-4 pricing-title">{title}</p>
 		<p class="text-style-body-medium pricing-description">{description}</p>
@@ -103,6 +105,16 @@ const CTAButton =
 		background: var(--pricing-container_default);
 		width: calc(100% / 3 - var(--pricing-container-radius));
 		text-align: center;
+		position: relative;
+	}
+
+	.saleTag {
+		position: absolute;
+		height: var(--sale-badge-size);
+		width: var(--sale-badge-size);
+		top: var(--sale-badge-offset);
+		right: var(--sale-badge-offset);
+		transform: rotate(var(--sale-badge-rotation));
 	}
 
 	.pricing-card-container.highlighted {
