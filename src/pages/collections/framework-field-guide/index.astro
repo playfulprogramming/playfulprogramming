@@ -64,12 +64,14 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 					document.documentElement.scrollTop -
 					(document.documentElement.clientTop || 0);
 
+				const trueTop = top;
+
 				if (top >= window.innerHeight) {
 					// Start animating once the element is midway down the screen
 					top = top - (window.innerHeight - height) / 2;
 				}
 
-				return top;
+				return { top, trueTop };
 			});
 
 		let initialElTops = getElTops();
@@ -81,9 +83,9 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 
 		function moveItems() {
 			els.forEach((el, i) => {
-				const top = initialElTops[i];
+				const { top, trueTop } = initialElTops[i];
 
-				const disableTop = top < window.innerHeight;
+				const disableTop = trueTop < window.innerHeight;
 
 				const topCalc = disableTop ? 0 : top;
 
