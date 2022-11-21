@@ -7,6 +7,7 @@ export const ForrestBackground = () => {
 				backgroundPosition: "center center",
 				backgroundRepeat: "repeat no-repeat",
 				height: "100%",
+				backgroundSize: "auto 100%",
 			}}
 		/>
 	);

@@ -6,7 +6,8 @@ export const ForrestMiddleground = () => {
 				width: '100%',
 				backgroundPosition: 'center center',
 				backgroundRepeat: "repeat no-repeat",
-				height: '100%'
+				height: '100%',
+				backgroundSize: 'auto 100%'
 			}}
 		/>
 	);
