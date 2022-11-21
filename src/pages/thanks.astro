@@ -2,7 +2,7 @@
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import proudUnicorn from "assets/proud_2048.png";
-import { Image } from "@astrojs/image/components";
+import { Picture } from "@astrojs/image/components";
 
 const locale = "en";
 ---
@@ -11,9 +11,11 @@ const locale = "en";
 	<SEO title="Thank You!" />
 
 	<main>
-		<Image
+		<Picture
 			class="proudUnicorn"
 			src={proudUnicorn}
+			sizes="450px"
+			widths={[450]}
 			loading="eager"
 			width="450"
 			height="450"

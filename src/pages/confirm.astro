@@ -2,7 +2,7 @@
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import helloUnicorn from "assets/hello_2048.png";
-import { Image } from "@astrojs/image/components";
+import { Picture } from "@astrojs/image/components";
 
 const locale = "en";
 ---
@@ -11,10 +11,12 @@ const locale = "en";
 	<SEO title="Confirm Your Email" />
 
 	<main>
-		<Image
+		<Picture
 			class="helloUnicorn"
 			src={helloUnicorn}
 			loading="eager"
+			sizes="450px"
+			widths={[450]}
 			width="450"
 			height="450"
 			alt="A happy unicorn"

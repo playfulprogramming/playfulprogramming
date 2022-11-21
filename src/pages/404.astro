@@ -2,7 +2,7 @@
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import sadUnicorn from "assets/sad_unicorn_2048.png";
-import { Image } from "@astrojs/image/components";
+import { Picture } from "@astrojs/image/components";
 
 const locale = "en";
 ---
@@ -11,10 +11,12 @@ const locale = "en";
 	<SEO title="404: Not Found" />
 
 	<main>
-		<Image
+		<Picture
 			class="sadUnicorn"
 			src={sadUnicorn}
 			loading="eager"
+			sizes="500px"
+			widths={[500]}
 			width="500"
 			height="500"
 			alt="Unicorn Utterances 404 image"
