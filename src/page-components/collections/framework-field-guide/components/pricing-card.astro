@@ -48,17 +48,21 @@ const CTAButton =
 	} ${className}`}
 >
 	{isSale && <FfgSale class={styles.saleTag} aria-hidden="true" />}
-	<div>
-		<p class={`text-style-headline-4 ${styles.pricingTitle}`}>{title}</p>
-		<p class={`text-style-body-medium ${styles.pricingDescription}`}>
-			{description}
-		</p>
-		<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
-		<p
-			class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
-		>
-			{enterpriseExplainer}
-		</p>
+	<div class={styles.topTextContainer}>
+		<div>
+			<p class={`text-style-headline-4 ${styles.pricingTitle}`}>{title}</p>
+			<p class={`text-style-body-medium ${styles.pricingDescription}`}>
+				{description}
+			</p>
+		</div>
+		<div>
+			<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
+			<p
+				class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
+			>
+				{enterpriseExplainer}
+			</p>
+		</div>
 	</div>
 	{
 		enterpriseToggle && (
