@@ -16,14 +16,14 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 </style>
 
 <BookCoverContainer>
-	<BookCoverLayer moveOnScrollBy={0.2} name="mountains">
+	<BookCoverLayer moveOnScrollBy={0.3} name="mountains">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
 			<Mountains />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer moveOnScrollBy={0.1} name="trees">
+	<BookCoverLayer moveOnScrollBy={0.2} name="trees">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
 			<Trees />
@@ -31,7 +31,7 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 		<div slot="right"></div>
 	</BookCoverLayer>
 	<BookCoverLayer
-		moveOnScrollBy={0.06}
+		moveOnScrollBy={0.1}
 		name="right-repeat"
 		class="background-repeat-layer"
 	>
@@ -54,7 +54,7 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer moveOnScrollBy={0.06} name="sign-ground">
+	<BookCoverLayer moveOnScrollBy={0.1} name="sign-ground">
 		<div slot="left"></div>
 		<div slot="center">
 			<SignGroundReflection />
