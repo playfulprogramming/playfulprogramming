@@ -26,39 +26,44 @@
 }
 
 .topTextContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: var(--section-gap);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: var(--section-gap);
 }
 
-.topTextContainer > div {
-    width: 50%;
-}
+@include from($tablet) {
+	.topTextContainer {
+		flex-direction: row;
+	}
 
-.topTextContainer > div:first-child {
-    text-align: start;
-}
+	.topTextContainer > div {
+		width: 50%;
+	}
 
-.topTextContainer > div:last-child {
-    text-align: end;
+	.topTextContainer > div:first-child {
+		text-align: start;
+	}
+
+	.topTextContainer > div:last-child {
+		text-align: end;
+	}
 }
 
 @include from($desktop) {
-    .topTextContainer {
-        flex-direction: column;
-    }
+	.topTextContainer {
+		flex-direction: column;
+	}
 
-    .topTextContainer > div {
-        width: 100%;
-    }
+	.topTextContainer > div {
+		width: 100%;
+	}
 
-    .topTextContainer > div:first-child,
-    .topTextContainer > div:last-child {
-        text-align: center;
-    }
+	.topTextContainer > div:first-child,
+	.topTextContainer > div:last-child {
+		text-align: center;
+	}
 }
-
 
 .saleTag {
 	position: absolute;
@@ -98,6 +103,30 @@
 
 .listItems {
 	text-align: start;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: var(--section-gap);
+}
+
+@include from($tablet) {
+	.listItems {
+		flex-direction: row;
+	}
+
+	.listItems > ul {
+		width: 50%;
+	}
+}
+
+@include from($desktop) {
+	.listItems {
+		flex-direction: column;
+	}
+	
+	.listItems > ul {
+		width: 100%;
+	}
 }
 
 .listItemBullet {
@@ -115,8 +144,4 @@
 	flex-direction: column;
 	flex-wrap: nowrap;
 	gap: var(--bullet-list-item-gap);
-}
-
-.bulletPoints {
-	margin-bottom: var(--section-gap);
 }
