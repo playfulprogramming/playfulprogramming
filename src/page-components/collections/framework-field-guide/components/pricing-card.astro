@@ -1,6 +1,8 @@
 ---
 import SmallOutlinedButton from "./small-outlined-button.astro";
 import SmallFilledButton from "./small-filled-button.astro";
+import ffgArrow from "../icons/ffg-arrow.svg";
+import ffgStar from "../icons/ffg-star.svg";
 
 interface PricingCardProps {
 	class: string;
@@ -69,10 +71,24 @@ const CTAButton =
 	</div>
 	<div class="list-items">
 		<ul class="bulletPoints">
-			{bulletPoints.map((bulletPoint) => <li>{bulletPoint}</li>)}
+			{
+				bulletPoints.map((bulletPoint) => (
+					<li class="text-style-body-small-bold">
+						<img alt="" src={ffgArrow} class="list-item-bullet" />
+						{bulletPoint}
+					</li>
+				))
+			}
 		</ul>
 		<ul class="starPoints">
-			{starPoints.map((starPoint) => <li>{starPoint}</li>)}
+			{
+				starPoints.map((starPoint) => (
+					<li class="text-style-body-small-bold">
+						<img alt="" src={ffgStar} class="list-item-bullet" />
+						{starPoint}
+					</li>
+				))
+			}
 		</ul>
 	</div>
 </div>
@@ -126,10 +142,24 @@ const CTAButton =
 		text-align: start;
 	}
 
+	.list-item-bullet {
+		height: var(--bullet-list-item-icon-size);
+		width: var(--bullet-list-item-icon-size);
+		margin-right: var(--spc-1x);
+	}
+
 	.starPoints,
 	.bulletPoints {
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		gap: var(--bullet-list-item-gap);
+	}
+
+	.bulletPoints {
+		margin-bottom: var(--section-gap);
 	}
 </style>
