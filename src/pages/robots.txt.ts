@@ -12,7 +12,7 @@ Allow: /
 Host: ${siteUrl}
 
 # Sitemaps
-Sitemap: ${siteUrl}/sitemap.xml
+Sitemap: ${siteUrl}/sitemap-index.xml
 `.trim();
 	} else {
 		body = `
@@ -24,7 +24,7 @@ Disallow: /
 Host: ${siteUrl}
 
 # Sitemaps
-Sitemap: ${siteUrl}/sitemap.xml     
+Sitemap: ${siteUrl}/sitemap-index.xml
         `.trim();
 	}
 	return { body };
