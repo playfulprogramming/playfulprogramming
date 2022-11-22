@@ -14,7 +14,7 @@
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
 		// Add type definitions for our Vite runtime.
-		"types": ["@astrojs/image/client"],
+		"types": ["@astrojs/image/client", "jest", "@testing-library/jest-dom"],
 		"lib": ["DOM"],
 		"baseUrl": ".",
 		"paths": {
