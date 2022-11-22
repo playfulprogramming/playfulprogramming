@@ -156,6 +156,8 @@ input[type="checkbox"].enterpriseToggle:checked::after {
 .pricingEnterpriseExplainer {
 	color: var(--on-dark-emphasis-medium);
 	margin: 0;
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
 }
 
 .divider {

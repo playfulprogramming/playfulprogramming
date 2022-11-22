@@ -109,3 +109,21 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 		/>
 	</div>
 </div>
+
+<script>
+	const enterpriseExplainers = Array.from(
+		document.querySelectorAll('[data-enterprise-explainer="true"]')
+	) as HTMLElement[];
+	const toggleEl = document.querySelector(
+		"#enterprise-toggle"
+	) as HTMLInputElement;
+	toggleEl.addEventListener("click", () => {
+		enterpriseExplainers.forEach((explainer) => {
+			if (toggleEl.checked) {
+				explainer.style.opacity = "1";
+			} else {
+				explainer.style.opacity = "0";
+			}
+		});
+	});
+</script>

@@ -59,6 +59,7 @@ const CTAButton =
 			<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
 			<p
 				class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
+				data-enterprise-explainer="true"
 			>
 				{enterpriseExplainer}
 			</p>
@@ -66,25 +67,28 @@ const CTAButton =
 	</div>
 	{
 		enterpriseToggle && (
-			<div class={styles.enterpriseToggleContainer}>
-				<input
-					aria-label="For enterprise"
-					type="checkbox"
-					class={styles.enterpriseToggle}
-				/>
-				<p
-					class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
-					aria-hidden="true"
-				>
-					For individuals
-				</p>
-				<p
-					class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
-					aria-hidden="true"
-				>
-					For Enterprise
-				</p>
-			</div>
+			<>
+				<div class={styles.enterpriseToggleContainer}>
+					<input
+						aria-label="For enterprise"
+						id="enterprise-toggle"
+						type="checkbox"
+						class={styles.enterpriseToggle}
+					/>
+					<p
+						class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
+						aria-hidden="true"
+					>
+						For individuals
+					</p>
+					<p
+						class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
+						aria-hidden="true"
+					>
+						For Enterprise
+					</p>
+				</div>
+			</>
 		)
 	}
 	<div>
