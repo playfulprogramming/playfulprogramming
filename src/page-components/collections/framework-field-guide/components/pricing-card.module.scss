@@ -209,3 +209,9 @@ input[type="checkbox"].enterpriseToggle:checked::after {
 	flex-wrap: nowrap;
 	gap: var(--bullet-list-item-gap);
 }
+
+@include until($tablet) {
+	.removeOnMobile {
+		display: none;
+	}
+}

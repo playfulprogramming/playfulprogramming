@@ -109,7 +109,11 @@ const CTAButton =
 				))
 			}
 		</ul>
-		<ul class={styles.starPoints}>
+		<ul
+			class={`${styles.starPoints} ${
+				isHighlighted ? "" : styles.removeOnMobile
+			}`}
+		>
 			{
 				starPoints.map((starPoint) => (
 					<li class="text-style-body-small-bold">
