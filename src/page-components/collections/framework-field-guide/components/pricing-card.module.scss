@@ -91,6 +91,68 @@
 	margin-bottom: var(--spc-1x);
 }
 
+.enterpriseToggleContainer {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+}
+
+.enterpriseToggleText {
+	margin: 0;
+	color: var(--slate-300);
+}
+
+.enterpriseToggle:not(:checked) + .enterpriseToggleText {
+	color: var(--slate-050);
+}
+
+.enterpriseToggle:checked + .enterpriseToggleText + .enterpriseToggleText {
+	color: var(--slate-050);
+}
+
+.individualText {
+	order: -1;
+}
+
+
+input[type="checkbox"].enterpriseToggle {
+	--thumbSize: 20px;
+	--checkboxPadding: 6px;
+	appearance: none;
+	width: 56px;
+	height: calc(var(--thumbSize) + (var(--checkboxPadding) * 2));
+	position: relative;
+	border-radius: 50px;
+	box-sizing: content-box;
+	cursor: pointer;
+	transition: background 150ms ease-in-out;
+	background: var(--slate-500);
+}
+
+/* Thumb */
+input[type="checkbox"].enterpriseToggle::after {
+	top: 50%;
+	left: var(--checkboxPadding);
+	transform: translateY(-50%);
+	transition: left 150ms ease-in-out, background-color 150ms ease-in-out;
+	content: " ";
+	width: var(--thumbSize);
+	height: var(--thumbSize);
+	background: var(--slate-200);
+	position: absolute;
+	border-radius: 50px;
+}
+
+input[type="checkbox"].enterpriseToggle:checked {
+	background: var(--slate-500);
+}
+
+input[type="checkbox"].enterpriseToggle:checked::after {
+	left: calc(100% - var(--thumbSize) - var(--checkboxPadding));
+	background: var(--slate-200);
+}
+
 .pricingEnterpriseExplainer {
 	color: var(--on-dark-emphasis-medium);
 	margin: 0;
@@ -123,7 +185,7 @@
 	.listItems {
 		flex-direction: column;
 	}
-	
+
 	.listItems > ul {
 		width: 100%;
 	}

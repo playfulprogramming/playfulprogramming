@@ -66,9 +66,23 @@ const CTAButton =
 	</div>
 	{
 		enterpriseToggle && (
-			<div>
-				<p>
-					https://stackblitz.com/edit/vanilla-css-toggle-btn-i4fcnv?file=index.html
+			<div class={styles.enterpriseToggleContainer}>
+				<input
+					aria-label="For enterprise"
+					type="checkbox"
+					class={styles.enterpriseToggle}
+				/>
+				<p
+					class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
+					aria-hidden="true"
+				>
+					For individuals
+				</p>
+				<p
+					class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
+					aria-hidden="true"
+				>
+					For Enterprise
 				</p>
 			</div>
 		)
