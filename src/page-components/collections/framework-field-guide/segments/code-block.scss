@@ -107,8 +107,12 @@ ul.tabs__tab-list:has(> .tabs__tab:first-child[aria-selected="true"])
 	background: var(--code-block-container_inner);
 }
 
-.tabs__tab:not([aria-selected="true"]) {
-	text-decoration: underline;
+.tabs__tab:not([aria-selected="true"]):hover {
+	background: var(--code-block-tab-inative_hovered);
+}
+
+.tabs__tab:not([aria-selected="true"]):active {
+	background: var(--code-block-tab-inactive_pressed);
 }
 
 .tabs__tab[aria-selected="true"] {
