@@ -7,7 +7,7 @@ pre {
 }
 
 code .line::before {
-    color: var(--slate-300);
+    color: var(--code-block-text_secondary);
     font-family: "Fira Code";
     font-style: normal;
     font-weight: 450;
@@ -24,9 +24,9 @@ pre code {
 }
 
 .tabs {
-    border-radius: var(--code-block-corner-radius);
+    border-radius: var(--code-block-corner-radius_outer);
     padding: var(--code-block-padding);
-    background: var(--slate-800);
+    background: var(--code-block-container_outer);
 }
 
 .tabs__tab-list {
@@ -43,9 +43,9 @@ pre code {
     cursor: pointer;
     color: var(--on-dark-emphasis-high);
     min-width: var(--code-block-tab-min-size);
-    border-radius: var(--code-block-tab-corner-radius)
-        var(--code-block-tab-corner-radius) 0 0;
-    background: var(--slate-800);
+    border-radius: var(--code-block-corner-radius_inner)
+        var(--code-block-corner-radius_inner) 0 0;
+    background: var(--code-block-container_outer);
     text-align: center;
     padding: var(--code-block-spacing);
     width: calc(100% / 3);
@@ -84,7 +84,7 @@ pre code {
     height: calc(100% - 24px);
     width: 2px;
     border-radius: 99px;
-    background: var(--slate-700);
+    background: var(--code-block-container_inner);
 }
 
 .tabs__tab:not([aria-selected="true"]) {
@@ -92,12 +92,12 @@ pre code {
 }
 
 .tabs__tab[aria-selected="true"] {
-    background: var(--slate-700);
+    background: var(--code-block-container_inner);
 }
 
 .tabs__tab-panel {
-    border-radius: 0 0 var(--code-block-corner-radius)
-        var(--code-block-corner-radius);
-    background: var(--slate-700);
+    border-radius: 0 0 var(--code-block-corner-radius_inner)
+        var(--code-block-corner-radius_inner);
+    background: var(--code-block-container_inner);
     padding: var(--code-block-spacing);
 }

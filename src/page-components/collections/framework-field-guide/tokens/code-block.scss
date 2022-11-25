@@ -2,18 +2,19 @@
 @import "../../../../styles/utils";
 
 :root {
-	--code-block-corner-radius: var(--corner-radius-2x);
+	--code-block-corner-radius_outer: var(--corner-radius-2x);
 	--code-block-padding: 4px;
-
+	--code-block-corner-radius_inner: calc(var(--code-block-corner-radius_outer) - var(--code-block-padding));
+ 
 	--code-block-tab-min-size: var(--spc-6x);
-	--code-block-tab-corner-radius: calc(
-		var(--code-block-corner-radius) - var(--code-block-padding)
-	);
-
+ 
 	--code-block-spacing: var(--spc-2x);
-
-	--code-block-primary-text-color: var(--on-dark-emphasis-high);
-	--code-block-secondary-text-color: var(--on-dark-emphasis-medium);
+ 
+	--code-block-text_primary: var(--on-dark-emphasis-high);
+	--code-block-text_secondary: var(--on-dark-emphasis-medium);
+ 
+	--code-block-container_outer: var(--slate-800);
+	--code-block-container_inner: var(--slate-700);
 }
 
 @include from($desktop) {
