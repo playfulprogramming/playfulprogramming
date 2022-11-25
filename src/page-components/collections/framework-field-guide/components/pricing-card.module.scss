@@ -140,7 +140,7 @@ input[type="checkbox"].enterpriseToggle {
 }
 
 /* Thumb */
-input[type="checkbox"].enterpriseToggle::after {
+input[type="checkbox"].enterpriseToggle::before {
 	top: 50%;
 	left: var(--checkboxPadding);
 	transform: translateY(-50%);
@@ -157,7 +157,7 @@ input[type="checkbox"].enterpriseToggle:checked {
 	background: var(--slate-500);
 }
 
-input[type="checkbox"].enterpriseToggle:checked::after {
+input[type="checkbox"].enterpriseToggle:checked::before {
 	left: calc(100% - var(--thumbSize) - var(--checkboxPadding));
 	background: var(--slate-200);
 }
