@@ -12,6 +12,7 @@ import "../../../page-components/collections/framework-field-guide/tokens/dimens
 import "../../../page-components/collections/framework-field-guide/tokens/text-styles.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/themes.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/pricing.scss";
+import SEO from "src/components/seo/seo.astro";
 import Hero from "src/page-components/collections/framework-field-guide/segments/hero.astro";
 import Fundamentals from "src/page-components/collections/framework-field-guide/segments/fundamentals.astro";
 import Ecosystem from "src/page-components/collections/framework-field-guide/segments/ecosystem.astro";
@@ -21,14 +22,36 @@ import YourGuide from "src/page-components/collections/framework-field-guide/seg
 import CodeBlock from "src/page-components/collections/framework-field-guide/segments/code-block.astro";
 import TheRestContainer from "src/page-components/collections/framework-field-guide/segments/the-rest-container.astro";
 import Pricing from "src/page-components/collections/framework-field-guide/segments/pricing.astro";
+import { unicorns } from "utils/data";
 ---
 
 <Document>
-	<script>
-		import { enableTabs } from "../../../utils/markdown/scripts/tabs";
-		enableTabs();
-	</script>
+	<SEO
+		slot="head"
+		title={"The Framework Field Guide"}
+		description={"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth."}
+		unicornsData={[unicorns.find((uni) => uni.id === "crutchcorn")]}
+		publishedTime={"2022-12-01T13:45:00.284Z"}
+		type={"book"}
+		shareImage={"/custom-content/collections/framework-field-guide/framework_field_guide_social.png"}
+	/>
+	<div slot="post-body">
+		<Hero />
+		<Fundamentals />
+		<Ecosystem />
+		<Internals />
+		<TheRestContainer>
+			<YourGuide />
+			<CodeBlock />
+			<AdventureContinues />
+			<Pricing />
+		</TheRestContainer>
+	</div>
 </Document>
+<script>
+	import { enableTabs } from "../../../utils/markdown/scripts/tabs";
+	enableTabs();
+</script>
 <script>
 	// Thanks https://easings.net/
 	function easeOutExpo(x: number): number {
@@ -123,16 +146,6 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 		});
 	};
 </script>
-<Hero />
-<Fundamentals />
-<Ecosystem />
-<Internals />
-<TheRestContainer>
-	<YourGuide />
-	<CodeBlock />
-	<AdventureContinues />
-	<Pricing />
-</TheRestContainer>
 <style is:global>
 	*:focus-visible {
 		outline: none;
