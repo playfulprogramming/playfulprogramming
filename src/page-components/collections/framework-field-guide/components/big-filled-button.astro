@@ -38,24 +38,6 @@ const { class: className, ...props } =
 		border-width: var(--btn-border-width_large);
 		background: var(--btn-state-pressed_filled);
 	}
-
-	.big-filled-button:focus::after {
-		content: " ";
-		position: absolute;
-		--offsetSpacing: calc(
-			0px -
-				(
-					var(--focus-border_gap) + var(--focus-border_width) +
-						var(--btn-border-width_large)
-				)
-		);
-		top: var(--offsetSpacing);
-		left: var(--offsetSpacing);
-		right: var(--offsetSpacing);
-		bottom: var(--offsetSpacing);
-		border: var(--focus-border_width) solid var(--outline_focused);
-		border-radius: var(--btn-corner-radius);
-	}
 </style>
 <button
 	{...props}

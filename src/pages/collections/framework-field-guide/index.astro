@@ -145,3 +145,23 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 	<AdventureContinues />
 	<Pricing />
 </TheRestContainer>
+<style is:global>
+	*:focus {
+		outline: none;
+	}
+
+	*:focus::after {
+		content: " ";
+		position: absolute;
+		--offsetSpacing: calc(
+			0px - (var(--focus-border_gap) + calc(var(--focus-border_width) * 2))
+		);
+		top: var(--offsetSpacing);
+		left: var(--offsetSpacing);
+		right: var(--offsetSpacing);
+		bottom: var(--offsetSpacing);
+		border: var(--focus-border_width) solid var(--outline_focused);
+		border-radius: inherit;
+		z-index: 9;
+	}
+</style>
