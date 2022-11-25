@@ -1,5 +1,8 @@
 ---
 import Document from "../../../layouts/document.astro";
+import "../../../page-components/collections/framework-field-guide/fonts/fira-code.css";
+import "../../../page-components/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
+import "../../../page-components/collections/framework-field-guide/fonts/changa-one.css";
 import "../../../page-components/collections/framework-field-guide/tokens/adventure.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/buttons.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/code-block.scss";
@@ -25,11 +28,6 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 		import { enableTabs } from "../../../utils/markdown/scripts/tabs";
 		enableTabs();
 	</script>
-	<link
-		slot="head"
-		href="https://fonts.googleapis.com/css2?family=Changa+One:wght@400&family=Fira+Code:wght@400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-		rel="stylesheet"
-	/>
 </Document>
 <script>
 	// Thanks https://easings.net/
