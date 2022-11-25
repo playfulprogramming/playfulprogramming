@@ -7,11 +7,16 @@
 	height: 40px;
 	width: 40px;
 	padding: 0 !important;
+	position: relative;
 }
 
 .backBtn svg {
 	height: 30px;
 	width: 30px;
+}
+
+.discordBtn {
+	position: relative;
 }
 
 .iconList {
