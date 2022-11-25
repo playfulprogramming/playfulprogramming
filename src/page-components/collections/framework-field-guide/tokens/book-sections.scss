@@ -2,6 +2,8 @@
 @import "../../../../styles/utils";
 
 :root {
+	// Sections
+
 	--section-ver-padding: var(--spc-3x);
 	--section-hor-padding: var(--spc-3x);
 	--section-gap: var(--spc-3x);
@@ -16,25 +18,35 @@
 	--chip-ver-padding: var(--spc-1x);
 	--chip-hor-padding: var(--spc-2x);
 	--chip-group-gap: var(--spc-1x);
+
 	--chip-corner-radius: var(--corner-radius-circular);
 }
 
+@include from($tablet) {
+	:root {
+		// Sections
+
+		--section-ver-padding: var(--spc-6x);
+		--section-hor-padding: var(--spc-6x);
+	}
+}
+
 @include from($desktop) {
-    :root {
-        // Sections
+	:root {
+		// Sections
 
-        --section-ver-padding: var(--spc-6x);
-        --section-hor-padding: var(--spc-6x);
+		--section-ver-padding: var(--spc-6x);
+		--section-hor-padding: var(--spc-6x);
 
-        // Book metrics
+		// Book metrics
 
-        --metric-book-ver-padding: var(--spc-4x);
-        --metric-book-hor-padding: var(--spc-2x);
+		--metric-book-ver-padding: var(--spc-4x);
+		--metric-book-hor-padding: var(--spc-2x);
 
-        // Chips
+		// Chips
 
-        --chip-ver-padding: var(--spc-2x);
-        --chip-hor-padding: var(--spc-4x);
-        --chip-group-gap: var(--spc-2x);
-    }
+		--chip-ver-padding: var(--spc-2x);
+		--chip-hor-padding: var(--spc-4x);
+		--chip-group-gap: var(--spc-2x);
+	}
 }

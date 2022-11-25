@@ -3,7 +3,11 @@
 	--gradient-ffg: linear-gradient(90deg, #FFAA00 34.58%, #FFD500 83.8%);
 
 	// Corbin
-	--gradient-corbin: linear-gradient(90deg, #8077EE 37.76%, #BF49E9 75.83%);
+	--gradient-corbin: linear-gradient(
+		90deg,
+		#8077EE 37.76%,
+		#BF49E9 75.83%
+	);
 	
 	// Default
 	--slate-050: hsla(220,80%,98%,1);
@@ -11,7 +15,8 @@
 	--slate-200: hsla(220, 48%, 90%, 1);
 	--slate-300: hsla(220, 40%, 80%, 1);
 	--slate-400: hsla(220, 28%, 64%, 1);
-	--slate-500: hsla(220, 23%, 47%, 1);
+	--slate-500-base: 96, 112, 144;
+	--slate-500: rgb(var(--slate-500-base));
 	--slate-600: hsla(220, 27%, 34%, 1);
 	--slate-700: hsla(220, 32%, 24%, 1);
 	--slate-800: hsla(220, 35%, 16%, 1);
@@ -23,7 +28,8 @@
 	--fund-200: #B9EBF5;
 	--fund-300: #94CEDB;
 	--fund-400: #74B3C0;
-	--fund-500: #5C99A7;
+	--fund-500-base: 92, 153, 167;
+	--fund-500: rgb(var(--fund-500-base));
 	--fund-600: #45818E;
 	--fund-700: #346771;
 	--fund-800: #244F58;
@@ -35,7 +41,8 @@
 	--ecos-200: #CDE9C5;
 	--ecos-300: #A8CFA3;
 	--ecos-400: #84B682;
-	--ecos-500: #669E6A;
+	--ecos-500-base: 102, 158, 106;
+	--ecos-500: rgb(var(--ecos-500-base));
 	--ecos-600: #4C8657;
 	--ecos-700: #366E47;
 	--ecos-800: #245538;
@@ -47,7 +54,8 @@
 	--inter-200: #E6BEE9;
 	--inter-300: #CB99D6;
 	--inter-400: #A473BB;
-	--inter-500: #8154A3;
+	--inter-500-base: 129, 84, 163;
+	--inter-500: rgb(var(--inter-500-base));
 	--inter-600: #60398D;
 	--inter-700: #422474;
 	--inter-800: #261456;

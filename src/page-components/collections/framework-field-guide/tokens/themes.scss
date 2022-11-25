@@ -10,12 +10,14 @@
 	--on-dark-emphasis-low: var(--slate-500);
 
 	--outline: var(--slate-500);
+	--outline_focused: var(--slate-300);
+	--state: var(--slate-500-base);
 
 	--text-gradient-start: var(--slate-050);
 	--text-gradient-end: var(--slate-200);
 
 	--cta-foreground: var(--slate-900);
-	--cta-background: var(--slate-100);
+	--cta-background: var(--slate-050);
 }
 
 .class-book-1 {
@@ -30,21 +32,26 @@
 	--on-dark-emphasis-low: var(--fund-500);
 
 	--outline: var(--fund-500);
+	--outline_focused: var(--fund-300);
+	--state: var(--fund-500-base);
 
 	--text-gradient-start: var(--fund-050);
 	--text-gradient-end: var(--fund-200);
 
 	--cta-foreground: var(--fund-900);
-	--cta-background: var(--fund-100);
+	--cta-background: var(--fund-050);
 
 	--chip-foreground: var(--fund-100);
 	--chip-background: var(--fund-800);
 }
 
 .class-book-hero {
-	--cta-foreground: var(--fund-050);
-	--cta-background: var(--fund-800);
 	--outline: var(--fund-500);
+	--outline_focused: var(--fund-700);
+	--state: var(--fund-500-base);
+
+	--cta-foreground: var(--fund-050);
+	--cta-background: var(--fund-900);
 
 	.book-section {
 		--btn-foreground_outlined: var(--on-light-emphasis-high);
@@ -63,12 +70,14 @@
 	--on-dark-emphasis-low: var(--ecos-500);
 
 	--outline: var(--ecos-500);
+	--outline_focused: var(--ecos-300);
+	--state: var(--ecos-500-base);
 
 	--text-gradient-start: var(--ecos-050);
 	--text-gradient-end: var(--ecos-200);
 
 	--cta-foreground: var(--ecos-900);
-	--cta-background: var(--ecos-100);
+	--cta-background: var(--ecos-050);
 
 	--chip-foreground: var(--ecos-100);
 	--chip-background: var(--ecos-800);
@@ -86,12 +95,14 @@
 	--on-dark-emphasis-low: var(--inter-500);
 
 	--outline: var(--inter-500);
+	--outline_focused: var(--inter-300);
+	--state: var(--inter-500-base);
 
 	--text-gradient-start: var(--inter-050);
 	--text-gradient-end: var(--inter-200);
 
 	--cta-foreground: var(--inter-900);
-	--cta-background: var(--inter-100);
+	--cta-background: var(--inter-050);
 
 	--chip-foreground: var(--inter-100);
 	--chip-background: var(--inter-800);
