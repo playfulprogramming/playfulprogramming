@@ -2,6 +2,7 @@
 	"framework": "astro",
 	"buildCommand": "npm run build-beta",
 	"devCommand": "npm run dev",
+	"cleanUrls": true,
 	"redirects": [
 		{
 			"source": "/authors/crutchcorn/",

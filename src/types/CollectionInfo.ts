@@ -1,3 +1,7 @@
+import { MarkdownInstance } from "astro";
+import { Languages } from "types/index";
+import { UnicornInfo } from "./UnicornInfo";
+
 export interface RawCollectionInfo {
 	title: string;
 	associatedSeries: string;
@@ -27,4 +31,13 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
+	locale: Languages;
+	authorsMeta: UnicornInfo[];
+	Content: MarkdownInstance<never>["Content"];
+	contentMeta: string;
+	licenseMeta: null;
+	publishedMeta: string;
+	collectionSlug: null;
+	excerpt: string;
+	wordCount: number;
 }
