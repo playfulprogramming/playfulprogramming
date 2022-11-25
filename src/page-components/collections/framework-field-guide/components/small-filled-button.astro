@@ -10,9 +10,17 @@ const { class: className, ...props } =
 		color: var(--btn-foreground_filled);
 		border-radius: var(--btn-corner-radius);
 		border-width: var(--btn-border-width_small);
-		border-color: var(--btn-background_filled);
+		border-color: transparent;
 		border-style: solid;
 		position: relative;
+	}
+
+	.small-filled-button:hover {
+		background: var(--btn-state-hovered_filled);
+	}
+
+	.small-filled-button:active {
+		background: var(--btn-state-pressed_filled);
 	}
 </style>
 <button

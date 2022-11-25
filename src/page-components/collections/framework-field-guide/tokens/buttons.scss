@@ -17,12 +17,12 @@
 
 	--btn-border: var(--outline);
 	--btn-foreground_outlined: var(--on-dark-emphasis-high);
-	--btn-state-hovered_outlined: rgba(var(--state), 0.16);
-	--btn-state-pressed_outlined: rgba(var(--state), 0.32);
+	--btn-state-hovered_outlined: rgba(var(--state-overlay), 0.16);
+	--btn-state-pressed_outlined: rgba(var(--state-overlay), 0.32);
 	--btn-foreground_filled: var(--cta-foreground);
 	--btn-background_filled: var(--cta-background);
-	--btn-state-hovered_filled: rgba(var(--state), 0.24);
-	--btn-state-pressed_filled: rgba(var(--state), 0.48);
+	--btn-state-hovered_filled: var(--cta-background_hovered);
+	--btn-state-pressed_filled: var(--cta-background_pressed);
 }
 
 @include from($desktop) {

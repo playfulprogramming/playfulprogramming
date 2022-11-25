@@ -14,6 +14,14 @@ const { class: className, ...props } =
 		border-style: solid;
 		position: relative;
 	}
+
+	.big-outlined-button:hover {
+		background: var(--btn-state-hovered_outlined);
+	}
+
+	.big-outlined-button:active {
+		background: var(--btn-state-pressed_outlined);
+	}
 </style>
 <button
 	{...props}

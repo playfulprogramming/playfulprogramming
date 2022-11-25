@@ -10,32 +10,17 @@ const { class: className, ...props } =
 		color: var(--btn-foreground_filled);
 		border-radius: var(--btn-corner-radius);
 		border-width: var(--btn-border-width_large);
-		border-color: var(--btn-background_filled);
+		border-color: transparent;
 		border-style: solid;
 		position: relative;
 		outline: none;
 	}
 
-	.big-filled-button:hover::after {
-		content: " ";
-		position: absolute;
-		top: calc(0px - var(--btn-border-width_large));
-		left: calc(0px - var(--btn-border-width_large));
-		right: calc(0px - var(--btn-border-width_large));
-		bottom: calc(0px - var(--btn-border-width_large));
-		border-radius: var(--btn-corner-radius);
+	.big-filled-button:hover {
 		background: var(--btn-state-hovered_filled);
 	}
 
-	.big-filled-button:active::after {
-		content: " ";
-		position: absolute;
-		top: calc(0px - var(--btn-border-width_large));
-		left: calc(0px - var(--btn-border-width_large));
-		right: calc(0px - var(--btn-border-width_large));
-		bottom: calc(0px - var(--btn-border-width_large));
-		border-radius: var(--btn-corner-radius);
-		border-width: var(--btn-border-width_large);
+	.big-filled-button:active {
 		background: var(--btn-state-pressed_filled);
 	}
 </style>
