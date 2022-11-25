@@ -11,7 +11,8 @@ import { getImageSize } from "../../utils/get-image-size";
 import CollectionHeaderDefault from "src/page-components/collections/collection-header-default.astro";
 import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
 import { PostInfo } from "types/PostInfo";
-import { PostCard } from "components/post-card/post-card";
+import { CollectionInfo } from "types/CollectionInfo";
+import { MarkdownInstance } from "astro";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -32,8 +33,8 @@ export async function getStaticPaths() {
 }
 
 interface CollectionProps {
-	collection: any;
-	Content: any;
+	collection: CollectionInfo;
+	Content: MarkdownInstance<never>["Content"];
 }
 
 const { Content, collection } = Astro.props as CollectionProps;
@@ -68,7 +69,7 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 		slot="head"
 		title={collection.title}
 		description={collection.description}
-		unicornsData={collection.authors}
+		unicornsData={collection.authorsMeta}
 		publishedTime={collection.published}
 		type={collection.type}
 		shareImage={collection.socialImg || coverImgPath}
