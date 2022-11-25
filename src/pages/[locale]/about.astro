@@ -36,6 +36,6 @@ const { globResults, locale } = Astro.props as {
 ---
 
 <Document lang={locale}>
-	<SEO title="About Us" />
+	<SEO title="About Us" slot="head" />
 	<About globResults={globResults} locale={locale} />
 </Document>
