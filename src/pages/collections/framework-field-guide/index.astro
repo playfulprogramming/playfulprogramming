@@ -153,15 +153,18 @@ import Pricing from "src/page-components/collections/framework-field-guide/segme
 	*:focus::after {
 		content: " ";
 		position: absolute;
-		--offsetSpacing: calc(
-			0px - (var(--focus-border_gap) + calc(var(--focus-border_width) * 2))
-		);
-		top: var(--offsetSpacing);
-		left: var(--offsetSpacing);
-		right: var(--offsetSpacing);
-		bottom: var(--offsetSpacing);
-		border: var(--focus-border_width) solid var(--outline_focused);
+		box-sizing: content-box;
+		height: 100%;
+		width: 100%;
+		padding: var(--focus-border_gap);
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		border-width: inherit;
+		border-style: solid;
+		border-color: transparent;
 		border-radius: inherit;
+		outline: var(--focus-border_width) solid var(--outline_focused);
 		z-index: 9;
 	}
 </style>
