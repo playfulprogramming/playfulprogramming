@@ -55,7 +55,7 @@ import { unicorns } from "utils/data";
 <script>
 	// Thanks https://easings.net/
 	function easeOutExpo(x: number): number {
-		return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+		return x === 1 ? 1 : 1 - 2 ** (-10 * x);
 	}
 
 	window.onload = () => {
@@ -83,7 +83,11 @@ import { unicorns } from "utils/data";
 					top = top - (window.innerHeight - height) / 2;
 				}
 
-				return { top, trueTop };
+				const moveOnScrollBy = Number(el.dataset.moveOnScrollBy);
+
+				const parentHeight = el.parentElement.clientHeight;
+
+				return { top, trueTop, moveOnScrollBy, parentHeight };
 			});
 
 		let initialElTops = getElTops();
@@ -94,24 +98,20 @@ import { unicorns } from "utils/data";
 		});
 
 		function moveItems() {
-			els.forEach((el, i) => {
-				const { top, trueTop } = initialElTops[i];
+			const scrollTop = document.documentElement.scrollTop;
+			for (let i = 0; i < els.length; i++) {
+				const el = els[i];
+				const { top, trueTop, moveOnScrollBy, parentHeight } = initialElTops[i];
 
 				// If the element is above the fold, start running immediately
 				const disableTop = trueTop < window.innerHeight;
 
 				const topCalc = disableTop ? 0 : top;
 
-				let px =
-					(document.documentElement.scrollTop - topCalc) *
-					Number(el.dataset.moveOnScrollBy);
+				let px = (scrollTop - topCalc) * moveOnScrollBy;
 
 				// Only allow the animation to go up by 10% of the height of the element at most
-				const maximumNegativeAllowed =
-					0 -
-					el.parentElement.clientHeight *
-						0.4 *
-						Number(el.dataset.moveOnScrollBy);
+				const maximumNegativeAllowed = 0 - parentHeight * 0.4 * moveOnScrollBy;
 
 				if (top >= window.innerHeight) {
 					if (px > maximumNegativeAllowed && px < -1) {
@@ -128,7 +128,7 @@ import { unicorns } from "utils/data";
 				}
 
 				el.style.transform = `translate3d(0px, ${px}px, 0px)`;
-			});
+			}
 		}
 		if (!mediaQuery.matches) {
 			window.addEventListener("scroll", moveItems);
