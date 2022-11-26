@@ -15,7 +15,7 @@ import { Element, Root } from "hast";
 import { isRelativePath } from "utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
-import { CollectionInfo, PostInfo } from "types/index";
+import { CollectionInfo, PostInfo, RawCollectionInfo } from "types/index";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
 	return (tree: Root) => {
@@ -133,7 +133,7 @@ async function generateEpubHTML(slug: string, content: string) {
 type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
 async function generateCollectionEPub(
-	collection: CollectionInfo,
+	collection: RawCollectionInfo & Pick<CollectionInfo, "coverImgMeta">,
 	collectionPosts: PostInfo[],
 	fileLocation: string
 ) {

@@ -77,7 +77,9 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
-function getCollections(): Array<CollectionInfo> {
+function getCollections(): Array<
+	RawCollectionInfo & Pick<CollectionInfo, "slug" | "coverImgMeta">
+> {
 	const slugs = fs.readdirSync(collectionsDirectory);
 	const collections = slugs.map((slug) => {
 		const fileContents = fs.readFileSync(
@@ -101,7 +103,7 @@ function getCollections(): Array<CollectionInfo> {
 				`/content/collections/${slug}`,
 				frontmatter.coverImg
 			),
-			absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg)
+			absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
 		};
 
 		return {
