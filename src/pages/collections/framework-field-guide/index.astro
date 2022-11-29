@@ -48,6 +48,223 @@ import { unicorns } from "utils/data";
 		</TheRestContainer>
 	</div>
 </Document>
+
+<script>
+	window.addEventListener("load", () => {
+		const colorContainers: HTMLElement[] = Array.from(
+			document.querySelectorAll("[data-change-color-to]")
+		);
+
+		const generateArrayPairChain = <T>(arr: T[]) => {
+			let result = [] as Array<{ from: T; to: T }>;
+			for (let i = 0; i < arr.length; i += 1) {
+				if (!arr[i + 1]) return result;
+				result.push({ from: arr[i], to: arr[i + 1] });
+			}
+			return result;
+		};
+
+		const colorContainerTransitions = generateArrayPairChain(
+			colorContainers
+		).map((vals) => {
+			const fromColor = vals.from.dataset.changeColorTo;
+			const toColor = vals.to.dataset.changeColorTo;
+			return { ...vals, fromColor, toColor };
+		});
+
+		console.log({ colorContainerTransitions });
+
+		function buildThresholdList() {
+			let thresholds = [];
+			let numSteps = 100;
+
+			for (let i = 1.0; i <= numSteps; i++) {
+				let ratio = i / numSteps;
+				thresholds.push(ratio);
+			}
+
+			thresholds.push(0);
+			return thresholds;
+		}
+
+		const colorSets = [
+			"050",
+			"100",
+			"200",
+			"300",
+			"400",
+			"500",
+			"600",
+			"700",
+			"800",
+			"900",
+		];
+
+		const interTokens = colorSets.map((colorNum) => `--inter-${colorNum}-base`);
+		const ecosTokens = colorSets.map((colorNum) => `--ecos-${colorNum}-base`);
+		const fundTokens = colorSets.map((colorNum) => `--fund-${colorNum}-base`);
+		const slateTokens = colorSets.map((colorNum) => `--slate-${colorNum}-base`);
+
+		const computedStyle = window.getComputedStyle(document.documentElement);
+		const initialInterTokenValues = interTokens.map((token) =>
+			computedStyle.getPropertyValue(token)
+		);
+		const initialEcosTokenValues = ecosTokens.map((token) =>
+			computedStyle.getPropertyValue(token)
+		);
+		const initialFundTokenValues = fundTokens.map((token) =>
+			computedStyle.getPropertyValue(token)
+		);
+		const initialSlateTokenValues = slateTokens.map((token) =>
+			computedStyle.getPropertyValue(token)
+		);
+
+		let observer = new IntersectionObserver(
+			(entries, observer) => {
+				entries
+					.filter(
+						(entry) => entry.isIntersecting && entry.boundingClientRect.y > 0
+					)
+					.forEach((entry) => {
+						const transitionData: typeof colorContainerTransitions[0] =
+							colorContainerTransitions.find(
+								(transitionDataProp) => transitionDataProp.to === entry.target
+							);
+						if (!transitionData) return;
+
+						const ratio = entry.intersectionRect.height / window.innerHeight;
+
+						let colorSetToChangeTo: "slate" | "fund" | "ecos" | "inter";
+						if (ratio > 0.5) {
+							colorSetToChangeTo = transitionData.toColor as never;
+						} else {
+							colorSetToChangeTo = transitionData.fromColor as never;
+						}
+
+						switch (colorSetToChangeTo) {
+							case "fund": {
+								fundTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialFundTokenValues[index]
+									);
+								});
+								interTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialFundTokenValues[index]
+									);
+								});
+								ecosTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialFundTokenValues[index]
+									);
+								});
+								slateTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialFundTokenValues[index]
+									);
+								});
+								break;
+							}
+							case "ecos": {
+								ecosTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialEcosTokenValues[index]
+									);
+								});
+								interTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialEcosTokenValues[index]
+									);
+								});
+								fundTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialEcosTokenValues[index]
+									);
+								});
+								slateTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialEcosTokenValues[index]
+									);
+								});
+								break;
+							}
+							case "inter": {
+								interTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialInterTokenValues[index]
+									);
+								});
+								ecosTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialInterTokenValues[index]
+									);
+								});
+								fundTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialInterTokenValues[index]
+									);
+								});
+								slateTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialInterTokenValues[index]
+									);
+								});
+								break;
+							}
+							default:
+							case "slate": {
+								slateTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialSlateTokenValues[index]
+									);
+								});
+								ecosTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialSlateTokenValues[index]
+									);
+								});
+								fundTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialSlateTokenValues[index]
+									);
+								});
+								interTokens.forEach((tokenName, index) => {
+									document.documentElement.style.setProperty(
+										tokenName,
+										initialSlateTokenValues[index]
+									);
+								});
+								break;
+							}
+						}
+					});
+			},
+			{
+				threshold: buildThresholdList(),
+			}
+		);
+
+		for (let colorContainer of colorContainers) {
+			observer.observe(colorContainer);
+		}
+	});
+</script>
+
 <script>
 	import { enableTabs } from "../../../utils/markdown/scripts/tabs";
 	enableTabs();
@@ -79,7 +296,7 @@ import { unicorns } from "utils/data";
 		return throttled;
 	};
 
-	window.onload = () => {
+	window.addEventListener("load", () => {
 		const els = Array.from(
 			document.querySelectorAll("[data-move-on-scroll-by]")
 		) as HTMLElement[];
@@ -167,7 +384,7 @@ import { unicorns } from "utils/data";
 				window.addEventListener("touchmove", throttledMoveItems);
 			}
 		});
-	};
+	});
 </script>
 <style is:global>
 	*:focus-visible {
