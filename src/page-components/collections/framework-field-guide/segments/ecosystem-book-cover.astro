@@ -1,9 +1,9 @@
 ---
 import BookCoverContainer from "../components/book-cover-container.astro";
 import BookCoverLayer from "../components/book-cover-layer.astro";
-import { ForrestBackground } from "../cover-layers/ecosystem/forrest_background";
-import { ForrestForeground } from "../cover-layers/ecosystem/forrest_foreground";
-import { ForrestMiddleground } from "../cover-layers/ecosystem/forrest_middleground";
+import { ForestBackground } from "../cover-layers/ecosystem/forest_background";
+import { ForestForeground } from "../cover-layers/ecosystem/forest_foreground";
+import { ForestMiddleground } from "../cover-layers/ecosystem/forest_middleground";
 ---
 
 <style>
@@ -17,24 +17,24 @@ import { ForrestMiddleground } from "../cover-layers/ecosystem/forrest_middlegro
 </style>
 
 <BookCoverContainer class="ecosystem-cover">
-	<BookCoverLayer moveOnScrollBy={0.15} name="forrest-background">
+	<BookCoverLayer moveOnScrollBy={0.15} name="forest-background">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
-			<ForrestBackground client:load />
+			<ForestBackground client:load />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer moveOnScrollBy={0.1} name="forrest-middleground">
+	<BookCoverLayer moveOnScrollBy={0.1} name="forest-middleground">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
-			<ForrestMiddleground client:load />
+			<ForestMiddleground client:load />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
-	<BookCoverLayer name="forrest-foreground">
+	<BookCoverLayer name="forest-foreground">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
-			<ForrestForeground client:load />
+			<ForestForeground client:load />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
