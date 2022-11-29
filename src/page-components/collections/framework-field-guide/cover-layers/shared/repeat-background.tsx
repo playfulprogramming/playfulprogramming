@@ -1,5 +1,5 @@
 import { JSX } from "preact";
-import { useMemo, useState } from "preact/hooks";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
 
 interface RepeatBackgroundProps {
 	svg: string;
@@ -15,6 +15,24 @@ export const RepeatBackground = ({
 	const [repeat, setRepeat] = useState(1);
 	const [hasSet, setHasSet] = useState(false);
 
+	const elRef = useRef<HTMLDivElement>();
+
+	const checkEl = useCallback((el) => {
+			if (hasSet || !el) return;
+			setHasSet(true);
+			const repeatLocal = Math.ceil(
+				window.innerWidth / el.getBoundingClientRect().width
+			);
+			setRepeat(repeatLocal);
+	}, [])
+
+	useLayoutEffect(() => {
+		const fn = () => checkEl(elRef.current); 
+		window.addEventListener('resize', fn);
+		fn();
+		return () => window.removeEventListener('resize', fn);
+	}, [checkEl])
+
 	const arraySizeOfRepeat = useMemo(() => {
 		return Array.from({ length: repeat }, (_, i) => i);
 	}, [repeat]);
@@ -27,13 +45,10 @@ export const RepeatBackground = ({
 					<div
 						style={{marginLeft: -1}}
 						class="repeat-background-svg-container"
-						ref={(el) => {
-							if (hasSet || !el) return;
-							setHasSet(true);
-							const repeatLocal = Math.ceil(
-								window.innerWidth / el.getBoundingClientRect().width
-							);
-							setRepeat(repeatLocal);
+						ref={el => {
+							if (!el) return;
+							checkEl(el);
+							elRef.current = el;
 						}}
 						dangerouslySetInnerHTML={{ __html: svg }}
 					></div>
