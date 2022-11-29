@@ -72,13 +72,16 @@ import { unicorns } from "utils/data";
 	};
 </script>
 <script>
-	function debounce(func, timeout = 20) {
-		let timer;
-		return (...args) => {
-			clearTimeout(timer);
-			timer = setTimeout(() => {
-				func.apply(this, args);
-			}, timeout);
+	function throttle(callback, limit) {
+		var waiting = false;
+		return function () {
+			if (!waiting) {
+				callback.apply(this, arguments);
+				waiting = true;
+				setTimeout(function () {
+					waiting = false;
+				}, limit);
+			}
 		};
 	}
 	window.addEventListener("load", () => {
@@ -328,8 +331,9 @@ import { unicorns } from "utils/data";
 			}, 10);
 		}
 
-		const throttledPassiveScrollColorChange = debounce(
-			checkPassiveScrollPositionAndColor
+		const throttledPassiveScrollColorChange = throttle(
+			checkPassiveScrollPositionAndColor,
+			20
 		);
 		window.addEventListener("scroll", throttledPassiveScrollColorChange);
 		window.addEventListener("touchmove", throttledPassiveScrollColorChange);
@@ -354,7 +358,10 @@ import { unicorns } from "utils/data";
 					i,
 				});
 			};
-			const throttledScrollColorChange = debounce(checkPositionAndChangeColor);
+			const throttledScrollColorChange = throttle(
+				checkPositionAndChangeColor,
+				20
+			);
 			window.addEventListener("scroll", throttledScrollColorChange);
 			window.addEventListener("touchmove", throttledScrollColorChange);
 		};
