@@ -22,22 +22,27 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 );
 ---
 
-<div class="tag-list">
-	{
-		tagTable.map((_, i) => (
-			<InfiniteLoopSlider
-				duration={random(MIN_DURATION, MAX_DURATION)}
-				reverse={i % 2}
-			>
-				{tagTable[i].map((tag) => (
-					<div class="text-style-body-medium-bold tag">{tag}</div>
-				))}
-			</InfiniteLoopSlider>
-		))
-	}
+<div class="chip-group-container">
+	<div class="tag-list">
+		{
+			tagTable.map((_, i) => (
+				<InfiniteLoopSlider
+					duration={random(MIN_DURATION, MAX_DURATION)}
+					reverse={i % 2}
+				>
+					{tagTable[i].map((tag) => (
+						<div class="text-style-body-medium-bold tag">{tag}</div>
+					))}
+				</InfiniteLoopSlider>
+			))
+		}
+	</div>
 	<div class="fade"></div>
 </div>
 <style is:global>
+	.chip-group-container {
+		position: relative;
+	}
 	.tag-list {
 		margin: 0 auto;
 		width: 100%;
@@ -98,7 +103,7 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 			black
 		);
 		position: absolute;
-		inset: 0;
+		inset: -1px;
 		/* Animations */
 		transition: background var(--color-transition-time)
 			var(--color-transition-ease);
