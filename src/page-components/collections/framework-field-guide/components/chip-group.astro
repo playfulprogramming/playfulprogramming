@@ -42,11 +42,13 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 <style is:global>
 	.chip-group-container {
 		position: relative;
-	}
-	.tag-list {
 		margin: 0 auto;
 		width: 100%;
 		max-width: var(--max-width_large);
+	}
+
+	.tag-list {
+		width: 100%;
 		display: flex;
 		flex-shrink: 0;
 		flex-direction: column;
