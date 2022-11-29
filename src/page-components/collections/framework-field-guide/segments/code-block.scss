@@ -27,6 +27,7 @@ pre code {
 	border-radius: var(--code-block-corner-radius_outer);
 	padding: var(--code-block-padding);
 	background: var(--code-block-container_outer);
+	transition: background var(--color-transition-time) var(--color-transition-ease);
 }
 
 .tabs__tab-list {
@@ -66,6 +67,7 @@ ul.tabs__tab-list:has(> .tabs__tab:first-child[aria-selected="true"])
 	border-radius: var(--code-block-corner-radius_inner)
 		var(--code-block-corner-radius_inner) 0 0;
 	background: var(--code-block-container_outer);
+	transition: background var(--color-transition-time) var(--color-transition-ease), color var(--color-transition-time) var(--color-transition-ease);
 	text-align: center;
 	padding: var(--code-block-spacing);
 	width: calc(100% / 3);
@@ -125,4 +127,5 @@ ul.tabs__tab-list:has(> .tabs__tab:first-child[aria-selected="true"])
 	background: var(--code-block-container_inner);
 	padding: var(--code-block-spacing);
 	position: relative;
+	transition: background var(--color-transition-time) var(--color-transition-ease);
 }

@@ -8,6 +8,7 @@
 	gap: var(--section-gap);
 	border-radius: var(--pricing-container-radius);
 	background: var(--pricing-container_default);
+	transition: background var(--color-transition-time) var(--color-transition-ease), color var(--color-transition-time) var(--color-transition-ease);
 	text-align: center;
 	position: relative;
 }

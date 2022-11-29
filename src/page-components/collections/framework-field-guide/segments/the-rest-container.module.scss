@@ -2,4 +2,6 @@
     padding: var(--spc-6x) 0;
     background: var(--section-background);
     color: var(--on-dark-emphasis-high);
+    transition: background var(--color-transition-time) var(--color-transition-ease), color var(--color-transition-time) var(--color-transition-ease);
+    will-change: transition;
 }
