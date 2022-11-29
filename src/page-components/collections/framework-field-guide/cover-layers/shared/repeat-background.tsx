@@ -40,7 +40,7 @@ export const RepeatBackground = ({
 	// Client-only
 	if (typeof globalThis.window !== "undefined") {
 		return (
-			<div style={{ display: "flex", flexWrap: "nowrap", height: "100%", '--svgAspectRatio': aspectRatio }}>
+			<div style={{ width: '100%', overflow: 'hidden', display: "flex", flexWrap: "nowrap", height: "100%", '--svgAspectRatio': aspectRatio }}>
 				{arraySizeOfRepeat.map((_) => (
 					<div
 						style={{marginLeft: -1}}
