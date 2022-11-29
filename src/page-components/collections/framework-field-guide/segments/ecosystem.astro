@@ -40,32 +40,34 @@ const tags: TagList = [
 ] as const;
 ---
 
-<EcosystemBookCover />
-<div class="class-book-2" data-change-color-to="ecos">
-	<div class="book-section" style="background: var(--section-background);">
-		<h3 class={`text-style-display-1 book-title`}>Ecosystem</h3>
-		<p class={`text-style-headline-4 book-subtitle`}>
-			Learn the tools surrounding these frameworks
-		</p>
-		<p class={`text-style-body-large book-bio`}>
-			While React, Angular, and Vue all provide a strong set of core features,
-			that's only part of their story. The third-party ecosystem of these
-			frameworks offer a myriad of highly useful and broadly adopted tools.
-			These tools allow you to level-up your apps — making them more performant,
-			stable, and easier to maintain.
-		</p>
-		<div class="book-ctas">
-			<BigFilledButton>Sign up for updates</BigFilledButton>
-			<BigOutlinedButton>Learn more</BigOutlinedButton>
-		</div>
-		<p class={`text-style-body-large-bold book-coming-soon`}>
-			Coming soon — in early access now!
-		</p>
-		<div class="section-metrics-main-container" data-no-horiz-pad>
-			<SectionMetric numberStr="12" subtitle="chapters" asterisk={true} />
-		</div>
-		<div class="section-chip-group-container" data-no-max-width>
-			<ChipGroup tags={tags} />
+<div data-change-color-to="ecos">
+	<EcosystemBookCover />
+	<div class="class-book-2">
+		<div class="book-section" style="background: var(--section-background);">
+			<h3 class={`text-style-display-1 book-title`}>Ecosystem</h3>
+			<p class={`text-style-headline-4 book-subtitle`}>
+				Learn the tools surrounding these frameworks
+			</p>
+			<p class={`text-style-body-large book-bio`}>
+				While React, Angular, and Vue all provide a strong set of core features,
+				that's only part of their story. The third-party ecosystem of these
+				frameworks offer a myriad of highly useful and broadly adopted tools.
+				These tools allow you to level-up your apps — making them more
+				performant, stable, and easier to maintain.
+			</p>
+			<div class="book-ctas">
+				<BigFilledButton>Sign up for updates</BigFilledButton>
+				<BigOutlinedButton>Learn more</BigOutlinedButton>
+			</div>
+			<p class={`text-style-body-large-bold book-coming-soon`}>
+				Coming soon — in early access now!
+			</p>
+			<div class="section-metrics-main-container" data-no-horiz-pad>
+				<SectionMetric numberStr="12" subtitle="chapters" asterisk={true} />
+			</div>
+			<div class="section-chip-group-container" data-no-max-width>
+				<ChipGroup tags={tags} />
+			</div>
 		</div>
 	</div>
 </div>
