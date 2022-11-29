@@ -72,6 +72,15 @@ import { unicorns } from "utils/data";
 	};
 </script>
 <script>
+	function debounce(func, timeout = 20) {
+		let timer;
+		return (...args) => {
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				func.apply(this, args);
+			}, timeout);
+		};
+	}
 	window.addEventListener("load", () => {
 		const colorContainers: HTMLElement[] = Array.from(
 			document.querySelectorAll("[data-change-color-to]")
@@ -319,7 +328,7 @@ import { unicorns } from "utils/data";
 			}, 10);
 		}
 
-		const throttledPassiveScrollColorChange = window.rafThrottle(
+		const throttledPassiveScrollColorChange = debounce(
 			checkPassiveScrollPositionAndColor
 		);
 		window.addEventListener("scroll", throttledPassiveScrollColorChange);
@@ -345,9 +354,7 @@ import { unicorns } from "utils/data";
 					i,
 				});
 			};
-			const throttledScrollColorChange = window.rafThrottle(
-				checkPositionAndChangeColor
-			);
+			const throttledScrollColorChange = debounce(checkPositionAndChangeColor);
 			window.addEventListener("scroll", throttledScrollColorChange);
 			window.addEventListener("touchmove", throttledScrollColorChange);
 		};
@@ -402,12 +409,17 @@ import { unicorns } from "utils/data";
 
 		let initialElTops = getElTops();
 
+		let windowWidth = window.innerWidth;
+
 		window.addEventListener("resize", () => {
+			windowWidth = window.innerWidth;
 			initialElTops = getElTops();
 			moveItems();
 		});
 
 		function moveItems() {
+			// Do not parallax on mobile
+			if (windowWidth < 600) return;
 			const scrollTop = document.documentElement.scrollTop;
 			for (let i = 0; i < els.length; i++) {
 				const el = els[i];
