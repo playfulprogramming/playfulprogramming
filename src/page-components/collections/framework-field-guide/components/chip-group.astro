@@ -73,18 +73,35 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 		/* Must used margin-right instead of gap for the loop to be smooth */
 		margin-right: var(--chip-group-gap);
 		white-space: nowrap;
+		/* Animations */
+		transition: background-color var(--color-transition-time)
+				var(--color-transition-ease),
+			color var(--color-transition-time) var(--color-transition-ease);
+		will-change: background-color, color;
 	}
 
 	.fade {
 		pointer-events: none;
-		background: linear-gradient(
+		background: var(--section-background);
+		mask-image: linear-gradient(
 			90deg,
-			var(--section-background),
+			black,
 			transparent 30%,
 			transparent 70%,
-			var(--section-background)
+			black
+		);
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			black,
+			transparent 30%,
+			transparent 70%,
+			black
 		);
 		position: absolute;
 		inset: 0;
+		/* Animations */
+		transition: background var(--color-transition-time)
+			var(--color-transition-ease);
+		will-change: background;
 	}
 </style>

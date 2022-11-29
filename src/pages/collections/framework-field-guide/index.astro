@@ -12,6 +12,7 @@ import "../../../page-components/collections/framework-field-guide/tokens/dimens
 import "../../../page-components/collections/framework-field-guide/tokens/text-styles.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/themes.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/pricing.scss";
+import "../../../page-components/collections/framework-field-guide/tokens/transition-timer.scss";
 import SEO from "src/components/seo/seo.astro";
 import Hero from "src/page-components/collections/framework-field-guide/segments/hero.astro";
 import Fundamentals from "src/page-components/collections/framework-field-guide/segments/fundamentals.astro";
@@ -76,8 +77,8 @@ import { unicorns } from "utils/data";
 			document.querySelectorAll("[data-change-color-to]")
 		);
 
-		const generateArrayPairChain = <T>(arr: T[]) => {
-			let result = [] as Array<{ from: T; to: T }>;
+		const generateArrayPairChain = (arr: HTMLElement[]) => {
+			let result = [] as Array<{ from: HTMLElement; to: HTMLElement }>;
 			for (let i = 0; i < arr.length; i += 1) {
 				if (!arr[i + 1]) return result;
 				result.push({ from: arr[i], to: arr[i + 1] });
@@ -484,9 +485,22 @@ import { unicorns } from "utils/data";
 		will-change: transform;
 	}
 
-	.repeat-background-svg-container,
-	repeat-background-svg-container > svg {
+	.repeat-background-container {
+		width: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-wrap: nowrap;
+		height: 100%;
+	}
+
+	.repeat-background-svg-container {
 		height: 100%;
 		aspect-ratio: var(--svgAspectRatio);
+	}
+
+	.repeat-background-svg-container > svg *,
+	svg.colorTransitionSVG * {
+		transition: fill var(--color-transition-time) var(--color-transition-ease);
+		will-change: transition;
 	}
 </style>

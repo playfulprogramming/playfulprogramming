@@ -18,5 +18,9 @@ const { class: className } = Astro.props as BookCoverContainerProps;
 		z-index: -1;
 		/* Just to be safe */
 		margin-bottom: -4px;
+		/* Animations */
+		transition: background-color var(--color-transition-time)
+			var(--color-transition-ease);
+		will-change: transition;
 	}
 </style>

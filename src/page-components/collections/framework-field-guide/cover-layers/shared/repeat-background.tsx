@@ -1,5 +1,11 @@
 import { JSX } from "preact";
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
+import {
+	useCallback,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "preact/hooks";
 
 interface RepeatBackgroundProps {
 	svg: string;
@@ -10,7 +16,7 @@ interface RepeatBackgroundProps {
 export const RepeatBackground = ({
 	svg,
 	fallbackStyle = {},
-	aspectRatio
+	aspectRatio,
 }: RepeatBackgroundProps) => {
 	const [repeat, setRepeat] = useState(1);
 	const [hasSet, setHasSet] = useState(false);
@@ -18,20 +24,20 @@ export const RepeatBackground = ({
 	const elRef = useRef<HTMLDivElement>();
 
 	const checkEl = useCallback((el) => {
-			if (hasSet || !el) return;
-			setHasSet(true);
-			const repeatLocal = Math.ceil(
-				window.innerWidth / el.getBoundingClientRect().width
-			);
-			setRepeat(repeatLocal);
-	}, [])
+		if (hasSet || !el) return;
+		setHasSet(true);
+		const repeatLocal = Math.ceil(
+			window.innerWidth / el.getBoundingClientRect().width
+		);
+		setRepeat(repeatLocal);
+	}, []);
 
 	useLayoutEffect(() => {
-		const fn = () => checkEl(elRef.current); 
-		window.addEventListener('resize', fn);
+		const fn = () => checkEl(elRef.current);
+		window.addEventListener("resize", fn);
 		fn();
-		return () => window.removeEventListener('resize', fn);
-	}, [checkEl])
+		return () => window.removeEventListener("resize", fn);
+	}, [checkEl]);
 
 	const arraySizeOfRepeat = useMemo(() => {
 		return Array.from({ length: repeat }, (_, i) => i);
@@ -40,12 +46,17 @@ export const RepeatBackground = ({
 	// Client-only
 	if (typeof globalThis.window !== "undefined") {
 		return (
-			<div style={{ width: '100%', overflow: 'hidden', display: "flex", flexWrap: "nowrap", height: "100%", '--svgAspectRatio': aspectRatio }}>
+			<div
+				class="repeat-background-container"
+				style={{
+					"--svgAspectRatio": aspectRatio,
+				}}
+			>
 				{arraySizeOfRepeat.map((_) => (
 					<div
-						style={{marginLeft: -1}}
+						style={{ marginLeft: -1 }}
 						class="repeat-background-svg-container"
-						ref={el => {
+						ref={(el) => {
 							if (!el) return;
 							checkEl(el);
 							elRef.current = el;

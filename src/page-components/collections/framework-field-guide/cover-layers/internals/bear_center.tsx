@@ -1,6 +1,6 @@
 export const BearCenter = () => {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" class="nofill" fill="none" viewBox="0 0 1280 1280">
+		<svg xmlns="http://www.w3.org/2000/svg" class="nofill colorTransitionSVG" fill="none" viewBox="0 0 1280 1280">
 			<g fill="var(--inter-900)">
 				<path
 					fill-rule="evenodd"

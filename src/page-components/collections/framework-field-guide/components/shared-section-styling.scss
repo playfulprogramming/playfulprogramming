@@ -4,6 +4,8 @@
 .book-section {
     padding: var(--section-ver-padding) 0;
     text-align: center;
+    transition: background-color var(--color-transition-time) var(--color-transition-ease);
+    will-change: transition;
 }
 
 .book-section > :not([data-no-horiz-pad]) {
@@ -18,6 +20,8 @@
 
 .book-title {
     background: var(--text-gradient);
+    transition: background var(--color-transition-time) var(--color-transition-ease);
+    will-change: transition;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
