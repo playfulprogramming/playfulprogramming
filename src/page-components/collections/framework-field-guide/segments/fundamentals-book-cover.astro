@@ -26,7 +26,7 @@ import SafeArea from "../cover-layers/fundamentals/safe-area.astro";
 	<BookCoverLayer moveOnScrollBy={0.2} name="trees">
 		<div slot="left"></div>
 		<div slot="center" style="height: 100%; width: 100vw !important">
-			<Trees />
+			<Trees client:load />
 		</div>
 		<div slot="right"></div>
 	</BookCoverLayer>
