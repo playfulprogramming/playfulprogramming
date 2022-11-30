@@ -136,21 +136,16 @@ export const rehypeAstroImageMd: Plugin<
 
 				Object.assign(
 					node,
-					h(
-						"picture",
-						{
+					h("picture", {}, [
+						...sources,
+						h("img", {
+							alt: node.properties.alt,
+							loading: "lazy",
+							decoding: "async",
+							"data-zoom-src": pngSource.src,
 							style: `max-width: ${pngSource.size}px`,
-						},
-						[
-							...sources,
-							h("img", {
-								alt: node.properties.alt,
-								loading: "lazy",
-								decoding: "async",
-								"data-zoom-src": pngSource.src,
-							}),
-						]
-					)
+						}),
+					])
 				);
 			})
 		);
