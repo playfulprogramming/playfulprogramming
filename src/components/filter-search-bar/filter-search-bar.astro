@@ -23,7 +23,8 @@ import SearchField from "./search-field/search-field.astro";
 	const postListContainer: HTMLElement = document.querySelector(
 		"#post-list-container"
 	);
-	const postListPagination: HTMLElement = document.querySelector(
+	// May be `null` if on author page with no multiple pages
+	const postListPagination: HTMLElement | null = document.querySelector(
 		"#post-list-pagination"
 	);
 	const searchPostListContainer: HTMLElement = document.querySelector(
@@ -35,7 +36,7 @@ import SearchField from "./search-field/search-field.astro";
 	);
 
 	const initPostContainerDisplayVal = postListContainer.style.display;
-	const initPostPaginationDisplayVal = postListPagination.style.display;
+	const initPostPaginationDisplayVal = postListPagination?.style.display;
 
 	let loadingEl: HTMLElement | undefined;
 	let abortController: AbortController | undefined;
@@ -52,14 +53,15 @@ import SearchField from "./search-field/search-field.astro";
 			url.searchParams.delete(SEARCH_PAGE_KEY);
 			url.searchParams.delete(SEARCH_QUERY_KEY);
 			postListContainer.style.display = initPostContainerDisplayVal;
-			postListPagination.style.display = initPostPaginationDisplayVal;
+			if (postListPagination)
+				postListPagination.style.display = initPostPaginationDisplayVal;
 			searchPostListContainer.style.display = "none";
 			window.history.pushState({}, "", url);
 			return;
 		}
 
 		postListContainer.style.display = "none";
-		postListPagination.style.display = "none";
+		if (postListPagination) postListPagination.style.display = "none";
 		searchPostListContainer.style.display = "block";
 
 		loadingEl && loadingEl.remove();
