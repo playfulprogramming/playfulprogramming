@@ -35,6 +35,7 @@
     position: sticky;
     z-index: 2;
     top: 100vh;
+    pointer-events: none;
 }
 
 .fullHeightSizer {
@@ -43,6 +44,7 @@
     left: 0;
     height: 100vh;
     width: 100%;
+    pointer-events: none;
 }
 
 .showMoreButton, .showLessButton {
@@ -50,4 +52,15 @@
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
+    pointer-events: all;
+}
+
+.quotesScrim {
+    background: var(--section-background);
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    mask-image: linear-gradient(0deg, black 0%, transparent 100%);
+    pointer-events: none;
 }

@@ -21,6 +21,7 @@ import SmallFilledButton from "./small-filled-button.astro";
 			>
 		</div>
 	</div>
+	<div class={styles.quotesScrim} id="quotes-scrim"></div>
 	<SmallFilledButton
 		id="show-more-quotes-btn"
 		style={{ opacity: 1, zIndex: 2 }}
@@ -28,6 +29,7 @@ import SmallFilledButton from "./small-filled-button.astro";
 	>
 </div>
 <script>
+	const quotesScrim = document.getElementById("quotes-scrim");
 	const quotesContainer = document.getElementById(
 		"quotes-hidden-overflow-container"
 	);
@@ -40,6 +42,7 @@ import SmallFilledButton from "./small-filled-button.astro";
 		showLessBtn.style.opacity = "1";
 		showMoreBtn.style.zIndex = "-1";
 		showLessBtn.style.zIndex = "2";
+		quotesScrim.style.display = "none";
 	};
 
 	showLessBtn.onclick = () => {
@@ -48,5 +51,6 @@ import SmallFilledButton from "./small-filled-button.astro";
 		showLessBtn.style.opacity = "0";
 		showMoreBtn.style.zIndex = "2";
 		showLessBtn.style.zIndex = "-1";
+		quotesScrim.style.display = "block";
 	};
 </script>
