@@ -1,6 +1,7 @@
 ---
 import ProminentQuote from "../components/prominent-quote.astro";
 import QuoteCard from "../components/quote-card.astro";
+import QuotesContainer from "../components/quotes-container.astro";
 import styles from "./quotes.module.scss";
 ---
 
@@ -11,7 +12,7 @@ import styles from "./quotes.module.scss";
 		</h2>
 		<ProminentQuote />
 	</div>
-	<div class={styles.quotesContainer}>
+	<QuotesContainer>
 		<QuoteCard
 			personName={`Santosh Yadav`}
 			avatarSrc={import("../people-pictures/santosh_yadav.jpg")}
@@ -154,5 +155,5 @@ The amount of improvement I gained within a period of 3 months through interacti
 Being a junior developer myself, the things Corbin can do with an IDE might as well be wizardry. He's the kind of guy that when I asked him for help wrangling some code, instead built me a bespoke tool that did the job better than I could have imagined. Not to show off, just for the love of the craft. The kind of guy I wish I could have learned from in college.
 			`.trim()}
 		/>
-	</div>
+	</QuotesContainer>
 </div>

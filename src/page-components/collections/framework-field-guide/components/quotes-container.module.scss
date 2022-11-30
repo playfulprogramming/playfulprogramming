@@ -1,0 +1,53 @@
+@import "../../../../styles/utils";
+@import "../tokens/breakpoints.scss";
+
+.quotesContainer {
+	column-count: 1;
+	column-gap: var(--quote-grid-gap);
+}
+
+.quotesContainer > * {
+	break-inside: avoid;
+	margin-bottom: var(--quote-grid-gap);
+}
+
+@include from($tablet) {
+	.quotesContainer {
+		column-count: 2;
+	}
+}
+
+@include from($desktop) {
+	.quotesContainer {
+		column-count: 3;
+	}
+}
+
+.quotesContainerContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.showMoreLessContainer {
+    order: -1;
+    flex-grow: 0;
+    position: sticky;
+    z-index: 2;
+    top: 100vh;
+}
+
+.fullHeightSizer {
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+.showMoreButton {
+    position: absolute !important;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}

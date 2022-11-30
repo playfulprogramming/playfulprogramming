@@ -25,25 +25,3 @@
 	text-align: center;
 	margin: 0;
 }
-
-.quotesContainer {
-	column-count: 1;
-	column-gap: var(--quote-grid-gap);
-}
-
-.quotesContainer > * {
-	break-inside: avoid;
-	margin-bottom: var(--quote-grid-gap);
-}
-
-@include from($tablet) {
-	.quotesContainer {
-		column-count: 2;
-	}
-}
-
-@include from($desktop) {
-	.quotesContainer {
-		column-count: 3;
-	}
-}

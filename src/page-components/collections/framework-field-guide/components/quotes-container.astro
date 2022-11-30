@@ -1,0 +1,17 @@
+---
+import styles from "./quotes-container.module.scss";
+import SmallFilledButton from "./small-filled-button.astro";
+---
+
+<div class={styles.quotesContainerContainer}>
+	<div class={styles.quotesContainer}>
+		<slot />
+	</div>
+	<div class={styles.showMoreLessContainer}>
+		<div class={styles.fullHeightSizer}>
+			<SmallFilledButton class={styles.showMoreButton}
+				>Show more</SmallFilledButton
+			>
+		</div>
+	</div>
+</div>
