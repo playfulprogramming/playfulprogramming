@@ -4,8 +4,8 @@
     width: 128px;
 }
 
-.hikerPic img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 219px;
+img.hikerPic, .hikerPic img {
+    width: 237.5px;
+    aspect-ratio: 2560/5153;
+    max-width: unset !important;
 }
