@@ -1,7 +1,9 @@
 ---
 import Document from "../../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import About from "../../page-components/about/about.astro";
+import About, {
+	getOtherAboutLocales,
+} from "../../page-components/about/about.astro";
 import { MarkdownInstance } from "astro";
 import { Languages } from "types/index";
 
@@ -33,9 +35,19 @@ const { globResults, locale } = Astro.props as {
 	globResults: Array<MarkdownInstance<Record<string, any>>>;
 	locale: Languages;
 };
+
+const { otherLocales } = getOtherAboutLocales(locale, globResults);
 ---
 
 <Document lang={locale}>
-	<SEO title="About Us" slot="head" />
+	<SEO
+		pathName={`/about`}
+		title="About Us"
+		slot="head"
+		langData={{
+			otherLangs: otherLocales,
+			currentLang: locale,
+		}}
+	/>
 	<About globResults={globResults} locale={locale} />
 </Document>

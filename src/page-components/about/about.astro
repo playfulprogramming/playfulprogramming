@@ -7,6 +7,37 @@ import { MarkdownInstance } from "astro";
 import AboutUsTranslationsHeader from "./translations-header/about-us-translations-header.astro";
 import "../../styles/post-body.scss";
 
+export const getOtherAboutLocales = (
+	locale: Languages,
+	globResults: Array<MarkdownInstance<Record<string, any>>>
+) => {
+	const matchedResult = globResults.find((aboutUs) => {
+		if (locale === "en") {
+			return aboutUs.file.endsWith("about-us.md");
+		} else {
+			return aboutUs.file.endsWith(`about-us.${locale}.md`);
+		}
+	});
+
+	const allLocales = globResults.reduce((arr, globItem) => {
+		if (globItem.file.endsWith("about-us.md")) {
+			arr.push("en");
+			return arr;
+		}
+		// .es.md
+		const fileEnding = globItem.file.split("about-us").at(-1);
+		const locale: Languages = fileEnding.split(".")[1] as never;
+		arr.push(locale);
+		return arr;
+	}, [] as Languages[]);
+
+	const otherLocales = allLocales.filter((propLocale) => propLocale !== locale);
+	return {
+		matchedResult,
+		otherLocales,
+	};
+};
+
 interface AboutProps {
 	locale: Languages;
 	globResults: Array<MarkdownInstance<Record<string, any>>>;
@@ -14,27 +45,10 @@ interface AboutProps {
 
 const { locale, globResults } = Astro.props as AboutProps;
 
-const matchedResult = globResults.find((aboutUs) => {
-	if (locale === "en") {
-		return aboutUs.file.endsWith("about-us.md");
-	} else {
-		return aboutUs.file.endsWith(`about-us.${locale}.md`);
-	}
-});
-
-const allLocales = globResults.reduce((arr, globItem) => {
-	if (globItem.file.endsWith("about-us.md")) {
-		arr.push("en");
-		return arr;
-	}
-	// .es.md
-	const fileEnding = globItem.file.split("about-us").at(-1);
-	const locale: Languages = fileEnding.split(".")[1] as never;
-	arr.push(locale);
-	return arr;
-}, [] as Languages[]);
-
-const otherLocales = allLocales.filter((propLocale) => propLocale !== locale);
+const { matchedResult, otherLocales } = getOtherAboutLocales(
+	locale,
+	globResults
+);
 
 const Content = matchedResult.Content;
 ---
