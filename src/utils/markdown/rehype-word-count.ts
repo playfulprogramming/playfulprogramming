@@ -38,10 +38,13 @@ function count(counts: Record<string, number>) {
 		visit(tree, visitor);
 
 		function visitor(node: Node) {
+			// Non-"Word" nodes, such as links, inline code blocks, etc.
 			if (node.type === "SourceNode") {
-				const inlineCount = (node as never as { value: string }).value.split(
-					/\b/g
-				).length;
+				const inlineCount = (node as never as { value: string }).value
+					// Split on breaks
+					.split(/\b/g)
+					// Remove symbols, whitespace, and other gunk
+					.filter((str) => /\w+/.exec(str)).length;
 				counts["InlineCodeWords"] =
 					(counts["InlineCodeWords"] || 0) + inlineCount;
 			}
@@ -84,6 +87,6 @@ export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 			.run(tree);
 
 		(file.data.astro as any).frontmatter.wordCount =
-			(counts.InlineCodeWords || 0) + (counts.TextNode || 0);
+			(counts.InlineCodeWords || 0) + (counts.WordNode || 0);
 	};
 };
