@@ -35,8 +35,6 @@
 	transform: rotate(180deg);
 }
 
-
-
 .quoteAvatar {
 	margin-top: var(--section-gap);
 	margin-bottom: var(--spc-1x);
@@ -49,8 +47,9 @@
 
 .quotePersonName {
 	margin: 0;
-	text-decoration: underline !important;
-	text-decoration-color: var(--quote-arrow-link-color);
+	text-decoration-line: underline !important;
+	text-decoration-color: var(--quote-arrow-link-color) !important;
+	text-decoration-thickness: 1.5px !important;
 	position: relative;	
 	display: inline-block;
 }

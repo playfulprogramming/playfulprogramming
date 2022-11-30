@@ -16,11 +16,19 @@ const { avatarSrc, quote, personTitle, personName } =
 
 <div class={styles.quoteCardContainer}>
 	<p class={`text-style-body-small ${styles.quoteText}`}>{quote}</p>
-	<div>
-		<Picture src={avatarSrc} alt="" sizes="100px" widths={[100]} />
-		<div>
-			<p class={`text-style-body-small-bold`}>{personName}</p>
-			<p class={`text-style-body-small`}>{personTitle}</p>
+	<div class={styles.personDetailsContainer}>
+		<Picture
+			class={styles.personAvatar}
+			src={avatarSrc}
+			alt=""
+			sizes="40px"
+			widths={[40]}
+		/>
+		<div class={styles.personTextContainer}>
+			<p class={`text-style-body-small-bold ${styles.personName}`}>
+				{personName}
+			</p>
+			<p class={`text-style-body-small ${styles.personTitle}`}>{personTitle}</p>
 		</div>
 	</div>
 </div>

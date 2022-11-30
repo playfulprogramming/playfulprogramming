@@ -25,6 +25,7 @@ export const enableColorChangeListeners = () => {
 		return result;
 	};
 
+	// TODO: Recalculate this on resize
 	const colorContainerTransitions = generateArrayPairChain(colorContainers)
 		.map((vals) => {
 			const { top: topFrom, height: heightFrom } =
