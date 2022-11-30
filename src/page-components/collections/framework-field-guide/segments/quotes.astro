@@ -1,0 +1,14 @@
+---
+import ProminentQuote from "../components/prominent-quote.astro";
+import styles from "./quotes.module.scss";
+---
+
+<div class={styles.fullQuotesContainer}>
+	<div class={styles.quotesHeaderContainer}>
+		<h2 class={`text-style-headline-2 ${styles.quoteHeaderTitle}`}>
+			Hear from other adventurers
+		</h2>
+		<ProminentQuote />
+	</div>
+	<div class={styles.quotesContainer}></div>
+</div>

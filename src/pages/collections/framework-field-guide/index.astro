@@ -13,11 +13,13 @@ import "../../../page-components/collections/framework-field-guide/tokens/text-s
 import "../../../page-components/collections/framework-field-guide/tokens/themes.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/pricing.scss";
 import "../../../page-components/collections/framework-field-guide/tokens/transition-timer.scss";
+import "../../../page-components/collections/framework-field-guide/tokens/quotes.scss";
 import SEO from "src/components/seo/seo.astro";
 import Hero from "src/page-components/collections/framework-field-guide/segments/hero.astro";
 import Fundamentals from "src/page-components/collections/framework-field-guide/segments/fundamentals.astro";
 import Ecosystem from "src/page-components/collections/framework-field-guide/segments/ecosystem.astro";
 import Internals from "src/page-components/collections/framework-field-guide/segments/internals.astro";
+import Quotes from "src/page-components/collections/framework-field-guide/segments/quotes.astro";
 import AdventureContinues from "src/page-components/collections/framework-field-guide/segments/adventure-continues.astro";
 import YourGuide from "src/page-components/collections/framework-field-guide/segments/your-guide.astro";
 import CodeBlock from "src/page-components/collections/framework-field-guide/segments/code-block.astro";
@@ -44,6 +46,7 @@ import { unicorns } from "utils/data";
 		<TheRestContainer>
 			<YourGuide />
 			<CodeBlock />
+			<Quotes />
 			<AdventureContinues />
 			<Pricing />
 		</TheRestContainer>

@@ -1,0 +1,75 @@
+.quoteContainer {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	text-align: center;
+	position: relative;
+	z-index: 1;
+}
+
+.quoteText {
+	margin: 0;
+	position: relative;
+}
+
+.quoteText::after, 
+.quoteText::before {
+	content: " ";
+	position: absolute;
+	width: 200px;
+	height: 160px;
+	background-image: url("../icons/big_quotation_mark.svg");
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0.12;
+}
+
+// Top right corner quote
+.quoteText::after {
+	top: calc(0px - var(--quote-mark-offset_prominent));
+	right: calc(0px - var(--quote-mark-offset_prominent));
+}
+
+// Bottom left corner quote
+.quoteText::before {
+	bottom: calc(0px - var(--quote-mark-offset_prominent));
+	left: calc(0px - var(--quote-mark-offset_prominent));
+	transform: rotate(180deg);
+}
+
+
+
+.quoteAvatar {
+	margin-top: var(--section-gap);
+	margin-bottom: var(--spc-1x);
+	margin-left: auto;
+	margin-right: auto;
+	height: var(--quote-avatar-size_prominent);
+	width: var(--quote-avatar-size_prominent);
+	border-radius: var(--corner-radius-circular);
+}
+
+.quotePersonName {
+	margin: 0;
+	text-decoration: underline !important;
+	text-decoration-color: var(--quote-arrow-link-color);
+	position: relative;	
+	display: inline-block;
+}
+
+.quotePersonName::after {
+	content: " ";
+	position: absolute;
+	right: calc(-4px - 0.5rem);
+	top: 50%;
+	transform: translateY(-50%);
+	height: 0.5rem;
+	width: 0.5rem;
+	background-image: url("../icons/link_arrow.svg");
+	background-repeat: no-repeat;
+}
+
+
+.quotePersonTitle {
+	margin-top: 4px;
+	margin-bottom: 0;
+	color: var(--on-dark-emphasis-medium);
+}

@@ -1,0 +1,32 @@
+---
+import { Picture } from "@astrojs/image/components";
+import styles from "./prominent-quote.module.scss";
+---
+
+<div class={styles.quoteContainer}>
+	<p class={`text-style-body-large ${styles.quoteText}`}>
+		Whether you want to go from zero to hero in the marvelous world of frontend
+		JavaScript frameworks, or you're a veteran looking to learn another
+		framework while comparing to a framework you know, this epic book series is
+		for you. Me? I'm learning Vue. Corbin has made good choices to ensure that
+		your learning experience is well thought out. These books use modern and
+		simpler frameworks APIs and each concept or technique is introduced
+		step-by-step to avoid overwhelming you.
+	</p>
+	<Picture
+		class={styles.quoteAvatar}
+		alt=""
+		src={import("../people-pictures/lars_gyrup_brink_nielsen.png")}
+		sizes="96"
+		widths={[96]}
+		formats={["avif", "webp", "png"]}
+	/>
+	<div>
+		<p class={`text-style-body-medium-bold ${styles.quotePersonName}`}>
+			Lars Gyrup Brink Nielsen
+		</p>
+	</div>
+	<p class={`text-style-body-medium ${styles.quotePersonTitle}`}>
+		GitHub Star, Microsoft MVP, Angular Hero of Education
+	</p>
+</div>
