@@ -4,9 +4,6 @@
 	background: var(--darkPrimary);
 	position: relative;
 	color: var(--white);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	max-width: 100%;
 }
 
@@ -15,6 +12,10 @@
 	height: fit-content;
 	background: var(--white);
 	color: var(--darkPrimary);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
 }
 
 .iframe-replacement-title {
