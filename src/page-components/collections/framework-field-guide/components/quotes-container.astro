@@ -3,15 +3,50 @@ import styles from "./quotes-container.module.scss";
 import SmallFilledButton from "./small-filled-button.astro";
 ---
 
-<div class={styles.quotesContainerContainer}>
-	<div class={styles.quotesContainer}>
-		<slot />
+<div class={styles.quotesAndButtonsContainer}>
+	<div
+		id="quotes-hidden-overflow-container"
+		style={{ height: "900px", overflow: "hidden" }}
+	>
+		<div class={styles.quotesContainer}>
+			<slot />
+		</div>
 	</div>
 	<div class={styles.showMoreLessContainer}>
 		<div class={styles.fullHeightSizer}>
-			<SmallFilledButton class={styles.showMoreButton}
-				>Show more</SmallFilledButton
+			<SmallFilledButton
+				id="show-less-quotes-btn"
+				style={{ opacity: 0, zIndex: -1 }}
+				class={styles.showLessButton}>Show less</SmallFilledButton
 			>
 		</div>
 	</div>
+	<SmallFilledButton
+		id="show-more-quotes-btn"
+		style={{ opacity: 1, zIndex: 2 }}
+		class={styles.showMoreButton}>Show more</SmallFilledButton
+	>
 </div>
+<script>
+	const quotesContainer = document.getElementById(
+		"quotes-hidden-overflow-container"
+	);
+	const showMoreBtn = document.getElementById("show-more-quotes-btn");
+	const showLessBtn = document.getElementById("show-less-quotes-btn");
+
+	showMoreBtn.onclick = () => {
+		quotesContainer.style.height = "unset";
+		showMoreBtn.style.opacity = "0";
+		showLessBtn.style.opacity = "1";
+		showMoreBtn.style.zIndex = "-1";
+		showLessBtn.style.zIndex = "2";
+	};
+
+	showLessBtn.onclick = () => {
+		quotesContainer.style.height = "900px";
+		showMoreBtn.style.opacity = "1";
+		showLessBtn.style.opacity = "0";
+		showMoreBtn.style.zIndex = "2";
+		showLessBtn.style.zIndex = "-1";
+	};
+</script>

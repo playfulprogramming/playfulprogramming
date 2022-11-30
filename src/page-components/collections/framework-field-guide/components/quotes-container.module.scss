@@ -23,7 +23,7 @@
 	}
 }
 
-.quotesContainerContainer {
+.quotesAndButtonsContainer {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@
     width: 100%;
 }
 
-.showMoreButton {
+.showMoreButton, .showLessButton {
     position: absolute !important;
     bottom: 1rem;
     left: 50%;
