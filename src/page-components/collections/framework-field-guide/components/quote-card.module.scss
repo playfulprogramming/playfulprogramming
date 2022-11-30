@@ -1,0 +1,10 @@
+.quoteCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--quote-spacing);
+    padding: var(--quote-spacing);
+}
+
+.quoteText {
+    margin: 0;
+}
