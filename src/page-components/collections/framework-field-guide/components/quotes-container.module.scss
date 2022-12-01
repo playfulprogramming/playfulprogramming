@@ -62,5 +62,6 @@
     inset: 0;
     z-index: 1;
     mask-image: linear-gradient(0deg, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(0deg, black 0%, transparent 100%);
     pointer-events: none;
 }
