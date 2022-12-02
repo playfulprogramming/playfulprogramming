@@ -1,5 +1,3 @@
-import exp from "constants";
-
 // https://github.com/wuct/raf-throttle/blob/master/rafThrottle.js
 const rafThrottle = (callback) => {
 	let requestId = null;

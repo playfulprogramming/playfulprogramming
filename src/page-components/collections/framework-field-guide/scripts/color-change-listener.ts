@@ -25,37 +25,43 @@ export const enableColorChangeListeners = () => {
 		return result;
 	};
 
-	// TODO: Recalculate this on resize
-	const colorContainerTransitions = generateArrayPairChain(colorContainers)
-		.map((vals) => {
-			const { top: topFrom, height: heightFrom } =
-				vals.from.getBoundingClientRect();
+	const containerPairs = generateArrayPairChain(colorContainers);
 
-			const trueTopFrom =
-				topFrom +
-				document.documentElement.scrollTop -
-				(document.documentElement.clientTop || 0);
+	const calculateContainerSizes = () => {
+		return containerPairs
+			.map((vals) => {
+				const { top: topFrom, height: heightFrom } =
+					vals.from.getBoundingClientRect();
 
-			const { top: topTo, height: heightTo } = vals.to.getBoundingClientRect();
+				const trueTopFrom =
+					topFrom +
+					document.documentElement.scrollTop -
+					(document.documentElement.clientTop || 0);
 
-			const trueTopTo =
-				topTo +
-				document.documentElement.scrollTop -
-				(document.documentElement.clientTop || 0);
+				const { top: topTo, height: heightTo } =
+					vals.to.getBoundingClientRect();
 
-			const fromColor = vals.from.dataset.changeColorTo as "fund";
-			const toColor = vals.to.dataset.changeColorTo as "fund";
-			return {
-				...vals,
-				fromColor,
-				toColor,
-				trueTopFrom,
-				trueTopTo,
-				heightFrom,
-				heightTo,
-			};
-		})
-		.sort((a, b) => (a.trueTopFrom < b.trueTopFrom ? -1 : 1));
+				const trueTopTo =
+					topTo +
+					document.documentElement.scrollTop -
+					(document.documentElement.clientTop || 0);
+
+				const fromColor = vals.from.dataset.changeColorTo as "fund";
+				const toColor = vals.to.dataset.changeColorTo as "fund";
+				return {
+					...vals,
+					fromColor,
+					toColor,
+					trueTopFrom,
+					trueTopTo,
+					heightFrom,
+					heightTo,
+				};
+			})
+			.sort((a, b) => (a.trueTopFrom < b.trueTopFrom ? -1 : 1));
+	};
+
+	let colorContainerTransitions = calculateContainerSizes();
 
 	const colorSets = [
 		"050",
@@ -213,13 +219,12 @@ export const enableColorChangeListeners = () => {
 
 	function checkColorToSetTo({
 		scrollTop,
-		transitionData,
 		i,
 	}: {
 		scrollTop: number;
-		transitionData: typeof colorContainerTransitions[0];
 		i: number;
 	}) {
+		const transitionData = colorContainerTransitions[i];
 		const halfScreenHeight = windowsInnerHeight / 2;
 
 		if (transitionData.trueTopTo < scrollTop + halfScreenHeight) {
@@ -249,7 +254,6 @@ export const enableColorChangeListeners = () => {
 				dataIndex = colorContainerTransitions.length - 1;
 			}
 			checkColorToSetTo({
-				transitionData: colorContainerTransitions[dataIndex],
 				i: dataIndex,
 				scrollTop,
 			});
@@ -262,6 +266,13 @@ export const enableColorChangeListeners = () => {
 	);
 	window.addEventListener("scroll", throttledPassiveScrollColorChange);
 	window.addEventListener("touchmove", throttledPassiveScrollColorChange);
+
+	window.addEventListener("resize", () => {
+		colorContainerTransitions = calculateContainerSizes();
+		setTimeout(() => {
+			checkPassiveScrollPositionAndColor();
+		}, 100);
+	});
 
 	throttledPassiveScrollColorChange();
 
@@ -276,7 +287,6 @@ export const enableColorChangeListeners = () => {
 
 			checkColorToSetTo({
 				scrollTop,
-				transitionData,
 				i,
 			});
 		};
