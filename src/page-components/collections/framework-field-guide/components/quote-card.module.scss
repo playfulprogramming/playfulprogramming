@@ -7,7 +7,8 @@
 	overflow: hidden;
 	z-index: 1;
 	background: var(--slate-800);
-	transition: background var(--color-transition-time) var(--color-transition-ease);
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
 	border-radius: var(--quote-corner-radius);
 }
 
@@ -30,21 +31,25 @@
 	margin: 0;
 }
 
+.personDetailsContainer picture {
+	height: var(--quote-avatar-size);
+	width: var(--quote-avatar-size);
+}
+
 .personAvatar {
-    height: var(--quote-avatar-size);
-    width: var(--quote-avatar-size);
+	height: var(--quote-avatar-size);
+	width: var(--quote-avatar-size);
 	border-radius: var(--corner-radius-circular);
 }
 
 .personDetailsContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--spc-2x);
-align-items: center;
+	display: flex;
+	flex-wrap: nowrap;
+	gap: var(--spc-2x);
+	align-items: center;
 }
 
 .personTextContainer {
-
 }
 
 .personName {
@@ -53,7 +58,7 @@ align-items: center;
 	text-decoration-color: var(--quote-arrow-link-color) !important;
 	text-decoration-thickness: 1.5px !important;
 	position: relative;
-	display: inline-block;
+	width: fit-content;
 }
 
 .personName::after {
