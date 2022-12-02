@@ -14,12 +14,13 @@
 .quoteCardContainer::after {
 	content: " ";
 	position: absolute;
-	width: 200px;
-	height: 160px;
+	height: var(--quote-marks-height_contained);
+	aspect-ratio: var(--quote-mark-aspect-ratio);
 	background-image: url("../icons/big_quotation_mark.svg");
 	background-repeat: no-repeat;
+	background-size: contain;
 	z-index: -1;
-	opacity: 0.12;
+	opacity: var(--quote-mark-opacity);
 	top: calc(0px - var(--quote-mark-offset));
 	right: calc(0px - var(--quote-mark-offset));
 }

@@ -5,9 +5,13 @@
 .book-section {
 	--quote-grid-gap: var(--spc-3x);
 
-	--quote-mark-color: rgba(var(--state-overlay), 0.12);
+	--quote-mark-opacity: 0.12;
 	--quote-mark-offset: 8px;
 	--quote-mark-offset_prominent: 48px;
+
+	--quote-mark-aspect-ratio: 200 / 160;
+	--quote-marks-height_contained: 80px;
+	--quote-marks-height_prominent: 80px;
 
 	--quote-spacing: var(--spc-2x);
 	--quote-corner-radius: var(--corner-radius-3x);
@@ -32,6 +36,9 @@
 
 		--quote-mark-offset: 32px;
 		--quote-mark-offset_prominent: 96px;
+
+		--quote-marks-height_contained: 120px;
+		--quote-marks-height_prominent: 160px;
 
 		--quote-spacing: var(--spc-4x);
 		--quote-corner-radius: var(--corner-radius-4x);
