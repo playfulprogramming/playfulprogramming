@@ -9,6 +9,10 @@ const { class: className, ...props } =
 		padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
 		background: transparent;
 		color: var(--btn-foreground_outlined);
+		transition: color var(--btn-state-transition-duration)
+				var(--btn-state-transition-easing),
+			background var(--btn-state-transition-duration)
+				var(--btn-state-transition-easing);
 		border-radius: var(--btn-corner-radius);
 		border-width: var(--btn-border-width_small);
 		border-color: var(--btn-border);
