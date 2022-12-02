@@ -1,0 +1,44 @@
+body {
+	background: var(--backgroundColor);
+	margin: 0;
+	padding: 0;
+}
+
+/* Borrowed from FFG's global styling */
+
+.baseBtn {
+	cursor: pointer;
+}
+
+.baseBtn,
+.btnLike {
+	appearance: none;
+	text-decoration: none;
+	background: none;
+	border: none;
+	transition: background var(--animSpeed) var(--animStyle),
+		box-shadow var(--animSpeed) var(--animStyle),
+		border-color var(--animSpeed) var(--animStyle),
+		color var(--animStyle) var(--animSpeed);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	border-radius: var(--cardRadius);
+	font-size: 1rem;
+	padding: 4px 8px;
+	color: var(--darkPrimary);
+}
+
+.baseBtn:hover {
+	background: var(--cardActiveBackground);
+	border-color: transparent;
+	box-shadow: var(--cardActiveBoxShadow);
+}
+
+.baseBtn svg,
+.btnLike svg {
+	height: 32px;
+	width: 32px;
+	flex-shrink: 0;
+}
