@@ -223,13 +223,33 @@ export const enableColorChangeListeners = () => {
 		checkPassiveScrollPositionAndColor,
 		20
 	);
-	window.addEventListener("scroll", throttledPassiveScrollColorChange);
-	window.addEventListener("touchmove", throttledPassiveScrollColorChange);
 
-	window.addEventListener("resize", () => {
+	function onResize() {
 		colorContainerTransitions = calculateContainerSizes();
 		checkPassiveScrollPositionAndColor();
-	});
+	}
 
-	throttledPassiveScrollColorChange();
+	const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+	if (!mediaQuery.matches) {
+		window.addEventListener("scroll", throttledPassiveScrollColorChange);
+		window.addEventListener("touchmove", throttledPassiveScrollColorChange);
+		window.addEventListener("resize", onResize);
+
+		throttledPassiveScrollColorChange();
+	}
+	mediaQuery.addEventListener("change", () => {
+		if (mediaQuery.matches) {
+			window.removeEventListener("scroll", throttledPassiveScrollColorChange);
+			window.removeEventListener(
+				"touchmove",
+				throttledPassiveScrollColorChange
+			);
+			window.removeEventListener("resize", onResize);
+		} else {
+			window.addEventListener("scroll", throttledPassiveScrollColorChange);
+			window.addEventListener("touchmove", throttledPassiveScrollColorChange);
+			window.addEventListener("resize", onResize);
+		}
+	});
 };
