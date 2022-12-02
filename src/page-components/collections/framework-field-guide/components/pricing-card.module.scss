@@ -261,6 +261,13 @@ input[type="checkbox"].enterpriseToggle:checked:active::before {
 	gap: var(--bullet-list-item-gap);
 }
 
+
+.starPoints > li,
+.bulletPoints > li {
+	display: flex;
+	align-items: center;
+}
+
 @include until($tablet) {
 	.removeOnMobile {
 		display: none;
