@@ -2,12 +2,18 @@
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
 import Layout from "../components/layout/layout.astro";
 import "../global.scss";
+import { Languages } from "types/index";
 
-let { lang } = Astro.props;
+interface DocumentProps {
+	lang?: Languages;
+	disableThemeToggle?: boolean;
+}
+
+let { lang, disableThemeToggle } = Astro.props as DocumentProps;
 lang ??= "en";
 ---
 
-<html {lang} class="light">
+<html lang={lang} class="light">
 	<head>
 		<meta name="viewport" content="width=device-width" />
 		<meta charset="utf-8" />
@@ -72,7 +78,7 @@ lang ??= "en";
 	</head>
 	<body>
 		<BlockingThemeChangerScript />
-		<Layout>
+		<Layout disableThemeToggle={disableThemeToggle}>
 			<slot />
 		</Layout>
 		<slot name="post-body" />

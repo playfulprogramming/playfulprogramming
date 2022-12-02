@@ -10,6 +10,12 @@ const rootPath = `/`;
 const isBase = Astro.url.pathname === rootPath;
 const isBlogPost = Astro.url.pathname.startsWith(`${rootPath}posts`);
 const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
+
+interface LayoutProps {
+	disableThemeToggle?: boolean;
+}
+
+const { disableThemeToggle } = Astro.props as LayoutProps;
 ---
 
 <div class={layoutStyles.horizCenter}>
@@ -46,7 +52,7 @@ const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 				>
 					<Icon height="36" width="36" name="discord" />
 				</a>
-				<DarkLightButton />
+				{!disableThemeToggle && <DarkLightButton />}
 			</div>
 		</div>
 	</header>
