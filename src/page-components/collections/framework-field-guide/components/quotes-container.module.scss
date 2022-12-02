@@ -57,6 +57,7 @@
 
 .quotesScrim {
     background: var(--section-background);
+    transition: background var(--color-transition-time) var(--color-transition-ease);
     height: 100%;
     position: absolute;
     inset: 0;
