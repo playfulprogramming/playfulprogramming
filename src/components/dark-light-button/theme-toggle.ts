@@ -4,6 +4,7 @@ export const themeToggle = () => {
 	const themeToggleBtn: HTMLElement = document.querySelector(
 		"#theme-toggle-button"
 	);
+	if (!themeToggleBtn) return;
 	const darkIconEl: HTMLElement = document.querySelector("#dark-icon");
 	const lightIconEl: HTMLElement = document.querySelector("#light-icon");
 	function toggleButton(theme) {
