@@ -44,7 +44,9 @@ const tags: TagList = [
 	<FundamentalsBookCover />
 	<div class="class-book-1">
 		<div class="book-section" style="background: var(--section-background);">
-			<h3 class={`text-style-display-1 book-title`}>Fundamentals</h3>
+			<h3 id="fundamentals-title" class={`text-style-display-1 book-title`}>
+				Fundamentals
+			</h3>
 			<p class={`text-style-headline-4 book-subtitle`}>
 				Learn how to build apps using these frameworks
 			</p>
@@ -56,8 +58,10 @@ const tags: TagList = [
 				using these frameworks.
 			</p>
 			<div class="book-ctas">
-				<BigFilledButton>Request access</BigFilledButton>
-				<BigOutlinedButton>Sign up for updates</BigOutlinedButton>
+				<BigFilledButton href="https://discord.gg/FMcvc6T"
+					>Request access</BigFilledButton
+				>
+				<BigOutlinedButton href="#">Sign up for updates</BigOutlinedButton>
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>
 				To request early access, join our Discord and send a message letting us

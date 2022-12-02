@@ -1,10 +1,11 @@
 ---
 const { class: className, ...props } =
-	Astro.props as astroHTML.JSX.ButtonHTMLAttributes;
+	Astro.props as astroHTML.JSX.LinkHTMLAttributes;
 ---
 
 <style>
 	.small-outlined-button {
+		display: inline-block;
 		padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
 		background: transparent;
 		color: var(--btn-foreground_outlined);
@@ -13,6 +14,9 @@ const { class: className, ...props } =
 		border-color: var(--btn-border);
 		border-style: solid;
 		position: relative;
+		cursor: default;
+		user-select: none;
+		-webkit-user-select: none;
 	}
 
 	.small-outlined-button:hover {
@@ -23,11 +27,12 @@ const { class: className, ...props } =
 		background: var(--btn-state-pressed_outlined);
 	}
 </style>
-<button
+<a
 	{...props}
+	tabindex="0"
 	class={`text-style-button small-outlined-button ${
 		className ? className : ""
 	}`}
 >
 	<slot />
-</button>
+</a>

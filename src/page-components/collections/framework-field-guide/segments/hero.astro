@@ -39,23 +39,36 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>
 					Fundamentals
 				</p>
-				<SmallFilledButton>Request access</SmallFilledButton>
+				<SmallFilledButton
+					href="#fundamentals-title"
+					onclick="event.preventDefault();var title=document.getElementById('fundamentals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					>Request access</SmallFilledButton
+				>
 				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+					Early Access
 				</p>
 				<div class={styles.heroLine}></div>
 			</div>
 			<div class={styles.bookItemContainer}>
 				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 2</p>
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Ecosystem</p>
-				<SmallOutlinedButton>Learn more</SmallOutlinedButton>
+				<SmallOutlinedButton
+					href="#ecosystem-title"
+					onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					>Learn more</SmallOutlinedButton
+				>
 				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-					Early Access
+					Coming soon
 				</p>
 			</div>
 			<div class={styles.bookItemContainer}>
 				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 3</p>
 				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Internals</p>
-				<SmallOutlinedButton>Learn more</SmallOutlinedButton>
+				<SmallOutlinedButton
+					href="#internals-title"
+					onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+					>Learn more</SmallOutlinedButton
+				>
 				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 					Coming 2024
 				</p>
