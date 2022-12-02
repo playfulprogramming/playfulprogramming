@@ -3,38 +3,10 @@ const { class: className, ...props } =
 	Astro.props as astroHTML.JSX.LinkHTMLAttributes;
 ---
 
-<style>
-	.small-outlined-button {
-		display: inline-block;
-		padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
-		background: transparent;
-		color: var(--btn-foreground_outlined);
-		transition: color var(--btn-state-transition-duration)
-				var(--btn-state-transition-easing),
-			background var(--btn-state-transition-duration)
-				var(--btn-state-transition-easing);
-		border-radius: var(--btn-corner-radius);
-		border-width: var(--btn-border-width_small);
-		border-color: var(--btn-border);
-		border-style: solid;
-		position: relative;
-		cursor: default;
-		user-select: none;
-		-webkit-user-select: none;
-	}
-
-	.small-outlined-button:hover {
-		background: var(--btn-state-hovered_outlined);
-	}
-
-	.small-outlined-button:active {
-		background: var(--btn-state-pressed_outlined);
-	}
-</style>
 <a
 	{...props}
 	tabindex="0"
-	class={`text-style-button small-outlined-button ${
+	class={`text-style-button  ffg-button-base ffg-small-button ffg-outlined-button ${
 		className ? className : ""
 	}`}
 >

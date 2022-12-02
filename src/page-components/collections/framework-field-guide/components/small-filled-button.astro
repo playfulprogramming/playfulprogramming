@@ -3,38 +3,12 @@ const { class: className, ...props } =
 	Astro.props as astroHTML.JSX.LinkHTMLAttributes;
 ---
 
-<style>
-	.small-filled-button {
-		display: inline-block;
-		padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
-		background: var(--btn-background_filled);
-		color: var(--btn-foreground_filled);
-		transition: color var(--btn-state-transition-duration)
-				var(--btn-state-transition-easing),
-			background var(--btn-state-transition-duration)
-				var(--btn-state-transition-easing);
-		border-radius: var(--btn-corner-radius);
-		border-width: var(--btn-border-width_small);
-		border-color: transparent;
-		border-style: solid;
-		position: relative;
-		cursor: default;
-		user-select: none;
-		-webkit-user-select: none;
-	}
-
-	.small-filled-button:hover {
-		background: var(--btn-state-hovered_filled);
-	}
-
-	.small-filled-button:active {
-		background: var(--btn-state-pressed_filled);
-	}
-</style>
 <a
 	{...props}
 	tabindex="0"
-	class={`text-style-button small-filled-button ${className ? className : ""}`}
+	class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${
+		className ? className : ""
+	}`}
 >
 	<slot />
 </a>
