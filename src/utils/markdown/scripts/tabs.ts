@@ -1,145 +1,179 @@
 const LOCAL_STORAGE_KEY = "tabs-selection";
 
-export const enableTabs = () => {
-	const tabLists = document.querySelectorAll('[role="tablist"]');
+type TabEntry = Map<
+	string,
+	{
+		tab: HTMLElement;
+		panel: HTMLElement;
+		parent: HTMLElement;
+	}
+>;
 
-	tabLists.forEach((tabList) => {
+export const enableTabs = () => {
+	// Array of all TabName->Element mappings in tab sets
+	const tabEntries: TabEntry[] = [];
+
+	// Handle arrow navigation between tabs in the tab list
+	function handleKeydown(this: HTMLElement, e: KeyboardEvent) {
+		if (e.keyCode === 39 || e.keyCode === 37) {
+			const tabs = this.children;
+			let tabfocus = +(this.dataset.tabfocus || 0);
+			tabs[tabfocus].setAttribute("tabindex", "-1");
+			if (e.keyCode === 39) {
+				// Move right
+				// Increase tab index, wrap by # of tabs
+				tabfocus = (tabfocus + 1) % tabs.length;
+			} else if (e.keyCode === 37) {
+				// Move left
+				tabfocus--;
+				// If we're at the start, move to the end
+				if (tabfocus < 0) {
+					tabfocus = tabs.length - 1;
+				}
+			}
+
+			// Update tabfocus values
+			this.dataset.tabfocus = tabfocus + "";
+			// Focus + click selected tab
+			const tab = tabs[tabfocus] as HTMLElement;
+			tab.setAttribute("tabindex", "0");
+			tab.focus();
+			tab.click();
+		}
+	}
+
+	function handleClick(e: Event) {
+		const tabName = (e.target as HTMLElement).dataset.tabname;
+		changeTabs(tabName);
+	}
+
+	// Iterate through all tabs to populate tabEntries & set listeners
+	document.querySelectorAll('[role="tablist"]').forEach((tabList) => {
+		const entry: TabEntry = new Map();
+		const parent = tabList.parentElement;
+
 		const tabs: NodeListOf<HTMLElement> =
 			tabList.querySelectorAll('[role="tab"]');
 
-		// Add a click event handler to each tab
 		tabs.forEach((tab) => {
-			tab.addEventListener("click", (e) => {
-				const target: HTMLElement = e.target as never;
-				// Scroll onto screen in order to avoid jumping page locations
-				setTimeout(() => {
-					target.scrollIntoView({
-						behavior: "auto",
-						block: "center",
-						inline: "center",
-					});
-				}, 0);
-				changeTabs({ target });
+			const panel = parent.querySelector<HTMLElement>(
+				`#${tab.getAttribute("aria-controls")}`
+			);
+			entry.set(tab.dataset.tabname, {
+				tab,
+				panel,
+				parent,
 			});
+
+			// Add a click event handler to each tab
+			tab.addEventListener("click", handleClick);
 		});
 
 		// Enable arrow navigation between tabs in the tab list
-		let tabFocus = 0;
+		tabList.addEventListener("keydown", handleKeydown);
 
-		tabList.addEventListener("keydown", (e: KeyboardEvent) => {
-			// Move right
-			if (e.keyCode === 39 || e.keyCode === 37) {
-				tabs[tabFocus].setAttribute("tabindex", `-1`);
-				if (e.keyCode === 39) {
-					tabFocus++;
-					// If we're at the end, go to the start
-					if (tabFocus >= tabs.length) {
-						tabFocus = 0;
-					}
-					// Move left
-				} else if (e.keyCode === 37) {
-					tabFocus--;
-					// If we're at the start, move to the end
-					if (tabFocus < 0) {
-						tabFocus = tabs.length - 1;
-					}
-				}
-
-				tabs[tabFocus].setAttribute("tabindex", `0`);
-				tabs[tabFocus].focus();
-				tabs[tabFocus].click();
-			}
-		});
+		tabEntries.push(entry);
 	});
 
-	const currentTab = localStorage.getItem(LOCAL_STORAGE_KEY);
-	if (currentTab) {
-		const el: HTMLElement = document.querySelector(
-			`[data-tabname="${currentTab}"]`
-		);
-		if (el) changeTabs({ target: el });
+	function measureTabs() {
+		for (const tabEntry of tabEntries) {
+			// Get parent element
+			let parent: HTMLElement;
+			for (const [_, tab] of tabEntry) {
+				parent = tab.parent;
+				break;
+			}
+
+			// Clone element and append to parent ("fixed" should avoid dramatic layout changes, but still calculate layout bounds)
+			const parentClone = parent.cloneNode(true) as HTMLElement;
+			parentClone.style.position = "fixed";
+			document.body.appendChild(parentClone);
+
+			// Determine the max & min height values
+			let minHeight = 0;
+			let maxPanel: Element | null = null;
+			parentClone.querySelectorAll('[role="tabpanel"]').forEach((tabPanel) => {
+				tabPanel.removeAttribute("hidden");
+
+				if (!minHeight || tabPanel.clientHeight < minHeight) {
+					minHeight = tabPanel.clientHeight;
+				}
+
+				if (maxPanel && maxPanel.clientHeight > tabPanel.clientHeight) {
+					tabPanel.setAttribute("hidden", "true");
+					return;
+				}
+
+				maxPanel && maxPanel.setAttribute("hidden", "true");
+				maxPanel = tabPanel;
+			});
+
+			// Store the total parent height when maxPanel is visible
+			const maxHeight = parentClone.clientHeight;
+
+			// Remove the cloned node from the window
+			parentClone.remove();
+
+			// this min height should only be applied if the height diff. is < 50vh && the total height is < 100vh
+			if (
+				maxHeight - minHeight < window.innerHeight * 0.5 &&
+				maxHeight < window.innerHeight
+			)
+				parent.style.minHeight = maxHeight + "px";
+		}
 	}
 
-	function changeTabs(e: { target: HTMLElement }) {
-		const target = e.target;
-		const tabName = target.dataset.tabname;
+	setTimeout(measureTabs, 0);
 
+	function changeTabs(tabName: string) {
 		// find all tabs on the page that match the selected tabname
-		document
-			.querySelectorAll(`[role="tab"][data-tabname="${tabName}"]`)
-			.forEach((tab) => {
-				const parent = tab.parentNode;
-				const grandparent = parent.parentNode;
+		for (const tabEntry of tabEntries) {
+			const tab = tabEntry.get(tabName);
+			if (!tab) continue;
 
-				// Set all encountered tabs as selected
-				tab.setAttribute("aria-selected", "true");
+			// Set all encountered tabs as selected
+			tab.tab.setAttribute("aria-selected", "true");
+			// Show the selected panel
+			tab.panel.removeAttribute("hidden");
+
+			// Iterate through sibling tabs
+			for (const [otherKey, otherTab] of tabEntry) {
+				if (otherKey === tabName) continue;
 
 				// Set all sibling tabs as unselected
-				parent
-					.querySelectorAll(`[role="tab"]:not([data-tabname="${tabName}"])`)
-					.forEach((tab) => tab.setAttribute("aria-selected", "false"));
-
-				// Hide all tab panels
-				grandparent
-					.querySelectorAll('[role="tabpanel"]')
-					.forEach((p) => p.setAttribute("hidden", `true`));
-
-				// Show the selected panel
-				grandparent
-					.querySelector(`#${tab.getAttribute("aria-controls")}`)
-					.removeAttribute("hidden");
-			});
+				otherTab.tab.setAttribute("aria-selected", "false");
+				// Hide sibling tab panels
+				otherTab.panel.setAttribute("hidden", `true`);
+			}
+		}
 
 		localStorage.setItem(LOCAL_STORAGE_KEY, tabName);
 	}
 
 	/* -------------------- */
 
-	/**
-	 *
-	 * @param {HTMLElement} el
-	 * @param {(el: HTMLElement) => boolean} check
-	 * @returns {boolean}
-	 */
-	function checkElementsParents(el, check) {
-		if (el.parentElement) {
-			if (!check(el.parentElement)) {
-				return checkElementsParents(el.parentElement, check);
-			} else {
-				return true;
-			}
-		} else {
-			return false;
-		}
+	// If the user has already visited a tab name, enable it on load
+	const currentTab = localStorage.getItem(LOCAL_STORAGE_KEY);
+	if (currentTab) {
+		changeTabs(currentTab);
 	}
 
 	// If user has linked to a heading that's inside of a tab
 	const hash = window.location.hash;
 	if (!hash) return;
-	const heading = document.querySelector<HTMLElement>(hash);
+	const heading = document.getElementById(hash.slice(1));
 	if (!heading) return;
-	const isHidden = checkElementsParents(
-		heading,
-		(el) => el.hasAttribute("hidden") && el.getAttribute("hidden") !== "false"
-	);
-	// If it's not hidden, then we can assume that the browser will auto-scroll to it
-	if (!isHidden) return;
-	const partialHash = hash.slice(1);
-	try {
-		const matchingTab = document.querySelector<HTMLElement>(
-			`[data-headers*="${partialHash}"`
-		);
-		if (!matchingTab) return;
-		// If header is not in a tab
-		const tabName = matchingTab.getAttribute("data-tabname");
-		if (!tabName) return;
-		matchingTab.click();
-		setTimeout(() => {
-			const el = document.querySelector(hash);
-			if (!el) return;
-			el.scrollIntoView(true);
-		}, 0);
-	} catch (e) {
-		console.error("Error finding matching tab", e);
+
+	for (const tabEntry of tabEntries) {
+		for (const [_, tab] of tabEntry) {
+			// If the tab is hidden and the heading is contained within the tab
+			if (tab.panel.hasAttribute("hidden") && tab.panel.contains(heading)) {
+				tab.tab.click();
+				setTimeout(() => {
+					heading.scrollIntoView(true);
+				}, 0);
+				return;
+			}
+		}
 	}
 };
