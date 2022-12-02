@@ -6,6 +6,16 @@ body {
 
 /* Borrowed from FFG's global styling */
 
+:root {
+	--animSpeed: 200ms;
+	--animStyle: ease-in-out;
+	--darkPrimary: #153e67;
+	--cardRadius: 8px;
+	--cardActiveBackground: #ebf6fc;
+	--cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27),
+		inset 0px 1px 0px #ffffff;
+}
+
 .baseBtn {
 	cursor: pointer;
 }
