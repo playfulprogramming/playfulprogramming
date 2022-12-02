@@ -8,7 +8,9 @@
 	gap: var(--section-gap);
 	border-radius: var(--pricing-container-radius);
 	background: var(--pricing-container_default);
-	transition: background var(--color-transition-time) var(--color-transition-ease), color var(--color-transition-time) var(--color-transition-ease);
+	transition: background var(--color-transition-time)
+			var(--color-transition-ease),
+		color var(--color-transition-time) var(--color-transition-ease);
 	text-align: center;
 	position: relative;
 }
@@ -125,33 +127,57 @@
 	order: -1;
 }
 
-
 input[type="checkbox"].enterpriseToggle {
-	--thumbSize: 20px;
-	--checkboxPadding: 6px;
 	appearance: none;
-	width: 56px;
-	height: calc(var(--thumbSize) + (var(--checkboxPadding) * 2));
+	width: var(--pricing-toggle-width);
+	height: var(--pricing-toggle-height);
 	position: relative;
 	border-radius: 50px;
 	box-sizing: content-box;
 	cursor: pointer;
 	transition: background 150ms ease-in-out;
-	background: var(--slate-500);
+	background: var(--pricing-toggle-track-color);
+}
+
+input[type="checkbox"].enterpriseToggle:hover {
+	background: var(--pricing-toggle-track-color_hovered);
+}
+
+input[type="checkbox"].enterpriseToggle:active {
+	background: var(--pricing-toggle-track-color_pressed);
 }
 
 /* Thumb */
 input[type="checkbox"].enterpriseToggle::before {
 	top: 50%;
-	left: var(--checkboxPadding);
+	left: var(--pricing-toggle-gap);
 	transform: translateY(-50%);
-	transition: left 150ms ease-in-out, background-color 150ms ease-in-out;
+	transition: left 150ms ease-in-out, background-color 150ms ease-in-out,
+		height 150ms ease-in-out, width 150ms ease-in-out;
 	content: " ";
-	width: var(--thumbSize);
-	height: var(--thumbSize);
+	width: var(--pricing-toggle-thumb-size);
+	height: var(--pricing-toggle-thumb-size);
 	background: var(--slate-200);
 	position: absolute;
 	border-radius: 50px;
+}
+
+input[type="checkbox"].enterpriseToggle:hover::before {
+	width: var(--pricing-toggle-thumb-size_hovered);
+	height: var(--pricing-toggle-thumb-size_hovered);
+}
+
+input[type="checkbox"].enterpriseToggle:active::before {
+	width: var(--pricing-toggle-thumb-size_pressed);
+	height: var(--pricing-toggle-thumb-size_pressed);
+}
+
+input[type="checkbox"].enterpriseToggle:hover::before {
+	left: var(--pricing-toggle-gap_hovered);
+}
+
+input[type="checkbox"].enterpriseToggle:active::before {
+	left: var(--pricing-toggle-gap_pressed);
 }
 
 input[type="checkbox"].enterpriseToggle:checked {
@@ -159,8 +185,23 @@ input[type="checkbox"].enterpriseToggle:checked {
 }
 
 input[type="checkbox"].enterpriseToggle:checked::before {
-	left: calc(100% - var(--thumbSize) - var(--checkboxPadding));
-	background: var(--slate-200);
+	left: calc(
+		100% - var(--pricing-toggle-thumb-size) - var(--pricing-toggle-gap)
+	);
+}
+
+input[type="checkbox"].enterpriseToggle:checked:hover::before {
+	left: calc(
+		100% - var(--pricing-toggle-thumb-size_hovered) -
+			var(--pricing-toggle-gap_hovered)
+	);
+}
+
+input[type="checkbox"].enterpriseToggle:checked:active::before {
+	left: calc(
+		100% - var(--pricing-toggle-thumb-size_pressed) -
+			var(--pricing-toggle-gap_pressed)
+	);
 }
 
 .pricingEnterpriseExplainer {
