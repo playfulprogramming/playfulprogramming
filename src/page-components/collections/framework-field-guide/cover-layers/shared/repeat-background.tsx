@@ -10,12 +10,14 @@ import {
 interface RepeatBackgroundProps {
 	svg: string;
 	fallbackStyle?: Omit<JSX.HTMLAttributes<HTMLElement>["style"], string>;
+	javascriptEnabledStyle?: Omit<JSX.HTMLAttributes<HTMLElement>["style"], string>;
 	aspectRatio: string;
 }
 
 export const RepeatBackground = ({
 	svg,
 	fallbackStyle = {},
+	javascriptEnabledStyle = {},
 	aspectRatio,
 }: RepeatBackgroundProps) => {
 	const [repeat, setRepeat] = useState(1);
@@ -50,6 +52,7 @@ export const RepeatBackground = ({
 				class="repeat-background-container"
 				style={{
 					"--svgAspectRatio": aspectRatio,
+					...javascriptEnabledStyle,
 				}}
 			>
 				{arraySizeOfRepeat.map((_) => (
