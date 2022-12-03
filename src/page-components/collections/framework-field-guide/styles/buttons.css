@@ -5,6 +5,7 @@
 	user-select: none;
 	-webkit-user-select: none;
 	display: inline-block;
+	border-style: solid;
 	transition: color var(--btn-state-transition-duration)
 			var(--btn-state-transition-easing),
 		background var(--btn-state-transition-duration)
@@ -25,7 +26,6 @@
 	background: transparent;
 	color: var(--btn-foreground_outlined);
 	border-color: var(--btn-border);
-	border-style: solid;
 }
 
 .ffg-outlined-button:hover {
