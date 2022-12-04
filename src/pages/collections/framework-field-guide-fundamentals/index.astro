@@ -89,7 +89,7 @@ const chapterList = posts
 		</div>
 	</div>
 
-	<CollectionTableOfContents collection={{ ...frontmatter, chapterList }} />
+	<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
 
 	<div class="post-body markdownContainer">
 		<div
