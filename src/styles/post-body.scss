@@ -53,6 +53,10 @@
 		visibility: visible;
 	}
 
+	img {
+		max-width: 100%;
+	}
+
 	img[src$=".svg"] {
 		width: 100%;
 		max-height: 50vh;

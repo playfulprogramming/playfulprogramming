@@ -143,7 +143,7 @@ export const rehypeAstroImageMd: Plugin<
 							loading: "lazy",
 							decoding: "async",
 							"data-zoom-src": pngSource.src,
-							style: `max-width: ${pngSource.size}px`,
+							style: `width: ${pngSource.size}px`,
 						}),
 					])
 				);
