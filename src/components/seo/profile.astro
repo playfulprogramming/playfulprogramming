@@ -1,0 +1,10 @@
+---
+import { SEOProps } from "./shared";
+
+type Props = Pick<SEOProps, "unicornsData">;
+const { unicornsData } = Astro.props as Props;
+---
+
+<meta property="profile:firstName" content={unicornsData![0].firstName} />
+<meta property="profile:lastName" content={unicornsData![0].lastName} />
+<meta property="profile:username" content={unicornsData![0].id} />

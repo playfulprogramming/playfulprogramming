@@ -1,0 +1,11 @@
+{
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": ["**/*.astro"],
+			"options": {
+				"parser": "astro"
+			}
+		}
+	]
+}

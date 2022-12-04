@@ -1,43 +1,46 @@
-import * as React from "react";
-
 import styles from "./user-profile-pic.module.scss";
 import { UnicornInfo } from "uu-types";
-import Image from "next/image";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
+// TODO: Fix image loading and image 'onClick'
 interface UserProfilePicProps {
-  authors: Array<{ unicorn: UnicornInfo; onClick: React.MouseEventHandler }>;
-  className: string;
+	authors: Array<Pick<UnicornInfo, "id" | "color" | "name">>;
+	unicornProfilePicMap: ProfilePictureMap;
+	className: string;
 }
-export const UserProfilePic = ({ authors, className }: UserProfilePicProps) => {
-  const hasTwoAuthors = authors.length !== 1;
 
-  const authorsLinks = authors.map(({ unicorn, onClick }, i) => {
-    const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
+export const UserProfilePic = ({
+	authors,
+	className,
+	unicornProfilePicMap,
+}: UserProfilePicProps) => {
+	const hasTwoAuthors = authors.length !== 1;
+	return (
+		<div class={`${styles.container} ${className || ""}`}>
+			{authors.map((unicorn, i) => {
+				const imgAttrs = unicornProfilePicMap.find((u) => u.id === unicorn.id);
+				const classesToApply = hasTwoAuthors ? styles.twoAuthor : "";
 
-    return (
-      <div
-        key={unicorn.id}
-        onClick={onClick}
-        className={`pointer ${styles.profilePicContainer} ${classesToApply}`}
-        style={{
-          borderColor: unicorn.color,
-        }}
-      >
-        <Image
-          data-testid={`author-pic-${i}`}
-          src={unicorn.profileImg.relativeServerPath}
-          alt={unicorn.name}
-          sizes={"85px"}
-          layout={"fill"}
-          className={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
-        />
-      </div>
-    );
-  });
-
-  return (
-    <div className={`${styles.container} ${className || ""}`}>
-      {authorsLinks}
-    </div>
-  );
+				return (
+					<picture
+						// @ts-ignore No, typescript, the onclick attr is perfectly fine and I'm sure that it works.
+						onclick={`location.href='/unicorns/${unicorn.id}';`}
+						class={`pointer ${styles.profilePicContainer} ${classesToApply}`}
+						style={`border-color: ${unicorn.color};`}
+					>
+						{imgAttrs.sources.map((attrs) => (
+							<source {...attrs} />
+						))}
+						<img
+							data-testid={`author-pic-${i}`}
+							{...(imgAttrs.image as any)}
+							alt={unicorn.name}
+							class={`circleImg ${styles.profilePicImage} ${styles.width50} ${classesToApply}`}
+							onclick
+						/>
+					</picture>
+				);
+			})}
+		</div>
+	);
 };

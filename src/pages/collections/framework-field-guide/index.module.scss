@@ -1,0 +1,11 @@
+img.authorPic, .authorPic img {
+    display: inline-block;
+    height: 128px;
+    width: 128px;
+}
+
+img.hikerPic, .hikerPic img {
+    width: 237.5px;
+    aspect-ratio: 2560/5153;
+    max-width: unset !important;
+}

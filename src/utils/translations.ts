@@ -8,13 +8,13 @@ import { languages } from "constants/index";
  * code handles the parsing and converting of translation formats
  */
 export function fileToOpenGraphConverter<T extends Languages>(
-  lang: T
+	lang: T
 ): T extends `${infer Lang}-${infer Region}`
-  ? `${Lang}_${Uppercase<Region>}`
-  : T {
-  const splitLang = lang.split("-");
-  if (splitLang.length === 1) return lang as never;
-  return `${splitLang[0]}_${splitLang[1].toUpperCase()}` as never;
+	? `${Lang}_${Uppercase<Region>}`
+	: T {
+	const splitLang = lang.split("-");
+	if (splitLang.length === 1) return lang as never;
+	return `${splitLang[0]}_${splitLang[1].toUpperCase()}` as never;
 }
 
 /**
@@ -30,12 +30,12 @@ export function fileToOpenGraphConverter<T extends Languages>(
  * @example "es-es/posts/test" -> "posts/test"
  */
 export function removePrefixLanguageFromPath(path: string) {
-  const langs = Object.keys(languages) as Languages[];
-  const matchedLang = langs.find(
-    (lang) => path.startsWith(lang) || path.startsWith("/" + lang)
-  );
-  if (!matchedLang) return path;
-  if (path.startsWith("/")) return "/" + path.slice(matchedLang.length + 2);
-  // +1 since "es/path" needs to axe the trailing "/"
-  return path.slice(matchedLang.length + 1);
+	const langs = Object.keys(languages) as Languages[];
+	const matchedLang = langs.find(
+		(lang) => path.startsWith(lang) || path.startsWith("/" + lang)
+	);
+	if (!matchedLang) return path;
+	if (path.startsWith("/")) return "/" + path.slice(matchedLang.length + 2);
+	// +1 since "es/path" needs to axe the trailing "/"
+	return path.slice(matchedLang.length + 1);
 }

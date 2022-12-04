@@ -1,72 +1,85 @@
-import * as React from "react";
-import { useRouter } from "next/router";
-import ReactPaginate from "react-paginate";
-import { SearchAndFilterContext } from "constants/search-and-filter-context";
-import { PostListContext } from "constants/post-list-context";
+import { usePaginationRange } from "./pagination-logic";
+import { Page } from "astro";
+import { PostInfo } from "types/PostInfo";
 import styles from "./pagination.module.scss";
 
 interface PaginationProps {
-  absolutePath: string;
+	page: Pick<Page<PostInfo>, "total" | "currentPage" | "size">;
+	class?: string;
+	id?: string;
+	rootURL: string;
+	getPageHref?: (pageNum: number) => string;
 }
-export const Pagination = ({ absolutePath }: PaginationProps) => {
-  const { pageCount, pageIndex, setCurrentPageIndex } =
-    React.useContext(PostListContext);
-  const { searchVal, filterVal } = React.useContext(SearchAndFilterContext);
-  const router = useRouter();
 
-  if (!pageCount) return null;
+export const Pagination = ({
+	page,
+	rootURL,
+	class: className = "",
+	id = "post-list-pagination",
+	getPageHref = (pageNum: number) =>
+		pageNum === 0 || pageNum === 1 ? rootURL : `${rootURL}page/${pageNum}`,
+}: PaginationProps) => {
+	const paginationRange = usePaginationRange({
+		currentPage: page.currentPage,
+		totalCount: page.total,
+		siblingCount: 0,
+		pageSize: page.size,
+	});
 
-  const forwardSlashedBase = absolutePath.endsWith("/")
-    ? absolutePath
-    : `${absolutePath}/`;
+	const dontShowAnything = page.currentPage === 1 && paginationRange.length < 2;
 
-  return (
-    <ReactPaginate
-      previousLabel={
-        <>
-          <span aria-hidden={true}>{"<"}</span>
-          <span aria-hidden={false} className={styles.srOnly}>
-            Previous
-          </span>
-        </>
-      }
-      nextLabel={
-        <>
-          <span aria-hidden={false} className={styles.srOnly}>
-            Next
-          </span>
-          <span aria-hidden={true}>{">"}</span>
-        </>
-      }
-      breakLabel="..."
-      breakClassName="break-me"
-      pageCount={pageCount}
-      marginPagesDisplayed={0}
-      forcePage={pageIndex}
-      pageRangeDisplayed={3}
-      hrefBuilder={(pageIndex) => {
-        if (pageIndex === 1) {
-          return `${forwardSlashedBase}`;
-        }
-        return `${forwardSlashedBase}page/${pageIndex}`;
-      }}
-      containerClassName={styles.pagination}
-      activeClassName={styles.active}
-      disabledClassName={styles.showNothing}
-      onPageChange={({ selected }) => {
-        if (filterVal.length || searchVal) {
-          setCurrentPageIndex(selected);
-          return;
-        }
+	const lastPage = paginationRange[paginationRange.length - 1];
+	const firstPage = paginationRange[0];
 
-        // Even though we index at 1 for pages, this component indexes at 0
-        const newPageIndex = selected;
-        if (newPageIndex === 0) {
-          router.push(forwardSlashedBase);
-          return;
-        }
-        router.push(`${forwardSlashedBase}page/${newPageIndex + 1}`);
-      }}
-    />
-  );
+	const disablePrevious =
+		!firstPage || page.currentPage === firstPage.pageNumber;
+	const disableNext = !lastPage || page.currentPage === lastPage.pageNumber;
+
+	return (
+		<>
+			{dontShowAnything ? null : (
+				<div role="navigation" aria-label="Pagination Navigation">
+					<ul
+						id={id}
+						class={`${styles.pagination} ${className}`}
+					>
+						{!disablePrevious && (
+							<li class={`${styles.paginationItem} ${styles.previous}`}>
+								<a href={getPageHref(page.currentPage - 1)} aria-label="Previous">
+									{"<"}
+								</a>
+							</li>
+						)}
+
+						{paginationRange.map((pageItem) => {
+							const isSelected = pageItem.pageNumber === page.currentPage;
+							return (
+								<li
+									class={`${styles.paginationItem} ${
+										isSelected ? styles.active : ""
+									}`}
+								>
+									<a
+										href={getPageHref(pageItem.pageNumber)}
+										aria-label={pageItem.ariaLabel}
+										aria-current={isSelected || undefined}
+									>
+										{pageItem.display}
+									</a>
+								</li>
+							);
+						})}
+
+						{!disableNext && (
+							<li class={`${styles.paginationItem} ${styles.next}`}>
+								<a href={getPageHref(page.currentPage + 1)} aria-label="Next">
+									{">"}
+								</a>
+							</li>
+						)}
+					</ul>
+				</div>
+			)}
+		</>
+	);
 };

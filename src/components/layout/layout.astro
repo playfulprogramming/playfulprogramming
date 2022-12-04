@@ -1,0 +1,62 @@
+---
+import layoutStyles from "./layout.module.scss";
+import DarkLightButton from "components/dark-light-button/dark-light-button.astro";
+import { Icon } from "astro-icon";
+
+// const { back } = useHistory();
+
+const rootPath = `/`;
+
+const isBase = Astro.url.pathname === rootPath;
+const isBlogPost = Astro.url.pathname.startsWith(`${rootPath}posts`);
+const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
+---
+
+<div class={layoutStyles.horizCenter}>
+	<header
+		class={layoutStyles.header}
+		aria-label={"Toolbar for primary action buttons"}
+	>
+		<div class={layoutStyles.headerInsideContainer}>
+			<!-- We cannot put this in a conditional, a bug in Astro preventing us? -->
+			<script>
+				import { backButtonListener } from "./backbtn";
+				backButtonListener();
+			</script>
+			{
+				!isBase ? (
+					<>
+						<button
+							id="backbtn"
+							class={`${layoutStyles.backBtn} baseBtn`}
+							aria-label="Go back"
+						>
+							<Icon height="36" width="36" name="back" />
+						</button>
+					</>
+				) : (
+					<div />
+				)
+			}
+			<div class={layoutStyles.iconList}>
+				<a
+					href="https://discord.gg/FMcvc6T"
+					class="baseBtn"
+					aria-label="Join the Discord"
+				>
+					<Icon height="36" width="36" name="discord" />
+				</a>
+				<DarkLightButton />
+			</div>
+		</div>
+	</header>
+	<div
+		class={isCollection
+			? ""
+			: !isBlogPost
+			? "listViewContent"
+			: "postViewContent"}
+	>
+		<slot />
+	</div>
+</div>

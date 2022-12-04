@@ -3,21 +3,23 @@
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
 export function debounce<T extends Function>(
-  func: T,
-  wait: number,
-  immediate: boolean
+	func: T,
+	wait: number,
+	immediate: boolean
 ): T {
-  let timeout: number | null;
-  return function (this: any) {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout as number);
-    timeout = setTimeout(later, wait) as never as number;
-    if (callNow) func.apply(context, args);
-  } as never;
+	let timeout: number | null;
+	return function (this: any) {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		const context = this;
+		// eslint-disable-next-line prefer-rest-params
+		const args = arguments;
+		const later = function () {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		const callNow = immediate && !timeout;
+		clearTimeout(timeout as number);
+		timeout = setTimeout(later, wait) as never as number;
+		if (callNow) func.apply(context, args);
+	} as never;
 }
