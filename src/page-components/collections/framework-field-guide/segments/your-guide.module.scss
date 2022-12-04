@@ -36,7 +36,8 @@
 	margin: 0;
 }
 
-img.guidePicture, .guidePicture img {
+img.guidePicture,
+.guidePicture img {
 	height: var(--avatar-size_large);
 	width: var(--avatar-size_large);
 	border-radius: var(--corner-radius-circular);
@@ -69,6 +70,20 @@ img.guidePicture, .guidePicture img {
 }
 
 .metricNumber,
+.metricNumberInfinityContainer {
+	position: relative;
+	display: inline-block;
+	height: 1.75rem;
+	@include from($desktop) {
+		height: 2.75rem;
+	}
+}
+
+.metricNumberInfinityContainer {
+	width: 100%;
+}
+
+.metricNumber,
 .metricNumberInfinity {
 	background: var(--gradient-ffg);
 	-webkit-background-clip: text;
@@ -76,24 +91,22 @@ img.guidePicture, .guidePicture img {
 	color: transparent;
 	margin: 0;
 	display: inline-block;
-	height: 1.75rem;
 	overflow: hidden;
-
-	@include from($desktop) {
-		height: 2.75rem;
-	}
 }
 
 .metricNumberInfinity {
+	position: absolute;
+	top: calc(50% + -0.5rem);
+	left: 50%;
+	transform: translate(-50%, -50%);
 	font-family: "Plus Jakarta Sans", sans-serif;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 2.5rem;
-	line-height: 2.25rem;
+	line-height: 1;
 
 	@include from($desktop) {
 		font-size: 4.5rem;
-		line-height: 3rem;
 	}
 }
 
