@@ -1,0 +1,196 @@
+---
+import styles from "./index.module.scss";
+import CollectionHeaderDefault from "../../../page-components/collections/collection-header-default.astro";
+import CollectionTableOfContents from "../../../page-components/collections/collection-table-of-contents.astro";
+import MailingListInline from "../../../components/mailing-list/mailing-list-inline.astro";
+import { Picture } from "@astrojs/image/components";
+import CollectionsMdx from "src/layouts/collections-mdx.astro";
+import { PostInfo } from "types/PostInfo";
+import { unicorns } from "utils/data";
+
+const frontmatter = {
+	title: "The Framework Field Guide",
+	associatedSeries: "Framework Field Guide",
+	description:
+		"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
+	authors: ["crutchcorn"],
+	coverImg: "/custom-content/collections/framework-field-guide/cover.png",
+	socialImg:
+		"/custom-content/collections/framework-field-guide/framework_field_guide_social.png",
+	type: "book",
+	published: "2023-01-01T13:45:00.284Z",
+	buttons: [{ text: "Read now", url: "/posts/preface" }],
+	authorsMeta: [unicorns.find((uni) => uni.id === "crutchcorn")],
+};
+
+const posts = await Astro.glob<PostInfo>(
+	"../../../../content/blog/**/index.md"
+);
+
+const chapterList = posts
+	.map((post) => post.frontmatter)
+	.filter((post) => post.series === "The Framework Field Guide")
+	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
+---
+
+<CollectionsMdx frontmatter={frontmatter}>
+	<CollectionHeaderDefault
+		coverImgPath={import(
+			"../../../../public/custom-content/collections/framework-field-guide/cover.png"
+		)}
+		collection={frontmatter}
+	/>
+
+	<div class="post-body markdownContainer">
+		<div style="display: flex; flex-wrap: nowrap;">
+			<div>
+				<h3
+					id="why-learn-react-angular-and-vue"
+					data-header-text="Why learn React, Angular, and Vue?!"
+					style="position:relative"
+				>
+					Why learn React, Angular, <strong>and</strong> Vue?!
+				</h3><p>By learning React, Angular, and Vue all at once you gain:</p><ul
+				>
+					<li>
+						Deeper understanding of core concepts than you'd have by only
+						learning one framework
+					</li>
+					<li>Insight into different programming methodologies</li>
+					<li>Appreciation for the "why" behind framework tradeoffs</li>
+					<li>A superpower to learn similar UI frameworks much faster</li>
+				</ul><p>
+					Don't want to learn all three? <strong>That's okay.</strong> You can easily
+					select a single framework and use this book to learn it front-to-back.
+				</p>
+			</div>
+
+			<div class="hide-for-mobile hide-on-dark">
+				<Picture
+					src={import("./hiker_with_bag.png")}
+					class={styles.hikerPic}
+					widths={[230]}
+					sizes="230"
+					formats={["avif", "webp", "png"]}
+					alt=""
+				/>
+			</div>
+
+			<div class="hide-for-mobile show-on-dark">
+				<Picture
+					src={import("./hiker_with_bag_dark.png")}
+					class={styles.hikerPic}
+					widths={[230]}
+					sizes="230"
+					formats={["avif", "webp", "png"]}
+					alt=""
+				/>
+			</div>
+		</div>
+	</div>
+
+	<CollectionTableOfContents collection={{ ...frontmatter, chapterList }} />
+
+	<div class="post-body markdownContainer">
+		<div
+			style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap"
+		>
+			<div style="margin: 1rem; width: 128px; flex-shrink: 0;">
+				<Picture
+					class={styles.authorPic}
+					src={import("./crutchcorn.png")}
+					widths={[128]}
+					sizes="128"
+					formats={["avif", "webp", "png"]}
+					alt=""
+				/>
+			</div>
+			<div
+				style="width: 1px; flex-grow: 1; flex-shrink: 1; min-width: 350px; font-weight: bold;"
+			>
+				<p>
+					Hi! I'm <a href="https://crutchcorn.dev">Corbin Crutchley</a>, the
+					author of "The Framework Field Guide" - the outline of which you're
+					looking at!
+					<div></div>
+				</p>
+			</div>
+		</div>
+
+		<p>
+			The Framework Field Guide will be available <strong>for free</strong> online
+			alongside paid physical edition and will teach React, Angular, and Vue all
+			at the same time.
+		</p><blockquote>
+			<p>Are you really going to teach React, Angular, and Vue all at once?!</p>
+		</blockquote><p><strong>Yes!</strong></p><p>
+			Because all three of these frameworks have some fairly solid commonality
+			between them, I'm able to have most of the concepts explained in shared
+			headings and text bodies. For instances where the frameworks diverge,
+			you'll see tabs to see the relevant code samples.
+		</p><p>
+			For example, here's a "Hello world" component in each framework:
+		</p><p>
+			In the book print, these tabs will be turned into sub-headings.
+		</p><h3
+			id="who-is-this-book-for"
+			data-header-text="Who is this book for?"
+			style="position:relative"
+		>
+			Who is this book for?
+		</h3><p>This book is primarily for three sets of people:</p><ol>
+			<li>
+				Newcomers, who are looking to learn these frameworks for the first time.
+			</li>
+			<li>
+				Engineers who've learned one framework and are looking for an easy way
+				to learn one of the others.
+			</li>
+			<li>
+				Those looking to 1-up their knowledge of these frameworks' internals
+			</li>
+		</ol><p>
+			This book will be starting with the very basics of what a component is,
+			all the way into re-creating the core elements of these frameworks from
+			scratch. Don't believe me? <a
+				href="https://twitter.com/crutchcorn/status/1527059744392814592"
+				target="_blank"
+				rel="nofollow noopener noreferrer"
+				><strong
+					>Here's sneak peek of the "React Internals" chapter I wrote via a
+					Twitter thread where I build <code>useState</code> in Vanilla JS.</strong
+				>
+			</a>
+		</p><h3
+			id="when-does-it-release"
+			data-header-text="When does it release?"
+			style="position:relative"
+		>
+			When does it release?
+		</h3><p>
+			This book is still currently in production, and as such won't be available
+			immediately. If you want early access to the book while it's being worked
+			on, feel free to <a
+				href="https://twitter.com/crutchcorn/"
+				target="_blank"
+				rel="nofollow noopener noreferrer">reach out to me on Twitter</a
+			>.
+		</p><p>
+			Otherwise, if you want to be notified when the book releases, you can <a
+				href="https://discord.com/invite/FMcvc6T"
+				target="_blank"
+				rel="nofollow noopener noreferrer">join our Discord</a
+			>
+			or sign up to be notified via email when the book releases.
+		</p>
+
+		<MailingListInline />
+		<blockquote>
+			<p>
+				I promise you won't get spammed with emails if you sign up for
+				notifications. Again, the book is free and we will never share or sell
+				your email with anyone.
+			</p>
+		</blockquote>
+	</div>
+</CollectionsMdx>
