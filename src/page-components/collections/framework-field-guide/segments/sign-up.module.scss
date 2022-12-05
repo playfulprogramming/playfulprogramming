@@ -28,6 +28,8 @@
 	padding-left: var(--outline-gap);
 	background: var(--section-background);
 	margin: 0 auto calc(var(--avatar-size_large) / -2);
+	transition: background var(--animStyle) var(--animSpeed);
+	will-change: transition;
 }
 
 .avatar {
@@ -94,6 +96,8 @@
 	display: flex;
 	gap: var(--outline-gap);
 	padding: 0 var(--outline-gap);
+	transition: background var(--animStyle) var(--animSpeed);
+	will-change: transition;
 }
 
 @include from($desktop) {
