@@ -1,5 +1,7 @@
 ---
 import PricingCard from "../components/pricing-card.astro";
+import SmallFilledButton from "../components/small-filled-button.astro";
+import SmallOutlinedButton from "../components/small-outlined-button.astro";
 import styles from "./pricing.module.scss";
 ---
 
@@ -23,9 +25,6 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 			price={`Free`}
 			enterpriseToggle={true}
 			enterpriseExplainer={`Absolutely nothing changes. Still free.`}
-			ctaButtonType="filled"
-			ctaButtonText={"Request access"}
-			ctaLink={"https://discord.gg/FMcvc6T"}
 			bulletPoints={[
 				"Introduction to Components",
 				"Lifecycle methods",
@@ -44,7 +43,11 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 				"Money-back guarantee",
 				"Bonus: Offline download",
 			]}
-		/>
+		>
+			<SmallFilledButton slot="button" href="https://discord.gg/FMcvc6T"
+				>Request access</SmallFilledButton
+			>
+		</PricingCard>
 		<PricingCard
 			class={styles.ecosystemPricingCard}
 			isSale={false}
@@ -56,9 +59,6 @@ Build out production-ready applications with all of the bells and whistles your 
 			price={`Gratis`}
 			enterpriseToggle={false}
 			enterpriseExplainer={`Shipping not included`}
-			ctaButtonType="outlined"
-			ctaButtonText={"Sign up for updates"}
-			ctaLink={"#"}
 			bulletPoints={[
 				"Build tooling",
 				"Developer tooling",
@@ -75,7 +75,14 @@ Build out production-ready applications with all of the bells and whistles your 
 				"Discord community access",
 				"Office hours and Q&A session",
 			]}
-		/>
+		>
+			<SmallOutlinedButton
+				slot="button"
+				href="#signup-form"
+				onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				>Sign up for updates</SmallOutlinedButton
+			>
+		</PricingCard>
 		<PricingCard
 			class={styles.internalsPricingCard}
 			isSale={false}
@@ -87,9 +94,6 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 			price={`$0`}
 			enterpriseToggle={false}
 			enterpriseExplainer={`Tax not included`}
-			ctaButtonType="outlined"
-			ctaButtonText={"Sign up for updates"}
-			ctaLink={"#"}
 			bulletPoints={[
 				"Performance optimizations",
 				"Virtual DOM",
@@ -106,7 +110,14 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 				"Discord community access",
 				"Office hours and Q&A session",
 			]}
-		/>
+		>
+			<SmallOutlinedButton
+				slot="button"
+				href="#signup-form"
+				onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				>Sign up for updates</SmallOutlinedButton
+			>
+		</PricingCard>
 	</div>
 </div>
 

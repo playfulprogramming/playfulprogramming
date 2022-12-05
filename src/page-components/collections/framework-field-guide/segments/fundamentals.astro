@@ -61,7 +61,11 @@ const tags: TagList = [
 				<BigFilledButton href="https://discord.gg/FMcvc6T"
 					>Request access</BigFilledButton
 				>
-				<BigOutlinedButton href="#">Sign up for updates</BigOutlinedButton>
+				<BigOutlinedButton
+					href="#signup-form"
+					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+					>Sign up for updates</BigOutlinedButton
+				>
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>
 				To request early access, join our Discord and send a message letting us

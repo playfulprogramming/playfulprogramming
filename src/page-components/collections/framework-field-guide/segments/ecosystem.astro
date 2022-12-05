@@ -58,7 +58,11 @@ const tags: TagList = [
 				performant, stable, and easier to maintain.
 			</p>
 			<div class="book-ctas">
-				<BigFilledButton href="#">Sign up for updates</BigFilledButton>
+				<BigFilledButton
+					href="#signup-form"
+					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+					>Sign up for updates</BigFilledButton
+				>
 				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>

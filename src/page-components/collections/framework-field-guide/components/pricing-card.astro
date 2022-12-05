@@ -15,9 +15,6 @@ interface PricingCardProps {
 	price: string;
 	enterpriseToggle: boolean;
 	enterpriseExplainer: string;
-	ctaButtonType: "outlined" | "filled";
-	ctaButtonText: string;
-	ctaLink: string;
 	bulletPoints: string[];
 	starPoints: string[];
 }
@@ -31,15 +28,9 @@ const {
 	price,
 	enterpriseToggle,
 	enterpriseExplainer,
-	ctaButtonText,
-	ctaLink,
-	ctaButtonType,
 	bulletPoints,
 	starPoints,
 } = Astro.props as PricingCardProps;
-
-const CTAButton =
-	ctaButtonType === "outlined" ? SmallOutlinedButton : SmallFilledButton;
 ---
 
 <div
@@ -92,7 +83,7 @@ const CTAButton =
 		)
 	}
 	<div>
-		<CTAButton href={ctaLink}>{ctaButtonText}</CTAButton>
+		<slot name="button" />
 	</div>
 	<div>
 		<hr class={styles.divider} />
