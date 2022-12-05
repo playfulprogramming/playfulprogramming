@@ -1,6 +1,6 @@
 ---
 import { Picture } from "@astrojs/image/components";
-import { defineStyleVars } from "astro/dist/runtime/server";
+import SignupForm from "../components/signup-form.astro";
 import Discord from "../icons/discord.astro";
 import Twitter from "../icons/twitter.astro";
 import styles from "./sign-up.module.scss";
@@ -31,7 +31,7 @@ import styles from "./sign-up.module.scss";
 			Now that you’re familiar with all of the books, make sure to sign up for
 			updates!
 		</p>
-		<div style={{ height: "88px", background: "var(--slate-500)" }}></div>
+		<SignupForm />
 		<p class={`text-style-body-medium ${styles.signUpDisclaimer}`}>
 			All of the emails sent out will be strictly about important updates
 			regarding the progress of the books.
@@ -45,11 +45,19 @@ import styles from "./sign-up.module.scss";
 			</p>
 		</div>
 		<div class={styles.buttonContainer}>
-			<a class={`ffg-button-base ${styles.twitterButton}`}>
-				<Twitter />
+			<a
+				class={`ffg-button-base ${styles.twitterButton}`}
+				href="https://twitter.com/crutchcorn"
+				aria-label="Corbin's Twitter"
+			>
+				<Twitter aria-hidden={true} />
 			</a>
-			<a class={`ffg-button-base ${styles.discordButton}`}>
-				<Discord />
+			<a
+				class={`ffg-button-base ${styles.discordButton}`}
+				href="https://discord.gg/FMcvc6T"
+				aria-label="The Discord for Unicorn Utterances, the community behind The Framework Field Guide"
+			>
+				<Discord aria-hidden={true} />
 			</a>
 		</div>
 	</div>
