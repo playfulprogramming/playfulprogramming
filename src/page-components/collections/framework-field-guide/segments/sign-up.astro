@@ -1,5 +1,6 @@
 ---
 import { Picture } from "@astrojs/image/components";
+import { defineStyleVars } from "astro/dist/runtime/server";
 import styles from "./sign-up.module.scss";
 ---
 
@@ -21,6 +22,26 @@ import styles from "./sign-up.module.scss";
 			widths={[72]}
 			formats={["webp", "avif", "png"]}
 		/>
-		<h1>Test</h1>
+		<h5 class={`text-style-headline-5 ${styles.signUpForUpdates}`}>
+			Sign up for updates
+		</h5>
+		<p class={`text-style-body-medium-bold ${styles.signUpInstructions}`}>
+			Now that you’re familiar with all of the books, make sure to sign up for
+			updates!
+		</p>
+		<div style={{ height: "88px", background: "var(--slate-500)" }}></div>
+		<p class={`text-style-body-medium ${styles.signUpDisclaimer}`}>
+			All of the emails sent out will be strictly about important updates
+			regarding the progress of the books.
+		</p>
+		<div class={styles.getInvolvedContainer}>
+			<h5 class={`text-style-headline-5 ${styles.getInvolvedHeader}`}>
+				Get involved
+			</h5>
+			<p class={`text-style-body-medium-bold ${styles.getInvolvedExplainer}`}>
+				Follow me on Twitter or join our thriving Discord coding community!
+			</p>
+		</div>
+		<div class={styles.buttonContainer}></div>
 	</div>
 </div>
