@@ -72,9 +72,37 @@
 		url("/fonts/Roboto_Mono/RobotoMono-Regular.ttf") format("truetype");
 }
 
-$asap: "Asap", "Archivo", sans-serif;
-$workSans: "Work Sans", "Archivo", sans-serif;
-$archivo: "Archivo", sans-serif;
+// Fallback fonts for minimal CLS
+// see: https://simonhearne.com/2021/layout-shifts-webfonts/#reduce-layout-shift-with-f-mods
+@font-face {
+	font-family: "Work Sans-fallback";
+	size-adjust: 111.87%;
+	ascent-override: 80%;
+	src: local("Arial");
+}
+
+@font-face {
+	font-family: "Work Sans-fallback2";
+	size-adjust: 111.9%;
+	src: local("Roboto");
+}
+
+@font-face {
+	font-family: "Archivo-fallback";
+	size-adjust: 98.5%;
+	ascent-override: 85%;
+	src: local("Arial");
+}
+
+@font-face {
+	font-family: "Archivo-fallback2";
+	size-adjust: 97.5%;
+	src: local("Roboto");
+}
+
+$asap: "Asap", "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
+$workSans: "Work Sans", "Work Sans-fallback", "Work Sans-fallback2", sans-serif;
+$archivo: "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
 $robotoMono: "Roboto Mono", monospace;
 
 %beeg {
