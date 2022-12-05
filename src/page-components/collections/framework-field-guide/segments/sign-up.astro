@@ -1,6 +1,8 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import { defineStyleVars } from "astro/dist/runtime/server";
+import Discord from "../icons/discord.astro";
+import Twitter from "../icons/twitter.astro";
 import styles from "./sign-up.module.scss";
 ---
 
@@ -42,6 +44,13 @@ import styles from "./sign-up.module.scss";
 				Follow me on Twitter or join our thriving Discord coding community!
 			</p>
 		</div>
-		<div class={styles.buttonContainer}></div>
+		<div class={styles.buttonContainer}>
+			<a class={`ffg-button-base ${styles.twitterButton}`}>
+				<Twitter />
+			</a>
+			<a class={`ffg-button-base ${styles.discordButton}`}>
+				<Discord />
+			</a>
+		</div>
 	</div>
 </div>

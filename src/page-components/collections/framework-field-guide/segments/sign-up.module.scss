@@ -89,12 +89,38 @@
     left: 50%;
     transform: translateX(-50%);
     height: var(--social-btn-height);
-    width: calc(100%  - (var(--section-hor-padding) * 2));
-    background: var(--slate-500);
+    width: calc(100% - (var(--section-hor-padding) * 2));
+    background: var(--section-background);
+	display: flex;
+	gap: var(--outline-gap);
+	padding: 0 var(--outline-gap);
 }
 
 @include from($desktop) {
     .buttonContainer {
         width: 50%;
     }
+}
+
+.twitterButton , .discordButton {
+	display: inline-flex !important;
+	border: none !important;
+	justify-content: center;
+	align-items: center;
+	flex-basis: 100%;
+}
+
+.twitterButton > svg, .discordButton > svg {
+	height: var(--social-btn-icon-size);
+	width: var(--social-btn-icon-size);
+}
+
+.twitterButton {
+	background: #1DA1F2;
+	height: 100%;
+}
+
+.discordButton {
+	background: #5865F2;
+	height: 100%;
 }
