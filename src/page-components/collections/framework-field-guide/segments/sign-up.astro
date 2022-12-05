@@ -1,0 +1,26 @@
+---
+import { Picture } from "@astrojs/image/components";
+import styles from "./sign-up.module.scss";
+---
+
+<div class={styles.signUpContainer}>
+	<h4>
+		<span class={`text-style-body-medium ${styles.thankYouForCheckingOut}`}
+			>Thank you for checking out</span
+		>
+		<span class={`text-style-headline-2 ${styles.seriesTitleContainer}`}
+			><span class={styles.seriesTitle}>The Framework Field Guide</span> 📒</span
+		>
+	</h4>
+	<div class={styles.signUpFormContainer}>
+		<Picture
+			class={styles.avatar}
+			alt=""
+			src={import("../../../../../public/content/data/crutchcorn.png")}
+			sizes={"72"}
+			widths={[72]}
+			formats={["webp", "avif", "png"]}
+		/>
+		<h1>Test</h1>
+	</div>
+</div>
