@@ -47,3 +47,15 @@
 			format("woff2"),
 		url("/fonts/Plus_Jakarta_Sans/PlusJakartaSans-ExtraBold.ttf") format("truetype");
 }
+
+@font-face {
+    font-family: "Plus Jakarta Sans-fallback";
+    size-adjust: 102.89999999999995%;
+    src: local("Arial");
+}
+
+@font-face {
+    font-family: "Plus Jakarta Sans-fallback2";
+    size-adjust: 102.9%;
+    src: local("Roboto");
+}
