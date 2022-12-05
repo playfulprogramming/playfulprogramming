@@ -3,11 +3,6 @@
 .tabs {
 	-webkit-tap-highlight-color: transparent;
 
-	@include until(822px) {
-		// Override the js-calculated minHeight when the layout can wrap
-		min-height: 0 !important;
-	}
-
 	&__tab-list {
 		padding: 0;
 		margin: 0 1rem -2px;
@@ -62,5 +57,33 @@
 		border: 2px solid var(--darkPrimary);
 		border-radius: 0.5rem;
 		padding: 1.5rem;
+
+		&[aria-hidden="true"] {
+			display: none;
+		}
+	}
+
+	@include from(823px) {
+		@supports (display: grid) {
+			&.tabs-small {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr);
+				align-items: start;
+
+				.tabs__tab-list {
+					grid-row-start: 1;
+				}
+
+				.tabs__tab-panel {
+					grid-row-start: 2;
+					grid-column-start: 1;
+
+					&[aria-hidden="true"] {
+						display: block;
+						visibility: hidden;
+					}
+				}
+			}
+		}
 	}
 }

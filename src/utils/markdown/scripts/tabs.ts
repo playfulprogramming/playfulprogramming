@@ -75,56 +75,6 @@ export const enableTabs = () => {
 		tabEntries.push(entry);
 	});
 
-	function measureTabs() {
-		for (const tabEntry of tabEntries) {
-			// Get parent element
-			let parent: HTMLElement;
-			for (const [_, tab] of tabEntry) {
-				parent = tab.parent;
-				break;
-			}
-
-			// Clone element and append to parent ("fixed" should avoid dramatic layout changes, but still calculate layout bounds)
-			const parentClone = parent.cloneNode(true) as HTMLElement;
-			parentClone.style.position = "fixed";
-			document.body.appendChild(parentClone);
-
-			// Determine the max & min height values
-			let minHeight = 0;
-			let maxPanel: Element | null = null;
-			parentClone.querySelectorAll('[role="tabpanel"]').forEach((tabPanel) => {
-				tabPanel.removeAttribute("hidden");
-
-				if (!minHeight || tabPanel.clientHeight < minHeight) {
-					minHeight = tabPanel.clientHeight;
-				}
-
-				if (maxPanel && maxPanel.clientHeight > tabPanel.clientHeight) {
-					tabPanel.setAttribute("hidden", "true");
-					return;
-				}
-
-				maxPanel && maxPanel.setAttribute("hidden", "true");
-				maxPanel = tabPanel;
-			});
-
-			// Store the total parent height when maxPanel is visible
-			const maxHeight = parentClone.clientHeight;
-
-			// Remove the cloned node from the window
-			parentClone.remove();
-
-			// this min height should only be applied if the height diff. is < 50vh && the total height is < 100vh
-			if (
-				maxHeight - minHeight < window.innerHeight * 0.5 &&
-				maxHeight < window.innerHeight
-			)
-				parent.style.minHeight = maxHeight + "px";
-		}
-	}
-
-	setTimeout(measureTabs, 0);
-
 	function changeTabs(tabName: string) {
 		// find all tabs on the page that match the selected tabname
 		for (const tabEntry of tabEntries) {
@@ -134,7 +84,7 @@ export const enableTabs = () => {
 			// Set all encountered tabs as selected
 			tab.tab.setAttribute("aria-selected", "true");
 			// Show the selected panel
-			tab.panel.removeAttribute("hidden");
+			tab.panel.removeAttribute("aria-hidden");
 
 			// Iterate through sibling tabs
 			for (const [otherKey, otherTab] of tabEntry) {
@@ -143,7 +93,7 @@ export const enableTabs = () => {
 				// Set all sibling tabs as unselected
 				otherTab.tab.setAttribute("aria-selected", "false");
 				// Hide sibling tab panels
-				otherTab.panel.setAttribute("hidden", `true`);
+				otherTab.panel.setAttribute("aria-hidden", `true`);
 			}
 		}
 
@@ -167,7 +117,10 @@ export const enableTabs = () => {
 	for (const tabEntry of tabEntries) {
 		for (const [_, tab] of tabEntry) {
 			// If the tab is hidden and the heading is contained within the tab
-			if (tab.panel.hasAttribute("hidden") && tab.panel.contains(heading)) {
+			if (
+				tab.panel.hasAttribute("aria-hidden") &&
+				tab.panel.contains(heading)
+			) {
 				tab.tab.click();
 				setTimeout(() => {
 					heading.scrollIntoView(true);
