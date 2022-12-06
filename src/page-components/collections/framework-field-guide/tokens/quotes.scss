@@ -13,9 +13,9 @@
 	--quote-marks-height_contained: 80px;
 	--quote-marks-height_prominent: 80px;
 
-	--quote-spacing: var(--spc-2x);
+	--quote-spacing: var(--spc-3x);
 	--quote-corner-radius: var(--corner-radius-3x);
-	--quote-avatar-size: var(--avatar-size_small);
+	--quote-avatar-size: var(--avatar-size_medium);
 
 	--quote-avatar-size_prominent: var(--avatar-size_large);
 
@@ -42,7 +42,6 @@
 
 		--quote-spacing: var(--spc-4x);
 		--quote-corner-radius: var(--corner-radius-4x);
-		--quote-avatar-size: var(--avatar-size_medium);
 
 		--quote-avatar-size_prominent: var(--avatar-size_huge);
 	}
