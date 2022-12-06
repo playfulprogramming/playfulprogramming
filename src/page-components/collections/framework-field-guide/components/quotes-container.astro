@@ -14,20 +14,22 @@ import SmallFilledButton from "./small-filled-button.astro";
 	</div>
 	<div class={styles.showMoreLessContainer}>
 		<div class={styles.fullHeightSizer}>
-			<SmallFilledButton
+			<button
 				id="show-less-quotes-btn"
 				aria-hidden={true}
-				tabIndex={-1}
+				tabindex={-1}
 				style={{ opacity: 0, zIndex: -1 }}
-				class={styles.showLessButton}>Show less</SmallFilledButton
+				class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showLessButton}`}
+				>Show less</button
 			>
 		</div>
 	</div>
 	<div class={styles.quotesScrim} id="quotes-scrim"></div>
-	<SmallFilledButton
+	<button
 		id="show-more-quotes-btn"
 		style={{ opacity: 1, zIndex: 2 }}
-		class={styles.showMoreButton}>Show more</SmallFilledButton
+		class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showMoreButton}`}
+		>Show more</button
 	>
 </div>
 <script>
