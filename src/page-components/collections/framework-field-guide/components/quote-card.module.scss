@@ -1,7 +1,5 @@
-.quoteLinkContainer {
-	all: unset;
+.quoteCardContainerLi {
 	display: block;
-	cursor: pointer;
 }
 
 .quoteCardContainer {
@@ -66,9 +64,10 @@
 	text-decoration-thickness: 1.5px !important;
 	position: relative;
 	width: fit-content;
+	color: var(--on-dark-emphasis-high);
 }
 
-.personName::after {
+.personName::before {
 	content: " ";
 	position: absolute;
 	right: calc(-4px - 0.5rem);

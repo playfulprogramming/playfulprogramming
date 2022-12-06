@@ -32,6 +32,8 @@ const { avatarSrc, quote, personLink, personTitle, personName } =
 			<a
 				href={personLink}
 				class={`text-style-body-medium-bold ${styles.quotePersonName}`}
+				target="_blank"
+				aria-label={`${personName}, opens a new tab`}
 			>
 				{personName}
 			</a>
