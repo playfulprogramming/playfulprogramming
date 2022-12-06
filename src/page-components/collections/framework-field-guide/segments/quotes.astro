@@ -10,7 +10,14 @@ import styles from "./quotes.module.scss";
 		<h2 class={`text-style-headline-2 ${styles.quoteHeaderTitle}`}>
 			Hear from other adventurers
 		</h2>
-		<ProminentQuote />
+		<ProminentQuote
+			personName={"Lars Gyrup Brink Nielsen"}
+			avatarSrc={import("../people-pictures/lars_gyrup_brink_nielsen.png")}
+			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
+			quote={`
+Whether you want to go from zero to hero in the marvelous world of frontend JavaScript frameworks, or you're a veteran looking to learn another framework while comparing to a framework you know, this epic book series is for you. Me? I'm learning Vue. Corbin has made good choices to ensure that your learning experience is well thought out. These books use modern and simpler frameworks APIs and each concept or technique is introduced step-by-step to avoid overwhelming you.
+			`.trim()}
+		/>
 	</div>
 	<QuotesContainer>
 		<QuoteCard
