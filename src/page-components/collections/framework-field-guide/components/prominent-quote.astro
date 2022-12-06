@@ -1,0 +1,45 @@
+---
+import { Picture } from "@astrojs/image/components";
+import { ImageMetadata } from "@astrojs/image/dist/vite-plugin-astro-image";
+import styles from "./prominent-quote.module.scss";
+
+interface QuoteCardProps {
+	avatarSrc: Promise<{ default: ImageMetadata }>;
+	quote: string;
+	personLink: string;
+	personTitle: string;
+	personName: string;
+}
+
+const { avatarSrc, quote, personLink, personTitle, personName } =
+	Astro.props as QuoteCardProps;
+---
+
+<figure class={styles.quoteContainer}>
+	<blockquote class={`text-style-body-large ${styles.quoteText}`}>
+		{quote}
+	</blockquote>
+	<Picture
+		class={styles.quoteAvatar}
+		alt=""
+		src={avatarSrc}
+		sizes="96"
+		widths={[96]}
+		formats={["avif", "webp", "png"]}
+	/>
+	<figcaption>
+		<div>
+			<a
+				href={personLink}
+				class={`text-style-body-medium-bold ${styles.quotePersonName}`}
+				target="_blank"
+				aria-label={`${personName}, opens a new tab`}
+			>
+				{personName}
+			</a>
+		</div>
+		<p class={`text-style-body-medium ${styles.quotePersonTitle}`}>
+			{personTitle}
+		</p>
+	</figcaption>
+</figure>

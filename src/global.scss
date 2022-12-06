@@ -54,7 +54,8 @@
 }
 
 html.dark,
-body.dark {
+body.dark,
+.darkTheme {
 	--darkPrimary: #e4f4ff;
 	--primary: #127db3;
 	--lightPrimary: #bdd9e9;
@@ -310,7 +311,7 @@ svg.strokeicon {
 	}
 }
 
-svg:not(.strokeicon) {
+svg:not(.strokeicon):not(.nofill) {
 	&,
 	* {
 		transition: fill var(--animStyle) var(--animSpeed);

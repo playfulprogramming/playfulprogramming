@@ -1,0 +1,38 @@
+---
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.SVGAttributes;
+---
+
+<svg
+	width="24"
+	height="24"
+	viewBox="0 0 24 24"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+	{...props}
+	class={`${className || ""} nofill`}
+>
+	<g clip-path="url(#clip0_679_6535)">
+		<path
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d="M14 0H0L1.26229 13.4L7 15L12.7377 13.4L14 0ZM11.0259 12.12L6.95587 13.25L2.88587 12.12L2.6 9.00391H4.6L4.73587 10.59L6.95587 11.19L9.17587 10.59L9.40587 8.01H2.51587L1.95587 2H11.9559L11.7559 3.99H4.15587L4.33 6H11.5759L11.0259 12.12ZM16.5 14.5H14.6429L15.2552 8H23C23.5523 8 24 8.44772 24 9V23C24 23.5523 23.5523 24 23 24H9C8.44772 24 8 23.5523 8 23V16.7974L10.8597 16H12.5V22.5H14.25V16H16.5V14.5ZM16.71 20.86C17.21 21.84 18.22 22.59 19.8 22.59C21.4 22.59 22.6 21.76 22.6 20.23C22.6 18.82 21.79 18.19 20.35 17.57L19.93 17.39C19.2 17.08 18.89 16.87 18.89 16.37C18.89 15.96 19.2 15.64 19.7 15.64C20.18 15.64 20.5 15.85 20.79 16.37L22.1 15.5C21.55 14.54 20.77 14.17 19.7 14.17C18.19 14.17 17.22 15.13 17.22 16.4C17.22 17.78 18.03 18.43 19.25 18.95L19.67 19.13C20.45 19.47 20.91 19.68 20.91 20.26C20.91 20.74 20.46 21.09 19.76 21.09C18.93 21.09 18.45 20.66 18.09 20.06L16.71 20.86Z"
+			fill="url(#paint0_linear_679_6535)"></path>
+	</g>
+	<defs>
+		<linearGradient
+			id="paint0_linear_679_6535"
+			x1="8.3"
+			y1="24"
+			x2="20.1125"
+			y2="24"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop stop-color="#FFAA00"></stop>
+			<stop offset="1" stop-color="#FFD500"></stop>
+		</linearGradient>
+		<clipPath id="clip0_679_6535">
+			<rect width="24" height="24" fill="white"></rect>
+		</clipPath>
+	</defs>
+</svg>
