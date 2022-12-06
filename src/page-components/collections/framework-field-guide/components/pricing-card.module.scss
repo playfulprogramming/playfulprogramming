@@ -222,8 +222,15 @@ input[type="checkbox"].enterpriseToggle:checked:active::before {
 }
 
 .divider {
+	display: none;
 	border: none;
 	border-top: 2px dotted #607090;
+}
+
+@include from($tablet) {
+	.divider {
+		display: block;
+	}
 }
 
 .listItems {

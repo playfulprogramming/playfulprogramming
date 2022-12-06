@@ -85,6 +85,11 @@
 	color: var(--on-dark-emphasis-medium);
 }
 
+.signUpInstructions,
+.getInvolvedExplainer {
+	margin-top: var(--spc-1x);
+}
+
 .buttonContainer {
 	position: absolute;
 	bottom: calc(var(--social-btn-height) / -2);
