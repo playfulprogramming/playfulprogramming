@@ -11,25 +11,34 @@ interface QuoteCardProps {
 	personName: string;
 }
 
-const { avatarSrc, quote, personTitle, personName } =
+const { avatarSrc, quote, personTitle, personName, personLink } =
 	Astro.props as QuoteCardProps;
 ---
 
-<div class={styles.quoteCardContainer}>
-	<p class={`text-style-body-medium ${styles.quoteText}`}>{quote}</p>
-	<div class={styles.personDetailsContainer}>
-		<Picture
-			class={styles.personAvatar}
-			src={avatarSrc}
-			alt=""
-			sizes="40px"
-			widths={[40]}
-		/>
-		<div class={styles.personTextContainer}>
-			<p class={`text-style-body-small-bold ${styles.personName}`}>
-				{personName}
-			</p>
-			<p class={`text-style-body-small ${styles.personTitle}`}>{personTitle}</p>
-		</div>
-	</div>
-</div>
+<a
+	href={personLink}
+	class={styles.quoteLinkContainer}
+	aria-labelledby="Learn more about the quote creator"
+	tabindex="-1"
+>
+	<article class={styles.quoteCardContainer}>
+		<header class={styles.personDetailsContainer}>
+			<Picture
+				class={styles.personAvatar}
+				src={avatarSrc}
+				alt=""
+				sizes="40px"
+				widths={[40]}
+			/>
+			<div class={styles.personTextContainer}>
+				<p class={`text-style-body-small-bold ${styles.personName}`}>
+					{personName}
+				</p>
+				<p class={`text-style-body-small ${styles.personTitle}`}>
+					{personTitle}
+				</p>
+			</div>
+		</header>
+		<p class={`text-style-body-medium ${styles.quoteText}`}>{quote}</p>
+	</article>
+</a>

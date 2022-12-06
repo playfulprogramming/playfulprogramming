@@ -1,3 +1,9 @@
+.quoteLinkContainer {
+	all: unset;
+	display: block;
+	cursor: pointer;
+}
+
 .quoteCardContainer {
 	display: flex;
 	flex-direction: column;
@@ -47,6 +53,7 @@
 	flex-wrap: nowrap;
 	gap: var(--spc-2x);
 	align-items: center;
+	order: 1;
 }
 
 .personTextContainer {
