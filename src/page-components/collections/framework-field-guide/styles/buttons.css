@@ -1,7 +1,6 @@
 .ffg-button-base {
 	border-radius: var(--btn-corner-radius);
 	position: relative;
-	cursor: default;
 	user-select: none;
 	-webkit-user-select: none;
 	display: inline-block;
