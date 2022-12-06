@@ -33,7 +33,7 @@ const {
 } = Astro.props as PricingCardProps;
 ---
 
-<div
+<article
 	class={`${styles.pricingCardContainer} ${
 		isHighlighted ? styles.highlighted : ""
 	} ${className}`}
@@ -114,4 +114,4 @@ const {
 			}
 		</ul>
 	</div>
-</div>
+</article>

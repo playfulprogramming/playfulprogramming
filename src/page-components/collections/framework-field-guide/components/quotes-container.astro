@@ -8,14 +8,16 @@ import SmallFilledButton from "./small-filled-button.astro";
 		id="quotes-hidden-overflow-container"
 		style={{ height: "900px", overflow: "hidden" }}
 	>
-		<div class={styles.quotesContainer}>
+		<ul class={styles.quotesContainer}>
 			<slot />
-		</div>
+		</ul>
 	</div>
 	<div class={styles.showMoreLessContainer}>
 		<div class={styles.fullHeightSizer}>
 			<SmallFilledButton
 				id="show-less-quotes-btn"
+				aria-hidden={true}
+				tabIndex={-1}
 				style={{ opacity: 0, zIndex: -1 }}
 				class={styles.showLessButton}>Show less</SmallFilledButton
 			>
@@ -36,21 +38,31 @@ import SmallFilledButton from "./small-filled-button.astro";
 	const showMoreBtn = document.getElementById("show-more-quotes-btn");
 	const showLessBtn = document.getElementById("show-less-quotes-btn");
 
+	const hideElement = (el: HTMLElement) => {
+		el.style.opacity = "0";
+		el.style.zIndex = "-1";
+		el.ariaHidden = "true";
+		el.tabIndex = -1;
+	};
+
+	const showElement = (el: HTMLElement) => {
+		el.style.opacity = "1";
+		el.style.zIndex = "2";
+		el.ariaHidden = "false";
+		el.tabIndex = 0;
+	};
+
 	showMoreBtn.onclick = () => {
 		quotesContainer.style.height = "unset";
-		showMoreBtn.style.opacity = "0";
-		showLessBtn.style.opacity = "1";
-		showMoreBtn.style.zIndex = "-1";
-		showLessBtn.style.zIndex = "2";
+		hideElement(showMoreBtn);
+		showElement(showLessBtn);
 		quotesScrim.style.display = "none";
 	};
 
 	showLessBtn.onclick = () => {
 		quotesContainer.style.height = "900px";
-		showMoreBtn.style.opacity = "1";
-		showLessBtn.style.opacity = "0";
-		showMoreBtn.style.zIndex = "2";
-		showLessBtn.style.zIndex = "-1";
+		hideElement(showLessBtn);
+		showElement(showMoreBtn);
 		quotesScrim.style.display = "block";
 	};
 </script>
