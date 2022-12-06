@@ -24,7 +24,10 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 ---
 
 <div class="chip-group-container">
-	<ul class="tag-list" aria-label={ariaLabel}>
+	<ul aria-label={ariaLabel} class="srOnly">
+		{tags.map((tag) => <li>{tag}</li>)}
+	</ul>
+	<ul class="tag-list" aria-hidden={true}>
 		{
 			tagTable.map((_, i) => (
 				<InfiniteLoopSlider
@@ -35,9 +38,7 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 						<li class="text-style-body-medium-bold tag">{tag}</li>
 					))}
 					{tagTable[i].map((tag) => (
-						<li aria-hidden={true} class="text-style-body-medium-bold tag">
-							{tag}
-						</li>
+						<li class="text-style-body-medium-bold tag">{tag}</li>
 					))}
 				</InfiniteLoopSlider>
 			))
