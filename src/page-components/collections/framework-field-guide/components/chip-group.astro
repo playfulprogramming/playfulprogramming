@@ -13,9 +13,10 @@ export type TagList = Readonly<FixedArray<string, 30>>;
 
 interface ChipGroupProps {
 	tags: TagList;
+	ariaLabel: string;
 }
 
-const { tags } = Astro.props as ChipGroupProps;
+const { tags, ariaLabel } = Astro.props as ChipGroupProps;
 const SHUFFLED_TAGS = shuffle(tags);
 const tagTable = [...new Array(ROWS)].map((_, i) =>
 	SHUFFLED_TAGS.slice(TAGS_PER_ROW * i, TAGS_PER_ROW * (i + 1))
@@ -23,7 +24,7 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 ---
 
 <div class="chip-group-container">
-	<div class="tag-list">
+	<ul class="tag-list" aria-label={ariaLabel}>
 		{
 			tagTable.map((_, i) => (
 				<InfiniteLoopSlider
@@ -31,12 +32,17 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 					reverse={i % 2}
 				>
 					{tagTable[i].map((tag) => (
-						<div class="text-style-body-medium-bold tag">{tag}</div>
+						<li class="text-style-body-medium-bold tag">{tag}</li>
+					))}
+					{tagTable[i].map((tag) => (
+						<li aria-hidden={true} class="text-style-body-medium-bold tag">
+							{tag}
+						</li>
 					))}
 				</InfiniteLoopSlider>
 			))
 		}
-	</div>
+	</ul>
 	<div class="fade"></div>
 </div>
 <style is:global>
@@ -56,6 +62,8 @@ const tagTable = [...new Array(ROWS)].map((_, i) =>
 		position: relative;
 		padding: 1.5rem 0;
 		overflow: hidden;
+		margin: 0;
+		list-style: none;
 	}
 
 	.tag-list:hover .loop-slider .inner {
