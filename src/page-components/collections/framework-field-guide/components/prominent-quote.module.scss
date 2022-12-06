@@ -3,6 +3,7 @@
 	text-align: center;
 	position: relative;
 	z-index: 1;
+	margin: 0;
 }
 
 .quoteText {
@@ -48,6 +49,7 @@
 
 .quotePersonName {
 	margin: 0;
+	color: var(--on-dark-emphasis-high);
 	text-decoration-line: underline !important;
 	text-decoration-color: var(--quote-arrow-link-color) !important;
 	text-decoration-thickness: 1.5px !important;

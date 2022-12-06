@@ -11,14 +11,14 @@ interface QuoteCardProps {
 	personName: string;
 }
 
-const { avatarSrc, quote, personTitle, personName } =
+const { avatarSrc, quote, personLink, personTitle, personName } =
 	Astro.props as QuoteCardProps;
 ---
 
-<div class={styles.quoteContainer}>
-	<p class={`text-style-body-large ${styles.quoteText}`}>
+<figure class={styles.quoteContainer}>
+	<blockquote class={`text-style-body-large ${styles.quoteText}`}>
 		{quote}
-	</p>
+	</blockquote>
 	<Picture
 		class={styles.quoteAvatar}
 		alt=""
@@ -27,12 +27,17 @@ const { avatarSrc, quote, personTitle, personName } =
 		widths={[96]}
 		formats={["avif", "webp", "png"]}
 	/>
-	<div>
-		<p class={`text-style-body-medium-bold ${styles.quotePersonName}`}>
-			{personName}
+	<figcaption>
+		<div>
+			<a
+				href={personLink}
+				class={`text-style-body-medium-bold ${styles.quotePersonName}`}
+			>
+				{personName}
+			</a>
+		</div>
+		<p class={`text-style-body-medium ${styles.quotePersonTitle}`}>
+			{personTitle}
 		</p>
-	</div>
-	<p class={`text-style-body-medium ${styles.quotePersonTitle}`}>
-		{personTitle}
-	</p>
-</div>
+	</figcaption>
+</figure>
