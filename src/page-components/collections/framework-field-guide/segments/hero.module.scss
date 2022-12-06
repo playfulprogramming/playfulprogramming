@@ -80,8 +80,9 @@ body {
 }
 
 .booksContainer {
-	margin-top: var(--spc-6x);
-	margin-bottom: var(--spc-6x);
+	margin: var(--spc-6x) 0;
+	list-style: none;
+	padding: 0;
 	display: grid;
 
 	grid-template-columns: repeat(2, 1fr);

@@ -33,48 +33,58 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 			>, <span class={styles.frameworkName}>React</span> &
 			<span class={styles.frameworkName}>Vue</span> all at once
 		</p>
-		<div class={styles.booksContainer}>
-			<div class={styles.bookItemContainer}>
-				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 1</p>
-				<p class={`text-style-headline-4 ${styles.bookPartName}`}>
-					Fundamentals
-				</p>
-				<SmallFilledButton
-					href="#fundamentals-title"
-					onclick="event.preventDefault();var title=document.getElementById('fundamentals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-					>Request access</SmallFilledButton
-				>
-				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-					Early Access
-				</p>
+		<ul class={styles.booksContainer}>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Part">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 1</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Fundamentals
+					</p>
+					<SmallFilledButton
+						href="#fundamentals-title"
+						onclick="event.preventDefault();var title=document.getElementById('fundamentals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+						>Request access</SmallFilledButton
+					>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Early Access
+					</p>
+				</article>
 				<div class={styles.heroLine}></div>
-			</div>
-			<div class={styles.bookItemContainer}>
-				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 2</p>
-				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Ecosystem</p>
-				<SmallOutlinedButton
-					href="#ecosystem-title"
-					onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-					>Learn more</SmallOutlinedButton
-				>
-				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-					Coming soon
-				</p>
-			</div>
-			<div class={styles.bookItemContainer}>
-				<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 3</p>
-				<p class={`text-style-headline-4 ${styles.bookPartName}`}>Internals</p>
-				<SmallOutlinedButton
-					href="#internals-title"
-					onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-					>Learn more</SmallOutlinedButton
-				>
-				<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
-					Coming 2024
-				</p>
-				<div class={styles.heroLineBottomHider}></div>
-			</div>
-		</div>
+			</li>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Part">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 2</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Ecosystem
+					</p>
+					<SmallOutlinedButton
+						href="#ecosystem-title"
+						onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+						>Learn more</SmallOutlinedButton
+					>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Coming soon
+					</p>
+				</article>
+			</li>
+			<li class={styles.bookItemContainer}>
+				<article role="group" aria-label="Part">
+					<p class={`text-style-body-large-bold ${styles.bookPart}`}>Part 3</p>
+					<p class={`text-style-headline-4 ${styles.bookPartName}`}>
+						Internals
+					</p>
+					<SmallOutlinedButton
+						href="#internals-title"
+						onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
+						>Learn more</SmallOutlinedButton
+					>
+					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
+						Coming 2024
+					</p>
+					<div class={styles.heroLineBottomHider}></div>
+				</article>
+			</li>
+		</ul>
 		<h2 class={`text-style-headline-2 ${styles.readyToStart}`}>
 			Ready to start your journey?
 		</h2>
