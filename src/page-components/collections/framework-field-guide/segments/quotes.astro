@@ -2,12 +2,16 @@
 import ProminentQuote from "../components/prominent-quote.astro";
 import QuoteCard from "../components/quote-card.astro";
 import QuotesContainer from "../components/quotes-container.astro";
+import SmallFilledButton from "../components/small-filled-button.astro";
 import styles from "./quotes.module.scss";
 ---
 
 <section class={styles.fullQuotesContainer}>
 	<div class={styles.quotesHeaderContainer}>
-		<h2 class={`text-style-headline-2 ${styles.quoteHeaderTitle}`}>
+		<h2
+			class={`text-style-headline-2 ${styles.quoteHeaderTitle}`}
+			id="quotes-heading"
+		>
 			Hear from other adventurers
 		</h2>
 		<ProminentQuote
@@ -20,6 +24,9 @@ Whether you want to go from zero to hero in the marvelous world of frontend Java
 			`.trim()}
 		/>
 	</div>
+	<SmallFilledButton class={styles.hideUntilFocused} href="#adventure-continues"
+		>Skip past quotes list</SmallFilledButton
+	>
 	<QuotesContainer>
 		<QuoteCard
 			personName={`Santosh Yadav`}
@@ -199,4 +206,7 @@ Being a junior developer myself, the things Corbin can do with an IDE might as w
 			`.trim()}
 		/>
 	</QuotesContainer>
+	<SmallFilledButton class={styles.hideUntilFocused} href="#quotes-heading"
+		>Skip before quotes list</SmallFilledButton
+	>
 </section>

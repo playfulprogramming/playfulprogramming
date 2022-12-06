@@ -18,6 +18,7 @@ import styles from "./quotes-container.module.scss";
 				aria-hidden={true}
 				tabindex={-1}
 				style={{ opacity: 0, zIndex: -1 }}
+				aria-expanded={true}
 				class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showLessButton}`}
 				>Show less</button
 			>
@@ -27,6 +28,7 @@ import styles from "./quotes-container.module.scss";
 	<button
 		id="show-more-quotes-btn"
 		style={{ opacity: 1, zIndex: 2 }}
+		aria-expanded={false}
 		class={`text-style-button ffg-button-base ffg-small-button ffg-filled-button ${styles.showMoreButton}`}
 		>Show more</button
 	>
@@ -58,6 +60,7 @@ import styles from "./quotes-container.module.scss";
 		hideElement(showMoreBtn);
 		showElement(showLessBtn);
 		quotesScrim.style.display = "none";
+		showLessBtn.focus();
 	};
 
 	showLessBtn.onclick = () => {
@@ -65,5 +68,6 @@ import styles from "./quotes-container.module.scss";
 		hideElement(showLessBtn);
 		showElement(showMoreBtn);
 		quotesScrim.style.display = "block";
+		showMoreBtn.focus();
 	};
 </script>
