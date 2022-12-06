@@ -13,7 +13,7 @@ import styles from "./pricing.module.scss";
 	<h2 class={`text-style-body-medium ${styles.pricingSubsubtitle}`}>
 		(That means it’ll still be free, as it will always be.)
 	</h2>
-	<div class={styles.pricingCardContainer}>
+	<ul class={styles.pricingCardContainer}>
 		<PricingCard
 			class={styles.fundamentalsPricingCard}
 			isSale={true}
@@ -118,7 +118,7 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 				>Sign up for updates</SmallOutlinedButton
 			>
 		</PricingCard>
-	</div>
+	</ul>
 </section>
 
 <script>

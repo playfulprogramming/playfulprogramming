@@ -1,6 +1,4 @@
 ---
-import SmallOutlinedButton from "./small-outlined-button.astro";
-import SmallFilledButton from "./small-filled-button.astro";
 import ffgArrow from "../icons/ffg-arrow.svg";
 import ffgStar from "../icons/ffg-star.svg";
 import FfgSale from "../icons/ffg-sale.astro";
@@ -33,85 +31,87 @@ const {
 } = Astro.props as PricingCardProps;
 ---
 
-<article
-	class={`${styles.pricingCardContainer} ${
+<li
+	class={`${styles.pricingCardContainerLi}  ${
 		isHighlighted ? styles.highlighted : ""
-	} ${className}`}
+	} ${className} `}
 >
-	{isSale && <FfgSale class={styles.saleTag} aria-hidden="true" />}
-	<div class={styles.topTextContainer}>
+	<article class={styles.pricingCardContainer}>
+		{isSale && <FfgSale class={styles.saleTag} aria-label="Sale" />}
+		<div class={styles.topTextContainer}>
+			<div>
+				<h3 class={`text-style-headline-4 ${styles.pricingTitle}`}>{title}</h3>
+				<p class={`text-style-body-medium ${styles.pricingDescription}`}>
+					{description}
+				</p>
+			</div>
+			<div>
+				<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
+				<p
+					class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
+					data-enterprise-explainer="true"
+				>
+					{enterpriseExplainer}
+				</p>
+			</div>
+		</div>
+		{
+			enterpriseToggle && (
+				<>
+					<div class={styles.enterpriseToggleContainer}>
+						<input
+							aria-label="For enterprise"
+							id="enterprise-toggle"
+							type="checkbox"
+							class={styles.enterpriseToggle}
+						/>
+						<p
+							class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
+							aria-hidden="true"
+						>
+							For individuals
+						</p>
+						<p
+							class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
+							aria-hidden="true"
+						>
+							For Enterprise
+						</p>
+					</div>
+				</>
+			)
+		}
 		<div>
-			<p class={`text-style-headline-4 ${styles.pricingTitle}`}>{title}</p>
-			<p class={`text-style-body-medium ${styles.pricingDescription}`}>
-				{description}
-			</p>
+			<slot name="button" />
 		</div>
 		<div>
-			<p class={`text-style-headline-1 ${styles.pricingPrice}`}>{price}</p>
-			<p
-				class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
-				data-enterprise-explainer="true"
+			<hr class={styles.divider} />
+		</div>
+		<div class={styles.listItems}>
+			<ul class={styles.bulletPoints}>
+				{
+					bulletPoints.map((bulletPoint) => (
+						<li class="text-style-body-small-bold">
+							<img alt="" src={ffgArrow} class={styles.listItemBullet} />
+							{bulletPoint}
+						</li>
+					))
+				}
+			</ul>
+			<ul
+				class={`${styles.starPoints} ${
+					isHighlighted ? "" : styles.removeOnMobile
+				}`}
 			>
-				{enterpriseExplainer}
-			</p>
+				{
+					starPoints.map((starPoint) => (
+						<li class="text-style-body-small-bold">
+							<img alt="" src={ffgStar} class={styles.listItemBullet} />
+							{starPoint}
+						</li>
+					))
+				}
+			</ul>
 		</div>
-	</div>
-	{
-		enterpriseToggle && (
-			<>
-				<div class={styles.enterpriseToggleContainer}>
-					<input
-						aria-label="For enterprise"
-						id="enterprise-toggle"
-						type="checkbox"
-						class={styles.enterpriseToggle}
-					/>
-					<p
-						class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
-						aria-hidden="true"
-					>
-						For individuals
-					</p>
-					<p
-						class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
-						aria-hidden="true"
-					>
-						For Enterprise
-					</p>
-				</div>
-			</>
-		)
-	}
-	<div>
-		<slot name="button" />
-	</div>
-	<div>
-		<hr class={styles.divider} />
-	</div>
-	<div class={styles.listItems}>
-		<ul class={styles.bulletPoints}>
-			{
-				bulletPoints.map((bulletPoint) => (
-					<li class="text-style-body-small-bold">
-						<img alt="" src={ffgArrow} class={styles.listItemBullet} />
-						{bulletPoint}
-					</li>
-				))
-			}
-		</ul>
-		<ul
-			class={`${styles.starPoints} ${
-				isHighlighted ? "" : styles.removeOnMobile
-			}`}
-		>
-			{
-				starPoints.map((starPoint) => (
-					<li class="text-style-body-small-bold">
-						<img alt="" src={ffgStar} class={styles.listItemBullet} />
-						{starPoint}
-					</li>
-				))
-			}
-		</ul>
-	</div>
-</article>
+	</article>
+</li>

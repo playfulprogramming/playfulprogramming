@@ -1,31 +1,35 @@
 @import "../../../../styles/utils";
 @import "../tokens/breakpoints";
 
-.pricingCardContainer {
+.pricingCardContainerLi {
+	display: block;
 	padding: var(--section-ver-padding) var(--section-hor-padding);
-	display: flex;
-	flex-direction: column;
-	gap: var(--section-gap);
 	border-radius: var(--pricing-container-radius);
 	background: var(--pricing-container_default);
 	transition: background var(--color-transition-time)
 			var(--color-transition-ease),
 		color var(--color-transition-time) var(--color-transition-ease);
-	text-align: center;
-	position: relative;
 }
 
-.pricingCardContainer.highlighted {
+.pricingCardContainerLi.highlighted {
 	background: var(--pricing-container_highlighted);
 }
 
 @include from($desktop) {
-	.pricingCardContainer {
+	.pricingCardContainerLi {
 		width: calc(100% / 3 - var(--pricing-container-radius));
 	}
-	.pricingCardContainer.highlighted {
+	.pricingCardContainerLi.highlighted {
 		width: calc(100% / 3);
 	}
+}
+
+.pricingCardContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--section-gap);
+	text-align: center;
+	position: relative;
 }
 
 .topTextContainer {
@@ -260,7 +264,6 @@ input[type="checkbox"].enterpriseToggle:checked:active::before {
 	flex-wrap: nowrap;
 	gap: var(--bullet-list-item-gap);
 }
-
 
 .starPoints > li,
 .bulletPoints > li {
