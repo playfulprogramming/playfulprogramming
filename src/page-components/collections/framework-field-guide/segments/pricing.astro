@@ -7,12 +7,9 @@ import styles from "./pricing.module.scss";
 
 <section class={styles.pricingContainer}>
 	<h2 class={`text-style-headline-2 ${styles.pricingTitle}`}>Pricing</h2>
-	<h2 class={`text-style-body-large ${styles.pricingSubtitle}`}>
-		Sign up today for 50% off of the final price.
-	</h2>
-	<h2 class={`text-style-body-medium ${styles.pricingSubsubtitle}`}>
-		(That means it’ll still be free, as it will always be.)
-	</h2>
+	<p class={`text-style-body-large ${styles.pricingSubtitle}`}>
+		Sign up today for 50% off of the final price: free.
+	</p>
 	<ul class={styles.pricingCardContainer}>
 		<PricingCard
 			class={styles.fundamentalsPricingCard}
@@ -125,6 +122,11 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 	const enterpriseExplainers = Array.from(
 		document.querySelectorAll('[data-enterprise-explainer="true"]')
 	) as HTMLElement[];
+
+	const enterpriseExplainersReadOutLoud = Array.from(
+		document.querySelectorAll('[data-explainer-sr-read="true"]')
+	) as HTMLElement[];
+
 	const toggleEl = document.querySelector(
 		"#enterprise-toggle"
 	) as HTMLInputElement;
@@ -134,6 +136,13 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 				explainer.style.opacity = "1";
 			} else {
 				explainer.style.opacity = "0";
+			}
+		});
+		enterpriseExplainersReadOutLoud.forEach((explainer) => {
+			if (toggleEl.checked) {
+				explainer.style.display = "block";
+			} else {
+				explainer.style.display = "none";
 			}
 		});
 	});

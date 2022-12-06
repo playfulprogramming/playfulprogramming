@@ -50,9 +50,19 @@ const {
 				<p
 					class={`text-style-body-small-bold ${styles.pricingEnterpriseExplainer}`}
 					data-enterprise-explainer="true"
+					aria-hidden={true}
 				>
 					{enterpriseExplainer}
 				</p>
+				<div aria-live="polite">
+					<p
+						data-explainer-sr-read="true"
+						style={{ display: "none" }}
+						class={`srOnly ${styles.explainerText}`}
+					>
+						{enterpriseExplainer}
+					</p>
+				</div>
 			</div>
 		</div>
 		{
@@ -60,16 +70,17 @@ const {
 				<>
 					<div class={styles.enterpriseToggleContainer}>
 						<input
-							aria-label="For enterprise"
+							aria-label="For Enterprise"
 							id="enterprise-toggle"
 							type="checkbox"
+							checked={false}
 							class={styles.enterpriseToggle}
 						/>
 						<p
 							class={`text-style-body-medium-bold ${styles.enterpriseToggleText} ${styles.individualText}`}
 							aria-hidden="true"
 						>
-							For individuals
+							For Individuals
 						</p>
 						<p
 							class={`text-style-body-medium-bold ${styles.enterpriseToggleText}`}
