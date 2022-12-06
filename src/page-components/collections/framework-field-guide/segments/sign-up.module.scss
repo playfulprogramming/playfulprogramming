@@ -5,14 +5,14 @@
 	text-align: center;
 	color: var(--on-dark-emphasis-high);
 	max-width: var(--max-width_small);
-    margin: 0 auto;
+	margin: 0 auto;
 	padding: var(--section-ver-padding) var(--section-hor-padding) 96px;
 }
 
 .signUpFormContainer {
 	position: relative;
 	border-style: solid;
-    padding: 0 var(--section-hor-padding) var(--section-ver-padding);
+	padding: 0 var(--section-hor-padding) var(--section-ver-padding);
 	border-width: var(--border-2x);
 	border-color: var(--outline);
 	border-radius: var(--outline-corner-radius);
@@ -62,37 +62,37 @@
 }
 
 .signUpInstructions {
-    color: var(--on-dark-emphasis-medium);
-    margin: 0 0 var(--section-gap);
+	color: var(--on-dark-emphasis-medium);
+	margin: 0 0 var(--section-gap);
 }
 
 .signUpDisclaimer {
-    margin-top: var(--spc-2x);
-    margin-bottom: var(--section-gap);
-    color: var(--on-dark-emphasis-medium);
+	margin-top: var(--spc-2x);
+	margin-bottom: var(--section-gap);
+	color: var(--on-dark-emphasis-medium);
 }
 
 .getInvolvedContainer {
-    padding: var(--section-gap) 0;
+	padding: var(--section-gap) 0;
 }
 
 .getInvolvedHeader {
-    margin: 0;
+	margin: 0;
 }
 
 .getInvolvedExplainer {
-    margin: 0;
-    color: var(--on-dark-emphasis-medium);
+	margin: 0;
+	color: var(--on-dark-emphasis-medium);
 }
 
 .buttonContainer {
-    position: absolute;
-    bottom: calc(var(--social-btn-height) / -2);
-    left: 50%;
-    transform: translateX(-50%);
-    height: var(--social-btn-height);
-    width: calc(100% - (var(--section-hor-padding) * 2));
-    background: var(--section-background);
+	position: absolute;
+	bottom: calc(var(--social-btn-height) / -2);
+	left: 50%;
+	transform: translateX(-50%);
+	height: var(--social-btn-height);
+	width: calc(100% - (var(--section-hor-padding) * 2));
+	background: var(--section-background);
 	display: flex;
 	gap: var(--outline-gap);
 	padding: 0 var(--outline-gap);
@@ -101,12 +101,13 @@
 }
 
 @include from($desktop) {
-    .buttonContainer {
-        width: 50%;
-    }
+	.buttonContainer {
+		width: 50%;
+	}
 }
 
-.twitterButton , .discordButton {
+.twitterButton,
+.discordButton {
 	display: inline-flex !important;
 	border: none !important;
 	justify-content: center;
@@ -114,17 +115,40 @@
 	flex-basis: 100%;
 }
 
-.twitterButton > svg, .discordButton > svg {
+.twitterButton > svg,
+.discordButton > svg {
 	height: var(--social-btn-icon-size);
 	width: var(--social-btn-icon-size);
 }
 
 .twitterButton {
-	background: #1DA1F2;
+	--twitter-btn-color: #1da1f2;
+	--twitter-btn-color_hovered: #068eef;
+	--twitter-btn-color_pressed: #0079db;
+	background: var(--twitter-btn-color);
 	height: 100%;
 }
 
+.twitterButton:hover {
+	background: var(--twitter-btn-color_hovered);
+}
+
+.twitterButton:active {
+	background: var(--twitter-btn-color_pressed);
+}
+
 .discordButton {
-	background: #5865F2;
+	--discord-btn-color: #5865f2;
+	--discord-btn-color_hovered: #4956df;
+	--discord-btn-color_pressed: #3945c6;
+	background: var(--discord-btn-color);
 	height: 100%;
+}
+
+.discordButton:hover {
+	background: var(--discord-btn-color_hovered);
+}
+
+.discordButton:active {
+	background: var(--discord-btn-color_pressed);
 }
