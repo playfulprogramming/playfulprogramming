@@ -1,10 +1,16 @@
+---
+const { class: className, ...props } =
+	Astro.props as astroHTML.JSX.SVGAttributes;
+---
+
 <svg
-	class="nofill"
 	width="24"
 	height="24"
 	viewBox="0 0 24 24"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
+	{...props}
+	class={`${className || ""} nofill`}
 >
 	<g clip-path="url(#clip0_534_1701)">
 		<path

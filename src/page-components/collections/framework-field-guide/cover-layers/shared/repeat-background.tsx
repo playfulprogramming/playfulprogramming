@@ -57,6 +57,7 @@ export const RepeatBackground = ({
 			>
 				{arraySizeOfRepeat.map((_) => (
 					<div
+						aria-hidden={true}
 						style={{ marginLeft: -1 }}
 						class="repeat-background-svg-container"
 						ref={(el) => {
