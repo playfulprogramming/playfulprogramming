@@ -73,8 +73,18 @@ const tags: TagList = [
 			</p>
 			<div class="section-metrics-main-container" data-no-horiz-pad>
 				<p class="srOnly">This book has:</p>
-				<SectionMetric numberStr="65K" subtitle="words" asterisk={false} />
-				<SectionMetric numberStr="18" subtitle="chapters" asterisk={true} />
+				<SectionMetric
+					ariaLabel="65,000 words"
+					numberStr="65K"
+					subtitle="words"
+					asterisk={false}
+				/>
+				<SectionMetric
+					ariaLabel="18 chapters"
+					numberStr="18"
+					subtitle="chapters"
+					asterisk={true}
+				/>
 			</div>
 			<div class="section-chip-group-container" data-no-max-width>
 				<ChipGroup tags={tags} ariaLabel="Subjects taught in Fundamentals" />

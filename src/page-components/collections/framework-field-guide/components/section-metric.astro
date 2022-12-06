@@ -3,12 +3,14 @@ interface SectionMetricProps {
 	numberStr: string;
 	asterisk: boolean;
 	subtitle: string;
+	ariaLabel: string;
 }
 
-const { numberStr, subtitle, asterisk } = Astro.props as SectionMetricProps;
+const { numberStr, subtitle, asterisk, ariaLabel } =
+	Astro.props as SectionMetricProps;
 ---
 
-<div class="section-metric-container">
+<div class="section-metric-container" aria-label={ariaLabel}>
 	<p class="section-metric-text text-style-display-2">
 		<span class="text-style-main-text">
 			<span class="text-style-main-text-only">{numberStr}</span>
