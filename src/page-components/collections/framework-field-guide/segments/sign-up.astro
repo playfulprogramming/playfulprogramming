@@ -7,14 +7,14 @@ import styles from "./sign-up.module.scss";
 ---
 
 <section class={styles.signUpContainer}>
-	<h4 id="signup-form">
+	<h2 id="signup-form">
 		<span class={`text-style-body-medium ${styles.thankYouForCheckingOut}`}
 			>Thank you for checking out</span
 		>
 		<span class={`text-style-headline-2 ${styles.seriesTitleContainer}`}
 			><span class={styles.seriesTitle}>The Framework Field Guide</span> 📒</span
 		>
-	</h4>
+	</h2>
 	<div class={styles.signUpFormContainer}>
 		<Picture
 			class={styles.avatar}
@@ -24,9 +24,9 @@ import styles from "./sign-up.module.scss";
 			widths={[72]}
 			formats={["webp", "avif", "png"]}
 		/>
-		<h5 class={`text-style-headline-5 ${styles.signUpForUpdates}`}>
+		<h3 class={`text-style-headline-5 ${styles.signUpForUpdates}`}>
 			Sign up for updates
-		</h5>
+		</h3>
 		<p class={`text-style-body-medium-bold ${styles.signUpInstructions}`}>
 			Now that you’re familiar with all of the books, make sure to sign up for
 			updates!
@@ -37,9 +37,9 @@ import styles from "./sign-up.module.scss";
 			regarding the progress of the books.
 		</p>
 		<div class={styles.getInvolvedContainer}>
-			<h5 class={`text-style-headline-5 ${styles.getInvolvedHeader}`}>
+			<h3 class={`text-style-headline-5 ${styles.getInvolvedHeader}`}>
 				Get involved
-			</h5>
+			</h3>
 			<p class={`text-style-body-medium-bold ${styles.getInvolvedExplainer}`}>
 				Follow me on Twitter or join our thriving Discord coding community!
 			</p>
@@ -48,14 +48,14 @@ import styles from "./sign-up.module.scss";
 			<a
 				class={`ffg-button-base ${styles.twitterButton}`}
 				href="https://twitter.com/crutchcorn"
-				aria-label="Corbin's Twitter"
+				aria-label="Twitter"
 			>
 				<Twitter aria-hidden={true} />
 			</a>
 			<a
 				class={`ffg-button-base ${styles.discordButton}`}
 				href="https://discord.gg/FMcvc6T"
-				aria-label="The Discord for Unicorn Utterances, the community behind The Framework Field Guide"
+				aria-label="Discord"
 			>
 				<Discord aria-hidden={true} />
 			</a>
