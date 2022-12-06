@@ -16,8 +16,11 @@ const { avatarSrc, quote, personTitle, personName, personLink } =
 ---
 
 <li class={styles.quoteCardContainerLi}>
-	<article class={styles.quoteCardContainer}>
-		<header class={styles.personDetailsContainer}>
+	<article class={styles.quoteCardContainer} role="group" aria-label="Quote">
+		<blockquote class={`text-style-body-medium ${styles.quoteText}`}>
+			{quote}
+		</blockquote>
+		<div class={styles.personDetailsContainer}>
 			<Picture
 				class={styles.personAvatar}
 				src={avatarSrc}
@@ -38,7 +41,6 @@ const { avatarSrc, quote, personTitle, personName, personLink } =
 					{personTitle}
 				</p>
 			</div>
-		</header>
-		<p class={`text-style-body-medium ${styles.quoteText}`}>{quote}</p>
+		</div>
 	</article>
 </li>
