@@ -58,16 +58,15 @@ const tags: TagList = [
 				using these frameworks.
 			</p>
 			<div class="book-ctas">
-				<BigFilledButton
-					href="#signup-form"
-					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				<BigFilledButton href="/collections/framework-field-guide-fundamentals"
+					>Read Now</BigFilledButton
 				>
-					Notify me at launch
-				</BigFilledButton>
+				<BigOutlinedButton
+					href="#your-guide"
+					onclick="event.preventDefault();var title=document.getElementById('your-guide');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+					>Learn more</BigOutlinedButton
+				>
 			</div>
-			<p class={`text-style-body-large-bold book-coming-soon`}>
-				Releases March 11th, 2024.
-			</p>
 			<div class="section-metrics-main-container" data-no-horiz-pad>
 				<p class="srOnly">This book has:</p>
 				<SectionMetric
