@@ -15,6 +15,7 @@ lang ??= "en";
 ---
 
 <Barebones lang={lang}>
+	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
 	<Layout disableThemeToggle={disableThemeToggle}>
 		<slot />
