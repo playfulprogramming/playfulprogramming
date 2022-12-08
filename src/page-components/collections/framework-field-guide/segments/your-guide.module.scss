@@ -105,6 +105,8 @@ img.guidePicture,
 	font-weight: 500;
 	font-size: 2.5rem;
 	line-height: 1;
+	// This solves a weird issue where the infinity symbol has a weird line off to the right on Safari
+	letter-spacing: 0.1px;
 
 	@include from($desktop) {
 		font-size: 4.5rem;
