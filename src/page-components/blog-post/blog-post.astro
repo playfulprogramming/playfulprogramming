@@ -20,8 +20,8 @@ import "../../styles/tabs.scss";
 import "../../styles/convertkit.scss";
 import "../../styles/iframe-replacement.scss";
 import { Languages } from "types/index";
-import { SeriesToC } from "./series/series-toc";
-import { SeriesNav } from "./series/series-nav";
+import SeriesToC from "./series/series-toc.astro";
+import SeriesNav from "./series/series-nav.astro";
 
 const { Content, post, posts, locale } = Astro.props as {
 	post: PostInfo;
