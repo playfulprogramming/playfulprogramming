@@ -1,0 +1,46 @@
+---
+import styles from "./disqus.module.scss";
+import { siteMetadata } from "constants/site-config";
+
+interface DisqusProps {
+	slug: string;
+	title: string;
+}
+
+const { slug, title } = Astro.props as DisqusProps;
+---
+
+<button class={`baseBtn ${styles.loadCommentsBtn}`} id="load-comments"
+	>Load comments</button
+>
+<div id="disqus_thread"></div>
+<script define:vars={{ slug, siteMetadata, title }}>
+	const loadComments = document.querySelector("#load-comments");
+	
+	// This is called implicitly by Disqus code. We do not need to call it.
+	var disqus_config = function () {
+		this.page.url = `${siteMetadata.siteUrl}/posts/${slug}`;
+		this.page.title = title;
+		this.page.identifier = "/" + slug;
+	};
+
+	const loadDisqus = () => {
+		var d = document,
+			s = d.createElement("script");
+
+		s.src = `https://${siteMetadata.disqusShortname}.disqus.com/embed.js`;
+
+		s.setAttribute("data-timestamp", +new Date());
+		(d.head || d.body).appendChild(s);
+		return s;
+	};
+
+	loadComments.addEventListener("click", () => {
+		loadComments.style.display = "none";
+		let s = { current: loadDisqus() };
+		window.reloadDisqus = () => {
+			s.current.remove();
+			s.current = loadDisqus();
+		};
+	});
+</script>

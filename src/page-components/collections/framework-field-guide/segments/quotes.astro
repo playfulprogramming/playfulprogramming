@@ -1,0 +1,221 @@
+---
+import ProminentQuote from "../components/prominent-quote.astro";
+import QuoteCard from "../components/quote-card.astro";
+import QuotesContainer from "../components/quotes-container.astro";
+import SmallFilledButton from "../components/small-filled-button.astro";
+import styles from "./quotes.module.scss";
+---
+
+<section class={styles.fullQuotesContainer}>
+	<div class={styles.quotesHeaderContainer}>
+		<h2
+			class={`text-style-headline-2 ${styles.quoteHeaderTitle}`}
+			id="quotes-heading"
+		>
+			Hear from other adventurers
+		</h2>
+		<ProminentQuote
+			personName={"Lars Gyrup Brink Nielsen"}
+			personLink="https://github.com/LayZeeDK"
+			avatarSrc={import("../people-pictures/lars_gyrup_brink_nielsen.png")}
+			personTitle="GitHub Star, Microsoft MVP, Angular Hero of Education"
+			quote={`
+Whether you want to go from zero to hero in the marvelous world of frontend JavaScript frameworks or are a veteran looking to learn another framework while comparing it to a framework you know, this epic book series is for you. Me? I'm learning Vue. Corbin has made good choices to ensure that your learning experience is well thought out. These books use modern and simple frameworks APIs, and each concept or technique is introduced step-by-step to avoid overwhelming you.
+			`.trim()}
+		/>
+	</div>
+	<SmallFilledButton class={styles.hideUntilFocused} href="#adventure-continues"
+		>Skip past quotes list</SmallFilledButton
+	>
+	<QuotesContainer>
+		<QuoteCard
+			personName={`Santosh Yadav`}
+			personLink={"https://twitter.com/SantoshYadavDev"}
+			avatarSrc={import("../people-pictures/santosh_yadav.jpg")}
+			personTitle={`Angular GDE, GitHub Star, OSS Advocate, Auth0 Ambassador`}
+			quote={`
+I know Angular, and the book is written in such a beautiful way I loved reading it. I just don't believe it is going to be available for free. It is one of the best technical books I've read recently; it's very well structured to give you ideas about React, Angular, and Vue.
+
+Even if you are not interested in learning other frameworks and want to learn one, this book is still for you, this book is for everyone who wants to understand the concepts, and you can take those concepts to any other JS/TS frameworks which exist. 
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Satyajit Sahoo`}
+			personLink={"https://twitter.com/satya164"}
+			avatarSrc={import("../people-pictures/satyajit_sahoo.jpg")}
+			personTitle={`Maintainer of React Navigation, Creator of Linaria`}
+			quote={`
+I am really impressed with "The Framework Field Guide" by Corbin - not only does it manage to describe various concepts of popular frameworks in a very concise way with code examples and illustrations, but it does so for multiple frameworks at once. For developers like me who are already familiar with React, it's a great way to learn how to translate those concepts to other frameworks. I highly recommend it.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Nic Raboy`}
+			personLink={"https://twitter.com/nraboy"}
+			avatarSrc={import("../people-pictures/nic_raboy.jpg")}
+			personTitle={`Founder of The Polyglot Developer`}
+			quote={`
+Corbin is an incredible teacher who is able to create easy to digest material that is both thorough and fun. If you're looking to become an expert in both JavaScript as well as a JavaScript related framework, this book series should help you accomplish it.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Mark Takata`}
+			personLink={"https://twitter.com/MarkTakata"}
+			avatarSrc={import("../people-pictures/mark_takata.jpg")}
+			personTitle={`Global Adobe Technical Evangelist for ColdFusion, Keynote Speaker`}
+			quote={`
+Most old timey developers will tell you that, under the hood, nearly all programming languages work more or less the same. But Corbin is one of the first to lift that hood, climb in the engine bay & invite the world in for a tour. A book series that truly embodies the three E’s: Entertainment, engagement & education. Recommended for anyone with an interest in this whole ‘JavaScript frameworks’ razzledazzle.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Brad Garropy`}
+			personLink="https://bradgarropy.com/"
+			avatarSrc={import("../people-pictures/brad_garropy.jpg")}
+			personTitle={`Lead Frontend Developer, Open Source Maintainer`}
+			quote={`
+Teaching three frameworks at once is a huge undertaking, but Corbin goes deeper into software than anyone I know. He identifies core concepts and teaches them in a way that's valuable for conceptual understanding, then shows practical implementations across frameworks. This is the most comprehensive guide I've seen!
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Anar Kamalova`}
+			avatarSrc={import("../people-pictures/anar_kamalova.jpg")}
+			personLink="https://www.linkedin.com/in/anarkamalova/"
+			personTitle={`Frontend Engineer`}
+			quote={`
+Corbin's approach to teaching is to take the safest and easiest path to understanding. There are no convoluted, overused phrases that make most people turn away from reading a similar book. It's a great resource for novices and experienced developers alike. I highly recommend it to anyone who wants to dive in and learn at their own pace. Very well structured and written.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`James Quick`}
+			personLink="https://www.youtube.com/jamesqquick"
+			avatarSrc={import("../people-pictures/james_quick.png")}
+			personTitle={`Developer. Speaker. Teacher`}
+			quote={`
+This is one of the most unique and valuable approaches to teaching and learning frontend frameworks that I've ever seen. Being able to compare Angular, React, and Vue alongside each other while learning the core concepts of frameworks is incredible. I think focusing on the concepts while also showing how the different frameworks implement those concepts is an incredible idea!
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Joshua Goldberg`}
+			personLink="https://www.joshuakgoldberg.com"
+			avatarSrc={import("../people-pictures/joshua_goldberg.jpg")}
+			personTitle={`Maintainer of TypeScript ESLint, Author of “Learning TypeScript”`}
+			quote={`
+The Framework Field Guide does a wonderful job of comparing and contrasting three of the most widely used UI frameworks out there. As a proficient user only in React, I found it quite useful for branching into Angular and Vue. I'd recommend this for anybody looking to level up their knowledge of modern UI frameworks!
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Enea Jahollari`}
+			personLink="https://eneajaho.me/"
+			avatarSrc={import("../people-pictures/enea_jahollari.jpg")}
+			personTitle={`Angular Developer`}
+			quote={`
+Reading the Framework Field Guide is like boarding the ship of frontend development and sailing through the peaceful and beautiful seas of it, but also the deep oceans of concepts that will make you think twice when you say, I know React, Vue, and Angular.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Brandon Roberts`}
+			personLink="https://twitter.com/brandontroberts"
+			avatarSrc={import("../people-pictures/brandon_roberts.jpg")}
+			personTitle={`NgRX and AnalogJS Maintainer, Angular GDE, Web Developer`}
+			quote={`
+Learning the similarities and differences between different web frameworks helps you make an informed decision about which works better for your next project. This book does an excellent job of providing clear examples and guidance about how React, Angular, and Vue work, along with how to move on from basic understanding to advanced topics. I can recommend this book to web developers without hesitation.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Sean Whitesell`}
+			personLink="https://twitter.com/codewithseanw"
+			avatarSrc={import("../people-pictures/sean_whitesell.jpg")}
+			personTitle={`Microsoft MVP, Cloud Architect, Author of “Pro Microservices In .NET 6”`}
+			quote={`
+Corbin does an amazing job teaching fundamentals that simplify learning React, Angular, and Vue. The many analogies, pictures, and diagrams are fantastic for conveying detailed information in a way that is easy to consume. You can easily tell that Corbin cares about you, the reader, and really wants you to learn as easily as possible.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`James Fenn`}
+			personLink="https://jfenn.me/"
+			avatarSrc={import("../people-pictures/james_fenn.jpg")}
+			personTitle={`Miscellaneous Software Author, Bug Creator`}
+			quote={`
+This guide offers a brilliant overview of concepts that can apply to almost any web tooling. It forms connections with real-world examples that are invaluable for picking up a new framework. Corbin has put a huge amount of time and effort into making this book series a convenient and extensive overview of frontend programming, and the result is truly the bee's knees.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Qarnax`}
+			personLink="https://www.qarnax.dev/"
+			avatarSrc={import("../../../../../public/content/data/qarnax.jpg")}
+			personTitle={`Frontend Developer`}
+			quote={`
+The amount of improvement I gained within a period of 3 months through interactions with Corbin (both about the book and outside of it) was way more than what I had learned in my two professional years as a frontend developer because, at some point, I was kind of stuck in a cycle of mundane tasks and was questioning why I did frontend in the first place; so, in a way, I have him to thank for helping me find joy in coding again.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Salma Alam-Naylor`}
+			personLink="https://whitep4nth3r.com/"
+			avatarSrc={import("../people-pictures/salma_alam-naylor.png")}
+			personTitle={`DX Engineer, Microsoft MVP, teacher, writer, live coder`}
+			quote={`
+The Framework Field Guide is a quality resource whether you want to take a very deep dive or a light, gentle paddle in the vast open waters of JavaScript frameworks. And whether you're a seasoned developer or just starting out, you'll learn some new things on every page in a friendly and approachable way.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Mathis Hammel`}
+			personLink="https://twitter.com/mathishammel"
+			avatarSrc={import("../people-pictures/mathis_hammel.jpg")}
+			personTitle={`Technical Evangelist`}
+			quote={`
+I've never understood anything about JavaScript. {}+[] is 0, seriously?
+
+That was until I met Corbin. His extensive knowledge, along with his amazing ability to explain even the most advanced concepts to a complete beginner, allowed me to make peace with this language and its frameworks.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Dan Jutan`}
+			personLink="https://twitter.com/jutanium"
+			avatarSrc={import("../people-pictures/dan_jutan.jpg")}
+			personTitle={`Technical Writer & Frontend Developer`}
+			quote={`
+In a world where frontend frameworks are usually taught independently and as competitors, The Framework Field Guide takes advantage of the fact that they’re actually pretty similar. It forefronts the concepts behind the tools, so you can build a deep understanding and feel confident working with any framework. I’ve learned so much from Corbin across all things web dev, and I’m excited for them to be your teacher, too.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`James Perkins`}
+			personLink="https://twitter.com/james_r_perkins"
+			avatarSrc={import("../people-pictures/james_perkins.jpg")}
+			personTitle={`Senior Developer Advocate, Content Creator`}
+			quote={`
+Corbin is great at giving new developers the keys to the kingdom. The pictures, diagrams, and detailed explanations allow anyone thinking about learning Vue, React, or Angular an easy blueprint. Corbin clearly cares about his readers and wants them to come away with new knowledge of industry leading frameworks
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Jahir Fiquitiva`}
+			personLink="https://jahir.dev/"
+			avatarSrc={import("../people-pictures/jahir_fiquitiva.jpg")}
+			personTitle={`Full Stack Engineer, Open Source Maintainer`}
+			quote={`
+Corbin is a really talented expert with deep knowledge in a wide range of tech areas. He's truly capable of providing support and explaining hard concepts in an understandable way.
+
+I'm confident the book contents will help you grow your skillset and use any framework of your choice without effort.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Jacob Walker`}
+			personLink="https://www.linkedin.com/in/jacobjwalker/"
+			avatarSrc={import("../people-pictures/jacob_walker.jpg")}
+			personTitle={`Lead Software Engineer, Renaissance Learning`}
+			quote={`
+New software developers often don't see how programming languages share many commonalities with each other and get hung up on syntax instead of functionality. By showing three frameworks at the same time, Corbin dispels this misconception while also showing the pros and cons of each framework.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`PixelPirate_`}
+			personLink="https://twitter.com/pixlpirate_"
+			avatarSrc={import("../people-pictures/pixelpirate_.png")}
+			personTitle={`Java Scrublord`}
+			quote={`
+Being a junior developer myself, the things Corbin can do with an IDE might as well be wizardry. He's the kind of guy that, when I asked him for help wrangling some code, instead built me a bespoke tool that did the job better than I could have imagined. Not to show off but just for the love of the craft. The kind of guy I wish I could have learned from in college.
+			`.trim()}
+		/>
+	</QuotesContainer>
+	<SmallFilledButton class={styles.hideUntilFocused} href="#quotes-heading"
+		>Skip before quotes list</SmallFilledButton
+	>
+</section>

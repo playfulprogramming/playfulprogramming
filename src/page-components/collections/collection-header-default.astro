@@ -1,0 +1,70 @@
+---
+import { Picture } from "@astrojs/image/components";
+
+interface CollectionHeaderDefaultProps {
+	coverImgPath:
+		| string
+		| Promise<{
+				default: { src: string; height: number; width: number; format: string };
+		  }>;
+	coverImgAspectRatio?: number;
+	collection: {
+		title: string;
+		description: string;
+		buttons: Array<{ url: string; text: string }>;
+	};
+}
+
+let { coverImgPath, coverImgAspectRatio, collection } =
+	Astro.props as CollectionHeaderDefaultProps;
+
+// dynamic import of `coverImgPath`
+if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
+	const coverImgData = await coverImgPath;
+	coverImgPath = coverImgData.default.src;
+	coverImgAspectRatio =
+		coverImgData.default.width / coverImgData.default.height;
+}
+---
+
+<div class="listViewContent">
+	<div class="topHeader">
+		<div class="bigImageContainer themedImage">
+			<Picture
+				alt=""
+				src={coverImgPath}
+				aspectRatio={coverImgAspectRatio}
+				sizes={`600`}
+				widths={[600]}
+				formats={["avif", "webp", "png"]}
+				loading="eager"
+			/>
+		</div>
+		<div class="topDescContainer">
+			<h1 class="title">{collection.title}</h1>
+			<div class="smallImageContainer themedImage">
+				<Picture
+					alt=""
+					src={coverImgPath}
+					aspectRatio={coverImgAspectRatio}
+					sizes={`600`}
+					widths={[600]}
+					formats={["avif", "webp", "png"]}
+					loading="eager"
+				/>
+			</div>
+			<p class="description">{collection.description}</p>
+			<div class="buttonContainer">
+				{
+					collection.buttons?.map((button) => {
+						return (
+							<a href={button.url} class="baseBtn collectionButton">
+								{button.text}
+							</a>
+						);
+					})
+				}
+			</div>
+		</div>
+	</div>
+</div>

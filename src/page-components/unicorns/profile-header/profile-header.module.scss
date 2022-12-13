@@ -25,6 +25,11 @@
 	margin-right: 0;
 	flex-shrink: 0;
 
+	& > picture > img {
+		height: 100%;
+		width: 100%;
+	}
+
 	@include from($endSmallScreenSize) {
 		$desktopImgSize: 192px;
 		max-width: $desktopImgSize;
@@ -68,7 +73,6 @@
 	margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
-	white-space: pre-line;
 
 	@include until($endSmallScreenSize) {
 		margin: 16px 16px 0;
@@ -91,61 +95,5 @@
 		padding: 6px 0;
 		margin: 0;
 		justify-content: flex-start;
-	}
-}
-
-.svgContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.socialBtnLink {
-	&:not(:last-of-type) {
-		margin-right: 32px;
-
-		@include from($endSmallScreenSize) {
-			margin-right: 24px;
-		}
-	}
-
-	.socialText {
-		margin-left: 0.5rem;
-		@extend %subheader-3;
-
-		// Make it so that the next and prev label text is hidden on mobile
-		// but not removed from the aria-reading role
-		@include until($endSmallScreenSize) {
-			width: 1px;
-			height: 1px;
-			overflow: hidden;
-			opacity: 0;
-			display: inline-block;
-		}
-	}
-
-	& > a {
-		display: flex;
-		flex-wrap: nowrap;
-		align-items: center;
-
-		$mobileSvgSize: 32px;
-
-		@include until($endSmallScreenSize) {
-			height: $mobileSvgSize;
-			width: $mobileSvgSize;
-		}
-
-		svg {
-			$desktopSvgSize: 36px;
-			height: $desktopSvgSize;
-			width: $desktopSvgSize;
-			fill: none;
-
-			@include until($endSmallScreenSize) {
-				height: $mobileSvgSize;
-				width: $mobileSvgSize;
-			}
-		}
 	}
 }

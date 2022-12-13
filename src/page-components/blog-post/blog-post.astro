@@ -1,0 +1,129 @@
+---
+import BlogPostLayout from "components/blog-post-layout/blog-post-layout.astro";
+import PostTitleHeader from "src/page-components/blog-post/post-title-header/post-title-header.astro";
+import PostMetadata from "src/page-components/blog-post/post-metadata/post-metadata.astro";
+import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
+import TableOfContents from "components/table-of-contents/table-of-contents.astro";
+import MailingListFull from "components/mailing-list/mailing-list-full.astro";
+import Disqus from "components/disqus/disqus.astro";
+import TranslationsHeader from "./translations-header/translations-header.astro";
+import { Icon } from "astro-icon";
+
+import type { MarkdownInstance } from "astro";
+import { PostInfo } from "types/PostInfo";
+
+import { siteMetadata } from "constants/site-config";
+import "../../page-components/post-list/post-list.scss";
+import "../../styles/post-body.scss";
+import "../../styles/shiki.scss";
+import "../../styles/tabs.scss";
+import "../../styles/convertkit.scss";
+import "../../styles/iframe-replacement.scss";
+import { Languages } from "types/index";
+import SeriesToC from "./series/series-toc.astro";
+import SeriesNav from "./series/series-nav.astro";
+
+const { Content, post, posts, locale } = Astro.props as {
+	post: PostInfo;
+	locale: Languages;
+	Content: MarkdownInstance<any>["Content"];
+	posts: MarkdownInstance<PostInfo>[];
+};
+
+const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
+
+let seriesPosts: PostInfo[] = [];
+if (post.series && post.order) {
+	seriesPosts = posts
+		.filter(
+			(filterPost) =>
+				filterPost.frontmatter.locale === locale &&
+				filterPost.frontmatter.series === post.series
+		)
+		.sort(
+			(postA, postB) =>
+				Number(postA.frontmatter.order) - Number(postB.frontmatter.order)
+		)
+		.map((post) => post.frontmatter);
+}
+---
+
+<script>
+	import mediumZoom from "medium-zoom";
+
+	mediumZoom(".post-body img:not([data-nozoom])");
+</script>
+<script>
+	import { enableTabs } from "../../utils/markdown/scripts/tabs";
+	enableTabs();
+</script>
+<script>
+	import { iFrameClickToRun } from "../../utils/markdown/scripts/iframe-click-to-run";
+	iFrameClickToRun();
+</script>
+<article>
+	<BlogPostLayout>
+		<div slot="left">
+			<TableOfContents headingsWithId={post.headingsWithId} />
+		</div>
+		<div slot="right">
+			<SuggestedArticles
+				suggestedArticles={post.suggestedArticles}
+				lang={locale}
+			/>
+		</div>
+		<header role="banner" class="marginZeroAutoChild">
+			<PostTitleHeader post={post} />
+			<PostMetadata post={post} />
+		</header>
+		<main class="post-body" data-testid={"post-body-div"}>
+			{
+				post.series ? (
+					<SeriesToC
+						post={post}
+						postSeries={seriesPosts}
+						collectionSlug={post.collectionSlug}
+					/>
+				) : null
+			}
+			{
+				post.translations && Object.keys(post.translations).length ? (
+					<TranslationsHeader post={post} />
+				) : null
+			}
+			<Content />
+			{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
+		</main>
+	</BlogPostLayout>
+	<footer role="contentinfo" class="post-lower-area">
+		<div>
+			<a
+				aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+				href={post.licenseMeta.explainLink}
+				style={{ display: "table", margin: "0 auto" }}
+			>
+				<img
+					src={post.licenseMeta.footerImg}
+					alt={post.licenseMeta.licenceType}
+				/>
+			</a>
+		</div>
+		<MailingListFull />
+		<div class="postBottom">
+			<div class="btnLike prependIcon">
+				<Icon height="36" width="36" name="message" />
+				<p>Comments</p>
+			</div>
+			<a
+				class="baseBtn prependIcon"
+				href={GHLink}
+				target="_blank"
+				rel="nofollow noopener noreferrer"
+			>
+				<Icon height="36" width="36" name="github" class="strokeicon" />
+				View this Post on GitHub
+			</a>
+		</div>
+		<Disqus slug={post.slug} title={post.title} />
+	</footer>
+</article>

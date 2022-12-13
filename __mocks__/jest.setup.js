@@ -4,20 +4,19 @@
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
 require("@testing-library/jest-dom/extend-expect");
-require("./modules");
 
 global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
+	constructor() {}
 
-  observe() {
-    return null;
-  }
+	observe() {
+		return null;
+	}
 
-  disconnect() {
-    return null;
-  }
+	disconnect() {
+		return null;
+	}
 
-  unobserve() {
-    return null;
-  }
+	unobserve() {
+		return null;
+	}
 };

@@ -131,7 +131,7 @@ When you and I do math, we need to keep the concepts of the numbers `180` and `5
 
 Let's assume that we have two (2) registers. We can use `$1` as shorthand for "register 1," while `$2` will be shorthand for "register 2".
 
-```nasm
+```
 li      $1,180     # Loads "180" into register 2
 li      $2,5       # Loads "5" into register 2
 ```
@@ -140,7 +140,7 @@ li      $2,5       # Loads "5" into register 2
 
 Now that we have that data loaded into registers, we can now do the `addu` instruction to combine these numbers and store the final value back in register 1
 
-```nasm
+```
 addu    $1,$2,$1   # Add (+) data from registers 1 and 2, store the result back into register 1
 ```
 
@@ -152,7 +152,7 @@ This is where RAM comes into play. To store items into RAM, we can use `sw` inst
 
 > The method in which these values are stored is into [a Stack](/posts/virtual-memory-overview/#stack). For simplicity's sake, we won't review that here, but it's suggested you read the [related article](/posts/virtual-memory-overview/#stack) that covers the topic
 
-```nasm
+```
 # Saving "180" to RAM w/ tag "8"
 
 li      $1,180     # Loads "180" into register 1
@@ -199,7 +199,7 @@ void main() {
 
 Might map to something like this:
 
-```nasm
+```
 li      $1,185
 sw      $1,8($fp)
 ```
@@ -248,7 +248,7 @@ gcc -S code.c
 
 It should output a `code.s` file. This contains the assembly code that's generated from the relevant C code. Here's the `code.s` file generated from the C example targeting MIPS (for familiarity):
 
-```nasm
+```
 main:
 	addiu	$sp,$sp,-40
 	sw	$31,36($sp)

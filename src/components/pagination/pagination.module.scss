@@ -1,19 +1,6 @@
 @import "../../styles/text_styles";
 @import "../../styles/utils";
 
-
-.srOnly {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
-}
-
 .pagination {
 	display: flex;
 	justify-content: center;
@@ -23,7 +10,7 @@
 	list-style: none;
 
 	// We select the `a` so that the focus state looks right
-	li a {
+	.paginationItem a {
 		border-radius: 4px;
 		color: var(--highImpactBlack);
 		@extend %button;
@@ -31,17 +18,17 @@
 		padding: 8px 16px;
 	}
 
-	li:not(:first-of-type) a {
+	.paginationItem:not(:first-of-type) a {
 		margin-left: 0.5rem;
 	}
 
-	li.active a {
+	.paginationItem.active a {
 		background: var(--cardActiveBackground);
 		border-color: transparent;
 		box-shadow: var(--cardActiveBoxShadow);
 	}
 
-	li:not(.active) a {
+	.paginationItem:not(.active) a {
 		border: 1px solid var(--primary);
 	}
 

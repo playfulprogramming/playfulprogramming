@@ -46,8 +46,8 @@
 	border: none;
 	border-bottom: 1px solid var(--darkPrimary);
 	outline: none;
+	width: 100%;
 	min-width: 120px;
-	position: absolute;
 	top: 0;
 	left: 0;
 	@extend %subheader-3;

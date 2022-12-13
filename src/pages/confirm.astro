@@ -1,0 +1,53 @@
+---
+import Document from "../layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import helloUnicorn from "assets/hello_2048.png";
+import { Picture } from "@astrojs/image/components";
+
+const locale = "en";
+---
+
+<Document lang={locale}>
+	<SEO title="Confirm Your Email" slot="head" />
+
+	<main>
+		<Picture
+			class="helloUnicorn"
+			src={helloUnicorn}
+			loading="eager"
+			sizes="450px"
+			widths={[450]}
+			formats={["avif", "webp", "png"]}
+			width="450"
+			height="450"
+			alt="A happy unicorn"
+		/>
+
+		<h1>Just one more thing...</h1>
+
+		<p>
+			Thank you for subscribing. You will need to check your inbox and confirm
+			your subscription.
+		</p>
+	</main>
+</Document>
+
+<style lang="scss">
+	.helloUnicorn {
+		display: block;
+		margin: 0 auto;
+		max-width: 80%;
+		height: auto;
+
+		background-color: var(--primary);
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	main {
+		h1,
+		p {
+			text-align: center;
+		}
+	}
+</style>

@@ -1,0 +1,62 @@
+---
+import Document from "../../layouts/document.astro";
+
+import SEO from "components/seo/seo.astro";
+
+import type { MarkdownInstance } from "astro";
+import { PostInfo } from "types/PostInfo";
+import BlogPost from "src/page-components/blog-post/blog-post.astro";
+import { Languages } from "types/index";
+
+export async function getStaticPaths() {
+	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");
+
+	return posts.reduce((arr, post) => {
+		if (post.frontmatter.locale !== "en") return arr;
+		arr.push({
+			params: {
+				postid: post.frontmatter.slug,
+			},
+			props: {
+				Content: post.Content,
+				post: post.frontmatter,
+				posts,
+			},
+		});
+		return arr;
+	}, []);
+}
+
+const { Content, post, posts } = Astro.props as {
+	post: PostInfo;
+	posts: MarkdownInstance<PostInfo>[];
+	Content: MarkdownInstance<any>["Content"];
+};
+
+const translations = post?.translations || [];
+
+const otherLangs = translations
+	? (Object.keys(translations).filter((t) => t !== post.locale) as Languages[])
+	: [];
+---
+
+<Document>
+	<SEO
+		slot="head"
+		title={post.title}
+		description={post.description || post.excerpt}
+		unicornsData={post.authorsMeta}
+		publishedTime={post.published}
+		editedTime={post.edited}
+		keywords={post.tags}
+		type="article"
+		pathName={`/posts/${post.slug}`}
+		canonical={post.originalLink}
+		langData={{
+			otherLangs,
+			currentLang: post.locale,
+		}}
+		shareImage={`/${post.slug}.twitter-preview.png`}
+	/>
+	<BlogPost locale={"en"} Content={Content} post={post} posts={posts} />
+</Document>

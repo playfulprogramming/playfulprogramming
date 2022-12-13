@@ -1,0 +1,24 @@
+---
+import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
+import Layout from "../components/layout/layout.astro";
+import "../global.scss";
+import { Languages } from "types/index";
+import Barebones from "./barebones.astro";
+
+interface DocumentProps {
+	lang?: Languages;
+	disableThemeToggle?: boolean;
+}
+
+let { lang, disableThemeToggle } = Astro.props as DocumentProps;
+lang ??= "en";
+---
+
+<Barebones lang={lang}>
+	<slot slot="head" name="head" />
+	<BlockingThemeChangerScript />
+	<Layout disableThemeToggle={disableThemeToggle}>
+		<slot />
+	</Layout>
+	<slot name="post-body" />
+</Barebones>

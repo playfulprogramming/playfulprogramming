@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { PreviewPost } from "./get-posts";
+import * as React from 'preact';
+import { PostInfo } from "types/PostInfo";
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -56,11 +56,7 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
     <div className={`absoluteFill codeScreenBg ${blur ? "blur" : ""}`}>
       <div
         className="absoluteFill codeScreen"
-        style={
-          {
-            transform,
-          } as React.CSSProperties
-        }
+        style={`transform: ${transform};`}
       >
         <div className="absoluteFill">
           <pre dangerouslySetInnerHTML={{ __html: html }} />
@@ -71,7 +67,7 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
 };
 
 interface TwitterLargeCardProps {
-  post: PreviewPost;
+  post: PostInfo;
   postHtml: string;
   height: number;
   width: number;
