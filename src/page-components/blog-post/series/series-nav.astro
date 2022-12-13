@@ -1,0 +1,45 @@
+---
+import styles from "./series-nav.module.scss";
+import NavigateNext from "../../../icons/navigate_next.svg?raw";
+import NavigateBefore from "../../../icons/navigate_before.svg?raw";
+import { getShortTitle } from "./base";
+import { PostInfo } from "types/PostInfo";
+
+interface SeriesNavProps {
+	post: PostInfo;
+	postSeries: PostInfo[];
+}
+
+const { post, postSeries } = Astro.props as SeriesNavProps;
+const postIndex = postSeries.findIndex((p) => p.order === post.order);
+
+const prevPost = postSeries[postIndex - 1];
+const nextPost = postSeries[postIndex + 1];
+---
+
+<div class={styles.seriesNav}>
+	{
+		prevPost ? (
+			<a href={`/posts/${prevPost.slug}`} class={`baseBtn prependIcon`}>
+				<span
+					style={{ display: "inline-flex" }}
+					set:html={{ __html: NavigateBefore }}
+				/>
+				Previous Chapter: {getShortTitle(prevPost)}
+			</a>
+		) : null
+	}
+	{
+		nextPost ? (
+			<a href={`/posts/${nextPost.slug}`} class={`baseBtn appendIcon`}>
+				Next Chapter: {getShortTitle(nextPost)}
+				<span
+					style={{ display: "inline-flex" }}
+					set:html={{ __html: NavigateNext }}
+				/>
+			</a>
+		) : (
+			<div />
+		)
+	}
+</div>

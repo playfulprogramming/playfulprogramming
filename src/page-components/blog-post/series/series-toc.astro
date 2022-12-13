@@ -1,0 +1,105 @@
+---
+import styles from "./series-toc.module.scss";
+import { PostInfo } from "types/PostInfo";
+
+import SeriesToCListItem from "./series-toc-list-item.astro";
+import { seperatePostsIntoThirds } from "./base";
+
+interface SeriesTocProps {
+	post: PostInfo;
+	postSeries: PostInfo[];
+	collectionSlug?: string | null;
+}
+
+const { post, postSeries, collectionSlug } = Astro.props as SeriesTocProps;
+
+const seriesText = `Part of our series: ${post.series}`;
+
+const { firstPosts, middlePosts, lastPosts } =
+	seperatePostsIntoThirds(postSeries);
+
+const isActiveInMiddle = middlePosts.some(
+	(middlePost) => middlePost.order === post.order
+);
+---
+
+<div class={styles.seriesTableOfContent}>
+	<div class={styles.seriesHeader}>
+		{
+			collectionSlug ? (
+				<a href={`/collections/${collectionSlug}`}>{seriesText}</a>
+			) : (
+				seriesText
+			)
+		}
+	</div>
+	<ol aria-labelledby="series-header" role="list">
+		{
+			firstPosts.map((seriesPost, i) => {
+				const isActive = post.order === seriesPost.order;
+
+				return (
+					<SeriesToCListItem
+						key={seriesPost.slug}
+						isActive={isActive}
+						post={seriesPost}
+					/>
+				);
+			})
+		}
+		{
+			middlePosts.length !== 0 ? (
+				<>
+					<li role="listitem" class={isActiveInMiddle ? styles.isActive : ""}>
+						<button aria-expanded={false} data-in-middle-toggle="true">
+							{middlePosts.length} more parts
+						</button>
+					</li>
+					{middlePosts.map((seriesPost, i) => {
+						const isActive = post.order === seriesPost.order;
+
+						return (
+							<SeriesToCListItem
+								key={seriesPost.slug}
+								isActive={isActive}
+								post={seriesPost}
+								inMiddle={true}
+							/>
+						);
+					})}
+				</>
+			) : null
+		}
+		{
+			lastPosts.map((seriesPost, i) => {
+				const isActive = post.order === seriesPost.order;
+
+				return (
+					<SeriesToCListItem
+						key={seriesPost.slug}
+						isActive={isActive}
+						post={seriesPost}
+					/>
+				);
+			})
+		}
+	</ol>
+</div>
+
+<script>
+	const showMore: HTMLElement = document.querySelector(
+		"[data-in-middle-toggle]"
+	);
+	const middleChapters: HTMLElement[] = Array.from(
+		document.querySelectorAll("[data-in-middle]")
+	);
+
+	if (showMore) {
+		showMore.addEventListener("click", () => {
+			middleChapters.forEach((chapter) => {
+				chapter.style.display = "block";
+			});
+			showMore.parentElement.style.display = "none";
+		});
+	}
+</script>
