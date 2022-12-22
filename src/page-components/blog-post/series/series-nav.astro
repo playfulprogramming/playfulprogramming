@@ -21,10 +21,7 @@ const nextPost = postSeries[postIndex + 1];
 	{
 		prevPost ? (
 			<a href={`/posts/${prevPost.slug}`} class={`baseBtn prependIcon`}>
-				<span
-					style={{ display: "inline-flex" }}
-					set:html={{ __html: NavigateBefore }}
-				/>
+				<span style={{ display: "inline-flex" }} set:html={NavigateBefore} />
 				Previous Chapter: {getShortTitle(prevPost)}
 			</a>
 		) : null
@@ -33,10 +30,7 @@ const nextPost = postSeries[postIndex + 1];
 		nextPost ? (
 			<a href={`/posts/${nextPost.slug}`} class={`baseBtn appendIcon`}>
 				Next Chapter: {getShortTitle(nextPost)}
-				<span
-					style={{ display: "inline-flex" }}
-					set:html={{ __html: NavigateNext }}
-				/>
+				<span style={{ display: "inline-flex" }} set:html={NavigateNext} />
 			</a>
 		) : (
 			<div />
