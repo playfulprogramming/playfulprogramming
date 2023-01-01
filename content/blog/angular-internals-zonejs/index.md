@@ -891,3 +891,31 @@ It will:
 - `tick` the `ApplicationRef`
 
 > This is why even in our `runOutsideOfAngular` example, pressing the button more than once will show the live data. The event is being bound and, as a result, the component is being re-rendered with `App.tick` once the bound event is triggered.
+
+### Demonstration of Event Patching
+
+As a fun aside; it's worth mentioning that even an empty function will trigger change detection (although it will not cause a re-render, because no data has changed). We can verify this assumption by simply subscribing to `onMicrotaskEmpty` ourselves:
+
+```typescript
+import { Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+    <button (click)="test()">Test</button>
+  `,
+})
+export class AppComponent {
+  constructor(private zone: NgZone) {
+    zone.onMicrotaskEmpty.subscribe({
+      next: () => {
+        console.log('EMPTY MICROTASK, RUN TICK');
+      },
+    });
+  }
+
+  // This is empty, but will still cause a `ApplicationRef.tick` if NgZone is enabled
+  test() {}
+}
+```
+
