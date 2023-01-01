@@ -531,11 +531,35 @@ export class AppComponent {
 }
 ```
 
+# A quick detour into Zone.js land: Zone.js basics
 
+Before we continue diving deeper into Angular's internals, I need to introduce a magical library that was developed by Google for usage within Angular: ZoneJS.
 
+The very basic idea behind Zone.js is that you're able to create a "context" to run your code inside. This "context" can then be used to keep track of what's currently running, run custom error handling code, and more.
 
+Let's look at a minimal example of what Zone.js is capable of:
 
+```typescript
+import "zone.js";
 
+const newZone = Zone.current.fork({
+  name: 'error',
+  onHandleError: function (_, __, ___, error) {
+    console.log(error.message);
+  },
+});
 
+newZone.run(() => {
+  setTimeout(() => {
+    throw new Error('This is an error thrown in a setTimeout');
+  });
+});
+```
 
+Here, `Zone.current` is a global that's defined when you import `zone.js` for the first time.
 
+We then "fork" the current "zone" in order to create our own "execution context", or, "zone".
+
+This zone is defined with an error handler (`onHandleError`) that, in our example, simple logs the error message using a `console.log` rather than displaying a `console.error`, as is default for the browser.
+
+We then `run` a "task" by passing a function to `newZone`. Even though our `Error` is thrown inside of a `setTimeout`, it is caught by our `onHandleError`.
