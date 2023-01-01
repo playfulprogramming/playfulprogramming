@@ -794,3 +794,100 @@ export class AppComponent {
 - This, in turn, [calls `refreshView` on the component](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L354)
 - [`refreshView` is a wrapper around calling the component's `template` function with `RenderFlags.Update`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L368)
 - Which provides the correct flag for the template function, built by the NGC compiler, to update the DOM's contents.
+
+## Zone.js patches more APIs than you might think
+
+> Hang on a moment... If Zone.js is what triggers `ApplicationRef.tick`, why does it seem to run change detection even when there is seemingly no asynchronous API involved?
+
+That's a good point! After all, the following Angular component doesn't use `setTimeout` and yet it still triggers `ApplicationRef.tick` (so long as you have NgZone enabled):
+
+```typescript
+import { ApplicationRef, Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  name = '';
+  changeName() {
+    this.name = 'Angular';
+  }
+}
+```
+
+Why is that?
+
+Well, the answer lies within the word "asynchronous" and its literal definition. See, it doesn't just mean "a timer", it means any kind of operation that's non-blocking. That's not just output; that includes user input.
+
+You might have an inkling that this means that Zone.js patches the `(click)` listener, and you'd be right!
+
+If we think about how an HTML element is created in JavaScript without a framework, it might look something like this:
+
+```typescript
+const el = document.createElement('button');
+el.addEventListener('click', () => console.log("I have been pressed"));
+```
+
+Well, under-the-hood, the NGC compiler does this same thing with our `(click)` template syntax!
+
+Knowing that the component's `template` function utilizes `addEventListener`, let's see how Zone.js patches this API.
+
+The first step to understanding how Zone.js patches `addEventListener`, it's important to know where the browser implements that specific function. You might assume it's a method on [the browser's `HTMLElement` built-in type](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement), but it actually exists on [the browser's built-in `EventTarget` type](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) instead. `HTMLElement` just inherits this function from `EventTarget`.
+
+This is why, [in Zone.js' source code, it patches `EventTarget` directly](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/zone.js/lib/browser/browser.ts#L63-L65):
+
+```typescript
+// Zone.js source code
+// angular/packages/zone.js/lib/browser/browser.ts
+
+Zone.__load_patch('EventTarget', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  patchEvent(global, api);
+  eventTargetPatch(global, api);
+  // ...
+});
+```
+
+If we look into `eventTargetPatch`, [we can even see where it patches `ADD_EVENT_LISTENER` specifically](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/zone.js/lib/common/events.ts#L93-L94):
+
+```typescript
+export function patchEventTarget(
+    _global: any, api: _ZonePrivate, apis: any[], patchOptions?: PatchEventTargetOptions) {
+  const ADD_EVENT_LISTENER = (patchOptions && patchOptions.add) || ADD_EVENT_LISTENER_STR;
+  const REMOVE_EVENT_LISTENER = (patchOptions && patchOptions.rm) || REMOVE_EVENT_LISTENER_STR;
+
+   // ...
+}
+```
+
+This all means that when the user presses the button in the following example:
+
+```typescript
+import { ApplicationRef, Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  name = '';
+  changeName() {
+    this.name = 'Angular';
+  }
+}
+```
+
+It will:
+
+- Run the `click` `changeName` function
+- Run `Zone.js`'s patched `addEventListener` function
+- Trigger the `onMicrotaskEmpty` subscription
+- `tick` the `ApplicationRef`
+
+> This is why even in our `runOutsideOfAngular` example, pressing the button more than once will show the live data. The event is being bound and, as a result, the component is being re-rendered with `App.tick` once the bound event is triggered.
