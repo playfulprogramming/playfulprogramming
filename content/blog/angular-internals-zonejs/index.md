@@ -469,7 +469,67 @@ This `detectChanges` then calls the `refreshView` call that we saw earlier. That
 
 <!-- // TODO: Add image demonstrating the flow of events to this point -->
 
+## How does _Angular_ know to call `detectChanges`?
 
+> Assuming you've done your research and `detectChanges` _really_ is what calls our component to `Update`, what within Angular calls `detectChanges` itself?
+
+Well, Angular has a global instance of your application that's spun up during your application's initialization (either via [`bootstrapModule`](https://angular.io/api/core/PlatformRef#bootstrapModule) or [`bootstrapApplication`](https://angular.io/api/platform-browser/bootstrapApplication)) called [`ApplicationRef`](https://angular.io/api/core/ApplicationRef). This `ApplicationRef` contains methods and metadata Angular needs to keep about your application as a whole in order to operate.
+
+Within this `ApplicationRef` is [a method called `tick`](https://angular.io/api/core/ApplicationRef#tick). This method is, more or less (more on this soon), called after the application has detected the user has made an interaction with the app; when everything has calmed down.
+
+Angular calls this `tick` method because, since the user has interacted with some part of the webpage, the application _might_ need to re-render to show updated information from said interaction.
+
+> What does this have to do with `detectChanges`?
+
+Well, dear reader, [`ApplicationRef.tick` _calls_ `detectChanges`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/application_ref.ts#L1001-L1012):
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/application_ref.ts
+tick(): void {
+  NG_DEV_MODE && this.warnIfDestroyed();
+  if (this._runningTick) {
+    throw new RuntimeError(
+        RuntimeErrorCode.RECURSIVE_APPLICATION_REF_TICK,
+        ngDevMode && 'ApplicationRef.tick is called recursively');
+  }
+
+  try {
+    this._runningTick = true;
+    for (let view of this._views) {
+      view.detectChanges();
+    }
+  // ...
+  }
+}
+```
+
+This means that we're able to replace our previous `detectChanges` with `ApplicationRef.tick` and it will accomplish the same fix we were able to see before:
+
+```typescript
+import { ApplicationRef, Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  constructor(private ngZone: NgZone, private appRef: ApplicationRef) {}
+
+  name = '';
+  changeName() {
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.name = 'Angular';
+        this.appRef.tick();
+      });
+    });
+  }
+}
+```
 
 
 
