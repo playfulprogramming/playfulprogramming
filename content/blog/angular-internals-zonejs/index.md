@@ -704,6 +704,93 @@ export class AppComponent {
 >
 > But wait, we're not explicitly calling `ngZone.run` inside of our `changeName` method, how does it call Zone.js to trigger Angular's `tick`?
 
-Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "polyfill".
+Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "monkey-patch".
 
-# Zone.js Polyfills APIs for Angular
+# Zone.js Patches APIs for Angular
+
+A zone within Zone.js is only able to see code that is executed within its context. Take the following minimal Zone.js example from earlier:
+
+```typescript
+newZone.run(() => {
+  setTimeout(() => {
+    throw new Error('This is an error thrown in a setTimeout');
+  });
+});
+```
+
+Let's pause and think about this code for a moment, from a theoretical level:
+
+`setTimeout` sets a timer internally using the JavaScript engine of the code's execution. This code then has a callback which is called after the timer has passed. How does Zone.js know that it should treat the `throw new Error` as part of its execution context, if the callback is called "externally" by the JavaScript engine?
+
+The answer is... Well, it doesn't by default. If Zone.js is implemented in a trivial manner, it does not handle `setTimeout` or any other asynchronous API properly.
+
+Unfortunately for us, our apps regularly make use of asynchronous operations to function. Luckily, Zone.js is not implemented trivially and does its best to patch all of the async APIs your application might use to redirect the execution of tasks back into its "context".
+
+While the specifics of how this is done is a bit complex, the gist of it is that Zone.js calls a bit of code after the async code finishes to notify Zone.js to pick up the execution from where it left off.
+
+This might look something like this:
+
+```javascript
+// This is not how Zone.js really works,
+// this is a trivial implementation to demonstrate how Zone.js patches async APIs
+const originalSetTimeout = setTimeout;
+
+setTimeout = (callback, delay, ...args) => {
+    const context = this;
+
+    return originalSetTimeout(() => {
+    	callback.apply(context, args);
+        Zone.current.run();
+    }, delay);
+};
+```
+
+Here, we can see that we're overwriting the global `setTimeout` with our custom one, but calling `Zone.current.run();` once the async operation is finished.
+
+This, conceptually, isn't too far from how Zone.js patches global async APIs. For example, [this is the bit of code that tells Zone.js to patch `setTimeout`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/zone.js/lib/browser/browser.ts#L37-L43):
+
+```typescript
+// Zone.js source code
+// angular/packages/zone.js/lib/browser/browser.ts
+Zone.__load_patch('timers', (global: any) => {
+  const set = 'set';
+  const clear = 'clear';
+  patchTimer(global, set, clear, 'Timeout');
+  patchTimer(global, set, clear, 'Interval');
+  patchTimer(global, set, clear, 'Immediate');
+});
+```
+
+Notice how it patches `setTimeout`, `clearTimeout`, `setInterval`, `clearInterval`, `setImmediate`, and `clearImmediate` all at once.
+
+This means that when we run our Angular component with `setTimeout`:
+
+```typescript
+// This does not work with a "noop" NgZone
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  name = '';
+  changeName() {
+    setTimeout(() => {
+      this.name = 'Angular';
+    });
+  }
+}
+```
+
+- The `changeName` function calls `Zone.js`'s patched `setTimeout`
+  - This patched `setTimeout` adds a task to the forked NgZone's queue
+-  [Once the queue is empty, it will trigger `onMicrotaskEmpty`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/zone/ng_zone.ts#LL341C12-L341C28)
+- This then triggers [the `.tick` function in `ApplicationRef`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/application_ref.ts#L766-L772)
+- Which then calls [`detectChanges`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/view_ref.ts#L273-L275)
+- This, in turn, [calls `refreshView` on the component](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L354)
+- [`refreshView` is a wrapper around calling the component's `template` function with `RenderFlags.Update`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L368)
+- Which provides the correct flag for the template function, built by the NGC compiler, to update the DOM's contents.
