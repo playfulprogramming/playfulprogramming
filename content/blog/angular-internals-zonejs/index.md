@@ -919,3 +919,8 @@ export class AppComponent {
 }
 ```
 
+# Conclusion
+
+Hopefully, this has been a helpful insight into how Angular's change detection works under-the-hood, both with and without Zone.js. With this knowledge, you should be able to optimize your applications by discovering the patterns where your code may be causing too many re-renders at once.
+
+If you found this article useful, you should check out [my upcoming book series, The Framework Field Guide](https://framework.guide), where I teach React, Angular, and Vue from the basics all the way to super advanced deep-dives such as this. (psst, all three books are free!) 
