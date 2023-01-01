@@ -611,12 +611,99 @@ _This_, my dear reader, is what triggers Angular's `detectChanges` seemingly inv
 
 # Disabling Zone.js from Angular
 
+To disable Zone.js from our Angular application, we simply need to pass `{ngZone: 'noop'}` to our application's bootstrapping:
 
+```typescript
+// main.ts
+platformBrowserDynamic()
+   .bootstrapModule(
+       AppModule, { ngZone: 'noop' })
+   .catch(err => console.log(err));
+```
 
+Now, with Zone.js disabled, we can see that no matter how many times we press our button in the following example, the change detection is never ran:
 
+```typescript
+// This does not work with a "noop" NgZone
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  name = '';
+  changeName() {
+    setTimeout(() => {
+      this.name = 'Angular';
+    });
+  }
+}
+```
+
+We can either fix this by manually calling change detection (either via `appRef.tick()` or `cd.detectChanges`):
+
+```typescript
+// This works with a "noop" NgZone
+import { ApplicationRef, Component } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  constructor(private appRef: ApplicationRef) {}
+  name = '';
+  changeName() {
+    setTimeout(() => {
+      this.name = 'Angular';
+      // Developer experience suffers, since we MUST call this every time we change state
+      this.appRef.tick();
+    });
+  }
+}
+```
+
+Or by re-enabling Zone.js:
+
+```typescript
+// main.ts
+// Re-enable NgZone
+platformBrowserDynamic()
+   .bootstrapModule(
+       AppModule)
+   .catch(err => console.log(err));
+```
+
+```typescript
+// This works again now that we re-enabled Zone.js
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  name = '';
+  changeName() {
+    setTimeout(() => {
+      this.name = 'Angular';
+    });
+  }
+}
+```
 
 > Huh, so you can use Angular without Zone.js, but the developer experience suffers; interesting.
 >
 > But wait, we're not explicitly calling `ngZone.run` inside of our `changeName` method, how does it call Zone.js to trigger Angular's `tick`?
 
 Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "polyfill".
+
+# Zone.js Polyfills APIs for Angular
