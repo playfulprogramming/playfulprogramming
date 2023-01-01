@@ -360,7 +360,122 @@ export function refreshView<T>(
 }
 ```
 
-That last line should look pretty familiar; the `executeeTemplate` shows up again and is passed `RenderFlags.Update` this time!
+That last line should look pretty familiar; the `executeTemplate` shows up again and is passed `RenderFlags.Update` this time!
 
 While this is pretty neat to see so plainly, it leaves an important question out in the open: How _does_ the component know when it's ready to update?
+
+# Inside Angular's change detection; when `refreshView` is called
+
+To answer the question of "how does Angular know when a component is ready to update", let's follow the stack trace of when the `refreshView` function is called.
+
+If we take a step one level up, [we can see that `refreshView` is called within a function called `detectChangesInternal`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L1770):
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+
+export function detectChangesInternal<T>(
+    tView: TView, lView: LView, context: T, notifyErrorHandler = true) {
+  const rendererFactory = lView[RENDERER_FACTORY];
+
+  // Check no changes mode is a dev only mode used to verify that bindings have not changed
+  // since they were assigned. We do not want to invoke renderer factory functions in that mode
+  // to avoid any possible side-effects.
+  const checkNoChangesMode = !!ngDevMode && isInCheckNoChangesMode();
+
+  if (!checkNoChangesMode && rendererFactory.begin) rendererFactory.begin();
+  try { 
+      refreshView(tView, lView, tView.template, context);
+   } catch (error) {
+  	// ...
+  }
+}
+```
+
+Which is called [within the exposed `@angular/core` `detectChanges` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/view_ref.ts#L273-L275):
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/view_ref.ts
+detectChanges(): void {
+	detectChangesInternal(this._lView[TVIEW], this._lView, this.context as unknown as {});
+}
+```
+
+ ##  Calling Change Detection Manually
+
+Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.io/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
+
+```typescript
+import { ApplicationRef, Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  constructor(private ngZone: NgZone) {}
+
+  name = '';
+  changeName() {
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.name = 'Angular';
+      });
+    });
+  }
+}
+```
+
+> Don't worry if you're not already familiar with `NgZone`, we'll explain how it works fully in this article. 😄
+
+Here, you'll notice that when you press the `<button>` for the first time, it does not show `Hello Angular` as you might expect. It's only on the subsequent button presses that the proper greeting shows up.
+
+This is intentional behavior - after all, we've told our code to execute outside of Angular's typical change detection. To solve this, we can manually run `detectChanges` ourselves:
+
+```typescript
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+} from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <h1>Hello {{name}}</h1>
+  <button (click)="changeName()">Change Name</button>
+  `,
+})
+export class AppComponent {
+  constructor(private ngZone: NgZone, private cd: ChangeDetectorRef) {}
+
+  name = '';
+  changeName() {
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.name = 'Angular';
+        this.cd.detectChanges();
+      });
+    });
+  }
+}	
+```
+
+This `detectChanges` then calls the `refreshView` call that we saw earlier. That, in turn, calls `executeTemplate` with `RenderFlags.Update`, which gets passed to the component's `template` function which was output by `NGC`.
+
+<!-- // TODO: Add image demonstrating the flow of events to this point -->
+
+
+
+
+
+
+
+
+
+
 
