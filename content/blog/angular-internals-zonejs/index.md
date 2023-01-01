@@ -316,6 +316,9 @@ function executeTemplate<T>(
 Here, in this narrowed focus, we can see that when we execute:
 
 ```typescript
+// Simplified Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+
 const templateFn = tView.template;
 
 // ...
@@ -325,5 +328,39 @@ executeTemplate<T>(tView, lView, templateFn, RenderFlags.Create, context);
 
 We're simply calling the component's `template` function with a `RenderFlags.Create` argument as well as the function's `context`.
 
+## What about when the component updates?
 
+Just as there is a clear demonstration of when the component's `template` function is called with `RenderFlags.Create`, there's also a pretty cut-and-dry example of the `template` function being called with `RenderFlags.Update`.
+
+This `Update` flag is passed by [Angular's `refreshView` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L354), which is called by Angular when a component is ready to update.
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+
+export function refreshView<T>(
+    tView: TView, lView: LView, templateFn: ComponentTemplate<{}>|null, context: T) {
+  ngDevMode && assertEqual(isCreationMode(lView), false, 'Should be run in update mode');
+  const flags = lView[FLAGS];
+  if ((flags & LViewFlags.Destroyed) === LViewFlags.Destroyed) return;
+  enterView(lView);
+  // Check no changes mode is a dev only mode used to verify that bindings have not changed
+  // since they were assigned. We do not want to execute lifecycle hooks in that mode.
+  const isInCheckNoChangesPass = ngDevMode && isInCheckNoChangesMode();
+  try {
+    resetPreOrderHookFlags(lView);
+
+    setBindingIndex(tView.bindingStartIndex);
+    if (templateFn !== null) {
+      executeTemplate(tView, lView, templateFn, RenderFlags.Update, context);
+    }
+    
+    // ...
+    
+}
+```
+
+That last line should look pretty familiar; the `executeeTemplate` shows up again and is passed `RenderFlags.Update` this time!
+
+While this is pretty neat to see so plainly, it leaves an important question out in the open: How _does_ the component know when it's ready to update?
 
