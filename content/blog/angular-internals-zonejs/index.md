@@ -213,3 +213,117 @@ i0.ɵɵtextInterpolate1("Your name is ", ctx.name, "");
 Here, it's saying that we should interpolate the string `"Your name is Alex"` based on the property received from `ctx.name` and place it into the element's text area.
 
 By having our template function have two distinct render phases, triggered by flags passed into the function, we're able to create the `span` on the first render and update the text values of the `span` on subsequent renders, without the need for re-initializing the `span` element each time we change the element's text.
+
+## Exactly how is the template compiler ran _by Angular_?
+
+As mentioned previously, Angular calls this render function with two different render flags: `Create` and `Update`.
+
+But don't take my word for it! Let's take a look at Angular's source code:
+
+[Defined in `@angular/core` is a function called `renderComponent`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L1663-L1669):
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+function renderComponent(hostLView: LView, componentHostIdx: number) {
+  ngDevMode && assertEqual(isCreationMode(hostLView), true, 'Should be run in creation mode');
+  const componentView = getComponentLViewByIndex(componentHostIdx, hostLView);
+  const componentTView = componentView[TVIEW];
+  syncViewWithBlueprint(componentTView, componentView);
+  renderView(componentTView, componentView, componentView[CONTEXT]);
+}
+```
+
+This function, very generally, accesses a component's `View` ([a concept I've written about before, core to Angular's internal reference to HTML elements](https://unicorn-utterances.com/posts/angular-templates-start-to-source#View-Containers)) and renders it using Angular's `renderView` function.
+
+[Let's look in said `renderView` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#LL286-L300C6):
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+export function renderView<T>(tView: TView, lView: LView<T>, context: T): void {
+  ngDevMode && assertEqual(isCreationMode(lView), true, 'Should be run in creation mode');
+  enterView(lView);
+  try {
+    const viewQuery = tView.viewQuery;
+    if (viewQuery !== null) {
+      executeViewQueryFn<T>(RenderFlags.Create, viewQuery, context);
+    }
+
+    // Execute a template associated with this view, if it exists. A template function might not be
+    // defined for the root component views.
+    const templateFn = tView.template;
+    if (templateFn !== null) {
+      executeTemplate<T>(tView, lView, templateFn, RenderFlags.Create, context);
+    }
+    
+    // ...
+    
+}
+```
+
+Here, we can see the `executeTemplate` function being called with the `RenderFlags.Create` flag, just like we outlined before.
+
+There's no special magic happening [inside of the `executeTemplate` function](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L480), either. In fact, this is the whole thing:
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+
+function executeTemplate<T>(
+    tView: TView, lView: LView<T>, templateFn: ComponentTemplate<T>, rf: RenderFlags, context: T) {
+  const prevSelectedIndex = getSelectedIndex();
+  const isUpdatePhase = rf & RenderFlags.Update;
+  try {
+    setSelectedIndex(-1);
+    if (isUpdatePhase && lView.length > HEADER_OFFSET) {
+      // When we're updating, inherently select 0 so we don't
+      // have to generate that instruction for most update blocks.
+      selectIndexInternal(tView, lView, HEADER_OFFSET, !!ngDevMode && isInCheckNoChangesMode());
+    }
+
+    const preHookType =
+        isUpdatePhase ? ProfilerEvent.TemplateUpdateStart : ProfilerEvent.TemplateCreateStart;
+    profiler(preHookType, context as unknown as {});
+    templateFn(rf, context);
+  } finally {
+    setSelectedIndex(prevSelectedIndex);
+
+    const postHookType =
+        isUpdatePhase ? ProfilerEvent.TemplateUpdateEnd : ProfilerEvent.TemplateCreateEnd;
+    profiler(postHookType, context as unknown as {});
+  }
+}
+```
+
+If we simplify this function a bit to narrow our focus, we're left with:
+
+```typescript
+// Simplified Angular 15 source code
+// angular/packages/core/src/render3/instructions/shared.ts
+
+function executeTemplate<T>(
+    tView: TView, lView: LView<T>, templateFn: ComponentTemplate<T>, rf: RenderFlags, context: T) {
+
+    // ...
+        
+        templateFn(rf, context);
+
+    // ...
+}
+```
+
+Here, in this narrowed focus, we can see that when we execute:
+
+```typescript
+const templateFn = tView.template;
+
+// ...
+
+executeTemplate<T>(tView, lView, templateFn, RenderFlags.Create, context);
+```
+
+We're simply calling the component's `template` function with a `RenderFlags.Create` argument as well as the function's `context`.
+
+
+
