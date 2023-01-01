@@ -563,3 +563,60 @@ We then "fork" the current "zone" in order to create our own "execution context"
 This zone is defined with an error handler (`onHandleError`) that, in our example, simple logs the error message using a `console.log` rather than displaying a `console.error`, as is default for the browser.
 
 We then `run` a "task" by passing a function to `newZone`. Even though our `Error` is thrown inside of a `setTimeout`, it is caught by our `onHandleError`.
+
+# Angular uses Zone.js
+
+OK, now that we understand the very basics of Zone.js, let's see how Angular uses `Zone.js`.
+
+See, Angular has a "Zone" called "NgZone" as part of `ApplicationRef` to keep a context of the application's code.
+
+While the code to setup "NgZone" is a bit too complex to showcase in this article cleanly, you can _roughly_ think of "NgZone" as:
+
+```typescript
+// This is not how ngZone is really defined,
+// it's just a really rough aproximation
+
+const ngZone = Zone.current.fork({
+	// ... Setup the ngZone here
+})
+```
+
+[This "NgZone" is then passed to the `ApplicationRef`'s `constructor`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/application_ref.ts#L766-L772), like so:
+
+```typescript
+// Angular 15 source code
+// angular/packages/core/src/application_ref.ts
+
+constructor(
+    private _zone: NgZone,
+    private _injector: EnvironmentInjector,
+    private _exceptionHandler: ErrorHandler,
+) {
+  this._onMicrotaskEmptySubscription = this._zone.onMicrotaskEmpty.subscribe({
+    next: () => {
+      this._zone.run(() => {
+        this.tick();
+      });
+    }
+  });
+  
+  // ...
+  
+}
+```
+
+You may notice that this `_zone` is then subscribed such that, when the microtask queue is empty, it runs `this.tick()` (aka `ApplicationRef.tick()`).
+
+_This_, my dear reader, is what triggers Angular's `detectChanges` seemingly invisibly. Don't believe me? Let's disable Zone.js from our Angular app and see if change detection works at all like we'd typically expect.
+
+# Disabling Zone.js from Angular
+
+
+
+
+
+> Huh, so you can use Angular without Zone.js, but the developer experience suffers; interesting.
+>
+> But wait, we're not explicitly calling `ngZone.run` inside of our `changeName` method, how does it call Zone.js to trigger Angular's `tick`?
+
+Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "polyfill".
