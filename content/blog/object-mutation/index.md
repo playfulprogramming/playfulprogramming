@@ -283,27 +283,33 @@ name = "Crutchley";
 
 ## Why can't you mutate strings?
 
+Consider what's happening inside of a JavaScript engine when we execute the following code:
 
+```javascript
+const name = "Corbin";
+```
 
------
+In this code, we're creating a variable with the length of 6 characters. These characters are then assigned to a memory address, say, `0x8f031e0a`. Because your computer wants to preserve as much memory as possible, it will create a memory address just large enough for 6 characters to be stored in `name`'s memory block of `0x8f031e0a`.
 
+> Remember, while we tend to think of strings in JavaScript as a single value - not all strings have the same size when stored!
+>
+> A string with a length of 6 characters is going to take up less space than a string with 900,000 characters.
 
+Now, let's try to assign the string "Crutchley", which has a length of 9 characters, into that same memory block:
 
-https://developer.mozilla.org/en-US/docs/Glossary/Primitive
+![// TODO: Write alt](./too_large.png)
 
+Oh no! Here, we can see that the new value we'd like to store is too large to exist in the current memory space!
 
+This is the key reason we can't mutate strings like we can objects; **To reuse an existing memory block, you have to make sure that the new value is the same size as the existing memory block**, and strings cannot assure this truth like objects can.
 
----
-
-
-
-While other languages have concepts [like "pointers"](https://en.wikipedia.org/wiki/Pointer_(computer_programming)) to help sidestep this issue, the fundamental idea of "privatives cannot be mutated" tends to stand firm as a rule of most programming languages.
-
-
-
-
+This rule holds true for all [JavaScript primitives](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) as well.
 
 ## Object Mutation
+
+> Wait, if you can't quickly change the size of a memory block, why can we mutate objects?
+
+
 
 
 
