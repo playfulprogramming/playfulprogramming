@@ -2,7 +2,7 @@
 {
 	title: "The story of `let` vs `const`, Object Mutation, and a bug in my code",
 	description: '',
-	published: '2022-12-22T05:12:03.284Z',
+	published: '2023-01-22T05:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['javascript'],
 	attached: [],
@@ -219,7 +219,7 @@ Why is this? Isn't `const` supposed to prevent reassignments of a variable?!
 
 The reason we're able to change the value of `obj.val` is because we're not reassigning the `obj` variable; we're mutating it.
 
-# Object Mutation
+# Variable Mutation
 
 > What is mutation?
 
@@ -229,7 +229,55 @@ Mutation is the act of replacing a variable's value in-place as opposed to chang
 
 OK so picture this:
 
-You have a variable called "object" that has a memory address at 
+You have a string variable called "name" that has a memory address at `0x8f031e0a`.
+
+```javascript
+let name = "Corbin"; // 0x8f031e0a
+```
+
+When you reassign this variable to "Crutchley", it will change the memory address, as we've established before:
+
+```javascript
+name = "Crutchley"; // Changed to 0x8f031e0b
+```
+
+But what if, instead, you could simply tell JavaScript to change the value within the _existing_ memory block instead:
+
+```javascript
+// This code doesn't work - it's for demonstration purposes of what a theoretical JavaScript syntax could look like
+
+const name = "Corbin"; // 0x8f031e0a
+*name = "Crutchley"; // Still 0x8f031e0a
+```
+
+JavaScript could theoretically even use a syntax like this to expose a variable's memory address:
+
+```javascript
+// This code doesn't work - it's for demonstration purposes of what a theoretical JavaScript syntax could look like
+const name = "Corbin"; // A const string variable, creates a new memory block, but at what address?
+
+// Outputs: `0x8f031e0a`
+console.log(&name); // Prefixing & could show the memory address `name` was assigned to!
+```
+
+> Some languages, [such as Rust](https://doc.rust-lang.org/std/primitive.pointer.html) and C++ _do_ have this feature, it's called a "pointer" and allows you to change the value of a memory block rather than create a new memory block with the new value you'd like to assign.
+
+This is essentially what's happening with our `const obj` mutation from the previous section. Instead of creating a new memory space for `obj`, it's reusing the existing memory block it already has assigned to `obj` and is simply changing the values within it.
+
+```javascript
+// This creates a memory block to place `obj` into
+const obj = {a: 123};
+// This keeps the same memory block of "obj", but changes the value of "a" in place*
+obj.a = 345;
+```
+
+There's one small problem with the example we used in this section, however; you cannot mutate strings.
+
+```javascript
+const name = "Corbin";
+// This does not work, and will throw an error
+name = "Crutchley";
+```
 
 
 
@@ -252,6 +300,10 @@ https://developer.mozilla.org/en-US/docs/Glossary/Primitive
 While other languages have concepts [like "pointers"](https://en.wikipedia.org/wiki/Pointer_(computer_programming)) to help sidestep this issue, the fundamental idea of "privatives cannot be mutated" tends to stand firm as a rule of most programming languages.
 
 
+
+
+
+## Object Mutation
 
 
 
