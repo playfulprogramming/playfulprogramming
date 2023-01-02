@@ -467,8 +467,6 @@ export class AppComponent {
 
 This `detectChanges` then calls the `refreshView` call that we saw earlier. That, in turn, calls `executeTemplate` with `RenderFlags.Update`, which gets passed to the component's `template` function, which was output by `NGC`.
 
-<!-- // TODO: Add image demonstrating the flow of events to this point -->
-
 ## How does _Angular_ know to call `detectChanges`? {#intro-to-tick}
 
 > Assuming you've done your research and `detectChanges` _really_ is what calls our component to `Update`, what within Angular calls `detectChanges` itself?
