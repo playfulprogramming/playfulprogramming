@@ -10,13 +10,13 @@
 }
 ---
 
-> This article is an advanced look at how Angular works under-the-hood. This may be confusing if you're not already fairly familiar with JavaScript. If you're wanting to learn how to _use_ Angular, and haven't before, take a look at [my book "The Framework Field Guide", which teaches React, Angular, and Vue from scratch](https://framework.guide) instead.
+> This article is an advanced look at how Angular works under-the-hood. The contents within may not be clear if you're not already fairly familiar with JavaScript. If you want to learn how to _use_ Angular and haven't before, look at [my book "The Framework Field Guide", which teaches React, Angular, and Vue from scratch](https://framework.guide) instead.
 
-If you've been following the JavaScript framework ecosystem, you may have heard the term "Reactivity" lately; they've been a hot commodity to talk about from [SolidJS' fine-grained reactivity](https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf) to [Preact adding in a reactive primitive with the name of "Signals"](https://preactjs.com/guide/v10/signals/).
+If you've been following the JavaScript framework ecosystem, you may have heard the term "Reactivity" lately; they've been a hot commodity to talk about, from [SolidJS' "fine-grained" reactivity](https://dev.to/ryansolid/a-hands-on-introduction-to-fine-grained-reactivity-3ndf) to [Preact adding in a reactive primitive with the name of "Signals"](https://preactjs.com/guide/v10/signals/).
 
-The concept of reactivity, at least at first glance, is a straightforward one: When you change a bit of code _here_, it updates a bit of code _there_ automatically. This is commonplace within frontend frameworks, where it's imperative to re-render updated content when you update the data stored in JavaScript.
+The concept of reactivity, at least at first glance, is a straightforward one: When you change a bit of code _here_, it updates a bit of code _there_ automatically. This is commonplace within front-end frameworks, where it's imperative to re-render updated content when you update the data stored in JavaScript.
 
-During discussions of reactivity and frontend frameworks, there's one "odd duck" that stands out as a vastly different implementation from the others: Angular.
+During discussions of reactivity and front-end frameworks, one "odd duck" stands out as a vastly different implementation from the others: Angular.
 
 Take the following button counter reactivity example in each framework:
 
@@ -76,32 +76,31 @@ function addOne() {
 
 
 
-In this example, we can see that React uses explicit update calls (`setX`) to track when the state changes and Vue uses a proxy and a special property name (`.value`) to seemingly magically track state.
+In this example, we can see that React uses explicit update calls (`setX`) to track when the state changes, and Vue uses a proxy and a special property name (`.value`) to seemingly magically track state.
 
 But what about Angular?
 
-Angular just mutates the `count` variable and the framework seems to count the state changes. How does that work under-the-hood? What mechanism is being used to tell the template to re-render?
+Angular just mutates the `count` variable, and the framework seems to count the state changes. How does that work under-the-hood? What mechanism is being used to tell the template to re-render?
 
 The short answer is that Angular uses something called "Zone.js" to track all asynchronous APIs via a series of polyfills, and uses those Zones to re-render "dirty" content in Angular's tree.
 
-> What does any of that mean? That's a lot of works that doesn't seem to mean very much if you're not already in the know.
+> What does any of that mean? That's a lot of words that don't seem to mean very much if you're not already in the know.
 
-I agree; so let's answer this better with a longer step-by-step explanation of how Angular does its rendering and reactivity using Zone.js.
+I agree; let's answer this better with a longer step-by-step explanation of how Angular does its rendering and reactivity using Zone.js.
 
 This step-by-step explanation will have us explore:
 
-<!-- // TODO: ADD LINKS --> 
-
-- How Angular's template compiler outputs functions that render contents
-- How Angular's templates are called in order to update contents on-screen
-- How Angular's change detection would work without Zone.js (and why it's a DX nightmare)
-- How Zone.js Monkey-patches async APIs to call change detection
-- How Angular has it's own internal instance of Zone.js called NgZone
-- Writing our own minimal version of Angular from scratch
-
+- [How Angular's template compiler outputs functions that render contents](#template-compiler)
+- [How Angular's templates are called in order to update contents on-screen](#create-template-function-call)
+- [How Angular detects user changes and re-renders screen contents automatically](#refresh-view)
+- [What Zone.js is and how to use it with and without Angular](#zone-basics)
+- [How Angular has it's own internal instance of Zone.js called NgZone](#ng-zone)
+- [How Angular's change detection would work without Zone.js (and why it's a DX nightmare)](#disable-ng-zone)
+- [How Zone.js Monkey-patches async APIs to call change detection](#zone-patch-intro)
 
 
-# How Angular's template compiler works
+
+# How Angular's template compiler works {#template-compiler}
 
 Earlier last year, the Angular team published a blog post titled ["How the Angular Compiler Works"](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549). In it, they demonstrated how the `NGC` compiler takes the following code:
 
@@ -214,7 +213,7 @@ Here, it's saying that we should interpolate the string `"Your name is Alex"` ba
 
 By having our template function have two distinct render phases, triggered by flags passed into the function, we're able to create the `span` on the first render and update the text values of the `span` on subsequent renders, without the need for re-initializing the `span` element each time we change the element's text.
 
-## Exactly how is the template compiler ran _by Angular_?
+## Exactly how is the template compiler ran _by Angular_? {#create-template-function-call}
 
 As mentioned previously, Angular calls this render function with two different render flags: `Create` and `Update`.
 
@@ -328,7 +327,7 @@ executeTemplate<T>(tView, lView, templateFn, RenderFlags.Create, context);
 
 We're simply calling the component's `template` function with a `RenderFlags.Create` argument as well as the function's `context`.
 
-## What about when the component updates?
+## What about when the component updates? {#update-template-function-call}
 
 Just as there is a clear demonstration of when the component's `template` function is called with `RenderFlags.Create`, there's also a pretty cut-and-dry example of the `template` function being called with `RenderFlags.Update`.
 
@@ -364,7 +363,7 @@ That last line should look pretty familiar; the `executeTemplate` shows up again
 
 While this is pretty neat to see so plainly, it leaves an important question out in the open: How _does_ the component know when it's ready to update?
 
-# Inside Angular's change detection; when `refreshView` is called
+# Inside Angular's change detection; when `refreshView` is called {#refresh-view}
 
 To answer the question of "how does Angular know when a component is ready to update", let's follow the stack trace of when the `refreshView` function is called.
 
@@ -402,7 +401,7 @@ detectChanges(): void {
 }
 ```
 
- ##  Calling Change Detection Manually
+ ##  Calling Change Detection Manually {#manual-cd}
 
 Let's use [Angular's `NgZone`'s `runOutsideOfAngular`](https://angular.io/api/core/NgZone#runOutsideAngular) to run some code outside of Angular's typical change detection:
 
@@ -469,7 +468,7 @@ This `detectChanges` then calls the `refreshView` call that we saw earlier. That
 
 <!-- // TODO: Add image demonstrating the flow of events to this point -->
 
-## How does _Angular_ know to call `detectChanges`?
+## How does _Angular_ know to call `detectChanges`? {#intro-to-tick}
 
 > Assuming you've done your research and `detectChanges` _really_ is what calls our component to `Update`, what within Angular calls `detectChanges` itself?
 
@@ -531,7 +530,7 @@ export class AppComponent {
 }
 ```
 
-# A quick detour into Zone.js land: Zone.js basics
+# A quick detour into Zone.js land: Zone.js basics {#zone-basics}
 
 Before we continue diving deeper into Angular's internals, I need to introduce a magical library that was developed by Google for usage within Angular: ZoneJS.
 
@@ -564,7 +563,7 @@ This zone is defined with an error handler (`onHandleError`) that, in our exampl
 
 We then `run` a "task" by passing a function to `newZone`. Even though our `Error` is thrown inside of a `setTimeout`, it is caught by our `onHandleError`.
 
-# Angular uses Zone.js
+# Angular uses Zone.js {#ng-zone}
 
 OK, now that we understand the very basics of Zone.js, let's see how Angular uses `Zone.js`.
 
@@ -609,7 +608,7 @@ You may notice that this `_zone` is then subscribed such that, when the microtas
 
 _This_, my dear reader, is what triggers Angular's `detectChanges` seemingly invisibly. Don't believe me? Let's disable Zone.js from our Angular app and see if change detection works at all like we'd typically expect.
 
-# Disabling Zone.js from Angular
+# Disabling Zone.js from Angular {#disable-ng-zone}
 
 To disable Zone.js from our Angular application, we simply need to pass `{ngZone: 'noop'}` to our application's bootstrapping:
 
@@ -706,7 +705,7 @@ export class AppComponent {
 
 Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "monkey-patch".
 
-# Zone.js Patches APIs for Angular
+# Zone.js Patches APIs for Angular {#zone-patch-intro}
 
 A zone within Zone.js is only able to see code that is executed within its context. Take the following minimal Zone.js example from earlier:
 
@@ -795,7 +794,7 @@ export class AppComponent {
 - [`refreshView` is a wrapper around calling the component's `template` function with `RenderFlags.Update`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L368)
 - Which provides the correct flag for the template function, built by the NGC compiler, to update the DOM's contents.
 
-## Zone.js patches more APIs than you might think
+## Zone.js patches more APIs than you might think {#zone-patching-apis}
 
 > Hang on a moment... If Zone.js is what triggers `ApplicationRef.tick`, why does it seem to run change detection even when there is seemingly no asynchronous API involved?
 
@@ -892,7 +891,7 @@ It will:
 
 > This is why even in our `runOutsideOfAngular` example, pressing the button more than once will show the live data. The event is being bound and, as a result, the component is being re-rendered with `App.tick` once the bound event is triggered.
 
-### Demonstration of Event Patching
+### Demonstration of Event Patching {#empty-function-zone-js}
 
 As a fun aside; it's worth mentioning that even an empty function will trigger change detection (although it will not cause a re-render, because no data has changed). We can verify this assumption by simply subscribing to `onMicrotaskEmpty` ourselves:
 
@@ -919,7 +918,7 @@ export class AppComponent {
 }
 ```
 
-# Conclusion
+# Conclusion {#conclusion}
 
 Hopefully, this has been a helpful insight into how Angular's change detection works under-the-hood, both with and without Zone.js. With this knowledge, you should be able to optimize your applications by discovering the patterns where your code may be causing too many re-renders at once.
 
