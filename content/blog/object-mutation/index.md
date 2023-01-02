@@ -176,17 +176,16 @@ A much smaller list, right? This means that our computer is able to execute this
 
 
 
-
-
-
-
----
-
-
-
-
-
 # `let` vs `const`
+
+If you've spent much time with the JavaScript ecosystem, you'll know that there are a few different ways of assigning a variable. Among these are the `let` and `const` keywords. Both of these are perfectly valid variable declarations:
+
+```javascript
+const number = 1;
+let otherNumber = 2;
+```
+
+ But what's the difference between these two types of variables?
 
 Now, you might assume that `const` stands for `constant`, and you'd be right! We can easily check this by running the following:
 
@@ -199,31 +198,76 @@ Will yield you an error:
 
 > Uncaught TypeError: invalid assignment to const 'val'
 
-With this assumption, you might think that you can't change data within a `const`, but (surprisingly), you'd be wrong.
+This differs from the behavior of `let`, which lets you reassign a variable's value to your heart's content:
 
+```javascript
+let val = 1;
+// This is valid
+val = 2;
+val = 3;
+```
 
+After seeing this behavior with `const`, you might think that you can't change data within a `const`, but (surprisingly), you'd be wrong. The following creates an object and then reassigns the value of one of the properties, despite the variable being a `const`:
 
+```javascript
+const obj = {val: 1};
+// This is valid?! 😱
+obj.val = 2;
+```
 
+Why is this? Isn't `const` supposed to prevent reassignments of a variable?!
+
+The reason we're able to change the value of `obj.val` is because we're not reassigning the `obj` variable; we're mutating it.
 
 # Object Mutation
 
+> What is mutation?
+
+Mutation is the act of replacing a variable's value in-place as opposed to changing the memory reference.
+
+> What. 😵‍💫
+
+OK so picture this:
+
+You have a variable called "object" that has a memory address at 
 
 
-> How does an object not reassign a memory address when you do this?
 
-```
-const obj = {a: 234};
+## Why can't you mutate strings?
 
-obj.a = 123;
-```
 
-`obj` is mutating because under-the-hood, the object is pointing to a memory address. 234 is GC'd and 123 is created in it's place. The new memory address is then assigned to a mutated `obj.a` memory address
+
+-----
+
+
+
+https://developer.mozilla.org/en-US/docs/Glossary/Primitive
+
+
+
+---
+
+
+
+While other languages have concepts [like "pointers"](https://en.wikipedia.org/wiki/Pointer_(computer_programming)) to help sidestep this issue, the fundamental idea of "privatives cannot be mutated" tends to stand firm as a rule of most programming languages.
+
+
+
+
 
 ## Arrays are objects too!
 
+It's worth highlighting that the same rules of object mutation apply to arrays as well! After all, in [JavaScript arrays are a wrapper around the `Object` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
+This means that we can run operations like `push` that mutate our arrays, even with `const` variables:
 
-
+```javascript
+const arr = [];
+// This is valid
+arr.push(1);
+arr.push(2);
+arr.push(3);
+```
 
 # Why did this impact our code?
 
