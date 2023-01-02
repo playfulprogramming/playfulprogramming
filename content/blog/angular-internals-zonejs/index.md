@@ -94,11 +94,9 @@ This step-by-step explanation will have us explore:
 - [How Angular's templates are called in order to update contents on-screen](#create-template-function-call)
 - [How Angular detects user changes and re-renders screen contents automatically](#refresh-view)
 - [What Zone.js is and how to use it with and without Angular](#zone-basics)
-- [How Angular has it's own internal instance of Zone.js called NgZone](#ng-zone)
+- [How Angular has its own internal instance of Zone.js called NgZone](#ng-zone)
 - [How Angular's change detection would work without Zone.js (and why it's a DX nightmare)](#disable-ng-zone)
 - [How Zone.js Monkey-patches async APIs to call change detection](#zone-patch-intro)
-
-
 
 # How Angular's template compiler works {#template-compiler}
 
@@ -173,9 +171,12 @@ template: function AppCmp_Template(rf, ctx) {
 }
 ```
 
-Here, we're receiving two arguments: `rf` (short for "render flags") and `ctx` (short for "context"). This function is called by Angular itself when the template is ready to either be rendered for the first time or updated afterwards.
+Here, we're receiving two arguments: `rf` (short for "render flags") and `ctx` (short for "context"). This function is called by Angular itself when the template is ready to either:
 
-Depending on how the template needs to be re-ran, the "render flag" (`rf`) will be passed differently, which allows Angular more control over how code is updated or not.
+1) Be rendered for the first time.
+2) Have its contents updated afterward.
+
+Depending on how the template needs to be re-run, the "render flag" (`rf`) will be passed differently, allowing Angular more control over how code is updated.
 
 There are [only two flags that are currently defined in Angular 15](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/interfaces/definition.ts#LL50-L56C2):
 
@@ -202,7 +203,7 @@ i0.ɵɵelementEnd();
 
 Here, very generally, Angular is saying: "create a `span` element, and mark it such that text should be placed within it".
 
-After this is ran, Angular runs the `Update` render flag through the template compiler:
+After this is run, Angular runs the `Update` render flag through the template compiler:
 
 ```javascript
 i0.ɵɵadvance(1);
@@ -211,13 +212,13 @@ i0.ɵɵtextInterpolate1("Your name is ", ctx.name, "");
 
 Here, it's saying that we should interpolate the string `"Your name is Alex"` based on the property received from `ctx.name` and place it into the element's text area.
 
-By having our template function have two distinct render phases, triggered by flags passed into the function, we're able to create the `span` on the first render and update the text values of the `span` on subsequent renders, without the need for re-initializing the `span` element each time we change the element's text.
+By having our template function contain two distinct render phases - triggered by flags passed into the function - we're able to create the `span` on the first render and update the text values of the `span` on subsequent renders without the need for re-initializing the `span` element each time we change the element's text.
 
-## Exactly how is the template compiler ran _by Angular_? {#create-template-function-call}
+## Exactly how is the template compiler run _by Angular_? {#create-template-function-call}
 
 As mentioned previously, Angular calls this render function with two different render flags: `Create` and `Update`.
 
-But don't take my word for it! Let's take a look at Angular's source code:
+But don't take my word for it! Let's take a look at Angular's source code.
 
 [Defined in `@angular/core` is a function called `renderComponent`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/core/src/render3/instructions/shared.ts#L1663-L1669):
 
@@ -464,7 +465,7 @@ export class AppComponent {
 }	
 ```
 
-This `detectChanges` then calls the `refreshView` call that we saw earlier. That, in turn, calls `executeTemplate` with `RenderFlags.Update`, which gets passed to the component's `template` function which was output by `NGC`.
+This `detectChanges` then calls the `refreshView` call that we saw earlier. That, in turn, calls `executeTemplate` with `RenderFlags.Update`, which gets passed to the component's `template` function, which was output by `NGC`.
 
 <!-- // TODO: Add image demonstrating the flow of events to this point -->
 
@@ -532,7 +533,7 @@ export class AppComponent {
 
 # A quick detour into Zone.js land: Zone.js basics {#zone-basics}
 
-Before we continue diving deeper into Angular's internals, I need to introduce a magical library that was developed by Google for usage within Angular: ZoneJS.
+Before we continue diving deeper into Angular's internals, I need to introduce a magical library that was developed by Google for usage within Angular: Zone.js.
 
 The very basic idea behind Zone.js is that you're able to create a "context" to run your code inside. This "context" can then be used to keep track of what's currently running, run custom error handling code, and more.
 
@@ -557,23 +558,23 @@ newZone.run(() => {
 
 Here, `Zone.current` is a global that's defined when you import `zone.js` for the first time.
 
-We then "fork" the current "zone" in order to create our own "execution context", or, "zone".
+We then "fork" the current "zone" in order to create our own "execution context" or "zone".
 
-This zone is defined with an error handler (`onHandleError`) that, in our example, simple logs the error message using a `console.log` rather than displaying a `console.error`, as is default for the browser.
+This zone is defined with an error handler (`onHandleError`) that, in our example, simply logs the error message using a `console.log` rather than displaying a `console.error`, as is the default for the browser.
 
 We then `run` a "task" by passing a function to `newZone`. Even though our `Error` is thrown inside of a `setTimeout`, it is caught by our `onHandleError`.
 
 # Angular uses Zone.js {#ng-zone}
 
-OK, now that we understand the very basics of Zone.js, let's see how Angular uses `Zone.js`.
+OK, now that we understand the fundamentals of Zone.js, let's see how Angular uses `Zone.js`.
 
 See, Angular has a "Zone" called "NgZone" as part of `ApplicationRef` to keep a context of the application's code.
 
-While the code to setup "NgZone" is a bit too complex to showcase in this article cleanly, you can _roughly_ think of "NgZone" as:
+While the code to set up "NgZone" is a bit too complex to showcase in this article cleanly, you can _roughly_ think of "NgZone" as:
 
 ```typescript
 // This is not how ngZone is really defined,
-// it's just a really rough aproximation
+// it's just a really rough approximation
 
 const ngZone = Zone.current.fork({
 	// ... Setup the ngZone here
@@ -606,7 +607,7 @@ constructor(
 
 You may notice that this `_zone` is then subscribed such that, when the microtask queue is empty, it runs `this.tick()` (aka `ApplicationRef.tick()`).
 
-_This_, my dear reader, is what triggers Angular's `detectChanges` seemingly invisibly. Don't believe me? Let's disable Zone.js from our Angular app and see if change detection works at all like we'd typically expect.
+_This_, my dear reader, is what triggers Angular's `detectChanges` seemingly invisibly. Don't believe me? Let's disable Zone.js from our Angular app and see if change detection works as we'd typically expect.
 
 # Disabling Zone.js from Angular {#disable-ng-zone}
 
@@ -620,7 +621,7 @@ platformBrowserDynamic()
    .catch(err => console.log(err));
 ```
 
-Now, with Zone.js disabled, we can see that no matter how many times we press our button in the following example, the change detection is never ran:
+Now, with Zone.js disabled, we can see that no matter how many times we press our button in the following example, the change detection is never run:
 
 ```typescript
 // This does not work with a "noop" NgZone
@@ -662,7 +663,7 @@ export class AppComponent {
   changeName() {
     setTimeout(() => {
       this.name = 'Angular';
-      // Developer experience suffers, since we MUST call this every time we change state
+      // Developer experience suffers since we MUST call this every time we change state
       this.appRef.tick();
     });
   }
@@ -701,7 +702,7 @@ export class AppComponent {
 
 > Huh, so you can use Angular without Zone.js, but the developer experience suffers; interesting.
 >
-> But wait, we're not explicitly calling `ngZone.run` inside of our `changeName` method, how does it call Zone.js to trigger Angular's `tick`?
+> But wait, we're not explicitly calling `ngZone.run` inside of our `changeName` method; how does it call Zone.js to trigger Angular's `tick`?
 
 Our `changeName` method is able to trigger Angular's `tick` thanks to something called a "monkey-patch".
 
@@ -717,15 +718,15 @@ newZone.run(() => {
 });
 ```
 
-Let's pause and think about this code for a moment, from a theoretical level:
+Let's pause and think about this code for a moment from a theoretical level:
 
-`setTimeout` sets a timer internally using the JavaScript engine of the code's execution. This code then has a callback which is called after the timer has passed. How does Zone.js know that it should treat the `throw new Error` as part of its execution context, if the callback is called "externally" by the JavaScript engine?
+`setTimeout` sets a timer internally using the JavaScript engine of the code's execution. This code then has a callback which is called after the timer has passed. How does Zone.js know that it should treat the `throw new Error` as part of its execution context if the callback is called "externally" by the JavaScript engine?
 
 The answer is... Well, it doesn't by default. If Zone.js is implemented in a trivial manner, it does not handle `setTimeout` or any other asynchronous API properly.
 
 Unfortunately for us, our apps regularly make use of asynchronous operations to function. Luckily, Zone.js is not implemented trivially and does its best to patch all of the async APIs your application might use to redirect the execution of tasks back into its "context".
 
-While the specifics of how this is done is a bit complex, the gist of it is that Zone.js calls a bit of code after the async code finishes to notify Zone.js to pick up the execution from where it left off.
+While the specifics of how this is done are a bit complex, the gist of it is that Zone.js calls a bit of code after the async code finishes to notify Zone.js to pick up the execution from where it left off.
 
 This might look something like this:
 
@@ -744,7 +745,7 @@ setTimeout = (callback, delay, ...args) => {
 };
 ```
 
-Here, we can see that we're overwriting the global `setTimeout` with our custom one, but calling `Zone.current.run();` once the async operation is finished.
+Here, we can see that we're overwriting the global `setTimeout` with our custom one but calling `Zone.current.run();` once the async operation is finished.
 
 This, conceptually, isn't too far from how Zone.js patches global async APIs. For example, [this is the bit of code that tells Zone.js to patch `setTimeout`](https://github.com/angular/angular/blob/a6849f27af129588091f635c6ae7a326241344fc/packages/zone.js/lib/browser/browser.ts#L37-L43):
 
@@ -798,7 +799,7 @@ export class AppComponent {
 
 > Hang on a moment... If Zone.js is what triggers `ApplicationRef.tick`, why does it seem to run change detection even when there is seemingly no asynchronous API involved?
 
-That's a good point! After all, the following Angular component doesn't use `setTimeout` and yet it still triggers `ApplicationRef.tick` (so long as you have NgZone enabled):
+That's a good point! After all, the following Angular component doesn't use `setTimeout`, and yet it still triggers `ApplicationRef.tick` (so long as you have NgZone enabled):
 
 ```typescript
 import { ApplicationRef, Component, NgZone } from '@angular/core';
@@ -820,7 +821,7 @@ export class AppComponent {
 
 Why is that?
 
-Well, the answer lies within the word "asynchronous" and its literal definition. See, it doesn't just mean "a timer", it means any kind of operation that's non-blocking. That's not just output; that includes user input.
+Well, the answer lies within the word "asynchronous" and its literal definition. See, it doesn't just mean "a timer"; it means any kind of operation that's non-blocking. That's not just output; that includes user input.
 
 You might have an inkling that this means that Zone.js patches the `(click)` listener, and you'd be right!
 
@@ -889,11 +890,11 @@ It will:
 - Trigger the `onMicrotaskEmpty` subscription
 - `tick` the `ApplicationRef`
 
-> This is why even in our `runOutsideOfAngular` example, pressing the button more than once will show the live data. The event is being bound and, as a result, the component is being re-rendered with `App.tick` once the bound event is triggered.
+> This is why even in our `runOutsideOfAngular` example, pressing the button more than once will show the live data. The event is being bound, and, as a result, the component is being re-rendered with `App.tick` once the bound event is triggered.
 
 ### Demonstration of Event Patching {#empty-function-zone-js}
 
-As a fun aside; it's worth mentioning that even an empty function will trigger change detection (although it will not cause a re-render, because no data has changed). We can verify this assumption by simply subscribing to `onMicrotaskEmpty` ourselves:
+As a fun aside, it's worth mentioning that even an empty function will trigger change detection (although it will not cause a re-render because no data has changed). We can verify this assumption by simply subscribing to `onMicrotaskEmpty` ourselves:
 
 ```typescript
 import { Component, NgZone } from '@angular/core';
@@ -913,7 +914,7 @@ export class AppComponent {
     });
   }
 
-  // This is empty, but will still cause a `ApplicationRef.tick` if NgZone is enabled
+  // This is empty but will still cause an `ApplicationRef.tick` if NgZone is enabled
   test() {}
 }
 ```
