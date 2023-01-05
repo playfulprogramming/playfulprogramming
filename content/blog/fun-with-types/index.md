@@ -2,7 +2,7 @@
 {
   title: "Fun with Types",
   description: "Making hilarious things with no emitted code.",
-  published: "2023-01-05T05:12:03.284Z",
+  published: "2023-01-05T20:35:30Z",
   authors: ["maisydino"],
   tags: ["typescript"],
   attached: [],
