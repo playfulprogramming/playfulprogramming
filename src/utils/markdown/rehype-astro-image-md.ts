@@ -102,6 +102,7 @@ export const rehypeAstroImageMd: Plugin<
 					widths: [dimensions.width],
 					formats: ["webp", "png"],
 					aspectRatio: imgRatioWidth,
+					alt: node.properties.alt || "",
 				});
 
 				const pngSource = pictureResult.sources.reduce((prev, source) => {

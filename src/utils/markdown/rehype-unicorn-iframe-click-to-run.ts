@@ -111,6 +111,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 							widths: [50],
 							formats: ["webp", "png"],
 							aspectRatio: aspectRatio,
+							alt: "",
 						});
 
 						iframePicture = { result, height: imgHeight, width: imgWidth };

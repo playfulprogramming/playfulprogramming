@@ -43,6 +43,7 @@ function generateUnicornProfilePicMap(
 						formats: ["webp", "png"],
 						widths: [72, 48],
 						aspectRatio: 1,
+						alt: "",
 					})),
 					id: unicorn.id,
 				}))
