@@ -279,6 +279,7 @@ Not only does this help codebase readability, it helps immensely with accessibil
 		<div>Do chores</div>
 	</div>
 </div>
+
 ----
 
 **The correct HTML tags:**
@@ -651,61 +652,91 @@ A `tabindex` value of `0` allows a user to tab to an element, regardless of elem
 
 > A negative `tabindex` value also provides us a way to `focus` an element using JavaScript, but more on that later... 🤫
 
----
+Let's use this knowledge of `tabindex` to add the ability to keyboard cycle through each tab header:
 
-// TODO: Write
+```html
+<div>
+    <ul role="tablist">
+        <li tabindex="1">JavaScript</li>
+        <li tabindex="1">Python</li>
+    </ul>
+    <!-- ... -->
+</div>
+```
 
-----
+Yay! We can now navigate through each of the tab headers using the <kbd>Tab</kbd> key! Let's deploy this change to the Framework Field Guide website!
 
-While we _could_ force keyboard users to tab over every single tab, this is a bit of an obnoxious user experience.
+Oh no, when we deployed this version of tabs, users came back to complain about its behavior! 😱
 
-Let's change it up a bit. Instead of marking every single `tab` element as `tabindex="0"`, let's instead only mark one tab with a `tabindex="0"` and allow the user to change the focused tab using the left and right arrow keys.
+It turns out that when you have as many tabs as we do on the website, having to tab through _every single tab header_ can be a bit of a headache. Instead, our users have requested the ability to tab to the first tab header, then use arrow keys to navigate left and right through the remaining tabs. That way, instead of having to tab through `n` tabs, they can simply tab through a single tab list, and use arrow key navigation to access the other tabs - much better!
 
-That way, instead of having to tab through `n` tabs, they can simply tab through a single tab list, and use arrow key navigation to access the other tabs - much better!
+Let's do that!
 
----
+To make this change, we'll utilize our understanding of `tabindex`. Remember, a `tabindex` of `0` means that you can actively tab to the element, while a `tabindex` of `-1` enables you to focus an element using JavaScript, but not using a keyboard alone. This means that we can change our markup to the following:
 
-// TODO: Write
+```html
+<div>
+    <ul role="tablist">
+        <li tabindex="0">JavaScript</li>
+        <li tabindex="-1">Python</li>
+    </ul>
+    <!-- ... -->
+</div>
+```
+
+After we change our markup, we can use some JavaScript to:
+
+- Listen for the `keydown` event
+  - On `keydown`, `focus()` the next tab
+  - Change the `tabindex` to reflect the newly focused tab
+
+To do this, we'll use a number to track which element is currently focused, rather than a string. This will allow us to easily increment and decrement our `currentTab` using our `keydown` listener:
+
+```javascript
+let currentTab = 0;
+
+function setNextTab() {
+	currentTab = currentTab + 1;
+}
+
+function setPreviousTab() {
+	currentTab = currentTab - 1;
+}
+```
+
+Lastly, let's clamp the users navigation input. This means both that:
+
+- If the user is on the last tab and tries to navigate to the "next" tab, they won't go anywhere
+- If the user is on the first tab and tries to navigate to the "previous" tab, they won't go anywhere
+
+Alright! Let's get to coding:
 
 <!-- tabs:start -->
 
 #### React
 
-```jsx
-const tabNameIndexMap = {
-  javascript: 0,
-  python: 1,
-};
+```jsx {0-24,30,36,41,47}
+// JavaScript
+const minTabIndex = 0;
 
-function findTabNameByIndex(i) {
-  const [name, _index] = Object.entries(tabNameIndexMap).find(
-    ([_name, index]) => index === i
-  );
-  return name;
-}
-
-const maxTabIndex = Math.max(...Object.values(tabNameIndexMap));
-const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
+// Python
+const maxTabIndex = 1;
 
 export const App = () => {
-  const [activeTab, setActiveTab] = useState(tabNameIndexMap.javascript);
+  const [activeTab, setActiveTab] = useState(0);
 
   function onKeyDown(i) {
     return (e) => {
       if (e.key === 'ArrowLeft') {
-        const clampedIndex = Math.max(minTabIndex, i - 1);
-        const newIndexName = findTabNameByIndex(clampedIndex);
-        const newIndex = tabNameIndexMap[newIndexName];
+        const newIndex = Math.max(minTabIndex, i - 1);
         setActiveTab(newIndex);
-        document.getElementById(`${newIndexName}-tab`).focus();
+        document.getElementById(`tab-${newIndex}`).focus();
         return;
       }
       if (e.key === 'ArrowRight') {
-        const clampedIndex = Math.min(maxTabIndex, i + 1);
-        const newIndexName = findTabNameByIndex(clampedIndex);
-        const newIndex = tabNameIndexMap[newIndexName];
+        const newIndex = Math.min(maxTabIndex, i + 1);
         setActiveTab(newIndex);
-        document.getElementById(`${newIndexName}-tab`).focus();
+        document.getElementById(`tab-${newIndex}`).focus();
         return;
       }
     };
@@ -715,24 +746,24 @@ export const App = () => {
     <div>
       <ul role="tablist">
         <li
-          tabindex={activeTab === tabNameIndexMap.javascript ? '0' : '-1'}
+          tabindex={activeTab === 0 ? '0' : '-1'}
           role="tab"
-          id="javascript-tab"
-          aria-selected={activeTab === tabNameIndexMap.javascript}
+          id="tab-0"
+          aria-selected={activeTab === 0}
           aria-controls="javascript-panel"
-          onClick={() => setActiveTab(tabNameIndexMap.javascript)}
-          onKeyDown={onKeyDown(tabNameIndexMap.javascript)}
+          onClick={() => setActiveTab(0)}
+          onKeyDown={onKeyDown(0)}
         >
           JavaScript
         </li>
         <li
-          tabindex={activeTab === tabNameIndexMap.python ? '0' : '-1'}
+          tabindex={activeTab === 1 ? '0' : '-1'}
           role="tab"
-          id="python-tab"
-          aria-selected={activeTab === tabNameIndexMap.python}
+          id="tab-1"
+          aria-selected={activeTab === 1}
           aria-controls="python-panel"
-          onClick={() => setActiveTab(tabNameIndexMap.python)}
-          onKeyDown={onKeyDown(tabNameIndexMap.python)}
+          onClick={() => setActiveTab(1)}
+          onKeyDown={onKeyDown(1)}
         >
           Python
         </li>
@@ -740,16 +771,16 @@ export const App = () => {
       <div
         role="tabpanel"
         id="javascript-panel"
-        aria-labelledby="javascript-tab"
-        hidden={activeTab !== tabNameIndexMap.javascript}
+        aria-labelledby="tab-0"
+        hidden={activeTab !== 0}
       >
         <code>console.log("Hello, world!");</code>
       </div>
       <div
         role="tabpanel"
         id="python-panel"
-        aria-labelledby="python-tab"
-        hidden={activeTab !== tabNameIndexMap.python}
+        aria-labelledby="tab-1"
+        hidden={activeTab !== 1}
       >
         <code>print("Hello, world!")</code>
       </div>
@@ -760,23 +791,12 @@ export const App = () => {
 
 #### Angular
 
-```typescript
-import { Component } from '@angular/core';
+```typescript {0-4,12,18,23,29,60-73}
+// JavaScript
+const minTabIndex = 0;
 
-const tabNameIndexMap = {
-  javascript: 0,
-  python: 1,
-};
-
-function findTabNameByIndex(i) {
-  const [name, _index] = Object.entries(tabNameIndexMap).find(
-    ([_name, index]) => index === i
-  );
-  return name;
-}
-
-const maxTabIndex = Math.max(...Object.values(tabNameIndexMap));
-const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
+// Python
+const maxTabIndex = 1;
 
 @Component({
   selector: 'my-app',
@@ -784,24 +804,24 @@ const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
   <div>
     <ul role="tablist">
       <li
-        [tabIndex]="activeTab === tabNameIndexMap.javascript ? '0' : '-1'"
+        [tabIndex]="activeTab === 0 ? '0' : '-1'"
         role="tab"
         id="javascript-tab"
-        [attr.aria-selected]="activeTab === tabNameIndexMap.javascript"
+        [attr.aria-selected]="activeTab === 0"
         aria-controls="javascript-panel"
-        (click)="setActiveTab(tabNameIndexMap.javascript)"
-        (keydown)="onKeyDown(tabNameIndexMap.javascript, $event)"
+        (click)="setActiveTab(0)"
+        (keydown)="onKeyDown(0, $event)"
       >
         JavaScript
       </li>
       <li
-        [tabIndex]="activeTab === tabNameIndexMap.python ? '0' : '-1'"
+        [tabIndex]="activeTab === 1 ? '0' : '-1'"
         role="tab"
         id="python-tab"
-        [attr.aria-selected]="activeTab === tabNameIndexMap.python"
+        [attr.aria-selected]="activeTab === 1"
         aria-controls="python-panel"
-        (click)="setActiveTab(tabNameIndexMap.python)"
-        (keydown)="onKeyDown(tabNameIndexMap.python, $event)"
+        (click)="setActiveTab(1)"
+        (keydown)="onKeyDown(1, $event)"
       >
         Python
       </li>
@@ -810,7 +830,7 @@ const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
       role="tabpanel"
       id="javascript-panel"
       aria-labelledby="javascript-tab"
-      [hidden]="activeTab !== tabNameIndexMap.javascript"
+      [hidden]="activeTab !== 0"
     >
       <code>console.log("Hello, world!");</code>
     </div>
@@ -818,7 +838,7 @@ const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
       role="tabpanel"
       id="python-panel"
       aria-labelledby="python-tab"
-      [hidden]="activeTab !== tabNameIndexMap.python"
+      [hidden]="activeTab !== 1"
     >
       <code>print("Hello, world!")</code>
     </div>
@@ -826,8 +846,7 @@ const minTabIndex = Math.min(...Object.values(tabNameIndexMap));
   `,
 })
 export class AppComponent {
-  tabNameIndexMap = tabNameIndexMap;
-  activeTab = tabNameIndexMap.javascript;
+  activeTab = 0;
 
   setActiveTab(val: number) {
     this.activeTab = val;
@@ -835,19 +854,15 @@ export class AppComponent {
 
   onKeyDown(i, e) {
     if (e.key === 'ArrowLeft') {
-      const clampedIndex = Math.max(minTabIndex, i - 1);
-      const newIndexName = findTabNameByIndex(clampedIndex);
-      const newIndex = tabNameIndexMap[newIndexName];
+      const newIndex = Math.max(minTabIndex, i - 1);
       this.setActiveTab(newIndex);
-      document.getElementById(`${newIndexName}-tab`).focus();
+      document.getElementById(`tab-${newIndex}`).focus();
       return;
     }
     if (e.key === 'ArrowRight') {
-      const clampedIndex = Math.min(maxTabIndex, i + 1);
-      const newIndexName = findTabNameByIndex(clampedIndex);
-      const newIndex = tabNameIndexMap[newIndexName];
+      const newIndex = Math.min(maxTabIndex, i + 1);
       this.setActiveTab(newIndex);
-      document.getElementById(`${newIndexName}-tab`).focus();
+      document.getElementById(`tab-${newIndex}`).focus();
       return;
     }
   }
@@ -856,42 +871,37 @@ export class AppComponent {
 
 #### Vue
 
-```vue
+```vue {4,10,15,21,50-65}
 <template>
   <div>
     <ul role="tablist">
       <li
-        :tabIndex="activeTab === tabNameIndexMap.javascript ? '0' : '-1'"
+        :tabIndex="activeTab === 0 ? '0' : '-1'"
         role="tab"
-        id="javascript-tab"
-        :aria-selected="activeTab === tabNameIndexMap.javascript"
+        id="tab-0"
+        :aria-selected="activeTab === 0"
         aria-controls="javascript-panel"
-        @click="setActiveTab(tabNameIndexMap.javascript)"
-        @keydown="onKeyDown(tabNameIndexMap.javascript)"
+        @click="setActiveTab(0)"
+        @keydown="onKeyDown(0)"
       >
         JavaScript
       </li>
       <li
-        :tabIndex="activeTab === tabNameIndexMap.python ? '0' : '-1'"
+        :tabIndex="activeTab === 1 ? '0' : '-1'"
         role="tab"
-        id="python-tab"
-        :aria-selected="activeTab === tabNameIndexMap.python"
+        id="tab-1"
+        :aria-selected="activeTab === 1"
         aria-controls="python-panel"
-        @click="setActiveTab(tabNameIndexMap.python)"
-        @keydown="onKeyDown(tabNameIndexMap.python)"
+        @click="setActiveTab(1)"
+        @keydown="onKeyDown(1)"
       >
         Python
       </li>
     </ul>
-    <div
-      role="tabpanel"
-      id="javascript-panel"
-      aria-labelledby="javascript-tab"
-      :hidden="activeTab !== tabNameIndexMap.javascript"
-    >
+    <div role="tabpanel" id="javascript-panel" aria-labelledby="tab-0" :hidden="activeTab !== 0">
       <code>console.log("Hello, world!");</code>
     </div>
-    <div role="tabpanel" id="python-panel" aria-labelledby="python-tab" :hidden="activeTab !== tabNameIndexMap.python">
+    <div role="tabpanel" id="python-panel" aria-labelledby="tab-1" :hidden="activeTab !== 1">
       <code>print("Hello, world!")</code>
     </div>
   </div>
@@ -900,20 +910,13 @@ export class AppComponent {
 <script setup>
 import { ref } from 'vue'
 
-const tabNameIndexMap = {
-  javascript: 0,
-  python: 1,
-}
+// JavaScript
+const minTabIndex = 0
 
-function findTabNameByIndex(i) {
-  const [name, _index] = Object.entries(tabNameIndexMap).find(([_name, index]) => index === i)
-  return name
-}
+// Python
+const maxTabIndex = 1
 
-const maxTabIndex = Math.max(...Object.values(tabNameIndexMap))
-const minTabIndex = Math.min(...Object.values(tabNameIndexMap))
-
-const activeTab = ref(tabNameIndexMap.javascript)
+const activeTab = ref(0)
 
 function setActiveTab(val) {
   activeTab.value = val
@@ -922,19 +925,15 @@ function setActiveTab(val) {
 function onKeyDown(i) {
   return (e) => {
     if (e.key === 'ArrowLeft') {
-      const clampedIndex = Math.max(minTabIndex, i - 1)
-      const newIndexName = findTabNameByIndex(clampedIndex)
-      const newIndex = tabNameIndexMap[newIndexName]
+      const newIndex = Math.max(minTabIndex, i - 1)
       setActiveTab(newIndex)
-      document.getElementById(`${newIndexName}-tab`).focus()
+      document.getElementById(`tab-${newIndex}`).focus()
       return
     }
     if (e.key === 'ArrowRight') {
-      const clampedIndex = Math.min(maxTabIndex, i + 1)
-      const newIndexName = findTabNameByIndex(clampedIndex)
-      const newIndex = tabNameIndexMap[newIndexName]
+      const newIndex = Math.min(maxTabIndex, i + 1)
       setActiveTab(newIndex)
-      document.getElementById(`${newIndexName}-tab`).focus()
+      document.getElementById(`tab-${newIndex}`).focus()
       return
     }
   }
