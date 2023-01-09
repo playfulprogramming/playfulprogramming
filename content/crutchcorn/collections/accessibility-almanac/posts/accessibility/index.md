@@ -381,7 +381,7 @@ Here, the `role` enables us to tell the user that there is a list of tabs, `aria
 >
 > HTML does not provide a way to automatically change the `aria` attributes for us without JavaScript.
 >
-> We'll build an interactive version of this `tab` component using React, Angular, and Vue momentarily.
+> We'll build an interactive version of this `tab` component using React, Angular, and Vue later in this chapter that handles these things.
 
 While `role` is imperative in its usage here, it can lead to subpar or even actively hostile user experiences for assistive technologies.
 
@@ -421,7 +421,139 @@ Notice that the fake "button" here doesn't appear to "press" down? There's no st
 
 This is why it's often **highly discouraged to use `role` in place of an HTML element with an implicit `role` enabled**; they simply don't have feature parity without a substantial amount of work and expertise.
 
-## Building a tab component with ARIA
+
+
+---
+
+# Element Association
+
+In the last section, we showed some markup that looked like this:
+```html
+<!-- ... -->
+
+<li role="tab" id="javascript-tab" aria-selected="true" aria-controls="javascript-panel">
+JavaScript
+</li>
+
+<!-- ... -->
+
+<div role="tabpanel" id="javascript-panel" aria-labelledby="javascript-tab">
+
+<!-- ... -->
+```
+
+While we shortly explained in the last section that `aria-controls` is looking for a `role="tabpanel"` with the same `id` as the attribute's value we never fully explained _why_. 
+
+The reason we're doing this is to link two seemingly unrelated HTML elements together, so that assistive technologies are able to provide this information to the user.
+
+How does this work? Let's answer that question by exploring the two different ways of linking elements together:
+
+- Implicit element association
+- Explicit element association
+
+Let's start with "implicit element association" and go from there.
+
+## Implicit Element Association
+
+Let's say that you have an HTML login form like so:
+
+```html
+<form>
+    <input name="username" type="text"/>
+    <input name="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+```
+
+By default, this will look like the following:
+
+----
+
+<form>
+    <input name="username" type="text"/>
+    <input name="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+
+----
+
+Notice that our form doesn't indicate which text input is for which field; neither to sighted or blind users. Let's change that and make a visual label for our inputs:
+
+```html
+<form style="display: flex; gap: 1rem;">
+	<div style="display: flex; flex-direction: column;">
+        <p>Username</p>
+        <input name="username" type="text"/>
+	</div>
+	<div style="display: flex; flex-direction: column;">
+        <p>Password</p>
+	    <input name="password" type="password"/>
+    </div>
+    <button type="submit">Login</button>
+</form>	
+```
+
+----
+
+<form style="display: flex; gap: 1rem;">
+	<div style="display: flex; flex-direction: column;">
+        <p>Username</p>
+        <input name="username" type="text"/>
+	</div>
+	<div style="display: flex; flex-direction: column;">
+        <p>Password</p>
+	    <input name="password" type="password"/>
+    </div>
+    <button type="submit">Login</button>
+</form>	
+
+---
+
+Now the fields visually _look_ like they're labelled, but we've just introduced a critical accessibility issue into our app: Assistive technologies do not indicate which label belongs to which field.
+
+
+
+
+(label<->input)
+
+
+
+## Explicit Element Association
+
+Unique ID Generation/handling
+
+Here's an incomplete list of attributes that use this same pattern of an explicit `id` passed to the attribute to link two otherwise unrelated elements:
+
+- [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/for)
+
+- [`aria-controls`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls)
+- [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)
+- [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-details)
+- [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage)
+- [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
+
+
+
+
+
+# Tab focusing
+
+- Outline styles
+
+- TabIndex handling
+- `ref` usage with `focus()`
+
+
+
+# Mouse events
+
+Use CSS!, not JS (for hover states, focus states)
+
+
+
+
+
+# Building a tab component with ARIA
 
 Now that we've seen a few examples of accessible, but non-interactive, markup let's see what we can do to breath life into these UI components using a framework.
 
@@ -433,7 +565,7 @@ Let's start by reusing our markup from the previous section, and adding in some 
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx
 const App = () => {
@@ -482,7 +614,7 @@ const App = () => {
 };
 ```
 
-### Angular
+## Angular
 
 ```typescript
 @Component({
@@ -537,7 +669,7 @@ export class AppComponent {
 }
 ```
 
-### Vue
+## Vue
 
 ```vue
 <template>
@@ -640,7 +772,7 @@ And tada! 🎉 (For real this time.)
 
 Now these are some tabs we can work with.
 
-### Adding in Keyboard Interactions to Our Tab Component
+## Adding in Keyboard Interactions to Our Tab Component
 
 While our _markup_ might be fairly accessible, the component as a whole is missing a few things.
 
@@ -713,7 +845,7 @@ Alright! Let's get to coding:
 
 <!-- tabs:start -->
 
-#### React
+### React
 
 ```jsx {0-24,30,36,41,47}
 // JavaScript
@@ -789,7 +921,7 @@ export const App = () => {
 };
 ```
 
-#### Angular
+### Angular
 
 ```typescript {0-4,12,18,23,29,60-73}
 // JavaScript
@@ -869,7 +1001,7 @@ export class AppComponent {
 }
 ```
 
-#### Vue
+### Vue
 
 ```vue {4,10,15,21,50-65}
 <template>
@@ -943,39 +1075,13 @@ function onKeyDown(i) {
 
 <!-- tabs:end -->
 
-
-
----
-
-# Element Association
-
-
-
-## Implicit Element Attribution
-
-(label<->input)
-
-## Explicit Element Attribution
-
-Unique ID Generation/handling
-
-
-# Tab focusing
-
-- Outline styles
-
-- TabIndex handling
-- `ref` usage with `focus()`
-
-
-
 # Live announcements
 
 
 
-# Mouse events
+<!-- Move to dedicated blog post? -->
 
-Use CSS!, not JS (for hover states, focus states)
+
 
 
 
@@ -983,3 +1089,4 @@ Use CSS!, not JS (for hover states, focus states)
 
 - Official WCAG guidelines
 - Unofficial resources
+
