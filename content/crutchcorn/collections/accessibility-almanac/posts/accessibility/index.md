@@ -627,6 +627,93 @@ Want to read more? Here are a few resources that explore the problems with place
 
 ## Explicit Element Association
 
+> If `label` is able to link an `input` and a label together, why don't we always do this?
+
+Well, while you're able to place `div`s and other elements inside of a `label` element, let's say that you want to provide the following style, where your labels and inputs are in a table side-by-side:
+
+---
+
+<table>
+    <tbody>
+        <tr>
+            <td><label for="username-input">Username</label></td>
+            <td><input id="username-input" type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="password-input">Password</label></td>
+            <td><input id="password-input" type="password"></td>
+        </tr>
+        <tr>
+            <td><label for="confirm-password-input">Confirm Password</label></td>
+            <td><input id="confirm-password-input" type="password"></td>
+        </tr>
+    </tbody>
+</table>
+
+----
+
+Doing this with the implicit element association _might_ be possible, but would be very challenging to do properly. Instead, let's use a `table` element to layout the labels and elements:
+
+```html
+<table>
+    <tbody>
+        <tr>
+            <td><label>Username</label></td>
+            <td><input type="text"/></td>
+        </tr>
+        <tr>
+            <td><label>Password</label></td>
+            <td><input type="password"/></td>
+        </tr>
+        <tr>
+            <td><label>Confirm Password</label></td>
+            <td><input type="password"/></td>
+        </tr>
+    </tbody>
+</table>
+```
+
+While this gives us the visual style we're looking for, we've reintroduced an earlier accessibility issue: The `label` elements are not associated with the `input` elements anymore. To solve this, we can create a unique `id` for each input:
+
+```html
+<input id="username-input"/>
+```
+
+Then we can use this `id` value inside of a `for` attribute on our `label` element:
+
+```html
+<label for="username-input">Username</label>
+```
+
+This links the two elements and behave exactly as if the `label` element was wrapping the `input` element.
+
+We can apply this explicit element association to our entire table, which solves our accessibility error: 
+
+```html
+<table>
+    <tbody>
+        <tr>
+            <td><label for="username-input">Username</label></td>
+            <td><input id="username-input" type="text"/></td>
+        </tr>
+        <tr>
+            <td><label for="password-input">Password</label></td>
+            <td><input id="password-input" type="password"/></td>
+        </tr>
+        <tr>
+            <td><label for="confirm-password-input">Confirm Password</label></td>
+            <td><input id="confirm-password-input" type="password"/></td>
+        </tr>
+    </tbody>
+</table>
+```
+
+
+
+
+
+
+
 Unique ID Generation/handling
 
 Here's an incomplete list of attributes that use this same pattern of an explicit `id` passed to the attribute to link two otherwise unrelated elements:
@@ -639,7 +726,9 @@ Here's an incomplete list of attributes that use this same pattern of an explici
 - [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage)
 - [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
 
+### Generating Unique IDs for Input Components
 
+<!-- UUIDv4 -->
 
 
 
