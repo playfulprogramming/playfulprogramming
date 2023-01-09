@@ -446,15 +446,6 @@ While we shortly explained in the last section that `aria-controls` is looking f
 
 The reason we're doing this is to link two seemingly unrelated HTML elements together, so that assistive technologies are able to provide this information to the user.
 
-How does this work? Let's answer that question by exploring the two different ways of linking elements together:
-
-- Implicit element association
-- Explicit element association
-
-Let's start with "implicit element association" and go from there.
-
-## Implicit Element Association
-
 Let's say that you have an HTML login form like so:
 
 ```html
@@ -474,6 +465,7 @@ By default, this will look like the following:
     <input name="password" type="password"/>
     <button type="submit">Login</button>
 </form>
+
 
 ----
 
@@ -511,10 +503,94 @@ Notice that our form doesn't indicate which text input is for which field; neith
 
 Now the fields visually _look_ like they're labelled, but we've just introduced a critical accessibility issue into our app: Assistive technologies do not indicate which label belongs to which field.
 
+After all, how would a screen reader know that adjacent `input` and `p` tags are supposed to be related? After all, how would the code automatically know how to link the following HTML:
+
+```html
+<p>Sign up for our newsletter</p>
+<input name="email" />
+<p>Email</p>
+```
+
+> You might think that the `input`'s `name` attribute provides a hint to accessibility technologies, but alas this is not the case. The `name` attribute is simply there to tell the `form` which input relates to what dataset it should track.
+
+Because of this semantic ambiguity, there are two different ways of linking elements together:
+
+- Implicit element association
+- Explicit element association
+
+Let's start with "implicit element association" and go from there.
+
+## Implicit Element Association
+
+Luckily, when dealing with `input`s, there's an easy way to link a text input to a text label: simply wrap your `input` in a `label` element:
+
+```html
+<form>
+	<label>
+        Username
+        <input name="username" type="text"/>
+	</label>
+	<label>
+        Password
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+```
+
+---
+
+<form>
+	<label>
+        Username
+        <input name="username" type="text"/>
+	</label>
+	<label>
+        Password
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+
+---
+
+This allows screen-readers to associate elements together and read out "Text input, username" when the user has the first text input focused.
+
+Don't like the inline styling of the labels? No problem. Mix them with a [block-level element](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements), such as a `div`, to have them take up the full width and allow you to style them a bit more:
+
+```html
+<form style="display: flex; gap: 1rem;">
+	<label style="display: flex; flex-direction: column;">
+        <div>Username</div>
+        <input name="username" type="text"/>
+	</label>
+	<label style="display: flex; flex-direction: column;">
+        <div>Password</div>
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+```
+
+----
+
+<form style="display: flex; gap: 1rem;">
+	<label style="display: flex; flex-direction: column;">
+        <div>Username</div>
+        <input name="username" type="text"/>
+	</label>
+	<label style="display: flex; flex-direction: column;">
+        <div>Password</div>
+	    <input name="password" type="password"/>
+    </label>
+    <button type="submit">Login</button>
+</form>	
+
+---
+
+### Why You Shouldn't Use Placeholders
 
 
-
-(label<->input)
 
 
 
