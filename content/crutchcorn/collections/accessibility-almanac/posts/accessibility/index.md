@@ -590,9 +590,40 @@ Don't like the inline styling of the labels? No problem. Mix them with a [block-
 
 ### Why You Shouldn't Use Placeholders
 
+Whenever the topic of element association comes up, I regularly get asked the following:
 
+> Why don't you just use placeholders in an element?
 
+It's a valid question, given that it's been adopted as a broadly utilized pattern for many forms in recent years. Additionally, at least visually, it seems like placeholders provide a similar level of information as labels might.
 
+<form style="display: flex; gap: 1rem;" aria-hidden="true">
+    <input placeholder="Username" name="username" type="text"/>
+    <input placeholder="password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+
+Despite their popularity, **placeholders have been widely seen as a harmful U.X. pattern for inputs by accessibility experts**. Some of the issues with placeholders these experts cite are:
+
+- **Inadequate color contrast for placeholders**
+- **Confusion if a placeholder is pre-filled data or not**
+- **Confusion when the user has the input focused due to disappearing hints**
+- **Inability for the browser to automatically translate the placeholde**r (using services like Google Translate)
+
+Not only that, but [many screen readers handle the placeholder attribute inconsistently from one-another](https://www.davidmacd.com/blog/is-placeholder-accessible-label.html).
+
+> It's important to remember that blind users are not the only ones that benefit from accessibility. Many of the points above can directly apply to users with cognitive disabilities. In addition, the overall improved U.X. enhances your forms for everyone.
+
+Want to read more? Here are a few resources that explore the problems with placeholders in forms and text inputs:
+
+- [Placeholder Research - Low Vision Accessibility Task Force - W3C](https://www.w3.org/WAI/GL/low-vision-a11y-tf/wiki/Placeholder_Research)
+
+- [The Anatomy of Accessible Forms: The Problem with Placeholders | Deque](https://www.deque.com/blog/accessible-forms-the-problem-with-placeholders/)
+
+- [Don’t Use The Placeholder Attribute — Smashing Magazine](https://www.smashingmagazine.com/2018/06/placeholder-attribute/)
+
+- [Why you should avoid placeholder text  - Tolu Adegbite](https://www.tolu.xyz/blog/why-you-should-avoid-placeholder-text)
+
+- [Placeholders in Form Fields Are Harmful - Nielsen Norman Group](https://www.nngroup.com/articles/form-design-placeholders/)
 
 ## Explicit Element Association
 
