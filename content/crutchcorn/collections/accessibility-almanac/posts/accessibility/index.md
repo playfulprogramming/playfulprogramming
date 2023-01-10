@@ -708,13 +708,51 @@ We can apply this explicit element association to our entire table, which solves
 </table>
 ```
 
+### Non-`for` Usage
 
+While a `label`'s `for` field can be important to link a `label` and an `input` together, there's other examples of explicit element association that can be important for application development.
 
+For example, let's say that we have the following form field:
 
+```html
+<label for="email">Email address:</label>
+<input type="email" name="email" id="email" />
+```
 
+But oh no! The user has typed in an invalid email address! How do we inform the user of this?
 
+Well, we can add an error message to indicate that there's a problem:
 
-Unique ID Generation/handling
+```html
+<!-- This isn't accessible as-is -->
+<label for="email">Email address:</label>
+<input type="email" name="email" id="email" />
+<span class="errormessage">Error: Enter a valid email address</span>
+```
+
+But once again, we run into the problem where a user utilizing a screen reader won't know that the error is present when focused on the `input` element.
+
+To solve this, we can:
+
+- Add in a `aria-invalid="true"` attribute to the `input` when the user's input is invalid
+- Link the error message `span` using `aria-errormessage` and a unique ID for the error `span`
+
+```html
+<p>
+  <label for="email">Email address:</label>
+  <input
+    type="email"
+    name="email"
+    id="email"
+    aria-invalid="true"
+    aria-errormessage="err1" />
+  <span id="err1" class="errormessage">Error: Enter a valid email address</span>
+</p>
+```
+
+Now, when we focus on the element during an invalid state, it properly tells our user that they need to input a valid email.
+
+`aria-errormessage` isn't the only attribute that follows this same pattern however; there's a slew of other attributes that do the same as well.
 
 Here's an incomplete list of attributes that use this same pattern of an explicit `id` passed to the attribute to link two otherwise unrelated elements:
 
