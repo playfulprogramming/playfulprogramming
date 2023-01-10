@@ -764,7 +764,270 @@ Here's an incomplete list of attributes that use this same pattern of an explici
 - [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage)
 - [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
 
-### Generating Unique IDs for Input Components
+## Generating Unique IDs for Input Components
+
+Let's take this knowledge of linking elements together and create a `TextInput` component in our frameworks. Let's start by utilizing implicit element association:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+// TextInput.jsx
+export const TextInput = ({label, type}) => {
+	return <label>
+		{label}
+		<input type={type} />
+	</label>
+}
+```
+
+```jsx
+import {TextInput} from './TextInput';
+
+export const App = () => {
+	return <form>
+	    <TextInput label="Email"/>
+	    <TextInput label="Password" type="password"/>
+        <button type="submit">Login</button>
+    </form>
+}
+```
+
+### Angular
+
+```typescript
+// TextInput.component.ts
+@Component({
+    selector: "text-input",
+    template: `
+    	<label>
+    		{{label}}
+    		<input [type]="type" />
+    	</label>
+    `
+})
+class TextInputComponent {
+    @Input() label: string;
+    @Input() type?: string;
+}
+```
+
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <form>
+          <text-input label="Email"></text-input>
+          <text-input label="Password" type="password"></text-input>
+          <button type="submit">Login</button>
+      </form>
+  `,
+})
+export class AppComponent {}
+```
+
+### Vue
+
+```vue
+<!-- TextInput.vue -->
+<template>
+	<label>
+    	{{props.label}}
+        <input :type="props.type"/>
+    </label>
+</template>
+
+<script setup>
+const props = defineProps(['label', 'type']);
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<form>
+    <TextInput label="Email"/>
+    <TextInput label="Password" type="password"/>
+    <button type="submit">Login</button>
+</form>
+
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+```
+
+<!-- tabs:end -->
+
+Our form now works!
+
+<form>
+  <label>Email <input /></label>
+  <label>Password <input type="password" /></label>
+  <button type="submit">Login</button>
+</form>
+It's not the prettiest form in the world, but it's functional!
+
+Let's add in some minor styling and add in the ability to pass an error message.
+
+> Remember, we need to explicitly define an `id` for the component now that we want to link multiple elements together!
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+// TextInput.jsx
+export const TextInput = ({ label, type, id, error }) => {
+  return (
+    <>
+      <label for={id} class="label">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        aria-invalid={!!error}
+        aria-errormessage={id + '-error'}
+      />
+      <p class="errormessage" id={id + '-error'}>
+        {error}
+      </p>
+      <style
+        children={`
+      .label {
+        margin-right: 1rem;
+      }
+      
+      .errormessage {
+        color: red;
+      }
+      `}
+      />
+    </>
+  );
+};
+```
+
+```jsx
+import {TextInput} from './TextInput';
+
+export const App = () => {
+  return (
+    <form>
+      <TextInput label="Email" id="email" error="Invalid email" />
+      <TextInput label="Password" type="password" id="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+```
+
+### Angular
+
+```typescript
+// TextInput.component.ts
+@Component({
+  selector: 'text-input',
+  template: `
+  <label [for]="id" class="label">
+    {{ label }}
+  </label>
+  <input [id]="id" [type]="type" [attr.aria-invalid]="!!error" [attr.aria-errormessage]="id + '-error'" />
+  <p class="errormessage" [id]="id + '-error'">{{ error }}</p>
+  
+  <style>
+  .label {
+    margin-right: 1rem;
+  }
+
+  .errormessage {
+    color: red;
+  }
+  </style>
+  `,
+})
+export class TextInputComponent {
+  @Input() label: string;
+  @Input() id: string;
+  @Input() type?: string;
+  @Input() error?: string;
+}
+```
+
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <form>
+          <text-input label="Email" id="email" error="Invalid email"></text-input>
+          <text-input label="Password" type="password" id="password"></text-input>
+          <button type="submit">Login</button>
+      </form>
+  `,
+})
+export class AppComponent {}
+```
+
+### Vue
+
+```vue
+<!-- TextInput.vue -->
+<template>
+  <label :for="props.id" class="label">
+    {{ props.label }}
+  </label>
+  <input 
+    :id="props.id" 
+    :type="props.type" 
+    :aria-invalid="!!props.error" 
+    :aria-errormessage="props.id + '-error'"
+  />
+  <p class="errormessage" :id="props.id + '-error'">{{ props.error }}</p>
+</template>
+
+<script setup>
+const props = defineProps(['label', 'type', 'id', 'error'])
+</script>
+
+<style>
+.label {
+  margin-right: 1rem;
+}
+
+.errormessage {
+  color: red;
+}
+</style>
+```
+
+```vue
+<!-- App.vue -->
+<form>
+    <TextInput label="Email" id="email" error="Invalid email" />
+    <TextInput label="Password" type="password" id="password" />
+    <button type="submit">Login</button>
+</form>
+
+<script setup>
+import TextInput from "./TextInput.vue";
+</script>
+```
+
+<!-- tabs:end -->
+
+<form><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
+.label {
+  margin-right: 1rem;
+}
+.errormessage {
+  color: red;
+}</style></form>
+
+
+
+
 
 <!-- UUIDv4 -->
 
