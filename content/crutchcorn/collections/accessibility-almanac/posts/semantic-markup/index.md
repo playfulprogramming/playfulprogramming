@@ -1,0 +1,728 @@
+---
+{
+    title: "Semantic Markup",
+    description: "",
+    published: '2023-01-01T22:12:03.284Z',
+    authors: ['crutchcorn'],
+    tags: ['webdev'],
+    attached: [],
+    order: 2,
+    series: "The Accessibility Almanac"
+}
+---
+
+# Semantic HTML
+
+You ever look through a codebase and just see a sea of `div`s as far as the eye can see?
+
+```html
+<div>
+	<div>Add todo item</div>
+	<div class="todos">
+		<div>Play games</div>
+		<div>Eat ice cream</div>
+		<div>Do chores</div>
+	</div>
+</div>
+```
+
+While this may show the contents on screen, it's not the most readable code there is. Instead, let's replace these `div`s with elements that describe what they're doing:
+
+```html
+<div>
+	<button>Add todo item</button>
+	<ul class="todos">
+		<li>Play games</li>
+		<li>Eat ice cream</li>
+		<li>Do chores</li>
+	</ul>
+</div>
+```
+
+See, the HTML specification gives us a wide range of HTML elements we can use, each with their own meaning and intent behind them.
+
+A `ul` is an `unordered list`, while a `li` is a `list item`.
+
+Not only does this help codebase readability, it helps immensely with accessibility and UX. For example, compare and contrast the two versions of HTML without any added CSS or JavaScript.
+
+---
+
+**The `div` soup:**
+
+<div>
+	<div>Add todo item</div>
+	<div class="todos">
+		<div>Play games</div>
+		<div>Eat ice cream</div>
+		<div>Do chores</div>
+	</div>
+</div>
+
+----
+
+**The correct HTML tags:**
+
+<div>
+	<button>Add todo item</button>
+	<ul class="todos">
+		<li>Play games</li>
+		<li>Eat ice cream</li>
+		<li>Do chores</li>
+	</ul>
+</div>
+
+-----
+
+Notice how, by default, the correct HTML tags show bullet points next to the list? Or how the button actually is clickable?
+
+This is because the browser knows what a `button` is, and will apply default styling and behavior to the element, that you can then overwrite if need be. Without this information, it doesn't know how to handle a `div` in any special kind of way.
+
+Similarly, a screen-reader doesn't know that our first `<div class="todos">` was a list, and as such wouldn't indicate to the user that it has a list of items, or how many items are in the list. By using an `ul`, it will do all of that for us, without any additional code on our end.
+
+These HTML elements are not just supported in `.html` files; **React, Angular, and Vue support all valid HTML elements.**
+
+# ARIA
+
+Sometimes we have custom UI requirements. Like, _really_ custom UI requirements. We may want a dropdown that also has the ability to filter results as the user types.
+
+![// TODO: Write alt](./dropdown_combobox.png)
+
+While some of this component has clear analogs in HTML elements:
+
+- The search input should be an `input` component
+- The dropdown list should be an `ul` with `li` to indicate that it's a list
+
+Other parts of this UI are unclear how to communicate to the user at first glance.
+
+How do we indicate to the user that the suggestion dropdown is active? How can we associate the text input element with the suggestion list element for screen readers?
+
+This type of ultra-custom UI is where ARIA comes into play.
+
+ARIA is an acronym for "Accessible Rich Internet Applications", and is a collection of HTML attributes that help provide additional UI information to the end user.
+
+ For example, the dropdown arrow might have an attribute of `aria-expanded="true"` or `aria-expanded="false"` to indicate to screen readers that the dropdown is expanded or not.
+
+The following HTML:
+
+```html
+<button aria-expanded="true">States</button>
+```
+
+Might be read by a screen reader as "States button, expanded", which tells our user that they have more information they can access pertaining to the button.
+
+Likewise, the `aria-controls` attribute tells the assistive technology which element the button expands. This attribute takes an HTML `id`'s name and enables the user to quickly jump to the controlled element using a user-defined key combo.
+
+```html
+<button aria-expanded="true" aria-controls="states-list">States</button>
+<ul id="states-list">
+   <li>Alabama</li>
+   <li>Alaska</li>
+   <li>Arizona</li>
+   <!-- ... -->
+</ul>
+```
+
+> This is an wildly incomplete example of an "Editable Combobox with Autocomplete" UI component. A more complete example of such a component [can be found on the W3C's website](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-autocomplete-list), though even they admit their example is for demonstration purposes only.
+>
+> This component in particular has significantly more nuance than you might assume, and as such is an extremely tricky component to implement properly. If you're looking to add one to your production site, make sure you do sufficient user testing before shipping to your generalized end-users.
+
+While a complete list of these ARIA attributes are out of the scope of this book, [you can find a reference to them on MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes). Each comes with their own use-cases and nuance.
+
+## ARIA Roles
+
+While ARIA attributes can be a massive boon to accessibility, there's an attribute that we should proceed with immense caution when using; `role`.
+
+The `role` attribute allows us to signal the an element maps to a select list of UI components. For example, if we had a list of tabs, our markup _might_ look something like:
+
+```html
+<div>
+    <ul role="tablist">
+        <li role="tab" id="javascript-tab" aria-selected="true" aria-controls="javascript-panel">
+            JavaScript
+        </li>
+        <li role="tab" id="python-tab" aria-selected="false" aria-controls="python-panel">
+            Python
+        </li>
+    </ul>
+    <div role="tabpanel" id="javascript-panel" aria-labelledby="javascript-tab">
+        <code>console.log("Hello, world!");</code>
+    </div>
+    <div role="tabpanel" id="python-panel" aria-labelledby="python-tab">
+        <code>print("Hello, world!")</code>
+    </div>
+</div>
+```
+
+Here, the `role` enables us to tell the user that there is a list of tabs, `aria-controls` and `aria-labelledby` tells the user which contents belong to which tab, and `aria-selected` informs the user which tab is currently selected.
+
+> Keep in mind, we have to change these `aria` attributes on-the-fly as the information changes; say, with the `aria-selected` indicating which tab is active.
+>
+> HTML does not provide a way to automatically change the `aria` attributes for us without JavaScript.
+>
+> We'll build an interactive version of this `tab` component using React, Angular, and Vue later in this chapter that handles these things.
+
+While `role` is imperative in its usage here, it can lead to subpar or even actively hostile user experiences for assistive technologies.
+
+This is because, using `role`, you have the ability to tell HTML that one element should be reflected to the end-user as an entirely different element, without actually providing any of the expected functionality.
+
+To explain this more, let's look at how an HTML `button` works.
+
+When you create an HTML element like `button`, the browser implicitly assigns it a`role` internally, regardless of if you assigned one or not.
+
+In this case:
+
+```html
+<button>Click me!</button>
+```
+
+Is implicitly treated by the browser as having `role="button"` assigned to it.
+
+> If that's the case, then surely `<div type="button">` must act the same as a `<button>`, right?
+
+Not quite.
+
+While you could create a partially analogous `button` element using a `div`:
+
+```html
+<div tabindex="0" role="button">Save</div>
+```
+
+ You might notice a problem with it when displayed on a web page:
+
+---
+
+<div tabindex="0" role="button">Save</div>
+
+---
+
+Notice that the fake "button" here doesn't appear to "press" down? There's no styling to indicate when the user is hovered over the "button", nor is there any visual indication when the user is hovered over the "button" with their mouse.
+
+This is why it's often **highly discouraged to use `role` in place of an HTML element with an implicit `role` enabled**; they simply don't have feature parity without a substantial amount of work and expertise.
+
+
+
+---
+
+
+
+# Building a tab component with ARIA
+
+Now that we've seen a few examples of accessible, but non-interactive, markup let's see what we can do to breath life into these UI components using a framework.
+
+Namely, I want to demonstrate how we can build our own accessible tab component using aria attributes.
+
+
+
+Let's start by reusing our markup from the previous section, and adding in some JavaScript to make the tabs interactive.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const App = () => {
+  const [activeTab, setActiveTab] = useState('javascript');
+
+  return (
+    <div>
+      <ul role="tablist">
+        <li
+          role="tab"
+          id="javascript-tab"
+          aria-selected={activeTab === 'javascript'}
+          aria-controls="javascript-panel"
+          onClick={() => setActiveTab('javascript')}
+        >
+          JavaScript
+        </li>
+        <li
+          role="tab"
+          id="python-tab"
+          aria-selected={activeTab === 'python'}
+          aria-controls="python-panel"
+          onClick={() => setActiveTab('python')}
+        >
+          Python
+        </li>
+      </ul>
+      <div
+        role="tabpanel"
+        id="javascript-panel"
+        aria-labelledby="javascript-tab"
+        hidden={activeTab !== 'javascript'}
+      >
+        <code>console.log("Hello, world!");</code>
+      </div>
+      <div
+        role="tabpanel"
+        id="python-panel"
+        aria-labelledby="python-tab"
+        hidden={activeTab !== 'python'}
+      >
+        <code>print("Hello, world!")</code>
+      </div>
+    </div>
+  );
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <ul role="tablist">
+      <li
+        role="tab"
+        id="javascript-tab"
+        [attr.aria-selected]="activeTab === 'javascript'"
+        aria-controls="javascript-panel"
+        (click)="setActiveTab('javascript')"
+      >
+        JavaScript
+      </li>
+      <li
+        role="tab"
+        id="python-tab"
+        [attr.aria-selected]="activeTab === 'python'"
+        aria-controls="python-panel"
+        (click)="setActiveTab('python')"
+      >
+        Python
+      </li>
+    </ul>
+    <div
+      role="tabpanel"
+      id="javascript-panel"
+      aria-labelledby="javascript-tab"
+      [hidden]="activeTab !== 'javascript'"
+    >
+      <code>console.log("Hello, world!");</code>
+    </div>
+    <div
+      role="tabpanel"
+      id="python-panel"
+      aria-labelledby="python-tab"
+      [hidden]="activeTab !== 'python'"
+    >
+      <code>print("Hello, world!")</code>
+    </div>
+  </div>
+  `,
+})
+export class AppComponent {
+  activeTab = 'javascript';
+
+  setActiveTab(val: string) {
+    this.activeTab = val;
+  }
+}
+```
+
+## Vue
+
+```vue
+<template>
+  <div>
+    <ul role="tablist">
+      <li
+        role="tab"
+        id="javascript-tab"
+        :aria-selected="activeTab === 'javascript'"
+        aria-controls="javascript-panel"
+        @click="setActiveTab('javascript')"
+      >
+        JavaScript
+      </li>
+      <li
+        role="tab"
+        id="python-tab"
+        :aria-selected="activeTab === 'python'"
+        aria-controls="python-panel"
+        @click="setActiveTab('python')"
+      >
+        Python
+      </li>
+    </ul>
+    <div role="tabpanel" id="javascript-panel" aria-labelledby="javascript-tab" :hidden="activeTab !== 'javascript'">
+      <code>console.log("Hello, world!");</code>
+    </div>
+    <div role="tabpanel" id="python-panel" aria-labelledby="python-tab" :hidden="activeTab !== 'python'">
+      <code>print("Hello, world!")</code>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const activeTab = ref('javascript')
+
+function setActiveTab(val) {
+  activeTab.value = val
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+
+
+> 🎉 Tad-whoa. 😵‍💫
+
+![// TODO: Write alt](./unstyled_tabs.png)
+
+> Are we sure this worked?
+
+Well, it's not the prettiest UI visually, but we can verify it's functionality by clicking on the `JavaScript` or `Python` text in order to show the `console.log` or `print` statements respectively.
+
+Now all we need to do is add a bit of CSS...
+
+```css
+/* index.css */
+[role="tablist"] {
+  margin: 0;
+  padding: 0; 
+  display: flex;
+  gap: 0.25rem;
+}
+
+[role="tab"] {
+  display: inline-block;
+  padding: 1rem;
+  border: solid black;
+  border-width: 2px 2px 0 2px;
+  border-radius: 1rem 1rem 0 0;
+}
+
+[role="tab"]:hover {
+  background: #d3d3d3;
+}
+
+[role="tab"]:active {
+  background: #878787;
+}
+
+[role="tab"][aria-selected="true"] {
+  background: black;
+  color: white;
+}
+
+[role="tabpanel"] {
+  border: solid black;
+  border-width: 2px;
+  padding: 1rem;
+  border-radius: 0 1rem 1rem 1rem;
+}
+```
+
+And tada! 🎉 (For real this time.)
+
+![// TODO: Write alt](./styled_tabs.png)
+
+Now these are some tabs we can work with.
+
+## Adding in Keyboard Interactions to Our Tab Component
+
+While our _markup_ might be fairly accessible, the component as a whole is missing a few things.
+
+Namely, we should make sure that our tabs are accessible using only the keyboard. As things stand right now, we cannot tab to the other tabs and enable them using only our keyboard.
+
+We can fix this by adding in a `tabindex` attribute with a value of `0`. While [the `tabindex` has more nuance to it than this](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex), you can think of `tabindex` as a way of manually adding or removing the ability to tab to an HTML element.
+
+A `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element. 
+
+> A negative `tabindex` value also provides us a way to `focus` an element using JavaScript, but more on that later... 🤫
+
+Let's use this knowledge of `tabindex` to add the ability to keyboard cycle through each tab header:
+
+```html
+<div>
+    <ul role="tablist">
+        <li tabindex="1">JavaScript</li>
+        <li tabindex="1">Python</li>
+    </ul>
+    <!-- ... -->
+</div>
+```
+
+Yay! We can now navigate through each of the tab headers using the <kbd>Tab</kbd> key! Let's deploy this change to the Framework Field Guide website!
+
+Oh no, when we deployed this version of tabs, users came back to complain about its behavior! 😱
+
+It turns out that when you have as many tabs as we do on the website, having to tab through _every single tab header_ can be a bit of a headache. Instead, our users have requested the ability to tab to the first tab header, then use arrow keys to navigate left and right through the remaining tabs. That way, instead of having to tab through `n` tabs, they can simply tab through a single tab list, and use arrow key navigation to access the other tabs - much better!
+
+Let's do that!
+
+To make this change, we'll utilize our understanding of `tabindex`. Remember, a `tabindex` of `0` means that you can actively tab to the element, while a `tabindex` of `-1` enables you to focus an element using JavaScript, but not using a keyboard alone. This means that we can change our markup to the following:
+
+```html
+<div>
+    <ul role="tablist">
+        <li tabindex="0">JavaScript</li>
+        <li tabindex="-1">Python</li>
+    </ul>
+    <!-- ... -->
+</div>
+```
+
+After we change our markup, we can use some JavaScript to:
+
+- Listen for the `keydown` event
+  - On `keydown`, `focus()` the next tab
+  - Change the `tabindex` to reflect the newly focused tab
+
+To do this, we'll use a number to track which element is currently focused, rather than a string. This will allow us to easily increment and decrement our `currentTab` using our `keydown` listener:
+
+```javascript
+let currentTab = 0;
+
+function setNextTab() {
+	currentTab = currentTab + 1;
+}
+
+function setPreviousTab() {
+	currentTab = currentTab - 1;
+}
+```
+
+Lastly, let's clamp the users navigation input. This means both that:
+
+- If the user is on the last tab and tries to navigate to the "next" tab, they won't go anywhere
+- If the user is on the first tab and tries to navigate to the "previous" tab, they won't go anywhere
+
+Alright! Let's get to coding:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx {0-24,30,36,41,47}
+// JavaScript
+const minTabIndex = 0;
+
+// Python
+const maxTabIndex = 1;
+
+export const App = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  function onKeyDown(i) {
+    return (e) => {
+      if (e.key === 'ArrowLeft') {
+        const newIndex = Math.max(minTabIndex, i - 1);
+        setActiveTab(newIndex);
+        document.getElementById(`tab-${newIndex}`).focus();
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        const newIndex = Math.min(maxTabIndex, i + 1);
+        setActiveTab(newIndex);
+        document.getElementById(`tab-${newIndex}`).focus();
+        return;
+      }
+    };
+  }
+
+  return (
+    <div>
+      <ul role="tablist">
+        <li
+          tabindex={activeTab === 0 ? '0' : '-1'}
+          role="tab"
+          id="tab-0"
+          aria-selected={activeTab === 0}
+          aria-controls="javascript-panel"
+          onClick={() => setActiveTab(0)}
+          onKeyDown={onKeyDown(0)}
+        >
+          JavaScript
+        </li>
+        <li
+          tabindex={activeTab === 1 ? '0' : '-1'}
+          role="tab"
+          id="tab-1"
+          aria-selected={activeTab === 1}
+          aria-controls="python-panel"
+          onClick={() => setActiveTab(1)}
+          onKeyDown={onKeyDown(1)}
+        >
+          Python
+        </li>
+      </ul>
+      <div
+        role="tabpanel"
+        id="javascript-panel"
+        aria-labelledby="tab-0"
+        hidden={activeTab !== 0}
+      >
+        <code>console.log("Hello, world!");</code>
+      </div>
+      <div
+        role="tabpanel"
+        id="python-panel"
+        aria-labelledby="tab-1"
+        hidden={activeTab !== 1}
+      >
+        <code>print("Hello, world!")</code>
+      </div>
+    </div>
+  );
+};
+```
+
+### Angular
+
+```typescript {0-4,12,18,23,29,60-73}
+// JavaScript
+const minTabIndex = 0;
+
+// Python
+const maxTabIndex = 1;
+
+@Component({
+  selector: 'my-app',
+  template: `
+  <div>
+    <ul role="tablist">
+      <li
+        [tabIndex]="activeTab === 0 ? '0' : '-1'"
+        role="tab"
+        id="javascript-tab"
+        [attr.aria-selected]="activeTab === 0"
+        aria-controls="javascript-panel"
+        (click)="setActiveTab(0)"
+        (keydown)="onKeyDown(0, $event)"
+      >
+        JavaScript
+      </li>
+      <li
+        [tabIndex]="activeTab === 1 ? '0' : '-1'"
+        role="tab"
+        id="python-tab"
+        [attr.aria-selected]="activeTab === 1"
+        aria-controls="python-panel"
+        (click)="setActiveTab(1)"
+        (keydown)="onKeyDown(1, $event)"
+      >
+        Python
+      </li>
+    </ul>
+    <div
+      role="tabpanel"
+      id="javascript-panel"
+      aria-labelledby="javascript-tab"
+      [hidden]="activeTab !== 0"
+    >
+      <code>console.log("Hello, world!");</code>
+    </div>
+    <div
+      role="tabpanel"
+      id="python-panel"
+      aria-labelledby="python-tab"
+      [hidden]="activeTab !== 1"
+    >
+      <code>print("Hello, world!")</code>
+    </div>
+  </div>
+  `,
+})
+export class AppComponent {
+  activeTab = 0;
+
+  setActiveTab(val: number) {
+    this.activeTab = val;
+  }
+
+  onKeyDown(i, e) {
+    if (e.key === 'ArrowLeft') {
+      const newIndex = Math.max(minTabIndex, i - 1);
+      this.setActiveTab(newIndex);
+      document.getElementById(`tab-${newIndex}`).focus();
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      const newIndex = Math.min(maxTabIndex, i + 1);
+      this.setActiveTab(newIndex);
+      document.getElementById(`tab-${newIndex}`).focus();
+      return;
+    }
+  }
+}
+```
+
+### Vue
+
+```vue {4,10,15,21,50-65}
+<template>
+  <div>
+    <ul role="tablist">
+      <li
+        :tabIndex="activeTab === 0 ? '0' : '-1'"
+        role="tab"
+        id="tab-0"
+        :aria-selected="activeTab === 0"
+        aria-controls="javascript-panel"
+        @click="setActiveTab(0)"
+        @keydown="onKeyDown(0)"
+      >
+        JavaScript
+      </li>
+      <li
+        :tabIndex="activeTab === 1 ? '0' : '-1'"
+        role="tab"
+        id="tab-1"
+        :aria-selected="activeTab === 1"
+        aria-controls="python-panel"
+        @click="setActiveTab(1)"
+        @keydown="onKeyDown(1)"
+      >
+        Python
+      </li>
+    </ul>
+    <div role="tabpanel" id="javascript-panel" aria-labelledby="tab-0" :hidden="activeTab !== 0">
+      <code>console.log("Hello, world!");</code>
+    </div>
+    <div role="tabpanel" id="python-panel" aria-labelledby="tab-1" :hidden="activeTab !== 1">
+      <code>print("Hello, world!")</code>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+// JavaScript
+const minTabIndex = 0
+
+// Python
+const maxTabIndex = 1
+
+const activeTab = ref(0)
+
+function setActiveTab(val) {
+  activeTab.value = val
+}
+
+function onKeyDown(i) {
+  return (e) => {
+    if (e.key === 'ArrowLeft') {
+      const newIndex = Math.max(minTabIndex, i - 1)
+      setActiveTab(newIndex)
+      document.getElementById(`tab-${newIndex}`).focus()
+      return
+    }
+    if (e.key === 'ArrowRight') {
+      const newIndex = Math.min(maxTabIndex, i + 1)
+      setActiveTab(newIndex)
+      document.getElementById(`tab-${newIndex}`).focus()
+      return
+    }
+  }
+}
+</script>
+```
+
+<!-- tabs:end -->
