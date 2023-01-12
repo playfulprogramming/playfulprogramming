@@ -764,7 +764,7 @@ Here's an incomplete list of attributes that use this same pattern of an explici
 - [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage)
 - [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
 
-## Generating Unique IDs for Input Components
+## Creating an Input Component
 
 Let's take this knowledge of linking elements together and create a `TextInput` component in our frameworks. Let's start by utilizing implicit element association:
 
@@ -868,13 +868,15 @@ Our form now works!
 </form>
 It's not the prettiest form in the world, but it's functional!
 
+### Explicit Label Input Component
+
 Let's add in some minor styling and add in the ability to pass an error message.
 
 > Remember, we need to explicitly define an `id` for the component now that we want to link multiple elements together!
 
 <!-- tabs:start -->
 
-### React
+#### React
 
 ```jsx
 // TextInput.jsx
@@ -923,7 +925,7 @@ export const App = () => {
 };
 ```
 
-### Angular
+#### Angular
 
 ```typescript
 // TextInput.component.ts
@@ -970,7 +972,7 @@ export class TextInputComponent {
 export class AppComponent {}
 ```
 
-### Vue
+#### Vue
 
 ```vue
 <!-- TextInput.vue -->
@@ -1017,6 +1019,10 @@ import TextInput from "./TextInput.vue";
 
 <!-- tabs:end -->
 
+Now we can see our form with a warning about an invalid email. It looks something like this when an invalid email is entered:
+
+----
+
 <form><label for="email" class="label">Email</label><input id="email" aria-invalid="true" aria-errormessage="email-error"><p class="errormessage" id="email-error">Invalid email</p><label for="password" class="label">Password</label><input id="password" type="password" aria-invalid="false" aria-errormessage="password-error"><p class="errormessage" id="password-error"></p><button type="submit">Login</button><style>
 .label {
   margin-right: 1rem;
@@ -1024,6 +1030,21 @@ import TextInput from "./TextInput.vue";
 .errormessage {
   color: red;
 }</style></form>
+---
+
+### Generating Unique IDs Automatically using UUIDv4 
+
+Our forms above are pretty functional now, but there's a small developer experience headache associated with our new `TextInput` form: You are _required_ to define an unique `id` manually for each field.
+
+While this isn't a problem for small forms, as your application grows this can be quite a headache remembering all of the used `id`s for new forms.
+
+While it would be nice to remove the requirement to pass a custom `id`, we need to have one present in our input to link the `label`, error `span`, and `input` together. Luckily for us, computers have had a fairly reliable way of generating a unique IDs in the form of **UUIDs**.
+
+#### What's an UUID?
+
+
+
+
 
 
 
