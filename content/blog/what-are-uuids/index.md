@@ -22,7 +22,47 @@ While it's good to recognize popular technologies, a few questions remain:
 
 # What is a UUID?
 
-// TODO: Write
+Broadly speaking, a UUID is a numerical value of 128 bits that can be used to provide an indentification number to a resource. 
+
+While there are multiple different kinds of UUIDs, which we'll touch on shortly, all UUID formats follow a few general ideas.
+
+**First**; UUIDs are, for all intents and purposes, unique. While that might seem obvious, here's the part that isn't: The garuntee that a number is unqiue does not require previous knowledge of other generated UUIDs.
+
+This differs from a simple counter up from `0`, where you would need to lookup the previous number stored in order to generate a new number. 
+
+> We'll explore why this has led to UUID's prolific usage at the end of the article.
+
+**Second**; While it's not literally impossible to generate two UUIDs with the same value, it's generally safe to assume that it's _nearly_ impossible.
+
+**Finally**, all UUIDs are formatted in a similar manner. An example UUIDv4 might be formatted to look something like this:
+
+```
+a5abec44-7ce0-437c-972a-cf451b4fde2b
+```
+
+This number is then often represented using 36 characters of:
+
+- 8 characters
+- A dash (`-`)
+- 4 characters
+- A dash
+- 4 characters
+- A dash
+- 4 characters
+- A dash
+- 12 characters
+
+Two of these characters include information about which kind of UUID it is:
+
+```
+xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
+```
+
+Here, `M` is the UUID version number, while `N` is the variant of UUID version. Think of this as information encoded within the UUID _about_ the UUID generation process that yeilded the output value.
+
+> Speaking of "UUID version numbers", what are those? I know we outlined earlier that there were different ways of generating an UUID; what are they?
+
+I'm glad you asked.
 
 # What are the different types of UUID?
 
