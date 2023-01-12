@@ -34,23 +34,11 @@ This differs from a simple counter up from `0`, where you would need to lookup t
 
 **Second**; While it's not literally impossible to generate two UUIDs with the same value, it's generally safe to assume that it's _nearly_ impossible.
 
-**Finally**, all UUIDs are formatted in a similar manner. An example UUIDv4 might be formatted to look something like this:
+**Finally**, all UUIDs are formatted in a similar manner. The numerical value of the UUID is encoded into a string of [hexidecimal numbers](/posts/non-decimal-numbers-in-tech) and dashes (`-`) when displayed a string. An example UUIDv4 might be formatted to look something like this:
 
 ```
 a5abec44-7ce0-437c-972a-cf451b4fde2b
 ```
-
-This number is then often represented using 36 characters of:
-
-- 8 characters
-- A dash (`-`)
-- 4 characters
-- A dash
-- 4 characters
-- A dash
-- 4 characters
-- A dash
-- 12 characters
 
 Two of these characters include information about which kind of UUID it is:
 
@@ -58,7 +46,21 @@ Two of these characters include information about which kind of UUID it is:
 xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
 ```
 
-Here, `M` is the UUID version number, while `N` is the variant of UUID version. Think of this as information encoded within the UUID _about_ the UUID generation process that yeilded the output value.
+Here, `M` is the UUID version number, while `N` is the variant of UUID version. Think of this as information encoded within the UUID _about_ the UUID generation process that yeilded the output value. 
+
+> While we'll explain what the UUID "version" is in the next section, let's quickly explain what the "variant" means:
+>
+> - If the variant is `0` through `7`, it means the UUID is backwards compatible with [**very** old computer systems from the 1980s](https://en.wikipedia.org/wiki/Apollo_Computer).
+> - If the variant is `8` through `b`, it means the UUID is part of [the "RFC 4122" standard](https://www.ietf.org/rfc/rfc4122.txt)
+> - If the variant is `c` or `d`, it means the UUID is compatible with early Windows systems
+
+This means that we can take the previous UUID:
+
+```
+a5abec44-7ce0-437c-972a-cf451b4fde2b
+```
+
+And determine that this is a UUID with the version of `4` and the variant of `9`.
 
 > Speaking of "UUID version numbers", what are those? I know we outlined earlier that there were different ways of generating an UUID; what are they?
 
