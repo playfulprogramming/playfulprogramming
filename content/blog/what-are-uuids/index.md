@@ -95,6 +95,8 @@ https://ietf-wg-uuidrev.github.io/rfc4122bis/draft-00/draft-ietf-uuidrev-rfc4122
 
 https://www.sohamkamani.com/uuid-versions-explained/
 
+![// TODO: Write](./UUIDv1.svg)
+
 
 
 ## UUIDv2s are _weird_ {#UUIDv2}
@@ -114,9 +116,27 @@ https://www.uuidtools.com/uuid-versions-explained
 > - OID — `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
 > - X.500 DN — `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
 
+
+
+
+
+![// TODO: Write](./UUIDv3.svg)
+
+
+
+// TODO: Write
+
+![// TODO: Write](./UUIDv5.svg)
+
 ## Generate non-clashing random IDs with UUIDv4 {#UUIDv4}
 
 // TODO: Write
+
+![A UUIDv4 is defined by 5 different segments of random data separated by a dash. Inside of this UUID is also encoded a UUID version code and a variant code. An example UUIDv4 might be "170e8013-f7b9-4a15-9e2e-6fc86dcb98fd".](./UUIDv4.svg)
+
+
+
+
 
 
 
