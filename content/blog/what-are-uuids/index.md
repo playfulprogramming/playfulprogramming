@@ -22,7 +22,7 @@ While it's good to recognize popular technologies, a few questions remain:
 
 # What is a UUID?
 
-Broadly speaking, a UUID is a numerical value of 128 bits that can be used to provide an indentification number to a resource. 
+Broadly speaking, a UUID is a numerical value of 128 bits that can be used to provide an identification number to a resource. 
 
 While there are multiple different kinds of UUIDs, which we'll touch on shortly, all UUID formats follow a few general ideas.
 
@@ -53,6 +53,7 @@ Here, `M` is the UUID version number, while `N` is the variant of UUID version. 
 > - If the variant is `0` through `7`, it means the UUID is backwards compatible with [**very** old computer systems from the 1980s](https://en.wikipedia.org/wiki/Apollo_Computer).
 > - If the variant is `8` through `b`, it means the UUID is part of [the "RFC 4122" standard](https://www.ietf.org/rfc/rfc4122.txt)
 > - If the variant is `c` or `d`, it means the UUID is compatible with early Windows systems
+> - Variants `e` and `f` are reserved for future UUID versions
 
 This means that we can take the previous UUID:
 
@@ -95,6 +96,8 @@ https://ietf-wg-uuidrev.github.io/rfc4122bis/draft-00/draft-ietf-uuidrev-rfc4122
 
 https://www.sohamkamani.com/uuid-versions-explained/
 
+https://versprite.com/blog/universally-unique-identifiers/
+
 ![// TODO: Write](./UUIDv1.svg)
 
 
@@ -121,6 +124,14 @@ While the specification is happy to go in-depth about [the fine-grained details 
 
 
 
+![// TODO: Write](./UUIDv2.svg)
+
+
+
+https://github.com/f4b6a3/uuid-creator/wiki/1.2.-UUIDv2
+
+
+
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
 https://stackoverflow.com/questions/20342058/which-uuid-version-to-use
@@ -133,6 +144,16 @@ https://www.uuidtools.com/uuid-versions-explained
 > - URL — `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
 > - OID — `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
 > - X.500 DN — `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
+
+
+
+
+
+You can think of the generation algorthm for both of these UUID versions as the following:
+
+```
+UUID = hash(NAMESPACE_IDENTIFIER + NAME)
+```
 
 
 
