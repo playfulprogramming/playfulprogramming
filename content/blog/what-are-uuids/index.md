@@ -1,8 +1,8 @@
 ---
 {
     title: "What are UUIDs?",
-    description: "",
-    published: '2023-02-20T21:52:59.284Z',
+    description: "When discussing ID generation in software, you may have heard of a UUID. What are they? Are they useful? What are the different versions? Let's explore that.",
+    published: '2023-01-14T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['computer science'],
     attached: [],
