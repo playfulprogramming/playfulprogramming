@@ -133,19 +133,45 @@ They're rarely implemented into most UUID libraries, and are used even more rare
 
 As a result, we won't talk about UUIDv2s any more today. Stay tuned for an upcoming article outlining them more.
 
-
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
-https://stackoverflow.com/questions/20342058/which-uuid-version-to-use
+Let's say that you're creating a database of URLs that're tracked on your website. You want to use the URL as [the primary key in your database](https://en.wikipedia.org/wiki/Primary_key), but don't want to use the full URL, as it will bloat your key's storage requirements.
 
-https://www.uuidtools.com/uuid-versions-explained
+On the other side of the coin: You can't use any random data to store as your URL's primary key, since it could introduce duplicate URL entries into your database table. 
 
-> The UUID specification establishes 4 pre-defined namespaces. The pre-defined namespaces are:
+Is there a good way to generate a unique ID based off a string that will output the same ID if the inputs are the same?
+
+Intro: UUIDv3 and UUIDv5.
+
+Both of these UUID versions take the following information:
+
+- A pre-defined UUID "namespace"
+- Any string for a "name"
+
+> The UUID specification establishes 4 pre-defined namespaces for common usecases. The pre-defined namespaces are:
 >
-> - DNS — `6ba7b810-9dad-11d1-80b4-00c04fd430c8`
-> - URL — `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
-> - OID — `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
-> - X.500 DN — `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
+> - [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): `6ba7b810-9dad-11d1-80b4-00c04fd430c8`
+> - [URL](https://en.wikipedia.org/wiki/URL): `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
+> - [OID](https://en.wikipedia.org/wiki/Object_identifier): `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
+> - [X.500 DN](https://en.wikipedia.org/wiki/X.500): `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
+
+These UUID versions output a UUID that contains a hash of the namespace and name concattenated together.
+
+You can think of the generation algorthm for both of these UUID versions as the following:
+
+```javascript
+UUID = hash(NAMESPACE + NAME)
+```
+
+For example, here's UUIDv3, which uses [MD5](https://en.wikipedia.org/wiki/MD5) to hash the concatenated value:
+
+![A UUID broken down into "MD5 High", a dash, "MD5 High", a dash, "Version", "MD5 Mid", a dash, "Variant", "MD5 Low", a dash, and finally another "MD5 Low". An example UUIDv3 might be "a6a09ffa-9d61-3a0a-84a8-b27dd6dcf32f"](./UUIDv3.svg)
+
+Compare this to UUIDv5, which uses [SHA-1](https://en.wikipedia.org/wiki/SHA-1) to generate the hash:
+
+![// TODO: Write](./UUIDv5.svg)
+
+
 
 
 
@@ -161,13 +187,13 @@ UUID = hash(NAMESPACE_IDENTIFIER + NAME)
 
 
 
-![// TODO: Write](./UUIDv3.svg)
+
 
 
 
 // TODO: Write
 
-![// TODO: Write](./UUIDv5.svg)
+
 
 ## Generate non-clashing random IDs with UUIDv4 {#UUIDv4}
 
