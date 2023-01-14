@@ -10,9 +10,9 @@
 }
 ---
 
-Oftentimes, in computer programming, you'll find yourself needing a way to give a unique identifier to a digital asset. Whether those are books in your "To Read" digital bookshelf, computers on your network, or anything in between; you need a quick and easy way to access that data with an ID that's distinct.
+Oftentimes, in computer programming, you'll find yourself needing a way to give a unique identifier to a digital asset. For example, items such as books in your "to read" digital bookshelf, computers on your network, or rows in your database need a quick and easy way to access them. This is typically done with a distinct ID for each item.
 
-If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide reaching in the software industry.
+If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide-reaching in the software industry.
 
 While it's good to recognize popular technologies, a few questions remain:
 
@@ -22,19 +22,17 @@ While it's good to recognize popular technologies, a few questions remain:
 
 # What is a UUID?
 
-Broadly speaking, a UUID is a numerical value of 128 bits that can be used to provide an identification number to a resource. 
+Broadly speaking, a UUID is a numerical value of 128 bits that can be used to provide an identification number for a resource. 
 
 While there are multiple different kinds of UUIDs, which we'll touch on shortly, all UUID formats follow a few general ideas.
 
-**First**; UUIDs are, for all intents and purposes, unique. While that might seem obvious, here's the part that isn't: The garuntee that a number is unqiue does not require previous knowledge of other generated UUIDs.
+**First**, UUIDs are, for all intents and purposes, unique. While that might seem obvious, here's the part that isn't: The guarantee that a number is unique does not require previous knowledge of other generated UUIDs.
 
-This differs from a simple counter up from `0`, where you would need to lookup the previous number stored in order to generate a new number. 
+This differs from a simple counter that counts up from `0`, where you would need to look up the previous number stored to generate a new one. 
 
-> We'll explore why this has led to UUID's prolific usage at the end of the article.
+**Second**, while it's not literally impossible to generate two UUIDs with the same value, it's generally safe to assume that it's _nearly_ impossible with the proper inputs.
 
-**Second**; While it's not literally impossible to generate two UUIDs with the same value, it's generally safe to assume that it's _nearly_ impossible.
-
-**Finally**, all UUIDs are formatted in a similar manner. The numerical value of the UUID is encoded into a string of [hexidecimal numbers](/posts/non-decimal-numbers-in-tech) and dashes (`-`) when displayed a string. An example UUIDv4 might be formatted to look something like this:
+**Finally**, all UUIDs are formatted similarly. The numerical value of the UUID is encoded into a string of [hexadecimal numbers](/posts/non-decimal-numbers-in-tech) and dashes (`-`) when displayed as a string. An example UUIDv4 might be formatted to look something like this:
 
 ```
 a5abec44-7ce0-437c-972a-cf451b4fde2b
@@ -46,11 +44,11 @@ Two of these characters include information about which kind of UUID it is:
 xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx
 ```
 
-Here, `M` is the UUID version number, while `N` is the variant of UUID version. Think of this as information encoded within the UUID _about_ the UUID generation process that yeilded the output value. 
+Here, `M` is the UUID version number, while `N` is the variant of the UUID version. Think of this as information encoded within the UUID _about_ the UUID generation process that yielded the output value. 
 
 > While we'll explain what the UUID "version" is in the next section, let's quickly explain what the "variant" means:
 >
-> - If the variant is `0` through `7`, it means the UUID is backwards compatible with [**very** old computer systems from the 1980s](https://en.wikipedia.org/wiki/Apollo_Computer).
+> - If the variant is `0` through `7`, the UUID is backward compatible with [**very** old computer systems from the 1980s](https://en.wikipedia.org/wiki/Apollo_Computer).
 > - If the variant is `8` through `b`, it means the UUID is part of [the "RFC 4122" standard](https://www.ietf.org/rfc/rfc4122.txt)
 > - If the variant is `c` or `d`, it means the UUID is compatible with early Windows systems
 > - Variants `e` and `f` are reserved for future UUID versions
@@ -63,13 +61,13 @@ a5abec44-7ce0-437c-972a-cf451b4fde2b
 
 And determine that this is a UUID with the version of `4` and the variant of `9`.
 
-> Speaking of "UUID version numbers", what are those? I know we outlined earlier that there were different ways of generating an UUID; what are they?
+> Speaking of "UUID version numbers", what are those? I know we outlined earlier that there were different ways of generating a UUID; what are they?
 
 I'm glad you asked.
 
 # What are the different types of UUID?
 
-A "UUID version" outlines which type of UUID you're generating; each version of UUID has a different generation mechanism, and therefore different usecases.
+A "UUID version" outlines which type of UUID you're generating; each version of UUID has a different generation mechanism and, therefore, different use cases.
 
 At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-uuidrev.github.io/rfc4122bis/draft-00/draft-ietf-uuidrev-rfc4122bis.html) that are part of [the official UUID specification](https://datatracker.ietf.org/doc/html/rfc4122):
 
@@ -94,13 +92,13 @@ As mentioned previously, a UUID is composed of:
 - A random number called a "Clock Sequence"
 - A unique ID number of a computer's network card - called a ["MAC address"](https://en.wikipedia.org/wiki/MAC_address)
 
-This data is then converted to raw numerical values, and encoded into UUID with the following format:
+This data is then converted to raw numerical values and encoded into UUID with the following format:
 
 ![A UUID broken down into "Low Time", a dash, "Mid Time", a dash, "Version", "High Time", a dash, "Variant", "Clock", a dash, and finally a "MAC Address". An example UUIDv1 might be "4e2b4d4c-92e8-11ed-86a8-3fdb0085247e"](./UUIDv1.svg)
 
 ### Pros of UUIDv1
 
-- **Low likelyhood of collision**: While Mac addresses are not _truly_ unique, [thanks to vender re-use](https://www.howtogeek.com/228286/how-is-the-uniqueness-of-mac-addresses-enforced/), the combination of timestamp and Mac address makes it **extremely** unlikely to duplicate the same UUID in mutliple generations on the same network system. Furthermore, introducing a clock sequence adds another layer of protection against UUIDv1 collision.
+- **Low likelihood of collision**: While Mac addresses are not _truly_ unique, [thanks to vendor re-use](https://www.howtogeek.com/228286/how-is-the-uniqueness-of-mac-addresses-enforced/), the combination of timestamp and Mac address makes it **extremely** unlikely to duplicate the same UUID in multiple generations on the same network system. Furthermore, introducing a clock sequence adds another layer of protection against UUIDv1 collision.
 
 ### Cons of UUIDv1
 
@@ -126,20 +124,20 @@ In the meantime, the short version of UUIDv2 is:
 
 UUIDv2 matches the specification for UUIDv1 but replaces some of the timing and clock information with identification numbers for operating system usage.
 
-They're rarely implemented into most UUID libraries, and are used even more rarely. This is because of 2 reasons:
+They're rarely implemented into most UUID libraries and are used even more rarely. This is because of 2 reasons:
 
 1) They're not documented as part of the newest UUID specification
 2) Significant pitfalls in UUIDv2's generation schema that **regularly** leads to collision with other generated UUIDv2s
 
-As a result, we won't talk about UUIDv2s any more today. Stay tuned for an upcoming article outlining them more.
+As a result, we won't talk about UUIDv2s anymore today. Stay tuned for an upcoming article outlining them more.
 
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
-Let's say that you're creating a database of URLs that're tracked on your website. You want to use the URL as [the primary key in your database](https://en.wikipedia.org/wiki/Primary_key), but don't want to use the full URL, as it will bloat your key's storage requirements.
+Let's say you're creating a database of URLs tracked on your website. You want to use the URL as [the primary key in your database](https://en.wikipedia.org/wiki/Primary_key) but don't want to use the full URL, as it will bloat your key's storage requirements.
 
-On the other side of the coin: You can't use any random data to store as your URL's primary key, since it could introduce duplicate URL entries into your database table. 
+On the other side of the coin: You can't use any random data to store as your URL's primary key since it could introduce duplicate URL entries into your database table. 
 
-Is there a good way to generate a unique ID based off a string that will output the same ID if the inputs are the same?
+Is there a good way to generate a unique ID based on a string that will output the same ID if the inputs are the same?
 
 Intro: UUIDv3 and UUIDv5.
 
@@ -148,16 +146,16 @@ Both of these UUID versions take the following information:
 - A pre-defined UUID "namespace"
 - Any string for a "name"
 
-> The UUID specification establishes 4 pre-defined namespaces for common usecases. The pre-defined namespaces are:
+> The UUID specification establishes 4 pre-defined namespaces for common use cases. The pre-defined namespaces are:
 >
 > - [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): `6ba7b810-9dad-11d1-80b4-00c04fd430c8`
 > - [URL](https://en.wikipedia.org/wiki/URL): `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
 > - [OID](https://en.wikipedia.org/wiki/Object_identifier): `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
 > - [X.500 DN](https://en.wikipedia.org/wiki/X.500): `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
 
-These UUID versions output a UUID that contains a hash of the namespace and name concattenated together.
+These UUID versions output a UUID that contains a hash of the namespace and name concatenated together.
 
-You can think of the generation algorthm for both of these UUID versions as the following:
+You can think of the generation algorithm for both of these UUID versions as the following:
 
 ```javascript
 UUID = hash(NAMESPACE + NAME)
@@ -181,7 +179,7 @@ When provided the option, when should you use UUIDv3 against UUIDv5? When should
 
 **You should use UUIDv3 when**:
 
-- Performance is key or system resources are limited
+- Performance is key, or system resources are limited
 - It's not critical that `name` or `namespace` contents can be decoded
 
 This is because UUIDv3 uses the less secure MD5 hashing method for its contents. 
@@ -195,11 +193,11 @@ As UUIDv5's SHA-1 is significantly more secure with hashing its contents.
 
 ### Pros of UUIDv3 and UUIDv5
 
-- **Contents are stable**: In instances where you need the input to match the output every time, there are no other UUIDs that can fulfill this usecase.
+- **Contents are stable**: In instances where you need the input to match the output every time, there are no other UUIDs that can fulfill this use case.
 
 ### Cons of UUIDv3 and UUIDv5
 
-- **Contents are not random**. While ouput stability _can_ be incredibly useful, it has somewhat limited usage in ID generation. As such, it may not fit your needs that other UUIDs may.
+- **Contents are not random**. While output stability _can_ be incredibly useful, it has somewhat limited usage in ID generation. As such, it may not fit your needs that other UUIDs may.
 
 
 
@@ -213,7 +211,7 @@ While the previous versions of UUID have had some kind of input data, UUIDv4 bre
 
 - **No required metadata**: There are many instances where you won't have the proper metadata for other UUID versions.
 
-- **Near-`0` chance of collision**: While there's still *theoretically* a possibility that you can have two UUIDv4 UUIDs match one-another, the likelyhood of this happening is....
+- **Near-`0` chance of collision**: While there's still *theoretically* a possibility that you can have two UUIDv4 UUIDs match one another, the likelihood of this happening is...
 
   Well, let's put it this way. [You would have to generate 1 billion UUIDs per second for about 85 years before you even hit a 50% chance of a collision.](https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions)
 
@@ -223,7 +221,7 @@ While the previous versions of UUID have had some kind of input data, UUIDv4 bre
 
 # Conclusion
 
-And that's it; That's all of the UUID versions that are part of the original 2005 specification! Hopefully this has been helpful in learning about the different UUID versions and when each is useful.
+And that's it; That's all of the UUID versions that are part of the original 2005 specification! Hopefully, this has been helpful in learning about the different UUID versions and when each is useful.
 
 In the next article, we'll talk about how UUIDs came to be, what happened to UUIDv2, and why you shouldn't use it.
 
