@@ -175,23 +175,31 @@ Compare this to UUIDv5, which uses [SHA-1](https://en.wikipedia.org/wiki/SHA-1) 
 
 
 
+### When should you use UUIDv3 vs. UUIDv5?
 
+When provided the option, when should you use UUIDv3 against UUIDv5? When should you do the opposite?
 
-You can think of the generation algorthm for both of these UUID versions as the following:
+**You should use UUIDv3 when**:
 
-```
-UUID = hash(NAMESPACE_IDENTIFIER + NAME)
-```
+- Performance is key or system resources are limited
+- It's not critical that `name` or `namespace` contents can be decoded
 
+This is because UUIDv3 uses the less secure MD5 hashing method for its contents. 
 
+Likewise, **you should use UUIDv5 when**:
 
+- It's critical that `name` or `namespace` contents cannot be decoded
+- Performance is less of a concern
 
+As UUIDv5's SHA-1 is significantly more secure with hashing its contents.
 
+### Pros of UUIDv3 and UUIDv5
 
+- **Contents are stable**: In instances where you need the input to match the output every time, there are no other UUIDs that can fulfill this usecase.
 
+### Cons of UUIDv3 and UUIDv5
 
-
-// TODO: Write
+- **Contents are not random**. While ouput stability _can_ be incredibly useful, it has somewhat limited usage in ID generation. As such, it may not fit your needs that other UUIDs may.
 
 
 
