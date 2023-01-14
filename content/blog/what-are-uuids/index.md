@@ -205,16 +205,18 @@ As UUIDv5's SHA-1 is significantly more secure with hashing its contents.
 
 ## Generate non-clashing random IDs with UUIDv4 {#UUIDv4}
 
-// TODO: Write
+While the previous versions of UUID have had some kind of input data, UUIDv4 breaks from this pattern. Instead, a UUIDv4 is defined as random data alongside the standard `version` and `variant` UUID standards.
 
 ![A UUIDv4 is defined by 5 different segments of random data separated by a dash. Inside of this UUID is also encoded a UUID version code and a variant code. An example UUIDv4 might be "170e8013-f7b9-4a15-9e2e-6fc86dcb98fd".](./UUIDv4.svg)
 
+### Pros of UUIDv4
 
+- **No required metadata**: There are many instances where you won't have the proper metadata for other UUID versions.
 
+- **Near-`0` chance of collision**: While there's still *theoretically* a possibility that you can have two UUIDv4 UUIDs match one-another, the likelyhood of this happening is....
 
+  Well, let's put it this way. [You would have to generate 1 billion UUIDs per second for about 85 years before you even hit a 50% chance of a collision.](https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions)
 
+### Cons of UUIDv4
 
-
-# Why would you want to use UUID?
-
-// TODO: Write
+- **No encoded metadata**: This UUID does not convey any information about the item it's being generated for. This means you must store this data elsewhere and do additional lookups to find this data.
