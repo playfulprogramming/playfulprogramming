@@ -86,21 +86,17 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 
 ## Track Network Systems Using UUIDv1 {#UUIDv1}
 
+As mentioned previously, a UUID is composed of:
 
+- A timestamp
+- A UUID version of `1`
+- A UUID variant value
+- A random number called a "Clock Sequence"
+- A unique ID number of a computer's network card - called a ["MAC address"](https://en.wikipedia.org/wiki/MAC_address)
 
+This data is then converted to raw numerical values, and encoded into UUID with the following format:
 
-
-https://www.mparticle.com/blog/what-is-a-uuid/
-
-https://ietf-wg-uuidrev.github.io/rfc4122bis/draft-00/draft-ietf-uuidrev-rfc4122bis.html#name-uuid-version-1
-
-https://www.sohamkamani.com/uuid-versions-explained/
-
-https://versprite.com/blog/universally-unique-identifiers/
-
-![// TODO: Write](./UUIDv1.svg)
-
-
+![A UUID broken down into "Low Time", a dash, "Mid Time", a dash, "Version", "High Time", a dash, "Variant", "Clock", a dash, and finally a "MAC Address". An example UUIDv1 might be "4e2b4d4c-92e8-11ed-86a8-3fdb0085247e"](./UUIDv1.svg)
 
 ### Pros of UUIDv1
 
@@ -118,11 +114,9 @@ https://versprite.com/blog/universally-unique-identifiers/
 
   An attacker can decode the Mac address of the server (in this case, `6f:b6:f9:8f:3a:da`) and use it to brute force the rest of the URL, as demonstrated [in this article by Versprite](https://versprite.com/blog/universally-unique-identifiers/).
 
-
-
 ## UUIDv2s are _weird_ {#UUIDv2}
 
-> I know you mentioned it's a long story with UUIDv2... Surely it can't be that bad, can it?
+> I know you mentioned it's a long story with UUIDv2 when outlining the different versions of UUID... Surely it can't be that bad, can it?
 
 No, really, it's a ***long*** story. It's complex enough that I'm writing a second blog post explaining what UUIDv2s are, why they're not widely used, and how they came to be.
 
