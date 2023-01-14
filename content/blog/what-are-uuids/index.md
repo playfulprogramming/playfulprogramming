@@ -220,3 +220,11 @@ While the previous versions of UUID have had some kind of input data, UUIDv4 bre
 ### Cons of UUIDv4
 
 - **No encoded metadata**: This UUID does not convey any information about the item it's being generated for. This means you must store this data elsewhere and do additional lookups to find this data.
+
+# Conclusion
+
+And that's it; That's all of the UUID versions that are part of the original 2005 specification! Hopefully this has been helpful in learning about the different UUID versions and when each is useful.
+
+In the next article, we'll talk about how UUIDs came to be, what happened to UUIDv2, and why you shouldn't use it.
+
+Until then, happy ~~hacking~~ ID generating!
