@@ -76,7 +76,7 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 - [UUIDv1](#UUIDv1)
   - A machine's network card information + a timestamp
 - [UUIDv2](#UUIDv2)
-  - UUIDv1 + Obscure Security Stuff (it's complicated)
+  - It's a long story.
 - [UUIDv3](#UUIDv3and5)
   - Encode a string using MD5
 - [UUIDv4](#UUIDv4)
@@ -122,7 +122,23 @@ https://versprite.com/blog/universally-unique-identifiers/
 
 ## UUIDv2s are _weird_ {#UUIDv2}
 
-// TODO: Write
+> I know you mentioned it's a long story with UUIDv2... Surely it can't be that bad, can it?
+
+No, really, it's a ***long*** story. It's complex enough that I'm writing a second blog post explaining what UUIDv2s are, why they're not widely used, and how they came to be.
+
+In the meantime, the short version of UUIDv2 is:
+
+----
+
+UUIDv2 matches the specification for UUIDv1 but replaces some of the timing and clock information with identification numbers for operating system usage.
+
+They're rarely implemented into most UUID libraries, and are used even more rarely. This is because of 2 reasons:
+
+1) They're not documented as part of the newest UUID specification
+2) Significant pitfalls in UUIDv2's generation schema that **regularly** leads to collision with other generated UUIDv2s
+
+As a result, we won't talk about UUIDv2s any more today. Stay tuned for an upcoming article outlining them more.
+
 
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
