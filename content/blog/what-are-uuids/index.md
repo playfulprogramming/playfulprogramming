@@ -12,7 +12,7 @@
 
 Oftentimes, in computer programming, you'll find yourself needing a way to give a unique identifier to a digital asset. Whether those are books in your "To Read" digital bookshelf, computers on your network, or anything in between; you need a quick and easy way to access that data with an ID that's distinct.
 
-If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID) as their usage is wide reaching in the software industry.
+If you've done much research on this problem, you'll likely have heard of a "universally unique identifier" (UUID) or "globally unique identifier" (GUID); a way to generate IDs for these assets quickly. After all, UUID usage is wide reaching in the software industry.
 
 While it's good to recognize popular technologies, a few questions remain:
 
@@ -86,7 +86,7 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 
 ## Track Network Systems Using UUIDv1 {#UUIDv1}
 
-// TODO: Write
+
 
 
 
@@ -99,6 +99,24 @@ https://www.sohamkamani.com/uuid-versions-explained/
 https://versprite.com/blog/universally-unique-identifiers/
 
 ![// TODO: Write](./UUIDv1.svg)
+
+
+
+### Pros of UUIDv1
+
+- **Low likelyhood of collision**: While Mac addresses are not _truly_ unique, [thanks to vender re-use](https://www.howtogeek.com/228286/how-is-the-uniqueness-of-mac-addresses-enforced/), the combination of timestamp and Mac address makes it **extremely** unlikely to duplicate the same UUID in mutliple generations on the same network system. Furthermore, introducing a clock sequence adds another layer of protection against UUIDv1 collision.
+
+### Cons of UUIDv1
+
+- **Anonymity**: Because we're encoding a system's Mac address into the UUIDv1, it cannot be used as an anonymous value - since it links the UUID to a system that can be identified by its network card metadata. 
+
+- **Easy to guess the sequence**: Likewise, let's say you want to use a UUID to generate a reset password link to the user:
+
+  ```
+  https://example.com/reset/ef5dc6d0-93ca-11ed-acdd-6fb6f98f3ada
+  ```
+
+  An attacker can decode the Mac address of the server (in this case, `6f:b6:f9:8f:3a:da`) and use it to brute force the rest of the URL, as demonstrated [in this article by Versprite](https://versprite.com/blog/universally-unique-identifiers/).
 
 
 
@@ -120,17 +138,57 @@ This older specification, which outlines the rules for UUIDv2 and was released i
 
 While the specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), here's the gist of it:
 
-// TODO: Write
+UUIDv2 is almost to UUIDv1. It contains the same components of:
 
+- A timestamp
+- A version
+- A variant
+- A clock sequence
+- A Mac address
 
+However, there are a few small differences. Namely:
+
+- The "Clock Sequence" from UUIDv1 is changed from 3 bytes to 1 as the last 2 bytes are replaced with a new "Local Domain" enum value.
+
+- The "Low Time" is replaced with a "Local Domain Number" 
 
 ![// TODO: Write](./UUIDv2.svg)
 
+> What is a "Local Domain" or "Local Domain Number"?
 
+Well, in [Unix-like operating systems](https://en.wikipedia.org/wiki/Unix-like) such as Linux and macOS, your machine needs a way to keep track of the users on its system. The primary way computers in this family of OSes do this is by assigning you a ["User ID", or "UID"](https://en.wikipedia.org/wiki/User_identifier).
 
-https://github.com/f4b6a3/uuid-creator/wiki/1.2.-UUIDv2
+This what the "Local Domain" is referring to. The `0` in the "Local Domain" field is saying that "Local Domain Number" is tracking the UID of a Unix-like system's user. The "Local Domain Number" is the UID itself.
 
+> But wait, why would we need a "Local Domain" field anyway?
 
+Well, as it turns out, Unix-like systems track more data on the user than a single number. Consider the following usecase for a Linux-based school server:
+
+You want to provide permissions to all teachers to access the `Homework Answers` directory, but not the student users. Wouldn't it be nice to have a "group" of users that you could assign specific permissions to?
+
+It was with this thought process that the concept of a ["Group ID" or "GID"](https://en.wikipedia.org/wiki/Group_identifier) was invented. Similar to UIDs, GIDs are a number that keeps information about a group of users on the system.
+
+UUIDv2s are able to track a GID rather than a UID by changing the `Local Domain` to the number `1`. 
+
+> Are those the only two "Local Domains"?
+
+Alas, they are not. Let's continue our example of a school Linux server once more to explain why. Assume you're the [University of California system of schools](https://en.wikipedia.org/wiki/University_of_California) and want to create a directory that allows for emails to be sent to everyone in the [UC Davis campus](https://en.wikipedia.org/wiki/University_of_California,_Davis). That's where an organization might come into play.
+
+This organization would relate to a collection of groups, which in turn relates to a collection of users. This would be tracked with an "organization ID" and assigned a `Local Domain` of `2`.
+
+----
+
+### Pros of UUIDv2
+
+- **Encoding of POSIX data**: There are application instances where having the user's operating system information easily accessible would be handy in a unique ID.
+
+### Cons of UUIDv2
+
+- **High likelyhood of collision**: Because UUIDv2 replaces UUIDv1's Low Time, the precision amount 
+
+  This is a showstopper for most applications, which is why they are rarely used in applications.
+
+- **Few implementations**: Because of the scaresity of UUIDv2 usage and the lack of formal specification in RFC 4122 there are very few implementations of UUIDv2 in most languages and libraries. This may make implementing them more challenging than other versions of UUID.
 
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
