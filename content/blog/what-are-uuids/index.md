@@ -124,7 +124,7 @@ In the meantime, the short version of UUIDv2 is:
 
 UUIDv2 matches the specification for UUIDv1 but replaces some of the timing and clock information with identification numbers for operating system usage.
 
-They're rarely implemented into most UUID libraries and are used even more rarely. This is because of 2 reasons:
+They're rarely implemented into most UUID libraries and are used even less. This is because of 2 reasons:
 
 1) They're not documented as part of the newest UUID specification
 2) Significant pitfalls in UUIDv2's generation schema that **regularly** leads to collision with other generated UUIDv2s
@@ -137,14 +137,14 @@ Let's say you're creating a database of URLs tracked on your website. You want t
 
 On the other side of the coin: You can't use any random data to store as your URL's primary key since it could introduce duplicate URL entries into your database table. 
 
-Is there a good way to generate a unique ID based on a string that will output the same ID if the inputs are the same?
+Is there a good way to generate the same unique ID from the same input every single time?
 
 Intro: UUIDv3 and UUIDv5.
 
 Both of these UUID versions take the following information:
 
-- A pre-defined UUID "namespace"
-- Any string for a "name"
+- A pre-defined UUID (called a "namespace")
+- An input string (called a "name")
 
 > The UUID specification establishes 4 pre-defined namespaces for common use cases. The pre-defined namespaces are:
 >
@@ -152,6 +152,8 @@ Both of these UUID versions take the following information:
 > - [URL](https://en.wikipedia.org/wiki/URL): `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
 > - [OID](https://en.wikipedia.org/wiki/Object_identifier): `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
 > - [X.500 DN](https://en.wikipedia.org/wiki/X.500): `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
+>
+> You may also use your own hardcoded UUID as a namespace
 
 These UUID versions output a UUID that contains a hash of the namespace and name concatenated together.
 
@@ -193,7 +195,7 @@ As UUIDv5's SHA-1 is significantly more secure with hashing its contents.
 
 ### Pros of UUIDv3 and UUIDv5
 
-- **Contents are stable**: In instances where you need the input to match the output every time, there are no other UUIDs that can fulfill this use case.
+- **Contents are stable**: In instances where you need the output to match the input every time, no other UUID versions can fulfill this use case.
 
 ### Cons of UUIDv3 and UUIDv5
 
