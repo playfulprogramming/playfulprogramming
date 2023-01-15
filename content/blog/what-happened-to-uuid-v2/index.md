@@ -24,7 +24,7 @@ The answer is that while UUID _is_ a form of UUID by some definitions, it effect
 
 > What?!
 
-I know... It's a bit jarring. What's worse, even within the definitions we _do_ have, UUID is deeply flawed. Enough so that most are comfortable leaving it in the past.
+I know... It's a bit jarring. What's worse, even within the definitions of UUIv2 we have, it is deeply flawed, enough so that most are comfortable leaving it in the past.
 
 To figure out how UUIDv2 became this way, let's explore the following:
 
@@ -57,7 +57,7 @@ This older specification, which outlined the rules for UUIDv2 and was released i
 
 While the DCE specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), let's take a more zoomed-out look at it:
 
-UUIDv2 is almost to [UUIDv1](/posts/what-are-uuids#UUIDv1). It contains most of the same components:
+UUIDv2 is almost identical to [UUIDv1](/posts/what-are-uuids#UUIDv1). It contains most of the same components:
 
 - A timestamp
 - A version
@@ -112,7 +112,7 @@ UUIDv2 has a lot of problems today:
 
 Both of these feel a bit more like symptoms of a deeper-rooted problem. Dig deep enough, and you'll end up finding what this problem is: **UUIDv2 has a very high likelihood of ID collision**.
 
-This means that if you run UUIDv2 multiple times in rapid succession, the likelihood you'll get the exact same ID.
+This means that if you run UUIDv2 multiple times in rapid succession, you're very likely to get the exact same ID.
 
 This is an absolute showstopper for most applications, as the entire idea behind UUIDv1 (which, remember, UUIDv2 is based on) is to generate unique IDs for each generation.
 
@@ -160,7 +160,7 @@ Well, this is a timestamp. Namely, this is the number of 100 nanoseconds interva
 
 > This date may seem arbitrary, but this is the date of Gregorian reform to the Christian calendar.
 
-Let's use [`dayjs`](https://day.js.org) to see what this equates to in 
+Let's use [`dayjs`](https://day.js.org) to see what this equates to:
 
 ```javascript
 // Convert timestamp to milliseconds and add it to the start date
