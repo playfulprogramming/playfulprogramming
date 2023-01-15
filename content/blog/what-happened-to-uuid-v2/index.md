@@ -12,11 +12,29 @@
 }
 ---
 
+If you read [my last post introducing UUIDs](/posts/what-are-uuids), you'll remember that I said:
 
+> UUIDv2 is _weird_.
 
-// TODO: Write
+After this, [I left a very short (one or two sentences) explaination of what a UUIDv2 is](/posts/what-are-uuids#UUIDv2).
 
+Why would I do that [when UUIDv3 and UUIDv5 got four whole headers worth of explanation](/posts/what-are-uuids#UUIDv3and5)? What makes UUIDv2 different or "weird" as I put it?
 
+The answer is that while UUID _is_ a form of UUID by some definitions, it effectively is not in others.
+
+> What?!
+
+I know... It's a bit jarring. What's worse; even within the definitions we _do_ have, UUID is deeply flawed. Enough so that most are comfortable leaving it in the past.
+
+To figure out how UUIDv2 became this way, let's explore:
+
+- What makes a UUID a UUID?
+- How is UUIDv2 defined?
+- What was UUIDv2 supposed to be used for?
+- What are the problems with UUIDv2?
+- Why was it designed this way? <!-- IDK.... // TODO: Research? --> 
+
+<!-- // TODO: Add links -->
 
 # What makes a UUID a UUID? {#specs}
 
@@ -28,21 +46,23 @@ This is all [the official UUID specification has to say about UUIDv2](https://da
 
 That's it.
 
+Even in a proposal to update RFC 4122	
+
 This makes the UUIDv2 the only official version of UUID that does not have an explicit definition as part of the 2005 specification.
 
 This doesn't mean that it doesn't have rules, however; The UUIDv2 specification can be found in an older standard set for UUIDs. This older standard was created by an organizational body then called the "Open Software Foundation" (OSF), now called "The Open Group"
 
 This older specification, which outlines the rules for UUIDv2 and was released in 1997, is called [the DCE 1.1 Authentication and Security Services specification](https://pubs.opengroup.org/onlinepubs/9696989899/toc.htm).
 
-
+> Interesting in more history of UUIDs? [Twilio Segment's blog has an amazing history lesson about how they came to be](https://segment.com/blog/a-brief-history-of-the-uuid/). 
 
 # UUIDv2 Definition
 
 
 
-While the specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), here's the gist of it:
+While the DCE specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), let's take a more zoomed out look at it:
 
-UUIDv2 is almost to UUIDv1. It contains the same components of:
+UUIDv2 is almost to [UUIDv1](/posts/what-are-uuids#UUIDv1). It contains the same components of:
 
 - A timestamp
 - A version
