@@ -32,7 +32,6 @@ To figure out how UUIDv2 became this way, let's explore:
 - How is UUIDv2 defined?
 - What was UUIDv2 supposed to be used for?
 - What are the problems with UUIDv2?
-- Why was it designed this way? <!-- IDK.... // TODO: Research? --> 
 
 <!-- // TODO: Add links -->
 
@@ -56,9 +55,7 @@ This older specification, which outlines the rules for UUIDv2 and was released i
 
 > Interesting in more history of UUIDs? [Twilio Segment's blog has an amazing history lesson about how they came to be](https://segment.com/blog/a-brief-history-of-the-uuid/). 
 
-# UUIDv2 Definition
-
-
+# How is UUIDv2 Defined?
 
 While the DCE specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), let's take a more zoomed out look at it:
 
@@ -78,9 +75,15 @@ However, there are a few small differences. Namely:
 
 ![// TODO: Write](./UUIDv2.svg)
 
-> What is a "Local Domain" or "Local Domain Number"?
 
-Well, in [Unix-like operating systems](https://en.wikipedia.org/wiki/Unix-like) such as Linux and macOS, your machine needs a way to keep track of the users on its system. The primary way computers in this family of OSes do this is by assigning you a ["User ID", or "UID"](https://en.wikipedia.org/wiki/User_identifier).
+
+> Wait, what is a "Local Domain" or "Local Domain Number"?
+
+Well, to answer this, we have to take a short detour to explain what UUIDv2 was supposed to be used for.
+
+# What was UUIDv2 Supposed to Be Used for?
+
+In [Unix-like operating systems](https://en.wikipedia.org/wiki/Unix-like) such as Linux and macOS, your machine needs a way to keep track of the users on its system. The primary way computers in this family of OSes do this is by assigning you a ["User ID", or "UID"](https://en.wikipedia.org/wiki/User_identifier).
 
 This what the "Local Domain" is referring to. The `0` in the "Local Domain" field is saying that "Local Domain Number" is tracking the UID of a Unix-like system's user. The "Local Domain Number" is the UID itself.
 
@@ -100,20 +103,20 @@ Alas, they are not. Let's continue our example of a school Linux server once mor
 
 This organization would relate to a collection of groups, which in turn relates to a collection of users. This would be tracked with an "organization ID" and assigned a `Local Domain` of `2`.
 
-----
-
-### Pros of UUIDv2
-
-- **Encoding of POSIX data**: There are application instances where having the user's operating system information easily accessible would be handy in a unique ID.
-
-### Cons of UUIDv2
-
-- **High likelyhood of collision**: Because UUIDv2 replaces UUIDv1's Low Time, the precision amount 
-
-  This is a showstopper for most applications, which is why they are rarely used in applications.
-
-- **Few implementations**: Because of the scaresity of UUIDv2 usage and the lack of formal specification in RFC 4122 there are very few implementations of UUIDv2 in most languages and libraries. This may make implementing them more challenging than other versions of UUID.
-
+**This was UUIDv2's original purpose: Encoding of POSIX data in a unique ID**: There are application instances where having the user's operating system information easily accessible would be handy in the resource's ID.
 
 # Why do UUIDv2s suck?
+
+UUIDv2 has a lot of problems today:
+
+- **Few implementations**: Because of the scaresity of UUIDv2 usage and the lack of formal specification in RFC 4122 there are very few implementations of UUIDv2 in most languages and libraries. This may make implementing them more challenging than other versions of UUID.
+- **Difficult to research**: Because there are few implementations of UUIDv2, it's challenging to learn about this version of UUIDs. Most articles ([including own my introducion to UUIDs](/posts/what-are-uuids)) leave a single paragraph (if even!) about the subject.
+
+Both of these feel a bit more like symptoms of a deeper rooted problem. Dig deep enough and you'll end up finding exactly what this problem is: **UUIDv2 has a very high likelyhood of ID collision**.
+
+This means that if you run UUIDv2 multiple times in rapid succession, the likelyhood you'll get the exact same ID.
+
+This is an absolute showstopper for most applications, as the entire idea behind UUIDv1 (which, remember, UUIDv2 is based off of) is to generate unique IDs for each generation.
+
+## Explaining Why UUIDv2 Collisions Occur
 
