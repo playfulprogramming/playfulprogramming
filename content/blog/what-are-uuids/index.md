@@ -143,19 +143,10 @@ Intro: UUIDv3 and UUIDv5.
 
 Both of these UUID versions take the following information:
 
-- A pre-defined UUID (called a "namespace")
+- A constant UUID (called a "namespace")
 - An input string (called a "name")
 
-> The UUID specification establishes 4 pre-defined namespaces for common use cases. The pre-defined namespaces are:
->
-> - [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): `6ba7b810-9dad-11d1-80b4-00c04fd430c8`
-> - [URL](https://en.wikipedia.org/wiki/URL): `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
-> - [OID](https://en.wikipedia.org/wiki/Object_identifier): `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
-> - [X.500 DN](https://en.wikipedia.org/wiki/X.500): `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
->
-> You may also use your own hardcoded UUID as a namespace
-
-These UUID versions output a UUID that contains a hash of the namespace and name concatenated together.
+These UUID versions then output a UUID that contains a hash of the namespace and name concatenated together.
 
 You can think of the generation algorithm for both of these UUID versions as the following:
 
@@ -165,15 +156,69 @@ UUID = hash(NAMESPACE + NAME)
 
 For example, here's UUIDv3, which uses [MD5](https://en.wikipedia.org/wiki/MD5) to hash the concatenated value:
 
-![A UUID broken down into "MD5 High", a dash, "MD5 High", a dash, "Version", "MD5 Mid", a dash, "Variant", "MD5 Low", a dash, and finally another "MD5 Low". An example UUIDv3 might be "a6a09ffa-9d61-3a0a-84a8-b27dd6dcf32f"](./UUIDv3.svg)
+![A UUID broken down into "MD5 High", a dash, "MD5 High", a dash, "Version", "MD5 Mid", a dash, "Variant", "MD5 Low", a dash, and finally another "MD5 Low". An example UUIDv3 might be "8d9aeee5-d9ad-3934-84f4-ac533183424d"](./UUIDv3.svg)
 
 Compare this to UUIDv5, which uses [SHA-1](https://en.wikipedia.org/wiki/SHA-1) to generate the hash:
 
-![// TODO: Write](./UUIDv5.svg)
+![A UUID broken down seperate parts. These parts reflect the same as UUIDv3, but instead of "MD5" parts, they're "SHA". An example UUIDv5 might be "6b5eb089-463b-5cfe-a881-80f5fd6545b0"](./UUIDv5.svg)
 
+### What is a "namespace" in UUIDv3 and UUIDv5?
 
+Some of you might be wondering "What is a namespace and why does it need to be another UUID?"
 
+Great question. Let's consider the following usecase:
 
+Let's say we want to assign a UUID to each blog post on the [Unicorn Utterances](https://unicorn-utterances.com/about) site. We could simply assign the URL:
+
+```
+/posts/intro-to-uuid
+```
+
+To the input value of the `hash` function of the UUID generation.
+
+This works if we only have one instance of the website, but we often deploy multiple versions of the website in order to make sure the new versions of Unicorn Utterances are running properly before deploying to production.
+
+For example, we might have:
+
+```
+framework-guide.unicorn-utterances.com
+```
+
+To host a preview of the [Framework Field Guide book](https://framework.guide) early access.
+
+> This isn't the real URL, just an example. Want to have the real early access link? [Join our Discord](https://discord.gg/FMcvc6T) and ask!
+
+As a result of the early access site being a mirror of the main site, many of the URLs might be duplicated. We want to allow seperate comments from the preview site vs. the production site so that issues in preview can be resolved before going live.
+
+If we used the same constant UUID for each site:
+```
+00000000-0000-0000-0000-000000000000
+```
+
+Each URL with the same path would lead to the same UUID being generated. This means that if we used this UUID to track comments, they would be duplicated on each deployment of the site.
+
+Luckily for us, we may not need to define our own constant UUID. The UUID specification establishes 4 pre-defined namespaces for common use cases. The pre-defined namespaces are:
+
+- [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): `6ba7b810-9dad-11d1-80b4-00c04fd430c8`
+- [URL](https://en.wikipedia.org/wiki/URL): `6ba7b811-9dad-11d1-80b4-00c04fd430c8`
+- [OID](https://en.wikipedia.org/wiki/Object_identifier): `6ba7b812-9dad-11d1-80b4-00c04fd430c8`
+- [X.500 DN](https://en.wikipedia.org/wiki/X.500): `6ba7b814-9dad-11d1-80b4-00c04fd430c8`
+
+Knowing this, we can do something akin to the following:
+
+```javascript
+UU_UUID = uuidv5(DNS_UUID, 'unicorn-utterances.com');
+FFG_UUID = uuidv5(DNS_UUID, 'framework-guide.unicorn-utterances.com');
+```
+
+And use this base namespace for each post URL:
+
+```javascript
+FFG_POST_UUID = uuidv5(FFG_UUID, "/posts/what-are-uuids");
+UU_POST_UUID = uuidv5(UU_UUID, "/posts/what-are-uuids");
+```
+
+Now, each of the posts will have a distinct UUID. This is what the namespace ensures; each distinct environment has their own hash for the same `name` value.
 
 ### When should you use UUIDv3 vs. UUIDv5?
 
