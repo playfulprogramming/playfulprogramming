@@ -28,12 +28,10 @@ I know... It's a bit jarring. What's worse; even within the definitions we _do_ 
 
 To figure out how UUIDv2 became this way, let's explore:
 
-- What makes a UUID a UUID?
-- How is UUIDv2 defined?
-- What was UUIDv2 supposed to be used for?
-- What are the problems with UUIDv2?
-
-<!-- // TODO: Add links -->
+- [What makes a UUID a UUID?](#specs)
+- [How is UUIDv2 defined?](#uuidv2-definition)
+- [What was UUIDv2 supposed to be used for?](#posix-data)
+- [What are the problems with UUIDv2?](#problems-with-uuidv2)
 
 # What makes a UUID a UUID? {#specs}
 
@@ -55,7 +53,7 @@ This older specification, which outlines the rules for UUIDv2 and was released i
 
 > Interesting in more history of UUIDs? [Twilio Segment's blog has an amazing history lesson about how they came to be](https://segment.com/blog/a-brief-history-of-the-uuid/). 
 
-# How is UUIDv2 Defined?
+# How is UUIDv2 Defined? {#uuidv2-definition}
 
 While the DCE specification is happy to go in-depth about [the fine-grained details of UUIDv2](https://pubs.opengroup.org/onlinepubs/9696989899/chap5.htm#tagcjh_08_02_01_01), let's take a more zoomed out look at it:
 
@@ -81,7 +79,7 @@ However, there are a few small differences. Namely:
 
 Well, to answer this, we have to take a short detour to explain what UUIDv2 was supposed to be used for.
 
-# What was UUIDv2 Supposed to Be Used for?
+# What was UUIDv2 Supposed to Be Used for? {#posix-data}
 
 In [Unix-like operating systems](https://en.wikipedia.org/wiki/Unix-like) such as Linux and macOS, your machine needs a way to keep track of the users on its system. The primary way computers in this family of OSes do this is by assigning you a ["User ID", or "UID"](https://en.wikipedia.org/wiki/User_identifier).
 
@@ -105,7 +103,7 @@ This organization would relate to a collection of groups, which in turn relates 
 
 **This was UUIDv2's original purpose: Encoding of POSIX data in a unique ID**: There are application instances where having the user's operating system information easily accessible would be handy in the resource's ID.
 
-# Why do UUIDv2s suck?
+# Why do UUIDv2s suck? {#problems-with-uuidv2}
 
 UUIDv2 has a lot of problems today:
 
