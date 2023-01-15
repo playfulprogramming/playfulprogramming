@@ -71,7 +71,7 @@ However, there are a few small differences. Namely:
 
 - The "Low Time" is replaced with a "Local Domain Number."
 
-![// TODO: Write](./UUIDv2.svg)
+![A UUID broken down into "Local Domain Number", a dash, "Mid Time", a dash, "Version", "High Time", a dash, "Variant", "Clock", "Local Domain", a dash, and finally a "MAC Address". An example UUIDv1 might be "000004d2-92e8-21ed-8100-3fdb0085247e"](./UUIDv2.svg)
 
 
 
@@ -122,7 +122,7 @@ Let's explain why this occurs in UUIDv2 but not in UUIDv1. To explain this, let'
 
 Let's look back at the previous article to see how UUIDv1 is structured:
 
-![// TODO: Write](../what-are-uuids/UUIDv1.svg)
+![A UUID broken down into "Low Time", a dash, "Mid Time", a dash, "Version", "High Time", a dash, "Variant", "Clock", a dash, and finally a "MAC Address". An example UUIDv1 might be "4e2b4d4c-92e8-11ed-86a8-3fdb0085247e"](../what-are-uuids/UUIDv1.svg)
 
 Here, we use a timestamp of 15 byes. Let's take the example UUIDv1 from that image:
 
@@ -174,7 +174,7 @@ This is the same date as the input value! Because of the precision of 12 charact
 
 Now that we've seen how UUIDv1 handles date values let's look one more time at UUIDv2:
 
-![// TODO: Write](./UUIDv2.svg)
+![The example UUIDv2 is "000004d2-92e8-21ed-8100-3fdb0085247e"](./UUIDv2.svg)
 
 Here, once again, we can take the original UUID:
 
@@ -255,7 +255,7 @@ So what does this time encoding have to do with UUID collision?
 
 Well, let's take one last look between UUIDv1 and UUIDv2:
 
-![// TODO: Write](./UUIDv1vsUUIDv2.svg)
+![UUIDv1 and UUIDv2 are very similar, except that UUIDv1 has "Low Time" instead of UUIDv2's "Local Domain Number". In addition, "Clock" has been reduced from 1 character to 3 in UUIDv2 in order for a 2 character long "Local Domain"](./UUIDv1vsUUIDv2.svg)
 
 While the change between `Low Time` and `Local Domain Number` is the most obvious difference between these two - there's one more significant difference:
 
