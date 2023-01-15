@@ -118,6 +118,8 @@ This means that if you run UUIDv2 multiple times in rapid succession, the likely
 
 This is an absolute showstopper for most applications, as the entire idea behind UUIDv1 (which, remember, UUIDv2 is based off of) is to generate unique IDs for each generation.
 
+Let's explain why this occurs in UUIDv2, but not in UUIDv1. To explain this, let's explore the difference of how UUIDv1 handles input dates.
+
 ## Explaining How UUIDv1 Handles Dates
 
 Let's look back at the previous article to see how UUIDv1 is structured:
@@ -170,12 +172,90 @@ dayjs("15 October 1582").add(138928689959882060 / 10000, 'milliseconds').toStrin
 
 This is the same date as the input value! Because of the precision of 12 bytes, we're able to track the input time down to the nanosecond.
 
-### How does UUIDv2 Handle Dates?
+## How does UUIDv2 Handle Dates?
 
+Now that we've seen how UUIDv1 handles date values, let's look one more time at UUIDv2:
 
+![// TODO: Write](./UUIDv2.svg)
+
+Here, once again, we can take the original UUID:
+
+```
+000004d2-92e8-21ed-8100-3fdb0085247e
+```
+
+Grab the time values:
+
+```
+92e8-1ed
+```
+
+Sort them:
+
+```
+1ed-92e8
+```
+
+Remove the dashes:
+
+```
+1ed92e8
+```
+
+Notice how we only have 7 digits here. Compare this to UUIDv1's 15 digits of timestamp. **Here's where things get tricky**.
+
+If we attempt to convert this number to a decimal value, we get the following:
+
+```
+32346856
+```
+
+**This isn't correct**. The number we have should start with `1` in order to properly add it to the `1582` date to get the UUID's timestamp.
+
+To solve this, we need to add back the missing 8 digits of timestamp to our hexadecimal number:
+
+```
+1ed92e800000000
+```
+
+Only after we've added these `0`s can we convert to decimal:
+
+```
+138928688648421376
+```
+
+And add this number to the previous `1582` date:
+
+```javascript
+dayjs("15 October 1582").add(138928688648421376 / 10000, 'milliseconds').toString();
+// This outputs Fri, 13 Jan 2023 10:07:22 GMT
+```
+
+## How do UUIDv1 and UUIDv2 Dates Differ?
+
+Compare the UUIDv1 parsed date:
+
+```
+Fri, 13 Jan 2023 10:09:33 GMT
+```
+
+To the UUIDv2 parsed date:
+
+```
+Fri, 13 Jan 2023 10:07:22 GMT
+```
+
+What's interesting here is that we passed in the same timestamp to both UUIDs. The reason for the time difference is because the UUIDv2 does not have the same level of granularity of UUIDv1.
+
+Instead of UUIDv1's **nanoseconds** tracking of the input timestamp, UUIDv2 only tracks up to segments of **7 minutes** at a time.
+
+This means that if you have an input date to UUIDv2, the encoded value can be up to 7 minutes ahead or behind the encoded value.
 
 ## Why do UUIDv2 Collisions Occur?
 
+So what does this time encoding have to do with UUID collision?
 
+Well, let's take one last look between UUIDv1 and UUIDv2:
 
-![// TODO: Write](./UUIDv2.svg)
+![// TODO: Write](./UUIDv1vsUUIDv2.svg)
+
