@@ -6,7 +6,9 @@
     authors: ['crutchcorn'],
     tags: ['computer science'],
     attached: [],
-    license: 'cc-by-4'
+    license: 'cc-by-4',
+    series: "Explaining UUIDs",
+    order: 1
 }
 ---
 
@@ -74,7 +76,7 @@ At the time of writing, [there are 5 different types of UUIDs](https://ietf-wg-u
 - [UUIDv1](#UUIDv1)
   - A machine's network card information + a timestamp
 - [UUIDv2](#UUIDv2)
-  - It's a long story.
+  - [It's a long story.](/posts/what-happened-to-uuid-v2)
 - [UUIDv3](#UUIDv3and5)
   - Encode a string using MD5
 - [UUIDv4](#UUIDv4)
@@ -116,7 +118,7 @@ This data is then converted to raw numerical values and encoded into UUID with t
 
 > I know you mentioned it's a long story with UUIDv2 when outlining the different versions of UUID... Surely it can't be that bad, can it?
 
-No, really, it's a ***long*** story. It's complex enough that I'm writing a second blog post explaining what UUIDv2s are, why they're not widely used, and how they came to be.
+No, really, it's a ***long*** story. It's complex enough that [I've written a second blog post explaining what UUIDv2s are, why they're not widely used, and how they came to be](/posts/what-happened-to-uuid-v2).
 
 In the meantime, the short version of UUIDv2 is:
 
@@ -129,7 +131,7 @@ They're rarely implemented into most UUID libraries and are used even less. This
 1) They're not documented as part of the newest UUID specification
 2) Significant pitfalls in UUIDv2's generation schema that **regularly** leads to collision with other generated UUIDv2s
 
-As a result, we won't talk about UUIDv2s anymore today. Stay tuned for an upcoming article outlining them more.
+As a result, we won't talk about UUIDv2s anymore today. Instead, [I'd encourage you to read the follow-up article to this one if you're interested](/posts/what-happened-to-uuid-v2).
 
 ## Namespace Your IDs with UUIDv3 and UUIDv5 {#UUIDv3and5}
 
@@ -270,6 +272,6 @@ While the previous versions of UUID have had some kind of input data, UUIDv4 bre
 
 And that's it; That's all of the UUID versions that are part of the original 2005 specification! Hopefully, this has been helpful in learning about the different UUID versions and when each is useful.
 
-In the next article, we'll talk about how UUIDs came to be, what happened to UUIDv2, and why you shouldn't use it.
+[In the next article, we'll talk about how UUIDs came to be, what happened to UUIDv2, and why you shouldn't use it.](/posts/what-happened-to-uuid-v2)
 
 Until then, happy ~~hacking~~ ID generating!
