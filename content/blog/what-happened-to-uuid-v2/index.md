@@ -18,13 +18,13 @@ If you read [my last post introducing UUIDs](/posts/what-are-uuids), you'll reme
 
 After this, [I left a very short (one or two sentences) explanation of what a UUIDv2 is](/posts/what-are-uuids#UUIDv2).
 
-Why am I dedicating another article to UUIDv2? What makes it different or "weird?
+Why would I do that [when UUIDv3 and UUIDv5 got four whole headers worth of explanation](/posts/what-are-uuids#UUIDv3and5)? What makes UUIDv2 different or "weird," as I put it?
 
 The answer is that while UUID _is_ a form of UUID by some definitions, it effectively is not in others.
 
 > What?!
 
-I know... It's a bit jarring. But, even within the definitions we have, UUIDv2 is deeply flawed, enough so that most are comfortable leaving it in the past.
+I know... It's a bit jarring. What's worse, even within the definitions of UUIv2 we have, it is deeply flawed, enough so that most are comfortable leaving it in the past.
 
 To figure out how UUIDv2 became this way, let's explore the following:
 
