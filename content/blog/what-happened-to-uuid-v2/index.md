@@ -118,5 +118,64 @@ This means that if you run UUIDv2 multiple times in rapid succession, the likely
 
 This is an absolute showstopper for most applications, as the entire idea behind UUIDv1 (which, remember, UUIDv2 is based off of) is to generate unique IDs for each generation.
 
-## Explaining Why UUIDv2 Collisions Occur
+## Explaining How UUIDv1 Handles Dates
 
+Let's look back at the previous article to see how UUIDv1 is structured:
+
+![// TODO: Write](../what-are-uuids/UUIDv1.svg)
+
+Here, we use a timestamp of 15 byes. Let's take the example UUIDv1 from that image:
+
+```
+4e2b4d4c-92e8-11ed-86a8-3fdb0085247e
+```
+
+And strip out just the `time` data:
+
+```
+4e2b4d4c-92e8-1ed
+```
+
+Now, we can sort them from `High Time`, `Mid Time`, then `Low Time`:
+
+```
+1ed-92e8-4e2b4d4c
+```
+
+Let's remove the dashes, leaving us with:
+
+```
+1ed92e84e2b4d4c
+```
+
+Now we can convert this [from a hex number to a decimal number](/posts/non-decimal-numbers-in-tech/):
+
+```
+138928689959882060
+```
+
+> Now what do we do with this number?
+
+Well, this is a timestamp. Namely, this number is the amount of nanoseconds since October 15, 1582 at midnight UTC.
+
+> This date may seem arbitary, but this is the date of Gregorian reform to the Christian calendar.
+
+Let's use [`dayjs`](https://day.js.org) to see what this equates to in 
+
+```javascript
+// Convert timestamp to milliseconds and add it to the start date
+dayjs("15 October 1582").add(138928689959882060 / 10000, 'milliseconds').toString();
+// This outputs Fri, 13 Jan 2023 10:09:33 GMT
+```
+
+This is the same date as the input value! Because of the precision of 12 bytes, we're able to track the input time down to the nanosecond.
+
+### How does UUIDv2 Handle Dates?
+
+
+
+## Why do UUIDv2 Collisions Occur?
+
+
+
+![// TODO: Write](./UUIDv2.svg)
