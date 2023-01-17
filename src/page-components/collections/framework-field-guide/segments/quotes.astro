@@ -24,9 +24,12 @@ Whether you want to go from zero to hero in the marvelous world of frontend Java
 			`.trim()}
 		/>
 	</div>
-	<SmallFilledButton class={styles.hideUntilFocused} href="#adventure-continues"
-		>Skip past quotes list</SmallFilledButton
+	<SmallFilledButton
+		class={styles.hideUntilFocused}
+		href="#adventure-continues"
 	>
+		Skip past quotes list
+	</SmallFilledButton>
 	<QuotesContainer>
 		<QuoteCard
 			personName={`Santosh Yadav`}
@@ -55,6 +58,17 @@ I am really impressed with "The Framework Field Guide" by Corbin - not only does
 			personTitle={`Founder of The Polyglot Developer`}
 			quote={`
 Corbin is an incredible teacher who is able to create easy to digest material that is both thorough and fun. If you're looking to become an expert in both JavaScript as well as a JavaScript related framework, this book series should help you accomplish it.
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Esther Agbaje`}
+			personLink={"https://estheragbaje.dev/"}
+			avatarSrc={import("../people-pictures/esther_agbaje.png")}
+			personTitle={`Developer Advocate, Chakra UI`}
+			quote={`
+The structure of the book as a whole is well-organized and in-depth, making it a great resource for individuals with little to no prior experience in web development as well as those interested in learning more about the theoretical underpinnings of JavaScript frameworks.
+
+In particular, what I like about Corbin's approach is how he takes intricate concepts and simplifies them down into easy to understand bits with clear, straightforward examples, all using a conversational tone.
 			`.trim()}
 		/>
 		<QuoteCard
@@ -94,6 +108,15 @@ This is one of the most unique and valuable approaches to teaching and learning 
 			`.trim()}
 		/>
 		<QuoteCard
+			personName={`Brandon Roberts`}
+			personLink="https://twitter.com/brandontroberts"
+			avatarSrc={import("../people-pictures/brandon_roberts.jpg")}
+			personTitle={`NgRX and AnalogJS Maintainer, Angular GDE, Web Developer`}
+			quote={`
+Learning the similarities and differences between different web frameworks helps you make an informed decision about which works better for your next project. This book does an excellent job of providing clear examples and guidance about how React, Angular, and Vue work, along with how to move on from basic understanding to advanced topics. I can recommend this book to web developers without hesitation.
+			`.trim()}
+		/>
+		<QuoteCard
 			personName={`Joshua Goldberg`}
 			personLink="https://www.joshuakgoldberg.com"
 			avatarSrc={import("../people-pictures/joshua_goldberg.jpg")}
@@ -109,15 +132,6 @@ The Framework Field Guide does a wonderful job of comparing and contrasting thre
 			personTitle={`Angular Developer`}
 			quote={`
 Reading the Framework Field Guide is like boarding the ship of frontend development and sailing through the peaceful and beautiful seas of it, but also the deep oceans of concepts that will make you think twice when you say, I know React, Vue, and Angular.
-			`.trim()}
-		/>
-		<QuoteCard
-			personName={`Brandon Roberts`}
-			personLink="https://twitter.com/brandontroberts"
-			avatarSrc={import("../people-pictures/brandon_roberts.jpg")}
-			personTitle={`NgRX and AnalogJS Maintainer, Angular GDE, Web Developer`}
-			quote={`
-Learning the similarities and differences between different web frameworks helps you make an informed decision about which works better for your next project. This book does an excellent job of providing clear examples and guidance about how React, Angular, and Vue work, along with how to move on from basic understanding to advanced topics. I can recommend this book to web developers without hesitation.
 			`.trim()}
 		/>
 		<QuoteCard
@@ -168,21 +182,21 @@ That was until I met Corbin. His extensive knowledge, along with his amazing abi
 			`.trim()}
 		/>
 		<QuoteCard
-			personName={`Dan Jutan`}
-			personLink="https://twitter.com/jutanium"
-			avatarSrc={import("../people-pictures/dan_jutan.jpg")}
-			personTitle={`Technical Writer & Frontend Developer`}
-			quote={`
-In a world where frontend frameworks are usually taught independently and as competitors, The Framework Field Guide takes advantage of the fact that they’re actually pretty similar. It forefronts the concepts behind the tools, so you can build a deep understanding and feel confident working with any framework. I’ve learned so much from Corbin across all things web dev, and I’m excited for them to be your teacher, too.
-			`.trim()}
-		/>
-		<QuoteCard
 			personName={`James Perkins`}
 			personLink="https://twitter.com/james_r_perkins"
 			avatarSrc={import("../people-pictures/james_perkins.jpg")}
 			personTitle={`Senior Developer Advocate, Content Creator`}
 			quote={`
 Corbin is great at giving new developers the keys to the kingdom. The pictures, diagrams, and detailed explanations allow anyone thinking about learning Vue, React, or Angular an easy blueprint. Corbin clearly cares about his readers and wants them to come away with new knowledge of industry leading frameworks
+			`.trim()}
+		/>
+		<QuoteCard
+			personName={`Dan Jutan`}
+			personLink="https://twitter.com/jutanium"
+			avatarSrc={import("../people-pictures/dan_jutan.jpg")}
+			personTitle={`Technical Writer & Frontend Developer`}
+			quote={`
+In a world where frontend frameworks are usually taught independently and as competitors, The Framework Field Guide takes advantage of the fact that they’re actually pretty similar. It forefronts the concepts behind the tools, so you can build a deep understanding and feel confident working with any framework. I’ve learned so much from Corbin across all things web dev, and I’m excited for them to be your teacher, too.
 			`.trim()}
 		/>
 		<QuoteCard
@@ -215,7 +229,7 @@ Being a junior developer myself, the things Corbin can do with an IDE might as w
 			`.trim()}
 		/>
 	</QuotesContainer>
-	<SmallFilledButton class={styles.hideUntilFocused} href="#quotes-heading"
-		>Skip before quotes list</SmallFilledButton
-	>
+	<SmallFilledButton class={styles.hideUntilFocused} href="#quotes-heading">
+		Skip before quotes list
+	</SmallFilledButton>
 </section>
