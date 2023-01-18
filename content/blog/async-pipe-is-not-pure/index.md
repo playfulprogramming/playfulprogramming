@@ -6,7 +6,8 @@
 	authors: ['eneajahollari'],
 tags: ['angular'],
 	attached: [],
-	license: 'cc-by-nc-sa-4'
+  license: 'cc-by-nc-sa-4',
+  originalLink: "https://itnext.io/async-pipe-is-not-pure-948f7b24e2d1"
 }
 ---
 
