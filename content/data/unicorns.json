@@ -377,6 +377,22 @@
 		"roles": ["author", "translator"]
 	},
 	{
+		"id": "eneajahollari",
+		"name": "Enea Jahollari",
+		"firstName": "Enea",
+		"lastName": "Jahollari",
+		"description": "Software Engineer who loves to build with Angular.",
+		"socials": {
+			"twitter": "Enea_Jahollari",
+			"github": "eneajaho",
+			"website": "https://eneajaho.me/"
+		},
+		"pronouns": "he",
+		"profileImg": "./eneajahollari.jpeg",
+		"color": "#580dff",
+		"roles": ["author"]
+	},
+	{
 		"id": "williamcook",
 		"name": "William George Cook",
 		"firstName": "William",
