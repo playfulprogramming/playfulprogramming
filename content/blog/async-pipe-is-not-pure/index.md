@@ -4,7 +4,7 @@
 	description: "Learn how angular's async pipe is not pure and how that's not a problem, by building async pipe from scratch.",
 	published: '2023-01-18T18:00:00.284Z',
 	authors: ['eneajahollari'],
-	tags: ['angular', 'performance', 'async'],
+tags: ['angular'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
