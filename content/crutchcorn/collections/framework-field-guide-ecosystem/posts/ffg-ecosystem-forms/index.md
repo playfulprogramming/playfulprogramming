@@ -28,7 +28,7 @@ One common and easy way to assign a value to form elements - like a text input -
 
 ```jsx
 const FormComp = () => {
-  const [usersName, setUsersName] = React.useState("");
+  const [usersName, setUsersName] = useState("");
 
   const onChange = (e) => {
     setUsersName(e.target.value);
@@ -1778,4 +1778,4 @@ Similarly, despite using `yup` for both our React and Vue code samples, there ex
 
 Going further, despite our lack of integration with Angular, `yup` (and `zod`) supports Angular as well! There's no reason you couldn't use `yup` to build a custom Angular validator that integrates seamlessly with `@angular/forms`'s `ReactiveForms` module.
 
-In our next chapter, we'll take a look at [Partial DOM Application](/posts/partial-dom-application) using `React.Fragment`s, `template`s, and `ng-template`s to solve some problems with dynamic HTML.
+In our next chapter, we'll take a look at [Partial DOM Application](/posts/partial-dom-application) using `Fragment`s, `template`s, and `ng-template`s to solve some problems with dynamic HTML.
