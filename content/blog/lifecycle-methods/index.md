@@ -222,13 +222,13 @@ This is a great question! A great example of this occurs in the browser with the
 
 Say we wanted to store a global counter that we use in multiple parts of the app, we might store this in `window`.
 
-````javascript
+```javascript
 window.shoppingCartItems = 0;
 
 function addToShoppingCart() {
 	window.shoppingCartItems++;
 }
-````
+```
 
 ## Production Side Effects
 

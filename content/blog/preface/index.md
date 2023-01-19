@@ -17,7 +17,7 @@ This series will teach you how to build applications, the concepts under the hoo
 
 While other resources can help you learn these concepts for one framework at a time, **this series will help you learn 3 different frameworks at once; React, Angular, and Vue alike.**
 
-Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 14, and Vue 3.
+Namely, we'll be looking at the most modern iterations of these frameworks: React 18, Angular 15, and Vue 3.
 
 > It's worth mentioning that React and Angular iterate their major versions much more frequently than Vue. So if you're reading this in the future and see "Angular 18" or "React 22", it's likely that it's using similar concepts under the hood.
 
