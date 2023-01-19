@@ -1,20 +1,25 @@
-import getSiteUrlAndBuildMode from "./site-url";
-const { siteUrl, buildMode } = getSiteUrlAndBuildMode();
-// To set for Twitch
-let parent: string;
+const buildMode = process.env.BUILD_ENV || "production";
+const siteUrl = (() => {
+	let siteUrl = process.env.SITE_URL || process.env.VERCEL_URL || "";
 
-// Try & Catch to allow for hosts themselves to be passed
-// `new URL('domain.com')` will fail/throw, but is a valid host
-try {
-	const url = new URL(siteUrl);
-	// URLs like 'localhost:3000' might not give host.
-	// Throw in order to catch in wrapper handler
-	if (!url.host) throw new Error();
-	parent = url.host;
-} catch (_) {
-	const url = new URL("https://" + siteUrl);
-	parent = url.host;
-}
+	if (siteUrl && !siteUrl.startsWith("http")) siteUrl = `https://${siteUrl}`;
+
+	if (!siteUrl) {
+		switch (buildMode) {
+			case "production":
+				return "https://unicorn-utterances.com";
+			case "development":
+				return "http://localhost:3000";
+			default:
+				return "https://beta.unicorn-utterances.com";
+		}
+	}
+
+	return siteUrl;
+})();
+
+// To set for Twitch player embedding in blog posts
+let parent = new URL(siteUrl).host;
 
 // Twitch embed throws error with strings like 'localhost:3000', but
 // those persist with `new URL().host`
