@@ -163,7 +163,7 @@ However, when you first use this, you may run into an error:
 
 > Type 'Event' is not assignable to type 'string'.
 
-This is because we need to import the `FormsModule` in our closest `NgModel` to use `ngModel` bindings
+This is because we need to import the `FormsModule` in our closest `NgModule` to use `ngModel` bindings
 
 ```typescript {2,6}
 import { NgModule } from '@angular/core';
