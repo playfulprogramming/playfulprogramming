@@ -1505,11 +1505,11 @@ If we remember [our dependency injection chapter, React uses a `context` to prov
 We can pair this with our `createPortal` API to easily keep track of where we want to provide a portal:
 
 ```jsx
-import React, { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
 // We start by creating a context name
-const PortalContext = React.createContext();
+const PortalContext = createContext();
 
 function ChildComponent() {
   const portalRef = useContext(PortalContext);

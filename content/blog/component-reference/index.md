@@ -56,35 +56,35 @@ Let's port this logic to React, Angular, and Vue:
 
 ```jsx {31-40,51}
 export default function App() {
-  const [bounds, setBounds] = React.useState({
+  const [bounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const ref = React.useCallback((el) => {
+  const ref = useCallback((el) => {
     if (!el) return;
     const localBounds = el.getBoundingClientRect();
     setBounds(localBounds);
   }, []);
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
     setIsOpen(true);
   }
 
-  const [contextMenu, setContextMenu] = React.useState();
+  const [contextMenu, setContextMenu] = useState();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (contextMenu) {
       contextMenu.focus();
     }
   }, [contextMenu]);
     
-  React.useEffect(() => {
+  useEffect(() => {
     if (!contextMenu) return;
     const closeIfOutsideOfContext = (e) => {
       const isClickInside = contextMenu.contains(e.target);
@@ -96,7 +96,7 @@ export default function App() {
   }, [contextMenu]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={ref} onContextMenu={onContextMenu}>
           Right click on me!
@@ -119,7 +119,7 @@ export default function App() {
           This is a context menu
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```
@@ -313,9 +313,9 @@ This code is _functional_, but this code is getting a bit out of hand, let's mov
 
 ```jsx {0-12}
 const ContextMenu = ({ x, y, onClose }) => {
-  const [contextMenu, setContextMenu] = React.useState();
+  const [contextMenu, setContextMenu] = useState();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!contextMenu) return;
     const closeIfOutsideOfContext = (e) => {
       const isClickInside = contextMenu.contains(e.target);
@@ -345,14 +345,14 @@ const ContextMenu = ({ x, y, onClose }) => {
 });
 
 export default function App() {
-  const [bounds, setBounds] = React.useState({
+  const [bounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const ref = React.useCallback((el) => {
+  const ref = useCallback((el) => {
     if (!el) return;
     const localBounds = el.getBoundingClientRect();
     setBounds(localBounds);
@@ -360,7 +360,7 @@ export default function App() {
 
   // An addEventListener is easier to tackle when inside of the conditional render
   // Add that as an exploration for `useImperativeHandle`
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
@@ -368,7 +368,7 @@ export default function App() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={ref} onContextMenu={onContextMenu}>
           Right click on me!
@@ -381,7 +381,7 @@ export default function App() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```
@@ -670,7 +670,7 @@ Doing this will result in our `ref` callback not being called as expected, along
 
 > Warning: Component: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)
 
-> Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use `React.forwardRef()`?
+> Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use `forwardRef()`?
 
 To solve this, we have two options:
 
@@ -971,14 +971,14 @@ Knowing that we can access a component instance's methods and properties, we can
 ## React
 
 ```jsx
-const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
-  const divRef = React.useRef();
+const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
+  const divRef = useRef();
 
-  React.useImperativeHandle(ref, () => ({
+  useImperativeHandle(ref, () => ({
     focus: () => divRef.current && divRef.current.focus(),
   }));
 
-  React.useEffect(() => {
+  useEffect(() => {
     const closeIfOutsideOfContext = (e) => {
       const isClickInside = divRef.current.contains(e.target);
       if (isClickInside) return;
@@ -1008,14 +1008,14 @@ const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
 });
 
 export default function App() {
-  const [bounds, setBounds] = React.useState({
+  const [bounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const ref = React.useCallback((el) => {
+  const ref = useCallback((el) => {
     if (!el) return;
     const localBounds = el.getBoundingClientRect();
     setBounds(localBounds);
@@ -1023,23 +1023,23 @@ export default function App() {
 
   // An addEventListener is easier to tackle when inside of the conditional render
   // Add that as an exploration for `useImperativeHandle`
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
     setIsOpen(true);
   }
 
-  const contextMenuRef = React.useRef();
+  const contextMenuRef = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen && contextMenuRef.current) {
       contextMenuRef.current.focus();
     }
   }, [isOpen]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={ref} onContextMenu={onContextMenu}>
           Right click on me!
@@ -1053,7 +1053,7 @@ export default function App() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```
@@ -1334,7 +1334,7 @@ interface DragHandlerProps {
 export const DragHandler = ({ moveX }: DragHandlerProps) => {
   const elRef = useRef<HTMLElement | null>(null);
 
-  const onMouseMove = React.useMemo(
+  const onMouseMove = useMemo(
     () =>
       debounce((e) => {
         if (!elRef.current) return;
@@ -1345,15 +1345,15 @@ export const DragHandler = ({ moveX }: DragHandlerProps) => {
     [elRef]
   );
 
-  const onMouseUp = React.useCallback(() => {
+  const onMouseUp = useCallback(() => {
     document.removeEventListener('mousemove', onMouseMove);
   }, [onMouseMove]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => document.removeEventListener('mousemove', onMouseMove);
   }, [onMouseMove]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => document.removeEventListener('mouseup', onMouseUp);
   }, [onMouseUp]);
 

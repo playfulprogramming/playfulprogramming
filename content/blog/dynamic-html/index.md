@@ -790,7 +790,7 @@ Say you have the following:
 
 ```jsx
 const WordList = () => {
-  const [words, setWords] = React.useState([]);
+  const [words, setWords] = useState([]);
 
   const addWord = () => {
     const newWord = getRandomWord();

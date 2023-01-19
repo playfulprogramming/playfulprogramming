@@ -554,7 +554,7 @@ Take code from `component-reference` and refactor to use custom hooks/services/e
 import React from 'react';
 
 const useOutsideClick = ({ ref, onClose }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const closeIfOutsideOfContext = (e) => {
       const isClickInside = ref.current.contains(e.target);
       if (isClickInside) return;
@@ -565,10 +565,10 @@ const useOutsideClick = ({ ref, onClose }) => {
   }, [onClose]);
 };
 
-const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
-  const divRef = React.useRef();
+const ContextMenu = forwardRef(({ x, y, onClose }, ref) => {
+  const divRef = useRef();
 
-  React.useImperativeHandle(ref, () => ({
+  useImperativeHandle(ref, () => ({
     focus: () => divRef.current && divRef.current.focus(),
   }));
 
@@ -594,14 +594,14 @@ const ContextMenu = React.forwardRef(({ x, y, onClose }, ref) => {
 });
 
 const useBounds = () => {
-  const [bounds, setBounds] = React.useState({
+  const [bounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const ref = React.useCallback((el) => {
+  const ref = useCallback((el) => {
     if (!el) return;
     const localBounds = el.getBoundingClientRect();
     setBounds(localBounds);
@@ -615,23 +615,23 @@ export default function App() {
 
   // An addEventListener is easier to tackle when inside of the conditional render
   // Add that as an exploration for `useImperativeHandle`
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
     setIsOpen(true);
   }
 
-  const contextMenuRef = React.useRef();
+  const contextMenuRef = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen && contextMenuRef.current) {
       contextMenuRef.current.focus();
     }
   }, [isOpen]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={ref} onContextMenu={onContextMenu}>
           Right click on me!
@@ -645,7 +645,7 @@ export default function App() {
           onClose={() => setIsOpen(false)}
         />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```

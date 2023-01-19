@@ -145,7 +145,7 @@ In the React world, all dependency injection is powered by a `createContext` met
 import {createContext, useContext} from 'react';
 
 // We start by creating a context name
-const HelloMessageContext = React.createContext();
+const HelloMessageContext = createContext();
 
 function Parent() {
   return (

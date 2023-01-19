@@ -711,7 +711,7 @@ const chapters = [
 ];
 
 export default function App() {
-  const chaptersRef = React.useRef([]);
+  const chaptersRef = useRef([]);
 
   const scrollToTop = () => {
     chaptersRef.current[0].scrollIntoView();
@@ -852,7 +852,7 @@ Let's first start by detecting when the user has right-clicked a `div`. We can u
 
 ```jsx
 export default function App() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
@@ -860,7 +860,7 @@ export default function App() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div>
         <div onContextMenu={onContextMenu}>
           Right click on me!
@@ -872,7 +872,7 @@ export default function App() {
           This is a context menu
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```
@@ -962,24 +962,24 @@ From there, it's a basic `useRef` passing in order to `focus` on the context men
 
 ```jsx
 export default function App() {
-  const [bounds, setBounds] = React.useState({
+  const [bounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const ref = React.useCallback((el) => {
+  const ref = useCallback((el) => {
     if (!el) return;
     const localBounds = el.getBoundingClientRect();
     setBounds(localBounds);
   }, []);
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const contextMenuRef = React.useRef();
+  const contextMenuRef = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen && contextMenuRef.current) {
       contextMenuRef.current.focus();
     }
@@ -991,7 +991,7 @@ export default function App() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={ref} onContextMenu={onContextMenu}>
           Right click on me!
@@ -1015,7 +1015,7 @@ export default function App() {
           This is a context menu
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```
@@ -1203,22 +1203,22 @@ When you resize the browser, it does not recalculate the element's height and wi
 
 ```jsx {8-32}
 export default function App() {
-  const [refBounds, setBounds] = React.useState({
+  const [refBounds, setBounds] = useState({
     height: 0,
     width: 0,
     x: 0,
     y: 0,
   });
 
-  const trackingRef = React.useRef();
+  const trackingRef = useRef();
 
-  const resizeListener = React.useCallback((e) => {
+  const resizeListener = useCallback((e) => {
     if (!trackingRef.current) return;
     const localBounds = trackingRef.current.getBoundingClientRect();
     setBounds(localBounds);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', resizeListener);
 
     return () => {
@@ -1226,7 +1226,7 @@ export default function App() {
     };
   }, [resizeListener]);
 
-  const trackingCBRef = React.useCallback(
+  const trackingCBRef = useCallback(
     (el) => {
       if (!el) return;
       trackingRef.current = el;
@@ -1236,7 +1236,7 @@ export default function App() {
     [resizeListener]
   );
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function onContextMenu(e) {
     e.preventDefault();
@@ -1244,7 +1244,7 @@ export default function App() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
         <div ref={trackingCBRef} onContextMenu={onContextMenu}>
           Right click on me!
@@ -1266,7 +1266,7 @@ export default function App() {
           This is a context menu
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 ```

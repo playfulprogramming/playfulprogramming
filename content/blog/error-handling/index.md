@@ -391,7 +391,7 @@ For example, let's build a screen that tells the user that an unknown error has 
 Because our `ErrorBoundary` component renders the children that's passed in, we can update our state when an error occurs. To do this, React provide a special _static_ handler method called `getDerivedStateFromError` which allows us to set a property in our `state` object when an error is hit.
 
 ```jsx
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   state = { hasError: false };
 
   static getDerivedStateFromError(error) { 
@@ -499,7 +499,7 @@ Let's display to our users the error that's thrown by the component.
 While we previously used `getDerivedStateFromError` to set a Boolean in our `state` object, we can instead use the first argument of the static handler to assign the object to an [`Error` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error). 
 
 ```jsx
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   state = { error: null };
 
   static getDerivedStateFromError(error) {

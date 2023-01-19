@@ -62,7 +62,7 @@ const App = () => {
 }
 ```
 
-Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by React's `creacteElement` method.
+Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by React's `createElement` method.
 
 > Remember that JSX transforms to call React's `createElement` node under-the-hood.
 >
@@ -74,7 +74,7 @@ Here, `childArr` is an array of type `ReactNode`. A `ReactNode` is created by Re
 >   Becomes the following code after compilation:
 >
 > ```javascript
-> const el = React.createElement('div');
+> const el = createElement('div');
 > ```
 
 There also exists a `Children.count` method that we could use as an alternative if we wanted.
@@ -554,12 +554,12 @@ Instead, let's see if there's a way that we can pass values to our projected con
 As part of React's `Children` utilities, we're able to `cloneElement` on each item in the `children` array in order to pass React properties. We can use this logic to pass properties that include styling when the index is even or odd.
 
 ```jsx
-import {Children, useState} from 'react';
+import {Children, useState, cloneElement} from 'react';
 
 const ParentList = ({ children }) => {
   const childArr = Children.toArray(children);
   const newChildArr = childArr.map((node, i) =>
-    React.cloneElement(node, {
+    cloneElement(node, {
       style: { backgroundColor: i % 2 ? 'grey' : '' },
     })
   );
