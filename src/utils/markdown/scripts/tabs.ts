@@ -5,7 +5,6 @@ type TabEntry = Map<
 	{
 		tab: HTMLElement;
 		panel: HTMLElement;
-		parent: HTMLElement;
 	}
 >;
 
@@ -62,7 +61,6 @@ export const enableTabs = () => {
 			entry.set(tab.dataset.tabname, {
 				tab,
 				panel,
-				parent,
 			});
 
 			// Add a click event handler to each tab
@@ -114,7 +112,7 @@ export const enableTabs = () => {
 	const heading = document.getElementById(hash.slice(1));
 	if (!heading) return;
 
-	for (const tabEntry of tabEntries) {
+	for (const tabEntry of tabEntries)
 		for (const [_, tab] of tabEntry) {
 			// If the tab is hidden and the heading is contained within the tab
 			if (
@@ -128,5 +126,4 @@ export const enableTabs = () => {
 				return;
 			}
 		}
-	}
 };
