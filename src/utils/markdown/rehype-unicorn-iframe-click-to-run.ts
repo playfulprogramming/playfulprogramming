@@ -139,7 +139,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 							: undefined,
 						"data-width": width,
 						"data-height": height,
-						style: `height: ${height}px; width: ${width}px;`,
+						style: `height: ${+height ? `${height}px` : height}; width: ${
+							+width ? `${width}px` : width
+						};`,
 					},
 					[
 						iframePicture
