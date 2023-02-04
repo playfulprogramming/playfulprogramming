@@ -9,18 +9,30 @@ const { headingsToDisplaySlugs } = Astro.props as {
 </script>
 
 <script>
+	type LinkRef = {
+		li: HTMLLIElement;
+		anchor: HTMLAnchorElement;
+		id: string;
+	};
+
 	window.onload = () => {
 		const prefersReducedMotion = window.matchMedia
 			? window.matchMedia("(prefers-reduced-motion: reduce)").matches
 			: false;
 
-		const tocListRef = document.querySelector("#tocList");
+		const tocListRef: HTMLOListElement = document.querySelector("#tocList");
+		const tocListContainer =
+			tocListRef.parentElement?.parentElement?.parentElement;
 
-		const linkRefs = [
+		const linkRefs: LinkRef[] = [
 			...(document.querySelectorAll(
 				'[data-headingitem="true"]'
-			) as never as HTMLElement[]),
-		];
+			) as never as HTMLLIElement[]),
+		].map((li) => ({
+			li,
+			anchor: li.firstElementChild as HTMLAnchorElement,
+			id: li.firstElementChild.getAttribute("href").slice(1),
+		}));
 
 		// smooth-scroll to a heading when clicked
 		function handleAnchorClick(e: Event) {
@@ -34,49 +46,56 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			return false;
 		}
 
-		linkRefs.forEach((linkRef) => {
-			linkRef.firstElementChild.addEventListener("click", handleAnchorClick);
-		});
+		for (const { anchor } of linkRefs) {
+			anchor.addEventListener("click", handleAnchorClick);
+		}
 
-		let previousSection = { current: "" };
+		let activeLinkId: string = linkRefs[0]?.id || "";
 
 		const handleObserver = (entries) => {
-			const highlightFirstActive = () => {
-				if (!tocListRef) return;
-				let firstVisibleLink = tocListRef.querySelector(".toc-is-visible");
+			// find the first link that matches a visible heading
+			for (const linkRef of linkRefs) {
+				// find any heading entry that corresponds to the linkRef
+				const entry = entries.find(
+					(entry) => entry.target.getAttribute("id") === linkRef.id
+				);
 
-				linkRefs.forEach((linkRef) => {
-					linkRef.classList.remove("toc-is-active");
-				});
+				// determine if the link should be active
+				if (entry && entry.isIntersecting && entry.intersectionRatio >= 1) {
+					linkRef.li.classList.add("toc-is-active");
+					activeLinkId = linkRef.id;
 
-				if (firstVisibleLink) {
-					firstVisibleLink.classList.add("toc-is-active");
+					// if the selected link is beyond the visible area of the container...
+					if (
+						// the user hasn't requested reduced motion...
+						!prefersReducedMotion &&
+						tocListContainer &&
+						// the link is below the lowest point of the container...
+						(tocListContainer.scrollTop + tocListContainer.offsetHeight <
+							linkRef.li.offsetTop + linkRef.li.offsetHeight ||
+							// the link is above the highest point of the container...
+							tocListContainer.scrollTop > linkRef.li.offsetTop)
+					) {
+						// ...then scroll to center the link in the container
+						tocListContainer.scrollTo({
+							top: Math.max(
+								0,
+								linkRef.li.offsetTop +
+									linkRef.li.offsetHeight -
+									tocListContainer.offsetHeight / 2
+							),
+							behavior: "smooth",
+						});
+					}
+					break;
 				}
+			}
 
-				if (!firstVisibleLink && previousSection.current) {
-					tocListRef
-						.querySelector(`a[href="#${previousSection.current}"]`)
-						.parentElement.classList.add("toc-is-active");
-				}
-			};
-
-			entries.forEach((entry) => {
-				let href = `#${entry.target.getAttribute("id")}`,
-					link = linkRefs.find(
-						(l) => l.firstElementChild.getAttribute("href") === href
-					);
-
-				if (!link) return;
-				if (entry.isIntersecting && entry.intersectionRatio >= 1) {
-					link.classList.add("toc-is-visible");
-					const newPreviousSection = entry.target.getAttribute("id");
-					previousSection.current = newPreviousSection;
-				} else {
-					link.classList.remove("toc-is-visible");
-				}
-
-				highlightFirstActive();
-			});
+			// remove visible class from any links that are *not* the most recently selected heading
+			for (const linkRef of linkRefs) {
+				if (linkRef.id != activeLinkId)
+					linkRef.li.classList.remove("toc-is-active");
+			}
 		};
 
 		const observer = new IntersectionObserver(handleObserver, {
@@ -84,11 +103,12 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			threshold: 1,
 		});
 
-		const headingsEls = (window as any).headingsToDisplaySlugs.map(
-			(headingToDisplay) => {
-				return document.getElementById(headingToDisplay);
-			}
-		);
+		// use headingsToDisplaySlugs prop to observe all heading elements on the page
+		const headingsEls: HTMLElement[] = (
+			window as any
+		).headingsToDisplaySlugs.map((headingToDisplay: string) => {
+			return document.getElementById(headingToDisplay);
+		});
 
 		headingsEls
 			.filter((a) => a)
