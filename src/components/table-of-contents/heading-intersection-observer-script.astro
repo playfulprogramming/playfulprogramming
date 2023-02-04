@@ -10,6 +10,10 @@ const { headingsToDisplaySlugs } = Astro.props as {
 
 <script>
 	window.onload = () => {
+		const prefersReducedMotion = window.matchMedia
+			? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+			: false;
+
 		const tocListRef = document.querySelector("#tocList");
 
 		const linkRefs = [
@@ -17,6 +21,22 @@ const { headingsToDisplaySlugs } = Astro.props as {
 				'[data-headingitem="true"]'
 			) as never as HTMLElement[]),
 		];
+
+		// smooth-scroll to a heading when clicked
+		function handleAnchorClick(e: Event) {
+			e.preventDefault();
+			const anchor = e.target as HTMLAnchorElement;
+			document
+				.getElementById(anchor.getAttribute("href").slice(1))
+				?.scrollIntoView({
+					behavior: prefersReducedMotion ? "auto" : "smooth",
+				});
+			return false;
+		}
+
+		linkRefs.forEach((linkRef) => {
+			linkRef.firstElementChild.addEventListener("click", handleAnchorClick);
+		});
 
 		let previousSection = { current: "" };
 

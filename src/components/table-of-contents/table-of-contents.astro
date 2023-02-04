@@ -35,7 +35,9 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 				});
 				return (
 					<li class={liClassNames} data-headingitem="true">
-						<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
+						<a href={`#${headingInfo.slug}`} data-headinglink="true">
+							{headingInfo.value}
+						</a>
 					</li>
 				);
 			})
