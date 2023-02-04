@@ -1,4 +1,3 @@
-import { screen } from "@testing-library/dom";
 import { enableTabs } from "./tabs";
 
 const tabsHtml = `
@@ -86,5 +85,28 @@ describe("tabs.ts", () => {
 		expect(container2.panel0.getAttribute("aria-hidden")).toBe("true");
 		expect(container2.panel1.getAttribute("aria-hidden")).toBeNull();
 		expect(container2.panel2.getAttribute("aria-hidden")).toBe("true");
+	});
+
+	test("selected tab persists between pages", () => {
+		const container1 = createTabs();
+		enableTabs();
+
+		// change to tab2 from the first container
+		container1.tab2.click();
+		// expectation: the first container is displaying panel2
+		expect(container1.panel0.getAttribute("aria-hidden")).toBe("true");
+		expect(container1.panel1.getAttribute("aria-hidden")).toBe("true");
+		expect(container1.panel2.getAttribute("aria-hidden")).toBeNull();
+
+		// remove the container1 tab container from the DOM
+		container1.tabs.remove();
+
+		// create & enable a new tab container (as if loading a new page)
+		const container2 = createTabs();
+		enableTabs();
+		// expectation: the new container is also displaying panel2
+		expect(container2.panel0.getAttribute("aria-hidden")).toBe("true");
+		expect(container2.panel1.getAttribute("aria-hidden")).toBe("true");
+		expect(container2.panel2.getAttribute("aria-hidden")).toBeNull();
 	});
 });
