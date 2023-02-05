@@ -111,19 +111,72 @@ Everything looks good, but... Wait... Why is the focus ring visible when the use
 
 # `tabindex` Handling
 
+Let's loop back to the core theme of this chapter: Keyboard navigation is key for accessibility on your site. 
+
+One easy to conceptualize way to make your site navigable via a keyboard is by making sure all interactive elements are able to be tabbed into. Some elements are marked as "tab-able" by the browser without any extra effort:
+
+- Links (`<a>`)
+- Inputs (`<input>`)
+- Select Dropdowns (`<select>`)
+- Textareas (`<textarea>`)
+- Buttons (`<button>`)
+- iFrames (`<iframe>`)
+
+While the browser does a good job at marking most relevant elements, some applications have more unique requirements.
+
+For example, let's say you're building a document reader:
+
+<!-- Add mockup like this https://www.a11yproject.com/img/posts/how-to-use-the-tabindex-attribute/scrollable-overflow-container.png -->
+
+Let's build out the CSS for this:
+
+```css
+.documentReader {
+    box-sizing: inherit;
+    max-width: 300px;
+    max-height: 150px;
+    overflow: scroll;
+    border: 4px solid black;
+    margin: 1rem auto;
+}
+```
+
+
+
+<div style="box-sizing: inherit;max-width: 300px;max-height: 150px;overflow: scroll;border: 4px solid black;margin: 1rem auto;">
+Cupcake ipsum dolor sit amet cake dessert. Liquorice cake candy canes I love sesame snaps marshmallow lollipop I love croissant. Bonbon soufflé gingerbread macaroon tart tootsie roll. Macaroon donut caramels cookie gummi bears. I love liquorice jelly toffee fruitcake. Chupa chups oat cake gummies chocolate cake jelly beans sweet soufflé. Jelly cotton candy sweet danish gingerbread cake candy. Pudding gummies I love I love cake I love fruitcake. Gummies I love marshmallow dessert gummies. Lemon drops I love croissant cotton candy tart. Shortbread tootsie roll dessert gummies I love chupa chups topping. Muffin cookie halvah chocolate cake lollipop sweet roll I love fruitcake. Gingerbread dessert icing marshmallow bear claw. Cake I love wafer dragée powder gummi bears wafer chocolate bar.
+Candy jelly donut sesame snaps biscuit liquorice dragée. Macaroon pie gummies chocolate bonbon lollipop sugar plum. I love gummies toffee cotton candy soufflé. Pie danish muffin donut croissant lollipop marzipan shortbread. I love powder cake I love marshmallow dessert lemon drops. Lollipop candy canes pie dragée sugar plum wafer danish sweet lemon drops. Fruitcake pie sesame snaps wafer bear claw lemon drops macaroon dragée. Pastry pie dragée sweet roll cupcake lollipop gummies. Powder danish I love powder I love carrot cake. Sesame snaps sesame snaps I love I love apple pie cake icing dragée cupcake. Fruitcake icing pastry cotton candy macaroon pie sugar plum cotton candy apple pie. Bear claw bear claw I love shortbread cheesecake tiramisu. Chupa chups gummi bears wafer jujubes I love gummi bears dragée.
+Apple pie marshmallow gummies I love pie. I love croissant apple pie oat cake jelly-o toffee soufflé ice cream lollipop. Shortbread tiramisu sugar plum dessert toffee I love brownie oat cake ice cream. I love icing I love cake fruitcake I love. Gummi bears cake pudding cheesecake bear claw fruitcake. Ice cream I love cookie candy I love topping. I love chocolate cake jelly-o sweet cake caramels jelly candy canes sweet. Marzipan sesame snaps I love wafer candy caramels marshmallow jelly beans sweet roll. Gummi bears sweet roll oat cake bear claw gummies candy canes. Pie tart gummi bears oat cake candy canes I love caramels. Icing marshmallow icing candy canes cupcake muffin. Candy canes toffee bear claw I love shortbread ice cream I love pastry.
+Chocolate I love sugar plum sesame snaps liquorice bonbon lemon drops macaroon. Donut gummi bears oat cake fruitcake cake croissant biscuit oat cake cake. Caramels chupa chups toffee brownie lollipop I love lollipop toffee cake. Halvah jelly-o cookie soufflé bear claw caramels. Candy sugar plum cake dessert jelly-o. Carrot cake cake caramels pie brownie liquorice tart fruitcake. Pudding I love I love candy canes icing I love chocolate shortbread oat cake. Toffee I love candy muffin I love apple pie wafer dragée. Jujubes fruitcake marzipan topping ice cream dessert jelly-o cake. Caramels sesame snaps carrot cake croissant oat cake. Candy chocolate I love chupa chups toffee shortbread. Cheesecake jelly beans oat cake lemon drops caramels dessert brownie pudding jelly-o.
+Pudding bear claw liquorice powder tiramisu chocolate bar I love pastry. Oat cake cake gummies dessert gummi bears chupa chups jelly beans donut I love. Liquorice dessert chupa chups powder donut chocolate I love I love. Macaroon oat cake candy canes gummies marzipan. Cupcake I love marshmallow jelly-o pudding I love toffee ice cream croissant. Biscuit pie wafer I love pudding jelly cotton candy biscuit I love. Cupcake cake brownie jelly beans marshmallow powder chocolate bar dragée cake. Caramels marzipan brownie dessert fruitcake. Topping chocolate toffee icing chocolate. Sesame snaps apple pie cotton candy sweet jelly beans. Jelly-o I love gummi bears lollipop I love cake tiramisu sesame snaps soufflé. Cake bear claw marzipan chupa chups tart. Powder ice cream caramels gingerbread soufflé toffee jelly-o. Sweet tart shortbread cookie lemon drops sweet biscuit I love apple pie.
+</div>
+
+This CSS allows the user to scroll with a mouse through the contents of the document, but alas there's a problem:
+
+How are keyboard-only users supposed to scroll through the document? If they could focus on it, they could use the up and down arrow keys to navigate through the document, but `div`s are not focusable by default.
+
+The good news is that we have the ability to **make the typically unfocusable `div` focusable _in order to enable keyboard navigation_** of the document. The solution? `tabindex`.
 
 
 While [the `tabindex` has more nuance to it than this](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex), you can think of `tabindex` as a way of manually adding or removing the ability to tab to an HTML element.
 
 // TODO: Write
 
-A `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element. 
+A `tabindex` value of `0` allows a user to tab to an element, regardless of element type. Meanwhile, a `tabindex` value of `-1` disables the ability to tab to an otherwise tab-able element.
 
 > A negative `tabindex` value also provides us a way to `focus` an element using JavaScript, but more on that later... 🤫
 
 // TODO: Write
 
 
+
+
+
+> While it may seem initially intuitive to add `tabindex="0"` to each heading on the site to make navigation to each major section of the site, be careful in doing so.
+>
+> Most screen readers and accessibility technologies already provide a way to rapidly jump from heading to heading with nothing more than their keyboard. As a result, adding `tabindex="0"` to headings can be a duplicate effort to tab past and make things worse than they were before.
+>
+> [To learn more about acceptable usage of `tabindex`, check out this article by the A11Y Project](https://www.a11yproject.com/posts/how-to-use-the-tabindex-attribute/#scrollable-overflow-containers).
 
 # Element Reference `focus()`
 
