@@ -70,44 +70,93 @@ a {
 We can check this against a link element to verify that we have a focus indicator when the user has the element tabbed to.
 
 <div>
-
 <div class="green-test-1">
 <a href="#">This is a link</a>
 </div>
 <style>
 .green-test-1  {
+padding: 1rem;
+min-height: 150px;
+min-width: 300px;
+max-width: 100%;
+background: #C9FBE2;
+}
+.green-test-1 a {
+color: #00524F;
+}
+.green-test-1 *:focus {
+outline: 4px solid #009483;
+outline-offset: 4px;
+}
+</style>
+</div>
+
+Awesome! We know have a focus ring that has our page's branding colors applied! Now let's apply this focus ring to a button:
+
+<div>
+<div class="green-test-2">
+<button>This is a button</button>
+</div>
+<style>
+.green-test-2  {
   padding: 1rem;
   min-height: 150px;
   min-width: 300px;
   max-width: 100%;
   background: #C9FBE2;
 }
-.green-test-1 a {
+.green-test-2 a {
   color: #00524F;
 }
-.green-test-1 *:focus {
+.green-test-2 *:focus {
   outline: 4px solid #009483;
+  outline-offset: 4px;
 }
 </style>
 </div>
 
 
-
-
-
-
-
-Awesome! We know have a focus ring that has our page's branding colors applied! Now let's apply this focus ring to a button:
-
-<button>Testing</button>
-
 Everything looks good, but... Wait... Why is the focus ring visible when the user is clicking on the button with a mouse? That's not how the browser default focus indicator works!
 
+That's correct. To solve this problem. we need not eleminate the custom outline, but instead we can replace our `:focus` psuedo-selector with [a `:focus-visible` selector](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible):
+
+```css
+*:focus-visible {
+	/* Green 600 */
+    outline: 4px solid #009483;
+    /* Add a gap between the element and the outline */
+    outline-offset: 4px;
+}
+```
+
+This CSS state selector enables you to customize the behavior when the browser would typically show a focus ring by default.
+
+Let's see if it's fixed the issue with our button annnnd...
+
+<div>
+<div class="green-test-3">
+<button>This is a button</button>
+</div>
+<style>
+.green-test-3  {
+  padding: 1rem;
+  min-height: 150px;
+  min-width: 300px;
+  max-width: 100%;
+  background: #C9FBE2;
+}
+.green-test-3 a {
+  color: #00524F;
+}
+.green-test-3 *:focus-visible {
+  outline: 4px solid #009483;
+  outline-offset: 4px;
+}
+</style>
+</div>
 
 
-
-
-
+It has! 🎉 Hooray!
 
 # `tabindex` Handling
 
