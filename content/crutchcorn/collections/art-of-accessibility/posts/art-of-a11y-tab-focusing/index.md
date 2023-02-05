@@ -19,6 +19,94 @@ Let's answer each of these questions, starting with...
 
 # Outline Styles
 
+Let's try an experiment.
+
+Given the following image, what is currently focused?
+
+![A table of contents of the series of The Accessibility Almanac with the Part 3 focused with the browser's default focus ring](./focused_chapters.png)
+
+Okay, now which one is focused in this image:
+
+![A table of contents of the series of The Accessibility Almanac with no clearly focused element visible](./non_focused_chapters.png)
+
+You might assume "None", but you'd be wrong. In this image, the "Part 6" is focused, but the element has had the following CSS applied:
+
+```css
+/* This CSS demonstrates how to remove an outline on keyboard focus. Do not do this in production */
+outline: none;
+```
+
+This is a common "trick" used by many engineers in order to avoid having the blue glow around elements when focused. But here's the thing; if you don't have that glow, how will you know if your element is focused or not?
+
+This is why the accessibility community has been fairly prescriptive with usage of `outline`: "Never use `outline: none` unless you know what you're doing."
+
+## Creating custom outline states
+
+Just because the rule of thumb is to not use `outline: none` without good cause doesn't mean we can't ever customize our focus outline. While the browser's default focus outline is typically a blue outline, what if our page has primarily green colors as part of its brand and we wanted our focus states to match?
+
+Let's change that using CSS to customize the ["All elements" selector (`*`)](https://developer.mozilla.org/en-US/docs/Web/CSS/Universal_selectors) and [the `:focus` state selector](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus):
+
+```css
+body {
+	/* Green 100 */
+    background: #C9FBE2;
+	/* Green 900 */
+    color: #00524F;
+}
+
+a {
+    /* Green 900 */
+    color: #00524F;
+}
+
+*:focus {
+	/* Green 600 */
+    outline: 4px solid #009483;
+    /* Add a gap between the element and the outline */
+    outline-offset: 4px;
+}
+```
+
+We can check this against a link element to verify that we have a focus indicator when the user has the element tabbed to.
+
+<div>
+
+<div class="green-test-1">
+<a href="#">This is a link</a>
+</div>
+<style>
+.green-test-1  {
+  padding: 1rem;
+  min-height: 150px;
+  min-width: 300px;
+  max-width: 100%;
+  background: #C9FBE2;
+}
+.green-test-1 a {
+  color: #00524F;
+}
+.green-test-1 *:focus {
+  outline: 4px solid #009483;
+}
+</style>
+</div>
+
+
+
+
+
+
+
+Awesome! We know have a focus ring that has our page's branding colors applied! Now let's apply this focus ring to a button:
+
+<button>Testing</button>
+
+Everything looks good, but... Wait... Why is the focus ring visible when the user is clicking on the button with a mouse? That's not how the browser default focus indicator works!
+
+
+
+
+
 
 
 # `tabindex` Handling
