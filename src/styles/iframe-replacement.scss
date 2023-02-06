@@ -1,4 +1,5 @@
 .iframe-replacement-container {
+	box-sizing: border-box;
 	border: var(--cardOutlineStyle);
 	border-radius: var(--cardRadius);
 	background: var(--darkPrimary);
