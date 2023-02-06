@@ -16,7 +16,7 @@ export const enableTabs = () => {
 	function handleKeydown(this: HTMLElement, e: KeyboardEvent) {
 		if (e.keyCode === 39 || e.keyCode === 37) {
 			const tabs = this.children;
-			let tabfocus = +(this.dataset.tabfocus || 0);
+			let tabfocus = Number(this.dataset.tabfocus || 0);
 			tabs[tabfocus].setAttribute("tabindex", "-1");
 			if (e.keyCode === 39) {
 				// Move right

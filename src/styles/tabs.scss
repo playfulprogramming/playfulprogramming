@@ -63,6 +63,10 @@
 		}
 	}
 
+	// Small tab sections have bottom "spacing" (hack using grid layout) to prevent content jumps on large screens
+	//   - this should be turned off at small widths where the tab content can wrap.
+	//
+	// Breakpoint is based on the rendered width of .postViewContent, which is 822px (768px .post-body width + padding & margins)
 	@include from(823px) {
 		@supports (display: grid) {
 			&.tabs-small {
