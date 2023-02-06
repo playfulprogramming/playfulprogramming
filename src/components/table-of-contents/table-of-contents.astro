@@ -32,10 +32,13 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 					[tableOfContentsStyle.tocH1]: headingInfo.depth === 1,
 					[tableOfContentsStyle.tocH2]: headingInfo.depth === 2,
 					[tableOfContentsStyle.tocH3]: headingInfo.depth === 3,
+					["toc-is-active"]: i === 0,
 				});
 				return (
 					<li class={liClassNames} data-headingitem="true">
-						<a href={`#${headingInfo.slug}`}>{headingInfo.value}</a>
+						<a href={`#${headingInfo.slug}`} data-headinglink="true">
+							{headingInfo.value}
+						</a>
 					</li>
 				);
 			})
