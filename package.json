@@ -39,7 +39,7 @@
 	"devDependencies": {
 		"@astrojs/image": "^0.12.1",
 		"@astrojs/mdx": "^0.14.0",
-		"@astrojs/preact": "^1.2.0",
+		"@astrojs/preact": "^2.0.2",
 		"@astrojs/sitemap": "^1.0.0",
 		"@compodoc/live-server": "^1.2.3",
 		"@lesjoursfr/html-to-epub": "^3.1.0",
