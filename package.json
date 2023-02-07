@@ -45,7 +45,6 @@
 		"@lesjoursfr/html-to-epub": "^3.1.0",
 		"@remark-embedder/core": "^3.0.1",
 		"@remark-embedder/transformer-oembed": "^3.0.0",
-		"@testing-library/dom": "^8.20.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/preact": "^3.2.2",
 		"@types/classnames": "^2.3.1",

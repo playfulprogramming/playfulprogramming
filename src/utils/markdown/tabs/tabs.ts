@@ -9,10 +9,6 @@ interface ElementNode extends Parent {
 	properties: any;
 }
 
-interface TextNode extends Node {
-	value: string;
-}
-
 const isNodeHeading = (n: ElementNode) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
 
@@ -28,38 +24,6 @@ const findLargestHeading = (nodes: ElementNode[]) => {
 
 const isNodeLargestHeading = (n: ElementNode, largestSize: number) =>
 	isNodeHeading(n) && parseInt(n.tagName.substr(1), 10) === largestSize;
-
-const getApproxLineCount = (n: Node, inParagraph?: boolean): number => {
-	inParagraph ||= n.type === "element" && (n as ElementNode).tagName === "p";
-	let lines = 0;
-
-	// recurse through child nodes
-	if ("children" in n) {
-		for (const child of (n as Parent).children)
-			lines += getApproxLineCount(child, inParagraph);
-	}
-	// assume that any div/p/br causes a line break
-	if (
-		n.type === "element" &&
-		["div", "p", "br"].includes((n as ElementNode).tagName)
-	)
-		lines++;
-	// assume that any image or embed could add ~10 lines
-	if (
-		n.type === "element" &&
-		["img", "svg", "iframe"].includes((n as ElementNode).tagName)
-	)
-		lines += 10;
-	// approximate line wraps in <p> tag, assuming ~100 chars per line
-	if (
-		inParagraph &&
-		n.type === "text" &&
-		typeof (n as TextNode).value === "string"
-	)
-		lines += Math.floor((n as TextNode).value.length / 100);
-
-	return lines;
-};
 
 export interface RehypeTabsProps {
 	injectSubheaderProps?: boolean;
@@ -154,7 +118,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 							class: "tabs__tab-panel",
 							tabindex: 0,
 							"aria-labelledby": `tab-${idx}`,
-							...(idx === 0 ? {} : { "aria-hidden": "true" }),
+							...(idx === 0 ? {} : { hidden: "true" }),
 						},
 					};
 
@@ -189,13 +153,6 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 					localNode
 				);
 			}
-
-			// Determine if all tabs contain <=30 lines
-			// if so, "tabs-small" class makes the container use a constant height
-			const isSmallTab = tabsContainer.children.every(
-				(n) => getApproxLineCount(n) <= 30
-			);
-			if (isSmallTab) tabsContainer.properties.class += " tabs-small";
 
 			return [tabsContainer];
 		};
