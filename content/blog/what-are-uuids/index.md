@@ -229,14 +229,14 @@ When provided the option, when should you use UUIDv3 against UUIDv5? When should
 **You should use UUIDv3 when**:
 
 - Performance is key, or system resources are limited
-- It's not critical that `name` or `namespace` contents can be decoded
+- You're OK with people knowing the original `name` and `namespace` values
 
 This is because UUIDv3 uses the less secure MD5 hashing method for its contents. 
 
 Likewise, **you should use UUIDv5 when**:
 
-- It's critical that `name` or `namespace` contents cannot be decoded
 - Performance is less of a concern
+- You're _not_ OK with people knowing the original `name` and `namespace` values
 
 As UUIDv5's SHA-1 is significantly more secure with hashing its contents.
 
