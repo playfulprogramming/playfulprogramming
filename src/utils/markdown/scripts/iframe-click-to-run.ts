@@ -8,8 +8,8 @@ export const iFrameClickToRun = () => {
 			const iframe = document.createElement("iframe");
 			(iframe as any).loading = "lazy";
 			iframe.src = el.parentElement.dataset.iframeurl;
-			iframe.style.width = el.parentElement.style.width;
-			iframe.style.height = el.parentElement.style.height;
+			iframe.height = el.parentElement.dataset.height;
+			iframe.width = el.parentElement.dataset.width;
 			el.parentElement.replaceWith(iframe);
 		});
 	});
