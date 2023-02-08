@@ -137,9 +137,9 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 						"data-pageicon": iframePicture
 							? JSON.stringify(iframePicture)
 							: undefined,
-						"data-width": width,
-						"data-height": height,
-						style: `height: ${height}px; width: ${width}px;`,
+						style: `height: ${
+							Number(height) ? `${height}px` : height
+						}; width: ${Number(width) ? `${width}px` : width};`,
 					},
 					[
 						iframePicture
