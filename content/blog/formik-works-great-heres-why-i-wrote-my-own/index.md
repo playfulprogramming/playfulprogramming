@@ -224,6 +224,33 @@ We've talked a lot about my past with Formik in this article; Fast forward to to
 
 > This is not a real screenshot from the app, but is a mockup used to reflect how heavily form-heavy it is. We have multiple pages like this in our app; all of which with more fields than are displayed here.
 
+While this kind of application may seem simple at first glance, there's a lot of moving parts to it. Ignoring the other functionality within the app, this type of form page might contain:
+
+- On blur field formatting
+- Per-field validation type (Some fields validate on field blur, some validate on value change)
+- Detection of if a field is touched or dirty
+- Internationalized error messages
+
+As a result, our hand-written field validation code was quickly getting out-of-hand. Because of the difficulty in maintaining that much complexity by hand, bugs, regressions, and otherwise unexpected behavior started occurring. What's worse; One form page would differ wildly in implementation from another, leading to inconsistent user experience.
+
+While this was okay for a short while; while we were under crunch time and this project was not a high priority - it quickly became a thorn in the side.
+
+As such, I asked one of the engineers on my team to look into React form libraries; pointing them towards Formik as a reference of what I knew existed in the ecosystem.
+
+After a day or two of research that engineer came back: They liked Formik but had some concerns over its maintenance.
+
+See, when they went to [the Formik GitHub repository](https://github.com/jaredpalmer/formik), they noticed the high number of issues and pull requests.
+
+![Formik has over 600 issues and nearly 150 open pull requests](./formik_issue_count.png)
+
+When they then realized that its last release date was in 2021 - nearly 2 years ago - they wanted to look into it more:
+
+![The latest Formik release was 2.2.9 in 2021](./formik_releases.png)
+
+After looking into it more, there were no fewer than [three](https://github.com/jaredpalmer/formik/issues/3601) [separate](https://github.com/jaredpalmer/formik/issues/3613) [issues](https://github.com/jaredpalmer/formik/issues/3663) asking if the project was still under maintainance.
+
+![Three different GitHub issues asking if the project is maintained with an answer from the community saying "Short answer: no" and suggesting another library called "React Hook Form"](./is_formik_maintained.png)
+
 
 
 
