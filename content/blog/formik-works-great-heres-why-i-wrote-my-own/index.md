@@ -218,11 +218,13 @@ Is it any wonder I fell in love with Formik the first time I used it?
 
 # Why don't we want to use Formik?
 
+We've talked a lot about my past with Formik in this article; Fast forward to today. Nowadays, I'm leading a small frontend team in charge of a plethora of applications. One such application we inherited is very heavily form-focused:
+
+![An example screenshot showing "Add New Customer" screen on a mobile app. This screen has multiple fields in it for customer data.](./example-app-form.svg)
+
+> This is not a real screenshot from the app, but is a mockup used to reflect how heavily form-heavy it is. We have multiple pages like this in our app; all of which with more fields than are displayed here.
 
 
-Fast forward to today. I'm leading a small frontend team in charge of a plethora of applications. One such application we inherited was very heavily form-focused.
-
-<!-- Include fake screenshot of the app -->
 
 
 
