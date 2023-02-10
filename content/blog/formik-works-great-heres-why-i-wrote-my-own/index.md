@@ -247,29 +247,43 @@ When they then realized that its last release date was in 2021 - nearly 2 years 
 
 ![The latest Formik release was 2.2.9 in 2021](./formik_releases.png)
 
-After looking into it more, there were no fewer than [three](https://github.com/jaredpalmer/formik/issues/3601) [separate](https://github.com/jaredpalmer/formik/issues/3613) [issues](https://github.com/jaredpalmer/formik/issues/3663) asking if the project was still under maintainance.
+After looking into it more, there were no fewer than [three](https://github.com/jaredpalmer/formik/issues/3601) [separate](https://github.com/jaredpalmer/formik/issues/3613) [issues](https://github.com/jaredpalmer/formik/issues/3663) asking if the project was still under maintenance.
 
 ![Three different GitHub issues asking if the project is maintained with an answer from the community saying "Short answer: no" and suggesting another library called "React Hook Form"](./is_formik_maintained.png)
 
+"No problem," we thought, "surely there must be a community fork of the project."
 
+After some time looking into it, we found a single option: An individual contributor [by the name of `johnrom` hacking away at a version 3](https://github.com/jaredpalmer/formik/pull/3231).
 
+It's sincerely impressive! While the main v3 PR we linked has 97 commits, [John also started working on documentation for this potential v3 release with an additional 76 commits](https://github.com/johnrom/formik/pull/11).
 
+Unfortunately, he's made it clear that [he's not a maintainer of Formik](https://github.com/jaredpalmer/formik/pull/3231#issuecomment-1020379986) and admits:
 
-<!-- Talk about maintainance issues -->
+>[...] whether my changes are ever merged into Formik itself isn't up to me [...]
+>
+> \- [John Rom on May 3, 2021](https://github.com/jaredpalmer/formik/issues/3099#issuecomment-831319020)
+
+It was clear to use that it was time to find an alternative to Formik.
+
+----
+
+> I want to be very explicit here; neither Jared nor John owe us anything. Their contributions to the ecosystem are not assured, nor should they be.
+>
+> Almost all open-source maintainers are unpaid for their work, and it's an immense responsibility to bear the load. You constantly have to keep up with the outside ecosystem changes, manage others' contributions, answer questions, and more. It's exceedingly easy to burn out from a project with such immense loads and little personal return.
+>
+> I'm very grateful for their work on Formik and admire their engineering capabilities and even their abilities to maintain and upkeep Formik while they did. Their work on Formik should be celebrated, not chastised - even while dormant.
+
+----
+
+# What alternatives are there?
+
+<!-- Talk about React Hook Form -->
 
 
 
 # What can be improved about Formik?
 
 <!-- Talk about Form-centric API issues -->
-
-
-
-
-
-# What alternatives are there?
-
-<!-- Talk about React Hook Form -->
 
 
 
