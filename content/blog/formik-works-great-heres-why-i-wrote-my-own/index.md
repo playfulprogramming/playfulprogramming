@@ -14,7 +14,7 @@ If you've looked into form validation with React, [you'll likely have heard of F
 
 My time at this company was in 2019, [right before Formik surpassed one million weekly downloads](https://npmtrends.com/formik). Thanks to my experience using Formik at this company, I was left with a strong recommendation in favor of the tool for all future React forms usage.
 
-Fast forward to today. I'm leading a front-end team in charge of many applications. One such application we inherited was very heavily form-focused. Formik is still the wildly popular, broadly adopted intuitive forms API I used all those years ago.
+Fast forward to today. I'm leading a front-end team in charge of many React and React Native applications. One such application we inherited was very heavily form-focused. Formik is still the wildly popular, broadly adopted intuitive forms API I used all those years ago.
 
 So, if we loved Formik, why did we not only remove it from our projects but replace it with [a form library of our own](https://github.com/crutchcorn/houseform)?
 
@@ -277,7 +277,56 @@ It was clear to use that it was time to find an alternative to Formik.
 
 # What alternatives are there?
 
-<!-- Talk about React Hook Form -->
+After looking through GitHub issues, forums, and chats, there appears to be two primary alternatives to Formik available today:
+
+- [React Final Form](https://final-form.org/react) 
+- [React Hook Form](https://react-hook-form.com/)
+
+While React Final Form initially looked promising - [it's only seen 5 commits to the `main` branch since 2021](https://github.com/final-form/react-final-form/commits/main), and has [over 300 issues](https://github.com/final-form/react-final-form/issues).
+
+Let's check on [the React Hook Form GitHub](https://github.com/react-hook-form/react-hook-form) and see if things are more lively:
+
+![A repository with 33.1K stars, commits 2 days ago, and a release 2 days ago.](./react_hook_form_activity.png)
+
+WOW! Now **that's** an actively maintained repository!
+
+
+
+One thing we really liked was the ability to do per-field validation right inline with the input itself:
+
+https://react-hook-form.com/get-started#Applyvalidation
+
+But the challenge is that it doesn't support `Yup` or `Zod` validation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://react-hook-form.com/get-started#IntegratingControlledInputs
+
+But here's the challenge with this method; It introduces multiple different ways of doing things. 
+
+
 
 
 
