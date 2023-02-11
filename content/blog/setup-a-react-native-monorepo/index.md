@@ -38,20 +38,24 @@ Here's the files that are worth looking at:
 
 - `package.json`
 - `tsconfig.json`
+- `.eslintrc.js`
 - `metro.config.js`
 
 
 
+# Maintain Multiple Package Roots with Yarn Berry
 
-
-# Initial Scaffolding with Yarn Berry and Turborepo
-
-- Turborepo
-- Yarn Berry
+https://twitter.com/larixer/status/1570459837498290178
 
 
 
-# Fixing issues with Metro
+
+
+# Run Distributed Tasks with Turborepo
+
+
+
+# Fixing issues with the Metro Bundler 
 
 ```
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -170,13 +174,45 @@ module.exports = (__dirname) => {
 
 
 
+# Building Basic React Native Components
+
+
+
+# Styling Components using Styled Components
 
 
 
 
 
 
-# Add Testing to our Monorepo
 
-- Jest
-- Testing Library
+
+
+# Add Testing to our Monorepo with Jest
+
+
+
+## Make Tests More Representative with Testing Library
+
+
+
+
+
+# Sharing Configuration Files between Apps
+
+
+
+## Enforce Consistent TypeScript Usage with `tsconfig`
+
+
+
+## Lint Your Apps with ESLint
+
+
+
+
+
+# Next Stop: The Web
+
+<!-- Conclusion section, talk about React Native for Web, Storybooks, Vite -->
+
