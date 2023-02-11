@@ -8,11 +8,21 @@ import { COLORS } from "constants/theme";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import remarkTwoslash from "remark-shiki-twoslash";
+import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
 import { fileURLToPath } from "url";
+
+const remarkTwoslash = (
+	remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault }
+).default
+	? (
+			remarkTwoslashDefault as never as {
+				default: typeof remarkTwoslashDefault;
+			}
+	  ).default
+	: remarkTwoslashDefault;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -87,7 +97,7 @@ export const renderPostPreviewToString = async (post: PostInfo) => {
 	// This needs to happen here, since otherwise the `import` is stale at runtime,
 	// thus breaking live refresh
 	const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
-		(await import(`./twitter-large-card.tsx?update=${Date.now()}`)).default;
+		(await import(`./twitter-large-card.js?update=${Date.now()}`)).default;
 
 	const authorImagesStrs = post.authorsMeta.map((author) =>
 		readFileAsBase64(author.profileImgMeta.absoluteFSPath)

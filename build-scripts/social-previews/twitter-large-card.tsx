@@ -1,5 +1,5 @@
 import * as React from 'preact';
-import { PostInfo } from "types/PostInfo";
+import type { PostInfo } from "types/PostInfo";
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
