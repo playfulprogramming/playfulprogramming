@@ -9,7 +9,7 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "../../../node_modules/@astrojs/image";
+import { getPicture } from "../../../node_modules/@astrojs/image/dist/index.js";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";

@@ -84,7 +84,8 @@ export default defineConfig({
 	markdown: {
 		mode: "md",
 		syntaxHighlight: false,
-		extendDefaultPlugins: false,
+		smartypants: false,
+		gfm: false,
 		remarkPlugins: [
 			remarkGfm,
 			// Remove complaining about "div cannot be in p element"
