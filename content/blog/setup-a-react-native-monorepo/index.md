@@ -46,13 +46,13 @@ Let's walk through how to:
 
 # Setup React Native Project {#setup-app}
 
-> If you have an existing React Native project, you can safely skip this step.
+> Even if you have an existing React Native project, 
 
+Let's setup a basic React Native project to extend using a monorepo.
 
+> Before you get started with this section, make sure you have [your environment set up](https://reactnative.dev/docs/environment-setup), including XCode/Android Studio.
 
-- Make sure you have [your environment set up](https://reactnative.dev/docs/environment-setup), including XCode/Android Studio
-
-  
+Run 
 
 ```shell
 npx react-native init ChatAppMobile
