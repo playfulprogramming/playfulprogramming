@@ -71,6 +71,53 @@ We now have a basic demo application that we can extend by adding it to our mono
 
 # Maintain Multiple Package Roots with Yarn Berry {#yarn-berry}
 
+While the `react-native init` command is great for single apps, it doesn't do much to help us scaffold our monorepo.
+
+Currently, with the newly created React Native project, our filesystem looks something like this:
+
+<!-- filetree:start -->
+- `/`
+    - `App.tsx`
+    - `android/`
+    - `app.json`
+    - `babel.config.js`
+    - `index.js`
+    - `ios/`
+    - `metro.config.js`
+    - `node_modules`
+    - `package.json`
+    - `tsconfig.json`
+    - `yarn.lock`
+<!-- filetree:end -->
+
+In a monorepo, however, we might have multiple apps and packages that we want to keep in the same repository. To do this, our filesystem should look something akin to this structure:
+
+<!-- filetree:start -->
+- `/`
+  - `apps/`
+    - `chat-app-mobile/`
+        - `src`
+            - `App.tsx`
+            - `components/`
+            - `hooks/`
+            - `utils/`
+            - `types/`
+        - `android/`
+        - `app.json`
+        - `babel.config.js`
+            - `index.js`
+        - `ios/`
+        - `metro.config.js`
+        - `node_modules`
+        - `package.json`
+        - `tsconfig.json`
+        - `yarn.lock`
+<!-- filetree:end -->
+
+
+
+
+
 https://twitter.com/larixer/status/1570459837498290178
 
 
