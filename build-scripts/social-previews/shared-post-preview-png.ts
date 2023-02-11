@@ -14,15 +14,11 @@ import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
 import { fileURLToPath } from "url";
 
+// https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash = (
 	remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault }
 ).default
-	? (
-			remarkTwoslashDefault as never as {
-				default: typeof remarkTwoslashDefault;
-			}
-	  ).default
-	: remarkTwoslashDefault;
+	?? remarkTwoslashDefault;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

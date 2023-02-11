@@ -83,7 +83,8 @@ function rehypeMakeFixTwoSlashXHTML() {
 	};
 }
 
-const remarkTwoslash = (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default ? (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default : remarkTwoslashDefault;
+// https://github.com/shikijs/twoslash/issues/147
+const remarkTwoslash = (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default ?? remarkTwoslashDefault;
 
 async function generateEpubHTML(slug: string, content: string) {
 	const unifiedChain = unified()
