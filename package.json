@@ -104,6 +104,8 @@
 		"terser": "^5.16.3",
 		"tsx": "^3.12.3",
 		"unified": "^10.1.2",
+		"unist-util-find-all-after": "^4.0.1",
+		"unist-util-is": "^5.2.0",
 		"unist-util-replace-all-between": "^0.1.1",
 		"unist-util-visit": "^4.1.2"
 	},
