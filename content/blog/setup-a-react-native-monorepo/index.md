@@ -52,22 +52,22 @@ Let's setup a basic React Native project to extend using a monorepo.
 
 > Before you get started with this section, make sure you have [your environment set up](https://reactnative.dev/docs/environment-setup), including XCode/Android Studio.
 
-Run 
+To setup a basic React Native project from scratch, run the following:
 
 ```shell
 npx react-native init ChatAppMobile
 ```
 
+Once this command finishes, you should have a functioning React Native project scaffolded in `ChatAppMobile` folder.
 
+While there's a bunch of files that we could look at, there's a few I want to highlight that we'll be looking at throughout this article:
 
-Here's the files that are worth looking at:
+- `package.json` - Metadata about the project that your package manager controls. This includes dependencies, [dev dependencies](https://unicorn-utterances.com/posts/how-to-use-npm#dev-deps), and scripts that you might want to run on the project.
+- `tsconfig.json` - The configuration file for any [TypeScript](typescriptlang.org/) usage in the project.
+- `.eslintrc.js` - The linting rules applied by [ESLint](https://eslint.org/) to standardize the code throughout your app.
+- `metro.config.js` - The configuration for React Native's default bundler: Metro. We'll touch on what Metro a bit more does later.
 
-- `package.json`
-- `tsconfig.json`
-- `.eslintrc.js`
-- `metro.config.js`
-
-
+We now have a basic demo application that we can extend by adding it to our monorepo.
 
 # Maintain Multiple Package Roots with Yarn Berry {#yarn-berry}
 
