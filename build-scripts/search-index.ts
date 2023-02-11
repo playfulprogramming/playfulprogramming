@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import { getAllPosts } from "../utils/get-all-posts";
+import { getAllPosts } from "../src/utils/get-all-posts";
 
 import * as fs from "fs";
 import * as path from "path";

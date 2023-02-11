@@ -4,7 +4,6 @@ import { PostInfo } from "types/index";
 import { promises as fs } from "fs";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
-import { fileURLToPath } from "url";
 import { COLORS } from "constants/theme";
 
 import { unified } from "unified";
@@ -13,6 +12,9 @@ import remarkTwoslash from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const unifiedChain = () => {
 	const unifiedChain = unified()
@@ -68,12 +70,12 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 export const heightWidth = { width: 1280, height: 640 };
 
 const unicornUtterancesHead = readFileAsBase64(
-	resolve(__dirname, "../../assets/unicorn_head_1024.png")
+	resolve(__dirname, "../../src/assets/unicorn_head_1024.png")
 );
 
 export const renderPostPreviewToString = async (post: PostInfo) => {
 	const shikiSCSS = await fs.readFile(
-		resolve(__dirname, "../../styles/shiki.scss"),
+		resolve(__dirname, "../../src/styles/shiki.scss"),
 		"utf8"
 	);
 
