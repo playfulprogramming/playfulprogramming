@@ -10,15 +10,41 @@
 }
 ---
 
+[React Native](https://reactnative.dev/) allows you to write React code that outputs to native applications for various platforms, including:
 
+- Android
+- iOS
+- Windows
+- macOS
 
-While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://docs.expo.dev/introduction/why-not-expo/?redirected#expo-go).
+It's an undeniably powerful way to share code between web applications and your mobile apps; particularly within small teams that either don't have the knowledge or the capacity to go fully native.
 
+Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share code between multiple projects with a similar tech stack.
 
+Combined together and even a small team can maintain multiple React Native applications seamlessly.
 
+<!-- Show a TLDR chart of an example monorepo usage in RN -->
 
+Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://docs.expo.dev/introduction/why-not-expo/?redirected#expo-go).
 
-# Setup React Native Project
+To further exacerbate the issue, React Native comes with many uncommon edgecases that makes monorepos particularly challenging to create. Many of the tutorials I've found outlining how to build a monorepo for this purpose use outdated tools to work around this.
+
+Knowing just how potent the potential impact of a monorepo would be to my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems. I'd like to share how you can do the same in this article.
+
+Let's walk through how to:
+
+- [Set up a React Native app](#setup-app)
+
+- [Have multiple `package.json` files for each app and package](#yarn-berry)
+- [Run interdependent tasks in your monorepo easily](#turborepo)
+- [Fix issues with React Native's bundler](#metro)
+- [Build basic shared React Native components](#building-components)
+- [Style shared components](#styled-components)
+- [Test your shared application logic](#jest)
+- [Enforce consistent project configuration across your monorepo](#config-package)
+- [Prepare for further code sharing](#conclusion)
+
+# Setup React Native Project {#setup-app}
 
 > If you have an existing React Native project, you can safely skip this step.
 
@@ -43,7 +69,7 @@ Here's the files that are worth looking at:
 
 
 
-# Maintain Multiple Package Roots with Yarn Berry
+# Maintain Multiple Package Roots with Yarn Berry {#yarn-berry}
 
 https://twitter.com/larixer/status/1570459837498290178
 
@@ -51,11 +77,11 @@ https://twitter.com/larixer/status/1570459837498290178
 
 
 
-# Run Distributed Tasks with Turborepo
+# Run Distributed Tasks with Turborepo {#turborepo}
 
 
 
-# Fixing issues with the Metro Bundler 
+# Fixing issues with the Metro Bundler {#metro}
 
 ```
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -114,7 +140,7 @@ return {
 
 
 
-## Better Method
+## Better Method {#metro-improved} 
 
 ```
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -174,45 +200,45 @@ module.exports = (__dirname) => {
 
 
 
-# Building Basic React Native Components
+# Building Basic React Native Components {#building-components}
 
 
 
-# Styling Components using Styled Components
-
-
-
-
+# Styling Components using Styled Components {#styled-components}
 
 
 
 
 
-# Add Testing to our Monorepo with Jest
-
-
-
-## Make Tests More Representative with Testing Library
 
 
 
 
-
-# Sharing Configuration Files between Apps
-
-
-
-## Enforce Consistent TypeScript Usage with `tsconfig`
+# Add Testing to our Monorepo with Jest {#jest}
 
 
 
-## Lint Your Apps with ESLint
+## Make Tests More Representative with Testing Library {#testing-library}
 
 
 
 
 
-# Next Stop: The Web
+# Sharing Configuration Files between Apps {#config-package}
+
+
+
+## Enforce Consistent TypeScript Usage with `tsconfig` {#tsconfig}
+
+
+
+## Lint Your Apps with ESLint {#eslint}
+
+
+
+
+
+# Next Stop: The Web {#conclusion}
 
 <!-- Conclusion section, talk about React Native for Web, Storybooks, Vite -->
 
