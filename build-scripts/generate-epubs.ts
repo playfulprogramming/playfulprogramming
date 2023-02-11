@@ -3,7 +3,7 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
-import remarkTwoslash from "remark-shiki-twoslash";
+import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
 import { UserConfigSettings } from "shiki-twoslash";
@@ -82,6 +82,8 @@ function rehypeMakeFixTwoSlashXHTML() {
 		return tree;
 	};
 }
+
+const remarkTwoslash = (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default ? (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default : remarkTwoslashDefault;
 
 async function generateEpubHTML(slug: string, content: string) {
 	const unifiedChain = unified()
