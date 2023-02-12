@@ -96,18 +96,22 @@ if (post.series && post.order) {
 		</main>
 	</BlogPostLayout>
 	<footer role="contentinfo" class="post-lower-area">
-		<div>
-			<a
-				aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
-				href={post.licenseMeta.explainLink}
-				style={{ display: "table", margin: "0 auto" }}
-			>
-				<img
-					src={post.licenseMeta.footerImg}
-					alt={post.licenseMeta.licenceType}
-				/>
-			</a>
-		</div>
+		{
+			post.licenseMeta ? (
+				<div>
+					<a
+						aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+						href={post.licenseMeta.explainLink}
+						style={{ display: "table", margin: "0 auto" }}
+					>
+						<img
+							src={post.licenseMeta.footerImg}
+							alt={post.licenseMeta.licenceType}
+						/>
+					</a>
+				</div>
+			) : null
+		}
 		<MailingListFull />
 		<div class="postBottom">
 			<div class="btnLike prependIcon">
