@@ -2,6 +2,7 @@
 
 .tabs {
 	-webkit-tap-highlight-color: transparent;
+	overflow-anchor: none;
 
 	&__tab-list {
 		padding: 0;
