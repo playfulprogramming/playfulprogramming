@@ -87,23 +87,21 @@ import SearchField from "./search-field/search-field.astro";
 			{ signal: abortController.signal }
 		)
 			.then((res) => res.json())
-			.then(
-				(serverVal: {
-					posts: PostInfo[];
-					totalPosts: number;
-					unicornProfilePicMap: ProfilePictureMap;
-				}) => {
-					const SearchCardHandler = createElement(SearchBarHandler, {
-						unicornProfilePicMap: serverVal.unicornProfilePicMap,
-						posts: serverVal.posts,
-						totalPosts: serverVal.totalPosts,
-					});
-					render(SearchCardHandler, searchPostList);
-					loadingEl && loadingEl.remove();
-					loadingEl = undefined;
-					abortController = undefined;
-				}
-			);
+			.then(async (serverVal: { posts: PostInfo[]; totalPosts: number }) => {
+				const unicornProfilePicMap: ProfilePictureMap = await fetch(
+					"/unicorns/unicornProfilePicMap.json",
+					{ cache: "force-cache" }
+				).then((res) => res.json());
+				const SearchCardHandler = createElement(SearchBarHandler, {
+					unicornProfilePicMap,
+					posts: serverVal.posts,
+					totalPosts: serverVal.totalPosts,
+				});
+				render(SearchCardHandler, searchPostList);
+				loadingEl && loadingEl.remove();
+				loadingEl = undefined;
+				abortController = undefined;
+			});
 	}
 
 	const debounceDoSearch = debounce(doSearch, 1000, false);

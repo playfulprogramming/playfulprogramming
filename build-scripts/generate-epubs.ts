@@ -3,16 +3,16 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
-import remarkTwoslash from "remark-shiki-twoslash";
+import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
 import { UserConfigSettings } from "shiki-twoslash";
-import { collections, unicorns } from "utils/data";
-import { getAllPosts } from "utils/get-all-posts";
+import { collections, unicorns } from "../src/utils/data";
+import { getAllPosts } from "../src/utils/get-all-posts";
 import { join, resolve } from "path";
 import { visit } from "unist-util-visit";
 import { Element, Root } from "hast";
-import { isRelativePath } from "utils/url-paths";
+import { isRelativePath } from "../src/utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import { CollectionInfo, PostInfo, RawCollectionInfo } from "types/index";
@@ -82,6 +82,9 @@ function rehypeMakeFixTwoSlashXHTML() {
 		return tree;
 	};
 }
+
+// https://github.com/shikijs/twoslash/issues/147
+const remarkTwoslash = (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default ?? remarkTwoslashDefault;
 
 async function generateEpubHTML(slug: string, content: string) {
 	const unifiedChain = unified()
