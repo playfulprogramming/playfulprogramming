@@ -1,7 +1,10 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"module": "CommonJS",
-		"jsx": "react"
-	}
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact"
+	},
+	"files": [
+		"build-scripts/social-previews/twitter-large-card.tsx"
+	]
 }

@@ -1,12 +1,26 @@
 ---
 import { Picture } from "@astrojs/image/components";
 
+type ImageMeta = Promise<{
+	default: {
+		src: string;
+		height: number;
+		width: number;
+		format:
+			| "heic"
+			| "heif"
+			| "avif"
+			| "jpeg"
+			| "jpg"
+			| "png"
+			| "tiff"
+			| "webp"
+			| "gif";
+	};
+}>;
+
 interface CollectionHeaderDefaultProps {
-	coverImgPath:
-		| string
-		| Promise<{
-				default: { src: string; height: number; width: number; format: string };
-		  }>;
+	coverImgPath: string | ImageMeta;
 	coverImgAspectRatio?: number;
 	collection: {
 		title: string;
@@ -32,7 +46,7 @@ if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
 		<div class="bigImageContainer themedImage">
 			<Picture
 				alt=""
-				src={coverImgPath}
+				src={coverImgPath as never as ImageMeta}
 				aspectRatio={coverImgAspectRatio}
 				sizes={`600`}
 				widths={[600]}
@@ -45,7 +59,7 @@ if (coverImgPath instanceof Promise && !coverImgAspectRatio) {
 			<div class="smallImageContainer themedImage">
 				<Picture
 					alt=""
-					src={coverImgPath}
+					src={coverImgPath as never}
 					aspectRatio={coverImgAspectRatio}
 					sizes={`600`}
 					widths={[600]}

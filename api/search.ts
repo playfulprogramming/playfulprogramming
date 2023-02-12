@@ -1,19 +1,16 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import exportedIndex from "../public/searchIndex";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import unicornProfilePicMap from "../public/unicorn-profile-pic-map";
 import Fuse from "fuse.js";
-import type { PostInfo } from "../src/types/PostInfo";
+import { createRequire } from "node:module";
 
-const myIndex = Fuse.parseIndex(exportedIndex.index);
+import type { PostInfo } from "types/PostInfo";
 
-const posts = exportedIndex.posts;
+const require = createRequire(import.meta.url);
+const searchIndex = require("./searchIndex.json");
+const index = Fuse.parseIndex(searchIndex.index);
 
-const fuse = new Fuse(
+const posts = searchIndex.posts;
+
+const fuse = new Fuse<PostInfo>(
 	posts,
 	{
 		threshold: 0.3,
@@ -21,13 +18,8 @@ const fuse = new Fuse(
 		includeScore: true,
 		ignoreFieldNorm: true,
 	},
-	myIndex
+	index
 );
-
-const unicornProfilePicObj = {};
-for (const picMapItem of unicornProfilePicMap) {
-	unicornProfilePicObj[picMapItem.id] = picMapItem;
-}
 
 export default async (req: VercelRequest, res: VercelResponse) => {
 	// TODO: `pickdeep` only required fields
@@ -35,12 +27,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 	const authorStr = req?.query?.authorId as string;
 	if (!searchStr) return [];
 	if (Array.isArray(searchStr)) return [];
-	let posts = fuse.search(searchStr).map((item) => item.item as PostInfo);
+	let posts = fuse.search(searchStr).map((item) => item.item);
 	if (authorStr) {
 		posts = posts.filter((post) => post.authors.includes(authorStr));
 	}
-	const unicornProfilePicMap = posts.flatMap((post) =>
-		post.authorsMeta.map((authorMeta) => unicornProfilePicObj[authorMeta.id])
-	);
-	res.send({ posts, totalPosts: posts.length, unicornProfilePicMap });
+	res.send({ posts, totalPosts: posts.length });
 };

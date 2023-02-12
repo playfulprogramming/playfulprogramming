@@ -12,7 +12,7 @@ import { getLargestManifestIcon, Manifest } from "../get-largest-manifest-icon";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "../../../node_modules/@astrojs/image";
+import { getPicture } from "../../../node_modules/@astrojs/image/dist/index.js";
 import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
 import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 // This does not download the whole file to get the file size
