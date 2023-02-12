@@ -18,7 +18,6 @@ import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-p
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unicorn-iframe-click-to-run";
-import generateUnicornProfilePicMap from "./src/utils/rollup/generate-unicorn-profile-pic-map";
 import copy from "rollup-plugin-copy";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
@@ -70,12 +69,6 @@ export default defineConfig({
 							dest: "public/content",
 						},
 					],
-				}),
-				enforce: "pre",
-			},
-			{
-				...generateUnicornProfilePicMap({
-					output: path.resolve("./public/unicorn-profile-pic-map.ts"),
 				}),
 				enforce: "pre",
 			},
