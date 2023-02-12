@@ -1,4 +1,4 @@
-import { getAllPosts } from "../../utils/get-all-posts";
+import { getAllPosts } from "../../src/utils/get-all-posts";
 import { renderPostPreviewToString } from "./shared-post-preview-png";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { resolve, dirname } from "path";
@@ -7,7 +7,7 @@ import { LiveServerParams } from "live-server";
 import chokidar from "chokidar";
 import liveServer from "@compodoc/live-server";
 
-//const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function ensureDirectoryExistence(filePath: string) {
 	const localDirname = dirname(filePath);

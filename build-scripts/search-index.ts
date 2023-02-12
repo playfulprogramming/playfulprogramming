@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import { getAllPosts } from "../utils/get-all-posts";
+import { getAllPosts } from "../src/utils/get-all-posts";
 
 import * as fs from "fs";
 import * as path from "path";
@@ -40,13 +40,6 @@ export const createIndex = async () => {
 };
 
 createIndex().then((index) => {
-	const js = `const index = {
-		index: ${JSON.stringify(index)},
-		posts: ${JSON.stringify(posts)}
-	}
-	
-	export default index;
-	`;
-
-	fs.writeFileSync(path.resolve(process.cwd(), "./public/searchIndex.js"), js);
+	const json = JSON.stringify({ index, posts });
+	fs.writeFileSync(path.resolve(process.cwd(), "./api/searchIndex.json"), json);
 });

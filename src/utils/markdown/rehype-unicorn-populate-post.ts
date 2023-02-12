@@ -85,7 +85,7 @@ export const rehypeUnicornPopulatePost: Plugin<
 		setData("translations", translations);
 		setData("authorsMeta", authorsMeta);
 		setData("licenseMeta", license);
-		setData("frontmatterBackup", frontmatter);
+		setData("frontmatterBackup", {...frontmatter});
 		setData("contentMeta", content);
 		setData("publishedMeta", publishedMeta);
 		setData("editedMeta", editedMeta);

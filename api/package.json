@@ -1,0 +1,10 @@
+{
+	"name": "unicorn-utterances-api",
+	"type": "module",
+	"devDependencies": {
+		"@vercel/node": "^2.9.2"
+	},
+	"dependencies": {
+		"fuse.js": "^6.6.2"
+	}
+}
