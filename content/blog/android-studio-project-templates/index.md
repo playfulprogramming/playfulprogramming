@@ -27,7 +27,7 @@ In order to create Android Studio plugins, we need to use [IntelliJ IDEA CE](htt
 
 Once you installed IntelliJ IDEA, create a new project to create an IDE Plugin
 
-![](ide_plugin_project_wizard.png)
+![A "new project" window with "IDE Plugin" selected](./ide_plugin_project_wizard.png)
 
 After the project is created, open the `build.gradle.kts` or `build.gradle` file and let's configure the Gradle IntelliJ plugin to support the Android plugin. Add the following code to the `intellij` configuration block and sync the project.
 
@@ -288,14 +288,14 @@ Run the `./gradle buildPlugin` command to generate the plugin jar. It should gen
 
 Now open Android Studio and go to the plugins section and click on the gear icon to select install from disk option
 
-![](installing_plugin.png)
+![The settings cog icon in the plugins section shows an "Install Plugin Disk" option](./installing_plugin.png)
 
 Select the jar file you just created and restart the Android Studio. 
 
 Now when you create a new project, you should see your project template.
 
-![](plugin_preview_1.png)
-![](plugin_preview_2.png)
-![](plugin_preview_3.png)
+![Our custom "My project template" now shows up in the "New project" screen.](./plugin_preview_1.png)
+![The custom template allows you to pass default properties as-expected.](./plugin_preview_2.png)
+![In addition to default properties, the custom template properties are shown as well.](./plugin_preview_3.png)
 
 You can provide multiple project templates with this approach and configure the items when creating the project. You can find the sample used in this article [here](https://github.com/msasikanth/my-project-templates)
