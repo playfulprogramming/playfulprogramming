@@ -49,14 +49,14 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 			iframeNodes.map(async (iframeNode) => {
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
 				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
-				const req = await fetch(iframeNode.properties.src);
+				const req = await fetch(iframeNode.properties.src).catch(() => null);
 				let pageTitleString: string | undefined;
 				let iconLink: string | undefined;
 				let iframePicture:
-					| ReturnType<typeof ManifestIconMap["get"]>
+					| ReturnType<(typeof ManifestIconMap)["get"]>
 					| undefined;
 				const iframeOrigin = new URL(iframeNode.properties.src).origin;
-				if (req.status === 200) {
+				if (req && req.status === 200) {
 					const srcHTML = await req.text();
 					const srcHast = fromHtml(srcHTML);
 					const titleEl = find(srcHast, { tagName: "title" });
@@ -79,8 +79,10 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 								manifestRelativeURL,
 								iframeNode.properties.src
 							).href;
-							const manifestReq = await fetch(fullManifestURL);
-							if (manifestReq.status === 200) {
+							const manifestReq = await fetch(fullManifestURL).catch(
+								() => null
+							);
+							if (manifestReq && manifestReq.status === 200) {
 								const manifestContents = await manifestReq.text();
 								const manifestJSON: Manifest = JSON.parse(manifestContents);
 								const largestIcon = getLargestManifestIcon(manifestJSON);
