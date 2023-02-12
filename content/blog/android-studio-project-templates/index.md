@@ -7,7 +7,8 @@
 	authors: ["sasikanth"],
 	tags: ["android", "testing"],
 	attached: [],
-	license: "cc-by-nc-sa-4"
+	license: "cc-by-nc-sa-4",
+	originalLink: "https://www.sasikanth.dev/creating-project-templates-in-android-studio/"
 }
 ---
 
