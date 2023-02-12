@@ -49,11 +49,11 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 			iframeNodes.map(async (iframeNode) => {
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
 				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
-				const req = await fetch(iframeNode.properties.src);
+				const req = await fetch(iframeNode.properties.src).catch(() => null);
 				let pageTitleString: string | undefined;
 				let iconLink: string | undefined;
 				let iframePicture:
-					| ReturnType<typeof ManifestIconMap["get"]>
+					| ReturnType<(typeof ManifestIconMap)["get"]>
 					| undefined;
 				const iframeOrigin = new URL(iframeNode.properties.src).origin;
 				if (req.status === 200) {
