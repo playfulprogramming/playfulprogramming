@@ -16,11 +16,11 @@ import probe from "probe-image-size";
 interface RehypeUnicornIFrameClickToRunProps {}
 
 // default icon, used if a frame's favicon cannot be resolved
-let defaultPageIcon: GetPictureResult | null;
-async function fetchDefaultPageIcon() {
+let defaultPageIcon: Promise<GetPictureResult>;
+function fetchDefaultPageIcon(): Promise<GetPictureResult> {
 	return (
 		defaultPageIcon ||
-		(defaultPageIcon = await getPicture({
+		(defaultPageIcon = getPicture({
 			src: "/link.png",
 			widths: [50],
 			formats: ["avif", "webp", "png"],
