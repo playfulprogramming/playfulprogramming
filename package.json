@@ -30,7 +30,7 @@
 		"format": "prettier -w . --cache --plugin-search-dir=.",
 		"lint": "eslint . --ext .js,.ts,.astro",
 		"search-index": "tsx build-scripts/search-index.ts",
-		"social-previews:prebuild": "tsc -p  tsconfig.script.json",
+		"social-previews:prebuild": "tsc -p tsconfig.script.json",
 		"social-previews:build": "npm run social-previews:prebuild && node node_modules/puppeteer-core/install.js && tsx --tsconfig tsconfig.script.json build-scripts/social-previews/index.ts",
 		"social-previews:dev": "npm run social-previews:prebuild && tsx --tsconfig tsconfig.script.json build-scripts/social-previews/live-server.ts",
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
