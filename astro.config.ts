@@ -32,7 +32,7 @@ import mdx from "@astrojs/mdx";
 import symlink from "symlink-dir";
 import * as path from "path";
 import svgr from "vite-plugin-svgr";
-import { rehypeFileTree } from "utils/markdown/file-tree/rehype-file-tree";
+import { rehypeFileTree } from "./src/utils/markdown/file-tree/rehype-file-tree";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
