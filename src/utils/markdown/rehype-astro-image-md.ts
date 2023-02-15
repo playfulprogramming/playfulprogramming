@@ -9,8 +9,7 @@ import path from "path";
 /**
  * They need to be the same `getImage` with the same `globalThis` instance, thanks to the "hack" workaround.
  */
-import { getPicture } from "../../../node_modules/@astrojs/image/dist/index.js";
-import sharp_service from "../../../node_modules/@astrojs/image/dist/loaders/sharp.js";
+import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";
 import { getFullRelativePath } from "../url-paths";
@@ -28,13 +27,6 @@ export const rehypeAstroImageMd: Plugin<
 	Root
 > = ({ maxHeight, maxWidth }) => {
 	return async (tree, file) => {
-		// HACK: This is a hack that heavily relies on `getImage`'s internals :(
-		globalThis.astroImage = {
-			...(globalThis.astroImage || {}),
-			loader: sharp_service ?? globalThis.astroImage?.loader,
-			defaultLoader: sharp_service ?? globalThis.astroImage?.defaultLoader,
-		};
-
 		const imgNodes: any[] = [];
 		visit(tree, (node: any) => {
 			if (node.tagName === "img") {
