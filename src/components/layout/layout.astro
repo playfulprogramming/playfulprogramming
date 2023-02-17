@@ -8,8 +8,6 @@ import { Icon } from "astro-icon";
 const rootPath = `/`;
 
 const isBase = Astro.url.pathname === rootPath;
-const isBlogPost = Astro.url.pathname.startsWith(`${rootPath}posts`);
-const isCollection = Astro.url.pathname.startsWith(`${rootPath}collections`);
 
 interface LayoutProps {
 	disableThemeToggle?: boolean;
@@ -56,13 +54,5 @@ const { disableThemeToggle } = Astro.props as LayoutProps;
 			</div>
 		</div>
 	</header>
-	<div
-		class={isCollection
-			? ""
-			: !isBlogPost
-			? "listViewContent"
-			: "postViewContent"}
-	>
-		<slot />
-	</div>
+	<slot />
 </div>

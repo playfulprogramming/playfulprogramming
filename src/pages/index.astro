@@ -26,5 +26,7 @@ const page = {
 
 <Document>
 	<SEO slot="head" title="Homepage" />
-	<PostListTemplate posts={postsToDisplay} page={page} rootURL={"/"} />
+	<div class="listViewContent">
+		<PostListTemplate posts={postsToDisplay} page={page} rootURL={"/"} />
+	</div>
 </Document>

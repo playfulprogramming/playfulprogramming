@@ -43,11 +43,13 @@ const rootURL = `/unicorns/${unicorn.id}/`;
 		unicornsData={[unicorn]}
 		type="profile"
 	/>
-	<UnicornsPage
-		unicorn={unicorn}
-		page={page}
-		posts={page.data}
-		allPosts={allPosts}
-		rootURL={rootURL}
-	/>
+	<div class="listViewContent">
+		<UnicornsPage
+			unicorn={unicorn}
+			page={page}
+			posts={page.data}
+			allPosts={allPosts}
+			rootURL={rootURL}
+		/>
+	</div>
 </Document>
