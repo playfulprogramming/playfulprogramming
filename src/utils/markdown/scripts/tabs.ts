@@ -14,7 +14,9 @@ export const enableTabs = () => {
 
 	// If overflow-anchor cannot be applied, tabs should scroll into view when clicked
 	//   to prevent confusing content jumps
-	const shouldScrollToTab = !CSS.supports("overflow-anchor", "none");
+	const shouldScrollToTab = !(
+		CSS.supports && CSS.supports("overflow-anchor", "none")
+	);
 
 	// Handle arrow navigation between tabs in the tab list
 	function handleKeydown(this: HTMLElement, e: KeyboardEvent) {
@@ -45,26 +47,31 @@ export const enableTabs = () => {
 
 			// Scroll onto screen in order to avoid jumping page locations
 			setTimeout(() => {
-				tab.scrollIntoView({
-					behavior: "auto",
-					block: "center",
-					inline: "center",
-				});
+				tab.scrollIntoView &&
+					tab.scrollIntoView({
+						behavior: "auto",
+						block: "center",
+						inline: "center",
+					});
 			}, 0);
 		}
 	}
 
 	function handleClick(e: Event) {
-		const tabName = (e.target as HTMLElement).dataset.tabname;
+		const target = e.target as HTMLElement;
+		const tabName = target.dataset.tabname;
 		changeTabs(tabName);
 
 		if (shouldScrollToTab) {
 			// Scroll onto screen in order to avoid jumping page locations
-			(e.target as HTMLElement).scrollIntoView({
-				behavior: "auto",
-				block: "center",
-				inline: "center",
-			});
+			setTimeout(() => {
+				target.scrollIntoView &&
+					target.scrollIntoView({
+						behavior: "auto",
+						block: "center",
+						inline: "center",
+					});
+			}, 0);
 		}
 	}
 
