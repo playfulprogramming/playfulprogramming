@@ -12,6 +12,10 @@ export const enableTabs = () => {
 	// Array of all TabName->Element mappings in tab sets
 	const tabEntries: TabEntry[] = [];
 
+	// If overflow-anchor cannot be applied, tabs should scroll into view when clicked
+	//   to prevent confusing content jumps
+	const shouldScrollToTab = !CSS.supports("overflow-anchor", "none");
+
 	// Handle arrow navigation between tabs in the tab list
 	function handleKeydown(this: HTMLElement, e: KeyboardEvent) {
 		if (e.keyCode === 39 || e.keyCode === 37) {
@@ -38,12 +42,30 @@ export const enableTabs = () => {
 			tab.setAttribute("tabindex", "0");
 			tab.focus();
 			tab.click();
+
+			// Scroll onto screen in order to avoid jumping page locations
+			setTimeout(() => {
+				tab.scrollIntoView({
+					behavior: "auto",
+					block: "center",
+					inline: "center",
+				});
+			}, 0);
 		}
 	}
 
 	function handleClick(e: Event) {
 		const tabName = (e.target as HTMLElement).dataset.tabname;
 		changeTabs(tabName);
+
+		if (shouldScrollToTab) {
+			// Scroll onto screen in order to avoid jumping page locations
+			(e.target as HTMLElement).scrollIntoView({
+				behavior: "auto",
+				block: "center",
+				inline: "center",
+			});
+		}
 	}
 
 	// Iterate through all tabs to populate tabEntries & set listeners
