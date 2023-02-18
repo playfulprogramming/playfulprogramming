@@ -48,5 +48,7 @@ const { otherLocales } = getOtherAboutLocales(locale, globResults);
 			currentLang: locale,
 		}}
 	/>
-	<About globResults={globResults} locale={locale} />
+	<div class="listViewContent">
+		<About globResults={globResults} locale={locale} />
+	</div>
 </Document>

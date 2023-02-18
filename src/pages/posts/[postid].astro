@@ -58,5 +58,7 @@ const otherLangs = translations
 		}}
 		shareImage={`/${post.slug}.twitter-preview.png`}
 	/>
-	<BlogPost locale={"en"} Content={Content} post={post} posts={posts} />
+	<div class="postViewContent">
+		<BlogPost locale={"en"} Content={Content} post={post} posts={posts} />
+	</div>
 </Document>
