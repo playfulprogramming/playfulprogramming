@@ -516,15 +516,118 @@ After a week's worth of work, we found ourselves with a tool that we enjoyed usi
 
 # How does our own form library differ?
 
+If you looked closely at the previous image of the HouseForm website, you'll see our single-sentence explanation of what makes HouseForm unique:
 
+> HouseForm is a field-first, [Zod](https://github.com/colinhacks/zod)-powered, headless, runtime agnostic form validation library for React.
 
+Let's walk through what that means and what a basic usage of HouseForm looks like.
 
+First, **HouseForm is "field-first"**. You can see this when we demonstrate an example HouseForm form:
 
+```tsx
+import { Field, Form } from "houseform";
+import { z } from "zod";
 
+export default function App() {
+  return (
+    <Form
+      onSubmit={(values) => {
+        alert("Form was submitted with: " + JSON.stringify(values));
+      }}
+    >
+      {({ isValid, submit }) => (
+        <>
+          <Field
+            name="email"
+            onChangeValidate={z.string().email("This must be an email")}
+          >
+            {({ value, setValue, onBlur, errors }) => {
+              return (
+                <div>
+                  <input
+                    value={value}
+                    onBlur={onBlur}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder={"Email"}
+                  />
+                  {errors.map((error) => (
+                    <p key={error}>{error}</p>
+                  ))}
+                </div>
+              );
+            }}
+          </Field>
+          <button onClick={submit}>Submit</button>
+        </>
+      )}
+    </Form>
+  );
+}
+```
 
+Here, we're using `<Field onChangeValidate={}/>` to validate the field's value when the user has changed their input. This is a stark difference from Formik's single-object validation schema, because it places the validation logic right inline with the UI rendering.
 
+Second: **HouseForm is Zod-powered**. Unlike Formik, which uses [Yup](https://github.com/jquense/yup) to do validation, or RHF which requires an external dependency to use Zod; HouseForm relies more heavily on [Zod](https://github.com/colinhacks/zod) to do its validation. Zod is well-loved by many React developers and seemed like a good choice for validation needs.
 
+Third: **HouseForm is headless and runtime agnostic**. This means that it runs just as well in React Native, Next.js, or even [Ink](https://github.com/vadimdemedes/ink) as it does React for the web. No differing APIs; just use the same components for each of these.
 
+Fourth: **HouseForm is flexible**. Let's take the previous code sample and add validation to the email field that should run during the form submission.
+
+```tsx
+// ...
+
+<Field
+    name="email"
+    onChangeValidate={z.string().email("This must be an email")}
+    onSubmitValidate={isEmailUnique}
+>
+    {({ value, setValue, onBlur, errors }) => {
+        // ...
+    }}
+</Field>
+
+// ...
+
+// This is simulating a check against a database
+function isEmailUnique(val: string) {
+  return new Promise<boolean>((resolve, reject) => {
+    setTimeout(() => {
+      const isUnique = !val.startsWith("crutchcorn");
+      if (isUnique) {
+        resolve(true);
+      } else {
+        reject("That email is already taken");
+      }
+    }, 20);
+  });
+}
+```
+
+Notice that, outside of the `isEmailUnique` logic, the only thing we had to do to add submission validation was add a `onSubmitValidate` property on the `Field` component.
+
+With HouseForm, we can even extend this per-field validation logic by adding a `onBlurValidate` function:
+
+```jsx
+<Field
+    name="email"
+    onChangeValidate={z.string().email("This must be an email")}
+    onSubmitValidate={isEmailUnique}
+    onBlurValidate={z.string().min(1, "Your email must have at least one character")}
+>
+    {({ value, setValue, onBlur, errors }) => {
+        // ...
+    }}
+</Field>
+```
+
+The rules passed to each `onXValidate` property can differ from one another, even within the same field. This is a super powerful API that allows you to decide:
+
+- What fields you want validated or not
+- How you want to validate each field
+- At which user interaction you want to validate
+-  Which rules you want to validate on a per-interaction basis
+
+Neither RHF or Formik has this capability and flexibility today.
 
 # How did we write HouseForm?
 
