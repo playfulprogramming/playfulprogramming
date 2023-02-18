@@ -516,7 +516,7 @@ While I'm comfortable with open-source maintenance - I maintain NPM packages tha
 
 After a week's worth of work, we found ourselves with a tool that we enjoyed using and solved our production needs.
 
-# How does our own form library differ?
+# How does HouseForm differ?
 
 If you looked closely at the previous image of the HouseForm website, you'll see our single-sentence explanation of what makes HouseForm unique:
 
@@ -631,6 +631,34 @@ The rules passed to each `onXValidate` property can differ from one another, eve
 
 Neither RHF or Formik has this capability and flexibility today.
 
-# What's next?
+# What's next for HouseForm?
 
-<!-- conclusion -->
+HouseForm has a lot going for it today:
+
+- An API with tons of flexibility and capabilities.
+- Runtime agnosticism, [enabling it to run flawlessly in React Native](https://houseform.dev/guides/react-native.html).
+- Extensive and usage-based tests with 97% test coverage, [like this form test](https://github.com/crutchcorn/houseform/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
+- [A docs website with plenty of examples and how-to guides.](https://houseform.dev)
+- [A community-created introduction video.](https://www.youtube.com/watch?v=bQVUGx8rSuQ)
+- [Benchmarks against other popular form libraries.](https://github.com/crutchcorn/houseform/tree/main/lib/benchmarks)
+- [Good first issues to encourage new contributions.](https://github.com/crutchcorn/houseform/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+
+Even with all of these goodies, HouseForm isn't perfect and it never will be; No project is ever fully finished in the programming world.
+
+Looking forward, we plan on:
+
+- [Improving the existing `FieldArray` helper by adding utility properties](https://github.com/crutchcorn/houseform/issues/7).
+- Increasing visibility into performance by creating more benchmarks against other popular libraries.
+- Moving the needle further on performance; making sure it falls in-line with other libraries in the same space.
+
+- Gathering more community feedback on how to improve. (Have ideas? [Open an issue!](https://github.com/crutchcorn/houseform/issues/new/choose))
+
+But we need your help! If any of this sounds interesting to you, please help us by:
+
+- [Opening GitHub issues with feature, docs, and bug requests.](https://github.com/crutchcorn/houseform/issues/new/choose)
+- [Contributing to the project with pull requests.](https://github.com/crutchcorn/houseform/blob/main/CONTRIBUTING.md)
+- [Starring the project on GitHub](https://github.com/crutchcorn/houseform).
+
+That's all for now. In the next article I write, I'll be talking about how I built HouseForm using Vite and how you can build your own React library using a similar setup (it's pretty rad).
+
+Happy form building!
