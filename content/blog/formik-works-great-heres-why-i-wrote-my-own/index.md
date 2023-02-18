@@ -290,47 +290,127 @@ Let's check on [the React Hook Form GitHub](https://github.com/react-hook-form/r
 
 WOW! Now **that's** an actively maintained repository!
 
+Looking further into React Hook Form, we found ourselves enjoying the basic examples:
 
+```jsx
+import { useForm } from "react-hook-form";
 
-One thing we really liked was the ability to do per-field validation right inline with the input itself:
+export default function App() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
 
-https://react-hook-form.com/get-started#Applyvalidation
+  console.log(watch("example")); // watch input value by passing the name of it
 
-But the challenge is that it doesn't support `Yup` or `Zod` validation.
+  return (
+    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* register your input into the hook by invoking the "register" function */}
+      <input defaultValue="test" {...register("example")} />
+      
+      {/* include validation with required or other standard HTML validation rules */}
+      <input {...register("exampleRequired", { required: true })} />
+      {/* errors will return when field validation fails  */}
+      {errors.exampleRequired && <span>This field is required</span>}
+      
+      <input type="submit" />
+    </form>
+  );
+}
+```
 
+In particular, we really liked the ability to do [per-field validation right inline with the input itself](https://react-hook-form.com/get-started#Applyvalidation):
 
+```jsx
+import { useForm } from "react-hook-form";
 
+export default function App() {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
+   
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("firstName", { required: true, maxLength: 20 })} />
+      <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
+      <input type="number" {...register("age", { min: 18, max: 99 })} />
+      <input type="submit" />
+    </form>
+  );
+}
+```
 
+This allows us to keep our UI and our validation logic collocated in the same part of the code without having to cross-reference multiple locations of code to see how a field looks and acts. 
 
+Unfortunately, as we read deeper into this functionality, we found that it doesn't support `Yup` or `Zod` validation. To use either of these tools to validate your fields, you must use a schema object validator to validate the whole form:
 
+```jsx
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
+const schema = yup.object({
+  firstName: yup.string().required(),
+  age: yup.number().positive().integer().required(),
+}).required();
 
+export default function App() {
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+  const onSubmit = data => console.log(data);
 
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("firstName")} />
+      <p>{errors.firstName?.message}</p>
+        
+      <input {...register("age")} />
+      <p>{errors.age?.message}</p>
+      
+      <input type="submit" />
+    </form>
+  );
+}
+```
 
+What's more; we noticed that most of the form examples used HTML and a `register` function. We were curious how this worked, so we did a bit of a deeper dive into their docs page and found that React Hook Form is, by default, [uncontrolled and leaves the state persistence up to the DOM](https://react-hook-form.com/get-started#Designandphilosophy).
 
+While this works okay for web applications, React Native doesn't _really_ support this functionality.
 
+To sidestep this problem, RHF introduces a [`Controller` API that allows you to treat your `Field`s as render functions](https://react-hook-form.com/get-started#IntegratingControlledInputs):
 
+```jsx
+import { useForm, Controller } from "react-hook-form";
+import { TextField, Checkbox } from "@material-ui/core";
 
+function App() {
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      checkbox: false,
+    }
+  });
+  const onSubmit = data => console.log(data);
 
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="checkbox"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => <Checkbox {...field} />}
+      />
+      <input type="submit" />
+    </form>
+  );
+}
+```
 
+This works out well and enables you to even use custom field components, but introduces a new set of headaches; There's now multiple ways of building out a field in React Hook Form.
 
+You have to establish social rules within your team about which ways to do things, and potentially introduce abstractions to enforce these rules.
 
+**Surely, we can make some improvements overall.**
 
-
-
-
-
-
-
-https://react-hook-form.com/get-started#IntegratingControlledInputs
-
-But here's the challenge with this method; It introduces multiple different ways of doing things. 
-
-
-
-
-
-# What can be improved about Formik?
+# What can be improved about Formik and React Hook Form?
 
 <!-- Talk about Form-centric API issues -->
 
