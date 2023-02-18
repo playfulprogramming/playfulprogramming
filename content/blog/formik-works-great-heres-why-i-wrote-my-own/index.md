@@ -24,6 +24,7 @@ I think this question is answered by taking a look at the whole story:
 - Why don't we want to use Formik?
 - What can be improved about Formik?
 - What alternatives are there?
+- Why did we make our own form library?
 - How does our own form library differ?
 - How did we write it?
 - What's next?
@@ -410,19 +411,114 @@ You have to establish social rules within your team about which ways to do thing
 
 **Surely, we can make some improvements overall.**
 
-# What can be improved about Formik and React Hook Form?
+# What can be improved about Formik?
 
-<!-- Talk about Form-centric API issues -->
+Let's take a more focused look at what a large form component with 15 input fields might look like when using Formik. We'll take a look at what one field being rendered might look like:
 
+```jsx
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
+const schema = Yup.object().shape({
+    firstName: Yup.string()
+    .required('First name is required.'),
+    middleInitials: Yup.string(),
+    lastName: Yup.string()
+    .required('First name is required.'),
+    email: Yup.string().email('Invalid email address').required('Email is required.'),
+    // Imagine there are 15 more fields here
+});
 
+export default function App() {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+      }}
+      validationSchema={schema}
+      onSubmit={(values) => {
+        alert(JSON.stringify(values));
+      }}
+    >
+      {({ errors, touched, dirty }) => (
+        <Form>
+          {/* Imagine there are 15 more fields here */}
+          <Field name="firstName">
+            {({
+              field,
+              meta,
+            }) => (
+              <div>
+                <label>
+                    <div>First Name</div>
+                    <input type="text" placeholder="Email" {...field} />
+                </label>
+                {meta.touched && meta.error && (
+                  <div className="error">{meta.error}</div>
+                )}
+              </div>
+            )}
+          </Field>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+```
 
+Here's the challenge though; your `schema` variable is defined at the top of the component file while your `Field`'s `input` is towards the bottom of the file; meaning that you have as many lines of code in your component separating out your field's validation logic from the UI rendering behavior. That's two places to look for one concern.
 
+And, if that's ~15 lines of code per field, that's at least 225 lines of code to sift through between the validation logic and the UI rendering, ignoring any additional logic, styling, or layout code.
 
+What's more, Formik appears to have many ways to define a Field and Form. There's:
+
+- [The core `Formik` component](https://formik.org/docs/api/formik)
+  - [`Formik children={}`](https://formik.org/docs/api/formik#children-reactreactnode--props-formikpropsvalues--reactnode)
+  - [`Formik component={}`](https://formik.org/docs/api/formik#component-reactcomponenttypeformikpropsvalues)
+- [The `Form` helper wrapper around HTML's `form` element](https://formik.org/docs/api/form)
+- [The `Field` component](https://formik.org/docs/api/field)
+  - [`Field children={}`](https://formik.org/docs/api/field#children)
+  - [`Field component={}`](https://formik.org/docs/api/field#component)
+  - [`Field as`](https://formik.org/docs/api/field#as)
+- [`<FastField>`](https://formik.org/docs/api/fastfield)
+- [`useField`](https://formik.org/docs/api/useField)
+- [`<ErrorMessage>`](https://formik.org/docs/api/errormessage)
+
+Some of these handle rendering the UI for you, some don't - meaning some work with React Native while others don't - and some of these components have multiple ways of doing the same thing.
+
+This ability to do the same thing in multiple ways is a problem because it:
+
+- Introduces required training of what method to use and when internally.
+- Bloats the bundle size by requiring more code to be shipped.
+- Increases maintenance costs of the library.
+
+## How can React Hook Form be improved?
+
+As we mentioned in the React Hook Form section, we really liked the ability to do per-field validation using [the `Controller`'s `rules` field](https://react-hook-form.com/api/usecontroller/controller). However, the lack of ability to use custom validation logic - either through Zod/Yup usage or with custom functions - make this a non-starter for our use-cases.
+
+Because of this, we run into the same issues we did with Formik's shortcomings; they don't allow you to do custom validation on the `Field` (or `Controller`) components themselves.
+
+So, we know the shortcomings of RHF and Formik... What do we do now?
+
+# Why did we make our own form library?
+
+Alright, you've read the title; [I wrote an alternative library to Formik and React Hook Form called "HouseForm"](https://github.com/crutchcorn/houseform).
+
+[![The HouseForm website with a docs sidebar and a logo front-and-center](./houseform_website.png)](https://houseform.dev)
+
+> Why?
+
+Well, I took a look at our business' needs, saw that Formik was a better choice for us than React Hook Form, but acknowledged that the maintenance of the library was a blocker for us moving forward with it.
+
+While I'm comfortable with open-source maintenance - I maintain NPM packages that account for 7 million downloads a month - I wanted to see what the level of effort was in creating a library akin to Formik that solved our non-maintenance complaints with the tool.
+
+After a week's worth of work, we found ourselves with a tool that we enjoyed using and solved our production needs.
 
 # How does our own form library differ?
 
-<!-- Talk Field-first API -->
+
+
+
 
 
 
