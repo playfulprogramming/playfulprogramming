@@ -1,0 +1,77 @@
+@import "./utils/str";
+
+$themes: (
+	"light": (
+		'focus_background': #FFF,
+		'primary/background': #E5F2FF,
+		'primary/focus_outline': #006590,
+		'primary/brand/default': #006590,
+		'primary/brand/on_default': #E5F2FF,
+		'primary/brand/variant': #87CEFF,
+		'primary/brand/on_variant': #001E2E,
+		'primary/surface/emphasis_none': rgba(135, 206, 255, 0.16),
+		'primary/surface/emphasis_low': rgba(135, 206, 255, 0.32),
+		'primary/surface/emphasis_medium': rgba(135, 206, 255, 0.64),
+		'primary/surface/emphasis_high': rgba(135, 206, 255, 1),
+		'secondary/background': #FFEBF7,
+		'secondary/focus_outline': #8C4585,
+		'secondary/brand/default': #8C4585,
+		'secondary/brand/on_default': #FFEBF7,
+		'secondary/brand/variant': #FFADF3,
+		'secondary/brand/on_variant': #380037,
+		'secondary/surface/emphasis_none': rgba(255, 173, 243, 0.16),
+		'secondary/surface/emphasis_low': rgba(255, 173, 243, 0.32),
+		'secondary/surface/emphasis_medium': rgba(255, 173, 243, 0.64),
+		'secondary/surface/emphasis_high': rgba(255, 173, 243, 1),
+		'neutral/foreground/emphasis_medium': rgba(11, 29, 40, 0.64),
+		'neutral/foreground/emphasis_high': rgba(11, 29, 40, 1),
+		'neutral/inactive/foreground': rgba(11, 29, 40, 0.48),
+		'neutral/inactive/background': rgba(11, 29, 40, 0.12),
+	),
+	"dark": (
+		'focus_background': #364853,
+		'primary/background': #0B1D28,
+		'primary/focus_outline': #87CEFF,
+		'primary/brand/default': #87CEFF,
+		'primary/brand/on_default': #001E2E,
+		'primary/brand/variant': #006590,
+		'primary/brand/on_variant': #E5F2FF,
+		'primary/surface/emphasis_none': rgba(0, 101, 144, 0.16),
+		'primary/surface/emphasis_low': rgba(0, 101, 144, 0.32),
+		'primary/surface/emphasis_medium': rgba(0, 101, 144, 0.64),
+		'primary/surface/emphasis_high': rgba(0, 101, 144, 1),
+		'secondary/background': #380037,
+		'secondary/focus_outline': #FFADF3,
+		'secondary/brand/default': #FFADF3,
+		'secondary/brand/on_default': #380037,
+		'secondary/brand/variant': #8C4585,
+		'secondary/brand/on_variant': #FFEBF7,
+		'secondary/surface/emphasis_none': rgba(140, 69, 133, 0.16),
+		'secondary/surface/emphasis_low': rgba(140, 69, 133, 0.32),
+		'secondary/surface/emphasis_medium': rgba(140, 69, 133, 0.64),
+		'secondary/surface/emphasis_high': rgba(140, 69, 133, 1),
+		'neutral/foreground/emphasis_medium': rgba(229, 244, 255, 0.64),
+		'neutral/foreground/emphasis_high': rgba(229, 244, 255, 1),
+		'neutral/inactive/foreground': rgba(229, 244, 255, 0.48),
+		'neutral/inactive/background': rgba(229, 244, 255, 0.12),
+	),
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin theme-vars($t) {
+	@each $key, $value in map-get($themes, $t) {
+		--#{str-replace($key, '/', '-')}: #{$value};
+	}
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function theme-var($key) {
+	// ensure that the variable is defined in all themes
+	@each $theme, $_ in $themes {
+		@if not map-has-key($theme, $key) {
+			@error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
+		}
+	}
+
+	@return var(str-replace($key, '/', '-'));
+}

@@ -1,3 +1,28 @@
+@import './colors';
+
 $baseUnit: 8;
 
 $rootFontSize: 1rem;
+
+$borderWidth: (
+	s: 1px,
+	m: 2px,
+	l: 4px,
+	xl: 8px,
+);
+
+$cornerRadius: (
+	s: 8px,
+	m: 16px,
+	l: 24px,
+	xl: 32px,
+);
+
+$minTargetSize: (
+	s: 32px,
+	m: 40px,
+	l: 48px,
+	xl: 56px,
+);
+
+$spacing: 4px;

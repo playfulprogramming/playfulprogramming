@@ -51,6 +51,8 @@
 	--lineHighlightFadeColor: rgba(107, 115, 148, 0);
 	--scrollBarBG: rgba(18, 125, 179, 0.3);
 	--scrollBarThumb: var(--primary);
+
+	@include theme-vars(light);
 }
 
 html.dark,
@@ -93,6 +95,8 @@ body.dark,
 	--lineHighlightFadeColor: rgba(235, 248, 255, 0);
 	--scrollBarBG: rgba(228, 244, 255, 0.3);
 	--scrollBarThumb: var(--darkPrimary);
+
+	@include theme-vars(dark);
 }
 
 h1 {
