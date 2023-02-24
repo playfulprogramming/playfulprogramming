@@ -5,8 +5,7 @@ $endSuperSmallScreenSize: $startSmallScreenSize - 1px;
 $startSuperSmallScreenSize: 348px;
 
 @function pxToRem($pxNum) {
-	$remSize: $pxNum / $rootFontSize;
-	@return #{$remSize}rem;
+	@return #{calc($pxNum / 16)}rem;
 }
 
 @mixin until($breakpoint) {

@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/utils";
 
 .card {
 	height: 80px;
@@ -17,21 +18,26 @@
 		min-width: 48px;
 	}
 
-	&> div {
+	& > div {
 		flex-grow: 1;
 	}
 }
 
-span {
+.name {
 	color: theme-var("neutral/foreground/emphasis_high");
+	font-size: pxToRem(16);
+
+	display: block;
+	margin-bottom: $spacing;
 }
 
-ul[role=list] {
+.roles {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 
 	color: theme-var("neutral/foreground/emphasis_medium");
+	font-size: pxToRem(14);
 
 	li {
 		display: inline;

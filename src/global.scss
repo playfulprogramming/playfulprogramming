@@ -303,7 +303,8 @@ pre {
 	cursor: pointer;
 }
 
-img.circleImg, .circleImg img {
+img.circleImg,
+.circleImg img {
 	flex-shrink: 0;
 	flex-grow: 0;
 	border-radius: 50%;

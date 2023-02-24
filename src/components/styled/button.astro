@@ -10,5 +10,7 @@ const { href, class: className } = Astro.props as ButtonProps;
 ---
 
 <a href={href} class={`${style.button} ${className || ""}`}>
-	<slot />
+	<span class={style.buttonText}>
+		<slot />
+	</span>
 </a>

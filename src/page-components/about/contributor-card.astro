@@ -23,18 +23,23 @@ const { unicorn } = Astro.props as CardProps;
 	/>
 
 	<div>
-		<span>{unicorn.name}</span>
-		<small>
-			<ul aria-label="Roles assigned to this user" role="list">
-				{
-					unicorn.rolesMeta.map((role, i) => (
-						<li role="listitem">
-							{[i > 0 && <span aria-hidden="true">, </span>, role.prettyname]}
-						</li>
-					))
-				}
-			</ul>
-		</small>
+		<span class={style.name}>{unicorn.name}</span>
+		<ul
+			class={style.roles}
+			aria-label="Roles assigned to this user"
+			role="list"
+		>
+			{
+				unicorn.rolesMeta.map((role, i, arr) => (
+					<li role="listitem">
+						{[
+							role.prettyname,
+							i < arr.length - 1 && <span aria-hidden="true">, </span>,
+						]}
+					</li>
+				))
+			}
+		</ul>
 	</div>
 
 	<Button href={`/unicorns/${unicorn.id}`}>View profile</Button>

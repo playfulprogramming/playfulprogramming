@@ -1,4 +1,5 @@
 @import "../../styles/vars";
+@import "../../styles/utils";
 
 .button {
 	padding: ($spacing * 2) ($spacing * 3);
@@ -17,7 +18,7 @@
 	text-decoration: none;
 	outline: none !important;
 
-	transition: background-color .25s;
+	transition: background-color 0.25s;
 
 	&.selected {
 		background-color: theme-var("primary/brand/default");
@@ -45,4 +46,8 @@
 		text-decoration: none;
 		pointer-events: none;
 	}
+}
+
+.buttonText {
+	font-size: pxToRem(14);
 }
