@@ -1,0 +1,41 @@
+---
+import style from "./contributor-card.module.scss";
+import { UnicornInfo } from "uu-types";
+import { Picture } from "@astrojs/image/components";
+import Button from "components/styled/button.astro";
+
+interface CardProps {
+	unicorn: UnicornInfo;
+}
+
+const { unicorn } = Astro.props as CardProps;
+---
+
+<div class={style.card}>
+	<Picture
+		alt={unicorn.name + " profile picture"}
+		class="circleImg"
+		sizes="48px"
+		widths={[48]}
+		aspectRatio={1}
+		formats={["avif", "webp", "png"]}
+		src={unicorn.profileImgMeta.relativeServerPath}
+	/>
+
+	<div>
+		<span>{unicorn.name}</span>
+		<small>
+			<ul aria-label="Roles assigned to this user" role="list">
+				{
+					unicorn.rolesMeta.map((role, i) => (
+						<li role="listitem">
+							{[i > 0 && <span aria-hidden="true">, </span>, role.prettyname]}
+						</li>
+					))
+				}
+			</ul>
+		</small>
+	</div>
+
+	<Button href={`/unicorns/${unicorn.id}`}>View profile</Button>
+</div>

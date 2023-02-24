@@ -1,0 +1,39 @@
+@import "../../styles/vars";
+
+.card {
+	height: 80px;
+	display: flex;
+	align-items: center;
+	padding: $spacing * 4;
+	gap: $spacing * 4;
+
+	background-color: theme-var("primary/surface/emphasis_none");
+	border-radius: map-get($cornerRadius, l);
+
+	font-size: 1rem;
+	line-height: 1;
+
+	picture {
+		min-width: 48px;
+	}
+
+	&> div {
+		flex-grow: 1;
+	}
+}
+
+span {
+	color: theme-var("neutral/foreground/emphasis_high");
+}
+
+ul[role=list] {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	color: theme-var("neutral/foreground/emphasis_medium");
+
+	li {
+		display: inline;
+	}
+}
