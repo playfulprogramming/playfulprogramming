@@ -1,0 +1,14 @@
+---
+import style from "./button.module.scss";
+
+interface ButtonProps {
+	href: string;
+	class?: string;
+}
+
+const { href, class: className } = Astro.props as ButtonProps;
+---
+
+<a href={href} class={`${style.button} ${className || ""}`}>
+	<slot />
+</a>

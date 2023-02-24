@@ -1,0 +1,48 @@
+@import "../../styles/vars";
+
+.button {
+	padding: ($spacing * 2) ($spacing * 3);
+
+	background-color: theme-var("primary/surface/emphasis_low");
+	color: theme-var("neutral/foreground/emphasis_high");
+
+	$height: map-get($minTargetSize, m);
+	height: $height;
+	border-radius: calc($height / 2);
+
+	display: flex;
+	align-items: center;
+
+	white-space: nowrap;
+	text-decoration: none;
+	outline: none !important;
+
+	transition: background-color .25s;
+
+	&.selected {
+		background-color: theme-var("primary/brand/default");
+		color: theme-var("primary/brand/on_default");
+		box-shadow: 0 0 0 $spacing theme-var("primary/brand/variant");
+	}
+
+	&:hover {
+		text-decoration: underline;
+		background-color: theme-var("primary/surface/emphasis_medium");
+	}
+
+	&:focus {
+		background-color: theme-var("focus_background");
+		box-shadow: 0 0 0 $spacing theme-var("primary/focus_outline");
+	}
+
+	&:active {
+		background-color: theme-var("primary/surface/emphasis_high");
+	}
+
+	&.inactive {
+		background-color: theme-var("neutral/inactive/background");
+		color: theme-var("neutral/inactive/foreground");
+		text-decoration: none;
+		pointer-events: none;
+	}
+}
