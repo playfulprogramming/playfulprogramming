@@ -3,6 +3,50 @@
 @import "./styles/utils";
 @import "./styles/text_styles";
 
+html.dark,
+body.dark,
+.darkTheme {
+	--darkPrimary: #e4f4ff;
+	--primary: #127db3;
+	--lightPrimary: #bdd9e9;
+	--black: white;
+	--white: black;
+	--darkGrey: rgba(255, 255, 255, 0.64);
+	--highImpactBlack: rgba(255, 255, 255, 0.87);
+	--midImpactBlack: rgba(255, 255, 255, 0.64);
+	--lowImpactBlack: rgba(255, 255, 255, 0.58);
+	--minImpactBlack: rgba(255, 255, 255, 0.2);
+	--backgroundColor: #072a41;
+	--cardActiveBackground: #163954;
+	--cardActiveBoxShadow: 0px 2px 4px rgba(0, 0, 0, 0.27),
+		inset 0px 1px 0px #435e75;
+	--codeBlockBackground: #202746;
+	--codeInlineBackground: #1d495e;
+	--codeBackgroundColor: #161b1d;
+	--textColor: #7ea2b4;
+	--stringColor: #7ee2c4;
+	--keywordColor: #b5ea94;
+	--operatorColor: #935c25;
+	--punctuationColor: #7ea2b4;
+	--constantColor: #cf8ae1;
+	--functionColor: #c1c3ff;
+	--selectionColor: #cfe0ec;
+	--commentColor: #c7d5d7;
+	--propColor: #8a8a0f;
+	--varColor: #88c1e2;
+	--selectorColor: #bdbdff;
+	--urlColor: #9affde;
+	--insertedUnderlineColor: #ebf8ff;
+	--highlightColor: #ff92c0;
+	--lineNumbersColor: #abe1fa;
+	--lineHighlightColor: rgba(235, 248, 255, 0.2);
+	--lineHighlightFadeColor: rgba(235, 248, 255, 0);
+	--scrollBarBG: rgba(228, 244, 255, 0.3);
+	--scrollBarThumb: var(--darkPrimary);
+
+	@include theme-vars(dark);
+}
+
 :root {
 	--animSpeed: 200ms;
 	--animStyle: ease-in-out;
@@ -53,50 +97,12 @@
 	--scrollBarThumb: var(--primary);
 
 	@include theme-vars(light);
+
+	box-sizing: border-box;
 }
 
-html.dark,
-body.dark,
-.darkTheme {
-	--darkPrimary: #e4f4ff;
-	--primary: #127db3;
-	--lightPrimary: #bdd9e9;
-	--black: white;
-	--white: black;
-	--darkGrey: rgba(255, 255, 255, 0.64);
-	--highImpactBlack: rgba(255, 255, 255, 0.87);
-	--midImpactBlack: rgba(255, 255, 255, 0.64);
-	--lowImpactBlack: rgba(255, 255, 255, 0.58);
-	--minImpactBlack: rgba(255, 255, 255, 0.2);
-	--backgroundColor: #072a41;
-	--cardActiveBackground: #163954;
-	--cardActiveBoxShadow: 0px 2px 4px rgba(0, 0, 0, 0.27),
-		inset 0px 1px 0px #435e75;
-	--codeBlockBackground: #202746;
-	--codeInlineBackground: #1d495e;
-	--codeBackgroundColor: #161b1d;
-	--textColor: #7ea2b4;
-	--stringColor: #7ee2c4;
-	--keywordColor: #b5ea94;
-	--operatorColor: #935c25;
-	--punctuationColor: #7ea2b4;
-	--constantColor: #cf8ae1;
-	--functionColor: #c1c3ff;
-	--selectionColor: #cfe0ec;
-	--commentColor: #c7d5d7;
-	--propColor: #8a8a0f;
-	--varColor: #88c1e2;
-	--selectorColor: #bdbdff;
-	--urlColor: #9affde;
-	--insertedUnderlineColor: #ebf8ff;
-	--highlightColor: #ff92c0;
-	--lineNumbersColor: #abe1fa;
-	--lineHighlightColor: rgba(235, 248, 255, 0.2);
-	--lineHighlightFadeColor: rgba(235, 248, 255, 0);
-	--scrollBarBG: rgba(228, 244, 255, 0.3);
-	--scrollBarThumb: var(--darkPrimary);
-
-	@include theme-vars(dark);
+* {
+	box-sizing: inherit;
 }
 
 h1 {

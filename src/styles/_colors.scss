@@ -67,11 +67,11 @@ $themes: (
 // Reference a specific themed variable (and check to ensure it exists)
 @function theme-var($key) {
 	// ensure that the variable is defined in all themes
-	@each $theme, $_ in $themes {
-		@if not map-has-key($theme, $key) {
+	@each $theme, $map in $themes {
+		@if not map-has-key($map, $key) {
 			@error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
 		}
 	}
 
-	@return var(str-replace($key, '/', '-'));
+	@return var(--#{str-replace($key, '/', '-')});
 }
