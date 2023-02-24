@@ -45,13 +45,11 @@
 }
 
 .header {
-	@extend %subheader-1;
 	margin-bottom: 8px;
 	margin-top: 0;
 }
 
 .authorName {
-	@extend %body-1;
 	margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--darkPrimary);
@@ -64,7 +62,6 @@
 }
 
 .dateTagSubheader {
-	@extend %body-1;
 	display: flex;
 	flex-direction: row;
 	flex-grow: 0;
@@ -78,7 +75,6 @@
 }
 
 .date {
-	@extend %body-1;
 	font-weight: 500;
 	position: relative;
 	transition: color var(--animStyle) var(--animSpeed);
@@ -91,7 +87,6 @@
  */
 
 .tag {
-	@extend %body-1;
 	font-weight: 500;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--darkPrimary);
@@ -126,7 +121,6 @@
 .excerpt {
 	margin: 8px 0 0 0;
 	position: relative;
-	@extend %body-1;
 }
 
 .excerpt::before {

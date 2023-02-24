@@ -6,95 +6,14 @@
 html.dark,
 body.dark,
 .darkTheme {
-	--darkPrimary: #e4f4ff;
-	--primary: #127db3;
-	--lightPrimary: #bdd9e9;
-	--black: white;
-	--white: black;
-	--darkGrey: rgba(255, 255, 255, 0.64);
-	--highImpactBlack: rgba(255, 255, 255, 0.87);
-	--midImpactBlack: rgba(255, 255, 255, 0.64);
-	--lowImpactBlack: rgba(255, 255, 255, 0.58);
-	--minImpactBlack: rgba(255, 255, 255, 0.2);
-	--backgroundColor: #072a41;
-	--cardActiveBackground: #163954;
-	--cardActiveBoxShadow: 0px 2px 4px rgba(0, 0, 0, 0.27),
-		inset 0px 1px 0px #435e75;
-	--codeBlockBackground: #202746;
-	--codeInlineBackground: #1d495e;
-	--codeBackgroundColor: #161b1d;
-	--textColor: #7ea2b4;
-	--stringColor: #7ee2c4;
-	--keywordColor: #b5ea94;
-	--operatorColor: #935c25;
-	--punctuationColor: #7ea2b4;
-	--constantColor: #cf8ae1;
-	--functionColor: #c1c3ff;
-	--selectionColor: #cfe0ec;
-	--commentColor: #c7d5d7;
-	--propColor: #8a8a0f;
-	--varColor: #88c1e2;
-	--selectorColor: #bdbdff;
-	--urlColor: #9affde;
-	--insertedUnderlineColor: #ebf8ff;
-	--highlightColor: #ff92c0;
-	--lineNumbersColor: #abe1fa;
-	--lineHighlightColor: rgba(235, 248, 255, 0.2);
-	--lineHighlightFadeColor: rgba(235, 248, 255, 0);
-	--scrollBarBG: rgba(228, 244, 255, 0.3);
-	--scrollBarThumb: var(--darkPrimary);
-
 	@include theme-vars(dark);
 }
 
 :root {
-	--animSpeed: 200ms;
-	--animStyle: ease-in-out;
-	--cardOutlineStyle: 1px solid var(--primary);
-	--cardRadius: #{$baseUnit}px;
-	--filterBarIconSize: #{3 * $baseUnit}px;
-	--listViewPadding: #{1.5 * $baseUnit}px;
 	font-size: $rootFontSize;
 	line-height: 1.2;
-	scrollbar-color: var(--darkPrimary) var(--backgroundColor);
-	transition: scrollbar-color var(--animStyle) var(--animSpeed);
-	--darkPrimary: #153e67;
-	--primary: #127db3;
-	--lightPrimary: #315e81;
-	--black: black;
-	--white: white;
-	--darkGrey: rgba(0, 0, 0, 0.64);
-	--highImpactBlack: rgba(0, 0, 0, 0.87);
-	--midImpactBlack: rgba(0, 0, 0, 0.64);
-	--lowImpactBlack: rgba(0, 0, 0, 0.58);
-	--minImpactBlack: rgba(0, 0, 0, 0.2);
-	--backgroundColor: #e4f4ff;
-	--cardActiveBackground: #ebf6fc;
-	--cardActiveBoxShadow: 0px 2px 4px rgba(11, 37, 104, 0.27),
-		inset 0px 1px 0px #ffffff;
-	--codeBlockBackground: white;
-	--codeInlineBackground: #cbe8fb;
-	--codeBackgroundColor: #fff;
-	--textColor: #5e6687;
-	--stringColor: #007396;
-	--keywordColor: #846c00;
-	--operatorColor: #b74c00;
-	--punctuationColor: #006fce;
-	--constantColor: #aa05d4;
-	--functionColor: #5357d2;
-	--selectionColor: #dfe2f1;
-	--commentColor: #898ea4;
-	--propColor: #c08b30;
-	--varColor: #3d8fd1;
-	--selectorColor: #6679cc;
-	--urlColor: #22a9c9;
-	--insertedUnderlineColor: #202746;
-	--highlightColor: #c94922;
-	--lineNumbersColor: #979db4;
-	--lineHighlightColor: rgba(107, 115, 148, 0.2);
-	--lineHighlightFadeColor: rgba(107, 115, 148, 0);
-	--scrollBarBG: rgba(18, 125, 179, 0.3);
-	--scrollBarThumb: var(--primary);
+	scrollbar-color: theme-var(--primary-focus_outline) theme-var(--primary-background);
+	transition: scrollbar-color $animStyle $animSpeed;
 
 	@include theme-vars(light);
 
@@ -103,35 +22,6 @@ body.dark,
 
 * {
 	box-sizing: inherit;
-}
-
-h1 {
-	@extend %headline-1;
-	font-size: 1.825rem;
-
-	@include from($endSmallScreenSize) {
-		font-size: 2.4rem;
-	}
-}
-
-h2 {
-	@extend %headline-2;
-}
-
-h3 {
-	@extend %headline-3;
-}
-
-h4 {
-	@extend %headline-4;
-}
-
-h5 {
-	@extend %headline-5;
-}
-
-h6 {
-	@extend %headline-6;
 }
 
 h1,
@@ -145,20 +35,14 @@ h6 {
 	}
 }
 
-@include from($startMediumScreenSize) {
-	:root {
-		--listViewPadding: #{$baseUnit * 2.5}px;
-	}
-}
-
 :focus {
-	outline-color: var(--darkPrimary);
+	outline-color: theme-var(--primary-focus_outline);
 }
 
 //without this all <button>s have bad outline colors in firefox
 :focus::-moz-focus-inner {
 	padding: 0; //prevent weirdness just in case
-	border-color: var(--darkPrimary);
+	border-color: theme-var(--primary-focus_outline);
 }
 
 *::-webkit-scrollbar {
@@ -166,42 +50,26 @@ h6 {
 }
 
 *::-webkit-scrollbar-track {
-	background: var(--scrollBarBG);
+	background: theme-var(--primary-background);
 	border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background: var(--scrollBarThumb);
-}
-
-.listViewContent {
-	margin: 0 auto;
-	max-width: #{160 * $baseUnit}px; // 1280px
-	padding: 0 var(--listViewPadding);
-}
-
-.postViewContent {
-	padding: 0 #{$baseUnit * 2.5}px;
-	overflow-wrap: break-word;
-}
-
-.postViewContent > * {
-	margin: 0 auto;
+	background: theme-var(--primary-focus_outline);
 }
 
 body {
-	background-color: var(--backgroundColor);
+	background-color: theme-var(--primary-background);
 	margin: 0;
 	padding: 0;
-	@extend %body-1;
-	color: var(--black);
-	transition: color var(--animStyle) var(--animSpeed),
-		background-color var(--animStyle) var(--animSpeed);
+	color: theme-var(--neutral-foreground-emphasis_high);
+	transition: color $animStyle $animSpeed,
+		background-color $animStyle $animSpeed;
 }
 
 .medium-zoom-overlay {
-	background: var(--backgroundColor) !important;
+	background: theme-var(--primary-background) !important;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
@@ -220,130 +88,6 @@ body {
 	position: static;
 	width: auto;
 	height: auto;
-}
-
-.filterDropdown {
-	// This maps to the dropdown button. If the asset is changes, thus this must as well
-	transform-origin: 26px 26px;
-	transition: transform 300ms var(--animStyle);
-}
-
-.expandedIcon .filterDropdown {
-	transform: rotate(180deg);
-}
-
-.baseBtn {
-	cursor: pointer;
-}
-
-.baseBtn,
-.btnLike {
-	appearance: none;
-	text-decoration: none;
-	background: none;
-	border: none;
-	transition: background var(--animSpeed) var(--animStyle),
-		box-shadow var(--animSpeed) var(--animStyle),
-		border-color var(--animSpeed) var(--animStyle),
-		color var(--animStyle) var(--animSpeed);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-shrink: 0;
-	border-radius: var(--cardRadius);
-	font-size: 1rem;
-	padding: #{math.div($baseUnit, 2)}px #{$baseUnit}px;
-	color: var(--darkPrimary);
-}
-
-.baseBtn:hover {
-	background: var(--cardActiveBackground);
-	border-color: transparent;
-	box-shadow: var(--cardActiveBoxShadow);
-}
-
-.baseBtn svg,
-.btnLike svg {
-	$size: #{$baseUnit * 4}px;
-	height: $size;
-	width: $size;
-	flex-shrink: 0;
-}
-
-$pendIconMarg: #{$baseUnit}px;
-
-.baseBtn.prependIcon svg,
-.btnLike.prependIcon svg {
-	margin-right: $pendIconMarg;
-}
-
-.baseBtn.appendIcon svg,
-.btnLike.appendIcon svg {
-	margin-left: $pendIconMarg;
-}
-
-// Please use this sparingly. There's massive A11y concerns
-.unlink {
-	text-decoration: none;
-	color: inherit;
-}
-
-pre {
-	overflow: auto;
-	border: var(--cardOutlineStyle);
-	border-radius: 8px;
-	background: white;
-}
-
-.lowercase {
-	text-transform: lowercase;
-}
-
-.pointer {
-	cursor: pointer;
-}
-
-img.circleImg,
-.circleImg img {
-	flex-shrink: 0;
-	flex-grow: 0;
-	border-radius: 50%;
-}
-
-a {
-	color: var(--darkPrimary);
-}
-
-svg.strokeicon {
-	&,
-	* {
-		transition: stroke var(--animStyle) var(--animSpeed);
-		stroke: var(--darkPrimary);
-	}
-}
-
-svg:not(.strokeicon):not(.nofill) {
-	&,
-	* {
-		transition: fill var(--animStyle) var(--animSpeed);
-		fill: var(--darkPrimary);
-	}
-}
-
-.marginZeroAutoChild {
-	& > * {
-		margin: 0 auto;
-	}
-}
-
-li > ul > li {
-	margin: 1rem 0;
-}
-
-.hide-for-mobile {
-	@include until($endSmallScreenSize) {
-		display: none;
-	}
 }
 
 .dark .hide-on-dark {

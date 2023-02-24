@@ -43,7 +43,6 @@
 }
 
 .title {
-	@extend %headline-1;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0;
@@ -59,7 +58,6 @@
 }
 
 .subheader {
-	@extend %subheader-2;
 	margin: 22px 0 0 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);

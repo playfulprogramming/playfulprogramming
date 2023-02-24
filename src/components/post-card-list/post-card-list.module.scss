@@ -20,7 +20,6 @@ ul.postsListContainer, .postsListContainer > ul[data-isPostList="true"] {
 	}
 
 	&:empty::after {
-		@extend %body-1;
 		content: "No results could be found, you might try making your search or filter less restrictive";
 		text-align: center;
 		display: block;
