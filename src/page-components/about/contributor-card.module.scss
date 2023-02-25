@@ -11,9 +11,6 @@
 	background-color: theme-var(--primary-surface-emphasis_none);
 	border-radius: map-get($cornerRadius, l);
 
-	font-size: 1rem;
-	line-height: 1;
-
 	picture {
 		min-width: 48px;
 	}
@@ -25,10 +22,7 @@
 
 .name {
 	color: theme-var(--neutral-foreground-emphasis_high);
-	font-size: pxToRem(16);
-
 	display: block;
-	margin-bottom: $spacing;
 }
 
 .roles {
@@ -37,7 +31,7 @@
 	margin: 0;
 
 	color: theme-var(--neutral-foreground-emphasis_medium);
-	font-size: pxToRem(14);
+	line-height: 1;
 
 	li {
 		display: inline;

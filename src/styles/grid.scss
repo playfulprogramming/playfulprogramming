@@ -1,0 +1,20 @@
+@import "./vars";
+@import "./utils";
+
+.grid {
+	display: grid;
+	gap: $spacing * 8;
+
+	@include until($desktop) {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.grid-2 {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+}

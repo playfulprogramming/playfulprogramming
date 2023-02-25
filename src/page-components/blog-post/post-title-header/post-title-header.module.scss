@@ -1,6 +1,5 @@
 @import "../../../styles/vars";
 @import "../../../styles/utils";
-@import "../../../styles/text_styles";
 
 .container {
 	max-width: 768px;
@@ -16,7 +15,6 @@
 }
 
 .tags > * {
-	@extend %overline;
 	position: relative;
 	display: inline-block;
 	color: var(--darkPrimary);
@@ -44,17 +42,11 @@
 }
 
 .title {
-	@extend %headline-1;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0 0 24px 0;
-
-	@include until($endSmallScreenSize) {
-		margin-bottom: $baseUnit * 2px;
-	}
 }
 
 .subtitle {
-	@extend %subheader-3;
 	margin-bottom: 35px;
 }

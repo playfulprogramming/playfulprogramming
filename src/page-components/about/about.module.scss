@@ -1,13 +1,11 @@
 @import "../../styles/vars";
 @import "../../styles/utils";
-@import "../../styles/text_styles";
 
 .container {
 	font-size: 1.25rem;
 	margin-bottom: 40px;
 
 	h1 {
-		@extend %headline-1;
 		margin-bottom: 24px;
 	}
 
@@ -37,10 +35,4 @@
 .unicornLogo {
 	height: 192px;
 	width: 192px;
-}
-
-.unicornList {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: $spacing * 8;
 }

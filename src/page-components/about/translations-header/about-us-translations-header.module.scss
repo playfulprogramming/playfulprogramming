@@ -1,7 +1,4 @@
-@import "../../../styles/text_styles";
-
 .translationContainer {
-  @extend %body-1;
   font-weight: bold;
   border: var(--cardOutlineStyle);
   border-radius: var(--cardRadius);

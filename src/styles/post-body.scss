@@ -1,10 +1,10 @@
 @import "./vars";
 @import "./utils";
-@import "./text_styles";
 
 .post-body {
-	margin: 0 auto #{$baseUnit * 4}px;
-	max-width: 768px;
+	margin: 0 auto;
+	padding: 0 ($spacing * 4);
+	max-width: $tablet;
 	line-height: 1.7;
 
 	// Fix autolink-headings anchors positioning

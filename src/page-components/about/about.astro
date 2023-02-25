@@ -41,7 +41,7 @@ const Content = matchedResult.Content;
 	<main class={`${style.aboutBody} post-body`}>
 		<AboutUsTranslationsHeader locales={otherLocales} />
 		<div><Content /></div>
-		<div class={style.unicornList}>
+		<div class="grid grid-2">
 			{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
 		</div>
 	</main>

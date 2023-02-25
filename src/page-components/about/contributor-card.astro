@@ -23,9 +23,11 @@ const { unicorn } = Astro.props as CardProps;
 	/>
 
 	<div>
-		<span class={style.name}>{unicorn.name}</span>
+		<span class={`${style.name} text-style-body-medium-bold`}
+			>{unicorn.name}</span
+		>
 		<ul
-			class={style.roles}
+			class={`${style.roles} text-style-body-small-bold`}
 			aria-label="Roles assigned to this user"
 			role="list"
 		>

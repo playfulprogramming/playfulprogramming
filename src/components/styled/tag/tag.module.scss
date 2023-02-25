@@ -1,17 +1,18 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
 
 .tag {
-	display: inline-block;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
 	white-space: nowrap;
 	padding: $spacing ($spacing * 2);
-	font-size: pxToRem(14);
 
 	color: theme-var(--neutral-foreground-emphasis_high);
 	text-decoration: none;
 
 	border: calc($spacing / 2) solid theme-var(--primary-brand-variant);
-	border-radius: pxToRem(7);
+	border-radius: 16px;
 
 	&:hover {
 		text-decoration: underline;

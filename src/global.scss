@@ -1,7 +1,8 @@
 @use "sass:math";
 @import "./styles/vars";
 @import "./styles/utils";
-@import "./styles/text_styles";
+@import "./styles/text-styles";
+@import "./styles/grid";
 
 html.dark,
 body.dark,
@@ -11,7 +12,6 @@ body.dark,
 
 :root {
 	font-size: $rootFontSize;
-	line-height: 1.2;
 	scrollbar-color: theme-var(--primary-focus_outline) theme-var(--primary-background);
 	transition: scrollbar-color $animStyle $animSpeed;
 
@@ -88,6 +88,12 @@ body {
 	position: static;
 	width: auto;
 	height: auto;
+}
+
+img.circleImg, .circleImg img {
+	flex-shrink: 0;
+	flex-grow: 0;
+	border-radius: 50%;
 }
 
 .dark .hide-on-dark {

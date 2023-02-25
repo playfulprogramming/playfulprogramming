@@ -1,0 +1,344 @@
+@import "./vars";
+@import "./utils";
+
+@font-face {
+	font-family: "Asap";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Asap/Asap-Regular.woff2") format("woff2"),
+		url("/fonts/Asap/Asap-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Asap";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/fonts/Asap/Asap-Bold.woff2") format("woff2"),
+		url("/fonts/Asap/Asap-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Regular.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Medium.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Medium.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-SemiBold.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/fonts/Work_Sans/WorkSans-Bold.woff2") format("woff2"),
+		url("/fonts/Work_Sans/WorkSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Archivo";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Archivo/Archivo-Regular.woff2") format("woff2"),
+		url("/fonts/Archivo/Archivo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/Roboto_Mono/RobotoMono-Regular.woff2") format("woff2"),
+		url("/fonts/Roboto_Mono/RobotoMono-Regular.ttf") format("truetype");
+}
+
+// Fallback fonts for minimal CLS
+// see: https://simonhearne.com/2021/layout-shifts-webfonts/#reduce-layout-shift-with-f-mods
+@font-face {
+	font-family: "Work Sans-fallback";
+	size-adjust: 111.87%;
+	ascent-override: 80%;
+	src: local("Arial");
+}
+
+@font-face {
+	font-family: "Work Sans-fallback2";
+	size-adjust: 111.9%;
+	src: local("Roboto");
+}
+
+@font-face {
+	font-family: "Archivo-fallback";
+	size-adjust: 98.5%;
+	ascent-override: 85%;
+	src: local("Arial");
+}
+
+@font-face {
+	font-family: "Archivo-fallback2";
+	size-adjust: 97.5%;
+	src: local("Roboto");
+}
+
+$fontUniwidth: "Asap", "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
+$fontDisplay: "Work Sans", "Work Sans-fallback", "Work Sans-fallback2", sans-serif;
+$fontBody: "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
+$fontMono: "Roboto Mono", monospace;
+
+.text-style-display-1 {
+	font-size: 2.75rem;
+	font-family: $fontDisplay;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: 7rem;
+	}
+}
+
+.text-style-display-2 {
+	font-size: 4rem;
+	font-family: $fontDisplay;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: 9rem;
+	}
+}
+
+h1, .text-style-headline-1 {
+	font-size: pxToRem(32);
+	font-family: $fontDisplay;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(48);
+	}
+}
+
+h2, .text-style-headline-2 {
+	font-size: pxToRem(28);
+	font-family: $fontDisplay;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(40);
+	}
+}
+
+h3, .text-style-headline-3 {
+	font-size: pxToRem(24);
+	font-family: $fontDisplay;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(32);
+	}
+}
+
+h4, .text-style-headline-4 {
+	font-size: pxToRem(22);
+	font-family: $fontDisplay;
+	font-weight: 700;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(28);
+	}
+}
+
+h5, .text-style-headline-5 {
+	font-size: pxToRem(20);
+	font-family: $fontDisplay;
+	font-weight: 600;
+	font-style: normal;
+	letter-spacing: 0.01em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(24);
+	}
+}
+
+h6, .text-style-headline-6 {
+	font-size: pxToRem(18);
+	font-family: $fontDisplay;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.03em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(20);
+	}
+}
+
+.text-style-button-large {
+	font-size: pxToRem(16);
+	font-family: $fontBody;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.01em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(18);
+	}
+}
+
+.text-style-button {
+	font-size: pxToRem(14);
+	font-family: $fontBody;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.01em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(14);
+	}
+}
+
+.text-style-body-large {
+	font-size: pxToRem(16);
+	font-family: $fontBody;
+	font-weight: 500;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(18);
+	}
+}
+
+.text-style-body-large-bold {
+	font-size: pxToRem(16);
+	font-family: $fontBody;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(18);
+	}
+}
+
+p, .text-style-body-medium {
+	font-size: pxToRem(14);
+	font-family: $fontBody;
+	font-weight: 400;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(16);
+	}
+}
+
+.text-style-body-medium-bold {
+	font-size: pxToRem(14);
+	line-height: 125%;
+	font-family: $fontBody;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(16);
+		line-height: 125%;
+	}
+}
+
+.text-style-body-small {
+	font-size: pxToRem(12);
+	font-family: $fontBody;
+	font-weight: 400;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(14);
+	}
+}
+
+.text-style-body-small-bold {
+	font-size: pxToRem(12);
+	font-family: $fontBody;
+	font-weight: 700;
+	font-style: normal;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: pxToRem(14);
+	}
+}
+
+pre, code, .text-style-code {
+	font-size: 0.75rem;
+	font-family: $fontMono;
+	line-height: 1rem;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($desktop) {
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+}
+
+p {
+	line-height: 125%;
+}

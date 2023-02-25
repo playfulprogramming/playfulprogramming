@@ -1,6 +1,8 @@
 @import "./colors";
 
-$baseUnit: 8;
+$desktop: 1200px;
+$tablet: 960px;
+$mobile: 600px;
 
 $rootFontSize: 1rem;
 
@@ -16,13 +18,6 @@ $cornerRadius: (
 	m: 16px,
 	l: 24px,
 	xl: 32px,
-);
-
-$minTargetSize: (
-	s: 32px,
-	m: 40px,
-	l: 48px,
-	xl: 56px,
 );
 
 $spacing: 4px;

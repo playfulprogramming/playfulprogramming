@@ -1,5 +1,5 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "../../../styles/vars";
+@import "../../../styles/utils";
 
 .button {
 	padding: ($spacing * 2) ($spacing * 3);
@@ -7,7 +7,7 @@
 	background-color: theme-var(--primary-surface-emphasis_low);
 	color: theme-var(--neutral-foreground-emphasis_high);
 
-	$height: map-get($minTargetSize, m);
+	$height: 48px;
 	height: $height;
 	border-radius: calc($height / 2);
 
