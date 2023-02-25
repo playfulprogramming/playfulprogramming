@@ -14,6 +14,13 @@
 	border: calc($spacing / 2) solid theme-var(--primary-brand-variant);
 	border-radius: 16px;
 
+	@include transition(color background-color border-color);
+
+	@include darkTheme() {
+		background-color: theme-var(--primary-surface-emphasis_low);
+		border-color: transparent;
+	}
+
 	&:hover {
 		text-decoration: underline;
 	}

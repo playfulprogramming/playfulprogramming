@@ -18,7 +18,7 @@
 	text-decoration: none;
 	outline: none !important;
 
-	@include transitions(color background-color box-shadow);
+	@include transition(color background-color box-shadow);
 
 	&:global(.selected) {
 		background-color: theme-var(--primary-brand-default);

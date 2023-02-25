@@ -20,10 +20,16 @@ $startSuperSmallScreenSize: 348px;
 	}
 }
 
-@mixin transitions($properties) {
+@mixin transition($properties) {
 	$transitions: ();
 	@each $prop in $properties {
 		$transitions: append($transitions, $prop $animStyle $animSpeed, comma);
 	}
 	transition: $transitions;
+}
+
+@mixin darkTheme() {
+	:global(html.dark) &, :global(body.dark) &, :global(.darkTheme) & {
+		@content;
+	}
 }
