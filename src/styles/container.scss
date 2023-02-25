@@ -1,0 +1,8 @@
+@import "./vars";
+@import "./utils";
+
+.container {
+	margin: 0 auto;
+	padding: 0 ($spacing * 4);
+	max-width: $desktop;
+}

@@ -1,0 +1,46 @@
+---
+import PostList from "components/post-card-list/post-card-list.astro";
+import { PostCardGrid } from "components/post-card/post-card-grid";
+import { Button } from "components/styled";
+import { PostInfo } from "types/PostInfo";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+import style from "./homepage.module.scss";
+
+export interface HomepageProps {
+	posts: PostInfo[];
+}
+
+const { posts } = Astro.props as HomepageProps;
+
+const unicornProfilePicMap = await getUnicornProfilePicMap();
+---
+
+<header>
+	<div class="text-center">
+		<h1 class="text-style-headline-2">
+			Practice programming with magically majestic methods
+		</h1>
+		<p class="text-style-body-large-bold">
+			The perfect place to learn all kinds of programming, from introductory
+			ideas to advanced abstractions.
+		</p>
+		<div class={`d-flex ${style.buttons}`}>
+			<Button large variant="primary" href="/discord">Join our Discord</Button>
+			<Button large href="/about">Learn more</Button>
+		</div>
+	</div>
+</header>
+
+<section>
+	<h1 class="text-style-headline-4">Recent articles</h1>
+
+	<PostCardGrid
+		listAriaLabel="List of posts"
+		postsToDisplay={posts}
+		unicornProfilePicMap={unicornProfilePicMap}
+	/>
+</section>
+
+<section>
+	<h1 class="text-style-headline-4">Collections</h1>
+</section>

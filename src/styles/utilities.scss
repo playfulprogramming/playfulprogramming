@@ -1,0 +1,12 @@
+@import "./vars";
+
+.d-flex {
+	display: flex;
+	align-items: center;
+	justify-content: inherit;
+}
+
+.text-center {
+	text-align: center;
+	justify-content: center;
+}

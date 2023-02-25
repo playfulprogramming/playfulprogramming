@@ -1,32 +1,19 @@
 ---
 import Document from "../layouts/document.astro";
-import PostListTemplate, {
-	PostListTemplateProps,
-} from "../page-components/post-list/post-list.astro";
 import { getAllPostsForListView } from "utils/api";
 import { PostInfo } from "types/PostInfo";
 import SEO from "components/seo/seo.astro";
+import Homepage from "src/views/explore/homepage.astro";
 
 const posts = await Astro.glob<PostInfo>("../../content/blog/**/*.md");
 
 const enPosts = getAllPostsForListView(posts, "en");
-const postsToDisplay = enPosts.slice(0, 8);
-
-const page = {
-	total: enPosts.length,
-	currentPage: 1,
-	size: postsToDisplay.length,
-	lastPage: Math.floor(enPosts.length / postsToDisplay.length),
-	url: {
-		current: Astro.url.href,
-		next: "/page/2",
-	},
-} as PostListTemplateProps["page"];
+const postsToDisplay = enPosts.slice(0, 4);
 ---
 
 <Document>
 	<SEO slot="head" title="Homepage" />
-	<div class="listViewContent">
-		<PostListTemplate posts={postsToDisplay} page={page} rootURL={"/"} />
+	<div class="container">
+		<Homepage posts={postsToDisplay} />
 	</div>
 </Document>

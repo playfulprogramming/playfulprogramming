@@ -2,9 +2,6 @@
 @import "./utils";
 
 .post-body {
-	margin: 0 auto;
-	padding: 0 ($spacing * 4);
-	max-width: $tablet;
 	line-height: 1.7;
 
 	// Fix autolink-headings anchors positioning

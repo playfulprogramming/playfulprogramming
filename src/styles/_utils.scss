@@ -19,3 +19,11 @@ $startSuperSmallScreenSize: 348px;
 		@content;
 	}
 }
+
+@mixin transitions($properties) {
+	$transitions: ();
+	@each $prop in $properties {
+		$transitions: append($transitions, $prop $animStyle $animSpeed, comma);
+	}
+	transition: $transitions;
+}

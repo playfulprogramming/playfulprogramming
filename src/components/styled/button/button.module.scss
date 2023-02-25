@@ -18,7 +18,7 @@
 	text-decoration: none;
 	outline: none !important;
 
-	transition: background-color 0.25s, box-shadow 0.25s;
+	@include transitions(color background-color box-shadow);
 
 	&:global(.selected) {
 		background-color: theme-var(--primary-brand-default);
@@ -29,15 +29,18 @@
 	&:hover {
 		text-decoration: underline;
 		background-color: theme-var(--primary-surface-emphasis_medium);
+		color: theme-var(--neutral-foreground-emphasis_high);
 	}
 
 	&:focus {
 		background-color: theme-var(--focus_background);
 		box-shadow: 0 0 0 $spacing theme-var(--primary-focus_outline);
+		color: theme-var(--neutral-foreground-emphasis_high);
 	}
 
 	&:active {
 		background-color: theme-var(--primary-surface-emphasis_high);
+		color: theme-var(--neutral-foreground-emphasis_high);
 	}
 
 	&:global(.inactive) {
@@ -50,4 +53,13 @@
 
 .buttonText {
 	font-size: pxToRem(14);
+}
+
+.large {
+	padding: ($spacing * 4) ($spacing * 6);
+}
+
+.primary {
+	background-color: theme-var(--primary-brand-highlight);
+	color: theme-var(--primary-brand-on_highlight);
 }

@@ -1,10 +1,10 @@
 ---
 import Document from "../../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import About from "../../page-components/about/about.astro";
+import About from "../../views/about/about.astro";
 import { MarkdownInstance } from "astro";
 import { Languages } from "types/index";
-import { getOtherAboutLocales } from "src/page-components/about/about-helpers";
+import { getOtherAboutLocales } from "src/views/about/about-helpers";
 
 export async function getStaticPaths() {
 	const globResults = await Astro.glob("../../../content/site/about-us*.md");
