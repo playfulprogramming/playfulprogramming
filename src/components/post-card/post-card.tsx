@@ -1,12 +1,10 @@
 // TODO: Add click back to `li`
 // TODO: Make user-profile-pic clickable again
 import cardStyles from "./post-card.module.scss";
-import { UserProfilePic } from "../user-profile-pic/user-profile-pic";
 import { PostInfo } from "types/PostInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
-import { Tag } from "components/styled";
-import { Card } from "components/styled/card/card";
-import { Picture } from "components/styled/image/picture";
+import { Tag } from "components/base";
+import { Card } from "components/base/card/card";
 
 interface PostCardProps {
 	post: Pick<
