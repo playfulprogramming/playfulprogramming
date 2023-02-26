@@ -5,6 +5,7 @@ import { UserProfilePic } from "../user-profile-pic/user-profile-pic";
 import { PostInfo } from "types/PostInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Tag } from "components/styled";
+import { Card } from "components/styled/card/card";
 
 interface PostCardProps {
 	post: Pick<
@@ -35,12 +36,7 @@ export const PostCard = ({
 	} = post;
 
 	return (
-		<li
-			class={`${cardStyles.card} ${className}`}
-			// @ts-ignore No, typescript, the onclick attr is perfectly fine and I'm sure that it works.
-			onclick={`location.href='/posts/${slug}'`}
-			role="listitem"
-		>
+		<Card tag="li" href={`/posts/${slug}`}>
 			<p class={`${cardStyles.meta} text-style-small`}>{publishedMeta}</p>
 			<a href={`/posts/${slug}`} class={cardStyles.header}>
 				<h2 class={`text-style-headline-5`}>{title}</h2>
@@ -65,6 +61,6 @@ export const PostCard = ({
 					</li>
 				))}
 			</ul>
-		</li>
+		</Card>
 	);
 };
