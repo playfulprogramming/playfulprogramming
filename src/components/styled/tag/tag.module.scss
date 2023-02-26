@@ -25,3 +25,13 @@
 		text-decoration: underline;
 	}
 }
+
+.tagWithPicture {
+	padding-left: $spacing;
+}
+
+.picture {
+	width: 24px;
+	height: 24px;
+	margin-right: $spacing;
+}

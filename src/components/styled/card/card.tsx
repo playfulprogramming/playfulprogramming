@@ -3,7 +3,7 @@ import style from "./card.module.scss";
 interface CardProps {
 	tag?: "li" | "div";
 	href?: string;
-	children: React.ReactNode;
+	children: JSX.Element|JSX.Element[];
 }
 
 export function Card({ children, ...props }: CardProps) {
