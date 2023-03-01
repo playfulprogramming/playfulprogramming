@@ -10,6 +10,7 @@
 
 	color: theme-var(--neutral-foreground-emphasis_high);
 	text-decoration: none;
+	outline: none !important;
 
 	border: calc($spacing / 2) solid theme-var(--primary-brand-variant);
 	border-radius: 16px;
@@ -23,6 +24,21 @@
 
 	&:hover {
 		text-decoration: underline;
+		background-color: theme-var(--primary-surface-emphasis_medium);
+		border-color: transparent;
+		color: theme-var(--neutral-foreground-emphasis_high);
+	}
+
+	&:focus {
+		background-color: theme-var(--focus_background);
+		border-color: transparent;
+		box-shadow: 0 0 0 $spacing theme-var(--primary-focus_outline);
+		color: theme-var(--neutral-foreground-emphasis_high);
+	}
+
+	&:active {
+		background-color: theme-var(--primary-surface-emphasis_high);
+		color: theme-var(--neutral-foreground-emphasis_high);
 	}
 }
 
