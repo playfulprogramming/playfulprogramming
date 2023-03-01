@@ -21,7 +21,7 @@ In this adventure, we'll see how to:
 - [Memoize return values with `useMemo`](#use-memo)
 - [Prevent re-renders due to function instability](#function-instability)
 - [Remove costly render functions with component extraction](#render-functions)
-- Handle children functions performantly
+- [Handle children functions performantly](#children-functions)
 
 # Memoizing return values with `useMemo` {#use-memo}
 
@@ -705,7 +705,7 @@ export default function App() {
 }
 ```
 
-# Children functions are helpful
+# Children functions are helpful {#children-functions}
 
 While seldomly used, there are some instances where you may want to pass a value from a parent component down to a child.
 
@@ -939,3 +939,38 @@ Unfortunately, when we do this, we can see that `ShoppingCart` re-renders anyway
 
 This happens because, as the message in the profiler says, the function reference of `children` changes on every render; causing it to act as if a property was changed that required a re-render.
 
+The fix to this is the same as the fix to any other function changing reference: `useCallback`.
+
+```jsx
+export default function App() {
+  const [count, setCount] = useState(0)
+
+  const addOne = useCallback(() => {
+    setCount(v => v+1);
+  }, []);
+
+  const shoppingCartChildMap = useCallback((item) => {
+    if (item.type === "shoe") return <ShoeDisplay item={item} />;
+    if (item.type === "shirt") return <ShirtDisplay item={item} />;
+    return <DefaultDisplay item={item} />;
+  }, []);
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={addOne}>Add one</button>
+      <ShoppingCart>
+        {shoppingCartChildMap}
+      </ShoppingCart>
+    </div>
+  )
+}
+```
+
+# Conclusion
+
+Hopefully, this has been a helpful insight into the world of React application performance improvements. 
+
+Be cautious when using `useCallback` and `useMemo`, however; [Not all instances of your codebase need them and they may harm performance in some edge cases rather than help](https://kentcdodds.com/blog/usememo-and-usecallback).
+
+Interested in learning more performance improvements for your React applications? Take a look at [my upcoming book series, "The Framework Field Guide"](https://framework.guide), which not only teaches React internals, but walks you through React, Angular, and Vue code all at the same time; teaching you all three at once.
