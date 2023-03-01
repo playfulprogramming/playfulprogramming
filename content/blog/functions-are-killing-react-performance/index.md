@@ -296,39 +296,106 @@ const addToCart = useCallback((item) => {
 }, []);
 ```
 
+# Render Functions are Expensive
 
-
-
-
-
-
-
-
-
+So, we've demonstrated earlier how functions like this:
 
 ```jsx
 <p>{someFn()}</p>
 ```
 
-This is bad because `someFn` is expensive.
+Can often be bad for your UI's performance when `someFn` is expensive.
+
+Knowing this, what do we think about the following code?
 
 ```jsx
-<p>{renderSomeUI()}</p>
+export default function App() {
+  // ...
+
+  const renderShoppingCart = () => {
+    return <div style={{ padding: '1rem' }}>
+      <h2>Cart</h2>
+      <div>
+        Total: ${totalCost}
+      </div>
+      <div>
+        {cart.map((item) => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </div>
+    </div>;
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
+      <div style={{ padding: '1rem' }}>
+        <h1>Shopping Cart</h1>
+        {items.map((item) => (
+          <ShoppingItem key={item.id} item={item} addToCart={addToCart} />
+        ))}
+      </div>
+      {renderShoppingCart()}
+    </div>
+  )
+}
 ```
 
+Here, we're defining a `renderShoppingCart` function inside of `App` and calling it inside of our `return` render statement.
 
+At first glance, this seems bad because we're calling a function inside of our template. However, if we think about it more, we may come to conclusion that this is not entirely dissimilar to what React is doing anyway.
 
+> After all, React must be running the `div` for each render anyways, right? ... Right?
 
+Not quite.
 
+Let's look at a more minimal version of the above:
+```jsx
+const Comp = ({bool}) => {
+    const renderContents = () => {
+        return bool ? <div/> : <p/>
+    }
 
+    return <div>
+        {renderContents()}
+    </div>
+}
+```
 
+Now, let's take a step even further within the `renderContents` function:
 
+```jsx
+return bool ? <div/> : <p/>
+```
 
+Here, JSX might be transformed to the following:
 
+```jsx
+return bool ? React.createElement('div') : React.createElement('p')
+```
 
+After all, [all JSX is transformed to these `React.createElement` function calls](https://beta.reactjs.org/reference/react/createElement#creating-an-element-without-jsx) during your app's build step. This is because JSX is not standard JavaScript and needs to be transformed to the above in order to execute in your browser.
 
+This JSX to `React.createElement` function call changes when you pass props or children:
 
+```jsx
+<SomeComponent item={someItem}>
+    <div>Hello</div>
+</SomeComponent>
+```
 
+Would be transformed to:
+
+```javascript
+React.createElement(SomeComponent, {
+    item: someItem
+}, [
+    React.createElement("div", {}, ["Hello"])
+])
+```
+
+Notice how the first argument is either a string or a component function, while the second argument is props to pass to said element. Finally, the third argument of `createElement` is the children to pass to the newly created element.
+
+Knowing this, let's transform `Comp` from JSX to `createElement` function calls. Doing so changes:
 
 ```jsx
 const Comp = ({bool}) => {
@@ -340,27 +407,54 @@ const Comp = ({bool}) => {
         {renderContents()}
     </div>
 }
+```
 
-const Comp2 = () => {
-    return React.createElement("div", {}, [
-        renderContents()
-    ])
-}
+To:
 
-const Contents = () => {
-    return bool ? <div/> : <p/>
-}
+```javascript
+const Comp = ({bool}) => {
+    const renderContents = () => {
+        return bool ? React.createElement('div') : React.createElement('p')
+    }
 
-const Comp3 = ({bool}) => {
-
-    return <div>
-        <Contents bool={bool}/>
-    </div>
-}
-
-const Comp4 = ({bool}) => {
-    return React.createElement("div", {}, [
-        React.createElement(Contents, {bool}, [])
+    return React.createElement('div', {}, [
+		renderContents()    
     ])
 }
 ```
+
+With this transform applied, we can see that whenever `Comp` re-renders, it will re-execute the `renderContents` function, regardless of it needs to or not.
+
+This might not seem like such a bad thing, until you realize that we're creating a brand new `div` or `p` tag on every render.
+
+Were the `renderContents` function to have multiple elements inside, this would be extremely expensive to re-run, as it would destroy and recreate the entire subtree of `renderContents` every time. We can fact-check this by logging inside of the `div` render:
+
+```javascript
+const LogAndDiv = () => {
+	console.log("I am re-rendering");
+	return React.createElement('div');
+}
+
+const Comp = ({bool}) => {
+    const renderContents = () => {
+        return bool ? React.createElement(LogAndDiv) : React.createElement('p')
+    }
+
+    return React.createElement('div', {}, [
+		renderContents()    
+    ])
+}
+
+export const App = () => React.createElement(Comp, {bool: true});
+```
+
+And seeing that `I am re-rendering` occurs whenever `Comp` re-renders, without fail.
+
+What can we do to fix this?
+
+## Re-use `useCallback` to avoid render function re-initialization
+
+
+
+## Remove costly render functions with component extraction
+
