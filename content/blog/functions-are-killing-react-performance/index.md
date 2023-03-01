@@ -19,11 +19,11 @@ Let's look at some of the ways that functions often slow down React applications
 In this adventure, we'll see how to:
 
 - [Memoize return values with `useMemo`](#use-memo)
-- Create function stability with `useCallback`
-- Remove costly render functions with component extraction
-- Handle mandatory children functions performantly
+- [Prevent re-renders due to function instability](#function-instability)
+- [Remove costly render functions with component extraction](#render-functions)
+- Handle children functions performantly
 
-# Memoizing Return Values with `useMemo` {#use-memo}
+# Memoizing return values with `useMemo` {#use-memo}
 
 Let's say that we're building an ecommerce application and want to calculate the sum of all items in the cart:
 
@@ -75,7 +75,7 @@ const ShoppingCart = ({items}) => {
 }
 ```
 
- # Function Instability Causes Re-renders
+ # Function instability causes re-renders {#function-instability}
 
 Let's expand this shopping cart example by adding in the ability to add new items to the shopping cart.
 
@@ -296,7 +296,7 @@ const addToCart = useCallback((item) => {
 }, []);
 ```
 
-# Render Functions are Expensive
+# Render functions are expensive {#render-functions}
 
 So, we've demonstrated earlier how functions like this:
 
@@ -634,4 +634,308 @@ We now get the fiber node of the inner `p` tag:
 ```
 
 This is because React is no longer in control of calling `Comp` on your behalf and is _always_ called when the parent component is rendered.
+
+The solution, then? Never embed a component inside of a parent  component. Instead, move the child component out of the scope of the parent and pass props.
+
+For example, convert this:
+
+```jsx
+export default function App() {
+  // ...
+
+  const renderShoppingCart = () => {
+    return <div style={{ padding: '1rem' }}>
+      <h2>Cart</h2>
+      <div>
+        Total: ${totalCost}
+      </div>
+      <div>
+        {cart.map((item) => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </div>
+    </div>;
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
+      <div style={{ padding: '1rem' }}>
+        <h1>Shopping Cart</h1>
+        {items.map((item) => (
+          <ShoppingItem key={item.id} item={item} addToCart={addToCart} />
+        ))}
+      </div>
+      {renderShoppingCart()}
+    </div>
+  )
+}
+```
+
+To this:
+
+```jsx
+const ShoppingCart = ({cart, totalCost}) => {
+  return <div style={{ padding: '1rem' }}>
+    <h2>Cart</h2>
+    <div>
+      Total: ${totalCost}
+    </div>
+    <div>
+      {cart.map((item) => (
+        <div key={item.id}>{item.name}</div>
+      ))}
+    </div>
+  </div>;
+}
+
+export default function App() {
+  // ...
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
+      <div style={{ padding: '1rem' }}>
+        <h1>Shopping Cart</h1>
+        {items.map((item) => (
+          <ShoppingItem key={item.id} item={item} addToCart={addToCart} />
+        ))}
+      </div>
+      <ShoppingCart cart={cart} totalCost={totalCost} />
+    </div>
+  )
+}
+```
+
+# Children functions are helpful
+
+While seldomly used, there are some instances where you may want to pass a value from a parent component down to a child.
+
+Let's look at `ShoppingCart` once again:
+
+```jsx
+const ShoppingCart = ({cart, totalCost}) => {
+  return <div style={{ padding: '1rem' }}>
+    <h2>Cart</h2>
+    <div>
+      Total: ${totalCost}
+    </div>
+    <div>
+      {cart.map((item) => (
+        <div key={item.id}>{item.name}</div>
+      ))}
+    </div>
+  </div>;
+}
+```
+
+While this might work fine if all of your items use the same component to display, what happens if we want to customize each item displayed within `ShoppingCart`?
+
+We could choose to pass the array of cart items as children:
+
+```jsx
+const ShoppingCart = ({totalCost, children}) => {
+  return <div style={{ padding: '1rem' }}>
+    <h2>Cart</h2>
+    <div>
+      Total: ${totalCost}
+    </div>
+    <div>
+      {children}
+    </div>
+  </div>;
+}
+
+const App = () => {
+    // ...
+    
+    return (
+    	<ShoppingCart totalCost={totalCost}>
+          {cart.map((item) => {
+             if (item.type === "shoe") return <ShoeDisplay key={item.id} item={item}/>;
+             if (item.type === "shirt") return <ShirtDisplay key={item.id} item={item}/>;
+             return <DefaultDisplay key={item.id} item={item}/>;
+          })}
+        </ShoppingCart>
+    )
+}
+```
+
+But what happens if we want to wrap each cart item inside of a wrapper element **and** have a custom display of `item`?
+
+Well, what if I told you that you can pass a _function_ a the  option of `children`?
+
+Let's look a small example of this:
+
+```jsx
+const Comp = ({children}) => {
+	return children(123);
+}
+
+const App = () => {
+	return <Comp>
+        {number => <p>{number}</p>}
+    </Comp>
+    
+	// Alternatively, this can be rewritten as so:
+	return <Comp children={number => <p>{number}</p>}/>
+}
+```
+
+> _Whoa._ 
+
+Right?
+
+OK, let's break this down a bit by removing JSX from the picture once again:
+
+```jsx
+const Comp = ({children}) => {
+	return children(123);
+}
+
+const App = () => {
+	return React.createElement(
+        // Element
+        Comp,
+        // Props
+        {}, 
+        // Children
+        number => React.createElement('p', {}, [number])
+    )
+}
+```
+
+Here, we can see clearly how the `number` function is being passed to `Comp`'s `children` property. This function then returns its _own_ `createElement` call, which is used as the returned JSX to be rendered in `Comp`.
+
+## Using children functions in production
+
+Now that we've seen how children functions work under-the-hood, let's refactor the following component to use them:
+
+```jsx
+const ShoppingCart = ({totalCost, children}) => {
+  return <div style={{ padding: '1rem' }}>
+    <h2>Cart</h2>
+    <div>
+      Total: ${totalCost}
+    </div>
+    <div>
+      {children}
+    </div>
+  </div>;
+}
+
+const App = () => {
+    // ...
+    
+    return (
+    	<ShoppingCart totalCost={totalCost}>
+          {cart.map((item) => {
+             if (item.type === "shoe") return <ShoeDisplay key={item.id} item={item}/>;
+             if (item.type === "shirt") return <ShirtDisplay key={item.id} item={item}/>;
+             return <DefaultDisplay key={item.id} item={item}/>;
+          })}
+        </ShoppingCart>
+    )
+}
+```
+
+ Now that we have a baseline, let's look at how we can use this in production:
+
+```jsx
+const ShoppingCart = ({totalCost, cart, children}) => {
+  return <div style={{ padding: '1rem' }}>
+    <h2>Cart</h2>
+    <div>
+      Total: ${totalCost}
+    </div>
+    <div>
+      {cart.map((item) => (
+        <Fragment key={item.id}>
+          {children(item)}
+        </Fragment>
+      ))}
+    </div>
+  </div>;
+}
+
+const App = () => {
+    // ...
+    
+    return (
+    	<ShoppingCart cart={cart} totalCost={totalCost}>
+          {(item) => {
+            if (item.type === "shoe") return <ShoeDisplay item={item}/>;
+            if (item.type === "shirt") return <ShirtDisplay item={item}/>;
+            return <DefaultDisplay item={item}/>;
+          }}
+        </ShoppingCart>
+    )
+}
+```
+
+## The problem with child functions
+
+Let's run a modified version of the above code through our profiler once again. This time,  however, we'll add a method of updating state entirely unrelated to `ShoppingCart` to make sure that we're not needlessly re-rendering each item on render:
+
+```jsx
+import { useState, useCallback, Fragment } from 'react';
+
+const items = [
+  { id: 1, name: 'Milk', price: 2.5 },
+  { id: 2, name: 'Bread', price: 3.5 },
+  { id: 3, name: 'Eggs', price: 4.5 },
+  { id: 4, name: 'Cheese', price: 5.5 },
+  { id: 5, name: 'Butter', price: 6.5 }
+]
+
+const ShoppingCart = ({ children }) => {
+  return <div>
+    <h2>Cart</h2>
+    <div>
+      {items.map((item) => (
+        <Fragment key={item.id}>
+          {children(item)}
+        </Fragment>
+      ))}
+    </div>
+  </div>;
+}
+
+export default function App() {
+  const [count, setCount] = useState(0)
+
+  // Meant to demonstrate that nothing but `count` should re-render
+  const addOne = useCallback(() => {
+    setCount(v => v+1);
+  }, []);
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={addOne}>Add one</button>
+      <ShoppingCart>
+        {(item) => {
+          if (item.type === "shoe") return <ShoeDisplay item={item} />;
+          if (item.type === "shirt") return <ShirtDisplay item={item} />;
+          return <DefaultDisplay item={item} />;
+        }}
+      </ShoppingCart>
+    </div>
+  )
+}
+
+function ShoeDisplay({ item }) {
+  return <p>{item.name}</p>
+}
+function ShirtDisplay({ item }) {
+  return <p>{item.name}</p>
+}
+function DefaultDisplay({ item }) {
+  return <p>{item.name}</p>
+}
+```
+
+Unfortunately, when we do this, we can see that `ShoppingCart` re-renders anyway:
+
+![Why did this render? "Props changed: children"](./children_changed.png)
+
+This happens because, as the message in the profiler says, the function reference of `children` changes on every render; causing it to act as if a property was changed that required a re-render.
 
