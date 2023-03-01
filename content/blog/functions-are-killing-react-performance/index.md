@@ -1,8 +1,8 @@
 ---
 {
     title: "Functions Are Killing Your React App's Performance",
-    description: "",
-    published: '2023-04-14T21:52:59.284Z',
+    description: "If you've ever built a production React application, you've likely ran into various performance problems along the way. Here are the most common and how to fix them.",
+    published: '2023-03-01T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['react'],
     attached: [],
