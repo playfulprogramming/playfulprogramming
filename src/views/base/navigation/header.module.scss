@@ -1,0 +1,29 @@
+@import "src/styles/vars";
+
+.header {
+	height: 80px;
+	border-bottom: 1px solid theme-var(--neutral-foreground-emphasis_none);
+	margin-top: $spacing * 4 !important;
+	margin-bottom: $spacing * 4 !important;
+}
+
+.logo {
+	margin: 0 ($spacing * 4);
+	text-decoration: none;
+
+	span {
+		margin-left: $spacing;
+		line-height: 125%;
+
+		color: theme-var(--primary-brand-default);
+	}
+}
+
+.nav {
+	gap: $spacing * 4;
+	flex-grow: 1;
+}
+
+.icons {
+	gap: $spacing * 4;
+}

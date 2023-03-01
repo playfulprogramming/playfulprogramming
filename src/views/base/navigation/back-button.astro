@@ -1,0 +1,13 @@
+---
+import { Icon } from "astro-icon";
+import { Button } from "components/base";
+---
+
+<Button id="backbtn" aria-label="Go back">
+	<Icon width="24" height="24" name="back" />
+</Button>
+
+<script>
+	import { backButtonListener } from "./back-button";
+	backButtonListener();
+</script>

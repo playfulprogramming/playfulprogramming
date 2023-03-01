@@ -4,6 +4,7 @@ import Layout from "../components/layout/layout.astro";
 import "../global.scss";
 import { Languages } from "types/index";
 import Barebones from "./barebones.astro";
+import Header from "src/views/base/navigation/header.astro";
 
 interface DocumentProps {
 	lang?: Languages;
@@ -17,8 +18,7 @@ lang ??= "en";
 <Barebones lang={lang}>
 	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
-	<Layout disableThemeToggle={disableThemeToggle}>
-		<slot />
-	</Layout>
+	<Header />
+	<slot />
 	<slot name="post-body" />
 </Barebones>

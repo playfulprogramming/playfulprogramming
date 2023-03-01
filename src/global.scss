@@ -105,3 +105,13 @@ img.circleImg, .circleImg img {
 .light .show-on-dark {
 	display: none;
 }
+
+// use currentColor for fill on astro-icon svgs
+svg[astro-icon]:not(.strokeicon):not(.nofill) {
+	@include transition(fill);
+	fill: currentColor;
+
+	* {
+		fill: inherit;
+	}
+}

@@ -1,0 +1,48 @@
+---
+import { Picture } from "@astrojs/image/components";
+import Icon from "astro-icon";
+import { Button } from "components/base";
+import DarkLightButton from "components/dark-light-button/dark-light-button.astro";
+import BackButton from "./back-button.astro";
+import style from "./header.module.scss";
+import logo from "src/assets/unicorn_utterances_logo_512.png";
+---
+
+<header
+	class={`container d-flex ${style.header}`}
+	aria-label="Toolbar for primary action buttons"
+>
+	<BackButton />
+
+	<a href="/" class={`d-flex ${style.logo}`}>
+		<Picture
+			src={logo}
+			width={48}
+			height={48}
+			sizes="48"
+			widths={[48]}
+			formats={["avif", "webp", "png"]}
+			alt="Smiling cartoon unicorn with a bowtie"
+		/>
+
+		<span class="text-style-button">
+			Unicorn<br />
+			Utterances
+		</span>
+	</a>
+
+	<nav class={`d-flex ${style.nav}`}>
+		<Button href="/">Home</Button>
+		<Button href="/about">About us</Button>
+	</nav>
+
+	<div class={`d-flex ${style.icons}`}>
+		<Button href="/search" aria-label="Search">
+			<Icon height="24" width="24" name="search" />
+		</Button>
+		<Button href="https://discord.gg/FMcvc6T" aria-label="Join the Discord">
+			<Icon height="24" width="24" name="discord" />
+		</Button>
+		<DarkLightButton />
+	</div>
+</header>
