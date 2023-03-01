@@ -10,7 +10,7 @@
 }
 ---
 
-Functions are an integral part of all JavaScript applications; React apps included. [While I've written about how peculiar their usage can be, thanks to the fact that all functions are values](https://unicorn-utterances.com/posts/javascript-functions-are-values), they help split up the monotony of your codebase by splitting similar code into logical segments.
+Functions are an integral part of all JavaScript applications, React apps included. [While I've written about how peculiar their usage can be, thanks to the fact that all functions are values](https://unicorn-utterances.com/posts/javascript-functions-are-values), they help split up the monotony of your codebase by splitting similar code into logical segments.
 
 This knowledge that functions are values can assist you when working on improving your React apps' performance.
 
@@ -49,9 +49,9 @@ const ShoppingCart = ({items}) => {
 
 This should show all items and the total cost, but this may cause headaches when `ShoppingCart` re-renders.
 
-After all, a React functional component is a normal function, after all, and will be ran like any other; where `getCost` is recalculated on subsequent renders when you don't memoize the value.
+After all, a React functional component is a normal function, after all, and will be run like any other, where `getCost` is recalculated on subsequent renders when you don't memoize the value.
 
-This `getCost` function may not be overly expensive when there's only one or two items in the cart, but this can easily become a costly computation when there are 50 items or more in the cart.
+This `getCost` function may not be overly expensive when there are only one or two items in the cart, but this can easily become a costly computation when there are 50 items or more in the cart.
 
 The fix? Memoize the function call using `useMemo` so that it only re-runs when the `items` array changes:
 
@@ -145,11 +145,11 @@ If I now click any of the items' `Add to cart` buttons, it will:
 4) Update the displayed items in the cart
 5) Re-run the `totalCost` `useMemo` calculation
 
-This is exactly what we'd expect to see in this application. However, if we open [the React Developer Tools](https://beta.reactjs.org/learn/react-developer-tools), and inspect [our Flame Chart](https://reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html#flame-chart), we'll see that all `ShoppingItem` components are re-rendering, despite none of the passed `item`s changing.
+This is exactly what we'd expect to see in this application. However, if we open [the React Developer Tools](https://beta.reactjs.org/learn/react-developer-tools) and inspect [our Flame Chart](https://reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html#flame-chart), we'll see that all `ShoppingItem` components are re-rendering, despite none of the passed `item`s changing.
 
 ![`ShoppingItem key="1"` re-rendered because "Props changed: `addToCart`"](./why_rerender.png)
 
-The reason these components are re-rendering is because our `addToCart` property is changing.
+The reason these components are re-rendering is that our `addToCart` property is changing.
 
 > That's not right! We're always passing the same `addToCart` function on each render!
 
@@ -342,7 +342,7 @@ export default function App() {
 
 Here, we're defining a `renderShoppingCart` function inside of `App` and calling it inside of our `return` render statement.
 
-At first glance, this seems bad because we're calling a function inside of our template. However, if we think about it more, we may come to conclusion that this is not entirely dissimilar to what React is doing anyway.
+At first glance, this seems bad because we're calling a function inside of our template. However, if we think about it more, we may come to the conclusion that this is not entirely dissimilar to what React is doing anyway.
 
 > After all, React must be running the `div` for each render anyways, right? ... Right?
 
@@ -367,7 +367,7 @@ Now, let's take a step even further within the `renderContents` function:
 return bool ? <div/> : <p/>
 ```
 
-Here, JSX might be transformed to the following:
+Here, JSX might be transformed into the following:
 
 ```jsx
 return bool ? React.createElement('div') : React.createElement('p')
@@ -492,7 +492,7 @@ The reason it's not ideal to use `useMemo` and `useCallback` to prevent render f
 2) It creates longer components without the ability to portably move these sub-elements.
 3) You're doing React's job without knowing it.
 
-Like, if we think about what `renderContents` is doing for a moment; it's acting like a child component that shares the same lexical scoping as the parent. The benefit of doing so is that you don't need to pass any items to the child, but it comes at the cost of DX and performance.
+Like, if we think about what `renderContents` is doing for a moment, it's acting like a child component that shares the same lexical scoping as the parent. The benefit of doing so is that you don't need to pass any items to the child, but it comes at the cost of DX and performance.
 
 Instead of this:
 
@@ -707,7 +707,7 @@ export default function App() {
 
 # Children functions are helpful {#children-functions}
 
-While seldomly used, there are some instances where you may want to pass a value from a parent component down to a child.
+While seldom used, there are some instances where you may want to pass a value from a parent component down to a child.
 
 Let's look at `ShoppingCart` once again:
 
@@ -973,4 +973,4 @@ Hopefully, this has been a helpful insight into the world of React application p
 
 Be cautious when using `useCallback` and `useMemo`, however; [Not all instances of your codebase need them and they may harm performance in some edge cases rather than help](https://kentcdodds.com/blog/usememo-and-usecallback).
 
-Interested in learning more performance improvements for your React applications? Take a look at [my upcoming book series, "The Framework Field Guide"](https://framework.guide), which not only teaches React internals, but walks you through React, Angular, and Vue code all at the same time; teaching you all three at once.
+Interested in learning more about performance improvements for your React applications? Take a look at [my upcoming book series, "The Framework Field Guide"](https://framework.guide), which not only teaches React internals but walks you through React, Angular, and Vue code all at the same time, teaching you all three at once.
