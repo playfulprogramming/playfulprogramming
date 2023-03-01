@@ -16,6 +16,7 @@
 
 	white-space: nowrap;
 	text-decoration: none;
+	border: none;
 	outline: none !important;
 
 	@include transition(color background-color box-shadow);

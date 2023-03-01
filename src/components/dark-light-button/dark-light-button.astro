@@ -1,29 +1,23 @@
 ---
 import { Icon } from "astro-icon";
-import btnStyles from "./dark-light-button.module.scss";
+import { Button } from "components/base";
 ---
 
-<button
-	class={`${btnStyles.darkLightBtn} baseBtn`}
+<Button
+	tag="button"
 	id="theme-toggle-button"
 	aria-pressed="false"
 	aria-label={"Is dark mode enabled?"}
 >
-	<Icon
-		name="dark"
-		height="36"
-		width="36"
-		id="dark-icon"
-		style="display: none;"
-	/>
+	<Icon name="dark" height="24" width="24" id="dark-icon" />
 	<Icon
 		name="light"
-		height="36"
-		width="36"
+		height="24"
+		width="24"
 		id="light-icon"
 		style="display: none;"
 	/>
-</button>
+</Button>
 
 <script>
 	import { themeToggle } from "./theme-toggle";
