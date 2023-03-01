@@ -452,9 +452,186 @@ And seeing that `I am re-rendering` occurs whenever `Comp` re-renders, without f
 
 What can we do to fix this?
 
-## Re-use `useCallback` to avoid render function re-initialization
+## Re-use `useCallback` and `useMemo` to avoid render function re-initialization
 
+If we think back on earlier sections of this article, we may think to think reach for a set of tools we're already familiar with: `useMemo` and `useCallback`. After all, if the issue is that `renderContents` is not providing a stable reference of values, we now know how to fix that.
 
+Let's apply the two to our codebase to see if it fixes the problem:
+
+```jsx
+const LogAndDiv = () => {
+	console.log("I am re-rendering");
+	return <div/>;
+}
+
+const Comp = ({bool}) => {
+    // This is a suboptimal way of solving this problem
+    const renderContents = useCallback(() => {
+        return bool ? <LogAndDiv/> : <p/>
+    }, [bool]);
+
+	const renderedContents = useMemo(() => renderContents(), [renderContents]);
+
+    return <div>
+        {renderedContents}
+    </div>
+}
+```
+
+Let's re-render this component annnnnnnnnnnd...
+
+Success! It only renders `LogAndDiv` when `bool` changes to `true`, then never re-renders again.
+
+But wait... Why is there a comment in the code sample above that says it's a suboptimal way of solving this problem?
 
 ## Remove costly render functions with component extraction
+
+The reason it's not ideal to use `useMemo` and `useCallback` to prevent render functions' rerenders is because:
+
+1) It's challenging to debug, the stacktrace for these `renderContents` is harder to follow.
+2) It creates longer components without the ability to portably move these sub-elements.
+3) You're doing React's job without knowing it.
+
+Like, if we think about what `renderContents` is doing for a moment; it's acting like a child component that shares the same lexical scoping as the parent. The benefit of doing so is that you don't need to pass any items to the child, but it comes at the cost of DX and performance.
+
+Instead of this:
+
+```jsx
+const LogAndDiv = () => {
+	console.log("I am re-rendering");
+	return <div/>;
+}
+
+const Comp = ({bool}) => {
+    // This is a suboptimal way of solving this problem
+    const renderContents = useCallback(() => {
+        return bool ? <LogAndDiv/> : <p/>
+    }, [bool]);
+
+	const renderedContents = useMemo(() => renderContents(), [renderContents]);
+
+    return <div>
+        {renderedContents}
+    </div>
+}
+```
+
+We should be writing this:
+
+```jsx
+const LogAndDiv = () => {
+	console.log("I am re-rendering");
+	return <div/>;
+}
+
+const Contents = () => {
+	return bool ? <LogAndDiv/> : <p/>
+}
+
+const Comp = ({bool}) => {
+    return <div>
+        <Contents bool={bool}/>
+    </div>
+}
+```
+
+This will solve our performance problems without needing a `useMemo` or a `useCallback`.
+
+> How?
+
+Well, let's again dive into how JSX transforms:
+
+```jsx
+const LogAndDiv = () => {
+	console.log("I am re-rendering");
+	return React.createElement('div');
+}
+
+const Contents = () => {
+	return bool ? React.createElement(LogAndDiv) : React.createElement('p')
+}
+
+const Comp = ({bool}) => {
+    return React.createElement('div', {}, [
+        React.createElement(Contents, {
+            bool: bool
+        })
+    ]);
+}
+```
+
+Let's look closer at what React's `createElement` _actually_ returns. Let's `console.log` it:
+
+```jsx
+console.log(React.createElement('div'));
+// We could also: `console.log(<div/>)`
+```
+
+Doing so gives us an object:
+
+```javascript
+// Some keys are omitted for readability
+{
+  "$$typeof": Symbol("react.element"),
+  key: null,
+  props: { },
+  ref: null,
+  type: "div",
+}
+```
+
+> Notice this object does not contain any instructions on how to create the element itself. This is the responsibility of `react-dom` as the renderer. This is how projects like React Native can render to non-DOM targets using the same JSX as `react`.
+
+This object is known as a "Fiber node", part of [React's reconciler](https://reactjs.org/docs/reconciliation.html) called "[React Fiber](https://reactjs.org/docs/faq-internals.html#what-is-react-fiber)".
+
+**Very broadly**, React Fiber is a way of constructing a tree off of the passed elements from JSX/`createElement`. For web projects, this tree is a mirrored version of the DOM tree and is used to reconstruct the UI when a node re-renders. React then uses this tree, called a "Virtual DOM" or "VDOM", to intelligently figure out which nodes need to be re-rendered or not based off of the state and passed props.
+
+This is true even for functional components. Let's call the following:
+
+```jsx
+const Comp = () => {
+  return <p>Comp</p>;
+}
+
+console.log(<Comp/>);
+// We could also: `console.log(React.createElement(Comp))`
+```
+
+This will log out:
+
+```jsx
+{
+  "$$typeof": Symbol("react.element"),
+  key: null,
+  props: {  },
+  ref: null,
+  type: function Comp(),
+}
+```
+
+Notice how `type` is still the function of `Comp` itself, not the returned `div` Fiber node. Because of this, React is able to prevent a re-render if `Comp` is not needed to be updated.
+
+However, if we instead call the following code:
+
+```jsx
+const Comp = () => {
+  return <p>Comp</p>;
+}
+
+console.log(Comp());
+```
+
+We now get the fiber node of the inner `p` tag:
+
+```js
+{
+  "$$typeof": Symbol("react.element"),
+  key: null,
+  props: { children: [ "Comp" ] },
+  ref: null,
+  type: "p",
+}
+```
+
+This is because React is no longer in control of calling `Comp` on your behalf and is _always_ called when the parent component is rendered.
 
