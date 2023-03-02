@@ -2052,12 +2052,426 @@ Here, we're using a simple number-based index to act as an `id` of sorts for eac
 
 You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state".](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
+# Challenge
+
+Now that we have a solid grasp on the fundamentals of components; let's build some ourselves!
+
+Namely, I want us to create a primitive version of the following:
+
+![A sidebar with collapsible menu items](./sidebar.png)
+
+To do this, let's:
+
+1. Create a sidebar component
+2. Add a list of buttons with sidebar items' names
+3. Make a `ExpandableDropdown` component
+4. Add a `name` input to dropdown and display it
+5. Add an `expanded` input to dropdown and display it
+6. Use an output to toggle the `expanded` input
+7. Make our `expanded` property functional
+
+## Creating our First Components
+
+Let's kick off this process by creating our `index.html` and a basic component to render:
+
+<!-- tabs:start -->
+
+### React
+
+```html
+<!-- index.html -->
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+```jsx
+import { createRoot } from 'react-dom';
+
+const Sidebar = () => {
+  return <p>Hello, world!</p>
+}
+
+createRoot(document.getElementById('root')).render(<Sidebar />);
+```
+
+### Angular
+
+```html
+<!-- index.html -->
+<html>
+  <body>
+    <sidebar></sidebar>
+  </body>
+</html>
+```
+
+```typescript
+import { Component } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  template: `
+    <p>Hello, world!</p>
+  `,
+})
+export class SidebarComponent {}
+bootstrapApplication(SidebarComponent);
+```
+
+### Vue
+
+```html
+<!-- index.html -->
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+```js
+// main.js
+import { createApp } from 'vue';
+import Sidebar from './Sidebar.vue';
+
+createApp(Sidebar).mount("#root");
+```
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <p>Hello, world!</p>
+</template>
+```
+
+<!-- tabs:end -->
+
+Now that we have an initial testbed for our component, let's add a list of buttons with the  names of the sidebar list items:
+
+
+
+<!-- tabs:start -->
+
+### React
+
+// TODO: Make this
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  template: `
+    <h1>My Files</h1>
+    <div><button>Movies</button></div>
+    <div><button>Pictures</button></div>
+    <div><button>Concepts</button></div>
+    <div><button>Articles I'll Never Finish</button></div>
+    <div><button>Website Redesigns v5</button></div>
+    <div><button>Invoices</button></div>
+  `,
+})
+export class SidebarComponent {}
+```
+
+
+### Vue
+
+// TODO: Make this
+
+<!-- tabs:end -->
+
+This repeated `div` and`button` combo makes me think that we should extract each of these items to a component, since we want to both:
+
+- Reuse the HTML layout
+- Expand the current functionality
+
+Start by extracting the `div` and `button` to their own component which we'll call `ExpandableDropdown`.
+
+<!-- tabs:start -->
+
+### React
+
+// TODO
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  template: `
+    <div>
+      <button>
+        {{name}}
+      </button>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+}
+
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent],
+  template: `
+    <h1>My Files</h1>
+    <expandable-dropdown 
+      name="Movies" 
+    />
+    <expandable-dropdown 
+      name="Pictures" 
+    />
+    <expandable-dropdown 
+      name="Concepts" 
+    />
+    <expandable-dropdown 
+      name="Articles I'll Never Finish" 
+    />
+    <expandable-dropdown 
+      name="Website Redesigns v5" 
+    />
+    <expandable-dropdown 
+      name="Invoices" 
+    />
+  `,
+})
+export class SidebarComponent {}
+```
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+We should now see a list of buttons with a name associated with each!
+
+## Making our Components Functional
+
+Now that we've created the initial structure of our components, let's work on making them functional.
+
+To start, we'll:
+
+- Create an `expanded` property for each button
+- Pass the `expanded` property using an input
+- Display the value of `expanded` inside of our `ExpandableDropdown` component
+
+<!-- tabs:start -->
+
+### React
+
+// TODO
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  template: `
+    <div>
+      <button>
+        {{name}}
+      </button>
+      <div>
+        {{expanded ? "Expanded" : "Collapsed" }}
+      </div>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+  @Input() expanded: boolean;
+}
+
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent],
+  template: `
+    <expandable-dropdown 
+      name="Movies" 
+      [expanded]="moviesExpanded" 
+    />
+    <expandable-dropdown 
+      name="Pictures" 
+      [expanded]="picturesExpanded" 
+    />
+    <expandable-dropdown 
+      name="Concepts" 
+      [expanded]="conceptsExpanded" 
+    />
+    <expandable-dropdown 
+      name="Articles I'll Never Finish" 
+      [expanded]="articlesExpanded" 
+    />
+    <expandable-dropdown 
+      name="Website Redesigns v5" 
+      [expanded]="redesignExpanded" 
+    />
+    <expandable-dropdown 
+      name="Invoices" 
+      [expanded]="invoicesExpanded" 
+    />
+  `,
+})
+export class SidebarComponent {
+  // Just to show that the value is displaying properly
+  moviesExpanded = true;
+  picturesExpanded = false;
+  conceptsExpanded = false;
+  articlesExpanded = false;
+  redesignExpanded = false;
+  invoicesExpanded = false;
+}
+```
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Let's now add an output to allow our component to toggle the `expanded` input.
+
+<!-- tabs:start -->
+
+### React
+
+// TODO
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  template: `
+    <div>
+      <button (click)="toggle.emit()">
+        {{name}}
+      </button>
+      <div>
+        {{expanded ? "Expanded" : "Collapsed" }}
+      </div>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+  @Input() expanded: boolean;
+  @Output() toggle = new EventEmitter();
+}
+
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent],
+  template: `
+    <expandable-dropdown 
+      name="Movies" 
+      [expanded]="moviesExpanded" 
+      (toggle)="moviesExpanded = !moviesExpanded"
+    />
+    <expandable-dropdown 
+      name="Pictures" 
+      [expanded]="picturesExpanded" 
+      (toggle)="picturesExpanded = !picturesExpanded"
+    />
+    <expandable-dropdown 
+      name="Concepts" 
+      [expanded]="conceptsExpanded" 
+      (toggle)="conceptsExpanded = !conceptsExpanded"
+    />
+    <expandable-dropdown 
+      name="Articles I'll Never Finish" 
+      [expanded]="articlesExpanded" 
+      (toggle)="articlesExpanded = !articlesExpanded"
+    />
+    <expandable-dropdown 
+      name="Website Redesigns v5" 
+      [expanded]="redesignExpanded" 
+      (toggle)="redesignExpanded = !redesignExpanded"
+    />
+    <expandable-dropdown 
+      name="Invoices" 
+      [expanded]="invoicesExpanded" 
+      (toggle)="invoicesExpanded = !invoicesExpanded"
+    />
+  `,
+})
+export class SidebarComponent {
+  moviesExpanded = false;
+  picturesExpanded = false;
+  conceptsExpanded = false;
+  articlesExpanded = false;
+  redesignExpanded = false;
+  invoicesExpanded = false;
+}
+```
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Finally, we can update our `ExpandableDropdown` component to hide and show the contents of the dropdown by using [an HTML attribute called "hidden".](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden) When this attribute is `true`, it will hide the contents, but when `false`, it will display them.
+
+<!-- tabs:start -->
+
+### React
+
+// TODO
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  template: `
+    <div>
+      <button (click)="toggle.emit()">
+        {{expanded ? "V" : ">" }}
+        {{name}}
+      </button>
+      <div [hidden]="!expanded">
+         More information here
+      </div>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+  @Input() expanded: boolean;
+  @Output() toggle = new EventEmitter();
+}
+```
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
 
 
 
 
---------
 
 
 
-TODO: Add conclusion section
+
+
+
+
+<!-- Editor's note: Add a "do it yourself" hidden dropdown that adds an addition input for the collapsedContent -->
+
