@@ -2158,7 +2158,19 @@ Now that we have an initial testbed for our component, let's add a list of butto
 
 ### React
 
-// TODO: Make this
+```jsx
+const Sidebar = () => {
+  return <div>
+    <h1>My Files</h1>
+    <div><button>Movies</button></div>
+    <div><button>Pictures</button></div>
+    <div><button>Concepts</button></div>
+    <div><button>Articles I'll Never Finish</button></div>
+    <div><button>Website Redesigns v5</button></div>
+    <div><button>Invoices</button></div>
+  </div>;
+};
+```
 
 ### Angular
 
@@ -2182,7 +2194,18 @@ export class SidebarComponent {}
 
 ### Vue
 
-// TODO: Make this
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <div><button>Movies</button></div>
+  <div><button>Pictures</button></div>
+  <div><button>Concepts</button></div>
+  <div><button>Articles I'll Never Finish</button></div>
+  <div><button>Website Redesigns v5</button></div>
+  <div><button>Invoices</button></div>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -2197,7 +2220,29 @@ Start by extracting the `div` and `button` to their own component which we'll ca
 
 ### React
 
-// TODO
+```jsx
+const ExpandableDropdown = ({ name }) => {
+  return (
+    <div>
+      <button>{name}</button>
+    </div>
+  );
+};
+
+const Sidebar = () => {
+  return (
+    <div>
+      <h1>My Files</h1>
+      <ExpandableDropdown name="Movies" />
+      <ExpandableDropdown name="Pictures" />
+      <ExpandableDropdown name="Concepts" />
+      <ExpandableDropdown name="Articles I'll Never Finish" />
+      <ExpandableDropdown name="Website Redesigns v5" />
+      <ExpandableDropdown name="Invoices" />
+    </div>
+  );
+};
+```
 
 ### Angular
 
@@ -2248,7 +2293,37 @@ export class SidebarComponent {}
 
 ### Vue
 
-// TODO
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown name="Movies" />
+  <ExpandableDropdown name="Pictures" />
+  <ExpandableDropdown name="Concepts" />
+  <ExpandableDropdown name="Articles I'll Never Finish" />
+  <ExpandableDropdown name="Website Redesigns v5" />
+  <ExpandableDropdown name="Invoices" />
+</template>
+
+<script setup>
+import ExpandableDropdown from './ExpandableDropdown.vue'
+</script>
+```
+
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button>
+      {{ props.name }}
+    </button>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['name'])
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -2268,7 +2343,58 @@ To start, we'll:
 
 ### React
 
-// TODO
+```jsx
+const ExpandableDropdown = ({ name, expanded }) => {
+  return (
+    <div>
+      <button>{name}</button>
+      <div>{expanded ? 'Expanded' : 'Collapsed'}</div>
+    </div>
+  );
+};
+
+const Sidebar = () => {
+  // Just to show that the value is displaying properly
+  const [moviesExpanded, setMoviesExpanded] = useState(true);
+  const [picturesExpanded, setPicturesExpanded] = useState(false);
+  const [conceptsExpanded, setConceptsExpanded] = useState(false);
+  const [articlesExpanded, setArticlesExpanded] = useState(false);
+  const [redesignExpanded, setRedesignExpanded] = useState(false);
+  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+
+  return (
+    <div>
+      <h1>My Files</h1>
+      <ExpandableDropdown 
+        name="Movies" 
+        expanded={moviesExpanded} 
+      />
+      <ExpandableDropdown 
+        name="Pictures"
+        expanded={picturesExpanded} 
+       />
+      <ExpandableDropdown 
+        name="Concepts" 
+        expanded={conceptsExpanded} 
+      />
+      <ExpandableDropdown
+        name="Articles I'll Never Finish"
+        expanded={articlesExpanded}
+      />
+      <ExpandableDropdown
+        name="Website Redesigns v5"
+        expanded={redesignExpanded}
+      />
+      <ExpandableDropdown 
+        name="Invoices" 
+        expanded={invoicesExpanded} 
+      />
+    </div>
+  );
+};
+```
+
+
 
 ### Angular
 
@@ -2336,7 +2462,69 @@ export class SidebarComponent {
 
 ### Vue
 
-// TODO
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown
+    name="Movies" 
+    :expanded="moviesExpanded"
+  />
+  <ExpandableDropdown
+    name="Pictures" 
+    :expanded="picturesExpanded"
+  />
+  <ExpandableDropdown
+    name="Concepts" 
+    :expanded="conceptsExpanded"
+  />
+  <ExpandableDropdown
+    name="Articles I'll Never Finish" 
+    :expanded="articlesExpanded"
+  />
+  <ExpandableDropdown
+    name="Website Redesigns v5" 
+    :expanded="redesignExpanded"
+  />
+  <ExpandableDropdown
+    name="Invoices" 
+    :expanded="invoicesExpanded"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ExpandableDropdown from './ExpandableDropdown.vue'
+
+// Just to show that the value is displaying properly
+const moviesExpanded = ref(true)
+const picturesExpanded = ref(false)
+const conceptsExpanded = ref(false)
+const articlesExpanded = ref(false)
+const redesignExpanded = ref(false)
+const invoicesExpanded = ref(false)
+</script>
+```
+
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button>
+      {{ props.name }}
+    </button>
+    <div>
+      {{ props.expanded ? 'Expanded' : 'Collapsed' }}
+    </div>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['name', 'expanded'])
+</script>
+```
+
+> Don't forget to add our new `expanded` property name inside of `defineProps`! Otherwise, this component won't bind the value correctly.
 
 <!-- tabs:end -->
 
@@ -2346,7 +2534,62 @@ Let's now add an output to allow our component to toggle the `expanded` input.
 
 ### React
 
-// TODO
+```jsx
+const ExpandableDropdown = ({ name, expanded, onToggle }) => {
+  return (
+    <div>
+      <button onClick={onToggle}>{name}</button>
+      <div>{expanded ? 'Expanded' : 'Collapsed'}</div>
+    </div>
+  );
+};
+
+const Sidebar = () => {
+  // Just to show that the value is displaying properly
+  const [moviesExpanded, setMoviesExpanded] = useState(true);
+  const [picturesExpanded, setPicturesExpanded] = useState(false);
+  const [conceptsExpanded, setConceptsExpanded] = useState(false);
+  const [articlesExpanded, setArticlesExpanded] = useState(false);
+  const [redesignExpanded, setRedesignExpanded] = useState(false);
+  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+
+  return (
+    <div>
+      <h1>My Files</h1>
+      <ExpandableDropdown
+        name="Movies"
+        expanded={moviesExpanded}
+        onToggle={() => setMoviesExpanded(!moviesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Pictures"
+        expanded={picturesExpanded}
+        onToggle={() => setPicturesExpanded(!picturesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Concepts"
+        expanded={conceptsExpanded}
+        onToggle={() => setConceptsExpanded(!conceptsExpanded)}
+      />
+      <ExpandableDropdown
+        name="Articles I'll Never Finish"
+        expanded={articlesExpanded}
+        onToggle={() => setArticlesExpanded(!articlesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Website Redesigns v5"
+        expanded={redesignExpanded}
+        onToggle={() => setRedesignExpanded(!redesignExpanded)}
+      />
+      <ExpandableDropdown
+        name="Invoices"
+        expanded={invoicesExpanded}
+        onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
+      />
+    </div>
+  );
+};
+```
 
 ### Angular
 
@@ -2420,7 +2663,70 @@ export class SidebarComponent {
 
 ### Vue
 
-// TODO
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown name="Movies" 
+    :expanded="moviesExpanded" 
+    @toggle="moviesExpanded = !moviesExpanded" 
+  />
+  <ExpandableDropdown name="Pictures" 
+    :expanded="picturesExpanded" 
+    @toggle="picturesExpanded = !picturesExpanded" 
+  />
+  <ExpandableDropdown name="Concepts" 
+    :expanded="conceptsExpanded" 
+    @toggle="conceptsExpanded = !conceptsExpanded" 
+  />
+  <ExpandableDropdown
+    name="Articles I'll Never Finish"
+    :expanded="articlesExpanded"
+    @toggle="articlesExpanded = !articlesExpanded"
+  />
+  <ExpandableDropdown
+    name="Website Redesigns v5"
+    :expanded="redesignExpanded"
+    @toggle="redesignExpanded = !redesignExpanded"
+  />
+  <ExpandableDropdown name="Invoices" 
+    :expanded="invoicesExpanded" 
+    @toggle="invoicesExpanded = !invoicesExpanded" 
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ExpandableDropdown from './ExpandableDropdown.vue'
+
+// Just to show that the value is displaying properly
+const moviesExpanded = ref(true)
+const picturesExpanded = ref(false)
+const conceptsExpanded = ref(false)
+const articlesExpanded = ref(false)
+const redesignExpanded = ref(false)
+const invoicesExpanded = ref(false)
+</script>
+```
+
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button @click="emit('toggle')">
+      {{ props.name }}
+    </button>
+    <div>
+      {{ props.expanded ? 'Expanded' : 'Collapsed' }}
+    </div>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['name', 'expanded'])
+const emit = defineEmits(['toggle'])
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -2430,7 +2736,19 @@ Finally, we can update our `ExpandableDropdown` component to hide and show the c
 
 ### React
 
-// TODO
+```jsx
+const ExpandableDropdown = ({ name, expanded, onToggle }) => {
+  return (
+    <div>
+      <button onClick={onToggle}>
+        {expanded ? 'V ' : '> '}
+        {name}
+      </button>
+      <div hidden={!expanded}>More information here</div>
+    </div>
+  );
+};
+```
 
 ### Angular
 
@@ -2459,7 +2777,23 @@ export class ExpandableDropdownComponent {
 
 ### Vue
 
-// TODO
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button @click="emit('toggle')">
+      {{ expanded ? 'V' : '>' }}
+      {{ name }}
+    </button>
+    <div :hidden="!expanded">More information here</div>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['name', 'expanded'])
+const emit = defineEmits(['toggle'])
+</script>
+```
 
 <!-- tabs:end -->
 
