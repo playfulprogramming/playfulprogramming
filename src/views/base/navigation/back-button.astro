@@ -1,9 +1,10 @@
 ---
 import { Icon } from "astro-icon";
 import { Button } from "components/base";
+import { translate } from "utils/translations";
 ---
 
-<Button id="backbtn" aria-label="Go back">
+<Button id="backbtn" aria-label={translate(Astro, "action.go_back")}>
 	<Icon width="24" height="24" name="back" />
 </Button>
 

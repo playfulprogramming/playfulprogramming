@@ -1,6 +1,6 @@
 ---
 import style from "./about.module.scss";
-import { Languages, UnicornInfo } from "uu-types";
+import { Languages } from "uu-types";
 import { unicorns } from "../../utils/data";
 import { Picture } from "@astrojs/image/components";
 import { MarkdownInstance } from "astro";
@@ -8,6 +8,7 @@ import AboutUsTranslationsHeader from "./translations-header/about-us-translatio
 import "../../styles/post-body.scss";
 import { getOtherAboutLocales } from "./about-helpers";
 import ContributorCard from "./contributor-card.astro";
+import { translate } from "src/utils/translations";
 
 interface AboutProps {
 	locale: Languages;
@@ -36,7 +37,7 @@ const Content = matchedResult.Content;
 				alt={"Unicorn Utterances logo"}
 			/>
 		</div>
-		<h1>About Us</h1>
+		<h1>{translate(Astro, "title.about_us")}</h1>
 	</div>
 	<main class={`${style.aboutBody} post-body`}>
 		<AboutUsTranslationsHeader locales={otherLocales} />

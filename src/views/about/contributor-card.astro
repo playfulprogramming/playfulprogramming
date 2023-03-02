@@ -3,6 +3,7 @@ import style from "./contributor-card.module.scss";
 import { UnicornInfo } from "uu-types";
 import { Picture } from "@astrojs/image/components";
 import { Button } from "components/base";
+import { translate } from "src/utils/translations";
 
 interface CardProps {
 	unicorn: UnicornInfo;
@@ -23,12 +24,12 @@ const { unicorn } = Astro.props as CardProps;
 	/>
 
 	<div>
-		<span class={`${style.name} text-style-body-medium-bold`}
-			>{unicorn.name}</span
-		>
+		<span class={`${style.name} text-style-body-medium-bold`}>
+			{unicorn.name}
+		</span>
 		<ul
 			class={`${style.roles} text-style-body-small-bold`}
-			aria-label="Roles assigned to this user"
+			aria-label={translate(Astro, "desc.unicorn_roles")}
 			role="list"
 		>
 			{
@@ -44,5 +45,7 @@ const { unicorn } = Astro.props as CardProps;
 		</ul>
 	</div>
 
-	<Button href={`/unicorns/${unicorn.id}`}>View profile</Button>
+	<Button href={`/unicorns/${unicorn.id}`}>
+		{translate(Astro, "action.view_profile")}
+	</Button>
 </div>

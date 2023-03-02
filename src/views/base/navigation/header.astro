@@ -6,6 +6,7 @@ import DarkLightButton from "components/dark-light-button/dark-light-button.astr
 import BackButton from "./back-button.astro";
 import style from "./header.module.scss";
 import logo from "src/assets/unicorn_utterances_logo_512.png";
+import { translate } from "utils/translations";
 ---
 
 <nav
@@ -22,7 +23,7 @@ import logo from "src/assets/unicorn_utterances_logo_512.png";
 			sizes="48"
 			widths={[48]}
 			formats={["avif", "webp", "png"]}
-			alt="Smiling cartoon unicorn with a bowtie"
+			alt={translate(Astro, "alt.unicorn_utterances_logo")}
 		/>
 
 		<span class="text-style-button">
@@ -32,15 +33,20 @@ import logo from "src/assets/unicorn_utterances_logo_512.png";
 	</a>
 
 	<div class={`d-flex ${style.nav}`}>
-		<Button href="/">Home</Button>
-		<Button href="/about" variant="borderless">About us</Button>
+		<Button href="/">{translate(Astro, "title.home")}</Button>
+		<Button href="/about" variant="borderless">
+			{translate(Astro, "title.about_us")}
+		</Button>
 	</div>
 
 	<div class={`d-flex ${style.icons}`}>
-		<Button href="/search" aria-label="Search">
+		<Button href="/search" aria-label={translate(Astro, "title.search")}>
 			<Icon height="24" width="24" name="search" />
 		</Button>
-		<Button href="https://discord.gg/FMcvc6T" aria-label="Join the Discord">
+		<Button
+			href="https://discord.gg/FMcvc6T"
+			aria-label={translate(Astro, "action.join_discord")}
+		>
 			<Icon height="24" width="24" name="ic:baseline-discord" />
 		</Button>
 		<DarkLightButton />
