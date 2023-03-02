@@ -206,7 +206,15 @@ We will also have easy-to-reference resources in case you're already a pro with 
 
 As a final note, before I send you into the rest of the book/course, I want to touch on a few points about these frameworks:
 
-- **React has two different ways of writing code: Using classes and "Hooks".**
+<!-- tabs:start -->
+
+### React
+
+Here's a few nuances we should keep in mind about this book's teachings of React:
+
+#### We're using React Hooks
+
+React has two different ways of writing code: Using classes and "Hooks".
 
 While React classes are more similar to Angular or Vue's Option API, **I've decided to write this book/course using React's "Hooks" method as references for the components.**
 
@@ -214,11 +222,17 @@ This is because, while classes are still a part of the most modern versions of R
 
 That all said, the core concepts outlined in this book/course apply to both of these methods, so if you want to learn the React class API after the fact, it should be easier with this foundation of learning.
 
-- **Angular is not AngularJS.**
+### Angular
+
+Here's a few nuances we should keep in mind about this book's teachings of Angular:
+
+#### Angular is not AngularJS
 
 Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was originally released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
 
-- **Angular has two ways of defining component imports: modules and standalone components. We'll be using Standalone components.**
+#### We're using Standalone Components
+
+Angular has two ways of defining component imports: modules and standalone components. **We'll be using Standalone components**.
 
 When Angular was first released it launched with [the concept of NgModules](https://angular.io/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so called "modules".
 
@@ -228,23 +242,61 @@ While these modules worked, they were mostly dissimilar from alternatives in oth
 
 > Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
 
-- **Angular has an upcoming method of data binding called "Signals"; we won't be using them.**
+#### We're using Self-Closing Tags
+
+HTML supports self-closing tags on some elements that don't contain children:
+
+```html
+<input/>
+```
+
+Similarly, Angular 15.1 introduced a method for using self-closing tags with components selectors:
+
+```html
+<component/>
+<!-- vs. <component></component> -->
+```
+
+**We will be using these self-closing tags throughout the book**, as they're common practice in applications built with the other two frameworks.
+
+> This will not work with versions of Angular older than 15.1, so be aware of this when working in older codebases.
+
+#### We won't be learning "Signals"
 
 [Early in 2023, the Angular team announced that they will be introducing a new method of programming in Angular called "Signals"](https://github.com/angular/angular/discussions/49090). To pull back the curtains a bit, this book began life in January of 2022, and the by the time the book had launched, Signals were not yet introduced as a stable API within the Angular ecosystem.
 
-While I believe that Signals are the way forward for the Angular community, it simply wasn't suitable to delay the book further to wait for this API to stabilize.
+While I believe that Signals are the way forward for the Angular community, it simply wasn't suitable to delay the book further to wait for this API to stabilize. As such, **this book will not teach Angular signals** at this time.
 
 However, in the future I will revise this book to be geared towards Angular Signals as opposed to the current method of Zone.js mutations. This will come as a second edition of the book sometime in the future.
 
-- **Vue has two different ways of writing code: The "Options" API and the "Composition" API.**
+### Vue
+
+Here's a few nuances we should keep in mind about this book's teachings of Vue:
+
+#### We're using the Composition API
+
+Vue has two different ways of writing code: The "Options" API and the "Composition" API.
 
 While the "Options" API has been around for longer and is more similar to Angular's classes, **this book will be using Vue's "Composition API"**. This is for a few reasons:
 
 1) The Composition API is newer and seemingly favored over the Options API for new applications.
-2) The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier. 
+2) The Composition API shares a bit of DNA with React's Hooks, which makes explaining some of the cross-framework concepts easier.
 3) The Composition API is relatively trivial to learn once you have a strong grasp of the Options API.
 4) Their documentation does a good job at providing code samples in both Options API and Composition API - allowing you to learn both even easier.
 5) [Evan You, the project's creator and lead maintainer, told me to.](https://twitter.com/youyuxi/status/1545281276856262656?s=20&t=ZBooorTRi6dYR1h_VVbu1A) 😝
 
-Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a future book in this series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another. 
+Similarly, this book will not cover [Vue's other upcoming compiler-based syntax choice, the upcoming `$ref` sugar](https://github.com/vuejs/rfcs/discussions/369). However, a the "Internals" book in this book series will walk you through all of these different APIs, why they exist, and how they build on-top of one-another. 
 
+#### We're using SFCs
+
+Vue is a highly flexible framework and, as a result, allows you to define components with various methods; each with their own set of pros and cons.
+
+**This book will specifically be focused on using the ["Single File Component" (or, SFC for short) method](https://vuejs.org/guide/scaling-up/sfc.html) of creating Vue components using `.vue` files.**
+
+While the "Internals" book (the third in the series) will introduce the other methods and how they work under-the-hood, SFCs are commonly used as the de-facto method of creating Vue components for most applications.
+
+<!-- tabs:end -->
+
+
+
+Without further ado, let's get started.

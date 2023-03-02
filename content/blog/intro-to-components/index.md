@@ -15,7 +15,7 @@
 
 You may have heard about various frameworks and libraries that modern front-end developers utilize to build large-scale applications. Among these frameworks, there are Angular, React, and Vue. While each of these libraries brings its own strengths and weaknesses, many of the core concepts are shared between them.
 
-With this course, we will outline core concepts shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
+With this book, we will outline core concepts shared between them and how you can implement them in code in all three of the frameworks. This should provide a good reference when trying to learn one of these frameworks without a pre-requisite knowledge or even trying to learn another framework with some pre-requisite of a different one.
 
 First, let's explain why frameworks like Angular, React, or Vue differs from other libraries that may have come before them, like jQuery.
 
@@ -107,10 +107,10 @@ We might have a mental model to break down each section into smaller ones. If we
 
 ```html
 <files-buttons>
-  <add-button></add-button>
+  <add-button/>
 </files-buttons>
 <files-list>
-  <file name="File one"></file>
+  <file name="File one"/>
 </files-list>
 ```
 
@@ -130,7 +130,9 @@ const File = () => {
 };
 ```
 
-Here, we're using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
+Here, we're defining a component that we call `File`, which contains a set of instructions for how React is to create the associated HTML when the component is used.
+
+These HTML creation instructions are defined using a syntax very similar to HTML - but in JavaScript instead. This syntax is called ["JSX"](https://reactjs.org/docs/introducing-jsx.html) and powers the show for every React application.
 
 While JSX looks closer to HTML than standard JS, it is not supported in the language itself. Instead, a compiler (or transpiler) like [Babel](https://babeljs.io/) must compile down to regular JS. Under the hood, this JSX compiles down to function calls.
 
@@ -155,6 +157,7 @@ import { Component } from "@angular/core";
 
 @Component({
   selector: "file",
+  standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
@@ -162,35 +165,59 @@ import { Component } from "@angular/core";
 export class FileComponent {}
 ```
 
-Here, we're using the `@Component` decorator to define a class component in Angular. However, it's important to note that decorators (`@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
+Here, we're using the `@Component` decorator to define a class component in Angular.
+
+This decorator has a few properties passed to it. Going from the bottom-up:
+
+1. `template`: The HTML associated with this component.
+2. `standalone`: A flag telling the framework that this component is newer and can be used directly by another component.
+3. `selector`: The name of the component which can be referenced inside of the `template` of another component
+
+> It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
 
 ## Vue
 
 ```vue
+<!-- File.vue -->
 <template>
 	<div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
 </template>
 ```
 
-Here, we're using a `.vue` file to support HTML in a Vue component. Each Vue component uses an individual `.vue` file to contain all of it's layout, styling, and logic. As such, these `.vue` files are often called "Single File Components", or SFCs for short.
+This is a specially named `.vue` file, which defines a Vue component called "File" and has a template for which HTML should be displayed when this component is used.
+
+> Unlike the other frameworks, which require you to explicitly name your components, Vue uses the name of your `.vue` file to define the component's name.
+
+Each Vue component uses an individual `.vue` file to contain all of it's layout, styling, and logic. As such, these `.vue` files are often called "Single File Components", or SFCs for short.
 
 While this SFC looks exactly like normal HTML with nothing special added at the moment, that will quickly change as we learn more about Vue.
 
 <!-- tabs:end -->
 
-These are called "components". Components have multiple properties, which we'll touch on shortly. 
+These are called "components". Components have various aspects to them, which we'll learn about throughout the course of this book.
 
-We can see that each framework has its own syntax to display these components. While each framework has its pros and cons, many of the fundamental concepts behind them are shared. 
+We can see that each framework has its own syntax to display these components, but they often share more similarities than you might think.
 
-While this is cool - it leads to a good question: how do you _use_ these components in HTML?
+Now that we've defined our components there's a question to be asked: how do you _use_ these components in HTML?
 
 # Rendering the app
 
-While these components might look like simple HTML, they're rather capable of further usage. Because of this, each framework actually uses JavaScript under the hood to draw these components on-screen.
+While these components might look like simple HTML, they're capable of much more advanced usage. Because of this, each framework actually uses JavaScript under the hood to "draw" these components on-screen.
 
-**This process of "drawing" is called "rendering".** A component may render at various times, particularly when it needs to update data shown on-screen, which we'll touch on later.
+**This process of "drawing" is called "rendering".** This is not a one-and-done, however. A component may render at various times throughout its usage on-screen, particularly when it needs to update data shown on-screen; we'll learn more about this later in the chapter.
 
-Because modern web apps consist of multiple files (often bundled with [Node](https://unicorn-utterances.com/posts/how-to-use-npm/#whats-node) and some CLI tool), all apps with React, Angular, and Vue start with an `index.html` file. 
+Traditionally, when you build out a website with just HTML, you'd define an `index.html` file like so:
+
+```html
+<!-- index.html -->
+<html>
+  <body>
+    <!-- Your HTML here -->
+  </body>
+</html>
+```
+
+Similarly, all apps built with React, Angular, and Vue start with an `index.html` file.
 
 <!-- tabs:start -->
 
@@ -234,7 +261,7 @@ Because modern web apps consist of multiple files (often bundled with [Node](htt
 
 
 
-Then, in JavaScript, you "render" a component into this element.
+Then, in JavaScript, you "render" a component into an element that acts as the "root" injection site for your framework to build your UI around.
 
 <!-- tabs:start -->
 
@@ -251,40 +278,23 @@ const File = () => {
 createRoot(document.getElementById('root')).render(<File />);
 ```
 
-React, unlike the other frameworks, allows you to "self-close" a tag (element or component alike) when it contains no children.
-
-This is how we're able to write `<File />` instead of `<File></File>`.
-
-This is also true for any other frameworks not mentioned in this series that utilize JSX under the hood.
-
 ## Angular
 
 ```typescript {2,19}
-import { Component, NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Component } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
 @Component({
-  selector: "file",
+  selector: 'file',
+  standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
 })
 export class FileComponent {}
 
-@NgModule({
-  imports: [BrowserModule],
-  declarations: [FileComponent],
-  bootstrap: [FileComponent],
-})
-export class AppModule {}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
+bootstrapApplication(FileComponent);
 ```
-
-> Angular has the concept of ["Modules"](https://angular.io/guide/architecture-modules) that allows you to optimize your application by keeping bundle size small. While it's a central part of Angular, don't worry too much about it for the moment.
->
-> What _is_ important to note is that for each component, you need to register components within the `declarations` before usage.
 
 ## Vue
 
@@ -339,7 +349,8 @@ const FileList = () => {
 
 ```typescript {7-14}
 @Component({
-  selector: "file",
+  selector: 'file',
+  standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
   `,
@@ -347,13 +358,17 @@ const FileList = () => {
 export class FileComponent {}
 
 @Component({
-  selector: "file-list",
+  selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent],
   template: `
-    <ul><li><file></file></li></ul>
+    <ul><li><file/></li></ul>
   `,
 })
 export class FileListComponent {}
 ```
+
+Notice how we've told our `FileListComponent` to `import` `FileComponent` by passing it the the `imports` array.
 
 ## Vue
 
@@ -419,11 +434,13 @@ const FileList = () => {
 ```typescript
 @Component({
   selector: "file-list",
+  standalone: true,
+  imports: [FileComponent],
   template: `
     <ul>
-      <li><file></file></li>
-      <li><file></file></li>
-      <li><file></file></li>
+      <li><file/></li>
+      <li><file/></li>
+      <li><file/></li>
     </ul>
   `,
 })
@@ -477,9 +494,9 @@ const File = () => {
 const FileList = () => {
   return (
     <ul>
-      <li><File /></li>li>
-      <li><File /></li>li>
-      <li><File /></li>li>
+      <li><File /></li>
+      <li><File /></li>
+      <li><File /></li>
     </ul>
   );
 };
@@ -488,31 +505,34 @@ const FileList = () => {
 ## Angular
 
 ```typescript {2-6,12,22}
-import { Component } from "@angular/core";
-
 @Component({
-  selector: "file-date",
+  selector: 'file-date',
+  standalone: true,
   template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {}
 
 @Component({
-  selector: "file",
+  selector: 'file',
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <div>
-      <a href="/file/file_one">File one<file-date></file-date></a>
+      <a href="/file/file_one">File one<file-date/></a>
     </div>
   `,
 })
 export class FileComponent {}
 
 @Component({
-  selector: "file-list",
+  selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent],
   template: `
     <ul>
-      <li><file></file></li>
-      <li><file></file></li>
-      <li><file></file></li>
+      <li><file/></li>
+      <li><file/></li>
+      <li><file/></li>
     </ul>
   `,
 })
@@ -567,7 +587,7 @@ HTML isn't the only thing components are able to store, however! As we mentioned
 
 Components can handle all three!
 
-While we'll touch on styling more in the future, let's take a look at how we can declare logic in a component by making `file-date` show the current date instead of a static date.
+Let's take a look at how we can declare logic in a component by making `file-date` show the current date instead of a static date.
 
 We'll start by adding a simple function to display the current date in a human-readable form.
 
@@ -591,6 +611,7 @@ const FileDate = () => {
 ```typescript {5}
 @Component({
   selector: 'file-date',
+  standalone: true,
   template: `<span>12/03/21</span>`
 })
 export class FileDateComponent {
@@ -653,6 +674,7 @@ const FileDate = () => {
 ```typescript {5-14}
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent {
@@ -698,13 +720,7 @@ const dateStr = formatDate();
 
 # Intro to Lifecycles {#lifecycles}
 
-While you can rest assured that this code works since I'm the author and I'd probably be a bit embarrassed by it not running...
-
-> Way to tempt fate there, author
-
-... It's important to realize that not all of our code will function as intended first try. Moreover: What on earth is that function even outputting - we don't currently have a way to evaluate the output?
-
-Let's fix that by telling our components that "once you're rendered on screen, `console.log` the value of that data."
+Let's verify that our `formatDate` method is outputting the correct value by telling our components that "once you're rendered on screen, `console.log` the value of that data."
 
 <!-- tabs:start -->
 
@@ -742,6 +758,7 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span>12/03/21</span>`,
 })
 export class FileDateComponent implements OnInit {
@@ -840,10 +857,9 @@ const FileDate = () => {
 ### Angular
 
 ```typescript {4}
-import { Component, OnInit } from "@angular/core";
-
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent {
@@ -951,7 +967,7 @@ const FileDate = () => {
 };
 ```
 
-`useState` is what React uses to store data that the developer tends to persist between renders. Its first argument (that we're passing a string into) is used to set the initial value.
+`useState` is what React uses to store data that the developer wants to persist between renders. Its first argument (that we're passing a string into) is used to set the initial value.
 
 We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
 
@@ -980,6 +996,7 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span>{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
@@ -1042,11 +1059,11 @@ onMounted(() => {
 
 If you sit on these screens for a while, you'll see that they update automatically!
 
-**This idea of a data update triggering other code is called "reactivity"**, and is a central part of all of these components. 
+**This idea of a data update triggering other code is called "reactivity"**, and is a central part of all of these frameworks. 
 
 While the frameworks detect reactive changes under the hood differently, they all handle updating the DOM for you. This allows you to focus on the logic that's intended to update what's on-screen as opposed to the code that updates the DOM itself. 
 
-This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, **two of these frameworks (React and Vue) store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible**. We'll explain in the future exactly how this works.
+This is important because in order to update the DOM in an efficient way requires significant heavy lifting. In fact, **two of these frameworks (React and Vue) store an entire copy of the DOM in memory in order to keep that updating as lightweight as possible**. In the third book of this book series, titled "Internals", we'll learn how this works under-the-hood and how to build our work version of this DOM mirroring.
 
 
 
@@ -1083,6 +1100,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'file-date',
+  standalone: true,
   template: `
     <span aria-label="January 10th, 2023">{{dateStr}}</span>
   `
@@ -1113,7 +1131,7 @@ const dateStr = ref(formatDate(new Date()))
 <!-- tabs:end -->
 
 
-Now, when we use a screen reader, it'll read out "January 10th" instead of "One dash ten".
+Now, [when we use a screen reader](https://unicorn-utterances.com/posts/intro-to-web-accessability), it'll read out "January 10th" instead of "One dash ten".
 
 However, while this may have worked before `date` was dynamically formatted, it won't be correct for most of the year. (Luckily for us, a broken clock is correct at least once a day)
 
@@ -1167,6 +1185,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'file-date',
+  standalone: true,
   template: `
     <span [attr.aria-label]="labelText">{{dateStr}}</span>
   `
@@ -1270,7 +1289,7 @@ Awesome! Now it should read the file's date properly to a screen reader properly
 
 Our file list is starting to look good! That said, a file list containing the same file repeatedly isn't much of a file list. Ideally, we'd like to pass in the name of the file into our `File` component to add a bit of variance.
 
-Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "props" in the component world.
+Luckily for us, components accept arguments just like functions! These arguments are most often called "inputs" or "properties" (shortened to "props") in the component world.
 
 Let's have the file name be an input to our `File` component: 
 
@@ -1294,7 +1313,7 @@ const FileList = () => {
 };
 ```
 
-> `props` is short for "properties". React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
+> React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
 >
 > ```jsx
 > const File = ({ fileName }) => {
@@ -1315,8 +1334,9 @@ const FileList = () => {
 ```typescript {7,14}
 @Component({
   selector: "file",
+  standalone: true,
   template: `
-    <div><a href="/file/file_one">{{ fileName }}<file-date></file-date></a></div>
+    <div><a href="/file/file_one">{{ fileName }}<file-date/></a></div>
   `,
 })
 export class FileComponent {
@@ -1325,11 +1345,13 @@ export class FileComponent {
 
 @Component({
   selector: "file-list",
+  standalone: true,
+  imports: [FileComponent],
   template: `
     <ul>
-      <li><file [fileName]="'File one'"></file></li>
-      <li><file [fileName]="'File two'"></file></li>
-      <li><file [fileName]="'File three'"></file></li>
+      <li><file [fileName]="'File one'"/></li>
+      <li><file [fileName]="'File two'"/></li>
+      <li><file [fileName]="'File three'"/></li>
     </ul>
   `,
 })
@@ -1384,7 +1406,7 @@ import File from './File.vue'
 
 <!-- tabs:end -->
 
-Here, we can see each `File` being rendered with its own name. 
+Here, we can see each `File` being rendered with its own name.
 
 One way of thinking about passing properties to a component is that we "pass down" data to our children's components. Remember, these components make a parent/child relationship to one another.
 
@@ -1420,8 +1442,9 @@ const FileList = () => {
 ```typescript {7-8,15}
 @Component({
   selector: "file",
+  standalone: true,
   template: `
-    <div><a [attr.href]="href">{{ fileName }}<file-date></file-date></a></div>
+    <div><a [attr.href]="href">{{ fileName }}<file-date/></a></div>
   `,
 })
 export class FileComponent {
@@ -1431,11 +1454,13 @@ export class FileComponent {
 
 @Component({
   selector: "file-list",
+  standalone: true,
+  imports: [FileComponent],
   template: `
     <ul>
-      <li><file [fileName]="'File one'" [href]="'/file/file_one'"></file></li>
-      <li><file [fileName]="'File two'" [href]="'/file/file_two'"></file></li>
-      <li><file [fileName]="'File three'" [href]="'/file/file_three'"></file></li>
+      <li><file [fileName]="'File one'" [href]="'/file/file_one'"/></li>
+      <li><file [fileName]="'File two'" [href]="'/file/file_two'"/></li>
+      <li><file [fileName]="'File three'" [href]="'/file/file_three'"/></li>
     </ul>
   `,
 })
@@ -1517,6 +1542,7 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
@@ -1530,11 +1556,13 @@ export class FileDateComponent implements OnInit {
 
 @Component({
   selector: "file",
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <div>
       <a [attr.href]="href">
         {{ fileName }}
-        <file-date [inputDate]="inputDate"></file-date>
+        <file-date [inputDate]="inputDate"/>
       </a>
     </div>
   `,
@@ -1633,6 +1661,8 @@ export class GenericListComponent implements OnInit {
 }
 ```
 
+> Technically, Angular supports this in some capacity, but it's fragile at best and downright won't work in some instances. It's generally recommended to avoid this pattern even if you _technically_ can use it in some instances.
+
 ### Vue
 
 ```vue
@@ -1653,10 +1683,10 @@ onMounted(() => {
 <!-- tabs:end -->
 
 
-You're not intended to mutate properties because it breaks two concepts which we'll learn about later:
+You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
-1) [What it means to be a "pure" function](// TODO: Add link)
-2) [Unidirectionality of component flow](// TODO: Add link)
+1) [What it means to be a "pure" function](/posts/lifecycle-methods#Side-Effects)
+2) [Unidirectionality of component flow](/posts/master-react-unidirectional-data-flow)
 
 # Event Binding
 
@@ -1670,7 +1700,7 @@ In the mockup we saw before, the list of our files has a hover state for the fil
 
 Let's add in an `isSelected` property to our `file` component to add hover styling conditionally, then update it when the user clicks on it.
 
-While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](// TODO: Link to accessibility chapter).
+While we're at it, let's migrate our `File` component to use a `button` instead of a `div`. After all, [it's important for accessibility and SEO to use semantic elements to indicate what element is which in the DOM](https://unicorn-utterances.com/posts/intro-to-web-accessability#html-semantic-tags).
 
 <!-- tabs:start -->
 
@@ -1713,6 +1743,8 @@ We also make sure to prefix the event name with `on` in order to bind a method t
 ```typescript {4-9,19-23}
 @Component({
   selector: "file",
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <button
       (click)="selectFile()"
@@ -1724,7 +1756,7 @@ We also make sure to prefix the event name with `on` in order to bind a method t
     >
       <a [href]="href">
         {{ fileName }}
-        <file-date [inputDate]="inputDate"></file-date>
+        <file-date [inputDate]="inputDate"/>
       </a>
     </button>
   `
@@ -1880,6 +1912,8 @@ import {
 
 @Component({
   selector: 'file',
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <button
       (click)="selected.emit()"
@@ -2016,7 +2050,7 @@ function onSelected(idx) {
 
 Here, we're using a simple number-based index to act as an `id` of sorts for each file. This allows us to keep track of which file is currently selected or not. Likewise, if the user selects an index that's already been selected, we will set the `isSelected` index to a number that no file has associated.
 
-You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state", which is a best practices concept we'll touch on later.](TODO: Add link to future article)
+You may notice that we've also removed our `isSelected` state and logic from our `file` component. This is because we're following the practices of ["raising state".](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
 
 
