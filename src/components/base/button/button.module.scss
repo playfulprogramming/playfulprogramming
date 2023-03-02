@@ -7,12 +7,20 @@
 	background-color: theme-var(--primary-surface-emphasis_low);
 	color: theme-var(--neutral-foreground-emphasis_high);
 
-	$height: 48px;
+	$height: 40px;
 	height: $height;
 	border-radius: calc($height / 2);
 
+	&:has(svg) {
+		$height: 48px;
+		height: $height;
+		border-radius: calc($height / 2);
+	}
+
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	gap: $spacing * 2;
 
 	white-space: nowrap;
 	text-decoration: none;
@@ -52,15 +60,19 @@
 	}
 }
 
-.buttonText {
-	font-size: pxToRem(14);
-}
+.button.large {
+	$height: 56px;
+	height: $height;
+	border-radius: calc($height / 2);
 
-.large {
 	padding: ($spacing * 4) ($spacing * 6);
 }
 
-.primary {
+.button.primary {
 	background-color: theme-var(--primary-brand-highlight);
 	color: theme-var(--primary-brand-on_highlight);
+}
+
+.button.borderless {
+	background: none;
 }

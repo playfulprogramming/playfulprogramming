@@ -1,4 +1,5 @@
 import style from "./card.module.scss";
+import { createElement } from "preact";
 
 interface CardProps {
 	tag?: "li" | "div";
@@ -6,8 +7,11 @@ interface CardProps {
 	children: JSX.Element|JSX.Element[];
 }
 
-export function Card({ children, ...props }: CardProps) {
-	const Wrapper = (attrs: any) => props.tag === "li" ? <li role="listitem" {...attrs}/> : <div {...attrs}/>
+export function Card({ tag, children, ...props }: CardProps) {
+	const Wrapper = (props: any) => createElement(tag || "div", {
+		role: tag === "li" ? "listitem" : undefined,
+		...props,
+	}, props.children);
 
 	return (
 		<Wrapper class={style.card} onclick={props.href && `location.href='${props.href}'`}>

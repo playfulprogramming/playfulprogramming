@@ -1,16 +1,17 @@
 import style from "./button.module.scss";
+import { createElement } from "preact";
 
 type ButtonProps = {
-	tag?: "anchor" | "button";
+	tag?: "a" | "button";
 	class?: string;
 	state?: "selected" | "inactive";
-	variant?: "primary";
+	variant?: "primary" | "borderless";
 	large?: boolean;
 	children: React.ReactNode,
 } & React.ButtonHTMLAttributes<any> & React.AnchorHTMLAttributes<any>;
 
 export function Button({ tag, class: className, children, state, variant, large, ...props }: ButtonProps) {
-	const Wrapper = (props: any) => tag === "button" ? <button {...props}/> : <a {...props}/>;
+	const Wrapper = (props: any) => createElement(tag || "a", props, props.children);
 
 	return (
 		<Wrapper {...props} aria-label={props["aria-label"]} class={[
@@ -18,9 +19,7 @@ export function Button({ tag, class: className, children, state, variant, large,
 			large && `text-style-button-large ${style.large}`,
 			style.button, className, style[variant], state,
 		].filter(c => !!c).join(" ")}>
-			<span class={`d-flex ${style.buttonText}`}>
-				{children}
-			</span>
+			{children}
 		</Wrapper>
 	);
 }
