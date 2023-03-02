@@ -5,11 +5,14 @@
 	"title.contributors": "Contributors",
 	"title.where_to_find_us": "Where to Find Us",
 	"title.sponsors": "Sponsors",
+	"desc.homepage": "Practice programming with magically majestic methods",
+	"desc.homepage_extra": "The perfect place to learn all kinds of programming, from introductory ideas to advanced abstractions.",
 	"desc.translated_into": "Translated by our community into:",
 	"desc.unicorn_roles": "Roles assigned to this user",
 	"action.go_back": "Go back",
 	"action.view_profile": "View profile",
-	"action.join_discord": "Join the Discord",
+	"action.join_discord": "Join our Discord",
+	"action.learn_more": "Learn more",
 	"action.is_dark_mode_enabled": "Is dark mode enabled?",
 	"alt.unicorn_utterances_logo": "Smiling cartoon unicorn with a bowtie"
 }

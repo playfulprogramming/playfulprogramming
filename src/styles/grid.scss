@@ -1,20 +1,36 @@
 @import "./vars";
 @import "./utils";
 
-.grid {
+:where(.grid) {
 	display: grid;
 	gap: $spacing * 8;
 
-	@include until($desktop) {
-		display: flex;
-		flex-direction: column;
+	@include until($tablet) {
+		&:not(.grid-half) {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 }
 
-.grid-2 {
+:where(.grid-2) {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-3 {
+:where(.grid-3) {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+:where(.grid-half) {
+	@include until($mobile) {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include from($tablet) {
+		@include until($desktop) {
+			display: flex;
+			flex-direction: column;
+		}
+	}
 }

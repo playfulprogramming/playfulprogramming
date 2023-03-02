@@ -26,6 +26,7 @@
 	text-decoration: none;
 	border: none;
 	outline: none !important;
+	cursor: pointer;
 
 	@include transition(color background-color box-shadow);
 

@@ -6,6 +6,7 @@ import { PostInfo } from "types/PostInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./homepage.module.scss";
 import { Icon } from "astro-icon";
+import { translate } from "utils/translations";
 
 export interface HomepageProps {
 	posts: PostInfo[];
@@ -20,19 +21,18 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 	<div class={style.bannerLogo}><!-- TODO: replace with banner image --></div>
 	<div class="text-center">
 		<h1 class="text-style-headline-2">
-			Practice programming with magically majestic methods
+			{translate(Astro, "desc.homepage")}
 		</h1>
 		<p class="text-style-body-large-bold">
-			The perfect place to learn all kinds of programming, from introductory
-			ideas to advanced abstractions.
+			{translate(Astro, "desc.homepage_extra")}
 		</p>
-		<div class={`grid grid-2 ${style.buttons}`}>
+		<div class={`grid grid-2 grid-half ${style.buttons}`}>
 			<Button large variant="primary" href="/discord">
 				<Icon height="24" width="24" name="ic:baseline-discord" />
-				Join our Discord
+				{translate(Astro, "action.join_discord")}
 			</Button>
 			<Button large href="/about">
-				Learn more
+				{translate(Astro, "action.learn_more")}
 				<Icon height="24" width="24" name="forward" />
 			</Button>
 		</div>

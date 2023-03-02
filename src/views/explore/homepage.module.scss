@@ -2,12 +2,12 @@
 @import "src/styles/utils";
 
 .buttons {
-	gap: $spacing * 6;
+	gap: ($spacing * 4) ($spacing * 6);
 	padding: ($spacing * 4) 0;
 }
 
 .bannerLogo {
-	@include until($desktop) {
+	@include until($tablet) {
 		display: none;
 	}
 }
