@@ -1982,7 +1982,7 @@ Vue introduces the idea of an emitted event using the `defineEmits` global funct
 <!-- File.vue -->
 <template>
   <button
-    v-on:click="$emit('selected')"
+    v-on:click="emit('selected')"
     :style="isSelected ?
       { backgroundColor: 'blue', color: 'white' } :
       { backgroundColor: 'white', color: 'blue' }
@@ -1997,7 +1997,7 @@ Vue introduces the idea of an emitted event using the `defineEmits` global funct
 <script setup>
 const props = defineProps(['isSelected', 'fileName', 'href']);
 
-defineEmits(['selected']);
+const emit = defineEmits(['selected']);
 </script>
 ```
 
@@ -2796,16 +2796,3 @@ const emit = defineEmits(['toggle'])
 ```
 
 <!-- tabs:end -->
-
-
-
-
-
-
-
-
-
-
-
-<!-- Editor's note: Add a "do it yourself" hidden dropdown that adds an addition input for the collapsedContent -->
-
