@@ -11,7 +11,7 @@
 }
 ---
 
-Welcome to the Web Framework Field Guide. This book is the culmination of 7+ years of professional software development as well as over a year of writing, editing, and polishing, and is the first of what will be a trilogy of books teaching frontend web development.
+Welcome to the first Framework Field Guide book titled "Fundamentals". This book is the culmination of 8+ years of professional software development as well as over a year of writing, editing, and polishing, and is the first of what will be a trilogy of books teaching frontend web development.
 
 This series will teach you how to build applications, the concepts under the hood of modern web frameworks, and the advanced coding patterns to help you level up your engineering.
 
@@ -39,6 +39,8 @@ What's more, there's an absolutely gargantuan job market. To quote [the U.S. Bur
 >
 > **The median annual wage for computer and information technology occupations was $91,250 in May 2020**.
 
+While this number may be specific to the U.S., and other countries and markets may have different rates, programming tends to be a good bet for a sustainable long-term career.
+
 ## Why should I learn these tools?
 
 While web development is broadly helpful to learn as a skill for work in engineering, these frameworks, in particular, are a considerable boon to learn.
@@ -65,11 +67,13 @@ Want to add in a router to add multiple pages to your apps? React has [React Rou
 
 Want to add global state management, making it easier to share data across an entire app? React has [Redux](https://redux.js.org/), Angular has [NgRx](https://ngrx.io/), and Vue has [Vuex](https://vuex.vuejs.org/).
 
-The list of lists goes on and on. What's better is that the list I gave for each is non-comprehensive! I could write an entire book dedicated to the expansive ecosystem of each of these tools!
+The list of lists goes on and on. What's better is that the list I gave for each is non-comprehensive!
 
 In fact, while these frameworks are traditionally associated with the web with the browser, there are even ecosystem tools that allow you to embed Angular, React, or Vue into mobile and native applications.
 
 These tools include [ElectronJS](https://www.electronjs.org/) and [Tauri](https://github.com/tauri-apps/tauri) for desktop applications, alongside [React Native](https://reactnative.dev/) and [NativeScript](https://nativescript.org/) for mobile. While React Native only supports React, the other options mentioned all support the three frameworks we'll be touching on.
+
+While this book in particular will not touch on most of the ecosystem, the second book in our trilogy will be titled "Ecosystem" and teach you how to integrate the foundation of knowledge this book introduces to build out more complex applications with these community tools.
 
 ## Who's building what?
 
@@ -213,6 +217,24 @@ That all said, the core concepts outlined in this book/course apply to both of t
 - **Angular is not AngularJS.**
 
 Despite the similarities in their names, these two are entirely distinct entities. More specifically, [AngularJS was originally released in 2010](https://unicorn-utterances.com/posts/web-components-101-history#2010-The-Early-Days-of-MVC-in-JS) and was followed up by the initial release of Angular in 2016. **Despite this shared lineage, the core concepts shifted drastically between these two releases.** For all intents and purposes, you will not know AngularJS at the end of this book: You will know Angular.
+
+- **Angular has two ways of defining component imports: modules and standalone components. We'll be using Standalone components.**
+
+When Angular was first released it launched with [the concept of NgModules](https://angular.io/guide/ngmodules). Very broadly, this was an API that allowed you to namespace a collection of related UI items (called components, more on that in the next chapter) into so called "modules".
+
+While these modules worked, they were mostly dissimilar from alternatives in other related frameworks like React and Vue. Further, a common complaint against them is that they were overly complicated with minimal yeild.
+
+[Starting with an experimental release in Angular 14](https://github.com/angular/angular/discussions/45554) (and [being marked as stable in Angular 15](https://blog.angular.io/angular-v15-is-now-available-df7be7f2f4c8)), Angular introduced the "standalone components" API. This was a more similar method of importing similar UI elements into one-another and is what our book will be using. 
+
+> Keep in mind that if you're working with an older Angular codebase, it's likely to still be using modules.
+
+- **Angular has an upcoming method of data binding called "Signals"; we won't be using them.**
+
+[Early in 2023, the Angular team announced that they will be introducing a new method of programming in Angular called "Signals"](https://github.com/angular/angular/discussions/49090). To pull back the curtains a bit, this book began life in January of 2022, and the by the time the book had launched, Signals were not yet introduced as a stable API within the Angular ecosystem.
+
+While I believe that Signals are the way forward for the Angular community, it simply wasn't suitable to delay the book further to wait for this API to stabilize.
+
+However, in the future I will revise this book to be geared towards Angular Signals as opposed to the current method of Zone.js mutations. This will come as a second edition of the book sometime in the future.
 
 - **Vue has two different ways of writing code: The "Options" API and the "Composition" API.**
 
