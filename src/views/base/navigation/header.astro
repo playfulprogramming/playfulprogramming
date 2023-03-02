@@ -8,7 +8,7 @@ import style from "./header.module.scss";
 import logo from "src/assets/unicorn_utterances_logo_512.png";
 ---
 
-<header
+<nav
 	class={`container d-flex ${style.header}`}
 	aria-label="Toolbar for primary action buttons"
 >
@@ -31,18 +31,18 @@ import logo from "src/assets/unicorn_utterances_logo_512.png";
 		</span>
 	</a>
 
-	<nav class={`d-flex ${style.nav}`}>
+	<div class={`d-flex ${style.nav}`}>
 		<Button href="/">Home</Button>
-		<Button href="/about">About us</Button>
-	</nav>
+		<Button href="/about" variant="borderless">About us</Button>
+	</div>
 
 	<div class={`d-flex ${style.icons}`}>
 		<Button href="/search" aria-label="Search">
 			<Icon height="24" width="24" name="search" />
 		</Button>
 		<Button href="https://discord.gg/FMcvc6T" aria-label="Join the Discord">
-			<Icon height="24" width="24" name="discord" />
+			<Icon height="24" width="24" name="ic:baseline-discord" />
 		</Button>
 		<DarkLightButton />
 	</div>
-</header>
+</nav>
