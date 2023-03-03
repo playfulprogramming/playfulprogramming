@@ -1952,91 +1952,29 @@ function objFromCategories(categories) {
 
 
 
+## Conditionally rendering hidden content
 
+Now that we've migrated our dropdowns to use a list instead of hardcoding each component instance, let's migrate our dropdown's collapsed content to conditionally render instead of using the `hidden` HTML attribute.
 
+<!-- tabs:start -->
 
+### React
 
-
-
-
-
-
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
--------
-
-
-
-
-
-// TODO: Write React + Vue
-
-<!-- Editor's note: Add v-for and ngIf for content, booleans, and conditional display from last chapter -->
-
-```typescript
-@Component({
-  selector: 'sidebar',
-  standalone: true,
-  imports: [ExpandableDropdownComponent, NgFor],
-  template: `
-    <expandable-dropdown
-      *ngFor="let cat of categories"
-      [name]="cat" 
-      [expanded]="dropdownInformation[cat]" 
-      (toggle)="dropdownInformation[cat] = !dropdownInformation[cat]"
-    />
-  `,
-})
-export class SidebarComponent {
-  categories = [
-    'Movies',
-    'Pictures',
-    'Concepts',
-    "Articles I'll Never Finish",
-    'Website Redesigns v5',
-    'Invoices',
-  ];
-
-  dropdownInformation = this.categories.reduce((prev, cat) => {
-    prev[cat] = false;
-    return prev;
-  }, {});
-}
+```jsx
+const ExpandableDropdown = ({ name, expanded, onToggle }) => {
+  return (
+    <div>
+      <button onClick={onToggle}>
+        {expanded ? 'V ' : '> '}
+        {name}
+      </button>
+      {expanded && <div>More information here</div>}
+    </div>
+  );
+};
 ```
 
-
-
-
+### Angular
 
 ```typescript
 @Component({
@@ -2061,3 +1999,25 @@ export class ExpandableDropdownComponent {
   @Output() toggle = new EventEmitter();
 }
 ```
+
+### Vue
+
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button @click="emit('toggle')">
+      {{ expanded ? 'V' : '>' }}
+      {{ name }}
+    </button>
+    <div v-if="expanded">More information here</div>
+  </div>
+</template>
+<script setup>
+const props = defineProps(['name', 'expanded'])
+const emit = defineEmits(['toggle'])
+</script>
+```
+
+<!-- tabs:end -->
+
