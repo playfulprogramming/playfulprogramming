@@ -1130,11 +1130,13 @@ As such, it will only re-render the new items, leaving the old and unchanged DOM
 
 ## Keys As Render Hints
 
-Because `key` is utilized to let the framework know which element to update, we can force re-renders on non-iterative items as well.
+As we mentioned earlier, the `key` property is used by the framework to figure out which element is which. Change this `key` property for a given element, and it will be destroyed and recreated as if it were a fresh node.
+
+While this is most applicable within lists, this is also true outside of them as well; assign a `key` to an element and change it and it will be recreated from scratch.
 
 For example, let's assume we have a basic `input` that we want to be able to reset when a button is pressed.
 
-To do this, we can simply have the button increment a local variable containing a number and set the `key` value to track said number as its internal reference.
+To do this, we can assign a `key` property to the `input` and change the value of said `key` to force a re-creation of the `input`.
 
 <!-- tabs:start -->
 
@@ -1185,13 +1187,13 @@ function increase() {
 
 <!-- tabs:end -->
 
-This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated, and a new `input` is rendered in its place, the value is reset and not bound again.
+This refresh works because we are not persisting the [`input`'s `value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement), and therefore when `key` is updated, and a new `input` is rendered in its place, the in-memory DOM value is reset and not bound again.
 
 This reset is what's causing the `input` to blank out after a button press. 
 
 > This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
 >
-> [In a future chapter, we'll learn more about how each framework handles these references under the hood.](// TODO: Link this)
+> [In a future chapter, we'll learn more about how each framework handles these references under the hood.](/posts/element-reference)
 
 # Putting it to Production
 
