@@ -1,0 +1,12 @@
+---
+import style from "./sidebar-layout.module.scss";
+---
+
+<div class={`container ${style.container}`}>
+	<div class={style.sidebar}>
+		<slot name="sidebar" />
+	</div>
+	<div class={style.content}>
+		<slot />
+	</div>
+</div>

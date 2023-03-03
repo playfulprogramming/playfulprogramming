@@ -2,8 +2,6 @@
 @import "src/styles/utils";
 
 .card {
-	cursor: pointer;
-
 	border: map-get($borderWidth, xl) solid theme-var(--primary-surface-emphasis_low);
 	border-radius: map-get($cornerRadius, xl);
 
@@ -13,6 +11,10 @@
 	@include transition(background-color border-color);
 
 	padding: $spacing * 6;
+}
+
+.card.interactive {
+	cursor: pointer;
 
 	&:hover {
 		background-color: theme-var(--primary-surface-emphasis_low);

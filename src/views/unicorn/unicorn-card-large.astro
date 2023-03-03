@@ -1,0 +1,30 @@
+---
+import { Picture } from "@astrojs/image/components";
+import { Card } from "components/base/card/card";
+import { UnicornInfo } from "types/UnicornInfo";
+
+interface UnicornCardProps {
+	unicorn: UnicornInfo;
+}
+
+const { unicorn } = Astro.props as UnicornCardProps;
+
+const possessiveName = unicorn.name.endsWith("s")
+	? unicorn.name + "'"
+	: unicorn.name + "'s";
+---
+
+<Card class="post-body text-center">
+	<Picture
+		src={unicorn.profileImgMeta.relativeServerPath}
+		widths={[180]}
+		sizes={"180px"}
+		loading={"eager"}
+		aspectRatio={1}
+		formats={["avif", "webp", "png"]}
+		alt={`${possessiveName} profile picture`}
+		class="circleImg"
+	/>
+	<h1 class="text-style-headline-4">{unicorn.name}</h1>
+	<p>{unicorn.description}</p>
+</Card>
