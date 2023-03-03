@@ -1,18 +1,17 @@
+@import "src/styles/vars";
+@import "src/styles/utils";
 
 .seriesTableOfContent {
 	margin-bottom: 16px;
 
-	@include from($endSmallScreenSize) {
+	@include from($desktop) {
 		margin-bottom: 24px;
 	}
 
 	.seriesHeader {
 		color: var(--darkPrimary);
-		@extend %body-1;
 		margin-bottom: 16px;
 		margin-top: 0;
-		font-style: italic;
-		font-weight: 600;
 	}
 
 	ol {
@@ -24,7 +23,6 @@
 	li {
 		position: relative;
 		padding-left: 40px;
-		@extend %body-2;
 	}
 
 	li {

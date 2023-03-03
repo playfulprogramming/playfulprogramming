@@ -1,34 +1,32 @@
 ---
-import BlogPostLayout from "components/blog-post-layout/blog-post-layout.astro";
-import PostTitleHeader from "src/page-components/blog-post/post-title-header/post-title-header.astro";
-import PostMetadata from "src/page-components/blog-post/post-metadata/post-metadata.astro";
-import SuggestedArticles from "src/page-components/blog-post/suggested-articles/suggested-articles.astro";
-import TableOfContents from "components/table-of-contents/table-of-contents.astro";
+import PostTitleHeader from "./post-title-header/post-title-header.astro";
+import TableOfContents from "./table-of-contents/table-of-contents.astro";
 import MailingListFull from "components/mailing-list/mailing-list-full.astro";
 import Disqus from "components/disqus/disqus.astro";
-import TranslationsHeader from "./translations-header/translations-header.astro";
+import TranslationsHeader from "../base/translations/translations-header.astro";
+import SidebarLayout from "src/components/sidebar-layout/sidebar-layout.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
 import { PostInfo } from "types/PostInfo";
 
 import { siteMetadata } from "constants/site-config";
-import "../../page-components/post-list/post-list.scss";
-import "../../styles/post-body.scss";
 import "../../styles/shiki.scss";
 import "../../styles/tabs.scss";
 import "../../styles/convertkit.scss";
 import "../../styles/iframe-replacement.scss";
-import { Languages } from "types/index";
 import SeriesToC from "./series/series-toc.astro";
 import SeriesNav from "./series/series-nav.astro";
+import { getPrefixLanguageFromPath } from "utils/translations";
+import { PostCardSmall } from "components/post-card/post-card-small";
 
-const { Content, post, posts, locale } = Astro.props as {
+const { Content, post, posts } = Astro.props as {
 	post: PostInfo;
-	locale: Languages;
 	Content: MarkdownInstance<any>["Content"];
 	posts: MarkdownInstance<PostInfo>[];
 };
+
+const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 
@@ -62,19 +60,21 @@ if (post.series && post.order) {
 	iFrameClickToRun();
 </script>
 <article>
-	<BlogPostLayout>
-		<div slot="left">
+	<SidebarLayout>
+		<div slot="sidebar">
+			<h1 class="text-style-headline-5">Table of Contents</h1>
 			<TableOfContents headingsWithId={post.headingsWithId} />
-		</div>
-		<div slot="right">
-			<SuggestedArticles
-				suggestedArticles={post.suggestedArticles}
-				lang={locale}
-			/>
+			<h1 class="text-style-headline-5">Related posts</h1>
+			<ul class="unlist-column">
+				{
+					post.suggestedArticles.map((suggestedPost) => (
+						<PostCardSmall post={suggestedPost} />
+					))
+				}
+			</ul>
 		</div>
 		<header role="banner" class="marginZeroAutoChild">
 			<PostTitleHeader post={post} />
-			<PostMetadata post={post} />
 		</header>
 		<main class="post-body" data-testid={"post-body-div"}>
 			{
@@ -88,13 +88,13 @@ if (post.series && post.order) {
 			}
 			{
 				post.translations && Object.keys(post.translations).length ? (
-					<TranslationsHeader post={post} />
+					<TranslationsHeader locales={post.translations} />
 				) : null
 			}
 			<Content />
 			{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
 		</main>
-	</BlogPostLayout>
+	</SidebarLayout>
 	<footer role="contentinfo" class="post-lower-area">
 		{
 			post.licenseMeta ? (
