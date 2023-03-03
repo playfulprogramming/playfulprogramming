@@ -6,7 +6,7 @@
     authors: ['crutchcorn'],
     tags: ['webdev'],
     attached: [],
-    order: 8,
+    order: 7,
     series: "The Framework Field Guide"
 }
 ---

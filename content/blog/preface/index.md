@@ -168,9 +168,6 @@ With the understanding of what we won't be looking at out of the way, **let's ta
 - [What a lifecycle method is](https://crutchcorn-book.vercel.app/posts/lifecycle-methods) <!-- Lifecycle methods -->
   - What a "side effect" is
 - [How to base the value of one variable off of another](https://crutchcorn-book.vercel.app/posts/derived-values) <!-- Derived values -->
-- [How to create powerful forms in your app](https://crutchcorn-book.vercel.app/posts/forms) <!-- Forms -->
-  - How to do form validation
-  - How to handle non-text fields (like checkboxes)
 - [How to handle segments of HTML as a group](https://crutchcorn-book.vercel.app/posts/partial-dom-application) <!-- Partial DOM Application -->
 - [How to build relationships between components](https://crutchcorn-book.vercel.app/posts/content-projection) <!-- Content projection -->
   - How to pass children to components

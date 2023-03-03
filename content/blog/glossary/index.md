@@ -27,13 +27,7 @@
 | Component Template              |                                                              |
 | Zone.js                         |                                                              |
 | Proxy                           | // TODO: Could either mean "Proxy" ala Vue.js definition or "Proxy" as in server |
-| Yup                             | A library to handle form schema validation. Works with both React and Vue |
-| `vee-validate`                  | A Vue validation library                                     |
-| Formik                          | A React validation library                                   |
 | Pipe                            | Angular's method of creating a [Derived Value](/posts/derived-values) |
-| Pristine Form Field             | A [form field](/posts/forms) that has no value input into it |
-| Touched Form Field              | A [form field](/posts/forms) that has been interacted with in any way, including by the mouse/tabbing. |
-| Dirty Form Field                | A [form field](/posts/forms) that has had value input into it |
 | Gatsby                          |                                                              |
 | NextJS                          |                                                              |
 | Side Effect                     |                                                              |
