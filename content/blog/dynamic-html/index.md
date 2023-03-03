@@ -1197,9 +1197,7 @@ This reset is what's causing the `input` to blank out after a button press.
 
 # Putting it to Production
 
-While rendering lists of words is neat, it doesn't help us much with our file management application.
-
-Let's fix that by looping back to our file list.
+Since we now understand the stability and performance benefits of providing a key to our lists, let's add them to our `FileList` components.
 
 <!-- tabs:start -->
 
@@ -1368,15 +1366,13 @@ function onSelected(idx) {
 
 <!-- tabs:end -->
 
-Here, we've added all of our proper `key` handling (or `trackBy` for Angular), which allows us to improve the performance of our file list when re-rendering.
-
 
 
 # Using It All Together
 
-While our file management application is only using a loop for now, what if our users want to filter our list to only display files instead of folders?
+Let's use our newfound knowledge of conditional and list rendering and combine them together in our application. 
 
-Let's allow that by adding in a button to toggle between the two views. We'll do this by adding in a conditional inside of our template loop!
+Say that our users want to filter our `FileList` to only display files and not folders. We can enable this functionality by adding in a conditional statement inside of our template loop!
 
 <!-- tabs:start -->
 
@@ -1492,9 +1488,516 @@ toggleOnlyShow() {
 
 > While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/partial-dom-application) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
 
-
-
 # Challenge
+
+In our last chapter's challenge, we started to create dropdown file structure sidebar components.
+
+![A sidebar with collapsible menu items](../intro-to-components/sidebar.png)
+
+We did this by hardcoding each of our `ExpandableDropdown` components as individual tags:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const ExpandableDropdown = ({ name, expanded, onToggle }) => {
+  return (
+    <div>
+      <button onClick={onToggle}>
+        {expanded ? 'V ' : '> '}
+        {name}
+      </button>
+      <div hidden={!expanded}>More information here</div>
+    </div>
+  );
+};
+
+const Sidebar = () => {
+  const [moviesExpanded, setMoviesExpanded] = useState(false);
+  const [picturesExpanded, setPicturesExpanded] = useState(false);
+  const [conceptsExpanded, setConceptsExpanded] = useState(false);
+  const [articlesExpanded, setArticlesExpanded] = useState(false);
+  const [redesignExpanded, setRedesignExpanded] = useState(false);
+  const [invoicesExpanded, setInvoicesExpanded] = useState(false);
+  return (
+    <div>
+      <h1>My Files</h1>
+      <ExpandableDropdown
+        name="Movies"
+        expanded={moviesExpanded}
+        onToggle={() => setMoviesExpanded(!moviesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Pictures"
+        expanded={picturesExpanded}
+        onToggle={() => setPicturesExpanded(!picturesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Concepts"
+        expanded={conceptsExpanded}
+        onToggle={() => setConceptsExpanded(!conceptsExpanded)}
+      />
+      <ExpandableDropdown
+        name="Articles I'll Never Finish"
+        expanded={articlesExpanded}
+        onToggle={() => setArticlesExpanded(!articlesExpanded)}
+      />
+      <ExpandableDropdown
+        name="Website Redesigns v5"
+        expanded={redesignExpanded}
+        onToggle={() => setRedesignExpanded(!redesignExpanded)}
+      />
+      <ExpandableDropdown
+        name="Invoices"
+        expanded={invoicesExpanded}
+        onToggle={() => setInvoicesExpanded(!invoicesExpanded)}
+      />
+    </div>
+  );
+};
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  template: `
+    <div>
+      <button (click)="toggle.emit()">
+        {{expanded ? "V" : ">" }}
+        {{name}}
+      </button>
+      <div [hidden]="!expanded">
+         More information here
+      </div>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+  @Input() expanded: boolean;
+  @Output() toggle = new EventEmitter();
+}
+
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent],
+  template: `
+    <expandable-dropdown 
+      name="Movies" 
+      [expanded]="moviesExpanded" 
+      (toggle)="moviesExpanded = !moviesExpanded"
+    />
+    <expandable-dropdown 
+      name="Pictures" 
+      [expanded]="picturesExpanded" 
+      (toggle)="picturesExpanded = !picturesExpanded"
+    />
+    <expandable-dropdown 
+      name="Concepts" 
+      [expanded]="conceptsExpanded" 
+      (toggle)="conceptsExpanded = !conceptsExpanded"
+    />
+    <expandable-dropdown 
+      name="Articles I'll Never Finish" 
+      [expanded]="articlesExpanded" 
+      (toggle)="articlesExpanded = !articlesExpanded"
+    />
+    <expandable-dropdown 
+      name="Website Redesigns v5" 
+      [expanded]="redesignExpanded" 
+      (toggle)="redesignExpanded = !redesignExpanded"
+    />
+    <expandable-dropdown 
+      name="Invoices" 
+      [expanded]="invoicesExpanded" 
+      (toggle)="invoicesExpanded = !invoicesExpanded"
+    />
+  `,
+})
+export class SidebarComponent {
+  moviesExpanded = false;
+  picturesExpanded = false;
+  conceptsExpanded = false;
+  articlesExpanded = false;
+  redesignExpanded = false;
+  invoicesExpanded = false;
+}
+```
+
+## Vue
+
+```vue
+<!-- ExpandableDropdown.vue -->
+<template>
+  <div>
+    <button @click="emit('toggle')">
+      {{ expanded ? 'V' : '>' }}
+      {{ name }}
+    </button>
+    <div :hidden="!expanded">More information here</div>
+  </div>
+</template>
+<script setup>
+const props = defineProps(['name', 'expanded'])
+const emit = defineEmits(['toggle'])
+</script>
+```
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown name="Movies" 
+    :expanded="moviesExpanded" 
+    @toggle="moviesExpanded = !moviesExpanded" 
+  />
+  <ExpandableDropdown name="Pictures" 
+    :expanded="picturesExpanded" 
+    @toggle="picturesExpanded = !picturesExpanded" 
+  />
+  <ExpandableDropdown name="Concepts" 
+    :expanded="conceptsExpanded" 
+    @toggle="conceptsExpanded = !conceptsExpanded" 
+  />
+  <ExpandableDropdown
+    name="Articles I'll Never Finish"
+    :expanded="articlesExpanded"
+    @toggle="articlesExpanded = !articlesExpanded"
+  />
+  <ExpandableDropdown
+    name="Website Redesigns v5"
+    :expanded="redesignExpanded"
+    @toggle="redesignExpanded = !redesignExpanded"
+  />
+  <ExpandableDropdown name="Invoices" 
+    :expanded="invoicesExpanded" 
+    @toggle="invoicesExpanded = !invoicesExpanded" 
+  />
+</template>
+<script setup>
+import { ref } from 'vue'
+import ExpandableDropdown from './ExpandableDropdown.vue'
+
+const moviesExpanded = ref(false)
+const picturesExpanded = ref(false)
+const conceptsExpanded = ref(false)
+const articlesExpanded = ref(false)
+const redesignExpanded = ref(false)
+const invoicesExpanded = ref(false)
+</script>
+```
+
+<!-- tabs:end -->
+
+What's more, we utilized the `hidden` HTML attribute to visually hide the collapsed content.
+
+Let's use what we learned in this chapter to improve both of these challenges. In this challenge, we'll:
+
+1. Use a list instead of hardcoding each `ExpandableDropdown` individually
+2. Use a object map to keep track of each dropdown's `expanded` property
+3. Migrate the usage of the `hidden` attribute to conditionally render instead
+
+## Migrating hardcoded elements to a list
+
+Let's start by creating an array of strings that we can use to render each dropdown with.
+
+> Don't worry about the `expanded` functionality yet, for now let's hardcode `expanded` to `false` and point the toggle capability to an empty function.
+>
+> We'll come back to this soon.
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const categories = [
+  'Movies',
+  'Pictures',
+  'Concepts',
+  "Articles I'll Never Finish",
+  'Website Redesigns v5',
+  'Invoices',
+];
+
+const Sidebar = () => {
+  const onToggle = () => {};
+
+  return (
+    <div>
+      <h1>My Files</h1>
+      {categories.map((cat) => (
+        <ExpandableDropdown
+          key={cat}
+          name={cat}
+          expanded={false}
+          onToggle={() => onToggle()}
+        />
+      ))}
+    </div>
+  );
+};
+```
+
+###  Angular
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent, NgFor],
+  template: `
+    <expandable-dropdown
+      *ngFor="let cat of categories"
+      [name]="cat"
+      [expanded]="false"
+      (toggle)="onToggle()"
+    />
+  `,
+})
+export class SidebarComponent {
+	categories = [
+        'Movies',
+        'Pictures',
+        'Concepts',
+        "Articles I'll Never Finish",
+        'Website Redesigns v5',
+        'Invoices',
+    ];
+
+	onToggle() {}
+}
+```
+
+### Vue
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown v-for="cat of categories" :key="cat" :name="cat" :expanded="false" @toggle="onToggle()" />
+</template>
+<script setup>
+import ExpandableDropdown from './ExpandableDropdown.vue'
+
+const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+
+const onToggle = () => {}
+</script>
+```
+
+<!-- tabs:end -->
+
+Now that we've got an initial list of dropdowns rendering, let's move forward with re-enabling the `expanded` functionality.
+
+To do this, we'll use an object map that uses the name of the category as the key and the `expanded` state as the key's value:
+
+```js
+{
+    // This is expanded
+    "Articles I'll Never Finish": true,
+    // These are not
+    "Concepts": false,
+    "Invoices": false,
+    "Movies": false,
+    "Pictures": false,
+    "Website Redesigns v5": false,
+}
+```
+
+To create this object map, we can create a function called `objFromCategories` that takes our string array and constructs the above from above:
+
+```javascript
+function objFromCategories(categories) {
+  let obj = {};
+  for (let cat of categories) {
+    obj[cat] = false;
+  }
+  return obj;
+}
+```
+
+Let's see this in use:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const categories = [
+  'Movies',
+  'Pictures',
+  'Concepts',
+  "Articles I'll Never Finish",
+  'Website Redesigns v5',
+  'Invoices',
+];
+
+const Sidebar = () => {
+  const [expandedMap, setExpandedMap] = useState(objFromCategories(categories));
+
+  const onToggle = (cat) => {
+    const newExpandedMap = { ...expandedMap };
+    newExpandedMap[cat] = !newExpandedMap[cat];
+    setExpandedMap(newExpandedMap);
+  };
+
+  return (
+    <div>
+      <h1>My Files</h1>
+      {categories.map((cat) => (
+        <ExpandableDropdown
+          key={cat}
+          name={cat}
+          expanded={expandedMap[cat]}
+          onToggle={() => onToggle(cat)}
+        />
+      ))}
+    </div>
+  );
+};
+
+function objFromCategories(categories) {
+  let obj = {};
+  for (let cat of categories) {
+    obj[cat] = false;
+  }
+  return obj;
+}
+```
+
+### Angular
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent, NgFor],
+  template: `
+    <expandable-dropdown
+      *ngFor="let cat of categories"
+      [name]="cat"
+      [expanded]="expandedMap[cat]"
+      (toggle)="onToggle(cat)"
+    />
+  `,
+})
+export class SidebarComponent {
+  categories = [
+    'Movies',
+    'Pictures',
+    'Concepts',
+    "Articles I'll Never Finish",
+    'Website Redesigns v5',
+    'Invoices',
+  ];
+
+  expandedMap = objFromCategories(this.categories);
+
+  onToggle(cat) {
+    this.expandedMap[cat] = !this.expandedMap[cat];
+  }
+}
+
+function objFromCategories(categories) {
+  let obj = {};
+  for (let cat of categories) {
+    obj[cat] = false;
+  }
+  return obj;
+}
+```
+
+### Vue
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <h1>My Files</h1>
+  <ExpandableDropdown
+    v-for="cat of categories"
+    :key="cat"
+    :name="cat"
+    :expanded="expandedMap[cat]"
+    @toggle="onToggle(cat)"
+  />
+</template>
+<script setup>
+import { ref } from 'vue'
+import ExpandableDropdown from './ExpandableDropdown.vue'
+
+const categories = ['Movies', 'Pictures', 'Concepts', "Articles I'll Never Finish", 'Website Redesigns v5', 'Invoices']
+
+const expandedMap = ref(objFromCategories(categories))
+
+const onToggle = (cat) => {
+  expandedMap.value[cat] = !expandedMap.value[cat]
+}
+
+function objFromCategories(categories) {
+  let obj = {}
+  for (let cat of categories) {
+    obj[cat] = false
+  }
+  return obj
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+-------
+
+
+
+
 
 // TODO: Write React + Vue
 
