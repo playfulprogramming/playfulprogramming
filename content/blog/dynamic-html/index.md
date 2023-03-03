@@ -193,6 +193,12 @@ Here, we're using a special property called `ngIf` on our `p` tag to stop render
 
 To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
+>  If you forget to import and add the `NgIf` to your component's `imports` array, you might get an error something like:
+>
+> ```
+> The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Please make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component.
+> ```
+
 ### Vue
 
 ```vue
@@ -613,7 +619,7 @@ const FileList = () => {
 @Component({
   selector: 'file-list',
   standalone: true,
-  imports: [FileDateComponent],
+  imports: [FileComponent],
   template: `
     <ul>
       <li><file
@@ -761,8 +767,12 @@ We can then use the second argument inside of the `map` to gain access to the in
 ## Angular
 
 ```typescript {4-11,26-42}
+import {NgFor} from '@angular/common';
+
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent, NgFor],
   template: `
     <ul>
       <li *ngFor="let file of filesArray; let i = index"><file
@@ -923,10 +933,10 @@ function getRandomWord() {
 ### Angular
 
 ```typescript
-import { Component } from '@angular/core';
-
 @Component({
   selector: 'word-list',
+  standalone: true,
+  imports: [NgFor],
   template: `
   <div>
       <button (click)="addWord()">Add word</button>
@@ -1031,10 +1041,10 @@ Here, we're using the `key` property to tell React which `li` is related to whic
 While Angular doesn't have quite the same API for `key` as React and Vue, Angular instead uses a [`trackBy` method](https://angular.io/api/core/TrackByFunction) to figure out which item is which.
 
 ```typescript {8,16-18}
-import { Component } from '@angular/core';
-
 @Component({
   selector: 'word-list',
+  standalone: true,
+  imports: [NgFor],
   template: `
     <div>
       <button (click)="addWord()">Add word</button>
@@ -1212,6 +1222,8 @@ const FileList = () => {
 ```typescript {4-10,25-38}
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent, NgFor],
   template: `
     <ul>
       <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
@@ -1371,6 +1383,8 @@ const FileList = () => {
 ```typescript
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent, NgFor],
   template: `
     <div>
       <button (click)="toggleOnlyShow()">Only show files</button>
