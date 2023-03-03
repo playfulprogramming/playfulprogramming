@@ -1945,19 +1945,19 @@ export class FileComponent {
         [isSelected]="selectedIndex === 0"
         fileName="File one" 
         href="/file/file_one"
-      ></file></li>
+      /></li>
       <li><file
         (selected)="onSelected(1)"
         [isSelected]="selectedIndex === 1"
         fileName="File two" 
         href="/file/file_two"
-      ></file></li>
+      /></li>
       <li><file
         (selected)="onSelected(2)"
         [isSelected]="selectedIndex === 2"
         fileName="File three" 
         href="/file/file_three"
-      ></file></li>
+      /></li>
     </ul>
   `,
 })

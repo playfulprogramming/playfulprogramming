@@ -13,7 +13,7 @@
 
 Previously, we learned how to create components for our file application. These components included a way to create a component tree, add inputs to each component to pass data, and add an output of data back to a parent component.
 
-Where we last left off, we manually input a list of files, which included file names and dates inside of a `button`. Let's take a look at our file component to start:
+Where we last left off, we manually input a list of files, which included file names and dates inside of a `button`. Let's take a look back at our existing file component to start:
 
 <!-- tabs:start -->
 
@@ -42,6 +42,8 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 ```typescript
 @Component({
   selector: 'file',
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <button
       (click)="selected.emit()"
@@ -53,7 +55,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
     >
       <a [href]="href">
         {{ fileName }}
-        <file-date [inputDate]="inputDate"></file-date>
+        <file-date [inputDate]="inputDate"/>
       </a>
     </button>
   `,
@@ -98,7 +100,24 @@ To do this, we'll create a new property called `isFolder`, which hides the date 
 
 # Conditional Rendering
 
-While one way to do this is to utilize `display: none`, let's go one step further and hide the rendered HTML entirely when not present. Here's a simplified example:
+One way we can hide the `date` from displaying the user is by reusing an HTML attribute we introduced in the last chapter's challenge: [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden).
+
+```html
+<div hidden="true">
+	<!-- This won't display to the user -->
+    <FileDate/>
+</div>
+```
+
+This works, but introduces a potential problem; while the contents are not _shown_ to the user (and are similarly [hidden from screen-readers](https://unicorn-utterances.com/posts/intro-to-web-accessability#css)) they _are_ still present within the DOM.
+
+This means that if you have a large amount of these HTML elements that are marked as `hidden`, but still in the DOM; they can impact performance and memory usage as if they **were** being displayed to the user.
+
+This might sound counterintuitive at first, but in-memory non-displayed UI elements have their place; they're particularly useful when trying to build out animation systems that visually transition items in and out of view.
+
+In order to sidestep these performance concerns, React, Angular, and Vue all have a method to "conditionally render" HTML elements based off of a boolean. This means that if you pass `false`, it will entirely remove the child HTML elements out of the DOM.
+
+Let's see what that looks like in usage:
 
 <!-- tabs:start -->
 
@@ -154,14 +173,25 @@ But the following examples **will not** render their contained values:
 ### Angular
 
 ```typescript {2}
+import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+
 @Component({
   selector: 'conditional-render',
+  standalone: true,
+  imports: [NgIf],
   template: `<div><p *ngIf="bool">Text here</p></div>`,
 })
 export class ConditionalRenderComponent {
   @Input() bool: boolean;
 }
 ```
+
+Here, we're using a special property called `ngIf` on our `p` tag to stop rendering the element if `bool` is `false`. This property is prefixed with an asterisk (`*`) to interact with Angular's compiler in special ways.
+
+> These asterisk prefixed properties are called "Structural Directives" and are a unique feature to Angular. Their usage can be quite advanced, but you can read more about them when you're ready [in this blog post](https://unicorn-utterances.com/posts/angular-templates-start-to-source).
+
+To use `ngIf`, we need to import `NgIf` from `@angular/common` and pass it to the `imports` array for the component.
 
 ### Vue
 
@@ -174,6 +204,8 @@ export class ConditionalRenderComponent {
 const props = defineProps(['bool'])
 </script>
 ```
+
+Unlike Angular, where you need to import the ability to conditionally render an element, Vue treats `v-if` as a global attribute that can be added to any element or component.
 
 <!-- tabs:end -->
 
@@ -189,7 +221,7 @@ But when `bool` is set to `false`, it instead renders the following HTML:
 <div></div>
 ```
 
-This is possible because React, Angular, and Vue control what is rendered to the screen. Utilizing this, they can remove or add HTML rendered to the DOM with nothing more than a simple Boolean instruction.
+This is possible because React, Angular, and Vue control what is rendered to the screen. Utilizing this, they can remove or add HTML rendered to the DOM with nothing more than a boolean instruction.
 
 Knowing this, let's add conditional rendering to our application.
 
@@ -197,15 +229,15 @@ Knowing this, let's add conditional rendering to our application.
 
 Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
-Luckily for us, our `File` component already manages a lot that we would want a `Folder` component to as well. For example, when the user clicks on a folder, we want to select the folder like any other file in a list.
+![A list of directory contents with files and folders listed alongside one another.](../intro-to-components/fancy_mockup.jpg)
 
-However, something currently preventing us from using `File` for our folders is that folders do not have a creation date. Otherwise, it becomes unclear to the user if the listed date refers to the first file created or the date the folder itself was created.
+Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component to as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
 
-One way we could solve this problem and still reuse the `File` component to list out folders is to conditionally render the date if we know we're showing a folder instead of a file.
+However, unlike files, folders do not have a creation date since there may be ambiguity of what the "Last modified" date would mean for a folder. Is is the last modified date when the folder was renamed? Or was it when a file within said folder was last modified? It's unclear, so we'll axe it.
 
-Let's add an input called `isFolder` and prevent the date from rendering if set to `true`.
+Despite this difference in functionality, we can still reuse our `File` component for folders as well. We can reuse this component by conditionally rendering the date if we know we're showing a folder instead of a file.
 
-Adding this to our component is just as easy as we outlined before:
+Let's add an input to our `File` component called `isFolder` and prevent the date from rendering if said input set to `true`.
 
 <!-- tabs:start -->
 
@@ -234,6 +266,8 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 ```typescript {13}
 @Component({
   selector: 'file',
+  standalone: true,
+  imports: [NgIf],
   template: `
     <button
       (click)="selected.emit()"
@@ -264,7 +298,7 @@ export class FileComponent {
 ```vue
 <template>
   <button
-    v-on:click="$emit('selected')"
+    v-on:click="emit('selected')"
     :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
   >
     <a :href="href">
@@ -279,7 +313,7 @@ import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps(['isSelected', 'isFolder', 'fileName', 'href'])
 
-defineEmits(['selected'])
+const emit = defineEmits(['selected'])
 </script>
 ```
 
@@ -287,7 +321,9 @@ defineEmits(['selected'])
 
 # Conditional Branches
 
-One other way we can use conditional rendering inside of our `File` component is to inform the user if a listed item is a folder or file using a bit of text.
+We're now able to conditionally show the user the last modified date depending on the `isFolder` boolean. However, it may still be unclear to the user what is a folder and what is a file, as we don't have this information clearly displayed to the user yet.
+
+Let's use conditional rendering to show the type of item displayed based on the `isFolder` boolean.
 
 <!-- tabs:start -->
 
@@ -314,15 +350,30 @@ One other way we can use conditional rendering inside of our `File` component is
 
 <!-- tabs:end -->
 
-While this works, those familiar with `if` statements in JavaScript will quickly point out that this is simply reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else).
+While working on this, it might become clear that we're effectively reconstructing an [`if ... else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else), similar to the following logic in JavaScript.
 
-Like the JavaScript environment these frameworks run in, they also implement a similar API for this exact purpose.
+```javascript
+// This is psuedocode for the above using JavaScript as the syntax
+if (isFolder) return "Type: Folder"
+else return "Type: File"
+```
 
-
+Like the JavaScript environment these frameworks run in, they also implement a similar `else`-style API for this exact purpose.
 
 <!-- tabs:start -->
 
 ## React
+
+One of the benefits of React's JSX templating language is that you're able to embed JavaScript directly inside of an element. This embedded JavaScript will then render the return value of the JavaScript inside.
+
+For example, we can use [a JavaScript ternary](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) to return a different value if a boolean is `true` or `false`:
+
+```javascript
+// Will show "Folder" if `isFolder` is true, otherwise show "File"
+const displayType = isFolder ? "Folder" : "File"; 
+```
+
+ We can combine this information with JSX's ability to treat a tag as a value you can assign to memory to create a `if...else`-style render in React:
 
 ```jsx
 {
@@ -330,6 +381,18 @@ Like the JavaScript environment these frameworks run in, they also implement a s
     <span>Type: Folder</span> :
     <span>Type: File</span>
 }
+```
+
+ Here, if `isFolder` is `true`, the following will be rendered:
+
+```html
+<span>Type: Folder</span>
+```
+
+Otherwise, if `isFolder` is `false`, this will be rendered:
+
+```html
+<span>Type: File</span>
 ```
 
 ## Angular
@@ -364,7 +427,9 @@ Which we can then use in an `*ngIf` statement like so:
 <span v-else>Type: File</span>
 ```
 
-A `v-else` tag **must** immediately follow a `v-if`; otherwise, it won't work. 
+Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syntax we displayed above.
+
+It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work. 
 
 <!-- tabs:end -->
 
@@ -410,6 +475,25 @@ This can get hard to read with multiple conditionals in a row. As a result, thes
 
 ### React
 
+We can chain together ternary operations to treat them as nested `if` statements.
+
+By doing so, we can represent the following JavaScript pseudo-syntax:
+
+```js
+// JavaScript 
+if (isFolder) {
+	return "Folder";
+} else {
+	if (isImage) {
+		return "Image"	
+	} else {
+		return "File"
+	}
+}
+```
+
+As the following React JSX
+
 ```jsx
 {
   isFolder ?
@@ -421,14 +505,6 @@ This can get hard to read with multiple conditionals in a row. As a result, thes
 ```
 
 ### Angular
-
-```html
-<ng-container [ngSwitch]="true">
-  <span *ngSwitchCase="isFolder">Type: Folder</span>
-  <span *ngSwitchCase="isImage">Type: Image</span>
-  <span *ngSwitchDefault>Type: File</span>
-</ng-container>
-```
 
 Angular does not support `else if` statements in the template like the other frameworks do.
 
@@ -452,7 +528,26 @@ Because the `[ngSwitch]` value of `'folder'` matched the `ngSwitchCase` value of
 
 Using this tool, we can simply set the `ngSwitch` value to `true` and add a conditional into the `ngSwitchCase`.
 
+
+```html
+<ng-container [ngSwitch]="true">
+  <span *ngSwitchCase="isFolder">Type: Folder</span>
+  <span *ngSwitchCase="isImage">Type: Image</span>
+  <span *ngSwitchDefault>Type: File</span>
+</ng-container>
+```
+
 ### Vue
+
+Just as Vue's `v-if/v-else` attributes match JavaScript's `if...else` syntax, we can reuse similar logic to JavaScript's:
+
+```js
+if (isFolder) return "Folder";
+else if (isImage) return "Image";
+else return "File";
+```
+
+Using Vue's `v-else-if` attribute:
 
 ```html
 <span v-if="isFolder">Type: Folder</span>
@@ -466,7 +561,7 @@ Once again, the `v-else-if` and `v-else` tags must follow one another to work as
 
 # Rendering Lists
 
-While we've primarily focused on our `File` component until now, let's take another look at our `FileList` component.
+While we've primarily focused on our `File` component in this chapter, let's take another look at our `FileList` component.
 
 <!-- tabs:start -->
 
@@ -486,27 +581,27 @@ const FileList = () => {
 
   return (
     <ul>
-      <File
+      <li><File
         isSelected={selectedIndex === 0}
         onSelected={() => onSelected(0)}
         fileName="File one"
         href="/file/file_one"
         isFolder={false}
-      />
-      <File
+      /></li>
+      <li><File
         isSelected={selectedIndex === 1}
         onSelected={() => onSelected(1)}
         fileName="File two"
         href="/file/file_two"
         isFolder={false}
-      />
-      <File
+      /></li>
+      <li><File
         isSelected={selectedIndex === 2}
         onSelected={() => onSelected(2)}
         fileName="File three"
         href="/file/file_three"
         isFolder={false}
-      />
+      /></li>
     </ul>
   );
 };
@@ -517,29 +612,31 @@ const FileList = () => {
 ```typescript
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <ul>
-      <file
+      <li><file
         (selected)="onSelected(0)"
         [isSelected]="selectedIndex === 0"
         fileName="File one" 
         href="/file/file_one"
         [isFolder]="false"
-      ></file>
-      <file
+      /></li>
+      <li><file
         (selected)="onSelected(1)"
         [isSelected]="selectedIndex === 1"
         fileName="File two" 
         href="/file/file_two"
         [isFolder]="false"
-      ></file>
-      <file
+      /></li>
+      <li><file
         (selected)="onSelected(2)"
         [isSelected]="selectedIndex === 2"
         fileName="File three" 
         href="/file/file_three"
         [isFolder]="false"
-      ></file>
+      /></li>
     </ul>
   `,
 })
@@ -561,27 +658,27 @@ export class FileListComponent {
 ```vue
 <template>
   <ul>
-    <file
+    <li><File
       @selected="onSelected(0)"
       :isSelected="selectedIndex === 0"
       fileName="File one"
       href="/file/file_one"
       :isFolder="false"
-    ></file>
-    <file
+    /></li>
+    <li><File
       @selected="onSelected(1)"
       :isSelected="selectedIndex === 1"
       fileName="File two"
       href="/file/file_two"
       :isFolder="false"
-    ></file>
-    <file
+    /></li>
+    <li><File
       @selected="onSelected(2)"
       :isSelected="selectedIndex === 2"
       fileName="File three"
       href="/file/file_three"
       :isFolder="false"
-    ></file>
+    /></li>
   </ul>
 </template>
 
@@ -645,13 +742,13 @@ const FileList = () => {
 
   return (
     <ul>
-      {filesArray.map((file, i) => <File
+      {filesArray.map((file, i) => <li><File
         isSelected={selectedIndex === i}
         onSelected={() => onSelected(i)}
         fileName={file.fileName}
         href={file.href}
         isFolder={file.isFolder}
-      />}
+      /></li>}
     </ul>
   );
 };
@@ -668,14 +765,13 @@ We can then use the second argument inside of the `map` to gain access to the in
   selector: 'file-list',
   template: `
     <ul>
-      <file
-        *ngFor="let file of filesArray; let i = index"
+      <li *ngFor="let file of filesArray; let i = index"><file
         (selected)="onSelected(i)"
         [isSelected]="selectedIndex === i"
         [fileName]="file.fileName" 
         [href]="file.href"
         [isFolder]="file.isFolder"
-      ></file>
+      /></li>
     </ul>
   `,
 })
@@ -717,14 +813,13 @@ Inside our `ngFor`, `index` may not seem like it is being defined; however, Angu
 ```vue
 <template>
   <ul>
-    <file
-      v-for="(file, i) in filesArray"
+    <li v-for="(file, i) in filesArray"><File
       @selected="onSelected(i)"
       :isSelected="selectedIndex === i"
       :fileName="file.fileName"
       :href="file.href"
       :isFolder="file.isFolder"
-    ></file>
+    /></li>
   </ul>
 </template>
 
@@ -1100,14 +1195,13 @@ const FileList = () => {
 
   return (
     <ul>
-      {filesArray.map((file, i) => <File
-        key={file.id}
+      {filesArray.map((file, i) => <li key={file.id}><File
         isSelected={selectedIndex === i}
         onSelected={() => onSelected(i)}
         fileName={file.fileName}
         href={file.href}
         isFolder={file.isFolder}
-      />}
+      /></li>}
     </ul>
   );
 };
@@ -1120,14 +1214,15 @@ const FileList = () => {
   selector: 'file-list',
   template: `
     <ul>
-      <file
-      	*ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy"
-        (selected)="onSelected(i)"
-        [isSelected]="selectedIndex === i"
-        [fileName]="file.fileName" 
-        [href]="file.href"
-        [isFolder]="file.isFolder"
-      ></file>
+      <li *ngFor="let file of filesArray; let i = index; trackBy: fileTrackBy">
+          <file
+            (selected)="onSelected(i)"
+            [isSelected]="selectedIndex === i"
+            [fileName]="file.fileName" 
+            [href]="file.href"
+            [isFolder]="file.isFolder"
+          />
+      </li>
     </ul>
   `,
 })
@@ -1175,15 +1270,15 @@ export class FileListComponent {
 <!-- FileList.vue -->
 <template>
   <ul>
-    <file
-      v-for="(file, i) in filesArray"
-      :key="file.id"
-      @selected="onSelected(i)"
-      :isSelected="selectedIndex === i"
-      :fileName="file.fileName"
-      :href="file.href"
-      :isFolder="file.isFolder"
-    ></file>
+    <li v-for="(file, i) in filesArray" :key="file.id">
+        <File
+          @selected="onSelected(i)"
+          :isSelected="selectedIndex === i"
+          :fileName="file.fileName"
+          :href="file.href"
+          :isFolder="file.isFolder"
+        />
+    </li>
   </ul>
 </template>
 
@@ -1288,7 +1383,7 @@ const FileList = () => {
               [fileName]="file.fileName" 
               [href]="file.href"
               [isFolder]="file.isFolder"
-            ></file>
+            />
         </li>
       </ul>
     </div>
@@ -1314,14 +1409,14 @@ export class FileListComponent {
     <button (click)="toggleOnlyShow()">Only show files</button>
     <ul>
       <li v-for="(file, i) in filesArray" :key="file.id">
-        <file
+        <File
           v-if="onlyShowFiles ? !file.isFolder : true"
           @selected="onSelected(i)"
           :isSelected="selectedIndex === i"
           :fileName="file.fileName"
           :href="file.href"
           :isFolder="file.isFolder"
-        ></file>
+        />
       </li>
     </ul>
   </div>
@@ -1347,3 +1442,70 @@ toggleOnlyShow() {
 <!-- tabs:end -->
 
 > While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/partial-dom-application) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
+
+
+
+# Challenge
+
+// TODO: Write React + Vue
+
+<!-- Editor's note: Add v-for and ngIf for content, booleans, and conditional display from last chapter -->
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [ExpandableDropdownComponent, NgFor],
+  template: `
+    <expandable-dropdown
+      *ngFor="let cat of categories"
+      [name]="cat" 
+      [expanded]="dropdownInformation[cat]" 
+      (toggle)="dropdownInformation[cat] = !dropdownInformation[cat]"
+    />
+  `,
+})
+export class SidebarComponent {
+  categories = [
+    'Movies',
+    'Pictures',
+    'Concepts',
+    "Articles I'll Never Finish",
+    'Website Redesigns v5',
+    'Invoices',
+  ];
+
+  dropdownInformation = this.categories.reduce((prev, cat) => {
+    prev[cat] = false;
+    return prev;
+  }, {});
+}
+```
+
+
+
+
+
+```typescript
+@Component({
+  selector: 'expandable-dropdown',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+    <div>
+      <button (click)="toggle.emit()">
+        {{expanded ? "V" : ">" }}
+        {{name}}
+      </button>
+      <div *ngIf="expanded">
+         More information here
+      </div>
+    </div>
+  `,
+})
+export class ExpandableDropdownComponent {
+  @Input() name: string;
+  @Input() expanded: boolean;
+  @Output() toggle = new EventEmitter();
+}
+```
