@@ -1,4 +1,4 @@
-import style from "./card.module.scss";
+import style from "./card-inline.module.scss";
 import { createElement } from "preact";
 
 interface CardProps {
@@ -9,7 +9,7 @@ interface CardProps {
 	children: JSX.Element|JSX.Element[];
 }
 
-export function Card({ tag = "div", size = "l", children, class: className, ...props }: CardProps) {
+export function CardInline({ tag = "div", size = "xl", children, class: className, ...props }: CardProps) {
 	const Wrapper = (props: any) => createElement(tag, {
 		role: tag === "li" ? "listitem" : undefined,
 		...props,

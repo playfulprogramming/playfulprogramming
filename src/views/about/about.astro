@@ -1,12 +1,12 @@
 ---
 import style from "./about.module.scss";
 import * as data from "src/utils/data";
-import { Picture } from "@astrojs/image/components";
-import AboutUsTranslationsHeader from "./translations-header/about-us-translations-header.astro";
+import { Picture, Image } from "@astrojs/image/components";
 import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
 import { Button } from "components/base";
 import { Icon } from "astro-icon";
+import TranslationsHeader from "../base/translations/translations-header.astro";
 
 const about = getTranslatedPage(
 	Astro,
@@ -19,21 +19,20 @@ const sponsors = getTranslatedPage(
 ---
 
 <div class="container">
-	<div class={style.headerTitle}>
-		<div class={style.unicornLogo}>
-			<Picture
-				src={import("../../assets/unicorn_head_1024.png")}
-				loading={"eager"}
-				widths={[192]}
-				sizes={"192px"}
-				formats={["avif", "webp", "png"]}
-				alt={"Unicorn Utterances logo"}
-			/>
-		</div>
-		<h1>{translate(Astro, "title.about_us")}</h1>
+	<div class="d-flex text-center">
+		<Picture
+			src={import("../../assets/unicorn_utterances_logo_512.png")}
+			loading={"eager"}
+			widths={[192]}
+			sizes={"192px"}
+			formats={["avif", "webp", "png"]}
+			alt={"Unicorn Utterances logo"}
+			class={style.unicornLogo}
+		/>
+		<h1 class="text-style-display-1">{translate(Astro, "title.about_us")}</h1>
 	</div>
 	<main class={`${style.aboutBody} post-body`}>
-		<AboutUsTranslationsHeader locales={about.locales} />
+		<TranslationsHeader locales={about.locales} />
 		<about.page.Content />
 
 		<div class={`${style.links} d-flex text-center`}>
@@ -48,6 +47,16 @@ const sponsors = getTranslatedPage(
 		</div>
 
 		<h2>{translate(Astro, "title.sponsors")}</h2>
+		<div class={`${style.sponsors} d-flex text-center`}>
+			{
+				data.about.sponsors.map((sponsor) => (
+					// these are all svgs, so astro's Picture/Image components make no sense here
+					<a href={sponsor.url} class={style.sponsor}>
+						<img src={sponsor.logo} width="300" alt={sponsor.name} />
+					</a>
+				))
+			}
+		</div>
 		<sponsors.page.Content />
 
 		<h2>{translate(Astro, "title.contributors")}</h2>

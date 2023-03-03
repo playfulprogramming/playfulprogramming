@@ -2,11 +2,32 @@
 @import "../../styles/utils";
 
 .unicornLogo {
-	height: 192px;
-	width: 192px;
+	margin-right: $spacing * 8;
+
+	@include until($desktop) {
+		width: 56px;
+		height: 56px;
+	}
 }
 
 .links {
 	gap: $spacing * 4;
 	flex-wrap: wrap;
+}
+
+.sponsors {
+	flex-wrap: wrap;
+}
+
+.sponsor {
+	display: flex;
+	align-items: center;
+	width: 300px;
+	height: 122px;
+
+	margin: $spacing * 2;
+
+	background-color: #FFF;
+	border-radius: map-get($cornerRadius, s);
+	overflow: hidden;
 }

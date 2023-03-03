@@ -1,0 +1,31 @@
+@import "src/styles/vars";
+@import "src/styles/utils";
+
+.card {
+	background-color: theme-var(--primary-surface-emphasis_low);
+	border-radius: map-get($cornerRadius, s);
+
+	overflow-wrap: break-word;
+	max-width: 100%;
+	text-decoration: none;
+	@include transition(background-color box-shadow);
+
+	padding: $spacing $spacing * 2;
+}
+
+.card.interactive {
+	cursor: pointer;
+
+	&:hover {
+		background-color: theme-var(--primary-surface-emphasis_medium);
+	}
+
+	&:active {
+		background-color: theme-var(--primary-surface-emphasis_medium);
+	}
+
+	&:focus {
+		background-color: theme-var(--focus_background);
+		box-shadow: 0 0 0 $spacing theme-var(--primary-focus_outline);
+	}
+}

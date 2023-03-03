@@ -13,6 +13,12 @@
 	padding: $spacing * 6;
 }
 
+.card.l {
+	border-width: map-get($borderWidth, l);
+	border-radius: map-get($cornerRadius, l);
+	padding: $spacing * 4;
+}
+
 .card.interactive {
 	cursor: pointer;
 

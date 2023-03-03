@@ -101,11 +101,6 @@
 	src: local("Roboto");
 }
 
-$fontUniwidth: "Asap", "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
-$fontDisplay: "Work Sans", "Work Sans-fallback", "Work Sans-fallback2", sans-serif;
-$fontBody: "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
-$fontMono: "Roboto Mono", monospace;
-
 .text-style-display-1 {
 	font-size: 2.75rem;
 	font-family: $fontDisplay;
@@ -337,4 +332,12 @@ pre, code, .text-style-code {
 		font-size: 1rem;
 		line-height: 1.5rem;
 	}
+}
+
+.text-style-uniwidth {
+	font-size: pxToRem(16);
+	font-family: $fontUniwidth;
+	line-height: 1rem;
+	text-decoration: none;
+	text-transform: none;
 }

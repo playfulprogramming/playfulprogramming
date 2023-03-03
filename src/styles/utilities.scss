@@ -12,3 +12,31 @@
 	text-align: center;
 	justify-content: center;
 }
+
+:where(.unlist-inline) {
+	list-style: none;
+	padding: 0;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: $spacing * 4;
+}
+
+:where(.unlist-row) {
+	list-style: none;
+	padding: 0;
+
+	display: flex;
+	flex-direction: row;
+	gap: $spacing * 4;
+}
+
+:where(.unlist-column) {
+	list-style: none;
+	padding: 0;
+
+	display: flex;
+	flex-direction: column;
+	gap: $spacing * 4;
+}
