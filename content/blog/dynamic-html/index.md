@@ -716,6 +716,8 @@ Let's fix that by replacing the copy-pasted components with a loop and an array.
 
 ## React
 
+React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
+
 ```jsx {0-16,31-37}
 const filesArray = [
     {
@@ -746,6 +748,8 @@ const FileList = () => {
     setSelectedIndex(idx);
   };
 
+  // This code sample is missing something and will throw a warning in development mode.
+  // We'll explain more about this later.
   return (
     <ul>
       {filesArray.map((file, i) => <li><File
@@ -760,11 +764,11 @@ const FileList = () => {
 };
 ```
 
-React uses [JavaScript's built-in `Array.map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to loop through each item and map them to some React component.
-
 We can then use the second argument inside of the `map` to gain access to the index of the looped item.
 
 ## Angular
+
+Just as how the previous `*ngIf` structural directive is used to conditionally render items, Angular uses a different structural directive to render a list of items: `*ngFor`. 
 
 ```typescript {4-11,26-42}
 import {NgFor} from '@angular/common';
@@ -818,11 +822,20 @@ export class FileListComponent {
 
 Inside our `ngFor`, `index` may not seem like it is being defined; however, Angular declares it whenever you attempt to utilize `ngFor` under the hood. Assigning it to a template variable using `let` allows you to use it as the index of the looped item.
 
+Just like `NgIf` must be imported, we need to import `NgFor` into our component's `imports` array, least we be greeted with the following error:
+
+```
+The `*ngFor` directive was used in the template, but neither the `NgFor` directive nor the `CommonModule` was imported. Please make sure that either the `NgFor` directive or the `CommonModule` is included in the `@Component.imports` array of this component.
+```
+
 ## Vue
+
+Vue provides a `v-for` global attribute that does for lists what `v-if` does for conditionally rendering:
 
 ```vue
 <template>
   <ul>
+    <!-- This will throw a warning, more on that soon -->
     <li v-for="(file, i) in filesArray"><File
       @selected="onSelected(i)"
       :isSelected="selectedIndex === i"
@@ -867,25 +880,29 @@ function onSelected(idx) {
 </script>
 ```
 
+Inside of our `v-for`, we're accessing both the value of the item (`file`) and the index of the looped item (`i`).
+
 <!-- tabs:end -->
 
 If we look at the rendered output, we can see that we have all three files listing out as expected!
 
-Now, all it would take to add a new item to the list of our files is to `push` to said array and force a re-render.
+Using this code as a base, we could extend this file list to any number of files just by adding another item to the hardcoded `filesArray` list; no templating code changes required!
 
 ## Keys
 
-If you're using React, you may encounter an error like the following:
+If you're using React, you may have encountered an error in the previous code sample that read like the following:
 
 > Warning: Each child in a list should have a unique "key" prop.
 
-Or, in Vue, the error might say:
+Or, in Vue, the error might've said:
 
 > Elements in iteration expect to have 'v-bind:key' directives
 
-This is because each of these frameworks can only keep track of what's what inside a loop using a manually input unique ID of some kind.
+This is because in both of these frameworks, you're expected to pass a special property called `key` which is used by the respective framework to keep track of which item is which.
 
-If you don't provide a unique ID when you re-render the loop, it will destroy the entire tree.
+Without this `key` prop, the framework doesn't know which elements have been unchanged, and therefore must destroy and recreate each element in the array for every list re-render. This can cause massive performance problems and stability headaches.
+
+> If you're confused, no worries - there was a lot of technical speak in that last paragraph. Continue reading to see what this means in practical terms and don't be afraid to come back and re-read this section when you're done with the chapter.
 
 Say you have the following:
 
@@ -1013,11 +1030,17 @@ function addWord() {
 
 <!-- tabs:end -->
 
-Without using some kind of `key` prop, when you run `addWord`, it will iterate through every item in the list and destroy them. This is because **the framework isn't able to detect which item in your array has changed, marks all DOM elements as "outdated", and destroys them in the process, only to immediately reconstruct them**.
+Without using some kind of `key` prop, your list will be destroyed and recreated every time you run `addWord`. 
+
+This is because the framework **isn't able to detect which item in your array has changed** and as a result marks all DOM elements as "outdated". **These "outdated" elements are then destroyed by the framework only to be immediately reconstructed** in order to ensure the most up-to-date information is displayed to the user.
 
 ![When a render occurs each item in the array that doesn't have a key also gets re-rendered](./render_without_keys.png)
 
-To solve this problem, we need to tell the framework which DOM element associates with which item in our JavaScript array.
+Instead of this, **we can tell the framework which list item is which with a unique "key"** associated with every list item. This key is then able to **allow the framework to intelligently prevent destruction on items that were not changed** in a list data change.
+
+![When a key is assigned to an element in a list, it can avoid duplicative renders, like when a new item in a list is added](./render_with_keys.png)
+
+Let's see how we can do this in each framework.
 
 <!-- tabs:start -->
 
@@ -1067,6 +1090,16 @@ export class WordListComponent {
 
 Another difference to the other frameworks is that while React and Vue have no default `key` behavior, Angular has a default `trackBy` function if one is not provided. If no `trackBy` is provided, the default will simply do strict equality (`===`) between the old item in the array and the new to check if the item is the same.
 
+This function might look something like the following:
+
+```jsx
+defaultTrackBy(index, item) {
+    // Angular checks to see if `item === item` between
+    //  renders for each list item in `ngFor`
+    return item;
+}
+```
+
 While this works in some cases, for the most part, it's suggested to provide your own `trackBy` to avoid problems with the limitations present with the default.
 
 ### Vue
@@ -1089,11 +1122,11 @@ Here, we're using the `key` property to tell Vue which `li` is related to which 
 
 <!-- tabs:end -->
 
-Now that this is done, when we re-render the list, the framework is able to know exactly which items have and have not changed.
+Now when we re-render the list, the framework is able to know exactly which items have and have not changed.
 
 As such, it will only re-render the new items, leaving the old and unchanged DOM elements alone.
 
-![When a key is assigned to an element in a list, it can avoid duplicative renders, like when a new item in a list is added](./render_with_keys.png) 
+
 
 ## Keys As Render Hints
 
