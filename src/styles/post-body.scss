@@ -3,6 +3,7 @@
 
 .post-body {
 	line-height: 1.7;
+	color: theme-var(--primary-text-emphasis_medium);
 
 	// Fix autolink-headings anchors positioning
 	.anchor {
@@ -65,9 +66,14 @@
 	h4,
 	h5,
 	h6 {
-		margin-top: 1.25em;
-		line-height: 1.5;
-		margin-bottom: 0;
+		margin-top: 1em;
+		margin-bottom: 0.5em;
+		line-height: 110%;
+		color: theme-var(--primary-text-emphasis_high);
+	}
+
+	h1, h2 {
+		margin-top: 1.5em;
 	}
 
 	h1 + h2,

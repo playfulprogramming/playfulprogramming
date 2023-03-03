@@ -1,18 +1,17 @@
 ---
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
-import Layout from "../components/layout/layout.astro";
 import "../global.scss";
-import { Languages } from "types/index";
 import Barebones from "./barebones.astro";
 import Header from "src/views/base/navigation/header.astro";
+import { getPrefixLanguageFromPath } from "utils/translations";
 
 interface DocumentProps {
-	lang?: Languages;
 	disableThemeToggle?: boolean;
 }
 
-let { lang, disableThemeToggle } = Astro.props as DocumentProps;
-lang ??= "en";
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+
+let { disableThemeToggle } = Astro.props as DocumentProps;
 ---
 
 <Barebones lang={lang}>

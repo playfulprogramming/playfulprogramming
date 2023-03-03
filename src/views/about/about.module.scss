@@ -5,3 +5,8 @@
 	height: 192px;
 	width: 192px;
 }
+
+.links {
+	gap: $spacing * 4;
+	flex-wrap: wrap;
+}

@@ -1,28 +1,22 @@
 ---
 import style from "./about.module.scss";
-import { Languages } from "uu-types";
-import { unicorns } from "../../utils/data";
+import * as data from "src/utils/data";
 import { Picture } from "@astrojs/image/components";
-import { MarkdownInstance } from "astro";
 import AboutUsTranslationsHeader from "./translations-header/about-us-translations-header.astro";
 import "../../styles/post-body.scss";
-import { getOtherAboutLocales } from "./about-helpers";
 import ContributorCard from "./contributor-card.astro";
-import { translate } from "src/utils/translations";
+import { getTranslatedPage, translate } from "src/utils/translations";
+import { Button } from "components/base";
+import { Icon } from "astro-icon";
 
-interface AboutProps {
-	locale: Languages;
-	globResults: Array<MarkdownInstance<Record<string, any>>>;
-}
-
-const { locale, globResults } = Astro.props as AboutProps;
-
-const { matchedResult, otherLocales } = getOtherAboutLocales(
-	locale,
-	globResults
+const about = getTranslatedPage(
+	Astro,
+	await Astro.glob("../../../content/site/about-us*.md")
 );
-
-const Content = matchedResult.Content;
+const sponsors = getTranslatedPage(
+	Astro,
+	await Astro.glob("../../../content/site/sponsors*.md")
+);
 ---
 
 <div class="container">
@@ -40,10 +34,30 @@ const Content = matchedResult.Content;
 		<h1>{translate(Astro, "title.about_us")}</h1>
 	</div>
 	<main class={`${style.aboutBody} post-body`}>
-		<AboutUsTranslationsHeader locales={otherLocales} />
-		<div><Content /></div>
+		<AboutUsTranslationsHeader locales={about.locales} />
+		<about.page.Content />
+
+		<div class={`${style.links} d-flex text-center`}>
+			{
+				Object.entries(data.about.links).map(([name, link]) => (
+					<Button variant="primary" href={link.url}>
+						<Icon width="24" height="24" name={link.icon} />
+						{name}
+					</Button>
+				))
+			}
+		</div>
+
+		<h2>{translate(Astro, "title.sponsors")}</h2>
+		<sponsors.page.Content />
+
+		<h2>{translate(Astro, "title.contributors")}</h2>
 		<div class="grid grid-2">
-			{unicorns.map((unicornInfo) => <ContributorCard unicorn={unicornInfo} />)}
+			{
+				data.unicorns.map((unicornInfo) => (
+					<ContributorCard unicorn={unicornInfo} />
+				))
+			}
 		</div>
 	</main>
 </div>

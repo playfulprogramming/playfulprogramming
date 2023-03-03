@@ -2,7 +2,7 @@
 @import "../../../styles/utils";
 
 .button {
-	padding: ($spacing * 2) ($spacing * 3);
+	padding: ($spacing * 2) ($spacing * 4);
 
 	background-color: theme-var(--primary-surface-emphasis_low);
 	color: theme-var(--neutral-foreground-emphasis_high);
@@ -10,12 +10,6 @@
 	$height: 40px;
 	height: $height;
 	border-radius: calc($height / 2);
-
-	&:has(svg) {
-		$height: 48px;
-		height: $height;
-		border-radius: calc($height / 2);
-	}
 
 	display: flex;
 	align-items: center;
@@ -76,4 +70,12 @@
 
 .button.borderless {
 	background: none;
+}
+
+.button.icon {
+	$height: 48px;
+	height: $height;
+	min-width: $height;
+	border-radius: calc($height / 2);
+	padding: 0;
 }

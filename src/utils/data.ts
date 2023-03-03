@@ -18,27 +18,15 @@ export const dataDirectory = join(process.cwd(), "content/data");
 export const siteDirectory = join(process.cwd(), "content/site");
 export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
 
-const unicornsRaw: Array<
-	Omit<UnicornInfo, "roles" | "pronouns" | "profileImg"> & {
-		roles: string[];
-		pronouns: string;
-		profileImg: string;
-	}
-> = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "unicorns.json")).toString()
-);
+const aboutRaw = (await import("../../content/data/about.json")).default;
 
-const rolesRaw: RolesEnum[] = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "roles.json")).toString()
-);
+const unicornsRaw = (await import("../../content/data/unicorns.json")).default;
 
-const pronounsRaw: PronounInfo[] = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "pronouns.json")).toString()
-);
+const rolesRaw = (await import("../../content/data/roles.json")).default;
 
-const licensesRaw: LicenseInfo[] = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "licenses.json")).toString()
-);
+const pronounsRaw = (await import("../../content/data/pronouns.json")).default;
+
+const licensesRaw = (await import("../../content/data/licenses.json")).default;
 
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
@@ -67,7 +55,7 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	};
 
 	newUnicorn.rolesMeta = unicorn.roles.map(
-		(role) => rolesRaw.find((rRole) => rRole.id === role)!
+		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum
 	);
 
 	newUnicorn.pronounsMeta = pronounsRaw.find(
@@ -118,6 +106,7 @@ function getCollections(): Array<
 const collections = getCollections();
 
 export {
+	aboutRaw as about,
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
 	pronounsRaw as pronouns,

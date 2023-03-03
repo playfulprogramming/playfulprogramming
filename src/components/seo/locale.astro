@@ -1,18 +1,20 @@
 ---
+import { Languages } from "types/index";
 import { removePrefixLanguageFromPath } from "utils/translations";
-import { SEOProps } from "./shared";
 
-type Props = Pick<SEOProps, "langData"> & {
+type Props = {
+	lang: string;
+	providedLangs?: Languages[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
 
-const { langData, siteMetadata, pathName } = Astro.props as Props;
+const { lang, providedLangs, siteMetadata, pathName } = Astro.props as Props;
 ---
 
 <>
 	{
-		langData?.currentLang && (
+		lang !== "en" && (
 			<link
 				rel="alternate"
 				href={
@@ -25,8 +27,8 @@ const { langData, siteMetadata, pathName } = Astro.props as Props;
 </>
 <>
 	{
-		langData?.otherLangs?.length
-			? langData.otherLangs.map((lang) => (
+		providedLangs?.length
+			? providedLangs.map((lang) => (
 					<link
 						rel="alternate"
 						href={

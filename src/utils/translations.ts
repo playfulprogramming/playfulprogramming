@@ -1,6 +1,11 @@
 import { Languages } from "types/index";
 import { languages } from "constants/index";
 import { basename } from "path";
+import { AstroGlobal, MarkdownInstance } from "astro";
+
+function isLanguageKey(str: string): str is Languages {
+	return Object.keys(languages).includes(str);
+}
 
 /**
  * In our translations.json file, we choose to use a `eg-eg` format
@@ -29,8 +34,7 @@ export function getPrefixLanguageFromPath(path: string): Languages {
 	// find the first non-empty path segment, e.g. ["", "en", "posts"] -> "en"
 	const pathSegment = path.split("/").find((s) => !!s);
 
-	if (Object.keys(languages).includes(pathSegment))
-		return pathSegment as Languages;
+	if (isLanguageKey(pathSegment)) return pathSegment;
 	else return "en";
 }
 
@@ -53,6 +57,38 @@ export function removePrefixLanguageFromPath(path: string) {
 		.split("/")
 		.filter((s) => s !== matchedLang)
 		.join("/");
+}
+
+/**
+ * Gets a translated markdown page from Astro, based on the current URL locale.
+ *
+ * @param astro the Astro global instance
+ * @param glob the Astro glob to query
+ * @returns the matched markdown page
+ */
+export function getTranslatedPage(
+	astro: { url: URL },
+	glob: MarkdownInstance<Record<string, unknown>>[]
+): {
+	locales: Languages[];
+	page: MarkdownInstance<Record<string, unknown>>;
+} {
+	const globResults = glob;
+	const lang = getPrefixLanguageFromPath(astro.url.pathname);
+
+	const matchedResult = globResults.find((md) =>
+		md.file.endsWith(`${lang}.md`)
+	);
+	const enResult = globResults.find((md) => md.file.split(".")[1] === "md");
+
+	const locales = globResults
+		.map((md) => md.file.split(".")[1])
+		.filter(isLanguageKey);
+
+	return {
+		locales,
+		page: matchedResult || enResult,
+	};
 }
 
 // fetch translation files from /data/i18n

@@ -1,54 +1,20 @@
 ---
-import Document from "../../layouts/document.astro";
+import Document from "src/layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import About from "../../views/about/about.astro";
-import { MarkdownInstance } from "astro";
-import { Languages } from "types/index";
-import { getOtherAboutLocales } from "src/views/about/about-helpers";
+import About from "src/views/about/about.astro";
+import { getTranslatedPage, translate } from "utils/translations";
 
-export async function getStaticPaths() {
-	const globResults = await Astro.glob("../../../content/site/about-us*.md");
-
-	return (
-		globResults
-			// Filter out English
-			.filter((globItem) => !globItem.file.endsWith("about-us.md"))
-			.map((globItem) => {
-				// .es.md
-				const fileEnding = globItem.file.split("about-us").at(-1);
-				const locale: Languages = fileEnding.split(".")[1] as never;
-				return {
-					params: {
-						locale,
-					},
-					props: {
-						globResults,
-						locale,
-					},
-				};
-			})
-	);
-}
-
-const { globResults, locale } = Astro.props as {
-	globResults: Array<MarkdownInstance<Record<string, any>>>;
-	locale: Languages;
-};
-
-const { otherLocales } = getOtherAboutLocales(locale, globResults);
+const { locales } = getTranslatedPage(
+	Astro,
+	await Astro.glob("../../../content/site/about-us*.md")
+);
 ---
 
-<Document lang={locale}>
+<Document>
 	<SEO
-		pathName={`/about`}
-		title="About Us"
+		title={translate(Astro, "title.about_us")}
+		providedLangs={locales}
 		slot="head"
-		langData={{
-			otherLangs: otherLocales,
-			currentLang: locale,
-		}}
 	/>
-	<div class="listViewContent">
-		<About globResults={globResults} locale={locale} />
-	</div>
+	<About />
 </Document>

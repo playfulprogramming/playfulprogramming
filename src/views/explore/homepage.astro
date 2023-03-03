@@ -1,6 +1,6 @@
 ---
-import PostList from "components/post-card-list/post-card-list.astro";
-import { PostCardGrid } from "components/post-card/post-card-grid";
+import { PostCardGrid } from "src/components/post-card/post-card-grid";
+import * as data from "src/utils/data";
 import { Button } from "components/base";
 import { PostInfo } from "types/PostInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
@@ -27,8 +27,8 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 			{translate(Astro, "desc.homepage_extra")}
 		</p>
 		<div class={`grid grid-2 grid-half ${style.buttons}`}>
-			<Button large variant="primary" href="/discord">
-				<Icon height="24" width="24" name="ic:baseline-discord" />
+			<Button large variant="primary" href={data.about.links.Discord.url}>
+				<Icon height="24" width="24" name={data.about.links.Discord.icon} />
 				{translate(Astro, "action.join_discord")}
 			</Button>
 			<Button large href="/about">

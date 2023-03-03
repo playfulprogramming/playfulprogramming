@@ -1,5 +1,9 @@
 ---
 import { siteMetadata, siteUrl } from "constants/site-config";
+import {
+	getPrefixLanguageFromPath,
+	removePrefixLanguageFromPath,
+} from "utils/translations";
 import Analytics from "./analytics.astro";
 import Article from "./article.astro";
 import Book from "./book.astro";
@@ -18,11 +22,13 @@ const {
 	unicornsData,
 	publishedTime,
 	editedTime,
-	pathName,
 	isbn,
-	langData,
+	providedLangs,
 	shareImage,
 } = Astro.props as SEOProps;
+
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+const pathName = removePrefixLanguageFromPath(Astro.url.pathname);
 
 const metaDescription = description || siteMetadata.description;
 const metaKeywords = keywords ? keywords.join(",") : siteMetadata.keywords;
@@ -58,12 +64,18 @@ const currentPath = siteMetadata.siteUrl + (pathName || "");
 	currentPath={currentPath}
 	siteMetadata={siteMetadata}
 	title={title}
-	langData={langData}
+	lang={lang}
+	providedLangs={providedLangs}
 	metaDescription={metaDescription}
 	metaImage={metaImage}
 	ogType={ogType}
 />
-<Locale langData={langData} siteMetadata={siteMetadata} pathName={pathName} />
+<Locale
+	lang={lang}
+	providedLangs={providedLangs}
+	siteMetadata={siteMetadata}
+	pathName={pathName}
+/>
 <>
 	{
 		type === "article" && (
