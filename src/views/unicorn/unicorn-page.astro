@@ -1,6 +1,6 @@
 ---
 import { PostCardGrid } from "components/post-card/post-card-grid";
-import SidebarLayout from "components/sidebar-layout/sidebar-layout.astro";
+import UnicornLayout from "./unicorn-layout/unicorn-layout.astro";
 import { PostInfo } from "types/PostInfo";
 import { UnicornInfo } from "types/UnicornInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
@@ -15,7 +15,7 @@ const { unicorn, posts } = Astro.props as UnicornPageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
-<SidebarLayout>
+<UnicornLayout>
 	<UnicornCardLarge unicorn={unicorn} slot="sidebar" />
 
 	<h1 class="text-style-headline-5">Blog posts</h1>
@@ -24,4 +24,4 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 		postsToDisplay={posts}
 		unicornProfilePicMap={unicornProfilePicMap}
 	/>
-</SidebarLayout>
+</UnicornLayout>

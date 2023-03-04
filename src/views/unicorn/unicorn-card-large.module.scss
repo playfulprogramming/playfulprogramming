@@ -1,0 +1,47 @@
+@import "src/styles/utils";
+
+.header {
+	display: flex;
+	flex-direction: row;
+	gap: $spacing * 4;
+
+	.name {
+		margin: 0;
+	}
+
+	& .picture {
+		flex-shrink: 0;
+		min-width: 40px;
+		height: 40px;
+	}
+
+	@include from($desktopSmall) {
+		flex-direction: column;
+
+		& .picture {
+			width: 128px;
+			height: 128px;
+		}
+	}
+}
+
+.socials {
+	gap: $spacing * 2;
+}
+
+.roles {
+	display: flex;
+	flex-direction: column;
+	gap: $spacing * 2;
+	margin-top: $spacing * 4;
+}
+
+.role {
+	height: 40px;
+	padding: ($spacing * 2) $spacing;
+
+	display: flex;
+	align-items: center;
+
+	color: theme-var(--foreground_emphasis-medium);
+}

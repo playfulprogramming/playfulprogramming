@@ -2,7 +2,7 @@
 import { Languages } from "types/index";
 import { languages } from "constants/index";
 import { removePrefixLanguageFromPath } from "utils/translations";
-import { CardInline } from "components/base/card/card-inline";
+import { CardInline } from "components/base/card/card";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon";
 
@@ -14,7 +14,7 @@ const { locales } = Astro.props as TranslationsHeaderProps;
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 ---
 
-<CardInline class="d-flex">
+<CardInline class="d-flex" size="m">
 	<Icon width="24" height="24" name="mdi:translate" />
 	<p class={style.text}>
 		Translated by our community into:{" "}

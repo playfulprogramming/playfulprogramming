@@ -109,7 +109,7 @@
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: 7rem;
 	}
 }
@@ -122,7 +122,7 @@
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: 9rem;
 	}
 }
@@ -135,7 +135,7 @@ h1, .text-style-headline-1 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(48);
 	}
 }
@@ -148,7 +148,7 @@ h2, .text-style-headline-2 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(40);
 	}
 }
@@ -161,7 +161,7 @@ h3, .text-style-headline-3 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(32);
 	}
 }
@@ -174,7 +174,7 @@ h4, .text-style-headline-4 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(28);
 	}
 }
@@ -188,7 +188,7 @@ h5, .text-style-headline-5 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(24);
 	}
 }
@@ -202,7 +202,7 @@ h6, .text-style-headline-6 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(20);
 	}
 }
@@ -216,7 +216,7 @@ h6, .text-style-headline-6 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(18);
 	}
 }
@@ -230,7 +230,7 @@ h6, .text-style-headline-6 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(14);
 	}
 }
@@ -244,7 +244,7 @@ h6, .text-style-headline-6 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(18);
 	}
 }
@@ -258,7 +258,7 @@ h6, .text-style-headline-6 {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(18);
 	}
 }
@@ -272,7 +272,7 @@ p, .text-style-body-medium {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(16);
 	}
 }
@@ -287,7 +287,7 @@ p, .text-style-body-medium {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(16);
 		line-height: 125%;
 	}
@@ -302,7 +302,7 @@ p, .text-style-body-medium {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(14);
 	}
 }
@@ -316,7 +316,7 @@ p, .text-style-body-medium {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: pxToRem(14);
 	}
 }
@@ -328,7 +328,7 @@ pre, code, .text-style-code {
 	text-decoration: none;
 	text-transform: none;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		font-size: 1rem;
 		line-height: 1.5rem;
 	}

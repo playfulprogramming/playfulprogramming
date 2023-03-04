@@ -4,7 +4,7 @@
 .unicornLogo {
 	margin-right: $spacing * 8;
 
-	@include until($desktop) {
+	@include until($desktopSmall) {
 		width: 56px;
 		height: 56px;
 	}

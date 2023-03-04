@@ -1,17 +1,13 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "src/styles/utils";
 
 .card {
 	height: 80px;
 	display: flex;
 	align-items: center;
-	padding: $spacing * 4;
 	gap: $spacing * 4;
 
-	background-color: theme-var(--surface_primary_emphasis-none);
-	border-radius: map-get($cornerRadius, l);
-
 	picture {
+		display: flex;
 		min-width: 48px;
 	}
 

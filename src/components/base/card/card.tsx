@@ -5,7 +5,7 @@ interface CardProps {
 	tag?: "li" | "div";
 	href?: string;
 	class?: string;
-	size?: "xl" | "l";
+	size?: "xl" | "l" | "m" | "s";
 	children: JSX.Element|JSX.Element[];
 }
 
@@ -22,5 +22,14 @@ export function Card({ tag = "div", size = "xl", children, class: className, ...
 		].filter(c => !!c).join(" ")} onclick={props.href && `location.href='${props.href}'`}>
 			{children}
 		</Wrapper>
+	);
+}
+
+export function CardInline({ class: className, ...props }: CardProps) {
+	return (
+		<Card
+			{...props}
+			class={`${style.inline} ${className}`}
+		/>
 	);
 }

@@ -1,5 +1,4 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "src/styles/utils";
 
 .container {
 	display: flex;
@@ -13,11 +12,18 @@
 	overflow-x: hidden;
 }
 
-.sidebar {
+.sidebarLeft, .sidebarRight {
+	// This means no sidebars on mobile
+	display: none;
+
 	top: $spacing * 8;
 	overflow: auto;
-	height: calc(100vh - 6rem);
-	min-width: 320px;
+	height: 100vh;
+	min-width: 272px;
+
+	@include from($desktop) {
+		min-width: 464px;
+	}
 
 	width: 1px;
 	flex-grow: 1;
@@ -26,10 +32,17 @@
 	overflow: auto;
 
 	animation: fadeIn 300ms ease-in-out;
+}
 
-	// This means no sidebars on mobile
-	@include until($tablet) {
-		display: none;
+@include from($tablet) {
+	.sidebarLeft {
+		display: block;
+	}
+}
+
+@include from($desktopSmall) {
+	.sidebarRight {
+		display: block;
 	}
 }
 

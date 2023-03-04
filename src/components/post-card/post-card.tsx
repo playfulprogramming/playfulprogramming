@@ -5,6 +5,7 @@ import { PostInfo } from "types/PostInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Tag } from "components/base";
 import { Card } from "components/base/card/card";
+import { Picture } from "components/base/image/picture";
 
 interface PostCardProps {
 	post: Pick<
@@ -43,11 +44,13 @@ export const PostCard = ({
 			<ul class={cardStyles.authors}>
 				{authorsMeta.map((author) => (
 					<li>
-						<Tag
-							href={`/unicorns/${author.id}`}
-							picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-							alt={author.name}
-						>
+						<Tag href={`/unicorns/${author.id}`}>
+							<Picture
+								picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+								alt={author.name}
+								class="circleImg"
+								imgAttrs={{ width: 24, height: 24 }}
+							/>
 							{author.name}
 						</Tag>
 					</li>

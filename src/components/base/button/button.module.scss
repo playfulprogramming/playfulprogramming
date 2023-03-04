@@ -36,7 +36,7 @@
 		color: theme-var(--foreground_emphasis-high);
 	}
 
-	&:focus {
+	&:focus-visible {
 		background-color: theme-var(--background_focus);
 		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
 		color: theme-var(--foreground_emphasis-high);
@@ -47,7 +47,7 @@
 		color: theme-var(--foreground_emphasis-high);
 	}
 
-	&:global(.inactive) {
+	&[disabled] {
 		background-color: theme-var(--background_disabled);
 		color: theme-var(--foreground_disabled);
 		text-decoration: none;
@@ -55,7 +55,7 @@
 	}
 }
 
-.button.large {
+.large {
 	$height: 56px;
 	height: $height;
 	border-radius: calc($height / 2);
@@ -63,16 +63,16 @@
 	padding: ($spacing * 4) ($spacing * 6);
 }
 
-.button.primary {
+.primary {
 	background-color: theme-var(--primary-brand-highlight);
 	color: theme-var(--primary-brand-on_highlight);
 }
 
-.button.borderless {
+.borderless {
 	background: none;
 }
 
-.button.icon {
+.icon {
 	$height: 48px;
 	height: $height;
 	min-width: $height;

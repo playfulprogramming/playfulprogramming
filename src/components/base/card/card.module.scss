@@ -16,7 +16,24 @@
 .card.l {
 	border-width: map-get($borderWidth, l);
 	border-radius: map-get($cornerRadius, l);
+	padding: $spacing * 6;
+}
+
+.card.m {
+	border-width: map-get($borderWidth, m);
+	border-radius: map-get($cornerRadius, m);
 	padding: $spacing * 4;
+}
+
+.card.s {
+	border-width: map-get($borderWidth, s);
+	border-radius: map-get($cornerRadius, s);
+	padding: $spacing ($spacing * 2);
+}
+
+.card.inline {
+	border-width: 0;
+	background-color: theme-var(--surface_primary_emphasis-none);
 }
 
 .card.interactive {

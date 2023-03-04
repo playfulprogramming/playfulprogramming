@@ -5,6 +5,7 @@
 	height: 32px;
 	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	white-space: nowrap;
 	padding: $spacing ($spacing * 2);
 
@@ -29,7 +30,7 @@
 		color: theme-var(--foreground_emphasis-high);
 	}
 
-	&:focus {
+	&:focus-visible {
 		background-color: theme-var(--background_focus);
 		border-color: transparent;
 		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
@@ -42,12 +43,16 @@
 	}
 }
 
-.tagWithPicture {
+.tag:has(picture) {
 	padding-left: $spacing;
 }
 
-.picture {
+.tag > picture {
 	width: 24px;
 	height: 24px;
+	margin-right: $spacing;
+}
+
+.tag > svg {
 	margin-right: $spacing;
 }

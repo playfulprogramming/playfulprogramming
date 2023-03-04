@@ -1,0 +1,16 @@
+---
+import style from "./blog-post-layout.module.scss";
+---
+
+<article class={`container ${style.container}`}>
+	<div class={style.sidebarLeft}>
+		<slot name="left" />
+	</div>
+	<div class={style.content}>
+		`
+		<slot />`
+	</div>
+	<div class={style.sidebarRight}>
+		<slot name="right" />
+	</div>
+</article>

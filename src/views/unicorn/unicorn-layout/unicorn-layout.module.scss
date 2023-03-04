@@ -1,0 +1,34 @@
+@import "src/styles/utils";
+
+.container {
+	// full-width items on mobile
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: $spacing * 8;
+
+	@include from($tablet) {
+		flex-direction: row;
+	}
+}
+
+.content {
+	max-width: 100%;
+	flex-basis: 100%;
+	overflow-x: hidden;
+}
+
+.sidebar {
+	@include from($tablet) {
+		top: $spacing * 8;
+		overflow: auto;
+		height: calc(100vh - 6rem);
+		min-width: 320px;
+
+		width: 1px;
+		flex-grow: 1;
+		position: sticky;
+		align-self: flex-start;
+		overflow: auto;
+	}
+}

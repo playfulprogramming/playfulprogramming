@@ -4,7 +4,7 @@ import TableOfContents from "./table-of-contents/table-of-contents.astro";
 import MailingListFull from "components/mailing-list/mailing-list-full.astro";
 import Disqus from "components/disqus/disqus.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
-import SidebarLayout from "src/components/sidebar-layout/sidebar-layout.astro";
+import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
@@ -59,42 +59,42 @@ if (post.series && post.order) {
 	import { iFrameClickToRun } from "../../utils/markdown/scripts/iframe-click-to-run";
 	iFrameClickToRun();
 </script>
-<article>
-	<SidebarLayout>
-		<div slot="sidebar">
-			<h1 class="text-style-headline-5">Table of Contents</h1>
-			<TableOfContents headingsWithId={post.headingsWithId} />
-			<h1 class="text-style-headline-5">Related posts</h1>
-			<ul class="unlist-column">
-				{
-					post.suggestedArticles.map((suggestedPost) => (
-						<PostCardSmall post={suggestedPost} />
-					))
-				}
-			</ul>
-		</div>
-		<header role="banner" class="marginZeroAutoChild">
-			<PostTitleHeader post={post} />
-		</header>
-		<main class="post-body" data-testid={"post-body-div"}>
+<BlogPostLayout>
+	<div slot="left">
+		<h1 class="text-style-headline-5">Table of Contents</h1>
+		<TableOfContents headingsWithId={post.headingsWithId} />
+	</div>
+	<div slot="right">
+		<h1 class="text-style-headline-5">Related posts</h1>
+		<ul class="unlist-column">
 			{
-				post.series ? (
-					<SeriesToC
-						post={post}
-						postSeries={seriesPosts}
-						collectionSlug={post.collectionSlug}
-					/>
-				) : null
+				post.suggestedArticles.map((suggestedPost) => (
+					<PostCardSmall post={suggestedPost} />
+				))
 			}
-			{
-				post.translations && Object.keys(post.translations).length ? (
-					<TranslationsHeader locales={Object.keys(post.translations)} />
-				) : null
-			}
-			<Content />
-			{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
-		</main>
-	</SidebarLayout>
+		</ul>
+	</div>
+	<header role="banner" class="marginZeroAutoChild">
+		<PostTitleHeader post={post} />
+	</header>
+	<main class="post-body" data-testid={"post-body-div"}>
+		{
+			post.series ? (
+				<SeriesToC
+					post={post}
+					postSeries={seriesPosts}
+					collectionSlug={post.collectionSlug}
+				/>
+			) : null
+		}
+		{
+			post.translations && Object.keys(post.translations).length ? (
+				<TranslationsHeader locales={Object.keys(post.translations)} />
+			) : null
+		}
+		<Content />
+		{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
+	</main>
 	<footer role="contentinfo" class="post-lower-area">
 		{
 			post.licenseMeta ? (
@@ -130,4 +130,4 @@ if (post.series && post.order) {
 		</div>
 		<Disqus slug={post.slug} title={post.title} />
 	</footer>
-</article>
+</BlogPostLayout>

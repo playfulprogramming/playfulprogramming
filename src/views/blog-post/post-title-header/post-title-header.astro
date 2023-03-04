@@ -5,6 +5,7 @@ import { Icon } from "astro-icon";
 import { Tag } from "components/base";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import dayjs from "dayjs";
+import { Picture } from "components/base/image/picture";
 
 interface PostTitleHeaderProps {
 	post: PostInfo;
@@ -32,11 +33,13 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 		{
 			post.authorsMeta.map((author) => (
 				<li>
-					<Tag
-						href={`/unicorns/${author.id}`}
-						picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-						alt={author.name}
-					>
+					<Tag href={`/unicorns/${author.id}`}>
+						<Picture
+							picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+							alt={author.name}
+							class="circleImg"
+							imgAttrs={{ width: 24, height: 24 }}
+						/>
 						{author.name}
 					</Tag>
 				</li>
