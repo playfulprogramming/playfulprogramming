@@ -16,7 +16,7 @@
 .card.l {
 	border-width: map-get($borderWidth, l);
 	border-radius: map-get($cornerRadius, l);
-	padding: $spacing * 6;
+	padding: $spacing * 4;
 }
 
 .card.m {
