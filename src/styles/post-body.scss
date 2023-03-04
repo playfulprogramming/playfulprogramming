@@ -109,7 +109,7 @@
 		box-shadow: 0 0 0 1px var(--primary);
 		overflow: hidden;
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			ul {
 				padding: 0;
 				list-style: none;
@@ -128,7 +128,7 @@
 		padding-left: 1rem;
 		padding-right: 1rem;
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			padding-left: 5px;
 			padding-right: 5px;
 		}

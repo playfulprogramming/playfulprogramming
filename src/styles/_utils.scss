@@ -1,9 +1,3 @@
-$startMediumScreenSize: 768px;
-$endSmallScreenSize: $startMediumScreenSize - 1px;
-$startSmallScreenSize: 440px;
-$endSuperSmallScreenSize: $startSmallScreenSize - 1px;
-$startSuperSmallScreenSize: 348px;
-
 @function pxToRem($pxNum) {
 	@return #{calc($pxNum / 16)}rem;
 }

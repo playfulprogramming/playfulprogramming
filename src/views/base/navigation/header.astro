@@ -14,48 +14,47 @@ const isHome = path === "/";
 const isAbout = path === "/about";
 ---
 
-<nav
-	class={`container d-flex ${style.header}`}
-	aria-label="Toolbar for primary action buttons"
->
-	<BackButton />
+<nav class={style.headerBorder} aria-label="Toolbar for primary action buttons">
+	<div class={`container d-flex ${style.header}`}>
+		<BackButton />
 
-	<a href="/" class={`d-flex ${style.logo}`}>
-		<Picture
-			src={logo}
-			width={48}
-			height={48}
-			sizes="48"
-			widths={[48]}
-			formats={["avif", "webp", "png"]}
-			alt={translate(Astro, "alt.unicorn_utterances_logo")}
-		/>
+		<a href="/" class={`d-flex ${style.logo}`}>
+			<Picture
+				src={logo}
+				width={48}
+				height={48}
+				sizes="48"
+				widths={[48]}
+				formats={["avif", "webp", "png"]}
+				alt={translate(Astro, "alt.unicorn_utterances_logo")}
+			/>
 
-		<span class="text-style-button">
-			Unicorn<br />
-			Utterances
-		</span>
-	</a>
+			<span class="text-style-button">
+				Unicorn<br />
+				Utterances
+			</span>
+		</a>
 
-	<div class={`d-flex ${style.nav}`}>
-		<Button href="/" variant={isHome ? null : "borderless"}>
-			{translate(Astro, "title.home")}
-		</Button>
-		<Button href="/about" variant={isAbout ? null : "borderless"}>
-			{translate(Astro, "title.about_us")}
-		</Button>
-	</div>
+		<div class={`d-flex ${style.nav}`}>
+			<Button href="/" variant={isHome ? null : "borderless"}>
+				{translate(Astro, "title.home")}
+			</Button>
+			<Button href="/about" variant={isAbout ? null : "borderless"}>
+				{translate(Astro, "title.about_us")}
+			</Button>
+		</div>
 
-	<div class={`d-flex ${style.icons}`}>
-		<IconButton href="/search" aria-label={translate(Astro, "title.search")}>
-			<Icon height="24" width="24" name="search" />
-		</IconButton>
-		<IconButton
-			href={data.about.links.Discord.url}
-			aria-label={translate(Astro, "action.join_discord")}
-		>
-			<Icon height="24" width="24" name={data.about.links.Discord.icon} />
-		</IconButton>
-		<DarkLightButton />
+		<div class={`d-flex ${style.icons}`}>
+			<IconButton href="/search" aria-label={translate(Astro, "title.search")}>
+				<Icon height="24" width="24" name="search" />
+			</IconButton>
+			<IconButton
+				href={data.about.links.Discord.url}
+				aria-label={translate(Astro, "action.join_discord")}
+			>
+				<Icon height="24" width="24" name={data.about.links.Discord.icon} />
+			</IconButton>
+			<DarkLightButton />
+		</div>
 	</div>
 </nav>

@@ -4,33 +4,53 @@
 :where(.grid) {
 	display: grid;
 	gap: $spacing * 8;
+	grid-template-columns: 1fr;
+}
 
-	@include until($tablet) {
-		&:not(.grid-half) {
-			display: flex;
-			flex-direction: column;
+$cols: (1, 2, 3);
+
+@each $col in $cols {
+	:where(.grid-#{$col}) {
+		grid-template-columns: repeat($col, minmax(0, 1fr));
+	}
+}
+
+@each $col in $cols {
+	@include from($mobile) {
+		:where(.grid-mobile-#{$col}) {
+			grid-template-columns: repeat($col, minmax(0, 1fr));
 		}
 	}
 }
 
-:where(.grid-2) {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-:where(.grid-3) {
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-:where(.grid-half) {
-	@include until($mobile) {
-		display: flex;
-		flex-direction: column;
+@each $col in $cols {
+	@include from($tabletSmall) {
+		:where(.grid-tabletSmall-#{$col}) {
+			grid-template-columns: repeat($col, minmax(0, 1fr));
+		}
 	}
+}
 
+@each $col in $cols {
 	@include from($tablet) {
-		@include until($desktop) {
-			display: flex;
-			flex-direction: column;
+		:where(.grid-tablet-#{$col}) {
+			grid-template-columns: repeat($col, minmax(0, 1fr));
+		}
+	}
+}
+
+@each $col in $cols {
+	@include from($desktopSmall) {
+		:where(.grid-desktopSmall-#{$col}) {
+			grid-template-columns: repeat($col, minmax(0, 1fr));
+		}
+	}
+}
+
+@each $col in $cols {
+	@include from($desktop) {
+		:where(.grid-desktop-#{$col}) {
+			grid-template-columns: repeat($col, minmax(0, 1fr));
 		}
 	}
 }

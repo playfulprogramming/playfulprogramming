@@ -1,11 +1,14 @@
 @import "src/styles/vars";
 @import "src/styles/utils";
 
-.header {
-	height: 80px;
+.headerBorder {
 	border-bottom: 1px solid theme-var(--neutral-foreground-emphasis_none);
 	margin-top: $spacing * 4 !important;
 	margin-bottom: $spacing * 4 !important;
+}
+
+.header {
+	height: 80px;
 }
 
 .logo {

@@ -4,5 +4,12 @@
 .container {
 	margin: 0 auto;
 	padding: 0 ($spacing * 4);
-	max-width: 1200px;
+
+	@include from($desktopSmall) {
+		max-width: $desktopSmall;
+	}
+
+	@include from($desktop) {
+		max-width: $desktop;
+	}
 }

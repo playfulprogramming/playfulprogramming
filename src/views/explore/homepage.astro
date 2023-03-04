@@ -17,7 +17,7 @@ const { posts } = Astro.props as HomepageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
-<header class="grid grid-2">
+<header class="grid grid-desktopSmall-2">
 	<div class={style.bannerLogo}><!-- TODO: replace with banner image --></div>
 	<div class="text-center">
 		<h1 class="text-style-headline-2">
@@ -26,7 +26,9 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 		<p class="text-style-body-large-bold">
 			{translate(Astro, "desc.homepage_extra")}
 		</p>
-		<div class={`grid grid-2 grid-half ${style.buttons}`}>
+		<div
+			class={`grid grid-tablet-2 grid-desktopSmall-1 grid-desktop-2 ${style.buttons}`}
+		>
 			<LargeButton variant="primary" href={data.about.links.Discord.url}>
 				<Icon height="24" width="24" name={data.about.links.Discord.icon} />
 				{translate(Astro, "action.join_discord")}

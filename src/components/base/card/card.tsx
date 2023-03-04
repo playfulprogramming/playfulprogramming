@@ -9,7 +9,7 @@ interface CardProps {
 	children: JSX.Element|JSX.Element[];
 }
 
-export function Card({ tag = "div", size = "l", children, class: className, ...props }: CardProps) {
+export function Card({ tag = "div", size = "xl", children, class: className, ...props }: CardProps) {
 	const Wrapper = (props: any) => createElement(tag, {
 		role: tag === "li" ? "listitem" : undefined,
 		...props,
