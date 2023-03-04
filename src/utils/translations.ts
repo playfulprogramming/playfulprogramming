@@ -1,7 +1,7 @@
 import { Languages } from "types/index";
 import { languages } from "constants/index";
 import { basename } from "path";
-import { AstroGlobal, MarkdownInstance } from "astro";
+import { MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string): str is Languages {
 	return Object.keys(languages).includes(str);
@@ -51,11 +51,19 @@ export function getPrefixLanguageFromPath(path: string): Languages {
  * @example "es-es/posts/test" -> "posts/test"
  */
 export function removePrefixLanguageFromPath(path: string) {
-	const matchedLang = getPrefixLanguageFromPath(path);
+	let isFirst = true;
 
 	return path
 		.split("/")
-		.filter((s) => s !== matchedLang)
+		.filter((s) => {
+			// only exclude the first non-empty str, if it matches a lang
+			if (s && isFirst) {
+				isFirst = false;
+				if (isLanguageKey(s)) return false;
+			}
+
+			return true;
+		})
 		.join("/");
 }
 
@@ -92,22 +100,27 @@ export function getTranslatedPage(
 }
 
 // fetch translation files from /data/i18n
-const i18n: Record<Languages, Map<string, string>> = Object.fromEntries(
-	await Promise.all(
-		Object.entries(import.meta.glob("../../content/data/i18n/*.json")).map(
-			async ([file, content]) =>
-				content().then((value: { default: Record<string, string> }) => {
-					return [
-						basename(file).split(".")[0],
-						new Map(Object.entries(value.default)),
-					];
-				})
+let i18nFiles: Record<string, unknown>;
+try {
+	i18nFiles = import.meta.glob("../../content/data/i18n/*.json", {
+		eager: true,
+	});
+} catch (e) {
+	i18nFiles = {};
+}
+
+const i18n: Partial<Record<Languages, Map<string, string>>> =
+	Object.fromEntries(
+		Object.entries(i18nFiles).map(
+			([file, content]: [string, { default: Record<string, string> }]) => [
+				basename(file).split(".")[0],
+				new Map(Object.entries(content.default)),
+			]
 		)
-	)
-);
+	);
 
 // warn about any values that do not have full translations
-for (const key of i18n.en.keys()) {
+for (const key of i18n.en?.keys() || []) {
 	const missing = Object.entries(i18n)
 		.filter(([, map]) => !map.has(key))
 		.map(([lang]) => lang);
@@ -133,7 +146,7 @@ export function translate(astro: { url: URL }, key: string) {
 		console.warn(
 			`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`
 		);
-		value = i18n.en.get(key);
+		value = i18n.en?.get(key);
 	}
 
 	if (!value) {
