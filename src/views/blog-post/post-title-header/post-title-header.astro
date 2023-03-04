@@ -44,16 +44,25 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 		}
 	</ul>
 </div>
-<div class="d-flex">
-	<Icon width="24" height="24" name="mdi:tag-outline" />
-	<ul aria-label="Post tags" role="list" class={`${style.tags} unlist-inline`}>
-		<!-- TODO: Link tags to search page -->
-		{
-			tags.map((tag) => (
-				<li>
-					<Tag href="#">{tag}</Tag>
-				</li>
-			))
-		}
-	</ul>
-</div>
+{
+	tags && tags.length ? (
+		<div class="d-flex">
+			<Icon width="24" height="24" name="mdi:tag-outline" />
+			<ul
+				aria-label="Post tags"
+				role="list"
+				class={`${style.tags} unlist-inline`}
+			>
+				{tags.map(
+					(
+						tag // TODO: Link tags to search page
+					) => (
+						<li>
+							<Tag href="#">{tag}</Tag>
+						</li>
+					)
+				)}
+			</ul>
+		</div>
+	) : null
+}

@@ -8,7 +8,7 @@
 	padding: $spacing * 4;
 	gap: $spacing * 4;
 
-	background-color: theme-var(--primary-surface-emphasis_none);
+	background-color: theme-var(--surface_primary_emphasis-none);
 	border-radius: map-get($cornerRadius, l);
 
 	picture {
@@ -21,7 +21,7 @@
 }
 
 .name {
-	color: theme-var(--neutral-foreground-emphasis_high);
+	color: theme-var(--foreground_emphasis-high);
 	display: block;
 }
 
@@ -30,7 +30,7 @@
 	padding: 0;
 	margin: 0;
 
-	color: theme-var(--neutral-foreground-emphasis_medium);
+	color: theme-var(--foreground_emphasis-medium);
 	line-height: 1;
 
 	li {

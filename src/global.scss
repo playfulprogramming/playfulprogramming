@@ -15,7 +15,7 @@ body.dark,
 
 :root {
 	font-size: $rootFontSize;
-	scrollbar-color: theme-var(--primary-focus_outline) theme-var(--primary-background);
+	scrollbar-color: theme-var(--focus-outline_primary) theme-var(--background_primary);
 	transition: scrollbar-color $animStyle $animSpeed;
 
 	@include theme-vars(light);
@@ -39,13 +39,13 @@ h6 {
 }
 
 :focus {
-	outline-color: theme-var(--primary-focus_outline);
+	outline-color: theme-var(--focus-outline_primary);
 }
 
 //without this all <button>s have bad outline colors in firefox
 :focus::-moz-focus-inner {
 	padding: 0; //prevent weirdness just in case
-	border-color: theme-var(--primary-focus_outline);
+	border-color: theme-var(--focus-outline_primary);
 }
 
 *::-webkit-scrollbar {
@@ -53,26 +53,26 @@ h6 {
 }
 
 *::-webkit-scrollbar-track {
-	background: theme-var(--primary-background);
+	background: theme-var(--background_primary);
 	border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background: theme-var(--primary-focus_outline);
+	background: theme-var(--focus-outline_primary);
 }
 
 body {
-	background-color: theme-var(--primary-background);
+	background-color: theme-var(--background_primary);
 	margin: 0;
 	padding: 0;
-	color: theme-var(--neutral-foreground-emphasis_high);
+	color: theme-var(--foreground_emphasis-high);
 	transition: color $animStyle $animSpeed,
 		background-color $animStyle $animSpeed;
 }
 
 .medium-zoom-overlay {
-	background: theme-var(--primary-background) !important;
+	background: theme-var(--background_primary) !important;
 }
 
 /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */

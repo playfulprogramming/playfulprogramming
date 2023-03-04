@@ -8,37 +8,37 @@
 	white-space: nowrap;
 	padding: $spacing ($spacing * 2);
 
-	color: theme-var(--neutral-foreground-emphasis_high);
+	color: theme-var(--foreground_emphasis-high);
 	text-decoration: none;
 	outline: none !important;
 
-	border: calc($spacing / 2) solid theme-var(--primary-brand-variant);
+	border: calc($spacing / 2) solid theme-var(--primary_variant);
 	border-radius: 16px;
 
-	@include transition(color background-color border-color);
+	@include transition(color background-color border-color box-shadow);
 
 	@include darkTheme() {
-		background-color: theme-var(--primary-surface-emphasis_low);
+		background-color: theme-var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:hover {
 		text-decoration: underline;
-		background-color: theme-var(--primary-surface-emphasis_medium);
+		background-color: theme-var(--surface_primary_emphasis-medium);
 		border-color: transparent;
-		color: theme-var(--neutral-foreground-emphasis_high);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	&:focus {
-		background-color: theme-var(--focus_background);
+		background-color: theme-var(--background_focus);
 		border-color: transparent;
-		box-shadow: 0 0 0 $spacing theme-var(--primary-focus_outline);
-		color: theme-var(--neutral-foreground-emphasis_high);
+		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: theme-var(--primary-surface-emphasis_high);
-		color: theme-var(--neutral-foreground-emphasis_high);
+		background-color: theme-var(--surface_primary_emphasis-high);
+		color: theme-var(--foreground_emphasis-high);
 	}
 }
 

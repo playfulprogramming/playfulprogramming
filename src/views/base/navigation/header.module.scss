@@ -2,7 +2,7 @@
 @import "src/styles/utils";
 
 .headerBorder {
-	border-bottom: 1px solid theme-var(--neutral-foreground-emphasis_none);
+	border-bottom: 1px solid theme-var(--foreground_emphasis-none);
 	margin-top: $spacing * 4 !important;
 	margin-bottom: $spacing * 4 !important;
 }
@@ -19,7 +19,7 @@
 		margin-left: $spacing;
 		line-height: 125%;
 
-		color: theme-var(--primary-brand-default);
+		color: theme-var(--primary_default);
 	}
 }
 

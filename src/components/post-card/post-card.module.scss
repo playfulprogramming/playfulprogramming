@@ -4,7 +4,7 @@
 .card {
 	cursor: pointer;
 
-	border: map-get($borderWidth, xl) solid theme-var(--primary-surface-emphasis_low);
+	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);
 	border-radius: map-get($cornerRadius, xl);
 
 	position: relative;
@@ -28,7 +28,7 @@
 .header {
 	display: block;
 	text-decoration: none;
-	color: theme-var(--neutral-foreground-emphasis_high);
+	color: theme-var(--foreground_emphasis-high);
 	margin-bottom: 4 * $spacing;
 
 	& h2 {

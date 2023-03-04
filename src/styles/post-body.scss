@@ -3,7 +3,7 @@
 
 .post-body {
 	line-height: 1.7;
-	color: theme-var(--primary-text-emphasis_medium);
+	color: theme-var(--foreground_emphasis-medium);
 
 	// Fix autolink-headings anchors positioning
 	.anchor {
@@ -25,6 +25,14 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+	}
+
+	:where(& a) {
+		color: theme-var(--primary_default);
+	}
+
+	:where(& a:visited) {
+		color: theme-var(--secondary_default);
 	}
 
 	h1 .anchor svg,
@@ -69,7 +77,7 @@
 		margin-top: 1em;
 		margin-bottom: 0.5em;
 		line-height: 110%;
-		color: theme-var(--primary-text-emphasis_high);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	h1, h2 {

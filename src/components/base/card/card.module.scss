@@ -2,7 +2,7 @@
 @import "src/styles/utils";
 
 .card {
-	border: map-get($borderWidth, xl) solid theme-var(--primary-surface-emphasis_low);
+	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);
 	border-radius: map-get($cornerRadius, xl);
 
 	overflow-wrap: break-word;
@@ -23,17 +23,17 @@
 	cursor: pointer;
 
 	&:hover {
-		background-color: theme-var(--primary-surface-emphasis_low);
+		background-color: theme-var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:active {
-		background-color: theme-var(--primary-surface-emphasis_low);
-		border-color: theme-var(--primary-surface-emphasis_high);
+		background-color: theme-var(--surface_primary_emphasis-low);
+		border-color: theme-var(--surface_primary_emphasis-high);
 	}
 
 	&:focus {
-		background-color: theme-var(--focus_background);
-		border-color: theme-var(--primary-focus_outline);
+		background-color: theme-var(--background_focus);
+		border-color: theme-var(--focus-outline_primary);
 	}
 }

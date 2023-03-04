@@ -4,8 +4,8 @@
 .button {
 	padding: ($spacing * 2) ($spacing * 4);
 
-	background-color: theme-var(--primary-surface-emphasis_low);
-	color: theme-var(--neutral-foreground-emphasis_high);
+	background-color: theme-var(--surface_primary_emphasis-low);
+	color: theme-var(--foreground_emphasis-high);
 
 	$height: 40px;
 	height: $height;
@@ -25,31 +25,31 @@
 	@include transition(color background-color box-shadow);
 
 	&:global(.selected) {
-		background-color: theme-var(--primary-brand-default);
-		color: theme-var(--primary-brand-on_default);
-		box-shadow: 0 0 0 $spacing theme-var(--primary-brand-variant);
+		background-color: theme-var(--primary_default);
+		color: theme-var(--primary_on-default);
+		box-shadow: 0 0 0 $spacing theme-var(--primary_variant);
 	}
 
 	&:hover {
 		text-decoration: underline;
-		background-color: theme-var(--primary-surface-emphasis_medium);
-		color: theme-var(--neutral-foreground-emphasis_high);
+		background-color: theme-var(--surface_primary_emphasis-medium);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	&:focus {
-		background-color: theme-var(--focus_background);
-		box-shadow: 0 0 0 $spacing theme-var(--primary-focus_outline);
-		color: theme-var(--neutral-foreground-emphasis_high);
+		background-color: theme-var(--background_focus);
+		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: theme-var(--primary-surface-emphasis_high);
-		color: theme-var(--neutral-foreground-emphasis_high);
+		background-color: theme-var(--surface_primary_emphasis-high);
+		color: theme-var(--foreground_emphasis-high);
 	}
 
 	&:global(.inactive) {
-		background-color: theme-var(--neutral-inactive-background);
-		color: theme-var(--neutral-inactive-foreground);
+		background-color: theme-var(--background_disabled);
+		color: theme-var(--foreground_disabled);
 		text-decoration: none;
 		pointer-events: none;
 	}
