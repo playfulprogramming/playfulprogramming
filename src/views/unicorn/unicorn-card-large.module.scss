@@ -1,37 +1,70 @@
 @import "src/styles/utils";
 
 .header {
-	display: flex;
-	flex-direction: row;
-	gap: $spacing * 4;
+	display: block;
 
 	.name {
 		margin: 0;
+		margin-bottom: $spacing;
 	}
+
+	.bio {
+		margin: 0;
+	}
+
+	--pictureSize: 40px;
 
 	& .picture {
-		flex-shrink: 0;
-		min-width: 40px;
-		height: 40px;
+		float: left;
+		margin-right: $spacing * 4;
+
+		min-width: var(--pictureSize);
+		height: var(--pictureSize);
 	}
 
-	@include from($desktopSmall) {
+	.headerContent {
+		margin-bottom: $spacing * 4;
+	}
+
+	.headerContent {
+		margin-left: calc(var(--pictureSize) + ($spacing * 4));
+	}
+
+	.socials {
+		gap: $spacing * 2;
+	}
+
+	@include from($tabletSmall) {
+		--pictureSize: 96px;
+
+		@include until($tablet) {
+			.socials {
+				display: block;
+				margin-left: calc(var(--pictureSize) + ($spacing * 4));
+			}
+		}
+	}
+
+	@include from($tablet) {
 		flex-direction: column;
+		--pictureSize: 128px;
+
+		.headerContent {
+			margin-top: $spacing * 2;
+			margin-left: 0;
+		}
+
+		.socials {
+			margin-left: 0;
+		}
 
 		& .picture {
-			width: 128px;
-			height: 128px;
+			float: none;
 		}
 	}
 }
 
-.socials {
-	gap: $spacing * 2;
-}
-
 .roles {
-	display: flex;
-	flex-direction: column;
 	gap: $spacing * 2;
 	margin-top: $spacing * 4;
 }
@@ -44,4 +77,8 @@
 	align-items: center;
 
 	color: theme-var(--foreground_emphasis-medium);
+
+	& picture {
+		margin-right: $spacing * 2;
+	}
 }

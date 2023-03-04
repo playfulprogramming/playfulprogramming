@@ -29,66 +29,76 @@ const possessiveName = unicorn.name.endsWith("s")
 			alt={`${possessiveName} profile picture`}
 			class={`circleImg ${style.picture}`}
 		/>
-		<div>
+		<div class={style.headerContent}>
 			<h1 class={`text-style-headline-5 ${style.name}`}>{unicorn.name}</h1>
-			<p class="text-style-body-small">{unicorn.description}</p>
+			<p class={`text-style-body-small ${style.bio}`}>{unicorn.description}</p>
+		</div>
+		<div class={`grid grid-2 ${style.socials}`}>
+			{
+				unicorn.socials.website ? (
+					<Tag href={unicorn.socials.website}>
+						<Icon width="24" height="24" name="mdi:world" />
+						Website
+					</Tag>
+				) : null
+			}
+			{
+				unicorn.socials.github ? (
+					<Tag href={`https://github.com/${unicorn.socials.github}`}>
+						<Icon width="24" height="24" name="ri:github-line" />
+						GitHub
+					</Tag>
+				) : null
+			}
+			{
+				unicorn.socials.twitter ? (
+					<Tag href={`https://twitter.com/${unicorn.socials.twitter}`}>
+						<Icon width="24" height="24" name="ri:twitter-line" />
+						Twitter
+					</Tag>
+				) : null
+			}
+			{
+				unicorn.socials.twitch ? (
+					<Tag href={`https://www.twitch.com/${unicorn.socials.twitch}`}>
+						<Icon width="24" height="24" name="mdi:twitch" />
+						Twitch
+					</Tag>
+				) : null
+			}
+			{
+				unicorn.socials.dribbble ? (
+					<Tag href={`https://dribbble.com/${unicorn.socials.dribbble}`}>
+						<Icon width="24" height="24" name="ci:dribbble" />
+						Dribbble
+					</Tag>
+				) : null
+			}
+			{
+				unicorn.socials.linkedIn ? (
+					<Tag href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}>
+						<Icon width="24" height="24" name="ri:linkedin-box-line" />
+						Dribbble
+					</Tag>
+				) : null
+			}
 		</div>
 	</div>
-	<div class={`grid grid-2 ${style.socials}`}>
+	<div class={`${style.roles} grid grid-1 grid-tabletSmall-2 grid-tablet-1`}>
 		{
-			unicorn.socials.website ? (
-				<Tag href={unicorn.socials.website}>
-					<Icon width="24" height="24" name="mdi:world" />
-					Website
-				</Tag>
-			) : null
-		}
-		{
-			unicorn.socials.github ? (
-				<Tag href={`https://github.com/${unicorn.socials.github}`}>
-					<Icon width="24" height="24" name="ri:github-line" />
-					GitHub
-				</Tag>
-			) : null
-		}
-		{
-			unicorn.socials.twitter ? (
-				<Tag href={`https://twitter.com/${unicorn.socials.twitter}`}>
-					<Icon width="24" height="24" name="ri:twitter-line" />
-					Twitter
-				</Tag>
-			) : null
-		}
-		{
-			unicorn.socials.twitch ? (
-				<Tag href={`https://www.twitch.com/${unicorn.socials.twitch}`}>
-					<Icon width="24" height="24" name="mdi:twitch" />
-					Twitch
-				</Tag>
-			) : null
-		}
-		{
-			unicorn.socials.dribbble ? (
-				<Tag href={`https://dribbble.com/${unicorn.socials.dribbble}`}>
-					<Icon width="24" height="24" name="ci:dribbble" />
-					Dribbble
-				</Tag>
-			) : null
-		}
-		{
-			unicorn.socials.linkedIn ? (
-				<Tag href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}>
-					<Icon width="24" height="24" name="ri:linkedin-box-line" />
-					Dribbble
-				</Tag>
-			) : null
-		}
-	</div>
-	<div class={style.roles}>
-		{
-			unicorn.roles?.map((role) => (
+			unicorn.rolesMeta?.map((role) => (
 				<CardInline size="s" class={style.role}>
-					<span class="text-style-body-small-bold">{role}</span>
+					<Picture
+						src={`src/assets/icons/role_${role.id}.png`}
+						widths={[32]}
+						sizes={"32px"}
+						loading={"eager"}
+						aspectRatio={1}
+						formats={["avif", "webp", "png"]}
+						alt={role.prettyname}
+						class={`circleImg ${style.picture}`}
+					/>
+					<span class="text-style-body-small-bold">{role.prettyname}</span>
 				</CardInline>
 			))
 		}
