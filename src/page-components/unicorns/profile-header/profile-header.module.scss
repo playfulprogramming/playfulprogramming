@@ -10,7 +10,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 
-	@include from($endSmallScreenSize) {
+	@include from($tablet) {
 		margin-bottom: 24px;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
@@ -29,7 +29,7 @@
 		width: 100%;
 	}
 
-	@include from($endSmallScreenSize) {
+	@include from($tablet) {
 		$desktopImgSize: 192px;
 		max-width: $desktopImgSize;
 		max-height: $desktopImgSize;
@@ -41,7 +41,7 @@
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0;
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		text-align: center;
 	}
 }
@@ -49,14 +49,14 @@
 .mobileTitle {
 		margin-top: 16px;
 
-	@include from($endSmallScreenSize) {
+	@include from($tablet) {
 		display: none;
 	}
 }
 
 .desktopTitle {
 	
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		display: none;
 	}
 }
@@ -70,7 +70,7 @@
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
 
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		margin: 16px 16px 0;
 	}
 }
@@ -87,7 +87,7 @@
 	justify-content: center;
 	margin-top: 16px;
 
-	@include from($endSmallScreenSize) {
+	@include from($tablet) {
 		padding: 6px 0;
 		margin: 0;
 		justify-content: flex-start;

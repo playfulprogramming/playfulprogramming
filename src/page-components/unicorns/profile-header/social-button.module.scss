@@ -11,7 +11,7 @@
 	&:not(:last-of-type) {
 		margin-right: 32px;
 
-		@include from($endSmallScreenSize) {
+		@include from($tablet) {
 			margin-right: 24px;
 		}
 	}
@@ -21,7 +21,7 @@
 		
 		// Make it so that the next and prev label text is hidden on mobile
 		// but not removed from the aria-reading role
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			width: 1px;
 			height: 1px;
 			overflow: hidden;
@@ -37,7 +37,7 @@
 
 		$mobileSvgSize: 32px;
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			height: $mobileSvgSize;
 			width: $mobileSvgSize;
 		}
@@ -48,7 +48,7 @@
 			width: $desktopSvgSize;
 			fill: none;
 
-			@include until($endSmallScreenSize) {
+			@include until($tablet) {
 				height: $mobileSvgSize;
 				width: $mobileSvgSize;
 			}

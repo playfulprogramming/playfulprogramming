@@ -10,7 +10,7 @@
 	flex-basis: 100%;
 }
 
-@include from($startMediumScreenSize) {
+@include from($desktop) {
 	.iconContainer {
 		flex-wrap: nowrap;
 		justify-content: space-between;
@@ -24,7 +24,7 @@
 	}
 }
 
-@include until($endSmallScreenSize) {
+@include until($tablet) {
 	.midContainer {
 		order: 1;
 		margin: 0 0 8px;
@@ -44,7 +44,7 @@
 	}
 }
 
-@include until($endSmallScreenSize) {
+@include until($tablet) {
 	.searchField,
 	.filterField {
 		flex-basis: 100%;

@@ -9,7 +9,7 @@
 	justify-content: center;
 	flex-wrap: wrap;
 
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		margin-bottom: 16px;
 	}
 }
@@ -33,7 +33,7 @@
 		width: 100%;
 	}
 
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		$mobileImgSize: 150px;
 		width: $mobileImgSize;
 		height: $mobileImgSize;
@@ -45,7 +45,7 @@
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--highImpactBlack);
 	margin: 0;
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		text-align: center;
 	}
 }
@@ -61,7 +61,7 @@
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
 
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		margin: 16px 16px 0;
 	}
 }

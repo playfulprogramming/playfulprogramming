@@ -7,7 +7,7 @@
 	height: 85px;
 	width: 85px;
 
-	@include until($endSmallScreenSize) {
+	@include until($tablet) {
 		$mobilePicSize: 64px;
 		height: $mobilePicSize;
 		width: $mobilePicSize;
@@ -37,7 +37,7 @@
 			top: 20%;
 		}
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			top: 0% !important;
 			left: 10% !important;
 

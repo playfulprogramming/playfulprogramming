@@ -11,7 +11,7 @@
 		min-height: 600px;
 		padding: 1rem;
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			flex-direction: column;
 			min-height: auto;
 		}
@@ -36,7 +36,7 @@
 			height: 0;
 		}
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			display: none;
 		}
 	}
@@ -46,7 +46,7 @@
 		width: 60%;
 		margin: 0 auto;
 
-		@include until($endSmallScreenSize) {
+		@include until($tablet) {
 			display: block;
 		}
 	}

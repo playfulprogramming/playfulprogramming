@@ -10,7 +10,7 @@ ul.postsListContainer, .postsListContainer > ul[data-isPostList="true"] {
 	grid-template-columns: 1fr;
 	grid-gap: 24px;
 
-	@include from($startMediumScreenSize) {
+	@include from($desktop) {
 		grid-template-columns: 1fr 1fr;
 
 		&:empty {
