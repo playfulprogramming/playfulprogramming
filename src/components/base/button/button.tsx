@@ -6,22 +6,44 @@ type ButtonProps = {
 	class?: string;
 	state?: "selected" | "inactive";
 	variant?: "primary" | "borderless";
-	large?: boolean;
-	icon?: boolean;
 	children: React.ReactNode,
 } & React.ButtonHTMLAttributes<any> & React.AnchorHTMLAttributes<any>;
 
-export function Button({ tag, class: className, children, state, variant, large, icon, ...props }: ButtonProps) {
-	const Wrapper = (props: any) => createElement(tag || "a", props, props.children);
+function ButtonWrapper({ tag = "a", class: className, children, state, variant, ...props }: ButtonProps) {
+	const Wrapper = (props: any) => createElement(tag, props, props.children);
 
 	return (
 		<Wrapper {...props} aria-label={props["aria-label"]} class={[
-			!large && "text-style-button",
-			large && `text-style-button-large ${style.large}`,
-			icon && style.icon,
 			style.button, className, style[variant], state,
 		].filter(c => !!c).join(" ")}>
 			{children}
 		</Wrapper>
+	);
+}
+
+export function Button({ class: className, ...props }: ButtonProps) {
+	return (
+		<ButtonWrapper
+			{...props}
+			class={`text-style-button ${className}`}
+		/>
+	);
+}
+
+export function LargeButton({ class: className, ...props }: ButtonProps) {
+	return (
+		<ButtonWrapper
+			{...props}
+			class={`text-style-button-large ${style.large} ${className}`}
+		/>
+	);
+}
+
+export function IconButton({ class: className, ...props }: ButtonProps) {
+	return (
+		<ButtonWrapper
+			{...props}
+			class={`${style.icon} ${className}`}
+		/>
 	);
 }

@@ -56,12 +56,10 @@
 	}
 
 	.title {
-		@extend %beeg;
 		color: var(--darkPrimary);
 	}
 
 	.description {
-		@extend %headline-5;
 		color: var(--lightPrimary);
 		white-space: break-spaces;
 	}
@@ -72,7 +70,6 @@
 
 	.collectionButton {
 		border: var(--cardOutlineStyle) !important;
-		@extend %button;
 		margin-right: 1rem !important;
 		padding: 0.5rem !important;
 	}
@@ -96,8 +93,7 @@
 	}
 
 	.chapterListingHeader {
-		@extend %headline-1;
-		margin-top: 4rem;
+				margin-top: 4rem;
 		margin-bottom: 2rem;
 	}
 
@@ -132,8 +128,7 @@
 	}
 
 	.postTitle {
-		@extend %headline-4;
-		margin-top: 0.25rem;
+				margin-top: 0.25rem;
 		margin-bottom: 0;
 		text-decoration: underline;
 	}
@@ -143,8 +138,7 @@
 	}
 
 	.postDesc {
-		@extend %body-1;
-	}
+			}
 
 	.markdownContainer {
 		color: var(--darkPrimary);

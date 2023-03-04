@@ -47,8 +47,7 @@
 }
 
 .mobileTitle {
-	@extend %headline-1;
-	margin-top: 16px;
+		margin-top: 16px;
 
 	@include from($endSmallScreenSize) {
 		display: none;
@@ -56,8 +55,7 @@
 }
 
 .desktopTitle {
-	@extend %headline-2;
-
+	
 	@include until($endSmallScreenSize) {
 		display: none;
 	}
@@ -68,8 +66,7 @@
 }
 
 .subheader {
-	@extend %subheader-3;
-	margin: 0;
+		margin: 0;
 	transition: color var(--animStyle) var(--animSpeed);
 	color: var(--midImpactBlack);
 

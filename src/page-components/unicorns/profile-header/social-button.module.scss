@@ -18,8 +18,7 @@
 
 	.socialText {
 		margin-left: 0.5rem;
-		@extend %subheader-3;
-
+		
 		// Make it so that the next and prev label text is hidden on mobile
 		// but not removed from the aria-reading role
 		@include until($endSmallScreenSize) {

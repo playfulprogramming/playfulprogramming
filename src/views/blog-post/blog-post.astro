@@ -88,7 +88,7 @@ if (post.series && post.order) {
 			}
 			{
 				post.translations && Object.keys(post.translations).length ? (
-					<TranslationsHeader locales={post.translations} />
+					<TranslationsHeader locales={Object.keys(post.translations)} />
 				) : null
 			}
 			<Content />

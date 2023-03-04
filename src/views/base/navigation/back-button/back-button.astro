@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon";
-import { Button } from "components/base";
+import { IconButton } from "components/base";
 import { removePrefixLanguageFromPath, translate } from "utils/translations";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
@@ -9,14 +9,13 @@ const isHome = path === "/";
 
 {
 	!isHome && (
-		<Button
-			icon
+		<IconButton
 			tag="button"
 			id="backbtn"
 			aria-label={translate(Astro, "action.go_back")}
 		>
 			<Icon width="24" height="24" name="back" />
-		</Button>
+		</IconButton>
 	)
 }
 
