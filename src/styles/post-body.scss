@@ -81,30 +81,40 @@
 		margin-top: 0.75em;
 	}
 
-	table tr:last-child th:first-child {
-		border-bottom-left-radius: 10px;
+	thead tr:first-child {
+		th, td {
+			border-top: none;
+		}
 	}
 
-	table tr:last-child td:first-child {
-		border-bottom-left-radius: 10px;
+	tbody tr:last-child {
+		th, td {
+			border-bottom: none;
+		}
 	}
 
-	table tr:last-child td:last-child {
-		border-bottom-right-radius: 10px;
+	table tr {
+		td:first-child, th:first-child {
+			border-left: none;
+		}
+	}
+
+	table tr {
+		td:last-child, th:last-child {
+			border-right: none;
+		}
 	}
 
 	.table-container {
 		max-width: 100%;
-		overflow: auto;
+		// overflow: auto;
 	}
 
 	table {
-		border: var(--cardOutlineStyle);
 		border-radius: var(--cardRadius);
 		border-collapse: collapse;
 		// Border-collapse and border-radius don't mix. This is a workaround for that issue
 		box-shadow: 0 0 0 1px var(--primary);
-		overflow: hidden;
 
 		@include until($endSmallScreenSize) {
 			ul {
@@ -114,16 +124,25 @@
 		}
 	}
 
-	tr,
-	td,
-	th {
-		border: var(--cardOutlineStyle);
+	thead {
+		position: sticky;
+		top: 0;
+
+		border-top-left-radius: var(--cardRadius);
+		border-top-right-radius: var(--cardRadius);
+		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
+		box-shadow: inset 100vw 100vh 0 var(--cardActiveBackground), var(--cardActiveBoxShadow);
 	}
 
 	td,
 	th {
-		padding-left: 1rem;
-		padding-right: 1rem;
+		border: var(--cardOutlineStyle);
+		padding: .3rem .6rem;
+		line-height: 110%;
+
+		&> code {
+			word-break: break-word;
+		}
 
 		@include until($endSmallScreenSize) {
 			padding-left: 5px;
