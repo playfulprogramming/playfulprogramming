@@ -124,10 +124,13 @@
 		}
 	}
 
-	thead {
+	// Only use a sticky header on tables with 4+ rows
+	table:has(tr:nth-child(4)) thead {
 		position: sticky;
 		top: 0;
+	}
 
+	thead {
 		border-top-left-radius: var(--cardRadius);
 		border-top-right-radius: var(--cardRadius);
 		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
