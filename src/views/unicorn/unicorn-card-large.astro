@@ -95,7 +95,7 @@ const possessiveName = unicorn.name.endsWith("s")
 						loading={"eager"}
 						aspectRatio={1}
 						formats={["avif", "webp", "png"]}
-						alt={role.prettyname}
+						alt={role.prettyname /* TODO: what alt text should be used here? */}
 						class={`circleImg ${style.picture}`}
 					/>
 					<span class="text-style-body-small-bold">{role.prettyname}</span>
