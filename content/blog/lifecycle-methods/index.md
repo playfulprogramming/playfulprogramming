@@ -881,20 +881,148 @@ function App() {
     setTimerEnabled(false);
   };
 
-  if (!timerEnabled) return <p>There is no timer</p>;
-  if (secondsLeft === 0)
+  if (!timerEnabled) {
+    return <p>There is no timer</p>;
+  }
+    
+  if (secondsLeft === 0) {
     return <AlarmScreen snooze={snooze} disable={disable} />;
+  }
+
   return <p>{secondsLeft} seconds left in timer</p>;
 }
 ```
 
 ### Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'alarm-screen',
+  standalone: true,
+  template: `
+  <div>
+    <p>Time to wake up!</p>
+    <button (click)="triggerSnooze()">Snooze for 5 seconds</button>
+    <button (click)="triggerDisable()">Turn off alarm</button>
+  </div>
+  `,
+})
+export class AlarmScreenComponent implements OnInit {
+  @Output() snooze = new EventEmitter();
+  @Output() disable = new EventEmitter();
+
+  triggerSnooze() {
+    this.snooze.emit();
+  }
+  triggerDisable() {
+    this.disable.emit();
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      this.snooze.emit();
+    }, 10 * 1000);
+  }
+}
+
+@Component({
+  selector: 'app',
+  standalone: true,
+  imports: [NgIf, AlarmScreenComponent],
+  template: `
+    <p *ngIf="!timerEnabled; else timerDisplay">There is no timer</p>
+    <ng-template #timerDisplay>
+      <alarm-screen *ngIf="secondsLeft === 0; else secondsDisplay" (snooze)="snooze()" (disable)="disable()" />
+    </ng-template>
+    <ng-template #secondsDisplay>
+      <p>{{ secondsLeft }} seconds left in timer</p>
+    </ng-template>
+
+    `,
+})
+export class AppComponent implements OnInit {
+  secondsLeft = 5;
+  timerEnabled = true;
+
+  ngOnInit() {
+    setInterval(() => {
+      if (this.secondsLeft === 0) return;
+      this.secondsLeft = this.secondsLeft - 1;
+    }, 1000);
+  }
+
+  snooze() {
+    this.secondsLeft = this.secondsLeft + 5;
+  }
+
+  disable() {
+    this.timerEnabled = false;
+  }
+}
+```
 
 ### Vue
 
-// TODO
+```vue
+<!-- AlarmScreen.vue -->
+<template>
+  <div>
+    <p>Time to wake up!</p>
+    <button @click="emit('snooze')">Snooze for 5 seconds</button>
+    <button @click="emit('disable')">Turn off alarm</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const emit = defineEmits(['snooze', 'disable'])
+
+onMounted(() => {
+  setTimeout(() => {
+    // Automatically snooze the alarm
+    // after 10 seconds of inactivity
+    // In production this would be 10 minutes
+    emit('snooze')
+  }, 10 * 1000)
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <p v-if="!timerEnabled">There is no timer</p>
+  <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
+  <p v-else>{{ secondsLeft }} seconds left in timer</p>
+</template>
+
+<script setup>
+import AlarmScreen from './AlarmScreen.vue'
+import { ref, onMounted } from 'vue'
+
+const secondsLeft = ref(5)
+const timerEnabled = ref(true)
+
+onMounted(() => {
+  setInterval(() => {
+    if (secondsLeft.value === 0) return
+    secondsLeft.value = secondsLeft.value - 1
+  }, 1000)
+})
+
+const snooze = () => {
+  secondsLeft.value = secondsLeft.value + 5
+}
+
+const disable = () => {
+  timerEnabled.value = false
+}
+</script>
+```
 
 <!-- tabs:end -->
 
