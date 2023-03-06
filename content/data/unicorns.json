@@ -487,4 +487,19 @@
 		"color": "#49a8e4",
 		"roles": ["author"]
 	}
+	{
+		"id": "saturnqx",
+		"name": "Saturnqx",
+		"firstName": "",
+		"lastName": "",
+		"description": "Hi! Im saturnqx but you can call me Saturn. \n\nI enjoy programing on Roblox, and hope to one day make my passion project. \n\nI also have two sphynx cats who love tearing up curtains.",
+		"socials": {
+			"github": "saturnqx",
+			"twitch": "saturnqx"
+		},
+		"pronouns": "he/him",
+		"profileImg": "./saturnqx.png",
+		"color": "#bada55",
+		"roles": ["author"]
+	},
 ]
