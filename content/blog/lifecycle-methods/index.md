@@ -1812,46 +1812,251 @@ Earlier in the chapter, we looked at how an empty array passed to `useEffect` hi
 These are two ends of an extreme; the middle-ground comes in the form of passing specific functions to your `useEffect`:
 
 ```jsx
-useEffect(() => {
-	// ...
-}, [test])
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+	
+	useEffect(() => {
+        document.title = title.value;
+        
+        // Ask React to only run this `useEffect` if `title` has changed
+    }, [title])
+
+	return <div>
+      <button onClick={() => setTitle('Movies')}">Movies</button>
+      <button onClick={() => setTitle('Music')}">Music</button>
+      <button onClick={() => setTitle('Documents')}">Documents</button>
+	</div>
+}
 ```
 
 By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
-> It's worth mentioning here that `a variable's reference` is not a generalized term; it's specifically talking about a variable's internal memory address.
->
-> While I've written [in-depth about this topic before](// TODO: Add link to variables section), the gist of it is that you cannot mutate a function and have it re-run `useEffect`.
->
-> This won't trigger `useEffect` to re-run:
->
-> ```jsx
-> let test = [];
-> 
-> // ...
-> 
-> test.push(0);
-> ```
->
-> But this will:
->
-> ```javascript
-> let test = [];
-> 
-> // ...
-> 
-> test = [...test, 0];
-> ```
+### Stale Values
 
-> It's also worth mentioning that `useEffect` **does not listen to the array for changes**. Rather, it stores a reference of the values within the array during a component's render.
->
-> Later, during a component's re-render, `useEffect` will compares the values inside of the array. If these array values are the same, it will not run the `useEffect` (unless React chooses to ignore the optimization hint). If these values are _not_ the same, however, it _will_ run the `useEffect`, but only during the parent component's render itself.
->
-> This is to say: **`useEffect` is not ran unless the parent component itself renders**.
->
-> This sounds like a minor note, but is important to keep in mind moving forward. [I wrote an article that explains the differences between these two mental models and when it becomes relevant to your applications.](https://unicorn-utterances.com/posts/rules-of-reacts-useeffect)
+When using a component's variables within `useEffect`, **it's absolutely imperative that we include all of the utilized variables within the `useEffect` array**.
 
-// TODO: Talk about stale values
+This is because any variables left outside of `useEffect` will likely result in "stale" data. 
+
+"Stale" data is any data that is out-of-date from the "true"/intended value. This occurs when you pass data to a function inside of [a "closure"](https://whatthefuck.is/closure) and do not update the value later.
+
+Take the following code sample:
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      console.log("Count is: " + count);
+    }, 1000);
+  }, []);
+
+  return (
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1) }>
+        Add
+      </button>
+    </div>
+  );
+}
+```
+
+Here, we're telling React to `console.log` the `count` value every second inside of a `setInterval`.
+
+However, because we're not passing `count` to the `useEffect` array, the `console.log` will never show any value other than:
+
+```js
+"Count is: 0"
+```
+
+This is because our `useEffect` has a "stale" value of `count` and React is never telling the function to update with the new `count` value.
+
+To solve this, we can add `count` to the `useEffect` array:
+
+```js
+useEffect(() => {
+    setInterval(() => {
+    	console.log("Count is: " + count);
+    }, 1000);
+}, [count]);
+```
+
+
+### Persist data without re-rendering using `useRef`
+
+Let's go back to our `document.title` example. Say that instead of updating the `title` and `document.title` right away, we want to delay the updating of both using a `setTimeout`:
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+	
+	function updateTitle(val) {
+		setTimeout(() => {
+	        setTitle(val);
+	        document.title = title.value;
+		}, 5000);
+	}
+	
+	return <div>
+      <button onClick={() => updateTitle('Movies')}">Movies</button>
+      <button onClick={() => updateTitle('Music')}">Music</button>
+      <button onClick={() => updateTitle('Documents')}">Documents</button>
+	</div>
+}
+```
+
+If we click one of these buttons, and un-render the `App` component, our `setTimeout` will still execute because we've never told this component to cancel the timeout.
+
+While we could solve this problem using a `useState`:
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+    const [timeoutExpire, setTimeoutExpire] = useState(null); 
+    
+	function updateTitle(val) {
+		const timeout = setTimeout(() => {
+	        setTitle(val);
+	        document.title = title.value;
+		}, 5000);
+        
+        setTimeoutExpire(timeout);
+	}
+    
+    useEffect(() => {
+        return () => clearTimeout(timeoutExpire);
+    }, [timeoutExpire]);
+
+	return <div>
+      <button onClick={() => updateTitle('Movies')}">Movies</button>
+      <button onClick={() => updateTitle('Music')}">Music</button>
+      <button onClick={() => updateTitle('Documents')}">Documents</button>
+	</div>
+}
+```
+
+This will trigger a re-render of `App` when we run `updateTitle`. This re-render will not display any new changes, since our `timeoutExpire` property is not used in the DOM, but may be computationally expensive depending on the size of your `App` component.
+
+To sidestep this, we can use an `useRef` hook to store our `setTimeout` return without triggering a re-render:
+
+```jsx
+import {useState, useRef, useEffect} from "react";
+
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+
+    const timeoutExpire = useRef(null); 
+    
+	function updateTitle(val) {
+		timeoutExpire.current = setTimeout(() => {
+	        setTitle(val);
+	        document.title = title.value;
+		}, 5000);
+   	}
+    
+    useEffect(() => {
+        return () => clearTimeout(timeoutExpire.current);
+    }, [timeoutExpire]);
+
+	return <div>
+      <button onClick={() => updateTitle('Movies')}">Movies</button>
+      <button onClick={() => updateTitle('Music')}">Music</button>
+      <button onClick={() => updateTitle('Documents')}">Documents</button>
+	</div>
+}
+```
+
+`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
+
+1) You access data from a ref using `.current`
+2) It does not trigger a re-render when updating values (more on that soon)
+
+This makes `useRef` perfect for things like `setTimeout` and `setInterval` returned values; they need to be persisted in order to cleanup properly, but do not need to display to the user so we can avoid re-rendering.
+
+### `useRef`s don't trigger `useEffect`s
+
+Because `useRef` doesn't trigger a re-render, our `useEffect` will never re-run; **`useEffect` doesn't listen to the passed array values, but rather checks _the reference_ of the array's value**.
+
+> What does this mean?
+
+Take the following JavaScript:
+
+```javascript
+const obj1 = {updated: false};
+
+const obj2 = obj1;
+
+obj1.updated = true;
+
+console.log("Is object 2 updated?", obj2.updated); // true
+console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
+```
+
+This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location. 
+
+> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](// TODO: Link).
+
+The `useRef` hook is implemented under-the-hood similar to the following:
+
+```jsx
+const useRef = (initialValue) => {
+	const [value, _] = useState({current: initialValue});
+	
+	return value;
+}
+```
+
+Because the updates to `useRef` do not trigger the second argument of `useState`, it _mutates_ the underlying object rather than _referentially changes_ the object, which would trigger a re-render.  
+
+Now, let's see how this fundamental change impacts our usage of `useRef`. Take the following code sample:
+
+```jsx
+import {useRef, useEffect} from 'react';
+
+const Comp = () => {
+  const ref = useRef();
+    
+    useEffect(() => {
+        ref.current = Date.now();
+    });
+    
+    return <p>The current timestamp is: {ref.current}</p>
+}
+```
+
+Why doesn't this show a timestamp?
+
+This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` . 
+
+Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
+
+To solve for this, we must set a `useState` to trigger a re-render.
+
+```jsx
+const Comp = () => {
+  // Set initial value for first render
+  const ref = useRef(Date.now());
+
+  // We're not using the `_` value, just the `set` method in order to force a re-render 
+  const [_, setForceRenderNum] = useState(0);
+
+  useEffect(() => {
+      ref.current = Date.now();
+  });
+
+  return <>
+    // First render won't have `ref.current` set
+    <p>The current timestamp is: {ref.current}</p>
+    <button onClick={() => setForceRenderNum(v => v + 1)}>Check timestamp</button>
+  </>
+}
+```
+
+Here, the timestamp display will never update until you press the `button`. Even then, however, `useEffect` will run _after_ the render, meaning that the displayed timestamp will be from the _previous_ occurrence of the `button` press.
+
+[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
 
 ## Angular
 
@@ -2004,7 +2209,7 @@ watch(
 
 
 
-# During Render, Before Paint
+# Render, Commiting, Paint
 
 
 
@@ -2019,6 +2224,22 @@ While we might attribute the definition of "rendering" to mean "showing somethin
 This isn't to say that these "empty" renders are the same as renders that display new content: Each render that displays new content to the user is called a "paint".
 
 
+
+<!-- tabs:start -->
+
+## React
+
+// TODO: `useLayoutEffect`
+
+## Angular
+
+// TODO: None
+
+## Vue
+
+// TODO: https://vuejs.org/guide/essentials/watchers.html#callback-flush-timing
+
+<!-- tabs:end -->
 
 
 
