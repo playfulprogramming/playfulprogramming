@@ -11,17 +11,40 @@
 }
 ---
 
-While these frameworks' ability to render dynamic HTML is a powerful ability that helps make their usage so widespread, it's only telling half of the story of their capabilities. In particular, lifecycle methods are a way to attach JavaScript logic to specific behaviors these components have.
+React, Angular, and Vue all work by using JavaScript to render contents into the DOM. Because of this, [we're able to conditionally render contents on screen and remove them programmatically, as we did in our last chapter](/posts/dynamic-html).
 
-While [we lightly touched on one of these lifecycle methods in chapter 1](/posts/intro-to-components#Intro-to-Lifecycles), there are many others that come into play.
+However, doing this introduces some new complexities for us to consider:
 
-Let's start by recapping what we already know.
+1) How can we take an action when something is shown on screen for the first time?
+    - What terms and concepts should we know when talking about these actions?
+    - What actions _would_ we even _want_ to take in a production codebase?
+    - How does the browser itself help us make these actions relevant to the user?
+2) How can we take an action when something is removed from the screen?
+    - What is an "action cleanup" and why do we want them in production?
+    - How do we prevent memory leaks?
+
+3. What are other ways our components can trigger an action for us?
+
+These complexities help make up production applications and their ability to dynamically respond to user's input.
+
+Because they're so commonplace, each of the three frameworks implements a series of APIs that, when put together, help solve the questions listed above. **These APIs are called "Lifecycle methods".**
+
+Lifecycle methods **allow the framework to call code on your behalf when a component-related event occurs**.
+
+These "events" come in many flavors, including:
+
+- When a component renders for the first time
+- When a component is removed from the screen
+- When a component re-renders due to props changing
+- Other component-specific events
+
+Because these events typically have a one-to-one matching of a component's lifespan, they're called "Lifecycle" events.
+
+Let's explore what these lifecycle methods look like in usage:
 
 # Render Lifecycle
 
-When we introduced components, we touched on the [concept of "rendering"](/posts/intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen.
-
-This occurs when the user loads a page and when shown or hidden using a [conditional render, which we touched on in the last chapter](/posts/dynamic-html#Conditional-Branches).
+When we introduced components, we touched on the [concept of "rendering"](/posts/intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/dynamic-html#Conditional-Branches).
 
 Say we have the following code:
 
@@ -109,35 +132,43 @@ function setShowChild() {
 
 
 
-What would we need to do to add in a `console.log` whenever the `setShowChild` method is called?
+Here, `Child` is being added and removed from the DOM every time `setShowChild` is clicked. Let's say we wanted to add a way to call a `console.log` every time `Child` is shown on screen.
 
-Well, we can use a lifecycle method to detect when `Child` is rendered!
+While we _could_ add this log inside of `setShowChild`, it's more likely to break when we inevitably refactor the `Parent` component's code. Instead, let's use one of the aforementioned lifecycle methods to call `console.log` whenever `Child` is rendered.
 
 <!-- tabs:start -->
 
 ## React
 
+React works slightly differently from the other frameworks we're looking at in this series. In particular, while there's an alternative way of writing React components called "class components", which does have traditional lifecycle methods, the way we're writing components — called "functional components" — does not.
+
+Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
+
+One such Hook that we can use to mimic different lifecycle methods is called `useEffect`:
+
 ```jsx {1-3}
 const Child = () => {
+    // Pass a function that React will run for you
 	useEffect(() => {
         console.log("I am rendering");
+       // Pass an array of items to track changes of
     }, []);
 
     return <p>I am the child</p>
 }
 ```
 
-React works slightly differently from the other frameworks we're looking at in this series. In particular, while there's an alternative way of writing React components called "class components", which does have traditional lifecycle methods, the way we're writing components — called "functional components" — does not.
+For example, in the above code, we're using `useEffect` with an empty array as the second argument indicating that our inner function should only run only once per render. This hook is named as such because it enables us to create [side effects](// TODO: Link to glossary) in our components, just like other frameworks' lifecycle methods.
 
-Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
-
-For example, in the above code, we're using `useEffect` with an empty array as the second argument to create a [side effect](// TODO: Link to glossary) that runs only once per render.
-
-We'll touch on what a side effect is and what the empty array is doing in just a moment.
+We'll touch on what a side effect is and what the `useEffect`'s empty array is doing in just a moment.
 
 ## Angular
 
+Angular looks for a method named `ngOnInit` to be ran as part of the "rendered" lifecycle event:
+
 ```typescript {4-8}
+import {Component, OnInit} from "@angular/core";
+
 @Component({
   selector: 'child',
   template: '<p>I am the child</p>',
@@ -149,9 +180,9 @@ export class ChildComponent implements OnInit {
 }
 ```
 
-Angular's version of the "rendered" lifecycle method is called "OnInit". All of Angular's lifecycle methods are prepended with `ng` and requires you to add `implements` to your component class.
+All of Angular's lifecycle methods are prepended with `ng` and add `implements` to your component class.
 
-If you forget the `implements`, your lifecycle method will not run when you expect it to. 
+This `implements` clause help TypeScript figure out which methods have which properties and throws an error when the related method is not included in the class.
 
 ## Vue
 
@@ -170,13 +201,13 @@ onMounted(() => {
 </script>
 ```
 
-Despite some other frameworks having their lifecycle methods called implicitly, Vue requires you to import them from the `vue` root package. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
+Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
 
 This means that if you see me talking about a "mounted" lifecycle method, it's imported via `onMounted` instead. 
 
 <!-- tabs:end -->
 
-The framework then calls these lifecycle methods when a specific lifecycle event occurs. No need to call these methods yourself manually!
+As mentioned before, the framework itself calls these methods on your behalf when an internal event occurs; in this case, when `Child` is rendered.
 
 Try clicking the toggle button repeatedly, and you'll see that the `console.log` occurs every time the `Child` component renders again.
 
@@ -228,7 +259,61 @@ window.shoppingCartItems = 0;
 function addToShoppingCart() {
 	window.shoppingCartItems++;
 }
+
+addToShoppingCart();
+addToShoppingCart();
+addToShoppingCart(); // window.shoppingCartItems is now `3`
 ```
+
+Because `window` is a global variable, mutating a value within it is a "side effect" when done inside of a function; as the `window` variable was not declared within the `function`'s scope.
+
+Notice how our `addToShoppingCart` method isn't returning anything; instead, it's mutating the `window` variable as a side effect to update a global value. If we attempted to remove side effects from `addToShoppingCart` without introducing a new variable, we'd be left with the following:
+
+```js
+window.shoppingCartItems = 0;
+
+function addToShoppingCart() {
+    // Nothing is happening here.
+    // No side effects? Yay.
+    // No functionality? Boo.
+}
+
+addToShoppingCart();
+addToShoppingCart();
+addToShoppingCart(); // window.shoppingCartItems is still `0`
+```
+
+Notice how `addToShoppingCart` now does nothing. To remove side effects while still retaining the functionality of incrementing a value, we'd have to both:
+
+1. Pass an input
+2. Return a value
+
+With these changes, it might look something like this:
+
+```js
+function addToShoppingCart(val) {
+	return val + 1;
+}
+
+let shoppingCartItems = 0;
+
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+// shoppingCartItems is now `3`
+```
+
+Because of the inherent nature of side effects, this demonstrates how **all functions that don't return a new value either do nothing or have a side effect within them**.
+
+Further, because an application's inputs and outputs (combined often called "`I/O`") come from the user, rather than from the function itself, **all I/O operations are considered "side effects"**. This means that in addition to non-returning functions, all of the following are considered "side effects":
+
+- A user typing something
+- A user clicking something
+- Saving a file
+- Loading a file
+- Making a network request
+- Printing something to a printer
+- Logging a value to `console`
 
 ## Production Side Effects
 
@@ -751,3 +836,6 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 
 <!-- tabs:end -->
 
+# Challenge
+
+Implement a way to show a different message to the user if they're focused on the tab or not
