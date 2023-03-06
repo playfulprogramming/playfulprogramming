@@ -141,10 +141,74 @@ As mentioned previously, side effects are mission critical for the kinds of appl
 
 Component events a framework might listen for include:
 
+- User input events
+
 - A component rendering for the first time
 
 - [A component being removed from the screen as part of a conditional render](/posts/dynamic-html)
 - A component's data or passed properties changing
+
+The first of these component events are commonly fully transparent to most developers: User input bindings.
+
+Take the following for example:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const Comp = () => {
+	const sayHi = () => alert("Hi!");
+	return <button onClick={sayHi}>Say hello</button>;
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+	selector: "comp",
+	standalone: true,
+	template: `
+		<button (click)="sayHi()">Say hello</button>
+	`
+})
+class CompComponent {
+	sayHi() {
+		alert("Hi!");
+	}
+}
+```
+
+## Vue
+
+```vue
+<!-- Comp.vue -->
+<template>
+  <button @click="sayHi()">Say hello</button>
+</template>
+
+<script setup>
+const sayHi = () => alert("Hi!");
+</script>
+```
+
+<!-- tabs:end -->
+
+This component handles a `click` event (which is a user input, a side effect) and outputs an `alert` to the user in return (an output, another side effect). 
+
+See? Events are commonly hidden from the user when using one of these frameworks.
+
+Let's look back at the four most common types of component side effect origin points:
+
+- User input events
+
+- A component rendering for the first time
+
+- A component being removed from the screen as part of a conditional render
+- A component's data or passed properties changing
+
+While the first one was easy enough to tackle, the last three component events are often trickier to solve from a developer experience standpoint.
 
 Oftentimes, a framework may implement an API that corresponds a developer-defined function (ran by the framework) as a one-to-one matching of these events that occur during a component's lifespan. When a framework has a one-to-one mapping of function-to-lifecycle event, **this mapping creates a series of APIs called "Lifecycle Methods"**. Angular and Vue both have lifecycle methods as part of their core APIs.
 
@@ -152,7 +216,7 @@ On the other hand, **some frameworks choose to implement side effect handling wi
 
 To explore what these side effect handlers can do, let's look at an example of a handler that runs during a component's initial render.
 
-# Render Lifecycle
+# Initial render side effects
 
 When we introduced components, we touched on the [concept of "rendering"](/posts/intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/dynamic-html#Conditional-Branches).
 
@@ -247,17 +311,17 @@ function setShowChild() {
 
 Here, `Child` is being added and removed from the DOM every time `setShowChild` is clicked. Let's say we wanted to add a way to call a `console.log` every time `Child` is shown on screen.
 
+> Remember, `console.log` _outputs_ data to the user (albeit in a DevTools panel). As such, it's technically a side effect to call `console.log`.
+
 While we _could_ add this log inside of `setShowChild`, it's more likely to break when we inevitably refactor the `Parent` component's code. Instead, let's use one of the aforementioned lifecycle methods to call `console.log` whenever `Child` is rendered.
 
 <!-- tabs:start -->
 
 ## React
 
-React works slightly differently from the other frameworks we're looking at in this series. In particular, while there's an alternative way of writing React components called "class components", which does have traditional lifecycle methods, the way we're writing components — called "functional components" — does not.
+> React has two flavors of components: "class components", which has lifecycle methods, and "functional components", which use a different method of side effect handling. While we _could_ walk through class components, the React team has officially suggested all new applications to be developed with functional components. For this reason, we'll focus on them.
 
-Instead of a direct analogous, React's functional components have a different API [called "Hooks"](https://reactjs.org/docs/hooks-intro.html). These Hooks can then be used to recreate similar effects to lifecycle methods.
-
-One such Hook that we can use to mimic different lifecycle methods is called `useEffect`:
+All side effects within React components are handled by two Hooks: `useEffect` and `useLayoutEffect`. Let's start by looking at `useEffect`:
 
 ```jsx {1-3}
 import {useEffect} from 'react';
@@ -273,13 +337,15 @@ const Child = () => {
 }
 ```
 
-For example, in the above code, we're using `useEffect` with an empty array as the second argument indicating that our inner function should only run only once per render. This hook is named as such because it enables us to create [side effects](// TODO: Link to glossary) in our components, just like other frameworks' lifecycle methods.
+Here, we're completing the task of "run `console.log` when `Child` is rendered for the first time" by allowing React to run the `console.log` side effect inside of `useEffect`. The empty array hints to React that we'd only like this function to run once: when the component initially renders.
 
-We'll touch on what a side effect is and what the `useEffect`'s empty array is doing in just a moment.
+> The empty array passed to `useEffect` has a fair bit of nuance to it, which we'll learn about later.
+
+We mentioned earlier that there is another hook used to handle side effects: `useLayoutEffect`. While `useLayoutEffect` is useful, it requires a bit of pre-requisite knowledge that we'll touch on throughout this chapter. Let's put it to the side and come back to it later.
 
 ## Angular
 
-Angular looks for a method named `ngOnInit` to be ran as part of the "rendered" lifecycle event:
+In order to execute code during an initial render of a component, Angular uses a method called `ngOnInit`. This function is specially named so that Angular can call it on your behalf during the the "rendered" lifecycle event:
 
 ```typescript {4-8}
 import {Component, OnInit} from "@angular/core";
@@ -302,6 +368,12 @@ This `implements` clause help TypeScript figure out which methods have which pro
 
 ## Vue
 
+While Angular strictly uses lifecycle methods and React utilizes a `useEffect` hook to handle side effects, Vue does a bit of both.
+
+Let's start by taking a look at Vue's lifecycle method of handling a side effect.
+
+### Vue's `onMounted` Lifecycle Method
+
 ```vue
 <!-- Child.vue -->
 <template>
@@ -319,7 +391,30 @@ onMounted(() => {
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
 
-This means that if you see me talking about a "mounted" lifecycle method, it's imported via `onMounted` instead. 
+## Vue's `watchEffect` Hook
+
+Just as React has a non-lifecycle method of running side effect, so too does Vue. This is done using Vue's `watchEffect` and `watch` APIs. Let's start with a simple example:
+
+```vue
+<!-- Child.vue -->
+<template>
+  <p>I am the child</p>
+</template>
+
+<script setup>
+import { watchEffect } from 'vue'
+
+watchEffect(() => {
+  console.log('I am rendering')
+}, { immediate: true })
+</script>
+```
+
+Here, we're using `watchEffect` to run `console.log` as soon as the `Child` component renders.
+
+This only occurs because we're passing `{immediate: true}` as the options for the `watchEffect`; this is not the default behavior of `watchEffect`.
+
+Instead, `watchEffect` is commonly expected to be used alongside reactive values (like `ref` variables). We'll touch on how this works later on in the chapter.
 
 <!-- tabs:end -->
 
@@ -329,17 +424,7 @@ Try clicking the toggle button repeatedly, and you'll see that the `console.log`
 
 
 
-
-
-
-
-
-
-
-
-
-
-## Production Side Effects {#prod-side-effects}
+# Using Side Effects in Production {#prod-side-effects}
 
 On top of providing a global variable which we can mutate to store values, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
 
@@ -347,7 +432,7 @@ Let's say that inside of our component we'd like to display the window size:
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx
 const Parent = () => {
@@ -361,7 +446,7 @@ const Parent = () => {
 }
 ```
 
-### Angular
+## Angular
 
 ```typescript
 @Component({
@@ -380,7 +465,7 @@ export class WindowSizeComponent {
 }
 ```
 
-### Vue
+## Vue
 
 ```vue
 <!-- WindowSize.vue -->
@@ -407,7 +492,7 @@ Let's solve this by using [`window.addEventListener`](https://developer.mozilla.
 
 <!-- tabs:start -->
 
-### React
+## React
 
 ```jsx {4-10}
 const WindowSize = () => {
@@ -431,7 +516,7 @@ const WindowSize = () => {
 }
 ```
 
-### Angular
+## Angular
 
 ```typescript {13-20}
 @Component({
@@ -460,7 +545,7 @@ export class WindowSizeComponent implements OnInit {
 }
 ```
 
-### Vue
+## Vue
 
 ```vue
 <!-- WindowSize.vue -->
