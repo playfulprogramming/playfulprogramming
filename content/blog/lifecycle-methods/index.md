@@ -74,6 +74,8 @@ const Parent = () => {
 ```typescript
 @Component({
   selector: 'parent',
+  standalone: true,
+  imports: [ChildComponent],
   template: `
   <div>
   	<button (click)="setShowChild()">
@@ -92,6 +94,7 @@ export class ParentComponent {
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: '<p>I am the child</p>',
 })
 export class ChildComponent {
@@ -173,6 +176,7 @@ import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: '<p>I am the child</p>',
 })
 export class ChildComponent implements OnInit {
@@ -317,7 +321,7 @@ Further, because an application's inputs and outputs (combined often called "`I/
 - Printing something to a printer
 - Logging a value to `console`
 
-## Production Side Effects
+## Production Side Effects {#prod-side-effects}
 
 On top of providing a global variable which we can mutate to store values, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
 
@@ -344,6 +348,7 @@ const Parent = () => {
 ```typescript
 @Component({
   selector: 'window-size',
+  standalone: true,
   template: `
   <div>
   	<p>Height: {{height}}</p>
@@ -413,6 +418,7 @@ const WindowSize = () => {
 ```typescript {13-20}
 @Component({
   selector: 'window-size',
+  standalone: true,
   template: `
   <div>
   	<p>Height: {{height}}</p>
@@ -502,6 +508,7 @@ const WindowSize = () => {
 ```typescript {13-20}
 @Component({
   selector: 'window-size',
+  standalone: true,
   template: `
   <!-- This code doesn't work, we'll explain why soon -->
   <div (resize)="resizeHandler()">
@@ -902,21 +909,14 @@ function App() {
   template: `
   <div>
     <p>Time to wake up!</p>
-    <button (click)="triggerSnooze()">Snooze for 5 seconds</button>
-    <button (click)="triggerDisable()">Turn off alarm</button>
+    <button (click)="snooze.emit()">Snooze for 5 seconds</button>
+    <button (click)="disable.emit()">Turn off alarm</button>
   </div>
   `,
 })
 export class AlarmScreenComponent implements OnInit {
   @Output() snooze = new EventEmitter();
   @Output() disable = new EventEmitter();
-
-  triggerSnooze() {
-    this.snooze.emit();
-  }
-  triggerDisable() {
-    this.disable.emit();
-  }
 
   ngOnInit() {
     setTimeout(() => {
@@ -1049,102 +1049,253 @@ When the above code's `snooze` runs, it will add 4 seconds to the `secondsLeft` 
 
 To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with an `unmounted` lifecycle method.
 
--------
+## Unmount Lifecycle Method
 
--------
+In our previous code sample, we showed that mounted lifecycle methods left unclean will cause bugs in our apps and performance headaches for our users.
 
+Let's cleanup these lifecycle methods using a lifecycle method that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unran:
 
--------
+```javascript
+const timeout = setTimeout(() => {
+  // ...
+}, 1000);
 
--------
+// This stops a timeout from running if unran.
+// Otherwise, it does nothing.
+clearTimeout(timeout);
+```
 
+Similarly, when using `setInterval`, there's a `clearInterval` method we can use for cleanup:
 
--------
+```javascript
+const interval = setInterval(() => {
+  // ...
+}, 1000);
 
--------
-
-
--------
-
--------
-
-
--------
-
--------
-
-
-
-## Un-renders
-
-This holds true for our `addEventListener` usage since `addEventListener` will continue to run the passed function until a `removeEventListener` is called. We should run this any time an element is un-rendered. After all, it makes no sense to listen to DOM events on a DOM node that isn't present anymore.
-
-Luckily, similar to the lifecycle method for a component's render, there's another lifecycle method for when a component is unrendered.
+// This stops an interval from running
+clearInterval(interval);
+```
 
 <!-- tabs:start -->
 
-## React
+### React
 
-```jsx {1,4,5}
-const Child = () => {
-	useEffect(() => {
-        console.log("I am rendering");
-        
-        return () => console.log("I am unrendering");
+To run a cleanup function on React's `useEffect`, return a function inside of the `useEffect`. 
+
+```jsx
+const Comp = () => {
+    useEffect(() => {
+    	return () => {
+          console.log("I am cleaning up");
+        }
     }, []);
-
-    return <p>I am the child</p>
 }
 ```
 
-React utilizes `useEffect`'s ability to do cleanup to act as an "unrendered" of sorts. This cleanup is set up by returning a function at the end of a `useEffect` call. What's more, if `useEffect` is called more than once for whatever reason, it will execute the cleanup before running the next time.
+This returned function will be ran whenever:
 
-## Angular
+- `useEffect` is re-ran.
+  - The returned function is ran before the new `useEffect` instance is run.
+- `Comp` is unrendered.
 
-```typescript {4,9-11}
+> It may seem like I said the same thing twice here, however `useEffect` can be ran independent of a component's initial render lifecycle. More on that soon.
+
+Let's apply this returned function to our code sample previously:
+
+```jsx
+function AlarmScreen({ snooze, disable }) {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      snooze();
+    }, 10 * 1000);
+      
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // ...
+}
+
+function App() {
+  // ...
+    
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      setSecondsLeft((v) => {
+        if (v === 0) return v;
+        return v - 1;
+      });
+    }, 1000);
+      
+    return () => clearInterval(timeout);
+  }, []);
+
+  // ...
+}
+```
+
+### Angular
+
+When we add a mounted lifecycle to Angular, we:
+
+- Import `OnInit`
+- Add `OnInit` to the component's `implements` keyword
+- Add `ngOnInit` method to the component
+
+To add an unmounted lifecycle method to an Angular component, we do the same steps as above, but with `OnDestroy` instead:
+
+```typescript
+import {Component, EventEmitter, OnInit, Output, OnDestroy} from "@angular/core";
+
 @Component({
-  selector: 'child',
-  template: '<p>I am the child</p>',
+  selector: 'alarm-screen',
+  // ...
 })
-export class ChildComponent implements OnInit, OnDestroy {
+export class AlarmScreenComponent implements OnInit, OnDestroy {
+  // ...
+
+  timeout: number | undefined = undefined;
+    
   ngOnInit() {
-    console.log('I am rendering');
+    this.timeout = setTimeout(() => {
+      if (this.secondsLeft === 0) return;
+      this.secondsLeft = this.secondsLeft - 1;
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.timeout);
   }
     
-  ngOnDestroy() {
-      console.log("I am unrendering");
+  // ...
+}
+
+@Component({
+  selector: 'app',
+  // ...
+})
+export class AppComponent implements OnInit, OnDestroy {
+  // ...
+    
+  interval: number | undefined = undefined;
+    
+  ngOnInit() {
+    this.interval = setInterval(() => {
+      if (this.secondsLeft === 0) return;
+      this.secondsLeft = this.secondsLeft - 1;
+    }, 1000);
   }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
+  }
+
+  // ...
 }
 ```
 
-## Vue
+### Vue
+
+Similar to how we import `onMounted` we can import `onUnmounted` in Vue to run the relevant lifecycle method.
 
 ```vue
-<!-- Child.vue -->
+<!-- AlarmScreen.vue -->
 <template>
-  <p>I am the child</p>
+	<!-- ... -->
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, unUnmounted } from 'vue'
+
+const emit = defineEmits(['snooze', 'disable'])
+
+// We don't need to wrap this in `ref`, since it won't be used in `template`
+let timeout;
 
 onMounted(() => {
-  console.log('I am rendering')
+  timeout = setTimeout(() => {
+    // Automatically snooze the alarm
+    // after 10 seconds of inactivity
+    // In production this would be 10 minutes
+    emit('snooze')
+  }, 10 * 1000)
+})
+    
+unUnmounted(() => {
+    clearTimeout(timeout);
+});
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+	<!-- ... -->
+</template>
+
+<script setup>
+import AlarmScreen from './AlarmScreen.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+// We don't need to wrap this in `ref`, since it won't be used in `template`
+let interval;
+
+onMounted(() => {
+  interval = setInterval(() => {
+    if (secondsLeft.value === 0) return
+    secondsLeft.value = secondsLeft.value - 1
+  }, 1000)
 })
 
-onUnmounted(() => {
-  console.log('I am unrendering')
-})
+unUnmounted(() => {
+    clearInterval(interval);
+});
+    
+// ...
 </script>
 ```
 
 <!-- tabs:end -->
 
-Knowing this, we can add a `removeEventListener` to the `WindowSize` component we were building previously.
+
+
+## Cleaning up event listeners
+
+[We had a code sample earlier in the chapter that relied on `addEventListener` to get the window size](#prod-side-effects). This code sample, you may have guessed, had a memory leak in it because we never cleaned up this event listener.
+
+To clean up an event listener, we must remove its reference from the `window` object via `removeEventListener`:
+
+```javascript
+const fn = () => console.log('a');
+window.addEventListener('resize', fn);
+window.removeEventListener('resize', fn);
+```
+
+> Something to keep in mind with `removeEventListener` is that it needs to be the same function passed as the second argument to remove it from the listener.
+>
+> This means that inline arrow functions like this:
+>
+> ```javascript
+> window.addEventListener('resize', () => console.log('a'));
+> window.removeEventListener('resize', () => console.log('a'));
+> ```
+>
+> Won't work, but the following will:
+>
+> ```javascript
+> const fn = () => console.log('a');
+> window.addEventListener('resize', fn);
+> window.removeEventListener('resize', fn);
+> ```
+>
+
+Let's fix our `WindowSize` component from before by cleaning up the event listener side effect using the knowledge we have now.
 
 <!-- tabs:start -->
 
-## React
+### React
 
 ```jsx
 const WindowSize = () => {
@@ -1168,11 +1319,12 @@ const WindowSize = () => {
 }
 ```
 
-## Angular
+### Angular
 
 ```typescript
 @Component({
   selector: 'window-size',
+  standalone: true,
   template: `
   <div>
   	<p>Height: {{height}}</p>
@@ -1183,7 +1335,6 @@ const WindowSize = () => {
 export class WindowSizeComponent implements OnInit, OnDestroy {
   height = window.innerHeight;
   width = window.innerWidth;
-
   resizeHandler() {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
@@ -1199,7 +1350,7 @@ export class WindowSizeComponent implements OnInit, OnDestroy {
 }
 ```
 
-## Vue
+### Vue
 
 ```vue
 <!-- WindowSize.vue -->
@@ -1233,23 +1384,8 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-> Something to keep in mind with `removeEventListener` is that it needs to be the same function passed as the second argument to remove it from the listener.
->
-> This means that inline arrow functions like this:
->
-> ```javascript
-> window.addEventListener('resize', () => console.log('a'));
-> window.removeEventListener('resize', () => console.log('a'));
-> ```
->
-> Won't work, but the following will:
->
-> ```javascript
-> const fn = () => console.log('a');
-> window.addEventListener('resize', fn);
-> window.removeEventListener('resize', fn);
-> ```
->
+
+
 
 # Re-renders & Beyond
 
