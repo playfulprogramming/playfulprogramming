@@ -317,7 +317,7 @@ Further, because an application's inputs and outputs (combined often called "`I/
 
 ## Production Side Effects
 
-On top of global storage, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
+On top of providing a global variable which we can mutate to store values, both [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window#methods) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/Document#methods) expose a number of APIs that can be useful in an application.
 
 Let's say that inside of our component we'd like to display the window size:
 
@@ -376,7 +376,7 @@ const width = window.innerWidth
 
 This works to display the window size on the initial render, but what happens when the user resizes their browser?
 
-Because we aren't listening for the change in Window size, we never get an updated render with the new screen size!
+Because we aren't listening for the change in window size, we never get an updated render with the new screen size!
 
 Let's solve this by using [`window.addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) to handle [`resize` events](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event); emitted when the user changes their window size.
 
@@ -394,6 +394,8 @@ const WindowSize = () => {
           setHeight(window.innerHeight);
           setWidth(window.innerWidth);
       }
+      
+      // This code will cause a memory leak, more on that soon
       window.addEventListener('resize', resizeHandler);
   }, []);
     
@@ -426,6 +428,7 @@ export class WindowSizeComponent implements OnInit {
   }
     
   ngOnInit() {
+    // This code will cause a memory leak, more on that soon
     window.addEventListener('resize', this.resizeHandler);
   }
 }
@@ -454,6 +457,7 @@ function resizeHandler() {
 }
 
 onMounted(() => {
+  // This code will cause a memory leak, more on that soon
   window.addEventListener('resize', resizeHandler)
 })
 </script>
@@ -461,15 +465,90 @@ onMounted(() => {
 
 <!-- tabs:end -->
 
-Now, when we resize the browser, our values on-screen should update as well!
+Now, when we resize the browser, our values on-screen should update as well.
 
 ## Event Bubbling Aside
 
-You might be wondering why we don't simply utilize event binding, [which we covered in our introduction to components](/posts/intro-to-components#Event-Binding), to listen for the `resize` event.
+In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/intro-to-components#Event-Binding).
 
-This is because the `resize` event is only triggered on the `window` object (associated with the `<html>` tag) and does not permeate downwards towards other elements.
+What if we changed our code above to listen for the `resize` event that way to sidestep `addEventListener`?
 
-You see, by default, events will always "bubble" upwards from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const WindowSize = () => {
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
+  
+  function resizeHandler() {
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
+  }
+
+  // This code doesn't work, we'll explain why soon
+  return <div onResize={resizeHandler}>
+  	<p>Height: {height}</p>
+  	<p>Width: {width}</p>
+  </div>
+}
+```
+
+### Angular
+
+```typescript {13-20}
+@Component({
+  selector: 'window-size',
+  template: `
+  <!-- This code doesn't work, we'll explain why soon -->
+  <div (resize)="resizeHandler()">
+  	<p>Height: {{height}}</p>
+  	<p>Width: {{width}}</p>
+  </div>
+  `,
+})
+export class WindowSizeComponent implements OnInit {
+  height = window.innerHeight;
+  width = window.innerWidth;
+
+  resizeHandler() {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  }
+}
+```
+
+### Vue
+
+```vue
+<!-- WindowSize.vue -->
+<template>
+  <!-- This code doesn't work, we'll explain why soon -->
+  <div @resize="resizeHandler()">
+    <p>Height: {{ height }}</p>
+    <p>Width: {{ width }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const height = ref(window.innerHeight)
+const width = ref(window.innerWidth)
+
+function resizeHandler() {
+  height.value = window.innerHeight
+  width.value = window.innerWidth
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+If we run this code, it will render as-expected with the initial screen size, but on subsequent re-renders will not update the value on screen. This is because the `resize` event is only triggered on the `window` object (associated with the `<html>` tag) and does not permeate downwards towards other elements.
+
+You see, by default, events will always "bubble" upwards in the DOM tree from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
 
 ![A click event bubbling to the top of the document](./event_bubbling.png) 
 We can demonstrate this inside of our frameworks.
