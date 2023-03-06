@@ -1,7 +1,7 @@
 ---
 {
-    title: "Lifecycle Methods",
-    description: "One way for JavaScript logic to run in components is for a framework to call a specific bit of JS when an event occurs. These are called 'Lifecycle methods'.",
+    title: "Side Effects",
+    description: "",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
     tags: ['webdev'],
@@ -11,36 +11,146 @@
 }
 ---
 
-React, Angular, and Vue all work by using JavaScript to render contents into the DOM. Because of this, [we're able to conditionally render contents on screen and remove them programmatically, as we did in our last chapter](/posts/dynamic-html).
+While you _can_ build static websites with React, Angular, and Vue, these frameworks shine brightest when building _interactive **applications**_.
 
-However, doing this introduces some new complexities for us to consider:
+These applications come in many shape, forms, and functionalities, but all have one thing in common: They take live input from the user and display information back to the user.
 
-1) How can we take an action when something is shown on screen for the first time?
-    - What terms and concepts should we know when talking about these actions?
-    - What actions _would_ we even _want_ to take in a production codebase?
-    - How does the browser itself help us make these actions relevant to the user?
-2) How can we take an action when something is removed from the screen?
-    - What is an "action cleanup" and why do we want them in production?
-    - How do we prevent memory leaks?
+This is the key difference between a static site and an interactive one; static sites show their contents and then allow the user to navigate through the site without drastic changes to the displayed content, meanwhile interactive sites drastically shift their displayed information based off of user input.
 
-3. What are other ways our components can trigger an action for us?
+This difference carries through to how you build the application as well. While a static site might prioritize initial load by frontloading the HTML compilation [through server side render (SSR) or static site generation (SSG)](https://unicorn-utterances.com/posts/what-is-ssr-and-ssg), the interactive app is more likely to focus on processing information passed to it in order to customize your experience.
 
-These complexities help make up production applications and their ability to dynamically respond to user's input.
+As interactive apps rely so heavily on processing information based on user input, React, Angular, and Vue all provide built-in ways of interacting, intercepting, and otherwise ingesting this information.
 
-Because they're so commonplace, each of the three frameworks implements a series of APIs that, when put together, help solve the questions listed above. **These APIs are called "Lifecycle methods".**
+While each of these frameworks handles this input ingestion slightly differently, the underlying concepts are the same: **All user input and output generate "Side effects", which need to be handled.**
 
-Lifecycle methods **allow the framework to call code on your behalf when a component-related event occurs**.
+This raises more questions than it answers:
 
-These "events" come in many flavors, including:
+- What is a side effect?
+- How do these frameworks handle side effects?
+- How does the browser notify the framework about side effects?
+- How do you ensure side effects are cleaned up?
+- How do you handle in-component side effects?
 
-- When a component renders for the first time
-- When a component is removed from the screen
-- When a component re-renders due to props changing
-- Other component-specific events
+Let's answer these questions one-by-one, starting with:
 
-Because these events typically have a one-to-one matching of a component's lifespan, they're called "Lifecycle" events.
+# What is a side effect?
 
-Let's explore what these lifecycle methods look like in usage:
+A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure".
+
+![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](./pure-vs-side-effect.png)
+
+For example, say we have the following code:
+
+```javascript
+function pureFn() {
+	let data = 0;
+    data++;
+    return data;
+}
+```
+
+This logic would be considered "pure", as it does not rely on external data sources. However, if we move the `data` variable outside of the local environment and mutate it elsewhere:
+
+```javascript
+let data;
+
+function increment() {
+	data++;
+}
+
+function setupData() {
+	data = 0;
+	increment();
+	return data;
+}
+```
+
+`increment` would be considered a "side-effect" that mutates a variable outside of its own environment.
+
+> When does this come into play in a production application?
+
+This is a great question! A great example of this occurs in the browser with the `window` and `document` APIs.
+
+Say we wanted to store a global counter that we use in multiple parts of the app, we might store this in `window`.
+
+```javascript
+window.shoppingCartItems = 0;
+
+function addToShoppingCart() {
+	window.shoppingCartItems++;
+}
+
+addToShoppingCart();
+addToShoppingCart();
+addToShoppingCart(); // window.shoppingCartItems is now `3`
+```
+
+Because `window` is a global variable, mutating a value within it is a "side effect" when done inside of a function; as the `window` variable was not declared within the `function`'s scope.
+
+Notice how our `addToShoppingCart` method isn't returning anything; instead, it's mutating the `window` variable as a side effect to update a global value. If we attempted to remove side effects from `addToShoppingCart` without introducing a new variable, we'd be left with the following:
+
+```js
+window.shoppingCartItems = 0;
+
+function addToShoppingCart() {
+    // Nothing is happening here.
+    // No side effects? Yay.
+    // No functionality? Boo.
+}
+
+addToShoppingCart();
+addToShoppingCart();
+addToShoppingCart(); // window.shoppingCartItems is still `0`
+```
+
+Notice how `addToShoppingCart` now does nothing. To remove side effects while still retaining the functionality of incrementing a value, we'd have to both:
+
+1. Pass an input
+2. Return a value
+
+With these changes, it might look something like this:
+
+```js
+function addToShoppingCart(val) {
+	return val + 1;
+}
+
+let shoppingCartItems = 0;
+
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+shoppingCartItems = addToShoppingCart(shoppingCartItems);
+// shoppingCartItems is now `3`
+```
+
+Because of the inherent nature of side effects, this demonstrates how **all functions that don't return a new value either do nothing or have a side effect within them**.
+
+Further, because an application's inputs and outputs (combined often called "`I/O`") come from the user, rather than from the function itself, **all I/O operations are considered "side effects"**. This means that in addition to non-returning functions, all of the following are considered "side effects":
+
+- A user typing something
+- A user clicking something
+- Saving a file
+- Loading a file
+- Making a network request
+- Printing something to a printer
+- Logging a value to `console`
+
+# How do frameworks handle side effects?
+
+As mentioned previously, side effects are mission critical for the kinds of applications that React, Angular, and Vue are all purpose-built for. To make side-effect handling easier, each framework has its own method of running code on behalf of the developer when specific events occur in the component.
+
+Component events a framework might listen for include:
+
+- A component rendering for the first time
+
+- [A component being removed from the screen as part of a conditional render](/posts/dynamic-html)
+- A component's data or passed properties changing
+
+Oftentimes, a framework may implement an API that corresponds a developer-defined function (ran by the framework) as a one-to-one matching of these events that occur during a component's lifespan. When a framework has a one-to-one mapping of function-to-lifecycle event, **this mapping creates a series of APIs called "Lifecycle Methods"**. Angular and Vue both have lifecycle methods as part of their core APIs.
+
+On the other hand, **some frameworks choose to implement side effect handling without lifecycle methods**. React is a key example of this, but Vue also has a non-lifecycle method of managing side effects in a component.
+
+To explore what these side effect handlers can do, let's look at an example of a handler that runs during a component's initial render.
 
 # Render Lifecycle
 
@@ -217,109 +327,17 @@ As mentioned before, the framework itself calls these methods on your behalf whe
 
 Try clicking the toggle button repeatedly, and you'll see that the `console.log` occurs every time the `Child` component renders again.
 
-## Side Effects
 
-A common usage of this `rendered` lifecycle is to be able to do some kind of **side effect**.
 
-A side effect is when a piece of code changes or relies on state outside its local environment. When a piece of code does not contain a side effect, it is considered "pure".
 
-![A pure function is allowed to mutate state from within it's local environment, while a side effect changes data outside its own environment](./pure-vs-side-effect.png)
 
-For example, say we have the following code:
 
-```javascript
-function pureFn() {
-	let data = 0;
-    data++;
-    return data;
-}
-```
 
-This logic would be considered "pure", as it does not rely on external data sources. However, if we move the `data` variable outside of the local environment and mutate it elsewhere:
 
-```javascript
-let data;
 
-function increment() {
-	data++;
-}
 
-function setupData() {
-	data = 0;
-	increment();
-	return data;
-}
-```
 
-`increment` would be considered a "side-effect" that mutates a variable outside of its own environment.
 
-> When does this come into play in a production application?
-
-This is a great question! A great example of this occurs in the browser with the `window` and `document` APIs.
-
-Say we wanted to store a global counter that we use in multiple parts of the app, we might store this in `window`.
-
-```javascript
-window.shoppingCartItems = 0;
-
-function addToShoppingCart() {
-	window.shoppingCartItems++;
-}
-
-addToShoppingCart();
-addToShoppingCart();
-addToShoppingCart(); // window.shoppingCartItems is now `3`
-```
-
-Because `window` is a global variable, mutating a value within it is a "side effect" when done inside of a function; as the `window` variable was not declared within the `function`'s scope.
-
-Notice how our `addToShoppingCart` method isn't returning anything; instead, it's mutating the `window` variable as a side effect to update a global value. If we attempted to remove side effects from `addToShoppingCart` without introducing a new variable, we'd be left with the following:
-
-```js
-window.shoppingCartItems = 0;
-
-function addToShoppingCart() {
-    // Nothing is happening here.
-    // No side effects? Yay.
-    // No functionality? Boo.
-}
-
-addToShoppingCart();
-addToShoppingCart();
-addToShoppingCart(); // window.shoppingCartItems is still `0`
-```
-
-Notice how `addToShoppingCart` now does nothing. To remove side effects while still retaining the functionality of incrementing a value, we'd have to both:
-
-1. Pass an input
-2. Return a value
-
-With these changes, it might look something like this:
-
-```js
-function addToShoppingCart(val) {
-	return val + 1;
-}
-
-let shoppingCartItems = 0;
-
-shoppingCartItems = addToShoppingCart(shoppingCartItems);
-shoppingCartItems = addToShoppingCart(shoppingCartItems);
-shoppingCartItems = addToShoppingCart(shoppingCartItems);
-// shoppingCartItems is now `3`
-```
-
-Because of the inherent nature of side effects, this demonstrates how **all functions that don't return a new value either do nothing or have a side effect within them**.
-
-Further, because an application's inputs and outputs (combined often called "`I/O`") come from the user, rather than from the function itself, **all I/O operations are considered "side effects"**. This means that in addition to non-returning functions, all of the following are considered "side effects":
-
-- A user typing something
-- A user clicking something
-- Saving a file
-- Loading a file
-- Making a network request
-- Printing something to a printer
-- Logging a value to `console`
 
 ## Production Side Effects {#prod-side-effects}
 
@@ -1557,7 +1575,7 @@ Angular does not have a lifecycle method specifically for when a component re-re
 
 This isn't to say that Angular components don't re-paint the DOM — we've already demonstrated that it's able to live-refresh the DOM — just that Angular doesn't provide a lifecycle for detecting when it does.
 
-To answer "why" is a much longer topic, [which we'll touch on in our "Angular Internals" section](// TODO), but feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
+To answer "why" is a much longer topic, [which we'll touch on in our "Angular Internals" section of the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title), but feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
 
 ## Vue
 
@@ -1580,7 +1598,7 @@ onUpdated(() => {
 
 Every time the `ReRenderListener` component is re-rendered **and the DOM is painted with the changes**, the `updated` method will run.
 
-Vue also exposes a lifecycle method, called `renderTriggered`, for when a re-render occurs in general, regardless of if a paint has also occurred. 
+Vue also exposes a lifecycle method, called `renderTriggered`, for when a re-render occurs in general, regardless of if a paint has also occurred.
 
 ```vue
 <!-- ReRenderListener.vue -->
@@ -1638,3 +1656,34 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 # Challenge
 
 Implement a way to show a different message to the user if they're focused on the tab or not
+
+- Add `blur` handler
+  - With cleanup
+- Add `focus` handler
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+export default function App() {
+  const [currentDirectory, setCurrentDirectory] = useState('movies');
+
+  useEffect(() => {
+    const focusHandler = () => {
+      document.title = 'Files App';
+    };
+    const blurHandler = () => {
+      document.title = 'Files App: ' + currentDirectory;
+    };
+    window.addEventListener('focus', focusHandler);
+    window.addEventListener('blur', blurHandler);
+
+    return () => {
+      window.removeEventListener('focus', focusHandler);
+      window.removeEventListener('blur', blurHandler);
+    };
+  }, [currentDirectory]);
+
+  return <div></div>;
+}
+```
+
