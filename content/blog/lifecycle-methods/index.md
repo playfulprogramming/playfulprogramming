@@ -1156,7 +1156,7 @@ To solve this, we simply need to tell our `AlarmScreen` component to cancel the 
 
 In our previous code sample, we showed that mounted lifecycle methods left unclean will cause bugs in our apps and performance headaches for our users.
 
-Let's cleanup these lifecycle methods using a lifecycle method that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unran:
+Let's cleanup these lifecycle methods using a lifecycle method that runs during unmounting. To do this, we'll use JavaScript's `clearTimeout` to remove any `setTimeout`s that are left unrun:
 
 ```javascript
 const timeout = setTimeout(() => {
@@ -1355,8 +1355,94 @@ onMounted(() => {
 unUnmounted(() => {
     clearInterval(interval);
 });
-    
+
 // ...
+</script>
+```
+
+#### Vue's `watchEffect` cleanup
+
+As mentioned previously, Vue has two methods of handling side effects; Lifecycle methods and `watchEffect`. Luckily, `watchEffect` also has the ability to cleanup side effects that were created before. 
+
+To cleanup effect, `watchEffect` provides an argument to the inner `watchEffect` function, which we'll name `onCleanup`. This property is, in itself, a function which we call with the cleanup logic:
+
+```javascript
+// onCleanup is a property passed to the inner `watchEffect` function
+watchEffect((onCleanup) => {
+  const interval = setInterval(() => {
+    console.log("Hello!")
+  }, 1000)
+
+  // We then call `onCleanup` with the expected cleaning behavior
+  onCleanup(() => {
+    clearInterval(interval)
+  })
+}, {immediate: true})
+```
+
+Let's rewrite the previous code samples to use `watchEffect`:
+
+```vue
+<!-- App.vue -->
+<template>
+  <p v-if="!timerEnabled">There is no timer</p>
+  <AlarmScreen v-else-if="secondsLeft === 0" @snooze="snooze()" @disable="disable()" />
+  <p v-else>{{ secondsLeft }} seconds left in timer</p>
+</template>
+
+<script setup>
+import AlarmScreen from './AlarmScreen.vue'
+import { ref, watchEffect } from 'vue'
+
+const secondsLeft = ref(5)
+const timerEnabled = ref(true)
+
+watchEffect((onCleanup) => {
+  const interval = setInterval(() => {
+    if (secondsLeft.value === 0) return
+    secondsLeft.value = secondsLeft.value - 1
+  }, 1000)
+
+  onCleanup(() => {
+    clearInterval(interval)
+  })
+}, {immediate: true})
+
+const snooze = () => {
+  secondsLeft.value = secondsLeft.value + 5
+}
+
+const disable = () => {
+  timerEnabled.value = false
+}
+</script>
+```
+
+```vue
+<!-- AlarmScreen.vue -->
+<template>
+  <div>
+    <p>Time to wake up!</p>
+    <button @click="emit('snooze')">Snooze for 5 seconds</button>
+    <button @click="emit('disable')">Turn off alarm</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+const emit = defineEmits(['snooze', 'disable'])
+
+watchEffect((onCleanup) => {
+  const timeout = setTimeout(() => {
+    // Automatically snooze the alarm
+    // after 10 seconds of inactivity
+    // In production this would be 10 minutes
+    emit('snooze')
+  }, 10 * 1000)
+
+  onCleanup(() => clearTimeout(timeout))
+})
 </script>
 ```
 
@@ -1455,6 +1541,8 @@ export class WindowSizeComponent implements OnInit, OnDestroy {
 
 ### Vue
 
+Using lifecycles, this would be:
+
 ```vue
 <!-- WindowSize.vue -->
 <template>
@@ -1482,6 +1570,35 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', resizeHandler)
 })
+</script>
+```
+
+Or, using `watchEffect`, this is:
+
+```vue
+<!-- WindowSize.vue -->
+<template>
+  <div>
+    <p>Height: {{ height }}</p>
+    <p>Width: {{ width }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+const height = ref(window.innerHeight)
+const width = ref(window.innerWidth)
+
+function resizeHandler() {
+  height.value = window.innerHeight
+  width.value = window.innerWidth
+}
+
+watchEffect(onCleanup => {
+  window.addEventListener('resize', resizeHandler)
+  onCleanup(() => window.removeEventListener('resize', resizeHandler));
+}, {immediate: true});
 </script>
 ```
 
