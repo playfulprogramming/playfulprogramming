@@ -1659,7 +1659,9 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 
 
-# Re-renders & Beyond
+
+
+# Re-renders
 
 While rendering and un-rendering are primary actions in a component's lifecycle, they're not the _only_ lifecycle methods on the table.
 
@@ -1672,16 +1674,6 @@ Re-renders may occur for many reasons:
 - Props being updated
 - State being changed
 - Explicitly calling a re-render via other means
-
-While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. In some instances, the framework may do some internal updates to the DOM that may not show anything new to the user but is still considered a "re-render".
-
-> While this isn't always a bad thing — "empty" re-renders tend not to be computationally expensive — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our third book.](https://unicorn-utterances.com/collections/framework-field-guide#internals-title)
->
-> I wish I could write about it sooner, but performance optimizations is a broad topic which often requires deep technical knowledge; a bad fit for a book covering the fundamentals.
-
- <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
-
-This isn't to say that these "empty" renders are the same as renders that display new content: Each render that displays new content to the user is called a "paint".
 
 Let's take a look at how each framework exposes re-rendering to the user via lifecycle methods.
 
@@ -1725,9 +1717,99 @@ useEffect(() => {
 
 Here, we're _not passing an array_ to `useEffect` which tells the framework that it can (and should) run the side effect on **every** single render, regardless of if said render has "painted" or not.
 
-There does, however, lie a middle-ground between these two `useEffect` arrays: You can pass variables and values to the `useEffect` array.
+There's yet another usage for this array, passed to `useEffect`, which we'll touch on shortly.
 
-For example, here we're passing the `test` variable:
+## Angular
+
+We mentioned earlier that outside of the basics of "rendering" and "un-rendering", each framework tends to diverge. Well, dear reader, it's coming into play here.
+
+Angular does not have a lifecycle method specifically for when a component re-renders. This is because Angular does not track DOM changes internally the same way the other two frameworks do.
+
+This isn't to say that Angular components don't re-draw the DOM — we've already demonstrated that it's able to live-refresh the DOM when data changes — just that Angular doesn't provide a lifecycle for detecting when it does.
+
+To answer "why" is a much longer topic, [which I've written about in a dedicated blog post](https://unicorn-utterances.com/posts/angular-internals-zonejs), but in the meantime feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
+
+## Vue
+
+```vue
+<!-- ReRenderListener.vue -->
+<template>
+  <div>{{ val }}</div>
+</template>
+
+<script setup>
+import { onUpdated } from 'vue'
+
+const props = defineProps(['val'])
+
+onUpdated(() => {
+  console.log('Component was painted')
+})
+</script>
+```
+
+Every time the `ReRenderListener` component updates the DOM with new changes, the `onUpdated` method will run.
+
+<!-- tabs:end -->
+
+# In-component property side effects
+
+Up to this point, we've looked at component-wide events such as "rendering the component" and "unrendering the component".
+
+While these events are undeniably helpful to be able to hook into, most user input doesn't cause this drastic of a change.
+
+For example, let's say we wanted to update the browser tab's title when we select a new document:
+
+ <!-- tabs:start -->
+
+## React
+
+```jsx
+const App = () => {
+	const [title, setTitle] = useState("Movies");
+	
+	return <div>
+      <button onClick={() => setTitle('Movies')}">Movies</button>
+      <button onClick={() => setTitle('Music')}">Music</button>
+      <button onClick={() => setTitle('Documents')}">Documents</button>
+	</div>
+}
+```
+
+## Angular
+
+<!-- Editor's note: Angular Signals will help bridge this gap. Its `effect` will allow us to listen to changes within its own state -->
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <button @click="title = 'Movies'">Movies</button>
+  <button @click="title = 'Music'">Music</button>
+  <button @click="title = 'Documents'">Documents</button>
+</template>
+
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+const title = ref('Movies')
+</script>
+```
+
+<!-- tabs:end -->
+
+Here, `title` is a variable that is being updated, which triggers a re-render. Because the framework knows how to trigger a re-render based of a reactive change, it also has the ability to trigger a side effect whenever a value is changed.
+
+Let's see how we do this in React, Angular, and Vue:
+
+<!-- tabs:start -->
+
+## React
+
+Earlier in the chapter, we looked at how an empty array passed to `useEffect` hints to React that you only want the inner function running once. We also saw how passing no array will cause `useEffect`'s function to run in every re-render.
+
+These are two ends of an extreme; the middle-ground comes in the form of passing specific functions to your `useEffect`:
 
 ```jsx
 useEffect(() => {
@@ -1769,71 +1851,178 @@ By doing this, we're _hinting_ to React that this side effect should only ever r
 >
 > This sounds like a minor note, but is important to keep in mind moving forward. [I wrote an article that explains the differences between these two mental models and when it becomes relevant to your applications.](https://unicorn-utterances.com/posts/rules-of-reacts-useeffect)
 
+// TODO: Talk about stale values
+
 ## Angular
 
-We mentioned earlier that outside of the basics of "rendering" and "un-rendering", each framework tends to diverge. Well, dear reader, it's coming into play here.
-
-Angular does not have a lifecycle method specifically for when a component re-renders. This is because Angular does not track DOM changes internally the same way the other two frameworks do.
-
-This isn't to say that Angular components don't re-paint the DOM — we've already demonstrated that it's able to live-refresh the DOM — just that Angular doesn't provide a lifecycle for detecting when it does.
-
-To answer "why" is a much longer topic, [which we'll touch on in our "Angular Internals" section of the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title), but feel free to see how the other two frameworks work as a reference for what you might expect elsewhere.
+<!-- Editor's note: Angular Signals will help bridge this gap. Its `effect` will allow us to listen to changes within its own state -->
 
 ## Vue
 
+I have to come clean about something: `watchEffect` isn't primarily utilized to run an effect on a component's first render, as we've been using it for to this point.
+
+Instead, `watchEffect` does something pretty magical: It re-runs the inner function whenever a "tracked" `ref` is updated:
+
 ```vue
-<!-- ReRenderListener.vue -->
+<!-- App.vue -->
 <template>
-  <div>{{ val }}</div>
+  <button @click="title = 'Movies'">Movies</button>
+  <button @click="title = 'Music'">Music</button>
+  <button @click="title = 'Documents'">Documents</button>
 </template>
 
 <script setup>
-import { onUpdated } from 'vue'
+import { ref, watchEffect } from 'vue'
 
-const props = defineProps(['val'])
+const title = ref('Movies')
 
-onUpdated(() => {
-  console.log('Component was painted')
-})
+// watchEffect will re-run whenever `title.value` is updated
+watchEffect(
+  () => {
+    document.title = title.value
+  },
+  { immediate: true }
+)
 </script>
 ```
 
-Every time the `ReRenderListener` component is re-rendered **and the DOM is painted with the changes**, the `updated` method will run.
+How does `watchEffect` know what refs to watch? The long answer dives deep into Vue's source code and is a challenge to introduce at this stage.
 
-Vue also exposes a lifecycle method, called `renderTriggered`, for when a re-render occurs in general, regardless of if a paint has also occurred.
+The short answer is "Vue's `ref` code contains a bit of logic inside of it to register to the nearest `watchEffect`, but only when `ref` is inside of a synchronous operation".
 
-```vue
-<!-- ReRenderListener.vue -->
-<template>
-  <div></div>
-</template>
+This means that if we have the following code:
 
-<script setup>
-import { onRenderTriggered } from 'vue'
+```javascript
+const title = ref('Movies')
+const count = ref(0)
 
-onRenderTriggered(() => {
-  console.log('Component was re-rendered, paint may not have occured')
-})
-</script>
+// watchEffect will re-run whenever `title.value` or `count.value` is updated
+watchEffect(
+  () => {
+    console.log(count.value);
+    document.title = "Title is " + title.value + " and count is " + count.value;
+  },
+  { immediate: true }
+)
 ```
 
-Something worth mentioning is that `onRenderTriggered` only runs in Vue's `dev` mode and, therefore, cannot be used in production apps.
+The `watchEffect` will run whenever `title` or `count` are updated. However, if we do the following:
+
+```javascript
+const title = ref('Movies')
+const count = ref(0)
+
+// watchEffect will re-run only when `count.value` is updated
+watchEffect(
+  () => {
+    console.log(count.value);
+    // This is an async operation, inner `ref` usage won't be tracked
+    setTimeout(() => {
+        document.title = "Title is " + title.value + " and count is " + count.value;
+    }, 0);
+  },
+  { immediate: true }
+)
+```
+
+It will only track changes to `count`, as the `title.value` usage is inside of an async operation.=
+
+This is also why `watchEffect` has an `immediate: true` option which you can pass; it's not the intended default. Instead, it's more common to only run `watchEffect` on the first update of a tracked `ref`:
+
+```javascript
+watchEffect(() => {
+    // This will run only after `count.value` has been updated once
+	console.log(count.value);
+})
+```
+
+### Manually track changes with `watch`
+
+`watchEffect` is a bit magic, aye? Maybe it's a bit too much for your needs, maybe you need to be more specific about what you do and do not track. This is where Vue's `watch` function comes into play.
+
+While `watchEffect` seemingly magically detects what variables to listen to, `watch` requires you to be explicit about what properties to listen for changes on:
+
+```javascript
+import AlarmScreen from './AlarmScreen.vue'
+import { ref, watch } from 'vue'
+
+const title = ref('Movies')
+
+watch(
+  // Only listen for changes to `title`, despite what's in the function body
+  title,
+  () => {
+    document.title = title.value
+  },
+  { immediate: true }
+)
+```
+
+To watch multiple items, we can pass an array of reactive variables:
+
+```javascript
+const title = ref('Movies')
+const count = ref(0)
+
+// This will run when `title` and `count` are updated, despite async usage 
+watch(
+  [title, count],
+  () => {
+    setTimeout(() => {
+        document.title = "Title is " + title.value + " and count is " + count.value;
+    }, 0);
+  },
+  { immediate: true }
+)
+```
+
+Similarly, `watch` supports both of the following carried over from `watchEffect`:
+
+1. Removing `{immediate: true}` to not run on first render
+2. Passing an `onCleanup` method to cleanup watched side effects
+
+```javascript
+const title = ref('Movies')
+const count = ref(0)
+
+// This will run when `title` and `count` are updated, despite async usage 
+watch(
+  [title, count],
+  (currentValue, previousValue, onCleanup) => {
+    const timeout = setTimeout(() => {
+        document.title = "Title is " + title.value + " and count is " + count.value;
+    }, 1000);
+    
+    onCleanup(() => clearTimeout(timeout));
+  }
+)
+```
 
 <!-- tabs:end -->
 
-## Other lifecycles
 
-We haven't touched on every lifecycle present, either!
 
-While these lifecycles vary even further from framework to framework, some other lifecycles that may be present depending on your selected tool might include:
 
-- When an error is caught
-- Before a component is rendered
-- Before a component is unrendered
-- Specifically when props are changed
-- After a component's children are rendered
 
-These additional lifecycles tend to be utilized in more niche usages and, as such, won't be touched on currently.
+# During Render, Before Paint
+
+
+
+While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. In some instances, the framework may do some internal updates to the DOM that may not show anything new to the user but is still considered a "re-render".
+
+> While this isn't always a bad thing — "empty" re-renders tend not to be computationally expensive — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our third book.](https://unicorn-utterances.com/collections/framework-field-guide#internals-title)
+>
+> I wish I could write about it sooner, but performance optimizations is a broad topic which often requires deep technical knowledge; a bad fit for a book covering the fundamentals.
+
+ <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
+
+This isn't to say that these "empty" renders are the same as renders that display new content: Each render that displays new content to the user is called a "paint".
+
+
+
+
+
+
 
 # Lifecycle Chart
 
@@ -1854,38 +2043,4 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 ![A component starts by rendering with the "mounted" lifecycle method running as a result. After that, the component is rendered. For each time the component re-renders, it will run the "updated" lifecycle method. Finally, when a component is being unrendered, it will run the "unmounted" lifecycle method.](./vue_lifecycles.jpg)
 
 <!-- tabs:end -->
-
-# Challenge
-
-Implement a way to show a different message to the user if they're focused on the tab or not
-
-- Add `blur` handler
-  - With cleanup
-- Add `focus` handler
-
-```jsx
-import React, { useState, useEffect } from 'react';
-
-export default function App() {
-  const [currentDirectory, setCurrentDirectory] = useState('movies');
-
-  useEffect(() => {
-    const focusHandler = () => {
-      document.title = 'Files App';
-    };
-    const blurHandler = () => {
-      document.title = 'Files App: ' + currentDirectory;
-    };
-    window.addEventListener('focus', focusHandler);
-    window.addEventListener('blur', blurHandler);
-
-    return () => {
-      window.removeEventListener('focus', focusHandler);
-      window.removeEventListener('blur', blurHandler);
-    };
-  }, [currentDirectory]);
-
-  return <div></div>;
-}
-```
 
