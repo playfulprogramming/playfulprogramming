@@ -147,6 +147,8 @@ Instead of a direct analogous, React's functional components have a different AP
 One such Hook that we can use to mimic different lifecycle methods is called `useEffect`:
 
 ```jsx {1-3}
+import {useEffect} from 'react';
+
 const Child = () => {
     // Pass a function that React will run for you
 	useEffect(() => {
@@ -587,9 +589,365 @@ This is why we don't we simply utilize event binding for the `resize` event: It'
 
 [You can learn more about event bubbling, how it works, and how to overwrite it in specific instances from Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 
-# Un-rendering
+# Cleaning up side effects
 
-Side effects are, among other things, a powerful way to utilize browser APIs. However, we need to make sure to clean up any side effects we utilize.
+Let's put down the code for a moment and talk about side effects with an analogy.
+
+Let's say you're watching a TV show on a television that lacks the ability to rewind or go forward, but does have the ability to pause.
+
+> This might sound weird, but stick with me.
+
+You're right at the peak moment of the show when suddenly your smoke alarm goes off.
+
+"Oh no!" Your popcorn burnt in the microwave.
+
+You have two options:
+
+1. Pause the show then stop the microwave.
+2. Don't pause the show, go stop the microwave immediately.
+
+While the second option might be the more natural reaction at a moment's notice, you'll find yourself with a problem: You just missed the big announcement in the show and now you're left confused when you return to the TV.
+
+Given your particular TV's lack of rewind functionality, you'd be stuck where you were without restarting the episode.
+
+However, if you had paused the show, you would have been able to un-pause once you'd turned off the microwave and see what the big reveal was.
+
+-----
+
+> Surely, this analogy doesn't have much to do with frontend development, does it?
+
+Ahh, but it does!
+
+See, think of the TV as being a component in your app with a side effect. Let's use this clock component as an example:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const Clock = () => {
+  const [time, setTime] = useState(formatDate(new Date()));
+
+  useEffect(() => {
+    setInterval(() => {
+      console.log("I am updating the time");
+      setTime(formatDate(new Date()));
+    }, 1000);
+  }, []);
+
+  return <p role="timer">Time is: {time}</p>;
+};
+
+function formatDate(date) {
+  return (
+    prefixZero(date.getHours()) +
+    ':' +
+    prefixZero(date.getMinutes()) +
+    ':' +
+    prefixZero(date.getSeconds())
+  );
+}
+
+function prefixZero(number) {
+  if (number < 10) {
+    return '0' + number.toString();
+  }
+
+  return number.toString();
+}
+```
+## Angular
+
+```typescript
+@Component({
+  selector: 'clock',
+  standalone: true,
+  template: `
+   <p role="timer">Time is: {{time}}</p>
+  `,
+})
+export class ClockComponent implements OnInit {
+  time = formatDate(new Date());
+
+  ngOnInit() {
+    setInterval(() => {
+      console.log('I am updating the time');
+      this.time = formatDate(new Date());
+    }, 1000);
+  }
+}
+
+function formatDate(date) {
+  return (
+    prefixZero(date.getHours()) +
+    ':' +
+    prefixZero(date.getMinutes()) +
+    ':' +
+    prefixZero(date.getSeconds())
+  );
+}
+
+function prefixZero(number) {
+  if (number < 10) {
+    return '0' + number.toString();
+  }
+
+  return number.toString();
+}
+```
+
+## Vue
+
+```vue
+<!-- Clock.vue -->
+<template>
+  <p role="timer">Time is: {{ time }}</p>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const time = ref(formatDate(new Date()))
+
+onMounted(() => {
+  setInterval(() => {
+    console.log('I am updating the time')
+    time.value = formatDate(new Date())
+  }, 1000)
+})
+
+function formatDate(date) {
+  return prefixZero(date.getHours()) + ':' + prefixZero(date.getMinutes()) + ':' + prefixZero(date.getSeconds())
+}
+
+function prefixZero(number) {
+  if (number < 10) {
+    return '0' + number.toString()
+  }
+
+  return number.toString()
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+In this example, we're [calling `setInterval` to run a function every second](https://developer.mozilla.org/en-US/docs/Web/API/setInterval). This function does two things:
+
+1. Updates `time` to include [the current `Date`'s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date) hour, minute, and second hand in its string
+2. `console.log` a message
+
+This `setInterval` call occurs on every `Clock` component render thanks to each frameworks' lifecycle methods.
+
+Let's now render this `Clock` component inside of a conditional block:
+
+<!-- tabs:start -->
+
+## React
+
+
+```jsx
+export default function App() {
+  const [showClock, setShowClock] = useState(true);
+
+  return (
+    <div>
+      <button onClick={() => setShowClock(!showClock)}>Toggle clock</button>
+      {showClock && <Clock />}
+    </div>
+  );
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'app',
+  standalone: true,
+  imports: [NgIf, ClockComponent],
+  template: `
+    <div>
+      <button (click)="setShowClock(!showClock)">Toggle clock</button>
+      <clock *ngIf="showClock"/>
+    </div>
+  `,
+})
+export class AppComponent {
+  showClock = true;
+
+  setShowClock(val) {
+    this.showClock = val;
+  }
+}
+```
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <button @click="setShowClock(!showClock)">Toggle clock</button>
+    <Clock v-if="showClock" />
+  </div>
+</template>
+
+<script setup>
+import Clock from './Clock.vue'
+import { ref } from 'vue'
+
+const showClock = ref(true)
+
+function setShowClock(val) {
+  showClock.value = val
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+In `App`, we're defaulting `showClock` to `true`. This means that our `Clock` component will render on `App`'s first render. 
+
+We can visually see that our clock is updating every second, but the really interesting part to us is the `console.log`. If we open up our browser's developer tools, we can see that it's logging every time it's updating on screen as well.
+
+However, let's toggle the `Clock` component a couple of times by clicking the button.
+
+
+<video src="./lifecycle_timer.mp4" title="A browser showing developer tools and clock component rendering. On first render, the console.log occurs once per visual clock update, but on subsequent renders of the Clock component, the console.log runs too frequently"></video>
+
+When we toggle the clock from rendering each time, it doesn't stop the `console.log` from running. However, when we re-render `Clock`, it creates a new interval of `console.log`s. This means that if we toggle the `Clock` component three times, it will run `console.log` three times for each update of the on-screen time.
+
+**This is really bad behavior**. Not only does this mean that our computer is running more code than needed in the background, but it also means that the function which was passed to the `setInterval` call cannot be cleaned up by your browser. This means that your `setInterval` function (and all variables within it) stay in-memory, which may eventually cause an out-of-memory crash if it occurs too frequently.
+
+Moreover, this can directly impact your applications' functionality as well. Let's take a look at how that can happen:
+
+## Broken Production Code
+
+Imagine you're building an alarm clock application. You want to have the following functionality:
+
+- Show the remaining time on an alarm
+- Show a "wake up" screen
+- "Snooze" alarms for 5 minutes (temporarily reset the countdown of the timer to 5 minutes)
+- Disable alarms entirely
+
+Additionally, let's throw in **the ability to auto-snooze alarms that have been going off for 10 minutes**. After all, someone in deep sleep is more likely to wake up from a change in noise volume rather than a repeating loud noise.
+
+Let's build that functionality now, but reduce the "minutes" to "seconds" for easier testing:
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+function AlarmScreen({ snooze, disable }) {
+  useEffect(() => {
+    setTimeout(() => {
+      // Automatically snooze the alarm
+      // after 10 seconds of inactivity
+      // In production this would be 10 minutes
+      snooze();
+    }, 10 * 1000);
+  }, []);
+
+  return (
+    <div>
+      <p>Time to wake up!</p>
+      <button onClick={snooze}>Snooze for 5 seconds</button>
+      <button onClick={disable}>Turn off alarm</button>
+    </div>
+  );
+}
+
+function App() {
+  const [secondsLeft, setSecondsLeft] = useState(5);
+  const [timerEnabled, setTimerEnabled] = useState(true);
+
+  useEffect(() => {
+    setInterval(() => {
+      setSecondsLeft((v) => {
+        if (v === 0) return v;
+        return v - 1;
+      });
+    }, 1000);
+  }, []);
+
+  const snooze = () => {
+    // In production this would add 5 minutes, not 5 seconds
+    setSecondsLeft((v) => v + 5);
+  };
+
+  const disable = () => {
+    setTimerEnabled(false);
+  };
+
+  if (!timerEnabled) return <p>There is no timer</p>;
+  if (secondsLeft === 0)
+    return <AlarmScreen snooze={snooze} disable={disable} />;
+  return <p>{secondsLeft} seconds left in timer</p>;
+}
+```
+
+### Angular
+
+// TODO
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Yes! It renders the seconds to countdown, and then shows the `AlarmScreen` as expected. Even our "auto-snooze" functionality is working as intended.
+
+Let's test our manual "snooze" button and see if that works as expe-...
+
+> Wait, did the timer screen go from 4 seconds to 9? That's not how a countdown works!
+
+<video src="./timer_incorrect_loop.mp4" title="A browser displays the second countdown to the alarm screen, but when the user clicks on the 'snooze' button, the countdown goes from '4 seconds left' to '9 seconds left' and keeps counting down from there like normal"></video>
+
+Sure enough, if you happen to click the manual "Snooze" button right before the auto-snooze goes off, it will add an extra 5 seconds to your existing countdown.
+
+This occurs because we never tell the `AlarmScreen`'s `setTimeout` to stop running, even when `AlarmScreen` is no longer rendered.
+
+```javascript
+// AlarmScreen component
+setTimeout(() => {
+  snooze();
+}, 10 * 1000);
+```
+
+When the above code's `snooze` runs, it will add 4 seconds to the `secondsLeft` variable through the `App`'s `snooze` method.
+
+To solve this, we simply need to tell our `AlarmScreen` component to cancel the `setTimeout` when it's no longer rendered. Let's look at we can do that with an `unmounted` lifecycle method.
+
+-------
+
+-------
+
+
+-------
+
+-------
+
+
+-------
+
+-------
+
+
+-------
+
+-------
+
+
+-------
+
+-------
+
+
+
+## Un-renders
 
 This holds true for our `addEventListener` usage since `addEventListener` will continue to run the passed function until a `removeEventListener` is called. We should run this any time an element is un-rendered. After all, it makes no sense to listen to DOM events on a DOM node that isn't present anymore.
 
