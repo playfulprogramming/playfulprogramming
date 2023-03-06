@@ -1441,25 +1441,27 @@ Vue does not have any special behaviors with `OnInit` to force component cleanup
 
 # Re-renders & Beyond
 
-While rendering and un-rendering are primary actions in a component's lifecycle, they're not the only lifecycle methods on the table.
+While rendering and un-rendering are primary actions in a component's lifecycle, they're not the _only_ lifecycle methods on the table.
 
-Each of the frameworks has a handful of lifecycle methods beyond the two we've looked at today. However, this is where these frameworks tend to diverge, as their lifecycle methods tend to reflect the framework's internals. While we'll touch on the framework's internals in a future chapter, for now, let's take a look at one more component lifecycle that's fairly consistent between every framework: Re-rendering.
+Each of the frameworks has a handful of lifecycle methods beyond the two we've looked at today. However, this is where these frameworks tend to diverge, as their lifecycle methods tend to reflect the framework's internals. While we'll touch on the framework's internals [in the third book of the series](https://unicorn-utterances.com/collections/framework-field-guide#internals-title), for now, let's take a look at one more component lifecycle that's _relatively_ consistent between most frameworks: Re-rendering.
 
-Re-rendering is just what it sounds like! While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during subsequent re-renders.
+Re-rendering is what it sounds like; While the initial "render" is what allows us to see the first contents on screen being drawn, subsequent updates — like our live-updated values — are drawn during subsequent "re-renders".
 
 Re-renders may occur for many reasons:
 
 - Props being updated
 - State being changed
-- Explicitly calling a re-render with other means
+- Explicitly calling a re-render via other means
 
 While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. In some instances, the framework may do some internal updates to the DOM that may not show anything new to the user but is still considered a "re-render".
 
-> While this isn't always a bad thing — conventional knowledge says that these "empty" re-renders aren't usually bad things — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our "Performance" chapter.](// TODO: Add link)
+> While this isn't always a bad thing — "empty" re-renders tend not to be computationally expensive — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our third book.](https://unicorn-utterances.com/collections/framework-field-guide#internals-title)
+>
+> I wish I could write about it sooner, but performance optimizations is a broad topic which often requires deep technical knowledge; a bad fit for a book covering the fundamentals.
 
  <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
 
-Each render that displays new content to the user is called a "paint".
+This isn't to say that these "empty" renders are the same as renders that display new content: Each render that displays new content to the user is called a "paint".
 
 Let's take a look at how each framework exposes re-rendering to the user via lifecycle methods.
 
@@ -1479,11 +1481,33 @@ const ReRenderListener = () => {
 }
 ```
 
-Do you remember how I said we'd mention what the array for the second argument of `useEffect`? Well, here we are!
+Up until this point, we've only ever passed an empty array to `useEffect`:
 
-The array at the end of the `useEffect` allows you to limit how often `useEffect` runs. If there is no array, `useEffect` will run the side effect on every render, regardless of if said render has "painted" or not.
+```jsx
+useEffect(() => {
+	doSomething();
+// This doesn't have to be an empty array
+}, []);
+```
 
-However, if you pass an array, it will only run when the references inside of the `useEffect` run.
+This empty array _hints_ to React to "only run this side effect once: when the component is first rendered".
+
+>React may choose in specific instances, such as `StrictMode`, to ignore this hint. Because of this, `useEffect`'s array should be treated as a performance optimization for React, not a steadfast rule.
+
+Let's take a look at the inverse of this "never run this function again" React hint:
+
+```jsx
+useEffect(() => {
+	doSomething();
+// Notice no array
+})
+```
+
+Here, we're _not passing an array_ to `useEffect` which tells the framework that it can (and should) run the side effect on **every** single render, regardless of if said render has "painted" or not.
+
+There does, however, lie a middle-ground between these two `useEffect` arrays: You can pass variables and values to the `useEffect` array.
+
+For example, here we're passing the `test` variable:
 
 ```jsx
 useEffect(() => {
@@ -1491,17 +1515,39 @@ useEffect(() => {
 }, [test])
 ```
 
-Here, if the reference to `test` changes during a render, `useEffect` will run after the render.
+By doing this, we're _hinting_ to React that this side effect should only ever run when the `test` variable's _reference_ has changed during a render.
 
-This means that if we pass an empty array:
+> It's worth mentioning here that `a variable's reference` is not a generalized term; it's specifically talking about a variable's internal memory address.
+>
+> While I've written [in-depth about this topic before](// TODO: Add link to variables section), the gist of it is that you cannot mutate a function and have it re-run `useEffect`.
+>
+> This won't trigger `useEffect` to re-run:
+>
+> ```jsx
+> let test = [];
+> 
+> // ...
+> 
+> test.push(0);
+> ```
+>
+> But this will:
+>
+> ```javascript
+> let test = [];
+> 
+> // ...
+> 
+> test = [...test, 0];
+> ```
 
-```jsx
-useEffect(() => {
-	// ...
-}, [])
-```
-
-It will run once the array is initialized - during the initial render - but not again afterward. This is what allows it to act as an alternative to a `rendered` lifecycle.
+> It's also worth mentioning that `useEffect` **does not listen to the array for changes**. Rather, it stores a reference of the values within the array during a component's render.
+>
+> Later, during a component's re-render, `useEffect` will compares the values inside of the array. If these array values are the same, it will not run the `useEffect` (unless React chooses to ignore the optimization hint). If these values are _not_ the same, however, it _will_ run the `useEffect`, but only during the parent component's render itself.
+>
+> This is to say: **`useEffect` is not ran unless the parent component itself renders**.
+>
+> This sounds like a minor note, but is important to keep in mind moving forward. [I wrote an article that explains the differences between these two mental models and when it becomes relevant to your applications.](https://unicorn-utterances.com/posts/rules-of-reacts-useeffect)
 
 ## Angular
 
