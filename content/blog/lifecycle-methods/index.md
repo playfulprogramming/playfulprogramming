@@ -1384,6 +1384,58 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
+## Ensuring lifecycle cleanup
+
+Some frameworks have taken extra steps to ensure your lifecycle methods always clean up side effects.
+
+
+
+<!-- tabs:start -->
+
+### React
+
+When React 16.3 came out, [it introduced a new component called `StrictMode`](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#strictmode-component).
+
+`StrictMode` was developed to help warn developers of potential problems that lie dormant in their applications. It's commonly enabled in most production codebases and is used at the root of the app like so:
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
+ReactDOM.render(
+  <App />,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root'),
+)
+```
+
+Specifically, `StrictMode` helps find issues with:
+
+- Unsafe lifecycle usage
+- Legacy API usage
+- Unexpected side effects
+
+It does so by modifying slight behaviors of your app and printing errors when needed.
+
+> `StrictMode` only does this on development builds of your app and does not impact your code whatsoever during production.
+
+[Since React 18, `StrictMode` will re-run all `useEffect`s twice](https://unicorn-utterances.com/posts/why-react-18-broke-your-app). This change was made by the React team in order to highlight potential bugs in your application that are caused by un-cleaned side effects.
+
+If you have code that does not work with `StrictMode`, this is most likely the culprit and you should investigate all side effect cleanups in your components.
+
+### Angular
+
+Angular does not have any special behaviors with `OnInit` to force component cleanup. React, however, does.
+
+### Vue
+
+Vue does not have any special behaviors with `OnInit` to force component cleanup. React, however, does.
+
+<!-- tabs:end -->
+
 
 
 
