@@ -1681,18 +1681,6 @@ Let's take a look at how each framework exposes re-rendering to the user via lif
 
 ## React
 
-```jsx
-const ReRenderListener = () => {
-  useEffect(() => {
-      console.log("Component has re-rendered")
-  }); // Notice the lack of an array
-    
-  return (
-  	<div/>
-  )
-}
-```
-
 Up until this point, we've only ever passed an empty array to `useEffect`:
 
 ```jsx
@@ -1715,9 +1703,31 @@ useEffect(() => {
 })
 ```
 
-Here, we're _not passing an array_ to `useEffect` which tells the framework that it can (and should) run the side effect on **every** single render, regardless of if said render has "painted" or not.
+Here, we're _not passing an array_ to `useEffect` which tells the framework that it can (and should) run the side effect on **every** single render, regardless of if said render has updated the DOM or not.
 
-There's yet another usage for this array, passed to `useEffect`, which we'll touch on shortly.
+See, not every re-render of a component triggers an on-screen change. Some re-renders will update values, re-run the function body of a component, but not update the screen.
+
+While **all** renders have a state comparison step, like the one that occurs to validate if the `useEffect` array has changed, **only renders that update the value on-screen have a "paint" step**. This "paint" updates the values on-screen to the user.
+
+Given this, the following code will _re-render but not paint_ when the user clicks the `button`.
+
+```jsx
+const ReRenderListener = () => {
+  const [_, updateState] = useState(0);
+
+  useEffect(() => {
+      console.log("Component has re-rendered")
+  }); // Notice the lack of an array
+    
+  return (
+  	<button onClick={() => updateState(v => v + 1)}>Re-render</button>
+  )
+}
+```
+
+Because the `button` triggers a re-render, `useEffect` will run, even if there is not a paint.
+
+> You may think we're done with `useEffect` now, but there's yet another usage for the passed array, which we'll touch on shortly.
 
 ## Angular
 
@@ -2207,23 +2217,32 @@ watch(
 
 
 
+# Rendering, Committing, Painting
 
+While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. While Angular follows this definition to some degree, React and Vue do not.
 
-# Render, Commiting, Paint
+Instead, React and Vue both have a trick up their sleeves; the virtual DOM (VDOM). While explaining the VDOM is a bit complex, here's the basics:
 
+- The framework mirrors [the nodes in the DOM tree](https://unicorn-utterances.com/posts/understanding-the-dom) so that it can recreate the entire app's UI at any given moment.
 
+- When you tell the framework to update the value on screen, it tries to figure out the specific part of the screen to render and nothing more.
 
-While we might attribute the definition of "rendering" to mean "showing something new on-screen", this is only partially true. In some instances, the framework may do some internal updates to the DOM that may not show anything new to the user but is still considered a "re-render".
+- After the framework has decided specifically which elements it wants to re-render with new contents, it will:
+  1. Create a set of instructions that are needed to run in order to update the DOM
+  2. Run those instruction on the VDOM
+  3. Reflect the changes made in VDOM on the actual browser DOM
+  4. The browser then takes the updates made to the DOM and shows them to the user
 
-> While this isn't always a bad thing — "empty" re-renders tend not to be computationally expensive — this can lead to problems with an app's performance. [We'll touch on how to improve your app's performance with these frameworks in our third book.](https://unicorn-utterances.com/collections/framework-field-guide#internals-title)
->
-> I wish I could write about it sooner, but performance optimizations is a broad topic which often requires deep technical knowledge; a bad fit for a book covering the fundamentals.
+Let's pause on these three steps of the last bullet point here. This process of deciding which elements framework needs to update is called "reconciliation". This reconciliation step has three parts to it and are named respectively:
 
- <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
+1. Diffing
+2. Pre-committing
+3. Committing
+4. Painting
 
-This isn't to say that these "empty" renders are the same as renders that display new content: Each render that displays new content to the user is called a "paint".
+> Keep in mind, this "reconciliation" process occurs **as part of** a render. Your component **may** render due to reactive state changes, but **may not** trigger the entire reconciliation process if it detects nothing has changed during the `diffing` stage.
 
-
+React and Vue both provide a way to access parts of these internal stages of reconciliation with their own APIs.
 
 <!-- tabs:start -->
 
@@ -2231,7 +2250,18 @@ This isn't to say that these "empty" renders are the same as renders that displa
 
 // TODO: `useLayoutEffect`
 
+Early in this article, we mentioned there were two ways of handling side effects in React: `useEffect` and `useLayoutEffect`. While we've sufficiently covered the usage of `useEffect`, we haven't yet explored `useLayoutEffect`.
+
+There are two big differences between `useEffect` and `useLayoutEffect`:
+
+1. While `useEffect` runs **after** a component's paint, `useLayoutEffect` occurs **before** the component's paint, but **after** a component's **commit** phase.
+2. `useLayoutEffect` blocks the browser, which `useEffect` does not.
+
+
+
 ## Angular
+
+ <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
 
 // TODO: None
 
@@ -2241,9 +2271,9 @@ This isn't to say that these "empty" renders are the same as renders that displa
 
 <!-- tabs:end -->
 
+While this level of internals knowledge is seldomly utilized when getting started building applications, they can provide you powerful ability to optimize and improve your applications; think of this information like your developer superpower.
 
-
-
+Like any other superpower, you should use these last few APIs with care, knowing that they may make your application worse rather than better; With great APIs comes great responsibility.
 
 # Lifecycle Chart
 
