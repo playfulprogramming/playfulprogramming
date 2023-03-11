@@ -18,7 +18,6 @@ import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-p
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unicorn-iframe-click-to-run";
-import copy from "rollup-plugin-copy";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
@@ -30,9 +29,11 @@ import rehypeRaw from "rehype-raw";
 
 import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
-import path from "path";
-
+import symlink from "symlink-dir";
+import * as path from "path";
 import svgr from "vite-plugin-svgr";
+
+await symlink(path.resolve("content"), path.resolve("public/content"));
 
 export default defineConfig({
 	site: siteUrl,
@@ -57,22 +58,7 @@ export default defineConfig({
 		ssr: {
 			external: ["svgo"],
 		},
-		plugins: [
-			svgr(),
-			{
-				...copy({
-					hook: "options",
-					flatten: false,
-					targets: [
-						{
-							src: "content/**/*",
-							dest: "public/content",
-						},
-					],
-				}),
-				enforce: "pre",
-			},
-		],
+		plugins: [svgr()],
 	},
 	markdown: {
 		mode: "md",
