@@ -24,7 +24,7 @@ The problem is that, by doing so, you lose one of the most significant benefits 
 
 # APIs are hard
 
-You're working at an indie game company. A small top-down shooter that you've written [in JavaScript with Phaser](https://phaser.io/). Your bass has asked you to implement a user score.
+You're working at an indie game company. A small top-down shooter that you've written [in JavaScript with Phaser](https://phaser.io/). Your boss has asked you to implement a user score.
 
 > "No problem, `calculateUserScore` is going to be super simple - no need to overthink it."
 
