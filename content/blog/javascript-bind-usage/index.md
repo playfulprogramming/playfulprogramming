@@ -1,10 +1,10 @@
 ---
 {
-    title: "JavaScript `this` binding & Angular Usage",
-    description: "",
+    title: "Mastering JavaScript's `this` keyword using `bind`",
+    description: "JavaScript's `this` keyword is imperative when dealing with classes in JavaScript, but can introduce some headaches. Let's solve that using the `bind` method",
     published: '2023-03-16T21:52:59.284Z',
     authors: ['crutchcorn'],
-    tags: ['javascript', 'computer science'],
+    tags: ['javascript'],
     attached: [],
     license: 'cc-by-4'
 }
@@ -59,7 +59,7 @@ Let's take a look at:
 - How we can fix `this` with `bind`
 - How to solve issues with `this` without using `bind`
 
-# When does `this` not work as expected? 
+# When does `this` not work as expected? {#this-broken}
 
 Take the following two classes:
 
@@ -136,7 +136,7 @@ cup.consume();
 
 
 
-# Fix `this` usage with `bind`
+# Fix `this` usage with `bind` {#bind}
 
 If we want `bowl.consume` to _always_ reference the `this` scope of `bowl`, then we can use `.bind` to force `bowl.consume` to use the same `this` method.
 
@@ -186,9 +186,9 @@ fn.call(thisArg, arg1, arg2, arg3)
 
 
 
-# Can we solve this without `.bind`?
+# Can we solve this without `.bind`? {#arrow-functions}
 
-> The `.bind` code looks obtuse and increases the amount of boilerplate in our components. Is there any other way to solve the `this` issue without `bind`?
+> The `.bind` code looks obtuse and increases the amount of boilerplate in our code. Is there any other way to solve the `this` issue without `bind`?
 
 Yes! Introducing: Arrow functions.
 
@@ -290,7 +290,7 @@ cup.consume();
 
 
 
-# Problems with `this` usage in event listeners
+# Problems with `this` usage in event listeners {#event-listeners}
 
 Let's build out a basic counter button that shows a button with a number inside. When the user clicks the button, it should increment the number inside of the button's text:
 
@@ -383,9 +383,9 @@ Let's chart out what's happening behind-the-scenes:
 
 ![When onClick is assigned to addOne, it doesn't carry over the `this`, because it isn't bound. As a result, when button.onClick is called, it will utilize Button's `this` value.](./component_this_explainer.png)
 
-# Fixing the problem with arrow functions
+## Fixing `this` event listener usage {#fix-event-listeners}
 
-To fix the issues with `this` usage in event listeners, we can do one of two things:
+To fix the issues with `this` usage in event listeners, we can reuse our existing knowledge from earlier and do one of two things:
 
 1) **`.bind` the usage of `.add` in the event listener:**
 
@@ -429,7 +429,7 @@ function test() {}
 console.log(test.bind(this) === test.bind(this)); // False
 ```
 
-This means that we instead have to bind `add` at the function's base:
+Which is required for `removeEventListener` usage to remove the event listener properly. This means that we instead have to bind `add` at the function's base:
 
 ```javascript
 class MainButtonElement {
@@ -498,38 +498,12 @@ class MainButtonElement {
 }
 ```
 
-This works because arrow functions behave differently from `function` keyword functions.
+# Wrapping it up {#conclusion}
 
-**Arrow functions do not allow `this` to be rebound, even with `bind` or `call` usage**. This means that when `this` is set to `MainButtonElement` in the class, it will never rebind again, even when called inside of `HTMLElement`'s `addEventListener` usage.
+Using the `this` keyword is nearly unavoidable when using class-based JavaScript. It enables you to mutate state within the class to reference for later usage.
 
-We can see this in action in the demo from before:
+While some JavaScript is able to avoid this, it's particularly helpful to know when using frameworks such as [Angular](https://angular.io) which uses classes as the primary means for defining a component.
 
-```javascript
-class Cup {
-	contents = "water";
-    
-    // Notice the arrow functions, `this` won't rebind
-    consume = () => {
-        console.log("You drink the ", this.contents, ". Hydrating!");
-    }
-}
+Speaking of - want to learn how to use Angular? I'm writing [a free book series called "The Framework Field Guide" that teaches React, Angular, and Vue all at once](https://framework.guide). Click the link to learn more about the book and be notified when it launches!
 
-class Bowl {
-    contents = "chili";
-    
-    consume = () => {
-        console.log("You eat the ", this.contents, ". Spicy!");
-    }
-}
-
-cup = new Cup();
-bowl = new Bowl();
-
-cup.consume = bowl.consume;
-
-cup.consume();
-```
-
-Which will now output:
-
-> You eat the chili. Spicy!
+Happy hacking!
