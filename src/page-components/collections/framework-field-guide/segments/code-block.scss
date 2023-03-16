@@ -136,3 +136,7 @@ ul.tabs__tab-list:has(> .tabs__tab:first-child[aria-selected="true"])
 	transition: background var(--color-transition-time)
 		var(--color-transition-ease);
 }
+
+.tabs__tab-panel[aria-hidden="true"] {
+	display: none;
+}
