@@ -370,7 +370,7 @@ class HTMLElement {
     }
     
     addEventListener(name, fn) {
-        for (let event of events) {
+        for (let event of this.events) {
 	        fn(event)
         }
     }
@@ -383,16 +383,153 @@ Let's chart out what's happening behind-the-scenes:
 
 ![When onClick is assigned to addOne, it doesn't carry over the `this`, because it isn't bound. As a result, when button.onClick is called, it will utilize Button's `this` value.](./component_this_explainer.png)
 
-To fix this, we can do one of two things:
+# Fixing the problem with arrow functions
 
-1) Assign 
+To fix the issues with `this` usage in event listeners, we can do one of two things:
 
+1) **`.bind` the usage of `.add` in the event listener:**
+
+```javascript
+// This code doesn't work either
+class MainButtonElement {
+	count = 0;
+
+  constructor(parent) {
+    	this.el = document.createElement('button');
+		this.updateText();
+        this.addCountListeners();
+		parent.append(this.el);
+	}
+
+	updateText() {
+		this.el.innerText = `Add: ${this.count}`
+	}
+
+	add() {
+		this.count++;
+		this.updateText();
+	}
+
+	addCountListeners() {
+		this.el.addEventListener('click', this.add.bind(this));
+	}
+
+	destroy() {
+		this.el.remove();
+        // This won't remove the listener properly
+		this.el.removeEventListener('click', this.add.bind(this));
+	}
+}
 ```
 
+However, this has some problems, as two `.bind` functions are not referentially stable:
+```javascript
+function test() {}
+
+console.log(test.bind(this) === test.bind(this)); // False
 ```
 
+This means that we instead have to bind `add` at the function's base:
 
+```javascript
+class MainButtonElement {
+	count = 0;
 
+  constructor(parent) {
+    	this.el = document.createElement('button');
+		this.updateText();
+        this.addCountListeners();
+		parent.append(this.el);
+	}
 
+	updateText() {
+		this.el.innerText = `Add: ${this.count}`
+	}
 
-2. 
+    // 😖
+	add = (function() {
+		this.count++;
+		this.updateText();
+	}).bind(this)
+
+	addCountListeners() {
+		this.el.addEventListener('click', this.add);
+	}
+
+	destroy() {
+		this.el.remove();
+		this.el.removeEventListener('click', this.add);
+	}
+}
+```
+
+Alternatively, we can...
+
+2. **Use an arrow function rather than a class method**:
+
+```javascript
+class MainButtonElement {
+	count = 0;
+
+  constructor(parent) {
+    	this.el = document.createElement('button');
+		this.updateText();
+        this.addCountListeners();
+		parent.append(this.el);
+	}
+
+	updateText() {
+		this.el.innerText = `Add: ${this.count}`
+	}
+
+	add = () => {
+		this.count++;
+		this.updateText();
+	}
+
+	addCountListeners() {
+		this.el.addEventListener('click', this.add);
+	}
+
+	destroy() {
+		this.el.remove();
+		this.el.removeEventListener('click', this.add);
+	}
+}
+```
+
+This works because arrow functions behave differently from `function` keyword functions.
+
+**Arrow functions do not allow `this` to be rebound, even with `bind` or `call` usage**. This means that when `this` is set to `MainButtonElement` in the class, it will never rebind again, even when called inside of `HTMLElement`'s `addEventListener` usage.
+
+We can see this in action in the demo from before:
+
+```javascript
+class Cup {
+	contents = "water";
+    
+    // Notice the arrow functions, `this` won't rebind
+    consume = () => {
+        console.log("You drink the ", this.contents, ". Hydrating!");
+    }
+}
+
+class Bowl {
+    contents = "chili";
+    
+    consume = () => {
+        console.log("You eat the ", this.contents, ". Spicy!");
+    }
+}
+
+cup = new Cup();
+bowl = new Bowl();
+
+cup.consume = bowl.consume;
+
+cup.consume();
+```
+
+Which will now output:
+
+> You eat the chili. Spicy!
