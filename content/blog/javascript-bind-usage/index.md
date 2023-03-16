@@ -100,7 +100,7 @@ It will `console.log` "You eat the chili. Spicy!".
 
 Makes sense, right?
 
-Now, what do you think will happened if I do the following?
+Now, what do you think will happen if I do the following?
 
 ```javascript
 cup = new Cup();
@@ -111,7 +111,7 @@ cup.consume = bowl.consume;
 cup.consume();
 ```
 
-While you might think that it would log `"You eat the chili. Spicy!"`, it doesn't! Instead, it logs: `"You drink eat the water. Spicy!"`.
+While you might think that it would log `"You eat the chili. Spicy!"`, it doesn't! Instead, it logs: `"You eat the water. Spicy!"`.
 
 Why?
 
@@ -267,7 +267,7 @@ cup.consume = bowl.consume;
 cup.consume();
 ```
 
- While it might seem obvious what the output would be, if you thought it was the same `"You eat the water. Spicy!"`  as before, you're in for a suprise.
+While it might seem obvious what the output would be, if you thought it was the same `"You eat the water. Spicy!"` as before, you're in for a suprise.
 
 Instead, it outputs: `"You eat the chili. Spicy!"`, as if it were bound to `bowl`.
 
@@ -362,7 +362,7 @@ We can then think of your browser calling an event on `button` to look something
 ```javascript
 /**
  * This is a representation of what your browser is doing when you click the button.
- * This is NOT how it really works, just an explainatory representation
+ * This is NOT how it really works, just an explanatory representation
  */
 class HTMLElement {
     constructor(elementType) {
