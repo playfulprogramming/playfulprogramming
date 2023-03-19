@@ -72,7 +72,7 @@ export const rehypeAstroImageMd: Plugin<
 					);
 				}
 
-				if (src.endsWith(".svg")) {
+				if (src.endsWith(".svg") || src.endsWith(".gif")) {
 					node.properties.src = src;
 					return;
 				}
