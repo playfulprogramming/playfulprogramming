@@ -34,15 +34,54 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			id: li.firstElementChild.getAttribute("href").slice(1),
 		}));
 
+		// return whether an element is currently visible within a scrolling container
+		function isVisibleInContainer(
+			container: HTMLElement,
+			child: HTMLElement
+		): boolean {
+			// child element is above the lowest point of the container...
+			return (
+				container.scrollTop + container.offsetHeight >
+					child.offsetTop + child.offsetHeight &&
+				// child element is below the highest point of the container...
+				container.scrollTop < child.offsetTop
+			);
+		}
+
 		// smooth-scroll to a heading when clicked
 		function handleAnchorClick(e: Event) {
 			e.preventDefault();
 			const anchor = e.target as HTMLAnchorElement;
-			document
-				.getElementById(anchor.getAttribute("href").slice(1))
-				?.scrollIntoView({
-					behavior: prefersReducedMotion ? "auto" : "smooth",
-				});
+			const li = anchor.parentElement as HTMLLIElement;
+			const heading = document.getElementById(
+				anchor.getAttribute("href").slice(1)
+			);
+			const isLiVisible = isVisibleInContainer(tocListContainer, li);
+
+			/*
+			This needs to check that both the active and clicked ToC entries
+			are visible within the scroll container before performing a smooth
+			scroll to the clicked heading.
+
+			Otherwise, since the IntersectionObserver receives continual updates
+			during a smooth scroll (which there is no way to detect), the ToC will
+			interrupt the page scroll, since (most) browsers cannot smooth scroll
+			two containers at once.
+			*/
+			const activeLi = tocListContainer.querySelector(
+				".toc-is-active"
+			) as HTMLLIElement;
+			const isActiveVisible =
+				!activeLi || isVisibleInContainer(tocListContainer, activeLi);
+
+			heading?.scrollIntoView({
+				// only use smooth scrolling if the heading is currently within the TOC scroll area
+				behavior:
+					prefersReducedMotion || !(activeLi && isActiveVisible && isLiVisible)
+						? "auto"
+						: "smooth",
+			});
+
 			return false;
 		}
 
@@ -70,11 +109,8 @@ const { headingsToDisplaySlugs } = Astro.props as {
 						// the user hasn't requested reduced motion...
 						!prefersReducedMotion &&
 						tocListContainer &&
-						// the link is below the lowest point of the container...
-						(tocListContainer.scrollTop + tocListContainer.offsetHeight <
-							linkRef.li.offsetTop + linkRef.li.offsetHeight ||
-							// the link is above the highest point of the container...
-							tocListContainer.scrollTop > linkRef.li.offsetTop)
+						// the link is not currently visible in the container..
+						!isVisibleInContainer(tocListContainer, linkRef.li)
 					) {
 						// ...then scroll to center the link in the container
 						tocListContainer.scrollTo({
