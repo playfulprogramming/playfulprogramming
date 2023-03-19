@@ -134,7 +134,7 @@ The moment we set the **pure** option to be **false**, we tell Angular that we w
 
 If we run the code we will see something like this:
 
-![Not working solution](./not_working_example.gif)
+<video title="Not working solution" src="./not_working_example.mp4"></video>
 
 The reason why it does that is because every time change detection runs, the pipe will subscribe to our observable and let the other subscription in memory, and of course **create a memory leak**!
 
@@ -166,8 +166,7 @@ transform(obs: Subscribable<T> | null): T | null {
 
 If we check the app now, we will see that it works fine! But it’s not finished!
 
-![Working solution](./working_example.gif)
-
+<video title="Working solution" src="./working_example.mp4"></video>
 
 Because we still cause a memory leak, because we never unsubscribe from the observable! Let’s do it!
 
