@@ -58,6 +58,16 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			);
 			const isLiVisible = isVisibleInContainer(tocListContainer, li);
 
+			/*
+			This needs to check that both the active and clicked ToC entries
+			are visible within the scroll container before performing a smooth
+			scroll to the clicked heading.
+
+			Otherwise, since the IntersectionObserver receives continual updates
+			during a smooth scroll (which there is no way to detect), the ToC will
+			interrupt the page scroll, since (most) browsers cannot smooth scroll
+			two containers at once.
+			*/
 			const activeLi = tocListContainer.querySelector(
 				".toc-is-active"
 			) as HTMLLIElement;
