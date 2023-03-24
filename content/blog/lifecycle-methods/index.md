@@ -1524,7 +1524,9 @@ const WindowSize = () => {
 export class WindowSizeComponent implements OnInit, OnDestroy {
   height = window.innerHeight;
   width = window.innerWidth;
-  resizeHandler() {
+
+  // This must be an arrow function, see below for more
+  resizeHandler = () => {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
   }
@@ -1538,6 +1540,10 @@ export class WindowSizeComponent implements OnInit, OnDestroy {
   }
 }
 ```
+
+Here, we're making sure to use an arrow function for `resizeHandler` in order to make sure that `removeEventListener` works as-expected.
+
+To learn more about _why_ that is, [read this article I wrote about this topic](https://unicorn-utterances.com/posts/javascript-bind-usage).
 
 ### Vue
 
