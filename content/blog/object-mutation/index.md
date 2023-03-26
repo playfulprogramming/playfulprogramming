@@ -63,20 +63,18 @@ This migration of code broke our theme switching thanks to the underlying proper
 
 Let's talk about that. Along the way, we'll touch on:
 
-<!-- // TODO: Add links to headers --> 
-
-- How memory addresses are stored in-memory
-- The differences between `let` and `const` (including one you might not expect)
-- How to perform memory mutation
-- How to fix our code
+- [How memory addresses are stored in-memory](#variable-storage)
+- [The differences between `let` and `const` (including one you might not expect)](#let-vs-const)
+- [How to perform memory mutation](#mutation)
+- [How to fix our code](#code-impact)
 
 
 
-# How variables are assigned to memory addresses
+# How variables are assigned to memory addresses {#variable-storage}
 
 To understand object mutation, we first need to conceptualize how JavaScript handles variable creation.
 
-In one of my blog posts called ["Functions are values", I talk about how variables as stored into memory](// TODO: Add link). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
+In one of my blog posts called ["Functions are values", I talk about how variables as stored into memory](https://unicorn-utterances.com/posts/javascript-functions-are-values). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
 
 Say that we wanted to initialize two variables:
 
@@ -176,7 +174,7 @@ A much smaller list, right? This means that our computer is able to execute this
 
 
 
-# `let` vs `const`
+# `let` vs `const` {#let-vs-const}
 
 If you've spent much time with the JavaScript ecosystem, you'll know that there are a few different ways of assigning a variable. Among these are the `let` and `const` keywords. Both of these are perfectly valid variable declarations:
 
@@ -219,7 +217,7 @@ Why is this? Isn't `const` supposed to prevent reassignments of a variable?!
 
 The reason we're able to change the value of `obj.val` is because we're not reassigning the `obj` variable; we're mutating it.
 
-# Variable Mutation
+# Variable Mutation {#mutation}
 
 > What is mutation?
 
@@ -281,7 +279,7 @@ name = "Crutchley";
 
 
 
-## Why can't you mutate strings?
+## Why can't you mutate strings? {#no-mutate-primitives}
 
 Consider what's happening inside of a JavaScript engine when we execute the following code:
 
@@ -297,7 +295,7 @@ In this code, we're creating a variable with the length of 6 characters. These c
 
 Now, let's try to assign the string "Crutchley", which has a length of 9 characters, into that same memory block:
 
-![// TODO: Write alt](./too_large.png)
+![The "Corbin" value of the "name" variable only takes up "6 blocks" but the value of "Crutchley" would take up 9](./too_large.png)
 
 Oh no! Here, we can see that the new value we'd like to store is too large to exist in the current memory space!
 
@@ -305,7 +303,7 @@ This is the key reason we can't mutate strings like we can objects; **To reuse a
 
 This rule holds true for all [JavaScript primitives](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) as well.
 
-## Object Mutation
+## Object Mutation {#obj-mutation}
 
 > Wait, if you can't quickly change the size of a memory block, why can we mutate objects?
 
@@ -321,7 +319,7 @@ Image we have the object of `user` like so:
 
 This object might look something like the under-the-hood:
 
-![// TODO: Add alt](./object_variable_mutation.png)
+![The object "user" acts  as a container of memory addresses which are associated with property names. These memory addresses can change the associated value without changing the object's size](./object_variable_mutation.png)
 
 This means that when we change `user.firstName`, we're actually constructing a new "hidden" variable, then assigning that new variable's memory address to the `firstName` property on the object:
 
@@ -337,7 +335,7 @@ By doing so, we're able to create new variables with different memory sizes but 
 >
 > If you still want to learn more, I recommend checking out [this deep dive in V8's (Chrome and Node.js's JS engine) internals.](https://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html)
 
-## Arrays are objects too!
+## Arrays are objects too! {#arrays}
 
 It's worth highlighting that the same rules of object mutation apply to arrays as well! After all, in [JavaScript arrays are a wrapper around the `Object` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). We can see this by running `typeof` over an array:
 
@@ -359,7 +357,7 @@ const otherArr = [];
 otherArr = [1, 2, 3];
 ```
 
-# Why did this impact our code?
+# Why did this impact our code? {#code-impact}
 
 Let's look back at the original problem this article posed. When we changed out code from this:
 
