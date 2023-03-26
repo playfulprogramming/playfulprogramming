@@ -35,23 +35,23 @@ It's these differences that require a different approach to streaming than other
 
 - **Be yourself; you're not at a job interview.**
 
-Livestreaming is meant to be more natural and personal than prerecorded videos or even a live presentation/talk. You can be a bit (or a lot, depending on your comfort level) more casual than you might otherwise. Similarly, verbal slip-ups and hiccups are 10000% expected, especially early on. Just like any other skill, you will improve. ✨
+	Livestreaming is meant to be more natural and personal than prerecorded videos or even a live presentation/talk. You can be a bit (or a lot, depending on your comfort level) more casual than you might otherwise. Similarly, verbal slip-ups and hiccups are 10000% expected, especially early on. Just like any other skill, you will improve. ✨
 
 - **Interact with chat! People watch live content in particular _because_ it's live.**
 
-They want to hear your thoughts and opinions on things, they want to have a two-way conversation and have real-time interaction with a person/personality. Remember, most people watch a streamer for their personality - they can't see much of that personality if you're not interacting with your viewers.
+	They want to hear your thoughts and opinions on things, they want to have a two-way conversation and have real-time interaction with a person/personality. Remember, most people watch a streamer for their personality - they can't see much of that personality if you're not interacting with your viewers.
 
 - **Be honest with yourself and your chat - they will be understanding.**
 
-If you're streaming programming content, but aren't yet a master at the language you're writing in - tell chat! It's okay to be a _bit_ vulnerable in that way. By being up front with your community, you're able to set the tone of supportiveness and kindness that you'll want to culminate as you grow. Similarly, if you're speed-running a game but aren't towards the top of the leaderboard, maybe show your P.B. on screen so your community can celebrate new P.Bs with you!
+	If you're streaming programming content, but aren't yet a master at the language you're writing in - tell chat! It's okay to be a _bit_ vulnerable in that way. By being up front with your community, you're able to set the tone of supportiveness and kindness that you'll want to culminate as you grow. Similarly, if you're speed-running a game but aren't towards the top of the leaderboard, maybe show your P.B. on screen so your community can celebrate new P.Bs with you!
 
 - **Set your boundaries with your community.**
 
-While a _bit_ of vulnerability can go a long way to making a safe community, there will always be trolls. However, remember that you have the center stage, not chat; Utilize this to flow your community towards the tone/attitude you want to see in them. Don't want advice on the puzzle game you're playing - make "no back-seating" part of your channel rules and enforce them with your mods. Everyone will want to establish their communities differently - follow your goals.
+	While a _bit_ of vulnerability can go a long way to making a safe community, there will always be trolls. However, remember that you have the center stage, not chat; Utilize this to flow your community towards the tone/attitude you want to see in them. Don't want advice on the puzzle game you're playing - make "no back-seating" part of your channel rules and enforce them with your mods. Everyone will want to establish their communities differently - follow your goals.
 
 - **As your friends to tune into early streams!**
 
-It's fun, gives you someone to chat with early on when you might otherwise have few/no other viewers, and encourages you to practice how to engage the broader community.
+	It's fun, gives you someone to chat with early on when you might otherwise have few/no other viewers, and encourages you to practice how to engage the broader community.
 
 # Essential Equipment
 
@@ -59,19 +59,19 @@ While it's always fun to buy new toys for a new hobby, I have some guidance that
 
 - **Don't worry about gear early on.**
 
-You don't need a DSLR, green screen, or fancy audio equipment to make good content early on. Start with a cheap microphone, see if you enjoy it, then move on to better gear. If you _do_ want to get better gear, start with audio equipment; it tends to pay the best dividends and is a less messy world than live video quality improvements.
+	You don't need a DSLR, green screen, or fancy audio equipment to make good content early on. Start with a cheap microphone, see if you enjoy it, then move on to better gear. If you _do_ want to get better gear, start with audio equipment; it tends to pay the best dividends and is a less messy world than live video quality improvements.
 
 - **Don't force a facecam.**
 
-If you enjoy having a facecam and think it adds production quality you yearn for, add it! But don't feel it's an obligation; you're able to get by perfectly fine without facecam. Even big content creators can go without (see also: [GameGrumps](https://www.youtube.com/user/gamegrumps), [Corpse Husband](https://www.youtube.com/channel/UCFNTq9XKHDNy_1-2lL0kqCg), and others). 
+	If you enjoy having a facecam and think it adds production quality you yearn for, add it! But don't feel it's an obligation; you're able to get by perfectly fine without facecam. Even big content creators can go without (see also: [GameGrumps](https://www.youtube.com/user/gamegrumps), [Corpse Husband](https://www.youtube.com/channel/UCFNTq9XKHDNy_1-2lL0kqCg), and others). 
 
 - **Create a unique and relevant set of branding.**
 
-Whether it be overlay customization, Twitch panel graphics, sound effects, emotes, or anything in between - make it yours and make it consistent. Starting out? Don't just use a default unmodified theme. Take a pre-made asset pack and hodgepodge it until it's unique to your brand. Growing and ready to level-up? Hire artists to make something expressly yours - there's hoards of talented creatives that want to work with you.
+	Whether it be overlay customization, Twitch panel graphics, sound effects, emotes, or anything in between - make it yours and make it consistent. Starting out? Don't just use a default unmodified theme. Take a pre-made asset pack and hodgepodge it until it's unique to your brand. Growing and ready to level-up? Hire artists to make something expressly yours - there's hoards of talented creatives that want to work with you.
 
 - **Avoid spending too much time on your branding.**
 
-While we just touched on how unique branding can be a boon to your channel, it can also be a massive time sink. While meta-stream customization (updating your overlay while live) can be loads of fun, they don't tend to have good viewer retension. 
+	While we just touched on how unique branding can be a boon to your channel, it can also be a massive time sink. While meta-stream customization (updating your overlay while live) can be loads of fun, they don't tend to have good viewer retension. 
 
 > In particular, if you're a programmer I generally advise not working on your own overlay unless you have **really** cool and unique integration ideas. Even if you do, see if they can't be accomplished with [StreamElements](https://streamelements.com/) or custom OBS plugins instead of hand-rolling your own systems from scratch.
 
@@ -182,7 +182,7 @@ Here are my learnings from this time:
   The first ~600 hours of personal streaming were exceedingly tough to grow. Not only are you getting used to this awkward new environment, but you have very little traffic to your branded site or content and those that _do_ show up can be a bit dismissive of a brand in a personality-driven environment.
 - **Streaming has among the lowest ROI of any content-creation adjacent activities I've ever done.**
 
-  Keep in mind that streaming is a huge time investment where your first major hurtle is to grow an audience. From my experience, I found it easier to grow the company's ROI by blogging, attending meetups, or otherwise pre-recording video.
+  Keep in mind that streaming is a huge time investment where your first major hurdle is to grow an audience. From my experience, I found it easier to grow the company's ROI by blogging, attending meetups, or otherwise pre-recording video.
 
   If you get into streaming - I'd generally advice it be seen as an extremely long-term investment and/or an easy content generation method while multi-tasking and doing other things; don't make it your core KPI to grow on streaming platforms.
 
