@@ -182,3 +182,36 @@ body {
 	margin-top: var(--spc-1x);
 	color: var(--on-light-emphasis-medium);
 }
+
+.readNowContainer {
+	position: relative;
+    border-style:dashed;
+    border-color: var(--outline);
+    border-width: var(--grid-item-border-width);
+    border-radius: var(--grid-item-corner-radius);
+
+	// display: flex;
+	// flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // position: relative;
+    // padding: 0 var(--section-hor-padding) var(--section-ver-padding);
+	padding: 100%;
+}
+
+.buttonContainer {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	// bottom: -22%;
+	left: 50%;
+	transform: translateX(-50%);
+	// height: var(--social-btn-height);
+	// width: calc(100% - (var(--section-hor-padding) * 2));
+	// background: var(--section-background);
+	gap: var(--outline-gap);
+	padding: 0 var(--outline-gap);
+	transition: background var(--animStyle) var(--animSpeed);
+	will-change: transition;
+}

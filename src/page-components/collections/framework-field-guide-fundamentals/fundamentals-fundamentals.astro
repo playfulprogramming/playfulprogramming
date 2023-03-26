@@ -4,7 +4,34 @@ import "../framework-field-guide/components/shared-section-styling.scss";
 import FundamentalsBookCover from "../framework-field-guide/segments/fundamentals-book-cover.astro";
 import BookSvg from "../framework-field-guide/icons/book.astro";
 import ToolsSvg from "../framework-field-guide/icons/tools.astro";
+import LinksSvg from "../framework-field-guide/icons/link.astro"
+import CollectionTableOfContents from "../collection-table-of-contents.astro";
+import { PostInfo } from "types/PostInfo";
+import { unicorns } from "utils/data";
 
+const frontmatter = {
+	title: "The Framework Field Guide - Fundamentals",
+	associatedSeries: "Framework Field Guide",
+	description:
+		"A practical and free way to teach Angular, React, and Vue all at once, so you can choose the right tool for the job and learn the underlying concepts in depth.",
+	authors: ["crutchcorn"],
+	coverImg: "/custom-content/collections/framework-field-guide/cover.png",
+	socialImg:
+		"/custom-content/collections/framework-field-guide/framework_field_guide_social.png",
+	type: "book",
+	published: "2023-01-01T13:45:00.284Z",
+	buttons: [{ text: "Read now", url: "/posts/preface" }],
+	authorsMeta: [unicorns.find((uni) => uni.id === "crutchcorn")],
+};
+
+const posts = await Astro.glob<PostInfo>(
+	"../../../../content/blog/**/index.md"
+);
+
+const chapterList = posts
+	.map((post) => post.frontmatter)
+	.filter((post) => post.series === "The Framework Field Guide")
+	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
 ---
 
 <section data-change-color-to="fund">
@@ -28,8 +55,37 @@ import ToolsSvg from "../framework-field-guide/icons/tools.astro";
 						An IDE that supports your framework of choice
 					</span>
 				</li>
+				<li class={`text-style-body-large-bold`}>
+					<span class={styles.whiteText}>Helpful Links</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<span class={styles.whiteText}>Helpful Links</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<LinksSvg aria-hidden={true} />
+					<span class={styles.whiteText}>The basics of CSS</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<LinksSvg aria-hidden={true} />
+					<span class={styles.whiteText}>How to install VSCode</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<LinksSvg aria-hidden={true} />
+					<span class={styles.whiteText}>How HTML works</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<LinksSvg aria-hidden={true} />
+					<span class={styles.whiteText}>How to actually use the damn thing</span>
+				</li>
+				<li class={`text-style-body-large-bold`}>
+					<LinksSvg aria-hidden={true} />
+					<span class={styles.whiteText}>JS Beginner's Guide</span>
+				</li>
 			</ul>
 		</section>
+		<br/>
+		<br/>
+		<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
 		</div>
 	</div> 
 </section>

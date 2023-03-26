@@ -1,11 +1,8 @@
 ---
 import Barebones from "src/layouts/barebones.astro";
 import styles from "./index.module.scss";
-import CollectionHeaderDefault from "../../../page-components/collections/collection-header-default.astro";
 import CollectionTableOfContents from "../../../page-components/collections/collection-table-of-contents.astro";
-import MailingListInline from "../../../components/mailing-list/mailing-list-inline.astro";
-import { Picture } from "@astrojs/image/components";
-import CollectionsMdx from "src/layouts/collections-mdx.astro";
+
 import { PostInfo } from "types/PostInfo";
 import { unicorns } from "utils/data";
 
@@ -27,7 +24,7 @@ import SEO from "src/components/seo/seo.astro";
 import Header from "src/page-components/collections/framework-field-guide/segments/header.astro";
 import Hero from "src/page-components/collections/framework-field-guide-fundamentals/hero-fundamentals.astro";
 import Fundamentals from "src/page-components/collections/framework-field-guide-fundamentals/fundamentals-fundamentals.astro";
-import Ecosystem from "src/page-components/collections/framework-field-guide/segments/ecosystem.astro";
+import Ecosystem from "src/page-components/collections/framework-field-guide-fundamentals/ecosystem-fundamentals.astro";
 
 const frontmatter = {
 	title: "The Framework Field Guide - Fundamentals",
@@ -68,7 +65,7 @@ const chapterList = posts
 	<main>
 		<Hero />
 		<Fundamentals />
-		<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
+		<!-- <CollectionTableOfContents collection={frontmatter} posts={chapterList} /> -->
 		<Ecosystem />
 	</main>
 </Barebones>
