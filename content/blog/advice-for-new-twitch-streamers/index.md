@@ -49,7 +49,7 @@ It's these differences that require a different approach to streaming than other
 
 	While a _bit_ of vulnerability can go a long way to making a safe community, there will always be trolls. However, remember that you have the center stage, not chat; Utilize this to flow your community towards the tone/attitude you want to see in them. Don't want advice on the puzzle game you're playing - make "no back-seating" part of your channel rules and enforce them with your mods. Everyone will want to establish their communities differently - follow your goals.
 
-- **As your friends to tune into early streams!**
+- **Ask your friends to tune into early streams!**
 
 	It's fun, gives you someone to chat with early on when you might otherwise have few/no other viewers, and encourages you to practice how to engage the broader community.
 
@@ -87,7 +87,7 @@ When streaming on Twitch, you're likely to run into unfamiliar terminology that 
 
   Bits are a way to donate to a streamer. Usually, 1 bit is ~$0.10 USD. They can be redeemed to send a highlighted message that your overlay can do special things with (if configured).
 
-- **Subcriptions**: A larger donation with more rewards.
+- **Subscriptions**: A larger donation with more rewards.
 
   A subscription (or "sub") is a way for someone to donate to your channel every month. There are three different types of subs:
 
