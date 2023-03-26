@@ -1,8 +1,8 @@
 ---
 {
     title: "Advice for New Twitch Streamers",
-    description: "",
-    published: '2023-03-26T21:52:59.284Z',
+    description: "Twitch streaming can be fun and fulfilling, but has various roadblocks in the way for newcomers. Here's how you can overcome them and grow your Twitch channel.",
+    published: '2023-03-25T21:52:59.284Z',
     authors: ['crutchcorn'],
     tags: ['opinion'],
     attached: [],
@@ -118,33 +118,79 @@ In case this isn't enough [here are a few other emotes, introduced by Twitch the
 
 # Managing Moderation
 
-- Establish a mod team of friends/frequent chatters/etc that you can trust early on. They're not only a lifesaver for the instances where you need moderation, but also greatly help with your moral to keep streaming and can help encourage chat to stay in the boundaries you've set, even in subtle ways.
-- Prep for hate raids / follow-botting. While they've gotten _better_, it never hurts to be familiar with what tools you have at your disposal ahead-of-time. Twitch Shield (https://safety.twitch.tv/s/article/Protect-your-channel-with-Shield-Mode?language=en_US) is powerful, but so are community efforts like Sery_Bot (https://serycodes.carrd.co/)
-- Manage your privacy. Use a separate browser as your daily-driver; this allows you to avoid accidental self-doxing. If you're streaming on Windows, make your non-streaming monitor your "primary" monitor, so that new windows, dialog boxes, and notifications don't automatically show on-screen accidentally.
+While streaming can be fun and relaxing at times, there are potential downsides as well. Just like any other platform, Twitch has its fair share of trolls that need to be cut from the stream when they engage.
+
+To help solve this, here's a few tips to follow:
+
+- **Establish a mod team of friends or frequent chatters that you can trust early on.**
+	
+	They're not only a lifesaver for the instances where you need moderation, but also greatly help with your moral to keep streaming and can encourage chat to stay in the boundaries you've set, even in subtle ways.
+	
+- **Prepare for potential hate raids or follow-botting.**
+
+  While Twitch has gotten _better_ at filtering out these kinds of negative interactions, it never hurts to be familiar with what tools you have at your disposal ahead-of-time. Just to name a few, [Twitch has its built in "Shield" functionality](https://safety.twitch.tv/s/article/Protect-your-channel-with-Shield-Mode?language=en_US), but there are community efforts like [Sery_Bot](https://serycodes.carrd.co/) as well.
+
+- **Be on guard for your digital security.**
+
+  Remember, there are bad actors all over the internet. While most links shared with you might be authentic, don't click on any unfamiliar links coming from your chat. This helps prevent hacking or phishing attempts.
+
+- **Manage your on-stream privacy to avoid accidental self-doxing.**
+
+  Doxing is when someone shares personal information about another person. However, there are times when you might accidentally dox _yourself_. To prevent this, use a separate browser from your daily-driver so that you don't accidentally share DMs, location, or other information about yourself. Further, if you're streaming on Windows, make your non-streaming monitor your "primary" monitor, so that new windows, dialog boxes, and notifications don't automatically show on-screen accidentally.
 
 # Generating Growth
 
-- Schedule consistency is key. Especially early on in your streams, keep a schedule that you follow religiously. EG: "Tuesdays and Thursdays at 4PM PST". This will help propel your audience's ability to keep up and catch your content regularly.
+While not top of mind for everyone, some streamers want to grow their streams to have as many viewers as possible. To help grow your brand, consider:
 
-- If you do plan on streaming to grow your brand, **stay on brand**. As a programmer, stay with your content above 90% programming. Don't try to multi-focus your channel and do gaming or IRL streaming or anything else in between. Variety streamers have a much more challenging time trying to garner their foothold. Not only is it harder to make connections in a niche (both with other streamers and viewers alike), but the recommendation algorithm seems to punish you harshly for jumping categories frequently.
+- **Schedule consistency is key.**
 
-- Like other parts of brand growth, networking is absolutely critical in streamer brand growth. I'd say that 30-40% of your time on Twitch should be as a viewer of other people in your niche. Get to know them; follow them on other social media and make friends. Raids grow the channel **significantly** faster than organic growth.
+  Especially early on in your streams, keep a schedule that you follow _religiously_. For example, you might try streaming on "Tuesdays and Thursdays at 4PM PST". This will help propel your audience's ability to keep up and catch your content regularly.
 
-- Set your expectations: Affiliate is feasible within the first couple of months/first year, partner is **exceedingly** challenging to reach. Particularly in the programming category there are _maybe_ 20-30 partners in the entire category across all languages and regions. Even big brands with a specific investment in Twitch have a hard time breaking into partner.
+- **Stay on brand with your categories.**
 
-- Recognize the relevant metrics: While followers are nice to have as a vanity metric, they seldomly represent the health of a channel. I know some partner channels with low thousand followers while some channels have 5 digit followers and aren't even close to partner. The most relevant metric to see a channel's size is average viewership.
+  While a _bit_ of variety _can_ be good for some streamers, it's generally advised to stay away from multi-focusing your channel's categories. Variety streamers have a much more challenging time trying to garner their foothold. Not only is it harder to make connections in a niche (both with other streamers and viewers alike), but the recommendation algorithm seems to punish you harshly for jumping categories frequently.
 
-- "A body in motion stays in motion": If you're on an upswing of viewership, add gas to the fire by streaming more regularly/often immediately following. The Twitch recommendation algorithm is a fickle beast, but in my experience absolutely rewards those that are already doing well. Similarly, if you let your viewership drop for a short time, it may take some time growing it back to baseline.
+- **Network with fellow streamers**.
+
+  Like other parts of brand growth, networking is absolutely critical in streamer brand growth. I'd say that 30-40% of your time on Twitch should be as a viewer of other people in your niche. Get to know them; follow them on other social media and make friends. Raids grow the channel **significantly** faster than organic growth.
+
+- **Set your expectations realistically.**
+
+  Becoming a Twitch affiliate is feasible within the first couple of months or first year of streaming, but becoming a Twitch Partner is **exceedingly** challenging to reach. Especially if your niche is small like mine; in the programming category there are _maybe_ 20-30 partners in the entire category across all languages and regions. Even big brands with a specific investment in Twitch have a hard time breaking into partner.
+
+- **Recognize the relevant metrics**.
+
+  While followers are nice to have as a vanity metric, they seldomly represent the health of a channel. I know some partner channels with low thousand followers while some channels have over 10,000 followers and aren't even close to partner. *The most relevant metric to see a channel's size is average viewership.*
+
+- **"A body in motion stays in motion."**
+
+  If you're on an upswing of viewership, add gas to the fire by streaming more regularly/often immediately following. The Twitch recommendation algorithm is a fickle beast, but in my experience absolutely rewards those that are already doing well. Similarly, if you let your viewership drop for a short time, it may take some time growing it back to baseline.
 
 
-- Diversify (Discord, Twitter)
+- **Diversify your audience.**
 
-
+  While having a primary audience on Twitch is great, Twitch's notification system may fail to inform your users when you go live. Furthermore, being able to culminate a community outside of Twitch allows your viewers to become more personable with you, which may keep their interest in the channel for longer. Try promoting a Discord or a personal Twitter account to help others stay up-to-date and keep the conversation going with you.
 
 # Branded Broadcasts
 
-- I generally do not recommend streaming to _almost_ anyone looking to grow their brand/audience. The first ~600 hours were exceedingly tough. Not only are you getting used to this awkward new environment, but you have very little traffic and those that _do_ show up can be a bit... Blunt at times.
-- Streaming has the absolute lowest return on time investment of any DevRel-adjacent activities I've ever done. I'm almost certain that you could make better connections and product growth by attending 20 meetups with 1-2 attendies than stream for the first two or three hundred hours. If you get into streaming - I'd generally advice it be seen as an extremely long-term investment and/or an easy content generation method while multi-tasking and doing other things; don't make it your core KPI to grow on streaming platforms.
+While this guide has primarily been geared towards individuals looking to become Twitch streamers, I've also had some experience trying to break into the streaming world as a cooperate brand.
 
+Here are my learnings from this time:
 
+- **I generally do not recommend streaming to _almost_ anyone looking to grow their corporate brand/audience.**
+
+  The first ~600 hours of personal streaming were exceedingly tough to grow. Not only are you getting used to this awkward new environment, but you have very little traffic to your branded site or content and those that _do_ show up can be a bit dismissive of a brand in a personality-driven environment.
+- **Streaming has among the lowest ROI of any content-creation adjacent activities I've ever done.**
+
+  Keep in mind that streaming is a huge time investment where your first major hurtle is to grow an audience. From my experience, I found it easier to grow the company's ROI by blogging, attending meetups, or otherwise pre-recording video.
+
+  If you get into streaming - I'd generally advice it be seen as an extremely long-term investment and/or an easy content generation method while multi-tasking and doing other things; don't make it your core KPI to grow on streaming platforms.
+
+# Conclusion
+
+While I could continue this guide for almost forever, this is a good stopping point for the guidance I'm hoping to provide for others looking to get into streaming.
+
+Hopefully this has been an insightful look into how Twitch streamers can grow and improve their own streams.
+
+Until next time, I hope your streaming career goes well!
 
