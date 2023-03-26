@@ -1,7 +1,7 @@
 ---
 {
 	title: "The story of `let` vs `const`, Object Mutation, and a bug in my code",
-	description: 'When working with objects, you may hear the term "mutation". What is that? Hwo does it work? How do let and const REALLY differ from each other. This and more:',
+	description: 'When working with objects, you may hear the term "mutation". What is that? How does it work? How do let and const REALLY differ from each other? This and more:',
 	published: '2023-03-25T19:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['javascript'],
@@ -10,13 +10,13 @@
 }
 ---
 
-Recently, we rewrote [our community blog for "Unicorn Utterances"](https://unicorn-utterances.com) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is it's dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
+Recently, we rewrote [our community blog for "Unicorn Utterances"](https://unicorn-utterances.com) to use [Astro, a static site generator framework](https://astro.build). One of the fan-favorite features of the site is its dark mode toggle, which enables dark mode purists to gloat over the light mode plebians (like myself).
 
 <video src="./theme_toggle.mp4" title="Toggling the dark mode theme on the Unicorn Utterances site"></video>
 
 > For real though, support light mode in your sites and make them the default setting - [it's a major accessibility concern](https://www.vice.com/en/article/ywyqxw/apple-dark-mode-eye-strain-battery-life).
 
-In the migration, I wrote some code to  trigger a dark mode toggle:
+In the migration, I wrote some code to trigger a dark mode toggle:
 
 ```javascript
 // ...
@@ -74,7 +74,7 @@ Let's talk about that. Along the way, we'll touch on:
 
 To understand object mutation, we first need to conceptualize how JavaScript handles variable creation.
 
-In one of my blog posts called ["Functions are values", I talk about how variables as stored into memory](https://unicorn-utterances.com/posts/javascript-functions-are-values). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
+In one of my blog posts called ["Functions are values", I talk about how variables are stored in memory](https://unicorn-utterances.com/posts/javascript-functions-are-values). In that article, I specifically talk about how, when you create JavaScript variables, they create a new space in memory.
 
 Say that we wanted to initialize two variables:
 
@@ -83,17 +83,17 @@ var helloMessage = "HELLO";
 var byeMessage = "SEEYA";
 ```
 
-When we run this computer, it will create two "blocks" of memory to store these values [into our RAM, the short-term memory of our computer](/posts/how-computers-speak#ram). This might be visualized like so:
+When we run this code, it will create two "blocks" of memory to store these values [into our RAM, the short-term memory of our computer](/posts/how-computers-speak#ram). This might be visualized like so:
 
 ![A big block called "memory" with two items in it. One of them has a name of "helloMessage" and is address `0x7de35306` and the other is "byeMessage" with an address of `0x7de35306`.](./memory_chart.png)
 
 These memory blocks then can be referenced in our code by using their variable name (`helloMessage` and `byeMessage` respectively). It is important to note, however, a few things about these memory blocks:
 
-1) They have a size.
+1. They have a size.
 
    Each of these memory blocks has an amount of system memory they consume. It can be a very small amount of data (like storing a small string as we're doing here), or a huge amount of data (such as keeping a movie's video file in memory)
 
-2) They have a lookup address.
+2. They have a lookup address.
 
    Very generally, this lookup address is simply the memory location of where a variable starts. This lookup address may be called a "memory address" and may be represented as a number of bits counting up from `0`.
 
@@ -103,7 +103,7 @@ These memory blocks then can be referenced in our code by using their variable n
 4. These memory addresses/blocks can also be freed up when they're no longer needed.
    In some languages, this is done manually while other languages do this (mostly) automatically.
 
-5) Once freed, these memory addresses/blocks can be re-used.
+5. Once freed, these memory addresses/blocks can be re-used.
 
 ## Reassigning variables
 
@@ -119,13 +119,13 @@ helloMessage = "HEYYO";
 In this code sample, the first two lines:
 
 1) Creates a `helloMessage` variable.
-   - Which, in turn, creates a memory block (say, `0x7de35306`) 
+   - Which, in turn, creates a memory block (say, `0x7de35306`)
    - The characters that make up the string `"HELLO"` are placed in this memory block
 2) Creates a `byeMessage` variable.
    - This also creates a memory block (`0x7de35307`)
    - Which contains the string `"SEEYA"`
 
-After these two instructions are executed, we find ourselves reassigning the variable of `helloMessage` to `HEYYO`. While it might be reasonable to assume that the existing `helloMessage` memory block is changed to reflect the new string, that's not the case. 
+After these two instructions are executed, we find ourselves reassigning the variable of `helloMessage` to `HEYYO`. While it might be reasonable to assume that the existing `helloMessage` memory block is changed to reflect the new string, that's not the case.
 
 Instead, the reassignment of `helloMessage` creates a _new_ memory block, adds it to the end of the memory stack, and removes the old memory block.
 
@@ -390,7 +390,7 @@ themeToggleBtn.addEventListener('click', () => {
 });
 ```
 
-Our theme toggle sector broke. Why? Well, it has to do with object mutation.
+Our theme toggle selector broke. Why? Well, it has to do with object mutation.
 
 When our original code did this:
 ```javascript
@@ -409,7 +409,7 @@ theme = theme === 'light' ? 'dark' : 'light';
 
 We're creating a _new_ variable called `theme` and changing the location of `theme` based on the new value. Because `className` is a string, [which is a JavaScript primitive and not an object](https://developer.mozilla.org/en-US/docs/Glossary/Primitive), it won't mutate `document.documentElement` and therefore won't change the `HTML` tag's class.
 
-To solve this, we should revert our code to mutate `docuemnt.documentElement` once again.
+To solve this, we should revert our code to mutate `document.documentElement` once again.
 
 # Conclusion
 
