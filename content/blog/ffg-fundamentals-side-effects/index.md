@@ -145,7 +145,7 @@ Component events a framework might listen for include:
 
 - A component rendering for the first time
 
-- [A component being removed from the screen as part of a conditional render](/posts/dynamic-html)
+- [A component being removed from the screen as part of a conditional render](/posts/ffg-fundamentals-dynamic-html)
 - A component's data or passed properties changing
 
 The first of these component events are commonly fully transparent to most developers: User input bindings.
@@ -218,7 +218,7 @@ To explore what these side effect handlers can do, let's look at an example of a
 
 # Initial render side effects
 
-When we introduced components, we touched on the [concept of "rendering"](/posts/intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/dynamic-html#Conditional-Branches).
+When we introduced components, we touched on the [concept of "rendering"](/posts/ffg-fundamentals-intro-to-components#Rendering-the-app). This occurs when a component is drawn on-screen, either when the user loads a page for the first time or when shown or hidden using a [conditional render](/posts/ffg-fundamentals-dynamic-html#Conditional-Branches).
 
 Say we have the following code:
 
@@ -580,7 +580,7 @@ Now, when we resize the browser, our values on-screen should update as well.
 
 ## Event Bubbling Aside
 
-In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/intro-to-components#Event-Binding).
+In our introduction to components, we demonstrated that [components can listen to HTML events](/posts/ffg-fundamentals-intro-to-components#Event-Binding).
 
 What if we changed our code above to listen for the `resize` event that way to sidestep `addEventListener`?
 

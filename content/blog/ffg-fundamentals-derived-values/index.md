@@ -164,7 +164,7 @@ How can we fix this?
 
 The first - and arguably easiest to mentally model - method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
-Luckily, we can use [our existing knowledge of lifecycle methods](/posts/lifecycle-methods) to do so:
+Luckily, we can use [our existing knowledge of lifecycle methods](/posts/ffg-fundamentals-side-effects) to do so:
 
 <!-- tabs:start -->
 
@@ -266,7 +266,7 @@ However, what if we could instead simplify this idea to a single step:
 
 1) Run a function over a value, and live update as it changes.
 
-This may remind you of a similar pattern we've used already for [live updated text](/posts/intro-to-components#Live-Updating) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
+This may remind you of a similar pattern we've used already for [live updated text](/posts/ffg-fundamentals-intro-to-components#Live-Updating) and [attribute binding](/posts/intro-to-components#Attribute-Binding).
 
 Luckily for us, all three frameworks have a way of doing just this!
 

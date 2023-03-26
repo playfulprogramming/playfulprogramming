@@ -224,7 +224,7 @@ Now, while our screen will still be white when the error is thrown, it will hit 
 
 ## Angular
 
-Angular utilizes its [dependency injection system](/posts/dependency-injection) to allow developers to keep track of errors as they occur.
+Angular utilizes its [dependency injection system](/posts/ffg-fundamentals-dependency-injection) to allow developers to keep track of errors as they occur.
 
 However, in order to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
 

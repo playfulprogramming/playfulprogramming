@@ -592,7 +592,7 @@ Why was it removed and how can we add it back?
 
 **The reason we removed the context menu's focus management is to keep the control of the context menu in the parent. **
 
-While we could add the focus management feature into [the `ContextMenu` component's initial render lifecycle method](/posts/lifecycle-methods), but this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**. This allows you to re-use your context menu component in more places, should you ever want to use the component without forcing a focus change.
+While we could add the focus management feature into [the `ContextMenu` component's initial render lifecycle method](/posts/ffg-fundamentals-side-effects), but this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**. This allows you to re-use your context menu component in more places, should you ever want to use the component without forcing a focus change.
 
 To do this, let's move the `.focus` method out of our component. Moving from this:
 
@@ -628,7 +628,7 @@ function openContextMenu(e) {
 }
 ```
 
-While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside of a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/element-reference), but we need to access the `ContextMenu` component instance.
+While this might seem like a straightforward change at first, there's a new problem present: Our `contextMenu` is now inside of a component. As a result, we need to not only [access the underlying DOM node using element reference](/posts/ffg-fundamentals-element-reference), but we need to access the `ContextMenu` component instance.
 
 Luckily for us, each framework enables us to do just that! Before we implement the `focus` logic, let's dive into how component reference works:
 

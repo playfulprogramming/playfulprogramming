@@ -1,6 +1,6 @@
 ---
 {
-    title: "Content Reference",
+    title: "Accessing Children",
     description: "Oftentimes, when passing children to a component, you want a way to programmatically access that passed data. Let's learn how to do that in React, Angular, and Vue.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],

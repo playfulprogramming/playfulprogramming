@@ -11,7 +11,7 @@
 
 # Book 1: Fundamentals
 
-- [Preface](/posts/preface) ✅
+- [Preface](/posts/ffg-fundamentals-preface) ✅
   - Why learn webdev ✅
     - Why these tools ✅
     - Who's building what ✅
@@ -19,7 +19,7 @@
     - What aren't we learning ✅
     - Content outline ✅
     - Note on framework specifics ✅
-- [Introduction to Components](/posts/intro-to-components) ✅
+- [Introduction to Components](/posts/ffg-fundamentals-intro-to-components) ✅
   - What is an app ✅
   - What is a component ✅
   - Rendering behavior ✅
@@ -31,61 +31,61 @@
   - Inputs ✅
   - Event Binding ✅
   - Outputs ✅
-- [Dynamic HTML](/posts/dynamic-html) ✅
+- [Dynamic HTML](/posts/ffg-fundamentals-dynamic-html) ✅
   - Conditional display ✅
     - Else conditions ✅
   - Rendering lists ✅
     - Keys ✅
-- [Lifecycle Methods](/posts/lifecycle-methods) ✅
+- [Side Effects](/posts/ffg-fundamentals-side-effects) ✅
   - Render lifecycle ✅
     - Side effects ✅
     - Event bubbling ✅
   - Un-rendering ✅
   - Re-renders ✅
   - Lifecycle chart ✅
-- [Derived Values](/posts/derived-values) ✅
+- [Derived Values](/posts/ffg-fundamentals-derived-values) ✅
   - Prop listening ✅
   - Derived values ✅
   - Local derived values ✅
-- [Forms](/posts/forms) ✅
+- [Forms](/posts/ffg-fundamentals-forms) ✅
   - One-way binding ✅
   - Two-way bindings ✅
   - Reactive forms ✅
   - Form arrays ✅
   - Form validation ✅
   - Non-text form fields ✅
-- [Partial DOM Application](/posts/partial-dom-application) ✅
+- [Partial DOM Application](/posts/ffg-fundamentals-transparent-elements) ✅
   - Stacking `nothing` elements  ✅
-- [Content Projection](/posts/content-projection) ✅
+- [Content Projection](/posts/ffg-fundamentals-passing-children) ✅
   - Named content projection
-- [Content Reference](/posts/content-reference) ✅
+- [Content Reference](/posts/ffg-fundamentals-accessing-children) ✅
   - Passing values to projected content  ✅
-- [Element Reference](/posts/element-reference) ✅
+- [Element Reference](/posts/ffg-fundamentals-element-reference) ✅
   - How to keep element reference array ✅
-- [Component Reference](/posts/component-reference) ✅
-- [Dependency injection](/posts/dependency-injection) ✅
+- [Component Reference](/posts/ffg-fundamentals-component-reference) ✅
+- [Dependency injection](/posts/ffg-fundamentals-dependency-injection) ✅
   - `useContext` / React ✅
   - `provide/inject` / Vue ✅
   - Angular DI ✅
-- [Shared Component Logic](/posts/shared-component-logic) ✅
+- [Shared Component Logic](/posts/ffg-fundamentals-shared-component-logic) ✅
   - React / Custom Hooks ✅
   - Angular / Services ✅
   - Vue / Custom Compositions ✅
 
-- [Directives ](/posts/directives)✅
+- [Directives ](/posts/ffg-fundamentals-directives)✅
   - React / Custom Hooks & Passing Props ✅
   - Angular ✅
   - [Vue](https://vuejs.org/guide/reusability/custom-directives.html) ✅
 
-- [Portals](/posts/portals) ✅
+- [Portals](/posts/ffg-fundamentals-portals) ✅
   - `Portal` / React ✅
   - `Portal` CDK / Angular ✅
   - `Teleport` / Vue ✅
-- [Error handling](/posts/error-handling)
+- [Error handling](/posts/ffg-fundamentals-error-handling)
   - Error boundary / React ✅
   - [`ErrorHandler`](https://angular.io/api/core/ErrorHandler) / Angular ✅
   - onErrorCapture / Vue ✅
-- [Accessibility (A11Y)](/posts/accessibility)
+- [Accessibility (A11Y)](/posts/ffg-fundamentals-accessibility)
 - Fundamentals/Structure
   - Pure vs impure logic
   - Unidirectionality

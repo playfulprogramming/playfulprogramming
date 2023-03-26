@@ -821,7 +821,7 @@ While the method each framework uses to tell _when_ to re-render is different, t
 
 This feature is arguably the biggest advantage of building an application with one of these frameworks.
 
-**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, [which we'll dive deeper into with our "Lifecycles" chapter](/posts/lifecycle-methods).
+**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, [which we'll dive deeper into with our "Side Effects" chapter](/posts/ffg-fundamentals-side-effects).
 
 Speaking of updating data on-screen - let's take a look at how we can dynamically display data on a page.
 
@@ -979,7 +979,7 @@ const setDateStr = dateArr[1];
 
 > `useState` is what's known as a ["React Hook"](https://reactjs.org/docs/hooks-intro.html). Hooks are React's method of "hooking" functionality into React's framework code. They allow you to do a myriad of functionalities in React components.
 >
-> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/derived-values), and others. 
+> Hooks can be identified as a function that starts with the word "`use`". Some other Hooks we'll touch on in the future will include [`useEffect`](#lifecycles), [`useMemo`](/posts/ffg-fundamentals-derived-values), and others. 
 
 Here, we're using `setDateStr` to tell React that it should re-render, which will update the value of `dateStr`. This differs from Angular and Vue, where you don't have to explicitly tell the framework when to re-render.
 
@@ -1281,7 +1281,7 @@ const labelText = ref(formatReadableDate(new Date()))
 
 <!-- tabs:end -->
 
-> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values in a future section.
+> This code isn't exactly what you might expect to see in production. If you're looking to write production code, you may want to look into [derived values](/posts/ffg-fundamentals-derived-values) to base the `labelText` and `date` values off of the same [`Date` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) directly. This would let you avoid calling `new Date` twice, but I'm getting ahead of myself - we'll touch on derived values in a future section.
 
 Awesome! Now it should read the file's date properly to a screen reader properly!
 
@@ -1617,7 +1617,7 @@ const inputDate = new Date();
 
 > Once again, I have to add a minor asterisk next to this code sample. Right now, if you update the `inputDate` value after the initial render, it will not show the new date string in `FileDate`. This is because we're setting the value of `dateStr` and `labelText` only once and not updating the values. 
 >
-> Each framework has a way of live-updating this value for us, as we might usually expect, by [utilizing a derived value](/posts/derived-values), but we'll touch on that in a future section.
+> Each framework has a way of live-updating this value for us, as we might usually expect, by [utilizing a derived value](/posts/ffg-fundamentals-derived-values), but we'll touch on that in a future section.
 
 ## Props Rules
 
@@ -1685,8 +1685,8 @@ onMounted(() => {
 
 You're not intended to mutate properties because it breaks two key concepts of application architecture with components:
 
-1) [What it means to be a "pure" function](/posts/lifecycle-methods#Side-Effects)
-2) [Unidirectionality of component flow](/posts/master-react-unidirectional-data-flow)
+1) [What it means to be a "pure" function](/posts/ffg-fundamentals-side-effects#Side-Effects)
+2) [Unidirectionality of component flow](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow)
 
 # Event Binding
 

@@ -27,7 +27,7 @@
 | Component Template              |                                                              |
 | Zone.js                         |                                                              |
 | Proxy                           | // TODO: Could either mean "Proxy" ala Vue.js definition or "Proxy" as in server |
-| Pipe                            | Angular's method of creating a [Derived Value](/posts/derived-values) |
+| Pipe                            | Angular's method of creating a [Derived Value](/posts/ffg-fundamentals-derived-values) |
 | Gatsby                          |                                                              |
 | NextJS                          |                                                              |
 | Side Effect                     |                                                              |

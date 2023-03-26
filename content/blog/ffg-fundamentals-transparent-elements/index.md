@@ -1,6 +1,6 @@
 ---
 {
-    title: "Partial DOM Application",
+    title: "Transparent Elements",
     description: "There are specific instances where you may want to have a wrapper element in a framework that renders to nothing in the DOM. This is how.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
@@ -14,7 +14,7 @@
 
 Whew! That last chapter was a doozy. Let's slow things down a bit for this chapter: Short and sweet.
 
-Let's think back to the ["Dynamic HTML"](/posts/dynamic-html) and ["Intro to Components"](/posts/intro-to-components) chapters, where we were building our `File ` and `FileList` components:
+Let's think back to the ["Dynamic HTML"](/posts/ffg-fundamentals-dynamic-html) and ["Intro to Components"](/posts/ffg-fundamentals-intro-to-components) chapters, where we were building our `File ` and `FileList` components:
 
 <!-- tabs:start -->
 
@@ -203,7 +203,7 @@ Because our conditional statement is on the `li` when rendered to the DOM, it mi
 While this might not seem like a big problem at first, the fact that there's an empty `li` in the middle of our `ul` introduces three issues:
 
 1) It will leave an empty space created by any styling you have applied to the `li`.
-2) [Any assistive technologies, like screen readers](/posts/intro-to-web-accessability), will read out that there's an empty item, a confusing behavior for those users.
+2) [Any assistive technologies, like screen readers](https//unicorn-utterances.com/posts/intro-to-web-accessability), will read out that there's an empty item, a confusing behavior for those users.
 3) Any search engines reading data off of your page may incorrectly assume that your list is intentionally empty, thus potentially impacting your ranking on sites.
 
 Solving these issues is where something called "partial DOM application" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
@@ -369,7 +369,7 @@ By default, if you render a `template` in Vue in any other place besides the roo
 
 > It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining "why" a `template` element renders nothing by default is outside of the scope of this book, it is expected behavior.
 
-However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/content-reference)), it will remove the `<template>` and only render out the children.
+However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/ffg-fundamentals-content-reference)), it will remove the `<template>` and only render out the children.
 
 This means that both:
 ```vue
@@ -414,5 +414,5 @@ See? I told you it'd be a short chapter this time around!
 
 Admittedly, this chapter was a stepping stone to help explain other topics elsewhere.
 
-Next up, [we'll take a look at how to project content into another component](/posts/content-projection).
+Next up, [we'll take a look at how to project content into another component](/posts/ffg-fundamentals-content-projection).
 

@@ -410,7 +410,7 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here. 
 
-The long answer is a bit complicated and might distract from the current focus of this chapter — [We will answer this further in our "Content Reference" chapter](/posts/content-reference#ng-templates).
+The long answer is a bit complicated and might distract from the current focus of this chapter — [We will answer this further in our "Content Reference" chapter](/posts/ffg-fundamentals-accessing-children#ng-templates).
 
 The short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to an in-template variable for Angular to use in conditional statements and a few other places."
 
@@ -1193,7 +1193,7 @@ This reset is what's causing the `input` to blank out after a button press.
 
 > This idea of an element's "reference" to a framework's understanding of an element can be a bit confusing.
 >
-> [In a future chapter, we'll learn more about how each framework handles these references under the hood.](/posts/element-reference)
+> [In a future chapter, we'll learn more about how each framework handles these references under the hood.](/posts/ffg-fundamentals-element-reference)
 
 # Putting it to Production
 
@@ -1486,7 +1486,7 @@ toggleOnlyShow() {
 
 <!-- tabs:end -->
 
-> While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/partial-dom-application) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
+> While this code works, there's a silent-yet-deadly bug present. While we'll explain what that bug is within our ["Partial DOM Application"](/posts/ffg-fundamentals-transparent-elements) chapter, I'll give you a hint: It has to do with conditionally rendering the `File` component instead of the `li` element.
 
 # Challenge
 

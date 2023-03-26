@@ -1267,7 +1267,7 @@ Introducing: Portals.
 
 # What is a JavaScript Portal?
 
-The basic idea behind a JavaScript Portal builds on top of [the concepts of components we introduced in our first chapter](/posts/intro-to-components).
+The basic idea behind a JavaScript Portal builds on top of [the concepts of components we introduced in our first chapter](/posts/ffg-fundamentals-intro-to-components).
 
 Imagine you have a set of components that represent the small app we just built:
 
@@ -1486,13 +1486,13 @@ Let's move on to application-wide portals, where the story starts to make more s
 
 # Application-Wide Portals
 
-In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/element-reference) to be set to a variable. This tells us where we should render our portal's contents into.
+In local portals, we were able to see that implementations of portals rely on an [element reference](/posts/ffg-fundamentals-element-reference) to be set to a variable. This tells us where we should render our portal's contents into.
 
 While this worked, it didn't do much to solve the original issue that portals were set out to solve; overlapping stacking contexts.
 
 If there was a way that we could provide a variable to all of the application's components, then we could have a way to solve the stacking context problem within our apps...
 
-> But wait, Corbin, there _is_ a way we can provide all a variable to the rest of our app! We learned how to do that using [dependency injection from the root of the app!](/posts/dependency-injection)
+> But wait, Corbin, there _is_ a way we can provide all a variable to the rest of our app! We learned how to do that using [dependency injection from the root of the app!](/posts/ffg-fundamentals-dependency-injection)
 
 Good call, keen reader! Let's do that.
 
@@ -1500,7 +1500,7 @@ Good call, keen reader! Let's do that.
 
 ## React
 
-If we remember [our dependency injection chapter, React uses a `context` to provide and consume data using dependency injection](/posts/dependency-injection).
+If we remember [our dependency injection chapter, React uses a `context` to provide and consume data using dependency injection](/posts/ffg-fundamentals-dependency-injection).
 
 We can pair this with our `createPortal` API to easily keep track of where we want to provide a portal:
 

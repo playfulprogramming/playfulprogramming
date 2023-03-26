@@ -138,7 +138,7 @@ const useWindowSize = () => {
 
 To share data setup between components in Angular, we'll create an instance of a class that can be provided by each consuming component.
 
-Just as we covered [in the dependency injection chapter](/posts/dependency-injection#Providing-Basic-Values-with-Dependency-Injection), we'll use `Injectable` to create a class that can be provided to a component instance.
+Just as we covered [in the dependency injection chapter](/posts/ffg-fundamentals-dependency-injection#Providing-Basic-Values-with-Dependency-Injection), we'll use `Injectable` to create a class that can be provided to a component instance.
 
 ```typescript
 @Injectable()
@@ -202,7 +202,7 @@ const { height, width } = useWindowSize()
 
 While sharing a consistent set of data setup for each consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
-One of the most powerful things that can be reused between components is [lifecycle method](/posts/lifecycle-methods) logic.
+One of the most powerful things that can be reused between components is [lifecycle method](/posts/ffg-fundamentals-side-effects) logic.
 
 Using this, we can say something alone the lines of:
 
@@ -216,7 +216,7 @@ This can be a bit vague to discuss without code, so let's dive in.
 
 While our last code sample was able to expose the browser window's height and width, it didn't respond to window resizing. This means that if you resized the browser window, the value of `height` and `width` would no longer be accurate.
 
-Let's hook into [a consuming component's `rendered` lifecycle method](/posts/lifecycle-methods#Render-Lifecycle) in order to add an event handler to listen for window resizing.
+Let's hook into [a consuming component's `rendered` lifecycle method](/posts/ffg-fundamentals-side-effects#Render-Lifecycle) in order to add an event handler to listen for window resizing.
 
 <!-- tabs:start -->
 

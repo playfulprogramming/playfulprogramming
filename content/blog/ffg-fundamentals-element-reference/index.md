@@ -205,7 +205,7 @@ This isn't to say that `useRef` is bad by any means, though. Instead, what I'm t
 
 # Angular
 
-In our chapter about [content reference](/posts/content-reference), we touched on `ContentChild`, a method of accessing the projected content programmatically without our component class instance.
+In our chapter about [content reference](/posts/ffg-fundamentals-accessing-children), we touched on `ContentChild`, a method of accessing the projected content programmatically without our component class instance.
 
 While this is extremely useful when you're able to use it, projected content isn't the only thing HTML elements we want to reference programatically.
 
@@ -232,7 +232,7 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
-Here, we're using a [template reference variable](/posts/content-reference#ng-templates) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
+Here, we're using a [template reference variable](/posts/ffg-fundamentals-accessing-children#ng-templates) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
 
 > What's this new `ngAfterViewInit` method?
 
@@ -336,7 +336,7 @@ function logEl(el) {
 
 # How to keep an array of element references
 
-When we learned [how to access content that's been projected](/posts/content-reference), we had to learn different APIs in order both to access a single projected item and access multiple projected items at once. We have a similar challenge in front of us with element referencing.
+When we learned [how to access content that's been projected](/posts/ffg-fundamentals-accessing-children), we had to learn different APIs in order both to access a single projected item and access multiple projected items at once. We have a similar challenge in front of us with element referencing.
 
 Let's say that we have an array of items that we want to be able to quickly scroll to the top or bottom of. One way of solving this is to store each item in the array into an element reference then use the top and bottom [elements' `scrollIntoView` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) to bring them onto the page visually.
 
@@ -492,7 +492,7 @@ const chapters = [
 
 These concepts are handy to know, but what good are they if we can't utilize them in a real-world use case?
 
-Let's take our existing [file hosting app project](/posts/intro-to-components#Whats-an-app-anyway) and think about a feature that we can build.
+Let's take our existing [file hosting app project](/posts/ffg-fundamentals-intro-to-components#Whats-an-app-anyway) and think about a feature that we can build.
 
 Oh, I know! Let's add in a context menu, so that when you right-click a file in the files list, it allows you to take actions on it such as deleting or renaming.
 

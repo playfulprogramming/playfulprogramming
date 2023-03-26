@@ -26,7 +26,7 @@ In this chapter, we'll explore:
 
 # What is a directive
 
-In our [Introduction to Components chapter](/posts/intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes. 
+In our [Introduction to Components chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes. 
 
 A directive, on the other hand, is a collection of JavaScript logic that you can apply to a single DOM element.
 
@@ -46,7 +46,7 @@ React as a framework doesn't _quite_ have the concept of directives built-in.
 
 Luckily, this doesn't mean that us React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
-Remember from our [Element Reference chapter that you can use a function associated with an element's `ref` property](localhost:9000/posts/element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/shared-component-logic#Rules-of-Custom-Hooks) in order to create a simple API to add logic to an HTML element:
+Remember from our [Element Reference chapter that you can use a function associated with an element's `ref` property](localhost:9000/posts/element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create a simple API to add logic to an HTML element:
 
 ```jsx
 const useLogElement = () => {
@@ -91,7 +91,7 @@ Here, we've told Angular to listen for any `sayHi` attributes ([using a CSS sele
 
 This isn't particularly useful, but demonstrates the most minimal version of what a directive looks like.
 
-Instead, it's oftentimes more useful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
+Instead, it's oftentimes more useful to get a reference to the element that the attribute is present on. To do this, we'll use Angular's [dependency injection](/posts/ffg-fundamentals-dependency-injection) to ask Angular for an `ElementRef` that's present within the framework's internals when you create a directive instance.
 
 ```typescript
 @Directive({
@@ -215,13 +215,13 @@ const vStyleBackground = {
 
 # Lifecycle Methods in Directives
 
-[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
+[Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
 Luckily, with attributes we can!
 
 See, while a component has a lifecycle of being rendered, updated, cleaned up, and beyond - so too does an element that's bound to a directive!
 
-Because of this, we can hook into the ability to use lifecycle methods within directives to [add a side effect](/posts/lifecycle-methods#Side-Effects) that focuses when an element is rendered.
+Because of this, we can hook into the ability to use lifecycle methods within directives to [add a side effect](/posts/ffg-fundamentals-side-effects#Side-Effects) that focuses when an element is rendered.
 
 <!-- tabs:start -->
 
@@ -599,7 +599,7 @@ const vStyleBackground = {
 
 The examples we've used to build out basic directives have previously all mutated elements that don't change their visibility; these elements are always rendered on screen and don't change that behavior programatically.
 
-But what if we wanted a directive that helped us dynamically render an element, [like we do with our conditional rendering](/posts/dynamic-html#Conditional-Rendering), but using only an attribute to trigger the render?
+But what if we wanted a directive that helped us dynamically render an element, [like we do with our conditional rendering](/posts/ffg-fundamentals-dynamic-html#Conditional-Rendering), but using only an attribute to trigger the render?
 
 Luckily, we can do that!
 
@@ -691,7 +691,7 @@ export default function App() {
 
 ## Angular
 
-Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define partial application of HTML elements that can then be rendered after-the-fact](/posts/content-reference#Back-to-the-start-ng-template-rendering).
+Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define partial application of HTML elements that can then be rendered after-the-fact](/posts/ffg-fundamentals-accessing-children#Back-to-the-start-ng-template-rendering).
 
 Remember from this chapter that you're able to pass an `ng-template` to another component like so:
 
@@ -813,7 +813,7 @@ Now we should be able to see the `p` tag rendering!
 
 ### Pass data to rendered templates inside of Directives
 
-Just as we could [pass data to a template inside of a component using `ngTemplateOutletContext`](/posts/content-reference#Template-Contexts), we can do the same using a second argument of `createEmbeddedView`:
+Just as we could [pass data to a template inside of a component using `ngTemplateOutletContext`](/posts/ffg-fundamentals-accessing-children#Template-Contexts), we can do the same using a second argument of `createEmbeddedView`:
 
 ```typescript
 @Directive({
@@ -897,7 +897,7 @@ class AppComponent {}
 
 Unlike React and Angular, Vue does not have a way of storing parts of a template inside of a variable without rendering it on-screen.
 
-> While Vue _does_ [have the ability to use the `template` tag in some ways](/posts/partial-dom-application), it ultimately serves a different purpose than the one we're trying to implement here.
+> While Vue _does_ [have the ability to use the `template` tag in some ways](/posts/ffg-fundamentals-transparent-elements), it ultimately serves a different purpose than the one we're trying to implement here.
 
 As a result, **Vue is unable to implement a `featureFlag` directive out-of-the-box** without some major code overhaul.
 

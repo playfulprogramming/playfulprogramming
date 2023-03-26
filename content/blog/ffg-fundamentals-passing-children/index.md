@@ -1,6 +1,6 @@
 ---
 {
-    title: "Content Projection",
+    title: "Passing Children",
     description: "Just like HTML nodes have parents and children, so too do framework components. Let's learn how React, Angular, and Vue allow you to pass children to your components.",
     published: '2023-01-01T22:12:03.284Z',
     authors: ['crutchcorn'],
@@ -177,7 +177,7 @@ function togglePressed2() {
 
 But this admittedly adds a fair bit of complexity and muddles up the code's readability.
 
-We could instead use [dynamic HTML](/posts/dynamic-html) and create a `for` loop, but what if we wanted to have items in between some of the `button`s? It's not a great fit.
+We could instead use [dynamic HTML](/posts/ffg-fundamentals-dynamic-html) and create a `for` loop, but what if we wanted to have items in between some of the `button`s? It's not a great fit.
 
 Instead, let's create a `ToggleButton` component to re-use the logic!
 
