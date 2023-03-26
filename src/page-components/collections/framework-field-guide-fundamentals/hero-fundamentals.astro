@@ -1,0 +1,27 @@
+---
+import styles from "./hero-fundamentals.module.scss";
+import LeftTitleSpark from "../framework-field-guide/components/left-title-spark.astro";
+import RightTitleSpark from "../framework-field-guide/components/right-title-spark.astro";
+import Sun from "../framework-field-guide/cover-layers/fundamentals/sun.astro";
+
+---
+
+<section class={`class-book-1 class-book-hero`}>
+	<div class={`book-section ${styles.heroContainer}`}>
+		<div class={styles.sunContainerContainer} data-move-on-scroll-by="0.2">
+			<div>
+				<Sun />
+			</div>
+		</div>
+		<p class={`text-style-body-medium-bold ${styles.introducing}`}>
+			Welcome to start of your journey
+		</p>
+		<div class={styles.titleContainer} data-no-max-width>
+			<div></div>
+			<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
+				Fundamentals
+			</h1>
+			<div></div>
+		</div>
+	</div>
+</section>

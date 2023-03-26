@@ -1,0 +1,35 @@
+---
+import styles from "./fundamentals-fundamentals.module.scss";
+import "../framework-field-guide/components/shared-section-styling.scss";
+import FundamentalsBookCover from "../framework-field-guide/segments/fundamentals-book-cover.astro";
+import BookSvg from "../framework-field-guide/icons/book.astro";
+import ToolsSvg from "../framework-field-guide/icons/tools.astro";
+
+---
+
+<section data-change-color-to="fund">
+	<FundamentalsBookCover /> 
+	
+	<div class="class-book-1">
+		<div class="book-section" style="background: var(--section-background);">
+		<h2 class="book-bio text-style-headline-2">What you'll need</h2> 
+		<section class={styles.adventureContinuesContainer}>
+			<ul class={styles.gridItems}>
+				<li class={`text-style-body-large-bold ${styles.gridItem}`}>
+					<BookSvg aria-hidden={true} />
+					<span class={styles.gridText}>
+						Basic knowledge of CSS and JavaScript
+					</span>
+				</li>
+
+				<li class={`text-style-body-large-bold ${styles.gridItem}`}>
+					<ToolsSvg aria-hidden={true} />
+					<span class={styles.gridText}>
+						An IDE that supports your framework of choice
+					</span>
+				</li>
+			</ul>
+		</section>
+		</div>
+	</div> 
+</section>
