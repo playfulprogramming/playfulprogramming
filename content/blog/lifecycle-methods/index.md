@@ -1794,7 +1794,20 @@ const App = () => {
 
 ## Angular
 
-<!-- Editor's note: Angular Signals will help bridge this gap. Its `effect` will allow us to listen to changes within its own state -->
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+  <button (click)="title = 'Movies'">Movies</button>
+  <button (click)="title = 'Music'">Music</button>
+  <button (click)="title = 'Documents'">Documents</button>
+  `,
+})
+export class AppComponent {
+  title = 'Movies';
+}
+```
 
 ## Vue
 
@@ -2012,7 +2025,7 @@ console.log("Is object 1 and 2 the same?", obj1 === obj2); // true
 
 This code snippet demonstrates how you can mutate a variable's value without changing its underlying memory location. 
 
-> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](// TODO: Link).
+> [I've written about this underlying concept in JavaScript; if the above is unfamiliar to you, I'd suggest reading through it](https://unicorn-utterances.com/posts/object-mutation).
 
 The `useRef` hook is implemented under-the-hood similar to the following:
 
@@ -2076,7 +2089,29 @@ Here, the timestamp display will never update until you press the `button`. Even
 
 ## Angular
 
-<!-- Editor's note: Angular Signals will help bridge this gap. Its `effect` will allow us to listen to changes within its own state -->
+While Angular _today_ does not include a method for tracking internal state changes, a future version of Angular will introduce the concept of ["Signals"](https://github.com/angular/angular/discussions/49090), which will allow us to watch changes made to a variable, regardless of where the state change come from.
+
+Instead, we'll have to use a `setTitle` function that calls the variable mutation as well as sets the `document.title` as a side effect:
+
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+  <button (click)="setTitles('Movies')">Movies</button>
+  <button (click)="setTitles('Music')">Music</button>
+  <button (click)="setTitles('Documents')">Documents</button>
+  `,
+})
+export class AppComponent {
+  setTitles(val: string) {
+    document.title = val;
+    return val;
+  }
+
+  title = this.setTitles('Movies');
+}
+```
 
 ## Vue
 
@@ -2245,6 +2280,8 @@ Let's pause on these three steps of the last bullet point here. This process of 
 2. Pre-committing
 3. Committing
 4. Painting
+
+![A user's change will trigger diffing, which will pre-commit the updated components on the VDOM, which will commit the changes to the DOM, which will then paint the changes on-screen](./diff_commit_paint.png)
 
 > Keep in mind, this "reconciliation" process occurs **as part of** a render. Your component **may** render due to reactive state changes, but **may not** trigger the entire reconciliation process if it detects nothing has changed during the `diffing` stage.
 
