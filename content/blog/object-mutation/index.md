@@ -309,9 +309,33 @@ This rule holds true for all [JavaScript primitives](https://developer.mozilla.o
 
 > Wait, if you can't quickly change the size of a memory block, why can we mutate objects?
 
+Well, you see, objects in JavaScript are typically\* stored as a mapping of property names and the associated variable's memory address.
 
+Image we have the object of `user` like so:
+```javascript
+{
+    firstName: "CORBIN",
+    lastName: "CRUTCHLEY"
+}
+```
 
+This object might look something like the under-the-hood:
 
+![// TODO: Add alt](./object_variable_mutation.png)
+
+This means that when we change `user.firstName`, we're actually constructing a new "hidden" variable, then assigning that new variable's memory address to the `firstName` property on the object:
+
+```js
+// This will create a new variable internally
+// Then assign the new variables' version to the `user` field
+user.firstName = "Cornbin";
+```
+
+By doing so, we're able to create new variables with different memory sizes but still keep the object's member location referentially stable. 
+
+> This is a lot of handwaving going on and is more complex then this when adding or removing properties dynamically. The problem with getting more in-depth than this is that it gets complicated **fast**.
+>
+> If you still want to learn more, I recommend checking out [this deep dive in V8's (Chrome and Node.js's JS engine) internals.](https://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html)
 
 ## Arrays are objects too!
 
