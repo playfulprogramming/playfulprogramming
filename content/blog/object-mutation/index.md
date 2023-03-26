@@ -1,8 +1,8 @@
 ---
 {
 	title: "The story of `let` vs `const`, Object Mutation, and a bug in my code",
-	description: '',
-	published: '2023-01-22T05:12:03.284Z',
+	description: 'When working with objects, you may hear the term "mutation". What is that? Hwo does it work? How do let and const REALLY differ from each other. This and more:',
+	published: '2023-03-25T19:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['javascript'],
 	attached: [],
