@@ -63,7 +63,7 @@ You don't need a DSLR, green screen, or fancy audio equipment to make good conte
 
 - **Don't force a facecam.**
 
-If you enjoy having a facecam and think it adds production quality you yearn for, add it! But don't feel it's an obligation; you're able to get by perfectly fine without facecam. Even big content creators can go without (see also: [SwaggerSouls](https://www.twitch.tv/swaggersouls), [GameGrumps](https://www.youtube.com/user/gamegrumps), [Corpse Husband](https://www.youtube.com/channel/UCFNTq9XKHDNy_1-2lL0kqCg)). 
+If you enjoy having a facecam and think it adds production quality you yearn for, add it! But don't feel it's an obligation; you're able to get by perfectly fine without facecam. Even big content creators can go without (see also: [GameGrumps](https://www.youtube.com/user/gamegrumps), [Corpse Husband](https://www.youtube.com/channel/UCFNTq9XKHDNy_1-2lL0kqCg), and others). 
 
 - **Create a unique and relevant set of branding.**
 
