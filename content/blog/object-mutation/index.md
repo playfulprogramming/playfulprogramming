@@ -68,7 +68,7 @@ Let's talk about that. Along the way, we'll touch on:
 - How memory addresses are stored in-memory
 - The differences between `let` and `const` (including one you might not expect)
 - How to perform memory mutation
-- How to fix our code 
+- How to fix our code
 
 
 
@@ -339,7 +339,11 @@ By doing so, we're able to create new variables with different memory sizes but 
 
 ## Arrays are objects too!
 
-It's worth highlighting that the same rules of object mutation apply to arrays as well! After all, in [JavaScript arrays are a wrapper around the `Object` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+It's worth highlighting that the same rules of object mutation apply to arrays as well! After all, in [JavaScript arrays are a wrapper around the `Object` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array). We can see this by running `typeof` over an array:
+
+```javascript
+typeof []; // "object"
+```
 
 This means that we can run operations like `push` that mutate our arrays, even with `const` variables:
 
@@ -349,10 +353,70 @@ const arr = [];
 arr.push(1);
 arr.push(2);
 arr.push(3);
+
+// Even though this is not
+const otherArr = [];
+otherArr = [1, 2, 3];
 ```
 
 # Why did this impact our code?
 
+Let's look back at the original problem this article posed. When we changed out code from this:
 
+```javascript
+// ...
+const initialTheme = document.documentElement.className;
+toggleButtonIcon(initialTheme);
 
-# How can we fix the problem?
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.className;
+  document.documentElement.className =
+              currentTheme === 'light' ? 'dark' : 'light';
+
+  const newTheme = document.documentElement.className;
+  toggleButtonIcon(newTheme);
+})
+```
+
+To this:
+
+```javascript
+// ...
+let theme = document.documentElement.className;
+toggleButtonIcon(theme);
+
+themeToggleBtn.addEventListener('click', () => {
+  theme = theme === 'light' ? 'dark' : 'light';
+
+  toggleButtonIcon(theme);
+});
+```
+
+Our theme toggle sector broke. Why? Well, it has to do with object mutation.
+
+When our original code did this:
+```javascript
+document.documentElement.className = currentTheme === 'light' ? 'dark' : 'light';
+```
+
+We're explicitly telling `document.documentElement` object map to change the variable location of `className`.
+
+However, when we changed this to:
+
+```javascript
+let theme = document.documentElement.className;
+// ...
+theme = theme === 'light' ? 'dark' : 'light';
+```
+
+We're creating a _new_ variable called `theme` and changing the location of `theme` based on the new value. Because `className` is a string, [which is a JavaScript primitive and not an object](https://developer.mozilla.org/en-US/docs/Glossary/Primitive), it won't mutate `document.documentElement` and therefore won't change the `HTML` tag's class.
+
+To solve this, we should revert our code to mutate `docuemnt.documentElement` once again.
+
+# Conclusion
+
+Hopefully this has been an insightful look into how JavaScript's `let`, `const`, and object mutations work.
+
+If this article has been helpful, maybe you'd like [my upcoming book called "The Framework Field Guide", which teaches React, Angular, and Vue all at once (for free!)](https://framework.guide).
+
+Either way, I hope you enjoyed the post and I'll see you next time!
