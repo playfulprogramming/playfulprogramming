@@ -65,3 +65,34 @@
 .whiteText {
     color:white;
 }
+
+li:not(:nth-child(-n+2)){
+    text-align:start !important;
+    color:var(--on-dark-emphasis-high);
+    display: flex;
+    align-items: center;
+    
+}
+
+li:not(:nth-child(-n+4)){
+    text-align:start !important;
+    color:var(--on-dark-emphasis-high);
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-decoration-color: var(--on-dark-emphasis-medium);
+    text-underline-offset: 6px;
+    
+}
+
+li:not(:nth-child(-n+2)) svg {
+    padding-right: var(--spc-2x);
+    padding-left: var(--spc-1x);
+    // color: var(--on-dark-emphasis-medium);
+    fill: var(----on-dark-emphasis-medium) !important;
+}
+
+li:nth-child(3), li:nth-child(4) {
+    color: var(--on-dark-emphasis-medium);
+}

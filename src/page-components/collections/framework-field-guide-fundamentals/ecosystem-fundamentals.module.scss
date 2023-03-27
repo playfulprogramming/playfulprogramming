@@ -1,0 +1,13 @@
+@import "../../../styles/utils";
+@import "../framework-field-guide/tokens/breakpoints.scss";
+
+.signUp {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.signUpContainer {
+	background: var(--section-background) !important;
+}

@@ -23,13 +23,12 @@ import Sun from "../framework-field-guide/cover-layers/fundamentals/sun.astro";
 			</h1>
 			<div></div>
 		</div>
-		<!-- <div class={styles.titleContainer}> -->
-			<div class={styles.readNowContainer}>
-				<span class={`text-style-headline-5 ${styles.seriesTitle}`}>
-					This is part one of the <strong>Framework Field Guide</strong>, a three-part series that teaches you Angular, React and Vue all at once.
+			<div class={`${styles.readNowContainer} ${styles.seriesTitle}`}>
+				<span class={`text-style-headline-5`}>
+					This is part one of the <strong>Framework Field Guide</strong>, a three-part series <br>
+					that teaches you Angular, React and Vue all at once.
 				</span>
-				<div class={styles.buttonContainer}><button class={`text-style-button ffg-button-base ffg-big-button ffg-filled-button`}>Read now</button></div>
+				<button class={`${styles.buttonReadNow} text-style-button ffg-button-base ffg-big-button ffg-filled-button`}>Read now</button>
 			</div>
-		<!-- </div> -->
 	</div>
 </section>
