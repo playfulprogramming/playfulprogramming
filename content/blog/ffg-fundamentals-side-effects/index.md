@@ -2274,7 +2274,7 @@ Instead, React and Vue both have a trick up their sleeves; the virtual DOM (VDOM
   3. Reflect the changes made in VDOM on the actual browser DOM
   4. The browser then takes the updates made to the DOM and shows them to the user
 
-Let's pause on these three steps of the last bullet point here. This process of deciding which elements framework needs to update is called "reconciliation". This reconciliation step has three parts to it and are named respectively:
+Let's pause on these four steps of the last bullet point here. This process of deciding which elements framework needs to update is called "reconciliation". This reconciliation step has three parts to it and are named respectively:
 
 1. Diffing
 2. Pre-committing
@@ -2291,8 +2291,6 @@ React and Vue both provide a way to access parts of these internal stages of rec
 
 ## React
 
-// TODO: `useLayoutEffect`
-
 Early in this article, we mentioned there were two ways of handling side effects in React: `useEffect` and `useLayoutEffect`. While we've sufficiently covered the usage of `useEffect`, we haven't yet explored `useLayoutEffect`.
 
 There are two big differences between `useEffect` and `useLayoutEffect`:
@@ -2300,13 +2298,80 @@ There are two big differences between `useEffect` and `useLayoutEffect`:
 1. While `useEffect` runs **after** a component's paint, `useLayoutEffect` occurs **before** the component's paint, but **after** a component's **commit** phase.
 2. `useLayoutEffect` blocks the browser, which `useEffect` does not.
 
+If `useLayoutEffect` _only_ ran prior to the browser's paint, it might be acceptable to use it more frequently. However, because it _does_ block the browser from painting, it should only be used in very specific circumstances.
 
+For example, let's say you want to measure the size of an HTML element and display that information as part of the UI, you'd want to use `useLayoutEffect` instead of `useEffect`, as otherwise it would flash the contents on screen momentarily before the component re-rendered to hide the initialization data.
+
+Let's use `useLayoutEffect` to calculate the bounding box of an element in order to position another element:
+
+```jsx
+import { useState, useLayoutEffect } from 'react';
+
+export default function App() {
+  const [num, setNum] = useState(10);
+
+  const [bounding, setBounding] = useState({
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    height: 0,
+  });
+
+  // This runs before the DOM paints
+  useLayoutEffect(() => {
+    // This should be using a `ref`. More on that in a future chapter
+    const el = document.querySelector('#number');
+    const b = el?.getBoundingClientRect();
+    if (
+      bounding.top === b.top &&
+      bounding.bottom === b.bottom &&
+      bounding.left === b.left &&
+      bounding.right === b.right &&
+      bounding.height === b.height
+    ) {
+      // Prevent infinite re-renders
+      return;
+    }
+    console.log(b);
+    setBounding(b);
+  });
+
+  return (
+    <div>
+      <input
+        type="number"
+        value={num}
+        onChange={(e) => setNum(e.target.valueAsNumber || '0')}
+      />
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <h1 id="number" style={{ display: 'inline-block' }}>
+          {num}
+        </h1>
+      </div>
+      <h1
+        style={{
+          position: 'absolute',
+          left: bounding.left,
+          top: bounding.top + bounding.height,
+        }}
+      >
+        ^
+      </h1>
+    </div>
+  );
+}
+```
+
+While the initial value is set to `10` with an arrow pointing to the `1`, if we  change this value to `1000`, it will move the arrow to underneath the `1`, without flashing an instance of the arrow not facing the `1`:
+
+![An uptick symbol facing the 1 in a number of 1000 painted in the DOM](./dom_measure_uselayout_effect.png)
 
 ## Angular
 
  <!-- Note to author: This is because Angular does not use a virtual DOM but instead uses an incremental DOM. This is why there's no clean direct "re-render" lifecycle method -->
 
-// TODO: None
+Because Angular does not use a virtual DOM, it does not have a method to detect specific parts of the reconciliation process.
 
 ## Vue
 

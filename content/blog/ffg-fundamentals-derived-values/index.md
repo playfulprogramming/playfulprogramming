@@ -11,7 +11,7 @@
 }
 ---
 
-We've touched on before how to pass values to a component as properties:
+We've touched on before how to pass values to a component as properties earlier in the book:
 
 <!-- tabs:start -->
 
@@ -35,6 +35,7 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnInit {
@@ -69,9 +70,9 @@ const labelText = ref(formatReadableDate(props.inputDate))
 
 <!-- tabs:end -->
 
-However, you may notice that we're deriving two values from the same property. However, the issue with how we're doing things currently, is that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
+You may notice that we're deriving two values from the same property. This works fine at first but an issue arises with how we're doing things when we realize that our `formatDate` and `formatReadableDate` methods are only running once during the initial render.
 
-Because of this, we lose reactivity if we were to pass in an updated `inputDate` to the `FileDate` component.
+Because of this, if we pass in an updated `inputDate` to the `FileDate` component, the values of `formatDate` and `formatReadableDate` will become out of sync from the parent's passed `inputDate`.
 
 <!-- tabs:start -->
 
@@ -92,6 +93,7 @@ const File = () => {
         return () => clearTimeout(timeout);
     }, [inputDate]);
 
+    // This may not show the most up-to-date `formatDate` or `formatReadableDate`
     return <FileDate inputDate={inputDate}/>
 }
 ```
@@ -99,10 +101,11 @@ const File = () => {
 # Angular
 
 ```typescript
-import { Component, OnInit } from "@angular/core";
-
 @Component({
   selector: "file",
+  standalone: true,
+  imports: [FileDateComponent],
+  // This may not show the most up-to-date `formatDate` or `formatReadableDate`
   template: `<file-date [inputDate]="inputDate"></file-date>`,
 })
 export class FileComponent implements OnInit, OnDestroy {
@@ -130,6 +133,7 @@ export class FileComponent implements OnInit, OnDestroy {
 <!-- File.vue -->
 <template>
   <!-- ... -->
+  <!-- This may not show the most up-to-date `formatDate` or `formatReadableDate` -->
   <file-date v-if="isFolder" [inputDate]="inputDate"></file-date>
   <!-- ... -->
 </template>
@@ -156,7 +160,7 @@ onUnmounted(() => {
 
 <!-- tabs:end -->
 
-While the `File` component is working as expected, our `FileDate` component is never listening for the changed input value and, as such, never displays the updated value to users.
+While the above `File` component updates `inputDate` correctly, our `FileDate` component is never listening for the changed input value and, as such, never recomputed the `formatDate` or `formatReadableDate` value to display to the user.
 
 How can we fix this?
 
@@ -164,7 +168,7 @@ How can we fix this?
 
 The first - and arguably easiest to mentally model - method to solve this disparity between prop value and display value is to simply listen for when a property's value has been updated and re-calculate the display value.
 
-Luckily, we can use [our existing knowledge of lifecycle methods](/posts/ffg-fundamentals-side-effects) to do so:
+Luckily, we can use [our existing knowledge of side effects](/posts/ffg-fundamentals-side-effects) to do so:
 
 <!-- tabs:start -->
 
@@ -189,8 +193,12 @@ const FileDate = ({ inputDate }) => {
 
 ## Angular
 
+While we didn't touch on this lifecycle method in our previous chapter, Angular has a lifecycle method specifically for when a component's props change: `ngOnChanges`.
+
+We can use this new lifecycle method to update the value of a component's state based off of the parent's props:
+
 ```typescript
-import { Component, OnInit, SimpleChanges } from "@angular/core";
+import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: "file-date",
@@ -216,8 +224,6 @@ export class FileDateComponent implements OnChanges {
   // ...
 }
 ```
-
-Here, we're using a new lifecycle method — specific to Angular — called `ngOnChanges` to detect when a property value is updated.
 
 ## Vue
 
@@ -252,8 +258,9 @@ Here, we're watching the `inputDate` props key and, when changed, updating `date
 
 <!-- tabs:end -->
 
+While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values twice: Once when they're initially defined, and again inside of the property listener.
 
-While this method works, it tends to introduce duplicate developmental logic. For example, notice how we have to repeat the declaration of the `dateStr` and `labelText` values. Luckily for us, there's an easy solution called "computed values".
+Luckily for us, there's an easy solution for this problem called "computed values".
 
 # Method 2: Computed values
 
@@ -275,6 +282,8 @@ Luckily for us, all three frameworks have a way of doing just this!
 ## React
 
 ```jsx {4-8}
+import {useMemo} from "react";
+
 const FileDate = ({ inputDate }) => {
   const dateStr = useMemo(() => formatDate(inputDate), [inputDate]);
   const labelText = useMemo(() => formatReadableDate(inputDate), [inputDate]);
@@ -307,11 +316,11 @@ const AddComp = ({baseNum, addNum}) => {
 }
 ```
 
-> While it's technically possible to use this trick to never use `useMemo`, your application's performance will suffer drastically. That said, it's a bit of a science to know when and where to use `useMemo`. [We'll touch more on this in our "Performance" chapter.](// TODO: Add link)
+> While it's technically possible to use this trick to never use `useMemo`, your application's performance will suffer drastically. That said, it's a bit of a science to know when and where to use `useMemo`. [We'll touch on this more in our third book titled "Internals".](https://framework.guide)
 
 ## Angular
 
-Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
+To solve the derived value problem without recomputing the values manually, Angular introduces the concept of a "pipe" into the mix of things. The idea is that a pipe runs over an input (or series of inputs) just like React's `useMemo`.
 
 ```typescript
 import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
@@ -331,27 +340,13 @@ export class FormatReadableDatePipe implements PipeTransform {
 }
 ```
 
-These `Pipe` clases then need to be registered in a `Module`.
+You may then use these pipes in your components directly inside of the template.
 
 ```typescript
-@NgModule({
-  imports: [BrowserModule],
-  declarations: [
-    AppComponent,
-    FileDateComponent,
-    FormatDatePipe,
-    FormatReadableDatePipe,
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
-Once registered, you may then use these pipes in your components directly inside of the template.
-
-```tsx
 @Component({
   selector: 'file-date',
+  standlone: true,
+  imports: [FormatReadableDatePipe, FormatDatePipe],
   template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{ inputDate | formatDate }}</span>`,
 })
 export class FileDateComponent {
@@ -385,6 +380,8 @@ Then, we can use it in our template while passing a second argument:
 ```typescript
 @Component({
   selector: 'file-date',
+  standalone: true,
+  imports: [FormatDatePipe],
   template: `<span [attr.aria-label]="inputDate | formatReadableDate:'MMMM d, Y'">{{ inputDate | formatDate }}</span>`,
 })
 export class FileDateComponent {
@@ -396,27 +393,15 @@ export class FileDateComponent {
 
 Luckily, Angular's all-in-one methodology means that there's a slew of pipes that the Angular team has written for us. One such pipe is actually a date formatting pipe. We can remove our own implementation in favor of one built right into Angular!
 
-To use the built-in pipes, we need to import the `CommonModule`:
-
-```typescript {0,2}
-import {CommonModule} from "@angular/common";
-
-@NgModule({
-  imports: [BrowserModule, CommonModule],
-  declarations: [
-    AppComponent,
-    FileDateComponent
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
-Once this is done, we can use the provided pipe. This provided date pipe is, expectedly, called `date` and can be used like so:
+To use the built-in pipes, we need to import them from `CommonModule` into the component. In this case, the pipe we're looking to use is called [`DatePipe`](https://angular.io/api/common/DatePipe). This provided date pipe is, expectedly, called `date` when used in the template and can be used like so:
 
 ```typescript
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'file-date',
+  standalone: true,
+  imports: [DatePipe],
   template: `<span [attr.aria-label]="inputDate | date:'MMMM d, Y'">{{ inputDate | date }}</span>`,
 })
 export class FileDateComponent {
@@ -448,9 +433,9 @@ const labelText = computed(() => formatReadableDate(props.inputDate));
 
 Instead of using `ref` to construct a set of variables, then re-initializing the values once we `watch` a `prop`, we can simply tell Vue to do that same process for us using `computed` props.
 
-Vue is able to ✨ magically ✨ detect what data inside of the `computed` function is dynamic. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
+Vue is able to ✨ magically ✨ detect what data inside of the `computed` function is dynamic, just like `watchEffect`. When this dynamic data is changed, it will automatically re-initialize the variable it's assigned to with a new value returned from the inner function.
 
-These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's logic layer alike.
+These `computed` props are then accessible in the same way a `data` property is, both from the template and from Vue's `<script>` alike.
 
 <!-- tabs:end -->
 
@@ -458,13 +443,15 @@ These `computed` props are then accessible in the same way a `data` property is,
 
 While we've primarily used component inputs to demonstrate derived values today, both of the methods we've utilized thus far work for the internal component state as well as inputs.
 
+Let's say that we have a piece of state called `number` in our component and want to display the doubled value of this property without passing this state to a new component:
+
 <!-- tabs:start -->
 
 ## React
 
 ```jsx
 const CountAndDoubleComp = () => {
-	const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(0);
   const doubleNum = useMemo(() => number * 2, [number]);
 
   return <div>
@@ -489,6 +476,8 @@ export class DoubleNumPipe implements PipeTransform {
 ```typescript
 @Component({
   selector: 'file-date',
+  standalone: true,
+  imports: [DoubleNumPipe],
   template: `
   <div>
     <p>{{number}}</p>
@@ -500,7 +489,7 @@ export class DoubleNumPipe implements PipeTransform {
 export class CountAndDoubleComponent {
   number = 0;
   
-	addOne() {
+  addOne() {
     this.number++;
   }
 }
