@@ -1,0 +1,24 @@
+@import "../../../styles/vars";
+@import "../../../styles/utils";
+@import "../../../styles/text_styles";
+@import "../framework-field-guide/tokens/breakpoints.scss";
+
+
+:root {
+	--chapter-item-padding-ver: var(--spc-2x);
+	--spc-num: 3rem;
+	---spc-dot: 1.5rem;
+
+	--divider-inset-start: calc(var(--spc-num) + var(--spc-dot));
+	--divider-inset-end: var(--spc-4x);
+	--divider-border-width: var(--border-1x);
+
+	@include from($desktop) {
+		chapter-item-padding-ver: var(--spc-1x);
+	}
+}
+
+
+.chapter-listing-heading {
+	color:white;
+}

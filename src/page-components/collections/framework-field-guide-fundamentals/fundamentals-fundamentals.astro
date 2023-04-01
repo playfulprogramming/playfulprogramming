@@ -4,8 +4,10 @@ import "../framework-field-guide/components/shared-section-styling.scss";
 import FundamentalsBookCover from "../framework-field-guide/segments/fundamentals-book-cover.astro";
 import BookSvg from "../framework-field-guide/icons/book.astro";
 import ToolsSvg from "../framework-field-guide/icons/tools.astro";
-import LinksSvg from "../framework-field-guide/icons/link.astro"
-import CollectionTableOfContents from "../collection-table-of-contents.astro";
+import LinksSvg from "../framework-field-guide/icons/link.astro";
+import ArrowSvg from "../framework-field-guide/icons/arrow.svg"
+import LinkSvg from "../framework-field-guide/icons/link.svg"
+import CollectionTableOfContents from "./collection-table-of-contents-fundamentals.astro";
 import { PostInfo } from "types/PostInfo";
 import { unicorns } from "utils/data";
 
@@ -35,59 +37,164 @@ const chapterList = posts
 ---
 
 <section data-change-color-to="fund">
-	<FundamentalsBookCover /> 
-	
+	<FundamentalsBookCover />
+
 	<div class="class-book-1">
 		<div class="book-section" style="background: var(--section-background);">
-		<h2 class="book-bio text-style-headline-2">What you'll need</h2> 
-		<section class={styles.adventureContinuesContainer}>
-			<ul class={styles.gridItems}>
-				<li class={`text-style-body-large-bold ${styles.gridItem}`}>
-					<BookSvg aria-hidden={true} />
-					<span class={styles.gridText}>
-						Basic knowledge of CSS and JavaScript
-					</span>
-				</li>
+			<h2 class="book-bio text-style-headline-2">What you'll need</h2>
+			<section class={styles.adventureContinuesContainer}>
+				<article>
+					<ul class={styles.gridItems}>
+						<li class={`text-style-body-large-bold ${styles.gridItem}`}>
+							<BookSvg aria-hidden={true} />
+							<span>
+								Basic knowledge of CSS and JavaScript
+							</span>
+						</li>
 
-				<li class={`text-style-body-large-bold ${styles.gridItem}`}>
-					<ToolsSvg aria-hidden={true} />
-					<span class={styles.gridText}>
-						An IDE that supports your framework of choice
-					</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} style="visibility: hidden"/>
-					<span>Helpful Links</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} style="visibility: hidden"/>
-					<span >Helpful Links</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} />
-					<span class={styles.whiteText}>The basics of CSS</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} />
-					<span class={styles.whiteText}>How to install VSCode</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} />
-					<span class={styles.whiteText}>How HTML works</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} />
-					<span class={styles.whiteText}>How to actually use the damn thing</span>
-				</li>
-				<li class={`text-style-body-large-bold`}>
-					<LinksSvg aria-hidden={true} />
-					<span class={styles.whiteText}>JS Beginner's Guide</span>
-				</li>
-			</ul>
-		</section>
-		<br/>
-		<br/>
-		<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
+						<li class={`text-style-body-large-bold`}>
+							<LinksSvg aria-hidden={true} style="visibility: hidden" />
+							<span>Helpful Links</span>
+						</li>
+
+						<li class={`text-style-body-large-bold`}>
+							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+							<a href="" class={styles.whiteText}>The basics of CSS</a>
+						</li>
+
+						<li class={`text-style-body-large-bold`}>
+							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+							<span class={styles.whiteText}>How HTML works</span>
+						</li>
+
+						<li class={`text-style-body-large-bold`}>
+							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+							<span class={styles.whiteText}>JS Beginner's Guide</span>
+						</li>
+					</ul>
+				</article>
+				<article>
+				<ul class={styles.gridItems}>
+
+					<li class={`text-style-body-large-bold ${styles.gridItem}`}>
+						<ToolsSvg aria-hidden={true} />
+						<span>
+							An IDE that supports your framework of choice
+						</span>
+					</li>
+
+					<li class={`text-style-body-large-bold`}>
+						<LinksSvg aria-hidden={true} style="visibility: hidden" />
+						<span>Helpful Links</span>
+					</li>
+
+					<li class={`text-style-body-large-bold`}>
+						<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+						<span class={styles.whiteText}>How to install VSCode</span>
+					</li>
+
+					<li class={`text-style-body-large-bold`}>
+						<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+						<span class={styles.whiteText}
+							>How to actually use the damn thing</span
+						>
+					</li>
+				</ul>
+			</article>
+			</section>
+			<br />
+			<br />
+			<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
+			<section>
+				<h2 class="book-bio text-style-headline-2">What you'll learn</h2>
+
+				<div class={`${styles.stepCardContainer}`}>
+					<div class={`${styles.stepCard}`}>
+						<h2 class="book-bio text-style-headline-5">
+							Write your first components
+						</h2>
+						<p>
+							Get your introduction to components - learn what they are and why
+							they're useful.
+						</p>
+						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>1</h2>
+						<ul class={`${styles.stepCardItems}`}>
+							<li class={`${styles.stepCardItem}`}>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Dynamic HTML
+							</li>
+							<li class={`${styles.stepCardItem}`}>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Lifecycle methods
+							</li>
+							<li class={`${styles.stepCardItem}`}>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Derived values
+							</li>
+							<li class={`${styles.stepCardItem}`}>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Forms
+							</li>
+						</ul>
+					</div>
+					<div class={`${styles.stepCard}`}>
+						<h2 class="book-bio text-style-headline-5">
+							Control component hierarchy
+						</h2>
+						<p>
+							Just like HTML elements, components form relationships with
+							one-another
+						</p>
+						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>2</h2>
+						<ul class={`${styles.stepCardItems}`}>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Projected Content Reference
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Access underlying DOM nodes
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Dependency injection
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Access Component's intenrals
+							</li>
+						</ul>
+					</div>
+					<div class={`${styles.stepCard}`}>
+						<h2 class="book-bio text-style-headline-5">
+							Share component logic
+						</h2>
+						<p>
+							A huge boon to components is that you can easily share code in
+							your apps.
+						</p>
+						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>3</h2>
+						<ul class={`${styles.stepCardItems}`}>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								React Hooks
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Angular services
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Vue Custom Compositions
+							</li>
+							<li>
+								<img alt="" src={ArrowSvg} class={styles.stepCardItemBullet} />
+								Directives
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 		</div>
-	</div> 
+	</div>
 </section>
