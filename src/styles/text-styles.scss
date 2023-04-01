@@ -101,7 +101,7 @@
 	src: local("Roboto");
 }
 
-h1, .h1, .text-style-headline-1 {
+.text-style-headline-1 {
 	font-size: pxToRem(32);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -114,7 +114,19 @@ h1, .h1, .text-style-headline-1 {
 	}
 }
 
-h2, .h2, .text-style-headline-2 {
+h1, .h1 {
+	@extend .text-style-headline-1;
+
+	line-height: 100%;
+	margin-top: pxToRem(24);
+	margin-bottom: pxToRem(12);
+
+	@include from($desktopSmall) {
+		margin-bottom: pxToRem(24);
+	}
+}
+
+.text-style-headline-2 {
 	font-size: pxToRem(28);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -127,7 +139,21 @@ h2, .h2, .text-style-headline-2 {
 	}
 }
 
-h3, .h3, .text-style-headline-3 {
+h2, .h2 {
+	@extend .text-style-headline-2;
+
+	line-height: pxToRem(32);
+	margin-top: pxToRem(16);
+	margin-bottom: pxToRem(8);
+
+	@include from($desktopSmall) {
+		line-height: 100%;
+		margin-top: pxToRem(24);
+		margin-bottom: pxToRem(16);
+	}
+}
+
+.text-style-headline-3 {
 	font-size: pxToRem(24);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -140,7 +166,21 @@ h3, .h3, .text-style-headline-3 {
 	}
 }
 
-h4, .h4, .text-style-headline-4 {
+h3, .h3 {
+	@extend .text-style-headline-3;
+
+	line-height: pxToRem(28);
+	margin-top: pxToRem(16);
+	margin-bottom: pxToRem(4);
+
+	@include from($desktopSmall) {
+		line-height: pxToRem(36);
+		margin-top: pxToRem(24);
+		margin-bottom: pxToRem(8);
+	}
+}
+
+.text-style-headline-4 {
 	font-size: pxToRem(22);
 	font-family: $fontDisplay;
 	font-weight: 700;
@@ -153,7 +193,21 @@ h4, .h4, .text-style-headline-4 {
 	}
 }
 
-h5, .h5, .text-style-headline-5 {
+h4, .h4 {
+	@extend .text-style-headline-4;
+
+	line-height: pxToRem(24);
+	margin-top: pxToRem(16);
+	margin-bottom: pxToRem(0);
+
+	@include from($desktopSmall) {
+		line-height: pxToRem(32);
+		margin-top: pxToRem(24);
+		margin-bottom: pxToRem(8);
+	}
+}
+
+.text-style-headline-5 {
 	font-size: pxToRem(20);
 	font-family: $fontDisplay;
 	font-weight: 600;
@@ -167,7 +221,21 @@ h5, .h5, .text-style-headline-5 {
 	}
 }
 
-h6, .h6, .text-style-headline-6 {
+h5, .h5 {
+	@extend .text-style-headline-5;
+
+	line-height: pxToRem(24);
+	margin-top: pxToRem(16);
+	margin-bottom: pxToRem(0);
+
+	@include from($desktopSmall) {
+		line-height: pxToRem(24);
+		margin-top: pxToRem(24);
+		margin-bottom: pxToRem(8);
+	}
+}
+
+.text-style-headline-6 {
 	font-size: pxToRem(18);
 	font-family: $fontDisplay;
 	font-weight: 700;
@@ -179,6 +247,37 @@ h6, .h6, .text-style-headline-6 {
 	@include from($desktopSmall) {
 		font-size: pxToRem(20);
 	}
+}
+
+h6, .h6 {
+	@extend .text-style-headline-6;
+
+	line-height: pxToRem(20);
+	margin-top: pxToRem(16);
+	margin-bottom: pxToRem(0);
+
+	@include from($desktopSmall) {
+		line-height: pxToRem(20);
+		margin-top: pxToRem(24);
+		margin-bottom: pxToRem(8);
+	}
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+	color: theme-var(--foreground_emphasis-high);
+}
+
+h1 + h2, .h1 + .h2,
+h2 + h3, .h2 + .h3,
+h3 + h4, .h3 + .h4,
+h4 + h5, .h4 + .h5,
+h5 + h6, .h5 + .h6 {
+	margin-top: pxToRem(16);
 }
 
 .text-style-button-large {
