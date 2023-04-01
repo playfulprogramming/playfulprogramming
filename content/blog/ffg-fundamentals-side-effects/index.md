@@ -2474,14 +2474,303 @@ Because Vue has two different APIs, I made two charts for them.
 
 # Challenge
 
-// TODO: Localstorage and theme toggle
+Since the start of this book, we've been working on a storage app. While our mockups to this point have been using a light mode, which is an important default for all apps [due to accessibility concerns](https://www.vice.com/en/article/ywyqxw/apple-dark-mode-eye-strain-battery-life), let's add in a dark mode for the app:
 
+![// TODO: Write](./dark_mode_drive_app.png)
+
+This can be done by using a combination of technologies:
+
+- A manual theme toggle with three options:
+  - Light Mode
+  - Inherit Mode from OS
+  - Dark Mode
+- [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [The browser's `matchMedia` API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) to detect the operating system's theme.
+- Persist the user's theme selection with `localstorage`
+
+Let's start by building out the theme toggle using our respective frameworks.
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+function DarkModeToggle() {
+  const [explicitTheme, setExplicitTheme] = React.useState('inherit');
+
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Light</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'light'}
+          onChange={() => setExplicitTheme('light')}
+        />
+      </label>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Inherit</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'inherit'}
+          onChange={() => setExplicitTheme('inherit')}
+        />
+      </label>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Dark</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'dark'}
+          onChange={() => setExplicitTheme('dark')}
+        />
+      </label>
+    </div>
+  );
+}
 ```
-window
-  .matchMedia('(prefers-color-scheme: dark)')
-  .addEventListener('change', ({matches:isDark}) => {
-    theme.value = isDark ? 'dark' : 'light'
-    setPreference()
-  })
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Now that we have this theme toggle, let's make the `dark` mode work by using some CSS and a side effect handler to listen for changes to `value`:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+function DarkModeToggle() {
+  const [explicitTheme, setExplicitTheme] = React.useState('inherit');
+
+  React.useEffect(() => {
+    document.documentElement.className = explicitTheme;
+  }, [explicitTheme]);
+
+  // ...
+}
+
+function App() {
+  return (
+    <div>
+      <DarkModeToggle />
+      <p style={{ color: 'var(--primary)' }}>This text is blue</p>
+      <style
+        children={`
+        :root {
+          --primary: #1A42E5;
+        }
+        
+        .dark {
+          background: #121926;
+          color: #D6E4FF;
+          --primary: #6694FF;
+        }
+      `}
+      />
+    </div>
+  );
+}
 ```
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Now, we can use the `matchMedia` API to add a check if the user's OS has changed its theme or not. 
+
+See, we can detect the user's preferred color theme by doing the following in JavaScript:
+
+```javascript
+// If true, the user prefers dark mode
+window.matchMedia('(prefers-color-scheme: dark)').matches;
+```
+
+We can even add a listener for when the user changes this preference real-time by doing the following:
+
+```javascript
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  // If true, the user prefers dark mode
+  e.matches;
+});
+```
+
+Now that we know the JavaScript API, let's integrate it with our application:
+
+<!-- tabs:start -->
+
+## React
+
+```javascript
+const isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+function DarkModeToggle() {
+  const [explicitTheme, setExplicitTheme] = useState('inherit');
+  const [osTheme, setOSTheme] = useState(
+    isOSDark.matches ? 'dark' : 'light'
+  );
+
+  useEffect(() => {
+    if (explicitTheme === 'implicit') {
+      document.documentElement.className = osTheme;
+      return;
+    }
+    document.documentElement.className = explicitTheme;
+  }, [explicitTheme, osTheme]);
+
+  useEffect(() => {
+    const changeOSTheme = () => {
+      setOSTheme(isOSDark.matches ? 'dark' : 'light');
+    };
+    isOSDark.addEventListener('change', changeOSTheme);
+    return () => {
+      isOSDark.removeEventListener('change', changeOSTheme);
+    };
+  }, []);
+
+  // ...
+}
+```
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+Now when the user changes their operating system's dark mode settings, it will reflect through our website.
+
+Finally, let's remember the preference the user selected in the manual toggle by using [the browser's `localstorage` API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). This API works like a JSON object that persists through multiple browser sessions. This means we can do the following in JavaScript:
+
+```javascript
+// Will be `null` if nothing is defined
+const car = localStorage.getItem("car");
+if (!car) localStorage.setItem("car", "Hatchback");
+```
+
+Let's integrate this in our `DarkModeToggle` component:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx {3-5,11-13}
+const isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+function DarkModeToggle() {
+  const [explicitTheme, setExplicitTheme] = useState(
+    localStorage.getItem('theme') || 'inherit'
+  );
+
+  const [osTheme, setOSTheme] = useState(
+    isOSDark.matches ? 'dark' : 'light'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('theme', explicitTheme);
+  }, [explicitTheme]);
+
+  useEffect(() => {
+    if (explicitTheme === 'implicit') {
+      document.documentElement.className = osTheme;
+      return;
+    }
+    document.documentElement.className = explicitTheme;
+  }, [explicitTheme, osTheme]);
+
+  useEffect(() => {
+    const changeOSTheme = () => {
+      setOSTheme(isOSDark.matches ? 'dark' : 'light');
+    };
+    isOSDark.addEventListener('change', changeOSTheme);
+    return () => {
+      isOSDark.removeEventListener('change', changeOSTheme);
+    };
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Light</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'light'}
+          onChange={() => setExplicitTheme('light')}
+        />
+      </label>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Inherit</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'inherit'}
+          onChange={() => setExplicitTheme('inherit')}
+        />
+      </label>
+      <label style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        <div>Dark</div>
+        <input
+          name="theme"
+          type="radio"
+          checked={explicitTheme === 'dark'}
+          onChange={() => setExplicitTheme('dark')}
+        />
+      </label>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <DarkModeToggle />
+      <p style={{ color: 'var(--primary)' }}>This text is blue</p>
+      <style
+        children={`
+        :root {
+          --primary: #1A42E5;
+        }
+        
+        .dark {
+          background: #121926;
+          color: #D6E4FF;
+          --primary: #6694FF;
+        }
+      `}
+      />
+    </div>
+  );
+}
+```
+
+## Angular
+
+// TODO
+
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
 
