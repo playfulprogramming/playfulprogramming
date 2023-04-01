@@ -9,7 +9,8 @@
 .content {
 	max-width: 100%;
 	flex-basis: 100%;
-	min-width: 0;
+	width: 1px;
+	flex-grow: 1;
 }
 
 .sidebarLeft, .sidebarRight {
@@ -20,13 +21,12 @@
 	overflow: auto;
 	height: 100vh;
 	min-width: 272px;
+	max-width: 272px;
 
 	@include from($desktop) {
 		min-width: 464px;
 	}
 
-	width: 1px;
-	flex-grow: 1;
 	position: sticky;
 	align-self: flex-start;
 	overflow: auto;
