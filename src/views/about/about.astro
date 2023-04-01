@@ -60,7 +60,7 @@ const sponsors = getTranslatedPage(
 		<sponsors.page.Content />
 
 		<h2>{translate(Astro, "title.contributors")}</h2>
-		<div class="grid grid-2">
+		<div class="grid grid-tablet-2">
 			{
 				data.unicorns.map((unicornInfo) => (
 					<ContributorCard unicorn={unicornInfo} />
