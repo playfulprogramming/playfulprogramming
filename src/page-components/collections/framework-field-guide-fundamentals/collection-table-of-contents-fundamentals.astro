@@ -29,15 +29,14 @@ const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
 						posts.map((post) => {
 							return (
 								<li class="postContainer">
-									
-										<div class="orderContainer">{post.order}</div>
-										<div>
-											<h3 class="postTitle">{post.title}</h3>
-											<a href={"/posts/" + post.slug} class="postLink">
-											View Chapter
-											</a>
-											</li>
+									<div class="orderContainer">{post.order}</div>
+									<div>
+										<a href={"/posts/" + post.slug} class="postLink">
+												<h3 class="postTitle">{post.title}</h3>
+												View Chapter
+												</a>
 										</div>
+								</li>
 									
 
 							);
