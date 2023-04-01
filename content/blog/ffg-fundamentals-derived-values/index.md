@@ -523,3 +523,7 @@ const doubleNum = computed(() => number.value * 2)
 <!-- tabs:end -->
 
 In this component, we can see two numbers - one doubling the value of the other. We then have a button that allows us to increment the first number, and therefore, using a derived value, the second number also updates.
+
+# Challenges
+
+// TODO: File size formatting (KB, GB, etc) from bytes

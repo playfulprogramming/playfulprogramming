@@ -11,7 +11,7 @@
 }
 ---
 
-In our last chapter, we touched on the idea of having a `nothing` element that renders out of the DOM's view, but stays in a component to help handle logic when doing dynamic HTML.
+In our last chapter, we touched on the idea of having a transparent element that renders out of the DOM's view, but stays in a component to help handle logic when doing dynamic HTML.
 
 That was a neat concept that allowed us to expand our horizons of what HTML can look like inside of our components, and how it changes our view of these framework's templates.
 

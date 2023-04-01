@@ -391,7 +391,7 @@ onMounted(() => {
 
 Here, we're importing the `onMounted` lifecycle handler from the `vue` import. Vue's lifecycle methods all start with an `on` prefix when used inside of a `<script setup>` component. 
 
-## Vue's `watchEffect` Hook
+### Vue's `watchEffect` Hook
 
 Just as React has a non-lifecycle method of running side effect, so too does Vue. This is done using Vue's `watchEffect` and `watch` APIs. Let's start with a simple example:
 
@@ -663,6 +663,7 @@ If we run this code, it will render as-expected with the initial screen size, bu
 You see, by default, events will always "bubble" upwards in the DOM tree from their emitted position. So, if we click on a `div`, the `click` event will start from the `div` and bubble all the way up to the `html` tag.
 
 ![A click event bubbling to the top of the document](./event_bubbling.png) 
+
 We can demonstrate this inside of our frameworks.
 
 <!-- tabs:start -->
@@ -2443,15 +2444,44 @@ Let's take a look visually at how each framework calls the relevant lifecycle me
 
 ## React
 
-![A component starts by rendering, then "useEffect" has its first run. After that, the component is rendered. For each time the component re-renders, it will run the "useEffect" array check. Finally, when a component is being unrendered, it will run the "useEffect" cleanup.](./react_lifecycles.jpg)
+![// TODO: Write](./react_hooks.png)
 
 ## Angular
 
-![When a component renders, it will trigger ngOnInit. Then, when it unrenders, it will call ngOnDestroy.](./angular_lifecycles.jpg)
+![When a component renders, it will trigger ngOnInit. Then, when a prop changes it triggers ngOnChanges. Finally, when it unrenders, it will call ngOnDestroy.](./angular_lifecycles.png)
 
 ## Vue
 
-![A component starts by rendering with the "mounted" lifecycle method running as a result. After that, the component is rendered. For each time the component re-renders, it will run the "updated" lifecycle method. Finally, when a component is being unrendered, it will run the "unmounted" lifecycle method.](./vue_lifecycles.jpg)
+Because Vue has two different APIs, I made two charts for them.
+
+
+
+### Vue Lifecycle Methods
+
+![// TODO: Write](./vue_lifecycles.png)
+
+
+
+### Vue Watchers
+
+![// TODO: Write](./vue_watchers.png)
+
+
 
 <!-- tabs:end -->
+
+
+
+# Challenge
+
+// TODO: Localstorage and theme toggle
+
+```
+window
+  .matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', ({matches:isDark}) => {
+    theme.value = isDark ? 'dark' : 'light'
+    setPreference()
+  })
+```
 
