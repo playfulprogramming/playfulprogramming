@@ -68,6 +68,8 @@ const FileList = () => {
 ```typescript
 @Component({
   selector: 'file',
+  standalone: true,
+  imports: [FileDateComponent],
   template: `
     <button
       (click)="selected.emit()"
@@ -94,6 +96,8 @@ export class FileComponent {
 
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [NgFor, NgIf, FileComponent]
   template: `
     <!-- ... -->
     <ul>
@@ -206,9 +210,9 @@ While this might not seem like a big problem at first, the fact that there's an 
 2) [Any assistive technologies, like screen readers](https//unicorn-utterances.com/posts/intro-to-web-accessability), will read out that there's an empty item, a confusing behavior for those users.
 3) Any search engines reading data off of your page may incorrectly assume that your list is intentionally empty, thus potentially impacting your ranking on sites.
 
-Solving these issues is where something called "partial DOM application" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
+Solving these issues is where something called "transparent elements" comes into play. See, ideally, what we want to have is something like a tag that renders to _nothing_.
 
-This means that, if we could instead generate something like the following psuedo-syntax in framework code:
+This means that, if we could instead generate something like the following pseudo-syntax in framework code:
 
 ```html
 <ul>
@@ -269,7 +273,9 @@ import { Fragment } from 'react';
 </ul>
 ```
 
-> You may notice that `<>` syntax for `Fragment` does not have a `key`  associated with it. This is because the `<>` syntax does not allow you to have props associated with it. However, this means that your loop will still misbehave and add performance overhead as a penalty for not including `key` ([as we discussed in the "Dynamic HTML" chapter](/posts/dynamic-html)). For this reason, when inside of a `map` loop, you'll want to use `Fragment` with a `key` property associated with it.
+> You may notice that `<>` syntax for `Fragment` does not have a `key`  associated with it. This is because the `<>` syntax does not allow you to have props associated with it.
+>
+> However, this means that your loop will still misbehave and add performance overhead as a penalty for not including `key` ([as we discussed in the "Dynamic HTML" chapter](/posts/ffg-fundamentals-dynamic-html)). For this reason, when inside of a `map` loop, you'll want to use `Fragment` with a `key` property associated with it.
 
 # Angular
 
@@ -335,7 +341,7 @@ Here's some code samples that render out the following:
 <>
   <>
     <>
-    	<p>Test</p>
+      <p>Test</p>
     </>
   </>
 </>
@@ -367,7 +373,7 @@ By default, if you render a `template` in Vue in any other place besides the roo
 </template>
 ```
 
-> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining "why" a `template` element renders nothing by default is outside of the scope of this book, it is expected behavior.
+> It's worth mentioning that even if it shows nothing on screen, the `template` element is still in the DOM itself, waiting to be utilized in other ways. While explaining "why" an HTML `template` element renders nothing by default is outside of the scope of this book, it is expected behavior.
 
 However, if you add a `v-for`, `v-if`, or a `v-slot` (we'll touch on what a `v-slot` is in [our "Content Reference" chapter](/posts/ffg-fundamentals-content-reference)), it will remove the `<template>` and only render out the children.
 
@@ -404,15 +410,207 @@ Will both render out to the following HTML:
 
 <!-- tabs:end -->
 
-# Conclusion
+# Challenge
 
-And that's all!
+Now that we understand how to render a transparent element (transparent to the DOM, anyway), let's build out an example where this would be useful.
 
-> Wait, that's all?!
+Namely, let's assume that we want to build out a bar of buttons with a gap between them:
 
-See? I told you it'd be a short chapter this time around!
+![Four buttons next to each other. "Delete", "Copy", "Favorite", and "Settings"](./button_bar.png)
 
-Admittedly, this chapter was a stepping stone to help explain other topics elsewhere.
+To do this with HTML, we might have the following template and styling:
 
-Next up, [we'll take a look at how to project content into another component](/posts/ffg-fundamentals-content-projection).
+```html
+<div
+  style="
+    display: 'inline-flex',
+	gap: 1rem;
+  ">
+    <button>Delete</button>
+    <button>Copy</button>
+    <button>Favorite</button>
+    <button>Settings</button>
+</div>
+```
 
+However, what if we wanted to only display the first three buttons of:
+
+- Delete
+- Copy
+- Favorite
+
+Only when a file is selected?
+
+Let's build this out using our favorite frameworks:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const FileActionButtons = ({ onDelete, onCopy, onFavorite }) => {
+  return (
+    <div>
+      <button onClick={onDelete}>Delete</button>
+      <button onClick={onCopy}>Copy</button>
+      <button onClick={onFavorite}>Favorite</button>
+    </div>
+  );
+}
+
+const ButtonBar = ({
+  onSettings,
+  onDelete,
+  onCopy,
+  onFavorite,
+  fileSelected
+}) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: '1rem',
+      }}
+    >
+      {fileSelected && <FileActionButtons
+        onDelete={onDelete}
+        onCopy={onCopy}
+        onFavorite={onFavorite}
+      />}
+      <button onClick={onSettings}>Settings</button>
+    </div>
+  );
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file-action-buttons',
+  standalone: true,
+  template: `
+    <div>
+      <button (click)="delete.emit()">Delete</button>
+      <button (click)="copy.emit()">Copy</button>
+      <button (click)="favorite.emit()">Favorite</button>
+    </div>
+  `,
+})
+class FileActionButtonsComponent {
+  @Output() delete = new EventEmitter();
+  @Output() copy = new EventEmitter();
+  @Output() favorite = new EventEmitter();
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, FileActionButtonsComponent],
+  template: `
+  <div style="display: flex; gap: 1rem">
+    <file-action-buttons
+      *ngIf="fileSelected"
+      (delete)="delete.emit()"
+      (copy)="copy.emit()"
+      (favorite)="favorite.emit()"
+    />
+    <button (click)="settings.emit()">Settings</button>
+  </div>
+  `,
+})
+class AppComponent {
+  @Input() fileSelected: boolean = true;
+
+  @Output() delete = new EventEmitter();
+  @Output() copy = new EventEmitter();
+  @Output() favorite = new EventEmitter();
+  @Output() settings = new EventEmitter();
+}
+```
+
+## Vue
+
+```vue
+<!-- FileActionButtons.vue -->
+<template>
+  <div>
+    <button @click="emit('delete')">Delete</button>
+    <button @click="emit('copy')">Copy</button>
+    <button @click="emit('favorite')">Favorite</button>
+  </div>
+</template>
+
+<script setup>
+const emit = defineEmits(['delete', 'copy', 'favorite'])
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <div style="display: flex; gap: 1rem">
+    <FileActionButtons v-if="props.fileSelected" @delete="emit('delete')" @copy="emit('copy')" @favorite="emit('favorite')" />
+    <button @click="emit('settings')">Settings</button>
+  </div>
+</template>
+
+<script setup>
+import FileActionButtons from './FileActionButtons.vue'
+
+const props = defineProps(['fileSelected'])
+const emit = defineEmits(['delete', 'copy', 'favorite', 'settings'])
+</script>
+```
+
+<!-- tabs:end -->
+
+>  Oh no! The rendered output isn't as we expected!
+
+![The first three buttons are bunched together in a weird way without the expected gap we were hoping for](./incorrect_button_bar.png)
+That's because when we used a `div` for our `FileActionButtons` component, it bypassed the `gap` property of CSS. To fix this, we can use our handy dandy `nothing` element:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+// FileActionButtons
+<>
+    <button onClick={onDelete}>Delete</button>
+    <button onClick={onCopy}>Copy</button>
+    <button onClick={onFavorite}>Favorite</button>
+</>
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'file-action-buttons',
+  standalone: true,
+  template: `
+    <button (click)="delete.emit()">Delete</button>
+    <button (click)="copy.emit()">Copy</button>
+    <button (click)="favorite.emit()">Favorite</button>
+  `,
+})
+class FileActionButtonsComponent {
+  // ...
+}
+```
+
+## Vue
+
+```vue
+<!-- FileActionButtons.vue -->
+<template>
+  <button @click="emit('delete')">Delete</button>
+  <button @click="emit('copy')">Copy</button>
+  <button @click="emit('favorite')">Favorite</button>
+</template>
+
+<!-- ... -->
+```
+
+<!-- tabs:end -->
