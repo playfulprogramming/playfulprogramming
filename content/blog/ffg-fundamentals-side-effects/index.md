@@ -2534,7 +2534,50 @@ function DarkModeToggle() {
 
 ## Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'dark-mode-toggle',
+  standalone: true,
+  template: `
+  <div style="display: flex; gap: 1rem">
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Light</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'light'"
+      (change)="setExplicitTheme('light')"
+    />
+  </label>
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Inherit</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'inherit'"
+      (change)="setExplicitTheme('inherit')"
+    />
+  </label>
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Dark</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'dark'"
+      (change)="setExplicitTheme('dark')"
+    />
+  </label>
+</div>
+  `,
+})
+class DarkModeToggleComponent {
+  explicitTheme = 'inherit';
+
+  setExplicitTheme(val) {
+    this.explicitTheme = val;
+  }
+}
+```
 
 ## Vue
 
@@ -2584,7 +2627,54 @@ function App() {
 
 ## Angular
 
-// TODO
+```typescript
+import { Component, ViewEncapsulation } from '@angular/core';
+
+
+@Component({
+  selector: 'dark-mode-toggle',
+  standalone: true,
+  // ...
+})
+class DarkModeToggleComponent {
+  explicitTheme = 'inherit';
+
+  setExplicitTheme(val) {
+    this.explicitTheme = val;
+
+    document.documentElement.className = val;
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [DarkModeToggleComponent],
+  // This allows our CSS to be global, rather than limited to the component
+  encapsulation: ViewEncapsulation.None,
+  styles: [
+    `
+   :root {
+      --primary: #1A42E5;
+    }
+    
+    .dark {
+      background: #121926;
+      color: #D6E4FF;
+      --primary: #6694FF;
+    }`,
+  ],
+  template: `
+  <div>
+    <dark-mode-toggle/>
+    <p style="color: var(--primary)">This text is blue</p>
+  </div>
+  `,
+})
+class AppComponent {}
+```
+
+
 
 ## Vue
 
@@ -2649,7 +2739,44 @@ function DarkModeToggle() {
 
 ## Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'dark-mode-toggle',
+  standalone: true,
+  // ...
+})
+class DarkModeToggleComponent implements OnInit, OnDestroy {
+  explicitTheme = 'inherit';
+
+  isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  osTheme = this.isOSDark.matches ? 'dark' : 'light';
+
+  // Remember, this has to be an arrow function, not a method
+  changeOSTheme = () => {
+    this.setExplicitTheme(this.isOSDark.matches ? 'dark' : 'light');
+  };
+
+  ngOnInit() {
+    this.isOSDark.addEventListener('change', this.changeOSTheme);
+  }
+
+  ngOnDestroy() {
+    this.isOSDark.removeEventListener('change', this.changeOSTheme);
+  }
+
+  setExplicitTheme(val) {
+    this.explicitTheme = val;
+
+    if (val === 'implicit') {
+      document.documentElement.className = val;
+      return;
+    }
+
+    document.documentElement.className = val;
+  }
+}
+```
 
 ## Vue
 
@@ -2765,7 +2892,103 @@ function App() {
 
 ## Angular
 
-// TODO
+```typescript {36,58}
+@Component({
+  selector: 'dark-mode-toggle',
+  standalone: true,
+  template: `
+  <div style="display: flex; gap: 1rem">
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Light</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'light'"
+      (change)="setExplicitTheme('light')"
+    />
+  </label>
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Inherit</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'inherit'"
+      (change)="setExplicitTheme('inherit')"
+    />
+  </label>
+  <label style="display: inline-flex; flex-direction: column">
+    <div>Dark</div>
+    <input
+      name="theme"
+      type="radio"
+      [checked]="explicitTheme === 'dark'"
+      (change)="setExplicitTheme('dark')"
+    />
+  </label>
+</div>
+  `,
+})
+class DarkModeToggleComponent implements OnInit, OnDestroy {
+  explicitTheme = localStorage.getItem('theme') || 'inherit';
+
+  isOSDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  osTheme = this.isOSDark.matches ? 'dark' : 'light';
+
+  // Remember, this has to be an arrow function, not a method
+  changeOSTheme = () => {
+    this.setExplicitTheme(this.isOSDark.matches ? 'dark' : 'light');
+  };
+
+  ngOnInit() {
+    this.isOSDark.addEventListener('change', this.changeOSTheme);
+  }
+
+  ngOnDestroy() {
+    this.isOSDark.removeEventListener('change', this.changeOSTheme);
+  }
+
+  setExplicitTheme(val) {
+    this.explicitTheme = val;
+
+    localStorage.setItem('theme', val);
+
+    if (val === 'implicit') {
+      document.documentElement.className = val;
+      return;
+    }
+
+    document.documentElement.className = val;
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [DarkModeToggleComponent],
+  // This allows our CSS to be global
+  encapsulation: ViewEncapsulation.None,
+  styles: [
+    `
+   :root {
+      --primary: #1A42E5;
+    }
+    
+    .dark {
+      background: #121926;
+      color: #D6E4FF;
+      --primary: #6694FF;
+    }`,
+  ],
+  template: `
+  <div>
+    <dark-mode-toggle/>
+    <p style="color: var(--primary)">This text is blue</p>
+  </div>
+  `,
+})
+class AppComponent {}
+```
 
 
 ## Vue
