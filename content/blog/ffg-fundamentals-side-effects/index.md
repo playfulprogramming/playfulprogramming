@@ -2581,7 +2581,31 @@ class DarkModeToggleComponent {
 
 ## Vue
 
-// TODO
+```vue
+<!-- DarkModeToggle.vue -->
+<template>
+  <div style="display: flex; gap: 1rem">
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Light</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'light'" @change="explicitTheme = 'light'" />
+    </label>
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Inherit</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'inherit'" @change="explicitTheme = 'inherit'" />
+    </label>
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Dark</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'dark'" @change="explicitTheme = 'dark'" />
+    </label>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const explicitTheme = ref('inherit')
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -2674,11 +2698,50 @@ class DarkModeToggleComponent {
 class AppComponent {}
 ```
 
-
-
 ## Vue
 
-// TODO
+```vue
+<!-- DarkModeToggle.vue -->
+<template>
+	<!-- ... -->
+</template>
+
+<script setup>
+import { ref, watch } from 'vue'
+
+const explicitTheme = ref('inherit')
+
+watch(explicitTheme, () => {
+  document.documentElement.className = explicitTheme.value
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <DarkModeToggle />
+    <p style="color: var(--primary)">This text is blue</p>
+  </div>
+</template>
+
+<script setup>
+import DarkModeToggle from './DarkModeToggle.vue'
+</script>
+
+<style>
+:root {
+  --primary: #1a42e5;
+}
+
+.dark {
+  background: #121926;
+  color: #d6e4ff;
+  --primary: #6694ff;
+}
+</style>
+```
 
 <!-- tabs:end -->
 
@@ -2780,7 +2843,41 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 
 ## Vue
 
-// TODO
+```vue
+<!-- DarkModeToggle.vue -->
+<template>
+  <!-- ... -->
+</template>
+
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+
+const explicitTheme = ref('inherit')
+
+watch(explicitTheme, () => {
+  if (explicitTheme.value === 'implicit') {
+    document.documentElement.className = explicitTheme.value
+    return
+  }
+
+  document.documentElement.className = explicitTheme.value
+});
+
+const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+const changeOSTheme = () => {
+  explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
+}
+
+onMounted(() => {
+  isOSDark.addEventListener('change', changeOSTheme)
+})
+
+onUnmounted(() => {
+  isOSDark.removeEventListener('change', changeOSTheme)
+})
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -2993,7 +3090,84 @@ class AppComponent {}
 
 ## Vue
 
-// TODO
+```vue {21,23-25}
+<!-- DarkModeToggle.vue -->
+<template>
+  <div style="display: flex; gap: 1rem">
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Light</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'light'" @change="explicitTheme = 'light'" />
+    </label>
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Inherit</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'inherit'" @change="explicitTheme = 'inherit'" />
+    </label>
+    <label style="display: inline-flex; flex-direction: column">
+      <div>Dark</div>
+      <input name="theme" type="radio" :checked="explicitTheme === 'dark'" @change="explicitTheme = 'dark'" />
+    </label>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+
+const explicitTheme = ref(localStorage.getItem('theme') || 'inherit')
+
+watch(explicitTheme, () => {
+  localStorage.setItem('theme', explicitTheme)
+})
+
+watch(explicitTheme, () => {
+  if (explicitTheme.value === 'implicit') {
+    document.documentElement.className = explicitTheme.value
+    return
+  }
+
+  document.documentElement.className = explicitTheme.value
+})
+
+const isOSDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+const changeOSTheme = () => {
+  explicitTheme.value = isOSDark.matches ? 'dark' : 'light'
+}
+
+onMounted(() => {
+  isOSDark.addEventListener('change', changeOSTheme)
+})
+
+onUnmounted(() => {
+  isOSDark.removeEventListener('change', changeOSTheme)
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <DarkModeToggle />
+    <p style="color: var(--primary)">This text is blue</p>
+  </div>
+</template>
+
+<script setup>
+import DarkModeToggle from './DarkModeToggle.vue'
+</script>
+
+<style>
+:root {
+  --primary: #1a42e5;
+}
+
+.dark {
+  background: #121926;
+  color: #d6e4ff;
+  --primary: #6694ff;
+}
+</style>
+```
 
 <!-- tabs:end -->
 
