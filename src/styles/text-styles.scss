@@ -263,7 +263,7 @@ h6, .h6, .text-style-headline-6 {
 	}
 }
 
-p, .text-style-body-medium {
+:root, p, .text-style-body-medium {
 	font-size: pxToRem(14);
 	font-family: $fontBody;
 	font-weight: 400;

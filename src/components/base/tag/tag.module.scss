@@ -14,7 +14,7 @@
 	outline: none !important;
 
 	border: calc($spacing / 2) solid theme-var(--primary_variant);
-	border-radius: 16px;
+	border-radius: 8px;
 
 	@include transition(color background-color border-color box-shadow);
 

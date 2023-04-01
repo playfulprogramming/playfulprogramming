@@ -92,6 +92,8 @@
 		margin-top: 0.75em;
 	}
 
+	$tableCornerRadius: map-get($cornerRadius, s);
+
 	thead tr:first-child {
 		th, td {
 			border-top: none;
@@ -122,10 +124,11 @@
 	}
 
 	table {
-		border-radius: var(--cardRadius);
+		border-radius: $tableCornerRadius;
 		border-collapse: collapse;
 		// Border-collapse and border-radius don't mix. This is a workaround for that issue
-		box-shadow: 0 0 0 1px var(--primary);
+		box-shadow: 0 0 0 4px theme-var(--surface_primary_emphasis-low);
+		margin: 4px;
 
 		@include until($tablet) {
 			ul {
@@ -142,15 +145,16 @@
 	}
 
 	thead {
-		border-top-left-radius: var(--cardRadius);
-		border-top-right-radius: var(--cardRadius);
+		color: theme-var(--foreground_emphasis-high);
 		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-		box-shadow: inset 100vw 100vh 0 var(--cardActiveBackground), var(--cardActiveBoxShadow);
+		box-shadow: inset 0px -1px 0px theme-var(--surface_primary_emphasis-high),
+			inset 100vw 100vh 0 theme-var(--surface_primary_emphasis-low),
+			inset 100vw 100vh 0 theme-var(--background_primary);
 	}
 
 	td,
 	th {
-		border: var(--cardOutlineStyle);
+		border: 1px solid theme-var(--surface_primary_emphasis-high);
 		padding: .3rem .6rem;
 		line-height: 110%;
 
