@@ -2375,7 +2375,59 @@ Because Angular does not use a virtual DOM, it does not have a method to detect 
 
 ## Vue
 
-// TODO: https://vuejs.org/guide/essentials/watchers.html#callback-flush-timing
+We've been using `watch` and `watchEffect` throughout the course of this chapter, primarily as a means to listen for global events of some kind.
+
+However, what if we wanted to localize our side effects to an element on-screen as part of a component's child? Let's try it:
+
+```vue
+<!-- App.vue -->
+<template>
+  <button @click="title = 'Movies'">Movies</button>
+  <button @click="title = 'Music'">Music</button>
+  <button @click="title = 'Documents'">Documents</button>
+  <p id="title-paragraph">{{ title }}</p>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue'
+
+const title = ref('Movies')
+
+watch(title, () => {
+  const el = document.querySelector('#title-paragraph')
+
+  console.log(el?.innerText)
+}, 
+{ immediate: true }
+)
+</script>
+```
+
+Here, when we click any of the buttons to trigger a `title` change you may notice that it shows the _previous_ value of the element's `innerText`. For example, when we press "Music", it shows the `innerText` of `Movies`, which was the previous value of `title`.
+
+> That doesn't seem to follow the behavior we're looking for!
+
+There's another hint that things aren't working as-expected either; on the first immediate run of `watch`
+
+> Why is this happening? 
+
+See, by default both `watch` and `watchEffect` run _before_ the DOM's contents have been committed from Vue's VDOM.
+
+To change this behavior, we can add `{flush: 'post'}` to either `watch` or `watchEffect` to run the watcher's function _after_ the DOM commit phase. 
+
+```javascript
+watch(
+  title,
+  () => {
+    const el = document.querySelector('#title-paragraph')
+
+    console.log(el?.innerText)
+  },
+  { immediate: true, flush: 'post' }
+)
+```
+
+Now when we click on an item, it will print out the current version of `title` for the element's `innerText`.
 
 <!-- tabs:end -->
 
