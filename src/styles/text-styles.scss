@@ -127,7 +127,7 @@
 	}
 }
 
-h1, .text-style-headline-1 {
+h1, .h1, .text-style-headline-1 {
 	font-size: pxToRem(32);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -140,7 +140,7 @@ h1, .text-style-headline-1 {
 	}
 }
 
-h2, .text-style-headline-2 {
+h2, .h2, .text-style-headline-2 {
 	font-size: pxToRem(28);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -153,7 +153,7 @@ h2, .text-style-headline-2 {
 	}
 }
 
-h3, .text-style-headline-3 {
+h3, .h3, .text-style-headline-3 {
 	font-size: pxToRem(24);
 	font-family: $fontDisplay;
 	font-weight: 800;
@@ -166,7 +166,7 @@ h3, .text-style-headline-3 {
 	}
 }
 
-h4, .text-style-headline-4 {
+h4, .h4, .text-style-headline-4 {
 	font-size: pxToRem(22);
 	font-family: $fontDisplay;
 	font-weight: 700;
@@ -179,7 +179,7 @@ h4, .text-style-headline-4 {
 	}
 }
 
-h5, .text-style-headline-5 {
+h5, .h5, .text-style-headline-5 {
 	font-size: pxToRem(20);
 	font-family: $fontDisplay;
 	font-weight: 600;
@@ -193,7 +193,7 @@ h5, .text-style-headline-5 {
 	}
 }
 
-h6, .text-style-headline-6 {
+h6, .h6, .text-style-headline-6 {
 	font-size: pxToRem(18);
 	font-family: $fontDisplay;
 	font-weight: 700;

@@ -1,11 +1,4 @@
----
-{
-  title: "About Us",
-  description: "About Unicorn Utterances - who we are, what our goals are, and how we want to help others learn",
-}
----
-
-# Our goal is to provide the best resources possible to learn any computer science related topic
+<p class="h2">Our goal is to provide the best resources possible to learn any computer science related topic</p>
 
 What’s a for loop? How do I create animations in CSS? How is memory allocated in Assembly? No matter what the topic is, we want our website to be welcoming, supportive and informational.
 
