@@ -101,32 +101,6 @@
 	src: local("Roboto");
 }
 
-.text-style-display-1 {
-	font-size: 2.75rem;
-	font-family: $fontDisplay;
-	font-weight: 800;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: 7rem;
-	}
-}
-
-.text-style-display-2 {
-	font-size: 4rem;
-	font-family: $fontDisplay;
-	font-weight: 400;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: 9rem;
-	}
-}
-
 h1, .h1, .text-style-headline-1 {
 	font-size: pxToRem(32);
 	font-family: $fontDisplay;
