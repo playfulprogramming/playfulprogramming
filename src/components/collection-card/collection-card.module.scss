@@ -1,3 +1,5 @@
+@import "src/styles/vars";
+
 .container {
 	display: flex;
 	flex-direction: column;
@@ -18,7 +20,7 @@
 	&> picture {
 		img {
 			border-radius: 16px;
-			filter: drop-shadow(0px 0.5px 0px rgba(0, 0, 0, 0.12)) drop-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.24));
+			box-shadow: map-get($shadow, s);
 		}
 	}
 
