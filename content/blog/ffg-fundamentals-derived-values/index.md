@@ -325,14 +325,14 @@ To solve the derived value problem without recomputing the values manually, Angu
 ```typescript
 import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'formatDate' })
+@Pipe({ name: 'formatDate', standalone: true })
 export class FormatDatePipe implements PipeTransform {
   transform(value: Date): string {
     return formatDate(value);
   }
 }
 
-@Pipe({ name: 'formatReadableDate' })
+@Pipe({ name: 'formatReadableDate', standalone: true })
 export class FormatReadableDatePipe implements PipeTransform {
   transform(value: Date): string {
     return formatReadableDate(value);
@@ -364,7 +364,7 @@ Let's add a second input to see if the `formatDate` pipe should return a readabl
 ```typescript
 import { NgModule, Component, Input, Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'formatDate' })
+@Pipe({ name: 'formatDate', standalone: true })
 export class FormatDatePipe implements PipeTransform {
   // `dateFormat` is an optional argument. If left empty, will simply `formatDate`
   transform(value: Date, dateFormat?: string): string {
@@ -465,7 +465,7 @@ const CountAndDoubleComp = () => {
 ## Angular
 
 ```typescript
-@Pipe({ name: 'doubleNum' })
+@Pipe({ name: 'doubleNum', standalone: true })
 export class DoubleNumPipe implements PipeTransform {
   transform(value: number): number {
     return value * 2;
@@ -526,4 +526,126 @@ In this component, we can see two numbers - one doubling the value of the other.
 
 # Challenges
 
-// TODO: File size formatting (KB, GB, etc) from bytes
+While building through our continued file hosting application, let's think through how our `Size` can be calculated to be displayed in the UI like so:
+
+![// TODO: Write](../ffg-fundamentals-passing-children/file_list.png)
+
+File sizes are usually measured in how many bytes it takes to store the file. However, this isn't exactly useful information past a certain size. Let's instead use the following JavaScript to figure out how large a file size is, given the number of bytes:
+
+```javascript
+const kilobyte = 1024;
+const megabyte = kilobyte * 1024;
+const gigabyte = megabyte * 1024;
+
+function formatBytes(bytes) {
+  if (bytes < kilobyte) {
+    return `${bytes} B`;
+  } else if (bytes < megabyte) {
+    return `${Math.floor(bytes / kilobyte)} KB`;
+  } else if (bytes < gigabyte) {
+    return `${Math.floor(bytes / megabyte)} MB`;
+  } else {
+    return `${Math.floor(bytes / gigabyte)} GB`;
+  }
+}
+```
+
+> Fun code challenge for you at home - can you write the above in fewer lines of code? 🤔
+
+With this JavaScript, we can use a derived value to display the relevant display size. Let's build this out using a dedicated `DisplaySize` component:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+function DisplaySize({ bytes }) {
+  const humanReadibleSize = React.useMemo(() => formatBytes(bytes), [bytes]);
+  return <p>{humanReadibleSize}</p>;
+}
+
+const kilobyte = 1024;
+const megabyte = kilobyte * 1024;
+const gigabyte = megabyte * 1024;
+
+function formatBytes(bytes) {
+  if (bytes < kilobyte) {
+    return `${bytes} B`;
+  } else if (bytes < megabyte) {
+    return `${Math.floor(bytes / kilobyte)} KB`;
+  } else if (bytes < gigabyte) {
+    return `${Math.floor(bytes / megabyte)} MB`;
+  } else {
+    return `${Math.floor(bytes / gigabyte)} GB`;
+  }
+}
+```
+
+## Angular
+
+```typescript
+@Pipe({ name: 'formatBytes', standalone: true })
+export class FormatBytesPipe implements PipeTransform {
+  kilobyte = 1024;
+  megabyte = this.kilobyte * 1024;
+  gigabyte = this.megabyte * 1024;
+
+  transform(bytes: number): string {
+    if (bytes < this.kilobyte) {
+      return `${bytes} B`;
+    } else if (bytes < this.megabyte) {
+      return `${Math.floor(bytes / this.kilobyte)} KB`;
+    } else if (bytes < this.gigabyte) {
+      return `${Math.floor(bytes / this.megabyte)} MB`;
+    } else {
+      return `${Math.floor(bytes / this.gigabyte)} GB`;
+    }
+  }
+}
+
+@Component({
+  selector: 'display-size',
+  standalone: true,
+  imports: [FormatBytesPipe],
+  template: `
+	  <p>{{bytes | formatBytes}}</p>
+	`,
+})
+class DisplaySizeComponent {
+  @Input() bytes: number;
+}
+```
+
+## Vue
+
+```vue
+<!-- DisplaySize.vue -->
+<template>
+  <p>{{ humanReadibleSize }}</p>
+</template>
+
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps(['bytes'])
+const humanReadibleSize = computed(() => formatBytes(props.bytes))
+
+const kilobyte = 1024
+const megabyte = kilobyte * 1024
+const gigabyte = megabyte * 1024
+
+function formatBytes(bytes) {
+  if (bytes < kilobyte) {
+    return `${bytes} B`
+  } else if (bytes < megabyte) {
+    return `${Math.floor(bytes / kilobyte)} KB`
+  } else if (bytes < gigabyte) {
+    return `${Math.floor(bytes / megabyte)} MB`
+  } else {
+    return `${Math.floor(bytes / gigabyte)} GB`
+  }
+}
+</script>
+```
+
+<!-- tabs:end -->
