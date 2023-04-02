@@ -1,14 +1,18 @@
 .container {
+	display: flex;
+	flex-direction: column;
 	margin-top: 24px;
+	padding: 16px;
 }
 
 .content {
+	flex-grow: 1;
 	transform: translateY(-48px);
 	margin-bottom: -40px;
 	align-items: start;
 
 	&> div {
-		margin-top: 48px;
+		margin-top: 56px;
 	}
 
 	&> picture {
