@@ -1,9 +1,9 @@
+import { PropsWithChildren } from '../types';
 import style from './tag.module.scss';
 
-interface TagProps {
+type TagProps = PropsWithChildren<{
 	href: string;
-	children: string|JSX.Element|(string|JSX.Element)[];
-}
+}>;
 
 export function Tag({ href, children, ...props }: TagProps) {
 	return (

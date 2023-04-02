@@ -1,13 +1,13 @@
+import { PropsWithChildren } from "../types";
 import style from "./card.module.scss";
 import { createElement } from "preact";
 
-interface CardProps {
+type CardProps = PropsWithChildren<{
 	tag?: "li" | "div";
 	href?: string;
 	class?: string;
 	size?: "xl" | "l" | "m" | "s";
-	children: JSX.Element|JSX.Element[];
-}
+}>;
 
 export function Card({ tag = "div", size = "xl", children, class: className, ...props }: CardProps) {
 	const Wrapper = (props: any) => createElement(tag, {
