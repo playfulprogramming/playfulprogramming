@@ -36,15 +36,8 @@
 	}
 }
 
-.authors, .tags {
-	list-style: none;
-	padding: 0;
+.authors {
 	margin-bottom: 4 * $spacing;
-
-	li {
-		display: inline-block;
-		margin-right: $spacing * 2;
-	}
 }
 
 .excerpt {

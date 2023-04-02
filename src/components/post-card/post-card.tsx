@@ -6,6 +6,7 @@ import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Tag } from "components/base";
 import { Card } from "components/base/card/card";
 import { Picture } from "components/base/image/picture";
+import { UnicornTag } from "components/unicorn-tag/unicorn-tag";
 
 interface PostCardProps {
 	post: Pick<
@@ -37,30 +38,25 @@ export const PostCard = ({
 
 	return (
 		<Card tag="li" href={`/posts/${slug}`}>
+			<ul class={`unlist-inline gap-2 ${cardStyles.authors}`}>
+				{authorsMeta.map((author) => (
+					<li>
+						<UnicornTag
+							unicorn={author}
+							unicornProfilePicMap={unicornProfilePicMap}
+						/>
+					</li>
+				))}
+			</ul>
 			<p class={`${cardStyles.meta} text-style-small`}>{publishedMeta}</p>
 			<a href={`/posts/${slug}`} class={cardStyles.header}>
 				<h2 class={`text-style-headline-5`}>{title}</h2>
 			</a>
-			<ul class={cardStyles.authors}>
-				{authorsMeta.map((author) => (
-					<li>
-						<Tag href={`/unicorns/${author.id}`}>
-							<Picture
-								picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-								alt={author.name}
-								class="circleImg"
-								imgAttrs={{ width: 24, height: 24 }}
-							/>
-							{author.name}
-						</Tag>
-					</li>
-				))}
-			</ul>
 			<p
 				class={cardStyles.excerpt}
 				dangerouslySetInnerHTML={{ __html: description || excerpt }}
 			></p>
-			<ul class={cardStyles.tags}>
+			<ul class="unlist-inline gap-2">
 				{tags.map((tag) => ( // TODO: link this tag href to search page
 					<li>
 						<Tag href="#">{tag}</Tag>

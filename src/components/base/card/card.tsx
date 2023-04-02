@@ -33,3 +33,12 @@ export function CardInline({ class: className, ...props }: CardProps) {
 		/>
 	);
 }
+
+export function CardSolid({ class: className, ...props }: CardProps) {
+	return (
+		<Card
+			{...props}
+			class={`${style.solid} ${className}`}
+		/>
+	);
+}

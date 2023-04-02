@@ -17,13 +17,13 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 ---
 
-<div class="d-flex">
+<div class="d-flex gap-2">
 	<Icon width="24" height="24" name="mdi:calendar-outline" />
-	<p class={style.date}>{publishedStr}</p>
+	<p>{publishedStr}</p>
 </div>
 
 <h1 class={style.title}>{title}</h1>
-<div class="d-flex">
+<div class="d-flex gap-2">
 	<Icon width="24" height="24" name="mdi:person-outline" />
 	<ul
 		aria-label="Post authors"
@@ -49,7 +49,7 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 </div>
 {
 	tags && tags.length ? (
-		<div class="d-flex">
+		<div class="d-flex gap-2">
 			<Icon width="24" height="24" name="mdi:tag-outline" />
 			<ul
 				aria-label="Post tags"

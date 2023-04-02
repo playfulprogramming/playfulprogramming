@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon";
+import style from "./search-bar-lite.module.scss";
+import { IconButton } from "components/base";
+import { translate } from "utils/translations";
+---
+
+<form class={`d-flex ${style.bar}`} method="get" action="/search">
+	<Icon width="24" height="24" name="mdi:search" />
+
+	<input
+		name="q"
+		class="text-style-body-medium"
+		type="search"
+		placeholder="Query"
+	/>
+
+	<IconButton tag="button" aria-label={translate(Astro, "title.search")}>
+		<Icon height="24" width="24" name="forward" />
+	</IconButton>
+</form>

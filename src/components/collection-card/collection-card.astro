@@ -1,0 +1,79 @@
+---
+import { CardSolid } from "components/base/card/card";
+import { UnicornTag } from "components/unicorn-tag/unicorn-tag";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
+import style from "./collection-card.module.scss";
+import { Button } from "components/base";
+import { Icon } from "astro-icon";
+import { Picture } from "@astrojs/image/components";
+import { getFullRelativePath } from "utils/url-paths";
+import { CollectionInfo, PostInfo } from "types/index";
+import { translate } from "utils/translations";
+
+type CollectionCardProps = {
+	collection: Pick<
+		CollectionInfo,
+		| "title"
+		| "description"
+		| "slug"
+		| "coverImg"
+		| "authorsMeta"
+		| "chapterList"
+	>;
+	unicornProfilePicMap: ProfilePictureMap;
+};
+
+const { collection, unicornProfilePicMap } = Astro.props as CollectionCardProps;
+
+const coverImgPath = getFullRelativePath(
+	"/content/collections",
+	collection.slug,
+	collection.coverImg
+);
+
+const posts = await Astro.glob<PostInfo>("../../../content/blog/**/index.md");
+
+const collectionPosts = posts
+	.map((post) => post.frontmatter)
+	.filter((post) => post.collectionSlug === collection.slug)
+	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
+---
+
+<CardSolid class={style.container}>
+	<div class={`d-flex gap-4 ${style.content}`}>
+		<Picture
+			alt=""
+			src={coverImgPath}
+			aspectRatio={144 / 210}
+			sizes={`144`}
+			widths={[144]}
+			formats={["avif", "webp", "png"]}
+			loading="eager"
+			width={144}
+			height={210}
+		/>
+		<div>
+			<h2 class="h5">{collection.title}</h2>
+			<p>{collection.description}</p>
+		</div>
+	</div>
+	<div class="d-flex gap-2">
+		<ul class="unlist-inline" style="flex-grow: 1;">
+			{
+				collection.authorsMeta?.map((author) => (
+					<li>
+						<UnicornTag
+							unicorn={author}
+							unicornProfilePicMap={unicornProfilePicMap}
+						/>
+					</li>
+				))
+			}
+		</ul>
+
+		<Button href={`/collections/${collection.slug}`}>
+			{translate(Astro, "title.n_chapters", collectionPosts.length.toString())}
+			<Icon height="24" width="24" name="forward" />
+		</Button>
+	</div>
+</CardSolid>

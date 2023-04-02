@@ -94,10 +94,15 @@ function getCollections(): Array<
 			absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
 		};
 
+		const authorsMeta = frontmatter.authors.map((authorId) =>
+			fullUnicorns.find((u) => u.id === authorId)
+		);
+
 		return {
 			...(frontmatter as RawCollectionInfo),
 			slug,
 			coverImgMeta,
+			authorsMeta,
 		};
 	});
 	return collections;

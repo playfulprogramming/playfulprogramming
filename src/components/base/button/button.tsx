@@ -6,8 +6,8 @@ type ButtonProps = {
 	class?: string;
 	state?: "selected" | "inactive";
 	variant?: "primary" | "borderless";
-	children: React.ReactNode,
-} & React.ButtonHTMLAttributes<any> & React.AnchorHTMLAttributes<any>;
+	children: string|JSX.Element|(string|JSX.Element)[],
+} & Omit<React.ButtonHTMLAttributes<any>, "children"> & Omit<React.AnchorHTMLAttributes<any>, "children">;
 
 function ButtonWrapper({ tag = "a", class: className, children, state, variant, ...props }: ButtonProps) {
 	const Wrapper = (props: any) => createElement(tag, props, props.children);
