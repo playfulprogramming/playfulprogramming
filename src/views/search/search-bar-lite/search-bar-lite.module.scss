@@ -5,7 +5,7 @@
 	height: 56px;
 	border-radius: 28px;
 
-	padding: 0 8px;
+	padding: 0 4px;
 	gap: 16px;
 
 	@include transition(box-shadow);
@@ -24,6 +24,6 @@
 	}
 
 	&> svg:first-child {
-		margin-left: 12px;
+		margin-left: 16px;
 	}
 }
