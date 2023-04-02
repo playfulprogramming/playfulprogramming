@@ -1,7 +1,7 @@
 ---
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import * as data from "src/utils/data";
-import { LargeButton, Button } from "components/base";
+import { LargeButton, Button, Tag } from "components/base";
 import { PostInfo } from "types/PostInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./homepage.module.scss";
@@ -19,6 +19,10 @@ export interface HomepageProps {
 const { posts, collections } = Astro.props as HomepageProps;
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const tagsToDisplay = [...data.tags]
+	.sort(() => 0.5 - Math.random())
+	.slice(0, 8);
 ---
 
 <header class="grid grid-desktopSmall-2">
@@ -80,5 +84,17 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 	<h1 class="h4">{translate(Astro, "title.looking_for_more")}</h1>
 	<p>{translate(Astro, "desc.looking_for_more")}</p>
 
-	<SearchBarLite />
+	<div class={style.searchbar}>
+		<SearchBarLite />
+	</div>
+
+	<ul class="unlist-inline gap-2 text-center">
+		{
+			tagsToDisplay.map((tag) => (
+				<li>
+					<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+				</li>
+			))
+		}
+	</ul>
 </section>

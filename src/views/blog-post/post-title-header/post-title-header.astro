@@ -56,15 +56,11 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 				role="list"
 				class={`${style.tags} unlist-inline`}
 			>
-				{tags.map(
-					(
-						tag // TODO: Link tags to search page
-					) => (
-						<li>
-							<Tag href="#">{tag}</Tag>
-						</li>
-					)
-				)}
+				{tags.map((tag) => (
+					<li>
+						<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+					</li>
+				))}
 			</ul>
 		</div>
 	) : null

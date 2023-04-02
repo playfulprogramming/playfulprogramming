@@ -5,6 +5,7 @@ import {
 	CollectionInfo,
 	RolesEnum,
 	UnicornInfo,
+	RawPostInfo,
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
@@ -65,6 +66,22 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
+function getPosts(): Array<RawPostInfo> {
+	const slugs = fs.readdirSync(postsDirectory);
+	return slugs.map((slug) => {
+		const fileContents = fs.readFileSync(
+			join(postsDirectory, slug, "index.md"),
+			"utf8"
+		);
+
+		const frontmatter = matter(fileContents).data as RawPostInfo;
+
+		return frontmatter;
+	});
+}
+
+const posts = getPosts();
+
 function getCollections(): Array<
 	RawCollectionInfo & Pick<CollectionInfo, "slug" | "coverImgMeta">
 > {
@@ -110,6 +127,14 @@ function getCollections(): Array<
 
 const collections = getCollections();
 
+const tags = [
+	...posts.reduce((set, post) => {
+		for (const tag of post.tags || []) set.add(tag);
+
+		return set;
+	}, new Set<string>()),
+];
+
 export {
 	aboutRaw as about,
 	fullUnicorns as unicorns,
@@ -117,4 +142,6 @@ export {
 	pronounsRaw as pronouns,
 	licensesRaw as licenses,
 	collections,
+	posts,
+	tags,
 };

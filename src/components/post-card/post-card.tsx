@@ -57,9 +57,9 @@ export const PostCard = ({
 				dangerouslySetInnerHTML={{ __html: description || excerpt }}
 			></p>
 			<ul class="unlist-inline gap-2">
-				{tags.map((tag) => ( // TODO: link this tag href to search page
+				{tags.map((tag) => (
 					<li>
-						<Tag href="#">{tag}</Tag>
+						<Tag href={`/search?q=${tag}`}>{tag}</Tag>
 					</li>
 				))}
 			</ul>
