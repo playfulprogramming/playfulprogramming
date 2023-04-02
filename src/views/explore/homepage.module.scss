@@ -18,6 +18,14 @@
 
 section {
 	padding: 32px 0;
+
+	.header {
+		h1 {
+			margin: 0;
+		}
+
+		margin-bottom: $spacing * 4;
+	}
 }
 
 .searchbar {
