@@ -1,13 +1,17 @@
 @import "src/styles/vars";
 @import "src/styles/utils";
 
+.header {
+	align-items: center;
+}
+
 .buttons {
 	gap: ($spacing * 4) ($spacing * 6);
 	padding: ($spacing * 4) 0;
 }
 
 .bannerLogo {
-	@include until($tablet) {
+	@include until($desktopSmall) {
 		display: none;
 	}
 }

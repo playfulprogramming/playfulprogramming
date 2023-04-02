@@ -1,0 +1,108 @@
+---
+import { getImage } from "@astrojs/image";
+import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
+
+const STICKER_SIZE = 144;
+const STICKER_TRANSFORMS = [
+	"translate(190, 51) scale(0.8)",
+	"translate(298, 0) rotate(15)",
+	"translate(80, 22) rotate(4) scale(1.2)",
+	"translate(140, 127) rotate(5) scale(0.9)",
+	"translate(70, 180) scale(0.8)",
+	"translate(187, 194) rotate(8)",
+	"translate(110, 230) rotate(-4) scale(0.9)",
+	"translate(268, 229) rotate(6)",
+	"translate(360, 210) scale(0.8)",
+].sort(() => 0.5 - Math.random());
+
+type StickerInfo = {
+	src: string;
+	transform: string;
+	name: string;
+};
+
+async function createSticker(name: string): Promise<StickerInfo> {
+	const image = await getImage({
+		src: `/stickers/${name}.png`,
+		width: STICKER_SIZE,
+		height: STICKER_SIZE,
+		alt: "",
+		format: "png",
+	});
+
+	return {
+		src: image.src,
+		transform: STICKER_TRANSFORMS.pop() || "",
+		name,
+	};
+}
+
+// we can't use an Array.map here because astro's JSX changes `<image>` tags into `<img>`, breaking the SVG
+const android = await createSticker("android");
+const angular = await createSticker("angular");
+const html = await createSticker("html");
+const python = await createSticker("python");
+const react = await createSticker("react");
+const typescript = await createSticker("typescript");
+const vue = await createSticker("vue");
+
+const unicornImage = await getImage({
+	src: unicornSticker,
+	width: 512,
+	height: 541,
+	alt: "",
+	format: "png",
+});
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418 300">
+	<image
+		width="64"
+		height="64"
+		xlink:href={android.src}
+		transform={android.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={angular.src}
+		transform={angular.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={html.src}
+		transform={html.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={python.src}
+		transform={python.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={react.src}
+		transform={react.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={typescript.src}
+		transform={typescript.transform}
+	/>
+	<image
+		width="64"
+		height="64"
+		xlink:href={vue.src}
+		transform={vue.transform}
+	/>
+
+	<image
+		width="128"
+		height="135"
+		xlink:href={unicornImage.src}
+		transform="translate(250, 80)"
+	/>
+</svg>

@@ -10,6 +10,7 @@ import { translate } from "utils/translations";
 import { CollectionInfo } from "types/CollectionInfo";
 import CollectionCard from "components/collection-card/collection-card.astro";
 import SearchBarLite from "../search/search-bar-lite/search-bar-lite.astro";
+import BannerStickersGroup from "components/banner-stickers/banner-stickers-group.astro";
 
 export interface HomepageProps {
 	posts: PostInfo[];
@@ -25,8 +26,10 @@ const tagsToDisplay = [...data.tags]
 	.slice(0, 8);
 ---
 
-<header class="grid grid-desktopSmall-2">
-	<div class={style.bannerLogo}><!-- TODO: replace with banner image --></div>
+<header class={`grid grid-desktopSmall-2 ${style.header}`}>
+	<div class={style.bannerLogo}>
+		<BannerStickersGroup />
+	</div>
 	<div class="text-center">
 		<h1 class="text-style-headline-2">
 			{translate(Astro, "desc.homepage")}
