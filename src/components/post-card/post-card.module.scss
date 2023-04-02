@@ -1,43 +1,36 @@
 @import "../../styles/vars";
 @import "../../styles/utils";
 
-.card {
-	cursor: pointer;
+.cardExpanded {
+	display: flex;
+	flex-direction: column;
+}
 
-	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);
-	border-radius: map-get($cornerRadius, xl);
-
-	position: relative;
-	color: inherit;
-	overflow-wrap: break-word;
-	max-width: 100%;
-	box-shadow: none;
-	text-decoration: none;
-	transition: background-color $animSpeed $animStyle,
-		border-color $animSpeed $animStyle;
-
-	padding: $spacing * 6;
+.image {
+	flex-grow: 1;
 }
 
 .meta {
-	margin: 0;
-	margin-bottom: 2 * $spacing;
-	line-height: 1;
+	margin: ($spacing * 4) 0;
+
+	&> * {
+		margin: 0;
+		line-height: 1;
+	}
+
+	.date {
+		color: theme-var(--foreground_emphasis-medium);
+	}
 }
 
 .header {
 	display: block;
 	text-decoration: none;
 	color: theme-var(--foreground_emphasis-high);
-	margin-bottom: 4 * $spacing;
 
 	& h2 {
 		margin: 0;
 	}
-}
-
-.authors {
-	margin-bottom: 4 * $spacing;
 }
 
 .excerpt {

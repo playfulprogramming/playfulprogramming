@@ -1,0 +1,21 @@
+---
+import { PostInfo } from "types/index";
+import { PostCardGrid } from "src/components/post-card/post-card-grid";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+
+export interface PageProps {
+	posts: PostInfo[];
+}
+
+const { posts } = Astro.props as PageProps;
+const unicornProfilePicMap = await getUnicornProfilePicMap();
+---
+
+<PostCardGrid
+	expanded={true}
+	listAriaLabel="List of posts"
+	postsToDisplay={posts}
+	unicornProfilePicMap={unicornProfilePicMap}
+/>
+
+<!-- TODO: pagination -->

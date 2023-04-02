@@ -48,6 +48,10 @@
 	gap: 0;
 }
 
+:where(.gap-1) {
+	gap: $spacing;
+}
+
 :where(.gap-2) {
 	gap: $spacing * 2;
 }

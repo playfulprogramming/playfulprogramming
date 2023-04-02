@@ -1,6 +1,6 @@
 ---
 import Document from "../../layouts/document.astro";
-import PostListTemplate from "../../page-components/post-list/post-list.astro";
+import PageView from "src/views/explore/page.astro";
 import { getAllPostsForListView } from "utils/api";
 import { PostInfo } from "types/PostInfo";
 import SEO from "components/seo/seo.astro";
@@ -23,7 +23,7 @@ const SEOTitle = `Post page ${pageIndex}`;
 
 <Document>
 	<SEO slot="head" title={SEOTitle} />
-	<div class="listViewContent">
-		<PostListTemplate posts={page.data} page={page} rootURL={"/"} />
+	<div class="container">
+		<PageView posts={page.data} />
 	</div>
 </Document>
