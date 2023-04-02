@@ -11,11 +11,91 @@
 }
 ---
 
-In our last chapter, we touched on the idea of having a transparent element that renders out of the DOM's view, but stays in a component to help handle logic when doing dynamic HTML.
+[As mentioned previously](// TODO), in the DOM your HTML elements have a relationship to one another. 
 
-That was a neat concept that allowed us to expand our horizons of what HTML can look like inside of our components, and how it changes our view of these framework's templates.
+For example, the following:
 
-Let's continue that trend and introduce a new concept: Content projection.
+```html
+<div>
+    <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+    </ul>
+</div>
+```
+
+Would construct the following DOM tree:
+
+![// TODO: DO](./bredth_first.png)
+
+This is how the DOM constructs nodes as parents and children. Notice how the `<li>` is distinctly below the `<ul>` tag rather than a syntax like:
+
+```html
+<!-- This isn't correct HTML to do what we want -->
+<div
+	ul="
+        li='One'
+        li='Two'
+        li='Three'
+    "
+/>
+```
+
+ While the above looks strange and counter-intuitive, let's look at how we define the same list if each element is a dedicated component using the methods we've created thus far:
+
+<!-- tabs:start -->
+
+# React
+
+```jsx
+const ListItem = ({name}) => {
+    return <li>{name}</li>
+}
+
+const List = () => {
+    return <ul>
+    	<ListItem name="One"/>
+    	<ListItem name="Two"/>
+    	<ListItem name="Three"/>
+    </ul>
+}
+
+const Container = () => {
+	return <div>
+		<List/>
+	</div>
+}
+```
+
+# Angular
+
+// TODO: Write
+
+# Vue
+
+// TODO: Write
+
+<!-- tabs:end -->
+
+This is fairly similar to that strange fake nested HTML syntax. The alternative component usage syntax that matches closer to the DOM might otherwise look like this:
+
+```jsx
+<Component>
+	<OtherComponent/>
+</Component>
+```
+
+This mismatch occurs because, if we look at how our components are defined, we're building out our previous components **deeply** rather than **broadly**.
+
+
+![// TODO: DO](./depth_first.png)
+
+This is the difference in building apps with HTML alone and building them with a frontend framework - while the DOM is typically thought of as one-dimensional, there are really 2 dimensions that are exposed more thoroughly by the frameworks ability to construct this tree in a more fine-grained manner.
+
+Let's move the component tree back to being breadth first by using a feature that may sound familiar: Passing children.
+
+# Passing Basic Children
 
 Let's think of a simple example where you have the following HTML:
 
@@ -29,7 +109,7 @@ Say you want the `button` to have "pressed" effect whenever you click on it. The
 
 <!-- tabs:start -->
 
-# React
+## React
 
 ```jsx
 const ToggleButtonList = () => {
@@ -42,7 +122,7 @@ const ToggleButtonList = () => {
 }
 ```
 
-# Angular
+## Angular
 
 ```typescript
 @Component({
@@ -63,7 +143,7 @@ export class ToggleButtonListComponent {
 
 
 
-# Vue
+## Vue
 
 ```vue
 <!-- ToggleButtonList.vue -->
@@ -95,7 +175,7 @@ While this works for a single button pretty well, what happens when we want to a
 
 <!-- tabs:start -->
 
-# React
+## React
 
 ```jsx
 const ToggleButtonList = () => {
@@ -112,7 +192,7 @@ const ToggleButtonList = () => {
 }
 ```
 
-# Angular
+## Angular
 
 ```typescript
 @Component({
@@ -140,7 +220,7 @@ export class ToggleButtonListComponent {
 
 
 
-# Vue
+## Vue
 
 ```vue
 <!-- ToggleButtonList.vue -->
@@ -181,9 +261,11 @@ We could instead use [dynamic HTML](/posts/ffg-fundamentals-dynamic-html) and cr
 
 Instead, let's create a `ToggleButton` component to re-use the logic!
 
+## Creating a Component that you can Pass Children to
+
 <!-- tabs:start -->
 
-# React
+### React
 
 ```jsx
 const ToggleButton = ({text}) => {
@@ -203,7 +285,7 @@ const ToggleButtonList = () => {
 }
 ```
 
-# Angular
+### Angular
 
 ```typescript
 @Component({
@@ -232,7 +314,7 @@ export class ToggleButtonComponent {
 export class ToggleButtonListComponent {}
 ```
 
-# Vue
+### Vue
 
 ```vue
 <!-- ToggleButton.vue -->
@@ -277,7 +359,7 @@ Instead, **let's allow the parent of our `ToggleButton` to pass in a template th
 
 <!-- tabs:start -->
 
-# React
+### React
 
 In React, passed content is treated like any other property that's passed into a component. However, by default when you pass content as children, the property name assigned to that `ReactNode` value is `children`.
 
@@ -300,7 +382,7 @@ const ToggleButtonList = () => {
 }
 ```
 
-# Angular
+### Angular
 
 Angular has a special tag called `ng-content` that acts as a pass-through for all children content passed to a component.
 
@@ -332,7 +414,7 @@ export class ToggleButtonListComponent {}
 
 Because `ng-content` is built-in to [Angular's compiler](// TODO: Link to Angular internals section), we do not need to import anything into a module to use the feature.
 
-# Vue
+### Vue
 
 When in Vue-land, the `slot` tag is utilized in order to pass children through to a component's template. 
 
@@ -375,11 +457,13 @@ Because `slot` is a built-in component to Vue, we do not need to import it from 
 
 Here, we can see that we're able to pass a `span` and other template items directly as _children_ to our `ToggleButton` component. [This is similar to how you're able to pass HTML elements as `children` to other HTML elements](https://unicorn-utterances.com/posts/understanding-the-dom).
 
+## Combining Children Passing and Dynamic HTML
+
 However, because these templates have the full power of the frameworks at their disposal, these _children_ have super-powers! Let's add in a `for` loop into our children template to say hello to all of our friends:
 
 <!-- tabs:start -->
 
-# React
+### React
 
 ```jsx
 const RainbowExclamationMark = () => {
@@ -410,7 +494,7 @@ const ToggleButtonList = () => {
 }
 ```
 
-# Angular
+### Angular
 
 ```typescript
 @Component({
@@ -447,7 +531,7 @@ export class ToggleButtonListComponent {
 }
 ```
 
-# Vue
+### Vue
 
 ```vue
 <!-- RainbowExclamationMark.vue -->
@@ -496,7 +580,160 @@ As you can see, we can use any features inside of our `children` - even other co
 
 
 
-# Applying our knowledge
+# Named Children
+
+Oftentimes when building a component that utilizes content projection, you'll find yourself wanting to have more than one area to inject content into. For example, in our table, let's pretend that on top of passing the table's body contents, we also want to pass a table's header.
+
+While we _could_ simply pass the table as a `child`:
+
+```jsx
+<table>
+   <FileHeader/>
+   <FileList/>
+</table>
+```
+
+ What happens if we want to apply custom styling to our `FileHeader` and apply it universally to all instances of a `table`'s `thead`?
+
+This is where a named content projection would come in handy.
+
+<!-- tabs:start -->
+
+## React
+
+Something worth reminding is that JSX constructs a value, just like a number or string, that you can then store to a variable.
+
+```jsx
+const table = <p>Test</p>;
+```
+
+This can be passed to a function, like `console.log`, or anything any other JavaScript value can do.
+
+```jsx
+console.log(<p>Test</p>); // ReactElement
+```
+
+Because of this behavior, in order to pass more than one JSX value to a component, we can use function parameters and pass them that way.
+
+```jsx
+const FileTableContainer = ({children, header}) => {
+  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
+        <thead>{header}</thead>
+		{children}
+	</table>
+}
+
+const FileTable = () => {
+  const headerEl = <tr>
+            <th>Name</th>
+        	<th>Date</th>
+        </tr>
+    
+    return (
+  	<FileTableContainer header={headerEl}>
+      <FileTableBody/>
+    </FileTableContainer>
+  )
+}
+```
+
+## Angular
+
+`ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
+
+````typescript
+
+@Component({
+  selector: 'file-table-container',
+  template: `
+  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <thead><ng-content select="[header]"></ng-content></thead>
+    <ng-content></ng-content>
+  </table>
+  `,
+})
+class FileTableContainerComponent {}
+
+@Component({
+  selector: 'file-table',
+  template: `
+    <file-table-container>
+    <tr header>
+      <th>Name</th>
+      <th>Date</th>
+    </tr>
+    <file-table-body></file-table-body>
+    </file-table-container>
+  `,
+})
+class FileTableComponent {}
+````
+
+Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
+
+## Vue
+
+Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
+
+```vue
+<!-- FileTableContainer -->
+<template>
+  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
+    <thead><slot name="header"></slot></thead>
+    <slot></slot>
+  </table>
+</template>
+```
+
+````vue
+<!-- FileTable -->
+<template>
+  <FileTableContainer>
+    <template v-slot:header>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+      </tr>
+    </template>
+    <FileTableBody/>
+  </FileTableContainer>
+</template>
+
+<script setup>
+import FileTableContainer from './FileTableContainer.vue';
+import FileTableBody from './FileTableBody.vue';
+</script>
+````
+
+Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
+
+`v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `FileTable` component to look like:
+
+```vue
+<!-- FileTable -->
+<template>
+  <FileTableContainer>
+    <template #header>
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+      </tr>
+    </template>
+    <FileTableBody/>
+  </FileTableContainer>
+</template>
+
+<script setup>
+import FileTableContainer from './FileTableContainer.vue';
+import FileTableBody from './FileTableBody.vue';
+</script>
+```
+
+<!-- tabs:end -->
+
+
+
+# Challenge
 
 Now that we're familiar with how content projection works, let's apply it to one of our components we've been building for our file hosting application.
 
@@ -807,171 +1044,4 @@ import FileTableBody from './FileTableBody.vue';
 
 <!-- tabs:end -->
 
-# Named Content Projection
-
-Oftentimes when building a component that utilizes content projection, you'll find yourself wanting to have more than one area to inject content into. For example, in our table, let's pretend that on top of passing the table's body contents, we also want to pass a table's header.
-
-While we _could_ simply pass the table as a `child`:
-
-```jsx
-<table>
-   <FileHeader/>
-   <FileList/>
-</table>
-```
-
- What happens if we want to apply custom styling to our `FileHeader` and apply it universally to all instances of a `table`'s `thead`?
-
-This is where a named content projection would come in handy.
-
-<!-- tabs:start -->
-
-## React
-
-Something worth reminding is that JSX constructs a value, just like a number or string, that you can then store to a variable.
-
-```jsx
-const table = <p>Test</p>;
-```
-
-This can be passed to a function, like `console.log`, or anything any other JavaScript value can do.
-
-```jsx
-console.log(<p>Test</p>); // ReactElement
-```
-
-Because of this behavior, in order to pass more than one JSX value to a component, we can use function parameters and pass them that way.
-
-```jsx
-const FileTableContainer = ({children, header}) => {
-  return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
-        <thead>{header}</thead>
-		{children}
-	</table>
-}
-
-const FileTable = () => {
-  const headerEl = <tr>
-            <th>Name</th>
-        	<th>Date</th>
-        </tr>
-    
-    return (
-  	<FileTableContainer header={headerEl}>
-      <FileTableBody/>
-    </FileTableContainer>
-  )
-}
-```
-
-## Angular
-
-`ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
-
-````typescript
-
-@Component({
-  selector: 'file-table-container',
-  template: `
-  <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <thead><ng-content select="[header]"></ng-content></thead>
-    <ng-content></ng-content>
-  </table>
-  `,
-})
-class FileTableContainerComponent {}
-
-@Component({
-  selector: 'file-table',
-  template: `
-    <file-table-container>
-    <tr header>
-      <th>Name</th>
-      <th>Date</th>
-    </tr>
-    <file-table-body></file-table-body>
-    </file-table-container>
-  `,
-})
-class FileTableComponent {}
-````
-
-Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
-
-## Vue
-
-Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
-
-```vue
-<!-- FileTableContainer -->
-<template>
-  <table :style="{color: '#3366FF', border: '2px solid #F5F8FF'}">
-    <thead><slot name="header"></slot></thead>
-    <slot></slot>
-  </table>
-</template>
-```
-
-````vue
-<!-- FileTable -->
-<template>
-  <FileTableContainer>
-    <template v-slot:header>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-      </tr>
-    </template>
-    <FileTableBody/>
-  </FileTableContainer>
-</template>
-
-<script setup>
-import FileTableContainer from './FileTableContainer.vue';
-import FileTableBody from './FileTableBody.vue';
-</script>
-````
-
-Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
-
-`v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `FileTable` component to look like:
-
-```vue
-<!-- FileTable -->
-<template>
-  <FileTableContainer>
-    <template #header>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-      </tr>
-    </template>
-    <FileTableBody/>
-  </FileTableContainer>
-</template>
-
-<script setup>
-import FileTableContainer from './FileTableContainer.vue';
-import FileTableBody from './FileTableBody.vue';
-</script>
-```
-
-<!-- tabs:end -->
-
-
-
-// TODO: Conclusion
-
-
-
-
-
-
-
-# Challenge
-
-
-
-Add in `resize` detection to the `useElementBounds` hook.
-
-https://stackblitz.com/edit/react-ts-kkycvf?file=App.tsx,lib.dom.d.ts
+# 
