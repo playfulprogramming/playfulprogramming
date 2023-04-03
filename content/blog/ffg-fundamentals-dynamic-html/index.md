@@ -49,8 +49,8 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
       (click)="selected.emit()"
       [style]="
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? 'background-color: blue; color: white'
+          : 'background-color: white; color: blue'
       "
     >
       <a [href]="href">
@@ -74,7 +74,10 @@ export class FileComponent {
 <template>
   <button
     v-on:click="$emit('selected')"
-    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+    :style="isSelected ?
+      'background-color: blue; color: white' :
+      'background-color: white; color: blue'
+    "
   >
     <a :href="href">
       {{ fileName }}
@@ -279,8 +282,8 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
       (click)="selected.emit()"
       [style]="
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? 'background-color: blue; color: white'
+          : 'background-color: white; color: blue'
       "
     >
       <a [href]="href">
@@ -305,7 +308,10 @@ export class FileComponent {
 <template>
   <button
     v-on:click="emit('selected')"
-    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+    :style="isSelected ?
+      'background-color: blue; color: white' :
+      'background-color: white; color: blue'
+    "
   >
     <a :href="href">
       {{ fileName }}

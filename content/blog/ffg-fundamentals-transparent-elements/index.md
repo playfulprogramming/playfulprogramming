@@ -75,8 +75,8 @@ const FileList = () => {
       (click)="selected.emit()"
       [style]="
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? 'background-color: blue; color: white'
+          : 'background-color: white; color: blue'
       "
     >
       <a [href]="href">
@@ -127,7 +127,10 @@ export class FileListComponent {
 <template>
   <button
     v-on:click="$emit('selected')"
-    :style="isSelected ? { backgroundColor: 'blue', color: 'white' } : { backgroundColor: 'white', color: 'blue' }"
+    :style="isSelected ?
+      'background-color: blue; color: white' :
+      'background-color: white; color: blue'
+    "
   >
     <a :href="href">
       {{ fileName }}

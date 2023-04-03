@@ -1732,11 +1732,21 @@ const File = ({ href, fileName }) => {
 };
 ```
 
-We mentioned earlier that we'd look into the second value in the return array of `useState` at a later time. Well, that time is now!
+There are three major things of note in this code sample:
 
-The second value of the array returned by `useState` is utilized to update the value assigned to the first variable. So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
+1) The `style` property differs from what you might see in a typical HTML code sample. 
 
-We also make sure to prefix the event name with `on` in order to bind a method to a browser event name. However, the first letter of the browser event name needs to be capitalized. This means that `click` turns into `onClick`.
+   EG: `"background-color: blue; color: white;"` becomes `{backgroundColor: 'blue', color: 'white'}`.
+
+   This is required to embed CSS directly inside of JSX's `style` property. If you move this code out to a dedicated CSS file and use classes, you can use the more traditional syntax.
+
+2) We're using the second value of the `useState` returned array.
+
+   The second value of the array returned by `useState` is utilized to update the value assigned to the first variable. So, when `setSelected` is called, it will then update the value of `isSelected` and the component is re-rendered.
+
+3. We prefix the event name we're listening for with `on` and capitalizing the first letter of the event name.
+
+   EG: `click` becomes `onClick`.
 
 ### Angular
 
@@ -1750,8 +1760,8 @@ We also make sure to prefix the event name with `on` in order to bind a method t
       (click)="selectFile()"
       [style]="
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? 'background-color: blue; color: white'
+          : 'background-color: white; color: blue'
       "
     >
       <a [href]="href">
@@ -1782,8 +1792,8 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
   <button
     v-on:click="selectFile()"
     :style="isSelected ?
-      { backgroundColor: 'blue', color: 'white' } :
-      { backgroundColor: 'white', color: 'blue' }
+      'background-color: blue; color: white' :
+      'background-color: white; color: blue'
     "
   >
     <a :href="href">
@@ -1919,8 +1929,8 @@ import {
       (click)="selected.emit()"
       [style]="
         isSelected
-          ? { backgroundColor: 'blue', color: 'white' }
-          : { backgroundColor: 'white', color: 'blue' }
+          ? 'background-color: blue; color: white'
+          : 'background-color: white; color: blue'
       "
     >
       <a [href]="href">
@@ -1984,8 +1994,8 @@ Vue introduces the idea of an emitted event using the `defineEmits` global funct
   <button
     v-on:click="emit('selected')"
     :style="isSelected ?
-      { backgroundColor: 'blue', color: 'white' } :
-      { backgroundColor: 'white', color: 'blue' }
+      'background-color: blue; color: white' :
+      'background-color: white; color: blue'
     "
   >
     <a :href="href">
