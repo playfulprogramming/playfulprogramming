@@ -101,6 +101,14 @@ export const renderPostPreviewToString = async (
 	<style>
 	${layout.css}
 	</style>
+	<style>
+	html, body {
+		width: ${heightWidth.width}px;
+		height: ${heightWidth.height}px;
+		position: relative;
+		overflow: hidden;
+	}
+	</style>
 	</head>
 	<body>
 	${render(

@@ -78,65 +78,55 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
 const TwitterLargeCard = ({
   post,
   postHtml,
-  height,
   width,
   authorImageMap,
 }: ComponentProps) => {
   const title = post.title;
   const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
 
-  return (
-    <div
-      style={{
-        height: `${height}px`,
-        width: `${width}px`,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
-      <TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
-      <div className="absoluteFill codeScreenOverlay" />
-      <div className="absoluteFill centerAll">
-        <h1
-          style={{
-            maxWidth: "90%",
-            textAlign: "center",
-            fontSize: `clamp(300%, 4.5rem, ${
-              Math.round(width / title.length) * 3
-            }px)`,
-          }}
-        >
-          {firstHalfTitle}
-          <span className="secondHalfTitle">{secondHalfTitle}</span>
-        </h1>
-      </div>
-      <div
-        className="absoluteFill backgroundColor"
+  return <>
+    <TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
+    <TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
+    <div className="absoluteFill codeScreenOverlay" />
+    <div className="absoluteFill centerAll">
+      <h1
         style={{
-          zIndex: -1,
+          maxWidth: "90%",
+          textAlign: "center",
+          fontSize: `clamp(300%, 4.5rem, ${
+            Math.round(width / title.length) * 3
+          }px)`,
         }}
-      />
-      <div className="bottomContainer">
-        <div className="bottomImagesContainer centerAll">
-          {post.authors.map((author) => (
-            <img
-              key={author}
-              src={authorImageMap[author]}
-              alt=""
-              className="bottomProfImg"
-              height={80}
-              width={80}
-            />
-          ))}
-        </div>
-        <div className="bottomImagesContainer centerAll">
-          <p>unicorn-utterances.com</p>
-          <img src={unicornUtterancesHead} alt="" height={80} width={80} />
-        </div>
+      >
+        {firstHalfTitle}
+        <span className="secondHalfTitle">{secondHalfTitle}</span>
+      </h1>
+    </div>
+    <div
+      className="absoluteFill backgroundColor"
+      style={{
+        zIndex: -1,
+      }}
+    />
+    <div className="bottomContainer">
+      <div className="bottomImagesContainer centerAll">
+        {post.authors.map((author) => (
+          <img
+            key={author}
+            src={authorImageMap[author]}
+            alt=""
+            className="bottomProfImg"
+            height={80}
+            width={80}
+          />
+        ))}
+      </div>
+      <div className="bottomImagesContainer centerAll">
+        <p>unicorn-utterances.com</p>
+        <img src={unicornUtterancesHead} alt="" height={80} width={80} />
       </div>
     </div>
-  );
+  </>;
 };
 
 export default {
