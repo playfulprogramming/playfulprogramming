@@ -1,7 +1,7 @@
 import * as React from 'preact';
 import { render } from "@testing-library/preact";
 import { MockPost } from "__mocks__/data/mock-post";
-import TwitterLargeCard, { splitSentence } from "./twitter-large-card";
+import TwitterLargeCard, { splitSentence } from "./twitter-preview";
 
 test("Social previews splitSentence", () => {
   // doesn't split at start/end of short titles
@@ -40,13 +40,12 @@ test("Social previews splitSentence", () => {
 test("Social preview renders", async () => {
   const post = MockPost;
   const { baseElement, findByText } = render(
-    <TwitterLargeCard
+    <TwitterLargeCard.Component
       post={post}
       postHtml="<code>test();</code>"
       width={1280}
       height={640}
-      authorImagesStrs={["test.jpg"]}
-      unicornUtterancesHead="uu.jpg"
+      authorImageMap={{ [post.authors[0]]: "test.jpg" }}
     />
   );
 

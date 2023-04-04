@@ -22,3 +22,8 @@ export function readFileAsBase64(file: string) {
 		extTypeMap[path.extname(file) as keyof typeof extTypeMap] || "image/jpeg";
 	return `data:${contentType};base64,${image.toString("base64")}`;
 }
+
+export function ensureDirectoryExistence(filePath: string) {
+	const localDirname = path.dirname(filePath);
+	fs.mkdirSync(localDirname, { recursive: true });
+}

@@ -5,14 +5,16 @@ import { resolve } from "path";
 import { getAllPosts } from "utils/get-all-posts";
 import { PostInfo } from "types/index";
 import {
+	layouts,
 	heightWidth,
 	renderPostPreviewToString,
 } from "./shared-post-preview-png";
+import { Layout } from "./base";
 
 let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 
-const createPostSocialPreviewPng = async (post: PostInfo) => {
+const createPostSocialPreviewPng = async (layout: Layout, post: PostInfo) => {
 	if (!browser) {
 		browser = await chromium.puppeteer.launch({
 			args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
@@ -25,25 +27,30 @@ const createPostSocialPreviewPng = async (post: PostInfo) => {
 		await page.setViewport(heightWidth);
 	}
 
-	await page.setContent(await renderPostPreviewToString(post));
+	await page.setContent(await renderPostPreviewToString(layout, post));
 	return (await page.screenshot()) as Buffer;
 };
 
 const build = async () => {
 	const posts = getAllPosts("en");
 
+	// Relative to root
+	const outDir = resolve(process.cwd(), "./public/generated");
+	await fsPromises.mkdir(outDir, { recursive: true });
+
 	/**
 	 * This is done synchronously, in order to prevent more than a single instance
 	 * of the browser from running at the same time.
 	 */
 	for (const post of posts) {
-		const png = await createPostSocialPreviewPng(post);
+		for (const layout of layouts) {
+			const png = await createPostSocialPreviewPng(layout, post);
 
-		await fsPromises.writeFile(
-			// Relative to root
-			resolve(process.cwd(), `./public/${post.slug}.twitter-preview.png`),
-			png
-		);
+			await fsPromises.writeFile(
+				resolve(outDir, `${post.slug}.${layout.name}.png`),
+				png
+			);
+		}
 	}
 
 	await browser.close();

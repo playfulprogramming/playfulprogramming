@@ -1,5 +1,11 @@
 import * as React from 'preact';
-import type { PostInfo } from "types/PostInfo";
+import { readFileAsBase64 } from '../utils';
+import { dirname, resolve } from 'path';
+import * as fs from 'fs';
+import { ComponentProps } from '../base';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -36,6 +42,10 @@ export function splitSentence(str: string): [string, string] {
   return [str, ""];
 }
 
+const unicornUtterancesHead = readFileAsBase64(
+	resolve("src/assets/unicorn_head_1024.png")
+);
+
 interface TwitterCodeScreenProps {
   title: string;
   html: string;
@@ -65,24 +75,13 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
     </div>
   );
 };
-
-interface TwitterLargeCardProps {
-  post: PostInfo;
-  postHtml: string;
-  height: number;
-  width: number;
-  authorImagesStrs: string[];
-  unicornUtterancesHead: string;
-}
-
 const TwitterLargeCard = ({
   post,
   postHtml,
   height,
   width,
-  authorImagesStrs,
-  unicornUtterancesHead,
-}: TwitterLargeCardProps) => {
+  authorImageMap,
+}: ComponentProps) => {
   const title = post.title;
   const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
 
@@ -120,10 +119,10 @@ const TwitterLargeCard = ({
       />
       <div className="bottomContainer">
         <div className="bottomImagesContainer centerAll">
-          {authorImagesStrs.map((authorStr) => (
+          {post.authors.map((author) => (
             <img
-              key={authorStr}
-              src={authorStr}
+              key={author}
+              src={authorImageMap[author]}
               alt=""
               className="bottomProfImg"
               height={80}
@@ -140,4 +139,11 @@ const TwitterLargeCard = ({
   );
 };
 
-export default TwitterLargeCard;
+export default {
+  name: "twitter-preview",
+  css: fs.readFileSync(
+		resolve(__dirname, "./twitter-preview.css"),
+		"utf8"
+	),
+  Component: TwitterLargeCard,
+};

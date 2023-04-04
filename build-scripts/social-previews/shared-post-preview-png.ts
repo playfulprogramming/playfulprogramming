@@ -1,7 +1,6 @@
-import { readFileAsBase64 } from "./read-file-as-base64";
-import { dirname, resolve } from "path";
+import { readFileAsBase64 } from "./utils";
 import { PostInfo } from "types/index";
-import { promises as fs } from "fs";
+import * as fs from "fs";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
 import { COLORS } from "constants/theme";
@@ -12,15 +11,16 @@ import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
-import { fileURLToPath } from "url";
+
+import twitterPreview from "./layouts/twitter-preview";
+import { Layout } from "./base";
+
+export const layouts: Layout[] = [twitterPreview];
 
 // https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash = (
-	remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault }
-).default
-	?? remarkTwoslashDefault;
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const remarkTwoslash =
+	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
+		.default ?? remarkTwoslashDefault;
 
 const unifiedChain = () => {
 	const unifiedChain = unified()
@@ -62,8 +62,6 @@ async function markdownToHtml(content: string) {
 	return await (await unifiedChain().process(content)).toString();
 }
 
-//const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 	(stylesheetStr, colorKey, i, arr) => {
 		let str = stylesheetStr + `\n--${colorKey}: ${COLORS[colorKey].light};`;
@@ -75,28 +73,17 @@ const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
 
 export const heightWidth = { width: 1280, height: 640 };
 
-const unicornUtterancesHead = readFileAsBase64(
-	resolve(__dirname, "../../src/assets/unicorn_head_1024.png")
-);
+const shikiSCSS = fs.readFileSync("src/styles/shiki.scss", "utf8");
 
-export const renderPostPreviewToString = async (post: PostInfo) => {
-	const shikiSCSS = await fs.readFile(
-		resolve(__dirname, "../../src/styles/shiki.scss"),
-		"utf8"
-	);
-
-	const twitterLargeCardPreviewCSS = await fs.readFile(
-		resolve(__dirname, "./twitter-large-card.css"),
-		"utf8"
-	);
-
-	// This needs to happen here, since otherwise the `import` is stale at runtime,
-	// thus breaking live refresh
-	const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
-		(await import(`./twitter-large-card.js?update=${Date.now()}`)).default;
-
-	const authorImagesStrs = post.authorsMeta.map((author) =>
-		readFileAsBase64(author.profileImgMeta.absoluteFSPath)
+export const renderPostPreviewToString = async (
+	layout: Layout,
+	post: PostInfo
+) => {
+	const authorImageMap = Object.fromEntries(
+		post.authorsMeta.map((author) => [
+			author.id,
+			readFileAsBase64(author.profileImgMeta.absoluteFSPath),
+		])
 	);
 
 	const postHtml = await markdownToHtml(post.contentMeta);
@@ -112,17 +99,16 @@ export const renderPostPreviewToString = async (post: PostInfo) => {
 	${colorsCSS}
 	</style>
 	<style>
-	${twitterLargeCardPreviewCSS}
+	${layout.css}
 	</style>
 	</head>
 	<body>
 	${render(
-		createElement(TwitterLargeCard, {
+		createElement(layout.Component, {
 			post,
 			postHtml,
 			...heightWidth,
-			authorImagesStrs,
-			unicornUtterancesHead,
+			authorImageMap,
 		})
 	)}
 	</body>
