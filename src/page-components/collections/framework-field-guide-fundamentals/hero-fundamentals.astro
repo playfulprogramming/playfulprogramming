@@ -3,6 +3,7 @@ import styles from "./hero-fundamentals.module.scss";
 import LeftTitleSpark from "../framework-field-guide/components/left-title-spark.astro";
 import RightTitleSpark from "../framework-field-guide/components/right-title-spark.astro";
 import Sun from "../framework-field-guide/cover-layers/fundamentals/sun.astro";
+import BigFilledButton from "../framework-field-guide/components/big-filled-button.astro";
 
 ---
 
@@ -24,11 +25,17 @@ import Sun from "../framework-field-guide/cover-layers/fundamentals/sun.astro";
 			<div></div>
 		</div>
 			<div class={`${styles.readNowContainer} ${styles.seriesTitle}`}>
-				<span class={`text-style-headline-5`}>
+				<p class={`text-style-headline-5 ${styles.ffgDescription}`}>
 					This is part one of the <strong>Framework Field Guide</strong>, a three-part series <br>
 					that teaches you Angular, React and Vue all at once.
-				</span>
-				<button class={`${styles.buttonReadNow} text-style-button ffg-button-base ffg-big-button ffg-filled-button`}>Read now</button>
+				</p>
+				<!-- <button class={`${styles.buttonReadNow} text-style-button ffg-button-base ffg-big-button ffg-filled-button`}>Read now</button> -->
+				<div class={`${styles.buttonReadNow}`}>
+					<BigFilledButton
+					href="#"
+					onclick="event.preventDefault();var title=document.getElementById('');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+					>Read now</BigFilledButton>
+				</div>
 			</div>
 	</div>
 </section>
