@@ -1,11 +1,7 @@
 import * as React from 'preact';
 import { readFileAsBase64 } from '../utils';
-import { dirname, resolve } from 'path';
-import * as fs from 'fs';
 import { ComponentProps } from '../base';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import style from './twitter-preview.css';
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -42,9 +38,7 @@ export function splitSentence(str: string): [string, string] {
   return [str, ""];
 }
 
-const unicornUtterancesHead = readFileAsBase64(
-	resolve("src/assets/unicorn_head_1024.png")
-);
+const unicornUtterancesHead = readFileAsBase64("src/assets/unicorn_head_1024.png");
 
 interface TwitterCodeScreenProps {
   title: string;
@@ -131,9 +125,6 @@ const TwitterLargeCard = ({
 
 export default {
   name: "twitter-preview",
-  css: fs.readFileSync(
-		resolve(__dirname, "./twitter-preview.css"),
-		"utf8"
-	),
+  css: style,
   Component: TwitterLargeCard,
 };

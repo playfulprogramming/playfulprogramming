@@ -12,10 +12,11 @@ import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
 
+import banner from "./layouts/banner";
 import twitterPreview from "./layouts/twitter-preview";
 import { Layout } from "./base";
 
-export const layouts: Layout[] = [twitterPreview];
+export const layouts: Layout[] = [banner, twitterPreview];
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
@@ -103,6 +104,8 @@ export const renderPostPreviewToString = async (
 	</style>
 	<style>
 	html, body {
+		margin: 0;
+  		padding: 0;
 		width: ${heightWidth.width}px;
 		height: ${heightWidth.height}px;
 		position: relative;
