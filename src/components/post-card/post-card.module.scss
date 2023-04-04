@@ -4,10 +4,29 @@
 .cardExpanded {
 	display: flex;
 	flex-direction: column;
+	position: relative;
+	justify-content: flex-end;
+	overflow: hidden;
 }
 
 .image {
-	flex-grow: 1;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+
+	height: 100%;
+	opacity: 0.5;
+
+	z-index: -1;
+	mask-image: linear-gradient(to bottom, #000F, #0000);
+	-webkit-mask-image: linear-gradient(to bottom, #000F, #0000);
+	background-color: #FFF;
+
+	@include darkTheme() {
+		filter: invert(1);
+		background-color: #000;
+	}
 }
 
 .meta {

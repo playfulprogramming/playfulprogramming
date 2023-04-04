@@ -7,9 +7,10 @@ type CardProps = PropsWithChildren<{
 	href?: string;
 	class?: string;
 	size?: "xl" | "l" | "m" | "s";
+	style?: string;
 }>;
 
-export function Card({ tag = "div", size = "xl", children, class: className, ...props }: CardProps) {
+export function Card({ tag = "div", size = "xl", children, class: className, href, ...props }: CardProps) {
 	const Wrapper = (props: any) => createElement(tag, {
 		role: tag === "li" ? "listitem" : undefined,
 		...props,
@@ -18,8 +19,8 @@ export function Card({ tag = "div", size = "xl", children, class: className, ...
 	return (
 		<Wrapper class={[
 			style.card, className, style[size],
-			props.href && style.interactive,
-		].filter(c => !!c).join(" ")} onclick={props.href && `location.href='${props.href}'`}>
+			href && style.interactive,
+		].filter(c => !!c).join(" ")} onclick={href && `location.href='${href}'`} {...props}>
 			{children}
 		</Wrapper>
 	);

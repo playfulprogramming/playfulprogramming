@@ -62,8 +62,17 @@ export const PostCardExpanded = ({
 	unicornProfilePicMap,
 }: PostCardProps) => {
 	return (
-		<Card tag="li" href={`/posts/${post.slug}`} class={`${className} ${cardStyles.cardExpanded}`}>
-			<div class={cardStyles.image} />
+		<Card
+			tag="li"
+			href={`/posts/${post.slug}`}
+			class={`${className} ${cardStyles.cardExpanded}`}
+		>
+			<img
+				loading="lazy"
+				src={`/generated/${post.slug}.banner.png`}
+				class={cardStyles.image}
+				alt="Computer code and text on a computer screen"
+			/>
 			<a href={`/posts/${post.slug}`} class={cardStyles.header}>
 				<h2 class={`text-style-headline-2`}>{post.title}</h2>
 			</a>
