@@ -1,15 +1,13 @@
 ---
 import Document from "../../layouts/document.astro";
 import PageView from "src/views/explore/page.astro";
-import { getAllPostsForListView } from "utils/api";
-import { PostInfo } from "types/PostInfo";
+import { getPostsByLang } from "utils/api";
+import { PostInfo } from "types/index";
 import SEO from "components/seo/seo.astro";
 import { Page } from "astro";
 
 export async function getStaticPaths({ paginate }) {
-	const posts = await Astro.glob<PostInfo>("../../../content/blog/**/*.md");
-
-	const postsToDisplay = getAllPostsForListView(posts, "en");
+	const postsToDisplay = getPostsByLang("en");
 
 	return paginate(postsToDisplay, { pageSize: 8 });
 }

@@ -2,11 +2,11 @@
 import tableOfContentsStyle from "./table-of-contents.module.scss";
 // import { useHeadingIntersectionObserver } from "./use-heading-intersection-observer";
 import classnames from "classnames";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import HeadingIntersectionObserverScript from "./heading-intersection-observer-script.astro";
 
 interface TableOfContentsProps {
-	headingsWithId: PostInfo["headingsWithId"];
+	headingsWithId: ExtendedPostInfo["headingsWithId"];
 }
 
 const { headingsWithId } = Astro.props as TableOfContentsProps;

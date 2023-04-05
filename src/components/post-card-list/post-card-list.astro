@@ -1,7 +1,7 @@
 ---
 import listStyle from "./post-card-list.module.scss";
 import { PostCard } from "../post-card/post-card";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 // import { PostListContext } from "constants/post-list-context";
 
@@ -9,9 +9,9 @@ export interface PostListProps {
 	showWordCount?: boolean;
 	numberOfArticles?: number;
 	wordCount?: number;
-	unicornData?: PostInfo["authorsMeta"];
+	unicornData?: ExtendedPostInfo["authorsMeta"];
 	listAriaLabel: string;
-	postsToDisplay: PostInfo[];
+	postsToDisplay: ExtendedPostInfo[];
 	unicornProfilePicMap: ProfilePictureMap;
 }
 /**

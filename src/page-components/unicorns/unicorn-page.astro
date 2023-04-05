@@ -2,7 +2,7 @@
 import PostList from "components/post-card-list/post-card-list.astro";
 import { Pagination } from "components/pagination/pagination";
 import { Page } from "astro";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import ProfileHeader from "./profile-header/profile-header.astro";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
@@ -11,11 +11,11 @@ import { UnicornInfo } from "types/UnicornInfo";
 
 export interface UnicornTemplateProps {
 	unicorn: UnicornInfo;
-	posts: PostInfo[];
-	allPosts: PostInfo[];
+	posts: ExtendedPostInfo[];
+	allPosts: ExtendedPostInfo[];
 	rootURL: string;
 	page: Pick<
-		Page<PostInfo>,
+		Page<ExtendedPostInfo>,
 		"total" | "currentPage" | "size" | "lastPage" | "url"
 	>;
 }

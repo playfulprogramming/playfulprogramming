@@ -2,19 +2,19 @@
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import * as data from "src/utils/data";
 import { LargeButton, Button, Tag } from "components/base";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./homepage.module.scss";
 import { Icon } from "astro-icon";
 import { translate } from "utils/translations";
-import { CollectionInfo } from "types/CollectionInfo";
+import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import CollectionCard from "components/collection-card/collection-card.astro";
 import SearchBarLite from "../search/search-bar-lite/search-bar-lite.astro";
 import BannerStickersGroup from "components/banner-stickers/banner-stickers-group.astro";
 
 export interface HomepageProps {
-	posts: PostInfo[];
-	collections: CollectionInfo[];
+	posts: ExtendedPostInfo[];
+	collections: ExtendedCollectionInfo[];
 }
 
 const { posts, collections } = Astro.props as HomepageProps;

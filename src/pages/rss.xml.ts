@@ -1,9 +1,9 @@
 import { Feed } from "feed";
 import { MarkdownInstance } from "astro";
 import { siteUrl } from "constants/site-config";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
-const postImportResult = import.meta.glob<MarkdownInstance<PostInfo>>(
+const postImportResult = import.meta.glob<MarkdownInstance<ExtendedPostInfo>>(
 	"../../content/blog/**/*.md",
 	{ eager: true }
 );

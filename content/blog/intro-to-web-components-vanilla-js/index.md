@@ -8,7 +8,7 @@
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',
-    series: "Web Components 101",
+    series: "web-components-101",
     order: 2
 }
 ---

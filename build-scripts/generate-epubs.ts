@@ -8,14 +8,18 @@ import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug-custom-id";
 import { UserConfigSettings } from "shiki-twoslash";
 import { collections, unicorns } from "../src/utils/data";
-import { getAllPosts } from "../src/utils/get-all-posts";
+import { getAllExtendedPosts } from "../src/utils/get-all-posts";
 import { join, resolve } from "path";
 import { visit } from "unist-util-visit";
 import { Element, Root } from "hast";
 import { isRelativePath } from "../src/utils/url-paths";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
-import { CollectionInfo, PostInfo, RawCollectionInfo } from "types/index";
+import {
+	CollectionInfo,
+	ExtendedPostInfo,
+	RawCollectionInfo,
+} from "types/index";
 
 function rehypeMakeImagePathsAbsolute(options: { path: string }) {
 	return (tree: Root) => {
@@ -84,7 +88,9 @@ function rehypeMakeFixTwoSlashXHTML() {
 }
 
 // https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash = (remarkTwoslashDefault as never as {default: typeof remarkTwoslashDefault}).default ?? remarkTwoslashDefault;
+const remarkTwoslash =
+	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
+		.default ?? remarkTwoslashDefault;
 
 async function generateEpubHTML(slug: string, content: string) {
 	const unifiedChain = unified()
@@ -137,7 +143,7 @@ type EpubOptions = ConstructorParameters<typeof EPub>[0];
 
 async function generateCollectionEPub(
 	collection: RawCollectionInfo & Pick<CollectionInfo, "coverImgMeta">,
-	collectionPosts: PostInfo[],
+	collectionPosts: ExtendedPostInfo[],
 	fileLocation: string
 ) {
 	const authors = collection.authors.map((id) => {
@@ -207,11 +213,11 @@ async function generateCollectionEPub(
 	await epub.render();
 }
 
-const posts = getAllPosts("en");
+const posts = [...getAllExtendedPosts("en")];
 
 for (const collection of collections) {
 	const collectionPosts = posts.filter(
-		(post) => post.collectionSlug === collection.slug
+		(post) => post.series === collection.slug
 	);
 
 	generateCollectionEPub(

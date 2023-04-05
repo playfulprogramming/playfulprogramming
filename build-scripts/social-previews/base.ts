@@ -1,8 +1,8 @@
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import * as React from "react";
 
 export type ComponentProps = {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 	postHtml: string;
 	height: number;
 	width: number;

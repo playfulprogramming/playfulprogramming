@@ -2,8 +2,8 @@ import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
-import { getPosts } from "utils/get-all-posts";
-import { PostInfo } from "types/index";
+import { getAllExtendedPosts } from "utils/get-all-posts";
+import { ExtendedPostInfo } from "types/index";
 import { layouts, renderPostPreviewToString } from "./shared-post-preview-png";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 
@@ -60,7 +60,7 @@ const browser: Promise<puppeteer.Browser> = chromium.puppeteer.launch({
 
 const page: Promise<puppeteer.Page> = browser.then((b) => b.newPage());
 
-async function renderPostImage(layout: Layout, post: PostInfo) {
+async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
@@ -81,7 +81,7 @@ const build = async () => {
 	 * This is done synchronously, in order to prevent more than a single instance
 	 * of the browser from running at the same time.
 	 */
-	for (const post of getPosts("en")) {
+	for (const post of getAllExtendedPosts("en")) {
 		for (const layout of layouts) {
 			const buffer = await renderPostImage(layout, post);
 			await fsPromises.writeFile(

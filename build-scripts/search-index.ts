@@ -1,10 +1,10 @@
 import Fuse from "fuse.js";
-import { getAllPosts } from "../src/utils/get-all-posts";
+import { getAllExtendedPosts } from "../src/utils/get-all-posts";
 
 import * as fs from "fs";
 import * as path from "path";
 
-const posts = getAllPosts("en");
+const posts = [...getAllExtendedPosts("en")];
 
 export const createIndex = async () => {
 	return Fuse.createIndex(

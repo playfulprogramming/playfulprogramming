@@ -1,19 +1,18 @@
 ---
 import styles from "./series-toc.module.scss";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
 import SeriesToCListItem from "./series-toc-list-item.astro";
 import { seperatePostsIntoThirds } from "./base";
+import { CollectionInfo } from "types/CollectionInfo";
 
 interface SeriesTocProps {
-	post: PostInfo;
-	postSeries: PostInfo[];
-	collectionSlug?: string | null;
+	post: ExtendedPostInfo;
+	postSeries: ExtendedPostInfo[];
+	collection?: CollectionInfo;
 }
 
-const { post, postSeries, collectionSlug } = Astro.props as SeriesTocProps;
-
-const seriesText = `Part of our series: ${post.series}`;
+const { post, postSeries, collection } = Astro.props as SeriesTocProps;
 
 const { firstPosts, middlePosts, lastPosts } =
 	seperatePostsIntoThirds(postSeries);
@@ -26,10 +25,12 @@ const isActiveInMiddle = middlePosts.some(
 <div class={styles.seriesTableOfContent}>
 	<div class={styles.seriesHeader}>
 		{
-			collectionSlug ? (
-				<a href={`/collections/${collectionSlug}`}>{seriesText}</a>
+			collection ? (
+				<a href={`/collections/${collection.slug}`}>
+					Part of our series: {collection.title}
+				</a>
 			) : (
-				seriesText
+				`Part of our series: ${post.series}`
 			)
 		}
 	</div>

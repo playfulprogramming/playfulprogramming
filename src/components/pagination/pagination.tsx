@@ -1,10 +1,9 @@
 import { usePaginationRange } from "./pagination-logic";
 import { Page } from "astro";
-import { PostInfo } from "types/PostInfo";
 import styles from "./pagination.module.scss";
 
 interface PaginationProps {
-	page: Pick<Page<PostInfo>, "total" | "currentPage" | "size">;
+	page: Pick<Page<any>, "total" | "currentPage" | "size">;
 	class?: string;
 	id?: string;
 	rootURL: string;

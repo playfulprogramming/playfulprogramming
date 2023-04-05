@@ -4,7 +4,6 @@ import { UnicornInfo } from "./UnicornInfo";
 
 export interface RawCollectionInfo {
 	title: string;
-	associatedSeries: string;
 	description: string;
 	authors: string[];
 	coverImg: string;
@@ -31,6 +30,9 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
+}
+
+export interface ExtendedCollectionInfo extends CollectionInfo {
 	locale: Languages;
 	authorsMeta: UnicornInfo[];
 	Content: MarkdownInstance<never>["Content"];

@@ -1,18 +1,17 @@
 // TODO: Add click back to `li`
 // TODO: Make user-profile-pic clickable again
 import cardStyles from "./post-card.module.scss";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Tag } from "components/base";
 import { Card } from "components/base/card/card";
-import { Picture } from "components/base/image/picture";
 import { UnicornTagSmall } from "components/unicorn-tag/unicorn-tag";
 import calendar from "src/icons/calendar.svg?raw";
 
 interface PostCardProps {
 	post: Pick<
 		PostInfo,
-		"publishedMeta" | "slug" | "title" | "tags" | "description" | "excerpt" | "wordCount"
+		"publishedMeta" | "slug" | "title" | "tags" | "description"
 	> & {
 		authorsMeta: Array<
 			Pick<PostInfo["authorsMeta"][number], "id" | "color" | "name">
@@ -39,12 +38,12 @@ function PostCardMeta({
 			</ul>
 			<p class={`d-flex gap-1 ${cardStyles.date}`}>
 				<span class="d-flex" dangerouslySetInnerHTML={{ __html: calendar }} />
-				{post.publishedMeta} &middot; {post.wordCount} words
+				{post.publishedMeta}
 			</p>
 		</div>
 		<p
 			class={cardStyles.excerpt}
-			dangerouslySetInnerHTML={{ __html: post.description || post.excerpt }}
+			dangerouslySetInnerHTML={{ __html: post.description }}
 		></p>
 		<ul class="unlist-inline gap-2">
 			{post.tags.map((tag) => (

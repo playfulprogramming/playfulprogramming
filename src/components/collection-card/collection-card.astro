@@ -7,12 +7,13 @@ import { Button } from "components/base";
 import { Icon } from "astro-icon";
 import { Picture } from "@astrojs/image/components";
 import { getFullRelativePath } from "utils/url-paths";
-import { CollectionInfo, PostInfo } from "types/index";
+import { ExtendedCollectionInfo } from "types/index";
 import { translate } from "utils/translations";
+import { getPostsBySeries } from "utils/api";
 
 type CollectionCardProps = {
 	collection: Pick<
-		CollectionInfo,
+		ExtendedCollectionInfo,
 		| "title"
 		| "description"
 		| "slug"
@@ -31,12 +32,7 @@ const coverImgPath = getFullRelativePath(
 	collection.coverImg
 );
 
-const posts = await Astro.glob<PostInfo>("../../../content/blog/**/index.md");
-
-const collectionPosts = posts
-	.map((post) => post.frontmatter)
-	.filter((post) => post.collectionSlug === collection.slug)
-	.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
+const collectionPosts = getPostsBySeries(collection.slug, "en");
 ---
 
 <CardSolid class={style.container}>

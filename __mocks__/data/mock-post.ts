@@ -1,8 +1,8 @@
 import { MockUnicorn, MockUnicornTwo } from "./mock-unicorn";
 import { MockLicense } from "./mock-license";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
-export const MockPost: PostInfo = {
+export const MockPost: ExtendedPostInfo = {
 	excerpt: "This would be an auto generated excerpt of the post in particular",
 	title: "Post title",
 	published: "10-10-2010T00:00:00.000Z",
@@ -14,6 +14,7 @@ export const MockPost: PostInfo = {
 	license: MockLicense.id,
 	licenseMeta: MockLicense,
 	locale: "en",
+	locales: ["en", "es"],
 	slug: "this-post-name-here",
 	headingsWithId: [],
 	wordCount: 10000,
@@ -26,7 +27,7 @@ export const MockPost: PostInfo = {
 	attached: [],
 };
 
-export const MockMultiAuthorPost: PostInfo = {
+export const MockMultiAuthorPost: ExtendedPostInfo = {
 	excerpt:
 		"This would be a second auto generated excerpt of the post in particular",
 	title: "Another post title",
@@ -40,6 +41,7 @@ export const MockMultiAuthorPost: PostInfo = {
 	license: MockLicense.id,
 	licenseMeta: MockLicense,
 	locale: "en",
+	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
 	headingsWithId: [],
 	wordCount: 100000,
@@ -52,7 +54,7 @@ export const MockMultiAuthorPost: PostInfo = {
 	attached: [],
 };
 
-export const MockMuliLanguagePost: PostInfo = {
+export const MockMuliLanguagePost: ExtendedPostInfo = {
 	excerpt:
 		"This would be a second auto generated excerpt of the post in particular",
 	title: "Another post title",
@@ -66,6 +68,7 @@ export const MockMuliLanguagePost: PostInfo = {
 	license: MockLicense.id,
 	licenseMeta: MockLicense,
 	locale: "en",
+	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
 	headingsWithId: [],
 	wordCount: 100000,
@@ -78,7 +81,7 @@ export const MockMuliLanguagePost: PostInfo = {
 	attached: [],
 };
 
-export const MockCanonicalPost: PostInfo = {
+export const MockCanonicalPost: ExtendedPostInfo = {
 	excerpt:
 		"This would be a second auto generated excerpt of the post in particular",
 	title: "Another post title",
@@ -93,6 +96,7 @@ export const MockCanonicalPost: PostInfo = {
 	license: MockLicense.id,
 	licenseMeta: MockLicense,
 	locale: "en",
+	locales: ["en", "es"],
 	slug: "this-other-post-name-here",
 	headingsWithId: [],
 	wordCount: 100000,

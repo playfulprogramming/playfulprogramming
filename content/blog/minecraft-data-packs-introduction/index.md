@@ -7,7 +7,7 @@
 	tags: [],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "Minecraft Data Pack Programming",
+	series: "minecraft-data-packs",
 	order: 1
 }
 ---

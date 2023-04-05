@@ -6,8 +6,7 @@
  */
 import { rehypeUnicornPopulatePost } from "./markdown/rehype-unicorn-populate-post";
 import { postsDirectory, posts } from "./data";
-import { Languages, PostInfo } from "types/index";
-import * as fs from "fs";
+import { Languages, ExtendedPostInfo } from "types/index";
 import * as path from "path";
 
 const getIndexPath = (lang: Languages) => {
@@ -15,37 +14,32 @@ const getIndexPath = (lang: Languages) => {
 	return indexPath;
 };
 
-export function getPostSlugs(lang: Languages) {
-	return [...getPosts(lang)].map((post) => post.slug);
+export function getExtendedPost(
+	slug: string,
+	lang: Languages
+): ExtendedPostInfo {
+	const indexFile = path.resolve(postsDirectory, slug, getIndexPath(lang));
+	const file = {
+		path: indexFile,
+		data: {
+			astro: {
+				frontmatter: {},
+			},
+		},
+	};
+
+	(rehypeUnicornPopulatePost as any)()(undefined, file);
+
+	return {
+		...((file.data.astro.frontmatter as any) || {}).frontmatterBackup,
+		...file.data.astro.frontmatter,
+	};
 }
 
-export function* getPosts(lang: Languages) {
+export function* getAllExtendedPosts(lang: Languages) {
 	for (const post of posts) {
-		const indexFile = path.resolve(
-			postsDirectory,
-			post.slug,
-			getIndexPath(lang)
-		);
-		if (!fs.existsSync(indexFile)) continue;
+		if (post.locale !== lang) continue;
 
-		const file = {
-			path: indexFile,
-			data: {
-				astro: {
-					frontmatter: {},
-				},
-			},
-		};
-
-		(rehypeUnicornPopulatePost as any)()(undefined, file);
-
-		yield {
-			...((file.data.astro.frontmatter as any) || {}).frontmatterBackup,
-			...file.data.astro.frontmatter,
-		};
+		yield getExtendedPost(post.slug, lang);
 	}
 }
-
-export const getAllPosts = (lang: Languages): PostInfo[] => {
-	return [...getPosts(lang)];
-};

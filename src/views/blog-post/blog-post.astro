@@ -8,7 +8,7 @@ import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
@@ -21,16 +21,16 @@ import { getPrefixLanguageFromPath } from "utils/translations";
 import { PostCardSmall } from "components/post-card/post-card-small";
 
 const { Content, post, posts } = Astro.props as {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 	Content: MarkdownInstance<any>["Content"];
-	posts: MarkdownInstance<PostInfo>[];
+	posts: MarkdownInstance<ExtendedPostInfo>[];
 };
 
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 
-let seriesPosts: PostInfo[] = [];
+let seriesPosts: ExtendedPostInfo[] = [];
 if (post.series && post.order) {
 	seriesPosts = posts
 		.filter(
@@ -83,7 +83,7 @@ if (post.series && post.order) {
 				<SeriesToC
 					post={post}
 					postSeries={seriesPosts}
-					collectionSlug={post.collectionSlug}
+					collection={post.collectionMeta}
 				/>
 			) : null
 		}

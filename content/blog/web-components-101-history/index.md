@@ -8,7 +8,7 @@
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-history/',
-    series: "Web Components 101",
+    series: "web-components-101",
     order: 1
 }
 ---

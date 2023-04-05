@@ -3,16 +3,16 @@ import PostListHeader from "./post-list-header/post-list-header.astro";
 import PostList from "components/post-card-list/post-card-list.astro";
 import FilterSearchBar from "components/filter-search-bar/filter-search-bar.astro";
 import { siteMetadata } from "constants/site-config";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import { Page } from "astro";
 import { Pagination } from "components/pagination/pagination";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
 export interface PostListTemplateProps {
-	posts: PostInfo[];
+	posts: ExtendedPostInfo[];
 	rootURL: string;
 	page: Pick<
-		Page<PostInfo>,
+		Page<ExtendedPostInfo>,
 		"total" | "currentPage" | "size" | "lastPage" | "url"
 	>;
 }

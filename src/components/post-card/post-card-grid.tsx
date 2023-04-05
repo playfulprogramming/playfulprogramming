@@ -1,10 +1,9 @@
 import style from "./post-card-grid.module.scss";
 import { PostCard, PostCardExpanded } from "./post-card";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 export interface PostGridProps {
-	unicornData?: PostInfo["authorsMeta"];
 	listAriaLabel: string;
 	postsToDisplay: PostInfo[];
 	unicornProfilePicMap: ProfilePictureMap;

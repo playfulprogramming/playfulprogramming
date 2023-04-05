@@ -1,6 +1,6 @@
 ---
 import style from "./post-title-header.module.scss";
-import { PostInfo } from "types/index";
+import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Tag } from "components/base";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { Picture } from "components/base/image/picture";
 
 interface PostTitleHeaderProps {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 }
 const { post } = Astro.props as PostTitleHeaderProps;
 const { title, tags } = post;

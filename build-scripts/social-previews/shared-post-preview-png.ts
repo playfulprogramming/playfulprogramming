@@ -1,5 +1,5 @@
 import { readFileAsBase64 } from "./utils";
-import { PostInfo } from "types/index";
+import { ExtendedPostInfo } from "types/index";
 import * as fs from "fs";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
@@ -66,7 +66,7 @@ const shikiSCSS = fs.readFileSync("src/styles/shiki.scss", "utf8");
 
 export const renderPostPreviewToString = async (
 	layout: Layout,
-	post: PostInfo
+	post: ExtendedPostInfo
 ) => {
 	const authorImageMap = Object.fromEntries(
 		post.authorsMeta.map((author) => [
