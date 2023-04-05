@@ -9,6 +9,7 @@ import {
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
+import { isNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
@@ -66,8 +67,8 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
-function getPosts(): Array<RawPostInfo> {
-	const slugs = fs.readdirSync(postsDirectory);
+function getPosts(): Array<RawPostInfo & { slug: string }> {
+	const slugs = fs.readdirSync(postsDirectory).filter(isNotJunk);
 	return slugs.map((slug) => {
 		const fileContents = fs.readFileSync(
 			join(postsDirectory, slug, "index.md"),
@@ -76,7 +77,10 @@ function getPosts(): Array<RawPostInfo> {
 
 		const frontmatter = matter(fileContents).data as RawPostInfo;
 
-		return frontmatter;
+		return {
+			...frontmatter,
+			slug,
+		};
 	});
 }
 
@@ -85,7 +89,7 @@ const posts = getPosts();
 function getCollections(): Array<
 	RawCollectionInfo & Pick<CollectionInfo, "slug" | "coverImgMeta">
 > {
-	const slugs = fs.readdirSync(collectionsDirectory);
+	const slugs = fs.readdirSync(collectionsDirectory).filter(isNotJunk);
 	const collections = slugs.map((slug) => {
 		const fileContents = fs.readFileSync(
 			join(collectionsDirectory, slug, "index.md"),

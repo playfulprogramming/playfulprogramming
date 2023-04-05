@@ -3,7 +3,7 @@ export default `
 
 * {
   font-family: "Work Sans";
-  color: var(--white);
+  color: #FFF;
 }
 
 .codeScreenOverlay, .codeScreenBg {

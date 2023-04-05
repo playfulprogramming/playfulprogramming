@@ -14,3 +14,6 @@ export type Layout = {
 	css: string;
 	Component: React.FunctionComponent<ComponentProps>;
 };
+
+export const PAGE_WIDTH = 1280;
+export const PAGE_HEIGHT = 640;

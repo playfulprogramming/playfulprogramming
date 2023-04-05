@@ -3,7 +3,6 @@ import { PostInfo } from "types/index";
 import * as fs from "fs";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
-import { COLORS } from "constants/theme";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -14,7 +13,7 @@ import rehypeStringify from "rehype-stringify";
 
 import banner from "./layouts/banner";
 import twitterPreview from "./layouts/twitter-preview";
-import { Layout } from "./base";
+import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 
 export const layouts: Layout[] = [banner, twitterPreview];
 
@@ -63,17 +62,6 @@ async function markdownToHtml(content: string) {
 	return await (await unifiedChain().process(content)).toString();
 }
 
-const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
-	(stylesheetStr, colorKey, i, arr) => {
-		let str = stylesheetStr + `\n--${colorKey}: ${COLORS[colorKey].light};`;
-		if (i === arr.length - 1) str += "\n}";
-		return str;
-	},
-	":root {\n"
-);
-
-export const heightWidth = { width: 1280, height: 640 };
-
 const shikiSCSS = fs.readFileSync("src/styles/shiki.scss", "utf8");
 
 export const renderPostPreviewToString = async (
@@ -95,19 +83,14 @@ export const renderPostPreviewToString = async (
 	<head>
 	<style>
 	${shikiSCSS}
-	</style>
-	<style>
-	${colorsCSS}
-	</style>
-	<style>
+
 	${layout.css}
-	</style>
-	<style>
+
 	html, body {
 		margin: 0;
   		padding: 0;
-		width: ${heightWidth.width}px;
-		height: ${heightWidth.height}px;
+		width: ${PAGE_WIDTH}px;
+		height: ${PAGE_HEIGHT}px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -118,7 +101,8 @@ export const renderPostPreviewToString = async (
 		createElement(layout.Component, {
 			post,
 			postHtml,
-			...heightWidth,
+			width: PAGE_WIDTH,
+			height: PAGE_HEIGHT,
 			authorImageMap,
 		})
 	)}

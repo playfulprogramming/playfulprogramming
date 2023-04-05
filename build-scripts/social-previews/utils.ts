@@ -17,10 +17,10 @@ const extTypeMap = {
 };
 
 export function readFileAsBase64(file: string) {
-	const image = fs.readFileSync(file);
+	const image = fs.readFileSync(file, { encoding: "base64" });
 	const contentType =
 		extTypeMap[path.extname(file) as keyof typeof extTypeMap] || "image/jpeg";
-	return `data:${contentType};base64,${image.toString("base64")}`;
+	return `data:${contentType};base64,${image}`;
 }
 
 export function ensureDirectoryExistence(filePath: string) {

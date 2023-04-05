@@ -2,17 +2,10 @@ import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
-import { getAllPosts } from "utils/get-all-posts";
+import { getPosts } from "utils/get-all-posts";
 import { PostInfo } from "types/index";
-import {
-	layouts,
-	heightWidth,
-	renderPostPreviewToString,
-} from "./shared-post-preview-png";
-import { Layout } from "./base";
-
-let browser: puppeteer.Browser;
-let page: puppeteer.Page;
+import { layouts, renderPostPreviewToString } from "./shared-post-preview-png";
+import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 
 const browser_args = [
 	"--autoplay-policy=user-gesture-required",
@@ -53,27 +46,33 @@ const browser_args = [
 	"--disable-web-security",
 ];
 
-const createPostSocialPreviewPng = async (layout: Layout, post: PostInfo) => {
-	if (!browser) {
-		browser = await chromium.puppeteer.launch({
-			args: [...chromium.args, ...browser_args],
-			defaultViewport: chromium.defaultViewport,
-			executablePath: await chromium.executablePath,
-			headless: true,
-			ignoreHTTPSErrors: true,
-			userDataDir: "./.puppeteer",
-		});
-		page = await browser.newPage();
-		await page.setViewport(heightWidth);
-	}
+const browser: Promise<puppeteer.Browser> = chromium.puppeteer.launch({
+	args: [...chromium.args, ...browser_args],
+	defaultViewport: {
+		width: PAGE_WIDTH,
+		height: PAGE_HEIGHT,
+	},
+	executablePath: await chromium.executablePath,
+	headless: true,
+	ignoreHTTPSErrors: true,
+	userDataDir: "./.puppeteer",
+});
 
-	await page.setContent(await renderPostPreviewToString(layout, post));
-	return (await page.screenshot({ type: "jpeg" })) as Buffer;
-};
+const page: Promise<puppeteer.Page> = browser.then((b) => b.newPage());
+
+async function renderPostImage(layout: Layout, post: PostInfo) {
+	const label = `${post.slug} (${layout.name})`;
+	console.time(label);
+
+	const browserPage = await page;
+	await browserPage.setContent(await renderPostPreviewToString(layout, post));
+	const buffer = (await browserPage.screenshot({ type: "jpeg" })) as Buffer;
+
+	console.timeEnd(label);
+	return buffer;
+}
 
 const build = async () => {
-	const posts = getAllPosts("en");
-
 	// Relative to root
 	const outDir = resolve(process.cwd(), "./public/generated");
 	await fsPromises.mkdir(outDir, { recursive: true });
@@ -82,19 +81,17 @@ const build = async () => {
 	 * This is done synchronously, in order to prevent more than a single instance
 	 * of the browser from running at the same time.
 	 */
-	for (const post of posts) {
+	for (const post of getPosts("en")) {
 		for (const layout of layouts) {
-			const png = await createPostSocialPreviewPng(layout, post);
-
+			const buffer = await renderPostImage(layout, post);
 			await fsPromises.writeFile(
 				resolve(outDir, `${post.slug}.${layout.name}.jpg`),
-				png
+				buffer
 			);
 		}
-		console.log(post.slug);
 	}
 
-	await browser.close();
+	await (await browser).close();
 };
 
 // For non-prod builds, this isn't needed

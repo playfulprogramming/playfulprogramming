@@ -5,8 +5,7 @@
  * when the Astro runtime isn't available, such as getting suggested articles and other instances.
  */
 import { rehypeUnicornPopulatePost } from "./markdown/rehype-unicorn-populate-post";
-import { isNotJunk } from "junk";
-import { postsDirectory } from "./data";
+import { postsDirectory, posts } from "./data";
 import { Languages, PostInfo } from "types/index";
 import * as fs from "fs";
 import * as path from "path";
@@ -17,20 +16,20 @@ const getIndexPath = (lang: Languages) => {
 };
 
 export function getPostSlugs(lang: Languages) {
-	// Avoid errors trying to read from `.DS_Store` files
-	return fs
-		.readdirSync(postsDirectory)
-		.filter(isNotJunk)
-		.filter((dir) =>
-			fs.existsSync(path.resolve(postsDirectory, dir, getIndexPath(lang)))
-		);
+	return [...getPosts(lang)].map((post) => post.slug);
 }
 
-export const getAllPosts = (lang: Languages): PostInfo[] => {
-	const slugs = getPostSlugs(lang);
-	return slugs.map((slug) => {
+export function* getPosts(lang: Languages) {
+	for (const post of posts) {
+		const indexFile = path.resolve(
+			postsDirectory,
+			post.slug,
+			getIndexPath(lang)
+		);
+		if (!fs.existsSync(indexFile)) continue;
+
 		const file = {
-			path: path.join(postsDirectory, slug, getIndexPath(lang)),
+			path: indexFile,
 			data: {
 				astro: {
 					frontmatter: {},
@@ -40,9 +39,13 @@ export const getAllPosts = (lang: Languages): PostInfo[] => {
 
 		(rehypeUnicornPopulatePost as any)()(undefined, file);
 
-		return {
+		yield {
 			...((file.data.astro.frontmatter as any) || {}).frontmatterBackup,
 			...file.data.astro.frontmatter,
 		};
-	});
+	}
+}
+
+export const getAllPosts = (lang: Languages): PostInfo[] => {
+	return [...getPosts(lang)];
 };
