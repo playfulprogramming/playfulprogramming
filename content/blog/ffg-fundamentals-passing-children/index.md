@@ -915,7 +915,7 @@ import FileTableBody from './FileTableBody.vue';
 
 --------------
 
-Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which utilizes content projection to style the underlying `table` element.
+Now that we have an explicit `FileTable` component, let's see if we're able to style it a bit more with a replacement `FileTableContainer` component, which utilizes passing children to style the underlying `table` element.
 
 <!-- tabs:start -->
 
@@ -987,9 +987,7 @@ import FileTableBody from './FileTableBody.vue';
 
 # Challenge
 
-Let's pretend that on top of passing the table's body contents, we also want to pass a table's header.
-
-While we _could_ simply pass the table as a `child`:
+Let's make this chapters' challenge a continuation on the table that we just built in the last section. See, our previous table only had the files themselves, not the header. Let's change that by adding in a second set of children we can pass, like so:
 
 ```jsx
 <table>
@@ -997,10 +995,6 @@ While we _could_ simply pass the table as a `child`:
    <FileList/>
 </table>
 ```
-
- What happens if we want to apply custom styling to our `FileHeader` and apply it universally to all instances of a `table`'s `thead`?
-
-This is where a named content projection would come in handy.
 
 <!-- tabs:start -->
 
