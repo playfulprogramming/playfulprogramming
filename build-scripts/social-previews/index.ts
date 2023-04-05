@@ -78,7 +78,7 @@ async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
 
 // Relative to root
 const outDir = resolve(process.cwd(), "./public");
-await fsPromises.mkdir(outDir, { recursive: true });
+await fsPromises.mkdir(resolve(outDir, "./generated"), { recursive: true });
 
 /**
  * This is done synchronously, in order to prevent more than a single instance
