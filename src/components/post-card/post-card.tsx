@@ -69,7 +69,7 @@ export const PostCardExpanded = ({
 		>
 			<img
 				loading="lazy"
-				src={`/generated/${post.slug}.banner.png`}
+				src={`/generated/${post.slug}.banner.jpg`}
 				class={cardStyles.image}
 				alt="Computer code and text on a computer screen"
 			/>
