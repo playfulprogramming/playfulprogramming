@@ -13,6 +13,7 @@ import twitterPreview from "./layouts/twitter-preview";
 if (process.env.BUILD_ENV === "dev") process.exit(0);
 
 const browser_args = [
+	"--allow-running-insecure-content",
 	"--autoplay-policy=user-gesture-required",
 	"--disable-background-networking",
 	"--disable-background-timer-throttling",
@@ -24,7 +25,7 @@ const browser_args = [
 	"--disable-dev-shm-usage",
 	"--disable-domain-reliability",
 	"--disable-extensions",
-	"--disable-features=AudioServiceOutOfProcess",
+	"--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process",
 	"--disable-hang-monitor",
 	"--disable-ipc-flooding-protection",
 	"--disable-notifications",
@@ -34,10 +35,15 @@ const browser_args = [
 	"--disable-prompt-on-repost",
 	"--disable-renderer-backgrounding",
 	"--disable-setuid-sandbox",
+	"--disable-site-isolation-trials",
 	"--disable-speech-api",
 	"--disable-sync",
+	"--disable-web-security",
+	"--disk-cache-size=33554432",
+	"--enable-features=SharedArrayBuffer",
 	"--hide-scrollbars",
-	"--ignore-gpu-blacklist",
+	"--ignore-gpu-blocklist",
+	"--in-process-gpu",
 	"--metrics-recording-only",
 	"--mute-audio",
 	"--no-default-browser-check",
@@ -49,10 +55,11 @@ const browser_args = [
 	"--use-gl=swiftshader",
 	"--use-mock-keychain",
 	"--disable-web-security",
+	"--window-size=1920,1080",
 ];
 
 const browser: puppeteer.Browser = await chromium.puppeteer.launch({
-	args: [...chromium.args, ...browser_args],
+	args: browser_args,
 	defaultViewport: {
 		width: PAGE_WIDTH,
 		height: PAGE_HEIGHT,
@@ -69,7 +76,7 @@ async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
-	page.setContent(await renderPostPreviewToString(layout, post));
+	await page.setContent(await renderPostPreviewToString(layout, post));
 	const buffer = (await page.screenshot({ type: "jpeg" })) as Buffer;
 
 	console.timeEnd(label);
