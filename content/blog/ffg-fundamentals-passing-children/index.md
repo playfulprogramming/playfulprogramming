@@ -469,7 +469,180 @@ As you can see, we can use any features inside of our `children` - even other co
 
 # Named Children
 
-// TODO: Write from scratch
+While passing one set of elements is useful in its own right, many components require there two be more than one "slot" of data you can pass.
+
+For example, take this dropdown component:
+
+
+<details>
+<summary>Let's build this dropdown component</summary>
+These tend to be useful for FAQ pages, hidden contents, and more!
+</details>
+
+This dropdown component has two potential places where passing elements would be very useful:
+
+```html
+<Dropdown>
+	<DropdownHeader>Let's build this dropdown component</DropdownHeader>
+	<DropdownBody>These tend to be useful for FAQ pages, hidden contents, and more!</DropdownBody>
+</Dropdown>
+```
+
+Let's build this component with a similar API to the above using "named children".
+
+<!-- tabs:start -->
+
+## React
+
+Something worth reminding is that JSX constructs a value, just like a number or string, that you can then store to a variable.
+
+```jsx
+const table = <p>Test</p>;
+```
+
+This can be passed to a function, like `console.log`, or anything any other JavaScript value can do.
+
+```jsx
+console.log(<p>Test</p>); // ReactElement
+```
+
+Because of this behavior, in order to pass more than one JSX value to a component, we can use function parameters and pass them that way.
+
+```jsx
+const Dropdown = ({ children, header, expanded, toggle }) => {
+  return (
+    <>
+      <button
+        onClick={toggle}
+        aria-expanded={expanded}
+        aria-controls="dropdown-contents"
+      >
+        {expanded ? '🡇' : '🡆'} {header}
+      </button>
+      <div id="dropdown-contents" role="region" hidden={!expanded}>
+        {children}
+      </div>
+    </>
+  );
+};
+
+export default function App() {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <Dropdown
+      expanded={expanded}
+      toggle={() => setExpanded(!expanded)}
+      header={<>Let's build this dropdown component</>}
+    >
+      These tend to be useful for FAQ pages, hidden contents, and more!
+    </Dropdown>
+  );
+}
+```
+
+## Angular
+
+`ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
+
+```typescript
+@Component({
+  selector: 'dropdown',
+  standalone: true,
+  template: `
+  <button (click)="toggle.emit()" :aria-expanded="expanded" aria-controls="dropdown-contents">
+    {{ expanded ? '🡇' : '🡆' }} <ng-content select="[header]"/>
+  </button>
+  <div id="dropdown-contents" role="region" [hidden]="!expanded">
+  <ng-content/>
+  </div>
+    `,
+})
+export class DropdownComponent {
+  @Input() expanded: boolean;
+  @Output() toggle = new EventEmitter();
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [DropdownComponent],
+  template: `
+  <dropdown [expanded]="expanded" (toggle)="expanded = !expanded">
+    <ng-container header>Let's build this dropdown component</ng-container>
+    These tend to be useful for FAQ pages, hidden contents, and more!
+  </dropdown>
+    `,
+})
+class AppComponent {
+  expanded = false;
+}
+```
+
+Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
+
+## Vue
+
+Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
+
+```vue
+<!-- Dropdown.vue -->
+<template>
+  <button @click="emit('toggle')" :aria-expanded="expanded" aria-controls="dropdown-contents">
+    {{ props.expanded ? '🡇' : '🡆' }} <slot name="header" />
+  </button>
+  <div id="dropdown-contents" role="region" :hidden="!props.expanded">
+    <slot />
+  </div>
+</template>
+
+<script setup>
+const props = defineProps(['expanded'])
+
+const emit = defineEmits(['toggle'])
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
+    <template v-slot:header>Let's build this dropdown component</template>
+    These tend to be useful for FAQ pages, hidden contents, and more!
+  </Dropdown>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import Dropdown from './Dropdown.vue'
+
+const expanded = ref(false)
+</script>
+```
+
+Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `App`'s template for the heading `template` element.
+
+`v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `App` component to look like:
+
+```vue
+<!-- App.vue -->
+<template>
+  <Dropdown :expanded="expanded" @toggle="expanded = !expanded">
+    <template #header>Let's build this dropdown component</template>
+    These tend to be useful for FAQ pages, hidden contents, and more!
+  </Dropdown>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import Dropdown from './Dropdown.vue'
+
+const expanded = ref(false)
+</script>
+```
+
+<!-- tabs:end -->
+
+
 
 # Using Passed Children to Build a Table
 
@@ -767,6 +940,7 @@ const FileTable = () => {
 ```typescript
 @Component({
   selector: 'file-table-container',
+  standalone: true,
   template: `
   <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
     <ng-content></ng-content>
@@ -777,8 +951,10 @@ class FileTableContainerComponent {}
 
 @Component({
   selector: 'file-table',
+  standalone: true,
+  imports: [FileTableContainerComponent],
   template: `
-    <file-table-container><file-table-body></file-table-body></file-table-container>
+    <file-table-container><file-table-body/></file-table-container>
   `,
 })
 class FileTableComponent {}
@@ -830,20 +1006,6 @@ This is where a named content projection would come in handy.
 
 ## React
 
-Something worth reminding is that JSX constructs a value, just like a number or string, that you can then store to a variable.
-
-```jsx
-const table = <p>Test</p>;
-```
-
-This can be passed to a function, like `console.log`, or anything any other JavaScript value can do.
-
-```jsx
-console.log(<p>Test</p>); // ReactElement
-```
-
-Because of this behavior, in order to pass more than one JSX value to a component, we can use function parameters and pass them that way.
-
 ```jsx
 const FileTableContainer = ({children, header}) => {
   return <table style={{color: '#3366FF', border: '2px solid #F5F8FF'}}>
@@ -868,11 +1030,10 @@ const FileTable = () => {
 
 ## Angular
 
-`ng-content` allows you to pass a `select` property to have specific children projected in dedicated locations. This `select` property takes [CSS selector query values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). Knowing this, we can pass the attribute query for `header` by wrapping the attribute name in square brackets like so:
-
 ````typescript
 @Component({
   selector: 'file-table-container',
+  standalone: true,
   template: `
   <table [style]="{color: '#3366FF', border: '2px solid #F5F8FF'}">
     <thead><ng-content select="[header]"></ng-content></thead>
@@ -884,24 +1045,22 @@ class FileTableContainerComponent {}
 
 @Component({
   selector: 'file-table',
+  standalone: true,
+  imports: [FileTableContainerComponent, FileTableBodyComponent],
   template: `
     <file-table-container>
-    <tr header>
-      <th>Name</th>
-      <th>Date</th>
-    </tr>
-    <file-table-body></file-table-body>
+        <tr header>
+          <th>Name</th>
+          <th>Date</th>
+        </tr>
+        <file-table-body/>
     </file-table-container>
   `,
 })
 class FileTableComponent {}
 ````
 
-Once `ng-content` finds related elements that match the `select` query, they will be content projected into the appropriate locations. If not matched by a `ng-content[select]`, they will be projected to a non `select` enabled `ng-content`.
-
 ## Vue
-
-Similar to how Angular's `ng-content[select]` query works, Vue allows you to pass a `name` to the `slot` component in order to project named content.
 
 ```vue
 <!-- FileTableContainer -->
@@ -914,30 +1073,6 @@ Similar to how Angular's `ng-content[select]` query works, Vue allows you to pas
 ```
 
 ````vue
-<!-- FileTable -->
-<template>
-  <FileTableContainer>
-    <template v-slot:header>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-      </tr>
-    </template>
-    <FileTableBody/>
-  </FileTableContainer>
-</template>
-
-<script setup>
-import FileTableContainer from './FileTableContainer.vue';
-import FileTableBody from './FileTableBody.vue';
-</script>
-````
-
-Here, we can see that `slot` is querying for a `header` template slot. This query is then satisfied by `FileTable`'s template for the heading `tr` element.
-
-`v-slot` also has a shorthand of `#`, similar to how `v-bind` has a shorthand of `:`. Using this shorthand, we can modify our `FileTable` component to look like:
-
-```vue
 <!-- FileTable -->
 <template>
   <FileTableContainer>
@@ -955,7 +1090,7 @@ Here, we can see that `slot` is querying for a `header` template slot. This quer
 import FileTableContainer from './FileTableContainer.vue';
 import FileTableBody from './FileTableBody.vue';
 </script>
-```
+````
 
 <!-- tabs:end -->
 
