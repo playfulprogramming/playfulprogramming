@@ -7,6 +7,9 @@ import { ExtendedPostInfo } from "types/index";
 import { layouts, renderPostPreviewToString } from "./shared-post-preview-png";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 
+// For non-prod builds, this isn't needed
+if (process.env.BUILD_ENV === "dev") process.exit(0);
+
 const browser_args = [
 	"--autoplay-policy=user-gesture-required",
 	"--disable-background-networking",
@@ -94,5 +97,4 @@ const build = async () => {
 	await (await browser).close();
 };
 
-// For non-prod builds, this isn't needed
-if (!process.env.BUILD_ENV || process.env.BUILD_ENV !== "dev") build();
+build();
