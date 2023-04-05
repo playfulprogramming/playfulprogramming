@@ -4,8 +4,10 @@ import { promises as fsPromises } from "fs";
 import { resolve } from "path";
 import { getAllExtendedPosts } from "utils/get-all-posts";
 import { ExtendedPostInfo } from "types/index";
-import { layouts, renderPostPreviewToString } from "./shared-post-preview-png";
+import { renderPostPreviewToString } from "./shared-post-preview-png";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
+import banner from "./layouts/banner";
+import twitterPreview from "./layouts/twitter-preview";
 
 // For non-prod builds, this isn't needed
 if (process.env.BUILD_ENV === "dev") process.exit(0);
@@ -49,7 +51,7 @@ const browser_args = [
 	"--disable-web-security",
 ];
 
-const browser: Promise<puppeteer.Browser> = chromium.puppeteer.launch({
+const browser: puppeteer.Browser = await chromium.puppeteer.launch({
 	args: [...chromium.args, ...browser_args],
 	defaultViewport: {
 		width: PAGE_WIDTH,
@@ -61,40 +63,41 @@ const browser: Promise<puppeteer.Browser> = chromium.puppeteer.launch({
 	userDataDir: "./.puppeteer",
 });
 
-const page: Promise<puppeteer.Page> = browser.then((b) => b.newPage());
+const page: puppeteer.Page = await browser.newPage();
 
 async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
-	const browserPage = await page;
-	await browserPage.setContent(await renderPostPreviewToString(layout, post));
-	const buffer = (await browserPage.screenshot({ type: "jpeg" })) as Buffer;
+	page.setContent(await renderPostPreviewToString(layout, post));
+	const buffer = (await page.screenshot({ type: "jpeg" })) as Buffer;
 
 	console.timeEnd(label);
 	return buffer;
 }
 
-const build = async () => {
-	// Relative to root
-	const outDir = resolve(process.cwd(), "./public/generated");
-	await fsPromises.mkdir(outDir, { recursive: true });
+// Relative to root
+const outDir = resolve(process.cwd(), "./public");
+await fsPromises.mkdir(outDir, { recursive: true });
 
-	/**
-	 * This is done synchronously, in order to prevent more than a single instance
-	 * of the browser from running at the same time.
-	 */
-	for (const post of getAllExtendedPosts("en")) {
-		for (const layout of layouts) {
-			const buffer = await renderPostImage(layout, post);
-			await fsPromises.writeFile(
-				resolve(outDir, `${post.slug}.${layout.name}.jpg`),
-				buffer
-			);
-		}
+/**
+ * This is done synchronously, in order to prevent more than a single instance
+ * of the browser from running at the same time.
+ */
+for (const post of getAllExtendedPosts("en")) {
+	if (post.socialImg) {
+		await fsPromises.writeFile(
+			resolve(outDir, `.${post.socialImg}`),
+			await renderPostImage(twitterPreview, post)
+		);
 	}
 
-	await (await browser).close();
-};
+	if (post.bannerImg) {
+		await fsPromises.writeFile(
+			resolve(outDir, `.${post.bannerImg}`),
+			await renderPostImage(banner, post)
+		);
+	}
+}
 
-build();
+await browser.close();

@@ -3,7 +3,13 @@ import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { ensureDirectoryExistence } from "./utils";
-import { layouts, renderPostPreviewToString } from "./shared-post-preview-png";
+import { renderPostPreviewToString } from "./shared-post-preview-png";
+
+import banner from "./layouts/banner";
+import twitterPreview from "./layouts/twitter-preview";
+import { Layout } from "./base";
+
+export const layouts: Layout[] = [banner, twitterPreview];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

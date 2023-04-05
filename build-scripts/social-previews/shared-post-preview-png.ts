@@ -10,12 +10,7 @@ import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
-
-import banner from "./layouts/banner";
-import twitterPreview from "./layouts/twitter-preview";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
-
-export const layouts: Layout[] = [banner, twitterPreview];
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =

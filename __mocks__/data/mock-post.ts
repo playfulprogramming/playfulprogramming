@@ -25,6 +25,7 @@ export const MockPost: ExtendedPostInfo = {
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
+	socialImg: "img.png",
 };
 
 export const MockMultiAuthorPost: ExtendedPostInfo = {
@@ -52,6 +53,7 @@ export const MockMultiAuthorPost: ExtendedPostInfo = {
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
+	socialImg: "img.png",
 };
 
 export const MockMuliLanguagePost: ExtendedPostInfo = {
@@ -79,6 +81,7 @@ export const MockMuliLanguagePost: ExtendedPostInfo = {
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
+	socialImg: "img.png",
 };
 
 export const MockCanonicalPost: ExtendedPostInfo = {
@@ -107,4 +110,5 @@ export const MockCanonicalPost: ExtendedPostInfo = {
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
+	socialImg: "img.png",
 };

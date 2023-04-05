@@ -114,7 +114,7 @@ const collections = getCollections();
 
 function getPosts(): Array<PostInfo> {
 	const slugs = fs.readdirSync(postsDirectory).filter(isNotJunk);
-	return slugs.flatMap((slug) => {
+	const posts = slugs.flatMap((slug) => {
 		const files = fs
 			.readdirSync(join(postsDirectory, slug))
 			.filter(isNotJunk)
@@ -124,7 +124,7 @@ function getPosts(): Array<PostInfo> {
 			.map((name) => name.split(".").at(-2))
 			.map((lang) => (lang === "index" ? "en" : lang) as Languages);
 
-		return files.map((file, i) => {
+		return files.map((file, i): PostInfo => {
 			const fileContents = fs.readFileSync(
 				join(postsDirectory, slug, file),
 				"utf8"
@@ -152,9 +152,32 @@ function getPosts(): Array<PostInfo> {
 				collectionMeta:
 					frontmatter.series &&
 					collections.find((c) => c.slug === frontmatter.series),
+				socialImg: `/generated/${slug}.twitter-preview.jpg`,
 			};
 		});
 	});
+
+	// sort posts by date in descending order
+	posts.sort((post1, post2) => {
+		const date1 = new Date(post1.published);
+		const date2 = new Date(post2.published);
+		return date1 > date2 ? -1 : 1;
+	});
+
+	// calculate whether each post should have a banner image
+	const paginationCount: Partial<Record<Languages, number>> = {};
+	for (const post of posts) {
+		// total count of posts per locale
+		const count = (paginationCount[post.locale] =
+			paginationCount[post.locale] + 1 || 0);
+		// index of the post on its page (assuming the page is paginated by 8)
+		const index = count % 8;
+		// if the post is at index 0 or 4, it should have a banner
+		if (index === 0 || index === 4)
+			post.bannerImg = `/generated/${post.slug}.banner.jpg`;
+	}
+
+	return posts;
 }
 
 const posts = getPosts();

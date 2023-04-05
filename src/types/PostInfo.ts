@@ -26,6 +26,8 @@ export interface PostInfo extends RawPostInfo {
 	authorsMeta: UnicornInfo[];
 	licenseMeta: LicenseInfo;
 	collectionMeta?: CollectionInfo;
+	socialImg: string;
+	bannerImg?: string;
 }
 
 export interface ExtendedPostInfo extends PostInfo {

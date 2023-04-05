@@ -18,10 +18,8 @@ export function PostCardGrid({ postsToDisplay, ...props }: PostGridProps) {
 			role="list"
 			id="post-list-container"
 		>
-			{postsToDisplay.map((post, i) => {
-				const isExpanded = props.expanded && (i === 0 || i === 4);
-
-				return isExpanded ? (
+			{postsToDisplay.map((post) => {
+				return props.expanded && post.bannerImg ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}

@@ -3,16 +3,7 @@ import { Languages } from "types/index";
 import { posts } from "./data";
 
 export function getPostsByLang(language: Languages): PostInfo[] {
-	let allPosts = posts.filter((p) => p.locale === language);
-
-	// sort posts by date in descending order
-	allPosts = allPosts.sort((post1, post2) => {
-		const date1 = new Date(post1.published);
-		const date2 = new Date(post2.published);
-		return date1 > date2 ? -1 : 1;
-	});
-
-	return allPosts;
+	return posts.filter((p) => p.locale === language);
 }
 
 export function getPostsByUnicorn(

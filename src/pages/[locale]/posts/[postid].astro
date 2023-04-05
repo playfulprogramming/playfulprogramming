@@ -61,7 +61,7 @@ const otherLangs = translations
 			otherLangs,
 			currentLang: post.locale,
 		}}
-		shareImage={`/generated/${post.slug}.twitter-preview.jpg`}
+		shareImage={post.socialImg}
 	/>
 	<BlogPost Content={Content} post={post} posts={posts} />
 </Document>

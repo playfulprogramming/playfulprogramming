@@ -1,8 +1,7 @@
 import * as React from 'preact';
 import { readFileAsBase64 } from '../utils';
-import * as fs from 'fs';
-import { ComponentProps } from '../base';
-import style from './banner.css';
+import { ComponentProps, Layout } from '../base';
+import style from './banner-css';
 import classnames from 'classnames';
 
 const unicornFile = readFileAsBase64("src/assets/unicorn_utterances_sticker_512.png");
@@ -57,4 +56,4 @@ export default {
 	name: "banner",
 	css: style,
 	Component: Banner,
-};
+} as Layout;

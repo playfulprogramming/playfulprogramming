@@ -9,7 +9,7 @@ import calendar from "src/icons/calendar.svg?raw";
 interface PostCardProps {
 	post: Pick<
 		PostInfo,
-		"publishedMeta" | "slug" | "title" | "tags" | "description"
+		"publishedMeta" | "slug" | "title" | "tags" | "description" | "bannerImg"
 	> & {
 		authorsMeta: Array<
 			Pick<PostInfo["authorsMeta"][number], "id" | "color" | "name">
@@ -66,7 +66,7 @@ export const PostCardExpanded = ({
 		>
 			<img
 				loading="lazy"
-				src={`/generated/${post.slug}.banner.jpg`}
+				src={post.bannerImg}
 				class={cardStyles.image}
 				alt="Computer code and text on a computer screen"
 			/>

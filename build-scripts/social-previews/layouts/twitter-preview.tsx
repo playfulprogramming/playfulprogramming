@@ -1,7 +1,7 @@
 import * as React from 'preact';
 import { readFileAsBase64 } from '../utils';
-import { ComponentProps } from '../base';
-import style from './twitter-preview.css';
+import { ComponentProps, Layout } from '../base';
+import style from './twitter-preview-css';
 
 export function splitSentence(str: string): [string, string] {
   const splitStr = str.split(" ");
@@ -127,4 +127,4 @@ export default {
   name: "twitter-preview",
   css: style,
   Component: TwitterLargeCard,
-};
+} as Layout;
