@@ -1,5 +1,3 @@
-// TODO: Add click back to `li`
-// TODO: Make user-profile-pic clickable again
 import cardStyles from "./post-card.module.scss";
 import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
