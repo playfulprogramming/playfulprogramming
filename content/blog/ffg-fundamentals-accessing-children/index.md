@@ -11,10 +11,6 @@
 }
 ---
 
-This isn't to say that there are no practical applications of what we'll be learning about in this chapter, just that the things we'll learn about are often applied in niche circumstance, and I can't reasonably think of how to integrate it into what we've built thus far.
-
-The concepts I want to talk about today is the idea of "Content reference". 
-
 In our last chapter, we demonstrated how you're able to provide content as a child of another component. This means that we can make the follow pseudo-syntax something of a reality in each given framework:
 
 ```jsx
@@ -551,25 +547,7 @@ Instead, let's see if there's a way that we can pass values to our projected con
 
 ## React
 
-As part of React's `Children` utilities, we're able to `cloneElement` on each item in the `children` array in order to pass React properties. We can use this logic to pass properties that include styling when the index is even or odd.
-
-```jsx
-import {Children, useState, cloneElement} from 'react';
-
-const ParentList = ({ children }) => {
-  const childArr = Children.toArray(children);
-  const newChildArr = childArr.map((node, i) =>
-    cloneElement(node, {
-      style: { backgroundColor: i % 2 ? 'grey' : '' },
-    })
-  );
-  return (
-    <ul>{newChildArr}</ul>
-  );
-};
-```
-
-React is the only framework that's able to pass parameters to projected content without modifying the callers' codebase. This means that we only need to update `ParentList` and not `App` to change the `style` prop for each `li` that `App` passes.
+// TODO: Render children
 
 ## Angular
 
@@ -793,4 +771,199 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 // TODO:
 
 - `this.$slots` / Vue (only for conditionally rendering)
+
+
+
+
+
+
+
+# Challenge
+
+// TODO: Write
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+import * as React from 'react';
+
+const Table = ({ data, header, children }) => {
+  const headerContents = header({ length: data.length });
+
+  const body = data.map((value, rowI) => children({ value, rowI }));
+
+  return (
+    <table>
+      <thead>{headerContents}</thead>
+      <tbody>{body}</tbody>
+    </table>
+  );
+};
+
+const data = [
+  {
+    name: 'Corbin',
+    age: 24,
+  },
+  {
+    name: 'Joely',
+    age: 28,
+  },
+  {
+    name: 'Frank',
+    age: 33,
+  },
+];
+
+export default function App() {
+  return (
+    <Table
+      data={data}
+      header={({ length }) => (
+        <tr>
+          <th>{length} items</th>
+        </tr>
+      )}
+    >
+      {({ rowI, value }) => (
+        <tr>
+          <td
+            style={
+              rowI % 2
+                ? { background: 'lightgrey' }
+                : { background: 'lightblue' }
+            }
+          >
+            {value.name}
+          </td>
+        </tr>
+      )}
+    </Table>
+  );
+}
+```
+
+## Angular
+
+```typescript
+@Component({
+  selector: 'table-comp',
+  standalone: true,
+  imports: [NgFor, NgTemplateOutlet],
+  template: `
+    <table>
+    <thead>
+    <ng-template [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{length: data.length}"/>
+    </thead>
+
+    <tbody>
+      <ng-template *ngFor="let item of data; let index = index" [ngTemplateOutlet]="body" [ngTemplateOutletContext]="{rowI: index, value: item}"/>
+    </tbody>
+    </table>
+  `,
+})
+export class TableComponent {
+  @ContentChild('header', { read: TemplateRef }) header: TemplateRef<any>;
+  @ContentChild('body', { read: TemplateRef }) body: TemplateRef<any>;
+
+  @Input() data: any[];
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [TableComponent],
+  template: `
+    <table-comp [data]="data">
+      <ng-template #header let-length="length">
+        <tr>
+          <th>{{ length }} items</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowI="rowI" let-value="value">
+        <tr>
+          <td [style]="rowI % 2 ? 'background: lightgrey' : 'background: lightblue'">{{ value.name }}</td>
+        </tr>
+      </ng-template>
+    </table-comp>
+    `,
+})
+class AppComponent {
+  data = [
+    {
+      name: 'Corbin',
+      age: 24,
+    },
+    {
+      name: 'Joely',
+      age: 28,
+    },
+    {
+      name: 'Frank',
+      age: 33,
+    },
+  ];
+}
+```
+
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <Table :data="data">
+    <template #header="{ length }">
+      <tr>
+        <th>{{ length }} items</th>
+      </tr>
+    </template>
+    <template v-slot="{ rowI, value }">
+      <tr>
+        <td :style="rowI % 2 ? 'background: lightgrey' : 'background: lightblue'">{{ value.name }}</td>
+      </tr>
+    </template>
+  </Table>
+</template>
+
+<script setup>
+import Table from './Table.vue'
+
+const data = [
+  {
+    name: 'Corbin',
+    age: 24,
+  },
+  {
+    name: 'Joely',
+    age: 28,
+  },
+  {
+    name: 'Frank',
+    age: 33,
+  },
+]
+</script>
+```
+
+```vue
+<template>
+  <table>
+    <thead>
+      <slot name="header" :length="props.data.length"></slot>
+    </thead>
+    <tbody>
+      <slot v-for="(item, i) in props.data" :key="i" :rowI="i" :value="props.data[i]" />
+    </tbody>
+  </table>
+</template>
+
+<script setup>
+const props = defineProps(['data'])
+</script>
+```
+
+<!-- tabs:end -->
 
