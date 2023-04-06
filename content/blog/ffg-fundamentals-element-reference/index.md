@@ -13,13 +13,222 @@
 
 While React, Angular, and Vue all provide simple built-in APIs to access events, inputs, and other bindings to underlying HTML elements, sometimes it's just not enough.
 
-In those rare events you want to eject away from the framework controlling your access to HTML nodes, each framework enables you to access the underlying DOM nodes via element reference.
+For example, let's say that we want to build a right-click menu so that a user can see a relevant list of actions associated with the file the user is currently hovering over:
 
-Let's look at some basic examples.
+![// TODO: Add alt text](./context-open.png)
+
+
+
+We're able to build some of this functionality with the APIs we've covered thus far, namely we can:
+
+- Using our framework's event binding to listen to the browser's [`contextmenu`](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event) event which lets us know when the user has right-clicked
+- Conditionally rendering the context menu's elements until relevant
+- Binding the `style` attribute to position the popup's `x` and `y` value
 
 <!-- tabs:start -->
 
 # React
+
+```jsx
+/**
+ * This code sample is inaccessible and generally not
+ * production-grade. It's missing:
+ * - Focus on menu open
+ * - Closing upon external click
+ * 
+ * Read on to learn how to add these
+ */
+export default function App() {
+  const [mouseBounds, setMouseBounds] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+    setMouseBounds({
+      // Mouse position on click
+      x: e.clientX,
+      y: e.clientY,
+    });
+  }
+
+  return (
+    <>
+      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
+        <div onContextMenu={onContextMenu}>Right click on me!</div>
+      </div>
+      {isOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: `${mouseBounds.y}px`,
+            left: `${mouseBounds.x}px`,
+            background: 'white',
+            border: '1px solid black',
+            borderRadius: 16,
+            padding: '1rem',
+          }}
+        >
+          <button onClick={() => setIsOpen(false)}>X</button>
+          This is a context menu
+        </div>
+      )}
+    </>
+  );
+}
+```
+
+# Angular
+
+```typescript
+/**
+ * This code sample is inaccessible and generally not
+ * production-grade. It's missing:
+ * - Focus on menu open
+ * - Closing upon external click
+ * 
+ * Read on to learn how to add these
+ */
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, JsonPipe, NgStyle],
+  template: `
+  <div style="margin-top: 5rem; margin-left: 5rem">
+    <div (contextmenu)="open($event)">
+      Right click on me!
+    </div>
+  </div>
+  <div
+    *ngIf="isOpen"
+    [style]="'
+      position: fixed;
+      top: ' + mouseBounds.y + 'px;
+      left: ' + mouseBounds.x + 'px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
+    '"
+  >
+  <button (click)="close()">X</button>
+  This is a context menu
+</div>
+  
+  `,
+})
+class AppComponent {
+  isOpen = false;
+
+  mouseBounds = {
+    x: 0,
+    y: 0,
+  };
+
+  close() {
+    this.isOpen = false;
+  }
+
+  open(e: MouseEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+    this.mouseBounds = {
+      // Mouse position on click
+      x: e.clientX,
+      y: e.clientY,
+    };
+  }
+}
+```
+
+
+# Vue
+
+```vue
+<!-- App.vue -->
+
+<!-- This code sample is inaccessible and generally not -->
+<!--  production-grade. It's missing:                   -->
+<!--  - Focus on menu open                              -->
+<!--  - Closing upon external click                     -->
+<!--                                                    -->
+<!--  Read on to learn how to add these                 -->
+<template>
+  <div style="margin-top: 5rem; margin-left: 5rem">
+    <div @contextmenu="open($event)">Right click on me!</div>
+  </div>
+  <div
+    v-if="isOpen"
+    :style="`
+      position: fixed;
+      top: ${mouseBounds.y}px;
+      left: ${mouseBounds.x}px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
+    `"
+  >
+    <button @click="close()">X</button>
+    This is a context menu
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const isOpen = ref(false)
+
+const mouseBounds = ref({
+  x: 0,
+  y: 0,
+})
+
+const close = () => {
+  isOpen.value = false
+}
+
+const open = (e) => {
+  e.preventDefault()
+  isOpen.value = true
+  mouseBounds.value = {
+    // Mouse position on click
+    x: e.clientX,
+    y: e.clientY,
+  }
+}
+</script>
+```
+
+<!-- tabs:end -->
+
+
+
+This works relatively well, until we think about two features that are missing:
+
+- Listening for any click that's outside of the popup's contents
+- Focusing on the popup's contents when the user right-clicks, so keyboard shortcuts apply to the popup immediately
+
+While these features are _possible_ without any newly introduced APIs, they'd both require you to utilize browser APIs such as [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to eject away from the framework's limitations.
+
+In those rare events you want to eject away from the framework controlling your access to HTML nodes, each framework enables you to access the underlying DOM nodes without using browser APIs specifically. This allows our code to still retain full control over the underlying elements while remaining within the reactivity systems these frameworks provide.
+
+In this chapter, we'll learn:
+
+- How to reference the underlying DOM element
+- How to reference an array of elements
+- Adding focus and external click listening to the context menu
+- A code challenge to re-enforce knowledge
+
+# Basic Element References
+
+<!-- tabs:start -->
+
+## React
 
 In React, there's no simpler demonstration of an element reference than passing a function to an element's `ref` property.
 
@@ -51,7 +260,7 @@ const RenderButton = () => {
 
 > This is just used as an example of what you can do with the underlying HTML element. While there _are_ perfectly valid reasons for using `ref` to `addEventListener` (we'll touch on one such case later on), it's usually suggested to use `onClick` style event bindings instead.
 
-## `useState` `ref`s
+### `useState` `ref`s
 
 However, this is a problem because our `addEventListener` is never cleaned up! Remember, this is part of the API that `useEffect` provides.
 
@@ -102,7 +311,7 @@ Overall, we're utilizing a familiar `useState` hook in order to store our `ref`.
 
 However, if you look through the [React Hooks API documentation](// TODO: Link), you'll notice something called `useRef`. Sensibly, based on the name, it's very commonly used with an element's `ref` property. But why aren't we using it in this example? What is `useRef`?
 
-## What's a `useRef` and why aren't we using it?
+### What's a `useRef` and why aren't we using it?
 
 `useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
 
@@ -203,7 +412,7 @@ This isn't to say that `useRef` is bad by any means, though. Instead, what I'm t
 
 [I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
 
-# Angular
+## Angular
 
 In our chapter about [content reference](/posts/ffg-fundamentals-accessing-children), we touched on `ContentChild`, a method of accessing the projected content programmatically without our component class instance.
 
@@ -296,7 +505,7 @@ And boom, the count suddenly starts updating when the button is pressed.
 
 > Wat?!
 
-# Vue
+## Vue
 
 Vue's ability to store reactive data using `ref` enables a super simplistic API to access DOM nodes; Simply create a `ref` with the same variable name as a `ref` property of an element's `ref` attribute value.
 
@@ -490,117 +699,54 @@ const chapters = [
 
 # Real world usage
 
-These concepts are handy to know, but what good are they if we can't utilize them in a real-world use case?
+TODO: Write
 
-Let's take our existing [file hosting app project](/posts/ffg-fundamentals-intro-to-components#Whats-an-app-anyway) and think about a feature that we can build.
-
-Oh, I know! Let's add in a context menu, so that when you right-click a file in the files list, it allows you to take actions on it such as deleting or renaming.
-
-![// TODO: Add alt text](./context-open.png)
+![// TODO: Add alt text](./context-close.png)
 
 Let's first start by detecting when the user has right-clicked a `div`. We can use [the `contextmenu` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event) to detect a right-click event. From there, it's as simple as [conditionally rendering](https://crutchcorn-book.vercel.app/posts/dynamic-html#Conditional-Rendering) the context menu component when the user has right-clicked.
 
-<!-- tabs:start -->
+----------------------
 
-## React
+// TODO: Write
 
-```jsx
-export default function App() {
-  const [isOpen, setIsOpen] = useState(false);
+---------------------------
 
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-  }
+Let's add this functionality into our context menu component. To do this, let's:
 
-  return (
-    <Fragment>
-      <div>
-        <div onContextMenu={onContextMenu}>
-          Right click on me!
-        </div>
-      </div>
-      {isOpen && (
-        <div>
-          <button onClick={() => setIsOpen(false)}>X</button>
-          This is a context menu
-        </div>
-      )}
-    </Fragment>
-  );
-}
-```
+- Add a listener for any time the user clicks on a page
+- Inside of that click listener, get [the event's `target` property](https://developer.mozilla.org/en-US/docs/Web/API/Event/target)
+  - The event target is the element that the user is taking an action on - AKA the element the user is currently clicking on
+- We then [check if that `target` is inside of the context menu or not using the `element.contains` method](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains).
 
-## Angular
+This code in vanilla JavaScript might look something like this:
 
-```typescript
-@Component({
-  selector: 'my-app',
-  template: `
-  <div>
-    <div (contextmenu)="open($event)">
-      Right click on me!
-    </div>
-  </div>
-  <div *ngIf="isOpen">
-  <button (click)="close()">X</button>
-  This is a context menu
-</div>
-  `,
-})
-class AppComponent {
-  isOpen = false;
+```html
+<button id="clickInside">
+    If you click outside of this button, it will hide
+</button>
+<script>
+const clickInsideButton = document.querySelector("#clickInside");
 
-  close() {
-    this.isOpen = false;
-  }
-
-  open(e: UIEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-  }
-}
-```
-
-## Vue
-
-```vue
-<!-- App.vue -->
-<template>
-  <div>
-    <div @contextmenu="open($event)">
-      Right click on me!
-    </div>
-  </div>
-  <div v-if="isOpen">
-    <button @click="close()">X</button>
-    This is a context menu
-  </div>
-</template>
-
-<script setup>
-import {ref} from 'vue';
-
-const isOpen = ref(false);
-
-function close() {
-  isOpen.value = false;
+function listenForOutsideClicks(e) {
+    // This check is saying "`true` if the clicked element is a child of the 'clickInside' button"
+    const isClickInside = clickInsideButton.contains(e.target);
+    if (isClickInside) return;
+    // Hide the button using CSS. In frameworks, we'd use conditional rendering.
+    clickInsideButton.style.display = 'none';
 }
 
-function open(e) {
-  e.preventDefault();
-  isOpen.value = true;
-}
+document.addEventListener('click', listenForOutsideClicks)
 </script>
 ```
 
-<!-- tabs:end -->
 
 
 
-That works! That said, it's not an ideal experience for a context menu. After all, one of the defining traits of a context menu is that it opens on top of the element that you've right-clicked on.
+Let's port this logic to React, Angular, and Vue:
 
-To do this, we need to [get the position of the base element using `getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect). Then, we can pass the base element's `x` and `y` values to a `position: fixed` context menu to have the appearance of a floating context menu.
+
+
+-----------------
 
 We also want to immediately [focus on the context menu using `element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) in order to make sure that keyboard users aren't lost when trying to use the feature.
 
@@ -615,50 +761,57 @@ We can run `getBoundingClientRect` when the `ref` is set by simply passing a `ca
 From there, it's a basic `useRef` passing in order to `focus` on the context menu. We're able to do this despite a conditional rendering of the context menu because React will automatically update the value of `ref` depending on if the base element is rendered or not.
 
 ```jsx
+
 export default function App() {
-  const [bounds, setBounds] = useState({
-    height: 0,
-    width: 0,
+  const [mouseBounds, setMouseBounds] = useState({
     x: 0,
     y: 0,
   });
 
-  const ref = useCallback((el) => {
-    if (!el) return;
-    const localBounds = el.getBoundingClientRect();
-    setBounds(localBounds);
-  }, []);
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const contextMenuRef = useRef();
-
-  useEffect(() => {
-    if (isOpen && contextMenuRef.current) {
-      contextMenuRef.current.focus();
-    }
-  }, [isOpen]);
 
   function onContextMenu(e) {
     e.preventDefault();
     setIsOpen(true);
+    setMouseBounds({
+      // Mouse position on click
+      x: e.clientX,
+      y: e.clientY,
+    });
   }
 
+  const [contextMenu, setContextMenu] = useState();
+
+  useEffect(() => {
+    if (contextMenu) {
+      contextMenu.focus();
+    }
+  }, [contextMenu]);
+
+  useEffect(() => {
+    if (!contextMenu) return;
+    const closeIfOutsideOfContext = (e) => {
+      const isClickInside = contextMenu.contains(e.target);
+      if (isClickInside) return;
+      setIsOpen(false);
+    };
+    document.addEventListener('click', closeIfOutsideOfContext);
+    return () => document.removeEventListener('click', closeIfOutsideOfContext);
+  }, [contextMenu]);
+
   return (
-    <Fragment>
+    <>
       <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div ref={ref} onContextMenu={onContextMenu}>
-          Right click on me!
-        </div>
+        <div onContextMenu={onContextMenu}>Right click on me!</div>
       </div>
       {isOpen && (
         <div
-          ref={contextMenuRef}
+          ref={(el) => setContextMenu(el)}
           tabIndex={0}
           style={{
             position: 'fixed',
-            top: bounds.y + 20,
-            left: bounds.x + 20,
+            top: mouseBounds.y,
+            left: mouseBounds.x,
             background: 'white',
             border: '1px solid black',
             borderRadius: 16,
@@ -669,7 +822,7 @@ export default function App() {
           This is a context menu
         </div>
       )}
-    </Fragment>
+    </>
   );
 }
 ```
@@ -683,25 +836,27 @@ However, in order to `focus` on the context menu, we're relying on [the `changes
 ```typescript
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, JsonPipe, NgStyle],
   template: `
-  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
+  <div style="margin-top: 5rem; margin-left: 5rem">
     <div #contextOrigin (contextmenu)="open($event)">
       Right click on me!
     </div>
   </div>
   <div
-    #contextMenu
     *ngIf="isOpen"
     tabIndex="0"
-    [style]="{
-      position: 'fixed',
-      top: bounds.y + 20,
-      left: bounds.x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem'
-    }"
+    #contextMenu
+    [style]="'
+      position: fixed;
+      top: ' + mouseBounds.y + 'px;
+      left: ' + mouseBounds.x + 'px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
+    '"
   >
   <button (click)="close()">X</button>
   This is a context menu
@@ -709,40 +864,52 @@ However, in order to `focus` on the context menu, we're relying on [the `changes
   
   `,
 })
-class AppComponent implements AfterViewInit {
-  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
+class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
 
   isOpen = false;
 
-  bounds = {
-    height: 0,
-    width: 0,
+  mouseBounds = {
     x: 0,
     y: 0,
   };
 
+  closeIfOutsideOfContext = (e: MouseEvent) => {
+    const contextMenuEl = this.contextMenu?.first?.nativeElement;
+    if (!contextMenuEl) return;
+    const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
+    if (isClickInside) return;
+    this.isOpen = false;
+  };
+
   ngAfterViewInit() {
-    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
+    document.addEventListener('click', this.closeIfOutsideOfContext);
 
     this.contextMenu.changes.forEach(() => {
-      // TODO: Explain ?. and why we need it
-      const isLoaded = this?.contextMenu?.first?.nativeElement;
+      const isLoaded = this.contextMenu?.first?.nativeElement;
       if (!isLoaded) return;
       this.contextMenu.first.nativeElement.focus();
     });
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closeIfOutsideOfContext);
   }
 
   close() {
     this.isOpen = false;
   }
 
-  open(e: UIEvent) {
+  open(e: MouseEvent) {
     e.preventDefault();
     this.isOpen = true;
+    this.mouseBounds = {
+      // Mouse position on click
+      x: e.clientX,
+      y: e.clientY,
+    };
   }
 }
-
 ```
 
 
@@ -756,24 +923,22 @@ We'll also use a callback ref in order to run a function every time the context 
 ```vue
 <!-- App.vue -->
 <template>
-  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
-    <div ref="contextOrigin" @contextmenu="open($event)">
-      Right click on me!
-    </div>
+  <div style="margin-top: 5rem; margin-left: 5rem">
+    <div @contextmenu="open($event)">Right click on me!</div>
   </div>
   <div
-      v-if="isOpen"
-      :ref="el => focusOnOpen(el)"
-      tabIndex="0"
-      :style="{
-      position: 'fixed',
-      top: bounds.y + 20,
-      left: bounds.x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem'
-    }"
+    v-if="isOpen"
+    :ref="(el) => focusOnOpen(el)"
+    tabIndex="0"
+    :style="`
+      position: fixed;
+      top: ${mouseBounds.y}px;
+      left: ${mouseBounds.x}px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 16px;
+      padding: 1rem;
+    `"
   >
     <button @click="close()">X</button>
     This is a context menu
@@ -781,303 +946,59 @@ We'll also use a callback ref in order to run a function every time the context 
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const isOpen = ref(false);
-const bounds = ref({
-  height: 0,
-  width: 0,
+const isOpen = ref(false)
+
+const mouseBounds = ref({
   x: 0,
   y: 0,
-});
-
-const contextOrigin = ref();
-
-onMounted(() => {
-  bounds.value = contextOrigin.value.getBoundingClientRect();
 })
 
-function close() {
-  isOpen.value = false;
+const contextMenuRef = ref(null)
+
+function closeIfOutside(e) {
+  const contextMenuEl = contextMenuRef.value
+  if (!contextMenuEl) return
+  const isClickInside = contextMenuEl.contains(e.target)
+  if (isClickInside) return
+  isOpen.value = false
 }
 
-function open(e) {
-  e.preventDefault();
-  isOpen.value = true;
+onMounted(() => {
+  document.addEventListener('click', closeIfOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeIfOutside)
+})
+
+const close = () => {
+  isOpen.value = false
+}
+
+const open = (e) => {
+  e.preventDefault()
+  isOpen.value = true
+  mouseBounds.value = {
+    // Mouse position on click
+    x: e.clientX,
+    y: e.clientY,
+  }
 }
 
 function focusOnOpen(el) {
-  if (!el) return;
-  el.focus();
+  contextMenuRef.value = el
+  if (!el) return
+  el.focus()
 }
 </script>
 ```
 
 <!-- tabs:end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--------
 
 
 
 # Challenge
 
-When you resize the browser, it does not recalculate the element's height and width.
-
-// TODO: Create demo GIF showcasing issue
-
-//  TODO: Simplify and explain
-
-<!-- tabs:start -->
-
-## React
-
-```jsx {8-32}
-export default function App() {
-  const [refBounds, setBounds] = useState({
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  });
-
-  const trackingRef = useRef();
-
-  const resizeListener = useCallback((e) => {
-    if (!trackingRef.current) return;
-    const localBounds = trackingRef.current.getBoundingClientRect();
-    setBounds(localBounds);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('resize', resizeListener);
-
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    };
-  }, [resizeListener]);
-
-  const trackingCBRef = useCallback(
-    (el) => {
-      if (!el) return;
-      trackingRef.current = el;
-      const localBounds = el.getBoundingClientRect();
-      setBounds(localBounds);
-    },
-    [resizeListener]
-  );
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  function onContextMenu(e) {
-    e.preventDefault();
-    setIsOpen(true);
-  }
-
-  return (
-    <Fragment>
-      <div style={{ marginTop: '5rem', marginLeft: '5rem' }}>
-        <div ref={trackingCBRef} onContextMenu={onContextMenu}>
-          Right click on me!
-        </div>
-      </div>
-      {isOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: refBounds.y,
-            left: refBounds.x,
-            background: 'white',
-            border: '1px solid black',
-            borderRadius: 16,
-            padding: '1rem',
-          }}
-        >
-          <button onClick={() => setIsOpen(false)}>X</button>
-          This is a context menu
-        </div>
-      )}
-    </Fragment>
-  );
-}
-```
-
-## Angular
-
-```typescript {41-45,49}
-@Component({
-  selector: 'my-app',
-  template: `
-  <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
-    <div #contextOrigin (contextmenu)="open($event)">
-      Right click on me!
-    </div>
-  </div>
-  <div
-    #contextMenu
-    *ngIf="isOpen"
-    tabIndex="0"
-    [style]="{
-      position: 'fixed',
-      top: bounds.y + 20,
-      left: bounds.x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem'
-    }"
-  >
-  <button (click)="close()">X</button>
-  This is a context menu
-</div>
-  
-  `,
-})
-class AppComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('contextOrigin') contextOrigin: ElementRef<HTMLElement>;
-  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
-
-  isOpen = false;
-
-  bounds = {
-    height: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-  };
-
-  // Do you remember why we can't use a class method here?
-  resizeListener = () => {
-    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
-  };
-
-  ngAfterViewInit() {
-    this.bounds = this.contextOrigin.nativeElement.getBoundingClientRect();
-
-    window.addEventListener('resize', this.resizeListener);
-
-    this.contextMenu.changes.forEach(() => {
-      const isLoaded = this?.contextMenu?.first?.nativeElement;
-      if (!isLoaded) return;
-      this.contextMenu.first.nativeElement.focus();
-    });
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.resizeListener);
-  }
-
-  close() {
-    this.isOpen = false;
-  }
-
-  open(e: UIEvent) {
-    e.preventDefault();
-    this.isOpen = true;
-  }
-}
-
-```
-
-## Vue
-
-```vue
-<!-- App.vue -->
-<template>
-  <div :style="{ marginTop: '5rem', marginLeft: '5rem' }">
-    <div ref="contextOrigin" @contextmenu="open($event)">
-      Right click on me!
-    </div>
-  </div>
-  <div
-      v-if="isOpen"
-      :ref="el => focusOnOpen(el)"
-      tabIndex="0"
-      :style="{
-      position: 'fixed',
-      top: bounds.y + 20,
-      left: bounds.x + 20,
-      background: 'white',
-      border: '1px solid black',
-      borderRadius: 16,
-      padding: '1rem'
-    }"
-  >
-    <button @click="close()">X</button>
-    This is a context menu
-  </div>
-</template>
-
-<script setup>
-import {onMounted, onUnmounted, ref} from 'vue';
-
-const isOpen = ref(false);
-const bounds = ref({
-  height: 0,
-  width: 0,
-  x: 0,
-  y: 0,
-});
-
-const contextOrigin = ref();
-
-function resizeListener() {
-  if (!contextOrigin.value) return;
-  bounds.value = contextOrigin.value.getBoundingClientRect();
-}
-
-onMounted(() => {
-  resizeListener();
-
-  window.addEventListener('resize', resizeListener);
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', resizeListener);
-})
-
-function close() {
-  isOpen.value = false;
-}
-
-function open(e) {
-  e.preventDefault();
-  isOpen.value = true;
-}
-
-function focusOnOpen(el) {
-  if (!el) return;
-  el.focus();
-}
-</script>
-```
-
-<!-- tabs:end -->
-
-
-
-
-
+// TODO: Tooltip based on position of another DOM element, complete with browser resize handling and hiding on blur 
