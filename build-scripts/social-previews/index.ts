@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
 import { getAllExtendedPosts } from "utils/get-all-posts";
