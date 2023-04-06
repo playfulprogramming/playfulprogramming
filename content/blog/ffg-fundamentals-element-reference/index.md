@@ -302,31 +302,28 @@ const CountButton = () => {
 
 > Once again: You should be using `onClick` to bind a method, this is only to demonstrate how element `ref`s work
 
-You'll notice in this example that within our `useEffect`, we're utilizing a function to update `setCount`. This is because otherwise, we will run into a "Stale Closure", which means that our `count` value will never update past `1`.
+You'll notice in this example that within our `useEffect`, we're utilizing a function to update `setCount`. This is because otherwise, we will run into a ["Stale Closure"](/posts/ffg-fundamentals-side-effects#Stale-Values), which means that our `count` value will never update past `1`.
 
-// TODO: Explain closures (or link out to curse-free mirror of https://whatthefuck.is/closure)
+### Why aren't we using `useRef`?
 
-
-Overall, we're utilizing a familiar `useState` hook in order to store our `ref`. Fairly standard stuff thus far.
-
-However, if you look through the [React Hooks API documentation](// TODO: Link), you'll notice something called `useRef`. Sensibly, based on the name, it's very commonly used with an element's `ref` property. But why aren't we using it in this example? What is `useRef`?
-
-### What's a `useRef` and why aren't we using it?
-
-`useRef` allows you to persist data across renders, similar to `useState`. There are two major differences from `useState`:
-
-1) You access data from a ref using `.current`
-2) It does not trigger a re-render when updating values (more on that soon)
-
->  `useRef` is able to avoid re-rendering by using [object mutation](// TODO: Find blog post) instead of following [React's change detection mechanism of explicit update surfacing](// TODO: Link to React CD chapter).
-
-Here, we can see an example of what `useRef` might look like in our `CountButton` example:
+[If you think back to an earlier chapter in the book, "Side Effects", you may remember our usage of a hook called "`useRef`"](/posts/ffg-fundamentals-side-effects#Persist-data-without-re-rendering-using-useRef). Sensibly, based on the name, it's very commonly used with an element's `ref` property. In fact, it's so commonly used to store an element's reference that it even has a shorthand:
 
 ```jsx
-import {useRef, useEffect} from 'react';
+const App = () => {
+	const divRef = useRef();
+	
+	// Ta-da! No need to pass a function when using `useRef` and `ref` together 
+	return <div ref={divRef}/>
+}
+```
 
+Knowing this, why aren't we using `useRef` in the previous button counter example? Well, the answer goes back to the "Side Effects" chapter once again. Back in said chapter, [we explained how `useRef` doesn't trigger `useEffect`s as one might otherwise expect](/posts/ffg-fundamentals-side-effects#useRefs-dont-trigger-useEffects). 
+
+Let's look at how using an element reference using `useRef` could cause havoc when binding an event via `addEventListener`. Here, we can see an example of what `useRef` might look like in our `CountButton` example:
+
+```jsx
 const CountButton = () => {
-    // `ref` is `{current: undefined}` right now
+    const [count, setCount] = useState(0);
     const buttonRef = useRef();
 
     useEffect(() => {
@@ -339,78 +336,64 @@ const CountButton = () => {
         return () => {
 	        buttonRef.current.removeEventListener('click', clickFn)            
         }
-    // DO NOT DO THIS, USE A FUNCTION OR `useState` for your `useEffect` `ref`s INSTEAD
+    // Do not use a useRef inside of a useEffect like this, it will likely cause bugs
     }, [buttonRef.current]);
     
     return <>
-    	<button ref={el => buttonRef.current = el}>Add one</button>
+    	<button ref={buttonRef}>Add one</button>
     	<p>Count is {count}</p>
     </>
 }
 ```
 
-Luckily for us, there's even a shorthand method for using `useRef` values inside of an element's `ref`:
+This works as we would expect because `buttonRef` is defined before the first run of `useEffect`. However, let's add a short delay to the `button`'s rendering. We can do this using a `setTimeout` and another `useEffect`:
 
 ```jsx
-// This will update `.current` for us
-<button ref={buttonRef}>Add one</button>
-```
+// This code intentionally doesn't work to demonstrate how `useRef`
+//  might not work with `useEffect` as you might think
+const CountButton = () => {
+  const [count, setCount] = useState(0);
+  const buttonRef = useRef();
 
-Unluckily for us, neither the shorthand nor the fully typed out `useRef` usage will behave as-expected for this case.
+  const [showButton, setShowButton] = useState(false);
 
-Take the following code sample:
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowButton(true);
+    }, 1000);
 
-```jsx
-import {useRef, useEffect} from 'react';
+    return () => clearInterval(interval);
+  }, []);
 
-const Comp = () => {
-	const ref = useRef();
-    
-    useEffect(() => {
-        ref.current = Date.now();
-    });
-    
-    return <p>The current timestamp is: {ref.current}</p>
-}
-```
+  useEffect(() => {
+    const clickFn = () => {
+      setCount((v) => v + 1);
+    };
 
-Why doesn't this show a timestamp?
+    if (!buttonRef.current) return;
+    buttonRef.current.addEventListener('click', clickFn);
 
-This is because when you change `ref` it never causes a re-render, which then never re-draws the `p` . 
+    return () => {
+      buttonRef.current.removeEventListener('click', clickFn);
+    };
+  }, [buttonRef.current]);
 
-Here, `useRef` is set to `undefined` and only updates _after_ the initial render in the `useEffect`, which does not cause a re-render.
-
-To solve for this, we must set a `useState` to trigger a re-render.
-
-```jsx
-const Comp = () => {
-	const ref = useRef();
-    
-    // We're not using the `_` value, just the `set` method in order to force a re-render 
-    const [_, setForceRenderNum] = useState(0);
-
-      useEffect(() => {
-        ref.current = Date.now();
-      });
-
-      useEffect(() => {
-        setForceRenderNum((v) => v + 1);
-      }, []);
-
-    return <>
-    	<p>The current timestamp is: {ref.current}</p>
-    	<button onClick={() => setForceRenderNum(v => v + 1)}>Check timestamp</button>
+  return (
+    <>
+      {showButton && <button ref={buttonRef}>Add one</button>}
+      <p>Count is {count}</p>
     </>
-}
+  );
+};
 ```
 
- You'll notice that even though `ref.current` is being set every time `useEffect` is ran (every render) it will update `ref.current`, but does not re-render.
+Now, if we wait the second it takes to render the `<button>Add one</button>` element and press the button, we'll see that our `click` event handler is never set properly. 
 
-Only when the `useState` variable is updated (via the `button`'s `onClick`) does the component re-render.
+This is because `buttonRef.current` is set to `undefined` in the first render and the mutation of `buttonRef` when the `<button>` element is rendered does not trigger a re-render, which in turn does not re-run `useEffect` to add the event binding.
 
-This isn't to say that `useRef` is bad by any means, though. Instead, what I'm trying to say is that you shouldn't use a `useRef` inside of a `useEffect` (unless you _really_ know what you're doing).
-
-[I wrote more about why we shouldn't use `useRef` in `useEffect`s and when and where they're more useful in another article linked here.](https://unicorn-utterances.com/posts/react-refs-complete-story)
+> This is not to say that you shouldn't use `useRef` for element reference, just that you should be aware of its downfalls and alternatives.
+>
+> We'll see some usage of the `ref` property with `useRef` in a bit.
 
 ## Angular
 
