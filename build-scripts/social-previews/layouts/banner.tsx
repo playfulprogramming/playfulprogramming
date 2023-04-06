@@ -15,6 +15,7 @@ const tagStickers: Record<string, string> = {
 	bash: readFileAsBase64("public/stickers/role_developer.png"),
 	design: readFileAsBase64("public/stickers/role_designer.png"),
 	rust: readFileAsBase64("public/stickers/ferris.png"),
+	git: readFileAsBase64("public/stickers/git.png"),
 };
 
 function BannerCodeScreen({
@@ -26,13 +27,16 @@ function BannerCodeScreen({
 	postHtml: string,
 	blur?: boolean,
 }) {
-	const rotX = (post.description.length % 30) - 10;
+	const rotX = (post.description.length % 20) - 10;
+	const rotY = ((post.title.length * 3) % 20);
 
 	const tag = post.tags.find((tag) => tag in tagStickers) || "default";
 	const tagImg = tagStickers[tag];
 
+	const theme = post.title.length % 2;
+
 	return <>
-		<div class={classnames("absoluteFill", "codeScreenBg", blur && "blur")} style={`--rotX: ${rotX}deg;`}>
+		<div class={classnames("absoluteFill", "codeScreenBg", blur && "blur", "theme-" + theme)} style={`--rotX: ${rotX}deg; --rotY: ${rotY}deg; --left: ${rotY}%;`}>
 			<div class="codeScreen">
 				<pre dangerouslySetInnerHTML={{ __html: postHtml }} />
 				<div class="tags">
