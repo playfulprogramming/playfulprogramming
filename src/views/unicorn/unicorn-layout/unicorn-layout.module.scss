@@ -7,7 +7,7 @@
 	flex-wrap: nowrap;
 	gap: $spacing * 8;
 
-	@include from($tablet) {
+	@include from($desktopSmall) {
 		flex-direction: row;
 	}
 }
@@ -19,7 +19,7 @@
 }
 
 .sidebar {
-	@include from($tablet) {
+	@include from($desktopSmall) {
 		top: $spacing * 8;
 		min-width: 320px;
 

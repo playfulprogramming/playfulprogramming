@@ -37,7 +37,7 @@
 	@include from($tabletSmall) {
 		--pictureSize: 96px;
 
-		@include until($tablet) {
+		@include until($desktopSmall) {
 			.socials {
 				display: block;
 				margin-left: calc(var(--pictureSize) + ($spacing * 4));
@@ -45,7 +45,7 @@
 		}
 	}
 
-	@include from($tablet) {
+	@include from($desktopSmall) {
 		flex-direction: column;
 		--pictureSize: 128px;
 
