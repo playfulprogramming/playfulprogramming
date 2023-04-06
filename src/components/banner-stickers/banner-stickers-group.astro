@@ -13,38 +13,55 @@ const STICKER_TRANSFORMS = [
 	"translate(110, 230) rotate(-4) scale(0.9)",
 	"translate(268, 229) rotate(6)",
 	"translate(360, 210) scale(0.8)",
-].sort(() => 0.5 - Math.random());
+];
 
 type StickerInfo = {
 	src: string;
-	transform: string;
 	name: string;
 };
 
-async function createSticker(name: string): Promise<StickerInfo> {
+async function createSticker(
+	name: string,
+	width: number = STICKER_SIZE,
+	height: number = STICKER_SIZE
+): Promise<StickerInfo> {
 	const image = await getImage({
 		src: `/stickers/${name}.png`,
-		width: STICKER_SIZE,
-		height: STICKER_SIZE,
+		width,
+		height,
 		alt: "",
 		format: "png",
 	});
 
 	return {
 		src: image.src,
-		transform: STICKER_TRANSFORMS.pop() || "",
 		name,
 	};
 }
 
-// we can't use an Array.map here because astro's JSX changes `<image>` tags into `<img>`, breaking the SVG
-const android = await createSticker("android");
-const angular = await createSticker("angular");
-const html = await createSticker("html");
-const python = await createSticker("python");
-const react = await createSticker("react");
-const typescript = await createSticker("typescript");
-const vue = await createSticker("vue");
+// we can't use JSX for these since Astro changes `<image>` tags into `<img>`, breaking the SVG
+const stickers = [
+	await createSticker("android"),
+	await createSticker("angular"),
+	await createSticker("html"),
+	await createSticker("python"),
+	await createSticker("react"),
+	await createSticker("typescript"),
+	await createSticker("vue"),
+	await createSticker("ferris", STICKER_SIZE, STICKER_SIZE * (399 / 512)),
+	await createSticker("git"),
+].sort(() => 0.5 - Math.random());
+
+const stickerHtml = STICKER_TRANSFORMS.map((transform) => ({
+	...stickers.pop(),
+	transform,
+}))
+	.map(
+		(sticker) => `
+	<image width="64" height="64" xlink:href="${sticker.src}" transform="${sticker.transform}"></image>
+`
+	)
+	.join("");
 
 const unicornImage = await getImage({
 	src: unicornSticker,
@@ -56,48 +73,7 @@ const unicornImage = await getImage({
 ---
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418 300">
-	<image
-		width="64"
-		height="64"
-		xlink:href={android.src}
-		transform={android.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={angular.src}
-		transform={angular.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={html.src}
-		transform={html.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={python.src}
-		transform={python.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={react.src}
-		transform={react.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={typescript.src}
-		transform={typescript.transform}
-	/>
-	<image
-		width="64"
-		height="64"
-		xlink:href={vue.src}
-		transform={vue.transform}
-	/>
+	<g set:html={stickerHtml} />
 
 	<image
 		width="128"
