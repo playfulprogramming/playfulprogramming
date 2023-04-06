@@ -78,7 +78,8 @@ export const renderPostPreviewToString = async (
 	<head>
 	<style>
 	${shikiSCSS}
-
+	</style>
+	<style>
 	${layout.css}
 
 	html, body {

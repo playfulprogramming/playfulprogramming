@@ -1,5 +1,4 @@
-import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
 import { getAllExtendedPosts } from "utils/get-all-posts";
@@ -9,8 +8,7 @@ import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 import banner from "./layouts/banner";
 import twitterPreview from "./layouts/twitter-preview";
 
-// For non-prod builds, this isn't needed
-if (process.env.BUILD_ENV === "dev") process.exit(0);
+if (!process.env.CI) process.exit(0);
 
 const browser_args = [
 	"--allow-running-insecure-content",
@@ -39,6 +37,7 @@ const browser_args = [
 	"--disable-speech-api",
 	"--disable-sync",
 	"--disable-web-security",
+	"--disable-dev-shm-usage",
 	"--disk-cache-size=33554432",
 	"--enable-features=SharedArrayBuffer",
 	"--hide-scrollbars",
@@ -52,31 +51,35 @@ const browser_args = [
 	"--no-sandbox",
 	"--no-zygote",
 	"--password-store=basic",
+	"--single-process",
 	"--use-gl=swiftshader",
 	"--use-mock-keychain",
-	"--disable-web-security",
 	"--window-size=1920,1080",
 ];
 
-const browser: puppeteer.Browser = await chromium.puppeteer.launch({
+const browser = await puppeteer.launch({
 	args: browser_args,
-	defaultViewport: {
-		width: PAGE_WIDTH,
-		height: PAGE_HEIGHT,
-	},
-	executablePath: await chromium.executablePath,
 	headless: true,
 	ignoreHTTPSErrors: true,
-	userDataDir: "./.puppeteer",
 });
 
-const page: puppeteer.Page = await browser.newPage();
+const [page] = await browser.pages();
+
+// log any page errors
+page.on("error", console.error);
+
+await page.setViewport({
+	width: PAGE_WIDTH,
+	height: PAGE_HEIGHT,
+});
 
 async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
-	await page.setContent(await renderPostPreviewToString(layout, post));
+	await page.setContent(await renderPostPreviewToString(layout, post), {
+		timeout: 0,
+	});
 	const buffer = (await page.screenshot({ type: "jpeg" })) as Buffer;
 
 	console.timeEnd(label);
@@ -98,7 +101,9 @@ for (const post of getAllExtendedPosts("en")) {
 			await renderPostImage(twitterPreview, post)
 		);
 	}
+}
 
+for (const post of getAllExtendedPosts("en")) {
 	if (post.bannerImg) {
 		await fsPromises.writeFile(
 			resolve(outDir, `.${post.bannerImg}`),

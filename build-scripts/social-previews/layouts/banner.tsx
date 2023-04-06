@@ -42,7 +42,6 @@ function Banner({
 }: ComponentProps) {
 	return <>
 		<BannerCodeScreen post={post} postHtml={postHtml} />
-		<BannerCodeScreen post={post} postHtml={postHtml} blur />
 		<div
 			className="absoluteFill codeScreenOverlay"
 			style={{
