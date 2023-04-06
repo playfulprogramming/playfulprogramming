@@ -4,7 +4,18 @@ import { ComponentProps, Layout } from '../base';
 import style from './banner-css';
 import classnames from 'classnames';
 
-const unicornFile = readFileAsBase64("src/assets/unicorn_utterances_sticker_512.png");
+const tagStickers: Record<string, string> = {
+	default: readFileAsBase64("public/stickers/role_devops.png"),
+	html: readFileAsBase64("public/stickers/html.png"),
+	webdev: readFileAsBase64("public/stickers/html.png"),
+	vue: readFileAsBase64("public/stickers/vue.png"),
+	documentation: readFileAsBase64("public/stickers/role_author.png"),
+	opinion: readFileAsBase64("public/stickers/role_devops.png"),
+	'computer science': readFileAsBase64("public/stickers/role_developer.png"),
+	bash: readFileAsBase64("public/stickers/role_developer.png"),
+	design: readFileAsBase64("public/stickers/role_designer.png"),
+	rust: readFileAsBase64("public/stickers/ferris.png"),
+};
 
 function BannerCodeScreen({
 	post,
@@ -16,6 +27,9 @@ function BannerCodeScreen({
 	blur?: boolean,
 }) {
 	const rotX = (post.description.length % 30) - 10;
+
+	const tag = post.tags.find((tag) => tag in tagStickers) || "default";
+	const tagImg = tagStickers[tag];
 
 	return <>
 		<div class={classnames("absoluteFill", "codeScreenBg", blur && "blur")} style={`--rotX: ${rotX}deg;`}>
@@ -30,7 +44,7 @@ function BannerCodeScreen({
 				</div>
 			</div>
 			<div class="rect" style="--z: 60px; --x: -80px; --y: -150px;">
-				<img src={unicornFile} />
+				<img src={tagImg} />
 			</div>
 		</div>
 	</>;

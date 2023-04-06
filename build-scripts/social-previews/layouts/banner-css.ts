@@ -1,4 +1,10 @@
 export default `
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+* {
+	font-family: 'Roboto Mono', monospace;
+}
+
 .codeScreenBg {
 	perspective: 200px;
 	perspective-origin: center;
