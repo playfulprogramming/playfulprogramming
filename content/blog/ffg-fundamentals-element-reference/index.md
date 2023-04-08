@@ -621,9 +621,13 @@ function logEl(el) {
 
 # How to keep an array of element references
 
-When we learned [how to access content that's been projected](/posts/ffg-fundamentals-accessing-children), we had to learn different APIs in order both to access a single projected item and access multiple projected items at once. We have a similar challenge in front of us with element referencing.
+Let's say that we're building an email application and want to provide the user a button that scrolls them to the top of their messages quickly.
 
-Let's say that we have an array of items that we want to be able to quickly scroll to the top or bottom of. One way of solving this is to store each item in the array into an element reference then use the top and bottom [elements' `scrollIntoView` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) to bring them onto the page visually.
+![// TODO](./scroll_to_top.png)
+
+
+
+One way of building out this button is to store each underlying message's DOM element in the array into an element reference then use the top and bottom [elements' `scrollIntoView` method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView) to bring them onto the page visually.
 
 Let's see how that's done with each framework.
 
@@ -633,20 +637,17 @@ Let's see how that's done with each framework.
 
 React's ability to persist data within a `useRef` allows us to create an index-based array to store our elements into.
 
-Using this array, we can then access the `0`th and `.length - 1`th index to indicate the first and last element respectively. 
+Using this array, we can then access the `0`th and last index (using `messages.length - 1`) to indicate the first and last element respectively. 
 
 ```jsx
-const chapters = [
-  'Preface',
-  'Introduction to Components',
-  'Dynamic HTML',
-  'Lifecycle Methods',
-  'Derived Values',
-  'Forms',
-  'Partial DOM Application',
-  'Content Projection',
-  'Content Reference',
-  'Element Reference',
+const messages = [
+    "The new slides for the design keynote look wonderful!",
+    "Some great new colours are planned to debut with Material Next!",
+    "Hey everyone! Please take a look at the resources I’ve attached.",
+    "So on Friday we were thinking about going through that park you’ve recommended.",
+    "We will discuss our upcoming Pixel 6 strategy in the following week.",
+    "On Thursday we drew some great new ideas for our talk.",
+    "So the design teams got together and decided everything should be made of sand."
 ];
 
 export default function App() {
@@ -676,7 +677,7 @@ export default function App() {
 
 ## Angular
 
-Just as there are both `ContentChild` and `ContentChildren` APIs to access a single and multiple projected elements, there's also `ViewChild` and `ViewChildren` to access more than one or more template elements using similar APIs.
+Just as there is a `ViewChild` to gain access to a single underlying HTML element,  you can also use a`ViewChildren` to access more than one or more template elements using similar APIs.
 
 Using `ViewChildren`, we can access [template reference variables](https://crutchcorn-book.vercel.app/posts/content-reference#ng-templates) in order to `scrollIntoView` the first and last elements.
 
@@ -707,16 +708,13 @@ class AppComponent {
   }
 
   chapters = [
-    'Preface',
-    'Introduction to Components',
-    'Dynamic HTML',
-    'Lifecycle Methods',
-    'Derived Values',
-    'Forms',
-    'Partial DOM Application',
-    'Content Projection',
-    'Content Reference',
-    'Element Reference',
+    "The new slides for the design keynote look wonderful!",
+    "Some great new colours are planned to debut with Material Next!",
+    "Hey everyone! Please take a look at the resources I’ve attached.",
+    "So on Friday we were thinking about going through that park you’ve recommended.",
+    "We will discuss our upcoming Pixel 6 strategy in the following week.",
+    "On Thursday we drew some great new ideas for our talk.",
+    "So the design teams got together and decided everything should be made of sand."
   ];
 }
 ````
@@ -755,16 +753,13 @@ function scrollToBottom() {
 }
 
 const chapters = [
-  'Preface',
-  'Introduction to Components',
-  'Dynamic HTML',
-  'Lifecycle Methods',
-  'Derived Values',
-  'Forms',
-  'Partial DOM Application',
-  'Content Projection',
-  'Content Reference',
-  'Element Reference',
+    "The new slides for the design keynote look wonderful!",
+    "Some great new colours are planned to debut with Material Next!",
+    "Hey everyone! Please take a look at the resources I’ve attached.",
+    "So on Friday we were thinking about going through that park you’ve recommended.",
+    "We will discuss our upcoming Pixel 6 strategy in the following week.",
+    "On Thursday we drew some great new ideas for our talk.",
+    "So the design teams got together and decided everything should be made of sand."
 ];
 </script>
 ```
