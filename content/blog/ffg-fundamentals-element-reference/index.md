@@ -96,7 +96,7 @@ export default function App() {
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [NgIf, JsonPipe, NgStyle],
+  imports: [NgIf],
   template: `
   <div style="margin-top: 5rem; margin-left: 5rem">
     <div (contextmenu)="open($event)">
@@ -397,11 +397,7 @@ This is because `buttonRef.current` is set to `undefined` in the first render an
 
 ## Angular
 
-In our chapter about [content reference](/posts/ffg-fundamentals-accessing-children), we touched on `ContentChild`, a method of accessing the projected content programmatically without our component class instance.
-
-While this is extremely useful when you're able to use it, projected content isn't the only thing HTML elements we want to reference programatically.
-
-This is where `ContentChild`'s sibling API comes into play: `ViewChild`. Using `ViewChild`, we can access an Element that's within an Angular component's `template`:
+Using `ViewChild`, we can access an Element that's within an Angular component's `template`:
 
 ```typescript
 import {
@@ -424,7 +420,7 @@ class RenderParagraphComponent implements AfterViewInit {
 }
 ```
 
-Here, we're using a [template reference variable](/posts/ffg-fundamentals-accessing-children#ng-templates) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
+Here, we're using a "template reference variable" (`#someVar`) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
 
 > What's this new `ngAfterViewInit` method?
 
@@ -985,3 +981,299 @@ function focusOnOpen(el) {
 # Challenge
 
 // TODO: Tooltip based on position of another DOM element, complete with browser resize handling and hiding on blur 
+
+![// TODO: Write](./tooltip.png)
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+
+export default function App() {
+  const buttonRef = useRef();
+
+  const mouseOverTimeout = useRef();
+
+  const [tooltipMeta, setTooltipMeta] = useState({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  });
+
+  const onMouseOver = () => {
+    // TODO: Cancel this
+    mouseOverTimeout.current = setTimeout(() => {
+      const bounding = buttonRef.current.getBoundingClientRect();
+      setTooltipMeta({
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      });
+    }, 1000);
+  };
+
+  const onMouseLeave = () => {
+    setTooltipMeta({
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    });
+    clearTimeout(mouseOverTimeout.current);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(mouseOverTimeout.current);
+    };
+  }, []);
+
+  return (
+    <div style={{ padding: '10rem' }}>
+      {tooltipMeta.show && (
+        <div
+          style={{
+            display: 'flex',
+            overflow: 'visible',
+            justifyContent: 'center',
+            width: `${tooltipMeta.width}px`,
+            position: 'fixed',
+            top: `${tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8}px`,
+            left: `${tooltipMeta.x}px`,
+          }}
+        >
+          <div
+            style={{
+              whiteSpace: 'nowrap',
+              padding: '8px',
+              background: '#40627b',
+              color: 'white',
+              borderRadius: '16px',
+            }}
+          >
+            This will send an email to the recipients
+          </div>
+          <div
+            style={{
+              height: '12px',
+              width: '12px',
+              transform: 'rotate(45deg) translateX(-50%)',
+              background: '#40627b',
+              bottom: 'calc(-6px - 4px)',
+              position: 'absolute',
+              left: '50%',
+              zIndex: -1,
+            }}
+          />
+        </div>
+      )}
+      <button
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        ref={buttonRef}
+      >
+        Send
+      </button>
+    </div>
+  );
+}
+```
+
+## Angular
+
+```typescript
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div style="padding: 10rem">
+    <div
+      *ngIf="tooltipMeta.show"
+      [style]="'
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ' + tooltipMeta.width + 'px;
+        position: fixed;
+        top: ' + (tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8) + 'px;
+        left: ' + tooltipMeta.x + 'px;
+      '"
+    >
+      <div
+        style="
+          white-space: nowrap;
+          padding: 8px;
+          background: #40627b;
+          color: white;
+          border-radius: 16px;
+        "
+      >
+        This will send an email to the recipients
+      </div>
+      <div
+        style="
+          height: 12px;
+          width: 12px;
+          transform: rotate(45deg) translateX(-50%);
+          background: #40627b;
+          bottom: calc(-6px - 4px);
+          position: absolute;
+          left: 50%;
+          zIndex: -1;
+        "
+      ></div>
+    </div>
+    <button
+      #buttonRef
+      (mouseover)="onMouseOver()"
+      (mouseleave)="onMouseLeave()"
+    >
+      Send
+    </button>
+  </div>
+  `,
+})
+class AppComponent implements OnDestroy {
+  @ViewChild('buttonRef') buttonRef: ElementRef<HTMLElement>;
+
+  tooltipMeta = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  };
+
+  mouseOverTimeout = null;
+
+  onMouseOver() {
+    this.mouseOverTimeout = setTimeout(() => {
+      const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
+      this.tooltipMeta = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      };
+    }, 1000);
+  }
+
+  onMouseLeave() {
+    this.tooltipMeta = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    };
+    clearTimeout(this.mouseOverTimeout);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.mouseOverTimeout);
+  }
+}
+```
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <div style="padding: 10rem">
+    <div
+      v-if="tooltipMeta.show"
+      :style="`
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ${tooltipMeta.width}px;
+        position: fixed;
+        top: ${tooltipMeta.y - tooltipMeta.height - 16 - 6 - 8}px;
+        left: ${tooltipMeta.x}px;
+      `"
+    >
+      <div
+        :style="`
+          white-space: nowrap;
+          padding: 8px;
+          background: #40627b;
+          color: white;
+          border-radius: 16px;
+        `"
+      >
+        This will send an email to the recipients
+      </div>
+      <div
+        :style="`
+          height: 12px;
+          width: 12px;
+          transform: rotate(45deg) translateX(-50%);
+          background: #40627b;
+          bottom: calc(-6px - 4px);
+          position: absolute;
+          left: 50%;
+          zIndex: -1;
+        `"
+      ></div>
+    </div>
+    <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const buttonRef = ref()
+
+const mouseOverTimeout = ref(null)
+
+const tooltipMeta = ref({
+  x: 0,
+  y: 0,
+  height: 0,
+  width: 0,
+  show: false,
+})
+
+const onMouseOver = () => {
+  mouseOverTimeout.value = setTimeout(() => {
+    const bounding = buttonRef.value.getBoundingClientRect()
+    tooltipMeta.value = {
+      x: bounding.x,
+      y: bounding.y,
+      height: bounding.height,
+      width: bounding.width,
+      show: true,
+    }
+  }, 1000)
+}
+
+const onMouseLeave = () => {
+  tooltipMeta.value = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  }
+  clearTimeout(mouseOverTimeout.current)
+}
+
+// Just in case
+onUnmounted(() => {
+  clearTimeout(mouseOverTimeout.current)
+})
+</script>
+```
+
+<!-- tabs:end -->
