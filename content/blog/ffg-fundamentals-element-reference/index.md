@@ -397,42 +397,153 @@ This is because `buttonRef.current` is set to `undefined` in the first render an
 
 ## Angular
 
-Using `ViewChild`, we can access an Element that's within an Angular component's `template`:
+Using `ViewChild`, we can access an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) that's within an Angular component's `template`:
 
 ```typescript
-import {
-  Component,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
-
 @Component({
-    selector: 'paragraph',
-    template: `<p #pTag></p>`
+  selector: 'paragraph',
+  standalone: true,
+  template: `<p #pTag>Hello, world!</p>`,
 })
-class RenderParagraphComponent implements AfterViewInit {
-    @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
-    
-    ngAfterViewInit() {
-        console.log(this.pTag.nativeElement);
-    }
+class RenderParagraphComponent {
+  @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
 }
 ```
 
-Here, we're using a "template reference variable" (`#someVar`) to access the `p` tag instance and, upon `ngAfterViewInit`, running a `console.log`.
+You may notice that our `<p>` tag has a attribute prefixed with a pound sign (`#`). This pound-sign prefixed attribute allows Angular to associate the element with a "template reference variable", which can then be referenced inside of our `ViewChild` to gain access to an element.
 
-> What's this new `ngAfterViewInit` method?
+For example, the `#pTag` attribute assigns the template reference variable named `"pTag"` to the `<p>` element and allows `ViewChild` to find that element based on the variable's name.
 
-Similar to how `ViewContent` has an associated lifecycle method that tells our component when the project content is ready, so too do we have a lifecycle method to let us know when our template is rendered fully: `ngAfterViewInit`.
+----
 
-If we were to run our `console.log` within `ngOnInit`, it would throw an error due to `nativeElement` being `undefined`.
+Now that we have access to the underlying `<p>` element, let's print it out inside of a `ngOnInit`:
 
-<!-- Editors note: This isn't true. `{static: true}` fixes this problem for us -->
+```typescript
+@Component({
+  selector: 'paragraph',
+  standalone: true,
+  template: `<p #pTag>Hello, world!</p>`,
+})
+class RenderParagraphComponent implements OnInit {
+  @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
 
-<!-- TODO: Make this true -->
+  ngOnInit() {
+    // This will log `undefined`
+    console.log(this.pTag);
+  }
+}
+```
 
-Using this, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
+> Why does this log as `undefined`? How do we fix this?
+
+Well, let's think about the following example:
+
+```typescript
+@Component({
+  selector: 'paragraph',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+    <ng-container *ngIf="true">
+      <p #pTag>Hello, world!</p>
+    </ng-container>
+  `,
+})
+class RenderParagraphComponent implements OnInit {
+  @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
+
+  ngOnInit() {
+    // This will still log `undefined`
+    console.log(this.pTag);
+  }
+}
+```
+
+Here, we're conditionally rendering our `p` tag using an `ngIf`. But see, under the hood the `ngIf` won't initialize the `<p>` tag until _after_ the `ngOnInit` lifecycle method is executed.
+
+To solve this, we can do one of two things:
+
+1) Tell Angular that our code doesn't contain any dynamic HTML (IE: No `*ngIf`, `*ngFor`, or `<ng-template>`s)
+2) Use a different lifecycle method that occurs after `ngOnInit`. 
+
+### Using `{static: true}` to use `ViewChild` immediately
+
+To tell Angular that there is no dynamic HTML and it should immediately query for the elements, you can use the `{static: true}` property on `ViewChild`:
+
+```typescript
+@Component({
+  selector: 'paragraph',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+    <p #pTag>Hello, world!</p>
+  `,
+})
+class RenderParagraphComponent implements OnInit {
+  @ViewChild('pTag', { static: true }) pTag: ElementRef<HTMLElement>;
+
+  ngOnInit() {
+    // This will log the HTML element
+    console.log(this.pTag.nativeElement);
+  }
+}
+```
+
+However, keep in mind that if you _do_ later add any dynamic HTML that our element will be `undefined` once again:
+
+```typescript
+@Component({
+  selector: 'paragraph',
+  standalone: true,
+  imports: [NgIf],
+  template: ` 
+    <ng-container *ngIf="true">
+      <p #pTag>Hello, world!</p>
+    </ng-container>
+  `,
+})
+class RenderParagraphComponent implements OnInit {
+  @ViewChild('pTag', { static: true }) pTag: ElementRef<HTMLElement>;
+
+  ngOnInit() {
+    // This will log `undefined`
+    console.log(this.pTag);
+  }
+}
+```
+
+To solve this, we'll have to use a different lifecycle method than `ngOnInit`.
+
+### Using `ngAfterViewInit` to use a deferred `ViewChild`
+
+While the values a dynamic HTML may not be defined in `ngOnInit`, there is a different lifecycle method to be called when Angular has fully initialized all of the child values of your dynamic HTML: `ngAftrerViewInit`.
+
+```typescript
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { NgIf } from '@angular/common';
+
+@Component({
+  selector: 'paragraph',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <ng-container *ngIf="true">
+    <p #pTag>Hello, world!</p>
+  </ng-container>
+  `,
+})
+class RenderParagraphComponent implements AfterViewInit {
+  @ViewChild('pTag') pTag: ElementRef<HTMLElement>;
+
+  ngAfterViewInit() {
+    console.log(this.pTag.nativeElement);
+  }
+}
+```
+
+### Adding an Event Listener using `@ViewChild`
+
+Now that we know how to use `ViewChild`, we can add a `addEventListener` and `removeEventListener` to manually bind a `button`'s `click` event:
 
 ```typescript
 import {
@@ -454,7 +565,7 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
     
     count = 0;
     
-    addOne() {
+    addOne = () => {
         this.count++;
     }
     
@@ -468,21 +579,7 @@ class RenderParagraphComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-But wait! When we click on the `button`, `count` is not updated!
-
-This is because `this` is being unbound from the component instance within `addEventListener`, and we need to forcibly rebind the `count` to the component instead.
-
-Change `addOne` to the following:
-
-```typescript
-addOne = function () {
-  this.count++;
-}.bind(this);
-```
-
-And boom, the count suddenly starts updating when the button is pressed.
-
-> Wat?!
+> Remember, the `addOne` function cannot be a class method, as otherwise [it will not cleanup inside the `removeEventListener` properly.](https://unicorn-utterances.com/posts/javascript-bind-usage#event-listeners)
 
 ## Vue
 
@@ -989,7 +1086,6 @@ function focusOnOpen(el) {
 ## React
 
 ```jsx
-
 export default function App() {
   const buttonRef = useRef();
 
@@ -1004,7 +1100,6 @@ export default function App() {
   });
 
   const onMouseOver = () => {
-    // TODO: Cancel this
     mouseOverTimeout.current = setTimeout(() => {
       const bounding = buttonRef.current.getBoundingClientRect();
       setTooltipMeta({
