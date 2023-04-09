@@ -3,49 +3,22 @@
 .pagination {
 	display: flex;
 	justify-content: center;
-	margin: 0;
-	margin-bottom: 24px;
+	gap: $spacing * 2;
+	margin: ($spacing * 6) 0;
 	padding: 0;
 	list-style: none;
 
-	// We select the `a` so that the focus state looks right
 	.paginationItem a {
-		border-radius: 4px;
-		color: var(--highImpactBlack);
-		text-decoration: none;
-		padding: 8px 16px;
-	}
+		border-radius: 8px;
+		width: 40px;
+		height: 40px;
 
-	.paginationItem:not(:first-of-type) a {
-		margin-left: 0.5rem;
-	}
-
-	.paginationItem.active a {
-		background: var(--cardActiveBackground);
-		border-color: transparent;
-		box-shadow: var(--cardActiveBoxShadow);
-	}
-
-	.paginationItem:not(.active) a {
-		border: 1px solid var(--primary);
-	}
-
-	.previous,
-	.next {
-		// Make it so that the next and prev label text is hidden on mobile
-		// but not removed from the aria-reading role
-		[aria-hidden="false"] {
-			@include until($tablet) {
-				width: 1px;
-				height: 1px;
-				overflow: hidden;
-				opacity: 0;
-				display: inline-block;
-			}
+		span {
+			display: flex;
 		}
 	}
 
-	.showNothing {
-		display: none;
+	.paginationItem.active a {
+		box-shadow: none;
 	}
 }
