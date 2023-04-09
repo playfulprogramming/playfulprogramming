@@ -684,6 +684,8 @@ Using `ViewChildren`, we can access [template reference variables](https://crutc
 ````typescript
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgFor],
   template: `
     <div>
       <button (click)="scrollToTop()">Scroll to top</button>
@@ -889,18 +891,20 @@ export default function App() {
 
 ## Angular
 
-To add the `addEventListener` to our context menu is fairly easy by adopting the above code and placing it within our `ngAfterViewInit` lifecycle method.
+We can adopt the above code and place it within our `ngAfterViewInit` lifecycle method to add the `addEventListener` to our context menu.
 
-However, in order to `focus` on the context menu, we're relying on [the `changes` functionality of `ViewChildren`](https://angular.io/api/core/QueryList#changes) to run a function every time the context menu is rendered and unrendered.
+Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.focus` it when it becomes active.
+
+> We need to use a `setTimeout` in our `open` method to make sure the HTML element renders before our `focus` call.
 
 ```typescript
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [NgIf, JsonPipe, NgStyle],
+  imports: [NgIf],
   template: `
   <div style="margin-top: 5rem; margin-left: 5rem">
-    <div #contextOrigin (contextmenu)="open($event)">
+    <div (contextmenu)="open($event)">
       Right click on me!
     </div>
   </div>
@@ -925,7 +929,7 @@ However, in order to `focus` on the context menu, we're relying on [the `changes
   `,
 })
 class AppComponent implements AfterViewInit, OnDestroy {
-  @ViewChildren('contextMenu') contextMenu: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('contextMenu') contextMenu: ElementRef<HTMLElement>;
 
   isOpen = false;
 
@@ -935,7 +939,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
   };
 
   closeIfOutsideOfContext = (e: MouseEvent) => {
-    const contextMenuEl = this.contextMenu?.first?.nativeElement;
+    const contextMenuEl = this.contextMenu?.nativeElement;
     if (!contextMenuEl) return;
     const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
     if (isClickInside) return;
@@ -944,13 +948,6 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     document.addEventListener('click', this.closeIfOutsideOfContext);
-
-    // This function runs anytime the `contextMenu` ViewChildren value updates
-    this.contextMenu.changes.forEach(() => {
-      const isLoaded = this.contextMenu?.first?.nativeElement;
-      if (!isLoaded) return;
-      this.contextMenu.first.nativeElement.focus();
-    });
   }
 
   ngOnDestroy() {
@@ -968,6 +965,10 @@ class AppComponent implements AfterViewInit, OnDestroy {
       x: e.clientX,
       y: e.clientY,
     };
+    // Wait until the element is rendered before focusing it
+    setTimeout(() => {
+      this.contextMenu.nativeElement.focus();
+    }, 0);
   }
 }
 ```
