@@ -770,19 +770,20 @@ const chapters = [
 
 # Real world usage
 
-TODO: Write
+Now that we know how to access an underlying HTML element in our given framework, let's go back to our previous context menu example from the start of the chapter.
+
+See, while our context menu was able to show properly, we were missing two distinct features:
+
+1) Focusing the dropdown element when opened
+2) Closing the context menu when the user clicks elsewhere
 
 ![// TODO: Add alt text](./context-close.png)
 
-Let's first start by detecting when the user has right-clicked a `div`. We can use [the `contextmenu` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event) to detect a right-click event. From there, it's as simple as [conditionally rendering](https://crutchcorn-book.vercel.app/posts/dynamic-html#Conditional-Rendering) the context menu component when the user has right-clicked.
+Let's add this functionality into our context menu component. 
 
-----------------------
+To add the first feature, we'll [focus on the context menu using `element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) in order to make sure that keyboard users aren't lost when trying to use the feature.
 
-// TODO: Write
-
----------------------------
-
-Let's add this functionality into our context menu component. To do this, let's:
+To add the second feature, let's:
 
 - Add a listener for any time the user clicks on a page
 - Inside of that click listener, get [the event's `target` property](https://developer.mozilla.org/en-US/docs/Web/API/Event/target)
@@ -811,28 +812,17 @@ document.addEventListener('click', listenForOutsideClicks)
 ```
 
 
-
-
 Let's port this logic to React, Angular, and Vue:
-
-
-
------------------
-
-We also want to immediately [focus on the context menu using `element.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) in order to make sure that keyboard users aren't lost when trying to use the feature.
-
-
 
 <!-- tabs:start -->
 
 ## React
 
-We can run `getBoundingClientRect` when the `ref` is set by simply passing a `callback` to the element's `ref`.
+Let's add a `ref` usage that stores our `contextMenu` inside of a `useState`.
 
-From there, it's a basic `useRef` passing in order to `focus` on the context menu. We're able to do this despite a conditional rendering of the context menu because React will automatically update the value of `ref` depending on if the base element is rendered or not.
+Then, when we change the value of `contextMenu`, we can `.focus` the element and use the `addEventListener` code from above:
 
 ```jsx
-
 export default function App() {
   const [mouseBounds, setMouseBounds] = useState({
     x: 0,
@@ -845,7 +835,6 @@ export default function App() {
     e.preventDefault();
     setIsOpen(true);
     setMouseBounds({
-      // Mouse position on click
       x: e.clientX,
       y: e.clientY,
     });
@@ -900,7 +889,7 @@ export default function App() {
 
 ## Angular
 
-To get the base element's position, we're able to use our previous `ViewChild` to get the underlying DOM node.
+To add the `addEventListener` to our context menu is fairly easy by adopting the above code and placing it within our `ngAfterViewInit` lifecycle method.
 
 However, in order to `focus` on the context menu, we're relying on [the `changes` functionality of `ViewChildren`](https://angular.io/api/core/QueryList#changes) to run a function every time the context menu is rendered and unrendered.
 
@@ -956,6 +945,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     document.addEventListener('click', this.closeIfOutsideOfContext);
 
+    // This function runs anytime the `contextMenu` ViewChildren value updates
     this.contextMenu.changes.forEach(() => {
       const isLoaded = this.contextMenu?.first?.nativeElement;
       if (!isLoaded) return;
@@ -975,7 +965,6 @@ class AppComponent implements AfterViewInit, OnDestroy {
     e.preventDefault();
     this.isOpen = true;
     this.mouseBounds = {
-      // Mouse position on click
       x: e.clientX,
       y: e.clientY,
     };
@@ -987,7 +976,7 @@ class AppComponent implements AfterViewInit, OnDestroy {
 
 ## Vue
 
-In Vue, we can pass a string to the context origin in order to run `getBoundingClientRect` on a component mount.
+Let's adopt the above click listener and apply it within our `onMounted` lifecycle method.
 
 We'll also use a callback ref in order to run a function every time the context menu is open. This function will then either do nothing or call `.focus` on the element depending on if it's rendered or not.
 
@@ -1052,7 +1041,6 @@ const open = (e) => {
   e.preventDefault()
   isOpen.value = true
   mouseBounds.value = {
-    // Mouse position on click
     x: e.clientX,
     y: e.clientY,
   }
