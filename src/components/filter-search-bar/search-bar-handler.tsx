@@ -64,9 +64,8 @@ export const SearchBarHandler = ({
 					return url.href;
 				}}
 				page={{
-					total: totalPosts,
 					currentPage: page,
-					size: PAGE_SIZE,
+					lastPage: Math.ceil(totalPosts / PAGE_SIZE),
 				}}
 			/>
 		</>

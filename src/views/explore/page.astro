@@ -8,7 +8,7 @@ import { getPrefixLanguageFromPath } from "utils/translations";
 
 export interface PageProps {
 	posts: PostInfo[];
-	page: Pick<Page<any>, "total" | "currentPage" | "size">;
+	page: Pick<Page<any>, "currentPage" | "lastPage">;
 }
 
 const { posts, page } = Astro.props as PageProps;
