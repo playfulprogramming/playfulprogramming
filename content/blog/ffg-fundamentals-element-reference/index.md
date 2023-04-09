@@ -1060,13 +1060,343 @@ function focusOnOpen(el) {
 
 # Challenge
 
-// TODO: Tooltip based on position of another DOM element, complete with browser resize handling and hiding on blur 
+Let's build out a fresh component from our understanding of element reference.
+
+Specifically, let's build out tooltip functionality so that, when the user hovers over a button for a second or longer, it displays a popup message to help the user understand how it's used. 
 
 ![// TODO: Write](./tooltip.png)
 
+
+
+To do this, we'll need to consider a few things:
+
+1) How to track when the user has hovered over an element for a second or longer
+2) How to remove the popup when the user has moved their mouse
+3) Make sure the tooltip is positioned above the button
+4) Make sure the tooltip is horizontally centered
+5) Adding any necessary polish
+
+
+
+## Step 1: Track when the user has hovered an element
+
+// TODO: Track
+
 <!-- tabs:start -->
 
-## React
+### React
+
+```jsx
+export default function App() {
+  const buttonRef = useRef();
+
+  const mouseOverTimeout = useRef();
+    
+  const [tooltipMeta, setTooltipMeta] = useState({
+    show: false,
+  });
+
+  const onMouseOver = () => {
+    mouseOverTimeout.current = setTimeout(() => {
+      const bounding = buttonRef.current.getBoundingClientRect();
+      setTooltipMeta({
+        show: true,
+      });
+    }, 1000);
+  };
+    
+  useEffect(() => {
+    return () => {
+      clearTimeout(mouseOverTimeout.current);
+    };
+  }, []);
+    
+  return (
+    <div style={{ padding: '10rem' }}>
+      <button onMouseOver={onMouseOver} ref={buttonRef}>
+        Send
+      </button>
+      {tooltipMeta.show && <div>This will send an email to the recipients</div>}
+    </div>
+  );
+}
+```
+
+### Angular
+
+// TODO:
+
+### Vue
+
+// TODO:
+
+<!-- tabs:end -->
+
+## Step 2: Remove the element when the user stops hovering
+
+// TODO
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+export default function App() {
+  const buttonRef = useRef();
+
+  const mouseOverTimeout = useRef();
+
+  const [tooltipMeta, setTooltipMeta] = useState({
+    show: false,
+  });
+
+  const onMouseOver = () => {
+    mouseOverTimeout.current = setTimeout(() => {
+      const bounding = buttonRef.current.getBoundingClientRect();
+      setTooltipMeta({
+        show: true,
+      });
+    }, 1000);
+  };
+
+  const onMouseLeave = () => {
+    setTooltipMeta({
+      show: false,
+    });
+    clearTimeout(mouseOverTimeout.current);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(mouseOverTimeout.current);
+    };
+  }, []);
+
+  return (
+    <div style={{ padding: '10rem' }}>
+      <button
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        ref={buttonRef}
+      >
+        Send
+      </button>
+      {tooltipMeta.show && <div>This will send an email to the recipients</div>}
+    </div>
+  );
+}
+```
+
+### Angular
+
+// TODO:
+
+### Vue
+
+// TODO:
+
+<!-- tabs:end -->
+
+
+
+## Step 3: Placing the tooltip above the button
+
+
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+export default function App() {
+  const buttonRef = useRef();
+
+  const mouseOverTimeout = useRef();
+
+  const [tooltipMeta, setTooltipMeta] = useState({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  });
+
+  const onMouseOver = () => {
+    mouseOverTimeout.current = setTimeout(() => {
+      const bounding = buttonRef.current.getBoundingClientRect();
+      setTooltipMeta({
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      });
+    }, 1000);
+  };
+
+  const onMouseLeave = () => {
+    setTooltipMeta({
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    });
+    clearTimeout(mouseOverTimeout.current);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(mouseOverTimeout.current);
+    };
+  }, []);
+
+  return (
+    <div style={{ padding: '10rem' }}>
+      {tooltipMeta.show && (
+        <div
+          style={{
+            overflow: 'visible',
+            position: 'fixed',
+            top: `${tooltipMeta.y - tooltipMeta.height - 8}px`,
+          }}
+        >
+          This will send an email to the recipients
+        </div>
+      )}
+      <button
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        ref={buttonRef}
+      >
+        Send
+      </button>
+    </div>
+  );
+}
+```
+
+### Angular
+
+// TODO
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+
+
+## Step 4: Centering the tooltip horizontally
+
+
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+export default function App() {
+  const buttonRef = useRef();
+
+  const mouseOverTimeout = useRef();
+
+  const [tooltipMeta, setTooltipMeta] = useState({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  });
+
+  const onMouseOver = () => {
+    mouseOverTimeout.current = setTimeout(() => {
+      const bounding = buttonRef.current.getBoundingClientRect();
+      setTooltipMeta({
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      });
+    }, 1000);
+  };
+
+  const onMouseLeave = () => {
+    setTooltipMeta({
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    });
+    clearTimeout(mouseOverTimeout.current);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(mouseOverTimeout.current);
+    };
+  }, []);
+
+  return (
+    <div style={{ padding: '10rem' }}>
+      {tooltipMeta.show && (
+        <div
+          style={{
+            overflow: 'visible',
+            position: 'fixed',
+            top: `${tooltipMeta.y - tooltipMeta.height - 8}px`,
+            display: 'flex',
+            justifyContent: 'center',
+            width: `${tooltipMeta.width}px`,
+            left: `${tooltipMeta.x}px`,
+          }}
+        >
+          <div
+            style={{
+              whiteSpace: 'nowrap',
+            }}
+          >
+            This will send an email to the recipients
+          </div>
+        </div>
+      )}
+      <button
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        ref={buttonRef}
+      >
+        Send
+      </button>
+    </div>
+  );
+}
+```
+
+### Angular
+
+// TODO
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+
+
+## Step 5: Adding polish
+
+// TODO
+
+1) Dropdown arrow using rotated square
+2) Background colors
+
+<!-- tabs:start -->
+
+### React
 
 ```jsx
 export default function App() {
@@ -1163,10 +1493,9 @@ export default function App() {
 }
 ```
 
-## Angular
+### Angular
 
 ```typescript
-
 @Component({
   selector: 'my-app',
   standalone: true,
@@ -1262,7 +1591,7 @@ class AppComponent implements OnDestroy {
 }
 ```
 
-## Vue
+### Vue
 
 ```vue
 <!-- App.vue -->
