@@ -1102,7 +1102,6 @@ export default function App() {
 
   const onMouseOver = () => {
     mouseOverTimeout.current = setTimeout(() => {
-      const bounding = buttonRef.current.getBoundingClientRect();
       setTooltipMeta({
         show: true,
       });
@@ -1158,7 +1157,6 @@ class AppComponent implements OnDestroy {
 
   onMouseOver() {
     this.mouseOverTimeout = setTimeout(() => {
-      const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
       this.tooltipMeta = {
         show: true,
       };
@@ -1195,7 +1193,6 @@ const tooltipMeta = ref({
 
 const onMouseOver = () => {
   mouseOverTimeout.value = setTimeout(() => {
-    const bounding = buttonRef.value.getBoundingClientRect()
     tooltipMeta.value = {
       show: true,
     }
@@ -1212,7 +1209,9 @@ onUnmounted(() => {
 
 ## Step 2: Remove the element when the user stops hovering
 
-// TODO
+Now that we have our tooltip showing up when we'd expect, let's remove it when we stop hovering on the button element.
+
+To do this, we'll utilize [the `mouseleave` HTML event](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event) to set `show` to `false` and cancel the timer to show the tooltip if the event is active.
 
 <!-- tabs:start -->
 
@@ -1230,7 +1229,6 @@ export default function App() {
 
   const onMouseOver = () => {
     mouseOverTimeout.current = setTimeout(() => {
-      const bounding = buttonRef.current.getBoundingClientRect();
       setTooltipMeta({
         show: true,
       });
@@ -1267,11 +1265,98 @@ export default function App() {
 
 ### Angular
 
-// TODO:
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div style="padding: 10rem">
+    <button
+      #buttonRef
+      (mouseover)="onMouseOver()"
+      (mouseleave)="onMouseLeave()"
+    >
+      Send
+    </button>
+    <div *ngIf="tooltipMeta.show">
+      This will send an email to the recipients
+    </div>
+  </div>
+  `,
+})
+class AppComponent implements OnDestroy {
+  @ViewChild('buttonRef') buttonRef: ElementRef<HTMLElement>;
+
+  tooltipMeta = {
+    show: false,
+  };
+
+  mouseOverTimeout = null;
+
+  onMouseOver() {
+    this.mouseOverTimeout = setTimeout(() => {
+      this.tooltipMeta = {
+        show: true,
+      };
+    }, 1000);
+  }
+
+  onMouseLeave() {
+    this.tooltipMeta = {
+      show: false,
+    };
+    clearTimeout(this.mouseOverTimeout);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.mouseOverTimeout);
+  }
+}
+```
 
 ### Vue
 
-// TODO:
+```vue
+<!-- App.vue -->
+<template>
+  <div style="padding: 10rem">
+    <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
+    <div v-if="tooltipMeta.show">This will send an email to the recipients</div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const buttonRef = ref()
+
+const mouseOverTimeout = ref(null)
+
+const tooltipMeta = ref({
+  show: false,
+})
+
+const onMouseOver = () => {
+  mouseOverTimeout.value = setTimeout(() => {
+    tooltipMeta.value = {
+      show: true,
+    }
+  }, 1000)
+}
+
+const onMouseLeave = () => {
+  tooltipMeta.value = {
+    show: false,
+  }
+  clearTimeout(mouseOverTimeout.current)
+}
+
+onUnmounted(() => {
+  clearTimeout(mouseOverTimeout.current)
+})
+</script>
+```
 
 <!-- tabs:end -->
 
