@@ -1865,10 +1865,29 @@ onUnmounted(() => {
 
 ## Step 5: Adding polish
 
-// TODO
+Our tooltip works now! But, being honest, it's a bit plain looking without much styling.
 
-1) Dropdown arrow using rotated square
-2) Background colors
+Let's fix that by adding:
+
+1) Background colors
+2) A dropdown arrow indicating the location of the element the tooltip is for
+
+While the first item can be added [using some `background-color` CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color), the dropdown arrow is a bit more challenging to solve.
+
+The reason a dropdown arrow is more challenging is because CSS typically wants all elements to be represented as a square - not any other shape.
+
+However, we can use this knowledge to use a square and trick the human eye into thinking it's a triangle by:
+
+1) Rotating a square 45 degrees to be "sideways" [using CSS' `transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform)
+2) Adding color to the square [using `background-color`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)
+3) Positioning the square to only show the bottom half [using `position: absolute`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) and [a negative CSS `top` value](https://developer.mozilla.org/en-US/docs/Web/CSS/top)
+4) Placing it under the tooltip background [using a negative `z-index`](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index)
+
+![// TODO](./tooltip_steps.png)
+
+
+
+Let's build it!
 
 <!-- tabs:start -->
 
