@@ -1582,7 +1582,42 @@ onUnmounted(() => {
 
 ## Step 4: Centering the tooltip horizontally
 
+To center a `position: fixed` element is a challenge and a half. While there's half a dozen ways we could go about this, we're going to opt for a solution that involves:
 
+- Creating a `<div>` with the same width of the button
+- Making this `<div>` a `display: flex` element with `justify-content: center` CSS applied to center all children
+- Allowing overflow inside the `div` using `overflow: visible`
+- Placing our tooltip's text  inside of the `<div>` with `white-space: nowrap` applied to avoid our text wrapping to meet the `<div>` width.
+
+This works because the `<div>`'s position should mirror the button's, and allow content to be centered around it, like so:
+
+![// TODO](./button_positioned.png)
+
+In the end, our styling should look something like this HTML markup:
+
+```html
+<div style="padding: 10rem">
+  <!-- The PX values here may differ on your system -->
+  <div
+    style="
+      display: flex;
+      overflow: visible;
+      justify-content: center;
+      width: 40.4667px;
+      position: fixed;
+      top: 138.8px;
+      left: 168px;
+    "
+  >
+    <div style="white-space: nowrap">
+      This will send an email to the recipients
+    </div>
+  </div>
+  <button>Send</button>
+</div>
+```
+
+Let's implement this within our frameworks:
 
 <!-- tabs:start -->
 
@@ -1669,11 +1704,160 @@ export default function App() {
 
 ### Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div style="padding: 10rem">
+    <div
+      *ngIf="tooltipMeta.show"
+      [style]="'
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ' + tooltipMeta.width + 'px;
+        position: fixed;
+        top: ' + (tooltipMeta.y - tooltipMeta.height - 8) + 'px;
+        left: ' + tooltipMeta.x + 'px;
+      '"
+    >
+      <div
+        style="
+          white-space: nowrap;
+        "
+      >
+        This will send an email to the recipients
+      </div>
+    </div>
+    <button
+      #buttonRef
+      (mouseover)="onMouseOver()"
+      (mouseleave)="onMouseLeave()"
+    >
+      Send
+    </button>
+  </div>
+  `,
+})
+class AppComponent implements OnDestroy {
+  @ViewChild('buttonRef') buttonRef: ElementRef<HTMLElement>;
+
+  tooltipMeta = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  };
+
+  mouseOverTimeout = null;
+
+  onMouseOver() {
+    this.mouseOverTimeout = setTimeout(() => {
+      const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
+      this.tooltipMeta = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      };
+    }, 1000);
+  }
+
+  onMouseLeave() {
+    this.tooltipMeta = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    };
+    clearTimeout(this.mouseOverTimeout);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.mouseOverTimeout);
+  }
+}
+```
 
 ### Vue
 
-// TODO
+```vue
+<!-- App.vue -->
+<template>
+  <div style="padding: 10rem">
+    <div
+      v-if="tooltipMeta.show"
+      :style="`
+        display: flex;
+        overflow: visible;
+        justify-content: center;
+        width: ${tooltipMeta.width}px;
+        position: fixed;
+        top: ${tooltipMeta.y - tooltipMeta.height - 8}px;
+        left: ${tooltipMeta.x}px;
+      `"
+    >
+      <div
+        :style="`
+          white-space: nowrap;
+        `"
+      >
+        This will send an email to the recipients
+      </div>
+    </div>
+    <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const buttonRef = ref()
+
+const mouseOverTimeout = ref(null)
+
+const tooltipMeta = ref({
+  x: 0,
+  y: 0,
+  height: 0,
+  width: 0,
+  show: false,
+})
+
+const onMouseOver = () => {
+  mouseOverTimeout.value = setTimeout(() => {
+    const bounding = buttonRef.value.getBoundingClientRect()
+    tooltipMeta.value = {
+      x: bounding.x,
+      y: bounding.y,
+      height: bounding.height,
+      width: bounding.width,
+      show: true,
+    }
+  }, 1000)
+}
+
+const onMouseLeave = () => {
+  tooltipMeta.value = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  }
+  clearTimeout(mouseOverTimeout.current)
+}
+
+onUnmounted(() => {
+  clearTimeout(mouseOverTimeout.current)
+})
+</script>
+```
 
 <!-- tabs:end -->
 
