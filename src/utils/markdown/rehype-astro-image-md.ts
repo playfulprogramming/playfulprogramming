@@ -77,6 +77,7 @@ export const rehypeAstroImageMd: Plugin<
 					return;
 				}
 
+				const originalDimensions = { ...dimensions };
 				const imgRatioHeight = dimensions.height / dimensions.width;
 				const imgRatioWidth = dimensions.width / dimensions.height;
 				if (maxHeight && dimensions.height > maxHeight) {
@@ -91,8 +92,8 @@ export const rehypeAstroImageMd: Plugin<
 
 				const pictureResult = await getPicture({
 					src: src,
-					widths: [dimensions.width],
 					formats: ["webp", "png"],
+					widths: [dimensions.width, originalDimensions.width],
 					aspectRatio: imgRatioWidth,
 					alt: node.properties.alt || "",
 				});
