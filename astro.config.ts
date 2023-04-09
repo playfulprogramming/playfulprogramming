@@ -4,11 +4,10 @@ import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
-import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
+import { TwitchTransformer } from "./src/utils/markdown/remark-embedder-twitch";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
 import rehypeSlug from "rehype-slug-custom-id";
-import { parent } from "./src/constants/site-config";
 import { rehypeHeaderText } from "./src/utils/markdown/rehype-header-text";
 import { rehypeTabs } from "./src/utils/markdown/tabs";
 import { rehypeAstroImageMd } from "./src/utils/markdown/rehype-astro-image-md";
@@ -74,7 +73,7 @@ export default defineConfig({
 			[
 				remarkEmbedder as any,
 				{
-					transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
+					transformers: [oembedTransformer, TwitchTransformer],
 				} as RemarkEmbedderOptions,
 			],
 			[
