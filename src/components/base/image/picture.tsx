@@ -1,10 +1,11 @@
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import { JSX } from "preact";
 
 interface PictureProps {
 	picture: GetPictureResult;
 	alt: string,
 	class?: string;
-	imgAttrs?: React.ImgHTMLAttributes<any>;
+	imgAttrs?: JSX.HTMLAttributes<HTMLImageElement>;
 }
 
 export const Picture = ({

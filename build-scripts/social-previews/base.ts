@@ -1,5 +1,5 @@
 import { ExtendedPostInfo } from "types/index";
-import * as React from "react";
+import { FunctionComponent } from "preact";
 
 export type ComponentProps = {
 	post: ExtendedPostInfo;
@@ -12,7 +12,7 @@ export type ComponentProps = {
 export type Layout = {
 	name: string;
 	css: string;
-	Component: React.FunctionComponent<ComponentProps>;
+	Component: FunctionComponent<ComponentProps>;
 };
 
 export const PAGE_WIDTH = 1280;
