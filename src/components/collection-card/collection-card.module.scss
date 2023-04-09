@@ -1,0 +1,30 @@
+@import "src/styles/vars";
+
+.container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 24px;
+	padding: 16px !important;
+}
+
+.content {
+	flex-grow: 1;
+	transform: translateY(-48px);
+	margin-bottom: -40px;
+	align-items: start;
+
+	&> div {
+		margin-top: 56px;
+	}
+
+	&> picture {
+		img {
+			border-radius: 16px;
+			box-shadow: map-get($shadow, s);
+		}
+	}
+
+	h2 {
+		margin-top: 0;
+	}
+}

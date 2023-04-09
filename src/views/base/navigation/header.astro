@@ -11,7 +11,7 @@ import { removePrefixLanguageFromPath, translate } from "utils/translations";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";
-const isAbout = path === "/about";
+const isAbout = /\/about\/?/.test(path);
 ---
 
 <nav class={style.headerBorder} aria-label="Toolbar for primary action buttons">
@@ -46,7 +46,7 @@ const isAbout = path === "/about";
 
 		<div class={`d-flex ${style.icons}`}>
 			<IconButton href="/search" aria-label={translate(Astro, "title.search")}>
-				<Icon height="24" width="24" name="search" />
+				<Icon height="24" width="24" name="mdi:search" />
 			</IconButton>
 			<IconButton
 				href={data.about.links.Discord.url}

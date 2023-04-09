@@ -4,12 +4,14 @@ import Document from "src/layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 
 import type { MarkdownInstance } from "astro";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
 import { Languages } from "types/index";
 
 export async function getStaticPaths() {
-	const posts = await Astro.glob<PostInfo>("../../../../content/blog/**/*.md");
+	const posts = await Astro.glob<ExtendedPostInfo>(
+		"../../../../content/blog/**/*.md"
+	);
 
 	return posts.reduce((arr, post) => {
 		if (post.frontmatter.locale === "en") return arr;
@@ -31,17 +33,15 @@ export async function getStaticPaths() {
 }
 
 const { Content, post, posts, locale } = Astro.props as {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 	locale: Languages;
-	posts: MarkdownInstance<PostInfo>[];
+	posts: MarkdownInstance<ExtendedPostInfo>[];
 	Content: MarkdownInstance<any>["Content"];
 };
 
-const translations = post?.translations || [];
+const locales = post?.locales || [];
 
-const otherLangs = translations
-	? (Object.keys(translations).filter((t) => t !== post.locale) as Languages[])
-	: [];
+const otherLangs = locales ? locales.filter((t) => t !== post.locale) : [];
 ---
 
 <Document lang={locale}>
@@ -59,7 +59,7 @@ const otherLangs = translations
 			otherLangs,
 			currentLang: post.locale,
 		}}
-		shareImage={`/${post.slug}.twitter-preview.png`}
+		shareImage={post.socialImg}
 	/>
 	<BlogPost Content={Content} post={post} posts={posts} />
 </Document>

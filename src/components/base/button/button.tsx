@@ -1,13 +1,16 @@
+import { PropsWithChildren } from "../types";
 import style from "./button.module.scss";
 import { createElement } from "preact";
+import { JSX } from "preact";
 
-type ButtonProps = {
-	tag?: "a" | "button";
-	class?: string;
-	state?: "selected" | "inactive";
-	variant?: "primary" | "borderless";
-	children: React.ReactNode,
-} & React.ButtonHTMLAttributes<any> & React.AnchorHTMLAttributes<any>;
+type ButtonProps = PropsWithChildren<
+	{
+		tag?: "a" | "button";
+		class?: string;
+		state?: "selected" | "inactive";
+		variant?: "primary" | "borderless";
+	} & JSX.HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>
+>;
 
 function ButtonWrapper({ tag = "a", class: className, children, state, variant, ...props }: ButtonProps) {
 	const Wrapper = (props: any) => createElement(tag, props, props.children);

@@ -23,7 +23,7 @@ module.exports = {
 	},
 	transformIgnorePatterns: [
 		// ...your ignore patterns
-		"^((?!node_modules).)*node_modules.((?!preact|unified|unist|hast|remark|mdast|micromark|retext|nlcst|rehype|decode-named-character-reference|character-entities|zwitch|longest-streak|unherit|parse-|strip-|html-void-elements|stringify-entities|ccount|markdown-|slash|vfile|property-|space-separated-|comma-separated-|web-namespaces|junk).)*$",
+		"^((?!node_modules).)*node_modules.((?!preact|unified|unist|hast|rehype|remark|mdast|micromark|retext|nlcst|rehype|decode-named-character-reference|character-entities|zwitch|longest-streak|unherit|parse-|strip-|html-void-elements|stringify-entities|ccount|markdown-|slash|vfile|property-|space-separated-|comma-separated-|web-namespaces|junk).)*$",
 		"^.+\\.module\\.(css|sass|scss)$",
 	],
 	// moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),

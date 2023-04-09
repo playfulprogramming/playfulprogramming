@@ -8,7 +8,7 @@ import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
@@ -21,22 +21,22 @@ import { getPrefixLanguageFromPath } from "utils/translations";
 import { PostCardSmall } from "components/post-card/post-card-small";
 
 const { Content, post, posts } = Astro.props as {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 	Content: MarkdownInstance<any>["Content"];
-	posts: MarkdownInstance<PostInfo>[];
+	posts: MarkdownInstance<ExtendedPostInfo>[];
 };
 
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 
-let seriesPosts: PostInfo[] = [];
-if (post.series && post.order) {
+let seriesPosts: ExtendedPostInfo[] = [];
+if (post.collection && post.order) {
 	seriesPosts = posts
 		.filter(
 			(filterPost) =>
 				filterPost.frontmatter.locale === locale &&
-				filterPost.frontmatter.series === post.series
+				filterPost.frontmatter.collection === post.collection
 		)
 		.sort(
 			(postA, postB) =>
@@ -79,21 +79,25 @@ if (post.series && post.order) {
 	</header>
 	<main class="post-body" data-testid={"post-body-div"}>
 		{
-			post.series ? (
+			post.collection ? (
 				<SeriesToC
 					post={post}
 					postSeries={seriesPosts}
-					collectionSlug={post.collectionSlug}
+					collection={post.collectionMeta}
 				/>
 			) : null
 		}
 		{
-			post.translations && Object.keys(post.translations).length ? (
-				<TranslationsHeader locales={Object.keys(post.translations)} />
+			post.locales && post.locales.length > 1 ? (
+				<TranslationsHeader locales={post.locales} />
 			) : null
 		}
 		<Content />
-		{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
+		{
+			post.collection ? (
+				<SeriesNav post={post} postSeries={seriesPosts} />
+			) : null
+		}
 	</main>
 	<footer role="contentinfo" class="post-lower-area">
 		{

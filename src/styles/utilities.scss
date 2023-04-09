@@ -16,6 +16,7 @@
 :where(.unlist-inline) {
 	list-style: none;
 	padding: 0;
+	margin: 0;
 
 	display: flex;
 	flex-direction: row;
@@ -26,6 +27,7 @@
 :where(.unlist-row) {
 	list-style: none;
 	padding: 0;
+	margin: 0;
 
 	display: flex;
 	flex-direction: row;
@@ -35,8 +37,25 @@
 :where(.unlist-column) {
 	list-style: none;
 	padding: 0;
+	margin: 0;
 
 	display: flex;
 	flex-direction: column;
+	gap: $spacing * 4;
+}
+
+:where(.gap-0) {
+	gap: 0;
+}
+
+:where(.gap-1) {
+	gap: $spacing;
+}
+
+:where(.gap-2) {
+	gap: $spacing * 2;
+}
+
+:where(.gap-4) {
 	gap: $spacing * 4;
 }

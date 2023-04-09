@@ -1,14 +1,14 @@
 ---
 import { PostCardGrid } from "components/post-card/post-card-grid";
 import UnicornLayout from "./unicorn-layout/unicorn-layout.astro";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import { UnicornInfo } from "types/UnicornInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import UnicornCardLarge from "./unicorn-card-large.astro";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
-	posts: PostInfo[];
+	posts: ExtendedPostInfo[];
 }
 
 const { unicorn, posts } = Astro.props as UnicornPageProps;

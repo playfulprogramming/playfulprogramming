@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostCard } from "components/post-card/post-card";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 interface SearchBarHandlerProps {
@@ -64,9 +64,8 @@ export const SearchBarHandler = ({
 					return url.href;
 				}}
 				page={{
-					total: totalPosts,
 					currentPage: page,
-					size: PAGE_SIZE,
+					lastPage: Math.ceil(totalPosts / PAGE_SIZE),
 				}}
 			/>
 		</>

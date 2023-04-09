@@ -1,5 +1,5 @@
 ---
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
 interface CollectionTableOfContentsProps {
 	collection: {
@@ -9,7 +9,7 @@ interface CollectionTableOfContentsProps {
 			description: string;
 		}>;
 	};
-	posts?: PostInfo[];
+	posts?: ExtendedPostInfo[];
 }
 
 const { collection, posts } = Astro.props as CollectionTableOfContentsProps;

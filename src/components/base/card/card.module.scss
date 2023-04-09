@@ -35,6 +35,11 @@
 	background-color: theme-var(--surface_primary_emphasis-none);
 }
 
+.card.solid {
+	border-width: 0;
+	background-color: theme-var(--surface_primary_emphasis-low);
+}
+
 .card.interactive {
 	cursor: pointer;
 

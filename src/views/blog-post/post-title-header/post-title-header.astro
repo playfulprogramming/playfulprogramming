@@ -1,6 +1,6 @@
 ---
 import style from "./post-title-header.module.scss";
-import { PostInfo } from "types/index";
+import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Tag } from "components/base";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { Picture } from "components/base/image/picture";
 
 interface PostTitleHeaderProps {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 }
 const { post } = Astro.props as PostTitleHeaderProps;
 const { title, tags } = post;
@@ -17,13 +17,13 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 ---
 
-<div class="d-flex">
+<div class="d-flex gap-2">
 	<Icon width="24" height="24" name="mdi:calendar-outline" />
-	<p class={style.date}>{publishedStr}</p>
+	<p>{publishedStr}</p>
 </div>
 
 <h1 class={style.title}>{title}</h1>
-<div class="d-flex">
+<div class="d-flex gap-2">
 	<Icon width="24" height="24" name="mdi:person-outline" />
 	<ul
 		aria-label="Post authors"
@@ -49,22 +49,18 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 </div>
 {
 	tags && tags.length ? (
-		<div class="d-flex">
+		<div class="d-flex gap-2">
 			<Icon width="24" height="24" name="mdi:tag-outline" />
 			<ul
 				aria-label="Post tags"
 				role="list"
 				class={`${style.tags} unlist-inline`}
 			>
-				{tags.map(
-					(
-						tag // TODO: Link tags to search page
-					) => (
-						<li>
-							<Tag href="#">{tag}</Tag>
-						</li>
-					)
-				)}
+				{tags.map((tag) => (
+					<li>
+						<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+					</li>
+				))}
 			</ul>
 		</div>
 	) : null

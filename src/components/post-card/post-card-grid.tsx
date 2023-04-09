@@ -1,13 +1,13 @@
 import style from "./post-card-grid.module.scss";
-import { PostCard } from "./post-card";
-import { PostInfo } from "types/PostInfo";
+import { PostCard, PostCardExpanded } from "./post-card";
+import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 export interface PostGridProps {
-	unicornData?: PostInfo["authorsMeta"];
 	listAriaLabel: string;
 	postsToDisplay: PostInfo[];
 	unicornProfilePicMap: ProfilePictureMap;
+	expanded?: boolean;
 }
 
 export function PostCardGrid({ postsToDisplay, ...props }: PostGridProps) {
@@ -18,9 +18,17 @@ export function PostCardGrid({ postsToDisplay, ...props }: PostGridProps) {
 			role="list"
 			id="post-list-container"
 		>
-			{postsToDisplay.map((post) => (
-				<PostCard post={post} unicornProfilePicMap={props.unicornProfilePicMap} />
-			))}
+			{postsToDisplay.map((post) => {
+				return props.expanded && post.bannerImg ? (
+					<PostCardExpanded
+						class={style.expanded}
+						post={post}
+						unicornProfilePicMap={props.unicornProfilePicMap}
+					/>
+				) : (
+					<PostCard post={post} unicornProfilePicMap={props.unicornProfilePicMap} />
+				);
+			})}
 		</ul>
 	)
 }

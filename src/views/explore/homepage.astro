@@ -1,24 +1,35 @@
 ---
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import * as data from "src/utils/data";
-import { LargeButton } from "components/base";
-import { PostInfo } from "types/PostInfo";
+import { LargeButton, Button, Tag } from "components/base";
+import { ExtendedPostInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./homepage.module.scss";
 import { Icon } from "astro-icon";
 import { translate } from "utils/translations";
+import { ExtendedCollectionInfo } from "types/CollectionInfo";
+import CollectionCard from "components/collection-card/collection-card.astro";
+import SearchBarLite from "../search/search-bar-lite/search-bar-lite.astro";
+import BannerStickersGroup from "components/banner-stickers/banner-stickers-group.astro";
 
 export interface HomepageProps {
-	posts: PostInfo[];
+	posts: ExtendedPostInfo[];
+	collections: ExtendedCollectionInfo[];
 }
 
-const { posts } = Astro.props as HomepageProps;
+const { posts, collections } = Astro.props as HomepageProps;
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const tagsToDisplay = [...data.tags]
+	.sort(() => 0.5 - Math.random())
+	.slice(0, 8);
 ---
 
-<header class="grid grid-desktopSmall-2">
-	<div class={style.bannerLogo}><!-- TODO: replace with banner image --></div>
+<header class={`grid grid-desktopSmall-2 ${style.header}`}>
+	<div class={style.bannerLogo}>
+		<BannerStickersGroup />
+	</div>
 	<div class="text-center">
 		<h1 class="text-style-headline-2">
 			{translate(Astro, "desc.homepage")}
@@ -42,7 +53,10 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 </header>
 
 <section>
-	<h1 class="text-style-headline-4">Recent articles</h1>
+	<div class={`d-flex gap-4 ${style.header}`}>
+		<h1 class="text-style-headline-4">Recent articles</h1>
+		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
+	</div>
 
 	<PostCardGrid
 		listAriaLabel="List of posts"
@@ -52,5 +66,38 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 </section>
 
 <section>
-	<h1 class="text-style-headline-4">Collections</h1>
+	<div class={`d-flex gap-4 ${style.header}`}>
+		<h1 class="text-style-headline-4">Collections</h1>
+		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
+	</div>
+
+	<div class="grid grid-tablet-2 grid-desktopSmall-3">
+		{
+			collections.map((collection) => (
+				<CollectionCard
+					collection={collection}
+					unicornProfilePicMap={unicornProfilePicMap}
+				/>
+			))
+		}
+	</div>
+</section>
+
+<section class="text-center">
+	<h1 class="h4">{translate(Astro, "title.looking_for_more")}</h1>
+	<p>{translate(Astro, "desc.looking_for_more")}</p>
+
+	<div class={style.searchbar}>
+		<SearchBarLite />
+	</div>
+
+	<ul class="unlist-inline gap-2 text-center">
+		{
+			tagsToDisplay.map((tag) => (
+				<li>
+					<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+				</li>
+			))
+		}
+	</ul>
 </section>

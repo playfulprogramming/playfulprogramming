@@ -1,0 +1,6 @@
+@import "src/styles/utils";
+
+.tagSmall {
+	gap: $spacing !important;
+	color: theme-var(--primary_default) !important;
+}

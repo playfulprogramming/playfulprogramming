@@ -2,9 +2,10 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact"
+		"jsxImportSource": "preact",
+		"outDir": "build-scripts/social-previews/dist"
 	},
-	"files": [
-		"build-scripts/social-previews/twitter-large-card.tsx"
+	"include": [
+		"build-scripts/social-previews/layouts/*.tsx"
 	]
 }

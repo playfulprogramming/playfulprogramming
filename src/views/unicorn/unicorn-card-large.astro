@@ -84,19 +84,21 @@ const possessiveName = unicorn.name.endsWith("s")
 			}
 		</div>
 	</div>
-	<div class={`${style.roles} grid grid-1 grid-tabletSmall-2 grid-tablet-1`}>
+	<div
+		class={`${style.roles} grid grid-1 grid-tabletSmall-2 grid-desktopSmall-1`}
+	>
 		{
 			unicorn.rolesMeta?.map((role) => (
 				<CardInline size="s" class={style.role}>
 					<Picture
-						src={`src/assets/icons/role_${role.id}.png`}
+						src={`/stickers/role_${role.id}.png`}
 						widths={[32]}
 						sizes={"32px"}
 						loading={"eager"}
 						aspectRatio={1}
 						formats={["avif", "webp", "png"]}
-						alt={role.prettyname /* TODO: what alt text should be used here? */}
-						class={`circleImg ${style.picture}`}
+						alt={`A ${role.prettyname} sticker icon`}
+						class={`${style.picture}`}
 					/>
 					<span class="text-style-body-small-bold">{role.prettyname}</span>
 				</CardInline>

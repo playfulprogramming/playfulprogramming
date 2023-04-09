@@ -20,13 +20,7 @@
 }
 
 .tag:has(picture) {
-	padding-left: $spacing;
-}
-
-.tag > picture {
-	width: 24px;
-	height: 24px;
-	margin-right: $spacing;
+	gap: $spacing * 2;
 }
 
 .tag > svg {

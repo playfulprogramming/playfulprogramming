@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Fuse from "fuse.js";
 import { createRequire } from "node:module";
 
-import type { PostInfo } from "types/PostInfo";
+import type { ExtendedPostInfo } from "types/index";
 
 const require = createRequire(import.meta.url);
 const searchIndex = require("./searchIndex.json");
@@ -10,7 +10,7 @@ const index = Fuse.parseIndex(searchIndex.index);
 
 const posts = searchIndex.posts;
 
-const fuse = new Fuse<PostInfo>(
+const fuse = new Fuse<ExtendedPostInfo>(
 	posts,
 	{
 		threshold: 0.3,

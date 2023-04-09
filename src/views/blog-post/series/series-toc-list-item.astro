@@ -1,10 +1,10 @@
 ---
 import styles from "./series-toc.module.scss";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 import { getShortTitle } from "./base";
 
 interface SeriesToCListItem {
-	post: PostInfo;
+	post: ExtendedPostInfo;
 	isActive: boolean;
 	className?: string;
 	inMiddle?: boolean;

@@ -3,11 +3,11 @@ import styles from "./series-nav.module.scss";
 import NavigateNext from "../../../icons/navigate_next.svg?raw";
 import NavigateBefore from "../../../icons/navigate_before.svg?raw";
 import { getShortTitle } from "./base";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
 interface SeriesNavProps {
-	post: PostInfo;
-	postSeries: PostInfo[];
+	post: ExtendedPostInfo;
+	postSeries: ExtendedPostInfo[];
 }
 
 const { post, postSeries } = Astro.props as SeriesNavProps;

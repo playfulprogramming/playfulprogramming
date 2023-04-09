@@ -1,0 +1,29 @@
+@import "src/styles/utils";
+
+.bar {
+	background-color: theme-var(--surface_primary_emphasis-low);
+	height: 56px;
+	border-radius: 28px;
+
+	padding: 0 4px;
+	gap: 16px;
+
+	@include transition(box-shadow);
+
+	&:focus-within {
+		box-shadow: 0 0 0 $spacing theme-var(--surface_primary_emphasis-high);
+	}
+
+	input {
+		background: none;
+		border: none;
+		outline: none;
+		height: 100%;
+
+		flex-grow: 1;
+	}
+
+	&> svg:first-child {
+		margin-left: 16px;
+	}
+}

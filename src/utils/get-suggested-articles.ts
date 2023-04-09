@@ -1,30 +1,5 @@
-import { Languages, PostInfo } from "types/index";
-import { getAllPosts } from "./get-all-posts";
-
-const postLangMap = new Map<string, ReturnType<typeof getAllPostsByLang>>();
-
-const getAllPostsByLang = (
-	lang: Languages
-): { suggestedPosts: PostInfo[]; dateSorted: PostInfo[] } => {
-	if (postLangMap.has(lang)) return postLangMap.get(lang)!;
-	const suggestedPosts = getAllPosts(lang);
-
-	// We must spread, since `sort` mutates the original array
-	const dateSorted = [...suggestedPosts].sort((postA, postB) => {
-		return (
-			// Newest first
-			new Date(postB.published) < new Date(postA.published) ? -1 : 1
-		);
-	});
-
-	postLangMap.set(lang, { suggestedPosts, dateSorted });
-
-	return { suggestedPosts, dateSorted };
-};
-
-export type OrderSuggestPosts = ReturnType<
-	typeof getAllPostsByLang
->["suggestedPosts"];
+import { PostInfo, Languages, ExtendedPostInfo } from "types/index";
+import { getPostsByLang } from "./api";
 
 /**
  * Get 3 similar articles to suggest in sidebar.
@@ -62,11 +37,8 @@ const howManySimilarBetween = <T>(arr1: T[], arr2: T[]): number => {
 	return match;
 };
 
-const getOrderRange = (arr: OrderSuggestPosts) => {
-	return arr.reduce<{
-		largest: null | OrderSuggestPosts[number];
-		smallest: null | OrderSuggestPosts[number];
-	}>(
+const getOrderRange = (arr: PostInfo[]) => {
+	return arr.reduce(
 		(prev, curr) => {
 			if (prev.smallest === null || prev.largest === null) {
 				return {
@@ -82,20 +54,23 @@ const getOrderRange = (arr: OrderSuggestPosts) => {
 			}
 			return prev;
 		},
-		{ largest: null, smallest: null }
-	) as never as {
-		largest: OrderSuggestPosts[number];
-		smallest: OrderSuggestPosts[number];
-	};
+		{
+			largest: null as PostInfo,
+			smallest: null as PostInfo,
+		}
+	);
 };
 
-export const getSuggestedArticles = (postNode: PostInfo, lang: Languages) => {
-	const { suggestedPosts, dateSorted } = getAllPostsByLang(lang);
+export const getSuggestedArticles = (
+	postNode: ExtendedPostInfo,
+	lang: Languages
+) => {
+	const suggestedPosts = getPostsByLang(lang);
 
-	const extraSuggestedArticles: OrderSuggestPosts = [];
-	const suggestedArticles: OrderSuggestPosts = [];
+	const extraSuggestedArticles: PostInfo[] = [];
+	const suggestedArticles: PostInfo[] = [];
 	const similarTags: Array<{
-		post: OrderSuggestPosts[number];
+		post: PostInfo;
 		howManyTagsSimilar: number;
 	}> = [];
 	for (const post of suggestedPosts) {
@@ -104,7 +79,7 @@ export const getSuggestedArticles = (postNode: PostInfo, lang: Languages) => {
 		// Don't return the same article
 		if (post.slug === postNode.slug) continue;
 
-		if (!!post.series && post.series === postNode.series) {
+		if (!!post.collection && post.collection === postNode.collection) {
 			const { largest, smallest } =
 				getOrderRange([...suggestedArticles, postNode]) || {};
 
@@ -153,7 +128,7 @@ export const getSuggestedArticles = (postNode: PostInfo, lang: Languages) => {
 
 	// Check to see if there are at least three suggested articles.
 	// If not, fill it with another array of suggested articles.
-	const fillSuggestionArrayWith = (otherArr: OrderSuggestPosts) => {
+	const fillSuggestionArrayWith = (otherArr: PostInfo[]) => {
 		if (suggestedArticles.length < 3) {
 			let sizeToPush = 3 - suggestedArticles.length;
 			for (const item of otherArr) {
@@ -175,7 +150,7 @@ export const getSuggestedArticles = (postNode: PostInfo, lang: Languages) => {
 		.map(({ post }) => post);
 	fillSuggestionArrayWith(tagSimilaritySorted);
 
-	fillSuggestionArrayWith(dateSorted);
+	fillSuggestionArrayWith(suggestedPosts);
 
 	return suggestedArticles;
 };

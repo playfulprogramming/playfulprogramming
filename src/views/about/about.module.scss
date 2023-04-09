@@ -3,10 +3,12 @@
 
 .unicornLogo {
 	margin-right: $spacing * 8;
+	width: 56px;
+	height: 56px;
 
-	@include until($desktopSmall) {
-		width: 56px;
-		height: 56px;
+	@include from($desktopSmall) {
+		width: 192px;
+		height: 192px;
 	}
 }
 

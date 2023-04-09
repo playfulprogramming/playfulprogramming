@@ -138,9 +138,17 @@ for (const key of i18n.en?.keys() || []) {
  * If the key is untranslated, returns the "en" value and logs a warning.
  * If the key is entirely missing, throws an error.
  */
-export function translate(astro: { url: URL }, key: string) {
+export function translate(astro: { url: URL }, key: string, ...args: string[]) {
 	const lang = getPrefixLanguageFromPath(astro.url.pathname);
 	let value = i18n[lang]?.get(key);
+
+	if (value) {
+		// replace any instances of "%s" with the corresponding argument
+		//   ignoring double escapes (%%s)
+		for (const arg of args) {
+			value = value.replace(/(?<!%)%s/, arg).replace(/%%s/g, "%s");
+		}
+	}
 
 	if (!value) {
 		console.warn(

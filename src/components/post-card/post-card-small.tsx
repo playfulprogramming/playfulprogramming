@@ -1,5 +1,5 @@
 import cardStyles from "./post-card-small.module.scss";
-import { PostInfo } from "types/PostInfo";
+import { PostInfo } from "types/index";
 import { Card } from "components/base/card/card";
 
 interface PostCardProps {

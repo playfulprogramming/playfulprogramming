@@ -1,19 +1,19 @@
 ---
 import Document from "../layouts/document.astro";
-import { getAllPostsForListView } from "utils/api";
-import { PostInfo } from "types/PostInfo";
+import { getPostsByLang } from "utils/api";
 import SEO from "components/seo/seo.astro";
 import Homepage from "src/views/explore/homepage.astro";
+import { collections } from "utils/data";
 
-const posts = await Astro.glob<PostInfo>("../../content/blog/**/*.md");
-
-const enPosts = getAllPostsForListView(posts, "en");
+const enPosts = getPostsByLang("en");
 const postsToDisplay = enPosts.slice(0, 4);
+
+const collectionsToDisplay = [...collections].slice(0, 3);
 ---
 
 <Document>
 	<SEO slot="head" title="Homepage" />
 	<div class="container">
-		<Homepage posts={postsToDisplay} />
+		<Homepage posts={postsToDisplay} collections={collectionsToDisplay} />
 	</div>
 </Document>
