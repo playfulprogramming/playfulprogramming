@@ -21,41 +21,34 @@
 }
 
 .adventureContinuesContainer {
+    display: flex;
+    gap: 1rem;
     padding: var(--section-ver-padding) var(--section-hor-padding);
+}
+
+.titleContainer {
+    position:relative;
+    padding: 1rem;
+    border-style: solid;
+    border-color: var(--outline);
+    border-width: var(--grid-item-border-width);
+    border-radius: var(--grid-item-corner-radius);
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    top: 50%;
+    width: calc(100% - 2rem);
     text-align: center;
-    max-width: var(--max-width_large);
-    margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-
-
-    @include from($desktop) {
-        grid-template-columns: repeat(2, 1fr);
-
-        .gridItem:last-child {
-            grid-column: unset;
-        }
-    }
 }
 
 .gridItems {
     list-style: none;
 }
 
-.gridItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    border-style: solid;
-    border-color: var(--outline);
-    border-width: var(--grid-item-border-width);
-    border-radius: var(--grid-item-corner-radius);
-    padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal) var(--grid-item-padding_bottom);
-}
-
-.gridItem svg {
+.titleContainer svg {
     position: absolute;
     left: 50%;
     background: var(--section-background);
@@ -68,25 +61,17 @@
     top: calc(0px - (var(--grid-icon-size) / 2));
 }
 
-.gridItem span {
-    color: white
-}
 
-.gridItem svg * {
+.titleContainer svg * {
     fill: white !important;
-}
-
-.whiteText {
-    color: white;
 }
 
 .whiteText::after {
     position: relative;
 }
 
-.gridItems li:not(:nth-child(-n+2)) {
+.gridItems li {
     text-align: start !important;
-    color: var(--on-dark-emphasis-high);
     display: flex;
     align-items: center;
     display: flex;
@@ -95,20 +80,15 @@
     text-decoration-thickness: 4px;
     text-decoration-color: var(--on-dark-emphasis-medium);
     text-underline-offset: 6px;
+    color:white;
 
 }
 
-.gridItems li:not(:nth-child(1)) svg,
-.gridItems li:not(:nth-child(2)) svg {
+.gridItems svg {
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
     fill: var(----on-dark-emphasis-medium) !important;
-}
-
-.gridItems li:nth-child(3),
-.gridItems li:nth-child(4) {
-    color: var(--on-dark-emphasis-medium) !important;
 }
 
 .gridItemBullet {

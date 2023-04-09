@@ -5,8 +5,8 @@ import FundamentalsBookCover from "../framework-field-guide/segments/fundamental
 import BookSvg from "../framework-field-guide/icons/book.astro";
 import ToolsSvg from "../framework-field-guide/icons/tools.astro";
 import LinksSvg from "../framework-field-guide/icons/link.astro";
-import ArrowSvg from "../framework-field-guide/icons/arrow.svg"
-import LinkSvg from "../framework-field-guide/icons/link.svg"
+import ArrowSvg from "../framework-field-guide/icons/arrow.svg";
+import LinkSvg from "../framework-field-guide/icons/link.svg";
 import CollectionTableOfContents from "./collection-table-of-contents-fundamentals.astro";
 import { PostInfo } from "types/PostInfo";
 import { unicorns } from "utils/data";
@@ -40,68 +40,70 @@ const chapterList = posts
 	<FundamentalsBookCover />
 
 	<div class="class-book-1">
-		<div class="book-section" style="background: var(--section-background);">
+		<div
+			class={`book-section ${styles.itemsContainer}`}
+			style="background: var(--section-background);">
 			<h2 class="book-bio text-style-headline-2">What you'll need</h2>
-			<section class={styles.adventureContinuesContainer}>
-				<article>
-					<ul class={styles.gridItems}>
-						<li class={`text-style-body-large-bold ${styles.gridItem}`}>
+			<div>
+				<section class={styles.adventureContinuesContainer}>
+					<div>
+						<div class={styles.titleContainer}>
 							<BookSvg aria-hidden={true} />
-							<span>
-								Basic knowledge of CSS and JavaScript
-							</span>
-						</li>
-
-						<li class={`text-style-body-large-bold`}>
+							<span class={styles.title}>Basic knowledge of CSS and JavaScript</span>
+							<span aria-hidden="true" style="opacity: 0;">Basic knowledge of CSS and JavaScript</span>
+                			<span aria-hidden="true" style="opacity: 0;">An IDE that supports your framework of choice</span>
+						</div>
+						<p>
 							<LinksSvg aria-hidden={true} style="visibility: hidden" />
 							<span>Helpful Links</span>
-						</li>
+						</p>
+						<ul class={styles.gridItems}>
+							<li class={`text-style-body-large-bold`}>
+								<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+								<a href="" class={styles.whiteText}>The basics of CSS</a>
+							</li>
 
-						<li class={`text-style-body-large-bold`}>
-							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
-							<a href="" class={styles.whiteText}>The basics of CSS</a>
-						</li>
+							<li class={`text-style-body-large-bold`}>
+								<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+								<span class={styles.whiteText}>How HTML works</span>
+							</li>
 
-						<li class={`text-style-body-large-bold`}>
-							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
-							<span class={styles.whiteText}>How HTML works</span>
-						</li>
+							<li class={`text-style-body-large-bold`}>
+								<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+								<span class={styles.whiteText}>JS Beginner's Guide</span>
+							</li>
+						</ul>
+						
+					</div>
+					<div>
+						<div class={styles.titleContainer}>
+							<BookSvg aria-hidden={true} />
+							<span class={styles.title}>An IDE that supports your framework of choice</span>
+                			<span aria-hidden="true" style="opacity: 0;">An IDE that supports your framework of choice</span>
+							<span aria-hidden="true" style="opacity: 0;">Basic knowledge of CSS and JavaScript</span>
+						</div>
+						<p>
+							<LinksSvg aria-hidden={true} style="visibility: hidden" />
+							<span>Helpful Links</span>
+						</p>
+						<ul class={styles.gridItems}>
 
-						<li class={`text-style-body-large-bold`}>
-							<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
-							<span class={styles.whiteText}>JS Beginner's Guide</span>
-						</li>
-					</ul>
-				</article>
-				<article>
-				<ul class={styles.gridItems}>
+							<li class={`text-style-body-large-bold`}>
+								<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+								<span class={styles.whiteText}>How to install VSCode</span>
+							</li>
 
-					<li class={`text-style-body-large-bold ${styles.gridItem}`}>
-						<ToolsSvg aria-hidden={true} />
-						<span>
-							An IDE that supports your framework of choice
-						</span>
-					</li>
+							<li class={`text-style-body-large-bold`}>
+								<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
+								<span class={styles.whiteText}
+									>How to actually use the damn thing</span
+								>
+							</li>
+						</ul>
 
-					<li class={`text-style-body-large-bold`}>
-						<LinksSvg aria-hidden={true} style="visibility: hidden" />
-						<span>Helpful Links</span>
-					</li>
-
-					<li class={`text-style-body-large-bold`}>
-						<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
-						<span class={styles.whiteText}>How to install VSCode</span>
-					</li>
-
-					<li class={`text-style-body-large-bold`}>
-						<img alt="" src={LinkSvg} class={styles.gridItemBullet} />
-						<span class={styles.whiteText}
-							>How to actually use the damn thing</span
-						>
-					</li>
-				</ul>
-			</article>
-			</section>
+					</div>
+				</section>
+			</div>
 			<br />
 			<br />
 			<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
