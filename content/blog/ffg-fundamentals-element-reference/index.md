@@ -1080,7 +1080,11 @@ To do this, we'll need to consider a few things:
 
 ## Step 1: Track when the user has hovered an element
 
-// TODO: Track
+In order to track when an element is being hovered, we can use [the `mouseover` HTML event](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).
+
+To make sure the user has been hovering for at least 1 second, we can add a `setTimeout` to delay the display of the tooltip.
+
+> Don't forget to clean up the `setTimeout` when the component is un-rendered!
 
 <!-- tabs:start -->
 
@@ -1124,11 +1128,85 @@ export default function App() {
 
 ### Angular
 
-// TODO:
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div style="padding: 10rem">
+    <button
+      #buttonRef
+      (mouseover)="onMouseOver()"
+    >
+      Send
+    </button>
+    <div *ngIf="tooltipMeta.show">
+      This will send an email to the recipients
+    </div>
+  </div>
+  `,
+})
+class AppComponent implements OnDestroy {
+  @ViewChild('buttonRef') buttonRef: ElementRef<HTMLElement>;
+
+  tooltipMeta = {
+    show: false,
+  };
+
+  mouseOverTimeout = null;
+
+  onMouseOver() {
+    this.mouseOverTimeout = setTimeout(() => {
+      const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
+      this.tooltipMeta = {
+        show: true,
+      };
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.mouseOverTimeout);
+  }
+}
+```
 
 ### Vue
 
-// TODO:
+```vue
+<!-- App.vue -->
+<template>
+  <div style="padding: 10rem">
+    <button ref="buttonRef" @mouseover="onMouseOver()">Send</button>
+    <div v-if="tooltipMeta.show">This will send an email to the recipients</div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const buttonRef = ref()
+
+const mouseOverTimeout = ref(null)
+
+const tooltipMeta = ref({
+  show: false,
+})
+
+const onMouseOver = () => {
+  mouseOverTimeout.value = setTimeout(() => {
+    const bounding = buttonRef.value.getBoundingClientRect()
+    tooltipMeta.value = {
+      show: true,
+    }
+  }, 1000)
+}
+
+onUnmounted(() => {
+  clearTimeout(mouseOverTimeout.current)
+})
+</script>
+```
 
 <!-- tabs:end -->
 
