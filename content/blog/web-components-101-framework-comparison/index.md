@@ -8,7 +8,7 @@
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-framework-comparison/',
-    series: "web-components-101",
+    collection: "web-components-101",
     order: 4
 }
 ---

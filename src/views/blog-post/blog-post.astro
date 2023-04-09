@@ -31,12 +31,12 @@ const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 
 let seriesPosts: ExtendedPostInfo[] = [];
-if (post.series && post.order) {
+if (post.collection && post.order) {
 	seriesPosts = posts
 		.filter(
 			(filterPost) =>
 				filterPost.frontmatter.locale === locale &&
-				filterPost.frontmatter.series === post.series
+				filterPost.frontmatter.collection === post.collection
 		)
 		.sort(
 			(postA, postB) =>
@@ -79,7 +79,7 @@ if (post.series && post.order) {
 	</header>
 	<main class="post-body" data-testid={"post-body-div"}>
 		{
-			post.series ? (
+			post.collection ? (
 				<SeriesToC
 					post={post}
 					postSeries={seriesPosts}
@@ -88,12 +88,16 @@ if (post.series && post.order) {
 			) : null
 		}
 		{
-			post.translations && Object.keys(post.translations).length ? (
-				<TranslationsHeader locales={Object.keys(post.translations)} />
+			post.locales && post.locales.length > 1 ? (
+				<TranslationsHeader locales={post.locales} />
 			) : null
 		}
 		<Content />
-		{post.series ? <SeriesNav post={post} postSeries={seriesPosts} /> : null}
+		{
+			post.collection ? (
+				<SeriesNav post={post} postSeries={seriesPosts} />
+			) : null
+		}
 	</main>
 	<footer role="contentinfo" class="post-lower-area">
 		{

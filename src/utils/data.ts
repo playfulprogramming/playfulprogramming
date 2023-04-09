@@ -150,8 +150,8 @@ function getPosts(): Array<PostInfo> {
 					frontmatter.license &&
 					licensesRaw.find((l) => l.id === frontmatter.license),
 				collectionMeta:
-					frontmatter.series &&
-					collections.find((c) => c.slug === frontmatter.series),
+					frontmatter.collection &&
+					collections.find((c) => c.slug === frontmatter.collection),
 				socialImg: `/generated/${slug}.twitter-preview.jpg`,
 			};
 		});

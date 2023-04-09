@@ -39,11 +39,9 @@ const { Content, post, posts, locale } = Astro.props as {
 	Content: MarkdownInstance<any>["Content"];
 };
 
-const translations = post?.translations || [];
+const locales = post?.locales || [];
 
-const otherLangs = translations
-	? (Object.keys(translations).filter((t) => t !== post.locale) as Languages[])
-	: [];
+const otherLangs = locales ? locales.filter((t) => t !== post.locale) : [];
 ---
 
 <Document lang={locale}>

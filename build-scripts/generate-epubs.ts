@@ -217,7 +217,7 @@ const posts = [...getAllExtendedPosts("en")];
 
 for (const collection of collections) {
 	const collectionPosts = posts.filter(
-		(post) => post.series === collection.slug
+		(post) => post.collection === collection.slug
 	);
 
 	generateCollectionEPub(

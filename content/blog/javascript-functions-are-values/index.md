@@ -8,7 +8,7 @@
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/development/what-you-never-learned-about-javascript-functions/',
-    series: "JavaScript Fundamentals",
+    collection: "JavaScript Fundamentals",
     order: 1
 }
 ---

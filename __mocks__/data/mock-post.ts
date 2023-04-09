@@ -19,9 +19,6 @@ export const MockPost: ExtendedPostInfo = {
 	headingsWithId: [],
 	wordCount: 10000,
 	contentMeta: "",
-	translations: {
-		en: "English",
-	},
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
@@ -47,9 +44,6 @@ export const MockMultiAuthorPost: ExtendedPostInfo = {
 	headingsWithId: [],
 	wordCount: 100000,
 	contentMeta: "",
-	translations: {
-		en: "English",
-	},
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
@@ -75,9 +69,6 @@ export const MockMuliLanguagePost: ExtendedPostInfo = {
 	headingsWithId: [],
 	wordCount: 100000,
 	contentMeta: "",
-	translations: {
-		es: "Español",
-	},
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],
@@ -104,9 +95,6 @@ export const MockCanonicalPost: ExtendedPostInfo = {
 	headingsWithId: [],
 	wordCount: 100000,
 	contentMeta: "",
-	translations: {
-		en: "English",
-	},
 	Content: {} as never,
 	suggestedArticles: [] as never,
 	attached: [],

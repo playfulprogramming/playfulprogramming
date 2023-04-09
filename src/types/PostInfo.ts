@@ -12,7 +12,7 @@ export interface RawPostInfo {
 	license: string;
 	description?: string;
 	edited?: string;
-	series?: string;
+	collection?: string;
 	order?: number;
 	originalLink?: string;
 }
@@ -35,7 +35,6 @@ export interface ExtendedPostInfo extends PostInfo {
 	Content: MarkdownInstance<never>["Content"];
 	excerpt: string;
 	wordCount: number;
-	translations: Partial<Record<Languages, string>>;
 	suggestedArticles: [PostInfo, PostInfo, PostInfo];
 	headingsWithId?: Array<{
 		// Title value

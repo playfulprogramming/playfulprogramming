@@ -1,7 +1,10 @@
 ---
 import { Languages } from "types/index";
 import { languages } from "constants/index";
-import { removePrefixLanguageFromPath } from "utils/translations";
+import {
+	getPrefixLanguageFromPath,
+	removePrefixLanguageFromPath,
+} from "utils/translations";
 import { CardInline } from "components/base/card/card";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon";
@@ -10,8 +13,12 @@ interface TranslationsHeaderProps {
 	locales: Languages[];
 }
 
-const { locales } = Astro.props as TranslationsHeaderProps;
+const props = Astro.props as TranslationsHeaderProps;
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
+const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
+
+// exclude the current locale from displayed options
+const locales = props.locales.filter((locale) => locale !== currentLocale);
 ---
 
 <CardInline class="d-flex" size="m">
@@ -19,10 +26,10 @@ const path = removePrefixLanguageFromPath(Astro.url.pathname);
 	<p class={style.text}>
 		Translated by our community into:{" "}
 		{
-			locales.flatMap((currLang, i, arr) => {
-				const href = currLang === "en" ? path : `/${currLang}${path}`;
+			locales.flatMap((locale, i, arr) => {
+				const href = locale === "en" ? path : `/${locale}${path}`;
 				return [
-					<a href={href}>{languages[currLang]}</a>,
+					<a href={href}>{languages[locale]}</a>,
 					i !== arr.length - 1 ? ", " : null,
 				];
 			})

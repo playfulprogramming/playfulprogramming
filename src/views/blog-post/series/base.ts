@@ -1,7 +1,12 @@
 import { ExtendedPostInfo } from "types/index";
 
 export function getShortTitle(post: ExtendedPostInfo): string {
-	return post.title.replace(new RegExp(`^${post.series}: `), "");
+	const collectionTitle = post.collectionMeta?.title || post.collection;
+	// if the post title starts with its collection title, remove it
+	if (post.title.startsWith(`${collectionTitle}: `))
+		return post.title.substring(collectionTitle.length + 2);
+
+	return post.title;
 }
 
 export function seperatePostsIntoThirds(seriesPosts: ExtendedPostInfo[]) {

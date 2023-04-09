@@ -15,11 +15,11 @@ export function getPostsByUnicorn(
 	);
 }
 
-export function getPostsBySeries(
-	series: string,
+export function getPostsByCollection(
+	collection: string,
 	language: Languages
 ): PostInfo[] {
 	return getPostsByLang(language)
-		.filter((post) => post.series === series)
+		.filter((post) => post.collection === collection)
 		.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
 }

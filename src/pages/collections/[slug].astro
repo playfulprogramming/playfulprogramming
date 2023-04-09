@@ -12,7 +12,7 @@ import CollectionHeaderDefault from "src/page-components/collections/collection-
 import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { MarkdownInstance } from "astro";
-import { getPostsBySeries } from "utils/api";
+import { getPostsByCollection } from "utils/api";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -42,7 +42,7 @@ const { Content, collection } = Astro.props as CollectionProps;
 const { slug } = collection;
 
 // TODO: support localization
-const collectionPosts = getPostsBySeries(slug, "en");
+const collectionPosts = getPostsByCollection(slug, "en");
 
 const coverImgPath = getFullRelativePath(
 	"/content/collections",

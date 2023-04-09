@@ -79,7 +79,7 @@ export const getSuggestedArticles = (
 		// Don't return the same article
 		if (post.slug === postNode.slug) continue;
 
-		if (!!post.series && post.series === postNode.series) {
+		if (!!post.collection && post.collection === postNode.collection) {
 			const { largest, smallest } =
 				getOrderRange([...suggestedArticles, postNode]) || {};
 
