@@ -81,12 +81,12 @@ export const rehypeAstroImageMd: Plugin<
 				const imgRatioWidth = dimensions.width / dimensions.height;
 				if (maxHeight && dimensions.height > maxHeight) {
 					dimensions.height = maxHeight;
-					dimensions.width = maxHeight * imgRatioWidth;
+					dimensions.width = Math.floor(maxHeight * imgRatioWidth);
 				}
 
 				if (maxWidth && dimensions.width > maxWidth) {
 					dimensions.width = maxWidth;
-					dimensions.height = maxWidth * imgRatioHeight;
+					dimensions.height = Math.floor(maxWidth * imgRatioHeight);
 				}
 
 				const pictureResult = await getPicture({
