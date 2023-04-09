@@ -8,6 +8,7 @@ export default `
 .theme-0 {
 	--color-screen-background: #FFF;
 	--color-screen-border: #CCC;
+	--color-rect-background: #8885;
 	--color-rect-border: #FFF;
 	--color-text: #000;
 	--color-text-faded: rgba(0, 0, 0, 0.15);
@@ -16,9 +17,27 @@ export default `
 .theme-1 {
 	--color-screen-background: #DDD;
 	--color-screen-border: #FFF;
-	--color-rect-border: #888;
+	--color-rect-background: #8885;
+	--color-rect-border: #777;
 	--color-text: #555;
 	--color-text-faded: rgba(0, 0, 0, 0.15);
+}
+
+.theme-1 pre {
+	font-weight: bold;
+}
+
+.theme-2 {
+	--color-screen-background: #FFF;
+	--color-screen-border: #CCC;
+	--color-rect-background: #FFF5;
+	--color-rect-border: #FFF;
+	--color-text: #000;
+	--color-text-faded: rgba(0, 0, 0, 0);
+}
+
+.theme-2 .tags {
+	-webkit-text-stroke: 3px #0003;
 }
 
 .codeScreenBg {
@@ -60,7 +79,7 @@ export default `
 .rect {
 	width: 180px;
 	height: 180px;
-	background-color: #8885;
+	background-color: var(--color-rect-background);
 	backdrop-filter: blur(2px);
 	border: 4px solid var(--color-rect-border);
 	box-shadow: -40px -10px 30px #0005;

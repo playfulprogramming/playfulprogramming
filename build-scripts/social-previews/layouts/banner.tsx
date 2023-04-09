@@ -5,17 +5,14 @@ import style from './banner-css';
 import classnames from 'classnames';
 
 const tagStickers: Record<string, string> = {
-	default: readFileAsBase64("public/stickers/role_devops.png"),
-	html: readFileAsBase64("public/stickers/html.png"),
-	webdev: readFileAsBase64("public/stickers/html.png"),
-	vue: readFileAsBase64("public/stickers/vue.png"),
-	documentation: readFileAsBase64("public/stickers/role_author.png"),
-	opinion: readFileAsBase64("public/stickers/role_devops.png"),
-	'computer science': readFileAsBase64("public/stickers/role_developer.png"),
-	bash: readFileAsBase64("public/stickers/role_developer.png"),
-	design: readFileAsBase64("public/stickers/role_designer.png"),
-	rust: readFileAsBase64("public/stickers/ferris.png"),
-	git: readFileAsBase64("public/stickers/git.png"),
+	"default": readFileAsBase64("public/stickers/role_devops.png"),
+	"html,webdev": readFileAsBase64("public/stickers/html.png"),
+	"vue": readFileAsBase64("public/stickers/vue.png"),
+	"documentation,opinion": readFileAsBase64("public/stickers/role_author.png"),
+	'computer science,bash,javascript': readFileAsBase64("public/stickers/role_developer.png"),
+	"design": readFileAsBase64("public/stickers/role_designer.png"),
+	"rust": readFileAsBase64("public/stickers/ferris.png"),
+	"git": readFileAsBase64("public/stickers/git.png"),
 };
 
 function BannerCodeScreen({
@@ -30,10 +27,16 @@ function BannerCodeScreen({
 	const rotX = (post.description.length % 20) - 10;
 	const rotY = ((post.title.length * 3) % 20);
 
-	const tag = post.tags.find((tag) => tag in tagStickers) || "default";
-	const tagImg = tagStickers[tag];
+	let tagImg = tagStickers["default"];
+	for (const tag of post.tags) {
+		const key = Object.keys(tagStickers).find(k => k.split(",").includes(tag));
+		if (key) {
+			tagImg = tagStickers[key];
+			break;
+		}
+	}
 
-	const theme = post.title.length % 2;
+	const theme = post.title.length % 3;
 
 	return <>
 		<div class={classnames("absoluteFill", "codeScreenBg", blur && "blur", "theme-" + theme)} style={`--rotX: ${rotX}deg; --rotY: ${rotY}deg; --left: ${rotY}%;`}>
