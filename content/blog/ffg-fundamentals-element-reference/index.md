@@ -1364,7 +1364,9 @@ onUnmounted(() => {
 
 ## Step 3: Placing the tooltip above the button
 
+To place the tooltip above the button, we'll measure the button's position, height, and width using an element reference and [the `HTMLElement`'s method of `getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
+We'll then use this positional data, alongside [the CSS `position: fixed`](https://developer.mozilla.org/en-US/docs/Web/CSS/position) to position the tooltip to be placed `8px` above the `y` axis of the button:
 
 <!-- tabs:start -->
 
@@ -1419,7 +1421,6 @@ export default function App() {
       {tooltipMeta.show && (
         <div
           style={{
-            overflow: 'visible',
             position: 'fixed',
             top: `${tooltipMeta.y - tooltipMeta.height - 8}px`,
           }}
@@ -1441,11 +1442,139 @@ export default function App() {
 
 ### Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div style="padding: 10rem">
+    <div
+      *ngIf="tooltipMeta.show"
+      [style]="'
+        position: fixed;
+        top: ' + (tooltipMeta.y - tooltipMeta.height - 8) + 'px;
+      '"
+    >
+        This will send an email to the recipients
+    </div>
+    <button
+      #buttonRef
+      (mouseover)="onMouseOver()"
+      (mouseleave)="onMouseLeave()"
+    >
+      Send
+    </button>
+  </div>
+  `,
+})
+class AppComponent implements OnDestroy {
+  @ViewChild('buttonRef') buttonRef: ElementRef<HTMLElement>;
+
+  tooltipMeta = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  };
+
+  mouseOverTimeout = null;
+
+  onMouseOver() {
+    this.mouseOverTimeout = setTimeout(() => {
+      const bounding = this.buttonRef.nativeElement.getBoundingClientRect();
+      this.tooltipMeta = {
+        x: bounding.x,
+        y: bounding.y,
+        height: bounding.height,
+        width: bounding.width,
+        show: true,
+      };
+    }, 1000);
+  }
+
+  onMouseLeave() {
+    this.tooltipMeta = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      show: false,
+    };
+    clearTimeout(this.mouseOverTimeout);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.mouseOverTimeout);
+  }
+}
+```
 
 ### Vue
 
-// TODO
+```vue
+<!-- App.vue -->
+<template>
+  <div style="padding: 10rem">
+    <div
+      v-if="tooltipMeta.show"
+      :style="`
+        position: fixed;
+        top: ${tooltipMeta.y - tooltipMeta.height - 8}px;
+      `"
+    >
+      This will send an email to the recipients
+    </div>
+    <button ref="buttonRef" @mouseover="onMouseOver()" @mouseleave="onMouseLeave()">Send</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const buttonRef = ref()
+
+const mouseOverTimeout = ref(null)
+
+const tooltipMeta = ref({
+  x: 0,
+  y: 0,
+  height: 0,
+  width: 0,
+  show: false,
+})
+
+const onMouseOver = () => {
+  mouseOverTimeout.value = setTimeout(() => {
+    const bounding = buttonRef.value.getBoundingClientRect()
+    tooltipMeta.value = {
+      x: bounding.x,
+      y: bounding.y,
+      height: bounding.height,
+      width: bounding.width,
+      show: true,
+    }
+  }, 1000)
+}
+
+const onMouseLeave = () => {
+  tooltipMeta.value = {
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+    show: false,
+  }
+  clearTimeout(mouseOverTimeout.current)
+}
+
+// Just in case
+onUnmounted(() => {
+  clearTimeout(mouseOverTimeout.current)
+})
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -1839,7 +1968,6 @@ const onMouseLeave = () => {
   clearTimeout(mouseOverTimeout.current)
 }
 
-// Just in case
 onUnmounted(() => {
   clearTimeout(mouseOverTimeout.current)
 })
