@@ -92,8 +92,8 @@ export const rehypeAstroImageMd: Plugin<
 
 				const pictureResult = await getPicture({
 					src: src,
-					formats: ["webp", "png"],
 					widths: [dimensions.width, originalDimensions.width],
+					formats: ["avif", "webp", "png"],
 					aspectRatio: imgRatioWidth,
 					alt: node.properties.alt || "",
 				});
