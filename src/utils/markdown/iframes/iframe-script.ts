@@ -1,3 +1,6 @@
+/**
+ * Runs client-side to find iframe nodes and replace on click
+ */
 export const iFrameClickToRun = () => {
 	const iframeButtons: HTMLElement[] = document.querySelectorAll(
 		"[data-iframeurl] > button"

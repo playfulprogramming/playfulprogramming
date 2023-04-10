@@ -16,7 +16,7 @@ import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
-import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unicorn-iframe-click-to-run";
+import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/iframes/rehype-transform";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
