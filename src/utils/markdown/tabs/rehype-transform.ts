@@ -2,7 +2,7 @@ import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
 import { Plugin } from "unified";
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
-import { Element, Node, Text } from "hast";
+import { Element, Node, Parent, Text } from "hast";
 import { TabInfo, Tabs } from "./tabs";
 import { toString } from "hast-util-to-string";
 
@@ -31,7 +31,10 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 
 		// recurse through child nodes
 		if ("children" in n) {
-			lines += getApproxLineCount(n.children as Node[], isInParagraph);
+			lines += getApproxLineCount(
+				(n as Parent).children as Node[],
+				isInParagraph
+			);
 		}
 		// assume that any div/p/br causes a line break
 		if (
