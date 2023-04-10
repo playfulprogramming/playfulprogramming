@@ -1,3 +1,4 @@
+import { Element } from "hast";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 
 export interface IFramePlaceholderProps {
@@ -9,7 +10,7 @@ export interface IFramePlaceholderProps {
 }
 
 /** @jsxImportSource hastscript */
-export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholderProps) {
+export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholderProps): Element {
 	return (
 		<div
 			class="iframe-replacement-container"
@@ -35,5 +36,5 @@ export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholder
 			</p>
 			<button class="iframe-replacement-button">Run embed</button>
 		</div>
-	);
+	) as never;
 }

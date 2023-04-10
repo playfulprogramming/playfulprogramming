@@ -17,6 +17,7 @@ import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-p
 import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/iframes/rehype-transform";
+import { rehypeHeadingLinks } from "./src/utils/markdown/heading-links/rehype-transform";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
@@ -119,6 +120,7 @@ export default defineConfig({
 				},
 			],
 			rehypeUnicornIFrameClickToRun,
+			rehypeHeadingLinks,
 			rehypeUnicornElementMap,
 			[
 				rehypeExcerpt,

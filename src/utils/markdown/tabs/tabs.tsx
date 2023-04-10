@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Node } from "hast";
+import { Node, Element } from "hast";
 
 export interface TabInfo {
 	slug: string;
@@ -16,7 +16,7 @@ interface TabsProps {
 };
 
 /** @jsxImportSource hastscript */
-export function Tabs({ tabs, isSmall }: TabsProps) {
+export function Tabs({ tabs, isSmall }: TabsProps): Element {
 	return (
 		<div class={classNames("tabs", isSmall && "tabs-small")}>
 			<ul role="tablist" class="tabs__tab-list">
@@ -49,5 +49,5 @@ export function Tabs({ tabs, isSmall }: TabsProps) {
 				</div>
 			))}
 		</div>
-	)
+	) as never;
 }

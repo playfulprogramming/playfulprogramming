@@ -147,7 +147,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 					tabs,
 					isSmall,
 				}),
-			] as Node[];
+			];
 		};
 
 		replaceAllBetween(
