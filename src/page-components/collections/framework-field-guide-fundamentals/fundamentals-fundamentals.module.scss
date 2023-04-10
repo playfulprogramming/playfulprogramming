@@ -24,6 +24,11 @@
     display: flex;
     gap: 1rem;
     padding: var(--section-ver-padding) var(--section-hor-padding);
+
+    @include until($endSmallScreenSize) {
+        flex-direction: column;
+        min-height: auto;
+    }
 }
 
 .titleContainer {
@@ -66,8 +71,20 @@
     fill: white !important;
 }
 
-.whiteText::after {
-    position: relative;
+.gridItem::before {
+    content: url("../framework-field-guide/icons/link.svg");
+    padding-right: var(--spc-2x);
+    padding-left: var(--spc-1x);
+    color: var(--on-dark-emphasis-medium);
+    fill: var(----on-dark-emphasis-medium) !important;
+}
+
+.gridItem {
+    color:white;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--on-dark-emphasis-medium);
+    text-underline-offset: 6px;
 }
 
 .gridItems li {
@@ -76,37 +93,20 @@
     align-items: center;
     display: flex;
     align-items: center;
-    text-decoration: underline;
-    text-decoration-thickness: 4px;
-    text-decoration-color: var(--on-dark-emphasis-medium);
-    text-underline-offset: 6px;
-    color:white;
-
-}
-
-.gridItems svg {
-    padding-right: var(--spc-2x);
-    padding-left: var(--spc-1x);
-    color: var(--on-dark-emphasis-medium);
-    fill: var(----on-dark-emphasis-medium) !important;
-}
-
-.gridItemBullet {
-    color: var(--on-dark-emphasis-medium);
-    padding-right: var(--spc-2x);
-    padding-left: var(--spc-1x);
-
 }
 
 .stepCardContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--section-hor-padding);
+    @include until($endSmallScreenSize) {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .stepCard {
     position: relative;
-
     border-style: solid;
     border-color: var(--outline);
     border-width: var(--grid-item-border-width);
