@@ -1,8 +1,8 @@
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 
 export interface IFramePlaceholderProps {
-	width: number;
-	height: number;
+	width: string;
+	height: string;
 	src: string;
 	pageTitle: string;
 	pageIcon: GetPictureResult;

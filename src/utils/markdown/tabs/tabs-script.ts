@@ -142,7 +142,7 @@ export const enableTabs = () => {
 	if (!heading) return;
 
 	for (const tabEntry of tabEntries)
-		for (const [_, tab] of tabEntry) {
+		for (const [, tab] of tabEntry) {
 			// If the tab is hidden and the heading is contained within the tab
 			if (
 				tab.panel.hasAttribute("aria-hidden") &&

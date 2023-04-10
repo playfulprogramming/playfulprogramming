@@ -1,4 +1,4 @@
-import { Root } from "hast";
+import { Root, Element } from "hast";
 import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
@@ -141,8 +141,8 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 	Root
 > = () => {
 	return async (tree) => {
-		const iframeNodes: any[] = [];
-		visit(tree, (node: any) => {
+		const iframeNodes: Element[] = [];
+		visit(tree, (node: Element) => {
 			if (node.tagName === "iframe") {
 				iframeNodes.push(node);
 			}
@@ -153,13 +153,13 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
 				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(
-					iframeNode.properties.src
+					iframeNode.properties.src.toString()
 				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
 
 				const iframeReplacement = IFramePlaceholder({
-					width,
-					height,
-					src: iframeNode.properties.src,
+					width: width.toString(),
+					height: height.toString(),
+					src: iframeNode.properties.src.toString(),
 					pageTitle: info.title || "",
 					pageIcon: info.icon,
 				});
