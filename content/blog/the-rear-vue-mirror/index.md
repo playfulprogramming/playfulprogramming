@@ -15,7 +15,7 @@ Open source is software with _open_ source code, accessible by everyone. It usua
 
 Open source is the most rewarding thing you can do on the internet.
 
-People ask me how I got started and what my tips are for them, so they can replicate the same experience. You can't replicate it. It's unique, circumstantial, and premised on privilege. But I do think anyone can build a life&mdash;if not a career&mdash;in open source, and I hope my story can inspire others to take a stab.
+People ask me how I got started and what my tips are for them, so they can replicate the same experience. You can't replicate it, because the circumstances that brought me here are unique. But I do think anyone can build a life&mdash;if not a career&mdash;in open source, and I hope my story can inspire others to take a stab.
 
 https://twitter.com/jutanium/status/1643958691379462144?s=20
 
