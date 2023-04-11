@@ -9,6 +9,19 @@ We do have a few general criteria for posts on Unicorn Utterances:
 
 If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
 
+---
+
+Contents:
+- [Creating an author profile](#creating-an-author-profile)
+- [Writing a new post](#writing-a-new-post)
+  - [Licenses](#licenses)
+  - [Embedded Links](#embedded-links)
+  - [Images & Videos](#images--videos)
+- [Translating a Blog Post](#translating-a-blog-post)
+  - [Finding a Language Code](#finding-a-language-code)
+  - [Creating the Translated Post](#creating-the-translated-post)
+- [Code](#code)
+
 # Creating an author profile
 
 Before creating a post, you'll need to add some information about yourself. To do this, edit the JSON file at [`content/data/unicorns.json`](./content/data/unicorns.json) to add a new author entry.
