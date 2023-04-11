@@ -12,15 +12,10 @@ If at any point you get stuck or want to ask questions, feel free to [open an is
 ---
 
 Contents:
-- [Creating an author profile](#creating-an-author-profile)
-- [Writing a new post](#writing-a-new-post)
-  - [Licenses](#licenses)
-  - [Embedded Links](#embedded-links)
-  - [Images & Videos](#images--videos)
-- [Translating a Blog Post](#translating-a-blog-post)
-  - [Finding a Language Code](#finding-a-language-code)
-  - [Creating the Translated Post](#creating-the-translated-post)
-- [Code](#code)
+1. [Creating an author profile](#creating-an-author-profile)
+2. [Writing a new post](#writing-a-new-post)
+3. [Translating a Blog Post](#translating-a-blog-post)
+4. [Submitting a Pull Request](#submitting-a-pull-request)
 
 # Creating an author profile
 
@@ -82,8 +77,8 @@ When writing your post, you'll need to include some metadata in the frontmatter 
 {
   title: "My First Post",
   description: "This is my first post on the Unicorn Utterances site!",
-  published: '2019-10-07',
-  edited: '2020-02-02',
+  published: '2023-04-11',
+  edited: '2023-04-11',
   authors: ["eric"],
   tags: ["meta"],
   license: 'cc-by-4'
@@ -126,43 +121,34 @@ If you have linked images or videos, you'll need to save those files in the same
 
 Videos can also be embedded with the following syntax:
 
-```markdown
+```html
 <video src="./ios_vs_android.mp4" title="A comparison of how text spacing is applied on iOS and Android"></video>
 ```
 
+> When possible, `<video>` elements should be preferred over `.gif` files or other animated images in our posts. This is for accessibility concerns - videos provide users with more control over when/how the animation plays.
+
 # Translating a Blog Post
 
-If you are adding a translation, make sure to create an [Author Data File](#creating-an-author-profile) with the `"translator"` role so that you are credited for your work on the site!
+If you are adding a translation, make sure to first create an [Author Data File](#creating-an-author-profile) with the `"translator"` role so that you are credited for your work on the site!
 
-## Finding a Language Code
-
-For any language to be translated, it must have a name and identifier defined in the [`/content/data/languages.json`](./content/data/languages.json) file. If the language is already defined there, simply use its identifier in the following sections; if not, we will need to add it to the file.
-
-Each language code should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
-
-> Please use `-` instead of `_` in the language region ISO formats. Instead of `fr_ca`, it'd be `fr-ca`.
-
-Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for identifiers to be used in this format.
-
-## Creating the Translated Post
-
-Each blog post on the site has a subdirectory inside the [`content/blog` folder](./content/blog). In this folder, the post should have an `index.md` file with its current contents.
-
-To create a translation file for this post, copy the `index.md` file and rename it to include the new language identifier as `index.(lang).md`. For example, a translation for `fr` would be named `index.fr.md`. The content inside this file can then be translated into the respective language.
+To create a translation file for a post, copy its `index.md` file and rename it to `index.(lang).md`, where `(lang)` is the translated language. For example, a translation for `fr` (French) would be named `index.fr.md`. The content inside this file can then be translated into the respective language.
 
 > If any images used in the post need to be translated, these should be named in a similar fashion - for example, a translation of `dom_tree.svg` should be named `dom_tree.fr.svg`.
 >
 > Any links to these images will need to be updated in the `index.fr.md` post to point to the translated image.
 
-# Code
+For reference, the current language codes can be found in [`/content/data/languages.json`](./content/data/languages.json) - you may need to add to this file if the language is missing.
 
-While we have a lot of code that is not yet this way, we try our best to build our code for the site in such a way that it's generic enough to be useful for others. For example, some of our UI components have led to the creation of [our sister NPM library `batteries-not-included`](https://github.com/unicorn-utterances/batteries-not-included). We now directly consume said library for our own components. We've also found ourselves requiring a custom markdown processing utility [in the form of `unist-util-flat-filter`](https://github.com/unicorn-utterances/unist-util-flat-filter).
+## Finding a Language Code
 
-Keep in mind that we request developers reach out [via our Discord](https://discord.gg/FMcvc6T) or [via GitHub issue](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) before extensive development is pursued. If you have a feature you'd like to add to the site, let us know! We'd love to do some brainstorming before coding begins!
+Each language code in [`/content/data/languages.json`](./content/data/languages.json) should consist of two lowercase letters. If it includes a region, append a hyphen followed by two more lowercase letters. For example, the code for French is `fr` - to specifically refer to the French dialect in Canada, the code would be `fr-ca`.
 
-We're using a small set of internal forks of deps for the following reasons:
+> Please use `-` instead of `_` in the language region ISO formats. Instead of `fr_ca`, it'd be `fr-ca`.
 
-- [rehype-slug](https://github.com/rehypejs/rehype-slug/issues/10)
-- [rehype-img-size](https://github.com/ksoichiro/rehype-img-size/issues/4)
+Refer to [Wikipedia: List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for identifiers to be used in this format.
 
-To start the development server, run `npm run dev`, it will then start the local instance at `http://localhost:3000`.
+# Submitting a Pull Request
+
+Once all of your changes have been made, [create a Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to merge your post into the site.
+
+We'll get in touch with any questions or feedback once we've reviewed your post!
