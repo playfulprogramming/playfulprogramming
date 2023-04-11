@@ -13,7 +13,7 @@
 		"pronouns": "they/themselves",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer", "author", "community"]
+		"roles": ["devops", "developer", "author", "community", "partner"]
 	},
 	{
 		"id": "fennifith",
@@ -28,7 +28,7 @@
 		"pronouns": "he",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer", "author", "community"]
+		"roles": ["devops", "developer", "author", "community", "partner"]
 	},
 	{
 		"id": "evelynhathaway",
