@@ -28,15 +28,19 @@ Here's an example of what your entry might look like:
   // "id" is your profile URL
   // - in most cases, you'll want this to match your GitHub username
   "id": "eric",
+
   // "name" should be your displayed name, however you want it
   // to appear on your posts
   "name": "Eric Utterances",
+
   // "firstName" and "lastName" are unfortunately needed for
   // OpenGraph tags - fill these out however you feel is appropriate
   "firstName": "Eric",
   "lastName": "Utterances",
+
   // "description" is a short bio that will be shown on your profile page
   "description": "Haskell programmer, fanfiction author, and an omniscient unicorn.",
+
   // Social usernames can include "twitter", "github", "linkedIn",
   // "twitch", and "dribbble", as well as a "website" that can be
   // anything you want!
@@ -45,12 +49,17 @@ Here's an example of what your entry might look like:
     "github": "unicorn-utterances",
     "website": "https://unicorn-utterances.com/"
   },
+
   // "pronouns" are optional, but encouraged to include on your profile
   "pronouns": "they/them",
+
   // "profileImg" should reference an image adjacent to this file
+  // - ideally a PNG/JPEG of at least 512px resolution
   "profileImg": "./profile.png",
+
   // "color" can be any hex code to customize your profile
   "color": "#2464B6",
+
   // "roles" should reflect how you contribute to the site - if you're
   // creating a post, this will just be "author", but there are more
   // roles for developers and translators as well!
@@ -78,7 +87,6 @@ When writing your post, you'll need to include some metadata in the frontmatter 
   title: "My First Post",
   description: "This is my first post on the Unicorn Utterances site!",
   published: '2023-04-11',
-  edited: '2023-04-11',
   authors: ["eric"],
   tags: ["meta"],
   license: 'cc-by-4'
