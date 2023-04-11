@@ -2,6 +2,7 @@ import { Root, Element } from "hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { HeaderLink } from "./heading-link";
+import { toString } from "hast-util-to-string";
 
 /**
  * Rehype plugin that adds a link SVG icon adjacent to each heading
@@ -19,7 +20,7 @@ export const rehypeHeadingLinks: Plugin<[], Root> = () => {
 			// create an absolute link icon adjacent to the header contents
 			const hastHeader = HeaderLink({
 				slug: node.properties.id.toString(),
-				title: node.properties["data-header-text"].toString(),
+				title: toString(node),
 			});
 
 			node.children = [hastHeader, ...node.children];

@@ -1,37 +1,19 @@
-import { Root } from "hast";
+import { Root, Element } from "hast";
 import { Plugin } from "unified";
-
 import { visit } from "unist-util-visit";
-
-import { EMBED_SIZE } from "./constants";
 import { getFullRelativePath, isRelativePath } from "../url-paths";
-import { fromHtml } from "hast-util-from-html";
 
 import path from "path";
 
-interface RehypeUnicornElementMapProps {}
-
-function escapeHTML(s) {
-	if (!s) return s;
-	return s
-		.replace(/&/g, "&amp;")
-		.replace(/"/g, "&quot;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;");
-}
-
 // TODO: Add switch/case and dedicated files ala "Components"
-export const rehypeUnicornElementMap: Plugin<
-	[RehypeUnicornElementMapProps | never],
-	Root
-> = () => {
+export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 	return async (tree, file) => {
 		const splitFilePath = path.dirname(file.path).split(path.sep);
 		// "collections" | "blog"
 		const parentFolder = splitFilePath.at(-2);
 		const slug = splitFilePath.at(-1);
 
-		visit(tree, (node: any) => {
+		visit(tree, (node: Element) => {
 			if (node.tagName === "video") {
 				node.properties.muted ??= true;
 				node.properties.autoPlay ??= true;
@@ -43,13 +25,13 @@ export const rehypeUnicornElementMap: Plugin<
 					"/content/",
 					parentFolder,
 					slug,
-					node.properties.src
+					node.properties.src.toString()
 				);
 			}
 
 			if (node.tagName === "a") {
 				const href = node.properties.href;
-				const isInternalLink = isRelativePath(href || "");
+				const isInternalLink = isRelativePath(href?.toString() || "");
 				if (!isInternalLink) {
 					node.properties.target = "_blank";
 					node.properties.rel = "nofollow noopener noreferrer";

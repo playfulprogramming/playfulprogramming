@@ -17,15 +17,10 @@ import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-interface RehypeAstroImageProps {
-	maxHeight?: number;
-	maxWidth?: number;
-}
+const MAX_WIDTH = 768;
+const MAX_HEIGHT = 768;
 
-export const rehypeAstroImageMd: Plugin<
-	[RehypeAstroImageProps | never],
-	Root
-> = ({ maxHeight, maxWidth }) => {
+export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 	return async (tree, file) => {
 		const imgNodes: any[] = [];
 		visit(tree, (node: any) => {
@@ -79,14 +74,14 @@ export const rehypeAstroImageMd: Plugin<
 
 				const imgRatioHeight = dimensions.height / dimensions.width;
 				const imgRatioWidth = dimensions.width / dimensions.height;
-				if (maxHeight && dimensions.height > maxHeight) {
-					dimensions.height = maxHeight;
-					dimensions.width = maxHeight * imgRatioWidth;
+				if (dimensions.height > MAX_HEIGHT) {
+					dimensions.height = MAX_HEIGHT;
+					dimensions.width = MAX_HEIGHT * imgRatioWidth;
 				}
 
-				if (maxWidth && dimensions.width > maxWidth) {
-					dimensions.width = maxWidth;
-					dimensions.height = maxWidth * imgRatioHeight;
+				if (dimensions.width > MAX_WIDTH) {
+					dimensions.width = MAX_WIDTH;
+					dimensions.height = MAX_WIDTH * imgRatioHeight;
 				}
 
 				const pictureResult = await getPicture({

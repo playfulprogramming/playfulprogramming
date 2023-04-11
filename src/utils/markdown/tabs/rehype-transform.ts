@@ -60,11 +60,6 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 	return lines;
 };
 
-export interface RehypeTabsProps {
-	injectSubheaderProps?: boolean;
-	tabSlugifyProps?: Parameters<typeof getHeaderNodeId>[1];
-}
-
 /**
  * Plugin to add Docsify's tab support.
  * @see https://jhildenbiddle.github.io/docsify-tabs/
@@ -82,10 +77,7 @@ export interface RehypeTabsProps {
  * To align with React Tabs package:
  * @see https://github.com/reactjs/react-tabs
  */
-export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
-	injectSubheaderProps = false,
-	tabSlugifyProps = {},
-}) => {
+export const rehypeTabs: Plugin<[], Root> = () => {
 	return (tree) => {
 		const replaceTabNodes = (nodes: Node[]) => {
 			let sectionStarted = false;
@@ -102,10 +94,9 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 				if (isNodeLargestHeading(localNode, largestSize)) {
 					// Make sure that all tabs labeled "thing" aren't also labeled "thing2"
 					slugs.reset();
-					const { id: headerSlug } = getHeaderNodeId(
-						localNode,
-						tabSlugifyProps
-					);
+					const { id: headerSlug } = getHeaderNodeId(localNode, {
+						enableCustomId: true,
+					});
 
 					tabs.push({
 						slug: headerSlug,
@@ -118,7 +109,7 @@ export const rehypeTabs: Plugin<[RehypeTabsProps | never], Root> = ({
 				}
 
 				// For any other heading found in the tab contents, append to the nested headers array
-				if (isNodeHeading(localNode) && injectSubheaderProps) {
+				if (isNodeHeading(localNode)) {
 					const lastTab = tabs.at(-1);
 
 					// Store the related tab ID in the attributes of the header
