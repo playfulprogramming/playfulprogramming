@@ -503,5 +503,23 @@
 		"profileImg": "./badcop.png",
 		"color": "#2464B6",
 		"roles": ["author"]
-	}
+	},
+	{
+		"id": "dan",
+		"name": "Dan Jutan",
+		"firstName": "Dan",
+		"lastName": "Jutan",
+		"description": "Using the web to make things make sense",
+		"socials": {
+			"twitter": "jutanium",
+			"github": "jutanium",
+			"twitch": "jutanium",
+			"website": "https://github.com/sponsors/Jutanium"
+		},
+		"pronouns": "he/him",
+		"profileImg": "./danjutan.png",
+		"color": "#ba68c8",
+		"roles": ["author", "partner"]
+	},
+	
 ]
