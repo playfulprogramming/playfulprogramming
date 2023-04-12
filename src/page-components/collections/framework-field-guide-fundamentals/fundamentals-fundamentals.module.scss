@@ -21,6 +21,7 @@
 }
 
 .adventureContinuesContainer {
+    // max-width: var(--max-width-small);  There is no definiton of max-width-small in project
     display: flex;
     gap: 1rem;
     padding: var(--section-ver-padding) var(--section-hor-padding);
@@ -29,6 +30,10 @@
         flex-direction: column;
         min-height: auto;
     }
+}
+
+.divPadding{
+    padding-right: var(--section-hor-padding);
 }
 
 .titleContainer {
@@ -47,9 +52,35 @@
     top: 50%;
     width: calc(100% - 2rem);
     text-align: center;
+    color: var(--on-dark-emphasis-high);
 }
 
-.gridItems {
+.subtitle {
+    color: var(--on-dark-emphasis-medium);
+}
+
+.helpfulContainer {
+    text-align: start !important;
+    display: flex;
+    display: flex;
+    flex-direction:column;
+    align-items:start;
+    grid-template-columns: repeat(1, 1fr);
+    padding-top: var(--spc-2x);
+}
+
+.subtitle::before {
+    content: url("../framework-field-guide/icons/link.svg");
+    padding-right: var(--spc-2x);
+    padding-left: var(--spc-1x);
+    color: var(--on-dark-emphasis-medium);
+    fill: var(----on-dark-emphasis-medium) !important;
+    visibility: hidden
+}
+
+ul {
+    padding: 0;
+    margin: 0;
     list-style: none;
 }
 
@@ -68,7 +99,7 @@
 
 
 .titleContainer svg * {
-    fill: white !important;
+    fill: var(--on-dark-emphasis-high) !important;
 }
 
 .gridItem::before {
@@ -80,19 +111,11 @@
 }
 
 .gridItem {
-    color:white;
+    color: var(--on-dark-emphasis-high);
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: var(--on-dark-emphasis-medium);
     text-underline-offset: 6px;
-}
-
-.gridItems li {
-    text-align: start !important;
-    display: flex;
-    align-items: center;
-    display: flex;
-    align-items: center;
 }
 
 .stepCardContainer {

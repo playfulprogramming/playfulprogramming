@@ -46,18 +46,18 @@ const chapterList = posts
 			<h2 class="book-bio text-style-headline-2">What you'll need</h2>
 			<div>
 				<section class={styles.adventureContinuesContainer}>
-					<div>
+					<div class={styles.divPadding}>
 						<div class={styles.titleContainer}>
 							<BookSvg aria-hidden={true} />
-							<span class={styles.title}>Basic knowledge of CSS and JavaScript</span>
-							<span aria-hidden="true" style="opacity: 0;">Basic knowledge of CSS and JavaScript</span>
-                			<span aria-hidden="true" style="opacity: 0;">An IDE that supports your framework of choice</span>
+							<span class={`text-style-body-large-bold ${styles.title}`}>Basic knowledge of CSS and JavaScript</span>
+							<span aria-hidden="true" style="opacity: 0;" class="text-style-body-large-bold">Basic knowledge of CSS and JavaScript</span>
+                			<span aria-hidden="true" style="opacity: 0;" class="text-style-body-large-bold">An IDE that supports your framework of choice</span>
 						</div>
+						<div class={styles.helpfulContainer}>
 						<p>
-							<LinksSvg aria-hidden={true} style="visibility: hidden" />
-							<span>Helpful Links</span>
+							<span class={`text-style-body-large-bold ${styles.subtitle}`}>Helpful Links</span>
 						</p>
-						<ul class={styles.gridItems}>
+						<ul>
 							<li class={`text-style-body-large-bold`}>
 								<a href="" class={styles.gridItem}>The basics of CSS</a>
 							</li>
@@ -70,28 +70,29 @@ const chapterList = posts
 								<a href="" class={styles.gridItem}>JS Beginner's Guide</a>
 							</li>
 						</ul>
+						</div>
 					</div>
-					<div>
+					<div class={styles.divPadding}>
 						<div class={styles.titleContainer}>
 							<BookSvg aria-hidden={true} />
-							<span class={styles.title}>An IDE that supports your framework of choice</span>
-                			<span aria-hidden="true" style="opacity: 0;">An IDE that supports your framework of choice</span>
-							<span aria-hidden="true" style="opacity: 0;">Basic knowledge of CSS and JavaScript</span>
+							<span class={`text-style-body-large-bold ${styles.title}`}>An IDE that supports your framework of choice</span>
+                			<span aria-hidden="true" style="opacity: 0;" class="text-style-body-large-bold">An IDE that supports your framework of choice</span>
+							<span aria-hidden="true" style="opacity: 0;" class="text-style-body-large-bold">Basic knowledge of CSS and JavaScript</span>
 						</div>
+						<div class={styles.helpfulContainer}>
 						<p>
-							<LinksSvg aria-hidden={true} style="visibility: hidden" />
-							<span>Helpful Links</span>
+							<span class={`text-style-body-large-bold ${styles.subtitle}`}>Helpful Links</span>
 						</p>
-						<ul class={styles.gridItems}>
+						<ul>
 							<li class={`text-style-body-large-bold`}>
 								<a href="" class={styles.gridItem}>How to install VSCode</a>
 							</li>
 
 							<li class={`text-style-body-large-bold`}>
-								<a href="" class={styles.gridItem}
-									>How to actually use the damn thing</a>
+								<a href="" class={styles.gridItem}>How to actually use the damn thing</a>
 							</li>
 						</ul>
+					</div>
 					</div>
 				</section>
 			</div>
