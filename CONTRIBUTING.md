@@ -2,10 +2,10 @@ As a community, we welcome anyone to write and submit posts to the Unicorn Utter
 
 > **Note**: For a general tutorial on contributing to a project with GitHub, you may want to go through [the First Contributions guide](https://github.com/firstcontributions/first-contributions) before continuing through this page.
 
-We do have a few general criteria for posts on Unicorn Utterances:
+Here are a few things to keep in mind while writing your post:
 - Be inclusive! We support all sorts of skill levels - don't disparage newcomers or discourage readers from learning new things.
-- Provide factual and relevant information - citing sources is encouraged!
-- Keep your content unbiased - i.e. don't advertise commercial products or services without reason.
+- Aim to provide factual and relevant information - citing sources is encouraged!
+- Keep your content unbiased; i.e. don't advertise commercial products or services without reason.
 
 If at any point you get stuck or want to ask questions, feel free to [open an issue on GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues/new) or [reach out to us on Discord](https://discord.gg/FMcvc6T) for help!
 
