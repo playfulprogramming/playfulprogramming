@@ -1,6 +1,5 @@
 import {
 	LicenseInfo,
-	PronounInfo,
 	RawCollectionInfo,
 	CollectionInfo,
 	RolesEnum,
@@ -30,10 +29,6 @@ const unicornsRaw: Array<
 
 const rolesRaw: RolesEnum[] = JSON.parse(
 	fs.readFileSync(join(dataDirectory, "roles.json")).toString()
-);
-
-const pronounsRaw: PronounInfo[] = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "pronouns.json")).toString()
 );
 
 const licensesRaw: LicenseInfo[] = JSON.parse(
@@ -70,9 +65,15 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 		(role) => rolesRaw.find((rRole) => rRole.id === role)!
 	);
 
-	newUnicorn.pronounsMeta = pronounsRaw.find(
-		(proWithNouns) => proWithNouns.id === unicorn.pronouns
-	)!;
+	// normalize social links - if a URL or "@name" is entered, only preserve the last part
+	const normalizeUsername = (username: string | undefined) =>
+		username?.trim()?.replace(/^.*[/@](?!$)/, "");
+
+	newUnicorn.socials.twitter = normalizeUsername(newUnicorn.socials.twitter);
+	newUnicorn.socials.github = normalizeUsername(newUnicorn.socials.github);
+	newUnicorn.socials.linkedIn = normalizeUsername(newUnicorn.socials.linkedIn);
+	newUnicorn.socials.twitch = normalizeUsername(newUnicorn.socials.twitch);
+	newUnicorn.socials.dribbble = normalizeUsername(newUnicorn.socials.dribbble);
 
 	return newUnicorn;
 });
@@ -120,7 +121,6 @@ const collections = getCollections();
 export {
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
-	pronounsRaw as pronouns,
 	licensesRaw as licenses,
 	collections,
 };

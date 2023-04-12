@@ -16,14 +16,6 @@ export const MockUnicorn: UnicornInfo = {
 		website: "example.com",
 	},
 	pronouns: "they/them",
-	pronounsMeta: {
-		id: "they/them",
-		they: "they",
-		them: "them",
-		their: "their",
-		theirs: "theirs",
-		themselves: "themselves",
-	},
 	profileImg:
 		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 	profileImgMeta: {
@@ -53,14 +45,6 @@ export const MockUnicornTwo: UnicornInfo = {
 		website: "example.com/2",
 	},
 	pronouns: "they/them",
-	pronounsMeta: {
-		id: "they/them",
-		they: "they",
-		them: "them",
-		their: "their",
-		theirs: "theirs",
-		themselves: "themselves",
-	},
 	profileImg:
 		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
 	profileImgMeta: {
