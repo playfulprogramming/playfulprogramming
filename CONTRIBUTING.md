@@ -125,7 +125,7 @@ If you have linked images or videos, you'll need to save those files in the same
 ![Ferris, the adorable crustacean Rust mascot](./ferris.png)
 ```
 
-> Make sure to add descriptive alt text! Consider what information these images add your post difficult for readers with visual impairment.
+> Make sure to add descriptive alt text! Consider what information these images add your post, and what context might be important for readers with visual impairment.
 
 Videos can also be embedded with the following syntax:
 
