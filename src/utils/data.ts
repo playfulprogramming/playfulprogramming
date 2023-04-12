@@ -1,6 +1,5 @@
 import {
 	LicenseInfo,
-	PronounInfo,
 	RawCollectionInfo,
 	CollectionInfo,
 	RolesEnum,
@@ -30,10 +29,6 @@ const unicornsRaw: Array<
 
 const rolesRaw: RolesEnum[] = JSON.parse(
 	fs.readFileSync(join(dataDirectory, "roles.json")).toString()
-);
-
-const pronounsRaw: PronounInfo[] = JSON.parse(
-	fs.readFileSync(join(dataDirectory, "pronouns.json")).toString()
 );
 
 const licensesRaw: LicenseInfo[] = JSON.parse(
@@ -69,10 +64,6 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	newUnicorn.rolesMeta = unicorn.roles.map(
 		(role) => rolesRaw.find((rRole) => rRole.id === role)!
 	);
-
-	newUnicorn.pronounsMeta = pronounsRaw.find(
-		(proWithNouns) => proWithNouns.id === unicorn.pronouns
-	)!;
 
 	return newUnicorn;
 });
@@ -120,7 +111,6 @@ const collections = getCollections();
 export {
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
-	pronounsRaw as pronouns,
 	licensesRaw as licenses,
 	collections,
 };
