@@ -1,13 +1,18 @@
 @import "../../../styles/utils";
 @import "../framework-field-guide/tokens/breakpoints.scss";
 
-.signUp {
-	color: white;
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
+:root {
+	--sign-up-btn-gap: var(--spc-6x);
+}
+
+@include from($desktop) {
+	:root {
+		--sign-up-btn-gap: var(--spc-3x);
+	}
 }
 
 .signUpContainer {
-	background: var(--section-background) !important;
+	text-align: center;
+	color: var(--on-dark-emphasis-high);
+	max-width: var(--max-width_small);
 }
