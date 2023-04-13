@@ -21,7 +21,7 @@
 }
 
 .adventureContinuesContainer {
-    // max-width: var(--max-width-small);  There is no definiton of max-width-small in project
+    max-width: var(--max-width_small);
     display: flex;
     gap: 1rem;
     padding: var(--section-ver-padding) var(--section-hor-padding);
