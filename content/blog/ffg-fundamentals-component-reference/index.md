@@ -279,7 +279,7 @@ You may have noticed that during this migration, we ended up removing a crucial 
 
 Why was it removed and how can we add it back?
 
-# Introducing Element Reference
+# Introducing Component Reference
 
 **The reason we removed the context menu's focus management is to keep the control of the context menu in the parent. **
 
@@ -464,6 +464,8 @@ const App = () => {
 ```
 
 It will output `Hello, world` just as we would expect it to!
+
+<!-- TODO: Add useImperativeHandle deps array -->
 
 ## Angular
 
@@ -974,109 +976,313 @@ const open = (e) => {
 
 # Challenge
 
-Let's add functionality for a drag handler into another part of our app. This will use what we know of 
+Let's add a sidebar that we can collapse into our application.
 
-
+// TODO
 
 <!-- tabs:start -->
 
 ## React
 
-https://stackblitz.com/edit/react-ts-gpjzsm?file=components%2Futils.ts
-
 ```tsx
-import { MouseEventHandler, useState, useRef, useEffect } from 'react';
-import { render } from 'react-dom';
+export const Sidebar = forwardRef(({ toggle }, ref) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-export const debounce = <T extends (...args: any) => any>(
-  func: T,
-  time: number
-): T => {
-  let timeout: any;
-  return ((...args: any) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func(...args);
-    }, time);
-  }) as any;
-};
-
-interface DragHandlerProps {
-  moveX: (relativeX: number) => void;
-}
-
-export const DragHandler = ({ moveX }: DragHandlerProps) => {
-  const elRef = useRef<HTMLElement | null>(null);
-
-  const onMouseMove = useMemo(
-    () =>
-      debounce((e) => {
-        if (!elRef.current) return;
-        const boundingBox = elRef.current.getBoundingClientRect();
-        const relativeX = e.clientX - boundingBox.x;
-        moveX(relativeX);
-      }, 1),
-    [elRef]
-  );
-
-  const onMouseUp = useCallback(() => {
-    document.removeEventListener('mousemove', onMouseMove);
-  }, [onMouseMove]);
-
-  useEffect(() => {
-    return () => document.removeEventListener('mousemove', onMouseMove);
-  }, [onMouseMove]);
-
-  useEffect(() => {
-    return () => document.removeEventListener('mouseup', onMouseUp);
-  }, [onMouseUp]);
-
-  const onMouseDown: MouseEventHandler = (e) => {
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+  const setAndToggle = (v) => {
+    setIsCollapsed(v);
+    toggle(v);
   };
 
-  return (
-    <div
-      ref={elRef as any}
-      style={{ width: '2px', backgroundColor: 'red', cursor: 'col-resize' }}
-      onMouseDown={onMouseDown}
-    />
+  useImperativeHandle(
+    ref,
+    () => ({
+      collapse: () => {
+        setAndToggle(true);
+      },
+      expand: () => {
+        setAndToggle(false);
+      },
+      isCollapsed: isCollapsed,
+    }),
+    [isCollapsed]
   );
-};
+
+  const toggleCollapsed = () => {
+    setAndToggle(!isCollapsed);
+  };
+
+  if (isCollapsed) {
+    return <button onClick={toggleCollapsed}>Toggle</button>;
+  }
+
+  return (
+    <div>
+      <button onClick={toggleCollapsed}>Toggle</button>
+      <ul style={{ padding: '1rem' }}>
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+        <li>List item 4</li>
+        <li>List item 5</li>
+        <li>List item 6</li>
+      </ul>
+    </div>
+  );
+});
+
+const collapsedWidth = 100;
+const expandedWidth = 150;
+const widthToCollapseAt = 400;
 
 const App = () => {
-  const [width, setWidth] = useState(100);
+  const [width, setWidth] = useState(expandedWidth);
 
-  // Callback ref
-  const homeRef = (props) => {
-    // Comment these out for different behavior
-    if (!props) return;
-    setWidth(props.width);
-  };
+  const sidebarRef = useRef();
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth < widthToCollapseAt) {
+        sidebarRef.current.collapse();
+      } else if (sidebarRef.current.isCollapsed) {
+        sidebarRef.current.expand();
+      }
+    };
+
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('resize', onResize);
+  }, [sidebarRef]);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'nowrap' }}>
-      <div style={{ width: `${width}px` }}>
-        <Home ref={homeRef} />
+    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
+      <div
+        style={{ width: `${width}px`, height: '100vh', overflowY: 'scroll' }}
+      >
+        <Sidebar
+          ref={sidebarRef}
+          toggle={(isCollapsed) => {
+            if (isCollapsed) {
+              setWidth(collapsedWidth);
+              return;
+            }
+            setWidth(expandedWidth);
+          }}
+        />
       </div>
-      <DragHandler moveX={(val) => setWidth((w) => w + val)} />
-      <div>
-        <Home />
+      <div style={{ width: '1px', flexGrow: 1 }}>
+        <p style={{ padding: '1rem' }}>Hi there!</p>
       </div>
     </div>
   );
 };
-
-render(<App />, document.getElementById('root'));
 ```
 
 ## Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
+  <div *ngIf="!isCollapsed">
+    <button (click)="toggleCollapsed()">Toggle</button>
+    <ul style="padding: 1rem">
+      <li>List item 1</li>
+      <li>List item 2</li>
+      <li>List item 3</li>
+      <li>List item 4</li>
+      <li>List item 5</li>
+      <li>List item 6</li>
+    </ul>
+  </div>
+  `,
+})
+class SidebarComponent {
+  @Output() toggle = new EventEmitter<boolean>();
+
+  isCollapsed = false;
+
+  setAndToggle(v: boolean) {
+    this.isCollapsed = v;
+    this.toggle.emit(v);
+  }
+
+  collapse() {
+    this.setAndToggle(true);
+  }
+
+  expand() {
+    this.setAndToggle(false);
+  }
+
+  toggleCollapsed() {
+    this.setAndToggle(!this.isCollapsed);
+  }
+}
+
+const collapsedWidth = 100;
+const expandedWidth = 150;
+const widthToCollapseAt = 400;
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, SidebarComponent],
+  template: `
+    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+    <div
+      [style]="'width: ' + width + 'px; height: 100vh; overflow-y: scroll'"
+    >
+        <sidebar
+          #sidebar
+          (toggle)="onToggle($event)"
+        />
+      </div>
+      <div style="width: 1px; flex-grow: 1">
+        <p style="padding: 1rem">Hi there!</p>
+      </div>
+    </div>
+  `,
+})
+class AppComponent implements OnInit, OnDestroy {
+  @ViewChild('sidebar') sidebar: SidebarComponent;
+
+  width = expandedWidth;
+
+  onToggle(isCollapsed: boolean) {
+    if (isCollapsed) {
+      this.width = collapsedWidth;
+      return;
+    }
+    this.width = expandedWidth;
+  }
+
+  onResize = () => {
+    if (window.innerWidth < widthToCollapseAt) {
+      this.sidebar.collapse();
+    } else if (this.sidebar.isCollapsed) {
+      this.sidebar.expand();
+    }
+  };
+
+  ngOnInit() {
+    window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  }
+}
+```
 
 ## Vue
 
-// TODO: Add
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
+  <div v-if="!isCollapsed">
+    <button @click="toggleCollapsed()">Toggle</button>
+    <ul style="padding: 1rem">
+      <li>List item 1</li>
+      <li>List item 2</li>
+      <li>List item 3</li>
+      <li>List item 4</li>
+      <li>List item 5</li>
+      <li>List item 6</li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const emit = defineEmits(['toggle'])
+
+const isCollapsed = ref(false)
+
+const setAndToggle = (v) => {
+  isCollapsed.value = v
+  emit('toggle', v)
+}
+
+const collapse = () => {
+  setAndToggle(true)
+}
+
+const expand = () => {
+  setAndToggle(false)
+}
+
+const toggleCollapsed = () => {
+  setAndToggle(!isCollapsed.value)
+}
+
+defineExpose({
+  isCollapsed,
+  collapse,
+  expand,
+})
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+    <div :style="`width: ${width}px; height: 100vh; overflow-y: scroll`">
+      <sidebar ref="sidebar" @toggle="onToggle($event)" />
+    </div>
+    <div style="width: 1px; flex-grow: 1">
+      <p style="padding: 1rem">Hi there!</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import Sidebar from './Sidebar.vue'
+
+const collapsedWidth = 100
+const expandedWidth = 150
+const widthToCollapseAt = 400
+
+const sidebar = ref()
+
+const width = ref(expandedWidth)
+
+const onToggle = (isCollapsed) => {
+  if (isCollapsed) {
+    width.value = collapsedWidth
+    return
+  }
+  width.value = expandedWidth
+}
+
+const onResize = () => {
+  if (window.innerWidth < widthToCollapseAt) {
+    sidebar.value.collapse()
+  } else if (sidebar.value.isCollapsed) {
+    sidebar.value.expand()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', onResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+})
+</script>
+```
 
 <!-- tabs:end -->
+
+// TODO
+
+> Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
+>
+> This would give us greater flexibility in controlling our sidebar's `isCollapsed` state without having to use a component reference.
