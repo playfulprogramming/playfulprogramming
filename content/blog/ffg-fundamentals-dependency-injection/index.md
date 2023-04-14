@@ -13,11 +13,11 @@
 
 One of the core tenants of components we've used repeatedly in the book is the idea of component inputs, or properties.
 
-While component inputs work well for one-off behavior, it can be challenging to scale when you need the same set of data across multiple components.
+While component inputs are undoubtably useful, it can be challenging to utilize at scale when you need the same set of data across multiple layers of components.
 
 For example, let's look back at our files app we've been developing throughout the book.
 
-![// TODO: Add alt](./file_list_owner.png);
+![// TODO: Add alt](./file_list_owner.png)
 
 Here, we have a list of files, the user's profile picture in the corner of the screen. Here's an example of what our data for the page looks like:
 
@@ -44,9 +44,13 @@ const APP_DATA = {
 }
 ```
 
-> This data has been shortened to keep focus
+> This data has been shortened to keep focus on the topic at hand.
 
-Let's say that every time we see `null` where the `ownerName` is, we want to replace this information with the `currentUser`'s `name` field.
+With this data, we can render out most of the UI within our mockup above.
+
+Let's use this data to build out some of the foundation of our application. For example, say that every time we see an `ownerName` of `null`, we'll replace it with the `currentUser`'s `name` field.
+
+To do this, we'll need to make sure to pass both our `collection` as well as `currentUser` down to every child component.
 
 Let's use some pseudo-code and mock out what those components might look like with data passing from the parent to the child:
 
@@ -105,9 +109,9 @@ const FileOwner = {
 render(App);
 ```
 
-While this isn't real code, we can make a simple discovery by looking at our code laid out like this: We're passing `currentUser` to almost every single component!
+While this isn't real code, we can make a discovery by looking at our code laid out like this: We're passing `currentUser` to almost every single component!
 
-If we chart out what the flow of data looks like, it might look something like this:
+If we chart out what the flow of data looks like, our `currentUser` property is being passed like so:
 
 ![// TODO: Write alt](./passing_props.svg)
 
@@ -115,31 +119,31 @@ While it's obnoxious to pass `currentUser` in every component, we need that data
 
 Well, we can! Sort of...
 
-What we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise it's hand and ask for data.
+While we _can't_ outright remove the ability to pass the data from the parent to the children, what we **can** do is pass these components _implicitly_ instead of _explicitly_. This means that instead of telling the child component what data it should accept, we simply hand off data regardless of if it's needed or not. From there, it's the child component's job to raise it's hand and ask for data.
 
-Think of this like a food buffet. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
+Think of this like a buffet of food. Instead of serving food directly to the customer's table, the customer comes to the table with all of the food, takes what it wants, and is satisfied with the results all-the-same.
 
-![// TODO: Write alt](./buffet_analogy.svg)
+![// TODO: Write alt](./buffet_analogy.png)
 
-We do this method of implicit data passing using a methodology called "dependency injection".
+We do this method of implicit data passing using a methodology called "**dependency injection**".
 
 # Providing Basic Values with Dependency Injection
 
-When we talk about dependency injection, we talk about a method of providing data from a parent component down to a child component through implicit means.
+When we talk about dependency injection, we're referring to a method of providing data from a parent component down to a child component through implicit means.
 
-Using dependency injection, we can take our previous anxiety-inducing chart and redesign the app to reflect something like this instead:
+Using dependency injection, we can change our method of providing data to implicitly pass data to the entire application. Doing so allows us to redesign the app and simplify how data is fetched to reflect something like this:
 
 ![// TODO: Write alt](./basic_di.svg)
 
-Each of these three frameworks provides a simple way of injecting data implicitly into their components.
+Here, `FileOwner` and `ProfilePicture` are grabbing data from the `App` provided value rather than having to go through every individual component.
 
-Let's start with the most basic method of dependency injection by providing some simple values, like a number or string, down to a child component.
+React, Angular, and Vue all have methods for injecting data implicitly into child components using dependency injection. Let's start with the most basic method of dependency injection by providing some primitive values, like a number or string, down to a child component.
 
 <!-- tabs:start -->
 
 ## React
 
-In the React world, all dependency injection is powered by a `createContext` method, which you then `Provide` to your child components, and within those child components you consume the data with a `useContext` hook.
+In the React world, all dependency injection is powered by a `createContext` method, which you then `Provide` to your child components. Within those child components you then consume the provided data with a `useContext` hook.
 
 ```jsx
 import {createContext, useContext} from 'react';
@@ -165,14 +169,14 @@ function Child() {
 
 ## Angular
 
-While other frameworks have a more singularly focused dependency injection API, Angular's dependency injection API is simultaneously more complex, but more powerful as a result.
+While React and Vue both have minimal APIs to handle dependency injection, Angular's dependency injection API is simultaneously more complex and powerful.
 
-Within Angular's DI system, it all starts with a `InjectionToken` of some kind. We'll start by importing Angular `InjectionToken` API, and creating a new token that we can use later. 
+In Angular, it all starts with an `InjectionToken` of some kind. We'll start by importing Angular `InjectionToken` API, and creating a new token that we can use later. 
 
 ```typescript
-import { InjectionToken, Component, Inject} from '@angular/core';
+import { InjectionToken} from '@angular/core';
 
-const WELCOME_MESSAGE_TOKEN = new InjectionToken('WELCOME_MESSAGE');
+const WELCOME_MESSAGE_TOKEN = new InjectionToken<string>('WELCOME_MESSAGE');
 ```
 
 We'll then use this token to create a `provider` that we pass to a component's `providers` list:
@@ -180,7 +184,9 @@ We'll then use this token to create a `provider` that we pass to a component's `
 ```typescript
 @Component({
   selector: 'app-root',
-  template: `<child></child>`,
+  standalone: true,
+  imports: [ChildComponent],
+  template: `<child/>`,
   providers: [
     {provide: WELCOME_MESSAGE_TOKEN, useValue: 'Hello, world!' },
   ]
@@ -194,10 +200,11 @@ This API uses `useValue` to provide the value associated with the token we pass.
 Finally, we use an `inject` function in our component class to tell Angular "We want this value in our component".  
 
 ```typescript
-import { InjectionToken, Component, inject} from '@angular/core';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: `<p>{{welcomeMsg}}</p>`
 })
 export class ChildComponent {
@@ -209,25 +216,7 @@ export class ChildComponent {
 }
 ```
 
-Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class. To get around this, we'll need to use an alternative API that Angular allows us to leverage.
-
-### `constructor` injection 
-
-Alongside Angular's `inject` function, there's a Decorator called `@Inject` that we can use in our `ChildComponent`'s `constructor` to inject the value from our `InjectionToken` instead:
-
-```typescript
-@Component({
-  selector: 'child',
-  template: `<p>{{welcomeMsg}}</p>`
-})
-export class ChildComponent {
-  constructor(@Inject(WELCOME_MESSAGE_TOKEN) public welcomeMsg: string) {}
-
-  ngOnInit() {
-    console.log(this.welcomeMsg);
-  }
-}
-```
+> Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
 
 ## Vue
 
@@ -361,22 +350,6 @@ Now that our `InjectedValue` is a known type, we can remove our explicit type de
 })
 class ChildComponent implements OnInit {
   injectedValue = inject(InjectedValue);
-
-  ngOnInit() {
-    console.log(this.injectedValue);
-  }
-}
-```
-
-Alternatively, if we need to use a `constructor` to do dependency injection, it's now been made much less verbose because our `InjectedValue` class was marked with `@Injectable`. As a result, we can remove our previous usage of `@Inject` inside of our child constructor:
-
-```typescript
-@Component({
-  selector: "child",
-  template: `<div>{{injectedValue.message}}</div>`
-})
-class ChildComponent implements OnInit {
-  constructor(public injectedValue: InjectedValue) {}
 
   ngOnInit() {
     console.log(this.injectedValue);
@@ -928,38 +901,6 @@ class ChildComponent implements OnInit {
 }
 ```
 
-
-Likewise, if we need to mark a dependency as optional in our constructor, using the `@Optional` decorator in `ChildComponent`'s `constructor` will do the job:
-
-```typescript
-import { Injectable, Component, OnInit, Optional} from '@angular/core';
-
-@Injectable()
-class InjectedValue {
-  message = "Hello, world";
-}
-
-@Component({
-  selector: "app-root",
-  template: `<child></child>`
-})
-class ParentComponent {
-}
-
-@Component({
-  selector: "child",
-  template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
-})
-class ChildComponent implements OnInit {
-  constructor(@Optional() private injectedValue: InjectedValue) {}
-
-  ngOnInit() {
-    // undefined
-    console.log(this.injectedValue);
-  }
-}
-```
-
 Now, we get no error when `injectedValue` is not provided. Instead, we get a value of `null`, which we can gaurd against using `ngIf` inside our template.
 
 ## Vue
@@ -1056,35 +997,6 @@ class ParentComponent {}
 })
 class ChildComponent {
   injectedValue = inject(InjectedValue)  || { message: 'Default Value' };
-}
-```
-
-Alternatively, if you're using the `constructor` method of dependency injection, you can do something similar within your `constructor`:
-
-```typescript
-@Injectable()
-class InjectedValue {
-  message = 'Initial value';
-}
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <child></child>
-  `,
-})
-class ParentComponent {}
-
-@Component({
-  selector: 'child',
-  template: `<p>{{injectedValue.message}}</p>`,
-})
-class ChildComponent {
-  injectedValue: InjectedValue;
-
-  constructor(@Optional() private _injectedValue: InjectedValue) {
-    this.injectedValue = this._injectedValue || { message: 'Default Value' };
-  }
 }
 ```
 
@@ -1469,6 +1381,9 @@ While [we will dive deeper into how Angular's (and other frameworks') dependency
 
 
 <!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
+
+<!-- `@Inject` decorator, as a future version of Angular will break them due to ECMA compatible --> 
+
 <!-- `@Self` and `@SkipSelf` - too complex, not features in other frameworks -->
 
 <!-- `@Host`  - for the same reasons as `@Self` -->

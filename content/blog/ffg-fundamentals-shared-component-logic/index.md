@@ -431,7 +431,7 @@ First, though, we need to provide a way to add behavior to our `onResize` class:
 class WindowSize implements OnDestroy {
   height = 0;
   width = 0;
-  
+
   // We'll overwrite this behavior in another service
   _listener: () => void | undefined;
 

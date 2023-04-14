@@ -11,6 +11,8 @@
 }
 ---
 
+<!-- Editor's note: Migrate away from constructor params to use `inject` to be more ECMA friendly -->
+
 In our last chapter, we talked about how you can create custom logic that isn't associated with any particular component, but can be used by said components to extend its logic.
 
 This is helpful for sharing logic between components, but isn't the whole story of code re-use within React, Angular, and Vue.
