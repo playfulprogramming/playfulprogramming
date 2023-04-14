@@ -217,6 +217,10 @@ export class ChildComponent {
 ```
 
 > Something worth mentioning when using the `inject` function is that you're unable to provide a `constructor` method to the `ChildComponent` class.
+>
+> While this might sound like a heavy limitation, the `inject` function provides various capabilities (and modularity) that the `constructor` method alone does not provide.
+
+<!-- Editor's note: `inject` allows you to create sharable and exportable bits of code that can be reused elsewhere, whereas `@Inject` cannot be reused -->
 
 ## Vue
 
@@ -262,7 +266,7 @@ While this is convenient for passing simple values to multiple parts of the app,
 
 ## React
 
-As we mentioned before, all of React's dependency injection logic uses `createContext`, `Provider`, and `useContext`. As such, to provide an object is a trivial change from before, simply by changing the `value` we pass to our provider:
+As we mentioned before, all of React's dependency injection logic uses `createContext`, `Provider`, and `useContext`. As such, to provide an object is a minimal change from before, done by changing the `value` we pass to our provider:
 
 ````jsx
 const HelloMessageContext = createContext();
@@ -285,16 +289,18 @@ const Parent = () => {
 
 ## Angular
 
- Because Angular's `useValue` accepts any arbitrary value, we can simply pass it an object to move away from a simple string injection:
+ Because Angular's `useValue` accepts any arbitrary value, we can pass it an object to move away from a string injection:
 
 ```typescript
 import { InjectionToken, Component, Inject } from '@angular/core';
 
-const WELCOME_MESSAGE_TOKEN = new InjectionToken('WELCOME_MESSAGE');
+const WELCOME_MESSAGE_TOKEN = new InjectionToken<{nessage: string}>({message: 'INITIAL_VALUE'});
 
 @Component({
   selector: 'app-root',
-  template: `<child></child>`,
+  standalone: true,
+  imports: [ChildComponent],
+  template: `<child/>`,
   providers: [
     { provide: WELCOME_MESSAGE_TOKEN, useValue: { message: 'Hello, world!' } },
   ],
@@ -303,6 +309,7 @@ export class AppComponent {}
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: `<p>{{welcomeMsg.message}}</p>`,
 })
 export class ChildComponent {
@@ -314,7 +321,6 @@ While this functions, it's not very clean. In particular, some of the headaches 
 
 - Duplicative TypeScript typings between `inject` usage and `useValue` providing
   - Mismatches can cause `undefined` bugs intentionally
-- When using a `constructor`, needing to use `@Inject` decorator is overly verbose
 
 Luckily for us, Angular provides a better solution for this problem than `useValue` and `InjectionToken`. 
 
@@ -334,8 +340,10 @@ Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionTo
 ```typescript
 @Component({
   selector: "app-root",
+  standalone: true,
+  imports: [ChildComponent],
   providers: [InjectedValue],
-  template: `<child></child>`
+  template: `<child/>`
 })
 class ParentComponent {
 }
@@ -346,6 +354,7 @@ Now that our `InjectedValue` is a known type, we can remove our explicit type de
 ```typescript
 @Component({
   selector: "child",
+  standalone: true,
   template: `<div>{{injectedValue.message}}</div>`
 })
 class ChildComponent implements OnInit {
@@ -430,7 +439,7 @@ When we update the `message` value, it will trigger a re-render on the `Child` c
 
 ## Angular
 
-Because we've marked our `InjectedValue` class as an `Injectable`, we can simply have the parent component request access in the `constructor` in order to mutate the class instance.
+Because we've marked our `InjectedValue` class as an `Injectable`, we can have the parent component request access in the `constructor` in order to mutate the class instance.
 
 ````typescript
 @Injectable()
@@ -440,9 +449,11 @@ class InjectedValue {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ChildComponent],
   providers: [InjectedValue],
   template: `
-    <child></child>
+    <child/>
     <button (click)="updateMessage()">Update the message</button>
   `,
 })
@@ -457,6 +468,7 @@ class ParentComponent {
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
@@ -466,7 +478,7 @@ class ChildComponent {
 
 ## Vue
 
-Vue's minimal API surface allows us to easily compose `ref` and `provide` usage in order to provide values that we can change after injection. 
+Vue's minimal API surface allows us to compose `ref` and `provide` usage in order to provide values that we can change after injection. 
 
 ```vue
 <!-- Parent.vue -->
@@ -508,17 +520,19 @@ const welcomeMessage = inject('WELCOME_MESSAGE')
 
 ## Changing Injected Values from Child
 
-While mutating the injected value is intrinsically valuable, we often want to change the value from the child component instead of from the root. However, because dependency injection is usually unidirectional (from the parent to the child), we have to rely on specific functionality of the frameworks to enable this functionality. 
+In the previous section, we showed how you're able to change the injected value from the root of the component. But what if we wanted to change the injected value from the child component instead of from the root?
 
-Let's see how that's done:
+Because dependency injection _usually_ only goes in one direction (from the parent to the child) it's not immediately clear how we can do this.
+
+Despite this, each framework provides us the tools to update injected values from the children themselves; Let's see how that's done:
 
 <!-- tabs:start -->
 
 ### React
 
-Before, we utilized the ability to use `useState` in our `Provider` in order to handle data changes from the parent provider.
+Previously we utilized the ability to use `useState` in our `Provider` in order to handle data changes from the parent provider. Continuing on this pattern, we'll utilize `useState` once again to handle changes in a child component.
 
-Luckily, React's `useContext` enables us to pass data of _any_ kind, functions included. This means that we can pass both the getter and setter function of `useState`, like so:
+This works because React's `useContext` enables us to pass data of _any_ kind, functions included. This means that we can pass both the getter and setter function of `useState`, like so:
 
 ```jsx
 
@@ -551,15 +565,44 @@ function Child() {
 
 #### Using a reducer pattern
 
-While `useState` and `useContext` make a powerful combination for simple data passing using dependency injection, it's far from a perfect solution when dealing with large data sets.
+Despite `useState` and `useContext` making a powerful combination for data passing and updating in dependency injection, it's far from a perfect solution when dealing with large data sets.
 
 For example, what happens if we want to implement a counter, that includes an `increment` and `decrement` function?
+
+We could pass each individual function through the `Provider`:
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+  
+  const increment = () => {
+    setCount(count + 1);
+  }
+
+  const decrement = () => {
+    setCount(count - 1);
+  }
+  
+  const set = (val) => {
+    setCount(val);
+  }
+
+  const providedValue = { count, increment, decrement, set };
+  return (
+    <CounterContext.Provider value={providedValue}>
+      <Child />
+    </CounterContext.Provider>
+  );
+}
+```
+
+But doing so creates a substantial amount of noise: each function has a dedicated variable and needs to be passed independently for the `useContext` to work as intended.
+
+------------
 
 This is where `useReducer` might come into play. Let's take a step back for a moment, and remove the `useContext` method.
 
 A "reducer" pattern involves a list of actions that the user can take. These actions are provided the current `state` value, which will be updated based on the returned value from the reducer.
-
-> It's worth mentioning that the reducer pattern is not unique to React. That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks. 
 
 Let's take a look at the most basic version of a `reducer` that only can count up from `0`:
 
@@ -652,6 +695,8 @@ function App() {
 }
 ```
 
+> It's worth mentioning that [the reducer pattern is not unique to React](https://dev.to/reedbarger/what-is-a-reducer-in-javascript-a-complete-introduction-with-examples-ip1). That said, React is unique in that it has a built-in method to build reducers, unlike many other frameworks. 
+
 #### Reducer patterns within Contexts
 
 Just like we were able to pass the `setValue` function from `useState`, we can pass both `state` and `dispatch` using our `context`'s `Provide` and utilize `useContext` to inject those values into our child components. 
@@ -701,8 +746,6 @@ function Child() {
 }
 ```
 
-> It's worth mentioning that while this works at a relatively small-scale, you [should not use this pattern for large data sets across huge swaths of your program. Instead, you should likely be using a library like Redux for performance reasons.](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/)
-
 ### Angular
 
 Because we're able to inject a full class instance into a child component, we can utilize methods in said class to mutate data of the injected class instance.
@@ -719,13 +762,16 @@ class InjectedValue {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ChildComponent],
   providers: [InjectedValue],
-  template: `<child></child>`,
+  template: `<child/>`,
 })
 class ParentComponent {}
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: `
   <div>{{injectedValue.message}}</div>
   <button (click)="changeMessage()">Change message</button>
@@ -744,7 +790,7 @@ class ChildComponent {
 
 ### Vue
 
-In our previous example, we used `provide` to inject a `ref` into the child component. Luckily for us, because of Vue's reactivity system, we can simply change the `.value` of the `ref` in the child itself.
+In our previous example, we used `provide` to inject a `ref` into the child component. Because of Vue's reactivity system, we can utilize this `ref` to change the `.value` of the `ref` in the child to modify the value that's injected across the app.
 
 ```vue
 <!-- Parent.vue -->
@@ -787,13 +833,13 @@ Let's think back to the start of this chapter. The original goal of introducing 
 
 While you might expect the user's login information to always be present, what if it wasn't? What if, when the user first creates their account, they opt out of inputting their name and profile picture? Even if this seems unlikely, a robust application should handle edge-cases like this.
 
-Lukcily, React, Angular, and Vue are all able to withstand no value provided to the child component via dependency injection. This is because all three frameworks have the ability to mark a dependency as "optional" in the dependency injection system.
+Luckily, React, Angular, and Vue are all able to withstand an empty value provided through dependency injection by marking the value as "optional".
 
 <!-- tabs:start -->
 
 ## React
 
-In React, handling optionally injected values is fairly straightforward. We can still use the `useContext` hook in the child component, even if there is no provider.
+In React, handling optionally injected values doesn't require a new API. We can still use the `useContext` hook in the child component, even if there is no provider.
 
 ```jsx
 import { createContext, useContext } from 'react';
@@ -823,7 +869,7 @@ function Child() {
 export default Parent;
 ```
 
-When this is done, `useContext` is `undefined` if no value is injected when it should be.
+When this is done, `useContext` is `undefined` if no value is injected for a particular named context.
 
 ## Angular
 
@@ -870,9 +916,9 @@ We get the following error:
 >   NullInjectorError: No provider for InjectedValue!
 > ```
 
-This is because our constructor inside of `ChildComponent` is marked as a required dependency by default, hence the error. 
+This is because our `inject` function inside of `ChildComponent` is marked as a required dependency by default, hence the error. 
 
-Luckily for us, there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
+Fortunately there's a way to tell Angular to mark that dependency as "optional" by passing a second argument to the `inject` function:
 
 ```typescript
 @Injectable()
@@ -905,7 +951,7 @@ Now, we get no error when `injectedValue` is not provided. Instead, we get a val
 
 ## Vue
 
-Much like React's dependency injection system, when using Vue's `inject` without a parent `provide`, the `inject` simply defaults it's value to `undefined`.
+Much like React's dependency injection system, when using Vue's `inject` without a parent `provide`, the `inject` defaults its value to `undefined`.
 
 ``` vue
 <!-- Parent.vue -->
@@ -947,9 +993,9 @@ console.log(welcomeMessage)
 
 ## Default Values for Optional Values
 
-While it's good that we were able to create code that can handle nothing being dependency injected, it's not a great user experience to simply have parts of the app missing when data isn't present.
+While it's good that our code is now more resilient against missing data, it's not a great user experience to simply have parts of the app missing when said data isn't present.
 
-Instead, let's decide that when the user doesn't have a provided name, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need some method of providing that default value in our dependency injection system.
+Instead, let's decide that when the user doesn't have a provided name, let's provide a default value of "Unknown Name" throughout our app. To do this, we'll need to provide that default value in our dependency injection system.
 
 <!-- tabs:start -->
 
@@ -971,11 +1017,11 @@ function Child() {
 
 ### Angular
 
-<!-- Editor's note: Angular, as-of v14, cannot do the default `private thing = Val` API becuase `Optional` is `null`, not `undefined` -->
+<!-- Editor's note: Marking an item as `optional` has a default value of `null`, not `undefined`: https://github.com/angular/angular/issues/25395 -->
 
-As-of today, there's no built-in way to provide an optional value to Angular's optionally injected values, despite [an open GitHub issue requesting this feature](https://github.com/angular/angular/issues/25395). 
+When an `inject` function is marked as `{optional: true}`, the default value (when nothing is provided) is `null`.
 
-As a result, we have to handle this edge-case ourselves by creating a second variable in our `ChildComponent` class instance and assigning the value of it to match _either_ our injected value, or a default value.
+As such, we can use [JavaScript's built-in "OR" operator (`||`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR) to default to a different value as our default:
 
 ```typescript
 @Injectable()
@@ -996,15 +1042,13 @@ class ParentComponent {}
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
-  injectedValue = inject(InjectedValue)  || { message: 'Default Value' };
+  injectedValue = inject(InjectedValue) || { message: 'Default Value' };
 }
 ```
 
-> You may notice that we're using `||` here; [that symbol stands for "or" and can be used to say "this value OR that value if the first is undefined""](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR).
-
 ### Vue
 
-Vue is the only framework of the three that supports a built-in way to provide a default value for dependency injected values. Simply pass a second argument to the `inject` method and it will be used as your default value.
+Vue is the only framework of the three that supports a built-in way to provide a default value for dependency injected values. To do this, pass a second argument to the `inject` method and it will be used as your default value.
 
 ```vue
 <!-- Child.vue -->
@@ -1028,15 +1072,13 @@ console.log(welcomeMessage)
 
 # Application Wide Providers
 
-Generally, it's suggested to keep your dependency injection providers as close to the injected children as possible. That said, it's not always feasible to do so, and you may want to have a dependency injector at the root of your application if _most_ components in your app will be using the same data.
+In our example codebase, we structured an application where `userData` is utilized all over the app. Instead of having an injected value for this data, it would be ideal to have access to this information anywhere in the component tree.
 
-How can we implement this in our code?
-
-<!-- tabs:start --> 
+<!-- tabs:start -->
 
 ## React
 
-React doesn't have a specific method of providing values at the root of the application. Instead, you simply use a `Provider`  in your top-level `App` component.
+To provide values at the root of a React application, we can reuse our `Provider` knowledge and use a `Provider`  at the top-level `App` component.
 
 ```jsx
 function App() {
@@ -1052,27 +1094,32 @@ function App() {
 
 ### Consolidate Providers and Your Logic
 
-When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place. To do this, simply move your provider and logic into the same place:
+When working with providers that needs state of some kind, you may want to keep your `useState` and `<Context.Provider>` code in the same place. 
+
+To centralize these APIs, we can utilize the concept of componentization. Start by moving your provider and logic into a new component, then allow the user to pass child components to the new `HelloMessageProvider` component:
 
 ```jsx
+// This can be named anything! It's a component like any other
 const HelloMessageProvider = ({children}) => {
   const [message, setMessage] = useState('Initial value');
   const providedValue = { message, setMessage };
-	return (
+  return (
     <HelloMessageContext.Provider value={providedValue}>
-			{children}
-		</HelloMessageContext.Provider>
-	)
+     {children}
+    </HelloMessageContext.Provider>
+  )
 }
 
 function App() {
   return (
-  	<HelloMessageProvider>
+    <HelloMessageProvider>
       <Child />
     </HelloMessageProvider>
   );
 }
 ```
+
+These children of `HelloMessageProvider` are then passed the `HelloMessageContext` through React's dependency injection system. 
 
 ### Provider Christmas Trees are Okay!
 
@@ -1111,9 +1158,9 @@ const App = () => {
 
 > [This is actual source code pulled from my React Native app, GitShark](https://github.com/oceanbit/GitShark/blob/main/src/App.tsx#L156-L176).
 
-This code is colloqually called the "Provider Christmas Tree" because of it's formatted structure.
+This code is colloquially called the "Provider Christmas Tree" because of it's formatted structure.
 
-Despite looking ugly, this code is okay! If you _really_ want to break things up, take one step further in componentizing your codebase and move similar providers into their own `StyleProvider` component to help flattern this code:
+Despite looking ugly, this code is okay! If you _really_ want to break things up, take one step further in componentizing your codebase and move similar providers into their own `StyleProvider` component to help flatten this code:
 
 ```jsx
 const StyleProvider = ({ children }) => {
@@ -1154,7 +1201,7 @@ const App = () => {
 };
 ```
 
-Just remember, the order of these providers can matter and cause bugs if some of them are out-of-order!
+> Remember, the order of these providers can matter and can cause bugs if out-of-order!
 
 ## Angular
 
@@ -1173,6 +1220,7 @@ class InjectedValue {
 
 @Component({
   selector: "child",
+  standalone: true,
   template: `<div></div>`
 })
 class ChildComponent implements OnInit {
@@ -1187,7 +1235,9 @@ class ChildComponent implements OnInit {
 
 @Component({
   selector: "app-root",
-  template: `<child></child>`
+  standalone: true,
+  imports: [ChildComponent],
+  template: `<child/>`
 })
 class ParentComponent {
 }
@@ -1197,7 +1247,7 @@ In Angular, these globally provided values are called "Services". They're often 
 
 ## Vue
 
-The simplicity in Vue's dependency injection API continues! Providing a value at your application's root is just as simple in Vue as providing a value anywhere else in your codebase. Simply add a `provide` method call inside your root `App` component, and you're off the races.
+Providing a value at your application's root in Vue is similar to providing a value anywhere else in your codebase. Add a `provide` method call inside your root `App` component, and your data is now provided globally.
 
 ```vue
 <!-- App.vue -->
@@ -1218,9 +1268,49 @@ provide('WELCOME_MESSAGE', welcomeMessage)
 
 These globally provided values are also called "singletons". When using a singleton, it's important to remember that data is shared between every component. If we have three components that all use one provided value, and mutate said value, it will update all of the consuming components.
 
-> It's worth mentioning that if you're extensively using global singletons in your application, you might be better served by tools purpose-built for this problem such as [Redux Toolkit](https://redux-toolkit.js.org/), [NgRx](https://ngrx.io/), and [Pinia](https://pinia.vuejs.org/) for React, Angular, and Vue respectively. 
->
-> These tools offer much better performance and debugging than trying to hand-roll your own app-wide dependency injection tools. We'll touch more on the tools in our second book titled ["The Framework Field Guide: Ecosystem"](// TODO: Add link)
+## Application Wide Providers _can_ Cause Performance Problems
+
+Generally, it's suggested to keep your data providers as close to the intended component as possible. For example, if you have the following component structure:
+
+```html
+<App>
+	<PageLayout>
+		<HomePage>
+			<Files>
+				<FileTable>
+					<FileItem>
+						<FileOwner/>
+						<FileType/>
+					</FileItem>
+				</FileTable>
+			</Files>
+		</HomePage>
+	</PageLayout>
+</App>
+```
+
+You have two choices to `provide` the data:
+
+1) At the root of your component structure (`App`)
+2) At the closest source of location (`FileTable`)
+
+Between these two options, you should _generally_ opt to utilize #2, which would place your data injection closer to the components that need said data.
+
+![// TODO: Write alt](./avoid_prop_drilling.svg)
+
+While this isn't always possible, the justification for doing so is that any changes made to the injected values must propagate downwards and find the component that needs to be re-rendered.
+
+While some frameworks like Vue handle this gracefully and only re-render the components that actually use the injected values, React and Angular differ.
+
+Let's assume that we go with an application-wide provider. In React and Angular, **when we change the value of the provider, the framework must search through the entire component tree to find the components that need to re-render**. 
+
+**React even re-renders all of the child components of `App` when using `useContext`** to provide changing data.
+
+[This problem can be solved by external tooling, such as Redux in React](https://blog.isquaredsoftware.com/2021/01/context-redux-differences/) or [NgRx in Angular](https://ngrx.io/), as they introduce a more optimized mechanism of detecting component data changes.
+
+Luckily, your knowledge of these framework's built-in dependency injection APIs will help you greatly along the way of utilizing these external tools.
+
+// TODO: Edit everything after this line
 
 # Overwriting Dependency Injection Specificity
 
