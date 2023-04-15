@@ -1498,7 +1498,7 @@ If you're hungry for chicken, you're not likely to walk farther to get the same 
 
 This is similar to how a component will try to find the closest source of data for a requested data type in the component tree.
 
-## Consistency Between Data Providers
+# Finding specific injected values
 
 Just because we can have multiple providers throughout an application doesn't mean that there's not an order to how your component grabs specifically requested data.
 
@@ -1510,15 +1510,162 @@ Despite chicken being closer to them, they'll go out of their way to find the ta
 
 Likewise, if you have a data provider that is hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
 
+<!-- tabs:start -->
 
+### React
 
+```jsx
+const NameContext = createContext('');
+const AgeContext = createContext(0);
 
+export default function App() {
+  return (
+    <NameContext.Provider value="Corbin">
+      <Child />
+    </NameContext.Provider>
+  );
+}
 
+function Child() {
+  return <GrandChild />;
+}
 
+function GrandChild() {
+  return (
+    <AgeContext.Provider value={24}>
+      <GreatGrandChild />
+    </NameContext.Provider>
+  );
+}
 
+function GreatGrandChild() {
+  // Despite the `AgeContext` being closer, this is 
+  // specifically looking for the `NameContext` and will 
+  // go further up in the tree to find that data from `App`
+  const name = useContext(NameContext);
+  return <p>Name: {name}</p>;
+}
+```
 
+### Angular
 
-This concept of "related data" is considered your data's "shape".
+```typescript
+@Injectable()
+class NameValue {
+  name = '';
+}
+
+@Injectable()
+class AgeValue {
+  age = 0;
+}
+
+@Component({
+  selector: 'great-grand-child',
+  standalone: true,
+  imports: [],
+  template: `<p>{{nameValue.name}}</p>`,
+})
+class GreatGrandChildComponent {
+  // Despite the `AgeValue` being closer, this is 
+  // specifically looking for the `NameValue` and will 
+  // go further up in the tree to find that data from `my-app`
+  nameValue = inject(NameValue);
+}
+
+@Component({
+  selector: 'grand-child',
+  standalone: true,
+  providers: [{ provide: AgeValue, useValue: { age: 24 } }],
+  imports: [GreatGrandChildComponent],
+  template: `<great-grand-child/>`,
+})
+class GrandChildComponent {}
+
+@Component({
+  selector: 'child',
+  standalone: true,
+  imports: [GrandChildComponent],
+  template: `<grand-child/>`,
+})
+class ChildComponent {}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
+  imports: [ChildComponent],
+  template: `<child/>`,
+})
+class AppComponent {}
+```
+
+### Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <Child />
+</template>
+
+<script setup>
+import { provide } from 'vue'
+import Child from './Child.vue'
+
+provide('NAME', 'Corbin')
+</script>
+```
+
+```vue
+<!-- Child.vue -->
+<template>
+  <GrandChild />
+</template>
+
+<script setup>
+import GrandChild from './GrandChild.vue'
+</script>
+```
+
+```vue
+<!-- GrandChild.vue -->
+<template>
+  <GreatGrandChild />
+</template>
+
+<script setup>
+import { provide } from 'vue'
+import GreatGrandChild from './GreatGrandChild.vue'
+
+provide('AGE', 24)
+</script>
+```
+
+```vue
+<!-- GreatGrandChild.vue -->
+<template>
+  <p>Name: {{ name }}</p>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+// Despite the `AGE` being closer, this is 
+// specifically looking for the `NAME` and will 
+// go further up in the tree to find that data from `App`
+const name = inject('NAME')
+</script>
+```
+
+<!-- tabs:end -->
+
+This specificity-seeking behavior of your dependency injection consumer is helpful to ensure your data retains its "shape" between injector sites.
+
+> What's my data's "shape"?
+
+# The importance of Consistency in provided data
+
+The idea of a data's "shape" is that two pieces of data share enough related data to be considered "similar" in "shape".
 
 For example, if you have the following object:
 
@@ -1568,11 +1715,35 @@ You can visualize an object's _shape_ as comparing two geometrical shapes to one
 
 ![// TODO: Add alt](./same_color_shapes.svg)
 
+> Why does this matter? How does this pertain to frontend frameworks?
+
+This concept of "retaining shape" between dependency injection providers is critical. Assume you have the following code:
+
+<!-- tabs:start -->
+
+## React
+
+// TODO:
+
+## Angular
+
+// TODO:
+
+## Vue
+
+// TODO:
+
+<!-- tabs:end -->
+
+> This consistency in shape doesn't just help prevent errors, either. Keeping a similar shape throughout multiple function calls is how you're able to implicitly improve your app's performance through an internal browser optimization called ["Monomorphic inline caching"](https://marcradziwill.com/blog/mastering-javascript-high-performance/#ic).
+>
+> The above link is intended to help 
 
 
 
 
-## Variance in Localized Injected Values
+
+## Variance in Injected Data
 
 This doesn't mean, however, that the data provided at each provider must be exactly the same.
 
@@ -1582,38 +1753,21 @@ For example, while methods of an injected object should have the same type, you 
 
 Say you want to change the profile picture of a user, and have the following code in production that's provided to your children:
 
-```javascript
-const currentUser = {
-  name: "Corbin Crutchley",
-  profilePictureURL: "https://avatars.githubusercontent.com/u/9100169",
-  changeName(newName) {
-  	fetch("/api/changeUsername", {
-  		body: JSON.stringify({name: newName})
-  	})
-      .then(() => {
-        this.name = newName;
-      })
-  }
-}
-```
 
-> While this is valid JavaScript that will work in all three frameworks, each framework might have minor preferences for how to do network calls. We'll touch on these preferences in [our second book, "The Framework Field Guide: Ecosystem"](// TODO: Add link).
 
-While this functions as-indented in our app, this might cause some headaches when trying to do [integration tests](https://wikipedia.org/wiki/Integration_testing), where we likely want to avoid doing networking to make our tests more stable.
 
-> If you're unfamiliar with integration tests, we'll touch on them more in [the second book of this trilogy](// TODO: Add link).
 
-To do avoid this problem, we could modify what we inject within our integration tests by providing a closer dependency injection site:
 
-```javascript
-const currentUser = {
-  name: "Corbin Crutchley",
-  profilePictureURL: "https://avatars.githubusercontent.com/u/9100169",
-  changeName(newName) {
-  	this.name = newName;
-  }
-}
-```
+
+
+
+
+
+
+
+
+
+
 
 You can think of this like variance within a geometrical shape's color. If you have two triangles, but one is red and one is blue, you can still recognize the triangles as the same shape.
 
