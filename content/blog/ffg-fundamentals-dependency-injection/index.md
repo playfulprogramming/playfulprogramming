@@ -1031,6 +1031,9 @@ class InjectedValue {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ChildComponent],
+  providers: [InjectedValue],
   template: `
     <child></child>
   `,
@@ -1039,6 +1042,7 @@ class ParentComponent {}
 
 @Component({
   selector: 'child',
+  standalone: true,
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
@@ -1310,8 +1314,6 @@ Let's assume that we go with an application-wide provider. In React and Angular,
 
 Luckily, your knowledge of these framework's built-in dependency injection APIs will help you greatly along the way of utilizing these external tools.
 
-// TODO: Edit everything after this line
-
 # Overwriting Dependency Injection Specificity
 
 Large apps get complicated fast. Consider the following example:
@@ -1324,31 +1326,199 @@ For these instances, these larger apps can replace dependency injection values m
 
 While it's rare, this ability is an incredibly powerful feature you can leverage in your applications. 
 
-> Why would you want to do this?
-
-Admittedly, there are very few practical reasons to need to reach for this API. We'll touch on some of them as we go along, but for now, take this section as a bookmark of knowledge for potential future usage.
-
-Back to the concepts!
-
 A child component will have it's dependency injection resolved from the closest parent. This means that if you have two providers, but one is closer, it will read from the closer parent.
 
-Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data. Let's continue that analogy: if you have multiple buffet tables and they all serve the same food, you're going to grab food from the closest table.
+This means that if we have the following structure:
 
-![// TODO: Add alt](./buffet_table.svg)
+```jsx
+<App>
+    <Child>
+        <GrandChild>
+            <GreatGrandChild/>
+        </GrandChild>
+    </Child>
+</App>
+```
 
- Likewise, when you provide a value in dependency injection that's closer than another provider, the child will receive that value.
+And both `App` and `GrandChild` inject values into the same named context, then `GreatGrandChild` will display information from `GrandChild` rather than `App`:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const NameContext = createContext('');
+
+export default function App() {
+  return (
+    <NameContext.Provider value="Corbin">
+      <Child />
+    </NameContext.Provider>
+  );
+}
+
+function Child() {
+  return <GrandChild />;
+}
+
+// Notice the new provider here, it will suppliment the `App` injected value
+// for all child components of `GrandChild`
+function GrandChild() {
+  return (
+    <NameContext.Provider value="Kevin">
+      <GreatGrandChild />
+    </NameContext.Provider>
+  );
+}
+
+function GreatGrandChild() {
+  const name = useContext(NameContext);
+  return <p>Name: {name}</p>;
+}
+```
+
+## Angular
+
+```typescript
+@Injectable()
+class NameValue {
+  name = '';
+}
+
+@Component({
+  selector: 'great-grand-child',
+  standalone: true,
+  imports: [],
+  template: `<p>{{nameValue.name}}</p>`,
+})
+class GreatGrandChildComponent {
+  nameValue = inject(NameValue);
+}
+
+@Component({
+  selector: 'grand-child',
+  standalone: true,
+  // Notice the new provider here, it will suppliment the `App` injected value
+  // for all child components of `grand-child`
+  providers: [{ provide: NameValue, useValue: { name: 'Kevin' } }],
+  imports: [GreatGrandChildComponent],
+  template: `<great-grand-child/>`,
+})
+class GrandChildComponent {}
+
+@Component({
+  selector: 'child',
+  standalone: true,
+  imports: [GrandChildComponent],
+  template: `<grand-child/>`,
+})
+class ChildComponent {}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
+  imports: [ChildComponent],
+  template: `<child/>`,
+})
+class AppComponent {}
+```
+
+## Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <Child />
+</template>
+
+<script setup>
+import { provide } from 'vue'
+import Child from './Child.vue'
+
+provide('NAME', 'Corbin')
+</script>
+```
+
+```vue
+<!-- Child.vue -->
+<template>
+  <GrandChild />
+</template>
+
+<script setup>
+import GrandChild from './GrandChild.vue'
+</script>
+```
+
+```vue
+<!-- GrandChild.vue -->
+<template>
+  <GreatGrandChild />
+</template>
+
+<script setup>
+import { provide } from 'vue'
+import GreatGrandChild from './GreatGrandChild.vue'
+
+// Notice the new provider here, it will suppliment the `App` injected value
+// for all child components of `GrandChild`
+provide('NAME', 'Kevin')
+</script>
+```
+
+```vue
+<!-- GreatGrandChild.vue -->
+<template>
+  <p>Name: {{ name }}</p>
+</template>
+
+<script setup>
+import { inject } from 'vue'
+
+const name = inject('NAME')
+</script>
+```
+
+<!-- tabs:end -->
+
+Earlier, we talked about how dependency injection is like a buffet of data; components act like customers grabbing food from an all-you-can-eat buffet of data.
+
+Let's continue that analogy: 
+
+Assume you're at a buffet with three tables of food. These tables, in order of proximity to yourself, are:
+
+- Chicken, closest to you
+- Chicken, second closest to you
+- Fish, farthest away
+
+![// TODO: Add alt](./buffet_table_closer.png)
+
+If you're hungry for chicken, you're not likely to walk farther to get the same food and will instead pick the closest table with chicken on it to get your food from.
+
+This is similar to how a component will try to find the closest source of data for a requested data type in the component tree.
 
 ## Consistency Between Data Providers
 
-Just because we can have multiple providers throughout an application doesn't mean that it's a free-for-all with what data we can provide.
+Just because we can have multiple providers throughout an application doesn't mean that there's not an order to how your component grabs specifically requested data.
 
-If we have three different buffet tables, two with fish and one with pizza, and the user wants pizza, they'd likely walk past the other two tables to get the pizza they want; even if the pizza table is further away.
+Let's take that same analogy from before with the three buffet tables. Now, assume that the person looking to get food is a pescatarian; they don't eat meat unless it's from a fish.
 
-![// TODO: Add alt](./buffet_table_with_pizza.svg)
+Despite chicken being closer to them, they'll go out of their way to find the table with fish on it.
+
+![// TODO: Add alt](./buffet_table_farther.png)
 
 Likewise, if you have a data provider that is hosting entirely unrelated data from what your child component is looking for, it might not pick up the correct data.
 
- This concept of "related data" is considered your data's "shape".
+
+
+
+
+
+
+
+
+This concept of "related data" is considered your data's "shape".
 
 For example, if you have the following object:
 
@@ -1453,20 +1623,18 @@ You can think of this like variance within a geometrical shape's color. If you h
 
 
 
-<!-- Editor's note: Okay, SHOULD we cover `@Self` and `@SkipSelf` here in Angular? I guess we could... I'm split on it -->
 
 
 
 
-# Conclusion
+
+# Challenge
 
 // TODO: Write
 
 
 
-It's worth mentioning that while Angular's dependency injection API may seem more complex than the other frameworks, it's also significantly more robust and flexible. We've only touched the surface of what Angular's dependency injection system is capable of.
-
-While [we will dive deeper into how Angular's (and other frameworks') dependency injection system works in our future "Framework Field Guide: Internals" book](// TODO: Add link), for now it's suggested to [read through Angular's documentation for more](https://angular.io/guide/dependency-injection-providers).
+https://stackblitz.com/edit/react-context-multiple-di
 
 
 
