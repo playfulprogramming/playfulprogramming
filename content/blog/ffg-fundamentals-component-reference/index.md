@@ -958,31 +958,35 @@ const open = (e) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
--------
-
-
-
-
 # Challenge
 
-Let's add a sidebar that we can collapse into our application.
+This information about component reference isn't just theoretically useful. You're able to apply it to your codebase to enable new methods of building out components.
+
+Let's see that in action by building a sidebar component  
+
+To do this, we'll:
+
+1) Setup our `App` component to handle a left and main column.
+2) Make a sidebar that can collapse and expand to grow and shrink the main column.
+3) Automatically expand or collapse the sidebar as the browser grows and shrinks.
+
+Let's dive in.
+
+## Step 1: Setup App Component Layout
+
+// TODO
+
+## Step 2: Make a collapsible sidebar
+
+// TODO
+
+## Step 3: Auto-collapse sidebar on small screens
 
 // TODO
 
 <!-- tabs:start -->
 
-## React
+### React
 
 ```tsx
 export const Sidebar = forwardRef(({ toggle }, ref) => {
@@ -1077,7 +1081,7 @@ const App = () => {
 };
 ```
 
-## Angular
+### Angular
 
 ```typescript
 @Component({
@@ -1177,7 +1181,7 @@ class AppComponent implements OnInit, OnDestroy {
 }
 ```
 
-## Vue
+### Vue
 
 ```vue
 <!-- Sidebar.vue -->
@@ -1286,3 +1290,5 @@ onUnmounted(() => {
 > Truth be told, this is not necessarily how I would build this component in production. Instead, I might ["raise the state"](https://unicorn-utterances.com/posts/master-react-unidirectional-data-flow) of "collapsed" from the `Sidebar` component to the `App` component.
 >
 > This would give us greater flexibility in controlling our sidebar's `isCollapsed` state without having to use a component reference.
+>
+> However, if you're building a UI library that's meant to interact with multiple applications, sometimes having this state lowered can allow you to reduce boilerplate between apps that share this component.

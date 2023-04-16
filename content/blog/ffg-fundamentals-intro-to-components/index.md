@@ -27,7 +27,7 @@ Before we dive into the technical aspects, let's think about what an app consist
 
 Take the following application into consideration.
 
-![A mockup of a file management application. Contains two sidebars on left and right and a file list](./fancy_mockup.jpg)
+![A mockup of a file management application. Contains two sidebars on left and right and a file list](./fancy_mockup.png)
 
 Here, our app has many parts to it. For example, a sidebar containing navigation links, a list of files for a user to navigate, and a details pane about the user's selected file.
 
@@ -53,7 +53,7 @@ Now that we understand the structure let's add some functionality. First, we'll 
 
 Great! Now let's go back and add the styling to recreate the mockup we had before!
 
-![The same mockup with styling as before](./fancy_mockup.jpg)
+![The same mockup with styling as before](./fancy_mockup.png)
 
 For each step of the process, we can think of it like we're adding in a new programming language.
 

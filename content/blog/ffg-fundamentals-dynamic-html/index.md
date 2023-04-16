@@ -238,7 +238,7 @@ Knowing this, let's add conditional rendering to our application.
 
 Right now, we have a list of files to present to the user. However, if we look back at our mockups, we'll notice that we wanted to list folders alongside files.
 
-![A list of directory contents with files and folders listed alongside one another.](../ffg-fundamentals-intro-to-components/fancy_mockup.jpg)
+![A list of directory contents with files and folders listed alongside one another.](../ffg-fundamentals-intro-to-components/fancy_mockup.png)
 
 Luckily for us, our `File` component already manages much of the behavior we'd like to have with a potential `Folder` component to as well. For example, just like files, we want to select a folder when the user has clicked on it so that we can select multiple files and folders at once.
 
