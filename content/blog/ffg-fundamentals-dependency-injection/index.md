@@ -1723,7 +1723,38 @@ This concept of "retaining shape" between dependency injection providers is crit
 
 ## React
 
-// TODO:
+```jsx
+export const UserContext = createContext({});
+
+export default function App() {
+  const user = { name: 'Corbin Crutchley' };
+  return (
+    <UserContext.Provider value={user}>
+      <Child />
+    </UserContext.Provider>
+  );
+}
+
+function Child() {
+  return <GrandChild />;
+}
+
+function GrandChild() {
+  const otherUser = { firstName: 'Corbin', lastName: 'Crutchley' };
+  return (
+    <UserContext.Provider value={otherUser}>
+      <GreatGrandChild />
+    </UserContext.Provider>
+  );
+}
+
+function GreatGrandChild() {
+  const user = useContext(UserContext);
+  // Nothing will display, because we switched the user 
+  // type halfway through the component tree
+  return <p>Name: {user.name}</p>;
+}
+```
 
 ## Angular
 
@@ -1735,39 +1766,101 @@ This concept of "retaining shape" between dependency injection providers is crit
 
 <!-- tabs:end -->
 
+If we were to read through the `App` component and the `GreatGrandChild` component, we wouldn't expect to see any problems. But if we look at the final render, we'll see the following markup:
+
+```html
+<p>Name: </p>
+```
+
+This bug was introduced because we switched the _shape_ of the object midway through the component tree.
+
 > This consistency in shape doesn't just help prevent errors, either. Keeping a similar shape throughout multiple function calls is how you're able to implicitly improve your app's performance through an internal browser optimization called ["Monomorphic inline caching"](https://marcradziwill.com/blog/mastering-javascript-high-performance/#ic).
 >
 > The above link is intended to help 
 
-
-
-
-
 ## Variance in Injected Data
 
-This doesn't mean, however, that the data provided at each provider must be exactly the same.
+This required consistency in injected data doesn't mean that the data provided at each provider must be exactly the same.
 
-Just like each buffet table might have slightly different spices in each plate of food, so too can the individual data providers inject variance into their provided values.
+Just like each buffet table might have different spices on each plate of the same kind of food, so too can the individual data providers inject variance into their provided values.
 
-For example, while methods of an injected object should have the same type, you can change the logic inside of injected objects.
+For example, while methods of an injected object should accept the same props and should generally return the same values, you can change the logic inside of injected objects:
 
-Say you want to change the profile picture of a user, and have the following code in production that's provided to your children:
+<!-- tabs:start -->
 
+### React
 
+```jsx
+const GreeterContext = createContext({
+  greeting: '',
+  changeGreeting: (newGreeting) => {},
+});
 
+export default function App() {
+  const [greeting, setGreeting] = useState('');
+  const value = { greeting, changeGreeting: setGreeting };
+  return (
+    <GreeterContext.Provider value={value}>
+      <Child />
+    </GreeterContext.Provider>
+  );
+}
 
+function Child() {
+  return <GrandChild />;
+}
 
+function GrandChild() {
+  const [greeting, setGreeting] = useState('✨ Welcome 💯');
 
+  // New ✨ sparkly ✨ functionality adds some fun! 💯
+  const changeGreeting = (newVal) => {
+    if (!newVal.includes('✨')) {
+      newVal += '✨';
+    }
+    if (!newVal.includes('💯')) {
+      newVal += '💯';
+    }
 
+    setGreeting(newVal);
+  };
 
+  const value = { greeting, changeGreeting };
+  return (
+    <GreeterContext.Provider value={value}>
+      <GreatGrandChild />
+    </GreeterContext.Provider>
+  );
+}
 
+function GreatGrandChild() {
+  const { greeting, changeGreeting } = useContext(GreeterContext);
+  return (
+    <div>
+      <p>{greeting}, user!</p>
+      <label>
+        <div>Set a new greeting</div>
+        <input
+          value={greeting}
+          onChange={(e) => changeGreeting(e.target.value)}
+        />
+      </label>
+    </div>
+  );
+}
+```
 
+### Angular
 
+// TODO:
 
+### Vue
 
+// TODO:
 
+<!-- tabs:end -->
 
-
+Here, we see two variants of the same `Greeter` injected value. One is a more serious "Set the value without changing it" while the other injected value adds some emoji to spice up your greetings!
 
 You can think of this like variance within a geometrical shape's color. If you have two triangles, but one is red and one is blue, you can still recognize the triangles as the same shape.
 
@@ -1777,7 +1870,7 @@ You can think of this like variance within a geometrical shape's color. If you h
 
 
 
-
+While the first set of shapes and the second set of the shapes are not the _same_, they are still the same _shape_.
 
 
 
