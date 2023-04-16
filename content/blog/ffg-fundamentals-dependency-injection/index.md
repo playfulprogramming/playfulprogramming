@@ -1877,8 +1877,45 @@ While the first set of shapes and the second set of the shapes are not the _same
 
 # Challenge
 
-// TODO: Write
+Earlier, in our [element reference](/posts/ffg-fundamentals-element-reference) and [component reference](/posts/ffg-fundamentals-component-reference) chapters, we built out a context menu component to show additional actions a user could take with right-clicking on a file.
 
+![// TODO: Alt](../ffg-fundamentals-element-reference/context-open.png)
+
+This component has all the key features we need to act as a custom context menu:
+
+- Opens on right-click
+- Closes when user clicks outside of it
+
+- Focusing when open
+
+While we've done good work on the component thus far, it's missing something critical: Functionality.
+
+Let's fix that by adding in a list of actions the user can take when the context menu is open. Here's the catch: The actions the user can take depends on what part of the app they're right-clicking on.
+
+![// TODO](./change_file_actions_with_di.png)
+
+There's a few ways we could solve this, but they all boil down to persisting a list of actions the user can take depending on which part of the component tree they're in.
+
+Sound familiar?
+
+Let's use dependency injection to provide a different list of actions based on which part of the component tree they're a part of, like so:
+
+![// TODO](./file_actions_di_showcase.png)
+
+This will consist of multiple steps:
+
+1) Creating an app layout that includes an empty sidebar and file page to fill in later
+
+2) Creating a file list in the file page and directory list in the sidebar
+
+3) Add a context menu to the list items with a static list of actions
+
+4) Update the context menu to grab data from a dependency injection node
+
+5) Make the list of actions function as-expected
+
+
+Strap in - this is going to be a long challenge. By the end of it we'll have a functioning application shell with a real-world example of dependency injection.
 
 
 https://stackblitz.com/edit/react-context-multiple-di

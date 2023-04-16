@@ -281,7 +281,7 @@ Why was it removed and how can we add it back?
 
 # Introducing Component Reference
 
-**The reason we removed the context menu's focus management is to keep the control of the context menu in the parent. **
+**The reason we removed the context menu's focus management is to keep the control of the context menu in the parent.**
 
 While we could have kept the `.focus()`  logic in the component using [a component side effect handler](/posts/ffg-fundamentals-side-effects), this muddies the water a bit. Ideally in a framework, **you want your parent to be in charge of the child component's behavior**. 
 
