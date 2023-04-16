@@ -62,7 +62,6 @@
 .helpfulContainer {
     text-align: start !important;
     display: flex;
-    display: flex;
     flex-direction:column;
     align-items:start;
     grid-template-columns: repeat(1, 1fr);
@@ -74,7 +73,7 @@
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
-    fill: var(----on-dark-emphasis-medium) !important;
+    fill: var(--on-dark-emphasis-medium) !important;
     visibility: hidden
 }
 
@@ -107,7 +106,7 @@ ul {
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
-    fill: var(----on-dark-emphasis-medium) !important;
+    fill: var(--on-dark-emphasis-medium) !important;
 }
 
 .gridItem {
@@ -116,6 +115,10 @@ ul {
     text-decoration-thickness: 2px;
     text-decoration-color: var(--on-dark-emphasis-medium);
     text-underline-offset: 6px;
+}
+
+.sectionTitle {
+    padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal) var(--grid-item-padding_bottom);
 }
 
 .stepCardContainer {
@@ -134,8 +137,21 @@ ul {
     border-color: var(--outline);
     border-width: var(--grid-item-border-width);
     border-radius: var(--grid-item-corner-radius);
-    padding: var(--grid-item-padding_top) var(--grid-item-padding_horizontal) var(--grid-item-padding_bottom);
+    padding-top: var(--spc-6x);
+    
 }
+
+.descriptionContainer {
+    padding-left: var(--spc-6x);
+    padding-right: var(--spc-6x);
+    text-align: start;
+}  
+
+.description {
+    color: var(--on-dark-emphasis-medium);
+    padding-top: var(--spc-step-card);
+    padding-bottom: var(--spc-step-card);
+}   
 
 .stepCardNumber {
     position: absolute;
@@ -144,16 +160,33 @@ ul {
     color: var(--on-dark-emphasis-high);
     background: var(--section-background);
     transition: background var(--color-transition-time) var(--color-transition-ease);
+    @include until($endSmallScreenSize) {
+        left: -0.6rem;
+    }
 }
 
 .stepCardItems {
     margin: 0;
-    padding: 0;
+    padding: 0 0 var(--spc-step-card);
     list-style: none;
     text-align: start;
 }
 
-.stepCardItems {
-    list-style-type: none;
-    padding-left: 0;
+.stepCardItems li {
+    // padding-top: var(--spc-1x);
+    // padding-bottom: var(--spc-1x);
+    padding-left: var(--spc-1x);
+    padding-right: var(--spc-2x);
+}
+
+.stepCardItemBullet {
+    color: var(--on-dark-emphasis-high)
+}
+
+.stepCardItemBullet::before {
+    content: url("../framework-field-guide/icons/arrow.svg");
+    padding-right: var(--spc-2x);
+    padding-left: var(--spc-1x);
+    color: var(--on-dark-emphasis-medium);
+    fill: var(--on-dark-emphasis-medium) !important;
 }
