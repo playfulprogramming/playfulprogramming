@@ -962,7 +962,11 @@ const open = (e) => {
 
 This information about component reference isn't just theoretically useful. You're able to apply it to your codebase to enable new methods of building out components.
 
-Let's see that in action by building a sidebar component  
+Let's see that in action by building a sidebar component that's able to expand and collapse.
+
+![// TODO: Alt](./collapsible_sidebar.png)
+
+To add an extra special interaction with this sidebar, **let's make it so that when the user shrinks their screen to a certain size, it will automatically collapse the sidebar**.
 
 To do this, we'll:
 
