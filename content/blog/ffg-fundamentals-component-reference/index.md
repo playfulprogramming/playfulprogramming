@@ -1042,7 +1042,8 @@ export class LayoutComponent {
 
 @Component({
     selector: 'app-root',
-    standalone: true, imports: [LayoutComponent],
+    standalone: true,
+    imports: [LayoutComponent],
     template: `
         <layout [sidebarWidth]="150">
             <p sidebar>Sidebar</p>
@@ -1128,7 +1129,71 @@ export const App = () => {
 
 ### Angular
 
-// TODO
+// TODO: This code is untested
+
+```typescript
+@Component({
+    selector: "sidebar",
+    standalone: true,
+    imports: [NgIf],
+    template: `
+        <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
+        <div *ngIf="!isCollapsed">
+            <button (click)="toggleCollapsed()">Toggle</button>
+            <ul style="padding: 1rem">
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+                <li>List item 6</li>
+            </ul>
+        </div>
+    `
+})
+class SidebarComponent {
+    @Output() toggle = new EventEmitter<boolean>();
+
+    isCollapsed = false;
+
+    setAndToggle(v: boolean) {
+        this.isCollapsed = v;
+        this.toggle.emit(v);
+    };
+
+    toggleCollapsed() {
+        this.setAndToggle(!this.isCollapsed);
+    };
+}
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [LayoutComponent, SidebarComponent],
+    template: `
+        <layout [sidebarWidth]="150">
+            <sidebar sidebar
+                     (toggle)="onToggle($event)"
+            />
+            <p style="padding: 1rem">Hi there!</p>
+        </layout>
+    `
+})
+export class AppComponent {
+    collapsedWidth = 100;
+    expandedWidth = 150;
+
+    width = this.expandedWidth;
+
+    onToggle(isCollapsed: boolean) {
+        if (isCollapsed) {
+            this.width = this.collapsedWidth;
+            return;
+        }
+        this.width = this.expandedWidth;
+    }
+}
+```
 
 ### Vue
 
@@ -1235,103 +1300,98 @@ export const App = () => {
 
 ### Angular
 
-// TODO: Add Layout component
+// TODO: This code is untested
 
 ```typescript
 @Component({
-  selector: 'sidebar',
-  standalone: true,
-  imports: [NgIf],
-  template: `
-  <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
-  <div *ngIf="!isCollapsed">
-    <button (click)="toggleCollapsed()">Toggle</button>
-    <ul style="padding: 1rem">
-      <li>List item 1</li>
-      <li>List item 2</li>
-      <li>List item 3</li>
-      <li>List item 4</li>
-      <li>List item 5</li>
-      <li>List item 6</li>
-    </ul>
-  </div>
-  `,
+    selector: "sidebar",
+    standalone: true,
+    imports: [NgIf],
+    template: `
+        <button *ngIf="isCollapsed" (click)="toggleCollapsed()">Toggle</button>
+        <div *ngIf="!isCollapsed">
+            <button (click)="toggleCollapsed()">Toggle</button>
+            <ul style="padding: 1rem">
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+                <li>List item 6</li>
+            </ul>
+        </div>
+    `
 })
 class SidebarComponent {
-  @Output() toggle = new EventEmitter<boolean>();
+    @Output() toggle = new EventEmitter<boolean>();
 
-  isCollapsed = false;
+    isCollapsed = false;
 
-  setAndToggle(v: boolean) {
-    this.isCollapsed = v;
-    this.toggle.emit(v);
-  }
+    setAndToggle(v: boolean) {
+        this.isCollapsed = v;
+        this.toggle.emit(v);
+    };
 
-  collapse() {
-    this.setAndToggle(true);
-  }
+    collapse() {
+        this.setAndToggle(true);
+    }
 
-  expand() {
-    this.setAndToggle(false);
-  }
+    expand() {
+        this.setAndToggle(false);
+    }
 
-  toggleCollapsed() {
-    this.setAndToggle(!this.isCollapsed);
-  }
+    toggleCollapsed() {
+        this.setAndToggle(!this.isCollapsed);
+    };
 }
 
-const collapsedWidth = 100;
-const expandedWidth = 150;
-const widthToCollapseAt = 400;
-
 @Component({
-  selector: 'my-app',
-  standalone: true,
-  imports: [NgIf, SidebarComponent],
-  template: `
-    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
-    <div
-      [style]="'width: ' + width + 'px; height: 100vh; overflow-y: scroll'"
-    >
-        <sidebar
-          #sidebar
-          (toggle)="onToggle($event)"
-        />
-      </div>
-      <div style="width: 1px; flex-grow: 1">
-        <p style="padding: 1rem">Hi there!</p>
-      </div>
-    </div>
-  `,
+    selector: 'app-root',
+    standalone: true,
+    imports: [LayoutComponent, SidebarComponent],
+    template: `
+        <layout [sidebarWidth]="150">
+            <sidebar
+                    #sidebar
+                    sidebar
+                    (toggle)="onToggle($event)"
+            />
+            <p style="padding: 1rem">Hi there!</p>
+        </layout>
+    `
 })
-class AppComponent implements OnInit, OnDestroy {
-  @ViewChild('sidebar') sidebar: SidebarComponent;
+export class AppComponent implements OnInit, OnDestroy {
+    @ViewChild('#sidebar', {static: true}) sidebar!: SidebarComponent;
 
-  width = expandedWidth;
+    collapsedWidth = 100;
+    expandedWidth = 150;
+    widthToCollapseAt = 600;
 
-  onToggle(isCollapsed: boolean) {
-    if (isCollapsed) {
-      this.width = collapsedWidth;
-      return;
+    width = this.expandedWidth;
+
+    onToggle(isCollapsed: boolean) {
+        if (isCollapsed) {
+            this.width = this.collapsedWidth;
+            return;
+        }
+        this.width = this.expandedWidth;
     }
-    this.width = expandedWidth;
-  }
 
-  onResize = () => {
-    if (window.innerWidth < widthToCollapseAt) {
-      this.sidebar.collapse();
-    } else if (this.sidebar.isCollapsed) {
-      this.sidebar.expand();
+    onResize = () => {
+        if (window.innerWidth < this.widthToCollapseAt) {
+            this.sidebar.collapse();
+        } else if (this.sidebar.isCollapsed) {
+            this.sidebar.expand();
+        }
+    };
+
+    ngOnInit() {
+        window.addEventListener('resize', this.onResize);
     }
-  };
 
-  ngOnInit() {
-    window.addEventListener('resize', this.onResize);
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.onResize);
-  }
+    ngOnDestroy() {
+        window.removeEventListener('resize', this.onResize);
+    }
 }
 ```
 
