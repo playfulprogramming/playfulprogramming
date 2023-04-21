@@ -1016,7 +1016,45 @@ export const App = () => {
 
 ### Angular
 
-// TODO
+```typescript
+@Component({
+    selector: 'layout',
+    standalone: true,
+    template: `
+        <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+        <div [style]="' 
+          width: ' + sidebarWidth + 'px;
+          height: 100vh;
+          overflow-y: scroll;
+          border-right: 2px solid #bfbfbf;
+        '">
+                <ng-content select="[sidebar]"/>
+            </div>
+            <div style="width: 1px; flex-grow: 1">
+                <ng-content/>
+            </div>
+        </div>
+    `
+})
+export class LayoutComponent {
+    @Input() sidebarWidth!: number;
+}
+
+@Component({
+    selector: 'app-root',
+    standalone: true, imports: [LayoutComponent],
+    template: `
+        <layout [sidebarWidth]="150">
+            <p sidebar>Sidebar</p>
+            <p style="padding: 1rem">Hi there!</p>
+        </layout>
+    `
+})
+export class AppComponent {
+}
+```
+
+
 
 ### Vue
 
