@@ -1922,6 +1922,341 @@ https://stackblitz.com/edit/react-context-multiple-di
 
 
 
+
+
+------
+
+------
+
+----
+
+
+
+<!-- tabs:start -->
+
+
+
+### React
+
+```jsx
+// App.jsx
+export default function App() {
+  return (
+    <Layout sidebar={<Sidebar />}>
+      <FileList />
+    </Layout>
+  );
+}
+```
+
+```jsx
+// Layout.jsx
+export const Layout = ({ sidebar, children }) => {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
+      <div
+        style={{
+          width: 150,
+          backgroundColor: 'lightgray',
+          borderRight: '1px solid grey',
+        }}
+      >
+        {sidebar}
+      </div>
+      <div style={{ width: 1, flexGrow: 1 }}>{children}</div>
+    </div>
+  );
+};
+```
+
+```jsx
+// Sidebar.tsx
+const directories = [
+  {
+    name: 'Movies',
+    id: 1,
+  },
+  {
+    name: 'Documents',
+    id: 2,
+  },
+  {
+    name: 'Etc',
+    id: 3,
+  },
+];
+
+const getDirectoryById = (id) => {
+  return directories.find((dir) => dir.id === id);
+};
+
+const onCopy = (id) => {
+  const dir = getDirectoryById(id);
+  // Some browsers still do not support this
+  if (navigator?.clipboard?.writeText) {
+    navigator.clipboard.writeText(dir.name);
+    alert('Name is copied');
+  } else {
+    alert('Unable to copy directory name due to browser incompatibility');
+  }
+};
+
+export const Sidebar = () => {
+  return (
+    <ContextMenuContext.Provider
+      value={{
+        actions: [
+          {
+            label: 'Copy directory name',
+            fn: onCopy,
+          },
+        ],
+      }}
+    >
+      <div style={{ padding: '1rem' }}>
+        <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
+        {directories.map((file) => {
+          return <File key={file.id} name={file.name} id={file.id} />;
+        })}
+      </div>
+    </ContextMenuContext.Provider>
+  );
+};
+```
+
+```jsx
+export const FileList = () => {
+  const [files, setFiles] = useState([
+    {
+      name: 'Testing.wav',
+      id: 1,
+    },
+    {
+      name: 'Secrets.txt',
+      id: 2,
+    },
+    {
+      name: 'Other.md',
+      id: 3,
+    },
+  ]);
+
+  const getFileIndexById = (id) => {
+    return files.findIndex((file) => file.id === id);
+  };
+
+  const onRename = (id) => {
+    const fileIndex = getFileIndexById(id);
+    const file = files[fileIndex];
+    const newName = prompt(
+      `What do you want to rename the file ${file.name} to?`
+    );
+    if (!newName) return;
+    setFiles((v) => {
+      const newV = [...v];
+      newV[fileIndex] = {
+        ...file,
+        name: newName,
+      };
+      return newV;
+    });
+  };
+
+  const onDelete = (id) => {
+    const fileIndex = getFileIndexById(id);
+    setFiles((v) => {
+      const newV = [...v];
+      newV.splice(fileIndex, 1);
+      return newV;
+    });
+  };
+
+  return (
+    <ContextMenuContext.Provider
+      value={{
+        actions: [
+          {
+            label: 'Rename',
+            fn: onRename,
+          },
+          {
+            label: 'Delete',
+            fn: onDelete,
+          },
+        ],
+      }}
+    >
+      <div style={{ padding: '1rem' }}>
+        <h1>Files</h1>
+        {files.map((file) => {
+          return <File key={file.id} name={file.name} id={file.id} />;
+        })}
+      </div>
+    </ContextMenuContext.Provider>
+  );
+};
+```
+
+```jsx
+export const ContextMenuContext = createContext({
+  actions: [] as Array<{ label: string; fn: (data: unknown) => void }>,
+});
+```
+
+```jsx
+// File.jsx
+export const File = ({ name, id }) => {
+  const [mouseBounds, setMouseBounds] = useState({
+    x: 0,
+    y: 0,
+  });
+  const [isOpen, setIsOpen] = useState(false);
+  function onContextMenu(e) {
+    e.preventDefault();
+    setIsOpen(true);
+    setMouseBounds({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  }
+
+  const contextMenuRef = useRef();
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        if (contextMenuRef.current) {
+          contextMenuRef.current.focus();
+        }
+      }, 0);
+    }
+  }, [isOpen, mouseBounds]);
+
+  return (
+    <React.Fragment>
+      <button
+        onContextMenu={onContextMenu}
+        style={{ display: 'block', width: '100%', marginBottom: '1rem' }}
+      >
+        {name}
+      </button>
+      <ContextMenu
+        data={id}
+        ref={contextMenuRef}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        x={mouseBounds.x}
+        y={mouseBounds.y}
+      />
+    </React.Fragment>
+  );
+};
+```
+
+```jsx
+// ContextMenu.jsx
+export const ContextMenu = forwardRef(
+  ({ isOpen, x, y, onClose, data }, ref) => {
+    const context = useContext(ContextMenuContext);
+
+    const [contextMenu, setContextMenu] = useState();
+
+    useImperativeHandle(ref, () => ({
+      focus: () => contextMenu && contextMenu.focus(),
+    }));
+
+    useEffect(() => {
+      if (!contextMenu) return;
+      const closeIfOutsideOfContext = (e) => {
+        const isClickInside = contextMenu.contains(e.target);
+        if (isClickInside) return;
+        onClose(false);
+      };
+      document.addEventListener('click', closeIfOutsideOfContext);
+      return () =>
+        document.removeEventListener('click', closeIfOutsideOfContext);
+    }, [contextMenu, onClose]);
+
+    useEffect(() => {
+      const closeIfContextMenu = () => {
+        if (!isOpen) return;
+        onClose(false);
+      };
+      // Inside a timeout to make sure the initial context menu does not close the menu
+      setTimeout(() => {
+        document.addEventListener('contextmenu', closeIfContextMenu);
+      }, 0);
+      return () => {
+        document.removeEventListener('contextmenu', closeIfContextMenu);
+      };
+    }, [isOpen, onClose]);
+
+    const actions = useMemo(() => {
+      if (!context) return [];
+      return context.actions;
+    }, [context]);
+
+    if (!isOpen || !context) {
+      return null;
+    }
+
+    return (
+      <div
+        ref={(el) => setContextMenu(el)}
+        tabIndex={0}
+        style={{
+          position: 'fixed',
+          top: y,
+          left: x,
+          background: 'white',
+          border: '1px solid black',
+          borderRadius: 16,
+          padding: '1rem',
+        }}
+      >
+        <button onClick={() => onClose()}>X</button>
+        <ul>
+          {actions.map((action) => (
+            <li>
+              <button
+                onClick={() => {
+                  action.fn(data);
+                  onClose(false);
+                }}
+              >
+                {action.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+);
+```
+
+
+
+### Angular
+
+// TODO
+
+### Vue 
+
+// TODO
+
+<!-- tabs:end -->
+
+
+
+----
+
+----
+
+---
+
+
+
 <!-- Editor's note: We're explicitly not going to teach the following features of Angular's DI, unless I can be convinced otherwise: -->
 
 <!-- `@Inject` decorator, as a future version of Angular will break them due to ECMA compatible --> 

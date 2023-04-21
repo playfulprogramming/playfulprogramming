@@ -980,9 +980,123 @@ Let's dive in.
 
 // TODO
 
+<!-- tabs:start -->
+
+### React
+
+```jsx
+export const Layout = ({sidebar, sidebarWidth, children}) => {
+    return (
+        <div style={{display: 'flex', flexWrap: 'nowrap', minHeight: '100vh'}}>
+            <div
+                style={{
+                    width: `${sidebarWidth}px`,
+                    height: '100vh',
+                    overflowY: 'scroll',
+                    borderRight: '2px solid #bfbfbf',
+                }}
+            >
+                {sidebar}
+            </div>
+            <div style={{width: '1px', flexGrow: 1}}>
+                {children}
+            </div>
+        </div>
+    );
+};
+
+export const App = () => {
+    return (
+        <Layout sidebar={<p>Sidebar</p>} sidebarWidth={150}>
+            <p style={{padding: '1rem'}}>Hi there!</p>
+        </Layout>
+    )
+}
+```
+
+### Angular
+
+// TODO
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
+
 ## Step 2: Make a collapsible sidebar
 
 // TODO
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+export const Sidebar = ({toggle}) => {
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const setAndToggle = (v) => {
+        setIsCollapsed(v);
+        toggle(v);
+    };
+    const toggleCollapsed = () => {
+        setAndToggle(!isCollapsed);
+    };
+
+    if (isCollapsed) {
+        return <button onClick={toggleCollapsed}>Toggle</button>;
+    }
+
+    return (
+        <div>
+            <button onClick={toggleCollapsed}>Toggle</button>
+            <ul style={{padding: '1rem'}}>
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+                <li>List item 6</li>
+            </ul>
+        </div>
+    );
+};
+
+const collapsedWidth = 100;
+const expandedWidth = 150;
+
+export const App = () => {
+    const [width, setWidth] = useState(expandedWidth);
+
+    return (
+        <Layout
+            sidebarWidth={width}
+            sidebar={<Sidebar
+            toggle={(isCollapsed) => {
+                if (isCollapsed) {
+                    setWidth(collapsedWidth);
+                    return;
+                }
+                setWidth(expandedWidth);
+            }}
+        />
+        }>
+            <p style={{padding: '1rem'}}>Hi there!</p>
+        </Layout>
+    )
+}
+```
+
+### Angular
+
+// TODO
+
+### Vue
+
+// TODO
+
+<!-- tabs:end -->
 
 ## Step 3: Auto-collapse sidebar on small screens
 
@@ -993,99 +1107,97 @@ Let's dive in.
 ### React
 
 ```tsx
-export const Sidebar = forwardRef(({ toggle }, ref) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const setAndToggle = (v) => {
-    setIsCollapsed(v);
-    toggle(v);
-  };
+export const Sidebar = forwardRef(({toggle}, ref) => {
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      collapse: () => {
-        setAndToggle(true);
-      },
-      expand: () => {
-        setAndToggle(false);
-      },
-      isCollapsed: isCollapsed,
-    }),
-    [isCollapsed]
-  );
+    const setAndToggle = (v) => {
+        setIsCollapsed(v);
+        toggle(v);
+    };
 
-  const toggleCollapsed = () => {
-    setAndToggle(!isCollapsed);
-  };
+    useImperativeHandle(
+        ref,
+        () => ({
+            collapse: () => {
+                setAndToggle(true);
+            },
+            expand: () => {
+                setAndToggle(false);
+            },
+            isCollapsed: isCollapsed,
+        }),
+        [isCollapsed, setAndToggle]
+    );
 
-  if (isCollapsed) {
-    return <button onClick={toggleCollapsed}>Toggle</button>;
-  }
+    const toggleCollapsed = () => {
+        setAndToggle(!isCollapsed);
+    };
 
-  return (
-    <div>
-      <button onClick={toggleCollapsed}>Toggle</button>
-      <ul style={{ padding: '1rem' }}>
-        <li>List item 1</li>
-        <li>List item 2</li>
-        <li>List item 3</li>
-        <li>List item 4</li>
-        <li>List item 5</li>
-        <li>List item 6</li>
-      </ul>
-    </div>
-  );
+    if (isCollapsed) {
+        return <button onClick={toggleCollapsed}>Toggle</button>;
+    }
+
+    return (
+        <div>
+            <button onClick={toggleCollapsed}>Toggle</button>
+            <ul style={{padding: '1rem'}}>
+                <li>List item 1</li>
+                <li>List item 2</li>
+                <li>List item 3</li>
+                <li>List item 4</li>
+                <li>List item 5</li>
+                <li>List item 6</li>
+            </ul>
+        </div>
+    );
 });
 
 const collapsedWidth = 100;
 const expandedWidth = 150;
-const widthToCollapseAt = 400;
+const widthToCollapseAt = 600;
 
-const App = () => {
-  const [width, setWidth] = useState(expandedWidth);
+export const App = () => {
+    const [width, setWidth] = useState(expandedWidth);
 
-  const sidebarRef = useRef();
+    const sidebarRef = useRef();
 
-  useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth < widthToCollapseAt) {
-        sidebarRef.current.collapse();
-      } else if (sidebarRef.current.isCollapsed) {
-        sidebarRef.current.expand();
-      }
-    };
-
-    window.addEventListener('resize', onResize);
-
-    return () => window.removeEventListener('resize', onResize);
-  }, [sidebarRef]);
-
-  return (
-    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
-      <div
-        style={{ width: `${width}px`, height: '100vh', overflowY: 'scroll' }}
-      >
-        <Sidebar
-          ref={sidebarRef}
-          toggle={(isCollapsed) => {
-            if (isCollapsed) {
-              setWidth(collapsedWidth);
-              return;
+    useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth < widthToCollapseAt) {
+                sidebarRef.current.collapse();
+            } else if (sidebarRef.current.isCollapsed) {
+                sidebarRef.current.expand();
             }
-            setWidth(expandedWidth);
-          }}
-        />
-      </div>
-      <div style={{ width: '1px', flexGrow: 1 }}>
-        <p style={{ padding: '1rem' }}>Hi there!</p>
-      </div>
-    </div>
-  );
+        };
+
+        window.addEventListener('resize', onResize);
+
+        return () => window.removeEventListener('resize', onResize);
+    }, [sidebarRef]);
+
+    return (
+        <Layout sidebarWidth={width} sidebar={
+            <Sidebar
+                ref={sidebarRef}
+                toggle={(isCollapsed) => {
+                    if (isCollapsed) {
+                        setWidth(collapsedWidth);
+                        return;
+                    }
+                    setWidth(expandedWidth);
+                }}
+            />
+        }>
+            <p style={{padding: '1rem'}}>Hi there!</p>
+        </Layout>
+    );
 };
 ```
 
 ### Angular
+
+// TODO: Add Layout component
 
 ```typescript
 @Component({
@@ -1186,6 +1298,8 @@ class AppComponent implements OnInit, OnDestroy {
 ```
 
 ### Vue
+
+// TODO: Add Layout component
 
 ```vue
 <!-- Sidebar.vue -->
