@@ -1048,7 +1048,7 @@ export class LayoutComponent {
         <layout [sidebarWidth]="150">
             <p sidebar>Sidebar</p>
             <p style="padding: 1rem">Hi there!</p>
-        </layout>
+        </layout>   
     `
 })
 export class AppComponent {
@@ -1059,7 +1059,42 @@ export class AppComponent {
 
 ### Vue
 
-// TODO
+```vue
+<!-- Layout.vue -->
+<template>
+    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+        <div :style="`
+          width: ${props.sidebarWidth}px;
+          height: 100vh;
+          overflow-y: scroll;
+          border-right: 2px solid #bfbfbf;
+        `">
+            <slot name="sidebar"/>
+        </div>
+        <div style="width: 1px; flex-grow: 1">
+            <slot/>
+        </div>
+    </div>
+</template>
+
+<script setup>
+const props = defineProps(["sidebarWidth"]);
+</script>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+    <Layout :sidebarWidth="150">
+        <template #sidebar><p>Sidebar</p></template>
+        <p style="padding: 1rem">Hi there!</p>
+    </Layout>
+</template>
+
+<script setup>
+  import Layout from "./Layout.vue";
+</script>
+```
 
 <!-- tabs:end -->
 
@@ -1148,8 +1183,7 @@ export const App = () => {
                 <li>List item 5</li>
                 <li>List item 6</li>
             </ul>
-        </div>
-    `
+        </div>    `
 })
 class SidebarComponent {
     @Output() toggle = new EventEmitter<boolean>();
@@ -1400,102 +1434,100 @@ export class AppComponent implements OnInit, OnDestroy {
 // TODO: Add Layout component
 
 ```vue
-<!-- Sidebar.vue -->
 <template>
-  <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
-  <div v-if="!isCollapsed">
-    <button @click="toggleCollapsed()">Toggle</button>
-    <ul style="padding: 1rem">
-      <li>List item 1</li>
-      <li>List item 2</li>
-      <li>List item 3</li>
-      <li>List item 4</li>
-      <li>List item 5</li>
-      <li>List item 6</li>
-    </ul>
-  </div>
+    <button v-if="isCollapsed" @click="toggleCollapsed()">Toggle</button>
+    <div v-if="!isCollapsed">
+        <button @click="toggleCollapsed()">Toggle</button>
+        <ul style="padding: 1rem">
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+            <li>List item 4</li>
+            <li>List item 5</li>
+            <li>List item 6</li>
+        </ul>
+    </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+    import {ref} from "vue";
 
-const emit = defineEmits(['toggle'])
+    const emits = defineEmits(['toggle']);
 
-const isCollapsed = ref(false)
+    const isCollapsed = ref(false);
 
-const setAndToggle = (v) => {
-  isCollapsed.value = v
-  emit('toggle', v)
-}
+    const setAndToggle = (v) => {
+        isCollapsed.value = v;
+        emits('toggle', v);
+    };
 
-const collapse = () => {
-  setAndToggle(true)
-}
+    const collapse = () => {
+        setAndToggle(true);
+    }
 
-const expand = () => {
-  setAndToggle(false)
-}
+    const expand = () => {
+        setAndToggle(false);
+    }
 
-const toggleCollapsed = () => {
-  setAndToggle(!isCollapsed.value)
-}
+    const toggleCollapsed = () => {
+        setAndToggle(!isCollapsed.value);
+    };
 
-defineExpose({
-  isCollapsed,
-  collapse,
-  expand,
-})
+    defineExpose({
+        expand,
+        collapse,
+        isCollapsed
+    })
 </script>
 ```
 
 ```vue
 <!-- App.vue -->
 <template>
-  <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
-    <div :style="`width: ${width}px; height: 100vh; overflow-y: scroll`">
-      <sidebar ref="sidebar" @toggle="onToggle($event)" />
-    </div>
-    <div style="width: 1px; flex-grow: 1">
-      <p style="padding: 1rem">Hi there!</p>
-    </div>
-  </div>
+    <Layout :sidebarWidth="width">
+        <template #sidebar>
+            <Sidebar ref="sidebar" @toggle="onToggle($event)"/>
+        </template>
+        <p style="padding: 1rem">Hi there!</p>
+    </Layout>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import Sidebar from './Sidebar.vue'
+import {onMounted, onUnmounted, ref} from "vue";
+  import Layout from "./Layout.vue";
+  import Sidebar from "./Sidebar.vue";
 
-const collapsedWidth = 100
-const expandedWidth = 150
-const widthToCollapseAt = 400
+  const collapsedWidth = 100;
+  const expandedWidth = 150;
+  const widthToCollapseAt = 600
 
-const sidebar = ref()
+  const sidebar = ref()
 
-const width = ref(expandedWidth)
+  const width = ref(expandedWidth);
 
-const onToggle = (isCollapsed) => {
-  if (isCollapsed) {
-    width.value = collapsedWidth
-    return
+  const onToggle = (isCollapsed) => {
+      if (isCollapsed) {
+          width.value = collapsedWidth;
+          return;
+      }
+      width.value = expandedWidth;
   }
-  width.value = expandedWidth
-}
 
-const onResize = () => {
-  if (window.innerWidth < widthToCollapseAt) {
-    sidebar.value.collapse()
-  } else if (sidebar.value.isCollapsed) {
-    sidebar.value.expand()
+  const onResize = () => {
+      if (window.innerWidth < widthToCollapseAt) {
+          sidebar.value.collapse()
+      } else if (sidebar.value.isCollapsed) {
+          sidebar.value.expand()
+      }
   }
-}
 
-onMounted(() => {
-  window.addEventListener('resize', onResize)
-})
+  onMounted(() => {
+      window.addEventListener('resize', onResize)
+  })
 
-onUnmounted(() => {
-  window.removeEventListener('resize', onResize)
-})
+  onUnmounted(() => {
+      window.removeEventListener('resize', onResize)
+  })
 </script>
 ```
 
