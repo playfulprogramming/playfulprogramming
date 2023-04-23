@@ -1932,9 +1932,13 @@ https://stackblitz.com/edit/react-context-multiple-di
 
 
 
+
+
+<!-- Editor's note: This Contextmenu has new functionality from before - the ability to close when another context menu is opened -->
+
+
+
 <!-- tabs:start -->
-
-
 
 ### React
 
@@ -2015,8 +2019,8 @@ export const Sidebar = () => {
     >
       <div style={{ padding: '1rem' }}>
         <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
-        {directories.map((file) => {
-          return <File key={file.id} name={file.name} id={file.id} />;
+        {directories.map((directory) => {
+          return <File key={directory.id} name={directory.name} id={directory.id} />;
         })}
       </div>
     </ContextMenuContext.Provider>
@@ -2243,7 +2247,305 @@ export const ContextMenu = forwardRef(
 
 ### Vue 
 
-// TODO
+```vue
+<!-- App.vue -->
+<template>
+    <Layout>
+        <template #sidebar>
+            <Sidebar/>
+        </template>
+        <FileList/>
+    </Layout>
+</template>
+
+<script setup>
+import Layout from './Layout.vue';
+import Sidebar from './Sidebar.vue';
+import FileList from './FileList.vue';
+</script>
+```
+
+```vue
+<!-- Layout.vue -->
+<template>
+    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+        <div
+            style="
+              width: 150px;
+              height: 100vh;
+              overflow-y: scroll;
+              border-right: 2px solid #bfbfbf;
+            "
+        >
+            <slot name="sidebar"/>
+        </div>
+        <div style="width: 1px; flex-grow: 1">
+            <slot/>
+        </div>
+    </div>
+</template>
+
+<script setup>
+</script>
+```
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+    <div style="padding: 1rem">
+        <h1 style="font-size: 1.25rem">Directories</h1>
+        <File v-for="directory of directories" :key="directory.id" :name="directory.name" :id="directory.id"/>
+    </div>
+</template>
+
+<script setup>
+import {provide} from "vue";
+import File from './File.vue';
+
+const directories = [
+    {
+        name: 'Movies',
+        id: 1,
+    },
+    {
+        name: 'Documents',
+        id: 2,
+    },
+    {
+        name: 'Etc',
+        id: 3,
+    },
+];
+
+const getDirectoryById = (id) => {
+    return directories.find((dir) => dir.id === id);
+};
+
+const onCopy = (id) => {
+    const dir = getDirectoryById(id);
+    // Some browsers still do not support this
+    if (navigator?.clipboard?.writeText) {
+        navigator.clipboard.writeText(dir.name);
+        alert('Name is copied');
+    } else {
+        alert('Unable to copy directory name due to browser incompatibility');
+    }
+};
+
+provide("ContextMenu", {
+    actions: [
+        {
+            label: 'Copy directory name',
+            fn: onCopy,
+        },
+    ],
+})
+</script>
+```
+
+```vue
+<!-- FileList.vue -->
+<template>
+    <div style="padding: 1rem">
+        <h1>Files</h1>
+        <File v-for="file of files" :key="file.id" :name="file.name" :id="file.id"/>
+    </div>
+</template>
+
+<script setup>
+import {provide, ref} from "vue";
+import File from './File.vue';
+
+const files = ref([
+    {
+        name: 'Testing.wav',
+        id: 1,
+    },
+    {
+        name: 'Secrets.txt',
+        id: 2,
+    },
+    {
+        name: 'Other.md',
+        id: 3,
+    },
+]);
+
+const getFileIndexById = (id) => {
+    return files.value.findIndex((file) => file.id === id);
+};
+
+const onRename = (id) => {
+    const fileIndex = getFileIndexById(id);
+    const file = files.value[fileIndex];
+    const newName = prompt(
+        `What do you want to rename the file ${file.name} to?`
+    );
+    if (!newName) return;
+    files.value[fileIndex] = {
+        ...file,
+        name: newName,
+    };
+};
+
+const onDelete = (id) => {
+    const fileIndex = getFileIndexById(id);
+    files.value.splice(fileIndex, 1);
+};
+
+provide("ContextMenu", {
+    actions: [
+        {
+            label: 'Rename',
+            fn: onRename,
+        },
+        {
+            label: 'Delete',
+            fn: onDelete,
+        },
+    ],
+})
+</script>
+```
+
+```vue
+<!-- File.vue -->
+<template>
+    <button
+            @contextmenu="onContextMenu($event)"
+            style="display: block; width: 100%; margin-bottom: 1rem"
+    >
+        {{ props.name }}
+    </button>
+    <ContextMenu
+            :data="props.id"
+            ref="contextMenu"
+            :isOpen="isOpen"
+            @close="setIsOpen(false)"
+            :x="mouseBounds.x"
+            :y="mouseBounds.y"
+    />
+</template>
+
+<script setup>
+import {ref} from "vue";
+import ContextMenu from './ContextMenu.vue';
+
+const props = defineProps(['name', 'id'])
+
+const mouseBounds = ref({
+    x: 0,
+    y: 0,
+});
+const isOpen = ref(false);
+
+const setIsOpen = (v) => isOpen.value = v;
+
+const contextMenu = ref();
+
+function onContextMenu(e) {
+    e.preventDefault();
+    isOpen.value = true;
+    mouseBounds.value = {
+        x: e.clientX,
+        y: e.clientY,
+    };
+    setTimeout(() => {
+        contextMenu.value.focusMenu()
+    }, 0)
+}
+</script>
+```
+
+```vue
+<!-- ContextMenu.vue -->
+<template>
+    <div
+            v-if="props.isOpen && context"
+            ref="contextMenuRef"
+            tabIndex="0"
+            :style="`
+          position: fixed;
+          top: ${props.y}px;
+          left: ${props.x}px;
+          background: white;
+          border: 1px solid black;
+          border-radius: 16px;
+          padding: 1rem;
+        `"
+    >
+        <button @click="emit('close')">X</button>
+        <ul>
+            <li v-for="action of actions">
+                <button
+                        @click="
+                        action.fn(data);
+                        emit('close', false);
+                    "
+                >
+                    {{ action.label }}
+                </button>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script setup>
+import {ref, onMounted, onUnmounted, inject, computed, watch} from 'vue'
+
+const props = defineProps(['isOpen', 'x', 'y', 'data'])
+
+const emit = defineEmits(['close'])
+
+const context = inject("ContextMenu")
+
+const actions = computed(() => {
+    if (!context) return [];
+    return context.actions;
+});
+
+const contextMenuRef = ref(null)
+
+function closeIfOutside(e) {
+    const contextMenuEl = contextMenuRef.value
+    if (!contextMenuEl) return
+    const isClickInside = contextMenuEl.contains(e.target)
+    if (isClickInside) return
+    emit('close')
+}
+
+const closeIfContextMenu = () => {
+    if (!props.isOpen) return;
+    emit("close");
+};
+
+// This must live in a watch, as `onMounted` will run whether the `isOpen` boolean is set or not
+watch(() => props.isOpen, (_, __, onCleanup) => {
+    // Inside a timeout to make sure the initial context menu does not close the menu
+    setTimeout(() => {
+        document.addEventListener('contextmenu', closeIfContextMenu);
+    }, 0);
+
+    onCleanup(() => document.removeEventListener('contextmenu', closeIfContextMenu));
+})
+
+onMounted(() => {
+    document.addEventListener('click', closeIfOutside)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', closeIfOutside)
+})
+
+function focusMenu() {
+    contextMenuRef.value.focus()
+}
+
+defineExpose({
+    focusMenu,
+})
+</script>
+```
 
 <!-- tabs:end -->
 
