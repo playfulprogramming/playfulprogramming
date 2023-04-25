@@ -503,5 +503,23 @@
 		"profileImg": "./badcop.png",
 		"color": "#2464B6",
 		"roles": ["author"]
+	},
+	{
+		"id": "hopelezz",
+		"name": "Mark Spratt",
+		"firstName": "Mark",
+		"lastName": "Spratt",
+		"description": "Full-Stack Software Developer, Electrical Engineer, and Tech Writter",
+		"socials": {
+			"twitter": "_Hopelezz",
+			"github": "Hopelezz",
+			"twitch": "badcop_",
+			"linkedIn": "mark-spratt",
+			"website": "https://markspratt.dev/"
+		},
+		"pronouns": "he",
+		"profileImg": "./markspratt.jpg",
+		"color": "#42AD8B",
+		"roles": ["author"]
 	}
 ]
