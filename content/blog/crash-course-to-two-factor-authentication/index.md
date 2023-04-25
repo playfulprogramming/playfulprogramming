@@ -5,7 +5,7 @@
     "A beginners course for CSS box model, HTML defaults, flexbox layout, gridbox layout, responsive design, selectors, units, and variables.",
   published: "2023-04-24T20:08:26.988Z",
   authors: ["hopelezz"],
-  tags: ["Two-Factor", "Authentication", "Security", "Password", "Vault", "Verification"],
+  tags: ["tools", "security", "authentication"],
   attached: [],
   license: "cc-by-4",
   originalLink: "https://blackskies.net/posts/2-two-factor-auth/"
