@@ -124,7 +124,7 @@ We can then create a component that will render the login form. The framework yo
 </form>
 ```
 
-## Otro
+## Outro
 
 Two-factor authentication is a security measure that requires two different methods of authentication to access a system. Security doesn't have to be complicated. In fact, it can be as simple as using a mobile app to generate a unique code every few seconds. 
 
