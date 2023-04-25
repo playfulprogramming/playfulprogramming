@@ -1,3 +1,4 @@
+/** @jsxRuntime automatic */
 import { Element } from "hast";
 
 interface HeaderLinkProps {

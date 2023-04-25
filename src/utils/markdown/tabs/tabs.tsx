@@ -1,3 +1,4 @@
+/** @jsxRuntime automatic */
 import classNames from "classnames";
 import { Node, Element } from "hast";
 

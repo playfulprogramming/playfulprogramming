@@ -1,3 +1,4 @@
+/** @jsxRuntime automatic */
 import { Element } from "hast";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 

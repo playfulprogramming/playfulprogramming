@@ -4,15 +4,10 @@ import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
-import rehypeRaw from "rehype-raw";
-import rehypeSlug from "rehype-slug-custom-id";
 import { UserConfigSettings } from "shiki-twoslash";
 import { collections, unicorns } from "../src/utils/data";
 import { getAllExtendedPosts } from "../src/utils/get-all-posts";
-import { join, resolve } from "path";
-import { visit } from "unist-util-visit";
-import { Element, Root } from "hast";
-import { isRelativePath } from "../src/utils/url-paths";
+import { resolve } from "path";
 import { EPub } from "@lesjoursfr/html-to-epub";
 import { unified } from "unified";
 import {
@@ -20,72 +15,7 @@ import {
 	ExtendedPostInfo,
 	RawCollectionInfo,
 } from "types/index";
-
-function rehypeMakeImagePathsAbsolute(options: { path: string }) {
-	return (tree: Root) => {
-		function imgVisitor(node: Element) {
-			if (node.tagName === "img") {
-				let src = node.properties!.src as string;
-				if (src.startsWith("http")) {
-					return;
-				}
-				if (isRelativePath(src)) {
-					src = join(options.path, src);
-					src = src.replace(/\\/g, "/");
-				}
-				node.properties!.src = src;
-			}
-		}
-
-		visit(tree, "element", imgVisitor);
-		return tree;
-	};
-}
-
-function rehypeMakeHrefPathsAbsolute(options: { path: string }) {
-	return (tree: Root) => {
-		function aVisitor(node: Element) {
-			if (node.tagName === "a") {
-				let href = node.properties!.href as string;
-				if (href.startsWith("#")) {
-					return;
-				}
-				if (isRelativePath(href)) {
-					href = options.path.replace(/\/$/g, "") + href;
-					href = href.replace(/\\/g, "/");
-				}
-				node.properties!.href = href;
-			}
-		}
-		visit(tree, "element", aVisitor);
-		return tree;
-	};
-}
-
-function rehypeMakeFixTwoSlashXHTML() {
-	return (tree: Root) => {
-		function preVisitor(node: Element) {
-			if (node.tagName === "pre") {
-				visit(node, "element", (childNode: Element) => {
-					if (childNode.tagName === "div") {
-						childNode.tagName = "span";
-						if (childNode.properties!.style) {
-							if ((childNode.properties!.style as string).endsWith(";")) {
-								(childNode.properties!.style as string) += "display: block;";
-							} else {
-								(childNode.properties!.style as string) += "; display: block;";
-							}
-						} else {
-							childNode.properties!.style = "display: block;";
-						}
-					}
-				});
-			}
-		}
-		visit(tree, "element", preVisitor);
-		return tree;
-	};
-}
+import { createRehypePlugins } from "utils/markdown";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
@@ -106,31 +36,12 @@ async function generateEpubHTML(slug: string, content: string) {
 			],
 		])
 		.use(remarkToRehype, { allowDangerousHtml: true })
-		.use([
-			// This is required to handle unsafe HTML embedded into Markdown
-			rehypeRaw,
-			rehypeMakeFixTwoSlashXHTML,
-			[
-				rehypeMakeImagePathsAbsolute,
-				{
-					path: resolve(process.cwd(), `content/blog/${slug}/`),
-				},
-			],
-			[
-				rehypeMakeHrefPathsAbsolute,
-				{
-					path: `https://unicorn-utterances.com`,
-				},
-			],
-			[
-				rehypeSlug,
-				{
-					maintainCase: true,
-					removeAccents: true,
-					enableCustomId: true,
-				},
-			],
-		])
+		.use(
+			createRehypePlugins({
+				format: "epub",
+				path: resolve(process.cwd(), `content/blog/${slug}/`),
+			})
+		)
 		// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
 		.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 

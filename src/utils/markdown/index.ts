@@ -1,4 +1,4 @@
-import { RehypePlugins } from "astro";
+import { Plugin } from "unified";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import { rehypeTabs } from "./tabs/rehype-transform";
@@ -11,13 +11,30 @@ import { rehypeUnicornGetSuggestedPosts } from "./rehype-unicorn-get-suggested-p
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeadingLinks } from "./heading-links/rehype-transform";
 import { MarkdownConfig } from "./constants";
+import {
+	rehypeMakeHrefPathsAbsolute,
+	rehypeMakeImagePathsAbsolute,
+} from "./rehype-absolute-paths";
+import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
 
-export function createRehypePlugins(config: MarkdownConfig): RehypePlugins {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
+
+export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 	return [
-		rehypeUnicornPopulatePost,
-		rehypeUnicornGetSuggestedPosts,
+		...(config.format === "html"
+			? [rehypeUnicornPopulatePost, rehypeUnicornGetSuggestedPosts]
+			: []),
 		// This is required to handle unsafe HTML embedded into Markdown
 		[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
+		// When generating an epub, any relative paths need to be made absolute
+		...(config.format === "epub"
+			? [
+					rehypeFixTwoSlashXHTML,
+					[rehypeMakeImagePathsAbsolute, { path: config.path }] as RehypePlugin,
+					rehypeMakeHrefPathsAbsolute,
+			  ]
+			: []),
 		// Do not add the tabs before the slug. We rely on some of the heading
 		// logic in order to do some of the subheading logic
 		[
@@ -28,22 +45,28 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugins {
 				enableCustomId: true,
 			},
 		],
-		...(config.format === "html" && [
-			/**
-			 * Insert custom HTML generation code here
-			 */
-			rehypeTabs,
-			rehypeAstroImageMd,
-			rehypeUnicornIFrameClickToRun,
-			rehypeHeadingLinks,
-			rehypeUnicornElementMap,
-		]),
-		[
-			rehypeExcerpt,
-			{
-				maxLength: 150,
-			},
-		],
-		rehypeWordCount,
+		...(config.format === "html"
+			? [
+					/**
+					 * Insert custom HTML generation code here
+					 */
+					rehypeTabs,
+					rehypeAstroImageMd,
+					rehypeUnicornIFrameClickToRun,
+					rehypeHeadingLinks,
+					rehypeUnicornElementMap,
+			  ]
+			: []),
+		...(config.format === "html"
+			? [
+					[
+						rehypeExcerpt,
+						{
+							maxLength: 150,
+						},
+					] as RehypePlugin,
+					rehypeWordCount,
+			  ]
+			: []),
 	];
 }
