@@ -5,11 +5,6 @@ body {
 	--backgroundColor: var(--fund-200) !important;
 }
 
-:root {
-	// Font size + button vert padding * 2
-	--readNowButtonHeight: calc(1.125rem + calc(var(--btn-ver-padding_large) * 2));
-}
-
 .sunContainerContainer {
 	position: relative;
 	z-index: -1;
@@ -47,6 +42,14 @@ body {
 .heroContainer {
 	padding: var(--spc-6x) var(--section-hor-padding);
 	text-align: center;
+
+	// Font size + button vert padding * 2
+	--readNowButtonHeight: calc(1.125rem + calc(var(--btn-ver-padding_large) * 2));
+	--outline-gap: var(--spc-2x);
+
+	@include from($desktop) {
+		--outline-gap: var(--spc-3x);
+	}
 }
 
 .bannerContainer {
