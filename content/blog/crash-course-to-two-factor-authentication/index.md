@@ -38,24 +38,29 @@ Two-factor authentication is important because it adds an extra layer of securit
 
 ## Javascript Implementation
 
-We will need to do some initial setup before we can implement 2FA in our Node.js application. First, we need to install the `passport-2fa-totp` module. This module implements the TOTP algorithm and integrates it with Passport. Next, we need to install the `Google Authenticator` mobile app. This app will generate the TOTP codes that we will use to verify the user's identity. Finally, we need to configure our Passport strategy and our routes. 
+We will need to do some initial setup before we can implement 2FA in our `Node.js` application. We're going to use the Google Authentication Strategy. This strategy uses the TOTP algorithm to generate a unique code every 30 seconds. We will input this code into an input field on our login form. If the code is valid, we will be redirected to the home page. If the code is invalid, we will be redirected to the login page.
 
-> You will need a google account to use the Google Authenticator app.
+### Step 1: Create a Google Account (Optional)
 
-- `Google Authenticator` is a mobile app that generates TOTP codes. It is available for both [Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) and [iOS](https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8).
-- `passport-2fa-totp` is a Node.js module that implements the TOTP algorithm and integrates it with [Passport](https://www.npmjs.com/package/passport-2fa-totp)
+We'll need have or create a google account.
 
-### Install Dependencies
+### Step 2: Install Google Authenticator (Optional)
 
-In a terminal window, navigate to the root directory of your Node.js application and run the following command:
+Install the `Google Authenticator` mobile app. [Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) and [iOS](https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8).
+
+> This app will generate the TOTP codes that we will use to verify the user's identity.
+
+### Step 3: Install Passport Dependencies
+
+In an existing Node.js project we'll need to install Passport Dependencies
 
 ```bash
 npm install passport-2fa-totp
 ```
 
-### Configure Passport
+### Step 4: Configure Passport.
 
-Next we need to configure our Passport strategy. We will use the `passport-2fa-totp` module to implement the TOTP algorithm. Create a new file called `passport.js` in the root directory of your Node.js application. Then, add the following code to the file:
+Create a new file called `passport.js` in the root directory of your Node.js application. Then, add the following code to the file:
 
 ```js
 var GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
@@ -85,6 +90,55 @@ passport.use(new TwoFAStartegy(function (username, password, done) {
         done(null, secret, 30);
     }
 }));
+```
+
+### Step 5: Configure Routes.
+
+We will need to route the user to the login form and the home page. We will also need to route the user to the login form if the login fails. Add the following code to the `app.js` file or the file where you configure your routes:
+
+```js
+// This route will render the login form
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+
+// This route will render the home page
+app.get("/", function (req, res) {
+  res.render("home");
+});
+
+// This route will render the login form
+app.post(
+  "/login",
+  passport.authenticate("2fa-totp", { failureRedirect: "/login" }),
+  function (req, res) {
+    res.redirect("/");
+  }
+);
+```
+
+### Step 6: Configure Views
+
+We can then create a component that will render the login form. The framework you are using will strongly influence the way you implement this component. The following code is an example of how you might implement a login form using HTML elements:
+
+```html
+<form action="/login" method="post">
+  <div>
+    <label>Username:</label>
+    <input type="text" name="username" />
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password" />
+  </div>
+  <div>
+    <label>Google Authenticator Code:</label>
+    <input type="text" name="code" />
+  </div>
+  <div>
+    <input type="submit" value="Log In" />
+  </div>
+</form>
 ```
 
 ### Configure Routes
