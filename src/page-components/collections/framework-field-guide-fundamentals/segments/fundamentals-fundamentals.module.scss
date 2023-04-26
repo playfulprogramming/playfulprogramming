@@ -1,5 +1,5 @@
-@import "../../../styles/utils";
-@import "../framework-field-guide/tokens/breakpoints.scss";
+@import "../../../../styles/utils";
+@import "../../framework-field-guide/tokens/breakpoints.scss";
 
 :root {
     --article-link-padding-ver: var(--spc-1x);
@@ -7,7 +7,7 @@
     --article-link-padding-end: var(--spc-2x);
     --article-link-icon-size: 24px;
 
-    --step-num-size: calc((56px / 16px) * 1rem);
+    --step-num-size: calc((56px / 16) * 1rem);
     --step-num-offset: calc(var(--step-num-size)/2);
     --spc-step-card: var(--spc-2x);
     --detail-item-padding-ver: var(--spc-1x);
@@ -69,7 +69,7 @@
 }
 
 .subtitle::before {
-    content: url("../framework-field-guide/icons/link.svg");
+    content: url("../../framework-field-guide/icons/link.svg");
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
@@ -102,7 +102,7 @@ ul {
 }
 
 .gridItem::before {
-    content: url("../framework-field-guide/icons/link.svg");
+    content: url("../../framework-field-guide/icons/link.svg");
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
@@ -138,20 +138,20 @@ ul {
     border-width: var(--grid-item-border-width);
     border-radius: var(--grid-item-corner-radius);
     padding-top: var(--spc-6x);
-    
+
 }
 
 .descriptionContainer {
     padding-left: var(--spc-6x);
     padding-right: var(--spc-6x);
     text-align: start;
-}  
+}
 
 .description {
     color: var(--on-dark-emphasis-medium);
     padding-top: var(--spc-step-card);
     padding-bottom: var(--spc-step-card);
-}   
+}
 
 .stepCardNumber {
     position: absolute;
@@ -184,7 +184,7 @@ ul {
 }
 
 .stepCardItemBullet::before {
-    content: url("../framework-field-guide/icons/arrow.svg");
+    content: url("../../framework-field-guide/icons/arrow.svg");
     padding-right: var(--spc-2x);
     padding-left: var(--spc-1x);
     color: var(--on-dark-emphasis-medium);
