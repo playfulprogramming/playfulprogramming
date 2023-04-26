@@ -4,7 +4,6 @@ import LeftTitleSpark from "../framework-field-guide/components/left-title-spark
 import RightTitleSpark from "../framework-field-guide/components/right-title-spark.astro";
 import Sun from "../framework-field-guide/cover-layers/fundamentals/sun.astro";
 import BigFilledButton from "../framework-field-guide/components/big-filled-button.astro";
-
 ---
 
 <section class={`class-book-1 class-book-hero`}>
@@ -14,28 +13,27 @@ import BigFilledButton from "../framework-field-guide/components/big-filled-butt
 				<Sun />
 			</div>
 		</div>
-		<p class={`text-style-body-medium-bold ${styles.introducing}`}>
-			Welcome to start of your journey
-		</p>
-		<div class={styles.titleContainer} data-no-max-width>
-			<div></div>
-			<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
-				Fundamentals
-			</h1>
-			<div></div>
-		</div>
-			<div class={`${styles.readNowContainer} ${styles.seriesTitle}`}>
-				<p class={`text-style-headline-5 ${styles.ffgDescription}`}>
-					This is part one of the <strong>Framework Field Guide</strong>, a three-part series <br>
+		<div class={styles.bannerContainer} data-no-horiz-pad data-no-max-width>
+			<p class={`text-style-body-large-bold ${styles.introducing}`}>
+				Welcome to start of your journey
+			</p>
+			<h1 class={`text-style-display-1 ${styles.seriesTitle}`}>Fundamentals</h1>
+			<div class={styles.readNowContainer}>
+				<p class={`text-style-headline-6 ${styles.ffgDescription}`}>
+					This is part one of the <span class={styles.ffgWord}
+						>Framework Field Guide</span
+					>, a three-part series <br />
 					that teaches you Angular, React and Vue all at once.
 				</p>
-				<!-- <button class={`${styles.buttonReadNow} text-style-button ffg-button-base ffg-big-button ffg-filled-button`}>Read now</button> -->
 				<div class={`${styles.buttonReadNow}`}>
 					<BigFilledButton
-					href="#"
-					onclick="event.preventDefault();var title=document.getElementById('');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-					>Read now</BigFilledButton>
+						href="#"
+						onclick='event.preventDefault();var title=document.getElementById("");title.scrollIntoView({behavior: "smooth", block: "start"});'
+					>
+						Read now
+					</BigFilledButton>
 				</div>
 			</div>
+		</div>
 	</div>
 </section>

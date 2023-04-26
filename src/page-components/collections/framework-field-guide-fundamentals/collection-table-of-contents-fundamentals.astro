@@ -1,6 +1,6 @@
 ---
 import { PostInfo } from "types/PostInfo";
-import styles from "./collection-table-of-contents-fundamentals.module.scss"
+import styles from "./collection-table-of-contents-fundamentals.module.scss";
 
 interface CollectionTableOfContentsProps {
 	collection: {
@@ -20,7 +20,10 @@ const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
 	<div class="topBorderArea"></div>
 	<div class="postsContainer">
 		<div class="listViewContent postsInnerContainer">
-			<h2 id="chapter-listing-heading" class={`chapterListingHeader chapter-listing-heading`}>
+			<h2
+				id="chapter-listing-heading"
+				class={`chapterListingHeader chapter-listing-heading`}
+			>
 				Chapter Listing:
 			</h2>
 			<ul aria-describedby="chapter-listing-heading" class="collectionPostList">
@@ -32,31 +35,14 @@ const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
 									<div class="orderContainer">{post.order}</div>
 									<div>
 										<a href={"/posts/" + post.slug} class="postLink">
-												<h3 class="postTitle">{post.title}</h3>
-												View Chapter
-												</a>
-										</div>
+											<h3 class="postTitle">{post.title}</h3>
+											View Chapter
+										</a>
+									</div>
 								</li>
-									
-
 							);
 						})
 				}
-				<!-- {
-					(collection.chapterList || []).map((post, i) => {
-						return (
-							<li class="postContainer">
-								<div class="postLink">
-									<div class="orderContainer">{post.order}</div>
-									<div>
-										<h3 class="postTitle noLink">{post.title}</h3>
-										<p class="postDesc">{post.description}</p>
-									</div>
-								</div>
-							</li>
-						);
-					})
-				} -->
 			</ul>
 		</div>
 	</div>

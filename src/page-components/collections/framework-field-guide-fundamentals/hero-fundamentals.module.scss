@@ -5,6 +5,11 @@ body {
 	--backgroundColor: var(--fund-200) !important;
 }
 
+:root {
+	// Font size + button vert padding * 2
+	--readNowButtonHeight: calc(1.125rem + calc(var(--btn-ver-padding_large) * 2));
+}
+
 .sunContainerContainer {
 	position: relative;
 	z-index: -1;
@@ -44,62 +49,51 @@ body {
 	text-align: center;
 }
 
-.titleContainer {
-	display: flex;
-	flex-wrap: nowrap;
-	align-items: center;
-
-	display: grid;
-	position: relative;
-	grid-template-columns: 1fr auto auto auto 1fr;
-	grid-template-rows: 1fr;
+.bannerContainer {
+	width: var(--max-width_small);
+	margin: 0 auto;
 }
 
 .introducing {
 	letter-spacing: 0.25em !important;
 	text-transform: uppercase !important;
 	color: var(--on-light-emphasis-medium);
+	padding: 0 var(--section-hor-padding);
+	margin: 0;
 }
 
 .seriesTitle {
-	margin-top: var(--spc-2x);
-	margin-bottom: var(--spc-3x);
+	margin-top: var(--spc-1x);
+	margin-bottom: var(--section-ver-padding);
 	color: var(--on-light-emphasis-high);
+	padding: 0 var(--section-hor-padding);
 }
 
 .ffgDescription {
-	padding: var(--section-ver-padding) var(--section-hor-padding);
+	color: var(--on-light-emphasis-medium);
+	margin: 0;
+}
+
+.ffgWord {
+	font-weight: bold;
+	color: var(--on-light-emphasis-high);
 }
 
 .buttonReadNow {
-	position: absolute !important;
-	// top: calc(35% + var(--section-hor-padding));
-	// left: calc(50% - var(--section-hor-padding) * 2);
-	// top: calc(67% + var(--section-hor-padding));
-	// top: calc(50% + var(--section-hor-padding)*2);
-	top: calc(50% + var(--section-hor-padding)*2);
-	left: 42%;
-
-
-	// top: calc(50% - var(--section-hor-padding));
-	// right: calc(50% - var(--section-hor-padding) * 2);
-	// top: var(--section-hor-padding);
-	// left: var(--section-hor-padding);
-	// transform: translate(-50%, 50%);
-	// background: var(--section-background);
-	// gap: var(--outline-gap);
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%) translateY(50%);
+	background: var(--fund-200);
+	padding: 0 var(--outline-gap);
 }
-
 
 .readNowContainer {
 	position: relative;
-    border-style:dashed;
-    border-color: var(--outline);
-    border-width: var(--grid-item-border-width);
-    border-radius: var(--grid-item-corner-radius);
-	padding: var(--section-hor-padding);
-	text-align: center;
-	display: inline-block;
+	box-sizing: border-box;
+	padding: var(--section-ver-padding) var(--section-hor-padding) calc(var(--section-ver-padding) + calc(var(--readNowButtonHeight) / 2)) var(--section-hor-padding);
+	border: 3px dotted var(--outline);
+	border-radius: var(--corner-radius-2x);
 }
 
 .readNowSection {
