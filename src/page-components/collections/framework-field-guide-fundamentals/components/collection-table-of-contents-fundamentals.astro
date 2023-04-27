@@ -30,9 +30,11 @@ const maxChapterToShow = 10;
 			posts &&
 				posts.map((post, i) => {
 					const shouldHideInitially = i >= maxChapterToShow;
+					const isLastVisible = i === maxChapterToShow - 1;
 					return (
 						<li
 							class={styles.postContainer}
+							data-is-last-visible={isLastVisible}
 							data-should-hide={shouldHideInitially}
 						>
 							<a href={"/posts/" + post.slug} class={styles.listItem}>
@@ -59,16 +61,20 @@ const maxChapterToShow = 10;
 	<script is:inline>
 		let shown = false;
 
+		const lastChild = document.querySelector("[data-is-last-visible]");
+
 		function toggleChapterList() {
 			const els = [...document.querySelectorAll("[data-should-hide]")];
 			if (!shown) {
 				els.forEach((el) => (el.style.display = "block"));
 				document.querySelector("#show-button").style.display = "none";
 				document.querySelector("#hide-button").style.display = "inline-block";
+				lastChild.removeAttribute("data-is-last-visible");
 			} else {
 				els.forEach((el) => (el.style.display = "none"));
 				document.querySelector("#hide-button").style.display = "none";
 				document.querySelector("#show-button").style.display = "inline-block";
+				lastChild.setAttribute("data-is-last-visible", "");
 			}
 
 			shown = !shown;

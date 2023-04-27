@@ -42,7 +42,7 @@
 	position: relative;
 }
 
-.postContainer:not(:last-child)::after {
+.postContainer:not([data-is-last-visible]):not(:last-child)::after {
 	position: absolute;
 	content: ' ';
 	bottom: 0;
