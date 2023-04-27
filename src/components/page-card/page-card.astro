@@ -1,0 +1,27 @@
+---
+import styles from "./page-card.module.scss";
+
+interface PageCardProps {
+	title: string;
+	description: string;
+	imageSrc: astroHTML.JSX.ImgHTMLAttributes["src"];
+	imageAlt: string;
+}
+
+const { title, description, imageAlt, imageSrc } = Astro.props as PageCardProps;
+---
+
+<div class={styles.pageCardContainer}>
+	<div class={styles.imageContainer}>
+		<img class={styles.image} src={imageSrc} alt={imageAlt} />
+	</div>
+	<h1 class={`text-style-headline-1 ${styles.title}`}>{title}</h1>
+	<p class={`text-style-body-large-bold ${styles.description}`}>
+		{description}
+	</p>
+	<div class="page-card-spacer"></div>
+	<div class={styles.buttonsContainer}>
+		<slot name="button" />
+		<slot name="second-button" />
+	</div>
+</div>
