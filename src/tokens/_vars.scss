@@ -1,0 +1,27 @@
+@import "./colors";
+
+$rootFontSize: 1rem;
+
+$borderWidth: (
+	s: 1px,
+	m: 2px,
+	l: 4px,
+	xl: 8px,
+);
+
+$cornerRadius: (
+	s: 8px,
+	m: 16px,
+	l: 24px,
+	xl: 32px,
+    circular: 9999px,
+);
+
+$shadow: (
+	s: (0px 2px 3px rgba(0, 0, 0, 0.24)),
+);
+
+$spacing: 4px;
+
+$animSpeed: 200ms;
+$animStyle: ease-in-out;

@@ -1,4 +1,4 @@
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .card {
 	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);

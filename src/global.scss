@@ -1,6 +1,5 @@
 @use "sass:math";
-@import "./styles/vars";
-@import "./styles/utils";
+@import "./tokens/index";
 @import "./styles/text-styles";
 @import "./styles/container";
 @import "./styles/grid";

@@ -1,5 +1,4 @@
-@import "src/styles/vars";
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .headerBorder {
 	border-bottom: 1px solid theme-var(--foreground_emphasis-none);

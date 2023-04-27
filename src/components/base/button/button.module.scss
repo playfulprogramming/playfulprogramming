@@ -1,5 +1,4 @@
-@import "../../../styles/vars";
-@import "../../../styles/utils";
+@import "src/tokens/index";
 
 .button {
 	padding: ($spacing * 2) ($spacing * 4);

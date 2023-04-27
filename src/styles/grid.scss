@@ -1,5 +1,4 @@
-@import "./vars";
-@import "./utils";
+@import "src/tokens/index";
 
 :where(.grid) {
 	display: grid;
