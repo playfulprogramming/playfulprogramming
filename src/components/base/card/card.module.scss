@@ -2,7 +2,7 @@
 
 .card {
 	border: get-var(--border-width_xl) solid get-var(--surface_primary_emphasis-low);
-	border-radius: get-var(--color-radius_xl);
+	border-radius: get-var(--corner-radius_xl);
 
 	overflow-wrap: break-word;
 	max-width: 100%;
@@ -14,19 +14,19 @@
 
 .card.l {
 	border-width: get-var(--border-width_l);
-	border-radius: get-var(--color-radius_l);
+	border-radius: get-var(--corner-radius_l);
 	padding: get-var(--spc-4x);
 }
 
 .card.m {
 	border-width: get-var(--border-width_m);
-	border-radius: get-var(--color-radius_m);
+	border-radius: get-var(--corner-radius_m);
 	padding: get-var(--spc-4x);
 }
 
 .card.s {
 	border-width: get-var(--border-width_s);
-	border-radius: get-var(--color-radius_s);
+	border-radius: get-var(--corner-radius_s);
 	padding: get-var(--spc-1x) get-var(--spc-2x);
 }
 

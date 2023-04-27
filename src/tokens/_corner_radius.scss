@@ -1,9 +1,9 @@
 $cornerRadius: (
-        --color-radius_s: 8px,
-        --color-radius_m: 16px,
-        --color-radius_l: 24px,
-        --color-radius_xl: 32px,
-        --color-radius_circular: 9999px,
+        --corner-radius_s: 8px,
+        --corner-radius_m: 16px,
+        --corner-radius_l: 24px,
+        --corner-radius_xl: 32px,
+        --corner-radius_circular: 9999px,
 );
 
 // Mixin for all of the CSS variables used to reference the theme values
