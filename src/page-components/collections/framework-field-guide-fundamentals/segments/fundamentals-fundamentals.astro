@@ -2,7 +2,7 @@
 import styles from "./fundamentals-fundamentals.module.scss";
 import "../../framework-field-guide/components/shared-section-styling.scss";
 import FundamentalsBookCover from "../../framework-field-guide/segments/fundamentals-book-cover.astro";
-import BookSvg from "../../framework-field-guide/icons/book.astro";
+import WhatYouNeed from "../components/what-you-need.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
 import { PostInfo } from "types/PostInfo";
 import { unicorns } from "utils/data";
@@ -37,91 +37,7 @@ const chapterList = posts
 
 	<div class="class-book-1">
 		<div class={`book-section`} style="background: var(--section-background);">
-			<h2 class="book-bio text-style-headline-2">What you'll need</h2>
-			<div>
-				<section class={styles.adventureContinuesContainer}>
-					<div class={styles.divPadding}>
-						<div class={styles.titleContainer}>
-							<BookSvg aria-hidden={true} />
-							<span class={`text-style-body-large-bold ${styles.title}`}
-								>Basic knowledge of CSS and JavaScript</span
-							>
-							<span
-								aria-hidden="true"
-								style="opacity: 0;"
-								class="text-style-body-large-bold"
-								>Basic knowledge of CSS and JavaScript</span
-							>
-							<span
-								aria-hidden="true"
-								style="opacity: 0;"
-								class="text-style-body-large-bold"
-								>An IDE that supports your framework of choice</span
-							>
-						</div>
-						<div class={styles.helpfulContainer}>
-							<p>
-								<span class={`text-style-body-large-bold ${styles.subtitle}`}
-									>Helpful Links</span
-								>
-							</p>
-							<ul>
-								<li class={`text-style-body-large-bold`}>
-									<a href="" class={styles.gridItem}>The basics of CSS</a>
-								</li>
-
-								<li class={`text-style-body-large-bold`}>
-									<a href="" class={styles.gridItem}>How HTML works</a>
-								</li>
-
-								<li class={`text-style-body-large-bold`}>
-									<a href="" class={styles.gridItem}>JS Beginner's Guide</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class={styles.divPadding}>
-						<div class={styles.titleContainer}>
-							<BookSvg aria-hidden={true} />
-							<span class={`text-style-body-large-bold ${styles.title}`}
-								>An IDE that supports your framework of choice</span
-							>
-							<span
-								aria-hidden="true"
-								style="opacity: 0;"
-								class="text-style-body-large-bold"
-								>An IDE that supports your framework of choice</span
-							>
-							<span
-								aria-hidden="true"
-								style="opacity: 0;"
-								class="text-style-body-large-bold"
-								>Basic knowledge of CSS and JavaScript</span
-							>
-						</div>
-						<div class={styles.helpfulContainer}>
-							<p>
-								<span class={`text-style-body-large-bold ${styles.subtitle}`}
-									>Helpful Links</span
-								>
-							</p>
-							<ul>
-								<li class={`text-style-body-large-bold`}>
-									<a href="" class={styles.gridItem}>How to install VSCode</a>
-								</li>
-
-								<li class={`text-style-body-large-bold`}>
-									<a href="" class={styles.gridItem}
-										>How to actually use the damn thing</a
-									>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</section>
-			</div>
-			<br />
-			<br />
+			<WhatYouNeed />
 			<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
 			<section>
 				<h2 class={`book-bio text-style-headline-2 ${styles.sectionTitle}`}>
