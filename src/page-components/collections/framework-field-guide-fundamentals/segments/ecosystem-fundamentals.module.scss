@@ -16,3 +16,29 @@
 	color: var(--on-dark-emphasis-high);
 	max-width: var(--max-width_small);
 }
+
+.subtext {
+	color: var(--on-dark-emphasis-medium);
+}
+
+.highEmphasis {
+	color: var(--on-dark-emphasis-high);
+}
+
+.mediumEmphasis {
+	color: var(--on-dark-emphasis-medium);
+}
+
+.inDevelopment {
+	margin: 0;
+}
+
+.inDevelopmentTwo {
+	margin-top: var(--spc-1x);
+	margin-bottom: var(--spc-3x);
+}
+
+.emailWarning {
+	margin: 0;
+	margin-top: var(--spc-2x);
+}
