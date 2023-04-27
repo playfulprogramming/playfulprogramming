@@ -76,7 +76,7 @@
 	display: flex;
 	align-items: center;
 
-	color: theme-var(--foreground_emphasis-medium);
+	color: get-var(--foreground_emphasis-medium);
 
 	& picture {
 		margin-right: $spacing * 2;

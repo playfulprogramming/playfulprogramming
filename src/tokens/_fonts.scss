@@ -2,3 +2,28 @@ $fontUniwidth: "Asap", "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-
 $fontDisplay: "Work Sans", "Work Sans-fallback", "Work Sans-fallback2", sans-serif;
 $fontBody: "Archivo", "Archivo-fallback", "Archivo-fallback2", sans-serif;
 $fontMono: "Roboto Mono", monospace;
+
+
+$fonts: (
+        fontUniwidth: $fontUniwidth,
+        fontDisplay: $fontDisplay,
+        fontBody: $fontBody,
+        fontMono: $fontMono,
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-font() {
+  @each $key, $value in $fonts {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-font($key) {
+  // ensure that the variable is defined in all themes
+  @if not map-has-key($fonts, $key) {
+    @return null;
+  }
+
+  @return var($key);
+}

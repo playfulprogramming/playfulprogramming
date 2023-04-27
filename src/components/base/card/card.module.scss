@@ -1,7 +1,7 @@
 @import "src/tokens/index";
 
 .card {
-	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);
+	border: map-get($borderWidth, xl) solid get-var(--surface_primary_emphasis-low);
 	border-radius: map-get($cornerRadius, xl);
 
 	overflow-wrap: break-word;
@@ -32,29 +32,29 @@
 
 .card.inline {
 	border-width: 0;
-	background-color: theme-var(--surface_primary_emphasis-none);
+	background-color: get-var(--surface_primary_emphasis-none);
 }
 
 .card.solid {
 	border-width: 0;
-	background-color: theme-var(--surface_primary_emphasis-low);
+	background-color: get-var(--surface_primary_emphasis-low);
 }
 
 .card.interactive {
 	cursor: pointer;
 
 	&:hover {
-		background-color: theme-var(--surface_primary_emphasis-low);
+		background-color: get-var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:active {
-		background-color: theme-var(--surface_primary_emphasis-low);
-		border-color: theme-var(--surface_primary_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-low);
+		border-color: get-var(--surface_primary_emphasis-high);
 	}
 
 	&:focus {
-		background-color: theme-var(--background_focus);
-		border-color: theme-var(--focus-outline_primary);
+		background-color: get-var(--background_focus);
+		border-color: get-var(--focus-outline_primary);
 	}
 }

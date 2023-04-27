@@ -37,14 +37,14 @@
 	}
 
 	.date {
-		color: theme-var(--foreground_emphasis-medium);
+		color: get-var(--foreground_emphasis-medium);
 	}
 }
 
 .header {
 	display: block;
 	text-decoration: none;
-	color: theme-var(--foreground_emphasis-high);
+	color: get-var(--foreground_emphasis-high);
 
 	& h2 {
 		margin: 0;

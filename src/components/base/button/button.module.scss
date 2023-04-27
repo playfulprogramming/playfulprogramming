@@ -3,8 +3,8 @@
 .button {
 	padding: ($spacing * 2) ($spacing * 4);
 
-	background-color: theme-var(--surface_primary_emphasis-low);
-	color: theme-var(--foreground_emphasis-high);
+	background-color: get-var(--surface_primary_emphasis-low);
+	color: get-var(--foreground_emphasis-high);
 
 	$height: 40px;
 	height: $height;
@@ -24,31 +24,31 @@
 	@include transition(color background-color box-shadow);
 
 	&:global(.selected) {
-		background-color: theme-var(--primary_default);
-		color: theme-var(--primary_on-default);
-		box-shadow: 0 0 0 $spacing theme-var(--primary_variant);
+		background-color: get-var(--primary_default);
+		color: get-var(--primary_on-default);
+		box-shadow: 0 0 0 $spacing get-var(--primary_variant);
 	}
 
 	&:hover {
 		text-decoration: underline;
-		background-color: theme-var(--surface_primary_emphasis-medium);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-medium);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:focus-visible {
-		background-color: theme-var(--background_focus);
-		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--background_focus);
+		box-shadow: 0 0 0 $spacing get-var(--focus-outline_primary);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: theme-var(--surface_primary_emphasis-high);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-high);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&[disabled] {
-		background-color: theme-var(--background_disabled);
-		color: theme-var(--foreground_disabled);
+		background-color: get-var(--background_disabled);
+		color: get-var(--foreground_disabled);
 		text-decoration: none;
 		pointer-events: none;
 	}
@@ -63,8 +63,8 @@
 }
 
 .primary {
-	background-color: theme-var(--primary_high-contrast);
-	color: theme-var(--background_primary);
+	background-color: get-var(--primary_high-contrast);
+	color: get-var(--background_primary);
 }
 
 .borderless {

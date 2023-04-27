@@ -2,5 +2,5 @@
 
 .tagSmall {
 	gap: $spacing !important;
-	color: theme-var(--primary_default) !important;
+	color: get-var(--primary_default) !important;
 }

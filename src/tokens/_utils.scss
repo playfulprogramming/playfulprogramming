@@ -1,4 +1,6 @@
 @import "./colors";
+@import "./breakpoints";
+@import "./fonts";
 
 @function pxToRem($pxNum) {
 	@return #{calc($pxNum / 16)}rem;
@@ -30,21 +32,28 @@
 	}
 }
 
+
 // Mixin for all of the CSS variables used to reference the theme values
-@mixin theme-vars($t) {
-	@each $key, $value in map-get($themes, $t) {
-		#{$key}: #{$value};
-	}
+@mixin register-vars($theme) {
+	@include register-vars-theme($theme);
+	@include register-vars-breakpoint();
+	@include register-vars-font();
 }
 
+
 // Reference a specific themed variable (and check to ensure it exists)
-@function theme-var($key) {
-	// ensure that the variable is defined in all themes
-	@each $theme, $map in $themes {
-		@if not map-has-key($map, $key) {
-			@error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
-		}
+@function get-var($key) {
+	@if validate-var-theme($key) {
+		@return var($key);
 	}
 
-	@return var($key);
+	@if validate-var-breakpoint($key) {
+		@return var($key);
+	}
+
+	@if validate-var-font($key) {
+		@return var($key);
+	}
+
+	@error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
 }

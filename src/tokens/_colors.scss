@@ -171,3 +171,22 @@ $themes: (
                 --focus-outline_error: $error80,
         ),
 );
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-theme($t) {
+        @each $key, $value in map-get($themes, $t) {
+                #{$key}: #{$value};
+        }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-theme($key) {
+        // ensure that the variable is defined in all themes
+        @each $theme, $map in $themes {
+                @if not map-has-key($map, $key) {
+                        @return null;
+                }
+        }
+
+        @return var($key);
+}
