@@ -86,6 +86,8 @@
 	margin: 0;
 	display: flex;
 	align-content: center;
+	position: relative;
+	border-radius: var(--corner-radius-circular);
 }
 
 .helpfulLinkGeneric::before {

@@ -14,37 +14,72 @@ interface CollectionTableOfContentsProps {
 }
 
 const { collection, posts } = Astro.props as CollectionTableOfContentsProps;
+
+const maxChapterToShow = 10;
 ---
 
-<div class="stitchedAreaContainer">
-	<div class="topBorderArea"></div>
-	<div class="postsContainer">
-		<div class="listViewContent postsInnerContainer">
-			<h2
-				id="chapter-listing-heading"
-				class={`chapterListingHeader chapter-listing-heading`}
-			>
-				Chapter Listing:
-			</h2>
-			<ul aria-describedby="chapter-listing-heading" class="collectionPostList">
-				{
-					posts &&
-						posts.map((post) => {
-							return (
-								<li class="postContainer">
-									<div class="orderContainer">{post.order}</div>
-									<div>
-										<a href={"/posts/" + post.slug} class="postLink">
-											<h3 class="postTitle">{post.title}</h3>
-											View Chapter
-										</a>
-									</div>
-								</li>
-							);
-						})
-				}
-			</ul>
-		</div>
-	</div>
-	<div class="bottomBorderArea"></div>
-</div>
+<section class={styles.chaptersContainer}>
+	<h2
+		id="chapter-listing-heading"
+		class={`text-style-headline-1 ${styles.chaptersTitle}`}
+	>
+		Chapters
+	</h2>
+	<ul aria-describedby="chapter-listing-heading" class="collectionPostList">
+		{
+			posts &&
+				posts.map((post, i) => {
+					const shouldHideInitially = i >= maxChapterToShow;
+					return (
+						<li
+							class={styles.postContainer}
+							data-should-hide={shouldHideInitially}
+						>
+							<a href={"/posts/" + post.slug} class={styles.listItem}>
+								<span
+									class={`text-style-body-large-bold ${styles.numberIndicator}`}
+								>
+									{post.order}
+								</span>
+								<span class={`text-style-body-large-bold ${styles.numberDot}`}>
+									.
+								</span>
+								<span class={`text-style-body-large-bold`}>{post.title}</span>
+								<span
+									class={`text-style-button ffg-button-base ffg-small-button ffg-outlined-button ${styles.noOutlineButton}`}
+								>
+									View Chapter
+								</span>
+							</a>
+						</li>
+					);
+				})
+		}
+	</ul>
+	<script is:inline>
+		let shown = false;
+
+		function toggleChapterList() {
+			const els = [...document.querySelectorAll("[data-should-hide]")];
+			if (!shown) {
+				els.forEach((el) => (el.style.display = "block"));
+				document.querySelector("#show-button").style.display = "none";
+				document.querySelector("#hide-button").style.display = "inline-block";
+			} else {
+				els.forEach((el) => (el.style.display = "none"));
+				document.querySelector("#hide-button").style.display = "none";
+				document.querySelector("#show-button").style.display = "inline-block";
+			}
+
+			shown = !shown;
+		}
+	</script>
+	<button
+		id="show-button"
+		style="display: inline-block"
+		onclick="toggleChapterList()">Show all {posts.length} chapters</button
+	>
+	<button id="hide-button" style="display: none" onclick="toggleChapterList()"
+		>Only show 10 chapters</button
+	>
+</section>
