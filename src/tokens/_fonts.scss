@@ -5,10 +5,10 @@ $fontMono: "Roboto Mono", monospace;
 
 
 $fonts: (
-        fontUniwidth: $fontUniwidth,
-        fontDisplay: $fontDisplay,
-        fontBody: $fontBody,
-        fontMono: $fontMono,
+        --fontUniwidth: $fontUniwidth,
+        --fontDisplay: $fontDisplay,
+        --fontBody: $fontBody,
+        --fontMono: $fontMono,
 );
 
 // Mixin for all of the CSS variables used to reference the theme values

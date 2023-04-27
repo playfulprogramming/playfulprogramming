@@ -73,120 +73,100 @@ $error80_16: rgba($error80, 0.16);
 $error90: rgba(255, 218, 214, 1);
 $error95: rgba(255, 237, 234, 1);
 
-$themes: (
-        "light": (
-                --primary_default: $primary40,
-                --primary_on-default: $primary95,
-                --primary_variant: $primary80,
-                --primary_on-variant: $primary10,
-                --primary_high-contrast: $primary20,
-                --primary_high-contrast_hovered: $primary30,
-                --primary_high-contrast_pressed: $primary40,
-                --secondary_default: $secondary40,
-                --secondary_on-default: $secondary95,
-                --secondary_variant: $secondary80,
-                --secondary_on-variant: $secondary10,
-                --secondary_high-contrast: $secondary20,
-                --secondary_high-contrast_hovered: $secondary30,
-                --secondary_high-contrast_pressed: $secondary40,
-                --error_default: $error40,
-                --error_on-default: $error95,
-                --error_variant: $error80,
-                --error_on-variant: $error10,
-                --error_high-contrast: $error20,
-                --error_high-contrast_hovered: $error30,
-                --error_high-contrast_pressed: $error40,
-                --surface_primary_emphasis-high: $primary80,
-                --surface_primary_emphasis-medium: $primary80_64,
-                --surface_primary_emphasis-low: $primary80_32,
-                --surface_primary_emphasis-none: $primary80_16,
-                --surface_secondary_emphasis-high: $secondary80,
-                --surface_secondary_emphasis-medium: $secondary80_64,
-                --surface_secondary_emphasis-low: $secondary80_32,
-                --surface_secondary_emphasis-none: $secondary80_16,
-                --surface_error_emphasis-high: $error80,
-                --surface_error_emphasis-medium: $error80_64,
-                --surface_error_emphasis-low: $error80_32,
-                --surface_error_emphasis-none: $error80_16,
-                --background_primary: $primary95,
-                --background_secondary: $secondary95,
-                --background_error: $error95,
-                --background_focus: $white,
-                --background_disabled: $neutral10_12,
-                --foreground_emphasis-high: $neutral10,
-                --foreground_emphasis-medium: $neutral10_64,
-                --foreground_emphasis-low: $neutral10_32,
-                --foreground_emphasis-none: $neutral10_12,
-                --foreground_disabled: $neutral10_48,
-                --focus-outline_primary: $primary40,
-                --focus-outline_secondary: $secondary40,
-                --focus-outline_error: $error40,
-        ),
-        "dark": (
-                --primary_default: $primary80,
-                --primary_on-default: $primary10,
-                --primary_variant: $primary40,
-                --primary_on-variant: $primary95,
-                --primary_high-contrast: $primary80,
-                --primary_high-contrast_hovered: $primary70,
-                --primary_high-contrast_pressed: $primary60,
-                --secondary_default: $secondary80,
-                --secondary_on-default: $secondary10,
-                --secondary_variant: $secondary40,
-                --secondary_on-variant: $secondary95,
-                --secondary_high-contrast: $secondary80,
-                --secondary_high-contrast_hovered: $secondary70,
-                --secondary_high-contrast_pressed: $secondary60,
-                --error_default: $error80,
-                --error_on-default: $error10,
-                --error_variant: $error40,
-                --error_on-variant: $error95,
-                --error_high-contrast: $error80,
-                --error_high-contrast_hovered: $error70,
-                --error_high-contrast_pressed: $error60,
-                --surface_primary_emphasis-high: $primary40,
-                --surface_primary_emphasis-medium: $primary40_64,
-                --surface_primary_emphasis-low: $primary40_32,
-                --surface_primary_emphasis-none: $primary40_16,
-                --surface_secondary_emphasis-high: $secondary40,
-                --surface_secondary_emphasis-medium: $secondary40_64,
-                --surface_secondary_emphasis-low: $secondary40_32,
-                --surface_secondary_emphasis-none: $secondary40_16,
-                --surface_error_emphasis-high: $error40,
-                --surface_error_emphasis-medium: $error40_64,
-                --surface_error_emphasis-low: $error40_32,
-                --surface_error_emphasis-none: $error40_16,
-                --background_primary: $primary10,
-                --background_secondary: $secondary10,
-                --background_error: $error10,
-                --background_focus: $neutral30,
-                --background_disabled: $neutral95_12,
-                --foreground_emphasis-high: $neutral95,
-                --foreground_emphasis-medium: $neutral95_64,
-                --foreground_emphasis-low: $neutral95_32,
-                --foreground_emphasis-none: $neutral95_12,
-                --foreground_disabled: $neutral95_48,
-                --focus-outline_primary: $primary80,
-                --focus-outline_secondary: $secondary80,
-                --focus-outline_error: $error80,
-        ),
+
+$colors: (
+    --white: $white,
+    --black: $black,
+    --transparent: $transparent,
+    --neutral10: $neutral10,
+    --neutral10_64: $neutral10_64,
+    --neutral10_48: $neutral10_48,
+    --neutral10_32: $neutral10_32,
+    --neutral10_12: $neutral10_12,
+    --neutral20: $neutral20,
+    --neutral30: $neutral30,
+    --neutral40: $neutral40,
+    --neutral50: $neutral50,
+    --neutral60: $neutral60,
+    --neutral70: $neutral70,
+    --neutral80: $neutral80,
+    --neutral90: $neutral90,
+    --neutral95: $neutral95,
+    --neutral95_64: $neutral95_64,
+    --neutral95_48: $neutral95_48,
+    --neutral95_32: $neutral95_32,
+    --neutral95_12: $neutral95_12,
+    --primary10: $primary10,
+    --primary20: $primary20,
+    --primary30: $primary30,
+    --primary40: $primary40,
+    --primary40_64: $primary40_64,
+    --primary40_32: $primary40_32,
+    --primary40_16: $primary40_16,
+    --primary50: $primary50,
+    --primary60: $primary60,
+    --primary70: $primary70,
+    --primary80: $primary80,
+    --primary80_64: $primary80_64,
+    --primary80_32: $primary80_32,
+    --primary80_16: $primary80_16,
+    --primary90: $primary90,
+    --primary95: $primary95,
+    --secondary10: $secondary10,
+    --secondary20: $secondary20,
+    --secondary30: $secondary30,
+    --secondary40: $secondary40,
+    --secondary40_64: $secondary40_64,
+    --secondary40_32: $secondary40_32,
+    --secondary40_16: $secondary40_16,
+    --secondary50: $secondary50,
+    --secondary60: $secondary60,
+    --secondary70: $secondary70,
+    --secondary80: $secondary80,
+    --secondary80_64: $secondary80_64,
+    --secondary80_32: $secondary80_32,
+    --secondary80_16: $secondary80_16,
+    --secondary90: $secondary90,
+    --secondary95: $secondary95,
+    --error10: $error10,
+    --error20: $error20,
+    --error30: $error30,
+    --error40: $error40,
+    --error40_64: $error40_64,
+    --error40_32: $error40_32,
+    --error40_16: $error40_16,
+    --error50: $error50,
+    --error60: $error60,
+    --error70: $error70,
+    --error80: $error80,
+    --error80_64: $error80_64,
+    --error80_32: $error80_32,
+    --error80_16: $error80_16,
+    --error90: $error90,
+    --error95: $error95,
 );
 
 // Mixin for all of the CSS variables used to reference the theme values
-@mixin register-vars-theme($t) {
-        @each $key, $value in map-get($themes, $t) {
-                #{$key}: #{$value};
-        }
+@mixin register-vars-color() {
+  @each $key, $value in $colors {
+    #{$key}: #{$value};
+  }
 }
 
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-theme($key) {
-        // ensure that the variable is defined in all themes
-        @each $theme, $map in $themes {
-                @if not map-has-key($map, $key) {
-                        @return null;
-                }
-        }
+@function validate-var-color($key) {
+  @if not map-has-key($colors, $key) {
+    @return null;
+  }
 
-        @return var($key);
+  @return var($key);
+}
+
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function get-var-color($key) {
+  @if validate-var-color($key) {
+    @return var($key);
+  }
+
+  @error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
 }

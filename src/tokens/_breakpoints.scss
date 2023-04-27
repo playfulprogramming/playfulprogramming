@@ -5,11 +5,11 @@ $tabletSmall: 640px;
 $mobile: 400px;
 
 $breakpoints: (
-  desktop: $desktop,
-  desktopSmall: $desktopSmall,
-  tablet: $tablet,
-  tabletSmall: $tabletSmall,
-  mobile: $mobile,
+  --desktop: $desktop,
+  --desktopSmall: $desktopSmall,
+  --tablet: $tablet,
+  --tabletSmall: $tabletSmall,
+  --mobile: $mobile,
 );
 
 // Mixin for all of the CSS variables used to reference the theme values

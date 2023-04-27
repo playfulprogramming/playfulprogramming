@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./themes";
 @import "./breakpoints";
 @import "./fonts";
 
@@ -35,14 +36,18 @@
 
 // Mixin for all of the CSS variables used to reference the theme values
 @mixin register-vars($theme) {
+	@include register-vars-color();
 	@include register-vars-theme($theme);
 	@include register-vars-breakpoint();
 	@include register-vars-font();
 }
 
-
 // Reference a specific themed variable (and check to ensure it exists)
 @function get-var($key) {
+	@if validate-var-color($key) {
+		@return var($key);
+	}
+
 	@if validate-var-theme($key) {
 		@return var($key);
 	}
