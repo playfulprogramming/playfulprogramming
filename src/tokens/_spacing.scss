@@ -1,6 +1,6 @@
 @import "./breakpoints";
 
-$spacingMap: (
+$spacing: (
     --spc-1x: 4px,
     --spc-2x: calc(var(--spc-1x) * 2),
     --spc-3x: calc(var(--spc-1x) * 3),
@@ -31,7 +31,7 @@ $spacing_desktop: (
 
 // Mixin for all of the CSS variables used to reference the theme values
 @mixin register-vars-spacing() {
-  @each $key, $value in $spacingMap {
+  @each $key, $value in $spacing {
     #{$key}: #{$value};
   }
 
@@ -51,7 +51,7 @@ $spacing_desktop: (
 // Reference a specific themed variable (and check to ensure it exists)
 @function validate-var-spacing($key) {
   // ensure that the variable is defined in all themes
-  @if not map-has-key($spacingMap, $key) {
+  @if not map-has-key($spacing, $key) {
     @return null;
   }
 

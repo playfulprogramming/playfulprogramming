@@ -71,7 +71,7 @@
 
 .role {
 	height: 40px;
-	padding: get-var(--spc-2x) $spacing;
+	padding: get-var(--spc-2x) get-var(--spc-1x);
 
 	display: flex;
 	align-items: center;
