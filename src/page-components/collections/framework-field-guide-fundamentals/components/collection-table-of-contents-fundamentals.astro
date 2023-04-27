@@ -80,12 +80,20 @@ const maxChapterToShow = 10;
 			shown = !shown;
 		}
 	</script>
-	<button
-		id="show-button"
-		style="display: inline-block"
-		onclick="toggleChapterList()">Show all {posts.length} chapters</button
-	>
-	<button id="hide-button" style="display: none" onclick="toggleChapterList()"
-		>Only show 10 chapters</button
-	>
+	<div class={styles.buttonContainer}>
+		<button
+			id="show-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: inline-block"
+			onclick="toggleChapterList();"
+			>Show all {posts.length} chapters
+		</button>
+		<button
+			id="hide-button"
+			class="text-style-button ffg-button-base ffg-small-button ffg-outlined-button"
+			style="display: none"
+			onclick="toggleChapterList();"
+			>Only show 10 chapters
+		</button>
+	</div>
 </section>

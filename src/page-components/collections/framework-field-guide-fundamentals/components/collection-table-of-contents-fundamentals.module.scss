@@ -74,3 +74,9 @@
 	margin-left: auto;
 	border: none !important;
 }
+
+.buttonContainer {
+	text-align: left;
+	padding: var(--chapter-item-padding-ver) 0;
+	padding-left: calc(var(--divider-inset-start) - var(--btn-hor-padding_small))
+}
