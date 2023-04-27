@@ -19,17 +19,17 @@
 }
 
 .tag:has(picture) {
-	gap: $spacing * 2;
+	gap: get-var(--spc-2x);
 }
 
 .tag > svg {
-	margin-right: $spacing;
+	margin-right: get-var(--spc-1x);
 }
 
 .tagBordered {
-	padding: $spacing ($spacing * 2);
+	padding: get-var(--spc-1x) get-var(--spc-2x);
 
-	border: calc($spacing / 2) solid get-var(--primary_variant);
+	border: calc(get-var(--spc-1x) / 2) solid get-var(--primary_variant);
 	border-radius: 8px;
 
 	@include darkTheme() {
@@ -46,7 +46,7 @@
 	&:focus-visible {
 		background-color: get-var(--background_focus);
 		border-color: transparent;
-		box-shadow: 0 0 0 $spacing get-var(--focus-outline_primary);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--focus-outline_primary);
 		color: get-var(--foreground_emphasis-high);
 	}
 

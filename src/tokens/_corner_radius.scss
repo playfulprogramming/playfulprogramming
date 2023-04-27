@@ -1,0 +1,24 @@
+$cornerRadius: (
+        --color-radius_s: 8px,
+        --color-radius_m: 16px,
+        --color-radius_l: 24px,
+        --color-radius_xl: 32px,
+        --color-radius_circular: 9999px,
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-corner-radius() {
+  @each $key, $value in $cornerRadius {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-corner-radius($key) {
+  // ensure that the variable is defined in all themes
+  @if not map-has-key($cornerRadius, $key) {
+    @return null;
+  }
+
+  @return var($key);
+}

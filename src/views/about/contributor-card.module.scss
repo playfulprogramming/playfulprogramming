@@ -4,7 +4,7 @@
 	height: 80px;
 	display: flex;
 	align-items: center;
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 
 	picture {
 		display: flex;

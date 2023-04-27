@@ -1,7 +1,7 @@
 @import "src/tokens/index";
 
 .button {
-	padding: ($spacing * 2) ($spacing * 4);
+	padding: get-var(--spc-2x) get-var(--spc-4x);
 
 	background-color: get-var(--surface_primary_emphasis-low);
 	color: get-var(--foreground_emphasis-high);
@@ -13,7 +13,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: $spacing * 2;
+	gap: get-var(--spc-2x);
 
 	white-space: nowrap;
 	text-decoration: none;
@@ -26,7 +26,7 @@
 	&:global(.selected) {
 		background-color: get-var(--primary_default);
 		color: get-var(--primary_on-default);
-		box-shadow: 0 0 0 $spacing get-var(--primary_variant);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--primary_variant);
 	}
 
 	&:hover {
@@ -37,7 +37,7 @@
 
 	&:focus-visible {
 		background-color: get-var(--background_focus);
-		box-shadow: 0 0 0 $spacing get-var(--focus-outline_primary);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--focus-outline_primary);
 		color: get-var(--foreground_emphasis-high);
 	}
 
@@ -59,7 +59,7 @@
 	height: $height;
 	border-radius: calc($height / 2);
 
-	padding: ($spacing * 4) ($spacing * 6);
+	padding: get-var(--spc-4x) get-var(--spc-6x);
 }
 
 .primary {

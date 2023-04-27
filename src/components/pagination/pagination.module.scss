@@ -3,8 +3,8 @@
 .pagination {
 	display: flex;
 	justify-content: center;
-	gap: $spacing * 2;
-	margin: ($spacing * 6) 0;
+	gap: get-var(--spc-2x);
+	margin: get-var(--spc-6x) 0;
 	padding: 0;
 	list-style: none;
 

@@ -11,7 +11,7 @@
 	@include transition(box-shadow);
 
 	&:focus-within {
-		box-shadow: 0 0 0 $spacing get-var(--surface_primary_emphasis-high);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--surface_primary_emphasis-high);
 	}
 
 	input {

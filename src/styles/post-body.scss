@@ -67,7 +67,7 @@
 		max-height: 50vh;
 	}
 
-	$tableCornerRadius: map-get($cornerRadius, s);
+	$tableCornerRadius: get-var(--color-radius_s);
 
 	thead tr:first-child {
 		th, td {

@@ -5,8 +5,8 @@
 }
 
 .buttons {
-	gap: ($spacing * 4) ($spacing * 6);
-	padding: ($spacing * 4) 0;
+	gap: get-var(--spc-4x) get-var(--spc-6x);
+	padding: get-var(--spc-4x) 0;
 }
 
 .bannerLogo {
@@ -23,7 +23,7 @@ section {
 			margin: 0;
 		}
 
-		margin-bottom: $spacing * 4;
+		margin-bottom: get-var(--spc-4x);
 	}
 }
 
@@ -31,5 +31,5 @@ section {
 	width: 100%;
 	max-width: 768px;
 	margin: 0 auto;
-	margin-bottom: $spacing * 4;
+	margin-bottom: get-var(--spc-4x);
 }

@@ -5,7 +5,7 @@
 
 	.name {
 		margin: 0;
-		margin-bottom: $spacing;
+		margin-bottom: get-var(--spc-1x);
 	}
 
 	.bio {
@@ -16,22 +16,22 @@
 
 	& .picture {
 		float: left;
-		margin-right: $spacing * 4;
+		margin-right: get-var(--spc-4x);
 
 		min-width: var(--pictureSize);
 		height: var(--pictureSize);
 	}
 
 	.headerContent {
-		margin-bottom: $spacing * 4;
+		margin-bottom: get-var(--spc-4x);
 	}
 
 	.headerContent {
-		margin-left: calc(var(--pictureSize) + ($spacing * 4));
+		margin-left: calc(var(--pictureSize) + (get-var(--spc-4x)));
 	}
 
 	.socials {
-		gap: $spacing * 2;
+		gap: get-var(--spc-2x);
 	}
 
 	@include from($tabletSmall) {
@@ -40,7 +40,7 @@
 		@include until($desktopSmall) {
 			.socials {
 				display: block;
-				margin-left: calc(var(--pictureSize) + ($spacing * 4));
+				margin-left: calc(var(--pictureSize) + (get-var(--spc-4x)));
 			}
 		}
 	}
@@ -50,7 +50,7 @@
 		--pictureSize: 128px;
 
 		.headerContent {
-			margin-top: $spacing * 2;
+			margin-top: get-var(--spc-2x);
 			margin-left: 0;
 		}
 
@@ -65,13 +65,13 @@
 }
 
 .roles {
-	gap: $spacing * 2;
-	margin-top: $spacing * 4;
+	gap: get-var(--spc-2x);
+	margin-top: get-var(--spc-4x);
 }
 
 .role {
 	height: 40px;
-	padding: ($spacing * 2) $spacing;
+	padding: get-var(--spc-2x) $spacing;
 
 	display: flex;
 	align-items: center;
@@ -79,6 +79,6 @@
 	color: get-var(--foreground_emphasis-medium);
 
 	& picture {
-		margin-right: $spacing * 2;
+		margin-right: get-var(--spc-2x);
 	}
 }

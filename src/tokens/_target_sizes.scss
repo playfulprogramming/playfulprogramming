@@ -1,0 +1,23 @@
+$targetSizes: (
+  --min-target-size_s: 32px,
+  --min-target-size_m: 40px,
+  --min-target-size_l: 48px,
+  --min-target-size_xl: 56px,
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-target-size() {
+  @each $key, $value in $targetSizes {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-target-size($key) {
+  // ensure that the variable is defined in all themes
+  @if not map-has-key($targetSizes, $key) {
+    @return null;
+  }
+
+  @return var($key);
+}

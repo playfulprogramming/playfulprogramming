@@ -1,6 +1,6 @@
 @import "src/tokens/index";
 
 .tagSmall {
-	gap: $spacing !important;
+	gap: get-var(--spc-1x) !important;
 	color: get-var(--primary_default) !important;
 }

@@ -20,7 +20,7 @@
 	&> picture {
 		img {
 			border-radius: 16px;
-			box-shadow: map-get($shadow, s);
+			box-shadow: get-var(--shadow_popup_light);
 		}
 	}
 

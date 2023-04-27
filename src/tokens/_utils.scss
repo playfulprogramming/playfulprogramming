@@ -2,21 +2,16 @@
 @import "./themes";
 @import "./breakpoints";
 @import "./fonts";
+@import "./corner_radius";
+@import "./max_widths";
+@import "./target_sizes";
+@import "./spacing";
+@import "./border_widths";
+@import "./shadows";
+@import "./vars";
 
 @function pxToRem($pxNum) {
 	@return #{calc($pxNum / 16)}rem;
-}
-
-@mixin until($breakpoint) {
-	@media screen and (max-width: $breakpoint) {
-		@content;
-	}
-}
-
-@mixin from($breakpoint) {
-	@media screen and (min-width: $breakpoint) {
-		@content;
-	}
 }
 
 @mixin transition($properties) {
@@ -33,13 +28,18 @@
 	}
 }
 
-
 // Mixin for all of the CSS variables used to reference the theme values
 @mixin register-vars($theme) {
 	@include register-vars-color();
 	@include register-vars-theme($theme);
 	@include register-vars-breakpoint();
 	@include register-vars-font();
+	@include register-vars-corner-radius();
+	@include register-vars-max-width();
+	@include register-vars-target-size();
+	@include register-vars-spacing();
+	@include register-vars-border-width();
+	@include register-vars-shadow();
 }
 
 // Reference a specific themed variable (and check to ensure it exists)
@@ -60,5 +60,29 @@
 		@return var($key);
 	}
 
-	@error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
+	@if validate-var-corner-radius($key) {
+		@return var($key);
+	}
+
+	@if validate-var-max-width($key) {
+		@return var($key);
+	}
+
+	@if validate-var-target-size($key) {
+		@return var($key);
+	}
+
+	@if validate-var-spacing($key) {
+		@return var($key);
+	}
+
+	@if validate-var-border-width($key) {
+		@return var($key);
+	}
+
+	@if validate-var-shadow($key) {
+		@return var($key);
+	}
+
+	@error "App variable #{$key} is not defined.";
 }
