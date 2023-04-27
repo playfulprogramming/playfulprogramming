@@ -18,6 +18,12 @@
 	}
 }
 
+.chapterList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
 .chaptersContainer {
 	padding: var(--section-ver-padding) var(--section-hor-padding) !important;
 }
@@ -78,5 +84,5 @@
 .buttonContainer {
 	text-align: left;
 	padding: var(--chapter-item-padding-ver) 0;
-	padding-left: calc(var(--divider-inset-start) - var(--btn-hor-padding_small))
+	padding-left: calc(var(--divider-inset-start) - var(--btn-hor-padding_small));
 }

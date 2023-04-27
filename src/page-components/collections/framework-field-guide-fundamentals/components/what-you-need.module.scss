@@ -69,6 +69,12 @@
 	fill: var(--on-dark-emphasis-high) !important;
 }
 
+.helpfulLinksList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
 .helpfulLinkContainer {
 	text-align: left;
 }
@@ -88,6 +94,7 @@
 	align-content: center;
 	position: relative;
 	border-radius: var(--corner-radius-circular);
+	align-items: center;
 }
 
 .helpfulLinkGeneric::before {
@@ -98,7 +105,6 @@
 	padding: 2px;
 	box-sizing: border-box;
 	background-image: url("../../framework-field-guide/icons/link.svg");
-	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: var(--spc-2x);

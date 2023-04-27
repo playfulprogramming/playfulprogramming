@@ -1,0 +1,106 @@
+---
+import styles from "./what-youll-learn.module.scss";
+---
+
+<section class={styles.sectionContainer}>
+	<h2 class={`book-bio text-style-headline-1 ${styles.sectionTitle}`}>
+		What you'll learn
+	</h2>
+
+	<ul class={`${styles.stepCardContainer}`}>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>1</span>
+				Write your first components
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Get your introduction to components - learn what they are and why
+				they're useful.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Component Basics
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Dynamic HTML
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Side Effects
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Derived values
+					</p>
+				</li>
+			</ul>
+		</li>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>2</span>
+				Create your application's flow
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Polish your application's interactions and improve the user experience.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Passing Children
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Element Reference
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Error Handling
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Dependency Injection
+					</p>
+				</li>
+			</ul>
+		</li>
+		<li class={`${styles.stepCard}`}>
+			<h2 class={`text-style-headline-5 ${styles.cardTitle}`}>
+				<span class={`text-style-headline-2 ${styles.cardNumber}`}>3</span>
+				Share logic between components
+			</h2>
+			<p class={`text-style-body-large ${styles.description}`}>
+				Sharing code between components unlocks new potential to scale your app.
+			</p>
+			<ul class={`${styles.stepCardItems}`}>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Shared Logic
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Component Internals
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Directives
+					</p>
+				</li>
+				<li>
+					<p class={`${styles.stepCardItemBullet} text-style-button`}>
+						Accessing Children
+					</p>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</section>

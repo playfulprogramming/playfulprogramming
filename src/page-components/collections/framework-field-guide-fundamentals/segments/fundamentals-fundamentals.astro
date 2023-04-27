@@ -1,8 +1,8 @@
 ---
-import styles from "./fundamentals-fundamentals.module.scss";
 import "../../framework-field-guide/components/shared-section-styling.scss";
 import FundamentalsBookCover from "../../framework-field-guide/segments/fundamentals-book-cover.astro";
 import WhatYouNeed from "../components/what-you-need.astro";
+import WhatYoullLearn from "../components/what-youll-learn.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
 import { PostInfo } from "types/PostInfo";
 import { unicorns } from "utils/data";
@@ -39,98 +39,7 @@ const chapterList = posts
 		<div class={`book-section`} style="background: var(--section-background);">
 			<WhatYouNeed />
 			<CollectionTableOfContents collection={frontmatter} posts={chapterList} />
-			<section>
-				<h2 class={`book-bio text-style-headline-2 ${styles.sectionTitle}`}>
-					What you'll learn
-				</h2>
-
-				<div class={`${styles.stepCardContainer}`}>
-					<div class={`${styles.stepCard}`}>
-						<div class={styles.descriptionContainer}>
-							<h2 class="book-bio text-style-headline-5">
-								Write your first components
-							</h2>
-							<p class={`text-style-body-medium ${styles.description}`}>
-								Get your introduction to components - learn what they are and
-								why they're useful.
-							</p>
-						</div>
-						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>1</h2>
-						<ul class={`${styles.stepCardItems}`}>
-							<li>
-								<p class={styles.stepCardItemBullet}>Dynamic HTML</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Lifecycle methods</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Derived values</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Forms</p>
-							</li>
-						</ul>
-					</div>
-					<div class={`${styles.stepCard}`}>
-						<div class={styles.descriptionContainer}>
-							<h2 class="book-bio text-style-headline-5">
-								Control component hierarchy
-							</h2>
-							<p class={`text-style-body-medium ${styles.description}`}>
-								Just like HTML elements, components form relationships with
-								one-another
-							</p>
-						</div>
-						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>2</h2>
-						<ul class={`${styles.stepCardItems}`}>
-							<li>
-								<p class={styles.stepCardItemBullet}>
-									Projected Content Reference
-								</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>
-									Access underlying DOM nodes
-								</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Dependency injection</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>
-									Access Component's intenrals
-								</p>
-							</li>
-						</ul>
-					</div>
-					<div class={`${styles.stepCard}`}>
-						<div class={styles.descriptionContainer}>
-							<h2 class="book-bio text-style-headline-5">
-								Share component logic
-							</h2>
-							<p class={`text-style-body-medium ${styles.description}`}>
-								A huge boon to components is that you can easily share code in
-								your apps.
-							</p>
-						</div>
-						<h2 class={`text-style-headline-2 ${styles.stepCardNumber}`}>3</h2>
-						<ul class={`${styles.stepCardItems}`}>
-							<li>
-								<p class={styles.stepCardItemBullet}>React Hooks</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Angular services</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Vue Custom Compositions</p>
-							</li>
-							<li>
-								<p class={styles.stepCardItemBullet}>Directives</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
+			<WhatYoullLearn />
 		</div>
 	</div>
 </section>
