@@ -9,7 +9,7 @@
 html.dark,
 body.dark,
 .darkTheme {
-	@include register-vars(dark);
+	@include register-vars-theme(dark);
 }
 
 :root {
@@ -17,7 +17,8 @@ body.dark,
 	scrollbar-color: get-var(--focus-outline_primary) get-var(--background_primary);
 	transition: scrollbar-color $animStyle $animSpeed;
 
-	@include register-vars(light);
+	@include register-vars();
+	@include register-vars-theme(light);
 
 	box-sizing: border-box;
 }

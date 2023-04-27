@@ -29,9 +29,8 @@
 }
 
 // Mixin for all of the CSS variables used to reference the theme values
-@mixin register-vars($theme) {
+@mixin register-vars() {
 	@include register-vars-color();
-	@include register-vars-theme($theme);
 	@include register-vars-breakpoint();
 	@include register-vars-font();
 	@include register-vars-corner-radius();
