@@ -4,8 +4,7 @@
 @import "../../framework-field-guide/tokens/breakpoints.scss";
 
 :root {
-
-  --step-num-size: calc((56px / 16px) * 1rem);
+  --step-num-size: calc((56px / 16) * 1rem);
   --step-num-offset: calc(var(--step-num-size) / 2);
 
   --spc-step-card: var(--spc-2x);
