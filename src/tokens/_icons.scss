@@ -1,0 +1,33 @@
+$iconSizes: (
+  /*
+  ** Default size for icons.
+  */
+
+  --icon-size_regular: 24px,
+
+  /*
+  ** Size for dense layouts with small text sizes.
+  ** The fixed dimension and the padding serve to
+  ** automatically resize the icon to the desired 18pt.
+  */
+
+  --icon-size_dense: 20px,
+  --icon-size-dense-padding: 1px,
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-icon-size() {
+  @each $key, $value in $iconSizes {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-icon-size($key) {
+  // ensure that the variable is defined in all themes
+  @if not map-has-key($iconSizes, $key) {
+    @return null;
+  }
+
+  @return var($key);
+}

@@ -1,10 +1,10 @@
 ---
 import { Icon } from "astro-icon";
-import { IconButton } from "components/base";
+import { IconOnlyButton } from "components/base";
 import { translate } from "utils/translations";
 ---
 
-<IconButton
+<IconOnlyButton
 	tag="button"
 	id="theme-toggle-button"
 	aria-pressed="false"
@@ -18,7 +18,7 @@ import { translate } from "utils/translations";
 		id="light-icon"
 		style="display: none;"
 	/>
-</IconButton>
+</IconOnlyButton>
 
 <script>
 	import { themeToggle } from "./theme-toggle";

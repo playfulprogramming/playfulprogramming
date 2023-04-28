@@ -8,6 +8,7 @@
 @import "./spacing";
 @import "./border_widths";
 @import "./shadows";
+@import "./icons";
 @import "./vars";
 
 @function pxToRem($pxNum) {
@@ -39,6 +40,7 @@
 	@include register-vars-spacing();
 	@include register-vars-border-width();
 	@include register-vars-shadow();
+	@include register-vars-icon-size();
 }
 
 // Reference a specific themed variable (and check to ensure it exists)
@@ -80,6 +82,10 @@
 	}
 
 	@if validate-var-shadow($key) {
+		@return var($key);
+	}
+
+	@if validate-var-icon-size($key) {
 		@return var($key);
 	}
 

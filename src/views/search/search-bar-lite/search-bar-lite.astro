@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon";
 import style from "./search-bar-lite.module.scss";
-import { IconButton } from "components/base";
+import { IconOnlyButton } from "components/base";
 import { translate } from "utils/translations";
 ---
 
@@ -15,7 +15,7 @@ import { translate } from "utils/translations";
 		placeholder="Query"
 	/>
 
-	<IconButton tag="button" aria-label={translate(Astro, "title.search")}>
+	<IconOnlyButton tag="button" aria-label={translate(Astro, "title.search")}>
 		<Icon height="24" width="24" name="forward" />
-	</IconButton>
+	</IconOnlyButton>
 </form>
