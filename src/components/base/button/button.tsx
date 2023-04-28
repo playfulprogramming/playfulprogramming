@@ -13,12 +13,12 @@ type ButtonProps = PropsWithChildren<
 	} & JSX.HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>
 >;
 
-function ButtonWrapper({ tag = "a", class: className, children, variant = "primary-emphasized", leftIcon, rightIcon, ...props }: ButtonProps) {
+function ButtonWrapper({ tag = "a", className, children, variant = "primary-emphasized", leftIcon, rightIcon, ...props }: ButtonProps) {
 	const Wrapper = (props: any) => createElement(tag, props, props.children);
 
 	return (
-		<Wrapper {...props} aria-label={props["aria-label"]} class={[
-			style.button, className, style[variant],
+		<Wrapper {...props} aria-label={props["aria-label"]} className={[
+			style.button, className, style[variant]
 		].filter(c => !!c).join(" ")}>
 			{leftIcon &&
 				<div className={`${ style.buttonIcon }`}>
@@ -35,7 +35,7 @@ function ButtonWrapper({ tag = "a", class: className, children, variant = "prima
 	);
 }
 
-export function Button({ class: className, ...props }: ButtonProps) {
+export function Button({ class: className = "", ...props }: ButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
@@ -44,7 +44,7 @@ export function Button({ class: className, ...props }: ButtonProps) {
 	);
 }
 
-export function LargeButton({ class: className, ...props }: ButtonProps) {
+export function LargeButton({ class: className = "", ...props }: ButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
@@ -55,7 +55,7 @@ export function LargeButton({ class: className, ...props }: ButtonProps) {
 
 type IconOnlyButtonProps = Omit<ButtonProps, "leftIcon" | "rightIcon">
 
-export function IconOnlyButton({ class: className, children, ...props }: IconOnlyButtonProps) {
+export function IconOnlyButton({ class: className = "", children, ...props }: IconOnlyButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
@@ -66,7 +66,7 @@ export function IconOnlyButton({ class: className, children, ...props }: IconOnl
 	);
 }
 
-export function LargeIconOnlyButton({ class: className, children, ...props }: IconOnlyButtonProps) {
+export function LargeIconOnlyButton({ class: className = "", children, ...props }: IconOnlyButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}

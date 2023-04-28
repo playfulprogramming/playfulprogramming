@@ -41,12 +41,17 @@ const tagsToDisplay = [...data.tags]
 			class={`grid grid-tablet-2 grid-desktopSmall-1 grid-desktop-2 ${style.buttons}`}
 		>
 			<LargeButton variant="primary" href={data.about.links.Discord.url}>
-				<Icon height="24" width="24" name={data.about.links.Discord.icon} />
+				<Icon
+					slot="leftIcon"
+					height="24"
+					width="24"
+					name={data.about.links.Discord.icon}
+				/>
 				{translate(Astro, "action.join_discord")}
 			</LargeButton>
 			<LargeButton href="/about">
 				{translate(Astro, "action.learn_more")}
-				<Icon height="24" width="24" name="forward" />
+				<Icon slot="rightIcon" height="24" width="24" name="forward" />
 			</LargeButton>
 		</div>
 	</div>
