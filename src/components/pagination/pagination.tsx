@@ -18,19 +18,18 @@ interface PaginationProps {
 function PaginationButton(props: { pageNum: number, selected: boolean, href: string }) {
 	return (
 		<li
-			class={`${styles.paginationItem} ${
-				props.selected ? styles.active : ""
-			}`}
+			className={`${styles.paginationItem}`}
 		>
-			<Button
+			<a
+				className={`text-style-body-medium-bold ${styles.paginationButton} ${
+					props.selected ? styles.selected : ""
+				}`}
 				href={props.href}
 				aria-label={`Go to page ${props.pageNum}`}
 				aria-current={props.selected || undefined}
-				state={props.selected ? "selected" : undefined}
-				class="text-style-body-medium-bold"
 			>
 				{props.pageNum + ""}
-			</Button>
+			</a>
 		</li>
 	)
 }
@@ -38,11 +37,12 @@ function PaginationButton(props: { pageNum: number, selected: boolean, href: str
 function PaginationMenu(props: Pick<PaginationProps, "page" | "getPageHref">) {
 	return (
 		<li
-			class={`${styles.paginationItem}`}
+			className={`${styles.paginationItem}`}
 		>
-			<Button>
-				<span dangerouslySetInnerHTML={{ __html: more }} />
-			</Button>
+			<button
+				className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
+				dangerouslySetInnerHTML={{ __html: more }}
+			/>
 		</li>
 	)
 }
@@ -84,16 +84,16 @@ export const Pagination = ({
 		<div role="navigation" aria-label="Pagination Navigation">
 			<ul
 				id={id}
-				class={`${styles.pagination} ${className}`}
+				className={`${styles.pagination} ${className}`}
 			>
-				<li class={`${styles.paginationItem} ${styles.previous}`}>
-					<Button
+				<li className={`${styles.paginationItem}`}>
+					<a
+						className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
 						href={getPageHref(page.currentPage - 1)}
 						aria-label="Previous"
-						disabled={!isPreviousEnabled}
-					>
-						<span dangerouslySetInnerHTML={{ __html: back }} />
-					</Button>
+						aria-disabled={!isPreviousEnabled}
+						dangerouslySetInnerHTML={{ __html: back }}
+					/>
 				</li>
 
 				{pages.map(pageNum => {
@@ -113,14 +113,14 @@ export const Pagination = ({
 						);
 				})}
 
-				<li class={`${styles.paginationItem} ${styles.next}`}>
-					<Button
+				<li className={`${styles.paginationItem}`}>
+					<a
+						className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
 						href={getPageHref(page.currentPage + 1)}
 						aria-label="Next"
-						disabled={!isNextEnabled}
-					>
-						<span dangerouslySetInnerHTML={{ __html: forward }} />
-					</Button>
+						aria-disabled={!isNextEnabled}
+						dangerouslySetInnerHTML={{ __html: forward }}
+					/>
 				</li>
 			</ul>
 		</div>
