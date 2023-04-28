@@ -69,7 +69,7 @@ const collectionPosts = getPostsByCollection(collection.slug, "en");
 
 		<Button href={`/collections/${collection.slug}`}>
 			{translate(Astro, "title.n_chapters", collectionPosts.length.toString())}
-			<Icon height="24" width="24" name="forward" />
+			<Icon slot="rightIcon" height="100%" width="100%" name="forward" />
 		</Button>
 	</div>
 </CardSolid>

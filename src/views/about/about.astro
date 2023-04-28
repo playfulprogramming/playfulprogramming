@@ -39,7 +39,7 @@ const sponsors = getTranslatedPage(
 			{
 				Object.entries(data.about.links).map(([name, link]) => (
 					<Button variant="primary-emphasized" href={link.url}>
-						<Icon width="24" height="24" name={link.icon} />
+						<Icon slot="leftIcon" width="100%" height="100%" name={link.icon} />
 						{name}
 					</Button>
 				))
