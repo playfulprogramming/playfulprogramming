@@ -25,7 +25,7 @@ function ButtonWrapper({ tag = "a", className, children, variant = "primary", le
 					{leftIcon}
 				</div>
 			}
-			{children}
+			<span className={style.innerText}>{children}</span>
 			{rightIcon &&
 				<div className={`${ style.buttonIcon }`}>
 					{rightIcon}
