@@ -13,7 +13,7 @@ type ButtonProps = PropsWithChildren<
 	} & JSX.HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>
 >;
 
-function ButtonWrapper({ tag = "a", className, children, variant = "primary-emphasized", leftIcon, rightIcon, ...props }: ButtonProps) {
+function ButtonWrapper({ tag = "a", className, children, variant = "primary", leftIcon, rightIcon, ...props }: ButtonProps) {
 	const Wrapper = (props: any) => createElement(tag, props, props.children);
 
 	return (

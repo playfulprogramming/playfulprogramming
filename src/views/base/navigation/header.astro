@@ -36,10 +36,13 @@ const isAbout = /\/about\/?/.test(path);
 		</a>
 
 		<div class={`d-flex ${style.nav}`}>
-			<Button href="/" variant={isHome ? null : "borderless"}>
+			<Button href="/" variant={isHome ? "primary-emphasized" : "primary"}>
 				{translate(Astro, "title.home")}
 			</Button>
-			<Button href="/about" variant={isAbout ? null : "borderless"}>
+			<Button
+				href="/about"
+				variant={isAbout ? "primary-emphasized" : "primary"}
+			>
 				{translate(Astro, "title.about_us")}
 			</Button>
 		</div>
@@ -49,13 +52,13 @@ const isAbout = /\/about\/?/.test(path);
 				href="/search"
 				aria-label={translate(Astro, "title.search")}
 			>
-				<Icon height="24" width="24" name="mdi:search" />
+				<Icon height="100%" width="100%" name="mdi:search" />
 			</IconOnlyButton>
 			<IconOnlyButton
 				href={data.about.links.Discord.url}
 				aria-label={translate(Astro, "action.join_discord")}
 			>
-				<Icon height="24" width="24" name={data.about.links.Discord.icon} />
+				<Icon height="100%" width="100%" name={data.about.links.Discord.icon} />
 			</IconOnlyButton>
 			<DarkLightButton />
 		</div>

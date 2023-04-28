@@ -40,18 +40,21 @@ const tagsToDisplay = [...data.tags]
 		<div
 			class={`grid grid-tablet-2 grid-desktopSmall-1 grid-desktop-2 ${style.buttons}`}
 		>
-			<LargeButton variant="primary" href={data.about.links.Discord.url}>
+			<LargeButton
+				variant="primary-emphasized"
+				href={data.about.links.Discord.url}
+			>
 				<Icon
 					slot="leftIcon"
-					height="24"
-					width="24"
+					height="100%"
+					width="100%"
 					name={data.about.links.Discord.icon}
 				/>
 				{translate(Astro, "action.join_discord")}
 			</LargeButton>
-			<LargeButton href="/about">
+			<LargeButton variant="primary" href="/about">
 				{translate(Astro, "action.learn_more")}
-				<Icon slot="rightIcon" height="24" width="24" name="forward" />
+				<Icon slot="rightIcon" height="100%" width="100%" name="forward" />
 			</LargeButton>
 		</div>
 	</div>

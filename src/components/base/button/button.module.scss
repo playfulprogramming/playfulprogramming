@@ -107,6 +107,16 @@
 	gap: var(--btn_large_label_padding-horizontal);
 }
 
+.regular.iconOnly {
+	padding: var(--btn_regular_padding-vertical);
+	min-width: var(--btn_regular_min-height);
+}
+
+.large.iconOnly {
+	padding: var(--btn_large_padding-vertical);
+	min-width: var(--btn_regular_min-height);
+}
+
 .regular .buttonIcon {
 	height: var(--btn_regular_icon_size_default);
 	width: var(--btn_regular_icon_size_default);
