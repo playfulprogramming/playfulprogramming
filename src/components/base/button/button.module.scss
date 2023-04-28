@@ -143,7 +143,6 @@
 
 	&:hover {
 		background-color: var(--btn_primary_background-color_emphasized_hovered);
-		color: var(--btn_primary_foreground-color_emphasized_hovered);
 	}
 
 	&:focus-visible {
@@ -152,7 +151,6 @@
 
 	&:active {
 		background-color: var(--btn_primary_background-color_emphasized_pressed);
-		color: var(--btn_primary_foreground-color_emphasized_pressed);
 	}
 }
 
@@ -162,7 +160,6 @@
 
 	&:hover {
 		background-color: var(--btn_secondary_background-color_emphasized_hovered);
-		color: var(--btn_secondary_foreground-color_emphasized_hovered);
 	}
 
 	&:focus-visible {
@@ -171,7 +168,6 @@
 
 	&:active {
 		background-color: var(--btn_secondary_background-color_emphasized_pressed);
-		color: var(--btn_secondary_foreground-color_emphasized_pressed);
 	}
 }
 
@@ -181,7 +177,6 @@
 
 	&:hover {
 		background-color: var(--btn_primary_background-color_default_hovered);
-		color: var(--btn_primary_foreground-color_default_hovered);
 	}
 
 	&:focus-visible {
@@ -190,7 +185,6 @@
 
 	&:active {
 		background-color: var(--btn_primary_background-color_default_pressed);
-		color: var(--btn_primary_foreground-color_default_pressed);
 	}
 }
 
@@ -200,7 +194,6 @@
 
 	&:hover {
 		background-color: var(--btn_secondary_background-color_default_hovered);
-		color: var(--btn_secondary_foreground-color_default_hovered);
 	}
 
 	&:focus-visible {
@@ -209,6 +202,5 @@
 
 	&:active {
 		background-color: var(--btn_secondary_background-color_default_pressed);
-		color: var(--btn_secondary_foreground-color_default_pressed);
 	}
 }
