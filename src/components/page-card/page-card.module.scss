@@ -29,7 +29,7 @@
     --page-card_image_size: 320px;
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     --page-card_container_padding: #{get-var(--spc-12x)};
     --page-card_image_inset: #{get-var(--spc-16x)};
     --page-card_image_size: 360px;
@@ -49,7 +49,7 @@
     padding: var(--page-card_container_padding) var(--page-card_container_compound-padding);
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto 1fr auto;
     grid-column-gap: var(--page-card_container_padding);
@@ -67,7 +67,7 @@
     margin-top: calc(0px - var(--page-card_image_inset) - var(--page-card_container_padding));
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     grid-row: 1/5;
     grid-column: unset;
     margin-top: unset;
@@ -93,7 +93,7 @@
     margin-bottom: var(--page-card_description_padding-top);
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     margin-bottom: unset;
     margin-top: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
   }
@@ -115,7 +115,7 @@
     gap: var(--page-card_button-gap);
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     grid-column: unset;
     justify-content: space-between;
     margin-bottom: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
@@ -127,7 +127,7 @@
     flex-basis: 50%;
   }
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
     flex-basis: unset;
   }
 }
