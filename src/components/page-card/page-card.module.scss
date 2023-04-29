@@ -176,9 +176,19 @@
   }
 }
 
-.buttonsContainer > * {
+.buttonsContainer.twoButtons > * {
   @include from($tabletSmall) {
     flex-basis: 50%;
+  }
+
+  @include from($desktopSmall) {
+    flex-basis: unset;
+  }
+}
+
+.buttonsContainer:not(.twoButtons) > * {
+  @include from($tabletSmall) {
+    flex-basis: 100%;
   }
 
   @include from($desktopSmall) {

@@ -6,9 +6,11 @@ interface PageCardProps {
 	description: string;
 	imageSrc: astroHTML.JSX.ImgHTMLAttributes["src"];
 	imageAlt: string;
+	numberOfButtons?: number;
 }
 
-const { title, description, imageAlt, imageSrc } = Astro.props as PageCardProps;
+const { title, description, imageAlt, imageSrc, numberOfButtons } =
+	Astro.props as PageCardProps;
 ---
 
 <div class={styles.pageCardContainer}>
@@ -22,7 +24,11 @@ const { title, description, imageAlt, imageSrc } = Astro.props as PageCardProps;
 		{description}
 	</p>
 	<div class={styles.pageCardSpacer}></div>
-	<div class={styles.buttonsContainer}>
+	<div
+		class={`${styles.buttonsContainer} ${
+			numberOfButtons === 2 ? styles.twoButtons : ""
+		}`}
+	>
 		<slot name="button" />
 		<slot name="second-button" />
 	</div>
