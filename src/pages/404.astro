@@ -19,8 +19,14 @@ const locale = "en";
 			description="We don't quite understand where you're trying to go! We're really sorry about this! Maybe the URL has a typo in it or we've configured something wrong!"
 			numberOfButtons={2}
 		>
-			<LargeButton slot="button" variant="primary">Go back home</LargeButton>
-			<LargeButton slot="second-button" variant="secondary">
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+			<LargeButton
+				href="https://discord.gg/FMcvc6T"
+				slot="second-button"
+				variant="secondary"
+			>
 				Report an issue
 			</LargeButton>
 		</PageCard>
