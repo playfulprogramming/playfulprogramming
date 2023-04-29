@@ -45,6 +45,8 @@
   grid-row-gap: var(--page-card_container_padding);
   padding: 0 var(--page-card_container_padding) var(--page-card_container_padding) var(--page-card_container_padding);
 
+  margin-top: var(--page-card_image_inset);
+
   @include from($tabletSmall) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto auto;
@@ -62,6 +64,7 @@
   }
 
   @include from($desktopSmall) {
+    margin-top: unset;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto 1fr auto;
     grid-column-gap: var(--page-card_container_padding);
