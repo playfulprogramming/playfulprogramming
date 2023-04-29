@@ -10,7 +10,7 @@
 		// Enable stricter transpilation for better output.
 		"isolatedModules": true,
 		"esModuleInterop": true,
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
 		// Add type definitions for our Vite runtime.

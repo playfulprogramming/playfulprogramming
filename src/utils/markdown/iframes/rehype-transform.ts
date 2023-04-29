@@ -1,17 +1,17 @@
-import { Root } from "hast";
+import { Root, Element } from "hast";
 import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
 
-import { EMBED_SIZE } from "./constants";
-import { h } from "hastscript";
+import { EMBED_SIZE } from "../constants";
 import { fromHtml } from "hast-util-from-html";
 import find from "unist-util-find";
-import { getLargestManifestIcon } from "../get-largest-manifest-icon";
-import { getPicture } from "./get-picture-hack";
+import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
+import { getPicture } from "../get-picture-hack";
 import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 // This does not download the whole file to get the file size
 import probe from "probe-image-size";
+import { IFramePlaceholder } from "./iframe-placeholder";
 
 interface RehypeUnicornIFrameClickToRunProps {}
 
@@ -141,8 +141,8 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 	Root
 > = () => {
 	return async (tree) => {
-		const iframeNodes: any[] = [];
-		visit(tree, (node: any) => {
+		const iframeNodes: Element[] = [];
+		visit(tree, (node: Element) => {
 			if (node.tagName === "iframe") {
 				iframeNodes.push(node);
 			}
@@ -153,47 +153,17 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
 				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(
-					iframeNode.properties.src
+					iframeNode.properties.src.toString()
 				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
 
-				const sources = info.icon.sources.map((attrs) => {
-					return h("source", attrs);
+				const iframeReplacement = IFramePlaceholder({
+					width: width.toString(),
+					height: height.toString(),
+					src: iframeNode.properties.src.toString(),
+					pageTitle: info.title || "",
+					pageIcon: info.icon,
 				});
 
-				const iframeReplacement = h(
-					"div",
-					{
-						class: "iframe-replacement-container",
-						"data-iframeurl": iframeNode.properties.src,
-						"data-pagetitle": info.title,
-						"data-pageicon": info.icon ? JSON.stringify(info.icon) : undefined,
-						style: `height: ${
-							Number(height) ? `${height}px` : height
-						}; width: ${Number(width) ? `${width}px` : width};`,
-					},
-					[
-						info.icon
-							? h("picture", [
-									...sources,
-									h("img", {
-										...(info.icon.image as object),
-										class: "iframe-replacement-icon",
-										alt: "",
-										loading: "lazy",
-										decoding: "async",
-										"data-nozoom": "true",
-									}),
-							  ])
-							: null,
-						h("p", { class: "iframe-replacement-title" }, [
-							h("span", { class: "visually-hidden" }, ["An embedded webpage:"]),
-							info.title,
-						]),
-						h("button", { class: "baseBtn iframe-replacement-button" }, [
-							"Run embed",
-						]),
-					]
-				);
 				Object.assign(iframeNode, iframeReplacement);
 			})
 		);

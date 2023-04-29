@@ -1,4 +1,4 @@
-import { enableTabs } from "./tabs";
+import { enableTabs } from "./tabs-script";
 
 const tabsHtml = `
 	<ul role="tablist" class="tabs__tab-list">
