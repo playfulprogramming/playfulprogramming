@@ -1,10 +1,10 @@
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .card {
 	height: 80px;
 	display: flex;
 	align-items: center;
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 
 	picture {
 		display: flex;
@@ -17,7 +17,7 @@
 }
 
 .name {
-	color: theme-var(--foreground_emphasis-high);
+	color: get-var(--foreground_emphasis-high);
 	display: block;
 }
 
@@ -26,7 +26,7 @@
 	padding: 0;
 	margin: 0;
 
-	color: theme-var(--foreground_emphasis-medium);
+	color: get-var(--foreground_emphasis-medium);
 	line-height: 1;
 
 	li {

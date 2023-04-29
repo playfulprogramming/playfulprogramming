@@ -1,5 +1,5 @@
 @import "./breakpoints";
-@import "../../../../styles/utils";
+@import "src/tokens/index";
 
 :root {
 	--code-block-corner-radius_outer: var(--corner-radius-2x);

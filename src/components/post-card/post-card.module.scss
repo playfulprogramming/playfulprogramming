@@ -1,5 +1,4 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "src/tokens/index";
 
 .cardExpanded {
 	display: flex;
@@ -30,7 +29,7 @@
 }
 
 .meta {
-	margin: ($spacing * 4) 0;
+	margin: get-var(--spc-4x) 0;
 
 	&> * {
 		margin: 0;
@@ -38,14 +37,14 @@
 	}
 
 	.date {
-		color: theme-var(--foreground_emphasis-medium);
+		color: get-var(--foreground_emphasis-medium);
 	}
 }
 
 .header {
 	display: block;
 	text-decoration: none;
-	color: theme-var(--foreground_emphasis-high);
+	color: get-var(--foreground_emphasis-high);
 
 	& h2 {
 		margin: 0;
@@ -54,5 +53,5 @@
 
 .excerpt {
 	margin: 0;
-	margin-bottom: 4 * $spacing;
+	margin-bottom: get-var(--spc-4x);
 }

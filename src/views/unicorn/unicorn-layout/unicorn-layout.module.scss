@@ -1,11 +1,11 @@
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .container {
 	// full-width items on mobile
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	gap: $spacing * 8;
+	gap: get-var(--spc-8x);
 
 	@include from($desktopSmall) {
 		flex-direction: row;
@@ -20,7 +20,7 @@
 
 .sidebar {
 	@include from($desktopSmall) {
-		top: $spacing * 8;
+		top: get-var(--spc-8x);
 		min-width: 320px;
 
 		width: 1px;

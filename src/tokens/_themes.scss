@@ -1,0 +1,119 @@
+@import "./colors";
+
+$themes: (
+        "light": (
+                --primary_default: get-var-color(--primary40),
+                --primary_on-default: get-var-color(--primary95),
+                --primary_variant: get-var-color(--primary80),
+                --primary_on-variant: get-var-color(--primary10),
+                --primary_high-contrast: get-var-color(--primary20),
+                --primary_high-contrast_hovered: get-var-color(--primary30),
+                --primary_high-contrast_pressed: get-var-color(--primary40),
+                --secondary_default: get-var-color(--secondary40),
+                --secondary_on-default: get-var-color(--secondary95),
+                --secondary_variant: get-var-color(--secondary80),
+                --secondary_on-variant: get-var-color(--secondary10),
+                --secondary_high-contrast: get-var-color(--secondary20),
+                --secondary_high-contrast_hovered: get-var-color(--secondary30),
+                --secondary_high-contrast_pressed: get-var-color(--secondary40),
+                --error_default: get-var-color(--error40),
+                --error_on-default: get-var-color(--error95),
+                --error_variant: get-var-color(--error80),
+                --error_on-variant: get-var-color(--error10),
+                --error_high-contrast: get-var-color(--error20),
+                --error_high-contrast_hovered: get-var-color(--error30),
+                --error_high-contrast_pressed: get-var-color(--error40),
+                --surface_primary_emphasis-high: get-var-color(--primary80),
+                --surface_primary_emphasis-medium: get-var-color(--primary80_64),
+                --surface_primary_emphasis-low: get-var-color(--primary80_32),
+                --surface_primary_emphasis-none: get-var-color(--primary80_16),
+                --surface_secondary_emphasis-high: get-var-color(--secondary80),
+                --surface_secondary_emphasis-medium: get-var-color(--secondary80_64),
+                --surface_secondary_emphasis-low: get-var-color(--secondary80_32),
+                --surface_secondary_emphasis-none: get-var-color(--secondary80_16),
+                --surface_error_emphasis-high: get-var-color(--error80),
+                --surface_error_emphasis-medium: get-var-color(--error80_64),
+                --surface_error_emphasis-low: get-var-color(--error80_32),
+                --surface_error_emphasis-none: get-var-color(--error80_16),
+                --background_primary: get-var-color(--primary95),
+                --background_secondary: get-var-color(--secondary95),
+                --background_error: get-var-color(--error95),
+                --background_focus: get-var-color(--white),
+                --background_disabled: get-var-color(--neutral10_12),
+                --foreground_emphasis-high: get-var-color(--neutral10),
+                --foreground_emphasis-medium: get-var-color(--neutral10_64),
+                --foreground_emphasis-low: get-var-color(--neutral10_32),
+                --foreground_emphasis-none: get-var-color(--neutral10_12),
+                --foreground_disabled: get-var-color(--neutral10_48),
+                --focus-outline_primary: get-var-color(--primary40),
+                --focus-outline_secondary: get-var-color(--secondary40),
+                --focus-outline_error: get-var-color(--error40),
+        ),
+        "dark": (
+                --primary_default: get-var-color(--primary80),
+                --primary_on-default: get-var-color(--primary10),
+                --primary_variant: get-var-color(--primary40),
+                --primary_on-variant: get-var-color(--primary95),
+                --primary_high-contrast: get-var-color(--primary80),
+                --primary_high-contrast_hovered: get-var-color(--primary70),
+                --primary_high-contrast_pressed: get-var-color(--primary60),
+                --secondary_default: get-var-color(--secondary80),
+                --secondary_on-default: get-var-color(--secondary10),
+                --secondary_variant: get-var-color(--secondary40),
+                --secondary_on-variant: get-var-color(--secondary95),
+                --secondary_high-contrast: get-var-color(--secondary80),
+                --secondary_high-contrast_hovered: get-var-color(--secondary70),
+                --secondary_high-contrast_pressed: get-var-color(--secondary60),
+                --error_default: get-var-color(--error80),
+                --error_on-default: get-var-color(--error10),
+                --error_variant: get-var-color(--error40),
+                --error_on-variant: get-var-color(--error95),
+                --error_high-contrast: get-var-color(--error80),
+                --error_high-contrast_hovered: get-var-color(--error70),
+                --error_high-contrast_pressed: get-var-color(--error60),
+                --surface_primary_emphasis-high: get-var-color(--primary40),
+                --surface_primary_emphasis-medium: get-var-color(--primary40_64),
+                --surface_primary_emphasis-low: get-var-color(--primary40_32),
+                --surface_primary_emphasis-none: get-var-color(--primary40_16),
+                --surface_secondary_emphasis-high: get-var-color(--secondary40),
+                --surface_secondary_emphasis-medium: get-var-color(--secondary40_64),
+                --surface_secondary_emphasis-low: get-var-color(--secondary40_32),
+                --surface_secondary_emphasis-none: get-var-color(--secondary40_16),
+                --surface_error_emphasis-high: get-var-color(--error40),
+                --surface_error_emphasis-medium: get-var-color(--error40_64),
+                --surface_error_emphasis-low: get-var-color(--error40_32),
+                --surface_error_emphasis-none: get-var-color(--error40_16),
+                --background_primary: get-var-color(--primary10),
+                --background_secondary: get-var-color(--secondary10),
+                --background_error: get-var-color(--error10),
+                --background_focus: get-var-color(--neutral30),
+                --background_disabled: get-var-color(--neutral95_12),
+                --foreground_emphasis-high: get-var-color(--neutral95),
+                --foreground_emphasis-medium: get-var-color(--neutral95_64),
+                --foreground_emphasis-low: get-var-color(--neutral95_32),
+                --foreground_emphasis-none: get-var-color(--neutral95_12),
+                --foreground_disabled: get-var-color(--neutral95_48),
+                --focus-outline_primary: get-var-color(--primary80),
+                --focus-outline_secondary: get-var-color(--secondary80),
+                --focus-outline_error: get-var-color(--error80),
+        ),
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-theme($t) {
+  @each $key, $value in map-get($themes, $t) {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-theme($key) {
+  // ensure that the variable is defined in all themes
+  @each $theme, $map in $themes {
+    @if not map-has-key($map, $key) {
+      @return null;
+    }
+  }
+
+  @return var($key);
+}

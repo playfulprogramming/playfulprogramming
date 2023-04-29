@@ -1,5 +1,4 @@
-@import "../../../styles/vars";
-@import "../../../styles/utils";
+@import "src/tokens/index";
 
 .tag {
 	height: 32px;
@@ -8,7 +7,7 @@
 	justify-content: center;
 	white-space: nowrap;
 
-	color: theme-var(--foreground_emphasis-high);
+	color: get-var(--foreground_emphasis-high);
 	text-decoration: none;
 	outline: none !important;
 
@@ -20,39 +19,39 @@
 }
 
 .tag:has(picture) {
-	gap: $spacing * 2;
+	gap: get-var(--spc-2x);
 }
 
 .tag > svg {
-	margin-right: $spacing;
+	margin-right: get-var(--spc-1x);
 }
 
 .tagBordered {
-	padding: $spacing ($spacing * 2);
+	padding: get-var(--spc-1x) get-var(--spc-2x);
 
-	border: calc($spacing / 2) solid theme-var(--primary_variant);
+	border: calc(get-var(--spc-1x) / 2) solid get-var(--primary_variant);
 	border-radius: 8px;
 
 	@include darkTheme() {
-		background-color: theme-var(--surface_primary_emphasis-low);
+		background-color: get-var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:hover {
-		background-color: theme-var(--surface_primary_emphasis-medium);
+		background-color: get-var(--surface_primary_emphasis-medium);
 		border-color: transparent;
-		color: theme-var(--foreground_emphasis-high);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:focus-visible {
-		background-color: theme-var(--background_focus);
+		background-color: get-var(--background_focus);
 		border-color: transparent;
-		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
-		color: theme-var(--foreground_emphasis-high);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--focus-outline_primary);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: theme-var(--surface_primary_emphasis-high);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-high);
+		color: get-var(--foreground_emphasis-high);
 	}
 }

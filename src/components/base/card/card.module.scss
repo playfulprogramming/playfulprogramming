@@ -1,60 +1,60 @@
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .card {
-	border: map-get($borderWidth, xl) solid theme-var(--surface_primary_emphasis-low);
-	border-radius: map-get($cornerRadius, xl);
+	border: get-var(--border-width_xl) solid get-var(--surface_primary_emphasis-low);
+	border-radius: get-var(--corner-radius_xl);
 
 	overflow-wrap: break-word;
 	max-width: 100%;
 	text-decoration: none;
 	@include transition(background-color border-color);
 
-	padding: $spacing * 6;
+	padding: get-var(--spc-6x);
 }
 
 .card.l {
-	border-width: map-get($borderWidth, l);
-	border-radius: map-get($cornerRadius, l);
-	padding: $spacing * 4;
+	border-width: get-var(--border-width_l);
+	border-radius: get-var(--corner-radius_l);
+	padding: get-var(--spc-4x);
 }
 
 .card.m {
-	border-width: map-get($borderWidth, m);
-	border-radius: map-get($cornerRadius, m);
-	padding: $spacing * 4;
+	border-width: get-var(--border-width_m);
+	border-radius: get-var(--corner-radius_m);
+	padding: get-var(--spc-4x);
 }
 
 .card.s {
-	border-width: map-get($borderWidth, s);
-	border-radius: map-get($cornerRadius, s);
-	padding: $spacing ($spacing * 2);
+	border-width: get-var(--border-width_s);
+	border-radius: get-var(--corner-radius_s);
+	padding: get-var(--spc-1x) get-var(--spc-2x);
 }
 
 .card.inline {
 	border-width: 0;
-	background-color: theme-var(--surface_primary_emphasis-none);
+	background-color: get-var(--surface_primary_emphasis-none);
 }
 
 .card.solid {
 	border-width: 0;
-	background-color: theme-var(--surface_primary_emphasis-low);
+	background-color: get-var(--surface_primary_emphasis-low);
 }
 
 .card.interactive {
 	cursor: pointer;
 
 	&:hover {
-		background-color: theme-var(--surface_primary_emphasis-low);
+		background-color: get-var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:active {
-		background-color: theme-var(--surface_primary_emphasis-low);
-		border-color: theme-var(--surface_primary_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-low);
+		border-color: get-var(--surface_primary_emphasis-high);
 	}
 
 	&:focus {
-		background-color: theme-var(--background_focus);
-		border-color: theme-var(--focus-outline_primary);
+		background-color: get-var(--background_focus);
+		border-color: get-var(--focus-outline_primary);
 	}
 }

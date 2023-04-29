@@ -1,0 +1,42 @@
+$desktop: 1920px;
+$desktopSmall: 1280px;
+$tablet: 960px;
+$tabletSmall: 640px;
+$mobile: 400px;
+
+$breakpoints: (
+  --desktop: $desktop,
+  --desktopSmall: $desktopSmall,
+  --tablet: $tablet,
+  --tabletSmall: $tabletSmall,
+  --mobile: $mobile,
+);
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars-breakpoint() {
+  @each $key, $value in $breakpoints {
+    #{$key}: #{$value};
+  }
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function validate-var-breakpoint($key) {
+  // ensure that the variable is defined in all themes
+  @if not map-has-key($breakpoints, $key) {
+    @return null;
+  }
+
+  @return var($key);
+}
+
+@mixin until($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin from($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}

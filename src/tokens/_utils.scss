@@ -1,0 +1,87 @@
+@import "./colors";
+@import "./themes";
+@import "./breakpoints";
+@import "./fonts";
+@import "./corner_radius";
+@import "./max_widths";
+@import "./target_sizes";
+@import "./spacing";
+@import "./border_widths";
+@import "./shadows";
+@import "./vars";
+
+@function pxToRem($pxNum) {
+	@return #{calc($pxNum / 16)}rem;
+}
+
+@mixin transition($properties) {
+	$transitions: ();
+	@each $prop in $properties {
+		$transitions: append($transitions, $prop $animStyle $animSpeed, comma);
+	}
+	transition: $transitions;
+}
+
+@mixin darkTheme() {
+	:global(html.dark) &, :global(body.dark) &, :global(.darkTheme) & {
+		@content;
+	}
+}
+
+// Mixin for all of the CSS variables used to reference the theme values
+@mixin register-vars() {
+	@include register-vars-color();
+	@include register-vars-breakpoint();
+	@include register-vars-font();
+	@include register-vars-corner-radius();
+	@include register-vars-max-width();
+	@include register-vars-target-size();
+	@include register-vars-spacing();
+	@include register-vars-border-width();
+	@include register-vars-shadow();
+}
+
+// Reference a specific themed variable (and check to ensure it exists)
+@function get-var($key) {
+	@if validate-var-color($key) {
+		@return var($key);
+	}
+
+	@if validate-var-theme($key) {
+		@return var($key);
+	}
+
+	@if validate-var-breakpoint($key) {
+		@return var($key);
+	}
+
+	@if validate-var-font($key) {
+		@return var($key);
+	}
+
+	@if validate-var-corner-radius($key) {
+		@return var($key);
+	}
+
+	@if validate-var-max-width($key) {
+		@return var($key);
+	}
+
+	@if validate-var-target-size($key) {
+		@return var($key);
+	}
+
+	@if validate-var-spacing($key) {
+		@return var($key);
+	}
+
+	@if validate-var-border-width($key) {
+		@return var($key);
+	}
+
+	@if validate-var-shadow($key) {
+		@return var($key);
+	}
+
+	@error "App variable #{$key} is not defined.";
+}

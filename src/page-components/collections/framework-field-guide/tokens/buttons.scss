@@ -1,5 +1,5 @@
 @import "./breakpoints";
-@import "../../../../styles/utils";
+@import "src/tokens/index";
 
 :root,
 .book-section {
@@ -7,7 +7,7 @@
 
 	--btn-state-transition-duration: 150ms;
 	--btn-state-transition-easing: ease-out;
-	
+
 	--btn-ver-padding_small: var(--spc-1x);
 	--btn-hor-padding_small: var(--spc-3x);
 	--btn-ver-padding_large: var(--spc-2x);

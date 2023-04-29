@@ -1,9 +1,8 @@
-@import "./vars";
-@import "./utils";
+@import "src/tokens/index";
 
 .container {
 	margin: 0 auto;
-	padding: 0 ($spacing * 4);
+	padding: 0 get-var(--spc-4x);
 
 	@include from($desktopSmall) {
 		max-width: $desktopSmall;

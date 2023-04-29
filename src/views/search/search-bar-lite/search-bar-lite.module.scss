@@ -1,7 +1,7 @@
-@import "src/styles/utils";
+@import "src/tokens/index";
 
 .bar {
-	background-color: theme-var(--surface_primary_emphasis-low);
+	background-color: get-var(--surface_primary_emphasis-low);
 	height: 56px;
 	border-radius: 28px;
 
@@ -11,7 +11,7 @@
 	@include transition(box-shadow);
 
 	&:focus-within {
-		box-shadow: 0 0 0 $spacing theme-var(--surface_primary_emphasis-high);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--surface_primary_emphasis-high);
 	}
 
 	input {

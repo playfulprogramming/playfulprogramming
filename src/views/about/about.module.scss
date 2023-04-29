@@ -1,8 +1,7 @@
-@import "../../styles/vars";
-@import "../../styles/utils";
+@import "src/tokens/index";
 
 .unicornLogo {
-	margin-right: $spacing * 8;
+	margin-right: get-var(--spc-1x);
 	width: 56px;
 	height: 56px;
 
@@ -13,7 +12,7 @@
 }
 
 .links {
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 	flex-wrap: wrap;
 }
 
@@ -27,9 +26,9 @@
 	width: 300px;
 	height: 122px;
 
-	margin: $spacing * 2;
+	margin: get-var(--spc-2x);
 
 	background-color: #FFF;
-	border-radius: map-get($cornerRadius, s);
+	border-radius: get-var(--corner-radius_s);
 	overflow: hidden;
 }

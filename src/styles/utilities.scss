@@ -1,4 +1,4 @@
-@import "./vars";
+@import "src/tokens/index";
 
 // :where() in this file is used to ensure a low CSS specificity, so that component-specific CSS can override these values
 
@@ -21,7 +21,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 }
 
 :where(.unlist-row) {
@@ -31,7 +31,7 @@
 
 	display: flex;
 	flex-direction: row;
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 }
 
 :where(.unlist-column) {
@@ -41,7 +41,7 @@
 
 	display: flex;
 	flex-direction: column;
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 }
 
 :where(.gap-0) {
@@ -49,13 +49,13 @@
 }
 
 :where(.gap-1) {
-	gap: $spacing;
+	gap: get-var(--spc-1x);
 }
 
 :where(.gap-2) {
-	gap: $spacing * 2;
+	gap: get-var(--spc-2x);
 }
 
 :where(.gap-4) {
-	gap: $spacing * 4;
+	gap: get-var(--spc-4x);
 }

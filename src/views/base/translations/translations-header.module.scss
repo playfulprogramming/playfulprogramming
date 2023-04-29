@@ -1,6 +1,6 @@
-@import "src/styles/vars";
+@import "src/tokens/index";
 
 .text {
 	margin: 0;
-	margin-left: $spacing * 2;
+	margin-left: get-var(--spc-2x);
 }

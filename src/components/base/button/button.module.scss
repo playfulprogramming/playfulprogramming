@@ -1,11 +1,10 @@
-@import "../../../styles/vars";
-@import "../../../styles/utils";
+@import "src/tokens/index";
 
 .button {
-	padding: ($spacing * 2) ($spacing * 4);
+	padding: get-var(--spc-2x) get-var(--spc-4x);
 
-	background-color: theme-var(--surface_primary_emphasis-low);
-	color: theme-var(--foreground_emphasis-high);
+	background-color: get-var(--surface_primary_emphasis-low);
+	color: get-var(--foreground_emphasis-high);
 
 	$height: 40px;
 	height: $height;
@@ -14,7 +13,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: $spacing * 2;
+	gap: get-var(--spc-2x);
 
 	white-space: nowrap;
 	text-decoration: none;
@@ -25,31 +24,31 @@
 	@include transition(color background-color box-shadow);
 
 	&:global(.selected) {
-		background-color: theme-var(--primary_default);
-		color: theme-var(--primary_on-default);
-		box-shadow: 0 0 0 $spacing theme-var(--primary_variant);
+		background-color: get-var(--primary_default);
+		color: get-var(--primary_on-default);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--primary_variant);
 	}
 
 	&:hover {
 		text-decoration: underline;
-		background-color: theme-var(--surface_primary_emphasis-medium);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-medium);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:focus-visible {
-		background-color: theme-var(--background_focus);
-		box-shadow: 0 0 0 $spacing theme-var(--focus-outline_primary);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--background_focus);
+		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--focus-outline_primary);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: theme-var(--surface_primary_emphasis-high);
-		color: theme-var(--foreground_emphasis-high);
+		background-color: get-var(--surface_primary_emphasis-high);
+		color: get-var(--foreground_emphasis-high);
 	}
 
 	&[disabled] {
-		background-color: theme-var(--background_disabled);
-		color: theme-var(--foreground_disabled);
+		background-color: get-var(--background_disabled);
+		color: get-var(--foreground_disabled);
 		text-decoration: none;
 		pointer-events: none;
 	}
@@ -60,12 +59,12 @@
 	height: $height;
 	border-radius: calc($height / 2);
 
-	padding: ($spacing * 4) ($spacing * 6);
+	padding: get-var(--spc-4x) get-var(--spc-6x);
 }
 
 .primary {
-	background-color: theme-var(--primary-brand-highlight);
-	color: theme-var(--primary-brand-on_highlight);
+	background-color: get-var(--primary_high-contrast);
+	color: get-var(--background_primary);
 }
 
 .borderless {

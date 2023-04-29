@@ -1,9 +1,8 @@
-@import "./vars";
-@import "./utils";
+@import "src/tokens/index";
 
 :where(.grid) {
 	display: grid;
-	gap: $spacing * 8;
+	gap: get-var(--spc-8x);
 	grid-template-columns: 1fr;
 }
 
