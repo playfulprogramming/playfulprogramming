@@ -4,6 +4,7 @@
   --page-card_container_corner-radius: calc(#{get-var(--site-spacing)} * 2);
   --page-card_container_padding: calc(#{get-var(--site-spacing)} * 2);
   --page-card_container_compound-padding: calc(var(--page-card_image_border_width) + var(--page-card_container_padding));
+  --page-card_description_padding-top: #{get-var(--spc-4x)};
 
   --page-card_image_size: 240px;
   --page-card_image_border_width: 16px;
@@ -39,20 +40,37 @@
   background: var(--page-card_container_background-color);
   max-width: get-var(--max-width_m);
   display: grid;
+  border-radius: var(--page-card_container_corner-radius);
+
+  @include from($tablet) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto var(--page-card_container_padding) auto;
+    grid-column-gap: var(--page-card_container_padding);
+    padding: var(--page-card_container_padding) var(--page-card_container_compound-padding);
+  }
+
   @include from($desktop) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto 1fr auto;
     grid-column-gap: var(--page-card_container_padding);
-    grid-row-gap: 16px;
-    border-radius: var(--page-card_container_corner-radius);
+    grid-row-gap: var(--page-card_description_padding-top);
     padding: var(--page-card_container_padding) var(--page-card_container_compound-padding) var(--page-card_container_padding) 0;
   }
 }
 
 .imageContainer {
   display: inline-block;
+
+  @include from($tablet) {
+    grid-row: 1/3;
+    grid-column: 1/1;
+    margin-top: calc(0px - var(--page-card_image_inset) - var(--page-card_container_padding));
+  }
+
   @include from($desktop) {
     grid-row: 1/5;
+    grid-column: unset;
+    margin-top: unset;
     margin-left: calc(0px - var(--page-card_image_inset));
   }
 }
@@ -71,7 +89,12 @@
   margin: 0;
   color: get-var(--foreground_emphasis-high);
 
+  @include from($tablet) {
+    margin-bottom: var(--page-card_description_padding-top);
+  }
+
   @include from($desktop) {
+    margin-bottom: unset;
     margin-top: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
   }
 }
@@ -81,10 +104,30 @@
   color: get-var(--foreground_emphasis-medium);
 }
 
+.pageCardSpacer {
+}
+
 .buttonsContainer {
   display: flex;
+
+  @include from($tablet) {
+    grid-column: 1/3;
+    gap: var(--page-card_button-gap);
+  }
+
   @include from($desktop) {
+    grid-column: unset;
     justify-content: space-between;
     margin-bottom: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
+  }
+}
+
+.buttonsContainer > * {
+  @include from($tablet) {
+    flex-basis: 50%;
+  }
+
+  @include from($desktop) {
+    flex-basis: unset;
   }
 }

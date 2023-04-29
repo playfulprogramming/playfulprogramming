@@ -19,7 +19,7 @@ const { title, description, imageAlt, imageSrc } = Astro.props as PageCardProps;
 	<p class={`text-style-body-large-bold ${styles.description}`}>
 		{description}
 	</p>
-	<div class="page-card-spacer"></div>
+	<div class={styles.pageCardSpacer}></div>
 	<div class={styles.buttonsContainer}>
 		<slot name="button" />
 		<slot name="second-button" />
