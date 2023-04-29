@@ -42,9 +42,18 @@
   display: grid;
   border-radius: var(--page-card_container_corner-radius);
 
+  @include from($tabletSmall) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: var(--page-card_container_padding);
+    grid-column-gap: var(--page-card_container_padding);
+    padding: var(--page-card_container_padding) var(--page-card_container_compound-padding) var(--page-card_container_compound-padding) var(--page-card_container_compound-padding);
+  }
+
   @include from($tablet) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto var(--page-card_container_padding) auto;
+    grid-row-gap: unset;
     grid-column-gap: var(--page-card_container_padding);
     padding: var(--page-card_container_padding) var(--page-card_container_compound-padding);
   }
@@ -60,6 +69,13 @@
 
 .imageContainer {
   display: inline-block;
+
+
+  @include from($tabletSmall) {
+    grid-row: 1/1;
+    grid-column: 1/1;
+    margin-top: calc(0px - var(--page-card_image_inset) - var(--page-card_container_padding));
+  }
 
   @include from($tablet) {
     grid-row: 1/3;
@@ -89,7 +105,15 @@
   margin: 0;
   color: get-var(--foreground_emphasis-high);
 
+  @include from($tabletSmall) {
+    display: flex;
+    align-items: center;
+    padding-bottom: var(--page-card_container_padding);
+  }
+
   @include from($tablet) {
+    display: unset;
+    padding-bottom: unset;
     margin-bottom: var(--page-card_description_padding-top);
   }
 
@@ -102,16 +126,33 @@
 .description {
   margin: 0;
   color: get-var(--foreground_emphasis-medium);
+
+  @include from($tabletSmall) {
+    grid-column: 1/3;
+    padding: 0 calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
+  }
+
+  @include from($tablet) {
+    grid-column: unset;
+  }
 }
 
 .pageCardSpacer {
+  @include from($tabletSmall) {
+    display: none;
+  }
+
+  @include from($tablet) {
+    all: unset;
+  }
 }
 
 .buttonsContainer {
   display: flex;
 
-  @include from($tablet) {
+  @include from($tabletSmall) {
     grid-column: 1/3;
+    padding: 0 calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
     gap: var(--page-card_button-gap);
   }
 
@@ -123,7 +164,7 @@
 }
 
 .buttonsContainer > * {
-  @include from($tablet) {
+  @include from($tabletSmall) {
     flex-basis: 50%;
   }
 

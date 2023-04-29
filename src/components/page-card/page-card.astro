@@ -15,7 +15,9 @@ const { title, description, imageAlt, imageSrc } = Astro.props as PageCardProps;
 	<div class={styles.imageContainer}>
 		<img class={styles.image} src={imageSrc} alt={imageAlt} />
 	</div>
-	<h1 class={`text-style-headline-1 ${styles.title}`}>{title}</h1>
+	<h1 class={`text-style-headline-1 ${styles.title}`}>
+		<span>{title}</span>
+	</h1>
 	<p class={`text-style-body-large-bold ${styles.description}`}>
 		{description}
 	</p>
