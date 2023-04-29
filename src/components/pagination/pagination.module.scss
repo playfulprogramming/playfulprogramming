@@ -1,5 +1,34 @@
 @import "src/tokens/index";
 
+:root {
+	--nav-btn_min-size: #{get-var(--min-target-size_m)};
+	--nav-btn_corner-radius: #{get-var(--corner-radius_s)};
+
+	--nav-btn_background-color: #{get-var(--surface_primary_emphasis-low)};
+	--nav-btn_background-color_hovered: #{get-var(--surface_primary_emphasis-medium)};
+	--nav-btn_background-color_pressed: #{get-var(--surface_primary_emphasis-high)};
+	--nav-btn_background-color_selected: #{get-var(--primary_default)};
+	--nav-btn_background-color_focused: #{get-var(--background_focus)};
+
+	--nav-btn_foreground-color: #{get-var(--foreground_emphasis-high)};
+	--nav-btn_foreground-color_selected: #{get-var(--primary_on-default)};
+
+	--nav-btn_focus-outline_color: #{get-var(--focus-outline_primary)};
+	--nav-btn_focus-outline_width: #{get-var(--border-width_focus)};
+
+	--nav-btn_selected-outline_color: #{get-var(--primary_variant)};
+	--nav-btn_selected-outline_width: #{get-var(--border-width_focus)};
+
+	--page-popup_padding: #{get-var(--spc-6x)};
+	--page-popup_gap: #{get-var(--spc-4x)};
+	--page-popup_offset: #{get-var(--spc-8x)};
+	--page-popup_corner-radius: #{get-var(--corner-radius_l)};
+	--page-popup_border-width: #{get-var(--border-width_m)};
+
+	--page-popup_background-color: #{get-var(--background_primary)};
+	--page-popup_border-color: #{get-var(--primary_variant)};
+}
+
 .pagination {
 	display: flex;
 	justify-content: center;
@@ -7,18 +36,50 @@
 	margin: get-var(--spc-6x) 0;
 	padding: 0;
 	list-style: none;
+}
 
-	.paginationItem a {
-		border-radius: 8px;
-		width: 40px;
-		height: 40px;
+.paginationItem {
 
-		span {
-			display: flex;
-		}
-	}
+}
 
-	.paginationItem.active a {
-		box-shadow: none;
-	}
+.paginationButton {
+	all: unset;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: var(--nav-btn_min-size);
+	min-width: var(--nav-btn_min-size);
+	background-color: var(--nav-btn_background-color);
+	color: var(--nav-btn_foreground-color);
+	border-radius: var(--nav-btn_corner-radius);
+}
+
+.paginationButton.selected {
+	background-color: var(--nav-btn_background-color_selected);
+	color: var(--nav-btn_foreground-color_selected);
+}
+
+.paginationButton:hover {
+	background-color: var(--nav-btn_background-color_hovered);
+	color: var(--nav-btn_foreground-color);
+}
+
+.paginationButton:active {
+	background-color: var(--nav-btn_background-color_pressed);
+	color: var(--nav-btn_foreground-color);
+}
+
+.paginationButton:focus-within {
+	color: var(--nav-btn_foreground-color);
+	background-color: var(--nav-btn_background-color_focused);
+	border-style: solid;
+	border-color: var(--nav-btn_focus-outline_color);
+	border-width: var(--nav-btn_focus-outline_width);
+	box-sizing: border-box;
+}
+
+.paginationIconButton :global(svg) {
+	height: get-var(--icon-size_dense);
+	width: get-var(--icon-size_dense);
 }
