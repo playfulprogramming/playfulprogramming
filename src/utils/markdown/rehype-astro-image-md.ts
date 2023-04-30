@@ -72,51 +72,74 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					return;
 				}
 
+				const originalDimensions = { ...dimensions };
 				const imgRatioHeight = dimensions.height / dimensions.width;
 				const imgRatioWidth = dimensions.width / dimensions.height;
 				if (dimensions.height > MAX_HEIGHT) {
 					dimensions.height = MAX_HEIGHT;
-					dimensions.width = MAX_HEIGHT * imgRatioWidth;
+					dimensions.width = Math.floor(MAX_HEIGHT * imgRatioWidth);
 				}
 
 				if (dimensions.width > MAX_WIDTH) {
 					dimensions.width = MAX_WIDTH;
-					dimensions.height = MAX_WIDTH * imgRatioHeight;
+					dimensions.height = Math.floor(MAX_WIDTH * imgRatioHeight);
 				}
 
 				const pictureResult = await getPicture({
 					src: src,
 					widths: [dimensions.width],
-					formats: ["webp", "png"],
+					formats: ["avif", "webp", "png"],
 					aspectRatio: imgRatioWidth,
 					alt: node.properties.alt || "",
 				});
 
-				const pngSource = pictureResult.sources.reduce((prev, source) => {
-					const largestSrc = getLargestSourceSetSrc(source.srcset);
-					// select first option
-					if (!prev) return largestSrc;
-					// SVG first
-					if (prev.src.endsWith(".svg")) return prev;
-					if (largestSrc.src.endsWith(".svg")) return prev;
-					// Prefer `w`
-					if (prev.sizeType === "w" && largestSrc.sizeType === "x") return prev;
-					if (largestSrc.sizeType === "w" && prev.sizeType === "x")
-						return largestSrc;
-					// Get the bigger of the two
-					if (largestSrc.size > prev.size) return largestSrc;
-					// Prefer PNG and JPG
-					if (largestSrc.size === prev.size) {
-						if (
-							prev.src.endsWith(".webp") &&
-							(largestSrc.src.endsWith(".png") ||
-								largestSrc.src.endsWith(".jpg") ||
-								largestSrc.src.endsWith(".jpeg"))
-						)
+				let pngSource = {
+					src: src,
+					size: originalDimensions.width,
+				};
+
+				if (
+					!(
+						src.endsWith(".png") ||
+						src.endsWith(".jpg") ||
+						src.endsWith(".jpeg")
+					)
+				) {
+					const originalPictureResult = await getPicture({
+						src: src,
+						widths: [originalDimensions.width],
+						formats: ["png"],
+						aspectRatio: imgRatioWidth,
+						alt: node.properties.alt || "",
+					});
+
+					pngSource = originalPictureResult.sources.reduce((prev, source) => {
+						const largestSrc = getLargestSourceSetSrc(source.srcset);
+						// select first option
+						if (!prev) return largestSrc;
+						// SVG first
+						if (prev.src.endsWith(".svg")) return prev;
+						if (largestSrc.src.endsWith(".svg")) return prev;
+						// Prefer `w`
+						if (prev.sizeType === "w" && largestSrc.sizeType === "x")
+							return prev;
+						if (largestSrc.sizeType === "w" && prev.sizeType === "x")
 							return largestSrc;
-					}
-					return prev;
-				}, null as ReturnType<typeof getLargestSourceSetSrc>);
+						// Get the bigger of the two
+						if (largestSrc.size > prev.size) return largestSrc;
+						// Prefer PNG and JPG
+						if (largestSrc.size === prev.size) {
+							if (
+								prev.src.endsWith(".webp") &&
+								(largestSrc.src.endsWith(".png") ||
+									largestSrc.src.endsWith(".jpg") ||
+									largestSrc.src.endsWith(".jpeg"))
+							)
+								return largestSrc;
+						}
+						return prev;
+					}, null as ReturnType<typeof getLargestSourceSetSrc>);
+				}
 
 				const sources = pictureResult.sources.map((attrs) => {
 					return h("source", attrs);

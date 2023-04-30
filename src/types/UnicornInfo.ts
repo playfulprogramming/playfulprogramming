@@ -1,4 +1,3 @@
-import { PronounInfo } from "./PronounInfo";
 import { RolesEnum } from "./RolesInfo";
 
 export interface RawUnicornInfo {
@@ -15,7 +14,7 @@ export interface RawUnicornInfo {
 		twitch?: string;
 		dribbble?: string;
 	};
-	pronouns: string;
+	pronouns?: string;
 	profileImg: string;
 	color: string;
 	roles: Array<RolesEnum["id"]>;
@@ -23,7 +22,6 @@ export interface RawUnicornInfo {
 
 export interface UnicornInfo extends RawUnicornInfo {
 	rolesMeta: RolesEnum[];
-	pronounsMeta: PronounInfo;
 	profileImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;

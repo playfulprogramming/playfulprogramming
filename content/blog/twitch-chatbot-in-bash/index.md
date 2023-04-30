@@ -75,7 +75,7 @@ function auth() {
   echo "CAP REQ :twitch.tv/tags twitch.tv/commands"
   echo "PASS oauth:${TWITCH_TOKEN}"
   echo "NICK ${TWITCH_USERNAME}"
-  echo "JOIN ${TWITCH_USERNAME}"
+  echo "JOIN #${TWITCH_USERNAME}"
 }
 
 auth | netcat irc.chat.twitch.tv 6667

@@ -1,6 +1,5 @@
 import {
 	RawCollectionInfo,
-	ExtendedCollectionInfo,
 	RolesEnum,
 	UnicornInfo,
 	RawPostInfo,
@@ -27,8 +26,6 @@ const aboutRaw = (await import("../../content/data/about.json")).default;
 const unicornsRaw = (await import("../../content/data/unicorns.json")).default;
 
 const rolesRaw = (await import("../../content/data/roles.json")).default;
-
-const pronounsRaw = (await import("../../content/data/pronouns.json")).default;
 
 const licensesRaw = (await import("../../content/data/licenses.json")).default;
 
@@ -62,9 +59,15 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum
 	);
 
-	newUnicorn.pronounsMeta = pronounsRaw.find(
-		(proWithNouns) => proWithNouns.id === unicorn.pronouns
-	)!;
+	// normalize social links - if a URL or "@name" is entered, only preserve the last part
+	const normalizeUsername = (username: string | undefined) =>
+		username?.trim()?.replace(/^.*[/@](?!$)/, "");
+
+	newUnicorn.socials.twitter = normalizeUsername(newUnicorn.socials.twitter);
+	newUnicorn.socials.github = normalizeUsername(newUnicorn.socials.github);
+	newUnicorn.socials.linkedIn = normalizeUsername(newUnicorn.socials.linkedIn);
+	newUnicorn.socials.twitch = normalizeUsername(newUnicorn.socials.twitch);
+	newUnicorn.socials.dribbble = normalizeUsername(newUnicorn.socials.dribbble);
 
 	return newUnicorn;
 });
@@ -194,7 +197,6 @@ export {
 	aboutRaw as about,
 	fullUnicorns as unicorns,
 	rolesRaw as roles,
-	pronounsRaw as pronouns,
 	licensesRaw as licenses,
 	collections,
 	posts,
