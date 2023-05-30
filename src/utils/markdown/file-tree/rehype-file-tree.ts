@@ -142,7 +142,7 @@ export const rehypeFileTree = () => {
 				return SKIP;
 			});
 
-			return root.children;
+			return [h("div", { class: "docs-file-tree" }, root.children)];
 		}
 
 		replaceAllBetween(
