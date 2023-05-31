@@ -23,15 +23,81 @@ Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share 
 
 Combined together and even a small team can maintain multiple React Native applications seamlessly.
 
-<!-- Show a TLDR chart of an example monorepo usage in RN -->
+![TODO](./rn_monorepo.png)
 
-Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://docs.expo.dev/introduction/why-not-expo/?redirected#expo-go).
+Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 
 To further exacerbate the issue, React Native comes with many uncommon edgecases that makes monorepos particularly challenging to create. Many of the tutorials I've found outlining how to build a monorepo for this purpose use outdated tools to work around this.
 
-Knowing just how potent the potential impact of a monorepo would be to my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems. I'd like to share how you can do the same in this article.
+Knowing just how potent the potential impact of a monorepo would be to my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems.
 
-Let's walk through how to:
+By the end of it all, I had a monorepo structure that looked something like the following:
+
+
+<!-- filetree:start -->
+
+- `apps/`
+  - `customer-portal/`
+      - `android/`
+      - `ios/`
+      - `src`
+          - `App.tsx`
+          - `components/`
+          - `hooks/`
+          - `utils/`
+          - `types/`
+      - `.eslintrc.js`
+      - `app.json`
+      - `babel.config.js`
+      - `index.js`
+      - `metro.config.js`
+      - `node_modules`
+      - `package.json`
+      - `tsconfig.json`
+  - `admin-portal/`
+      - `android/`
+      - `ios/`
+      - `src`
+          - `App.tsx`
+          - `components/`
+          - `hooks/`
+          - `utils/`
+          - `types/`
+      - `.eslintrc.js`
+      - `app.json`
+      - `babel.config.js`
+      - `index.js`
+      - `metro.config.js`
+      - `node_modules`
+      - `package.json`
+      - `tsconfig.json`
+- `packages/`
+  - `config/`
+    - `.eslintrc.js`
+    - `babel-config.js`
+    - `eslint-preset.js`
+    - `package.json`
+    - `tsconfig.json`
+  - `shared-elements/`
+    -  `src/`
+       -  `components/`
+       -  `hooks/`
+       -  `utils/`
+       -  `types/`
+    -  `.eslintrc.js`
+    -  `package.json`
+    -  `vite.config.ts`
+- `.eslintrc.js`
+- `.gitignore`
+- `.yarnrc.yml`
+- `README.md`
+- `package.json`
+- `yarn.lock`
+
+<!-- filetree:end -->
+
+ 
+I'd like to share how you can do the same in this article. Let's walk through how to:
 
 - [Set up a React Native app](#setup-app)
 
@@ -46,8 +112,6 @@ Let's walk through how to:
 
 # Setup React Native Project {#setup-app}
 
-> Even if you have an existing React Native project, 
-
 Let's setup a basic React Native project to extend using a monorepo.
 
 > Before you get started with this section, make sure you have [your environment set up](https://reactnative.dev/docs/environment-setup), including XCode/Android Studio.
@@ -55,76 +119,164 @@ Let's setup a basic React Native project to extend using a monorepo.
 To setup a basic React Native project from scratch, run the following:
 
 ```shell
-npx react-native init ChatAppMobile
+npx react-native init CustomerPortal
 ```
 
-Once this command finishes, you should have a functioning React Native project scaffolded in `ChatAppMobile` folder.
+Once this command finishes, you should have a functioning React Native project scaffolded in `CustomerPortal` folder:
 
-While there's a bunch of files that we could look at, there's a few I want to highlight that we'll be looking at throughout this article:
+<!-- filetree:start -->
 
-- `package.json` - Metadata about the project that your package manager controls. This includes dependencies, [dev dependencies](https://unicorn-utterances.com/posts/how-to-use-npm#dev-deps), and scripts that you might want to run on the project.
-- `tsconfig.json` - The configuration file for any [TypeScript](typescriptlang.org/) usage in the project.
-- `.eslintrc.js` - The linting rules applied by [ESLint](https://eslint.org/) to standardize the code throughout your app.
-- `metro.config.js` - The configuration for React Native's default bundler: Metro. We'll touch on what Metro a bit more does later.
+- `android/`
+- `ios/`
+- `.eslintrc.js`
+- `app.json`
+- `App.tsx`
+- `babel.config.js`
+- `index.js`
+- `metro.config.js`
+- `node_modules`
+- `package.json`
+- `tsconfig.json`
+<!-- filetree:end -->
 
 We now have a basic demo application that we can extend by adding it to our monorepo.
 
-# Maintain Multiple Package Roots with Yarn Berry {#yarn-berry}
-
-While the `react-native init` command is great for single apps, it doesn't do much to help us scaffold our monorepo.
-
-Currently, with the newly created React Native project, our filesystem looks something like this:
-
-<!-- filetree:start -->
-- `/`
-    - `App.tsx`
-    - `android/`
-    - `app.json`
-    - `babel.config.js`
-    - `index.js`
-    - `ios/`
-    - `metro.config.js`
-    - `node_modules`
-    - `package.json`
-    - `tsconfig.json`
-    - `yarn.lock`
-<!-- filetree:end -->
+# Maintain Multiple Package Roots with Yarn {#yarn}
 
 In a monorepo, however, we might have multiple apps and packages that we want to keep in the same repository. To do this, our filesystem should look something akin to this structure:
 
 <!-- filetree:start -->
-- `/`
-  - `apps/`
-    - `chat-app-mobile/`
-        - `src`
-            - `App.tsx`
-            - `components/`
-            - `hooks/`
-            - `utils/`
-            - `types/`
-        - `android/`
-        - `app.json`
-        - `babel.config.js`
-            - `index.js`
-        - `ios/`
-        - `metro.config.js`
-        - `node_modules`
-        - `package.json`
-        - `tsconfig.json`
-        - `yarn.lock`
+
+- `apps/`
+  - `customer-portal/`
+      - `android/`
+      - `ios/`
+      - `src`
+          - `App.tsx`
+          - `components/`
+          - `hooks/`
+          - `utils/`
+          - `types/`
+      - `.eslintrc.js`
+      - `app.json`
+      - `babel.config.js`
+      - `index.js`
+      - `metro.config.js`
+      - `node_modules`
+      - `package.json`
+      - `tsconfig.json`
+  - `admin-portal/`
+      - `android/`
+      - `ios/`
+      - `src`
+          - `App.tsx`
+          - `components/`
+          - `hooks/`
+          - `utils/`
+          - `types/`
+      - `.eslintrc.js`
+      - `app.json`
+      - `babel.config.js`
+      - `index.js`
+      - `metro.config.js`
+      - `node_modules`
+      - `package.json`
+      - `tsconfig.json`
+- `packages/`
+  - `config/`
+    - `.eslintrc.js`
+    - `babel-config.js`
+    - `eslint-preset.js`
+    - `package.json`
+    - `tsconfig.json`
+  - `shared-elements/`
+    -  `src/`
+       -  `components/`
+       -  `hooks/`
+       -  `utils/`
+       -  `types/`
+    -  `.eslintrc.js`
+    -  `package.json`
+    -  `vite.config.ts`
+- `.eslintrc.js`
+- `.gitignore`
+- `.yarnrc.yml`
+- `README.md`
+- `package.json`
+- `yarn.lock`
+
 <!-- filetree:end -->
 
+Notice how each of our sub-projects has it's own `package.json`? This allows us to split out our dependencies based on which project requires them, rather than having a single global `package.json` with every project's dependencies in it.
+
+To do this, we need some kind of "workspace" support, which tells our package manager to install deps from every `package.json` in our system.
+
+Here are the most popular Node package managers that support workspaces:
+
+- [`npm`](https://docs.npmjs.com/cli/v7/using-npm/workspaces) (as of v7)
+- [`yarn`](https://yarnpkg.com/)
+- [`pnpm`](https://pnpm.io/)
+
+While NPM is often reached for as the default package manager for Node apps, it lacks a big feature that's a nice-to-have in large-scale monorepos: Patching NPM packages.
+
+While NPM can [use a third-party package](https://www.npmjs.com/package/patch-package) to enable this functionality, it has shakey support for monorepos. Compare this to PNPM and Yarn which both have this functionality built-in for monorepos.
+
+This leaves us with a choice between `pnpm` and `yarn` for our package manager in our monorepo.
+
+While pnpm is well loved by developers for [it's offline functionality](https://pnpm.io/cli/install#--offline), I've had more experience with Yarn and found it to work well for my needs.
+
+## Using Yarn 3 (Berry)
+
+When most people talk about using Yarn, they're often talking about using Yarn v1 which [originally launched in 2017](https://github.com/yarnpkg/yarn/releases/tag/v1.0.0). While Yarn v1 works for most needs, I've ran into bugs with its monorepo support that halted progress at times.
+
+Here's the bad news: Yarn v1's [last release was in 2022](https://github.com/yarnpkg/yarn/releases/tag/v1.22.19) and is [in maintainance mode](https://github.com/yarnpkg/yarn/issues/8583#issuecomment-783161589).
+
+Here's the good news: Yarn has continued development with breaking changes and is now on Yarn 3. These newer versions of Yarn are colloquially called ["Yarn Berry"](https://github.com/yarnpkg/berry).
+
+To setup Yarn Berry from your project, you'll need:
+
+- Node 16 or higher
+- ... That's it.
+
+While there's more extensive documentation on [how to install Yarn on their docs pages](https://yarnpkg.com/getting-started/install), you need to enable [Corepack](https://nodejs.org/dist/latest/docs/api/corepack.html) by running the following in your terminal:
+
+```shell
+corepack enable
+```
+
+Then, you can run the following:
+
+````shell
+corepack prepare yarn@stable --activate
+````
 
 
 
+
+
+
+
+### Disabling Yarn Plug'n'Play (PNP)
+
+https://yarnpkg.com/features/pnp#incompatible
+
+
+
+> It's worth mentioning that while PNPM doesn't use PNP as its install mechanism, it does extensively use symlinks for monorepos. If you're using PNPM for your project, you'll likely want to [disable the symlinking functionality for your monorepo](https://pnpm.io/7.x/npmrc#node-linker).
+
+
+
+## A note about `nohoist`
 
 https://twitter.com/larixer/status/1570459837498290178
 
 
 
+# Package Shared Elements using Vite
 
 
-# Run Distributed Tasks with Turborepo {#turborepo}
+
+
 
 
 
@@ -244,6 +396,14 @@ module.exports = (__dirname) => {
   };
 };
 ```
+
+
+
+
+
+# Run Distributed Tasks with Turborepo {#turborepo}
+
+
 
 
 
