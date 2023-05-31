@@ -2,7 +2,7 @@
 {
 	title: "How to Setup a React Native Monorepo",
 	description: "",
-	published: '2023-05-05T13:45:00.284Z',
+	published: '2023-06-02T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['react', 'react native'],
 	attached: [],
@@ -32,7 +32,6 @@ To further exacerbate the issue, React Native comes with many uncommon edgecases
 Knowing just how potent the potential impact of a monorepo would be to my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems.
 
 By the end of it all, I had a monorepo structure that looked something like the following:
-
 
 <!-- filetree:start -->
 
@@ -96,7 +95,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
 
 <!-- filetree:end -->
 
- 
+
 I'd like to share how you can do the same in this article. Let's walk through how to:
 
 - [Set up a React Native app](#setup-app)
@@ -137,77 +136,65 @@ Once this command finishes, you should have a functioning React Native project s
 - `node_modules`
 - `package.json`
 - `tsconfig.json`
+
 <!-- filetree:end -->
 
 We now have a basic demo application that we can extend by adding it to our monorepo.
 
+To start setting up the monorepo, take the following actions:
+
+1. Move the generated files into a sub-folder of `apps` called `customer-portal`.
+2. Run `npm init` at the new root to create a `package.json`
+3. Run `git init` at the new root to create a Git repository to track your code changes
+4. Add a `.gitignore` (you can copy it from your app) at the new root to make sure you're not tracking new `node_modules`
+
+<!-- filetree:start -->
+
+- `.git/`
+- `apps/`
+  - `customer-portal/{open: false}`
+    - `android/`
+    - `ios/`
+    - `.eslintrc.js`
+    - `app.json`
+    - `App.tsx`
+    - `babel.config.js`
+    - `index.js`
+    - `metro.config.js`
+    - `node_modules`
+    - `package.json`
+    - `tsconfig.json`
+- `.gitignore`
+- `package.json`
+
+<!-- filetree:end -->
+
+Congrats! You _technically_ now have a monorepo, even if it's currently missing many conviniences of a well-established monorepo.
+
+
 # Maintain Multiple Package Roots with Yarn {#yarn}
 
-In a monorepo, however, we might have multiple apps and packages that we want to keep in the same repository. To do this, our filesystem should look something akin to this structure:
+Let's imagine that we've taken our newly created monorepo and added a second application inside:
 
 <!-- filetree:start -->
 
 - `apps/`
   - `customer-portal/`
-      - `android/`
-      - `ios/`
-      - `src`
-          - `App.tsx`
-          - `components/`
-          - `hooks/`
-          - `utils/`
-          - `types/`
-      - `.eslintrc.js`
-      - `app.json`
-      - `babel.config.js`
-      - `index.js`
-      - `metro.config.js`
-      - `node_modules`
       - `package.json`
-      - `tsconfig.json`
+      - ...
   - `admin-portal/`
-      - `android/`
-      - `ios/`
-      - `src`
-          - `App.tsx`
-          - `components/`
-          - `hooks/`
-          - `utils/`
-          - `types/`
-      - `.eslintrc.js`
-      - `app.json`
-      - `babel.config.js`
-      - `index.js`
-      - `metro.config.js`
-      - `node_modules`
       - `package.json`
-      - `tsconfig.json`
-- `packages/`
-  - `config/`
-    - `.eslintrc.js`
-    - `babel-config.js`
-    - `eslint-preset.js`
-    - `package.json`
-    - `tsconfig.json`
-  - `shared-elements/`
-    -  `src/`
-       -  `components/`
-       -  `hooks/`
-       -  `utils/`
-       -  `types/`
-    -  `.eslintrc.js`
-    -  `package.json`
-    -  `vite.config.ts`
-- `.eslintrc.js`
+      - ...
 - `.gitignore`
-- `.yarnrc.yml`
-- `README.md`
 - `package.json`
-- `yarn.lock`
 
 <!-- filetree:end -->
 
 Notice how each of our sub-projects has it's own `package.json`? This allows us to split out our dependencies based on which project requires them, rather than having a single global `package.json` with every project's dependencies in it.
+
+However, without any additional configuration, it means that we need to `npm install` in every subdirectory manually to get our projects setup.
+
+What if there was a way to have a single `install` command that installed all packages for all `package.json` files in our repo? Well, we can!
 
 To do this, we need some kind of "workspace" support, which tells our package manager to install deps from every `package.json` in our system.
 
