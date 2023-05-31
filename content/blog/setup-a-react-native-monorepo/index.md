@@ -212,7 +212,7 @@ This leaves us with a choice between `pnpm` and `yarn` for our package manager i
 
 While pnpm is well loved by developers for [it's offline functionality](https://pnpm.io/cli/install#--offline), I've had more experience with Yarn and found it to work well for my needs.
 
-## Using Yarn 3 (Berry)
+## Installing Yarn 3 (Berry)
 
 When most people talk about using Yarn, they're often talking about using Yarn v1 which [originally launched in 2017](https://github.com/yarnpkg/yarn/releases/tag/v1.0.0). While Yarn v1 works for most needs, I've ran into bugs with its monorepo support that halted progress at times.
 
@@ -237,25 +237,75 @@ Then, you can run the following:
 corepack prepare yarn@stable --activate
 ````
 
+And finally:
 
+```shell
+yarn set version stable
+```
 
+This will download the `yarn-3.x.x.cjs` file, configure a `.yarnrc.yml` file, and add the information required to your `package.json` file.
 
+> Wait! **Don't run `yarn install` yet!** We still have some more configuration to do! 
 
+## Disabling Yarn Plug'n'Play (PNP)
 
+By default, Yarn Berry uses a method of installing your packages called `Yarn Plug'n'Play` (PNP), which allows you to commit your `node_modules` cache to your Git repository.
 
-### Disabling Yarn Plug'n'Play (PNP)
+[Because of React Native's incompatibility with Yarn PNP](https://yarnpkg.com/features/pnp#incompatible), we need to disable it. To do this, we update out `.yarnrc.yml` file to _add_:
 
-https://yarnpkg.com/features/pnp#incompatible
-
-
+```yml
+nodeLinker: node-modules
+```
 
 > It's worth mentioning that while PNPM doesn't use PNP as its install mechanism, it does extensively use symlinks for monorepos. If you're using PNPM for your project, you'll likely want to [disable the symlinking functionality for your monorepo](https://pnpm.io/7.x/npmrc#node-linker).
 
+> **`yarn install` _still_ won't work yet, keep reading!**
 
+## Configuring Yarn to Support Monorepos
 
-## A note about `nohoist`
+Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps for all of the projects in our workspace. To do this, add the following to your `package.json`:
+
+```json {4-10}
+{
+    "name": "AppRoot",
+    "version": "0.0.1",
+    "private": true,
+    "workspaces": {
+     "packages": [
+       "apps/*",
+       "packages/*",
+       "websites/*"
+     ]
+    },
+    "packageManager": "yarn@3.5.1"
+}
+```
+
+Finally, let's configure `yarn` to install a fresh version of `node_modules` for each of our apps, so that React Native can easily detect our packages without having to configure Metro to find multiple `node_modules`. To do that, we'll add [a new line](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits) to our `.yarnrc.yml` file:
+
+```yml
+nmHoistingLimits: workspaces
+```
+
+Congrats! **You can now install all of your apps' dependencies using `yarn install`**! 🎉
+
+### A note about `nohoist`
+
+It's worth mentioning that other React Native monorepo guides often utilize [Yarn 1's `nohoist`](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/) functionality that no longer is supported in Yarn 2+.
+
+Here's what a maintainer of Yarn told me about the possibility of supporting `nohoist` in Yarn is:
 
 https://twitter.com/larixer/status/1570459837498290178
+
+https://twitter.com/crutchcorn/status/1570464405456064520
+
+https://twitter.com/larixer/status/1570465023293820928
+
+As such, it seems like `nohoist` won't be seeing a comeback to Yarn. This means that if you have the same package in 3 apps, it will be installed 3 individual times.
+
+This may seem like a bad thing until you realize that you're now free of having to have a `package.json` with a hundred entries in `nohoist`:
+
+https://twitter.com/crutchcorn/status/1570465437221277696
 
 
 
