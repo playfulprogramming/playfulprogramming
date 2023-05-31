@@ -309,74 +309,268 @@ https://twitter.com/crutchcorn/status/1570465437221277696
 
 
 
-# Package Shared Elements using Vite
+# Package Shared Elements to use Across Apps
 
+Having multiple related apps in the same monorepo is valuable in its own right for colocating your teams' focus, but we can go one step further.
 
+What if we had a way to share code between different apps using a shared package? Let's do this by creating a new package inside of our monorepo called `shared-elements`.
 
+Start by:
 
+1. Creating a new folder called `packages` and a subfolder called `shared-elements `.
+2. Running `npm init` inside to make a new `package.json` file.
+3. Create `src/index.tsx`.
 
+<!-- filetree:start -->
 
+- `apps/`
+  - `customer-portal/`
+  - `admin-portal/`
+- `packages/`
+  - `shared-elements/`
+    -  `src/`
+        - `index.tsx`
+    -  `package.json`
+- `.gitignore`
+- `.yarnrc.yml`
+- `package.json`
+- `yarn.lock`
 
-# Fixing issues with the Metro Bundler {#metro}
+<!-- filetree:end -->
 
-```
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
+Inside of our newly created `index.tsx`, let's create a `HelloWorld` component:
 
-/**
- * @param {string} __dirname 
- */
-module.exports = (__dirname) => {
-const packagesWorkspace = path.resolve(path.join(__dirname, "../../packages"));
+```tsx
+import {Text} from "react-native";
 
-const watchFolders = [packagesWorkspace];
-
-const nodeModulesPaths = [path.resolve(path.join(__dirname, "./node_modules"))];
-
-return {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: true,
-        inlineRequires: true,
-      },
-    }),
-  },
-  resolver: {
-    resolveRequest: (context, moduleName, platform) => {
-      if (moduleName === 'react') {
-        return {
-          filePath: path.resolve(path.join(__dirname, "./node_modules/react/index.js")),
-          type: 'sourceFile',
-        };
-      }
-      if (moduleName === 'react-native') {
-        return {
-          filePath: path.resolve(path.join(__dirname, "./node_modules/react-native/index.js")),
-          type: 'sourceFile',
-        };
-      }
-      // Optionally, chain to the standard Metro resolver.
-      return context.resolveRequest(context, moduleName, platform);
-    },
-    nodeModulesPaths,
-  },
-  watchFolders,
-};
+export const HelloWorld = () => {
+	return <Text>Hello world</Text>
 }
 ```
 
+At this point, your IDE will likely complain that you don't have `react-native` or `react` installed. To fix that:
+
+1. Open your terminal and `cd` into `packages/shared-elements/`
+
+2. Install your expected packages using:
+
+```shell
+yarn add react react-native
+yarn add -D @types/react @types/react-native typescript
+```
+
+You should now not see any errors in your IDE!
+
+## Bundling our Shared Repo with Vite
+
+While our IDE isn't showing any errors, if we attempt to consume our library in our apps right now we'll run into various issues, because we're trying to import `.tsx` files without turning them into `.js` files first.
+
+To transform these source files, we need to configure a "Bundler" to take our source code files and turn them into compiled files to be used by our apps.
+
+While we could theoretically use any other bundler, I find that [Vite](https://vitejs.dev/) is the easiest to configure and provides the nicest developer experience out-of-the-box.
+
+Using [Vite's React plugin](https://github.com/vitejs/vite-plugin-react) and [Vite's library mode](https://vitejs.dev/guide/build.html#library-mode), we can easily generate `.js` files for our source code. Combined with [`vite-plugin-dts`](https://www.npmjs.com/package/vite-plugin-dts), we can even generate `.d.ts` files for TypeScript to get our typings as well.
+
+Here's what an example `vite.config.ts` file - placed in `/packages/shared-elements/` - might look like:
+
+```javascript
+// This config file is incomplete and will cause bugs at build, read on for more
+import react from "@vitejs/plugin-react";
+import path from "node:path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    dts({
+      entryRoot: path.resolve(__dirname, "./src"),
+    }),
+  ],
+  build: {
+    lib: {
+      entry: {
+        "shared-elements": path.resolve(__dirname, "src/index.tsx"),
+      },
+      name: "SharedElements",
+      fileName: (format, entryName) => `${entryName}-${format}.js`,
+      formats: ["es", "cjs"],
+    },
+  },
+});
+```
+
+The `fileName`, `formats`, and `entry` files tell Vite to "build everything inside of `src/index.tsx` into a CommonJS and ES Module file for apps to consume". We then need to update our `package.json` file (located in `/packages/shared-elements/`) to tell these apps where to look when importing from this package:
+
+```json
+{
+  "name": "shared-elements",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "tsc": "tsc --noEmit"
+  },
+	"types": "dist/index.d.ts",
+  "main": "./dist/shared-elements-cjs.js",
+  "module": "./dist/shared-elements-es.js",
+  "react-native": "./dist/shared-elements-es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/shared-elements-es.js",
+      "require": "./dist/shared-elements-cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.71.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.7",
+    "@types/react-native": "^0.72.2",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.2",
+    "vite-plugin-dts": "^2.0.2"
+	}
+}
+```
+
+Now let's run `yarn build` annnnd...
+
+```shell
+vite v4.3.3 building for production...
+✓ 2 modules transformed.
+
+[vite:dts] Start generate declaration files...
+✓ built in 900ms
+[vite:dts] Declaration files built in 743ms.
+
+[commonjs--resolver] Unexpected token (14:7) in /packages/shared-elements/node_modules/react-native/index.js
+file: /packages/shared-elements/node_modules/node_modules/react-native/index.js:14:7
+12:
+13: // Components
+14: import typeof AccessibilityInfo from './Libraries/Components/AccessibilityInfo/AccessibilityInfo';
+           ^
+15: import typeof ActivityIndicator from './Libraries/Components/ActivityIndicator/ActivityIndicator';
+16: import typeof Button from './Libraries/Components/Button';
+error during build:
+SyntaxError: Unexpected token (14:7) in /packages/shared-elements/node_modules/node_modules/react-native/index.js
+```
+
+Uh oh.
+
+This error is occuring because React Native is written with Flow, which our Vite configuration doesn't understand. While we could fix this by using [`vite-plugin-babel`](https://www.npmjs.com/package/vite-plugin-babel) to parse out the Flow code, **we don't want to bundle `react` or `react-native` into our shared package anyway**.
+
+This is because React (and React Native) expects a [singleton](https://www.patterns.dev/posts/singleton-pattern) where the app only has a single instance of the project. This means that we need to tell Vite not to transform the `import` and `require`s of those two libraries:
+
+```typescript
+// vite.config.js
+import react from "@vitejs/plugin-react";
+import path from "node:path";
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    dts({
+      entryRoot: path.resolve(__dirname, "./src"),
+    }),
+  ],
+  build: {
+    lib: {
+      entry: {
+        "cv-elements": path.resolve(__dirname, "src/index.tsx"),
+      },
+      name: "CVElements",
+      fileName: (format, entryName) => `${entryName}-${format}.js`,
+      formats: ["es", "cjs"],
+    },
+    rollupOptions: {
+      external: [
+        "react",
+        "react/jsx-runtime",
+        "react-dom",
+        "react-native",
+        "react/jsx-runtime",
+      ],
+      output: {
+        globals: {
+          react: "React",
+          "react/jsx-runtime": "jsxRuntime",
+          "react-native": "ReactNative",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+  },
+});
+```
+
+Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](https://unicorn-utterances.com/posts/how-to-use-npm) in  `/packages/shared-elements/`:
+
+```json
+{
+  "name": "shared-elements",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "tsc": "tsc --noEmit"
+  },
+	"types": "dist/index.d.ts",
+  "main": "./dist/shared-elements-cjs.js",
+  "module": "./dist/shared-elements-es.js",
+  "react-native": "./dist/shared-elements-es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/shared-elements-es.js",
+      "require": "./dist/shared-elements-cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-native": "0.71.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.7",
+    "@types/react-native": "^0.72.2",
+    "@vitejs/plugin-react": "^3.1.0",
+    "react": "18.2.0",
+    "react-native": "0.71.7"
+    "typescript": "^4.9.3",
+    "vite": "^4.1.2",
+    "vite-plugin-dts": "^2.0.2"
+	}
+}
+```
+
+> Any time we add a dependency that relies on React or React Native, we need to add them to the `external` array, the `peerDependencies`, and the `devDependencies` list.
+>
+> EG: If you add `react-native-fs` it needs to be added to both and installed in the app's package.
 
 
 
 
 
+----------
+
+----------
+
+----------
+
+----------
+
+----------
+
+----------
 
 
 
-
-
-## Better Method {#metro-improved} 
+## Fixing issues with the Metro Bundler {#metro}
 
 ```
 // eslint-disable-next-line @typescript-eslint/no-var-requires
