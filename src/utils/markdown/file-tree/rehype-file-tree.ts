@@ -13,6 +13,7 @@ import { getIcon } from "./file-tree-icons";
 import replaceAllBetween from "unist-util-replace-all-between";
 import { Node } from "unist";
 import { Root } from "hast";
+import JSON5 from "json5";
 
 /** Make a text node with the pass string as its contents. */
 const Text = (value = ""): { type: "text"; value: string } => ({
@@ -82,7 +83,22 @@ export const rehypeFileTree = () => {
 				);
 				comment.push(...commentNodes);
 
-				const firstChildTextContent = toString(firstChild);
+				let firstChildTextContent = toString(firstChild);
+
+				/**
+				 * If a file or folder has an object at the end, assume it's a metadata object
+				 * that we want to associate with the file or folder.
+				 *
+				 *  @eg: `folder/ {open: false}`
+				 */
+				let metadata: { open?: boolean } = {};
+				if (firstChildTextContent.endsWith("}")) {
+					const match = firstChildTextContent.match(/(.*)\s*({.*})\s*$/);
+					if (match) {
+						firstChildTextContent = match[1];
+						metadata = JSON5.parse(match[2]);
+					}
+				}
 
 				// Decide a node is a directory if it ends in a `/` or contains another list.
 				const isDirectory =
@@ -127,7 +143,7 @@ export const rehypeFileTree = () => {
 
 				if (isDirectory) {
 					node.children = [
-						h("details", { open: hasContents }, [
+						h("details", { open: metadata.open ?? hasContents }, [
 							h("summary", treeEntry),
 							...(hasContents ? otherChildren : [h("ul", h("li", "…"))]),
 						]),

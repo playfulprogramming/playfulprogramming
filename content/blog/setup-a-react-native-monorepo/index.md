@@ -37,7 +37,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
 <!-- filetree:start -->
 
 - `apps/`
-  - `customer-portal/`
+  - `customer-portal/{open: false}`
       - `android/`
       - `ios/`
       - `src`
@@ -54,7 +54,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
       - `node_modules`
       - `package.json`
       - `tsconfig.json`
-  - `admin-portal/`
+  - `admin-portal/{open: false}`
       - `android/`
       - `ios/`
       - `src`
@@ -72,13 +72,13 @@ By the end of it all, I had a monorepo structure that looked something like the 
       - `package.json`
       - `tsconfig.json`
 - `packages/`
-  - `config/`
+  - `config/{open: false}`
     - `.eslintrc.js`
     - `babel-config.js`
     - `eslint-preset.js`
     - `package.json`
     - `tsconfig.json`
-  - `shared-elements/`
+  - `shared-elements/{open: false}`
     -  `src/`
        -  `components/`
        -  `hooks/`
