@@ -2,7 +2,21 @@
  * This was taken from Astro docs:
  * https://github.com/withastro/docs/blob/83e4e7946933b468f857c76f8d4f9861e37d7059/src/components/internal/rehype-file-tree.ts
  *
- * Then modified to work with HTML comments :)
+ * But modified such that:
+ * - It works with HTML comments
+ * - You can attach metadata to files and folders
+ * - It is required to use inline code blocks for files and folders names
+ */
+/**
+ * Usage:
+ * <!-- filetree:start -->
+ * - `somedir/`
+ * - `otherdir/`
+ * 	   - `index.ts`
+ * - `src/{open: false}`
+ *     - `index.html`
+ * - `index.css`
+ * <!-- filetree:end -->
  */
 import { fromHtml } from "hast-util-from-html";
 import { toString } from "hast-util-to-string";
@@ -64,6 +78,22 @@ export const rehypeFileTree = () => {
 
 				const [firstChild, ...otherChildren] = node.children;
 
+				/**
+				 * If a file or folder has an object at the end, assume it's a metadata object
+				 * that we want to associate with the file or folder.
+				 *
+				 *  @eg: `folder/ {open: false}`
+				 */
+				let metadata: { open?: boolean } = {};
+
+				visit({ type: "root", children: [firstChild] }, "text", (node) => {
+					const match = node.value.match(/(.*)\s*({.*})\s*$/);
+					if (match) {
+						node.value = match[1];
+						metadata = JSON5.parse(match[2]);
+					}
+				});
+
 				const comment: HChild[] = [];
 				if (firstChild.type === "text") {
 					const [filename, ...fragments] = firstChild.value.split(" ");
@@ -83,22 +113,7 @@ export const rehypeFileTree = () => {
 				);
 				comment.push(...commentNodes);
 
-				let firstChildTextContent = toString(firstChild);
-
-				/**
-				 * If a file or folder has an object at the end, assume it's a metadata object
-				 * that we want to associate with the file or folder.
-				 *
-				 *  @eg: `folder/ {open: false}`
-				 */
-				let metadata: { open?: boolean } = {};
-				if (firstChildTextContent.endsWith("}")) {
-					const match = firstChildTextContent.match(/(.*)\s*({.*})\s*$/);
-					if (match) {
-						firstChildTextContent = match[1];
-						metadata = JSON5.parse(match[2]);
-					}
-				}
+				const firstChildTextContent = toString(firstChild);
 
 				// Decide a node is a directory if it ends in a `/` or contains another list.
 				const isDirectory =
