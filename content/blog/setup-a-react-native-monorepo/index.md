@@ -259,6 +259,21 @@ nodeLinker: node-modules
 
 > It's worth mentioning that while PNPM doesn't use PNP as its install mechanism, it does extensively use symlinks for monorepos. If you're using PNPM for your project, you'll likely want to [disable the symlinking functionality for your monorepo](https://pnpm.io/7.x/npmrc#node-linker).
 
+You'll also want to add the following to your `.gitignore`
+
+```
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+```
+
+On the note of Git; **you'll want to commit `.yarn/releases/yarn-3.x.x.cjs`**, as Yarn will not work for your other developers otherwise.
+
+
 > **`yarn install` _still_ won't work yet, keep reading!**
 
 ## Configuring Yarn to Support Monorepos
