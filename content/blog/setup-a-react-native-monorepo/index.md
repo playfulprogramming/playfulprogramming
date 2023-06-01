@@ -668,7 +668,7 @@ Install the following packages:
 yarn add -D jest @testing-library/react-native @testing-library/jest-native babel-jest ts-jest @types/jest react-test-renderer
 ```
 
-
+This will enable usage of Testing Library and all the deps you'll need for Jest. Jest can then be configured using a `jest.config.js` file:
 
 ```javascript
 // packages/shared-elements/jest.config.js
@@ -702,6 +702,8 @@ module.exports = {
 };
 ```
 
+And providing the needed configuration files:
+
 ```javascript
 // packages/shared-elements/jest/setup-files-after-env.js
 import "@testing-library/jest-native/extend-expect";
@@ -713,8 +715,6 @@ module.exports = {
   presets: ["module:metro-react-native-babel-preset"]
 };
 ```
-
-
 
 Finally, add your test-specific TypeScript configuration file to `packages/shared-elements/tsconfig.jest.json`:
 
@@ -731,9 +731,7 @@ Finally, add your test-specific TypeScript configuration file to `packages/share
 }
 ```
 
-
-
-
+Now you can write your test: 
 
 ```tsx
 // packages/shared-elements/src/index.spec.tsx
@@ -781,6 +779,105 @@ yarn jest # Run this inside /packages/shared-elements
 >nmHoistingLimits: workspaces
 >```
 
+Whoa... That moved a little fast... Let's stop and take a look at that `jest.config.js` file again and explain each section of it.
+
+## Dissecting the Jest Config File {#jest-config}
+
+First, in our Jest config file, we're telling Jest that it needs to treat our environment as if it were a React Native JavaScript runtime:
+
+```javascript
+module.exports = {
+  preset: "@testing-library/react-native",
+	// ...
+};
+```
+
+-----
+
+We then follow this up with `moduleNameMapper`:
+
+```javascript
+module.exports = {
+  // ...
+  moduleNameMapper: {
+    "^react$": "<rootDir>/node_modules/react",
+  },
+	// ...
+};
+```
+
+Which acts similarly to Vite or Webpack's `alias` field, telling Jest that "whenever one of these regexes is matched, resolve the following package instead".
+
+This `moduleNameMapper` allows us to make sure that each React dependency/subdependency is resolved to a singleton, rather than at the per-package path. This is less important right now with our base `shared-elements` package, and more relevant when talking about Jest usage in our apps.
+
+Because of this singleton aspect, **we need to make sure that we're adding each React sub-dependant to this `moduleNameMapper` when a new package is installed**.
+
+----
+
+Next up is the `transform` key, which allows us to use TypeScript and `.tsx` files for our tests, as well as telling Jest to transform `.js` and `.jsx` files to handle React Native specific rules (more on that soon):
+
+```javascript
+module.exports = {
+  // ...
+  transform: {
+    "^.+\\.jsx$": [
+      "babel-jest",
+      { configFile: path.resolve(__dirname, "./babel.config.js") },
+    ],
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        babelConfig: path.resolve(__dirname, "./babel.config.js"),
+        tsconfig: path.resolve(__dirname, "./tsconfig.jest.json"),
+      },
+    ],
+  },
+  // ...
+};
+```
+
+----
+
+Finally, we have our `transformIgnorePatterns` and `testPathIgnorePatterns`:
+
+```javascript
+module.exports = {
+  // ...
+  transformIgnorePatterns: [
+    "node_modules/(?!((jest-)?react-native(.*)?|@react-native(-community)?)/)",
+  ],
+  testPathIgnorePatterns: ["/node_modules/", "dist/"],
+};
+```
+
+These tell Jest to "transform everything except for these folders and files". You'll notice that we have a strange regex in `tranformIgnorePatterns`:
+
+```
+node_modules/(?!((jest-)?react-native(.*)?|@react-native(-community)?)/)
+```
+
+This regex is saying:
+
+- Ignore `node_modules` unless the next part of the path:
+  - Starts with `jest-react-native`
+  - Starts with `react-native`
+  - Is a `@react-native` org package
+  - Is a `@react-native-community` org package
+
+> You can learn more about reading and writing regex from [my regex guide](/posts/the-complete-guide-to-regular-expressions-regex)!
+
+It's purpose is to tell Jest that it should actively transform these non-ignored packages with `ts-jest` and `babel-jest`. See, both of them run `babel` over their respective source code files, which allows for things like:
+
+- `import` usage (Jest only supports CommonJS)
+- JSX usage
+- Newer ECMAScript usage than your Node version might support
+
+Or anything else configured in your `babel.config.js` file.
+
+As such, you'll need to add to this regex when you add a package that's:
+
+- Using non-transformed JSX, as many React Native packages do
+- ESM only
 
 
 
