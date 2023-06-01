@@ -388,10 +388,10 @@ Using [Vite's React plugin](https://github.com/vitejs/vite-plugin-react) and [Vi
 
 Here's what an example `vite.config.ts` file - placed in `/packages/shared-elements/` - might look like:
 
-```javascript
+```typescript
 // This config file is incomplete and will cause bugs at build, read on for more
 import react from "@vitejs/plugin-react";
-import path from "node:path";
+import * as path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -417,7 +417,7 @@ export default defineConfig({
 
 The `fileName`, `formats`, and `entry` files tell Vite to "build everything inside of `src/index.tsx` into a CommonJS and ES Module file for apps to consume". We then need to update our `package.json` file (located in `/packages/shared-elements/`) to tell these apps where to look when importing from this package:
 
-```json
+```json {8-18}
 {
   "name": "shared-elements",
   "version": "0.0.1",
@@ -426,7 +426,7 @@ The `fileName`, `formats`, and `entry` files tell Vite to "build everything insi
     "build": "vite build",
     "tsc": "tsc --noEmit"
   },
-	"types": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "main": "./dist/shared-elements-cjs.js",
   "module": "./dist/shared-elements-es.js",
   "react-native": "./dist/shared-elements-es.js",
@@ -436,7 +436,7 @@ The `fileName`, `formats`, and `entry` files tell Vite to "build everything insi
       "require": "./dist/shared-elements-cjs.js",
       "types": "./dist/index.d.ts"
     }
-  }
+  },
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.71.7"
@@ -480,10 +480,10 @@ This error is occuring because React Native is written with Flow, which our Vite
 
 This is because React (and React Native) expects a [singleton](https://www.patterns.dev/posts/singleton-pattern) where the app only has a single instance of the project. This means that we need to tell Vite not to transform the `import` and `require`s of those two libraries:
 
-```typescript
-// vite.config.js
+```typescript {22-38}
+// vite.config.ts
 import react from "@vitejs/plugin-react";
-import path from "node:path";
+import * as path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -497,9 +497,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        "cv-elements": path.resolve(__dirname, "src/index.tsx"),
+        "shared-elements": path.resolve(__dirname, "src/index.tsx"),
       },
-      name: "CVElements",
+      name: "SharedElements",
       fileName: (format, entryName) => `${entryName}-${format}.js`,
       formats: ["es", "cjs"],
     },
@@ -526,7 +526,7 @@ export default defineConfig({
 
 Because these packages aren't included in the bundle anymore, we need to flag to our apps that they need to install the packages as well. To do this we need to utilize [`devDependencies` and `peerDependencies`](https://unicorn-utterances.com/posts/how-to-use-npm) in  `/packages/shared-elements/`:
 
-```json
+```json {19-31}
 {
   "name": "shared-elements",
   "version": "0.0.1",
@@ -535,7 +535,7 @@ Because these packages aren't included in the bundle anymore, we need to flag to
     "build": "vite build",
     "tsc": "tsc --noEmit"
   },
-	"types": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "main": "./dist/shared-elements-cjs.js",
   "module": "./dist/shared-elements-es.js",
   "react-native": "./dist/shared-elements-es.js",
@@ -545,7 +545,7 @@ Because these packages aren't included in the bundle anymore, we need to flag to
       "require": "./dist/shared-elements-cjs.js",
       "types": "./dist/index.d.ts"
     }
-  }
+  },
   "peerDependencies": {
     "react": "18.2.0",
     "react-native": "0.71.7"
@@ -555,7 +555,7 @@ Because these packages aren't included in the bundle anymore, we need to flag to
     "@types/react-native": "^0.72.2",
     "@vitejs/plugin-react": "^3.1.0",
     "react": "18.2.0",
-    "react-native": "0.71.7"
+    "react-native": "0.71.7",
     "typescript": "^4.9.3",
     "vite": "^4.1.2",
     "vite-plugin-dts": "^2.0.2"
