@@ -452,6 +452,29 @@ The `fileName`, `formats`, and `entry` files tell Vite to "build everything insi
 }
 ```
 
+Finally, we'll add a small `tsconfig.json` file:
+
+```json
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "jsx": "react-native",
+    "strict": true,
+    "outDir": "dist",
+    "noEmit": false,
+    "skipLibCheck": true
+  }
+}
+```
+
+And add a `/packages/shared-elements/.gitignore` file:
+
+```
+dist/
+```
+
 Now let's run `yarn build` annnnd...
 
 ```shell
@@ -629,31 +652,134 @@ This means that any time you add a package that relies on React, you'll want to 
 
 > Without this `if` check, you're telling Metro to search for _all_ dependencies from your app root. While this might sound like a good idea at first, it means that you'll have to install all subdependencies of your projects as well as your `peerDep`s, which would quickly bloat and confuse your `package.json`.
 
-# Run Distributed Tasks with Turborepo {#turborepo}
-
-
-
-
-
-# Building Basic React Native Components {#building-components}
-
-
-
-# Styling Components using Styled Components {#styled-components}
-
-
-
-
-
-
-
-
-
 # Add Testing to our Monorepo with Jest {#jest}
 
+While [I'm not an avid fan of Test-Driven-Development](https://unicorn-utterances.com/posts/documentation-driven-development), it's hard to argue that testing doesn't make a massive impact to the overall quality of the end-result of a codebase.
+
+Let's set up [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/docs/react-testing-library/intro/) to write fast and [easy to read](https://unicorn-utterances.com/posts/five-suggestions-for-simpler-tests) integration tests for our applications.
+
+> While you could add end-to-end testing with something like [Detox](https://github.com/wix/Detox) or [Maestro](https://maestro.mobile.dev/platform-support/react-native), I find that integration testing is often a better fit for most apps.
+
+While we'll eventually add testing to all of our apps and packages, let's start by adding testing to our `shared-elements` package. 
+
+Install the following packages:
+
+```shell
+yarn add -D jest @testing-library/react-native @testing-library/jest-native babel-jest ts-jest @types/jest react-test-renderer
+```
 
 
-## Make Tests More Representative with Testing Library {#testing-library}
+
+```javascript
+// packages/shared-elements/jest.config.js
+const path = require("path");
+
+module.exports = {
+  preset: "@testing-library/react-native",
+  moduleNameMapper: {
+    "^react$": "<rootDir>/node_modules/react",
+  },
+  setupFilesAfterEnv: [
+    path.resolve(__dirname, "./jest/setup-files-after-env.js"),
+  ],
+  transform: {
+    "^.+\\.jsx$": [
+      "babel-jest",
+      { configFile: path.resolve(__dirname, "./babel.config.js") },
+    ],
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        babelConfig: path.resolve(__dirname, "./babel.config.js"),
+        tsconfig: path.resolve(__dirname, "./tsconfig.jest.json"),
+      },
+    ],
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!((jest-)?react-native(.*)?|@react-native(-community)?)/)",
+  ],
+  testPathIgnorePatterns: ["/node_modules/", "dist/"],
+};
+```
+
+```javascript
+// packages/shared-elements/jest/setup-files-after-env.js
+import "@testing-library/jest-native/extend-expect";
+```
+
+```javascript
+// packages/shared-elements/babel.config.js
+module.exports = {
+  presets: ["module:metro-react-native-babel-preset"]
+};
+```
+
+
+
+Finally, add your test-specific TypeScript configuration file to `packages/shared-elements/tsconfig.jest.json`:
+
+```json
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "isolatedModules": false,
+    "noUnusedLocals": false
+  },
+  "include": ["**/*.spec.tsx"],
+  "exclude": []
+}
+```
+
+
+
+
+
+```tsx
+// packages/shared-elements/src/index.spec.tsx
+import {HelloWorld} from "./index";
+import {render} from "@testing-library/react-native";
+
+test("Says hello", () => {
+  const {getByText} = render(<HelloWorld/>);
+
+  expect(getByText("Hello world")).toBeDefined();
+})
+```
+
+And you should see a passing test when running:
+
+```shell
+yarn jest # Run this inside /packages/shared-elements
+```
+
+🎉
+
+>If you get the following error message when trying to run your tests:
+>
+>```
+> FAIL  src/index.spec.tsx
+>  ● Test suite failed to run
+>
+>    Configuration error:
+>
+>    Could not locate module react mapped as:
+>    /packages/shared-elements/node_modules/react.
+>
+>    Please check your configuration for these entries:
+>    {
+>      "moduleNameMapper": {
+>        "/^react$/": /packages/shared-elements/node_modules/react"
+>      },
+>      "resolver": undefined
+>    }
+>```
+>
+>Make sure that you didn't forget to add the following to your root `.yarnrc.yml` file:
+>
+>```yml
+>nmHoistingLimits: workspaces
+>```
 
 
 
