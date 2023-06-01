@@ -552,34 +552,17 @@ Because these packages aren't included in the bundle anymore, we need to flag to
 >
 > EG: If you add `react-native-fs` it needs to be added to both and installed in the app's package.
 
-
-
-
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-----------
-
-
-
 ## Fixing issues with the Metro Bundler {#metro}
 
-```
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+Remember how React requires a single instance of React (and React deps) require exactly one single instance of itself in order to operate properly?
+
+Well, not only do we have to solve this issue on the `shared-elements` package, we also have to update the bundler in our React Native app. This bundler is called Metro and can be configured with a file called `metro.config.js`.
+
+```javascript
 const path = require("path");
 
-/**
- * @param {string} __dirname
- */
 module.exports = (__dirname) => {
+  // Live refresh when any of our packages are rebuilt
   const packagesWorkspace = path.resolve(
     path.join(__dirname, "../../packages")
   );
@@ -600,16 +583,13 @@ module.exports = (__dirname) => {
       }),
     },
     resolver: {
+      // "Please use our `node_modules` instance of these packages"
       resolveRequest: (context, moduleName, platform) => {
         if (
+          // Add to this list whenever a new React-reliant dependency is added
           moduleName.startsWith("react") ||
-          moduleName.startsWith("@react-navigation") ||
           moduleName.startsWith("@react-native") ||
-          moduleName.startsWith("@react-native-community") ||
-          moduleName.startsWith("@tanstack") ||
-          moduleName.startsWith("styled-components") ||
-          moduleName.startsWith("@redux") ||
-          moduleName.startsWith("redux")
+          moduleName.startsWith("@react-native-community")
         ) {
           const pathToResolve = path.resolve(
             __dirname,
@@ -628,9 +608,11 @@ module.exports = (__dirname) => {
 };
 ```
 
+**Without this additional configuration, Metro will attempt to resolve the `import` and `require`s of the `shared-elements` package from `/packages/shared-elements/node_modules` instead of `/apps/your-app/node_modules`**, which leads to a non-singleton mismatch of React versions.
 
+This means that any time you add a package that relies on React, you'll want to add it to your `resolveRequest` conditional check.
 
-
+> Without this `if` check, you're telling Metro to search for _all_ dependencies from your app root. While this might sound like a good idea at first, it means that you'll have to install all subdependencies of your projects as well as your `peerDep`s, which would quickly bloat and confuse your `package.json`.
 
 # Run Distributed Tasks with Turborepo {#turborepo}
 
