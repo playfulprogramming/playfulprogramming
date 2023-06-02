@@ -17,13 +17,3 @@ $shadows: (
     #{$key}: #{$value};
   }
 }
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-shadow($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($shadows, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}

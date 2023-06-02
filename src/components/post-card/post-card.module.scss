@@ -29,7 +29,7 @@
 }
 
 .meta {
-	margin: get-var(--spc-4x) 0;
+	margin: var(--spc-4x) 0;
 
 	&> * {
 		margin: 0;
@@ -37,14 +37,14 @@
 	}
 
 	.date {
-		color: get-var(--foreground_emphasis-medium);
+		color: var(--foreground_emphasis-medium);
 	}
 }
 
 .header {
 	display: block;
 	text-decoration: none;
-	color: get-var(--foreground_emphasis-high);
+	color: var(--foreground_emphasis-high);
 
 	& h2 {
 		margin: 0;
@@ -53,5 +53,5 @@
 
 .excerpt {
 	margin: 0;
-	margin-bottom: get-var(--spc-4x);
+	margin-bottom: var(--spc-4x);
 }

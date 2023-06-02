@@ -12,13 +12,3 @@ $cornerRadius: (
     #{$key}: #{$value};
   }
 }
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-corner-radius($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($cornerRadius, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}

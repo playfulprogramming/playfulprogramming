@@ -1,7 +1,7 @@
 @import "src/tokens/index";
 
 .unicornLogo {
-	margin-right: get-var(--spc-1x);
+	margin-right: var(--spc-1x);
 	width: 56px;
 	height: 56px;
 
@@ -12,7 +12,7 @@
 }
 
 .links {
-	gap: get-var(--spc-4x);
+	gap: var(--spc-4x);
 	flex-wrap: wrap;
 }
 
@@ -26,9 +26,9 @@
 	width: 300px;
 	height: 122px;
 
-	margin: get-var(--spc-2x);
+	margin: var(--spc-2x);
 
 	background-color: #FFF;
-	border-radius: get-var(--corner-radius_s);
+	border-radius: var(--corner-radius_s);
 	overflow: hidden;
 }

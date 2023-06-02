@@ -4,7 +4,7 @@
 	height: 80px;
 	display: flex;
 	align-items: center;
-	gap: get-var(--spc-4x);
+	gap: var(--spc-4x);
 
 	picture {
 		display: flex;
@@ -17,7 +17,7 @@
 }
 
 .name {
-	color: get-var(--foreground_emphasis-high);
+	color: var(--foreground_emphasis-high);
 	display: block;
 }
 
@@ -26,7 +26,7 @@
 	padding: 0;
 	margin: 0;
 
-	color: get-var(--foreground_emphasis-medium);
+	color: var(--foreground_emphasis-medium);
 	line-height: 1;
 
 	li {

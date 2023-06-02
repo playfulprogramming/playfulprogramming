@@ -7,7 +7,7 @@
 	justify-content: center;
 	white-space: nowrap;
 
-	color: get-var(--foreground_emphasis-high);
+	color: var(--foreground_emphasis-high);
 	text-decoration: none;
 	outline: none !important;
 
@@ -19,39 +19,39 @@
 }
 
 .tag:has(picture) {
-	gap: get-var(--spc-2x);
+	gap: var(--spc-2x);
 }
 
 .tag > svg {
-	margin-right: get-var(--spc-1x);
+	margin-right: var(--spc-1x);
 }
 
 .tagBordered {
-	padding: get-var(--spc-1x) get-var(--spc-2x);
+	padding: var(--spc-1x) var(--spc-2x);
 
-	border: calc(get-var(--spc-1x) / 2) solid get-var(--primary_variant);
+	border: calc(var(--spc-1x) / 2) solid var(--primary_variant);
 	border-radius: 8px;
 
 	@include darkTheme() {
-		background-color: get-var(--surface_primary_emphasis-low);
+		background-color: var(--surface_primary_emphasis-low);
 		border-color: transparent;
 	}
 
 	&:hover {
-		background-color: get-var(--surface_primary_emphasis-medium);
+		background-color: var(--surface_primary_emphasis-medium);
 		border-color: transparent;
-		color: get-var(--foreground_emphasis-high);
+		color: var(--foreground_emphasis-high);
 	}
 
 	&:focus-visible {
-		background-color: get-var(--background_focus);
+		background-color: var(--background_focus);
 		border-color: transparent;
-		box-shadow: 0 0 0 get-var(--spc-1x) get-var(--focus-outline_primary);
-		color: get-var(--foreground_emphasis-high);
+		box-shadow: 0 0 0 var(--spc-1x) var(--focus-outline_primary);
+		color: var(--foreground_emphasis-high);
 	}
 
 	&:active {
-		background-color: get-var(--surface_primary_emphasis-high);
-		color: get-var(--foreground_emphasis-high);
+		background-color: var(--surface_primary_emphasis-high);
+		color: var(--foreground_emphasis-high);
 	}
 }

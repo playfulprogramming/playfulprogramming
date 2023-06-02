@@ -152,21 +152,3 @@ $colors: (
     #{$key}: #{$value};
   }
 }
-
-@function validate-var-color($key) {
-  @if not map-has-key($colors, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}
-
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function get-var-color($key) {
-  @if validate-var-color($key) {
-    @return var($key);
-  }
-
-  @error "Theme variable #{$key} is not defined in $themes.#{$theme}.";
-}

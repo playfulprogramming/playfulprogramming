@@ -21,13 +21,3 @@ $iconSizes: (
     #{$key}: #{$value};
   }
 }
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-icon-size($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($iconSizes, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}

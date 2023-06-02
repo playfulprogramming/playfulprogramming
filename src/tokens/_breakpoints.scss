@@ -19,16 +19,6 @@ $breakpoints: (
   }
 }
 
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-breakpoint($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($breakpoints, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}
-
 @mixin until($breakpoint) {
   @media screen and (max-width: $breakpoint) {
     @content;

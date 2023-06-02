@@ -2,7 +2,7 @@
 
 .post-body {
 	line-height: 1.7;
-	color: get-var(--foreground_emphasis-medium);
+	color: var(--foreground_emphasis-medium);
 
 	// Fix autolink-headings anchors positioning
 	.anchor {
@@ -27,11 +27,11 @@
 	}
 
 	:where(& a) {
-		color: get-var(--primary_default);
+		color: var(--primary_default);
 	}
 
 	:where(& a:visited) {
-		color: get-var(--secondary_default);
+		color: var(--secondary_default);
 	}
 
 	h1 .anchor svg,
@@ -67,7 +67,7 @@
 		max-height: 50vh;
 	}
 
-	$tableCornerRadius: get-var(--corner-radius_s);
+	$tableCornerRadius: var(--corner-radius_s);
 
 	thead tr:first-child {
 		th, td {
@@ -102,7 +102,7 @@
 		border-radius: $tableCornerRadius;
 		border-collapse: collapse;
 		// Border-collapse and border-radius don't mix. This is a workaround for that issue
-		box-shadow: 0 0 0 4px get-var(--surface_primary_emphasis-low);
+		box-shadow: 0 0 0 4px var(--surface_primary_emphasis-low);
 		margin: 4px;
 
 		@include until($tablet) {
@@ -120,16 +120,16 @@
 	}
 
 	thead {
-		color: get-var(--foreground_emphasis-high);
+		color: var(--foreground_emphasis-high);
 		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-		box-shadow: inset 0px -1px 0px get-var(--surface_primary_emphasis-high),
-			inset 100vw 100vh 0 get-var(--surface_primary_emphasis-low),
-			inset 100vw 100vh 0 get-var(--background_primary);
+		box-shadow: inset 0px -1px 0px var(--surface_primary_emphasis-high),
+			inset 100vw 100vh 0 var(--surface_primary_emphasis-low),
+			inset 100vw 100vh 0 var(--background_primary);
 	}
 
 	td,
 	th {
-		border: 1px solid get-var(--surface_primary_emphasis-high);
+		border: 1px solid var(--surface_primary_emphasis-high);
 		padding: .3rem .6rem;
 		line-height: 110%;
 

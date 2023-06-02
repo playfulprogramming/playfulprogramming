@@ -3,7 +3,7 @@
 .container {
 	display: flex;
 	flex-wrap: nowrap;
-	gap: get-var(--spc-8x);
+	gap: var(--spc-8x);
 }
 
 .content {
@@ -17,7 +17,7 @@
 	// This means no sidebars on mobile
 	display: none;
 
-	top: get-var(--spc-8x);
+	top: var(--spc-8x);
 	overflow: auto;
 	height: 100vh;
 	min-width: 272px;
