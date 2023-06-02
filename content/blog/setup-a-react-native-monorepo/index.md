@@ -879,6 +879,77 @@ As such, you'll need to add to this regex when you add a package that's:
 - Using non-transformed JSX, as many React Native packages do
 - ESM only
 
+## How to Debug Common Issues with Jest
+
+
+
+### Invalid Default Export Issues
+
+Every once in a while, while working on a Jest test, I get the following error:
+
+```
+console.error
+  Warning: React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: object.
+
+  Check the render method of `de`.
+      at Pn (/packages/shared-elements/dist/shared-elements-cjs.js:37:18535)
+```
+
+With the error pointing to some code like so:
+
+```typescript
+import SomePackage from "some-package";
+```
+
+Alternatively, if I pass that same component usage to `styled-components`, that error turns into:
+
+
+```
+ FAIL  src/screens/Documents/EventDocuments/EventDocumentsScreen.spec.tsx
+  ● Test suite failed to run
+
+    Cannot create styled-component for component: [object Object].
+
+      956 |   width: 100%;
+      957 |   align-items: center;
+    > 958 | `,OC=
+```
+
+This happens because Jest handles ESM in particularly poor ways and, along the way of compiling into CJS exports, can get confused and often needs help figuring out when something is default exported or not.
+
+To solve these issues, you can hack around Jest's default export detection:
+
+```javascript
+jest.mock("some-package", () => {
+  const pkg = jest.requireActual(
+    "some-package"
+  );
+  return Object.assign(pkg.default, pkg);
+});
+```
+
+Similarly, If you run into the following error while using styled components:
+
+```shell
+ FAIL  src/screens/More/MoreHome/MoreHomeScreen.spec.tsx
+  ● Test suite failed to run
+
+    TypeError: w is not a function
+
+    > 1 | "use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const c=require("react/jsx-runtime"),g=require("react-native"),w=require("styled-components/native"),B=require("react"),fe=require("react-native-elements"),re=require("@fortawesome/react-native-fontawesome"),Ce=require("styled-components"),s6=require("react-native-phone-call"),v0=require("react-native-geocoding"),Zt=require("@reduxjs/toolkit"),nr=require("aws-amplify"),Ii=require("@react-native-async-storage/async-storage"),p0=require("axios"),m0=require("react-redux"),Tu=require("react-native-maps"),se=require("@tanstack/react-query"),Mu=require("@react-native-clipboard/clipboard"),l6=require("@fortawesome/react-fontawesome"),Br=require("react-native-webview"),Za=require("react-native-actionsheet"),Ga=require("react-native-image-picker"),Fr=require("react-native-pager-view"),Pi=require("react-native-actions-sheet"),c6=require("react-native-share"),u6=require("react-native-fs"),go=require("react-native-gesture-handler"),x0=require("react-native-email-link");function d6(e){const t=Object.create(null,{[Symbol.toStringTag]:{value:"Module"}});if(e){for(const r in e)if(r!=="default"){const a=Object.getOwnPropertyDescriptor(e,r);Object.defineProperty(t,r,a.get?a:{enumerable:!0,get:()=>e[r]})}}return t.default=e,Object.freeze(t)}const Rt=d6(B),f6=w(g.View)`
+```
+
+It's fixed by:
+
+```typescript
+jest.mock("styled-components", () => {
+  const SC = jest.requireActual("styled-components");
+  return Object.assign(SC.default, SC);
+});
+```
+
+As `styled-components` falls under the same problems.
+
 
 
 
