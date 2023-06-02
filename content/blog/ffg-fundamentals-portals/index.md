@@ -215,7 +215,6 @@ export const App = () => {
     <div>
       <Header />
       <Body />
-      <Modal />
       <Footer />
     </div>
   );
@@ -301,9 +300,9 @@ export const FolderIcon = () => {
   imports: [HeaderComponent, BodyComponent, FooterComponent],
   template: `
     <div>
-      <header-comp></header-comp>
-      <body-comp></body-comp>
-      <footer-comp></footer-comp>
+      <header-comp/>
+      <body-comp/>
+      <footer-comp/>
     </div>
   `,
 })
@@ -314,26 +313,21 @@ export class AppComponent {}
 @Component({
   selector: 'header-comp',
   standalone: true,
-  imports: [],
+  imports: [FolderIconComponent, DeleteIconComponent],
   template: `
   <div class="header-container">
     <span class="icon-container">
-      <folder-icon></folder-icon>
+      <folder-icon/>
     </span>
     <span class="header-title">Main folder</span>
     <span class="auto"></span>
-    <button class="icon-btn" (click)="showModal()">
-      <delete-icon></delete-icon>
+    <button class="icon-btn">
+      <delete-icon/>
     </button>
   </div>
 `,
 })
 export class HeaderComponent {
-  shouldShowModal = false;
-
-  showModal() {
-    this.shouldShowModal = true;
-  }
 }
 ```
 
@@ -345,7 +339,7 @@ export class HeaderComponent {
   template: `
   <ul class="list-container">
     <li class="list-item" *ngFor="let fileIdx of files">
-      <folder-icon ></folder-icon>
+      <folder-icon/>
       <span>File number {{fileIdx + 1}}</span>
     </li>
   </ul>
@@ -425,12 +419,6 @@ import Footer from './Footer.vue'
 <script setup>
 import FolderIcon from './FolderIcon.vue'
 import DeleteIcon from './DeleteIcon.vue'
-import { ref } from 'vue'
-const shouldShowModal = ref(false)
-
-function showModal() {
-  shouldShowModal.value = true
-}
 </script>
 <template>
   <div class="header-container">
@@ -439,7 +427,7 @@ function showModal() {
     </span>
     <span class="header-title">Main folder</span>
     <span class="auto"></span>
-    <button class="icon-btn" @click="showModal()">
+    <button class="icon-btn">
       <DeleteIcon />
     </button>
   </div>
@@ -503,6 +491,7 @@ const files = Array.from({ length: 10 }, (_, i) => i)
 
 <details>
 <summary>CSS for the Rest of the App</summary>
+
 
 <br/>
 
@@ -611,8 +600,7 @@ Awesome! This is looking good. Now, let's add in the ability to open our dialog 
 
 To do this, we'll:
 
-- Remove the `Modal` component from `App`
-- Add our `Modal` component back into our `Header` component
+- Add our `Modal` component into our `Header` component
 - Add some state to conditionally render `Modal`  depending on if the user has clicked on the delete icon
 
 Let's do that now.
@@ -641,7 +629,6 @@ export const Header = () => {
           <DeleteIcon />
         </button>
       </div>
-      {/* ... */}
     </>
   );
 };
@@ -654,19 +641,20 @@ export const Header = () => {
 ```typescript
 @Component({
   selector: 'header-comp',
+  standalone: true,
+  imports: [ModalComponent, FolderIconComponent, DeleteIconComponent],
   template: `
   <div class="header-container">
-    <modal *ngIf="shouldShowModal"></modal>
+    <delete-modal *ngIf="shouldShowModal"/>
     <span class="icon-container">
-      <folder-icon></folder-icon>
+      <folder-icon/>
     </span>
     <span class="header-title">Main folder</span>
     <span class="auto"></span>
     <button class="icon-btn" (click)="showModal()">
-      <delete-icon></delete-icon>
+      <delete-icon/>
     </button>
   </div>
-  <!-- ... -->
 `,
 })
 export class HeaderComponent {
