@@ -25,15 +25,11 @@ You may be surprised to learn that, despite their ubiquity, they can be rather c
 
 However, you may not be surprised to learn that these modals are so common that **there's an API in React, Angular, and Vue each that makes modals easier to implement**; an API that's almost exclusively for these kinds of modal components.
 
-What is this API called?
+What is this API called? **Portals**.
 
-More importantly, **why do we need a dedicated API for this use-case?**
-
-The answer? **CSS**.
+Why do we need a dedicated API for this use-case? **CSS**.
 
 # The Problem with Modals; CSS Stacking Contexts
-
-While I could say "CSS is the reason we need a dedicated JavaScript API for modals", that wouldn't be a very satisfying answer, would it?
 
 Let's rebuild the modal from before in our framework of choice:
 
@@ -42,104 +38,32 @@ Let's rebuild the modal from before in our framework of choice:
 ## React
 
 ```jsx
-
 export const Modal = () => {
   return (
-    <>
-      <div>
-        <div class="modal-container">
-          <h1 class="title">Are you sure you want to delete that file?</h1>
-          <p class="body-text">
-            Deleting this file is a permanent action. You’re unable to recover
-            this file at a later date. Are you sure you want to delete this
-            file?
-          </p>
-          <div class="buttons-container">
-            <button class="cancel">Cancel</button>
-            <button class="confirm">Confirm</button>
-          </div>
+    <div>
+      <div class="modal-container">
+        <h1 class="title">Are you sure you want to delete that file?</h1>
+        <p class="body-text">
+          Deleting this file is a permanent action. You’re unable to recover
+          this file at a later date. Are you sure you want to delete this
+          file?
+        </p>
+        <div class="buttons-container">
+          <button class="cancel">Cancel</button>
+          <button class="confirm">Confirm</button>
         </div>
       </div>
-      <style
-        children={`
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      padding: 20px 0px 0px;
-      background: #e0e3e5;
-      border-radius: 28px;
-      font-family: 'Roboto', sans-serif;
-      color: #001f28;
-    }
-  
-    .title {
-      margin: 0;
-      padding: 0px 24px 16px;
-      font-size: 24px;
-      font-weight: 400;
-    }
-  
-    .body-text {
-      margin: 0;
-      padding: 0px 24px 24px;
-      font-size: 14px;
-    }
-  
-    .buttons-container {
-      display: flex;
-      justify-content: end;
-      padding: 16px;
-      gap: 8px;
-    }
-  
-    .buttons-container button {
-      margin: 4px 0;
-      padding: 10px 24px;
-      border-radius: 1000px;
-      border: none;
-    }
-  
-    .cancel {
-      background: #b8eaff;
-    }
-  
-    .cancel:hover {
-      filter: brightness(0.8);
-    }
-  
-    .cancel:active {
-      filter: brightness(0.6);
-    }
-  
-    .confirm {
-      background: #2e6578;
-      color: white;
-    }
-  
-    .confirm:hover {
-      filter: brightness(1.4);
-    }
-  
-    .confirm:active {
-      filter: brightness(1.8);
-    }
-    `}
-      />
-    </>
+    </div>
   );
 };
 ```
 
-> We're using a trick of `children={'.class {color: "white"}'}` here to apply styling in order to avoid JSX incorrectly throwing errors from our CSS.
-
 ## Angular
 
 ```typescript
-
 @Component({
   selector: 'delete-modal',
+  standalone: true,
   template: `
   <div>
     <div class="modal-container">
@@ -155,73 +79,6 @@ export const Modal = () => {
     </div>
   </div>
   `,
-  styles: [
-    `
-    .modal-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      padding: 20px 0px 0px;
-      background: #e0e3e5;
-      border-radius: 28px;
-      font-family: 'Roboto', sans-serif;
-      color: #001f28;
-    }
-
-    .title {
-      margin: 0;
-      padding: 0px 24px 16px;
-      font-size: 24px;
-      font-weight: 400;
-    }
-
-    .body-text {
-      margin: 0;
-      padding: 0px 24px 24px;
-      font-size: 14px;
-    }
-
-    .buttons-container {
-      display: flex;
-      justify-content: end;
-      padding: 16px;
-      gap: 8px;
-    }
-
-    .buttons-container button {
-      margin: 4px 0;
-      padding: 10px 24px;
-      border-radius: 1000px;
-      border: none;
-    }
-
-    .cancel {
-      background: #b8eaff;
-    }
-
-    .cancel:hover {
-      filter: brightness(0.8);
-    }
-
-    .cancel:active {
-      filter: brightness(0.6);
-    }
-
-    .confirm {
-      background: #2e6578;
-      color: white;
-    }
-
-    .confirm:hover {
-      filter: brightness(1.4);
-    }
-
-    .confirm:active {
-      filter: brightness(1.8);
-    }
-  `,
-  ],
 })
 class ModalComponent {}
 ```
@@ -247,8 +104,20 @@ class ModalComponent {}
 </template>
 
 <script setup></script>
+```
 
-<style>
+<!-- tabs:end -->
+
+<br/>
+
+<details>
+<summary>
+CSS for the modal
+</summary>
+
+<br/>
+    
+```
 .modal-container {
   position: fixed;
   top: 50%;
@@ -312,10 +181,16 @@ class ModalComponent {}
 .confirm:active {
   filter: brightness(1.8);
 }
-</style>
 ```
+</details>
 
-<!-- tabs:end -->
+
+
+
+
+
+
+
 
 Now that we have that modal, let's build out a small version of our folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
@@ -333,40 +208,21 @@ Now that we have that modal, let's build out a small version of our folder app w
 
 ## React
 
+
 ```jsx
-// Icons.jsx
-import React from 'react';
-
-export const DeleteIcon = () => {
+export const App = () => {
   return (
-    <svg viewBox="0 0 20 21">
-      <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
-      <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
-      <path
-        d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
-
-export const FolderIcon = () => {
-  return (
-    <svg viewBox="0 0 20 16">
-      <path
-        d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
-        fill="currentColor"
-      />
-    </svg>
+    <div>
+      <Header />
+      <Body />
+      <Modal />
+      <Footer />
+    </div>
   );
 };
 ```
 
 ```jsx
-// Header.jsx
-import React from 'react';
-import { DeleteIcon, FolderIcon } from './Icons';
-
 export const Header = () => {
   return (
     <>
@@ -380,74 +236,14 @@ export const Header = () => {
           <DeleteIcon />
         </button>
       </div>
-      <style
-        children={`
-      .header-container {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 8px 12px;
-        border: 2px solid #F5F8FF;
-        background: white;
-        color: #1A42E6;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        box-sizing: border-box;
-        z-index: 1;
-      }
-
-      .header-title {
-        font-family: 'Roboto', sans-serif;
-        font-weight: bold;
-      }
-
-      .auto {
-        margin: 0 auto;
-      }
-
-      .icon-btn, .icon-container {
-        box-sizing: border-box;
-        background: none;
-        border: none;
-        color: #1A42E6;
-        border-radius: 0.5rem;
-        height: 24px;
-        width: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4px;
-      }
-
-      .icon-btn svg {
-        width: 100%;
-      }
-
-      .icon-btn:hover {
-        background: rgba(26, 66, 229, 0.2);
-      }
-
-      .icon-btn:active {
-        background: rgba(26, 66, 229, 0.4);
-        color: white;
-      }
-    `}
-      />
     </>
   );
 };
 ```
 
 ```jsx
-// Body.jsx
-import React from 'react';
-import { FolderIcon } from './Icons';
-
 export const Body = () => {
   return (
-    <>
       <ul class="list-container">
         {Array.from({ length: 10 }, (_, i) => (
           <li class="list-item">
@@ -456,140 +252,55 @@ export const Body = () => {
           </li>
         ))}
       </ul>
-      <style
-        children={`
-        .list-container {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-          margin: 0;
-          margin-top: 2.5rem;
-          padding: 1rem;
-        }
-
-        .list-item {
-          padding: 0.5rem 1rem;
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          color: #1A42E6;
-          font-family: 'Roboto', sans-serif;
-          border-radius: 0.5rem;
-        }
-        
-        .list-item:hover {
-          background: rgba(245, 248, 255, 1);
-        }
-
-        .list-item svg {
-          width: 24px;
-        }
-      `}
-      />
-    </>
   );
 };
 ```
 
 ```jsx
-// Footer.jsx
-import React from 'react';
-
 export const Footer = () => {
   return (
-    <>
-      <div class="footer-container">Copyright 2022</div>
-      <style
-        children={`
-        .footer-container {
-          font-family: 'Roboto', sans-serif;
-          position: relative;
-          z-index: 2;
-          background: white;
-          color: #1A42E6;
-          padding: 8px 12px;
-          border: 2px solid #F5F8FF;
-        }
-      `}
-      />
-    </>
+    <div class="footer-container">Copyright 2022</div>
   );
 };
 ```
 
 ```jsx
-// App.jsx
-import React from 'react';
-
-import { Header } from './Header';
-import { Body } from './Body';
-import { Footer } from './Footer';
-import { Modal } from './Modal';
-
-export const App = () => {
+export const DeleteIcon = () => {
   return (
-    <div>
-      <style
-        children={`body {
-  margin: 0;
-  padding: 0;
-}`}
+    <svg viewBox="0 0 20 21">
+      <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
+      <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
+      <path
+        d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
+        fill="currentColor"
       />
-      <Header />
-      <Body />
-      <Modal />
-      <Footer />
-    </div>
+    </svg>
   );
 };
+```
 
+```jsx
+export const FolderIcon = () => {
+  return (
+    <svg viewBox="0 0 20 16">
+      <path
+        d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
 ```
 
 ## Angular
 
 ```typescript
-// app.module.ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { BodyComponent } from './body.component';
-import { FooterComponent } from './footer.component';
-import { HeaderComponent } from './header.component';
-import { DeleteIconComponent, FolderIconComponent } from './icons';
-import { ModalComponent } from './modal.component';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    BodyComponent,
-    HeaderComponent,
-    DeleteIconComponent,
-    FolderIconComponent,
-    FooterComponent,
-    ModalComponent,
-  ],
-  imports: [BrowserModule],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-```
-
-```typescript
-// app.component.ts
-import { Component } from '@angular/core';
-
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [HeaderComponent, BodyComponent, FooterComponent],
   template: `
     <div>
-    <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    </style>
       <header-comp></header-comp>
       <body-comp></body-comp>
       <footer-comp></footer-comp>
@@ -600,84 +311,10 @@ export class AppComponent {}
 ```
 
 ```typescript
-// body.component.ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'body-comp',
-  template: `
-  <ul class="list-container">
-    <li class="list-item" *ngFor="let fileIdx of files">
-      <folder-icon ></folder-icon>
-      <span>File number {{fileIdx + 1}}</span>
-    </li>
-  </ul>
-  <style>
-    .list-container {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      margin: 0;
-      margin-top: 2.5rem;
-      padding: 1rem;
-    }
-
-    .list-item {
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: #1A42E6;
-      font-family: 'Roboto', sans-serif;
-      border-radius: 0.5rem;
-    }
-
-    .list-item:hover {
-      background: rgba(245, 248, 255, 1);
-    }
-
-    .list-item::ng-deep svg {
-      width: 24px;
-    }
-  </style>
-  `,
-})
-export class BodyComponent {
-  files = Array.from({ length: 10 }, (_, i) => i);
-}
-```
-
-```typescript
-// footer.component.ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'footer-comp',
-  template: `
-  <div class="footer-container">Copyright 2022</div>
-    <style>
-      .footer-container {
-        font-family: 'Roboto', sans-serif;
-        position: relative;
-        z-index: 2;
-        background: white;
-        color: #1A42E6;
-        padding: 8px 12px;
-        border: 2px solid #F5F8FF;
-      }
-  </style>
-  `,
-})
-export class FooterComponent {}
-```
-
-```typescript
-// header.component.ts
-import { Component } from '@angular/core';
-
 @Component({
   selector: 'header-comp',
+  standalone: true,
+  imports: [],
   template: `
   <div class="header-container">
     <span class="icon-container">
@@ -689,59 +326,6 @@ import { Component } from '@angular/core';
       <delete-icon></delete-icon>
     </button>
   </div>
-  <style>
-  .header-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 8px 12px;
-    border: 2px solid #F5F8FF;
-    background: white;
-    color: #1A42E6;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 1;
-  }
-
-  .header-title {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-  }
-
-  .auto {
-    margin: 0 auto;
-  }
-
-  .icon-btn, .icon-container {
-    box-sizing: border-box;
-    background: none;
-    border: none;
-    color: #1A42E6;
-    border-radius: 0.5rem;
-    height: 24px;
-    width: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-  }
-
-  .icon-btn svg {
-    width: 100%;
-  }
-
-  .icon-btn:hover {
-    background: rgba(26, 66, 229, 0.2);
-  }
-
-  .icon-btn:active {
-    background: rgba(26, 66, 229, 0.4);
-    color: white;
-  }
-  </style>
 `,
 })
 export class HeaderComponent {
@@ -754,98 +338,68 @@ export class HeaderComponent {
 ```
 
 ```typescript
-// modal.component.ts
-import { Component } from '@angular/core';
-
 @Component({
-  selector: 'modal',
+  selector: 'body-comp',
+  standalone: true,
+  imports: [FolderIconComponent],
   template: `
-  <div>
-      <div class="modal-container">
-        <h1 class="title">Are you sure you want to delete that file?</h1>
-        <p class="body-text">
-          Deleting this file is a permanent action. You’re unable to recover
-          this file at a later date. Are you sure you want to delete this
-          file?
-        </p>
-        <div class="buttons-container">
-          <button class="cancel">Cancel</button>
-          <button class="confirm">Confirm</button>
-        </div>
-      </div>
-    </div>
-    <style>
-      .modal-container {
-      position: fixed;
-      z-index: 99;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      padding: 20px 0px 0px;
-      background: #e0e3e5;
-      border-radius: 28px;
-      font-family: 'Roboto', sans-serif;
-      color: #001f28;
-      }
-
-      .title {
-      margin: 0;
-      padding: 0px 24px 16px;
-      font-size: 24px;
-      font-weight: 400;
-      }
-
-      .body-text {
-      margin: 0;
-      padding: 0px 24px 24px;
-      font-size: 14px;
-      }
-
-      .buttons-container {
-      display: flex;
-      justify-content: end;
-      padding: 16px;
-      gap: 8px;
-      }
-
-      .buttons-container button {
-      margin: 4px 0;
-      padding: 10px 24px;
-      border-radius: 1000px;
-      border: none;
-      }
-
-      .cancel {
-      background: #b8eaff;
-      }
-
-      .cancel:hover {
-      filter: brightness(0.8);
-      }
-
-      .cancel:active {
-      filter: brightness(0.6);
-      }
-
-      .confirm {
-      background: #2e6578;
-      color: white;
-      }
-
-      .confirm:hover {
-      filter: brightness(1.4);
-      }
-
-      .confirm:active {
-      filter: brightness(1.8);
-      }
-    </style>
+  <ul class="list-container">
+    <li class="list-item" *ngFor="let fileIdx of files">
+      <folder-icon ></folder-icon>
+      <span>File number {{fileIdx + 1}}</span>
+    </li>
+  </ul>
   `,
 })
-export class ModalComponent {}
+export class BodyComponent {
+  files = Array.from({ length: 10 }, (_, i) => i);
+}
 ```
 
+```typescript
+@Component({
+  selector: 'footer-comp',
+  standalone: true,
+  template: `
+  <div class="footer-container">Copyright 2022</div>
+  `,
+})
+export class FooterComponent {}
+```
 
+```typescript
+@Component({
+  selector: 'folder-icon',
+  standalone: true,
+  template: `
+  <svg viewBox="0 0 20 16">
+    <path
+      d="M20 14C20 15.1046 19.1046 16 18 16H2C0.895431 16 0 15.1046 0 14V2C0 0.895431 0.89543 0 2 0H11C11.7403 0 12.3866 0.402199 12.7324 1H18C19.1046 1 20 1.89543 20 3V14ZM11 4V2H2V14H18V6H13C11.8954 6 11 5.10457 11 4ZM13 3V4H18V3H13Z"
+      fill="currentColor"
+    />
+  </svg>
+  `,
+})
+class FolderIconComponent {}
+```
+
+```typescript
+@Component({
+  selector: 'delete-icon',
+  standalone: true,
+  template: `
+  <svg viewBox="0 0 20 21">
+    <path d="M9 8V16H7.5L7 8H9Z" fill="currentColor" />
+    <path d="M12.5 16L13 8H11V16H12.5Z" fill="currentColor" />
+    <path
+      d="M8 0C7.56957 0 7.18743 0.27543 7.05132 0.683772L6.27924 3H1C0.447715 3 0 3.44772 0 4C0 4.55228 0.447715 5 1 5H2.56055L3.38474 18.1871C3.48356 19.7682 4.79471 21 6.3789 21H13.6211C15.2053 21 16.5164 19.7682 16.6153 18.1871L17.4395 5H19C19.5523 5 20 4.55228 20 4C20 3.44772 19.5523 3 19 3H13.7208L12.9487 0.683772C12.8126 0.27543 12.4304 0 12 0H8ZM12.9767 5C12.9921 5.00036 13.0076 5.00036 13.0231 5H15.4355L14.6192 18.0624C14.5862 18.5894 14.1492 19 13.6211 19H6.3789C5.85084 19 5.41379 18.5894 5.38085 18.0624L4.56445 5H6.97694C6.99244 5.00036 7.00792 5.00036 7.02334 5H12.9767ZM11.6126 3H8.38743L8.72076 2H11.2792L11.6126 3Z"
+      fill="currentColor"
+    />
+  </svg>
+  `,
+})
+class DeleteIconComponent {}
+```
 
 ## Vue
 
@@ -864,13 +418,32 @@ import Footer from './Footer.vue'
     <Footer />
   </div>
 </template>
+```
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
+```vue
+<!-- Header.vue -->
+<script setup>
+import FolderIcon from './FolderIcon.vue'
+import DeleteIcon from './DeleteIcon.vue'
+import { ref } from 'vue'
+const shouldShowModal = ref(false)
+
+function showModal() {
+  shouldShowModal.value = true
 }
-</style>
+</script>
+<template>
+  <div class="header-container">
+    <span class="icon-container">
+      <FolderIcon />
+    </span>
+    <span class="header-title">Main folder</span>
+    <span class="auto"></span>
+    <button class="icon-btn" @click="showModal()">
+      <DeleteIcon />
+    </button>
+  </div>
+</template>
 ```
 
 ```vue
@@ -889,36 +462,6 @@ const files = Array.from({ length: 10 }, (_, i) => i)
     </li>
   </ul>
 </template>
-
-<style>
-.list-container {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin: 0;
-  margin-top: 2.5rem;
-  padding: 1rem;
-}
-
-.list-item {
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: #1a42e6;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 0.5rem;
-}
-
-.list-item:hover {
-  background: rgba(245, 248, 255, 1);
-}
-
-.list-item svg {
-  width: 24px;
-}
-</style>
 ```
 
 ```vue
@@ -926,18 +469,6 @@ const files = Array.from({ length: 10 }, (_, i) => i)
 <template>
   <div class="footer-container">Copyright 2022</div>
 </template>
-
-<style>
-.footer-container {
-  font-family: 'Roboto', sans-serif;
-  position: relative;
-  z-index: 2;
-  background: white;
-  color: #1a42e6;
-  padding: 8px 12px;
-  border: 2px solid #f5f8ff;
-}
-</style>
 ```
 
 ```vue
@@ -966,40 +497,29 @@ const files = Array.from({ length: 10 }, (_, i) => i)
 </template>
 ```
 
-```vue
-<!-- Header.vue -->
+<!-- tabs:end -->
 
-<script setup>
-import FolderIcon from './FolderIcon.vue'
-import DeleteIcon from './DeleteIcon.vue'
-import { ref } from 'vue'
-const shouldShowModal = ref(false)
+<br/>
 
-function showModal() {
-  shouldShowModal.value = true
+<details>
+<summary>CSS for the Rest of the App</summary>
+
+<br/>
+
+```
+body {
+  margin: 0;
+  padding: 0;
 }
-</script>
-<template>
-  <div class="header-container">
-    <span class="icon-container">
-      <FolderIcon />
-    </span>
-    <span class="header-title">Main folder</span>
-    <span class="auto"></span>
-    <button class="icon-btn" @click="showModal()">
-      <DeleteIcon />
-    </button>
-  </div>
-</template>
-<style>
+
 .header-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 8px 12px;
-  border: 2px solid #f5f8ff;
+  border: 2px solid #F5F8FF;
   background: white;
-  color: #1a42e6;
+  color: #1A42E6;
   position: fixed;
   top: 0;
   left: 0;
@@ -1017,12 +537,11 @@ function showModal() {
   margin: 0 auto;
 }
 
-.icon-btn,
-.icon-container {
+.icon-btn, .icon-container {
   box-sizing: border-box;
   background: none;
   border: none;
-  color: #1a42e6;
+  color: #1A42E6;
   border-radius: 0.5rem;
   height: 24px;
   width: 24px;
@@ -1044,95 +563,47 @@ function showModal() {
   background: rgba(26, 66, 229, 0.4);
   color: white;
 }
-</style>
-```
 
-```vue
-<!-- Modal.vue -->
-<template>
-  <div>
-    <div class="modal-container">
-      <h1 class="title">Are you sure you want to delete that file?</h1>
-      <p class="body-text">
-        Deleting this file is a permanent action. You’re unable to recover this file at a later date. Are you sure you
-        want to delete this file?
-      </p>
-      <div class="buttons-container">
-        <button class="cancel">Cancel</button>
-        <button class="confirm">Confirm</button>
-      </div>
-    </div>
-  </div>
-</template>
-<style>
-.modal-container {
-  position: fixed;
-  z-index: 99;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  padding: 20px 0px 0px;
-  background: #e0e3e5;
-  border-radius: 28px;
-  font-family: 'Roboto', sans-serif;
-  color: #001f28;
-}
-
-.title {
-  margin: 0;
-  padding: 0px 24px 16px;
-  font-size: 24px;
-  font-weight: 400;
-}
-
-.body-text {
-  margin: 0;
-  padding: 0px 24px 24px;
-  font-size: 14px;
-}
-
-.buttons-container {
+.list-container {
+  list-style: none;
   display: flex;
-  justify-content: end;
-  padding: 16px;
-  gap: 8px;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  margin-top: 2.5rem;
+  padding: 1rem;
 }
 
-.buttons-container button {
-  margin: 4px 0;
-  padding: 10px 24px;
-  border-radius: 1000px;
-  border: none;
+.list-item {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #1A42E6;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 0.5rem;
 }
 
-.cancel {
-  background: #b8eaff;
+.list-item:hover {
+  background: rgba(245, 248, 255, 1);
 }
 
-.cancel:hover {
-  filter: brightness(0.8);
+.list-item svg {
+  width: 24px;
 }
 
-.cancel:active {
-  filter: brightness(0.6);
+.footer-container {
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  z-index: 2;
+  background: white;
+  color: #1A42E6;
+  padding: 8px 12px;
+  border: 2px solid #F5F8FF;
 }
-
-.confirm {
-  background: #2e6578;
-  color: white;
-}
-
-.confirm:hover {
-  filter: brightness(1.4);
-}
-
-.confirm:active {
-  filter: brightness(1.8);
-}
-</style>
 ```
 
-<!-- tabs:end -->
+</details>
 
 
 
