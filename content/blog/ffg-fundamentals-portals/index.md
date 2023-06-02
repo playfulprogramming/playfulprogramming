@@ -31,7 +31,7 @@ Why do we need a dedicated API for this use-case? **CSS**.
 
 # The Problem with Modals; CSS Stacking Contexts
 
-Let's rebuild the modal from before in our framework of choice:
+Let's build the "Delete file" modal we saw in our framework of choice:
 
 <!-- tabs:start -->
 
@@ -195,12 +195,6 @@ CSS for the modal
 Now that we have that modal, let's build out a small version of our folder app we've been building in this book. This version of the app should showcase the modal, the header, and a copyright footer:
 
 ![// TODO: Add alt](website_modal_example.png)
-
-
-
-
-
-<!-- Editor's note: Remove most of this code, especially the styling and icons -->
 
 
 
@@ -603,8 +597,6 @@ To do this, we'll:
 - Add our `Modal` component into our `Header` component
 - Add some state to conditionally render `Modal`  depending on if the user has clicked on the delete icon
 
-Let's do that now.
-
 <!-- tabs:start -->
 
 ## React
@@ -716,13 +708,7 @@ While the long answer of "why is the modal rendering under the footer in this ex
 
 
 
-To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter.
-
-> So what's the name of this API called anyway?
-
-Introducing: Portals.
-
-
+To solve this, we'll reach for the JavaScript API built into React, Angular, and Vue that we mentioned at the start of this chapter: Portals.
 
 # What is a JavaScript Portal?
 
@@ -762,13 +748,13 @@ This is where JavaScript portals come into play. **Portals allow you to render t
 
 This is to say that your framework components will be laid out like the tree on the left, but will render out like the flat structure on the right.
 
-Without further ado, let's take a look at how we can build these portals ourselves.
+Let's take a look at how we can build these portals ourselves.
 
 
 
 # Using Local Portals
 
-While it's not the most useful example of using a portal, for reasons we'll explain later, let's see how we can use a portal to teleport part of a UI to another part of the same component:
+While it's not the most useful example of using a portal, let's see how we can use a portal to teleport part of a UI to another part of the same component:
 
 <!-- tabs:start -->
 
@@ -808,7 +794,7 @@ You'll notice that we're then displaying the return of `createPortal` - `portal`
 
 ## Angular
 
-While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called "Angular CDK" in order to have shared UI code for utilities such as portals.
+While the other frameworks have something akin to a portal system built into their frameworks' core, Angular does not. Instead, the Angular team maintains a library called [the "Angular CDK"](https://cdk.angular.io) in order to have shared UI code for utilities such as portals.
 
 To use the Angular CDK, you'll first need to install it into your project:
 
@@ -850,7 +836,13 @@ class AppComponent implements AfterViewInit {
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
 
-This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s  when `PortalModule` is imported; without `PortalModule` you'll see an error.
+This `domPortal` is then assigned to a `[cdkPortalOutlet]` input. This input is automatically created on all `ng-template`s  when `PortalModule` is imported.
+
+> If you forget to import `PortalModule`, you'll see an error like so:
+>
+> ```
+>  Can't bind to 'cdkPortalOutlet' since it isn't a known property of 'ng-template' (used in the 'AppComponent' component template).
+> ```
 
 This `cdkPortalOutlet` is where the captured HTML is then projected into.
 
@@ -906,7 +898,7 @@ class AppComponent implements AfterViewInit {
 
 ## Vue
 
-Vue may have the simpliest portal API of them all; Simply use the built-in `Teleport` component, and tell it which HTML element you want it to render to using the `to` input.
+Vue may have the most minimal portal API of them all; You use the built-in `Teleport` component, and tell it which HTML element you want it to render to using the `to` input.
 
 ```vue
 <!-- App.vue -->
@@ -930,13 +922,9 @@ const portalContainerEl = ref(null)
 
 <!-- tabs:end -->
 
+> It's worth mentioning that this is not the most useful example of a portal, because if we are within the same component, we could simply move the elements around freely, with full control over a component.
 
-
-As mentioned previously this is not the most useful example of a portal, because if we are within the same component, we could simply move the elements around freely, with full control over a component.
-
-Let's move on to application-wide portals, where the story starts to make more sense.
-
-
+Now that we know how to apply portals within a component, let's see how we can apply a portal to be at the root of the entire application.
 
 # Application-Wide Portals
 
@@ -956,13 +944,12 @@ Good call, keen reader! Let's do that.
 
 If we remember [our dependency injection chapter, React uses a `context` to provide and consume data using dependency injection](/posts/ffg-fundamentals-dependency-injection).
 
-We can pair this with our `createPortal` API to easily keep track of where we want to provide a portal:
+We can pair this with our `createPortal` API to keep track of where we want to provide a portal:
 
 ```jsx
 import { useState, createContext, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
-// We start by creating a context name
 const PortalContext = createContext();
 
 function ChildComponent() {
@@ -1056,7 +1043,7 @@ We're also making sure that our portal exists before rending it in our `AppCompo
 
 ## Vue
 
-Once again Vue's simplicity is visible through the pairing of its `provide` API, which hosts a variable of the location to present portals into, and its `Teleport` API which enables the portal's usage.
+Once again Vue's straightforward API approach is visible through the pairing of its `provide` API, which hosts a variable of the location to present portals into, and its `Teleport` API which enables the portal's usage.
 
 ```vue
 <!-- App.vue -->
