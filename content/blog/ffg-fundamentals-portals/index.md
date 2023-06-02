@@ -819,14 +819,15 @@ npm i @angular/cdk
 From here, we can import components and utilities directly from the CDK.
 
 ```typescript
-import { PortalModule } from '@angular/cdk/portal';
-import { DomPortal } from '@angular/cdk/portal';
+import { PortalModule, DomPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PortalModule],
   template: `
   <div style="height: 100px; width: 100px; border: 2px solid black;">
-    <ng-template [cdkPortalOutlet]="domPortal"></ng-template>
+    <ng-template [cdkPortalOutlet]="domPortal"/>
   </div>
   <div #portalContent>Hello world!</div>
   `,
@@ -845,14 +846,6 @@ class AppComponent implements AfterViewInit {
     }, 0);
   }
 }
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, PortalModule],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
 ```
 
 You'll notice that we're creating a variable called `domPortal` that we assign an instance of `DomPortal` into. This `DomPortal` instance allows us to take a captured reference to some HTML (in this case, a `div` with `Hello world!`), and project it elsewhere.
@@ -882,9 +875,11 @@ import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PortalModule],
   template: `
   <div style="height: 100px; width: 100px; border: 2px solid black;">
-    <ng-template [cdkPortalOutlet]="domPortal"></ng-template>
+    <ng-template [cdkPortalOutlet]="domPortal"/>
   </div>
   <ng-template #portalContent>Hello, this is a template portal</ng-template>
   `,
@@ -1009,6 +1004,7 @@ class PortalService {
 
 @Component({
   selector: 'modal',
+  standalone: true,
   template: `
   <ng-template #portalContent>Test</ng-template>
   `,
@@ -1040,11 +1036,13 @@ class ModalComponent implements OnDestroy {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PortalModule, ModalComponent, NgIf],
   template: `
   <div style="height: 100px; width: 100px; border: 2px solid black;" *ngIf="portalService.portal">
-    <ng-template [cdkPortalOutlet]="portalService.portal"></ng-template>
+    <ng-template [cdkPortalOutlet]="portalService.portal"/>
   </div>
-  <modal></modal>
+  <modal/>
   `,
 })
 class AppComponent {
@@ -1184,6 +1182,7 @@ class PortalService {
 
 @Component({
   selector: 'modal',
+  standalone: true,
   template: `
     <ng-template #portalContent>Test</ng-template>
   `,
@@ -1214,8 +1213,10 @@ class ModalComponent implements OnDestroy {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [ModalComponent],
   template: `
-  <modal></modal>
+  	<modal/>
   `,
 })
 class AppComponent {}
