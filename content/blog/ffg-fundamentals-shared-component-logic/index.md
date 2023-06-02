@@ -149,6 +149,7 @@ class WindowSize {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
   template: `
     <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
   `,
@@ -275,26 +276,27 @@ class WindowSize implements OnDestroy {
   width = 0;
 
   constructor() {
-    this.height = window.innerHeight
-    this.width = window.innerWidth
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
     // In a component, we might add this in an `OnInit`, but `Injectable` classes only have `OnDestroy`
     window.addEventListener('resize', this.onResize);
   }
   onResize = () => {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
-  }
+  };
   ngOnDestroy() {
     window.removeEventListener('resize', this.onResize);
   }
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
+  standalone: true,
   template: `
     <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
   `,
-  providers: [WindowSize]
+  providers: [WindowSize],
 })
 class AppComponent {
   windowSize = inject(WindowSize);
@@ -459,7 +461,7 @@ Now that we have this ability to tap into the `resize` event handler, let's writ
 
 ```typescript
 @Injectable()
-class IsMobile implements OnDestroy {
+class IsMobile {
   isMobile = false;
 
   // We cannot use the `inject` function here, because we need to overwrite our `constructor` behavior
@@ -477,13 +479,14 @@ This allows us to have a `isMobile` field that we can access from our `AppCompon
 
 ```typescript
 @Component({
-  selector: 'app-root',
+  selector: 'my-app',
+  standalone: true,
   template: `
     <p>Is mobile? {{isMobile.isMobile}}</p>
   `,
   providers: [WindowSize, IsMobile],
 })
-class AppComponent implements OnInit, OnDestroy {
+class AppComponent {
   isMobile = inject(IsMobile);
 }
 ```
@@ -661,18 +664,24 @@ While we were able to use the `constructor` to set up our event listeners in pre
 ```typescript
 @Injectable()
 class CloseIfOutSideContext implements OnDestroy {
-  getCloseIfOutsideFunction = (contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) => {
+  getCloseIfOutsideFunction = (
+    contextMenu: ElementRef<HTMLElement>,
+    close: EventEmitter<any>
+  ) => {
     return (e: MouseEvent) => {
       const contextMenuEl = contextMenu?.nativeElement;
       if (!contextMenuEl) return;
       const isClickInside = contextMenuEl.contains(e.target as HTMLElement);
       if (isClickInside) return;
       close.emit();
-    }
+    };
   };
 
   setup(contextMenu: ElementRef<HTMLElement>, close: EventEmitter<any>) {
-    this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(contextMenu, close);
+    this.closeIfOutsideOfContext = this.getCloseIfOutsideFunction(
+      contextMenu,
+      close
+    );
     document.addEventListener('click', this.closeIfOutsideOfContext);
   }
 
@@ -686,6 +695,7 @@ class CloseIfOutSideContext implements OnDestroy {
 
 @Component({
   selector: 'context-menu',
+  standalone: true,
   template: `
   <div
     #contextMenu
@@ -704,7 +714,7 @@ class CloseIfOutSideContext implements OnDestroy {
     This is a context menu
   </div>
   `,
-  providers: [CloseIfOutSideContext]
+  providers: [CloseIfOutSideContext],
 })
 export class ContextMenuComponent implements AfterViewInit {
   @ViewChild('contextMenu') contextMenu!: ElementRef<HTMLElement>;
@@ -713,8 +723,7 @@ export class ContextMenuComponent implements AfterViewInit {
   @Input() y: number = 0;
   @Output() close = new EventEmitter();
 
-  constructor(private closeIfOutsideContext: CloseIfOutSideContext) {
-  }
+  constructor(private closeIfOutsideContext: CloseIfOutSideContext) {}
 
   focus() {
     this.contextMenu.nativeElement.focus();
@@ -756,6 +765,8 @@ class BoundsContext {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, ContextMenuComponent],
   template: `
   <div [style]="{ marginTop: '5rem', marginLeft: '5rem' }">
     <div #contextOrigin (contextmenu)="open($event)">
@@ -764,7 +775,7 @@ class BoundsContext {
   </div>
   <context-menu #contextMenu *ngIf="isOpen" [x]="boundsContext.bounds.x" [y]="boundsContext.bounds.y" (close)="close()"></context-menu>
   `,
-  providers: [BoundsContext]
+  providers: [BoundsContext],
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild('contextOrigin') contextOrigin!: ElementRef<HTMLElement>;
@@ -772,8 +783,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   isOpen = false;
 
-  constructor(public boundsContext: BoundsContext) {
-  }
+  constructor(public boundsContext: BoundsContext) {}
 
   ngAfterViewInit() {
     this.boundsContext.setup(this.contextOrigin);
