@@ -1,14 +1,14 @@
 @import "src/tokens/index";
 
 .title {
-	margin-top: get-var(--spc-2x);
+	margin-top: var(--spc-2x);
 	margin-bottom: 0;
 }
 
 .tags {
 	list-style: none;
-	padding: get-var(--spc-2x) 0;
+	padding: var(--spc-2x) 0;
 	margin: 0;
 
-	gap: get-var(--spc-2x);
+	gap: var(--spc-2x);
 }

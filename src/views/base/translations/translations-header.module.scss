@@ -2,5 +2,5 @@
 
 .text {
 	margin: 0;
-	margin-left: get-var(--spc-2x);
+	margin-left: var(--spc-2x);
 }

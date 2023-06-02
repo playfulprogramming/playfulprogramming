@@ -1,9 +1,9 @@
 @import "src/tokens/index";
 
 .headerBorder {
-	border-bottom: 1px solid get-var(--foreground_emphasis-none);
-	margin-top: get-var(--spc-4x) !important;
-	margin-bottom: get-var(--spc-4x) !important;
+	border-bottom: 1px solid var(--foreground_emphasis-none);
+	margin-top: var(--spc-4x) !important;
+	margin-bottom: var(--spc-4x) !important;
 }
 
 .header {
@@ -11,20 +11,20 @@
 }
 
 .logo {
-	margin: 0 get-var(--spc-4x);
+	margin: 0 var(--spc-4x);
 	text-decoration: none;
 
 	span {
-		margin-left: get-var(--spc-1x);
+		margin-left: var(--spc-1x);
 		line-height: 125%;
 
-		color: get-var(--primary_default);
+		color: var(--primary_default);
 	}
 }
 
 .nav {
-	gap: get-var(--spc-2x);
-	padding: 0 get-var(--spc-4x);
+	gap: var(--spc-2x);
+	padding: 0 var(--spc-4x);
 
 	@include until($tablet) {
 		display: none;
@@ -32,7 +32,7 @@
 }
 
 .icons {
-	gap: get-var(--spc-4x);
+	gap: var(--spc-4x);
 	flex-grow: 1;
 	justify-content: flex-end;
 }

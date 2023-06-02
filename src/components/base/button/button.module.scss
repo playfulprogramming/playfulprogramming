@@ -2,76 +2,76 @@
 
 :root {
   // Large button for Mobile
-  --btn_large_padding-horizontal: #{get-var(--spc-4x)};
-  --btn_large_padding-vertical: #{get-var(--spc-3x)};
-  --btn_large_min-height: #{get-var(--min-target-size_l)};
-  --btn_large_icon_size_default: #{get-var(--icon-size_dense)};
-  --btn_large_icon_size_icon-only: #{get-var(--icon-size_regular)};
-  --btn_large_label_padding-horizontal: #{get-var(--spc-2x)};
+  --btn_large_padding-horizontal: var(--spc-4x);
+  --btn_large_padding-vertical: var(--spc-3x);
+  --btn_large_min-height: var(--min-target-size_l);
+  --btn_large_icon_size_default: var(--icon-size_dense);
+  --btn_large_icon_size_icon-only: var(--icon-size_regular);
+  --btn_large_label_padding-horizontal: var(--spc-2x);
 
   // Regular button for Mobile
-  --btn_regular_padding-horizontal: #{get-var(--spc-3x)};
-  --btn_regular_padding-vertical: #{get-var(--spc-2x)};
-  --btn_regular_min-height: #{get-var(--min-target-size_s)};
-  --btn_regular_icon_size_default: #{get-var(--icon-size_dense)};
-  --btn_regular_icon_size_icon-only: #{get-var(--icon-size_dense)};
-  --btn_regular_label_padding-horizontal: #{get-var(--spc-1x)};
+  --btn_regular_padding-horizontal: var(--spc-3x);
+  --btn_regular_padding-vertical: var(--spc-2x);
+  --btn_regular_min-height: var(--min-target-size_s);
+  --btn_regular_icon_size_default: var(--icon-size_dense);
+  --btn_regular_icon_size_icon-only: var(--icon-size_dense);
+  --btn_regular_label_padding-horizontal: var(--spc-1x);
 
   // Colors: Primary buttons
-  --btn_primary_background-color_default: #{get-var(--surface_primary_emphasis-low)};
-  --btn_primary_background-color_default_hovered: #{get-var(--surface_primary_emphasis-medium)};
-  --btn_primary_background-color_default_pressed: #{get-var(--surface_primary_emphasis-high)};
-  --btn_primary_foreground-color_default: #{get-var(--foreground_emphasis-high)};
+  --btn_primary_background-color_default: var(--surface_primary_emphasis-low);
+  --btn_primary_background-color_default_hovered: var(--surface_primary_emphasis-medium);
+  --btn_primary_background-color_default_pressed: var(--surface_primary_emphasis-high);
+  --btn_primary_foreground-color_default: var(--foreground_emphasis-high);
 
-  --btn_primary_background-color_emphasized: #{get-var(--primary_high-contrast)};
-  --btn_primary_background-color_emphasized_hovered: #{get-var(--primary_high-contrast_hovered)};
-  --btn_primary_background-color_emphasized_pressed: #{get-var(--primary_high-contrast_pressed)};
-  --btn_primary_foreground-color_emphasized: #{get-var(--background_primary)};
+  --btn_primary_background-color_emphasized: var(--primary_high-contrast);
+  --btn_primary_background-color_emphasized_hovered: var(--primary_high-contrast_hovered);
+  --btn_primary_background-color_emphasized_pressed: var(--primary_high-contrast_pressed);
+  --btn_primary_foreground-color_emphasized: var(--background_primary);
 
-  --btn_primary_focus-outline_width: #{get-var(--border-width_focus)};
-  --btn_primary_focus-outline_gap: #{get-var(--border-width_focus)};
-  --btn_primary_focus-oultine_color: #{get-var(--focus-outline_primary)};
+  --btn_primary_focus-outline_width: var(--border-width_focus);
+  --btn_primary_focus-outline_gap: var(--border-width_focus);
+  --btn_primary_focus-oultine_color: var(--focus-outline_primary);
 
   // Colors: Secondary buttons
-  --btn_secondary_background-color_default: #{get-var(--surface_secondary_emphasis-low)};
-  --btn_secondary_background-color_default_hovered: #{get-var(--surface_secondary_emphasis-medium)};
-  --btn_secondary_background-color_default_pressed: #{get-var(--surface_secondary_emphasis-high)};
-  --btn_secondary_foreground-color_default: #{get-var(--foreground_emphasis-high)};
+  --btn_secondary_background-color_default: var(--surface_secondary_emphasis-low);
+  --btn_secondary_background-color_default_hovered: var(--surface_secondary_emphasis-medium);
+  --btn_secondary_background-color_default_pressed: var(--surface_secondary_emphasis-high);
+  --btn_secondary_foreground-color_default: var(--foreground_emphasis-high);
 
-  --btn_secondary_background-color_emphasized: #{get-var(--secondary_high-contrast)};
-  --btn_secondary_background-color_emphasized_hovered: #{get-var(--secondary_high-contrast_hovered)};
-  --btn_secondary_background-color_emphasized_pressed: #{get-var(--secondary_high-contrast_pressed)};
-  --btn_secondary_foreground-color_emphasized: #{get-var(--background_secondary)};
+  --btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
+  --btn_secondary_background-color_emphasized_hovered: var(--secondary_high-contrast_hovered);
+  --btn_secondary_background-color_emphasized_pressed: var(--secondary_high-contrast_pressed);
+  --btn_secondary_foreground-color_emphasized: var(--background_secondary);
 
-  --btn_secondary_focus-outline_width: #{get-var(--border-width_focus)};
-  --btn_secondary_focus-outline_gap: #{get-var(--border-width_focus)};
-  --btn_secondary_focus-oultine_color: #{get-var(--focus-outline_secondary)};
+  --btn_secondary_focus-outline_width: var(--border-width_focus);
+  --btn_secondary_focus-outline_gap: var(--border-width_focus);
+  --btn_secondary_focus-oultine_color: var(--focus-outline_secondary);
 
   // Colors: Disabled buttons
-  --btn_disabled_background-color: #{get-var(--background_disabled)};
-  --btn_disabled_foreground-color: #{get-var(--foreground_disabled)};
+  --btn_disabled_background-color: var(--background_disabled);
+  --btn_disabled_foreground-color: var(--foreground_disabled);
 
   @include from($desktop) {
     // Large button for Desktop
-    --btn_large_padding-horizontal: #{get-var(--spc-6x)};
-    --btn_large_padding-vertical: #{get-var(--spc-4x)};
-    --btn_large_min-height: #{get-var(--min-target-size_xl)};
-    --btn_large_icon_size_default: #{get-var(--icon-size_regular)};
-    --btn_large_icon_size_icon-only: #{get-var(--icon-size_regular)};
-    --btn_large_label_padding-horizontal: #{get-var(--spc-2x)};
+    --btn_large_padding-horizontal: var(--spc-6x);
+    --btn_large_padding-vertical: var(--spc-4x);
+    --btn_large_min-height: var(--min-target-size_xl);
+    --btn_large_icon_size_default: var(--icon-size_regular);
+    --btn_large_icon_size_icon-only: var(--icon-size_regular);
+    --btn_large_label_padding-horizontal: var(--spc-2x);
 
     // Regular button for Desktop
-    --btn_regular_padding-horizontal: #{get-var(--spc-3x)};
-    --btn_regular_padding-vertical: #{get-var(--spc-2x)};
-    --btn_regular_min-height: #{get-var(--min-target-size_m)};
-    --btn_regular_icon_size_default: #{get-var(--icon-size_dense)};
-    --btn_regular_icon_size_icon-only: #{get-var(--icon-size_dense)};
-    --btn_regular_label_padding-horizontal: #{get-var(--spc-2x)};
+    --btn_regular_padding-horizontal: var(--spc-3x);
+    --btn_regular_padding-vertical: var(--spc-2x);
+    --btn_regular_min-height: var(--min-target-size_m);
+    --btn_regular_icon_size_default: var(--icon-size_dense);
+    --btn_regular_icon_size_icon-only: var(--icon-size_dense);
+    --btn_regular_label_padding-horizontal: var(--spc-2x);
   }
 }
 
 .button {
-  border-radius: get-var(--corner-radius_circular);
+  border-radius: var(--corner-radius_circular);
 
   display: flex;
   align-items: center;

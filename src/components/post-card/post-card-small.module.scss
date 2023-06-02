@@ -3,7 +3,7 @@
 .header {
 	display: block;
 	text-decoration: none;
-	color: get-var(--foreground_emphasis-high);
+	color: var(--foreground_emphasis-high);
 
 	& h2 {
 		margin: 0;
@@ -15,5 +15,5 @@
 	padding: 0;
 	margin: 0;
 
-	color: get-var(--foreground_emphasis-medium);
+	color: var(--foreground_emphasis-medium);
 }

@@ -11,13 +11,3 @@ $targetSizes: (
     #{$key}: #{$value};
   }
 }
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-target-size($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($targetSizes, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}

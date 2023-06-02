@@ -17,13 +17,3 @@ $fonts: (
     #{$key}: #{$value};
   }
 }
-
-// Reference a specific themed variable (and check to ensure it exists)
-@function validate-var-font($key) {
-  // ensure that the variable is defined in all themes
-  @if not map-has-key($fonts, $key) {
-    @return null;
-  }
-
-  @return var($key);
-}

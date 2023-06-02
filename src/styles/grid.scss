@@ -2,7 +2,7 @@
 
 :where(.grid) {
 	display: grid;
-	gap: get-var(--spc-8x);
+	gap: var(--spc-8x);
 	grid-template-columns: 1fr;
 }
 
