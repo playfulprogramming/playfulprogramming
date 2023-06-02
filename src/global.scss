@@ -1,24 +1,25 @@
 @use "sass:math";
-@import "./tokens/index";
+@import "./styles/variables/border_widths";
+@import "./styles/variables/colors";
+@import "./styles/variables/corner_radius";
+@import "./styles/variables/fonts";
+@import "./styles/variables/icons";
+@import "./styles/variables/max_widths";
+@import "./styles/variables/shadows";
+@import "./styles/variables/spacing";
+@import "./styles/variables/target_sizes";
+@import "./styles/variables/themes";
+
 @import "./styles/text-styles";
 @import "./styles/container";
 @import "./styles/grid";
 @import "./styles/post-body";
 @import "./styles/utilities";
 
-html.dark,
-body.dark,
-.darkTheme {
-	@include register-vars-theme(dark);
-}
-
 :root {
 	font-size: 1rem;
 	scrollbar-color: var(--focus-outline_primary) var(--background_primary);
 	transition: scrollbar-color $animStyle $animSpeed;
-
-	@include register-vars();
-	@include register-vars-theme(light);
 
 	box-sizing: border-box;
 }

@@ -116,7 +116,7 @@ pre.twoslash data-lsp:hover::before {
 	text-align: left;
 	padding: 5px 8px;
 	border-radius: 2px;
-	font-family: $fontMono;
+	font-family: var(--font_mono);
 	font-size: 0.8rem;
 	white-space: pre-wrap;
 	z-index: 100;
@@ -155,7 +155,7 @@ pre .code-container:hover a {
 
 pre code {
 	font-size: 0.9rem;
-	font-family: $fontMono;
+	font-family: var(--font_mono);
 	white-space: pre;
 	-webkit-overflow-scrolling: touch;
 }
@@ -239,7 +239,7 @@ pre .inline-completions ul.dropdown {
 	background-color: gainsboro;
 	color: grey;
 	padding-top: 4px;
-	font-family: $fontMono;
+	font-family: var(--font_mono);
 	font-size: 0.8rem;
 	margin: 0;
 	padding: 0;
@@ -294,7 +294,7 @@ data-lsp {
 }
 .tag-container .twoslash-annotation {
 	position: absolute;
-	font-family: $fontMono;
+	font-family: var(--font_mono);
 	right: -10px;
 	/** Default annotation text to 200px */
 	width: 200px;
