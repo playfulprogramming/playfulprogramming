@@ -1,14 +1,3 @@
-@import "./colors";
-@import "./themes";
-@import "./breakpoints";
-@import "./fonts";
-@import "./corner_radius";
-@import "./max_widths";
-@import "./target_sizes";
-@import "./spacing";
-@import "./border_widths";
-@import "./shadows";
-@import "./icons";
 @import "./vars";
 
 @function pxToRem($pxNum) {
@@ -27,18 +16,4 @@
 	:global(html.dark) &, :global(body.dark) &, :global(.darkTheme) & {
 		@content;
 	}
-}
-
-// Mixin for all of the CSS variables used to reference the theme values
-@mixin register-vars() {
-	@include register-vars-color();
-	@include register-vars-breakpoint();
-	@include register-vars-font();
-	@include register-vars-corner-radius();
-	@include register-vars-max-width();
-	@include register-vars-target-size();
-	@include register-vars-spacing();
-	@include register-vars-border-width();
-	@include register-vars-shadow();
-	@include register-vars-icon-size();
 }

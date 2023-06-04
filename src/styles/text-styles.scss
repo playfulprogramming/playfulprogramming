@@ -102,7 +102,7 @@
 
 .text-style-headline-1 {
 	font-size: pxToRem(32);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 800;
 	font-style: normal;
 	text-decoration: none;
@@ -127,7 +127,7 @@ h1, .h1 {
 
 .text-style-headline-2 {
 	font-size: pxToRem(28);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 800;
 	font-style: normal;
 	text-decoration: none;
@@ -154,7 +154,7 @@ h2, .h2 {
 
 .text-style-headline-3 {
 	font-size: pxToRem(24);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 800;
 	font-style: normal;
 	text-decoration: none;
@@ -181,7 +181,7 @@ h3, .h3 {
 
 .text-style-headline-4 {
 	font-size: pxToRem(22);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 700;
 	font-style: normal;
 	text-decoration: none;
@@ -208,7 +208,7 @@ h4, .h4 {
 
 .text-style-headline-5 {
 	font-size: pxToRem(20);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 600;
 	font-style: normal;
 	letter-spacing: 0.01em;
@@ -236,7 +236,7 @@ h5, .h5 {
 
 .text-style-headline-6 {
 	font-size: pxToRem(18);
-	font-family: $fontDisplay;
+	font-family: var(--font_display);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.03em;
@@ -281,7 +281,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-button-large {
 	font-size: pxToRem(16);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.01em;
@@ -295,7 +295,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-button {
 	font-size: pxToRem(14);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.01em;
@@ -309,7 +309,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-body-large {
 	font-size: pxToRem(16);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 500;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -323,7 +323,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-body-large-bold {
 	font-size: pxToRem(16);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -337,7 +337,7 @@ h5 + h6, .h5 + .h6 {
 
 :root, p, .text-style-body-medium {
 	font-size: pxToRem(14);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 400;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -352,7 +352,7 @@ h5 + h6, .h5 + .h6 {
 .text-style-body-medium-bold {
 	font-size: pxToRem(14);
 	line-height: 125%;
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -367,7 +367,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-body-small {
 	font-size: pxToRem(12);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 400;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -381,7 +381,7 @@ h5 + h6, .h5 + .h6 {
 
 .text-style-body-small-bold {
 	font-size: pxToRem(12);
-	font-family: $fontBody;
+	font-family: var(--font_body);
 	font-weight: 700;
 	font-style: normal;
 	letter-spacing: 0.02em;
@@ -395,7 +395,7 @@ h5 + h6, .h5 + .h6 {
 
 pre, code, .text-style-code {
 	font-size: 0.75rem;
-	font-family: $fontMono;
+	font-family: var(--font_mono);
 	line-height: 1rem;
 	text-decoration: none;
 	text-transform: none;
@@ -408,7 +408,7 @@ pre, code, .text-style-code {
 
 .text-style-uniwidth {
 	font-size: pxToRem(16);
-	font-family: $fontUniwidth;
+	font-family: var(--font_uniwidth);
 	line-height: 1rem;
 	text-decoration: none;
 	text-transform: none;

@@ -4,21 +4,6 @@ $tablet: 960px;
 $tabletSmall: 640px;
 $mobile: 400px;
 
-$breakpoints: (
-  --desktop: $desktop,
-  --desktopSmall: $desktopSmall,
-  --tablet: $tablet,
-  --tabletSmall: $tabletSmall,
-  --mobile: $mobile,
-);
-
-// Mixin for all of the CSS variables used to reference the theme values
-@mixin register-vars-breakpoint() {
-  @each $key, $value in $breakpoints {
-    #{$key}: #{$value};
-  }
-}
-
 @mixin until($breakpoint) {
   @media screen and (max-width: $breakpoint) {
     @content;
