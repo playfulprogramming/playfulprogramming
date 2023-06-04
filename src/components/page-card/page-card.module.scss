@@ -57,7 +57,7 @@
 
   @include from($tablet) {
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto var(--page-card_container_padding) auto;
+    grid-template-rows: 1fr 1fr var(--page-card_container_padding) auto;
     grid-row-gap: unset;
     grid-column-gap: var(--page-card_container_padding);
     padding: var(--page-card_container_padding) var(--page-card_container_compound-padding);
@@ -123,12 +123,15 @@
   }
 
   @include from($tablet) {
-    display: unset;
+    display: flex;
+    align-items: end;
     padding-bottom: unset;
     margin-bottom: var(--page-card_description_padding-top);
   }
 
   @include from($desktopSmall) {
+    display: unset;
+    align-items: unset;
     margin-bottom: unset;
     margin-top: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
   }
