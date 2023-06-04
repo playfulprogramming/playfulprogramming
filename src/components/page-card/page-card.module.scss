@@ -153,9 +153,7 @@
 }
 
 .pageCardSpacer {
-  @include from($tabletSmall) {
-    display: none;
-  }
+  display: none;
 
   @include from($tablet) {
     all: unset;
