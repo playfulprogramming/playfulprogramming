@@ -145,6 +145,7 @@
 
   @include from($tablet) {
     grid-column: unset;
+    padding: unset;
   }
 }
 
@@ -173,6 +174,7 @@
     grid-column: unset;
     justify-content: space-between;
     margin-bottom: calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
+    padding: unset;
   }
 }
 
