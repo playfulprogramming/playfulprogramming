@@ -20,7 +20,7 @@
   --page-card_supporting-text_color: var(--foreground_emphasis-medium);
 
   @include from($tabletSmall) {
-    --page-card_container_padding: var(--spc-10x);
+    --page-card_container_padding: var(--spc-6x);
     --page-card_image_size: 240px;
   }
 
