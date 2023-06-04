@@ -22,23 +22,25 @@
   @include from($tabletSmall) {
     --page-card_container_padding: var(--spc-6x);
     --page-card_image_size: 240px;
+    --page-card_max-width: 640px;
   }
 
   @include from($tablet) {
     --page-card_container_padding: var(--spc-12x);
     --page-card_image_size: 320px;
+    --page-card_max-width: 960px;
   }
 
   @include from($desktopSmall) {
     --page-card_container_padding: var(--spc-12x);
     --page-card_image_inset: var(--spc-16x);
     --page-card_image_size: 360px;
+    --page-card_max-width: 960px;
   }
 }
 
 .pageCardContainer {
   background: var(--page-card_container_background-color);
-  max-width: var(--max-width_m);
   display: grid;
   border-radius: var(--page-card_container_corner-radius);
   grid-template-columns: 1fr;
@@ -48,6 +50,7 @@
   margin-top: var(--page-card_image_inset);
 
   @include from($tabletSmall) {
+    max-width: var(--page-card_max-width);
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto auto;
     grid-row-gap: var(--page-card_container_padding);
