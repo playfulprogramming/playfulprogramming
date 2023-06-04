@@ -1,6 +1,10 @@
 ---
 import Document from "../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
+import PageCard from "components/page-card/page-card.astro";
+
+import neutralUnicorn from "../assets/unicorn_neutral.svg";
+import { LargeButton } from "../components/base";
 
 const locale = "en";
 ---
@@ -8,32 +12,24 @@ const locale = "en";
 <Document lang={locale}>
 	<SEO title="Confirm Your Email" slot="head" />
 
-	<main class="listViewContent">
-		<h1>Just one more thing...</h1>
-
-		<p>
-			Thank you for subscribing. You will need to check your inbox and confirm
-			your subscription.
-		</p>
+	<main class="confirmMain">
+		<PageCard
+			imageSrc={neutralUnicorn}
+			imageAlt="A slightly smiling Unicorn"
+			title="Just one more thing..."
+			description="Thank you for subscribing. You will need to check your inbox and confirm your subscription."
+		>
+			<LargeButton href="/" slot="button" variant="primary">
+				Go back home
+			</LargeButton>
+		</PageCard>
 	</main>
 </Document>
 
 <style lang="scss">
-	.helloUnicorn {
-		display: block;
-		margin: 0 auto;
-		max-width: 80%;
-		height: auto;
-
-		background-color: var(--primary);
-		border-radius: 50%;
-		overflow: hidden;
-	}
-
-	main {
-		h1,
-		p {
-			text-align: center;
-		}
+	.confirmMain {
+		display: flex;
+		padding: var(--site-spacing);
+		justify-content: center;
 	}
 </style>
