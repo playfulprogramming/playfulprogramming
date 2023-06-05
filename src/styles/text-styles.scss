@@ -1,415 +1,134 @@
 @import "src/tokens/index";
 
 @font-face {
-	font-family: "Asap";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/Asap/Asap-Regular.woff2") format("woff2"),
-		url("/fonts/Asap/Asap-Regular.ttf") format("truetype");
+	font-family: 'Figtree';
+	src: url('/fonts/Figtree/Figtree-VariableFont_wght.ttf') format("truetype-variations");
+	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: "Asap";
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url("/fonts/Asap/Asap-Bold.woff2") format("woff2"),
-		url("/fonts/Asap/Asap-Bold.ttf") format("truetype");
+	font-family: 'Figtree';
+	font-style: italic;
+	src: url('/fonts/Figtree/Figtree-Italic-VariableFont_wght.ttf') format("truetype-variations");
+	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: "Work Sans";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/Work_Sans/WorkSans-Regular.woff2") format("woff2"),
-		url("/fonts/Work_Sans/WorkSans-Regular.ttf") format("truetype");
+	font-family: 'Roboto Mono';
+	src: url('/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format("truetype-variations");
+	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: "Work Sans";
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src: url("/fonts/Work_Sans/WorkSans-Medium.woff2") format("woff2"),
-		url("/fonts/Work_Sans/WorkSans-Medium.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Work Sans";
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url("/fonts/Work_Sans/WorkSans-SemiBold.woff2") format("woff2"),
-		url("/fonts/Work_Sans/WorkSans-SemiBold.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Work Sans";
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url("/fonts/Work_Sans/WorkSans-Bold.woff2") format("woff2"),
-		url("/fonts/Work_Sans/WorkSans-Bold.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Archivo";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/Archivo/Archivo-Regular.woff2") format("woff2"),
-		url("/fonts/Archivo/Archivo-Regular.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Roboto Mono";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/Roboto_Mono/RobotoMono-Regular.woff2") format("woff2"),
-		url("/fonts/Roboto_Mono/RobotoMono-Regular.ttf") format("truetype");
+	font-family: 'Roboto Mono';
+	font-style: italic;
+	src: url('/fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format("truetype-variations");
+	font-weight: 1 999;
 }
 
 // Fallback fonts for minimal CLS
 // see: https://simonhearne.com/2021/layout-shifts-webfonts/#reduce-layout-shift-with-f-mods
-@font-face {
-	font-family: "Work Sans-fallback";
-	size-adjust: 111.87%;
-	ascent-override: 80%;
-	src: local("Arial");
+
+// TODO: Add back fallback font for Figtree
+
+h1, .text-style-headline-1 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h1_font-size);
+	font-weight: var(--weight_black);
+	line-height: var(--h1_line-height);
 }
 
-@font-face {
-	font-family: "Work Sans-fallback2";
-	size-adjust: 111.9%;
-	src: local("Roboto");
+h2, .text-style-headline-2 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h2_font-size);
+	font-weight: var(--weight_extrabold);
+	line-height: var(--h2_line-height);
 }
 
-@font-face {
-	font-family: "Archivo-fallback";
-	size-adjust: 98.5%;
-	ascent-override: 85%;
-	src: local("Arial");
+h3, .text-style-headline-3 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h3_font-size);
+	font-weight: var(--weight_bold);
+	line-height: var(--h3_line-height);
 }
 
-@font-face {
-	font-family: "Archivo-fallback2";
-	size-adjust: 97.5%;
-	src: local("Roboto");
+h4, .text-style-headline-4 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h4_font-size);
+	font-weight: var(--weight_bold);
+	line-height: var(--h4_line-height);
 }
 
-.text-style-headline-1 {
-	font-size: pxToRem(32);
-	font-family: var(--font_display);
-	font-weight: 800;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(48);
-	}
+h5, .text-style-headline-5 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h5_font-size);
+	font-weight: var(--weight_bold);
+	line-height: var(--h5_line-height);
 }
 
-h1, .h1 {
-	@extend .text-style-headline-1;
-
-	line-height: 100%;
-	margin-top: pxToRem(24);
-	margin-bottom: pxToRem(12);
-
-	@include from($desktopSmall) {
-		margin-bottom: pxToRem(24);
-	}
+h6, .text-style-headline-6 {
+	font-family: var(--uu-font-family);
+	font-size: var(--h6_font-size);
+	font-weight: var(--weight_bold);
+	line-height: var(--h6_line-height);
 }
 
-.text-style-headline-2 {
-	font-size: pxToRem(28);
-	font-family: var(--font_display);
-	font-weight: 800;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(40);
-	}
-}
-
-h2, .h2 {
-	@extend .text-style-headline-2;
-
-	line-height: pxToRem(32);
-	margin-top: pxToRem(16);
-	margin-bottom: pxToRem(8);
-
-	@include from($desktopSmall) {
-		line-height: 100%;
-		margin-top: pxToRem(24);
-		margin-bottom: pxToRem(16);
-	}
-}
-
-.text-style-headline-3 {
-	font-size: pxToRem(24);
-	font-family: var(--font_display);
-	font-weight: 800;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(32);
-	}
-}
-
-h3, .h3 {
-	@extend .text-style-headline-3;
-
-	line-height: pxToRem(28);
-	margin-top: pxToRem(16);
-	margin-bottom: pxToRem(4);
-
-	@include from($desktopSmall) {
-		line-height: pxToRem(36);
-		margin-top: pxToRem(24);
-		margin-bottom: pxToRem(8);
-	}
-}
-
-.text-style-headline-4 {
-	font-size: pxToRem(22);
-	font-family: var(--font_display);
-	font-weight: 700;
-	font-style: normal;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(28);
-	}
-}
-
-h4, .h4 {
-	@extend .text-style-headline-4;
-
-	line-height: pxToRem(24);
-	margin-top: pxToRem(16);
-	margin-bottom: pxToRem(0);
-
-	@include from($desktopSmall) {
-		line-height: pxToRem(32);
-		margin-top: pxToRem(24);
-		margin-bottom: pxToRem(8);
-	}
-}
-
-.text-style-headline-5 {
-	font-size: pxToRem(20);
-	font-family: var(--font_display);
-	font-weight: 600;
-	font-style: normal;
-	letter-spacing: 0.01em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(24);
-	}
-}
-
-h5, .h5 {
-	@extend .text-style-headline-5;
-
-	line-height: pxToRem(24);
-	margin-top: pxToRem(16);
-	margin-bottom: pxToRem(0);
-
-	@include from($desktopSmall) {
-		line-height: pxToRem(24);
-		margin-top: pxToRem(24);
-		margin-bottom: pxToRem(8);
-	}
-}
-
-.text-style-headline-6 {
-	font-size: pxToRem(18);
-	font-family: var(--font_display);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.03em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(20);
-	}
-}
-
-h6, .h6 {
-	@extend .text-style-headline-6;
-
-	line-height: pxToRem(20);
-	margin-top: pxToRem(16);
-	margin-bottom: pxToRem(0);
-
-	@include from($desktopSmall) {
-		line-height: pxToRem(20);
-		margin-top: pxToRem(24);
-		margin-bottom: pxToRem(8);
-	}
-}
-
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-	color: var(--foreground_emphasis-high);
-}
-
-h1 + h2, .h1 + .h2,
-h2 + h3, .h2 + .h3,
-h3 + h4, .h3 + .h4,
-h4 + h5, .h4 + .h5,
-h5 + h6, .h5 + .h6 {
-	margin-top: pxToRem(16);
-}
-
-.text-style-button-large {
-	font-size: pxToRem(16);
-	font-family: var(--font_body);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.01em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(18);
-	}
-}
-
-.text-style-button {
-	font-size: pxToRem(14);
-	font-family: var(--font_body);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.01em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(14);
-	}
-}
-
-.text-style-body-large {
-	font-size: pxToRem(16);
-	font-family: var(--font_body);
-	font-weight: 500;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(18);
-	}
+:root, p, .text-style-body-large {
+	font-family: var(--uu-font-family);
+	font-size: var(--p_large_font-size);
+	font-weight: var(--weight_regular);
+	line-height: var(--p_large_line-height);
+	margin: 0;
 }
 
 .text-style-body-large-bold {
-	font-size: pxToRem(16);
-	font-family: var(--font_body);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(18);
-	}
+	@extend .text-style-body-large;
+	font-weight: var(--weight_semibold);
 }
 
-:root, p, .text-style-body-medium {
-	font-size: pxToRem(14);
-	font-family: var(--font_body);
-	font-weight: 400;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(16);
-	}
+.text-style-body-medium {
+	font-family: var(--uu-font-family);
+	font-size: var(--p_medium_font-size);
+	font-weight: var(--weight_regular);
+	line-height: var(--p_medium_line-height);
+	margin: 0;
 }
 
 .text-style-body-medium-bold {
-	font-size: pxToRem(14);
-	line-height: 125%;
-	font-family: var(--font_body);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(16);
-		line-height: 125%;
-	}
+	@extend .text-style-body-medium;
+	font-weight: var(--weight_semibold);
 }
 
 .text-style-body-small {
-	font-size: pxToRem(12);
-	font-family: var(--font_body);
-	font-weight: 400;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: pxToRem(14);
-	}
+	font-family: var(--uu-font-family);
+	font-size: var(--p_small_font-size);
+	font-weight: var(--weight_regular);
+	line-height: var(--p_small_line-height);
+	margin: 0;
 }
 
 .text-style-body-small-bold {
-	font-size: pxToRem(12);
-	font-family: var(--font_body);
-	font-weight: 700;
-	font-style: normal;
-	letter-spacing: 0.02em;
-	text-decoration: none;
-	text-transform: none;
+	@extend .text-style-body-small;
+	font-weight: var(--weight_semibold);
+}
 
-	@include from($desktopSmall) {
-		font-size: pxToRem(14);
-	}
+.text-style-button-large {
+	font-family: var(--uu-font-family);
+	font-size: var(--button_large_font-size);
+	font-weight: var(--weight_semibold);
+	line-height: var(--button_large_line-height);
+	margin: 0;
+}
+
+button, .text-style-button-regular {
+	font-family: var(--uu-font-family);
+	font-size: var(--button_regular_font-size);
+	font-weight: var(--weight_semibold);
+	line-height: var(--button_regular_line-height);
+	margin: 0;
 }
 
 pre, code, .text-style-code {
-	font-size: 0.75rem;
-	font-family: var(--font_mono);
-	line-height: 1rem;
-	text-decoration: none;
-	text-transform: none;
-
-	@include from($desktopSmall) {
-		font-size: 1rem;
-		line-height: 1.5rem;
-	}
-}
-
-.text-style-uniwidth {
-	font-size: pxToRem(16);
-	font-family: var(--font_uniwidth);
-	line-height: 1rem;
-	text-decoration: none;
-	text-transform: none;
+	@extend .text-style-body-large;
+	font-family: var(--uu-font-family-code);
 }

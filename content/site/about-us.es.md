@@ -1,4 +1,4 @@
-<p class="h2">Nuestro objetivo es proveer los mejores recursos posibles para aprender cualquier tema relacionado con las ciencias de la computación</p>
+<p class="text-style-headline-2">Nuestro objetivo es proveer los mejores recursos posibles para aprender cualquier tema relacionado con las ciencias de la computación</p>
 
 Ya sea desde cómo se almacena la memoria en assembly o cómo hacer animaciones complejas en CSS, hasta lo que es un bucle For, queremos brindar recursos que sean acogedores, de apoyo e informativos.
 

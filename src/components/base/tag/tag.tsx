@@ -8,7 +8,7 @@ type TagProps = PropsWithChildren<{
 
 export function Tag({ href, children, class: className = "", ...props }: TagProps) {
 	return (
-		<a class={`${style.tag} ${style.tagBordered} ${className} text-style-button`} href={href}>
+		<a class={`${style.tag} ${style.tagBordered} ${className} text-style-button-regular`} href={href}>
 			{children}
 		</a>
 	);
@@ -16,7 +16,7 @@ export function Tag({ href, children, class: className = "", ...props }: TagProp
 
 export function TagLink({ href, children, class: className = "", ...props }: TagProps) {
 	return (
-		<a class={`${style.tag} ${className} text-style-button`} href={href}>
+		<a class={`${style.tag} ${className} text-style-button-regular`} href={href}>
 			{children}
 		</a>
 	);

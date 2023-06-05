@@ -1,4 +1,4 @@
-<p class="h2">Notre but est de fournir les meilleurs ressources pour apprendre n’importe quel aspect dans le domaine de l’informatique</p>
+<p class="text-style-headline-2">Notre but est de fournir les meilleurs ressources pour apprendre n’importe quel aspect dans le domaine de l’informatique</p>
 
 C’est quoi une boucle “for”? Comment créer des animations avec CSS? Comment se fait le stockage mémoire avec Assembly? Quel que soit le sujet, nous voudrions nous assurer que le site soit accueillant, incitatif et informatif.
 

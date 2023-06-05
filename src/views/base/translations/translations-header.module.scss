@@ -1,6 +1,6 @@
 @import "src/tokens/index";
 
 .text {
-	margin: 0;
-	margin-left: var(--spc-2x);
+	margin: 0 !important;
+	margin-left: var(--spc-2x) !important;;
 }

@@ -39,7 +39,7 @@ export function Button({ class: className = "", ...props }: ButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
-			className={`text-style-button ${style.regular} ${className}`}
+			className={`text-style-button-regular ${style.regular} ${className}`}
 		/>
 	);
 }
