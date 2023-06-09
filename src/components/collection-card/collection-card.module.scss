@@ -1,30 +1,88 @@
 @import "src/tokens/index";
 
-.container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 24px;
-	padding: 16px !important;
+:root {
+
+	--collection-card_corner-radius: var(--corner-radius_xl);
+
+	--collection-card_author_padding-top: var(--spc-3x);
+	--collection-card_author_padding-bottom: var(--spc-4x);
+	--collection-card_author_padding-left: var(--spc-5x);
+	--collection-card_author_padding-right: var(--spc-4x);
+	--collection-card_author_gap: var(--spc-2x);
+
+	--collection-card_content_padding-left: var(--spc-4x);
+	--collection-card_content_padding-right: var(--spc-6x);
+	--collection-card_content_padding-top: var(--spc-4x);
+	--collection-card_content_gap: var(--spc-4x);
+	--collection-card_title_padding-bottom: var(--spc-2x);
+	--collection-card_title_max-lines: 3;
+
+	--collection-card_banner_offset: var(--collection-card_content_gap);
+	--collection-card_banner_corner-radius: var(--corner-radius_m);
+
+	--collection-card_background-color: var(--surface_primary_emphasis-none);
+	--collection-card_text-color: var(--foreground_emphasis-high);
+
+	@include from($desktop) {
+		--collection-card_content_padding-top: var(--spc-4x);
+		--collection-card_content_gap: var(--spc-6x);
+	}
 }
 
-.content {
+.container {
+	border-radius: var(--collection-card_corner-radius);
+	background-color: var(--collection-card_background-color);
+	color: var(--collection-card_text-color);
+	margin-top: var(--collection-card_banner_offset);
+}
+
+.coverImg {
+	border-radius: var(--collection-card_banner_corner-radius);
+	box-shadow: var(--shadow_sticker_light);
+	margin-right: var(--collection-card_content_gap);
+	margin-top: calc(0px - var(--collection-card_banner_offset));
+}
+
+.topRow {
+	display: flex;
+	margin-left: var(--collection-card_content_padding-left);
+	margin-right: var(--collection-card_content_padding-right);
+}
+
+.title {
+	margin-top: var(--collection-card_content_padding-top);
+	margin-bottom: var(--collection-card_title_padding-bottom);
+}
+
+.bottomRow {
+	display: flex;
+	gap: var(--collection-card_author_gap);
+	margin-bottom: var(--collection-card_author_padding-bottom);
+	margin-top: var(--collection-card_author_padding-top);
+	margin-right: var(--collection-card_author_padding-right);
+	margin-left: var(--collection-card_author_padding-left);
+}
+
+.authorList {
 	flex-grow: 1;
-	transform: translateY(-48px);
-	margin-bottom: -40px;
-	align-items: start;
+	display: flex;
+	gap: var(--collection-card_author_gap);
+	align-items: center;
+}
 
-	&> div {
-		margin-top: 56px;
-	}
+.authorListItem {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: var(--collection-card_author_gap);
+	color: var(--collection-card_text-color);
+}
 
-	&> picture {
-		img {
-			border-radius: 16px;
-			box-shadow: var(--shadow_popup_light);
-		}
-	}
-
-	h2 {
-		margin-top: 0;
+.authorImage {
+	display: flex;
+	img {
+		border-radius: var(--corner-radius_circular);
+		height: var(--icon-size_regular);
+		width: var(--icon-size_regular);
 	}
 }
