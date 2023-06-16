@@ -520,5 +520,22 @@
 		"profileImg": "./markspratt.jpg",
 		"color": "#42AD8B",
 		"roles": ["author"]
+	},
+	{
+		"id": "ladybluenotes",
+		"name": "Sarah Gerrard",
+		"firstName": "Sarah",
+		"lastName": "Gerrard",
+		"description": "Full-Stack Software Developer and Technical Writter",
+		"socials": {
+			"twitter": "LadyBluenotes",
+			"github": "LadyBluenotes",
+			"linkedIn": "sarahgerrard",
+			"website": "https://saragerrard.me/"
+		},
+		"pronouns": "she/her",
+		"profileImg": "./sarahgerrard.jpg",
+		"color": "#49A078",
+		"roles": ["author"]
 	}
 ]
