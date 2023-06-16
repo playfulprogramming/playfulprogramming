@@ -2,12 +2,12 @@
 {
     title: "Unraveling the Magic of the Virtual DOM",
     description: "CocoaPods is a great dependency manager, but some need Carthage still. Let's walk through how to integrate Carthage with React Native!",
-    published: '2020-10-13T22:12:03.284Z',
+    published: '2023-06-08',
     authors: ['ladybluenotes'],
     tags: ['webdev', 'javascript'],
     attached: [],
     license: 'cc-by-nc-sa-4',
-        originalLink: 'https://blog.sarahgerrard.me/unraveling-the-magic-of-the-virtual-dom'
+    originalLink: 'https://blog.sarahgerrard.me/unraveling-the-magic-of-the-virtual-dom'
 }
 ---
 
