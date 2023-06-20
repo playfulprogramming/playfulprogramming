@@ -6,6 +6,7 @@ import style from "./collection-card.module.scss";
 import { Button } from "components/base";
 import { Icon } from "astro-icon";
 import { Picture } from "@astrojs/image/components";
+import { Picture as UUPicture } from "components/base/image/picture";
 import { getFullRelativePath } from "utils/url-paths";
 import { ExtendedCollectionInfo } from "types/index";
 import { translate } from "utils/translations";
@@ -26,6 +27,7 @@ type CollectionCardProps = {
 
 const { collection, unicornProfilePicMap } = Astro.props as CollectionCardProps;
 
+
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
 	collection.slug,
@@ -35,33 +37,41 @@ const coverImgPath = getFullRelativePath(
 const collectionPosts = getPostsByCollection(collection.slug, "en");
 ---
 
-<CardSolid class={style.container}>
-	<div class={`d-flex gap-4 ${style.content}`}>
+<div class={style.container}>
+	<div class={style.topRow}>
 		<Picture
 			alt=""
 			src={coverImgPath}
-			aspectRatio={144 / 210}
-			sizes={`144`}
-			widths={[144]}
+			aspectRatio={160 / 240}
+			sizes={`160`}
+			widths={[160]}
 			formats={["avif", "webp", "png"]}
 			loading="eager"
-			width={144}
-			height={210}
+			width={160}
+			height={240}
+			class={style.coverImg}
 		/>
 		<div>
-			<h2 class="text-style-headline-4">{collection.title}</h2>
-			<p>{collection.description}</p>
+			<h2 class={`text-style-headline-4 ${style.title}`}>{collection.title}</h2>
+			<p class={`text-style-body-medium`}>{collection.description}</p>
 		</div>
 	</div>
-	<div class="d-flex gap-2">
-		<ul class="unlist-inline" style="flex-grow: 1;">
+	<div class={style.bottomRow}>
+		<ul class={`unlist-inline ${style.authorList}`}>
 			{
 				collection.authorsMeta?.map((author) => (
 					<li>
-						<UnicornTag
-							unicorn={author}
-							unicornProfilePicMap={unicornProfilePicMap}
-						/>
+						<a
+							href={`/unicorns/${author.id}`}
+							class={`text-style-button-regular ${style.authorListItem}`}
+						>
+							<UUPicture
+								picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+								alt={author.name}
+								class={style.authorImage}
+							/>
+							<span>{author.name}</span>
+						</a>
 					</li>
 				))
 			}
@@ -72,4 +82,4 @@ const collectionPosts = getPostsByCollection(collection.slug, "en");
 			<Icon slot="rightIcon" height="100%" width="100%" name="forward" />
 		</Button>
 	</div>
-</CardSolid>
+</div>
