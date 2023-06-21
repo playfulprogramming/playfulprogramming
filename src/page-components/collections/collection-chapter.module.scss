@@ -19,7 +19,7 @@
 .numAndTitleContainer {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     gap: var(--collection-chapter_num_margin-left);
 }
 
@@ -39,6 +39,7 @@
 
 .title {
     margin: 0;
+    margin-bottom: 0.25rem;
     color: var(--collection-chapter_title_color);
 }
 

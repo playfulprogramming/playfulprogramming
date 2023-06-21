@@ -55,7 +55,7 @@
 .collectionPageInnerContainer {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, min-content);
 
   @include from($tabletSmall) {
     grid-template-columns: min-content 1fr;
