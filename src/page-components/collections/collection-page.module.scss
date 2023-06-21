@@ -92,6 +92,7 @@
   color: var(--collection-page_title_color);
   margin: 0;
   margin-bottom: var(--collection-page_title_padding-bottom);
+  margin-top: var(--collection-page_title_padding-top);
 }
 
 .description {
@@ -143,7 +144,13 @@
 
   border-radius: var(--collection-page_banner_corner-radius);
 
+  margin: 0 auto;
+  margin-bottom: var(--collection-page_gap);
+  display: block;
+
   @include from($tabletSmall) {
+    margin: unset;
+    display: unset;
     width: 240px;
     height: 360px;
   }
@@ -171,6 +178,9 @@
   border-radius: var(--collection-page_author_corner-radius);
   display: grid;
 
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: repeat(3, min-content);
+
   @include from($tabletSmall) {
     grid-template-columns: min-content 1fr min-content;
     grid-template-rows: 1fr 1fr;
@@ -187,6 +197,9 @@
   border-width: var(--collection-page_author_avatar_border-width);
   margin-right: var(--collection-page_author_details_gap);
 
+  grid-row: 1;
+  grid-column: 1;
+
   @include from($tabletSmall) {
     grid-row: 1;
     grid-column: 1;
@@ -199,6 +212,9 @@
 }
 
 .authorMetaData {
+  grid-row: 1;
+  grid-column: 2;
+
   @include from($desktop) {
     grid-row: 1;
     grid-column: 2;
@@ -224,6 +240,10 @@
 .viewProfileBtn {
   height: fit-content;
   align-self: center;
+
+  grid-row: 3;
+  grid-column: 1 / 3;
+
   @include from($tabletSmall) {
     grid-row: 1;
     grid-column: 3;
@@ -232,8 +252,13 @@
 
 .authorDescription {
   padding-top: var(--collection-page_author_description_padding-top);
+  padding-bottom: var(--collection-page_title_padding-bottom);
+
+  grid-row: 2;
+  grid-column: 1 / 3;
 
   @include from($tabletSmall) {
+    padding-bottom: unset;
     grid-row: 2;
     grid-column: 1 / span 3;
   }
