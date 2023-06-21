@@ -13,7 +13,7 @@ const {num, title, description} = Astro.props as CollectionChapter;
 <div class={styles.container}>
     <div class={styles.numAndTitleContainer}>
         <div class={styles.numContainer}>
-            <p class={`text-style-headline-6 ${styles.num}`}>{num}</p>
+            <p class={`text-style-headline-6 ${styles.num}`} aria-hidden="true">{num}</p>
         </div>
         <h2 class={`text-style-headline-5 ${styles.title}`}>
             {title}

@@ -55,21 +55,53 @@ const coverImgPath = getFullRelativePath(
 		type={collection.type}
 		shareImage={collection.socialImg || coverImgPath}
 	/>
-	<CollectionPage Content={Content} collection={collection} coverImgPath={coverImgPath}/>
+	<CollectionPage
+		Content={Content}
+		collection={collection}
+		coverImgPath={coverImgPath}
+	/>
 	<div class="collection-post-list">
-	{collectionPosts.map((post) => {
-		return <CollectionChapter num={post.order} title={post.title} description={post.description} />
-	})}
-	{collection.chapterList.map(post => {
-		return <CollectionChapter num={post.order} title={post.title} description={post.description}/>
-	})}
+		<ol>
+			{
+				collectionPosts.map((post) => {
+					return (
+						<li>
+							<CollectionChapter
+								num={post.order}
+								title={post.title}
+								description={post.description}
+							/>
+						</li>
+					);
+				})
+			}
+			{
+				collection.chapterList.map((post) => {
+					return (
+						<li>
+							<CollectionChapter
+								num={post.order}
+								title={post.title}
+								description={post.description}
+							/>
+						</li>
+					);
+				})
+			}
+		</ol>
 	</div>
 </Document>
 
 <style>
-.collection-post-list {
-	max-width: var(--max-width_m);
-	margin: 0 auto;
-	padding: 0 var(--site-spacing);
-}
+	.collection-post-list {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: 0 var(--site-spacing);
+	}
+
+	.collection-post-list ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
 </style>
