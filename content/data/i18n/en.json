@@ -9,6 +9,8 @@
 	"title.where_to_find_us": "Where to Find Us",
 	"title.sponsors": "Sponsors",
 	"title.n_chapters": "%s chapters",
+	"title.n_articles": "%s articles",
+	"title.n_words": "%s words",
 	"desc.translated_into": "Translated by our community into:",
 	"desc.unicorn_roles": "Roles assigned to this user",
 	"action.go_back": "Go back",

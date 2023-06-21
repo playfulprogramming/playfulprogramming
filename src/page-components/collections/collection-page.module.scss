@@ -1,0 +1,183 @@
+@import "src/tokens/index";
+
+:root {
+  --collection-page_banner_corner-radius: var(--corner-radius_l);
+
+  --collection-page_padding: var(--site-spacing);
+  --collection-page_gap: var(--site-spacing);
+
+  --collection-page_content_gap: var(--site-spacing);
+  --collection-page_content_button-gap: var(--spc-4x);
+
+  --collection-page_title_padding-top: var(--site-spacing);
+  --collection-page_title_padding-bottom: var(--spc-2x);
+
+  --collection-page_title_color: var(--foreground_emphasis-high);
+  --collection-page_subtitle_color: var(--foreground_emphasis-medium);
+  --collection-page_description_color: var(--foreground_emphasis-high);
+
+  // Author section
+  --collection-page_author_padding: var(--spc-6x);
+  --collection-page_author_corner-radius: var(--corner-radius_l);
+  --collection-page_author_avatar_size: 48px;
+  --collection-page_author_avatar_border-width: var(--border-width_m);
+  --collection-page_author_details_gap: var(--spc-4x);
+  --collection-page_author_details_dot_padding-horizontal: var(--spc-1x);
+  --collection-page_author_description_padding-top: var(--spc-4x);
+
+  --collection-page_author_name_color: var(--foreground_emphasis-high);
+  --collection-page_author_count-articles_color: var(--foreground_emphasis-high);
+  --collection-page_author_count-words_color: var(--foreground_emphasis-medium);
+  --collection-page_author_dot_color: var(--foreground_emphasis-medium);
+  --collection-page_author_description_color: var(--foreground_emphasis-high);
+
+  @include from($tabletSmall) {
+    --collection-page_banner_max-width: 240px;
+    --collection-page_title_padding-top: 0px;
+  }
+
+  @include from($tablet) {
+    --collection-page_banner_max-width: 400px;
+  }
+
+  @include from($desktop) {
+    --collection-page_banner_corner-radius: var(--corner-radius_xl);
+    --collection-page_banner_max-width: 480px;
+  }
+}
+
+.collectionPageContainer {
+  padding: var(--collection-page_padding);
+  max-width: var(--max-width_l);
+  margin: 0 auto;
+}
+
+.collectionPageInnerContainer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--collection-page_gap);
+}
+
+.title {
+  color: var(--collection-page_title_color);
+  margin: 0;
+  margin-bottom: var(--collection-page_title_padding-bottom);
+}
+
+.description {
+  color: var(--collection-page_subtitle_color);
+  margin: 0;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--collection-page_content_gap);
+}
+
+.content > *:first-child {
+  margin-top: 0 !important;
+}
+
+.content > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.coverImage img {
+  width: 368px;
+  height: 552px;
+
+  border-radius: var(--collection-page_banner_corner-radius);
+
+  @include from($tabletSmall) {
+    width: 240px;
+    height: 360px;
+  }
+
+  @include from($desktop) {
+    height: 720px;
+    width: 480px;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--collection-page_content_button-gap);
+}
+
+.buttonContainer > * {
+  width: 1px;
+  flex-grow: 1;
+}
+
+.authorContainer {
+  padding: var(--collection-page_author_padding);
+  background-color: var(--surface_primary_emphasis-none);
+  border-radius: var(--collection-page_author_corner-radius);
+  display: grid;
+
+  @include from($desktop) {
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: var(--collection-page_description_padding-top);
+  }
+}
+
+.authorImage {
+  height: var(--collection-page_author_avatar_size);
+  width: var(--collection-page_author_avatar_size);
+  border-radius: 50%;
+  overflow: hidden;
+  border-style: solid;
+  border-width: var(--collection-page_author_avatar_border-width);
+  margin-right: var(--collection-page_author_details_gap);
+
+  @include from($desktop) {
+    grid-row: 1;
+    grid-column: 1;
+  }
+}
+
+.authorImage img {
+  height: 100%;
+  width: 100%;
+}
+
+.authorMetaData {
+  @include from($desktop) {
+    grid-row: 1;
+    grid-column: 2;
+  }
+}
+
+.authorName {
+  margin: 0;
+  color: var(--collection-page_author_name_color);
+}
+
+.authorArticles {
+  margin: 0;
+  color: var(--collection-page_author_count-articles_color);
+}
+
+.authorWordCount, .authorMetaSeperatorDot {
+  margin: 0;
+  color: var(--collection-page_author_count-words_color);
+}
+
+.viewProfileBtn {
+  @include from($desktop) {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+
+.authorDescription {
+  padding-top: var(--collection-page_author_description_padding-top);
+
+  @include from($desktop) {
+    grid-row: 2;
+    grid-column: 1 / span 3;
+  }
+}

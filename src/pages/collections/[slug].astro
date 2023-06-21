@@ -1,18 +1,11 @@
 ---
 import { getFullRelativePath } from "utils/url-paths";
 import SEO from "src/components/seo/seo.astro";
-import "../../page-components/collections/collections.scss";
-import "../../styles/post-body.scss";
-import "../../styles/tabs.scss";
-import "../../styles/shiki.scss";
-import "../../styles/convertkit.scss";
 import Document from "src/layouts/document.astro";
-import { getImageSize } from "../../utils/get-image-size";
-import CollectionHeaderDefault from "src/page-components/collections/collection-header-default.astro";
-import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { MarkdownInstance } from "astro";
 import { getPostsByCollection } from "utils/api";
+import CollectionPage from "src/page-components/collections/collection-page.astro";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -49,14 +42,6 @@ const coverImgPath = getFullRelativePath(
 	slug,
 	collection.coverImg
 );
-
-const coverImgSize = getImageSize(
-	"." + coverImgPath,
-	process.cwd(),
-	process.cwd()
-);
-
-const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 ---
 
 <Document>
@@ -69,18 +54,5 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 		type={collection.type}
 		shareImage={collection.socialImg || coverImgPath}
 	/>
-	<div class="collectionsContainer">
-		<CollectionHeaderDefault
-			coverImgPath={coverImgPath}
-			coverImgAspectRatio={coverImgAspectRatio}
-			collection={collection}
-		/>
-		<CollectionTableOfContents
-			collection={collection}
-			posts={collectionPosts}
-		/>
-		<div class="post-body markdownContainer">
-			<Content />
-		</div>
-	</div>
+	<CollectionPage Content={Content} collection={collection} coverImgPath={coverImgPath}/>
 </Document>

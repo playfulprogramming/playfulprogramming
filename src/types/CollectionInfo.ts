@@ -20,6 +20,7 @@ export interface RawCollectionInfo {
 
 export interface CollectionInfo extends RawCollectionInfo {
 	slug: string;
+	authorsMeta: UnicornInfo[];
 	coverImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;
