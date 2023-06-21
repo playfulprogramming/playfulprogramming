@@ -43,6 +43,16 @@
     color: var(--collection-chapter_title_color);
 }
 
+.title a {
+    text-decoration: none;
+    color: var(--collection-chapter_title_color);
+}
+
+
+.container:hover .title a {
+    text-decoration: underline;
+}
+
 .description {
     margin: 0;
     margin-left: var(--collection-chapter_description_margin-left);
