@@ -7,6 +7,8 @@ import { MarkdownInstance } from "astro";
 import { getPostsByCollection } from "utils/api";
 import CollectionPage from "src/page-components/collections/collection-page.astro";
 import CollectionChapter from "src/page-components/collections/collection-chapter.astro";
+import { SubHeader } from "src/components/subheader/subheader";
+import { translate } from "utils/translations";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -60,43 +62,53 @@ const coverImgPath = getFullRelativePath(
 		collection={collection}
 		coverImgPath={coverImgPath}
 	/>
-	<div class="collection-post-list">
-		<ol>
-			{
-				collectionPosts.map((post) => {
-					return (
-						<li>
-							<CollectionChapter
-								num={post.order}
-								title={post.title}
-								description={post.description}
-							/>
-						</li>
-					);
-				})
-			}
-			{
-				collection.chapterList.map((post) => {
-					return (
-						<li>
-							<CollectionChapter
-								num={post.order}
-								title={post.title}
-								description={post.description}
-							/>
-						</li>
-					);
-				})
-			}
-		</ol>
+	<div class="collection-post-list-container">
+		<div class="collection-post-list">
+			<SubHeader
+				tag="h2"
+				text={translate(Astro, "desc.chapter_listing")}
+			/>
+			<ol>
+				{
+					collectionPosts.map((post) => {
+						return (
+							<li>
+								<CollectionChapter
+									num={post.order}
+									title={post.title}
+									description={post.description}
+								/>
+							</li>
+						);
+					})
+				}
+				{
+					collection.chapterList.map((post) => {
+						return (
+							<li>
+								<CollectionChapter
+									num={post.order}
+									title={post.title}
+									description={post.description}
+								/>
+							</li>
+						);
+					})
+				}
+			</ol>
+		</div>
 	</div>
 </Document>
 
 <style>
+	.collection-post-list-container {
+		background: var(--surface_primary_emphasis-none);
+	}
+
 	.collection-post-list {
 		max-width: var(--max-width_m);
 		margin: 0 auto;
-		padding: 0 var(--site-spacing);
+		padding: 0 var(--site-spacing) var(--site-spacing);
 	}
 
 	.collection-post-list ol {

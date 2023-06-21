@@ -11,6 +11,7 @@
 	"title.n_chapters": "%s chapters",
 	"title.n_articles": "%s articles",
 	"title.n_words": "%s words",
+	"desc.chapter_listing": "Chapter listing",
 	"desc.translated_into": "Translated by our community into:",
 	"desc.unicorn_roles": "Roles assigned to this user",
 	"action.go_back": "Go back",
