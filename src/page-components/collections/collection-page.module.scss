@@ -222,6 +222,8 @@
 }
 
 .viewProfileBtn {
+  height: fit-content;
+  align-self: center;
   @include from($tabletSmall) {
     grid-row: 1;
     grid-column: 3;
