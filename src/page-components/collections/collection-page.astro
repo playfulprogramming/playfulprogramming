@@ -79,6 +79,7 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
           ))
         }
       </div>
+      <ul class={styles.authorsList}>
       {
         collectionMeta.authorsMeta.map((author) => {
           const authorPosts = posts.filter((post) =>
@@ -89,8 +90,9 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
             (acc, post) => acc + (post as ExtendedPostInfo).wordCount ?? 0,
             0
           );
+          const href = `/unicorns/${author.id}`;
           return (
-            <div class={styles.authorContainer}>
+            <li class={styles.authorContainer} onclick={`location.href='${href}'`}>
               <div
                 class={styles.authorImage}
                 style={{ borderColor: author.color }}
@@ -124,16 +126,17 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
                   </p>
                 </div>
               </div>
-              <Button class={styles.viewProfileBtn}>
+              <Button as="a" href={href} class={styles.viewProfileBtn}>
                 {translate(Astro, "action.view_profile")}
               </Button>
               <div class={`text-style-body-medium ${styles.authorDescription}`}>
                 {author.description}
               </div>
-            </div>
+            </li>
           );
         })
       }
+      </ul>
     </div>
   </div>
 </div>

@@ -172,6 +172,12 @@
   flex-grow: 1;
 }
 
+.authorsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .authorContainer {
   padding: var(--collection-page_author_padding);
   background-color: var(--surface_primary_emphasis-none);
