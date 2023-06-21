@@ -1,0 +1,25 @@
+---
+import styles from "./collection-chapter.module.scss";
+
+interface CollectionChapter {
+    num: number;
+    title: string;
+    description: string;
+}
+
+const {num, title, description} = Astro.props as CollectionChapter;
+---
+
+<div class={styles.container}>
+    <div class={styles.numAndTitleContainer}>
+        <div class={styles.numContainer}>
+            <p class={`text-style-headline-6 ${styles.num}`}>{num}</p>
+        </div>
+        <h2 class={`text-style-headline-5 ${styles.title}`}>
+            {title}
+        </h2>
+    </div>
+    <p class={styles.description}>
+        {description}
+    </p>
+</div>
