@@ -14,8 +14,9 @@ import { getImageSize } from "../../utils/get-image-size";
 
 import styles from "./collection-page.module.scss";
 import { collections } from "../../utils/data";
-import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 
+const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 const posts = (await Astro.glob<ExtendedPostInfo>(
 		"../../../content/blog/**/*.md"

@@ -70,7 +70,7 @@ const coverImgPath = getFullRelativePath(
 			/>
 			<ol>
 				{
-					collectionPosts.map((post) => {
+					(collectionPosts ?? []).map((post) => {
 						return (
 							<li>
 								<CollectionChapter
@@ -83,7 +83,7 @@ const coverImgPath = getFullRelativePath(
 					})
 				}
 				{
-					collection.chapterList.map((post) => {
+					(collection?.chapterList ?? []).map((post) => {
 						return (
 							<li>
 								<CollectionChapter
