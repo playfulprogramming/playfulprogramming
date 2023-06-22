@@ -28,18 +28,19 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 	<ol class={styles.tableList} role="list" id="tocList">
 		{
 			headingsToDisplay.map((headingInfo, i) => {
-				const liClassNames = classnames(
-					styles.tableListItem,
-					{
-						[styles.depth1]: headingInfo.depth === 1,
-						[styles.depth2]: headingInfo.depth === 2,
-						["toc-is-active"]: i === 0,
-					}
-				);
+				const liClassNames = classnames(styles.tableListItem, {
+					[styles.depth1]: headingInfo.depth === 1,
+					[styles.depth2]: headingInfo.depth === 2,
+					["toc-is-active"]: i === 0,
+				});
 				return (
 					<li class={liClassNames} data-headingitem="true">
-						<a class={`text-style-button-regular ${styles.tableListItemLink}`} href={`#${headingInfo.slug}`} data-headinglink="true">
-							{headingInfo.value}
+						<a
+							class={`text-style-button-regular`}
+							href={`#${headingInfo.slug}`}
+							data-headinglink="true"
+						>
+							<span class={styles.tableListItemLinkInner}>{headingInfo.value}</span>
 						</a>
 					</li>
 				);
