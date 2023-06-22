@@ -1,15 +1,20 @@
 @import "src/tokens/index";
 
 :root {
+
 	--toc_header_padding-top: var(--site-spacing);
 	--toc_header_padding-horizontal: var(--site-spacing);
 	--toc_header_padding-bottom: var(--spc-4x);
 	--toc_header_gap: var(--site-spacing);
+
 	--toc_list_padding-horizontal: var(--spc-4x);
 
 	--toc_item_min-height: var(--min-target-size_m);
-	--toc_sub-item_dot_margin-end: var(--spc-2x);
+	--toc_item_padding-start: var(--spc-4x);
+	--toc_item_padding-end: var(--spc-4x);
 
+	--toc_sub-item_padding-start: var(--spc-3x);
+	--toc_sub-item_dot_margin-end: var(--spc-3x);
 	--toc_sub-item_dot_size: 16px;
 
 	--toc_label_color: var(--foreground_emphasis-medium);
@@ -74,9 +79,12 @@
 	display: flex;
 	align-items: center;
 	text-decoration: none;
-	padding: var(--spc-2x) var(--spc-5x);
 	min-height: var(--min-target-size_m);
 	border-radius: var(--corner-radius_l);
+}
+
+.tableListItem:not(.depth2) > a {
+	padding: var(--spc-2x) var(--spc-5x);
 }
 
 .tableListItem:hover > a {
@@ -97,8 +105,7 @@
 }
 
 .depth2 > a > * {
-	margin-left: var(--toc_sub-item_dot_size);
-	padding-left: var(--toc_sub-item_dot_margin-end);
+	margin-left: calc(var(--toc_sub-item_dot_size) + var(--toc_sub-item_dot_margin-end) + var(--toc_sub-item_padding-start));
 	position: relative;
 }
 
@@ -109,7 +116,7 @@
 	height: 100%;
 	width: 2px;
 	position: absolute;
-	left: calc(0px - var(--toc_sub-item_dot_margin-end));
+	left: calc(-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) / 2));
 	top: 0;
 }
 
@@ -122,7 +129,7 @@
 	height: calc(100% + var(--toc_item_min-height));
 	width: 2px;
 	position: absolute;
-	left: calc(0px - var(--toc_sub-item_dot_margin-end));
+	left: calc(-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) / 2));
 	bottom: 0;
 	top: unset;
 }
@@ -136,9 +143,7 @@
 	height: 100%;
 	width: var(--toc_sub-item_dot_size);
 	position: absolute;
-	left: calc(
-		0px - var(--toc_sub-item_dot_margin-end) - calc(var(--toc_sub-item_dot_size) / 2)
-	);
+	left: calc(0px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size)));
 	top: 0;
 }
 
@@ -151,9 +156,7 @@
 	height: 100%;
 	width: var(--toc_sub-item_dot_size);
 	position: absolute;
-	left: calc(
-		0px - var(--toc_sub-item_dot_margin-end) - calc(var(--toc_sub-item_dot_size) / 2)
-	);
+	left: calc(0px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size)));
 	top: 0;
 }
 
