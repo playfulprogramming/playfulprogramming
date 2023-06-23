@@ -124,7 +124,7 @@
 	border: none !important;
 }
 
-.depth2:not(:global(.toc-is-active)):not(:hover) > a:not(:focus) > *::before {
+.depth2:not(:global(.toc-is-active)):not(:hover) > a:not(:focus-visible) > *::before {
 	content: " ";
 	background: var(--toc_divider_color);
 	height: 100%;
@@ -135,8 +135,8 @@
 }
 
 /* Extended line */
-.depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-within)
-	+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-within)
+.depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-visible)
+	+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-visible)
 	> a > *::before {
 	content: " ";
 	background: var(--toc_divider_color);
