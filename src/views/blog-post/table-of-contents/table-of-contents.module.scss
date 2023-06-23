@@ -12,6 +12,7 @@
 	--toc_item_min-height: var(--min-target-size_m);
 	--toc_item_padding-start: var(--spc-4x);
 	--toc_item_padding-end: var(--spc-4x);
+	--toc_item_padding-vertical: var(--spc-2x);
 
 	--toc_sub-item_padding-start: var(--spc-3x);
 	--toc_sub-item_dot_margin-end: var(--spc-3x);
@@ -63,9 +64,7 @@
 }
 
 .tocTitle {
-	margin-left: var(--toc_header_padding-horizontal);
-	margin-top: var(--toc_header_padding-top);
-	margin-bottom: var(--toc_header_padding-bottom);
+	margin: var(--toc_header_padding-top) var(--toc_header_padding-horizontal) var(--toc_header_padding-bottom);
 }
 
 .tableList {
@@ -83,7 +82,7 @@
 }
 
 .tableListItem:not(.depth2) > a {
-	padding: var(--spc-2x) var(--spc-5x);
+	padding: var(--toc_item_padding-vertical) var(--toc_item_padding-end) var(--toc_item_padding-vertical) var(--toc_item_padding-start);
 }
 
 .tableListItem:hover > a {
