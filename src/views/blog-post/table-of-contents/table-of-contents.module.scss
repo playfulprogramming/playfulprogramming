@@ -81,12 +81,21 @@
 	border-radius: var(--corner-radius_l);
 }
 
+.tableListItem > a:focus-visible {
+	outline: 4px solid var(--toc_focus-outline_color);
+}
+
 .tableListItem:not(.depth2) > a {
 	padding: var(--toc_item_padding-vertical) var(--toc_item_padding-end) var(--toc_item_padding-vertical) var(--toc_item_padding-start);
 }
 
 .tableListItem:hover > a {
 	background: var(--toc_item_background-color_hovered);
+}
+
+
+.tableListItem > a:focus-visible  {
+	background: var(--toc_item_background-color_focused);
 }
 
 .tableListItem:active > a {
@@ -96,7 +105,6 @@
 .tableListItemLinkInner {
 	color: var(--foreground_emphasis-medium);
 	pointer-events: none;
-
 }
 
 .tableListItem:hover > a > *, :global(.toc-is-active) .tableListItemLinkInner {
@@ -112,7 +120,11 @@
 }
 
 /* Line */
-.depth2:not(:global(.toc-is-active)):not(:hover) > a > *::before {
+.depth2 > a:focus > *::before {
+	border: none !important;
+}
+
+.depth2:not(:global(.toc-is-active)):not(:hover) > a:not(:focus) > *::before {
 	content: " ";
 	background: var(--toc_divider_color);
 	height: 100%;
@@ -123,8 +135,8 @@
 }
 
 /* Extended line */
-.depth2:not(:global(.toc-is-active)):not(:hover)
-	+ .depth2:not(:global(.toc-is-active)):not(:hover)
+.depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-within)
+	+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-within)
 	> a > *::before {
 	content: " ";
 	background: var(--toc_divider_color);
