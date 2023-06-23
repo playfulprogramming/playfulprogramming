@@ -3,52 +3,43 @@
 .container {
 	display: flex;
 	flex-wrap: nowrap;
-	gap: var(--spc-8x);
+	justify-content: center;
+	width: 100%;
+	overflow: hidden;
 }
 
 .content {
-	max-width: 100%;
-	flex-basis: 100%;
 	width: 1px;
 	flex-grow: 1;
+	max-width: var(--max-width_m);
+	padding: var(--site-spacing);
 }
 
 .sidebarLeft, .sidebarRight {
-	// This means no sidebars on mobile
-	display: none;
-
-	top: var(--spc-8x);
-	overflow: auto;
-	height: 100vh;
-	min-width: 272px;
-	max-width: 272px;
-
-	@include from($desktop) {
-		min-width: 464px;
-	}
-
-	position: sticky;
-	align-self: flex-start;
-	overflow: auto;
-
+	flex-basis: 25%;
+	flex-grow: 0;
+	flex-shrink: 0;
+	max-width: calc(var(--max-width_m) / 2);
 	animation: fadeIn 300ms ease-in-out;
 }
 
-@include from($tablet) {
-	.sidebarLeft {
-		display: block;
+.sidebarRight {
+	@include until($desktopSmall) {
+		display: none;
 	}
 }
 
-@include from($desktopSmall) {
-	.sidebarRight {
-		display: block;
+.sidebarLeft {
+	@include until($tablet) {
+		display: none;
 	}
 }
 
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
+
+
 	}
 	100% {
 		opacity: 1;
