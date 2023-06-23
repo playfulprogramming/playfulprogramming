@@ -1,18 +1,14 @@
 ---
 import { getFullRelativePath } from "utils/url-paths";
 import SEO from "src/components/seo/seo.astro";
-import "../../page-components/collections/collections.scss";
-import "../../styles/post-body.scss";
-import "../../styles/tabs.scss";
-import "../../styles/shiki.scss";
-import "../../styles/convertkit.scss";
 import Document from "src/layouts/document.astro";
-import { getImageSize } from "../../utils/get-image-size";
-import CollectionHeaderDefault from "src/page-components/collections/collection-header-default.astro";
-import CollectionTableOfContents from "src/page-components/collections/collection-table-of-contents.astro";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { MarkdownInstance } from "astro";
 import { getPostsByCollection } from "utils/api";
+import CollectionPage from "src/views/collections/collection-page.astro";
+import CollectionChapter from "src/views/collections/collection-chapter.astro";
+import { SubHeader } from "src/components/subheader/subheader";
+import { translate } from "utils/translations";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
@@ -49,14 +45,6 @@ const coverImgPath = getFullRelativePath(
 	slug,
 	collection.coverImg
 );
-
-const coverImgSize = getImageSize(
-	"." + coverImgPath,
-	process.cwd(),
-	process.cwd()
-);
-
-const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 ---
 
 <Document>
@@ -69,18 +57,64 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 		type={collection.type}
 		shareImage={collection.socialImg || coverImgPath}
 	/>
-	<div class="collectionsContainer">
-		<CollectionHeaderDefault
-			coverImgPath={coverImgPath}
-			coverImgAspectRatio={coverImgAspectRatio}
-			collection={collection}
-		/>
-		<CollectionTableOfContents
-			collection={collection}
-			posts={collectionPosts}
-		/>
-		<div class="post-body markdownContainer">
-			<Content />
+	<CollectionPage
+		Content={Content}
+		collection={collection}
+		coverImgPath={coverImgPath}
+	/>
+	<div class="collection-post-list-container">
+		<div class="collection-post-list">
+			<SubHeader
+				tag="h2"
+				text={translate(Astro, "desc.chapter_listing")}
+			/>
+			<ol>
+				{
+					(collectionPosts ?? []).map((post) => {
+						return (
+							<li>
+								<CollectionChapter
+									num={post.order}
+									title={post.title}
+									description={post.description}
+									href={`/posts/${post.slug}`}
+								/>
+							</li>
+						);
+					})
+				}
+				{
+					(collection?.chapterList ?? []).map((post) => {
+						return (
+							<li>
+								<CollectionChapter
+									num={post.order}
+									title={post.title}
+									description={post.description}
+								/>
+							</li>
+						);
+					})
+				}
+			</ol>
 		</div>
 	</div>
 </Document>
+
+<style>
+	.collection-post-list-container {
+		background: var(--surface_primary_emphasis-none);
+	}
+
+	.collection-post-list {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: 0 var(--site-spacing) var(--site-spacing);
+	}
+
+	.collection-post-list ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+</style>

@@ -26,7 +26,7 @@
 	gap: var(--spc-2x);
 	padding: 0 var(--spc-4x);
 
-	@include until($tablet) {
+	@include until($tabletSmall) {
 		display: none;
 	}
 }

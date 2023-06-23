@@ -1,0 +1,26 @@
+---
+import styles from "./collection-chapter.module.scss";
+
+interface CollectionChapter {
+    num: number;
+    title: string;
+    description: string;
+    href: string;
+}
+
+const {num, title, description, href} = Astro.props as CollectionChapter;
+---
+
+<div class={styles.container}  onclick={href && `location.href='${href}'`}>
+    <div class={styles.numAndTitleContainer}>
+        <div class={styles.numContainer}>
+            <p class={`text-style-headline-6 ${styles.num}`} aria-hidden="true">{num}</p>
+        </div>
+        <h2 class={`text-style-headline-5 ${styles.title}`}>
+            {href ? <a href={href}>{title}</a> : title}
+        </h2>
+    </div>
+    <p class={styles.description}>
+        {description}
+    </p>
+</div>

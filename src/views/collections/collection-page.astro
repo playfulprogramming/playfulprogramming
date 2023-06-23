@@ -1,0 +1,142 @@
+---
+import { ExtendedCollectionInfo, ExtendedPostInfo } from "../../types";
+import { MarkdownInstance } from "astro";
+import { Picture } from "@astrojs/image/components";
+import { Picture as UUPicture } from "components/base/image/picture";
+import { LargeButton, Button } from "src/components/base/button/button";
+import { translate } from "src/utils/translations";
+
+import "../../styles/post-body.scss";
+import "../../styles/tabs.scss";
+import "../../styles/shiki.scss";
+import "../../styles/convertkit.scss";
+import { getImageSize } from "../../utils/get-image-size";
+
+import styles from "./collection-page.module.scss";
+import { collections } from "../../utils/data";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+
+const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const posts = (
+  await Astro.glob<ExtendedPostInfo>("../../../content/blog/**/*.md")
+).map((post) => post.frontmatter);
+
+interface CollectionProps {
+  collection: ExtendedCollectionInfo;
+  Content: MarkdownInstance<never>["Content"];
+  coverImgPath: string;
+}
+
+const { Content, collection, coverImgPath } = Astro.props as CollectionProps;
+
+const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
+
+const coverImgSize = getImageSize(
+  "." + coverImgPath,
+  process.cwd(),
+  process.cwd()
+);
+
+const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
+---
+
+<div class={styles.collectionPageContainer}>
+  <div class={styles.collectionPageInnerContainer}>
+    <div class={styles.coverImage}>
+      <Picture
+        alt=""
+        src={coverImgPath}
+        sizes={`480`}
+        widths={[480]}
+        formats={["avif", "webp", "png"]}
+        loading="eager"
+        aspectRatio={coverImgAspectRatio}
+      />
+    </div>
+    <div class={styles.titleAndDescContainer}>
+      <h1 class={`text-style-headline-1 ${styles.title}`}>
+        {collection.title}
+      </h1>
+      <p class={`text-style-headline-6 ${styles.description}`}>
+        {collection.description}
+      </p>
+    </div>
+    <div class={styles.contentContainer}>
+      <div class={`post-body ${styles.content}`}>
+        <Content />
+      </div>
+      <div class={styles.buttonContainer}>
+        {
+          collection.buttons.map((button, i) => (
+            <LargeButton
+              tag="a"
+              href={button.url}
+              variant={i === 0 ? "primary-emphasized" : "primary"}
+            >
+              {button.text}
+            </LargeButton>
+          ))
+        }
+      </div>
+      <ul class={styles.authorsList}>
+      {
+        collectionMeta.authorsMeta.map((author) => {
+          const authorPosts = posts.filter((post) =>
+            post.authors.includes(author.id)
+          );
+
+          const wordCount = authorPosts.reduce(
+            (acc, post) => acc + (post as ExtendedPostInfo).wordCount ?? 0,
+            0
+          );
+          const href = `/unicorns/${author.id}`;
+          return (
+            <li class={styles.authorContainer} onclick={`location.href='${href}'`}>
+              <div
+                class={styles.authorImage}
+                style={{ borderColor: author.color }}
+              >
+                <UUPicture
+                  picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+                  alt={author.name}
+                />
+              </div>
+              <div class={styles.authorMetaData}>
+                <p class={`text-style-body-large-bold ${styles.authorName}`}>
+                  {author.name}
+                </p>
+                <div>
+                  <p>
+                    <span
+                      class={`text-style-body-medium-bold ${styles.authorArticles}`}
+                    >
+                      {translate(
+                        Astro,
+                        "title.n_articles",
+                        authorPosts.length.toString()
+                      )}
+                    </span>
+                    <span class={styles.authorMetaSeperatorDot}>•</span>
+                    <span
+                      class={`text-style-body-medium-bold ${styles.authorWordCount}`}
+                    >
+                      {translate(Astro, "title.n_words", wordCount.toString())}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <Button as="a" href={href} class={styles.viewProfileBtn}>
+                {translate(Astro, "action.view_profile")}
+              </Button>
+              <div class={`text-style-body-medium ${styles.authorDescription}`}>
+                {author.description}
+              </div>
+            </li>
+          );
+        })
+      }
+      </ul>
+    </div>
+  </div>
+</div>
