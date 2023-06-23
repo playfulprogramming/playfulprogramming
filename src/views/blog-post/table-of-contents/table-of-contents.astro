@@ -38,9 +38,10 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 						<a
 							class={`text-style-button-regular`}
 							href={`#${headingInfo.slug}`}
-							data-headinglink="true"
 						>
-							<span class={styles.tableListItemLinkInner}>{headingInfo.value}</span>
+							<span class={styles.tableListItemLinkInner}>
+								{headingInfo.value}
+							</span>
 						</a>
 					</li>
 				);

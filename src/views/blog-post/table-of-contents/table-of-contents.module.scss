@@ -89,10 +89,14 @@
 	background: var(--toc_item_background-color_hovered);
 }
 
+.tableListItem:active > a {
+	background: var(--toc_item_background-color_pressed);
+}
+
 .tableListItemLinkInner {
-	display: block;
-	width: 100%;
 	color: var(--foreground_emphasis-medium);
+	pointer-events: none;
+
 }
 
 .tableListItem:hover > a > *, :global(.toc-is-active) .tableListItemLinkInner {
