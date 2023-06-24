@@ -16,7 +16,7 @@ import mainStyles from "./pagination.module.scss";
 import more from "src/icons/more_horiz.svg?raw";
 import { PaginationProps } from "components/pagination/types";
 import style from "./pagination-popover.module.scss";
-import { Button, IconOnlyButton } from "components/base";
+import { Button, IconOnlyButton } from "components/button/button";
 import subtract from "../../icons/subtract.svg?raw";
 import add from "../../icons/add.svg?raw";
 import { Input } from "components/input/input";
