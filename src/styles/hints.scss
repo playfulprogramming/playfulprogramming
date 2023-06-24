@@ -1,0 +1,124 @@
+:root {
+	// Padding and gap must be consistent to maintain visual balance
+	--hint-container_padding: var(--spc-1x);
+	--hint-container_gap: var(--hint-container-padding);
+
+	--hint-container_corner-radius_collapsed: var(--corner-radius_circular);
+	--hint-container_corner-radius_expanded: var(--corner-radius_m);
+
+	// We calculate the content radius off of two tokens so they update accordingly if any of the values is changed
+	--hint-content_corner-radius: calc(var(--hint-container_corner-radius_expanded) - var(--hint-container_padding));
+	--hint-content_background-color: var(--background_primary);
+	--hint-content_padding: var(--spc-4x);
+
+	--hint-header_padding-vertical: var(--spc-1x);
+	--hint-header_padding-start: var(--spc-1x);
+	--hint-header_padding-end: var(--spc-3x);
+
+	--hint-header_gap: var(--spc-2x);
+
+	--hint-container_background-color: var(--surface_primary_emphasis-low);
+	--hint-container_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--hint-container_background-color_pressed: var(--surface_primary_emphasis-high);
+	--hint-container_background-color_focused: var(--background_focus);
+
+	--hint-container_foreground-color: var(--foreground_emphasis-high);
+
+	--hint_focus-outline_color: var(--focus-outline_primary);
+	--hint_focus-outline_width: var(--border-width_focus);
+
+	@include from($desktop) {
+		--hint-header_padding-vertical: var(--spc-2x);
+		--hint-header_padding-start: var(--spc-2x);
+		--hint-header_padding-end: var(--spc-4x);
+
+		--hint-container_corner-radius_expanded: var(--corner-radius_l);
+	}
+}
+
+.hint {
+	display: inline-block;
+	overflow: hidden;
+	margin: var(--hint-container_padding) 0;
+
+	border-radius: var(--hint-container_corner-radius_collapsed);
+	&[open] {
+		display: block;
+		border-radius: var(--hint-container_corner-radius_expanded);
+	}
+
+	&> .hint__title::before {
+		content: '';
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.29314 9.29289C5.68366 8.90237 6.31683 8.90237 6.70735 9.29289L12.0002 14.5858L17.2931 9.29289C17.6837 8.90237 18.3168 8.90237 18.7074 9.29289C19.0979 9.68342 19.0979 10.3166 18.7074 10.7071L13.4145 16C12.6334 16.781 11.3671 16.781 10.586 16L5.29314 10.7071C4.90261 10.3166 4.90261 9.68342 5.29314 9.29289Z' fill='%230B1D28'/%3E%3C/svg%3E%0A");
+	}
+
+	&[open] > .hint__title::before {
+		background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.29314 14.7071C5.68366 15.0976 6.31683 15.0976 6.70735 14.7071L12.0002 9.41418L17.2931 14.7071C17.6837 15.0976 18.3168 15.0976 18.7074 14.7071C19.0979 14.3166 19.0979 13.6834 18.7074 13.2929L13.4145 7.99997C12.6334 7.21892 11.3671 7.21892 10.586 7.99997L5.29314 13.2929C4.90261 13.6834 4.90261 14.3166 5.29314 14.7071Z' fill='%230B1D28'/%3E%3C/svg%3E%0A");
+	}
+
+	&> .hint__title {
+		&::marker {
+			content: '';
+		}
+
+		display: flex;
+		align-items: center;
+		gap: var(--hint-header_gap);
+
+		color: var(--hint-container_foreground-color);
+		margin: var(--hint-container_padding);
+		padding-top: var(--hint-header_padding-vertical);
+		padding-bottom: var(--hint-header_padding-vertical);
+		padding-left: var(--hint-header_padding-start);
+		padding-right: var(--hint-header_padding-end);
+
+		outline: none !important;
+	}
+
+	&> .hint__content {
+		margin: var(--hint-container_padding);
+		background-color: var(--hint-content_background-color);
+		border-radius: var(--hint-content_corner-radius);
+		padding: var(--hint-content_padding);
+
+		&> *:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+
+		&> *:last-child {
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	background-color: var(--hint-container_background-color);
+
+	&:hover {
+		background-color: var(--hint-container_background-color_hovered);
+	}
+
+	&:active {
+		background-color: var(--hint-container_background-color_pressed);
+	}
+
+	@supports selector(:has(*)) {
+		&:has(.hint__title:focus-visible) {
+			background-color: var(--hint-container_background-color_focused);
+			outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+		}
+	}
+
+	// for Firefox (and some older browsers) :has is not supported, so :focus-within is the only way
+	// to get the focus state on the parent
+	// - this will incorrectly show the focus state during/after click events even if focus indication is not necessary
+	@supports not selector(:has(*)) {
+		&:focus-within {
+			background-color: var(--hint-container_background-color_focused);
+			outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+		}
+	}
+}

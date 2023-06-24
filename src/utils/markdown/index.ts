@@ -2,6 +2,7 @@ import { Plugin } from "unified";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import { rehypeTabs } from "./tabs/rehype-transform";
+import { rehypeHints } from "./hints/rehype-transform";
 import { rehypeAstroImageMd } from "./rehype-astro-image-md";
 import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
 import { rehypeExcerpt } from "./rehype-excerpt";
@@ -52,6 +53,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					 * Insert custom HTML generation code here
 					 */
 					rehypeTabs,
+					rehypeHints,
 					rehypeAstroImageMd,
 					rehypeUnicornIFrameClickToRun,
 					rehypeHeadingLinks,
