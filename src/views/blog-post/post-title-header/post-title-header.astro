@@ -2,7 +2,7 @@
 import style from "./post-title-header.module.scss";
 import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
-import { Tag } from "components/index";
+import { Chip } from "components/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import dayjs from "dayjs";
 import { Picture } from "components/image/picture";
@@ -33,7 +33,7 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 		{
 			post.authorsMeta.map((author) => (
 				<li>
-					<Tag href={`/unicorns/${author.id}`}>
+					<Chip href={`/unicorns/${author.id}`}>
 						<Picture
 							picture={unicornProfilePicMap.find((u) => u.id === author.id)}
 							alt={author.name}
@@ -41,7 +41,7 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 							imgAttrs={{ width: 24, height: 24 }}
 						/>
 						{author.name}
-					</Tag>
+					</Chip>
 				</li>
 			))
 		}
@@ -58,7 +58,7 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 			>
 				{tags.map((tag) => (
 					<li>
-						<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+						<Chip href={`/search?q=${tag}`}>{tag}</Chip>
 					</li>
 				))}
 			</ul>

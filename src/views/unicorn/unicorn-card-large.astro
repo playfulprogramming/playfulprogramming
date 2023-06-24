@@ -1,7 +1,7 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
-import { Tag } from "components/index";
+import { Chip } from "components/index";
 import { CardInline } from "components/card/card";
 import { UnicornInfo } from "types/UnicornInfo";
 import style from "./unicorn-card-large.module.scss";
@@ -36,50 +36,52 @@ const possessiveName = unicorn.name.endsWith("s")
 		<div class={`grid grid-2 ${style.socials}`}>
 			{
 				unicorn.socials.website ? (
-					<Tag href={unicorn.socials.website}>
+					<Chip href={unicorn.socials.website}>
 						<Icon width="24" height="24" name="mdi:world" />
 						Website
-					</Tag>
+					</Chip>
 				) : null
 			}
 			{
 				unicorn.socials.github ? (
-					<Tag href={`https://github.com/${unicorn.socials.github}`}>
+					<Chip href={`https://github.com/${unicorn.socials.github}`}>
 						<Icon width="24" height="24" name="ri:github-line" />
 						GitHub
-					</Tag>
+					</Chip>
 				) : null
 			}
 			{
 				unicorn.socials.twitter ? (
-					<Tag href={`https://twitter.com/${unicorn.socials.twitter}`}>
+					<Chip href={`https://twitter.com/${unicorn.socials.twitter}`}>
 						<Icon width="24" height="24" name="ri:twitter-line" />
 						Twitter
-					</Tag>
+					</Chip>
 				) : null
 			}
 			{
 				unicorn.socials.twitch ? (
-					<Tag href={`https://www.twitch.com/${unicorn.socials.twitch}`}>
+					<Chip href={`https://www.twitch.com/${unicorn.socials.twitch}`}>
 						<Icon width="24" height="24" name="mdi:twitch" />
 						Twitch
-					</Tag>
+					</Chip>
 				) : null
 			}
 			{
 				unicorn.socials.dribbble ? (
-					<Tag href={`https://dribbble.com/${unicorn.socials.dribbble}`}>
+					<Chip href={`https://dribbble.com/${unicorn.socials.dribbble}`}>
 						<Icon width="24" height="24" name="ci:dribbble" />
 						Dribbble
-					</Tag>
+					</Chip>
 				) : null
 			}
 			{
 				unicorn.socials.linkedIn ? (
-					<Tag href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}>
+					<Chip
+						href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}
+					>
 						<Icon width="24" height="24" name="ri:linkedin-box-line" />
 						Dribbble
-					</Tag>
+					</Chip>
 				) : null
 			}
 		</div>

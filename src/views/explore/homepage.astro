@@ -1,7 +1,7 @@
 ---
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import * as data from "src/utils/data";
-import { LargeButton, Button, Tag } from "components/index";
+import { LargeButton, Button, Chip } from "components/index";
 import { ExtendedPostInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./homepage.module.scss";
@@ -105,7 +105,7 @@ const tagsToDisplay = [...data.tags]
 		{
 			tagsToDisplay.map((tag) => (
 				<li>
-					<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
 				</li>
 			))
 		}
