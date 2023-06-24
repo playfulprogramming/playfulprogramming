@@ -90,7 +90,7 @@ export function PaginationMenuAndPopover(
 		placement: "top",
 		onOpenChange: setIsOpen,
 		middleware: [
-			offset(32),
+			offset(32 - (14 / 2)),
 			arrow({
 				element: arrowRef,
 			}),
@@ -124,6 +124,8 @@ export function PaginationMenuAndPopover(
 				<FloatingArrow
 					ref={arrowRef}
 					context={context}
+					height={14}
+					width={24}
 					stroke={"var(--page-popup_border-color)"}
 					strokeWidth={2}
 					tipRadius={1.5}
