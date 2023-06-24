@@ -5,13 +5,7 @@ import Barebones from "./barebones.astro";
 import Header from "src/views/base/navigation/header.astro";
 import { getPrefixLanguageFromPath } from "utils/translations";
 
-interface DocumentProps {
-	disableThemeToggle?: boolean;
-}
-
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
-
-let { disableThemeToggle } = Astro.props as DocumentProps;
 ---
 
 <Barebones lang={lang}>

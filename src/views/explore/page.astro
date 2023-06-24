@@ -4,7 +4,6 @@ import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { Pagination } from "components/pagination/pagination";
 import { Page } from "astro";
-import { getPrefixLanguageFromPath } from "utils/translations";
 
 export interface PageProps {
 	posts: PostInfo[];
@@ -13,7 +12,6 @@ export interface PageProps {
 
 const { posts, page } = Astro.props as PageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
-const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 ---
 
 <PostCardGrid
