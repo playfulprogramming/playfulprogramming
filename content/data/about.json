@@ -13,7 +13,7 @@
 			"url": "https://twitter.com/unicornuttrncs"
 		},
 		"Mastodon": {
-			"icon": "mdi:mastodon",
+			"icon": "mastodon",
 			"url": "https://hachyderm.io/@UnicornUtterances"
 		},
 		"Facebook": {
@@ -21,7 +21,7 @@
 			"url": "https://www.facebook.com/Unicorn-Utterances-104838014459905"
 		},
 		"RSS Feed": {
-			"icon": "mdi:rss",
+			"icon": "rss",
 			"url": "https://unicorn-utterances.com/rss.xml"
 		}
 	},
