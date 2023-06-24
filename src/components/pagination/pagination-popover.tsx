@@ -19,23 +19,57 @@ import style from "./pagination-popover.module.scss";
 import { Button, IconOnlyButton } from "components/base";
 import subtract from "../../icons/subtract.svg?raw";
 import add from "../../icons/add.svg?raw";
+import { Input } from "components/input/input";
 
-function PopupContents() {
-	const [count, setCount] = useState(12);
+function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
+	const [count, setCount] = useState(props.page.currentPage);
 	return (
-		<Fragment>
+		<form
+			class={style.popupInner}
+			onSubmit={(e) => {
+				e.preventDefault();
+				location.href = `/page/${count}`;
+			}}
+		>
 			<div class={style.popupTopArea}>
-				<IconOnlyButton tag="button" onClick={() => setCount((v) => v - 1)}>
+				<IconOnlyButton
+					type="button"
+					tag="button"
+					onClick={() => setCount((v) => v - 1)}
+					disabled={count <= 1}
+				>
 					<div dangerouslySetInnerHTML={{ __html: subtract }} />
 				</IconOnlyButton>
-				{count}
-				<IconOnlyButton tag="button" onClick={() => setCount((v) => v + 1)}>
+				<Input
+					class={style.popupInput}
+					value={count}
+					onChange={(e) => {
+						const newVal = (e.target as HTMLInputElement).valueAsNumber;
+						if (newVal > props.page.lastPage) {
+							setCount(props.page.lastPage);
+						}
+						else if (newVal < 1) {
+							setCount(1);
+						}
+						else {
+							setCount(newVal);
+						}
+					}}
+					type="number"
+				/>
+				<IconOnlyButton
+					type="button"
+					tag="button"
+					onClick={() => setCount((v) => v + 1)}
+					disabled={count >= props.page.lastPage}
+				>
 					<div dangerouslySetInnerHTML={{ __html: add }} />
 				</IconOnlyButton>
 			</div>
-			Floating element
-			<Button variant="primary">Go to page</Button>
-		</Fragment>
+			<Button tag="button" type="submit" variant="primary">
+				Go to page
+			</Button>
+		</form>
 	);
 }
 
@@ -68,14 +102,19 @@ export function PaginationMenuAndPopover(
 	]);
 
 	const portal = createPortal(
-		<FloatingFocusManager context={context} modal={false}>
+		<FloatingFocusManager
+			context={context}
+			order={["floating", "content"]}
+			modal={false}
+			returnFocus={false}
+		>
 			<div
 				ref={refs.setFloating}
 				style={floatingStyles as never}
 				{...getFloatingProps()}
 				class={style.popup}
 			>
-				<PopupContents />
+				<PopupContents {...props} />
 				<FloatingArrow ref={arrowRef} context={context} />
 			</div>
 		</FloatingFocusManager>,

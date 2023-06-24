@@ -19,10 +19,27 @@
           drop-shadow( 0px calc(0px - var(--page-popup_border-width)) 0px var(--page-popup_border-color));
   box-shadow: var(--shadow_popup_light);
   padding: var(--page-popup_padding);
+  min-width: 13.5rem;
   border-radius: var(--page-popup_corner-radius);
+}
+
+.popupInner {
   display: flex;
   flex-direction: column;
   gap: var(--page-popup_gap);
+}
+
+.popupInput {
+  width: 1px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.popupInput::-webkit-outer-spin-button,
+.popupInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
 }
 
 .popupTopArea {

@@ -1,0 +1,60 @@
+@import "src/tokens/index";
+
+:root {
+	--form-label_padding: var(--spc-2x);
+	--form-field_padding-horizontal: var(--spc-3x);
+	--form-field_padding-vertical: var(--spc-2x);
+	--form-field_min-height: var(--min-target-size_m);
+
+	--form-field_outline_width: var(--border-width_s);
+	--form-field_outline_width_focused: var(--border-width_m);
+	--form-field_halo_width: var(--border-width_focus);
+
+	--form-label_color: var(--foreground_emphasis-high);
+	--form-label_color_disabled: var(--foreground_disabled);
+
+	--form-field_background: var(--surface_emphasis-none);
+	--form-field_background_hovered: var(--surface_emphasis-low);
+	--form-field_background_focused: var(--background_focus);
+	--form-field_background_error: var(--background_error);
+	--form-field_background_disabled: var(--background_disabled);
+
+	--form-field_outline_color: var(--foreground_disabled);
+	--form-field_outline_color_hovered: var(--foreground_emphasis-medium);
+	--form-field_outline_color_focused: var(--secondary_default);
+	--form-field_outline_color_error: var(--error_default);
+	--form-field_outline_color_disabled: var(--background_disabled);
+
+	--form-field_halo_color: var(--secondary_variant);
+	--form-field_halo_color_error: var(--error_variant);
+}
+
+.input {
+	min-height: var(--form-field_min-height);
+	padding: var(--form-field_padding-vertical)
+		var(--form-field_padding-horizontal);
+	border: var(--form-field_outline_width) solid var(--form-field_outline_color);
+	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
+	border-radius: 8px;
+	background: var(--form-field_background);
+}
+
+.input:hover {
+	border: var(--form-field_outline_width) solid
+		var(--form-field_outline_color_hovered);
+	background: var(--form-field_background_hovered);
+}
+
+.input:focus {
+	border: var(--form-field_outline_width_focused) solid
+		var(--form-field_outline_color_focused);
+	outline: var(--form-field_halo_color) solid var(--form-field_halo_width);
+	background: var(--form-field_background_focused);
+}
+
+.input:disabled {
+	background: var(--form-field_background_disabled);
+	border: var(--form-field_outline_width) solid
+		var(--form-field_outline_color_disabled);
+	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
+}
