@@ -25,7 +25,7 @@ export function Tabs({ tabs, isSmall }: TabsProps): Element {
 					<li
 						id={`tab-${index}`}
 						role="tab"
-						class="tabs__tab"
+						class="tabs__tab text-style-body-medium-bold"
 						data-tabname={slug}
 						data-headers={JSON.stringify(headers)}
 						aria-selected={index === 0}
@@ -46,7 +46,9 @@ export function Tabs({ tabs, isSmall }: TabsProps): Element {
 					aria-labelledby={`tab-${index}`}
 					aria-hidden={index === 0 ? undefined : true}
 				>
+					<div class="tabs__tab-panel__inner">
 					{contents}
+					</div>
 				</div>
 			))}
 		</div>
