@@ -90,8 +90,8 @@ export const Pagination = ({
 					<li className={`${styles.paginationItem}`}>
 						<a
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							href={getPageHref(page.currentPage - 1)}
 							aria-label="Previous"
+							href={!isPreviousEnabled ? "javascript:void(0)" : getPageHref(page.currentPage - 1)}
 							aria-disabled={!isPreviousEnabled}
 							dangerouslySetInnerHTML={{ __html: back }}
 						/>
@@ -112,7 +112,7 @@ export const Pagination = ({
 					<li className={`${styles.paginationItem}`}>
 						<a
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							href={getPageHref(page.currentPage + 1)}
+							href={!isNextEnabled ? "javascript:void(0)" : getPageHref(page.currentPage + 1)}
 							aria-label="Next"
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
