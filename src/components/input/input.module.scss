@@ -144,6 +144,10 @@
 	pointer-events: none;
 }
 
+.searchContainer:focus-within .clearButtonContainer {
+	pointer-events: auto;
+}
+
 .clearButton {
 	display: none;
 	position: absolute;
