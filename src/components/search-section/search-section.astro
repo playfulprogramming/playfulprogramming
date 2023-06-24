@@ -1,0 +1,39 @@
+---
+import { Chip } from "../chip/chip";
+import { translate } from "../../utils";
+import style from "./search-section.module.scss";
+import * as data from "../../utils/data";
+import { SearchInput } from "../input/input";
+import { IconOnlyButton } from "../button/button";
+import { Icon } from "astro-icon";
+
+const tagsToDisplay = [...data.tags]
+	.sort(() => 0.5 - Math.random())
+	.slice(0, 8);
+---
+
+<section class={style.container}>
+	<h1 class={`text-style-headline-4 ${style.title}`}>
+		{translate(Astro, "title.looking_for_more")}
+	</h1>
+	<p class={`text-style-body-medium ${style.description}`}>
+		{translate(Astro, "desc.looking_for_more")}
+	</p>
+
+	<form class={style.searchbarRow} onsubmit="event.preventDefault()">
+		<SearchInput class={style.searchbar} />
+		<IconOnlyButton tag="button" type="submit" class={style.searchButton}>
+			<Icon width="100%" height="100%" name="arrow_right" />
+		</IconOnlyButton>
+	</form>
+
+	<ul class="unlist-inline gap-2 text-center">
+		{
+			tagsToDisplay.map((tag) => (
+				<li>
+					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
+				</li>
+			))
+		}
+	</ul>
+</section>
