@@ -48,6 +48,16 @@
 	border-radius: var(--nav-btn_corner-radius);
 }
 
+.extendPageButton[aria-selected="true"] {
+	background-color: var(--nav-btn_background-color_selected);
+	color: var(--nav-btn_foreground-color_selected);
+	border-color: var(--nav-btn_selected-outline_color);
+	border-width: var(--nav-btn_selected-outline_width);
+	border-style: solid;
+	box-sizing: border-box;
+}
+
+
 .paginationButton.selected {
 	background-color: var(--nav-btn_background-color_selected);
 	color: var(--nav-btn_foreground-color_selected);

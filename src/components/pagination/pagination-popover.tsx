@@ -141,7 +141,8 @@ export function PaginationMenuAndPopover(
 				<button
 					ref={refs.setReference}
 					{...getReferenceProps()}
-					className={`text-style-body-medium-bold ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}
+					aria-selected={isOpen}
+					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}
 					dangerouslySetInnerHTML={{ __html: more }}
 				/>
 			</li>
