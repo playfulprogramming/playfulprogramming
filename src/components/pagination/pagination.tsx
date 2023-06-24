@@ -2,22 +2,11 @@ import styles from "./pagination.module.scss";
 import { Button } from "components/base";
 import forward from "src/icons/forward.svg?raw";
 import back from "src/icons/back.svg?raw";
-import more from "src/icons/more-horizontal.svg?raw";
-import { PaginationPopover } from "components/pagination/pagination-popover";
+import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
 import { useEffect, useState } from "preact/hooks";
+import { PaginationProps } from "components/pagination/types";
 
 const PAGE_BUTTON_COUNT = 6;
-
-interface PaginationProps {
-	page: {
-		currentPage: number;
-		lastPage: number;
-	};
-	class?: string;
-	id?: string;
-	rootURL?: string;
-	getPageHref?: (pageNum: number) => string;
-}
 
 function PaginationButton(props: {
 	pageNum: number;
@@ -40,17 +29,6 @@ function PaginationButton(props: {
 	);
 }
 
-function PaginationMenu(props: Pick<PaginationProps, "page" | "getPageHref">) {
-	return (
-		<li className={`${styles.paginationItem}`}>
-			<button
-				className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-				dangerouslySetInnerHTML={{ __html: more }}
-			/>
-		</li>
-	);
-}
-
 /**
  * This prevents the pagination menu from rendering on SSR, which throws errors
  */
@@ -65,7 +43,7 @@ function PaginationMenuWrapper(
 
 	if (!shouldRender) return null;
 
-	return <PaginationMenu {...props} />;
+	return <PaginationMenuAndPopover {...props} />;
 }
 
 export const Pagination = ({
