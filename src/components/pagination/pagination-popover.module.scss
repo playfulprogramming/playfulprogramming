@@ -30,13 +30,14 @@
   width: 1px;
   flex-grow: 1;
   text-align: center;
+  min-width: calc(3ch + calc(var(--form-field_padding-horizontal) * 2));
+  -moz-appearance: textfield;
 }
 
 .popupInput::-webkit-outer-spin-button,
 .popupInput::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-  -moz-appearance: textfield;
 }
 
 .popupTopArea {

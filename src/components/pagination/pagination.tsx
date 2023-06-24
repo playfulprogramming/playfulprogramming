@@ -6,7 +6,7 @@ import { PaginationMenuAndPopover } from "components/pagination/pagination-popov
 import { useEffect, useState } from "preact/hooks";
 import { PaginationProps } from "components/pagination/types";
 
-const PAGE_BUTTON_COUNT = 6;
+const PAGE_BUTTON_COUNT = 2;
 
 function PaginationButton(props: {
 	pageNum: number;
