@@ -21,7 +21,7 @@
   --btn_primary_background-color_default: var(--surface_primary_emphasis-low);
   --btn_primary_background-color_default_hovered: var(--surface_primary_emphasis-medium);
   --btn_primary_background-color_default_pressed: var(--surface_primary_emphasis-high);
-  --btn_primary_foreground-color_default: var(--foreground_emphasis-high);
+  --btn_primary_foreground-color_default: var(--primary_on-variant);
 
   --btn_primary_background-color_emphasized: var(--primary_high-contrast);
   --btn_primary_background-color_emphasized_hovered: var(--primary_high-contrast_hovered);
@@ -36,7 +36,7 @@
   --btn_secondary_background-color_default: var(--surface_secondary_emphasis-low);
   --btn_secondary_background-color_default_hovered: var(--surface_secondary_emphasis-medium);
   --btn_secondary_background-color_default_pressed: var(--surface_secondary_emphasis-high);
-  --btn_secondary_foreground-color_default: var(--foreground_emphasis-high);
+  --btn_secondary_foreground-color_default: var(--secondary_on-variant);
 
   --btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
   --btn_secondary_background-color_emphasized_hovered: var(--secondary_high-contrast_hovered);
