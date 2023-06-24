@@ -13,8 +13,8 @@
 	--form-label_color: var(--foreground_emphasis-high);
 	--form-label_color_disabled: var(--foreground_disabled);
 
-	--form-field_background: var(--surface_emphasis-none);
-	--form-field_background_hovered: var(--surface_emphasis-low);
+	--form-field_background: var(--surface_primary_emphasis-none);
+	--form-field_background_hovered: var(--surface_primary_emphasis-low);
 	--form-field_background_focused: var(--background_focus);
 	--form-field_background_error: var(--background_error);
 	--form-field_background_disabled: var(--background_disabled);

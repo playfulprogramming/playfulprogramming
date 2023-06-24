@@ -45,6 +45,24 @@
 .popupTopArea {
   display: flex;
   gap: var(--page-popup_gap);
+  align-items: center;
+}
+
+.buttonContainer {
+  height: 100%;
+  width: 100%;
+  flex-grow: 0;
+}
+
+.iconButton {
+  height: calc(var(--form-field_padding-vertical) * 2 + var(--p_medium_line-height));
+  width: calc(var(--form-field_padding-vertical) * 2 + var(--p_medium_line-height));
+}
+
+.buttonContainer svg {
+  height: 100%;
+  width: 100%;
+  flex-grow: 0;
 }
 
 .popup svg {

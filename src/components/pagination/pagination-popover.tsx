@@ -37,8 +37,9 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					tag="button"
 					onClick={() => setCount((v) => v - 1)}
 					disabled={count <= 1}
+					class={style.iconButton}
 				>
-					<div dangerouslySetInnerHTML={{ __html: subtract }} />
+					<div class={style.buttonContainer} dangerouslySetInnerHTML={{ __html: subtract }} />
 				</IconOnlyButton>
 				<Input
 					class={style.popupInput}
@@ -62,8 +63,9 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					tag="button"
 					onClick={() => setCount((v) => v + 1)}
 					disabled={count >= props.page.lastPage}
+					class={style.iconButton}
 				>
-					<div dangerouslySetInnerHTML={{ __html: add }} />
+					<div class={style.buttonContainer} dangerouslySetInnerHTML={{ __html: add }} />
 				</IconOnlyButton>
 			</div>
 			<Button tag="button" type="submit" variant="primary">
