@@ -1,94 +1,87 @@
 @import "src/tokens/index";
 
-.tabs {
-	-webkit-tap-highlight-color: transparent;
-	overflow-anchor: none;
+:root {
+	--tabbed-wrapper_padding: var(--spc-2x);
+	--tabbed-wrapper_corner-radius_inner: var(--corner-radius_l);
+	--tabbed-wrapper_corner-radius_outer: calc(var(--tabbed-wrapper_corner-radius_inner) + var(--tabbed-wrapper_padding));
 
-	&__tab-list {
-		padding: 0;
-		margin: 0 1rem -2px;
-	}
+	--tabbed-wrapper_background-color: var(--surface_primary_emphasis-none);
 
-	&__tab {
-		display: inline-block;
-		border: 1px solid transparent;
-		border-bottom: none;
-		bottom: -2px;
-		position: relative;
-		list-style: none;
-		padding: 6px 12px;
-		cursor: pointer;
+	--tab_min-size: var(--min-target-size_m);
+	--tab_padding-horizontal: var(--spc-5x);
+	--tab_padding-vertical: var(--spc-2x);
+	--tab_corner-radius: var(--tabbed-wrapper_corner-radius_inner);
 
-		background: var(--darkPrimary);
-		color: var(--backgroundColor);
-		border-radius: 0.5rem 0.5rem 0 0;
-		margin-right: 4px;
+	--tab_background-color_hovered: var(--surface_primary_emphasis-low);
+	--tab_background-color_pressed: var(--surface_primary_emphasis-high);
+	--tab_background-color_selected: var(--surface_primary_emphasis-medium);
+	--tab_background-color_focused: var(--background_focus);
 
-		&[aria-selected="true"] {
-			background: var(--backgroundColor);
-			border: 2px solid var(--darkPrimary);
-			border-bottom: 0px;
-			margin-bottom: 2px;
-			color: var(--darkPrimary);
-		}
+	--tab_foreground-color: var(--foreground_emphasis-medium);
+	--tab_foreground-color_selected: (--foreground_emphasis-high);
 
-		&[aria-disabled="true"] {
-			color: GrayText;
-			cursor: default;
-		}
+	--tab_focus-outline_width: var(--border-width_focus);
+	--tab_focus-outline_color: var(--focus-outline_primary);
+}
 
-		&:focus {
-			box-shadow: 0 0 5px hsl(208, 99%, 50%);
-			border-color: hsl(208, 99%, 50%);
-			outline: none;
+.tabs__tab-list {
+	margin: 0 !important;
+	list-style: none;
+	display: inline-flex;
+	border-radius: var(--tabbed-wrapper_corner-radius_outer) var(--tabbed-wrapper_corner-radius_outer) 0 0;
+	padding: var(--tabbed-wrapper_padding) var(--tabbed-wrapper_padding)  0 var(--tabbed-wrapper_padding) ;
+	background-color: var(--tabbed-wrapper_background-color);
+}
 
-			&:after {
-				content: "";
-				position: absolute;
-				height: 5px;
-				left: -4px;
-				right: -4px;
-				bottom: -5px;
-				background: var(--backgroundColor);
-			}
-		}
-	}
+.tabs__tab {
+	border-radius: var(--tab_corner-radius);
+	min-height: var(--tab_min-size);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--tab_padding-vertical) var(--tab_padding-horizontal);
+	color: var(--tab_foreground-color);
+}
 
-	&__tab-panel {
-		border: 2px solid var(--darkPrimary);
-		border-radius: 0.5rem;
-		padding: 1.5rem;
+.tabs__tab[aria-selected="true"] {
+	background-color: var(--tab_background-color_selected);
+	color: var(--tab_foreground-color_selected);
+}
 
-		&[aria-hidden="true"] {
-			display: none;
-		}
-	}
+.tabs__tab:hover {
+	background-color: var(--tab_background-color_hovered);
+}
 
-	// Small tab sections have bottom "spacing" (hack using grid layout) to prevent content jumps on large screens
-	//   - this should be turned off at small widths where the tab content can wrap.
-	//
-	// Breakpoint is based on the rendered width of .postViewContent, which is 822px (768px .post-body width + padding & margins)
-	@include from(823px) {
-		@supports (display: grid) {
-			&.tabs-small {
-				display: grid;
-				grid-template-columns: minmax(0, 1fr);
-				align-items: start;
+.tabs__tab:active {
+	background-color: var(--tab_background-color_pressed);
+}
 
-				.tabs__tab-list {
-					grid-row-start: 1;
-				}
+.tabs__tab:focus-visible {
+	outline: var(--tab_focus-outline_width) solid var(--tab_focus-outline_color);
+	background-color: var(--tab_background-color_focused);
+}
 
-				.tabs__tab-panel {
-					grid-row-start: 2;
-					grid-column-start: 1;
+.tabs__tab-panel {
+	padding: var(--tabbed-wrapper_padding);
+	border-radius: 0 var(--tabbed-wrapper_corner-radius_outer) var(--tabbed-wrapper_corner-radius_outer) var(--tabbed-wrapper_corner-radius_outer);
+	background-color: var(--tabbed-wrapper_background-color);
+}
 
-					&[aria-hidden="true"] {
-						display: block;
-						visibility: hidden;
-					}
-				}
-			}
-		}
-	}
+.tabs__tab-panel[aria-hidden="true"] {
+	display: none;
+}
+
+.tabs__tab-panel__inner {
+	border-radius: var(--tabbed-wrapper_corner-radius_inner);
+	overflow: auto;
+}
+
+.tabs__tab-panel__inner > *:first-child {
+	border-top-right-radius: var(--tabbed-wrapper_corner-radius_inner);
+	border-top-left-radius: var(--tabbed-wrapper_corner-radius_inner);
+}
+
+.tabs__tab-panel__inner > *:last-child {
+	border-bottom-right-radius: var(--tabbed-wrapper_corner-radius_inner);
+	border-bottom-left-radius: var(--tabbed-wrapper_corner-radius_inner);
 }
