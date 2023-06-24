@@ -1,6 +1,5 @@
 ---
 import BigFilledButton from "../components/big-filled-button.astro";
-import BigOutlinedButton from "../components/big-outlined-button.astro";
 import ChipGroup, { TagList } from "../components/chip-group.astro";
 import SectionMetric from "../components/section-metric.astro";
 import "../components/shared-section-styling.scss";
@@ -61,8 +60,9 @@ const tags: TagList = [
 				<BigFilledButton
 					href="#signup-form"
 					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-					>Sign up for updates</BigFilledButton
 				>
+					Sign up for updates
+				</BigFilledButton>
 				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
 			</div>
 			<p class={`text-style-body-large-bold book-coming-soon`}>

@@ -6,7 +6,6 @@ import SEO from "components/seo/seo.astro";
 import type { MarkdownInstance } from "astro";
 import { ExtendedPostInfo } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
-import { Languages } from "types/index";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<ExtendedPostInfo>(

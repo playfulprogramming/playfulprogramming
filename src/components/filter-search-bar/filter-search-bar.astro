@@ -41,7 +41,7 @@ import SearchField from "./search-field/search-field.astro";
 	let loadingEl: HTMLElement | undefined;
 	let abortController: AbortController | undefined;
 
-	function doSearch(val, resetPage = true) {
+	function doSearch(val: any, resetPage = true) {
 		const children: HTMLElement[] = searchPostList.children as never;
 		for (let child of [...children]) {
 			child.remove();

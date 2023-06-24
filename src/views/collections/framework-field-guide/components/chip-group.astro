@@ -1,8 +1,9 @@
 ---
 import { FixedArray } from "../../../../types/ArrayLike";
 import InfiniteLoopSlider from "./infinite-loop-slider.astro";
-const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+const random = (min: number, max: number) =>
+	Math.floor(Math.random() * (max - min)) + min;
+const shuffle = (arr: any) => [...arr].sort(() => 0.5 - Math.random());
 
 const MAX_DURATION = 56000 * 2;
 const MIN_DURATION = 56000;

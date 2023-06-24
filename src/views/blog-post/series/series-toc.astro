@@ -36,7 +36,7 @@ const isActiveInMiddle = middlePosts.some(
 	</div>
 	<ol aria-labelledby="series-header" role="list">
 		{
-			firstPosts.map((seriesPost, i) => {
+			firstPosts.map((seriesPost) => {
 				const isActive = post.order === seriesPost.order;
 
 				return (
@@ -56,7 +56,7 @@ const isActiveInMiddle = middlePosts.some(
 							{middlePosts.length} more parts
 						</button>
 					</li>
-					{middlePosts.map((seriesPost, i) => {
+					{middlePosts.map((seriesPost) => {
 						const isActive = post.order === seriesPost.order;
 
 						return (
@@ -72,7 +72,7 @@ const isActiveInMiddle = middlePosts.some(
 			) : null
 		}
 		{
-			lastPosts.map((seriesPost, i) => {
+			lastPosts.map((seriesPost) => {
 				const isActive = post.order === seriesPost.order;
 
 				return (

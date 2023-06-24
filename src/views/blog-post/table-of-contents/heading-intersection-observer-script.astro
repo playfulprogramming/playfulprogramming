@@ -91,12 +91,12 @@ const { headingsToDisplaySlugs } = Astro.props as {
 
 		let activeLinkId: string = linkRefs[0]?.id || "";
 
-		const handleObserver = (entries) => {
+		const handleObserver = (entries: any) => {
 			// find the first link that matches a visible heading
 			for (const linkRef of linkRefs) {
 				// find any heading entry that corresponds to the linkRef
 				const entry = entries.find(
-					(entry) => entry.target.getAttribute("id") === linkRef.id
+					(entry: any) => entry.target.getAttribute("id") === linkRef.id
 				);
 
 				// determine if the link should be active

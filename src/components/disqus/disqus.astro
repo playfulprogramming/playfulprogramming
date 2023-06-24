@@ -16,7 +16,7 @@ const { slug, title } = Astro.props as DisqusProps;
 <div id="disqus_thread"></div>
 <script define:vars={{ slug, siteMetadata, title }}>
 	const loadComments = document.querySelector("#load-comments");
-	
+
 	// This is called implicitly by Disqus code. We do not need to call it.
 	var disqus_config = function () {
 		this.page.url = `${siteMetadata.siteUrl}/posts/${slug}`;
