@@ -103,7 +103,11 @@ const {
 				{
 					bulletPoints.map((bulletPoint) => (
 						<li class="text-style-body-small-bold">
-							<img alt="" src={ffgArrow} class={styles.listItemBullet} />
+							<img
+								alt=""
+								src={ffgArrow as never}
+								class={styles.listItemBullet}
+							/>
 							{bulletPoint}
 						</li>
 					))
@@ -117,7 +121,11 @@ const {
 				{
 					starPoints.map((starPoint) => (
 						<li class="text-style-body-small-bold">
-							<img alt="" src={ffgStar} class={styles.listItemBullet} />
+							<img
+								alt=""
+								src={ffgStar as never}
+								class={styles.listItemBullet}
+							/>
 							{starPoint}
 						</li>
 					))

@@ -11,6 +11,7 @@
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"jsx": "react-jsx",
+		"skipLibCheck": true,
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
 		// Add type definitions for our Vite runtime.
