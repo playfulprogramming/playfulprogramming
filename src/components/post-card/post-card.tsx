@@ -1,9 +1,8 @@
 import cardStyles from "./post-card.module.scss";
 import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
-import { Tag } from "components/index";
+import { Chip } from "components/index";
 import { Card } from "components/card/card";
-import { UnicornTagSmall } from "components/unicorn-tag/unicorn-tag";
 import calendar from "src/icons/date.svg?raw";
 
 interface PostCardProps {
@@ -27,10 +26,7 @@ function PostCardMeta({
 			<ul class="unlist-inline gap-2">
 				{post.authorsMeta.map((author) => (
 					<li>
-						<UnicornTagSmall
-							unicorn={author}
-							unicornProfilePicMap={unicornProfilePicMap}
-						/>
+						<p>{author.name}</p>
 					</li>
 				))}
 			</ul>
@@ -46,7 +42,7 @@ function PostCardMeta({
 		<ul class="unlist-inline gap-2">
 			{post.tags.map((tag) => (
 				<li>
-					<Tag href={`/search?q=${tag}`}>{tag}</Tag>
+					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
 				</li>
 			))}
 		</ul>
