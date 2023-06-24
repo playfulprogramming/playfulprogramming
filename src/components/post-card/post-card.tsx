@@ -1,8 +1,8 @@
 import cardStyles from "./post-card.module.scss";
 import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
-import { Tag } from "components/base";
-import { Card } from "components/base/card/card";
+import { Tag } from "components/index";
+import { Card } from "components/card/card";
 import { UnicornTagSmall } from "components/unicorn-tag/unicorn-tag";
 import calendar from "src/icons/calendar.svg?raw";
 

@@ -1,4 +1,4 @@
-import { PropsWithOptionalChildren } from "components/base/types";
+import { PropsWithOptionalChildren } from "components/types";
 import styles from "./subheader.module.scss";
 import { createElement } from "preact";
 
