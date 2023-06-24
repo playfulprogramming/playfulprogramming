@@ -4,7 +4,7 @@ import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Tag } from "components/index";
 import { Card } from "components/card/card";
 import { UnicornTagSmall } from "components/unicorn-tag/unicorn-tag";
-import calendar from "src/icons/calendar.svg?raw";
+import calendar from "src/icons/date.svg?raw";
 
 interface PostCardProps {
 	post: Pick<
