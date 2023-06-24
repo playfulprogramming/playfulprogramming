@@ -13,15 +13,17 @@ interface HintProps {
 /** @jsxImportSource hastscript */
 export function Hint({ title, children }: HintProps): Element {
 	return (
-		<details class="hint">
-			<summary class="hint__title text-style-body-medium-bold">
-				{fromHtml(chevron_down)}
-				{title}
-			</summary>
+		<div class="hint">
+			<details class="hint__container">
+				<summary class="hint__title text-style-body-medium-bold">
+					{fromHtml(chevron_down)}
+					{title}
+				</summary>
 
-			<div class="hint__content">
-				{children}
-			</div>
-		</details>
+				<div class="hint__content">
+					{children}
+				</div>
+			</details>
+		</div>
 	) as never;
 }

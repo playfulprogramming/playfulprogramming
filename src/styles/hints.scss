@@ -1,4 +1,6 @@
 :root {
+	--hint-margin: var(--spc-4x);
+
 	// Padding and gap must be consistent to maintain visual balance
 	--hint-container_padding: var(--spc-1x);
 	--hint-container_gap: var(--hint-container-padding);
@@ -37,80 +39,82 @@
 }
 
 .hint {
-	display: inline-block;
-	overflow: hidden;
-	margin: var(--hint-container_padding) 0;
+	margin: var(--hint-margin) 0;
 
-	border-radius: var(--hint-container_corner-radius_collapsed);
-	&[open] {
-		display: block;
-		border-radius: var(--hint-container_corner-radius_expanded);
-	}
+	&> .hint__container {
+		display: inline-block;
+		overflow: hidden;
 
-	&[open] > .hint__title > svg {
-		transform: rotateZ(180deg);
-	}
-
-	&> .hint__title {
-		&::marker {
-			content: '';
+		border-radius: var(--hint-container_corner-radius_collapsed);
+		&[open] {
+			border-radius: var(--hint-container_corner-radius_expanded);
 		}
 
-		display: flex;
-		align-items: center;
-		gap: var(--hint-header_gap);
-
-		color: var(--hint-container_foreground-color);
-		margin: var(--hint-container_padding);
-		padding-top: var(--hint-header_padding-vertical);
-		padding-bottom: var(--hint-header_padding-vertical);
-		padding-left: var(--hint-header_padding-start);
-		padding-right: var(--hint-header_padding-end);
-
-		outline: none !important;
-	}
-
-	&> .hint__content {
-		margin: var(--hint-container_padding);
-		background-color: var(--hint-content_background-color);
-		border-radius: var(--hint-content_corner-radius);
-		padding: var(--hint-content_padding);
-
-		&> *:first-child {
-			margin-top: 0;
-			padding-top: 0;
+		&[open] > .hint__title > svg {
+			transform: rotateZ(180deg);
 		}
 
-		&> *:last-child {
-			margin-bottom: 0;
-			padding-bottom: 0;
+		&> .hint__title {
+			&::marker {
+				content: '';
+			}
+
+			display: flex;
+			align-items: center;
+			gap: var(--hint-header_gap);
+
+			color: var(--hint-container_foreground-color);
+			margin: var(--hint-container_padding);
+			padding-top: var(--hint-header_padding-vertical);
+			padding-bottom: var(--hint-header_padding-vertical);
+			padding-left: var(--hint-header_padding-start);
+			padding-right: var(--hint-header_padding-end);
+
+			outline: none !important;
 		}
-	}
 
-	background-color: var(--hint-container_background-color);
+		&> .hint__content {
+			margin: var(--hint-container_padding);
+			background-color: var(--hint-content_background-color);
+			border-radius: var(--hint-content_corner-radius);
+			padding: var(--hint-content_padding);
 
-	&:hover {
-		background-color: var(--hint-container_background-color_hovered);
-	}
+			&> *:first-child {
+				margin-top: 0;
+				padding-top: 0;
+			}
 
-	&:active {
-		background-color: var(--hint-container_background-color_pressed);
-	}
-
-	@supports selector(:has(*)) {
-		&:has(.hint__title:focus-visible) {
-			background-color: var(--hint-container_background-color_focused);
-			outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+			&> *:last-child {
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
 		}
-	}
 
-	// for Firefox (and some older browsers) :has is not supported, so :focus-within is the only way
-	// to get the focus state on the parent
-	// - this will incorrectly show the focus state during/after click events even if focus indication is not necessary
-	@supports not selector(:has(*)) {
-		&:focus-within {
-			background-color: var(--hint-container_background-color_focused);
-			outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+		background-color: var(--hint-container_background-color);
+
+		&:hover {
+			background-color: var(--hint-container_background-color_hovered);
+		}
+
+		&:active {
+			background-color: var(--hint-container_background-color_pressed);
+		}
+
+		@supports selector(:has(*)) {
+			&:has(.hint__title:focus-visible) {
+				background-color: var(--hint-container_background-color_focused);
+				outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+			}
+		}
+
+		// for Firefox (and some older browsers) :has is not supported, so :focus-within is the only way
+		// to get the focus state on the parent
+		// - this will incorrectly show the focus state during/after click events even if focus indication is not necessary
+		@supports not selector(:has(*)) {
+			&:focus-within {
+				background-color: var(--hint-container_background-color_focused);
+				outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+			}
 		}
 	}
 }
