@@ -1,4 +1,3 @@
-import { Page } from "astro";
 import styles from "./pagination.module.scss";
 import { Button } from "components/base";
 import forward from "src/icons/forward.svg?raw";
@@ -10,7 +9,10 @@ import { useEffect, useState } from "preact/hooks";
 const PAGE_BUTTON_COUNT = 6;
 
 interface PaginationProps {
-	page: Pick<Page<any>, "currentPage" | "lastPage">;
+	page: {
+		currentPage: number;
+		lastPage: number;
+	};
 	class?: string;
 	id?: string;
 	rootURL?: string;
