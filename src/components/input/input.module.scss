@@ -37,6 +37,7 @@
 	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
 	border-radius: 8px;
 	background: var(--form-field_background);
+	color: var(--foreground_emphasis-high);
 }
 
 .input:hover {
