@@ -2,10 +2,10 @@
 import style from "./post-title-header.module.scss";
 import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
-import { Tag } from "components/base";
+import { Tag } from "components/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import dayjs from "dayjs";
-import { Picture } from "components/base/image/picture";
+import { Picture } from "components/image/picture";
 
 interface PostTitleHeaderProps {
 	post: ExtendedPostInfo;

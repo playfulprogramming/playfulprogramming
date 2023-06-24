@@ -1,6 +1,6 @@
 import { Page } from "astro";
 import styles from "./pagination.module.scss";
-import { Button } from "components/base";
+import { Button } from "components/index";
 import forward from "src/icons/forward.svg?raw";
 import back from "src/icons/back.svg?raw";
 import more from "src/icons/more-horizontal.svg?raw";

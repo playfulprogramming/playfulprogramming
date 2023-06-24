@@ -1,12 +1,12 @@
 ---
-import { CardSolid } from "components/base/card/card";
+import { CardSolid } from "components/card/card";
 import { UnicornTag } from "components/unicorn-tag/unicorn-tag";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./collection-card.module.scss";
-import { Button } from "components/base";
+import { Button } from "components/index";
 import { Icon } from "astro-icon";
 import { Picture } from "@astrojs/image/components";
-import { Picture as UUPicture } from "components/base/image/picture";
+import { Picture as UUPicture } from "components/image/picture";
 import { getFullRelativePath } from "utils/url-paths";
 import { ExtendedCollectionInfo } from "types/index";
 import { translate } from "utils/translations";
@@ -26,7 +26,6 @@ type CollectionCardProps = {
 };
 
 const { collection, unicornProfilePicMap } = Astro.props as CollectionCardProps;
-
 
 const coverImgPath = getFullRelativePath(
 	"/content/collections",

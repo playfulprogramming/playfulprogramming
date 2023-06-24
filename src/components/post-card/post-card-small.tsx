@@ -1,6 +1,6 @@
 import cardStyles from "./post-card-small.module.scss";
 import { PostInfo } from "types/index";
-import { Card } from "components/base/card/card";
+import { Card } from "components/card/card";
 
 interface PostCardProps {
 	post: Pick<

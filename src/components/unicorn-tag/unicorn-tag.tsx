@@ -1,5 +1,5 @@
-import { TagLink } from "components/base";
-import { Picture } from "components/base/image/picture";
+import { TagLink } from "components/index";
+import { Picture } from "components/image/picture";
 import { UnicornInfo } from "types/UnicornInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import style from "./unicorn-tag.module.scss";
