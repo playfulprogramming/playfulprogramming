@@ -3,7 +3,6 @@ import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Chip } from "components/index";
 import { Card } from "components/card/card";
-import { UnicornTagSmall } from "components/unicorn-tag/unicorn-tag";
 import calendar from "src/icons/date.svg?raw";
 
 interface PostCardProps {
@@ -27,10 +26,7 @@ function PostCardMeta({
 			<ul class="unlist-inline gap-2">
 				{post.authorsMeta.map((author) => (
 					<li>
-						<UnicornTagSmall
-							unicorn={author}
-							unicornProfilePicMap={unicornProfilePicMap}
-						/>
+						<p>{author.name}</p>
 					</li>
 				))}
 			</ul>

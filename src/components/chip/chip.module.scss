@@ -16,17 +16,7 @@
 	&:hover {
 		text-decoration: underline;
 	}
-}
 
-.tag:has(picture) {
-	gap: var(--spc-2x);
-}
-
-.tag > svg {
-	margin-right: var(--spc-1x);
-}
-
-.tagBordered {
 	padding: var(--spc-1x) var(--spc-2x);
 
 	border: calc(var(--spc-1x) / 2) solid var(--primary_variant);
@@ -54,4 +44,12 @@
 		background-color: var(--surface_primary_emphasis-high);
 		color: var(--foreground_emphasis-high);
 	}
+}
+
+.tag:has(picture) {
+	gap: var(--spc-2x);
+}
+
+.tag > svg {
+	margin-right: var(--spc-1x);
 }
