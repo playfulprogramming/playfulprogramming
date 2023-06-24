@@ -52,7 +52,6 @@
 		"@testing-library/preact": "^3.2.3",
 		"@types/jest": "^29.4.0",
 		"@types/node": "^18.13.0",
-		"@types/react": "^18.0.33",
 		"@types/uuid": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.60.0",
 		"@typescript-eslint/parser": "^5.60.0",
@@ -85,7 +84,6 @@
 		"prettier": "^2.8.8",
 		"prettier-plugin-astro": "^0.10.0",
 		"puppeteer-core": "^10.4.0",
-		"react": "^18.2.0",
 		"rehype-raw": "^6.1.1",
 		"rehype-retext": "^3.0.2",
 		"rehype-slug-custom-id": "^1.1.0",
@@ -114,7 +112,12 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
+		"@floating-ui/react": "^0.24.3",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.15.1"
+	},
+	"overrides": {
+		"react": "npm:@preact/compat@latest",
+		"react-dom": "npm:@preact/compat@latest"
 	}
 }

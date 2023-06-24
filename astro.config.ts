@@ -28,7 +28,7 @@ export default defineConfig({
 	site: siteUrl,
 	integrations: [
 		image(),
-		preact(),
+		preact({ compat: true }),
 		mdx(),
 		sitemap({
 			changefreq: ChangeFreq.DAILY,
@@ -46,6 +46,7 @@ export default defineConfig({
 	vite: {
 		ssr: {
 			external: ["svgo"],
+			noExternal: ["@floating-ui/react", "@floating-ui/react-dom"],
 		},
 		plugins: [svgr()],
 	},

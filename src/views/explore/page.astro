@@ -23,4 +23,4 @@ const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 	unicornProfilePicMap={unicornProfilePicMap}
 />
 
-<Pagination page={page} />
+<Pagination page={page} client:load />
