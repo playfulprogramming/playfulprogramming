@@ -40,6 +40,8 @@
 	margin-bottom: var(--search-section_form_margin-bottom);
 	max-width: var(--search-section_form_max-width);
 	gap: var(--search-section_form_margin-right);
+	justify-content: center;
+	align-items: center;
 }
 
 .searchbar {
@@ -47,9 +49,9 @@
 }
 
 .searchButton {
-	height: 100%;
-	aspect-ratio: 1 / 1;
-	box-sizing: content-box;
+	height: calc(var(--p_medium_line-height) + calc(var(--search-form-field_padding-vertical) * 2));
+	width: calc(var(--p_medium_line-height) + calc(var(--search-form-field_padding-vertical) * 2));
+	flex-shrink: 0;
 }
 
 .chips {
