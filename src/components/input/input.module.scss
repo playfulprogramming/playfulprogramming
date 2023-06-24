@@ -38,6 +38,7 @@
 	border-radius: 8px;
 	background: var(--form-field_background);
 	color: var(--foreground_emphasis-high);
+	margin: calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width));
 }
 
 .input:hover {
@@ -46,16 +47,117 @@
 	background: var(--form-field_background_hovered);
 }
 
-.input:focus {
+.input:focus-within {
 	border: var(--form-field_outline_width_focused) solid
 		var(--form-field_outline_color_focused);
 	outline: var(--form-field_halo_color) solid var(--form-field_halo_width);
 	background: var(--form-field_background_focused);
+	margin: 0;
 }
 
-.input:disabled {
+.input:disabled,
+.input.disabled {
 	background: var(--form-field_background_disabled);
 	border: var(--form-field_outline_width) solid
 		var(--form-field_outline_color_disabled);
 	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
+}
+
+:root {
+	--search-form-field_padding-right: var(--spc-6x);
+	--search-form-field_padding-vertical: var(--spc-4x);
+
+	--search-form_icon-size: var(--icon-size_regular);
+	--search-form_icon-color: var(--foreground_emphasis-high);
+	--search-form_icon-color_disabled: var(--foreground_disabled);
+
+	--search-form-hint_color: var(--foreground_disabled);
+}
+
+.searchContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: nowrap;
+	padding: 0 !important;
+	position: relative;
+	border-radius: var(--corner-radius_circular);
+}
+
+.searchIconContainer {
+	aspect-ratio: 1 / 1;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: var(--search-form_icon-color);
+	pointer-events: none;
+}
+
+.searchIconContainer > svg {
+	height: var(--icon-size_regular);
+	width: var(--icon-size_regular);
+}
+
+.searchInput {
+	all: unset;
+	text-align: left;
+	width: 100%;
+	padding-left: calc(
+		max(
+			var(--icon-size_regular),
+			calc(
+				var(--p_medium_line-height) +
+					calc(var(--search-form-field_padding-vertical) * 2)
+			)
+		)
+	);
+	padding-top: var(--search-form-field_padding-vertical);
+	padding-bottom: var(--search-form-field_padding-vertical);
+	padding-right: var(--search-form-field_padding-right);
+}
+
+.searchContainer:focus-within .searchInput {
+	padding-right: calc(
+		max(
+			var(--icon-size_regular),
+			calc(
+				var(--p_medium_line-height) +
+					calc(var(--search-form-field_padding-vertical) * 2)
+			)
+		)
+	);
+}
+
+.clearButtonContainer {
+	aspect-ratio: 1 / 1;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	pointer-events: none;
+}
+
+.searchContainer:focus-within .clearButtonContainer {
+	pointer-events: auto;
+}
+
+.clearButton {
+	display: none;
+	position: absolute;
+}
+
+.closeButtonContainer, .closeButtonContainer > svg {
+	height: 100%;
+	width: 100%;
+}
+
+.searchContainer:focus-within .clearButton {
+	display: flex;
 }
