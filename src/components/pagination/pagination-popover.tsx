@@ -1,9 +1,8 @@
 import {
 	arrow,
-	autoPlacement,
 	FloatingArrow,
 	FloatingFocusManager,
-	shift,
+	offset,
 	useClick,
 	useDismiss,
 	useFloating,
@@ -16,6 +15,29 @@ import { createPortal } from "preact/compat";
 import mainStyles from "./pagination.module.scss";
 import more from "src/icons/more-horizontal.svg?raw";
 import { PaginationProps } from "components/pagination/types";
+import style from "./pagination-popover.module.scss";
+import { Button, IconOnlyButton } from "components/base";
+import subtract from "../../icons/subtract.svg?raw";
+import add from "../../icons/add.svg?raw";
+
+function PopupContents() {
+	const [count, setCount] = useState(12);
+	return (
+		<Fragment>
+			<div class={style.popupTopArea}>
+				<IconOnlyButton tag="button" onClick={() => setCount((v) => v - 1)}>
+					<div dangerouslySetInnerHTML={{ __html: subtract }} />
+				</IconOnlyButton>
+				{count}
+				<IconOnlyButton tag="button" onClick={() => setCount((v) => v + 1)}>
+					<div dangerouslySetInnerHTML={{ __html: add }} />
+				</IconOnlyButton>
+			</div>
+			Floating element
+			<Button variant="primary">Go to page</Button>
+		</Fragment>
+	);
+}
 
 export function PaginationMenuAndPopover(
 	props: Pick<PaginationProps, "page" | "getPageHref">
@@ -28,7 +50,7 @@ export function PaginationMenuAndPopover(
 		placement: "top",
 		onOpenChange: setIsOpen,
 		middleware: [
-			shift(),
+			offset(32),
 			arrow({
 				element: arrowRef,
 			}),
@@ -51,8 +73,9 @@ export function PaginationMenuAndPopover(
 				ref={refs.setFloating}
 				style={floatingStyles as never}
 				{...getFloatingProps()}
+				class={style.popup}
 			>
-				Floating element
+				<PopupContents />
 				<FloatingArrow ref={arrowRef} context={context} />
 			</div>
 		</FloatingFocusManager>,
