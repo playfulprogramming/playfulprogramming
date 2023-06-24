@@ -39,7 +39,10 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					disabled={count <= 1}
 					class={style.iconButton}
 				>
-					<div class={style.buttonContainer} dangerouslySetInnerHTML={{ __html: subtract }} />
+					<div
+						class={style.buttonContainer}
+						dangerouslySetInnerHTML={{ __html: subtract }}
+					/>
 				</IconOnlyButton>
 				<Input
 					class={style.popupInput}
@@ -48,11 +51,9 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 						const newVal = (e.target as HTMLInputElement).valueAsNumber;
 						if (newVal > props.page.lastPage) {
 							setCount(props.page.lastPage);
-						}
-						else if (newVal < 1) {
+						} else if (newVal < 1) {
 							setCount(1);
-						}
-						else {
+						} else {
 							setCount(newVal);
 						}
 					}}
@@ -65,7 +66,10 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					disabled={count >= props.page.lastPage}
 					class={style.iconButton}
 				>
-					<div class={style.buttonContainer} dangerouslySetInnerHTML={{ __html: add }} />
+					<div
+						class={style.buttonContainer}
+						dangerouslySetInnerHTML={{ __html: add }}
+					/>
 				</IconOnlyButton>
 			</div>
 			<Button tag="button" type="submit" variant="primary">
@@ -117,7 +121,13 @@ export function PaginationMenuAndPopover(
 				class={style.popup}
 			>
 				<PopupContents {...props} />
-				<FloatingArrow ref={arrowRef} context={context} />
+				<FloatingArrow
+					ref={arrowRef}
+					context={context}
+					stroke={"var(--page-popup_border-color)"}
+					strokeWidth={2}
+					tipRadius={1.5}
+				/>
 			</div>
 		</FloatingFocusManager>,
 		document.querySelector("body")
