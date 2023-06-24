@@ -3,7 +3,7 @@ import style from "./blog-post-layout.module.scss";
 ---
 
 <article class={style.container}>
-	<div class={style.sidebarLeft}>
+	<div class={style.sidebarLeft}  style="position:sticky;top: 5rem;">
 		<slot name="left" />
 	</div>
 	<div class={style.content}>

@@ -60,10 +60,7 @@ if (post.collection && post.order) {
 	iFrameClickToRun();
 </script>
 <BlogPostLayout>
-	<div slot="left">
-		<h1 class="text-style-headline-5">Table of Contents</h1>
-		<TableOfContents headingsWithId={post.headingsWithId} />
-	</div>
+	<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
 	<div slot="right">
 		<h1 class="text-style-headline-5">Related posts</h1>
 		<ul class="unlist-column">
