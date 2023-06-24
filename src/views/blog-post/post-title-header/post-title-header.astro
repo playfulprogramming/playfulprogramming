@@ -18,13 +18,13 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 ---
 
 <div class="d-flex gap-2">
-	<Icon width="24" height="24" name="mdi:calendar-outline" />
+	<Icon width="24" height="24" name="date" />
 	<p>{publishedStr}</p>
 </div>
 
 <h1 class={style.title}>{title}</h1>
 <div class="d-flex gap-2">
-	<Icon width="24" height="24" name="mdi:person-outline" />
+	<Icon width="24" height="24" name="authors" />
 	<ul
 		aria-label="Post authors"
 		role="list"
@@ -50,7 +50,7 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 {
 	tags && tags.length ? (
 		<div class="d-flex gap-2">
-			<Icon width="24" height="24" name="mdi:tag-outline" />
+			<Icon width="24" height="24" name="label" />
 			<ul
 				aria-label="Post tags"
 				role="list"

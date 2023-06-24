@@ -6,7 +6,7 @@ import { translate } from "utils/translations";
 ---
 
 <form class={`d-flex ${style.bar}`} method="get" action="/search">
-	<Icon width="24" height="24" name="mdi:search" />
+	<Icon width="24" height="24" name="search" />
 
 	<input
 		name="q"
@@ -16,6 +16,6 @@ import { translate } from "utils/translations";
 	/>
 
 	<IconOnlyButton tag="button" aria-label={translate(Astro, "title.search")}>
-		<Icon height="100%" width="100%" name="forward" />
+		<Icon height="100%" width="100%" name="arrow_right" />
 	</IconOnlyButton>
 </form>

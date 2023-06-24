@@ -13,7 +13,7 @@ import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact";
 import { createPortal } from "preact/compat";
 import mainStyles from "./pagination.module.scss";
-import more from "src/icons/more-horizontal.svg?raw";
+import more from "src/icons/more_horiz.svg?raw";
 import { PaginationProps } from "components/pagination/types";
 import style from "./pagination-popover.module.scss";
 import { Button, IconOnlyButton } from "components/base";
