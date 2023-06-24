@@ -2,10 +2,8 @@
 
 :root {
 	--tabbed-wrapper_padding: var(--spc-2x);
-	--tabbed-wrapper_corner-radius_inner: var(--corner-radius_l);
-	--tabbed-wrapper_corner-radius_outer: calc(
-		var(--tabbed-wrapper_corner-radius_inner) + var(--tabbed-wrapper_padding)
-	);
+	--tabbed-wrapper_corner-radius_inner: var(--spc-5x);
+	--tabbed-wrapper_corner-radius_outer: var(--spc-7x);
 
 	--tabbed-wrapper_background-color: var(--surface_primary_emphasis-none);
 
@@ -45,6 +43,7 @@
 	justify-content: center;
 	padding: var(--tab_padding-vertical) var(--tab_padding-horizontal);
 	color: var(--tab_foreground-color);
+	user-select: none;
 }
 
 .tabs__tab[aria-selected="true"] {
