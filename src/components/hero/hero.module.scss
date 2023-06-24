@@ -1,0 +1,16 @@
+@import "src/tokens/index";
+
+.header {
+  align-items: center;
+}
+
+.buttons {
+  gap: var(--spc-4x) var(--spc-6x);
+  padding: var(--spc-4x) 0;
+}
+
+.bannerLogo {
+  @include until($desktopSmall) {
+    display: none;
+  }
+}

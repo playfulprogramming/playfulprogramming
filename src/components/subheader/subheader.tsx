@@ -18,6 +18,7 @@ export function SubHeader({ tag, children, text, class: className, ...props }: S
         <div className={styles.container}>
             <Heading className={[
                 styles.heading,
+                "text-style-headline-4",
                 className
             ].filter(c => !!c).join(" ")}>{text}</Heading>
             {children}

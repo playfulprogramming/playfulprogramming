@@ -1,0 +1,42 @@
+---
+import BannerStickersGroup from "../banner-stickers/banner-stickers-group.astro";
+import { LargeButton } from "../button/button";
+import { Icon } from "astro-icon";
+import style from "./hero.module.scss";
+import { translate } from "../../utils";
+import * as data from "src/utils/data";
+---
+
+<header class={`grid grid-desktopSmall-2 ${style.header}`}>
+	<div class={style.bannerLogo}>
+		<BannerStickersGroup />
+	</div>
+	<div class="text-center">
+		<h1 class="text-style-headline-2">
+			{translate(Astro, "desc.homepage")}
+		</h1>
+		<p class="text-style-body-large-bold">
+			{translate(Astro, "desc.homepage_extra")}
+		</p>
+		<div
+			class={`grid grid-tablet-2 grid-desktopSmall-1 grid-desktop-2 ${style.buttons}`}
+		>
+			<LargeButton
+				variant="primary-emphasized"
+				href={data.about.links.Discord.url}
+			>
+				<Icon
+					slot="leftIcon"
+					height="100%"
+					width="100%"
+					name={data.about.links.Discord.icon}
+				/>
+				{translate(Astro, "action.join_discord")}
+			</LargeButton>
+			<LargeButton variant="primary" href="/about">
+				{translate(Astro, "action.learn_more")}
+				<Icon slot="rightIcon" height="100%" width="100%" name="arrow_right" />
+			</LargeButton>
+		</div>
+	</div>
+</header>
