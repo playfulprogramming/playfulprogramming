@@ -6,6 +6,16 @@
 	align-items: center;
 	gap: var(--spc-4x);
 
+	border: var(--border-width_xl) solid var(--surface_primary_emphasis-low);
+	overflow-wrap: break-word;
+	max-width: 100%;
+	text-decoration: none;
+	@include transition(background-color border-color);
+	border-radius: var(--corner-radius_l);
+	padding: var(--spc-4x);
+	border-width: 0;
+	background-color: var(--surface_primary_emphasis-none);
+
 	picture {
 		display: flex;
 		min-width: 48px;
