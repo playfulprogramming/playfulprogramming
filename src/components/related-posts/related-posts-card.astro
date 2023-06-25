@@ -1,0 +1,20 @@
+---
+import style from "./related-posts-card.module.scss";
+
+interface RelatedPostsCardProps {
+	title: string;
+	slug: string;
+	authors: string[];
+}
+
+const { title, slug, authors } = Astro.props as RelatedPostsCardProps;
+---
+
+<a class={style.container} href={`/posts/${slug}`}>
+	<span class={`text-style-body-medium-bold ${style.articleTitle}`}
+		>{title}</span
+	>
+	<span class={`text-style-body-small-bold ${style.authorsList}`}
+		>{authors.join(", ")}</span
+	>
+</a>
