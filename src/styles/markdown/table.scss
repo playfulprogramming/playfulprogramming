@@ -4,12 +4,11 @@
 	--table_margin: var(--spc-4x);
 	--table_padding-horizontal: var(--spc-1x);
 	--table_padding-bottom: var(--spc-1x);
-	--table_border-radius: var(--spc-4x);
-	--table_grid-wrapper_border-radius: var(--spc-3x);
+	--table_corner-radius: var(--spc-4x);
 
 	--table_header_padding: var(--spc-3x);
 	--table_grid-wrapper_cell-gap: var(--border-width_s);
-	--table_grid-wrapper_border_width: var(--border-width_s);
+	--table_grid-wrapper_corner-radius: calc(var(--table_corner-radius) - var(--table_padding-horizontal));
 	--table_cell_padding-horizontal: var(--spc-3x);
 	--table_cell_padding-vertical: var(--spc-2x);
 
@@ -27,22 +26,22 @@
 }
 
 tbody tr:first-child {
-	th:first-child, td:first-child {
-		border-top-left-radius: var(--table_grid-wrapper_border-radius);
+	td:first-child {
+		border-top-left-radius: var(--table_grid-wrapper_corner-radius);
 	}
 
-	th:last-child, td:last-child {
-		border-top-right-radius: var(--table_grid-wrapper_border-radius);
+	td:last-child {
+		border-top-right-radius: var(--table_grid-wrapper_corner-radius);
 	}
 }
 
 tbody tr:last-child {
-	th:first-child, td:first-child {
-		border-bottom-left-radius: var(--table_grid-wrapper_border-radius);
+	td:first-child {
+		border-bottom-left-radius: var(--table_grid-wrapper_corner-radius);
 	}
 
-	th:last-child, td:last-child {
-		border-bottom-right-radius: var(--table_grid-wrapper_border-radius);
+	td:last-child {
+		border-bottom-right-radius: var(--table_grid-wrapper_corner-radius);
 	}
 }
 
@@ -51,7 +50,7 @@ tbody tr:last-child {
 	width: max-content;
 	margin: var(--hint-margin) 0;
 
-	border-radius: var(--table_border-radius);
+	border-radius: var(--table_corner-radius);
 	padding: 0 var(--table_padding-horizontal);
 	padding-bottom: var(--table_padding-bottom);
 
@@ -81,8 +80,8 @@ table:has(tr:nth-child(4)) thead {
 
 	// the root table cannot have `overflow: hidden` as that breaks the `position: sticky` behavior
 	// so we need to match the border-radius here to prevent overlap
-	border-top-left-radius: var(--table_border-radius);
-	border-top-right-radius: var(--table_border-radius);
+	border-top-left-radius: var(--table_corner-radius);
+	border-top-right-radius: var(--table_corner-radius);
 
 	// this is applied in JS whenever the table header is at the top of the screen
 	// (i.e. the border-radius should no longer be visible)
@@ -96,7 +95,7 @@ thead {
 	@extend .text-style-body-medium-bold;
 	color: var(--table_header_label-color);
 
-	th, td {
+	th {
 		padding: var(--table_header_padding);
 		text-align: left;
 
@@ -110,7 +109,7 @@ thead {
 			right: 0;
 			background-color: var(--table_header_divider_color);
 			width: 1px;
-			height: 1.5em;
+			height: var(--p_medium_line-height);
 			transform: translateY(-50%);
 		}
 	}
@@ -120,24 +119,37 @@ tbody {
 	@extend .text-style-body-medium;
 
 	color: var(--table_cell_label-color);
-	border-radius: var(--table_grid-wrapper_border-radius);
+	border-radius: var(--table_grid-wrapper_corner-radius);
 
-	th, td {
+	td {
 		padding: var(--table_cell_padding-vertical) var(--table_cell_padding-horizontal);
-	}
+		background: linear-gradient(var(--table_cell_background-color), var(--table_cell_background-color)),
+			linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
 
-	tr {
-		th, td {
-			background: linear-gradient(var(--table_cell_background-color), var(--table_cell_background-color)),
-				linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
-		}
+		border: var(--table_grid-wrapper_cell-gap) solid var(--table_grid-wrapper_background-color);
 	}
 
 	tr:nth-child(even) {
-		th, td {
+		td {
 			background: linear-gradient(var(--table_cell-alternate_background-color), var(--table_cell-alternate_background-color)),
 				linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
 		}
+	}
+
+	td:first-child {
+		border-left-width: 0;
+	}
+
+	td:last-child {
+		border-right-width: 0;
+	}
+
+	tr:first-child td {
+		border-top-width: 0;
+	}
+
+	tr:last-child td {
+		border-bottom-width: 0;
 	}
 }
 
