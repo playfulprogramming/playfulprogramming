@@ -1,5 +1,6 @@
 @import "src/tokens/index";
-@import "src/styles/hints";
+@import "src/styles/markdown/hints";
+@import "src/styles/markdown/table";
 
 .post-body {
 	h1 {
@@ -121,82 +122,6 @@
 	img[src$=".svg"] {
 		width: 100%;
 		max-height: 50vh;
-	}
-
-	$tableCornerRadius: var(--corner-radius_s);
-
-	thead tr:first-child {
-		th, td {
-			border-top: none;
-		}
-	}
-
-	tbody tr:last-child {
-		th, td {
-			border-bottom: none;
-		}
-	}
-
-	table tr {
-		td:first-child, th:first-child {
-			border-left: none;
-		}
-	}
-
-	table tr {
-		td:last-child, th:last-child {
-			border-right: none;
-		}
-	}
-
-	.table-container {
-		max-width: 100%;
-		// overflow: auto;
-	}
-
-	table {
-		border-radius: $tableCornerRadius;
-		border-collapse: collapse;
-		// Border-collapse and border-radius don't mix. This is a workaround for that issue
-		box-shadow: 0 0 0 4px var(--surface_primary_emphasis-low);
-		margin: 4px;
-
-		@include until($tablet) {
-			ul {
-				padding: 0;
-				list-style: none;
-			}
-		}
-	}
-
-	// Only use a sticky header on tables with 4+ rows
-	table:has(tr:nth-child(4)) thead {
-		position: sticky;
-		top: 0;
-	}
-
-	thead {
-		color: var(--foreground_emphasis-high);
-		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-		box-shadow: inset 0px -1px 0px var(--surface_primary_emphasis-high),
-			inset 100vw 100vh 0 var(--surface_primary_emphasis-low),
-			inset 100vw 100vh 0 var(--background_primary);
-	}
-
-	td,
-	th {
-		border: 1px solid var(--surface_primary_emphasis-high);
-		padding: .3rem .6rem;
-		line-height: 110%;
-
-		&> code {
-			word-break: break-word;
-		}
-
-		@include until($tablet) {
-			padding-left: 5px;
-			padding-right: 5px;
-		}
 	}
 
 	iframe {

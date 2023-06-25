@@ -1,0 +1,133 @@
+@import "src/styles/text-styles.scss";
+
+:root {
+	--table_padding-horizontal: var(--spc-1x);
+	--table_padding-bottom: var(--spc-1x);
+	--table_border-radius: var(--spc-4x);
+	--table_grid-wrapper_border-radius: var(--spc-3x);
+
+	--table_header_padding: var(--spc-3x);
+	--table_grid-wrapper_cell-gap: var(--border-width_s);
+	--table_grid-wrapper_border_width: var(--border-width_s);
+	--table_cell_padding-horizontal: var(--spc-3x);
+	--table_cell_padding-vertical: var(--spc-2x);
+
+	--table_background-color: var(--primary40);
+	--table_grid-wrapper_border_color: var(--background_primary);
+	--table_grid-wrapper_background-color: var(--background_primary);
+
+	--table_header_label-color: var(--primary95);
+	--table_header_divider_color: var(--primary50);
+	--table_cell-alternate_background-color: var(--surface_primary_emphasis-low);
+	--table_cell_background-color: var(--surface_primary_emphasis-none);
+	--table_cell_background-color_hovered: var(--surface_primary_emphasis-medium);
+	--table_cell_background-color_pressed: var(--surface_primary_emphasis-high);
+	--table_cell_label-color: var(--foreground_emphasis-high);
+}
+
+tbody tr:first-child {
+	th:first-child, td:first-child {
+		border-top-left-radius: var(--table_grid-wrapper_border-radius);
+	}
+
+	th:last-child, td:last-child {
+		border-top-right-radius: var(--table_grid-wrapper_border-radius);
+	}
+}
+
+tbody tr:last-child {
+	th:first-child, td:first-child {
+		border-bottom-left-radius: var(--table_grid-wrapper_border-radius);
+	}
+
+	th:last-child, td:last-child {
+		border-bottom-right-radius: var(--table_grid-wrapper_border-radius);
+	}
+}
+
+.table-container {
+	max-width: 100%;
+	// overflow: auto;
+
+	border-radius: var(--table_border-radius);
+	border: var(--table_padding-horizontal) solid var(--table_background-color);
+
+	background-color: var(--table_background-color);
+}
+
+table {
+	border-collapse: collapse;
+	// Border-collapse and border-radius don't mix. This is a workaround for that issue
+	// box-shadow: 0 0 0 4px var(--surface_primary_emphasis-low);
+
+	@include until($tablet) {
+		ul {
+			padding: 0;
+			list-style: none;
+		}
+	}
+}
+
+// Only use a sticky header on tables with 4+ rows
+table:has(tr:nth-child(4)) thead {
+	position: sticky;
+	top: 0;
+}
+
+thead {
+	@extend .text-style-body-medium-bold;
+	color: var(--table_header_label-color);
+
+	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
+
+	th, td {
+		padding: var(--table_header_padding);
+		text-align: left;
+
+		position: relative;
+
+		&:not(:last-child)::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 0;
+			background-color: var(--table_header_divider_color);
+			width: 1px;
+			height: 1.5em;
+			transform: translateY(-50%);
+		}
+	}
+}
+
+tbody {
+	@extend .text-style-body-medium;
+
+	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
+	// box-shadow: inset 0px -1px 0px var(--surface_primary_emphasis-high),
+	// inset 100vw 100vh 0 var(--surface_primary_emphasis-low),
+	// box-shadow: inset 100vw 100vh 0 var(--table_grid-wrapper_background-color);
+	border-radius: var(--table_grid-wrapper_border-radius);
+
+	th, td {
+		padding: var(--table_cell_padding-vertical) var(--table_cell_padding-horizontal);
+	}
+
+	tr {
+		th, td {
+			background: linear-gradient(var(--table_cell_background-color), var(--table_cell_background-color)),
+				linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
+		}
+	}
+
+	tr:nth-child(even) {
+		th, td {
+			background: linear-gradient(var(--table_cell-alternate_background-color), var(--table_cell-alternate_background-color)),
+				linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
+		}
+	}
+}
+
+th > code, td > code {
+	word-break: break-word;
+}
