@@ -5,7 +5,7 @@
 	--blockquote_padding-start: var(--spc-3x);
 }
 
-blockquote {
+blockquote:not([class]) {
 	position: relative;
 	margin: var(--blockquote_margin) 0;
 	padding: 0;
