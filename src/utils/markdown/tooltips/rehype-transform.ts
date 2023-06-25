@@ -2,7 +2,7 @@ import { Root } from "hast";
 import { visit } from "unist-util-visit";
 import { Plugin } from "unified";
 import { Element } from "hast";
-import { Note } from "./notes";
+import { Tooltip } from "./tooltips";
 import { toString } from "hast-util-to-string";
 
 /**
@@ -18,7 +18,7 @@ import { toString } from "hast-util-to-string";
  *  <p><em>{title}:</em> ...</p>
  * </blockquote>
  */
-export const rehypeNotes: Plugin<[], Root> = () => {
+export const rehypeTooltips: Plugin<[], Root> = () => {
 	return (tree) => {
 		visit(tree, (node: Element, index, parent: Element) => {
 			if (node.tagName !== "blockquote") return;
@@ -42,7 +42,7 @@ export const rehypeNotes: Plugin<[], Root> = () => {
 			// remove `firstText` from children nodes
 			firstParagraph.children.splice(0, 1);
 
-			parent.children[index] = Note({
+			parent.children[index] = Tooltip({
 				icon: firstText.tagName === "em" ? "warning" : "info",
 				title: toString(firstText).replace(/:$/, ""),
 				children: node.children,

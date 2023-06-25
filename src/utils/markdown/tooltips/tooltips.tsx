@@ -6,21 +6,21 @@ import { promises as fs } from "fs";
 const info = await fs.readFile("src/icons/info.svg", "utf8");
 const warning = await fs.readFile("src/icons/warning.svg", "utf8");
 
-interface NoteProps {
+interface TooltipProps {
 	icon: "info" | "warning";
 	title: string;
 	children: Node[];
 };
 
 /** @jsxImportSource hastscript */
-export function Note({ icon, title, children }: NoteProps): Element {
+export function Tooltip({ icon, title, children }: TooltipProps): Element {
 	return (
-		<blockquote class="note">
-			<div class="note__title">
+		<blockquote class="tooltip">
+			<div class="tooltip__title">
 				{icon === "info" ? fromHtml(info) : fromHtml(warning)}
 				<p>{title}</p>
 			</div>
-			<div class="note__content">
+			<div class="tooltip__content">
 				{children}
 			</div>
 		</blockquote>
