@@ -1,5 +1,5 @@
-import { PropsWithChildren } from '../types';
-import style from './chip.module.scss';
+import { PropsWithChildren } from "../types";
+import style from "./chip.module.scss";
 
 type ChipProps = PropsWithChildren<{
 	href?: string;
@@ -8,8 +8,8 @@ type ChipProps = PropsWithChildren<{
 
 export function Chip({ href, children }: ChipProps) {
 	return (
-			<a class={`${style.tag} text-style-button-regular`} href={href}>
-				{children}
-			</a>
-	)
+		<a class={`${style.chip} text-style-button-regular`} href={href}>
+			<span class={`${style.chip_content}`}>{children}</span>
+		</a>
+	);
 }
