@@ -80,6 +80,8 @@
 	min-height: var(--min-target-size_m);
 	border-radius: var(--corner-radius_l);
 	padding: var(--toc_item_padding-vertical) 0;
+
+	@include transition(color background-color);
 }
 
 .tableListItem > a:focus-visible {
