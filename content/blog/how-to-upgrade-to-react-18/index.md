@@ -56,7 +56,7 @@ For example, upgrade [React Redux to v8](https://github.com/reduxjs/react-redux/
 
 After you install React 18, you may receive an error when your app is running:
 
-> Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more:[ https://reactjs.org/link/switch-to-createroot](https://reactjs.org/link/switch-to-createroot)
+> *Warning:* ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more:[ https://reactjs.org/link/switch-to-createroot](https://reactjs.org/link/switch-to-createroot)
 
 This is because previously, in React 17 and before, you’d have a file - usually called `index.js` or `index.ts` - that included the following code:
 
