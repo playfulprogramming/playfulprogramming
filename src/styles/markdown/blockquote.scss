@@ -9,8 +9,9 @@ blockquote:not([class]) {
 	position: relative;
 	margin: var(--blockquote_margin) 0;
 	padding: 0;
-
 	padding-left: calc(var(--blockquote_border-width) + var(--blockquote_padding-start));
+
+	color: var(--foreground_emphasis-medium);
 
 	&::before {
 		content: '';
