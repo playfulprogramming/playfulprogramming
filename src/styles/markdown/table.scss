@@ -47,18 +47,17 @@ tbody tr:last-child {
 
 .table-container {
 	max-width: 100%;
-	// overflow: auto;
+	width: max-content;
 
 	border-radius: var(--table_border-radius);
-	border: var(--table_padding-horizontal) solid var(--table_background-color);
+	padding: 0 var(--table_padding-horizontal);
+	padding-bottom: var(--table_padding-bottom);
 
 	background-color: var(--table_background-color);
 }
 
 table {
 	border-collapse: collapse;
-	// Border-collapse and border-radius don't mix. This is a workaround for that issue
-	// box-shadow: 0 0 0 4px var(--surface_primary_emphasis-low);
 
 	@include until($tablet) {
 		ul {
@@ -71,14 +70,29 @@ table {
 // Only use a sticky header on tables with 4+ rows
 table:has(tr:nth-child(4)) thead {
 	position: sticky;
-	top: 0;
+	// this should be -1px for the IntersectionObserver in utils/markdown/tables-script.ts to pick up the `position: sticky` state
+	top: -1px;
+
+	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
+	// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
+	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
+
+	// the root table cannot have `overflow: hidden` as that breaks the `position: sticky` behavior
+	// so we need to match the border-radius here to prevent overlap
+	border-top-left-radius: var(--table_border-radius);
+	border-top-right-radius: var(--table_border-radius);
+
+	// this is applied in JS whenever the table header is at the top of the screen
+	// (i.e. the border-radius should no longer be visible)
+	&[data-sticky="pinned"] {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
 }
 
 thead {
 	@extend .text-style-body-medium-bold;
 	color: var(--table_header_label-color);
-
-	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
 
 	th, td {
 		padding: var(--table_header_padding);
@@ -103,10 +117,6 @@ thead {
 tbody {
 	@extend .text-style-body-medium;
 
-	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-	// box-shadow: inset 0px -1px 0px var(--surface_primary_emphasis-high),
-	// inset 100vw 100vh 0 var(--surface_primary_emphasis-low),
-	// box-shadow: inset 100vw 100vh 0 var(--table_grid-wrapper_background-color);
 	border-radius: var(--table_grid-wrapper_border-radius);
 
 	th, td {
