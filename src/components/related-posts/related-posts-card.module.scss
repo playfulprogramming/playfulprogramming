@@ -8,6 +8,8 @@
 	gap: var(--spc-1x);
 	border-radius: var(--corner-radius_m);
 	text-decoration: none;
+	
+	@include transition(background-color);
 }
 
 .container:hover {
@@ -21,7 +23,7 @@
 
 .container:focus-visible {
 	outline: var(--spc-1x) solid var(--focus-outline_primary);
-	background: var(--light-background-focus, #FFF);
+	background: var(--background_focus);
 }
 
 .articleTitle {
