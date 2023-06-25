@@ -1,0 +1,12 @@
+@import "src/tokens/index";
+
+.relatedPostsHeader {
+	margin: 0;
+	padding: var(--spc-8x) var(--spc-8x) var(--spc-4x) var(--spc-8x);
+}
+
+.suggestedPostList {
+	margin: 0;
+	padding: 0 var(--spc-4x);
+	list-style: none;
+}

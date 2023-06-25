@@ -1,0 +1,26 @@
+---
+import { ExtendedPostInfo } from "../../types";
+import style from "./related-posts.module.scss";
+import RelatedPostsCard from "./related-posts-card.astro";
+
+interface RelatedPostsProps {
+	post: ExtendedPostInfo;
+}
+
+const { post } = Astro.props as RelatedPostsProps;
+---
+
+<h1 class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
+	Related posts
+</h1>
+<ul class={style.suggestedPostList}>
+	{
+		post.suggestedArticles.map((suggestedPost) => (
+			<RelatedPostsCard
+				title={suggestedPost.title}
+				slug={suggestedPost.slug}
+				authors={suggestedPost.authorsMeta.map((author) => author.name)}
+			/>
+		))
+	}
+</ul>
