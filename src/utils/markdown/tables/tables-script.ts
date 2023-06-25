@@ -7,5 +7,5 @@ export const enableTables = () => {
 		{ threshold: [1] }
 	);
 
-	observer.observe(document.querySelector("thead"));
+	document.querySelectorAll("thead").forEach((e) => observer.observe(e));
 };
