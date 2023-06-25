@@ -79,10 +79,12 @@
 	text-decoration: none;
 	min-height: var(--min-target-size_m);
 	border-radius: var(--corner-radius_l);
+	padding: var(--toc_item_padding-vertical) 0;
 }
 
 .tableListItem > a:focus-visible {
 	outline: 4px solid var(--toc_focus-outline_color);
+	background: var(--toc_item_background-color_focused);
 }
 
 .tableListItem:not(.depth2) > a {
@@ -91,11 +93,6 @@
 
 .tableListItem:hover > a {
 	background: var(--toc_item_background-color_hovered);
-}
-
-
-.tableListItem > a:focus-visible  {
-	background: var(--toc_item_background-color_focused);
 }
 
 .tableListItem:active > a {
@@ -124,7 +121,7 @@
 	border: none !important;
 }
 
-.depth2:not(:global(.toc-is-active)):not(:hover) > a:not(:focus-visible) > *::before {
+.depth2:not(:global(.toc-is-active)):not(:hover):not(:active) > a:not(:focus-visible) > *::before {
 	content: " ";
 	background: var(--toc_divider_color);
 	height: 100%;
@@ -135,17 +132,33 @@
 }
 
 /* Extended line */
-.depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-visible)
-	+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:focus-visible)
-	> a > *::before {
-	content: " ";
-	background: var(--toc_divider_color);
-	height: calc(100% + var(--toc_item_min-height));
-	width: 2px;
-	position: absolute;
-	left: calc(-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) / 2));
-	bottom: 0;
-	top: unset;
+@supports selector(:has(*)) {
+	.depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(:has(:focus-visible))
+		+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(:has(:focus-visible))
+		> a > *::before {
+		content: " ";
+		background: var(--toc_divider_color);
+		height: calc(100% + var(--toc_item_min-height));
+		width: 2px;
+		position: absolute;
+		left: calc(-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) / 2));
+		bottom: 0;
+		top: unset;
+	}
+}
+@supports not selector(:has(*)) {
+	.depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(:focus-within)
+		+ .depth2:not(:global(.toc-is-active)):not(:hover):not(:active):not(:focus-within)
+		> a > *::before {
+		content: " ";
+		background: var(--toc_divider_color);
+		height: calc(100% + var(--toc_item_min-height));
+		width: 2px;
+		position: absolute;
+		left: calc(-2px - var(--toc_sub-item_padding-start) - calc(var(--toc_sub-item_dot_size) / 2));
+		bottom: 0;
+		top: unset;
+	}
 }
 
 /* Arrow */
