@@ -11,7 +11,7 @@
 	--list_item_padding-vertical: var(--spc-1x);
 }
 
-.post-body ul {
+.post-body ul:not([class]) {
 	list-style-type: none;
 	margin: var(--list-margin) 0;
 	padding: calc(var(--list_item_padding-vertical) / 2) 0;
