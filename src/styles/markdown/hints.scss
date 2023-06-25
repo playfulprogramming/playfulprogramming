@@ -1,3 +1,5 @@
+@import "src/tokens/index";
+
 :root {
 	--hint-margin: var(--spc-4x);
 
@@ -29,7 +31,7 @@
 	--hint_focus-outline_color: var(--focus-outline_primary);
 	--hint_focus-outline_width: var(--border-width_focus);
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		--hint-header_padding-vertical: var(--spc-2x);
 		--hint-header_padding-start: var(--spc-2x);
 		--hint-header_padding-end: var(--spc-4x);
@@ -44,6 +46,7 @@
 	&> .hint__container {
 		display: inline-block;
 		overflow: hidden;
+		max-width: 100%;
 
 		border-radius: var(--hint-container_corner-radius_collapsed);
 		&[open] {
@@ -79,6 +82,8 @@
 			border-radius: var(--hint-content_corner-radius);
 			padding: var(--hint-content_padding);
 
+			@include transition(background-color);
+
 			&> *:first-child {
 				margin-top: 0;
 				padding-top: 0;
@@ -91,6 +96,7 @@
 		}
 
 		background-color: var(--hint-container_background-color);
+		@include transition(background-color);
 
 		&:hover {
 			background-color: var(--hint-container_background-color_hovered);
