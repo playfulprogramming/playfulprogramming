@@ -1,6 +1,4 @@
 @import "src/tokens/index";
-@import "src/styles/markdown/hints";
-@import "src/styles/markdown/table";
 
 .post-body {
 	h1 {
@@ -44,7 +42,7 @@
 		margin-bottom: var(--p_block-padding-vertical);
 	}
 
-	ul, blockquote {
+	ul {
 		margin-top: var(--p_block-padding-vertical);
 		margin-bottom: var(--p_block-padding-vertical);
 	}
@@ -157,32 +155,8 @@
 		padding: 2px 4px;
 		white-space: nowrap;
 	}
-
-	blockquote {
-		position: relative;
-		margin-left: 1em;
-		color: var(--midImpactBlack);
-
-		&::before {
-			content: " ";
-			position: absolute;
-			left: 0;
-			top: 0;
-			height: 100%;
-			width: 3px;
-			background: var(--darkPrimary);
-			left: -1em;
-		}
-
-		/*a {
-        color: rgba(0, 10, 125, 0.6);
-    }*/
-	}
-
-	blockquote.bigBlock {
-		&,
-		& * {
-			font-size: 1.5rem;
-		}
-	}
 }
+
+@import "src/styles/markdown/hints";
+@import "src/styles/markdown/table";
+@import "src/styles/markdown/tooltips";
