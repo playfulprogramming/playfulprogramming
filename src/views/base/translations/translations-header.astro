@@ -5,7 +5,6 @@ import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
 } from "utils/translations";
-import { CardInline } from "components/card/card";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon";
 
@@ -21,7 +20,7 @@ const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
 const locales = props.locales.filter((locale) => locale !== currentLocale);
 ---
 
-<CardInline class="d-flex" size="m">
+<div class={style.card}>
 	<Icon width="24" height="24" name="mdi:translate" />
 	<p class={style.text}>
 		Translated by our community into:{" "}
@@ -35,4 +34,4 @@ const locales = props.locales.filter((locale) => locale !== currentLocale);
 			})
 		}
 	</p>
-</CardInline>
+</div>

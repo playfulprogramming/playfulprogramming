@@ -1,11 +1,66 @@
 @import "src/tokens/index";
 
+.cardContainer {
+	border: var(--border-width_xl) solid var(--surface_primary_emphasis-low);
+	border-radius: var(--corner-radius_xl);
+
+	overflow-wrap: break-word;
+	max-width: 100%;
+	text-decoration: none;
+	@include transition(background-color border-color);
+
+	padding: var(--spc-6x);
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--surface_primary_emphasis-low);
+		border-color: transparent;
+	}
+
+	&:active {
+		background-color: var(--surface_primary_emphasis-low);
+		border-color: var(--surface_primary_emphasis-high);
+	}
+
+	&:focus {
+		background-color: var(--background_focus);
+		border-color: var(--focus-outline_primary);
+	}
+}
+
 .cardExpanded {
+	border: var(--border-width_xl) solid var(--surface_primary_emphasis-low);
+	border-radius: var(--corner-radius_xl);
+
+	overflow-wrap: break-word;
+	max-width: 100%;
+	text-decoration: none;
+	@include transition(background-color border-color);
+
+	padding: var(--spc-6x);
 	display: flex;
 	flex-direction: column;
 	position: relative;
 	justify-content: flex-end;
 	overflow: hidden;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--surface_primary_emphasis-low);
+		border-color: transparent;
+	}
+
+	&:active {
+		background-color: var(--surface_primary_emphasis-low);
+		border-color: var(--surface_primary_emphasis-high);
+	}
+
+	&:focus {
+		background-color: var(--background_focus);
+		border-color: var(--focus-outline_primary);
+	}
 }
 
 .image {

@@ -2,7 +2,6 @@
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
-import { CardInline } from "components/card/card";
 import { UnicornInfo } from "types/UnicornInfo";
 import style from "./unicorn-card-large.module.scss";
 
@@ -17,7 +16,7 @@ const possessiveName = unicorn.name.endsWith("s")
 	: unicorn.name + "'s";
 ---
 
-<CardInline size="l">
+<div class={style.container}>
 	<div class={`${style.header} post-body`}>
 		<Picture
 			src={unicorn.profileImgMeta.relativeServerPath}
@@ -91,7 +90,7 @@ const possessiveName = unicorn.name.endsWith("s")
 	>
 		{
 			unicorn.rolesMeta?.map((role) => (
-				<CardInline size="s" class={style.role}>
+				<div class={style.role}>
 					<Picture
 						src={`/stickers/role_${role.id}.png`}
 						widths={[32]}
@@ -103,8 +102,8 @@ const possessiveName = unicorn.name.endsWith("s")
 						class={`${style.picture}`}
 					/>
 					<span class="text-style-body-small-bold">{role.prettyname}</span>
-				</CardInline>
+				</div>
 			))
 		}
 	</div>
-</CardInline>
+</div>

@@ -4,7 +4,6 @@ import { UnicornInfo } from "uu-types";
 import { Picture } from "@astrojs/image/components";
 import { Button } from "components/index";
 import { translate } from "src/utils/translations";
-import { CardInline } from "components/card/card";
 
 interface CardProps {
 	unicorn: UnicornInfo;
@@ -13,7 +12,7 @@ interface CardProps {
 const { unicorn } = Astro.props as CardProps;
 ---
 
-<CardInline tag="div" size="l" class={style.card}>
+<div class={style.card}>
 	<Picture
 		alt={unicorn.name + " profile picture"}
 		class="circleImg"
@@ -49,4 +48,4 @@ const { unicorn } = Astro.props as CardProps;
 	<Button href={`/unicorns/${unicorn.id}`}>
 		{translate(Astro, "action.view_profile")}
 	</Button>
-</CardInline>
+</div>
