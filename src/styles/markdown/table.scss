@@ -117,6 +117,7 @@ thead {
 tbody {
 	@extend .text-style-body-medium;
 
+	color: var(--table_cell_label-color);
 	border-radius: var(--table_grid-wrapper_border-radius);
 
 	th, td {
