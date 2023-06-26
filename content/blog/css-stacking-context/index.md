@@ -28,7 +28,7 @@ For example, let's think about modals. Modals are UI elements that enable you to
 
 Let's use some CSS and HTML to build a basic modal:
 
-```html
+```html title="index.html"
 <div>
   <div id="body">
     <p>This is some text, pretend it's an app back here</p>
