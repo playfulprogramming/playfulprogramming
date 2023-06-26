@@ -487,90 +487,132 @@ While Vue can't render children in a list, it has many more capabilities to show
 
 Here, we can see that whenever a random number is added to the list, our list item counter still increments properly.
 
-
-
-
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
------------------------------------------
-
-
-
-// TODO: Write below this line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Passing Values to Projected Content
 
 While counting the number of items in a list is novel, it's not a very practical use of accessing projected content in JavaScript.
 
 Instead, let's see if there's a way that we can pass values to our projected content. For example, let's try to change the background color of each `li` item if the index is even or odd.
 
-
-
 <!-- tabs:start -->
 
 ## React
 
-// TODO: Render children
+By now we should be familiar with the `children` property in React. Now get ready to forget everything you know about it:
+
+```jsx
+const AddTwo = ({ children }) => {
+  return 2 + children;
+};
+
+// This will display "7"
+export const App = () => {
+  return <AddTwo children={5}/>;
+};
+```
+
+> WHAT?!
+
+Yup - as it turns out, you can pass any JavaScript value to React's `children` prop. It even works when you write it out like this:
+
+```jsx
+const AddTwo = ({ children }) => {
+  return 2 + children;
+};
+
+export const App = () => {
+  return <AddTwo>{5}</AddTwo>;
+};
+```
+
+Knowing this, what happens if we pass a function as `children`?:
+
+```jsx
+const AddTwo = ({ children }) => {
+  return 2 + children();
+};
+
+// This will display "7"
+export const App = () => {
+  return <AddTwo>{() => 5}</AddTwo>;
+  // OR <AddTwo children={() => 5} />
+};
+```
+
+Sure enough, it works!
+
+Now, let's combine this knowledge with the ability to use JSX wherever a value might go:
+
+```jsx
+const ShowMessage = ({ children }) => {
+  return children();
+};
+
+export const App = () => {
+  return <ShowMessage>{() => <p>Hello, world!</p>}</ShowMessage>;
+};
+```
+
+Finally, we can combine this with the ability to pass values to a function:
+
+```jsx
+const ShowMessage = ({ children }) => {
+  return children("Hello, world!");
+};
+
+export const App = () => {
+  return <ShowMessage>{(message) => <p>{message}</p>}</ShowMessage>;
+};
+```
+
+### Displaying the List in React
+
+Now that we've seen the capabilities of a child function, let's use it to render a list with alternating backgrounds:
+
+```jsx
+const ParentList = ({ children, list }) => {
+  return (
+    <>
+      <ul>
+        {list.map((item, i) => {
+          return (
+            <Fragment key={item}>
+              {children({
+                backgroundColor: i % 2 ? 'grey' : '',
+                item,
+                i,
+              })}
+            </Fragment>
+          );
+        })}
+      </ul>
+    </>
+  );
+};
+
+export const App = () => {
+  const [list, setList] = useState([1, 42, 13]);
+
+  const addOne = () => {
+    const randomNum = Math.floor(Math.random() * 100);
+    setList([...list, randomNum]);
+  };
+
+  return (
+    <>
+      <ParentList list={list}>
+        {({ backgroundColor, i, item }) => (
+          <li style={{ backgroundColor: backgroundColor }}>
+            {i} {item}
+          </li>
+        )}
+      </ParentList>
+      <button onClick={addOne}>Add</button>
+    </>
+  );
+};
+```
 
 ## Angular
-
-Angular is not able to pass properties directly to `ng-content` projected nodes without utilizing `ContentChildren` and a bit of magic.
-
-In order to explain this magic, we have to walk through some pre-requisite knowledge.
-
-At this point we know a few things about Angular:
-
-1) `ng-template` does not render anything by default
-2) You can assign a template variable to a `ng-template`
-3) `ContentChildren` can query projected children and assign them to an array-like `QueryList`
-4) You can pass values to a rendered `ng-template` using a `context`
-
-Knowing these things, let's put it all together to create a checkered list of items; each odd numbered row will have a grey background.
 
 ```typescript
 @Component({
@@ -609,36 +651,16 @@ class AppComponent {
 }
 ```
 
-Here, we're using everything we've covered to this point in order to render out `listItem` `ng-template` inside of `ParentListComponent`. We're doing this by utilizing `ContentChildren` to `read` each template passed as projected children and re-rendering those templates with `ngTemplateOutlet`. Those rendered templates are then passed a context with a `backgroundColor` property that changes the bound `[style]` attribute.
-
-Whew! What a mouthful. 
-
 ## Vue
 
 Vue ca... Wait! Vue _can_ do this one!
 
---------------------------------------
-
---------------------------------------
-
---------------------------------------
-
---------------------------------------
-
---------------------------------------
-
---------------------------------------
-
---------------------------------------
-
-
-
-In order to color the background of each list item, let's continue off of the code of our "raised state" where we're rendering our `list` with a `v-for`:
+Let's start by using code that explicitly passes the list of items to a `ParentList` component:
 
 ```vue
 <!-- ParentList -->
 <template>
-  <p>There are {{props.length}} number of items in this array</p>
+  <p>There are {{props.list.length}} number of items in this array</p>
   <ul>
     <slot></slot>
   </ul>
@@ -647,14 +669,14 @@ In order to color the background of each list item, let's continue off of the co
 <script setup>
 import {defineProps} from 'vue';
 
-const props = defineProps(['length'])
+const props = defineProps(['list'])
 </script>
 ```
 
 ```vue
 <!-- App.vue -->
 <template>
-  <ParentList :length="list.length">
+  <ParentList :list="list">
     <li v-for="i in list">Item {{ i }}</li>
   </ParentList>
 </template>
@@ -688,6 +710,8 @@ const props = defineProps(['list'])
 <!-- App.vue -->
 <template>
   <ParentList :list="list">
+    <!-- Think of this as "template is recieving an object
+		 we'll call props" from "ParentList" -->
     <template v-slot="props">
       <li>{{ props.i }} {{ props.item }}</li>
     </template>
@@ -720,28 +744,6 @@ This `v-slot` is similar to how you might pass properties to a component, but in
 > ```
 
 <!-- tabs:end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------------
-
-// TODO:
-
-- `this.$slots` / Vue (only for conditionally rendering)
-
-
-
-
 
 
 
