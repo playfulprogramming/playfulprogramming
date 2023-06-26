@@ -22,7 +22,7 @@ function fetchDefaultPageIcon(): Promise<GetPictureResult> {
 		defaultPageIcon ||
 		(defaultPageIcon = getPicture({
 			src: "/link.png",
-			widths: [50],
+			widths: [24],
 			formats: ["avif", "webp", "png"],
 			aspectRatio: 1,
 			alt: "",
@@ -78,7 +78,7 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 		const aspectRatio = imgHeight / imgWidth;
 		return await getPicture({
 			src: iconLink,
-			widths: [50],
+			widths: [24],
 			formats: ["avif", "webp", "png"],
 			aspectRatio: aspectRatio,
 			alt: "",

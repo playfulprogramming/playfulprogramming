@@ -25,7 +25,7 @@
     --page-card_max-width: 640px;
   }
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     --page-card_container_padding: var(--spc-12x);
     --page-card_image_size: 320px;
     --page-card_max-width: 960px;
@@ -58,7 +58,7 @@
     padding: var(--page-card_container_padding) var(--page-card_container_compound-padding) var(--page-card_container_compound-padding) var(--page-card_container_compound-padding);
   }
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr 1fr var(--page-card_container_padding) auto;
     grid-row-gap: unset;
@@ -91,7 +91,7 @@
     margin-top: calc(0px - var(--page-card_image_inset) - var(--page-card_container_padding));
   }
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     grid-row: 1/3;
     grid-column: 1/1;
     margin-top: calc(0px - var(--page-card_image_inset) - var(--page-card_container_padding));
@@ -125,7 +125,7 @@
     padding-bottom: var(--page-card_container_padding);
   }
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     display: flex;
     align-items: end;
     padding-bottom: unset;
@@ -149,7 +149,7 @@
     padding: 0 calc(var(--page-card_container_compound-padding) - var(--page-card_container_padding));
   }
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     grid-column: unset;
     padding: unset;
   }
@@ -158,7 +158,7 @@
 .pageCardSpacer {
   display: none;
 
-  @include from($tablet) {
+  @include from($tabletLarge) {
     all: unset;
   }
 }

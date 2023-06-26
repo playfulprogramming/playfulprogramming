@@ -29,7 +29,7 @@
 }
 
 .sidebarLeft {
-	@include until($tablet) {
+	@include until($tabletLarge) {
 		display: none;
 	}
 }

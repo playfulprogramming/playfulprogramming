@@ -122,16 +122,6 @@
 		max-height: 50vh;
 	}
 
-	iframe {
-		box-sizing: border-box;
-		display: block;
-		max-width: 100%;
-		min-height: 500px;
-		border: var(--cardOutlineStyle);
-		border-radius: 8px;
-		overflow: hidden;
-	}
-
 	p > code {
 		display: inline;
 		padding: 0 0.4em;
@@ -159,6 +149,7 @@
 
 @import "src/styles/markdown/blockquote";
 @import "src/styles/markdown/codeblock";
+@import "src/styles/markdown/embed";
 @import "src/styles/markdown/hints";
 @import "src/styles/markdown/lists";
 @import "src/styles/markdown/table";

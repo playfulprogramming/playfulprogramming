@@ -58,7 +58,7 @@
   --button_regular_font-size: #{pxToRem(14)};
   --button_regular_line-height: #{pxToRem(20)};
 
-  @include from($desktop) {
+  @include from($desktopSmall) {
 
     --h1_font-size: #{pxToRem(48)};
     --h1_line-height: 100%;

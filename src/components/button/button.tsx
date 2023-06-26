@@ -1,5 +1,4 @@
 import { JSXNode, PropsWithChildren } from "../types";
-import style from "./button.module.scss";
 import { createElement } from "preact";
 import { JSX } from "preact";
 
@@ -13,21 +12,21 @@ type ButtonProps = PropsWithChildren<
 	} & JSX.HTMLAttributes<HTMLButtonElement & HTMLAnchorElement>
 >;
 
-function ButtonWrapper({ tag = "a", className, children, variant = "primary", leftIcon, rightIcon, ...props }: ButtonProps) {
+function ButtonWrapper({ tag = "a", class: className, children, variant = "primary", leftIcon, rightIcon, ...props }: ButtonProps) {
 	const Wrapper = (props: any) => createElement(tag, props, props.children);
 
 	return (
-		<Wrapper {...props} aria-label={props["aria-label"]} className={[
-			style.button, className, style[variant]
+		<Wrapper {...props} aria-label={props["aria-label"]} class={[
+			"button", className, variant,
 		].filter(c => !!c).join(" ")}>
 			{leftIcon &&
-				<div className={`${ style.buttonIcon }`}>
+				<div class="buttonIcon">
 					{leftIcon}
 				</div>
 			}
-			<span className={style.innerText}>{children}</span>
+			<span className="innerText">{children}</span>
 			{rightIcon &&
-				<div className={`${ style.buttonIcon }`}>
+				<div class="buttonIcon">
 					{rightIcon}
 				</div>
 			}
@@ -39,7 +38,7 @@ export function Button({ class: className = "", ...props }: ButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
-			className={`text-style-button-regular ${style.regular} ${className}`}
+			class={`text-style-button-regular regular ${className}`}
 		/>
 	);
 }
@@ -48,7 +47,7 @@ export function LargeButton({ class: className = "", ...props }: ButtonProps) {
 	return (
 		<ButtonWrapper
 			{...props}
-			className={`text-style-button-large ${style.large} ${className}`}
+			class={`text-style-button-large large ${className}`}
 		/>
 	);
 }
@@ -59,9 +58,9 @@ export function IconOnlyButton({ class: className = "", children, ...props }: Ic
 	return (
 		<ButtonWrapper
 			{...props}
-			className={`${style.iconOnly} ${style.regular} ${className}`}
+			class={`iconOnly regular ${className}`}
 		>
-			<div className={style.iconOnlyButtonIcon}>{children}</div>
+			<div class="iconOnlyButtonIcon">{children}</div>
 		</ButtonWrapper>
 	);
 }
@@ -70,9 +69,9 @@ export function LargeIconOnlyButton({ class: className = "", children, ...props 
 	return (
 		<ButtonWrapper
 			{...props}
-			className={`${style.iconOnly} ${style.large} ${className}`}
+			class={`iconOnly large ${className}`}
 		>
-			<div className={style.iconOnlyButtonIcon}>{children}</div>
+			<div class="iconOnlyButtonIcon">{children}</div>
 		</ButtonWrapper>
 	);
 }

@@ -3,7 +3,7 @@
 .seriesTableOfContent {
 	margin-bottom: 16px;
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		margin-bottom: 24px;
 	}
 

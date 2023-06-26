@@ -1,6 +1,11 @@
 /** @jsxRuntime automatic */
 import { Element } from "hast";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import { fromHtml } from "hast-util-from-html";
+import fs from "fs/promises";
+
+const launch = await fs.readFile("src/icons/launch.svg", "utf8");
+const play = await fs.readFile("src/icons/play.svg", "utf8");
 
 export interface IFramePlaceholderProps {
 	width: string;
@@ -13,29 +18,57 @@ export interface IFramePlaceholderProps {
 /** @jsxImportSource hastscript */
 export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholderProps): Element {
 	return (
-		<div
-			class="iframe-replacement-container"
-			data-iframeurl={props.src}
-			style={`height: ${Number(height) ? `${height}px` : height}; width: ${Number(width) ? `${width}px` : width};`}
-		>
-			<picture>
-				{props.pageIcon.sources.map((source) => (
-					<source {...source} />
-				))}
-				<img
-					{...props.pageIcon.image as any}
-					class="iframe-replacement-icon"
-					alt=""
-					loading="lazy"
-					decoding="async"
-					data-nozoom="true"
-				/>
-			</picture>
-			<p class="iframe-replacement-title">
-				<span class="visually-hidden">An embedded webpage:</span>
-				{props.pageTitle}
-			</p>
-			<button class="iframe-replacement-button">Run embed</button>
+		<div class="embed">
+			<div class="embed__header">
+				<div class="embed__header__favicon">
+					<picture>
+						{props.pageIcon.sources.map((source) => (
+							<source {...source} />
+						))}
+						<img
+							{...props.pageIcon.image as any}
+							alt=""
+							loading="lazy"
+							decoding="async"
+							data-nozoom="true"
+						/>
+					</picture>
+				</div>
+				<div class="embed__header__info">
+					<p>
+						<span class="visually-hidden">An embedded webpage:</span>
+						{props.pageTitle}
+					</p>
+					<a
+						href={props.src}
+						rel="nofollow noopener noreferrer"
+						target="_blank"
+					>
+						{props.src}
+					</a>
+				</div>
+				<a
+					href={props.src}
+					class="button regular primary text-style-button-regular"
+					rel="nofollow noopener noreferrer"
+					target="_blank"
+				>
+					<div class="buttonIcon">{fromHtml(launch)}</div>
+					<div class="innerText">
+						New tab
+					</div>
+				</a>
+			</div>
+			<div
+				class="embed__placeholder"
+				data-iframeurl={props.src}
+				style={`height: ${Number(height) ? `${height}px` : height};`}
+			>
+				<button class="button regular primary-emphasized text-style-button-regular">
+					<div class="buttonIcon">{fromHtml(play)}</div>
+					<div class="innerText">Run</div>
+				</button>
+			</div>
 		</div>
 	) as never;
 }
