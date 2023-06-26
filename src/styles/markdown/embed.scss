@@ -48,7 +48,7 @@
 			background-color: var(--embed_favicon_container_background-color);
 			border-radius: 50%;
 
-			&> picture {
+			& picture, & img {
 				width: var(--embed_favicon_icon-size);
 				height: var(--embed_favicon_icon-size);
 			}
