@@ -1,8 +1,6 @@
 @import "src/tokens/index";
 
 :root {
-	--hint-margin: var(--spc-4x);
-
 	// Padding and gap must be consistent to maintain visual balance
 	--hint-container_padding: var(--spc-1x);
 	--hint-container_gap: var(--hint-container-padding);
@@ -41,7 +39,7 @@
 }
 
 .hint {
-	margin: var(--hint-margin) 0;
+	margin: var(--site-spacing) 0;
 
 	&> .hint__container {
 		display: inline-block;

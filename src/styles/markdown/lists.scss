@@ -1,7 +1,6 @@
 @import "src/tokens/index";
 
 :root {
-	--list_margin: var(--spc-4x);
 	--list_padding-start: var(--spc-1x);
 
 	--list_item_padding-start: var(--spc-3x);
@@ -14,7 +13,7 @@
 
 .post-body ul:not([class]) {
 	list-style-type: none;
-	margin: var(--list-margin) 0;
+	margin: var(--site-spacing) 0;
 	padding: calc(var(--list_item_padding-vertical) / 2) 0;
 	padding-left: var(--list_padding-start);
 

@@ -24,6 +24,10 @@
 	--tab_focus-outline_color: var(--focus-outline_primary);
 }
 
+.tabs {
+	margin: var(--site-spacing) 0;
+}
+
 .tabs__tab-list {
 	margin: 0 !important;
 	list-style: none;
