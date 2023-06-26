@@ -39,7 +39,7 @@ React as a framework doesn't _quite_ have the concept of directives built-in.
 
 Luckily, this doesn't mean that we as React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
-Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create a simple API to add logic to an HTML element:
+Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create an API to add logic to an HTML element:
 
 ```jsx
 const useLogElement = () => {
@@ -123,7 +123,7 @@ class LogElementDirective {
 
 ## Vue
 
-Setting up a directive in Vue is as simple as creating an object within our `setup` `script`.
+Setting up a directive in Vue sees you creating an object within our `setup` `script`.
 
 Inside of this object, we'll add a key for `created` and assign it a function in order to let Vue know to run said function when the directive is instantiated.
 
@@ -205,7 +205,7 @@ class AppComponent {}
 
 ## Vue
 
-When using the `created` property function inside of a directive, we can gain access to the underlying DOM node the directive is applied to using the function's arguments.
+When using the `created` method inside of a directive, we can gain access to the underlying DOM node the directive is applied to using the function's arguments.
 
 The first argument that's passed to `created` is an DOM node reference that we can change the `style` property of in order to style our `button`.
 
@@ -227,16 +227,18 @@ const vStyleBackground = {
 <!-- tabs:end -->
 
 >While this is a good demonstration of how you can use an element reference within a directive, styling an element is generally suggested to be done within a CSS file itself, unless you have good reason otherwise.
+>
+> This is because styling an element through JavaScript can cause issues with [server-side rendering](/posts/what-is-ssr-and-ssg#ssr), and can also cause [layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing) if done incorrectly.
 
 # Lifecycle Methods in Directives
 
 [Previously in the book, we've explored adding in a `focus` event when an element is rendered](/posts/ffg-fundamentals-component-reference#Using-component-reference-to-focus-our-context-menu). However, in this chapter we explicitly had to call a `focus` method. What if we could have our `button` focus itself immediately when it's rendered onto the page?
 
-Luckily, with attributes we can!
+Luckily, with directives we can!
 
-See, while a component has a lifecycle of being rendered, updated, cleaned up, and beyond - so too does an element that's bound to a directive!
+See, while a component has a series of side effects associated with it: being rendered, updated, cleaned up, and beyond - so too does an HTML element that's bound to a directive!
 
-Because of this, we can hook into the ability to use lifecycle methods within directives to [add a side effect](/posts/ffg-fundamentals-side-effects#Side-Effects) that focuses when an element is rendered.
+Because of this, we can hook into the ability to use [side effects](/posts/ffg-fundamentals-side-effects#Side-Effects) within directives that focuses when an element is rendered.
 
 <!-- tabs:start -->
 
@@ -297,7 +299,7 @@ class AppComponent {}
 
 ## Vue
 
-Just as you can use the `created` property on a directive object, you can change this property's name to match any of Vue's component lifecycle method names. 
+Just as you can use the `created` property on a directive object, you can change this property's name to match any of [Vue's component lifecycle method names](https://vuejs.org/guide/essentials/lifecycle.html). 
 
 ```vue
 <!-- App.vue -->
@@ -319,7 +321,6 @@ For example, if we wanted to add a cleanup to this directive, we could change `m
 <!-- tabs:end -->
 
 
-
 # Passing Data to Directives
 
 Let's look back at our directive we wrote to add colors to our button. It worked, but that red we were applying to the `button` element was rather harsh, wasn't it?
@@ -332,7 +333,7 @@ To solve this issue of per-instance customization of a directive, let's add the 
 
 ## React
 
-Because a React Hook is a function at heart, we're able to just pass values as we would to any other function:
+Because a React Hook is a function at heart, we're able to pass values as we would to any other function:
 
 ```jsx
 const useStyleBackground = (color) => {
@@ -353,6 +354,8 @@ const App = () => {
 In order to pass a value to an Angular directive, we can use the `@Input` directive, the same as a component. 
 
 However, one way that a directive's inputs differ from a component's is that you need to prepend the `selector` value as the `Input` variable name, like so:
+
+<!-- Editor's note: I am intentionally lying that you have to prefix the name. Read on. -->
 
 ```typescript
 @Directive({
