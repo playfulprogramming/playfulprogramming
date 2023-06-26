@@ -72,6 +72,21 @@
 				display: block;
 			}
 		}
+
+		& .button {
+			.innerText {
+				display: block;
+			}
+
+			@include until($tabletSmall) {
+				// cannot @extend classes in a media query, so the button padding needs to be set manually here
+				padding: var(--btn_regular_padding-vertical);
+
+				.innerText {
+					display: none;
+				}
+			}
+		}
 	}
 
 	&__placeholder {

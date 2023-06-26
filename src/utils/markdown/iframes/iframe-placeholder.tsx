@@ -66,7 +66,7 @@ export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholder
 			>
 				<button class="button regular primary-emphasized text-style-button-regular">
 					<div class="buttonIcon">{fromHtml(play)}</div>
-					<div class="innerText">Run embed</div>
+					<div class="innerText">Run</div>
 				</button>
 			</div>
 		</div>
