@@ -34,8 +34,6 @@
 	justify-content: center;
 	white-space: nowrap;
 
-	gap: var(--chip_label_padding-horizontal);
-
 	color: var(--chip_foreground-color);
 	text-decoration: none;
 	outline: none !important;
@@ -70,11 +68,21 @@
 	}
 }
 
-.chip > svg {
-	height: var(--chip_icon_size);
-	width: var(--chip_icon_size);
+.chip_content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: calc(2 * var(--chip_label_padding-horizontal));
+	padding: 0 var(--chip_label_padding-horizontal);
 }
 
-.chip > picture {
+.chip_content > svg {
+	height: var(--chip_icon_size);
+	width: var(--chip_icon_size);
+	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));
+}
+
+.chip_content > picture {
 	display: inline-flex;
+	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));
 }
