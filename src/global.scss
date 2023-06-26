@@ -18,7 +18,6 @@
 @import "./styles/utilities";
 
 :root {
-	font-size: 1rem;
 	scrollbar-color: var(--focus-outline_primary) var(--background_primary);
 	transition: scrollbar-color $animStyle $animSpeed;
 
