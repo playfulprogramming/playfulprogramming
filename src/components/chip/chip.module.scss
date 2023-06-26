@@ -34,6 +34,8 @@
 	justify-content: center;
 	white-space: nowrap;
 
+	gap: var(--chip_label_padding-horizontal);
+
 	color: var(--chip_foreground-color);
 	text-decoration: none;
 	outline: none !important;
@@ -73,6 +75,6 @@
 	width: var(--chip_icon_size);
 }
 
-.chip_content {
-	padding: auto var(--chip_label_padding-horizontal);
+.chip > picture {
+	display: inline-flex;
 }
