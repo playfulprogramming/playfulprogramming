@@ -28,7 +28,7 @@
 }
 
 .chip {
-	height: var(--chip_min-size);
+	min-height: var(--chip_min-size);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
