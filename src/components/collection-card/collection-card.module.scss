@@ -23,7 +23,7 @@
 	--collection-card_background-color: var(--surface_primary_emphasis-none);
 	--collection-card_text-color: var(--foreground_emphasis-high);
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		--collection-card_content_padding-top: var(--spc-4x);
 		--collection-card_content_gap: var(--spc-6x);
 	}

@@ -55,7 +55,7 @@
 	--btn_disabled_background-color: var(--background_disabled);
 	--btn_disabled_foreground-color: var(--foreground_disabled);
 
-	@include from($desktop) {
+	@include from($desktopSmall) {
 		// Large button for Desktop
 		--btn_large_padding-horizontal: var(--spc-6x);
 		--btn_large_padding-vertical: var(--spc-4x);
