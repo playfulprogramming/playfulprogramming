@@ -1047,7 +1047,7 @@ function injectAndRenderTemplate() {
   const parentViewRef = inject(ViewContainerRef);
 
   parentViewRef.createEmbeddedView(templToRender);
-  return template;
+  return templToRender;
 }
 
 @Directive({
@@ -1075,34 +1075,33 @@ class AppComponent {}
 
 Now we should be able to see the `p` tag rendering!
 
-----------------------------------------
-----------------------------------------
-----------------------------------------
-----------------------------------------
-----------------------------------------
-----------------------------------------
-
 ### Pass data to rendered templates inside of Directives
 
-Just as we could [pass data to a template inside of a component using `ngTemplateOutletContext`](/posts/ffg-fundamentals-accessing-children#Template-Contexts), we can do the same using a second argument of `createEmbeddedView`:
+Just as we could pass data to a template inside of a component using `ngTemplateOutletContext`, we can do the same using a second argument of `createEmbeddedView`:
 
 ```typescript
+function injectAndRenderTemplate() {
+  const templToRender = inject(TemplateRef<any>);
+  const parentViewRef = inject(ViewContainerRef);
+
+  parentViewRef.createEmbeddedView(templToRender, {
+      backgroundColor: 'grey',
+  });
+  return templToRender;
+}
+
 @Directive({
   selector: '[passBackground]',
+  standalone: true,
 })
 class PassBackgroundDirective {
-  constructor(
-    private parentViewRef: ViewContainerRef,
-    private templToRender: TemplateRef<any>
-  ) {
-    this.parentViewRef.createEmbeddedView(this.templToRender, {
-      backgroundColor: 'grey',
-    });
-  }
+  template = injectAndRenderTemplate();
 }
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PassBackgroundDirective],
   template: `
     <div>
       <ng-template passBackground let-backgroundColor="backgroundColor">
@@ -1119,6 +1118,8 @@ We can also simplify our `AppComponent` template to use [structural directives](
 ```typescript
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PassBackgroundDirective],
   template: `
     <div *passBackground let-backgroundColor="backgroundColor">
         <p [style]="{backgroundColor}">Hello, world!</p>
@@ -1140,20 +1141,30 @@ const flags = {
 
 @Directive({
   selector: '[featureFlag]',
+  standalone: true,
 })
-class StyleBackgroundDirective {
+class FeatureFlagDirective implements OnChanges {
   @Input() featureFlag: string;
 
-  constructor(
-    private parentViewRef: ViewContainerRef,
-    private templToRender: TemplateRef<any>
-  ) {
-    this.parentViewRef.createEmbeddedView(this.templToRender);
+  
+  templToRender = inject(TemplateRef<any>);
+  parentViewRef = inject(ViewContainerRef);
+
+  embeddedView: EmbeddedViewRef<any> | null = null;
+
+  ngOnChanges() {
+    if (flags[this.featureFlag]) {
+      this.embeddedView = this.parentViewRef.createEmbeddedView(this.templToRender);
+    } else if (this.embeddedView) {
+      this.embeddedView.destroy();
+    }
   }
 }
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [FeatureFlagDirective],
   template: `
     <div>
 	    <button *featureFlag="'addToCartButton'">Add to cart</button>
