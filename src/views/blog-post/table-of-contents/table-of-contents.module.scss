@@ -39,7 +39,7 @@
 	--toc_arrow_color: var(--foreground_emphasis-high);
 	--toc_arrow_color_selected: var(--primary);
 
-	@include until($tablet) {
+	@include until($tabletLarge) {
 		--toc_list_padding-horizontal: var(--spc-2x);
 	}
 

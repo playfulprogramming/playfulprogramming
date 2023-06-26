@@ -9,7 +9,7 @@
 	flex-basis: 100%;
 }
 
-@include from($desktop) {
+@include from($desktopSmall) {
 	.iconContainer {
 		flex-wrap: nowrap;
 		justify-content: space-between;
@@ -23,7 +23,7 @@
 	}
 }
 
-@include until($tablet) {
+@include until($tabletLarge) {
 	.midContainer {
 		order: 1;
 		margin: 0 0 8px;
@@ -43,7 +43,7 @@
 	}
 }
 
-@include until($tablet) {
+@include until($tabletLarge) {
 	.searchField,
 	.filterField {
 		flex-basis: 100%;

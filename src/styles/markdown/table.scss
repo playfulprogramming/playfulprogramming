@@ -60,7 +60,7 @@ tbody tr:last-child {
 table {
 	border-collapse: collapse;
 
-	@include until($tablet) {
+	@include until($tabletLarge) {
 		ul {
 			padding: 0;
 			list-style: none;
