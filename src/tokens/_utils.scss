@@ -13,7 +13,11 @@
 }
 
 @mixin darkTheme() {
-	:global(html.dark) &, :global(body.dark) &, :global(.darkTheme) & {
+	// these need to be defined separately because :global does not work outside of CSS modules
+	html.dark & {
+		@content;
+	}
+	:global(html.dark) & {
 		@content;
 	}
 }
