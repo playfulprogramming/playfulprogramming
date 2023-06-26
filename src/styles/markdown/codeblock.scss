@@ -1,0 +1,35 @@
+:root {
+	--code-block_margin: var(--spc-4x);
+	--code-block_padding: var(--spc-2x);
+	--code-block_omnibar_padding-vertical: var(--spc-2x);
+	--code-block_omnibar_padding-horizontal: var(--spc-4x);
+	--code-block_edge-padding_default: var(--code-block_padding);
+	--code-block_edge-padding_none: 0px;
+
+	--code-block_corner-radius: var(--corner-radius_l);
+	--code-block_inner-corner-radius: calc( var(--code-block_corner-radius) - var(--code-block_padding) - var(--code-block_border-width) )
+
+	--code-block_header_padding-start: var(--spc-4x);
+	--code-block_header_padding-end: var(--code-block_padding);
+	--code-block_header_padding-vertical: var(--code-block_padding);
+	--code-block_header_gap: var(--spc-4x);
+
+	--code-block_background: var(--background_primary);
+	--code-block_omnibar_background: var(--surface_primary_emphasis-none);
+	--code-block_border-color: var(--primary_variant);
+	--code-block_border-width: var(--border-width_l);
+}
+
+pre.shiki {
+	margin: var(--code-block_margin) 0;
+	padding: var(--code-block_padding);
+
+	// needs to override the inline `style=""` background that shiki applies
+	background-color: var(--code-block_background) !important;
+	border-radius: var(--code-block_corner-radius);
+	border: var(--code-block_border-width) solid var(--code-block_border-color);
+
+	.code-container {
+		
+	}
+}
