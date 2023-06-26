@@ -7,11 +7,13 @@
 
 	--article-header_details_padding-vertical: var(--spc-4x);
 	--article-header_details_author-gap: 0.5rem;
+	--article-header_details_date-gap: 0.5rem;
 	--article-header_details_gap: var(--spc-2x);
 
 	--article-header_title_color: var(--foreground_emphasis-high);
 	--article-header_details_icon_color: var(--foreground_disabled);
 	--article-header_details_date_color: var(--foreground_emphasis-high);
+	--article-header_details_date_edited_color: var(--foreground_emphasis-medium);
 	--article-header_details_author_color: var(--link-color);
 
 	@include from($desktopSmall) {
@@ -45,6 +47,22 @@
 
 	.date {
 		color: var(--article-header_details_date_color);
+
+		p {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		&__edited {
+			color: var(--article-header_details_date_edited_color);
+
+			&::before {
+				content: '•';
+				margin-left: var(--article-header_details_date-gap);
+				padding-right: var(--article-header_details_date-gap);
+			}
+		}
 	}
 
 	.authors {

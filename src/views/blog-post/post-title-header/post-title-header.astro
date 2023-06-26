@@ -3,18 +3,16 @@ import style from "./post-title-header.module.scss";
 import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
-import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import dayjs from "dayjs";
-import { Picture } from "components/image/picture";
 
 interface PostTitleHeaderProps {
 	post: ExtendedPostInfo;
 }
 const { post } = Astro.props as PostTitleHeaderProps;
 const { title, tags } = post;
-const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
+const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 ---
 
 <header role="banner" class={style.container}>
@@ -23,7 +21,14 @@ const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 	<div class={style.details}>
 		<div class={style.date}>
 			<Icon width="24" height="24" name="date" />
-			<p>{publishedStr}</p>
+			<p class="text-style-button-regular">
+				{publishedStr}
+				{
+					editedStr ? (
+						<span class={style.date__edited}>Last updated: {editedStr}</span>
+					) : null
+				}
+			</p>
 		</div>
 
 		<div class={style.authors}>
