@@ -47,7 +47,7 @@
 		margin-bottom: var(--p_block-padding-vertical);
 	}
 
-	color: var(--foreground_emphasis-medium);
+	color: var(--foreground_emphasis-high);
 
 	h1, .text-style-headline-1,
 	h2, .text-style-headline-2,
@@ -157,6 +157,7 @@
 	}
 }
 
+@import "src/styles/markdown/blockquote";
 @import "src/styles/markdown/hints";
 @import "src/styles/markdown/table";
 @import "src/styles/markdown/tooltips";
