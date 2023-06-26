@@ -8,6 +8,7 @@
 	--code-block_inner-corner-radius: calc(var(--code-block_corner-radius) - var(--code-block_padding) - var(--code-block_border_width));
 
 	--code-block_header_gap: var(--spc-4x);
+	--code-block_header_min-height: var(--min-target-size_xl);
 	--code-block_header_title_margin-horizontal: var(--spc-3x);
 	--code-block_header_title_color: var(--foreground_emphasis-high);
 	--code-block_background-color: var(--background_primary);
@@ -30,8 +31,7 @@ pre.shiki {
 
 		color: var(--code-block_header_title_color);
 
-		// TODO where should header.min-height point to?
-		min-height: var(--header_min-height, calc(56px - 2 * var(--code-block_padding)));
+		min-height: calc(var(--code-block_header_min-height) - 2*var(--code-block_padding));
 		padding: 0 var(--code-block_header_title_margin-horizontal);
 
 		display: flex;
