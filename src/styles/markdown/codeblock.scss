@@ -1,23 +1,22 @@
+@import "src/tokens/index";
+@import "src/styles/text-styles";
+
 :root {
 	--code-block_margin: var(--spc-4x);
 	--code-block_padding: var(--spc-2x);
-	--code-block_omnibar_padding-vertical: var(--spc-2x);
-	--code-block_omnibar_padding-horizontal: var(--spc-4x);
-	--code-block_edge-padding_default: var(--code-block_padding);
-	--code-block_edge-padding_none: 0px;
-
 	--code-block_corner-radius: var(--corner-radius_l);
-	--code-block_inner-corner-radius: calc( var(--code-block_corner-radius) - var(--code-block_padding) - var(--code-block_border-width) )
+	--code-block_inner-corner-radius: calc(var(--code-block_corner-radius) - var(--code-block_padding));
 
 	--code-block_header_padding-start: var(--spc-4x);
 	--code-block_header_padding-end: var(--code-block_padding);
 	--code-block_header_padding-vertical: var(--code-block_padding);
 	--code-block_header_gap: var(--spc-4x);
-
-	--code-block_background: var(--background_primary);
-	--code-block_omnibar_background: var(--surface_primary_emphasis-none);
-	--code-block_border-color: var(--primary_variant);
-	--code-block_border-width: var(--border-width_l);
+	--code-block_header_title_margin-horizontal: var(--spc-3x);
+	--code-block_header_title_color: var(--foreground_emphasis-high);
+	--code-block_background-color: var(--background_primary);
+	--code-block_inner_background-color: var(--background_focus);
+	--code-block_border_color: var(--primary_variant);
+	--code-block_border_width: var(--border-width_l);
 }
 
 pre.shiki {
@@ -25,11 +24,31 @@ pre.shiki {
 	padding: var(--code-block_padding);
 
 	// needs to override the inline `style=""` background that shiki applies
-	background-color: var(--code-block_background) !important;
+	background-color: var(--code-block_background-color) !important;
 	border-radius: var(--code-block_corner-radius);
-	border: var(--code-block_border-width) solid var(--code-block_border-color);
+	border: var(--code-block_border_width) solid var(--code-block_border_color);
+
+	.code-title {
+		@extend .text-style-body-medium-bold;
+
+		// TODO where should header.min-height point to?
+		min-height: var(--header_min-height, calc(56px - 2 * var(--code-block_padding)));
+		padding: 0 var(--code-block_header_title_margin-horizontal);
+
+		display: flex;
+		align-items: center;
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.code-title ~ .code-container {
+		margin-top: var(--code-block_padding);
+	}
 
 	.code-container {
-		
+		border-radius: var(--code-block_inner-corner-radius);
+		background-color: var(--code-block_inner_background-color);
 	}
 }
