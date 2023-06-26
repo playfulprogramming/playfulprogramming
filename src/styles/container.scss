@@ -8,7 +8,7 @@
 		max-width: $desktopSmall;
 	}
 
-	@include from($desktop) {
-		max-width: $desktop;
+	@include from($desktopLarge) {
+		max-width: $desktopLarge;
 	}
 }

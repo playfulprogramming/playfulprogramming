@@ -1,6 +1,6 @@
 @import "src/tokens/index";
 
-@include until($tablet) {
+@include until($tabletLarge {
 	.container {
 		overflow: hidden;
 		width: 100%;
