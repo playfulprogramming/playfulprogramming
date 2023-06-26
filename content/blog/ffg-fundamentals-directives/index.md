@@ -11,24 +11,15 @@
 }
 ---
 
-<!-- Editor's note: Migrate away from constructor params to use `inject` to be more ECMA friendly -->
-
 In our last chapter, we talked about how you can create custom logic that isn't associated with any particular component, but can be used by said components to extend its logic.
 
 This is helpful for sharing logic between components, but isn't the whole story of code re-use within React, Angular, and Vue.
 
-For example, we may want to have logic that's associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a Directive aims to solve.
-
-In this chapter, we'll explore:
-
-- What a directive is
-- Basic directive usage
-- How to use lifecyle methods in directives
-- How to conditionally render UI with directives
+For example, we may want to have logic that's associated with a given DOM node without having to create an entire component specifically for that purpose. This exact problem is what a **Directive** aims to solve.
 
 # What is a directive
 
-In our [Introduction to Components chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes. 
+In our ["Introduction to Components" chapter](/posts/ffg-fundamentals-intro-to-components), we talked about how a component is a collection of structure, styling, and logic that's associated with one or more HTML nodes. 
 
 A directive, on the other hand, is a collection of JavaScript logic that you can apply to a single DOM element.
 
@@ -46,9 +37,9 @@ Here's what a basic directive looks like in each of the three frameworks:
 
 React as a framework doesn't _quite_ have the concept of directives built-in. 
 
-Luckily, this doesn't mean that us React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
+Luckily, this doesn't mean that we as React developers need to be left behind. Because a React component is effectively just a JavaScript function, we can use the base concept of a directive to create shared logic for DOM nodes.
 
-Remember from our [Element Reference chapter that you can use a function associated with an element's `ref` property](localhost:9000/posts/element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create a simple API to add logic to an HTML element:
+Remember from our ["Element Reference" chapter that you can use a function associated with an element's `ref` property](/posts/ffg-fundamentals-element-reference). We'll use this concept alongside the idea of a [custom hook](/posts/ffg-fundamentals-shared-component-logic#Rules-of-Custom-Hooks) in order to create a simple API to add logic to an HTML element:
 
 ```jsx
 const useLogElement = () => {
@@ -73,6 +64,7 @@ import { Component, ElementRef, Directive } from '@angular/core';
 
 @Directive({
   selector: '[sayHi]',
+  standalone: true,
 })
 class LogElementDirective {
   constructor() {
@@ -82,6 +74,8 @@ class LogElementDirective {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [LogElementDirective],
   template: `
     <p sayHi>Hello, world</p>
   `,
@@ -98,21 +92,33 @@ Instead, it's oftentimes more useful to get a reference to the element that the 
 ```typescript
 @Directive({
   selector: '[logElement]',
+  standalone: true,
 })
 class LogElementDirective {
-  constructor(private el: ElementRef<any>) {
-    // This will output a reference to the HTMLParagraphElement
-    console.log(this.el.nativeElement);
-  }
+  // el.nativeElement is a reference to the HTMLParagraphElement
+  el = inject(ElementRef<any>);
+}
+```
+
+But oh no! Our directive no longer uses the `constructor` function, which means that our `console.log` no longer runs. This is because, when using the `inject` keyword, you're no longer able to use a constructor function.
+
+To fix this, we can extract our `inject` into a function that we can call from within our directive's class body:
+
+```typescript
+function findAndLogTheElement() {
+  const el = inject(ElementRef<any>);
+  // HTMLParagraphElement
+  console.log(el.nativeElement);
+  return el;
 }
 
-@Component({
-  selector: 'my-app',
-  template: `
-    <p logElement>Hello, world</p>
-  `,
+@Directive({
+  selector: '[sayHi]',
+  standalone: true,
 })
-class AppComponent {}
+class LogElementDirective {
+  el = findAndLogTheElement();
+}
 ```
 
 ## Vue
@@ -172,17 +178,24 @@ const App = () => {
 ## Angular
 
 ```typescript
+function injectElAndStyle() {
+  const el = inject(ElementRef<any>);
+  el.nativeElement.style.background = 'red';
+  return el;
+}
+
 @Directive({
   selector: '[styleBackground]',
+  standalone: true,
 })
 class StyleBackgroundDirective {
-  constructor(private el: ElementRef<any>) {
-    this.el.nativeElement.style.background = 'red';
-  }
+  el = injectElAndStyle();
 }
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [StyleBackgroundDirective],
   template: `
     <button styleBackground>Hello, world</button>
   `,
@@ -261,9 +274,10 @@ Angular uses the same `implements` implementation for classes to use lifecycle m
 ```typescript
 @Directive({
   selector: '[focusElement]',
+  standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
-  constructor(private el: ElementRef<any>) {}
+  el = inject(ElementRef<any>);
 
   ngOnInit() {
     this.el.nativeElement.focus();
@@ -272,6 +286,8 @@ class StyleBackgroundDirective implements OnInit {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [StyleBackgroundDirective],
   template: `
     <button focusElement>Hello, world</button>
   `,
@@ -341,11 +357,12 @@ However, one way that a directive's inputs differ from a component's is that you
 ```typescript
 @Directive({
   selector: '[styleBackground]',
+  standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
   @Input() styleBackground: string;
 
-  constructor(private el: ElementRef<any>) {}
+  el = inject(ElementRef<any>);
 
   ngOnInit() {
     this.el.nativeElement.style.background = this.styleBackground;
@@ -354,6 +371,8 @@ class StyleBackgroundDirective implements OnInit {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [StyleBackgroundDirective],
   template: `
     <button styleBackground="red">Hello, world</button>
   `,
@@ -449,11 +468,12 @@ class Color {
 
 @Directive({
   selector: '[styleBackground]',
+  standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
   @Input() styleBackground: Color;
 
-  constructor(private el: ElementRef<any>) {}
+  el = inject(ElementRef<any>);
 
   ngOnInit() {
     const color = this.styleBackground;
@@ -463,6 +483,9 @@ class StyleBackgroundDirective implements OnInit {
 
 @Component({
   selector: 'my-app',
+
+  standalone: true,
+  imports: [StyleBackgroundDirective],
   template: `
     <button [styleBackground]="color">Hello, world</button>
   `,
@@ -539,13 +562,14 @@ In reality, you can name an input anything you'd like, but then need to have an 
 ```typescript
 @Directive({
   selector: '[styleBackground]',
+  standalone: true,
 })
 class StyleBackgroundDirective implements OnInit {
   @Input() r: number;
   @Input() g: number;
   @Input() b: number;
 
-  constructor(private el: ElementRef<any>) {}
+  el = inject(ElementRef<any>);
 
   ngOnInit() {
     this.el.nativeElement.style.background = `rgb(${this.r}, ${this.g}, ${this.b})`;
@@ -554,6 +578,8 @@ class StyleBackgroundDirective implements OnInit {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [StyleBackgroundDirective],
   template: `
     <button styleBackground [r]="255" [g]="174" [b]="174">Hello, world</button>
   `,
@@ -700,6 +726,8 @@ Remember from this chapter that you're able to pass an `ng-template` to another 
 ```typescript
 @Component({
   selector: 'parent-list',
+  standalone: true,
+  imports: [NgFor, NgTemplateOutlet],
   template: `
     <div>
       <ng-template *ngFor="let template of children" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{backgroundColor: 'grey'}"></ng-template>
@@ -714,12 +742,14 @@ class ParentListComponent {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [ParentListComponent],
   template: `
-  <parent-container>
+  <parent-list>
     <ng-template #item let-backgroundColor="backgroundColor">
       <p [style]="{backgroundColor}">Hello, world!</p>
     </ng-template>
-  </parent-container>
+  </parent-list>
   `,
 })
 class AppComponent {
