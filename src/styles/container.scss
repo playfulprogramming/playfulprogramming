@@ -2,13 +2,7 @@
 
 .container {
 	margin: 0 auto;
-	padding: 0 var(--spc-4x);
+	padding: 0 var(--site-spacing);
 
-	@include from($desktopSmall) {
-		max-width: $desktopSmall;
-	}
-
-	@include from($desktopLarge) {
-		max-width: $desktopLarge;
-	}
+	max-width: var(--max-width_l);
 }
