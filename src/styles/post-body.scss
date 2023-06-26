@@ -122,16 +122,6 @@
 		max-height: 50vh;
 	}
 
-	iframe {
-		box-sizing: border-box;
-		display: block;
-		max-width: 100%;
-		min-height: 500px;
-		border: var(--cardOutlineStyle);
-		border-radius: 8px;
-		overflow: hidden;
-	}
-
 	p > code {
 		display: inline;
 		padding: 0 0.4em;

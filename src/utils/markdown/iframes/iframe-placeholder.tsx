@@ -1,6 +1,11 @@
 /** @jsxRuntime automatic */
 import { Element } from "hast";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
+import { fromHtml } from "hast-util-from-html";
+import fs from "fs/promises";
+
+const launch = await fs.readFile("src/icons/launch.svg", "utf8");
+const play = await fs.readFile("src/icons/play.svg", "utf8");
 
 export interface IFramePlaceholderProps {
 	width: string;
@@ -36,20 +41,33 @@ export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholder
 					</p>
 					<a
 						href={props.src}
-						rel="noreferrer"
+						rel="nofollow noopener noreferrer"
 						target="_blank"
 					>
 						{props.src}
 					</a>
 				</div>
-				<button>New tab</button>
+				<a
+					href={props.src}
+					class="button regular primary text-style-button-regular"
+					rel="nofollow noopener noreferrer"
+					target="_blank"
+				>
+					<div class="buttonIcon">{fromHtml(launch)}</div>
+					<div class="innerText">
+						New tab
+					</div>
+				</a>
 			</div>
 			<div
 				class="embed__placeholder"
 				data-iframeurl={props.src}
 				style={`height: ${Number(height) ? `${height}px` : height};`}
 			>
-				<button>Run embed</button>
+				<button class="button regular primary-emphasized text-style-button-regular">
+					<div class="buttonIcon">{fromHtml(play)}</div>
+					<div class="innerText">Run embed</div>
+				</button>
 			</div>
 		</div>
 	) as never;

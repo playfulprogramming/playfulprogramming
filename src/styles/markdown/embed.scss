@@ -43,8 +43,10 @@
 			width: var(--embed_favicon_container_size);
 			height: var(--embed_favicon_container_size);
 			flex-shrink: 0;
+			padding: calc((var(--embed_favicon_container_size) - var(--embed_favicon_icon-size)) / 2);
 
 			background-color: var(--embed_favicon_container_background-color);
+			border-radius: 50%;
 
 			&> picture {
 				width: var(--embed_favicon_icon-size);
@@ -77,6 +79,28 @@
 		border: var(--embed-iframe_border-width) solid var(--embed_iframe_border_color);
 		border-radius: var(--embed-iframe_corner-radius);
 		margin: var(--embed-iframe_margin);
+
+		position: relative;
+
+		&:not(:first-child) {
+			margin-top: 0;
+		}
+
+		&> .button {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&> iframe {
+		box-sizing: border-box;
+		display: block;
+		border: var(--embed-iframe_border-width) solid var(--embed_iframe_border_color);
+		border-radius: var(--embed-iframe_corner-radius);
+		margin: var(--embed-iframe_margin);
+		overflow: hidden;
 
 		&:not(:first-child) {
 			margin-top: 0;
