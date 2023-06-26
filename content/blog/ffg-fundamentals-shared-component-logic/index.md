@@ -11,7 +11,18 @@
 }
 ---
 
-Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes; but sometimes you need code logic you can share between components that have no associated DOM nodes.
+Components are awesome. They allow you to make your code logic more modular and associate that logic to a related collection of DOM nodes. More importantly than that, **components are _composable_**; You can take two components and use them together to build a third that utilizes them both.
+
+Sometimes, while building components, you may find yourself needing to share logic between multiple components.
+
+> We're not talking about sharing state or logic _between_ instances of the same component:
+>
+> **IE**: Two instances of the same component sharing the same data.
+>
+> Instead, **we're talking about a way to share logic for each _instance_ of a component**.
+>
+> **IE**: Two instances of the same component having their own data.
+
 
 For example, let's say that you have some component code that detects the current window size. While this might seem like a simple problem at first, it requires you to:
 
@@ -19,7 +30,7 @@ For example, let's say that you have some component code that detects the curren
 - Add and cleanup event listeners for when the user resizes their browser window
 - Compose the window sizing logic inside of other shared logic, such as a `onlyShowOnMobile` boolean
 
- The method how this logic is shared between components differs from framework to framework.
+The method how this logic is shared between components differs from framework to framework.
 
 | Framework | Method Of Logic Sharing |
 | --------- | ----------------------- |
@@ -35,11 +46,7 @@ Without further ado, let's build the window size shared logic.
 
 # Sharing Data Storage Methods
 
-The first step to sharing component logic between multiple components is sharing data storage mechanisms.
-
-This doesn't mean that we're going to be sharing data between mutliple components: we won't be.
-
-Instead, we're going to be providing some logic that allows a consistent set of data every time you create a new component that extends this shared logic.
+The first step of creating composable shared logic is to create a way to store data in an instance of the logic:
 
 <!-- tabs:start -->
 
@@ -201,9 +208,9 @@ const { height, width } = useWindowSize()
 
 # Sharing Lifecycle Methods
 
-While sharing a consistent set of data setup for each consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
+While sharing data between consuming component is helpful in its own right, this is only a fraction of the capabilities these frameworks have for cross-component logic reuse.
 
-One of the most powerful things that can be reused between components is [lifecycle method](/posts/ffg-fundamentals-side-effects) logic.
+One of the most powerful things that can be reused between components is [side effect](/posts/ffg-fundamentals-side-effects) logic.
 
 Using this, we can say something alone the lines of:
 
@@ -217,13 +224,11 @@ This can be a bit vague to discuss without code, so let's dive in.
 
 While our last code sample was able to expose the browser window's height and width, it didn't respond to window resizing. This means that if you resized the browser window, the value of `height` and `width` would no longer be accurate.
 
-Let's hook into [a consuming component's `rendered` lifecycle method](/posts/ffg-fundamentals-side-effects#Render-Lifecycle) in order to add an event handler to listen for window resizing.
+Let's utilize [the window listener side effect we built in our "Side Effects" chapter](// TODO: LINK ME) in order to add an event handler to listen for window resizing.
 
 <!-- tabs:start -->
 
 ## React
-
-If we look back to the Lifecycle Method chapter's insights, we'll remember that we can simulate a `rendered` lifecycle method using an `useEffect` alongside an empty dependency array:
 
 ```jsx
 const useWindowSize = () => {
@@ -263,9 +268,9 @@ const App = () => {
 
 While Angular can _technically_ [create a base component that shares its lifecycle with a consuming component](https://unicorn-utterances.com/posts/angular-extend-class), it's messy, fragile, and overall considered a malpractice.
 
-Instead, we can use a per-component instance injectable that uses its own `constructor` and `ngOnDestroy` lifecycle methods.
+Instead, we can use a per-component injectable that uses its own `constructor` and `ngOnDestroy` lifecycle methods.
 
-> Yes, technically `constructor` isn't strictly a lifecycle method, but `Injectable`s don't have access to `ngOnInit`; only `ngOnDestroy`.
+> Technically `constructor` isn't strictly a lifecycle method, but `Injectable`s don't have access to `ngOnInit`; only `ngOnDestroy`.
 >
 > The reason `Injectable`s don't have `ngOnInit` is because that method means something very specific under-the-hood, pertaining to UI data binding. Because an `Injectable` can't UI data bind, it has no need for `ngOnInit` and instead the `constructor` takes the role of setting up side effects.
 
@@ -303,13 +308,13 @@ class AppComponent {
 }
 ```
 
-> I acknowledge that this method of sharing lifecycle methods is far from perfect; This is one of Angular's greatest weaknesses when it comes to Angular's code reuse story.
+> This code isn't ideal; the Angular team knows this. This is why they're working on introducing a new method of side effect handling (and data storage) [called "Signals"](https://angular.io/guide/signals). At the time of writing, Signals are still in the experimental phase, but they're worth keeping an eye on.
 
 > While this is the only method we'll be looking at in this book for writing this code, [Lars Gyrup Brink Nielsen showcased how we could improve this code using RxJS in another article on the Unicorn Utterances site.](https://unicorn-utterances.com/posts/angular-extend-class#The-Angular-way-to-fix-the-code)
 
 ## Vue
 
-Sharing lifecycle methods within custom compositions is just as straightforward as using them within components. We can simply use the same `onMounted` and `onUnmounted` lifecycle methods as we do within our `setup` `script`.
+Sharing side effect handling within custom compositions is just as straightforward as using them within components. We can simply use the same `onMounted` and `onUnmounted` lifecycle methods as we do within our `setup` `script`.
 
 ```javascript
 // use-window-size.js
@@ -349,10 +354,9 @@ const { height, width } = useWindowSize()
 </script>
 ```
 
+> We could have also utilized the `watch` or `watchEffect` composition methods, but chose not to for this example.
+
 <!-- tabs:end -->
-
-
-
 
 
 # Composing Custom Logic
@@ -367,10 +371,10 @@ If we were using plain-ole functions, it might look something like this:
 
 ```javascript
 function getWindowSize() {
-	return {
-	  height: window.innerHeight,
+  return {
+    height: window.innerHeight,
     width: window.innerWidth
-	}
+  }
 }
 
 function isMobile() {
@@ -382,7 +386,7 @@ function isMobile() {
 
 But of course, this comes with downsides when trying to include this logic into a framework, such as:
 
-- No access to lifecycle methods
+- No access to side effect cleanup
 - No automatic-re-rendering when `height` or `width` changes
 
 Luckily for us, we can do this with our frameworks with full access to all of the other framework-specific APIs we've covered until now.
@@ -391,7 +395,7 @@ Luckily for us, we can do this with our frameworks with full access to all of th
 
 ## React
 
-So, you remember how we used `useState` inside of `useWindowSize`? That's because all hooks are composable: meaning that you can use a hook inside of another hook.
+So, you remember how we used `useState` inside of `useWindowSize`? That's because all hooks are composable.
 
 This is true for custom hooks as well, meaning that we can do the following code:
 
@@ -404,7 +408,9 @@ const useMobileCheck = () => {
 }
 ```
 
-Without modifying the `useWindowSize` component. To consume our new `useMobileCheck` component is just as straightforward as it was to use `useWindowSize`:
+Without modifying the `useWindowSize` component.
+
+To consume our new `useMobileCheck` component is just as straightforward as it was to use `useWindowSize`:
 
 ```jsx
 const Component = () => {
@@ -424,7 +430,7 @@ const Component = () => {
 
 ## Angular
 
-Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instnace of our provided `WindowSize` class inside of a new `IsMobile` class, that's also provided in a class.
+Just as we can use dependency injection to provide an instance of our `WindowSize` class, we can use an instance of our provided `WindowSize` class inside of a new `IsMobile` class, that's also provided in a class.
 
 First, though, we need to provide a way to add behavior to our `onResize` class:
 
@@ -541,7 +547,7 @@ const { isMobile } = useMobileCheck()
 
 
 
-# Refactoring Our Code to use Composable Logic
+# Challenge
 
 Take code from `component-reference` and refactor to use custom hooks/services/etc.
 

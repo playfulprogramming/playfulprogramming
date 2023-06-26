@@ -260,7 +260,7 @@ Similarly, Angular 15.1 introduced a method for using self-closing tags with com
 
 #### We won't be learning "Signals"
 
-[Early in 2023, the Angular team announced that they will be introducing a new method of programming in Angular called "Signals"](https://github.com/angular/angular/discussions/49090). To pull back the curtains a bit, this book began life in January of 2022, and the by the time the book had launched, Signals were not yet introduced as a stable API within the Angular ecosystem.
+[Early in 2023, the Angular team announced that they will be introducing a new method of programming in Angular called "Signals"](https://angular.io/guide/signals). To pull back the curtains a bit, this book began life in January of 2022, and the by the time the book had launched, Signals were not yet introduced as a stable API within the Angular ecosystem.
 
 While I believe that Signals are the way forward for the Angular community, it simply wasn't suitable to delay the book further to wait for this API to stabilize. As such, **this book will not teach Angular signals** at this time.
 
