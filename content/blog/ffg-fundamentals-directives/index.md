@@ -722,63 +722,189 @@ export default function App() {
 
 ## Angular
 
-Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define partial application of HTML elements that can then be rendered after-the-fact](/posts/ffg-fundamentals-accessing-children#Back-to-the-start-ng-template-rendering).
+Before we get into how to implement this functionality in Angular, I first need to circle back to [how Angular uses `ng-template` to define a group of HTML elements that can then be rendered after-the-fact](/posts/ffg-fundamentals-dynamic-html#ng-template).
 
-Remember from this chapter that you're able to pass an `ng-template` to another component like so:
+While we previously have used `ng-template` as a shorthand for "Don't render this until later", the tag is capable of so much more.
+
+For starters, did you know that you can pass data to an `ng-template`?
+
+### Passing data to `ng-template` using `ngTemplateOutletContext`
+
+To pass data to an `ng-template`, you need to provide a "context" object for what should be passed.
+
+For example, let's say that we want to pass a "name" to a template. We can provide an object that looks like:
+
+```javascript
+{name: 'Corbin'}
+```
+
+And then render this data inside of a template using:
+
+```html
+<ng-template let-name="name">
+  <p>{{name}}</p>
+</ng-template>
+```
+
+Here, we're saying that we want to bind the context key `name` to a `name` template variable. This template variable is then accessible to any HTML nodes under 
+the `ng-template`.
+
+However, because `ng-template` doesn't render anything on its own, we'll need to supply a parent to render the `ng-template`'s contents into. We do this using the `ngTemplateOutlet` directive:
 
 ```typescript
 @Component({
-  selector: 'parent-list',
+  selector: 'my-app',
   standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
+  imports: [NgTemplateOutlet],
   template: `
-    <div>
-      <ng-template *ngFor="let template of children" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{backgroundColor: 'grey'}"></ng-template>
+    <ng-template #templ let-name="name">
+      <p>{{name}}</p>
+    </ng-template>
+    <div
+      [ngTemplateOutlet]="templ"
+      [ngTemplateOutletContext]="{name: 'Corbin'}"
+    >
     </div>
   `,
 })
-class ParentListComponent {
-  @ContentChildren('item', { read: TemplateRef }) children: QueryList<
-    TemplateRef<any>
-  >;
+class AppComponent {}
+```
+
+We can even choose to use [an `ng-container`](/posts/ffg-fundamentals-transparent-elements) instead of a `div` to avoid having a `div` in our rendered output:
+
+```html
+<ng-template #templ let-name="name">
+  <p>{{name}}</p>
+</ng-template>
+<ng-container
+  [ngTemplateOutlet]="templ"
+  [ngTemplateOutletContext]="{name: 'Corbin'}"
+>
+</ng-container>
+```
+
+#### Default Keys in Template Context
+
+Previously, we used a syntax like:
+
+```html
+<ng-template let-name="name">
+  <p>{{name}}</p>
+</ng-template>
+```
+
+To bind the `name` variable to the `name` context key. However, for contexts with a single value, this is a bit duplicative.
+
+To solve this, we can pass a "default" key called `$implicit` and bind it like so:
+
+```html
+<ng-template let-name>
+  <p>{{name}}</p>
+</ng-template>
+```
+
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [NgTemplateOutlet],
+  template: `
+    <ng-template #templ let-name>{{name}}</ng-template>
+    <div
+      [ngTemplateOutlet]="templ"
+      [ngTemplateOutletContext]="{$implicit: 'Corbin'}"
+    >
+    </div>
+  `,
+})
+class AppComponent {}
+```
+
+### Seeing a Template Render A Comment
+
+While we've been using `inject` in directives to gain access to the directive's underlying HTML element, what happens if we bind a directive to an `ng-template`?
+
+```typescript
+@Directive({
+  selector: '[beOnTemplate]',
+  standalone: true,
+})
+class TemplateDirective {
+  constructor() {
+    console.log('I am alive!');
+  }
+}
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [TemplateDirective],
+  template: `
+    <ng-template beOnTemplate><p>Hello, world</p></ng-template>
+  `,
+})
+class AppComponent {}
+```
+
+Suprisingly, this `console.log`s the `"I am alive!"` message, despite nothing being shown on screen!
+
+> Why is this?
+
+Well, there's a hint if we try to access the underlying HTML element using `ElementRef`:
+
+```typescript
+@Directive({
+  selector: '[beOnTemplate]',
+  standalone: true,
+})
+class TemplateDirective implements OnInit {
+  @Input() background: string;
+  el = inject(ElementRef<any>);
+  ngOnInit() {
+    // This will log a "Comment"
+    console.log(this.el.nativeElement);
+  }
 }
 
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [ParentListComponent],
+  imports: [TemplateDirective],
   template: `
-  <parent-list>
-    <ng-template #item let-backgroundColor="backgroundColor">
-      <p [style]="{backgroundColor}">Hello, world!</p>
-    </ng-template>
-  </parent-list>
+    <ng-template beOnTemplate><p>Hello, world</p></ng-template>
   `,
 })
-class AppComponent {
-}
+class AppComponent {}
 ```
 
-Well, what if I said that you can pass a template to a directive as well? The syntax is a bit different, but in the end you get access to an `ng-template` all the same.
+In this example, we're logged a [Comment node](https://developer.mozilla.org/en-US/docs/Web/API/Comment). Interestingly, if we look at our rendered HTML, we'll see an HTML comment where our `ng-template` was:
 
-### Use Templates to Pass Parts of the DOM to Directives 
+```html
+<!--container-->
+```
 
-Here, we'll use dependency injection to get access to an `ng-template`:
+While this is an implementation detail of Angular, it shows that Angular "renders" the `ng-template`, which can trigger side effects like Angular's `onInit` lifecycle methods. This is helpful when using a directive!
+
+### Access a Template from a Directive
+
+Now that we know we can attach a template from a directive, let's go one step further and render the respective template.
+
+Here, we'll use dependency injection to get access to an `ng-template`'s `TemplateRef`:
 
 ```typescript
 @Directive({
   selector: '[item]',
+  standalone: true,
 })
 class ItemDirective {
-  constructor(
-    private template: TemplateRef<any>
-  ) {
+  constructor(private template: TemplateRef<any>) {
     console.log(this.template);
   }
 }
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [ItemDirective],
   template: `
     <div>
       <ng-template item>
@@ -793,7 +919,7 @@ class AppComponent {}
 > Because we're expecting Angular to pass an `ng-template` reference to `ItemDirective`, if we use the `item` attribute on anything other than a template, we'll end up with the following error:
 >
 > ```
-> Property 'backgroundColor' does not exist on type 'AppComponent'.
+> Error: NG0201: No provider for TemplateRef found. Find more at https://angular.io/errors/NG0201
 > ```
 
 Doing this, we'll see that we get the `TemplateRef` as expected in our console:
@@ -802,31 +928,140 @@ Doing this, we'll see that we get the `TemplateRef` as expected in our console:
 TemplateRef {_declarationLView: Array[34], _declarationTContainer: {…}, elementRef: {…}}
 ```
 
-But wait, if you don't have a template, how can you render this `template`? After all, without a template, you don't have `ngTemplateOutlet` to render the template like we were doing before.
+To render this `TemplateRef`, we'll use a `ViewContainerRef`.
 
-This is where `ViewContainerRef` comes into play.
+### Explaining Angular's DOM Structure
 
-### Render templates from directives using `ViewContainerRef`
+A `ViewContainerRef` is a reference to the nearest `ViewContainer`
 
-See, in Angular, there's always an instance of the parent element called a "View Container". This allows us to render a template into the "View Container" using [the `ViewContainerRef` API](https://angular.io/api/core/ViewContainerRef).
+> Huh?
 
-This `ViewContainerRef` has the ability to render a `TemplateRef` using `createEmbeddedView`:
+Okay okay, let's take a step back.
+
+While Angular doesn't [utilize a virtual DOM (VDOM) like React and Vue do](/posts/ffg-fundamentals-side-effects#Rendering-Committing-Painting), it _does_ keep track of what is and isn't rendered.
+
+To do this, Angular utilizes a compiler to create intelligent "template functions" when a component has a `template` (or `templateUrl`) field associated with it.
+
+This means that:
 
 ```typescript
+import {Component} from '@angular/core';
+@Component({
+  selector: 'app-cmp',
+  template: '<span>Your name is {{name}}</span>',
+})
+export class AppCmp {
+  name = 'Alex';
+}
+```
+
+Might compile to something like:
+
+```typescript
+import { Component } from '@angular/core';                                      
+import * as i0 from "@angular/core";
+export class AppCmp {
+    constructor() {
+        this.name = 'Alex';
+    }
+}                                                                               
+AppCmp.ɵfac = function AppCmp_Factory(t) { return new (t || AppCmp)(); };
+AppCmp.ɵcmp = i0.ɵɵdefineComponent({
+  type: AppCmp,
+  selectors: [["app-cmp"]],
+  decls: 2,
+  vars: 1,
+  template: function AppCmp_Template(rf, ctx) {
+    if (rf & 1) {
+      i0.ɵɵelementStart(0, "span");
+      i0.ɵɵtext(1);
+      i0.ɵɵelementEnd();
+    }
+    if (rf & 2) {
+      i0.ɵɵadvance(1);
+      i0.ɵɵtextInterpolate1("Your name is ", ctx.name, "");
+    }
+  },
+  encapsulation: 2
+});                                                   
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(AppCmp, [{
+        type: Component,
+        args: [{
+                selector: 'app-cmp',
+                template: '<span>Your name is {{name}}</span>',
+            }]
+    }], null, null); })();
+```
+
+> This code sample is taken from [the "How the Angular Compiler Works" article written by the Angular team](https://blog.angular.io/how-the-angular-compiler-works-42111f9d2549).
+>
+> I explain how this code gets ran in detail in [my "Angular Internals: How Reactivity Works with Zone.js" article](https://unicorn-utterances.com/posts/angular-internals-zonejs).
+
+When this compiler runs, it also creates a relationship between each component and their template. For each item in a template, there's either an `EmbeddedView` for HTML elements or a `Host View` for other components.
+
+This means that this code:
+
+```typescript
+@Component({
+  selector: 'list-comp',
+  standalone: true,
+  template: `
+    <ul>
+      <li>Say hi</li>
+      <li>It's polite</li>
+    </ul>
+  `,
+})
+class ListComp {}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [ListComp],
+  template: `
+    <div>
+      <p>Hello, world!</p>
+    </div>
+    <div>
+      <p>Hello, humans!</p>
+    </div>
+    <list-comp/>
+  `,
+})
+class AppComponent {}
+```
+
+Might be seen by Angular as such:
+
+![// TODO: Write alt](./angular_dom.svg)
+
+### Using ViewContainer to Render a Template
+
+This isn't just theoretically helpful to learn, though, we're able to tell Angular that we want to gain access to the underlying `ViewContainer` via a [`ViewContainerRef`](https://angular.io/api/core/ViewContainerRef).
+
+Similarly, as a template is handled by an `EmbeddedView` in Angular's compiler, we can programatically create an Embedded View using `ViewContainerRef.createEmbeddedView`:
+
+```typescript
+function injectAndRenderTemplate() {
+  const templToRender = inject(TemplateRef<any>);
+  const parentViewRef = inject(ViewContainerRef);
+
+  parentViewRef.createEmbeddedView(templToRender);
+  return template;
+}
+
 @Directive({
   selector: '[passBackground]',
+  standalone: true,
 })
 class PassBackgroundDirective {
-  constructor(
-    private parentViewRef: ViewContainerRef,
-    private templToRender: TemplateRef<any>
-  ) {
-    this.parentViewRef.createEmbeddedView(this.templToRender);
-  }
+  template = injectAndRenderTemplate();
 }
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [PassBackgroundDirective],
   template: `
     <div>
       <ng-template passBackground>
@@ -840,11 +1075,12 @@ class AppComponent {}
 
 Now we should be able to see the `p` tag rendering!
 
-> While I'd love to explain more about how `ViewContainerRef` gets set up in Angular, and what `createEmbeddedView` is doing under-the-hood this get a little into the weeds of how Angular works internally. I'll explain this more in-depth in [the third book in the "Framework Field Guide" series, titled "Internals"](https://framework.guide).
-
-> Don't want to wait for the third book in order to learn what a `ViewContainerRef` is? [I wrote an article explaining what it is for Unicorn Utterances](https://unicorn-utterances.com/posts/angular-templates-start-to-source#components-are-directives).
-
-
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
 
 ### Pass data to rendered templates inside of Directives
 

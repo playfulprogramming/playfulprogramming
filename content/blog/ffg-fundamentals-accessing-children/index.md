@@ -89,57 +89,7 @@ const ParentList = ({children}) => {
 
 # Angular
 
-Before we talk about accessing projected content programmatically in Angular, we need to first touch on a concept called "template tags".
-
-In an earlier chapter, we had some `if ... else` code that looked like this:
-
-```html
-<span *ngIf="isFolder; else fileDisplay">Type: Folder</span>
-<ng-template #fileDisplay><span>Type: File</span></ng-template>
-```
-
-And referred out to [an external article](https://unicorn-utterances.com/posts/angular-templates-start-to-source) to explain more. While I still suggest reading through that article at some point (I wrote it, after all), let's explain a bit more in-depth.
-
-## What's a template, anyway? {#ng-templates}
-
-See, an `ng-template` allows you to store multiple tags as children without rendering them.
-
-Take the following code:
-
-```html
-<ng-template>
-	Hello, <strong>world</strong>!
-</ng-template>
-```
-
-This will convert to the following HTML:
-
-```html
- 
-```
-
-> Wait, but there's nothing there...
-
-Correct! By default, an `ng-template` will not render anything at all.
-
-> So then what's the point?
-
-The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.  
-
-```html
-<ng-template #tag>
-   This template is now assigned to the "tag" template variable. 
-</ng-template>
-```
-
-We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see it's usage reflected.
-
-```html
-<span *ngIf="false; else trueTag">False</span>
-<ng-template #trueTag>True</ng-template>
-```
-
-Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will render when the passed value is `false`.
+//TODO: Write. We talked about `ng-template` [in an earlier chapter](/posts/ffg-fundamentals-dynamic-html#ng-template).
 
 ## There can only be one: `ContentChild`
 

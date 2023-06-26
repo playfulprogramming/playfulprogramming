@@ -416,21 +416,48 @@ Otherwise, if `isFolder` is `false`, this will be rendered:
 
 Undoubtably you're looking at this snippet of code and wondering what `ng-template` is doing here. 
 
-The long answer is a bit complicated and might distract from the current focus of this chapter — [We will answer this further in our "Content Reference" chapter](/posts/ffg-fundamentals-accessing-children#ng-templates).
+### Explaining `ng-template` {#ng-template}
 
-The short answer is as simple as: "An `ng-template` is a bit of HTML that you can assign to an in-template variable for Angular to use in conditional statements and a few other places."
+See, an `ng-template` allows you to store multiple tags as children without rendering them. You can then take those tags and render them in special ways in the future, using Angular APIs.
 
-With this known, we can explain that the syntax looks something like this:
-
-```html
-<ng-template #varNameHere><p>HTML tags go in here as children</p></ng-template>
-```
-
-Which we can then use in an `*ngIf` statement like so:
+Take the following code:
 
 ```html
-*ngIf="bool; else varNameHere"
+<ng-template>
+	Hello, <strong>world</strong>!
+</ng-template>
 ```
+
+This will convert to the following HTML:
+
+```html
+ 
+```
+
+> Wait, but there's nothing there...
+
+Correct! By default, an `ng-template` will not render anything at all.
+
+> So then what's the point?
+
+The point, my dear reader, is that you can assign a in-template variable to `ng-template` and use it elsewhere. These in-template variables are called "template tags" and are created by assigning an octothorpe (`#`) prefixed attribute to the `ng-template`.  
+
+```html
+<ng-template #tag>
+   This template is now assigned to the "tag" template variable. 
+</ng-template>
+```
+
+We can then use the template tag as we might expect any other variable to be used; we can pass a template variable to a function of sorts (in the form of a [structural directive](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives), like `*ngFor` or `*ngIf`) and see it's usage reflected.
+
+```html
+<span *ngIf="false; else trueTag">False</span>
+<ng-template #trueTag>True</ng-template>
+```
+
+Here, we're passing the `trueTag` to the `else` value of `ngIf`, which will render when the passed value is `false`.
+
+> There's a lot more you can do with Angular templates! Keep an eye out in future chapters for more information.
 
 ## Vue
 
@@ -441,7 +468,7 @@ Which we can then use in an `*ngIf` statement like so:
 
 Here, Vue's `if...else` syntax looks fairly similar to the JavaScript pseudo-syntax we displayed above.
 
-It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work. 
+> It's worth noting that a `v-else` tag **must** immediately follow a `v-if` tag; otherwise, it won't work. 
 
 <!-- tabs:end -->
 
