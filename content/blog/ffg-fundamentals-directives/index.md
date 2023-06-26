@@ -1113,7 +1113,33 @@ class PassBackgroundDirective {
 class AppComponent {}
 ```
 
-We can also simplify our `AppComponent` template to use [structural directives](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives) instead of an explicit `ng-template`:
+### Use Structural Directives To Make Work Easier
+
+In our previous section, we use an `ng-template` in combination with a `div` to render out our app with the correct DOM structure.
+
+However, did you know that adding `*` next to a directive turns it into a "Structural Directive"?
+
+By doing so, you're telling the directive to wrap the element inside of an `ng-template` to use later.
+
+This:
+
+```html
+<div>
+  <ng-template someDirective>
+    <p>Hi</p>
+  </ng-template>
+</div>
+```
+
+Is functionally the same as this:
+
+```html
+<div *someDirective>
+  <p>Hi</p>
+</div>
+```
+
+Knowing this, we can take our previous code and convert it to a structural directive:
 
 ```typescript
 @Component({
@@ -1128,6 +1154,8 @@ We can also simplify our `AppComponent` template to use [structural directives](
 })
 class AppComponent {}
 ```
+
+> Structural directives are immensely powerful! [I wrote a 10k word long blog post all about them here.](https://unicorn-utterances.com/posts/angular-templates-start-to-source#structural-directives)
 
 ### Build the Feature Flag Behavior using Structural Templates
 
