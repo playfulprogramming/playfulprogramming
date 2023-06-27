@@ -67,9 +67,7 @@ if (post.collection && post.order) {
 	<div slot="right">
 		<RelatedPosts post={post} />
 	</div>
-	<header role="banner" class="marginZeroAutoChild">
-		<PostTitleHeader post={post} />
-	</header>
+	<PostTitleHeader post={post} />
 	<main class="post-body" data-testid={"post-body-div"}>
 		{
 			post.collection ? (

@@ -3,65 +3,60 @@ import style from "./post-title-header.module.scss";
 import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
-import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import dayjs from "dayjs";
-import { Picture } from "components/image/picture";
 
 interface PostTitleHeaderProps {
 	post: ExtendedPostInfo;
 }
 const { post } = Astro.props as PostTitleHeaderProps;
 const { title, tags } = post;
-const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
+const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 ---
 
-<div class="d-flex gap-2">
-	<Icon width="24" height="24" name="date" />
-	<p>{publishedStr}</p>
-</div>
+<header role="banner" class={style.container}>
+	<h1 class={style.title}>{title}</h1>
 
-<h1 class={style.title}>{title}</h1>
-<div class="d-flex gap-2">
-	<Icon width="24" height="24" name="authors" />
-	<ul
-		aria-label="Post authors"
-		role="list"
-		class={`${style.tags} unlist-inline`}
-	>
+	<div class={style.details}>
+		<div class={style.date}>
+			<Icon width="24" height="24" name="date" />
+			<p class="text-style-button-regular">
+				{publishedStr}
+				{
+					editedStr && editedStr !== publishedStr ? (
+						<span class={style.date__edited}>Last updated: {editedStr}</span>
+					) : null
+				}
+			</p>
+		</div>
+
+		<div class={style.authors}>
+			<Icon width="24" height="24" name="authors" />
+			<ul aria-label="Post authors" role="list" class={style.authors__list}>
+				{
+					post.authorsMeta.map((author, i) => (
+						<li>
+							<a
+								class="text-style-button-regular"
+								href={`/unicorns/${author.id}`}
+							>
+								{[author.name, i + 1 < post.authorsMeta.length ? "," : ""]}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+
+	<ul aria-label="Post tags" role="list" class={style.tags}>
 		{
-			post.authorsMeta.map((author) => (
+			tags?.map((tag) => (
 				<li>
-					<Chip href={`/unicorns/${author.id}`}>
-						<Picture
-							picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-							alt={author.name}
-							class="circleImg"
-							imgAttrs={{ width: 24, height: 24 }}
-						/>
-						{author.name}
-					</Chip>
+					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
 				</li>
 			))
 		}
 	</ul>
-</div>
-{
-	tags && tags.length ? (
-		<div class="d-flex gap-2">
-			<Icon width="24" height="24" name="label" />
-			<ul
-				aria-label="Post tags"
-				role="list"
-				class={`${style.tags} unlist-inline`}
-			>
-				{tags.map((tag) => (
-					<li>
-						<Chip href={`/search?q=${tag}`}>{tag}</Chip>
-					</li>
-				))}
-			</ul>
-		</div>
-	) : null
-}
+</header>

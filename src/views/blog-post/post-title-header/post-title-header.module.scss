@@ -1,14 +1,100 @@
 @import "src/tokens/index";
 
+:root {
+	--article-header_padding-bottom: var(--spc-6x);
+	--article-header_details_icon_size: var(--icon-size_dense);
+	--article-header_details_icon_margin-end: var(--spc-2x);
+
+	--article-header_details_padding-vertical: var(--spc-4x);
+	--article-header_details_author-gap: 0.5rem;
+	--article-header_details_date-gap: 0.5rem;
+	--article-header_details_gap: var(--spc-2x);
+
+	--article-header_title_color: var(--foreground_emphasis-high);
+	--article-header_details_icon_color: var(--foreground_disabled);
+	--article-header_details_date_color: var(--foreground_emphasis-high);
+	--article-header_details_date_edited_color: var(--foreground_emphasis-medium);
+	--article-header_details_author_color: var(--link-color);
+
+	@include from($desktopSmall) {
+		--article-header_details_gap: var(--spc-3x);
+	}
+}
+
 .title {
-	margin-top: var(--spc-2x);
-	margin-bottom: 0;
+	margin: 0;
+	color: var(--article-header_title_color);
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	gap: var(--article-header_details_gap);
+
+	padding: var(--article-header_details_padding-vertical) 0;
+
+	.date, .authors {
+		display: flex;
+		align-items: center;
+
+		svg {
+			width: var(--article-header_details_icon_size);
+			height: var(--article-header_details_icon_size);
+			color: var(--article-header_details_icon_color);
+			margin-right: var(--article-header_details_icon_margin-end);
+		}
+	}
+
+	.date {
+		color: var(--article-header_details_date_color);
+
+		p {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		&__edited {
+			color: var(--article-header_details_date_edited_color);
+
+			&::before {
+				content: '•';
+				margin-left: var(--article-header_details_date-gap);
+				padding-right: var(--article-header_details_date-gap);
+			}
+		}
+	}
+
+	.authors {
+		color: var(--article-header_details_author_color);
+
+		&__list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--article-header_details_author-gap);
+
+			a:not(:hover):not(:focus):not(:active) {
+				text-decoration: none;
+			}
+		}
+	}
 }
 
 .tags {
-	list-style: none;
-	padding: var(--spc-2x) 0;
+	list-style-type: none;
 	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 
-	gap: var(--spc-2x);
+	gap: var(--chip-gap);
+}
+
+.container {
+	padding-bottom: var(--article-header_padding-bottom);
 }

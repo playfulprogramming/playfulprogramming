@@ -1,5 +1,13 @@
 @import "src/tokens/index";
 
+:where(a) {
+	color: var(--primary_default);
+}
+
+:where(a:visited) {
+	color: var(--secondary_default);
+}
+
 .post-body {
 	h1 {
 		margin: 0 auto;
@@ -79,14 +87,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
-
-	:where(& a) {
-		color: var(--primary_default);
-	}
-
-	:where(& a:visited) {
-		color: var(--secondary_default);
 	}
 
 	h1 .anchor svg,
