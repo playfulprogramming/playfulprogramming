@@ -54,6 +54,7 @@
 	border-radius: var(--card_corner-radius);
 	border: var(--card_border-width) solid var(--card_border-color);
 	background: var(--card_background-color);
+	overflow: hidden;
 }
 
 .postBase:hover {
