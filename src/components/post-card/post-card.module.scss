@@ -171,7 +171,13 @@
 	margin-top: var(--card_tags_padding-top);
 }
 
-.extendedPostContainer {
+.spacer {
+	height: 1px;
+	flex-grow: 1;
+}
+
+.extendedPostContainer,
+.regularPostContainer {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
