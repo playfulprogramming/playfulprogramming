@@ -10,6 +10,7 @@
 	--btn_large_padding-vertical: var(--spc-3x);
 	--btn_large_min-height: var(--min-target-size_l);
 	--btn_large_icon_size_default: var(--icon-size_dense);
+	--btn_large_icon_size_padding: var(--icon-size-dense-padding);
 	--btn_large_icon_size_icon-only: var(--icon-size_regular);
 	--btn_large_label_padding-horizontal: var(--spc-2x);
 
@@ -19,17 +20,26 @@
 	--btn_regular_min-height: var(--min-target-size_s);
 	--btn_regular_icon_size_default: var(--icon-size_dense);
 	--btn_regular_icon_size_icon-only: var(--icon-size_dense);
+	--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
 	--btn_regular_label_padding-horizontal: var(--spc-1x);
 
 	// Colors: Primary buttons
 	--btn_primary_background-color_default: var(--surface_primary_emphasis-low);
-	--btn_primary_background-color_default_hovered: var(--surface_primary_emphasis-medium);
-	--btn_primary_background-color_default_pressed: var(--surface_primary_emphasis-high);
+	--btn_primary_background-color_default_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--btn_primary_background-color_default_pressed: var(
+		--surface_primary_emphasis-high
+	);
 	--btn_primary_foreground-color_default: var(--primary_on-variant);
 
 	--btn_primary_background-color_emphasized: var(--primary_high-contrast);
-	--btn_primary_background-color_emphasized_hovered: var(--primary_high-contrast_hovered);
-	--btn_primary_background-color_emphasized_pressed: var(--primary_high-contrast_pressed);
+	--btn_primary_background-color_emphasized_hovered: var(
+		--primary_high-contrast_hovered
+	);
+	--btn_primary_background-color_emphasized_pressed: var(
+		--primary_high-contrast_pressed
+	);
 	--btn_primary_foreground-color_emphasized: var(--background_primary);
 
 	--btn_primary_focus-outline_width: var(--border-width_focus);
@@ -37,14 +47,24 @@
 	--btn_primary_focus-oultine_color: var(--focus-outline_primary);
 
 	// Colors: Secondary buttons
-	--btn_secondary_background-color_default: var(--surface_secondary_emphasis-low);
-	--btn_secondary_background-color_default_hovered: var(--surface_secondary_emphasis-medium);
-	--btn_secondary_background-color_default_pressed: var(--surface_secondary_emphasis-high);
+	--btn_secondary_background-color_default: var(
+		--surface_secondary_emphasis-low
+	);
+	--btn_secondary_background-color_default_hovered: var(
+		--surface_secondary_emphasis-medium
+	);
+	--btn_secondary_background-color_default_pressed: var(
+		--surface_secondary_emphasis-high
+	);
 	--btn_secondary_foreground-color_default: var(--secondary_on-variant);
 
 	--btn_secondary_background-color_emphasized: var(--secondary_high-contrast);
-	--btn_secondary_background-color_emphasized_hovered: var(--secondary_high-contrast_hovered);
-	--btn_secondary_background-color_emphasized_pressed: var(--secondary_high-contrast_pressed);
+	--btn_secondary_background-color_emphasized_hovered: var(
+		--secondary_high-contrast_hovered
+	);
+	--btn_secondary_background-color_emphasized_pressed: var(
+		--secondary_high-contrast_pressed
+	);
 	--btn_secondary_foreground-color_emphasized: var(--background_secondary);
 
 	--btn_secondary_focus-outline_width: var(--border-width_focus);
@@ -62,6 +82,7 @@
 		--btn_large_min-height: var(--min-target-size_xl);
 		--btn_large_icon_size_default: var(--icon-size_regular);
 		--btn_large_icon_size_icon-only: var(--icon-size_regular);
+		--btn_large_icon_size_padding: 0px;
 		--btn_large_label_padding-horizontal: var(--spc-2x);
 
 		// Regular button for Desktop
@@ -70,6 +91,7 @@
 		--btn_regular_min-height: var(--min-target-size_m);
 		--btn_regular_icon_size_default: var(--icon-size_dense);
 		--btn_regular_icon_size_icon-only: var(--icon-size_dense);
+		--btn_regular_icon_size_padding: var(--icon-size-dense-padding);
 		--btn_regular_label_padding-horizontal: var(--spc-2x);
 	}
 }
@@ -98,7 +120,8 @@
 }
 
 .button.regular {
-	padding: var(--btn_regular_padding-vertical) var(--btn_regular_padding-horizontal);
+	padding: var(--btn_regular_padding-vertical)
+		var(--btn_regular_padding-horizontal);
 	min-height: var(--btn_regular_min-height);
 
 	.innerText {
@@ -134,21 +157,25 @@
 }
 
 .button.regular .buttonIcon {
+	padding: var(--btn_regular_icon_size_padding);
 	height: var(--btn_regular_icon_size_default);
 	width: var(--btn_regular_icon_size_default);
 }
 
 .button.large .buttonIcon {
+	padding: var(--btn_large_icon_size_padding);
 	height: var(--btn_large_icon_size_default);
 	width: var(--btn_large_icon_size_default);
 }
 
 .button.regular .iconOnlyButtonIcon {
+	padding: var(--btn_regular_icon_size_padding);
 	height: var(--btn_regular_icon_size_icon-only);
 	width: var(--btn_regular_icon_size_icon-only);
 }
 
 .button.large .iconOnlyButtonIcon {
+	padding: var(--btn_large_icon_size_padding);
 	height: var(--btn_large_icon_size_icon-only);
 	width: var(--btn_large_icon_size_icon-only);
 }
@@ -162,7 +189,8 @@
 	}
 
 	&:focus-visible {
-		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width) var(--btn_primary_focus-oultine_color);
+		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
+			var(--btn_primary_focus-oultine_color);
 	}
 
 	&:active {
@@ -179,7 +207,8 @@
 	}
 
 	&:focus-visible {
-		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width) var(--btn_secondary_focus-oultine_color);
+		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
+			var(--btn_secondary_focus-oultine_color);
 	}
 
 	&:active {
@@ -196,7 +225,8 @@
 	}
 
 	&:focus-visible {
-		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width) var(--btn_primary_focus-oultine_color);
+		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
+			var(--btn_primary_focus-oultine_color);
 	}
 
 	&:active {
@@ -213,7 +243,8 @@
 	}
 
 	&:focus-visible {
-		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width) var(--btn_secondary_focus-oultine_color);
+		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
+			var(--btn_secondary_focus-oultine_color);
 	}
 
 	&:active {
