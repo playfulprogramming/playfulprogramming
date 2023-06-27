@@ -72,13 +72,17 @@ export const PostCardExpanded = ({
 		<li
 			// @ts-ignore
 			onclick={`location.href='/posts/${post.slug}'`}
-			class={`${className} ${style.postBase}`}
+			class={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
-			<img
-				loading="lazy"
-				src={post.bannerImg}
-				alt="Computer code and text on a computer screen"
-			/>
+			<div class={style.extendedPostImageContainer}>
+				<img
+					loading="lazy"
+					class={style.extendedPostImage}
+					src={post.bannerImg}
+					alt="Computer code and text on a computer screen"
+				/>
+				<div class={style.extendedPostImageBackground}></div>
+			</div>
 			<div className={style.postContainer}>
 				<a href={`/posts/${post.slug}`} class={`${style.postHeaderBase}`}>
 					<h2 class={`text-style-headline-2`}>{post.title}</h2>
