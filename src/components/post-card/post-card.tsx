@@ -84,7 +84,6 @@ export const PostCardExpanded = ({
 					src={post.bannerImg}
 					alt="Computer code and text on a computer screen"
 				/>
-				<div className={style.extendedPostImageBackground}></div>
 			</div>
 			<div className={style.postContainer}>
 				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>

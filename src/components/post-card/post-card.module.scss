@@ -108,6 +108,8 @@
 	padding: 0;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--card_detail-row_gap);
 }
 
 .authorName {
@@ -167,6 +169,7 @@
 	padding: 0;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	gap: var(--card_tags_gap);
 	margin-top: var(--card_tags_padding-top);
 }
@@ -185,6 +188,7 @@
 
 .extendedPostImageContainer {
 	height: 1px;
+	min-height: 192px;
 	flex-grow: 1;
 	width: 100%;
 	position: relative;
@@ -209,21 +213,13 @@
 		to(transparent)
 	);
 	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 100%);
+	background-color: var(--primary_variant);
 }
 
 .extendedPostImage {
-	/* TODO: Change to `overlay` when background of image is black */
-	mix-blend-mode: soft-light;
+	mix-blend-mode: overlay;
+	filter: invert(1);
 	height: 100%;
 	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
 	object-fit: cover;
-}
-
-.extendedPostImageBackground {
-	background-color: var(--primary_variant);
-	height: 100%;
-	width: 100%;
 }
