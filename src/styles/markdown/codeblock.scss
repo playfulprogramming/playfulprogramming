@@ -2,7 +2,6 @@
 @import "src/styles/text-styles";
 
 :root {
-	--code-block_margin: var(--spc-4x);
 	--code-block_padding: var(--spc-2x);
 	--code-block_corner-radius: var(--corner-radius_l);
 	--code-block_inner-corner-radius: calc(var(--code-block_corner-radius) - var(--code-block_padding) - var(--code-block_border_width));
@@ -18,7 +17,7 @@
 }
 
 pre.shiki {
-	margin: var(--code-block_margin) 0;
+	margin: var(--site-spacing) 0;
 	padding: var(--code-block_padding);
 
 	// needs to override the inline `style=""` background that shiki applies
