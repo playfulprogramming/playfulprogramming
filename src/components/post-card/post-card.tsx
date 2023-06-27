@@ -72,17 +72,19 @@ export const PostCardExpanded = ({
 		<li
 			// @ts-ignore
 			onclick={`location.href='/posts/${post.slug}'`}
-			class={`${className}`}
+			class={`${className} ${style.postBase}`}
 		>
 			<img
 				loading="lazy"
 				src={post.bannerImg}
 				alt="Computer code and text on a computer screen"
 			/>
-			<a href={`/posts/${post.slug}`}>
-				<h2>{post.title}</h2>
-			</a>
-			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+			<div className={style.postContainer}>
+				<a href={`/posts/${post.slug}`} class={`${style.postHeaderBase}`}>
+					<h2 class={`text-style-headline-2`}>{post.title}</h2>
+				</a>
+				<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+			</div>
 		</li>
 	);
 };
@@ -96,10 +98,10 @@ export const PostCard = ({
 		<li
 			// @ts-ignore
 			onclick={`location.href='/posts/${post.slug}'`}
-			class={`${className}`}
+			className={`${className} ${style.postContainer} ${style.postBase}`}
 		>
-			<a href={`/posts/${post.slug}`}>
-				<h2>{post.title}</h2>
+			<a href={`/posts/${post.slug}`} class={`${style.postHeaderBase}`}>
+				<h2 class={`text-style-headline-5`}>{post.title}</h2>
 			</a>
 			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
 		</li>

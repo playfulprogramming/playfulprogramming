@@ -50,6 +50,41 @@
 	}
 }
 
+.postBase {
+	border-radius: var(--card_corner-radius);
+	border: var(--card_border-width) solid var(--card_border-color);
+	background: var(--card_background-color);
+}
+
+.postBase:hover {
+	border-color: var(--card_border-color_hovered);
+	background: var(--card_background-color_hovered);
+}
+
+.postBase:active {
+	border-color: var(--card_border-color_pressed);
+	background: var(--card_background-color_pressed);
+}
+
+.postBase:focus-within {
+	border-color: var(--card_border-color_focused);
+	background: var(--card_background-color_focused);
+}
+
+.postContainer {
+	padding: var(--card_padding);
+}
+
+.postHeaderBase {
+	color: var(--card_title_color);
+	margin: 0;
+	text-decoration: none;
+}
+
+.postHeaderBase > h2 {
+	margin: 0;
+}
+
 .postDataContainer {
 	padding: var(--card_detail-container_padding-vertical) 0;
 	display: flex;
