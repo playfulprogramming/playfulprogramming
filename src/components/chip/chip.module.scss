@@ -36,7 +36,7 @@
 
 	color: var(--chip_foreground-color);
 	text-decoration: none;
-	outline: none !important;
+	outline: none;
 
 	padding: var(--chip_padding-vertical) var(--chip_padding-horizontal);
 	border: var(--chip_border-width) solid var(--chip_outline_color);
@@ -51,8 +51,10 @@
 
 	&:focus-visible {
 		background-color: var(--chip_background-color_focused);
-		border-color: var(--chip_focus-outline_color);
-		border-width: var(--chip_focus-outline_width);
+		outline-offset: 0;
+		border-color: transparent;
+		@include transition(color background-color box-shadow);
+		outline: var(--chip_focus-outline_color) solid var(--chip_focus-outline_width);
 		color: var(--chip_foreground-color);
 	}
 
