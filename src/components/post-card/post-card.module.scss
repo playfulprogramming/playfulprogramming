@@ -112,6 +112,7 @@
 
 .authorName {
 	margin: 0;
+	text-decoration: none;
 }
 
 .authorListContainer {
@@ -122,6 +123,7 @@
 }
 
 .cardIcon {
+	padding: var(--icon-size-dense-padding);
 	color: var(--card_detail-row_icon_color);
 	height: var(--card_detail-row_icon_size);
 	width: var(--card_detail-row_icon_size);

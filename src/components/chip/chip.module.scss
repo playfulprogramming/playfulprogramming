@@ -77,6 +77,7 @@
 }
 
 .chip_content > svg {
+	padding: var(--icon-size-dense-padding);
 	height: var(--chip_icon_size);
 	width: var(--chip_icon_size);
 	margin: 0 calc(-1 * var(--chip_label_padding-horizontal));
