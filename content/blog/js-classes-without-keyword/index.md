@@ -1,10 +1,10 @@
 ---
 {
-    title: "Using JavaScript Classes without the `class` keyword",
-    description: "",
-    published: '2023-07-16T21:52:59.284Z',
+    title: "Using JavaScript classes without the `class` keyword",
+    description: "Classes are a core feature of JavaScript - but they weren't always that way. How did earlier JS devs write classes? Let's learn how together.",
+    published: '2023-06-29T21:52:59.284Z',
     authors: ['crutchcorn'],
-    tags: ['computer science'],
+    tags: ['javascript'],
     attached: [],
     license: 'cc-by-4'
 }
@@ -305,9 +305,11 @@ pers.name // undefined
 
 > Notice how we're using [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create a base object from the other prototype
 
-
-
 # Static Methods
+
+Let's wrap up this article by talking about how to add static methods to a functional class.
+
+As a refresher, this is what a static method looks like on a ES2020 class:
 
 ```javascript
 class User {
@@ -317,7 +319,15 @@ class User {
         console.log("It depends");
     }
 }
+
+User.sayCatchphrase(); // "It depends"
+User.name // undefined
+
+const corn = new User();
+corn.name; // "Corbin"
 ```
+
+This can be added by providing a key to the function's name outside of the function body:
 
 ```javascript
 function User() {
@@ -328,7 +338,27 @@ function User() {
 User.sayCatchphrase() {
     console.log("It depends");
 }
+
+
+User.sayCatchphrase(); // "It depends"
+User.name // undefined
+
+const corn = new User();
+corn.name; // "Corbin"
 ```
 
+# Conclusion
 
+This has been an interesting look into how to use JavaScript classes without the `class` keyword.
 
+Hopefully, this has helped dispel some misunderstandings about how classes work in JavaScript or maybe just given historical context for why some code is written how it is.
+
+Like learning JavaScript's fundamentals?
+
+[Check out my article that explains how to use the `.bind` keyword in JavaScript.](/posts/javascript-bind-usage#bind)
+
+Read it and want more?
+
+[Check out my book that teaches the introduction of React, Angular, and Vue all at once; "The Framework Field Guide".](https://framework.guide)
+
+Until next time!
