@@ -1139,8 +1139,6 @@ Similarly, if you get:
     Require stack:
       node_modules/react-redux/lib/utils/reactBatchedUpdates.js
       node_modules/react-redux/lib/index.js
-      /path/packages/cv-elements/dist/mobile/mobile.cjs
-      config/setup-files-after-env-local.ts
 ```
 
 It's because you're not adding `"native"` to the `platforms`' array from above and only have `android` and `ios` in it.
