@@ -17,7 +17,7 @@
 - Windows
 - macOS
 
-It's an undeniably powerful way to share code between web applications and your mobile apps; particularly within small teams that either don't have the knowledge or the capacity to go fully native.
+It's an undeniably powerful way to share code between web applications and your mobile apps, particularly within small teams that either don't have the knowledge or the capacity to go fully native.
 
 Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share code between multiple projects with a similar tech stack.
 
@@ -27,9 +27,9 @@ Combined together and even a small team can maintain multiple React Native appli
 
 Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 
-To further exacerbate the issue, React Native comes with many uncommon edgecases that makes monorepos particularly challenging to create. Many of the tutorials I've found outlining how to build a monorepo for this purpose use outdated tools to work around this.
+To further exacerbate the issue, React Native comes with many uncommon edgecases that make monorepos particularly challenging to create. Many of the tutorials I've found outlining how to build a monorepo for this purpose use outdated tools to work around this.
 
-Knowing just how potent the potential impact of a monorepo would be to my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems.
+Knowing just how potent the potential impact of a monorepo would be on my projects, I disregarded these headaches and spent a month or two building out a monorepo that solved my problems.
 
 By the end of it all, I had a monorepo structure that looked something like the following:
 
@@ -109,13 +109,13 @@ I'd like to share how you can do the same in this article. Let's walk through ho
 - [Enforce consistent project configuration across your monorepo](#config-package)
 - [Prepare for further code sharing](#conclusion)
 
-# Setup React Native Project {#setup-app}
+# Set Up a React Native Project {#set-up-app}
 
-Let's setup a basic React Native project to extend using a monorepo.
+Let's set up a basic React Native project to extend using a monorepo.
 
 > Before you get started with this section, make sure you have [your environment set up](https://reactnative.dev/docs/environment-setup), including XCode/Android Studio.
 
-To setup a basic React Native project from scratch, run the following:
+To set up a basic React Native project from scratch, run the following:
 
 ```shell
 npx react-native init CustomerPortal
@@ -169,7 +169,7 @@ To start setting up the monorepo, take the following actions:
 
 <!-- filetree:end -->
 
-Congrats! You _technically_ now have a monorepo, even if it's currently missing many conviniences of a well-established monorepo.
+Congrats! You _technically_ now have a monorepo, even if it's currently missing many conveniences of a well-established monorepo.
 
 
 # Maintain Multiple Package Roots with Yarn {#yarn}
@@ -190,9 +190,9 @@ Let's imagine that we've taken our newly created monorepo and added a second app
 
 <!-- filetree:end -->
 
-Notice how each of our sub-projects has it's own `package.json`? This allows us to split out our dependencies based on which project requires them, rather than having a single global `package.json` with every project's dependencies in it.
+Notice how each of our sub-projects has its own `package.json`? This allows us to split out our dependencies based on which project requires them rather than having a single global `package.json` with every project's dependencies in it.
 
-However, without any additional configuration, it means that we need to `npm install` in every subdirectory manually to get our projects setup.
+However, without any additional configuration, it means that we need to `npm install` in every subdirectory manually to get our projects set up.
 
 What if there was a way to have a single `install` command that installed all packages for all `package.json` files in our repo? Well, we can!
 
@@ -206,17 +206,17 @@ Here are the most popular Node package managers that support workspaces:
 
 While NPM is often reached for as the default package manager for Node apps, it lacks a big feature that's a nice-to-have in large-scale monorepos: Patching NPM packages.
 
-While NPM can [use a third-party package](https://www.npmjs.com/package/patch-package) to enable this functionality, it has shakey support for monorepos. Compare this to PNPM and Yarn which both have this functionality built-in for monorepos.
+While NPM can [use a third-party package](https://www.npmjs.com/package/patch-package) to enable this functionality, it has shaky support for monorepos. Compare this to PNPM and Yarn, which both have this functionality built-in for monorepos.
 
 This leaves us with a choice between `pnpm` and `yarn` for our package manager in our monorepo.
 
-While pnpm is well loved by developers for [it's offline functionality](https://pnpm.io/cli/install#--offline), I've had more experience with Yarn and found it to work well for my needs.
+While pnpm is well loved by developers for [its offline functionality](https://pnpm.io/cli/install#--offline), I've had more experience with Yarn and found it to work well for my needs.
 
 ## Installing Yarn 3 (Berry)
 
-When most people talk about using Yarn, they're often talking about using Yarn v1 which [originally launched in 2017](https://github.com/yarnpkg/yarn/releases/tag/v1.0.0). While Yarn v1 works for most needs, I've ran into bugs with its monorepo support that halted progress at times.
+When most people talk about using Yarn, they're often talking about using Yarn v1, which [originally launched in 2017](https://github.com/yarnpkg/yarn/releases/tag/v1.0.0). While Yarn v1 works for most needs, I've run into bugs with its monorepo support that halted progress at times.
 
-Here's the bad news: Yarn v1's [last release was in 2022](https://github.com/yarnpkg/yarn/releases/tag/v1.22.19) and is [in maintainance mode](https://github.com/yarnpkg/yarn/issues/8583#issuecomment-783161589).
+Here's the bad news: Yarn v1's [last release was in 2022](https://github.com/yarnpkg/yarn/releases/tag/v1.22.19) and is [in maintenance mode](https://github.com/yarnpkg/yarn/issues/8583#issuecomment-783161589).
 
 Here's the good news: Yarn has continued development with breaking changes and is now on Yarn 3. These newer versions of Yarn are colloquially called ["Yarn Berry"](https://github.com/yarnpkg/berry).
 
@@ -251,7 +251,7 @@ This will download the `yarn-3.x.x.cjs` file, configure a `.yarnrc.yml` file, an
 
 By default, Yarn Berry uses a method of installing your packages called `Yarn Plug'n'Play` (PNP), which allows you to commit your `node_modules` cache to your Git repository.
 
-[Because of React Native's incompatibility with Yarn PNP](https://yarnpkg.com/features/pnp#incompatible), we need to disable it. To do this, we update out `.yarnrc.yml` file to _add_:
+[Because of React Native's incompatibility with Yarn PNP](https://yarnpkg.com/features/pnp#incompatible), we need to disable it. To do this, we update our `.yarnrc.yml` file to _add_:
 
 ```yml
 nodeLinker: node-modules
@@ -271,10 +271,10 @@ You'll also want to add the following to your `.gitignore`
 !.yarn/versions
 ```
 
-On the note of Git; **you'll want to commit `.yarn/releases/yarn-3.x.x.cjs`**, as Yarn will not work for your other developers otherwise.
+On the note of Git, **you'll want to commit `.yarn/releases/yarn-3.x.x.cjs`**, as Yarn will not work for your other developers otherwise.
 
 
-> **`yarn install` _still_ won't work yet, keep reading!**
+> **`yarn install` _still_ won't work yet; keep reading!**
 
 ## Configuring Yarn to Support Monorepos
 
@@ -298,7 +298,7 @@ Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps 
 
 > Replace `your-org` with an NPM organization that your company owns. Otherwise, [you're susceptible with various attacks](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) without this org namespace. 
 
-Finally, let's configure `yarn` to install a fresh version of `node_modules` for each of our apps, so that React Native can easily detect our packages without having to configure Metro to find multiple `node_modules`. To do that, we'll add [a new line](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits) to our `.yarnrc.yml` file:
+Finally, let's configure `yarn` to install a fresh version of `node_modules` for each of our apps so that React Native can easily detect our packages without having to configure Metro to find multiple `node_modules`. To do that, we'll add [a new line](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits) to our `.yarnrc.yml` file:
 
 ```yml
 nmHoistingLimits: workspaces
@@ -308,7 +308,7 @@ Congrats! **You can now install all of your apps' dependencies using `yarn insta
 
 ### A note about `nohoist`
 
-It's worth mentioning that other React Native monorepo guides often utilize [Yarn 1's `nohoist`](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/) functionality that no longer is supported in Yarn 2+.
+It's worth mentioning that other React Native monorepo guides often utilize [Yarn 1's `nohoist`](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/) functionality, which is no longer supported in Yarn 2+.
 
 Here's what a maintainer of Yarn told me about the possibility of supporting `nohoist` in Yarn is:
 
@@ -903,7 +903,7 @@ This regex is saying:
 
 > You can learn more about reading and writing regex from [my regex guide](/posts/the-complete-guide-to-regular-expressions-regex)!
 
-It's purpose is to tell Jest that it should actively transform these non-ignored packages with `ts-jest` and `babel-jest`. See, both of them run `babel` over their respective source code files, which allows for things like:
+Its purpose is to tell Jest that it should actively transform these non-ignored packages with `ts-jest` and `babel-jest`. See, both of them run `babel` over their respective source code files, which allows for things like:
 
 - `import` usage (Jest only supports CommonJS)
 - JSX usage
@@ -918,9 +918,9 @@ As such, you'll need to add to this regex when you add a package that's:
 
 ## How to Debug Common Issues with Jest
 
-While using Jest in a React Native monorepo like this _can_ feel like a superpower, it comes with more risks of difficult-to-debug solutions as well.
+While using Jest in a React Native monorepo as this _can_ feel like a superpower, it comes with more risks of difficult-to-debug solutions as well.
 
-Here's just a few we've discovered along the way:
+Here are just a few we've discovered along the way:
 
 ### Invalid Default Export Issues
 
@@ -1142,7 +1142,7 @@ Similarly, if you get:
       config/setup-files-after-env-local.ts
 ```
 
-It's because you're not adding `"native"` to the `platforms` array from above and only have `android` and `ios` in it.
+It's because you're not adding `"native"` to the `platforms`' array from above and only have `android` and `ios` in it.
 
 # Sharing Configuration Files between Apps {#config-package}
 
@@ -1159,7 +1159,7 @@ Let's take a look at two of the most popular tools to do this:
 
 We'll once again set up a new package to share our configuration files: `@your-org/config`.
 
-To do this, `cd` into `packages`, make a new directory called `config`:
+To do this, `cd` into `packages`, and make a new directory called `config`:
 
 ```shell
 cd packages
@@ -1167,7 +1167,7 @@ mkdir config
 cd config
 ```
 
-And `yarn init` a new package.
+Then, `yarn init` a new package:
 
 ```shell
 yarn init
