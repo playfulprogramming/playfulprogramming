@@ -170,29 +170,140 @@ const user = new User();
 user.sayCatchphrase(); // "It depends"
 ```
 
-## Class Extension
+
+
+## Create an extended class using the `super` method
+
+Before we talk about function-based class extension, we need to talk about pre-ES2020 class creation once again.
+
+See, when we convert the following code to use a `contructor`:
+
+```javascript
+class Person {
+	personality = "quirky";
+}
+
+class Corbin extends Person {
+	name = "Corbin";
+}
+```
+
+Like so:
+
+```javascript
+class Person {
+    constructor() {
+    	this.personality = "quirky";
+    }
+}
+
+class Corbin extends Person {
+	constructor() {
+    	this.name = "Corbin";
+    }
+}
+```
+
+And try to initialize it:
+
+```javascript
+const corn = new Corbin()
+```
+
+We get the following error:
+
+```
+Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+    at new Corbin (<anonymous>:9:6)
+```
+
+This is because we're not using the `super()` method to tell our extended class to utilize the parent's class' methods.
+
+To fix this, we'll add that method to the extended class' `constructor`:
+
+```javascript {8}
+class Person {
+    constructor() {
+    	this.personality = "quirky";
+    }
+}
+
+class Corbin extends Person {
+	constructor() {
+		super();
+    	this.name = "Corbin";
+    }
+}
+```
+
+Now our `Corbin` constructor work work as-intended:
+
+```javascript
+const corn = new Corbin();
+console.log(corn.name); // "Corbin";
+console.log(corn.personality); // "quirky";
+```
+
+# Extend a functional class using `Object.create`
+
+Let's now convert our `Person` and `Corbin` classes to use functions instead of the `class` keyword.
+
+The person class is easy enough:
+
+```javascript
+function Person() {
+    this.personality = "quirky";
+}
+```
+
+And we _could_ use [the `call` method to bind `Person`'s `this` to `Corbin`](/posts/javascript-bind-usage#bind), like so:
+
+```javascript
+function Corbin() {
+    Person.call(this);
+    this.name = "Corbin";
+}
+```
+
+And it appears to work at first:
+
+```javascript
+const corn = new Corbin();
+console.log(corn.name); // "Corbin";
+console.log(corn.personality); // "quirky";
+```
+
+But now, once again, if we call `instanceof` it doesn't support the base class:
+
+```javascript
+new Corbin() instanceof Corbin; // true
+new Corbin() instanceof Person; // false
+```
+
+To fix this, we need to tell JavaScript to use the `prototype ` of `Person` and combine it with the prototype of `Corbin`, like so:
 
 ```javascript
 function Person() {
 }
 
-Person.prototype.test = "1"
+Person.prototype.personality = "quirky";
 
-
-function Pix() {
+function Corbin() {
 }
 
-Pix.prototype = Object.create(Person.prototype)
-Pix.prototype.other = "2"
+Corbin.prototype = Object.create(Person.prototype);
+Corbin.prototype.name = "Corbin";
 
-(new Pix()).test // 1
-(new Pix()).other // 2
+const corn = new Corbin();
+corn.personality // "quirky"
+corn.name // "Corbin"
 
-(new Person()).test // 1
-(new Person()).other // undefined
+const pers = new Person();
+pers.personality // "quirky"
+pers.name // undefined
 ```
 
-
+> Notice how we're using [`Object.create`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create) to create a base object from the other prototype
 
 
 
