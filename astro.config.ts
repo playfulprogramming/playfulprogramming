@@ -32,6 +32,7 @@ import mdx from "@astrojs/mdx";
 import symlink from "symlink-dir";
 import * as path from "path";
 import svgr from "vite-plugin-svgr";
+import { rehypeFileTree } from "./src/utils/markdown/file-tree/rehype-file-tree";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
@@ -108,6 +109,7 @@ export default defineConfig({
 					},
 				},
 			],
+			rehypeFileTree,
 			rehypeHeaderText,
 			/**
 			 * Insert custom HTML generation code here
