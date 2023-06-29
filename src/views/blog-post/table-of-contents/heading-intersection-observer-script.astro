@@ -21,8 +21,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			: false;
 
 		const tocListRef: HTMLOListElement = document.querySelector("#tocList");
-		const tocListContainer =
-			tocListRef.parentElement?.parentElement?.parentElement;
+		const tocListContainer = tocListRef.parentElement?.parentElement;
 
 		const linkRefs: LinkRef[] = [
 			...(document.querySelectorAll(
