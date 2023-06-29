@@ -1238,11 +1238,64 @@ You can then use this as the basis for your apps in your `apps/customer-portal/t
 
 ```json
 {
-  "extends": "my-config/tsconfig.json"
+  "extends": "@your-org/config/tsconfig.json"
 }
 ```
 
+### Jest TSConfig
 
+You can even create a Jest configuration that extends the base config and is then used in your apps:
+
+```json
+{
+  "/* packages/config/tsconfig.jest.json */ ": "...",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "isolatedModules": false,
+    "noUnusedLocals": false
+  },
+  "include": ["**/*.spec.tsx"],
+  "exclude": []
+}
+```
+
+```json
+{
+  "/* apps/customer-portal/tsconfig.jest.json */ ": "...",
+  "extends": "@your-org/config/tsconfig.jest.json",
+}
+```
+
+## Jest Shared Config {#jest-shared-config}
+
+Speaking of Jest, to get a shared configuration working for Jest in your apps and packages:
+
+1. Move your `packages/shared-elements/jest.config.js` file into `packages/config/jest.config.js`.
+2. Create a new `packages/shared-elements/jest.config.js` file with:
+
+```javascript
+module.exports = require("@your-org/config/jest.config");
+```
+
+3. Profit.
+
+------
+
+You can even customize the base rules on a per-app basis by doing something akin to the following:
+
+```javascript
+// packages/shared-elements/jest.config.js
+const jestConfig = require("@your-org/config/jest.config");
+
+module.exports = {
+  ...jestConfig,
+  moduleNameMapper: {
+    ...jestConfig.moduleNameMapper,
+    "^react-native$": "<rootDir>/node_modules/react-native",
+  },
+};
+```
 
 
 
@@ -1256,3 +1309,4 @@ You can then use this as the basis for your apps in your `apps/customer-portal/t
 
 <!-- Conclusion section, talk about React Native for Web, Storybooks, Vite -->
 
+https://github.com/crutchcorn/react-native-monorepo-example
