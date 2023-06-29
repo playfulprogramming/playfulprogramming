@@ -36,11 +36,8 @@ const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 			<ul aria-label="Post authors" role="list" class={style.authors__list}>
 				{
 					post.authorsMeta.map((author, i) => (
-						<li>
-							<a
-								class="text-style-button-regular"
-								href={`/unicorns/${author.id}`}
-							>
+						<li class="text-style-button-regular">
+							<a href={`/unicorns/${author.id}`}>
 								{[author.name, i + 1 < post.authorsMeta.length ? "," : ""]}
 							</a>
 						</li>

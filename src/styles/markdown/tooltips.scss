@@ -1,5 +1,4 @@
 :root {
-	--tooltip_margin: var(--spc-4x);
 	--tooltip_padding-vertical: var(--spc-3x);
 	--tooltip_padding-start: var(--spc-3x);
 	--tooltip_padding-end: var(--spc-5x);
@@ -22,7 +21,7 @@
 
 	border-radius: var(--tooltip_corner-radius);
 
-	margin: var(--tooltip_margin) 0;
+	margin: var(--site-spacing) 0;
 	padding: var(--tooltip_padding-vertical) 0;
 	padding-left: var(--tooltip_padding-start);
 	padding-right: var(--tooltip_padding-end);
@@ -55,12 +54,10 @@
 
 		&> *:first-child {
 			margin-top: 0;
-			padding-top: 0;
 		}
 
 		&> *:last-child {
 			margin-bottom: 0;
-			padding-bottom: 0;
 		}
 	}
 }

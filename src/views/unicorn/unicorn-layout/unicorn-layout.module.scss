@@ -5,7 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	gap: var(--spc-8x);
+	gap: var(--site-spacing);
 
 	@include from($desktopSmall) {
 		flex-direction: row;
@@ -20,7 +20,7 @@
 
 .sidebar {
 	@include from($desktopSmall) {
-		top: var(--spc-8x);
+		top: var(--site-spacing);
 		min-width: 320px;
 
 		width: 1px;

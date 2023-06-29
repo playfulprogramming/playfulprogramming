@@ -31,6 +31,10 @@
 
 // TODO: Add back fallback font for Figtree
 
+:root {
+	font-family: var(--uu-font-family);
+}
+
 h1, .text-style-headline-1 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h1_font-size);
@@ -73,7 +77,7 @@ h6, .text-style-headline-6 {
 	line-height: var(--h6_line-height);
 }
 
-:root, p, .text-style-body-large {
+p, .text-style-body-large {
 	font-family: var(--uu-font-family);
 	font-size: var(--p_large_font-size);
 	font-weight: var(--weight_regular);

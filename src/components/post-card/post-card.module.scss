@@ -55,6 +55,8 @@
 	border: var(--card_border-width) solid var(--card_border-color);
 	background: var(--card_background-color);
 	overflow: hidden;
+
+	@include transition(background-color border-color);
 }
 
 .postBase:hover {

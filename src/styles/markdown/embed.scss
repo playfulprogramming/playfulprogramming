@@ -1,11 +1,9 @@
 @import "src/tokens/index";
 
 :root {
-
 	--embed_header_padding: var(--spc-4x);
 	--embed_header_gap: var(--spc-2x);
 	--embed_corner-radius: var(--corner-radius_l);
-	--embed_margin: var(--spc-4x);
 
 	--embed-iframe_margin: calc( var(--embed_header_padding) / 2 );
 	--embed-iframe_corner-radius: calc( var(--embed_corner-radius) - var(--embed-iframe_margin) );
@@ -29,7 +27,7 @@
 	flex-direction: column;
 	border-radius: var(--embed_corner-radius);
 	background-color: var(--embed_background-color);
-	margin: var(--spc-4x) 0;
+	margin: var(--site-spacing) 0;
 
 	&__header {
 		display: flex;

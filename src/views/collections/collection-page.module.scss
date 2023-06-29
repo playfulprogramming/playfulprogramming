@@ -189,7 +189,6 @@
 
   @include from($tabletSmall) {
     grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: 1fr 1fr;
     grid-column-gap: var(--collection-page_description_padding-top);
   }
 }
@@ -197,6 +196,7 @@
 .authorImage {
   height: var(--collection-page_author_avatar_size);
   width: var(--collection-page_author_avatar_size);
+  align-self: center;
   border-radius: 50%;
   overflow: hidden;
   border-style: solid;
@@ -218,6 +218,9 @@
 }
 
 .authorMetaData {
+  height: max-content;
+  align-self: center;
+
   grid-row: 1;
   grid-column: 2;
 

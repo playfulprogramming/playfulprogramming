@@ -1,7 +1,6 @@
 @import "src/styles/text-styles.scss";
 
 :root {
-	--table_margin: var(--spc-4x);
 	--table_padding-horizontal: var(--spc-1x);
 	--table_padding-bottom: var(--spc-1x);
 	--table_corner-radius: var(--spc-4x);
@@ -48,7 +47,7 @@ tbody tr:last-child {
 .table-container {
 	max-width: 100%;
 	width: max-content;
-	margin: var(--hint-margin) 0;
+	margin: var(--site-spacing) 0;
 
 	border-radius: var(--table_corner-radius);
 	padding: 0 var(--table_padding-horizontal);
