@@ -1157,7 +1157,47 @@ Let's take a look at two of the most popular tools to do this:
 
 ## Setting up the `config` package
 
+We'll once again set up a new package to share our configuration files: `@your-org/config`.
 
+To do this, `cd` into `packages`, make a new directory called `config`:
+
+```shell
+cd packages
+mkdir config
+cd config
+```
+
+And `yarn init` a new package.
+
+```shell
+yarn init
+```
+
+Once done, set the `package.json` to have a name of `@your-org/config`:
+
+```json
+{
+  name: '@your-org/config',
+  packageManager: 'yarn@3.2.3'
+}
+```
+
+Now we're off to the races!
+
+> Don't forget to install this package in your other `packages` or `apps`.
+>
+> You can do this by adding:
+>
+> ```json
+> {
+>     "/* ... */": "...",
+>     "devDependencies": {
+>         "@your-org/config": "workspace:*"
+>     }
+> }
+> ```
+>
+> And running `yarn` at the root.
 
 ## Enforce Consistent TypeScript Usage with `tsconfig` {#tsconfig}
 
