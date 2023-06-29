@@ -1,43 +1,61 @@
-import cardStyles from "./post-card.module.scss";
+import style from "./post-card.module.scss";
 import { PostInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Chip } from "components/index";
-import calendar from "src/icons/date.svg?raw";
+import date from "src/icons/date.svg?raw";
+import authors from "src/icons/authors.svg?raw";
 
 interface PostCardProps {
-	post: Pick<
-		PostInfo,
-		"publishedMeta" | "slug" | "title" | "tags" | "description" | "bannerImg"
-	> & {
-		authorsMeta: Array<
-			Pick<PostInfo["authorsMeta"][number], "id" | "color" | "name">
-		>;
-	}; // Info on the authors of the post
-	class?: string; // class to pass to the post card element
+	post: PostInfo;
+	class?: string;
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
 function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 	return (
 		<>
-			<div class={cardStyles.meta}>
-				<ul class="unlist-inline gap-2">
-					{post.authorsMeta.map((author) => (
-						<li>
-							<p>{author.name}</p>
-						</li>
-					))}
-				</ul>
-				<p class={`d-flex gap-1 ${cardStyles.date}`}>
-					<span class="d-flex" dangerouslySetInnerHTML={{ __html: calendar }} />
-					{post.publishedMeta}
+			<div className={style.postDataContainer}>
+				<div className={style.authorListContainer}>
+					<div
+						className={style.cardIcon}
+						dangerouslySetInnerHTML={{ __html: authors }}
+					/>
+					<ul className={style.authorList}>
+						{post.authorsMeta.map((author, i, arr) => (
+							<li>
+								<a
+									className={`text-style-body-small-bold ${style.authorName}`}
+									href={`/unicorns/${author.id}`}
+								>
+									{author.name}
+									{i !== arr.length - 1 && <span aria-hidden="true">, </span>}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+				<p className={style.dateAndWordCount}>
+					<span
+						className={style.cardIcon}
+						dangerouslySetInnerHTML={{ __html: date }}
+					/>
+					<span className={`text-style-body-small-bold ${style.publishedDate}`}>
+						{post.publishedMeta}
+					</span>
+					<span className={`text-style-body-small ${style.separatorDot}`}>
+						•
+					</span>
+					<span className={`text-style-body-small ${style.wordCount}`}>
+						{post.wordCount} words
+					</span>
 				</p>
 			</div>
 			<p
-				class={cardStyles.excerpt}
+				className={`text-style-body-medium ${style.description}`}
 				dangerouslySetInnerHTML={{ __html: post.description }}
 			></p>
-			<ul class="unlist-inline gap-2">
+			<div className={style.spacer}></div>
+			<ul className={style.cardList}>
 				{post.tags.map((tag) => (
 					<li>
 						<Chip href={`/search?q=${tag}`}>{tag}</Chip>
@@ -57,18 +75,22 @@ export const PostCardExpanded = ({
 		<li
 			// @ts-ignore
 			onclick={`location.href='/posts/${post.slug}'`}
-			class={`${className} ${cardStyles.cardExpanded}`}
+			className={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
-			<img
-				loading="lazy"
-				src={post.bannerImg}
-				class={cardStyles.image}
-				alt="Computer code and text on a computer screen"
-			/>
-			<a href={`/posts/${post.slug}`} class={cardStyles.header}>
-				<h2 class={`text-style-headline-2`}>{post.title}</h2>
-			</a>
-			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+			<div className={style.extendedPostImageContainer}>
+				<img
+					loading="lazy"
+					className={style.extendedPostImage}
+					src={post.bannerImg}
+					alt="Computer code and text on a computer screen"
+				/>
+			</div>
+			<div className={style.postContainer}>
+				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+					<h2 className={`text-style-headline-2`}>{post.title}</h2>
+				</a>
+				<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+			</div>
 		</li>
 	);
 };
@@ -82,10 +104,10 @@ export const PostCard = ({
 		<li
 			// @ts-ignore
 			onclick={`location.href='/posts/${post.slug}'`}
-			class={`${cardStyles.cardContainer} ${className}`}
+			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
-			<a href={`/posts/${post.slug}`} class={cardStyles.header}>
-				<h2 class={`text-style-headline-5`}>{post.title}</h2>
+			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
+				<h2 className={`text-style-headline-5`}>{post.title}</h2>
 			</a>
 			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
 		</li>

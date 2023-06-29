@@ -2,7 +2,7 @@
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import * as data from "src/utils/data";
 import { LargeButton, Button } from "components/button/button";
-import { ExtendedPostInfo } from "types/index";
+import { PostInfo } from "../../types";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { Icon } from "astro-icon";
 import { translate } from "utils/translations";
@@ -13,7 +13,7 @@ import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 
 export interface HomepageProps {
-	posts: ExtendedPostInfo[];
+	posts: PostInfo[];
 	collections: ExtendedCollectionInfo[];
 }
 

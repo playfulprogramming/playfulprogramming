@@ -6,6 +6,7 @@ import {
 	PostInfo,
 	Languages,
 	CollectionInfo,
+	ExtendedPostInfo,
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
@@ -14,6 +15,17 @@ import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
+import {
+	count,
+	rehypeWordCount,
+	WordCounts,
+} from "../utils/markdown/rehype-word-count";
+import { unified } from "unified";
+import rehypeRetext from "rehype-retext";
+import english from "retext-english";
+import remarkParse from "remark-parse";
+import remarkToRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -135,6 +147,15 @@ function getPosts(): Array<PostInfo> {
 
 			const frontmatter = matter(fileContents).data as RawPostInfo;
 
+			const counts = {} as WordCounts;
+
+			unified()
+				.use(remarkParse)
+				.use(remarkToRehype)
+				.use(rehypeRetext, unified().use(english).use(count(counts)))
+				.use(rehypeStringify)
+				.processSync(fileContents);
+
 			return {
 				...frontmatter,
 				slug,
@@ -143,6 +164,7 @@ function getPosts(): Array<PostInfo> {
 				authorsMeta: frontmatter.authors.map((authorId) =>
 					fullUnicorns.find((u) => u.id === authorId)
 				),
+				wordCount: (counts.InlineCodeWords || 0) + (counts.WordNode || 0),
 				publishedMeta:
 					frontmatter.published &&
 					dayjs(frontmatter.published).format("MMMM D, YYYY"),

@@ -31,7 +31,7 @@ import rehypeRetext from "rehype-retext";
 
 interface RemarkCountProps {}
 
-function count(counts: Record<string, number>) {
+export function count(counts: Record<string, number>) {
 	return () => counter;
 
 	function counter(tree: Root) {
@@ -53,20 +53,22 @@ function count(counts: Record<string, number>) {
 	}
 }
 
+export type WordCounts = {
+	InlineCodeWords: number;
+	RootNode: number;
+	ParagraphNode: number;
+	SentenceNode: number;
+	WordNode: number;
+	TextNode: number;
+	WhiteSpaceNode: number;
+	PunctuationNode: number;
+	SymbolNode: number;
+	SourceNode: number;
+};
+
 export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 	return async (tree, file) => {
-		const counts = {} as {
-			InlineCodeWords: number;
-			RootNode: number;
-			ParagraphNode: number;
-			SentenceNode: number;
-			WordNode: number;
-			TextNode: number;
-			WhiteSpaceNode: number;
-			PunctuationNode: number;
-			SymbolNode: number;
-			SourceNode: number;
-		};
+		const counts = {} as WordCounts;
 
 		/**
 		 * Boy oh howdy, if you thought counting words was hard with Markdown...

@@ -40,6 +40,7 @@
 		svg {
 			width: var(--article-header_details_icon_size);
 			height: var(--article-header_details_icon_size);
+			padding: var(--icon-size-dense-padding);
 			color: var(--article-header_details_icon_color);
 			margin-right: var(--article-header_details_icon_margin-end);
 		}
