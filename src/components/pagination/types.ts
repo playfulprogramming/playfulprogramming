@@ -1,8 +1,17 @@
+export interface PageInfo {
+	currentPage: number;
+	lastPage: number;
+}
+
+export interface PaginationButtonProps {
+	pageInfo: PageInfo;
+	pageNum: number;
+	selected: boolean;
+	href: string;
+}
+
 export interface PaginationProps {
-	page: {
-		currentPage: number;
-		lastPage: number;
-	};
+	page: PageInfo;
 	class?: string;
 	id?: string;
 	rootURL?: string;

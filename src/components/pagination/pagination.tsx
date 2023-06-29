@@ -1,29 +1,32 @@
 import styles from "./pagination.module.scss";
-import { Button } from "components/index";
 import forward from "src/icons/arrow_right.svg?raw";
 import back from "src/icons/arrow_left.svg?raw";
 import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
 import { useEffect, useState } from "preact/hooks";
-import { PaginationProps } from "components/pagination/types";
+import { PaginationButtonProps, PaginationProps } from "components/pagination/types";
 
-const PAGE_BUTTON_COUNT = 2;
+const PAGE_BUTTON_COUNT = 6;
 
-function PaginationButton(props: {
-	pageNum: number;
-	selected: boolean;
-	href: string;
-}) {
+function PaginationButton({
+	pageInfo,
+	pageNum,
+	href,
+	selected
+}: PaginationButtonProps) {
+	const pageOptionalMin = Math.min(Math.max(1, pageInfo.currentPage - 1), pageInfo.lastPage - 3);
+	const isOptional = pageNum < pageOptionalMin || pageNum > pageOptionalMin + 3;
+
 	return (
-		<li className={`${styles.paginationItem}`}>
+		<li className={`${styles.paginationItem} ${isOptional ? styles.paginationItemExtra : ''}`}>
 			<a
 				className={`text-style-body-medium-bold ${styles.paginationButton} ${
-					props.selected ? styles.selected : ""
+					selected ? styles.selected : ""
 				}`}
-				href={props.href}
-				aria-label={`Go to page ${props.pageNum}`}
-				aria-current={props.selected || undefined}
+				href={href}
+				aria-label={`Go to page ${pageNum}`}
+				aria-current={selected || undefined}
 			>
-				{props.pageNum + ""}
+				{pageNum + ""}
 			</a>
 		</li>
 	);
@@ -100,6 +103,7 @@ export const Pagination = ({
 					{pages.map((pageNum) => {
 						return typeof pageNum === "number" ? (
 							<PaginationButton
+								pageInfo={page}
 								pageNum={pageNum}
 								selected={pageNum === page.currentPage}
 								href={getPageHref(pageNum)}
