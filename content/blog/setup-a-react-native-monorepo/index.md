@@ -282,7 +282,7 @@ Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps 
 
 ```json {4-10}
 {
-    "name": "AppRoot",
+    "name": "@your-org/app-root",
     "version": "0.0.1",
     "private": true,
     "workspaces": {
@@ -295,6 +295,8 @@ Now that we've disabled Yarn PNP, we need to configure Yarn to install all deps 
     "packageManager": "yarn@3.5.1"
 }
 ```
+
+> Replace `your-org` with an NPM organization that your company owns. Otherwise, [you're susceptible with various attacks](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610) without this org namespace. 
 
 Finally, let's configure `yarn` to install a fresh version of `node_modules` for each of our apps, so that React Native can easily detect our packages without having to configure Metro to find multiple `node_modules`. To do that, we'll add [a new line](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits) to our `.yarnrc.yml` file:
 
@@ -405,7 +407,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        "shared-elements": path.resolve(__dirname, "src/index.tsx"),
+        "@your-org/shared-elements": path.resolve(__dirname, "src/index.tsx"),
       },
       name: "SharedElements",
       fileName: (format, entryName) => `${entryName}-${format}.js`,
@@ -419,7 +421,7 @@ The `fileName`, `formats`, and `entry` files tell Vite to "build everything insi
 
 ```json {8-18}
 {
-  "name": "shared-elements",
+  "name": "@your-org/shared-elements",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite build --watch",
@@ -520,7 +522,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        "shared-elements": path.resolve(__dirname, "src/index.tsx"),
+        "@your-org/shared-elements": path.resolve(__dirname, "src/index.tsx"),
       },
       name: "SharedElements",
       fileName: (format, entryName) => `${entryName}-${format}.js`,
@@ -551,7 +553,7 @@ Because these packages aren't included in the bundle anymore, we need to flag to
 
 ```json {19-31}
 {
-  "name": "shared-elements",
+  "name": "@your-org/shared-elements",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite build --watch",
@@ -600,7 +602,7 @@ Now that we have our package setup in our monorepo, we need to tell Yarn to asso
 {
     "/* ... */": "...",
     "dependencies": {
-        "shared-elements": "workspace:*"
+        "@your-org/shared-elements": "workspace:*"
     }
 }
 ```
@@ -644,7 +646,8 @@ module.exports = (__dirname) => {
           // Add to this list whenever a new React-reliant dependency is added
           moduleName.startsWith("react") ||
           moduleName.startsWith("@react-native") ||
-          moduleName.startsWith("@react-native-community")
+          moduleName.startsWith("@react-native-community") ||
+          moduleName.startsWith("@your-org")
         ) {
           const pathToResolve = path.resolve(
             __dirname,
@@ -1132,6 +1135,12 @@ Let's take a look at two of the most popular tools to do this:
 
 - TypeScript
 - ESLint
+- Jest
+
+
+## Setting up the `config` package
+
+
 
 ## Enforce Consistent TypeScript Usage with `tsconfig` {#tsconfig}
 
