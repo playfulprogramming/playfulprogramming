@@ -609,6 +609,23 @@ Now that we have our package setup in our monorepo, we need to tell Yarn to asso
 
 Now, re-run `yarn` at the root of the monorepo. This will link your dependencies together as if it were any other, but pulling from your local filesystem!
 
+## Using the Package in Our App {#use-shared-in-app}
+
+Now that we have our package set up, let's use it in our app!
+
+```tsx
+// App.tsx
+import {HelloWorld} from "@your-org/shared-elements";
+
+export const App = () => {
+    return <HelloWorld/>
+}
+```
+
+That's all! 🎉
+
+But wait... We're hitting some kind of error when we run our app... I wonder if it's becaus...
+
 ## Fixing issues with the Metro Bundler {#metro}
 
 Remember how React requires a single instance of React (and React deps) require exactly one single instance of itself in order to operate properly?
