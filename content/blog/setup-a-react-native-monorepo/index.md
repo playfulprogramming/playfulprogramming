@@ -1005,17 +1005,101 @@ Caused by:
 
 
 
+---------------
+---------------
+---------------
+---------------
+---------------
 
 
-
-1) Document `unstable_batchedUpdates` error from TanStack Query
 2) Document what happens if you don't pass `moduleNameMapper`
 
+For example, if you don't link `react` in `moduleNameMapper`, you'll get:
 
+```
+ FAIL  src/screens/SomeScreen.spec.tsx (29.693 s)
+  ● Console
 
+    console.error
+      Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+      1. You might have mismatching versions of React and the renderer (such as React DOM)
+      2. You might be breaking the Rules of Hooks
+      3. You might have more than one copy of React in the same app
+      See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+```
 
+Similarly if you forget to link `react-redux`, you'll get:
 
+```
+could not find react-redux context value; please ensure the component is wrapped in a <Provider>
+```
 
+Or, if you're trying to mock a module you'll get:
+
+```
+ FAIL  src/screens/SomeScreen.spec.tsx
+  ● Test suite failed to run
+
+    Cannot find module 'react-native-reanimated' from '../../packages/config/jest/setup-files-after-env.js'
+
+      24 | jest.mock("react-native-safe-area-context", () => mockSafeAreaContext);
+      25 |
+    > 26 | jest.mock("react-native-reanimated", () => {
+         |      ^
+      27 |   // eslint-disable-next-line @typescript-eslint/no-var-requires
+      28 |   const Reanimated = require("react-native-reanimated/mock");
+      29 |
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.mock (../../packages/config/jest/setup-files-after-env.js:26:6)
+```
+
+----------------------------
+----------------------------
+----------------------------
+----------------------------
+----------------------------
+
+If you get:
+
+```
+ FAIL  src/screens/SomeScreen.spec.tsx
+  ● Test suite failed to run
+
+    Cannot find module '../Libraries/Image/Image' from 'node_modules/react-native/jest/setup.js'
+```
+
+You forgot:
+
+```javascript
+// jest.config.js
+module.exports = {
+  preset: 'react-native',
+};
+```
+
+Which applies the following rules:
+
+https://github.com/facebook/react-native/blob/main/packages/react-native/jest-preset.js#L14-L15
+
+Namely, the `default: ios`
+
+Similarly, if you get:
+
+```
+ FAIL  src/screens/SomeScreen.spec.tsx
+  ● Test suite failed to run
+
+    Cannot find module 'react-dom' from 'node_modules/react-redux/lib/utils/reactBatchedUpdates.js'
+
+    Require stack:
+      node_modules/react-redux/lib/utils/reactBatchedUpdates.js
+      node_modules/react-redux/lib/index.js
+      /Users/corbincrutchley/git/constituentvoice/AdvocacyDayApps/packages/cv-elements/dist/mobile/mobile.cjs
+      config/setup-files-after-env-local.ts
+```
+
+It's because you're not adding `"native"` to the array from above
 
 # Sharing Configuration Files between Apps {#config-package}
 
