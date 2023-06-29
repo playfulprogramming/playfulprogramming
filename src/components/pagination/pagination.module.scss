@@ -31,8 +31,12 @@
 	list-style: none;
 }
 
-.paginationItem {
+.paginationItemExtra {
+	display: none;
 
+	@include from($tabletSmall) {
+		display: block;
+	}
 }
 
 .paginationButton {
