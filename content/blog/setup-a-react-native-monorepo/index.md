@@ -1,12 +1,12 @@
 ---
 {
-	title: "How to Setup a React Native Monorepo",
-	description: "",
-	published: '2023-06-02T13:45:00.284Z',
-	authors: ['crutchcorn'],
-	tags: ['react', 'react native'],
-	attached: [],
-	license: 'cc-by-nc-sa-4'
+  title: "How to Setup a React Native Monorepo",
+  description: "",
+  published: '2023-06-02T13:45:00.284Z',
+  authors: ['crutchcorn'],
+  tags: ['react', 'react native'],
+  attached: [],
+  license: 'cc-by-nc-sa-4'
 }
 ---
 
@@ -359,7 +359,7 @@ Inside of our newly created `index.tsx`, let's create a `HelloWorld` component:
 import {Text} from "react-native";
 
 export const HelloWorld = () => {
-	return <Text>Hello world</Text>
+  return <Text>Hello world</Text>
 }
 ```
 
@@ -448,7 +448,7 @@ The `fileName`, `formats`, and `entry` files tell Vite to "build everything insi
     "typescript": "^4.9.3",
     "vite": "^4.1.2",
     "vite-plugin-dts": "^2.0.2"
-	}
+  }
 }
 ```
 
@@ -582,13 +582,30 @@ Because these packages aren't included in the bundle anymore, we need to flag to
     "typescript": "^4.9.3",
     "vite": "^4.1.2",
     "vite-plugin-dts": "^2.0.2"
-	}
+  }
 }
 ```
 
 > Any time we add a dependency that relies on React or React Native, we need to add them to the `external` array, the `peerDependencies`, and the `devDependencies` list.
 >
 > EG: If you add `react-native-fs` it needs to be added to both and installed in the app's package.
+
+
+
+## Install the Shared Package {#yarn-workspace-install}
+
+Now that we have our package setup in our monorepo, we need to tell Yarn to associate the package as a dependency of our app. To do this, modify the `apps/[YOUR-APP]/package.json` file by adding:
+
+```json
+{
+    "/* ... */": "...",
+    "dependencies": {
+        "shared-elements": "workspace:*"
+    }
+}
+```
+
+Now, re-run `yarn` at the root of the monorepo. This will link your dependencies together as if it were any other, but pulling from your local filesystem!
 
 ## Fixing issues with the Metro Bundler {#metro}
 
@@ -788,7 +805,7 @@ First, in our Jest config file, we're telling Jest that it needs to treat our en
 ```javascript
 module.exports = {
   preset: "@testing-library/react-native",
-	// ...
+  // ...
 };
 ```
 
@@ -802,7 +819,7 @@ module.exports = {
   moduleNameMapper: {
     "^react$": "<rootDir>/node_modules/react",
   },
-	// ...
+  // ...
 };
 ```
 
@@ -993,7 +1010,7 @@ It's caused by forgetting to include the package in question in your `transformI
 
 ```javascript
   transformIgnorePatterns: [
-    "node_modules/(?!((jest-)?react-native(.*)?|@react-navigation|@react-native(-community)?|@constituentvoice|axios|styled-components|@fortawesome)/)",
+    "node_modules/(?!((jest-)?react-native(.*)?|@react-navigation|@react-native(-community)?|axios|styled-components|@fortawesome)/)",
   ],
 ```
 
@@ -1061,6 +1078,7 @@ You forgot to add the following preset to your shared Jest config:
 ```javascript
 // jest.config.js
 module.exports = {
+  // Or "@testing-library/react-native"
   preset: 'react-native',
 };
 ```
@@ -1100,7 +1118,7 @@ Similarly, if you get:
     Require stack:
       node_modules/react-redux/lib/utils/reactBatchedUpdates.js
       node_modules/react-redux/lib/index.js
-      /Users/corbincrutchley/git/constituentvoice/AdvocacyDayApps/packages/cv-elements/dist/mobile/mobile.cjs
+      /path/packages/cv-elements/dist/mobile/mobile.cjs
       config/setup-files-after-env-local.ts
 ```
 
@@ -1108,9 +1126,57 @@ It's because you're not adding `"native"` to the `platforms` array from above an
 
 # Sharing Configuration Files between Apps {#config-package}
 
+A monorepo doesn't mean much if you can't share configuration files between the apps! This allows you to keep consistent sets of rules across your codebases.
 
+Let's take a look at two of the most popular tools to do this:
+
+- TypeScript
+- ESLint
 
 ## Enforce Consistent TypeScript Usage with `tsconfig` {#tsconfig}
+
+Start by creating a `tsconfig` file in your `packages/config` directory:
+
+```json
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "../../**/dist/**/*",
+    "../../**/*.spec.tsx",
+    "../../**/*.spec.ts"
+  ]
+}
+```
+
+> Your `tsconfig` file may look different from this, that's OK! This is just for an example.
+
+You can then use this as the basis for your apps in your `apps/customer-portal/tsconfig.json` file:
+
+```json
+{
+  "extends": "my-config/tsconfig.json"
+}
+```
+
+
 
 
 
