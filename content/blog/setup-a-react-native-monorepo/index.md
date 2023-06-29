@@ -881,7 +881,9 @@ As such, you'll need to add to this regex when you add a package that's:
 
 ## How to Debug Common Issues with Jest
 
-// TODO: Write
+While using Jest in a React Native monorepo like this _can_ feel like a superpower, it comes with more risks of difficult-to-debug solutions as well.
+
+Here's just a few we've discovered along the way:
 
 ### Invalid Default Export Issues
 
@@ -950,19 +952,12 @@ jest.mock("styled-components", () => {
 
 As `styled-components` falls under the same problems.
 
+### Unexpected Token Issues
 
-
-
-------
-
-------
-
------
-
-
+If you run into an error like so:
 
 ```
- FAIL  src/screens/Home/TalkingPointsScreen/TalkingPointsScreen.spec.tsx
+ FAIL  src/screens/SomeScreen.spec.tsx
   ● Test suite failed to run
 
     Jest encountered an unexpected token
@@ -987,32 +982,28 @@ As `styled-components` falls under the same problems.
 
     Details:
 
-    /Users/corbincrutchley/git/constituentvoice/AdvocacyDayApps/apps/AA/node_modules/@fortawesome/react-native-fontawesome/index.js:1
+    /path/node_modules/@fortawesome/react-native-fontawesome/index.js:1
     ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { default as FontAwesomeIcon } from './dist/components/FontAwesomeIcon'
                                                                                       ^^^^^^
 
     SyntaxError: Unexpected token 'export'
 ```
 
-Caused by:
+It's caused by forgetting to include the package in question in your `transformIgnorePatterns` array:
 
-```
+```javascript
   transformIgnorePatterns: [
     "node_modules/(?!((jest-)?react-native(.*)?|@react-navigation|@react-native(-community)?|@constituentvoice|axios|styled-components|@fortawesome)/)",
   ],
 ```
 
+To explain further, it's due to ESM or JSX being used inside of a package that Jest doesn't know how to handle. By adding it to the array, you're telling Jest to transpile the package for Jest to safely use first. 
 
 
 
----------------
----------------
----------------
----------------
----------------
+### No Context Value/Invalid Hook Call/Cannot Find Module
 
-
-2) Document what happens if you don't pass `moduleNameMapper`
+This is a three-for-one issue: **If you forget to pass a package to `moduleNameMapper`, Jest won't properly create a singleton of the package** (required for React to function properly) and will throw an error.
 
 For example, if you don't link `react` in `moduleNameMapper`, you'll get:
 
@@ -1034,7 +1025,7 @@ Similarly if you forget to link `react-redux`, you'll get:
 could not find react-redux context value; please ensure the component is wrapped in a <Provider>
 ```
 
-Or, if you're trying to mock a module you'll get:
+Or, if you're trying to mock a module that isn't linked, you'll get:
 
 ```
  FAIL  src/screens/SomeScreen.spec.tsx
@@ -1054,13 +1045,9 @@ Or, if you're trying to mock a module you'll get:
       at Object.mock (../../packages/config/jest/setup-files-after-env.js:26:6)
 ```
 
-----------------------------
-----------------------------
-----------------------------
-----------------------------
-----------------------------
+### `Libraries/Image/Image`
 
-If you get:
+If you get the following error:
 
 ```
  FAIL  src/screens/SomeScreen.spec.tsx
@@ -1069,7 +1056,7 @@ If you get:
     Cannot find module '../Libraries/Image/Image' from 'node_modules/react-native/jest/setup.js'
 ```
 
-You forgot:
+You forgot to add the following preset to your shared Jest config:
 
 ```javascript
 // jest.config.js
@@ -1078,11 +1065,29 @@ module.exports = {
 };
 ```
 
-Which applies the following rules:
+This Jest config applies [the following rules](https://github.com/facebook/react-native/blob/0bd6b28b324a6f511eec38d6669fcda4630772dc/packages/react-native/jest-preset.js#L14-L15):
 
-https://github.com/facebook/react-native/blob/main/packages/react-native/jest-preset.js#L14-L15
+```javascript
+module.exports = {
+  haste: {
+    defaultPlatform: 'ios',
+    platforms: ['android', 'ios', 'native'],
+  },
+  // ...
+}
+```
 
-Namely, the `default: ios`
+Which tells Jest to find files with those prefixes in the following order:
+
+```
+[file].ios.js
+[file].android.js
+[file].native.js
+```
+
+You can also solve this issue by adding in the `defaultPlatform` string and `platforms` array to your config.
+
+#### Could Not Find `react-dom`
 
 Similarly, if you get:
 
@@ -1099,7 +1104,7 @@ Similarly, if you get:
       config/setup-files-after-env-local.ts
 ```
 
-It's because you're not adding `"native"` to the array from above
+It's because you're not adding `"native"` to the `platforms` array from above and only have `android` and `ios` in it.
 
 # Sharing Configuration Files between Apps {#config-package}
 
