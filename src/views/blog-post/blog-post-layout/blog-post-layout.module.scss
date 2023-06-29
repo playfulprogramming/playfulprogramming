@@ -20,6 +20,11 @@
 	flex-shrink: 0;
 	max-width: calc(var(--max-width_m) / 2);
 	animation: fadeIn 300ms ease-in-out;
+
+	position: sticky;
+	top: var(--site-spacing);
+	max-height: calc(100vh - var(--site-spacing));
+	overflow-y: auto;
 }
 
 .sidebarRight {
