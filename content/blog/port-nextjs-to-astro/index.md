@@ -1,8 +1,8 @@
 ---
 {
-	title: 'Port a Next.js Site to Astro',
-	description: '',
-	published: '2023-11-26T22:12:03.284Z',
+	title: 'Porting a Next.js Site to Astro Step-by-Step',
+	description: "Let's port a site from Next.js to Astro, expanding on the official migration guide.",
+	published: '2023-06-29T22:12:03.284Z',
 	authors: ['crutchcorn'],
 	tags: ['nextjs', 'react', 'astro'],
 	attached: [],
@@ -10,13 +10,23 @@
 }
 ---
 
-## Guided examples: See the steps!
+[Astro is a WebDev meta-framework](https://astro.build) that allows you to build highly performant websites, that, out-of-the-box compile down to 0kb of JavaScript in your bundle.
 
-Here are examples of three files from Next's example templates converted to Astro.
+ If your site is a marketing site, or if performance is a substantial concern for your app, it may make sense to migrate from Next.js to Astro - as we [at Unicorn Utterances](https://unicorn-utterances.com) once did.
 
-### Next base layout to Astro
+While Astro provides a good guide of [how to migrate from Next.js to Astro](https://docs.astro.build/en/guides/migrate-to-astro/from-nextjs/) (written by yours truly!), I felt it would be helpful to see an expanded step-by-step guide on how to migrate a [Pokédex](https://www.pokemon.com/us/pokedex) application from Next.js to Astro.
 
-This example converts the main project layout (`/pages/_document.js`) to `src/layouts/Layout.astro` which receives props from pages on your site.
+![A list of the original 150 pokemon with a picture of each](./homepage.png)
+
+> For the full codebase of the Pokédex application, [check the original repo here](https://github.com/crutchcorn/nextjs-pokemon-small-app).
+
+
+
+Let's start the migration by changing our layout file to an Astro layout file.
+
+## Next base layout to Astro
+
+To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
 1. Identify the return().
 
@@ -73,12 +83,12 @@ This example converts the main project layout (`/pages/_document.js`) to `src/la
 
 3. Import the CSS (found in `_app.js`)
 
-    In addition to the `_document` file, the NextJS application has a `_app.js` file that imports global styling via a CSS import:
+    In addition to the `_document` file, the Next.js application has a `_app.js` file that imports global styling via a CSS import:
 
     ```jsx {2}
     // pages/_app.js
     import '../styles/index.css'
-
+    
     export default function MyApp({ Component, pageProps }) {
       return <Component {...pageProps} />
     }
@@ -91,7 +101,7 @@ This example converts the main project layout (`/pages/_document.js`) to `src/la
     // src/layouts/Layout.astro
     import '../styles/index.css'
     ---
-
+    
     <html>
         <head lang="en">
             <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -106,9 +116,11 @@ This example converts the main project layout (`/pages/_document.js`) to `src/la
     </html>
     ```
 
-### Convert a Next.js `getStaticProps` Page to Astro
+## Convert a Next.js `getStaticProps` Page to Astro
 
-This is a page that lists the first 151 Pokémon using [the REST PokéAPI](https://pokeapi.co/).
+Next up, let's migrate [Next.js' `getStaticProps` method](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) to use Astro's data fetching.
+
+We'll start with a Next.js page that lists the first 151 Pokémon using [the REST PokéAPI](https://pokeapi.co/):
 
 ```jsx
 // pages/index.js
@@ -159,7 +171,7 @@ export const getStaticProps = async () => {
 }
 ```
 
-#### Move Next Page Templating to Astro
+### Move Next Page Templating to Astro
 
 To start migrating this page to Astro, start with the returned JSX and place it within an `.astro` file:
 
@@ -243,9 +255,9 @@ import Layout from '../layouts/layout.astro';
 </Layout>
 ```
 
-#### Move Next Page Logic Requests to Astro
+### Move Next Page Logic Requests to Astro
 
-This is the `getStaticProps` method from the NextJS page:
+This is the `getStaticProps` method from the Next.js page:
 
 ```jsx
 export const getStaticProps = async () => {
@@ -317,7 +329,7 @@ const pokemons = resJson.results.map(pokemon => {
 
 You should now have a fully working Pokédex entries screen.
 
-### Convert a Next.js `getStaticPaths` Page to Astro
+## Convert a Next.js `getStaticPaths` Page to Astro
 
 This is a Next.js dynamic page that generates a detail screen for each of the first 151 Pokémon using [the REST PokéAPI](https://pokeapi.co/).
 
@@ -400,7 +412,7 @@ export const getStaticProps = async (context) => {
 }
 ```
 
-#### Move Next Page Templating to Astro
+### Move Next Page Templating to Astro
 
 To start migrating this page to Astro, start with the returned JSX and place it within an `.astro` file:
 
@@ -447,7 +459,7 @@ However, in addition, now:
 
 - [HTML's standard `onclick`](https://developer.mozilla.org/en-US/docs/Web/Events/Event_handlers#using_onevent_properties) function is used to call [the browser's `history.go` function](https://developer.mozilla.org/en-US/docs/Web/API/History/go) to navigate back.
 
-#### Move Next `getStaticPaths` to Astro
+### Move Next `getStaticPaths` to Astro
 
 Astro supports a function called `getStaticPaths` to generate dynamic paths, similar to Next.
 
@@ -613,3 +625,4 @@ const pokemon = {
 ```
 
 You have now fully migrated a Pokédex application from Next to Astro.
+
