@@ -88,6 +88,7 @@
 }
 
 .paginationIconButton :global(svg) {
+	padding: var(--icon-size-dense-padding);
 	height: var(--icon-size_dense);
 	width: var(--icon-size_dense);
 }

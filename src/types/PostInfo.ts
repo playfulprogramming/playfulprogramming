@@ -28,13 +28,13 @@ export interface PostInfo extends RawPostInfo {
 	collectionMeta?: CollectionInfo;
 	socialImg: string;
 	bannerImg?: string;
+	wordCount: number;
 }
 
 export interface ExtendedPostInfo extends PostInfo {
 	contentMeta: string;
 	Content: MarkdownInstance<never>["Content"];
 	excerpt: string;
-	wordCount: number;
 	suggestedArticles: [PostInfo, PostInfo, PostInfo];
 	headingsWithId?: Array<{
 		// Title value
