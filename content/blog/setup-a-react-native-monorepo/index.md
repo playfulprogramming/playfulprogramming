@@ -1301,12 +1301,83 @@ module.exports = {
 
 ## Lint Your Apps with ESLint {#eslint}
 
+To create a base ESLint configuration you can use in all of your apps, start by creating a `eslint-preset.js` file in `packages/config`:
+
+```javascript
+module.exports = {
+  extends: [
+    "@react-native-community",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["prettier"],
+  rules: {
+    "no-extra-boolean-cast": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-empty-function": "off",
+  },
+};
+```
+
+> We're using Prettier here, but you don't have to if you don't wish to!
+
+Then, create `.eslintrc.js` files in:
+
+- `packages/config/.eslintrc.js`:
+
+  ```javascript
+  module.exports = require("./eslint-preset");
+  ```
+
+- `/.eslintrc.js`
+
+  ```javascript
+  module.exports = require("./packages/config/eslint-preset");
+  ```
+
+- `packages/shared-elements/.eslintrc.js`
+
+  ```javascript
+  module.exports = require("@your-org/config/eslint-preset");
+  ```
+
+- `/apps/customer-portal/.eslintrc.js`
+
+  ```javascript
+  module.exports = require("@your-org/config/eslint-preset");
+  ```
+
+Finally, at the root of your project, run:
+
+```shell
+yarn add -W -D @typescript-eslint/parser @typescript-eslint/eslint-plugin @react-native-community/eslint-config eslint eslint-config-prettier eslint-config-react-app eslint-plugin-prettier prettier
+```
+
+
+And add in the linting scripts to your apps' and packages' `package.json`s:
+
+```json
+{
+	"scripts": {
+	    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+	    "format": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
+	}
+}
+```
 
 
 
+# Next Stop: The Web and Beyond {#conclusion}
 
-# Next Stop: The Web {#conclusion}
+That's it! You now have a fully functional monorepo!
 
-<!-- Conclusion section, talk about React Native for Web, Storybooks, Vite -->
+You may want to work to add [Nx](https://nx.dev/), [Lerna](https://lerna.js.org/), or [Turborepo](https://turbo.build/) to make dependency script management easier, but those tend to be simple to add to existing monorepos after-the-fact - we'll leave that as homework for you to do! 😉
 
-https://github.com/crutchcorn/react-native-monorepo-example
+Want to see what a final version of this monorepo might look like? [Check out my monorepo example package that integrates all of these tools and more!](https://github.com/crutchcorn/react-native-monorepo-example)
+
+----------
+
+The next article in the series will showcase how you can use Vite to add a web-based portal to the project using the same codebase to run on both mobile and web architectures.
+
+Until next time - happy hacking!
