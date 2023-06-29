@@ -1,12 +1,13 @@
 ---
 {
   title: "How to Setup a React Native Monorepo",
-  description: "",
-  published: '2023-06-02T13:45:00.284Z',
+  description: "React Native can be challenging to setup a monorepo for. Let's explore what an optimal monorepo setup looks like for it.",
+  published: '2023-06-29T13:45:00.284Z',
   authors: ['crutchcorn'],
   tags: ['react', 'react native'],
   attached: [],
-  license: 'cc-by-nc-sa-4'
+  license: 'cc-by-nc-sa-4',
+  originalLink: "https://blog.cvoice.io/how-to-setup-a-react-native-monorepo"
 }
 ---
 
@@ -23,7 +24,7 @@ Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share 
 
 Combined together and even a small team can maintain multiple React Native applications seamlessly.
 
-![TODO](./rn_monorepo.png)
+![Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app](./rn_monorepo.png)
 
 Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 
