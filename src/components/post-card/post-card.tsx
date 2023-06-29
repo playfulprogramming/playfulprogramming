@@ -22,9 +22,9 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 					/>
 					<ul className={style.authorList}>
 						{post.authorsMeta.map((author, i, arr) => (
-							<li>
+							<li class="text-style-body-small-bold">
 								<a
-									className={`text-style-body-small-bold ${style.authorName}`}
+									className={`${style.authorName}`}
 									href={`/unicorns/${author.id}`}
 								>
 									{author.name}
