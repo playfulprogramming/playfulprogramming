@@ -127,7 +127,7 @@
 
   @include from($tabletLarge) {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     padding-bottom: unset;
     margin-bottom: var(--page-card_description_padding-top);
   }
