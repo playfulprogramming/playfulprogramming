@@ -344,17 +344,17 @@
 		"roles": ["author"]
 	},
 	{
-		"id": "qarnax",
-		"name": "Qarnax",
+		"id": "xenophorium",
+		"name": "Xeno",
 		"firstName": "",
 		"lastName": "",
 		"description": "I'm a frontend developer and indie game enthusiast 👾 \n I enjoy learning new things and building my own stuff 🔧 and I love helping people get into coding 😊",
 		"socials": {
-			"twitch": "qarnax_",
-			"twitter": "qarnax",
-			"github": "qarnax801"
+			"twitch": "xenophorium",
+			"github": "xenophorium",
+			"website": "https://card.xenophorium.dev"
 		},
-		"profileImg": "./qarnax.jpg",
+		"profileImg": "./xeno.jpg",
 		"color": "",
 		"roles": ["developer", "author", "community", "translator"]
 	},
