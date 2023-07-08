@@ -48,32 +48,38 @@ const showMoreText = translate(
 			)
 		}
 	</div>
-	<ol aria-labelledby="series-header" role="list" class={styles.listContainer}>
-		{
-			activePostsMeta.length !== 0 ? (
-				<>
-					{activePostsMeta.map((seriesPost) => (
-						<li
-							class={styles.navigationItemOuter}
-							data-dont-show-initially={!seriesPost.shouldShowInitially}
-						>
-							<a
-								href={`/posts/${seriesPost.slug}`}
-								class={`text-style-body-large-bold ${styles.navigationItem}`}
-								data-is-active={seriesPost.isActive}
+	<div class={styles.contentsContainer}>
+		<ol
+			aria-labelledby="series-header"
+			role="list"
+			class={styles.listContainer}
+		>
+			{
+				activePostsMeta.length !== 0 ? (
+					<>
+						{activePostsMeta.map((seriesPost) => (
+							<li
+								class={styles.navigationItemOuter}
+								data-dont-show-initially={!seriesPost.shouldShowInitially}
 							>
-								Part {seriesPost.order}: {getShortTitle(seriesPost)}
-							</a>
-						</li>
-					))}
-				</>
-			) : null
-		}
-	</ol>
-	<div class={styles.buttonContainer}>
-		<Button id="toggleAllButton" tag="button">
-			{showMoreText}
-		</Button>
+								<a
+									href={`/posts/${seriesPost.slug}`}
+									class={`text-style-body-large-bold ${styles.navigationItem}`}
+									data-is-active={seriesPost.isActive}
+								>
+									Part {seriesPost.order}: {getShortTitle(seriesPost)}
+								</a>
+							</li>
+						))}
+					</>
+				) : null
+			}
+		</ol>
+		<div class={styles.buttonContainer}>
+			<Button id="toggleAllButton" tag="button">
+				{showMoreText}
+			</Button>
+		</div>
 	</div>
 </div>
 
