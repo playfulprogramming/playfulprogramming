@@ -2,8 +2,7 @@
 import styles from "./series-toc.module.scss";
 import { ExtendedPostInfo } from "types/index";
 
-import SeriesToCListItem from "./series-toc-list-item.astro";
-import { seperatePostsIntoThirds } from "./base";
+import { findActivePost, getShortTitle } from "./base";
 import { CollectionInfo } from "types/CollectionInfo";
 
 interface SeriesTocProps {
@@ -14,12 +13,7 @@ interface SeriesTocProps {
 
 const { post, postSeries, collection } = Astro.props as SeriesTocProps;
 
-const { firstPosts, middlePosts, lastPosts } =
-	seperatePostsIntoThirds(postSeries);
-
-const isActiveInMiddle = middlePosts.some(
-	(middlePost) => middlePost.order === post.order
-);
+const activePostsMeta = findActivePost(post, postSeries);
 ---
 
 <div class={styles.seriesTableOfContent}>
@@ -36,71 +30,48 @@ const isActiveInMiddle = middlePosts.some(
 	</div>
 	<ol aria-labelledby="series-header" role="list">
 		{
-			firstPosts.map((seriesPost) => {
-				const isActive = post.order === seriesPost.order;
-
-				return (
-					<SeriesToCListItem
-						key={seriesPost.slug}
-						isActive={isActive}
-						post={seriesPost}
-					/>
-				);
-			})
-		}
-		{
-			middlePosts.length !== 0 ? (
+			activePostsMeta.length !== 0 ? (
 				<>
-					<li role="listitem" class={isActiveInMiddle ? styles.isActive : ""}>
-						<button aria-expanded={false} data-in-middle-toggle="true">
-							{middlePosts.length} more parts
-						</button>
-					</li>
-					{middlePosts.map((seriesPost) => {
-						const isActive = post.order === seriesPost.order;
-
-						return (
-							<SeriesToCListItem
-								key={seriesPost.slug}
-								isActive={isActive}
-								post={seriesPost}
-								inMiddle={true}
-							/>
-						);
-					})}
+					{activePostsMeta.map((seriesPost) => (
+						<table style="margin-bottom: 2rem;">
+							<tr>
+								<th>title</th>{" "}
+								<td>
+									<a href={`/posts/${seriesPost.slug}`}>
+										{getShortTitle(seriesPost)}
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<th>isActive</th>{" "}
+								<td>{seriesPost.isActive ? "true" : "false"}</td>
+							</tr>
+							<tr>
+								<th>shouldShowInitially</th>{" "}
+								<td>{seriesPost.shouldShowInitially ? "true" : "false"}</td>
+							</tr>
+						</table>
+					))}
 				</>
 			) : null
-		}
-		{
-			lastPosts.map((seriesPost) => {
-				const isActive = post.order === seriesPost.order;
-
-				return (
-					<SeriesToCListItem
-						key={seriesPost.slug}
-						isActive={isActive}
-						post={seriesPost}
-					/>
-				);
-			})
 		}
 	</ol>
 </div>
 
-<script>
-	const showMore: HTMLElement = document.querySelector(
-		"[data-in-middle-toggle]"
-	);
-	const middleChapters: HTMLElement[] = Array.from(
-		document.querySelectorAll("[data-in-middle]")
-	);
+<!--<script>-->
+<!--	const showMore: HTMLElement = document.querySelector(-->
+<!--		"[data-in-middle-toggle]"-->
+<!--	);-->
+<!--	const middleChapters: HTMLElement[] = Array.from(-->
+<!--		document.querySelectorAll("[data-in-middle]")-->
+<!--	);-->
 
-	if (showMore) {
-		showMore.addEventListener("click", () => {
-			middleChapters.forEach((chapter) => {
-				chapter.style.display = "block";
-			});
-			showMore.parentElement.style.display = "none";
-		});
-	}
-</script>
+<!--	if (showMore) {-->
+<!--		showMore.addEventListener("click", () => {-->
+<!--			middleChapters.forEach((chapter) => {-->
+<!--				chapter.style.display = "block";-->
+<!--			});-->
+<!--			showMore.parentElement.style.display = "none";-->
+<!--		});-->
+<!--	}-->
+<!--</script>-->
