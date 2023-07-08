@@ -19,12 +19,24 @@ const activePostsMeta = findActivePost(post, postSeries);
 <div class={styles.seriesTableOfContent}>
 	<div class={styles.seriesHeader}>
 		{
-			collection ? (
-				<a href={`/collections/${collection.slug}`}>
-					Part of our series: {collection.title}
-				</a>
-			) : (
-				`Part of our series: ${post.collection}`
+			(
+				<h2 class={styles.titleContainer} id="series-header">
+					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
+						This article is part of a series:
+					</span>
+					{collection ? (
+						<a
+							class={`text-style-headline-4 ${styles.articleTitle}`}
+							href={`/collections/${collection.slug}`}
+						>
+							{collection.title}
+						</a>
+					) : (
+						<span class={`text-style-headline-4 ${styles.articleTitle}`}>
+							{post.collection}
+						</span>
+					)}
+				</h2>
 			)
 		}
 	</div>
@@ -33,24 +45,16 @@ const activePostsMeta = findActivePost(post, postSeries);
 			activePostsMeta.length !== 0 ? (
 				<>
 					{activePostsMeta.map((seriesPost) => (
-						<table style="margin-bottom: 2rem;">
-							<tr>
-								<th>title</th>{" "}
-								<td>
-									<a href={`/posts/${seriesPost.slug}`}>
-										{getShortTitle(seriesPost)}
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<th>isActive</th>{" "}
-								<td>{seriesPost.isActive ? "true" : "false"}</td>
-							</tr>
-							<tr>
-								<th>shouldShowInitially</th>{" "}
-								<td>{seriesPost.shouldShowInitially ? "true" : "false"}</td>
-							</tr>
-						</table>
+						<li
+							style="margin-bottom: 2rem;"
+							class={styles.navigationItem}
+							data-is-active={seriesPost.isActive}
+							data-dont-show-initially={!seriesPost.shouldShowInitially}
+						>
+							<a href={`/posts/${seriesPost.slug}`}>
+								Part {seriesPost.order}: {getShortTitle(seriesPost)}
+							</a>
+						</li>
 					))}
 				</>
 			) : null

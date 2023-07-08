@@ -34,5 +34,34 @@
 	--series-nav_chapter-item_title_color_selected: var(--foreground_emphasis-medium);
 }
 
-.seriesTableOfContent {}
-.seriesHeader {}
+.seriesTableOfContent {
+	padding: var(--series-nav_padding-vertical) 0;
+}
+
+.titleContainer {
+	margin: 0 !important;
+}
+
+.partOfSeries {
+	font-style: italic;
+	display: block;
+	margin: 0;
+	color: var(--series-nav_header_overline_color);
+	margin-bottom: var(--series-nav_header_overline_padding-bottom);
+}
+
+.articleTitle {
+	color: var(--series-nav_header_title_color);
+	margin: 0;
+}
+
+.seriesHeader {
+	padding: 0 var(--series-nav_header_padding-horizontal) var(--series-nav_header_padding-bottom);
+}
+
+.navigationItem {
+}
+
+.navigationItem[data-dont-show-initially] {
+	display: none;
+}
