@@ -52,11 +52,11 @@ export function findActivePost(
 	 * To prevent only two posts being active (immediately before/after),
 	 * edgecase the first and last posts to select the correct shown posts
 	 */
-	if (isActiveFirst) {
+	if (isActiveFirst && newPosts[2]) {
 		newPosts[2].shouldShowInitially = true;
 	}
 
-	if (isActiveLast) {
+	if (isActiveLast && newPosts[newPosts.length - 1 - 2]) {
 		newPosts[newPosts.length - 1 - 2].shouldShowInitially = true;
 	}
 
