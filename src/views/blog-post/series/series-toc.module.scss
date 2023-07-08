@@ -35,7 +35,7 @@
 	--series-nav_chapter-item_background-color_pressed: var(
 		--surface_primary_emphasis-low
 	);
-	--series-nav_chapter-item_arrow_color: var(--foreground_emphasis-high);
+	--series-nav_chapter-item_arrow_color: var(--foreground_emphasis-medium);
 	--series-nav_chapter-item_title_color: var(--primary_default);
 	--series-nav_chapter-item_title_color_pressed: var(
 		--foreground_emphasis-high
@@ -47,6 +47,7 @@
 
 .seriesTableOfContent {
 	padding: var(--series-nav_padding-vertical) 0;
+	max-width: var(--max-width_s);
 }
 
 .titleContainer {
