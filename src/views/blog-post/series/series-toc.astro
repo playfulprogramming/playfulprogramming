@@ -5,6 +5,7 @@ import { ExtendedPostInfo } from "types/index";
 import { Button } from "../../../components";
 import { findActivePost, getShortTitle } from "./base";
 import { CollectionInfo } from "types/CollectionInfo";
+import { translate } from "../../../utils";
 
 interface SeriesTocProps {
 	post: ExtendedPostInfo;
@@ -15,6 +16,12 @@ interface SeriesTocProps {
 const { post, postSeries, collection } = Astro.props as SeriesTocProps;
 
 const activePostsMeta = findActivePost(post, postSeries);
+
+const showMoreText = translate(
+	Astro,
+	"action.view_all_chapters",
+	"" + activePostsMeta.length
+);
 ---
 
 <div class={styles.seriesTableOfContent}>
@@ -65,12 +72,17 @@ const activePostsMeta = findActivePost(post, postSeries);
 	</ol>
 	<div class={styles.buttonContainer}>
 		<Button id="toggleAllButton" tag="button">
-			View all {activePostsMeta.length} chapters
+			{showMoreText}
 		</Button>
 	</div>
 </div>
 
-<script define:vars={{ postLength: activePostsMeta.length }}>
+<script
+	define:vars={{
+		showMoreText: showMoreText,
+		showLessText: translate(Astro, "action.view_less_chapters"),
+	}}
+>
 	const showMore = document.querySelector("#toggleAllButton");
 	const showHideChapters = Array.from(
 		document.querySelectorAll("[data-dont-show-initially]")
@@ -83,12 +95,12 @@ const activePostsMeta = findActivePost(post, postSeries);
 			showHideChapters.forEach((chapter) => {
 				chapter.style.display = "block";
 			});
-			showMore.innerText = `View less chapters`;
+			showMore.children[0].innerText = showLessText;
 		} else {
 			showHideChapters.forEach((chapter) => {
 				chapter.style.display = "none";
 			});
-			showMore.innerText = `View all ${postLength} chapters`;
+			showMore.children[0].innerText = showMoreText;
 		}
 		expanded = !expanded;
 	});
