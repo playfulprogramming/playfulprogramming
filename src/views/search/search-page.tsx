@@ -3,10 +3,14 @@ import {
 	useEffect,
 	useMemo,
 	useReducer,
+	useRef,
 	useState,
 } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { useDebounce } from "./use-debounce";
+import { PostInfo } from "types/PostInfo";
+import { PostCard } from "components/post-card/post-card";
+import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -39,15 +43,47 @@ export default function SearchPage() {
 		[urlParams]
 	);
 
+	const abortController = useRef<AbortController | undefined>();
+
+	const [searchResult, setSearchResult] = useState<{
+		state: "loading" | "error" | "success";
+		posts: PostInfo[];
+		totalPosts: number;
+	}>({ state: "loading", posts: [], totalPosts: 0 });
+
 	const fn = useDebounce(
 		(val: string) => {
-			console.log("I AM SEARCHING FOR", val);
+			setSearchResult({ state: "loading", posts: [], totalPosts: 0 });
+			if (abortController.current) {
+				abortController.current.abort();
+				abortController.current = undefined;
+			}
+			abortController.current = new AbortController();
+			// plausible("search", { props: { searchVal: val } });
+			fetch(`/api/search?query=${val}`, {
+				signal: abortController.current.signal,
+			})
+				.then((res) => res.json())
+				.then(async (serverVal: { posts: PostInfo[]; totalPosts: number }) => {
+					setSearchResult({
+						state: "success",
+						posts: serverVal.posts,
+						totalPosts: serverVal.totalPosts,
+					});
+					abortController.current = undefined;
+				})
+				.catch((err) => {
+					if (err.name === "AbortError") {
+						return;
+					}
+					setSearchResult({ state: "error", posts: [], totalPosts: 0 });
+					abortController.current = undefined;
+				});
 		},
 		{ delay: 500, immediate: false }
 	);
 
 	useEffect(() => {
-		console.log("RERENDER");
 		fn(searchVal);
 	}, [searchVal]);
 
@@ -56,6 +92,16 @@ export default function SearchPage() {
 			<form>
 				<input value={searchVal} onInput={(e) => search(e.target.value)} />
 			</form>
+			{searchResult.state === "loading" && <div>Loading...</div>}
+			<div>
+				{searchResult.posts.length} / {searchResult.totalPosts}
+				{searchResult.posts.map((post) => {
+					return (
+						<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />
+					);
+				})}
+			</div>
+			<div>{searchResult.state === "error" && <div>Error</div>}</div>
 			<Pagination
 				page={{
 					currentPage: page,

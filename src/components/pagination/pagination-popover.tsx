@@ -28,7 +28,7 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
-				location.href = `/page/${count}`;
+				location.href = props.getPageHref(count);
 			}}
 		>
 			<div class={style.popupTopArea}>
