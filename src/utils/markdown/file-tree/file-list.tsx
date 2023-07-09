@@ -56,7 +56,7 @@ function File({ item }: FileProps) {
 
 	return (
 		<span class="tree-entry">
-			<span>
+			<span className={item.isHighlighted ? "highlight" : ""}>
 				{item.isPlaceholder ? null : <span>{FileIcon(rawName)}</span>}
 				{item.name}
 			</span>
@@ -77,7 +77,7 @@ function Directory({ item }: DirectoryProps) {
 		<details open={item.openByDefault}>
 			<summary>
 				<span className="tree-entry">
-					<span>
+					<span className={item.isHighlighted ? "highlight" : ""}>
 						<span aria-label="Directory">{FolderIcon}</span>
 						{item.name}
 					</span>
@@ -117,5 +117,9 @@ function FileListList({ items }: FileListProps) {
 
 /** @jsxImportSource hastscript */
 export function FileList({ items }: FileListProps): Element {
-	return (<div class="docs-file-tree">{FileListList({ items })}</div>) as never;
+	return (
+		<div className="docs-file-tree-container">
+			<div class="docs-file-tree">{FileListList({ items })}</div>
+		</div>
+	) as never;
 }
