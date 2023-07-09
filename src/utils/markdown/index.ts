@@ -19,6 +19,7 @@ import {
 } from "./rehype-absolute-paths";
 import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
 import { rehypeHeaderText } from "./rehype-header-text";
+import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
@@ -73,6 +74,6 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeWordCount,
 			  ]
 			: []),
-		...(config.format === "html" ? [rehypeHeaderText] : []),
+		...(config.format === "html" ? [rehypeFileTree, rehypeHeaderText] : []),
 	];
 }

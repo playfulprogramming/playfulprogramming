@@ -3,6 +3,7 @@
   title: "Fun with Types",
   description: "Making hilarious things with no emitted code.",
   published: "2023-01-05T20:35:30Z",
+  edited: "2023-06-25T00:35:10Z",
   authors: ["maisydino"],
   tags: ["typescript"],
   attached: [],
@@ -18,7 +19,7 @@ I've had a _lot_ of fun over the years writing TypeScript, and I've delved deep 
 Here's an interesting one I came accross when browsing through some of the issues on the TypeScript repo.
 
 ```ts
-function foo(input: "foo" | "bar" | string) {
+function foo(input: "foo" | "bar" | (string & {})) {
 	// ...
 }
 ```
