@@ -130,14 +130,11 @@
 	align-items: center;
 }
 
-.docs-file-tree-directory-name-and-icon,
-.docs-file-tree-file-name-and-icon {
-	&,
-	& * {
-		font-size: inherit !important;
-		line-height: inherit !important;
-		font-weight: inherit !important;
-	}
+.docs-file-tree-directory-name-and-icon *,
+.docs-file-tree-file-name-and-icon * {
+	font-size: inherit !important;
+	line-height: inherit !important;
+	font-weight: inherit !important;
 }
 
 .docs-file-tree-directory-details[open]
@@ -165,7 +162,10 @@
 		var(--filesystem_item_container_padding-end)
 		var(--filesystem_item_container_padding-vertical)
 		var(--filesystem_item_container_padding-start);
-	min-height: var(--filesystem_item_container_min-height);
+	min-height: calc(
+		var(--filesystem_item_container_min-height) -
+			calc(var(--filesystem_item_container_padding-vertical) * 2)
+	);
 	display: inline-flex !important;
 	align-items: center;
 }
@@ -222,7 +222,7 @@
 	& > .docs-file-tree-directory-name-and-icon {
 		background-color: var(--filesystem_item_folder_focus-background_color);
 		outline: var(--filesystem_item_folder_focus-outline_width) solid
-		var(--filesystem_item_folder_focus-outline_color);
+			var(--filesystem_item_folder_focus-outline_color);
 	}
 }
 

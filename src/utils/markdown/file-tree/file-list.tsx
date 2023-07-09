@@ -60,7 +60,7 @@ function File({ item }: FileProps) {
 			<span
 				className={`docs-file-tree-file-name-and-icon ${
 					item.isHighlighted ? "highlighted" : ""
-				} text-style-body-small-bold`}
+				} text-style-body-small`}
 			>
 				<span class="docs-file-tree-file-icon">
 					{item.isPlaceholder ? null : FileIcon(rawName)}
@@ -88,7 +88,7 @@ function Directory({ item }: DirectoryProps) {
 				<span
 					className={`docs-file-tree-directory-name-and-icon ${
 						item.isHighlighted ? "highlighted" : ""
-					} text-style-body-small`}
+					} text-style-body-small-bold`}
 				>
 					<span class="docs-file-tree-directory-icon" aria-label="Directory">
 						{FolderIcon}
