@@ -1,5 +1,8 @@
 ---
 import SearchPage from "../views/search/search-page";
+import Document from "../layouts/document.astro";
 ---
 
-<SearchPage client:only="preact" />
+<Document lang={"en"}>
+	<SearchPage client:only="preact" />
+</Document>
