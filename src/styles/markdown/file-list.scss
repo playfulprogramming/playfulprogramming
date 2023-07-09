@@ -130,6 +130,15 @@
 	align-items: center;
 }
 
+.docs-file-tree-directory-name-and-icon,
+.docs-file-tree-file-name-and-icon {
+	&, & * {
+		font-size: inherit !important;
+		line-height: inherit !important;
+		font-weight: inherit !important;
+	}
+}
+
 .docs-file-tree-directory-details[open]
 	> .docs-file-tree-directory-summary
 	> .docs-file-tree-directory-name-and-icon::before {
