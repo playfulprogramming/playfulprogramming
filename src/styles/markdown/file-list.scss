@@ -1,7 +1,7 @@
 :root {
 	// Utility tokens
-	--half-icon: calc(var(--filesystem_icon_size) / 2);
-	--half-divider: calc(var(--filesystem_inset_divider_width) / 2);
+	--half-icon: calc(var(--filesystem_item_icon_size) / 2);
+	--half-divider: calc(var(--filesystem_item_inset_divider_width) / 2);
 
 	// Main container
 	--filesystem_outer_background-color: var(--background_primary);
@@ -62,11 +62,11 @@
 
 	// Tokens for the level inset dividers
 	--filesystem_item_inset_margin-start: calc(
-		var(--half-icon) + var(--filesystem_container_padding-start) -
+		var(--half-icon) + var(--filesystem_item_container_padding-start) -
 			max(1px, var(--half-divider))
 	);
 	--filesystem_item_inset_margin-end: calc(
-		var(--half-icon) - var(--filesystem_container_padding-start) -
+		var(--half-icon) - var(--filesystem_item_container_padding-start) -
 			max(1px, var(--half-divider))
 	);
 	--filesystem_item_inset_divider_width: var(--border-width_s);
@@ -86,10 +86,37 @@
 	background-color: var(--filesystem_inner_background-color);
 }
 
+.docs-file-tree > .docs-file-tree-list::before {
+	display: none !important;
+}
+
+.docs-file-tree > .docs-file-tree-list {
+	list-style: none;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 .docs-file-tree-list {
 	list-style: none;
-	margin: 0;
-	padding: 0;
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-left: calc(
+		var(--filesystem_item_inset_margin-end) +
+			var(--filesystem_item_inset_margin-start) +
+			var(--filesystem_item_inset_divider_width)
+	) !important;
+	position: relative;
+}
+
+.docs-file-tree-list::before {
+	content: " ";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc(0px - var(--filesystem_item_inset_margin-end));
+	width: var(--filesystem_item_inset_divider_width);
+	background-color: var(--filesystem_item_inset_divider_color);
+	height: 100%;
 }
 
 .docs-file-tree-directory-summary {
@@ -174,4 +201,9 @@
 .docs-file-tree-directory-summary:active
 	.docs-file-tree-directory-name-and-icon {
 	background-color: var(--filesystem_item_folder_container_color_pressed);
+}
+
+.docs-file-tree-comment {
+	width: 1px;
+	flex-grow: 1;
 }

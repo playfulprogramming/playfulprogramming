@@ -67,7 +67,9 @@ function File({ item }: FileProps) {
 				{item.name}
 			</span>
 			{item.comment && item.comment.length ? (
-				<span class="comment">{item.comment}</span>
+				<span class="docs-file-tree-comment text-style-body-small">
+					{item.comment}
+				</span>
 			) : null}
 		</>
 	) as never;
@@ -93,7 +95,9 @@ function Directory({ item }: DirectoryProps) {
 					{item.name}
 				</span>
 				{item.comment && item.comment.length ? (
-					<span class="comment">{item.comment}</span>
+					<span class="docs-file-tree-comment text-style-body-small">
+						{item.comment}
+					</span>
 				) : null}
 			</summary>
 			{FileListList({ items: item.items })}
