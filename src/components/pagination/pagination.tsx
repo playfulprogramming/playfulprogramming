@@ -51,10 +51,9 @@ function PaginationMenuWrapper(
 
 export const Pagination = ({
 	page,
-	rootURL = "./",
 	class: className = "",
 	id = "post-list-pagination",
-	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
+	getPageHref = (pageNum: number) => `./${pageNum}`,
 }: PaginationProps) => {
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;

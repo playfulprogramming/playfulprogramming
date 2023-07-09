@@ -1,4 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
+import { Pagination } from "components/pagination/pagination";
+
+const SEARCH_QUERY_KEY = "searchQuery";
+const SEARCH_PAGE_KEY = "searchPage";
 
 export default function SearchPage() {
 	const [urlParams, setURLParams] = useState(
@@ -7,7 +11,7 @@ export default function SearchPage() {
 
 	const search = useCallback(
 		(str: string) => {
-			urlParams.set("q", str);
+			urlParams.set(SEARCH_QUERY_KEY, str);
 			window.history.pushState(
 				{},
 				"",
@@ -31,13 +35,27 @@ export default function SearchPage() {
 		return () => observer.disconnect();
 	}, []);
 
-	const searchVal = useMemo(() => urlParams.get("q"), [urlParams]);
+	const searchVal = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
+	const page = useMemo(
+		() => Number(urlParams.get(SEARCH_PAGE_KEY) || "1"),
+		[urlParams]
+	);
 
 	return (
 		<div>
 			<form>
 				<input value={searchVal} onInput={(e) => search(e.target.value)} />
 			</form>
+			<Pagination
+				page={{
+					currentPage: page,
+					lastPage: 10,
+				}}
+				getPageHref={(pageNum) => {
+					urlParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+					return `${window.location.pathname}?${urlParams.toString()}`;
+				}}
+			/>
 		</div>
 	);
 }
