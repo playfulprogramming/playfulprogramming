@@ -75,7 +75,7 @@
 .contentsContainer {
 	background-color: var(--series-nav_chapter-container_color);
 	border-radius: var(--series-nav_chapter-container_corner-radius);
-	padding: var(--spc-4x) 0 0;
+	padding: var(--spc-4x) 0;
 }
 
 .listContainer {
@@ -96,6 +96,7 @@
 	margin: 0;
 	text-decoration: none;
 	color: var(--series-nav_chapter-item_title_color);
+	@include transition(color background-color);
 }
 
 .navigationItem:hover {
@@ -164,5 +165,5 @@
 }
 
 .buttonContainer {
-	padding: var(--spc-4x);
+	padding: var(--spc-4x) var(--spc-4x) 0;
 }
