@@ -1,13 +1,32 @@
 /** @jsxRuntime automatic */
 import { Node, Element } from "hast";
 import type { HChild } from "hastscript/lib/core";
+import { fromHtml } from "hast-util-from-html";
+import { getIcon } from "./file-tree-icons";
+import { toString } from "hast-util-to-string";
 
-/**
- * TODO:
- * - [ ] Highlighted
- * - [ ] Placeholder
- * - [ ] SVGs
- */
+/** Convert an HTML string containing an SVG into a HAST element node. */
+const makeSVGIcon = (svgString: string) => {
+	const root = fromHtml(svgString, { fragment: true });
+	const svg = root.children[0] as Element;
+	svg.properties = {
+		...svg.properties,
+		width: 16,
+		height: 16,
+		class: "tree-icon",
+		"aria-hidden": "true",
+	};
+	return svg;
+};
+
+const FileIcon = (filename: string) => {
+	const { svg } = getIcon(filename);
+	return makeSVGIcon(svg);
+};
+
+const FolderIcon = makeSVGIcon(
+	'<svg viewBox="-5 -5 26 26"><path d="M1.8 1A1.8 1.8 0 0 0 0 2.8v10.4c0 1 .8 1.8 1.8 1.8h12.4a1.8 1.8 0 0 0 1.8-1.8V4.8A1.8 1.8 0 0 0 14.2 3H7.5a.3.3 0 0 1-.2-.1l-.9-1.2A2 2 0 0 0 5 1H1.7z"/></svg>'
+);
 
 export interface File {
 	name: Node;
@@ -33,12 +52,12 @@ interface FileProps {
 
 /** @jsxImportSource hastscript */
 function File({ item }: FileProps) {
+	const rawName = toString(item.name as never);
+
 	return (
 		<span class="tree-entry">
 			<span>
-				<span>
-					<svg class="tree-icon" aria-hidden="true"></svg>
-				</span>
+				{item.isPlaceholder ? null : <span>{FileIcon(rawName)}</span>}
 				{item.name}
 			</span>
 			{item.comment && item.comment.length ? (
@@ -59,16 +78,13 @@ function Directory({ item }: DirectoryProps) {
 			<summary>
 				<span className="tree-entry">
 					<span>
-						<span>
-							<span className="sr-only">Directory</span>
-							<svg className="tree-icon" aria-hidden="true"></svg>
-						</span>
+						<span aria-label="Directory">{FolderIcon}</span>
 						{item.name}
 					</span>
-					{item.comment && item.comment.length ? (
-						<span class="comment">{item.comment}</span>
-					) : null}
 				</span>
+				{item.comment && item.comment.length ? (
+					<span class="comment">{item.comment}</span>
+				) : null}
 			</summary>
 			{FileListList({ items: item.items })}
 		</details>
