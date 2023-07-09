@@ -1,45 +1,55 @@
-import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useMemo,
+	useReducer,
+	useState,
+} from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
+import { useDebounce } from "./use-debounce";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
 
 export default function SearchPage() {
-	const [urlParams, setURLParams] = useState(
-		new URLSearchParams(window.location.search)
-	);
+	const [urlParams, pushState] = useReducer<
+		URLSearchParams,
+		{ key: string; val: string }
+	>((params, action) => {
+		params.set(action.key, action.val);
+		window.history.pushState(
+			{},
+			"",
+			`${window.location.pathname}?${params.toString()}`
+		);
+		return new URLSearchParams(window.location.search);
+	}, new URLSearchParams(window.location.search));
 
 	const search = useCallback(
 		(str: string) => {
-			urlParams.set(SEARCH_QUERY_KEY, str);
-			window.history.pushState(
-				{},
-				"",
-				`${window.location.pathname}?${urlParams.toString()}`
-			);
+			pushState({ key: SEARCH_QUERY_KEY, val: str });
 		},
 		[urlParams]
 	);
 
-	useEffect(() => {
-		let previousSearch = window.location.search;
-		const observer = new MutationObserver(() => {
-			if (window.location.search !== previousSearch) {
-				previousSearch = window.location.search;
-				setURLParams(new URLSearchParams(window.location.search));
-			}
-		});
-		const config = { subtree: true, childList: true };
-
-		observer.observe(document, config);
-		return () => observer.disconnect();
-	}, []);
-
 	const searchVal = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
+
 	const page = useMemo(
 		() => Number(urlParams.get(SEARCH_PAGE_KEY) || "1"),
 		[urlParams]
 	);
+
+	const fn = useDebounce(
+		(val: string) => {
+			console.log("I AM SEARCHING FOR", val);
+		},
+		{ delay: 500, immediate: false }
+	);
+
+	useEffect(() => {
+		console.log("RERENDER");
+		fn(searchVal);
+	}, [searchVal]);
 
 	return (
 		<div>
