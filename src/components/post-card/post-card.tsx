@@ -73,8 +73,7 @@ export const PostCardExpanded = ({
 }: PostCardProps) => {
 	return (
 		<li
-			// @ts-ignore
-			onclick={`location.href='/posts/${post.slug}'`}
+			data-navigation-path={`/posts/${post.slug}`}
 			className={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
 			<div className={style.extendedPostImageContainer}>
@@ -102,8 +101,7 @@ export const PostCard = ({
 }: PostCardProps) => {
 	return (
 		<li
-			// @ts-ignore
-			onclick={`location.href='/posts/${post.slug}'`}
+			data-navigation-path={`/posts/${post.slug}`}
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
 			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
