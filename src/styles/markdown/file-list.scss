@@ -13,7 +13,7 @@
 			var(--filesystem_border_width)
 	);
 	--filesystem_inner_padding: var(--spc-2x);
-	--filesystem_border_width: var(--border-width_m);
+	--filesystem_border_width: var(--border-width_l);
 	--filesystem_border_color: var(--primary_variant);
 
 	// Tokens for items
@@ -155,7 +155,7 @@
 		var(--filesystem_item_container_padding-vertical)
 		var(--filesystem_item_container_padding-start);
 	min-height: var(--filesystem_item_container_min-height);
-	display: inline-flex;
+	display: inline-flex !important;
 	align-items: center;
 }
 
@@ -189,8 +189,16 @@
 	fill: var(--filesystem_item_folder_icon-folder_color);
 }
 
-.docs-file-tree-directory-summary .docs-file-tree-directory-name-and-icon {
-	background-color: var(--filesystem_item_folder_container_color);
+.docs-file-tree-file-name-and-icon.highlighted {
+	background-color: var(--filesystem_item_file_highlight_background-color);
+	border: var(--filesystem_item_file_highlight_border_width) solid
+		var(--filesystem_item_file_highlight_border_color);
+}
+
+.docs-file-tree-directory-name-and-icon.highlighted {
+	background-color: var(--filesystem_item_folder_highlight_background-color);
+	border: var(--filesystem_item_file_highlight_border_width) solid
+		var(--filesystem_item_folder_highlight_border_color);
 }
 
 .docs-file-tree-directory-summary:hover
