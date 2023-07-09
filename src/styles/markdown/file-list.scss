@@ -1,110 +1,116 @@
-.docs-file-tree {
-  --x-space: 1.75em;
-  --y-pad: 0.2em;
+.docs-file-tree-container {
+	margin: var(--site-spacing) 0;
+	padding: var(--code-block_padding);
+	border-radius: var(--code-block_corner-radius);
+	border: var(--code-block_border_width) solid var(--code-block_border_color);
+}
 
-  display: block;
-  border: 1px solid var(--primary);
-  border-radius: 0.25rem;
-  padding: 1rem 0.5rem;
-  background-color: var(--shiki-color-background);
-  overflow-x: auto;
+.docs-file-tree {
+	--x-space: 1.75em;
+	--y-pad: 0.2em;
+
+	display: block;
+	border: 1px solid var(--primary);
+	border-radius: var(--code-block_inner-corner-radius);
+	background-color: var(--white);
+	padding: var(--code-block_padding);
 }
 
 .docs-file-tree .directory > details,
 .docs-file-tree .directory > details:hover,
 .docs-file-tree .directory > details[open] {
-  margin-bottom: unset;
-  border: 0;
-  padding: 0;
-  padding-inline-start: var(--x-space);
-  background: transparent;
+	margin-bottom: unset;
+	border: 0;
+	padding: 0;
+	padding-inline-start: var(--x-space);
+	background: transparent;
 }
 
 .docs-file-tree .directory > details > summary,
 .docs-file-tree .directory > details[open] > summary {
-  background: unset;
-  border: 0;
-  padding: var(--y-pad) 0.3em;
-  font-weight: normal;
-  color: var(--black);
-  max-width: 100%;
+	background: unset;
+	border: 0;
+	padding: var(--y-pad) 0.3em;
+	font-weight: normal;
+	color: var(--black);
+	max-width: 100%;
 }
 
 .docs-file-tree .directory > details > summary::marker,
 .docs-file-tree .directory > details > summary::-webkit-details-marker {
-  color: currentColor;
+	color: currentColor;
 }
 
 .docs-file-tree .directory > details > summary:hover .tree-icon,
 .docs-file-tree .directory > details > summary:hover {
-  color: var(--lightPrimary);
-  opacity: 0.8;
+	color: var(--lightPrimary);
+	opacity: 0.8;
 }
 
 .docs-file-tree ul:is(ul),
 .docs-file-tree .directory > details ul:is(ul) {
-  margin: 0;
-  margin-inline-start: calc(1em - 1px);
-  border-inline-start: 2px solid var(--minImpactBlack);
-  padding: 0;
-  list-style: none;
+	margin: 0;
+	margin-inline-start: calc(1em - 1px);
+	border-inline-start: 2px solid var(--foreground_emphasis-low);
+	padding: 0;
+	list-style: none;
 }
 
 .docs-file-tree > ul:is(ul) {
-  margin: 0;
-  border: 0;
+	margin: 0;
+	border: 0;
 }
 
 .docs-file-tree li:is(li) {
-  margin: 0;
-  padding: var(--y-pad) 0;
+	margin: 0;
+	padding: var(--y-pad) 0;
 }
 
 .docs-file-tree .file {
-  margin-inline-start: var(--x-space);
-  color: var(--black);
+	margin-inline-start: var(--x-space);
+	color: var(--black);
 }
 
 .docs-file-tree .tree-entry {
-  display: inline-flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  max-width: calc(100% - 1.25em);
+	display: inline-flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	max-width: calc(100% - 1.25em);
 }
 
 @media (min-width: 30em) {
-  .docs-file-tree .tree-entry {
-    flex-wrap: nowrap;
-  }
+	.docs-file-tree .tree-entry {
+		flex-wrap: nowrap;
+	}
 }
 
 .docs-file-tree .tree-entry > :first-child {
-  flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .docs-file-tree .empty {
-  color: var(--lowImpactBlack);
-  padding-inline-start: 0.5em;
+	color: 2px solid var(--foreground_emphasis-medium);
+	padding-inline-start: 0.5em;
 }
 
 .docs-file-tree .comment {
-  color: var(--lowImpactBlack);
-  padding-inline-start: 2em;
-  max-width: 30em;
-  min-width: 15em;
+	color: var(--lowImpactBlack);
+	padding-inline-start: 2em;
+	max-width: 30em;
+	min-width: 15em;
 }
 
 .docs-file-tree .highlight {
-  display: inline-block;
-  border-radius: 0.3em;
-  padding-inline-end: 0.5em;
-  outline: 1px solid var(--lightPrimary);
+	display: inline-block;
+	border-radius: 0.3em;
+	padding-inline-end: 0.5em;
+	outline: 1px solid var(--primary_default);
 }
 
 .tree-icon {
-  fill: currentColor;
-  vertical-align: middle;
-  margin: -0.75em 0.2em;
-  width: 1.5em;
-  height: 1.5em;
+	fill: currentColor;
+	vertical-align: middle;
+	margin: -0.75em 0.2em;
+	width: 1.5em;
+	height: 1.5em;
 }
