@@ -12,6 +12,7 @@ import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
+import vercel from "@astrojs/vercel/static";
 
 // TODO: Create types
 import behead from "remark-behead";
@@ -26,6 +27,7 @@ await symlink(path.resolve("content"), path.resolve("public/content"));
 
 export default defineConfig({
 	site: siteUrl,
+	adapter: vercel(),
 	integrations: [
 		image(),
 		preact({ compat: true }),
