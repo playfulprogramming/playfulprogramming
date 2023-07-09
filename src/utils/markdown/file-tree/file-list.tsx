@@ -55,15 +55,21 @@ function File({ item }: FileProps) {
 	const rawName = toString(item.name as never);
 
 	return (
-		<span class="tree-entry">
-			<span className={item.isHighlighted ? "highlight" : ""}>
-				{item.isPlaceholder ? null : <span>{FileIcon(rawName)}</span>}
+		<>
+			<span
+				className={`docs-file-tree-file-name-and-icon ${
+					item.isHighlighted ? "highlighted" : ""
+				} text-style-body-small-bold`}
+			>
+				<span class="docs-file-tree-file-icon">
+					{item.isPlaceholder ? null : FileIcon(rawName)}
+				</span>
 				{item.name}
 			</span>
 			{item.comment && item.comment.length ? (
 				<span class="comment">{item.comment}</span>
 			) : null}
-		</span>
+		</>
 	) as never;
 }
 
@@ -74,13 +80,17 @@ interface DirectoryProps {
 /** @jsxImportSource hastscript */
 function Directory({ item }: DirectoryProps) {
 	return (
-		<details open={item.openByDefault}>
-			<summary>
-				<span className="tree-entry">
-					<span className={item.isHighlighted ? "highlight" : ""}>
-						<span aria-label="Directory">{FolderIcon}</span>
-						{item.name}
+		<details open={item.openByDefault} class="docs-file-tree-directory-details">
+			<summary class="docs-file-tree-directory-summary">
+				<span
+					className={`docs-file-tree-directory-name-and-icon ${
+						item.isHighlighted ? "highlighted" : ""
+					} text-style-body-small`}
+				>
+					<span class="docs-file-tree-directory-icon" aria-label="Directory">
+						{FolderIcon}
 					</span>
+					{item.name}
 				</span>
 				{item.comment && item.comment.length ? (
 					<span class="comment">{item.comment}</span>
@@ -105,7 +115,11 @@ function FileListList({ items }: FileListProps) {
 		<ul className="docs-file-tree-list">
 			{items.map((item) => (
 				<li
-					className={item.isDirectory ? "directory" : "file"}
+					className={
+						item.isDirectory
+							? "docs-file-tree-directory-li"
+							: "docs-file-tree-file-li"
+					}
 					data-filetype={isDirectory(item) ? "dir" : item.filetype}
 				>
 					{isDirectory(item) ? Directory({ item }) : File({ item })}

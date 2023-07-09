@@ -183,13 +183,9 @@
 	content: " ";
 	/* Mask applied to use the background color on */
 	background-color: var(--toc_subheading-dot_color);
-	-webkit-mask: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg"><circle id="Dot" cx="2" cy="2" r="2" fill="black"/></svg>');
 	mask: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg"><circle id="Dot" cx="2" cy="2" r="2" fill="black"/></svg>');
-	-webkit-mask-position: center;
 	mask-position: center;
-	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
-	-webkit-mask-size: 0.25rem;
 	mask-size: 0.25rem;
 	background-repeat: no-repeat;
 	background-position: center center;
