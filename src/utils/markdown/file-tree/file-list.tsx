@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 import { Node, Element } from "hast";
+import type { HChild } from "hastscript/lib/core";
 
 /**
  * TODO:
@@ -10,13 +11,16 @@ import { Node, Element } from "hast";
 
 export interface File {
 	name: Node;
+	comment?: HChild[];
 	filetype: string;
 	isDirectory: false;
+	isPlaceholder: boolean;
 	isHighlighted: boolean;
 }
 
 export interface Directory {
 	name: Node;
+	comment?: HChild[];
 	isDirectory: true;
 	items: Array<Directory | File>;
 	openByDefault: boolean;
@@ -32,9 +36,14 @@ function File({ item }: FileProps) {
 	return (
 		<span class="tree-entry">
 			<span>
-				<svg class="tree-icon" aria-hidden="true"></svg>
+				<span>
+					<svg class="tree-icon" aria-hidden="true"></svg>
+				</span>
 				{item.name}
 			</span>
+			{item.comment && item.comment.length ? (
+				<span class="comment">{item.comment}</span>
+			) : null}
 		</span>
 	) as never;
 }
@@ -50,9 +59,15 @@ function Directory({ item }: DirectoryProps) {
 			<summary>
 				<span className="tree-entry">
 					<span>
-						<svg className="tree-icon" aria-hidden="true"></svg>
-						<code>{item.name}</code>
+						<span>
+							<span className="sr-only">Directory</span>
+							<svg className="tree-icon" aria-hidden="true"></svg>
+						</span>
+						{item.name}
 					</span>
+					{item.comment && item.comment.length ? (
+						<span class="comment">{item.comment}</span>
+					) : null}
 				</span>
 			</summary>
 			{FileListList({ items: item.items })}
