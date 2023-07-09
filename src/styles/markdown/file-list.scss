@@ -132,7 +132,8 @@
 
 .docs-file-tree-directory-name-and-icon,
 .docs-file-tree-file-name-and-icon {
-	&, & * {
+	&,
+	& * {
 		font-size: inherit !important;
 		line-height: inherit !important;
 		font-weight: inherit !important;
@@ -213,6 +214,16 @@
 	background-color: var(--filesystem_item_folder_highlight_background-color);
 	border: var(--filesystem_item_file_highlight_border_width) solid
 		var(--filesystem_item_folder_highlight_border_color);
+}
+
+.docs-file-tree-directory-summary:focus-visible {
+	outline: none;
+
+	& > .docs-file-tree-directory-name-and-icon {
+		background-color: var(--filesystem_item_folder_focus-background_color);
+		outline: var(--filesystem_item_folder_focus-outline_width) solid
+		var(--filesystem_item_folder_focus-outline_color);
+	}
 }
 
 .docs-file-tree-directory-summary:hover
