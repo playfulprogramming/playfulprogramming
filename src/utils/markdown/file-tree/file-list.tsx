@@ -11,8 +11,6 @@ const makeSVGIcon = (svgString: string) => {
 	const svg = root.children[0] as Element;
 	svg.properties = {
 		...svg.properties,
-		width: 16,
-		height: 16,
 		class: "tree-icon",
 		"aria-hidden": "true",
 	};
@@ -25,7 +23,10 @@ const FileIcon = (filename: string) => {
 };
 
 const FolderIcon = makeSVGIcon(
-	`<svg viewBox="0 0 16 14"><path d="M2 0C0.895431 0 0 0.895429 0 2V12C0 13.1046 0.89543 14 2 14H14C15.1046 14 16 13.1046 16 12V5C16 3.89543 15.1046 3 14 3H9L8.05279 1.10557C7.714 0.428005 7.02148 0 6.26393 0H2Z"/></svg>`
+	`<svg viewBox="0 0 20 20">
+<path d="M4 3C2.89543 3 2 3.89543 2 5V15C2 16.1046 2.89543 17 4 17H16C17.1046 17 18 16.1046 18 15V8C18 6.89543 17.1046 6 16 6H11L10.0528 4.10557C9.714 3.428 9.02148 3 8.26393 3H4Z"/>
+</svg>
+`
 );
 
 export interface File {

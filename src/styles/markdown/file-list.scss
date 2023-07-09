@@ -143,9 +143,10 @@
 	width: var(--filesystem_item_icon_size);
 	mask-position: center center !important;
 	mask-repeat: no-repeat !important;
+	mask-size: contain;
 	background: var(--filesystem_item_folder_icon-folder_color);
 	content: " ";
-	mask: url('data:image/svg+xml,<svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.96967 11.0303C0.676777 10.7374 0.676777 10.2626 0.96967 9.96967L4.93934 6L0.96967 2.03033C0.676776 1.73744 0.676776 1.26256 0.969669 0.96967C1.26256 0.676777 1.73744 0.676777 2.03033 0.96967L6 4.93934C6.58579 5.52513 6.58579 6.47487 6 7.06066L2.03033 11.0303C1.73744 11.3232 1.26256 11.3232 0.96967 11.0303Z" fill="%23380037"/></svg>');
+	mask: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.96967 14.0303C6.67678 13.7374 6.67678 13.2626 6.96967 12.9697L10.9393 9L6.96967 5.03033C6.67678 4.73744 6.67678 4.26256 6.96967 3.96967C7.26256 3.67678 7.73744 3.67678 8.03033 3.96967L12 7.93934C12.5858 8.52513 12.5858 9.47487 12 10.0607L8.03033 14.0303C7.73744 14.3232 7.26256 14.3232 6.96967 14.0303Z" fill="%23380037"/></svg>');
 }
 
 .docs-file-tree-file-name-and-icon,
@@ -173,6 +174,10 @@
 	height: var(--filesystem_item_icon_size);
 	width: var(--filesystem_item_icon_size);
 	margin-right: var(--filesystem_item_container_title_margin-start);
+}
+
+.docs-file-tree-directory-icon {
+	padding: var(--icon-size-dense-padding);
 }
 
 .docs-file-tree-file-icon > svg,
