@@ -167,16 +167,10 @@
 	content: " ";
 	/* Mask applied to use the background color on */
 	background-color: var(--toc_subheading-dot_color);
-	-webkit-mask: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Arrow"><path id="Vector 31" d="M5 8H15M15 8L11 4M15 8L11 12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>');
 	mask: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Arrow"><path id="Vector 31" d="M5 8H15M15 8L11 4M15 8L11 12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>');
-	-webkit-mask-position: center;
 	mask-position: center;
-	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
-	-webkit-mask-size: var(--toc_sub-item_dot_size);
 	mask-size: var(--toc_sub-item_dot_size);
-	background-repeat: no-repeat;
-	background-position: center center;
 	height: 100%;
 	width: var(--toc_sub-item_dot_size);
 	position: absolute;
