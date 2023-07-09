@@ -1,16 +1,26 @@
 /** @jsxRuntime automatic */
 import { Node, Element } from "hast";
 
-interface File {
-	name: string;
+/**
+ * TODO:
+ * - [ ] Highlighted
+ * - [ ] Placeholder
+ * - [ ] SVGs
+ */
+
+export interface File {
+	name: Node;
 	filetype: string;
 	isDirectory: false;
+	isHighlighted: boolean;
 }
 
-interface Directory {
-	name: string;
+export interface Directory {
+	name: Node;
 	isDirectory: true;
 	items: Array<Directory | File>;
+	openByDefault: boolean;
+	isHighlighted: boolean;
 }
 
 interface FileProps {
@@ -23,7 +33,7 @@ function File({ item }: FileProps) {
 		<span class="tree-entry">
 			<span>
 				<svg class="tree-icon" aria-hidden="true"></svg>
-				<code>{item.name}</code>
+				{item.name}
 			</span>
 		</span>
 	) as never;
@@ -36,7 +46,7 @@ interface DirectoryProps {
 /** @jsxImportSource hastscript */
 function Directory({ item }: DirectoryProps) {
 	return (
-		<details open>
+		<details open={item.openByDefault}>
 			<summary>
 				<span className="tree-entry">
 					<span>
@@ -45,7 +55,7 @@ function Directory({ item }: DirectoryProps) {
 					</span>
 				</span>
 			</summary>
-			<FileListList items={item.items} />
+			{FileListList({ items: item.items })}
 		</details>
 	) as never;
 }
@@ -67,7 +77,7 @@ function FileListList({ items }: FileListProps) {
 					className={item.isDirectory ? "directory" : "file"}
 					data-filetype={isDirectory(item) ? "dir" : item.filetype}
 				>
-					{isDirectory(item) ? <Directory item={item} /> : <File item={item} />}
+					{isDirectory(item) ? Directory({ item }) : File({ item })}
 				</li>
 			))}
 		</ul>
@@ -76,9 +86,5 @@ function FileListList({ items }: FileListProps) {
 
 /** @jsxImportSource hastscript */
 export function FileList({ items }: FileListProps): Element {
-	return (
-		<div class="docs-file-tree">
-			<FileListList items={items} />
-		</div>
-	) as never;
+	return (<div class="docs-file-tree">{FileListList({ items })}</div>) as never;
 }
