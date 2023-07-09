@@ -37,7 +37,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
 <!-- filetree:start -->
 
 - `apps/`
-  - `customer-portal/{open: false}`
+  - **`customer-portal/{open: false}`**
       - `android/`
       - `ios/`
       - `src`
@@ -54,7 +54,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
       - `node_modules`
       - `package.json`
       - `tsconfig.json`
-  - `admin-portal/{open: false}`
+  - `admin-portal/{open: false}` Testing
       - `android/`
       - `ios/`
       - `src`
@@ -89,7 +89,7 @@ By the end of it all, I had a monorepo structure that looked something like the 
     -  `vite.config.ts`
 - `.eslintrc.js`
 - `.gitignore`
-- `.yarnrc.yml`
+- **`.yarnrc.yml`**
 - `README.md`
 - `package.json`
 - `yarn.lock`
