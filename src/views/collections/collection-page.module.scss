@@ -139,8 +139,9 @@
 }
 
 .coverImage img {
-  width: 368px;
-  height: 552px;
+  max-width: 368px;
+  max-height: 552px;
+  width: 100%;
 
   border-radius: var(--collection-page_banner_corner-radius);
 
@@ -151,6 +152,8 @@
   @include from($tabletSmall) {
     margin: unset;
     display: unset;
+    max-width: unset;
+    max-height: unset;
     width: 240px;
     height: 360px;
   }
