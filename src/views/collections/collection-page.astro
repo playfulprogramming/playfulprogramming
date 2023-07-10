@@ -92,10 +92,7 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 						);
 						const href = `/unicorns/${author.id}`;
 						return (
-							<li
-								class={styles.authorContainer}
-								onclick={`location.href='${href}'`}
-							>
+							<li class={styles.authorContainer} data-navigation-path={href}>
 								<div
 									class={styles.authorImage}
 									style={{ borderColor: author.color }}
