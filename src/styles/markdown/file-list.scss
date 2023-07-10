@@ -1,3 +1,5 @@
+@import "src/tokens/index";
+
 :root {
 	// Utility tokens
 	--half-icon: calc(var(--filesystem_item_icon_size) / 2);
@@ -128,6 +130,7 @@
 .docs-file-tree-file-name-and-icon {
 	display: flex;
 	align-items: center;
+	@include transition(background-color);
 }
 
 .docs-file-tree-directory-name-and-icon *,
