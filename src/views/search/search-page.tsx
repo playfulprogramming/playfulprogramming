@@ -2,7 +2,6 @@ import {
 	useCallback,
 	useEffect,
 	useMemo,
-	useReducer,
 	useRef,
 	useState,
 } from "preact/hooks";
@@ -11,23 +10,13 @@ import { useDebounce } from "./use-debounce";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
 import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
+import { useSearchParams } from "./use-search-params";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
 
 export default function SearchPage() {
-	const [urlParams, pushState] = useReducer<
-		URLSearchParams,
-		{ key: string; val: string }
-	>((params, action) => {
-		params.set(action.key, action.val);
-		window.history.pushState(
-			{},
-			"",
-			`${window.location.pathname}?${params.toString()}`
-		);
-		return new URLSearchParams(window.location.search);
-	}, new URLSearchParams(window.location.search));
+	const { urlParams, pushState } = useSearchParams();
 
 	const search = useCallback(
 		(str: string) => {
