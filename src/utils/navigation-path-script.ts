@@ -13,6 +13,13 @@ export const setupNavigationPaths = () => {
 						target.tagName.toLowerCase() === "button"
 					)
 						return;
+
+					// Nested
+					if (target.getAttribute("data-navigation-path") !== null) return;
+
+					// Explicitly don't bind
+					if (target.getAttribute("data-dont-bind-navigate-click") === null)
+						return;
 					target = target.parentElement;
 				}
 
