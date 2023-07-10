@@ -1,8 +1,14 @@
 ---
 import SearchPage from "../views/search/search-page";
 import Document from "../layouts/document.astro";
+import { getUnicornProfilePicMap } from "../utils/get-unicorn-profile-pic-map";
+
+const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
 <Document lang={"en"}>
-	<SearchPage client:only="preact" />
+	<SearchPage
+		client:only="preact"
+		unicornProfilePicMap={unicornProfilePicMap}
+	/>
 </Document>

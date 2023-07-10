@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
-import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
 import { useSearchParams } from "./use-search-params";
 import {
 	QueryClient,
@@ -10,11 +9,16 @@ import {
 	useQuery,
 } from "@tanstack/react-query";
 import { useDebouncedValue } from "./use-debounced-value";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
 
-function SearchPageBase() {
+interface SearchPageProps {
+	unicornProfilePicMap: ProfilePictureMap;
+}
+
+function SearchPageBase({unicornProfilePicMap}: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
 
 	const search = useCallback(
@@ -90,10 +94,10 @@ function SearchPageBase() {
 
 const queryClient = new QueryClient();
 
-export default function SearchPage() {
+export default function SearchPage(props: SearchPageProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<SearchPageBase />
+			<SearchPageBase {...props} />
 		</QueryClientProvider>
 	);
 }
