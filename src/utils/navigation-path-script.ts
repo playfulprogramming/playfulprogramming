@@ -5,6 +5,17 @@ export const setupNavigationPaths = () => {
 			const path = el.dataset.navigationPath;
 
 			el.addEventListener("click", (e: MouseEvent) => {
+				// a tags and buttons
+				let target = e.target as HTMLElement;
+				while (target !== e.currentTarget) {
+					if (
+						target.tagName.toLowerCase() === "a" ||
+						target.tagName.toLowerCase() === "button"
+					)
+						return;
+					target = target.parentElement;
+				}
+
 				// Ignore right-clicks
 				if (e.button !== 0) return;
 				// Download
