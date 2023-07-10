@@ -1,21 +1,21 @@
-import {
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "preact/hooks";
+import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { useDebounce } from "./use-debounce";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
 import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
 import { useSearchParams } from "./use-search-params";
+import {
+	QueryClient,
+	QueryClientProvider,
+	useQuery,
+} from "@tanstack/react-query";
+import { useDebouncedValue } from "./use-debounced-value";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
 
-export default function SearchPage() {
+function SearchPageBase() {
 	const { urlParams, pushState } = useSearchParams();
 
 	const search = useCallback(
@@ -32,65 +32,43 @@ export default function SearchPage() {
 		[urlParams]
 	);
 
-	const abortController = useRef<AbortController | undefined>();
+	const [debouncedSearchVal, immediatelySetDebouncedSearchVal] =
+		useDebouncedValue(searchVal, 500);
 
-	const [searchResult, setSearchResult] = useState<{
-		state: "loading" | "error" | "success";
-		posts: PostInfo[];
-		totalPosts: number;
-	}>({ state: "loading", posts: [], totalPosts: 0 });
-
-	const fn = useDebounce(
-		(val: string) => {
-			setSearchResult({ state: "loading", posts: [], totalPosts: 0 });
-			if (abortController.current) {
-				abortController.current.abort();
-				abortController.current = undefined;
-			}
-			abortController.current = new AbortController();
-			// plausible("search", { props: { searchVal: val } });
-			fetch(`/api/search?query=${val}`, {
-				signal: abortController.current.signal,
-			})
-				.then((res) => res.json())
-				.then(async (serverVal: { posts: PostInfo[]; totalPosts: number }) => {
-					setSearchResult({
-						state: "success",
-						posts: serverVal.posts,
-						totalPosts: serverVal.totalPosts,
-					});
-					abortController.current = undefined;
-				})
-				.catch((err) => {
-					if (err.name === "AbortError") {
-						return;
-					}
-					setSearchResult({ state: "error", posts: [], totalPosts: 0 });
-					abortController.current = undefined;
-				});
-		},
-		{ delay: 500, immediate: false }
-	);
-
-	useEffect(() => {
-		fn(searchVal);
-	}, [searchVal]);
+	const { isLoading, isInitialLoading, isFetching, isError, error, data } =
+		useQuery({
+			queryFn: ({ signal }) =>
+				fetch(`/api/search?query=${debouncedSearchVal}`, {
+					signal: signal,
+				}).then(
+					(res) =>
+						res.json() as Promise<{ posts: PostInfo[]; totalPosts: number }>
+				),
+			queryKey: ["search", debouncedSearchVal],
+			initialData: { posts: [], totalPosts: 0 },
+		});
 
 	return (
 		<div>
-			<form>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					immediatelySetDebouncedSearchVal(searchVal);
+				}}
+			>
 				<input value={searchVal} onInput={(e) => search(e.target.value)} />
+				<button>Search</button>
 			</form>
-			{searchResult.state === "loading" && <div>Loading...</div>}
+			{(isLoading || isInitialLoading || isFetching) && <h1>Loading...</h1>}
 			<div>
-				{searchResult.posts.length} / {searchResult.totalPosts}
-				{searchResult.posts.map((post) => {
+				{data.posts.length} / {data.totalPosts}
+				{data.posts.map((post) => {
 					return (
 						<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />
 					);
 				})}
 			</div>
-			<div>{searchResult.state === "error" && <div>Error</div>}</div>
+			<div>{isError && <div>Error: {error}</div>}</div>
 			<Pagination
 				shouldSoftNavigate={true}
 				page={{
@@ -103,5 +81,15 @@ export default function SearchPage() {
 				}}
 			/>
 		</div>
+	);
+}
+
+const queryClient = new QueryClient();
+
+export default function SearchPage() {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<SearchPageBase />
+		</QueryClientProvider>
 	);
 }

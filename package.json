@@ -120,6 +120,7 @@
 	"dependencies": {
 		"@astrojs/vercel": "^3.7.0",
 		"@floating-ui/react": "^0.24.3",
+		"@tanstack/react-query": "^4.29.19",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.16.0"
 	},
