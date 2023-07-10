@@ -4,16 +4,17 @@ export const useSearchParams = () => {
 	const [urlParams, pushState] = useReducer<
 		URLSearchParams,
 		{ key: string; val: string } | string
-	>((params, action) => {
+	>((_, action) => {
+		const newParams = new URLSearchParams(window.location.search);
 		let nav!: string;
 		if (typeof action === "string") {
 			nav = action;
 		} else {
-			params.set(action.key, action.val);
-			nav = `${window.location.pathname}?${params.toString()}`;
+			newParams.set(action.key, action.val);
+			nav = `${window.location.pathname}?${newParams.toString()}`;
 		}
 		window.history.pushState({}, "", nav);
-		return new URLSearchParams(window.location.search);
+		return newParams;
 	}, new URLSearchParams(window.location.search));
 
 	return {
