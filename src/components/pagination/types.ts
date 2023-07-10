@@ -8,6 +8,7 @@ export interface PaginationButtonProps {
 	pageNum: number;
 	selected: boolean;
 	href: string;
+	shouldSoftNavigate?: boolean;
 }
 
 export interface PaginationProps {
@@ -16,4 +17,6 @@ export interface PaginationProps {
 	id?: string;
 	rootURL?: string;
 	getPageHref?: (pageNum: number) => string;
+	// If true, the pagination buttons will use the history API to navigate
+	shouldSoftNavigate?: boolean;
 }

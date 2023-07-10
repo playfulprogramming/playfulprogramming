@@ -103,6 +103,7 @@ export default function SearchPage() {
 			</div>
 			<div>{searchResult.state === "error" && <div>Error</div>}</div>
 			<Pagination
+				shouldSoftNavigate={true}
 				page={{
 					currentPage: page,
 					lastPage: 10,
