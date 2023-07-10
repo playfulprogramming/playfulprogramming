@@ -52,9 +52,10 @@ export const setupNavigationPaths = () => {
 			});
 
 			// Handle middle click button - should open a new tab (cannot be detected via "click" event)
-			// - prefer "auxclick" since it ensures mousedown/mouseup both occur within the same element
-			// - otherwise, use "mouseup" for browser support (safari)
+			// - prefer the "auxclick" event since it ensures that mousedown/mouseup both occur within the same element
+			//   otherwise, using "mouseup" would activate on mouseup even when dragging between elements, which should not trigger a click
 			el.addEventListener(
+				// if "auxclick" is unsupported, fall back to "mouseup" for browser support (safari)
 				"onauxclick" in el ? "auxclick" : "mouseup",
 				(e: MouseEvent) => {
 					// only handle middle click events
