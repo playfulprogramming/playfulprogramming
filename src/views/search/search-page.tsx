@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo } from "preact/hooks";
+import { useCallback, useMemo } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
-import { useDebounce } from "./use-debounce";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
 import unicornProfilePicMap from "../../../public/unicorn-profile-pic-map";
@@ -56,7 +55,10 @@ function SearchPageBase() {
 					immediatelySetDebouncedSearchVal(searchVal);
 				}}
 			>
-				<input value={searchVal} onInput={(e) => search(e.target.value)} />
+				<input
+					value={searchVal}
+					onInput={(e) => search((e.target as HTMLInputElement).value)}
+				/>
 				<button>Search</button>
 			</form>
 			{(isLoading || isInitialLoading || isFetching) && <h1>Loading...</h1>}
@@ -70,7 +72,9 @@ function SearchPageBase() {
 			</div>
 			<div>{isError && <div>Error: {error}</div>}</div>
 			<Pagination
-				shouldSoftNavigate={true}
+				softNavigate={(href) => {
+					pushState(href);
+				}}
 				page={{
 					currentPage: page,
 					lastPage: 10,

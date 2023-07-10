@@ -22,10 +22,7 @@ import add from "../../icons/add.svg?raw";
 import { Input } from "components/input/input";
 
 function PopupContents(
-	props: Pick<
-		PaginationProps,
-		"page" | "getPageHref" | "shouldSoftNavigate"
-	> & {
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
 		setIsOpen: StateUpdater<boolean>;
 	}
 ) {
@@ -35,8 +32,8 @@ function PopupContents(
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
-				if (props.shouldSoftNavigate) {
-					window.history.pushState({}, "", props.getPageHref(count));
+				if (props.softNavigate) {
+					softNavigate(props.getPageHref(count));
 					props.setIsOpen(false);
 					return;
 				}
@@ -92,7 +89,7 @@ function PopupContents(
 }
 
 export function PaginationMenuAndPopover(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "shouldSoftNavigate">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
 ) {
 	const [isOpen, setIsOpen] = useState(false);
 	const arrowRef = useRef(null);
