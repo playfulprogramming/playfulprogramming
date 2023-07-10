@@ -11,8 +11,6 @@ const makeSVGIcon = (svgString: string) => {
 	const svg = root.children[0] as Element;
 	svg.properties = {
 		...svg.properties,
-		width: 16,
-		height: 16,
 		class: "tree-icon",
 		"aria-hidden": "true",
 	};
@@ -25,7 +23,10 @@ const FileIcon = (filename: string) => {
 };
 
 const FolderIcon = makeSVGIcon(
-	'<svg viewBox="-5 -5 26 26"><path d="M1.8 1A1.8 1.8 0 0 0 0 2.8v10.4c0 1 .8 1.8 1.8 1.8h12.4a1.8 1.8 0 0 0 1.8-1.8V4.8A1.8 1.8 0 0 0 14.2 3H7.5a.3.3 0 0 1-.2-.1l-.9-1.2A2 2 0 0 0 5 1H1.7z"/></svg>'
+	`<svg viewBox="0 0 20 20">
+<path d="M4 3C2.89543 3 2 3.89543 2 5V15C2 16.1046 2.89543 17 4 17H16C17.1046 17 18 16.1046 18 15V8C18 6.89543 17.1046 6 16 6H11L10.0528 4.10557C9.714 3.428 9.02148 3 8.26393 3H4Z"/>
+</svg>
+`
 );
 
 export interface File {
@@ -55,15 +56,23 @@ function File({ item }: FileProps) {
 	const rawName = toString(item.name as never);
 
 	return (
-		<span class="tree-entry">
-			<span className={item.isHighlighted ? "highlight" : ""}>
-				{item.isPlaceholder ? null : <span>{FileIcon(rawName)}</span>}
+		<>
+			<span
+				className={`docs-file-tree-file-name-and-icon ${
+					item.isHighlighted ? "highlighted" : ""
+				} text-style-body-small`}
+			>
+				<span class="docs-file-tree-file-icon">
+					{item.isPlaceholder ? null : FileIcon(rawName)}
+				</span>
 				{item.name}
 			</span>
 			{item.comment && item.comment.length ? (
-				<span class="comment">{item.comment}</span>
+				<span class="docs-file-tree-comment text-style-body-small">
+					{item.comment}
+				</span>
 			) : null}
-		</span>
+		</>
 	) as never;
 }
 
@@ -74,16 +83,22 @@ interface DirectoryProps {
 /** @jsxImportSource hastscript */
 function Directory({ item }: DirectoryProps) {
 	return (
-		<details open={item.openByDefault}>
-			<summary>
-				<span className="tree-entry">
-					<span className={item.isHighlighted ? "highlight" : ""}>
-						<span aria-label="Directory">{FolderIcon}</span>
-						{item.name}
+		<details open={item.openByDefault} class="docs-file-tree-directory-details">
+			<summary class="docs-file-tree-directory-summary">
+				<span
+					className={`docs-file-tree-directory-name-and-icon ${
+						item.isHighlighted ? "highlighted" : ""
+					} text-style-body-small-bold`}
+				>
+					<span class="docs-file-tree-directory-icon" aria-label="Directory">
+						{FolderIcon}
 					</span>
+					{item.name}
 				</span>
 				{item.comment && item.comment.length ? (
-					<span class="comment">{item.comment}</span>
+					<span class="docs-file-tree-comment text-style-body-small">
+						{item.comment}
+					</span>
 				) : null}
 			</summary>
 			{FileListList({ items: item.items })}
@@ -105,7 +120,11 @@ function FileListList({ items }: FileListProps) {
 		<ul className="docs-file-tree-list">
 			{items.map((item) => (
 				<li
-					className={item.isDirectory ? "directory" : "file"}
+					className={
+						item.isDirectory
+							? "docs-file-tree-directory-li"
+							: "docs-file-tree-file-li"
+					}
 					data-filetype={isDirectory(item) ? "dir" : item.filetype}
 				>
 					{isDirectory(item) ? Directory({ item }) : File({ item })}
