@@ -9,7 +9,8 @@ export function usePagination(page: PageInfo) {
 		const isNextEnabled = page.currentPage < page.lastPage;
 
 		// dots should only be enabled if there are more pages than we can display as buttons
-		const isDotsEnabled = page.lastPage > PAGE_BUTTON_COUNT;
+		//   +2 for the first/last page, which are always shown
+		const isDotsEnabled = page.lastPage > PAGE_BUTTON_COUNT + 2;
 		// if the current page is close to the end, dots should be before so that the end is continuous
 		const isDotsFirst = page.lastPage - page.currentPage < PAGE_BUTTON_COUNT;
 
@@ -25,7 +26,7 @@ export function usePagination(page: PageInfo) {
 			...Array(PAGE_BUTTON_COUNT)
 				.fill(0)
 				.map((_, i) => i + firstPageNum)
-				.filter(i => i < page.lastPage),
+				.filter((i) => i < page.lastPage),
 			!isDotsFirst && "...",
 			// last page is always displayed
 			page.lastPage,
