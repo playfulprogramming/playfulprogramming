@@ -1,4 +1,3 @@
-import * as React from 'preact';
 import styles from "./pagination.module.scss";
 import forward from "src/icons/arrow_right.svg?raw";
 import back from "src/icons/arrow_left.svg?raw";
@@ -71,6 +70,7 @@ export const Pagination = ({
 				<ul id={id} className={`${styles.pagination} ${className}`}>
 					<li className={`${styles.paginationItem}`}>
 						<a
+							data-testid="pagination-previous"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
 							aria-label="Previous"
 							href={
@@ -104,6 +104,7 @@ export const Pagination = ({
 
 					<li className={`${styles.paginationItem}`}>
 						<a
+							data-testid="pagination-next"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
 							href={
 								!isNextEnabled

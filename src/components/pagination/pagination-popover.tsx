@@ -1,4 +1,3 @@
-import * as React from 'preact';
 import {
 	arrow,
 	FloatingArrow,
@@ -30,6 +29,7 @@ function PopupContents(
 	const [count, setCount] = useState(props.page.currentPage);
 	return (
 		<form
+			data-testid="pagination-popup"
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
@@ -43,6 +43,7 @@ function PopupContents(
 		>
 			<div class={style.popupTopArea}>
 				<IconOnlyButton
+					data-testid="pagination-popup-decrement"
 					type="button"
 					tag="button"
 					onClick={() => setCount((v) => v - 1)}
@@ -55,6 +56,7 @@ function PopupContents(
 					/>
 				</IconOnlyButton>
 				<Input
+					data-testid="pagination-popup-input"
 					class={style.popupInput}
 					value={count}
 					onChange={(e) => {
@@ -70,6 +72,7 @@ function PopupContents(
 					type="number"
 				/>
 				<IconOnlyButton
+					data-testid="pagination-popup-increment"
 					type="button"
 					tag="button"
 					onClick={() => setCount((v) => v + 1)}
@@ -82,7 +85,12 @@ function PopupContents(
 					/>
 				</IconOnlyButton>
 			</div>
-			<Button tag="button" type="submit" variant="primary">
+			<Button
+				data-testid="pagination-popup-submit"
+				tag="button"
+				type="submit"
+				variant="primary"
+			>
 				Go to page
 			</Button>
 		</form>
@@ -149,6 +157,7 @@ export function PaginationMenuAndPopover(
 		<Fragment>
 			<li className={`${mainStyles.paginationItem}`}>
 				<button
+					data-testid="pagination-menu"
 					ref={refs.setReference}
 					{...getReferenceProps()}
 					aria-selected={isOpen}
