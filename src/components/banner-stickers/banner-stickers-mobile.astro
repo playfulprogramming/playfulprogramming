@@ -23,9 +23,11 @@ const stickerTransforms = STICKER_TRANSFORMS.map((transform) => {
 		transform,
 	};
 });
+
+const props = Astro.props as { class: string };
 ---
 
-<div {...Astro.props} style="height: 128px;">
+<div class={props.class} style="height: 128px;" aria-hidden="true">
 	{
 		stickerTransforms.map((sticker) => (
 			<img
@@ -33,6 +35,7 @@ const stickerTransforms = STICKER_TRANSFORMS.map((transform) => {
 				height={sticker.height}
 				src={sticker.src}
 				style={`position: absolute; ${sticker.transform};`}
+				alt=""
 			/>
 		))
 	}

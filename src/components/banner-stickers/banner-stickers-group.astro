@@ -36,9 +36,16 @@ const unicornImage = await getImage({
 	alt: "",
 	format: "png",
 });
+
+const props = Astro.props as { class: string };
 ---
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418 300" {...Astro.props}>
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 418 300"
+	class={props.class}
+	aria-hidden="true"
+>
 	<g set:html={stickerHtml} />
 
 	<image
