@@ -1,16 +1,40 @@
 @import "src/tokens/index";
 
 .header {
-  align-items: center;
+	align-items: center;
+	position: relative;
 }
 
 .buttons {
-  gap: var(--spc-4x) var(--spc-6x);
-  padding: var(--spc-4x) 0;
+	gap: var(--spc-4x) var(--spc-6x);
+	padding: var(--spc-4x) 0;
 }
 
 .bannerLogo {
-  @include until($desktopSmall) {
-    display: none;
-  }
+	display: none;
+}
+
+.bannerLogoMobile {
+	display: block;
+	position: absolute;
+	top: calc(-1 * var(--site-spacing));
+	left: calc(-1 * var(--site-spacing));
+	right: calc(-1 * var(--site-spacing));
+	z-index: -1;
+}
+
+@include from($desktopSmall) {
+	.header {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--site-spacing);
+	}
+
+	.bannerLogo {
+		display: block;
+	}
+
+	.bannerLogoMobile {
+		display: none;
+	}
 }
