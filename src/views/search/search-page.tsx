@@ -48,19 +48,21 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const [debouncedSearchVal, immediatelySetDebouncedSearchVal] =
 		useDebouncedValue(searchVal, 500);
 
-	const { isLoading, isInitialLoading, isFetching, isError, error, data } =
-		useQuery({
-			queryFn: ({ signal }) =>
-				fetch(`/api/search?query=${debouncedSearchVal}`, {
-					signal: signal,
-				}).then(
-					(res) =>
-						res.json() as Promise<{ posts: PostInfo[]; totalPosts: number }>
-				),
-			queryKey: ["search", debouncedSearchVal],
-			initialData: { posts: [], totalPosts: 0 },
-			refetchOnWindowFocus: false,
-		});
+	const enabled = !!debouncedSearchVal;
+
+	const { isLoading, isFetching, isError, error, data } = useQuery({
+		queryFn: ({ signal }) =>
+			fetch(`/api/search?query=${debouncedSearchVal}`, {
+				signal: signal,
+			}).then(
+				(res) =>
+					res.json() as Promise<{ posts: PostInfo[]; totalPosts: number }>
+			),
+		queryKey: ["search", debouncedSearchVal],
+		initialData: { posts: [], totalPosts: 0 },
+		refetchOnWindowFocus: false,
+		enabled,
+	});
 
 	const lastPage = useMemo(
 		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
@@ -86,8 +88,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const showArticles =
 		contentToDisplay === "all" || contentToDisplay === "articles";
+
 	const showCollections =
 		contentToDisplay === "all" || contentToDisplay === "collections";
+
+	const isContentLoading = isLoading || isFetching;
 
 	return (
 		<div>
@@ -157,9 +162,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						</Button>
 					</div>
 				</div>
-				{(isLoading || isInitialLoading || isFetching) && <h1>Loading...</h1>}
-				{isError && <h1>Error: {error}</h1>}
-				{showArticles && (
+				{isContentLoading && (
+					<p className={"text-style-headline-1"}>Loading...</p>
+				)}
+				{isError && <p className={"text-style-headline-1"}>Error: {error}</p>}
+				{!enabled && (
+					<p className={"text-style-headline-1"}>Type something to search</p>
+				)}
+				{enabled && !isContentLoading && showArticles && (
 					<Fragment>
 						<SubHeader tag="h1" text="Articles" />
 						<PostCardGrid
