@@ -1,5 +1,6 @@
 ---
 import BannerStickersGroup from "../banner-stickers/banner-stickers-group.astro";
+import BannerStickersMobile from "../banner-stickers/banner-stickers-mobile.astro";
 import { LargeButton } from "../button/button";
 import { Icon } from "astro-icon";
 import style from "./hero.module.scss";
@@ -7,15 +8,14 @@ import { translate } from "../../utils";
 import * as data from "src/utils/data";
 ---
 
-<header class={`grid grid-desktopSmall-2 ${style.header}`}>
-	<div class={style.bannerLogo}>
-		<BannerStickersGroup />
-	</div>
+<header class={`${style.header}`}>
+	<BannerStickersMobile class={style.bannerLogoMobile} />
+	<BannerStickersGroup class={style.bannerLogo} />
 	<div class="text-center">
-		<h1 class="text-style-headline-2">
+		<h1 class={`text-style-headline-2 ${style.bannerTextShadow}`}>
 			{translate(Astro, "desc.homepage")}
 		</h1>
-		<p class="text-style-body-large-bold">
+		<p class={`text-style-body-large-bold ${style.bannerTextShadow}`}>
 			{translate(Astro, "desc.homepage_extra")}
 		</p>
 		<div
