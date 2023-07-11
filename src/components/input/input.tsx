@@ -24,12 +24,35 @@ const IconOnlyButtonButOnClick = IconOnlyButton as never as ComponentType<
 >;
 
 export function SearchInput({
-	class: className = "",
+	class: classClass = "",
+	className = "",
+	usedInPreact,
 	...props
-}: JSX.IntrinsicElements["input"]) {
+}: JSX.IntrinsicElements["input"] & {
+	usedInPreact?: boolean;
+}) {
 	const id = useId();
+
+	// `onclick` lowercase is supported in Astro, not so in Preact runtime
+	const clearButtonOnClickProps = usedInPreact
+		? {
+				onClick: () => {
+					const el = document.querySelector(`#${id}`) as HTMLInputElement;
+					el.value = "";
+					el.dispatchEvent(new Event("input"));
+					setTimeout(() => {
+						el.dispatchEvent(new Event("change"));
+					}, 0);
+				},
+		  }
+		: {
+				onclick: `el=document.querySelector("#${id}");el.value="";`,
+		  };
+
 	return (
-		<div class={`${style.input} ${style.searchContainer} ${className}`}>
+		<div
+			class={`${style.input} ${style.searchContainer} ${classClass} ${className}`}
+		>
 			<div
 				class={style.searchIconContainer}
 				dangerouslySetInnerHTML={{ __html: search }}
@@ -45,7 +68,7 @@ export function SearchInput({
 					class={style.clearButton}
 					tag="button"
 					type="button"
-					onclick={`el=document.querySelector("#${id}");el.value="";`}
+					{...clearButtonOnClickProps}
 				>
 					<div
 						class={style.closeButtonContainer}

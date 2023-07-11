@@ -49,15 +49,21 @@
 }
 
 .searchButton {
-	height: calc(var(--p_medium_line-height) + calc(var(--search-form-field_padding-vertical) * 2));
-	width: calc(var(--p_medium_line-height) + calc(var(--search-form-field_padding-vertical) * 2));
+	height: calc(
+		var(--p_medium_line-height) +
+			calc(var(--search-form-field_padding-vertical) * 2)
+	);
+	width: calc(
+		var(--p_medium_line-height) +
+			calc(var(--search-form-field_padding-vertical) * 2)
+	);
 	flex-shrink: 0;
 }
 
 .chips {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--search-section_chip-gap);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--search-section_chip-gap);
 }

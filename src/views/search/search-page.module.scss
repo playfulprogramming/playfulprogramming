@@ -1,0 +1,53 @@
+@import "src/tokens/index";
+
+.mainContents {
+	margin: 0 auto;
+	max-width: var(--max-width_l);
+	padding: var(--site-spacing);
+}
+
+.topBar {
+	display: grid;
+	gap: var(--spc-8x);
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr repeat(2, auto);
+}
+
+.topBarDivider {
+	height: 100%;
+	width: 1px;
+	background: var(--background_disabled);
+}
+
+.topBarButtons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: var(--spc-2x);
+}
+
+.searchbarRow {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: var(--spc-2x);
+	justify-content: center;
+	align-items: center;
+}
+
+.searchbar {
+	width: 100%;
+}
+
+.searchButton {
+	height: calc(
+		var(--p_medium_line-height) +
+			calc(var(--search-form-field_padding-vertical) * 2)
+	);
+	width: calc(
+		var(--p_medium_line-height) +
+			calc(var(--search-form-field_padding-vertical) * 2)
+	);
+	flex-shrink: 0;
+}
