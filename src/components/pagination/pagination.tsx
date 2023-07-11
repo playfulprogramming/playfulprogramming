@@ -1,3 +1,4 @@
+import * as React from 'preact';
 import styles from "./pagination.module.scss";
 import forward from "src/icons/arrow_right.svg?raw";
 import back from "src/icons/arrow_left.svg?raw";

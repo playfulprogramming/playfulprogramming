@@ -29,6 +29,7 @@ module.exports = {
 	// moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 	moduleNameMapper: {
 		"^preact$": require.resolve("preact"),
+		"^react(-dom)?$": require.resolve("preact/compat"),
 		"^@testing-library\\/preact$": require.resolve("@testing-library/preact"),
 		// NextJS
 		// Handle CSS imports (with CSS modules)
@@ -38,7 +39,8 @@ module.exports = {
 		"^@/components/(.*)$": "<rootDir>/components/$1",
 		// UU Files
 		".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
-		".+\\.svg$": `<rootDir>/__mocks__/svg-comp-mock.ts`,
+		".+\\.svg$": `<rootDir>/__mocks__/imports/svg-comp-mock.ts`,
+		".+\\.svg\\?raw$": `<rootDir>/__mocks__/imports/svg-raw-mock.ts`,
 		".+\\.(jpg|svg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)(?:\\?.+)?$": `<rootDir>/__mocks__/file-mock.ts`,
 		// UU TS
 		"^__mocks__/(.*)$": resolve(__dirname, "./__mocks__/$1"),
