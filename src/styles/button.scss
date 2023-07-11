@@ -110,13 +110,6 @@
 	cursor: pointer;
 
 	@include transition(color background-color box-shadow);
-
-	&[disabled] {
-		text-decoration: none;
-		pointer-events: none;
-		background-color: var(--btn_disabled_background-color);
-		color: var(--btn_disabled_foreground-color);
-	}
 }
 
 .button.regular {
@@ -250,4 +243,11 @@
 	&:active {
 		background-color: var(--btn_secondary_background-color_default_pressed);
 	}
+}
+
+.button[disabled] {
+	text-decoration: none;
+	pointer-events: none;
+	background-color: var(--btn_disabled_background-color);
+	color: var(--btn_disabled_foreground-color);
 }
