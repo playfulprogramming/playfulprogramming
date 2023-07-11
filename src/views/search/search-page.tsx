@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo } from "preact/hooks";
+import { useCallback, useLayoutEffect, useMemo, useState } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
@@ -17,6 +17,7 @@ import forward from "src/icons/arrow_right.svg?raw";
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
 import { SubHeader } from "components/subheader/subheader";
+import { Fragment } from "preact";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -79,6 +80,15 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		[data, page]
 	);
 
+	const [contentToDisplay, setContentToDisplay] = useState<
+		"all" | "articles" | "collections"
+	>("all");
+
+	const showArticles =
+		contentToDisplay === "all" || contentToDisplay === "articles";
+	const showCollections =
+		contentToDisplay === "all" || contentToDisplay === "collections";
+
 	return (
 		<div>
 			<div className={style.mainContents}>
@@ -112,41 +122,69 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					<div className={style.topBarDivider} />
 					<div className={style.topBarButtons} role="group">
 						<Button
-							aria-selected="true"
+							onClick={() => setContentToDisplay("all")}
+							aria-selected={contentToDisplay === "all"}
 							tag="button"
-							variant="primary-emphasized"
+							variant={
+								contentToDisplay === "all" ? "primary-emphasized" : "primary"
+							}
 						>
 							All
 						</Button>
-						<Button aria-selected="false" tag="button">
+						<Button
+							onClick={() => setContentToDisplay("articles")}
+							aria-selected={contentToDisplay === "articles"}
+							tag="button"
+							variant={
+								contentToDisplay === "articles"
+									? "primary-emphasized"
+									: "primary"
+							}
+						>
 							Articles
 						</Button>
-						<Button aria-selected="false" tag="button">
+						<Button
+							onClick={() => setContentToDisplay("collections")}
+							aria-selected={contentToDisplay === "collections"}
+							tag="button"
+							variant={
+								contentToDisplay === "collections"
+									? "primary-emphasized"
+									: "primary"
+							}
+						>
 							Collections
 						</Button>
 					</div>
 				</div>
 				{(isLoading || isInitialLoading || isFetching) && <h1>Loading...</h1>}
-				<SubHeader tag="h1" text="Articles" />
-				<PostCardGrid
-					listAriaLabel={"List of search result posts"}
-					postsToDisplay={posts}
-					unicornProfilePicMap={unicornProfilePicMap}
-				/>
-				<div>{isError && <div>Error: {error}</div>}</div>
-				<Pagination
-					softNavigate={(href) => {
-						pushState(href);
-					}}
-					page={{
-						currentPage: page,
-						lastPage: lastPage,
-					}}
-					getPageHref={(pageNum) => {
-						urlParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-						return `${window.location.pathname}?${urlParams.toString()}`;
-					}}
-				/>
+				{isError && <h1>Error: {error}</h1>}
+				{showArticles && (
+					<Fragment>
+						<SubHeader tag="h1" text="Articles" />
+						<PostCardGrid
+							listAriaLabel={"List of search result posts"}
+							postsToDisplay={posts}
+							unicornProfilePicMap={unicornProfilePicMap}
+						/>
+						{posts.length === 0 && (
+							<p className="text-style-headline-3">No results found.</p>
+						)}
+						<Pagination
+							softNavigate={(href) => {
+								pushState(href);
+							}}
+							page={{
+								currentPage: page,
+								lastPage: lastPage,
+							}}
+							getPageHref={(pageNum) => {
+								urlParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+								return `${window.location.pathname}?${urlParams.toString()}`;
+							}}
+						/>
+					</Fragment>
+				)}
 			</div>
 		</div>
 	);
