@@ -18,6 +18,7 @@ import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
 import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
+import { ExtendedCollectionInfo } from "types/CollectionInfo";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -27,6 +28,13 @@ interface SearchPageProps {
 }
 
 const MAX_POSTS_PER_PAGE = 6;
+
+interface ServerReturnType {
+	posts: PostInfo[];
+	totalPosts: number;
+	collections: ExtendedCollectionInfo[];
+	totalCollections: number;
+}
 
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
@@ -54,12 +62,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		queryFn: ({ signal }) =>
 			fetch(`/api/search?query=${debouncedSearchVal}`, {
 				signal: signal,
-			}).then(
-				(res) =>
-					res.json() as Promise<{ posts: PostInfo[]; totalPosts: number }>
-			),
+			}).then((res) => res.json() as Promise<ServerReturnType>),
 		queryKey: ["search", debouncedSearchVal],
-		initialData: { posts: [], totalPosts: 0 },
+		initialData: {
+			posts: [],
+			totalPosts: 0,
+			collections: [],
+			totalCollections: 0,
+		} as ServerReturnType,
 		refetchOnWindowFocus: false,
 		enabled,
 	});
@@ -168,6 +178,19 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				{isError && <p className={"text-style-headline-1"}>Error: {error}</p>}
 				{!enabled && (
 					<p className={"text-style-headline-1"}>Type something to search</p>
+				)}
+				{enabled && !isContentLoading && showCollections && (
+					<Fragment>
+						<SubHeader tag="h1" text="Collections" />
+						<div className="grid grid-tablet-2 grid-desktopSmall-3">
+							{data.collections.map((collection) => (
+								<p>{collection.title}</p>
+							))}
+						</div>
+						{data.collections.length === 0 && (
+							<p className="text-style-headline-3">No results found.</p>
+						)}
+					</Fragment>
 				)}
 				{enabled && !isContentLoading && showArticles && (
 					<Fragment>
