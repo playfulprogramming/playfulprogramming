@@ -11,7 +11,7 @@ import {
 } from "@floating-ui/react";
 import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact";
-import { createPortal } from "preact/compat";
+import { createPortal, StateUpdater } from "preact/compat";
 import mainStyles from "./pagination.module.scss";
 import more from "src/icons/more_horiz.svg?raw";
 import { PaginationProps } from "components/pagination/types";
@@ -21,18 +21,29 @@ import subtract from "../../icons/subtract.svg?raw";
 import add from "../../icons/add.svg?raw";
 import { Input } from "components/input/input";
 
-function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
+function PopupContents(
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
+		setIsOpen: StateUpdater<boolean>;
+	}
+) {
 	const [count, setCount] = useState(props.page.currentPage);
 	return (
 		<form
+			data-testid="pagination-popup"
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
-				location.href = `/page/${count}`;
+				if (props.softNavigate) {
+					props.softNavigate(props.getPageHref(count));
+					props.setIsOpen(false);
+					return;
+				}
+				location.href = props.getPageHref(count);
 			}}
 		>
 			<div class={style.popupTopArea}>
 				<IconOnlyButton
+					data-testid="pagination-popup-decrement"
 					type="button"
 					tag="button"
 					onClick={() => setCount((v) => v - 1)}
@@ -45,6 +56,7 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					/>
 				</IconOnlyButton>
 				<Input
+					data-testid="pagination-popup-input"
 					class={style.popupInput}
 					value={count}
 					onChange={(e) => {
@@ -53,13 +65,14 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 							setCount(props.page.lastPage);
 						} else if (newVal < 1) {
 							setCount(1);
-						} else {
+						} else if (newVal) {
 							setCount(newVal);
 						}
 					}}
 					type="number"
 				/>
 				<IconOnlyButton
+					data-testid="pagination-popup-increment"
 					type="button"
 					tag="button"
 					onClick={() => setCount((v) => v + 1)}
@@ -72,7 +85,12 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 					/>
 				</IconOnlyButton>
 			</div>
-			<Button tag="button" type="submit" variant="primary">
+			<Button
+				data-testid="pagination-popup-submit"
+				tag="button"
+				type="submit"
+				variant="primary"
+			>
 				Go to page
 			</Button>
 		</form>
@@ -80,7 +98,7 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 }
 
 export function PaginationMenuAndPopover(
-	props: Pick<PaginationProps, "page" | "getPageHref">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
 ) {
 	const [isOpen, setIsOpen] = useState(false);
 	const arrowRef = useRef(null);
@@ -90,7 +108,7 @@ export function PaginationMenuAndPopover(
 		placement: "top",
 		onOpenChange: setIsOpen,
 		middleware: [
-			offset(32 - (14 / 2)),
+			offset(32 - 14 / 2),
 			arrow({
 				element: arrowRef,
 			}),
@@ -120,7 +138,7 @@ export function PaginationMenuAndPopover(
 				{...getFloatingProps()}
 				class={style.popup}
 			>
-				<PopupContents {...props} />
+				<PopupContents {...props} setIsOpen={setIsOpen} />
 				<FloatingArrow
 					ref={arrowRef}
 					context={context}
@@ -139,6 +157,7 @@ export function PaginationMenuAndPopover(
 		<Fragment>
 			<li className={`${mainStyles.paginationItem}`}>
 				<button
+					data-testid="pagination-menu"
 					ref={refs.setReference}
 					{...getReferenceProps()}
 					aria-selected={isOpen}

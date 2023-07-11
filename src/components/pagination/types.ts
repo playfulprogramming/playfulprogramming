@@ -8,6 +8,7 @@ export interface PaginationButtonProps {
 	pageNum: number;
 	selected: boolean;
 	href: string;
+	softNavigate?: (href: string) => void;
 }
 
 export interface PaginationProps {
@@ -16,4 +17,5 @@ export interface PaginationProps {
 	id?: string;
 	rootURL?: string;
 	getPageHref?: (pageNum: number) => string;
+	softNavigate?: (href: string) => void;
 }

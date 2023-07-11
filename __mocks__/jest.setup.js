@@ -20,3 +20,5 @@ global.IntersectionObserver = class IntersectionObserver {
 		return null;
 	}
 };
+
+global.React = require("preact");
