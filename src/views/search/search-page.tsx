@@ -19,6 +19,7 @@ import { PostCardGrid } from "components/post-card/post-card-grid";
 import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
+import { CollectionCard } from "components/collection-card/collection-card";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -184,7 +185,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						<SubHeader tag="h1" text="Collections" />
 						<div className="grid grid-tablet-2 grid-desktopSmall-3">
 							{data.collections.map((collection) => (
-								<p>{collection.title}</p>
+								<CollectionCard
+									unicornProfilePicMap={unicornProfilePicMap}
+									collection={collection}
+								/>
 							))}
 						</div>
 						{data.collections.length === 0 && (
