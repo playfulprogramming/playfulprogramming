@@ -65,7 +65,7 @@ function PopupContents(
 							setCount(props.page.lastPage);
 						} else if (newVal < 1) {
 							setCount(1);
-						} else {
+						} else if (newVal) {
 							setCount(newVal);
 						}
 					}}
