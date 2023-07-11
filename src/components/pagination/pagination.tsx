@@ -77,7 +77,8 @@ export const Pagination = ({
 		isDotsFirst && "...",
 		...Array(PAGE_BUTTON_COUNT)
 			.fill(0)
-			.map((_, i) => i + firstPageNum),
+			.map((_, i) => i + firstPageNum)
+			.filter(i => i < page.lastPage),
 		!isDotsFirst && "...",
 		// last page is always displayed
 		page.lastPage,
