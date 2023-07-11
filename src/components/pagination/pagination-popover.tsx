@@ -11,7 +11,7 @@ import {
 } from "@floating-ui/react";
 import { useRef, useState } from "preact/hooks";
 import { Fragment } from "preact";
-import { createPortal } from "preact/compat";
+import { createPortal, StateUpdater } from "preact/compat";
 import mainStyles from "./pagination.module.scss";
 import more from "src/icons/more_horiz.svg?raw";
 import { PaginationProps } from "components/pagination/types";
@@ -21,14 +21,23 @@ import subtract from "../../icons/subtract.svg?raw";
 import add from "../../icons/add.svg?raw";
 import { Input } from "components/input/input";
 
-function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
+function PopupContents(
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
+		setIsOpen: StateUpdater<boolean>;
+	}
+) {
 	const [count, setCount] = useState(props.page.currentPage);
 	return (
 		<form
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
-				location.href = `/page/${count}`;
+				if (props.softNavigate) {
+					props.softNavigate(props.getPageHref(count));
+					props.setIsOpen(false);
+					return;
+				}
+				location.href = props.getPageHref(count);
 			}}
 		>
 			<div class={style.popupTopArea}>
@@ -80,7 +89,7 @@ function PopupContents(props: Pick<PaginationProps, "page" | "getPageHref">) {
 }
 
 export function PaginationMenuAndPopover(
-	props: Pick<PaginationProps, "page" | "getPageHref">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
 ) {
 	const [isOpen, setIsOpen] = useState(false);
 	const arrowRef = useRef(null);
@@ -90,7 +99,7 @@ export function PaginationMenuAndPopover(
 		placement: "top",
 		onOpenChange: setIsOpen,
 		middleware: [
-			offset(32 - (14 / 2)),
+			offset(32 - 14 / 2),
 			arrow({
 				element: arrowRef,
 			}),
@@ -120,7 +129,7 @@ export function PaginationMenuAndPopover(
 				{...getFloatingProps()}
 				class={style.popup}
 			>
-				<PopupContents {...props} />
+				<PopupContents {...props} setIsOpen={setIsOpen} />
 				<FloatingArrow
 					ref={arrowRef}
 					context={context}

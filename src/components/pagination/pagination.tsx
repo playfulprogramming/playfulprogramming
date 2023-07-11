@@ -5,12 +5,14 @@ import { PaginationMenuAndPopover } from "components/pagination/pagination-popov
 import { useEffect, useState } from "preact/hooks";
 import { PaginationButtonProps, PaginationProps } from "components/pagination/types";
 import { usePagination } from "./use-pagination";
+import { onSoftNavClick } from "./on-click-base";
 
 function PaginationButton({
 	pageInfo,
 	pageNum,
 	href,
-	selected
+	selected,
+	softNavigate,
 }: PaginationButtonProps) {
 	const pageOptionalMin = Math.min(Math.max(1, pageInfo.currentPage - 1), pageInfo.lastPage - 3);
 	const isOptional = pageNum < pageOptionalMin || pageNum > pageOptionalMin + 3;
@@ -22,6 +24,7 @@ function PaginationButton({
 					selected ? styles.selected : ""
 				}`}
 				href={href}
+				onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
 				aria-label={`Go to page ${pageNum}`}
 				aria-current={selected || undefined}
 			>
@@ -35,7 +38,7 @@ function PaginationButton({
  * This prevents the pagination menu from rendering on SSR, which throws errors
  */
 function PaginationMenuWrapper(
-	props: Pick<PaginationProps, "page" | "getPageHref">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
 ) {
 	const [shouldRender, setShouldRender] = useState(false);
 
@@ -54,6 +57,7 @@ export const Pagination = ({
 	class: className = "",
 	id = "post-list-pagination",
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
+	softNavigate,
 }: PaginationProps) => {
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
@@ -68,7 +72,12 @@ export const Pagination = ({
 						<a
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
 							aria-label="Previous"
-							href={!isPreviousEnabled ? "javascript:void(0)" : getPageHref(page.currentPage - 1)}
+							href={
+								!isPreviousEnabled
+									? "javascript:void(0)"
+									: getPageHref(page.currentPage - 1)
+							}
+							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
 							aria-disabled={!isPreviousEnabled}
 							dangerouslySetInnerHTML={{ __html: back }}
 						/>
@@ -81,16 +90,26 @@ export const Pagination = ({
 								pageNum={pageNum}
 								selected={pageNum === page.currentPage}
 								href={getPageHref(pageNum)}
+								softNavigate={softNavigate}
 							/>
 						) : (
-							<PaginationMenuWrapper page={page} getPageHref={getPageHref} />
+							<PaginationMenuWrapper
+								page={page}
+								getPageHref={getPageHref}
+								softNavigate={softNavigate}
+							/>
 						);
 					})}
 
 					<li className={`${styles.paginationItem}`}>
 						<a
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							href={!isNextEnabled ? "javascript:void(0)" : getPageHref(page.currentPage + 1)}
+							href={
+								!isNextEnabled
+									? "javascript:void(0)"
+									: getPageHref(page.currentPage + 1)
+							}
+							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
 							aria-label="Next"
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
