@@ -23,6 +23,14 @@
 	z-index: -1;
 }
 
+.bannerTextShadow {
+	text-shadow:
+		0 0 5px var(--background_primary),
+		0 0 6px var(--background_primary),
+		0 0 8px var(--background_primary),
+		0 0 8px var(--background_primary);
+}
+
 @include from($desktopSmall) {
 	.header {
 		display: grid;

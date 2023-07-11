@@ -12,10 +12,10 @@ import * as data from "src/utils/data";
 	<BannerStickersMobile class={style.bannerLogoMobile} />
 	<BannerStickersGroup class={style.bannerLogo} />
 	<div class="text-center">
-		<h1 class="text-style-headline-2">
+		<h1 class={`text-style-headline-2 ${style.bannerTextShadow}`}>
 			{translate(Astro, "desc.homepage")}
 		</h1>
-		<p class="text-style-body-large-bold">
+		<p class={`text-style-body-large-bold ${style.bannerTextShadow}`}>
 			{translate(Astro, "desc.homepage_extra")}
 		</p>
 		<div

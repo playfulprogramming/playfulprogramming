@@ -2,14 +2,14 @@
 import { getStickers } from "./banner-stickers";
 
 const STICKER_TRANSFORMS = [
-	"left: 0; top: 70%",
-	"left: 93%; top: 72%",
-	"left: 32%; top: 6%; transform: rotate(-20deg)",
-	"left: 4%; top: 18%; transform: rotate(-5deg)",
-	"left: 76%; top: 4%; transform: rotate(-10deg)",
-	"left: 18%; top: 2%; transform: rotate(15deg)",
-	"left: 53%; top: 0; transform: rotate(-7deg)",
-	"left: 90%; top: 15%; transform: rotate(5deg)",
+	"left: 4%; top: 50%; transform: scale(0.8);",
+	"left: 0; top: 18%; transform: rotate(-5deg);",
+	"left: 18%; top: 0; transform: rotate(15deg);",
+	"left: 32%; top: 0; transform: rotate(-20deg) scale(0.8);",
+	"left: 53%; top: 0; transform: rotate(-7deg);",
+	"left: 76%; top: 1%; transform: rotate(-10deg) scale(0.8);",
+	"left: 90%; top: 15%; transform: rotate(5deg);",
+	"left: 93%; top: 52%; transform: scale(0.8);",
 ];
 
 const stickers = (await getStickers()).sort(() => 0.5 - Math.random());
@@ -25,7 +25,7 @@ const stickerTransforms = STICKER_TRANSFORMS.map((transform) => {
 });
 ---
 
-<div {...Astro.props} style="height: 128px; transform: translate(16px);">
+<div {...Astro.props} style="height: 128px;">
 	{
 		stickerTransforms.map((sticker) => (
 			<img
