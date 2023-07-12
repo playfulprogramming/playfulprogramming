@@ -8,6 +8,13 @@
 
 .header {
 	height: 80px;
+	padding: 0 var(--site-spacing);
+	margin: 0 auto;
+	max-width: var(--max-width_l);
+
+	&_xl {
+		max-width: var(--max-width_xl);
+	}
 }
 
 .logo {

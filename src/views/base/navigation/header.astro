@@ -12,6 +12,10 @@ import { removePrefixLanguageFromPath, translate } from "utils/translations";
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const isHome = path === "/";
 const isAbout = /\/about\/?/.test(path);
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
 ---
 
 <nav
@@ -19,7 +23,11 @@ const isAbout = /\/about\/?/.test(path);
 	class={style.headerBorder}
 	aria-label="Toolbar for primary action buttons"
 >
-	<div class={`container d-flex ${style.header}`}>
+	<div
+		class={`${style.header} ${
+			props.size === "xl" ? style.header_xl : ""
+		} d-flex`}
+	>
 		<BackButton />
 
 		<a href="/" class={`d-flex ${style.logo}`}>

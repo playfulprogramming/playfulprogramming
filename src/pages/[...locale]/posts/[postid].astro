@@ -44,7 +44,7 @@ const locales = post?.locales || [];
 const otherLangs = locales ? locales.filter((t) => t !== post.locale) : [];
 ---
 
-<Document lang={locale}>
+<Document size="xl">
 	<SEO
 		slot="head"
 		title={post.title}
