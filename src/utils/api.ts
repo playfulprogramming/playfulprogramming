@@ -1,6 +1,6 @@
-import { PostInfo } from "types/index";
+import { CollectionInfo, PostInfo } from "types/index";
 import { Languages } from "types/index";
-import { posts } from "./data";
+import { posts, collections } from "./data";
 
 export function getPostsByLang(language: Languages): PostInfo[] {
 	return posts.filter((p) => p.locale === language);
@@ -22,4 +22,8 @@ export function getPostsByCollection(
 	return getPostsByLang(language)
 		.filter((post) => post.collection === collection)
 		.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
+}
+
+export function getCollectionsByLang(language: Languages): CollectionInfo[] {
+	return collections.filter((c) => c.locale === language);
 }

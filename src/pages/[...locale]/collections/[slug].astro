@@ -8,16 +8,19 @@ import { getPostsByCollection } from "utils/api";
 import CollectionPage from "src/views/collections/collection-page.astro";
 import CollectionChapter from "src/views/collections/collection-chapter.astro";
 import { SubHeader } from "src/components/subheader/subheader";
-import { translate } from "utils/translations";
+import { getLanguageFromFilename, translate } from "utils/translations";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
-		"../../../content/collections/**/index.md"
+		"../../../../content/collections/**/*.md"
 	);
 
 	return collections.map((collection) => {
+		const locale = getLanguageFromFilename(collection.file);
+
 		return {
 			params: {
+				locale: locale !== "en" ? locale : undefined,
 				slug: collection.frontmatter.slug,
 			},
 			props: {
@@ -37,8 +40,7 @@ const { Content, collection } = Astro.props as CollectionProps;
 
 const { slug } = collection;
 
-// TODO: support localization
-const collectionPosts = getPostsByCollection(slug, "en");
+const collectionPosts = getPostsByCollection(slug, collection.locale);
 
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
@@ -56,6 +58,10 @@ const coverImgPath = getFullRelativePath(
 		publishedTime={collection.published}
 		type={collection.type}
 		shareImage={collection.socialImg || coverImgPath}
+		langData={{
+			otherLangs: collection.locales.filter((t) => t != collection.locale),
+			currentLang: collection.locale,
+		}}
 	/>
 	<CollectionPage
 		Content={Content}
@@ -64,10 +70,7 @@ const coverImgPath = getFullRelativePath(
 	/>
 	<div class="collection-post-list-container">
 		<div class="collection-post-list">
-			<SubHeader
-				tag="h2"
-				text={translate(Astro, "desc.chapter_listing")}
-			/>
+			<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
 			<ol>
 				{
 					(collectionPosts ?? []).map((post) => {

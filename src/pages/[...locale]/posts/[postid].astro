@@ -13,8 +13,8 @@ export async function getStaticPaths() {
 		"../../../../content/blog/**/*.md"
 	);
 
-	return posts.reduce((arr, post) => {
-		arr.push({
+	return posts.map((post) => {
+		return {
 			params: {
 				locale:
 					post.frontmatter.locale !== "en"
@@ -28,9 +28,8 @@ export async function getStaticPaths() {
 				post: post.frontmatter,
 				posts,
 			},
-		});
-		return arr;
-	}, []);
+		};
+	});
 }
 
 const { Content, post, posts, locale } = Astro.props as {
