@@ -1,5 +1,5 @@
 import { Languages } from "types/index";
-import { languages } from "constants/index";
+import { languages } from "../constants/index";
 import { basename } from "path";
 import { MarkdownInstance } from "astro";
 
@@ -155,19 +155,19 @@ export function translate(astro: { url: URL }, key: string, ...args: string[]) {
 	const lang = getPrefixLanguageFromPath(astro.url.pathname);
 	let value = i18n[lang]?.get(key);
 
+	if (!value) {
+		console.warn(
+			`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`
+		);
+		value = i18n.en?.get(key);
+	}
+
 	if (value) {
 		// replace any instances of "%s" with the corresponding argument
 		//   ignoring double escapes (%%s)
 		for (const arg of args) {
 			value = value.replace(/(?<!%)%s/, arg).replace(/%%s/g, "%s");
 		}
-	}
-
-	if (!value) {
-		console.warn(
-			`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`
-		);
-		value = i18n.en?.get(key);
 	}
 
 	if (!value) {
