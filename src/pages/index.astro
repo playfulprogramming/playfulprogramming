@@ -3,7 +3,6 @@ import Document from "../layouts/document.astro";
 import { getCollectionsByLang, getPostsByLang } from "utils/api";
 import SEO from "components/seo/seo.astro";
 import Homepage from "src/views/explore/homepage.astro";
-import { collections } from "utils/data";
 
 const enPosts = getPostsByLang("en");
 const postsToDisplay = enPosts.slice(0, 4);
