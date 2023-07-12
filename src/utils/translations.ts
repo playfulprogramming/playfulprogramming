@@ -24,6 +24,19 @@ export function fileToOpenGraphConverter<T extends Languages>(
 }
 
 /**
+ * Given a filename "index.es.md", return the language code.
+ *
+ * @example "index.es.md" -> "es"
+ * @example "index.md" -> "en"
+ * @example "/posts/test/index.fr.md" -> "fr"
+ */
+export function getLanguageFromFilename(name: string): Languages {
+	const lang = name.split(".").at(-2);
+	if (isLanguageKey(lang)) return lang;
+	else return "en";
+}
+
+/**
  * Given a URL, find the prefix language.
  *
  * @example "/es/posts/test" -> "es"
