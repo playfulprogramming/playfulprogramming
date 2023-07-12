@@ -149,6 +149,11 @@
 	}
 }
 
+.buttonIcon svg, .iconOnlyButtonIcon svg {
+	width: 100%;
+	height: 100%;
+}
+
 .button.regular .buttonIcon {
 	padding: var(--btn_regular_icon_size_padding);
 	height: var(--btn_regular_icon_size_default);
