@@ -67,21 +67,22 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const enabled = !!debouncedSearchVal;
 
-	const { isLoading, isFetching, isError, error, data } = useQuery({
-		queryFn: ({ signal }) =>
-			fetch(`/api/search?query=${debouncedSearchVal}`, {
-				signal: signal,
-			}).then((res) => res.json() as Promise<ServerReturnType>),
-		queryKey: ["search", debouncedSearchVal],
-		initialData: {
-			posts: [],
-			totalPosts: 0,
-			collections: [],
-			totalCollections: 0,
-		} as ServerReturnType,
-		refetchOnWindowFocus: false,
-		enabled,
-	});
+	const { isInitialLoading, isLoading, isFetching, isError, error, data } =
+		useQuery({
+			queryFn: ({ signal }) =>
+				fetch(`/api/search?query=${debouncedSearchVal}`, {
+					signal: signal,
+				}).then((res) => res.json() as Promise<ServerReturnType>),
+			queryKey: ["search", debouncedSearchVal],
+			initialData: {
+				posts: [],
+				totalPosts: 0,
+				collections: [],
+				totalCollections: 0,
+			} as ServerReturnType,
+			refetchOnWindowFocus: false,
+			enabled,
+		});
 
 	const lastPage = useMemo(
 		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
@@ -93,14 +94,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const [sort, setSort] = useState<"newest" | "oldest">("newest");
 
-	let initialRender = useRef(false);
-
-	useLayoutEffect(() => {
-		if (initialRender.current) return;
-		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
-	}, [data.posts, sort, selectedTags, selectedUnicorns]);
-
-	const posts = useMemo(() => {
+	const filteredAndSortedPosts = useMemo(() => {
 		return [...data.posts]
 			.sort(
 				(a, b) =>
@@ -123,9 +117,25 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				}
 
 				return true;
-			})
-			.slice((page - 1) * MAX_POSTS_PER_PAGE, page * MAX_POSTS_PER_PAGE);
+			});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
+
+	let dataChangedCount = useRef(0);
+
+	useEffect(() => {
+		dataChangedCount.current++;
+		// One for initial load, one for when the search query changes.
+		// Or rather, "One for the money, two for the show"
+		if (dataChangedCount.current <= 2) return;
+		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
+	}, [filteredAndSortedPosts]);
+
+	const posts = useMemo(() => {
+		return filteredAndSortedPosts.slice(
+			(page - 1) * MAX_POSTS_PER_PAGE,
+			page * MAX_POSTS_PER_PAGE
+		);
+	}, [filteredAndSortedPosts, page]);
 
 	const [contentToDisplay, setContentToDisplay] = useState<
 		"all" | "articles" | "collections"
