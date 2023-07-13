@@ -1,8 +1,8 @@
 ---
 import { getImage } from "@astrojs/image";
 import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
+import { getStickers } from "./banner-stickers";
 
-const STICKER_SIZE = 144;
 const STICKER_TRANSFORMS = [
 	"translate(190, 51) scale(0.8)",
 	"translate(298, 0) rotate(15)",
@@ -15,43 +15,9 @@ const STICKER_TRANSFORMS = [
 	"translate(360, 210) scale(0.8)",
 ];
 
-type StickerInfo = {
-	src: string;
-	name: string;
-};
-
-async function createSticker(
-	name: string,
-	width: number = STICKER_SIZE,
-	height: number = STICKER_SIZE
-): Promise<StickerInfo> {
-	const image = await getImage({
-		src: `/stickers/${name}.png`,
-		width,
-		height,
-		alt: "",
-		format: "png",
-	});
-
-	return {
-		src: image.src,
-		name,
-	};
-}
+const stickers = (await getStickers()).sort(() => 0.5 - Math.random());
 
 // we can't use JSX for these since Astro changes `<image>` tags into `<img>`, breaking the SVG
-const stickers = [
-	await createSticker("android"),
-	await createSticker("angular"),
-	await createSticker("html"),
-	await createSticker("python"),
-	await createSticker("react"),
-	await createSticker("typescript"),
-	await createSticker("vue"),
-	await createSticker("ferris", STICKER_SIZE, STICKER_SIZE * (399 / 512)),
-	await createSticker("git"),
-].sort(() => 0.5 - Math.random());
-
 const stickerHtml = STICKER_TRANSFORMS.map((transform) => ({
 	...stickers.pop(),
 	transform,
@@ -70,9 +36,16 @@ const unicornImage = await getImage({
 	alt: "",
 	format: "png",
 });
+
+const props = Astro.props as { class: string };
 ---
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418 300">
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 418 300"
+	class={props.class}
+	aria-hidden="true"
+>
 	<g set:html={stickerHtml} />
 
 	<image

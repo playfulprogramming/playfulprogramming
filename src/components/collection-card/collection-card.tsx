@@ -60,7 +60,7 @@ export const CollectionCard = ({
 						/>
 					}
 				>
-					{collection.posts.length} chapters
+					{String(collection.posts.length)} chapters
 				</Button>
 			</div>
 		</div>

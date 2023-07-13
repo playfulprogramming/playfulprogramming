@@ -20,6 +20,8 @@ export interface RawCollectionInfo {
 
 export interface CollectionInfo extends RawCollectionInfo {
 	slug: string;
+	locales: Languages[];
+	locale: Languages;
 	authorsMeta: UnicornInfo[];
 	coverImgMeta: {
 		// Relative to "public/unicorns"
@@ -35,7 +37,6 @@ export interface CollectionInfo extends RawCollectionInfo {
 }
 
 export interface ExtendedCollectionInfo extends CollectionInfo {
-	locale: Languages;
 	authorsMeta: UnicornInfo[];
 	Content: MarkdownInstance<never>["Content"];
 	contentMeta: string;

@@ -19,6 +19,25 @@ describe("utils/translations.ts", () => {
 		});
 	});
 
+	describe("getLanguageFromFilename", () => {
+		test("returns a the language from 'index.es.md'", () => {
+			const lang = translations.getLanguageFromFilename("index.es.md");
+			expect(lang).toBe("es");
+		});
+
+		test("returns 'en' from 'index.md'", () => {
+			const lang = translations.getLanguageFromFilename("index.md");
+			expect(lang).toBe("en");
+		});
+
+		test("returns 'fr' from '/posts/test/index.fr.md'", () => {
+			const lang = translations.getLanguageFromFilename(
+				"/posts/test/index.fr.md"
+			);
+			expect(lang).toBe("fr");
+		});
+	});
+
 	describe("getPrefixLanguageFromPath", () => {
 		test("returns an initial prefix", () => {
 			const expected: Languages = "fr";

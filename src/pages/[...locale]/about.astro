@@ -2,8 +2,11 @@
 import Document from "src/layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import About from "src/views/about/about.astro";
-import { getTranslatedPage, translate } from "utils/translations";
-import { Languages } from "types/index";
+import {
+	getLanguageFromFilename,
+	getTranslatedPage,
+	translate,
+} from "utils/translations";
 
 const { locales } = getTranslatedPage(
 	Astro,
@@ -12,25 +15,18 @@ const { locales } = getTranslatedPage(
 
 export async function getStaticPaths() {
 	const globResults = await Astro.glob("../../../content/site/about-us*.md");
-	return (
-		globResults
-			// Filter out English
-			.filter((globItem) => !globItem.file.endsWith("about-us.md"))
-			.map((globItem) => {
-				// .es.md
-				const fileEnding = globItem.file.split("about-us").at(-1);
-				const locale: Languages = fileEnding.split(".")[1] as never;
-				return {
-					params: {
-						locale,
-					},
-					props: {
-						globResults,
-						locale,
-					},
-				};
-			})
-	);
+	return globResults.map((globItem) => {
+		const locale = getLanguageFromFilename(globItem.file);
+		return {
+			params: {
+				locale: locale !== "en" ? locale : undefined,
+			},
+			props: {
+				globResults,
+				locale,
+			},
+		};
+	});
 }
 ---
 
