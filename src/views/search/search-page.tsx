@@ -1,4 +1,11 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
 import { PostCard } from "components/post-card/post-card";
@@ -20,6 +27,7 @@ import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
+import { FilterSidebar } from "./components/filter-sidebar";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -80,18 +88,47 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		[data]
 	);
 
-	useLayoutEffect(() => {
-		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
-	}, [data]);
+	const [selectedTags, setSelectedTags] = useState<string[]>([]);
+	const [selectedUnicorns, setSelectedUnicorns] = useState<string[]>([]);
 
-	const posts = useMemo(
-		() =>
-			data.posts.slice(
-				(page - 1) * MAX_POSTS_PER_PAGE,
-				page * MAX_POSTS_PER_PAGE
-			),
-		[data, page]
-	);
+	const [sort, setSort] = useState<"newest" | "oldest">("newest");
+
+	let initialRender = useRef(false);
+
+	useLayoutEffect(() => {
+		if (initialRender.current) return;
+		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
+	}, [data.posts, sort, selectedTags, selectedUnicorns]);
+
+	const posts = useMemo(() => {
+		let modifiedPosts = [...data.posts].sort(
+			(a, b) =>
+				(sort === "newest" ? -1 : 1) *
+				(new Date(a.published).getTime() - new Date(b.published).getTime())
+		);
+
+		for (let i = 0; i < modifiedPosts.length; i++) {
+			const post = modifiedPosts[i];
+			if (
+				selectedTags.length > 0 &&
+				!selectedTags.every((tag) => post.tags.includes(tag))
+			) {
+				modifiedPosts.splice(i, 1);
+			}
+
+			if (
+				selectedUnicorns.length > 0 &&
+				!selectedUnicorns.every((unicorn) => post.authors.includes(unicorn))
+			) {
+				modifiedPosts.splice(i, 1);
+			}
+		}
+
+		return modifiedPosts.slice(
+			(page - 1) * MAX_POSTS_PER_PAGE,
+			page * MAX_POSTS_PER_PAGE
+		);
+	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
 	const [contentToDisplay, setContentToDisplay] = useState<
 		"all" | "articles" | "collections"
@@ -106,7 +143,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const isContentLoading = isLoading || isFetching;
 
 	return (
-		<div>
+		<div className={style.fullPageContainer}>
+			<FilterSidebar
+				unicornProfilePicMap={unicornProfilePicMap}
+				collections={data.collections}
+				posts={data.posts}
+				selectedTags={selectedTags}
+				setSelectedTags={setSelectedTags}
+				selectedAuthorIds={selectedUnicorns}
+				setSelectedAuthorIds={setSelectedUnicorns}
+				sort={sort}
+				setSort={setSort}
+			/>
 			<div className={style.mainContents}>
 				<div className={style.topBar}>
 					<form

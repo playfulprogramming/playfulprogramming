@@ -1,0 +1,52 @@
+:root {
+	--search-page_filter_sidebar_padding-top: var(--spc-4x);
+	--search-page_filter_sidebar_padding-bottom: var(--site-spacing);
+	--search-page_filter_sidebar_padding-start: var(--site-spacing);
+	--search-page_filter_sidebar_padding-end: var(--site-spacing);
+	--search-page_filter_sidebar_gap: var(--spc-4x);
+	--search-page_filter_sidebar_order-btn-gap: var(--spc-2x);
+
+	--search-page_filter_list_header_min-height: var(--min-target-size_l);
+	--search-page_filter_list_header_gap: var(--spc-2x);
+	--search-page_filter_list_header_padding-start: var(--spc-3x);
+	--search-page_filter_list_header_padding-end: var(--spc-2x);
+
+	--search-page_filter_list_header_title_color: var(--foreground_emphasis-high);
+	--search-page_filter_list_header_count_color: var(--primary_default);
+	--search-page_filter_list_header_icon_color: var(--primary_default);
+	--search-page_filter_list_header_icon_size: var(--icon-size_regular);
+
+	--search-page_filter_list_divider_color: var(--background_disabled);
+	--search-page_filter_list_divider_width: var(--border-width_s);
+
+	--search-page_filter_list_more-btn_margin-horizontal: var(--spc-4x);
+	--search-page_filter_list_more-btn_margin-vertical: var(--spc-4x);
+}
+
+.gridContainer {
+	// TODO: Replace with token
+	max-width: 360px;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto 1fr 1fr;
+	gap: var(--search-page_filter_sidebar_gap);
+	padding: var(--search-page_filter_sidebar_padding-top)
+		var(--search-page_filter_sidebar_padding-end)
+		var(--search-page_filter_sidebar_padding-bottom)
+		var(--search-page_filter_sidebar_padding-start);
+}
+
+.buttonsContainer {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--search-page_filter_sidebar_order-btn-gap);
+}
+
+.tagsContainer,
+.authorsContainer {
+	width: 100%;
+	border: var(--search-page_filter_list_divider_width) solid
+		var(--search-page_filter_list_divider_color);
+}

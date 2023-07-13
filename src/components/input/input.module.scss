@@ -38,7 +38,9 @@
 	border-radius: 8px;
 	background: var(--form-field_background);
 	color: var(--foreground_emphasis-high);
-	margin: calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width));
+	margin: calc(
+		var(--form-field_outline_width_focused) - var(--form-field_outline_width)
+	);
 }
 
 .input:hover {
@@ -106,18 +108,20 @@
 	all: unset;
 	text-align: left;
 	width: 100%;
-	padding-left: calc(
-		max(
-			var(--icon-size_regular),
-			calc(
-				var(--p_medium_line-height) +
-					calc(var(--search-form-field_padding-vertical) * 2)
-			)
+	padding-left: max(
+		var(--icon-size_regular),
+		calc(
+			var(--p_medium_line-height) +
+				calc(var(--search-form-field_padding-vertical) * 2)
 		)
 	);
 	padding-top: var(--search-form-field_padding-vertical);
 	padding-bottom: var(--search-form-field_padding-vertical);
 	padding-right: var(--search-form-field_padding-right);
+}
+
+.searchInput.disableSearchIcon {
+	padding-left: var(--search-form-field_padding-right) !important;
 }
 
 .searchContainer:focus-within .searchInput {
@@ -153,7 +157,8 @@
 	position: absolute;
 }
 
-.closeButtonContainer, .closeButtonContainer > svg {
+.closeButtonContainer,
+.closeButtonContainer > svg {
 	height: 100%;
 	width: 100%;
 }

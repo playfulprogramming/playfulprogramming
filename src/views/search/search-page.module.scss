@@ -1,5 +1,9 @@
 @import "src/tokens/index";
 
+.fullPageContainer {
+	display: flex;
+}
+
 .mainContents {
 	margin: 0 auto;
 	max-width: var(--max-width_l);
