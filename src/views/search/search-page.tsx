@@ -101,33 +101,30 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [data.posts, sort, selectedTags, selectedUnicorns]);
 
 	const posts = useMemo(() => {
-		let modifiedPosts = [...data.posts].sort(
-			(a, b) =>
-				(sort === "newest" ? -1 : 1) *
-				(new Date(a.published).getTime() - new Date(b.published).getTime())
-		);
+		return [...data.posts]
+			.sort(
+				(a, b) =>
+					(sort === "newest" ? -1 : 1) *
+					(new Date(a.published).getTime() - new Date(b.published).getTime())
+			)
+			.filter((post) => {
+				if (
+					selectedTags.length > 0 &&
+					!post.tags.some((tag) => selectedTags.includes(tag))
+				) {
+					return false;
+				}
 
-		for (let i = 0; i < modifiedPosts.length; i++) {
-			const post = modifiedPosts[i];
-			if (
-				selectedTags.length > 0 &&
-				!selectedTags.every((tag) => post.tags.includes(tag))
-			) {
-				modifiedPosts.splice(i, 1);
-			}
+				if (
+					selectedUnicorns.length > 0 &&
+					!post.authors.some((unicorn) => selectedUnicorns.includes(unicorn))
+				) {
+					return false;
+				}
 
-			if (
-				selectedUnicorns.length > 0 &&
-				!selectedUnicorns.every((unicorn) => post.authors.includes(unicorn))
-			) {
-				modifiedPosts.splice(i, 1);
-			}
-		}
-
-		return modifiedPosts.slice(
-			(page - 1) * MAX_POSTS_PER_PAGE,
-			page * MAX_POSTS_PER_PAGE
-		);
+				return true;
+			})
+			.slice((page - 1) * MAX_POSTS_PER_PAGE, page * MAX_POSTS_PER_PAGE);
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
 	const [contentToDisplay, setContentToDisplay] = useState<
