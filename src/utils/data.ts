@@ -86,42 +86,56 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 
 function getCollections(): Array<CollectionInfo> {
 	const slugs = fs.readdirSync(collectionsDirectory).filter(isNotJunk);
-	const collections = slugs.map((slug) => {
-		const fileContents = fs.readFileSync(
-			join(collectionsDirectory, slug, "index.md"),
-			"utf8"
-		);
+	const collections = slugs.flatMap((slug) => {
+		const files = fs
+			.readdirSync(join(collectionsDirectory, slug))
+			.filter(isNotJunk)
+			.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
 
-		const frontmatter = matter(fileContents).data as RawCollectionInfo;
+		const locales = files
+			.map((name) => name.split(".").at(-2))
+			.map((lang) => (lang === "index" ? "en" : lang) as Languages);
 
-		const coverImgSize = getImageSize(
-			frontmatter.coverImg,
-			join(collectionsDirectory, slug),
-			join(collectionsDirectory, slug)
-		);
+		return files.map((file, i): CollectionInfo => {
+			const fileContents = fs.readFileSync(
+				join(collectionsDirectory, slug, file),
+				"utf8"
+			);
 
-		const coverImgMeta = {
-			height: coverImgSize.height as number,
-			width: coverImgSize.width as number,
-			relativePath: frontmatter.coverImg,
-			relativeServerPath: getFullRelativePath(
-				`/content/collections/${slug}`,
-				frontmatter.coverImg
-			),
-			absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
-		};
+			const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
-		const authorsMeta = frontmatter.authors.map((authorId) =>
-			fullUnicorns.find((u) => u.id === authorId)
-		);
+			const coverImgSize = getImageSize(
+				frontmatter.coverImg,
+				join(collectionsDirectory, slug),
+				join(collectionsDirectory, slug)
+			);
 
-		return {
-			...(frontmatter as RawCollectionInfo),
-			slug,
-			coverImgMeta,
-			authorsMeta,
-		};
+			const coverImgMeta = {
+				height: coverImgSize.height as number,
+				width: coverImgSize.width as number,
+				relativePath: frontmatter.coverImg,
+				relativeServerPath: getFullRelativePath(
+					`/content/collections/${slug}`,
+					frontmatter.coverImg
+				),
+				absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
+			};
+
+			const authorsMeta = frontmatter.authors.map((authorId) =>
+				fullUnicorns.find((u) => u.id === authorId)
+			);
+
+			return {
+				...(frontmatter as RawCollectionInfo),
+				slug,
+				locales,
+				locale: locales[i],
+				coverImgMeta,
+				authorsMeta,
+			};
+		});
 	});
+
 	return collections;
 }
 
