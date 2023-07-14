@@ -62,8 +62,7 @@
 }
 
 .gridContainer {
-	// TODO: Replace with token
-	max-width: 360px;
+	max-width: var(--search-page_filter_sidebar_max-width);
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -82,27 +81,16 @@
 	gap: var(--search-page_filter_sidebar_order-btn-gap);
 }
 
-.sectionsSidebarContainer {
+.sectionsSidebarContainer {}
+
+.section {
 	display: flex;
 	flex-direction: column;
-	gap: var(--search-page_filter_sidebar_gap);
-}
-
-.tagsContainer,
-.authorsContainer {
-	max-height: 50%;
-	flex-shrink: 1;
-	flex-grow: 1;
-	width: 100%;
+	height: 50%;
 	border: var(--search-page_filter_list_divider_width) solid
 		var(--search-page_filter_list_divider_color);
 	border-radius: var(--corner-radius_l);
-}
-
-.section {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+	overflow: hidden;
 }
 
 .sectionHeader {
