@@ -62,6 +62,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const setSearch = useCallback(
 		(str: string) => {
 			pushState({ key: SEARCH_QUERY_KEY, val: str });
+			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams]
 	);

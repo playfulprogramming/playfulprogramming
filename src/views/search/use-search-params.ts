@@ -5,9 +5,10 @@ export const useSearchParams = () => {
 		URLSearchParams,
 		{ key: string; val?: string } | string
 	>((prevParams, action) => {
-		let newParams: URLSearchParams | undefined;
+		let newParams: URLSearchParams;
 		let nav!: string;
 		if (typeof action === "string") {
+			newParams = new URL(action, window.location.href).searchParams;
 			nav = action;
 		} else {
 			/**
@@ -25,7 +26,7 @@ export const useSearchParams = () => {
 			nav = `${window.location.pathname}?${newParams.toString()}`;
 		}
 		window.history.pushState({}, "", nav);
-		return newParams ?? new URLSearchParams(prevParams.toString());
+		return newParams;
 	}, new URLSearchParams(window.location.search));
 
 	return {
