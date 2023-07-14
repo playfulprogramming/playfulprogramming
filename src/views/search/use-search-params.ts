@@ -4,18 +4,25 @@ export const useSearchParams = () => {
 	const [urlParams, pushState] = useReducer<
 		URLSearchParams,
 		{ key: string; val: string } | string
-	>((_, action) => {
+	>((prevParams, action) => {
 		let newParams: URLSearchParams | undefined;
 		let nav!: string;
 		if (typeof action === "string") {
 			nav = action;
 		} else {
-			newParams = new URLSearchParams(window.location.search);
+			/**
+			 * This cannot reference wnidow.location.search directly,
+			 * as Chrome will throttle the pushState if the user is
+			 * spamming the any of the filters.
+			 *
+			 * This is a workaround to prevent the throttling.
+			 */
+			newParams = new URLSearchParams(prevParams.toString());
 			newParams.set(action.key, action.val);
 			nav = `${window.location.pathname}?${newParams.toString()}`;
 		}
 		window.history.pushState({}, "", nav);
-		return newParams ?? new URLSearchParams(window.location.search);
+		return newParams ?? new URLSearchParams(prevParams.toString());
 	}, new URLSearchParams(window.location.search));
 
 	return {
