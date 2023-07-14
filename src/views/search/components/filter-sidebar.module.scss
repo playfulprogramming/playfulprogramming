@@ -165,5 +165,11 @@
 	overflow: auto;
 	height: 1px;
 	flex-grow: 1;
-	transition: height 0.2s ease-in-out, flex-grow 0.2s ease-in-out;
+
+	opacity: 1;
+	@include transition(opacity);
+
+	&[aria-hidden="true"] {
+		opacity: 0;
+	}
 }

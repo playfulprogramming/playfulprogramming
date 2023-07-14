@@ -66,7 +66,7 @@ const FilterSidebarSection = ({
 			</div>
 			<div
 				className={styles.sectionContent}
-				hidden={collapsed}
+				aria-hidden={collapsed}
 			>
 				{children}
 			</div>
