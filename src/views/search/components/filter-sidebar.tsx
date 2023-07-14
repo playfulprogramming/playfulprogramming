@@ -170,48 +170,46 @@ export const FilterSidebar = ({
 					Oldest
 				</Button>
 			</div>
-			<div className={styles.sectionsSidebarContainer}>
-				<FilterSidebarSection
-					title={"Tag"}
-					selectedNumber={selectedTags.length}
-					onClear={() => setSelectedTags([])}
-				>
-					{tags.map((tag) => {
-						return (
-							<div>
-								<label>
-									<span>{tag}</span>
-									<input
-										type="checkbox"
-										onChange={(e) => onTagsChange(tag)}
-										checked={selectedTags.includes(tag)}
-									/>
-								</label>
-							</div>
-						);
-					})}
-				</FilterSidebarSection>
-				<FilterSidebarSection
-					title={"Author"}
-					selectedNumber={selectedAuthorIds.length}
-					onClear={() => setSelectedAuthorIds([])}
-				>
-					{authors.map((author) => {
-						return (
-							<div>
-								<label>
-									<span>{author.name}</span>
-									<input
-										type="checkbox"
-										onChange={(e) => onSelectedAuthorChange(author.id)}
-										checked={selectedAuthorIds.includes(author.id)}
-									/>
-								</label>
-							</div>
-						);
-					})}
-				</FilterSidebarSection>
-			</div>
+			<FilterSidebarSection
+				title={"Tag"}
+				selectedNumber={selectedTags.length}
+				onClear={() => setSelectedTags([])}
+			>
+				{tags.map((tag) => {
+					return (
+						<div>
+							<label>
+								<span>{tag}</span>
+								<input
+									type="checkbox"
+									onChange={(e) => onTagsChange(tag)}
+									checked={selectedTags.includes(tag)}
+								/>
+							</label>
+						</div>
+					);
+				})}
+			</FilterSidebarSection>
+			<FilterSidebarSection
+				title={"Author"}
+				selectedNumber={selectedAuthorIds.length}
+				onClear={() => setSelectedAuthorIds([])}
+			>
+				{authors.map((author) => {
+					return (
+						<div>
+							<label>
+								<span>{author.name}</span>
+								<input
+									type="checkbox"
+									onChange={(e) => onSelectedAuthorChange(author.id)}
+									checked={selectedAuthorIds.includes(author.id)}
+								/>
+							</label>
+						</div>
+					);
+				})}
+			</FilterSidebarSection>
 		</div>
 	);
 };
