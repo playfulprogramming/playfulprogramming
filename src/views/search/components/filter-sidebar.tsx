@@ -33,7 +33,6 @@ const FilterSidebarSection = ({
 				<button
 					className={styles.sectionTitle}
 					style={{
-						minHeight: size?.height,
 						paddingRight: size?.width,
 					}}
 					aria-expanded={!collapsed}
@@ -49,17 +48,19 @@ const FilterSidebarSection = ({
 						{selectedNumber ? selectedNumber : null}
 					</span>
 				</button>
-				<Chip
-					tag="button"
-					ref={setEl}
-					className={styles.clearChip}
-					onClick={(e) => {
-						e.stopPropagation();
-						onClear();
-					}}
-				>
-					Clear
-				</Chip>
+				<div className={styles.clearContainer}>
+					<Chip
+						tag="button"
+						ref={setEl}
+						className={styles.clearChip}
+						onClick={(e) => {
+							e.stopPropagation();
+							onClear();
+						}}
+					>
+						Clear
+					</Chip>
+				</div>
 			</div>
 			<div className={styles.sectionContent}>{children}</div>
 		</div>
