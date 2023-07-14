@@ -28,10 +28,7 @@ const FilterSidebarSection = ({
 	const { setEl, size } = useElementSize();
 
 	return (
-		<div
-			className={styles.section}
-			style={collapsed ? { height: "fit-content" } : undefined}
-		>
+		<div className={`${styles.section} ${collapsed ? '' : styles.sectionExpanded}`}>
 			<div className={styles.sectionHeader}>
 				<button
 					className={styles.sectionTitle}
@@ -57,10 +54,9 @@ const FilterSidebarSection = ({
 						{selectedNumber ? `(${selectedNumber})` : null}
 					</span>
 				</button>
-				<div className={styles.clearContainer}>
+				<div className={styles.clearContainer} ref={setEl}>
 					<Chip
 						tag="button"
-						ref={setEl}
 						className={styles.clearChip}
 						onClick={onClear}
 					>
@@ -70,7 +66,7 @@ const FilterSidebarSection = ({
 			</div>
 			<div
 				className={styles.sectionContent}
-				style={collapsed ? { height: 0, flexGrow: 0 } : undefined}
+				hidden={collapsed}
 			>
 				{children}
 			</div>
@@ -154,7 +150,7 @@ export const FilterSidebar = ({
 	};
 
 	return (
-		<div className={styles.gridContainer} style={style}>
+		<div className={styles.sidebarContainer} style={style}>
 			<SearchInput
 				hideSearchButton={true}
 				usedInPreact={true}
