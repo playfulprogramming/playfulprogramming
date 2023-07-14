@@ -31,6 +31,11 @@ import { FilterSidebar } from "./components/filter-sidebar";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
+const CONTENT_TO_DISPLAY_KEY = "display";
+const SORT_KEY = "sort";
+
+const DEFAULT_SORT = "newest";
+const DEFAULT_CONTENT_TO_DISPLAY = "all";
 
 interface SearchPageProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -48,52 +53,97 @@ interface ServerReturnType {
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
 
-	const search = useCallback(
+	/**
+	 * Derive state and setup for search
+	 */
+	const setSearch = useCallback(
 		(str: string) => {
 			pushState({ key: SEARCH_QUERY_KEY, val: str });
 		},
 		[urlParams]
 	);
 
-	const searchVal = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
+	const search = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
 
+	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
+		search,
+		500
+	);
+
+	/**
+	 * Fetch data
+	 */
+	const enabled = !!debouncedSearch;
+
+	const { isLoading, isFetching, isError, error, data } = useQuery({
+		queryFn: ({ signal }) =>
+			fetch(`/api/search?query=${debouncedSearch}`, {
+				signal: signal,
+			}).then((res) => res.json() as Promise<ServerReturnType>),
+		queryKey: ["search", debouncedSearch],
+		initialData: {
+			posts: [],
+			totalPosts: 0,
+			collections: [],
+			totalCollections: 0,
+		} as ServerReturnType,
+		refetchOnWindowFocus: false,
+		enabled,
+	});
+
+	const isContentLoading = isLoading || isFetching;
+
+	/**
+	 * Derived state
+	 */
 	const page = useMemo(
 		() => Number(urlParams.get(SEARCH_PAGE_KEY) || "1"),
 		[urlParams]
 	);
 
-	const [debouncedSearchVal, immediatelySetDebouncedSearchVal] =
-		useDebouncedValue(searchVal, 500);
-
-	const enabled = !!debouncedSearchVal;
-
-	const { isInitialLoading, isLoading, isFetching, isError, error, data } =
-		useQuery({
-			queryFn: ({ signal }) =>
-				fetch(`/api/search?query=${debouncedSearchVal}`, {
-					signal: signal,
-				}).then((res) => res.json() as Promise<ServerReturnType>),
-			queryKey: ["search", debouncedSearchVal],
-			initialData: {
-				posts: [],
-				totalPosts: 0,
-				collections: [],
-				totalCollections: 0,
-			} as ServerReturnType,
-			refetchOnWindowFocus: false,
-			enabled,
-		});
-
-	const lastPage = useMemo(
-		() => Math.ceil(data.totalPosts / MAX_POSTS_PER_PAGE),
-		[data]
-	);
-
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 	const [selectedUnicorns, setSelectedUnicorns] = useState<string[]>([]);
 
-	const [sort, setSort] = useState<"newest" | "oldest">("newest");
+	// Setup content to display
+	const contentToDisplay = useMemo(() => {
+		const urlVal = urlParams.get(CONTENT_TO_DISPLAY_KEY);
+		const isValid = ["all", "articles", "collections"].includes(urlVal);
+		if (isValid) return urlVal as "all" | "articles" | "collections";
+		return DEFAULT_CONTENT_TO_DISPLAY;
+	}, [urlParams]);
 
+	const setContentToDisplay = useCallback(
+		(sort: "all" | "articles" | "collections") => {
+			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: sort });
+		},
+		[urlParams]
+	);
+
+	const showArticles =
+		contentToDisplay === "all" || contentToDisplay === "articles";
+
+	const showCollections =
+		contentToDisplay === "all" || contentToDisplay === "collections";
+
+	// Setup sort
+	const sort = useMemo(
+		() =>
+			urlParams.get(SORT_KEY) === "newest"
+				? "newest"
+				: "oldest" ?? DEFAULT_SORT,
+		[urlParams]
+	);
+
+	const setSort = useCallback(
+		(sort: "newest" | "oldest") => {
+			pushState({ key: SORT_KEY, val: sort });
+		},
+		[urlParams]
+	);
+
+	/**
+	 * Filter and sort posts
+	 */
 	const filteredAndSortedPosts = useMemo(() => {
 		return [...data.posts]
 			.sort(
@@ -120,8 +170,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
-	let dataChangedCount = useRef(0);
+	/**
+	 * Calculate the last page based on the number of posts.
+	 */
+	const lastPage = useMemo(
+		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
+		[data]
+	);
 
+	/**
+	 * Reset the page to 1 when the search query changes.
+	 */
+	let dataChangedCount = useRef(0);
 	useEffect(() => {
 		dataChangedCount.current++;
 		// One for initial load, one for when the search query changes.
@@ -130,24 +190,15 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
 	}, [filteredAndSortedPosts]);
 
+	/**
+	 * Paginate posts
+	 */
 	const posts = useMemo(() => {
 		return filteredAndSortedPosts.slice(
 			(page - 1) * MAX_POSTS_PER_PAGE,
 			page * MAX_POSTS_PER_PAGE
 		);
 	}, [filteredAndSortedPosts, page]);
-
-	const [contentToDisplay, setContentToDisplay] = useState<
-		"all" | "articles" | "collections"
-	>("all");
-
-	const showArticles =
-		contentToDisplay === "all" || contentToDisplay === "articles";
-
-	const showCollections =
-		contentToDisplay === "all" || contentToDisplay === "collections";
-
-	const isContentLoading = isLoading || isFetching;
 
 	return (
 		<div className={style.fullPageContainer}>
@@ -168,19 +219,19 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						className={style.searchbarRow}
 						onSubmit={(e) => {
 							e.preventDefault();
-							immediatelySetDebouncedSearchVal(searchVal);
+							immediatelySetDebouncedSearch(search);
 						}}
 					>
 						<SearchInput
 							class={style.searchbar}
 							usedInPreact={true}
-							value={searchVal}
+							value={search}
 							onBlur={(e) => {
 								const newVal = (e.target as HTMLInputElement).value;
-								search(newVal);
-								immediatelySetDebouncedSearchVal(newVal);
+								setSearch(newVal);
+								immediatelySetDebouncedSearch(newVal);
 							}}
-							onInput={(e) => search((e.target as HTMLInputElement).value)}
+							onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
 						/>
 						<IconOnlyButton
 							class={style.searchButton}
