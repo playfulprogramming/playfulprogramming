@@ -32,6 +32,8 @@ import { FilterSidebar } from "./components/filter-sidebar";
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
 const CONTENT_TO_DISPLAY_KEY = "display";
+const FILTER_TAGS_KEY = "filterTags";
+const FILTER_AUTHOR_KEY = "filterAuthors";
 const SORT_KEY = "sort";
 
 const DEFAULT_SORT = "newest";
@@ -101,8 +103,33 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		[urlParams]
 	);
 
-	const [selectedTags, setSelectedTags] = useState<string[]>([]);
-	const [selectedUnicorns, setSelectedUnicorns] = useState<string[]>([]);
+	// Setup selected unicorns
+	const selectedUnicorns = useMemo(() => {
+		const urlVal = urlParams.get(FILTER_AUTHOR_KEY);
+		if (!urlVal || urlVal === "") return [];
+		return urlVal.split(",");
+	}, [urlParams]);
+
+	const setSelectedUnicorns = useCallback(
+		(sort: string[]) => {
+			pushState({ key: FILTER_AUTHOR_KEY, val: sort.toString() });
+		},
+		[urlParams]
+	);
+
+	// Setup tags
+	const selectedTags = useMemo(() => {
+		const urlVal = urlParams.get(FILTER_TAGS_KEY);
+		if (!urlVal || urlVal === "") return [];
+		return urlVal.split(",");
+	}, [urlParams]);
+
+	const setSelectedTags = useCallback(
+		(sort: string[]) => {
+			pushState({ key: FILTER_TAGS_KEY, val: sort.toString() });
+		},
+		[urlParams]
+	);
 
 	// Setup content to display
 	const contentToDisplay = useMemo(() => {
