@@ -114,6 +114,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const setSelectedUnicorns = useCallback(
 		(sort: string[]) => {
 			pushState({ key: FILTER_AUTHOR_KEY, val: sort.toString() });
+			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams]
 	);
@@ -128,6 +129,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const setSelectedTags = useCallback(
 		(sort: string[]) => {
 			pushState({ key: FILTER_TAGS_KEY, val: sort.toString() });
+			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams]
 	);
@@ -143,6 +145,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const setContentToDisplay = useCallback(
 		(sort: "all" | "articles" | "collections") => {
 			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: sort });
+			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams]
 	);
@@ -165,6 +168,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const setSort = useCallback(
 		(sort: "newest" | "oldest") => {
 			pushState({ key: SORT_KEY, val: sort });
+			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams]
 	);
@@ -205,18 +209,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
 		[data]
 	);
-
-	/**
-	 * Reset the page to 1 when the search query changes.
-	 */
-	let dataChangedCount = useRef(0);
-	useEffect(() => {
-		dataChangedCount.current++;
-		// One for initial load, one for when the search query changes.
-		// Or rather, "One for the money, two for the show"
-		if (dataChangedCount.current <= 2) return;
-		pushState({ key: SEARCH_PAGE_KEY, val: "1" });
-	}, [filteredAndSortedPosts]);
 
 	/**
 	 * Paginate posts
@@ -367,8 +359,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								lastPage: lastPage,
 							}}
 							getPageHref={(pageNum) => {
-								urlParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-								return `${window.location.pathname}?${urlParams.toString()}`;
+								const pageParams = new URLSearchParams(urlParams);
+								pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+								return `${window.location.pathname}?${pageParams.toString()}`;
 							}}
 						/>
 					</Fragment>

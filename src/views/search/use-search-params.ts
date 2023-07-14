@@ -3,7 +3,7 @@ import { useReducer } from "preact/hooks";
 export const useSearchParams = () => {
 	const [urlParams, pushState] = useReducer<
 		URLSearchParams,
-		{ key: string; val: string } | string
+		{ key: string; val?: string } | string
 	>((prevParams, action) => {
 		let newParams: URLSearchParams | undefined;
 		let nav!: string;
@@ -18,7 +18,10 @@ export const useSearchParams = () => {
 			 * This is a workaround to prevent the throttling.
 			 */
 			newParams = new URLSearchParams(prevParams.toString());
-			newParams.set(action.key, action.val);
+
+			if (action.val !== undefined) newParams.set(action.key, action.val);
+			else newParams.delete(action.key);
+
 			nav = `${window.location.pathname}?${newParams.toString()}`;
 		}
 		window.history.pushState({}, "", nav);
