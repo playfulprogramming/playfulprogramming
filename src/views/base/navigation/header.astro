@@ -14,7 +14,11 @@ const isHome = path === "/";
 const isAbout = /\/about\/?/.test(path);
 ---
 
-<nav class={style.headerBorder} aria-label="Toolbar for primary action buttons">
+<nav
+	id="header-bar"
+	class={style.headerBorder}
+	aria-label="Toolbar for primary action buttons"
+>
 	<div class={`container d-flex ${style.header}`}>
 		<BackButton />
 

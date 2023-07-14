@@ -41,6 +41,7 @@
 	padding: var(--chip_padding-vertical) var(--chip_padding-horizontal);
 	border: var(--chip_border-width) solid var(--chip_outline_color);
 	border-radius: var(--chip_corner-radius);
+	background-color: transparent;
 
 	@include transition(color background-color border-color box-shadow);
 

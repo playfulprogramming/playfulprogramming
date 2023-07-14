@@ -6,6 +6,56 @@ import { useMemo } from "preact/hooks";
 import { UnicornInfo } from "types/UnicornInfo";
 import { SearchInput } from "components/input/input";
 import { Button } from "components/button/button";
+import { CSSProperties } from "preact/compat";
+import { PropsWithChildren } from "components/types";
+import { Chip } from "components/chip/chip";
+import { useElementSize } from "../../../hooks/use-element-size";
+
+interface FilterSidebarSectionProps {
+	title: string;
+	selectedNumber: number;
+	onClear: () => void;
+}
+
+const FilterSidebarSection = ({
+	title,
+	children,
+	selectedNumber,
+	onClear,
+}: PropsWithChildren<FilterSidebarSectionProps>) => {
+	const { setEl, size } = useElementSize();
+
+	return (
+		<div className={styles.section}>
+			<div className={styles.sectionHeader}>
+				<button
+					className={styles.sectionTitle}
+					style={{
+						minHeight: size?.height,
+						paddingRight: size?.width,
+					}}
+				>
+					<span className={`text-style-button-large`}>{title}</span>
+					<span className={`text-style-button-large`}>
+						{selectedNumber ? selectedNumber : null}
+					</span>
+				</button>
+				<Chip
+					tag="button"
+					ref={setEl}
+					className={styles.clearChip}
+					onClick={(e) => {
+						e.stopPropagation();
+						onClear();
+					}}
+				>
+					Clear
+				</Chip>
+			</div>
+			<div className={styles.sectionContent}>{children}</div>
+		</div>
+	);
+};
 
 interface FilterSidebarProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -18,6 +68,7 @@ interface FilterSidebarProps {
 	setSelectedAuthorIds: (authors: string[]) => void;
 	sort: "newest" | "oldest";
 	setSort: (sortBy: "newest" | "oldest") => void;
+	style?: CSSProperties;
 }
 
 export const FilterSidebar = ({
@@ -30,6 +81,7 @@ export const FilterSidebar = ({
 	selectedTags,
 	setSelectedAuthorIds,
 	setSelectedTags,
+	style,
 }: FilterSidebarProps) => {
 	const tags = useMemo(() => {
 		const tags = new Set<string>();
@@ -81,7 +133,7 @@ export const FilterSidebar = ({
 	};
 
 	return (
-		<div className={styles.gridContainer}>
+		<div className={styles.gridContainer} style={style}>
 			<SearchInput
 				hideSearchButton={true}
 				usedInPreact={true}
@@ -102,36 +154,48 @@ export const FilterSidebar = ({
 				</Button>
 			</div>
 			<div className={styles.tagsContainer}>
-				{authors.map((author) => {
-					return (
-						<div>
-							<label>
-								<span>{author.name}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onSelectedAuthorChange(author.id)}
-									checked={selectedAuthorIds.includes(author.id)}
-								/>
-							</label>
-						</div>
-					);
-				})}
+				<FilterSidebarSection
+					title={"Tag"}
+					selectedNumber={selectedTags.length}
+					onClear={() => setSelectedTags([])}
+				>
+					{tags.map((tag) => {
+						return (
+							<div>
+								<label>
+									<span>{tag}</span>
+									<input
+										type="checkbox"
+										onChange={(e) => onTagsChange(tag)}
+										checked={selectedTags.includes(tag)}
+									/>
+								</label>
+							</div>
+						);
+					})}
+				</FilterSidebarSection>
 			</div>
 			<div className={styles.authorsContainer}>
-				{tags.map((tag) => {
-					return (
-						<div>
-							<label>
-								<span>{tag}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onTagsChange(tag)}
-									checked={selectedTags.includes(tag)}
-								/>
-							</label>
-						</div>
-					);
-				})}
+				<FilterSidebarSection
+					title={"Author"}
+					selectedNumber={setSelectedAuthorIds.length}
+					onClear={() => setSelectedAuthorIds([])}
+				>
+					{authors.map((author) => {
+						return (
+							<div>
+								<label>
+									<span>{author.name}</span>
+									<input
+										type="checkbox"
+										onChange={(e) => onSelectedAuthorChange(author.id)}
+										checked={selectedAuthorIds.includes(author.id)}
+									/>
+								</label>
+							</div>
+						);
+					})}
+				</FilterSidebarSection>
 			</div>
 		</div>
 	);

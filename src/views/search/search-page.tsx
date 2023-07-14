@@ -28,6 +28,7 @@ import { Fragment } from "preact";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { FilterSidebar } from "./components/filter-sidebar";
+import { useElementSize } from "../../hooks/use-element-size";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -227,6 +228,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		);
 	}, [filteredAndSortedPosts, page]);
 
+	/**
+	 * Styles for header bar
+	 */
+	const { size, setEl } = useElementSize();
+
+	useLayoutEffect(() => {
+		const header = document.querySelector("#header-bar") as HTMLElement;
+		setEl(header);
+	}, []);
+
+	const headerHeight = size.height;
+
 	return (
 		<div className={style.fullPageContainer}>
 			<FilterSidebar
@@ -239,6 +252,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				setSelectedAuthorIds={setSelectedUnicorns}
 				sort={sort}
 				setSort={setSort}
+				style={{
+					height: `calc(100vh - ${headerHeight}px)`,
+					top: headerHeight,
+					position: "sticky",
+				}}
 			/>
 			<div className={style.mainContents}>
 				<div className={style.topBar}>
