@@ -2,7 +2,7 @@ import styles from "./filter-sidebar.module.scss";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { PostInfo } from "types/PostInfo";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
-import { useMemo } from "preact/hooks";
+import { useMemo, useState } from "preact/hooks";
 import { UnicornInfo } from "types/UnicornInfo";
 import { SearchInput } from "components/input/input";
 import { Button } from "components/button/button";
@@ -23,6 +23,8 @@ const FilterSidebarSection = ({
 	selectedNumber,
 	onClear,
 }: PropsWithChildren<FilterSidebarSectionProps>) => {
+	const [collapsed, setCollapsed] = useState(false);
+
 	const { setEl, size } = useElementSize();
 
 	return (
@@ -34,7 +36,14 @@ const FilterSidebarSection = ({
 						minHeight: size?.height,
 						paddingRight: size?.width,
 					}}
+					aria-expanded={!collapsed}
+					onClick={() => setCollapsed(!collapsed)}
 				>
+					<span
+						className={`${styles.collapseIcon} ${
+							collapsed ? styles.collapsed : ""
+						}`}
+					/>
 					<span className={`text-style-button-large`}>{title}</span>
 					<span className={`text-style-button-large`}>
 						{selectedNumber ? selectedNumber : null}
@@ -178,7 +187,7 @@ export const FilterSidebar = ({
 			<div className={styles.authorsContainer}>
 				<FilterSidebarSection
 					title={"Author"}
-					selectedNumber={setSelectedAuthorIds.length}
+					selectedNumber={selectedAuthorIds.length}
 					onClear={() => setSelectedAuthorIds([])}
 				>
 					{authors.map((author) => {

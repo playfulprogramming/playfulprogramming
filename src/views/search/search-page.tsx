@@ -108,7 +108,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const selectedUnicorns = useMemo(() => {
 		const urlVal = urlParams.get(FILTER_AUTHOR_KEY);
 		if (!urlVal || urlVal === "") return [];
-		return urlVal.split(",");
+		return urlVal.split(",").filter(Boolean);
 	}, [urlParams]);
 
 	const setSelectedUnicorns = useCallback(
@@ -122,7 +122,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const selectedTags = useMemo(() => {
 		const urlVal = urlParams.get(FILTER_TAGS_KEY);
 		if (!urlVal || urlVal === "") return [];
-		return urlVal.split(",");
+		return urlVal.split(",").filter(Boolean);
 	}, [urlParams]);
 
 	const setSelectedTags = useCallback(
