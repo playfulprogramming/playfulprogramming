@@ -43,9 +43,15 @@ const FilterSidebarSection = ({
 							collapsed ? styles.collapsed : ""
 						}`}
 					/>
-					<span className={`text-style-button-large`}>{title}</span>
-					<span className={`text-style-button-large`}>
-						{selectedNumber ? selectedNumber : null}
+					<span
+						className={`text-style-button-large ${styles.sectionTitleText}`}
+					>
+						{title}
+					</span>
+					<span
+						className={`text-style-button-large ${styles.sectionNumberText}`}
+					>
+						{selectedNumber ? `(${selectedNumber})` : null}
 					</span>
 				</button>
 				<div className={styles.clearContainer}>
@@ -53,16 +59,18 @@ const FilterSidebarSection = ({
 						tag="button"
 						ref={setEl}
 						className={styles.clearChip}
-						onClick={(e) => {
-							e.stopPropagation();
-							onClear();
-						}}
+						onClick={onClear}
 					>
 						Clear
 					</Chip>
 				</div>
 			</div>
-			<div className={styles.sectionContent}>{children}</div>
+			<div
+				className={styles.sectionContent}
+				style={collapsed ? { height: 0, flexGrow: 0 } : undefined}
+			>
+				{children}
+			</div>
 		</div>
 	);
 };
@@ -163,49 +171,51 @@ export const FilterSidebar = ({
 					Oldest
 				</Button>
 			</div>
-			<div className={styles.tagsContainer}>
-				<FilterSidebarSection
-					title={"Tag"}
-					selectedNumber={selectedTags.length}
-					onClear={() => setSelectedTags([])}
-				>
-					{tags.map((tag) => {
-						return (
-							<div>
-								<label>
-									<span>{tag}</span>
-									<input
-										type="checkbox"
-										onChange={(e) => onTagsChange(tag)}
-										checked={selectedTags.includes(tag)}
-									/>
-								</label>
-							</div>
-						);
-					})}
-				</FilterSidebarSection>
-			</div>
-			<div className={styles.authorsContainer}>
-				<FilterSidebarSection
-					title={"Author"}
-					selectedNumber={selectedAuthorIds.length}
-					onClear={() => setSelectedAuthorIds([])}
-				>
-					{authors.map((author) => {
-						return (
-							<div>
-								<label>
-									<span>{author.name}</span>
-									<input
-										type="checkbox"
-										onChange={(e) => onSelectedAuthorChange(author.id)}
-										checked={selectedAuthorIds.includes(author.id)}
-									/>
-								</label>
-							</div>
-						);
-					})}
-				</FilterSidebarSection>
+			<div className={styles.sectionsSidebarContainer}>
+				<div className={styles.tagsContainer}>
+					<FilterSidebarSection
+						title={"Tag"}
+						selectedNumber={selectedTags.length}
+						onClear={() => setSelectedTags([])}
+					>
+						{tags.map((tag) => {
+							return (
+								<div>
+									<label>
+										<span>{tag}</span>
+										<input
+											type="checkbox"
+											onChange={(e) => onTagsChange(tag)}
+											checked={selectedTags.includes(tag)}
+										/>
+									</label>
+								</div>
+							);
+						})}
+					</FilterSidebarSection>
+				</div>
+				<div className={styles.authorsContainer}>
+					<FilterSidebarSection
+						title={"Author"}
+						selectedNumber={selectedAuthorIds.length}
+						onClear={() => setSelectedAuthorIds([])}
+					>
+						{authors.map((author) => {
+							return (
+								<div>
+									<label>
+										<span>{author.name}</span>
+										<input
+											type="checkbox"
+											onChange={(e) => onSelectedAuthorChange(author.id)}
+											checked={selectedAuthorIds.includes(author.id)}
+										/>
+									</label>
+								</div>
+							);
+						})}
+					</FilterSidebarSection>
+				</div>
 			</div>
 		</div>
 	);

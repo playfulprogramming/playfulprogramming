@@ -67,7 +67,7 @@
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: auto auto repeat(2, minmax(0, 1fr));
+	grid-template-rows: auto auto 1fr;
 	gap: var(--search-page_filter_sidebar_gap);
 	padding: var(--search-page_filter_sidebar_padding-top)
 		var(--search-page_filter_sidebar_padding-end)
@@ -82,8 +82,17 @@
 	gap: var(--search-page_filter_sidebar_order-btn-gap);
 }
 
+.sectionsSidebarContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--search-page_filter_sidebar_gap);
+}
+
 .tagsContainer,
 .authorsContainer {
+	max-height: 50%;
+	flex-shrink: 1;
+	flex-grow: 1;
 	width: 100%;
 	border: var(--search-page_filter_list_divider_width) solid
 		var(--search-page_filter_list_divider_color);
@@ -91,9 +100,9 @@
 }
 
 .section {
-	display: grid;
-	grid-template-rows: auto 1fr;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .sectionHeader {
@@ -153,6 +162,17 @@
 	transform: rotate(0deg);
 }
 
+.sectionTitleText {
+	color: var(--search-page_filter_list_header_title_color);
+}
+
+.sectionNumberText {
+	color: var(--search-page_filter_list_header_count_color);
+}
+
 .sectionContent {
 	overflow: auto;
+	height: 1px;
+	flex-grow: 1;
+	transition: height 0.2s ease-in-out, flex-grow 0.2s ease-in-out;
 }
