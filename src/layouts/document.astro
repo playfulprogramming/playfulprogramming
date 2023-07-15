@@ -14,4 +14,9 @@ const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 	<Header />
 	<slot />
 	<slot name="post-body" />
+
+	<script>
+		import { setupNavigationPaths } from "src/utils/navigation-path-script";
+		setupNavigationPaths();
+	</script>
 </Barebones>
