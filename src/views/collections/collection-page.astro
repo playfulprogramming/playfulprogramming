@@ -5,6 +5,7 @@ import { Picture } from "@astrojs/image/components";
 import { Picture as UUPicture } from "components/image/picture";
 import { LargeButton, Button } from "components/button/button";
 import { translate } from "src/utils/translations";
+import { getHrefContainerProps } from "utils/href-container-script";
 
 import "../../styles/post-body.scss";
 import "../../styles/markdown/tabs.scss";
@@ -92,7 +93,10 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 						);
 						const href = `/unicorns/${author.id}`;
 						return (
-							<li class={styles.authorContainer} data-navigation-path={href}>
+							<li
+								class={styles.authorContainer}
+								{...getHrefContainerProps(href)}
+							>
 								<div
 									class={styles.authorImage}
 									style={{ borderColor: author.color }}
@@ -148,8 +152,3 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 		</div>
 	</div>
 </div>
-
-<script>
-	import { setupNavigationPaths } from "../../utils/navigation-path-script";
-	setupNavigationPaths();
-</script>
