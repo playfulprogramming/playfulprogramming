@@ -1,6 +1,6 @@
-import { ExtendedPostInfo } from "types/index";
+import { ExtendedPostInfo, PostInfo } from "types/index";
 
-export function getShortTitle(post: ExtendedPostInfo): string {
+export function getShortTitle(post: PostInfo): string {
 	const collectionTitle = post.collectionMeta?.title || post.collection;
 	// if the post title starts with its collection title, remove it
 	if (post.title.startsWith(`${collectionTitle}: `))
