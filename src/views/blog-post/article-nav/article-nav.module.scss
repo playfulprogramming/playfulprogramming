@@ -50,11 +50,6 @@
 	@include transition(background-color border-color);
 
 	&__overline {
-		svg {
-			width: var(--article-nav_item_arrow_size);
-			height: var(--article-nav_item_arrow_size);
-		}
-
 		color: var(--article-nav_item_overline-color);
 		display: flex;
 		align-items: center;
@@ -111,5 +106,15 @@
 		}
 
 		text-align: right;
+	}
+}
+
+.icon {
+	display: inline-flex;
+	padding: var(--icon-size-dense-padding);
+
+	svg {
+		width: var(--article-nav_item_arrow_size);
+		height: var(--article-nav_item_arrow_size);
 	}
 }

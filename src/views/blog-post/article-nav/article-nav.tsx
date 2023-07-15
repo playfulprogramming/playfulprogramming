@@ -21,7 +21,7 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 					? (
 						<span class={`${style.item__overline} text-style-button-regular`}>
 							<span
-								style="display: inline-flex;"
+								class={`${style.icon}`}
 								dangerouslySetInnerHTML={{ __html: arrow_left }}
 							/>
 							Previous article
@@ -31,7 +31,7 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 						<span class={`${style.item__overline} text-style-button-regular`}>
 							Next article
 							<span
-								style="display: inline-flex;"
+								class={`${style.icon}`}
 								dangerouslySetInnerHTML={{ __html: arrow_right }}
 							/>
 						</span>
