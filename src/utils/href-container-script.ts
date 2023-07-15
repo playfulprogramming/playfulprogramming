@@ -92,7 +92,13 @@ globalThis.handleHrefContainerClick = (e: MouseEvent) => {
 };
 
 export function getHrefContainerProps(href: string) {
-	if (process?.versions?.node) {
+	// hack to detect whether the function is in an Astro or Preact environment,
+	// assuming that Preact is only used outside of a node environment
+	if (
+		typeof process !== "undefined" &&
+		typeof process?.versions !== "undefined" &&
+		process.versions?.node
+	) {
 		// if running in NodeJS (Astro), return string props
 		return {
 			onmousedown: "handleHrefContainerMouseDown(event)",
