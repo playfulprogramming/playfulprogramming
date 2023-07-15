@@ -44,6 +44,14 @@ globalThis.handleHrefContainerMouseDown = (e: MouseEvent) => {
 	e.preventDefault();
 };
 
+// implement the AuxClick event using MouseUp (only on browsers that don't support auxclick; i.e. safari)
+globalThis.handleHrefContainerMouseUp = (e: MouseEvent) => {
+	// if auxclick is supported, do nothing
+	if ("onauxclick" in e.currentTarget) return;
+	// otherwise, pass mouseup events to auxclick
+	globalThis.handleHrefContainerAuxClick(e);
+};
+
 // Handle middle click button - should open a new tab (cannot be detected via "click" event)
 // - prefer the "auxclick" event for this, since it ensures that mousedown/mouseup both occur within the same element
 //   otherwise, using "mouseup" would activate on mouseup even when dragging between elements, which should not trigger a click
@@ -102,6 +110,7 @@ export function getHrefContainerProps(href: string) {
 		// if running in NodeJS (Astro), return string props
 		return {
 			onmousedown: "handleHrefContainerMouseDown(event)",
+			onmouseup: "handleHrefContainerMouseUp(event)",
 			onauxclick: "handleHrefContainerAuxClick(event)",
 			onclick: "handleHrefContainerClick(event)",
 			"data-href": href,
@@ -110,6 +119,7 @@ export function getHrefContainerProps(href: string) {
 		// otherwise, need to return client-side functions
 		return {
 			onMouseDown: globalThis.handleHrefContainerMouseDown,
+			onMouseUp: globalThis.handleHrefContainerMouseUp,
 			onAuxClick: globalThis.handleHrefContainerAuxClick,
 			onClick: globalThis.handleHrefContainerClick,
 			"data-href": href,
