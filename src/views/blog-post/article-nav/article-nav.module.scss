@@ -91,12 +91,19 @@
 	}
 
 	&--previous {
+		&:not(:only-child) {
+			grid-row: 2;
+		}
+
 		@include from($tabletSmall) {
+			grid-row: 1;
 			grid-column: 1;
 		}
 	}
 
 	&--next {
+		grid-row: 1;
+
 		@include from($tabletSmall) {
 			grid-column: 2;
 		}
