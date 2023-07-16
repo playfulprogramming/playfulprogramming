@@ -4,6 +4,7 @@ import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Chip } from "components/index";
 import date from "src/icons/date.svg?raw";
 import authors from "src/icons/authors.svg?raw";
+import { getHrefContainerProps } from "utils/href-container-script";
 
 interface PostCardProps {
 	post: PostInfo;
@@ -73,7 +74,7 @@ export const PostCardExpanded = ({
 }: PostCardProps) => {
 	return (
 		<li
-			data-navigation-path={`/posts/${post.slug}`}
+			{...getHrefContainerProps(`/posts/${post.slug}`)}
 			className={`${className} ${style.postBase} ${style.extendedPostContainer}`}
 		>
 			<div className={style.extendedPostImageContainer}>
@@ -101,7 +102,7 @@ export const PostCard = ({
 }: PostCardProps) => {
 	return (
 		<li
-			data-navigation-path={`/posts/${post.slug}`}
+			{...getHrefContainerProps(`/posts/${post.slug}`)}
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
 			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
