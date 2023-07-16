@@ -14,4 +14,8 @@ const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 	<Header />
 	<slot />
 	<slot name="post-body" />
+
+	<script>
+		import "src/utils/href-container-script";
+	</script>
 </Barebones>

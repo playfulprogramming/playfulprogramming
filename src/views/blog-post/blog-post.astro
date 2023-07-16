@@ -15,7 +15,7 @@ import "../../styles/shiki.scss";
 import "../../styles/markdown/tabs.scss";
 import "../../styles/convertkit.scss";
 import SeriesToC from "./series/series-toc.astro";
-import SeriesNav from "./series/series-nav.astro";
+import { ArticleNav } from "./article-nav/article-nav";
 import { getPrefixLanguageFromPath } from "utils/translations";
 import RelatedPosts from "components/related-posts/related-posts.astro";
 
@@ -86,7 +86,7 @@ if (post.collection && post.order) {
 		<Content />
 		{
 			post.collection ? (
-				<SeriesNav post={post} postSeries={seriesPosts} />
+				<ArticleNav post={post} postSeries={seriesPosts} />
 			) : null
 		}
 	</main>

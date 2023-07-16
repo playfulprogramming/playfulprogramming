@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer-core";
+import { chromium } from "playwright";
 import { promises as fsPromises } from "fs";
 import { resolve } from "path";
 import { getAllExtendedPosts } from "utils/get-all-posts";
@@ -57,33 +57,31 @@ const browser_args = [
 	"--window-size=1920,1080",
 ];
 
-const browser = await puppeteer.launch({
+const browser = await chromium.launch({
 	args: browser_args,
-	headless: true,
-	ignoreHTTPSErrors: true,
 });
-
-const [page] = await browser.pages();
-
-// log any page errors
-page.on("error", console.error);
-
-await page.setViewport({
-	width: PAGE_WIDTH,
-	height: PAGE_HEIGHT,
+const context = await browser.newContext({
+	viewport: {
+		width: PAGE_WIDTH,
+		height: PAGE_HEIGHT,
+	},
 });
+const page = await context.newPage();
 
-async function renderPostImage(layout: Layout, post: ExtendedPostInfo) {
+async function renderPostImage(
+	layout: Layout,
+	post: ExtendedPostInfo,
+	path: string
+) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
 
 	await page.setContent(await renderPostPreviewToString(layout, post), {
 		timeout: 0,
 	});
-	const buffer = (await page.screenshot({ type: "jpeg" })) as Buffer;
+	await page.screenshot({ type: "jpeg", path });
 
 	console.timeEnd(label);
-	return buffer;
 }
 
 // Relative to root
@@ -96,20 +94,19 @@ await fsPromises.mkdir(resolve(outDir, "./generated"), { recursive: true });
  */
 for (const post of getAllExtendedPosts("en")) {
 	if (post.socialImg) {
-		await fsPromises.writeFile(
-			resolve(outDir, `.${post.socialImg}`),
-			await renderPostImage(twitterPreview, post)
+		await renderPostImage(
+			twitterPreview,
+			post,
+			resolve(outDir, `.${post.socialImg}`)
 		);
 	}
 }
 
 for (const post of getAllExtendedPosts("en")) {
 	if (post.bannerImg) {
-		await fsPromises.writeFile(
-			resolve(outDir, `.${post.bannerImg}`),
-			await renderPostImage(banner, post)
-		);
+		await renderPostImage(banner, post, resolve(outDir, `.${post.bannerImg}`));
 	}
 }
 
+await context.close();
 await browser.close();
