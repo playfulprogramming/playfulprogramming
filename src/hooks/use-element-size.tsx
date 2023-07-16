@@ -12,7 +12,7 @@ export const useElementSize = ({
 
 	useLayoutEffect(() => {
 		if (!el) return;
-		function getHeaderHeight() {
+		function getElementSize() {
 			const style = window.getComputedStyle(el);
 			let calculatedHeight = el.offsetHeight;
 			let calculatedWidth = el.offsetWidth;
@@ -26,9 +26,9 @@ export const useElementSize = ({
 			setSize({ height: calculatedHeight, width: calculatedWidth });
 		}
 
-		window.addEventListener("resize", getHeaderHeight);
-		getHeaderHeight();
-		return () => window.removeEventListener("resize", getHeaderHeight);
+		window.addEventListener("resize", getElementSize);
+		getElementSize();
+		return () => window.removeEventListener("resize", getElementSize);
 	}, [el]);
 
 	return { setEl, size };

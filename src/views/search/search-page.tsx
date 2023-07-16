@@ -27,8 +27,9 @@ import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
-import { FilterSidebar } from "./components/filter-sidebar";
+import { FilterDisplay } from "./components/filter-display";
 import { useElementSize } from "../../hooks/use-element-size";
+import filter from "src/icons/filter.svg?raw";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -233,9 +234,13 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const headerHeight = size.height;
 
+	const [isFilterDialogOpen, setFilterIsDialogOpen] = useState(false);
+
 	return (
 		<div className={style.fullPageContainer}>
-			<FilterSidebar
+			<FilterDisplay
+				isFilterDialogOpen={isFilterDialogOpen}
+				setFilterIsDialogOpen={setFilterIsDialogOpen}
 				unicornProfilePicMap={unicornProfilePicMap}
 				collections={data.collections}
 				posts={data.posts}
@@ -245,7 +250,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				setSelectedAuthorIds={setSelectedUnicorns}
 				sort={sort}
 				setSort={setSort}
-				style={{
+				desktopStyle={{
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
 					position: "sticky",
@@ -280,7 +285,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						/>
 					</form>
 					<div className={style.topBarDivider} />
-					<div className={style.topBarButtons} role="group">
+					<div className={style.topBarButtonsContentToDisplay} role="group">
 						<Button
 							onClick={() => setContentToDisplay("all")}
 							aria-selected={contentToDisplay === "all"}
@@ -315,6 +320,29 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						>
 							Collections
 						</Button>
+					</div>
+					<div className={style.topBarSmallTabletButtons}>
+						<div role="group" className={style.topBarSmallTabletButtonsToggle}>
+							<Button
+								onClick={() => setSort("newest")}
+								aria-selected={sort === "newest"}
+								tag="button"
+								variant={sort === "newest" ? "primary-emphasized" : "primary"}
+							>
+								Newest
+							</Button>
+							<Button
+								onClick={() => setSort("oldest")}
+								aria-selected={sort === "oldest"}
+								tag="button"
+								variant={sort === "oldest" ? "primary-emphasized" : "primary"}
+							>
+								Oldest
+							</Button>
+						</div>
+						<IconOnlyButton onClick={() => setFilterIsDialogOpen(true)}>
+							<span className={style.filterIconContainer} dangerouslySetInnerHTML={{ __html: filter }}></span>
+						</IconOnlyButton>
 					</div>
 				</div>
 				{isContentLoading && (
