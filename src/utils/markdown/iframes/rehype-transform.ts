@@ -38,16 +38,16 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 
 	const promise = (async () => {
 		// <link rel="manifest" href="/manifest.json">
-		const manifestPath = find(
+		const manifestPath: Element = find(
 			srcHast,
-			(node) => node?.properties?.rel?.[0] === "manifest"
+			(node: unknown) => (node as Element)?.properties?.rel?.[0] === "manifest"
 		);
 
 		let iconLink: string;
 
 		if (manifestPath) {
 			// `/manifest.json`
-			const manifestRelativeURL = manifestPath.properties.href;
+			const manifestRelativeURL = manifestPath.properties.href.toString();
 			const fullManifestURL = new URL(manifestRelativeURL, src).href;
 
 			const manifest = await fetch(fullManifestURL)
@@ -63,12 +63,12 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 		if (!iconLink) {
 			// fetch `favicon.ico`
 			// <link rel="shortcut icon" type="image/png" href="https://example.com/img.png">
-			const favicon = find(srcHast, (node) =>
-				node?.properties?.rel?.includes("icon")
+			const favicon: Element = find(srcHast, (node: unknown) =>
+				(node as Element)?.properties?.rel?.toString()?.includes("icon")
 			);
 
 			if (favicon) {
-				iconLink = new URL(favicon.properties.href, src).href;
+				iconLink = new URL(favicon.properties.href.toString(), src).href;
 			}
 		}
 
@@ -127,8 +127,10 @@ async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	if (!srcHast) return null;
 
 	// find <title> element in response HTML
-	const titleEl = find(srcHast, { tagName: "title" });
-	const title = titleEl ? titleEl.children[0].value : undefined;
+	const titleEl: Element = find(srcHast, { tagName: "title" });
+	const titleContentEl = titleEl && titleEl.children[0];
+	const title =
+		titleContentEl?.type === "text" ? titleContentEl.value : undefined;
 
 	// find the page favicon (cache by page origin)
 	const icon = await fetchPageIcon(url, srcHast);
