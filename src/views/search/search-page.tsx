@@ -1,14 +1,6 @@
-import {
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "preact/hooks";
+import { useCallback, useLayoutEffect, useMemo, useState } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
-import { PostCard } from "components/post-card/post-card";
 import { useSearchParams } from "./use-search-params";
 import {
 	QueryClient,
@@ -17,9 +9,6 @@ import {
 } from "@tanstack/react-query";
 import { useDebouncedValue } from "./use-debounced-value";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
-import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton } from "components/button/button";
-import forward from "src/icons/arrow_right.svg?raw";
 
 import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
@@ -29,7 +18,7 @@ import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { FilterDisplay } from "./components/filter-display";
 import { useElementSize } from "../../hooks/use-element-size";
-import filter from "src/icons/filter.svg?raw";
+import { SearchTopbar } from "./components/search-topbar";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -257,94 +246,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				}}
 			/>
 			<div className={style.mainContents}>
-				<div className={style.topBar}>
-					<form
-						className={style.searchbarRow}
-						onSubmit={(e) => {
-							e.preventDefault();
-							immediatelySetDebouncedSearch(search);
-						}}
-					>
-						<SearchInput
-							class={style.searchbar}
-							usedInPreact={true}
-							value={search}
-							onBlur={(e) => {
-								const newVal = (e.target as HTMLInputElement).value;
-								setSearch(newVal);
-								immediatelySetDebouncedSearch(newVal);
-							}}
-							onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
-						/>
-						<IconOnlyButton
-							class={style.searchButton}
-							tag="button"
-							type="submit"
-							dangerouslySetInnerHTML={{ __html: forward }}
-							children={null}
-						/>
-					</form>
-					<div className={style.topBarDivider} />
-					<div className={style.topBarButtonsContentToDisplay} role="group">
-						<Button
-							onClick={() => setContentToDisplay("all")}
-							aria-selected={contentToDisplay === "all"}
-							tag="button"
-							variant={
-								contentToDisplay === "all" ? "primary-emphasized" : "primary"
-							}
-						>
-							All
-						</Button>
-						<Button
-							onClick={() => setContentToDisplay("articles")}
-							aria-selected={contentToDisplay === "articles"}
-							tag="button"
-							variant={
-								contentToDisplay === "articles"
-									? "primary-emphasized"
-									: "primary"
-							}
-						>
-							Articles
-						</Button>
-						<Button
-							onClick={() => setContentToDisplay("collections")}
-							aria-selected={contentToDisplay === "collections"}
-							tag="button"
-							variant={
-								contentToDisplay === "collections"
-									? "primary-emphasized"
-									: "primary"
-							}
-						>
-							Collections
-						</Button>
-					</div>
-					<div className={style.topBarSmallTabletButtons}>
-						<div role="group" className={style.topBarSmallTabletButtonsToggle}>
-							<Button
-								onClick={() => setSort("newest")}
-								aria-selected={sort === "newest"}
-								tag="button"
-								variant={sort === "newest" ? "primary-emphasized" : "primary"}
-							>
-								Newest
-							</Button>
-							<Button
-								onClick={() => setSort("oldest")}
-								aria-selected={sort === "oldest"}
-								tag="button"
-								variant={sort === "oldest" ? "primary-emphasized" : "primary"}
-							>
-								Oldest
-							</Button>
-						</div>
-						<IconOnlyButton onClick={() => setFilterIsDialogOpen(true)}>
-							<span className={style.filterIconContainer} dangerouslySetInnerHTML={{ __html: filter }}></span>
-						</IconOnlyButton>
-					</div>
-				</div>
+				<SearchTopbar
+					onSearch={(val) => immediatelySetDebouncedSearch(val)}
+					search={search}
+					setSearch={setSearch}
+					setContentToDisplay={setContentToDisplay}
+					contentToDisplay={contentToDisplay}
+					setSort={setSort}
+					sort={sort}
+					setFilterIsDialogOpen={setFilterIsDialogOpen}
+				/>
 				{isContentLoading && (
 					<p className={"text-style-headline-1"}>Loading...</p>
 				)}
