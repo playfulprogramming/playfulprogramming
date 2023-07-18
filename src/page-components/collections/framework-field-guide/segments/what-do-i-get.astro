@@ -1,6 +1,43 @@
 ---
 import styles from "./what-do-i-get.module.scss";
+import { weightedRandom } from "../utils/weighted-random";
 // TODO: Follow spec when it's ready
+
+// const options = ["a", "b", "c"];
+// const weights = [0.1, 0.2, 0.7];
+// const random = weightedRandom(options, weights);
+
+const ghActivityLevels = [0, 1, 2, 3];
+
+const newcomerWeights = [0.6, 0.3, 0.1, 0.0];
+const midlevelWeights = [0.3, 0.4, 0.1, 0.1];
+const professionalWeights = [0.175, 0.2, 0.315, 0.31];
+
+const newcomerActivityLevel = weightedRandom(ghActivityLevels, newcomerWeights);
+
+const midlevelActivityLevel = weightedRandom(ghActivityLevels, midlevelWeights);
+
+const professionalActivityLevel = weightedRandom(
+	ghActivityLevels,
+	professionalWeights
+);
+
+const generateCalendar = (activityLevel: () => number) => {
+	let calendar = [] as number[][];
+	for (let dayI = 0; dayI < 7; dayI++) {
+		calendar[dayI] = [];
+		for (let weekI = 0; weekI < 52; weekI++) {
+			calendar[dayI][weekI] = activityLevel();
+		}
+	}
+	return calendar;
+};
+
+const newcomerCalendar = generateCalendar(newcomerActivityLevel);
+
+const midlevelCalendar = generateCalendar(midlevelActivityLevel);
+
+const professionalCalendar = generateCalendar(professionalActivityLevel);
 ---
 
 <section class={styles.container}>
@@ -95,6 +132,62 @@ import styles from "./what-do-i-get.module.scss";
 		</div>
 	</div>
 
+	<div class={styles.calendarContainer}>
+		<div id="newcomer-contribution-graph">
+			<div class={styles.calendar}>
+				{
+					newcomerCalendar.map((week) => {
+						return (
+							<div class={styles.week}>
+								{week.map((day) => {
+									return (
+										<div class={`${styles.day}`} data-activity-level={day} />
+									);
+								})}
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+
+		<div id="mid-level-contribution-graph" style="display: none;">
+			<div class={styles.calendar}>
+				{
+					midlevelCalendar.map((week) => {
+						return (
+							<div class={styles.week}>
+								{week.map((day) => {
+									return (
+										<div class={`${styles.day}`} data-activity-level={day} />
+									);
+								})}
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+
+		<div id="professional-contribution-graph" style="display: none;">
+			<div class={styles.calendar}>
+				{
+					professionalCalendar.map((week) => {
+						return (
+							<div class={styles.week}>
+								{week.map((day) => {
+									return (
+										<div class={`${styles.day}`} data-activity-level={day} />
+									);
+								})}
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+	</div>
+
 	<p
 		id="what-do-i-get-text"
 		class={styles.explainerText}
@@ -146,37 +239,40 @@ import styles from "./what-do-i-get.module.scss";
 		`#professional-checkbox`
 	) as HTMLInputElement;
 
-	const whatDoIgetNewcomerText = document.querySelector(
-		`#what-do-i-get-newcomer-text`
-	) as HTMLElement;
-	const whatDoIgetMidLevelText = document.querySelector(
-		`#what-do-i-get-mid-level-text`
-	) as HTMLElement;
-	const whatDoIgetProfessionalText = document.querySelector(
-		`#what-do-i-get-professional-text`
-	) as HTMLElement;
+	const newcomerEls = [
+		document.querySelector(`#what-do-i-get-newcomer-text`) as HTMLElement,
+		document.querySelector(`#newcomer-contribution-graph`) as HTMLElement,
+	];
+	const midlevelEls = [
+		document.querySelector(`#what-do-i-get-mid-level-text`) as HTMLElement,
+		document.querySelector(`#mid-level-contribution-graph`) as HTMLElement,
+	];
+	const professionalEls = [
+		document.querySelector(`#what-do-i-get-professional-text`) as HTMLElement,
+		document.querySelector(`#professional-contribution-graph`) as HTMLElement,
+	];
 
 	newcomerCheckbox.addEventListener("input", (e) => {
 		if (newcomerCheckbox.checked) {
-			whatDoIgetNewcomerText.style.display = "block";
-			whatDoIgetMidLevelText.style.display = "none";
-			whatDoIgetProfessionalText.style.display = "none";
+			newcomerEls.forEach((el) => (el.style.display = "block"));
+			midlevelEls.forEach((el) => (el.style.display = "none"));
+			professionalEls.forEach((el) => (el.style.display = "none"));
 			experienceLevelToggleContainer.dataset.selectedIndex = "1";
 		}
 	});
 	midlevelCheckbox.addEventListener("input", (e) => {
 		if (midlevelCheckbox.checked) {
-			whatDoIgetNewcomerText.style.display = "none";
-			whatDoIgetMidLevelText.style.display = "block";
-			whatDoIgetProfessionalText.style.display = "none";
+			newcomerEls.forEach((el) => (el.style.display = "none"));
+			midlevelEls.forEach((el) => (el.style.display = "block"));
+			professionalEls.forEach((el) => (el.style.display = "none"));
 			experienceLevelToggleContainer.dataset.selectedIndex = "2";
 		}
 	});
 	professionalCheckbox.addEventListener("input", (e) => {
 		if (professionalCheckbox.checked) {
-			whatDoIgetNewcomerText.style.display = "none";
-			whatDoIgetMidLevelText.style.display = "none";
-			whatDoIgetProfessionalText.style.display = "block";
+			newcomerEls.forEach((el) => (el.style.display = "none"));
+			midlevelEls.forEach((el) => (el.style.display = "none"));
+			professionalEls.forEach((el) => (el.style.display = "block"));
 			experienceLevelToggleContainer.dataset.selectedIndex = "3";
 		}
 	});
