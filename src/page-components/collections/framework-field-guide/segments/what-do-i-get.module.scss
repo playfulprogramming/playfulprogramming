@@ -155,6 +155,7 @@
 	width: 18px;
 	flex-shrink: 0;
 	border-radius: 4px;
+	transition: background 200ms ease-in-out;
 }
 
 .day[data-activity-level="0"] {
