@@ -45,12 +45,22 @@
 }
 
 .toggleListContainer {
+	padding: 8px;
+	overflow: hidden;
+	position: relative;
+}
+
+.toggleListContainerInner {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	background: var(--slate-800);
-	padding: 8px;
+	background-color: var(--slate-800);
 	border-radius: 48px;
+}
+
+.fieldset {
 	border: none;
+	padding: 0;
+	margin: 0;
 }
 
 .checkboxContainer {
@@ -68,8 +78,48 @@
 	box-sizing: border-box;
 }
 
+.highlighedContainer {
+	position: absolute;
+	// 8px due to padding
+	top: 8px;
+	left: 8px;
+	width: calc(100% - 8px - 8px);
+	pointer-events: none;
+	// Index 1
+	clip-path: inset(0 66.66% 0 0 round 48px);
+	transition: clip-path 300ms;
+
+	&.toggleListContainerInner {
+		background-color: var(--slate-100);
+	}
+
+	.checkBox ~ label {
+		color: var(--slate-900);
+	}
+}
+
+.toggleListContainer[data-selected-index="1"] {
+	.highlighedContainer {
+		clip-path: inset(0 66.66% 0 0 round 48px);
+	}
+}
+
+.toggleListContainer[data-selected-index="2"] {
+	.highlighedContainer {
+		clip-path: inset(0 33.33% 0 33.33% round 48px)
+	}
+}
+
+.toggleListContainer[data-selected-index="3"] {
+	.highlighedContainer {
+		clip-path: inset(0 0 0 66.66% round 48px);
+	}
+}
+
+/*
 .checkBox:checked ~ label {
 	background-color: var(--slate-100);
 	border-color: var(--slate-100);
 	color: #000;
 }
+*/
