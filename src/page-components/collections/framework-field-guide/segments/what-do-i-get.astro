@@ -1,0 +1,130 @@
+---
+import styles from "./what-do-i-get.module.scss";
+// TODO: Follow spec when it's ready
+---
+
+<section class={styles.container}>
+	<h2 class={`text-style-headline-2 ${styles.headerContainer}`}>
+		<span class={styles.headerTop}>What can I get out of</span>
+		<span class={styles.headerBottom}>The Framework Field Guide?</span>
+	</h2>
+
+	<fieldset class={styles.toggleListContainer}>
+		<legend class="srOnly">What's your experience level?</legend>
+		<div class={styles.checkboxContainer}>
+			<input
+				aria-controls="what-do-i-get-text"
+				class={`srOnly ${styles.checkBox}`}
+				name="learnLevel"
+				type="radio"
+				id="newcomer-checkbox"
+				checked
+			/>
+			<label for="newcomer-checkbox" class="text-style-body-medium"
+				>Newcomer</label
+			>
+		</div>
+		<div class={styles.checkboxContainer}>
+			<input
+				aria-controls="what-do-i-get-text"
+				class={`srOnly ${styles.checkBox}`}
+				name="learnLevel"
+				type="radio"
+				id="midlevel-checkbox"
+			/>
+			<label for="midlevel-checkbox" class="text-style-body-medium"
+				>Mid-level</label
+			>
+		</div>
+		<div class={styles.checkboxContainer}>
+			<input
+				aria-controls="what-do-i-get-text"
+				class={`srOnly ${styles.checkBox}`}
+				name="learnLevel"
+				type="radio"
+				id="professional-checkbox"
+			/>
+			<label for="professional-checkbox" class="text-style-body-medium"
+				>Professional</label
+			>
+		</div>
+	</fieldset>
+
+	<p
+		id="what-do-i-get-text"
+		class={styles.explainerText}
+		role="region"
+		aria-live="polite"
+	>
+		<span id="what-do-i-get-newcomer-text" class={`text-style-body-large`}>
+			The Framework Field Guide provides step-by-step learning for three
+			different frameworks, starting from the fundamentals. It's a great
+			resource for those new to web development who want to learn without being
+			pigeon-holed into one piece of tech.
+		</span>
+		<span
+			id="what-do-i-get-mid-level-text"
+			style="display: none"
+			class={`text-style-body-large`}
+		>
+			The Framework Field Guide is an in-depth collection of resources that
+			doesn't hold back. It helps answer everything from "What is a pure
+			function?" to "how can I write my own VDOM?". It's perfect for those who
+			have some experience but are missing pieces of the puzzle.
+		</span>
+		<span
+			id="what-do-i-get-professional-text"
+			style="display: none"
+			class={`text-style-body-large`}
+		>
+			The Framework Field Guide takes you step-by-step to writing your own VDOM,
+			understanding reconciliation, and more. It's a great resource for
+			JavaScript pros who want to understand the internals of their tools to
+			make drastic improvements to their product's UX.
+		</span>
+	</p>
+</section>
+
+<script>
+	const newcomerCheckbox = document.querySelector(
+		`#newcomer-checkbox`
+	) as HTMLInputElement;
+	const midlevelCheckbox = document.querySelector(
+		`#midlevel-checkbox`
+	) as HTMLInputElement;
+	const professionalCheckbox = document.querySelector(
+		`#professional-checkbox`
+	) as HTMLInputElement;
+
+	const whatDoIgetNewcomerText = document.querySelector(
+		`#what-do-i-get-newcomer-text`
+	) as HTMLParagraphElement;
+	const whatDoIgetMidLevelText = document.querySelector(
+		`#what-do-i-get-mid-level-text`
+	) as HTMLParagraphElement;
+	const whatDoIgetProfessionalText = document.querySelector(
+		`#what-do-i-get-professional-text`
+	) as HTMLParagraphElement;
+
+	newcomerCheckbox.addEventListener("input", (e) => {
+		if (newcomerCheckbox.checked) {
+			whatDoIgetNewcomerText.style.display = "block";
+			whatDoIgetMidLevelText.style.display = "none";
+			whatDoIgetProfessionalText.style.display = "none";
+		}
+	});
+	midlevelCheckbox.addEventListener("input", (e) => {
+		if (midlevelCheckbox.checked) {
+			whatDoIgetNewcomerText.style.display = "none";
+			whatDoIgetMidLevelText.style.display = "block";
+			whatDoIgetProfessionalText.style.display = "none";
+		}
+	});
+	professionalCheckbox.addEventListener("input", (e) => {
+		if (professionalCheckbox.checked) {
+			whatDoIgetNewcomerText.style.display = "none";
+			whatDoIgetMidLevelText.style.display = "none";
+			whatDoIgetProfessionalText.style.display = "block";
+		}
+	});
+</script>

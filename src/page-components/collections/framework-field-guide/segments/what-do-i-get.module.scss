@@ -1,0 +1,75 @@
+@import "../../../../styles/utils";
+@import "../tokens/breakpoints.scss";
+
+.container {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	text-align: center;
+	max-width: var(--max-width_large);
+	margin: 0 auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+}
+
+.headerContainer {
+	margin: 0;
+}
+
+.headerTop {
+	display: block;
+	color: var(--slate-300);
+}
+
+.headerBottom {
+	display: block;
+	color: var(--slate-100);
+}
+
+.explainerText {
+	color: var(--slate-100);
+	max-width: 640px;
+	margin: 0 auto;
+}
+
+.srOnly {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.toggleListContainer {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background: var(--slate-800);
+	padding: 8px;
+	border-radius: 48px;
+	border: none;
+}
+
+.checkboxContainer {
+	width: 100%;
+}
+
+.checkBox ~ label {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+	border-radius: 48px;
+	box-sizing: border-box;
+}
+
+.checkBox:checked ~ label {
+	background-color: var(--slate-100);
+	border-color: var(--slate-100);
+	color: #000;
+}
