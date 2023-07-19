@@ -2243,7 +2243,391 @@ export const ContextMenu = forwardRef(
 
 ### Angular
 
-// TODO
+```typescript
+// App.component.ts
+import { Component } from '@angular/core';
+import {LayoutComponent} from "./layout.component";
+import {SidebarComponent} from "./sidebar.component";
+import {FileListComponent} from "./file-list.component";
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [LayoutComponent, SidebarComponent, FileListComponent],
+  template: `
+    <layout>
+      <sidebar sidebar/>
+      <file-list/>
+    </layout>
+  `
+})
+export class AppComponent {
+}
+```
+
+```typescript
+// layout.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'layout',
+  standalone: true,
+  template: `
+    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+      <div
+          style="
+              width: 150px;
+              height: 100vh;
+              overflow-y: scroll;
+              border-right: 2px solid #bfbfbf;
+            "
+      >
+        <ng-content select="sidebar"/>
+      </div>
+      <div style="width: 1px; flex-grow: 1">
+        <ng-content/>
+      </div>
+    </div>
+  `
+})
+export class LayoutComponent {
+}
+```
+
+```typescript
+// sidebar.component.ts
+import {Component, inject, Injectable} from '@angular/core';
+import {ActionTypes} from "./context";
+import {NgFor} from "@angular/common";
+import {FileComponent} from "./file.component";
+
+@Injectable()
+class SidebarDirectories {
+    actions = [] as InstanceType<typeof ActionTypes>['actions'];
+}
+
+function injectAndAssignActions(actions: any[]) {
+    const sidebarDirectories = inject(ActionTypes);
+    sidebarDirectories.actions = actions;
+    return sidebarDirectories;
+}
+
+@Component({
+    selector: 'sidebar',
+    standalone: true,
+    imports: [NgFor, FileComponent],
+    providers: [{
+        provide: ActionTypes, useClass: SidebarDirectories
+    }],
+    template: `
+        <div style="padding: 1rem">
+            <h1 style="font-size: 1.25rem">Directories</h1>
+            <file *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id"/>
+        </div>
+    `
+})
+export class SidebarComponent {
+    directories = [
+        {
+            name: 'Movies',
+            id: 1,
+        },
+        {
+            name: 'Documents',
+            id: 2,
+        },
+        {
+            name: 'Etc',
+            id: 3,
+        },
+    ];
+
+    getDirectoryById = (id: number) => {
+        return this.directories.find((dir) => dir.id === id);
+    };
+
+    onCopy = (id: number) => {
+        const dir = this.getDirectoryById(id)!;
+        // Some browsers still do not support this
+        if (navigator?.clipboard?.writeText) {
+            navigator.clipboard.writeText(dir.name);
+            alert('Name is copied');
+        } else {
+            alert('Unable to copy directory name due to browser incompatibility');
+        }
+    };
+
+    sidebarDirectories = injectAndAssignActions([
+        {
+            label: "Copy directory name",
+            fn: this.onCopy
+        }
+    ])
+}
+```
+
+```typescript
+// file-list.component.ts
+import {Component, inject, Injectable} from '@angular/core';
+import {ActionTypes} from "./context";
+import {NgFor} from "@angular/common";
+import {FileComponent} from "./file.component";
+
+@Injectable()
+class FileListActions {
+    actions = [] as InstanceType<typeof ActionTypes>['actions'];
+}
+
+function injectAndAssignActions(actions: any[]) {
+    const sidebarDirectories = inject(ActionTypes);
+    sidebarDirectories.actions = actions;
+    return sidebarDirectories;
+}
+
+@Component({
+    selector: 'file-list',
+    standalone: true,
+    imports: [NgFor, FileComponent],
+    providers: [{
+        provide: ActionTypes, useClass: FileListActions
+    }],
+    template: `
+        <div style="padding: 1rem">
+            <h1>Files</h1>
+            <file *ngFor="let file of files" [name]="file.name" [id]="file.id"/>
+        </div>
+    `
+})
+export class FileListComponent {
+     files = [
+        {
+            name: 'Testing.wav',
+            id: 1,
+        },
+        {
+            name: 'Secrets.txt',
+            id: 2,
+        },
+        {
+            name: 'Other.md',
+            id: 3,
+        },
+    ];
+
+    getFileIndexById = (id: number) => {
+        return this.files.findIndex((file) => file.id === id);
+    };
+
+    onRename = (id: number) => {
+        const fileIndex = this.getFileIndexById(id)!;
+        const file = this.files[fileIndex];
+        const newName = prompt(
+            `What do you want to rename the file ${file.name} to?`
+        );
+        if (!newName) return;
+        this.files[fileIndex] = {
+            ...file,
+            name: newName,
+        };
+    };
+
+    onDelete = (id: number) => {
+        const fileIndex = this.getFileIndexById(id);
+        this.files.splice(fileIndex, 1);
+    };
+
+    fileListActions = injectAndAssignActions([
+        {
+            label: 'Rename',
+            fn: this.onRename,
+        },
+        {
+            label: 'Delete',
+            fn: this.onDelete,
+        },
+    ])
+}
+```
+
+```typescript
+// context.ts
+import {Injectable} from "@angular/core";
+
+@Injectable()
+export class ActionTypes {
+    actions = [] as Array<{label: string, fn: (id: number) => void}>;
+}
+```
+
+````typescript
+// file.component.ts
+import {Component, Input, ViewChild} from '@angular/core';
+import {LayoutComponent} from "./layout.component";
+import {ContextMenuComponent} from "./context-menu.component";
+
+@Component({
+    selector: 'file',
+    standalone: true,
+    imports: [ContextMenuComponent],
+    template: `
+        <button
+                (contextmenu)="onContextMenu($event)"
+                style="display: block; width: 100%; margin-bottom: 1rem"
+        >
+            {{ name }}
+        </button>
+        <context-menu
+                #contextMenu
+                [data]="id"
+                [isOpen]="isOpen"
+                (close)="setIsOpen(false)"
+                [x]="mouseBounds.x"
+                [y]="mouseBounds.y"
+        />
+  `
+})
+export class FileComponent {
+    @ViewChild('contextMenu', {static: true}) contextMenu!: ContextMenuComponent;
+    @Input() name!: string;
+    @Input() id!: number;
+
+    mouseBounds = {
+        x: 0,
+        y: 0,
+    };
+
+    isOpen = false;
+
+    setIsOpen = (v: boolean) => this.isOpen = v;
+
+    onContextMenu(e: MouseEvent) {
+        e.preventDefault();
+        this.isOpen = true;
+        this.mouseBounds = {
+            x: e.clientX,
+            y: e.clientY,
+        };
+        setTimeout(() => {
+            this.contextMenu.focusMenu()
+        }, 0)
+    }
+}
+````
+
+```typescript
+// context-menu.component.ts
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    inject,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output, SimpleChange, SimpleChanges,
+    ViewChild
+} from '@angular/core';
+import {LayoutComponent} from "./layout.component";
+import {NgFor, NgIf} from "@angular/common";
+import {ActionTypes} from "./context";
+
+function injectAndGetActions() {
+    const context = inject(ActionTypes);
+    if (!context) return [];
+    return context.actions;
+}
+
+@Component({
+    selector: 'context-menu',
+    standalone: true,
+    imports: [NgIf, NgFor],
+    template: `
+        <div
+                *ngIf="isOpen && actions"
+                #contextMenu
+                tabIndex="0"
+                [style]="'
+          position: fixed;
+          top: ' + y + 'px;
+          left: ' + x + 'px;
+          background: white;
+          border: 1px solid black;
+          border-radius: 16px;
+          padding: 1rem;
+        '"
+        >
+            <button (click)="close.emit(false)">X</button>
+            <ul>
+                <li *ngFor="let action of actions">
+                    <button
+                            (click)="
+                        action.fn(data);
+                        close.emit(false);
+                    "
+                    >
+                        {{ action.label }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    `
+})
+export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+    @ViewChild("contextMenu", {static: false}) contextMenuRef!: ElementRef;
+    @Input() isOpen!: boolean;
+    @Input() x!: number;
+    @Input() y!: number;
+    @Input() data!: any;
+
+    @Output() close = new EventEmitter<boolean>();
+
+    actions = injectAndGetActions();
+
+    closeIfOutside = (e: MouseEvent) => {
+        const contextMenuEl = this.contextMenuRef?.nativeElement
+        if (!contextMenuEl) return
+        const isClickInside = contextMenuEl.contains(e.target)
+        if (isClickInside) return
+        this.close.emit(false);
+    }
+
+    closeIfContextMenu = () => {
+        if (!this.isOpen) return;
+        this.close.emit(false);
+    };
+
+    previousListener: null | (() => void) = null;
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes["isOpen"].previousValue !== changes["isOpen"].currentValue) {
+            if (this.previousListener) {
+                this.previousListener();
+            }
+            // Inside a timeout to make sure the initial context menu does not close the menu
+            setTimeout(() => {
+                document.addEventListener('contextmenu', this.closeIfContextMenu);
+            }, 0);
+
+            this.previousListener = () => document.removeEventListener('contextmenu', this.closeIfContextMenu);
+        }
+    }
+
+    ngOnInit() {
+        document.addEventListener('click', this.closeIfOutside)
+    }
+
+    ngOnDestroy() {
+        document.removeEventListener('click', this.closeIfOutside)
+    }
+
+    focusMenu() {
+        this.contextMenuRef.nativeElement.focus()
+    }
+}
+```
+
+
 
 ### Vue 
 
