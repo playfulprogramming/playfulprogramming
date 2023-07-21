@@ -1,13 +1,31 @@
-import { useCallback, useRef } from "preact/hooks";
+import { useCallback, useEffect, useRef } from "preact/hooks";
+import styles from "./filter-dialog.module.scss";
 
 interface FilterDialogProps {
 	isOpen: boolean;
 	onClose: (val: string) => void;
 }
 
-export const FilterDialog = ({ isOpen, onClose }: FilterDialogProps) => {
-	//
+export const FilterDialog = ({
+	isOpen: isOpenProp,
+	onClose,
+}: FilterDialogProps) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
+	/**
+	 * We can't use the open attribute because otherwise the
+	 * dialog is not treated as a modal
+	 */
+	const isOpen = useRef(isOpenProp);
+
+	useEffect(() => {
+		if (isOpenProp) {
+			if (isOpen.current) return;
+			dialogRef.current?.showModal();
+		} else {
+			dialogRef.current?.close();
+		}
+		isOpen.current = isOpenProp;
+	}, [isOpenProp]);
 
 	const onConfirm = useCallback((e: MouseEvent) => {
 		e.preventDefault();
@@ -20,12 +38,7 @@ export const FilterDialog = ({ isOpen, onClose }: FilterDialogProps) => {
 	}, []);
 
 	return (
-		<dialog
-			open={isOpen}
-			onClose={onFormConfirm}
-			ref={dialogRef}
-			style={{ background: "white", zIndex: 1 }}
-		>
+		<dialog onClose={onFormConfirm} ref={dialogRef} class={styles.dialog}>
 			<form>
 				<div>Hi</div>
 				<button value="cancel" formMethod="dialog">
