@@ -29,3 +29,7 @@
 	max-width: var(--filter-modal_max-width);
 	width: 100%;
 }
+
+.dialog::backdrop {
+	background-color: var(--foreground_disabled);
+}
