@@ -90,7 +90,7 @@
 		"postcss-csso": "^6.0.1",
 		"preact-render-to-string": "^6.1.0",
 		"prettier": "^2.8.8",
-		"prettier-plugin-astro": "^0.10.0",
+		"prettier-plugin-astro": "^0.11.0",
 		"probe-image-size": "^7.2.3",
 		"rehype-raw": "^6.1.1",
 		"rehype-retext": "^3.0.2",
@@ -120,7 +120,7 @@
 	},
 	"dependencies": {
 		"@astrojs/vercel": "^3.7.0",
-		"@floating-ui/react": "^0.24.3",
+		"@floating-ui/react": "^0.24.8",
 		"@tanstack/react-query": "^4.29.19",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.16.0"
