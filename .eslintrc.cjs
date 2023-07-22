@@ -19,6 +19,7 @@ module.exports = {
 	rules: {
 		"no-unused-vars": "off",
 		"no-mixed-spaces-and-tabs": "off",
+		"no-useless-escape": "off"
 	},
 	overrides: [
 		{
@@ -33,7 +34,7 @@ module.exports = {
 			},
 		},
 		{
-			files: ["*.ts"],
+			files: ["*.ts", "*.tsx"],
 			parser: "@typescript-eslint/parser",
 			extends: ["plugin:@typescript-eslint/recommended"],
 			rules: {
