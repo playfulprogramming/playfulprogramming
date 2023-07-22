@@ -1,14 +1,104 @@
-import { useCallback, useEffect, useRef } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import styles from "./filter-dialog.module.scss";
+import { UnicornInfo } from "types/UnicornInfo";
+import { useWindowSize } from "../../../hooks/use-window-size";
+import { mobile } from "../../../tokens/breakpoints";
+import { FilterSidebarSection } from "./filter-section";
 
 interface FilterDialogProps {
 	isOpen: boolean;
 	onClose: (val: string) => void;
+	tags: string[];
+	authors: UnicornInfo[];
+	setSelectedTags: (tags: string[]) => void;
+	setSelectedAuthorIds: (authors: string[]) => void;
 }
+
+interface FilterDialogInner extends Omit<FilterDialogProps, "isOpen"> {
+	selectedTags: string[];
+	selectedAuthorIds: string[];
+	onSelectedAuthorChange: (id: string) => void;
+	onTagsChange: (id: string) => void;
+}
+
+const FilterDialogMobile = ({
+	onClose,
+	tags,
+	authors,
+	setSelectedTags,
+	setSelectedAuthorIds,
+	onSelectedAuthorChange,
+	onTagsChange,
+	selectedTags,
+	selectedAuthorIds,
+}: FilterDialogInner) => {
+	return (
+		<div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+			<FilterSidebarSection
+				title={"Tag"}
+				selectedNumber={tags.length}
+				onClear={() => setSelectedTags([])}
+			>
+				{tags.map((tag) => {
+					return (
+						<div>
+							<label>
+								<span>{tag}</span>
+								<input
+									type="checkbox"
+									onChange={(e) => onTagsChange(tag)}
+									checked={selectedTags.includes(tag)}
+								/>
+							</label>
+						</div>
+					);
+				})}
+			</FilterSidebarSection>
+			<FilterSidebarSection
+				title={"Author"}
+				selectedNumber={authors.length}
+				onClear={() => setSelectedAuthorIds([])}
+			>
+				{authors.map((author) => {
+					return (
+						<div>
+							<label>
+								<span>{author.name}</span>
+								<input
+									type="checkbox"
+									onChange={(e) => onSelectedAuthorChange(author.id)}
+									checked={selectedAuthorIds.includes(author.id)}
+								/>
+							</label>
+						</div>
+					);
+				})}
+			</FilterSidebarSection>
+		</div>
+	);
+};
+
+const FilterDialogSmallTablet = ({
+	onClose,
+	tags,
+	authors,
+	setSelectedTags,
+	setSelectedAuthorIds,
+	onSelectedAuthorChange,
+	onTagsChange,
+	selectedTags,
+	selectedAuthorIds,
+}: FilterDialogInner) => {
+	return <div>Tablet</div>;
+};
 
 export const FilterDialog = ({
 	isOpen: isOpenProp,
 	onClose,
+	tags,
+	authors,
+	setSelectedTags: setParentSelectedTags,
+	setSelectedAuthorIds: setParentSelectedAuthorIds,
 }: FilterDialogProps) => {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	/**
@@ -37,10 +127,61 @@ export const FilterDialog = ({
 		onClose(dialogRef.current.returnValue);
 	}, []);
 
+	const [selectedTags, setSelectedTags] = useState<string[]>(tags);
+	const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
+		authors.map((author) => author.id)
+	);
+
+	const onSelectedAuthorChange = (id: string) => {
+		const isPresent = selectedAuthorIds.includes(id);
+		if (isPresent) {
+			setSelectedAuthorIds(selectedAuthorIds.filter((author) => author !== id));
+		} else {
+			setSelectedAuthorIds([...selectedAuthorIds, id]);
+		}
+	};
+
+	const onTagsChange = (id: string) => {
+		const isPresent = selectedTags.includes(id);
+		if (isPresent) {
+			setSelectedTags(selectedTags.filter((tag) => tag !== id));
+		} else {
+			setSelectedTags([...selectedTags, id]);
+		}
+	};
+
+	const windowSize = useWindowSize();
+
+	const isMobile = windowSize.width < mobile;
+
 	return (
 		<dialog onClose={onFormConfirm} ref={dialogRef} class={styles.dialog}>
-			<form>
-				<div>Hi</div>
+			<form style={{height: '100%'}}>
+				{isMobile ? (
+					<FilterDialogMobile
+						onClose={onClose}
+						tags={tags}
+						authors={authors}
+						selectedTags={selectedTags}
+						selectedAuthorIds={selectedAuthorIds}
+						setSelectedTags={setSelectedTags}
+						setSelectedAuthorIds={setSelectedAuthorIds}
+						onSelectedAuthorChange={onSelectedAuthorChange}
+						onTagsChange={onTagsChange}
+					/>
+				) : (
+					<FilterDialogSmallTablet
+						onClose={onClose}
+						tags={tags}
+						authors={authors}
+						selectedTags={selectedTags}
+						selectedAuthorIds={selectedAuthorIds}
+						setSelectedTags={setSelectedTags}
+						setSelectedAuthorIds={setSelectedAuthorIds}
+						onSelectedAuthorChange={onSelectedAuthorChange}
+						onTagsChange={onTagsChange}
+					/>
+				)}
 				<button value="cancel" formMethod="dialog">
 					Cancel
 				</button>

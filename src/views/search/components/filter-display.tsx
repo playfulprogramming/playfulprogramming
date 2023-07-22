@@ -100,6 +100,10 @@ export const FilterDisplay = ({
 					alert(val);
 					setFilterIsDialogOpen(false);
 				}}
+				tags={tags}
+				authors={authors}
+				setSelectedTags={setSelectedTags}
+				setSelectedAuthorIds={setSelectedAuthorIds}
 			/>
 		);
 	}

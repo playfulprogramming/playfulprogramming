@@ -27,7 +27,9 @@
 		var(--filter-modal_padding-bottom);
 	border-radius: var(--filter-modal_corner-radius);
 	max-width: var(--filter-modal_max-width);
-	width: 100%;
+	width: calc(100% - var(--site-spacing) * 2);
+	height: 80vh;
+	border: none;
 }
 
 .dialog::backdrop {

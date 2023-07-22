@@ -26,6 +26,7 @@ export const FilterSidebarSection = ({
 		>
 			<div className={styles.sectionHeader}>
 				<button
+					type="button"
 					className={styles.sectionTitle}
 					style={{
 						paddingRight: size?.width,
@@ -50,7 +51,12 @@ export const FilterSidebarSection = ({
 					</span>
 				</button>
 				<div className={styles.clearContainer} ref={setEl}>
-					<Chip tag="button" className={styles.clearChip} onClick={onClear}>
+					<Chip
+						tag="button"
+						type="button"
+						className={styles.clearChip}
+						onClick={onClear}
+					>
 						Clear
 					</Chip>
 				</div>
