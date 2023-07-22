@@ -21,6 +21,7 @@ import { useCallback, useMemo, useRef, useState } from "preact/hooks";
 import down from "src/icons/chevron_down.svg?raw";
 import { Button } from "components/button/button";
 import styles from "./select.module.scss";
+import checkmark from "src/icons/checkmark.svg?raw";
 
 interface SelectContextValue {
 	activeIndex: number | null;
@@ -173,15 +174,20 @@ export function Option({ label }: { label: string }) {
 			role="option"
 			aria-selected={isActive && isSelected}
 			tabIndex={isActive ? 0 : -1}
-			style={{
-				background: isActive ? "cyan" : "",
-				fontWeight: isSelected ? "bold" : "",
-			}}
+			class={`${styles.option} ${isSelected ? styles.selected : ""} ${
+				isActive ? styles.active : ""
+			}`}
 			{...getItemProps({
 				onClick: () => handleSelect(index),
 			})}
 		>
-			{label}
+			<span class={"text-style-button-regular"}>{label}</span>
+			{isSelected && (
+				<span
+					class={styles.checkmark}
+					dangerouslySetInnerHTML={{ __html: checkmark }}
+				></span>
+			)}
 		</button>
 	);
 }
