@@ -17,8 +17,8 @@ interface FilterSidebar {
 	setSelectedAuthorIds: (authors: string[]) => void;
 	sort: "newest" | "oldest";
 	setSort: (sortBy: "newest" | "oldest") => void;
-	tags: string[];
-	authors: UnicornInfo[];
+	tags: Array<{ tag: string; numPosts: number }>;
+	authors: Array<UnicornInfo & { numPosts: number }>;
 	onSelectedAuthorChange: (authorId: string) => void;
 	onTagsChange: (tag: string) => void;
 }
@@ -66,11 +66,11 @@ export const FilterSidebar = ({
 				{tags.map((tag) => {
 					return (
 						<FilterSectionItem
-							count={0}
+							count={tag.numPosts}
 							icon={null}
-							label={tag}
-							selected={selectedTags.includes(tag)}
-							onChange={() => onTagsChange(tag)}
+							label={tag.tag}
+							selected={selectedTags.includes(tag.tag)}
+							onChange={() => onTagsChange(tag.tag)}
 						/>
 					);
 				})}
@@ -83,7 +83,7 @@ export const FilterSidebar = ({
 				{authors.map((author) => {
 					return (
 						<FilterSectionItem
-							count={0}
+							count={author.numPosts}
 							icon={
 								<UUPicture
 									picture={unicornProfilePicMap.find((u) => u.id === author.id)}

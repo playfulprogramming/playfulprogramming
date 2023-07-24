@@ -40,20 +40,35 @@ export const FilterDisplay = ({
 	setFilterIsDialogOpen,
 }: FilterDisplayProps) => {
 	const tags = useMemo(() => {
+		const tagToPostNumMap = new Map<string, number>();
+
 		const tags = new Set<string>();
 		posts.forEach((post) => {
 			post.tags.forEach((tag) => {
 				tags.add(tag);
+
+				const numPosts = tagToPostNumMap.get(tag) || 0;
+				tagToPostNumMap.set(tag, numPosts + 1);
 			});
 		});
-		return Array.from(tags);
+		return Array.from(tags)
+			.sort((a, b) => a.localeCompare(b))
+			.map((tag) => ({
+				tag,
+				numPosts: tagToPostNumMap.get(tag) || 0,
+			}));
 	}, [posts]);
 
 	const authors = useMemo(() => {
+		const postAuthorIdToPostNumMap = new Map<string, number>();
+
 		const authors: UnicornInfo[] = [];
 		posts.forEach((post) => {
 			post.authorsMeta.forEach((author) => {
 				authors.push(author);
+
+				const numPosts = postAuthorIdToPostNumMap.get(author.id) || 0;
+				postAuthorIdToPostNumMap.set(author.id, numPosts + 1);
 			});
 		});
 
@@ -67,7 +82,12 @@ export const FilterDisplay = ({
 		authors.forEach((author) => {
 			uniqueAuthors.set(author.id, author);
 		});
-		return Array.from(uniqueAuthors.values());
+		return Array.from(uniqueAuthors.values())
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.map((author) => ({
+				...author,
+				numPosts: postAuthorIdToPostNumMap.get(author.id) || 0,
+			}));
 	}, [posts, collections]);
 
 	const onSelectedAuthorChange = (id: string) => {

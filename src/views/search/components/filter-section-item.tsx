@@ -41,8 +41,11 @@ export const FilterSectionItem = ({
 					<span aria-hidden={true} class={style.iconContainer}>
 						{icon}
 					</span>
-					<span class={`text-style-body-small-bold ${style.label}`}>
+					<span className={`text-style-body-small-bold ${style.label}`}>
 						{label}
+					</span>
+					<span className={`text-style-body-small-bold ${style.count}`}>
+						{count}
 					</span>
 					{children}
 					<VisuallyHidden>

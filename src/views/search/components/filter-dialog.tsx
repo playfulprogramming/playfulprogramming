@@ -8,8 +8,8 @@ import { FilterSection } from "./filter-section";
 interface FilterDialogProps {
 	isOpen: boolean;
 	onClose: (val: string) => void;
-	tags: string[];
-	authors: UnicornInfo[];
+	tags: Array<{ tag: string; numPosts: number }>;
+	authors: Array<UnicornInfo & { numPosts: number }>;
 	setSelectedTags: (tags: string[]) => void;
 	setSelectedAuthorIds: (authors: string[]) => void;
 }
@@ -43,11 +43,11 @@ const FilterDialogMobile = ({
 					return (
 						<div>
 							<label>
-								<span>{tag}</span>
+								<span>{tag.tag}</span>
 								<input
 									type="checkbox"
-									onChange={(e) => onTagsChange(tag)}
-									checked={selectedTags.includes(tag)}
+									onChange={(e) => onTagsChange(tag.tag)}
+									checked={selectedTags.includes(tag.tag)}
 								/>
 							</label>
 						</div>
@@ -127,9 +127,11 @@ export const FilterDialog = ({
 		onClose(dialogRef.current.returnValue);
 	}, []);
 
-	const [selectedTags, setSelectedTags] = useState<string[]>(tags);
+	const [selectedTags, setSelectedTags] = useState<string[]>(
+		tags.map((tag) => tag.tag),
+	);
 	const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
-		authors.map((author) => author.id)
+		authors.map((author) => author.id),
 	);
 
 	const onSelectedAuthorChange = (id: string) => {
@@ -156,7 +158,7 @@ export const FilterDialog = ({
 
 	return (
 		<dialog onClose={onFormConfirm} ref={dialogRef} class={styles.dialog}>
-			<form style={{height: '100%'}}>
+			<form style={{ height: "100%" }}>
 				{isMobile ? (
 					<FilterDialogMobile
 						onClose={onClose}
