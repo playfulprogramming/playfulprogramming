@@ -20,8 +20,11 @@ export const FilterSectionItem = ({
 }: FilterSectionItemProps) => {
 	return (
 		<CheckboxBox
+			selected={selected}
 			wrapper={(children) => (
-				<label class={style.containerLabel}>
+				<label
+					class={`${style.containerLabel} ${selected ? style.selected : ""}`}
+				>
 					<span aria-hidden={true} class={style.iconContainer}>
 						{icon}
 					</span>
@@ -38,7 +41,6 @@ export const FilterSectionItem = ({
 					</VisuallyHidden>
 				</label>
 			)}
-			selected={selected}
 		/>
 	);
 };

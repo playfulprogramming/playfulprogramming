@@ -11,13 +11,13 @@
 	--search-page_filter_list_item_count_color: var(--foreground_disabled);
 
 	--search-page_filter_list_item_background-color_hovered: var(
-		--surface_emphasis-low
+		--surface_primary_emphasis-low
 	);
 	--search-page_filter_list_item_background-color_pressed: var(
-		--surface_emphasis-medium
+		--surface_primary_emphasis-medium
 	);
 	--search-page_filter_list_item_background-color_selected: var(
-		--surface_emphasis-none
+		--surface_primary_emphasis-none
 	);
 }
 
@@ -46,4 +46,16 @@
 .label {
 	margin-right: auto;
 	color: var(--search-page_filter_list_item_label_color);
+}
+
+.containerLabel.selected {
+	background: var(--search-page_filter_list_item_background-color_selected);
+}
+
+.containerLabel:hover {
+	background: var(--search-page_filter_list_item_background-color_hovered);
+}
+
+.containerLabel:active {
+	background: var(--search-page_filter_list_item_background-color_pressed);
 }
