@@ -66,14 +66,18 @@ export const FilterSidebar = ({
 					return (
 						<div>
 							<CheckboxBox
-								selected={true}
-								disabled={true}
+								selected={selectedTags.includes(tag)}
 								wrapper={(children) => (
-									<label style={{ width: "100%", display: "block" }}>
+									<label
+										style={{
+											display: "flex",
+											alignItems: "center",
+											padding: "0.25rem",
+										}}
+									>
 										<span style={{ marginRight: "auto" }}>{tag}</span>
 										<VisuallyHidden>
 											<input
-												disabled={true}
 												type="checkbox"
 												onChange={(e) => onTagsChange(tag)}
 												checked={selectedTags.includes(tag)}
