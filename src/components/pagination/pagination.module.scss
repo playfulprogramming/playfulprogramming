@@ -31,6 +31,9 @@
 	list-style: none;
 }
 
+.paginationItem {
+}
+
 .paginationItemExtra {
 	display: none;
 
@@ -61,7 +64,6 @@
 	box-sizing: border-box;
 }
 
-
 .paginationButton.selected {
 	background-color: var(--nav-btn_background-color_selected);
 	color: var(--nav-btn_foreground-color_selected);
@@ -86,7 +88,8 @@
 	box-sizing: border-box;
 }
 
-.paginationButton:disabled, .paginationButton[aria-disabled="true"] {
+.paginationButton:disabled,
+.paginationButton[aria-disabled="true"] {
 	background-color: var(--nav-btn_background-color_disabled);
 	color: var(--nav-btn_foreground-color_disabled);
 }

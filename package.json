@@ -37,7 +37,7 @@
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
 		"tsc": "tsc --noEmit && astro check",
 		"test": "jest",
-		"prepare": "husky install"
+		"prepare": "husky install && playwright install"
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.17.1",
@@ -117,7 +117,8 @@
 		"*.{js,ts,astro,jsx}": "prettier --write"
 	},
 	"dependencies": {
-		"@floating-ui/react": "^0.24.3",
+		"react-aria": "^3.26.0",
+		"react-stately": "^3.24.0",
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.16.0"
 	},

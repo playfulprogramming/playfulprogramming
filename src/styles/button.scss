@@ -149,7 +149,8 @@
 	}
 }
 
-.buttonIcon svg, .iconOnlyButtonIcon svg {
+.buttonIcon svg,
+.iconOnlyButtonIcon svg {
 	width: 100%;
 	height: 100%;
 }
@@ -250,7 +251,8 @@
 	}
 }
 
-.button[disabled] {
+.button[disabled],
+.button[aria-disabled="true"]:not([data-not-actually-disabled="true"]) {
 	text-decoration: none;
 	pointer-events: none;
 	background-color: var(--btn_disabled_background-color);
