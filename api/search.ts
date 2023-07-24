@@ -20,7 +20,7 @@ const postFuse = new Fuse<ExtendedPostInfo>(
 		includeScore: true,
 		ignoreFieldNorm: true,
 	},
-	postIndex
+	postIndex,
 );
 
 const collectionFuse = new Fuse(
@@ -31,20 +31,38 @@ const collectionFuse = new Fuse(
 		includeScore: true,
 		ignoreFieldNorm: true,
 	},
-	collectionIndex
+	collectionIndex,
 );
 
 export default async (req: VercelRequest, res: VercelResponse) => {
 	// TODO: `pickdeep` only required fields
 	const searchStr = req?.query?.query as string;
-	if (!searchStr) return [];
-	if (Array.isArray(searchStr)) return [];
-	const posts = postFuse.search(searchStr).map((item) => item.item);
-	const collections = collectionFuse.search(searchStr).map((item) => item.item);
+	if (!searchStr) {
+		res.send({
+			posts: [],
+			totalPosts: 0,
+			collections: [],
+			totalCollections: 0,
+		});
+		return;
+	}
+	if (searchStr === "*") {
+		res.send({
+			posts,
+			totalPosts: posts.length,
+			collections,
+			totalCollections: collections.length,
+		});
+		return;
+	}
+	const searchedPosts = postFuse.search(searchStr).map((item) => item.item);
+	const searchedCollections = collectionFuse
+		.search(searchStr)
+		.map((item) => item.item);
 	res.send({
-		posts,
-		totalPosts: posts.length,
-		collections,
-		totalCollections: collections.length,
+		posts: searchedPosts,
+		totalPosts: searchedPosts.length,
+		collections: searchedCollections,
+		totalCollections: searchedCollections.length,
 	});
 };
