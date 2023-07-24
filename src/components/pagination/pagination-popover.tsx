@@ -1,6 +1,5 @@
 import { useRef, useState } from "preact/hooks";
 import { Fragment, RefObject } from "preact";
-import { createPortal } from "preact/compat";
 import mainStyles from "./pagination.module.scss";
 import more from "src/icons/more_horiz.svg?raw";
 import { PaginationProps } from "components/pagination/types";
@@ -44,8 +43,11 @@ function PopupContents(
 					data-testid="pagination-popup-decrement"
 					type="button"
 					tag="button"
-					onClick={() => setCount((v) => v - 1)}
-					disabled={count <= 1}
+					onClick={() => {
+						if (count <= 1) return false;
+						setCount((v) => v - 1);
+					}}
+					aria-disabled={count <= 1}
 					class={style.iconButton}
 				>
 					<div
@@ -73,8 +75,12 @@ function PopupContents(
 					data-testid="pagination-popup-increment"
 					type="button"
 					tag="button"
-					onClick={() => setCount((v) => v + 1)}
-					disabled={count >= props.page.lastPage}
+					onClick={() => {
+						// Disabled
+						if (count >= props.page.lastPage) return false;
+						setCount((v) => v + 1);
+					}}
+					aria-disabled={count >= props.page.lastPage}
 					class={style.iconButton}
 				>
 					<div
