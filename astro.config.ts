@@ -46,7 +46,13 @@ export default defineConfig({
 	vite: {
 		ssr: {
 			external: ["svgo"],
-			noExternal: ["@floating-ui/react", "@floating-ui/react-dom"],
+			noExternal: [
+				"react-aria",
+				"react-stately",
+				/@react-aria/,
+				/@react-stately/,
+				/@react-types/,
+			],
 		},
 		plugins: [svgr()],
 	},
