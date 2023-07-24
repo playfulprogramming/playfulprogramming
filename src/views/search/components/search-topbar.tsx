@@ -54,7 +54,7 @@ export const SearchTopbar = ({
 					children={null}
 				/>
 			</form>
-			<div className={style.topBarDivider} />
+			<div className={`${style.dividerLine} ${style.topBarDivider}`} />
 			<div className={style.topBarButtonsContentToDisplay} role="group">
 				<Button
 					onClick={() => setContentToDisplay("all")}
@@ -90,6 +90,18 @@ export const SearchTopbar = ({
 				</Button>
 			</div>
 			<div class={style.orderSelectContainer}>
+        <div class={style.dividerLine} />
+        <div class={style.filterAndOrderSelectDiv}>
+				<Button
+          onClick={() => setFilterIsDialogOpen(true)}
+          leftIcon={
+          <span
+		  			className={style.filterIconContainer}
+	  				dangerouslySetInnerHTML={{ __html: filter }}
+  				></span>
+				}>
+          Filter
+				</Button>
 				<Select
 					label={"Order"}
 					selectedKey={sort}
@@ -98,6 +110,7 @@ export const SearchTopbar = ({
 					<Item key={"newest"}>Newest</Item>
 					<Item key={"oldest"}>Oldest</Item>
 				</Select>
+        </div>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
 				<div role="group" className={style.topBarSmallTabletButtonsToggle}>
@@ -125,7 +138,7 @@ export const SearchTopbar = ({
 					></span>
 				</IconOnlyButton>
 			</div>
-			<div class={style.tabletSmallTopBarDivider} />
+			<div class={`${style.dividerLine} ${style.tabletSmallTopBarDivider}`} />
 		</div>
 	);
 };
