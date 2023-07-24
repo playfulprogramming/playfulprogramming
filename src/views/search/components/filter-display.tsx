@@ -8,6 +8,7 @@ import { useWindowSize } from "../../../hooks/use-window-size";
 import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
 import { FilterSidebar } from "./filter-sidebar";
+import tagMap from "../../../../content/data/tags.json";
 
 interface FilterDisplayProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -56,6 +57,9 @@ export const FilterDisplay = ({
 			.map((tag) => ({
 				tag,
 				numPosts: tagToPostNumMap.get(tag) || 0,
+				emoji: tagMap[tag]?.emoji,
+				image: tagMap[tag]?.image,
+				displayName: tagMap[tag]?.displayName,
 			}));
 	}, [posts]);
 

@@ -7,6 +7,33 @@ import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
+import { ExtendedTag, ExtendedUnicorn } from "./types";
+
+const DEFAULT_TAG_EMOJI = [
+	"🦄",
+	"🌈",
+	"🎉",
+	"🎊",
+	"✍️",
+	"📔",
+	"📕",
+	"📖",
+	"📗",
+	"📘",
+	"📙",
+	"📚",
+	"📑",
+	"🔖",
+	"🧾",
+	"🤔",
+	"📝",
+	"📄",
+	"📃",
+	"📑",
+	"📊",
+	"📈",
+	"🗒️",
+];
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -17,8 +44,8 @@ interface FilterSidebar {
 	setSelectedAuthorIds: (authors: string[]) => void;
 	sort: "newest" | "oldest";
 	setSort: (sortBy: "newest" | "oldest") => void;
-	tags: Array<{ tag: string; numPosts: number }>;
-	authors: Array<UnicornInfo & { numPosts: number }>;
+	tags: ExtendedTag[];
+	authors: ExtendedUnicorn[];
 	onSelectedAuthorChange: (authorId: string) => void;
 	onTagsChange: (tag: string) => void;
 }
@@ -63,12 +90,22 @@ export const FilterSidebar = ({
 				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
 			>
-				{tags.map((tag) => {
+				{tags.map((tag, i) => {
 					return (
 						<FilterSectionItem
 							count={tag.numPosts}
-							icon={null}
-							label={tag.tag}
+							icon={
+								tag.image ? (
+									<img src={tag.image} className={styles.tagIcon} />
+								) : tag.emoji ? (
+									<span className={styles.tagIcon}>{tag.emoji}</span>
+								) : (
+									<span className={styles.tagIcon}>
+										{DEFAULT_TAG_EMOJI[i % DEFAULT_TAG_EMOJI.length]}
+									</span>
+								)
+							}
+							label={tag?.displayName ?? tag.tag}
 							selected={selectedTags.includes(tag.tag)}
 							onChange={() => onTagsChange(tag.tag)}
 						/>

@@ -1,0 +1,14 @@
+{
+  "react": {
+    "displayName": "React",
+    "image": "/stickers/react.png"
+  },
+  "react native": {
+    "displayName": "React Native",
+    "image": "/stickers/react.png"
+  },
+  "javascript": {
+    "displayName": "JavaScript",
+    "emoji": "🟨"
+  }
+}

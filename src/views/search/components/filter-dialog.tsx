@@ -4,12 +4,13 @@ import { UnicornInfo } from "types/UnicornInfo";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile } from "../../../tokens/breakpoints";
 import { FilterSection } from "./filter-section";
+import { ExtendedTag, ExtendedUnicorn } from "./types";
 
 interface FilterDialogProps {
 	isOpen: boolean;
 	onClose: (val: string) => void;
-	tags: Array<{ tag: string; numPosts: number }>;
-	authors: Array<UnicornInfo & { numPosts: number }>;
+	tags: ExtendedTag[];
+	authors: ExtendedUnicorn[];
 	setSelectedTags: (tags: string[]) => void;
 	setSelectedAuthorIds: (authors: string[]) => void;
 }
