@@ -15,12 +15,12 @@
 	background: var(--page-popup_background-color);
 	border: var(--page-popup_border-width) solid var(--page-popup_border-color);
 	box-shadow: var(--shadow_popup_light);
-	padding: var(--page-popup_padding);
 	min-width: 13.5rem;
 	border-radius: var(--page-popup_corner-radius);
 }
 
 .popupInner {
+	padding: var(--page-popup_padding);
 	display: flex;
 	flex-direction: column;
 	gap: var(--page-popup_gap);
