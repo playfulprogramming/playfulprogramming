@@ -2,7 +2,7 @@ const COLOR_MODE_STORAGE_KEY = "currentTheme";
 
 export const themeToggle = () => {
 	const themeToggleBtn: HTMLElement = document.querySelector(
-		"#theme-toggle-button"
+		"#theme-toggle-button",
 	);
 	if (!themeToggleBtn) return;
 	const darkIconEl: HTMLElement = document.querySelector("#dark-icon");
@@ -16,10 +16,7 @@ export const themeToggle = () => {
 			lightIconEl.style.display = "none";
 			darkIconEl.style.display = null;
 		}
-		setTimeout(
-			() => (window as any).reloadDisqus && (window as any).reloadDisqus(),
-			100
-		);
+		setTimeout(() => window.reloadDisqus && window.reloadDisqus(), 100);
 	}
 
 	// TODO: Migrate to `classList`
