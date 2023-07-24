@@ -1,7 +1,9 @@
 import { VNode } from "preact";
 import { CheckboxBox } from "components/checkbox-box/checkbox-box";
-import { VisuallyHidden } from "react-aria";
+import { useCheckbox, VisuallyHidden } from "react-aria";
 import style from "./filter-section-item.module.scss";
+import { useToggleState } from "react-stately";
+import { useRef } from "preact/hooks";
 
 interface FilterSectionItemProps {
 	icon: VNode<any>;
@@ -18,12 +20,23 @@ export const FilterSectionItem = ({
 	selected,
 	onChange,
 }: FilterSectionItemProps) => {
+	const props = {
+		isSelected: selected,
+		onChange: onChange,
+	};
+
+	const state = useToggleState(props);
+
+	const ref = useRef(null);
+	const { inputProps } = useCheckbox(props, state, ref);
+	const isSelected = state.isSelected;
+
 	return (
 		<CheckboxBox
-			selected={selected}
+			selected={isSelected}
 			wrapper={(children) => (
 				<label
-					class={`${style.containerLabel} ${selected ? style.selected : ""}`}
+					class={`${style.containerLabel} ${isSelected ? style.selected : ""}`}
 				>
 					<span aria-hidden={true} class={style.iconContainer}>
 						{icon}
@@ -33,11 +46,7 @@ export const FilterSectionItem = ({
 					</span>
 					{children}
 					<VisuallyHidden>
-						<input
-							type="checkbox"
-							onChange={(e) => onChange()}
-							checked={selected}
-						/>
+						<input {...inputProps} ref={ref} />
 					</VisuallyHidden>
 				</label>
 			)}
