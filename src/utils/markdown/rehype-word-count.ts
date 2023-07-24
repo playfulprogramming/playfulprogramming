@@ -28,6 +28,7 @@ import { visit } from "unist-util-visit";
 import { unified } from "unified";
 import english from "retext-english";
 import rehypeRetext from "rehype-retext";
+import { AstroVFile } from "utils/markdown/types";
 
 interface RemarkCountProps {}
 
@@ -67,7 +68,7 @@ export type WordCounts = {
 };
 
 export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
-	return async (tree, file) => {
+	return async (tree, file: AstroVFile) => {
 		const counts = {} as WordCounts;
 
 		/**
@@ -80,7 +81,7 @@ export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 		 * Plus, there's weird syntax parsing issues.
 		 */
 		if (file.path.includes(".mdx")) {
-			(file.data.astro as any).frontmatter.wordCount = 0;
+			file.data.astro.frontmatter.wordCount = 0;
 			return;
 		}
 
@@ -88,7 +89,7 @@ export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 			.use(rehypeRetext, unified().use(english).use(count(counts)))
 			.run(tree);
 
-		(file.data.astro as any).frontmatter.wordCount =
+		file.data.astro.frontmatter.wordCount =
 			(counts.InlineCodeWords || 0) + (counts.WordNode || 0);
 	};
 };

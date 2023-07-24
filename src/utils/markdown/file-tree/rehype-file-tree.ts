@@ -38,8 +38,8 @@ export const rehypeFileTree = () => {
 		function replaceFiletreeNodes(nodes: Node[]) {
 			const items: Array<Directory | File> = [];
 
-			const isNodeElement = (node: any): node is Element =>
-				typeof node === "object" && node.type === "element";
+			const isNodeElement = (node: unknown): node is Element =>
+				typeof node === "object" && node["type"] === "element";
 
 			function traverseUl(listNode: Element, listItems: typeof items) {
 				if (listNode.children.length === 0) return;
@@ -53,7 +53,7 @@ export const rehypeFileTree = () => {
 						(child) =>
 							child.type === "comment" ||
 							child.type !== "text" ||
-							!/^\n+$/.test(child.value)
+							!/^\n+$/.test(child.value),
 					);
 
 					const [firstChild, ...otherChildren] = listItem.children;
@@ -81,7 +81,7 @@ export const rehypeFileTree = () => {
 						comment.push(fragments.join(" "));
 					}
 					const subTreeIndex = otherChildren.findIndex(
-						(child) => child.type === "element" && child.tagName === "ul"
+						(child) => child.type === "element" && child.tagName === "ul",
 					);
 					const commentNodes =
 						subTreeIndex > -1
@@ -89,7 +89,7 @@ export const rehypeFileTree = () => {
 							: [...otherChildren];
 					otherChildren.splice(
 						0,
-						subTreeIndex > -1 ? subTreeIndex : otherChildren.length
+						subTreeIndex > -1 ? subTreeIndex : otherChildren.length,
 					);
 					comment.push(...commentNodes);
 
@@ -97,7 +97,7 @@ export const rehypeFileTree = () => {
 
 					// Decide a node is a directory if it ends in a `/` or contains another list.
 					const directoryNode = otherChildren.find(
-						(child) => child.type === "element" && child.tagName === "ul"
+						(child) => child.type === "element" && child.tagName === "ul",
 					);
 
 					const isDirectory =
@@ -154,7 +154,7 @@ export const rehypeFileTree = () => {
 			}
 
 			const list = nodes.find(
-				(node) => isNodeElement(node) && node.tagName === "ul"
+				(node) => isNodeElement(node) && node.tagName === "ul",
 			) as Element;
 
 			if (!list) throw "No list found in filetree";
@@ -168,13 +168,13 @@ export const rehypeFileTree = () => {
 			tree,
 			{ type: "raw", value: "<!-- filetree:start -->" } as never,
 			{ type: "raw", value: "<!-- filetree:end -->" } as never,
-			replaceFiletreeNodes
+			replaceFiletreeNodes,
 		);
 		replaceAllBetween(
 			tree,
 			{ type: "comment", value: " filetree:start " } as never,
 			{ type: "comment", value: " filetree:end " } as never,
-			replaceFiletreeNodes
+			replaceFiletreeNodes,
 		);
 	};
 };

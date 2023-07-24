@@ -11,6 +11,7 @@ import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
 import rehypeStringify from "rehype-stringify";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
+import { Literal } from "unist";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
@@ -27,7 +28,7 @@ const unifiedChain = () => {
 			// join code parts into one element
 			const value =
 				nodes
-					.map((node) => (node as any).value)
+					.map((node) => (node as Literal).value)
 					.join("\n")
 					.trim() +
 				"\n" +
@@ -40,7 +41,7 @@ const unifiedChain = () => {
 				children: [
 					{
 						type: "code",
-						lang: (nodes[0] as any)?.lang || "javascript",
+						lang: (nodes[0] as { lang?: string })?.lang || "javascript",
 						value,
 					},
 				],
@@ -61,13 +62,13 @@ const shikiSCSS = fs.readFileSync("src/styles/shiki.scss", "utf8");
 
 export const renderPostPreviewToString = async (
 	layout: Layout,
-	post: ExtendedPostInfo
+	post: ExtendedPostInfo,
 ) => {
 	const authorImageMap = Object.fromEntries(
 		post.authorsMeta.map((author) => [
 			author.id,
 			readFileAsBase64(author.profileImgMeta.absoluteFSPath),
-		])
+		]),
 	);
 
 	const postHtml = await markdownToHtml(post.contentMeta);
@@ -100,7 +101,7 @@ export const renderPostPreviewToString = async (
 			width: PAGE_WIDTH,
 			height: PAGE_HEIGHT,
 			authorImageMap,
-		})
+		}),
 	)}
 	</body>
 	</html>

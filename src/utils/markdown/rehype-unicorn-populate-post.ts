@@ -5,14 +5,12 @@ import { readFileSync } from "fs";
 import * as path from "path";
 import { collections, posts } from "../data";
 import { getLanguageFromFilename } from "..";
+import { AstroVFile } from "utils/markdown/types";
 
 interface RehypeUnicornPopulatePostProps {}
 
-export const rehypeUnicornPopulatePost: Plugin<
-	[RehypeUnicornPopulatePostProps | never],
-	Root
-> = () => {
-	return (_, file) => {
+export const rehypeUnicornPopulatePost = (() => {
+	return (_, file: AstroVFile) => {
 		const fileContents = readFileSync(file.path, "utf8");
 		const { data: frontmatter, content } = matter(fileContents);
 
@@ -40,7 +38,7 @@ export const rehypeUnicornPopulatePost: Plugin<
 		}
 
 		// Write the data to Astro's frontmatter
-		Object.assign((file.data.astro as any).frontmatter, {
+		Object.assign(file.data.astro.frontmatter, {
 			slug,
 			locale,
 			...data,
@@ -48,4 +46,4 @@ export const rehypeUnicornPopulatePost: Plugin<
 			contentMeta: content,
 		});
 	};
-};
+}) satisfies Plugin<[RehypeUnicornPopulatePostProps | never], Root>;
