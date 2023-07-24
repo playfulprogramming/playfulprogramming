@@ -54,14 +54,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			pushState({ key: SEARCH_QUERY_KEY, val: str });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
-		[urlParams]
+		[urlParams],
 	);
 
 	const search = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
-		500
+		500,
 	);
 
 	/**
@@ -70,10 +70,15 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const enabled = !!debouncedSearch;
 
 	const { isLoading, isFetching, isError, error, data } = useQuery({
-		queryFn: ({ signal }) =>
-			fetch(`/api/search?query=${debouncedSearch}`, {
+		queryFn: ({ signal }) => {
+			// Analytics go brr
+			plausible &&
+				plausible("search", { props: { searchVal: debouncedSearch } });
+
+			return fetch(`/api/search?query=${debouncedSearch}`, {
 				signal: signal,
-			}).then((res) => res.json() as Promise<ServerReturnType>),
+			}).then((res) => res.json() as Promise<ServerReturnType>);
+		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
 			posts: [],
@@ -92,7 +97,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const page = useMemo(
 		() => Number(urlParams.get(SEARCH_PAGE_KEY) || "1"),
-		[urlParams]
+		[urlParams],
 	);
 
 	// Setup selected unicorns
@@ -107,7 +112,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			pushState({ key: FILTER_AUTHOR_KEY, val: sort.toString() });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
-		[urlParams]
+		[urlParams],
 	);
 
 	// Setup tags
@@ -122,7 +127,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			pushState({ key: FILTER_TAGS_KEY, val: sort.toString() });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
-		[urlParams]
+		[urlParams],
 	);
 
 	// Setup content to display
@@ -138,7 +143,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: sort });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
-		[urlParams]
+		[urlParams],
 	);
 
 	const showArticles =
@@ -153,7 +158,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			urlParams.get(SORT_KEY) === "newest"
 				? "newest"
 				: "oldest" ?? DEFAULT_SORT,
-		[urlParams]
+		[urlParams],
 	);
 
 	const setSort = useCallback(
@@ -161,7 +166,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			pushState({ key: SORT_KEY, val: sort });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
-		[urlParams]
+		[urlParams],
 	);
 
 	/**
@@ -172,7 +177,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
-					(new Date(a.published).getTime() - new Date(b.published).getTime())
+					(new Date(a.published).getTime() - new Date(b.published).getTime()),
 			)
 			.filter((post) => {
 				if (
@@ -198,7 +203,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const lastPage = useMemo(
 		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
-		[data]
+		[data],
 	);
 
 	/**
@@ -207,7 +212,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const posts = useMemo(() => {
 		return filteredAndSortedPosts.slice(
 			(page - 1) * MAX_POSTS_PER_PAGE,
-			page * MAX_POSTS_PER_PAGE
+			page * MAX_POSTS_PER_PAGE,
 		);
 	}, [filteredAndSortedPosts, page]);
 
