@@ -87,11 +87,11 @@
 	},
 	"java": {
 		"displayName": "Java",
-		"emoji": "☕"
+		"image": "/stickers/java.png"
 	},
 	"javascript": {
 		"displayName": "JavaScript",
-		"emoji": "🟨"
+		"image": "/stickers/javascript.png"
 	},
 	"jest": {
 		"displayName": "Jest",
