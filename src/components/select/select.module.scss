@@ -57,8 +57,7 @@
 	background-color: var(--popup_item_background-color_selected);
 }
 
-.option:hover,
-.option.active {
+.option:hover {
 	background-color: var(--popup_item_background-color_hovered);
 }
 
@@ -66,7 +65,7 @@
 	background-color: var(--popup_item_background-color_pressed);
 }
 
-.option:focus {
+.option:focus, .option.focused {
 	background-color: var(--popup_item_background-color_focused);
 }
 
@@ -75,4 +74,15 @@
 	height: var(--popup_item_icon-size);
 	width: var(--popup_item_icon-size);
 	fill: var(--popup_item_check-icon_color);
+}
+
+.underlay {
+	position: fixed;
+	inset: 0;
+}
+
+.optionsList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }

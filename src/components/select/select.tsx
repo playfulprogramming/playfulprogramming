@@ -1,10 +1,15 @@
-import { ListState, useSelectState } from "react-stately";
+import { ListState, OverlayTriggerState, useSelectState } from "react-stately";
 import {
 	AriaSelectProps,
 	HiddenSelect,
 	useListBox,
 	useOption,
 	useSelect,
+	AriaListBoxOptions,
+	DismissButton,
+  Overlay,
+  usePopover,
+  AriaPopoverProps,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -12,19 +17,35 @@ import { Button } from "components/button/button";
 import styles from "./select.module.scss";
 import checkmark from "src/icons/checkmark.svg?raw";
 import { useRef } from "preact/hooks";
-import { AriaListBoxOptions } from "@react-aria/listbox";
 import { Node } from "@react-types/shared";
-import {
-	autoUpdate,
-	flip,
-	FloatingFocusManager,
-	useClick,
-	useDismiss,
-	useFloating,
-	useInteractions,
-} from "@floating-ui/react";
 
 export { Item, Section } from "react-stately";
+
+interface PopoverProps extends Omit<AriaPopoverProps, 'popoverRef'> {
+	state: OverlayTriggerState;
+}
+
+function Popover({ children, state, ...props }: PropsWithChildren<PopoverProps>) {
+	const popoverRef = useRef(null);
+	const { popoverProps, underlayProps } = usePopover({
+		...props,
+		popoverRef
+	}, state);
+
+	return (
+		<Overlay>
+			<div {...underlayProps} className={styles.underlay} />
+			<div
+				{...popoverProps}
+				ref={popoverRef}
+			>
+				<DismissButton onDismiss={state.close} />
+				{children}
+				<DismissButton onDismiss={state.close} />
+			</div>
+		</Overlay>
+	);
+}
 
 interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	class?: string;
@@ -46,60 +67,27 @@ export function Select<T extends object>({
 		ref
 	);
 
-	const setRefs = (el: HTMLButtonElement) => {
-		ref.current = el;
-		refs.setReference(el);
-	};
-
-	const { refs, floatingStyles, context } = useFloating({
-		placement: "bottom-start",
-		open: state.isOpen,
-		onOpenChange: state.setOpen,
-		whileElementsMounted: autoUpdate,
-		middleware: [flip()],
-	});
-
-	const click = useClick(context);
-	const dismiss = useDismiss(context);
-
-	const { getReferenceProps, getFloatingProps } = useInteractions([
-		click,
-		dismiss,
-	]);
-
-	const referenceProps = getReferenceProps();
-
-	const mergedTriggerProps = { ...triggerProps };
-	for (const key in referenceProps) {
-		if (!key.startsWith("on") && triggerProps[key] && referenceProps[key]) {
-			mergedTriggerProps[key] = (e: any) => {
-				const one = (triggerProps[key] as (e: unknown) => boolean)(e);
-				const two = (referenceProps[key] as (e: unknown) => boolean)(e);
-				return one && two;
-			};
-			continue;
-		}
-		mergedTriggerProps[key] = referenceProps[key];
-	}
-
 	return (
-		<>
-			<HiddenSelect
-				isDisabled={props.isDisabled}
-				state={state}
-				triggerRef={ref}
-				label={props.label}
-				name={props.name}
-			/>
+		<div  style={{ display: 'inline-block' }}>
 			<div {...labelProps} class={"visually-hidden"}>
 				Post sort order
 			</div>
+      <HiddenSelect
+        isDisabled={props.isDisabled}
+        state={state}
+        triggerRef={ref}
+        label={props.label}
+        name={props.name}
+      />
+      {/* onPress and onPressStart isn't working for Preact */}
 			<Button
 				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
-				ref={setRefs}
-				{...mergedTriggerProps}
+				ref={ref}
+        onMouseDown={triggerProps.onPressStart as never}
+        onClick={triggerProps.onPress as never}
+				{...triggerProps}
 				rightIcon={
 					<span
 						className={styles.downSpan}
@@ -115,19 +103,11 @@ export function Select<T extends object>({
 			</Button>
 
 			{state.isOpen && (
-				<FloatingFocusManager context={context} modal={false}>
-					{/*<Popover state={state} triggerRef={ref} placement="bottom start">*/}
-					<div
-						ref={refs.setFloating}
-						style={floatingStyles}
-						{...getFloatingProps()}
-					>
+					<Popover state={state} triggerRef={ref} placement="bottom start">
 						<ListBox {...menuProps} state={state} />
-					</div>
-					{/*</Popover>*/}
-				</FloatingFocusManager>
+					</Popover>
 			)}
-		</>
+		</div>
 	);
 }
 
@@ -142,7 +122,7 @@ function ListBox(props: ListBoxProps) {
 	const { listBoxProps } = useListBox(props, state, listBoxRef);
 
 	return (
-		<ul {...listBoxProps} ref={listBoxRef}>
+		<ul {...listBoxProps} ref={listBoxRef} class={styles.optionsList}>
 			{[...state.collection].map((item) => (
 				<Option key={item.key} item={item} state={state} />
 			))}
@@ -169,9 +149,11 @@ export function Option({ item, state }: OptionProps) {
 		<li
 			{...optionProps}
 			ref={ref}
-			class={`${styles.option} ${isSelected ? styles.selected : ""} ${
-				isSelected ? styles.active : ""
-			}`}
+			class={`${styles.option} ${isSelected ? styles.selected : ""}
+			${isSelected ? styles.selected : ""}
+			${isDisabled ? styles.disabled : ""}
+			${isFocused ? styles.focused : ""}
+			`}
 		>
 			<span className={"text-style-button-regular"}>{item.rendered}</span>
 			{isSelected && (
