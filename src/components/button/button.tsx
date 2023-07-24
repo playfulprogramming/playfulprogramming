@@ -1,7 +1,8 @@
 import { JSXNode, PropsWithChildren } from "../types";
-import { createElement, Ref } from "preact";
+import { createElement, Ref, VNode } from "preact";
 import { JSX } from "preact";
 import { forwardRef } from "preact/compat";
+import { useMemo } from "preact/hooks";
 
 type AllowedTags = "a" | "button";
 
@@ -34,7 +35,7 @@ const ButtonWrapper = forwardRef(
 		}: ButtonProps<T>,
 		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
 	) => {
-		const Wrapper = (props: any) => createElement(tag, props, props.children);
+		const Wrapper: any = tag;
 
 		return (
 			<Wrapper
@@ -81,7 +82,10 @@ export const LargeButton = forwardRef(
 	}
 );
 
-type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<ButtonProps<T>, "leftIcon" | "rightIcon">;
+type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
+	ButtonProps<T>,
+	"leftIcon" | "rightIcon"
+>;
 
 export const IconOnlyButton = forwardRef(
 	<T extends AllowedTags = "a">(
