@@ -37,7 +37,7 @@
 		"epub": "tsx --tsconfig tsconfig.script.json build-scripts/generate-epubs.ts",
 		"tsc": "tsc --noEmit && astro check",
 		"test": "jest",
-		"prepare": "husky install"
+		"prepare": "husky install && playwright install"
 	},
 	"devDependencies": {
 		"@astrojs/image": "^0.17.1",
