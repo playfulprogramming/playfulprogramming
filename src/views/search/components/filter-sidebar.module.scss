@@ -58,3 +58,7 @@
 	grid-template-columns: 1fr 1fr;
 	gap: var(--search-page_filter_sidebar_order-btn-gap);
 }
+
+.authorIcon img {
+	border-radius: 50%;
+}

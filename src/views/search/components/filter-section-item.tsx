@@ -1,11 +1,14 @@
 import { VNode } from "preact";
+import { CheckboxBox } from "components/checkbox-box/checkbox-box";
+import { VisuallyHidden } from "react-aria";
+import style from "./filter-section-item.module.scss";
 
 interface FilterSectionItemProps {
 	icon: VNode<any>;
 	label: string;
-	count: string;
+	count: number;
 	selected: boolean;
-	onClick: () => void;
+	onChange: () => void;
 }
 
 export const FilterSectionItem = ({
@@ -13,7 +16,29 @@ export const FilterSectionItem = ({
 	label,
 	count,
 	selected,
-	onClick,
+	onChange,
 }: FilterSectionItemProps) => {
-	return null;
+	return (
+		<CheckboxBox
+			wrapper={(children) => (
+				<label class={style.containerLabel}>
+					<span aria-hidden={true} class={style.iconContainer}>
+						{icon}
+					</span>
+					<span class={`text-style-body-small-bold ${style.label}`}>
+						{label}
+					</span>
+					{children}
+					<VisuallyHidden>
+						<input
+							type="checkbox"
+							onChange={(e) => onChange()}
+							checked={selected}
+						/>
+					</VisuallyHidden>
+				</label>
+			)}
+			selected={selected}
+		/>
+	);
 };

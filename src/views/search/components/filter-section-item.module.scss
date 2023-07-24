@@ -20,3 +20,30 @@
 		--surface_emphasis-none
 	);
 }
+
+.containerLabel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--search-page_filter_list_item_gap);
+	padding: var(--search-page_filter_list_item_padding-vertical)
+		var(--search-page_filter_list_item_padding-start)
+		var(--search-page_filter_list_item_padding-vertical)
+		var(--search-page_filter_list_item_padding-end);
+}
+
+.iconContainer {
+	height: var(--search-page_filter_list_item_icon-size);
+	width: var(--search-page_filter_list_item_icon-size);
+}
+
+.iconContainer img,
+.iconContainer svg {
+	height: 100%;
+	width: 100%;
+}
+
+.label {
+	margin-right: auto;
+	color: var(--search-page_filter_list_item_label_color);
+}

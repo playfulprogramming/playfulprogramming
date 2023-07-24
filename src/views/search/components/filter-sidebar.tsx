@@ -5,8 +5,8 @@ import { Button } from "components/button/button";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
-import { CheckboxBox } from "components/checkbox-box/checkbox-box";
-import { VisuallyHidden } from "react-aria";
+import { FilterSectionItem } from "./filter-section-item";
+import { Picture as UUPicture } from "components/image/picture";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -35,6 +35,7 @@ export const FilterSidebar = ({
 	onTagsChange,
 	authors,
 	tags,
+	unicornProfilePicMap,
 }: FilterSidebar) => {
 	return (
 		<div className={styles.sidebarContainer} style={desktopStyle}>
@@ -64,30 +65,13 @@ export const FilterSidebar = ({
 			>
 				{tags.map((tag) => {
 					return (
-						<div>
-							<CheckboxBox
-								selected={selectedTags.includes(tag)}
-								wrapper={(children) => (
-									<label
-										style={{
-											display: "flex",
-											alignItems: "center",
-											padding: "0.25rem",
-										}}
-									>
-										<span style={{ marginRight: "auto" }}>{tag}</span>
-										<VisuallyHidden>
-											<input
-												type="checkbox"
-												onChange={(e) => onTagsChange(tag)}
-												checked={selectedTags.includes(tag)}
-											/>
-										</VisuallyHidden>
-										{children}
-									</label>
-								)}
-							/>
-						</div>
+						<FilterSectionItem
+							count={0}
+							icon={null}
+							label={tag}
+							selected={selectedTags.includes(tag)}
+							onChange={() => onTagsChange(tag)}
+						/>
 					);
 				})}
 			</FilterSection>
@@ -98,16 +82,19 @@ export const FilterSidebar = ({
 			>
 				{authors.map((author) => {
 					return (
-						<div>
-							<label>
-								<span>{author.name}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onSelectedAuthorChange(author.id)}
-									checked={selectedAuthorIds.includes(author.id)}
+						<FilterSectionItem
+							count={0}
+							icon={
+								<UUPicture
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									alt={""}
+									class={styles.authorIcon}
 								/>
-							</label>
-						</div>
+							}
+							label={author.name}
+							selected={selectedAuthorIds.includes(author.id)}
+							onChange={() => onSelectedAuthorChange(author.id)}
+						/>
 					);
 				})}
 			</FilterSection>
