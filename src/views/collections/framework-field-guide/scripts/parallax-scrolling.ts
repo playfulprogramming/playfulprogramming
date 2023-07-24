@@ -26,7 +26,7 @@ function easeOutExpo(x: number): number {
 
 export const enableParallaxScrolling = () => {
 	const els = Array.from(
-		document.querySelectorAll("[data-move-on-scroll-by]")
+		document.querySelectorAll("[data-move-on-scroll-by]"),
 	) as HTMLElement[];
 	const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 

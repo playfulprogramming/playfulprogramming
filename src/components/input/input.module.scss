@@ -38,7 +38,9 @@
 	border-radius: 8px;
 	background: var(--form-field_background);
 	color: var(--foreground_emphasis-high);
-	margin: calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width));
+	margin: calc(
+		var(--form-field_outline_width_focused) - var(--form-field_outline_width)
+	);
 }
 
 .input:hover {
@@ -152,7 +154,8 @@
 	position: absolute;
 }
 
-.closeButtonContainer, .closeButtonContainer > svg {
+.closeButtonContainer,
+.closeButtonContainer > svg {
 	height: 100%;
 	width: 100%;
 }

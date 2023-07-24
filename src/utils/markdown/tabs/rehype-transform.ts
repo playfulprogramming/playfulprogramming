@@ -33,7 +33,7 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
 		if ("children" in n) {
 			lines += getApproxLineCount(
 				(n as Parent).children as Node[],
-				isInParagraph
+				isInParagraph,
 			);
 		}
 		// assume that any div/p/br causes a line break
@@ -125,7 +125,7 @@ export const rehypeTabs: Plugin<[], Root> = () => {
 
 			// Determine if the set of tabs should use a constant height (via the "tabs-small" class)
 			const tabHeights = tabs.map(({ contents }) =>
-				getApproxLineCount(contents)
+				getApproxLineCount(contents),
 			);
 			const isSmall =
 				// all tabs must be <= 30 approx. lines (less than the height of most desktop viewports)
@@ -145,13 +145,13 @@ export const rehypeTabs: Plugin<[], Root> = () => {
 			tree,
 			{ type: "raw", value: "<!-- tabs:start -->" } as never,
 			{ type: "raw", value: "<!-- tabs:end -->" } as never,
-			replaceTabNodes
+			replaceTabNodes,
 		);
 		replaceAllBetween(
 			tree,
 			{ type: "comment", value: " tabs:start " } as never,
 			{ type: "comment", value: " tabs:end " } as never,
-			replaceTabNodes
+			replaceTabNodes,
 		);
 		return tree;
 	};

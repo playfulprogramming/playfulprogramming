@@ -33,7 +33,7 @@ const ButtonWrapper = forwardRef(
 			rightIcon,
 			...props
 		}: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
+		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
 	) => {
 		const Wrapper: any = tag;
 
@@ -49,13 +49,13 @@ const ButtonWrapper = forwardRef(
 				{rightIcon && <div class="buttonIcon">{rightIcon}</div>}
 			</Wrapper>
 		);
-	}
+	},
 );
 
 export const Button = forwardRef(
 	<T extends AllowedTags = "a">(
 		{ class: className = "", ...props }: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
+		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
 	) => {
 		return (
 			<ButtonWrapper
@@ -64,13 +64,13 @@ export const Button = forwardRef(
 				ref={ref}
 			/>
 		);
-	}
+	},
 );
 
 export const LargeButton = forwardRef(
 	<T extends AllowedTags = "a">(
 		{ class: className = "", ...props }: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
+		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
 	) => {
 		return (
 			<ButtonWrapper
@@ -79,7 +79,7 @@ export const LargeButton = forwardRef(
 				ref={ref}
 			/>
 		);
-	}
+	},
 );
 
 type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
@@ -90,7 +90,7 @@ type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
 export const IconOnlyButton = forwardRef(
 	<T extends AllowedTags = "a">(
 		{ class: className = "", children, ...props }: IconOnlyButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
+		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
 	) => {
 		return (
 			<ButtonWrapper
@@ -101,18 +101,18 @@ export const IconOnlyButton = forwardRef(
 				<div class="iconOnlyButtonIcon">{children}</div>
 			</ButtonWrapper>
 		);
-	}
+	},
 );
 
 export const LargeIconOnlyButton = forwardRef(
 	<T extends AllowedTags = "a">(
 		{ class: className = "", children, ...props }: IconOnlyButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>
+		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
 	) => {
 		return (
 			<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
 				<div class="iconOnlyButtonIcon">{children}</div>
 			</ButtonWrapper>
 		);
-	}
+	},
 );

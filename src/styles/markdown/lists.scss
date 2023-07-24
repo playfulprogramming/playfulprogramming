@@ -8,7 +8,10 @@
 
 	// should match public/icons/list-bowtie-*.svg
 	--list_bowtie_size: 16px;
-	--list_bowtie_top: calc((var(--list_item_padding-vertical) / 2) + ((var(--p_medium_line-height) - var(--list_bowtie_size)) / 2))
+	--list_bowtie_top: calc(
+		(var(--list_item_padding-vertical) / 2) +
+			((var(--p_medium_line-height) - var(--list_bowtie_size)) / 2)
+	);
 }
 
 .post-body ul:not([class]) {
@@ -17,16 +20,20 @@
 	padding: calc(var(--list_item_padding-vertical) / 2) 0;
 	padding-left: var(--list_padding-start);
 
-	&> li {
-		background: url('/icons/list-bowtie-light.svg') no-repeat 0 var(--list_bowtie_top);
+	& > li {
+		background: url("/icons/list-bowtie-light.svg") no-repeat 0
+			var(--list_bowtie_top);
 		padding: calc(var(--list_item_padding-vertical) / 2) 0;
-		padding-left: calc(var(--list_bowtie_size) + var(--list_item_padding-start));
+		padding-left: calc(
+			var(--list_bowtie_size) + var(--list_item_padding-start)
+		);
 
 		@include darkTheme {
-			background: url('/icons/list-bowtie-dark.svg') no-repeat 0 var(--list_bowtie_top);
+			background: url("/icons/list-bowtie-dark.svg") no-repeat 0
+				var(--list_bowtie_top);
 		}
 
-		&> *:first-child {
+		& > *:first-child {
 			margin-top: 0;
 		}
 	}

@@ -40,7 +40,7 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 		// <link rel="manifest" href="/manifest.json">
 		const manifestPath: Element = find(
 			srcHast,
-			(node: unknown) => (node as Element)?.properties?.rel?.[0] === "manifest"
+			(node: unknown) => (node as Element)?.properties?.rel?.[0] === "manifest",
 		);
 
 		let iconLink: string;
@@ -63,8 +63,10 @@ function fetchPageIcon(src: URL, srcHast: Root): Promise<GetPictureResult> {
 		if (!iconLink) {
 			// fetch `favicon.ico`
 			// <link rel="shortcut icon" type="image/png" href="https://example.com/img.png">
-			const favicon: Element = find(srcHast, (node: unknown) =>
-				(node as Element)?.properties?.rel?.toString()?.includes("icon")
+			const favicon: Element = find(
+				srcHast,
+				(node: unknown) =>
+					(node as Element)?.properties?.rel?.toString()?.includes("icon"),
 			);
 
 			if (favicon) {
@@ -155,7 +157,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
 				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(
-					iframeNode.properties.src.toString()
+					iframeNode.properties.src.toString(),
 				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
 
 				const iframeReplacement = IFramePlaceholder({
@@ -167,7 +169,7 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				});
 
 				Object.assign(iframeNode, iframeReplacement);
-			})
+			}),
 		);
 	};
 };

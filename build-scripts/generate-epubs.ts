@@ -40,7 +40,7 @@ async function generateEpubHTML(slug: string, content: string) {
 			createRehypePlugins({
 				format: "epub",
 				path: resolve(process.cwd(), `content/blog/${slug}/`),
-			})
+			}),
 		)
 		// Voids: [] is required for epub generation, and causes little/no harm for non-epub usage
 		.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
@@ -55,7 +55,7 @@ type EpubOptions = ConstructorParameters<typeof EPub>[0];
 async function generateCollectionEPub(
 	collection: RawCollectionInfo & Pick<CollectionInfo, "coverImgMeta">,
 	collectionPosts: ExtendedPostInfo[],
-	fileLocation: string
+	fileLocation: string,
 ) {
 	const authors = collection.authors.map((id) => {
 		return unicorns.find((u) => u.id === id).name;
@@ -115,10 +115,10 @@ async function generateCollectionEPub(
 				collectionPosts.map(async (post) => ({
 					title: post.title,
 					data: await generateEpubHTML(post.slug, post.contentMeta),
-				}))
+				})),
 			),
 		} as Partial<EpubOptions> as EpubOptions,
-		fileLocation
+		fileLocation,
 	);
 
 	await epub.render();
@@ -128,12 +128,12 @@ const posts = [...getAllExtendedPosts("en")];
 
 for (const collection of collections) {
 	const collectionPosts = posts.filter(
-		(post) => post.collection === collection.slug
+		(post) => post.collection === collection.slug,
 	);
 
 	generateCollectionEPub(
 		collection,
 		collectionPosts,
-		resolve(process.cwd(), `public/${collection.slug}.epub`)
+		resolve(process.cwd(), `public/${collection.slug}.epub`),
 	);
 }

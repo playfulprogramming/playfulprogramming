@@ -45,7 +45,7 @@ export const SearchBarHandler = ({
 
 	const currentPosts = posts.slice(
 		PAGE_SIZE * (page - 1),
-		PAGE_SIZE * (page - 1) + PAGE_SIZE
+		PAGE_SIZE * (page - 1) + PAGE_SIZE,
 	);
 
 	return (

@@ -85,7 +85,7 @@ export const enableTabs = () => {
 
 		tabs.forEach((tab) => {
 			const panel = parent.querySelector<HTMLElement>(
-				`#${tab.getAttribute("aria-controls")}`
+				`#${tab.getAttribute("aria-controls")}`,
 			);
 			entry.set(tab.dataset.tabname, {
 				tab,

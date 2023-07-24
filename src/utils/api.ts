@@ -8,16 +8,16 @@ export function getPostsByLang(language: Languages): PostInfo[] {
 
 export function getPostsByUnicorn(
 	authorId: string,
-	language: Languages
+	language: Languages,
 ): PostInfo[] {
 	return getPostsByLang(language).filter((post) =>
-		post.authors.find((postAuthor) => postAuthor === authorId)
+		post.authors.find((postAuthor) => postAuthor === authorId),
 	);
 }
 
 export function getPostsByCollection(
 	collection: string,
-	language: Languages
+	language: Languages,
 ): PostInfo[] {
 	return getPostsByLang(language)
 		.filter((post) => post.collection === collection)

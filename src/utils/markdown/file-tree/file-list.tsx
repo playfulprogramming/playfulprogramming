@@ -26,7 +26,7 @@ const FolderIcon = makeSVGIcon(
 	`<svg viewBox="0 0 20 20">
 <path d="M4 3C2.89543 3 2 3.89543 2 5V15C2 16.1046 2.89543 17 4 17H16C17.1046 17 18 16.1046 18 15V8C18 6.89543 17.1046 6 16 6H11L10.0528 4.10557C9.714 3.428 9.02148 3 8.26393 3H4Z"/>
 </svg>
-`
+`,
 );
 
 export interface File {

@@ -16,7 +16,7 @@ export function usePagination(page: PageInfo) {
 
 		const firstPageNum = Math.max(
 			2,
-			Math.min(page.lastPage - PAGE_BUTTON_COUNT, page.currentPage - 1)
+			Math.min(page.lastPage - PAGE_BUTTON_COUNT, page.currentPage - 1),
 		);
 
 		const pages = [
@@ -32,7 +32,7 @@ export function usePagination(page: PageInfo) {
 			page.lastPage,
 		].filter(
 			// ensure that displayed pages are within the desired range
-			(i) => (i === "..." && isDotsEnabled) || (+i > 0 && +i <= page.lastPage)
+			(i) => (i === "..." && isDotsEnabled) || (+i > 0 && +i <= page.lastPage),
 		);
 
 		return {

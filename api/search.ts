@@ -18,7 +18,7 @@ const fuse = new Fuse<ExtendedPostInfo>(
 		includeScore: true,
 		ignoreFieldNorm: true,
 	},
-	index
+	index,
 );
 
 export default async (req: VercelRequest, res: VercelResponse) => {

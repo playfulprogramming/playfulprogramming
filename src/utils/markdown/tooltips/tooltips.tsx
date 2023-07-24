@@ -10,7 +10,7 @@ interface TooltipProps {
 	icon: "info" | "warning";
 	title: string;
 	children: Node[];
-};
+}
 
 /** @jsxImportSource hastscript */
 export function Tooltip({ icon, title, children }: TooltipProps): Element {
@@ -20,9 +20,7 @@ export function Tooltip({ icon, title, children }: TooltipProps): Element {
 				{icon === "info" ? fromHtml(info) : fromHtml(warning)}
 				<p>{title}</p>
 			</div>
-			<div class="tooltip__content">
-				{children}
-			</div>
+			<div class="tooltip__content">{children}</div>
 		</blockquote>
 	) as never;
 }

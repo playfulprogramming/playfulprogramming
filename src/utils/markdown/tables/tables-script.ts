@@ -4,7 +4,7 @@ export const enableTables = () => {
 			(e.target as HTMLElement).dataset.sticky =
 				e.intersectionRatio < 1 ? "pinned" : "";
 		},
-		{ threshold: [1] }
+		{ threshold: [1] },
 	);
 
 	document.querySelectorAll("thead").forEach((e) => observer.observe(e));
