@@ -1,193 +1,185 @@
-/**
- * TODO: Migrate this to be controlled at some point. Right now, it's uncontrolled
- */
+import { ListState, useSelectState } from "react-stately";
 import {
-	autoUpdate,
-	flip,
-	useFloating,
-	useInteractions,
-	useListNavigation,
-	useTypeahead,
-	useClick,
-	useListItem,
-	useDismiss,
-	useRole,
-	FloatingFocusManager,
-	FloatingList,
-} from "@floating-ui/react";
-import { createContext } from "preact";
-import { PropsWithChildren, useContext } from "preact/compat";
-import { useCallback, useMemo, useRef, useState } from "preact/hooks";
+	AriaSelectProps,
+	HiddenSelect,
+	useListBox,
+	useOption,
+	useSelect,
+} from "react-aria";
+import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
 import { Button } from "components/button/button";
 import styles from "./select.module.scss";
 import checkmark from "src/icons/checkmark.svg?raw";
+import { useRef } from "preact/hooks";
+import { AriaListBoxOptions } from "@react-aria/listbox";
+import { Node } from "@react-types/shared";
+import {
+	autoUpdate,
+	flip,
+	FloatingFocusManager,
+	useClick,
+	useDismiss,
+	useFloating,
+	useInteractions,
+} from "@floating-ui/react";
 
-interface SelectContextValue {
-	activeIndex: number | null;
-	selectedIndex: number | null;
-	getItemProps: ReturnType<typeof useInteractions>["getItemProps"];
-	handleSelect: (index: number | null) => void;
-}
+export { Item, Section } from "react-stately";
 
-const SelectContext = createContext<SelectContextValue>(
-	{} as SelectContextValue
-);
-
-const rightIcon = (
-	<span
-		className={styles.downSpan}
-		dangerouslySetInnerHTML={{ __html: down }}
-	></span>
-);
-
-interface SelectProps {
-	initial?: {
-		selectedIndex: number;
-		selectedLabel: string;
-	};
+interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	class?: string;
 	className?: string;
-	onChangeVal: (val: string) => void;
 }
 
-export function Select({
-	children,
-	initial,
+export function Select<T extends object>({
 	class: className = "",
 	className: classNameName = "",
-	onChangeVal,
-}: PropsWithChildren<SelectProps>) {
-	const [isOpen, setIsOpen] = useState(false);
-	const [activeIndex, setActiveIndex] = useState<number | null>(null);
-	const [selectedIndex, setSelectedIndex] = useState<number | null>(
-		initial?.selectedIndex ?? null
-	);
-	const [selectedLabel, setSelectedLabel] = useState<string | null>(
-		initial?.selectedLabel ?? null
+	...props
+}: PropsWithChildren<SelectProps<T>>) {
+	const state = useSelectState(props);
+
+	// Get props for child elements from useSelect
+	const ref = useRef(null);
+	const { labelProps, triggerProps, valueProps, menuProps } = useSelect(
+		props,
+		state,
+		ref
 	);
 
+	const setRefs = (el: HTMLButtonElement) => {
+		ref.current = el;
+		refs.setReference(el);
+	};
+
 	const { refs, floatingStyles, context } = useFloating({
-		placement: "bottom",
-		open: isOpen,
-		onOpenChange: setIsOpen,
+		placement: "bottom-start",
+		open: state.isOpen,
+		onOpenChange: state.setOpen,
 		whileElementsMounted: autoUpdate,
 		middleware: [flip()],
 	});
 
-	const elementsRef = useRef<Array<HTMLElement | null>>([]);
-	const labelsRef = useRef<Array<string | null>>([]);
-
-	const handleSelect = useCallback((index: number | null) => {
-		setSelectedIndex(index);
-		setIsOpen(false);
-		if (index !== null) {
-			const newLabel = labelsRef.current[index];
-			setSelectedLabel(newLabel);
-			onChangeVal(newLabel);
-		}
-	}, []);
-
-	function handleTypeaheadMatch(index: number | null) {
-		if (isOpen) {
-			setActiveIndex(index);
-		} else {
-			handleSelect(index);
-		}
-	}
-
-	const listNav = useListNavigation(context, {
-		listRef: elementsRef,
-		activeIndex,
-		selectedIndex,
-		onNavigate: setActiveIndex,
-	});
-	const typeahead = useTypeahead(context, {
-		listRef: labelsRef,
-		activeIndex,
-		selectedIndex,
-		onMatch: handleTypeaheadMatch,
-	});
 	const click = useClick(context);
 	const dismiss = useDismiss(context);
-	const role = useRole(context, { role: "listbox" });
 
-	const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-		[listNav, typeahead, click, dismiss, role]
-	);
+	const { getReferenceProps, getFloatingProps } = useInteractions([
+		click,
+		dismiss,
+	]);
 
-	const selectContext = useMemo(
-		() => ({
-			activeIndex,
-			selectedIndex,
-			getItemProps,
-			handleSelect,
-		}),
-		[activeIndex, selectedIndex, getItemProps, handleSelect]
-	);
+	const referenceProps = getReferenceProps();
+
+	const mergedTriggerProps = { ...triggerProps };
+	for (const key in referenceProps) {
+		if (!key.startsWith("on") && triggerProps[key] && referenceProps[key]) {
+			mergedTriggerProps[key] = (e: any) => {
+				const one = (triggerProps[key] as (e: unknown) => boolean)(e);
+				const two = (referenceProps[key] as (e: unknown) => boolean)(e);
+				return one && two;
+			};
+			continue;
+		}
+		mergedTriggerProps[key] = referenceProps[key];
+	}
 
 	return (
 		<>
+			<HiddenSelect
+				isDisabled={props.isDisabled}
+				state={state}
+				triggerRef={ref}
+				label={props.label}
+				name={props.name}
+			/>
+			<div {...labelProps} class={"visually-hidden"}>
+				Post sort order
+			</div>
 			<Button
 				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
-				ref={refs.setReference}
-				{...getReferenceProps()}
-				rightIcon={rightIcon}
+				ref={setRefs}
+				{...mergedTriggerProps}
+				rightIcon={
+					<span
+						className={styles.downSpan}
+						dangerouslySetInnerHTML={{ __html: down }}
+					></span>
+				}
 			>
-				{selectedLabel ?? "Select..."}
+				<span {...valueProps}>
+					{state.selectedItem
+						? state.selectedItem.rendered
+						: "Select an option"}
+				</span>
 			</Button>
 
-			<SelectContext.Provider value={selectContext}>
-				{isOpen && (
-					<FloatingFocusManager context={context} modal={false}>
-						<div
-							ref={refs.setFloating}
-							style={floatingStyles}
-							class={styles.selectDropdown}
-							{...getFloatingProps()}
-						>
-							<FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
-								{children}
-							</FloatingList>
-						</div>
-					</FloatingFocusManager>
-				)}
-			</SelectContext.Provider>
+			{state.isOpen && (
+				<FloatingFocusManager context={context} modal={false}>
+					{/*<Popover state={state} triggerRef={ref} placement="bottom start">*/}
+					<div
+						ref={refs.setFloating}
+						style={floatingStyles}
+						{...getFloatingProps()}
+					>
+						<ListBox {...menuProps} state={state} />
+					</div>
+					{/*</Popover>*/}
+				</FloatingFocusManager>
+			)}
 		</>
 	);
 }
 
-export function Option({ label }: { label: string }) {
-	const { activeIndex, selectedIndex, getItemProps, handleSelect } =
-		useContext(SelectContext);
+interface ListBoxProps extends AriaListBoxOptions<unknown> {
+	listBoxRef?: React.RefObject<HTMLUListElement>;
+	state: ListState<unknown>;
+}
 
-	const { ref, index } = useListItem({ label });
-
-	const isActive = activeIndex === index;
-	const isSelected = selectedIndex === index;
+function ListBox(props: ListBoxProps) {
+	const ref = useRef<HTMLUListElement>(null);
+	const { listBoxRef = ref, state } = props;
+	const { listBoxProps } = useListBox(props, state, listBoxRef);
 
 	return (
-		<button
+		<ul {...listBoxProps} ref={listBoxRef}>
+			{[...state.collection].map((item) => (
+				<Option key={item.key} item={item} state={state} />
+			))}
+		</ul>
+	);
+}
+
+interface OptionProps {
+	item: Node<unknown>;
+	state: ListState<unknown>;
+}
+
+export function Option({ item, state }: OptionProps) {
+	const ref = useRef<HTMLLIElement>(null);
+	const { optionProps, isDisabled, isSelected, isFocused } = useOption(
+		{
+			key: item.key,
+		},
+		state,
+		ref
+	);
+
+	return (
+		<li
+			{...optionProps}
 			ref={ref}
-			role="option"
-			aria-selected={isActive && isSelected}
-			tabIndex={isActive ? 0 : -1}
 			class={`${styles.option} ${isSelected ? styles.selected : ""} ${
-				isActive ? styles.active : ""
+				isSelected ? styles.active : ""
 			}`}
-			{...getItemProps({
-				onClick: () => handleSelect(index),
-			})}
 		>
-			<span class={"text-style-button-regular"}>{label}</span>
+			<span className={"text-style-button-regular"}>{item.rendered}</span>
 			{isSelected && (
 				<span
-					class={styles.checkmark}
+					className={styles.checkmark}
 					dangerouslySetInnerHTML={{ __html: checkmark }}
 				></span>
 			)}
-		</button>
+		</li>
 	);
 }

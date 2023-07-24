@@ -3,7 +3,7 @@ import { SearchInput } from "components/input/input";
 import { Button, IconOnlyButton } from "components/button/button";
 import filter from "src/icons/filter.svg?raw";
 import forward from "src/icons/arrow_right.svg?raw";
-import { Option, Select } from "components/select/select";
+import { Item, Option, Select } from "components/select/select";
 
 interface SearchTopbarProps {
 	onSearch: (search: string) => void;
@@ -91,14 +91,12 @@ export const SearchTopbar = ({
 			</div>
 			<div class={style.orderSelectContainer}>
 				<Select
-					initial={{
-						selectedIndex: 1,
-						selectedLabel: "Newest",
-					}}
-					onChangeVal={(val) => alert(val)}
+					label={"Order"}
+					selectedKey={sort}
+					onSelectionChange={(v) => setSort(v)}
 				>
-					<Option label={"Newest"} />
-					<Option label={"Oldest"} />
+					<Item key={"newest"}>Newest</Item>
+					<Item key={"oldest"}>Oldest</Item>
 				</Select>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
