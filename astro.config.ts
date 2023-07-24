@@ -49,8 +49,6 @@ export default defineConfig({
 		ssr: {
 			external: ["svgo"],
 			noExternal: [
-				"@floating-ui/react",
-				"@floating-ui/react-dom",
 				"react-aria",
 				"react-stately",
 				/@react-aria/,
