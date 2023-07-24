@@ -8,6 +8,12 @@ import { rehypeUnicornPopulatePost } from "./markdown/rehype-unicorn-populate-po
 import { postsDirectory, posts } from "./data";
 import { Languages, ExtendedPostInfo } from "types/index";
 import * as path from "path";
+import { Plugin } from "unified";
+import { AstroVFile } from "utils/markdown/types";
+
+type UnwrapPlugin<T extends Plugin> = (
+	...params: Parameters<Exclude<T, void>>
+) => Exclude<ReturnType<Exclude<T, void>>, void>;
 
 const getIndexPath = (lang: Languages) => {
 	const indexPath = lang !== "en" ? `index.${lang}.md` : `index.md`;
@@ -16,7 +22,7 @@ const getIndexPath = (lang: Languages) => {
 
 export function getExtendedPost(
 	slug: string,
-	lang: Languages
+	lang: Languages,
 ): ExtendedPostInfo {
 	const indexFile = path.resolve(postsDirectory, slug, getIndexPath(lang));
 	const file = {
@@ -26,12 +32,14 @@ export function getExtendedPost(
 				frontmatter: {},
 			},
 		},
-	};
+	} as AstroVFile;
 
-	(rehypeUnicornPopulatePost as any)()(undefined, file);
+	(
+		rehypeUnicornPopulatePost as UnwrapPlugin<typeof rehypeUnicornPopulatePost>
+	)()(undefined, file);
 
 	return {
-		...((file.data.astro.frontmatter as any) || {}).frontmatterBackup,
+		...(file.data.astro.frontmatter || {}).frontmatterBackup,
 		...file.data.astro.frontmatter,
 	};
 }

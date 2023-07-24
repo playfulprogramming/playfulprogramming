@@ -1,4 +1,4 @@
-import { Root } from "hast";
+import { Root, Element } from "hast";
 import { Plugin } from "unified";
 
 import { h } from "hastscript";
@@ -22,8 +22,8 @@ const MAX_HEIGHT = 768;
 
 export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 	return async (tree, file) => {
-		const imgNodes: any[] = [];
-		visit(tree, (node: any) => {
+		const imgNodes: Element[] = [];
+		visit(tree, (node: Element) => {
 			if (node.tagName === "img") {
 				imgNodes.push(node);
 			}
@@ -39,17 +39,16 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const filePathDir = path.resolve(
 					__dirname,
 					`../../../public/content/${parentFolder}`,
-					slug
+					slug,
 				);
 
 				const rootFileDir = path.resolve(__dirname, `../../../public/`);
 
+				const nodeSrc = node.properties.src as string;
+				const nodeAlt = node.properties.alt as string;
+
 				// TODO: How should remote images be handled?
-				const dimensions = getImageSize(
-					node.properties.src,
-					filePathDir,
-					rootFileDir
-				) || {
+				const dimensions = getImageSize(nodeSrc, filePathDir, rootFileDir) || {
 					height: undefined,
 					width: undefined,
 				};
@@ -58,12 +57,12 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				if (!dimensions.height || !dimensions.width) return;
 
 				let src: string;
-				if (node.properties.src.startsWith("/")) {
-					src = node.properties.src;
+				if (nodeSrc.startsWith("/")) {
+					src = nodeSrc;
 				} else {
 					src = getFullRelativePath(
 						`/content/${parentFolder}/${slug}/`,
-						node.properties.src
+						nodeSrc,
 					);
 				}
 
@@ -90,7 +89,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					widths: [dimensions.width],
 					formats: ["avif", "webp", "png"],
 					aspectRatio: imgRatioWidth,
-					alt: node.properties.alt || "",
+					alt: nodeAlt || "",
 				});
 
 				let pngSource = {
@@ -110,35 +109,38 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 						widths: [originalDimensions.width],
 						formats: ["png"],
 						aspectRatio: imgRatioWidth,
-						alt: node.properties.alt || "",
+						alt: nodeAlt || "",
 					});
 
-					pngSource = originalPictureResult.sources.reduce((prev, source) => {
-						const largestSrc = getLargestSourceSetSrc(source.srcset);
-						// select first option
-						if (!prev) return largestSrc;
-						// SVG first
-						if (prev.src.endsWith(".svg")) return prev;
-						if (largestSrc.src.endsWith(".svg")) return prev;
-						// Prefer `w`
-						if (prev.sizeType === "w" && largestSrc.sizeType === "x")
-							return prev;
-						if (largestSrc.sizeType === "w" && prev.sizeType === "x")
-							return largestSrc;
-						// Get the bigger of the two
-						if (largestSrc.size > prev.size) return largestSrc;
-						// Prefer PNG and JPG
-						if (largestSrc.size === prev.size) {
-							if (
-								prev.src.endsWith(".webp") &&
-								(largestSrc.src.endsWith(".png") ||
-									largestSrc.src.endsWith(".jpg") ||
-									largestSrc.src.endsWith(".jpeg"))
-							)
+					pngSource = originalPictureResult.sources.reduce(
+						(prev, source) => {
+							const largestSrc = getLargestSourceSetSrc(source.srcset);
+							// select first option
+							if (!prev) return largestSrc;
+							// SVG first
+							if (prev.src.endsWith(".svg")) return prev;
+							if (largestSrc.src.endsWith(".svg")) return prev;
+							// Prefer `w`
+							if (prev.sizeType === "w" && largestSrc.sizeType === "x")
+								return prev;
+							if (largestSrc.sizeType === "w" && prev.sizeType === "x")
 								return largestSrc;
-						}
-						return prev;
-					}, null as ReturnType<typeof getLargestSourceSetSrc>);
+							// Get the bigger of the two
+							if (largestSrc.size > prev.size) return largestSrc;
+							// Prefer PNG and JPG
+							if (largestSrc.size === prev.size) {
+								if (
+									prev.src.endsWith(".webp") &&
+									(largestSrc.src.endsWith(".png") ||
+										largestSrc.src.endsWith(".jpg") ||
+										largestSrc.src.endsWith(".jpeg"))
+								)
+									return largestSrc;
+							}
+							return prev;
+						},
+						null as ReturnType<typeof getLargestSourceSetSrc>,
+					);
 				}
 
 				const sources = pictureResult.sources.map((attrs) => {
@@ -156,9 +158,9 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							"data-zoom-src": pngSource.src,
 							style: `width: ${pngSource.size}px`,
 						}),
-					])
+					]),
 				);
-			})
+			}),
 		);
 	};
 };
