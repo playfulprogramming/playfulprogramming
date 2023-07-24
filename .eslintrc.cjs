@@ -1,6 +1,7 @@
 const tsRules = {
 	"@typescript-eslint/ban-types": "off",
 	"@typescript-eslint/no-empty-interface": "off",
+	"@typescript-eslint/no-unused-vars": "off",
 };
 
 module.exports = {
@@ -19,7 +20,7 @@ module.exports = {
 	rules: {
 		"no-unused-vars": "off",
 		"no-mixed-spaces-and-tabs": "off",
-		"no-useless-escape": "off"
+		"no-useless-escape": "off",
 	},
 	overrides: [
 		{
