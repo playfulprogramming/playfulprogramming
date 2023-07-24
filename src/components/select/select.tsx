@@ -29,6 +29,7 @@ function Popover({ children, state, ...props }: PropsWithChildren<PopoverProps>)
 	const popoverRef = useRef(null);
 	const { popoverProps, underlayProps } = usePopover({
 		...props,
+    offset: 8,
 		popoverRef
 	}, state);
 
@@ -84,12 +85,14 @@ export function Select<T extends object>({
 				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
+        variant={state.isOpen ? "primary-emphasized" : "primary"}
 				ref={ref}
         onMouseDown={triggerProps.onPressStart as never}
         onClick={triggerProps.onPress as never}
 				{...triggerProps}
 				rightIcon={
 					<span
+            style={{transform: state.isOpen ? 'rotate(-180deg)' : 'rotate(0deg)'}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
 					></span>
@@ -103,7 +106,7 @@ export function Select<T extends object>({
 			</Button>
 
 			{state.isOpen && (
-					<Popover state={state} triggerRef={ref} placement="bottom start">
+					<Popover state={state} triggerRef={ref} placement="bottom end">
 						<ListBox {...menuProps} state={state} />
 					</Popover>
 			)}
@@ -149,13 +152,9 @@ export function Option({ item, state }: OptionProps) {
 		<li
 			{...optionProps}
 			ref={ref}
-			class={`${styles.option} ${isSelected ? styles.selected : ""}
-			${isSelected ? styles.selected : ""}
-			${isDisabled ? styles.disabled : ""}
-			${isFocused ? styles.focused : ""}
-			`}
+			class={`${styles.option} ${isSelected ? styles.selected : ""}`}
 		>
-			<span className={"text-style-button-regular"}>{item.rendered}</span>
+			<span className={`text-style-button-regular ${styles.optionText}`}>{item.rendered}</span>
 			{isSelected && (
 				<span
 					className={styles.checkmark}
