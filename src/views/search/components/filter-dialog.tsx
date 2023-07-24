@@ -3,7 +3,7 @@ import styles from "./filter-dialog.module.scss";
 import { UnicornInfo } from "types/UnicornInfo";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile } from "../../../tokens/breakpoints";
-import { FilterSidebarSection } from "./filter-section";
+import { FilterSection } from "./filter-section";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -34,7 +34,7 @@ const FilterDialogMobile = ({
 }: FilterDialogInner) => {
 	return (
 		<div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-			<FilterSidebarSection
+			<FilterSection
 				title={"Tag"}
 				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
@@ -53,8 +53,8 @@ const FilterDialogMobile = ({
 						</div>
 					);
 				})}
-			</FilterSidebarSection>
-			<FilterSidebarSection
+			</FilterSection>
+			<FilterSection
 				title={"Author"}
 				selectedNumber={selectedAuthorIds.length}
 				onClear={() => setSelectedAuthorIds([])}
@@ -73,7 +73,7 @@ const FilterDialogMobile = ({
 						</div>
 					);
 				})}
-			</FilterSidebarSection>
+			</FilterSection>
 		</div>
 	);
 };

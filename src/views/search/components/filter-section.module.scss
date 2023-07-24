@@ -40,27 +40,6 @@
 	}
 }
 
-:root {
-	--search-page_filter_list_item_padding-vertical: var(--spc-1x);
-	--search-page_filter_list_item_padding-start: var(--spc-3x);
-	--search-page_filter_list_item_padding-end: var(--spc-2x);
-	--search-page_filter_list_item_icon-size: var(--icon-size_regular);
-	--search-page_filter_list_item_gap: var(--spc-2x);
-
-	--search-page_filter_list_item_label_color: var(--foreground_emphasis-high);
-	--search-page_filter_list_item_count_color: var(--foreground_disabled);
-
-	--search-page_filter_list_item_background-color_hovered: var(
-		--surface_emphasis-low
-	);
-	--search-page_filter_list_item_background-color_pressed: var(
-		--surface_emphasis-medium
-	);
-	--search-page_filter_list_item_background-color_selected: var(
-		--surface_emphasis-none
-	);
-}
-
 .section {
 	display: flex;
 	flex-direction: column;

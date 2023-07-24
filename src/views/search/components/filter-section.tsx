@@ -4,18 +4,18 @@ import { useElementSize } from "../../../hooks/use-element-size";
 import styles from "./filter-section.module.scss";
 import { Chip } from "components/chip/chip";
 
-interface FilterSidebarSectionProps {
+interface FilterSectionProps {
 	title: string;
 	selectedNumber: number;
 	onClear: () => void;
 }
 
-export const FilterSidebarSection = ({
+export const FilterSection = ({
 	title,
 	children,
 	selectedNumber,
 	onClear,
-}: PropsWithChildren<FilterSidebarSectionProps>) => {
+}: PropsWithChildren<FilterSectionProps>) => {
 	const [collapsed, setCollapsed] = useState(false);
 
 	const { setEl, size } = useElementSize();

@@ -4,7 +4,9 @@ import { SearchInput } from "components/input/input";
 import { Button } from "components/button/button";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { CSSProperties } from "preact/compat";
-import { FilterSidebarSection } from "./filter-section";
+import { FilterSection } from "./filter-section";
+import { CheckboxBox } from "components/checkbox-box/checkbox-box";
+import { VisuallyHidden } from "react-aria";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -55,7 +57,7 @@ export const FilterSidebar = ({
 					Oldest
 				</Button>
 			</div>
-			<FilterSidebarSection
+			<FilterSection
 				title={"Tag"}
 				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
@@ -63,19 +65,29 @@ export const FilterSidebar = ({
 				{tags.map((tag) => {
 					return (
 						<div>
-							<label>
-								<span>{tag}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onTagsChange(tag)}
-									checked={selectedTags.includes(tag)}
-								/>
-							</label>
+							<CheckboxBox
+								selected={true}
+								disabled={true}
+								wrapper={(children) => (
+									<label style={{ width: "100%", display: "block" }}>
+										<span style={{ marginRight: "auto" }}>{tag}</span>
+										<VisuallyHidden>
+											<input
+												disabled={true}
+												type="checkbox"
+												onChange={(e) => onTagsChange(tag)}
+												checked={selectedTags.includes(tag)}
+											/>
+										</VisuallyHidden>
+										{children}
+									</label>
+								)}
+							/>
 						</div>
 					);
 				})}
-			</FilterSidebarSection>
-			<FilterSidebarSection
+			</FilterSection>
+			<FilterSection
 				title={"Author"}
 				selectedNumber={selectedAuthorIds.length}
 				onClear={() => setSelectedAuthorIds([])}
@@ -94,7 +106,7 @@ export const FilterSidebar = ({
 						</div>
 					);
 				})}
-			</FilterSidebarSection>
+			</FilterSection>
 		</div>
 	);
 };
