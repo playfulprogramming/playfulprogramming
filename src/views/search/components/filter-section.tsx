@@ -50,16 +50,18 @@ export const FilterSidebarSection = ({
 						{selectedNumber ? `(${selectedNumber})` : null}
 					</span>
 				</button>
-				<div className={styles.clearContainer} ref={setEl}>
-					<Chip
-						tag="button"
-						type="button"
-						className={styles.clearChip}
-						onClick={onClear}
-					>
-						Clear
-					</Chip>
-				</div>
+				{!!selectedNumber && (
+					<div className={styles.clearContainer} ref={setEl}>
+						<Chip
+							tag="button"
+							type="button"
+							className={styles.clearChip}
+							onClick={onClear}
+						>
+							Clear
+						</Chip>
+					</div>
+				)}
 			</div>
 			<div className={styles.sectionContent} aria-hidden={collapsed}>
 				{children}

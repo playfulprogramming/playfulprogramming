@@ -36,7 +36,7 @@ const FilterDialogMobile = ({
 		<div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
 			<FilterSidebarSection
 				title={"Tag"}
-				selectedNumber={tags.length}
+				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
 			>
 				{tags.map((tag) => {
@@ -56,7 +56,7 @@ const FilterDialogMobile = ({
 			</FilterSidebarSection>
 			<FilterSidebarSection
 				title={"Author"}
-				selectedNumber={authors.length}
+				selectedNumber={selectedAuthorIds.length}
 				onClear={() => setSelectedAuthorIds([])}
 			>
 				{authors.map((author) => {
