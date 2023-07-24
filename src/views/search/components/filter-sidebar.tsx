@@ -96,11 +96,11 @@ export const FilterSidebar = ({
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
-									<img src={tag.image} className={styles.tagIcon} />
+									<img src={tag.image} className={styles.tagImage} />
 								) : tag.emoji ? (
-									<span className={styles.tagIcon}>{tag.emoji}</span>
+									<span className={styles.tagEmoji}>{tag.emoji}</span>
 								) : (
-									<span className={styles.tagIcon}>
+									<span className={styles.tagEmoji}>
 										{DEFAULT_TAG_EMOJI[i % DEFAULT_TAG_EMOJI.length]}
 									</span>
 								)

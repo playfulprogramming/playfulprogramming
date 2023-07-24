@@ -4,7 +4,7 @@
     description: "Interviewing for frontend engineering positions can be difficult. Let's walk through some things you should focus on while interviewing.",
     published: '2021-05-28T22:12:03.284Z',
     authors: ['crutchcorn'],
-    tags: ['interviewing', 'web', 'javascript'],
+    tags: ['interviewing', 'javascript'],
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/how-to-interview-frontend-engineers/'

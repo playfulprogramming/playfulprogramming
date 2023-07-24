@@ -35,12 +35,9 @@
 .iconContainer {
 	height: var(--search-page_filter_list_item_icon-size);
 	width: var(--search-page_filter_list_item_icon-size);
-}
-
-.iconContainer img,
-.iconContainer svg {
-	height: 100%;
-	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .label {
