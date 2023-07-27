@@ -5,11 +5,11 @@
 	},
 	"android": {
 		"displayName": "Android",
-		"image": "/stickers/android.png"
+		"image": "/stickers/android.svg"
 	},
 	"angular": {
 		"displayName": "Angular",
-		"image": "/stickers/angular.png"
+		"image": "/stickers/angular.svg"
 	},
 	"announcements": {
 		"displayName": "Announcements",
@@ -17,7 +17,7 @@
 	},
 	"astro": {
 		"displayName": "Astro",
-		"emoji": "🧑‍🚀"
+		"image": "/stickers/astro.svg"
 	},
 	"auth": {
 		"displayName": "Auth",
@@ -25,11 +25,11 @@
 	},
 	"bash": {
 		"displayName": "Bash",
-		"emoji": "💾"
+		"image": "/stickers/bash.svg"
 	},
 	"chrome": {
 		"displayName": "Chrome",
-		"image": "/stickers/chrome.png"
+		"image": "/stickers/chrome.svg"
 	},
 	"computer science": {
 		"displayName": "Computer Science",
@@ -37,17 +37,19 @@
 	},
 	"copilot": {
 		"displayName": "GitHub Copilot",
-		"emoji": "🤖"
+		"image": "/stickers/copilot.svg"
 	},
 	"cpp": {
-		"displayName": "C++"
+		"displayName": "C++",
+		"image": "/stickers/cpp.svg"
 	},
 	"csharp": {
-		"displayName": "C#"
+		"displayName": "C#",
+		"image": "/stickers/csharp.svg"
 	},
 	"css": {
 		"displayName": "CSS",
-		"emoji": "🖼️"
+		"image": "/stickers/css.svg"
 	},
 	"design": {
 		"displayName": "Design",
@@ -59,15 +61,15 @@
 	},
 	"dotnet": {
 		"displayName": ".NET",
-		"emoji": "🔥"
+		"image": "/stickers/dotnet.svg"
 	},
 	"git": {
 		"displayName": "Git",
-		"image": "/stickers/git.png"
+		"image": "/stickers/git.svg"
 	},
 	"go": {
 		"displayName": "Go",
-		"emoji": "🦫"
+		"image": "/stickers/go.svg"
 	},
 	"hardware": {
 		"displayName": "Hardware",
@@ -79,7 +81,7 @@
 	},
 	"html": {
 		"displayName": "HTML",
-		"image": "/stickers/html.png"
+		"image": "/stickers/html.svg"
 	},
 	"interviewing": {
 		"displayName": "Interviewing",
@@ -87,26 +89,27 @@
 	},
 	"java": {
 		"displayName": "Java",
-		"image": "/stickers/java.png"
+		"image": "/stickers/java.svg"
 	},
 	"javascript": {
 		"displayName": "JavaScript",
-		"image": "/stickers/javascript.png"
+		"image": "/stickers/javascript.svg"
 	},
 	"jest": {
 		"displayName": "Jest",
-		"emoji": "🃏"
+		"image": "/stickers/jest.svg"
 	},
 	"linux": {
 		"displayName": "Linux",
-		"emoji": "🐧"
+		"image": "/stickers/linux.svg"
 	},
 	"lit": {
-		"displayName": "Lit"
+		"displayName": "Lit",
+		"image": "/stickers/lit.svg"
 	},
 	"mongodb": {
 		"displayName": "MongoDB",
-		"emoji": "🍃"
+		"image": "/stickers/mongodb.svg"
 	},
 	"networking": {
 		"displayName": "Networking",
@@ -114,15 +117,15 @@
 	},
 	"nextjs": {
 		"displayName": "Next.js",
-		"emoji": "🔼"
+		"image": "/stickers/nextjs.svg"
 	},
 	"nodejs": {
 		"displayName": "Node.js",
-		"emoji": "🟢"
+		"image": "/stickers/node.svg"
 	},
 	"npm": {
 		"displayName": "npm",
-		"emoji": "📦"
+		"image": "/stickers/npm.svg"
 	},
 	"opinion": {
 		"displayName": "Opinion",
@@ -130,29 +133,31 @@
 	},
 	"python": {
 		"displayName": "Python",
-		"image": "/stickers/python.png"
+		"image": "/stickers/python.svg"
 	},
 	"react": {
 		"displayName": "React",
-		"image": "/stickers/react.png"
+		"image": "/stickers/react.svg"
 	},
 	"react native": {
 		"displayName": "React Native",
-		"image": "/stickers/react.png"
+		"image": "/stickers/react.svg"
 	},
 	"rust": {
 		"displayName": "Rust",
-		"image": "/stickers/ferris.png"
+		"image": "/stickers/ferris.svg"
 	},
 	"scully": {
-		"displayName": "Scully"
+		"displayName": "Scully",
+		"image": "/stickers/scully.svg"
 	},
 	"security": {
 		"displayName": "Security",
 		"emoji": "🔒"
 	},
 	"slack": {
-		"displayName": "Slack"
+		"displayName": "Slack",
+		"image": "/stickers/slack.svg"
 	},
 	"ssg": {
 		"displayName": "Static Site Generation (SSG)"
@@ -170,19 +175,19 @@
 	},
 	"twitch": {
 		"displayName": "Twitch",
-		"emoji": "📺"
+		"image": "/stickers/twitch.svg"
 	},
 	"typescript": {
 		"displayName": "TypeScript",
-		"image": "/stickers/typescript.png"
+		"image": "/stickers/typescript.svg"
 	},
 	"unity": {
 		"displayName": "Unity",
-		"emoji": "🎮"
+		"image": "/stickers/unity.svg"
 	},
 	"vue": {
 		"displayName": "Vue",
-		"image": "/stickers/vue.png"
+		"image": "/stickers/vue.svg"
 	},
 	"webdev": {
 		"displayName": "Web Development",
@@ -190,6 +195,6 @@
 	},
 	"windows": {
 		"displayName": "Windows",
-		"emoji": "🪟"
+		"image": "/stickers/windows.svg"
 	}
 }
