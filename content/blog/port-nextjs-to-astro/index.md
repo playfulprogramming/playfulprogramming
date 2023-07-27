@@ -558,9 +558,7 @@ export const getStaticProps = async (context) => {
 
 Migrate this to the Astro page's code fence:
 
-:::tip
-Use `Astro.props` to access the `params` returned from the `getStaticPaths` function
-:::
+> Use `Astro.props` to access the `params` returned from the `getStaticPaths` function
 
 ```astro {15-33}
 ---
