@@ -53,6 +53,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		(str: string) => {
 			pushState({ key: SEARCH_QUERY_KEY, val: str });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+			if (!str) {
+				// Remove tags and authors when no value is present
+				pushState({ key: FILTER_TAGS_KEY, val: undefined });
+				pushState({ key: FILTER_AUTHOR_KEY, val: undefined });
+			}
 		},
 		[urlParams],
 	);
@@ -199,14 +204,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
 	/**
-	 * Calculate the last page based on the number of posts.
-	 */
-	const lastPage = useMemo(
-		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
-		[data],
-	);
-
-	/**
 	 * Paginate posts
 	 */
 	const posts = useMemo(() => {
@@ -215,6 +212,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			page * MAX_POSTS_PER_PAGE,
 		);
 	}, [filteredAndSortedPosts, page]);
+
+	/**
+	 * Calculate the last page based on the number of posts.
+	 */
+	const lastPage = useMemo(
+		() => Math.ceil(posts.length / MAX_POSTS_PER_PAGE),
+		[posts],
+	);
 
 	/**
 	 * Styles for header bar
