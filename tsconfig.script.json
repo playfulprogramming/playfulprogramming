@@ -5,7 +5,5 @@
 		"jsxImportSource": "preact",
 		"outDir": "build-scripts/social-previews/dist"
 	},
-	"include": [
-		"build-scripts/social-previews/layouts/*.tsx"
-	]
+	"include": ["build-scripts/social-previews/layouts/*.tsx"]
 }

@@ -1,4 +1,4 @@
-import {Children} from 'react';
+import { Children } from "react";
 import { PropsWithChildren } from "../types";
 import style from "./chip.module.scss";
 

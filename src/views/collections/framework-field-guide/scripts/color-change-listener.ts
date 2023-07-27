@@ -13,7 +13,7 @@ function throttle(callback, limit) {
 
 export const enableColorChangeListeners = () => {
 	const colorContainers: HTMLElement[] = Array.from(
-		document.querySelectorAll("[data-change-color-to]")
+		document.querySelectorAll("[data-change-color-to]"),
 	);
 
 	const containerPairs = colorContainers;
@@ -62,16 +62,16 @@ export const enableColorChangeListeners = () => {
 
 	const computedStyle = window.getComputedStyle(document.documentElement);
 	const initialInterTokenValues = interTokens.map((token) =>
-		computedStyle.getPropertyValue(token)
+		computedStyle.getPropertyValue(token),
 	);
 	const initialEcosTokenValues = ecosTokens.map((token) =>
-		computedStyle.getPropertyValue(token)
+		computedStyle.getPropertyValue(token),
 	);
 	const initialFundTokenValues = fundTokens.map((token) =>
-		computedStyle.getPropertyValue(token)
+		computedStyle.getPropertyValue(token),
 	);
 	const initialSlateTokenValues = slateTokens.map((token) =>
-		computedStyle.getPropertyValue(token)
+		computedStyle.getPropertyValue(token),
 	);
 
 	let windowsInnerHeight = window.innerHeight;
@@ -81,32 +81,32 @@ export const enableColorChangeListeners = () => {
 	});
 
 	function changeColorSetTo(
-		colorSetToChangeTo: "fund" | "ecos" | "slate" | "inter"
+		colorSetToChangeTo: "fund" | "ecos" | "slate" | "inter",
 	) {
 		switch (colorSetToChangeTo) {
 			case "fund": {
 				fundTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialFundTokenValues[index]
+						initialFundTokenValues[index],
 					);
 				});
 				interTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialFundTokenValues[index]
+						initialFundTokenValues[index],
 					);
 				});
 				ecosTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialFundTokenValues[index]
+						initialFundTokenValues[index],
 					);
 				});
 				slateTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialFundTokenValues[index]
+						initialFundTokenValues[index],
 					);
 				});
 				break;
@@ -115,25 +115,25 @@ export const enableColorChangeListeners = () => {
 				ecosTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialEcosTokenValues[index]
+						initialEcosTokenValues[index],
 					);
 				});
 				interTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialEcosTokenValues[index]
+						initialEcosTokenValues[index],
 					);
 				});
 				fundTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialEcosTokenValues[index]
+						initialEcosTokenValues[index],
 					);
 				});
 				slateTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialEcosTokenValues[index]
+						initialEcosTokenValues[index],
 					);
 				});
 				break;
@@ -142,25 +142,25 @@ export const enableColorChangeListeners = () => {
 				interTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialInterTokenValues[index]
+						initialInterTokenValues[index],
 					);
 				});
 				ecosTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialInterTokenValues[index]
+						initialInterTokenValues[index],
 					);
 				});
 				fundTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialInterTokenValues[index]
+						initialInterTokenValues[index],
 					);
 				});
 				slateTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialInterTokenValues[index]
+						initialInterTokenValues[index],
 					);
 				});
 				break;
@@ -170,25 +170,25 @@ export const enableColorChangeListeners = () => {
 				slateTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialSlateTokenValues[index]
+						initialSlateTokenValues[index],
 					);
 				});
 				ecosTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialSlateTokenValues[index]
+						initialSlateTokenValues[index],
 					);
 				});
 				fundTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialSlateTokenValues[index]
+						initialSlateTokenValues[index],
 					);
 				});
 				interTokens.forEach((tokenName, index) => {
 					document.documentElement.style.setProperty(
 						tokenName,
-						initialSlateTokenValues[index]
+						initialSlateTokenValues[index],
 					);
 				});
 				break;
@@ -221,7 +221,7 @@ export const enableColorChangeListeners = () => {
 
 	const throttledPassiveScrollColorChange = throttle(
 		checkPassiveScrollPositionAndColor,
-		20
+		20,
 	);
 
 	function onResize() {
@@ -243,7 +243,7 @@ export const enableColorChangeListeners = () => {
 			window.removeEventListener("scroll", throttledPassiveScrollColorChange);
 			window.removeEventListener(
 				"touchmove",
-				throttledPassiveScrollColorChange
+				throttledPassiveScrollColorChange,
 			);
 			window.removeEventListener("resize", onResize);
 		} else {

@@ -71,7 +71,7 @@ const page = await context.newPage();
 async function renderPostImage(
 	layout: Layout,
 	post: ExtendedPostInfo,
-	path: string
+	path: string,
 ) {
 	const label = `${post.slug} (${layout.name})`;
 	console.time(label);
@@ -97,7 +97,7 @@ for (const post of getAllExtendedPosts("en")) {
 		await renderPostImage(
 			twitterPreview,
 			post,
-			resolve(outDir, `.${post.socialImg}`)
+			resolve(outDir, `.${post.socialImg}`),
 		);
 	}
 }

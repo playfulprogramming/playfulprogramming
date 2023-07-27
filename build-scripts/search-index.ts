@@ -16,16 +16,14 @@ export const createIndex = async () => {
 			{
 				name: "authorName",
 				getFn: (post) => {
-					return (post as any).authorsMeta
-						.map((author) => author.name)
-						.join(", ");
+					return post.authorsMeta.map((author) => author.name).join(", ");
 				},
 				weight: 1.8,
 			},
 			{
 				name: "authorHandles",
 				getFn: (post) => {
-					return (post as any).authorsMeta
+					return post.authorsMeta
 						.flatMap((author) => Object.values(author.socials))
 						.join(", ");
 				},
@@ -35,7 +33,7 @@ export const createIndex = async () => {
 			{ name: "description", weight: 1.2 },
 			{ name: "excerpt", weight: 1.2 },
 		],
-		posts
+		posts,
 	).toJSON();
 };
 

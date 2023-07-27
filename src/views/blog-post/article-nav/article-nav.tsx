@@ -16,30 +16,28 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 			class={`${style.item} ${style[`item--${type}`]}`}
 			data-navigation-path={href}
 		>
-			{
-				type === "previous"
-					? (
-						<span class={`${style.item__overline} text-style-button-regular`}>
-							<span
-								class={`${style.icon}`}
-								dangerouslySetInnerHTML={{ __html: arrow_left }}
-							/>
-							Previous article
-						</span>
-					)
-					: (
-						<span class={`${style.item__overline} text-style-button-regular`}>
-							Next article
-							<span
-								class={`${style.icon}`}
-								dangerouslySetInnerHTML={{ __html: arrow_right }}
-							/>
-						</span>
-					)
-			}
-			<a href={href} class="text-style-body-medium-bold">{getShortTitle(post)}</a>
+			{type === "previous" ? (
+				<span class={`${style.item__overline} text-style-button-regular`}>
+					<span
+						class={`${style.icon}`}
+						dangerouslySetInnerHTML={{ __html: arrow_left }}
+					/>
+					Previous article
+				</span>
+			) : (
+				<span class={`${style.item__overline} text-style-button-regular`}>
+					Next article
+					<span
+						class={`${style.icon}`}
+						dangerouslySetInnerHTML={{ __html: arrow_right }}
+					/>
+				</span>
+			)}
+			<a href={href} class="text-style-body-medium-bold">
+				{getShortTitle(post)}
+			</a>
 		</div>
-	)
+	);
 }
 
 export interface ArticleNavProps {
@@ -57,5 +55,5 @@ export function ArticleNav({ post, postSeries }: ArticleNavProps) {
 			{prevPost && <ArticleNavItem post={prevPost} type="previous" />}
 			{nextPost && <ArticleNavItem post={nextPost} type="next" />}
 		</div>
-	)
+	);
 }

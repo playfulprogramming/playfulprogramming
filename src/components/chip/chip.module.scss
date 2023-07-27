@@ -54,7 +54,8 @@
 		outline-offset: 0;
 		border-color: transparent;
 		@include transition(color background-color box-shadow);
-		outline: var(--chip_focus-outline_color) solid var(--chip_focus-outline_width);
+		outline: var(--chip_focus-outline_color) solid
+			var(--chip_focus-outline_width);
 		color: var(--chip_foreground-color);
 	}
 

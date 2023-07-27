@@ -14,7 +14,7 @@ export interface TabInfo {
 interface TabsProps {
 	tabs: TabInfo[];
 	isSmall: boolean;
-};
+}
 
 /** @jsxImportSource hastscript */
 export function Tabs({ tabs, isSmall }: TabsProps): Element {
@@ -46,9 +46,7 @@ export function Tabs({ tabs, isSmall }: TabsProps): Element {
 					aria-labelledby={`tab-${index}`}
 					aria-hidden={index === 0 ? undefined : true}
 				>
-					<div class="tabs__tab-panel__inner">
-					{contents}
-					</div>
+					<div class="tabs__tab-panel__inner">{contents}</div>
 				</div>
 			))}
 		</div>

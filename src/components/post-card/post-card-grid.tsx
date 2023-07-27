@@ -26,9 +26,12 @@ export function PostCardGrid({ postsToDisplay, ...props }: PostGridProps) {
 						unicornProfilePicMap={props.unicornProfilePicMap}
 					/>
 				) : (
-					<PostCard post={post} unicornProfilePicMap={props.unicornProfilePicMap} />
+					<PostCard
+						post={post}
+						unicornProfilePicMap={props.unicornProfilePicMap}
+					/>
 				);
 			})}
 		</ul>
-	)
+	);
 }

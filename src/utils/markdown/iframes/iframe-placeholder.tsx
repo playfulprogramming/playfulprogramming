@@ -16,7 +16,11 @@ export interface IFramePlaceholderProps {
 }
 
 /** @jsxImportSource hastscript */
-export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholderProps): Element {
+export function IFramePlaceholder({
+	height,
+	width,
+	...props
+}: IFramePlaceholderProps): Element {
 	return (
 		<div class="embed">
 			<div class="embed__header">
@@ -26,7 +30,7 @@ export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholder
 							<source {...source} />
 						))}
 						<img
-							{...props.pageIcon.image as any}
+							{...(props.pageIcon.image as any)}
 							alt=""
 							loading="lazy"
 							decoding="async"
@@ -54,9 +58,7 @@ export function IFramePlaceholder({ height, width, ...props }: IFramePlaceholder
 					target="_blank"
 				>
 					<div class="buttonIcon">{fromHtml(launch)}</div>
-					<div class="innerText">
-						New tab
-					</div>
+					<div class="innerText">New tab</div>
 				</a>
 			</div>
 			<div

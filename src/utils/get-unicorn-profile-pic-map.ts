@@ -16,7 +16,7 @@ const unicornProfilePicMap = Promise.all(
 			alt: "",
 		})),
 		id: unicorn.id,
-	}))
+	})),
 );
 
 export const getUnicornProfilePicMap = async () => {

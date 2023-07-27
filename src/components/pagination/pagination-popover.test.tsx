@@ -8,7 +8,7 @@ test("when the menu button is clicked, the menu popup is opened", async () => {
 				currentPage: 2,
 				lastPage: 11,
 			}}
-		/>
+		/>,
 	);
 
 	// click the "..." menu
@@ -27,7 +27,7 @@ test("when '+' is clicked, the page number is incremented", async () => {
 				currentPage: 2,
 				lastPage: 11,
 			}}
-		/>
+		/>,
 	);
 
 	// click the "..." menu
@@ -54,7 +54,7 @@ test("when '-' is clicked, the page number is decremented", async () => {
 				currentPage: 2,
 				lastPage: 11,
 			}}
-		/>
+		/>,
 	);
 
 	// click the "..." menu
@@ -84,7 +84,7 @@ test("when 'Go to page' is clicked, softNavigate is invoked with the input page 
 			}}
 			getPageHref={(pageNum: number) => `./${pageNum}`}
 			softNavigate={softNavigate}
-		/>
+		/>,
 	);
 
 	// click the "..." menu

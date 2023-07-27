@@ -21,7 +21,7 @@ import { DOMProps } from "@react-types/shared";
 function PopupContents(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
 		close: () => void;
-	}
+	},
 ) {
 	const [count, setCount] = useState(props.page.currentPage);
 	return (
@@ -123,7 +123,7 @@ function PaginationPopover({
 			popoverRef,
 			triggerRef,
 		},
-		state
+		state,
 	);
 
 	/* Setup dialog */
@@ -167,7 +167,7 @@ function PaginationPopover({
 }
 
 export function PaginationMenuAndPopover(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
 	/* Setup trigger */
 	const triggerRef = useRef(null);
@@ -175,7 +175,7 @@ export function PaginationMenuAndPopover(
 	const { triggerProps, overlayProps } = useOverlayTrigger(
 		{ type: "dialog" },
 		state,
-		triggerRef
+		triggerRef,
 	);
 
 	return (

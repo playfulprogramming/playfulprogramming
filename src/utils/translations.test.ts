@@ -32,7 +32,7 @@ describe("utils/translations.ts", () => {
 
 		test("returns 'fr' from '/posts/test/index.fr.md'", () => {
 			const lang = translations.getLanguageFromFilename(
-				"/posts/test/index.fr.md"
+				"/posts/test/index.fr.md",
 			);
 			expect(lang).toBe("fr");
 		});
@@ -42,7 +42,7 @@ describe("utils/translations.ts", () => {
 		test("returns an initial prefix", () => {
 			const expected: Languages = "fr";
 			const actual = translations.getPrefixLanguageFromPath(
-				`/${expected}/something/extra/en/fr/hi`
+				`/${expected}/something/extra/en/fr/hi`,
 			);
 
 			expect(actual).toEqual(expected);
@@ -51,7 +51,7 @@ describe("utils/translations.ts", () => {
 		test("returns an initial prefix with no preceding slash", () => {
 			const expected: Languages = "fr";
 			const actual = translations.getPrefixLanguageFromPath(
-				`${expected}/something/extra/en/fr/hi`
+				`${expected}/something/extra/en/fr/hi`,
 			);
 
 			expect(actual).toEqual(expected);
@@ -69,7 +69,7 @@ describe("utils/translations.ts", () => {
 		test("removes an initial prefix", () => {
 			const lang: Languages = "fr";
 			const actual = translations.removePrefixLanguageFromPath(
-				`/${lang}/something/extra/hi`
+				`/${lang}/something/extra/hi`,
 			);
 
 			expect(actual).toEqual("/something/extra/hi");
@@ -78,7 +78,7 @@ describe("utils/translations.ts", () => {
 		test("removes an initial prefix with no preceding slash", () => {
 			const lang: Languages = "fr";
 			const actual = translations.removePrefixLanguageFromPath(
-				`${lang}/something/extra/hi`
+				`${lang}/something/extra/hi`,
 			);
 
 			expect(actual).toEqual("something/extra/hi");
@@ -94,7 +94,7 @@ describe("utils/translations.ts", () => {
 		test("is not confused by prefixes that appear after the start of the path", () => {
 			const lang: Languages = "en";
 			const actual = translations.removePrefixLanguageFromPath(
-				`/${lang}/${lang}/es/fr/something/hi`
+				`/${lang}/${lang}/es/fr/something/hi`,
 			);
 
 			expect(actual).toEqual(`/${lang}/es/fr/something/hi`);

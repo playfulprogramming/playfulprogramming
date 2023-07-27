@@ -1,6 +1,7 @@
 const tsRules = {
 	"@typescript-eslint/ban-types": "off",
 	"@typescript-eslint/no-empty-interface": "off",
+	"@typescript-eslint/no-unused-vars": "off",
 };
 
 module.exports = {

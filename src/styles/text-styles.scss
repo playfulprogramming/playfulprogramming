@@ -1,28 +1,32 @@
 @import "src/tokens/index";
 
 @font-face {
-	font-family: 'Figtree';
-	src: url('/fonts/Figtree/Figtree-VariableFont_wght.ttf') format("truetype-variations");
+	font-family: "Figtree";
+	src: url("/fonts/Figtree/Figtree-VariableFont_wght.ttf")
+		format("truetype-variations");
 	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: 'Figtree';
+	font-family: "Figtree";
 	font-style: italic;
-	src: url('/fonts/Figtree/Figtree-Italic-VariableFont_wght.ttf') format("truetype-variations");
+	src: url("/fonts/Figtree/Figtree-Italic-VariableFont_wght.ttf")
+		format("truetype-variations");
 	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: 'Roboto Mono';
-	src: url('/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format("truetype-variations");
+	font-family: "Roboto Mono";
+	src: url("/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf")
+		format("truetype-variations");
 	font-weight: 1 999;
 }
 
 @font-face {
-	font-family: 'Roboto Mono';
+	font-family: "Roboto Mono";
 	font-style: italic;
-	src: url('/fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format("truetype-variations");
+	src: url("/fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf")
+		format("truetype-variations");
 	font-weight: 1 999;
 }
 
@@ -35,49 +39,56 @@
 	font-family: var(--uu-font-family);
 }
 
-h1, .text-style-headline-1 {
+h1,
+.text-style-headline-1 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h1_font-size);
 	font-weight: var(--weight_black);
 	line-height: var(--h1_line-height);
 }
 
-h2, .text-style-headline-2 {
+h2,
+.text-style-headline-2 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h2_font-size);
 	font-weight: var(--weight_extrabold);
 	line-height: var(--h2_line-height);
 }
 
-h3, .text-style-headline-3 {
+h3,
+.text-style-headline-3 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h3_font-size);
 	font-weight: var(--weight_bold);
 	line-height: var(--h3_line-height);
 }
 
-h4, .text-style-headline-4 {
+h4,
+.text-style-headline-4 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h4_font-size);
 	font-weight: var(--weight_bold);
 	line-height: var(--h4_line-height);
 }
 
-h5, .text-style-headline-5 {
+h5,
+.text-style-headline-5 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h5_font-size);
 	font-weight: var(--weight_bold);
 	line-height: var(--h5_line-height);
 }
 
-h6, .text-style-headline-6 {
+h6,
+.text-style-headline-6 {
 	font-family: var(--uu-font-family);
 	font-size: var(--h6_font-size);
 	font-weight: var(--weight_bold);
 	line-height: var(--h6_line-height);
 }
 
-p, .text-style-body-large {
+p,
+.text-style-body-large {
 	font-family: var(--uu-font-family);
 	font-size: var(--p_large_font-size);
 	font-weight: var(--weight_regular);
@@ -124,7 +135,8 @@ p, .text-style-body-large {
 	margin: 0;
 }
 
-button, .text-style-button-regular {
+button,
+.text-style-button-regular {
 	font-family: var(--uu-font-family);
 	font-size: var(--button_regular_font-size);
 	font-weight: var(--weight_semibold);
@@ -132,7 +144,9 @@ button, .text-style-button-regular {
 	margin: 0;
 }
 
-pre, code, .text-style-code {
+pre,
+code,
+.text-style-code {
 	@extend .text-style-body-large;
 	font-family: var(--uu-font-family-code);
 }

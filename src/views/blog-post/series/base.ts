@@ -16,7 +16,7 @@ interface ActivePostMeta extends ExtendedPostInfo {
 
 export function findActivePost(
 	post: ExtendedPostInfo,
-	seriesPosts: ExtendedPostInfo[]
+	seriesPosts: ExtendedPostInfo[],
 ) {
 	const newPosts = [...seriesPosts] as ActivePostMeta[];
 

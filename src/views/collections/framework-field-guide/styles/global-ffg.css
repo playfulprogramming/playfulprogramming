@@ -26,7 +26,8 @@ body {
 	text-decoration: none;
 	background: none;
 	border: none;
-	transition: background var(--animSpeed) var(--animStyle),
+	transition:
+		background var(--animSpeed) var(--animStyle),
 		box-shadow var(--animSpeed) var(--animStyle),
 		border-color var(--animSpeed) var(--animStyle),
 		color var(--animStyle) var(--animSpeed);

@@ -10,7 +10,10 @@ import {
 interface RepeatBackgroundProps {
 	svg: string;
 	fallbackStyle?: Omit<JSX.HTMLAttributes<HTMLElement>["style"], string>;
-	javascriptEnabledStyle?: Omit<JSX.HTMLAttributes<HTMLElement>["style"], string>;
+	javascriptEnabledStyle?: Omit<
+		JSX.HTMLAttributes<HTMLElement>["style"],
+		string
+	>;
 	aspectRatio: string;
 }
 
@@ -29,7 +32,7 @@ export const RepeatBackground = ({
 		if (hasSet || !el) return;
 		setHasSet(true);
 		const repeatLocal = Math.ceil(
-			window.innerWidth / el.getBoundingClientRect().width
+			window.innerWidth / el.getBoundingClientRect().width,
 		);
 		setRepeat(repeatLocal);
 	}, []);
