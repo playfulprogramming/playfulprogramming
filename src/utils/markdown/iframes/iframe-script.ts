@@ -3,7 +3,7 @@
  */
 export const iFrameClickToRun = () => {
 	const iframeButtons: HTMLElement[] = document.querySelectorAll(
-		"[data-iframeurl] > button"
+		"[data-iframeurl] > button",
 	) as never;
 
 	[...iframeButtons].forEach((el) => {

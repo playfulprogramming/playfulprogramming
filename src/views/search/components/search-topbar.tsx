@@ -90,27 +90,28 @@ export const SearchTopbar = ({
 				</Button>
 			</div>
 			<div class={style.orderSelectContainer}>
-        <div class={style.dividerLine} />
-        <div class={style.filterAndOrderSelectDiv}>
-				<Button
-          onClick={() => setFilterIsDialogOpen(true)}
-          leftIcon={
-          <span
-		  			className={style.filterIconContainer}
-	  				dangerouslySetInnerHTML={{ __html: filter }}
-  				></span>
-				}>
-          Filter
-				</Button>
-				<Select
-					label={"Order"}
-					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v)}
-				>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
-				</Select>
-        </div>
+				<div class={style.dividerLine} />
+				<div class={style.filterAndOrderSelectDiv}>
+					<Button
+						onClick={() => setFilterIsDialogOpen(true)}
+						leftIcon={
+							<span
+								className={style.filterIconContainer}
+								dangerouslySetInnerHTML={{ __html: filter }}
+							></span>
+						}
+					>
+						Filter
+					</Button>
+					<Select
+						label={"Order"}
+						selectedKey={sort}
+						onSelectionChange={(v) => setSort(v)}
+					>
+						<Item key={"newest"}>Newest</Item>
+						<Item key={"oldest"}>Oldest</Item>
+					</Select>
+				</div>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
 				<div role="group" className={style.topBarSmallTabletButtonsToggle}>

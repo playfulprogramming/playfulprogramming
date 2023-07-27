@@ -1,5 +1,5 @@
 import { render } from "@testing-library/preact";
-import { Pagination } from './pagination';
+import { Pagination } from "./pagination";
 
 test("Pagination renders", () => {
 	const { baseElement, getByText } = render(
@@ -8,7 +8,7 @@ test("Pagination renders", () => {
 				currentPage: 3,
 				lastPage: 8,
 			}}
-		/>
+		/>,
 	);
 
 	expect(baseElement).toBeInTheDocument();
@@ -22,7 +22,7 @@ test("when there is only one page, nothing is rendered", () => {
 				currentPage: 1,
 				lastPage: 1,
 			}}
-		/>
+		/>,
 	);
 
 	expect(container.childNodes).toHaveLength(0);
@@ -35,7 +35,7 @@ test("when there is more than one page, the pages are rendered", () => {
 				currentPage: 1,
 				lastPage: 2,
 			}}
-		/>
+		/>,
 	);
 
 	expect(container.childNodes).not.toHaveLength(0);
@@ -50,7 +50,7 @@ test("when page 1 is selected, its button has the selected state", () => {
 				currentPage: 1,
 				lastPage: 11,
 			}}
-		/>
+		/>,
 	);
 
 	const button1 = getByText("1");
@@ -67,7 +67,7 @@ test("when the previous button is clicked, softNavigate is called for the previo
 				lastPage: 11,
 			}}
 			softNavigate={softNavigate}
-		/>
+		/>,
 	);
 
 	const previous = getByTestId("pagination-previous");
@@ -86,7 +86,7 @@ test("when the next button is clicked, softNavigate is called for the next page"
 				lastPage: 11,
 			}}
 			softNavigate={softNavigate}
-		/>
+		/>,
 	);
 
 	const next = getByTestId("pagination-next");
@@ -105,7 +105,7 @@ test("when a page button is clicked, softNavigate is called for its page", () =>
 				lastPage: 11,
 			}}
 			softNavigate={softNavigate}
-		/>
+		/>,
 	);
 
 	const button5 = getByText("5");

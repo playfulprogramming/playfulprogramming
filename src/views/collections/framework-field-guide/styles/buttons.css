@@ -5,7 +5,8 @@
 	-webkit-user-select: none;
 	display: inline-block;
 	border-style: solid;
-	transition: color var(--btn-state-transition-duration)
+	transition:
+		color var(--btn-state-transition-duration)
 			var(--btn-state-transition-easing),
 		background var(--btn-state-transition-duration)
 			var(--btn-state-transition-easing);
@@ -17,8 +18,8 @@
 }
 
 .ffg-small-button {
-    padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
-    border-width: var(--btn-border-width_small);
+	padding: var(--btn-ver-padding_small) var(--btn-hor-padding_small);
+	border-width: var(--btn-border-width_small);
 }
 
 .ffg-outlined-button {

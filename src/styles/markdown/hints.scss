@@ -9,7 +9,9 @@
 	--hint-container_corner-radius_expanded: var(--corner-radius_m);
 
 	// We calculate the content radius off of two tokens so they update accordingly if any of the values is changed
-	--hint-content_corner-radius: calc(var(--hint-container_corner-radius_expanded) - var(--hint-container_padding));
+	--hint-content_corner-radius: calc(
+		var(--hint-container_corner-radius_expanded) - var(--hint-container_padding)
+	);
 	--hint-content_background-color: var(--background_primary);
 	--hint-content_padding: var(--spc-4x);
 
@@ -20,8 +22,12 @@
 	--hint-header_gap: var(--spc-2x);
 
 	--hint-container_background-color: var(--surface_primary_emphasis-low);
-	--hint-container_background-color_hovered: var(--surface_primary_emphasis-medium);
-	--hint-container_background-color_pressed: var(--surface_primary_emphasis-high);
+	--hint-container_background-color_hovered: var(
+		--surface_primary_emphasis-medium
+	);
+	--hint-container_background-color_pressed: var(
+		--surface_primary_emphasis-high
+	);
 	--hint-container_background-color_focused: var(--background_focus);
 
 	--hint-container_foreground-color: var(--foreground_emphasis-high);
@@ -41,7 +47,7 @@
 .hint {
 	margin: var(--site-spacing) 0;
 
-	&> .hint__container {
+	& > .hint__container {
 		display: inline-block;
 		overflow: hidden;
 		max-width: 100%;
@@ -55,9 +61,9 @@
 			transform: rotateZ(180deg);
 		}
 
-		&> .hint__title {
+		& > .hint__title {
 			&::marker {
-				content: '';
+				content: "";
 			}
 
 			display: flex;
@@ -74,7 +80,7 @@
 			outline: none !important;
 		}
 
-		&> .hint__content {
+		& > .hint__content {
 			margin: var(--hint-container_padding);
 			background-color: var(--hint-content_background-color);
 			border-radius: var(--hint-content_corner-radius);
@@ -82,12 +88,12 @@
 
 			@include transition(background-color);
 
-			&> *:first-child {
+			& > *:first-child {
 				margin-top: 0;
 				padding-top: 0;
 			}
 
-			&> *:last-child {
+			& > *:last-child {
 				margin-bottom: 0;
 				padding-bottom: 0;
 			}
@@ -107,7 +113,8 @@
 		@supports selector(:has(*)) {
 			&:has(.hint__title:focus-visible) {
 				background-color: var(--hint-container_background-color_focused);
-				outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+				outline: var(--hint_focus-outline_width) solid
+					var(--hint_focus-outline_color);
 			}
 		}
 
@@ -117,7 +124,8 @@
 		@supports not selector(:has(*)) {
 			&:focus-within {
 				background-color: var(--hint-container_background-color_focused);
-				outline: var(--hint_focus-outline_width) solid var(--hint_focus-outline_color);
+				outline: var(--hint_focus-outline_width) solid
+					var(--hint_focus-outline_color);
 			}
 		}
 	}

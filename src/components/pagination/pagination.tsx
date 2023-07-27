@@ -3,7 +3,10 @@ import forward from "src/icons/arrow_right.svg?raw";
 import back from "src/icons/arrow_left.svg?raw";
 import { PaginationMenuAndPopover } from "components/pagination/pagination-popover";
 import { useEffect, useState } from "preact/hooks";
-import { PaginationButtonProps, PaginationProps } from "components/pagination/types";
+import {
+	PaginationButtonProps,
+	PaginationProps,
+} from "components/pagination/types";
 import { usePagination } from "./use-pagination";
 import { onSoftNavClick } from "./on-click-base";
 
@@ -14,11 +17,18 @@ function PaginationButton({
 	selected,
 	softNavigate,
 }: PaginationButtonProps) {
-	const pageOptionalMin = Math.min(Math.max(1, pageInfo.currentPage - 1), pageInfo.lastPage - 3);
+	const pageOptionalMin = Math.min(
+		Math.max(1, pageInfo.currentPage - 1),
+		pageInfo.lastPage - 3,
+	);
 	const isOptional = pageNum < pageOptionalMin || pageNum > pageOptionalMin + 3;
 
 	return (
-		<li className={`${styles.paginationItem} ${isOptional ? styles.paginationItemExtra : ''}`}>
+		<li
+			className={`${styles.paginationItem} ${
+				isOptional ? styles.paginationItemExtra : ""
+			}`}
+		>
 			<a
 				className={`text-style-body-medium-bold ${styles.paginationButton} ${
 					selected ? styles.selected : ""
@@ -38,7 +48,7 @@ function PaginationButton({
  * This prevents the pagination menu from rendering on SSR, which throws errors
  */
 function PaginationMenuWrapper(
-	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">
+	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate">,
 ) {
 	const [shouldRender, setShouldRender] = useState(false);
 

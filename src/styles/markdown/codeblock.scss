@@ -4,7 +4,10 @@
 :root {
 	--code-block_padding: var(--spc-2x);
 	--code-block_corner-radius: var(--corner-radius_l);
-	--code-block_inner-corner-radius: calc(var(--code-block_corner-radius) - var(--code-block_padding) - var(--code-block_border_width));
+	--code-block_inner-corner-radius: calc(
+		var(--code-block_corner-radius) - var(--code-block_padding) -
+			var(--code-block_border_width)
+	);
 
 	--code-block_header_gap: var(--spc-4x);
 	--code-block_header_min-height: var(--min-target-size_xl);
@@ -30,7 +33,9 @@ pre.shiki {
 
 		color: var(--code-block_header_title_color);
 
-		min-height: calc(var(--code-block_header_min-height) - 2*var(--code-block_padding));
+		min-height: calc(
+			var(--code-block_header_min-height) - 2 * var(--code-block_padding)
+		);
 		padding: 0 var(--code-block_header_title_margin-horizontal);
 
 		display: flex;

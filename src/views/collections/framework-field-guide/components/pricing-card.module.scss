@@ -6,8 +6,8 @@
 	padding: var(--section-ver-padding) var(--section-hor-padding);
 	border-radius: var(--pricing-container-radius);
 	background: var(--pricing-container_default);
-	transition: background var(--color-transition-time)
-			var(--color-transition-ease),
+	transition:
+		background var(--color-transition-time) var(--color-transition-ease),
 		color var(--color-transition-time) var(--color-transition-ease);
 	position: relative;
 }
@@ -162,8 +162,11 @@ input[type="checkbox"].enterpriseToggle::before {
 	top: 50%;
 	left: var(--pricing-toggle-gap);
 	transform: translateY(-50%);
-	transition: left 150ms ease-in-out, background-color 150ms ease-in-out,
-		height 150ms ease-in-out, width 150ms ease-in-out;
+	transition:
+		left 150ms ease-in-out,
+		background-color 150ms ease-in-out,
+		height 150ms ease-in-out,
+		width 150ms ease-in-out;
 	content: " ";
 	width: var(--pricing-toggle-thumb-size);
 	height: var(--pricing-toggle-thumb-size);

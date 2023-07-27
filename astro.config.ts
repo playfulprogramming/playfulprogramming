@@ -70,7 +70,7 @@ export default defineConfig({
 			/* start remark plugins here */
 			[behead, { depth: 1 }],
 			[
-				remarkEmbedder as never,
+				remarkEmbedder,
 				{
 					transformers: [oembedTransformer, TwitchTransformer],
 				} as RemarkEmbedderOptions,

@@ -3,6 +3,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("/fonts/Fira_Code/FiraCode-Regular.woff2") format("woff2"),
+	src:
+		url("/fonts/Fira_Code/FiraCode-Regular.woff2") format("woff2"),
 		url("/fonts/Fira_Code/FiraCode-Regular.ttf") format("truetype");
 }

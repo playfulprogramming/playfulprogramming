@@ -7,9 +7,9 @@ import {
 	useSelect,
 	AriaListBoxOptions,
 	DismissButton,
-  Overlay,
-  usePopover,
-  AriaPopoverProps,
+	Overlay,
+	usePopover,
+	AriaPopoverProps,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -21,25 +21,29 @@ import { Node } from "@react-types/shared";
 
 export { Item, Section } from "react-stately";
 
-interface PopoverProps extends Omit<AriaPopoverProps, 'popoverRef'> {
+interface PopoverProps extends Omit<AriaPopoverProps, "popoverRef"> {
 	state: OverlayTriggerState;
 }
 
-function Popover({ children, state, ...props }: PropsWithChildren<PopoverProps>) {
+function Popover({
+	children,
+	state,
+	...props
+}: PropsWithChildren<PopoverProps>) {
 	const popoverRef = useRef(null);
-	const { popoverProps, underlayProps } = usePopover({
-		...props,
-    offset: 8,
-		popoverRef
-	}, state);
+	const { popoverProps, underlayProps } = usePopover(
+		{
+			...props,
+			offset: 8,
+			popoverRef,
+		},
+		state,
+	);
 
 	return (
 		<Overlay>
 			<div {...underlayProps} className={styles.underlay} />
-			<div
-				{...popoverProps}
-				ref={popoverRef}
-			>
+			<div {...popoverProps} ref={popoverRef}>
 				<DismissButton onDismiss={state.close} />
 				{children}
 				<DismissButton onDismiss={state.close} />
@@ -65,34 +69,36 @@ export function Select<T extends object>({
 	const { labelProps, triggerProps, valueProps, menuProps } = useSelect(
 		props,
 		state,
-		ref
+		ref,
 	);
 
 	return (
-		<div  style={{ display: 'inline-block' }}>
+		<div style={{ display: "inline-block" }}>
 			<div {...labelProps} class={"visually-hidden"}>
 				Post sort order
 			</div>
-      <HiddenSelect
-        isDisabled={props.isDisabled}
-        state={state}
-        triggerRef={ref}
-        label={props.label}
-        name={props.name}
-      />
-      {/* onPress and onPressStart isn't working for Preact */}
+			<HiddenSelect
+				isDisabled={props.isDisabled}
+				state={state}
+				triggerRef={ref}
+				label={props.label}
+				name={props.name}
+			/>
+			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
 				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
-        variant={state.isOpen ? "primary-emphasized" : "primary"}
+				variant={state.isOpen ? "primary-emphasized" : "primary"}
 				ref={ref}
-        onMouseDown={triggerProps.onPressStart as never}
-        onClick={triggerProps.onPress as never}
+				onMouseDown={triggerProps.onPressStart as never}
+				onClick={triggerProps.onPress as never}
 				{...triggerProps}
 				rightIcon={
 					<span
-            style={{transform: state.isOpen ? 'rotate(-180deg)' : 'rotate(0deg)'}}
+						style={{
+							transform: state.isOpen ? "rotate(-180deg)" : "rotate(0deg)",
+						}}
 						className={styles.downSpan}
 						dangerouslySetInnerHTML={{ __html: down }}
 					></span>
@@ -106,9 +112,9 @@ export function Select<T extends object>({
 			</Button>
 
 			{state.isOpen && (
-					<Popover state={state} triggerRef={ref} placement="bottom end">
-						<ListBox {...menuProps} state={state} />
-					</Popover>
+				<Popover state={state} triggerRef={ref} placement="bottom end">
+					<ListBox {...menuProps} state={state} />
+				</Popover>
 			)}
 		</div>
 	);
@@ -145,7 +151,7 @@ export function Option({ item, state }: OptionProps) {
 			key: item.key,
 		},
 		state,
-		ref
+		ref,
 	);
 
 	return (
@@ -154,7 +160,9 @@ export function Option({ item, state }: OptionProps) {
 			ref={ref}
 			class={`${styles.option} ${isSelected ? styles.selected : ""}`}
 		>
-			<span className={`text-style-button-regular ${styles.optionText}`}>{item.rendered}</span>
+			<span className={`text-style-button-regular ${styles.optionText}`}>
+				{item.rendered}
+			</span>
 			{isSelected && (
 				<span
 					className={styles.checkmark}

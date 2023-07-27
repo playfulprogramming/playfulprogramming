@@ -5,7 +5,7 @@ import { ExtendedPostInfo } from "types/index";
 
 const postImportResult = import.meta.glob<MarkdownInstance<ExtendedPostInfo>>(
 	"../../content/blog/**/*.md",
-	{ eager: true }
+	{ eager: true },
 );
 const posts = Object.values(postImportResult);
 
@@ -30,7 +30,7 @@ export const get = () => {
 		.sort((a, b) =>
 			new Date(b.frontmatter.published) > new Date(a.frontmatter.published)
 				? 1
-				: -1
+				: -1,
 		)
 		.forEach((post) => {
 			const nodeUrl = `${siteUrl}/posts/${post.frontmatter.slug}`;

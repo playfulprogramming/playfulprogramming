@@ -3,26 +3,23 @@ import { JSX } from "preact";
 
 interface PictureProps {
 	picture: GetPictureResult;
-	alt: string,
+	alt: string;
 	class?: string;
 	imgAttrs?: JSX.HTMLAttributes<HTMLImageElement>;
 }
 
 export const Picture = ({
-	picture, alt,
+	picture,
+	alt,
 	class: className,
 	imgAttrs,
 }: PictureProps) => {
 	return (
-		<picture class={`${className || ''}`}>
+		<picture class={`${className || ""}`}>
 			{picture.sources.map((attrs) => (
 				<source {...attrs} />
 			))}
-			<img
-				{...(picture.image as any)}
-				{...imgAttrs}
-				alt={alt}
-			/>
+			<img {...(picture.image as any)} {...imgAttrs} alt={alt} />
 		</picture>
 	);
 };

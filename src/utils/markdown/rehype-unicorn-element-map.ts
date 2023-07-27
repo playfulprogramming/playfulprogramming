@@ -25,7 +25,7 @@ export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 					"/content/",
 					parentFolder,
 					slug,
-					node.properties.src.toString()
+					node.properties.src.toString(),
 				);
 			}
 

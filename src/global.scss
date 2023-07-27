@@ -68,7 +68,8 @@ body {
 	margin: 0;
 	padding: 0;
 	color: var(--foreground_emphasis-high);
-	transition: color $animStyle $animSpeed,
+	transition:
+		color $animStyle $animSpeed,
 		background-color $animStyle $animSpeed;
 }
 
@@ -94,7 +95,8 @@ body {
 	height: auto;
 }
 
-img.circleImg, .circleImg img {
+img.circleImg,
+.circleImg img {
 	flex-shrink: 0;
 	flex-grow: 0;
 	border-radius: 50%;

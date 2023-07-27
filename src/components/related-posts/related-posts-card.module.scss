@@ -8,7 +8,7 @@
 	gap: var(--spc-1x);
 	border-radius: var(--corner-radius_m);
 	text-decoration: none;
-	
+
 	@include transition(background-color);
 }
 

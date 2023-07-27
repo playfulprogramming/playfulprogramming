@@ -53,9 +53,11 @@
 	color: white;
 	padding: var(--form-padding-vertical) 0 var(--form-padding-vertical)
 		var(--form-padding-horizontal);
-	transition: background var(--btn-state-transition-duration)
-		var(--btn-state-transition-easing), border-color var(--btn-state-transition-duration)
-		var(--btn-state-transition-easing);
+	transition:
+		background var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing),
+		border-color var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing);
 }
 
 .input:hover {

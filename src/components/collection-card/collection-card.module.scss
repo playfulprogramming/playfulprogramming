@@ -1,7 +1,6 @@
 @import "src/tokens/index";
 
 :root {
-
 	--collection-card_corner-radius: var(--corner-radius_xl);
 
 	--collection-card_author_padding-top: var(--spc-3x);
@@ -90,7 +89,8 @@
 	}
 }
 
-.forwardIcon, .forwardIcon svg {
+.forwardIcon,
+.forwardIcon svg {
 	height: 100%;
 	width: 100%;
 }

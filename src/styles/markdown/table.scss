@@ -7,7 +7,9 @@
 
 	--table_header_padding: var(--spc-3x);
 	--table_grid-wrapper_cell-gap: var(--border-width_s);
-	--table_grid-wrapper_corner-radius: calc(var(--table_corner-radius) - var(--table_padding-horizontal));
+	--table_grid-wrapper_corner-radius: calc(
+		var(--table_corner-radius) - var(--table_padding-horizontal)
+	);
 	--table_cell_padding-horizontal: var(--spc-3x);
 	--table_cell_padding-vertical: var(--spc-2x);
 
@@ -101,7 +103,7 @@ thead {
 		position: relative;
 
 		&:not(:last-child)::after {
-			content: '';
+			content: "";
 			display: block;
 			position: absolute;
 			top: 50%;
@@ -121,17 +123,31 @@ tbody {
 	border-radius: var(--table_grid-wrapper_corner-radius);
 
 	td {
-		padding: var(--table_cell_padding-vertical) var(--table_cell_padding-horizontal);
-		background: linear-gradient(var(--table_cell_background-color), var(--table_cell_background-color)),
-			linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
+		padding: var(--table_cell_padding-vertical)
+			var(--table_cell_padding-horizontal);
+		background: linear-gradient(
+				var(--table_cell_background-color),
+				var(--table_cell_background-color)
+			),
+			linear-gradient(
+				var(--table_grid-wrapper_background-color),
+				var(--table_grid-wrapper_background-color)
+			);
 
-		border: var(--table_grid-wrapper_cell-gap) solid var(--table_grid-wrapper_background-color);
+		border: var(--table_grid-wrapper_cell-gap) solid
+			var(--table_grid-wrapper_background-color);
 	}
 
 	tr:nth-child(even) {
 		td {
-			background: linear-gradient(var(--table_cell-alternate_background-color), var(--table_cell-alternate_background-color)),
-				linear-gradient(var(--table_grid-wrapper_background-color), var(--table_grid-wrapper_background-color));
+			background: linear-gradient(
+					var(--table_cell-alternate_background-color),
+					var(--table_cell-alternate_background-color)
+				),
+				linear-gradient(
+					var(--table_grid-wrapper_background-color),
+					var(--table_grid-wrapper_background-color)
+				);
 		}
 	}
 
@@ -152,6 +168,7 @@ tbody {
 	}
 }
 
-th > code, td > code {
+th > code,
+td > code {
 	word-break: break-word;
 }

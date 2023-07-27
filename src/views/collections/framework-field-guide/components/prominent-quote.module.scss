@@ -11,7 +11,7 @@
 	position: relative;
 }
 
-.quoteText::after, 
+.quoteText::after,
 .quoteText::before {
 	content: " ";
 	position: absolute;
@@ -53,7 +53,7 @@
 	text-decoration-line: underline !important;
 	text-decoration-color: var(--quote-arrow-link-color) !important;
 	text-decoration-thickness: 1.5px !important;
-	position: relative;	
+	position: relative;
 	display: inline-block;
 }
 
@@ -68,7 +68,6 @@
 	background-image: url("../icons/link_arrow.svg");
 	background-repeat: no-repeat;
 }
-
 
 .quotePersonTitle {
 	margin-top: 4px;

@@ -12,7 +12,7 @@ export type StickerInfo = {
 export async function createSticker(
 	name: string,
 	width: number = STICKER_SIZE,
-	height: number = STICKER_SIZE
+	height: number = STICKER_SIZE,
 ): Promise<StickerInfo> {
 	const image = await getImage({
 		src: `/stickers/${name}.png`,

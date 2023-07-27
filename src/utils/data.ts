@@ -48,12 +48,12 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	 */
 	const relativeServerPath = getFullRelativePath(
 		"/content/data/",
-		unicorn.profileImg
+		unicorn.profileImg,
 	);
 	const profileImgSize = getImageSize(
 		unicorn.profileImg,
 		dataDirectory,
-		dataDirectory
+		dataDirectory,
 	);
 
 	// Mutation go BRR
@@ -68,7 +68,7 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	};
 
 	newUnicorn.rolesMeta = unicorn.roles.map(
-		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum
+		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum,
 	);
 
 	// normalize social links - if a URL or "@name" is entered, only preserve the last part
@@ -99,7 +99,7 @@ function getCollections(): CollectionInfo[] {
 		return files.map((file, i): CollectionInfo => {
 			const fileContents = fs.readFileSync(
 				join(collectionsDirectory, slug, file),
-				"utf8"
+				"utf8",
 			);
 
 			const frontmatter = matter(fileContents).data as RawCollectionInfo;
@@ -107,7 +107,7 @@ function getCollections(): CollectionInfo[] {
 			const coverImgSize = getImageSize(
 				frontmatter.coverImg,
 				join(collectionsDirectory, slug),
-				join(collectionsDirectory, slug)
+				join(collectionsDirectory, slug),
 			);
 
 			const coverImgMeta = {
@@ -116,13 +116,13 @@ function getCollections(): CollectionInfo[] {
 				relativePath: frontmatter.coverImg,
 				relativeServerPath: getFullRelativePath(
 					`/content/collections/${slug}`,
-					frontmatter.coverImg
+					frontmatter.coverImg,
 				),
 				absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
 			};
 
 			const authorsMeta = frontmatter.authors.map((authorId) =>
-				fullUnicorns.find((u) => u.id === authorId)
+				fullUnicorns.find((u) => u.id === authorId),
 			);
 
 			return {
@@ -155,7 +155,7 @@ function getPosts(): Array<PostInfo> {
 		return files.map((file, i): PostInfo => {
 			const fileContents = fs.readFileSync(
 				join(postsDirectory, slug, file),
-				"utf8"
+				"utf8",
 			);
 
 			const frontmatter = matter(fileContents).data as RawPostInfo;
@@ -175,7 +175,7 @@ function getPosts(): Array<PostInfo> {
 				locales,
 				locale: locales[i],
 				authorsMeta: frontmatter.authors.map((authorId) =>
-					fullUnicorns.find((u) => u.id === authorId)
+					fullUnicorns.find((u) => u.id === authorId),
 				),
 				wordCount: (counts.InlineCodeWords || 0) + (counts.WordNode || 0),
 				publishedMeta:

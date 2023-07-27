@@ -57,13 +57,13 @@ const getOrderRange = (arr: PostInfo[]) => {
 		{
 			largest: null as PostInfo,
 			smallest: null as PostInfo,
-		}
+		},
 	);
 };
 
 export const getSuggestedArticles = (
 	postNode: ExtendedPostInfo,
-	lang: Languages
+	lang: Languages,
 ) => {
 	const suggestedPosts = getPostsByLang(lang);
 
@@ -119,7 +119,7 @@ export const getSuggestedArticles = (
 		}
 		const howManyTagsSimilar = howManySimilarBetween(
 			post.tags,
-			postNode.tags || []
+			postNode.tags || [],
 		);
 		if (howManyTagsSimilar > 0) {
 			similarTags.push({ post, howManyTagsSimilar });

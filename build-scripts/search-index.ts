@@ -38,7 +38,7 @@ const createPostIndex = () => {
 			{ name: "description", weight: 1.2 },
 			{ name: "excerpt", weight: 1.2 },
 		],
-		posts
+		posts,
 	).toJSON();
 };
 
@@ -74,7 +74,7 @@ const createCollectionIndex = () => {
 				weight: 1.2,
 			},
 		],
-		collections
+		collections,
 	).toJSON();
 };
 

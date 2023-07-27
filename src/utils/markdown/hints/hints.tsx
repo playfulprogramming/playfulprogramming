@@ -8,7 +8,7 @@ const chevron_down = await fs.readFile("src/icons/chevron_down.svg", "utf8");
 interface HintProps {
 	title: string;
 	children: Node[];
-};
+}
 
 /** @jsxImportSource hastscript */
 export function Hint({ title, children }: HintProps): Element {
@@ -20,9 +20,7 @@ export function Hint({ title, children }: HintProps): Element {
 					{title}
 				</summary>
 
-				<div class="hint__content">
-					{children}
-				</div>
+				<div class="hint__content">{children}</div>
 			</details>
 		</div>
 	) as never;

@@ -1,7 +1,4 @@
 // @ts-nocheck
 module.exports = {
-	plugins: [
-		require("autoprefixer"),
-		require("postcss-csso"),
-	],
+	plugins: [require("autoprefixer"), require("postcss-csso")],
 };

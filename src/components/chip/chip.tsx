@@ -24,5 +24,5 @@ export const Chip = forwardRef<HTMLElement, ChipProps>(
 				<span class={`${style.chip_content}`}>{children}</span>
 			</Wrapper>
 		);
-	}
+	},
 );

@@ -33,7 +33,8 @@
 
 	padding: var(--article-header_details_padding-vertical) 0;
 
-	.date, .authors {
+	.date,
+	.authors {
 		display: flex;
 		align-items: center;
 
@@ -59,7 +60,7 @@
 			color: var(--article-header_details_date_edited_color);
 
 			&::before {
-				content: '•';
+				content: "•";
 				margin-left: var(--article-header_details_date-gap);
 				padding-right: var(--article-header_details_date-gap);
 			}

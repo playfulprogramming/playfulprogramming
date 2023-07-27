@@ -14,7 +14,7 @@ function isLanguageKey(str: string): str is Languages {
  * code handles the parsing and converting of translation formats
  */
 export function fileToOpenGraphConverter<T extends Languages>(
-	lang: T
+	lang: T,
 ): T extends `${infer Lang}-${infer Region}`
 	? `${Lang}_${Uppercase<Region>}`
 	: T {
@@ -89,7 +89,7 @@ export function removePrefixLanguageFromPath(path: string) {
  */
 export function getTranslatedPage(
 	astro: { url: URL },
-	glob: MarkdownInstance<Record<string, unknown>>[]
+	glob: MarkdownInstance<Record<string, unknown>>[],
 ): {
 	locales: Languages[];
 	page: MarkdownInstance<Record<string, unknown>>;
@@ -98,7 +98,7 @@ export function getTranslatedPage(
 	const lang = getPrefixLanguageFromPath(astro.url.pathname);
 
 	const matchedResult = globResults.find((md) =>
-		md.file.endsWith(`${lang}.md`)
+		md.file.endsWith(`${lang}.md`),
 	);
 	const enResult = globResults.find((md) => md.file.split(".")[1] === "md");
 
@@ -128,8 +128,8 @@ const i18n: Partial<Record<Languages, Map<string, string>>> =
 			([file, content]: [string, { default: Record<string, string> }]) => [
 				basename(file).split(".")[0],
 				new Map(Object.entries(content.default)),
-			]
-		)
+			],
+		),
 	);
 
 // warn about any values that do not have full translations
@@ -140,7 +140,7 @@ for (const key of i18n.en?.keys() || []) {
 
 	if (missing.length) {
 		console.log(
-			`i18n: key "${key}" is missing from /content/data/i18n for languages: ${missing}`
+			`i18n: key "${key}" is missing from /content/data/i18n for languages: ${missing}`,
 		);
 	}
 }
@@ -157,7 +157,7 @@ export function translate(astro: { url: URL }, key: string, ...args: string[]) {
 
 	if (!value) {
 		console.warn(
-			`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`
+			`Translation key "${key}" is not specified in /content/data/i18n/${lang}.json`,
 		);
 		value = i18n.en?.get(key);
 	}

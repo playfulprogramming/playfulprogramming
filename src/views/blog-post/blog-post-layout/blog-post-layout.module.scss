@@ -14,7 +14,8 @@
 	padding: var(--site-spacing);
 }
 
-.sidebarLeft, .sidebarRight {
+.sidebarLeft,
+.sidebarRight {
 	flex-basis: 25%;
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -42,8 +43,6 @@
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
-
-
 	}
 	100% {
 		opacity: 1;
