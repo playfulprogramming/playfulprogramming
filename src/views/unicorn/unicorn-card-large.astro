@@ -91,13 +91,8 @@ const possessiveName = unicorn.name.endsWith("s")
 		{
 			unicorn.rolesMeta?.map((role) => (
 				<div class={style.role}>
-					<Picture
+					<img
 						src={`/stickers/role_${role.id}.svg`}
-						widths={[32]}
-						sizes={"32px"}
-						loading={"eager"}
-						aspectRatio={1}
-						formats={["avif", "webp", "png"]}
 						alt={`A ${role.prettyname} sticker icon`}
 						class={`${style.picture}`}
 					/>
