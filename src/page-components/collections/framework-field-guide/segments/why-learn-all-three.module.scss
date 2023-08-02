@@ -30,14 +30,19 @@
 
 .whyLearnGrid {
 	display: grid;
-	grid-template-rows: repeat(2, auto);
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(4, auto);
+	grid-template-columns: repeat(1, 1fr);
 	max-width: $desktop;
 	margin: 0 auto;
 	gap: var(--spc-3x);
 	list-style: none;
 	padding: 0;
-	margin-top: 64px;
+	margin-top: var(--spc-6x);
+
+	@include from($desktop) {
+		grid-template-rows: repeat(2, auto);
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 .whyLearnCard {

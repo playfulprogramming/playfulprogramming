@@ -76,11 +76,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: var(--spc-2x) var(--spc-3x);
+	padding: var(--spc-2x) var(--spc-1x);
 	border-radius: var(--corner-radius-6x);
 	box-sizing: border-box;
 	user-select: none;
 	cursor: pointer;
+
+	@include from($desktop) {
+		padding: var(--spc-2x) var(--spc-3x);
+	}
 }
 
 .highlightedContainer {
