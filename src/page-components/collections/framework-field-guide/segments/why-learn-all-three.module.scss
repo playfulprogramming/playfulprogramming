@@ -34,7 +34,7 @@
 	grid-template-columns: repeat(2, 1fr);
 	max-width: $desktop;
 	margin: 0 auto;
-	gap: 24px;
+	gap: var(--spc-3x);
 	list-style: none;
 	padding: 0;
 	margin-top: 64px;
@@ -42,8 +42,8 @@
 
 .whyLearnCard {
 	background: var(--slate-800);
-	border-radius: 32px;
-	padding: 32px 48px;
+	border-radius: var(--corner-radius-4x);
+	padding: var(--spc-4x) var(--spc-6x);
 	display: flex;
 	justify-content: center;
 	align-items: center;

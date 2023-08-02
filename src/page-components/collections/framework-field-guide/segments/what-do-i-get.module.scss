@@ -9,7 +9,7 @@
 
 	display: flex;
 	flex-direction: column;
-	gap: 48px;
+	gap: var(--spc-6x);
 }
 
 .headerContainer {
@@ -28,7 +28,7 @@
 
 .explainerText {
 	color: var(--slate-100);
-	max-width: 640px;
+	max-width: var(--max-width_xsmall);
 	margin: 0 auto;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .toggleListContainer {
-	padding: 8px;
+	padding: var(--spc-1x);
 	overflow: hidden;
 	position: relative;
 	max-width: 864px;
@@ -57,7 +57,7 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	background-color: var(--slate-800);
-	border-radius: 48px;
+	border-radius: var(--corner-radius-6x);
 }
 
 .fieldset {
@@ -76,19 +76,19 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 12px 24px;
-	border-radius: 48px;
+	padding: var(--spc-2x) var(--spc-3x);
+	border-radius: var(--corner-radius-6x);
 	box-sizing: border-box;
 	user-select: none;
 	cursor: pointer;
 }
 
-.highlighedContainer {
+.highlightedContainer {
 	position: absolute;
 	// 8px due to padding
-	top: 8px;
-	left: 8px;
-	width: calc(100% - 8px - 8px);
+	top: var(--spc-1x);
+	left: var(--spc-1x);
+	width: calc(100% - var(--spc-1x) - var(--spc-1x));
 	pointer-events: none;
 	// Index 1
 	clip-path: inset(0 66.66% 0 0 round 48px);
@@ -104,19 +104,19 @@
 }
 
 .toggleListContainer[data-selected-index="1"] {
-	.highlighedContainer {
+	.highlightedContainer {
 		clip-path: inset(0 66.66% 0 0 round 48px);
 	}
 }
 
 .toggleListContainer[data-selected-index="2"] {
-	.highlighedContainer {
+	.highlightedContainer {
 		clip-path: inset(0 33.33% 0 33.33% round 48px);
 	}
 }
 
 .toggleListContainer[data-selected-index="3"] {
-	.highlighedContainer {
+	.highlightedContainer {
 		clip-path: inset(0 0 0 66.66% round 48px);
 	}
 }
@@ -140,19 +140,20 @@
 .calendar {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: var(--spc-1x);
 }
 
 .week {
 	display: flex;
 	flex-direction: row;
-	gap: 8px;
+	gap: var(--spc-1x);
 }
 
 .day {
+	/* Ed said it's okay to hardcode these :) */
 	display: flex;
-	height: 18px;
-	width: 18px;
+	height: 20px;
+	width: 20px;
 	flex-shrink: 0;
 	border-radius: 4px;
 	transition: background 200ms ease-in-out;
