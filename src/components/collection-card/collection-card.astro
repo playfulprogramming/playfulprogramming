@@ -28,7 +28,7 @@ const { collection, unicornProfilePicMap } = Astro.props as CollectionCardProps;
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
 	collection.slug,
-	collection.coverImg
+	collection.coverImg,
 );
 
 const collectionPosts = getPostsByCollection(collection.slug, "en");
@@ -50,7 +50,9 @@ const collectionPosts = getPostsByCollection(collection.slug, "en");
 		/>
 		<div>
 			<h2 class={`text-style-headline-4 ${style.title}`}>{collection.title}</h2>
-			<p class={`text-style-body-medium`}>{collection.description}</p>
+			<p class={`text-style-body-medium ${style.description}`}>
+				{collection.description}
+			</p>
 		</div>
 	</div>
 	<div class={style.bottomRow}>
