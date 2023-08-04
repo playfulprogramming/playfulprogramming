@@ -87,7 +87,7 @@ img.guidePicture,
 .guideText {
 	margin: 0;
 	color: var(--on-dark-emphasis-high);
-	padding-top: var(--section-ver-padding);
+	padding-top: calc(1rem + var(--spc-3x));
 	padding-bottom: var(--section-ver-padding);
 	padding-left: var(--section-ver-padding);
 	padding-right: var(--section-ver-padding);
@@ -95,7 +95,7 @@ img.guidePicture,
 	border: var(--border-1x) solid var(--outline);
 
 	@include from($desktop) {
-		padding-top: calc(1rem + var(--spc-3x));
+		padding-top: var(--section-ver-padding);
 	}
 }
 
