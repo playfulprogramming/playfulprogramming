@@ -18,25 +18,27 @@ code .line::before {
 
 :root,
 .darkTheme {
-	--cardActiveBackground: #163954;
-	--white: black;
-	--textColor: var(--on-dark-emphasis-medium);
-	--stringColor: #7ee2c4;
-	--keywordColor: #b5ea94;
-	--operatorColor: #935c25;
-	--punctuationColor: var(--on-dark-emphasis-medium);
-	--constantColor: #cf8ae1;
-	--functionColor: #c1c3ff;
-	--selectionColor: #cfe0ec;
-	--commentColor: #c7d5d7;
-	--propColor: #8a8a0f;
-	--varColor: #88c1e2;
-	--shiki-color-background: var(--white);
-	--shiki-token-function: var(--functionColor);
-	--shiki-color-text: var(--punctuationColor);
-	--shiki-token-string: var(--stringColor);
-	--shiki-token-keyword: var(--keywordColor);
-	--shiki-string-expression: var(--operatorColor);
-	--shiki-token-constant: var(--varColor);
-	--shiki-token-comment: var(--commentColor);
+	&, & .shiki, &.shiki {
+		--cardActiveBackground: #163954;
+		--white: black;
+		--textColor: var(--on-dark-emphasis-medium);
+		--stringColor: #7ee2c4;
+		--keywordColor: #b5ea94;
+		--operatorColor: #935c25;
+		--punctuationColor: var(--on-dark-emphasis-medium);
+		--constantColor: #cf8ae1;
+		--functionColor: #c1c3ff;
+		--selectionColor: #cfe0ec;
+		--commentColor: #c7d5d7;
+		--propColor: #8a8a0f;
+		--varColor: #88c1e2;
+		--shiki-color-background: transparent;
+		--shiki-token-function: var(--functionColor);
+		--shiki-color-text: var(--punctuationColor);
+		--shiki-token-string: var(--stringColor);
+		--shiki-token-keyword: var(--keywordColor);
+		--shiki-string-expression: var(--operatorColor);
+		--shiki-token-constant: var(--varColor);
+		--shiki-token-comment: var(--commentColor);
+	}
 }
