@@ -4,11 +4,16 @@ import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile } from "../../../tokens/breakpoints";
 import { FilterSection } from "./filter-section";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
-import { Button, LargeButton } from "components/button/button";
+import {
+	Button,
+	LargeButton,
+	LargeIconOnlyButton,
+} from "components/button/button";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { DEFAULT_TAG_EMOJI } from "./constants";
+import close from "src/icons/close.svg?raw";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -138,8 +143,89 @@ const FilterDialogSmallTablet = ({
 	onTagsChange,
 	selectedTags,
 	selectedAuthorIds,
+	unicornProfilePicMap,
 }: FilterDialogInner) => {
-	return <div>Tablet</div>;
+	return (
+		<div class={styles.tabletDialogContainer}>
+			<div class={styles.dialogTitleContainer}>
+				<LargeIconOnlyButton tag="button" type="button" onClick={onCancel} class={styles.closeButton}>
+					<span
+						class={styles.closeIcon}
+						dangerouslySetInnerHTML={{ __html: close }}
+					/>
+				</LargeIconOnlyButton>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					Headline 4
+				</h1>
+				<LargeButton
+					variant="primary-emphasized"
+					tag="button"
+					type="button"
+					onClick={onConfirm}
+				>
+					Filter results
+				</LargeButton>
+			</div>
+			<div class={styles.filterSelectionContainer}>
+				<div class={styles.filterSelection}>
+					<FilterSection
+						title={"Tag"}
+						selectedNumber={selectedTags.length}
+						onClear={() => setSelectedTags([])}
+					>
+						{tags.map((tag, i) => {
+							return (
+								<FilterSectionItem
+									count={tag.numPosts}
+									icon={
+										tag.image ? (
+											<img src={tag.image} alt="" className={styles.tagImage} />
+										) : tag.emoji ? (
+											<span className={styles.tagEmoji}>{tag.emoji}</span>
+										) : (
+											<span className={styles.tagEmoji}>
+												{DEFAULT_TAG_EMOJI[i % DEFAULT_TAG_EMOJI.length]}
+											</span>
+										)
+									}
+									label={tag?.displayName ?? tag.tag}
+									selected={selectedTags.includes(tag.tag)}
+									onChange={() => onTagsChange(tag.tag)}
+								/>
+							);
+						})}
+					</FilterSection>
+				</div>
+				<div class={styles.filterSelection}>
+					<FilterSection
+						title={"Author"}
+						selectedNumber={selectedAuthorIds.length}
+						onClear={() => setSelectedAuthorIds([])}
+					>
+						{authors.map((author) => {
+							return (
+								<FilterSectionItem
+									count={author.numPosts}
+									icon={
+										<UUPicture
+											picture={unicornProfilePicMap.find(
+												(u) => u.id === author.id,
+											)}
+											alt={""}
+											class={styles.authorIcon}
+										/>
+									}
+									label={author.name}
+									selected={selectedAuthorIds.includes(author.id)}
+									onChange={() => onSelectedAuthorChange(author.id)}
+								/>
+							);
+						})}
+					</FilterSection>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export const FilterDialog = ({
