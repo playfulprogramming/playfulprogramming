@@ -4,6 +4,10 @@ import { Button, IconOnlyButton } from "components/button/button";
 import filter from "src/icons/filter.svg?raw";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Item, Option, Select } from "components/select/select";
+import {
+	RadioButton,
+	RadioButtonGroup,
+} from "components/button-radio-group/button-radio-group";
 
 interface SearchTopbarProps {
 	onSearch: (search: string) => void;
@@ -56,43 +60,17 @@ export const SearchTopbar = ({
 				/>
 			</form>
 			<div className={`${style.dividerLine} ${style.topBarDivider}`} />
-			<div className={style.topBarButtonsContentToDisplay} role="group">
-				<Button
-					onClick={() => setContentToDisplay("all")}
-					aria-selected={contentToDisplay === "all"}
-					tag="button"
-					type="button"
-					variant={
-						contentToDisplay === "all" ? "primary-emphasized" : "primary"
-					}
-				>
+			<RadioButtonGroup
+				// className={style.topBarButtonsContentToDisplay}
+				value={contentToDisplay}
+				onChange={(val) => setContentToDisplay(val as "all")}
+			>
+				<RadioButton aria-label={"All"} value={"all"}>
 					All
-				</Button>
-				<Button
-					onClick={() => setContentToDisplay("articles")}
-					aria-selected={contentToDisplay === "articles"}
-					tag="button"
-					type="button"
-					variant={
-						contentToDisplay === "articles" ? "primary-emphasized" : "primary"
-					}
-				>
-					Articles
-				</Button>
-				<Button
-					onClick={() => setContentToDisplay("collections")}
-					aria-selected={contentToDisplay === "collections"}
-					tag="button"
-					type="button"
-					variant={
-						contentToDisplay === "collections"
-							? "primary-emphasized"
-							: "primary"
-					}
-				>
-					Collections
-				</Button>
-			</div>
+				</RadioButton>
+				<RadioButton value={"articles"}>Articles</RadioButton>
+				<RadioButton value={"collections"}>Collections</RadioButton>
+			</RadioButtonGroup>
 			<div class={style.orderSelectContainer}>
 				<div class={style.dividerLine} />
 				<div class={style.filterAndOrderSelectDiv}>

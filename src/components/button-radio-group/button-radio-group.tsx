@@ -1,0 +1,52 @@
+import {
+	AriaRadioProps,
+	mergeProps,
+	useFocusRing,
+	useRadio,
+	useRadioGroup,
+	VisuallyHidden,
+} from "react-aria";
+import { Button } from "components/button/button";
+import { createContext, PropsWithChildren, useContext } from "preact/compat";
+import { useRef } from "preact/hooks";
+import { RadioGroupProps, useRadioGroupState } from "react-stately";
+
+const RadioContext = createContext(null);
+
+export function RadioButtonGroup(props: PropsWithChildren<RadioGroupProps>) {
+	const { children, label } = props;
+	const state = useRadioGroupState(props);
+	const { radioGroupProps, labelProps } = useRadioGroup(props, state);
+
+	return (
+		<div {...radioGroupProps}>
+			<span {...labelProps}>{label}</span>
+			<RadioContext.Provider value={state}>{children}</RadioContext.Provider>
+		</div>
+	);
+}
+
+export function RadioButton(props: AriaRadioProps) {
+	const { children } = props;
+	const state = useContext(RadioContext);
+	const ref = useRef(null);
+	const { inputProps, isSelected } = useRadio(props, state, ref);
+	const { isFocusVisible, focusProps } = useFocusRing();
+
+	const mergedProps = mergeProps(inputProps, focusProps);
+
+	return (
+		<label>
+			<VisuallyHidden>
+				<input {...mergedProps} ref={ref} />
+			</VisuallyHidden>
+			<Button
+				tag="div"
+				variant={isSelected ? "primary-emphasized" : "primary"}
+				isFocusVisible={isFocusVisible}
+			>
+				{children}
+			</Button>
+		</label>
+	);
+}
