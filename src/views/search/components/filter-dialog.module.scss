@@ -38,7 +38,10 @@
 
 .dialogTitleContainer {
 	margin: var(--filter-modal_header_padding-vertical)
-	calc(var(--filter-modal_header_padding-horizontal) - var(--filter-modal_padding-horizontal));
+		calc(
+			var(--filter-modal_header_padding-horizontal) -
+				var(--filter-modal_padding-horizontal)
+		);
 }
 
 .dialogTitle {
@@ -59,4 +62,10 @@
 
 .mobileButton {
 	flex-basis: 50%;
+}
+
+.authorIcon img {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
 }

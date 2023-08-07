@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import styles from "./filter-dialog.module.scss";
-import { UnicornInfo } from "types/UnicornInfo";
 import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile } from "../../../tokens/breakpoints";
 import { FilterSection } from "./filter-section";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
 import { Button, LargeButton } from "components/button/button";
+import { FilterSectionItem } from "./filter-section-item";
+import { Picture as UUPicture } from "components/image/picture";
+import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
+import { DEFAULT_TAG_EMOJI } from "./constants";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -14,6 +17,7 @@ interface FilterDialogProps {
 	authors: ExtendedUnicorn[];
 	setSelectedTags: (tags: string[]) => void;
 	setSelectedAuthorIds: (authors: string[]) => void;
+	unicornProfilePicMap: ProfilePictureMap;
 }
 
 interface FilterDialogInner extends Omit<FilterDialogProps, "isOpen"> {
@@ -33,6 +37,7 @@ const FilterDialogMobile = ({
 	onTagsChange,
 	selectedTags,
 	selectedAuthorIds,
+	unicornProfilePicMap,
 }: FilterDialogInner) => {
 	return (
 		<div class={styles.mobileDialogContainer}>
@@ -46,18 +51,25 @@ const FilterDialogMobile = ({
 				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
 			>
-				{tags.map((tag) => {
+				{tags.map((tag, i) => {
 					return (
-						<div>
-							<label>
-								<span>{tag.tag}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onTagsChange(tag.tag)}
-									checked={selectedTags.includes(tag.tag)}
-								/>
-							</label>
-						</div>
+						<FilterSectionItem
+							count={tag.numPosts}
+							icon={
+								tag.image ? (
+									<img src={tag.image} alt="" className={styles.tagImage} />
+								) : tag.emoji ? (
+									<span className={styles.tagEmoji}>{tag.emoji}</span>
+								) : (
+									<span className={styles.tagEmoji}>
+										{DEFAULT_TAG_EMOJI[i % DEFAULT_TAG_EMOJI.length]}
+									</span>
+								)
+							}
+							label={tag?.displayName ?? tag.tag}
+							selected={selectedTags.includes(tag.tag)}
+							onChange={() => onTagsChange(tag.tag)}
+						/>
 					);
 				})}
 			</FilterSection>
@@ -68,16 +80,19 @@ const FilterDialogMobile = ({
 			>
 				{authors.map((author) => {
 					return (
-						<div>
-							<label>
-								<span>{author.name}</span>
-								<input
-									type="checkbox"
-									onChange={(e) => onSelectedAuthorChange(author.id)}
-									checked={selectedAuthorIds.includes(author.id)}
+						<FilterSectionItem
+							count={author.numPosts}
+							icon={
+								<UUPicture
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									alt={""}
+									class={styles.authorIcon}
 								/>
-							</label>
-						</div>
+							}
+							label={author.name}
+							selected={selectedAuthorIds.includes(author.id)}
+							onChange={() => onSelectedAuthorChange(author.id)}
+						/>
 					);
 				})}
 			</FilterSection>
@@ -123,6 +138,7 @@ export const FilterDialog = ({
 	onClose,
 	tags,
 	authors,
+	unicornProfilePicMap,
 	setSelectedTags: setParentSelectedTags,
 	setSelectedAuthorIds: setParentSelectedAuthorIds,
 }: FilterDialogProps) => {
@@ -207,6 +223,7 @@ export const FilterDialog = ({
 						setSelectedAuthorIds={setSelectedAuthorIds}
 						onSelectedAuthorChange={onSelectedAuthorChange}
 						onTagsChange={onTagsChange}
+						unicornProfilePicMap={unicornProfilePicMap}
 					/>
 				) : (
 					<FilterDialogSmallTablet
@@ -219,6 +236,7 @@ export const FilterDialog = ({
 						setSelectedAuthorIds={setSelectedAuthorIds}
 						onSelectedAuthorChange={onSelectedAuthorChange}
 						onTagsChange={onTagsChange}
+						unicornProfilePicMap={unicornProfilePicMap}
 					/>
 				)}
 			</form>

@@ -8,32 +8,7 @@ import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
-
-const DEFAULT_TAG_EMOJI = [
-	"🦄",
-	"🌈",
-	"🎉",
-	"🎊",
-	"✍️",
-	"📔",
-	"📕",
-	"📖",
-	"📗",
-	"📘",
-	"📙",
-	"📚",
-	"📑",
-	"🔖",
-	"🧾",
-	"🤔",
-	"📝",
-	"📄",
-	"📃",
-	"📑",
-	"📊",
-	"📈",
-	"🗒️",
-];
+import { DEFAULT_TAG_EMOJI } from "./constants";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -96,7 +71,7 @@ export const FilterSidebar = ({
 							count={tag.numPosts}
 							icon={
 								tag.image ? (
-									<img src={tag.image} className={styles.tagImage} />
+									<img src={tag.image} alt="" className={styles.tagImage} />
 								) : tag.emoji ? (
 									<span className={styles.tagEmoji}>{tag.emoji}</span>
 								) : (

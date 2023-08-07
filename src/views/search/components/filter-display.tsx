@@ -128,6 +128,7 @@ export const FilterDisplay = ({
 				authors={authors}
 				setSelectedTags={setSelectedTags}
 				setSelectedAuthorIds={setSelectedAuthorIds}
+				unicornProfilePicMap={unicornProfilePicMap}
 			/>
 		);
 	}
