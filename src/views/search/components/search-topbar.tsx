@@ -36,6 +36,7 @@ export const SearchTopbar = ({
 				}}
 			>
 				<SearchInput
+					id="search-bar"
 					class={style.searchbar}
 					usedInPreact={true}
 					value={search}

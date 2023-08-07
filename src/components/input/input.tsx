@@ -33,9 +33,12 @@ export function SearchInput({
 	className = "",
 	usedInPreact,
 	hideSearchButton,
+	id: propsId,
 	...props
 }: JSX.IntrinsicElements["input"] & SearchInputProps) {
-	const id = useId();
+	const _id = useId();
+
+	const id = propsId ?? _id;
 
 	// `onclick` lowercase is supported in Astro, not so in Preact runtime
 	const clearButtonOnClickProps = usedInPreact

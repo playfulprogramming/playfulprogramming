@@ -1,7 +1,7 @@
 import { UnicornInfo } from "types/UnicornInfo";
 import styles from "./filter-sidebar.module.scss";
 import { SearchInput } from "components/input/input";
-import { Button } from "components/button/button";
+import { Button, LargeButton } from "components/button/button";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
@@ -41,6 +41,16 @@ export const FilterSidebar = ({
 }: FilterSidebar) => {
 	return (
 		<div className={styles.sidebarContainer} style={desktopStyle}>
+			<LargeButton
+				tag="button"
+				type="button"
+				class={styles.jumpToContents}
+				onClick={() =>
+					(document.querySelector("#search-bar") as HTMLInputElement).focus()
+				}
+			>
+				Jump to search bar
+			</LargeButton>
 			<SearchInput
 				hideSearchButton={true}
 				usedInPreact={true}

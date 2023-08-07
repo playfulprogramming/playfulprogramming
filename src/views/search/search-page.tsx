@@ -43,6 +43,9 @@ interface ServerReturnType {
 	totalCollections: number;
 }
 
+// https://github.com/preactjs/preact/issues/4091
+const SearchTag = "search" as unknown as "div";
+
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
 
@@ -236,7 +239,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const [isFilterDialogOpen, setFilterIsDialogOpen] = useState(false);
 
 	return (
-		<div className={style.fullPageContainer}>
+		<SearchTag className={style.fullPageContainer}>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -317,7 +320,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					</Fragment>
 				)}
 			</div>
-		</div>
+		</SearchTag>
 	);
 }
 
