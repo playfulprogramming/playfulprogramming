@@ -5,6 +5,7 @@ import { useWindowSize } from "../../../hooks/use-window-size";
 import { mobile } from "../../../tokens/breakpoints";
 import { FilterSection } from "./filter-section";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
+import { Button, LargeButton } from "components/button/button";
 
 interface FilterDialogProps {
 	isOpen: boolean;
@@ -34,7 +35,12 @@ const FilterDialogMobile = ({
 	selectedAuthorIds,
 }: FilterDialogInner) => {
 	return (
-		<div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+		<div class={styles.mobileDialogContainer}>
+			<div class={styles.dialogTitleContainer}>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
+					Headline 4
+				</h1>
+			</div>
 			<FilterSection
 				title={"Tag"}
 				selectedNumber={selectedTags.length}
@@ -75,6 +81,25 @@ const FilterDialogMobile = ({
 					);
 				})}
 			</FilterSection>
+			<div class={styles.mobileButtonsContainer}>
+				<LargeButton
+					class={styles.mobileButton}
+					type="submit"
+					variant="primary"
+					value="cancel"
+					formMethod="dialog"
+				>
+					Cancel
+				</LargeButton>
+				<LargeButton
+					class={styles.mobileButton}
+					type="submit"
+					variant="primary-emphasized"
+					onClick={() => {}}
+				>
+					Filter
+				</LargeButton>
+			</div>
 		</div>
 	);
 };
@@ -101,11 +126,13 @@ export const FilterDialog = ({
 	setSelectedTags: setParentSelectedTags,
 	setSelectedAuthorIds: setParentSelectedAuthorIds,
 }: FilterDialogProps) => {
-	const dialogRef = useRef<HTMLDialogElement>(null);
 	/**
-	 * We can't use the open attribute because otherwise the
-	 * dialog is not treated as a modal
+	 * Dialog state and ref
 	 */
+	const dialogRef = useRef<HTMLDialogElement>(null);
+
+	// We can't use the open attribute because otherwise the
+	// dialog is not treated as a modal
 	const isOpen = useRef(isOpenProp);
 
 	useEffect(() => {
@@ -118,6 +145,9 @@ export const FilterDialog = ({
 		isOpen.current = isOpenProp;
 	}, [isOpenProp]);
 
+	/**
+	 * Confirmation handlers
+	 */
 	const onConfirm = useCallback((e: MouseEvent) => {
 		e.preventDefault();
 		dialogRef.current?.close("CONFIRMED THIS IS GOOD");
@@ -128,6 +158,9 @@ export const FilterDialog = ({
 		onClose(dialogRef.current.returnValue);
 	}, []);
 
+	/**
+	 * Inner state
+	 */
 	const [selectedTags, setSelectedTags] = useState<string[]>(
 		tags.map((tag) => tag.tag),
 	);
@@ -153,6 +186,9 @@ export const FilterDialog = ({
 		}
 	};
 
+	/**
+	 * Styling hooks
+	 */
 	const windowSize = useWindowSize();
 
 	const isMobile = windowSize.width < mobile;
@@ -185,10 +221,6 @@ export const FilterDialog = ({
 						onTagsChange={onTagsChange}
 					/>
 				)}
-				<button value="cancel" formMethod="dialog">
-					Cancel
-				</button>
-				<button onClick={onConfirm}>Confirm</button>
 			</form>
 		</dialog>
 	);

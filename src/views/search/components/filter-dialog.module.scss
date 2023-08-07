@@ -35,3 +35,28 @@
 .dialog::backdrop {
 	background-color: var(--foreground_disabled);
 }
+
+.dialogTitleContainer {
+	margin: var(--filter-modal_header_padding-vertical)
+	calc(var(--filter-modal_header_padding-horizontal) - var(--filter-modal_padding-horizontal));
+}
+
+.dialogTitle {
+	margin: 0;
+	color: var(--foreground_emphasis-high);
+}
+
+.mobileDialogContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.mobileButtonsContainer {
+	display: flex;
+	gap: var(--filter-modal_button-gap);
+}
+
+.mobileButton {
+	flex-basis: 50%;
+}
