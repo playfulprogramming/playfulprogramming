@@ -88,6 +88,7 @@ const FilterDialogMobile = ({
 				})}
 			</FilterSection>
 			<FilterSection
+				class={styles.mobileAuthorList}
 				title={"Author"}
 				selectedNumber={selectedAuthorIds.length}
 				onClear={() => setSelectedAuthorIds([])}

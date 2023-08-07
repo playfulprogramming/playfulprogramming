@@ -8,6 +8,8 @@ interface FilterSectionProps {
 	title: string;
 	selectedNumber: number;
 	onClear: () => void;
+	class?: string;
+	className?: string;
 }
 
 export const FilterSection = ({
@@ -15,6 +17,8 @@ export const FilterSection = ({
 	children,
 	selectedNumber,
 	onClear,
+	class: className = "",
+	className: classNameName = "",
 }: PropsWithChildren<FilterSectionProps>) => {
 	const [collapsed, setCollapsed] = useState(false);
 
@@ -22,7 +26,9 @@ export const FilterSection = ({
 
 	return (
 		<div
-			className={`${styles.section} ${collapsed ? "" : styles.sectionExpanded}`}
+			className={`${styles.section} ${
+				collapsed ? "" : styles.sectionExpanded
+			} ${className} ${classNameName}`}
 		>
 			<div className={styles.sectionHeader}>
 				<button
