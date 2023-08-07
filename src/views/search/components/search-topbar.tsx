@@ -61,6 +61,7 @@ export const SearchTopbar = ({
 					onClick={() => setContentToDisplay("all")}
 					aria-selected={contentToDisplay === "all"}
 					tag="button"
+					type="button"
 					variant={
 						contentToDisplay === "all" ? "primary-emphasized" : "primary"
 					}
@@ -71,6 +72,7 @@ export const SearchTopbar = ({
 					onClick={() => setContentToDisplay("articles")}
 					aria-selected={contentToDisplay === "articles"}
 					tag="button"
+					type="button"
 					variant={
 						contentToDisplay === "articles" ? "primary-emphasized" : "primary"
 					}
@@ -81,6 +83,7 @@ export const SearchTopbar = ({
 					onClick={() => setContentToDisplay("collections")}
 					aria-selected={contentToDisplay === "collections"}
 					tag="button"
+					type="button"
 					variant={
 						contentToDisplay === "collections"
 							? "primary-emphasized"
@@ -95,6 +98,8 @@ export const SearchTopbar = ({
 				<div class={style.filterAndOrderSelectDiv}>
 					<Button
 						onClick={() => setFilterIsDialogOpen(true)}
+						tag="button"
+						type="button"
 						leftIcon={
 							<span
 								className={style.filterIconContainer}
@@ -120,6 +125,7 @@ export const SearchTopbar = ({
 						onClick={() => setSort("newest")}
 						aria-selected={sort === "newest"}
 						tag="button"
+						type="button"
 						variant={sort === "newest" ? "primary-emphasized" : "primary"}
 					>
 						Newest
@@ -128,12 +134,17 @@ export const SearchTopbar = ({
 						onClick={() => setSort("oldest")}
 						aria-selected={sort === "oldest"}
 						tag="button"
+						type="button"
 						variant={sort === "oldest" ? "primary-emphasized" : "primary"}
 					>
 						Oldest
 					</Button>
 				</div>
-				<IconOnlyButton onClick={() => setFilterIsDialogOpen(true)}>
+				<IconOnlyButton
+					tag="button"
+					type="button"
+					onClick={() => setFilterIsDialogOpen(true)}
+				>
 					<span
 						className={style.filterIconContainer}
 						dangerouslySetInnerHTML={{ __html: filter }}

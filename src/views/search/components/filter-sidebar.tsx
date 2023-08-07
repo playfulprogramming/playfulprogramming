@@ -58,12 +58,16 @@ export const FilterSidebar = ({
 			/>
 			<div className={styles.buttonsContainer}>
 				<Button
+					tag="button"
+					type="button"
 					onClick={() => setSort("newest")}
 					variant={sort === "newest" ? "primary-emphasized" : "primary"}
 				>
 					Newest
 				</Button>
 				<Button
+					tag="button"
+					type="button"
 					onClick={() => setSort("oldest")}
 					variant={sort === "oldest" ? "primary-emphasized" : "primary"}
 				>
