@@ -99,26 +99,15 @@ export const SearchTopbar = ({
 				</div>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
-				<div role="group" className={style.topBarSmallTabletButtonsToggle}>
-					<Button
-						onClick={() => setSort("newest")}
-						aria-selected={sort === "newest"}
-						tag="button"
-						type="button"
-						variant={sort === "newest" ? "primary-emphasized" : "primary"}
-					>
-						Newest
-					</Button>
-					<Button
-						onClick={() => setSort("oldest")}
-						aria-selected={sort === "oldest"}
-						tag="button"
-						type="button"
-						variant={sort === "oldest" ? "primary-emphasized" : "primary"}
-					>
-						Oldest
-					</Button>
-				</div>
+				<RadioButtonGroup
+					className={style.topBarSmallTabletButtonsToggle}
+					value={sort}
+					label={"Sort order"}
+					onChange={(val) => setSort(val as "newest")}
+				>
+					<RadioButton value={"newest"}>Newest</RadioButton>
+					<RadioButton value={"oldest"}>Oldest</RadioButton>
+				</RadioButtonGroup>
 				<IconOnlyButton
 					tag="button"
 					type="button"

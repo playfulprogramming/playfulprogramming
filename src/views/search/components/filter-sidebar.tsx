@@ -9,6 +9,10 @@ import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
 import { DEFAULT_TAG_EMOJI } from "./constants";
+import {
+	RadioButton,
+	RadioButtonGroup,
+} from "components/button-radio-group/button-radio-group";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -56,24 +60,15 @@ export const FilterSidebar = ({
 				usedInPreact={true}
 				placeholder="Filter by..."
 			/>
-			<div className={styles.buttonsContainer}>
-				<Button
-					tag="button"
-					type="button"
-					onClick={() => setSort("newest")}
-					variant={sort === "newest" ? "primary-emphasized" : "primary"}
-				>
-					Newest
-				</Button>
-				<Button
-					tag="button"
-					type="button"
-					onClick={() => setSort("oldest")}
-					variant={sort === "oldest" ? "primary-emphasized" : "primary"}
-				>
-					Oldest
-				</Button>
-			</div>
+			<RadioButtonGroup
+				className={styles.buttonsContainer}
+				value={sort}
+				label={"Sort order"}
+				onChange={(val) => setSort(val as "newest")}
+			>
+				<RadioButton value={"newest"}>Newest</RadioButton>
+				<RadioButton value={"oldest"}>Oldest</RadioButton>
+			</RadioButtonGroup>
 			<FilterSection
 				title={"Tag"}
 				selectedNumber={selectedTags.length}
