@@ -61,8 +61,9 @@ export const SearchTopbar = ({
 			</form>
 			<div className={`${style.dividerLine} ${style.topBarDivider}`} />
 			<RadioButtonGroup
-				// className={style.topBarButtonsContentToDisplay}
+				className={style.topBarButtonsContentToDisplay}
 				value={contentToDisplay}
+				label={"Content to display"}
 				onChange={(val) => setContentToDisplay(val as "all")}
 			>
 				<RadioButton aria-label={"All"} value={"all"}>

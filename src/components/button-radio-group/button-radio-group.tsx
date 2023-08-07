@@ -13,14 +13,26 @@ import { RadioGroupProps, useRadioGroupState } from "react-stately";
 
 const RadioContext = createContext(null);
 
-export function RadioButtonGroup(props: PropsWithChildren<RadioGroupProps>) {
-	const { children, label } = props;
+interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
+	class?: string;
+	className?: string;
+}
+
+export function RadioButtonGroup(props: RadioButtonGroupProps) {
+	const {
+		children,
+		label,
+		class: className = "",
+		className: classNameName = "",
+	} = props;
 	const state = useRadioGroupState(props);
 	const { radioGroupProps, labelProps } = useRadioGroup(props, state);
 
 	return (
-		<div {...radioGroupProps}>
-			<span {...labelProps}>{label}</span>
+		<div {...radioGroupProps} class={`${className} ${classNameName}`}>
+			<VisuallyHidden>
+				<span {...labelProps}>{label}</span>
+			</VisuallyHidden>
 			<RadioContext.Provider value={state}>{children}</RadioContext.Provider>
 		</div>
 	);
