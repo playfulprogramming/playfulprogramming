@@ -120,14 +120,17 @@ export const FilterDisplay = ({
 		return (
 			<FilterDialog
 				isOpen={isFilterDialogOpen}
-				onClose={(val) => {
-					alert(val);
+				onClose={(props) => {
+					const { selectedAuthorIds: innerAuthorIds, selectedTags: innerTags } =
+						props;
+					setSelectedAuthorIds(innerAuthorIds);
+					setSelectedTags(innerTags);
 					setFilterIsDialogOpen(false);
 				}}
 				tags={tags}
 				authors={authors}
-				setSelectedTags={setSelectedTags}
-				setSelectedAuthorIds={setSelectedAuthorIds}
+				selectedAuthorIds={selectedAuthorIds}
+				selectedTags={selectedTags}
 				unicornProfilePicMap={unicornProfilePicMap}
 			/>
 		);

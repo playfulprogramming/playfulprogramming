@@ -12,23 +12,32 @@ import { DEFAULT_TAG_EMOJI } from "./constants";
 
 interface FilterDialogProps {
 	isOpen: boolean;
-	onClose: (val: string) => void;
+	onClose: (val: {
+		selectedAuthorIds: string[];
+		selectedTags: string[];
+	}) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
-	setSelectedTags: (tags: string[]) => void;
-	setSelectedAuthorIds: (authors: string[]) => void;
 	unicornProfilePicMap: ProfilePictureMap;
+	selectedAuthorIds: string[];
+	selectedTags: string[];
 }
 
-interface FilterDialogInner extends Omit<FilterDialogProps, "isOpen"> {
+interface FilterDialogInner
+	extends Omit<FilterDialogProps, "isOpen" | "onClose"> {
 	selectedTags: string[];
 	selectedAuthorIds: string[];
 	onSelectedAuthorChange: (id: string) => void;
 	onTagsChange: (id: string) => void;
+	setSelectedTags: (tags: string[]) => void;
+	setSelectedAuthorIds: (authors: string[]) => void;
+	onConfirm: () => void;
+	onCancel: () => void;
 }
 
 const FilterDialogMobile = ({
-	onClose,
+	onConfirm,
+	onCancel,
 	tags,
 	authors,
 	setSelectedTags,
@@ -99,18 +108,17 @@ const FilterDialogMobile = ({
 			<div class={styles.mobileButtonsContainer}>
 				<LargeButton
 					class={styles.mobileButton}
-					type="submit"
+					type="button"
 					variant="primary"
-					value="cancel"
-					formMethod="dialog"
+					onClick={onCancel}
 				>
 					Cancel
 				</LargeButton>
 				<LargeButton
 					class={styles.mobileButton}
-					type="submit"
+					type="button"
 					variant="primary-emphasized"
-					onClick={() => {}}
+					onClick={onConfirm}
 				>
 					Filter
 				</LargeButton>
@@ -120,7 +128,8 @@ const FilterDialogMobile = ({
 };
 
 const FilterDialogSmallTablet = ({
-	onClose,
+	onConfirm,
+	onCancel,
 	tags,
 	authors,
 	setSelectedTags,
@@ -139,8 +148,8 @@ export const FilterDialog = ({
 	tags,
 	authors,
 	unicornProfilePicMap,
-	setSelectedTags: setParentSelectedTags,
-	setSelectedAuthorIds: setParentSelectedAuthorIds,
+	selectedAuthorIds: selectedParentAuthorIds,
+	selectedTags: selectedParentTags,
 }: FilterDialogProps) => {
 	/**
 	 * Dialog state and ref
@@ -149,7 +158,9 @@ export const FilterDialog = ({
 
 	// We can't use the open attribute because otherwise the
 	// dialog is not treated as a modal
-	const isOpen = useRef(isOpenProp);
+	//
+	// This will be synced with the open attribute in an useEffect
+	const isOpen = useRef(null);
 
 	useEffect(() => {
 		if (isOpenProp) {
@@ -162,26 +173,12 @@ export const FilterDialog = ({
 	}, [isOpenProp]);
 
 	/**
-	 * Confirmation handlers
-	 */
-	const onConfirm = useCallback((e: MouseEvent) => {
-		e.preventDefault();
-		dialogRef.current?.close("CONFIRMED THIS IS GOOD");
-	}, []);
-
-	const onFormConfirm = useCallback((e: Event) => {
-		e.preventDefault();
-		onClose(dialogRef.current.returnValue);
-	}, []);
-
-	/**
 	 * Inner state
 	 */
-	const [selectedTags, setSelectedTags] = useState<string[]>(
-		tags.map((tag) => tag.tag),
-	);
+	const [selectedTags, setSelectedTags] =
+		useState<string[]>(selectedParentTags);
 	const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
-		authors.map((author) => author.id),
+		selectedParentAuthorIds,
 	);
 
 	const onSelectedAuthorChange = (id: string) => {
@@ -203,6 +200,44 @@ export const FilterDialog = ({
 	};
 
 	/**
+	 * Confirmation handlers
+	 */
+	const onConfirm = useCallback((e?: MouseEvent) => {
+		e && e.preventDefault();
+		// True indicates that the user has confirmed the dialog
+		dialogRef.current?.close("true");
+	}, []);
+
+	const onCancel = useCallback((e?: MouseEvent) => {
+		e && e.preventDefault();
+		// False indicates the user has cancelled the dialog
+		dialogRef.current?.close("false");
+	}, []);
+
+	const onFormConfirm = useCallback(
+		(e: Event) => {
+			e.preventDefault();
+			if (dialogRef.current.returnValue === "true") {
+				onClose({
+					selectedAuthorIds,
+					selectedTags,
+				});
+				return;
+			}
+			onClose({
+				selectedAuthorIds: selectedParentAuthorIds,
+				selectedTags: selectedParentTags,
+			});
+		},
+		[
+			selectedAuthorIds,
+			selectedTags,
+			selectedParentAuthorIds,
+			selectedParentTags,
+		],
+	);
+
+	/**
 	 * Styling hooks
 	 */
 	const windowSize = useWindowSize();
@@ -214,7 +249,6 @@ export const FilterDialog = ({
 			<form style={{ height: "100%" }}>
 				{isMobile ? (
 					<FilterDialogMobile
-						onClose={onClose}
 						tags={tags}
 						authors={authors}
 						selectedTags={selectedTags}
@@ -224,10 +258,11 @@ export const FilterDialog = ({
 						onSelectedAuthorChange={onSelectedAuthorChange}
 						onTagsChange={onTagsChange}
 						unicornProfilePicMap={unicornProfilePicMap}
+						onConfirm={onConfirm}
+						onCancel={onCancel}
 					/>
 				) : (
 					<FilterDialogSmallTablet
-						onClose={onClose}
 						tags={tags}
 						authors={authors}
 						selectedTags={selectedTags}
@@ -237,6 +272,8 @@ export const FilterDialog = ({
 						onSelectedAuthorChange={onSelectedAuthorChange}
 						onTagsChange={onTagsChange}
 						unicornProfilePicMap={unicornProfilePicMap}
+						onConfirm={onConfirm}
+						onCancel={onCancel}
 					/>
 				)}
 			</form>
