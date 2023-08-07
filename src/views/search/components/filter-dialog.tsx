@@ -57,7 +57,7 @@ const FilterDialogMobile = ({
 		<div class={styles.mobileDialogContainer}>
 			<div class={styles.dialogTitleContainer}>
 				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
-					Headline 4
+					Filter
 				</h1>
 			</div>
 			<FilterSection
@@ -156,7 +156,7 @@ const FilterDialogSmallTablet = ({
 					/>
 				</LargeIconOnlyButton>
 				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
-					Headline 4
+					Filter
 				</h1>
 				<LargeButton
 					variant="primary-emphasized"
