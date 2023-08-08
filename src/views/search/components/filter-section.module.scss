@@ -86,11 +86,16 @@
 	overflow: auto;
 	height: 1px;
 	flex-grow: 1;
+	border-top: var(--search-page_filter_list_divider_width) solid transparent;
 
 	opacity: 1;
-	@include transition(opacity);
+	@include transition(opacity border-top);
 
 	&[aria-hidden="true"] {
 		opacity: 0;
 	}
+}
+
+.sectionContent:global(.scrolled) {
+	border-color: var(--search-page_filter_list_divider_color);
 }

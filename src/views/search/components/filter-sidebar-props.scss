@@ -31,7 +31,7 @@
     --search-page_search-bar_max-height: var(--min-target-size_m);
     --search-page_filter_sidebar_max-width: 288px;
   }
-  
+
   @include from($desktopLarge) {
     --search-page_search-bar_max-height: var(--min-target-size_m);
     --search-page_filter_sidebar_max-width: 360px;

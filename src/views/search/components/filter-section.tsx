@@ -24,6 +24,16 @@ export const FilterSection = ({
 
 	const { setEl, size } = useElementSize();
 
+	const onScroll = (e: MouseEvent) => {
+		const target = (e.target as HTMLElement);
+		const scrollAmount = target.scrollTop;
+		if (scrollAmount > 0) {
+			target.classList.add("scrolled")
+			return;
+		}
+		target.classList.remove("scrolled")
+	}
+
 	return (
 		<div
 			className={`${styles.section} ${
@@ -69,7 +79,7 @@ export const FilterSection = ({
 					</div>
 				)}
 			</div>
-			<div className={styles.sectionContent} aria-hidden={collapsed}>
+			<div className={styles.sectionContent} aria-hidden={collapsed} onScroll={onScroll}>
 				{children}
 			</div>
 		</div>
