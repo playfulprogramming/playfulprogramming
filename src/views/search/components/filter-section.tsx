@@ -46,12 +46,12 @@ export const FilterSection = ({
 						}`}
 					/>
 					<span
-						className={`text-style-button-large ${styles.sectionTitleText}`}
+						className={`text-style-button-regular ${styles.sectionTitleText}`}
 					>
 						{title}
 					</span>
 					<span
-						className={`text-style-button-large ${styles.sectionNumberText}`}
+						className={`text-style-button-regular ${styles.sectionNumberText}`}
 					>
 						{selectedNumber ? `(${selectedNumber})` : null}
 					</span>
