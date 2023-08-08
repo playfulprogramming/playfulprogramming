@@ -257,6 +257,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					top: headerHeight,
 					position: "sticky",
 				}}
+				searchString={search}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
