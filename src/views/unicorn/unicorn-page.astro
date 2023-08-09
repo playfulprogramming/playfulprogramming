@@ -1,11 +1,13 @@
 ---
+import ProfileSection from "./components/profile-section.astro";
+import { SubHeader } from "../../components/subheader/subheader";
 import { PostCardGrid } from "components/post-card/post-card-grid";
-import UnicornLayout from "./unicorn-layout/unicorn-layout.astro";
 import { ExtendedPostInfo } from "types/index";
 import { UnicornInfo } from "types/UnicornInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
-import UnicornCardLarge from "./unicorn-card-large.astro";
 import { achievements } from "../../../content/data/achievements";
+import { translate } from "../../utils";
+import { Button } from "../../components";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -26,25 +28,69 @@ const achievementsMeta = unicorn.achievements.map((achievement) => {
 	}
 	return { id, name, body };
 });
+
+// const numberOfAchievementsToShowAtStart = posts.length ? 6 : 3;
+const numberOfAchievementsToShowAtStart = 1;
 ---
 
-<UnicornLayout>
-	<UnicornCardLarge unicorn={unicorn} slot="sidebar" />
+<div>
+	<ProfileSection />
+	<div>
+		<!-- TODO: Translate -->
+		<SubHeader tag="h1" text="Achievements">
+			<Button id="view-all-achievements" tag="button" type="button">
+				View all
+			</Button>
+		</SubHeader>
+		{
+			achievementsMeta.map((ach, i) => {
+				const shouldShow = i < numberOfAchievementsToShowAtStart;
+				return (
+					<p
+						data-hide-initially={!shouldShow}
+						style={shouldShow ? "" : "display: none;"}
+					>
+						{ach.name}: {ach.body}
+					</p>
+				);
+			})
+		}
+		<SubHeader tag="h1" text="Recent articles">
+			<!-- TODO: Replace href with util to build search URL -->
+			<Button tag="a" href={"/search"}>View all</Button>
+		</SubHeader>
+		<PostCardGrid
+			listAriaLabel={`List of posts written by ${unicorn.name}`}
+			postsToDisplay={posts}
+			unicornProfilePicMap={unicornProfilePicMap}
+		/>
+	</div>
+</div>
 
-	{
-		achievementsMeta.map((ach) => {
-			return (
-				<p>
-					{ach.name}: {ach.body}
-				</p>
-			);
-		})
-	}
+<script>
+	const viewAllAchievementsButton = document.getElementById(
+		"view-all-achievements",
+	) as HTMLElement;
 
-	<h1 class="text-style-headline-5">Blog posts</h1>
-	<PostCardGrid
-		listAriaLabel={`List of posts written by ${unicorn.name}`}
-		postsToDisplay={posts}
-		unicornProfilePicMap={unicornProfilePicMap}
-	/>
-</UnicornLayout>
+	const hiddenAchievements: HTMLElement[] = [
+		...document.querySelectorAll("[data-hide-initially]"),
+	];
+
+	let expanded = false;
+
+	viewAllAchievementsButton.addEventListener("click", () => {
+		expanded = !expanded;
+		if (expanded) {
+			hiddenAchievements.forEach((achievement) => {
+				achievement.style.display = "";
+			});
+			viewAllAchievementsButton.innerText = "View less";
+			return;
+		}
+
+		hiddenAchievements.forEach((achievement) => {
+			achievement.style.display = "none";
+		});
+		viewAllAchievementsButton.innerText = "View all";
+	});
+</script>

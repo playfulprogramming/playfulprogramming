@@ -1,0 +1,31 @@
+@import "src/tokens/index";
+
+:root {
+	--profile_avatar_size: 96px;
+	--profile_avatar_margin-end: var(--spc-5x);
+	--profile_pronouns_gap: 0_5rem;
+	--profile_bio_margin-top: 0_5rem;
+	--profile_bio_max-width: var(--max-width_xs);
+
+	--profile_padding: var(--spc-6x);
+	--profile_gap: var(--spc-4x);
+
+	--profile_links_gap: var(--spc-4x);
+	--profile_links_icon_size: var(--icon-size_dense);
+	--profile_links_label_margin-start: 0_25rem;
+
+	--profile_roles_gap: var(--chip-gap);
+
+	--profile_background-color: var(--surface_primary_emphasis-none);
+	--profile_name_color: var(--foreground_emphasis-high);
+	--profile_pronouns_color: var(--foreground_disabled);
+	--profile_bio_color: var(--foreground_emphasis-high);
+
+	@include from($tabletLarge) {
+		--profile_avatar_size: 128px;
+	}
+
+	@include from($desktopLarge) {
+		--profile_avatar_size: 192px;
+	}
+}
