@@ -50,7 +50,7 @@
 	margin-left: var(--collection-card_content_padding-left);
 	margin-right: var(--collection-card_content_padding-right);
 
-	&> div {
+	& > div {
 		// prevent div from expanding beyond container size due to text overflow
 		min-width: 0;
 	}
@@ -61,7 +61,8 @@
 	margin-bottom: var(--collection-card_title_padding-bottom);
 }
 
-.title, .description {
+.title,
+.description {
 	// prevents text overflow when the container is smaller than a single word (issue #620)
 	// - this otherwise has no effect, since the container can always expand vertically
 	overflow: hidden;

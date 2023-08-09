@@ -56,9 +56,7 @@ const FilterDialogMobile = ({
 	return (
 		<div class={styles.mobileDialogContainer}>
 			<div class={styles.dialogTitleContainer}>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
-					Filter
-				</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
 			</div>
 			<FilterSection
 				title={"Tag"}
@@ -149,15 +147,18 @@ const FilterDialogSmallTablet = ({
 	return (
 		<div class={styles.tabletDialogContainer}>
 			<div class={styles.dialogTitleContainer}>
-				<LargeIconOnlyButton tag="button" type="button" onClick={onCancel} class={styles.closeButton}>
+				<LargeIconOnlyButton
+					tag="button"
+					type="button"
+					onClick={onCancel}
+					class={styles.closeButton}
+				>
 					<span
 						class={styles.closeIcon}
 						dangerouslySetInnerHTML={{ __html: close }}
 					/>
 				</LargeIconOnlyButton>
-				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>
-					Filter
-				</h1>
+				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
 				<LargeButton
 					variant="primary-emphasized"
 					tag="button"
