@@ -30,8 +30,11 @@ const achievementsMeta = unicorn.achievements.map((achievement) => {
 	return { id, name, body };
 });
 
-// const numberOfAchievementsToShowAtStart = posts.length ? 6 : 3;
-const numberOfAchievementsToShowAtStart = 1;
+const postsToDisplay = posts.slice(0, 4);
+const numberOfAchievementsToShowAtStart = posts.length ? 6 : 3;
+const showAchievementToggle =
+	achievementsMeta.length > numberOfAchievementsToShowAtStart;
+const showPostsToggle = posts.length > postsToDisplay.length;
 ---
 
 <div class={styles.container}>
@@ -42,9 +45,13 @@ const numberOfAchievementsToShowAtStart = 1;
 	<div>
 		<!-- TODO: Translate -->
 		<SubHeader tag="h1" text="Achievements">
-			<Button id="view-all-achievements" tag="button" type="button">
-				View all
-			</Button>
+			{
+				showAchievementToggle && (
+					<Button id="view-all-achievements" tag="button" type="button">
+						View all
+					</Button>
+				)
+			}
 		</SubHeader>
 		{
 			achievementsMeta.map((ach, i) => {
@@ -61,11 +68,17 @@ const numberOfAchievementsToShowAtStart = 1;
 		}
 		<SubHeader tag="h1" text="Recent articles">
 			<!-- TODO: Replace href with util to build search URL -->
-			<Button tag="a" href={"/search"}>View all</Button>
+			{
+				showPostsToggle && (
+					<Button tag="a" href={"/search"}>
+						View all
+					</Button>
+				)
+			}
 		</SubHeader>
 		<PostCardGrid
 			listAriaLabel={`List of posts written by ${unicorn.name}`}
-			postsToDisplay={posts}
+			postsToDisplay={postsToDisplay}
 			unicornProfilePicMap={unicornProfilePicMap}
 		/>
 	</div>
@@ -76,25 +89,27 @@ const numberOfAchievementsToShowAtStart = 1;
 		"view-all-achievements",
 	) as HTMLElement;
 
-	const hiddenAchievements: HTMLElement[] = [
-		...document.querySelectorAll("[data-hide-initially]"),
-	];
+	if (viewAllAchievementsButton) {
+		const hiddenAchievements: HTMLElement[] = [
+			...document.querySelectorAll("[data-hide-initially]"),
+		];
 
-	let expanded = false;
+		let expanded = false;
 
-	viewAllAchievementsButton.addEventListener("click", () => {
-		expanded = !expanded;
-		if (expanded) {
+		viewAllAchievementsButton.addEventListener("click", () => {
+			expanded = !expanded;
+			if (expanded) {
+				hiddenAchievements.forEach((achievement) => {
+					achievement.style.display = "";
+				});
+				viewAllAchievementsButton.innerText = "View less";
+				return;
+			}
+
 			hiddenAchievements.forEach((achievement) => {
-				achievement.style.display = "";
+				achievement.style.display = "none";
 			});
-			viewAllAchievementsButton.innerText = "View less";
-			return;
-		}
-
-		hiddenAchievements.forEach((achievement) => {
-			achievement.style.display = "none";
+			viewAllAchievementsButton.innerText = "View all";
 		});
-		viewAllAchievementsButton.innerText = "View all";
-	});
+	}
 </script>

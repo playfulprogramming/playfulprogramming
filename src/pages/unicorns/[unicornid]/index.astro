@@ -13,8 +13,7 @@ const params = Astro.params as { unicornid: string };
 
 const unicorn = unicorns.find((unicorn) => unicorn.id === params.unicornid);
 
-const enPosts = getPostsByUnicorn(unicorn.id, "en");
-const postsToDisplay = enPosts.slice(0, 8);
+const posts = getPostsByUnicorn(unicorn.id, "en");
 ---
 
 <Document>
@@ -26,6 +25,6 @@ const postsToDisplay = enPosts.slice(0, 8);
 		type="profile"
 	/>
 	<div class="listViewContent">
-		<UnicornsPage unicorn={unicorn} posts={postsToDisplay} />
+		<UnicornsPage unicorn={unicorn} posts={posts} />
 	</div>
 </Document>

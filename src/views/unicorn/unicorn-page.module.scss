@@ -1,6 +1,11 @@
 @import "src/tokens/index";
 
 .container {
+	padding: var(--site-spacing);
+	width: 100%;
+	/* TODO: Double-check with Ed, this says max-width_l in specs, but it's clearly not */
+	max-width: var(--max-width_xl);
+	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto;
