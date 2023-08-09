@@ -26,6 +26,7 @@ import english from "retext-english";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
+import { achievements } from "../../content/data/achievements";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");

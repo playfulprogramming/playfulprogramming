@@ -5,6 +5,7 @@ import { ExtendedPostInfo } from "types/index";
 import { UnicornInfo } from "types/UnicornInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import UnicornCardLarge from "./unicorn-card-large.astro";
+import { achievements } from "../../../content/data/achievements";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -13,10 +14,32 @@ interface UnicornPageProps {
 
 const { unicorn, posts } = Astro.props as UnicornPageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const achievementsMeta = unicorn.achievements.map((achievement) => {
+	const matchedAchievement = achievements.find(
+		(innerAchievement) => innerAchievement.id === achievement,
+	)!;
+	// eslint-disable-next-line prefer-const
+	let { id, name, body } = matchedAchievement;
+	if (typeof body === "function") {
+		body = body(unicorn.id);
+	}
+	return { id, name, body };
+});
 ---
 
 <UnicornLayout>
 	<UnicornCardLarge unicorn={unicorn} slot="sidebar" />
+
+	{
+		achievementsMeta.map((ach) => {
+			return (
+				<p>
+					{ach.name}: {ach.body}
+				</p>
+			);
+		})
+	}
 
 	<h1 class="text-style-headline-5">Blog posts</h1>
 	<PostCardGrid

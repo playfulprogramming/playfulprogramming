@@ -13,7 +13,8 @@
 		"pronouns": "they/themselves",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer", "author", "community"]
+		"roles": ["devops", "developer", "author", "community"],
+		"achievements": ["wordcount", "30articles"]
 	},
 	{
 		"id": "fennifith",
@@ -28,7 +29,8 @@
 		"pronouns": "he",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": []
 	},
 	{
 		"id": "evelynhathaway",
@@ -43,7 +45,8 @@
 		"pronouns": "she",
 		"profileImg": "proud.png",
 		"color": "#ef5f17",
-		"roles": ["developer", "devops", "community"]
+		"roles": ["developer", "devops", "community"],
+		"achievements": []
 	},
 	{
 		"id": "adueppen",
@@ -59,7 +62,8 @@
 		"pronouns": "he",
 		"profileImg": "./adueppen.png",
 		"color": "#69ffff",
-		"roles": ["developer", "community"]
+		"roles": ["developer", "community"],
+		"achievements": []
 	},
 	{
 		"id": "zavukodlak",
@@ -75,7 +79,8 @@
 		"pronouns": "he",
 		"profileImg": "./vukashin.png",
 		"color": "#3485FF",
-		"roles": ["designer"]
+		"roles": ["designer"],
+		"achievements": []
 	},
 	{
 		"id": "tommyemo",
@@ -90,7 +95,8 @@
 		"pronouns": "he",
 		"profileImg": "./tommyemo.jpg",
 		"color": "#8539EB",
-		"roles": ["designer"]
+		"roles": ["designer"],
+		"achievements": []
 	},
 	{
 		"id": "edpratti",
@@ -105,7 +111,8 @@
 		"pronouns": "he",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": ["designer", "author"]
+		"roles": ["designer", "author"],
+		"achievements": []
 	},
 	{
 		"id": "sarsamurmu",
@@ -121,7 +128,8 @@
 		"pronouns": "he",
 		"profileImg": "./sarsamurmu.png",
 		"color": "#7C4DFF",
-		"roles": ["developer"]
+		"roles": ["developer"],
+		"achievements": []
 	},
 	{
 		"id": "MDutro",
@@ -135,7 +143,8 @@
 		"pronouns": "he",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": []
 	},
 	{
 		"id": "reikaze",
@@ -150,7 +159,8 @@
 		"pronouns": "he",
 		"profileImg": "./reikaze.jpg",
 		"color": "#ba68c8",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "thodges314",
@@ -165,7 +175,8 @@
 		"pronouns": "he",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "skatcat31",
@@ -180,7 +191,8 @@
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
 		"pronouns": "he",
-		"roles": ["author", "community"]
+		"roles": ["author", "community"],
+		"achievements": []
 	},
 	{
 		"id": "seanmiller",
@@ -197,7 +209,8 @@
 		"pronouns": "he",
 		"profileImg": "./seanmiller.jpg",
 		"color": "#551a8b",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "pierremtb",
@@ -214,7 +227,8 @@
 		"pronouns": "he",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "maisydino",
@@ -230,7 +244,8 @@
 		"pronouns": "she",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": ["author", "community"]
+		"roles": ["author", "community"],
+		"achievements": []
 	},
 	{
 		"id": "bobrossrtx",
@@ -246,7 +261,8 @@
 		"pronouns": "he",
 		"profileImg": "./bobrossrtx.jpg",
 		"color": "#b7e11e",
-		"roles": ["developer", "author"]
+		"roles": ["developer", "author"],
+		"achievements": []
 	},
 	{
 		"id": "ljtech",
@@ -263,7 +279,8 @@
 		"pronouns": "he",
 		"profileImg": "./ljtechdotca.png",
 		"color": "#7b61ff",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "SkyHawk_0",
@@ -275,7 +292,8 @@
 		"pronouns": "he",
 		"profileImg": "./goofy.png",
 		"color": "#18BBC9",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "splatkillwill",
@@ -292,7 +310,8 @@
 		"pronouns": "they/themselves",
 		"profileImg": "./splatkillwill.jpg",
 		"color": "#BF00FF",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "fmothe",
@@ -308,7 +327,8 @@
 		"pronouns": "he",
 		"profileImg": "./fmothe.jpg",
 		"color": "#18BBC9",
-		"roles": ["translator"]
+		"roles": ["translator"],
+		"achievements": []
 	},
 	{
 		"id": "jahirfiquitiva",
@@ -325,7 +345,8 @@
 		"pronouns": "he",
 		"profileImg": "./jahirfiquitiva.jpg",
 		"color": "#3867d6",
-		"roles": ["translator"]
+		"roles": ["translator"],
+		"achievements": []
 	},
 	{
 		"id": "kaleem",
@@ -341,7 +362,8 @@
 		"pronouns": "he",
 		"profileImg": "./kaleem.jpeg",
 		"color": "#a8b3ba",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "xenophorium",
@@ -356,7 +378,8 @@
 		},
 		"profileImg": "./xeno.jpg",
 		"color": "",
-		"roles": ["developer", "author", "community", "translator"]
+		"roles": ["developer", "author", "community", "translator"],
+		"achievements": []
 	},
 	{
 		"id": "alexchadwick",
@@ -374,7 +397,8 @@
 		"pronouns": "he",
 		"profileImg": "./alexchadwick.jpg",
 		"color": "",
-		"roles": ["author", "translator"]
+		"roles": ["author", "translator"],
+		"achievements": []
 	},
 	{
 		"id": "eneajahollari",
@@ -390,7 +414,8 @@
 		"pronouns": "he",
 		"profileImg": "./eneajahollari.jpeg",
 		"color": "#580dff",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "williamcook",
@@ -407,7 +432,8 @@
 		"pronouns": "he",
 		"profileImg": "./williamcook.jpg",
 		"color": "#AF7AC5",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "rudy",
@@ -422,7 +448,8 @@
 		"pronouns": "he",
 		"profileImg": "./rudy.jpg",
 		"color": "#ba68c8",
-		"roles": ["community"]
+		"roles": ["community"],
+		"achievements": []
 	},
 	{
 		"id": "LayZee",
@@ -438,7 +465,8 @@
 		"pronouns": "he",
 		"profileImg": "./lars-gyrup-brink-nielsen.jpg",
 		"color": "#1b9bf0",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "Nessjs",
@@ -454,7 +482,8 @@
 		"pronouns": "he",
 		"profileImg": "./nessjs.jpg",
 		"color": "#D36996",
-		"roles": ["translator"]
+		"roles": ["translator"],
+		"achievements": []
 	},
 	{
 		"id": "kevttob",
@@ -469,7 +498,8 @@
 		"pronouns": "he",
 		"profileImg": "./kevttob.jpg",
 		"color": "#99EEC9",
-		"roles": ["designer"]
+		"roles": ["designer"],
+		"achievements": []
 	},
 	{
 		"id": "sasikanth",
@@ -485,7 +515,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./sasikanth.jpg",
 		"color": "#49a8e4",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "badcop",
@@ -502,7 +533,8 @@
 		"pronouns": "she",
 		"profileImg": "./badcop.png",
 		"color": "#2464B6",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "hopelezz",
@@ -519,7 +551,8 @@
 		"pronouns": "he",
 		"profileImg": "./markspratt.jpg",
 		"color": "#42AD8B",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "ladybluenotes",
@@ -536,7 +569,8 @@
 		"pronouns": "she/her",
 		"profileImg": "./sarahgerrard.jpg",
 		"color": "#49A078",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	},
 	{
 		"id": "richarddprasad",
@@ -550,6 +584,7 @@
 		"pronouns": "he",
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": []
 	}
 ]

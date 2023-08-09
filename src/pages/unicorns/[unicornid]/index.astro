@@ -3,9 +3,7 @@ import Document from "../../../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 import UnicornsPage from "src/views/unicorn/unicorn-page.astro";
 import { getPostsByUnicorn } from "utils/api";
-import { ExtendedPostInfo } from "types/index";
 import { unicorns } from "utils/data";
-import { Page } from "astro";
 
 export async function getStaticPaths() {
 	return unicorns.map((unicorn) => ({ params: { unicornid: unicorn.id } }));
@@ -17,19 +15,6 @@ const unicorn = unicorns.find((unicorn) => unicorn.id === params.unicornid);
 
 const enPosts = getPostsByUnicorn(unicorn.id, "en");
 const postsToDisplay = enPosts.slice(0, 8);
-
-const page = {
-	total: enPosts.length,
-	currentPage: 1,
-	size: postsToDisplay.length,
-	lastPage: Math.floor(enPosts.length / postsToDisplay.length),
-	url: {
-		current: `/unicorns/${unicorn.id}`,
-		next: `/unicorns/${unicorn.id}/page/2`,
-	},
-} as Page<ExtendedPostInfo>;
-
-const rootURL = `/unicorns/${unicorn.id}/`;
 ---
 
 <Document>
@@ -41,12 +26,6 @@ const rootURL = `/unicorns/${unicorn.id}/`;
 		type="profile"
 	/>
 	<div class="listViewContent">
-		<UnicornsPage
-			unicorn={unicorn}
-			page={page}
-			posts={postsToDisplay}
-			allPosts={enPosts}
-			rootURL={rootURL}
-		/>
+		<UnicornsPage unicorn={unicorn} posts={postsToDisplay} />
 	</div>
 </Document>
