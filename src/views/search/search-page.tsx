@@ -22,6 +22,9 @@ import { SearchTopbar } from "./components/search-topbar";
 import { SearchHero } from "./components/search-hero";
 import { LargeButton } from "components/button/button";
 import retry from "src/icons/refresh.svg?raw";
+import sadUnicorn from "../../assets/unicorn_sad.svg";
+import happyUnicorn from "../../assets/unicorn_happy.svg";
+import scaredUnicorn from "../../assets/unicorn_scared.svg";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -244,8 +247,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const noResults =
 		enabled &&
 		!isContentLoading &&
-		((posts.length === 0 && showArticles) &&
-			(data.collections.length === 0 && showCollections));
+		posts.length === 0 &&
+		showArticles &&
+		data.collections.length === 0 &&
+		showCollections;
 
 	return (
 		<SearchTag className={style.fullPageContainer}>
@@ -284,12 +289,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				)}
 				{noResults && (
 					<SearchHero
+						imageSrc={sadUnicorn.src}
+						imageAlt={""}
 						title={"No results found..."}
 						description={"Please adjust your query or your active filters!"}
 					/>
 				)}
 				{isError && (
 					<SearchHero
+						imageSrc={scaredUnicorn.src}
+						imageAlt={""}
 						title={"There was an error fetching your search results."}
 						description={"Please adjust your query or try again."}
 						buttons={
@@ -303,6 +312,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				)}
 				{!enabled && (
 					<SearchHero
+						imageSrc={happyUnicorn.src}
+						imageAlt={""}
 						title={"What would you like to find?"}
 						description={
 							"Search for your favorite framework or most loved language; we'll share what we know."
