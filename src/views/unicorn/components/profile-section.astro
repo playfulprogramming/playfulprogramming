@@ -3,6 +3,7 @@ import styles from "./profile-section.module.scss";
 import { Picture as UUPicture } from "../../../components";
 import { ProfilePictureMap } from "../../../utils/get-unicorn-profile-pic-map";
 import { UnicornInfo } from "../../../types";
+import Icon from "astro-icon";
 
 interface ProfileSectionProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -10,22 +11,129 @@ interface ProfileSectionProps {
 }
 
 const { unicornProfilePicMap, unicorn } = Astro.props as ProfileSectionProps;
+
+const iconSize = 20;
 ---
 
 <div class={styles.container}>
 	<div class={styles.cardContainer}>
-		<UUPicture
-			picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
-			alt={unicorn.name}
-			class={styles.authorImage}
-		/>
-		<h1 class={`text-style-headline-4 ${styles.name}`}>{unicorn.name}</h1>
-		{
-			unicorn.pronouns && (
-				<h1 class={`text-style-body-medium-bold ${styles.pronouns}`}>
-					{unicorn.pronouns}
-				</h1>
-			)
-		}
+		<div>
+			<UUPicture
+				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
+				alt={unicorn.name}
+				class={styles.authorImage}
+			/>
+			<div class={styles.nameAndPronouns}>
+				<h1 class={`text-style-headline-4 ${styles.name}`}>{unicorn.name}</h1>
+				{
+					unicorn.pronouns && (
+						<h1 class={`text-style-body-medium-bold ${styles.pronouns}`}>
+							{unicorn.pronouns}
+						</h1>
+					)
+				}
+			</div>
+			<p class={`text-style-body-medium ${styles.bio}`}>
+				{unicorn.description}
+			</p>
+		</div>
+		<div class={styles.socialLinkContainer}>
+			{
+				unicorn.socials.website ? (
+					<a
+						href={unicorn.socials.website}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="mdi:world"
+							class={styles.linkIcon}
+						/>
+						Website
+					</a>
+				) : null
+			}
+			{
+				unicorn.socials.github ? (
+					<a
+						href={`https://github.com/${unicorn.socials.github}`}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="github"
+							class={styles.linkIcon}
+						/>
+						GitHub
+					</a>
+				) : null
+			}
+			{
+				unicorn.socials.twitter ? (
+					<a
+						href={`https://twitter.com/${unicorn.socials.twitter}`}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="twitter"
+							class={styles.linkIcon}
+						/>
+						Twitter
+					</a>
+				) : null
+			}
+			{
+				unicorn.socials.twitch ? (
+					<a
+						href={`https://www.twitch.com/${unicorn.socials.twitch}`}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="twitch"
+							class={styles.linkIcon}
+						/>
+						Twitch
+					</a>
+				) : null
+			}
+			{
+				unicorn.socials.dribbble ? (
+					<a
+						href={`https://dribbble.com/${unicorn.socials.dribbble}`}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="ci:dribbble"
+							class={styles.linkIcon}
+						/>
+						Dribbble
+					</a>
+				) : null
+			}
+			{
+				unicorn.socials.linkedIn ? (
+					<a
+						href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}
+						class={`text-style-button-regular ${styles.socialLink}`}
+					>
+						<Icon
+							width={iconSize}
+							height={iconSize}
+							name="linkedin"
+							class={styles.linkIcon}
+						/>
+						LinkedIn
+					</a>
+				) : null
+			}
+		</div>
 	</div>
 </div>
