@@ -22,10 +22,13 @@ export async function getStickers(): Promise<StickerInfo[]> {
 	return await Promise.all([
 		createSticker("/stickers/android.svg"),
 		createSticker("/stickers/angular.svg"),
+		createSticker("/stickers/css.svg"),
 		createSticker("/stickers/html.svg"),
 		createSticker("/stickers/python.svg"),
 		createSticker("/stickers/react.svg"),
 		createSticker("/stickers/typescript.svg"),
+		createSticker("/stickers/javascript.svg"),
+		createSticker("/stickers/linux.svg"),
 		createSticker("/stickers/vue.svg"),
 		createSticker(
 			"/stickers/ferris.svg",
@@ -33,5 +36,6 @@ export async function getStickers(): Promise<StickerInfo[]> {
 			STICKER_SIZE * (399 / 512),
 		),
 		createSticker("/stickers/git.svg"),
+		createSticker("/stickers/cpp.svg"),
 	]);
 }
