@@ -46,7 +46,7 @@ export const FilterSidebar = ({
 	unicornProfilePicMap,
 	searchString,
 }: FilterSidebar) => {
-	const { setEl, size } = useElementSize();
+	const { setEl, size } = useElementSize({ includeMargin: false });
 
 	const hideSearchbar = !searchString;
 	return (
