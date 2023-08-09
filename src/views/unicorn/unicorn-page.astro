@@ -8,6 +8,7 @@ import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { achievements } from "../../../content/data/achievements";
 import { translate } from "../../utils";
 import { Button } from "../../components";
+import styles from "./unicorn-page.module.scss";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -33,8 +34,11 @@ const achievementsMeta = unicorn.achievements.map((achievement) => {
 const numberOfAchievementsToShowAtStart = 1;
 ---
 
-<div>
-	<ProfileSection />
+<div class={styles.container}>
+	<ProfileSection
+		unicorn={unicorn}
+		unicornProfilePicMap={unicornProfilePicMap}
+	/>
 	<div>
 		<!-- TODO: Translate -->
 		<SubHeader tag="h1" text="Achievements">

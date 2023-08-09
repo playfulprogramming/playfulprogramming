@@ -1,0 +1,31 @@
+---
+import styles from "./profile-section.module.scss";
+import { Picture as UUPicture } from "../../../components";
+import { ProfilePictureMap } from "../../../utils/get-unicorn-profile-pic-map";
+import { UnicornInfo } from "../../../types";
+
+interface ProfileSectionProps {
+	unicornProfilePicMap: ProfilePictureMap;
+	unicorn: UnicornInfo;
+}
+
+const { unicornProfilePicMap, unicorn } = Astro.props as ProfileSectionProps;
+---
+
+<div class={styles.container}>
+	<div class={styles.cardContainer}>
+		<UUPicture
+			picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
+			alt={unicorn.name}
+			class={styles.authorImage}
+		/>
+		<h1 class={`text-style-headline-4 ${styles.name}`}>{unicorn.name}</h1>
+		{
+			unicorn.pronouns && (
+				<h1 class={`text-style-body-medium-bold ${styles.pronouns}`}>
+					{unicorn.pronouns}
+				</h1>
+			)
+		}
+	</div>
+</div>

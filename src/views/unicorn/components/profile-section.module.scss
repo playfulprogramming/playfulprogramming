@@ -21,11 +21,45 @@
 	--profile_pronouns_color: var(--foreground_disabled);
 	--profile_bio_color: var(--foreground_emphasis-high);
 
-	@include from($tabletLarge) {
+	@include from($tabletSmall) {
 		--profile_avatar_size: 128px;
 	}
 
-	@include from($desktopLarge) {
+	@include from($desktopSmall) {
 		--profile_avatar_size: 192px;
 	}
+}
+
+.container {
+	@include from($desktopSmall) {
+		width: var(--profile_bio_max-width);
+	}
+}
+
+.cardContainer {
+	padding: var(--profile_padding);
+	display: flex;
+	flex-direction: column;
+	gap: var(--profile_gap);
+	background-color: var(--profile_background-color);
+	/* TODO: Make this match spec when token is added */
+	border-radius: var(--corner-radius_xl);
+}
+
+.authorImage {
+	img {
+		border-radius: var(--corner-radius_circular);
+		height: var(--profile_avatar_size);
+		width: var(--profile_avatar_size);
+	}
+}
+
+.name {
+	margin: 0;
+	color: var(--profile_name_color);
+}
+
+.pronouns {
+	margin: 0;
+	color: var(--profile_pronouns_color);
 }
