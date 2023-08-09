@@ -17,3 +17,13 @@
 		gap: var(--site-spacing);
 	}
 }
+
+.achivementsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}

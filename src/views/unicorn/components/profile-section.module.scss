@@ -110,3 +110,29 @@
 	width: var(--profile_links_icon_size);
 	padding: var(--icon-size-dense-padding);
 }
+
+.rolesList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--profile_roles_gap);
+}
+
+/* Replace the below with specs */
+.role {
+	background: var(--background_primary);
+	border: 1px solid var(--surface_primary_emphasis-medium);
+	border-radius: var(--corner-radius_s);
+	display: flex;
+	align-items: center;
+	gap: var(--spc-2x);
+	padding: var(--spc-1x) var(--spc-4x) var(--spc-1x) var(--spc-2x);
+}
+
+.rolePic {
+	height: 32px;
+	width: 32px;
+}
+
+.roleName {
+	color: var(--foreground_emphasis-medium);
+}

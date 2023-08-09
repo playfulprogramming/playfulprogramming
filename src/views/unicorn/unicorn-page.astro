@@ -9,6 +9,7 @@ import { achievements } from "../../../content/data/achievements";
 import { translate } from "../../utils";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
+import Achievements from "./components/achievements.astro";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -53,19 +54,21 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				)
 			}
 		</SubHeader>
+		<div class={styles.achivementsContainer}>
 		{
 			achievementsMeta.map((ach, i) => {
 				const shouldShow = i < numberOfAchievementsToShowAtStart;
 				return (
-					<p
+					<div
 						data-hide-initially={!shouldShow}
 						style={shouldShow ? "" : "display: none;"}
 					>
-						{ach.name}: {ach.body}
-					</p>
+						<Achievements achievement={ach} />
+					</div>
 				);
 			})
 		}
+		</div>
 		<SubHeader tag="h1" text="Recent articles">
 			<!-- TODO: Replace href with util to build search URL -->
 			{

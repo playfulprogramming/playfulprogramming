@@ -135,5 +135,21 @@ const iconSize = 20;
 				) : null
 			}
 		</div>
+		<div class={styles.rolesList}>
+			{
+				unicorn.rolesMeta.map((role) => {
+					return (
+						<div class={styles.role}>
+							<img
+								src={`/stickers/role_${role.id}.svg`}
+								alt={`A ${role.prettyname} sticker icon`}
+								class={`${styles.rolePic}`}
+							/>
+							<span class={`text-style-body-small-bold ${styles.roleName}`}>{role.prettyname}</span>
+						</div>
+					);
+				})
+			}
+		</div>
 	</div>
 </div>
