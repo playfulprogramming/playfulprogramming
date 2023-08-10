@@ -108,6 +108,7 @@
 	border: none;
 	outline: none !important;
 	cursor: pointer;
+	box-sizing: border-box;
 
 	@include transition(color background-color box-shadow);
 }

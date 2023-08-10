@@ -1,4 +1,10 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useState,
+} from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
 import { useSearchParams } from "./use-search-params";
@@ -83,7 +89,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const enabled = !!debouncedSearch;
 
-	const { isLoading, isFetching, isError, error, data } = useQuery({
+	const { isLoading, isFetching, isError, error, data, refetch } = useQuery({
 		queryFn: ({ signal }) => {
 			// Analytics go brr
 			plausible &&
@@ -103,6 +109,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		refetchOnWindowFocus: false,
 		enabled,
 	});
+
+	useEffect(() => {
+		if (error) {
+			console.error("There was an error", { error });
+		}
+	}, [error]);
 
 	const isContentLoading = isLoading || isFetching;
 
@@ -303,6 +315,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						description={"Please adjust your query or try again."}
 						buttons={
 							<LargeButton
+								onClick={() => refetch()}
 								leftIcon={<span dangerouslySetInnerHTML={{ __html: retry }} />}
 							>
 								Retry

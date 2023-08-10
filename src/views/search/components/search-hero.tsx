@@ -20,8 +20,10 @@ export const SearchHero = ({
 		<div class={styles.container}>
 			<img className={styles.image} src={imageSrc} alt={imageAlt} />
 			<h2 class={`text-style-headline-1 ${styles.title}`}>{title}</h2>
-			<p class={`text-style-body-medium ${styles.description}`}>{description}</p>
-			{buttons}
+			<p class={`text-style-body-medium ${styles.description}`}>
+				{description}
+			</p>
+			{buttons ? <div class={styles.buttons}>{buttons}</div> : null}
 		</div>
 	);
 };
