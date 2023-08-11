@@ -15,6 +15,7 @@ export const MockUnicorn: UnicornInfo = {
 		github: "ghusrname",
 		website: "example.com",
 	},
+	achievements: [],
 	pronouns: "they/them",
 	profileImg:
 		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
@@ -44,6 +45,7 @@ export const MockUnicornTwo: UnicornInfo = {
 		github: "ghusrname2",
 		website: "example.com/2",
 	},
+	achievements: [],
 	pronouns: "they/them",
 	profileImg:
 		"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",

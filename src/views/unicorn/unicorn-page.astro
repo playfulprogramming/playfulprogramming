@@ -93,9 +93,9 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 	) as HTMLElement;
 
 	if (viewAllAchievementsButton) {
-		const hiddenAchievements: HTMLElement[] = [
-			...document.querySelectorAll("[data-hide-initially]"),
-		];
+		const hiddenAchievements: HTMLElement[] = Array.from(
+			document.querySelectorAll("[data-hide-initially]"),
+		);
 
 		let expanded = false;
 
