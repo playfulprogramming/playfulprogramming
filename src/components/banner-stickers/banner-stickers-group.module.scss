@@ -28,7 +28,7 @@
 
 @include from($desktopSmall) {
 	.sticker1 {
-		left: 45.45%;
+		left: 33.45%;
 		top: 17%;
 		transform: scale(0.8);
 	}
@@ -42,7 +42,7 @@
 
 @include from($desktopSmall) {
 	.sticker2 {
-		left: 71.29%;
+		left: 59.29%;
 		top: 0%;
 		transform: rotate(15deg);
 	}
@@ -56,7 +56,7 @@
 
 @include from($desktopSmall) {
 	.sticker3 {
-		left: 19.14%;
+		left: 7.14%;
 		top: 7.33%;
 		transform: rotate(4deg) scale(1.2);
 	}
@@ -70,7 +70,7 @@
 
 @include from($desktopSmall) {
 	.sticker4 {
-		left: 33.49%;
+		left: 21.49%;
 		top: 42.33%;
 		transform: rotate(5deg) scale(0.9);
 	}
@@ -84,7 +84,7 @@
 
 @include from($desktopSmall) {
 	.sticker5 {
-		left: 16.75%;
+		left: 4.75%;
 		top: 56.67%;
 		transform: scale(0.8);
 	}
@@ -98,7 +98,7 @@
 
 @include from($desktopSmall) {
 	.sticker6 {
-		left: 44.74%;
+		left: 32.74%;
 		top: 64.67%;
 		transform: rotate(8deg);
 	}
@@ -112,7 +112,7 @@
 
 @include from($desktopSmall) {
 	.sticker7 {
-		left: 26.32%;
+		left: 14.32%;
 		top: 76.67%;
 		transform: rotate(-4deg) scale(0.9);
 	}
@@ -126,7 +126,7 @@
 
 @include from($desktopSmall) {
 	.sticker8 {
-		left: 64.11%;
+		left: 52.11%;
 		top: 76.33%;
 		transform: rotate(6deg);
 	}
@@ -139,7 +139,7 @@
 @include from($desktopSmall) {
 	.sticker9 {
 		display: unset;
-		left: 86.12%;
+		left: 74.12%;
 		top: 70%;
 		transform: scale(0.8);
 	}
