@@ -1,6 +1,5 @@
 ---
 import BannerStickersGroup from "../banner-stickers/banner-stickers-group.astro";
-import BannerStickersMobile from "../banner-stickers/banner-stickers-mobile.astro";
 import { LargeButton } from "../button/button";
 import { Icon } from "astro-icon";
 import style from "./hero.module.scss";
@@ -9,7 +8,6 @@ import * as data from "src/utils/data";
 ---
 
 <header class={`${style.header}`}>
-	<BannerStickersMobile class={style.bannerLogoMobile} />
 	<BannerStickersGroup class={style.bannerLogo} />
 	<div class="text-center">
 		<h1 class={`text-style-headline-2 ${style.bannerTextShadow}`}>

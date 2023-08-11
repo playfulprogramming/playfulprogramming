@@ -2,28 +2,25 @@
 import { getImage } from "@astrojs/image";
 import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
 import { getStickers } from "../../utils/get-stickers";
+import styles from "./banner-stickers-group.module.scss";
 
-const STICKER_TRANSFORMS = [
-	"left: 45.45%; top: 17.00%; transform: scale(0.8);",
-	"left: 71.29%; top: 0.00%; transform: rotate(15deg);",
-	"left: 19.14%; top: 7.33%; transform: rotate(4deg) scale(1.2);",
-	"left: 33.49%; top: 42.33%; transform: rotate(5deg) scale(0.9);",
-	"left: 16.75%; top: 56.67%; transform: scale(0.8);",
-	"left: 44.74%; top: 64.67%; transform: rotate(8deg);",
-	"left: 26.32%; top: 76.67%; transform: rotate(-4deg) scale(0.9);",
-	"left: 64.11%; top: 76.33%; transform: rotate(6deg);",
-	"left: 86.12%; top: 70.00%; transform: scale(0.8);",
-];
+const stickers = getStickers().sort(() => 0.5 - Math.random());
 
-const stickers = (await getStickers()).sort(() => 0.5 - Math.random());
-
-const stickerTransforms = STICKER_TRANSFORMS.map((transform) => {
+const stickerTransforms = [
+	styles.sticker1,
+	styles.sticker2,
+	styles.sticker3,
+	styles.sticker4,
+	styles.sticker5,
+	styles.sticker6,
+	styles.sticker7,
+	styles.sticker8,
+	styles.sticker9,
+].map((className) => {
 	let sticker = stickers.pop();
 	return {
 		...sticker,
-		width: 90,
-		height: sticker.height * (90 / sticker.width),
-		transform,
+		className,
 	};
 });
 
@@ -35,25 +32,20 @@ const unicornImage = await getImage({
 	format: "png",
 });
 
-const props = Astro.props as { class: string };
+const props = Astro.props as { class: string; unicornClass: string };
 ---
 
 <div class={props.class} aria-hidden="true">
 	{
 		stickerTransforms.map((sticker) => (
-			<img
-				width={sticker.width}
-				height={sticker.height}
-				src={sticker.src}
-				style={`position: absolute; ${sticker.transform};`}
-				alt=""
-			/>
+			<img src={sticker.src} class={sticker.className} alt="" />
 		))
 	}
 
 	<img
 		height="190"
 		src={unicornImage.src}
+		class={styles.unicornLogo}
 		style="position: absolute; left: 59.81%; top: 26.67%;"
 		alt=""
 	/>

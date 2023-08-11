@@ -11,14 +11,7 @@
 }
 
 .bannerLogo {
-	display: none;
-	position: relative;
-	height: 100%;
-	width: 100%;
-	min-height: 424px;
-}
-
-.bannerLogoMobile {
+	height: 128px;
 	display: block;
 	position: absolute;
 	top: calc(-1 * var(--site-spacing));
@@ -43,10 +36,10 @@
 	}
 
 	.bannerLogo {
-		display: block;
-	}
-
-	.bannerLogoMobile {
-		display: none;
+		all: unset;
+		position: relative;
+		height: 100%;
+		width: 100%;
+		min-height: 424px;
 	}
 }
