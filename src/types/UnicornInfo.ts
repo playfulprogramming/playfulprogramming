@@ -18,6 +18,7 @@ export interface RawUnicornInfo {
 	profileImg: string;
 	color: string;
 	roles: Array<RolesEnum["id"]>;
+	achievements: string[];
 }
 
 export interface UnicornInfo extends RawUnicornInfo {

@@ -11,7 +11,7 @@ const unicornProfilePicMap = Promise.all(
 		...(await getPicture({
 			src: unicorn.profileImgMeta.relativeServerPath,
 			formats: ["webp", "png"],
-			widths: [72, 48],
+			widths: [192, 128, 96, 72, 48],
 			aspectRatio: 1,
 			alt: "",
 		})),

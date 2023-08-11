@@ -16,14 +16,7 @@ export function SubHeader({
 	class: className,
 	...props
 }: SubHeaderProps) {
-	const Heading = (props: any) =>
-		createElement(
-			tag,
-			{
-				...props,
-			},
-			props.children,
-		);
+	const Heading = tag;
 
 	return (
 		<div className={styles.container}>

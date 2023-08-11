@@ -1,5 +1,5 @@
 :root {
-	--subheader_padding-top: calc(var(--site-spacing) * 2);
+	--subheader_padding-top: calc(var(--site-spacing) + var(--spc-4x));
 	--subheader_padding-bottom: var(--spc-4x);
 	--subheader_gap: var(--spc-4x);
 
