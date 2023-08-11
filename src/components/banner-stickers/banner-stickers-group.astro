@@ -4,30 +4,28 @@ import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
 import { getStickers } from "../../utils/get-stickers";
 
 const STICKER_TRANSFORMS = [
-	"translate(190, 51) scale(0.8)",
-	"translate(298, 0) rotate(15)",
-	"translate(80, 22) rotate(4) scale(1.2)",
-	"translate(140, 127) rotate(5) scale(0.9)",
-	"translate(70, 170) scale(0.8)",
-	"translate(187, 194) rotate(8)",
-	"translate(110, 230) rotate(-4) scale(0.9)",
-	"translate(268, 229) rotate(6)",
-	"translate(360, 210) scale(0.8)",
+	"left: 45.45%; top: 17.00%; transform: scale(0.8);",
+	"left: 71.29%; top: 0.00%; transform: rotate(15deg);",
+	"left: 19.14%; top: 7.33%; transform: rotate(4deg) scale(1.2);",
+	"left: 33.49%; top: 42.33%; transform: rotate(5deg) scale(0.9);",
+	"left: 16.75%; top: 56.67%; transform: scale(0.8);",
+	"left: 44.74%; top: 64.67%; transform: rotate(8deg);",
+	"left: 26.32%; top: 76.67%; transform: rotate(-4deg) scale(0.9);",
+	"left: 64.11%; top: 76.33%; transform: rotate(6deg);",
+	"left: 86.12%; top: 70.00%; transform: scale(0.8);",
 ];
 
 const stickers = (await getStickers()).sort(() => 0.5 - Math.random());
 
-// we can't use JSX for these since Astro changes `<image>` tags into `<img>`, breaking the SVG
-const stickerHtml = STICKER_TRANSFORMS.map((transform) => ({
-	...stickers.pop(),
-	transform,
-}))
-	.map(
-		(sticker) => `
-	<image width="64" height="64" xlink:href="${sticker.src}" transform="${sticker.transform}"></image>
-`,
-	)
-	.join("");
+const stickerTransforms = STICKER_TRANSFORMS.map((transform) => {
+	let sticker = stickers.pop();
+	return {
+		...sticker,
+		width: 90,
+		height: sticker.height * (90 / sticker.width),
+		transform,
+	};
+});
 
 const unicornImage = await getImage({
 	src: unicornSticker,
@@ -40,18 +38,23 @@ const unicornImage = await getImage({
 const props = Astro.props as { class: string };
 ---
 
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	viewBox="0 0 418 300"
-	class={props.class}
-	aria-hidden="true"
->
-	<g set:html={stickerHtml} />
+<div class={props.class} aria-hidden="true">
+	{
+		stickerTransforms.map((sticker) => (
+			<img
+				width={sticker.width}
+				height={sticker.height}
+				src={sticker.src}
+				style={`position: absolute; ${sticker.transform};`}
+				alt=""
+			/>
+		))
+	}
 
-	<image
-		width="128"
-		height="135"
-		xlink:href={unicornImage.src}
-		transform="translate(250, 80)"
+	<img
+		height="190"
+		src={unicornImage.src}
+		style="position: absolute; left: 59.81%; top: 26.67%;"
+		alt=""
 	/>
-</svg>
+</div>
