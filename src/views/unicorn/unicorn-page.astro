@@ -43,7 +43,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 		unicorn={unicorn}
 		unicornProfilePicMap={unicornProfilePicMap}
 	/>
-	<div>
+	<div class={styles.contentContainer}>
 		<!-- TODO: Translate -->
 		<SubHeader tag="h1" text="Achievements">
 			{
@@ -54,20 +54,20 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				)
 			}
 		</SubHeader>
-		<div class={styles.achivementsContainer}>
-		{
-			achievementsMeta.map((ach, i) => {
-				const shouldShow = i < numberOfAchievementsToShowAtStart;
-				return (
-					<div
-						data-hide-initially={!shouldShow}
-						style={shouldShow ? "" : "display: none;"}
-					>
-						<Achievements achievement={ach} />
-					</div>
-				);
-			})
-		}
+		<div class={styles.achievementsContainer}>
+			{
+				achievementsMeta.map((ach, i) => {
+					const shouldShow = i < numberOfAchievementsToShowAtStart;
+					return (
+						<div
+							data-hide-initially={!shouldShow}
+							style={shouldShow ? "" : "display: none;"}
+						>
+							<Achievements achievement={ach} />
+						</div>
+					);
+				})
+			}
 		</div>
 		<SubHeader tag="h1" text="Recent articles">
 			<!-- TODO: Replace href with util to build search URL -->

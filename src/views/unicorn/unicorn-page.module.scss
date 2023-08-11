@@ -3,8 +3,6 @@
 .container {
 	padding: var(--site-spacing);
 	width: 100%;
-	/* TODO: Double-check with Ed, this says max-width_l in specs, but it's clearly not */
-	max-width: var(--max-width_xl);
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -18,7 +16,19 @@
 	}
 }
 
-.achivementsContainer {
+.contentContainer {
+	margin: 0 auto;
+
+	@include from($desktopSmall) {
+		max-width: var(--max-width_l);
+	}
+
+	@include from($desktopLarge) {
+		max-width: var(--max-width_xl);
+	}
+}
+
+.achievementsContainer {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: var(--site-spacing);
