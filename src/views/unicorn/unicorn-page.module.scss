@@ -10,7 +10,7 @@
 	gap: 0;
 
 	@include from($desktopSmall) {
-		grid-template-columns: auto auto;
+		grid-template-columns: auto 1fr;
 		grid-template-rows: 1fr;
 		gap: var(--site-spacing);
 	}
