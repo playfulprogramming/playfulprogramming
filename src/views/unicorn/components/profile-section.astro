@@ -17,25 +17,27 @@ const iconSize = 20;
 
 <div class={styles.container}>
 	<div class={styles.cardContainer}>
-		<div>
+		<div class={styles.nameAndDesc}>
 			<UUPicture
 				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
 				alt={unicorn.name}
 				class={styles.authorImage}
 			/>
-			<div class={styles.nameAndPronouns}>
-				<h1 class={`text-style-headline-4 ${styles.name}`}>{unicorn.name}</h1>
-				{
-					unicorn.pronouns && (
-						<h1 class={`text-style-body-medium-bold ${styles.pronouns}`}>
-							{unicorn.pronouns}
-						</h1>
-					)
-				}
+			<div>
+				<div class={styles.nameAndPronouns}>
+					<h1 class={`text-style-headline-4 ${styles.name}`}>{unicorn.name}</h1>
+					{
+						unicorn.pronouns && (
+							<h1 class={`text-style-body-medium-bold ${styles.pronouns}`}>
+								{unicorn.pronouns}
+							</h1>
+						)
+					}
+				</div>
+				<p class={`text-style-body-medium ${styles.bio}`}>
+					{unicorn.description}
+				</p>
 			</div>
-			<p class={`text-style-body-medium ${styles.bio}`}>
-				{unicorn.description}
-			</p>
 		</div>
 		<div class={styles.socialLinkContainer}>
 			{
@@ -145,7 +147,9 @@ const iconSize = 20;
 								alt={`A ${role.prettyname} sticker icon`}
 								class={`${styles.rolePic}`}
 							/>
-							<span class={`text-style-body-small-bold ${styles.roleName}`}>{role.prettyname}</span>
+							<span class={`text-style-body-small-bold ${styles.roleName}`}>
+								{role.prettyname}
+							</span>
 						</div>
 					);
 				})

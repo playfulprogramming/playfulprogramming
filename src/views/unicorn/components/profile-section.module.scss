@@ -51,12 +51,28 @@
 		border-radius: var(--corner-radius_circular);
 		height: var(--profile_avatar_size);
 		width: var(--profile_avatar_size);
-		margin-right: var(--profile_avatar_margin-end);
+		margin-bottom: var(--profile_avatar_margin-end);
+
+		@include from($tabletSmall) {
+			margin-right: var(--profile_avatar_margin-end);
+			margin-bottom: unset;
+		}
 
 		@include from($desktopSmall) {
-			margin-bottom: var(--profile_avatar_margin-end);
 			margin-right: unset;
+			margin-bottom: var(--profile_avatar_margin-end);
 		}
+	}
+}
+
+.nameAndDesc {
+@include from($tabletSmall) {
+	display: flex;
+	align-items: center;
+}
+
+	@include from($desktopSmall) {
+		display: unset;
 	}
 }
 
@@ -127,7 +143,6 @@
 	gap: var(--spc-2x);
 	padding: var(--spc-1x) var(--spc-4x) var(--spc-1x) var(--spc-2x);
 }
-
 
 @include from($desktopSmall) {
 	.role {
