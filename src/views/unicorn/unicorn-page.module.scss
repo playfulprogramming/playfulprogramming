@@ -14,6 +14,10 @@
 		grid-template-rows: 1fr;
 		gap: var(--site-spacing);
 	}
+
+	@include from($desktopLarge) {
+		max-width: var(--max-width_xl);
+	}
 }
 
 .contentContainer {
@@ -21,10 +25,6 @@
 
 	@include from($desktopSmall) {
 		max-width: var(--max-width_l);
-	}
-
-	@include from($desktopLarge) {
-		max-width: var(--max-width_xl);
 	}
 }
 
