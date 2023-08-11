@@ -4,7 +4,7 @@
   description: "A high-level overview of how hash tables work behind the scenes.",
   published: '2023-07-03',
   authors: ["richarddprasad"],
-  tags: ["hash tables", "data structures"],
+  tags: ["computer science"],
   license: 'cc-by-nc-nd-4'
 }
 ---

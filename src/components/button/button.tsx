@@ -4,7 +4,7 @@ import { JSX } from "preact";
 import { forwardRef } from "preact/compat";
 import { useMemo } from "preact/hooks";
 
-type AllowedTags = "a" | "button";
+type AllowedTags = "a" | "button" | "span" | "div";
 
 type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	{
@@ -12,13 +12,21 @@ type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 		class?: string;
 		leftIcon?: JSXNode;
 		rightIcon?: JSXNode;
+		// For when the user is _actually_ focused on another element, like react-aria radio buttons
+		isFocusVisible?: boolean;
 		variant?:
 			| "primary-emphasized"
 			| "secondary-emphasized"
 			| "primary"
 			| "secondary";
 	} & JSX.HTMLAttributes<
-		Tag extends "a" ? HTMLAnchorElement : HTMLButtonElement
+		Tag extends "a"
+			? HTMLAnchorElement
+			: Tag extends "div"
+			? HTMLDivElement
+			: Tag extends "span"
+			? HTMLSpanElement
+			: HTMLButtonElement
 	>
 >;
 
@@ -31,17 +39,34 @@ const ButtonWrapper = forwardRef(
 			variant = "primary",
 			leftIcon,
 			rightIcon,
+			isFocusVisible,
 			...props
 		}: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
+		ref: Ref<
+			T extends "a"
+				? HTMLAnchorElement
+				: T extends "div"
+				? HTMLDivElement
+				: T extends "span"
+				? HTMLSpanElement
+				: HTMLButtonElement
+		>,
 	) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const Wrapper: any = tag;
 
 		return (
 			<Wrapper
 				{...props}
 				aria-label={props["aria-label"]}
-				class={["button", className, variant].filter((c) => !!c).join(" ")}
+				class={[
+					"button",
+					isFocusVisible ? "focusVisible" : "",
+					className,
+					variant,
+				]
+					.filter((c) => !!c)
+					.join(" ")}
 				ref={ref}
 			>
 				{leftIcon && <div class="buttonIcon">{leftIcon}</div>}

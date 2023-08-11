@@ -84,7 +84,7 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	return newUnicorn;
 });
 
-function getCollections(): Array<CollectionInfo> {
+function getCollections(): CollectionInfo[] {
 	const slugs = fs.readdirSync(collectionsDirectory).filter(isNotJunk);
 	const collections = slugs.flatMap((slug) => {
 		const files = fs
@@ -132,14 +132,13 @@ function getCollections(): Array<CollectionInfo> {
 				locale: locales[i],
 				coverImgMeta,
 				authorsMeta,
-			};
+			} as Omit<CollectionInfo, "posts"> as CollectionInfo;
 		});
 	});
-
 	return collections;
 }
 
-const collections = getCollections();
+let collections = getCollections();
 
 function getPosts(): Array<PostInfo> {
 	const slugs = fs.readdirSync(postsDirectory).filter(isNotJunk);
@@ -228,6 +227,11 @@ const tags = [
 		return set;
 	}, new Set<string>()),
 ];
+
+collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
+	...collection,
+	posts: posts.filter((post) => post.collection === collection.slug),
+})) as CollectionInfo[];
 
 export {
 	aboutRaw as about,

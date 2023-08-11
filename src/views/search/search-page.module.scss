@@ -1,0 +1,22 @@
+@import "src/tokens/index";
+
+// TODO: Remove when the headerbar sticks properly
+:global(#header-bar) {
+	top: 0;
+	position: sticky;
+	background: var(--background_primary);
+	z-index: 1;
+	padding-top: var(--spc-4x);
+	margin-top: 0 !important;
+}
+
+.fullPageContainer {
+	display: flex;
+}
+
+.mainContents {
+	margin: 0 auto;
+	width: 100%;
+	max-width: var(--max-width_l);
+	padding: var(--site-spacing);
+}

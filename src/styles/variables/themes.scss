@@ -1,5 +1,7 @@
 // Light theme
-:root {
+:root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
+::backdrop {
 	--primary_default: var(--primary40);
 	--primary_on-default: var(--primary95);
 	--primary_variant: var(--primary80);
@@ -51,50 +53,53 @@
 html.dark,
 body.dark,
 .darkTheme {
-	--primary_default: var(--primary80);
-	--primary_on-default: var(--primary10);
-	--primary_variant: var(--primary40);
-	--primary_on-variant: var(--primary95);
-	--primary_high-contrast: var(--primary80);
-	--primary_high-contrast_hovered: var(--primary70);
-	--primary_high-contrast_pressed: var(--primary60);
-	--secondary_default: var(--secondary80);
-	--secondary_on-default: var(--secondary10);
-	--secondary_variant: var(--secondary40);
-	--secondary_on-variant: var(--secondary95);
-	--secondary_high-contrast: var(--secondary80);
-	--secondary_high-contrast_hovered: var(--secondary70);
-	--secondary_high-contrast_pressed: var(--secondary60);
-	--error_default: var(--error80);
-	--error_on-default: var(--error10);
-	--error_variant: var(--error40);
-	--error_on-variant: var(--error95);
-	--error_high-contrast: var(--error80);
-	--error_high-contrast_hovered: var(--error70);
-	--error_high-contrast_pressed: var(--error60);
-	--surface_primary_emphasis-high: var(--primary40);
-	--surface_primary_emphasis-medium: var(--primary40_64);
-	--surface_primary_emphasis-low: var(--primary40_32);
-	--surface_primary_emphasis-none: var(--primary40_16);
-	--surface_secondary_emphasis-high: var(--secondary40);
-	--surface_secondary_emphasis-medium: var(--secondary40_64);
-	--surface_secondary_emphasis-low: var(--secondary40_32);
-	--surface_secondary_emphasis-none: var(--secondary40_16);
-	--surface_error_emphasis-high: var(--error40);
-	--surface_error_emphasis-medium: var(--error40_64);
-	--surface_error_emphasis-low: var(--error40_32);
-	--surface_error_emphasis-none: var(--error40_16);
-	--background_primary: var(--primary10);
-	--background_secondary: var(--secondary10);
-	--background_error: var(--error10);
-	--background_focus: var(--black);
-	--background_disabled: var(--neutral95_12);
-	--foreground_emphasis-high: var(--neutral95);
-	--foreground_emphasis-medium: var(--neutral95_64);
-	--foreground_emphasis-low: var(--neutral95_32);
-	--foreground_emphasis-none: var(--neutral95_12);
-	--foreground_disabled: var(--neutral95_48);
-	--focus-outline_primary: var(--primary80);
-	--focus-outline_secondary: var(--secondary80);
-	--focus-outline_error: var(--error80);
+	&,
+	& ::backdrop {
+		--primary_default: var(--primary80);
+		--primary_on-default: var(--primary10);
+		--primary_variant: var(--primary40);
+		--primary_on-variant: var(--primary95);
+		--primary_high-contrast: var(--primary80);
+		--primary_high-contrast_hovered: var(--primary70);
+		--primary_high-contrast_pressed: var(--primary60);
+		--secondary_default: var(--secondary80);
+		--secondary_on-default: var(--secondary10);
+		--secondary_variant: var(--secondary40);
+		--secondary_on-variant: var(--secondary95);
+		--secondary_high-contrast: var(--secondary80);
+		--secondary_high-contrast_hovered: var(--secondary70);
+		--secondary_high-contrast_pressed: var(--secondary60);
+		--error_default: var(--error80);
+		--error_on-default: var(--error10);
+		--error_variant: var(--error40);
+		--error_on-variant: var(--error95);
+		--error_high-contrast: var(--error80);
+		--error_high-contrast_hovered: var(--error70);
+		--error_high-contrast_pressed: var(--error60);
+		--surface_primary_emphasis-high: var(--primary40);
+		--surface_primary_emphasis-medium: var(--primary40_64);
+		--surface_primary_emphasis-low: var(--primary40_32);
+		--surface_primary_emphasis-none: var(--primary40_16);
+		--surface_secondary_emphasis-high: var(--secondary40);
+		--surface_secondary_emphasis-medium: var(--secondary40_64);
+		--surface_secondary_emphasis-low: var(--secondary40_32);
+		--surface_secondary_emphasis-none: var(--secondary40_16);
+		--surface_error_emphasis-high: var(--error40);
+		--surface_error_emphasis-medium: var(--error40_64);
+		--surface_error_emphasis-low: var(--error40_32);
+		--surface_error_emphasis-none: var(--error40_16);
+		--background_primary: var(--primary10);
+		--background_secondary: var(--secondary10);
+		--background_error: var(--error10);
+		--background_focus: var(--black);
+		--background_disabled: var(--neutral95_12);
+		--foreground_emphasis-high: var(--neutral95);
+		--foreground_emphasis-medium: var(--neutral95_64);
+		--foreground_emphasis-low: var(--neutral95_32);
+		--foreground_emphasis-none: var(--neutral95_12);
+		--foreground_disabled: var(--neutral95_48);
+		--focus-outline_primary: var(--primary80);
+		--focus-outline_secondary: var(--secondary80);
+		--focus-outline_error: var(--error80);
+	}
 }

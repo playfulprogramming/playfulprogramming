@@ -187,7 +187,8 @@
 		background-color: var(--btn_primary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible {
+	&:focus-visible,
+	&.focusVisible {
 		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
 			var(--btn_primary_focus-oultine_color);
 	}
@@ -205,7 +206,8 @@
 		background-color: var(--btn_secondary_background-color_emphasized_hovered);
 	}
 
-	&:focus-visible {
+	&:focus-visible,
+	&.focusVisible {
 		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
 			var(--btn_secondary_focus-oultine_color);
 	}
@@ -223,7 +225,8 @@
 		background-color: var(--btn_primary_background-color_default_hovered);
 	}
 
-	&:focus-visible {
+	&:focus-visible,
+	&.focusVisible {
 		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
 			var(--btn_primary_focus-oultine_color);
 	}
@@ -241,7 +244,8 @@
 		background-color: var(--btn_secondary_background-color_default_hovered);
 	}
 
-	&:focus-visible {
+	&:focus-visible,
+	&.focusVisible {
 		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
 			var(--btn_secondary_focus-oultine_color);
 	}

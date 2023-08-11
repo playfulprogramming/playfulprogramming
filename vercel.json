@@ -1,5 +1,4 @@
 {
-	"devCommand": "npm run dev",
 	"cleanUrls": true,
 	"redirects": [
 		{

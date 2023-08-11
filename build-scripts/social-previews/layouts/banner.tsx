@@ -3,18 +3,29 @@ import { readFileAsBase64 } from "../utils";
 import { ComponentProps, Layout } from "../base";
 import style from "./banner-css";
 import classnames from "classnames";
+import path from "path";
 
 const tagStickers: Record<string, string> = {
-	default: readFileAsBase64("public/stickers/role_devops.png"),
-	"html,webdev": readFileAsBase64("public/stickers/html.png"),
-	vue: readFileAsBase64("public/stickers/vue.png"),
-	"documentation,opinion": readFileAsBase64("public/stickers/role_author.png"),
-	"computer science,bash,javascript": readFileAsBase64(
-		"public/stickers/role_developer.png",
+	default: readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/role_devops.svg"),
 	),
-	design: readFileAsBase64("public/stickers/role_designer.png"),
-	rust: readFileAsBase64("public/stickers/ferris.png"),
-	git: readFileAsBase64("public/stickers/git.png"),
+	"html,webdev": readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/html.svg"),
+	),
+	vue: readFileAsBase64(path.join(process.cwd(), "public/stickers/vue.svg")),
+	"documentation,opinion": readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/role_author.svg"),
+	),
+	"computer science,bash,javascript": readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/role_developer.svg"),
+	),
+	design: readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/role_designer.svg"),
+	),
+	rust: readFileAsBase64(
+		path.join(process.cwd(), "public/stickers/ferris.svg"),
+	),
+	git: readFileAsBase64(path.join(process.cwd(), "public/stickers/git.svg")),
 };
 
 function BannerCodeScreen({

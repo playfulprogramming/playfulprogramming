@@ -1,5 +1,5 @@
 import { MarkdownInstance } from "astro";
-import { Languages } from "types/index";
+import { Languages, PostInfo } from "types/index";
 import { UnicornInfo } from "./UnicornInfo";
 
 export interface RawCollectionInfo {
@@ -33,6 +33,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
+	posts: PostInfo[];
 }
 
 export interface ExtendedCollectionInfo extends CollectionInfo {

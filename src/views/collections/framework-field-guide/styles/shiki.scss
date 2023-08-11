@@ -18,7 +18,9 @@ code .line::before {
 
 :root,
 .darkTheme {
-	&, & .shiki, &.shiki {
+	&,
+	& .shiki,
+	&.shiki {
 		--cardActiveBackground: #163954;
 		--white: black;
 		--textColor: var(--on-dark-emphasis-medium);

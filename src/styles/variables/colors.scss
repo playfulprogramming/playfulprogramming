@@ -1,4 +1,6 @@
-:root {
+:root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
+::backdrop {
 	--white: #fff;
 	--black: #000;
 	--transparent: rgba(255, 255, 255, 0);

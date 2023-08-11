@@ -1,0 +1,200 @@
+{
+	"accessibility": {
+		"displayName": "Accessibility",
+		"emoji": "♿"
+	},
+	"android": {
+		"displayName": "Android",
+		"image": "/stickers/android.svg"
+	},
+	"angular": {
+		"displayName": "Angular",
+		"image": "/stickers/angular.svg"
+	},
+	"announcements": {
+		"displayName": "Announcements",
+		"emoji": "📢"
+	},
+	"astro": {
+		"displayName": "Astro",
+		"image": "/stickers/astro.svg"
+	},
+	"auth": {
+		"displayName": "Auth",
+		"emoji": "🔐"
+	},
+	"bash": {
+		"displayName": "Bash",
+		"image": "/stickers/bash.svg"
+	},
+	"chrome": {
+		"displayName": "Chrome",
+		"image": "/stickers/chrome.svg"
+	},
+	"computer science": {
+		"displayName": "Computer Science",
+		"emoji": "🖥️"
+	},
+	"copilot": {
+		"displayName": "GitHub Copilot",
+		"image": "/stickers/copilot.svg"
+	},
+	"cpp": {
+		"displayName": "C++",
+		"image": "/stickers/cpp.svg"
+	},
+	"csharp": {
+		"displayName": "C#",
+		"image": "/stickers/csharp.svg"
+	},
+	"css": {
+		"displayName": "CSS",
+		"image": "/stickers/css.svg"
+	},
+	"design": {
+		"displayName": "Design",
+		"emoji": "🎨"
+	},
+	"documentation": {
+		"displayName": "Documentation",
+		"emoji": "📖"
+	},
+	"dotnet": {
+		"displayName": ".NET",
+		"image": "/stickers/dotnet.svg"
+	},
+	"git": {
+		"displayName": "Git",
+		"image": "/stickers/git.svg"
+	},
+	"go": {
+		"displayName": "Go",
+		"image": "/stickers/go.svg"
+	},
+	"hardware": {
+		"displayName": "Hardware",
+		"emoji": "🔌"
+	},
+	"history": {
+		"displayName": "History",
+		"emoji": "📜"
+	},
+	"html": {
+		"displayName": "HTML",
+		"image": "/stickers/html.svg"
+	},
+	"interviewing": {
+		"displayName": "Interviewing",
+		"emoji": "🤝"
+	},
+	"java": {
+		"displayName": "Java",
+		"image": "/stickers/java.svg"
+	},
+	"javascript": {
+		"displayName": "JavaScript",
+		"image": "/stickers/javascript.svg"
+	},
+	"jest": {
+		"displayName": "Jest",
+		"image": "/stickers/jest.svg"
+	},
+	"linux": {
+		"displayName": "Linux",
+		"image": "/stickers/linux.svg"
+	},
+	"lit": {
+		"displayName": "Lit",
+		"image": "/stickers/lit.svg"
+	},
+	"mongodb": {
+		"displayName": "MongoDB",
+		"image": "/stickers/mongodb.svg"
+	},
+	"networking": {
+		"displayName": "Networking",
+		"emoji": "🔌"
+	},
+	"nextjs": {
+		"displayName": "Next.js",
+		"image": "/stickers/nextjs.svg"
+	},
+	"nodejs": {
+		"displayName": "Node.js",
+		"image": "/stickers/node.svg"
+	},
+	"npm": {
+		"displayName": "npm",
+		"image": "/stickers/npm.svg"
+	},
+	"opinion": {
+		"displayName": "Opinion",
+		"emoji": "🧠"
+	},
+	"python": {
+		"displayName": "Python",
+		"image": "/stickers/python.svg"
+	},
+	"react": {
+		"displayName": "React",
+		"image": "/stickers/react.svg"
+	},
+	"react native": {
+		"displayName": "React Native",
+		"image": "/stickers/react.svg"
+	},
+	"rust": {
+		"displayName": "Rust",
+		"image": "/stickers/ferris.svg"
+	},
+	"scully": {
+		"displayName": "Scully",
+		"image": "/stickers/scully.svg"
+	},
+	"security": {
+		"displayName": "Security",
+		"emoji": "🔒"
+	},
+	"slack": {
+		"displayName": "Slack",
+		"image": "/stickers/slack.svg"
+	},
+	"ssg": {
+		"displayName": "Static Site Generation (SSG)"
+	},
+	"ssr": {
+		"displayName": "Static Site Rendering (SSR)"
+	},
+	"testing": {
+		"displayName": "Testing",
+		"emoji": "🧪"
+	},
+	"tools": {
+		"displayName": "Tools",
+		"emoji": "🔧"
+	},
+	"twitch": {
+		"displayName": "Twitch",
+		"image": "/stickers/twitch.svg"
+	},
+	"typescript": {
+		"displayName": "TypeScript",
+		"image": "/stickers/typescript.svg"
+	},
+	"unity": {
+		"displayName": "Unity",
+		"image": "/stickers/unity.svg"
+	},
+	"vue": {
+		"displayName": "Vue",
+		"image": "/stickers/vue.svg"
+	},
+	"webdev": {
+		"displayName": "Web Development",
+		"emoji": "🌐"
+	},
+	"windows": {
+		"displayName": "Windows",
+		"image": "/stickers/windows.svg"
+	}
+}
