@@ -19,7 +19,8 @@
  * <!-- filetree:end -->
  */
 import { toString } from "hast-util-to-string";
-import type { Element, HChild } from "hastscript/lib/core";
+import type { Child as HChild } from "hastscript";
+import { Element } from "hast";
 import { visit } from "unist-util-visit";
 import replaceAllBetween from "unist-util-replace-all-between";
 import { Node } from "unist";
@@ -93,7 +94,7 @@ export const rehypeFileTree = () => {
 					);
 					comment.push(...commentNodes);
 
-					const firstChildTextContent = toString(firstChild);
+					const firstChildTextContent = toString(firstChild as never);
 
 					// Decide a node is a directory if it ends in a `/` or contains another list.
 					const directoryNode = otherChildren.find(

@@ -16,7 +16,7 @@ export const rehypeHeaderText = () => {
 				node.properties &&
 				!hasProperty(node, "data-header-text")
 			) {
-				const headerText = toString(node);
+				const headerText = toString(node as never);
 				node.properties["data-header-text"] = headerText;
 
 				const headingWithID = {

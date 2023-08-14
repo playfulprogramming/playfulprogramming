@@ -100,7 +100,7 @@ export const rehypeTabs: Plugin<[], Root> = () => {
 
 					tabs.push({
 						slug: headerSlug,
-						name: toString(localNode),
+						name: toString(localNode as never),
 						contents: [],
 						headers: [],
 					});

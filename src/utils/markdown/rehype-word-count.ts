@@ -5,7 +5,7 @@
  *
  * Not much me.
  *
- * See, it's concieved that ye might have intreging definitions from one-to-another
+ * See, it's conceived that ye might have intriguing definitions from one-to-another
  *
  * This is to say: "What is a word?"
  *
@@ -20,7 +20,6 @@
  * Please do let us know if you have strong thoughts/answers on the topic,
  * we're happy to hear them.
  */
-import { Root, Parent, Text } from "hast";
 import { Node } from "unist";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
@@ -29,6 +28,7 @@ import { unified } from "unified";
 import english from "retext-english";
 import rehypeRetext from "rehype-retext";
 import { AstroVFile } from "utils/markdown/types";
+import { Root } from "hast";
 
 interface RemarkCountProps {}
 
@@ -87,7 +87,7 @@ export const rehypeWordCount: Plugin<[RemarkCountProps | never], Root> = () => {
 
 		await unified()
 			.use(rehypeRetext, unified().use(english).use(count(counts)))
-			.run(tree);
+			.run(tree as never);
 
 		file.data.astro.frontmatter.wordCount =
 			(counts.InlineCodeWords || 0) + (counts.WordNode || 0);

@@ -20,7 +20,7 @@ export const rehypeHeadingLinks: Plugin<[], Root> = () => {
 			// create an absolute link icon adjacent to the header contents
 			const hastHeader = HeaderLink({
 				slug: node.properties.id.toString(),
-				title: toString(node),
+				title: toString(node as never),
 			});
 
 			node.children = [hastHeader, ...node.children];

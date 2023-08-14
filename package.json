@@ -114,6 +114,7 @@
 		"unist-util-replace-all-between": "^0.1.1",
 		"unist-util-visit": "^5.0.0",
 		"vercel": "^31.2.3",
+		"@types/hast": "^3.0.0",
 		"vite-plugin-svgr": "^3.2.0"
 	},
 	"lint-staged": {
