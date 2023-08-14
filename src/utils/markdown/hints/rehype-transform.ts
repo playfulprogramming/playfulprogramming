@@ -25,7 +25,7 @@ export const rehypeHints: Plugin<[], Root> = () => {
 			const summaryNode = node.children.find(isNodeSummary);
 
 			parent.children[index] = Hint({
-				title: toString(summaryNode),
+				title: toString(summaryNode as never),
 				children: node.children.filter((e) => !isNodeSummary(e)),
 			});
 		});

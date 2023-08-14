@@ -34,7 +34,7 @@ export const rehypeTooltips: Plugin<[], Root> = () => {
 				!(
 					firstText?.type === "element" &&
 					["strong", "em"].includes(firstText.tagName) &&
-					toString(firstText).endsWith(":")
+					toString(firstText as never).endsWith(":")
 				)
 			)
 				return;
@@ -44,7 +44,7 @@ export const rehypeTooltips: Plugin<[], Root> = () => {
 
 			parent.children[index] = Tooltip({
 				icon: firstText.tagName === "em" ? "warning" : "info",
-				title: toString(firstText).replace(/:$/, ""),
+				title: toString(firstText as never).replace(/:$/, ""),
 				children: node.children,
 			});
 		});

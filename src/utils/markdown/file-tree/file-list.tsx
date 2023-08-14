@@ -1,6 +1,6 @@
 /** @jsxRuntime automatic */
 import { Node, Element } from "hast";
-import type { HChild } from "hastscript/lib/core";
+import type { Child as HChild } from "hastscript";
 import { fromHtml } from "hast-util-from-html";
 import { getIcon } from "./file-tree-icons";
 import { toString } from "hast-util-to-string";
