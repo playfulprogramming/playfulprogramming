@@ -29,6 +29,7 @@
 	}
 
 	@include from($desktopSmall) {
+		--search-hero_container_max-width: var(--max-width_m);
 		--search-hero_icon_size: calc(var(--icon-size_regular) * 3);
 	}
 }
@@ -46,9 +47,12 @@
 	margin-top: calc(
 		calc(var(--search-hero_image_size) / 2) +
 			var(--search-hero_image_border_width) + var(--site-spacing)
-		);
+	);
 	text-align: center;
 	box-sizing: content-box;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--search-hero_container_max-width);
 
 	display: flex;
 	flex-direction: column;
