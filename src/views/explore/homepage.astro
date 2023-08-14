@@ -9,6 +9,7 @@ import { CollectionCard } from "components/collection-card/collection-card";
 import { SubHeader } from "../../components/subheader/subheader";
 import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
+import styles from "./homepage.module.scss";
 
 export interface HomepageProps {
 	posts: PostInfo[];
@@ -38,7 +39,7 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
 	</SubHeader>
 
-	<div class="grid grid-tablet-2 grid-desktopSmall-3">
+	<div class={styles.collectionsGrid}>
 		{
 			collections.map((collection) => (
 				<CollectionCard

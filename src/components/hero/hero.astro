@@ -16,9 +16,7 @@ import * as data from "src/utils/data";
 		<p class={`text-style-body-large-bold ${style.bannerTextShadow}`}>
 			{translate(Astro, "desc.homepage_extra")}
 		</p>
-		<div
-			class={`grid grid-tablet-2 grid-desktopSmall-1 grid-desktop-2 ${style.buttons}`}
-		>
+		<div class={style.buttons}>
 			<LargeButton
 				variant="primary-emphasized"
 				href={data.about.links.Discord.url}

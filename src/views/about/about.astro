@@ -10,11 +10,11 @@ import TranslationsHeader from "../base/translations/translations-header.astro";
 
 const about = getTranslatedPage(
 	Astro,
-	await Astro.glob("../../../content/site/about-us*.md")
+	await Astro.glob("../../../content/site/about-us*.md"),
 );
 const sponsors = getTranslatedPage(
 	Astro,
-	await Astro.glob("../../../content/site/sponsors*.md")
+	await Astro.glob("../../../content/site/sponsors*.md"),
 );
 ---
 
@@ -60,7 +60,7 @@ const sponsors = getTranslatedPage(
 		<sponsors.page.Content />
 
 		<h2>{translate(Astro, "title.contributors")}</h2>
-		<div class="grid grid-tablet-2">
+		<div class={style.unicorns}>
 			{
 				data.unicorns.map((unicornInfo) => (
 					<ContributorCard unicorn={unicornInfo} />

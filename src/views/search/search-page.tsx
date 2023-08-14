@@ -339,7 +339,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					Boolean(data.collections.length) && (
 						<Fragment>
 							<SubHeader tag="h1" text="Collections" />
-							<div className="grid grid-tablet-2 grid-desktopSmall-3">
+							<div className={style.collectionsGrid}>
 								{data.collections.map((collection) => (
 									<CollectionCard
 										unicornProfilePicMap={unicornProfilePicMap}

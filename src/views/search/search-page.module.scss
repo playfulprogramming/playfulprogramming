@@ -20,3 +20,12 @@
 	max-width: var(--max-width_l);
 	padding: var(--site-spacing);
 }
+
+.collectionsGrid {
+	display: grid;
+	gap: var(--site-spacing);
+
+	@include from($tabletLarge) {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	}
+}
