@@ -17,13 +17,22 @@ afterAll(() => server.close());
 
 function mockFetch(fn: (searchStr: string) => ServerReturnType) {
 	server.use(
-		rest.get<ServerReturnType>(
-			`/api/search`,
-			async (req, res, ctx) => {
-				const searchString = req.url.searchParams.get("query");
-				return res(ctx.json(fn(searchString)));
-			},
-		),
+		rest.get<ServerReturnType>(`/api/search`, async (req, res, ctx) => {
+			const searchString = req.url.searchParams.get("query");
+			return res(ctx.json(fn(searchString)));
+		}),
+	);
+}
+
+function mockFetchWithStatus(
+	status: number,
+	fn: (searchStr: string) => unknown,
+) {
+	server.use(
+		rest.get<never>(`/api/search`, async (req, res, ctx) => {
+			const searchString = req.url.searchParams.get("query");
+			return res(ctx.status(status), ctx.json(fn(searchString)));
+		}),
 	);
 }
 
@@ -51,7 +60,23 @@ describe("Search page", () => {
 		await waitFor(() => expect(getByText(MockPost.title)).toBeInTheDocument());
 	});
 
-	test.todo("Should show error with 500");
+	test("Should show error screen when 500", async () => {
+		mockFetchWithStatus(500, () => ({
+			error: "There was an error fetching your search results.",
+		}));
+		const { getByText, getByLabelText, debug, getByTestId } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, MockPost.title);
+		await user.type(searchInput, "{enter}");
+		await waitFor(() =>
+			expect(
+				getByText("There was an error fetching your search results."),
+			).toBeInTheDocument(),
+		);
+	});
+
 	test.todo("Should show 'nothing found'");
 	test.todo("Remove collections header when none found");
 	test.todo("Remove posts header when none found");

@@ -98,7 +98,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			return fetch(`/api/search?query=${debouncedSearch}`, {
 				signal: signal,
 				method: "GET",
-			}).then((res) => res.json() as Promise<ServerReturnType>);
+			}).then((res) => {
+				if (!res.ok) {
+					return res.text().then((text) => Promise.reject(text));
+				}
+				return res.json() as Promise<ServerReturnType>;
+			});
 		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
@@ -108,6 +113,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			totalCollections: 0,
 		} as ServerReturnType,
 		refetchOnWindowFocus: false,
+		retry: false,
 		enabled,
 	});
 
@@ -297,10 +303,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
-				{isContentLoading && (
+				{!isError && isContentLoading && (
 					<p className={"text-style-headline-1"}>Loading...</p>
 				)}
-				{noResults && (
+				{!isError && noResults && (
 					<SearchHero
 						imageSrc={sadUnicorn.src}
 						imageAlt={""}
