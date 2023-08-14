@@ -45,8 +45,8 @@
 	);
 	margin-top: calc(
 		calc(var(--search-hero_image_size) / 2) +
-			var(--search-hero_image_border_width)
-	);
+			var(--search-hero_image_border_width) + var(--site-spacing)
+		);
 	text-align: center;
 	box-sizing: content-box;
 
