@@ -1,6 +1,6 @@
 ---
 import { getImage } from "@astrojs/image";
-import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
+import unicornSticker from "assets/unicorn_utterances_sticker.svg";
 import { getStickers } from "../../utils/get-stickers";
 import styles from "./banner-stickers-group.module.scss";
 
@@ -24,14 +24,6 @@ const stickerTransforms = [
 	};
 });
 
-const unicornImage = await getImage({
-	src: unicornSticker,
-	height: 190,
-	aspectRatio: 512 / 541,
-	alt: "",
-	format: "png",
-});
-
 const props = Astro.props as { class: string; unicornClass: string };
 ---
 
@@ -43,8 +35,9 @@ const props = Astro.props as { class: string; unicornClass: string };
 	}
 
 	<img
+		src={unicornSticker.src}
 		height="190"
-		src={unicornImage.src}
+		width="190"
 		class={styles.unicornLogo}
 		style="position: absolute; left: 47.81%; top: 26.67%;"
 		alt=""

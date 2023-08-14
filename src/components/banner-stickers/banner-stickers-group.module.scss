@@ -20,6 +20,19 @@
 	}
 }
 
+.sticker1,
+.sticker2,
+.sticker3,
+.sticker4,
+.sticker5,
+.sticker6,
+.sticker7,
+.sticker8,
+.sticker9,
+.unicornLogo {
+	filter: var(--shadow_sticker_drop_shadow);
+}
+
 .sticker1 {
 	left: 4%;
 	top: 50%;
