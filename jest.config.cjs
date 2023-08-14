@@ -1,4 +1,5 @@
 const { resolve } = require("path");
+require('whatwg-fetch');
 
 // Add any custom config to be passed to Jest
 module.exports = {

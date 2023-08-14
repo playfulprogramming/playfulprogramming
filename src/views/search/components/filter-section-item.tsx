@@ -23,6 +23,7 @@ export const FilterSectionItem = ({
 	const props = {
 		isSelected: selected,
 		onChange: onChange,
+		"aria-label": label,
 	};
 
 	const state = useToggleState(props);

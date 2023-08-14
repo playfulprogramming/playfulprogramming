@@ -3,7 +3,10 @@
 
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
+require("whatwg-fetch");
 require("@testing-library/jest-dom/jest-globals");
+
+global.plausible = null;
 
 global.IntersectionObserver = class IntersectionObserver {
 	constructor() {}

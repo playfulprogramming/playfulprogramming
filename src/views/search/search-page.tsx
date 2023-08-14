@@ -48,7 +48,7 @@ interface SearchPageProps {
 
 const MAX_POSTS_PER_PAGE = 6;
 
-interface ServerReturnType {
+export interface ServerReturnType {
 	posts: PostInfo[];
 	totalPosts: number;
 	collections: ExtendedCollectionInfo[];
@@ -97,6 +97,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 			return fetch(`/api/search?query=${debouncedSearch}`, {
 				signal: signal,
+				method: "GET",
 			}).then((res) => res.json() as Promise<ServerReturnType>);
 		},
 		queryKey: ["search", debouncedSearch],
@@ -353,7 +354,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					!isContentLoading &&
 					showArticles &&
 					Boolean(data.posts.length) && (
-						<Fragment>
+						<div data-testid={"HI"}>
 							<SubHeader tag="h1" text="Articles" />
 							<PostCardGrid
 								listAriaLabel={"List of search result posts"}
@@ -374,7 +375,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 									return `${window.location.pathname}?${pageParams.toString()}`;
 								}}
 							/>
-						</Fragment>
+						</div>
 					)}
 			</div>
 		</SearchTag>

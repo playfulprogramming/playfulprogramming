@@ -16,10 +16,8 @@ export const Picture = ({
 }: PictureProps) => {
 	return (
 		<picture class={`${className || ""}`}>
-			{picture.sources.map((attrs) => (
-				<source {...attrs} />
-			))}
-			<img {...(picture.image as any)} {...imgAttrs} alt={alt} />
+			{picture?.sources.map((attrs) => <source {...attrs} />)}
+			<img {...((picture?.image as any) ?? {})} {...imgAttrs} alt={alt} />
 		</picture>
 	);
 };

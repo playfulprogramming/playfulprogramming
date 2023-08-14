@@ -41,6 +41,7 @@ export const SearchTopbar = ({
 			>
 				<SearchInput
 					id="search-bar"
+					aria-label="Search"
 					class={style.searchbar}
 					usedInPreact={true}
 					value={search}
