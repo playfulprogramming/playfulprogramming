@@ -1,57 +1,45 @@
 ---
 import { getImage } from "@astrojs/image";
-import unicornSticker from "assets/unicorn_utterances_sticker_512.png";
-import { getStickers } from "./banner-stickers";
+import unicornSticker from "assets/unicorn_utterances_sticker.svg";
+import { getStickers } from "../../utils/get-stickers";
+import styles from "./banner-stickers-group.module.scss";
 
-const STICKER_TRANSFORMS = [
-	"translate(190, 51) scale(0.8)",
-	"translate(298, 0) rotate(15)",
-	"translate(80, 22) rotate(4) scale(1.2)",
-	"translate(140, 127) rotate(5) scale(0.9)",
-	"translate(70, 170) scale(0.8)",
-	"translate(187, 194) rotate(8)",
-	"translate(110, 230) rotate(-4) scale(0.9)",
-	"translate(268, 229) rotate(6)",
-	"translate(360, 210) scale(0.8)",
-];
+const stickers = getStickers().sort(() => 0.5 - Math.random());
 
-const stickers = (await getStickers()).sort(() => 0.5 - Math.random());
-
-// we can't use JSX for these since Astro changes `<image>` tags into `<img>`, breaking the SVG
-const stickerHtml = STICKER_TRANSFORMS.map((transform) => ({
-	...stickers.pop(),
-	transform,
-}))
-	.map(
-		(sticker) => `
-	<image width="64" height="64" xlink:href="${sticker.src}" transform="${sticker.transform}"></image>
-`
-	)
-	.join("");
-
-const unicornImage = await getImage({
-	src: unicornSticker,
-	width: 512,
-	height: 541,
-	alt: "",
-	format: "png",
+const stickerTransforms = [
+	styles.sticker1,
+	styles.sticker2,
+	styles.sticker3,
+	styles.sticker4,
+	styles.sticker5,
+	styles.sticker6,
+	styles.sticker7,
+	styles.sticker8,
+	styles.sticker9,
+].map((className) => {
+	let sticker = stickers.pop();
+	return {
+		...sticker,
+		className,
+	};
 });
 
-const props = Astro.props as { class: string };
+const props = Astro.props as { class: string; unicornClass: string };
 ---
 
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	viewBox="0 0 418 300"
-	class={props.class}
-	aria-hidden="true"
->
-	<g set:html={stickerHtml} />
+<div class={props.class} aria-hidden="true">
+	{
+		stickerTransforms.map((sticker) => (
+			<img src={sticker.src} class={sticker.className} alt="" />
+		))
+	}
 
-	<image
-		width="128"
-		height="135"
-		xlink:href={unicornImage.src}
-		transform="translate(250, 80)"
+	<img
+		src={unicornSticker.src}
+		height="190"
+		width="190"
+		class={styles.unicornLogo}
+		style="position: absolute; left: 47.81%; top: 26.67%;"
+		alt=""
 	/>
-</svg>
+</div>

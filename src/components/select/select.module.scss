@@ -47,7 +47,7 @@
 	padding: var(--popup_padding);
 	border-radius: var(--popup_corner-radius);
 	background-color: var(--popup_background-color);
-	box-shadow: var(--shadow_popup_light);
+	box-shadow: var(--shadow_popup);
 }
 
 .option {
@@ -100,5 +100,5 @@
 	border-radius: var(--popup_corner-radius);
 	padding: var(--popup_padding);
 	background: var(--popup_background-color);
-	box-shadow: var(--shadow_popup_light);
+	box-shadow: var(--shadow_popup);
 }
