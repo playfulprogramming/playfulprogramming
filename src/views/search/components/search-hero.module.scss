@@ -102,11 +102,20 @@
 .sticker6,
 .sticker7,
 .sticker8 {
+	--sticker_timing: 300ms ease-in-out;
+	z-index: 1;
 	position: absolute;
 	height: 24px;
 	width: 24px;
 	object-fit: contain;
 	filter: var(--shadow_sticker_drop_shadow);
+	transition:
+		height var(--sticker_timing),
+		width var(--sticker_timing),
+		left var(--sticker_timing),
+		top var(--sticker_timing),
+		right var(--sticker_timing),
+		transform var(--sticker_timing);
 
 	@include from($tabletSmall) {
 		height: 48px;
@@ -120,39 +129,81 @@
 }
 
 .sticker1 {
+	left: 2%;
+	top: 0%;
+	transform: rotate(-4deg) translateY(-38%);
+}
+
+@include from($tabletSmall) {
+	.sticker1 {
+		left: 2%;
+		top: 0%;
+		transform: rotate(-4deg) translateY(-38%);
+	}
 }
 
 @include from($desktopSmall) {
 	.sticker1 {
-		left:  2%;
+		left: 2%;
 		top: 0%;
 		transform: rotate(-4deg) translateY(-38%);
 	}
 }
 
 .sticker2 {
+	left: calc(30% - calc(var(--search-hero_image_size) / 2));
+	top: 10%;
+	transform: rotate(6deg);
+}
+
+@include from($tabletSmall) {
+	.sticker2 {
+		left: calc(27% - calc(var(--search-hero_image_size) / 2));
+		top: 10%;
+		transform: rotate(6deg);
+	}
 }
 
 @include from($desktopSmall) {
 	.sticker2 {
-		left:  16%;
+		left: 16%;
 		top: 0%;
-		transform: rotate(6deg)  translateY(-68%);
+		transform: rotate(6deg) translateY(-68%);
 	}
 }
 
 .sticker3 {
+	left: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 0%;
+	transform: rotate(-15deg) translateY(-35%);
+}
+
+@include from($tabletSmall) {
+	.sticker3 {
+		left: calc(38% - calc(var(--search-hero_image_size) / 2));
+		top: 0%;
+		transform: rotate(-15deg) translateY(-35%);
+	}
 }
 
 @include from($desktopSmall) {
 	.sticker3 {
-		left:  30%;
-		top:0%;
+		left: 30%;
+		top: 0%;
 		transform: rotate(-15deg) translateY(-2%);
 	}
 }
 
 .sticker4 {
+	left: 5%;
+	top: 22%;
+}
+
+@include from($tabletSmall) {
+	.sticker4 {
+		left: 5%;
+		top: 32%;
+	}
 }
 
 @include from($desktopSmall) {
@@ -163,6 +214,19 @@
 }
 
 .sticker5 {
+	right: 30%;
+	right: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 20%;
+	transform: rotate(-8deg);
+}
+
+@include from($tabletSmall) {
+	.sticker5 {
+		right: 30%;
+		right: calc(38% - calc(var(--search-hero_image_size) / 2));
+		top: 20%;
+		transform: rotate(-8deg);
+	}
 }
 
 @include from($desktopSmall) {
@@ -174,17 +238,39 @@
 }
 
 .sticker6 {
+	right: calc(38% - calc(var(--search-hero_image_size) / 2));
+	top: 0%;
+	transform: rotate(-8deg) translateY(-63%);
+}
+
+@include from($tabletSmall) {
+	.sticker6 {
+		right: 20%;
+		top: 0%;
+		transform: rotate(-8deg) translateY(-63%);
+	}
 }
 
 @include from($desktopSmall) {
 	.sticker6 {
 		right: 20%;
 		top: 0%;
-		transform: rotate(-8deg)   translateY(-63%);
+		transform: rotate(-8deg) translateY(-63%);
 	}
 }
 
 .sticker7 {
+	right: 6%;
+	top: 0;
+	transform: rotate(5deg) translateY(-42%);
+}
+
+@include from($tabletSmall) {
+	.sticker7 {
+		right: 6%;
+		top: 0;
+		transform: rotate(5deg) translateY(-42%);
+	}
 }
 
 @include from($desktopSmall) {
@@ -196,6 +282,15 @@
 }
 
 .sticker8 {
+	right: 4%;
+	top: 30%;
+}
+
+@include from($tabletSmall) {
+	.sticker8 {
+		right: 4%;
+		top: 30%;
+	}
 }
 
 @include from($desktopSmall) {
