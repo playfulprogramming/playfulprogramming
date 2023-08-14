@@ -13,7 +13,7 @@ export interface PostGridProps {
 export function PostCardGrid({ postsToDisplay, ...props }: PostGridProps) {
 	return (
 		<ul
-			class={`grid grid-tablet-2 ${style.list}`}
+			class={style.list}
 			aria-label={props.listAriaLabel}
 			role="list"
 			id="post-list-container"
