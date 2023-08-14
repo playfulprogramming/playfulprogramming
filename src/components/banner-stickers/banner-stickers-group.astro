@@ -17,7 +17,7 @@ const stickerTransforms = [
 	styles.sticker8,
 	styles.sticker9,
 ].map((className) => {
-	let sticker = stickers.pop();
+	const sticker = stickers.pop();
 	return {
 		...sticker,
 		className,

@@ -90,3 +90,117 @@
 .buttons > :global(.button) {
 	min-width: 320px;
 }
+
+/**
+ * Stickers :)
+ */
+.sticker1,
+.sticker2,
+.sticker3,
+.sticker4,
+.sticker5,
+.sticker6,
+.sticker7,
+.sticker8 {
+	position: absolute;
+	height: 24px;
+	width: 24px;
+	object-fit: contain;
+	filter: var(--shadow_sticker_drop_shadow);
+
+	@include from($tabletSmall) {
+		height: 48px;
+		width: 48px;
+	}
+
+	@include from($desktopSmall) {
+		height: 72px;
+		width: 72px;
+	}
+}
+
+.sticker1 {
+}
+
+@include from($desktopSmall) {
+	.sticker1 {
+		left:  2%;
+		top: 0%;
+		transform: rotate(-4deg) translateY(-38%);
+	}
+}
+
+.sticker2 {
+}
+
+@include from($desktopSmall) {
+	.sticker2 {
+		left:  16%;
+		top: 0%;
+		transform: rotate(6deg)  translateY(-68%);
+	}
+}
+
+.sticker3 {
+}
+
+@include from($desktopSmall) {
+	.sticker3 {
+		left:  30%;
+		top:0%;
+		transform: rotate(-15deg) translateY(-2%);
+	}
+}
+
+.sticker4 {
+}
+
+@include from($desktopSmall) {
+	.sticker4 {
+		left: 5%;
+		top: 32%;
+	}
+}
+
+.sticker5 {
+}
+
+@include from($desktopSmall) {
+	.sticker5 {
+		right: 30%;
+		top: 20%;
+		transform: rotate(-8deg);
+	}
+}
+
+.sticker6 {
+}
+
+@include from($desktopSmall) {
+	.sticker6 {
+		right: 20%;
+		top: 0%;
+		transform: rotate(-8deg)   translateY(-63%);
+	}
+}
+
+.sticker7 {
+}
+
+@include from($desktopSmall) {
+	.sticker7 {
+		right: 6%;
+		top: 0;
+		transform: rotate(5deg) translateY(-42%);
+	}
+}
+
+.sticker8 {
+}
+
+@include from($desktopSmall) {
+	.sticker8 {
+		right: 4%;
+		top: 30%;
+	}
+}
