@@ -13,6 +13,7 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
+import { useElementSize } from "../../../hooks/use-element-size";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -27,6 +28,7 @@ interface FilterSidebar {
 	authors: ExtendedUnicorn[];
 	onSelectedAuthorChange: (authorId: string) => void;
 	onTagsChange: (tag: string) => void;
+	searchString: string;
 }
 
 export const FilterSidebar = ({
@@ -42,9 +44,20 @@ export const FilterSidebar = ({
 	authors,
 	tags,
 	unicornProfilePicMap,
+	searchString,
 }: FilterSidebar) => {
+	const { setEl, size } = useElementSize({ includeMargin: false });
+
+	const hideSearchbar = !searchString;
 	return (
-		<div className={styles.sidebarContainer} style={desktopStyle}>
+		<div
+			ref={setEl}
+			className={`${styles.sidebarContainer}`}
+			style={{
+				...desktopStyle,
+				marginLeft: hideSearchbar ? `calc(0px - ${size.width}px)` : "",
+			}}
+		>
 			<LargeButton
 				tag="button"
 				type="button"

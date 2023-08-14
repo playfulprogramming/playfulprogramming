@@ -1,4 +1,10 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from "preact/hooks";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useState,
+} from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
 import { PostInfo } from "types/PostInfo";
 import { useSearchParams } from "./use-search-params";
@@ -19,6 +25,12 @@ import { CollectionCard } from "components/collection-card/collection-card";
 import { FilterDisplay } from "./components/filter-display";
 import { useElementSize } from "../../hooks/use-element-size";
 import { SearchTopbar } from "./components/search-topbar";
+import { SearchHero } from "./components/search-hero";
+import { LargeButton } from "components/button/button";
+import retry from "src/icons/refresh.svg?raw";
+import sadUnicorn from "../../assets/unicorn_sad.svg";
+import happyUnicorn from "../../assets/unicorn_happy.svg";
+import scaredUnicorn from "../../assets/unicorn_scared.svg";
 
 const SEARCH_QUERY_KEY = "searchQuery";
 const SEARCH_PAGE_KEY = "searchPage";
@@ -77,7 +89,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const enabled = !!debouncedSearch;
 
-	const { isLoading, isFetching, isError, error, data } = useQuery({
+	const { isLoading, isFetching, isError, error, data, refetch } = useQuery({
 		queryFn: ({ signal }) => {
 			// Analytics go brr
 			plausible &&
@@ -97,6 +109,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		refetchOnWindowFocus: false,
 		enabled,
 	});
+
+	useEffect(() => {
+		if (error) {
+			console.error("There was an error", { error });
+		}
+	}, [error]);
 
 	const isContentLoading = isLoading || isFetching;
 
@@ -238,6 +256,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	const [isFilterDialogOpen, setFilterIsDialogOpen] = useState(false);
 
+	const noResults =
+		enabled &&
+		!isContentLoading &&
+		posts.length === 0 &&
+		showArticles &&
+		data.collections.length === 0 &&
+		showCollections;
+
 	return (
 		<SearchTag className={style.fullPageContainer}>
 			<FilterDisplay
@@ -257,6 +283,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					top: headerHeight,
 					position: "sticky",
 				}}
+				searchString={search}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
@@ -272,53 +299,83 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				{isContentLoading && (
 					<p className={"text-style-headline-1"}>Loading...</p>
 				)}
-				{isError && <p className={"text-style-headline-1"}>Error: {error}</p>}
+				{noResults && (
+					<SearchHero
+						imageSrc={sadUnicorn.src}
+						imageAlt={""}
+						title={"No results found..."}
+						description={"Please adjust your query or your active filters!"}
+					/>
+				)}
+				{isError && (
+					<SearchHero
+						imageSrc={scaredUnicorn.src}
+						imageAlt={""}
+						title={"There was an error fetching your search results."}
+						description={"Please adjust your query or try again."}
+						buttons={
+							<LargeButton
+								onClick={() => refetch()}
+								leftIcon={<span dangerouslySetInnerHTML={{ __html: retry }} />}
+							>
+								Retry
+							</LargeButton>
+						}
+					/>
+				)}
 				{!enabled && (
-					<p className={"text-style-headline-1"}>Type something to search</p>
+					<SearchHero
+						imageSrc={happyUnicorn.src}
+						imageAlt={""}
+						title={"What would you like to find?"}
+						description={
+							"Search for your favorite framework or most loved language; we'll share what we know."
+						}
+					/>
 				)}
-				{enabled && !isContentLoading && showCollections && (
-					<Fragment>
-						<SubHeader tag="h1" text="Collections" />
-						<div className="grid grid-tablet-2 grid-desktopSmall-3">
-							{data.collections.map((collection) => (
-								<CollectionCard
-									unicornProfilePicMap={unicornProfilePicMap}
-									collection={collection}
-								/>
-							))}
-						</div>
-						{data.collections.length === 0 && (
-							<p className="text-style-headline-3">No results found.</p>
-						)}
-					</Fragment>
-				)}
-				{enabled && !isContentLoading && showArticles && (
-					<Fragment>
-						<SubHeader tag="h1" text="Articles" />
-						<PostCardGrid
-							listAriaLabel={"List of search result posts"}
-							postsToDisplay={posts}
-							unicornProfilePicMap={unicornProfilePicMap}
-						/>
-						{posts.length === 0 && (
-							<p className="text-style-headline-3">No results found.</p>
-						)}
-						<Pagination
-							softNavigate={(href) => {
-								pushState(href);
-							}}
-							page={{
-								currentPage: page,
-								lastPage: lastPage,
-							}}
-							getPageHref={(pageNum) => {
-								const pageParams = new URLSearchParams(urlParams);
-								pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-								return `${window.location.pathname}?${pageParams.toString()}`;
-							}}
-						/>
-					</Fragment>
-				)}
+				{enabled &&
+					!isContentLoading &&
+					showCollections &&
+					Boolean(data.collections.length) && (
+						<Fragment>
+							<SubHeader tag="h1" text="Collections" />
+							<div className="grid grid-tablet-2 grid-desktopSmall-3">
+								{data.collections.map((collection) => (
+									<CollectionCard
+										unicornProfilePicMap={unicornProfilePicMap}
+										collection={collection}
+									/>
+								))}
+							</div>
+						</Fragment>
+					)}
+				{enabled &&
+					!isContentLoading &&
+					showArticles &&
+					Boolean(data.posts.length) && (
+						<Fragment>
+							<SubHeader tag="h1" text="Articles" />
+							<PostCardGrid
+								listAriaLabel={"List of search result posts"}
+								postsToDisplay={posts}
+								unicornProfilePicMap={unicornProfilePicMap}
+							/>
+							<Pagination
+								softNavigate={(href) => {
+									pushState(href);
+								}}
+								page={{
+									currentPage: page,
+									lastPage: lastPage,
+								}}
+								getPageHref={(pageNum) => {
+									const pageParams = new URLSearchParams(urlParams);
+									pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+									return `${window.location.pathname}?${pageParams.toString()}`;
+								}}
+							/>
+						</Fragment>
+					)}
 			</div>
 		</SearchTag>
 	);

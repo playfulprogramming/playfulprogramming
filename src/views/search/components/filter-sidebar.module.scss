@@ -11,6 +11,7 @@
 		var(--search-page_filter_sidebar_padding-end)
 		var(--search-page_filter_sidebar_padding-bottom)
 		var(--search-page_filter_sidebar_padding-start);
+	transition: margin-left 300ms ease-in-out;
 }
 
 .jumpToContents {
