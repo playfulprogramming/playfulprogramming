@@ -84,6 +84,7 @@ export const FilterSidebar = ({
 			</RadioButtonGroup>
 			<FilterSection
 				title={"Tag"}
+				data-testid="tag-filter-section-sidebar"
 				selectedNumber={selectedTags.length}
 				onClear={() => setSelectedTags([])}
 			>
@@ -111,6 +112,7 @@ export const FilterSidebar = ({
 			</FilterSection>
 			<FilterSection
 				title={"Author"}
+				data-testid="author-filter-section-sidebar"
 				selectedNumber={selectedAuthorIds.length}
 				onClear={() => setSelectedAuthorIds([])}
 			>
