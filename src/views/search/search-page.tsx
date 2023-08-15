@@ -345,7 +345,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					showCollections &&
 					Boolean(data.collections.length) && (
 						<Fragment>
-							<SubHeader tag="h1" text="Collections" />
+							<SubHeader tag="h1" text="Collections" data-testid="collections-header" />
 							<div className={style.collectionsGrid}>
 								{data.collections.map((collection) => (
 									<CollectionCard
@@ -360,8 +360,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					!isContentLoading &&
 					showArticles &&
 					Boolean(data.posts.length) && (
-						<div data-testid={"HI"}>
-							<SubHeader tag="h1" text="Articles" />
+						<Fragment>
+							<SubHeader tag="h1" text="Articles" data-testid="articles-header" />
 							<PostCardGrid
 								listAriaLabel={"List of search result posts"}
 								postsToDisplay={posts}
@@ -381,7 +381,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 									return `${window.location.pathname}?${pageParams.toString()}`;
 								}}
 							/>
-						</div>
+						</Fragment>
 					)}
 			</div>
 		</SearchTag>
