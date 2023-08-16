@@ -2,9 +2,11 @@
 import {
 	fireEvent,
 	findByText as findByTextFrom,
+	queryByText as queryByTextFrom,
 	render,
 	waitFor,
 	cleanup,
+	queryByText,
 } from "@testing-library/preact";
 import SearchPage, { ServerReturnType } from "./search-page";
 import { rest } from "msw";
@@ -464,7 +466,137 @@ describe("Search page", () => {
 		);
 	});
 
-	test.todo("Pagination - Filters impact pagination");
+	test("Pagination - Filters impact pagination", async () => {
+		global.innerWidth = 2000;
+		// 6 posts per page
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-1`,
+					title: "One blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-2`,
+					title: "Two blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-3`,
+					title: "Three blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-4`,
+					title: "Four blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-5`,
+					title: "Five blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-6`,
+					title: "Six blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-7`,
+					title: "Seven blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-8`,
+					title: "Eight blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-9`,
+					title: "Nine blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-10`,
+					title: "Ten blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-11`,
+					title: "Eleven blog post",
+				},
+				{
+					...MockPost,
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-12`,
+					title: "Twelve blog post",
+				},
+			],
+			totalPosts: 12,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const {
+			findByTestId,
+			getByText,
+			getByLabelText,
+			getByTestId,
+			queryByText,
+		} = render(<SearchPage unicornProfilePicMap={[]} />);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		const container = await findByTestId("pagination");
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() =>
+			expect(getByText("Four blog post")).toBeInTheDocument(),
+		);
+
+		expect(await findByTextFrom(container, "2")).toBeInTheDocument();
+
+		const authorContainer = getByTestId("author-filter-section-sidebar");
+
+		const author = await findByTextFrom(authorContainer, MockUnicorn.name);
+
+		await user.click(author);
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() =>
+			expect(queryByText("Five blog post")).not.toBeInTheDocument(),
+		);
+
+		await waitFor(() =>
+			expect(queryByTextFrom(container, "2")).not.toBeInTheDocument(),
+		);
+	});
 
 	// Search page, sort order, etc
 	test.todo("Make sure that initial search props are not thrown away");
