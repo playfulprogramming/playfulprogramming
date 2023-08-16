@@ -280,12 +280,128 @@ describe("Search page", () => {
 
 		await user.click(collections);
 
-		await waitFor(() => expect(getByText("One collection")).toBeInTheDocument());
+		await waitFor(() =>
+			expect(getByText("One collection")).toBeInTheDocument(),
+		);
 		expect(queryByTestId("One blog post")).not.toBeInTheDocument();
 	});
 
-	test.todo("Sort by date works on desktop radio group buttons");
-	test.todo("Sort by date works on mobile radio group buttons");
+	test("Sort by date works on desktop radio group buttons", async () => {
+		global.innerWidth = 2000;
+
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					published: "2022-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2022",
+					title: "One blog post",
+				},
+				{
+					...MockCanonicalPost,
+					published: "2021-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2021",
+					title: "Two blog post",
+				},
+			],
+			totalPosts: 2,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByTestId, getByText, getByLabelText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		const container = getByTestId("sort-order-group-sidebar");
+
+		const newest = await findByTextFrom(container, "Newest");
+
+		await user.click(newest);
+
+		await waitFor(() => {
+			const html = document.body.innerHTML;
+			const a = html.search("One blog post");
+			const b = html.search("Two blog post");
+			expect(a).toBeLessThan(b);
+		});
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		expect(getByText("Two blog post")).toBeInTheDocument();
+
+		const oldest = await findByTextFrom(container, "Oldest");
+
+		await user.click(oldest);
+
+		await waitFor(() => {
+			const html = document.body.innerHTML;
+			const a = html.search("Two blog post");
+			const b = html.search("One blog post");
+			expect(a).toBeLessThan(b);
+		});
+	});
+
+	test("Sort by date works on mobile radio group buttons", async () => {
+		global.innerWidth = 500;
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					published: "2022-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2022",
+					title: "One blog post",
+				},
+				{
+					...MockCanonicalPost,
+					published: "2021-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2021",
+					title: "Two blog post",
+				},
+			],
+			totalPosts: 2,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByTestId, getByText, getByLabelText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		const container = getByTestId("sort-order-group-topbar");
+
+		const newest = await findByTextFrom(container, "Newest");
+
+		await user.click(newest);
+
+		await waitFor(() => {
+			const html = document.body.innerHTML;
+			const a = html.search("One blog post");
+			const b = html.search("Two blog post");
+			expect(a).toBeLessThan(b);
+		});
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		expect(getByText("Two blog post")).toBeInTheDocument();
+
+		const oldest = await findByTextFrom(container, "Oldest");
+
+		await user.click(oldest);
+
+		await waitFor(() => {
+			const html = document.body.innerHTML;
+			const a = html.search("Two blog post");
+			const b = html.search("One blog post");
+			expect(a).toBeLessThan(b);
+		});
+	});
 
 	// Changing pages to page 2 shows second page of results
 	test.todo("Pagination works");
@@ -294,6 +410,8 @@ describe("Search page", () => {
 	test.todo("Make sure that initial search props are not thrown away");
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
+		global.innerWidth = 2000;
+
 		mockFetch(() => ({
 			posts: [
 				{

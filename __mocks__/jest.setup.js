@@ -25,3 +25,19 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 global.React = require("preact");
+
+// https://github.com/jsdom/jsdom/issues/3294
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.show = jest.fn(function mock() {
+	this.open = true;
+});
+
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.showModal = jest.fn(function mock() {
+	this.open = true;
+});
+
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.close = jest.fn(function mock() {
+	this.open = false;
+});

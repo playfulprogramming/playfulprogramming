@@ -129,7 +129,7 @@
 		"@astrojs/vercel": "^3.8.1",
 		"@tanstack/react-query": "^4.32.6",
 		"medium-zoom": "^1.0.8",
-		"preact": "^10.16.0",
+		"preact": "^10.17.0",
 		"react-aria": "^3.27.0",
 		"react-stately": "^3.25.0"
 	},
