@@ -1129,5 +1129,35 @@ describe("Search page", () => {
 		);
 	});
 
-	test.todo("Back button should show last query");
+	test("Back button should show last query", async () => {
+		mockFetch(() => ({
+			posts: [],
+			totalPosts: 0,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByTestId, getByText, getByLabelText, queryByText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "blog");
+
+		await waitFor(() =>
+			expect(getByText("No results found...")).toBeInTheDocument(),
+		);
+
+		await user.type(searchInput, "other");
+
+		await waitFor(() =>
+			expect(window.location.search).toBe("?searchQuery=blogother"),
+		);
+
+		history.back();
+
+		await waitFor(() =>
+			expect(window.location.search).toBe("?searchQuery=blog"),
+		);
+	});
 });
