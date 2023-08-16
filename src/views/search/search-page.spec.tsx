@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import {
 	fireEvent,
 	findByText as findByTextFrom,
@@ -253,5 +254,77 @@ describe("Search page", () => {
 
 	// Search page, sort order, etc
 	test.todo("Make sure that initial search props are not thrown away");
-	test.todo("Make sure that complete re-renders preserve tags, authors, etc");
+
+	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					tags: ["Angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+					title: "One blog post",
+				},
+				{
+					...MockCanonicalPost,
+					tags: [],
+					authors: [MockUnicornTwo.id],
+					authorsMeta: [MockUnicornTwo],
+					title: "Two blog post",
+				},
+			],
+			totalPosts: 2,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		var { getByTestId, getByText, getByLabelText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		var searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() => expect(getByText("Two blog post")).toBeInTheDocument());
+
+		var tagContainer = getByTestId("tag-filter-section-sidebar");
+
+		const tag = await findByTextFrom(tagContainer, "Angular");
+
+		await user.click(tag);
+
+		var authorContainer = getByTestId("author-filter-section-sidebar");
+
+		const author = await findByTextFrom(authorContainer, MockUnicorn.name);
+
+		await user.click(author);
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+
+		cleanup();
+
+		// Re-render
+		var { getByTestId, getByText, getByLabelText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		var searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		var tagContainer = getByTestId("tag-filter-section-sidebar");
+		var authorContainer = getByTestId("author-filter-section-sidebar");
+
+		expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
+		expect(await findByTextFrom(authorContainer, MockUnicorn.name)).toBeInTheDocument();
+	});
+
+	test.todo(
+		"Make sure that re-searches reset page to 1 and preserve tags, authors, etc",
+	);
+	test.todo(
+		"Make sure that re-searches to empty string reset page, tags, authors, etc",
+	);
 });
