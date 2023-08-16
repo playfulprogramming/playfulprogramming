@@ -3,6 +3,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 	useMemo,
+	useRef,
 	useState,
 } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
@@ -69,8 +70,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const setSearch = useMemo(() => {
 		const updateUrl = debounce(
-			(str: string) => {
-				pushState({ key: SEARCH_QUERY_KEY, val: str });
+			(str: string, dontUpdateSearchURL = false) => {
+				if (!dontUpdateSearchURL) {
+					pushState({ key: SEARCH_QUERY_KEY, val: str });
+				}
 				pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 				if (!str) {
 					// Remove tags and authors when no value is present
@@ -82,11 +85,21 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			false,
 		);
 
-		return (str: string) => {
+		return (str: string, dontUpdateSearchURL = false) => {
 			_setSearch(str);
 			updateUrl(str);
 		};
 	}, [pushState]);
+
+	const searchRef = useRef(search);
+	searchRef.current = search;
+
+	useEffect(() => {
+		const urlSearchVal = urlParams.get(SEARCH_QUERY_KEY);
+		if (urlSearchVal && urlSearchVal !== searchRef.current) {
+			setSearch(urlSearchVal, true);
+		}
+	}, [urlParams, setSearch]);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
