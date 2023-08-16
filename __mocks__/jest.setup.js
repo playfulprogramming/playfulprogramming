@@ -5,6 +5,7 @@
 // Learn more: https://github.com/testing-library/jest-dom
 require("whatwg-fetch");
 require("@testing-library/jest-dom/jest-globals");
+import "jest-location-mock";
 
 global.plausible = null;
 

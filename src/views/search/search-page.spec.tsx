@@ -18,6 +18,7 @@ import {
 	MockUnicorn,
 	MockUnicornTwo,
 } from "../../../__mocks__/data/mock-unicorn";
+import { buildSearchQuery } from "utils/search";
 
 const user = userEvent.setup();
 
@@ -599,7 +600,160 @@ describe("Search page", () => {
 	});
 
 	// Search page, sort order, etc
-	test.todo("Make sure that initial search props are not thrown away");
+	test("Make sure that initial search props are not thrown away", async () => {
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-1`,
+					title: "One blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-2`,
+					title: "Two blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-3`,
+					title: "Three blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-4`,
+					title: "Four blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-5`,
+					title: "Five blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-6`,
+					title: "Six blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-7`,
+					title: "Seven blog post",
+					published: "2090-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2090",
+				},
+				{
+					...MockPost,
+					tags: ["react"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-8`,
+					title: "Eight blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicornTwo],
+					authors: [MockUnicornTwo.id],
+					slug: `blog-post-9`,
+					title: "Nine blog post",
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					tags: ["angular"],
+					authorsMeta: [MockUnicorn],
+					authors: [MockUnicorn.id],
+					slug: `blog-post-10`,
+					title: "Ten blog post",
+					published: "2020-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2020",
+				},
+			],
+			totalPosts: 7,
+			totalCollections: 0,
+			collections: [
+				{
+					...MockCollection,
+					title: "One collection",
+				},
+			],
+		}));
+
+		const searchQuery = buildSearchQuery({
+			searchQuery: "blog",
+			searchPage: 2,
+			contentToDisplay: "articles",
+			filterTags: ["angular"],
+			filterAuthors: [MockUnicorn.id],
+			sort: "oldest",
+		});
+
+		window.location.assign(`?${searchQuery}`);
+
+		const { getByTestId, getByText, getByLabelText, queryByText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		// Persists search query
+		const searchInput = getByLabelText("Search");
+		expect(searchInput).toHaveValue("blog");
+
+		// Persists page
+		await waitFor(() => expect(getByText("Seven blog post")).toBeInTheDocument());
+		expect(queryByText("One blog post")).not.toBeInTheDocument();
+
+		// Persists content type
+		expect(queryByText("One collection")).not.toBeInTheDocument();
+
+		// Persists tags
+		expect(queryByText("Eight blog post")).not.toBeInTheDocument();
+
+		// Persists authors
+		expect(queryByText("Nine blog post")).not.toBeInTheDocument();
+
+		// Persists sort order
+		await waitFor(() => {
+			const html = document.body.innerHTML;
+			const a = html.search("Ten blog post");
+			const b = html.search("Seven blog post");
+			expect(a).toBeLessThan(b);
+		});
+	});
 
 	test("Make sure that complete re-renders preserve tags, authors, etc", async () => {
 		global.innerWidth = 2000;

@@ -31,13 +31,14 @@ import retry from "src/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
-
-const SEARCH_QUERY_KEY = "searchQuery";
-const SEARCH_PAGE_KEY = "searchPage";
-const CONTENT_TO_DISPLAY_KEY = "display";
-const FILTER_TAGS_KEY = "filterTags";
-const FILTER_AUTHOR_KEY = "filterAuthors";
-const SORT_KEY = "sort";
+import {
+	SEARCH_QUERY_KEY,
+	SEARCH_PAGE_KEY,
+	CONTENT_TO_DISPLAY_KEY,
+	FILTER_TAGS_KEY,
+	FILTER_AUTHOR_KEY,
+	SORT_KEY,
+} from "../../utils/search";
 
 const DEFAULT_SORT = "newest";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
