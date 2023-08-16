@@ -3,7 +3,19 @@
 
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
+require("whatwg-fetch");
 require("@testing-library/jest-dom/jest-globals");
+import "jest-location-mock";
+
+global.plausible = null;
+
+window.history.pushState = (data, unused, url) => {
+	window.location.assign(url);
+};
+
+window.history.replaceState = (data, unused, url) => {
+	window.location.assign(url);
+};
 
 global.IntersectionObserver = class IntersectionObserver {
 	constructor() {}
@@ -22,3 +34,19 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 global.React = require("preact");
+
+// https://github.com/jsdom/jsdom/issues/3294
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.show = jest.fn(function mock() {
+	this.open = true;
+});
+
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.showModal = jest.fn(function mock() {
+	this.open = true;
+});
+
+// eslint-disable-next-line no-undef
+HTMLDialogElement.prototype.close = jest.fn(function mock() {
+	this.open = false;
+});

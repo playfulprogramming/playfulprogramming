@@ -31,13 +31,14 @@ import retry from "src/icons/refresh.svg?raw";
 import sadUnicorn from "../../assets/unicorn_sad.svg";
 import happyUnicorn from "../../assets/unicorn_happy.svg";
 import scaredUnicorn from "../../assets/unicorn_scared.svg";
-
-const SEARCH_QUERY_KEY = "searchQuery";
-const SEARCH_PAGE_KEY = "searchPage";
-const CONTENT_TO_DISPLAY_KEY = "display";
-const FILTER_TAGS_KEY = "filterTags";
-const FILTER_AUTHOR_KEY = "filterAuthors";
-const SORT_KEY = "sort";
+import {
+	SEARCH_QUERY_KEY,
+	SEARCH_PAGE_KEY,
+	CONTENT_TO_DISPLAY_KEY,
+	FILTER_TAGS_KEY,
+	FILTER_AUTHOR_KEY,
+	SORT_KEY,
+} from "../../utils/search";
 
 const DEFAULT_SORT = "newest";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
@@ -48,15 +49,12 @@ interface SearchPageProps {
 
 const MAX_POSTS_PER_PAGE = 6;
 
-interface ServerReturnType {
+export interface ServerReturnType {
 	posts: PostInfo[];
 	totalPosts: number;
 	collections: ExtendedCollectionInfo[];
 	totalCollections: number;
 }
-
-// https://github.com/preactjs/preact/issues/4091
-const SearchTag = "search" as unknown as "div";
 
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
@@ -97,7 +95,13 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 			return fetch(`/api/search?query=${debouncedSearch}`, {
 				signal: signal,
-			}).then((res) => res.json() as Promise<ServerReturnType>);
+				method: "GET",
+			}).then((res) => {
+				if (!res.ok) {
+					return res.text().then((text) => Promise.reject(text));
+				}
+				return res.json() as Promise<ServerReturnType>;
+			});
 		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
@@ -107,6 +111,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			totalCollections: 0,
 		} as ServerReturnType,
 		refetchOnWindowFocus: false,
+		retry: false,
 		enabled,
 	});
 
@@ -238,8 +243,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 * Calculate the last page based on the number of posts.
 	 */
 	const lastPage = useMemo(
-		() => Math.ceil(posts.length / MAX_POSTS_PER_PAGE),
-		[posts],
+		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
+		[filteredAndSortedPosts],
 	);
 
 	/**
@@ -265,7 +270,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		showCollections;
 
 	return (
-		<SearchTag className={style.fullPageContainer}>
+		<div className={style.fullPageContainer} role="search">
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -296,10 +301,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
-				{isContentLoading && (
+				{!isError && isContentLoading && (
 					<p className={"text-style-headline-1"}>Loading...</p>
 				)}
-				{noResults && (
+				{!isError && noResults && (
 					<SearchHero
 						imageSrc={sadUnicorn.src}
 						imageAlt={""}
@@ -338,7 +343,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					showCollections &&
 					Boolean(data.collections.length) && (
 						<Fragment>
-							<SubHeader tag="h1" text="Collections" />
+							<SubHeader
+								tag="h1"
+								text="Collections"
+								data-testid="collections-header"
+							/>
 							<div className={style.collectionsGrid}>
 								{data.collections.map((collection) => (
 									<CollectionCard
@@ -354,13 +363,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					showArticles &&
 					Boolean(data.posts.length) && (
 						<Fragment>
-							<SubHeader tag="h1" text="Articles" />
+							<SubHeader
+								tag="h1"
+								text="Articles"
+								data-testid="articles-header"
+							/>
 							<PostCardGrid
 								listAriaLabel={"List of search result posts"}
 								postsToDisplay={posts}
 								unicornProfilePicMap={unicornProfilePicMap}
 							/>
 							<Pagination
+								testId="pagination"
 								softNavigate={(href) => {
 									pushState(href);
 								}}
@@ -377,7 +391,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						</Fragment>
 					)}
 			</div>
-		</SearchTag>
+		</div>
 	);
 }
 

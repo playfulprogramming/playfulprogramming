@@ -18,4 +18,5 @@ export interface PaginationProps {
 	rootURL?: string;
 	getPageHref?: (pageNum: number) => string;
 	softNavigate?: (href: string) => void;
+	testId?: string;
 }

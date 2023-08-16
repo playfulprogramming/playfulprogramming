@@ -3,8 +3,9 @@ import { useState } from "preact/hooks";
 import { useElementSize } from "../../../hooks/use-element-size";
 import styles from "./filter-section.module.scss";
 import { Chip } from "components/chip/chip";
+import { HTMLAttributes } from "preact/compat";
 
-interface FilterSectionProps {
+interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	title: string;
 	selectedNumber: number;
 	onClear: () => void;
@@ -19,6 +20,7 @@ export const FilterSection = ({
 	onClear,
 	class: className = "",
 	className: classNameName = "",
+	...props
 }: PropsWithChildren<FilterSectionProps>) => {
 	const [collapsed, setCollapsed] = useState(false);
 
@@ -36,6 +38,7 @@ export const FilterSection = ({
 
 	return (
 		<div
+			{...props}
 			className={`${styles.section} ${
 				collapsed ? "" : styles.sectionExpanded
 			} ${className} ${classNameName}`}

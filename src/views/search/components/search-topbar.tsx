@@ -41,6 +41,7 @@ export const SearchTopbar = ({
 			>
 				<SearchInput
 					id="search-bar"
+					aria-label="Search"
 					class={style.searchbar}
 					usedInPreact={true}
 					value={search}
@@ -61,6 +62,7 @@ export const SearchTopbar = ({
 			</form>
 			<div className={`${style.dividerLine} ${style.topBarDivider}`} />
 			<RadioButtonGroup
+				testId={"content-to-display-group-topbar"}
 				className={style.topBarButtonsContentToDisplay}
 				value={contentToDisplay}
 				label={"Content to display"}
@@ -100,6 +102,7 @@ export const SearchTopbar = ({
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
 				<RadioButtonGroup
+					testId={"sort-order-group-topbar"}
 					className={style.topBarSmallTabletButtonsToggle}
 					value={sort}
 					label={"Sort order"}
