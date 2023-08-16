@@ -9,6 +9,14 @@ import "jest-location-mock";
 
 global.plausible = null;
 
+window.history.pushState = (data, unused, url) => {
+	window.location.assign(url);
+};
+
+window.history.replaceState = (data, unused, url) => {
+	window.location.assign(url);
+};
+
 global.IntersectionObserver = class IntersectionObserver {
 	constructor() {}
 
