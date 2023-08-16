@@ -68,6 +68,7 @@ export const Pagination = ({
 	id = "post-list-pagination",
 	getPageHref = (pageNum: number) => `${rootURL}${pageNum}`,
 	softNavigate,
+	testId,
 }: PaginationProps) => {
 	// if there's only one page, don't render anything
 	if (page.currentPage === 1 && page.lastPage < 2) return <></>;
@@ -76,7 +77,11 @@ export const Pagination = ({
 
 	return (
 		<>
-			<div role="navigation" aria-label="Pagination Navigation">
+			<div
+				role="navigation"
+				aria-label="Pagination Navigation"
+				data-testid={testId}
+			>
 				<ul id={id} className={`${styles.pagination} ${className}`}>
 					<li className={`${styles.paginationItem}`}>
 						<a

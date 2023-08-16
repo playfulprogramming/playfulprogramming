@@ -403,8 +403,68 @@ describe("Search page", () => {
 		});
 	});
 
-	// Changing pages to page 2 shows second page of results
-	test.todo("Pagination works");
+	test("Pagination - Changing pages to page 2 shows second page of results", async () => {
+		// 6 posts per page
+		mockFetch(() => ({
+			posts: [
+				{ ...MockPost, slug: `blog-post-1`, title: "One blog post" },
+				{ ...MockPost, slug: `blog-post-2`, title: "Two blog post" },
+				{ ...MockPost, slug: `blog-post-3`, title: "Three blog post" },
+				{ ...MockPost, slug: `blog-post-4`, title: "Four blog post" },
+				{ ...MockPost, slug: `blog-post-5`, title: "Five blog post" },
+				{ ...MockPost, slug: `blog-post-6`, title: "Six blog post" },
+				{ ...MockPost, slug: `blog-post-7`, title: "Seven blog post" },
+				{ ...MockPost, slug: `blog-post-8`, title: "Eight blog post" },
+				{ ...MockPost, slug: `blog-post-9`, title: "Nine blog post" },
+				{ ...MockPost, slug: `blog-post-10`, title: "Ten blog post" },
+				{ ...MockPost, slug: `blog-post-11`, title: "Eleven blog post" },
+				{ ...MockPost, slug: `blog-post-12`, title: "Twelve blog post" },
+			],
+			totalPosts: 12,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { findByTestId, getByText, getByLabelText, queryByText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() => expect(getByText("Six blog post")).toBeInTheDocument());
+
+		await waitFor(() =>
+			expect(queryByText("Seven blog post")).not.toBeInTheDocument(),
+		);
+		await waitFor(() =>
+			expect(queryByText("Twelve blog post")).not.toBeInTheDocument(),
+		);
+
+		const container = await findByTestId("pagination");
+
+		const page2 = await findByTextFrom(container, "2");
+
+		await user.click(page2);
+
+		await waitFor(() =>
+			expect(getByText("Seven blog post")).toBeInTheDocument(),
+		);
+		await waitFor(() =>
+			expect(getByText("Twelve blog post")).toBeInTheDocument(),
+		);
+
+		await waitFor(() =>
+			expect(queryByText("One blog post")).not.toBeInTheDocument(),
+		);
+		await waitFor(() =>
+			expect(queryByText("Six blog post")).not.toBeInTheDocument(),
+		);
+	});
+
+	test.todo("Pagination - Filters impact pagination");
 
 	// Search page, sort order, etc
 	test.todo("Make sure that initial search props are not thrown away");

@@ -55,9 +55,6 @@ export interface ServerReturnType {
 	totalCollections: number;
 }
 
-// https://github.com/preactjs/preact/issues/4091
-const SearchTag = "search" as unknown as "div";
-
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
 
@@ -245,8 +242,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 * Calculate the last page based on the number of posts.
 	 */
 	const lastPage = useMemo(
-		() => Math.ceil(posts.length / MAX_POSTS_PER_PAGE),
-		[posts],
+		() => Math.ceil(filteredAndSortedPosts.length / MAX_POSTS_PER_PAGE),
+		[filteredAndSortedPosts],
 	);
 
 	/**
@@ -272,7 +269,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		showCollections;
 
 	return (
-		<SearchTag className={style.fullPageContainer}>
+		<div className={style.fullPageContainer} role="search">
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -345,7 +342,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					showCollections &&
 					Boolean(data.collections.length) && (
 						<Fragment>
-							<SubHeader tag="h1" text="Collections" data-testid="collections-header" />
+							<SubHeader
+								tag="h1"
+								text="Collections"
+								data-testid="collections-header"
+							/>
 							<div className={style.collectionsGrid}>
 								{data.collections.map((collection) => (
 									<CollectionCard
@@ -361,13 +362,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					showArticles &&
 					Boolean(data.posts.length) && (
 						<Fragment>
-							<SubHeader tag="h1" text="Articles" data-testid="articles-header" />
+							<SubHeader
+								tag="h1"
+								text="Articles"
+								data-testid="articles-header"
+							/>
 							<PostCardGrid
 								listAriaLabel={"List of search result posts"}
 								postsToDisplay={posts}
 								unicornProfilePicMap={unicornProfilePicMap}
 							/>
 							<Pagination
+								testId="pagination"
 								softNavigate={(href) => {
 									pushState(href);
 								}}
@@ -384,7 +390,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						</Fragment>
 					)}
 			</div>
-		</SearchTag>
+		</div>
 	);
 }
 
