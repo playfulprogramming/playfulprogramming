@@ -978,7 +978,156 @@ describe("Search page", () => {
 		);
 	});
 
-	test.todo(
-		"Make sure that re-searches to empty string reset page, tags, authors, etc",
-	);
+	test("Make sure that re-searches to empty string reset page, tags, authors, etc", async () => {
+		mockFetch(() => ({
+			posts: [
+				{
+					...MockPost,
+					slug: `blog-post-1`,
+					title: "One blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+					published: "2019-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2019",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-2`,
+					title: "Two blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+					published: "2020-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2020",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-3`,
+					title: "Three blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2021-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2021",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-4`,
+					title: "Four blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2022-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2022",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-5`,
+					title: "Five blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2023-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2023",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-6`,
+					title: "Six blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2024-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2024",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-7`,
+					title: "Seven blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2025-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2025",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-8`,
+					title: "Eight blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2026-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2026",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-9`,
+					title: "Nine blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2027-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2027",
+				},
+				{
+					...MockPost,
+					slug: `blog-post-10`,
+					title: "Ten blog post",
+					tags: ["angular"],
+					authors: [MockUnicorn.id],
+					authorsMeta: [MockUnicorn],
+
+					published: "2028-01-01T00:00:00.000Z",
+					publishedMeta: "January 1, 2028",
+				},
+			],
+			totalPosts: 10,
+			totalCollections: 0,
+			collections: [
+				{
+					...MockCollection,
+					title: "One collection",
+				},
+			],
+		}));
+
+		const searchQuery = buildSearchQuery({
+			searchQuery: "blog",
+			searchPage: 2,
+			contentToDisplay: "articles",
+			filterTags: ["angular"],
+			filterAuthors: [MockUnicorn.id],
+			sort: "oldest",
+		});
+
+		window.location.assign(`?${searchQuery}`);
+
+		const { getByTestId, getByText, getByLabelText, queryByText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		await waitFor(() => expect(getByText("Ten blog post")).toBeInTheDocument());
+
+		const searchInput = getByLabelText("Search");
+		expect(searchInput).toHaveValue("blog");
+
+		await user.clear(searchInput);
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+
+		expect(window.location.search).toMatchInlineSnapshot(
+			`"?searchQuery=&display=articles&sort=oldest"`,
+		);
+	});
+
+	test.todo("Back button should show last query");
 });
