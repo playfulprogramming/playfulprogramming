@@ -74,6 +74,7 @@ export const FilterSidebar = ({
 				placeholder="Filter by..."
 			/>
 			<RadioButtonGroup
+				testId={"sort-order-group-sidebar"}
 				className={styles.buttonsContainer}
 				value={sort}
 				label={"Sort order"}

@@ -246,8 +246,46 @@ describe("Search page", () => {
 		expect(queryByTestId("Two blog post")).not.toBeInTheDocument();
 	});
 
-	test.todo("Filter by content type work on radio group buttons");
+	test("Filter by content type work on radio group buttons", async () => {
+		mockFetch(() => ({
+			posts: [{ ...MockPost, title: "One blog post" }],
+			totalPosts: 1,
+			totalCollections: 1,
+			collections: [{ ...MockCollection, title: "One collection" }],
+		}));
+
+		const { getByTestId, getByText, getByLabelText, queryByTestId } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "*");
+		await user.type(searchInput, "{enter}");
+
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+		await waitFor(() =>
+			expect(getByText("One collection")).toBeInTheDocument(),
+		);
+
+		const container = getByTestId("content-to-display-group-topbar");
+
+		const articles = await findByTextFrom(container, "Articles");
+
+		await user.click(articles);
+		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
+
+		expect(queryByTestId("One collection")).not.toBeInTheDocument();
+
+		const collections = await findByTextFrom(container, "Collections");
+
+		await user.click(collections);
+
+		await waitFor(() => expect(getByText("One collection")).toBeInTheDocument());
+		expect(queryByTestId("One blog post")).not.toBeInTheDocument();
+	});
+
 	test.todo("Sort by date works on desktop radio group buttons");
+	test.todo("Sort by date works on mobile radio group buttons");
 
 	// Changing pages to page 2 shows second page of results
 	test.todo("Pagination works");
@@ -318,7 +356,9 @@ describe("Search page", () => {
 		var authorContainer = getByTestId("author-filter-section-sidebar");
 
 		expect(await findByTextFrom(tagContainer, "Angular")).toBeInTheDocument();
-		expect(await findByTextFrom(authorContainer, MockUnicorn.name)).toBeInTheDocument();
+		expect(
+			await findByTextFrom(authorContainer, MockUnicorn.name),
+		).toBeInTheDocument();
 	});
 
 	test.todo(

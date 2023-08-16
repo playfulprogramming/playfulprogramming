@@ -16,6 +16,7 @@ const RadioContext = createContext(null);
 interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
 	class?: string;
 	className?: string;
+	testId?: string;
 }
 
 export function RadioButtonGroup(props: RadioButtonGroupProps) {
@@ -24,12 +25,17 @@ export function RadioButtonGroup(props: RadioButtonGroupProps) {
 		label,
 		class: className = "",
 		className: classNameName = "",
+		testId,
 	} = props;
 	const state = useRadioGroupState(props);
 	const { radioGroupProps, labelProps } = useRadioGroup(props, state);
 
 	return (
-		<div {...radioGroupProps} class={`${className} ${classNameName}`}>
+		<div
+			{...radioGroupProps}
+			class={`${className} ${classNameName}`}
+			data-testid={testId}
+		>
 			<VisuallyHidden>
 				<span {...labelProps}>{label}</span>
 			</VisuallyHidden>
