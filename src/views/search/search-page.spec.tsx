@@ -228,14 +228,13 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText, getByLabelText, queryByTestId, debug } =
-			render(<SearchPage unicornProfilePicMap={[]} />);
+		const { getByTestId, getByText, getByLabelText, queryByTestId } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
 
 		const searchInput = getByLabelText("Search");
 		await user.type(searchInput, "*");
 		await user.type(searchInput, "{enter}");
-
-		debug();
 
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		await waitFor(() => expect(getByText("Two blog post")).toBeInTheDocument());
@@ -1129,5 +1128,35 @@ describe("Search page", () => {
 		);
 	});
 
-	test.todo("Back button should show last query");
+	test("Back button should show last query", async () => {
+		mockFetch(() => ({
+			posts: [],
+			totalPosts: 0,
+			totalCollections: 0,
+			collections: [],
+		}));
+
+		const { getByTestId, getByText, getByLabelText, queryByText } = render(
+			<SearchPage unicornProfilePicMap={[]} />,
+		);
+
+		const searchInput = getByLabelText("Search");
+		await user.type(searchInput, "blog");
+
+		await waitFor(() =>
+			expect(getByText("No results found...")).toBeInTheDocument(),
+		);
+
+		await user.type(searchInput, "other");
+
+		await waitFor(() =>
+			expect(window.location.search).toBe("?searchQuery=blogother"),
+		);
+
+		history.back();
+
+		await waitFor(() =>
+			expect(window.location.search).toBe("?searchQuery=blog"),
+		);
+	});
 });

@@ -9,12 +9,21 @@ import "jest-location-mock";
 
 global.plausible = null;
 
+let history = [];
+
 window.history.pushState = (data, unused, url) => {
 	window.location.assign(url);
+	history.push(url);
 };
 
 window.history.replaceState = (data, unused, url) => {
 	window.location.assign(url);
+	history[history.length - 1] = url;
+};
+
+window.history.back = () => {
+	history.pop();
+	window.location.assign(history[history.length - 1]);
 };
 
 global.IntersectionObserver = class IntersectionObserver {

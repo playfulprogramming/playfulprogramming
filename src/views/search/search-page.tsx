@@ -3,6 +3,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 	useMemo,
+	useRef,
 	useState,
 } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
@@ -39,6 +40,7 @@ import {
 	FILTER_AUTHOR_KEY,
 	SORT_KEY,
 } from "../../utils/search";
+import { debounce } from "utils/debounce";
 
 const DEFAULT_SORT = "newest";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
@@ -59,23 +61,45 @@ export interface ServerReturnType {
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
 
+	const [search, _setSearch] = useState(
+		() => urlParams.get(SEARCH_QUERY_KEY) ?? "",
+	);
+
 	/**
 	 * Derive state and setup for search
 	 */
-	const setSearch = useCallback(
-		(str: string) => {
-			pushState({ key: SEARCH_QUERY_KEY, val: str });
-			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
-			if (!str) {
-				// Remove tags and authors when no value is present
-				pushState({ key: FILTER_TAGS_KEY, val: undefined });
-				pushState({ key: FILTER_AUTHOR_KEY, val: undefined });
-			}
-		},
-		[urlParams],
-	);
+	const setSearch = useMemo(() => {
+		const updateUrl = debounce(
+			(str: string, dontUpdateSearchURL = false) => {
+				if (!dontUpdateSearchURL) {
+					pushState({ key: SEARCH_QUERY_KEY, val: str });
+				}
+				pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+				if (!str) {
+					// Remove tags and authors when no value is present
+					pushState({ key: FILTER_TAGS_KEY, val: undefined });
+					pushState({ key: FILTER_AUTHOR_KEY, val: undefined });
+				}
+			},
+			500,
+			false,
+		);
 
-	const search = useMemo(() => urlParams.get(SEARCH_QUERY_KEY), [urlParams]);
+		return (str: string, dontUpdateSearchURL = false) => {
+			_setSearch(str);
+			updateUrl(str);
+		};
+	}, [pushState]);
+
+	const searchRef = useRef(search);
+	searchRef.current = search;
+
+	useEffect(() => {
+		const urlSearchVal = urlParams.get(SEARCH_QUERY_KEY);
+		if (urlSearchVal && urlSearchVal !== searchRef.current) {
+			setSearch(urlSearchVal, true);
+		}
+	}, [urlParams, setSearch]);
 
 	const [debouncedSearch, immediatelySetDebouncedSearch] = useDebouncedValue(
 		search,
