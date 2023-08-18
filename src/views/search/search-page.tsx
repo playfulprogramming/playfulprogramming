@@ -145,8 +145,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		}
 	}, [error]);
 
-	const isContentLoading = true;
-	// const isContentLoading = isLoading || isFetching;
+	const isContentLoading = isLoading || isFetching;
 
 	/**
 	 * Derived state
