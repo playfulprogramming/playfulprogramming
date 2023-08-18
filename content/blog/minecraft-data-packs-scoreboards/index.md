@@ -4,7 +4,7 @@
 	description: "Learn data pack development in Minecraft - using player scoreboards, variables, and operations!",
 	published: '2022-08-20T19:10:03.284Z',
 	authors: ['fennifith'],
-	tags: [],
+	tags: ["minecraft"],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 	collection: "minecraft-data-packs",

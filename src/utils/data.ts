@@ -221,18 +221,18 @@ function getPosts(): Array<PostInfo> {
 
 const posts = getPosts();
 
-const tags = [
-	...posts.reduce((set, post) => {
-		for (const tag of post.tags || []) set.add(tag);
-
-		return set;
-	}, new Set<string>()),
-];
-
 collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	...collection,
 	posts: posts.filter((post) => post.collection === collection.slug),
 })) as CollectionInfo[];
+
+const tags = [
+	...[...posts, ...collections].reduce((set, item) => {
+		for (const tag of item.tags || []) set.add(tag);
+
+		return set;
+	}, new Set<string>()),
+];
 
 export {
 	aboutRaw as about,

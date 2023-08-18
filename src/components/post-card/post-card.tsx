@@ -5,6 +5,7 @@ import { Chip } from "components/index";
 import date from "src/icons/date.svg?raw";
 import authors from "src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "utils/href-container-script";
+import { buildSearchQuery } from "utils/search";
 
 interface PostCardProps {
 	post: PostInfo;
@@ -59,7 +60,9 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 			<ul className={style.cardList}>
 				{post.tags.map((tag) => (
 					<li>
-						<Chip href={`/search?q=${tag}`}>{tag}</Chip>
+						<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+							{tag}
+						</Chip>
 					</li>
 				))}
 			</ul>

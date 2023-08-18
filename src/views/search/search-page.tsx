@@ -253,6 +253,34 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
+	const filteredAndSortedCollections = useMemo(() => {
+		return [...data.collections]
+			.sort(
+				(a, b) =>
+					(sort === "newest" ? -1 : 1) *
+					(new Date(a.published).getTime() - new Date(b.published).getTime()),
+			)
+			.filter((collection) => {
+				if (
+					selectedTags.length > 0 &&
+					!collection.tags.some((tag) => selectedTags.includes(tag))
+				) {
+					return false;
+				}
+
+				if (
+					selectedUnicorns.length > 0 &&
+					!collection.authors.some((unicorn) =>
+						selectedUnicorns.includes(unicorn),
+					)
+				) {
+					return false;
+				}
+
+				return true;
+			});
+	}, [data, page, sort, selectedUnicorns, selectedTags]);
+
 	/**
 	 * Paginate posts
 	 */
@@ -288,10 +316,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const noResults =
 		enabled &&
 		!isContentLoading &&
-		posts.length === 0 &&
-		showArticles &&
-		data.collections.length === 0 &&
-		showCollections;
+		((posts.length === 0 && showArticles && !showCollections) ||
+			(filteredAndSortedCollections.length === 0 && showCollections && !showArticles) ||
+			(showCollections &&
+				showArticles &&
+				posts.length === 0 &&
+				filteredAndSortedCollections.length === 0));
 
 	return (
 		<div className={style.fullPageContainer} role="search">
@@ -375,7 +405,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				{enabled &&
 					!isContentLoading &&
 					showCollections &&
-					Boolean(data.collections.length) && (
+					Boolean(filteredAndSortedCollections.length) && (
 						<Fragment>
 							<SubHeader
 								tag="h1"
@@ -388,7 +418,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								role="list"
 								className={style.collectionsGrid}
 							>
-								{data.collections.map((collection) => (
+								{filteredAndSortedCollections.map((collection) => (
 									<li>
 										<CollectionCard
 											unicornProfilePicMap={unicornProfilePicMap}
@@ -402,7 +432,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				{enabled &&
 					!isContentLoading &&
 					showArticles &&
-					Boolean(data.posts.length) && (
+					Boolean(posts.length) && (
 						<Fragment>
 							<SubHeader
 								tag="h1"

@@ -6,6 +6,7 @@ import * as data from "../../utils/data";
 import { SearchInput } from "../input/input";
 import { IconOnlyButton } from "../button/button";
 import { Icon } from "astro-icon";
+import { buildSearchQuery } from "../../utils/search";
 
 const tagsToDisplay = [...data.tags]
 	.sort(() => 0.5 - Math.random())
@@ -31,7 +32,9 @@ const tagsToDisplay = [...data.tags]
 		{
 			tagsToDisplay.map((tag) => (
 				<li>
-					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
+					<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+						{tag}
+					</Chip>
 				</li>
 			))
 		}

@@ -10,6 +10,7 @@ import { translate } from "../../utils";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
 import Achievements from "./components/achievements.astro";
+import { buildSearchQuery } from "../../utils/search";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -73,7 +74,12 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 			<!-- TODO: Replace href with util to build search URL -->
 			{
 				showPostsToggle && (
-					<Button tag="a" href={"/search"}>
+					<Button
+						tag="a"
+						href={`/search?${buildSearchQuery({
+							filterAuthors: [unicorn.id],
+						})}`}
+					>
 						View all
 					</Button>
 				)

@@ -107,6 +107,10 @@
 		"displayName": "Lit",
 		"image": "/stickers/lit.svg"
 	},
+	"minecraft": {
+		"displayName": "Minecraft",
+		"emoji": "🟩"
+	},
 	"mongodb": {
 		"displayName": "MongoDB",
 		"image": "/stickers/mongodb.svg"
