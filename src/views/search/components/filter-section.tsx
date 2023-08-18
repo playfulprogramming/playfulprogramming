@@ -86,6 +86,7 @@ export const FilterSection = ({
 				className={styles.sectionContent}
 				aria-hidden={collapsed}
 				onScroll={onScroll}
+				inert={collapsed}
 			>
 				{children}
 			</div>
