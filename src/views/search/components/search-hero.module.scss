@@ -49,9 +49,9 @@
 			var(--search-hero_image_border_width) + var(--site-spacing)
 	);
 	text-align: center;
-	box-sizing: content-box;
 	margin-left: auto;
 	margin-right: auto;
+	width: 100%;
 	max-width: var(--search-hero_container_max-width);
 
 	display: flex;
