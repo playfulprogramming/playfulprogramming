@@ -54,6 +54,13 @@ export const FilterDisplay = ({
 				tagToPostNumMap.set(tag, numPosts + 1);
 			});
 		});
+
+		collections.forEach((collection) => {
+			collection.tags.forEach((tag) => {
+				tags.add(tag);
+			});
+		});
+
 		return Array.from(tags)
 			.sort((a, b) => a.localeCompare(b))
 			.map((tag) => ({
