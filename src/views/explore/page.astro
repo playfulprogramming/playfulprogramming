@@ -14,6 +14,8 @@ const { posts, page } = Astro.props as PageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 ---
 
+<h1 class="visually-hidden">Posts</h1>
+
 <PostCardGrid
 	expanded={true}
 	aria-label="List of posts"

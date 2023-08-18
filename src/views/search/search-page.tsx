@@ -337,6 +337,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	return (
 		<div className={style.fullPageContainer} role="search">
+			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
