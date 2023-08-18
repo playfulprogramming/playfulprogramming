@@ -4,6 +4,7 @@ import { ExtendedPostInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
 import dayjs from "dayjs";
+import { buildSearchQuery } from "../../../utils/search";
 
 interface PostTitleHeaderProps {
 	post: ExtendedPostInfo;
@@ -51,7 +52,9 @@ const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 		{
 			tags?.map((tag) => (
 				<li>
-					<Chip href={`/search?q=${tag}`}>{tag}</Chip>
+					<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+						{tag}
+					</Chip>
 				</li>
 			))
 		}

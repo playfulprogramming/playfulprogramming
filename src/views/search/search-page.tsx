@@ -106,6 +106,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		500,
 	);
 
+	const resultsHeading = useRef<HTMLHeadingElement>();
+
+	const onManualSubmit = useCallback(
+		(str: string) => {
+			immediatelySetDebouncedSearch(str);
+			resultsHeading.current?.focus();
+		},
+		[immediatelySetDebouncedSearch],
+	);
+
 	/**
 	 * Fetch data
 	 */
@@ -323,8 +333,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				posts.length === 0 &&
 				filteredAndSortedCollections.length === 0));
 
+	const [isResultsFocused, setIsResultsFocused] = useState(false);
+
 	return (
 		<div className={style.fullPageContainer} role="search">
+			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
 				setFilterIsDialogOpen={setFilterIsDialogOpen}
@@ -341,12 +354,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
 					position: "sticky",
+					overflow: "hidden",
 				}}
 				searchString={search}
 			/>
 			<div className={style.mainContents}>
 				<SearchTopbar
-					onSearch={(val) => immediatelySetDebouncedSearch(val)}
+					onSubmit={(val) => onManualSubmit(val)}
+					onBlur={(val) => immediatelySetDebouncedSearch(val)}
 					search={search}
 					setSearch={setSearch}
 					setContentToDisplay={setContentToDisplay}
@@ -355,6 +370,23 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
+				<h1
+					ref={resultsHeading}
+					className={`text-style-headline-1 ${style.results}`}
+					tabIndex={-1}
+					onFocus={() => setIsResultsFocused(true)}
+					onBlur={() => setIsResultsFocused(false)}
+					aria-live={isResultsFocused ? "polite" : undefined}
+				>
+					{isContentLoading ? (
+						"Loading..."
+					) : (
+						<>
+							There are {posts.length} articles and{" "}
+							{filteredAndSortedCollections.length} collections in your search
+						</>
+					)}
+				</h1>
 				{!isError && isContentLoading && (
 					<>
 						<div className={style.loadingAnimationContainer}>
@@ -368,30 +400,35 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						</div>
 					</>
 				)}
-				{!isError && !isContentLoading && noResults && (
-					<SearchHero
-						imageSrc={sadUnicorn.src}
-						imageAlt={""}
-						title={"No results found..."}
-						description={"Please adjust your query or your active filters!"}
-					/>
-				)}
-				{isError && !isContentLoading && (
-					<SearchHero
-						imageSrc={scaredUnicorn.src}
-						imageAlt={""}
-						title={"There was an error fetching your search results."}
-						description={"Please adjust your query or try again."}
-						buttons={
-							<LargeButton
-								onClick={() => refetch()}
-								leftIcon={<span dangerouslySetInnerHTML={{ __html: retry }} />}
-							>
-								Retry
-							</LargeButton>
-						}
-					/>
-				)}
+				<div aria-live="assertive" aria-atomic="true">
+					{!isError && !isContentLoading && noResults && (
+						<SearchHero
+							imageSrc={sadUnicorn.src}
+							imageAlt={""}
+							title={"No results found..."}
+							description={"Please adjust your query or your active filters!"}
+						/>
+					)}
+					{isError && !isContentLoading && (
+						<SearchHero
+							imageSrc={scaredUnicorn.src}
+							imageAlt={""}
+							title={"There was an error fetching your search results."}
+							description={"Please adjust your query or try again."}
+							buttons={
+								<LargeButton
+									onClick={() => refetch()}
+									leftIcon={
+										<span dangerouslySetInnerHTML={{ __html: retry }} />
+									}
+								>
+									Retry
+								</LargeButton>
+							}
+						/>
+					)}
+				</div>
+
 				{!enabled && !isContentLoading && (
 					<SearchHero
 						imageSrc={happyUnicorn.src}

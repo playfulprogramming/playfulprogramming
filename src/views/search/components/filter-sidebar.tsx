@@ -57,6 +57,7 @@ export const FilterSidebar = ({
 				...desktopStyle,
 				marginLeft: hideSearchbar ? `calc(0px - ${size.width}px)` : "",
 			}}
+			inert={hideSearchbar}
 		>
 			<LargeButton
 				tag="button"
