@@ -7,6 +7,7 @@ export const MockCollection: ExtendedCollectionInfo = {
 	authors: [MockUnicorn.id],
 	authorsMeta: [MockUnicorn],
 	Content: () => null,
+	tags: [],
 	contentMeta: "",
 	licenseMeta: null,
 	publishedMeta: "October 10, 2010",
