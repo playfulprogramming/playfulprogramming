@@ -288,10 +288,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const noResults =
 		enabled &&
 		!isContentLoading &&
-		posts.length === 0 &&
-		showArticles &&
-		data.collections.length === 0 &&
-		showCollections;
+		((posts.length === 0 && showArticles && !showCollections) ||
+			(data.collections.length === 0 && showCollections && !showArticles) ||
+			(showCollections &&
+				showArticles &&
+				posts.length === 0 &&
+				data.collections.length === 0));
 
 	return (
 		<div className={style.fullPageContainer} role="search">
