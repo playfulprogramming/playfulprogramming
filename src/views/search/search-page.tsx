@@ -341,6 +341,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
 					position: "sticky",
+					overflow: "hidden",
 				}}
 				searchString={search}
 			/>
