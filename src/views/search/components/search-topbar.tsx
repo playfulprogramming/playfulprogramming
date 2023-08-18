@@ -10,7 +10,8 @@ import {
 } from "components/button-radio-group/button-radio-group";
 
 interface SearchTopbarProps {
-	onSearch: (search: string) => void;
+	onSubmit: (search: string) => void;
+	onBlur: (search: string) => void;
 	search: string;
 	setSearch: (search: string) => void;
 	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
@@ -21,7 +22,8 @@ interface SearchTopbarProps {
 }
 
 export const SearchTopbar = ({
-	onSearch,
+	onSubmit,
+	onBlur,
 	search,
 	setSearch,
 	setContentToDisplay,
@@ -36,19 +38,20 @@ export const SearchTopbar = ({
 				className={style.searchbarRow}
 				onSubmit={(e) => {
 					e.preventDefault();
-					onSearch(search);
+					onSubmit(search);
 				}}
 			>
 				<SearchInput
 					id="search-bar"
 					aria-label="Search"
+					aria-description={"Results will update as you type"}
 					class={style.searchbar}
 					usedInPreact={true}
 					value={search}
 					onBlur={(e) => {
 						const newVal = (e.target as HTMLInputElement).value;
 						setSearch(newVal);
-						onSearch(newVal);
+						onBlur(newVal);
 					}}
 					onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
 				/>
