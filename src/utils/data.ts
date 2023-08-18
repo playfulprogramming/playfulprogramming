@@ -27,6 +27,7 @@ import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { achievements } from "../../content/data/achievements";
+import collectionMapping from "../../content/data/collection-mapping";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -136,7 +137,49 @@ function getCollections(): CollectionInfo[] {
 			} as Omit<CollectionInfo, "posts"> as CollectionInfo;
 		});
 	});
-	return collections;
+
+	const collectionMappingFilled = collectionMapping.map((collection) => {
+		const { slug, ...frontmatter } = collection;
+
+		const coverImgSize = getImageSize(
+			frontmatter.coverImg,
+			join(process.cwd(), "public"),
+			join(process.cwd(), "public"),
+		);
+
+		const coverImgMeta = {
+			height: coverImgSize.height as number,
+			width: coverImgSize.width as number,
+			relativePath: frontmatter.coverImg,
+			relativeServerPath: frontmatter.coverImg,
+			absoluteFSPath: join(process.cwd(), "public", frontmatter.coverImg),
+		};
+
+		const authorsMeta = frontmatter.authors.map((authorId) =>
+			fullUnicorns.find((u) => u.id === authorId),
+		);
+
+		return {
+			...(frontmatter as RawCollectionInfo),
+			slug,
+			// TODO: Add locales to collection-mapping.ts
+			locales: ["en"],
+			locale: "en",
+			coverImgMeta,
+			authorsMeta,
+		} as Omit<CollectionInfo, "posts"> as CollectionInfo;
+	});
+
+	const allCollections = collections.concat(collectionMappingFilled);
+
+	// sort posts by date in descending order
+	allCollections.sort((collection1, collection2) => {
+		const date1 = new Date(collection1.published);
+		const date2 = new Date(collection2.published);
+		return date1 > date2 ? -1 : 1;
+	});
+
+	return allCollections;
 }
 
 let collections = getCollections();

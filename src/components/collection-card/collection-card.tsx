@@ -60,7 +60,9 @@ export const CollectionCard = ({
 						/>
 					}
 				>
-					{String(collection.posts.length)} chapters
+					{collection.customChaptersText ?? (
+						<>{String(collection.posts.length)} chapters</>
+					)}
 				</Button>
 			</div>
 		</div>
