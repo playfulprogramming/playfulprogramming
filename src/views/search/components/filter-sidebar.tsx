@@ -68,11 +68,6 @@ export const FilterSidebar = ({
 			>
 				Jump to search bar
 			</LargeButton>
-			<SearchInput
-				hideSearchButton={true}
-				usedInPreact={true}
-				placeholder="Filter by..."
-			/>
 			<RadioButtonGroup
 				testId={"sort-order-group-sidebar"}
 				className={styles.buttonsContainer}
