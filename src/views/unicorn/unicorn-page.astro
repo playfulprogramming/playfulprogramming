@@ -69,7 +69,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				})
 			}
 		</div>
-		<SubHeader tag="h1" text="Recent articles">
+		<SubHeader tag="h1" text="Recent articles" id="recent-articles-header">
 			<!-- TODO: Replace href with util to build search URL -->
 			{
 				showPostsToggle && (
@@ -80,7 +80,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 			}
 		</SubHeader>
 		<PostCardGrid
-			listAriaLabel={`List of posts written by ${unicorn.name}`}
+			aria-labelledby={"recent-articles-header"}
 			postsToDisplay={postsToDisplay}
 			unicornProfilePicMap={unicornProfilePicMap}
 		/>

@@ -23,32 +23,38 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 <Hero />
 <section>
-	<SubHeader tag="h1" text="Recent articles">
+	<SubHeader tag="h1" text="Recent articles" id="posts-header">
 		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
 	</SubHeader>
 
 	<PostCardGrid
-		listAriaLabel="List of posts"
+		aria-labelledby="posts-header"
 		postsToDisplay={posts}
 		unicornProfilePicMap={unicornProfilePicMap}
 	/>
 </section>
 
 <section>
-	<SubHeader tag="h1" text="Collections">
+	<SubHeader tag="h1" text="Collections" id="collections-header">
 		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
 	</SubHeader>
 
-	<div class={styles.collectionsGrid}>
+	<ul
+		role="list"
+		aria-labelledby="collections-header"
+		class={styles.collectionsGrid}
+	>
 		{
 			collections.map((collection) => (
-				<CollectionCard
-					collection={collection}
-					unicornProfilePicMap={unicornProfilePicMap}
-				/>
+				<li>
+					<CollectionCard
+						collection={collection}
+						unicornProfilePicMap={unicornProfilePicMap}
+					/>
+				</li>
 			))
 		}
-	</div>
+	</ul>
 </section>
 
 <SearchSection />

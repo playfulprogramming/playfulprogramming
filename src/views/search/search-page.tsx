@@ -329,7 +329,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					<>
 						<div className={style.loadingAnimationContainer}>
 							<div className={style.loadingAnimation} />
-							<p aria-live="polite" className={`text-style-headline-4 ${style.loadingText}`}>
+							<p
+								aria-live="polite"
+								className={`text-style-headline-4 ${style.loadingText}`}
+							>
 								Fetching results...
 							</p>
 						</div>
@@ -377,16 +380,23 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 							<SubHeader
 								tag="h1"
 								text="Collections"
+								id="collections-header"
 								data-testid="collections-header"
 							/>
-							<div className={style.collectionsGrid}>
+							<ul
+								aria-labelledby="collections-header"
+								role="list"
+								className={style.collectionsGrid}
+							>
 								{data.collections.map((collection) => (
-									<CollectionCard
-										unicornProfilePicMap={unicornProfilePicMap}
-										collection={collection}
-									/>
+									<li>
+										<CollectionCard
+											unicornProfilePicMap={unicornProfilePicMap}
+											collection={collection}
+										/>
+									</li>
 								))}
-							</div>
+							</ul>
 						</Fragment>
 					)}
 				{enabled &&
@@ -397,10 +407,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 							<SubHeader
 								tag="h1"
 								text="Articles"
+								id="articles-header"
 								data-testid="articles-header"
 							/>
 							<PostCardGrid
-								listAriaLabel={"List of search result posts"}
+								aria-labelledby={"articles-header"}
 								postsToDisplay={posts}
 								unicornProfilePicMap={unicornProfilePicMap}
 							/>
