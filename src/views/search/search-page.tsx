@@ -208,13 +208,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		contentToDisplay === "all" || contentToDisplay === "collections";
 
 	// Setup sort
-	const sort = useMemo(
-		() =>
-			urlParams.get(SORT_KEY) === "newest"
-				? "newest"
-				: "oldest" ?? DEFAULT_SORT,
-		[urlParams],
-	);
+	const sort = useMemo(() => {
+		const results = urlParams.get(SORT_KEY);
+		if (!results) return DEFAULT_SORT;
+		return results === "newest" ? "newest" : "oldest";
+	}, [urlParams]);
 
 	const setSort = useCallback(
 		(sort: "newest" | "oldest") => {
@@ -317,7 +315,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		enabled &&
 		!isContentLoading &&
 		((posts.length === 0 && showArticles && !showCollections) ||
-			(filteredAndSortedCollections.length === 0 && showCollections && !showArticles) ||
+			(filteredAndSortedCollections.length === 0 &&
+				showCollections &&
+				!showArticles) ||
 			(showCollections &&
 				showArticles &&
 				posts.length === 0 &&
