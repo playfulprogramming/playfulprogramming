@@ -18,7 +18,6 @@ Este repository actúa como la ubicación del código fuente para el [blog de Un
 
 <a href="https://www.thepolyglotdeveloper.com/" target="_blank" rel="noopener noreferrer sponsored"><img alt="The Polyglot Developer" src="https://unicorn-utterances.com/sponsors/the-polyglot-developer.svg" width="300"/></a>
 <a href="https://oceanbit.dev/" target="_blank" rel="noopener noreferrer sponsored"><img alt="OceanBit" src="https://unicorn-utterances.com/sponsors/oceanbit.svg" width="300"/></a>
-<a href="https://coderpad.io/" target="_blank" rel="noopener noreferrer sponsored"><img alt="CoderPad" src="https://unicorn-utterances.com/sponsors/coderpad.svg" width="300"/></a>
 
 [Reconocemos todos los patrocinios que compartimos abiertamente en GitHub](https://github.com/unicorn-utterances/unicorn-utterances/issues?q=is%3Aissue+label%3Adisclosure+is%3Aclosed)
 
