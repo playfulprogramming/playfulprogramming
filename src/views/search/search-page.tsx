@@ -145,7 +145,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		}
 	}, [error]);
 
-	const isContentLoading = isLoading || isFetching;
+	const isContentLoading = true;
+	// const isContentLoading = isLoading || isFetching;
 
 	/**
 	 * Derived state
@@ -326,9 +327,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
 				{!isError && isContentLoading && (
-					<p className={"text-style-headline-1"}>Loading...</p>
+					<>
+						<p aria-live="polite" className={"visually-hidden"}>
+							Loading...
+						</p>
+						<div className={style.loadingAnimationContainer}>
+							<div className={style.loadingAnimation} />
+						</div>
+					</>
 				)}
-				{!isError && noResults && (
+				{!isError && !isContentLoading && noResults && (
 					<SearchHero
 						imageSrc={sadUnicorn.src}
 						imageAlt={""}
@@ -336,7 +344,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						description={"Please adjust your query or your active filters!"}
 					/>
 				)}
-				{isError && (
+				{isError && !isContentLoading && (
 					<SearchHero
 						imageSrc={scaredUnicorn.src}
 						imageAlt={""}
@@ -352,7 +360,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						}
 					/>
 				)}
-				{!enabled && (
+				{!enabled && !isContentLoading && (
 					<SearchHero
 						imageSrc={happyUnicorn.src}
 						imageAlt={""}
