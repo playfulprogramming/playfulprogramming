@@ -19,6 +19,10 @@
 	width: 100%;
 	max-width: var(--max-width_l);
 	padding: var(--site-spacing);
+	display: flex;
+	flex-direction: column;
+	/* Guestimation */
+	min-height: 80vh;
 }
 
 .collectionsGrid {
@@ -26,6 +30,79 @@
 	gap: var(--site-spacing);
 
 	@include from($tabletLarge) {
-		grid-template-columns: repeat(2, minmax(0, 1fr))
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@keyframes play36 {
+	0% {
+		background-position: 0px 0px;
+	}
+	/* 36 frames of animation, 72 frames total (2.4 * 30) */
+	50% {
+		background-position: -864px 0px;
+	}
+	100% {
+		background-position: -864px 0px;
+	}
+}
+
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	70% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.loadingAnimationContainer {
+	height: 1px;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.loadingText {
+	margin: 0;
+	margin-top: var(--site-spacing);
+	color: var(--foreground_disabled);
+}
+
+.loadingAnimation {
+	width: 24px;
+	height: 24px;
+	transform: scale(6);
+	margin-bottom: calc(24px * 5);
+	margin-right: calc(24px * 5);
+	background-image: url("/animations/unicorn_loading_animation_light.svg");
+	transform-origin: 0 0;
+	background-repeat: no-repeat;
+	animation:
+		play36 2400ms steps(36) 0s infinite normal forwards,
+		fade 2400ms steps(36) 0s infinite normal forwards;
+
+	@include darkTheme() {
+		background-image: url("/animations/unicorn_loading_animation_dark.svg");
+	}
+
+	@include from($tabletSmall) {
+		transform: scale(10);
+		margin-bottom: calc(24px * 9);
+		margin-right: calc(24px * 9);
+	}
+
+	@include from($desktopSmall) {
+		transform: scale(12);
+		margin-bottom: calc(24px * 11);
+		margin-right: calc(24px * 11);
 	}
 }

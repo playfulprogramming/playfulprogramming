@@ -326,9 +326,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
 				{!isError && isContentLoading && (
-					<p className={"text-style-headline-1"}>Loading...</p>
+					<>
+						<div className={style.loadingAnimationContainer}>
+							<div className={style.loadingAnimation} />
+							<p aria-live="polite" className={`text-style-headline-4 ${style.loadingText}`}>
+								Fetching results...
+							</p>
+						</div>
+					</>
 				)}
-				{!isError && noResults && (
+				{!isError && !isContentLoading && noResults && (
 					<SearchHero
 						imageSrc={sadUnicorn.src}
 						imageAlt={""}
@@ -336,7 +343,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						description={"Please adjust your query or your active filters!"}
 					/>
 				)}
-				{isError && (
+				{isError && !isContentLoading && (
 					<SearchHero
 						imageSrc={scaredUnicorn.src}
 						imageAlt={""}
@@ -352,7 +359,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						}
 					/>
 				)}
-				{!enabled && (
+				{!enabled && !isContentLoading && (
 					<SearchHero
 						imageSrc={happyUnicorn.src}
 						imageAlt={""}
