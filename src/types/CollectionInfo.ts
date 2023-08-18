@@ -9,6 +9,7 @@ export interface RawCollectionInfo {
 	coverImg: string;
 	socialImg?: string;
 	type?: "book";
+	customChaptersText?: string;
 	tags: string[];
 	published: string;
 	buttons: Array<{ text: string; url: string }>;
