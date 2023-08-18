@@ -1,5 +1,3 @@
-import "wicg-inert";
-
 import {
 	useCallback,
 	useEffect,
