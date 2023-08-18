@@ -328,11 +328,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				/>
 				{!isError && isContentLoading && (
 					<>
-						<p aria-live="polite" className={"visually-hidden"}>
-							Loading...
-						</p>
 						<div className={style.loadingAnimationContainer}>
 							<div className={style.loadingAnimation} />
+							<p aria-live="polite" className={`text-style-headline-4 ${style.loadingText}`}>
+								Fetching results...
+							</p>
 						</div>
 					</>
 				)}
