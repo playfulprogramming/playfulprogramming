@@ -1491,20 +1491,22 @@ const FileList = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-multi-props-12?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 ### Angular
 
-```typescript {7-8,15}
+```typescript {9-10,19}
 @Component({
   selector: "file",
   standalone: true,
+  imports: [FileDateComponent],
   template: `
     <div><a [attr.href]="href">{{ fileName }}<file-date/></a></div>
   `,
 })
 export class FileComponent {
-  @Input() fileName: string;
-  @Input() href: string;
+  @Input() fileName!: string;
+  @Input() href!: string;
 }
 
 @Component({
@@ -1522,9 +1524,11 @@ export class FileComponent {
 export class FileListComponent {}
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-multi-props-12?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Vue
 
-```vue
+```vue {10}
 <!-- File.vue -->
 <template>
   <div>
@@ -1539,7 +1543,7 @@ const props = defineProps(['fileName', 'href'])
 </script>
 ```
 
-```vue
+```vue {3}
 <!-- FileList.vue -->
 <template>
   <ul>
@@ -1553,6 +1557,8 @@ const props = defineProps(['fileName', 'href'])
 import File from './File.vue'
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-multi-props-12?file=src%2FFile.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 <!-- tabs:end -->
 
@@ -1568,7 +1574,7 @@ To showcase this, let's add the ability to pass a `Date` class instance to our `
 
 ### React
 
-```jsx {0-2,14}
+```jsx {1-2,14}
 const FileDate = ({ inputDate }) => {
   const [dateStr, setDateStr] = useState(formatDate(inputDate));
   const [labelText, setLabelText] = useState(formatReadableDate(inputDate));
@@ -1590,9 +1596,11 @@ const File = ({ href, fileName }) => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-object-props-13?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Angular
 
-```typescript {7,21,27}
+```typescript {8,10-20,33,39}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1600,13 +1608,22 @@ import { Component, OnInit } from "@angular/core";
   standalone: true,
   template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
-export class FileDateComponent implements OnInit {
-  @Input() inputDate: Date;
+export class FileDateComponent {
+  @Input() inputDate!: Date;
+  
+   /**
+    * You cannot access `Input` data from the root (constructor)
+    * of the class
+    */
+   dateStr = '';
+   labelText = '';
 
-  dateStr = this.formatDate(this.inputDate);
-  labelText = this.formatReadableDate(this.inputDate);
+   ngOnInit() {
+      this.dateStr = this.formatDate(this.inputDate);
+      this.labelText = this.formatReadableDate(this.inputDate);
+   }
 
-  // ...
+   // ...
 }
 
 @Component({
@@ -1629,9 +1646,17 @@ export class FileComponent {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-object-props-13?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
+You'll notice that we had to move the logic to set the `dateStr` and `labelText` values to the `ngOnInit` method.
+This is because Angular doesn't allow you to access `@Input` values in the root (AKA the "constructor") of a component's class.
+
+> If you're unfamiliar with what a class constructor is and how it associates with root-level class properties, I'd suggest reading through
+> this guide I wrote about [using JavaScript classes without the `class` keyword](https://unicorn-utterances.com/posts/js-classes-without-keyword)
+
 ### Vue
 
-```vue
+```vue {8}
 <!-- FileDate.vue -->
 <template>
   <span :aria-label="labelText">{{ dateStr }}</span>
@@ -1649,12 +1674,13 @@ const labelText = ref(formatDate(props.inputDate))
 </script>
 ```
 
-```vue
+```vue {4,15}
 <!-- File.vue -->
 <template>
   <div>
     <a :href="props.href">{{ props.fileName }}
-    <FileDate :inputDate="inputDate"/>
+      <FileDate :inputDate="inputDate"/>
+    </a>
   </div>
 </template>
 
@@ -1667,6 +1693,8 @@ const props = defineProps(['fileName', 'href']);
 const inputDate = new Date();
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-object-props-13?file=src%2FFile.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 <!-- tabs:end -->
 

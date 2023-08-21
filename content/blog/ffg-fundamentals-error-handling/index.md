@@ -105,7 +105,7 @@ The reason those items aren't showing on-screen is because an error is being thr
 Luckily, this error is a fairly easy fix, but even if we do; bugs will inevitably be introduced into our apps. A white screen is a pretty sub-par experience for our end users - they likely won't even understand what happened that lead them to this broken page.
 
 
-While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experince _better_, at least?
+While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experience _better_, at least?
 
 # Logging Errors
 
