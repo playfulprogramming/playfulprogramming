@@ -782,8 +782,6 @@ const FileDate = () => {
 }
 ```
 
-> React is a bit different from the rest of the group when it comes to lifecycles. Take a look at the other examples. Instead of an explicit "when this is rendered", we have a mention of a "side effect". We'll touch on why that is in a moment.
-
 ### Angular
 
 ```typescript {0,6,9-11}
@@ -842,7 +840,7 @@ onMounted(() => {
 
 <!-- tabs:end -->
 
-Here, we're telling each respective framework to simply log the value of `dateStr` to the console once the component is rendered for the first time.
+Here, we're telling each respective framework to log the value of `dateStr` to the console once the component is rendered for the first time.
 
 > Wait, "for the first time"?
 
@@ -854,7 +852,7 @@ While the method each framework uses to tell _when_ to re-render is different, t
 
 This feature is arguably the biggest advantage of building an application with one of these frameworks.
 
-**This idea of having a bit of code run at a specific time relative to a component is called a component's "Lifecycle"**. Each part of a component's lifecycle has some kind of method behind it. There are many more types of lifecycle methods, including one that updates any time a value on-screen is changed, [which we'll dive deeper into with our "Side Effects" chapter](/posts/ffg-fundamentals-side-effects).
+**This ability to track data being changed relies on the concept of handling "side effects"**. While we'll touch on this more in our future chapter called ["Side effects"](/posts/ffg-fundamentals-side-effects), you can think of a "side effect" as any change made to a component's data: Either through a user's input or the component's output changing.
 
 Speaking of updating data on-screen - let's take a look at how we can dynamically display data on a page.
 
