@@ -269,7 +269,7 @@ Then, in JavaScript, you "render" a component into an element that acts as the "
 
 
 ```jsx {0,6}
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 const File = () => {
   return <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
@@ -278,9 +278,11 @@ const File = () => {
 createRoot(document.getElementById('root')).render(<File />);
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-rendering-1?file=src%2Fmain.jsx&terminal=dev" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Angular
 
-```typescript {2,19}
+```typescript {1,12}
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
@@ -296,6 +298,8 @@ export class FileComponent {}
 bootstrapApplication(FileComponent);
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-rendering-1?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Vue
 
 Because Vue's components all live within dedicated `.vue` SFCs, we have to use two distinct files to render a basic Vue app. We start with our `App.vue` component:
@@ -309,13 +313,15 @@ Because Vue's components all live within dedicated `.vue` SFCs, we have to use t
 
 Then can import this into our main JavaScript file:
 
-```javascript {4,6}
+```javascript {1,4}
 // main.js
 import { createApp } from 'vue';
 import File from './File.vue';
 
 createApp(File).mount("#root");
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-rendering-1?file=src%2Fmain.js" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 <!-- tabs:end -->
 
@@ -345,9 +351,11 @@ const FileList = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-parent-child-2?file=src%2Fmain.jsx&terminal=dev" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Angular
 
-```typescript {7-14}
+```typescript {9-17}
 @Component({
   selector: 'file',
   standalone: true,
@@ -367,6 +375,8 @@ export class FileComponent {}
 })
 export class FileListComponent {}
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-parent-child-2?file=src%2Fmain.ts,src%2Findex.html" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 Notice how we've told our `FileListComponent` to `import` `FileComponent` by passing it the the `imports` array.
 
@@ -397,6 +407,8 @@ Which we can `import` into another component to use it there:
 import File from './File.vue';
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-parent-child-2?file=src%2FFileList.vue&terminal=dev" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 The reason we're able to `import` a component and use it right away is because any variable that we expose inside of `<script setup>` is automatically available in the `<template>` portion of our SFC.
 
@@ -429,6 +441,8 @@ const FileList = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-component-reuse-3?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Angular
 
 ```typescript
@@ -447,6 +461,8 @@ const FileList = () => {
 export class FileListComponent {}
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-component-reuse-3?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Vue
 
 ```vue
@@ -463,6 +479,8 @@ export class FileListComponent {}
 import File from './File.vue';
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-component-reuse-3?file=src%2FFileList.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 <!-- tabs:end -->
 
@@ -502,9 +520,11 @@ const FileList = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-component-hierarchy-4?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Angular
 
-```typescript {2-6,12,22}
+```typescript {0-5,10,13,22,25}
 @Component({
   selector: 'file-date',
   standalone: true,
@@ -538,6 +558,8 @@ export class FileComponent {}
 })
 export class FileListComponent {}
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-component-hierarchy-4?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 ## Vue
 
@@ -575,6 +597,8 @@ import File from './File.vue';
 </script>
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-component-hierarchy-4?file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 <!-- tabs:end -->
 
 # Logic
@@ -591,8 +615,6 @@ Let's take a look at how we can declare logic in a component by making `file-dat
 
 We'll start by adding a simple function to display the current date in a human-readable form.
 
-
-
 <!-- tabs:start -->
 
 ## React
@@ -601,10 +623,12 @@ We'll start by adding a simple function to display the current date in a human-r
 import {useState} from 'react';
 
 const FileDate = () => {
-  const dateStr = useState(`${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`);
+  const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`;
   return <span>12/03/21</span>
 }
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-inline-logic-5?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 ## Angular
 
@@ -619,6 +643,8 @@ export class FileDateComponent {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-inline-logic-5?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Vue
 
 ```vue
@@ -631,6 +657,8 @@ export class FileDateComponent {
 const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-inline-logic-5?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 <!-- tabs:end -->
 
@@ -667,11 +695,13 @@ const FileDate = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-extracted-logic-6?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 > Because React can easily access functions outside of the component declaration, we decided to move it outside of the component scope. This allows us to avoid redeclaring this function in every render, which the other frameworks don't do, thanks to different philosophies.
 
 ## Angular
 
-```typescript {5-14}
+```typescript {6,8-15}
 @Component({
   selector: "file-date",
   standalone: true,
@@ -691,9 +721,11 @@ export class FileDateComponent {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-extracted-logic-6?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ## Vue
 
-```vue
+```vue {6-13,15}
 <!-- FileDate.vue -->
 <template>
   <span>12/03/21</span>
@@ -713,12 +745,13 @@ const dateStr = formatDate();
 </script>
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-extracted-logic-6?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
+
 <!-- tabs:end -->
 
 
-
-
-# Intro to Lifecycles {#lifecycles}
+# Intro to Side Effects {#side-effects}
 
 Let's verify that our `formatDate` method is outputting the correct value by telling our components that "once you're rendered on screen, `console.log` the value of that data."
 
