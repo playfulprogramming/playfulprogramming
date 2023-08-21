@@ -1685,7 +1685,6 @@ const labelText = ref(formatDate(props.inputDate))
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
 import FileDate from './FileDate.vue'
 
 const props = defineProps(['fileName', 'href']);
@@ -1790,7 +1789,7 @@ While we're at it, let's migrate our `File` component to use a `button` instead 
 ### React
 
 ```jsx {1,4,9-14}
-const File = ({ href, fileName }) => {
+const File = ({ fileName }) => {
   const [isSelected, setSelected] = useState(false);
 
   const selectFile = () => {
@@ -1806,14 +1805,14 @@ const File = ({ href, fileName }) => {
           : { backgroundColor: "white", color: "blue" }
       }
     >
-      <a href={href}>
-        {fileName}
-        <FileDate inputDate={new Date()} />
-      </a>
+     {fileName}
+     <FileDate inputDate={new Date()} />
     </button>
   );
 };
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-event-binding-14?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 There are three major things of note in this code sample:
 
@@ -1833,12 +1832,12 @@ There are three major things of note in this code sample:
 
 ### Angular
 
-```typescript {4-9,19-23}
+```typescript {6-11,19-23}
 @Component({
-  selector: "file",
-  standalone: true,
-  imports: [FileDateComponent],
-  template: `
+   selector: 'file',
+   standalone: true,
+   imports: [FileDateComponent],
+   template: `
     <button
       (click)="selectFile()"
       [style]="
@@ -1847,23 +1846,23 @@ There are three major things of note in this code sample:
           : 'background-color: white; color: blue'
       "
     >
-      <a [href]="href">
-        {{ fileName }}
-        <file-date [inputDate]="inputDate"/>
-      </a>
+      {{ fileName }}
+      <file-date [inputDate]="inputDate"/>
     </button>
-  `
+  `,
 })
 export class FileComponent {
-  isSelected = false;
+   isSelected = false;
+   selectFile() {
+      this.isSelected = !this.isSelected;
+   }
 
-  selectFile() {
-    this.isSelected = !this.isSelected;
-  }
-
-  // ...
+   inputDate = new Date();
+   @Input() fileName!: string;
 }
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-event-binding-14?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 Instead of the `[]` symbols to do input binding, we're using the `()` symbols to bind to any built-in browser name.
 
@@ -1872,31 +1871,31 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 ```vue
 <!-- File.vue -->
 <template>
-  <button
+   <button
     v-on:click="selectFile()"
-    :style="isSelected ?
-      'background-color: blue; color: white' :
-      'background-color: white; color: blue'
+    :style="
+      isSelected
+        ? 'background-color: blue; color: white'
+        : 'background-color: white; color: blue'
     "
-  >
-    <a :href="href">
-      {{ fileName }}
-      <FileDate [inputDate]="inputDate" />
-    </a>
-  </button>
+   >
+      {{ props.fileName }}
+      <FileDate :inputDate="inputDate" />
+   </button>
 </template>
-
 <script setup>
-// ...
+import { ref } from 'vue';
+const props = defineProps(['fileName']);
 
-const isSelected = ref(false)
-const inputDate = new Date()
-
+const isSelected = ref(false);
+const inputDate = new Date();
 function selectFile() {
-  isSelected.value = !isSelected.value
+   isSelected.value = !isSelected.value;
 }
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-event-binding-14?file=src%2FFile.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 We can use `v-on` bind prefix to bind a method to any event. This supports any built-in browser event name.
 
