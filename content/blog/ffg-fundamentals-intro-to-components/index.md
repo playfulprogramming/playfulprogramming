@@ -747,7 +747,6 @@ const dateStr = formatDate();
 
 <iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-extracted-logic-6?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
-
 <!-- tabs:end -->
 
 
@@ -782,9 +781,11 @@ const FileDate = () => {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-side-effect-intro-7?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Angular
 
-```typescript {0,6,9-11}
+```typescript {0,7,10-12}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -810,9 +811,11 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-side-effect-intro-7?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Vue
 
-```vue
+```vue {6,19-21}
 <!-- FileDate.vue -->
 <template>
   <span>12/03/21</span>
@@ -838,6 +841,8 @@ onMounted(() => {
 </script>
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-side-effect-intro-7?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 <!-- tabs:end -->
 
 Here, we're telling each respective framework to log the value of `dateStr` to the console once the component is rendered for the first time.
@@ -856,8 +861,6 @@ This feature is arguably the biggest advantage of building an application with o
 
 Speaking of updating data on-screen - let's take a look at how we can dynamically display data on a page.
 
-
-
 # Display
 
 While displaying the value in the console works well for debugging, it's not of much help to the user. After all, more than likely, your users won't know what a console even is. Let's show `dateStr` on-screen
@@ -866,9 +869,7 @@ While displaying the value in the console works well for debugging, it's not of 
 
 ### React
 
-```jsx {14}
-import {useEffect, useState} from 'react';
-
+```jsx {12}
 function formatDate() {
   const today = new Date();
   // Month starts at 0, annoyingly
@@ -879,15 +880,17 @@ function formatDate() {
 }
 
 const FileDate = () => {  
-  const dateStr = useState(formatDate());
+  const dateStr = formatDate();
   
   return <span>{dateStr}</span>
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-display-8?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Angular
 
-```typescript {4}
+```typescript {3}
 @Component({
   selector: "file-date",
   standalone: true,
@@ -907,11 +910,13 @@ export class FileDateComponent {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-display-8?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 Every class property inside of the component instance is usable inside of the `@Component`'s `template`. 
 
 ### Vue
 
-```vue
+```vue {2}
 <!-- FileDate.vue -->
 <template>
   <span>{{dateStr}}</span>
@@ -932,6 +937,8 @@ function formatDate() {
 const dateStr = formatDate();
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-display-8?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 Here, we're utilizing the fact that every variable inside of `<script setup>` is automatically exposed to our `<template>` code.
 
@@ -959,7 +966,6 @@ setTimeout(() => {
     rerender();
 }, 5000);
 ```
-
 
 Let's see what that looks like in practice for each framework:
 
@@ -998,6 +1004,8 @@ const FileDate = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-live-display-9?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 `useState` is what React uses to store data that the developer wants to persist between renders. Its first argument (that we're passing a string into) is used to set the initial value.
 
 We're then using [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to convert the returned array into two variables. Another way to write this code is:
@@ -1022,7 +1030,7 @@ While React takes a very explicit method of telling the framework when to re-ren
 
 All it takes in Angular to trigger a re-render is to update a variable's value:
 
-```typescript {9-15}
+```typescript {10-16}
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -1037,11 +1045,11 @@ export class FileDateComponent implements OnInit {
     setTimeout(() => {
       // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
       const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      this.date = this.formatDate(tomorrow);
+      this.dateStr = this.formatDate(tomorrow);
     }, 5000);
   }
 
-  formatDate(inputDate) {
+  formatDate(inputDate: Date) {
     // Month starts at 0, annoyingly
     const monthNum = inputDate.getMonth() + 1;
     const dateNum = inputDate.getDate();
@@ -1051,11 +1059,13 @@ export class FileDateComponent implements OnInit {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-live-display-9?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 ### Vue
 
 Similar to how React has `useState` in order to set data in a component, Vue introduces an API called `ref` in order to have data updates trigger a re-render.
 
-```vue
+```vue {18-24}
 <!-- FileDate.vue -->
 <template>
   <span>{{ dateStr }}</span>
@@ -1083,6 +1093,8 @@ onMounted(() => {
 })
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-live-display-9?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 > Notice how we're using `.value` to update the value inside of `<script>` but don't use `.value` inside of `<template>`. This isn't a mistake - it's just how Vue's `ref` works!
 
@@ -1116,17 +1128,13 @@ const FileDate = () => {
 
   // ...
   
-  return <span ariaLabel="January 10th, 2023">{dateStr}</span>
+  return <span aria-label="January 10th, 2023">{dateStr}</span>
 }
 ```
 
-> You may notice that the attribute is [`ariaLabel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaLabel) in React but `aria-label` in every other framework. This is because React uses the JavaScript names for attributes, similar to the properties you'd set on an [`Element`](https://developer.mozilla.org/en-US/docs/Web/API/Element) that you'd get from a query like [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
->
-> This also means that instead of `class`, you set [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className), to the confusion of many an early React developer.
-
 ### Angular
 
-```typescript {5}
+```typescript {6}
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -1145,7 +1153,7 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue
+```vue {2}
 <!-- FileDate.vue -->
 <template>
   <span aria-label="January 10th, 2023">{{dateStr}}</span>
@@ -1178,7 +1186,7 @@ import {useState, useEffect} from 'react';
 function formatReadableDate(inputDate) {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthStr = months[inputDate.getMonth()];
-  const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+  const dateSuffixStr = dateSuffix(inputDate.getDate());
   const yearNum = inputDate.getFullYear();
   return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
@@ -1189,7 +1197,7 @@ const FileDate = () => {
   
   // ...
   
-  return <span ariaLabel={labelText}>{dateStr}</span>
+  return <span aria-label={labelText}>{dateStr}</span>
 }
 
 function dateSuffix(dayNumber) {
@@ -1207,11 +1215,13 @@ function dateSuffix(dayNumber) {
 }
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-attribute-binding-10?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 > Notice the `{}` used after the `=` to assign the attribute value. This is pretty similar to the syntax to interpolate text into the DOM!
 
 ### Angular
 
-```typescript {5,10}
+```typescript {6,11}
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -1227,7 +1237,7 @@ export class FileDateComponent implements OnInit {
 
   // ...
     
-  dateSuffix(dayNumber) {
+  dateSuffix(dayNumber: number) {
     const lastDigit = dayNumber % 10;
     if (lastDigit == 1 && dayNumber != 11) {
       return dayNumber + "st";
@@ -1239,8 +1249,9 @@ export class FileDateComponent implements OnInit {
       return dayNumber + "rd";
     }
     return dayNumber + "th";
-  },
-  formatReadableDate(inputDate) {
+  }
+  
+  formatReadableDate(inputDate: Date) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const monthStr = months[inputDate.getMonth()];
     const dateSuffixStr = this.dateSuffix(inputDate.getDate());
@@ -1249,6 +1260,8 @@ export class FileDateComponent implements OnInit {
   }
 }
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-attribute-binding-10?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 > Unlike the `{{}}` that you'd use to bind text to the DOM, you use `[]` to bind attributes in Angular.
 >
@@ -1268,7 +1281,7 @@ export class FileDateComponent implements OnInit {
 function formatReadableDate(inputDate) {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthStr = months[inputDate.getMonth()];
-  const dateSuffixStr = this.dateSuffix(inputDate.getDate());
+  const dateSuffixStr = dateSuffix(inputDate.getDate());
   const yearNum = inputDate.getFullYear();
   return monthStr + " " + dateSuffixStr + "," + yearNum;
 }
@@ -1293,6 +1306,8 @@ const labelText = ref(formatReadableDate(new Date()))
 // ...
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-attribute-binding-10?file=src%2FFileDate.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 > In Vue, `v-bind` has a shorter syntax that does the same thing. If you ax the `v-bind` and leave the `:`, it works the same way.
 >
@@ -1344,6 +1359,8 @@ const FileList = () => {
 };
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-react-props-11?file=src%2Fmain.jsx" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 > React uses an object to contain all properties that we want to pass to a component. We can use [parameter destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the properties without having to use `props` before the name of the parameter we really want, like so:
 >
 > ```jsx
@@ -1362,16 +1379,19 @@ const FileList = () => {
 
 ## Angular
 
-```typescript {7,14}
+```typescript {0,11,20}
+import {Input, Component} from '@angular/core';
+
 @Component({
   selector: "file",
   standalone: true,
+  imports: [FileDateComponent],
   template: `
     <div><a href="/file/file_one">{{ fileName }}<file-date/></a></div>
   `,
 })
 export class FileComponent {
-  @Input() fileName: string;
+  @Input() fileName!: string;
 }
 
 @Component({
@@ -1389,17 +1409,19 @@ export class FileComponent {
 export class FileListComponent {}
 ```
 
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-angular-props-11?file=src%2Fmain.ts" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
+
 > See? Told you we'd cover what `[]` would be used for. It's the same binding syntax as with attributes!
 >
 > We're also using the `@Input` decorator to declare inputs for each component input.
 
 ## Vue
 
-```vue
+```vue {3,10}
 <!-- File.vue -->
 <template>
   <div>
-    <a href="/file/file_one">{{ props.fileName }}<FileDate></a>
+    <a href="/file/file_one">{{ props.fileName }}<FileDate/></a>
   </div>
 </template>
 
@@ -1410,7 +1432,7 @@ const props = defineProps(['fileName'])
 </script>
 ```
 
-```vue
+```vue {3}
 <!-- FileList.vue -->
 <template>
   <ul>
@@ -1424,6 +1446,8 @@ const props = defineProps(['fileName'])
 import File from './File.vue'
 </script>
 ```
+
+<iframe src="https://stackblitz.com/edit/ffg-fundamentals-vue-props-11?file=src%2FFile.vue" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" allow="cross-origin-isolated"></iframe>
 
 > We don't need to import `defineProps`, instead, Vue uses some compiler magic in order to provide it as a globally accessible method.
 >
@@ -1551,7 +1575,7 @@ const FileDate = ({ inputDate }) => {
 
   // ...
 
-  return <span ariaLabel={labelText}>{dateStr}</span>;
+  return <span aria-label={labelText}>{dateStr}</span>;
 };
 
 const File = ({ href, fileName }) => {
