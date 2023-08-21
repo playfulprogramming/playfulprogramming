@@ -21,8 +21,8 @@ const tagsToDisplay = [...data.tags]
 		{translate(Astro, "desc.looking_for_more")}
 	</p>
 
-	<form class={style.searchbarRow} onsubmit="event.preventDefault()">
-		<SearchInput class={style.searchbar} />
+	<form id="searchForm" class={style.searchbarRow}>
+		<SearchInput name="searchVal" type="text" class={style.searchbar} />
 		<IconOnlyButton tag="button" type="submit" class={style.searchButton}>
 			<Icon width="100%" height="100%" name="arrow_right" />
 		</IconOnlyButton>
@@ -40,3 +40,18 @@ const tagsToDisplay = [...data.tags]
 		}
 	</ul>
 </section>
+
+<script>
+	import { buildSearchQuery } from "../../utils/search";
+
+	const searchForm = document.getElementById("searchForm") as HTMLFormElement;
+	searchForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const searchVal = (searchForm.searchVal as HTMLInputElement)
+			.value as string;
+		if (!searchVal) return;
+		window.location.href = `/search?${buildSearchQuery({
+			searchQuery: searchVal,
+		})}`;
+	});
+</script>
