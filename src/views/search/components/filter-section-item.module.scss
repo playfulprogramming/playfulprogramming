@@ -32,6 +32,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-shrink: 0;
 }
 
 .label {
@@ -41,6 +42,7 @@
 
 .count {
 	color: var(--search-page_filter_list_item_count_color);
+	flex-shrink: 0;
 }
 
 .containerLabel.selected {
