@@ -109,7 +109,7 @@
 	},
 	"minecraft": {
 		"displayName": "Minecraft",
-		"emoji": "🟩"
+		"image": "/stickers/minecraft.svg"
 	},
 	"mongodb": {
 		"displayName": "MongoDB",
