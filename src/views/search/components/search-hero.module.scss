@@ -18,9 +18,6 @@
 	--search-hero_title_color: var(--foreground_emphasis-high);
 	--search-hero_description_color: var(--foreground_emphasis-medium);
 
-	// opaque text-shadow color, calculated from overlaying `surface_primary_emphasis-none` on `background_primary`.
-	--search-hero_title_shadow-color: #d6ecff;
-
 	--search-hero_btn_margin-top: var(--site-spacing);
 
 	@include from($tabletSmall) {
@@ -32,14 +29,6 @@
 	@include from($desktopSmall) {
 		--search-hero_container_max-width: var(--max-width_m);
 		--search-hero_icon_size: calc(var(--icon-size_regular) * 3);
-	}
-}
-
-// this is a hack for darkTheme, since `html.dark :root` won't work; `html.dark body` will
-body {
-	@include darkTheme {
-		// opaque text-shadow color, calculated from overlaying `surface_primary_emphasis-none` on `background_primary`.
-		--search-hero_title_shadow-color: #00293e;
 	}
 }
 
@@ -87,12 +76,6 @@ body {
 .title {
 	margin: 0;
 	color: var(--search-hero_title_color);
-
-	text-shadow:
-		0 0 5px var(--search-hero_title_shadow-color),
-		0 0 6px var(--search-hero_title_shadow-color),
-		0 0 8px var(--search-hero_title_shadow-color),
-		0 0 8px var(--search-hero_title_shadow-color);
 }
 
 .description {
