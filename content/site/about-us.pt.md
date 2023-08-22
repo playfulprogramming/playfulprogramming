@@ -1,4 +1,4 @@
-<p class="text-style-headline-2">O nosso objetivo é fornecer os melhores recursos possíveis para aprender qualquer tópico que esteja relacionado a Ciência dos Computadores</p>
+<p><span class="text-style-headline-2">O nosso objetivo é fornecer os melhores recursos possíveis para aprender qualquer tópico que esteja relacionado a Ciência dos Computadores</span></p>
 
 O que é um ciclo for? Como faço animações com CSS? Como é que a memória é gerida em Assembly? Não importa qual é o tópico, nós queremos que o nosso website seja amigável, que forneça apoio e seja informativo.
 
