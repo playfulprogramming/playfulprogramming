@@ -65,6 +65,16 @@
 	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
 }
 
+.labelContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	color: var(--foreground_emphasis-high);
+	padding: var(--spc-1x) var(--spc-2x) var(--spc-1x) var(--spc-1x);
+}
+
 :root {
 	--search-form-field_padding-right: var(--spc-6x);
 	--search-form-field_padding-vertical: var(--spc-4x);
