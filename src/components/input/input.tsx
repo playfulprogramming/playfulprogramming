@@ -1,19 +1,39 @@
 import style from "./input.module.scss";
-import { ComponentProps, ComponentType, JSX } from "preact";
+import { ComponentProps, ComponentType, Fragment, JSX } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
 import { IconOnlyButton } from "components/button/button";
-import { useId } from "preact/compat";
+import { HTMLAttributes, useId } from "preact/compat";
 
-export function Input({
-	class: className = "",
-	...props
-}: JSX.IntrinsicElements["input"]) {
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
+	label?: string;
+	containerClass?: string;
+}
+
+export function Input({ class: className = "", containerClass = "", ...props }: InputProps) {
+	const _id = useId();
+
+	const id = props.id ?? _id;
+
+	const Container = props.label ? "div" : Fragment;
+
 	return (
-		<input
-			{...props}
-			class={`text-style-body-medium ${style.input} ${className}`}
-		/>
+		<Container class={`${style.labelContainer} ${containerClass}`}>
+			{props.label && (
+				<label
+					class={`text-style-body-small-bold ${style.label}`}
+					for={id}
+					id={`${id}-label`}
+				>
+					{props.label}
+				</label>
+			)}
+			<input
+				{...props}
+				id={id}
+				class={`text-style-body-medium ${style.input} ${className}`}
+			/>
+		</Container>
 	);
 }
 
