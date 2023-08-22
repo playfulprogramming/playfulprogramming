@@ -20,7 +20,7 @@
 	--chip-gap: var(--spc-2x);
 	--site-spacing: var(--spc-4x);
 
-	@include from($tabletLarge) {
+	@include from($tabletSmall) {
 		--site-spacing: var(--spc-6x);
 	}
 
