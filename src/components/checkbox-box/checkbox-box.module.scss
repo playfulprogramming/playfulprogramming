@@ -73,13 +73,13 @@
 }
 
 .boxContainer svg {
-	fill: var(--checkbox_on_checkmark_color_default);
+	color: var(--checkbox_on_checkmark_color_default);
 	height: 100%;
 	width: 100%;
 }
 
 .boxContainer.disabled svg {
-	fill: var(--checkbox_on_checkmark_color_disabled);
+	color: var(--checkbox_on_checkmark_color_disabled);
 }
 
 .container:not(:active) .boxContainer.checked {
