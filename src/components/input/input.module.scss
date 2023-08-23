@@ -34,13 +34,10 @@
 	padding: var(--form-field_padding-vertical)
 		var(--form-field_padding-horizontal);
 	border: var(--form-field_outline_width) solid var(--form-field_outline_color);
-	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
 	border-radius: 8px;
 	background: var(--form-field_background);
 	color: var(--foreground_emphasis-high);
-	margin: calc(
-		var(--form-field_outline_width_focused) - var(--form-field_outline_width)
-	);
+	margin: 0;
 }
 
 .input:hover {
@@ -50,9 +47,12 @@
 }
 
 .input:focus-within {
-	border: var(--form-field_outline_width_focused) solid
+	// keep the border width the same size in all states, to avoid layout shift
+	border: var(--form-field_outline_width) solid
 		var(--form-field_outline_color_focused);
-	outline: var(--form-field_halo_color) solid var(--form-field_halo_width);
+	// only use outline for the :focus-within state, for visibility in high-contrast themes
+	outline: calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width)) solid var(--form-field_outline_color_focused);
+	box-shadow: 0 0 0 calc(var(--form-field_outline_width_focused) - var(--form-field_outline_width) + var(--form-field_halo_width)) var(--form-field_halo_color);
 	background: var(--form-field_background_focused);
 }
 
@@ -61,7 +61,6 @@
 	background: var(--form-field_background_disabled);
 	border: var(--form-field_outline_width) solid
 		var(--form-field_outline_color_disabled);
-	outline: rgba(0, 0, 0, 0) solid var(--form-field_halo_width);
 }
 
 .labelContainer {
