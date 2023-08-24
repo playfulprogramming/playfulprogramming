@@ -56,11 +56,14 @@ interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	class?: string;
 	className?: string;
 	defaultValue: string;
+	prefixSelected: string;
 }
 
 export function Select<T extends object>({
 	class: className = "",
 	className: classNameName = "",
+	defaultValue,
+	prefixSelected = "",
 	...props
 }: PropsWithChildren<SelectProps<T>>) {
 	const state = useSelectState(props);
@@ -106,9 +109,8 @@ export function Select<T extends object>({
 				}
 			>
 				<span {...valueProps}>
-					{state.selectedItem
-						? state.selectedItem.rendered
-						: props.defaultValue}
+					{prefixSelected}
+					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
 				</span>
 			</Button>
 

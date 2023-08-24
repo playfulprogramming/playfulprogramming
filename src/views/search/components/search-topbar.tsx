@@ -96,7 +96,8 @@ export const SearchTopbar = ({
 					</Button>
 					<Select
 						label={"Post sort order"}
-						defaultValue={"Sort order"}
+						prefixSelected={"Sort by: "}
+						defaultValue={"Relevance"}
 						selectedKey={sort}
 						onSelectionChange={(v) => {
 							if (!v) {
@@ -106,7 +107,7 @@ export const SearchTopbar = ({
 							setSort(v);
 						}}
 					>
-						<Item key={""}>Default</Item>
+						<Item key={""}>Relevance</Item>
 						<Item key={"newest"}>Newest</Item>
 						<Item key={"oldest"}>Oldest</Item>
 					</Select>
