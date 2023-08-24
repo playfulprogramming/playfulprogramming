@@ -115,7 +115,10 @@
 .searchInput {
 	all: unset;
 	text-align: left;
-	width: 100%;
+	flex-grow: 1;
+	min-width: 0;
+	border-radius: var(--corner-radius_circular);
+
 	padding-left: max(
 		var(--icon-size_regular),
 		calc(
@@ -130,18 +133,6 @@
 
 .searchInput.disableSearchIcon {
 	padding-left: var(--search-form-field_padding-right) !important;
-}
-
-.searchContainer:focus-within .searchInput {
-	padding-right: calc(
-		max(
-			var(--icon-size_regular),
-			calc(
-				var(--p_medium_line-height) +
-					calc(var(--search-form-field_padding-vertical) * 2)
-			)
-		)
-	);
 }
 
 .clearButtonContainer {

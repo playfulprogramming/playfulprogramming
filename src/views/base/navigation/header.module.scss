@@ -1,14 +1,31 @@
 @import "src/tokens/index";
 
+:root {
+	--header_padding-horizontal: var(--site-spacing);
+	--header_padding-vertical: calc(var(--site-spacing) - var(--spc-2x));
+	--header_logo_size: 48px;
+	--header_logo_padding-end: var(--site-spacing);
+	--header_button-gap: calc(var(--site-spacing) / 2);
+	--header_end-items_max-width: var(--max-width_xxs);
+
+	@include from($desktopSmall) {
+		--header_end-items_max-width: var(--max-width_s);
+		--header_logo_size: 56px;
+	}
+}
+
 .headerBorder {
-	border-bottom: 1px solid var(--foreground_emphasis-none);
-	margin-top: var(--spc-4x) !important;
+	// border-bottom: 1px solid var(--foreground_emphasis-none);
 	margin-bottom: var(--site-spacing) !important;
+
+	top: 0;
+	position: sticky;
+	background: var(--background_primary);
+	z-index: 1;
 }
 
 .header {
-	height: 80px;
-	padding: 0 var(--site-spacing);
+	padding: var(--header_padding-vertical) var(--header_padding-horizontal);
 	margin: 0 auto;
 	max-width: var(--max-width_l);
 
@@ -18,8 +35,14 @@
 }
 
 .logo {
-	margin: 0 var(--spc-4x);
 	text-decoration: none;
+	padding-right: var(--header_logo_padding-end);
+
+	img {
+		width: var(--header_logo_size);
+		height: var(--header_logo_size);
+		filter: var(--shadow_sticker_drop_shadow);
+	}
 
 	span {
 		margin-left: var(--spc-1x);
@@ -30,16 +53,46 @@
 }
 
 .nav {
-	gap: var(--spc-2x);
-	padding: 0 var(--spc-4x);
+	gap: var(--header_button-gap);
+	flex-grow: 1;
 
-	@include until($tabletSmall) {
-		display: none;
+	a:global(.button) {
+		background: transparent;
+	}
+
+	display: none;
+
+	@include from($tabletSmall) {
+		display: flex;
 	}
 }
 
 .icons {
-	gap: var(--spc-4x);
-	flex-grow: 1;
+	gap: var(--header_button-gap);
 	justify-content: flex-end;
+	max-width: var(--header_end-items_max-width);
+
+	.discordLarge, .searchLarge {
+		display: none;
+	}
+
+	@include from($desktopSmall) {
+		.discordSmall {
+			display: none;
+		}
+
+		.discordLarge {
+			display: flex;
+		}
+	}
+
+	@include from($tabletLarge) {
+		.searchSmall {
+			display: none;
+		}
+
+		.searchLarge {
+			display: block;
+		}
+	}
 }
