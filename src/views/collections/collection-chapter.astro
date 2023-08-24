@@ -23,7 +23,7 @@ const { num, title, description, href } = Astro.props as CollectionChapter;
 			{href ? <a href={href}>{title}</a> : title}
 		</h2>
 	</div>
-	<p class={styles.description}>
+	<p class={`text-style-body-large ${styles.description}`}>
 		{description}
 	</p>
 </div>

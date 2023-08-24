@@ -36,7 +36,7 @@ const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
 const coverImgSize = getImageSize(
 	"." + coverImgPath,
 	process.cwd(),
-	process.cwd()
+	process.cwd(),
 );
 
 const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
@@ -84,12 +84,12 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 				{
 					collectionMeta.authorsMeta.map((author) => {
 						const authorPosts = posts.filter((post) =>
-							post.authors.includes(author.id)
+							post.authors.includes(author.id),
 						);
 
 						const wordCount = authorPosts.reduce(
 							(acc, post) => acc + (post as ExtendedPostInfo).wordCount ?? 0,
-							0
+							0,
 						);
 						const href = `/unicorns/${author.id}`;
 						return (
@@ -103,7 +103,7 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 								>
 									<UUPicture
 										picture={unicornProfilePicMap.find(
-											(u) => u.id === author.id
+											(u) => u.id === author.id,
 										)}
 										alt={author.name}
 									/>
@@ -112,29 +112,23 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 									<p class={`text-style-body-large-bold ${styles.authorName}`}>
 										{author.name}
 									</p>
-									<div>
-										<p>
-											<span
-												class={`text-style-body-medium-bold ${styles.authorArticles}`}
-											>
-												{translate(
-													Astro,
-													"title.n_articles",
-													authorPosts.length.toString()
-												)}
-											</span>
-											<span class={styles.authorMetaSeperatorDot}>•</span>
-											<span
-												class={`text-style-body-medium-bold ${styles.authorWordCount}`}
-											>
-												{translate(
-													Astro,
-													"title.n_words",
-													wordCount.toString()
-												)}
-											</span>
-										</p>
-									</div>
+									<p class="text-style-body-large">
+										<span
+											class={`text-style-body-medium-bold ${styles.authorArticles}`}
+										>
+											{translate(
+												Astro,
+												"title.n_articles",
+												authorPosts.length.toString(),
+											)}
+										</span>
+										<span class={styles.authorMetaSeperatorDot}>•</span>
+										<span
+											class={`text-style-body-medium-bold ${styles.authorWordCount}`}
+										>
+											{translate(Astro, "title.n_words", wordCount.toString())}
+										</span>
+									</p>
 								</div>
 								<Button as="a" href={href} class={styles.viewProfileBtn}>
 									{translate(Astro, "action.view_profile")}

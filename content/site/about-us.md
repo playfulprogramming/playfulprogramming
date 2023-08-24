@@ -1,4 +1,4 @@
-<p class="text-style-headline-2">Our goal is to provide the best resources possible to learn any computer science related topic</p>
+<p><span class="text-style-headline-2">Our goal is to provide the best resources possible to learn any computer science related topic</span></p>
 
 What’s a for loop? How do I create animations in CSS? How is memory allocated in Assembly? No matter what the topic is, we want our website to be welcoming, supportive and informational.
 
