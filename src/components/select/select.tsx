@@ -55,6 +55,7 @@ function Popover({
 interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	class?: string;
 	className?: string;
+	defaultValue: string;
 }
 
 export function Select<T extends object>({
@@ -75,7 +76,7 @@ export function Select<T extends object>({
 	return (
 		<div style={{ display: "inline-block" }}>
 			<div {...labelProps} class={"visually-hidden"}>
-				Post sort order
+				{props.label}
 			</div>
 			<HiddenSelect
 				isDisabled={props.isDisabled}
@@ -107,7 +108,7 @@ export function Select<T extends object>({
 				<span {...valueProps}>
 					{state.selectedItem
 						? state.selectedItem.rendered
-						: "Select an option"}
+						: props.defaultValue}
 				</span>
 			</Button>
 

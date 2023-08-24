@@ -8,6 +8,7 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
+import { StateUpdater } from "preact/hooks";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -16,8 +17,8 @@ interface SearchTopbarProps {
 	setSearch: (search: string) => void;
 	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
 	contentToDisplay: "all" | "articles" | "collections";
-	setSort: (sort: "newest" | "oldest") => void;
-	sort: "newest" | "oldest";
+	sort: "newest" | "oldest" | null;
+	setSort: (sortBy: "newest" | "oldest" | null) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 }
 
@@ -94,10 +95,18 @@ export const SearchTopbar = ({
 						Filter
 					</Button>
 					<Select
-						label={"Order"}
+						label={"Post sort order"}
+						defaultValue={"Sort order"}
 						selectedKey={sort}
-						onSelectionChange={(v) => setSort(v)}
+						onSelectionChange={(v) => {
+							if (!v) {
+								setSort(null);
+								return;
+							}
+							setSort(v);
+						}}
 					>
+						<Item key={""}>Default</Item>
 						<Item key={"newest"}>Newest</Item>
 						<Item key={"oldest"}>Oldest</Item>
 					</Select>
@@ -109,7 +118,14 @@ export const SearchTopbar = ({
 					className={style.topBarSmallTabletButtonsToggle}
 					value={sort}
 					label={"Sort order"}
-					onChange={(val) => setSort(val as "newest")}
+					onChange={(val) => {
+						if (sort === val) {
+							setSort(null);
+							return;
+						}
+
+						setSort(val as "newest");
+					}}
 				>
 					<RadioButton value={"newest"}>Newest</RadioButton>
 					<RadioButton value={"oldest"}>Oldest</RadioButton>

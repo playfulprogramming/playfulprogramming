@@ -22,8 +22,8 @@ interface FilterSidebar {
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
 	setSelectedAuthorIds: (authors: string[]) => void;
-	sort: "newest" | "oldest";
-	setSort: (sortBy: "newest" | "oldest") => void;
+	sort: "newest" | "oldest" | null;
+	setSort: (sortBy: "newest" | "oldest" | null) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
 	onSelectedAuthorChange: (authorId: string) => void;
@@ -74,7 +74,14 @@ export const FilterSidebar = ({
 				className={styles.buttonsContainer}
 				value={sort}
 				label={"Sort order"}
-				onChange={(val) => setSort(val as "newest")}
+				onChange={(val) => {
+					if (sort === val) {
+						setSort(null);
+						return;
+					}
+
+					setSort(val as "newest");
+				}}
 			>
 				<RadioButton value={"newest"}>Newest</RadioButton>
 				<RadioButton value={"oldest"}>Oldest</RadioButton>
