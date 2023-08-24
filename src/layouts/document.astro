@@ -22,4 +22,8 @@ const props = Astro.props as {
 	<script>
 		import "src/utils/href-container-script";
 	</script>
+	<script>
+		import { enableStickyObserver } from "src/utils/sticky-observer-script";
+		enableStickyObserver();
+	</script>
 </Barebones>

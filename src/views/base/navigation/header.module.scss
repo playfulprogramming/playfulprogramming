@@ -15,10 +15,15 @@
 }
 
 .headerBorder {
-	// border-bottom: 1px solid var(--foreground_emphasis-none);
+	border-bottom: 1px solid transparent;
+
+	&[data-sticky="pinned"] {
+		border-bottom: 1px solid var(--foreground_emphasis-none);
+	}
+
 	margin-bottom: var(--site-spacing) !important;
 
-	top: 0;
+	top: -0.1px;
 	position: sticky;
 	background: var(--background_primary);
 	z-index: 1;
@@ -69,8 +74,14 @@
 
 .icons {
 	gap: var(--header_button-gap);
+
 	justify-content: flex-end;
-	max-width: var(--header_end-items_max-width);
+	flex-grow: 1;
+
+	@include from($tabletSmall) {
+		flex-grow: 0;
+		max-width: var(--header_end-items_max-width);
+	}
 
 	.discordLarge, .searchLarge {
 		display: none;
