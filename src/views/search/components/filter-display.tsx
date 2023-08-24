@@ -19,8 +19,8 @@ interface FilterDisplayProps {
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
 	setSelectedAuthorIds: (authors: string[]) => void;
-	sort: "newest" | "oldest";
-	setSort: (sortBy: "newest" | "oldest") => void;
+	sort: "newest" | "oldest" | null;
+	setSort: (sortBy: "newest" | "oldest" | null) => void;
 	desktopStyle?: CSSProperties;
 	isFilterDialogOpen: boolean;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
