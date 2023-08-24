@@ -16,12 +16,9 @@
 
 .headerBorder {
 	border-bottom: 1px solid transparent;
-
 	&[data-sticky="pinned"] {
 		border-bottom: 1px solid var(--foreground_emphasis-none);
 	}
-
-	margin-bottom: var(--site-spacing) !important;
 
 	top: -0.1px;
 	position: sticky;
@@ -41,7 +38,6 @@
 
 .logo {
 	text-decoration: none;
-	padding-right: var(--header_logo_padding-end);
 
 	img {
 		width: var(--header_logo_size);
@@ -51,9 +47,16 @@
 
 	span {
 		margin-left: var(--spc-1x);
+		margin-right: var(--header_logo_padding-end);
 		line-height: 125%;
 
 		color: var(--primary_default);
+
+		display: none;
+
+		@include from($tabletSmall) {
+			display: block;
+		}
 	}
 }
 

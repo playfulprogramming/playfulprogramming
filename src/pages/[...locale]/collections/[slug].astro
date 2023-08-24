@@ -12,7 +12,7 @@ import { getLanguageFromFilename, translate } from "utils/translations";
 
 export async function getStaticPaths() {
 	const collections = await Astro.glob(
-		"../../../../content/collections/**/*.md"
+		"../../../../content/collections/**/*.md",
 	);
 
 	return collections.map((collection) => {
@@ -45,11 +45,11 @@ const collectionPosts = getPostsByCollection(slug, collection.locale);
 const coverImgPath = getFullRelativePath(
 	"/content/collections",
 	slug,
-	collection.coverImg
+	collection.coverImg,
 );
 ---
 
-<Document size="xl">
+<Document size="l">
 	<SEO
 		slot="head"
 		title={collection.title}

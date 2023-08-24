@@ -1,5 +1,4 @@
 ---
-import { Picture } from "@astrojs/image/components";
 import Icon from "astro-icon";
 import * as data from "src/utils/data";
 import { Button, IconOnlyButton } from "components/index";
@@ -12,8 +11,8 @@ import { SearchInput } from "components/input/input";
 import { SEARCH_QUERY_KEY } from "utils/search";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
-const isHome = path === "/";
-const isAbout = /\/about\/?/.test(path);
+const isAbout = /^\/about\/?/.test(path);
+const isSearch = /^\/search\/?/.test(path);
 
 const props = Astro.props as {
 	size: undefined | "l" | "xl";
@@ -31,7 +30,7 @@ const props = Astro.props as {
 			props.size === "xl" ? style.header_xl : ""
 		} d-flex`}
 	>
-		<!-- <BackButton /> -->
+		<!-- <BackButton /> TODO: should be mobile-only (waiting for specs) -->
 
 		<a href="/" class={`d-flex ${style.logo}`}>
 			<img
@@ -48,26 +47,32 @@ const props = Astro.props as {
 		</a>
 
 		<div class={`d-flex ${style.nav}`}>
-			<Button
-				href="/about"
-				variant={isAbout ? "primary-emphasized" : "primary"}
-			>
-				{translate(Astro, "title.about_us")}
-			</Button>
+			{
+				!isAbout && (
+					<Button href="/about" variant="primary">
+						{translate(Astro, "title.about_us")}
+					</Button>
+				)
+			}
 		</div>
 
 		<div class={`d-flex ${style.icons}`}>
-			<form method="get" action="/search" class={style.searchLarge}>
-				<SearchInput name={SEARCH_QUERY_KEY} type="text" />
-			</form>
+			<!-- TODO: should have SearchInput variant="dense" (waiting for specs) -->
+			{
+				!isSearch && [
+					<form method="get" action="/search" class={style.searchLarge}>
+						<SearchInput name={SEARCH_QUERY_KEY} type="text" />
+					</form>,
 
-			<IconOnlyButton
-				href="/search"
-				aria-label={translate(Astro, "title.search")}
-				class={style.searchSmall}
-			>
-				<Icon height="100%" width="100%" name="search" />
-			</IconOnlyButton>
+					<IconOnlyButton
+						href="/search"
+						aria-label={translate(Astro, "title.search")}
+						class={style.searchSmall}
+					>
+						<Icon height="100%" width="100%" name="search" />
+					</IconOnlyButton>,
+				]
+			}
 
 			<Button
 				href={data.about.links.Discord.url}
