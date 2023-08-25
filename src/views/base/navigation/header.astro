@@ -11,6 +11,7 @@ import { SearchInput } from "components/input/input";
 import { SEARCH_QUERY_KEY } from "utils/search";
 
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
+const isHome = path === "/";
 const isAbout = /^\/about\/?/.test(path);
 const isSearch = /^\/search\/?/.test(path);
 
@@ -30,7 +31,7 @@ const props = Astro.props as {
 			props.size === "xl" ? style.header_xl : ""
 		} d-flex`}
 	>
-		<!-- <BackButton /> TODO: should be mobile-only (waiting for specs) -->
+		{!isHome && <BackButton class={style.backButton} />}
 
 		<a href="/" class={`d-flex ${style.logo}`}>
 			<img
