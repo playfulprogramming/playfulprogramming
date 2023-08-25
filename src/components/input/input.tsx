@@ -44,6 +44,7 @@ const IconOnlyButtonButOnClick = IconOnlyButton as never as ComponentType<
 >;
 
 interface SearchInputProps {
+	variant?: "default" | "dense",
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
 }
@@ -51,6 +52,7 @@ interface SearchInputProps {
 export function SearchInput({
 	class: classClass = "",
 	className = "",
+	variant = "default",
 	usedInPreact,
 	hideSearchButton,
 	id: propsId,
@@ -78,7 +80,7 @@ export function SearchInput({
 
 	return (
 		<div
-			class={`${style.input} ${style.searchContainer} ${classClass} ${className}`}
+			class={`${style.input} ${style.searchContainer} ${style[variant]} ${classClass} ${className}`}
 		>
 			{!hideSearchButton && (
 				<div

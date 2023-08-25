@@ -58,11 +58,15 @@ const props = Astro.props as {
 		</div>
 
 		<div class={`d-flex ${style.icons}`}>
-			<!-- TODO: should have SearchInput variant="dense" (waiting for specs) -->
 			{
 				!isSearch && [
 					<form method="get" action="/search" class={style.searchLarge}>
-						<SearchInput name={SEARCH_QUERY_KEY} type="text" />
+						<SearchInput
+							name={SEARCH_QUERY_KEY}
+							type="text"
+							variant="dense"
+							placeholder={translate(Astro, "action.search_for")}
+						/>
 					</form>,
 
 					<IconOnlyButton

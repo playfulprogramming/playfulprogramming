@@ -82,6 +82,12 @@
 	--search-form_icon-color_disabled: var(--foreground_disabled);
 
 	--search-form-hint_color: var(--foreground_disabled);
+
+	.searchContainer.dense {
+		--search-form-field_padding-right: var(--spc-4x);
+		--search-form-field_padding-vertical: var(--spc-2x);
+		--search-form_icon-size: var(--icon-size_dense);
+	}
 }
 
 .searchContainer {
