@@ -311,7 +311,7 @@ describe("Search page", () => {
 			collections: [],
 		}));
 
-		const { getByTestId, getByText, getByLabelText } = render(
+		const { getByTestId, getByText, getByLabelText, findByText } = render(
 			<SearchPage unicornProfilePicMap={[]} />,
 		);
 
@@ -321,9 +321,12 @@ describe("Search page", () => {
 
 		const container = getByTestId("sort-order-group-sidebar");
 
-		const newest = await findByTextFrom(container, "Newest");
+		const select =
+			container instanceof HTMLSelectElement
+				? container
+				: container.querySelector("select");
 
-		await user.click(newest);
+		await user.selectOptions(select, "newest");
 
 		await waitFor(() => {
 			const html = document.body.innerHTML;
@@ -335,9 +338,7 @@ describe("Search page", () => {
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		expect(getByText("Two blog post")).toBeInTheDocument();
 
-		const oldest = await findByTextFrom(container, "Oldest");
-
-		await user.click(oldest);
+		await user.selectOptions(select, "oldest");
 
 		await waitFor(() => {
 			const html = document.body.innerHTML;
@@ -379,9 +380,12 @@ describe("Search page", () => {
 
 		const container = getByTestId("sort-order-group-topbar");
 
-		const newest = await findByTextFrom(container, "Newest");
+		const select =
+			container instanceof HTMLSelectElement
+				? container
+				: container.querySelector("select");
 
-		await user.click(newest);
+		user.selectOptions(select, "newest");
 
 		await waitFor(() => {
 			const html = document.body.innerHTML;
@@ -393,9 +397,7 @@ describe("Search page", () => {
 		await waitFor(() => expect(getByText("One blog post")).toBeInTheDocument());
 		expect(getByText("Two blog post")).toBeInTheDocument();
 
-		const oldest = await findByTextFrom(container, "Oldest");
-
-		await user.click(oldest);
+		user.selectOptions(select, "oldest");
 
 		await waitFor(() => {
 			const html = document.body.innerHTML;

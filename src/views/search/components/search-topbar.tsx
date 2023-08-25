@@ -9,6 +9,7 @@ import {
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
 import { StateUpdater } from "preact/hooks";
+import styles from "./filter-sidebar.module.scss";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -114,23 +115,25 @@ export const SearchTopbar = ({
 				</div>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
-				<RadioButtonGroup
+				<Select
 					testId={"sort-order-group-topbar"}
-					className={style.topBarSmallTabletButtonsToggle}
-					value={sort}
-					label={"Sort order"}
-					onChange={(val) => {
-						if (sort === val) {
+					className={styles.sortSelect}
+					label={"Post sort order"}
+					prefixSelected={"Sort by: "}
+					defaultValue={"Relevance"}
+					selectedKey={sort}
+					onSelectionChange={(v) => {
+						if (!v) {
 							setSort(null);
 							return;
 						}
-
-						setSort(val as "newest");
+						setSort(v);
 					}}
 				>
-					<RadioButton value={"newest"}>Newest</RadioButton>
-					<RadioButton value={"oldest"}>Oldest</RadioButton>
-				</RadioButtonGroup>
+					<Item key={""}>Relevance</Item>
+					<Item key={"newest"}>Newest</Item>
+					<Item key={"oldest"}>Oldest</Item>
+				</Select>
 				<IconOnlyButton
 					tag="button"
 					type="button"

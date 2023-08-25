@@ -7,13 +7,8 @@ import {
 	VisuallyHidden,
 } from "react-aria";
 import { Button } from "components/button/button";
-import {
-	ChangeEvent,
-	createContext,
-	PropsWithChildren,
-	useContext,
-} from "preact/compat";
-import { useLayoutEffect, useMemo, useRef } from "preact/hooks";
+import { createContext, PropsWithChildren, useContext } from "preact/compat";
+import { useRef } from "preact/hooks";
 import {
 	RadioGroupProps,
 	RadioGroupState,
@@ -35,30 +30,9 @@ export function RadioButtonGroup(props: RadioButtonGroupProps) {
 		class: className = "",
 		className: classNameName = "",
 		testId,
-		value,
-		onChange,
-		...rest
 	} = props;
-	const _state = useRadioGroupState(rest);
-
-	/**
-	 * Remove this when the following is fixed:
-	 * https://github.com/adobe/react-spectrum/issues/4971
-	 */
-	const state = useMemo(() => {
-		return Object.assign({}, _state, {
-			setSelectedValue: (value: string) => {
-				_state.setSelectedValue(value);
-				onChange(value);
-			},
-		});
-	}, [_state]);
-
+	const state = useRadioGroupState(props);
 	const { radioGroupProps, labelProps } = useRadioGroup(props, state);
-
-	useLayoutEffect(() => {
-		_state.setSelectedValue(value);
-	}, [value, _state]);
 
 	return (
 		<div
@@ -81,17 +55,7 @@ export function RadioButton(props: AriaRadioProps) {
 	const { inputProps, isSelected } = useRadio(props, state, ref);
 	const { isFocusVisible, focusProps } = useFocusRing();
 
-	const mergedProps = mergeProps(inputProps, focusProps, {
-		onChange: (e: ChangeEvent) => {
-			e.preventDefault();
-		},
-		onClick: (e: MouseEvent) => {
-			setTimeout(() => {
-				if (e.defaultPrevented) return;
-				state.setSelectedValue(props.value);
-			}, 0);
-		},
-	});
+	const mergedProps = mergeProps(inputProps, focusProps);
 
 	return (
 		<label>

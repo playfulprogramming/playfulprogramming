@@ -14,6 +14,7 @@ import {
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
 import { useElementSize } from "../../../hooks/use-element-size";
+import { Item, Select } from "components/select/select";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -69,23 +70,25 @@ export const FilterSidebar = ({
 			>
 				Jump to search bar
 			</LargeButton>
-			<RadioButtonGroup
+			<Select
 				testId={"sort-order-group-sidebar"}
-				className={styles.buttonsContainer}
-				value={sort}
-				label={"Sort order"}
-				onChange={(val) => {
-					if (sort === val) {
+				className={styles.sortSelect}
+				label={"Post sort order"}
+				prefixSelected={"Sort by: "}
+				defaultValue={"Relevance"}
+				selectedKey={sort}
+				onSelectionChange={(v) => {
+					if (!v) {
 						setSort(null);
 						return;
 					}
-
-					setSort(val as "newest");
+					setSort(v);
 				}}
 			>
-				<RadioButton value={"newest"}>Newest</RadioButton>
-				<RadioButton value={"oldest"}>Oldest</RadioButton>
-			</RadioButtonGroup>
+				<Item key={""}>Relevance</Item>
+				<Item key={"newest"}>Newest</Item>
+				<Item key={"oldest"}>Oldest</Item>
+			</Select>
 			<FilterSection
 				title={"Tag"}
 				data-testid="tag-filter-section-sidebar"

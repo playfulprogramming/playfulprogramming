@@ -38,11 +38,9 @@
 	border-width: unset;
 }
 
-.buttonsContainer {
-	display: grid;
-	grid-template-rows: 1fr;
-	grid-template-columns: 1fr 1fr;
-	gap: var(--search-page_filter_sidebar_order-btn-gap);
+.sortSelect {
+	width: 100%;
+	justify-content: space-between;
 }
 
 .authorIcon img {

@@ -57,6 +57,7 @@ interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	className?: string;
 	defaultValue: string;
 	prefixSelected: string;
+	testId?: string;
 }
 
 export function Select<T extends object>({
@@ -64,6 +65,7 @@ export function Select<T extends object>({
 	className: classNameName = "",
 	defaultValue,
 	prefixSelected = "",
+	testId,
 	...props
 }: PropsWithChildren<SelectProps<T>>) {
 	const state = useSelectState(props);
@@ -77,7 +79,7 @@ export function Select<T extends object>({
 	);
 
 	return (
-		<div style={{ display: "inline-block" }}>
+		<div data-testid={testId} style={{ display: "inline-block" }}>
 			<div {...labelProps} class={"visually-hidden"}>
 				{props.label}
 			</div>
