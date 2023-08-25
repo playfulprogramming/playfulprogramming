@@ -7,7 +7,7 @@ import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
-import { ExtendedTag, ExtendedUnicorn } from "./types";
+import { ExtendedTag, ExtendedUnicorn, SortType } from "./types";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import {
 	RadioButton,
@@ -23,8 +23,8 @@ interface FilterSidebar {
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
 	setSelectedAuthorIds: (authors: string[]) => void;
-	sort: "newest" | "oldest" | null;
-	setSort: (sortBy: "newest" | "oldest" | null) => void;
+	sort: SortType;
+	setSort: (sortBy: SortType) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
 	onSelectedAuthorChange: (authorId: string) => void;
@@ -77,15 +77,9 @@ export const FilterSidebar = ({
 				prefixSelected={"Sort by: "}
 				defaultValue={"Relevance"}
 				selectedKey={sort}
-				onSelectionChange={(v) => {
-					if (!v) {
-						setSort(null);
-						return;
-					}
-					setSort(v);
-				}}
+				onSelectionChange={(v) => setSort(v)}
 			>
-				<Item key={""}>Relevance</Item>
+				<Item key={"relevance"}>Relevance</Item>
 				<Item key={"newest"}>Newest</Item>
 				<Item key={"oldest"}>Oldest</Item>
 			</Select>
