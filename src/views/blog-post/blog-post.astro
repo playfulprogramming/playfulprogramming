@@ -17,6 +17,9 @@ import SeriesToC from "./series/series-toc.astro";
 import { ArticleNav } from "./article-nav/article-nav";
 import { getPrefixLanguageFromPath } from "utils/translations";
 import RelatedPosts from "components/related-posts/related-posts.astro";
+import { LargeButton } from "../../components/button/button";
+
+import styles from "./blog-post.module.scss";
 
 const { Content, post, posts } = Astro.props as {
 	post: ExtendedPostInfo;
@@ -26,7 +29,7 @@ const { Content, post, posts } = Astro.props as {
 
 const locale = getPrefixLanguageFromPath(Astro.url.pathname);
 
-const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/master${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
+const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 
 let seriesPosts: ExtendedPostInfo[] = [];
 if (post.collection && post.order) {
@@ -89,34 +92,36 @@ if (post.collection && post.order) {
 			) : null
 		}
 	</main>
-	<footer role="contentinfo" class="post-lower-area">
+	<footer role="contentinfo" class={styles.footer}>
 		{
 			post.licenseMeta ? (
-				<div>
-					<a
-						aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
-						href={post.licenseMeta.explainLink}
-						style={{ display: "table", margin: "0 auto" }}
-					>
-						<img
-							src={post.licenseMeta.footerImg}
-							alt={post.licenseMeta.licenceType}
-						/>
-					</a>
-				</div>
+				<a
+					aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+					href={post.licenseMeta.explainLink}
+					class={styles.licenseImageContainer}
+				>
+					<img
+						class={styles.licenseImage}
+						src={post.licenseMeta.footerImg}
+						alt={post.licenseMeta.licenceType}
+					/>
+				</a>
 			) : null
 		}
 		<MailingList />
-		<div class="postBottom">
-			<a
-				class="baseBtn prependIcon"
-				href={GHLink}
-				target="_blank"
-				rel="nofollow noopener noreferrer"
+		<div class={styles.buttonsContainer}>
+			<LargeButton tag="a" href={GHLink} variant="primary">
+				<Icon slot="leftIcon" height="100%" width="100%" name="github" />
+				 View this post on GitHub
+			</LargeButton>
+			<LargeButton
+				tag="a"
+				href="https://discord.gg/FMcvc6T"
+				variant="primary-emphasized"
 			>
-				<Icon height="36" width="36" name="github" class="strokeicon" />
-				 View this Post on GitHub
-			</a>
+				<Icon slot="leftIcon" height="100%" width="100%" name="discord" />
+				 Join our Discord server
+			</LargeButton>
 		</div>
 	</footer>
 </BlogPostLayout>
