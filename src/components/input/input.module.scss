@@ -135,6 +135,18 @@
 	padding-left: var(--search-form-field_padding-right) !important;
 }
 
+.searchContainer:focus-within .searchInput {
+	padding-right: calc(
+		max(
+			var(--icon-size_regular),
+			calc(
+				var(--p_medium_line-height) +
+					calc(var(--search-form-field_padding-vertical) * 2)
+			)
+		)
+	);
+}
+
 .clearButtonContainer {
 	aspect-ratio: 1 / 1;
 	height: 100%;

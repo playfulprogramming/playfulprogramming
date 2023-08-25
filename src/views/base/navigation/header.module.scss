@@ -95,8 +95,13 @@
 		max-width: var(--header_end-items_max-width);
 	}
 
-	.discordLarge, .searchLarge {
+	.discordLarge {
 		display: none;
+	}
+
+	.searchLarge {
+		display: none;
+		width: 100vw;
 	}
 
 	@include from($desktopSmall) {
