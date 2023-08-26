@@ -63,6 +63,10 @@
 		var(--form-field_outline_color_disabled);
 }
 
+.input::placeholder {
+	color: var(--foreground_disabled);
+}
+
 .labelContainer {
 	display: flex;
 	flex-direction: column;
@@ -135,6 +139,10 @@
 	padding-top: var(--search-form-field_padding-vertical);
 	padding-bottom: var(--search-form-field_padding-vertical);
 	padding-right: var(--search-form-field_padding-right);
+}
+
+.searchInput::placeholder {
+	color: var(--foreground_disabled);
 }
 
 .searchInput.disableSearchIcon {
