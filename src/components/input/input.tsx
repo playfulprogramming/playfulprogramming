@@ -57,6 +57,7 @@ export function SearchInput({
 	usedInPreact,
 	hideSearchButton,
 	id: propsId,
+	type = "search",
 	...props
 }: JSX.IntrinsicElements["input"] & SearchInputProps) {
 	const _id = useRandomId();
@@ -92,6 +93,7 @@ export function SearchInput({
 			<input
 				{...props}
 				id={id}
+				type={type}
 				class={`text-style-body-medium ${style.searchInput} ${
 					hideSearchButton ? style.disableSearchIcon : ""
 				}`}
