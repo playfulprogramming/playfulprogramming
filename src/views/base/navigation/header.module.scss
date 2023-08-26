@@ -105,16 +105,6 @@
 		width: 100vw;
 	}
 
-	@include from($desktopSmall) {
-		.discordSmall {
-			display: none;
-		}
-
-		.discordLarge {
-			display: flex;
-		}
-	}
-
 	@include from($tabletLarge) {
 		.searchSmall {
 			display: none;
@@ -122,6 +112,26 @@
 
 		.searchLarge {
 			display: block;
+		}
+
+		// if the search input is omitted (the discord button is the first child),
+		// then it should be expanded on the $tabletLarge breakpoint
+		.discordLarge:first-child + .discordSmall {
+			display: none;
+		}
+
+		.discordLarge:first-child {
+			display: flex;
+		}
+	}
+
+	@include from($desktopSmall) {
+		.discordSmall {
+			display: none;
+		}
+
+		.discordLarge {
+			display: flex;
 		}
 	}
 }
