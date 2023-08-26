@@ -103,6 +103,7 @@
 	.searchLarge {
 		display: none;
 		width: 100vw;
+		min-width: 0;
 	}
 
 	@include from($tabletLarge) {
