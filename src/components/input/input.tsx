@@ -3,7 +3,8 @@ import { ComponentProps, ComponentType, Fragment, JSX } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
 import { IconOnlyButton } from "components/button/button";
-import { HTMLAttributes, useId } from "preact/compat";
+import { HTMLAttributes } from "preact/compat";
+import { useRandomId } from "utils/preact/useId";
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
 	label?: string;
@@ -11,7 +12,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({ class: className = "", containerClass = "", ...props }: InputProps) {
-	const _id = useId();
+	const _id = useRandomId();
 
 	const id = props.id ?? _id;
 
@@ -58,7 +59,7 @@ export function SearchInput({
 	id: propsId,
 	...props
 }: JSX.IntrinsicElements["input"] & SearchInputProps) {
-	const _id = useId();
+	const _id = useRandomId();
 
 	const id = propsId ?? _id;
 
