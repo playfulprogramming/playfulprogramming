@@ -41,8 +41,9 @@ import {
 	SORT_KEY,
 } from "../../utils/search";
 import { debounce } from "utils/debounce";
+import { SortType } from "./components/types";
 
-const DEFAULT_SORT = null;
+const DEFAULT_SORT = "relevance";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
 
 interface SearchPageProps {
@@ -219,15 +220,16 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	// Setup sort
 	const sort = useMemo(() => {
-		const results = urlParams.get(SORT_KEY);
-		if (!results) return DEFAULT_SORT as null;
-		return results as "newest" | "oldest" | null;
+		const sort = urlParams.get(SORT_KEY) as SortType;
+		if (sort === "relevance" || sort === "newest" || sort === "oldest")
+			return sort;
+		else return DEFAULT_SORT;
 	}, [urlParams]);
 
 	const setSort = useCallback(
-		(sort: "newest" | "oldest" | null) => {
+		(sort: SortType) => {
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
-			if (!sort) {
+			if (sort === "relevance") {
 				pushState({ key: SORT_KEY, val: undefined });
 				return;
 			}

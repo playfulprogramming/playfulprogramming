@@ -3,12 +3,13 @@ import { SearchInput } from "components/input/input";
 import { Button, IconOnlyButton } from "components/button/button";
 import filter from "src/icons/filter.svg?raw";
 import forward from "src/icons/arrow_right.svg?raw";
-import { Item, Option, Select } from "components/select/select";
+import { Item, Select } from "components/select/select";
 import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
-import { StateUpdater } from "preact/hooks";
+import styles from "./filter-sidebar.module.scss";
+import { SortType } from "./types";
 
 interface SearchTopbarProps {
 	onSubmit: (search: string) => void;
@@ -17,8 +18,8 @@ interface SearchTopbarProps {
 	setSearch: (search: string) => void;
 	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
 	contentToDisplay: "all" | "articles" | "collections";
-	sort: "newest" | "oldest" | null;
-	setSort: (sortBy: "newest" | "oldest" | null) => void;
+	sort: SortType;
+	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
 }
 
@@ -99,38 +100,28 @@ export const SearchTopbar = ({
 						prefixSelected={"Sort by: "}
 						defaultValue={"Relevance"}
 						selectedKey={sort}
-						onSelectionChange={(v) => {
-							if (!v) {
-								setSort(null);
-								return;
-							}
-							setSort(v);
-						}}
+						onSelectionChange={(v) => setSort(v)}
 					>
-						<Item key={""}>Relevance</Item>
+						<Item key={"relevance"}>Relevance</Item>
 						<Item key={"newest"}>Newest</Item>
 						<Item key={"oldest"}>Oldest</Item>
 					</Select>
 				</div>
 			</div>
 			<div className={style.topBarSmallTabletButtons}>
-				<RadioButtonGroup
+				<Select
 					testId={"sort-order-group-topbar"}
-					className={style.topBarSmallTabletButtonsToggle}
-					value={sort}
-					label={"Sort order"}
-					onChange={(val) => {
-						if (sort === val) {
-							setSort(null);
-							return;
-						}
-
-						setSort(val as "newest");
-					}}
+					className={styles.sortSelect}
+					label={"Post sort order"}
+					prefixSelected={"Sort by: "}
+					defaultValue={"Relevance"}
+					selectedKey={sort}
+					onSelectionChange={(v) => setSort(v)}
 				>
-					<RadioButton value={"newest"}>Newest</RadioButton>
-					<RadioButton value={"oldest"}>Oldest</RadioButton>
-				</RadioButtonGroup>
+					<Item key={"relevance"}>Relevance</Item>
+					<Item key={"newest"}>Newest</Item>
+					<Item key={"oldest"}>Oldest</Item>
+				</Select>
 				<IconOnlyButton
 					tag="button"
 					type="button"

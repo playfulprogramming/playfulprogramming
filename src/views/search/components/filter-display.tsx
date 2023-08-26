@@ -9,6 +9,7 @@ import { tabletLarge } from "../../../tokens/breakpoints";
 import { FilterDialog } from "./filter-dialog";
 import { FilterSidebar } from "./filter-sidebar";
 import tagMap from "../../../../content/data/tags.json";
+import { SortType } from "./types";
 
 interface FilterDisplayProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -19,8 +20,8 @@ interface FilterDisplayProps {
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
 	setSelectedAuthorIds: (authors: string[]) => void;
-	sort: "newest" | "oldest" | null;
-	setSort: (sortBy: "newest" | "oldest" | null) => void;
+	sort: SortType;
+	setSort: (sortBy: SortType) => void;
 	desktopStyle?: CSSProperties;
 	isFilterDialogOpen: boolean;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
