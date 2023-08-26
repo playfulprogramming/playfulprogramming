@@ -106,6 +106,7 @@ export function SearchInput({
 					tag="button"
 					type="button"
 					aria-label="clear"
+					tabIndex={-1}
 					{...clearButtonOnClickProps}
 				>
 					<div
