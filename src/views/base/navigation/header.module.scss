@@ -23,8 +23,9 @@
 
 	top: -0.1px;
 	position: sticky;
-	background: var(--background_primary);
 	z-index: 1;
+	background-color: var(--background_primary);
+	@include transition(background-color);
 }
 
 .header {
