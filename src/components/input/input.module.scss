@@ -118,8 +118,8 @@
 }
 
 .searchIconContainer > svg {
-	height: var(--icon-size_regular);
-	width: var(--icon-size_regular);
+	height: var(--search-form_icon-size);
+	width: var(--search-form_icon-size);
 }
 
 .searchInput {
@@ -130,7 +130,7 @@
 	border-radius: var(--corner-radius_circular);
 
 	padding-left: max(
-		var(--icon-size_regular),
+		var(--search-form_icon-size),
 		calc(
 			var(--p_medium_line-height) +
 				calc(var(--search-form-field_padding-vertical) * 2)
