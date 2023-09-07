@@ -339,7 +339,7 @@ function getPosts(): Array<PostInfo> {
 					licensesRaw.find((l) => l.id === frontmatter.license),
 				collectionMeta:
 					frontmatter.collection &&
-					collections.find((c) => c.slug === frontmatter.collection),
+					collections.find((c) => c.title === frontmatter.collection),
 				socialImg: `/generated/${slug}.twitter-preview.jpg`,
 			};
 		});
