@@ -3,27 +3,27 @@ import Barebones from "src/layouts/barebones.astro";
 
 import { unicorns } from "utils/data";
 
-import "../../../page-components/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
-import "../../../page-components/collections/framework-field-guide/fonts/changa-one.css";
-import "../../../page-components/collections/framework-field-guide/tokens/adventure.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/buttons.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/colors.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/book-sections.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/dimensions.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/text-styles.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/themes.scss";
-import "../../../page-components/collections/framework-field-guide/styles/global-ffg.css";
-import "../../../page-components/collections/framework-field-guide/styles/buttons.css";
-import "../../../page-components/collections/framework-field-guide/styles/focus.css";
-import "../../../page-components/collections/framework-field-guide/styles/svg-layers.css";
-import "../../../page-components/collections/framework-field-guide/tokens/forms.scss";
-import "../../../page-components/collections/framework-field-guide/tokens/sign-up.scss";
+import "../../../views/collections/framework-field-guide/fonts/plus-jakarta-sans.css";
+import "../../../views/collections/framework-field-guide/fonts/changa-one.css";
+import "../../../views/collections/framework-field-guide/tokens/adventure.scss";
+import "../../../views/collections/framework-field-guide/tokens/buttons.scss";
+import "../../../views/collections/framework-field-guide/tokens/colors.scss";
+import "../../../views/collections/framework-field-guide/tokens/book-sections.scss";
+import "../../../views/collections/framework-field-guide/tokens/dimensions.scss";
+import "../../../views/collections/framework-field-guide/tokens/text-styles.scss";
+import "../../../views/collections/framework-field-guide/tokens/themes.scss";
+import "../../../views/collections/framework-field-guide/styles/global-ffg.css";
+import "../../../views/collections/framework-field-guide/styles/buttons.css";
+import "../../../views/collections/framework-field-guide/styles/focus.css";
+import "../../../views/collections/framework-field-guide/styles/svg-layers.css";
+import "../../../views/collections/framework-field-guide/tokens/forms.scss";
+import "../../../views/collections/framework-field-guide/tokens/sign-up.scss";
 
 import SEO from "src/components/seo/seo.astro";
-import Header from "src/page-components/collections/framework-field-guide/segments/header.astro";
-import Hero from "src/page-components/collections/framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
-import Fundamentals from "src/page-components/collections/framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
-import Ecosystem from "src/page-components/collections/framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
+import Header from "src/views/collections/framework-field-guide/segments/header.astro";
+import Hero from "../../../views/collections/framework-field-guide-fundamentals/segments/hero-fundamentals.astro";
+import Fundamentals from "../../../views/collections/framework-field-guide-fundamentals/segments/fundamentals-fundamentals.astro";
+import Ecosystem from "../../../views/collections/framework-field-guide-fundamentals/segments/ecosystem-fundamentals.astro";
 
 const frontmatter = {
 	title: "The Framework Field Guide - Fundamentals",
@@ -59,14 +59,14 @@ const frontmatter = {
 	</main>
 </Barebones>
 <script>
-	import { enableColorChangeListeners } from "../../../page-components/collections/framework-field-guide/scripts/color-change-listener";
+	import { enableColorChangeListeners } from "../../../views/collections/framework-field-guide/scripts/color-change-listener";
 	enableColorChangeListeners();
 </script>
 <script>
-	import { enableTabs } from "../../../utils/markdown/scripts/tabs";
+	import { enableTabs } from "../../../utils/markdown/tabs/tabs-script";
 	enableTabs();
 </script>
 <script>
-	import { enableParallaxScrolling } from "../../../page-components/collections/framework-field-guide/scripts/parallax-scrolling";
+	import { enableParallaxScrolling } from "../../../views/collections/framework-field-guide/scripts/parallax-scrolling";
 	enableParallaxScrolling();
 </script>

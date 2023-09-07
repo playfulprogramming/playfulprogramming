@@ -4,8 +4,8 @@ import FundamentalsBookCover from "../../framework-field-guide/segments/fundamen
 import WhatYouNeed from "../components/what-you-need.astro";
 import WhatYoullLearn from "../components/what-youll-learn.astro";
 import CollectionTableOfContents from "../components/collection-table-of-contents-fundamentals.astro";
-import { PostInfo } from "types/PostInfo";
-import { unicorns } from "utils/data";
+import { PostInfo } from "../../../../types/PostInfo";
+import { unicorns } from "../../../../utils/data";
 
 const frontmatter = {
 	title: "The Framework Field Guide - Fundamentals",
@@ -23,7 +23,7 @@ const frontmatter = {
 };
 
 const posts = await Astro.glob<PostInfo>(
-	"../../../../../content/blog/**/index.md"
+	"../../../../../content/blog/**/index.md",
 );
 
 const chapterList = posts
