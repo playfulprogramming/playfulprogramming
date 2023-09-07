@@ -7,7 +7,7 @@
     tags: ['webdev'],
     attached: [],
     order: 7,
-    series: "The Framework Field Guide"
+    collection: "The Framework Field Guide - Fundamentals"
 }
 ---
 
