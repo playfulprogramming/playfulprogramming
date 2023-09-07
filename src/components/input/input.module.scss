@@ -182,6 +182,12 @@
 	position: absolute;
 }
 
+.searchContainer.dense .clearButton {
+	min-height: calc(100% - var(--spc-2x)) !important;
+    min-width: calc(100% - var(--spc-2x)) !important;
+    padding: 0 !important;
+}
+
 .closeButtonContainer,
 .closeButtonContainer > svg {
 	height: 100%;
