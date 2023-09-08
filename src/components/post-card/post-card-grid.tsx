@@ -18,12 +18,14 @@ export function PostCardGrid({
 }: PostGridProps) {
 	return (
 		<ul {...props} class={style.list} role="list" id="post-list-container">
-			{postsToDisplay.map((post) => {
+			{postsToDisplay.map((post, i) => {
 				return expanded && post.bannerImg ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}
 						unicornProfilePicMap={unicornProfilePicMap}
+						// images should be loaded eagerly when presented above-the-fold
+						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
 				) : (
 					<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />
