@@ -23,7 +23,7 @@ export const CollectionCard = ({
 						picture={collection.coverPicture}
 						alt=""
 						class={style.coverImg}
-						imgAttrs={{loading: "lazy"}}
+						imgAttrs={{loading: "lazy", width: 160, height: 240}}
 					/>
 				) : (
 					<img

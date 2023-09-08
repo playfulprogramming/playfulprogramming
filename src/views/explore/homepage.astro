@@ -24,11 +24,17 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 const collectionsWithPictures = await Promise.all(
 	collections.map(async (collection) => {
+		const coverImgAspectRatio =
+			collection.coverImgMeta.width / collection.coverImgMeta.height;
+		// adjust the image width to ensure its height=240px
+		// (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
+		const coverImgWidth = Math.max(160, Math.ceil(240 * coverImgAspectRatio));
+
 		const coverPicture = await getPicture({
 			src: collection.coverImgMeta.relativeServerPath,
 			alt: "",
-			widths: [160],
-			aspectRatio: "160:240",
+			widths: [coverImgWidth],
+			aspectRatio: coverImgAspectRatio,
 			formats: ["avif", "webp", "png"],
 		});
 
