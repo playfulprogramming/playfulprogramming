@@ -11,6 +11,7 @@ import Hero from "../../components/hero/hero.astro";
 import SearchSection from "../../components/search-section/search-section.astro";
 import styles from "./homepage.module.scss";
 import { buildSearchQuery } from "../../utils/search";
+import { getPicture } from "@astrojs/image";
 
 export interface HomepageProps {
 	posts: PostInfo[];
@@ -20,6 +21,20 @@ export interface HomepageProps {
 const { posts, collections } = Astro.props as HomepageProps;
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
+
+const collectionsWithPictures = await Promise.all(
+	collections.map(async (collection) => {
+		const coverPicture = await getPicture({
+			src: collection.coverImgMeta.relativeServerPath,
+			alt: "",
+			widths: [160],
+			aspectRatio: "160:240",
+			formats: ["avif", "webp", "png"],
+		});
+
+		return { ...collection, coverPicture };
+	}),
+);
 ---
 
 <Hero />
@@ -50,7 +65,7 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 		class={styles.collectionsGrid}
 	>
 		{
-			collections.map((collection) => (
+			collectionsWithPictures.map((collection) => (
 				<li>
 					<CollectionCard
 						collection={collection}
