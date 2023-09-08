@@ -186,6 +186,7 @@ export function PaginationMenuAndPopover(
 					ref={triggerRef}
 					onClick={triggerProps.onPress as never}
 					{...triggerProps}
+					aria-label="Go to page"
 					data-testid="pagination-menu"
 					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}
 					dangerouslySetInnerHTML={{ __html: more }}
