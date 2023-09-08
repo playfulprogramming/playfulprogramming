@@ -142,6 +142,7 @@
 	max-height: 552px;
 	width: 100%;
 	object-fit: cover;
+	image-rendering: pixelated;
 
 	border-radius: var(--collection-page_banner_corner-radius);
 
