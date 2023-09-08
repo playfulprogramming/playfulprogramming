@@ -3,8 +3,7 @@ import { Button } from "components/index";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import forward from "src/icons/arrow_right.svg?raw";
-import { Picture, Picture as UUPicture } from "components/image/picture";
-import { JSXNode } from "components/types";
+import { Picture as UUPicture } from "components/image/picture";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 
 interface CollectionCardProps {
@@ -20,7 +19,7 @@ export const CollectionCard = ({
 		<div className={style.container}>
 			<div className={style.topRow}>
 				{collection.coverPicture ? (
-					<Picture
+					<UUPicture
 						picture={collection.coverPicture}
 						alt=""
 						class={style.coverImg}
@@ -53,7 +52,7 @@ export const CollectionCard = ({
 							>
 								<UUPicture
 									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-									alt={author.name}
+									alt=""
 									class={style.authorImage}
 								/>
 								<span>{author.name}</span>
