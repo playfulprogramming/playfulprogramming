@@ -32,14 +32,6 @@ interface CollectionProps {
 const { Content, collection, coverImgPath } = Astro.props as CollectionProps;
 
 const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
-
-const coverImgSize = getImageSize(
-	"." + coverImgPath,
-	process.cwd(),
-	process.cwd(),
-);
-
-const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 ---
 
 <div class={styles.collectionPageContainer}>
@@ -52,7 +44,7 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 				widths={[480]}
 				formats={["avif", "webp", "png"]}
 				loading="eager"
-				aspectRatio={coverImgAspectRatio}
+				aspectRatio={"2:3"}
 			/>
 		</div>
 		<div class={styles.titleAndDescContainer}>
