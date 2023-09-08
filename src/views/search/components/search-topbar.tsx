@@ -45,6 +45,7 @@ export const SearchTopbar = ({
 			>
 				<SearchInput
 					id="search-bar"
+					data-testid="search-input"
 					aria-label="Search"
 					aria-description={"Results will update as you type"}
 					class={style.searchbar}
