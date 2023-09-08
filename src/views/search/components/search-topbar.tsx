@@ -61,6 +61,7 @@ export const SearchTopbar = ({
 					class={style.searchButton}
 					tag="button"
 					type="submit"
+					aria-label="Search"
 					dangerouslySetInnerHTML={{ __html: forward }}
 					children={null}
 				/>
