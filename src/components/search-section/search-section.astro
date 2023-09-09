@@ -23,7 +23,12 @@ const tagsToDisplay = [...data.tags]
 
 	<form id="searchForm" class={style.searchbarRow}>
 		<SearchInput name="searchVal" type="text" class={style.searchbar} />
-		<IconOnlyButton tag="button" type="submit" class={style.searchButton}>
+		<IconOnlyButton
+			tag="button"
+			type="submit"
+			class={style.searchButton}
+			aria-label={translate(Astro, "title.search")}
+		>
 			<Icon width="100%" height="100%" name="arrow_right" />
 		</IconOnlyButton>
 	</form>

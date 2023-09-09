@@ -74,7 +74,8 @@ export const PostCardExpanded = ({
 	post,
 	class: className = "",
 	unicornProfilePicMap,
-}: PostCardProps) => {
+	imageLoading = "lazy",
+}: PostCardProps & { imageLoading?: "eager" | "lazy" }) => {
 	return (
 		<li
 			{...getHrefContainerProps(`/posts/${post.slug}`)}
@@ -82,7 +83,7 @@ export const PostCardExpanded = ({
 		>
 			<div className={style.extendedPostImageContainer}>
 				<img
-					loading="lazy"
+					loading={imageLoading}
 					className={style.extendedPostImage}
 					src={post.bannerImg}
 					alt="Computer code and text on a computer screen"

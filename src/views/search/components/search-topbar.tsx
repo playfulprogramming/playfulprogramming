@@ -45,7 +45,7 @@ export const SearchTopbar = ({
 			>
 				<SearchInput
 					id="search-bar"
-					aria-label="Search"
+					data-testid="search-input"
 					aria-description={"Results will update as you type"}
 					class={style.searchbar}
 					usedInPreact={true}
@@ -61,6 +61,7 @@ export const SearchTopbar = ({
 					class={style.searchButton}
 					tag="button"
 					type="submit"
+					aria-label="Search"
 					dangerouslySetInnerHTML={{ __html: forward }}
 					children={null}
 				/>
@@ -126,6 +127,7 @@ export const SearchTopbar = ({
 					tag="button"
 					type="button"
 					onClick={() => setFilterIsDialogOpen(true)}
+					aria-label="Filter"
 				>
 					<span
 						className={style.filterIconContainer}
