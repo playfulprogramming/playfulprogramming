@@ -57,6 +57,7 @@ export function SearchInput({
 	usedInPreact,
 	hideSearchButton,
 	id: propsId,
+	type = "search",
 	...props
 }: JSX.IntrinsicElements["input"] & SearchInputProps) {
 	const _id = useRandomId();
@@ -73,10 +74,11 @@ export function SearchInput({
 					setTimeout(() => {
 						el.dispatchEvent(new Event("change"));
 					}, 0);
+					el.focus();
 				},
 		  }
 		: {
-				onclick: `el=document.querySelector("#${id}");el.value="";`,
+				onclick: `el=document.querySelector("#${id}");el.value="";el.focus();`,
 		  };
 
 	return (
@@ -93,6 +95,7 @@ export function SearchInput({
 				aria-label="Search"
 				{...props}
 				id={id}
+				type={type}
 				class={`text-style-body-medium ${style.searchInput} ${
 					hideSearchButton ? style.disableSearchIcon : ""
 				}`}
@@ -103,6 +106,7 @@ export function SearchInput({
 					class={style.clearButton}
 					tag="button"
 					type="button"
+					tabIndex={-1}
 					aria-label="Clear search"
 					{...clearButtonOnClickProps}
 				>
