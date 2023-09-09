@@ -37,7 +37,8 @@ export const FilterSectionItem = ({
 
 	useEffect(() => {
 		// this does not happen automatically, so we need to manually scroll to the focused item
-		labelRef.current?.scrollIntoView({ block: "nearest" });
+		if (labelRef.current && typeof labelRef.current.scrollIntoView !== "undefined")
+			labelRef.current.scrollIntoView({ block: "nearest" });
 	}, [isFocusVisible]);
 
 	return (
