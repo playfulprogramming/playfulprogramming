@@ -2,6 +2,8 @@
 
 .fullPageContainer {
 	display: flex;
+	max-width: var(--max-width_xl);
+	margin: 0 auto;
 }
 
 .mainContents {
