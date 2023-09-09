@@ -1,12 +1,12 @@
 import { VNode } from "preact";
 import { CheckboxBox } from "components/checkbox-box/checkbox-box";
-import { useCheckbox, VisuallyHidden } from "react-aria";
+import { useCheckbox, useFocusRing, VisuallyHidden } from "react-aria";
 import style from "./filter-section-item.module.scss";
 import { useToggleState } from "react-stately";
-import { useRef } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 
 interface FilterSectionItemProps {
-	icon: VNode<any>;
+	icon: VNode<unknown>;
 	label: string;
 	count: number;
 	selected: boolean;
@@ -29,15 +29,25 @@ export const FilterSectionItem = ({
 	const state = useToggleState(props);
 
 	const ref = useRef(null);
+	const labelRef = useRef<HTMLLabelElement>(null);
+
 	const { inputProps } = useCheckbox(props, state, ref);
+	const { isFocusVisible, focusProps } = useFocusRing();
 	const isSelected = state.isSelected;
+
+	useEffect(() => {
+		// this does not happen automatically, so we need to manually scroll to the focused item
+		labelRef.current?.scrollIntoView({ block: "nearest" });
+	}, [isFocusVisible]);
 
 	return (
 		<CheckboxBox
 			selected={isSelected}
 			wrapper={(children) => (
 				<label
+					ref={labelRef}
 					class={`${style.containerLabel} ${isSelected ? style.selected : ""}`}
+					data-focus-visible={isFocusVisible}
 				>
 					<span aria-hidden={true} class={style.iconContainer}>
 						{icon}
@@ -50,7 +60,7 @@ export const FilterSectionItem = ({
 					</span>
 					{children}
 					<VisuallyHidden>
-						<input {...inputProps} ref={ref} />
+						<input {...inputProps} {...focusProps} ref={ref} />
 					</VisuallyHidden>
 				</label>
 			)}
