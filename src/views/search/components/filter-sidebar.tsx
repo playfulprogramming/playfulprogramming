@@ -1,7 +1,5 @@
-import { UnicornInfo } from "types/UnicornInfo";
 import styles from "./filter-sidebar.module.scss";
-import { SearchInput } from "components/input/input";
-import { Button, LargeButton } from "components/button/button";
+import { LargeButton } from "components/button/button";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
@@ -9,11 +7,6 @@ import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ExtendedTag, ExtendedUnicorn, SortType } from "./types";
 import { DEFAULT_TAG_EMOJI } from "./constants";
-import {
-	RadioButton,
-	RadioButtonGroup,
-} from "components/button-radio-group/button-radio-group";
-import { useElementSize } from "../../../hooks/use-element-size";
 import { Item, Select } from "components/select/select";
 
 interface FilterSidebar {
@@ -47,16 +40,12 @@ export const FilterSidebar = ({
 	unicornProfilePicMap,
 	searchString,
 }: FilterSidebar) => {
-	const { setEl, size } = useElementSize({ includeMargin: false });
-
 	const hideSearchbar = !searchString;
 	return (
 		<div
-			ref={setEl}
 			className={`${styles.sidebarContainer}`}
 			style={{
 				...desktopStyle,
-				marginLeft: hideSearchbar ? `calc(0px - ${size.width}px)` : "",
 			}}
 			inert={hideSearchbar}
 		>
