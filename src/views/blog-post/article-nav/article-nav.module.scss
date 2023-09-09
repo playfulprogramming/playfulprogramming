@@ -93,7 +93,7 @@
 	}
 
 	&--previous {
-		&:not(:only-child) {
+		&:where(:not(:only-child)) {
 			grid-row: 2;
 		}
 
