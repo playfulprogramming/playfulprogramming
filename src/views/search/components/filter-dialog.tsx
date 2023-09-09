@@ -152,6 +152,7 @@ const FilterDialogSmallTablet = ({
 					type="button"
 					onClick={onCancel}
 					class={styles.closeButton}
+					aria-label="Close"
 				>
 					<span
 						class={styles.closeIcon}

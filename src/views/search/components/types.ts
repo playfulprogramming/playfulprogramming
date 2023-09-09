@@ -1,5 +1,7 @@
 import { UnicornInfo } from "types/UnicornInfo";
 
+export type SortType = "relevance" | "newest" | "oldest";
+
 export interface ExtendedTag {
 	tag: string;
 	displayName?: string;

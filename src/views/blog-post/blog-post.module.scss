@@ -1,0 +1,32 @@
+@import "src/tokens/index";
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  & > * {
+    margin-top: var(--site-spacing);
+  }
+
+  @include until($tabletSmall) {
+    & > * {
+      width: 100%;
+    }
+  }
+}
+
+.footer {
+  margin-top: var(--site-spacing);
+}
+
+.licenseImageContainer {
+  display: contents;
+}
+
+.licenseImage {
+  display: table;
+  margin: 0 auto;
+  max-width: 300px;
+  margin-bottom: var(--site-spacing);
+}

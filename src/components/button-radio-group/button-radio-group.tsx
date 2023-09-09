@@ -9,9 +9,13 @@ import {
 import { Button } from "components/button/button";
 import { createContext, PropsWithChildren, useContext } from "preact/compat";
 import { useRef } from "preact/hooks";
-import { RadioGroupProps, useRadioGroupState } from "react-stately";
+import {
+	RadioGroupProps,
+	RadioGroupState,
+	useRadioGroupState,
+} from "react-stately";
 
-const RadioContext = createContext(null);
+const RadioContext = createContext<RadioGroupState>(null);
 
 interface RadioButtonGroupProps extends PropsWithChildren<RadioGroupProps> {
 	class?: string;

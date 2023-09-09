@@ -7,13 +7,14 @@ import { CSSProperties } from "preact/compat";
 import { FilterSection } from "./filter-section";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
-import { ExtendedTag, ExtendedUnicorn } from "./types";
+import { ExtendedTag, ExtendedUnicorn, SortType } from "./types";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
 import { useElementSize } from "../../../hooks/use-element-size";
+import { Item, Select } from "components/select/select";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -22,8 +23,8 @@ interface FilterSidebar {
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
 	setSelectedAuthorIds: (authors: string[]) => void;
-	sort: "newest" | "oldest";
-	setSort: (sortBy: "newest" | "oldest") => void;
+	sort: SortType;
+	setSort: (sortBy: SortType) => void;
 	tags: ExtendedTag[];
 	authors: ExtendedUnicorn[];
 	onSelectedAuthorChange: (authorId: string) => void;
@@ -69,16 +70,19 @@ export const FilterSidebar = ({
 			>
 				Jump to search bar
 			</LargeButton>
-			<RadioButtonGroup
+			<Select
 				testId={"sort-order-group-sidebar"}
-				className={styles.buttonsContainer}
-				value={sort}
-				label={"Sort order"}
-				onChange={(val) => setSort(val as "newest")}
+				className={styles.sortSelect}
+				label={"Post sort order"}
+				prefixSelected={"Sort by: "}
+				defaultValue={"Relevance"}
+				selectedKey={sort}
+				onSelectionChange={(v) => setSort(v)}
 			>
-				<RadioButton value={"newest"}>Newest</RadioButton>
-				<RadioButton value={"oldest"}>Oldest</RadioButton>
-			</RadioButtonGroup>
+				<Item key={"relevance"}>Relevance</Item>
+				<Item key={"newest"}>Newest</Item>
+				<Item key={"oldest"}>Oldest</Item>
+			</Select>
 			<FilterSection
 				title={"Tag"}
 				data-testid="tag-filter-section-sidebar"

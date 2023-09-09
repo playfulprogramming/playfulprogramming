@@ -27,7 +27,12 @@ const tagsToDisplay = [...data.tags]
 			class={style.searchbar}
 			placeholder={translate(Astro, "action.search_for")}
 		/>
-		<IconOnlyButton tag="button" type="submit" class={style.searchButton}>
+		<IconOnlyButton
+			tag="button"
+			type="submit"
+			class={style.searchButton}
+			aria-label={translate(Astro, "title.search")}
+		>
 			<Icon width="100%" height="100%" name="arrow_right" />
 		</IconOnlyButton>
 	</form>

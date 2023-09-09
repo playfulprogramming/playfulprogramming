@@ -4,9 +4,10 @@ import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "components/image/picture";
+import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 
 interface CollectionCardProps {
-	collection: ExtendedCollectionInfo;
+	collection: ExtendedCollectionInfo & { coverPicture?: GetPictureResult };
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
@@ -17,14 +18,23 @@ export const CollectionCard = ({
 	return (
 		<div className={style.container}>
 			<div className={style.topRow}>
-				<img
-					alt=""
-					src={collection.coverImgMeta.relativeServerPath}
-					loading="eager"
-					width={160}
-					height={240}
-					class={style.coverImg}
-				/>
+				{collection.coverPicture ? (
+					<UUPicture
+						picture={collection.coverPicture}
+						alt=""
+						class={style.coverImg}
+						imgAttrs={{loading: "lazy", width: 160, height: 240}}
+					/>
+				) : (
+					<img
+						alt=""
+						src={collection.coverImgMeta.relativeServerPath}
+						loading="lazy"
+						width={160}
+						height={240}
+						class={style.coverImg}
+					/>
+				)}
 				<div>
 					<h2 className={`text-style-headline-4 ${style.title}`}>
 						{collection.title}
@@ -42,7 +52,7 @@ export const CollectionCard = ({
 							>
 								<UUPicture
 									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
-									alt={author.name}
+									alt=""
 									class={style.authorImage}
 								/>
 								<span>{author.name}</span>

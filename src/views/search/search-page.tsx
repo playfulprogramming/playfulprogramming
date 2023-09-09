@@ -41,8 +41,9 @@ import {
 	SORT_KEY,
 } from "../../utils/search";
 import { debounce } from "utils/debounce";
+import { SortType } from "./components/types";
 
-const DEFAULT_SORT = "newest";
+const DEFAULT_SORT = "relevance";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
 
 interface SearchPageProps {
@@ -173,8 +174,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [urlParams]);
 
 	const setSelectedUnicorns = useCallback(
-		(sort: string[]) => {
-			pushState({ key: FILTER_AUTHOR_KEY, val: sort.toString() });
+		(authors: string[]) => {
+			pushState({ key: FILTER_AUTHOR_KEY, val: authors.toString() });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams],
@@ -188,8 +189,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [urlParams]);
 
 	const setSelectedTags = useCallback(
-		(sort: string[]) => {
-			pushState({ key: FILTER_TAGS_KEY, val: sort.toString() });
+		(tags: string[]) => {
+			pushState({ key: FILTER_TAGS_KEY, val: tags.toString() });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams],
@@ -204,8 +205,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	}, [urlParams]);
 
 	const setContentToDisplay = useCallback(
-		(sort: "all" | "articles" | "collections") => {
-			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: sort });
+		(display: "all" | "articles" | "collections") => {
+			pushState({ key: CONTENT_TO_DISPLAY_KEY, val: display });
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
 		},
 		[urlParams],
@@ -219,15 +220,20 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 
 	// Setup sort
 	const sort = useMemo(() => {
-		const results = urlParams.get(SORT_KEY);
-		if (!results) return DEFAULT_SORT;
-		return results === "newest" ? "newest" : "oldest";
+		const sort = urlParams.get(SORT_KEY) as SortType;
+		if (sort === "relevance" || sort === "newest" || sort === "oldest")
+			return sort;
+		else return DEFAULT_SORT;
 	}, [urlParams]);
 
 	const setSort = useCallback(
-		(sort: "newest" | "oldest") => {
-			pushState({ key: SORT_KEY, val: sort });
+		(sort: SortType) => {
 			pushState({ key: SEARCH_PAGE_KEY, val: undefined }); // reset to page 1
+			if (sort === "relevance") {
+				pushState({ key: SORT_KEY, val: undefined });
+				return;
+			}
+			pushState({ key: SORT_KEY, val: sort });
 		},
 		[urlParams],
 	);
@@ -236,57 +242,64 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 * Filter and sort posts
 	 */
 	const filteredAndSortedPosts = useMemo(() => {
-		return [...data.posts]
-			.sort(
+		const posts = [...data.posts];
+		if (sort) {
+			posts.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
 					(new Date(a.published).getTime() - new Date(b.published).getTime()),
-			)
-			.filter((post) => {
-				if (
-					selectedTags.length > 0 &&
-					!post.tags.some((tag) => selectedTags.includes(tag))
-				) {
-					return false;
-				}
+			);
+		}
 
-				if (
-					selectedUnicorns.length > 0 &&
-					!post.authors.some((unicorn) => selectedUnicorns.includes(unicorn))
-				) {
-					return false;
-				}
+		return posts.filter((post) => {
+			if (
+				selectedTags.length > 0 &&
+				!post.tags.some((tag) => selectedTags.includes(tag))
+			) {
+				return false;
+			}
 
-				return true;
-			});
+			if (
+				selectedUnicorns.length > 0 &&
+				!post.authors.some((unicorn) => selectedUnicorns.includes(unicorn))
+			) {
+				return false;
+			}
+
+			return true;
+		});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
 	const filteredAndSortedCollections = useMemo(() => {
-		return [...data.collections]
-			.sort(
+		const collections = [...data.collections];
+
+		if (sort) {
+			collections.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
 					(new Date(a.published).getTime() - new Date(b.published).getTime()),
-			)
-			.filter((collection) => {
-				if (
-					selectedTags.length > 0 &&
-					!collection.tags.some((tag) => selectedTags.includes(tag))
-				) {
-					return false;
-				}
+			);
+		}
 
-				if (
-					selectedUnicorns.length > 0 &&
-					!collection.authors.some((unicorn) =>
-						selectedUnicorns.includes(unicorn),
-					)
-				) {
-					return false;
-				}
+		return collections.filter((collection) => {
+			if (
+				selectedTags.length > 0 &&
+				!collection.tags.some((tag) => selectedTags.includes(tag))
+			) {
+				return false;
+			}
 
-				return true;
-			});
+			if (
+				selectedUnicorns.length > 0 &&
+				!collection.authors.some((unicorn) =>
+					selectedUnicorns.includes(unicorn),
+				)
+			) {
+				return false;
+			}
+
+			return true;
+		});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
 	/**

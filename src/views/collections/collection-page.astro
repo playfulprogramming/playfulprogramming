@@ -11,7 +11,6 @@ import "../../styles/post-body.scss";
 import "../../styles/markdown/tabs.scss";
 import "../../styles/shiki.scss";
 import "../../styles/convertkit.scss";
-import { getImageSize } from "../../utils/get-image-size";
 
 import styles from "./collection-page.module.scss";
 import { collections } from "../../utils/data";
@@ -33,13 +32,11 @@ const { Content, collection, coverImgPath } = Astro.props as CollectionProps;
 
 const collectionMeta = collections.find((col) => col.slug === collection.slug)!;
 
-const coverImgSize = getImageSize(
-	"." + coverImgPath,
-	process.cwd(),
-	process.cwd(),
-);
-
-const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
+const coverImgAspectRatio =
+	collection.coverImgMeta.width / collection.coverImgMeta.height;
+// adjust the image width to ensure its height=240px
+// (i.e. it shouldn't get upscaled/downscaled with `object-fit: cover`)
+const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 ---
 
 <div class={styles.collectionPageContainer}>
@@ -48,8 +45,8 @@ const coverImgAspectRatio = coverImgSize.width / coverImgSize.height;
 			<Picture
 				alt=""
 				src={coverImgPath}
-				sizes={`480`}
-				widths={[480]}
+				sizes={`${coverImgWidth}px`}
+				widths={[coverImgWidth]}
 				formats={["avif", "webp", "png"]}
 				loading="eager"
 				aspectRatio={coverImgAspectRatio}
