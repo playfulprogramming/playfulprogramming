@@ -42,6 +42,18 @@
 	box-shadow: var(--shadow_sticker);
 	margin-right: var(--collection-card_content_gap);
 	margin-top: calc(0px - var(--collection-card_banner_offset));
+
+	display: flex;
+	flex-shrink: 0;
+	overflow: hidden;
+
+	&:where(img), & img {
+		object-fit: cover;
+	}
+
+	& img {
+		image-rendering: pixelated;
+	}
 }
 
 .topRow {

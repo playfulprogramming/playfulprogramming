@@ -1,5 +1,4 @@
 ---
-import { getFullRelativePath } from "utils/url-paths";
 import SEO from "src/components/seo/seo.astro";
 import Document from "src/layouts/document.astro";
 import { ExtendedCollectionInfo } from "types/CollectionInfo";
@@ -41,12 +40,6 @@ const { Content, collection } = Astro.props as CollectionProps;
 const { slug } = collection;
 
 const collectionPosts = getPostsByCollection(slug, collection.locale);
-
-const coverImgPath = getFullRelativePath(
-	"/content/collections",
-	slug,
-	collection.coverImg,
-);
 ---
 
 <Document size="l">
@@ -57,7 +50,8 @@ const coverImgPath = getFullRelativePath(
 		unicornsData={collection.authorsMeta}
 		publishedTime={collection.published}
 		type={collection.type}
-		shareImage={collection.socialImg || coverImgPath}
+		shareImage={collection.socialImg ||
+			collection.coverImgMeta.relativeServerPath}
 		langData={{
 			otherLangs: collection.locales.filter((t) => t != collection.locale),
 			currentLang: collection.locale,
@@ -66,7 +60,7 @@ const coverImgPath = getFullRelativePath(
 	<CollectionPage
 		Content={Content}
 		collection={collection}
-		coverImgPath={coverImgPath}
+		coverImgPath={collection.coverImgMeta.relativeServerPath}
 	/>
 	<div class="collection-post-list-container">
 		<div class="collection-post-list">

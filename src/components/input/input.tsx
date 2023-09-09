@@ -90,6 +90,7 @@ export function SearchInput({
 				></div>
 			)}
 			<input
+				aria-label="Search"
 				{...props}
 				id={id}
 				class={`text-style-body-medium ${style.searchInput} ${
@@ -102,6 +103,7 @@ export function SearchInput({
 					class={style.clearButton}
 					tag="button"
 					type="button"
+					aria-label="Clear search"
 					{...clearButtonOnClickProps}
 				>
 					<div
