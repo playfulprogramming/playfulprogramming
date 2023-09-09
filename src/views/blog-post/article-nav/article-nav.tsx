@@ -3,6 +3,7 @@ import style from "./article-nav.module.scss";
 import arrow_left from "../../../icons/arrow_left.svg?raw";
 import arrow_right from "../../../icons/arrow_right.svg?raw";
 import { getShortTitle } from "../series/base";
+import { getHrefContainerProps } from "utils/href-container-script";
 
 type ArticleNavItemProps = {
 	post: PostInfo;
@@ -14,7 +15,7 @@ function ArticleNavItem({ post, type }: ArticleNavItemProps) {
 	return (
 		<div
 			class={`${style.item} ${style[`item--${type}`]}`}
-			data-navigation-path={href}
+			{...getHrefContainerProps(href)}
 		>
 			{type === "previous" ? (
 				<span class={`${style.item__overline} text-style-button-regular`}>

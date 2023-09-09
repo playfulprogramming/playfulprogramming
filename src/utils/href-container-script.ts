@@ -13,7 +13,6 @@
  * - Right clicks (used for context menus)
  * - Alt clicks (used for downloading)
  * - Default prevented events
- * - Nested elements with data-navigation-path
  * - Elements with [data-dont-bind-navigate-click]
  * - <a> tags and <button>s
  */
