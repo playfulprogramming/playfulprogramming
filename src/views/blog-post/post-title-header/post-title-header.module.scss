@@ -67,6 +67,11 @@
 		}
 
 		&__edited {
+			//  I don't like it when
+			// Auto-formatting plugins
+			//  Put bugs in my code.
+			display: flex;
+
 			color: var(--article-header_details_date_edited_color);
 			margin-left: calc(var(--article-header_details_icon_size) + var(--article-header_details_icon_margin-end));
 			position: relative;
