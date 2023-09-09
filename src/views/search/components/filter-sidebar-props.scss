@@ -24,6 +24,12 @@
 	--search-page_filter_list_header_icon_color: var(--primary_default);
 	--search-page_filter_list_header_icon_size: var(--icon-size_regular);
 
+	--search-page_filter_list_header_background-color_hovered: var(--surface_primary_emphasis-none);
+	--search-page_filter_list_header_background-color_pressed: var(--surface_primary_emphasis-low);
+	--search-page_filter_list_header_background-color_focused: var(--background_focus);
+	--search-page_filter_list_header_focus-outline_width: var(--border-width_focus);
+	--search-page_filter_list_header_focus-outline_color: var(--focus-outline_primary);
+
 	--search-page_filter_list_divider_color: var(--background_disabled);
 	--search-page_filter_list_divider_width: var(--border-width_s);
 
