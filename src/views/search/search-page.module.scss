@@ -1,9 +1,19 @@
 @import "src/tokens/index";
 
 .fullPageContainer {
-	display: flex;
 	max-width: var(--max-width_xl);
 	margin: 0 auto;
+
+	transition: 300ms grid-template-columns ease-in-out;
+
+	@include from($tabletLarge) {
+		display: grid;
+		grid-template-columns: var(--search-page_filter_sidebar_max-width) 1fr;
+
+		&[data-hide-sidebar="true"] {
+			grid-template-columns: 0 1fr;
+		}
+	}
 }
 
 .mainContents {

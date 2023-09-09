@@ -3,6 +3,7 @@
 
 .sidebarContainer {
 	max-width: var(--search-page_filter_sidebar_max-width);
+	min-width: var(--search-page_filter_sidebar_max-width);
 	width: 100%;
 	display: flex;
 	flex-direction: column;

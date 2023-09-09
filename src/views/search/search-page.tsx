@@ -349,7 +349,11 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const [isResultsFocused, setIsResultsFocused] = useState(false);
 
 	return (
-		<div className={style.fullPageContainer} role="search">
+		<div
+			className={style.fullPageContainer}
+			role="search"
+			data-hide-sidebar={!search}
+		>
 			<h1 className={"visually-hidden"}>Search</h1>
 			<FilterDisplay
 				isFilterDialogOpen={isFilterDialogOpen}
