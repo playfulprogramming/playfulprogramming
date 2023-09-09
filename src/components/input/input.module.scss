@@ -63,6 +63,10 @@
 		var(--form-field_outline_color_disabled);
 }
 
+.input::placeholder {
+	color: var(--foreground_disabled);
+}
+
 .labelContainer {
 	display: flex;
 	flex-direction: column;
@@ -82,6 +86,12 @@
 	--search-form_icon-color_disabled: var(--foreground_disabled);
 
 	--search-form-hint_color: var(--foreground_disabled);
+
+	.searchContainer.dense {
+		--search-form-field_padding-right: var(--spc-4x);
+		--search-form-field_padding-vertical: var(--spc-2x);
+		--search-form_icon-size: var(--icon-size_dense);
+	}
 }
 
 .searchContainer {
@@ -108,16 +118,19 @@
 }
 
 .searchIconContainer > svg {
-	height: var(--icon-size_regular);
-	width: var(--icon-size_regular);
+	height: var(--search-form_icon-size);
+	width: var(--search-form_icon-size);
 }
 
 .searchInput {
 	all: unset;
 	text-align: left;
-	width: 100%;
+	flex-grow: 1;
+	min-width: 0;
+	border-radius: var(--corner-radius_circular);
+
 	padding-left: max(
-		var(--icon-size_regular),
+		var(--search-form_icon-size),
 		calc(
 			var(--p_medium_line-height) +
 				calc(var(--search-form-field_padding-vertical) * 2)
@@ -126,6 +139,10 @@
 	padding-top: var(--search-form-field_padding-vertical);
 	padding-bottom: var(--search-form-field_padding-vertical);
 	padding-right: var(--search-form-field_padding-right);
+}
+
+.searchInput::placeholder {
+	color: var(--foreground_disabled);
 }
 
 .searchInput.disableSearchIcon {
@@ -163,6 +180,12 @@
 .clearButton {
 	display: none;
 	position: absolute;
+}
+
+.searchContainer.dense .clearButton {
+	min-height: calc(100% - var(--spc-2x)) !important;
+    min-width: calc(100% - var(--spc-2x)) !important;
+    padding: 0 !important;
 }
 
 .closeButtonContainer,

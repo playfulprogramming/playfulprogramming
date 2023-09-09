@@ -3,7 +3,8 @@ import { ComponentProps, ComponentType, Fragment, JSX } from "preact";
 import search from "../../icons/search.svg?raw";
 import close from "../../icons/close.svg?raw";
 import { IconOnlyButton } from "components/button/button";
-import { HTMLAttributes, useId } from "preact/compat";
+import { HTMLAttributes } from "preact/compat";
+import { useRandomId } from "utils/preact/useId";
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
 	label?: string;
@@ -11,7 +12,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({ class: className = "", containerClass = "", ...props }: InputProps) {
-	const _id = useId();
+	const _id = useRandomId();
 
 	const id = props.id ?? _id;
 
@@ -44,6 +45,7 @@ const IconOnlyButtonButOnClick = IconOnlyButton as never as ComponentType<
 >;
 
 interface SearchInputProps {
+	variant?: "default" | "dense",
 	usedInPreact?: boolean;
 	hideSearchButton?: boolean;
 }
@@ -51,12 +53,13 @@ interface SearchInputProps {
 export function SearchInput({
 	class: classClass = "",
 	className = "",
+	variant = "default",
 	usedInPreact,
 	hideSearchButton,
 	id: propsId,
 	...props
 }: JSX.IntrinsicElements["input"] & SearchInputProps) {
-	const _id = useId();
+	const _id = useRandomId();
 
 	const id = propsId ?? _id;
 
@@ -78,7 +81,7 @@ export function SearchInput({
 
 	return (
 		<div
-			class={`${style.input} ${style.searchContainer} ${classClass} ${className}`}
+			class={`${style.input} ${style.searchContainer} ${style[variant]} ${classClass} ${className}`}
 		>
 			{!hideSearchButton && (
 				<div

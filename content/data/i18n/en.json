@@ -19,6 +19,7 @@
 	"action.view_all": "View all",
 	"action.join_discord": "Join our Discord",
 	"action.learn_more": "Learn more",
+	"action.search_for": "Search for...",
 	"action.view_all_chapters": "View all %s chapters",
 	"action.view_less_chapters": "View less chapters",
 	"action.is_dark_mode_enabled": "Is dark mode enabled?",

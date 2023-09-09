@@ -6,16 +6,24 @@ import Header from "src/views/base/navigation/header.astro";
 import { getPrefixLanguageFromPath } from "utils/translations";
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
+
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
 ---
 
 <Barebones lang={lang}>
 	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
-	<Header />
+	<Header size={props.size} />
 	<slot />
 	<slot name="post-body" />
 
 	<script>
 		import "src/utils/href-container-script";
+	</script>
+	<script>
+		import { enableStickyObserver } from "src/utils/sticky-observer-script";
+		enableStickyObserver();
 	</script>
 </Barebones>

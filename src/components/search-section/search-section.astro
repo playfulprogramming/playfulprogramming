@@ -6,7 +6,7 @@ import * as data from "../../utils/data";
 import { SearchInput } from "../input/input";
 import { IconOnlyButton } from "../button/button";
 import { Icon } from "astro-icon";
-import { buildSearchQuery } from "../../utils/search";
+import { SEARCH_QUERY_KEY, buildSearchQuery } from "../../utils/search";
 
 const tagsToDisplay = [...data.tags]
 	.sort(() => 0.5 - Math.random())
@@ -21,8 +21,13 @@ const tagsToDisplay = [...data.tags]
 		{translate(Astro, "desc.looking_for_more")}
 	</p>
 
-	<form id="searchForm" class={style.searchbarRow}>
-		<SearchInput name="searchVal" type="text" class={style.searchbar} />
+	<form class={style.searchbarRow} method="get" action="/search">
+		<SearchInput
+			name={SEARCH_QUERY_KEY}
+			type="text"
+			class={style.searchbar}
+			placeholder={translate(Astro, "action.search_for")}
+		/>
 		<IconOnlyButton
 			tag="button"
 			type="submit"
@@ -45,18 +50,3 @@ const tagsToDisplay = [...data.tags]
 		}
 	</ul>
 </section>
-
-<script>
-	import { buildSearchQuery } from "../../utils/search";
-
-	const searchForm = document.getElementById("searchForm") as HTMLFormElement;
-	searchForm.addEventListener("submit", (e) => {
-		e.preventDefault();
-		const searchVal = (searchForm.searchVal as HTMLInputElement)
-			.value as string;
-		if (!searchVal) return;
-		window.location.href = `/search?${buildSearchQuery({
-			searchQuery: searchVal,
-		})}`;
-	});
-</script>

@@ -132,7 +132,8 @@
 		"medium-zoom": "^1.0.8",
 		"preact": "^10.17.0",
 		"react-aria": "^3.27.0",
-		"react-stately": "^3.25.0"
+		"react-stately": "^3.25.0",
+		"uuid": "^9.0.0"
 	},
 	"overrides": {
 		"react": "npm:@preact/compat@latest",
