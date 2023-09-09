@@ -124,7 +124,7 @@ export const FilterDisplay = ({
 
 	const windowSize = useWindowSize();
 
-	const shouldShowDialog = windowSize.width < tabletLarge;
+	const shouldShowDialog = windowSize.width <= tabletLarge;
 
 	if (shouldShowDialog) {
 		return (
