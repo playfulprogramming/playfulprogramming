@@ -67,6 +67,15 @@
 	color: var(--foreground_disabled);
 }
 
+.input input:-webkit-autofill,
+.input input:-webkit-autofill:hover,
+.input input:-webkit-autofill:focus,
+.input input:-webkit-autofill:active {
+	color: var(--foreground_emphasis-high);
+	-webkit-text-fill-color: var(--foreground_emphasis-high);
+	-webkit-box-shadow: 0 0 0 var(--form-field_min-height) var(--form-field_background_focused) inset;
+}
+
 .labelContainer {
 	display: flex;
 	flex-direction: column;
@@ -203,8 +212,8 @@
 
 .searchContainer.dense .clearButton {
 	min-height: calc(100% - var(--spc-2x)) !important;
-    min-width: calc(100% - var(--spc-2x)) !important;
-    padding: 0 !important;
+	min-width: calc(100% - var(--spc-2x)) !important;
+	padding: 0 !important;
 }
 
 .closeButtonContainer,
