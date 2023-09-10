@@ -331,7 +331,9 @@ export const FilterDialog = ({
 	 */
 	const windowSize = useWindowSize();
 
-	const isMobile = windowSize.width < mobile;
+	// Adding 100px as a workaround since the mobile breakpoint is too small for this layout
+	// https://github.com/unicorn-utterances/unicorn-utterances/issues/655
+	const isMobile = windowSize.width <= mobile + 100;
 
 	return (
 		<dialog onClose={onFormConfirm} ref={dialogRef} class={styles.dialog}>

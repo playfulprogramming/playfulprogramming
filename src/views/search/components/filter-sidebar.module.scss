@@ -3,6 +3,7 @@
 
 .sidebarContainer {
 	max-width: var(--search-page_filter_sidebar_max-width);
+	min-width: var(--search-page_filter_sidebar_max-width);
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -15,7 +16,14 @@
 	padding-right: calc(var(--search-page_filter_sidebar_padding-end) + var(--spc-1x));
 	margin-right: calc(-1 * var(--spc-1x));
 
-	transition: margin-left 300ms ease-in-out;
+	flex-basis: 100%;
+
+	transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.sidebarContainer[inert] {
+	transform: translateX(-100%);
+	opacity: 0;
 }
 
 .jumpToContents {

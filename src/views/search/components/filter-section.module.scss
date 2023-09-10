@@ -38,26 +38,43 @@
 }
 
 .sectionTitle {
+	// Stop being a button 😡
+	all: unset;
+
 	grid-column: 1 / span 2;
 	grid-row: 1;
 
 	display: flex;
 	align-items: center;
 	gap: var(--search-page_filter_list_header_gap);
-	width: 100%;
+
 	// Replace with tokens
 	padding-top: var(--spc-2x);
 	padding-bottom: var(--spc-2x);
 	padding-left: var(--search-page_filter_list_header_padding-start);
 	padding-right: var(--search-page_filter_list_header_padding-end);
 
-	// Stop being a button 😡
-	background: unset;
-	border: unset;
-	outline: unset;
-	font-weight: unset;
-	font-size: unset;
-	line-height: unset;
+	border-radius: var(--corner-radius_l);
+	&[aria-expanded="true"] {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	@include transition(background-color border-radius);
+
+	&:hover {
+		background-color: var(--search-page_filter_list_header_background-color_hovered);
+	}
+
+	&:active {
+		background-color: var(--search-page_filter_list_header_background-color_pressed);
+	}
+
+	&:focus-visible {
+		background-color: var(--search-page_filter_list_header_background-color_focused);
+		outline: var(--search-page_filter_list_header_focus-outline_width) solid var(--search-page_filter_list_header_focus-outline_color);
+		outline-offset: calc(-1 * var(--search-page_filter_list_header_focus-outline_width));
+	}
 }
 
 .collapseIcon {
