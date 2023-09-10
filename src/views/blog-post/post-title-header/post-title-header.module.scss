@@ -36,7 +36,7 @@
 	.date,
 	.authors {
 		display: flex;
-		align-items: center;
+		align-items: top;
 
 		svg {
 			width: var(--article-header_details_icon_size);
@@ -44,25 +44,54 @@
 			padding: var(--icon-size-dense-padding);
 			color: var(--article-header_details_icon_color);
 			margin-right: var(--article-header_details_icon_margin-end);
+			flex-shrink: 0;
 		}
 	}
 
 	.date {
 		color: var(--article-header_details_date_color);
+		flex-wrap: wrap;
 
-		p {
-			display: flex;
+		flex-direction: column;
+		gap: var(--article-header_details_gap);
+
+		@include from($mobile) {
 			flex-direction: row;
-			flex-wrap: wrap;
+			gap: 0;
+		}
+
+		&__published {
+			display: flex;
+			align-items: top;
+			flex-direction: row;
 		}
 
 		&__edited {
+			//  I don't like it when
+			// Auto-formatting plugins
+			//  Put bugs in my code.
+			display: flex;
+
 			color: var(--article-header_details_date_edited_color);
+			margin-left: calc(var(--article-header_details_icon_size) + var(--article-header_details_icon_margin-end));
+			position: relative;
+
+			@include from($mobile) {
+				margin-left: 0;
+			}
 
 			&::before {
+				position: absolute;
 				content: "•";
-				margin-left: var(--article-header_details_date-gap);
-				padding-right: var(--article-header_details_date-gap);
+				left: calc(-0.5*var(--article-header_details_icon_size) + -1*var(--article-header_details_icon_margin-end));
+    			transform: translateX(-50%);
+
+				@include from($mobile) {
+					position: unset;
+					transform: none;
+					margin-left: var(--article-header_details_date-gap);
+					padding-right: var(--article-header_details_date-gap);
+				}
 			}
 		}
 	}

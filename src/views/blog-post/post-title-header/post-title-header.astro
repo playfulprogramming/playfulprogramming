@@ -21,15 +21,18 @@ const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 
 	<div class={style.details}>
 		<div class={style.date}>
-			<Icon width="24" height="24" name="date" />
-			<p class="text-style-button-regular">
-				{publishedStr}
-				{
-					editedStr && editedStr !== publishedStr ? (
-						<span class={style.date__edited}>Last updated: {editedStr}</span>
-					) : null
-				}
-			</p>
+			<div class={style.date__published}>
+				<Icon width="24" height="24" name="date" />
+				<p class="text-style-button-regular">{publishedStr}</p>
+			</div>
+
+			{
+				editedStr && editedStr !== publishedStr ? (
+					<p class={`text-style-button-regular ${style.date__edited}`}>
+						Last updated: {editedStr}
+					</p>
+				) : null
+			}
 		</div>
 
 		<div class={style.authors}>
