@@ -1,9 +1,8 @@
 /** @jsxRuntime automatic */
-import { Node, Element } from "hast";
+import { Element } from "hast";
 import type { Child as HChild } from "hastscript";
 import { fromHtml } from "hast-util-from-html";
 import { getIcon } from "./file-tree-icons";
-import { toString } from "hast-util-to-string";
 
 /** Convert an HTML string containing an SVG into a HAST element node. */
 const makeSVGIcon = (svgString: string) => {
@@ -30,7 +29,7 @@ const FolderIcon = makeSVGIcon(
 );
 
 export interface File {
-	name: Node;
+	name: string;
 	comment?: HChild[];
 	filetype: string;
 	isDirectory: false;
@@ -39,7 +38,7 @@ export interface File {
 }
 
 export interface Directory {
-	name: Node;
+	name: string;
 	comment?: HChild[];
 	isDirectory: true;
 	items: Array<Directory | File>;
@@ -53,8 +52,6 @@ interface FileProps {
 
 /** @jsxImportSource hastscript */
 function File({ item }: FileProps) {
-	const rawName = toString(item.name as never);
-
 	return (
 		<>
 			<span
@@ -63,7 +60,7 @@ function File({ item }: FileProps) {
 				} text-style-body-small`}
 			>
 				<span class="docs-file-tree-file-icon">
-					{item.isPlaceholder ? null : FileIcon(rawName)}
+					{item.isPlaceholder ? null : FileIcon(item.name)}
 				</span>
 				{item.name}
 			</span>

@@ -26,7 +26,6 @@ import replaceAllBetween from "unist-util-replace-all-between";
 import { Node } from "unist";
 import JSON5 from "json5";
 import { FileList, Directory, File } from "./file-list";
-import { fromHtml } from "hast-util-from-html";
 
 interface DirectoryMetadata {
 	open?: boolean;
@@ -118,7 +117,7 @@ export const rehypeFileTree = () => {
 					if (!isDirectory) {
 						listItems.push({
 							isDirectory: false,
-							name: firstChild,
+							name: toString(firstChild as never),
 							filetype: fileExtension,
 							comment,
 							isHighlighted,
@@ -131,7 +130,7 @@ export const rehypeFileTree = () => {
 					const dirItems: Array<File | Directory> = [];
 					listItems.push({
 						isDirectory: true,
-						name: firstChild,
+						name: toString(firstChild as never),
 						isHighlighted,
 						items: dirItems,
 						comment,
@@ -142,7 +141,7 @@ export const rehypeFileTree = () => {
 					if (!hasContents) {
 						dirItems.push({
 							isDirectory: false,
-							name: fromHtml("..."),
+							name: "...",
 							filetype: "",
 							isHighlighted: false,
 							isPlaceholder: true,
