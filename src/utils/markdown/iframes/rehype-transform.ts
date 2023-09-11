@@ -3,7 +3,7 @@ import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
 
-import { EMBED_SIZE } from "../constants";
+import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { fromHtml } from "hast-util-from-html";
 import find from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
@@ -155,10 +155,13 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 		await Promise.all(
 			iframeNodes.map(async (iframeNode) => {
 				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
-				const height = iframeNode.properties.height ?? EMBED_SIZE.h;
+				let height = iframeNode.properties.height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(
 					iframeNode.properties.src.toString(),
 				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
+
+				const [, heightPx] = /^([0-9]+)(px)?$/.exec(height + "") || [];
+				if (Number(heightPx) < EMBED_MIN_HEIGHT) height = EMBED_MIN_HEIGHT;
 
 				const iframeReplacement = IFramePlaceholder({
 					width: width.toString(),
