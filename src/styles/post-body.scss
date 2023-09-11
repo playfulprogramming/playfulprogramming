@@ -143,13 +143,24 @@
 		font-family: var(--uu-font-family-code);
 		font-size: 0.8em;
 		font-weight: 500;
+
 		color: var(--secondary_on-variant);
-		background-color: var(--surface_secondary_emphasis-none);
-		padding-bottom: 0.15em;
-		padding-left: 0.15em;
-		padding-right: 0.15em;
-		border: 0.075em solid var(--secondary_default);
-		border-radius: 0.25em;
+
+		&:not(td > code:only-child) {
+			background-color: var(--surface_secondary_emphasis-none);
+			padding-bottom: 0.15em;
+			padding-left: 0.15em;
+			padding-right: 0.15em;
+			border: 0.075em solid var(--secondary_default);
+			border-radius: 0.25em;
+
+			// the table header has a primary background...
+			&:where(thead code) {
+				color: var(--white);
+				background-color: var(--primary30);
+				border-color: var(--primary60);
+			}
+		}
 	}
 
 	a code {
