@@ -71,7 +71,7 @@ There are two primary differences from the vanilla JavaScript example. First, we
 
 That said, Lit components fully support the same lifecycle methods as a vanilla custom elements.
 
-The second, easier-to-miss change from the vanilla JavaScript component to the Lit implementation, is that when we set our HTML, we don’t simply use a basic template literal (`<p>test</p>`): we pass the function `html` to the template literal (`html\`<p>test</p>\``).
+The second, easier-to-miss change from the vanilla JavaScript component to the Lit implementation, is that when we set our HTML, we don’t simply use a basic template literal (`<p>test</p>`): we pass the function `html` to the template literal (``html`<p>test</p>`;``).
 
 This leverages [a somewhat infrequently used feature of template literals called tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates). Tagged templates allow a template literal to be passed to a function. This function can then transform the output based on the string input and expected interpolated placeholders.
 
