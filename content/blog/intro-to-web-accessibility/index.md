@@ -25,10 +25,10 @@ Something to keep in mind is that these disabilities may not be permanent. For i
 
 |       | Permanent | Temporary | Situational |
 |-------|-----------|-----------|-------------|
-| Touch | <img height="200" src="./one_arm.png" alt=""> One arm | <img height="200" src="./arm_injury.png" alt=""> Arm injury | <img height="200" src="./new_parent.png" alt=""> New parent |
-| See   | <img height="200" src="./blind.png" alt=""> Blind | <img height="200" src="./cataract.png" alt=""> Cataract | <img height="200" src="./distracted_driver.png" alt=""> Distracted driver |
-| Hear  | <img height="200" src="./deaf.png" alt=""> Deaf | <img height="200" src="./ear_infection.png" alt=""> Ear infection | <img height="200" src="./bartender.png" alt=""> Bartender |
-| Speak | <img height="200" src="./non_verbal.png" alt=""> Non-verbal | <img height="200" src="./laryngitis.png" alt=""> Laryngitis | <img height="200" src="./heavy_accent.png" alt=""> Heavy accent |
+| Touch | <img height="200" src="./one_arm.png" alt=""><br> One arm | <img height="200" src="./arm_injury.png" alt=""><br> Arm injury | <img height="200" src="./new_parent.png" alt=""><br> New parent |
+| See   | <img height="200" src="./blind.png" alt=""><br> Blind | <img height="200" src="./cataract.png" alt=""><br> Cataract | <img height="200" src="./distracted_driver.png" alt=""><br> Distracted driver |
+| Hear  | <img height="200" src="./deaf.png" alt=""><br> Deaf | <img height="200" src="./ear_infection.png" alt=""><br> Ear infection | <img height="200" src="./bartender.png" alt=""><br> Bartender |
+| Speak | <img height="200" src="./non_verbal.png" alt=""><br> Non-verbal | <img height="200" src="./laryngitis.png" alt=""><br> Laryngitis | <img height="200" src="./heavy_accent.png" alt=""><br> Heavy accent |
 
 > Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual
 
