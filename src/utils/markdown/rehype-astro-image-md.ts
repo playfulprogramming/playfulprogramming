@@ -179,6 +179,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							"data-zoom-src": pngSource.src,
 							width: pictureResult.image.width,
 							height: pictureResult.image.height,
+							style: node.properties.style,
 						}),
 					]),
 				);
