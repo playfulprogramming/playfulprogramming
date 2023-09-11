@@ -25,7 +25,7 @@ const MAX_HEIGHT = 768;
  * return the value in pixel units, or undefined if it cannot be
  * parsed.
  */
-function getPixelValue(attr: unknown): number {
+function getPixelValue(attr: unknown): number | undefined {
 	const [, pxValue] = /^([0-9]+)(px)?$/.exec(attr + "") || [];
 	return typeof pxValue !== "undefined" ? Number(pxValue) : undefined;
 }
@@ -89,20 +89,20 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const dimensions = { ...srcSize };
 				if (nodeHeight) {
 					dimensions.height = nodeHeight;
-					dimensions.width = Math.floor(nodeHeight * imageRatio);
+					dimensions.width = Math.ceil(nodeHeight * imageRatio);
 				} else if (nodeWidth) {
 					dimensions.width = nodeWidth;
-					dimensions.height = Math.floor(nodeWidth / imageRatio);
+					dimensions.height = Math.ceil(nodeWidth / imageRatio);
 				}
 
 				if (dimensions.height > MAX_HEIGHT) {
 					dimensions.height = MAX_HEIGHT;
-					dimensions.width = Math.floor(MAX_HEIGHT * imageRatio);
+					dimensions.width = Math.ceil(MAX_HEIGHT * imageRatio);
 				}
 
 				if (dimensions.width > MAX_WIDTH) {
 					dimensions.width = MAX_WIDTH;
-					dimensions.height = Math.floor(MAX_WIDTH / imageRatio);
+					dimensions.height = Math.ceil(MAX_WIDTH / imageRatio);
 				}
 
 				const pictureResult = await getPicture({
@@ -177,8 +177,8 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							loading: "lazy",
 							decoding: "async",
 							"data-zoom-src": pngSource.src,
-							width: dimensions.width,
-							height: dimensions.height,
+							width: pictureResult.image.width,
+							height: pictureResult.image.height,
 						}),
 					]),
 				);
