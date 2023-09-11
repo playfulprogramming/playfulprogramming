@@ -72,6 +72,11 @@ body {
 		background-color $animStyle $animSpeed;
 }
 
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 999;
+}
+
 .medium-zoom-overlay {
 	background: var(--background_primary) !important;
 }
