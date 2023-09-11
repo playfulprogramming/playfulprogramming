@@ -20,6 +20,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MAX_WIDTH = 768;
 const MAX_HEIGHT = 768;
 
+/**
+ * parse a height/width attribute value (e.g. "20px" or "20") and
+ * return the value in pixel units, or undefined if it cannot be
+ * parsed.
+ */
+function getPixelValue(attr: unknown): number | undefined {
+	const [, pxValue] = /^([0-9]+)(px)?$/.exec(attr + "") || [];
+	return typeof pxValue !== "undefined" ? Number(pxValue) : undefined;
+}
+
 export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 	return async (tree, file) => {
 		const imgNodes: Element[] = [];
@@ -47,15 +57,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const nodeSrc = node.properties.src as string;
 				const nodeAlt = node.properties.alt as string;
 
-				// TODO: How should remote images be handled?
-				const dimensions = getImageSize(nodeSrc, filePathDir, rootFileDir) || {
-					height: undefined,
-					width: undefined,
-				};
-
-				// TODO: Remote images?
-				if (!dimensions.height || !dimensions.width) return;
-
 				let src: string;
 				if (nodeSrc.startsWith("/")) {
 					src = nodeSrc;
@@ -71,30 +72,50 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					return;
 				}
 
-				const originalDimensions = { ...dimensions };
-				const imgRatioHeight = dimensions.height / dimensions.width;
-				const imgRatioWidth = dimensions.width / dimensions.height;
+				// TODO: How should remote images be handled?
+				const srcSize = getImageSize(nodeSrc, filePathDir, rootFileDir) || {
+					height: undefined,
+					width: undefined,
+				};
+
+				// TODO: Remote images?
+				if (!srcSize.height || !srcSize.width) return;
+
+				const imageRatio = srcSize.width / srcSize.height;
+
+				const nodeWidth = getPixelValue(node.properties.width);
+				const nodeHeight = getPixelValue(node.properties.height);
+
+				const dimensions = { ...srcSize };
+				if (nodeHeight) {
+					dimensions.height = nodeHeight;
+					dimensions.width = Math.floor(nodeHeight * imageRatio);
+				} else if (nodeWidth) {
+					dimensions.width = nodeWidth;
+					dimensions.height = Math.floor(nodeWidth / imageRatio);
+				}
+
 				if (dimensions.height > MAX_HEIGHT) {
 					dimensions.height = MAX_HEIGHT;
-					dimensions.width = Math.floor(MAX_HEIGHT * imgRatioWidth);
+					dimensions.width = Math.floor(MAX_HEIGHT * imageRatio);
 				}
 
 				if (dimensions.width > MAX_WIDTH) {
 					dimensions.width = MAX_WIDTH;
-					dimensions.height = Math.floor(MAX_WIDTH * imgRatioHeight);
+					dimensions.height = Math.floor(MAX_WIDTH / imageRatio);
 				}
 
 				const pictureResult = await getPicture({
 					src: src,
 					widths: [dimensions.width],
 					formats: ["avif", "webp", "png"],
-					aspectRatio: imgRatioWidth,
+					aspectRatio: imageRatio,
 					alt: nodeAlt || "",
 				});
 
 				let pngSource = {
 					src: src,
-					size: originalDimensions.width,
+					size: srcSize.width,
 				};
 
 				if (
@@ -106,9 +127,9 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				) {
 					const originalPictureResult = await getPicture({
 						src: src,
-						widths: [originalDimensions.width],
+						widths: [srcSize.width],
 						formats: ["png"],
-						aspectRatio: imgRatioWidth,
+						aspectRatio: imageRatio,
 						alt: nodeAlt || "",
 					});
 
@@ -156,7 +177,9 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							loading: "lazy",
 							decoding: "async",
 							"data-zoom-src": pngSource.src,
-							style: `width: ${pngSource.size}px`,
+							width: pictureResult.image.width,
+							height: pictureResult.image.height,
+							style: node.properties.style,
 						}),
 					]),
 				);
