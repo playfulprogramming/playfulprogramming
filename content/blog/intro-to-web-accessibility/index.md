@@ -23,38 +23,12 @@ Another example is users with limited mobility who utilize specialty hardware, s
 
 Something to keep in mind is that these disabilities may not be permanent. For instance, if you fall and break your arm, you may be only using one arm while healing. Likewise, there are situational impairments as well. If you're holding a cup of coffee in one hand, you'll only be using the other for device usage. Here's a chart that outlines a few more of these examples:
 
-<table>
-	<tr>
-	  <th></th>
-		<th scope="col">Permanent</th>
-		<th scope="col">Temporary</th>
-		<th scope="col">Situational</th>
-	</tr>
-	<tr>
-		<th scope="row">Touch</th>
-		<td><img src="./one_arm.png" style="height: 200px"/><br/>One arm</td>
-		<td><img src="./arm_injury.png" style="height: 200px"/><br/>Arm injury</td>
-		<td><img src="./new_parent.png" style="height: 200px"/><br/>New parent</td>
-	</tr>
-	<tr>
-		<th scope="row">See</th>
-		<td><img src="./blind.png" style="height: 200px"/><br/>Blind</td>
-		<td><img src="./cataract.png" style="height: 200px"/><br/>Cataract</td>
-		<td><img src="./distracted_driver.png" style="height: 200px"/><br/>Distracted driver</td>
-	</tr>
-	<tr>
-		<th scope="row">Hear</th>
-		<td><img src="./deaf.png" style="height: 200px"/><br/>Deaf</td>
-		<td><img src="./ear_infection.png" style="height: 200px"/><br/>Ear infection</td>
-		<td><img src="./bartender.png" style="height: 200px"/><br/>Bartender</td>
-	</tr>
-	<tr>
-		<th scope="row">Speak</th>
-		<td><img src="./non_verbal.png" style="height: 200px"/><br/>Non-verbal</td>
-		<td><img src="./laryngitis.png" style="height: 200px"/><br/>Laryngitis</td>
-		<td><img src="./heavy_accent.png" style="height: 200px"/><br/>Heavy accent</td>
-	</tr>
-</table>
+|       | Permanent | Temporary | Situational |
+|-------|-----------|-----------|-------------|
+| Touch | <img height="200" src="./one_arm.png" alt=""> One arm | <img height="200" src="./arm_injury.png" alt=""> Arm injury | <img height="200" src="./new_parent.png" alt=""> New parent |
+| See   | <img height="200" src="./blind.png" alt=""> Blind | <img height="200" src="./cataract.png" alt=""> Cataract | <img height="200" src="./distracted_driver.png" alt=""> Distracted driver |
+| Hear  | <img height="200" src="./deaf.png" alt=""> Deaf | <img height="200" src="./ear_infection.png" alt=""> Ear infection | <img height="200" src="./bartender.png" alt=""> Bartender |
+| Speak | <img height="200" src="./non_verbal.png" alt=""> Non-verbal | <img height="200" src="./laryngitis.png" alt=""> Laryngitis | <img height="200" src="./heavy_accent.png" alt=""> Heavy accent |
 
 > Microsoft originally created this chart as part of their [Inclusive Toolkit](https://download.microsoft.com/download/b/0/d/b0d4bf87-09ce-4417-8f28-d60703d672ed/inclusive_toolkit_manual_final.pdf) manual
 
