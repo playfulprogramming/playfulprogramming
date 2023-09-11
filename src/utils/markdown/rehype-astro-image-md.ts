@@ -89,20 +89,20 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const dimensions = { ...srcSize };
 				if (nodeHeight) {
 					dimensions.height = nodeHeight;
-					dimensions.width = Math.ceil(nodeHeight * imageRatio);
+					dimensions.width = Math.floor(nodeHeight * imageRatio);
 				} else if (nodeWidth) {
 					dimensions.width = nodeWidth;
-					dimensions.height = Math.ceil(nodeWidth / imageRatio);
+					dimensions.height = Math.floor(nodeWidth / imageRatio);
 				}
 
 				if (dimensions.height > MAX_HEIGHT) {
 					dimensions.height = MAX_HEIGHT;
-					dimensions.width = Math.ceil(MAX_HEIGHT * imageRatio);
+					dimensions.width = Math.floor(MAX_HEIGHT * imageRatio);
 				}
 
 				if (dimensions.width > MAX_WIDTH) {
 					dimensions.width = MAX_WIDTH;
-					dimensions.height = Math.ceil(MAX_WIDTH / imageRatio);
+					dimensions.height = Math.floor(MAX_WIDTH / imageRatio);
 				}
 
 				const pictureResult = await getPicture({
