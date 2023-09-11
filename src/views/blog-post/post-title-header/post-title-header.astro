@@ -5,6 +5,7 @@ import { Icon } from "astro-icon";
 import { Chip } from "components/index";
 import dayjs from "dayjs";
 import { buildSearchQuery } from "../../../utils/search";
+import { translate } from "utils/translations";
 
 interface PostTitleHeaderProps {
 	post: ExtendedPostInfo;
@@ -14,6 +15,8 @@ const { title, tags } = post;
 
 const publishedStr = dayjs(post.published).format("MMMM D, YYYY");
 const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
+
+const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---
 
 <header role="banner" class={style.container}>
@@ -49,6 +52,24 @@ const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 				}
 			</ul>
 		</div>
+
+		{
+			post.originalLink ? (
+				<div class={style.originalLink}>
+					<Icon width="24" height="24" name="website" />
+					<p class="text-style-button-regular">
+						{translate(Astro, "desc.original_link")}
+						<a
+							href={post.originalLink}
+							target="_blank"
+							rel="nofollow noopener noreferrer"
+						>
+							{originalLinkStr}
+						</a>
+					</p>
+				</div>
+			) : null
+		}
 	</div>
 
 	<ul aria-label="Post tags" role="list" class={style.tags}>

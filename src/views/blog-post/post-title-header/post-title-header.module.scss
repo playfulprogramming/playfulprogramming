@@ -34,7 +34,8 @@
 	padding: var(--article-header_details_padding-vertical) 0;
 
 	.date,
-	.authors {
+	.authors,
+	.originalLink {
 		display: flex;
 		align-items: top;
 
@@ -46,6 +47,14 @@
 			margin-right: var(--article-header_details_icon_margin-end);
 			flex-shrink: 0;
 		}
+
+		a:not(:hover):not(:focus):not(:active) {
+			text-decoration: none;
+		}
+	}
+
+	.originalLink {
+		color: var(--foreground_emphasis-medium);
 	}
 
 	.date {
@@ -107,10 +116,6 @@
 			flex-direction: row;
 			flex-wrap: wrap;
 			gap: var(--article-header_details_author-gap);
-
-			a:not(:hover):not(:focus):not(:active) {
-				text-decoration: none;
-			}
 		}
 	}
 }
