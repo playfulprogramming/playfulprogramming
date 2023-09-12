@@ -84,7 +84,7 @@
 
 .tabs__tab-panel__inner {
 	border-radius: var(--tabbed-wrapper_corner-radius_inner);
-	overflow: auto;
+	overflow: visible;
 }
 
 .tabs__tab-panel__inner > *:first-child {
@@ -97,6 +97,22 @@
 	border-bottom-right-radius: var(--tabbed-wrapper_corner-radius_inner);
 	border-bottom-left-radius: var(--tabbed-wrapper_corner-radius_inner);
 	margin-bottom: 0;
+}
+
+.tabs__tab-panel__inner > p,
+.tabs__tab-panel__inner > blockquote,
+.tabs__tab-panel__inner > ul,
+.tabs__tab-panel__inner > ol {
+	&:first-child {
+		margin-top: var(--spc-2x);
+	}
+
+	&:last-child {
+		margin-bottom: var(--spc-2x);
+	}
+
+	margin-left: var(--spc-2x) !important;
+	margin-right: var(--spc-2x) !important;
 }
 
 @include from($tabletLarge) {
