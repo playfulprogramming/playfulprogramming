@@ -3,6 +3,7 @@
 	title: "Minecraft Data Pack Programming: Introduction",
 	description: "Learn the beginnings of data pack development in Minecraft - using commands and functions to add custom behavior from scratch!",
 	published: '2022-06-14T21:12:03.284Z',
+	edited: '2023-09-12',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
@@ -93,7 +94,9 @@ The `"pack_format": 10` in this file corresponds to Minecraft 1.19; typically, t
 
 | Minecraft Version | `"pack_format"` value |
 |-------------------|-----------------------|
-| 1.19              | `"pack_format": 10`   |
+| 1.20-1.20.1       | `"pack_format": 15`   |
+| 1.19.4            | `"pack_format": 12`   |
+| 1.19-1.19.3       | `"pack_format": 10`   |
 | 1.18.2            | `"pack_format": 9`    |
 | 1.18-1.18.1       | `"pack_format": 8`    |
 | 1.17-1.17.1       | `"pack_format": 7`    |
@@ -122,15 +125,13 @@ Note that, while a preceding `/` is needed to type these commands into the text 
 
 We should now have our data pack organized as follows:
 
-```shell
-1-introduction/
-  pack.mcmeta
-  data/
-    fennifith/
-      functions/
-        animals/
-          spawn.mcfunction
-```
+<!-- filetree:start -->
+- `1-introduction/`
+  - `pack.mcmeta`
+  - `data/`
+    - `fennifith/functions/animals/`
+      - `spawn.mcfunction`
+<!-- filetree:end -->
 
 ## Installing & testing the data pack
 
@@ -189,20 +190,16 @@ In order to run a function automatically, Minecraft provides two built-in [funct
 
 We'll start with `load` &mdash; for which we'll need to create two new files in our folder structure! Below, I'm creating a new `load.mcfunction` next to our previous function, and a `minecraft/tags/functions/load.json` file for the `load` tag.
 
-```shell
-1-introduction/
-  pack.mcmeta
-  data/
-    minecraft/
-      tags/
-        functions/
-          load.json
-    fennifith/
-      functions/
-        animals/
-          load.mcfunction
-          spawn.mcfunction
-```
+<!-- filetree:start -->
+- `1-introduction/`
+  - `pack.mcmeta`
+  - `data/`
+    - `minecraft/tags/functions/`
+      - `load.json`
+    - `fennifith/functions/animals/`
+      - `load.mcfunction`
+      - `spawn.mcfunction`
+<!-- filetree:end -->
 
 Note that, while I'm using the `fennifith/` namespace for my functions, the tag file lives under the `minecraft/` namespace. This helps to keep some data isolated from the rest of the game &mdash; any files in the `minecraft/` folder are *modifying Minecraft's functionality,* while anything in a different namespace is creating something that belongs to my data pack.
 
