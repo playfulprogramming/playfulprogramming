@@ -44,10 +44,6 @@
 		position: relative;
 	}
 
-	& > div {
-		flex-grow: 1;
-	}
-
 	@include from($tabletSmall) {
 		grid-template-columns: 1fr auto;
 
