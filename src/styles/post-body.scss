@@ -211,9 +211,11 @@
 		color: var(--primary_variant);
 		mask: linear-gradient(to right, transparent, black 1%, black 99%, transparent);
 
+		// these cannot be CSS variables, as the radial-gradient positions need to be fixed values
 		$hrRadius: 5px;
 		$hrOverlap: 1px;
 		$hrHeight: 20px;
+		$hrWidth: 4px; // matches var(--border-width_l)
 
 		height: $hrHeight;
 
@@ -224,7 +226,7 @@
 			width: calc(100% + ($hrRadius * 2));
 			top: $hrOverlap;
 			left: (-2 * $hrRadius);
-			background-image: radial-gradient(16px, transparent, transparent ($hrRadius - 2), currentColor ($hrRadius - 1), currentColor ($hrRadius + 1), transparent ($hrRadius + 2));
+			background-image: radial-gradient(16px, transparent, transparent calc($hrRadius - 0.5px - ($hrWidth / 2)), currentColor calc($hrRadius + 0.5px - ($hrWidth / 2)), currentColor calc($hrRadius - 0.5px + ($hrWidth / 2)), transparent calc($hrRadius + 0.5px + ($hrWidth / 2)));
 			background-size: ($hrRadius * 4) $hrHeight;
 		}
 
@@ -235,7 +237,7 @@
 			width: calc(100% + ($hrRadius * 2));
 			top: calc(($hrHeight / 2) - $hrOverlap);
 			left: 0;
-			background-image: radial-gradient(16px, transparent, transparent ($hrRadius - 2), currentColor ($hrRadius - 1), currentColor ($hrRadius + 1), transparent ($hrRadius + 2));
+			background-image: radial-gradient(16px, transparent, transparent calc($hrRadius - 0.5px - ($hrWidth / 2)), currentColor calc($hrRadius + 0.5px - ($hrWidth / 2)), currentColor calc($hrRadius - 0.5px + ($hrWidth / 2)), transparent calc($hrRadius + 0.5px + ($hrWidth / 2)));
 			background-size: ($hrRadius * 4) $hrHeight;
 			background-position: 0px calc(-0.5 * $hrHeight - $hrOverlap);
 		}
