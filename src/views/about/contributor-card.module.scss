@@ -40,7 +40,7 @@
 
 	picture {
 		display: flex;
-		height: calc(var(--contributor_avatar_size) + 2*var(--contributor_avatar_border_width) - var(--contributor_container-offset));
+		height: calc(var(--contributor_avatar_size) + var(--contributor_avatar_border_width) - var(--contributor_container-offset));
 		position: relative;
 	}
 
