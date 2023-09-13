@@ -22,6 +22,8 @@
 
 	--tab_focus-outline_width: var(--border-width_focus);
 	--tab_focus-outline_color: var(--focus-outline_primary);
+
+	--tab-content_margin: var(--spc-3x);
 }
 
 .tabs {
@@ -104,15 +106,15 @@
 .tabs__tab-panel__inner > ul,
 .tabs__tab-panel__inner > ol {
 	&:first-child {
-		margin-top: var(--spc-2x);
+		margin-top: var(--tab-content_margin);
 	}
 
 	&:last-child {
-		margin-bottom: var(--spc-2x);
+		margin-bottom: var(--tab-content_margin);
 	}
 
-	margin-left: var(--spc-2x) !important;
-	margin-right: var(--spc-2x) !important;
+	margin-left: var(--tab-content_margin) !important;
+	margin-right: var(--tab-content_margin) !important;
 }
 
 @include from($tabletLarge) {
