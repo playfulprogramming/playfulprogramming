@@ -18,13 +18,21 @@ An "Entity Component System" is a pattern followed by many game engines to creat
 
 # What is an Entity Component System?
 
-- **Entity**: An instance of an object with components in the game world.
-- **Component**: A piece of state or data that can be attached to an entity.
-- **System**: A function that operates on a set of entities and their components to perform some game logic.
+- **Entity:** An instance or identifier of an object in the game world.
+- **Component:** A piece of state or data that can be attached to an entity.
+- **System:** A function that operates on a set of entities and their components to perform some game logic.
 
 ECS is characterized by using entities to represent game objects. Each entity has a unique ID, which ties it to a set of components that store its data.
 
-*There is no top-level class or trait that defines an entity!* It's just an ID! Everything about it is defined by what components it has, and how systems interact with it.
+***There is no top-level class or trait that defines an entity!*** It's just an ID! Everything about it is defined by what components it has, and how the systems interact with it.
+
+## Components are the Data Structure
+
+TODO:
+- having one sheep to copy every other sheep from
+- having multiple components to form every sheep (data-driven)
+
+if at some point, you want to add a mutant snake, it's just one more component rather than an entirely new class
 
 ## Systems are the Game Loop!
 
@@ -80,6 +88,7 @@ let mut player_snake = Snake {};
 let mut apples: Vec<Apple> = Vec::new();
 
 loop {
+	// get a key pressed by the keyboard
 	let key_code = input.poll();
 
 	// the snake should move once on each tick
@@ -118,21 +127,22 @@ For example, take this list of potential additions:
 - After eating an apple, the snake gains a few seconds of invulnerability in which the game does not end for any reason.
 - The game has multiple snakes, which the player can control with different keybinds for multiplayer!
 
-All of these ideas are possible, but they would become progressively more difficult to implement as the game grows in complexity. Suddenly your `move()` function is handling 20 different edge cases, your game loop is 2k lines long, and your codebase is an confusing web of logic that is inherently connected to everything else.
+All of these ideas are possible, but they would become progressively more difficult to implement as the game grows in complexity. Suddenly your `move()` function is handling 20 different edge cases, your game loop is 2,000 lines long, and your codebase is a confusing web of logic that is inherently connected to everything else.
 
-If you've ever felt backed into a wall by the way you've structured a project, you know that the solution can be time-consuming. Refactoring functions to use a different data structure, abstracting some functionality behind an extra interface to make way for new changes... What if there was a way to structure your code that could make it universally reusable from the start?
+If you've ever felt backed into a wall by the way your project is structured, you know that the solution can be time-consuming. Refactoring functions to use a different data structure, abstracting some functionality behind an extra interface to make way for new changes... What if there was a way to structure your code that could make it universally reusable from the start?
 
 ## ECS to the Rescue!
 
 Designing this behavior with components allows us to isolate these mechanics into individual pieces of state:
 
-- `SnakeSegments { segments: Vec<SnakeSegment>; }`
+- `Snake { segments: Vec<SnakeSegment>; }`
 - `SnakeMovement { direction: (i32, i32); }`
 - `Invulnerability { ticks_left: u32; }`
 - `Speed { ticks_left: u32; }`
 - `Player { key_binds: Map<KeyCode, (i32, i32)>; }`
+- `Apple { position: (i32, i32); }`
 
-Unlike OOP, these components are not grouped by *what they are* or *what they implement.* They are solely buckets of data that can be used by systems to achieve their functionality.
+Unlike OOP, these components are not restricted into any sort of heirarchy based on *what they are* or *what they implement.* They are solely buckets of data that can be used by systems to achieve their functionality.
 
 We can then write some systems to process parts of the game logic using these components.
 
@@ -141,6 +151,7 @@ We can then write some systems to process parts of the game logic using these co
 /// whenever a key is pressed
 fn system_player_input(
 	input: Res<Input>,
+	// query for all entity with the `Player` and `SnakeMovement` components
 	mut player_query: Query<(&Player, &mut SnakeMovement)>,
 ) {
 	for (player, mut movement) in player_query.iter_mut() {
@@ -153,10 +164,12 @@ fn system_player_input(
 }
 
 
-/// Move any SnakeSegments on each tick, according to its
+/// Move any Snake on each tick, according to its
 /// SnakeMovement value
 fn system_move_snake(
-	mut movement_query: Query<(&mut SnakeSegments, &SnakeMovement, Has<Speed>)>,
+	// query for all entities with the `Snake` and `SnakeMovement` components,
+	// and check whether they have a `Speed` component
+	mut movement_query: Query<(&mut Snake, &SnakeMovement, Has<Speed>)>,
 ) {
 	for (mut segments, movement, has_speed) in movement_query.iter_mut() {
 		// - move the tail of the snake to "head.position + movement.direction"
@@ -167,9 +180,11 @@ fn system_move_snake(
 /// If the snake runs into itself, and does not have
 /// invulnerability, end the game!
 fn system_detect_collision(
-	mut segments_query: Query<&SnakeSegments, Without<Invulnerability>>,
+	// query for any entities with the `Snake` component that do not
+	// have an `Invulnerability` component
+	mut snake_query: Query<&Snake, Without<Invulnerability>>,
 ) {
-	for segments in segments_query.iter() {
+	for snake in snake_query.iter() {
 		// - find if any two segments have the same position in the snake
 		// - if true, end the game!
 	}
@@ -228,7 +243,7 @@ Well, most ECS frameworks are able to implement some neat tricks by knowing thes
 > | Archetype based filtering (`With`, `Without`, `Or`) | O(a) |
 > | Change detection filtering (`Added`, `Changed`)	 | O(a + n) |
 
-At this point, most of the runtime is down to the iteration over the query itself, aside from a few cases where extra filters are involved.
+At this point, most of the runtime is down to the iteration over the query items itself, aside from a few cases where extra filters are involved.
 
 This makes the *existence* of a query almost negligible, at the cost of some memory space and a few extra steps after a modification is made. Great!
 
@@ -250,7 +265,7 @@ Consider:
 
 This would be hard to implement with queries! Queries are great for filtering sets or types of components, but not so good for finding entities based on their relations to each other.
 
-Many ECS frameworks implement some kind of Entity-Entity relation mechanism to satisfy these cases. These can be used to enforce One-to-Many (or One-to-One) constraints, and can be much better optimized using a graph structure than what would be possible with queries.
+Many ECS frameworks implement some kind of Entity-Entity relation mechanism to satisfy these cases. These can be used to enforce One-to-Many or One-to-One constraints, and can be much better optimized using a graph structure than what would be possible with queries.
 
 ## Defining Relations in Bevy
 
@@ -265,11 +280,11 @@ In the meantime, the alternative practice seems to be storing any related entity
 ```rust
 #[derive(Component)]
 struct Snake {
-	// keep track of all segment entities belonging to the snake
+	// keep track of all segment entity IDs belonging to the snake
 	segments: Vec<Entity>;
 }
 
-// Each SnakeSegment is a separate entity that includes this component
+// Each segment entity includes this `SnakeSegment` component
 #[derive(Component)]
 struct SnakeSegment {
 	position: (i32, i32);
@@ -281,7 +296,10 @@ fn system_move_snake(
 	mut segment_query: Query<&mut SnakeSegment>,
 ) {
 	for mut snake in snake_query.iter_mut() {
+		// iterate over each entity ID in the `Snake`
 		for segment_id in snake.segments.iter() {
+			// fetch the `SnakeSegment` component for each referenced segment entity
+			// from the segment query.
 			let segment = segment_query.get(segment_id);
 			// ...
 		}
@@ -294,10 +312,12 @@ This is a little suboptimal, as it leaves your code open to race conditions and 
 None of this provides any assurance that:
 - Each entity in `Snake.segments` has a `SnakeSegment` component
 - Any entity with `SnakeSegment` is referenced by one and only one `Snake`
+- The entities referenced in `Snake.segments` actually exist
 
 However, a single `query.get(id)` is still a big runtime improvement compared to looping through a broad query to find the one entity you need.
 
 # Conclusion
 
-
+- not a perfect solution!
+- particularly well-suited for game development
 
