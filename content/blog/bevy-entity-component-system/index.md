@@ -1,7 +1,7 @@
 ---
 {
-	title: "Entity Component Systems: How to Improve Your Code Quality",
-	description: "",
+	title: "Entity Component System: The Perfect Solution to Reusable Code",
+	description: "The ECS pattern is used by many game engines to create stateless, reusable game logic. But how does it work?",
 	published: '2023-09-13',
 	authors: ['fennifith'],
 	tags: ['rust', 'computer science', 'opinion'],
@@ -36,7 +36,9 @@ These are often (but not always!) kept separate from the *visual* aspects of the
 >
 > Changing from 60 to 120 fps shouldn't also double your character's movement speed in the game!
 
-A *system* is effectively a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result. The ECS framework then manages the "game loop" aspects, and controls how and when the system is invoked.
+A *system* is effectively a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
+
+The ECS framework then manages the surrounding loop itself, and controls how and when each system is invoked.
 
 # So, you want to build a game?
 
@@ -118,6 +120,8 @@ For example, take this list of potential additions:
 
 All of these ideas are possible, but they would become progressively more difficult to implement as the game grows in complexity. Suddenly your `move()` function is handling 20 different edge cases, your game loop is 2k lines long, and your codebase is an confusing web of logic that is inherently connected to everything else.
 
+If you've ever felt backed into a wall by the way you've structured a project, you know that the solution can be time-consuming. Refactoring functions to use a different data structure, abstracting some functionality behind an extra interface to make way for new changes... What if there was a way to structure your code that could make it universally reusable from the start?
+
 ## ECS to the Rescue!
 
 Designing this behavior with components allows us to isolate these mechanics into individual pieces of state:
@@ -127,6 +131,8 @@ Designing this behavior with components allows us to isolate these mechanics int
 - `Invulnerability { ticks_left: u32; }`
 - `Speed { ticks_left: u32; }`
 - `Player { key_binds: Map<KeyCode, (i32, i32)>; }`
+
+Unlike OOP, these components are not grouped by *what they are* or *what they implement.* They are solely buckets of data that can be used by systems to achieve their functionality.
 
 We can then write some systems to process parts of the game logic using these components.
 
@@ -195,19 +201,103 @@ This might be a bit more verbose, but it provides a massive improvement for reus
 
 So far, every system we've written has defined a `Query<Q, F>` type for it to iterate over.
 
-This seems like it would involve an iteration over every entity in the game - which could be absolutely massive! In games that can have millions of entities at once, how is this not a major performance bottleneck?
+This seems like it would involve an iteration over every entity in the game - which could be absolutely massive! In games that can have many thousands of entities at once, how is this not a major performance bottleneck?
 
-Well, most ECS frameworks are able to implement some neat tricks by knowing these queries *ahead of time.* In particular, Bevy already knows every query it needs, and is able to track and update them on each modification, rather than at the time of the query.
+Well, most ECS frameworks are able to implement some neat tricks by knowing these queries *ahead of time.* In particular, Bevy already knows every query it needs, and is able to cache the results and update some parts of them when an entity is modified, rather than recomputing them every time they're used.
 
-This makes each query have an `O(1)` runtime, at the cost of some memory space and some slight processing whenever a modification is made. Great!
+> **_From [the Bevy docs on Query Performance](https://docs.rs/bevy_ecs/latest/bevy_ecs/system/struct.Query.html#performance):_**
+>
+> The following table compares the computational complexity of the various methods and operations, where:
+>
+> - n is the number of entities that match the query,
+> - r is the number of elements in a combination,
+> - k is the number of involved entities in the operation,
+> - a is the number of archetypes in the world,
+> - C is the binomial coefficient, used to count combinations. nCr is read as “n choose r” and is equivalent to the number of distinct unordered subsets of r elements that can be taken from a set of n elements.
+>
+> | Query operation   | Computational complexity |
+> |-------------------|--------------------------|
+> | `iter(_mut)`      | O(n)                     |
+> | `for_each(_mut)`, `par_iter(_mut)`    | O(n) |
+> | `iter_many(_mut)` | O(k)                     |
+> | `iter_combinations(_mut)` | O(nCr)           |
+> | `get(_mut)`       | O(1)                     |
+> | `(get_)many`      | O(k)                     |
+> | `(get_)many_mut`  | O(k^2)                   |
+> | `single(_mut)`, `get_single(_mut)` | O(a)    |
+> | Archetype based filtering (`With`, `Without`, `Or`) | O(a) |
+> | Change detection filtering (`Added`, `Changed`)	 | O(a + n) |
 
-> *Note:* If you're familiar with relational databases, this is similar to
+At this point, most of the runtime is down to the iteration over the query itself, aside from a few cases where extra filters are involved.
+
+This makes the *existence* of a query almost negligible, at the cost of some memory space and a few extra steps after a modification is made. Great!
+
+> *Note:* If you're familiar with relational databases, this is somewhat similar to
 > the idea of [*materialized views*](https://en.wikipedia.org/wiki/Database#Materialized_views), which store the results of frequent
 > queries to avoid computing them every time they're needed.
 
 However, there are still some cases where these queries don't work! In particular, considering relations between two entities can be a point of concern.
 
-TODO: Entity Relations
+# Entity Relations
 
-TODO: IDs > Pointers
+Consider:
+
+- An orange tree has many oranges. An orange can be picked individually, or the tree can be cut down.
+  If the tree is removed, the oranges should go with it!
+
+- Two boats can be tied together with a rope. Each end of the rope can only be tied to a single boat
+  at a time!
+
+This would be hard to implement with queries! Queries are great for filtering sets or types of components, but not so good for finding entities based on their relations to each other.
+
+Many ECS frameworks implement some kind of Entity-Entity relation mechanism to satisfy these cases. These can be used to enforce One-to-Many (or One-to-One) constraints, and can be much better optimized using a graph structure than what would be possible with queries.
+
+## Defining Relations in Bevy
+
+While Bevy has [ongoing discussion](https://github.com/bevyengine/bevy/issues/3742) about entity relations, there isn't a clear-cut way to implement them in the current release (at the time of writing).
+
+> *Note:* Bevy *does* support [Parent-Child relations](https://bevy-cheatbook.github.io/features/parent-child.html), which may
+> satisfy some use cases.
+
+In the meantime, the alternative practice seems to be storing any related entity IDs in a component attached to each entity...
+
+
+```rust
+#[derive(Component)]
+struct Snake {
+	// keep track of all segment entities belonging to the snake
+	segments: Vec<Entity>;
+}
+
+// Each SnakeSegment is a separate entity that includes this component
+#[derive(Component)]
+struct SnakeSegment {
+	position: (i32, i32);
+}
+
+
+fn system_move_snake(
+	mut snake_query: Query<&mut Snake>,
+	mut segment_query: Query<&mut SnakeSegment>,
+) {
+	for mut snake in snake_query.iter_mut() {
+		for segment_id in snake.segments.iter() {
+			let segment = segment_query.get(segment_id);
+			// ...
+		}
+	}
+}
+```
+
+This is a little suboptimal, as it leaves your code open to race conditions and unexpected behavior depending on how it's implemented. Remember that Bevy runs systems in parallel unless configured to do otherwise!
+
+None of this provides any assurance that:
+- Each entity in `Snake.segments` has a `SnakeSegment` component
+- Any entity with `SnakeSegment` is referenced by one and only one `Snake`
+
+However, a single `query.get(id)` is still a big runtime improvement compared to looping through a broad query to find the one entity you need.
+
+# Conclusion
+
+
 
