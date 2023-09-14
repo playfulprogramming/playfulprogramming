@@ -1,6 +1,6 @@
 ---
 {
-	title: "Entity Component Systems: ",
+	title: "Entity Component Systems: How to Improve Your Code Quality",
 	description: "",
 	published: '2023-09-13',
 	authors: ['fennifith'],
@@ -28,19 +28,15 @@ ECS is characterized by using entities to represent game objects. Each entity ha
 
 ## Systems are the Game Loop!
 
-In most games, you'll find a logical "game loop" or "tick loop" that processes logical events or user input, and processes its effects in the world. These might handle things like physics calculations, collision detection, score tracking, win conditions - anything related to the game's *state* or *data*.
+In most games, you'll find a logical "game loop" or "tick loop" that handles logical events or user input and processes its effects in the world. These might involve things like physics calculations, collision detection, score tracking, win conditions - anything related to the game's *state* or *data*.
 
 These are often (but not always!) kept separate from the *visual* aspects of the game, such as a render loop, which would process graphics updates.
 
-> Most games can run at different frame rates, which sometimes even vary while the game is running. This needs to be separate from the game's logic to ensure that it always has reliable behavior, regardless of what frame rate it's running at.
+> Most games can run at multiple frame rates, which sometimes can even vary while the game is running. This needs to be separate from the game's logic to ensure that it always has reliable behavior, regardless of what frame rate it's running at.
 >
 > Changing from 60 to 120 fps shouldn't also double your character's movement speed in the game!
 
-Point being, this is behavior that needs to be reliable and consistent, as it is used to continuously process the game state during gameplay.
-
----
-
-A *system* is then effectively a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result.
+A *system* is effectively a function that gets continuously invoked during the game. It would typically define a query for the components it uses, and perform some kind of operation as a result. The ECS framework then manages the "game loop" aspects, and controls how and when the system is invoked.
 
 # So, you want to build a game?
 
@@ -52,10 +48,12 @@ In an object-oriented approach, I might implement individual structs for each ob
 
 ```rust
 struct Snake {
+	// keep an array of each segment in the snake
 	segments: Vec<SnakeSegment>;
 }
 
 struct SnakeSegment {
+	// each segment has an integer x/y position
 	position: (i32, i32);
 }
 
@@ -82,15 +80,23 @@ let mut apples: Vec<Apple> = Vec::new();
 loop {
 	let key_code = input.poll();
 
+	// the snake should move once on each tick
 	let is_collision = player_snake.move(key_code);
-	if (is_collision) { break; }
+
+	if (is_collision) {
+		// moving has caused the snake to run into itself,
+		// so the player loses the game
+		break;
+	}
 
 	// TODO: detect if the snake eats an apple
 	if (is_apple_eaten) {
+		// if the snake eats an apple, it should grow
 		player_snake.grow();
 	}
 
 	if (apples.len() == 0) {
+		// there are no apples left, so the player has won the game
 		break;
 	}
 }
@@ -170,12 +176,12 @@ Finally, we can assemble our "player snake" by attaching any combination of the 
 commands.spawn((
 	SnakeSegments { ... },
 	SnakeMovement { direction: (0, 0) },
-	Player { key_binds: map!(
-		KeyCode::ArrowUp: (0, 1),
-		KeyCode::ArrowDown: (0, -1),
-		KeyCode::ArrowLeft: (-1, 0),
-		KeyCode::ArrowRight: (1, 0),
-	) },
+	Player { key_binds: map![
+		KeyCode::ArrowUp -> (0, 1),
+		KeyCode::ArrowDown -> (0, -1),
+		KeyCode::ArrowLeft -> (-1, 0),
+		KeyCode::ArrowRight -> (1, 0),
+	] },
 ));
 ```
 
