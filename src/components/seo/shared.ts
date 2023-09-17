@@ -12,7 +12,7 @@ export interface SEOProps {
 	publishedTime?: string;
 	editedTime?: string;
 	type?: "article" | "profile" | "book";
-	pathName?: string;
+	pathName: string;
 	canonical?: string;
 	isbn?: string;
 	shareImage?: string;
