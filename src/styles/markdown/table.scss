@@ -67,29 +67,21 @@ table {
 			list-style: none;
 		}
 	}
+
+	border-radius: var(--table_grid-wrapper_corner-radius);
+	overflow: clip;
 }
 
 // Only use a sticky header on tables with 4+ rows
 table:has(tr:nth-child(4)) thead {
 	position: sticky;
 	// this should be -1px for the IntersectionObserver in utils/markdown/tables-script.ts to pick up the `position: sticky` state
-	top: -1px;
+	$headerSize: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px);
+	top: $headerSize;
 
 	// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
 	// and renders with the thead element, rather than being held in place by the table layout (which is an issue with `position: sticky`)
 	box-shadow: inset 100vw 100vh 0 var(--table_background-color);
-
-	// the root table cannot have `overflow: hidden` as that breaks the `position: sticky` behavior
-	// so we need to match the border-radius here to prevent overlap
-	border-top-left-radius: var(--table_corner-radius);
-	border-top-right-radius: var(--table_corner-radius);
-
-	// this is applied in JS whenever the table header is at the top of the screen
-	// (i.e. the border-radius should no longer be visible)
-	&[data-sticky="pinned"] {
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
 }
 
 thead {

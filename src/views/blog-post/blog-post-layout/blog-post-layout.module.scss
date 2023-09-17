@@ -23,8 +23,11 @@
 	animation: fadeIn 300ms ease-in-out;
 
 	position: sticky;
-	top: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px);
-	max-height: calc(100vh - var(--site-spacing));
+
+	$headerSize: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px);
+	top: $headerSize;
+	max-height: calc(100vh - $headerSize);
+
 	overflow-y: auto;
 }
 

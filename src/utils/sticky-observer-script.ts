@@ -16,6 +16,6 @@ export const enableStickyObserver = () => {
 	);
 
 	document
-		.querySelectorAll("thead, [data-sticky-observer]")
+		.querySelectorAll("[data-sticky-observer]")
 		.forEach((e) => observer.observe(e));
 };
