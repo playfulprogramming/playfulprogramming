@@ -42,6 +42,7 @@ const rootURL = `/unicorns/${unicorn.id}/`;
 		description={unicorn.description}
 		unicornsData={[unicorn]}
 		type="profile"
+		pathName={`/unicorns/${unicorn.id}/page/${page.currentPage}`}
 	/>
 	<div class="listViewContent">
 		<UnicornsPage

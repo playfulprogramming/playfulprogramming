@@ -22,7 +22,7 @@ const SEOTitle = `Post page ${pageIndex}`;
 ---
 
 <Document>
-	<SEO slot="head" title={SEOTitle} />
+	<SEO slot="head" title={SEOTitle} pathName={`/page/${page.currentPage}`} />
 	<div class="listViewContent">
 		<PostListTemplate posts={page.data} page={page} rootURL={"/"} />
 	</div>
