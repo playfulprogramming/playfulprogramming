@@ -372,7 +372,7 @@ const posts = getPosts();
 
 collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	...collection,
-	posts: posts.filter((post) => post.collection === collection.slug),
+	posts: posts.filter((post) => post.collection === collection.title),
 })) as CollectionInfo[];
 
 export {
