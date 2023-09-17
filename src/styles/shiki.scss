@@ -3,16 +3,27 @@
 /*
  * This code handles line of code counting
  */
-code {
+pre code {
 	counter-reset: step;
 	counter-increment: step 0;
+
+	display: block;
+	position: relative;
+	padding-left: 2.5rem;
+	tab-size: 4;
 }
 
-code .line::before {
+pre code .line::before {
 	content: counter(step);
 	counter-increment: step;
+
+	// These must be position: absolute; to avoid contributing
+	// to the tab indent size within the code block.
+	// Otherwise, the first tab is offset by the width of the line counter,
+	// leading to inconsistent tab alignment.
+	position: absolute;
+	left: 0;
 	width: 1rem;
-	margin-right: 1.5rem;
 	display: inline-block;
 	text-align: right;
 	color: rgba(115, 138, 148, 0.4);
@@ -92,7 +103,8 @@ pre.shiki div.highlight {
 	background-color: var(--cardActiveBackground);
 }
 pre.shiki div.line {
-	min-height: 1rem;
+	// must be the same value as used for line-height
+	min-height: 1.7em;
 }
 
 /** Don't show the language identifiers */

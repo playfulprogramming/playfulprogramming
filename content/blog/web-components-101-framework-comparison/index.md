@@ -24,8 +24,9 @@ To showcase this, let’s walk through some of these frameworks and compare and 
 While web frameworks are the hot new jazz - it’s not like we couldn’t make web applications before them. With the advent of W3C standardized web components (without Lit), doing so today is better than it’s ever been.
 
 Here are some pros and cons of Vanilla JavaScript web components:
-
-<table class="wp-block-table">     <tbody>         <tr>             <th>                 Pros             </th>             <th>                 Cons             </th>         </tr>         <tr>             <td>                 <ul>                     <li><span>No framework knowledge required</span></li>                     <li><span>Less reliance on framework</span></li>                 </ul>                 <ul>                     <li><span>Maintenance</span></li>                     <li><span>Bugs</span></li>                     <li><span>Security issues</span></li>                 </ul>                 <ul>                     <li><span>Smaller “hello world” size</span></li>                     <li><span>More control over render behavior</span></li>                 </ul>             </td>             <td>                 <ul>                     <li><span>Re-rendering un-needed elements is slow</span></li>                     <li><span>Handling event passing is tricky</span></li>                     <li><span>Creating elements can be overly verbose</span></li>                     <li><span>Binding to props requires element query</span></li>                     <li><span>You’ll end up building Lit, anyway</span></li>                 </ul>             </td>         </tr>     </tbody> </table>
+|    Pros    |    Cons    |
+|------------|------------|
+| <ul><li>No framework knowledge required</li><li>Less reliance on framework</li></ul><ul><li>Maintenance</li><li>Bugs</li><li>Security issues</li></ul><ul><li>Smaller “hello world” size</li><li>More control over render behavior</li></ul> | <ul><li>Re-rendering un-needed elements is slow</li><li>Handling event passing is tricky</li><li>Creating elements can be overly verbose</li><li>Binding to props requires element query</li><li>You’ll end up building Lit, anyway</li></ul> |
 
 To the vanilla way of doing things’ credit, there’s a bit of catharsis knowing that you’re relying on a smaller pool of upstream resources. There’s also a lessened likelihood of some bad push to NPM from someone on the Lit team breaking your build.
 
@@ -170,7 +171,9 @@ You could work on fixing these, but ultimately, you’ve created a basis of what
 
 With the downsides (and upsides) of vanilla web components in mind, let’s compare the pros and cons of what building components using Lit looks like:
 
-<table class="wp-block-table">     <tbody>         <tr>             <th>                 Pros             </th>             <th>                 Cons             </th>         </tr>         <tr>             <td>                 <ul>                     <li><span>Faster re-renders* that are automatically                             handled</span></li>                     <li><span>More consolidated UI/logic</span></li>                     <li><span>More advanced tools after mastery</span></li>                     <li><span>Smaller footprint than other frameworks</span></li>                 </ul>             </td>             <td>                 <ul>                     <li><span>Framework knowledge required</span></li>                     <li><span>Future breaking changes</span></li>                     <li><span>Not as widely known/used as other frameworks (Vue,                             React, Angular)</span></li>                 </ul>                 <p><span></span></p>             </td>         </tr>     </tbody> </table>
+|    Pros    |    Cons    |
+|------------|------------|
+| <ul><li>Faster re-renders* that are automatically handled</li><li>More consolidated UI/logic</li><li>More advanced tools after mastery</li><li>Smaller footprint than other frameworks</li></ul> | <ul><li>Framework knowledge required</li><li>Future breaking changes</li><li>Not as widely known/used as other frameworks (Vue, React, Angular)</li></ul> |
 
 While there is some overlap between this list of pros and cons and the one for avoiding Lit in favor of home-growing, there’s a few other items here.
 
