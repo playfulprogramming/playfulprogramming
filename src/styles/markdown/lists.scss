@@ -15,31 +15,16 @@
 }
 
 .post-body ul:not([class]) {
-	list-style-type: none;
 	margin: var(--site-spacing) 0;
-	padding: calc(var(--list_item_padding-vertical) / 2) 0;
-	padding-left: var(--list_padding-start);
 
 	& > li {
-		background: url("/icons/list-bowtie-light.svg") no-repeat 0
-			var(--list_bowtie_top);
-		padding: calc(var(--list_item_padding-vertical) / 2) 0;
-		padding-left: calc(
-			var(--list_bowtie_size) + var(--list_item_padding-start)
-		);
+		@extend .text-style-body-large;
 
-		@include darkTheme {
-			background: url("/icons/list-bowtie-dark.svg") no-repeat 0
-				var(--list_bowtie_top);
-		}
+		padding-top: calc(var(--list_item_padding-vertical) / 2);
+		padding-bottom: calc(var(--list_item_padding-vertical) / 2);
 
 		& > *:first-child {
 			margin-top: 0;
-		}
-
-		&> ul {
-			margin-top: 0;
-			margin-bottom: 0;
 		}
 	}
 }
