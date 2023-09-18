@@ -4,31 +4,33 @@ import { UnicornInfo } from "uu-types";
 import { Picture } from "@astrojs/image/components";
 import { Button } from "components/index";
 import { translate } from "src/utils/translations";
+import { getHrefContainerProps } from "utils/href-container-script";
 
 interface CardProps {
 	unicorn: UnicornInfo;
 }
 
 const { unicorn } = Astro.props as CardProps;
+const unicornHref = `/unicorns/${unicorn.id}`;
 ---
 
-<div class={style.card}>
+<div class={style.card} {...getHrefContainerProps(unicornHref)}>
 	<Picture
 		alt={unicorn.name + " profile picture"}
-		class="circleImg"
-		sizes="48px"
-		widths={[48]}
+		class={style.avatar}
+		sizes="96px"
+		widths={[96]}
 		aspectRatio={1}
 		formats={["avif", "webp", "png"]}
 		src={unicorn.profileImgMeta.relativeServerPath}
 	/>
 
-	<div>
-		<span class={`${style.name} text-style-body-medium-bold`}>
+	<div class={style.info}>
+		<span class={`${style.name} text-style-body-large-bold`}>
 			{unicorn.name}
 		</span>
 		<ul
-			class={`${style.roles} text-style-body-small-bold`}
+			class={`${style.roles} text-style-body-small`}
 			aria-label={translate(Astro, "desc.unicorn_roles")}
 			role="list"
 		>
@@ -45,7 +47,7 @@ const { unicorn } = Astro.props as CardProps;
 		</ul>
 	</div>
 
-	<Button href={`/unicorns/${unicorn.id}`}>
+	<Button class={style.button} href={unicornHref}>
 		{translate(Astro, "action.view_profile")}
 	</Button>
 </div>
