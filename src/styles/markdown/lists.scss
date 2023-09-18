@@ -14,7 +14,8 @@
 	);
 }
 
-.post-body ul:not([class]) {
+.post-body ul:not([class]),
+.post-body ol:not([class]) {
 	margin: var(--site-spacing) 0;
 
 	& > li {
