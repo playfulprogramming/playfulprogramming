@@ -40,6 +40,12 @@
 	}
 }
 
+// <details> appears to invisibly reset the box-sizing to "content-box"
+// for all its descendants... so we set it back to border-box here.
+details > * {
+	box-sizing: border-box;
+}
+
 .hint {
 	margin: var(--site-spacing) 0;
 
@@ -47,6 +53,13 @@
 		display: inline-block;
 		overflow: hidden;
 		max-width: 100%;
+
+		// The <details> should expand to width: 100% if it contains a full-width
+		// element, such as an iframe or codeblock, as this does not happen
+		// automatically.
+		&[open]:has(pre, .embed, .docs-file-tree-container) {
+			width: 100%;
+		}
 
 		border-radius: var(--hint-container_corner-radius_collapsed);
 		&[open] {
