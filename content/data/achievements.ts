@@ -40,5 +40,5 @@ function getWordCount(userId: string) {
 		return acc + (post.wordCount ?? 0);
 	}, 0);
 
-	return `Write ${wordCount} words!`;
+	return `Write ${wordCount.toLocaleString("en")} words!`;
 }
