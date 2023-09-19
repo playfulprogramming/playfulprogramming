@@ -9,6 +9,8 @@ import { visit } from "unist-util-visit";
  */
 export const rehypeHeaderText = () => {
 	return (tree: Root, file) => {
+		const headingsWithId = (file.data.astro.frontmatter.headingsWithId = []);
+
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			if (
 				headingRank(node) &&
@@ -25,11 +27,7 @@ export const rehypeHeaderText = () => {
 					slug: node.properties["id"] as string,
 				};
 
-				if (file.data.astro.frontmatter.headingsWithId) {
-					file.data.astro.frontmatter.headingsWithId.push(headingWithID);
-				} else {
-					file.data.astro.frontmatter.headingsWithId = [headingWithID];
-				}
+				headingsWithId.push(headingWithID);
 			}
 		});
 	};
