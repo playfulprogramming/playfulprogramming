@@ -586,3 +586,283 @@ onErrorCaptured((err, instance, info) => {
 ```
 
 <!-- tabs:end -->
+
+# Challenge
+
+Let's say that we were building out [our previous code challenge](/posts/ffg-fundamentals-component-reference#Challenge) and accidentally typo-d the name of a variable in our `Sidebar` component:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+export const Sidebar = forwardRef(({ toggle }, ref) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const setAndToggle = (v) => {
+    setIsCollapsed(v);
+    toggle(v);
+  };
+
+  // ...
+
+  const toggleCollapsed = () => {
+    setAndToggle(isCollapsed);
+  };
+
+  /**
+   * `collapsed` doesn't exist!
+   * It's supposed to be `isCollapsed`! 😱
+   */
+  if (collapsed) {
+    return <button onClick={toggleCollapsed}>Toggle</button>;
+  }
+
+  return (
+    <div>
+      <button onClick={toggleCollapsed}>Toggle</button>
+      <ul style={{ padding: '1rem' }}>
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+      </ul>
+    </div>
+  );
+});
+
+const collapsedWidth = 100;
+const expandedWidth = 150;
+
+export default function App() {
+  const [width, setWidth] = useState(expandedWidth);
+  const sidebarRef = useRef();
+
+  // ...
+
+  return (
+    <Layout
+      sidebarWidth={width}
+      sidebar={
+        <Sidebar
+          ref={sidebarRef}
+          toggle={(isCollapsed) => {
+            if (isCollapsed) {
+              setWidth(collapsedWidth);
+              return;
+            }
+            setWidth(expandedWidth);
+          }}
+        />
+      }
+    >
+      <p style={{ padding: '1rem' }}>Hi there!</p>
+    </Layout>
+  );
+}
+```
+
+## Angular
+
+// TODO: Port code
+
+## Vue
+
+// TODO: Port code
+
+<!-- tabs:end -->
+
+Upon rendering the sidebar, we're greeted with an error:
+```javascript
+collapsed is not defined
+```
+
+While we can solve this by correcting the typo, we'll also want to add an error handler to log these kinds of issues in case they happen in production. After all, [if a bug is found in the wild without a way to report it back to the developer, is it ever fixed](https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest)?
+
+Let's solve this by:
+
+- Figuring out how the user will report bugs
+- Implementing an error handler
+- Showing the user a nicer error screen
+
+## Reporting Bugs Back to Developers
+
+Let's provide the user a means to email us if they find something similar in their time using the app.
+
+We can do this by showing the user [a `mailto:` link](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks#email_links) when an error occurs. That way, reporting the bug is a single mouse click.
+
+This `mailto:` link might look like the following HTML
+
+```html
+<a href="mailto:dev@example.com&subject=Bug%20Found&body=There%20was%20an%20error">Email Us</a>
+```
+
+Where `subject` and `body` are encoded using `encodeURIComponent` like so:
+
+```javascript
+// JavaScript psuedo-code
+const mailTo = "dev@example.com";
+
+const errorMessage = `
+There was some error that occured. It's unclear why that happened.
+`;
+
+const header = "Bug Found"
+
+const encodedErr = encodeURIComponent(errorMessage);
+
+const encodedHeader = encodeURIComponent(header);
+
+const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedErr}`;
+
+// HREF can be bound via each frameworks' attribute binding syntax
+const html = `<a href="${href}">Email Us</a>`
+```
+
+## Implementing the Error Handler
+
+// TODO: Write
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+class ErrorBoundary extends Component {
+  state = { error: null };
+
+  static getDerivedStateFromError(error) {
+    return { error: error };
+  }
+
+  render() {
+    const err = this.state.error;
+    if (err) {
+      return (
+        <div>
+          <h1>There was an error</h1>
+          <pre>
+            <code>{err.message}</code>
+          </pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export default function App() {
+  const [width, setWidth] = useState(expandedWidth);
+  const sidebarRef = useRef();
+
+  // ...
+
+  return (
+    <ErrorBoundary>
+      <Layout
+        sidebarWidth={width}
+        sidebar={
+          <Sidebar
+            ref={sidebarRef}
+            toggle={(isCollapsed) => {
+              if (isCollapsed) {
+                setWidth(collapsedWidth);
+                return;
+              }
+              setWidth(expandedWidth);
+            }}
+          />
+        }
+      >
+        <p style={{ padding: '1rem' }}>Hi there!</p>
+      </Layout>
+    </ErrorBoundary>
+  );
+}
+```
+
+### Angular
+
+// TODO: Port the code
+
+
+### Vue
+
+// TODO: Port the code
+
+<!-- tabs:end -->
+
+
+
+
+
+## Showing a Nicer Error Message
+
+// TODO: Write
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+class ErrorBoundary extends Component {
+  state = { error: null };
+
+  static getDerivedStateFromError(error) {
+    return { error: error };
+  }
+
+  render() {
+    const err = this.state.error;
+    if (err) {
+      const mailTo = 'dev@example.com';
+      const header = 'Bug Found';
+      const message = `
+      There was a bug found of type: "${err.name}".
+
+      The message was: "${err.message}".
+
+      The stack trace is:
+
+      """
+      ${err.stack}
+      """
+      `.trim();
+
+      const encodedMsg = encodeURIComponent(message);
+
+      const encodedHeader = encodeURIComponent(header);
+
+      const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
+
+      return (
+        <div>
+          <h1>{err.name}</h1>
+          <pre>
+            <code>{err.message}</code>
+          </pre>
+          <a href={href}>Email us to report the bug</a>
+          <br />
+          <br />
+          <details>
+            <summary>Error stack</summary>
+            <pre>
+              <code>{err.stack}</code>
+            </pre>
+          </details>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+```
+
+### Angular
+
+// TODO: Port code sample
+
+### Vue
+
+// TODO: Port code sample
+
+<!-- tabs:end -->
+

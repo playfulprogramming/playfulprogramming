@@ -1241,3 +1241,93 @@ import Child from './Child.vue'
 Now when you test the issue again, you find your modal is above the UnicornChat UI.
 
 ![// TODO: Write alt](./file_app_chat_below_delete_dialog.png)
+
+# Challenge
+
+// TODO: Write
+
+Tooltip
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+const Tooltip = ({ text, children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const targetRef = useRef();
+  const tooltipRef = useRef();
+
+  const showTooltip = () => {
+    setIsVisible(true);
+  };
+
+  const hideTooltip = () => {
+    setIsVisible(false);
+  };
+
+  useEffect(() => {
+    const targetRect = targetRef.current.getBoundingClientRect();
+
+    if (!tooltipRef.current) return;
+    tooltipRef.current.style.left = `${targetRect.left}px`;
+    tooltipRef.current.style.top = `${targetRect.bottom}px`;
+  }, [isVisible]);
+
+  return (
+    <div>
+      <div
+        ref={targetRef}
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+      >
+        {children}
+      </div>
+      {isVisible &&
+        ReactDOM.createPortal(
+          <div ref={tooltipRef} className="tooltip">
+            {text}
+          </div>,
+          document.body
+        )}
+    </div>
+  );
+};
+
+export default Tooltip;
+
+const App = () => {
+  return (
+    <div>
+      <Tooltip text="This is a tooltip">
+        <button>Hover me</button>
+      </Tooltip>
+      <style
+        children={`
+           .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            z-index: 1000;
+          }
+      `}
+      />
+    </div>
+  );
+};
+```
+
+
+
+### Angular
+
+// TODO: Port code
+
+### Vue
+
+// TODO: Port  code
+
+<!-- tabs:end -->
+
