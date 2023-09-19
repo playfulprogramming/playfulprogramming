@@ -8,7 +8,6 @@ import { rehypeAstroImageMd } from "./rehype-astro-image-md";
 import { rehypeUnicornElementMap } from "./rehype-unicorn-element-map";
 import { rehypeExcerpt } from "./rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./rehype-unicorn-populate-post";
-import { rehypeWordCount } from "./rehype-word-count";
 import { rehypeUnicornGetSuggestedPosts } from "./rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
 import { rehypeHeadingLinks } from "./heading-links/rehype-transform";
@@ -71,7 +70,6 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 							maxLength: 150,
 						},
 					] as RehypePlugin,
-					rehypeWordCount,
 			  ]
 			: []),
 		...(config.format === "html" ? [rehypeFileTree, rehypeHeaderText] : []),

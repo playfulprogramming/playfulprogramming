@@ -15,18 +15,6 @@ import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
-import {
-	count,
-	rehypeWordCount,
-	WordCounts,
-} from "../utils/markdown/rehype-word-count";
-import { unified } from "unified";
-import rehypeRetext from "rehype-retext";
-import english from "retext-english";
-import remarkParse from "remark-parse";
-import remarkToRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import { achievements } from "../../content/data/achievements";
 import collectionMapping from "../../content/data/collection-mapping";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
@@ -204,14 +192,32 @@ function getPosts(): Array<PostInfo> {
 
 			const frontmatter = matter(fileContents).data as RawPostInfo;
 
-			const counts = {} as WordCounts;
+			// Look... Okay? Just.. Look.
+			// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
 
-			unified()
-				.use(remarkParse)
-				.use(remarkToRehype)
-				.use(rehypeRetext, unified().use(english).use(count(counts)))
-				.use(rehypeStringify)
-				.processSync(fileContents);
+			/**
+			 * An ode to words
+			 *
+			 * Oh words, what can be said of thee?
+			 *
+			 * Not much me.
+			 *
+			 * See, it's conceived that ye might have intriguing definitions from one-to-another
+			 *
+			 * This is to say: "What is a word?"
+			 *
+			 * An existential question at best, a sisyphean effort at worst.
+			 *
+			 * See, while `forms` and `angular` might be considered one word each: what of `@angular/forms`? Is that 2?
+			 *
+			 * Or, what of `@someone mentioned Angular's forms`? Is that 4?
+			 *
+			 * This is a long-winded way of saying "We know our word counter is inaccurate, but so is yours."
+			 *
+			 * Please do let us know if you have strong thoughts/answers on the topic,
+			 * we're happy to hear them.
+			 */
+			const wordCount = fileContents.split(/\s+/).length;
 
 			return {
 				...frontmatter,
@@ -221,7 +227,7 @@ function getPosts(): Array<PostInfo> {
 				authorsMeta: frontmatter.authors.map((authorId) =>
 					fullUnicorns.find((u) => u.id === authorId),
 				),
-				wordCount: (counts.InlineCodeWords || 0) + (counts.WordNode || 0),
+				wordCount: wordCount,
 				publishedMeta:
 					frontmatter.published &&
 					dayjs(frontmatter.published).format("MMMM D, YYYY"),

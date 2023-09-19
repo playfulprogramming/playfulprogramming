@@ -1,12 +1,10 @@
-import { getAllExtendedPosts } from "../../src/utils/get-all-posts";
+import { posts } from "utils/data";
 
 interface Achievement {
 	id: string;
 	name: string;
 	body: ((userId: string) => string) | string;
 }
-
-const posts = [...getAllExtendedPosts("en")];
 
 export const achievements: Achievement[] = [
 	{
@@ -34,10 +32,13 @@ export const achievements: Achievement[] = [
 ];
 
 function getWordCount(userId: string) {
-	const authoredPosts = posts.filter((post) => post.authors.includes(userId));
+	const authoredPosts = posts.filter(
+		(post) => post.authors.includes(userId) && post.locale === "en",
+	);
+
 	const wordCount = authoredPosts.reduce((acc, post) => {
-		return acc + post.wordCount;
+		return acc + (post.wordCount ?? 0);
 	}, 0);
 
-	return `Write ${wordCount} words!`;
+	return `Write ${wordCount.toLocaleString("en")} words!`;
 }

@@ -80,8 +80,9 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			<ul class={styles.authorsList}>
 				{
 					collectionMeta.authorsMeta.map((author) => {
-						const authorPosts = posts.filter((post) =>
-							post.authors.includes(author.id),
+						const authorPosts = posts.filter(
+							(post) =>
+								post.authors.includes(author.id) && post.locale === "en",
 						);
 
 						const wordCount = authorPosts.reduce(
