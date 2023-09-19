@@ -222,6 +222,165 @@ const App = () => {
 
 Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
 
+### Error boundary limitations
+
+It's worth mentioning that React's `componentDidCatch` class method will only execute when there's an error during [the render step](/posts/ffg-fundamentals-side-effects). This means that the following will throw an error caught by `componentDidCatch`:
+
+```jsx
+const ErrorThrowingComponent = () => {
+    // This WILL be caught by `componentDidCatch`
+    throw "Error";
+}
+```
+
+Meanwhile, the following error-laden event handler will not:
+
+```jsx
+const EventErrorThrowingComponent = () => {
+    const onClick = () => {
+        // This will NOT be caught by `componentDidCatch`
+        throw "Error";
+    }
+    
+    return <button onClick={onClick}>Click me</button>
+}
+```
+
+This behavior may seem strange until you consider how JavaScript's `throw` clause works. When a JavaScript function throws an error, it also acts as an early return of sorts.
+
+```javascript
+function getRandomNumber() {
+    throw "There was an error";
+    // Anything below the "throw" clause will not run
+    console.log("Generating a random number");
+    // This means that values returned after a thrown error are not utilized
+    return Math.floor(Math.random() * 10);
+}
+
+try {
+    const val = getRandomNumber();
+    // This will never execute because the `throw` bypasses it
+    console.log("I got the random number of:", val);
+} catch (e) {
+    // This will always run instead
+    console.log("There was an error:", e);
+}
+```
+
+Moreover, these errors exceed past [their scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope), meaning that they will bubble up [the execution stack](https://www.freecodecamp.org/news/execution-context-how-javascript-works-behind-the-scenes/).
+
+> What does that mean in English?
+
+In practical terms, this means that a thrown error will exceed the bounds of the function you called it in, and make its way further  up the list of functions you called to get to the thrown error.
+
+```javascript
+function getBaseNumber() {
+    // Error occurs here, throws it upwards
+	throw "There was an error";
+	return 10;
+}
+
+function getRandomNumber() {
+    // Error occurs here, throws it upwards
+    return Math.floor(Math.random() * getBaseNumber());
+}
+
+function getRandomTodoItem() {
+    const items = [
+        "Go to the gym",
+        "Play video games",
+        "Work on book",
+        "Program"
+    ]
+
+    // Error occurs here, throws it upwards
+    const randNum = getRandomNumber();
+
+    return items[randNum % items.length];
+}
+
+function getDaySchedule() {
+    let schedule = [];
+    for (let i = 0; i<3; i++) {
+		schedule.push(
+            // First execution will throw this error upwards
+            getRandomTodoItem();
+        )
+    }
+}
+
+function main() {
+    try {
+    	getDaySchedule();
+    } catch (e) {
+        // Only now will the error be stopped
+        console.log("An error occured:", e);
+    }
+}
+```
+
+![TODO: Write alt](./error_bubbling.png)
+
+
+
+Because of these two properties of errors, React is unable to "recover" (continue rendering after an error has occurred) from an error thrown during a render cycle. Because of this inability to "recover", they had to build in a first-class solution to render errors in React to act as a `try/catch` block.
+
+------
+
+Conversely, due to the nature of event handlers, React doesn't _need_ to handle errors that occur during event handlers. Assume we have the following code in an HTML file:
+
+```html
+<!-- index.html -->
+<button id="btn">Click me</button>
+
+<script>
+   const el = document.getElementById("btn");
+   el.addEventListener('click', () => {
+       throw "There was an error"
+   })
+</script>
+```
+
+When you click on the `<button>` here, it will throw an error but this error will not escape out of the event listener's scope. This means that the following will not work:
+
+```javascript
+try {
+    const el = document.getElementById("btn");
+    el.addEventListener('click', () => {
+       throw "There was an error"
+    })
+} catch (e) {
+    // This will not ever run with this code
+    alert("There was an error in the event listener");
+}
+```
+
+So to catch an error in an event handler, React would have to add [a window `'errror'` listener](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event), like so:
+
+```javascript
+const el = document.getElementById("btn");
+el.addEventListener('click', () => {
+   throw "There was an error"
+})
+
+window.addEventListener("error", (e) => {
+	alert("There was an error in the event listener")
+});
+```
+
+But let's think about what adding this `window` listener would mean:
+
+- More complex code in the React library
+  - Harder to maintain
+  - Larger bundle size
+- When the user clicks on a faulty button, the whole component crashes rather than a single aspect of it failing
+
+This doesn't seem worth the tradeoffs when we're able to add our own `try/catch` handlers inside of event handlers.
+
+After all, a partially broken application is better than a fully broken one!
+
+
+
 ## Angular
 
 Angular utilizes its [dependency injection system](/posts/ffg-fundamentals-dependency-injection) to allow developers to keep track of errors as they occur.
