@@ -1257,3 +1257,89 @@ That said, this method is fairly extensible as you can even use this `FeatureFla
 > - Brittle and easy to break
 
 <!-- tabs:end -->
+
+# Challenge
+
+Let's expand [our tooltip functionality from the code challenge before](/posts/ffg-fundamentals-portals#Challenge) 
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const useTooltip = ({ tooltipContents, innerContents }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const targetRef = useRef();
+  const tooltipRef = useRef();
+
+  const showTooltip = () => {
+    setIsVisible(true);
+  };
+
+  const hideTooltip = () => {
+    setIsVisible(false);
+  };
+
+  useEffect(() => {
+    const targetRect = targetRef.current.getBoundingClientRect();
+
+    if (!tooltipRef.current) return;
+    tooltipRef.current.style.left = `${targetRect.left}px`;
+    tooltipRef.current.style.top = `${targetRect.bottom}px`;
+  }, [isVisible]);
+
+  return (
+    <div>
+      <div
+        ref={targetRef}
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+      >
+        {innerContents}
+      </div>
+      {isVisible &&
+        ReactDOM.createPortal(
+          <div ref={tooltipRef} className="tooltip">
+            {tooltipContents}
+          </div>,
+          document.body
+        )}
+    </div>
+  );
+};
+
+const App = () => {
+  const tooltip = useTooltip({
+    innerContents: <button>Hover me</button>,
+    tooltipContents: 'This is a tooltip',
+  });
+
+  return (
+    <div>
+      {tooltip}
+      <style
+        children={`
+           .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            z-index: 1000;
+          }
+      `}
+      />
+    </div>
+  );
+};
+```
+
+## Angular
+
+// TODO: Port code
+
+## Vue
+
+// TODO: Port code
+
+<!-- tabs:end -->
