@@ -1,17 +1,7 @@
 @import "src/tokens/index";
 
 :root {
-	--list_padding-start: var(--spc-1x);
-
-	--list_item_padding-start: var(--spc-3x);
 	--list_item_padding-vertical: var(--spc-1x);
-
-	// should match public/icons/list-bowtie-*.svg
-	--list_bowtie_size: 16px;
-	--list_bowtie_top: calc(
-		(var(--list_item_padding-vertical) / 2) +
-			((var(--p_medium_line-height) - var(--list_bowtie_size)) / 2)
-	);
 }
 
 .post-body ul:not([class]),
