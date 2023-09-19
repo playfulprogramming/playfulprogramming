@@ -11,6 +11,7 @@ export interface IFramePlaceholderProps {
 	width: string;
 	height: string;
 	src: string;
+	propsToPreserve: string;
 	pageTitle: string;
 	pageIcon: GetPictureResult;
 }
@@ -19,6 +20,7 @@ export interface IFramePlaceholderProps {
 export function IFramePlaceholder({
 	height,
 	width,
+	propsToPreserve,
 	...props
 }: IFramePlaceholderProps): Element {
 	return (
@@ -64,6 +66,7 @@ export function IFramePlaceholder({
 			<div
 				class="embed__placeholder"
 				data-iframeurl={props.src}
+				data-iframeprops={propsToPreserve}
 				style={`height: ${Number(height) ? `${height}px` : height};`}
 			>
 				<button class="button regular primary-emphasized text-style-button-regular">

@@ -154,8 +154,11 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 
 		await Promise.all(
 			iframeNodes.map(async (iframeNode) => {
-				const width = iframeNode.properties.width ?? EMBED_SIZE.w;
-				let height = iframeNode.properties.height ?? EMBED_SIZE.h;
+				// eslint-disable-next-line prefer-const
+				let { height, width, src, ...propsToPreserve } = iframeNode.properties;
+
+				width = width ?? EMBED_SIZE.w;
+				height = height ?? EMBED_SIZE.h;
 				const info: PageInfo = (await fetchPageInfo(
 					iframeNode.properties.src.toString(),
 				).catch(() => null)) || { icon: await fetchDefaultPageIcon() };
@@ -166,9 +169,10 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 				const iframeReplacement = IFramePlaceholder({
 					width: width.toString(),
 					height: height.toString(),
-					src: iframeNode.properties.src.toString(),
+					src: src.toString(),
 					pageTitle: info.title || "",
 					pageIcon: info.icon,
+					propsToPreserve: JSON.stringify(propsToPreserve),
 				});
 
 				Object.assign(iframeNode, iframeReplacement);
