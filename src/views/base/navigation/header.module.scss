@@ -96,6 +96,10 @@
 		max-width: var(--header_end-items_max-width);
 	}
 
+	> :global(.button) {
+		flex-shrink: 0;
+	}
+
 	.discordLarge {
 		display: none;
 	}
