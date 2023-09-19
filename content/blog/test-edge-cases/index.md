@@ -2,7 +2,7 @@
 {
 	title: "Test Content: Edge Cases",
 	description: "Look at all those edge cases!",
-	published: '2020-09-18',
+	published: '1999-09-18',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
