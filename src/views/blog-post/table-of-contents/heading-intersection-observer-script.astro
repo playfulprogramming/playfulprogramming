@@ -25,7 +25,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 
 		const linkRefs: LinkRef[] = [
 			...(document.querySelectorAll(
-				'[data-headingitem="true"]'
+				'[data-headingitem="true"]',
 			) as never as HTMLLIElement[]),
 		].map((li) => ({
 			li,
@@ -36,7 +36,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 		// return whether an element is currently visible within a scrolling container
 		function isVisibleInContainer(
 			container: HTMLElement,
-			child: HTMLElement
+			child: HTMLElement,
 		): boolean {
 			// child element is above the lowest point of the container...
 			return (
@@ -53,7 +53,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			const anchor = e.target as HTMLAnchorElement;
 			const li = anchor.parentElement as HTMLLIElement;
 			const heading = document.getElementById(
-				anchor.getAttribute("href").slice(1)
+				anchor.getAttribute("href").slice(1),
 			);
 			const isLiVisible = isVisibleInContainer(tocListContainer, li);
 
@@ -68,18 +68,23 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			two containers at once.
 			*/
 			const activeLi = tocListContainer.querySelector(
-				".toc-is-active"
+				".toc-is-active",
 			) as HTMLLIElement;
 			const isActiveVisible =
 				!activeLi || isVisibleInContainer(tocListContainer, activeLi);
 
 			heading?.scrollIntoView({
+				block: "center",
 				// only use smooth scrolling if the heading is currently within the TOC scroll area
 				behavior:
 					prefersReducedMotion || !(activeLi && isActiveVisible && isLiVisible)
 						? "auto"
 						: "smooth",
 			});
+
+			// update the "location.hash" for the selected heading
+			// - must be `replaceState`, as setting `location.hash` directly results in a page scroll
+			window.history.replaceState(null, null, anchor.getAttribute("href"));
 
 			return false;
 		}
@@ -95,7 +100,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			for (const linkRef of linkRefs) {
 				// find any heading entry that corresponds to the linkRef
 				const entry = entries.find(
-					(entry: any) => entry.target.getAttribute("id") === linkRef.id
+					(entry: any) => entry.target.getAttribute("id") === linkRef.id,
 				);
 
 				// determine if the link should be active
@@ -117,7 +122,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 								0,
 								linkRef.li.offsetTop +
 									linkRef.li.offsetHeight -
-									tocListContainer.offsetHeight / 2
+									tocListContainer.offsetHeight / 2,
 							),
 							behavior: "smooth",
 						});
