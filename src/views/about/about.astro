@@ -10,11 +10,7 @@ import TranslationsHeader from "../base/translations/translations-header.astro";
 
 const about = getTranslatedPage(
 	Astro,
-	await Astro.glob("../../../content/site/about-us*.md"),
-);
-const sponsors = getTranslatedPage(
-	Astro,
-	await Astro.glob("../../../content/site/sponsors*.md"),
+	await Astro.glob("../../../content/site/about-us*.mdx"),
 );
 ---
 
@@ -35,31 +31,9 @@ const sponsors = getTranslatedPage(
 		<TranslationsHeader locales={about.locales} />
 		<about.page.Content />
 
-		<div class={`${style.links} d-flex text-center`}>
-			{
-				Object.entries(data.about.links).map(([name, link]) => (
-					<Button variant="primary-emphasized" href={link.url}>
-						<Icon slot="leftIcon" width="100%" height="100%" name={link.icon} />
-						{name}
-					</Button>
-				))
-			}
-		</div>
+		<hr />
 
-		<h2>{translate(Astro, "title.sponsors")}</h2>
-		<div class={`${style.sponsors} d-flex text-center`}>
-			{
-				data.about.sponsors.map((sponsor) => (
-					// these are all svgs, so astro's Picture/Image components make no sense here
-					<a href={sponsor.url} class={style.sponsor}>
-						<img src={sponsor.logo} width="300" alt={sponsor.name} />
-					</a>
-				))
-			}
-		</div>
-		<sponsors.page.Content />
-
-		<h2>{translate(Astro, "title.contributors")}</h2>
+		<h2 class="center">{translate(Astro, "title.contributors")}</h2>
 		<div class={style.unicorns}>
 			{
 				data.unicorns.map((unicornInfo) => (
@@ -67,5 +41,9 @@ const sponsors = getTranslatedPage(
 				))
 			}
 		</div>
+
+		<hr />
+
+		<h2>Licenses & attributions</h2>
 	</main>
 </div>

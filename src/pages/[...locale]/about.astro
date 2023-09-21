@@ -10,11 +10,11 @@ import {
 
 const { locales } = getTranslatedPage(
 	Astro,
-	await Astro.glob("../../../content/site/about-us*.md"),
+	await Astro.glob("../../../content/site/about-us*.mdx"),
 );
 
 export async function getStaticPaths() {
-	const globResults = await Astro.glob("../../../content/site/about-us*.md");
+	const globResults = await Astro.glob("../../../content/site/about-us*.mdx");
 	return globResults.map((globItem) => {
 		const locale = getLanguageFromFilename(globItem.file);
 		return {

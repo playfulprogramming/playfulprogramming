@@ -1,7 +1,7 @@
 import { Languages } from "types/index";
 import { languages } from "../constants/index";
 import { basename } from "path";
-import { MarkdownInstance } from "astro";
+import { MDXInstance, MarkdownInstance } from "astro";
 
 function isLanguageKey(str: string): str is Languages {
 	return Object.keys(languages).includes(str);
@@ -87,18 +87,22 @@ export function removePrefixLanguageFromPath(path: string) {
  * @param glob the Astro glob to query
  * @returns the matched markdown page
  */
-export function getTranslatedPage(
+export function getTranslatedPage<
+	PageInstance extends
+		| MarkdownInstance<Record<string, unknown>>
+		| MDXInstance<Record<string, unknown>>,
+>(
 	astro: { url: URL },
-	glob: MarkdownInstance<Record<string, unknown>>[],
+	glob: PageInstance[],
 ): {
 	locales: Languages[];
-	page: MarkdownInstance<Record<string, unknown>>;
+	page: PageInstance;
 } {
 	const globResults = glob;
 	const lang = getPrefixLanguageFromPath(astro.url.pathname);
 
-	const matchedResult = globResults.find((md) =>
-		md.file.endsWith(`${lang}.md`),
+	const matchedResult = globResults.find(
+		(md) => md.file.endsWith(`.${lang}.md`) || md.file.endsWith(`.${lang}.mdx`),
 	);
 
 	const locales = globResults.map((md) => getLanguageFromFilename(md.file));

@@ -11,26 +11,32 @@
 	}
 }
 
-.links {
+.aboutBody :global(.links) {
+	display: flex;
 	gap: var(--spc-4x);
 	flex-wrap: wrap;
 }
 
-.sponsors {
+.aboutBody :global(.sponsors) {
+	display: flex;
 	flex-wrap: wrap;
+
+	a {
+		display: flex;
+		align-items: center;
+		width: 300px;
+		height: 122px;
+
+		margin: var(--spc-2x);
+
+		background-color: #fff;
+		border-radius: var(--corner-radius_s);
+		overflow: hidden;
+	}
 }
 
-.sponsor {
-	display: flex;
-	align-items: center;
-	width: 300px;
-	height: 122px;
-
-	margin: var(--spc-2x);
-
-	background-color: #fff;
-	border-radius: var(--corner-radius_s);
-	overflow: hidden;
+.aboutBody :global(.center) {
+	text-align: center;
 }
 
 .unicorns {
