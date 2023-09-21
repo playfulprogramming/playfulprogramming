@@ -1,0 +1,34 @@
+:root {
+	--license_padding-horizontal: var(--spc-4x);
+	--license_padding-vertical: var(--spc-3x);
+	--license_gap: var(--spc-4x);
+	--license_icon-size: var(--icon-size_regular);
+	--license_background-color: var(--surface_primary_emphasis-none);
+	--license_corner-radius: var(--corner-radius_m);
+}
+
+.license {
+	display: flex;
+	align-items: center;
+	gap: var(--license_gap);
+	padding: var(--license_padding-vertical) var(--license_padding-horizontal);
+
+	background-color: var(--license_background-color);
+	border-radius: var(--license_corner-radius);
+
+	img {
+		max-width: var(--license_icon-size);
+		height: var(--license_icon-size);
+		flex-shrink: 0;
+		filter: var(--shadow_sticker_drop_shadow);
+	}
+
+	div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	a {
+		text-decoration: none;
+	}
+}

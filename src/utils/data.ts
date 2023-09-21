@@ -6,7 +6,6 @@ import {
 	PostInfo,
 	Languages,
 	CollectionInfo,
-	ExtendedPostInfo,
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
@@ -30,6 +29,8 @@ const unicornsRaw = (await import("../../content/data/unicorns.json")).default;
 const rolesRaw = (await import("../../content/data/roles.json")).default;
 
 const licensesRaw = (await import("../../content/data/licenses.json")).default;
+
+const tagsRaw = (await import("../../content/data/tags.json")).default;
 
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
@@ -275,14 +276,6 @@ collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	posts: posts.filter((post) => post.collection === collection.slug),
 })) as CollectionInfo[];
 
-const tags = [
-	...[...posts, ...collections].reduce((set, item) => {
-		for (const tag of item.tags || []) set.add(tag);
-
-		return set;
-	}, new Set<string>()),
-];
-
 export {
 	aboutRaw as about,
 	fullUnicorns as unicorns,
@@ -290,5 +283,5 @@ export {
 	licensesRaw as licenses,
 	collections,
 	posts,
-	tags,
+	tagsRaw as tags,
 };

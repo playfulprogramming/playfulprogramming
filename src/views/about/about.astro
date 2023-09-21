@@ -7,6 +7,8 @@ import { getTranslatedPage, translate } from "src/utils/translations";
 import { Button } from "components/index";
 import { Icon } from "astro-icon";
 import TranslationsHeader from "../base/translations/translations-header.astro";
+import License from "./license.astro";
+import { siteMetadata } from "constants/site-config";
 
 const about = getTranslatedPage(
 	Astro,
@@ -45,5 +47,24 @@ const about = getTranslatedPage(
 		<hr />
 
 		<h2>Licenses & attributions</h2>
+
+		<div class={style.licenses}>
+			{
+				Object.values(data.tags).map((tag) =>
+					"image" in tag ? (
+						<License
+							name={tag.displayName}
+							image={tag.image}
+							url={
+								`https://github.com/${siteMetadata.repoPath}/blob/main/public` +
+								tag.image.replace(".svg", "-LICENSE.txt")
+							}
+						/>
+					) : (
+						[]
+					),
+				)
+			}
+		</div>
 	</main>
 </div>
