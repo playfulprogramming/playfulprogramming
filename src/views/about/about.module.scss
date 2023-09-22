@@ -11,6 +11,16 @@
 	}
 }
 
+.banner {
+	display: flex;
+	justify-content: center;
+
+	svg {
+		width: 640px;
+		height: auto;
+	}
+}
+
 .aboutBody :global(.links) {
 	display: flex;
 	gap: var(--spc-4x);

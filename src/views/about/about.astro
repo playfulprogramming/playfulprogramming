@@ -6,9 +6,10 @@ import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
 import { Button } from "components/index";
 import { Icon } from "astro-icon";
-import TranslationsHeader from "../base/translations/translations-header.astro";
+import TranslationsHeader from "./translations-header/about-us-translations-header.astro";
 import License from "./license.astro";
 import { siteMetadata } from "constants/site-config";
+import banner from "./banner.svg?raw";
 
 const about = getTranslatedPage(
 	Astro,
@@ -17,25 +18,16 @@ const about = getTranslatedPage(
 ---
 
 <div class="container">
-	<div class="d-flex text-center">
-		<Picture
-			src={import("../../assets/unicorn_utterances_logo_512.png")}
-			loading={"eager"}
-			widths={[192, 56]}
-			sizes={"192px"}
-			formats={["avif", "webp", "png"]}
-			alt={"Unicorn Utterances logo"}
-			class={style.unicornLogo}
-		/>
-		<h1 class="text-style-headline-1">{translate(Astro, "title.about_us")}</h1>
-	</div>
+	<TranslationsHeader locales={about.locales} />
+	<div class={style.banner} set:html={banner} />
 	<main class={`${style.aboutBody} post-body`}>
-		<TranslationsHeader locales={about.locales} />
 		<about.page.Content />
 
 		<hr />
 
-		<h2 class="center">{translate(Astro, "title.contributors")}</h2>
+		<h2 id="contributors" class="center">
+			{translate(Astro, "title.contributors")}
+		</h2>
 		<div class={style.unicorns}>
 			{
 				data.unicorns.map((unicornInfo) => (
@@ -46,7 +38,7 @@ const about = getTranslatedPage(
 
 		<hr />
 
-		<h2>Licenses & attributions</h2>
+		<h2 id="licenses">{translate(Astro, "title.licenses")}</h2>
 
 		<div class={style.licenses}>
 			{
@@ -66,5 +58,7 @@ const about = getTranslatedPage(
 				)
 			}
 		</div>
+
+		<hr />
 	</main>
 </div>

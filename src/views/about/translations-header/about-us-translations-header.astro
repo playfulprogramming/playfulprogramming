@@ -2,25 +2,38 @@
 import styles from "./about-us-translations-header.module.scss";
 import { Languages } from "types/index";
 import { languages } from "constants/index";
+import { Button } from "components/index";
+import { getPrefixLanguageFromPath, translate } from "utils/translations";
+import { Icon } from "astro-icon";
 
 interface TranslationsHeaderProps {
 	locales: Languages[];
 }
 
+const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
 const { locales } = Astro.props as TranslationsHeaderProps;
 ---
 
 <div class={styles.translationContainer}>
-	Translated by our community into:{" "}
-	{
-		locales.map((currLang, i, arr) => {
-			const href = currLang === "en" ? "/about/" : `/${currLang}/about/`;
-			return (
-				<>
-					<a href={href}>{languages[currLang]}</a>
-					{i !== arr.length - 1 ? <span>, </span> : null}
-				</>
-			);
-		})
-	}
+	<div class={styles.title}>
+		<Icon width="24" height="24" name="mdi:translate" />
+		<span class="text-style-body-large"
+			>{translate(Astro, "desc.available_in")}</span
+		>
+	</div>
+	<div class={styles.locales}>
+		{
+			locales.map((lang, i, arr) => {
+				const href = lang === "en" ? "/about/" : `/${lang}/about/`;
+				return (
+					<Button
+						variant={lang === currentLocale ? "primary-emphasized" : "primary"}
+						href={href}
+					>
+						{languages[lang]}
+					</Button>
+				);
+			})
+		}
+	</div>
 </div>

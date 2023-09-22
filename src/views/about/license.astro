@@ -2,6 +2,7 @@
 import style from "./license.module.scss";
 import { getHrefContainerProps } from "utils/href-container-script";
 import { Picture } from "@astrojs/image/components";
+import { translate } from "utils/translations";
 
 interface LicenseProps {
 	name: string;
@@ -17,6 +18,6 @@ const licenseHref = props.url;
 	<img width="24" height="24" src={props.image} />
 	<div class="text-style-button-regular">
 		<span>{props.name}</span>
-		<a href={licenseHref}>View license</a>
+		<a href={licenseHref}>{translate(Astro, "action.view_license")}</a>
 	</div>
 </div>

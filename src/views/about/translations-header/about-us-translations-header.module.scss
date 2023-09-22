@@ -1,8 +1,25 @@
 .translationContainer {
-	font-weight: bold;
-	border: var(--cardOutlineStyle);
-	border-radius: var(--cardRadius);
-	padding: 0.75rem;
-	background: var(--cardActiveBackground);
-	margin: 1rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--site-spacing);
+
+	svg {
+		color: var(--primary_default);
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		gap: var(--spc-2x);
+	}
+
+	.locales {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: var(--spc-2x);
+	}
 }
