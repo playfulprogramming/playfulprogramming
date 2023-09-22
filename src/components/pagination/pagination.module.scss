@@ -79,7 +79,7 @@
 	color: var(--nav-btn_foreground-color);
 }
 
-.paginationButton:focus-within {
+.paginationButton:focus-visible {
 	color: var(--nav-btn_foreground-color);
 	background-color: var(--nav-btn_background-color_focused);
 	border-style: solid;
