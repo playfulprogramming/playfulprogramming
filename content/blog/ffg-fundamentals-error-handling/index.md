@@ -210,7 +210,7 @@ Luckily for us, we can mix-and-match class components and functional components.
 ```jsx
 const ErrorThrowingComponent = () => {
     // This is an example of an error being thrown
-    throw "Error";
+    throw new Error("Error");
 }
 
 const App = () => {
@@ -229,7 +229,7 @@ It's worth mentioning that React's `componentDidCatch` class method will only ex
 ```jsx
 const ErrorThrowingComponent = () => {
     // This WILL be caught by `componentDidCatch`
-    throw "Error";
+    throw new Error("Error");
 }
 ```
 
@@ -239,7 +239,7 @@ Meanwhile, the following error-laden event handler will not:
 const EventErrorThrowingComponent = () => {
     const onClick = () => {
         // This will NOT be caught by `componentDidCatch`
-        throw "Error";
+        throw new Error("Error");
     }
     
     return <button onClick={onClick}>Click me</button>
@@ -250,7 +250,7 @@ This behavior may seem strange until you consider how JavaScript's `throw` claus
 
 ```javascript
 function getRandomNumber() {
-    throw "There was an error";
+    throw new Error("There was an error");
     // Anything below the "throw" clause will not run
     console.log("Generating a random number");
     // This means that values returned after a thrown error are not utilized
@@ -276,7 +276,7 @@ In practical terms, this means that a thrown error will exceed the bounds of the
 ```javascript
 function getBaseNumber() {
     // Error occurs here, throws it upwards
-	throw "There was an error";
+	throw new Error("There was an error");
 	return 10;
 }
 
@@ -336,7 +336,7 @@ Conversely, due to the nature of event handlers, React doesn't _need_ to handle 
 <script>
    const el = document.getElementById("btn");
    el.addEventListener('click', () => {
-       throw "There was an error"
+       throw new Error("There was an error")
    })
 </script>
 ```
@@ -347,7 +347,7 @@ When you click on the `<button>` here, it will throw an error but this error wil
 try {
     const el = document.getElementById("btn");
     el.addEventListener('click', () => {
-       throw "There was an error"
+       throw new Error("There was an error")
     })
 } catch (e) {
     // This will not ever run with this code
@@ -360,7 +360,7 @@ So to catch an error in an event handler, React would have to add [a window `'er
 ```javascript
 const el = document.getElementById("btn");
 el.addEventListener('click', () => {
-   throw "There was an error"
+   throw new Error("There was an error")
 })
 
 window.addEventListener("error", (e) => {
@@ -415,7 +415,7 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 class ChildComponent implements OnInit {
   ngOnInit() {
     // This is an example of an error being thrown
-    throw 'Test';
+    throw new Error('Test');
   }
 }
 
@@ -458,7 +458,7 @@ Now when we throw an error inside of a child component, like so:
 ```vue
 <!-- Child.vue -->
 <script setup>
-throw 'Test'
+throw new Error('Test')
 </script>
 
 <template>
@@ -520,7 +520,7 @@ This allows components like this:
 ```vue
 <!-- Child.vue -->
 <script setup>
-throw 'Test'
+throw new Error('Test')
 </script>
 
 <template>
@@ -718,7 +718,11 @@ class AppComponent {
 // ...
 ```
 
+#### Limitations of Zone.js
 
+// TODO: If you try to `throw error` in the constructor it won't work because it doesn't trigger Zone.js: https://unicorn-utterances.com/posts/angular-internals-zonejs
+
+// However, this should be fixed if you add a `setTimeout `to `this.error = error`
 
 ### Vue
 
@@ -997,7 +1001,37 @@ export default function App() {
 
 ### Angular
 
-// TODO: Port the code
+```typescript
+@Component({
+  selector: 'error-catcher',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+  <div *ngIf="errorHandler.error">
+    <h1>There was an error</h1>
+    <pre>
+      <code>{{errorHandler.error.message}}</code>
+    </pre>
+  </div>
+  <ng-content *ngIf="!errorHandler.error"></ng-content>
+  `,
+})
+class ErrorCatcher {
+  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  // ...
+  template: `
+    <error-catcher>
+      <!-- The rest of the app -->
+    </error-catcher>
+  `,
+})
+class AppComponent {}
+```
 
 
 ### Vue
@@ -1024,6 +1058,20 @@ onErrorCaptured((err, instance, info) => {
   </div>
   <slot v-if="!error" />
 </template>
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <ErrorCatcher>
+	<!-- The rest of the app -->
+  </ErrorCatcher>
+</template>
+<script setup>
+import ErrorCatcher from './ErrorCatcher.vue';
+
+// ...
+</script>
 ```
 
 <!-- tabs:end -->
@@ -1096,7 +1144,63 @@ class ErrorBoundary extends Component {
 
 ### Angular
 
-// TODO: Port code sample
+```typescript
+@Pipe({ name: 'errorHref', standalone: true })
+export class ErrorHrefPipe implements PipeTransform {
+  transform(err: Error | null): string {
+    console.log({ err });
+    if (!err) return '';
+    const mailTo = 'dev@example.com';
+    const header = 'Bug Found';
+    const message = `
+    There was a bug found of type: "${err.name}".
+
+    The message was: "${err.message}".
+
+    The stack trace is:
+
+    """
+    ${err.stack}
+    """
+    `.trim();
+
+    const encodedMsg = encodeURIComponent(message);
+
+    const encodedHeader = encodeURIComponent(header);
+
+    const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg}`;
+
+    return href;
+  }
+}
+
+@Component({
+  selector: 'error-catcher',
+  standalone: true,
+  imports: [NgIf, ErrorHrefPipe],
+  template: `
+  <div *ngIf="errorHandler.error">
+    <h1>{{ errorHandler.error.name }}</h1>
+    <pre>
+      <code>{{errorHandler.error.message}}</code>
+    </pre>
+    <a [href]="errorHandler.error | errorHref">Email us to report the bug</a>
+    <br />
+    <br />
+    <details>
+      <summary>Error stack</summary>
+      <pre>
+        <code>{{errorHandler.error.stack}}</code>
+      </pre>
+    </details>
+  </div>
+  <ng-content *ngIf="!errorHandler.error"></ng-content>
+  `,
+})
+class ErrorCatcher {
+  errorHandler = inject(ErrorHandler) as MyErrorHandler;
+}
+```
 
 ### Vue
 
