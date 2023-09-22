@@ -101,16 +101,7 @@
 	margin-bottom: 0;
 }
 
-.tabs__tab-panel__inner > h1,
-.tabs__tab-panel__inner > h2,
-.tabs__tab-panel__inner > h3,
-.tabs__tab-panel__inner > h4,
-.tabs__tab-panel__inner > h5,
-.tabs__tab-panel__inner > h6,
-.tabs__tab-panel__inner > p,
-.tabs__tab-panel__inner > blockquote,
-.tabs__tab-panel__inner > ul,
-.tabs__tab-panel__inner > ol {
+.tabs__tab-panel__inner > *:not(pre, .embed, .docs-file-tree-container) {
 	&:first-child {
 		margin-top: var(--tab-content_margin);
 	}
