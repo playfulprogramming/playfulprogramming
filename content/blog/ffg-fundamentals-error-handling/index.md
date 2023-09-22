@@ -819,20 +819,110 @@ export default function App() {
 }
 ```
 
+------------
+
+Upon rendering the sidebar, we're greeted with  [a JavaScript `ReferenceError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined):
+
+```javascript
+collapsed is not defined
+```
+
+
+
 ## Angular
 
-// TODO: Port code
+```typescript
+
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+     <!-- "isCollapsed" is a boolean! -->
+     <!-- It's supposed to be "toggleCollapsed"! 😱 -->
+  	  <button *ngIf="isCollapsed" (click)="isCollapsed()">Toggle</button>
+      <div *ngIf="!isCollapsed">
+          <button (click)="isCollapsed()">Toggle</button>
+          <ul style="padding: 1rem">
+              <li>List item 1</li>
+              <li>List item 2</li>
+              <li>List item 3</li>
+              <li>List item 4</li>
+              <li>List item 5</li>
+              <li>List item 6</li>
+          </ul>
+      </div>
+  `,
+})
+export class SidebarComponent {
+  @Output() toggle = new EventEmitter<boolean>();
+
+  // Notice the type cast to `any`
+  isCollapsed: any = false;
+
+  setAndToggle(v: boolean) {
+    this.isCollapsed = v;
+    this.toggle.emit(v);
+  }
+
+  toggleCollapsed() {
+    this.setAndToggle(!this.isCollapsed);
+  }
+}
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [LayoutComponent, SidebarComponent],
+  template: `
+      <layout [sidebarWidth]="width">
+          <sidebar
+                  #sidebar
+                  sidebar
+                  (toggle)="onToggle($event)"
+          />
+          <p style="padding: 1rem">Hi there!</p>
+      </layout>
+  `,
+})
+export class AppComponent {
+  @ViewChild('sidebar', { static: true }) sidebar!: SidebarComponent;
+  collapsedWidth = 100;
+  expandedWidth = 150;
+
+  width = this.expandedWidth;
+
+  onToggle(isCollapsed: boolean) {
+    if (isCollapsed) {
+      this.width = this.collapsedWidth;
+      return;
+    }
+    this.width = this.expandedWidth;
+  }
+
+  // ...
+}
+```
+
+> You'll notice that we had to use TypeScript to tell our `isCollapsed` is type `any`. Without this change, TypeScript will correctly flag an error during build time that:
+>
+> ```
+> This expression is not callable.
+> Type 'Boolean' has no call signatures.
+> ```
+
+------
+
+Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
+
+```javascript
+Error: ctx_r4.isCollapsed is not a function
+```
 
 ## Vue
 
 // TODO: Port code
 
 <!-- tabs:end -->
-
-Upon rendering the sidebar, we're greeted with an error:
-```javascript
-collapsed is not defined
-```
 
 While we can solve this by correcting the typo, we'll also want to add an error handler to log these kinds of issues in case they happen in production. After all, [if a bug is found in the wild without a way to report it back to the developer, is it ever fixed](https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest)?
 
