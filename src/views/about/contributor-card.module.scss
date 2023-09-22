@@ -49,6 +49,8 @@
 
 		.avatar {
 			height: calc(100% + var(--contributor_container-offset) + var(--contributor_avatar_border_width)) !important;
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
 		}
 
 		.info {

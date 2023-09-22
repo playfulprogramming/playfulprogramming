@@ -15,7 +15,7 @@ const licenseHref = props.url;
 ---
 
 <div class={style.license} {...getHrefContainerProps(licenseHref)}>
-	<img width="24" height="24" src={props.image} />
+	<img width="24" height="24" src={props.image} loading="lazy" />
 	<div class="text-style-button-regular">
 		<span>{props.name}</span>
 		<a href={licenseHref}>{translate(Astro, "action.view_license")}</a>

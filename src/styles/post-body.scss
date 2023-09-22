@@ -121,12 +121,12 @@
 		visibility: visible;
 	}
 
-	img {
+	img.medium-zoom-image {
 		max-width: 100%;
 		height: auto;
 	}
 
-	img[src$=".svg"] {
+	img.medium-zoom-image[src$=".svg"] {
 		width: 100%;
 		max-height: 50vh;
 	}

@@ -23,6 +23,7 @@ const unicornHref = `/unicorns/${unicorn.id}`;
 		aspectRatio={1}
 		formats={["avif", "webp", "png"]}
 		src={unicorn.profileImgMeta.relativeServerPath}
+		loading="lazy"
 	/>
 
 	<div class={style.info}>

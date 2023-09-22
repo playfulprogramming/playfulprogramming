@@ -19,7 +19,9 @@
 	img {
 		max-width: var(--license_icon-size);
 		height: var(--license_icon-size);
+		aspect-ratio: 1 / 1;
 		flex-shrink: 0;
+		flex-grow: 0;
 		filter: var(--shadow_sticker_drop_shadow);
 	}
 
