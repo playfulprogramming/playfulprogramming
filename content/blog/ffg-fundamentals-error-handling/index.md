@@ -387,8 +387,6 @@ Angular utilizes its [dependency injection system](/posts/ffg-fundamentals-depen
 
 However, in order to provide the custom error handler service, you **must** provide it at the root of your application, meaning that you cannot simply provide it from your parent component.
 
-<!-- // TODO: migrate to standalone APIs -->
-
 ```typescript
 class MyErrorHandler implements ErrorHandler {
   handleError(error) {
@@ -397,14 +395,11 @@ class MyErrorHandler implements ErrorHandler {
   }
 }
 
-@NgModule({
-  declarations: [/*...*/],
-  imports: [/*...*/],
-  // Declare your custom error handler here
+// ...
+
+bootstrapApplication(AppComponent, {
   providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
-  bootstrap: [/*...*/],
-})
-export class AppModule {}
+});
 ```
 
 Now that we've set up our `ErrorHandler` instance, we can test that it works using a component that throws an error:
@@ -412,6 +407,7 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 ```typescript
 @Component({
   selector: 'child',
+  standalone: true,
   template: `
     <p>Testing</p>
   `,
@@ -425,6 +421,8 @@ class ChildComponent implements OnInit {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [ChildComponent],
   template: `
     <child></child>
   `,
@@ -598,6 +596,8 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, ChildComponent],
   template: `
     <p *ngIf="errorHandler.hadError">There was an error</p>
     <child *ngIf="!errorHandler.hadError"></child>
@@ -704,6 +704,8 @@ class MyErrorHandler implements ErrorHandler {
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgIf, ChildComponent],
   template: `
     <p *ngIf="errorHandler.error">{{errorHandler.error}}</p>
     <child *ngIf="!errorHandler.error"></child>
@@ -941,6 +943,8 @@ const href = `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedErr}`;
 // HREF can be bound via each frameworks' attribute binding syntax
 const html = `<a href="${href}">Email Us</a>`
 ```
+
+<!-- TODO: Include screenshot -->
 
 ## Implementing the Error Handler
 
