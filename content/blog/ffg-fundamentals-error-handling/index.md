@@ -787,36 +787,6 @@ export const Sidebar = forwardRef(({ toggle }, ref) => {
     </div>
   );
 });
-
-const collapsedWidth = 100;
-const expandedWidth = 150;
-
-export default function App() {
-  const [width, setWidth] = useState(expandedWidth);
-  const sidebarRef = useRef();
-
-  // ...
-
-  return (
-    <Layout
-      sidebarWidth={width}
-      sidebar={
-        <Sidebar
-          ref={sidebarRef}
-          toggle={(isCollapsed) => {
-            if (isCollapsed) {
-              setWidth(collapsedWidth);
-              return;
-            }
-            setWidth(expandedWidth);
-          }}
-        />
-      }
-    >
-      <p style={{ padding: '1rem' }}>Hi there!</p>
-    </Layout>
-  );
-}
 ```
 
 ------------
@@ -847,9 +817,6 @@ collapsed is not defined
               <li>List item 1</li>
               <li>List item 2</li>
               <li>List item 3</li>
-              <li>List item 4</li>
-              <li>List item 5</li>
-              <li>List item 6</li>
           </ul>
       </div>
   `,
@@ -868,38 +835,6 @@ export class SidebarComponent {
   toggleCollapsed() {
     this.setAndToggle(!this.isCollapsed);
   }
-}
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [LayoutComponent, SidebarComponent],
-  template: `
-      <layout [sidebarWidth]="width">
-          <sidebar
-                  #sidebar
-                  sidebar
-                  (toggle)="onToggle($event)"
-          />
-          <p style="padding: 1rem">Hi there!</p>
-      </layout>
-  `,
-})
-export class AppComponent {
-  @ViewChild('sidebar', { static: true }) sidebar!: SidebarComponent;
-  collapsedWidth = 100;
-  expandedWidth = 150;
-
-  width = this.expandedWidth;
-
-  onToggle(isCollapsed: boolean) {
-    if (isCollapsed) {
-      this.width = this.collapsedWidth;
-      return;
-    }
-    this.width = this.expandedWidth;
-  }
-
-  // ...
 }
 ```
 
@@ -920,7 +855,40 @@ Error: ctx_r4.isCollapsed is not a function
 
 ## Vue
 
-// TODO: Port code
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <button v-if="isCollapsed" @click="collapsed()">Toggle</button>
+  <div v-if="!isCollapsed">
+    <button @click="collapsed()">Toggle</button>
+    <ul style="padding: 1rem">
+      <li>List item 1</li>
+      <li>List item 2</li>
+      <li>List item 3</li>
+    </ul>
+  </div>
+</template>
+<script setup>
+import { ref } from 'vue';
+const emits = defineEmits(['toggle']);
+const isCollapsed = ref(false);
+const setAndToggle = (v) => {
+  isCollapsed.value = v;
+  emits('toggle', v);
+};
+const toggleCollapsed = () => {
+  setAndToggle(!isCollapsed.value);
+};
+</script>
+```
+
+-----------
+
+Upon clicking the sidebar toggle, we're greeted with [a JavaScript `TypeError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_function):
+
+```javascript
+Uncaught TypeError: _ctx.collapsed is not a function
+```
 
 <!-- tabs:end -->
 
