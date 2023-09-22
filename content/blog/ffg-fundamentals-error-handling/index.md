@@ -733,16 +733,24 @@ const error = ref(null)
 
 onErrorCaptured((err, instance, info) => {
   console.log(err, instance, info)
-  error.value = error
+  error.value = err
   return false
 })
 </script>
 
 <template>
-  <p v-if="hadError">{{ hadError }}</p>
-  <Child v-if="!hadError" />
+  <p v-if="error">{{ error.message }}</p>
+  <Child v-if="!error" />
 </template>
 ```
+
+> If you bind `{{error}}` rather than `{{error.message}}`, you'll end up with the error:
+>
+> ```
+> Uncaught (in promise) RangeError: Maximum call stack size exceeded
+> ```
+>
+> As Vue's internals attempt to wrap and unwrap the Error object in its reactivity handler.
 
 <!-- tabs:end -->
 
@@ -936,7 +944,13 @@ const html = `<a href="${href}">Email Us</a>`
 
 ## Implementing the Error Handler
 
-// TODO: Write
+With an plan of attack outlined, let's take a step back and evaluate how we'll implement our error handler in the first place.
+
+Remember: Implement first, increment second.
+
+Let's start with an error handler that will catch our error and display a UI when it occurs.
+
+We'll also make sure that this error handler is application-wide to ensure that it shows up when any error in the app comes up:
 
 <!-- tabs:start -->
 
@@ -967,30 +981,11 @@ class ErrorBoundary extends Component {
 }
 
 export default function App() {
-  const [width, setWidth] = useState(expandedWidth);
-  const sidebarRef = useRef();
-
   // ...
 
   return (
     <ErrorBoundary>
-      <Layout
-        sidebarWidth={width}
-        sidebar={
-          <Sidebar
-            ref={sidebarRef}
-            toggle={(isCollapsed) => {
-              if (isCollapsed) {
-                setWidth(collapsedWidth);
-                return;
-              }
-              setWidth(expandedWidth);
-            }}
-          />
-        }
-      >
-        <p style={{ padding: '1rem' }}>Hi there!</p>
-      </Layout>
+      {/* The rest of the app */}
     </ErrorBoundary>
   );
 }
@@ -1003,7 +998,29 @@ export default function App() {
 
 ### Vue
 
-// TODO: Port the code
+```vue
+<!-- ErrorCatcher.vue -->
+<script setup>
+import { onErrorCaptured, ref } from 'vue';
+
+const error = ref(null);
+
+onErrorCaptured((err, instance, info) => {
+  error.value = err;
+  return false;
+});
+</script>
+
+<template>
+  <div v-if="error">
+    <h1>There was an error</h1>
+    <pre>
+      <code>{{error.message}}</code>
+    </pre>
+  </div>
+  <slot v-if="!error" />
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -1079,7 +1096,63 @@ class ErrorBoundary extends Component {
 
 ### Vue
 
-// TODO: Port code sample
+```vue
+<script setup>
+import { onErrorCaptured, ref, computed } from 'vue';
+
+const error = ref(null);
+
+const mailTo = 'dev@example.com';
+const header = 'Bug Found';
+const message = computed(() =>
+  !error.value
+    ? ''
+    : `
+      There was a bug found of type: "${error.value.name}".
+
+      The message was: "${error.value.message}".
+
+      The stack trace is:
+
+      """
+      ${error.value.stack}
+      """
+      `.trim()
+);
+
+const encodedMsg = computed(() => encodeURIComponent(message.value));
+
+const encodedHeader = encodeURIComponent(header);
+
+const href = computed(
+  () => `mailto:${mailTo}&subject=${encodedHeader}&body=${encodedMsg.value}`
+);
+
+onErrorCaptured((err, instance, info) => {
+  error.value = err;
+  return false;
+});
+</script>
+
+<template>
+  <div v-if="error">
+    <h1>{{ error.name }}</h1>
+    <pre>
+      <code>{{error.message}}</code>
+    </pre>
+    <a :href="href">Email us to report the bug</a>
+    <br />
+    <br />
+    <details>
+      <summary>Error stack</summary>
+      <pre>
+        <code>{{error.stack}}</code>
+      </pre>
+    </details>
+  </div>
+  <slot v-if="!error" />
+</template>
+```
 
 <!-- tabs:end -->
 
