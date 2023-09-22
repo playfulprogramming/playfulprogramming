@@ -15,7 +15,7 @@ export interface RawPostInfo {
 	collection?: string;
 	order?: number;
 	originalLink?: string;
-	noindex: boolean;
+	noindex?: boolean;
 }
 
 export interface PostInfo extends RawPostInfo {
