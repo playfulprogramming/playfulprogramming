@@ -3,7 +3,9 @@ import { Languages } from "types/index";
 import { posts, collections } from "./data";
 
 export function getPostsByLang(language: Languages): PostInfo[] {
-	return posts.filter((p) => p.locale === language);
+	return posts
+		.filter((p) => p.locale === language)
+		.filter((post) => !post.noindex);
 }
 
 export function getPostsByUnicorn(

@@ -46,6 +46,7 @@ export function getExtendedPost(
 
 export function* getAllExtendedPosts(lang: Languages) {
 	for (const post of posts) {
+		if (post.noindex) continue;
 		if (post.locale !== lang) continue;
 
 		yield getExtendedPost(post.slug, lang);
