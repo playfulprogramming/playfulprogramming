@@ -25,6 +25,7 @@ const {
 	isbn,
 	providedLangs,
 	shareImage,
+	noindex,
 } = Astro.props as SEOProps;
 
 const lang = getPrefixLanguageFromPath(Astro.url.pathname);
@@ -50,6 +51,11 @@ const currentPath = siteMetadata.siteUrl + (pathName || "");
 <meta property="name" content={siteMetadata.title} />
 <meta name="description" content={metaDescription} />
 <meta property="keywords" content={metaKeywords} />
+
+<!-- If the page is non-indexed, exclude it from any search results with the "robots" tag -->
+<!-- https://developers.google.com/search/docs/crawling-indexing/block-indexing -->
+<>{noindex ? <meta name="robots" content="noindex, nofollow" /> : null}</>
+
 <Analytics />
 <Twitter
 	title={title}

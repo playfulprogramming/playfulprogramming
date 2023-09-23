@@ -12,4 +12,5 @@ export interface SEOProps {
 	canonical?: string;
 	isbn?: string;
 	shareImage?: string;
+	noindex?: boolean;
 }

@@ -55,6 +55,7 @@ const locales = post?.locales || [];
 		canonical={post.originalLink}
 		providedLangs={locales}
 		shareImage={post.socialImg}
+		noindex={post.noindex}
 	/>
 	<BlogPost Content={Content} post={post} posts={posts} />
 </Document>
