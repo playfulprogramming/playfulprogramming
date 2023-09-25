@@ -23,6 +23,7 @@ import symlink from "symlink-dir";
 import * as path from "path";
 import svgr from "vite-plugin-svgr";
 import { languages } from "./src/constants/index";
+import { fileToOpenGraphConverter } from "./src/utils/translations";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
@@ -40,7 +41,7 @@ export default defineConfig({
 			i18n: {
 				defaultLocale: "en",
 				locales: Object.keys(languages).reduce((prev, key) => {
-					prev[key] = key;
+					prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
 					return prev;
 				}, {}),
 			},

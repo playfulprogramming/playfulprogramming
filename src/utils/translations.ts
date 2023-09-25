@@ -101,9 +101,7 @@ export function getTranslatedPage(
 		md.file.endsWith(`${lang}.md`),
 	);
 
-	const locales = globResults
-		.map((md) => getLanguageFromFilename(md.file))
-		.filter(isLanguageKey);
+	const locales = globResults.map((md) => getLanguageFromFilename(md.file));
 
 	const enResult = globResults[locales.findIndex((lang) => lang === "en")];
 
