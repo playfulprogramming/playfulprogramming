@@ -20,13 +20,8 @@ const props = Astro.props as {
 };
 ---
 
-<nav
-	id="header-bar"
-	class={style.headerBorder}
-	aria-label="Toolbar for primary action buttons"
-	data-sticky-observer
->
-	<div
+<header id="header-bar" class={style.headerBorder} data-sticky-observer>
+	<nav
 		class={`${style.header} ${
 			props.size === "xl" ? style.header_xl : ""
 		} d-flex`}
@@ -101,5 +96,5 @@ const props = Astro.props as {
 
 			<DarkLightButton />
 		</div>
-	</div>
-</nav>
+	</nav>
+</header>
