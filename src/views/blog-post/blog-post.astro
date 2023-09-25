@@ -66,9 +66,9 @@ if (post.collection && post.order) {
 </script>
 <BlogPostLayout>
 	<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
-	<div slot="right">
-		<RelatedPosts post={post} />
-	</div>
+	<aside slot="right" aria-labelledby="related-posts-heading">
+		<RelatedPosts post={post} headingId="related-posts-heading" />
+	</aside>
 	<PostTitleHeader post={post} />
 	<main class="post-body" data-testid={"post-body-div"}>
 		{

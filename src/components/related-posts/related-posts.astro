@@ -5,12 +5,13 @@ import RelatedPostsCard from "./related-posts-card.astro";
 
 interface RelatedPostsProps {
 	post: ExtendedPostInfo;
+	headingId: string;
 }
 
-const { post } = Astro.props as RelatedPostsProps;
+const { post, headingId } = Astro.props as RelatedPostsProps;
 ---
 
-<h1 class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
+<h1 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
 	Related posts
 </h1>
 <ul class={style.suggestedPostList}>
