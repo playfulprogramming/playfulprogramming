@@ -69,28 +69,30 @@ if (post.collection && post.order) {
 	<aside slot="right" aria-labelledby="related-posts-heading">
 		<RelatedPosts post={post} headingId="related-posts-heading" />
 	</aside>
-	<PostTitleHeader post={post} />
-	<main class="post-body" data-testid={"post-body-div"}>
-		{
-			post.collection ? (
-				<SeriesToC
-					post={post}
-					postSeries={seriesPosts}
-					collection={post.collectionMeta}
-				/>
-			) : null
-		}
-		{
-			post.locales && post.locales.length > 1 ? (
-				<TranslationsHeader locales={post.locales} />
-			) : null
-		}
-		<Content />
-		{
-			post.collection ? (
-				<ArticleNav post={post} postSeries={seriesPosts} />
-			) : null
-		}
+	<main>
+		<PostTitleHeader post={post} />
+		<div class="post-body" data-testid={"post-body-div"}>
+			{
+				post.collection ? (
+					<SeriesToC
+						post={post}
+						postSeries={seriesPosts}
+						collection={post.collectionMeta}
+					/>
+				) : null
+			}
+			{
+				post.locales && post.locales.length > 1 ? (
+					<TranslationsHeader locales={post.locales} />
+				) : null
+			}
+			<Content />
+			{
+				post.collection ? (
+					<ArticleNav post={post} postSeries={seriesPosts} />
+				) : null
+			}
+		</div>
 	</main>
 	<footer role="contentinfo" class={styles.footer}>
 		{

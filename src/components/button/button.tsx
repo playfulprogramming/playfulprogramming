@@ -69,9 +69,17 @@ const ButtonWrapper = forwardRef(
 					.join(" ")}
 				ref={ref}
 			>
-				{leftIcon && <div class="buttonIcon">{leftIcon}</div>}
+				{leftIcon && (
+					<div aria-hidden="true" class="buttonIcon">
+						{leftIcon}
+					</div>
+				)}
 				<span className="innerText">{children}</span>
-				{rightIcon && <div class="buttonIcon">{rightIcon}</div>}
+				{rightIcon && (
+					<div aria-hidden="true" class="buttonIcon">
+						{rightIcon}
+					</div>
+				)}
 			</Wrapper>
 		);
 	},
@@ -123,7 +131,9 @@ export const IconOnlyButton = forwardRef(
 				class={`iconOnly regular ${className}`}
 				ref={ref}
 			>
-				<div class="iconOnlyButtonIcon">{children}</div>
+				<div class="iconOnlyButtonIcon" aria-hidden="true">
+					{children}
+				</div>
 			</ButtonWrapper>
 		);
 	},
@@ -136,7 +146,9 @@ export const LargeIconOnlyButton = forwardRef(
 	) => {
 		return (
 			<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>
-				<div class="iconOnlyButtonIcon">{children}</div>
+				<div class="iconOnlyButtonIcon" aria-hidden="true">
+					{children}
+				</div>
 			</ButtonWrapper>
 		);
 	},

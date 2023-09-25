@@ -19,7 +19,7 @@ const editedStr = post.edited && dayjs(post.edited).format("MMMM D, YYYY");
 const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 ---
 
-<header role="banner" class={style.container}>
+<section class={style.container}>
 	<h1 class={`text-style-headline-1 ${style.title}`}>{title}</h1>
 
 	<div class={style.details}>
@@ -83,4 +83,4 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 			))
 		}
 	</ul>
-</header>
+</section>
