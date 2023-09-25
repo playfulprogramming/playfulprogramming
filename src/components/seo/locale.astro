@@ -10,33 +10,31 @@ type Props = {
 };
 
 const { lang, providedLangs, siteMetadata, pathName } = Astro.props as Props;
+
+const defaultLocale = "en";
+
+const localeSet = new Set(providedLangs ?? []);
+localeSet.add(lang);
+const allLocales = Array.from(localeSet);
 ---
 
+<link
+	rel="alternate"
+	href={siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")}
+	hreflang="x-default"
+/>
 <>
 	{
-		lang !== "en" && (
-			<link
-				rel="alternate"
-				href={
-					siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
-				}
-				href-lang="x-default"
-			/>
-		)
-	}
-</>
-<>
-	{
-		providedLangs?.length
-			? providedLangs.map((lang) => (
+		allLocales?.length
+			? allLocales.map((locale) => (
 					<link
 						rel="alternate"
 						href={
 							siteMetadata.siteUrl +
-							`${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
+							(locale === defaultLocale ? "" : `/${locale}`) +
 							removePrefixLanguageFromPath(pathName || "")
 						}
-						href-lang={lang}
+						hreflang={locale}
 					/>
 			  ))
 			: null
