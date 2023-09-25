@@ -57,7 +57,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 				dangerouslySetInnerHTML={{ __html: post.description }}
 			></p>
 			<div className={style.spacer}></div>
-			<ul className={style.cardList}>
+			<ul className={style.cardList} aria-label={"Post tags"} role="list">
 				{post.tags.map((tag) => (
 					<li>
 						<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
