@@ -1,6 +1,9 @@
 ---
 import { Languages } from "types/index";
-import { removePrefixLanguageFromPath } from "utils/translations";
+import {
+	removePrefixLanguageFromPath,
+	fileToOpenGraphConverter,
+} from "utils/translations";
 
 type Props = {
 	providedLangs?: Languages[];
@@ -29,7 +32,7 @@ const defaultLocale = "en";
 							(locale === defaultLocale ? "" : `/${locale}`) +
 							removePrefixLanguageFromPath(pathName || "")
 						}
-						hreflang={locale}
+						hreflang={fileToOpenGraphConverter(locale)}
 					/>
 			  ))
 			: null
