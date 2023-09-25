@@ -10,7 +10,7 @@ import { Languages } from "types/index";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<ExtendedPostInfo>(
-		"../../../../content/blog/**/*.md"
+		"../../../../content/blog/**/*.md",
 	);
 
 	return posts.map((post) => {
@@ -40,8 +40,6 @@ const { Content, post, posts, locale } = Astro.props as {
 };
 
 const locales = post?.locales || [];
-
-const otherLangs = locales ? locales.filter((t) => t !== post.locale) : [];
 ---
 
 <Document size="xl">
@@ -55,10 +53,7 @@ const otherLangs = locales ? locales.filter((t) => t !== post.locale) : [];
 		keywords={post.tags}
 		type="article"
 		canonical={post.originalLink}
-		langData={{
-			otherLangs,
-			currentLang: post.locale,
-		}}
+		providedLangs={locales}
 		shareImage={post.socialImg}
 	/>
 	<BlogPost Content={Content} post={post} posts={posts} />

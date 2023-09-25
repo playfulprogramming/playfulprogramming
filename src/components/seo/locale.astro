@@ -1,42 +1,38 @@
 ---
 import { Languages } from "types/index";
-import { removePrefixLanguageFromPath } from "utils/translations";
+import {
+	removePrefixLanguageFromPath,
+	fileToOpenGraphConverter,
+} from "utils/translations";
 
 type Props = {
-	lang: string;
 	providedLangs?: Languages[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
 
-const { lang, providedLangs, siteMetadata, pathName } = Astro.props as Props;
+const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
+
+const defaultLocale = "en";
 ---
 
-<>
-	{
-		lang !== "en" && (
-			<link
-				rel="alternate"
-				href={
-					siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")
-				}
-				href-lang="x-default"
-			/>
-		)
-	}
-</>
+<link
+	rel="alternate"
+	href={siteMetadata.siteUrl + removePrefixLanguageFromPath(pathName || "")}
+	hreflang="x-default"
+/>
 <>
 	{
 		providedLangs?.length
-			? providedLangs.map((lang) => (
+			? providedLangs.map((locale) => (
 					<link
 						rel="alternate"
 						href={
 							siteMetadata.siteUrl +
-							`${lang === "en" ? "" : "/"}${lang === "en" ? "" : lang}` +
+							(locale === defaultLocale ? "" : `/${locale}`) +
 							removePrefixLanguageFromPath(pathName || "")
 						}
-						href-lang={lang}
+						hreflang={fileToOpenGraphConverter(locale)}
 					/>
 			  ))
 			: null

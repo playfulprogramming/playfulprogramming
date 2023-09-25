@@ -52,10 +52,7 @@ const collectionPosts = getPostsByCollection(slug, collection.locale);
 		type={collection.type}
 		shareImage={collection.socialImg ||
 			collection.coverImgMeta.relativeServerPath}
-		langData={{
-			otherLangs: collection.locales.filter((t) => t != collection.locale),
-			currentLang: collection.locale,
-		}}
+		providedLangs={collection.locales}
 	/>
 	<CollectionPage
 		Content={Content}
