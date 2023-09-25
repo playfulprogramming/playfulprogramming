@@ -3,19 +3,14 @@ import { Languages } from "types/index";
 import { removePrefixLanguageFromPath } from "utils/translations";
 
 type Props = {
-	lang: string;
 	providedLangs?: Languages[];
 	pathName: string;
 	siteMetadata: { siteUrl: string };
 };
 
-const { lang, providedLangs, siteMetadata, pathName } = Astro.props as Props;
+const { providedLangs, siteMetadata, pathName } = Astro.props as Props;
 
 const defaultLocale = "en";
-
-const localeSet = new Set(providedLangs ?? []);
-localeSet.add(lang);
-const allLocales = Array.from(localeSet);
 ---
 
 <link
@@ -25,8 +20,8 @@ const allLocales = Array.from(localeSet);
 />
 <>
 	{
-		allLocales?.length
-			? allLocales.map((locale) => (
+		providedLangs?.length
+			? providedLangs.map((locale) => (
 					<link
 						rel="alternate"
 						href={
