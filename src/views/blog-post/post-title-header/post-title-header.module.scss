@@ -37,7 +37,7 @@
 	.authors,
 	.originalLink {
 		display: flex;
-		align-items: top;
+		align-items: flex-start;
 
 		svg {
 			width: var(--article-header_details_icon_size);
@@ -71,7 +71,7 @@
 
 		&__published {
 			display: flex;
-			align-items: top;
+			align-items: flex-start;
 			flex-direction: row;
 		}
 
