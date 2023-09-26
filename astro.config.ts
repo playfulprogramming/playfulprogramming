@@ -45,6 +45,15 @@ export default defineConfig({
 					return prev;
 				}, {}),
 			},
+			filter(page) {
+				// return true, unless lart part of the URL ends with "_noindex"
+				// in which case it should not be in the sitemap
+				return !page
+					.split("/")
+					.filter((part) => !!part.length)
+					.at(-1)
+					.endsWith("_noindex");
+			},
 			serialize({ url, ...rest }) {
 				return {
 					// remove trailing slash from sitemap URLs
