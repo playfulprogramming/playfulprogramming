@@ -27,6 +27,7 @@ export const get = () => {
 	});
 
 	posts
+		.filter((post) => !post.frontmatter.noindex)
 		.sort((a, b) =>
 			new Date(b.frontmatter.published) > new Date(a.frontmatter.published)
 				? 1

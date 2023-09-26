@@ -1,4 +1,4 @@
-import { posts } from "utils/data";
+import { getPostsByUnicorn } from "utils/api";
 
 interface Achievement {
 	id: string;
@@ -32,9 +32,7 @@ export const achievements: Achievement[] = [
 ];
 
 function getWordCount(userId: string) {
-	const authoredPosts = posts.filter(
-		(post) => post.authors.includes(userId) && post.locale === "en",
-	);
+	const authoredPosts = getPostsByUnicorn(userId, "en");
 
 	const wordCount = authoredPosts.reduce((acc, post) => {
 		return acc + (post.wordCount ?? 0);
