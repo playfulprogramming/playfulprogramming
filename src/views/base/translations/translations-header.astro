@@ -15,23 +15,28 @@ interface TranslationsHeaderProps {
 const props = Astro.props as TranslationsHeaderProps;
 const path = removePrefixLanguageFromPath(Astro.url.pathname);
 const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
-
-// exclude the current locale from displayed options
-const locales = props.locales.filter((locale) => locale !== currentLocale);
 ---
 
-<div class={style.card}>
-	<Icon width="24" height="24" name="mdi:translate" />
-	<p class={style.text}>
-		Translated by our community into:{" "}
-		{
-			locales.flatMap((locale, i, arr) => {
-				const href = locale === "en" ? path : `/${locale}${path}`;
-				return [
-					<a href={href}>{languages[locale]}</a>,
-					i !== arr.length - 1 ? ", " : null,
-				];
-			})
-		}
-	</p>
+<div>
+	<div class={style.card}>
+		<div class={style.title}>
+			<Icon width="24" height="24" name="translate" />
+			<span class="text-style-body-large"
+				>Translated by our community into:</span
+			>
+		</div>
+		<div class={style.links}>
+			{
+				props.locales.sort().map((locale) => (
+					<a
+						href={locale === "en" ? path : `/${locale}${path}`}
+						data-current={locale === currentLocale ? true : undefined}
+						class="text-body-large"
+					>
+						{languages[locale]}
+					</a>
+				))
+			}
+		</div>
+	</div>
 </div>
