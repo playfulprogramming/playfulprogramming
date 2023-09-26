@@ -4,6 +4,7 @@ import { languages } from "constants/index";
 import {
 	getPrefixLanguageFromPath,
 	removePrefixLanguageFromPath,
+	translate,
 } from "utils/translations";
 import style from "./translations-header.module.scss";
 import { Icon } from "astro-icon";
@@ -21,9 +22,9 @@ const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
 	<div class={style.card}>
 		<div class={style.title}>
 			<Icon width="24" height="24" name="translate" />
-			<span class="text-style-body-large"
-				>Translated by our community into:</span
-			>
+			<span class="text-style-body-large">
+				{translate(Astro, "desc.translated_into")}
+			</span>
 		</div>
 		<div class={style.links}>
 			{
