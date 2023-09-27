@@ -41,14 +41,16 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: date }}
 					/>
-					<span className={`text-style-body-small-bold ${style.publishedDate}`}>
-						{post.publishedMeta}
-					</span>
-					<span className={`text-style-body-small ${style.separatorDot}`}>
-						•
-					</span>
-					<span className={`text-style-body-small ${style.wordCount}`}>
-						{post.wordCount} words
+					<span>
+						<span className={`text-style-body-small-bold ${style.publishedDate}`}>
+							{post.publishedMeta}
+						</span>
+						<span className={`text-style-body-small ${style.separatorDot}`}>
+							•
+						</span>
+						<span className={`text-style-body-small ${style.wordCount}`}>
+							{post.wordCount} words
+						</span>
 					</span>
 				</p>
 			</div>

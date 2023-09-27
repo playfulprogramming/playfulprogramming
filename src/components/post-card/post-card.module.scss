@@ -128,7 +128,7 @@
 	display: flex;
 	flex-direction: row;
 	gap: var(--card_detail-row_gap);
-	align-items: center;
+	align-items: flex-start;
 }
 
 .cardIcon {
@@ -136,6 +136,7 @@
 	color: var(--card_detail-row_icon_color);
 	height: var(--card_detail-row_icon_size);
 	width: var(--card_detail-row_icon_size);
+	flex-shrink: 0;
 }
 
 .cardIcon > svg {
@@ -147,7 +148,7 @@
 	display: flex;
 	flex-direction: row;
 	gap: var(--card_detail-row_gap);
-	align-items: center;
+	align-items: flex-start;
 	margin: 0;
 }
 
@@ -157,7 +158,7 @@
 }
 
 .separatorDot {
-	margin: 0;
+	margin: 0 var(--card_detail-row_gap);
 	color: var(--card_detail-row_dot_color);
 }
 
