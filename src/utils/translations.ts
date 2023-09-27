@@ -105,12 +105,12 @@ export function getTranslatedPage<
 		(md) => md.file.endsWith(`.${lang}.md`) || md.file.endsWith(`.${lang}.mdx`),
 	);
 
-	const locales = globResults.map((md) => getLanguageFromFilename(md.file)).sort();
+	const locales = globResults.map((md) => getLanguageFromFilename(md.file));
 
 	const enResult = globResults[locales.findIndex((lang) => lang === "en")];
 
 	return {
-		locales,
+		locales: locales.sort(),
 		page: matchedResult || enResult,
 	};
 }
