@@ -332,11 +332,49 @@ That might include some process critical flow that brings your company money - a
 
 No matter how unlikely this scenario is; **downtime is money**. Remember, the first best time to prevent errors is at build time, but it's not the only place error handling needs to exist.
 
-
-
 ## Other ecosystems' fix to this problem
 
-While this might sound like an Angular-specific problem, 
+While this might sound like an Angular-specific problem, other frameworks have had to explore the same problem of "error thrown during rendering process leading to broken UI".
+
+[One such example of an in-template error handler lives in React as an `ErrorBoundary`](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary):
+
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    // Example "componentStack":
+    //   in ComponentThatThrows (created by App)
+    //   in ErrorBoundary (created by App)
+    //   in div (created by App)
+    //   in App
+    logErrorToMyService(error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
+
+// ...
+
+<ErrorBoundary fallback={<p>Something went wrong</p>}>
+  <Profile />
+</ErrorBoundary>
+```
 
 # The short-term fix
 
