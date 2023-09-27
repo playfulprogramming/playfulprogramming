@@ -2,7 +2,7 @@
 {
 	title: "Discovering Odd Behavior with Angular Error Handling",
 	description: "Angular has fairly constistent error handling behavior... Until it doesn't. Here's one place where it's off and why.",
-	published: '2023-10-09T13:45:00.284Z',
+	published: '2023-09-27T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'javascript', 'webdev'],
 	attached: [],
@@ -560,6 +560,14 @@ This is equivalent to the following:
 
 My proposal for the long-term fix is that we add in a new `@try`/`@catch` syntax into the core of Angular's Control Flow primitives:
 
-```
+```html
+@try {
+	<error-throwing-component/>
+} @catch (e: any) {
+	<handle-error [error]="e"/>
+}
 ```
 
+To help make this vision a reality, [I've created a GitHub issue that outlines this long-term solution and volunteers myself to work on it]().
+
+> **It would mean a lot to me if you [gave a thumbs up reaction to the GitHub issue]()** so that it gains more traction with the Angular team.
