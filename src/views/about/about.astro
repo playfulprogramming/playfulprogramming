@@ -6,7 +6,7 @@ import { getTranslatedPage, translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import License from "./license.astro";
 import { siteMetadata } from "constants/site-config";
-import banner from "./banner.svg?raw";
+import BannerSvg from "./banner-svg.astro";
 
 const about = getTranslatedPage(
 	Astro,
@@ -15,7 +15,9 @@ const about = getTranslatedPage(
 ---
 
 <div class="container">
-	<div class={style.banner} set:html={banner} />
+	<div class={style.banner}>
+		<BannerSvg />
+	</div>
 	<main class={`${style.aboutBody} post-body`}>
 		<TranslationsHeader locales={about.locales} />
 
