@@ -32,7 +32,7 @@ const currentLocale = getPrefixLanguageFromPath(Astro.url.pathname);
 					<a
 						href={locale === "en" ? path : `/${locale}${path}`}
 						data-current={locale === currentLocale ? true : undefined}
-						class="text-body-large"
+						class="text-style-body-large"
 					>
 						{languages[locale]}
 					</a>
