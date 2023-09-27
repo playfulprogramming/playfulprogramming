@@ -1,12 +1,9 @@
 ---
 import style from "./about.module.scss";
 import * as data from "src/utils/data";
-import { Picture } from "@astrojs/image/components";
 import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
-import { Button } from "components/index";
-import { Icon } from "astro-icon";
-import TranslationsHeader from "./translations-header/about-us-translations-header.astro";
+import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import License from "./license.astro";
 import { siteMetadata } from "constants/site-config";
 import banner from "./banner.svg?raw";
@@ -18,14 +15,15 @@ const about = getTranslatedPage(
 ---
 
 <div class="container">
-	<TranslationsHeader locales={about.locales} />
 	<div class={style.banner} set:html={banner} />
 	<main class={`${style.aboutBody} post-body`}>
+		<TranslationsHeader locales={about.locales} />
+
 		<about.page.Content />
 
 		<hr />
 
-		<h2 id="contributors" class="center">
+		<h2 id="contributors">
 			{translate(Astro, "title.contributors")}
 		</h2>
 		<div class={style.unicorns}>
