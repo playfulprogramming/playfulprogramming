@@ -3,7 +3,9 @@ import { getImage } from "@astrojs/image";
 import { escape } from "html-escaper";
 import * as data from "src/utils/data";
 
-const unicorns = data.unicorns.sort((_) => 0.5 - Math.random()).slice(0, 28);
+const unicorns = [...data.unicorns]
+	.sort((_) => 0.5 - Math.random())
+	.slice(0, 28);
 
 const unicornImages = await Promise.all(
 	unicorns.map(async (unicorn, i) => {
@@ -25,7 +27,7 @@ const unicornImages = await Promise.all(
 		});
 
 		return `
-		<image width="96" height="96" xlink:href="${escape(
+		<image class="bannerSvgImage" width="96" height="96" xlink:href="${escape(
 			image.src,
 		)}" preserveAspectRatio="xMidYMid slice" transform="scale(0.0104167)"></image>
 	`.trim();
@@ -40,8 +42,9 @@ const unicornImages = await Promise.all(
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
+	class="bannerSvg"
 >
-	<g clip-path="url(#clip0_5681_47057)">
+	<g>
 		<mask
 			id="mask0_5681_47057"
 			style="mask-type:alpha"
@@ -420,7 +423,8 @@ const unicornImages = await Promise.all(
 			gradientUnits="userSpaceOnUse"
 			gradientTransform="translate(320 280.002) rotate(90) scale(280 320)"
 		>
-			<stop offset="0.457129"></stop>
+			<stop offset="0.457129" stop-opacity="1"></stop>
+			<stop offset="0.71153" stop-opacity="0.33"></stop>
 			<stop offset="0.965931" stop-opacity="0"></stop>
 		</radialGradient>
 		<linearGradient
@@ -522,8 +526,5 @@ const unicornImages = await Promise.all(
 			<stop stop-color="#262833"></stop>
 			<stop offset="1" stop-color="#262833" stop-opacity="0"></stop>
 		</radialGradient>
-		<clipPath id="clip0_5681_47057">
-			<rect width="640" height="560" fill="white"></rect>
-		</clipPath>
 	</defs>
 </svg>
