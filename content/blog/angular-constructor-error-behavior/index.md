@@ -314,9 +314,33 @@ Because of this, and following JavaScript's early return implementation of throw
 
 This is why we can see elements rendered _before_ our `throw-an-error` component, but not elements _after_.
 
+# Why we need a fix
+
+If you've been a developer in the Angular space for a while, you'll know about [the Angular `ErrorHandler` API](https://angular.io/api/core/ErrorHandler), which allows you to log and otherwise keep track of the errors thrown in your app.
+
+It's hugely useful if you need a global mechanism for tracking errors to a third-party, like [Sentry](https://sentry.io/).
+
+This might lead us to ask: Why do we need this issue fixed in the first place?
+
+Consider this edgecase: you have a header component that's shown on every page. This header component requires you to call some API to get some of the header information to show to the user. Maybe they have a profile that you want to show metadata on in the header.
+
+But oh no! The API you relied on changed out from under you and now your header throws an error during the constructor!
+
+Because of this error throwing behavior, rather than a single part of your app breaking visually, now every page that has a header will not render properly.
+
+That might include some process critical flow that brings your company money - and a fix is subject to however long your developers need to both fix and deploy the hotpatch.
+
+No matter how unlikely this scenario is; **downtime is money**. Remember, the first best time to prevent errors is at build time, but it's not the only place error handling needs to exist.
+
+
+
+## Other ecosystems' fix to this problem
+
+While this might sound like an Angular-specific problem, 
+
 # The short-term fix
 
-To fix it, you have to
+Luckily, while `<component-here/>` will not recover from an error, we can manually wrap our internal `createComponent` call in a `try/catch` thanks to [Angular's `ViewContainerRef` API](/posts/angular-templates-start-to-source):
 
 ```typescript
 import 'zone.js/dist/zone';
@@ -376,8 +400,9 @@ class ErrorCatcher implements OnInit {
   standalone: true,
   imports: [ErrorCatcher],
   template: `
-    <p>Parent</p>
+    <p>Before</p>
     <error-catcher [comp]="comp"/>
+    <p>After</p>
   `,
 })
 class AppComponent {
@@ -387,8 +412,116 @@ class AppComponent {
 bootstrapApplication(AppComponent);
 ```
 
-# The Proposed Fix
+We can even expand our `error-catcher` component to handle and accept inputs and outputs:
 
+```typescript
+import { ErrorBoundary } from './error-boundary.component';
 
+@Component({
+  selector: 'child',
+  standalone: true,
+  template: `<button (click)="done.emit()">Child: {{name}}, {{age}}</button>`,
+})
+class ChildComponent {
+  @Input() name!: string;
+  @Input() age!: number;
+  @Output() done = new EventEmitter();
+}
 
-## Why won't other solutions cut it?
+@Component({
+  selector: 'error',
+  standalone: true,
+  template: `<p>Error</p>`,
+})
+class ErrorComponent {
+  constructor() {
+    throw 'Failed to construct ErrorComponent';
+  }
+}
+
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [ErrorBoundary, ChildComponent, JsonPipe],
+  template: `
+    <p>Parent</p>
+
+    <hr/>
+
+    <error-boundary [fallback]="fallback" [comp]="errorComponent"/>
+    <ng-template #fallback let-error>
+      <h1>There was an error in <code>errorComponent</code></h1>
+      <pre><code>{{error | json}}</code></pre>
+    </ng-template>
+
+    <hr/>
+
+    <error-boundary [comp]="childComponent" (event)="getEvent($event)" [inputs]="{age, name: 'Janie'}"/>
+    <button (click)="count()">Count</button>
+  `,
+})
+class AppComponent {
+  childComponent = ChildComponent;
+  errorComponent = ErrorComponent;
+
+  age = 12;
+
+  count() {
+    this.age++;
+  }
+
+  getEvent(props: { name: string; value: unknown }) {
+    console.log({ props });
+  }
+}
+```
+
+<iframe src="https://stackblitz.com/edit/angular-error-boundary-userland-poc?embed=1&file=src%2Fmain.ts"/>
+
+## The problem with the short-term fix
+
+The problem with the short-term fix is a multi-folded problem:
+
+- The syntax and tooling are not consistent with other Angular components
+- Outputs and inputs are very loose typings now, which may lead to _more_ bugs, not less
+- Outputs are not bound in the same way, requiring weird `switch/case` style coding and manually typing
+
+If these issues are a deal-breaker for you, like they are for me, let's explore what a longer-term solution (built into Angular) might look like.
+
+# The long-term fix
+
+If you've been following the Angular developer-experience closely, you'll know that [the Angular team is aiming to add New Control Flow primitives into the framework](https://blog.angular.io/meet-angulars-new-control-flow-a02c6eee7843). These new control flow primitives are meant to:
+
+- Make the core of Angular's output smaller
+- Make adding new functionality to the core, of Angular easier
+- Interop better with [Angular's upcoming signals API](https://angular.io/guide/signals)
+
+They look something like this:
+
+```html
+@if (user.isHuman) {
+  <human-profile [data]="user" />
+} @else if (user.isRobot) {
+  <robot-profile [data]="user" />
+} @else {
+	<p>The profile is unknown!</p>
+}
+```
+
+This is equivalent to the following:
+
+```html
+<human-profile *ngIf="user.isHuman; else elseOne" [data]="user" />
+<ng-template #elseOne>
+	<robot-profile *ngIf="user.isRobot; else elseTwo" [data]="user" />
+	<ng-template #elseTwo>
+  <p>The profile is unknown!</p>
+  </ng-template>
+</ng-template>
+```
+
+My proposal for the long-term fix is that we add in a new `@try`/`@catch` syntax into the core of Angular's Control Flow primitives:
+
+```
+```
+
