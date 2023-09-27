@@ -16,7 +16,12 @@ export const themeToggle = () => {
 			lightIconEl.style.display = "none";
 			darkIconEl.style.display = null;
 		}
-		setTimeout(() => window.reloadDisqus && window.reloadDisqus(), 100);
+
+		// update <meta name="theme-color"> value to reflect a theme change
+		const style = getComputedStyle(document.body);
+		const background = style.getPropertyValue("--background_primary");
+		const meta = document.querySelector('meta[name="theme-color"]');
+		if (background) meta.setAttribute("content", background);
 	}
 
 	// TODO: Migrate to `classList`
