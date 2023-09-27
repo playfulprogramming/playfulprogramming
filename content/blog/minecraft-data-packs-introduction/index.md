@@ -3,7 +3,7 @@
 	title: "Minecraft Data Pack Programming: Introduction",
 	description: "Learn the beginnings of data pack development in Minecraft - using commands and functions to add custom behavior from scratch!",
 	published: '2022-06-14T21:12:03.284Z',
-	edited: '2023-09-12',
+	edited: '2023-09-27',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
@@ -13,7 +13,7 @@
 }
 ---
 
-> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.fandom.com/wiki/Add-on).
+> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.wiki/w/Add-on).
 
 The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/1-introduction) repository. Feel free to use it for reference as you read through these articles!
 
@@ -184,7 +184,7 @@ If you didn't use the same folder names, autocomplete should help you figure out
 
 # Specifying a function tag
 
-In order to run a function automatically, Minecraft provides two built-in [function tags](https://minecraft.fandom.com/wiki/Tag#Function_tags) that run during specific events: `load` (when the world is opened) and `tick` (every game tick).
+In order to run a function automatically, Minecraft provides two built-in [function tags](https://minecraft.wiki/w/Tag#Function_tags) that run during specific events: `load` (when the world is opened) and `tick` (every game tick).
 
 ## Using the "load" event
 

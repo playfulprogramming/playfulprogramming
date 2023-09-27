@@ -3,6 +3,7 @@
 	title: "Minecraft Data Pack Programming: Command Syntax",
 	description: "Learn the beginnings of data pack development in Minecraft - using positions, entity selectors, and conditional logic in commands!",
 	published: '2022-06-15T21:12:03.284Z',
+	edited: '2023-09-27',
 	authors: ['fennifith'],
 	tags: [],
 	attached: [],
@@ -12,7 +13,7 @@
 }
 ---
 
-> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.fandom.com/wiki/Add-on).
+> Please note: this guide specifically covers the **Java Edition** version of Minecraft. Bedrock Edition does not use data packs, but provides customization through [add-ons](https://minecraft.wiki/w/Add-on).
 
 The data packs built in this series can be found in the [unicorn-utterances/mc-datapacks-tutorial](https://github.com/unicorn-utterances/mc-datapacks-tutorial/tree/main/2-command-syntax) repository. Feel free to use it for reference as you read through these articles!
 
@@ -26,7 +27,7 @@ I use the [Visual Studio Code](https://code.visualstudio.com) editor with the [l
 
 In the previous post, we ended on an interesting question &mdash; how do we write a command that only executes if the player is standing on a particular block?
 
-Well, Minecraft actually has a specific command for checking preconditions and other attributes of a command before running it - the [`/execute`](https://minecraft.fandom.com/wiki/Commands/execute) command!
+Well, Minecraft actually has a specific command for checking preconditions and other attributes of a command before running it - the [`/execute`](https://minecraft.wiki/w/Commands/execute) command!
 
 This command can be used with an indefinite number of arguments, which might make it confusing to understand by reading its documentation &mdash; but this effectively means that you can add any number of preconditions to this command.
 
@@ -57,7 +58,7 @@ You could also change the block identifier to look for a different type of block
 So what do the tildes (`~ ~ ~`) mean in the previous command? This is referring to *the current position* (in the X, Y, and Z axes) of the player that is executing the command. There are a few different ways to write positions like these in Minecraft, which I'll explain here:
 
 - ###### Absolute coordinates
-  Coordinates can be written as a fixed position in the world - say, `32 60 -94` (these coordinates can be obtained by opening the [F3 debug screen](https://minecraft.fandom.com/wiki/Debug_screen) and finding the "Targeted block" position.
+  Coordinates can be written as a fixed position in the world - say, `32 60 -94` (these coordinates can be obtained by opening the [F3 debug screen](https://minecraft.wiki/w/Debug_screen) and finding the "Targeted block" position.
 - ###### Current coordinates (tilde notation)
   Using the tilde symbols (`~ ~ ~`) will reference *the current position* that the command is executed at. This can also be mixed with static values, such as `32 ~ -94`, which will reference the block at (x: 32, z: -94) using the player's current y-axis.
 - ###### Relative coordinates
@@ -244,6 +245,6 @@ execute as @e[type=pig] at @e[type=pig] run say hi
 
 So far, we've started using conditional logic and covered most of the syntax you'll see in Minecraft commands.
 
-Between articles, feel free to experiment with [other commands](https://minecraft.fandom.com/wiki/Commands), such as `/setblock` or `/playsound`. Most of these won't be directly mentioned in the rest of this series, so it'll be useful to read through this list to figure out what each command can do.
+Between articles, feel free to experiment with [other commands](https://minecraft.wiki/w/Commands), such as `/setblock` or `/playsound`. Most of these won't be directly mentioned in the rest of this series, so it'll be useful to read through this list to figure out what each command can do.
 
 In the next post, we'll cover an entirely different feature of Minecraft: *player scoreboards!* These will allow us to keep count of different variables, detect certain in-game actions, and store a player-specific or global state in our data packs.
