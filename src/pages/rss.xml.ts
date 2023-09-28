@@ -49,12 +49,7 @@ export const get = () => {
 				}),
 				date: new Date(post.frontmatter.published),
 				copyright: post.frontmatter.licenseMeta?.displayName,
-				extensions: [
-					{
-						name: "comments",
-						objects: `${nodeUrl}#disqus_thread`,
-					},
-				],
+				extensions: [],
 			});
 		});
 

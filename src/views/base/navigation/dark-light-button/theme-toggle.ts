@@ -1,4 +1,8 @@
-const COLOR_MODE_STORAGE_KEY = "currentTheme";
+import {
+	THEME_COLOR_DARK,
+	THEME_COLOR_LIGHT,
+	COLOR_MODE_STORAGE_KEY,
+} from "constants/theme";
 
 export const themeToggle = () => {
 	const themeToggleBtn: HTMLElement = document.querySelector(
@@ -16,7 +20,13 @@ export const themeToggle = () => {
 			lightIconEl.style.display = "none";
 			darkIconEl.style.display = null;
 		}
-		setTimeout(() => window.reloadDisqus && window.reloadDisqus(), 100);
+
+		// update the meta theme-color attribute(s) based on the user preference
+		const bgColor = theme === "light" ? THEME_COLOR_LIGHT : THEME_COLOR_DARK;
+		// this needs to update both meta tags so that it applies regardless of prefers-color-scheme
+		document
+			.querySelectorAll("meta[name='theme-color']")
+			.forEach((el) => el.setAttribute("content", bgColor));
 	}
 
 	// TODO: Migrate to `classList`
