@@ -6,6 +6,9 @@
 	--license_gap: var(--spc-4x);
 	--license_icon-size: var(--icon-size_regular);
 	--license_background-color: var(--surface_primary_emphasis-none);
+	--license_background-color_hovered: var(--surface_primary_emphasis-low);
+	--license_background-color_pressed: var(--surface_primary_emphasis-medium);
+	--license-background-color_focused: var(--background_focus);
 	--license_corner-radius: var(--corner-radius_m);
 }
 
@@ -35,52 +38,64 @@
 	.viewButton {
 		all: unset;
 		color: var(--primary_default);
+	}
 
-		&:hover, &:active, &:focus-visible {
-			text-decoration: underline;
-		}
+	&:hover .viewButton, &:active .viewButton {
+		text-decoration: underline;
 	}
 
 	@include transition(background-color outline);
 
+	&:hover {
+		background-color: var(--surface_primary_emphasis-low);
+	}
+
+	&:active {
+		background-color: var(--license_background-color_pressed);
+	}
+
 	@supports selector(:has(*)) {
 		&:has(:focus-visible) {
-			background-color: var(--background_focus);
+			background-color: var(--license-background-color_focused);
 			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+
+			.viewButton {
+				text-decoration: underline;
+			}
 		}
 	}
 
 	@supports not selector(:has(*)) {
 		&:focus-within {
-			background-color: var(--background_focus);
+			background-color: var(--license-background-color_focused);
 			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+
+			.viewButton {
+				text-decoration: underline;
+			}
 		}
 	}
 }
 
 :root {
-	--license-modal_header_padding-horizontal: calc(
-		var(--site-spacing) + var(--spc-2x)
-	);
-	--license-modal_header_padding-vertical: calc(
-		var(--site-spacing) + var(--spc-2x)
-	);
+	--license-modal_header_padding-horizontal: var(--site-spacing);
+	--license-modal_header_padding-vertical: var(--site-spacing);
 	--license-modal_padding-horizontal: var(--site-spacing);
 	--license-modal_padding-bottom: var(--site-spacing);
 	--license-modal_gap: var(--site-spacing);
 	--license-modal_button-gap: var(--spc-4x);
 	--license-modal_corner-radius: var(--corner-radius_l);
 
+	--license-modal_background: var(--background_primary);
+
 	@include from($tabletSmall) {
 		--license-modal_corner-radius: calc(var(--site-spacing) * 2);
-		--license-modal_header_padding-horizontal: var(--site-spacing);
-		--license-modal_header_padding-vertical: var(--site-spacing);
 		--license-modal_max-width: var(--max-width_s);
 	}
 }
 
 .licenseDialog {
-	background: var(--background_primary);
+	background: var(--license-modal_background);
 	padding: 0;
 	border-radius: var(--license-modal_corner-radius);
 	max-width: var(--license-modal_max-width);

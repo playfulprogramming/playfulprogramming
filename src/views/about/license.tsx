@@ -2,6 +2,7 @@ import style from "./license.module.scss";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { LargeIconOnlyButton } from "components/index";
 import close from "src/icons/close.svg?raw";
+import { createPortal } from "preact/compat";
 
 interface LicenseProps {
 	name: string;
@@ -14,7 +15,7 @@ export function License(props: LicenseProps) {
 	const [isOpen, setOpen] = useState(false);
 
 	const handleOpen = (e: Event) => {
-		e.preventDefault();
+		e.stopPropagation();
 		setOpen(true);
 	};
 
@@ -23,7 +24,7 @@ export function License(props: LicenseProps) {
 	};
 
 	return (
-		<div class={style.license}>
+		<div class={style.license} onClick={handleOpen}>
 			<img class={style.icon} width="24" height="24" src={props.image} loading="lazy" />
 			<div class={`text-style-button-regular ${style.info}`}>
 				<span>{props.name}</span>
@@ -31,10 +32,13 @@ export function License(props: LicenseProps) {
 			</div>
 			{
 				isOpen ?
-					<LicenseDialog
-						name={props.name}
-						onClose={handleClose}
-					/>
+					createPortal(
+						<LicenseDialog
+							name={props.name}
+							onClose={handleClose}
+						/>,
+						document.body,
+					)
 					: <></>
 			}
 		</div>
