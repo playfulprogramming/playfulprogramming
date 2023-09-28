@@ -40,6 +40,22 @@
 			text-decoration: underline;
 		}
 	}
+
+	@include transition(background-color outline);
+
+	@supports selector(:has(*)) {
+		&:has(:focus-visible) {
+			background-color: var(--background_focus);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+		}
+	}
+
+	@supports not selector(:has(*)) {
+		&:focus-within {
+			background-color: var(--background_focus);
+			outline: var(--border-width_focus) solid var(--focus-outline_primary);
+		}
+	}
 }
 
 :root {
