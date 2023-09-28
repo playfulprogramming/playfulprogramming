@@ -18,7 +18,7 @@
 	background-color: var(--license_background-color);
 	border-radius: var(--license_corner-radius);
 
-	img {
+	.icon {
 		max-width: var(--license_icon-size);
 		height: var(--license_icon-size);
 		aspect-ratio: 1 / 1;
@@ -27,7 +27,7 @@
 		filter: var(--shadow_sticker_drop_shadow);
 	}
 
-	div {
+	.info {
 		display: flex;
 		flex-direction: column;
 	}
@@ -65,16 +65,16 @@
 
 .licenseDialog {
 	background: var(--background_primary);
-	padding: 0 var(--license-modal_padding-horizontal)
-		var(--license-modal_padding-bottom);
+	padding: 0;
 	border-radius: var(--license-modal_corner-radius);
 	max-width: var(--license-modal_max-width);
 	width: calc(100% - var(--site-spacing) * 2);
 	border: none;
-	// this should be overflow: clip; to prevent the browser scrolling within the element when a filter checkbox is focused:
-	// https://stackoverflow.com/q/75419337
-	// https://github.com/unicorn-utterances/unicorn-utterances/issues/653
-	overflow: clip;
+
+	.form {
+		padding: 0 var(--license-modal_padding-horizontal)
+			var(--license-modal_padding-bottom);
+	}
 
 	.titleContainer {
 		display: flex;
@@ -82,7 +82,7 @@
 		align-items: center;
 		gap: var(--spc-4x);
 
-		margin: var(--license-modal_header_padding-vertical)
+		padding: var(--license-modal_header_padding-vertical)
 			calc(
 				var(--license-modal_header_padding-horizontal) -
 					var(--license-modal_padding-horizontal)
