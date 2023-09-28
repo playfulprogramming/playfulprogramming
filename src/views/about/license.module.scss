@@ -108,6 +108,10 @@
 	.title {
 		margin: 0;
 	}
+
+	.body {
+		color: var(--foreground_emphasis-high);
+	}
 }
 
 .licenseDialog::backdrop {

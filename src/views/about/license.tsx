@@ -74,7 +74,7 @@ export function LicenseDialog({
 					</LargeIconOnlyButton>
 					<h1 class={`text-style-headline-4 ${style.title}`}>{name}</h1>
 				</div>
-				<div class="text-style-body-large">
+				<div class={`text-style-body-large ${style.body}`}>
 					The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in
 					the <a href="https://example.com">Creative Commons</a> 3.0 Attribution License.
 				</div>
