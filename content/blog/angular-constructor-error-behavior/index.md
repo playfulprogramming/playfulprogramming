@@ -568,6 +568,6 @@ My proposal for the long-term fix is that we add in a new `@try`/`@catch` syntax
 }
 ```
 
-To help make this vision a reality, [I've created a GitHub issue that outlines this long-term solution and volunteers myself to work on it]().
+To help make this vision a reality, [I've created a GitHub issue that outlines this long-term solution and volunteers myself to work on it](https://github.com/angular/angular/issues/51941).
 
-> **It would mean a lot to me if you [gave a thumbs up reaction to the GitHub issue]()** so that it gains more traction with the Angular team.
+> **It would mean a lot to me if you [gave a thumbs up reaction to the GitHub issue](https://github.com/angular/angular/issues/51941)** so that it gains more traction with the Angular team.
