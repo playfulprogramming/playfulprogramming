@@ -22,6 +22,7 @@ import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
+import remarkTwoslash from "remark-shiki-twoslash";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -290,9 +291,10 @@ const tags = new Map<string, TagInfo>();
 // file due to the hastscript JSX
 const tagExplainerParser = unified()
 	.use(remarkParse, { fragment: true } as never)
-	.use(remarkToRehype)
+	.use(remarkTwoslash)
+	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(rehypeUnicornElementMap)
-	.use(rehypeStringify);
+	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
 
 for (const [key, tag] of Object.entries(tagsRaw)) {
 	let explainer = undefined;

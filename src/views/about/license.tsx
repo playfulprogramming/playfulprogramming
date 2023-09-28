@@ -82,13 +82,15 @@ export function LicenseDialog({
 					>
 						<span style="display: flex;" dangerouslySetInnerHTML={{ __html: close }} />
 					</LargeIconOnlyButton>
-					<img class={style.icon} width="24" height="24" src={image} loading="lazy" />
 					<h1 class={`text-style-headline-4 ${style.title}`}>{name}</h1>
 				</div>
-				<div
-					class={`text-style-body-large ${style.body}`}
-					dangerouslySetInnerHTML={{ __html: explainerHtml }}
-				/>
+				<div class={`text-style-body-large ${style.body}`}>
+					<img class={style.iconLarge} width="128" height="128" src={image} loading="lazy" />
+					<div
+						class="post-body"
+						dangerouslySetInnerHTML={{ __html: explainerHtml }}
+					/>
+				</div>
 			</form>
 		</dialog>
 	);

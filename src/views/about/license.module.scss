@@ -102,9 +102,16 @@
 	width: calc(100% - var(--site-spacing) * 2);
 	border: none;
 
+	display: flex;
+	flex-direction: column;
+	overflow: clip;
+
 	.form {
 		padding: 0 var(--license-modal_padding-horizontal)
 			var(--license-modal_padding-bottom);
+
+		overflow-y: auto;
+		overscroll-behavior: contain;
 	}
 
 	.titleContainer {
