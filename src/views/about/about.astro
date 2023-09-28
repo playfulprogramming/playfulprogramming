@@ -4,7 +4,7 @@ import * as data from "src/utils/data";
 import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
-import License from "./license.astro";
+import { License } from "./license";
 import { siteMetadata } from "constants/site-config";
 import BannerSvg from "./banner-svg.astro";
 
@@ -45,12 +45,14 @@ const about = getTranslatedPage(
 				Object.values(data.tags).map((tag) =>
 					"image" in tag ? (
 						<License
+							client:visible
 							name={tag.displayName}
 							image={tag.image}
 							url={
 								`https://github.com/${siteMetadata.repoPath}/blob/main/public` +
 								tag.image.replace(".svg", "-LICENSE.txt")
 							}
+							action={translate(Astro, "action.view_license")}
 						/>
 					) : (
 						[]

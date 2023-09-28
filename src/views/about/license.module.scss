@@ -1,3 +1,5 @@
+@import "src/tokens/index";
+
 :root {
 	--license_padding-horizontal: var(--spc-4x);
 	--license_padding-vertical: var(--spc-3x);
@@ -30,7 +32,68 @@
 		flex-direction: column;
 	}
 
-	a {
-		text-decoration: none;
+	.viewButton {
+		all: unset;
+		color: var(--primary_default);
+
+		&:hover, &:active, &:focus-visible {
+			text-decoration: underline;
+		}
 	}
+}
+
+:root {
+	--license-modal_header_padding-horizontal: calc(
+		var(--site-spacing) + var(--spc-2x)
+	);
+	--license-modal_header_padding-vertical: calc(
+		var(--site-spacing) + var(--spc-2x)
+	);
+	--license-modal_padding-horizontal: var(--site-spacing);
+	--license-modal_padding-bottom: var(--site-spacing);
+	--license-modal_gap: var(--site-spacing);
+	--license-modal_button-gap: var(--spc-4x);
+	--license-modal_corner-radius: var(--corner-radius_l);
+
+	@include from($tabletSmall) {
+		--license-modal_corner-radius: calc(var(--site-spacing) * 2);
+		--license-modal_header_padding-horizontal: var(--site-spacing);
+		--license-modal_header_padding-vertical: var(--site-spacing);
+		--license-modal_max-width: var(--max-width_s);
+	}
+}
+
+.licenseDialog {
+	background: var(--background_primary);
+	padding: 0 var(--license-modal_padding-horizontal)
+		var(--license-modal_padding-bottom);
+	border-radius: var(--license-modal_corner-radius);
+	max-width: var(--license-modal_max-width);
+	width: calc(100% - var(--site-spacing) * 2);
+	border: none;
+	// this should be overflow: clip; to prevent the browser scrolling within the element when a filter checkbox is focused:
+	// https://stackoverflow.com/q/75419337
+	// https://github.com/unicorn-utterances/unicorn-utterances/issues/653
+	overflow: clip;
+
+	.titleContainer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: var(--spc-4x);
+
+		margin: var(--license-modal_header_padding-vertical)
+			calc(
+				var(--license-modal_header_padding-horizontal) -
+					var(--license-modal_padding-horizontal)
+			);
+	}
+
+	.title {
+		margin: 0;
+	}
+}
+
+.licenseDialog::backdrop {
+	background-color: var(--foreground_disabled);
 }
