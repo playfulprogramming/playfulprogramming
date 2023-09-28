@@ -6,6 +6,7 @@ import {
 	PostInfo,
 	Languages,
 	CollectionInfo,
+	TagInfo,
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
@@ -15,6 +16,12 @@ import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
 import collectionMapping from "../../content/data/collection-mapping";
+
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkToRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -276,6 +283,53 @@ collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	posts: posts.filter((post) => post.collection === collection.slug),
 })) as CollectionInfo[];
 
+const tags = new Map<string, TagInfo>();
+
+// This needs to use a minimal version of our unified chain,
+// as we can't import `createRehypePlugins` through an Astro
+// file due to the hastscript JSX
+const tagExplainerParser = unified()
+	.use(remarkParse, { fragment: true } as never)
+	.use(remarkToRehype)
+	.use(rehypeUnicornElementMap)
+	.use(rehypeStringify);
+
+for (const [key, tag] of Object.entries(tagsRaw)) {
+	let explainer = undefined;
+	let explainerType = undefined;
+
+	if ("image" in tag && tag.image.endsWith(".svg")) {
+		const license = await fs.promises
+			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
+			.catch((_) => undefined);
+
+		const attribution = await fs.promises
+			.readFile(
+				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
+				"utf-8",
+			)
+			.catch((_) => undefined);
+
+		if (license) {
+			explainer = license;
+			explainerType = "license";
+		} else if (attribution) {
+			explainer = attribution;
+			explainerType = "attribution";
+		}
+	}
+
+	const explainerHtml = explainer
+		? (await tagExplainerParser.process(explainer)).toString()
+		: undefined;
+
+	tags.set(key, {
+		explainerHtml,
+		explainerType,
+		...tag,
+	});
+}
+
 export {
 	aboutRaw as about,
 	fullUnicorns as unicorns,
@@ -283,5 +337,5 @@ export {
 	licensesRaw as licenses,
 	collections,
 	posts,
-	tagsRaw as tags,
+	tags,
 };

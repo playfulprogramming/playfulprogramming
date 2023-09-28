@@ -5,12 +5,15 @@ import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
 import { License } from "./license";
-import { siteMetadata } from "constants/site-config";
 import BannerSvg from "./banner-svg.astro";
 
 const about = getTranslatedPage(
 	Astro,
 	await Astro.glob("../../../content/site/about-us*.mdx"),
+);
+
+const tags = [...data.tags.values()].filter(
+	(tag) => !!tag.image && !!tag.explainerHtml,
 );
 ---
 
@@ -42,22 +45,19 @@ const about = getTranslatedPage(
 
 		<div class={style.licenses}>
 			{
-				Object.values(data.tags).map((tag) =>
-					"image" in tag ? (
-						<License
-							client:visible
-							name={tag.displayName}
-							image={tag.image}
-							url={
-								`https://github.com/${siteMetadata.repoPath}/blob/main/public` +
-								tag.image.replace(".svg", "-LICENSE.txt")
-							}
-							action={translate(Astro, "action.view_license")}
-						/>
-					) : (
-						[]
-					),
-				)
+				tags.map((tag) => (
+					<License
+						client:visible
+						name={tag.displayName}
+						explainerHtml={tag.explainerHtml}
+						image={tag.image}
+						action={
+							tag.explainerType === "license"
+								? translate(Astro, "action.view_license")
+								: translate(Astro, "action.view_attribution")
+						}
+					/>
+				))
 			}
 		</div>
 

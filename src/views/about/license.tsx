@@ -6,9 +6,9 @@ import { createPortal } from "preact/compat";
 
 interface LicenseProps {
 	name: string;
+	explainerHtml: string;
 	action: string;
 	image: string;
-	url: string;
 }
 
 export function License(props: LicenseProps) {
@@ -34,7 +34,9 @@ export function License(props: LicenseProps) {
 				isOpen ?
 					createPortal(
 						<LicenseDialog
+							image={props.image}
 							name={props.name}
+							explainerHtml={props.explainerHtml}
 							onClose={handleClose}
 						/>,
 						document.body,
@@ -46,12 +48,16 @@ export function License(props: LicenseProps) {
 }
 
 interface LicenseDialogProps {
+	image: string;
 	name: string;
+	explainerHtml: string;
 	onClose: () => void;
 }
 
 export function LicenseDialog({
+	image,
 	name,
+	explainerHtml,
 	onClose,
 }: LicenseDialogProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -76,12 +82,13 @@ export function LicenseDialog({
 					>
 						<span style="display: flex;" dangerouslySetInnerHTML={{ __html: close }} />
 					</LargeIconOnlyButton>
+					<img class={style.icon} width="24" height="24" src={image} loading="lazy" />
 					<h1 class={`text-style-headline-4 ${style.title}`}>{name}</h1>
 				</div>
-				<div class={`text-style-body-large ${style.body}`}>
-					The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in
-					the <a href="https://example.com">Creative Commons</a> 3.0 Attribution License.
-				</div>
+				<div
+					class={`text-style-body-large ${style.body}`}
+					dangerouslySetInnerHTML={{ __html: explainerHtml }}
+				/>
 			</form>
 		</dialog>
 	);

@@ -5,11 +5,13 @@
 	},
 	"android": {
 		"displayName": "Android",
-		"image": "/stickers/android.svg"
+		"image": "/stickers/android.svg",
+		"shownWithBranding": false
 	},
 	"angular": {
 		"displayName": "Angular",
-		"image": "/stickers/angular.svg"
+		"image": "/stickers/angular.svg",
+		"shownWithBranding": true
 	},
 	"announcements": {
 		"displayName": "Announcements",
@@ -25,11 +27,13 @@
 	},
 	"bash": {
 		"displayName": "Bash",
-		"image": "/stickers/bash.svg"
+		"image": "/stickers/bash.svg",
+		"shownWithBranding": true
 	},
 	"chrome": {
 		"displayName": "Chrome",
-		"image": "/stickers/chrome.svg"
+		"image": "/stickers/chrome.svg",
+		"shownWithBranding": false
 	},
 	"computer science": {
 		"displayName": "Computer Science",
@@ -65,11 +69,13 @@
 	},
 	"git": {
 		"displayName": "Git",
-		"image": "/stickers/git.svg"
+		"image": "/stickers/git.svg",
+		"shownWithBranding": true
 	},
 	"go": {
 		"displayName": "Go",
-		"image": "/stickers/go.svg"
+		"image": "/stickers/go.svg",
+		"shownWithBranding": false
 	},
 	"hardware": {
 		"displayName": "Hardware",
@@ -89,7 +95,7 @@
 	},
 	"java": {
 		"displayName": "Java",
-		"image": "/stickers/java.svg"
+		"emoji": "☕"
 	},
 	"javascript": {
 		"displayName": "JavaScript",
@@ -101,15 +107,18 @@
 	},
 	"linux": {
 		"displayName": "Linux",
-		"image": "/stickers/linux.svg"
+		"image": "/stickers/linux.svg",
+		"shownWithBranding": true
 	},
 	"lit": {
 		"displayName": "Lit",
-		"image": "/stickers/lit.svg"
+		"image": "/stickers/lit.svg",
+		"shownWithBranding": false
 	},
 	"minecraft": {
 		"displayName": "Minecraft",
-		"image": "/stickers/minecraft.svg"
+		"image": "/stickers/minecraft.svg",
+		"shownWithBranding": false
 	},
 	"mongodb": {
 		"displayName": "MongoDB",

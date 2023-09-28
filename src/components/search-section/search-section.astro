@@ -8,7 +8,7 @@ import { IconOnlyButton } from "../button/button";
 import { Icon } from "astro-icon";
 import { SEARCH_QUERY_KEY, buildSearchQuery } from "../../utils/search";
 
-const tagsToDisplay = Object.entries(data.tags)
+const tagsToDisplay = [...data.tags.entries()]
 	.sort(() => 0.5 - Math.random())
 	.slice(0, 8);
 ---
