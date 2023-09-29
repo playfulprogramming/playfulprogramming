@@ -28,20 +28,23 @@
 }
 
 .aboutBody :global(.sponsors) {
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+	gap: var(--spc-4x);
+
+	@include from($mobile) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
 
 	a {
 		display: flex;
 		align-items: center;
-		width: 300px;
-		height: 122px;
-
-		margin: var(--spc-2x);
+		width: auto;
+		aspect-ratio: 3;
 
 		background-color: #fff;
-		border-radius: var(--corner-radius_s);
-		overflow: hidden;
+		border-radius: var(--corner-radius_m);
+		overflow: clip;
 	}
 
 	img {
