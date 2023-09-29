@@ -54,8 +54,6 @@ interface LicenseDialogProps {
 	onClose: () => void;
 }
 
-// TODO: C# icon attribution is wrong!
-
 export function LicenseDialog({
 	image,
 	name,
