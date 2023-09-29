@@ -1,10 +1,11 @@
 ---
-import { getImage } from "@astrojs/image";
 import unicornSticker from "assets/unicorn_utterances_sticker.svg";
-import { getStickers } from "../../utils/get-stickers";
+import { tags } from "src/utils/data";
 import styles from "./banner-stickers-group.module.scss";
 
-const stickers = getStickers().sort(() => 0.5 - Math.random());
+const stickers = [...tags.values()]
+	.filter((tag) => !!tag.shownWithBranding && !!tag.image)
+	.sort(() => 0.5 - Math.random());
 
 const stickerTransforms = [
 	styles.sticker1,
@@ -30,7 +31,7 @@ const props = Astro.props as { class: string; unicornClass: string };
 <div class={props.class} aria-hidden="true">
 	{
 		stickerTransforms.map((sticker) => (
-			<img src={sticker.src} class={sticker.className} alt="" />
+			<img src={sticker.image} class={sticker.className} alt="" />
 		))
 	}
 

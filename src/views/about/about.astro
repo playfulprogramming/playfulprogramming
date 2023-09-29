@@ -76,7 +76,8 @@ const tags = [
 			</a>
 			<script>
 				{
-					const a = document.querySelector("#email-licenses");
+					const a: HTMLAnchorElement =
+						document.querySelector("#email-licenses");
 					// This is base64 for UU's contact email, to prevent automated page crawlers from finding it
 					a.href =
 						"mailto:" +
