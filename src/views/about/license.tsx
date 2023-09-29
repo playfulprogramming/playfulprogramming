@@ -54,6 +54,8 @@ interface LicenseDialogProps {
 	onClose: () => void;
 }
 
+// TODO: C# icon attribution is wrong!
+
 export function LicenseDialog({
 	image,
 	name,
@@ -85,7 +87,7 @@ export function LicenseDialog({
 					<h1 class={`text-style-headline-4 ${style.title}`}>{name}</h1>
 				</div>
 				<div class={`text-style-body-large ${style.body}`}>
-					<img class={style.iconLarge} width="128" height="128" src={image} loading="lazy" />
+					<img class={style.iconLarge} width="96" height="96" src={image} loading="lazy" />
 					<div
 						class="post-body"
 						dangerouslySetInnerHTML={{ __html: explainerHtml }}
