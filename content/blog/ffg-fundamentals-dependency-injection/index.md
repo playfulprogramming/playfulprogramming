@@ -1918,25 +1918,305 @@ This will consist of multiple steps:
 Strap in - this is going to be a long challenge. By the end of it we'll have a functioning application shell with a real-world example of dependency injection.
 
 
-https://stackblitz.com/edit/react-context-multiple-di
+
+
+## 1. Creating an initial app layout
+
+// TODO: ...
+
+<!-- tabs:start -->
+
+### React
+
+```jsx
+// App.jsx
+export default function App() {
+  return (
+    <Layout sidebar={<Sidebar />}>
+      <FileList />
+    </Layout>
+  );
+}
+```
+
+```jsx
+// Layout.jsx
+export const Layout = ({ sidebar, children }) => {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'nowrap', minHeight: '100vh' }}>
+      <div
+        style={{
+          width: 150,
+          backgroundColor: 'lightgray',
+          borderRight: '1px solid grey',
+        }}
+      >
+        {sidebar}
+      </div>
+      <div style={{ width: 1, flexGrow: 1 }}>{children}</div>
+    </div>
+  );
+};
+```
+
+```jsx
+// Sidebar.jsx
+export const Sidebar = () => {
+  return (
+    <div style={{ padding: '1rem' }}>
+      <h1 style={{ fontSize: '1.25rem' }}>Directories</h1>
+    </div>
+  );
+};
+```
+
+```jsx
+// FileList.jsx
+export const FileList = () => {
+  return (
+    <div style={{ padding: '1rem' }}>
+      <h1>Files</h1>
+    </div>
+  );
+};
+```
 
 
 
+### Angular
+
+```typescript
+// app.component.ts
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  imports: [LayoutComponent, SidebarComponent, FileListComponent],
+  template: `
+    <layout>
+      <sidebar sidebar/>
+      <file-list/>
+    </layout>
+  `,
+})
+export class AppComponent {}
+```
+
+```typescript
+// layout.component.ts
+@Component({
+  selector: 'layout',
+  standalone: true,
+  template: `
+    <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
+      <div
+          style="
+              width: 150px;
+              background-color: lightgray;
+              border-right: 1px solid grey;
+            "
+      >
+        <ng-content select="sidebar"/>
+      </div>
+      <div style="width: 1px; flex-grow: 1">
+        <ng-content/>
+      </div>
+    </div>
+  `,
+})
+export class LayoutComponent {}
+```
 
 
-------
+```typescript
+// file-list.component.ts
+@Component({
+  selector: 'file-list',
+  standalone: true,
+  template: `
+      <div style="padding: 1rem">
+          <h1>Files</h1>
+      </div>
+  `,
+})
+export class FileListComponent {}
+```
 
-------
+```typescript
+// sidebar.component.ts
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  template: `
+      <div style="padding: 1rem">
+          <h1 style="font-size: 1.25rem">Directories</h1>
+      </div>
+  `,
+})
+export class SidebarComponent {}
+```
 
-----
+
+### Vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <Layout>
+    <template #sidebar>
+      <Sidebar />
+    </template>
+    <FileList />
+  </Layout>
+</template>
+
+<script setup>
+import Layout from './Layout.vue';
+import Sidebar from './Sidebar.vue';
+import FileList from './FileList.vue';
+</script>
+```
+
+```vue
+<!-- Layout.vue -->
+<template>
+  <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
+    <div
+      style="
+        width: 150px;
+        background-color: lightgray;
+        border-right: 1px solid grey;
+      "
+    >
+      <slot name="sidebar" />
+    </div>
+    <div style="width: 1px; flex-grow: 1">
+      <slot />
+    </div>
+  </div>
+</template>
+
+<script setup></script>
+```
+
+```vue
+<!-- Sidebar.vue -->
+<template>
+  <div style="padding: 1rem">
+    <h1 style="font-size: 1.25rem">Directories</h1>
+  </div>
+</template>
+
+<script setup></script>
+```
+
+```vue
+<!-- FileList.vue -->
+<template>
+  <div style="padding: 1rem">
+    <h1>Files</h1>
+  </div>
+</template>
+
+<script setup></script>
+```
+
+<!-- tabs:end -->
 
 
 
+## 2. Add file and directory list
 
+// TODO: ...
+
+<!-- tabs:start -->
+
+### React
+
+// TODO: ...
+
+### Angular
+
+// TODO: ...
+
+### Vue
+
+// TODO: ...
+
+<!-- tabs:end -->
+
+
+
+## 3. Add context menu with static actions
+
+// TODO: ...
+
+<!-- tabs:start -->
+
+### React
+
+// TODO: ...
+
+### Angular
+
+// TODO: ...
+
+### Vue
+
+// TODO: ...
+
+<!-- tabs:end -->
+
+
+
+## 4. Adding dependency injection to context menu
+
+// TODO: ...
+
+<!-- tabs:start -->
+
+### React
+
+// TODO: ...
+
+### Angular
+
+// TODO: ...
+
+### Vue
+
+// TODO: ...
+
+<!-- tabs:end -->
+
+
+
+## 5. Adding functionality to context menu
+
+// TODO: ...
+
+<!-- tabs:start -->
+
+### React
+
+// TODO: ...
+
+### Angular
+
+// TODO: ...
+
+### Vue
+
+// TODO: ...
+
+<!-- tabs:end -->
+
+
+
+## All together now
+
+// TODO: Write
 
 <!-- Editor's note: This Contextmenu has new functionality from before - the ability to close when another context menu is opened -->
-
-
 
 <!-- tabs:start -->
 
@@ -2239,6 +2519,8 @@ export const ContextMenu = forwardRef(
 );
 ```
 
+<iframe src="https://stackblitz.com/edit/react-context-multiple-di?embed=1"></iframe>
+
 
 
 ### Angular
@@ -2277,9 +2559,8 @@ import { Component } from '@angular/core';
       <div
           style="
               width: 150px;
-              height: 100vh;
-              overflow-y: scroll;
-              border-right: 2px solid #bfbfbf;
+              background-color: lightgray;
+              border-right: 1px solid grey;
             "
       >
         <ng-content select="sidebar"/>
@@ -2656,9 +2937,8 @@ import FileList from './FileList.vue';
         <div
             style="
               width: 150px;
-              height: 100vh;
-              overflow-y: scroll;
-              border-right: 2px solid #bfbfbf;
+              background-color: lightgray;
+              border-right: 1px solid grey;
             "
         >
             <slot name="sidebar"/>
