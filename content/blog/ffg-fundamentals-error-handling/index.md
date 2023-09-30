@@ -50,6 +50,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
+  standalone: true,
+  imports: [NgFor],
   template: `
     <h1>To-do items</h1>
     <ul>
@@ -106,6 +108,322 @@ Luckily, this error is a fairly easy fix, but even if we do; bugs will inevitabl
 
 
 While I doubt we'll ever convince our users that an error is a _good_ thing, how can we make this user experience _better_, at least?
+
+Before we do that, however, let's explore _why_ throwing an error causes the rendering of a page to fail.
+
+# Throwing errors causes blank screens?!
+
+As shown before, when an error is thrown during a component's [render step](/posts/ffg-fundamentals-side-effects) it will fail to render any of  the contents from the component's template. This means that the following will throw an error and prevent rendering from occurring:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const ErrorThrowingComponent = () => {
+    // This WILL be caught by `componentDidCatch`
+    throw new Error("Error");
+}
+```
+
+## Angular
+
+// TODO
+
+## Vue
+
+// TODO
+
+<!-- tabs:end -->
+
+However, if we change our code to throw an error during an event handler, the contents will render just fine but fail to execute the logic of said error handler:
+
+<!-- tabs:start -->
+
+## React
+
+```jsx
+const EventErrorThrowingComponent = () => {
+    const onClick = () => {
+        // This will NOT be caught by `componentDidCatch`
+        throw new Error("Error");
+    }
+    
+    return <button onClick={onClick}>Click me</button>
+}
+```
+
+## Angular
+
+// TODO: ...
+
+## Vue
+
+// TODO: ...
+
+<!-- tabs:end -->
+
+This behavior may seem strange until you consider how JavaScript's `throw` clause works. When a JavaScript function throws an error, it also acts as an early return of sorts.
+
+```javascript
+function getRandomNumber() {
+    throw new Error("There was an error");
+    // Anything below the "throw" clause will not run
+    console.log("Generating a random number");
+    // This means that values returned after a thrown error are not utilized
+    return Math.floor(Math.random() * 10);
+}
+
+try {
+    const val = getRandomNumber();
+    // This will never execute because the `throw` bypasses it
+    console.log("I got the random number of:", val);
+} catch (e) {
+    // This will always run instead
+    console.log("There was an error:", e);
+}
+```
+
+Moreover, these errors exceed past [their scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope), meaning that they will bubble up [the execution stack](https://www.freecodecamp.org/news/execution-context-how-javascript-works-behind-the-scenes/).
+
+> What does that mean in English?
+
+In practical terms, this means that a thrown error will exceed the bounds of the function you called it in, and make its way further  up the list of functions you called to get to the thrown error.
+
+```javascript
+function getBaseNumber() {
+    // Error occurs here, throws it upwards
+	throw new Error("There was an error");
+	return 10;
+}
+
+function getRandomNumber() {
+    // Error occurs here, throws it upwards
+    return Math.floor(Math.random() * getBaseNumber());
+}
+
+function getRandomTodoItem() {
+    const items = [
+        "Go to the gym",
+        "Play video games",
+        "Work on book",
+        "Program"
+    ]
+
+    // Error occurs here, throws it upwards
+    const randNum = getRandomNumber();
+
+    return items[randNum % items.length];
+}
+
+function getDaySchedule() {
+    let schedule = [];
+    for (let i = 0; i<3; i++) {
+		schedule.push(
+            // First execution will throw this error upwards
+            getRandomTodoItem();
+        )
+    }
+}
+
+function main() {
+    try {
+    	getDaySchedule();
+    } catch (e) {
+        // Only now will the error be stopped
+        console.log("An error occured:", e);
+    }
+}
+```
+
+![TODO: Write alt](./error_bubbling.png)
+
+
+
+Because of these two properties of errors, React, Angular, and Vue are unable to "recover" (continue rendering after an error has occurred) from an error thrown during a render cycle.
+
+## Errors Thrown in Event Handlers
+
+Conversely, due to the nature of event handlers, these frameworks don't _need_ to handle errors that occur during event handlers. Assume we have the following code in an HTML file:
+
+```html
+<!-- index.html -->
+<button id="btn">Click me</button>
+
+<script>
+   const el = document.getElementById("btn");
+   el.addEventListener('click', () => {
+       throw new Error("There was an error")
+   })
+</script>
+```
+
+When you click on the `<button>` here, it will throw an error but this error will not escape out of the event listener's scope. This means that the following will not work:
+
+```javascript
+try {
+    const el = document.getElementById("btn");
+    el.addEventListener('click', () => {
+       throw new Error("There was an error")
+    })
+} catch (e) {
+    // This will not ever run with this code
+    alert("There was an error in the event listener");
+}
+```
+
+So to catch an error in an event handler, React, Angular, or Vue would have to add [a window `'errror'` listener](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event), like so:
+
+```javascript
+const el = document.getElementById("btn");
+el.addEventListener('click', () => {
+   throw new Error("There was an error")
+})
+
+window.addEventListener("error", (e) => {
+	alert("There was an error in the event listener")
+});
+```
+
+But let's think about what adding this `window` listener would mean:
+
+- More complex code in the respective frameworks
+  - Harder to maintain
+  - Larger bundle size
+- When the user clicks on a faulty button, the whole component crashes rather than a single aspect of it failing
+
+This doesn't seem worth the tradeoffs when we're able to add our own `try/catch` handlers inside of event handlers.
+
+After all, a partially broken application is better than a fully broken one!
+
+### Errors thrown in other APIs
+
+This property of an error being thrown in an error handler not preventing a render transfers to other aspects of these frameworks as well:
+
+<!-- tabs:start -->
+
+#### React
+
+While some other frameworks catch errors inside of async APIs (like React's `useEffect`), React will not recover from an error thrown in _any_ of the built-in React Hooks covered so far:
+
+```jsx
+const App = () => {
+  // This will prevent rendering
+  const val = useState(() => {
+    throw 'Error in state initialization function';
+  });
+
+  // This will also prevent rendering
+  const val = useMemo(() => {
+    throw 'Error in memo';
+  });
+  
+  // Will this prevent rendering? You bet!
+  useEffect(() => {
+    throw 'Error in useEffect';
+  });
+    
+  // Oh, and this will too.
+  useLayoutEffect(() => {
+    throw 'Error in useEffect';
+  });
+    
+  return <p>Hello, world!</p>;
+};
+```
+
+#### Angular
+
+Despite errors thrown in a component's constructor preventing rendering:
+
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+    <p>Hello, world!</p>
+  `,
+})
+export class AppComponent {
+  // This will prevent rendering
+  constructor() {
+    throw 'Error in constructor';
+  }
+}
+```
+
+Errors thrown in any of Angular's other lifecycle methods will not prevent a component from rendering:
+
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+  <p>Hello, world!</p>
+`,
+})
+export class AppComponent implements OnInit {
+  // Will not prevent `Hello, world!` from showing
+  ngOnInit() {
+	throw 'Error in constructor';
+  }
+}
+```
+
+#### Vue
+
+While some of Vue's APIs, like `watchEffect` or `computed` will prevent rendering when an error occurs:
+
+``` vue
+<!-- App.vue -->
+<script setup>
+import { watchEffect, computed } from 'vue';
+
+// This will prevent rendering
+watchEffect(() => {
+  throw 'New error in effect';
+});
+
+// This will also prevent rendering
+const result = computed(() => {
+  throw 'New error in computed';
+});
+
+// "computed" is lazy, meaning that it will not throw the error
+//     (or compute a result) unless the value is used, like so:
+console.log(result.value);
+</script>
+
+<template>
+  <p>Hello, world!</p>
+</template>
+```
+
+Other APIs, like the `onMounted` lifecycle method, will not prevent rendering when an error is thrown inside of it:
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  // Will not prevent `Hello, world!` from showing
+  throw 'New error';
+});
+</script>
+
+<template>
+  <p>Hello, world!</p>
+</template>
+```
+
+While this might seem confusing at first, it makes sense when you consider _when_ `onMounted` runs when compared with `computed`, for example.
+
+See, while `computed` runs during the setup of the component, `onMounted` executes _after_ the component has been rendered. Because of this, Vue is able to recover from errors thrown during `onMounted` and afterwards, but not during those thrown in a render function.
+
+<!-- tabs:end -->
+
+
 
 # Logging Errors
 
@@ -221,165 +539,6 @@ const App = () => {
 ```
 
 Now, while our screen will still be white when the error is thrown, it will hit our `componentDidCatch` handler as we would expect.
-
-### Error boundary limitations
-
-It's worth mentioning that React's `componentDidCatch` class method will only execute when there's an error during [the render step](/posts/ffg-fundamentals-side-effects). This means that the following will throw an error caught by `componentDidCatch`:
-
-```jsx
-const ErrorThrowingComponent = () => {
-    // This WILL be caught by `componentDidCatch`
-    throw new Error("Error");
-}
-```
-
-Meanwhile, the following error-laden event handler will not:
-
-```jsx
-const EventErrorThrowingComponent = () => {
-    const onClick = () => {
-        // This will NOT be caught by `componentDidCatch`
-        throw new Error("Error");
-    }
-    
-    return <button onClick={onClick}>Click me</button>
-}
-```
-
-This behavior may seem strange until you consider how JavaScript's `throw` clause works. When a JavaScript function throws an error, it also acts as an early return of sorts.
-
-```javascript
-function getRandomNumber() {
-    throw new Error("There was an error");
-    // Anything below the "throw" clause will not run
-    console.log("Generating a random number");
-    // This means that values returned after a thrown error are not utilized
-    return Math.floor(Math.random() * 10);
-}
-
-try {
-    const val = getRandomNumber();
-    // This will never execute because the `throw` bypasses it
-    console.log("I got the random number of:", val);
-} catch (e) {
-    // This will always run instead
-    console.log("There was an error:", e);
-}
-```
-
-Moreover, these errors exceed past [their scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope), meaning that they will bubble up [the execution stack](https://www.freecodecamp.org/news/execution-context-how-javascript-works-behind-the-scenes/).
-
-> What does that mean in English?
-
-In practical terms, this means that a thrown error will exceed the bounds of the function you called it in, and make its way further  up the list of functions you called to get to the thrown error.
-
-```javascript
-function getBaseNumber() {
-    // Error occurs here, throws it upwards
-	throw new Error("There was an error");
-	return 10;
-}
-
-function getRandomNumber() {
-    // Error occurs here, throws it upwards
-    return Math.floor(Math.random() * getBaseNumber());
-}
-
-function getRandomTodoItem() {
-    const items = [
-        "Go to the gym",
-        "Play video games",
-        "Work on book",
-        "Program"
-    ]
-
-    // Error occurs here, throws it upwards
-    const randNum = getRandomNumber();
-
-    return items[randNum % items.length];
-}
-
-function getDaySchedule() {
-    let schedule = [];
-    for (let i = 0; i<3; i++) {
-		schedule.push(
-            // First execution will throw this error upwards
-            getRandomTodoItem();
-        )
-    }
-}
-
-function main() {
-    try {
-    	getDaySchedule();
-    } catch (e) {
-        // Only now will the error be stopped
-        console.log("An error occured:", e);
-    }
-}
-```
-
-![TODO: Write alt](./error_bubbling.png)
-
-
-
-Because of these two properties of errors, React is unable to "recover" (continue rendering after an error has occurred) from an error thrown during a render cycle. Because of this inability to "recover", they had to build in a first-class solution to render errors in React to act as a `try/catch` block.
-
-------
-
-Conversely, due to the nature of event handlers, React doesn't _need_ to handle errors that occur during event handlers. Assume we have the following code in an HTML file:
-
-```html
-<!-- index.html -->
-<button id="btn">Click me</button>
-
-<script>
-   const el = document.getElementById("btn");
-   el.addEventListener('click', () => {
-       throw new Error("There was an error")
-   })
-</script>
-```
-
-When you click on the `<button>` here, it will throw an error but this error will not escape out of the event listener's scope. This means that the following will not work:
-
-```javascript
-try {
-    const el = document.getElementById("btn");
-    el.addEventListener('click', () => {
-       throw new Error("There was an error")
-    })
-} catch (e) {
-    // This will not ever run with this code
-    alert("There was an error in the event listener");
-}
-```
-
-So to catch an error in an event handler, React would have to add [a window `'errror'` listener](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event), like so:
-
-```javascript
-const el = document.getElementById("btn");
-el.addEventListener('click', () => {
-   throw new Error("There was an error")
-})
-
-window.addEventListener("error", (e) => {
-	alert("There was an error in the event listener")
-});
-```
-
-But let's think about what adding this `window` listener would mean:
-
-- More complex code in the React library
-  - Harder to maintain
-  - Larger bundle size
-- When the user clicks on a faulty button, the whole component crashes rather than a single aspect of it failing
-
-This doesn't seem worth the tradeoffs when we're able to add our own `try/catch` handlers inside of event handlers.
-
-After all, a partially broken application is better than a fully broken one!
-
-
 
 ## Angular
 
