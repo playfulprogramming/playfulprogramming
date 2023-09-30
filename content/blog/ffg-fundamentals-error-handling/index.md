@@ -123,16 +123,40 @@ As shown before, when an error is thrown during a component's [render step](/pos
 const ErrorThrowingComponent = () => {
     // This WILL be caught by `componentDidCatch`
     throw new Error("Error");
+    
+    return <p>Hello, world!</p>
 }
 ```
 
 ## Angular
 
-// TODO
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+    <p>Hello, world!</p>
+  `,
+})
+export class AppComponent {
+  constructor() {
+    throw new Error('Error');
+  }
+}
+```
 
 ## Vue
 
-// TODO
+```vue
+<!-- App.vue -->
+<script setup>
+throw new Error('Error');
+</script>
+
+<template>
+  <p>Hello, world!</p>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -155,11 +179,35 @@ const EventErrorThrowingComponent = () => {
 
 ## Angular
 
-// TODO: ...
+```typescript
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+    <button (click)="onClick()">Click me</button>
+  `,
+})
+export class AppComponent {
+  onClick() {
+    throw new Error('Error');
+  }
+}
+```
 
 ## Vue
 
-// TODO: ...
+```vue
+<!-- App.vue -->
+<script setup>
+const onClick = () => {
+  throw new Error('Error');
+};
+</script>
+
+<template>
+  <button @click="onClick()">Click me</button>
+</template>
+```
 
 <!-- tabs:end -->
 
@@ -310,22 +358,22 @@ While some other frameworks catch errors inside of async APIs (like React's `use
 const App = () => {
   // This will prevent rendering
   const val = useState(() => {
-    throw 'Error in state initialization function';
+    throw new Error('Error in state initialization function');
   });
 
   // This will also prevent rendering
   const val = useMemo(() => {
-    throw 'Error in memo';
+    throw new Error('Error in memo');
   });
   
   // Will this prevent rendering? You bet!
   useEffect(() => {
-    throw 'Error in useEffect';
+    throw new Error('Error in useEffect');
   });
     
   // Oh, and this will too.
   useLayoutEffect(() => {
-    throw 'Error in useEffect';
+    throw new Error('Error in useEffect');
   });
     
   return <p>Hello, world!</p>;
@@ -347,7 +395,7 @@ Despite errors thrown in a component's constructor preventing rendering:
 export class AppComponent {
   // This will prevent rendering
   constructor() {
-    throw 'Error in constructor';
+    throw new Error('Error in constructor');
   }
 }
 ```
@@ -365,7 +413,7 @@ Errors thrown in any of Angular's other lifecycle methods will not prevent a com
 export class AppComponent implements OnInit {
   // Will not prevent `Hello, world!` from showing
   ngOnInit() {
-	throw 'Error in constructor';
+	throw new Error('Error in constructor');
   }
 }
 ```
@@ -381,12 +429,12 @@ import { watchEffect, computed } from 'vue';
 
 // This will prevent rendering
 watchEffect(() => {
-  throw 'New error in effect';
+  throw new Error('New error in effect');
 });
 
 // This will also prevent rendering
 const result = computed(() => {
-  throw 'New error in computed';
+  throw new Error('New error in computed');
 });
 
 // "computed" is lazy, meaning that it will not throw the error
@@ -408,7 +456,7 @@ import { onMounted } from 'vue';
 
 onMounted(() => {
   // Will not prevent `Hello, world!` from showing
-  throw 'New error';
+  throw new Error('New error');
 });
 </script>
 
@@ -1233,13 +1281,9 @@ import ErrorCatcher from './ErrorCatcher.vue';
 
 <!-- tabs:end -->
 
-
-
-
-
 ## Showing a Nicer Error Message
 
-// TODO: Write
+Now that we have a method of showing the error to the user when it occurs, let's make sure that we can report the bug back to the development team. We'll do this by displaying all the information a user would need to report a bug, alongside an auto-filled `mailto:` link so that emailing the developer is a single-button press away. 
 
 <!-- tabs:start -->
 
