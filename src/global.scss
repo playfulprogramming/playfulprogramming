@@ -17,7 +17,7 @@
 @import "./styles/utilities";
 
 :root {
-	scrollbar-color: var(--focus-outline_primary) var(--background_primary);
+	scrollbar-color: var(--focus-outline_primary) transparent;
 	transition: scrollbar-color $animStyle $animSpeed;
 
 	box-sizing: border-box;
@@ -53,7 +53,7 @@ h6 {
 }
 
 *::-webkit-scrollbar-track {
-	background: var(--background_primary);
+	background-color: transparent;
 	border-radius: 10px;
 }
 
