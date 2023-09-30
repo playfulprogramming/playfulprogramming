@@ -365,6 +365,8 @@ function RainbowExclamationMark() {
 ```typescript
 @Component({
   selector: 'toggle-button-list',
+  standalone: true,
+  imports: [ToggleButtonComponent, RainbowExclamationMarkComponent],
   template: `
     <toggle-button>Hello <span *ngFor="let friend of friends">{{friend}} </span>!</toggle-button>
     <toggle-button>Hello other friends<rainbow-exclamation-mark/></toggle-button>

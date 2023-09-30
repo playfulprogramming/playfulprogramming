@@ -516,6 +516,8 @@ This means that, as a result, we can also call the `sayHi` method:
 ```typescript
 @Component({
 	selector: "parent-comp",
+    standalone: true,
+    imports: [ChildComponent],
 	template: `<child-comp #childVar></child-comp>`
 })
 class ParentComponent implements AfterViewInit {

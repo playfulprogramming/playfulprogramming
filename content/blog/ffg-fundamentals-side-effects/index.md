@@ -1255,6 +1255,7 @@ import {Component, EventEmitter, OnInit, Output, OnDestroy} from "@angular/core"
 
 @Component({
   selector: 'alarm-screen',
+  standalone: true,
   // ...
 })
 export class AlarmScreenComponent implements OnInit, OnDestroy {
@@ -1278,6 +1279,7 @@ export class AlarmScreenComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   // ...
 })
 export class AppComponent implements OnInit, OnDestroy {

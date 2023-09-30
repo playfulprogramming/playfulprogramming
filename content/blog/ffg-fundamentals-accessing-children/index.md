@@ -209,6 +209,7 @@ import {
 
 @Component({
   selector: 'parent-list',
+  standalone: true,
   template: `
     <p>There are {{children.length}} number of items in this array</p>
     <ul>
@@ -226,6 +227,8 @@ class ParentListComponent implements AfterContentInit {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ParentListComponent],
   template: `
   <parent-list>
     <li #listItem>Item 1</li>
@@ -617,6 +620,7 @@ export const App = () => {
 ```typescript
 @Component({
   selector: 'parent-list',
+  standalone: true,
   template: `
     <p>There are {{children.length}} number of items in this array</p>
     <ul>
@@ -632,6 +636,8 @@ class ParentListComponent {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ParentListComponent],
   template: `
   <parent-list>
     <ng-template #listItem *ngFor="let item of list; let i = index" let-backgroundColor="backgroundColor">

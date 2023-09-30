@@ -1731,6 +1731,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'generic-list',
+  standalone: true,
   // ...
 })
 export class GenericListComponent implements OnInit {
@@ -2032,21 +2033,23 @@ export class FileComponent {
 
 @Component({
   selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent],
   template: `
     <ul>
-      <li><file
+      <li><file-item
         (selected)="onSelected(0)"
         [isSelected]="selectedIndex === 0"
         fileName="File one" 
         href="/file/file_one"
       /></li>
-      <li><file
+      <li><file-item
         (selected)="onSelected(1)"
         [isSelected]="selectedIndex === 1"
         fileName="File two" 
         href="/file/file_two"
       /></li>
-      <li><file
+      <li><file-item
         (selected)="onSelected(2)"
         [isSelected]="selectedIndex === 2"
         fileName="File three" 

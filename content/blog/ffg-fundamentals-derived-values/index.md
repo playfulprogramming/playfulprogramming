@@ -202,6 +202,7 @@ import { Component, OnChanges, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: "file-date",
+  standalone: true,
   template: `<span [attr.aria-label]="labelText">{{ dateStr }}</span>`,
 })
 export class FileDateComponent implements OnChanges {
@@ -345,7 +346,7 @@ You may then use these pipes in your components directly inside of the template.
 ```typescript
 @Component({
   selector: 'file-date',
-  standlone: true,
+  standalone: true,
   imports: [FormatReadableDatePipe, FormatDatePipe],
   template: `<span [attr.aria-label]="inputDate | formatReadableDate">{{ inputDate | formatDate }}</span>`,
 })

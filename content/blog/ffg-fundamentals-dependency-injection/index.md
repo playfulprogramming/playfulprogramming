@@ -883,6 +883,8 @@ class InjectedValue {
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [ChildComponent],
   providers: [InjectedValue],
   template: `<child-comp/>`,
 })
@@ -891,6 +893,7 @@ class ParentComponent {
 
 @Component({
   selector: 'child-comp',
+  standalone: true,
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
@@ -903,6 +906,8 @@ However, if we remove the `providers` from `ParentComponent`, in order to test o
 ```typescript
 @Component({
   selector: "app-root",
+  standalone: true,
+  imports: [ChildComponent],
   template: `<child-comp/>`
 })
 class ParentComponent {
@@ -928,6 +933,8 @@ class InjectedValue {
 
 @Component({
   selector: "app-root",
+  standalone: true,
+  imports: [ChildComponent],
   template: `<child-comp/>`
 })
 class ParentComponent {
@@ -935,6 +942,8 @@ class ParentComponent {
 
 @Component({
   selector: "child-comp",
+  standalone: true,
+  imports: [NgIf],
   template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
 })
 class ChildComponent implements OnInit {

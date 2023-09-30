@@ -555,6 +555,7 @@ import {
 
 @Component({
     selector: 'paragraph-tag',
+    standalone: true,
     template: `
 		<button #btn>Add one</button>
     	<p>Count is {{count}}</p>
