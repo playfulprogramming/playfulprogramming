@@ -1415,7 +1415,7 @@ class GrandChildComponent {}
 class ChildComponent {}
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
   imports: [ChildComponent],
@@ -1569,7 +1569,7 @@ class AgeValue {
 class GreatGrandChildComponent {
   // Despite the `AgeValue` being closer, this is 
   // specifically looking for the `NameValue` and will 
-  // go further up in the tree to find that data from `my-app`
+  // go further up in the tree to find that data from `app-root`
   nameValue = inject(NameValue);
 }
 
@@ -1591,7 +1591,7 @@ class GrandChildComponent {}
 class ChildComponent {}
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
   imports: [ChildComponent],
@@ -1988,7 +1988,7 @@ export const FileList = () => {
 ```typescript
 // app.component.ts
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [LayoutComponent, SidebarComponent, FileListComponent],
   template: `

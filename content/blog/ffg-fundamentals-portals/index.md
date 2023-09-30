@@ -289,7 +289,7 @@ export const FolderIcon = () => {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [HeaderComponent, BodyComponent, FooterComponent],
   template: `
@@ -808,7 +808,7 @@ From here, we can import components and utilities directly from the CDK.
 import { PortalModule, DomPortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PortalModule],
   template: `
@@ -866,7 +866,7 @@ As such, we may want to use an `ng-template`, which does not render to the DOM i
 import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PortalModule],
   template: `
@@ -1022,7 +1022,7 @@ class ModalComponent implements OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PortalModule, ModalComponent, NgIf],
   template: `
@@ -1199,7 +1199,7 @@ class ModalComponent implements OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [ModalComponent],
   template: `

@@ -140,7 +140,7 @@ class ParentListComponent implements AfterContentInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [ParentListComponent],
   template: `
@@ -225,7 +225,7 @@ class ParentListComponent implements AfterContentInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   template: `
   <parent-list>
     <li #listItem>Item 1</li>
@@ -337,7 +337,7 @@ class ParentListComponent {
 @Component({
   standalone: true,
   imports: [ParentListComponent],
-  selector: 'my-app',
+  selector: 'app-root',
   template: `
   <parent-list>
     <ng-template #listItem>
@@ -435,7 +435,7 @@ class ParentListComponent {
 @Component({
   standalone: true,
   imports: [ParentListComponent, NgFor],
-  selector: 'my-app',
+  selector: 'app-root',
   template: `
   <parent-list>
     <ng-template *ngFor="let item of list; let i = index" #listItem>
@@ -631,7 +631,7 @@ class ParentListComponent {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   template: `
   <parent-list>
     <ng-template #listItem *ngFor="let item of list; let i = index" let-backgroundColor="backgroundColor">
@@ -841,7 +841,7 @@ export class TableComponent {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [TableComponent],
   template: `

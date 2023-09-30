@@ -563,7 +563,7 @@ export class DropdownComponent {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [DropdownComponent],
   template: `

@@ -49,7 +49,7 @@ export const App = () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgFor],
   template: `
@@ -132,7 +132,7 @@ const ErrorThrowingComponent = () => {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <p>Hello, world!</p>
@@ -181,7 +181,7 @@ const EventErrorThrowingComponent = () => {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <button (click)="onClick()">Click me</button>
@@ -386,7 +386,7 @@ Despite errors thrown in a component's constructor preventing rendering:
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <p>Hello, world!</p>
@@ -404,7 +404,7 @@ Errors thrown in any of Angular's other lifecycle methods will not prevent a com
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
   <p>Hello, world!</p>
@@ -629,7 +629,7 @@ class ChildComponent implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [ChildComponent],
   template: `
@@ -804,7 +804,7 @@ class MyErrorHandler implements ErrorHandler {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ChildComponent],
   template: `
@@ -914,7 +914,7 @@ class MyErrorHandler implements ErrorHandler {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ChildComponent],
   template: `
@@ -1226,7 +1226,7 @@ class ErrorCatcher {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   // ...
   template: `

@@ -147,7 +147,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ContextMenuComponent],
   template: `
@@ -808,7 +808,7 @@ class ContextMenuComponent implements AfterViewInit, OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ContextMenuComponent],
   template: `

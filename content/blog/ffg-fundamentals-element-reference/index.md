@@ -94,7 +94,7 @@ export default function App() {
  * Read on to learn how to add these
  */
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -683,7 +683,7 @@ Using `ViewChildren`, we can access [template reference variables](https://crutc
 
 ````typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgFor],
   template: `
@@ -899,7 +899,7 @@ Additionally, we'll use `ViewChild` to track the `contextMenu` element and `.foc
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1130,7 +1130,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1268,7 +1268,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1445,7 +1445,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1707,7 +1707,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1993,7 +1993,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf],
   template: `

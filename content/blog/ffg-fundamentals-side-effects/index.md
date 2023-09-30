@@ -874,7 +874,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ClockComponent],
   template: `
@@ -1033,7 +1033,7 @@ export class AlarmScreenComponent implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, AlarmScreenComponent],
   template: `
@@ -1277,7 +1277,7 @@ export class AlarmScreenComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   // ...
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -1797,7 +1797,7 @@ const App = () => {
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
   <button (click)="title = 'Movies'">Movies</button>
@@ -2096,7 +2096,7 @@ Instead, we'll have to use a `setTitle` function that calls the variable mutatio
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
   <button (click)="setTitles('Movies')">Movies</button>
@@ -2671,7 +2671,7 @@ class DarkModeToggleComponent {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [DarkModeToggleComponent],
   // This allows our CSS to be global, rather than limited to the component
@@ -3060,7 +3060,7 @@ class DarkModeToggleComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [DarkModeToggleComponent],
   // This allows our CSS to be global

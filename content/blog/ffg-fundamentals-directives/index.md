@@ -73,7 +73,7 @@ class LogElementDirective {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [LogElementDirective],
   template: `
@@ -193,7 +193,7 @@ class StyleBackgroundDirective {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [StyleBackgroundDirective],
   template: `
@@ -287,7 +287,7 @@ class StyleBackgroundDirective implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [StyleBackgroundDirective],
   template: `
@@ -373,7 +373,7 @@ class StyleBackgroundDirective implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [StyleBackgroundDirective],
   template: `
@@ -485,7 +485,7 @@ class StyleBackgroundDirective implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
 
   standalone: true,
   imports: [StyleBackgroundDirective],
@@ -580,7 +580,7 @@ class StyleBackgroundDirective implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [StyleBackgroundDirective],
   template: `
@@ -753,7 +753,7 @@ However, because `ng-template` doesn't render anything on its own, we'll need to
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgTemplateOutlet],
   template: `
@@ -805,7 +805,7 @@ To solve this, we can pass a "default" key called `$implicit` and bind it like s
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgTemplateOutlet],
   template: `
@@ -835,7 +835,7 @@ class TemplateDirective {
   }
 }
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [TemplateDirective],
   template: `
@@ -866,7 +866,7 @@ class TemplateDirective implements OnInit {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [TemplateDirective],
   template: `
@@ -902,7 +902,7 @@ class ItemDirective {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [ItemDirective],
   template: `
@@ -1015,7 +1015,7 @@ This means that this code:
 class ListComp {}
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [ListComp],
   template: `
@@ -1059,7 +1059,7 @@ class PassBackgroundDirective {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PassBackgroundDirective],
   template: `
@@ -1099,7 +1099,7 @@ class PassBackgroundDirective {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PassBackgroundDirective],
   template: `
@@ -1143,7 +1143,7 @@ Knowing this, we can take our previous code and convert it to a structural direc
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [PassBackgroundDirective],
   template: `
@@ -1190,7 +1190,7 @@ class FeatureFlagDirective implements OnChanges {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [FeatureFlagDirective],
   template: `

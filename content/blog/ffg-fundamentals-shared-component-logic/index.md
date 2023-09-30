@@ -155,7 +155,7 @@ class WindowSize {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
@@ -296,7 +296,7 @@ class WindowSize implements OnDestroy {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <p>The window is {{windowSize.height}}px high and {{windowSize.width}}px wide</p>
@@ -485,7 +485,7 @@ This allows us to have a `isMobile` field that we can access from our `AppCompon
 
 ```typescript
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   template: `
     <p>Is mobile? {{isMobile.isMobile}}</p>
@@ -770,7 +770,7 @@ class BoundsContext {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   standalone: true,
   imports: [NgIf, ContextMenuComponent],
   template: `
