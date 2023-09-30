@@ -186,7 +186,7 @@ We'll then use this token to create a `provider` that we pass to a component's `
   selector: 'app-root',
   standalone: true,
   imports: [ChildComponent],
-  template: `<child/>`,
+  template: `<child-comp/>`,
   providers: [
     {provide: WELCOME_MESSAGE_TOKEN, useValue: 'Hello, world!' },
   ]
@@ -203,7 +203,7 @@ Finally, we use an `inject` function in our component class to tell Angular "We 
 import { inject } from '@angular/core';
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `<p>{{welcomeMsg}}</p>`
 })
@@ -232,7 +232,7 @@ Vue's dependency injection API only has two parts to it:
 ```vue
 <!-- Parent.vue -->
 <template>
-  <child />
+  <Child />
 </template>
 
 <script setup>
@@ -300,7 +300,7 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{nessage: string}>({message: 'I
   selector: 'app-root',
   standalone: true,
   imports: [ChildComponent],
-  template: `<child/>`,
+  template: `<child-comp/>`,
   providers: [
     { provide: WELCOME_MESSAGE_TOKEN, useValue: { message: 'Hello, world!' } },
   ],
@@ -308,7 +308,7 @@ const WELCOME_MESSAGE_TOKEN = new InjectionToken<{nessage: string}>({message: 'I
 export class AppComponent {}
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `<p>{{welcomeMsg.message}}</p>`,
 })
@@ -343,7 +343,7 @@ Here, we're telling Angular to treat our `InjectedValue` class as a `InjectionTo
   standalone: true,
   imports: [ChildComponent],
   providers: [InjectedValue],
-  template: `<child/>`
+  template: `<child-comp/>`
 })
 class ParentComponent {
 }
@@ -353,7 +353,7 @@ Now that our `InjectedValue` is a known type, we can remove our explicit type de
 
 ```typescript
 @Component({
-  selector: "child",
+  selector: "child-comp",
   standalone: true,
   template: `<div>{{injectedValue.message}}</div>`
 })
@@ -375,7 +375,7 @@ Just like React, Vue's simple dependency injection API means that we only need t
 ```vue
 <!-- Parent.vue -->
 <template>
-  <child />
+  <Child />
 </template>
 
 <script setup>
@@ -453,7 +453,7 @@ class InjectedValue {
   imports: [ChildComponent],
   providers: [InjectedValue],
   template: `
-    <child/>
+    <child-comp/>
     <button (click)="updateMessage()">Update the message</button>
   `,
 })
@@ -467,7 +467,7 @@ class ParentComponent {
 }
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `<p>{{injectedValue.message}}</p>`,
 })
@@ -483,7 +483,7 @@ Vue's minimal API surface allows us to compose `ref` and `provide` usage in orde
 ```vue
 <!-- Parent.vue -->
 <template>
-  <child />
+  <Child />
   <button @click="updateMessage()">Update the message</button>
 </template>
 
@@ -765,12 +765,12 @@ class InjectedValue {
   standalone: true,
   imports: [ChildComponent],
   providers: [InjectedValue],
-  template: `<child/>`,
+  template: `<child-comp/>`,
 })
 class ParentComponent {}
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `
   <div>{{injectedValue.message}}</div>
@@ -795,7 +795,7 @@ In our previous example, we used `provide` to inject a `ref` into the child comp
 ```vue
 <!-- Parent.vue -->
 <template>
-  <child />
+  <Child />
 </template>
 
 <script setup>
@@ -884,13 +884,13 @@ class InjectedValue {
 @Component({
   selector: 'app-root',
   providers: [InjectedValue],
-  template: `<child></child>`,
+  template: `<child-comp/>`,
 })
 class ParentComponent {
 }
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   template: `<p>{{injectedValue.message}}</p>`,
 })
 class ChildComponent {
@@ -903,7 +903,7 @@ However, if we remove the `providers` from `ParentComponent`, in order to test o
 ```typescript
 @Component({
   selector: "app-root",
-  template: `<child></child>`
+  template: `<child-comp/>`
 })
 class ParentComponent {
 }
@@ -928,13 +928,13 @@ class InjectedValue {
 
 @Component({
   selector: "app-root",
-  template: `<child></child>`
+  template: `<child-comp/>`
 })
 class ParentComponent {
 }
 
 @Component({
-  selector: "child",
+  selector: "child-comp",
   template: `<div *ngIf="injectedValue">{{injectedValue.message}}</div>`
 })
 class ChildComponent implements OnInit {
@@ -956,7 +956,7 @@ Much like React's dependency injection system, when using Vue's `inject` without
 ``` vue
 <!-- Parent.vue -->
 <template>
-  <child />
+  <Child />
 </template>
 
 <script setup>
@@ -1035,13 +1035,13 @@ class InjectedValue {
   imports: [ChildComponent],
   providers: [InjectedValue],
   template: `
-    <child></child>
+    <child-comp/>
   `,
 })
 class ParentComponent {}
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `<p>{{injectedValue.message}}</p>`,
 })
@@ -1223,7 +1223,7 @@ class InjectedValue {
 }
 
 @Component({
-  selector: "child",
+  selector: "child-comp",
   standalone: true,
   template: `<div></div>`
 })
@@ -1241,7 +1241,7 @@ class ChildComponent implements OnInit {
   selector: "app-root",
   standalone: true,
   imports: [ChildComponent],
-  template: `<child/>`
+  template: `<child-comp/>`
 })
 class ParentComponent {
 }
@@ -1256,7 +1256,7 @@ Providing a value at your application's root in Vue is similar to providing a va
 ```vue
 <!-- App.vue -->
 <template>
-  <child />
+  <Child />
 </template>
 
 <script setup>
@@ -1407,7 +1407,7 @@ class GreatGrandChildComponent {
 class GrandChildComponent {}
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   imports: [GrandChildComponent],
   template: `<grand-child/>`,
@@ -1419,7 +1419,7 @@ class ChildComponent {}
   standalone: true,
   providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
   imports: [ChildComponent],
-  template: `<child/>`,
+  template: `<child-comp/>`,
 })
 class AppComponent {}
 ```
@@ -1583,7 +1583,7 @@ class GreatGrandChildComponent {
 class GrandChildComponent {}
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   imports: [GrandChildComponent],
   template: `<grand-child/>`,
@@ -1595,7 +1595,7 @@ class ChildComponent {}
   standalone: true,
   providers: [{ provide: NameValue, useValue: { name: 'Corbin' } }],
   imports: [ChildComponent],
-  template: `<child/>`,
+  template: `<child-comp/>`,
 })
 class AppComponent {}
 ```
@@ -1992,10 +1992,10 @@ export const FileList = () => {
   standalone: true,
   imports: [LayoutComponent, SidebarComponent, FileListComponent],
   template: `
-    <layout>
-      <sidebar sidebar/>
+    <app-layout>
+      <app-sidebar sidebar/>
       <file-list/>
-    </layout>
+    </app-layout>
   `,
 })
 export class AppComponent {}
@@ -2004,7 +2004,7 @@ export class AppComponent {}
 ```typescript
 // layout.component.ts
 @Component({
-  selector: 'layout',
+  selector: 'app-layout',
   standalone: true,
   template: `
     <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
@@ -2044,7 +2044,7 @@ export class FileListComponent {}
 ```typescript
 // sidebar.component.ts
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   template: `
       <div style="padding: 1rem">
@@ -2537,10 +2537,10 @@ import {FileListComponent} from "./file-list.component";
   standalone: true,
   imports: [LayoutComponent, SidebarComponent, FileListComponent],
   template: `
-    <layout>
-      <sidebar sidebar/>
+    <app-layout>
+      <app-sidebar sidebar/>
       <file-list/>
-    </layout>
+    </app-layout>
   `
 })
 export class AppComponent {
@@ -2552,7 +2552,7 @@ export class AppComponent {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'layout',
+  selector: 'app-layout',
   standalone: true,
   template: `
     <div style="display: flex; flex-wrap: nowrap; min-height: 100vh ">
@@ -2594,7 +2594,7 @@ function injectAndAssignActions(actions: any[]) {
 }
 
 @Component({
-    selector: 'sidebar',
+    selector: 'app-sidebar',
     standalone: true,
     imports: [NgFor, FileComponent],
     providers: [{
@@ -2603,7 +2603,7 @@ function injectAndAssignActions(actions: any[]) {
     template: `
         <div style="padding: 1rem">
             <h1 style="font-size: 1.25rem">Directories</h1>
-            <file *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id"/>
+            <file-item *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id"/>
         </div>
     `
 })
@@ -2675,7 +2675,7 @@ function injectAndAssignActions(actions: any[]) {
     template: `
         <div style="padding: 1rem">
             <h1>Files</h1>
-            <file *ngFor="let file of files" [name]="file.name" [id]="file.id"/>
+            <file-item *ngFor="let file of files" [name]="file.name" [id]="file.id"/>
         </div>
     `
 })
@@ -2747,7 +2747,7 @@ import {LayoutComponent} from "./layout.component";
 import {ContextMenuComponent} from "./context-menu.component";
 
 @Component({
-    selector: 'file',
+    selector: 'file-item',
     standalone: true,
     imports: [ContextMenuComponent],
     template: `

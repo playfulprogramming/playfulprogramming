@@ -67,7 +67,7 @@ const FileList = () => {
 
 ```typescript
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [FileDateComponent],
   template: `

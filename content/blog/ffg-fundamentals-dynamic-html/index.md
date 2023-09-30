@@ -41,7 +41,7 @@ const File = ({ href, fileName, isSelected, onSelected }) => {
 
 ```typescript
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -274,7 +274,7 @@ const File = ({ href, fileName, isSelected, onSelected, isFolder }) => {
 
 ```typescript {13}
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1616,7 +1616,7 @@ export class ExpandableDropdownComponent {
 }
 
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent],
   template: `
@@ -1780,7 +1780,7 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent, NgFor],
   template: `
@@ -1907,7 +1907,7 @@ function objFromCategories(categories) {
 
 ```typescript
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent, NgFor],
   template: `

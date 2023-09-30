@@ -474,7 +474,7 @@ Just as we can use `ViewChild` to access an underlying DOM node, we can do the s
 ```typescript
 // TODO: Check this code
 @Component({
-	selector: "child",
+	selector: "child-comp",
     standalone: true,
 	template: `<div></div>`
 })
@@ -486,9 +486,9 @@ class ChildComponent {
 }
 
 @Component({
-	selector: "parent",
+	selector: "parent-comp",
     standalone: true,
-    template: `<child #childVar></child>`
+    template: `<child-comp #childVar></child-comp>`
 })
 class ParentComponent implements AfterViewInit {
   @ViewChild("childVar") childComp: ChildComponent;
@@ -515,8 +515,8 @@ This means that, as a result, we can also call the `sayHi` method:
 
 ```typescript
 @Component({
-	selector: "parent",
-	template: `<child #childVar></child>`
+	selector: "parent-comp",
+	template: `<child-comp #childVar></child-comp>`
 })
 class ParentComponent implements AfterViewInit {
   @ViewChild("childVar") childComp: ChildComponent;
@@ -554,7 +554,7 @@ const Child = {
 }
 
 const Parent = {
-	template: `<child ref="childComp"></child>`,
+	template: `<child-comp ref="childComp"></child-comp>`,
 	mounted() {
 		console.log(this.$refs.childComp);
 	},
@@ -1022,7 +1022,7 @@ export const App = () => {
 
 ```typescript
 @Component({
-    selector: 'layout',
+    selector: 'app-layout',
     standalone: true,
     template: `
         <div style="display: flex; flex-wrap: nowrap; min-height: 100vh">
@@ -1049,10 +1049,10 @@ export class LayoutComponent {
     standalone: true,
     imports: [LayoutComponent],
     template: `
-        <layout [sidebarWidth]="150">
+        <app-layout [sidebarWidth]="150">
             <p sidebar>Sidebar</p>
             <p style="padding: 1rem">Hi there!</p>
-        </layout>   
+        </app-layout>   
     `
 })
 export class AppComponent {
@@ -1176,7 +1176,7 @@ export const App = () => {
 
 ```typescript
 @Component({
-    selector: "sidebar",
+    selector: "app-sidebar",
     standalone: true,
     imports: [NgIf],
     template: `
@@ -1214,12 +1214,12 @@ export class SidebarComponent {
     standalone: true,
     imports: [LayoutComponent, SidebarComponent],
     template: `
-        <layout [sidebarWidth]="width">
-            <sidebar sidebar
+        <app-layout [sidebarWidth]="width">
+            <app-sidebar sidebar
                      (toggle)="onToggle($event)"
             />
             <p style="padding: 1rem">Hi there!</p>
-        </layout>
+        </app-layout>
     `
 })
 export class AppComponent {
@@ -1434,7 +1434,7 @@ export const App = () => {
 
 ```typescript
 @Component({
-  selector: "sidebar",
+  selector: "app-sidebar",
   standalone: true,
   imports: [NgIf],
   template: `
@@ -1480,14 +1480,14 @@ export class SidebarComponent {
   standalone: true,
   imports: [LayoutComponent, SidebarComponent],
   template: `
-      <layout [sidebarWidth]="width">
-          <sidebar
+      <app-layout [sidebarWidth]="width">
+          <app-sidebar
                   #sidebar
                   sidebar
                   (toggle)="onToggle($event)"
           />
           <p style="padding: 1rem">Hi there!</p>
-      </layout>
+      </app-layout>
   `
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -401,7 +401,7 @@ Using `ViewChild`, we can access an [HTMLElement](https://developer.mozilla.org/
 
 ```typescript
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   template: `<p #pTag>Hello, world!</p>`,
 })
@@ -420,7 +420,7 @@ Now that we have access to the underlying `<p>` element, let's print it out insi
 
 ```typescript
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   template: `<p #pTag>Hello, world!</p>`,
 })
@@ -440,7 +440,7 @@ Well, let's think about the following example:
 
 ```typescript
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -472,7 +472,7 @@ To tell Angular that there is no dynamic HTML and it should immediately query fo
 
 ```typescript
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -493,7 +493,7 @@ However, keep in mind that if you _do_ later add any dynamic HTML that our eleme
 
 ```typescript
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   imports: [NgIf],
   template: ` 
@@ -523,7 +523,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'paragraph',
+  selector: 'paragraph-tag',
   standalone: true,
   imports: [NgIf],
   template: `
@@ -554,7 +554,7 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'paragraph',
+    selector: 'paragraph-tag',
     template: `
 		<button #btn>Add one</button>
     	<p>Count is {{count}}</p>

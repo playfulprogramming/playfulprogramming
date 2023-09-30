@@ -156,7 +156,7 @@ React.createElement("div", null, aTag);
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "file",
+  selector: "file-item",
   standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
@@ -174,6 +174,8 @@ This decorator has a few properties passed to it. Going from the bottom-up:
 3. `selector`: The name of the component which can be referenced inside of the `template` of another component
 
 > It's important to note that decorators (anything starting with `@`) are not supported in JavaScript itself. Instead, Angular uses [TypeScript](https://unicorn-utterances.com/posts/introduction-to-typescript/) to add types and other features to the language. From there, TypeScript compiles down to JavaScript.
+
+> You may have noticed that this component is called `file-item` rather than `file`. Unlike the other frameworks in this book, Angular requires you to have a dash (`-`) in your selector name in order to avoid confusion with native HTML tags.
 
 ## Vue
 
@@ -241,7 +243,7 @@ Similarly, all apps built with React, Angular, and Vue start with an `index.html
   <body>
     <!-- This should match the `selector` of the -->
     <!-- component you want here -->
-    <file></file>
+    <file-item></file-item>
   </body>
 </html>
 ```
@@ -287,7 +289,7 @@ import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
@@ -357,7 +359,7 @@ const FileList = () => {
 
 ```typescript {9-17}
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   template: `
     <div><a href="/file/file_one">File one<span>12/03/21</span></a></div>
@@ -370,7 +372,7 @@ export class FileComponent {}
   standalone: true,
   imports: [FileComponent],
   template: `
-    <ul><li><file/></li></ul>
+    <ul><li><file-item/></li></ul>
   `,
 })
 export class FileListComponent {}
@@ -452,9 +454,9 @@ const FileList = () => {
   imports: [FileComponent],
   template: `
     <ul>
-      <li><file/></li>
-      <li><file/></li>
-      <li><file/></li>
+      <li><file-item/></li>
+      <li><file-item/></li>
+      <li><file-item/></li>
     </ul>
   `,
 })
@@ -533,7 +535,7 @@ const FileList = () => {
 export class FileDateComponent {}
 
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -550,9 +552,9 @@ export class FileComponent {}
   imports: [FileComponent],
   template: `
     <ul>
-      <li><file/></li>
-      <li><file/></li>
-      <li><file/></li>
+      <li><file-item/></li>
+      <li><file-item/></li>
+      <li><file-item/></li>
     </ul>
   `,
 })
@@ -1383,7 +1385,7 @@ const FileList = () => {
 import {Input, Component} from '@angular/core';
 
 @Component({
-  selector: "file",
+  selector: "file-item",
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -1400,9 +1402,9 @@ export class FileComponent {
   imports: [FileComponent],
   template: `
     <ul>
-      <li><file [fileName]="'File one'"/></li>
-      <li><file [fileName]="'File two'"/></li>
-      <li><file [fileName]="'File three'"/></li>
+      <li><file-item [fileName]="'File one'"/></li>
+      <li><file-item [fileName]="'File two'"/></li>
+      <li><file-item [fileName]="'File three'"/></li>
     </ul>
   `,
 })
@@ -1497,7 +1499,7 @@ const FileList = () => {
 
 ```typescript {9-10,19}
 @Component({
-  selector: "file",
+  selector: "file-item",
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -1515,9 +1517,9 @@ export class FileComponent {
   imports: [FileComponent],
   template: `
     <ul>
-      <li><file [fileName]="'File one'" [href]="'/file/file_one'"/></li>
-      <li><file [fileName]="'File two'" [href]="'/file/file_two'"/></li>
-      <li><file [fileName]="'File three'" [href]="'/file/file_three'"/></li>
+      <li><file-item [fileName]="'File one'" [href]="'/file/file_one'"/></li>
+      <li><file-item [fileName]="'File two'" [href]="'/file/file_two'"/></li>
+      <li><file-item [fileName]="'File three'" [href]="'/file/file_three'"/></li>
     </ul>
   `,
 })
@@ -1627,7 +1629,7 @@ export class FileDateComponent {
 }
 
 @Component({
-  selector: "file",
+  selector: "file-item",
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -1834,7 +1836,7 @@ There are three major things of note in this code sample:
 
 ```typescript {6-11,19-23}
 @Component({
-   selector: 'file',
+   selector: 'file-item',
    standalone: true,
    imports: [FileDateComponent],
    template: `
@@ -2003,7 +2005,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [FileDateComponent],
   template: `
@@ -2195,7 +2197,7 @@ createRoot(document.getElementById('root')).render(<Sidebar />);
 <!-- index.html -->
 <html>
   <body>
-    <sidebar></sidebar>
+    <app-sidebar></app-sidebar>
   </body>
 </html>
 ```
@@ -2204,7 +2206,7 @@ createRoot(document.getElementById('root')).render(<Sidebar />);
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   template: `
     <p>Hello, world!</p>
@@ -2268,7 +2270,7 @@ const Sidebar = () => {
 
 ```typescript
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   template: `
     <h1>My Files</h1>
@@ -2355,7 +2357,7 @@ export class ExpandableDropdownComponent {
 }
 
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent],
   template: `
@@ -2511,7 +2513,7 @@ export class ExpandableDropdownComponent {
 }
 
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent],
   template: `
@@ -2707,7 +2709,7 @@ export class ExpandableDropdownComponent {
 }
 
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [ExpandableDropdownComponent],
   template: `

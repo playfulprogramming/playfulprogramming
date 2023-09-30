@@ -102,7 +102,7 @@ const File = () => {
 
 ```typescript
 @Component({
-  selector: "file",
+  selector: "file-item",
   standalone: true,
   imports: [FileDateComponent],
   // This may not show the most up-to-date `formatDate` or `formatReadableDate`

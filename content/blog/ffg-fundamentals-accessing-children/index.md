@@ -124,7 +124,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'parent',
+  selector: 'parent-list',
   standalone: true,
   template: `
     <ng-content></ng-content>
@@ -144,9 +144,9 @@ class ParentListComponent implements AfterContentInit {
   standalone: true,
   imports: [ParentListComponent],
   template: `
-  <parent>
+  <parent-list>
     <p #childItem>Hello, world!</p>
-  </parent>
+  </parent-list>
   `,
 })
 class AppComponent {}
@@ -170,7 +170,7 @@ See, if we replace our usage of `ngAfterContentInit` with a `ngOnInit`, then we 
 
 ```typescript
 @Component({
-  selector: 'parent',
+  selector: 'parent-list',
   standalone: true,
   template: `
     <ng-content></ng-content>

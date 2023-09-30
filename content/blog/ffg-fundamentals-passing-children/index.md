@@ -546,7 +546,7 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'dropdown',
+  selector: 'dropdown-comp',
   standalone: true,
   template: `
   <button (click)="toggle.emit()" :aria-expanded="expanded" aria-controls="dropdown-contents">
@@ -567,10 +567,10 @@ export class DropdownComponent {
   standalone: true,
   imports: [DropdownComponent],
   template: `
-  <dropdown [expanded]="expanded" (toggle)="expanded = !expanded">
+  <dropdown-comp [expanded]="expanded" (toggle)="expanded = !expanded">
     <ng-container header>Let's build this dropdown component</ng-container>
     These tend to be useful for FAQ pages, hidden contents, and more!
-  </dropdown>
+  </dropdown-comp>
     `,
 })
 class AppComponent {
@@ -749,7 +749,7 @@ const FileTable = () => {
 
 ```typescript
 @Component({
-  selector: 'file',
+  selector: 'file-item',
   standalone: true,
   imports: [NgIf, FileDateComponent],
   template: `

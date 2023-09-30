@@ -990,7 +990,7 @@ class PortalService {
 }
 
 @Component({
-  selector: 'modal',
+  selector: 'modal-comp',
   standalone: true,
   template: `
   <ng-template #portalContent>Test</ng-template>
@@ -1029,7 +1029,7 @@ class ModalComponent implements OnDestroy {
   <div style="height: 100px; width: 100px; border: 2px solid black;" *ngIf="portalService.portal">
     <ng-template [cdkPortalOutlet]="portalService.portal"/>
   </div>
-  <modal/>
+  <modal-comp/>
   `,
 })
 class AppComponent {
@@ -1168,7 +1168,7 @@ class PortalService {
 }
 
 @Component({
-  selector: 'modal',
+  selector: 'modal-comp',
   standalone: true,
   template: `
     <ng-template #portalContent>Test</ng-template>
@@ -1203,7 +1203,7 @@ class ModalComponent implements OnDestroy {
   standalone: true,
   imports: [ModalComponent],
   template: `
-  	<modal/>
+  	<modal-comp/>
   `,
 })
 class AppComponent {}

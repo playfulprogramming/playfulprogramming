@@ -167,7 +167,7 @@ const Comp = () => {
 
 ```typescript
 @Component({
-	selector: "comp",
+	selector: "comp-comp",
 	standalone: true,
 	template: `
 		<button (click)="sayHi()">Say hello</button>
@@ -247,7 +247,7 @@ const Parent = () => {
 
 ```typescript
 @Component({
-  selector: 'parent',
+  selector: 'parent-comp',
   standalone: true,
   imports: [ChildComponent],
   template: `
@@ -255,7 +255,7 @@ const Parent = () => {
   	<button (click)="setShowChild()">
   		Toggle Child
   	</button>
-    <child *ngIf="showChild"></child>
+    <child-comp *ngIf="showChild"/>
   </div>
   `,
 })
@@ -267,7 +267,7 @@ export class ParentComponent {
 }
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: '<p>I am the child</p>',
 })
@@ -289,7 +289,7 @@ export class ChildComponent {
 <template>
   <div>
     <button @click="setShowChild()">Toggle Child</button>
-    <child v-if="showChild"></child>
+    <Child v-if="showChild"/>
   </div>
 </template>
 
@@ -351,7 +351,7 @@ In order to execute code during an initial render of a component, Angular uses a
 import {Component, OnInit} from "@angular/core";
 
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: '<p>I am the child</p>',
 })
@@ -771,7 +771,7 @@ function prefixZero(number) {
 
 ```typescript
 @Component({
-  selector: 'clock',
+  selector: 'clock-comp',
   standalone: true,
   template: `
    <p role="timer">Time is: {{time}}</p>
@@ -874,13 +874,13 @@ export default function App() {
 
 ```typescript
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   standalone: true,
   imports: [NgIf, ClockComponent],
   template: `
     <div>
       <button (click)="setShowClock(!showClock)">Toggle clock</button>
-      <clock *ngIf="showClock"/>
+      <clock-comp *ngIf="showClock"/>
     </div>
   `,
 })
@@ -1033,7 +1033,7 @@ export class AlarmScreenComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   standalone: true,
   imports: [NgIf, AlarmScreenComponent],
   template: `
@@ -1277,7 +1277,7 @@ export class AlarmScreenComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'app',
+  selector: 'my-app',
   // ...
 })
 export class AppComponent implements OnInit, OnDestroy {

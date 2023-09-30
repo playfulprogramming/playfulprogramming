@@ -615,7 +615,7 @@ Now that we've set up our `ErrorHandler` instance, we can test that it works usi
 
 ```typescript
 @Component({
-  selector: 'child',
+  selector: 'child-comp',
   standalone: true,
   template: `
     <p>Testing</p>
@@ -633,7 +633,7 @@ class ChildComponent implements OnInit {
   standalone: true,
   imports: [ChildComponent],
   template: `
-    <child></child>
+    <child-comp/>
   `,
 })
 class AppComponent {
@@ -809,7 +809,7 @@ class MyErrorHandler implements ErrorHandler {
   imports: [NgIf, ChildComponent],
   template: `
     <p *ngIf="errorHandler.hadError">There was an error</p>
-    <child *ngIf="!errorHandler.hadError"></child>
+    <child-comp *ngIf="!errorHandler.hadError"/>
   `,
 })
 class AppComponent {
@@ -919,7 +919,7 @@ class MyErrorHandler implements ErrorHandler {
   imports: [NgIf, ChildComponent],
   template: `
     <p *ngIf="errorHandler.error">{{errorHandler.error}}</p>
-    <child *ngIf="!errorHandler.error"></child>
+    <child-comp *ngIf="!errorHandler.error"/>
   `,
 })
 class AppComponent {
@@ -1023,7 +1023,7 @@ collapsed is not defined
 ```typescript
 
 @Component({
-  selector: 'sidebar',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [NgIf],
   template: `
