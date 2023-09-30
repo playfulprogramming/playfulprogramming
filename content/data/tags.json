@@ -41,9 +41,7 @@
 		"emoji": "🖥️"
 	},
 	"copilot": {
-		"displayName": "GitHub Copilot",
-		"image": "/stickers/copilot.svg",
-		"shownWithBranding": false
+		"displayName": "GitHub Copilot"
 	},
 	"cpp": {
 		"displayName": "C++",
