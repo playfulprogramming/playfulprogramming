@@ -73,6 +73,10 @@
 		"image": "/stickers/dotnet.svg",
 		"shownWithBranding": false
 	},
+	"gamedev": {
+		"displayName": "Game Development",
+		"emoji": "🎮"
+	},
 	"git": {
 		"displayName": "Git",
 		"image": "/stickers/git.svg",
@@ -216,9 +220,7 @@
 		"shownWithBranding": false
 	},
 	"unity": {
-		"displayName": "Unity",
-		"image": "/stickers/unity.svg",
-		"shownWithBranding": false
+		"displayName": "Unity"
 	},
 	"vue": {
 		"displayName": "Vue",
@@ -231,7 +233,6 @@
 	},
 	"windows": {
 		"displayName": "Windows",
-		"image": "/stickers/windows.svg",
-		"shownWithBranding": false
+		"emoji": "🪟"
 	}
 }
