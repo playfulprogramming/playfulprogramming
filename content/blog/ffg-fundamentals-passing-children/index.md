@@ -419,7 +419,7 @@ export class RainbowExclamationMarkComponent {}
 <template>
   <ToggleButton>Hello <span v-for="friend of friends">{{ friend }} </span>!</ToggleButton>
   <ToggleButton>Hello other friends
-    <RainbowExclamationMark></RainbowExclamationMark>
+    <RainbowExclamationMark/>
   </ToggleButton>
 </template>
 
