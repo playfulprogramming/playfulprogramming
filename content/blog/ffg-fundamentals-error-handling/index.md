@@ -423,7 +423,7 @@ See, while `computed` runs during the setup of the component, `onMounted` execut
 
 <!-- tabs:end -->
 
-
+Now that we understand why these errors prevent you from rendering content, let's see how we're able to improve the user experience when errors _do_ occur.
 
 # Logging Errors
 
@@ -561,6 +561,8 @@ bootstrapApplication(AppComponent, {
 });
 ```
 
+> It'd be awesome to have a per-component implementation of `ErrorHandler`, but [this feature has not made it into Angular yet](https://github.com/angular/angular/issues/43504).
+
 Now that we've set up our `ErrorHandler` instance, we can test that it works using a component that throws an error:
 
 ```typescript
@@ -645,13 +647,13 @@ Let's see how we can implement this in our apps.
 
 ## React
 
-Unfortunately, React is not able to handle thrown errors invisibly to the user when they're thrown within a functional component. This is ultimately because React functional components are simply functions, which do not have an escape mechanism built into them for errors being thrown.
+Unfortunately, React is not able to handle thrown errors invisibly to the user when they're thrown within a functional component. As mentioned before, this is ultimately because React functional components are simply functions, which do not have an escape mechanism built into them for errors being thrown.
 
 ## Angular
 
-Luckily for Angular developers, this idea of silently swallowing errors, rather than making the page go blank, is the default behavior of a custom error handler.
+As covered before, Angular is able to ignore all errors thrown outside of the `constructor` method. However, if an error does occur in the `constructor` method, it's challenging ([but not impossible](https://unicorn-utterances.com/posts/angular-constructor-error-behavior#The-short-term-fix)) to sidestep. Because of the complexity of the code required to ignore `constructor` method errors, we won't cover it in this book.
 
-This isn't always ideal, however, and oftentimes you want to present an error that occurs to the user. We'll take a look at how to do this in the next section.
+> Want to see an official solution to this problem? [Star my feature request on GitHub which outlines a longer-term solution built-into Angular](https://github.com/angular/angular/issues/51941).
 
 ## Vue
 
@@ -771,6 +773,8 @@ class AppComponent {
 
 > Unlike most instances of `inject` usage, we have to use `as MyErrorHandler`, otherwise TypeScript does not know about the new `hadError` property we just set.
 
+> Despite this code working well to display a fallback UI in most error throwing scenarios, the `ErorrHandler` service can't prevent the rendering error caused by `constructor` errors. As a result, if you want to display a UI fallback for those errors, you'll need to either [implement a somewhat complex bit of code or wait for Angular to implement the functionality itself.](https://github.com/angular/angular/issues/51941)
+
 ## Vue
 
 Because we still have full access to our component's state within `onErrorCaptured`, we can change a `ref` from `false` to `true` to keep track of if an error occurred.
@@ -876,12 +880,6 @@ class AppComponent {
 
 // ...
 ```
-
-#### Limitations of Zone.js
-
-// TODO: If you try to `throw error` in the constructor it won't work because it doesn't trigger Zone.js: https://unicorn-utterances.com/posts/angular-internals-zonejs
-
-// However, this should be fixed if you add a `setTimeout `to `this.error = error`
 
 ### Vue
 
