@@ -4,7 +4,7 @@
 	description: "Learn the beginnings of data pack development in Minecraft - using positions, entity selectors, and conditional logic in commands!",
 	published: '2022-06-15T21:12:03.284Z',
 	authors: ['fennifith'],
-	tags: ["minecraft"],
+	tags: ["minecraft", "gamedev"],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 	collection: "minecraft-data-packs",

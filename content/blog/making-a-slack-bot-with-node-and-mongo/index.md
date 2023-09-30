@@ -4,7 +4,7 @@
 	description: 'Join us as we teach you how to create a Slack bot from scratch using their Node SDK and MongoDB for persistence',
 	published: '2020-02-18T05:12:03.284Z',
 	authors: ['crutchcorn'],
-	tags: ['mongodb', 'node', 'slack'],
+	tags: ['mongodb', 'nodejs', 'slack'],
 	attached: [],
 	license: 'cc-by-nc-sa-4'
 }

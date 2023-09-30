@@ -104,6 +104,10 @@
 		"displayName": "Interviewing",
 		"emoji": "🤝"
 	},
+	"ios": {
+		"displayName": "iOS",
+		"emoji": "📱"
+	},
 	"java": {
 		"displayName": "Java",
 		"emoji": "☕"
@@ -218,9 +222,6 @@
 		"displayName": "TypeScript",
 		"image": "/stickers/typescript.svg",
 		"shownWithBranding": false
-	},
-	"unity": {
-		"displayName": "Unity"
 	},
 	"vue": {
 		"displayName": "Vue",
