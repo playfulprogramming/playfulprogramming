@@ -6,7 +6,6 @@ import SEO from "components/seo/seo.astro";
 import type { MarkdownInstance } from "astro";
 import { ExtendedPostInfo } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
-import { Languages } from "types/index";
 
 export async function getStaticPaths() {
 	const posts = await Astro.glob<ExtendedPostInfo>(
@@ -27,7 +26,6 @@ export async function getStaticPaths() {
 					(post.frontmatter.noindex ? "_noindex" : ""),
 			},
 			props: {
-				locale: post.frontmatter.locale,
 				Content: post.Content,
 				post: post.frontmatter,
 				posts,
@@ -36,9 +34,8 @@ export async function getStaticPaths() {
 	});
 }
 
-const { Content, post, posts, locale } = Astro.props as {
+const { Content, post, posts } = Astro.props as {
 	post: ExtendedPostInfo;
-	locale: Languages;
 	posts: MarkdownInstance<ExtendedPostInfo>[];
 	Content: MarkdownInstance<any>["Content"];
 };

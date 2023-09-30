@@ -291,7 +291,7 @@ const tags = new Map<string, TagInfo>();
 // file due to the hastscript JSX
 const tagExplainerParser = unified()
 	.use(remarkParse, { fragment: true } as never)
-	.use(remarkTwoslash)
+	.use(remarkTwoslash, { themes: ["css-variables"] })
 	.use(remarkToRehype, { allowDangerousHtml: true })
 	.use(rehypeUnicornElementMap)
 	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });

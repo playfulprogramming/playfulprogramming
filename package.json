@@ -54,6 +54,7 @@
 		"@testing-library/preact": "^3.2.3",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/hast": "^3.0.0",
+		"@types/html-escaper": "^3.0.0",
 		"@types/jest": "^29.5.2",
 		"@types/json5": "^2.2.0",
 		"@types/node": "^20.5.0",
