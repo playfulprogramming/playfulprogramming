@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "components/types";
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import { useElementSize } from "../../../hooks/use-element-size";
 import styles from "./filter-section.module.scss";
 import { Chip } from "components/chip/chip";
@@ -36,6 +36,15 @@ export const FilterSection = ({
 		target.classList.remove("scrolled");
 	};
 
+	// When cleared, the focus needs to be passed to the heading button
+	// to avoid resetting to <body> when the clear button is removed from the DOM.
+	// https://github.com/unicorn-utterances/unicorn-utterances/issues/742
+	const buttonRef = useRef();
+	const handleClear = (e: Event) => {
+		onClear();
+		buttonRef.current?.focus();
+	};
+
 	return (
 		<div
 			{...props}
@@ -52,6 +61,7 @@ export const FilterSection = ({
 					}}
 					aria-expanded={!collapsed}
 					onClick={() => setCollapsed(!collapsed)}
+					ref={buttonRef}
 				>
 					<span
 						className={`${styles.collapseIcon} ${
@@ -75,7 +85,7 @@ export const FilterSection = ({
 							tag="button"
 							type="button"
 							className={styles.clearChip}
-							onClick={onClear}
+							onClick={handleClear}
 						>
 							Clear
 						</Chip>
