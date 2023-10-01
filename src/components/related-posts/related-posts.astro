@@ -17,11 +17,13 @@ const { post, headingId } = Astro.props as RelatedPostsProps;
 <ul class={style.suggestedPostList}>
 	{
 		post.suggestedArticles.map((suggestedPost) => (
-			<RelatedPostsCard
-				title={suggestedPost.title}
-				slug={suggestedPost.slug}
-				authors={suggestedPost.authorsMeta.map((author) => author.name)}
-			/>
+			<li>
+				<RelatedPostsCard
+					title={suggestedPost.title}
+					slug={suggestedPost.slug}
+					authors={suggestedPost.authorsMeta.map((author) => author.name)}
+				/>
+			</li>
 		))
 	}
 </ul>
