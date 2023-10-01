@@ -88,11 +88,10 @@
 	white-space: nowrap;
 	text-decoration: none;
 	border: none;
-	outline: none !important;
 	cursor: pointer;
 	box-sizing: border-box;
 
-	@include transition(color background-color box-shadow);
+	@include transition(color background-color);
 }
 
 .button.regular {
@@ -172,8 +171,8 @@
 
 	&:focus-visible,
 	&.focusVisible {
-		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
-			var(--btn_primary_focus-oultine_color);
+		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
+		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
 
 	&:active {
@@ -191,8 +190,8 @@
 
 	&:focus-visible,
 	&.focusVisible {
-		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
-			var(--btn_secondary_focus-oultine_color);
+		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
+		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
 
 	&:active {
@@ -210,8 +209,8 @@
 
 	&:focus-visible,
 	&.focusVisible {
-		box-shadow: 0 0 0 var(--btn_primary_focus-outline_width)
-			var(--btn_primary_focus-oultine_color);
+		outline: var(--btn_primary_focus-outline_width) solid var(--btn_primary_focus-oultine_color);
+		outline-offset: var(--btn_primary_focus-outline_gap);
 	}
 
 	&:active {
@@ -229,8 +228,8 @@
 
 	&:focus-visible,
 	&.focusVisible {
-		box-shadow: 0 0 0 var(--btn_secondary_focus-outline_width)
-			var(--btn_secondary_focus-oultine_color);
+		outline: var(--btn_secondary_focus-outline_width) solid var(--btn_secondary_focus-oultine_color);
+		outline-offset: var(--btn_secondary_focus-outline_gap);
 	}
 
 	&:active {
