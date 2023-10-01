@@ -19,6 +19,7 @@ import {
 import { rehypeFixTwoSlashXHTML } from "./rehype-fix-twoslash-xhtml";
 import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
+import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
@@ -60,6 +61,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeUnicornIFrameClickToRun,
 					rehypeHeadingLinks,
 					rehypeUnicornElementMap,
+					rehypeTwoslashTabindex,
 			  ]
 			: []),
 		...(config.format === "html"
