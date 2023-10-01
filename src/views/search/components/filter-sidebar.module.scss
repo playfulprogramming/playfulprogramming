@@ -13,8 +13,8 @@
 	padding-left: var(--search-page_filter_sidebar_padding-start);
 
 	// ensure the minimum padding to not clip focus states (#666)
-	padding-right: calc(var(--search-page_filter_sidebar_padding-end) + var(--spc-1x));
-	margin-right: calc(-1 * var(--spc-1x));
+	padding-right: calc(var(--search-page_filter_sidebar_padding-end) + var(--spc-2x));
+	margin-right: calc(-1 * var(--spc-2x));
 
 	flex-basis: 100%;
 
