@@ -420,7 +420,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 						</div>
 					</>
 				)}
-				<div aria-live="assertive" aria-atomic="true">
+				<div aria-live="polite" aria-atomic="true">
 					{!isError && !isContentLoading && noResults && (
 						<SearchHero
 							imageSrc={sadUnicorn.src}
