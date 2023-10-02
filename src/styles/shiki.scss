@@ -22,11 +22,16 @@ pre code .line::before {
 	// Otherwise, the first tab is offset by the width of the line counter,
 	// leading to inconsistent tab alignment.
 	position: absolute;
-	left: 0;
+	left: var(--shiki_padding);
 	width: 1rem;
 	display: inline-block;
 	text-align: right;
 	color: rgba(115, 138, 148, 0.4);
+	color: var(--foreground_emphasis-low);
+}
+
+pre code .line.highlight::before {
+	color: var(--foreground_emphasis-medium);
 }
 
 /*  Start of Shiki Twoslash CSS:
@@ -58,6 +63,8 @@ Code blocks structurally look like:
 	--shiki-token-punctuation: #24292e;
 	--shiki-token-link: #24292e;
 
+	--shiki_padding: 12px;
+
 	@include darkTheme {
 		--shiki-color-text: #e1e4e8;
 		--shiki-color-background: #24292e;
@@ -82,29 +89,33 @@ pre {
 
 pre .code-container {
 	/* Give it some space to breathe */
-	padding: 12px;
+	padding: var(--shiki_padding) 0;
+	display: flex;
+
+	code {
+		flex-grow: 1;
+	}
 }
+
 pre.shiki {
 	overflow-x: auto;
-}
-pre.shiki:hover .dim {
-	opacity: 1;
-}
-pre.shiki div.dim {
-	opacity: 0.5;
-}
-pre.shiki div.dim,
-pre.shiki div.highlight {
-	margin: 0;
-	padding: 0;
-}
-pre.shiki div.highlight {
-	opacity: 1;
-	background-color: var(--surface_primary_emphasis-none);
 }
 pre.shiki div.line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;
+	padding: 0 var(--shiki_padding);
+}
+pre.shiki div.highlight {
+	font-weight: bold;
+	background-color: var(--surface_primary_emphasis-none);
+}
+
+pre.shiki div:not(.highlight) + div.highlight {
+	border-top: 2px dashed var(--primary_default);
+}
+
+pre.shiki div.highlight + div:not(.highlight) {
+	border-top: 2px dashed var(--primary_default);
 }
 
 /** Don't show the language identifiers */
