@@ -90,7 +90,7 @@ export const PostCardExpanded = ({
 					loading={imageLoading}
 					className={style.extendedPostImage}
 					src={post.bannerImg}
-					alt="Computer code and text on a computer screen"
+					alt=""
 				/>
 			</div>
 			<div className={style.postContainer}>
