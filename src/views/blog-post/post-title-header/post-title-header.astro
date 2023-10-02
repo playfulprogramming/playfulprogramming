@@ -25,7 +25,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 	<div class={style.details}>
 		<div class={style.date}>
 			<div class={style.date__published}>
-				<Icon width="24" height="24" name="date" />
+				<Icon width="24" height="24" name="date" aria-hidden="true" />
 				<p class="text-style-button-regular">{publishedStr}</p>
 			</div>
 
@@ -39,7 +39,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 		</div>
 
 		<div class={style.authors}>
-			<Icon width="24" height="24" name="authors" />
+			<Icon width="24" height="24" name="authors" aria-hidden="true" />
 			<ul aria-label="Post authors" role="list" class={style.authors__list}>
 				{
 					post.authorsMeta.map((author, i) => (
@@ -56,7 +56,7 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 		{
 			post.originalLink ? (
 				<div class={style.originalLink}>
-					<Icon width="24" height="24" name="website" />
+					<Icon width="24" height="24" name="website" aria-hidden="true" />
 					<p class="text-style-button-regular">
 						{translate(Astro, "desc.original_link")}
 						<a
