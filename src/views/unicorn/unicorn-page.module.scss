@@ -33,6 +33,10 @@
 	grid-template-columns: 1fr 1fr;
 	gap: var(--site-spacing);
 
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+
 	@include from($tabletLarge) {
 		grid-template-columns: 1fr 1fr 1fr;
 	}
