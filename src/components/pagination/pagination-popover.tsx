@@ -20,6 +20,7 @@ import { DOMProps } from "@react-types/shared";
 
 function PopupContents(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
+		titleId: string;
 		close: () => void;
 	},
 ) {
@@ -48,6 +49,7 @@ function PopupContents(
 						setCount((v) => v - 1);
 					}}
 					aria-disabled={count <= 1}
+					aria-label="Decrement page"
 					class={style.iconButton}
 				>
 					<div
@@ -70,6 +72,7 @@ function PopupContents(
 						}
 					}}
 					type="number"
+					aria-labelledby={props.titleId}
 				/>
 				<IconOnlyButton
 					data-testid="pagination-popup-increment"
@@ -81,6 +84,7 @@ function PopupContents(
 						setCount((v) => v + 1);
 					}}
 					aria-disabled={count >= props.page.lastPage}
+					aria-label="Increment page"
 					class={style.iconButton}
 				>
 					<div
@@ -158,7 +162,7 @@ function PaginationPopover({
 					<h1 {...titleProps} className="visually-hidden">
 						Go to page
 					</h1>
-					<PopupContents {...props} close={state.close} />
+					<PopupContents {...props} titleId={titleProps.id} close={state.close} />
 				</div>
 				<DismissButton onDismiss={state.close} />
 			</div>
