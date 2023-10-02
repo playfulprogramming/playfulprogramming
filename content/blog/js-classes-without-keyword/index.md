@@ -24,7 +24,7 @@ A good question! Let's answer that and, along the way, look at:
 - How to "extend" a "class"
 - How to add static methods to our "class"
 
-# Create public fields with the `contructor`
+# Create public fields with the `constructor`
 
 Let's look at a modern JavaScript class:
 
@@ -176,7 +176,7 @@ user.sayCatchphrase(); // "It depends"
 
 Before we talk about function-based class extension, we need to talk about pre-ES2020 class creation once again.
 
-See, when we convert the following code to use a `contructor`:
+See, when we convert the following code to use a `constructor`:
 
 ```javascript
 class Person {
