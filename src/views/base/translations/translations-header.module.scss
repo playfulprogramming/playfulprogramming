@@ -52,6 +52,10 @@
 		flex-wrap: wrap;
 		gap: var(--translation_link-gap);
 
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+
 		a[data-current] {
 			color: var(--foreground_disabled);
 			text-decoration: none;
