@@ -14,7 +14,7 @@ export const achievements: Achievement[] = [
 	},
 	{
 		id: "wordcount",
-		name: "Words word words",
+		name: "Words words words",
 		body: getWordCount,
 	},
 	// First collection

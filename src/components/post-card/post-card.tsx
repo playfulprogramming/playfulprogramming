@@ -19,10 +19,11 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 			<div className={style.postDataContainer}>
 				<div className={style.authorListContainer}>
 					<div
+						aria-hidden
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: authors }}
 					/>
-					<ul className={style.authorList}>
+					<ul className={style.authorList} role="list" aria-label="Post authors">
 						{post.authorsMeta.map((author, i, arr) => (
 							<li class="text-style-body-small-bold">
 								<a
@@ -38,6 +39,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 				</div>
 				<p className={style.dateAndWordCount}>
 					<span
+						aria-hidden
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: date }}
 					/>
@@ -88,7 +90,7 @@ export const PostCardExpanded = ({
 					loading={imageLoading}
 					className={style.extendedPostImage}
 					src={post.bannerImg}
-					alt="Computer code and text on a computer screen"
+					alt=""
 				/>
 			</div>
 			<div className={style.postContainer}>

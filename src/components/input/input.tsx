@@ -87,6 +87,7 @@ export function SearchInput({
 		>
 			{!hideSearchButton && (
 				<div
+					aria-hidden
 					class={style.searchIconContainer}
 					dangerouslySetInnerHTML={{ __html: search }}
 				></div>

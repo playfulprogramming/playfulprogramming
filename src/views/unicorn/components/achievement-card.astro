@@ -10,7 +10,9 @@ const { achievement } = Astro.props as AchievementsProps;
 ---
 
 <div class={styles.container}>
-	<p class={`text-style-body-medium-bold ${styles.name}`}>{achievement.name}</p>
+	<h2 class={`text-style-body-medium-bold ${styles.name}`}>
+		{achievement.name}
+	</h2>
 	<p class={`text-style-body-small ${styles.description}`}>
 		{achievement.body}
 	</p>

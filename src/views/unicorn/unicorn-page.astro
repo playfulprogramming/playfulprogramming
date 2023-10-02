@@ -9,7 +9,7 @@ import { achievements } from "../../../content/data/achievements";
 import { translate } from "../../utils";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
-import Achievements from "./components/achievements.astro";
+import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../../utils/search";
 
 interface UnicornPageProps {
@@ -33,7 +33,7 @@ const achievementsMeta = unicorn.achievements.map((achievement) => {
 });
 
 const postsToDisplay = posts.slice(0, 4);
-const numberOfAchievementsToShowAtStart = posts.length ? 6 : 3;
+const numberOfAchievementsToShowAtStart = posts.length ? 3 : 6;
 const showAchievementToggle =
 	achievementsMeta.length > numberOfAchievementsToShowAtStart;
 const showPostsToggle = posts.length > postsToDisplay.length;
@@ -46,7 +46,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 	/>
 	<div class={styles.contentContainer}>
 		<!-- TODO: Translate -->
-		<SubHeader tag="h1" text="Achievements">
+		<SubHeader tag="h1" text="Achievements" id="achievements">
 			{
 				showAchievementToggle && (
 					<Button id="view-all-achievements" tag="button" type="button">
@@ -55,21 +55,25 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				)
 			}
 		</SubHeader>
-		<div class={styles.achievementsContainer}>
+		<ul
+			class={styles.achievementsContainer}
+			role="list"
+			aria-labelledby="achievements"
+		>
 			{
 				achievementsMeta.map((ach, i) => {
 					const shouldShow = i < numberOfAchievementsToShowAtStart;
 					return (
-						<div
+						<li
 							data-hide-initially={!shouldShow}
 							style={shouldShow ? "" : "display: none;"}
 						>
-							<Achievements achievement={ach} />
-						</div>
+							<AchievementCard achievement={ach} />
+						</li>
 					);
 				})
 			}
-		</div>
+		</ul>
 		<SubHeader tag="h1" text="Recent articles" id="recent-articles-header">
 			<!-- TODO: Replace href with util to build search URL -->
 			{
