@@ -19,7 +19,7 @@
 	--code-block_border_width: var(--border-width_l);
 }
 
-pre.shiki {
+pre.shiki, pre:not([class]) {
 	margin: var(--site-spacing) 0;
 	padding: var(--code-block_padding);
 

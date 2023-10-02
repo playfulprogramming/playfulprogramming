@@ -5,7 +5,7 @@
 	published: '2022-06-15T21:12:03.284Z',
 	edited: '2023-09-27',
 	authors: ['fennifith'],
-	tags: ["minecraft"],
+	tags: ["minecraft", "gamedev"],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
 	collection: "minecraft-data-packs",

@@ -14,15 +14,16 @@ const { unicorn } = Astro.props as CardProps;
 const unicornHref = `/unicorns/${unicorn.id}`;
 ---
 
-<div class={style.card} {...getHrefContainerProps(unicornHref)}>
+<li class={style.card} {...getHrefContainerProps(unicornHref)}>
 	<Picture
-		alt={unicorn.name + " profile picture"}
+		alt=""
 		class={style.avatar}
 		sizes="96px"
 		widths={[96]}
 		aspectRatio={1}
 		formats={["avif", "webp", "png"]}
 		src={unicorn.profileImgMeta.relativeServerPath}
+		loading="lazy"
 	/>
 
 	<div class={style.info}>
@@ -47,7 +48,11 @@ const unicornHref = `/unicorns/${unicorn.id}`;
 		</ul>
 	</div>
 
-	<Button class={style.button} href={unicornHref}>
+	<Button
+		class={style.button}
+		href={unicornHref}
+		aria-label={translate(Astro, "label.view_profile_for", unicorn.name)}
+	>
 		{translate(Astro, "action.view_profile")}
 	</Button>
-</div>
+</li>

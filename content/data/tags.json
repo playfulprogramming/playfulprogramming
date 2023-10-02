@@ -5,11 +5,13 @@
 	},
 	"android": {
 		"displayName": "Android",
-		"image": "/stickers/android.svg"
+		"image": "/stickers/android.svg",
+		"shownWithBranding": false
 	},
 	"angular": {
 		"displayName": "Angular",
-		"image": "/stickers/angular.svg"
+		"image": "/stickers/angular.svg",
+		"shownWithBranding": true
 	},
 	"announcements": {
 		"displayName": "Announcements",
@@ -17,7 +19,8 @@
 	},
 	"astro": {
 		"displayName": "Astro",
-		"image": "/stickers/astro.svg"
+		"image": "/stickers/astro.svg",
+		"shownWithBranding": true
 	},
 	"auth": {
 		"displayName": "Auth",
@@ -25,31 +28,35 @@
 	},
 	"bash": {
 		"displayName": "Bash",
-		"image": "/stickers/bash.svg"
+		"image": "/stickers/bash.svg",
+		"shownWithBranding": true
 	},
 	"chrome": {
 		"displayName": "Chrome",
-		"image": "/stickers/chrome.svg"
+		"image": "/stickers/chrome.svg",
+		"shownWithBranding": false
 	},
 	"computer science": {
 		"displayName": "Computer Science",
 		"emoji": "🖥️"
 	},
 	"copilot": {
-		"displayName": "GitHub Copilot",
-		"image": "/stickers/copilot.svg"
+		"displayName": "GitHub Copilot"
 	},
 	"cpp": {
 		"displayName": "C++",
-		"image": "/stickers/cpp.svg"
+		"image": "/stickers/cpp.svg",
+		"shownWithBranding": false
 	},
 	"csharp": {
 		"displayName": "C#",
-		"image": "/stickers/csharp.svg"
+		"image": "/stickers/csharp.svg",
+		"shownWithBranding": false
 	},
 	"css": {
 		"displayName": "CSS",
-		"image": "/stickers/css.svg"
+		"image": "/stickers/css.svg",
+		"shownWithBranding": true
 	},
 	"design": {
 		"displayName": "Design",
@@ -61,15 +68,22 @@
 	},
 	"dotnet": {
 		"displayName": ".NET",
-		"image": "/stickers/dotnet.svg"
+		"image": "/stickers/dotnet.svg",
+		"shownWithBranding": false
+	},
+	"gamedev": {
+		"displayName": "Game Development",
+		"emoji": "🎮"
 	},
 	"git": {
 		"displayName": "Git",
-		"image": "/stickers/git.svg"
+		"image": "/stickers/git.svg",
+		"shownWithBranding": true
 	},
 	"go": {
 		"displayName": "Go",
-		"image": "/stickers/go.svg"
+		"image": "/stickers/go.svg",
+		"shownWithBranding": false
 	},
 	"hardware": {
 		"displayName": "Hardware",
@@ -81,39 +95,50 @@
 	},
 	"html": {
 		"displayName": "HTML",
-		"image": "/stickers/html.svg"
+		"image": "/stickers/html.svg",
+		"shownWithBranding": true
 	},
 	"interviewing": {
 		"displayName": "Interviewing",
 		"emoji": "🤝"
 	},
+	"ios": {
+		"displayName": "iOS",
+		"emoji": "📱"
+	},
 	"java": {
 		"displayName": "Java",
-		"image": "/stickers/java.svg"
+		"emoji": "☕"
 	},
 	"javascript": {
 		"displayName": "JavaScript",
-		"image": "/stickers/javascript.svg"
+		"image": "/stickers/javascript.svg",
+		"shownWithBranding": true
 	},
 	"jest": {
 		"displayName": "Jest",
-		"image": "/stickers/jest.svg"
+		"image": "/stickers/jest.svg",
+		"shownWithBranding": false
 	},
 	"linux": {
 		"displayName": "Linux",
-		"image": "/stickers/linux.svg"
+		"image": "/stickers/linux.svg",
+		"shownWithBranding": true
 	},
 	"lit": {
 		"displayName": "Lit",
-		"image": "/stickers/lit.svg"
+		"image": "/stickers/lit.svg",
+		"shownWithBranding": false
 	},
 	"minecraft": {
 		"displayName": "Minecraft",
-		"image": "/stickers/minecraft.svg"
+		"image": "/stickers/minecraft.svg",
+		"shownWithBranding": false
 	},
 	"mongodb": {
 		"displayName": "MongoDB",
-		"image": "/stickers/mongodb.svg"
+		"image": "/stickers/mongodb.svg",
+		"shownWithBranding": false
 	},
 	"networking": {
 		"displayName": "Networking",
@@ -121,15 +146,18 @@
 	},
 	"nextjs": {
 		"displayName": "Next.js",
-		"image": "/stickers/nextjs.svg"
+		"image": "/stickers/nextjs.svg",
+		"shownWithBranding": false
 	},
 	"nodejs": {
 		"displayName": "Node.js",
-		"image": "/stickers/node.svg"
+		"image": "/stickers/node.svg",
+		"shownWithBranding": false
 	},
 	"npm": {
 		"displayName": "npm",
-		"image": "/stickers/npm.svg"
+		"image": "/stickers/npm.svg",
+		"shownWithBranding": false
 	},
 	"opinion": {
 		"displayName": "Opinion",
@@ -137,23 +165,28 @@
 	},
 	"python": {
 		"displayName": "Python",
-		"image": "/stickers/python.svg"
+		"image": "/stickers/python.svg",
+		"shownWithBranding": true
 	},
 	"react": {
 		"displayName": "React",
-		"image": "/stickers/react.svg"
+		"image": "/stickers/react.svg",
+		"shownWithBranding": false
 	},
 	"react native": {
 		"displayName": "React Native",
-		"image": "/stickers/react.svg"
+		"image": "/stickers/react.svg",
+		"shownWithBranding": false
 	},
 	"rust": {
 		"displayName": "Rust",
-		"image": "/stickers/ferris.svg"
+		"image": "/stickers/ferris.svg",
+		"shownWithBranding": true
 	},
 	"scully": {
 		"displayName": "Scully",
-		"image": "/stickers/scully.svg"
+		"image": "/stickers/scully.svg",
+		"shownWithBranding": false
 	},
 	"security": {
 		"displayName": "Security",
@@ -161,7 +194,8 @@
 	},
 	"slack": {
 		"displayName": "Slack",
-		"image": "/stickers/slack.svg"
+		"image": "/stickers/slack.svg",
+		"shownWithBranding": false
 	},
 	"ssg": {
 		"displayName": "Static Site Generation (SSG)"
@@ -179,19 +213,18 @@
 	},
 	"twitch": {
 		"displayName": "Twitch",
-		"image": "/stickers/twitch.svg"
+		"image": "/stickers/twitch.svg",
+		"shownWithBranding": false
 	},
 	"typescript": {
 		"displayName": "TypeScript",
-		"image": "/stickers/typescript.svg"
-	},
-	"unity": {
-		"displayName": "Unity",
-		"image": "/stickers/unity.svg"
+		"image": "/stickers/typescript.svg",
+		"shownWithBranding": false
 	},
 	"vue": {
 		"displayName": "Vue",
-		"image": "/stickers/vue.svg"
+		"image": "/stickers/vue.svg",
+		"shownWithBranding": true
 	},
 	"webdev": {
 		"displayName": "Web Development",
@@ -199,6 +232,6 @@
 	},
 	"windows": {
 		"displayName": "Windows",
-		"image": "/stickers/windows.svg"
+		"emoji": "🪟"
 	}
 }

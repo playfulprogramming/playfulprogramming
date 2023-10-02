@@ -1,8 +1,10 @@
 import { JSXNode } from "components/types";
 import styles from "./search-hero.module.scss";
-import { getStickers } from "utils/get-stickers";
+import tags from "../../../../content/data/tags.json";
 
-const stickers = getStickers().sort(() => 0.5 - Math.random());
+const stickers = Object.values(tags)
+	.filter(tag => !!tag["shownWithBranding"] && !!tag["image"])
+	.sort(() => 0.5 - Math.random()) as { image: string }[];
 
 const stickerTransforms = [
 	styles.sticker1,
@@ -40,7 +42,7 @@ export const SearchHero = ({
 		<div class={styles.container}>
 			{
 				stickerTransforms.map((sticker) => (
-					<img aria-hidden="true" src={sticker.src} class={sticker.className} alt="" />
+					<img aria-hidden="true" src={sticker.image} class={sticker.className} alt="" />
 				))
 			}
 

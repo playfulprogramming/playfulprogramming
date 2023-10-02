@@ -6,7 +6,7 @@ import {
 	PostInfo,
 	Languages,
 	CollectionInfo,
-	ExtendedPostInfo,
+	TagInfo,
 } from "types/index";
 import * as fs from "fs";
 import { join } from "path";
@@ -16,6 +16,13 @@ import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
 import collectionMapping from "../../content/data/collection-mapping";
+
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkToRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
+import remarkTwoslash from "remark-shiki-twoslash";
 
 export const postsDirectory = join(process.cwd(), "content/blog");
 export const collectionsDirectory = join(process.cwd(), "content/collections");
@@ -30,6 +37,56 @@ const unicornsRaw = (await import("../../content/data/unicorns.json")).default;
 const rolesRaw = (await import("../../content/data/roles.json")).default;
 
 const licensesRaw = (await import("../../content/data/licenses.json")).default;
+
+const tagsRaw = (await import("../../content/data/tags.json")).default;
+
+const tags = new Map<string, TagInfo>();
+
+// This needs to use a minimal version of our unified chain,
+// as we can't import `createRehypePlugins` through an Astro
+// file due to the hastscript JSX
+const tagExplainerParser = unified()
+	.use(remarkParse, { fragment: true } as never)
+	.use(remarkTwoslash, { themes: ["css-variables"] })
+	.use(remarkToRehype, { allowDangerousHtml: true })
+	.use(rehypeUnicornElementMap)
+	.use(rehypeStringify, { allowDangerousHtml: true, voids: [] });
+
+for (const [key, tag] of Object.entries(tagsRaw)) {
+	let explainer = undefined;
+	let explainerType = undefined;
+
+	if ("image" in tag && tag.image.endsWith(".svg")) {
+		const license = await fs.promises
+			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
+			.catch((_) => undefined);
+
+		const attribution = await fs.promises
+			.readFile(
+				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
+				"utf-8",
+			)
+			.catch((_) => undefined);
+
+		if (license) {
+			explainer = license;
+			explainerType = "license";
+		} else if (attribution) {
+			explainer = attribution;
+			explainerType = "attribution";
+		}
+	}
+
+	const explainerHtml = explainer
+		? (await tagExplainerParser.process(explainer)).toString()
+		: undefined;
+
+	tags.set(key, {
+		explainerHtml,
+		explainerType,
+		...tag,
+	});
+}
 
 const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 	const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
@@ -219,11 +276,23 @@ function getPosts(): Array<PostInfo> {
 			 */
 			const wordCount = fileContents.split(/\s+/).length;
 
+			const frontmatterTags = [...frontmatter.tags].filter((tag) => {
+				if (tags.has(tag)) {
+					return true;
+				} else {
+					console.warn(
+						`${slug}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+					);
+					return false;
+				}
+			});
+
 			return {
 				...frontmatter,
 				slug,
 				locales,
 				locale: locales[i],
+				tags: frontmatterTags,
 				authorsMeta: frontmatter.authors.map((authorId) =>
 					fullUnicorns.find((u) => u.id === authorId),
 				),
@@ -274,14 +343,6 @@ collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
 	...collection,
 	posts: posts.filter((post) => post.collection === collection.slug),
 })) as CollectionInfo[];
-
-const tags = [
-	...[...posts, ...collections].reduce((set, item) => {
-		for (const tag of item.tags || []) set.add(tag);
-
-		return set;
-	}, new Set<string>()),
-];
 
 export {
 	aboutRaw as about,

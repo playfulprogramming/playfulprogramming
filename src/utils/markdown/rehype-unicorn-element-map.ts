@@ -8,10 +8,11 @@ import path from "path";
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 	return async (tree, file) => {
-		const splitFilePath = path.dirname(file.path).split(path.sep);
+		const splitFilePath =
+			(file.path && path.dirname(file.path).split(path.sep)) || undefined;
 		// "collections" | "blog"
-		const parentFolder = splitFilePath.at(-2);
-		const slug = splitFilePath.at(-1);
+		const parentFolder = splitFilePath?.at(-2);
+		const slug = splitFilePath?.at(-1);
 
 		visit(tree, (node: Element) => {
 			if (node.tagName === "video") {
@@ -21,12 +22,14 @@ export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 				node.properties.loop ??= true;
 				node.properties.width ??= "100%";
 				node.properties.height ??= "auto";
-				node.properties.src = getFullRelativePath(
-					"/content/",
-					parentFolder,
-					slug,
-					node.properties.src.toString(),
-				);
+				if (slug) {
+					node.properties.src = getFullRelativePath(
+						"/content/",
+						parentFolder,
+						slug,
+						node.properties.src.toString(),
+					);
+				}
 			}
 
 			if (node.tagName === "a") {
