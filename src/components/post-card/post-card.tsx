@@ -19,6 +19,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 			<div className={style.postDataContainer}>
 				<div className={style.authorListContainer}>
 					<div
+						aria-hidden
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: authors }}
 					/>
@@ -38,6 +39,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 				</div>
 				<p className={style.dateAndWordCount}>
 					<span
+						aria-hidden
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: date }}
 					/>
