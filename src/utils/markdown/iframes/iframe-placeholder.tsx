@@ -27,12 +27,12 @@ export function IFramePlaceholder({
 		<div class="embed">
 			<div class="embed__header">
 				<div class="embed__header__favicon">
-					<picture>
+					<picture aria-hidden="true">
 						{props.pageIcon.sources.map((source) => (
 							<source {...source} />
 						))}
 						<img
-							{...(props.pageIcon.image as any)}
+							{...(props.pageIcon.image as Record<string, string>)}
 							alt=""
 							loading="lazy"
 							decoding="async"
@@ -59,7 +59,9 @@ export function IFramePlaceholder({
 					rel="nofollow noopener noreferrer"
 					target="_blank"
 				>
-					<div class="buttonIcon">{fromHtml(launch)}</div>
+					<div aria-hidden="true" class="buttonIcon">
+						{fromHtml(launch)}
+					</div>
 					<div class="innerText">New tab</div>
 				</a>
 			</div>
@@ -70,7 +72,7 @@ export function IFramePlaceholder({
 				style={`height: ${Number(height) ? `${height}px` : height};`}
 			>
 				<button class="button regular primary-emphasized text-style-button-regular">
-					<div class="buttonIcon">{fromHtml(play)}</div>
+					<div aria-hidden="true" class="buttonIcon">{fromHtml(play)}</div>
 					<div class="innerText">Run</div>
 				</button>
 			</div>
