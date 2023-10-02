@@ -37,7 +37,11 @@ const tagsToDisplay = [...data.tags]
 		</IconOnlyButton>
 	</form>
 
-	<ul class="unlist-inline gap-2 text-center">
+	<ul
+		class="unlist-inline gap-2 text-center"
+		aria-label="Post tags"
+		role="list"
+	>
 		{
 			tagsToDisplay.map((tag) => (
 				<li>

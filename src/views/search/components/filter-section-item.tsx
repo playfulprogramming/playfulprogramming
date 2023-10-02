@@ -56,7 +56,7 @@ export const FilterSectionItem = ({
 					<span className={`text-style-body-small-bold ${style.label}`}>
 						{label}
 					</span>
-					<span className={`text-style-body-small-bold ${style.count}`}>
+					<span className={`text-style-body-small-bold ${style.count}`} aria-label={`${count} post${count > 1 ? 's' : ''}`}>
 						{count}
 					</span>
 					{children}

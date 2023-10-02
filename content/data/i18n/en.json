@@ -23,7 +23,7 @@
 	"action.search_for": "Search for...",
 	"action.view_all_chapters": "View all %s chapters",
 	"action.view_less_chapters": "View less chapters",
-	"action.is_dark_mode_enabled": "Is dark mode enabled?",
+	"label.toggle_dark_mode": "Toggle dark mode",
 	"alt.unicorn_utterances_logo": "Smiling cartoon unicorn with a bowtie",
 	"title.looking_for_more": "Looking for more?",
 	"desc.looking_for_more": "Search for your favorite framework or most loved language; we'll share what we know."
