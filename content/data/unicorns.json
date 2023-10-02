@@ -1,5 +1,20 @@
 [
 	{
+		"id": "https://github.com/nigdifg",
+		"name": "Anurag",
+		"firstName": "Anurag",
+		"lastName": "",
+		"description": "Programmer || Full Stack Developer",
+		"socials": {
+			"github": "https://github.com/nigdifg",
+			
+		},
+		"pronouns": "they/themselves",
+		"profileImg": "",
+		"color": "#ba68c8",
+		"roles": ["Programmer", "developer", "Student"]
+	},
+	{
 		"id": "crutchcorn",
 		"name": "Corbin Crutchley",
 		"firstName": "Corbin",
