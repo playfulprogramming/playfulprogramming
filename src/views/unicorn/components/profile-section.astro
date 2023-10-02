@@ -13,6 +13,39 @@ interface ProfileSectionProps {
 const { unicornProfilePicMap, unicorn } = Astro.props as ProfileSectionProps;
 
 const iconSize = 20;
+
+const socials = [
+	unicorn.socials.website && {
+		icon: "website",
+		name: "Website",
+		href: unicorn.socials.website,
+	},
+	unicorn.socials.github && {
+		icon: "github",
+		name: "GitHub",
+		href: `https://github.com/${unicorn.socials.github}`,
+	},
+	unicorn.socials.twitter && {
+		icon: "twitter",
+		name: "Twitter",
+		href: `https://twitter.com/${unicorn.socials.twitter}`,
+	},
+	unicorn.socials.twitch && {
+		icon: "twitch",
+		name: "Twitch",
+		href: `https://www.twitch.tv/${unicorn.socials.twitch}`,
+	},
+	unicorn.socials.dribbble && {
+		icon: "ci:dribbble",
+		name: "Dribbble",
+		href: `https://dribbble.com/${unicorn.socials.dribbble}`,
+	},
+	unicorn.socials.linkedIn && {
+		icon: "linkedin",
+		name: "LinkedIn",
+		href: `https://www.linkedin.com/in/${unicorn.socials.linkedIn}`,
+	},
+].filter((s) => !!s);
 ---
 
 <div class={styles.container}>
@@ -20,7 +53,7 @@ const iconSize = 20;
 		<div class={styles.nameAndDesc}>
 			<UUPicture
 				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
-				alt={unicorn.name}
+				alt=""
 				class={styles.authorImage}
 			/>
 			<div>
@@ -39,121 +72,45 @@ const iconSize = 20;
 				</p>
 			</div>
 		</div>
-		<div class={styles.socialLinkContainer}>
+		<ul
+			class={styles.socialLinkContainer}
+			role="list"
+			aria-label={`${unicorn.name} social media links`}
+		>
 			{
-				unicorn.socials.website ? (
-					<a
-						href={unicorn.socials.website}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="mdi:world"
-							class={styles.linkIcon}
-						/>
-						Website
-					</a>
-				) : null
-			}
-			{
-				unicorn.socials.github ? (
-					<a
-						href={`https://github.com/${unicorn.socials.github}`}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="github"
-							class={styles.linkIcon}
-						/>
-						GitHub
-					</a>
-				) : null
-			}
-			{
-				unicorn.socials.twitter ? (
-					<a
-						href={`https://twitter.com/${unicorn.socials.twitter}`}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="twitter"
-							class={styles.linkIcon}
-						/>
-						Twitter
-					</a>
-				) : null
-			}
-			{
-				unicorn.socials.twitch ? (
-					<a
-						href={`https://www.twitch.com/${unicorn.socials.twitch}`}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="twitch"
-							class={styles.linkIcon}
-						/>
-						Twitch
-					</a>
-				) : null
-			}
-			{
-				unicorn.socials.dribbble ? (
-					<a
-						href={`https://dribbble.com/${unicorn.socials.dribbble}`}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="ci:dribbble"
-							class={styles.linkIcon}
-						/>
-						Dribbble
-					</a>
-				) : null
-			}
-			{
-				unicorn.socials.linkedIn ? (
-					<a
-						href={`https://www.linkedin.com/in/${unicorn.socials.linkedIn}`}
-						class={`text-style-button-regular ${styles.socialLink}`}
-					>
-						<Icon
-							width={iconSize}
-							height={iconSize}
-							name="linkedin"
-							class={styles.linkIcon}
-						/>
-						LinkedIn
-					</a>
-				) : null
-			}
-		</div>
-		<div class={styles.rolesList}>
-			{
-				unicorn.rolesMeta.map((role) => {
-					return (
-						<div class={styles.role}>
-							<img
-								src={`/stickers/role_${role.id}.svg`}
-								alt=""
-								class={`${styles.rolePic}`}
+				socials.map((social) => (
+					<li>
+						<a
+							href={social.href}
+							class={`text-style-button-regular ${styles.socialLink}`}
+						>
+							<Icon
+								width={iconSize}
+								height={iconSize}
+								name={social.icon}
+								class={styles.linkIcon}
 							/>
-							<span class={`text-style-body-small-bold ${styles.roleName}`}>
-								{role.prettyname}
-							</span>
-						</div>
-					);
-				})
+							{social.name}
+						</a>
+					</li>
+				))
 			}
-		</div>
+		</ul>
+		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
+			{
+				unicorn.rolesMeta.map((role) => (
+					<li class={styles.role}>
+						<img
+							src={`/stickers/role_${role.id}.svg`}
+							alt=""
+							class={`${styles.rolePic}`}
+						/>
+						<span class={`text-style-body-small-bold ${styles.roleName}`}>
+							{role.prettyname}
+						</span>
+					</li>
+				))
+			}
+		</ul>
 	</div>
 </div>

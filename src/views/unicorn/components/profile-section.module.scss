@@ -109,6 +109,10 @@
 	flex-wrap: wrap;
 	flex-direction: row;
 	gap: var(--profile_links_gap);
+
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 .socialLink {
@@ -131,6 +135,10 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--profile_roles_gap);
+
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 /* Replace the below with specs */
