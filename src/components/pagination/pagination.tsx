@@ -87,7 +87,7 @@ export const Pagination = ({
 						<a
 							data-testid="pagination-previous"
 							className={`text-style-body-medium-bold ${styles.paginationButton} ${styles.paginationIconButton}`}
-							aria-label="Previous"
+							aria-label="Previous page"
 							href={
 								!isPreviousEnabled
 									? "javascript:void(0)"
@@ -127,7 +127,7 @@ export const Pagination = ({
 									: getPageHref(page.currentPage + 1)
 							}
 							onClick={softNavigate ? onSoftNavClick(softNavigate) : undefined}
-							aria-label="Next"
+							aria-label="Next page"
 							aria-disabled={!isNextEnabled}
 							dangerouslySetInnerHTML={{ __html: forward }}
 						/>
