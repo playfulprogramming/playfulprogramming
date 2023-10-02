@@ -7,10 +7,13 @@ export const rehypeTwoslashTabindex: Plugin<[], Root> = () => {
 		visit(tree, (node: Element) => {
 			if (
 				node.tagName === "div" &&
-				node.properties.class === "code-container"
+				node.properties.className instanceof Array &&
+				node.properties.className.includes("code-container")
 			) {
 				node.properties.tabindex = "0";
 			}
 		});
+
+		return tree;
 	};
 };
