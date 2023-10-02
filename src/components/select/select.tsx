@@ -135,6 +135,11 @@ function ListBox(props: ListBoxProps) {
 	const { listBoxRef = ref, state } = props;
 	const { listBoxProps } = useListBox(props, state, listBoxRef);
 
+	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
+	// ...but nothing should be using these IDs anyway.
+	listBoxProps["id"] = undefined;
+	listBoxProps["aria-labelledby"] = undefined;
+
 	return (
 		<ul {...listBoxProps} ref={listBoxRef} class={styles.optionsList}>
 			{[...state.collection].map((item) => (
@@ -158,6 +163,11 @@ export function Option({ item, state }: OptionProps) {
 		state,
 		ref,
 	);
+
+	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
+	// ...but nothing should be using these IDs anyway.
+	optionProps["aria-labelledby"] = undefined;
+	optionProps["aria-describedby"] = undefined;
 
 	return (
 		<li
