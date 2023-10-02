@@ -39,35 +39,46 @@ const tags = [
 		<h2 id="contributors">
 			{translate(Astro, "title.contributors")}
 		</h2>
-		<div class={style.unicorns}>
+		<ul class={style.unicorns} role="list" aria-labelledby="contributors">
 			{
 				data.unicorns.map((unicornInfo) => (
 					<ContributorCard unicorn={unicornInfo} />
 				))
 			}
-		</div>
+		</ul>
 
 		<hr />
 
 		<h2 id="licenses">{translate(Astro, "title.licenses")}</h2>
 
-		<div class={style.licenses}>
+		<ul class={style.licenses} role="list" aria-labelledby="licenses">
 			{
 				tags.map((tag) => (
-					<License
-						client:visible
-						name={tag.displayName}
-						explainerHtml={tag.explainerHtml}
-						image={tag.image}
-						action={
-							tag.explainerType === "license"
-								? translate(Astro, "action.view_license")
-								: translate(Astro, "action.view_attribution")
-						}
-					/>
+					<li>
+						<License
+							client:visible
+							name={tag.displayName}
+							explainerHtml={tag.explainerHtml}
+							image={tag.image}
+							action={
+								tag.explainerType === "license"
+									? translate(Astro, "action.view_license")
+									: translate(Astro, "action.view_attribution")
+							}
+							actionLabel={
+								tag.explainerType === "license"
+									? translate(Astro, "label.view_license_for", tag.displayName)
+									: translate(
+											Astro,
+											"label.view_attribution_for",
+											tag.displayName,
+									  )
+							}
+						/>
+					</li>
 				))
 			}
-		</div>
+		</ul>
 
 		<p>
 			{translate(Astro, "desc.licenses_request_removal")}

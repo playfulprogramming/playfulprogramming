@@ -25,12 +25,18 @@
 	display: flex;
 	gap: var(--spc-4x);
 	flex-wrap: wrap;
+
+	list-style-type: none;
+	padding: 0;
 }
 
 .aboutBody :global(.sponsors) {
 	display: grid;
 	grid-template-columns: repeat(1, minmax(0, 1fr));
 	gap: var(--spc-4x);
+
+	list-style-type: none;
+	padding: 0;
 
 	@include from($mobile) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -58,6 +64,9 @@
 	grid-template-columns: repeat(1, minmax(0, 1fr));
 	gap: var(--site-spacing);
 
+	list-style-type: none;
+	padding: 0;
+
 	@include from($tabletSmall) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: var(--spc-2x) var(--site-spacing);
@@ -69,6 +78,8 @@
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: var(--site-spacing);
 	padding: var(--site-spacing) 0;
+
+	list-style-type: none;
 
 	@include from($tabletSmall) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));

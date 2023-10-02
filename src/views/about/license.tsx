@@ -8,6 +8,7 @@ interface LicenseProps {
 	name: string;
 	explainerHtml: string;
 	action: string;
+	actionLabel: string;
 	image: string;
 }
 
@@ -25,10 +26,16 @@ export function License(props: LicenseProps) {
 
 	return (
 		<div class={style.license} onClick={handleOpen}>
-			<img class={style.icon} width="24" height="24" src={props.image} loading="lazy" />
+			<img aria-hidden="true" class={style.icon} width="24" height="24" src={props.image} loading="lazy" />
 			<div class={`text-style-button-regular ${style.info}`}>
 				<span>{props.name}</span>
-				<button class={style.viewButton} onClick={handleOpen}>{props.action}</button>
+				<button
+					class={style.viewButton}
+					onClick={handleOpen}
+					aria-label={props.actionLabel}
+				>
+					{props.action}
+				</button>
 			</div>
 			{
 				isOpen ?
