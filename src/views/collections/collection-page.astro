@@ -77,7 +77,11 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 					))
 				}
 			</div>
-			<ul class={styles.authorsList}>
+			<ul
+				class={styles.authorsList}
+				role="list"
+				aria-label="Collection authors"
+			>
 				{
 					collectionMeta.authorsMeta.map((author) => {
 						const authorPosts = posts.filter(
@@ -103,7 +107,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 										picture={unicornProfilePicMap.find(
 											(u) => u.id === author.id,
 										)}
-										alt={author.name}
+										alt=""
 									/>
 								</div>
 								<div class={styles.authorMetaData}>
