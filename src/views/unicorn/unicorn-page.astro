@@ -5,11 +5,11 @@ import { PostCardGrid } from "components/post-card/post-card-grid";
 import { ExtendedPostInfo } from "types/index";
 import { UnicornInfo } from "types/UnicornInfo";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
-import { achievements } from "../../../content/data/achievements";
 import { Button } from "../../components";
 import styles from "./unicorn-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../../utils/search";
+import { getAchievements } from "src/utils/achievements/get-achievements";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -19,17 +19,7 @@ interface UnicornPageProps {
 const { unicorn, posts } = Astro.props as UnicornPageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
-const achievementsMeta = unicorn.achievements.map((achievement) => {
-	const matchedAchievement = achievements.find(
-		(innerAchievement) => innerAchievement.id === achievement,
-	)!;
-	// eslint-disable-next-line prefer-const
-	let { id, name, body } = matchedAchievement;
-	if (typeof body === "function") {
-		body = body(unicorn.id);
-	}
-	return { id, name, body };
-});
+const achievementsMeta = await getAchievements(unicorn);
 
 const postsToDisplay = posts.slice(0, 4);
 const numberOfAchievementsToShowAtStart = posts.length ? 3 : 6;
