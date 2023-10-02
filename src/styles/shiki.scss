@@ -104,7 +104,6 @@ pre.shiki div.line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;
 	padding: 0 var(--shiki_padding);
-	border-top: 1px solid transparent;
 }
 pre.shiki div.highlight {
 	font-weight: bold;
@@ -112,11 +111,11 @@ pre.shiki div.highlight {
 }
 
 pre.shiki div:not(.highlight) + div.highlight {
-	border-top: 1px dashed var(--primary_default);
+	border-top: 2px dashed var(--primary_default);
 }
 
 pre.shiki div.highlight + div:not(.highlight) {
-	border-top: 1px dashed var(--primary_default);
+	border-top: 2px dashed var(--primary_default);
 }
 
 /** Don't show the language identifiers */
