@@ -1,6 +1,7 @@
 import { getPostsByUnicorn } from "src/utils/api";
 import { UnicornInfo } from "types/UnicornInfo";
 import { GitHubData, contributorYears } from "./github";
+import { collections } from "utils/data";
 
 interface Achievement {
 	name: string;
@@ -15,6 +16,11 @@ export const achievements: Achievement[] = [
 		isAchieved: (unicorn) => getPostsByUnicorn(unicorn.id).length > 30,
 	},
 	{
+		name: "Badge Collector",
+		body: "Have at least 3 role badges",
+		isAchieved: (unicorn) => unicorn.roles.length >= 3,
+	},
+	{
 		name: "Redesign Ruler",
 		body: "Led a site-wide redesign",
 		isAchieved: (unicorn) => unicorn.achievements.includes("site-redesign"),
@@ -23,6 +29,24 @@ export const achievements: Achievement[] = [
 		name: "Logo Legacy",
 		body: "Made our Unicorn logo!",
 		isAchieved: (unicorn) => unicorn.achievements.includes("site-logo"),
+	},
+	{
+		name: "Code Challenger",
+		body: "Made a code challenge in our Discord",
+		isAchieved: (unicorn) => unicorn.achievements.includes("code-challenge"),
+	},
+	{
+		name: "Localizer 9000",
+		body: "Translate part of Unicorn Utterances into another language!",
+		isAchieved: (unicorn) => unicorn.roles.includes("translator"),
+	},
+	{
+		name: "Collect 'em all",
+		body: "Author a collection of posts!",
+		isAchieved: (unicorn) =>
+			collections.filter((collection) =>
+				collection.authors.includes(unicorn.id),
+			).length > 0,
 	},
 	{
 		name: "Bug!",
@@ -36,21 +60,9 @@ export const achievements: Achievement[] = [
 	},
 	{
 		name: "Hello, World!",
-		body: "Earn your first Role badge",
+		body: "Earn your first role badge",
 		isAchieved: () => true,
 	},
-	// First collection
-	// First blog post
-	// Made a code challenge in our Discord
-	// Translated a resource
-	// Made a deployment of the site
-	// Lead a site redesign (Ed, Tommy)
-	// Made our logo (Vuk)
-	// Made a PR to the site (break down into different categories? Bugs/feats/refactor?)
-	// Partner
-	// Sent 1,000 messages in our Discord
-	// Sent 500 messages in our Discord
-	// Have more than 3 UU roles
 ];
 
 for (const year of contributorYears) {
@@ -68,5 +80,5 @@ function getWordCount(unicorn: UnicornInfo) {
 		return acc + (post.wordCount ?? 0);
 	}, 0);
 
-	return `Write ${wordCount.toLocaleString("en")} words!`;
+	return `Wrote ${wordCount.toLocaleString("en")} words!`;
 }
