@@ -43,7 +43,7 @@ export const CollectionCard = ({
 				</div>
 			</div>
 			<div className={style.bottomRow}>
-				<ul className={`unlist-inline ${style.authorList}`}>
+				<ul className={`unlist-inline ${style.authorList}`} role="list" aria-label="Collection authors">
 					{collection.authorsMeta?.map((author) => (
 						<li>
 							<a

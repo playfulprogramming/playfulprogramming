@@ -23,7 +23,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 						className={style.cardIcon}
 						dangerouslySetInnerHTML={{ __html: authors }}
 					/>
-					<ul className={style.authorList}>
+					<ul className={style.authorList} role="list" aria-label="Post authors">
 						{post.authorsMeta.map((author, i, arr) => (
 							<li class="text-style-body-small-bold">
 								<a
