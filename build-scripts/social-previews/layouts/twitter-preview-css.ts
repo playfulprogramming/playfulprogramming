@@ -69,25 +69,10 @@ pre code::before {
   box-shadow: 0 0 28px #000;
 }
 
-.codeScreen::after {
-  position: absolute;
-  top: 0.5em;
-  right: 1em;
-  font-size: 1.4em;
-  content: '🗕 🗖 🗙';
-}
-
 .codeScreenOverlay {
   -webkit-mask: radial-gradient(circle 500px at 25% 50%, #0000, #000F);
   backdrop-filter: blur(10px);
   z-index: -2;
-}
-
-.codeScreenGrain {
-  background: linear-gradient(340deg, rgba(0,0,0,.5), rgba(0,0,0,0)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
-  filter: contrast(800%) brightness(200%) saturate(0%);
-  opacity: 0.1;
-  z-index: -1;
 }
 
 .absoluteFill {

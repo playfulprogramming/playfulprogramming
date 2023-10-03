@@ -1,8 +1,7 @@
-import { readFileAsBase64 } from "./utils";
 import { ExtendedPostInfo } from "types/index";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
-
+import sharp from "sharp";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkToRehype from "remark-rehype";
@@ -58,15 +57,29 @@ async function markdownToHtml(content: string) {
 	return await (await unifiedChain.process(content)).toString();
 }
 
+const authorImageCache = new Map<string, string>();
+
 export const renderPostPreviewToString = async (
 	layout: Layout,
 	post: ExtendedPostInfo,
 ) => {
 	const authorImageMap = Object.fromEntries(
-		post.authorsMeta.map((author) => [
-			author.id,
-			readFileAsBase64(author.profileImgMeta.absoluteFSPath),
-		]),
+		await Promise.all(
+			post.authorsMeta.map(async (author) => {
+				if (authorImageCache.has(author.id))
+					return [author.id, authorImageCache.get(author.id)];
+
+				const buffer = await sharp(author.profileImgMeta.absoluteFSPath)
+					.resize(90, 90)
+					.jpeg({ mozjpeg: true })
+					.toBuffer();
+
+				const image = "data:image/jpeg;base64," + buffer.toString("base64");
+
+				authorImageCache.set(author.id, image);
+				return [author.id, image];
+			}),
+		),
 	);
 
 	const postHtml = await markdownToHtml(post.contentMeta);

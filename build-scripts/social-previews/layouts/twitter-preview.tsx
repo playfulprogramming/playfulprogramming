@@ -1,8 +1,7 @@
 import * as React from "preact";
-import { readFileAsBase64 } from "../utils";
 import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
-import * as fs from "fs";
+import fs from "fs/promises";
 
 export function splitSentence(str: string): [string, string] {
 	const splitStr = str.split(" ");
@@ -39,7 +38,7 @@ export function splitSentence(str: string): [string, string] {
 	return [str, ""];
 }
 
-const unicornUtterancesHead = fs.readFileSync("src/assets/unicorn_utterances_sticker.svg", "utf-8");
+const unicornUtterancesHead = await fs.readFile("src/assets/unicorn_utterances_sticker.svg", "utf-8");
 
 interface TwitterCodeScreenProps {
 	title: string;
@@ -67,20 +66,17 @@ const TwitterCodeScreen = ({ title, html }: TwitterCodeScreenProps) => {
 		</div>
 	);
 };
+
 const TwitterLargeCard = ({
 	post,
 	postHtml,
 	width,
 	authorImageMap,
 }: ComponentProps) => {
-	const title = post.title;
-	const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
-
 	return (
 		<>
 			<TwitterCodeScreen title={post.title} html={postHtml} />
 			<div className="absoluteFill codeScreenOverlay" />
-			<div className="absoluteFill codeScreenGrain" />
 			<div className="absoluteFill backgroundColor content">
 				<div style="flex-grow: 1; text-align: right;">
 					<div class="url">unicorn-utterances.com</div>
@@ -89,11 +85,11 @@ const TwitterLargeCard = ({
 					style={{
 						maxWidth: "100%",
 						fontSize: `clamp(300%, 4.5rem, ${
-							Math.round(width / title.length) * 3
+							Math.round(width / post.title.length) * 3
 						}px)`,
 					}}
 				>
-					{title}
+					{post.title}
 				</h1>
 				<div class="row">
 					<div class="authorImages">
