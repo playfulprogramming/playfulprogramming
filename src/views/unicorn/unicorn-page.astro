@@ -63,26 +63,33 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				})
 			}
 		</ul>
-		<SubHeader tag="h1" text="Recent articles" id="recent-articles-header">
-			<!-- TODO: Replace href with util to build search URL -->
-			{
-				showPostsToggle && (
-					<Button
-						tag="a"
-						href={`/search?${buildSearchQuery({
-							filterAuthors: [unicorn.id],
-						})}`}
-					>
-						View all
-					</Button>
-				)
-			}
-		</SubHeader>
-		<PostCardGrid
-			aria-labelledby={"recent-articles-header"}
-			postsToDisplay={postsToDisplay}
-			unicornProfilePicMap={unicornProfilePicMap}
-		/>
+		{
+			postsToDisplay.length
+				? [
+						<SubHeader
+							tag="h1"
+							text="Recent articles"
+							id="recent-articles-header"
+						>
+							{showPostsToggle && (
+								<Button
+									tag="a"
+									href={`/search?${buildSearchQuery({
+										filterAuthors: [unicorn.id],
+									})}`}
+								>
+									View all
+								</Button>
+							)}
+						</SubHeader>,
+						<PostCardGrid
+							aria-labelledby={"recent-articles-header"}
+							postsToDisplay={postsToDisplay}
+							unicornProfilePicMap={unicornProfilePicMap}
+						/>,
+				  ]
+				: undefined
+		}
 	</div>
 </div>
 
