@@ -8,6 +8,7 @@ export default `
 pre {
 	counter-reset: step;
 	counter-increment: step 0;
+	font-family: 'Roboto Mono', monospace;
 }
 
 pre code {
@@ -16,6 +17,7 @@ pre code {
 	padding-left: 3.5rem;
 	tab-size: 4;
 	height: 1.4rem;
+	color: #FFF;
 }
 
 pre code::before {
@@ -27,7 +29,7 @@ pre code::before {
 	width: 1rem;
 	display: inline-block;
 	text-align: right;
-	color: var(--foreground_disabled);
+	color: #888;
 }
 
 .theme-0 {

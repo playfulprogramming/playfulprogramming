@@ -27,16 +27,19 @@ const unifiedChain = unified()
 			"\n" +
 			renderPostPreviewToString.toString().replace(/([;,])/g, (s) => s + "\n");
 
-		const children = value.split("\n").map((value) => ({
-			type: "element",
-			tagName: "code",
-			children: [
-				{
-					type: "text",
-					value,
-				},
-			],
-		}));
+		const children = value
+			.split("\n")
+			.filter((value) => !!value.trim().length)
+			.map((value) => ({
+				type: "element",
+				tagName: "code",
+				children: [
+					{
+						type: "text",
+						value: value,
+					},
+				],
+			}));
 
 		return {
 			type: "root",

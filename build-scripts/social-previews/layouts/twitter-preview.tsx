@@ -2,6 +2,7 @@ import * as React from "preact";
 import { readFileAsBase64 } from "../utils";
 import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
+import * as fs from "fs";
 
 export function splitSentence(str: string): [string, string] {
 	const splitStr = str.split(" ");
@@ -38,17 +39,14 @@ export function splitSentence(str: string): [string, string] {
 	return [str, ""];
 }
 
-const unicornUtterancesHead = readFileAsBase64(
-	"src/assets/unicorn_head_1024.png",
-);
+const unicornUtterancesHead = fs.readFileSync("src/assets/unicorn_utterances_sticker.svg", "utf-8");
 
 interface TwitterCodeScreenProps {
 	title: string;
 	html: string;
-	blur: boolean;
 }
 
-const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
+const TwitterCodeScreen = ({ title, html }: TwitterCodeScreenProps) => {
 	const rotations = [
 		"rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translate(16%, 0%)",
 		"rotateX(5deg) rotateY(35deg) rotateZ(345deg) translate(18%, 0)",
@@ -59,14 +57,12 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
 	const transform = rotations[title.charCodeAt(1) % rotations.length];
 
 	return (
-		<div className={`absoluteFill codeScreenBg ${blur ? "blur" : ""}`}>
+		<div className={`absoluteFill codeScreenBg`}>
 			<div
 				className="absoluteFill codeScreen"
 				style={`transform: ${transform};`}
 			>
-				<div className="absoluteFill">
-					<pre dangerouslySetInnerHTML={{ __html: html }} />
-				</div>
+				<div className="absoluteFill" dangerouslySetInnerHTML={{ __html: html }} />
 			</div>
 		</div>
 	);
@@ -82,45 +78,48 @@ const TwitterLargeCard = ({
 
 	return (
 		<>
-			<TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
-			<TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
+			<TwitterCodeScreen title={post.title} html={postHtml} />
 			<div className="absoluteFill codeScreenOverlay" />
-			<div className="absoluteFill centerAll">
+			<div className="absoluteFill codeScreenGrain" />
+			<div className="absoluteFill backgroundColor content">
+				<div style="flex-grow: 1; text-align: right;">
+					<div class="url">unicorn-utterances.com</div>
+				</div>
 				<h1
 					style={{
-						maxWidth: "90%",
-						textAlign: "center",
+						maxWidth: "100%",
 						fontSize: `clamp(300%, 4.5rem, ${
 							Math.round(width / title.length) * 3
 						}px)`,
 					}}
 				>
-					{firstHalfTitle}
-					<span className="secondHalfTitle">{secondHalfTitle}</span>
+					{title}
 				</h1>
-			</div>
-			<div
-				className="absoluteFill backgroundColor"
-				style={{
-					zIndex: -1,
-				}}
-			/>
-			<div className="bottomContainer">
-				<div className="bottomImagesContainer centerAll">
-					{post.authors.map((author) => (
-						<img
-							key={author}
-							src={authorImageMap[author]}
-							alt=""
-							className="bottomProfImg"
-							height={80}
-							width={80}
-						/>
-					))}
-				</div>
-				<div className="bottomImagesContainer centerAll">
-					<p>unicorn-utterances.com</p>
-					<img src={unicornUtterancesHead} alt="" height={80} width={80} />
+				<div class="row">
+					<div class="authorImages">
+						{post.authors.map((author) => (
+							<img
+								key={author}
+								src={authorImageMap[author]}
+								alt=""
+								className="authorImage"
+								height={90}
+								width={90}
+							/>
+						))}
+					</div>
+					<div class="postInfo">
+						<span class="authors">
+							{post.authorsMeta.map((author) => author.name).join(", ")}
+						</span>
+						<span class="date">
+							{post.publishedMeta} &nbsp;&middot;&nbsp; {post.wordCount.toLocaleString("en")} words
+						</span>
+					</div>
+					<div
+						class="unicorn"
+						dangerouslySetInnerHTML={{ __html: unicornUtterancesHead }}
+					/>
 				</div>
 			</div>
 		</>
