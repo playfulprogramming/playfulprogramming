@@ -1,54 +1,16 @@
 import * as React from "preact";
-import { readFileAsBase64 } from "../utils";
 import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
+import fs from "fs/promises";
 
-export function splitSentence(str: string): [string, string] {
-	const splitStr = str.split(" ");
-	const splitBy = (
-		regex: RegExp,
-		matchLast: boolean = true,
-	): [string, string] | null => {
-		const matches = splitStr.map((word, i) => ({ reg: regex.exec(word), i }));
-		const match = (matchLast ? matches.reverse() : matches)
-			.slice(1, -1)
-			.find(({ reg }) => !!reg);
-
-		// if match is not found, fail
-		if (!match || !match.reg) return null;
-
-		const firstHalf = [
-			...splitStr.slice(0, match.i),
-			match.reg.input.substring(0, match.reg.index),
-		].join(" ");
-		const secondHalf = [match.reg[0], ...splitStr.slice(match.i + 1)].join(" ");
-		return [firstHalf, secondHalf];
-	};
-
-	let ret;
-	// try to split by "Topic[: Attribute]" or "Topic [- Attribute]" (hyphens/colons)
-	if ((ret = splitBy(/(?<=^\w+):$|^[-—]$/))) return ret;
-	// try to split by "Attribute in [Topic, Topic, and Topic]" (commas)
-	if ((ret = splitBy(/^\w+,$/, false))) return ret;
-	// try to split by "Topic['s Attribute]" (apostrophe)
-	if ((ret = splitBy(/(?<=^\w+\'s?)$/))) return ret;
-	// try to split by "Attribute [in Topic]" (lowercase words)
-	if ((ret = splitBy(/^[a-z][A-Za-z]*$/))) return ret;
-	// otherwise, don't split the string
-	return [str, ""];
-}
-
-const unicornUtterancesHead = readFileAsBase64(
-	"src/assets/unicorn_head_1024.png",
-);
+const unicornUtterancesHead = await fs.readFile("src/assets/unicorn_utterances_sticker.svg", "utf-8");
 
 interface TwitterCodeScreenProps {
 	title: string;
 	html: string;
-	blur: boolean;
 }
 
-const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
+const TwitterCodeScreen = ({ title, html }: TwitterCodeScreenProps) => {
 	const rotations = [
 		"rotateX(-17deg) rotateY(32deg) rotateZ(-3deg) translate(16%, 0%)",
 		"rotateX(5deg) rotateY(35deg) rotateZ(345deg) translate(18%, 0)",
@@ -59,68 +21,66 @@ const TwitterCodeScreen = ({ title, html, blur }: TwitterCodeScreenProps) => {
 	const transform = rotations[title.charCodeAt(1) % rotations.length];
 
 	return (
-		<div className={`absoluteFill codeScreenBg ${blur ? "blur" : ""}`}>
+		<div className={`absoluteFill codeScreenBg`}>
 			<div
 				className="absoluteFill codeScreen"
 				style={`transform: ${transform};`}
 			>
-				<div className="absoluteFill">
-					<pre dangerouslySetInnerHTML={{ __html: html }} />
-				</div>
+				<div className="absoluteFill" dangerouslySetInnerHTML={{ __html: html }} />
 			</div>
 		</div>
 	);
 };
+
 const TwitterLargeCard = ({
 	post,
 	postHtml,
 	width,
 	authorImageMap,
 }: ComponentProps) => {
-	const title = post.title;
-	const [firstHalfTitle, secondHalfTitle] = splitSentence(title);
-
 	return (
 		<>
-			<TwitterCodeScreen title={post.title} html={postHtml} blur={true} />
-			<TwitterCodeScreen title={post.title} html={postHtml} blur={false} />
+			<TwitterCodeScreen title={post.title} html={postHtml} />
 			<div className="absoluteFill codeScreenOverlay" />
-			<div className="absoluteFill centerAll">
+			<div className="absoluteFill backgroundColor content">
+				<div style="flex-grow: 1; text-align: right;">
+					<div class="url">unicorn-utterances.com</div>
+				</div>
 				<h1
 					style={{
-						maxWidth: "90%",
-						textAlign: "center",
+						maxWidth: "100%",
 						fontSize: `clamp(300%, 4.5rem, ${
-							Math.round(width / title.length) * 3
+							Math.round(width / post.title.length) * 3
 						}px)`,
 					}}
 				>
-					{firstHalfTitle}
-					<span className="secondHalfTitle">{secondHalfTitle}</span>
+					{post.title}
 				</h1>
-			</div>
-			<div
-				className="absoluteFill backgroundColor"
-				style={{
-					zIndex: -1,
-				}}
-			/>
-			<div className="bottomContainer">
-				<div className="bottomImagesContainer centerAll">
-					{post.authors.map((author) => (
-						<img
-							key={author}
-							src={authorImageMap[author]}
-							alt=""
-							className="bottomProfImg"
-							height={80}
-							width={80}
-						/>
-					))}
-				</div>
-				<div className="bottomImagesContainer centerAll">
-					<p>unicorn-utterances.com</p>
-					<img src={unicornUtterancesHead} alt="" height={80} width={80} />
+				<div class="row">
+					<div class="authorImages">
+						{post.authors.map((author) => (
+							<img
+								key={author}
+								src={authorImageMap[author]}
+								alt=""
+								className="authorImage"
+								height={90}
+								width={90}
+							/>
+						))}
+					</div>
+					<div class="postInfo">
+						<span class="authors">
+							{post.authorsMeta.map((author) => author.name).join(", ")}
+						</span>
+						<span class="date">
+							{post.publishedMeta} &nbsp;&middot;&nbsp; {post.wordCount.toLocaleString("en")} words
+						</span>
+					</div>
+					<div
+						class="unicorn"
+						dangerouslySetInnerHTML={{ __html: unicornUtterancesHead }}
+					/>
 				</div>
 			</div>
 		</>

@@ -1,8 +1,35 @@
 export default `
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Emoji&family=Roboto+Mono:wght@400;700&display=swap');
 
 * {
+	font-family: inherit;
+}
+
+pre {
+	counter-reset: step;
+	counter-increment: step 0;
 	font-family: 'Roboto Mono', monospace;
+}
+
+pre code {
+	display: block;
+	position: relative;
+	padding-left: 3.5rem;
+	tab-size: 4;
+	height: 1.4rem;
+	color: #000;
+}
+
+pre code::before {
+	content: counter(step);
+	counter-increment: step;
+
+	position: absolute;
+	left: 1rem;
+	width: 1rem;
+	display: inline-block;
+	text-align: right;
+	color: #888;
 }
 
 .theme-0 {
@@ -50,13 +77,6 @@ export default `
 	z-index: -4;
 }
 
-.codeScreenBg.blur {
-	--gradient: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1));
-	-webkit-mask-image: var(--gradient);
-	mask-image: var(--gradient);
-	filter: blur(5px);
-}
-
 .codeScreen, .rect {
 	--z: 0px;
 	transform: rotateX(var(--rotX)) rotateY(var(--rotY)) rotateZ(336deg) translate(25%, -20%) translateZ(var(--z));
@@ -93,10 +113,20 @@ export default `
 	left: calc(50% + var(--x));
 }
 
-.rect img {
+.rect svg {
 	margin: 20px;
     width: calc(100% - 40px);
+	height: calc(100% - 40px);
 	filter: grayscale(1);
+}
+
+.rect.emoji {
+	font-family: 'Noto Emoji';
+	font-size: 100px;
+	color: #333;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .tags {
@@ -114,13 +144,8 @@ export default `
 	color: var(--color-text-faded);
 }
 
-pre {
-	background: none !important;
-	border: none !important;
+pre code {
 	color: var(--color-text) !important;
-}
-
-pre code span {
 	text-shadow: currentColor 1px 0 10px;
 }
 

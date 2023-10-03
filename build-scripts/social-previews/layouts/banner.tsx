@@ -1,32 +1,11 @@
 import * as React from "preact";
-import { readFileAsBase64 } from "../utils";
 import { ComponentProps, Layout } from "../base";
 import style from "./banner-css";
 import classnames from "classnames";
-import path from "path";
+import tags from "../../../content/data/tags.json";
+import fs from "fs";
 
-const tagStickers: Record<string, string> = {
-	default: readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/role_devops.svg"),
-	),
-	"html,webdev": readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/html.svg"),
-	),
-	vue: readFileAsBase64(path.join(process.cwd(), "public/stickers/vue.svg")),
-	"documentation,opinion": readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/role_author.svg"),
-	),
-	"computer science,bash,javascript": readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/role_developer.svg"),
-	),
-	design: readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/role_designer.svg"),
-	),
-	rust: readFileAsBase64(
-		path.join(process.cwd(), "public/stickers/ferris.svg"),
-	),
-	git: readFileAsBase64(path.join(process.cwd(), "public/stickers/git.svg")),
-};
+const TAG_SVG_DEFAULT = fs.readFileSync("public/stickers/role_devops.svg", "utf-8");
 
 function BannerCodeScreen({
 	post,
@@ -40,16 +19,12 @@ function BannerCodeScreen({
 	const rotX = (post.description.length % 20) - 10;
 	const rotY = (post.title.length * 3) % 20;
 
-	let tagImg = tagStickers["default"];
-	for (const tag of post.tags) {
-		const key = Object.keys(tagStickers).find((k) =>
-			k.split(",").includes(tag),
-		);
-		if (key) {
-			tagImg = tagStickers[key];
-			break;
-		}
-	}
+	const tagInfo = post.tags.map(tag => tags[tag])
+		.filter(t => t?.emoji || (t?.image && t?.shownWithBranding))[0];
+
+	const tagSvg = tagInfo?.image
+		? fs.readFileSync("public" + tagInfo.image, "utf-8")
+		: TAG_SVG_DEFAULT;
 
 	const theme = post.title.length % 3;
 
@@ -65,16 +40,27 @@ function BannerCodeScreen({
 				style={`--rotX: ${rotX}deg; --rotY: ${rotY}deg; --left: ${rotY}%;`}
 			>
 				<div class="codeScreen">
-					<pre dangerouslySetInnerHTML={{ __html: postHtml }} />
+					<div dangerouslySetInnerHTML={{ __html: postHtml }} />
 					<div class="tags">
 						{post.tags.map((tag) => (
 							<span key={tag}>{tag}</span>
 						))}
 					</div>
 				</div>
-				<div class="rect" style="--z: 60px; --x: -80px; --y: -150px;">
-					<img src={tagImg} />
-				</div>
+				{tagInfo?.emoji ? (
+					<div
+						class="rect emoji"
+						style="--z: 60px; --x: -80px; --y: -150px;"
+					>
+						{tagInfo.emoji}
+					</div>
+				) : (
+					<div
+						class="rect"
+						style="--z: 60px; --x: -80px; --y: -150px;"
+						dangerouslySetInnerHTML={{ __html: tagSvg }}
+					/>
+				)}
 			</div>
 		</>
 	);
