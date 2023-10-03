@@ -38,18 +38,6 @@
 	width: 100%;
 }
 
-.selectDropdown {
-	display: flex;
-	flex-direction: column;
-}
-
-.selectDropdown {
-	padding: var(--popup_padding);
-	border-radius: var(--popup_corner-radius);
-	background-color: var(--popup_background-color);
-	box-shadow: var(--shadow_popup);
-}
-
 .option {
 	background: unset;
 	border: unset;
@@ -101,4 +89,5 @@
 	padding: var(--popup_padding);
 	background: var(--popup_background-color);
 	box-shadow: var(--shadow_popup);
+	border: var(--border-width_s) solid var(--background_disabled);
 }
