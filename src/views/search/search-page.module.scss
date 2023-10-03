@@ -27,35 +27,6 @@
 	min-height: 80vh;
 }
 
-.results {
-	/* Visually hide */
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
-}
-
-.results:focus-within {
-	/* Visually unhide */
-	position: unset;
-	width: unset;
-	height: unset;
-	padding: unset;
-	margin: unset;
-	overflow: unset;
-	clip: unset;
-	white-space: unset;
-	border-width: unset;
-	/* Other styles */
-	margin: 0;
-	margin-top: var(--site-spacing);
-}
-
 .collectionsGrid {
 	display: grid;
 	gap: var(--site-spacing);
@@ -94,6 +65,10 @@
 	100% {
 		opacity: 0;
 	}
+}
+
+.passThru {
+	display: contents;
 }
 
 .loadingAnimationContainer {

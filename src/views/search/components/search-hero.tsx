@@ -1,9 +1,11 @@
 import { JSXNode } from "components/types";
 import styles from "./search-hero.module.scss";
 import tags from "../../../../content/data/tags.json";
+import { MutableRef } from "preact/hooks";
+import { Ref } from "preact";
 
 const stickers = Object.values(tags)
-	.filter(tag => !!tag["shownWithBranding"] && !!tag["image"])
+	.filter((tag) => !!tag["shownWithBranding"] && !!tag["image"])
 	.sort(() => 0.5 - Math.random()) as { image: string }[];
 
 const stickerTransforms = [
@@ -14,7 +16,7 @@ const stickerTransforms = [
 	styles.sticker5,
 	styles.sticker6,
 	styles.sticker7,
-	styles.sticker8
+	styles.sticker8,
 ].map((className) => {
 	const sticker = stickers.pop();
 	return {
@@ -40,14 +42,19 @@ export const SearchHero = ({
 }: SearchHeroProps) => {
 	return (
 		<div class={styles.container}>
-			{
-				stickerTransforms.map((sticker) => (
-					<img aria-hidden="true" src={sticker.image} class={sticker.className} alt="" />
-				))
-			}
+			{stickerTransforms.map((sticker) => (
+				<img
+					aria-hidden="true"
+					src={sticker.image}
+					class={sticker.className}
+					alt=""
+				/>
+			))}
 
 			<img className={styles.image} src={imageSrc} alt={imageAlt} />
-			<h2 class={`text-style-headline-1 ${styles.title}`}>{title}</h2>
+			<h2 class={`text-style-headline-1 ${styles.title}`}>
+				{title}
+			</h2>
 			<p class={`text-style-body-medium ${styles.description}`}>
 				{description}
 			</p>

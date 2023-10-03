@@ -42,6 +42,7 @@ import {
 } from "../../utils/search";
 import { debounce } from "utils/debounce";
 import { SortType } from "./components/types";
+import { SearchResultCount } from "./components/search-result-count";
 
 const DEFAULT_SORT = "relevance";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
@@ -107,7 +108,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		500,
 	);
 
-	const resultsHeading = useRef<HTMLHeadingElement>();
+	const resultsHeading = useRef<HTMLDivElement>();
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
@@ -346,8 +347,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				posts.length === 0 &&
 				filteredAndSortedCollections.length === 0));
 
-	const [isResultsFocused, setIsResultsFocused] = useState(false);
-
 	return (
 		<div
 			className={style.fullPageContainer}
@@ -390,37 +389,34 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 				/>
-				<h1
-					ref={resultsHeading}
-					className={`text-style-headline-1 ${style.results}`}
-					tabIndex={-1}
-					onFocus={() => setIsResultsFocused(true)}
-					onBlur={() => setIsResultsFocused(false)}
-					aria-live={isResultsFocused ? "polite" : undefined}
-				>
-					{isContentLoading ? (
-						"Loading..."
-					) : (
+				{/* aria-live cannot be on an element that is programmatically removed
+				or added via JSX, instead it has to listen to changes in DOM somehow */}
+				<div aria-live={"polite"} aria-atomic="true" className={style.passThru}>
+					{!isContentLoading &&
+						(!!filteredAndSortedCollections.length ||
+							!!filteredAndSortedPosts.length) && (
+							<SearchResultCount
+								ref={resultsHeading}
+								numberOfCollections={filteredAndSortedCollections.length}
+								numberOfPosts={filteredAndSortedPosts.length}
+							/>
+						)}
+					{!isError && isContentLoading && (
 						<>
-							There are {posts.length} articles and{" "}
-							{filteredAndSortedCollections.length} collections in your search
+							<div className={style.loadingAnimationContainer}>
+								<div className={style.loadingAnimation} />
+								<p className={`text-style-headline-4 ${style.loadingText}`}>
+									Fetching results...
+								</p>
+							</div>
 						</>
 					)}
-				</h1>
-				{!isError && isContentLoading && (
-					<>
-						<div className={style.loadingAnimationContainer}>
-							<div className={style.loadingAnimation} />
-							<p
-								aria-live="polite"
-								className={`text-style-headline-4 ${style.loadingText}`}
-							>
-								Fetching results...
-							</p>
-						</div>
-					</>
-				)}
-				<div aria-live="polite" aria-atomic="true">
+				</div>
+				<div
+					aria-live="assertive"
+					aria-atomic="true"
+					className={style.passThru}
+				>
 					{!isError && !isContentLoading && noResults && (
 						<SearchHero
 							imageSrc={sadUnicorn.src}
@@ -465,7 +461,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					Boolean(filteredAndSortedCollections.length) && (
 						<Fragment>
 							<SubHeader
-								tag="h1"
+								tag="h2"
 								text="Collections"
 								id="collections-header"
 								data-testid="collections-header"
@@ -492,7 +488,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					Boolean(posts.length) && (
 						<Fragment>
 							<SubHeader
-								tag="h1"
+								tag="h2"
 								text="Articles"
 								id="articles-header"
 								data-testid="articles-header"
