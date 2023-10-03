@@ -37,34 +37,47 @@ export const FilterSectionItem = ({
 
 	useEffect(() => {
 		// this does not happen automatically, so we need to manually scroll to the focused item
-		if (isFocusVisible && labelRef.current && typeof labelRef.current.scrollIntoView !== "undefined")
+		if (
+			isFocusVisible &&
+			labelRef.current &&
+			typeof labelRef.current.scrollIntoView !== "undefined"
+		)
 			labelRef.current.scrollIntoView({ block: "nearest" });
 	}, [isFocusVisible]);
 
 	return (
-		<CheckboxBox
-			selected={isSelected}
-			wrapper={(children) => (
-				<label
-					ref={labelRef}
-					class={`${style.containerLabel} ${isSelected ? style.selected : ""}`}
-					data-focus-visible={isFocusVisible}
-				>
-					<span aria-hidden={true} class={style.iconContainer}>
-						{icon}
-					</span>
-					<span className={`text-style-body-small-bold ${style.label}`}>
-						{label}
-					</span>
-					<span className={`text-style-body-small-bold ${style.count}`} aria-label={`${count} post${count > 1 ? 's' : ''}`}>
-						{count}
-					</span>
-					{children}
-					<VisuallyHidden>
-						<input {...inputProps} {...focusProps} ref={ref} />
-					</VisuallyHidden>
-				</label>
-			)}
-		/>
+		<li>
+			<CheckboxBox
+				selected={isSelected}
+				wrapper={(children) => (
+					<label
+						ref={labelRef}
+						class={`${style.containerLabel} ${
+							isSelected ? style.selected : ""
+						}`}
+						data-focus-visible={isFocusVisible}
+					>
+						<span aria-hidden={true} class={style.iconContainer}>
+							{icon}
+						</span>
+						<span className={`text-style-body-small-bold ${style.label}`}>
+							{label}
+						</span>
+						<span
+							className={`text-style-body-small-bold ${style.count}`}
+							aria-label={`${count} post${count > 1 ? "s" : ""}`}
+						>
+							<span className="visually-hidden"> - </span>
+							{count}
+							<span className="visually-hidden"> articles</span>
+						</span>
+						{children}
+						<VisuallyHidden>
+							<input {...inputProps} {...focusProps} ref={ref} />
+						</VisuallyHidden>
+					</label>
+				)}
+			/>
+		</li>
 	);
 };
