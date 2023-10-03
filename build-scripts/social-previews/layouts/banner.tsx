@@ -5,6 +5,8 @@ import classnames from "classnames";
 import tags from "../../../content/data/tags.json";
 import fs from "fs";
 
+const TAG_SVG_DEFAULT = fs.readFileSync("public/stickers/role_devops.svg", "utf-8");
+
 function BannerCodeScreen({
 	post,
 	postHtml,
@@ -18,11 +20,11 @@ function BannerCodeScreen({
 	const rotY = (post.title.length * 3) % 20;
 
 	const tagInfo = post.tags.map(tag => tags[tag])
-		.filter(t => t?.image && t?.shownWithBranding)[0];
+		.filter(t => t?.emoji || (t?.image && t?.shownWithBranding))[0];
 
-	const tagSvg = tagInfo
+	const tagSvg = tagInfo?.image
 		? fs.readFileSync("public" + tagInfo.image, "utf-8")
-		: fs.readFileSync("public/stickers/role_devops.svg", "utf-8");
+		: TAG_SVG_DEFAULT;
 
 	const theme = post.title.length % 3;
 
@@ -45,11 +47,20 @@ function BannerCodeScreen({
 						))}
 					</div>
 				</div>
-				<div
-					class="rect"
-					style="--z: 60px; --x: -80px; --y: -150px;"
-					dangerouslySetInnerHTML={{ __html: tagSvg }}
-				/>
+				{tagInfo?.emoji ? (
+					<div
+						class="rect emoji"
+						style="--z: 60px; --x: -80px; --y: -150px;"
+					>
+						{tagInfo.emoji}
+					</div>
+				) : (
+					<div
+						class="rect"
+						style="--z: 60px; --x: -80px; --y: -150px;"
+						dangerouslySetInnerHTML={{ __html: tagSvg }}
+					/>
+				)}
 			</div>
 		</>
 	);

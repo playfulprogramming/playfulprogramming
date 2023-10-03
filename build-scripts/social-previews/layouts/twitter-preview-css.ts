@@ -1,5 +1,5 @@
 export default `
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@700;800&family=Noto+Color+Emoji&family=Roboto+Mono:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@700;800&family=Noto+Color+Emoji&family=Roboto+Mono:wght@400;700&display=swap');
 
 * {
   font-family: inherit;

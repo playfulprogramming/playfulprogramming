@@ -1,8 +1,8 @@
 export default `
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Roboto+Mono:wght@400;700&display=swap');
 
 * {
-	font-family: 'Roboto Mono', monospace;
+	font-family: inherit;
 }
 
 pre {
@@ -111,13 +111,21 @@ pre code::before {
 	position: absolute;
 	top: calc(50% + var(--y));
 	left: calc(50% + var(--x));
+	filter: grayscale(1);
 }
 
 .rect svg {
 	margin: 20px;
     width: calc(100% - 40px);
 	height: calc(100% - 40px);
-	filter: grayscale(1);
+}
+
+.rect.emoji {
+	font-family: 'Noto Color Emoji';
+	font-size: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .tags {
