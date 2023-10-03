@@ -26,8 +26,7 @@ pre code .line::before {
 	width: 1rem;
 	display: inline-block;
 	text-align: right;
-	color: rgba(115, 138, 148, 0.4);
-	color: var(--foreground_emphasis-low);
+	color: var(--foreground_disabled);
 }
 
 pre code .line.highlight::before {
