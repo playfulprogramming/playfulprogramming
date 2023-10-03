@@ -77,13 +77,6 @@ pre code::before {
 	z-index: -4;
 }
 
-.codeScreenBg.blur {
-	--gradient: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1));
-	-webkit-mask-image: var(--gradient);
-	mask-image: var(--gradient);
-	filter: blur(5px);
-}
-
 .codeScreen, .rect {
 	--z: 0px;
 	transform: rotateX(var(--rotX)) rotateY(var(--rotY)) rotateZ(336deg) translate(25%, -20%) translateZ(var(--z));
@@ -142,13 +135,8 @@ pre code::before {
 	color: var(--color-text-faded);
 }
 
-pre {
-	background: none !important;
-	border: none !important;
+pre code {
 	color: var(--color-text) !important;
-}
-
-pre code span {
 	text-shadow: currentColor 1px 0 10px;
 }
 
