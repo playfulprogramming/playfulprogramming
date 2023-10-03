@@ -56,7 +56,7 @@
 		padding: 0;
 		margin: 0;
 
-		a[data-current] {
+		a[aria-current="page"] {
 			color: var(--foreground_disabled);
 			text-decoration: none;
 		}

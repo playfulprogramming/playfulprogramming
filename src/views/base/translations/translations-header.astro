@@ -34,7 +34,7 @@ const titleId = "translations-header-title";
 					<li>
 						<a
 							href={locale === "en" ? path : `/${locale}${path}`}
-							data-current={locale === currentLocale ? true : undefined}
+							aria-current={locale === currentLocale ? "page" : undefined}
 							class="text-style-body-large-bold"
 						>
 							{languages[locale]}
