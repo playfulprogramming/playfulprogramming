@@ -25,7 +25,7 @@ const posts = getPostsByUnicorn(unicorn.id, "en");
 		type="profile"
 		pathName={`/unicorns/${unicorn.id}`}
 	/>
-	<div class="listViewContent">
+	<main class="listViewContent">
 		<UnicornsPage unicorn={unicorn} posts={posts} />
-	</div>
+	</main>
 </Document>

@@ -25,11 +25,12 @@ const tags = [
 ];
 ---
 
-<div class="container">
+<main class="container">
+	<h1 class="visually-hidden">About Us</h1>
 	<div class={style.banner}>
 		<BannerSvg />
 	</div>
-	<main class={`${style.aboutBody} post-body`}>
+	<div class={`${style.aboutBody} post-body`}>
 		<TranslationsHeader locales={about.locales} />
 
 		<about.page.Content />
@@ -100,5 +101,5 @@ const tags = [
 		</p>
 
 		<hr />
-	</main>
-</div>
+	</div>
+</main>

@@ -54,45 +54,47 @@ const collectionPosts = getPostsByCollection(slug, collection.locale);
 			collection.coverImgMeta.relativeServerPath}
 		providedLangs={collection.locales}
 	/>
-	<CollectionPage
-		Content={Content}
-		collection={collection}
-		coverImgPath={collection.coverImgMeta.relativeServerPath}
-	/>
-	<div class="collection-post-list-container">
-		<div class="collection-post-list">
-			<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
-			<ol>
-				{
-					(collectionPosts ?? []).map((post) => {
-						return (
-							<li>
-								<CollectionChapter
-									num={post.order}
-									title={post.title}
-									description={post.description}
-									href={`/posts/${post.slug}`}
-								/>
-							</li>
-						);
-					})
-				}
-				{
-					(collection?.chapterList ?? []).map((post) => {
-						return (
-							<li>
-								<CollectionChapter
-									num={post.order}
-									title={post.title}
-									description={post.description}
-								/>
-							</li>
-						);
-					})
-				}
-			</ol>
-		</div>
-	</div>
+	<main>
+		<CollectionPage
+			Content={Content}
+			collection={collection}
+			coverImgPath={collection.coverImgMeta.relativeServerPath}
+		/>
+		<section class="collection-post-list-container">
+			<div class="collection-post-list">
+				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
+				<ol>
+					{
+						(collectionPosts ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										num={post.order}
+										title={post.title}
+										description={post.description}
+										href={`/posts/${post.slug}`}
+									/>
+								</li>
+							);
+						})
+					}
+					{
+						(collection?.chapterList ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										num={post.order}
+										title={post.title}
+										description={post.description}
+									/>
+								</li>
+							);
+						})
+					}
+				</ol>
+			</div>
+		</section>
+	</main>
 </Document>
 
 <style>
