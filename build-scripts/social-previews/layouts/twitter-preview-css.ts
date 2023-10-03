@@ -1,5 +1,5 @@
 export default `
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@600;700;800&family=Roboto+Mono:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@700;800&family=Noto+Color+Emoji&family=Roboto+Mono:wght@700&display=swap');
 
 * {
   font-family: inherit;
@@ -91,7 +91,7 @@ pre code::before {
 }
 
 .content {
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Figtree', 'Noto Color Emoji', sans-serif;
   padding: 64px;
 
   display: flex;

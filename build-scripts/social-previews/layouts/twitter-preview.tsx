@@ -3,41 +3,6 @@ import { ComponentProps, Layout } from "../base";
 import style from "./twitter-preview-css";
 import fs from "fs/promises";
 
-export function splitSentence(str: string): [string, string] {
-	const splitStr = str.split(" ");
-	const splitBy = (
-		regex: RegExp,
-		matchLast: boolean = true,
-	): [string, string] | null => {
-		const matches = splitStr.map((word, i) => ({ reg: regex.exec(word), i }));
-		const match = (matchLast ? matches.reverse() : matches)
-			.slice(1, -1)
-			.find(({ reg }) => !!reg);
-
-		// if match is not found, fail
-		if (!match || !match.reg) return null;
-
-		const firstHalf = [
-			...splitStr.slice(0, match.i),
-			match.reg.input.substring(0, match.reg.index),
-		].join(" ");
-		const secondHalf = [match.reg[0], ...splitStr.slice(match.i + 1)].join(" ");
-		return [firstHalf, secondHalf];
-	};
-
-	let ret;
-	// try to split by "Topic[: Attribute]" or "Topic [- Attribute]" (hyphens/colons)
-	if ((ret = splitBy(/(?<=^\w+):$|^[-—]$/))) return ret;
-	// try to split by "Attribute in [Topic, Topic, and Topic]" (commas)
-	if ((ret = splitBy(/^\w+,$/, false))) return ret;
-	// try to split by "Topic['s Attribute]" (apostrophe)
-	if ((ret = splitBy(/(?<=^\w+\'s?)$/))) return ret;
-	// try to split by "Attribute [in Topic]" (lowercase words)
-	if ((ret = splitBy(/^[a-z][A-Za-z]*$/))) return ret;
-	// otherwise, don't split the string
-	return [str, ""];
-}
-
 const unicornUtterancesHead = await fs.readFile("src/assets/unicorn_utterances_sticker.svg", "utf-8");
 
 interface TwitterCodeScreenProps {
