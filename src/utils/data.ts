@@ -123,6 +123,8 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum,
 	);
 
+	newUnicorn.achievements ??= [];
+
 	// normalize social links - if a URL or "@name" is entered, only preserve the last part
 	const normalizeUsername = (username: string | undefined) =>
 		username?.trim()?.replace(/^.*[/@](?!$)/, "");
