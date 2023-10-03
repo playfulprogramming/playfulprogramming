@@ -75,7 +75,7 @@ if (post.collection && post.order) {
 	</aside>
 	<main>
 		<PostTitleHeader post={post} />
-		<div class="post-body" data-testid={"post-body-div"}>
+		<section class="post-body" data-testid={"post-body-div"}>
 			{
 				post.collection ? (
 					<SeriesToC
@@ -96,7 +96,7 @@ if (post.collection && post.order) {
 					<ArticleNav post={post} postSeries={seriesPosts} />
 				) : null
 			}
-		</div>
+		</section>
 	</main>
 	<footer role="contentinfo" class={styles.footer}>
 		{
