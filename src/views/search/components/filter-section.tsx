@@ -4,6 +4,7 @@ import { useElementSize } from "../../../hooks/use-element-size";
 import styles from "./filter-section.module.scss";
 import { Chip } from "components/chip/chip";
 import { HTMLAttributes } from "preact/compat";
+import { useRandomId } from "utils/preact/useId";
 
 interface FilterSectionProps extends HTMLAttributes<HTMLDivElement> {
 	title: string;
@@ -22,6 +23,8 @@ export const FilterSection = ({
 	className: classNameName = "",
 	...props
 }: PropsWithChildren<FilterSectionProps>) => {
+	const id = useRandomId();
+
 	const [collapsed, setCollapsed] = useState(false);
 
 	const { setEl, size } = useElementSize();
@@ -43,8 +46,7 @@ export const FilterSection = ({
 	const handleClear = () => {
 		onClear();
 
-		if (typeof buttonRef.current !== "undefined")
-			buttonRef.current?.focus();
+		if (typeof buttonRef.current !== "undefined") buttonRef.current?.focus();
 	};
 
 	return (
@@ -54,13 +56,15 @@ export const FilterSection = ({
 				collapsed ? "" : styles.sectionExpanded
 			} ${className} ${classNameName}`}
 		>
-			<div className={styles.sectionHeader}>
+			<h3 className={styles.sectionHeader}>
 				<button
 					type="button"
 					className={styles.sectionTitle}
 					style={{
 						paddingRight: size?.width,
 					}}
+					id={`${id}-title`}
+					aria-controls={`${id}-group`}
 					aria-expanded={!collapsed}
 					onClick={() => setCollapsed(!collapsed)}
 					ref={buttonRef}
@@ -78,7 +82,12 @@ export const FilterSection = ({
 					<span
 						className={`text-style-button-regular ${styles.sectionNumberText}`}
 					>
-						{selectedNumber ? `(${selectedNumber})` : null}
+						{selectedNumber ? (
+							<>
+								({selectedNumber}){" "}
+								<span className="visually-hidden">Selected {title}s</span>
+							</>
+						) : null}
 					</span>
 				</button>
 				{!!selectedNumber && (
@@ -90,17 +99,29 @@ export const FilterSection = ({
 							onClick={handleClear}
 						>
 							Clear
+							<span className="visually-hidden">selected {title}s</span>
 						</Chip>
 					</div>
 				)}
-			</div>
+			</h3>
 			<div
-				className={styles.sectionContent}
-				aria-hidden={collapsed}
-				onScroll={onScroll}
-				inert={collapsed}
+				role="group"
+				aria-labelledby={`${id}-title`}
+				id={`${id}-group`}
+				className={styles.passThru}
 			>
-				{children}
+				<fieldset className={styles.passThru}>
+					<legend className="visually-hidden">{title}</legend>
+					<ul
+						role="list"
+						className={styles.sectionContent}
+						aria-hidden={collapsed}
+						onScroll={onScroll}
+						inert={collapsed}
+					>
+						{children}
+					</ul>
+				</fieldset>
 			</div>
 		</div>
 	);

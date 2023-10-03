@@ -49,6 +49,7 @@ export const FilterSidebar = ({
 			}}
 			inert={hideSearchbar}
 		>
+			<h2 className="visually-hidden">Filters</h2>
 			<LargeButton
 				tag="button"
 				type="button"
