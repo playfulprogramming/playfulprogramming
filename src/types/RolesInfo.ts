@@ -1,9 +1,5 @@
 export type RolesEnum =
 	| {
-			id: "partner";
-			prettyname: "Partner";
-	  }
-	| {
 			id: "developer";
 			prettyname: "Developer";
 	  }

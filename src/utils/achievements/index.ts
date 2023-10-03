@@ -76,7 +76,7 @@ export async function* getAchievements(
 		};
 	}
 
-	if (unicorn.roles.includes("partner")) {
+	if (unicorn.achievements.includes("partner")) {
 		yield {
 			name: "Proud partner",
 			body: "Become a Unicorn Utterances Partner",

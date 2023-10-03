@@ -14,7 +14,7 @@
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
 		"roles": ["devops", "developer", "author", "community"],
-		"achievements": ["messages-1000"]
+		"achievements": ["messages-1000", "partner"]
 	},
 	{
 		"id": "fennifith",
@@ -30,7 +30,7 @@
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
 		"roles": ["developer", "author", "community"],
-		"achievements": ["messages-500"]
+		"achievements": ["messages-500", "partner"]
 	},
 	{
 		"id": "evelynhathaway",
