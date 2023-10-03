@@ -65,7 +65,7 @@ function BannerCodeScreen({
 				style={`--rotX: ${rotX}deg; --rotY: ${rotY}deg; --left: ${rotY}%;`}
 			>
 				<div class="codeScreen">
-					<pre dangerouslySetInnerHTML={{ __html: postHtml }} />
+					<div dangerouslySetInnerHTML={{ __html: postHtml }} />
 					<div class="tags">
 						{post.tags.map((tag) => (
 							<span key={tag}>{tag}</span>

@@ -5,6 +5,31 @@ export default `
 	font-family: 'Roboto Mono', monospace;
 }
 
+pre {
+	counter-reset: step;
+	counter-increment: step 0;
+}
+
+pre code {
+	display: block;
+	position: relative;
+	padding-left: 3.5rem;
+	tab-size: 4;
+	height: 1.4rem;
+}
+
+pre code::before {
+	content: counter(step);
+	counter-increment: step;
+
+	position: absolute;
+	left: 1rem;
+	width: 1rem;
+	display: inline-block;
+	text-align: right;
+	color: var(--foreground_disabled);
+}
+
 .theme-0 {
 	--color-screen-background: #FFF;
 	--color-screen-border: #CCC;

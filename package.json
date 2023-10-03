@@ -90,6 +90,7 @@
 		"json5": "^2.2.3",
 		"junk": "^4.0.1",
 		"lint-staged": "^14.0.0",
+		"live-server": "^1.2.2",
 		"msw": "^1.2.3",
 		"npm-run-all": "^4.1.5",
 		"octokit": "^3.1.1",

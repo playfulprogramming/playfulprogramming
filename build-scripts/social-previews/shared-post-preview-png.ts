@@ -1,64 +1,59 @@
 import { readFileAsBase64 } from "./utils";
 import { ExtendedPostInfo } from "types/index";
-import * as fs from "fs";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
+import { toString } from "hast-util-to-string";
 import rehypeStringify from "rehype-stringify";
 import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
-import { Literal } from "unist";
 
-// https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash =
-	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
-		.default ?? remarkTwoslashDefault;
+const unifiedChain = unified()
+	.use(remarkParse)
+	.use(remarkToRehype, { allowDangerousHtml: true })
+	.use(() => (tree) => {
+		// extract code snippets from parsed markdown
+		const nodes = findAllAfter(tree, 0, { tagName: "pre" });
 
-const unifiedChain = () => {
-	const unifiedChain = unified()
-		.use(remarkParse)
-		.use(() => (tree) => {
-			// extract code snippets from parsed markdown
-			const nodes = findAllAfter(tree, 0, { type: "code" });
+		// join code parts into one element
+		const value =
+			nodes
+				.map((node) => toString(node))
+				.join("\n")
+				.trim() +
+			"\n" +
+			renderPostPreviewToString.toString().replace(/([;,])/g, (s) => s + "\n");
 
-			// join code parts into one element
-			const value =
-				nodes
-					.map((node) => (node as Literal).value)
-					.join("\n")
-					.trim() +
-				"\n" +
-				renderPostPreviewToString
-					.toString()
-					.replace(/([;,])/g, (s) => s + "\n");
+		const children = value.split("\n").map((value) => ({
+			type: "element",
+			tagName: "code",
+			children: [
+				{
+					type: "text",
+					value,
+				},
+			],
+		}));
 
-			return {
-				type: "root",
-				children: [
-					{
-						type: "code",
-						lang: (nodes[0] as { lang?: string })?.lang || "javascript",
-						value,
-					},
-				],
-			};
-		})
-		.use([[remarkTwoslash, { themes: ["css-variables"] }]])
-		.use(remarkToRehype, { allowDangerousHtml: true })
-		.use(rehypeStringify, { allowDangerousHtml: true });
-
-	return unifiedChain;
-};
+		return {
+			type: "root",
+			children: [
+				{
+					type: "element",
+					tagName: "pre",
+					children,
+				},
+			],
+		};
+	})
+	.use(rehypeStringify, { allowDangerousHtml: true });
 
 async function markdownToHtml(content: string) {
-	return await (await unifiedChain().process(content)).toString();
+	return await (await unifiedChain.process(content)).toString();
 }
-
-const shikiSCSS = fs.readFileSync("src/styles/shiki.scss", "utf8");
 
 export const renderPostPreviewToString = async (
 	layout: Layout,
@@ -77,9 +72,6 @@ export const renderPostPreviewToString = async (
 	<!DOCTYPE html>
 	<html>
 	<head>
-	<style>
-	${shikiSCSS}
-	</style>
 	<style>
 	${layout.css}
 
