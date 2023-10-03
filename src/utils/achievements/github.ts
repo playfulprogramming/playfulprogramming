@@ -13,6 +13,7 @@ if (!octokit)
 
 export interface GitHubData {
 	issueCount: number;
+	pullRequestCount: number;
 	commitsInYear: number[];
 }
 
@@ -44,7 +45,7 @@ if (userResult) {
 }
 
 const dataQuery = `
-query($login: String, $id: ID) {
+query($login: String, $id: ID, $prSearch: String!) {
 	repository(owner: "unicorn-utterances", name: "unicorn-utterances") {
 		defaultBranchRef {
 			target {
@@ -65,6 +66,9 @@ query($login: String, $id: ID) {
 			totalCount
 		}
 	}
+	search(query: $prSearch, type:ISSUE) {
+		issueCount
+	}
 }
 `;
 
@@ -77,7 +81,11 @@ export async function fetchGitHubData(
 	const id = userIds[login];
 	if (!id) return undefined;
 
-	const response = (await octokit.graphql(dataQuery, { login, id })) as {
+	const response = (await octokit.graphql(dataQuery, {
+		login,
+		id,
+		prSearch: `repo:unicorn-utterances/unicorn-utterances is:pr author:${login}`,
+	})) as {
 		repository: {
 			defaultBranchRef: {
 				target: {
@@ -90,6 +98,9 @@ export async function fetchGitHubData(
 				totalCount: number;
 			};
 		};
+		search: {
+			issueCount: number;
+		};
 	};
 
 	const commitsInYear = contributorYears.filter(
@@ -100,6 +111,7 @@ export async function fetchGitHubData(
 
 	return {
 		issueCount: response.repository.issues.totalCount,
+		pullRequestCount: response.search.issueCount,
 		commitsInYear,
 	};
 }

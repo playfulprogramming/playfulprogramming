@@ -13,7 +13,8 @@
 		"pronouns": "they/them",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer", "author", "community"]
+		"roles": ["devops", "developer", "author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "fennifith",
@@ -28,7 +29,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "evelynhathaway",
@@ -43,7 +45,8 @@
 		"pronouns": "she/her",
 		"profileImg": "proud.png",
 		"color": "#ef5f17",
-		"roles": ["developer", "devops", "community"]
+		"roles": ["developer", "devops", "community"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "adueppen",
@@ -59,7 +62,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./adueppen.png",
 		"color": "#69ffff",
-		"roles": ["developer", "community"]
+		"roles": ["developer", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "zavukodlak",
@@ -138,7 +142,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "reikaze",
@@ -183,7 +188,8 @@
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
 		"pronouns": "he/him",
-		"roles": ["author", "community"]
+		"roles": ["author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "seanmiller",
@@ -233,7 +239,8 @@
 		"pronouns": "she/her",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": ["author", "community"]
+		"roles": ["author", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "bobrossrtx",
@@ -359,7 +366,8 @@
 		},
 		"profileImg": "./xeno.jpg",
 		"color": "",
-		"roles": ["developer", "author", "community", "translator"]
+		"roles": ["developer", "author", "community", "translator"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "alexchadwick",
@@ -441,7 +449,8 @@
 		"pronouns": "he/him",
 		"profileImg": "./lars-gyrup-brink-nielsen.jpg",
 		"color": "#1b9bf0",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "Nessjs",
