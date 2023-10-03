@@ -17,7 +17,7 @@ pre code {
 	padding-left: 3.5rem;
 	tab-size: 4;
 	height: 1.4rem;
-	color: #FFF;
+	color: #000;
 }
 
 pre code::before {
@@ -120,9 +120,10 @@ pre code::before {
 	left: calc(50% + var(--x));
 }
 
-.rect img {
+.rect svg {
 	margin: 20px;
     width: calc(100% - 40px);
+	height: calc(100% - 40px);
 	filter: grayscale(1);
 }
 
