@@ -3,6 +3,7 @@
 .topBar {
 	display: grid;
 	gap: var(--spc-4x);
+	background: var(--background_primary);
 
 	grid-template-rows: repeat(5, auto);
 	grid-template-columns: repeat(2, auto);
@@ -77,9 +78,7 @@
 	}
 
 	@include from($tabletLarge) {
-		grid-row: unset;
-		grid-column: unset;
-		justify-content: center;
+		display: none;
 	}
 }
 
@@ -140,7 +139,13 @@
 	width: 100%;
 }
 
-.searchButton {
+.searchTextButton {
+	@include until($tabletLarge) {
+		display: none;
+	}
+}
+
+.searchIconButton {
 	height: calc(
 		var(--p_medium_line-height) +
 			calc(var(--search-form-field_padding-vertical) * 2)
@@ -150,4 +155,8 @@
 			calc(var(--search-form-field_padding-vertical) * 2)
 	);
 	flex-shrink: 0;
+
+	@include from($tabletLarge) {
+		display: none;
+	}
 }

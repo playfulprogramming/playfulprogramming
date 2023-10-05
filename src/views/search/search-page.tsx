@@ -347,6 +347,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				posts.length === 0 &&
 				filteredAndSortedCollections.length === 0));
 
+	const numberOfCollections = showCollections
+		? filteredAndSortedCollections.length
+		: 0;
+
+	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
+
 	return (
 		<div
 			className={style.fullPageContainer}
@@ -366,6 +372,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				setSelectedAuthorIds={setSelectedUnicorns}
 				sort={sort}
 				setSort={setSort}
+				setContentToDisplay={setContentToDisplay}
+				contentToDisplay={contentToDisplay}
 				desktopStyle={{
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
@@ -388,19 +396,18 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					setSort={setSort}
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
+					headerHeight={headerHeight}
 				/>
 				{/* aria-live cannot be on an element that is programmatically removed
 				or added via JSX, instead it has to listen to changes in DOM somehow */}
 				<div aria-live={"polite"} aria-atomic="true" className={style.passThru}>
-					{!isContentLoading &&
-						(!!filteredAndSortedCollections.length ||
-							!!filteredAndSortedPosts.length) && (
-							<SearchResultCount
-								ref={resultsHeading}
-								numberOfCollections={filteredAndSortedCollections.length}
-								numberOfPosts={filteredAndSortedPosts.length}
-							/>
-						)}
+					{!isContentLoading && (!!numberOfCollections || !!numberOfPosts) && (
+						<SearchResultCount
+							ref={resultsHeading}
+							numberOfCollections={numberOfCollections}
+							numberOfPosts={numberOfPosts}
+						/>
+					)}
 					{!isError && isContentLoading && (
 						<>
 							<div className={style.loadingAnimationContainer}>

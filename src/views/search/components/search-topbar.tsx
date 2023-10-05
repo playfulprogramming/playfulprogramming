@@ -1,6 +1,6 @@
 import style from "./search-topbar.module.scss";
 import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton } from "components/button/button";
+import { Button, IconOnlyButton, LargeButton } from "components/button/button";
 import filter from "src/icons/filter.svg?raw";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Item, Select } from "components/select/select";
@@ -21,6 +21,7 @@ interface SearchTopbarProps {
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
+	headerHeight: number;
 }
 
 export const SearchTopbar = ({
@@ -33,9 +34,18 @@ export const SearchTopbar = ({
 	setSort,
 	sort,
 	setFilterIsDialogOpen,
+	headerHeight,
 }: SearchTopbarProps) => {
 	return (
-		<div className={style.topBar}>
+		<div
+			className={style.topBar}
+			style={{
+				position: "sticky",
+				zIndex: 9,
+				marginTop: -2,
+				top: `${headerHeight - 2}px`,
+			}}
+		>
 			<form
 				className={style.searchbarRow}
 				onSubmit={(e) => {
@@ -57,8 +67,11 @@ export const SearchTopbar = ({
 					}}
 					onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
 				/>
+				<LargeButton class={style.searchTextButton} tag="button" type="submit">
+					Search
+				</LargeButton>
 				<IconOnlyButton
-					class={style.searchButton}
+					class={style.searchIconButton}
 					tag="button"
 					type="submit"
 					aria-label="Search"

@@ -23,6 +23,8 @@ interface FilterSidebar {
 	onSelectedAuthorChange: (authorId: string) => void;
 	onTagsChange: (tag: string) => void;
 	searchString: string;
+	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
+	contentToDisplay: "all" | "articles" | "collections";
 }
 
 export const FilterSidebar = ({
@@ -39,6 +41,8 @@ export const FilterSidebar = ({
 	tags,
 	unicornProfilePicMap,
 	searchString,
+	setContentToDisplay,
+	contentToDisplay,
 }: FilterSidebar) => {
 	const hideSearchbar = !searchString;
 	return (
@@ -72,6 +76,19 @@ export const FilterSidebar = ({
 				<Item key={"relevance"}>Relevance</Item>
 				<Item key={"newest"}>Newest</Item>
 				<Item key={"oldest"}>Oldest</Item>
+			</Select>
+			<Select
+				testId={"show-group-sidebar"}
+				className={styles.sortSelect}
+				label={"Show content"}
+				prefixSelected={"Show: "}
+				defaultValue={"All"}
+				selectedKey={contentToDisplay}
+				onSelectionChange={(v) => setContentToDisplay(v)}
+			>
+				<Item key={"all"}>All</Item>
+				<Item key={"articles"}>Articles</Item>
+				<Item key={"collections"}>Collections</Item>
 			</Select>
 			<FilterSection
 				title={"Tag"}

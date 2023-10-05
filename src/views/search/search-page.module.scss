@@ -1,5 +1,9 @@
 @import "src/tokens/index";
 
+:global(#header-bar[data-sticky=pinned]) {
+	border-bottom: none !important;
+}
+
 .fullPageContainer {
 	max-width: var(--max-width_xl);
 	margin: 0 auto;
