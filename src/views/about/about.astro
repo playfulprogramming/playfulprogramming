@@ -5,6 +5,7 @@ import * as data from "src/utils/data";
 import ContributorCard from "./contributor-card.astro";
 import { getTranslatedPage, translate } from "src/utils/translations";
 import TranslationsHeader from "src/views/base/translations/translations-header.astro";
+import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { License } from "./license";
 import BannerSvg from "./banner-svg.astro";
 
@@ -103,3 +104,5 @@ const tags = [
 		<hr />
 	</div>
 </main>
+
+<HeadingLinkScript />

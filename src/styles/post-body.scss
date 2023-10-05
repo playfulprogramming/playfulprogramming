@@ -181,6 +181,8 @@
 	//   while centering its contents (`align-items: center`)
 	// - albeit with the caveat of not being able to wrap its contents between lines
 	h1, h2, h3, h4, h5, h6 {
+		position: relative;
+
 		code {
 			display: inline-flex;
 			height: calc(1.2em + 0.15em);
