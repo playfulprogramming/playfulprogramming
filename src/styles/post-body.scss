@@ -161,6 +161,12 @@
 		text-decoration: underline;
 	}
 
+	a:focus-visible:not([class]) {
+		outline: calc(var(--border-width_focus) / 2) solid var(--focus-outline_primary);
+		outline-offset: calc(var(--border-width_focus) / 2);
+		border-radius: calc(var(--border-width_focus) / 2);
+	}
+
 	kbd {
 		font-family: var(--uu-font-family-code);
 		font-size: .8em;
