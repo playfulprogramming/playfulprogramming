@@ -1,4 +1,4 @@
-import { useCallback, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import styles from "./filter-dialog.module.scss";
 import { useWindowSize } from "src/hooks/use-window-size";
 import { mobile } from "src/tokens/breakpoints";
@@ -239,6 +239,14 @@ export const FilterDialog = ({
 	const [selectedAuthorIds, setSelectedAuthorIds] = useState<string[]>(
 		selectedParentAuthorIds,
 	);
+
+	useEffect(() => {
+		// when the filter dialog is opened, reset its state to match the current search filters
+		if (isOpen) {
+			setSelectedTags(selectedParentTags);
+			setSelectedAuthorIds(selectedParentAuthorIds);
+		}
+	}, [isOpen]);
 
 	const onSelectedAuthorChange = (id: string) => {
 		const isPresent = selectedAuthorIds.includes(id);
