@@ -52,7 +52,7 @@
 
 	box-shadow: var(--shadow_sticker);
 
-	@include transition(transform opacity);
+	@include transition(transform opacity border-color background-color);
 	transform: translateY(50%);
 	opacity: 0;
 
