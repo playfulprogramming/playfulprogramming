@@ -74,7 +74,7 @@
 	}
 }
 
-:global(.heading-linked:hover) .headingLinkContainer,
+:global(.heading-linked):hover .headingLinkContainer,
 .headingLinkContainer:hover,
 .headingLinkContainer:focus,
 .headingLinkContainer:focus-visible,
@@ -116,7 +116,8 @@
 	--heading_background_outline-width: var(--border-width_focus);
 }
 
-:global(.heading-linked:hover, .heading-linked:focus-within),
+:global(.heading-linked):hover,
+:global(.heading-linked):focus-within,
 :global(.heading-linked):has(.headingLinkContainer:hover) {
 	text-decoration: underline;
 }
