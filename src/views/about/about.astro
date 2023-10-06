@@ -39,7 +39,7 @@ const tags = [
 		<hr />
 
 		<h2 id="contributors">
-			{translate(Astro, "title.contributors")}
+			<span>{translate(Astro, "title.contributors")}</span>
 		</h2>
 		<ul class={style.unicorns} role="list" aria-labelledby="contributors">
 			{
@@ -51,7 +51,9 @@ const tags = [
 
 		<hr />
 
-		<h2 id="licenses">{translate(Astro, "title.licenses")}</h2>
+		<h2 id="licenses">
+			<span>{translate(Astro, "title.licenses")}</span>
+		</h2>
 
 		<ul class={style.licenses} role="list" aria-labelledby="licenses">
 			{
