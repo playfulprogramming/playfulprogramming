@@ -30,6 +30,7 @@
 	"action.search_for": "Search for...",
 	"action.view_all_chapters": "View all %s chapters",
 	"action.view_less_chapters": "View less chapters",
+	"action.switch_theme": "Switch theme",
 	"label.toggle_dark_mode": "Toggle dark mode",
 	"alt.unicorn_utterances_logo": "Smiling cartoon unicorn with a bowtie",
 	"title.looking_for_more": "Looking for more?",
