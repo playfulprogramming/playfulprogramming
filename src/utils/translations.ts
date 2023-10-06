@@ -148,13 +148,19 @@ for (const key of i18n.en?.keys() || []) {
 	}
 }
 
+type TranslationKey = keyof typeof import("../../content/data/i18n/en.json");
+
 /**
  * Translate a key into the associated value, according to /data/i18n
  *
  * If the key is untranslated, returns the "en" value and logs a warning.
  * If the key is entirely missing, throws an error.
  */
-export function translate(astro: { url: URL }, key: string, ...args: string[]) {
+export function translate(
+	astro: { url: URL },
+	key: TranslationKey,
+	...args: string[]
+) {
 	const lang = getPrefixLanguageFromPath(astro.url.pathname);
 	let value = i18n[lang]?.get(key);
 

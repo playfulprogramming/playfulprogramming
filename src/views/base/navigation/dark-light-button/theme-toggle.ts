@@ -5,21 +5,24 @@ import {
 } from "constants/theme";
 
 export const themeToggle = () => {
-	const themeToggleBtn: HTMLElement = document.querySelector(
-		"#theme-toggle-button",
+	const themeToggleBtns = document.querySelectorAll<HTMLButtonElement>(
+		"[data-theme-toggle]",
 	);
-	if (!themeToggleBtn) return;
-	const darkIconEl: HTMLElement = document.querySelector("#dark-icon");
-	const lightIconEl: HTMLElement = document.querySelector("#light-icon");
+
+	const darkIconEls = document.querySelectorAll<HTMLElement>(
+		"[data-theme-toggle-icon='dark']",
+	);
+	const lightIconEls = document.querySelectorAll<HTMLElement>(
+		"[data-theme-toggle-icon='light']",
+	);
 	function toggleButton(theme) {
-		themeToggleBtn.ariaPressed = `${theme === "dark"}`;
-		if (theme === "light") {
-			lightIconEl.style.display = null;
-			darkIconEl.style.display = "none";
-		} else {
-			lightIconEl.style.display = "none";
-			darkIconEl.style.display = null;
-		}
+		themeToggleBtns.forEach((el) => (el.ariaPressed = `${theme === "dark"}`));
+		lightIconEls.forEach((el) => {
+			el.style.display = theme === "light" ? null : "none";
+		});
+		darkIconEls.forEach((el) => {
+			el.style.display = theme === "light" ? "none" : null;
+		});
 
 		// update the meta theme-color attribute(s) based on the user preference
 		const bgColor = theme === "light" ? THEME_COLOR_LIGHT : THEME_COLOR_DARK;
@@ -32,7 +35,8 @@ export const themeToggle = () => {
 	// TODO: Migrate to `classList`
 	const initialTheme = document.documentElement.className;
 	toggleButton(initialTheme);
-	themeToggleBtn.addEventListener("click", () => {
+
+	const handleClick = () => {
 		const currentTheme = document.documentElement.className;
 		document.documentElement.className =
 			currentTheme === "light" ? "dark" : "light";
@@ -40,5 +44,7 @@ export const themeToggle = () => {
 		const newTheme = document.documentElement.className;
 		toggleButton(newTheme);
 		localStorage.setItem(COLOR_MODE_STORAGE_KEY, newTheme);
-	});
+	};
+
+	themeToggleBtns.forEach((el) => el.addEventListener("click", handleClick));
 };
