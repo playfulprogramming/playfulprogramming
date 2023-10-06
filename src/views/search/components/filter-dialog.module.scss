@@ -44,6 +44,10 @@
 	}
 }
 
+.dialog * {
+	overscroll-behavior: contain;
+}
+
 .dialogForm {
 	height: 100%;
 }
