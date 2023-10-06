@@ -40,6 +40,10 @@
 	background-color: var(--foreground_disabled);
 }
 
+.dialogForm {
+	height: 100%;
+}
+
 .dialogTitleContainer {
 	display: flex;
 	flex-direction: row;
