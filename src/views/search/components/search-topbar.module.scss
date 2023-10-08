@@ -32,6 +32,7 @@
 
 .searchbarRow {
 	background: var(--background_primary);
+	z-index: 2;
 
 	padding-left: var(--search-page_search-header_padding-horizontal);
 	padding-right: var(--search-page_search-header_padding-horizontal);
@@ -84,6 +85,7 @@
 	display: none;
 
 	@include from($tabletLarge) {
+		z-index: 1;
 		display: block;
 		height: var(--search-page_search-header_padding-vertical);
 		background: linear-gradient(
@@ -124,6 +126,7 @@
 
 .smallScreenContainer {
 	background: var(--background_primary);
+	z-index: 2;
 	display: grid;
 
 	// [Buttons] [Empty Space] [Buttons]
