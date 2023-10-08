@@ -40,18 +40,15 @@
 	padding-top: var(--search-page_search-header_padding-vertical);
 	padding-bottom: var(--search-page_search-header_gap);
 
-	@include from($tabletLarge) {
-		padding-bottom: 0;
-	}
-}
 
-.searchbarRowInner {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	gap: var(--search-page_search-header_gap);
-	width: 100%;
-	max-width: var(--search-page_search-bar_max-width);
+
+	@include from($tabletLarge) {
+		padding-bottom: 0;
+	}
 }
 
 .searchbar {

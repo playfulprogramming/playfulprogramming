@@ -52,37 +52,31 @@ export const SearchTopbar = ({
 					onSubmit(search);
 				}}
 			>
-				<div className={style.searchbarRowInner}>
-					<SearchInput
-						id="search-bar"
-						data-testid="search-input"
-						aria-description={"Results will update as you type"}
-						class={style.searchbar}
-						usedInPreact={true}
-						value={search}
-						onBlur={(e) => {
-							const newVal = (e.target as HTMLInputElement).value;
-							setSearch(newVal);
-							onBlur(newVal);
-						}}
-						onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
-					/>
-					<LargeButton
-						class={style.searchTextButton}
-						tag="button"
-						type="submit"
-					>
-						Search
-					</LargeButton>
-					<IconOnlyButton
-						class={style.searchIconButton}
-						tag="button"
-						type="submit"
-						aria-label="Search"
-						dangerouslySetInnerHTML={{ __html: forward }}
-						children={null}
-					/>
-				</div>
+				<SearchInput
+					id="search-bar"
+					data-testid="search-input"
+					aria-description={"Results will update as you type"}
+					class={style.searchbar}
+					usedInPreact={true}
+					value={search}
+					onBlur={(e) => {
+						const newVal = (e.target as HTMLInputElement).value;
+						setSearch(newVal);
+						onBlur(newVal);
+					}}
+					onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
+				/>
+				<LargeButton class={style.searchTextButton} tag="button" type="submit">
+					Search
+				</LargeButton>
+				<IconOnlyButton
+					class={style.searchIconButton}
+					tag="button"
+					type="submit"
+					aria-label="Search"
+					dangerouslySetInnerHTML={{ __html: forward }}
+					children={null}
+				/>
 			</form>
 			<div className={style.bigScreenContainer} />
 			<div className={style.smallScreenContainer}>
