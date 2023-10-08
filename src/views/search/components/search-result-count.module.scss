@@ -6,7 +6,7 @@
 	--search-page_results-count_icon-size: var(--icon-size_dense);
 
 	@include from($desktopSmall) {
-		--search-page_results-count_padding-top: var(--spc-2x);
+		--search-page_results-count_padding-top: 0px;
 		--search-page_results-count_margin: var(--spc-3x);
 		--search-page_results-count_icon-size: var(--icon-size_regular);
 	}
