@@ -8,6 +8,7 @@ import { Picture as UUPicture } from "components/image/picture";
 import { ExtendedTag, ExtendedUnicorn, SortType } from "./types";
 import { DEFAULT_TAG_EMOJI } from "./constants";
 import { Item, Select } from "components/select/select";
+import { FilterSidebarControls } from "./filter-sidebar-controls";
 
 interface FilterSidebar {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -64,32 +65,13 @@ export const FilterSidebar = ({
 			>
 				Jump to search bar
 			</LargeButton>
-			<Select
-				testId={"sort-order-group-sidebar"}
-				className={styles.sortSelect}
-				label={"Post sort order"}
-				prefixSelected={"Sort by: "}
-				defaultValue={"Relevance"}
-				selectedKey={sort}
-				onSelectionChange={(v) => setSort(v)}
-			>
-				<Item key={"relevance"}>Relevance</Item>
-				<Item key={"newest"}>Newest</Item>
-				<Item key={"oldest"}>Oldest</Item>
-			</Select>
-			<Select
-				testId={"show-group-sidebar"}
-				className={styles.sortSelect}
-				label={"Show content"}
-				prefixSelected={"Show: "}
-				defaultValue={"All"}
-				selectedKey={contentToDisplay}
-				onSelectionChange={(v) => setContentToDisplay(v)}
-			>
-				<Item key={"all"}>All</Item>
-				<Item key={"articles"}>Articles</Item>
-				<Item key={"collections"}>Collections</Item>
-			</Select>
+
+			<FilterSidebarControls
+				sort={sort}
+				setSort={setSort}
+				setContentToDisplay={setContentToDisplay}
+				contentToDisplay={contentToDisplay}
+			/>
 			<FilterSection
 				title={"Tag"}
 				data-testid="tag-filter-section-sidebar"
