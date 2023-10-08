@@ -79,6 +79,8 @@ export function SelectWithLabel<T extends object>({
 		ref,
 	);
 
+	const { buttonProps } = useButton(triggerProps, ref);
+
 	return (
 		<div
 			data-testid={testId}
@@ -97,16 +99,13 @@ export function SelectWithLabel<T extends object>({
 				label={props.label}
 				name={props.name}
 			/>
-			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
 				class={state.isOpen ? "" : styles.transparentBackground}
 				tag="button"
 				type="button"
 				variant={"primary"}
 				ref={ref}
-				onMouseDown={triggerProps.onPressStart as never}
-				onClick={triggerProps.onPress as never}
-				{...triggerProps}
+				{...buttonProps}
 				rightIcon={
 					<span
 						style={{
@@ -168,14 +167,11 @@ export function Select<T extends object>({
 				label={props.label}
 				name={props.name}
 			/>
-			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
 				tag="button"
 				type="button"
 				variant={state.isOpen ? "primary-emphasized" : "primary"}
 				ref={ref}
-				onMouseDown={triggerProps.onPressStart as never}
-				onClick={triggerProps.onPress as never}
 				{...buttonProps}
 				rightIcon={
 					<span
