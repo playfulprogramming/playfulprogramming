@@ -79,7 +79,7 @@ export function Select<T extends object>({
 	);
 
 	return (
-		<div data-testid={testId} style={{ display: "inline-block" }}>
+		<div data-testid={testId} style={{ display: "contents" }}>
 			<div {...labelProps} class={"visually-hidden"}>
 				{props.label}
 			</div>

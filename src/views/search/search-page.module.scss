@@ -1,6 +1,6 @@
 @import "src/tokens/index";
 
-:global(#header-bar[data-sticky=pinned]) {
+:global(#header-bar[data-sticky="pinned"]) {
 	border-bottom: none !important;
 }
 
@@ -24,11 +24,17 @@
 	margin: 0 auto;
 	width: 100%;
 	max-width: var(--max-width_l);
-	padding: var(--site-spacing);
 	display: flex;
 	flex-direction: column;
 	/* Guestimation */
 	min-height: 80vh;
+}
+
+.mainContentsInner {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0 var(--site-spacing) var(--site-spacing) var(--site-spacing);
 }
 
 .collectionsGrid {
