@@ -23,7 +23,7 @@ But that doesn’t help it. Deep down, you still care. It’s still wrong. It al
 
 So today I’m going to talk about Android’s `TextViews`; how they behave in comparison to design tools, and how to take full control of them, **as a designer.**
 
-<blockquote class="bigBlock">The goal is to ensure the implementation is perfect without taking time off feature development.</blockquote>
+> The goal is to ensure the implementation is perfect without taking time off feature development.
 
 In this post, I’ll walk you through how to make text components for Figma that can be easily implemented on Android, with code snippets and explanations. This post is also helpful for developers to understand [**why they should move that button `3px` to the left.**](https://library.gv.com/why-you-should-move-that-button-3px-to-the-left-c012e5ad32f7)
 
@@ -108,7 +108,7 @@ In reality, the new attributes were actually made to be used when creating layou
 
 **However, there’s one giant flaw: You can’t align a `TextView`’s `firstBaseline` to another `TextView`’s `lastBaseline`.** So a problem immediately arises due to this limitation:
 
-<blockquote class="bigBlock"><i>What if there’s more than one <code class="language-text">TextView</code>?</i></blockquote>
+> _What if there’s more than one `TextView`?_
 
 As you might imagine, **if we want to keep our text aligned to a baseline grid, we need to ensure that the height of each `TextView` is a multiple of 4 while doing so.** This means we must apply first and lastBaseline attributes to both / all of the stacked TextViews — and that becomes hard to maintain.
 
@@ -124,7 +124,7 @@ The solution is to apply them in your `styles.xml` so that, when themed, the `Te
 
 **It is important to note that these values should not be overridden within layouts.**
 
-<blockquote class="bigBlock">Ultimately, <strong>overriding first and lastBaseline in layouts also causes major issues</strong> if you want to change a font style or text size in the future.</blockquote>
+> Ultimately, **overriding first and lastBaseline in layouts also causes major issues** if you want to change a font style or text size in the future.
 
 The overrides will take precedence to whatever value you set in your **`styles.xml`**, requiring you to hunt down occurrences until you can find a layout that was broken due to the change. Let’s look at an example:
 
