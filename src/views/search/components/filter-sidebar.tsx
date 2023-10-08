@@ -47,7 +47,7 @@ export const FilterSidebar = ({
 }: FilterSidebar) => {
 	const hideSearchbar = !searchString;
 	return (
-		<div
+		<aside
 			className={`${styles.sidebarContainer}`}
 			style={{
 				...desktopStyle,
@@ -124,6 +124,6 @@ export const FilterSidebar = ({
 					);
 				})}
 			</FilterSection>
-		</div>
+		</aside>
 	);
 };

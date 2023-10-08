@@ -354,7 +354,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
 
 	return (
-		<div
+		<main
 			className={style.fullPageContainer}
 			role="search"
 			data-hide-sidebar={!search}
@@ -398,7 +398,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
 					headerHeight={headerHeight}
 				/>
-				<div className={style.mainContentsInner}>
+				<section className={style.mainContentsInner}>
 					{/* aria-live cannot be on an element that is programmatically removed
 				or added via JSX, instead it has to listen to changes in DOM somehow */}
 					<div
@@ -530,9 +530,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								/>
 							</Fragment>
 						)}
-				</div>
+				</section>
 			</div>
-		</div>
+		</main>
 	);
 }
 

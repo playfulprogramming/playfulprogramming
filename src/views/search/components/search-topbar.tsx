@@ -36,7 +36,7 @@ export const SearchTopbar = ({
 	headerHeight,
 }: SearchTopbarProps) => {
 	return (
-		<div
+		<section
 			className={style.topBar}
 			style={{
 				position: "sticky",
@@ -141,6 +141,6 @@ export const SearchTopbar = ({
 					></span>
 				</IconOnlyButton>
 			</div>
-		</div>
+		</section>
 	);
 };
