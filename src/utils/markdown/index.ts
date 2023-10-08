@@ -10,7 +10,6 @@ import { rehypeExcerpt } from "./rehype-excerpt";
 import { rehypeUnicornPopulatePost } from "./rehype-unicorn-populate-post";
 import { rehypeUnicornGetSuggestedPosts } from "./rehype-unicorn-get-suggested-posts";
 import { rehypeUnicornIFrameClickToRun } from "./iframes/rehype-transform";
-import { rehypeHeadingLinks } from "./heading-links/rehype-transform";
 import { MarkdownConfig } from "./constants";
 import {
 	rehypeMakeHrefPathsAbsolute,
@@ -59,7 +58,6 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeTooltips,
 					rehypeAstroImageMd,
 					rehypeUnicornIFrameClickToRun,
-					rehypeHeadingLinks,
 					rehypeUnicornElementMap,
 					rehypeTwoslashTabindex,
 			  ]

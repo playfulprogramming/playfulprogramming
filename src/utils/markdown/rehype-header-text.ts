@@ -21,6 +21,17 @@ export const rehypeHeaderText = () => {
 				const headerText = toString(node as never);
 				node.properties["data-header-text"] = headerText;
 
+				// wrap header contents in a <span> (for inline text styling on :focus)
+				// see: src/views/base/scripts/heading-link.module.scss
+				node.children = [
+					{
+						type: "element",
+						tagName: "span",
+						properties: {},
+						children: node.children,
+					},
+				];
+
 				const headingWithID = {
 					value: headerText,
 					depth: headingRank(node)!,

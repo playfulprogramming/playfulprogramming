@@ -75,52 +75,6 @@
 		color: var(--foreground_emphasis-high);
 	}
 
-	// Fix autolink-headings anchors positioning
-	.anchor {
-		line-height: 1;
-		padding-right: 24px;
-
-		svg {
-			vertical-align: middle;
-		}
-	}
-
-	.anchor.before {
-		position: absolute;
-		top: 0;
-		left: 0;
-		transform: translateX(-100%);
-		padding-right: 24px;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-
-	h1 .anchor svg,
-	h2 .anchor svg,
-	h3 .anchor svg,
-	h4 .anchor svg,
-	h5 .anchor svg,
-	h6 .anchor svg {
-		visibility: hidden;
-	}
-
-	h1:hover .anchor svg,
-	h2:hover .anchor svg,
-	h3:hover .anchor svg,
-	h4:hover .anchor svg,
-	h5:hover .anchor svg,
-	h6:hover .anchor svg,
-	h1 .anchor:focus svg,
-	h2 .anchor:focus svg,
-	h3 .anchor:focus svg,
-	h4 .anchor:focus svg,
-	h5 .anchor:focus svg,
-	h6 .anchor:focus svg {
-		visibility: visible;
-	}
-
 	img.medium-zoom-image {
 		max-width: 100%;
 		height: auto;
@@ -181,6 +135,8 @@
 	//   while centering its contents (`align-items: center`)
 	// - albeit with the caveat of not being able to wrap its contents between lines
 	h1, h2, h3, h4, h5, h6 {
+		position: relative;
+
 		code {
 			display: inline-flex;
 			height: calc(1.2em + 0.15em);

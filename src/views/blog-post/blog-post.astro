@@ -4,6 +4,7 @@ import TableOfContents from "./table-of-contents/table-of-contents.astro";
 import MailingList from "../../components/mailing-list/mailing-list.astro";
 import TranslationsHeader from "../base/translations/translations-header.astro";
 import BlogPostLayout from "./blog-post-layout/blog-post-layout.astro";
+import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
@@ -68,6 +69,7 @@ if (post.collection && post.order) {
 	import { iFrameClickToRun } from "../../utils/markdown/iframes/iframe-script";
 	iFrameClickToRun();
 </script>
+<HeadingLinkScript />
 <BlogPostLayout>
 	<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
 	<aside slot="right" aria-labelledby="related-posts-heading">
