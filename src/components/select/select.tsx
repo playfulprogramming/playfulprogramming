@@ -10,6 +10,7 @@ import {
 	Overlay,
 	usePopover,
 	AriaPopoverProps,
+	useButton,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -149,8 +150,14 @@ export function Select<T extends object>({
 		ref,
 	);
 
+	const { buttonProps } = useButton(triggerProps, ref);
+
 	return (
-		<div data-testid={testId} style={{ display: "contents" }}>
+		<div
+			data-testid={testId}
+			class={`${className} ${classNameName}`}
+			style={{ display: "inline-block" }}
+		>
 			<div {...labelProps} class={"visually-hidden"}>
 				{props.label}
 			</div>
@@ -163,14 +170,13 @@ export function Select<T extends object>({
 			/>
 			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
-				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
 				variant={state.isOpen ? "primary-emphasized" : "primary"}
 				ref={ref}
 				onMouseDown={triggerProps.onPressStart as never}
 				onClick={triggerProps.onPress as never}
-				{...triggerProps}
+				{...buttonProps}
 				rightIcon={
 					<span
 						style={{
