@@ -31,6 +31,7 @@
 }
 
 .searchbarRow {
+	@include transition(background);
 	background: var(--background_primary);
 	z-index: 2;
 
@@ -83,16 +84,19 @@
 
 .bigScreenContainer {
 	display: none;
+	@include transition(background);
 
 	@include from($tabletLarge) {
 		z-index: 1;
 		display: block;
 		height: var(--search-page_search-header_padding-vertical);
-		background: linear-gradient(
+		-webkit-mask-image: linear-gradient(
 			to bottom,
-			var(--background_primary) 0%,
-			transparent 100%
+			rgba(0, 0, 0, 1),
+			rgba(0, 0, 0, 0)
 		);
+		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+		background: var(--background_primary);
 	}
 }
 
@@ -125,6 +129,7 @@
 }
 
 .smallScreenContainer {
+	@include transition(background);
 	background: var(--background_primary);
 	z-index: 2;
 	display: grid;
