@@ -9,7 +9,7 @@ import {
 	DismissButton,
 	Overlay,
 	usePopover,
-	AriaPopoverProps, useButton
+	AriaPopoverProps,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -78,8 +78,6 @@ export function SelectWithLabel<T extends object>({
 		ref,
 	);
 
-	const { buttonProps } = useButton(triggerProps, ref);
-
 	return (
 		<div
 			data-testid={testId}
@@ -98,13 +96,16 @@ export function SelectWithLabel<T extends object>({
 				label={props.label}
 				name={props.name}
 			/>
+			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
 				class={state.isOpen ? "" : styles.transparentBackground}
 				tag="button"
 				type="button"
 				variant={"primary"}
 				ref={ref}
-				{...buttonProps}
+				onMouseDown={triggerProps.onPressStart as never}
+				onClick={triggerProps.onPress as never}
+				{...triggerProps}
 				rightIcon={
 					<span
 						style={{
