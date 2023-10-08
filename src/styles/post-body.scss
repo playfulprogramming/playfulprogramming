@@ -115,6 +115,14 @@
 		text-decoration: underline;
 	}
 
+	a:focus-visible:not([class]) {
+		// adding +0.5px to each value converted to rem to ensure that it is
+		// the expected size when aliasing rounds it down to a px value
+		outline: pxToRem(3.5) solid var(--focus-outline_primary);
+		outline-offset: pxToRem(1.5);
+		border-radius: calc(var(--border-width_focus) / 2);
+	}
+
 	kbd {
 		font-family: var(--uu-font-family-code);
 		font-size: .8em;
