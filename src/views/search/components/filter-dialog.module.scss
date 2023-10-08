@@ -37,7 +37,19 @@
 }
 
 .dialog::backdrop {
-	background-color: var(--foreground_disabled);
+	background-color: rgba(0,0,0,0.32);
+
+	@include darkTheme {
+		background-color: rgba(0,0,0,0.72);
+	}
+}
+
+.dialog * {
+	overscroll-behavior: contain;
+}
+
+.dialogForm {
+	height: 100%;
 }
 
 .dialogTitleContainer {

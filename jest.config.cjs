@@ -45,6 +45,7 @@ module.exports = {
 		".+\\.(jpg|svg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)(?:\\?.+)?$": `<rootDir>/__mocks__/file-mock.ts`,
 		// UU TS
 		"^__mocks__/(.*)$": resolve(__dirname, "./__mocks__/$1"),
+		"^src/(.*)$": resolve(__dirname, "./src/$1"),
 		"^constants/(.*)$": resolve(__dirname, "./src/constants/$1"),
 		"^types/(.*)$": resolve(__dirname, "./src/types/$1"),
 		"^components/(.*)$": resolve(__dirname, "./src/components/$1"),
