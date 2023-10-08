@@ -101,19 +101,6 @@ export const SearchTopbar = ({
 					<RadioButton value={"articles"}>Articles</RadioButton>
 					<RadioButton value={"collections"}>Collections</RadioButton>
 				</RadioButtonGroup>
-				<Select
-					className={style.sortOrderGroup}
-					testId={"sort-order-group-topbar"}
-					label={"Post sort order"}
-					prefixSelected={"Sort by: "}
-					defaultValue={"Relevance"}
-					selectedKey={sort}
-					onSelectionChange={(v) => setSort(v)}
-				>
-					<Item key={"relevance"}>Relevance</Item>
-					<Item key={"newest"}>Newest</Item>
-					<Item key={"oldest"}>Oldest</Item>
-				</Select>
 				<Button
 					onClick={() => setFilterIsDialogOpen(true)}
 					tag="button"
@@ -128,6 +115,19 @@ export const SearchTopbar = ({
 				>
 					Filter
 				</Button>
+				<Select
+					className={style.sortOrderGroup}
+					testId={"sort-order-group-topbar"}
+					label={"Post sort order"}
+					prefixSelected={"Sort by: "}
+					defaultValue={"Relevance"}
+					selectedKey={sort}
+					onSelectionChange={(v) => setSort(v)}
+				>
+					<Item key={"relevance"}>Relevance</Item>
+					<Item key={"newest"}>Newest</Item>
+					<Item key={"oldest"}>Oldest</Item>
+				</Select>
 				<IconOnlyButton
 					class={style.filterIconButton}
 					tag="button"
