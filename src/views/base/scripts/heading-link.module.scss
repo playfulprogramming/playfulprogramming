@@ -57,7 +57,7 @@
 	transform: translateY(50%);
 	opacity: 0;
 
-	&> span:not([hidden]) {
+	span:not([hidden]) {
 		display: flex;
 		flex-direction: row;
 		align-items: center;

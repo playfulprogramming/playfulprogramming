@@ -12,11 +12,13 @@ import style from "./heading-link.module.scss";
 				</div>
 				 Copy link
 			</span>
-			<span data-heading-link="copied" hidden>
-				<div class={style.icon} aria-hidden>
-					<Icon name="checkmark" />
-				</div>
-				 Link copied!
+			<span aria-live="polite">
+				<span data-heading-link="copied" hidden>
+					<div class={style.icon} aria-hidden>
+						<Icon name="checkmark" />
+					</div>
+					 Link copied!
+				</span>
 			</span>
 		</div>
 	</button>
