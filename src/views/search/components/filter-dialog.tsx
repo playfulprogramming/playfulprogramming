@@ -5,10 +5,7 @@ import { mobile } from "src/tokens/breakpoints";
 import { Dialog } from "components/dialog/dialog";
 import { FilterSection } from "./filter-section";
 import { ExtendedTag, ExtendedUnicorn } from "./types";
-import {
-	LargeButton,
-	LargeIconOnlyButton,
-} from "components/button/button";
+import { LargeButton, LargeIconOnlyButton } from "components/button/button";
 import { FilterSectionItem } from "./filter-section-item";
 import { Picture as UUPicture } from "components/image/picture";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
@@ -110,11 +107,13 @@ const FilterDialogMobile = ({
 					class={styles.mobileButton}
 					value="cancel"
 					variant="primary"
+					tag="button"
 				>
 					Cancel
 				</LargeButton>
 				<LargeButton
 					class={styles.mobileButton}
+					tag="button"
 					value="confirm"
 					variant="primary-emphasized"
 				>
@@ -151,11 +150,7 @@ const FilterDialogSmallTablet = ({
 					/>
 				</LargeIconOnlyButton>
 				<h1 class={`text-style-headline-4 ${styles.dialogTitle}`}>Filter</h1>
-				<LargeButton
-					variant="primary-emphasized"
-					tag="button"
-					value="confirm"
-				>
+				<LargeButton variant="primary-emphasized" tag="button" value="confirm">
 					Filter results
 				</LargeButton>
 			</div>
@@ -230,7 +225,6 @@ export const FilterDialog = ({
 	selectedAuthorIds: selectedParentAuthorIds,
 	selectedTags: selectedParentTags,
 }: FilterDialogProps) => {
-
 	/**
 	 * Inner state
 	 */
@@ -304,7 +298,12 @@ export const FilterDialog = ({
 	const Inner = isMobile ? FilterDialogMobile : FilterDialogSmallTablet;
 
 	return (
-		<Dialog open={isOpen} onClose={onFormConfirm} dialogClass={styles.dialog} formClass={styles.dialogForm}>
+		<Dialog
+			open={isOpen}
+			onClose={onFormConfirm}
+			dialogClass={styles.dialog}
+			formClass={styles.dialogForm}
+		>
 			<Inner
 				tags={tags}
 				authors={authors}
