@@ -12,7 +12,7 @@
 
 	@include from($tabletLarge) {
 		display: grid;
-		grid-template-columns: var(--search-page_filter_sidebar_max-width) 1fr;
+		grid-template-columns: var(--search-page_filter_sidebar_width) 1fr;
 
 		&[data-hide-sidebar="true"] {
 			grid-template-columns: 0 1fr;
