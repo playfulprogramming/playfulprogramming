@@ -244,7 +244,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const filteredAndSortedPosts = useMemo(() => {
 		const posts = [...data.posts];
-		if (sort) {
+		if (sort && sort !== "relevance") {
 			posts.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
@@ -274,7 +274,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const filteredAndSortedCollections = useMemo(() => {
 		const collections = [...data.collections];
 
-		if (sort) {
+		if (sort && sort !== "relevance") {
 			collections.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
