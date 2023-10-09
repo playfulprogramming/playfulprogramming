@@ -1,6 +1,6 @@
 import style from "./search-topbar.module.scss";
 import { SearchInput } from "components/input/input";
-import { Button, IconOnlyButton } from "components/button/button";
+import { Button, IconOnlyButton, LargeButton } from "components/button/button";
 import filter from "src/icons/filter.svg?raw";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Item, Select } from "components/select/select";
@@ -8,7 +8,6 @@ import {
 	RadioButton,
 	RadioButtonGroup,
 } from "components/button-radio-group/button-radio-group";
-import styles from "./filter-sidebar.module.scss";
 import { SortType } from "./types";
 
 interface SearchTopbarProps {
@@ -21,6 +20,7 @@ interface SearchTopbarProps {
 	sort: SortType;
 	setSort: (sortBy: SortType) => void;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
+	headerHeight: number;
 }
 
 export const SearchTopbar = ({
@@ -33,9 +33,18 @@ export const SearchTopbar = ({
 	setSort,
 	sort,
 	setFilterIsDialogOpen,
+	headerHeight,
 }: SearchTopbarProps) => {
 	return (
-		<div className={style.topBar}>
+		<section
+			className={style.topBar}
+			style={{
+				position: "sticky",
+				zIndex: 9,
+				marginTop: -2,
+				top: `${headerHeight - 2}px`,
+			}}
+		>
 			<form
 				className={style.searchbarRow}
 				onSubmit={(e) => {
@@ -57,8 +66,11 @@ export const SearchTopbar = ({
 					}}
 					onInput={(e) => setSearch((e.target as HTMLInputElement).value)}
 				/>
+				<LargeButton class={style.searchTextButton} tag="button" type="submit">
+					Search
+				</LargeButton>
 				<IconOnlyButton
-					class={style.searchButton}
+					class={style.searchIconButton}
 					tag="button"
 					type="submit"
 					aria-label="Search"
@@ -66,53 +78,40 @@ export const SearchTopbar = ({
 					children={null}
 				/>
 			</form>
-			<div className={`${style.dividerLine} ${style.topBarDivider}`} />
-			<RadioButtonGroup
-				testId={"content-to-display-group-topbar"}
-				className={style.topBarButtonsContentToDisplay}
-				value={contentToDisplay}
-				label={"Content to display"}
-				onChange={(val) => setContentToDisplay(val as "all")}
-			>
-				<RadioButton aria-label={"All"} value={"all"}>
-					All
-				</RadioButton>
-				<RadioButton value={"articles"}>Articles</RadioButton>
-				<RadioButton value={"collections"}>Collections</RadioButton>
-			</RadioButtonGroup>
-			<div class={style.orderSelectContainer}>
-				<div class={style.dividerLine} />
-				<div class={style.filterAndOrderSelectDiv}>
-					<Button
-						onClick={() => setFilterIsDialogOpen(true)}
-						tag="button"
-						type="button"
-						leftIcon={
-							<span
-								className={style.filterIconContainer}
-								dangerouslySetInnerHTML={{ __html: filter }}
-							></span>
-						}
-					>
-						Filter
-					</Button>
-					<Select
-						label={"Post sort order"}
-						prefixSelected={"Sort by: "}
-						defaultValue={"Relevance"}
-						selectedKey={sort}
-						onSelectionChange={(v) => setSort(v)}
-					>
-						<Item key={"relevance"}>Relevance</Item>
-						<Item key={"newest"}>Newest</Item>
-						<Item key={"oldest"}>Oldest</Item>
-					</Select>
-				</div>
-			</div>
-			<div className={style.topBarSmallTabletButtons}>
+			<div className={style.bigScreenContainer} />
+			<div className={style.smallScreenContainer}>
+				<div class={`${style.divider} ${style.topDivider}`} />
+				<div className={`${style.divider} ${style.middleDivider}`} />
+				<RadioButtonGroup
+					className={style.contentToDisplayGroup}
+					testId={"content-to-display-group-topbar"}
+					value={contentToDisplay}
+					label={"Content to display"}
+					onChange={(val) => setContentToDisplay(val as "all")}
+				>
+					<RadioButton aria-label={"All"} value={"all"}>
+						All
+					</RadioButton>
+					<RadioButton value={"articles"}>Articles</RadioButton>
+					<RadioButton value={"collections"}>Collections</RadioButton>
+				</RadioButtonGroup>
+				<Button
+					onClick={() => setFilterIsDialogOpen(true)}
+					tag="button"
+					class={style.filterTextButton}
+					type="button"
+					leftIcon={
+						<span
+							className={style.filterIconContainer}
+							dangerouslySetInnerHTML={{ __html: filter }}
+						></span>
+					}
+				>
+					Filter
+				</Button>
 				<Select
+					className={style.sortOrderGroup}
 					testId={"sort-order-group-topbar"}
-					className={styles.sortSelect}
 					label={"Post sort order"}
 					prefixSelected={"Sort by: "}
 					defaultValue={"Relevance"}
@@ -124,6 +123,7 @@ export const SearchTopbar = ({
 					<Item key={"oldest"}>Oldest</Item>
 				</Select>
 				<IconOnlyButton
+					class={style.filterIconButton}
 					tag="button"
 					type="button"
 					onClick={() => setFilterIsDialogOpen(true)}
@@ -135,7 +135,6 @@ export const SearchTopbar = ({
 					></span>
 				</IconOnlyButton>
 			</div>
-			<div class={`${style.dividerLine} ${style.tabletSmallTopBarDivider}`} />
-		</div>
+		</section>
 	);
 };

@@ -1,0 +1,25 @@
+@import "src/tokens/index";
+@import "./filter-sidebar-props";
+
+:root {
+	--search-page_filter_list_controls_padding-start: var(--spc-4x);
+	--search-page_filter_list_controls_padding-end: var(--spc-1x);
+	--search-page_filter_list_controls_padding-vertical: var(--spc-2x);
+
+	@include from($desktopSmall) {
+		--search-page_filter_list_controls_padding-start: var(--spc-5x);
+		--search-page_filter_list_controls_padding-end: var(--spc-2x);
+	}
+}
+
+.container {
+	padding: var(--search-page_filter_list_controls_padding-vertical)
+		var(--search-page_filter_list_controls_padding-end)
+		var(--search-page_filter_list_controls_padding-vertical)
+		var(--search-page_filter_list_controls_padding-start);
+
+	// TODO: Token?
+	border-radius: var(--corner-radius_l);
+	border: var(--search-page_filter_list_divider_width) solid
+		var(--search-page_filter_list_divider_color);
+}

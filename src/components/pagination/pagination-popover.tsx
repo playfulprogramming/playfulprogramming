@@ -14,6 +14,7 @@ import {
 	usePopover,
 	Overlay,
 	DismissButton,
+	useButton,
 } from "react-aria";
 import { OverlayTriggerState, useOverlayTriggerState } from "react-stately";
 import { DOMProps } from "@react-types/shared";
@@ -162,7 +163,11 @@ function PaginationPopover({
 					<h1 {...titleProps} className="visually-hidden">
 						Go to page
 					</h1>
-					<PopupContents {...props} titleId={titleProps.id} close={state.close} />
+					<PopupContents
+						{...props}
+						titleId={titleProps.id}
+						close={state.close}
+					/>
 				</div>
 				<DismissButton onDismiss={state.close} />
 			</div>
@@ -182,14 +187,14 @@ export function PaginationMenuAndPopover(
 		triggerRef,
 	);
 
+	const { buttonProps } = useButton(triggerProps, triggerRef);
+
 	return (
 		<Fragment>
 			<li className={`${mainStyles.paginationItem}`}>
-				{/* Add onClick since onPress doesn't work with Preact well */}
 				<button
 					ref={triggerRef}
-					onClick={triggerProps.onPress as never}
-					{...triggerProps}
+					{...buttonProps}
 					aria-label="Go to page"
 					data-testid="pagination-menu"
 					className={`text-style-body-medium-bold ${mainStyles.extendPageButton} ${mainStyles.paginationButton} ${mainStyles.paginationIconButton}`}

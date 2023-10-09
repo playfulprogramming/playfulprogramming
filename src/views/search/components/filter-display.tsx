@@ -25,7 +25,9 @@ interface FilterDisplayProps {
 	desktopStyle?: CSSProperties;
 	isFilterDialogOpen: boolean;
 	setFilterIsDialogOpen: (isOpen: boolean) => void;
-	searchString;
+	searchString: string;
+	setContentToDisplay: (content: "all" | "articles" | "collections") => void;
+	contentToDisplay: "all" | "articles" | "collections";
 }
 
 export const FilterDisplay = ({
@@ -42,6 +44,8 @@ export const FilterDisplay = ({
 	isFilterDialogOpen,
 	setFilterIsDialogOpen,
 	searchString,
+	setContentToDisplay,
+	contentToDisplay,
 }: FilterDisplayProps) => {
 	const tags = useMemo(() => {
 		const tagToPostNumMap = new Map<string, number>();
@@ -161,6 +165,8 @@ export const FilterDisplay = ({
 			onSelectedAuthorChange={onSelectedAuthorChange}
 			onTagsChange={onTagsChange}
 			searchString={searchString}
+			setContentToDisplay={setContentToDisplay}
+			contentToDisplay={contentToDisplay}
 		/>
 	);
 };

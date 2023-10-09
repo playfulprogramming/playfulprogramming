@@ -244,7 +244,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	 */
 	const filteredAndSortedPosts = useMemo(() => {
 		const posts = [...data.posts];
-		if (sort) {
+		if (sort && sort !== "relevance") {
 			posts.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
@@ -274,7 +274,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const filteredAndSortedCollections = useMemo(() => {
 		const collections = [...data.collections];
 
-		if (sort) {
+		if (sort && sort !== "relevance") {
 			collections.sort(
 				(a, b) =>
 					(sort === "newest" ? -1 : 1) *
@@ -347,8 +347,14 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				posts.length === 0 &&
 				filteredAndSortedCollections.length === 0));
 
+	const numberOfCollections = showCollections
+		? filteredAndSortedCollections.length
+		: 0;
+
+	const numberOfPosts = showArticles ? filteredAndSortedPosts.length : 0;
+
 	return (
-		<div
+		<main
 			className={style.fullPageContainer}
 			role="search"
 			data-hide-sidebar={!search}
@@ -366,6 +372,8 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				setSelectedAuthorIds={setSelectedUnicorns}
 				sort={sort}
 				setSort={setSort}
+				setContentToDisplay={setContentToDisplay}
+				contentToDisplay={contentToDisplay}
 				desktopStyle={{
 					height: `calc(100vh - ${headerHeight}px)`,
 					top: headerHeight,
@@ -388,135 +396,143 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 					setSort={setSort}
 					sort={sort}
 					setFilterIsDialogOpen={setFilterIsDialogOpen}
+					headerHeight={headerHeight}
 				/>
-				{/* aria-live cannot be on an element that is programmatically removed
+				<section className={style.mainContentsInner}>
+					{/* aria-live cannot be on an element that is programmatically removed
 				or added via JSX, instead it has to listen to changes in DOM somehow */}
-				<div aria-live={"polite"} aria-atomic="true" className={style.passThru}>
-					{!isContentLoading &&
-						(!!filteredAndSortedCollections.length ||
-							!!filteredAndSortedPosts.length) && (
-							<SearchResultCount
-								ref={resultsHeading}
-								numberOfCollections={filteredAndSortedCollections.length}
-								numberOfPosts={filteredAndSortedPosts.length}
+					<div
+						aria-live={"polite"}
+						aria-atomic="true"
+						className={style.passThru}
+					>
+						{!isContentLoading &&
+							(!!numberOfCollections || !!numberOfPosts) && (
+								<SearchResultCount
+									ref={resultsHeading}
+									numberOfCollections={numberOfCollections}
+									numberOfPosts={numberOfPosts}
+								/>
+							)}
+						{!isError && isContentLoading && (
+							<>
+								<div className={style.loadingAnimationContainer}>
+									<div className={style.loadingAnimation} />
+									<p className={`text-style-headline-4 ${style.loadingText}`}>
+										Fetching results...
+									</p>
+								</div>
+							</>
+						)}
+					</div>
+					<div
+						aria-live="assertive"
+						aria-atomic="true"
+						className={style.passThru}
+					>
+						{!isError && !isContentLoading && noResults && (
+							<SearchHero
+								imageSrc={sadUnicorn.src}
+								imageAlt={""}
+								title={"No results found..."}
+								description={"Please adjust your query or your active filters!"}
 							/>
 						)}
-					{!isError && isContentLoading && (
-						<>
-							<div className={style.loadingAnimationContainer}>
-								<div className={style.loadingAnimation} />
-								<p className={`text-style-headline-4 ${style.loadingText}`}>
-									Fetching results...
-								</p>
-							</div>
-						</>
-					)}
-				</div>
-				<div
-					aria-live="assertive"
-					aria-atomic="true"
-					className={style.passThru}
-				>
-					{!isError && !isContentLoading && noResults && (
+						{isError && !isContentLoading && (
+							<SearchHero
+								imageSrc={scaredUnicorn.src}
+								imageAlt={""}
+								title={"There was an error fetching your search results."}
+								description={"Please adjust your query or try again."}
+								buttons={
+									<LargeButton
+										onClick={() => refetch()}
+										leftIcon={
+											<span dangerouslySetInnerHTML={{ __html: retry }} />
+										}
+									>
+										Retry
+									</LargeButton>
+								}
+							/>
+						)}
+					</div>
+
+					{!enabled && !isContentLoading && (
 						<SearchHero
-							imageSrc={sadUnicorn.src}
+							imageSrc={happyUnicorn.src}
 							imageAlt={""}
-							title={"No results found..."}
-							description={"Please adjust your query or your active filters!"}
-						/>
-					)}
-					{isError && !isContentLoading && (
-						<SearchHero
-							imageSrc={scaredUnicorn.src}
-							imageAlt={""}
-							title={"There was an error fetching your search results."}
-							description={"Please adjust your query or try again."}
-							buttons={
-								<LargeButton
-									onClick={() => refetch()}
-									leftIcon={
-										<span dangerouslySetInnerHTML={{ __html: retry }} />
-									}
-								>
-									Retry
-								</LargeButton>
+							title={"What would you like to find?"}
+							description={
+								"Search for your favorite framework or most loved language; we'll share what we know."
 							}
 						/>
 					)}
-				</div>
-
-				{!enabled && !isContentLoading && (
-					<SearchHero
-						imageSrc={happyUnicorn.src}
-						imageAlt={""}
-						title={"What would you like to find?"}
-						description={
-							"Search for your favorite framework or most loved language; we'll share what we know."
-						}
-					/>
-				)}
-				{enabled &&
-					!isContentLoading &&
-					showCollections &&
-					Boolean(filteredAndSortedCollections.length) && (
-						<Fragment>
-							<SubHeader
-								tag="h2"
-								text="Collections"
-								id="collections-header"
-								data-testid="collections-header"
-							/>
-							<ul
-								aria-labelledby="collections-header"
-								role="list"
-								className={style.collectionsGrid}
-							>
-								{filteredAndSortedCollections.map((collection) => (
-									<li>
-										<CollectionCard
-											unicornProfilePicMap={unicornProfilePicMap}
-											collection={collection}
-										/>
-									</li>
-								))}
-							</ul>
-						</Fragment>
-					)}
-				{enabled &&
-					!isContentLoading &&
-					showArticles &&
-					Boolean(posts.length) && (
-						<Fragment>
-							<SubHeader
-								tag="h2"
-								text="Articles"
-								id="articles-header"
-								data-testid="articles-header"
-							/>
-							<PostCardGrid
-								aria-labelledby={"articles-header"}
-								postsToDisplay={posts}
-								unicornProfilePicMap={unicornProfilePicMap}
-							/>
-							<Pagination
-								testId="pagination"
-								softNavigate={(href) => {
-									pushState(href);
-								}}
-								page={{
-									currentPage: page,
-									lastPage: lastPage,
-								}}
-								getPageHref={(pageNum) => {
-									const pageParams = new URLSearchParams(urlParams);
-									pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
-									return `${window.location.pathname}?${pageParams.toString()}`;
-								}}
-							/>
-						</Fragment>
-					)}
+					{enabled &&
+						!isContentLoading &&
+						showCollections &&
+						Boolean(filteredAndSortedCollections.length) && (
+							<Fragment>
+								<SubHeader
+									tag="h2"
+									text="Collections"
+									id="collections-header"
+									data-testid="collections-header"
+								/>
+								<ul
+									aria-labelledby="collections-header"
+									role="list"
+									className={style.collectionsGrid}
+								>
+									{filteredAndSortedCollections.map((collection) => (
+										<li>
+											<CollectionCard
+												unicornProfilePicMap={unicornProfilePicMap}
+												collection={collection}
+											/>
+										</li>
+									))}
+								</ul>
+							</Fragment>
+						)}
+					{enabled &&
+						!isContentLoading &&
+						showArticles &&
+						Boolean(posts.length) && (
+							<Fragment>
+								<SubHeader
+									tag="h2"
+									text="Articles"
+									id="articles-header"
+									data-testid="articles-header"
+								/>
+								<PostCardGrid
+									aria-labelledby={"articles-header"}
+									postsToDisplay={posts}
+									unicornProfilePicMap={unicornProfilePicMap}
+								/>
+								<Pagination
+									testId="pagination"
+									softNavigate={(href) => {
+										pushState(href);
+									}}
+									page={{
+										currentPage: page,
+										lastPage: lastPage,
+									}}
+									getPageHref={(pageNum) => {
+										const pageParams = new URLSearchParams(urlParams);
+										pageParams.set(SEARCH_PAGE_KEY, pageNum.toString());
+										return `${
+											window.location.pathname
+										}?${pageParams.toString()}`;
+									}}
+								/>
+							</Fragment>
+						)}
+				</section>
 			</div>
-		</div>
+		</main>
 	);
 }
 

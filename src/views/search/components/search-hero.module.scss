@@ -12,7 +12,9 @@
 
 	--search-hero_icon_size: var(--icon-size_regular);
 
-	--search-hero_container_background-color: var(--surface_primary_emphasis-none);
+	--search-hero_container_background-color: var(
+		--surface_primary_emphasis-none
+	);
 	--search-hero_image_border_color: var(--background_primary);
 
 	--search-hero_title_color: var(--foreground_emphasis-high);
@@ -73,6 +75,21 @@
 	@include transition(border-color);
 }
 
+.title,
+.description {
+	z-index: 2;
+	@include transition(text-shadow);
+	text-shadow:
+		0 0 5px var(--background_primary),
+		0 0 6px var(--background_primary),
+		0 0 8px var(--background_primary),
+		0 0 8px var(--background_primary);
+}
+
+.buttons {
+	z-index: 2;
+}
+
 .title {
 	margin: 0;
 	color: var(--search-hero_title_color);
@@ -105,7 +122,7 @@
 .sticker7,
 .sticker8 {
 	--sticker_timing: 300ms ease-in-out;
-	z-index: -1;
+	z-index: 1;
 	position: absolute;
 	height: 24px;
 	width: 24px;

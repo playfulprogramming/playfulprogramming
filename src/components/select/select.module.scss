@@ -24,6 +24,26 @@
 	--popup_item_label_color: var(--foreground_emphasis-high);
 	--popup_item_start-icon_color: var(--foreground_disabled);
 	--popup_item_check-icon_color: var(--foreground_emphasis-high);
+
+	--search-page_filter_list_controls_label-color: var(
+		--foreground_emphasis-medium
+	);
+}
+
+.transparentBackground:not(:hover):not(:active) {
+	background: transparent !important;
+}
+
+.selectedWithLabel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.visibleLabel {
+	color: var(--search-page_filter_list_controls_label);
 }
 
 .downSpan {

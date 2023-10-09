@@ -1,146 +1,69 @@
 @import "src/tokens/index";
 
+:root {
+	--search-page_body_max-width: var(--max-width_l);
+
+	--search-page_search-header_padding-horizontal: var(--site-spacing);
+	--search-page_search-header_padding-vertical: var(--spc-4x);
+	--search-page_search-header_gap: var(--spc-4x);
+	--search-page_search-header_btn-gap: var(--spc-2x);
+	--search-page_search-header_filter-btn-gap: var(--spc-4x);
+
+	// Update: This was updated to “button” divider, to specify the divider at the bottom
+	// edge of the search header should not have a height of a button_ Just making sure_
+	--search-page_search-header_button-divider_height: var(--min-target-size_s);
+
+	--search-page_search-header_divider_width: var(--border-width_s);
+	--search-page_search-header_divider_color: var(--background_disabled);
+	--search-page_search-header_max-width: var(--max-width_l);
+
+	@include from($desktopSmall) {
+		--search-page_search-bar_max-width: var(--max-width_s);
+		--search-page_search-header_padding-vertical: var(--site-spacing);
+		--search-page_search-header_gap: var(--spc-4x);
+	}
+}
+
 .topBar {
-	display: grid;
-	gap: var(--spc-4x);
-
-	grid-template-rows: repeat(5, auto);
-	grid-template-columns: repeat(2, auto);
-
-	@include from($tabletSmall) {
-		grid-template-rows: repeat(4, auto);
-		grid-template-columns: repeat(2, auto);
-	}
-
-	@include from($tabletLarge) {
-		gap: var(--spc-8x);
-		grid-template-rows: 1fr;
-		grid-template-columns: 1fr repeat(2, auto);
-	}
-}
-
-.topBarDivider {
-	grid-column: 1 / 3;
-	grid-row: 2;
-
-	@include from($tabletSmall) {
-		grid-column: 1 / 3;
-		grid-row: unset;
-	}
-
-	@include from($tabletLarge) {
-		grid-column: unset;
-		height: 100%;
-		width: 1px;
-	}
-}
-
-.orderSelectContainer {
-	grid-column: 1 / 3;
-	grid-row: 4;
-
-	@include from($tabletSmall) {
-		display: none;
-	}
-}
-
-.filterAndOrderSelectDiv {
 	display: flex;
-	justify-content: space-between;
-	margin-top: var(--spc-4x);
-}
-
-.dividerLine {
-	height: 1px;
-	width: 100%;
-	background: var(--background_disabled);
-}
-
-.tabletSmallTopBarDivider {
-	grid-column: 1 / 3;
-
-	@include from($tabletLarge) {
-		display: none;
-	}
-}
-
-.topBarButtonsContentToDisplay {
-	display: flex;
-	flex-direction: row;
-	gap: var(--spc-2x);
-	justify-self: start;
-	align-items: center;
-
-	@include from($tabletSmall) {
-		grid-column: 1;
-		justify-self: start;
-	}
-
-	@include from($tabletLarge) {
-		grid-row: unset;
-		grid-column: unset;
-		justify-content: center;
-	}
-}
-
-.topBarSmallTabletButtons {
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: var(--spc-2x);
-
-	// Setup for the small tablet buttons
-	grid-column: 2;
-	justify-self: end;
-	display: none;
-
-	@include from($tabletSmall) {
-		display: flex;
-	}
-
-	@include from($tabletLarge) {
-		display: none;
-	}
-}
-
-.topBarSmallTabletButtonsToggle {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: var(--spc-2x);
-}
-
-.filterIconContainer,
-.filterIconContainer svg {
-	height: 100%;
-	width: 100%;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 
 .searchbarRow {
+	@include transition(background);
+	background: var(--background_primary);
+	z-index: 2;
+
+	padding-left: var(--search-page_search-header_padding-horizontal);
+	padding-right: var(--search-page_search-header_padding-horizontal);
+	padding-top: var(--search-page_search-header_padding-vertical);
+	padding-bottom: var(--search-page_search-header_gap);
+
+
 	display: flex;
 	flex-direction: row;
-	width: 100%;
-	gap: var(--spc-2x);
-	justify-content: center;
-	align-items: center;
-
-	grid-column: 1 / 3;
-
-	@include from($tabletSmall) {
-		grid-column: 1 / 3;
-	}
+	flex-wrap: nowrap;
+	gap: var(--search-page_search-header_gap);
 
 	@include from($tabletLarge) {
-		grid-column: unset;
+		padding-bottom: 0;
 	}
 }
 
 .searchbar {
-	width: 100%;
+	flex-grow: 1;
 }
 
-.searchButton {
+.searchTextButton {
+	display: none;
+
+	@include from($tabletLarge) {
+		display: block;
+	}
+}
+
+.searchIconButton {
 	height: calc(
 		var(--p_medium_line-height) +
 			calc(var(--search-form-field_padding-vertical) * 2)
@@ -150,4 +73,148 @@
 			calc(var(--search-form-field_padding-vertical) * 2)
 	);
 	flex-shrink: 0;
+
+	@include from($tabletLarge) {
+		display: none;
+	}
+}
+
+.bigScreenContainer {
+	display: none;
+	@include transition(background);
+
+	@include from($tabletLarge) {
+		z-index: 1;
+		display: block;
+		height: var(--search-page_search-header_padding-vertical);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 1),
+			rgba(0, 0, 0, 0)
+		);
+		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+		background: var(--background_primary);
+	}
+}
+
+.topDivider {
+	display: flex;
+	grid-column-start: 1;
+	grid-column-end: -1;
+	grid-row-start: 1;
+	grid-row-end: 1;
+}
+
+.middleDivider {
+	display: flex;
+	grid-column-start: 1;
+	grid-column-end: -1;
+	grid-row-start: 3;
+	grid-row-end: 3;
+
+	@include from($tabletSmall) {
+		display: none;
+	}
+}
+
+.divider {
+	height: 0;
+	width: 100%;
+	border-bottom-style: solid;
+	border-bottom-color: var(--search-page_search-header_divider_color);
+	border-bottom-width: var(--search-page_search-header_divider_width);
+}
+
+.smallScreenContainer {
+	@include transition(background);
+	background: var(--background_primary);
+	z-index: 2;
+	display: grid;
+
+	// [Buttons] [Empty Space] [Buttons]
+	grid-template-columns: auto 1fr auto;
+	// [Divider] [Buttons] [Divider] [Buttons]
+	grid-template-rows: auto auto auto auto;
+
+	border-bottom-style: solid;
+	border-bottom-color: var(--search-page_search-header_divider_color);
+	border-bottom-width: var(--search-page_search-header_divider_width);
+
+	padding: 0 var(--search-page_search-header_padding-horizontal)
+		var(--search-page_search-header_padding-vertical)
+		var(--search-page_search-header_padding-horizontal);
+
+	grid-row-gap: var(--search-page_search-header_gap);
+
+	@include from($tabletSmall) {
+		// [Content Buttons] [Empty Space] [SortBy Button] [FilterButton]
+		grid-template-columns: auto 1fr auto auto;
+		// [Divider] [Buttons]
+		grid-template-rows: auto auto;
+	}
+
+	@include from($tabletLarge) {
+		display: none;
+	}
+}
+
+.filterIconContainer,
+.filterIconContainer svg {
+	height: 100%;
+	width: 100%;
+}
+
+.contentToDisplayGroup {
+	display: flex;
+	gap: var(--search-page_search-header_btn-gap);
+
+	grid-row-start: 2;
+	grid-row-end: 2;
+	grid-column-start: 1;
+	grid-column-end: 3;
+
+	@include from($tabletSmall) {
+		grid-column-start: 1;
+		grid-column-end: 1;
+		grid-row-start: 2;
+		grid-row-end: 2;
+	}
+}
+
+.filterIconButton {
+	display: none;
+
+	@include from($tabletSmall) {
+		display: block;
+		margin-left: var(--search-page_search-header_filter-btn-gap);
+		grid-column-start: 4;
+		grid-column-end: 4;
+		grid-row-start: 2;
+		grid-row-end: 2;
+	}
+}
+
+.sortOrderGroup {
+	grid-row-start: 4;
+	grid-row-end: 4;
+	grid-column-start: 3;
+	grid-column-end: 3;
+
+	@include from($tabletSmall) {
+		grid-column-start: 3;
+		grid-column-end: 3;
+		grid-row-start: 2;
+		grid-row-end: 2;
+	}
+}
+
+.filterTextButton {
+	grid-row-start: 4;
+	grid-row-end: 4;
+	grid-column-start: 1;
+	grid-column-end: 1;
+
+	@include from($tabletSmall) {
+		display: none;
+	}
 }

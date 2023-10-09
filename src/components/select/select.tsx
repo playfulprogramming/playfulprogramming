@@ -10,6 +10,7 @@ import {
 	Overlay,
 	usePopover,
 	AriaPopoverProps,
+	useButton,
 } from "react-aria";
 import { PropsWithChildren } from "preact/compat";
 import down from "src/icons/chevron_down.svg?raw";
@@ -60,6 +61,76 @@ interface SelectProps<T extends object> extends AriaSelectProps<T> {
 	testId?: string;
 }
 
+export function SelectWithLabel<T extends object>({
+	class: className = "",
+	className: classNameName = "",
+	defaultValue,
+	prefixSelected = "",
+	testId,
+	...props
+}: PropsWithChildren<SelectProps<T>>) {
+	const state = useSelectState(props);
+
+	// Get props for child elements from useSelect
+	const ref = useRef(null);
+	const { labelProps, triggerProps, valueProps, menuProps } = useSelect(
+		props,
+		state,
+		ref,
+	);
+
+	const { buttonProps } = useButton(triggerProps, ref);
+
+	return (
+		<div
+			data-testid={testId}
+			className={`${className} ${classNameName} ${styles.selectedWithLabel}`}
+		>
+			<div
+				{...labelProps}
+				className={`text-style-button-regular ${styles.visibleLabel}`}
+			>
+				{props.label}
+			</div>
+			<HiddenSelect
+				isDisabled={props.isDisabled}
+				state={state}
+				triggerRef={ref}
+				label={props.label}
+				name={props.name}
+			/>
+			<Button
+				class={state.isOpen ? "" : styles.transparentBackground}
+				tag="button"
+				type="button"
+				variant={"primary"}
+				ref={ref}
+				{...buttonProps}
+				rightIcon={
+					<span
+						style={{
+							transform: state.isOpen ? "rotate(-180deg)" : "rotate(0deg)",
+						}}
+						className={styles.downSpan}
+						dangerouslySetInnerHTML={{ __html: down }}
+					></span>
+				}
+			>
+				<span {...valueProps}>
+					{prefixSelected}
+					{state.selectedItem ? state.selectedItem.rendered : defaultValue}
+				</span>
+			</Button>
+
+			{state.isOpen && (
+				<Popover state={state} triggerRef={ref} placement="bottom end">
+					<ListBox {...menuProps} state={state} />
+				</Popover>
+			)}
+		</div>
+	);
+}
+
 export function Select<T extends object>({
 	class: className = "",
 	className: classNameName = "",
@@ -78,8 +149,14 @@ export function Select<T extends object>({
 		ref,
 	);
 
+	const { buttonProps } = useButton(triggerProps, ref);
+
 	return (
-		<div data-testid={testId} style={{ display: "inline-block" }}>
+		<div
+			data-testid={testId}
+			class={`${className} ${classNameName}`}
+			style={{ display: "inline-block" }}
+		>
 			<div {...labelProps} class={"visually-hidden"}>
 				{props.label}
 			</div>
@@ -90,16 +167,12 @@ export function Select<T extends object>({
 				label={props.label}
 				name={props.name}
 			/>
-			{/* onPress and onPressStart isn't working for Preact */}
 			<Button
-				class={`${className} ${classNameName}`}
 				tag="button"
 				type="button"
 				variant={state.isOpen ? "primary-emphasized" : "primary"}
 				ref={ref}
-				onMouseDown={triggerProps.onPressStart as never}
-				onClick={triggerProps.onPress as never}
-				{...triggerProps}
+				{...buttonProps}
 				rightIcon={
 					<span
 						style={{
