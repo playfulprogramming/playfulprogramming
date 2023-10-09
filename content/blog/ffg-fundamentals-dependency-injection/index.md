@@ -2220,7 +2220,82 @@ export const FileList = () => {
 
 ### Angular
 
-// TODO: ...
+```typescript
+@Component({
+  selector: 'file-item',
+  standalone: true,
+  template: `
+      <button style="display: block; width: 100%; margin-bottom: 1rem">
+          {{ name }}
+      </button>
+`,
+})
+export class FileComponent {
+  @Input() name!: string;
+}
+```
+
+```typescript
+@Component({
+  selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent, NgFor],
+  template: `
+      <div style="padding: 1rem">
+          <h1>Files</h1>
+          <file-item *ngFor="let file of files" [name]="file.name" />
+      </div>
+  `,
+})
+export class FileListComponent {
+  files = [
+    {
+      name: 'Testing.wav',
+      id: 1,
+    },
+    {
+      name: 'Secrets.txt',
+      id: 2,
+    },
+    {
+      name: 'Other.md',
+      id: 3,
+    },
+  ];
+}
+```
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [FileComponent, NgFor],
+  template: `
+      <div style="padding: 1rem">
+          <h1 style="font-size: 1.25rem">Directories</h1>
+          <file-item *ngFor="let directory of directories" [name]="directory.name" />
+      </div>
+  `,
+})
+export class SidebarComponent {
+  directories = [
+    {
+      name: 'Movies',
+      id: 1,
+    },
+    {
+      name: 'Documents',
+      id: 2,
+    },
+    {
+      name: 'Etc',
+      id: 3,
+    },
+  ];
+}
+````
+
+
 
 ### Vue
 
@@ -2431,6 +2506,194 @@ export const Sidebar = () => {
 ### Angular
 
 // TODO: ...
+
+```typescript
+
+@Component({
+  selector: 'file-item',
+  standalone: true,
+  imports: [ContextMenuComponent],
+  template: `
+      <button
+              (contextmenu)="onContextMenu($event)"
+              style="display: block; width: 100%; margin-bottom: 1rem"
+      >
+          {{ name }}
+      </button>
+      <context-menu
+              #contextMenu
+              [data]="id"
+              [isOpen]="isOpen"
+              (close)="setIsOpen(false)"
+              [x]="mouseBounds.x"
+              [y]="mouseBounds.y"
+      />
+`,
+})
+export class FileComponent {
+  @ViewChild('contextMenu', { static: true })
+  contextMenu!: ContextMenuComponent;
+  @Input() name!: string;
+  @Input() id!: number;
+
+  mouseBounds = {
+    x: 0,
+    y: 0,
+  };
+
+  isOpen = false;
+
+  setIsOpen = (v: boolean) => (this.isOpen = v);
+
+  onContextMenu(e: MouseEvent) {
+    e.preventDefault();
+    this.isOpen = true;
+    this.mouseBounds = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+    setTimeout(() => {
+      this.contextMenu.focusMenu();
+    }, 0);
+  }
+}
+```
+
+```typescript
+@Component({
+  selector: 'context-menu',
+  standalone: true,
+  imports: [NgIf, NgFor],
+  template: `
+      <div
+              *ngIf="isOpen && actions"
+              #contextMenu
+              tabIndex="0"
+              [style]="'
+        position: fixed;
+        top: ' + y + 'px;
+        left: ' + x + 'px;
+        background: white;
+        border: 1px solid black;
+        border-radius: 16px;
+        padding: 1rem;
+      '"
+      >
+          <button (click)="close.emit(false)">X</button>
+          <ul>
+              <li *ngFor="let action of actions">
+                  <button
+                          (click)="
+                      action.fn(data);
+                      close.emit(false);
+                  "
+                  >
+                      {{ action.label }}
+                  </button>
+              </li>
+          </ul>
+      </div>
+  `,
+})
+export class ContextMenuComponent implements OnInit, OnDestroy, OnChanges {
+  @ViewChild('contextMenu', { static: false }) contextMenuRef!: ElementRef;
+  @Input() isOpen!: boolean;
+  @Input() x!: number;
+  @Input() y!: number;
+  @Input() data!: any;
+
+  @Output() close = new EventEmitter<boolean>();
+
+  actions = [
+    {
+      label: 'Copy',
+      fn: (data: string) => alert(`Copied ${data}`),
+    },
+    {
+      label: 'Delete',
+      fn: (data: string) => alert(`Deleted ${data}`),
+    },
+  ];
+
+  closeIfOutside = (e: MouseEvent) => {
+    const contextMenuEl = this.contextMenuRef?.nativeElement;
+    if (!contextMenuEl) return;
+    const isClickInside = contextMenuEl.contains(e.target);
+    if (isClickInside) return;
+    this.close.emit(false);
+  };
+
+  closeIfContextMenu = () => {
+    if (!this.isOpen) return;
+    this.close.emit(false);
+  };
+
+  previousListener: null | (() => void) = null;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isOpen'].previousValue !== changes['isOpen'].currentValue) {
+      if (this.previousListener) {
+        this.previousListener();
+      }
+      // Inside a timeout to make sure the initial context menu does not close the menu
+      setTimeout(() => {
+        document.addEventListener('contextmenu', this.closeIfContextMenu);
+      }, 0);
+
+      this.previousListener = () =>
+        document.removeEventListener('contextmenu', this.closeIfContextMenu);
+    }
+  }
+
+  ngOnInit() {
+    document.addEventListener('click', this.closeIfOutside);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.closeIfOutside);
+  }
+
+  focusMenu() {
+    this.contextMenuRef.nativeElement.focus();
+  }
+}
+```
+
+Finally, we need to make sure to pass the `file.id` to `<file-item id={file.id}/>` component:
+
+```typescript
+@Component({
+  selector: 'file-list',
+  standalone: true,
+  imports: [FileComponent, NgFor],
+  template: `
+      <div style="padding: 1rem">
+          <h1>Files</h1>
+          <file-item *ngFor="let file of files" [name]="file.name" [id]="file.id" />
+      </div>
+  `,
+})
+export class FileListComponent {
+    // ...
+}
+```
+
+```typescript
+@Component({
+  selector: 'sidebar',
+  standalone: true,
+  imports: [FileComponent, NgFor],
+  template: `
+      <div style="padding: 1rem">
+          <h1 style="font-size: 1.25rem">Directories</h1>
+          <file-item *ngFor="let directory of directories" [name]="directory.name" [id]="directory.id" />
+      </div>
+  `,
+})
+export class SidebarComponent {
+    // ...
+}
+```
 
 ### Vue
 
