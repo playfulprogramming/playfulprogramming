@@ -42,8 +42,8 @@ Here's an example of what your entry might look like:
   "description": "Haskell programmer, fanfiction author, and an omniscient unicorn.",
 
   // Social usernames can include "twitter", "github", "gitlab",
-  // "linkedIn", "twitch", "dribbble", "mastodon", "threads", and
-  // "youtube", as well as a "website" that can be anything you want!
+  // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
+  // and "cohost", as well as a "website" that can be anything you want!
   "socials": {
     "twitter": "UnicornUttrncs",
     "github": "unicorn-utterances",
