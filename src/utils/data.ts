@@ -131,9 +131,33 @@ const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
 
 	newUnicorn.socials.twitter = normalizeUsername(newUnicorn.socials.twitter);
 	newUnicorn.socials.github = normalizeUsername(newUnicorn.socials.github);
+	newUnicorn.socials.gitlab = normalizeUsername(newUnicorn.socials.gitlab);
 	newUnicorn.socials.linkedIn = normalizeUsername(newUnicorn.socials.linkedIn);
 	newUnicorn.socials.twitch = normalizeUsername(newUnicorn.socials.twitch);
 	newUnicorn.socials.dribbble = normalizeUsername(newUnicorn.socials.dribbble);
+	newUnicorn.socials.threads = normalizeUsername(newUnicorn.socials.threads);
+	newUnicorn.socials.cohost = normalizeUsername(newUnicorn.socials.cohost);
+
+	// "mastodon" should be a full URL; this will error if not valid
+	try {
+		if (newUnicorn.socials.mastodon)
+			newUnicorn.socials.mastodon = new URL(
+				newUnicorn.socials.mastodon,
+			).toString();
+	} catch (e) {
+		console.error(
+			`'${unicorn.id}' socials.mastodon is not a valid URL: '${newUnicorn.socials.mastodon}'`,
+		);
+		throw e;
+	}
+
+	if (newUnicorn.socials.youtube) {
+		// this can either be a "@username" or "channel/{id}" URL, which cannot be mixed.
+		const username = normalizeUsername(newUnicorn.socials.youtube);
+		newUnicorn.socials.youtube = newUnicorn.socials.youtube.includes("@")
+			? `https://www.youtube.com/@${username}`
+			: `https://www.youtube.com/channel/${username}`;
+	}
 
 	return newUnicorn;
 });
