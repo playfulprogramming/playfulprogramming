@@ -96,9 +96,11 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 </div>
 
 <script>
-	const viewAllAchievementsButton = document.getElementById(
-		"view-all-achievements",
-	) as HTMLElement;
+	const viewAllAchievementsButton: HTMLElement = document.querySelector(
+		"#view-all-achievements",
+	);
+	const viewAllAchievementsText: HTMLElement =
+		viewAllAchievementsButton.querySelector(".innerText");
 
 	if (viewAllAchievementsButton) {
 		const hiddenAchievements: HTMLElement[] = Array.from(
@@ -113,14 +115,14 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 				hiddenAchievements.forEach((achievement) => {
 					achievement.style.display = "";
 				});
-				viewAllAchievementsButton.innerText = "View less";
+				viewAllAchievementsText.innerText = "View less";
 				return;
 			}
 
 			hiddenAchievements.forEach((achievement) => {
 				achievement.style.display = "none";
 			});
-			viewAllAchievementsButton.innerText = "View all";
+			viewAllAchievementsText.innerText = "View all";
 		});
 	}
 </script>
