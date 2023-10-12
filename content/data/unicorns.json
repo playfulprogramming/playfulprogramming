@@ -23,8 +23,11 @@
 		"lastName": "Fenn",
 		"description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
 		"socials": {
-			"twitter": "fennifith",
-			"github": "fennifith"
+			"github": "fennifith",
+			"twitch": "fennifith",
+			"mastodon": "https://is.a.horrific.dev/@fennifith",
+			"website": "https://jfenn.me",
+			"linkedIn": "james-fenn-3390b8167"
 		},
 		"pronouns": "he/him",
 		"profileImg": "./fennifith.jpg",

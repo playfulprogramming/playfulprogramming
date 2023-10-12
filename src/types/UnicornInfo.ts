@@ -9,10 +9,15 @@ export interface RawUnicornInfo {
 	socials: {
 		twitter?: string;
 		github?: string;
+		gitlab?: string;
 		website?: string;
 		linkedIn?: string;
 		twitch?: string;
 		dribbble?: string;
+		mastodon?: string;
+		threads?: string;
+		youtube?: string;
+		cohost?: string;
 	};
 	pronouns?: string;
 	profileImg: string;
