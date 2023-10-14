@@ -46,6 +46,8 @@ export const SearchTopbar = ({
 			}}
 		>
 			<form
+				role="search"
+				aria-label="Search our content"
 				className={style.searchbarRow}
 				onSubmit={(e) => {
 					e.preventDefault();

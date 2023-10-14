@@ -356,7 +356,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	return (
 		<main
 			className={style.fullPageContainer}
-			role="search"
 			data-hide-sidebar={!search}
 		>
 			<h1 className={"visually-hidden"}>Search</h1>
