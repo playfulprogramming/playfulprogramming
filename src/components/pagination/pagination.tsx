@@ -56,7 +56,9 @@ function PaginationMenuWrapper(
 		setShouldRender(true);
 	});
 
-	if (!shouldRender) return null;
+	// if this is a static render, this still needs to return an <li> node so that
+	// it hydrates in the correct order
+	if (!shouldRender) return <li hidden></li>;
 
 	return <PaginationMenuAndPopover {...props} />;
 }
@@ -102,6 +104,7 @@ export const Pagination = ({
 					{pages.map((pageNum) => {
 						return typeof pageNum === "number" ? (
 							<PaginationButton
+								key={pageNum}
 								pageInfo={page}
 								pageNum={pageNum}
 								selected={pageNum === page.currentPage}
@@ -110,6 +113,7 @@ export const Pagination = ({
 							/>
 						) : (
 							<PaginationMenuWrapper
+								key={pageNum}
 								page={page}
 								getPageHref={getPageHref}
 								softNavigate={softNavigate}
