@@ -10,6 +10,7 @@ import styles from "./unicorn-page.module.scss";
 import AchievementCard from "./components/achievement-card.astro";
 import { buildSearchQuery } from "../../utils/search";
 import { getAchievements, Achievement } from "src/utils/achievements";
+import { translate } from "utils/translations";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -40,8 +41,13 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 		<SubHeader tag="h1" text="Achievements" id="achievements">
 			{
 				showAchievementToggle && (
-					<Button id="view-all-achievements" tag="button" type="button">
-						View all
+					<Button
+						id="view-all-achievements"
+						tag="button"
+						type="button"
+						aria-labelledby="achievements"
+					>
+						{translate(Astro, "action.view_all")}
 					</Button>
 				)
 			}
@@ -79,8 +85,9 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 									href={`/search?${buildSearchQuery({
 										filterAuthors: [unicorn.id],
 									})}`}
+									aria-labelledby="recent-articles-header"
 								>
-									View all
+									{translate(Astro, "action.view_all")}
 								</Button>
 							)}
 						</SubHeader>,
