@@ -8,12 +8,13 @@ import { getHrefContainerProps } from "utils/href-container-script";
 import { buildSearchQuery } from "utils/search";
 
 interface PostCardProps {
+	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfo;
 	class?: string;
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
-function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
+function PostCardMeta({ post }: PostCardProps) {
 	return (
 		<>
 			<div className={style.postDataContainer}>
@@ -76,6 +77,7 @@ function PostCardMeta({ post, unicornProfilePicMap }: PostCardProps) {
 
 export const PostCardExpanded = ({
 	post,
+	headingTag: HeadingTag = "h2",
 	class: className = "",
 	unicornProfilePicMap,
 	imageLoading = "lazy",
@@ -95,7 +97,7 @@ export const PostCardExpanded = ({
 			</div>
 			<div className={style.postContainer}>
 				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
-					<h2 className={`text-style-headline-2`}>{post.title}</h2>
+					<HeadingTag className={`text-style-headline-2`}>{post.title}</HeadingTag>
 				</a>
 				<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
 			</div>
@@ -105,6 +107,7 @@ export const PostCardExpanded = ({
 
 export const PostCard = ({
 	post,
+	headingTag: HeadingTag = "h2",
 	class: className = "",
 	unicornProfilePicMap,
 }: PostCardProps) => {
@@ -114,7 +117,7 @@ export const PostCard = ({
 			className={`${className} ${style.postContainer} ${style.postBase} ${style.regularPostContainer}`}
 		>
 			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
-				<h2 className={`text-style-headline-5`}>{post.title}</h2>
+				<HeadingTag className={`text-style-headline-5`}>{post.title}</HeadingTag>
 			</a>
 			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
 		</li>

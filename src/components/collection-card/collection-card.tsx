@@ -8,11 +8,13 @@ import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 
 interface CollectionCardProps {
 	collection: ExtendedCollectionInfo & { coverPicture?: GetPictureResult };
+	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
 export const CollectionCard = ({
 	collection,
+	headingTag: HeadingTag = "h2",
 	unicornProfilePicMap,
 }: CollectionCardProps) => {
 	return (
@@ -36,9 +38,9 @@ export const CollectionCard = ({
 					/>
 				)}
 				<div>
-					<h2 className={`text-style-headline-4 ${style.title}`}>
+					<HeadingTag className={`text-style-headline-4 ${style.title}`}>
 						{collection.title}
-					</h2>
+					</HeadingTag>
 					<p className={`text-style-body-medium`}>{collection.description}</p>
 				</div>
 			</div>
