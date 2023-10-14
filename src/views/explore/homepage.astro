@@ -45,21 +45,25 @@ const collectionsWithPictures = await Promise.all(
 
 <Hero />
 <section>
-	<SubHeader tag="h1" text="Recent articles" id="posts-header">
-		<Button href="/page/1">{translate(Astro, "action.view_all")}</Button>
+	<SubHeader tag="h2" text="Recent articles" id="posts-header">
+		<Button href="/page/1" aria-labelledby="posts-header">
+			{translate(Astro, "action.view_all")}
+		</Button>
 	</SubHeader>
 
 	<PostCardGrid
 		aria-labelledby="posts-header"
 		postsToDisplay={posts}
+		postHeadingTag="h3"
 		unicornProfilePicMap={unicornProfilePicMap}
 	/>
 </section>
 
 <section>
-	<SubHeader tag="h1" text="Collections" id="collections-header">
+	<SubHeader tag="h2" text="Collections" id="collections-header">
 		<Button
 			href={`/search?${buildSearchQuery({ contentToDisplay: "collections" })}`}
+			aria-labelledby="collections-header"
 		>
 			{translate(Astro, "action.view_all")}
 		</Button>
@@ -75,6 +79,7 @@ const collectionsWithPictures = await Promise.all(
 				<li>
 					<CollectionCard
 						collection={collection}
+						headingTag="h3"
 						unicornProfilePicMap={unicornProfilePicMap}
 					/>
 				</li>

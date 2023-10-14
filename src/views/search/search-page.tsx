@@ -356,7 +356,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	return (
 		<main
 			className={style.fullPageContainer}
-			role="search"
 			data-hide-sidebar={!search}
 		>
 			<h1 className={"visually-hidden"}>Search</h1>
@@ -489,6 +488,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
+												headingTag="h3"
 											/>
 										</li>
 									))}
@@ -509,6 +509,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={posts}
+									postHeadingTag="h3"
 									unicornProfilePicMap={unicornProfilePicMap}
 								/>
 								<Pagination

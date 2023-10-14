@@ -31,7 +31,7 @@
 	"action.view_all_chapters": "View all %s chapters",
 	"action.view_less_chapters": "View less chapters",
 	"action.switch_theme": "Switch theme",
-	"label.toggle_dark_mode": "Toggle dark mode",
+	"label.dark_mode": "Dark mode",
 	"alt.unicorn_utterances_logo": "Smiling cartoon unicorn with a bowtie",
 	"title.looking_for_more": "Looking for more?",
 	"desc.looking_for_more": "Search for your favorite framework or most loved language; we'll share what we know."

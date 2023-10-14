@@ -6,12 +6,14 @@ import { HTMLAttributes } from "preact/compat";
 
 export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postsToDisplay: PostInfo[];
+	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	unicornProfilePicMap: ProfilePictureMap;
 	expanded?: boolean;
 }
 
 export function PostCardGrid({
 	postsToDisplay,
+	postHeadingTag,
 	unicornProfilePicMap,
 	expanded,
 	...props
@@ -23,12 +25,17 @@ export function PostCardGrid({
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}
+						headingTag={postHeadingTag}
 						unicornProfilePicMap={unicornProfilePicMap}
 						// images should be loaded eagerly when presented above-the-fold
 						imageLoading={i < 4 ? "eager" : "lazy"}
 					/>
 				) : (
-					<PostCard post={post} unicornProfilePicMap={unicornProfilePicMap} />
+					<PostCard
+						post={post}
+						headingTag={postHeadingTag}
+						unicornProfilePicMap={unicornProfilePicMap}
+					/>
 				);
 			})}
 		</ul>

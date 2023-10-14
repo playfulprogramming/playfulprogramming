@@ -19,9 +19,9 @@ const { num, title, description, href } = Astro.props as CollectionChapter;
 				{num}
 			</p>
 		</div>
-		<h2 class={`text-style-headline-5 ${styles.title}`}>
+		<h3 class={`text-style-headline-5 ${styles.title}`}>
 			{href ? <a href={href}>{title}</a> : title}
-		</h2>
+		</h3>
 	</div>
 	<p class={`text-style-body-large ${styles.description}`}>
 		{description}

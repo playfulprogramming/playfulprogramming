@@ -27,6 +27,15 @@
 	box-sizing: inherit;
 }
 
+html, body {
+	// offset scroll snap positions by the size of the sticky header + spacing
+	// (tokens in src/views/base/navigation/header.module.scss)
+	//
+	// - this prevents elements targeted by the URL hash (e.g. "/some-page#Heading-ID")
+	//   from being obscured by the header
+	scroll-padding-top: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px + var(--site-spacing));
+}
+
 h1,
 h2,
 h3,
