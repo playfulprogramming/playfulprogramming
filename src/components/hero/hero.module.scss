@@ -34,7 +34,15 @@
 	z-index: -1;
 }
 
-.bannerTextShadow {
+.title {
+	margin-bottom: 0;
+}
+
+.desc {
+	margin: var(--spc-4x) 0;
+}
+
+.title, .desc {
 	@include transition(text-shadow);
 	text-shadow:
 		0 0 5px var(--background_primary),
