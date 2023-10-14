@@ -38,7 +38,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 	/>
 	<section class={styles.contentContainer}>
 		<!-- TODO: Translate -->
-		<SubHeader tag="h1" text="Achievements" id="achievements">
+		<SubHeader tag="h2" text="Achievements" id="achievements">
 			{
 				showAchievementToggle && (
 					<Button
@@ -75,7 +75,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 			postsToDisplay.length
 				? [
 						<SubHeader
-							tag="h1"
+							tag="h2"
 							text="Recent articles"
 							id="recent-articles-header"
 						>
@@ -94,6 +94,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 						<PostCardGrid
 							aria-labelledby={"recent-articles-header"}
 							postsToDisplay={postsToDisplay}
+							postHeadingTag="h3"
 							unicornProfilePicMap={unicornProfilePicMap}
 						/>,
 				  ]

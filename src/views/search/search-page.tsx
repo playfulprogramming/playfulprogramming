@@ -488,6 +488,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
+												headingTag="h3"
 											/>
 										</li>
 									))}
@@ -508,6 +509,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={posts}
+									postHeadingTag="h3"
 									unicornProfilePicMap={unicornProfilePicMap}
 								/>
 								<Pagination
