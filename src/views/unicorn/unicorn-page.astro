@@ -45,7 +45,8 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 						id="view-all-achievements"
 						tag="button"
 						type="button"
-						aria-labelledby="achievements"
+						aria-label="View all achievements"
+						aria-pressed="false"
 					>
 						{translate(Astro, "action.view_all")}
 					</Button>
@@ -119,18 +120,17 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 
 		viewAllAchievementsButton.addEventListener("click", () => {
 			expanded = !expanded;
-			if (expanded) {
-				hiddenAchievements.forEach((achievement) => {
-					achievement.style.display = "";
-				});
-				viewAllAchievementsText.innerText = "View less";
-				return;
-			}
 
 			hiddenAchievements.forEach((achievement) => {
-				achievement.style.display = "none";
+				achievement.style.display = expanded ? "" : "none";
 			});
-			viewAllAchievementsText.innerText = "View all";
+
+			// ONLY updating "aria-pressed" here, and not changing "aria-label"
+			// This is so that the button reads: "View all achievements, toggle button, not pressed" or "View all achievements, toggle button, pressed"
+			// otherwise, "View less achievements, toggle button, pressed" is not clear about the state of the button
+			viewAllAchievementsButton.setAttribute("aria-pressed", String(expanded));
+
+			viewAllAchievementsText.innerText = expanded ? "View less" : "View all";
 		});
 	}
 </script>
