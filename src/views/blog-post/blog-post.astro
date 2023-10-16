@@ -71,35 +71,33 @@ if (post.collection && post.order) {
 </script>
 <HeadingLinkScript />
 <BlogPostLayout>
+	<PostTitleHeader slot="header" post={post} />
 	<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+	<main class="post-body" data-testid="post-body-div">
+		{
+			post.collection ? (
+				<SeriesToC
+					post={post}
+					postSeries={seriesPosts}
+					collection={post.collectionMeta}
+				/>
+			) : null
+		}
+		{
+			post.locales && post.locales.length > 1 ? (
+				<TranslationsHeader locales={post.locales} />
+			) : null
+		}
+		<Content />
+		{
+			post.collection ? (
+				<ArticleNav post={post} postSeries={seriesPosts} />
+			) : null
+		}
+	</main>
 	<aside slot="right" aria-labelledby="related-posts-heading">
 		<RelatedPosts post={post} headingId="related-posts-heading" />
 	</aside>
-	<main>
-		<PostTitleHeader post={post} />
-		<section class="post-body" data-testid={"post-body-div"}>
-			{
-				post.collection ? (
-					<SeriesToC
-						post={post}
-						postSeries={seriesPosts}
-						collection={post.collectionMeta}
-					/>
-				) : null
-			}
-			{
-				post.locales && post.locales.length > 1 ? (
-					<TranslationsHeader locales={post.locales} />
-				) : null
-			}
-			<Content />
-			{
-				post.collection ? (
-					<ArticleNav post={post} postSeries={seriesPosts} />
-				) : null
-			}
-		</section>
-	</main>
 	<footer role="contentinfo" class={styles.footer}>
 		{
 			post.licenseMeta ? (
