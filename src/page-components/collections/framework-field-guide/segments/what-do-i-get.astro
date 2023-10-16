@@ -36,8 +36,11 @@ const midlevelCalendar = generateCalendar(midlevelActivityLevel);
 const professionalCalendar = generateCalendar(professionalActivityLevel);
 ---
 
-<section class={styles.container}>
-	<h2 class={`text-style-headline-2 ${styles.headerContainer}`}>
+<section class={styles.container} aria-labelledby="what-do-i-get">
+	<h2
+		id="what-do-i-get"
+		class={`text-style-headline-2 ${styles.headerContainer}`}
+	>
 		<span class={styles.headerTop}>What can I get out of</span>
 		<span class={styles.headerBottom}>The Framework Field Guide?</span>
 	</h2>
