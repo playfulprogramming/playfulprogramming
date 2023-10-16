@@ -3,16 +3,13 @@ import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { getFullRelativePath, isRelativePath } from "../url-paths";
 
-import path from "path";
-
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
-	return async (tree, file) => {
-		const splitFilePath =
-			(file.path && path.dirname(file.path).split(path.sep)) || undefined;
+	return (tree, file) => {
+		const splitFilePath = file.path && file.path.split(/[/\/]/);
 		// "collections" | "blog"
-		const parentFolder = splitFilePath?.at(-2);
-		const slug = splitFilePath?.at(-1);
+		const parentFolder = splitFilePath?.at(-3);
+		const slug = splitFilePath?.at(-2);
 
 		visit(tree, (node: Element) => {
 			if (node.tagName === "video") {

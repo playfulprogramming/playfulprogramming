@@ -1,0 +1,24 @@
+---
+import PageCard from "components/page-card/page-card.astro";
+import { LargeButton } from "components/index";
+import unicorn from "src/assets/unicorn_neutral.svg";
+import Icon from "astro-icon";
+
+const props = Astro.props as { oauthUrl: string };
+---
+
+<PageCard
+	imageSrc={unicorn.src}
+	imageAlt="A friendly Unicorn mascot"
+	title="Sign In"
+	description="The CMS will need to access your GitHub account in order to edit articles."
+	numberOfButtons={2}
+>
+	<LargeButton href="/" slot="button" variant="primary">
+		Go back home
+	</LargeButton>
+	<LargeButton href={props.oauthUrl} slot="second-button" variant="secondary">
+		<Icon slot="leftIcon" name="github" />
+		 Sign in with GitHub
+	</LargeButton>
+</PageCard>

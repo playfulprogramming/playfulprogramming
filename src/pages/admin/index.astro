@@ -1,0 +1,136 @@
+---
+import Document from "../../layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import Login from "src/views/admin/login.astro";
+import { siteUrl } from "constants/site-config";
+import * as sass from "sass";
+
+// Manually compile the preview frame CSS
+// - it isn't possible to do this through a CSS import because Astro/Vite handle all of the bundling
+const preview_styles = (
+	await sass.compileAsync("src/views/admin/preview-styles.scss", {
+		loadPaths: ["."],
+	})
+).css;
+
+// build the OAuth login URL
+const CLIENT_ID: string = process.env.CMS_GITHUB_CLIENT_ID;
+const oauthLoginUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
+	siteUrl + "/api/github-auth",
+)}&scope=repo`;
+---
+
+<Document lang="en">
+	<SEO slot="head" title="Content Manager" />
+
+	<main id="sign-in">
+		<Login oauthUrl={oauthLoginUrl} />
+	</main>
+
+	<style lang="scss">
+		#sign-in {
+			display: flex;
+			padding: var(--site-spacing);
+			justify-content: center;
+		}
+	</style>
+
+	<script is:inline>
+		// The admin page can be loaded as "/admin" without a trailing slash,
+		// which breaks relative URLs - this replaceState fixes that.
+		if (!window.location.pathname.startsWith("/admin/"))
+			window.history.replaceState(undefined, undefined, "/admin/");
+
+		// tell the CMS not to initialize itself upon loading (so we can do it manually)
+		window.CMS_MANUAL_INIT = true;
+	</script>
+
+	<!-- Include the script that builds the page and powers Decap CMS -->
+	<script src="https://unpkg.com/decap-cms@3.0.10/dist/decap-cms.js"></script>
+
+	<script define:vars={{ preview_styles }}>
+		window.preview_styles = preview_styles;
+	</script>
+
+	<script>
+		import { PreviewPost } from "src/views/admin/preview-post";
+		declare const CMS: any;
+		declare const preview_styles: string;
+
+		function initCMS() {
+			CMS.registerPreviewStyle(preview_styles, { raw: true });
+			CMS.registerPreviewTemplate("posts", PreviewPost);
+			CMS.init();
+		}
+
+		window.addEventListener("load", () => {
+			const isLocalhost =
+				window.location.origin.startsWith("http://localhost:");
+
+			const [, token] = /CMS-GitHub-Token=([^;]+)/.exec(document.cookie) || [];
+
+			// after reading the token, we can remove the cookie...
+			if (token) {
+				document.cookie = "CMS-GitHub-Token=; Max-Age=0";
+			}
+
+			const user = localStorage.getItem("decap-cms-user");
+			if (!token && !user && !isLocalhost) {
+				// if there is no token or user provided, we should display the login UI...
+				// (i.e. just return; don't init the CMS)
+				return;
+			} else {
+				// Otherwise, emove the sign-in UI, since the user is now logged in
+				document
+					.querySelectorAll("#header-bar, #sign-in, style")
+					.forEach((e) => e.remove());
+			}
+
+			// If we're in localhost, we can use decap's test server auth - so this just needs to init & return
+			if (isLocalhost) {
+				initCMS();
+				return;
+			}
+
+			const GitHubBackend = CMS.getBackend("github");
+
+			const originalInit = GitHubBackend.init;
+			let isPendingAuth = false;
+
+			// This is a complete hack to replace the GitHub backend's auth (currently hardcoded to use Netlify)
+			// with the token that we've retrieved.
+			// https://github.com/decaporg/decap-cms/blob/master/packages/decap-cms-backend-github/src/implementation.tsx#L167
+			GitHubBackend.init = (...args) => {
+				const instance = originalInit(...args);
+
+				instance.authComponent = () => {
+					return (props) => {
+						const data = {
+							provider: "github",
+							token: token,
+						};
+
+						if (token && !isPendingAuth) {
+							isPendingAuth = true;
+
+							console.log("signing in...");
+							instance
+								.authenticateWithFork({
+									userData: data,
+									// TODO: this is meant to require user-confirmation before creating a new fork repo...
+									getPermissionToFork: () => true,
+								})
+								.then(() => props.onLogin(data));
+						}
+
+						return null;
+					};
+				};
+
+				return instance;
+			};
+
+			initCMS();
+		});
+	</script>
+</Document>

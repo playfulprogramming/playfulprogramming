@@ -1,5 +1,3 @@
-import { join } from "path";
-
 /**
  * Matches:
  * - ftp://
@@ -20,6 +18,8 @@ export const isRelativePath = (str: string) => {
 
 export const getFullRelativePath = (...paths: string[]) => {
 	return isRelativePath(paths[paths.length - 1])
-		? fixSlash(join(...paths))
+		? paths.length
+			? "."
+			: fixSlash(paths.join("/"))
 		: paths[paths.length - 1];
 };
