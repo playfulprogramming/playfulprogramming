@@ -5,8 +5,10 @@ import SmallOutlinedButton from "../components/small-outlined-button.astro";
 import styles from "./pricing.module.scss";
 ---
 
-<section class={styles.pricingContainer}>
-	<h2 class={`text-style-headline-2 ${styles.pricingTitle}`}>Pricing</h2>
+<section class={styles.pricingContainer} aria-labelledby="pricing-title">
+	<h2 id="pricing-title" class={`text-style-headline-2 ${styles.pricingTitle}`}>
+		Pricing
+	</h2>
 	<p class={`text-style-body-large ${styles.pricingSubtitle}`}>
 		Sign up today for 50% off the final price: free.
 	</p>
@@ -41,9 +43,9 @@ Learn the core concepts behind your favorite frameworks and develop skillsets to
 				"Bonus: Offline download",
 			]}
 		>
-			<SmallFilledButton slot="button" href="https://discord.gg/FMcvc6T"
-				>Request access</SmallFilledButton
-			>
+			<SmallFilledButton slot="button" href="https://discord.gg/FMcvc6T">
+				Request access
+			</SmallFilledButton>
 		</PricingCard>
 		<PricingCard
 			class={styles.ecosystemPricingCard}
@@ -77,8 +79,9 @@ Build out production-ready applications with all of the bells and whistles your 
 				slot="button"
 				href="#signup-form"
 				onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-				>Sign up for updates</SmallOutlinedButton
 			>
+				Sign up for updates
+			</SmallOutlinedButton>
 		</PricingCard>
 		<PricingCard
 			class={styles.internalsPricingCard}
@@ -112,8 +115,9 @@ Take a deeper dive into understanding how your apps work under-the-hood, includi
 				slot="button"
 				href="#signup-form"
 				onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
-				>Sign up for updates</SmallOutlinedButton
 			>
+				Sign up for updates
+			</SmallOutlinedButton>
 		</PricingCard>
 	</ul>
 </section>
