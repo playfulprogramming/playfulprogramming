@@ -159,7 +159,7 @@ function PaginationPopover({
 					/>
 				</svg>
 				<DismissButton onDismiss={state.close} />
-				<div {...dialogProps} ref={dialogRef}>
+				<div {...dialogProps} ref={dialogRef} class={style.popupDialog}>
 					<h1 {...titleProps} className="visually-hidden">
 						Go to page
 					</h1>
