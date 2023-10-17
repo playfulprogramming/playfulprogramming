@@ -7,7 +7,7 @@ import SmallOutlinedButton from "../components/small-outlined-button.astro";
 import Sun from "../cover-layers/fundamentals/sun.astro";
 ---
 
-<section class={`class-book-1 class-book-hero`}>
+<section class={`class-book-1 class-book-hero`} aria-labelledby="hero-title">
 	<div class={`book-section ${styles.heroContainer}`}>
 		<div class={styles.sunContainerContainer} data-move-on-scroll-by="0.2">
 			<div>
@@ -20,7 +20,7 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 		<div class={styles.titleContainer} data-no-max-width>
 			<div></div>
 			<div class={styles.sparkContainer}><LeftTitleSpark /></div>
-			<h1 class={`text-style-headline-1 ${styles.seriesTitle}`}>
+			<h1 id="hero-title" class={`text-style-headline-1 ${styles.seriesTitle}`}>
 				The Framework Field Guide
 			</h1>
 			<div class={styles.sparkContainer}><RightTitleSpark /></div>
@@ -42,8 +42,9 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					<SmallFilledButton
 						href="#fundamentals-title"
 						onclick="event.preventDefault();var title=document.getElementById('fundamentals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-						>Request access</SmallFilledButton
 					>
+						Request access
+					</SmallFilledButton>
 					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 						Early Access
 					</p>
@@ -59,8 +60,9 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					<SmallOutlinedButton
 						href="#ecosystem-title"
 						onclick="event.preventDefault();var title=document.getElementById('ecosystem-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-						>Learn more</SmallOutlinedButton
 					>
+						Learn more
+					</SmallOutlinedButton>
 					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 						Coming soon
 					</p>
@@ -75,8 +77,9 @@ import Sun from "../cover-layers/fundamentals/sun.astro";
 					<SmallOutlinedButton
 						href="#internals-title"
 						onclick="event.preventDefault();var title=document.getElementById('internals-title');title.scrollIntoView({behavior: 'smooth', block: 'center'})"
-						>Learn more</SmallOutlinedButton
 					>
+						Learn more
+					</SmallOutlinedButton>
 					<p class={`text-style-body-medium-bold ${styles.bookPartBottomText}`}>
 						Coming 2024
 					</p>
