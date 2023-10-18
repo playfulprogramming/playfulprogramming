@@ -13,10 +13,6 @@ import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
 import vercel from "@astrojs/vercel/static";
-
-// TODO: Create types
-import behead from "remark-behead";
-
 import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import symlink from "symlink-dir";
@@ -86,7 +82,6 @@ export default defineConfig({
 			// Remove complaining about "div cannot be in p element"
 			remarkUnwrapImages,
 			/* start remark plugins here */
-			[behead, { depth: 1 }],
 			[
 				remarkEmbedder,
 				{

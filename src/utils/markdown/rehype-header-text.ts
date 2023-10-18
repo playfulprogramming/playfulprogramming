@@ -35,7 +35,7 @@ export const rehypeHeaderText = () => {
 				const headingWithID = {
 					value: headerText,
 					depth: headingRank(node)!,
-					slug: node.properties["id"] as string,
+					slug: node.properties["id"]! as string,
 				};
 
 				headingsWithId.push(headingWithID);

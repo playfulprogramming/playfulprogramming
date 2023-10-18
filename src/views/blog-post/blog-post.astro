@@ -75,7 +75,14 @@ if (post.collection && post.order) {
 	<BlogPostLayout>
 		<PostTitleHeader slot="header" post={post} />
 		<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
-		<div class="post-body" data-testid="post-body-div">
+		<section
+			class="post-body"
+			data-testid="post-body-div"
+			aria-labelledby="blog-post-contents"
+		>
+			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
+				Post contents
+			</h2>
 			{
 				post.collection ? (
 					<SeriesToC
@@ -96,7 +103,7 @@ if (post.collection && post.order) {
 					<ArticleNav post={post} postSeries={seriesPosts} />
 				) : null
 			}
-		</div>
+		</section>
 		<aside slot="right" aria-labelledby="related-posts-heading">
 			<RelatedPosts post={post} headingId="related-posts-heading" />
 		</aside>
