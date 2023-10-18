@@ -5,7 +5,7 @@ import { visit } from "unist-util-visit";
 
 import { EMBED_MIN_HEIGHT, EMBED_SIZE } from "../constants";
 import { fromHtml } from "hast-util-from-html";
-import find from "unist-util-find";
+import { find } from "unist-util-find";
 import { getLargestManifestIcon } from "../../get-largest-manifest-icon";
 import { getPicture } from "../get-picture-hack";
 import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";

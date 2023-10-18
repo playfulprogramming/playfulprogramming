@@ -24,12 +24,12 @@ const headingsToDisplaySlugs = headingsToDisplay.map((item) => item.slug);
 ---
 
 <aside class={styles.container} aria-labelledby="table-of-contents-heading">
-	<h1
+	<h2
 		id="table-of-contents-heading"
 		class={`text-style-headline-5 ${styles.tocTitle}`}
 	>
 		Table of Contents
-	</h1>
+	</h2>
 	<ol class={styles.tableList} role="list" id="tocList">
 		{
 			headingsToDisplay.map((headingInfo, i) => {

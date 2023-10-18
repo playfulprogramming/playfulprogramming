@@ -11,9 +11,9 @@ interface RelatedPostsProps {
 const { post, headingId } = Astro.props as RelatedPostsProps;
 ---
 
-<h1 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
+<h2 id={headingId} class={`text-style-headline-5 ${style.relatedPostsHeader}`}>
 	Related posts
-</h1>
+</h2>
 <ul class={style.suggestedPostList}>
 	{
 		post.suggestedArticles.map((suggestedPost) => (

@@ -3,6 +3,9 @@ import style from "./blog-post-layout.module.scss";
 ---
 
 <article class={style.container}>
+	<div class={style.header}>
+		<slot name="header" />
+	</div>
 	<div class={style.sidebarLeft}>
 		<slot name="left" />
 	</div>

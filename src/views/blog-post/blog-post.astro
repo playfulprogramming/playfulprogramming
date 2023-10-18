@@ -70,14 +70,19 @@ if (post.collection && post.order) {
 	iFrameClickToRun();
 </script>
 <HeadingLinkScript />
-<BlogPostLayout>
-	<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
-	<aside slot="right" aria-labelledby="related-posts-heading">
-		<RelatedPosts post={post} headingId="related-posts-heading" />
-	</aside>
-	<main>
-		<PostTitleHeader post={post} />
-		<section class="post-body" data-testid={"post-body-div"}>
+
+<main>
+	<BlogPostLayout>
+		<PostTitleHeader slot="header" post={post} />
+		<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+		<section
+			class="post-body"
+			data-testid="post-body-div"
+			aria-labelledby="blog-post-contents"
+		>
+			<h2 id="blog-post-contents" class="visually-hidden" data-no-heading-link>
+				Post contents
+			</h2>
 			{
 				post.collection ? (
 					<SeriesToC
@@ -99,37 +104,40 @@ if (post.collection && post.order) {
 				) : null
 			}
 		</section>
-	</main>
-	<footer role="contentinfo" class={styles.footer}>
-		{
-			post.licenseMeta ? (
-				<a
-					aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
-					href={post.licenseMeta.explainLink}
-					class={styles.licenseImageContainer}
+		<aside slot="right" aria-labelledby="related-posts-heading">
+			<RelatedPosts post={post} headingId="related-posts-heading" />
+		</aside>
+		<footer role="contentinfo" class={styles.footer}>
+			{
+				post.licenseMeta ? (
+					<a
+						aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
+						href={post.licenseMeta.explainLink}
+						class={styles.licenseImageContainer}
+					>
+						<img
+							class={styles.licenseImage}
+							src={post.licenseMeta.footerImg}
+							alt={post.licenseMeta.licenceType}
+						/>
+					</a>
+				) : null
+			}
+			<MailingList />
+			<div class={styles.buttonsContainer}>
+				<LargeButton tag="a" href={GHLink} variant="primary">
+					<Icon slot="leftIcon" height="100%" width="100%" name="github" />
+					 View this post on GitHub
+				</LargeButton>
+				<LargeButton
+					tag="a"
+					href="https://discord.gg/FMcvc6T"
+					variant="primary-emphasized"
 				>
-					<img
-						class={styles.licenseImage}
-						src={post.licenseMeta.footerImg}
-						alt={post.licenseMeta.licenceType}
-					/>
-				</a>
-			) : null
-		}
-		<MailingList />
-		<div class={styles.buttonsContainer}>
-			<LargeButton tag="a" href={GHLink} variant="primary">
-				<Icon slot="leftIcon" height="100%" width="100%" name="github" />
-				 View this post on GitHub
-			</LargeButton>
-			<LargeButton
-				tag="a"
-				href="https://discord.gg/FMcvc6T"
-				variant="primary-emphasized"
-			>
-				<Icon slot="leftIcon" height="100%" width="100%" name="discord" />
-				 Join our Discord server
-			</LargeButton>
-		</div>
-	</footer>
-</BlogPostLayout>
+					<Icon slot="leftIcon" height="100%" width="100%" name="discord" />
+					 Join our Discord server
+				</LargeButton>
+			</div>
+		</footer>
+	</BlogPostLayout>
+</main>

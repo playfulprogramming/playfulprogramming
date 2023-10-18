@@ -63,9 +63,8 @@ import style from "./heading-link.module.scss";
 			.querySelector(".post-body")
 			.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6")
 			.forEach((headingEl) => {
-				// ensure that each heading has an ID, and doesn't have a class attr.
-				// (i.e. it is a markdown heading, not belonging to another component)
-				if (!headingEl.matches("[id]:not([class])")) return;
+				// ensure that each heading has an ID, and doesn't have a "data-no-heading-link" attr
+				if (!headingEl.matches("[id]:not([data-no-heading-link])")) return;
 
 				// add the click listener
 				headingEl.addEventListener("click", handleClick);
