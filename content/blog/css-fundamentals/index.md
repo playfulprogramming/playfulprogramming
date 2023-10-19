@@ -3,7 +3,7 @@
   title: "CSS Fundamentals",
   description: "A beginners course for CSS box model, HTML defaults, flexbox layout, gridbox layout, responsive design, selectors, units, and variables.",
   published: "2022-01-18T20:08:26.988Z",
-  updated: "2023-10-19T20:08:26.988Z",
+  edited: "2023-10-19T20:08:26.988Z",
   authors: ["ljtech"],
   tags: ["css", "design"],
   attached: [],
