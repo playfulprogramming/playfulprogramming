@@ -72,6 +72,7 @@
 .input input:-webkit-autofill:focus,
 .input input:-webkit-autofill:active {
 	color: var(--foreground_emphasis-high);
+	caret-color: var(--foreground_emphasis-high);
 	-webkit-text-fill-color: var(--foreground_emphasis-high);
 	-webkit-box-shadow: 0 0 0 var(--form-field_min-height) var(--form-field_background_focused) inset;
 }
