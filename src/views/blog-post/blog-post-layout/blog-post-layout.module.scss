@@ -7,7 +7,7 @@
 	max-width: var(--max-width_xl);
 	margin: 0 auto;
 
-	&:not([data-hide-left-sidebar]) {
+	&:where(:not([data-hide-left-sidebar])) {
 		@include from($tabletLarge) {
 			grid-template-columns: 25% 1fr;
 		}
