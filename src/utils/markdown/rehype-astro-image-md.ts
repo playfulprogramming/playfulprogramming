@@ -41,19 +41,6 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 
 		await Promise.all(
 			imgNodes.map(async (node) => {
-				const splitFilePath = path.dirname(file.path).split(path.sep);
-				const slug = splitFilePath.at(-1);
-				// "collections" | "blog"
-				const parentFolder = splitFilePath.at(-2);
-
-				const filePathDir = path.resolve(
-					__dirname,
-					`../../../public/content/${parentFolder}`,
-					slug,
-				);
-
-				const rootFileDir = path.resolve(__dirname, `../../../public/`);
-
 				const nodeSrc = node.properties.src as string;
 				const nodeAlt = node.properties.alt as string;
 
@@ -62,7 +49,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					src = nodeSrc;
 				} else {
 					src = getFullRelativePath(
-						`/content/${parentFolder}/${slug}/`,
+						"/" + path.relative(process.cwd(), path.dirname(file.path)),
 						nodeSrc,
 					);
 				}
@@ -73,7 +60,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				}
 
 				// TODO: How should remote images be handled?
-				const srcSize = getImageSize(nodeSrc, filePathDir, rootFileDir) || {
+				const srcSize = getImageSize(nodeSrc, path.dirname(file.path)) || {
 					height: undefined,
 					width: undefined,
 				};

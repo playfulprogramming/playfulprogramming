@@ -8,7 +8,13 @@ import HeadingLinkScript from "../base/scripts/heading-link-script.astro";
 import { Icon } from "astro-icon";
 
 import type { MarkdownInstance } from "astro";
-import { ExtendedPostInfo } from "types/index";
+import {
+	CollectionInfo,
+	ExtendedPostInfo,
+	LicenseInfo,
+	PostInfo,
+	UnicornInfo,
+} from "types/index";
 
 import { siteMetadata } from "constants/site-config";
 import "../../styles/shiki.scss";
@@ -16,36 +22,22 @@ import "../../styles/markdown/tabs.scss";
 import "../../styles/convertkit.scss";
 import SeriesToC from "./series/series-toc.astro";
 import { ArticleNav } from "./article-nav/article-nav";
-import { getPrefixLanguageFromPath } from "utils/translations";
 import RelatedPosts from "components/related-posts/related-posts.astro";
 import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
 
-const { Content, post, posts } = Astro.props as {
-	post: ExtendedPostInfo;
-	Content: MarkdownInstance<any>["Content"];
-	posts: MarkdownInstance<ExtendedPostInfo>[];
-};
-
-const locale = getPrefixLanguageFromPath(Astro.url.pathname);
+const { Content, post, authors, collection, collectionPosts, license } =
+	Astro.props as {
+		post: ExtendedPostInfo;
+		authors: UnicornInfo[];
+		collection?: CollectionInfo;
+		collectionPosts?: PostInfo[];
+		license?: LicenseInfo;
+		Content: MarkdownInstance<any>["Content"];
+	};
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
-
-let seriesPosts: ExtendedPostInfo[] = [];
-if (post.collection && post.order) {
-	seriesPosts = posts
-		.filter(
-			(filterPost) =>
-				filterPost.frontmatter.locale === locale &&
-				filterPost.frontmatter.collection === post.collection,
-		)
-		.sort(
-			(postA, postB) =>
-				Number(postA.frontmatter.order) - Number(postB.frontmatter.order),
-		)
-		.map((post) => post.frontmatter);
-}
 ---
 
 <script>
@@ -78,8 +70,8 @@ if (post.collection && post.order) {
 				post.collection ? (
 					<SeriesToC
 						post={post}
-						postSeries={seriesPosts}
-						collection={post.collectionMeta}
+						postSeries={collectionPosts}
+						collection={collection}
 					/>
 				) : null
 			}
@@ -105,7 +97,7 @@ if (post.collection && post.order) {
 			<Content />
 			{
 				post.collection ? (
-					<ArticleNav post={post} postSeries={seriesPosts} />
+					<ArticleNav post={post} postSeries={collectionPosts} />
 				) : null
 			}
 		</section>
@@ -114,16 +106,16 @@ if (post.collection && post.order) {
 		</aside>
 		<footer role="contentinfo" class={styles.footer}>
 			{
-				post.licenseMeta ? (
+				license ? (
 					<a
-						aria-label={`Post licensed with ${post.licenseMeta.displayName}`}
-						href={post.licenseMeta.explainLink}
+						aria-label={`Post licensed with ${license.displayName}`}
+						href={license.explainLink}
 						class={styles.licenseImageContainer}
 					>
 						<img
 							class={styles.licenseImage}
-							src={post.licenseMeta.footerImg}
-							alt={post.licenseMeta.licenceType}
+							src={license.footerImg}
+							alt={license.licenceType}
 						/>
 					</a>
 				) : null

@@ -5,6 +5,7 @@ import { Picture } from "@astrojs/image/components";
 import { Button } from "components/index";
 import { translate } from "src/utils/translations";
 import { getHrefContainerProps } from "utils/href-container-script";
+import roles from "../../../content/data/roles.json";
 
 interface CardProps {
 	unicorn: UnicornInfo;
@@ -37,10 +38,10 @@ const unicornHref = `/unicorns/${unicorn.id}`;
 			role="list"
 		>
 			{
-				unicorn.rolesMeta.map((role, i, arr) => (
+				unicorn.roles.map((role, i, arr) => (
 					<li role="listitem">
 						{[
-							role.prettyname,
+							roles.find((r) => r.id === role)!.prettyname,
 							i < arr.length - 1 && <span aria-hidden="true">, </span>,
 						]}
 					</li>

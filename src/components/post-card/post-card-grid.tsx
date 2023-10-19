@@ -1,11 +1,12 @@
 import style from "./post-card-grid.module.scss";
 import { PostCard, PostCardExpanded } from "./post-card";
-import { PostInfo } from "types/index";
+import { PostInfo, UnicornInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { HTMLAttributes } from "preact/compat";
 
 export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postsToDisplay: PostInfo[];
+	postAuthors: Map<string, UnicornInfo>;
 	postHeadingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	unicornProfilePicMap: ProfilePictureMap;
 	expanded?: boolean;
@@ -13,6 +14,7 @@ export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 
 export function PostCardGrid({
 	postsToDisplay,
+	postAuthors,
 	postHeadingTag,
 	unicornProfilePicMap,
 	expanded,
@@ -25,6 +27,7 @@ export function PostCardGrid({
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}
+						authors={post.authors.map(id => postAuthors.get(id))}
 						headingTag={postHeadingTag}
 						unicornProfilePicMap={unicornProfilePicMap}
 						// images should be loaded eagerly when presented above-the-fold
@@ -33,6 +36,7 @@ export function PostCardGrid({
 				) : (
 					<PostCard
 						post={post}
+						authors={post.authors.map(id => postAuthors.get(id))}
 						headingTag={postHeadingTag}
 						unicornProfilePicMap={unicornProfilePicMap}
 					/>

@@ -24,7 +24,6 @@ export interface CollectionInfo extends RawCollectionInfo {
 	slug: string;
 	locales: Languages[];
 	locale: Languages;
-	authorsMeta: UnicornInfo[];
 	coverImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;
@@ -35,7 +34,6 @@ export interface CollectionInfo extends RawCollectionInfo {
 		height: number;
 		width: number;
 	};
-	posts: PostInfo[];
 }
 
 export interface ExtendedCollectionInfo extends CollectionInfo {

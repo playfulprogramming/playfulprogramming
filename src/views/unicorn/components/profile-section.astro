@@ -3,6 +3,7 @@ import styles from "./profile-section.module.scss";
 import { Picture as UUPicture } from "../../../components";
 import { ProfilePictureMap } from "../../../utils/get-unicorn-profile-pic-map";
 import { UnicornInfo } from "../../../types";
+import * as api from "utils/api";
 import Icon from "astro-icon";
 
 interface ProfileSectionProps {
@@ -71,6 +72,10 @@ const socials = [
 		href: `https://cohost.org/${unicorn.socials.cohost}`,
 	},
 ].filter((s) => !!s);
+
+const roles = unicorn.roles.map((roleId) =>
+	api.getRoleById(roleId, unicorn.locale),
+);
 ---
 
 <section class={styles.container}>
@@ -124,7 +129,7 @@ const socials = [
 		</ul>
 		<ul class={styles.rolesList} role="list" aria-label="Contributor roles">
 			{
-				unicorn.rolesMeta.map((role) => (
+				roles.map((role) => (
 					<li class={styles.role}>
 						<img
 							src={`/stickers/role_${role.id}.svg`}

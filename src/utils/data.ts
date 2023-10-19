@@ -1,21 +1,19 @@
 import {
 	RawCollectionInfo,
-	RolesEnum,
 	UnicornInfo,
 	RawPostInfo,
 	PostInfo,
-	Languages,
 	CollectionInfo,
 	TagInfo,
+	RawUnicornInfo,
 } from "types/index";
-import * as fs from "fs";
-import { join } from "path";
+import * as fs from "fs/promises";
+import path, { join } from "path";
 import { isNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
 import { getFullRelativePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
-import collectionMapping from "../../content/data/collection-mapping";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -23,21 +21,19 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
 import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
+import { getLanguageFromFilename } from "./translations";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
 	(remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault })
 		.default ?? remarkTwoslashDefault;
 
-export const postsDirectory = join(process.cwd(), "content/blog");
-export const collectionsDirectory = join(process.cwd(), "content/collections");
+export const contentDirectory = join(process.cwd(), "content");
 export const dataDirectory = join(process.cwd(), "content/data");
 export const siteDirectory = join(process.cwd(), "content/site");
 export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
 
 const aboutRaw = (await import("../../content/data/about.json")).default;
-
-const unicornsRaw = (await import("../../content/data/unicorns.json")).default;
 
 const rolesRaw = (await import("../../content/data/roles.json")).default;
 
@@ -62,11 +58,11 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 	let explainerType = undefined;
 
 	if ("image" in tag && tag.image.endsWith(".svg")) {
-		const license = await fs.promises
+		const license = await fs
 			.readFile("public" + tag.image.replace(".svg", "-LICENSE.md"), "utf-8")
 			.catch((_) => undefined);
 
-		const attribution = await fs.promises
+		const attribution = await fs
 			.readFile(
 				"public" + tag.image.replace(".svg", "-ATTRIBUTION.md"),
 				"utf-8",
@@ -93,293 +89,278 @@ for (const [key, tag] of Object.entries(tagsRaw)) {
 	});
 }
 
-const fullUnicorns: UnicornInfo[] = unicornsRaw.map((unicorn) => {
-	const absoluteFSPath = join(dataDirectory, unicorn.profileImg);
-	/**
-	 * `getFullRelativePath` strips all prefixing `/`, so we must add one manually
-	 */
-	const relativeServerPath = getFullRelativePath(
-		"/content/data/",
-		unicorn.profileImg,
-	);
-	const profileImgSize = getImageSize(
-		unicorn.profileImg,
-		dataDirectory,
-		dataDirectory,
-	);
+async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
+	const unicornId = path.basename(unicornPath);
 
-	// Mutation go BRR
-	const newUnicorn: UnicornInfo = unicorn as never;
+	const files = (await fs.readdir(unicornPath))
+		.filter(isNotJunk)
+		.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
 
-	newUnicorn.profileImgMeta = {
-		height: profileImgSize.height as number,
-		width: profileImgSize.width as number,
-		relativePath: unicorn.profileImg,
-		relativeServerPath,
-		absoluteFSPath,
-	};
+	const locales = files.map(getLanguageFromFilename);
 
-	newUnicorn.rolesMeta = unicorn.roles.map(
-		(role) => rolesRaw.find((rRole) => rRole.id === role)! as RolesEnum,
-	);
+	const unicornObjects = [];
 
-	newUnicorn.achievements ??= [];
+	for (const file of files) {
+		const locale = getLanguageFromFilename(file);
+		const fileContents = await fs.readFile(join(unicornPath, file), "utf-8");
+		const frontmatter = matter(fileContents).data as RawUnicornInfo;
 
-	// normalize social links - if a URL or "@name" is entered, only preserve the last part
-	const normalizeUsername = (username: string | undefined) =>
-		username?.trim()?.replace(/^.*[/@](?!$)/, "");
+		const profileImgSize = getImageSize(frontmatter.profileImg, unicornPath);
 
-	newUnicorn.socials.twitter = normalizeUsername(newUnicorn.socials.twitter);
-	newUnicorn.socials.github = normalizeUsername(newUnicorn.socials.github);
-	newUnicorn.socials.gitlab = normalizeUsername(newUnicorn.socials.gitlab);
-	newUnicorn.socials.linkedIn = normalizeUsername(newUnicorn.socials.linkedIn);
-	newUnicorn.socials.twitch = normalizeUsername(newUnicorn.socials.twitch);
-	newUnicorn.socials.dribbble = normalizeUsername(newUnicorn.socials.dribbble);
-	newUnicorn.socials.threads = normalizeUsername(newUnicorn.socials.threads);
-	newUnicorn.socials.cohost = normalizeUsername(newUnicorn.socials.cohost);
-
-	// "mastodon" should be a full URL; this will error if not valid
-	try {
-		if (newUnicorn.socials.mastodon)
-			newUnicorn.socials.mastodon = new URL(
-				newUnicorn.socials.mastodon,
-			).toString();
-	} catch (e) {
-		console.error(
-			`'${unicorn.id}' socials.mastodon is not a valid URL: '${newUnicorn.socials.mastodon}'`,
-		);
-		throw e;
-	}
-
-	if (newUnicorn.socials.youtube) {
-		// this can either be a "@username" or "channel/{id}" URL, which cannot be mixed.
-		const username = normalizeUsername(newUnicorn.socials.youtube);
-		newUnicorn.socials.youtube = newUnicorn.socials.youtube.includes("@")
-			? `https://www.youtube.com/@${username}`
-			: `https://www.youtube.com/channel/${username}`;
-	}
-
-	return newUnicorn;
-});
-
-function getCollections(): CollectionInfo[] {
-	const slugs = fs.readdirSync(collectionsDirectory).filter(isNotJunk);
-	const collections = slugs.flatMap((slug) => {
-		const files = fs
-			.readdirSync(join(collectionsDirectory, slug))
-			.filter(isNotJunk)
-			.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
-
-		const locales = files
-			.map((name) => name.split(".").at(-2))
-			.map((lang) => (lang === "index" ? "en" : lang) as Languages);
-
-		return files.map((file, i): CollectionInfo => {
-			const fileContents = fs.readFileSync(
-				join(collectionsDirectory, slug, file),
-				"utf8",
-			);
-
-			const frontmatter = matter(fileContents).data as RawCollectionInfo;
-
-			const coverImgSize = getImageSize(
-				frontmatter.coverImg,
-				join(collectionsDirectory, slug),
-				join(collectionsDirectory, slug),
-			);
-
-			const coverImgMeta = {
-				height: coverImgSize.height as number,
-				width: coverImgSize.width as number,
-				relativePath: frontmatter.coverImg,
+		const unicorn: UnicornInfo = {
+			pronouns: "",
+			color: "",
+			roles: [],
+			achievements: [],
+			...frontmatter,
+			id: unicornId,
+			locale,
+			locales,
+			profileImgMeta: {
+				height: profileImgSize.height as number,
+				width: profileImgSize.width as number,
+				relativePath: frontmatter.profileImg,
 				relativeServerPath: getFullRelativePath(
-					`/content/collections/${slug}`,
-					frontmatter.coverImg,
+					"/" + path.relative(process.cwd(), unicornPath),
+					frontmatter.profileImg,
 				),
-				absoluteFSPath: join(collectionsDirectory, slug, frontmatter.coverImg),
-			};
+				absoluteFSPath: join(unicornPath, frontmatter.profileImg),
+			},
+		};
 
-			const authorsMeta = frontmatter.authors.map((authorId) =>
-				fullUnicorns.find((u) => u.id === authorId),
+		// normalize social links - if a URL or "@name" is entered, only preserve the last part
+		const normalizeUsername = (username: string | undefined) =>
+			username?.trim()?.replace(/^.*[/@](?!$)/, "");
+
+		unicorn.socials.twitter = normalizeUsername(unicorn.socials.twitter);
+		unicorn.socials.github = normalizeUsername(unicorn.socials.github);
+		unicorn.socials.gitlab = normalizeUsername(unicorn.socials.gitlab);
+		unicorn.socials.linkedIn = normalizeUsername(unicorn.socials.linkedIn);
+		unicorn.socials.twitch = normalizeUsername(unicorn.socials.twitch);
+		unicorn.socials.dribbble = normalizeUsername(unicorn.socials.dribbble);
+		unicorn.socials.threads = normalizeUsername(unicorn.socials.threads);
+		unicorn.socials.cohost = normalizeUsername(unicorn.socials.cohost);
+
+		// "mastodon" should be a full URL; this will error if not valid
+		try {
+			if (unicorn.socials.mastodon)
+				unicorn.socials.mastodon = new URL(unicorn.socials.mastodon).toString();
+		} catch (e) {
+			console.error(
+				`'${unicorn.id}' socials.mastodon is not a valid URL: '${unicorn.socials.mastodon}'`,
 			);
+			throw e;
+		}
 
-			return {
-				...(frontmatter as RawCollectionInfo),
-				slug,
-				locales,
-				locale: locales[i],
-				coverImgMeta,
-				authorsMeta,
-			} as Omit<CollectionInfo, "posts"> as CollectionInfo;
-		});
-	});
+		if (unicorn.socials.youtube) {
+			// this can either be a "@username" or "channel/{id}" URL, which cannot be mixed.
+			const username = normalizeUsername(unicorn.socials.youtube);
+			unicorn.socials.youtube = unicorn.socials.youtube.includes("@")
+				? `https://www.youtube.com/@${username}`
+				: `https://www.youtube.com/channel/${username}`;
+		}
 
-	const collectionMappingFilled = collectionMapping.map((collection) => {
-		const { slug, ...frontmatter } = collection;
+		unicornObjects.push(unicorn);
+	}
 
-		const coverImgSize = getImageSize(
-			frontmatter.coverImg,
-			join(process.cwd(), "public"),
-			join(process.cwd(), "public"),
-		);
+	return unicornObjects;
+}
+
+async function readCollection(
+	collectionPath: string,
+): Promise<CollectionInfo[]> {
+	const slug = path.basename(collectionPath);
+
+	const files = (await fs.readdir(collectionPath))
+		.filter(isNotJunk)
+		.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
+
+	const locales = files.map(getLanguageFromFilename);
+
+	const collectionObjects: CollectionInfo[] = [];
+	for (const file of files) {
+		const locale = getLanguageFromFilename(file);
+		const fileContents = await fs.readFile(join(collectionPath, file), "utf-8");
+		const frontmatter = matter(fileContents).data as RawCollectionInfo;
+
+		const coverImgSize = getImageSize(frontmatter.coverImg, collectionPath);
 
 		const coverImgMeta = {
 			height: coverImgSize.height as number,
 			width: coverImgSize.width as number,
 			relativePath: frontmatter.coverImg,
-			relativeServerPath: frontmatter.coverImg,
-			absoluteFSPath: join(process.cwd(), "public", frontmatter.coverImg),
+			relativeServerPath: getFullRelativePath(
+				"/" + path.relative(process.cwd(), collectionPath),
+				frontmatter.coverImg,
+			),
+			absoluteFSPath: join(collectionPath, frontmatter.coverImg),
 		};
 
-		const authorsMeta = frontmatter.authors.map((authorId) =>
-			fullUnicorns.find((u) => u.id === authorId),
-		);
-
-		return {
-			...(frontmatter as RawCollectionInfo),
+		collectionObjects.push({
+			...frontmatter,
 			slug,
-			// TODO: Add locales to collection-mapping.ts
-			locales: ["en"],
-			locale: "en",
+			locale,
+			locales,
 			coverImgMeta,
-			authorsMeta,
-		} as Omit<CollectionInfo, "posts"> as CollectionInfo;
-	});
+		});
+	}
 
-	const allCollections = collections.concat(collectionMappingFilled);
-
-	// sort posts by date in descending order
-	allCollections.sort((collection1, collection2) => {
-		const date1 = new Date(collection1.published);
-		const date2 = new Date(collection2.published);
-		return date1 > date2 ? -1 : 1;
-	});
-
-	return allCollections;
+	return collectionObjects;
 }
 
-let collections = getCollections();
+async function readPost(postPath: string): Promise<PostInfo[]> {
+	const slug = path.basename(postPath);
+	const files = (await fs.readdir(postPath))
+		.filter(isNotJunk)
+		.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
 
-function getPosts(): Array<PostInfo> {
-	const slugs = fs.readdirSync(postsDirectory).filter(isNotJunk);
-	const posts = slugs.flatMap((slug) => {
-		const files = fs
-			.readdirSync(join(postsDirectory, slug))
-			.filter(isNotJunk)
-			.filter((name) => name.startsWith("index.") && name.endsWith(".md"));
+	const locales = files.map(getLanguageFromFilename);
 
-		const locales = files
-			.map((name) => name.split(".").at(-2))
-			.map((lang) => (lang === "index" ? "en" : lang) as Languages);
+	const postObjects: PostInfo[] = [];
+	for (const file of files) {
+		const locale = getLanguageFromFilename(file);
+		const fileContents = await fs.readFile(join(postPath, file), "utf-8");
+		const frontmatter = matter(fileContents).data as RawPostInfo;
 
-		return files.map((file, i): PostInfo => {
-			const fileContents = fs.readFileSync(
-				join(postsDirectory, slug, file),
-				"utf8",
-			);
+		// Look... Okay? Just.. Look.
+		// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
 
-			const frontmatter = matter(fileContents).data as RawPostInfo;
+		/**
+		 * An ode to words
+		 *
+		 * Oh words, what can be said of thee?
+		 *
+		 * Not much me.
+		 *
+		 * See, it's conceived that ye might have intriguing definitions from one-to-another
+		 *
+		 * This is to say: "What is a word?"
+		 *
+		 * An existential question at best, a sisyphean effort at worst.
+		 *
+		 * See, while `forms` and `angular` might be considered one word each: what of `@angular/forms`? Is that 2?
+		 *
+		 * Or, what of `@someone mentioned Angular's forms`? Is that 4?
+		 *
+		 * This is a long-winded way of saying "We know our word counter is inaccurate, but so is yours."
+		 *
+		 * Please do let us know if you have strong thoughts/answers on the topic,
+		 * we're happy to hear them.
+		 */
+		const wordCount = fileContents.split(/\s+/).length;
 
-			// Look... Okay? Just.. Look.
-			// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
-
-			/**
-			 * An ode to words
-			 *
-			 * Oh words, what can be said of thee?
-			 *
-			 * Not much me.
-			 *
-			 * See, it's conceived that ye might have intriguing definitions from one-to-another
-			 *
-			 * This is to say: "What is a word?"
-			 *
-			 * An existential question at best, a sisyphean effort at worst.
-			 *
-			 * See, while `forms` and `angular` might be considered one word each: what of `@angular/forms`? Is that 2?
-			 *
-			 * Or, what of `@someone mentioned Angular's forms`? Is that 4?
-			 *
-			 * This is a long-winded way of saying "We know our word counter is inaccurate, but so is yours."
-			 *
-			 * Please do let us know if you have strong thoughts/answers on the topic,
-			 * we're happy to hear them.
-			 */
-			const wordCount = fileContents.split(/\s+/).length;
-
-			const frontmatterTags = [...frontmatter.tags].filter((tag) => {
-				if (tags.has(tag)) {
-					return true;
-				} else {
-					console.warn(
-						`${slug}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
-					);
-					return false;
-				}
-			});
-
-			return {
-				...frontmatter,
-				slug,
-				locales,
-				locale: locales[i],
-				tags: frontmatterTags,
-				authorsMeta: frontmatter.authors.map((authorId) =>
-					fullUnicorns.find((u) => u.id === authorId),
-				),
-				wordCount: wordCount,
-				publishedMeta:
-					frontmatter.published &&
-					dayjs(frontmatter.published).format("MMMM D, YYYY"),
-				editedMeta:
-					frontmatter.edited &&
-					dayjs(frontmatter.edited).format("MMMM D, YYYY"),
-				licenseMeta:
-					frontmatter.license &&
-					licensesRaw.find((l) => l.id === frontmatter.license),
-				collectionMeta:
-					frontmatter.collection &&
-					collections.find((c) => c.slug === frontmatter.collection),
-				socialImg: `/generated/${slug}.twitter-preview.jpg`,
-			};
+		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
+			if (tags.has(tag)) {
+				return true;
+			} else {
+				console.warn(
+					`${postPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+				);
+				return false;
+			}
 		});
-	});
 
+		postObjects.push({
+			...frontmatter,
+			slug,
+			path: path.relative(contentDirectory, postPath),
+			locale,
+			locales,
+			tags: frontmatterTags,
+			wordCount: wordCount,
+			publishedMeta:
+				frontmatter.published &&
+				dayjs(frontmatter.published).format("MMMM D, YYYY"),
+			editedMeta:
+				frontmatter.edited && dayjs(frontmatter.edited).format("MMMM D, YYYY"),
+			socialImg: `/generated/${slug}.twitter-preview.jpg`,
+		});
+	}
+
+	return postObjects;
+}
+
+const unicorns = new Map<string, UnicornInfo[]>();
+for (const unicornId of await fs.readdir(contentDirectory)) {
+	if (!isNotJunk(unicornId)) continue;
+	const unicornPath = join(contentDirectory, unicornId);
+	unicorns.set(unicornId, await readUnicorn(unicornPath));
+}
+
+const collections = new Map<string, CollectionInfo[]>();
+for (const unicornId of [...unicorns.keys()]) {
+	const collectionsDirectory = join(contentDirectory, unicornId, "collections");
+
+	const slugs = (
+		await fs.readdir(collectionsDirectory).catch((_) => [])
+	).filter(isNotJunk);
+
+	for (const slug of slugs) {
+		const collectionPath = join(collectionsDirectory, slug);
+		collections.set(slug, await readCollection(collectionPath));
+	}
+}
+
+const posts = new Map<string, PostInfo[]>();
+for (const collection of [...collections.values()]) {
+	const postsDirectory = join(
+		contentDirectory,
+		collection[0].authors[0],
+		"collections",
+		collection[0].slug,
+		"posts",
+	);
+
+	const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
+		isNotJunk,
+	);
+
+	for (const slug of slugs) {
+		const postPath = join(postsDirectory, slug);
+		posts.set(slug, await readPost(postPath));
+	}
+}
+for (const unicornId of [...unicorns.keys()]) {
+	const postsDirectory = join(contentDirectory, unicornId, "posts");
+
+	const slugs = (await fs.readdir(postsDirectory).catch((_) => [])).filter(
+		isNotJunk,
+	);
+
+	for (const slug of slugs) {
+		const postPath = join(postsDirectory, slug);
+		posts.set(slug, await readPost(postPath));
+	}
+}
+
+{
 	// sort posts by date in descending order
-	posts.sort((post1, post2) => {
-		const date1 = new Date(post1.published);
-		const date2 = new Date(post2.published);
+	const sortedPosts = [...posts.values()].sort((post1, post2) => {
+		const date1 = new Date(post1[0].published);
+		const date2 = new Date(post2[0].published);
 		return date1 > date2 ? -1 : 1;
 	});
 
 	// calculate whether each post should have a banner image
-	const paginationCount: Partial<Record<Languages, number>> = {};
-	for (const post of posts) {
-		// total count of posts per locale
-		const count = (paginationCount[post.locale] =
-			paginationCount[post.locale] + 1 || 0);
+	for (let i = 0; i < sortedPosts.length; i++) {
+		const post = sortedPosts[i];
 		// index of the post on its page (assuming the page is paginated by 8)
-		const index = count % 8;
+		const pageIndex = i % 8;
 		// if the post is at index 0 or 4, it should have a banner
-		if (index === 0 || index === 4)
-			post.bannerImg = `/generated/${post.slug}.banner.jpg`;
+		if (pageIndex === 0 || pageIndex === 4) {
+			for (const localePost of post) {
+				// TODO: support per-locale banner images?
+				localePost.bannerImg = `/generated/${localePost.slug}.banner.jpg`;
+			}
+		}
 	}
-
-	return posts;
 }
-
-const posts = getPosts();
-
-collections = collections.map((collection: Omit<CollectionInfo, "posts">) => ({
-	...collection,
-	posts: posts.filter((post) => post.collection === collection.slug),
-})) as CollectionInfo[];
 
 export {
 	aboutRaw as about,
-	fullUnicorns as unicorns,
 	rolesRaw as roles,
 	licensesRaw as licenses,
+	unicorns,
 	collections,
 	posts,
 	tags,

@@ -1,7 +1,7 @@
 import { getPostsByUnicorn } from "src/utils/api";
 import { UnicornInfo } from "types/UnicornInfo";
 import { contributorYears, fetchGitHubData } from "./github";
-import { collections } from "utils/data";
+import * as api from "utils/api";
 
 export interface Achievement {
 	name: string;
@@ -52,10 +52,7 @@ export async function* getAchievements(
 		};
 	}
 
-	if (
-		collections.filter((collection) => collection.authors.includes(unicorn.id))
-			.length > 0
-	) {
+	if (api.getCollectionsByUnicorn(unicorn.id, "en").length > 0) {
 		yield {
 			name: "Collect 'em all",
 			body: "Author a collection of posts!",

@@ -1,6 +1,6 @@
 ---
 import styles from "./series-toc.module.scss";
-import { ExtendedPostInfo } from "types/index";
+import { PostInfo } from "types/index";
 
 import { Button } from "../../../components";
 import { findActivePost, getShortTitle } from "./base";
@@ -8,8 +8,8 @@ import { CollectionInfo } from "types/CollectionInfo";
 import { translate } from "../../../utils";
 
 interface SeriesTocProps {
-	post: ExtendedPostInfo;
-	postSeries: ExtendedPostInfo[];
+	post: PostInfo;
+	postSeries: PostInfo[];
 	collection?: CollectionInfo;
 }
 
@@ -71,7 +71,8 @@ const showMoreText = translate(
 									class={`text-style-body-large-bold ${styles.navigationItem}`}
 									data-is-active={seriesPost.isActive}
 								>
-									Part {seriesPost.order}: {getShortTitle(seriesPost)}
+									Part {seriesPost.order}:{" "}
+									{getShortTitle(seriesPost, collection)}
 								</a>
 							</li>
 						))}

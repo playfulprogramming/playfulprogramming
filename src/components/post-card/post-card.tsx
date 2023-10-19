@@ -1,20 +1,21 @@
 import style from "./post-card.module.scss";
-import { PostInfo } from "types/index";
+import { PostInfo, UnicornInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { Chip } from "components/index";
 import date from "src/icons/date.svg?raw";
-import authors from "src/icons/authors.svg?raw";
+import authorsSvg from "src/icons/authors.svg?raw";
 import { getHrefContainerProps } from "utils/href-container-script";
 import { buildSearchQuery } from "utils/search";
 
 interface PostCardProps {
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	post: PostInfo;
+	authors: Pick<UnicornInfo, "id" | "name">[];
 	class?: string;
 	unicornProfilePicMap: ProfilePictureMap;
 }
 
-function PostCardMeta({ post }: PostCardProps) {
+function PostCardMeta({ post, authors }: PostCardProps) {
 	return (
 		<>
 			<div className={style.postDataContainer}>
@@ -22,10 +23,10 @@ function PostCardMeta({ post }: PostCardProps) {
 					<div
 						aria-hidden
 						className={style.cardIcon}
-						dangerouslySetInnerHTML={{ __html: authors }}
+						dangerouslySetInnerHTML={{ __html: authorsSvg }}
 					/>
 					<ul className={style.authorList} role="list" aria-label="Post authors">
-						{post.authorsMeta.map((author, i, arr) => (
+						{authors.map((author, i, arr) => (
 							<li class="text-style-body-small-bold">
 								<a
 									className={`${style.authorName}`}
@@ -77,6 +78,7 @@ function PostCardMeta({ post }: PostCardProps) {
 
 export const PostCardExpanded = ({
 	post,
+	authors,
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 	unicornProfilePicMap,
@@ -99,7 +101,7 @@ export const PostCardExpanded = ({
 				<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
 					<HeadingTag className={`text-style-headline-2`}>{post.title}</HeadingTag>
 				</a>
-				<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+				<PostCardMeta post={post} authors={authors} unicornProfilePicMap={unicornProfilePicMap} />
 			</div>
 		</li>
 	);
@@ -107,6 +109,7 @@ export const PostCardExpanded = ({
 
 export const PostCard = ({
 	post,
+	authors,
 	headingTag: HeadingTag = "h2",
 	class: className = "",
 	unicornProfilePicMap,
@@ -119,7 +122,7 @@ export const PostCard = ({
 			<a href={`/posts/${post.slug}`} className={`${style.postHeaderBase}`}>
 				<HeadingTag className={`text-style-headline-5`}>{post.title}</HeadingTag>
 			</a>
-			<PostCardMeta post={post} unicornProfilePicMap={unicornProfilePicMap} />
+			<PostCardMeta post={post} authors={authors} unicornProfilePicMap={unicornProfilePicMap} />
 		</li>
 	);
 };

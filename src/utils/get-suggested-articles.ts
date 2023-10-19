@@ -1,4 +1,4 @@
-import { PostInfo, Languages, ExtendedPostInfo } from "types/index";
+import { PostInfo, Languages } from "types/index";
 import { getPostsByLang } from "./api";
 
 /**
@@ -61,11 +61,8 @@ const getOrderRange = (arr: PostInfo[]) => {
 	);
 };
 
-export const getSuggestedArticles = (
-	postNode: ExtendedPostInfo,
-	lang: Languages,
-) => {
-	const suggestedPosts = getPostsByLang(lang);
+export const getSuggestedArticles = (postNode: PostInfo) => {
+	const suggestedPosts = getPostsByLang(postNode.locale);
 
 	const extraSuggestedArticles: PostInfo[] = [];
 	const suggestedArticles: PostInfo[] = [];

@@ -7,16 +7,18 @@ import { getPicture } from "@astrojs/image";
  * This allows us to share the cached image format between multiple different pages
  */
 const unicornProfilePicMap = Promise.all(
-	unicorns.map(async (unicorn) => ({
-		...(await getPicture({
-			src: unicorn.profileImgMeta.relativeServerPath,
-			formats: ["webp", "png"],
-			widths: [192, 128, 96, 72, 48],
-			aspectRatio: 1,
-			alt: "",
+	[...unicorns.values()]
+		.filter((locales) => locales.length)
+		.map(async ([unicorn]) => ({
+			...(await getPicture({
+				src: unicorn.profileImgMeta.relativeServerPath,
+				formats: ["webp", "png"],
+				widths: [192, 128, 96, 72, 48],
+				aspectRatio: 1,
+				alt: "",
+			})),
+			id: unicorn.id,
 		})),
-		id: unicorn.id,
-	})),
 );
 
 export const getUnicornProfilePicMap = async () => {

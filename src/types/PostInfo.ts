@@ -1,6 +1,4 @@
-import { UnicornInfo } from "./UnicornInfo";
-import { LicenseInfo } from "./LicenseInfo";
-import { CollectionInfo, Languages } from "types/index";
+import { Languages } from "types/index";
 import { MarkdownInstance } from "astro";
 
 export interface RawPostInfo {
@@ -20,13 +18,11 @@ export interface RawPostInfo {
 
 export interface PostInfo extends RawPostInfo {
 	slug: string;
+	path: string;
 	locales: Languages[];
 	locale: Languages;
 	publishedMeta: string;
 	editedMeta?: string;
-	authorsMeta: UnicornInfo[];
-	licenseMeta: LicenseInfo;
-	collectionMeta?: CollectionInfo;
 	socialImg: string;
 	bannerImg?: string;
 	wordCount: number;

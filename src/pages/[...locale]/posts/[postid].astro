@@ -4,41 +4,57 @@ import Document from "src/layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 
 import type { MarkdownInstance } from "astro";
-import { ExtendedPostInfo } from "types/index";
+import { Languages } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
+import * as api from "utils/api";
+import { getLanguageFromFilename } from "utils/translations";
 
 export async function getStaticPaths() {
-	const posts = await Astro.glob<ExtendedPostInfo>(
-		"../../../../content/blog/**/*.md",
-	);
+	const posts = [
+		...(await Astro.glob("../../../../content/*/posts/*/*.md")),
+		...(await Astro.glob("../../../../content/*/collections/*/posts/*/*.md")),
+	];
 
 	return posts.map((post) => {
+		const slug = post.file.split("/").at(-2);
+		const locale = getLanguageFromFilename(post.file);
+
 		return {
 			params: {
-				locale:
-					post.frontmatter.locale !== "en"
-						? post.frontmatter.locale
-						: undefined,
+				locale: locale !== "en" ? locale : undefined,
 				postid:
-					post.frontmatter.slug +
+					slug +
 					// "_noindex" appended here to filter affected URLs
 					// from the sitemap
 					(post.frontmatter.noindex ? "_noindex" : ""),
 			},
 			props: {
 				Content: post.Content,
-				post: post.frontmatter,
-				posts,
 			},
 		};
 	});
 }
 
-const { Content, post, posts } = Astro.props as {
-	post: ExtendedPostInfo;
-	posts: MarkdownInstance<ExtendedPostInfo>[];
+const { Content } = Astro.props as {
 	Content: MarkdownInstance<any>["Content"];
 };
+
+const params = Astro.params as {
+	locale: Languages;
+	postid: string;
+};
+
+const locale = params.locale ?? "en";
+const post = api.getPostBySlug(params.postid, locale);
+const authors = post.authors.map((unicornId) =>
+	api.getUnicornById(unicornId, locale),
+);
+
+// these need to be separate; multiple posts *can* be in a collection without having a collection entry
+const collection =
+	post.collection && api.getCollectionBySlug(post.collection, locale);
+const collectionPosts =
+	post.collection && api.getPostsByCollection(post.collection, locale);
 
 const locales = post?.locales || [];
 ---
@@ -47,8 +63,8 @@ const locales = post?.locales || [];
 	<SEO
 		slot="head"
 		title={post.title}
-		description={post.description || post.excerpt}
-		unicornsData={post.authorsMeta}
+		description={post.description}
+		unicornsData={authors}
 		publishedTime={post.published}
 		editedTime={post.edited}
 		keywords={post.tags}
@@ -58,5 +74,11 @@ const locales = post?.locales || [];
 		shareImage={post.socialImg}
 		noindex={post.noindex}
 	/>
-	<BlogPost Content={Content} post={post} posts={posts} />
+	<BlogPost
+		Content={Content}
+		post={post}
+		authors={authors}
+		collection={collection}
+		collectionPosts={collectionPosts}
+	/>
 </Document>
