@@ -72,9 +72,13 @@ if (post.collection && post.order) {
 <HeadingLinkScript />
 
 <main>
-	<BlogPostLayout>
+	<BlogPostLayout hideLeftSidebar={!post.headingsWithId?.length}>
 		<PostTitleHeader slot="header" post={post} />
-		<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+		{
+			post.headingsWithId?.length ? (
+				<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+			) : null
+		}
 		<section
 			class="post-body"
 			data-testid="post-body-div"
