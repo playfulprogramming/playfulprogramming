@@ -92,7 +92,6 @@ const collectionsWithPictures = await Promise.all(
 						authors={collection.authors.map((id) =>
 							api.getUnicornById(id, collection.locale),
 						)}
-						posts={api.getPostsByCollection(collection.slug, collection.locale)}
 						headingTag="h3"
 						unicornProfilePicMap={unicornProfilePicMap}
 					/>

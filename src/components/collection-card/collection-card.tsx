@@ -5,13 +5,11 @@ import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import forward from "src/icons/arrow_right.svg?raw";
 import { Picture as UUPicture } from "components/image/picture";
 import { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
-import { PostInfo } from "types/PostInfo";
 import { UnicornInfo } from "types/UnicornInfo";
 
 interface CollectionCardProps {
 	collection: CollectionInfo & { coverPicture?: GetPictureResult };
 	authors: UnicornInfo[];
-	posts: PostInfo[];
 	headingTag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	unicornProfilePicMap: ProfilePictureMap;
 }
@@ -19,7 +17,6 @@ interface CollectionCardProps {
 export const CollectionCard = ({
 	collection,
 	authors,
-	posts,
 	headingTag: HeadingTag = "h2",
 	unicornProfilePicMap,
 }: CollectionCardProps) => {
@@ -79,7 +76,7 @@ export const CollectionCard = ({
 					}
 				>
 					{collection.customChaptersText ?? (
-						<>{String(posts.length)} chapters</>
+						<>{String(collection.postCount)} chapters</>
 					)}
 				</Button>
 			</div>

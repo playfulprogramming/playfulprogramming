@@ -29,6 +29,8 @@ export interface UnicornInfo extends Required<RawUnicornInfo> {
 	id: string;
 	locale: Languages;
 	locales: Languages[];
+	totalPostCount: number;
+	totalWordCount: number;
 	profileImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;

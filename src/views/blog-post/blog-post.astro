@@ -65,7 +65,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 
 <main>
 	<BlogPostLayout hideLeftSidebar={!post.headingsWithId?.length}>
-		<PostTitleHeader slot="header" post={post}>
+		<PostTitleHeader slot="header" post={post} authors={authors}>
 			{
 				post.collection ? (
 					<SeriesToC

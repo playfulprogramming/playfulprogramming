@@ -116,6 +116,8 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 			id: unicornId,
 			locale,
 			locales,
+			totalPostCount: 0,
+			totalWordCount: 0,
 			profileImgMeta: {
 				height: profileImgSize.height as number,
 				width: profileImgSize.width as number,
@@ -196,11 +198,17 @@ async function readCollection(
 			absoluteFSPath: join(collectionPath, frontmatter.coverImg),
 		};
 
+		// count the number of posts in the collection
+		const postCount = (
+			await fs.readdir(join(collectionPath, "posts")).catch((_) => [])
+		).filter(isNotJunk).length;
+
 		collectionObjects.push({
 			...frontmatter,
 			slug,
 			locale,
 			locales,
+			postCount,
 			coverImgMeta,
 		});
 	}
@@ -351,6 +359,22 @@ for (const unicornId of [...unicorns.keys()]) {
 			for (const localePost of post) {
 				// TODO: support per-locale banner images?
 				localePost.bannerImg = `/generated/${localePost.slug}.banner.jpg`;
+			}
+		}
+	}
+}
+
+{
+	// sum the totalWordCount and totalPostCount for each unicorn object
+	for (const postLocales of [...posts.values()]) {
+		const [post] = postLocales;
+		if (!post) continue;
+
+		for (const authorId of post.authors) {
+			const unicornLocales = unicorns.get(authorId) || [];
+			for (const unicorn of unicornLocales) {
+				unicorn.totalPostCount += 1;
+				unicorn.totalWordCount += post.wordCount;
 			}
 		}
 	}

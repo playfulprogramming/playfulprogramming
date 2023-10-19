@@ -24,6 +24,7 @@ export interface CollectionInfo extends RawCollectionInfo {
 	slug: string;
 	locales: Languages[];
 	locale: Languages;
+	postCount: number;
 	coverImgMeta: {
 		// Relative to "public/unicorns"
 		relativePath: string;

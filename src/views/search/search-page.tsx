@@ -7,7 +7,6 @@ import {
 	useState,
 } from "preact/hooks";
 import { Pagination } from "components/pagination/pagination";
-import { PostInfo } from "types/PostInfo";
 import { useSearchParams } from "./use-search-params";
 import {
 	QueryClient,
@@ -485,8 +484,6 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
 												authors={collection.authors.map(id => data.unicorns[id])}
-												// TODO: post count should be sourced from the collection info
-												posts={[]}
 												headingTag="h3"
 											/>
 										</li>

@@ -79,12 +79,6 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			>
 				{
 					authors.map((author) => {
-						// TODO: this could be calculated in data.ts as "author.wordCount"
-						const authorPosts = getPostsByUnicorn(author.id, author.locale);
-						const wordCount = authorPosts.reduce(
-							(acc, post) => acc + post.wordCount ?? 0,
-							0,
-						);
 						const href = `/unicorns/${author.id}`;
 						return (
 							<li
@@ -113,14 +107,18 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 											{translate(
 												Astro,
 												"title.n_articles",
-												authorPosts.length.toString(),
+												author.totalPostCount.toLocaleString("en"),
 											)}
 										</span>
 										<span class={styles.authorMetaSeperatorDot}>•</span>
 										<span
 											class={`text-style-body-medium-bold ${styles.authorWordCount}`}
 										>
-											{translate(Astro, "title.n_words", wordCount.toString())}
+											{translate(
+												Astro,
+												"title.n_words",
+												author.totalWordCount.toLocaleString("en"),
+											)}
 										</span>
 									</p>
 								</div>
