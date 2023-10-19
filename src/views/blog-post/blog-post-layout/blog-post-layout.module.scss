@@ -5,10 +5,13 @@
 	grid-template-columns: 0fr 1fr;
 	width: 100%;
 	max-width: var(--max-width_xl);
-    margin: 0 auto;
+	margin: 0 auto;
+	justify-items: center;
 
-	@include from($tabletLarge) {
-		grid-template-columns: 25% 1fr;
+	&:not([data-hide-left-sidebar]) {
+		@include from($tabletLarge) {
+			grid-template-columns: 25% 1fr;
+		}
 	}
 
 	@include from($desktopSmall) {
@@ -19,6 +22,7 @@
 .header {
 	grid-column: 2;
 	max-width: var(--max-width_m);
+	width: 100%;
 	min-width: 1px;
 	padding: var(--site-spacing);
 	padding-bottom: 0;
@@ -27,6 +31,7 @@
 .content {
 	grid-column: 2;
 	max-width: var(--max-width_m);
+	width: 100%;
 	min-width: 1px;
 	padding: var(--site-spacing);
 	padding-top: 0;
@@ -49,7 +54,9 @@
 
 	position: sticky;
 
-	$headerSize: calc(var(--header_logo_size) + var(--header_padding-vertical)*2 + 1px);
+	$headerSize: calc(
+		var(--header_logo_size) + var(--header_padding-vertical) * 2 + 1px
+	);
 	top: $headerSize;
 	max-height: calc(100vh - $headerSize);
 

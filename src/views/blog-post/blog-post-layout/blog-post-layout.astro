@@ -1,8 +1,14 @@
 ---
 import style from "./blog-post-layout.module.scss";
+
+interface BlogPostLayoutProps {
+	hideLeftSidebar?: boolean;
+}
+
+const { hideLeftSidebar } = Astro.props as BlogPostLayoutProps;
 ---
 
-<article class={style.container}>
+<article class={style.container} data-hide-left-sidebar={hideLeftSidebar}>
 	<div class={style.header}>
 		<slot name="header" />
 	</div>
