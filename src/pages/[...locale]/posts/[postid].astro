@@ -4,7 +4,7 @@ import Document from "src/layouts/document.astro";
 import SEO from "components/seo/seo.astro";
 
 import type { MarkdownInstance } from "astro";
-import { Languages } from "types/index";
+import { Languages, PostHeadingInfo } from "types/index";
 import BlogPost from "src/views/blog-post/blog-post.astro";
 import * as api from "utils/api";
 import { getLanguageFromFilename } from "utils/translations";
@@ -30,13 +30,17 @@ export async function getStaticPaths() {
 			},
 			props: {
 				Content: post.Content,
+				// temporary hack for Table of Contents - pass headingsWithId from "rehype-header-text" as a prop
+				// TODO: in the future, this can be obtained directly from the markdown parser when invoked
+				postHeadings: post.frontmatter.headingsWithId,
 			},
 		};
 	});
 }
 
-const { Content } = Astro.props as {
+const { Content, postHeadings } = Astro.props as {
 	Content: MarkdownInstance<any>["Content"];
+	postHeadings: PostHeadingInfo[];
 };
 
 const params = Astro.params as {
@@ -77,6 +81,7 @@ const locales = post?.locales || [];
 	<BlogPost
 		Content={Content}
 		post={post}
+		postHeadings={postHeadings}
 		authors={authors}
 		collection={collection}
 		collectionPosts={collectionPosts}

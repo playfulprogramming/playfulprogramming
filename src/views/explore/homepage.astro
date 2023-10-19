@@ -1,10 +1,9 @@
 ---
 import { PostCardGrid } from "src/components/post-card/post-card-grid";
 import { Button } from "components/button/button";
-import { Languages, PostInfo } from "../../types";
+import { Languages, PostInfo, CollectionInfo } from "types/index";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { translate } from "utils/translations";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { SubHeader } from "../../components/subheader/subheader";
 import Hero from "../../components/hero/hero.astro";
@@ -16,7 +15,7 @@ import * as api from "utils/api";
 
 export interface HomepageProps {
 	posts: PostInfo[];
-	collections: ExtendedCollectionInfo[];
+	collections: CollectionInfo[];
 	locale: Languages;
 }
 

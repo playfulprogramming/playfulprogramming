@@ -36,14 +36,3 @@ export interface CollectionInfo extends RawCollectionInfo {
 		width: number;
 	};
 }
-
-export interface ExtendedCollectionInfo extends CollectionInfo {
-	authorsMeta: UnicornInfo[];
-	Content: MarkdownInstance<never>["Content"];
-	contentMeta: string;
-	licenseMeta: null;
-	publishedMeta: string;
-	collectionSlug: null;
-	excerpt: string;
-	wordCount: number;
-}

@@ -1,6 +1,6 @@
 ---
 import style from "./post-title-header.module.scss";
-import { ExtendedPostInfo, UnicornInfo } from "types/index";
+import { PostInfo, UnicornInfo } from "types/index";
 import { Icon } from "astro-icon";
 import { Chip } from "components/index";
 import dayjs from "dayjs";
@@ -8,7 +8,7 @@ import { buildSearchQuery } from "../../../utils/search";
 import { translate } from "utils/translations";
 
 interface PostTitleHeaderProps {
-	post: ExtendedPostInfo;
+	post: PostInfo;
 	authors: UnicornInfo[];
 }
 const { post, authors } = Astro.props as PostTitleHeaderProps;

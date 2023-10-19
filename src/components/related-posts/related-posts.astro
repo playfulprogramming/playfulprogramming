@@ -1,12 +1,12 @@
 ---
-import { ExtendedPostInfo } from "../../types";
+import { PostInfo } from "../../types";
 import style from "./related-posts.module.scss";
 import RelatedPostsCard from "./related-posts-card.astro";
 import * as api from "utils/api";
 import { getSuggestedArticles } from "utils/get-suggested-articles";
 
 interface RelatedPostsProps {
-	post: ExtendedPostInfo;
+	post: PostInfo;
 	headingId: string;
 }
 

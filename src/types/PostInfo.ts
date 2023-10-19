@@ -28,16 +28,10 @@ export interface PostInfo extends RawPostInfo {
 	wordCount: number;
 }
 
-export interface ExtendedPostInfo extends PostInfo {
-	contentMeta: string;
-	Content: MarkdownInstance<never>["Content"];
-	excerpt: string;
-	suggestedArticles: [PostInfo, PostInfo, PostInfo];
-	headingsWithId?: Array<{
-		// Title value
-		value: string;
-		// ID
-		slug: string;
-		depth: number;
-	}>;
+export interface PostHeadingInfo {
+	// Title value
+	value: string;
+	// ID
+	slug: string;
+	depth: number;
 }

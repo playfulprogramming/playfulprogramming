@@ -10,9 +10,9 @@ import { Icon } from "astro-icon";
 import type { MarkdownInstance } from "astro";
 import {
 	CollectionInfo,
-	ExtendedPostInfo,
 	LicenseInfo,
 	PostInfo,
+	PostHeadingInfo,
 	UnicornInfo,
 } from "types/index";
 
@@ -27,15 +27,23 @@ import { LargeButton } from "../../components/button/button";
 
 import styles from "./blog-post.module.scss";
 
-const { Content, post, authors, collection, collectionPosts, license } =
-	Astro.props as {
-		post: ExtendedPostInfo;
-		authors: UnicornInfo[];
-		collection?: CollectionInfo;
-		collectionPosts?: PostInfo[];
-		license?: LicenseInfo;
-		Content: MarkdownInstance<any>["Content"];
-	};
+const {
+	Content,
+	post,
+	postHeadings,
+	authors,
+	collection,
+	collectionPosts,
+	license,
+} = Astro.props as {
+	post: PostInfo;
+	postHeadings: PostHeadingInfo[];
+	authors: UnicornInfo[];
+	collection?: CollectionInfo;
+	collectionPosts?: PostInfo[];
+	license?: LicenseInfo;
+	Content: MarkdownInstance<any>["Content"];
+};
 
 const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetadata.relativeToPosts}/${post.slug}/index.md`;
 ---
@@ -64,7 +72,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 <HeadingLinkScript />
 
 <main>
-	<BlogPostLayout hideLeftSidebar={!post.headingsWithId?.length}>
+	<BlogPostLayout hideLeftSidebar={!postHeadings.length}>
 		<PostTitleHeader slot="header" post={post} authors={authors}>
 			{
 				post.collection ? (
@@ -82,8 +90,8 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 			}
 		</PostTitleHeader>
 		{
-			post.headingsWithId?.length ? (
-				<TableOfContents slot="left" headingsWithId={post.headingsWithId} />
+			postHeadings?.length ? (
+				<TableOfContents slot="left" headingsWithId={postHeadings} />
 			) : null
 		}
 		<section
@@ -97,7 +105,11 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 			<Content />
 			{
 				post.collection ? (
-					<ArticleNav post={post} postSeries={collectionPosts} />
+					<ArticleNav
+						post={post}
+						collection={collection}
+						collectionPosts={collectionPosts}
+					/>
 				) : null
 			}
 		</section>
