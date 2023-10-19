@@ -170,6 +170,9 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 
 async function readCollection(
 	collectionPath: string,
+	fallbackInfo: {
+		authors: string[];
+	},
 ): Promise<CollectionInfo[]> {
 	const slug = path.basename(collectionPath);
 
@@ -198,17 +201,30 @@ async function readCollection(
 			absoluteFSPath: join(collectionPath, frontmatter.coverImg),
 		};
 
+		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
+			if (tags.has(tag)) {
+				return true;
+			} else {
+				console.warn(
+					`${collectionPath}: Tag '${tag}' is not specified in content/data/tags.json! Filtering...`,
+				);
+				return false;
+			}
+		});
+
 		// count the number of posts in the collection
 		const postCount = (
 			await fs.readdir(join(collectionPath, "posts")).catch((_) => [])
 		).filter(isNotJunk).length;
 
 		collectionObjects.push({
+			...fallbackInfo,
 			...frontmatter,
 			slug,
 			locale,
 			locales,
 			postCount,
+			tags: frontmatterTags,
 			coverImgMeta,
 		});
 	}
@@ -216,7 +232,13 @@ async function readCollection(
 	return collectionObjects;
 }
 
-async function readPost(postPath: string): Promise<PostInfo[]> {
+async function readPost(
+	postPath: string,
+	fallbackInfo: {
+		authors: string[];
+		collection?: string;
+	},
+): Promise<PostInfo[]> {
 	const slug = path.basename(postPath);
 	const files = (await fs.readdir(postPath))
 		.filter(isNotJunk)
@@ -269,6 +291,7 @@ async function readPost(postPath: string): Promise<PostInfo[]> {
 		});
 
 		postObjects.push({
+			...fallbackInfo,
 			...frontmatter,
 			slug,
 			path: path.relative(contentDirectory, postPath),
@@ -305,7 +328,12 @@ for (const unicornId of [...unicorns.keys()]) {
 
 	for (const slug of slugs) {
 		const collectionPath = join(collectionsDirectory, slug);
-		collections.set(slug, await readCollection(collectionPath));
+		collections.set(
+			slug,
+			await readCollection(collectionPath, {
+				authors: [unicornId],
+			}),
+		);
 	}
 }
 
@@ -325,7 +353,13 @@ for (const collection of [...collections.values()]) {
 
 	for (const slug of slugs) {
 		const postPath = join(postsDirectory, slug);
-		posts.set(slug, await readPost(postPath));
+		posts.set(
+			slug,
+			await readPost(postPath, {
+				authors: collection[0].authors,
+				collection: collection[0].slug,
+			}),
+		);
 	}
 }
 for (const unicornId of [...unicorns.keys()]) {
@@ -337,7 +371,12 @@ for (const unicornId of [...unicorns.keys()]) {
 
 	for (const slug of slugs) {
 		const postPath = join(postsDirectory, slug);
-		posts.set(slug, await readPost(postPath));
+		posts.set(
+			slug,
+			await readPost(postPath, {
+				authors: [unicornId],
+			}),
+		);
 	}
 }
 

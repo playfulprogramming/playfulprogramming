@@ -7,26 +7,28 @@ import CollectionPage from "src/views/collections/collection-page.astro";
 import CollectionChapter from "src/views/collections/collection-chapter.astro";
 import { SubHeader } from "src/components/subheader/subheader";
 import { getLanguageFromFilename, translate } from "utils/translations";
-import { Languages } from "types/index";
+import { Languages, RawCollectionInfo } from "types/index";
 
 export async function getStaticPaths() {
-	const collections = await Astro.glob(
+	const collections = await Astro.glob<RawCollectionInfo>(
 		"../../../../content/*/collections/*/*.md",
 	);
 
-	return collections.map((collection) => {
-		const locale = getLanguageFromFilename(collection.file);
+	return collections
+		.filter((collection) => collection.frontmatter.pageLayout !== "none")
+		.map((collection) => {
+			const locale = getLanguageFromFilename(collection.file);
 
-		return {
-			params: {
-				locale: locale !== "en" ? locale : undefined,
-				slug: collection.file.split("/").at(-2),
-			},
-			props: {
-				Content: collection.Content,
-			},
-		};
-	});
+			return {
+				params: {
+					locale: locale !== "en" ? locale : undefined,
+					slug: collection.file.split("/").at(-2),
+				},
+				props: {
+					Content: collection.Content,
+				},
+			};
+		});
 }
 
 interface CollectionProps {

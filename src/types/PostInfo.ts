@@ -1,13 +1,11 @@
 import { Languages } from "types/index";
-import { MarkdownInstance } from "astro";
 
 export interface RawPostInfo {
 	title: string;
 	published: string;
-	authors: string[];
-	tags: string[];
-	attached: string[];
-	license: string;
+	authors?: string[];
+	tags?: string[];
+	license?: string;
 	description?: string;
 	edited?: string;
 	collection?: string;
@@ -18,6 +16,8 @@ export interface RawPostInfo {
 
 export interface PostInfo extends RawPostInfo {
 	slug: string;
+	authors: string[];
+	tags: string[];
 	path: string;
 	locales: Languages[];
 	locale: Languages;

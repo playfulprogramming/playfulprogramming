@@ -6,7 +6,7 @@ import { join } from "path";
  * - https://
  * - //
  */
-export const absolutePathRegex = /^(?:[a-z]+:)?\/\//;
+export const absolutePathRegex = /^(?:[a-z]+:)?\/?\//;
 
 const fixSlash = (path: string) => {
 	return /^\\\\\?\\/.test(path) ? path : path.replace(/\\/g, "/");

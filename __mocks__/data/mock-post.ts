@@ -15,7 +15,6 @@ export const MockPost: PostInfo = {
 	slug: "this-post-name-here",
 	path: "path",
 	wordCount: 10000,
-	attached: [],
 	socialImg: "img.png",
 };
 
@@ -33,7 +32,6 @@ export const MockMultiAuthorPost: PostInfo = {
 	slug: "this-other-post-name-here",
 	path: "path",
 	wordCount: 100000,
-	attached: [],
 	socialImg: "img.png",
 };
 
@@ -51,7 +49,6 @@ export const MockMuliLanguagePost: PostInfo = {
 	slug: "this-other-post-name-here",
 	path: "path",
 	wordCount: 100000,
-	attached: [],
 	socialImg: "img.png",
 };
 
@@ -70,6 +67,5 @@ export const MockCanonicalPost: PostInfo = {
 	slug: "this-other-post-name-here",
 	path: "path",
 	wordCount: 100000,
-	attached: [],
 	socialImg: "img.png",
 };

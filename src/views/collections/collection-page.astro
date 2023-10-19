@@ -14,18 +14,16 @@ import "../../styles/convertkit.scss";
 
 import styles from "./collection-page.module.scss";
 import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
-import { getPostsByUnicorn } from "utils/api";
 
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 interface CollectionProps {
 	collection: CollectionInfo;
 	authors: UnicornInfo[];
-	posts: PostInfo[];
 	Content: MarkdownInstance<never>["Content"];
 }
 
-const { Content, collection, authors, posts } = Astro.props as CollectionProps;
+const { Content, collection, authors } = Astro.props as CollectionProps;
 
 const coverImgAspectRatio =
 	collection.coverImgMeta.width / collection.coverImgMeta.height;
