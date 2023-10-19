@@ -58,38 +58,38 @@ const originalLinkStr = post.originalLink && new URL(post.originalLink).host;
 		<div class={style.wordCount}>
 			<Icon width="24" height="24" name="words" aria-hidden="true" />
 			<p class="text-style-button-regular">
-				{translate(Astro, "title.n_words", post.wordCount.toLocaleString())}
+				{translate(Astro, "title.n_words", post.wordCount.toString())}
 			</p>
-
-			{
-				post.originalLink ? (
-					<div class={style.originalLink}>
-						<Icon width="24" height="24" name="website" aria-hidden="true" />
-						<p class="text-style-button-regular">
-							{translate(Astro, "desc.original_link")}
-							<a
-								href={post.originalLink}
-								target="_blank"
-								rel="nofollow noopener noreferrer"
-							>
-								{originalLinkStr}
-							</a>
-						</p>
-					</div>
-				) : null
-			}
 		</div>
 
-		<ul aria-label="Post tags" role="list" class={style.tags}>
-			{
-				tags?.map((tag) => (
-					<li>
-						<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
-							{tag}
-						</Chip>
-					</li>
-				))
-			}
-		</ul>
+		{
+			post.originalLink ? (
+				<div class={style.originalLink}>
+					<Icon width="24" height="24" name="website" aria-hidden="true" />
+					<p class="text-style-button-regular">
+						{translate(Astro, "desc.original_link")}
+						<a
+							href={post.originalLink}
+							target="_blank"
+							rel="nofollow noopener noreferrer"
+						>
+							{originalLinkStr}
+						</a>
+					</p>
+				</div>
+			) : null
+		}
 	</div>
+
+	<ul aria-label="Post tags" role="list" class={style.tags}>
+		{
+			tags?.map((tag) => (
+				<li>
+					<Chip href={`/search?${buildSearchQuery({ filterTags: [tag] })}`}>
+						{tag}
+					</Chip>
+				</li>
+			))
+		}
+	</ul>
 </section>
