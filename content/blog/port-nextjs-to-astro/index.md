@@ -96,7 +96,7 @@ To start migrating a Next.js layout file from Next.js to Astro, you'll:
 
     This CSS import can be moved to the Astro Layout component:
 
-    ```astro {1-4} 
+    ```astro {0-4} 
     ---
     // src/layouts/Layout.astro
     import '../styles/index.css'
@@ -210,7 +210,7 @@ Now move the `<head>` into your existing `layout.astro` file. To do this, we can
 2. Import the layout file in `/src/pages/index.astro`
 3. Wrap the Astro page's template in the Layout component
 
-```astro {5,11} 
+```astro {4,10} 
 ---
 // src/layouts/Layout.astro
 import '../styles/index.css'
@@ -233,7 +233,7 @@ const {title} = Astro.props;
 </html>
 ```
 
-```astro  {4,7,19}
+```astro  {3,6,18}
 ---
 // src/pages/index.astro
 import styles from '../styles/poke-list.module.css';
@@ -292,7 +292,7 @@ export default function Home({ pokemons }) {
 
 In Astro, this process is different. Instead of using a dedicated `getStaticProps` function, move the props logic into the code fence of our Astro page:
 
-```astro {5-17}
+```astro {4-16}
 ---
 // src/pages/index.astro
 import styles from '../styles/poke-list.module.css';
@@ -482,7 +482,7 @@ export const getStaticPaths = async () => {
 
 Migrate the `getStaticPaths` method to Astro by removing the `paths` route prefix and returning an array:
 
-```astro {10-12}
+```astro {9-11}
 ---
 // src/pages/pokemon/[name].astro
 import styles from '../../styles/pokemon-entry.module.css';
@@ -560,7 +560,7 @@ Migrate this to the Astro page's code fence:
 
 > Use `Astro.props` to access the `params` returned from the `getStaticPaths` function
 
-```astro {15-33}
+```astro {14-32}
 ---
 // src/pages/pokemon/[name].astro
 import styles from '../../styles/pokemon-entry.module.css';
