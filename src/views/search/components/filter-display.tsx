@@ -1,6 +1,6 @@
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { PostInfo } from "types/PostInfo";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
+import { CollectionInfo } from "types/CollectionInfo";
 import { useMemo } from "preact/hooks";
 import { UnicornInfo } from "types/UnicornInfo";
 import { CSSProperties } from "preact/compat";
@@ -15,7 +15,8 @@ interface FilterDisplayProps {
 	unicornProfilePicMap: ProfilePictureMap;
 	posts: PostInfo[];
 
-	collections: ExtendedCollectionInfo[];
+	collections: CollectionInfo[];
+	unicornsMap: Map<string, UnicornInfo>,
 	selectedTags: string[];
 	setSelectedTags: (tags: string[]) => void;
 	selectedAuthorIds: string[];
@@ -33,6 +34,7 @@ interface FilterDisplayProps {
 export const FilterDisplay = ({
 	unicornProfilePicMap,
 	collections,
+	unicornsMap,
 	posts,
 	sort,
 	setSort,
@@ -80,27 +82,14 @@ export const FilterDisplay = ({
 	const authors = useMemo(() => {
 		const postAuthorIdToPostNumMap = new Map<string, number>();
 
-		const authors: UnicornInfo[] = [];
 		posts.forEach((post) => {
-			post.authorsMeta.forEach((author) => {
-				authors.push(author);
-
-				const numPosts = postAuthorIdToPostNumMap.get(author.id) || 0;
-				postAuthorIdToPostNumMap.set(author.id, numPosts + 1);
+			post.authors.forEach((author) => {
+				const numPosts = postAuthorIdToPostNumMap.get(author) || 0;
+				postAuthorIdToPostNumMap.set(author, numPosts + 1);
 			});
 		});
 
-		collections.forEach((collection) => {
-			collection.authorsMeta.forEach((author) => {
-				authors.push(author);
-			});
-		});
-
-		const uniqueAuthors = new Map<string, UnicornInfo>();
-		authors.forEach((author) => {
-			uniqueAuthors.set(author.id, author);
-		});
-		return Array.from(uniqueAuthors.values())
+		return Array.from(unicornsMap.values())
 			.sort((a, b) => a.name.localeCompare(b.name))
 			.map((author) => ({
 				...author,

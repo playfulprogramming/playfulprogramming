@@ -23,7 +23,6 @@ export const MockCollection: ExtendedCollectionInfo = {
 	},
 	locales: ["en"],
 	locale: "en",
-	posts: [MockPost],
 	slug: "this-collection-name-here",
 	title: "Collection title",
 	description: "This is a short description dunno why this would be this short",

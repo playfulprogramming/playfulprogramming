@@ -21,7 +21,6 @@ import style from "./search-page.module.scss";
 import { PostCardGrid } from "components/post-card/post-card-grid";
 import { SubHeader } from "components/subheader/subheader";
 import { Fragment } from "preact";
-import { ExtendedCollectionInfo } from "types/CollectionInfo";
 import { CollectionCard } from "components/collection-card/collection-card";
 import { FilterDisplay } from "./components/filter-display";
 import { useElementSize } from "../../hooks/use-element-size";
@@ -43,6 +42,8 @@ import {
 import { debounce } from "utils/debounce";
 import { SortType } from "./components/types";
 import { SearchResultCount } from "./components/search-result-count";
+import { ServerReturnType } from "./types";
+import { CollectionInfo } from "types/CollectionInfo";
 
 const DEFAULT_SORT = "relevance";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
@@ -52,13 +53,6 @@ interface SearchPageProps {
 }
 
 const MAX_POSTS_PER_PAGE = 6;
-
-export interface ServerReturnType {
-	posts: PostInfo[];
-	totalPosts: number;
-	collections: ExtendedCollectionInfo[];
-	totalCollections: number;
-}
 
 function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	const { urlParams, pushState } = useSearchParams();
@@ -141,11 +135,12 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		},
 		queryKey: ["search", debouncedSearch],
 		initialData: {
+			unicorns: {},
 			posts: [],
 			totalPosts: 0,
 			collections: [],
 			totalCollections: 0,
-		} as ServerReturnType,
+		},
 		refetchOnWindowFocus: false,
 		retry: false,
 		enabled,
@@ -271,7 +266,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		});
 	}, [data, page, sort, selectedUnicorns, selectedTags]);
 
-	const filteredAndSortedCollections = useMemo(() => {
+	const filteredAndSortedCollections: CollectionInfo[] = useMemo(() => {
 		const collections = [...data.collections];
 
 		if (sort && sort !== "relevance") {
@@ -365,6 +360,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				unicornProfilePicMap={unicornProfilePicMap}
 				collections={data.collections}
 				posts={data.posts}
+				unicornsMap={new Map(Object.entries(data.unicorns))}
 				selectedTags={selectedTags}
 				setSelectedTags={setSelectedTags}
 				selectedAuthorIds={selectedUnicorns}
@@ -488,6 +484,9 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
+												authors={collection.authors.map(id => data.unicorns[id])}
+												// TODO: post count should be sourced from the collection info
+												posts={[]}
 												headingTag="h3"
 											/>
 										</li>
@@ -509,6 +508,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={posts}
+									postAuthors={new Map(Object.entries(data.unicorns))}
 									postHeadingTag="h3"
 									unicornProfilePicMap={unicornProfilePicMap}
 								/>

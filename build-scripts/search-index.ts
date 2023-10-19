@@ -2,7 +2,7 @@ import Fuse from "fuse.js";
 import * as fs from "fs";
 import * as path from "path";
 import * as api from "utils/api";
-import { PostInfo, CollectionInfo } from "types/index";
+import { PostInfo, CollectionInfo, UnicornInfo } from "types/index";
 
 const posts = api.getPostsByLang("en");
 const collections = api.getCollectionsByLang("en");
@@ -87,5 +87,18 @@ const createCollectionIndex = () => {
 const postIndex = createPostIndex();
 const collectionIndex = createCollectionIndex();
 
-const json = JSON.stringify({ postIndex, posts, collectionIndex, collections });
+const unicorns: Record<string, UnicornInfo> = api
+	.getUnicornsByLang("en")
+	.reduce((obj, unicorn) => {
+		obj[unicorn.id] = unicorn;
+		return obj;
+	}, {});
+
+const json = JSON.stringify({
+	postIndex,
+	posts,
+	collectionIndex,
+	collections,
+	unicorns,
+});
 fs.writeFileSync(path.resolve(process.cwd(), "./api/searchIndex.json"), json);
