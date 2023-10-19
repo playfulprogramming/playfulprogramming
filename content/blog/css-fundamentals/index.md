@@ -3,15 +3,13 @@
   title: "CSS Fundamentals",
   description: "A beginners course for CSS box model, HTML defaults, flexbox layout, gridbox layout, responsive design, selectors, units, and variables.",
   published: "2022-01-18T20:08:26.988Z",
+  updated: "2023-10-19T20:08:26.988Z",
   authors: ["ljtech"],
   tags: ["css", "design"],
   attached: [],
-  license: "cc-by-4",
-  originalLink: "https://ljtech.ca/posts/css-fundamentals"
+  license: "cc-by-4"
 }
 ---
-
-## Introduction
 
 This course will guide you through the fundamentals of CSS with a few of my own personal recommendations for further learning.
 
