@@ -35,6 +35,7 @@
 
 	.date,
 	.authors,
+	.wordCount,
 	.originalLink {
 		display: flex;
 		align-items: flex-start;
@@ -53,7 +54,8 @@
 		}
 	}
 
-	.originalLink {
+	.originalLink,
+	.wordCount {
 		color: var(--foreground_emphasis-medium);
 	}
 
@@ -82,7 +84,10 @@
 			display: flex;
 
 			color: var(--article-header_details_date_edited_color);
-			margin-left: calc(var(--article-header_details_icon_size) + var(--article-header_details_icon_margin-end));
+			margin-left: calc(
+				var(--article-header_details_icon_size) +
+					var(--article-header_details_icon_margin-end)
+			);
 			position: relative;
 
 			@include from($mobile) {
@@ -92,8 +97,10 @@
 			&::before {
 				position: absolute;
 				content: "•";
-				left: calc(-0.5*var(--article-header_details_icon_size) + -1*var(--article-header_details_icon_margin-end));
-    			transform: translateX(-50%);
+				left: calc(
+					-0.5 * var(--article-header_details_icon_size) + -1 * var(--article-header_details_icon_margin-end)
+				);
+				transform: translateX(-50%);
 
 				@include from($mobile) {
 					position: unset;
