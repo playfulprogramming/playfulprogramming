@@ -41,7 +41,7 @@ export function Sponsors() {
 			{Object.values(data.about.sponsors).map(({ name, logo, url }) => (
 				<li>
 					<a href={url}>
-						<img height="300" width="122" alt={name} src={logo} loading="lazy"/>
+						<img data-dont-round="true" height="300" width="122" alt={name} src={logo} loading="lazy"/>
 					</a>
 				</li>
 			))}
