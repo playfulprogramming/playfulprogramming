@@ -20,7 +20,7 @@ const activePostsMeta = findActivePost(post, postSeries);
 const showMoreText = translate(
 	Astro,
 	"action.view_all_chapters",
-	"" + activePostsMeta.length
+	"" + activePostsMeta.length,
 );
 ---
 
@@ -28,7 +28,11 @@ const showMoreText = translate(
 	<div class={styles.seriesHeader}>
 		{
 			(
-				<h2 class={styles.titleContainer} id="series-header">
+				<h2
+					class={styles.titleContainer}
+					id="series-header"
+					data-no-heading-link
+				>
 					<span class={`text-style-body-medium-bold ${styles.partOfSeries}`}>
 						This article is part of a series:
 					</span>
@@ -95,7 +99,7 @@ const showMoreText = translate(
 >
 	const showMore = document.querySelector("#toggleAllButton");
 	const showHideChapters = Array.from(
-		document.querySelectorAll("[data-dont-show-initially]")
+		document.querySelectorAll("[data-dont-show-initially]"),
 	);
 
 	let expanded = false;
