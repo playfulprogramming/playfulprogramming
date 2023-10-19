@@ -24,7 +24,7 @@ Similarly, [monorepos](https://monorepo.tools/) can be a fantastic way to share 
 
 Combined together and even a small team can maintain multiple React Native applications seamlessly.
 
-![Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app](./rn_monorepo.png)
+<img src="./rn_monorepo.png" alt="Two apps: One customer portal and one admin panel extending from shared code. Each portal has a Windows, macOS, Android, and iOS app" data-dont-round/>
 
 Unfortunately, it can be rather challenging to build out a monorepo that properly supports React Native. While [Expo supports monorepo usage](https://docs.expo.dev/guides/monorepos/), one common complaint when using Expo is that [Expo does not support many popular React Native libraries that require native code](https://web.archive.org/web/20230321191807/https://docs.expo.dev/introduction/why-not-expo/#expo-go).
 

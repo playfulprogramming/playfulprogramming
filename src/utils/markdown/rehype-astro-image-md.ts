@@ -168,6 +168,15 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 					return h("source", attrs);
 				});
 
+				const {
+					height: _height,
+					width: _width,
+					src: _src,
+					alt: _alt,
+					["data-zoom-src"]: _dataZoomSrc,
+					...rest
+				} = node.properties;
+
 				Object.assign(
 					node,
 					h("picture", {}, [
@@ -179,7 +188,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							"data-zoom-src": pngSource.src,
 							width: pictureResult.image.width,
 							height: pictureResult.image.height,
-							style: node.properties.style,
+							...rest,
 						}),
 					]),
 				);

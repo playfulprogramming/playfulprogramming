@@ -37,6 +37,7 @@ export function IFramePlaceholder({
 							loading="lazy"
 							decoding="async"
 							data-nozoom="true"
+							data-dont-round="true"
 						/>
 					</picture>
 				</div>
