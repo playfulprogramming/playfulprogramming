@@ -28,8 +28,9 @@ export const TwitchTransformer = {
 		// Set the "parent" property for embedding - https://dev.twitch.tv/docs/embed/everything/#usage
 		embedUrl.searchParams.set("parent", parent);
 
+		// Needs data-frame-title as it will otherwise show "Twitch Error" on Vercel
 		return `
-			<iframe src="${embedUrl.toString()}" height="300" scrolling="no" allowfullscreen></iframe>
+			<iframe src="${embedUrl.toString()}" data-frame-title="Twitch Embed" height="300" scrolling="no" allowfullscreen></iframe>
 		`;
 	},
 };
