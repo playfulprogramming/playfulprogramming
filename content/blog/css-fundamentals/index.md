@@ -36,7 +36,7 @@ This tutorial will cover the following items in order:
 
 ## Box Model
 
-![box-model.svg](./box-model.svg)
+![Four boxes, each containing one-another. The boxes, from largest to smallest are: "Margin", "Border", "Padding", and "Content"](./box-model.svg)
 
 The box model is a representation of a documents element through a set of boxes with the following properties:
 
@@ -119,13 +119,13 @@ The CSS property `display: flex` is also known as flexbox. Flexbox is used for c
 flex-direction: column;
 ```
 
-![flex-column.svg](./flex-column.svg)
+![A column of three items stacked on one-another](./flex-column.svg)
 
 ```css
 flex-direction: row;
 ```
 
-![flex-row.svg](./flex-row.svg)
+![A row of three items stacked next to one-another](./flex-row.svg)
 
 Adding `display: flex` to a container will cause any immediate descendants to become flex items. Using a few additional CSS properties we can align, justify, and space these same flex items inside the container.
 
@@ -145,19 +145,19 @@ These placement methods are used to distribute both flex and gridbox items:
 align-items: center;
 ```
 
-![align-center.svg](./align-center.svg)
+![Three items in a container vertically aligned to the middle of the container](./align-center.svg)
 
 ```css
 align-items: flex-end;
 ```
 
-![align-end.svg](./align-end.svg)
+![Three items in a container vertically aligned to the bottom of the container](./align-end.svg)
 
 ```css
 align-items: flex-start;
 ```
 
-![align-start.svg](./align-start.svg)
+![Three items in a container vertically aligned to the top of the container](./align-start.svg)
 
 > 🤓 Keep everything inline with align-items
 
@@ -169,37 +169,37 @@ align-items: flex-start;
 justify-content: center;
 ```
 
-![justify-center.svg](./justify-center.svg)
+![Three items in a container horizontally aligned to the center of the container](./justify-center.svg)
 
 ```css
 justify-content: flex-end;
 ```
 
-![justify-end.svg](./justify-end.svg)
+![Three items in a container horizontally aligned to the end of the container](./justify-end.svg)
 
 ```css
 justify-content: flex-start;
 ```
 
-![justify-start.svg](./justify-start.svg)
+![Three items in a container horizontally aligned to the start of the container](./justify-start.svg)
 
 ```css
 justify-content: space-around;
 ```
 
-![justify-around.svg](./justify-around.svg)
+![Three items in a container with one item in the center and the other two on the left and right with spacing equal the left and right](./justify-around.svg)
 
 ```css
 justify-content: space-between;
 ```
 
-![justify-between.svg](./justify-between.svg)
+![Three items in a container with one item in the center and the other two on the furthest left and right](./justify-between.svg)
 
 ```css
 justify-content: space-evenly;
 ```
 
-![justify-evenly.svg](./justify-evenly.svg)
+![Three items in a container with equal spacing on all sides](./justify-evenly.svg)
 
 > 🤓 Space your content out with justify-content
 
@@ -228,7 +228,7 @@ grid-template-areas:
 grid-template-columns: 1fr 1fr;
 ```
 
-![grid-columns.svg](./grid-columns.svg)
+![A grid with an item on the top spanning two columns and two items on the bottom](./grid-columns.svg)
 
 ---
 
@@ -238,7 +238,7 @@ grid-template-columns: 1fr 1fr;
 grid-template-rows: 1fr 2fr 1fr;
 ```
 
-![grid-rows.svg](./grid-rows.svg)
+![A grid with a single column and three items; the item in the middle is double the height as the other two items above and below it](./grid-rows.svg)
 
 Adding `display: grid` to a container will cause any immediate descendants to become grid items. Similar to flexbox, we can use placement methods to help align, justify, and space grid items inside the container.
 
@@ -250,19 +250,19 @@ Adding `display: grid` to a container will cause any immediate descendants to be
 place-items: center center;
 ```
 
-![center-center.svg](./center-center.svg)
+![A grid of items centered horizontally and vertically](./center-center.svg)
 
 ```css
 place-items: end end;
 ```
 
-![place-items-end-end.svg](./end-end.svg)
+![A grid of items aligned to the bottom left corner](./end-end.svg)
 
 ```css
 place-items: start start;
 ```
 
-![start-start.svg](./start-start.svg)
+![A grid of items aligned to the top right corner](./start-start.svg)
 
 > 🤓 Place-items is super effective if using gridbox
 
@@ -287,7 +287,7 @@ The CSS property `position` determines an elements flow inside a document.
 
 The CSS properties `top`, `bottom`, `left`, `right` are used on positioned elements to control an offset while `z-index` controls the elements order (bringing it to the front or back).
 
-![positioning.svg](./positioning.svg)
+![A series of boxes absolutely positioned in one-another with the dimensions of "left", "right", "top", and "bottom" precalculated](./positioning.svg)
 
 ```css
 .root {
@@ -343,7 +343,7 @@ There are five types of element positions:
 
 For example, YouTube uses a flexbox to space out their headers children elements:
 
-![youtube.png](./youtube.png)
+![A heading on the YouTube search bar with spacing for each item](./youtube.png)
 
 > 🤓 Mastering the flexbox will take you very far in CSS as it is used everywhere
 
@@ -355,7 +355,7 @@ For example, YouTube uses a flexbox to space out their headers children elements
 
 For example, Spotify uses a gridbox to achieve their playlist player layout:
 
-![spotify.png](./spotify.png)
+![A player view of Spotify with a left-hand sidebar and a list of items on the right](./spotify.png)
 
 #### Positioning: 
 
@@ -364,7 +364,7 @@ For example, Spotify uses a gridbox to achieve their playlist player layout:
 
 For example, the cookies modal on stackoverflow uses a fixed position to stay on your screen while hovering above other document elements:
 
-![stackoverflow.png](./stackoverflow.png)
+![An "accept all cookies" banner on StackOverflow absolutely positioned to the bottom of the page](./stackoverflow.png)
 
 ---
 
@@ -372,7 +372,7 @@ For example, the cookies modal on stackoverflow uses a fixed position to stay on
 
 Responsive Design is an approach to web design where the goal is to create a layout that will render beautifully on any device or screen size.
 
-![responsive-design.png](./responsive-design.png)
+![Two folding phones; The Samsung Galaxy Flip and Galaxy Fold](./responsive-design.png)
 
 To achieve this, designers can use media queries (AKA breakpoints) to add, override, and unset styles on any screen size.
 
