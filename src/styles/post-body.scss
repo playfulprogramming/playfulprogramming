@@ -77,7 +77,7 @@
 
 	img:not([data-dont-round]):not([src$=".svg"]),
 	video:not([data-dont-round]) {
-		border-radius: 16px;
+		border-radius: var(--corner-radius_m);
 	}
 
 	img.medium-zoom-image {
