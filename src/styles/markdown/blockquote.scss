@@ -4,7 +4,8 @@
 	--blockquote_padding-start: var(--spc-3x);
 }
 
-blockquote:not([class]) {
+blockquote:not([class]),
+blockquote.twitter-tweet {
 	position: relative;
 	margin: var(--site-spacing) 0;
 	padding: 0;
