@@ -5,6 +5,20 @@
 	grid-template-columns: 0fr 1fr;
 	width: 100%;
 	max-width: var(--max-width_xl);
+	margin: 0 auto;
+
+	&:not([data-hide-left-sidebar]) {
+		@include from($tabletLarge) {
+			grid-template-columns: 25% 1fr;
+		}
+	}
+
+	// in tablet view, when the sidebar is hidden, the "content" column needs to be centered
+	&[data-hide-left-sidebar] {
+		@include until($desktopSmall) {
+			max-width: var(--max-width_m);
+		}
+	}
 
 	@include from($desktopSmall) {
 		grid-template-columns: 25% 1fr 25%;
