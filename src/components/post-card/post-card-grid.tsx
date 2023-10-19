@@ -23,11 +23,14 @@ export function PostCardGrid({
 	return (
 		<ul {...props} class={style.list} role="list" id="post-list-container">
 			{postsToDisplay.map((post, i) => {
+				const authors = post.authors.map(id => postAuthors.get(id))
+					.filter(u => !!u);
+
 				return expanded && post.bannerImg ? (
 					<PostCardExpanded
 						class={style.expanded}
 						post={post}
-						authors={post.authors.map(id => postAuthors.get(id))}
+						authors={authors}
 						headingTag={postHeadingTag}
 						unicornProfilePicMap={unicornProfilePicMap}
 						// images should be loaded eagerly when presented above-the-fold
@@ -36,7 +39,7 @@ export function PostCardGrid({
 				) : (
 					<PostCard
 						post={post}
-						authors={post.authors.map(id => postAuthors.get(id))}
+						authors={authors}
 						headingTag={postHeadingTag}
 						unicornProfilePicMap={unicornProfilePicMap}
 					/>

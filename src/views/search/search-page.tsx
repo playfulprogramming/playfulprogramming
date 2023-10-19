@@ -483,7 +483,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
-												authors={collection.authors.map(id => data.unicorns[id])}
+												authors={collection.authors.map(id => data.unicorns[id]).filter(u => !!u)}
 												headingTag="h3"
 											/>
 										</li>

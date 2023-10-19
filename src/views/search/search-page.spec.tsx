@@ -217,7 +217,10 @@ describe("Search page", () => {
 
 	test("Filter by author works on desktop sidebar", async () => {
 		mockFetch(() => ({
-			unicorns: {},
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
@@ -485,7 +488,10 @@ describe("Search page", () => {
 		global.innerWidth = 2000;
 		// 6 posts per page
 		mockFetch(() => ({
-			unicorns: {},
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
@@ -776,20 +782,21 @@ describe("Search page", () => {
 		global.innerWidth = 2000;
 
 		mockFetch(() => ({
-			unicorns: {},
+			unicorns: {
+				[MockUnicorn.id]: MockUnicorn,
+				[MockUnicornTwo.id]: MockUnicornTwo,
+			},
 			posts: [
 				{
 					...MockPost,
 					tags: ["Angular"],
 					authors: [MockUnicorn.id],
-					authorsMeta: [MockUnicorn],
 					title: "One blog post",
 				},
 				{
 					...MockCanonicalPost,
 					tags: [],
 					authors: [MockUnicornTwo.id],
-					authorsMeta: [MockUnicornTwo],
 					title: "Two blog post",
 				},
 			],
