@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Fuse from "fuse.js";
 import { createRequire } from "node:module";
 
-import { CollectionInfo, UnicornInfo, type PostInfo } from "types/index";
+import type { CollectionInfo, UnicornInfo, PostInfo } from "types/index";
 import type { ServerReturnType } from "../src/views/search/types";
 
 const require = createRequire(import.meta.url);
