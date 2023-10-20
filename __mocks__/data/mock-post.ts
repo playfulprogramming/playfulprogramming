@@ -8,6 +8,7 @@ export const MockPost: PostInfo = {
 	publishedMeta: "October 10, 2010",
 	tags: ["item1"],
 	description: "This is a short description dunno why this would be this short",
+	excerpt: "This is a short description dunno why this would be this short",
 	authors: [MockUnicorn.id],
 	license: MockLicense.id,
 	locale: "en",
@@ -24,6 +25,8 @@ export const MockMultiAuthorPost: PostInfo = {
 	publishedMeta: "October 20, 2010",
 	tags: ["item1"],
 	description:
+		"This is another short description dunno why this would be this short",
+	excerpt:
 		"This is another short description dunno why this would be this short",
 	authors: [MockUnicornTwo.id, MockUnicorn.id],
 	license: MockLicense.id,
@@ -42,6 +45,8 @@ export const MockMuliLanguagePost: PostInfo = {
 	tags: ["item1"],
 	description:
 		"This is another short description dunno why this would be this short",
+	excerpt:
+		"This is another short description dunno why this would be this short",
 	authors: [MockUnicornTwo.id, MockUnicorn.id],
 	license: MockLicense.id,
 	locale: "en",
@@ -59,6 +64,8 @@ export const MockCanonicalPost: PostInfo = {
 	originalLink: "https://google.com/",
 	tags: ["item1"],
 	description:
+		"This is another short description dunno why this would be this short",
+	excerpt:
 		"This is another short description dunno why this would be this short",
 	authors: [MockUnicornTwo.id, MockUnicorn.id],
 	license: MockLicense.id,

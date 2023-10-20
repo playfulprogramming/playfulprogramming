@@ -18,6 +18,8 @@ export interface PostInfo extends RawPostInfo {
 	slug: string;
 	authors: string[];
 	tags: string[];
+	description: string;
+	excerpt: string;
 	path: string;
 	locales: Languages[];
 	locale: Languages;

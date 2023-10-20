@@ -21,6 +21,7 @@ import remarkToRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
 import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
+import { getExcerpt } from "./markdown/get-excerpt";
 import { getLanguageFromFilename } from "./translations";
 import aboutRaw from "../../content/data/about.json";
 import rolesRaw from "../../content/data/roles.json";
@@ -233,7 +234,8 @@ async function readPost(
 	for (const file of files) {
 		const locale = getLanguageFromFilename(file);
 		const fileContents = await fs.readFile(join(postPath, file), "utf-8");
-		const frontmatter = matter(fileContents).data as RawPostInfo;
+		const fileMatter = matter(fileContents);
+		const frontmatter = fileMatter.data as RawPostInfo;
 
 		// Look... Okay? Just.. Look.
 		// Yes, we could use rehypeRetext and then XYZW but jeez there's so many edgecases.
@@ -260,7 +262,10 @@ async function readPost(
 		 * Please do let us know if you have strong thoughts/answers on the topic,
 		 * we're happy to hear them.
 		 */
-		const wordCount = fileContents.split(/\s+/).length;
+		const wordCount = fileMatter.content.split(/\s+/).length;
+
+		// get an excerpt of the post markdown no longer than 150 chars
+		const excerpt = getExcerpt(fileMatter.content, 150);
 
 		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
 			if (tags.has(tag)) {
@@ -282,6 +287,8 @@ async function readPost(
 			locales,
 			tags: frontmatterTags,
 			wordCount: wordCount,
+			description: frontmatter.description || excerpt,
+			excerpt,
 			publishedMeta:
 				frontmatter.published &&
 				dayjs(frontmatter.published).format("MMMM D, YYYY"),
