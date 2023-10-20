@@ -12,7 +12,7 @@ import path from "path";
 import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
 import { fileURLToPath } from "url";
-import { getFullRelativePath } from "../url-paths";
+import { resolvePath } from "../url-paths";
 import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,13 +45,12 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const nodeAlt = node.properties.alt as string;
 
 				let src: string;
-				if (nodeSrc.startsWith("/")) {
-					src = nodeSrc;
+
+				const resolvedSrc = resolvePath(nodeSrc, path.dirname(file.path));
+				if (resolvedSrc) {
+					src = "/" + resolvedSrc.relativePath;
 				} else {
-					src = getFullRelativePath(
-						"/" + path.relative(process.cwd(), path.dirname(file.path)),
-						nodeSrc,
-					);
+					src = nodeSrc;
 				}
 
 				if (src.endsWith(".svg") || src.endsWith(".gif")) {

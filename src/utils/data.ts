@@ -11,7 +11,7 @@ import * as fs from "fs/promises";
 import path, { join } from "path";
 import { isNotJunk } from "junk";
 import { getImageSize } from "../utils/get-image-size";
-import { getFullRelativePath } from "./url-paths";
+import { resolvePath } from "./url-paths";
 import matter from "gray-matter";
 import dayjs from "dayjs";
 
@@ -121,12 +121,7 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 			profileImgMeta: {
 				height: profileImgSize.height as number,
 				width: profileImgSize.width as number,
-				relativePath: frontmatter.profileImg,
-				relativeServerPath: getFullRelativePath(
-					"/" + path.relative(process.cwd(), unicornPath),
-					frontmatter.profileImg,
-				),
-				absoluteFSPath: join(unicornPath, frontmatter.profileImg),
+				...resolvePath(frontmatter.profileImg, unicornPath),
 			},
 		};
 
@@ -193,12 +188,7 @@ async function readCollection(
 		const coverImgMeta = {
 			height: coverImgSize.height as number,
 			width: coverImgSize.width as number,
-			relativePath: frontmatter.coverImg,
-			relativeServerPath: getFullRelativePath(
-				"/" + path.relative(process.cwd(), collectionPath),
-				frontmatter.coverImg,
-			),
-			absoluteFSPath: join(collectionPath, frontmatter.coverImg),
+			...resolvePath(frontmatter.coverImg, collectionPath),
 		};
 
 		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
