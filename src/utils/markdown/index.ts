@@ -60,21 +60,6 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 		],
 		...(config.format === "html"
 			? [
-					rehypeHeaderText,
-					[
-						rehypeHeaderClass,
-						{
-							// the page starts at h3 (under {title} -> "Post content")
-							depth: 2,
-							// visually, headings should start at h2-h6
-							className: (depth: number) =>
-								`text-style-headline-${Math.min(depth + 1, 6)}`,
-						},
-					] as RehypePlugin,
-			  ]
-			: []),
-		...(config.format === "html"
-			? [
 					/**
 					 * Insert custom HTML generation code here
 					 */
@@ -86,6 +71,21 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeUnicornElementMap,
 					rehypeTwoslashTabindex,
 					rehypeFileTree,
+			  ]
+			: []),
+		...(config.format === "html"
+			? [
+					rehypeHeaderText,
+					[
+						rehypeHeaderClass,
+						{
+							// the page starts at h3 (under {title} -> "Post content")
+							depth: 2,
+							// visually, headings should start at h2-h6
+							className: (depth: number) =>
+								`text-style-headline-${Math.min(depth + 1, 6)}`,
+						},
+					] as RehypePlugin,
 			  ]
 			: []),
 	];
