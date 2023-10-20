@@ -109,11 +109,13 @@ pre.shiki div.highlight {
 	background-color: var(--surface_primary_emphasis-none);
 }
 
-pre.shiki div:not(.highlight) + div.highlight {
+pre.shiki div:not(.highlight) + div.highlight,
+pre.shiki div:first-child.highlight {
 	border-top: 2px dashed var(--primary_default);
 }
 
-pre.shiki div.highlight + div:not(.highlight) {
+pre.shiki div.highlight + div:not(.highlight),
+pre.shiki div:last-child.highlight {
 	border-top: 2px dashed var(--primary_default);
 }
 
