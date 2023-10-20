@@ -22,6 +22,10 @@ import rehypeStringify from "rehype-stringify";
 import { rehypeUnicornElementMap } from "./markdown/rehype-unicorn-element-map";
 import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import { getLanguageFromFilename } from "./translations";
+import aboutRaw from "../../content/data/about.json";
+import rolesRaw from "../../content/data/roles.json";
+import licensesRaw from "../../content/data/licenses.json";
+import tagsRaw from "../../content/data/tags.json";
 
 // https://github.com/shikijs/twoslash/issues/147
 const remarkTwoslash =
@@ -29,17 +33,6 @@ const remarkTwoslash =
 		.default ?? remarkTwoslashDefault;
 
 export const contentDirectory = join(process.cwd(), "content");
-export const dataDirectory = join(process.cwd(), "content/data");
-export const siteDirectory = join(process.cwd(), "content/site");
-export const sponsorsDirectory = join(process.cwd(), "public/sponsors");
-
-const aboutRaw = (await import("../../content/data/about.json")).default;
-
-const rolesRaw = (await import("../../content/data/roles.json")).default;
-
-const licensesRaw = (await import("../../content/data/licenses.json")).default;
-
-const tagsRaw = (await import("../../content/data/tags.json")).default;
 
 const tags = new Map<string, TagInfo>();
 

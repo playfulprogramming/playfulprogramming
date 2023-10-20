@@ -30,6 +30,7 @@ export async function getStaticPaths() {
 			},
 			props: {
 				Content: post.Content,
+				slug: slug,
 				// temporary hack for Table of Contents - pass headingsWithId from "rehype-header-text" as a prop
 				// TODO: in the future, this can be obtained directly from the markdown parser when invoked
 				postHeadings: post.frontmatter.headingsWithId,
@@ -38,8 +39,9 @@ export async function getStaticPaths() {
 	});
 }
 
-const { Content, postHeadings } = Astro.props as {
+const { Content, slug, postHeadings } = Astro.props as {
 	Content: MarkdownInstance<any>["Content"];
+	slug: string;
 	postHeadings: PostHeadingInfo[];
 };
 
@@ -49,7 +51,7 @@ const params = Astro.params as {
 };
 
 const locale = params.locale ?? "en";
-const post = api.getPostBySlug(params.postid, locale);
+const post = api.getPostBySlug(slug, locale);
 const authors = post.authors.map((unicornId) =>
 	api.getUnicornById(unicornId, locale),
 );

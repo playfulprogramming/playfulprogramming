@@ -39,6 +39,7 @@ export function getPostsByLang(language: Languages): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter((p) => !!p)
+		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
 }
 
