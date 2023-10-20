@@ -1,6 +1,7 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
+import { AstroVFile } from "utils/markdown/types";
 
 interface RehypeExcerptProps {
 	maxLength: number;
@@ -9,11 +10,11 @@ interface RehypeExcerptProps {
 export const rehypeExcerpt: Plugin<[RehypeExcerptProps | never], Root> = ({
 	maxLength,
 }) => {
-	return (tree, file) => {
+	return (tree, file: AstroVFile) => {
 		const getFileExcerpt = () =>
-			(file?.data?.astro as any)?.frontmatter?.excerpt as string;
+			file?.data?.astro?.frontmatter?.excerpt as string;
 		const setFileExcerpt = (val) => {
-			(file.data.astro as any).frontmatter.excerpt = val;
+			file.data.astro.frontmatter.excerpt = val;
 		};
 		if (!getFileExcerpt()) {
 			setFileExcerpt("");

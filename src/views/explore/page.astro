@@ -1,0 +1,32 @@
+---
+import { PostInfo } from "types/index";
+import { PostCardGrid } from "src/components/post-card/post-card-grid";
+import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
+import { Pagination } from "components/pagination/pagination";
+import { Page } from "astro";
+
+export interface PageProps {
+	posts: PostInfo[];
+	page: Pick<Page<any>, "currentPage" | "lastPage">;
+}
+
+const { posts, page } = Astro.props as PageProps;
+const unicornProfilePicMap = await getUnicornProfilePicMap();
+---
+
+<h1 class="visually-hidden">Posts</h1>
+
+<PostCardGrid
+	expanded={true}
+	aria-label="List of posts"
+	postsToDisplay={posts}
+	unicornProfilePicMap={unicornProfilePicMap}
+/>
+
+{
+	/* We shouldn't pass the whole "page" object here, as this generates a huge JSON attribute for hydration */
+}
+<Pagination
+	page={{ currentPage: page.currentPage, lastPage: page.lastPage }}
+	client:load
+/>

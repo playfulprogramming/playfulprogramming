@@ -1,7 +1,11 @@
 ---
 import * as Terser from "terser";
 
-import { COLOR_MODE_STORAGE_KEY } from "../../constants";
+import {
+	COLOR_MODE_STORAGE_KEY,
+	THEME_COLOR_DARK,
+	THEME_COLOR_LIGHT,
+} from "../../constants";
 
 /**
  * Much of this code deals with dark mode. It's ripped straight from:
@@ -21,11 +25,11 @@ import { COLOR_MODE_STORAGE_KEY } from "../../constants";
  * into that string. This way, we're able to avoid duplicating
  */
 function setColorsByTheme() {
-	const STORAGE_KEY = "COLOR_MODE_STORAGE_KEY";
-
 	const mql = window.matchMedia("(prefers-color-scheme: dark)");
 	const prefersDarkFromMQ = mql.matches;
-	const prefersDarkFromLocalStorage = localStorage.getItem(STORAGE_KEY);
+	const prefersDarkFromLocalStorage = localStorage.getItem(
+		"COLOR_MODE_STORAGE_KEY",
+	);
 
 	let colorMode = "light";
 
@@ -41,16 +45,24 @@ function setColorsByTheme() {
 
 	// TODO: migrate to `classList`
 	root.className = colorMode;
+
+	// update the meta theme-color attribute(s) based on the user preference
+	const bgColor =
+		colorMode === "light" ? "THEME_COLOR_LIGHT" : "THEME_COLOR_DARK";
+	// this needs to update both meta tags so that it applies regardless of prefers-color-scheme
+	document
+		.querySelectorAll("meta[name='theme-color']")
+		.forEach((el) => el.setAttribute("content", bgColor));
 }
 
-const boundFn = String(setColorsByTheme).replace(
-	"COLOR_MODE_STORAGE_KEY",
-	COLOR_MODE_STORAGE_KEY
-);
+const boundFn = String(setColorsByTheme)
+	.replace("COLOR_MODE_STORAGE_KEY", COLOR_MODE_STORAGE_KEY)
+	.replace("THEME_COLOR_LIGHT", THEME_COLOR_LIGHT)
+	.replace("THEME_COLOR_DARK", THEME_COLOR_DARK);
 
 let calledFunction = `(${boundFn})()`;
 
 calledFunction = (await Terser.minify(calledFunction)).code!;
 ---
 
-<script set:html={calledFunction}></script>
+<script set:html={calledFunction} />

@@ -1,0 +1,88 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints";
+
+.signUpFormContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+@include from($desktop) {
+	.signUpFormContainer {
+		flex-direction: row;
+		align-items: flex-end;
+		gap: 0;
+	}
+}
+
+.inputContainer {
+	display: inline-block;
+	text-align: start;
+}
+
+@include from($desktop) {
+	.inputContainer {
+		flex-basis: 100%;
+	}
+}
+
+.emailInput {
+}
+
+@include from($desktop) {
+	.emailInput {
+		margin-left: var(--section-gap);
+		margin-right: var(--sign-up-btn-gap);
+	}
+}
+
+.inputLabel {
+	margin-left: var(--spc-2x);
+	margin-bottom: var(--spc-1x);
+	display: block;
+}
+
+.input {
+	box-sizing: border-box;
+	width: 100%;
+	border-style: solid;
+	border-radius: var(--form-border-radius);
+	border-width: var(--form-border-width);
+	border-color: var(--outline);
+	background: transparent;
+	color: white;
+	padding: var(--form-padding-vertical) 0 var(--form-padding-vertical)
+		var(--form-padding-horizontal);
+	transition:
+		background var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing),
+		border-color var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing);
+}
+
+.input:hover {
+	background: var(--slate-800);
+}
+
+.input:focus {
+	background: var(--slate-700);
+	border-color: var(--outline-focused);
+}
+
+@include until($desktop) {
+	.input {
+		line-height: 1.5rem !important;
+	}
+}
+
+.signUpButton {
+	flex-shrink: 0;
+	border-radius: var(--form-border-radius) !important;
+	height: fit-content;
+}
+
+@include from($desktop) {
+	.hideOnDesktop {
+		display: none;
+	}
+}

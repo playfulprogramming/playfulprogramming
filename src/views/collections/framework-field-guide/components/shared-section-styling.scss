@@ -1,0 +1,108 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints";
+
+.book-section {
+	padding: var(--section-ver-padding) 0;
+	text-align: center;
+	transition: background-color var(--color-transition-time)
+		var(--color-transition-ease);
+	will-change: transition;
+}
+
+.book-section > :not([data-no-horiz-pad]) {
+	padding: 0 var(--section-ver-padding);
+}
+
+.book-section > :not([data-no-max-width]) {
+	max-width: var(--max-width_small);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.book-title {
+	background: var(--text-gradient);
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
+	will-change: transition;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	margin: 0 auto;
+	line-height: normal !important;
+}
+
+.book-subtitle {
+	color: var(--on-dark-emphasis-medium);
+	margin: var(--section-gap) 0;
+}
+
+.book-bio {
+	color: var(--on-dark-emphasis-high);
+}
+
+.book-ctas {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 100%);
+	justify-content: center;
+	gap: var(--section-gap);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: var(--spc-6x);
+	margin-bottom: var(--section-gap);
+	@include from($tablet) {
+		grid-template-columns: repeat(auto-fit, minmax(min-content, 280px));
+	}
+}
+
+.book-coming-soon {
+	color: var(--on-dark-emphasis-medium);
+}
+
+.section-metrics-main-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+.section-metric-container {
+	padding: var(--spc-2x) var(--spc-1x);
+	@include from($desktop) {
+		padding: var(--spc-4x) var(--spc-2x);
+	}
+}
+
+.section-metric-text {
+	margin: 0;
+}
+
+.text-style-main-text-only,
+.section-metric-asterisk {
+	background: var(--text-gradient);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.section-metric-subtitle {
+	color: var(--on-dark-emphasis-medium);
+	display: block;
+}
+
+.text-style-main-text {
+	position: relative;
+	display: inline-block;
+}
+
+.section-metric-asterisk {
+	position: absolute;
+	left: 100%;
+	top: calc(0px - var(--spc-1x));
+}
+
+.section-chip-group-container {
+	margin: var(--section-gap) auto;
+}
+
+.section-disclaimer {
+	margin: 0;
+	color: var(--on-dark-emphasis-medium);
+}

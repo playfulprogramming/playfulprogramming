@@ -1,7 +1,7 @@
 ---
 {
 	title: "Discovering Odd Behavior with Angular Error Handling",
-	description: "Angular has fairly constistent error handling behavior... Until it doesn't. Here's one place where it's off and why.",
+	description: "Angular has fairly consistent error handling behavior... Until it doesn't. Here's one place where it's off and why.",
 	published: '2023-09-27T13:45:00.284Z',
 	authors: ['crutchcorn'],
 	tags: ['angular', 'javascript', 'webdev'],

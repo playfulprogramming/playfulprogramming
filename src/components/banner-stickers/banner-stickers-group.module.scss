@@ -1,0 +1,169 @@
+@import "src/tokens/index";
+
+.sticker1,
+.sticker2,
+.sticker3,
+.sticker4,
+.sticker5,
+.sticker6,
+.sticker7,
+.sticker8,
+.sticker9 {
+	position: absolute;
+	height: 32px;
+	width: 32px;
+	object-fit: contain;
+
+	@include from($desktopSmall) {
+		height: 90px;
+		width: 90px;
+	}
+}
+
+.sticker1,
+.sticker2,
+.sticker3,
+.sticker4,
+.sticker5,
+.sticker6,
+.sticker7,
+.sticker8,
+.sticker9,
+.unicornLogo {
+	filter: var(--shadow_sticker_drop_shadow);
+}
+
+.sticker1 {
+	left: 4%;
+	top: 50%;
+	transform: scale(0.8);
+}
+
+@include from($desktopSmall) {
+	.sticker1 {
+		left: 33.45%;
+		top: 17%;
+		transform: scale(0.8);
+	}
+}
+
+.sticker2 {
+	left: 0;
+	top: 18%;
+	transform: rotate(-5deg);
+}
+
+@include from($desktopSmall) {
+	.sticker2 {
+		left: 59.29%;
+		top: 0%;
+		transform: rotate(15deg);
+	}
+}
+
+.sticker3 {
+	left: 18%;
+	top: 0;
+	transform: rotate(15deg);
+}
+
+@include from($desktopSmall) {
+	.sticker3 {
+		left: 7.14%;
+		top: 7.33%;
+		transform: rotate(4deg) scale(1.2);
+	}
+}
+
+.sticker4 {
+	left: 32%;
+	top: 0;
+	transform: rotate(-20deg) scale(0.8);
+}
+
+@include from($desktopSmall) {
+	.sticker4 {
+		left: 21.49%;
+		top: 42.33%;
+		transform: rotate(5deg) scale(0.9);
+	}
+}
+
+.sticker5 {
+	left: 53%;
+	top: 0;
+	transform: rotate(-7deg);
+}
+
+@include from($desktopSmall) {
+	.sticker5 {
+		left: 4.75%;
+		top: 56.67%;
+		transform: scale(0.8);
+	}
+}
+
+.sticker6 {
+	left: 76%;
+	top: 1%;
+	transform: rotate(-10deg) scale(0.8);
+}
+
+@include from($desktopSmall) {
+	.sticker6 {
+		left: 32.74%;
+		top: 64.67%;
+		transform: rotate(8deg);
+	}
+}
+
+.sticker7 {
+	left: 90%;
+	top: 15%;
+	transform: rotate(5deg);
+}
+
+@include from($desktopSmall) {
+	.sticker7 {
+		left: 14.32%;
+		top: 76.67%;
+		transform: rotate(-4deg) scale(0.9);
+	}
+}
+
+.sticker8 {
+	left: 93%;
+	top: 52%;
+	transform: scale(0.8);
+}
+
+@include from($desktopSmall) {
+	.sticker8 {
+		left: 52.11%;
+		top: 76.33%;
+		transform: rotate(6deg);
+	}
+}
+
+.sticker9 {
+	display: none;
+}
+
+@include from($desktopSmall) {
+	.sticker9 {
+		display: unset;
+		left: 74.12%;
+		top: 70%;
+		transform: scale(0.8);
+	}
+}
+
+.unicornLogo {
+	display: none;
+}
+
+@include from($desktopSmall) {
+	.unicornLogo {
+		display: block;
+	}
+}

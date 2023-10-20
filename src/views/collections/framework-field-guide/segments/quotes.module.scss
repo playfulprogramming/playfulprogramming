@@ -1,0 +1,40 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.fullQuotesContainer {
+	max-width: var(--max-width_large);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--section-gap);
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	color: var(--on-dark-emphasis_high);
+	transition: color var(--color-transition-time) var(--color-transition-ease);
+	will-change: transition;
+}
+
+.quotesHeaderContainer {
+	max-width: var(--max-width_small);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--section-gap);
+}
+
+.quoteHeaderTitle {
+	text-align: center;
+	margin: 0;
+}
+
+.hideUntilFocused:not(:focus) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+	padding: 0;
+}

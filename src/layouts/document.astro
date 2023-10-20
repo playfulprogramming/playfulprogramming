@@ -1,24 +1,29 @@
 ---
 import BlockingThemeChangerScript from "../page-components/layouts/blocking-theme-changer-script.astro";
-import Layout from "../components/layout/layout.astro";
 import "../global.scss";
-import { Languages } from "types/index";
 import Barebones from "./barebones.astro";
+import Header from "src/views/base/navigation/header.astro";
+import { getPrefixLanguageFromPath } from "utils/translations";
 
-interface DocumentProps {
-	lang?: Languages;
-	disableThemeToggle?: boolean;
-}
+const lang = getPrefixLanguageFromPath(Astro.url.pathname);
 
-let { lang, disableThemeToggle } = Astro.props as DocumentProps;
-lang ??= "en";
+const props = Astro.props as {
+	size: undefined | "l" | "xl";
+};
 ---
 
 <Barebones lang={lang}>
 	<slot slot="head" name="head" />
 	<BlockingThemeChangerScript />
-	<Layout disableThemeToggle={disableThemeToggle}>
-		<slot />
-	</Layout>
+	<Header size={props.size} />
+	<slot />
 	<slot name="post-body" />
+
+	<script>
+		import "src/utils/href-container-script";
+	</script>
+	<script>
+		import { enableStickyObserver } from "src/utils/sticky-observer-script";
+		enableStickyObserver();
+	</script>
 </Barebones>

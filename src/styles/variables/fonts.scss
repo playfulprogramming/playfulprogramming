@@ -1,0 +1,106 @@
+@import "src/tokens/index";
+
+:root {
+	--uu-font-family: "Figtree", "Arial", "Roboto", sans-serif;
+	--uu-font-family-code: "Roboto Mono", monospace;
+	--weight_regular: 400;
+	--weight_semibold: 600;
+	--weight_bold: 700;
+	--weight_extrabold: 800;
+	--weight_black: 900;
+
+	--h1_font-size: #{pxToRem(32)};
+	--h1_line-height: 100%;
+	--h1_block-padding-top: #{pxToRem(16)};
+	--h1_block-padding-bottom: #{pxToRem(16)};
+
+	--h2_font-size: #{pxToRem(28)};
+	--h2_line-height: #{pxToRem(32)};
+	--h2_block-padding-top: #{pxToRem(16)};
+	--h2_block-padding-bottom: #{pxToRem(8)};
+
+	--h3_font-size: #{pxToRem(24)};
+	--h3_line-height: #{pxToRem(28)};
+	--h3_block-padding-top: #{pxToRem(16)};
+	--h3_block-padding-bottom: #{pxToRem(4)};
+
+	--h4_font-size: #{pxToRem(22)};
+	--h4_line-height: #{pxToRem(24)};
+	--h4_block-padding-top: #{pxToRem(16)};
+	--h4_block-padding-bottom: #{pxToRem(0)};
+
+	--h5_font-size: #{pxToRem(20)};
+	--h5_line-height: #{pxToRem(24)};
+	--h5_block-padding-top: #{pxToRem(16)};
+	--h5_block-padding-bottom: #{pxToRem(0)};
+
+	--h6_font-size: #{pxToRem(18)};
+	--h6_line-height: #{pxToRem(20)};
+	--h6_block-padding-top: #{pxToRem(16)};
+	--h6_block-padding-bottom: #{pxToRem(0)};
+
+	--p_block-padding-vertical: #{pxToRem(16)};
+
+	--p_large_font-size: #{pxToRem(16)};
+	--p_large_line-height: #{pxToRem(20)};
+
+	--p_medium_font-size: #{pxToRem(14)};
+	--p_medium_line-height: #{pxToRem(20)};
+
+	--p_small_font-size: #{pxToRem(12)};
+	--p_small_line-height: #{pxToRem(16)};
+
+	--button_block-padding-vertical: var(--spc-3x);
+
+	--button_large_font-size: #{pxToRem(16)};
+	--button_large_line-height: #{pxToRem(20)};
+
+	--button_regular_font-size: #{pxToRem(14)};
+	--button_regular_line-height: #{pxToRem(20)};
+
+	@include from($desktopSmall) {
+		--h1_font-size: #{pxToRem(48)};
+		--h1_line-height: 100%;
+		--h1_block-padding-top: #{pxToRem(24)};
+		--h1_block-padding-bottom: #{pxToRem(24)};
+
+		--h2_font-size: #{pxToRem(40)};
+		--h2_line-height: 100%;
+		--h2_block-padding-top: #{pxToRem(24)};
+		--h2_block-padding-bottom: #{pxToRem(16)};
+
+		--h3_font-size: #{pxToRem(32)};
+		--h3_line-height: #{pxToRem(36)};
+		--h3_block-padding-top: #{pxToRem(24)};
+		--h3_block-padding-bottom: #{pxToRem(8)};
+
+		--h4_font-size: #{pxToRem(28)};
+		--h4_line-height: #{pxToRem(32)};
+		--h4_block-padding-top: #{pxToRem(24)};
+		--h4_block-padding-bottom: #{pxToRem(8)};
+
+		--h5_font-size: #{pxToRem(24)};
+		--h5_line-height: #{pxToRem(28)};
+		--h5_block-padding-top: #{pxToRem(24)};
+		--h5_block-padding-bottom: #{pxToRem(8)};
+
+		--h6_font-size: #{pxToRem(20)};
+		--h6_line-height: #{pxToRem(24)};
+		--h6_block-padding-top: #{pxToRem(24)};
+		--h6_block-padding-bottom: #{pxToRem(8)};
+
+		--p_block-padding-vertical: #{pxToRem(24)};
+
+		--p_large_font-size: #{pxToRem(18)};
+		--p_large_line-height: #{pxToRem(24)};
+
+		--p_medium_font-size: #{pxToRem(16)};
+		--p_medium_line-height: #{pxToRem(20)};
+
+		--p_small_font-size: #{pxToRem(14)};
+		--p_small_line-height: #{pxToRem(20)};
+
+		--button_large_font-size: #{pxToRem(18)};
+		--button_large_line-height: #{pxToRem(24)};
+	}
+}

@@ -1,0 +1,15 @@
+:root {
+	/*
+  ** Default size for icons.
+  */
+
+	--icon-size_regular: 1.5rem;
+
+	/*
+  ** Size for dense layouts with small text sizes.
+  ** The fixed dimension and the padding serve to
+  ** automatically resize the icon to the desired 18pt.
+  */
+	--icon-size_dense: 1.25rem;
+	--icon-size-dense-padding: 0.0625rem;
+}

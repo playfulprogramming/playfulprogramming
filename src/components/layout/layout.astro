@@ -1,6 +1,6 @@
 ---
 import layoutStyles from "./layout.module.scss";
-import DarkLightButton from "components/dark-light-button/dark-light-button.astro";
+import DarkLightButton from "src/views/base/navigation/dark-light-button/dark-light-button.astro";
 import { Icon } from "astro-icon";
 
 // const { back } = useHistory();
@@ -35,7 +35,7 @@ const { disableThemeToggle } = Astro.props as LayoutProps;
 							class={`${layoutStyles.backBtn} baseBtn`}
 							aria-label="Go back"
 						>
-							<Icon height="36" width="36" name="back" />
+							<Icon height="36" width="36" name="arrow_left" />
 						</button>
 					</>
 				) : (

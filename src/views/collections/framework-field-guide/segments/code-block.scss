@@ -1,0 +1,154 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+pre {
+	margin: 0;
+	border: none !important;
+}
+
+code .line::before {
+	color: var(--code-block-text_secondary) !important;
+	font-family: "Fira Code", monospace;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+pre code {
+	font-family: "Fira Code", monospace;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+.tabs {
+	border-radius: var(--code-block-corner-radius_outer);
+	padding: var(--code-block-padding);
+	background: var(--code-block-container_outer);
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
+}
+
+.tabs__tab-list {
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+
+/* Chrome only for now */
+ul.tabs__tab-list:has(
+		> .tabs__tab:first-child:not([aria-selected="true"]),
+		> .tabs__tab:first-child:not([aria-selected=""])
+	)
+	~ .tabs__tab-panel {
+	border-radius: var(--code-block-corner-radius_inner);
+}
+
+ul.tabs__tab-list:has(
+		> .tabs__tab:first-child[aria-selected="true"],
+		> .tabs__tab:first-child[aria-selected=""]
+	)
+	~ .tabs__tab-panel {
+	border-radius: 0 var(--code-block-corner-radius_inner)
+		var(--code-block-corner-radius_inner);
+}
+
+@include until($tablet) {
+	ul.tabs__tab-list:has(
+			> .tabs__tab:last-child[aria-selected="true"],
+			> .tabs__tab:last-child[aria-selected=""]
+		)
+		~ .tabs__tab-panel {
+		border-radius: var(--code-block-corner-radius_inner) 0
+			var(--code-block-corner-radius_inner);
+	}
+}
+
+.tabs__tab {
+	list-style: none;
+	margin: 0;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	color: var(--on-dark-emphasis-high);
+	min-width: var(--code-block-tab-min-size);
+	border-radius: var(--code-block-corner-radius_inner)
+		var(--code-block-corner-radius_inner) 0 0;
+	background: var(--code-block-container_outer);
+	transition:
+		background var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing),
+		color var(--btn-state-transition-duration)
+			var(--btn-state-transition-easing);
+	text-align: center;
+	padding: var(--code-block-spacing);
+	width: calc(100% / 3);
+
+	/* .text-style-body-medium-bold */
+	font-size: 0.875rem;
+	font-family: "Plus Jakarta Sans", "Plus Jakarta Sans-fallback",
+		"Plus Jakarta Sans-fallback2", sans-serif;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 1.25rem;
+	letter-spacing: 0.02em;
+	text-decoration: none;
+	text-transform: none;
+
+	@include from($tablet) {
+		width: unset;
+
+		/* .text-style-body-medium-bold */
+		font-size: 1rem;
+		font-family: "Plus Jakarta Sans", "Plus Jakarta Sans-fallback",
+			"Plus Jakarta Sans-fallback2", sans-serif;
+		font-weight: 700;
+		font-style: normal;
+		line-height: 1.5rem;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		text-transform: none;
+	}
+}
+
+:not([aria-selected="true"]):not([aria-selected=""]) + .tabs__tab::before {
+	position: absolute;
+	content: " ";
+	display: block;
+	left: 0;
+	top: 12px;
+	height: calc(100% - 24px);
+	width: 2px;
+	border-radius: 99px;
+	background: var(--code-block-container_inner);
+}
+
+.tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):hover {
+	background: var(--code-block-tab-inative_hovered);
+}
+
+.tabs__tab:not([aria-selected="true"]):not([aria-selected=""]):active {
+	background: var(--code-block-tab-inactive_pressed);
+}
+
+.tabs__tab[aria-selected="true"],
+.tabs__tab[aria-selected=""] {
+	background: var(--code-block-container_inner);
+}
+
+.tabs__tab-panel {
+	border-radius: 0 0 var(--code-block-corner-radius_inner)
+		var(--code-block-corner-radius_inner);
+	background: var(--code-block-container_inner);
+	padding: var(--code-block-spacing);
+	position: relative;
+	transition: background var(--color-transition-time)
+		var(--color-transition-ease);
+}
+
+.tabs__tab-panel[aria-hidden="true"],
+.tabs__tab-panel[aria-hidden=""] {
+	display: none;
+}

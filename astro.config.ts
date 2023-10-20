@@ -4,48 +4,52 @@ import remarkUnwrapImages from "remark-unwrap-images";
 import remarkGfm from "remark-gfm";
 import remarkEmbedder, { RemarkEmbedderOptions } from "@remark-embedder/core";
 import oembedTransformer from "@remark-embedder/transformer-oembed";
-import * as TwitchTransformer from "gatsby-remark-embedder/dist/transformers/Twitch.js";
+import { TwitchTransformer } from "./src/utils/markdown/remark-embedder-twitch";
 import remarkTwoslash from "remark-shiki-twoslash";
 import { UserConfigSettings } from "shiki-twoslash";
-import rehypeSlug from "rehype-slug-custom-id";
-import { parent } from "./src/constants/site-config";
-import { rehypeHeaderText } from "./src/utils/markdown/rehype-header-text";
-import { rehypeTabs } from "./src/utils/markdown/tabs";
-import { rehypeAstroImageMd } from "./src/utils/markdown/rehype-astro-image-md";
-import { rehypeUnicornElementMap } from "./src/utils/markdown/rehype-unicorn-element-map";
-import { rehypeExcerpt } from "./src/utils/markdown/rehype-excerpt";
-import { rehypeUnicornPopulatePost } from "./src/utils/markdown/rehype-unicorn-populate-post";
-import { rehypeWordCount } from "./src/utils/markdown/rehype-word-count";
-import { rehypeUnicornGetSuggestedPosts } from "./src/utils/markdown/rehype-unicorn-get-suggested-posts";
-import { rehypeUnicornIFrameClickToRun } from "./src/utils/markdown/rehype-unicorn-iframe-click-to-run";
+import { createRehypePlugins } from "./src/utils/markdown";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import { EnumChangefreq as ChangeFreq } from "sitemap";
 import { siteUrl } from "./src/constants/site-config";
-
-// TODO: Create types
-import behead from "remark-behead";
-import rehypeRaw from "rehype-raw";
-
+import vercel from "@astrojs/vercel/static";
 import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import symlink from "symlink-dir";
 import * as path from "path";
 import svgr from "vite-plugin-svgr";
-import { rehypeFileTree } from "./src/utils/markdown/file-tree/rehype-file-tree";
+import { languages } from "./src/constants/index";
+import { fileToOpenGraphConverter } from "./src/utils/translations";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
 export default defineConfig({
 	site: siteUrl,
+	adapter: vercel(),
 	integrations: [
 		image(),
-		preact(),
+		preact({ compat: true }),
 		mdx(),
 		sitemap({
 			changefreq: ChangeFreq.DAILY,
 			priority: 0.7,
 			lastmod: new Date(),
+			i18n: {
+				defaultLocale: "en",
+				locales: Object.keys(languages).reduce((prev, key) => {
+					prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
+					return prev;
+				}, {}),
+			},
+			filter(page) {
+				// return true, unless lart part of the URL ends with "_noindex"
+				// in which case it should not be in the sitemap
+				return !page
+					.split("/")
+					.filter((part) => !!part.length)
+					.at(-1)
+					.endsWith("_noindex");
+			},
 			serialize({ url, ...rest }) {
 				return {
 					// remove trailing slash from sitemap URLs
@@ -58,6 +62,13 @@ export default defineConfig({
 	vite: {
 		ssr: {
 			external: ["svgo"],
+			noExternal: [
+				"react-aria",
+				"react-stately",
+				/@react-aria/,
+				/@react-stately/,
+				/@react-types/,
+			],
 		},
 		plugins: [svgr()],
 	},
@@ -71,11 +82,10 @@ export default defineConfig({
 			// Remove complaining about "div cannot be in p element"
 			remarkUnwrapImages,
 			/* start remark plugins here */
-			[behead, { depth: 1 }],
 			[
-				remarkEmbedder as any,
+				remarkEmbedder,
 				{
-					transformers: [oembedTransformer, [TwitchTransformer, { parent }]],
+					transformers: [oembedTransformer, TwitchTransformer],
 				} as RemarkEmbedderOptions,
 			],
 			[
@@ -85,51 +95,6 @@ export default defineConfig({
 				} as UserConfigSettings,
 			],
 		],
-		rehypePlugins: [
-			rehypeUnicornPopulatePost,
-			rehypeUnicornGetSuggestedPosts,
-			// This is required to handle unsafe HTML embedded into Markdown
-			[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
-			// Do not add the tabs before the slug. We rely on some of the heading
-			// logic in order to do some of the subheading logic
-			[
-				rehypeSlug,
-				{
-					maintainCase: true,
-					removeAccents: true,
-					enableCustomId: true,
-				},
-			],
-			[
-				rehypeTabs,
-				{
-					injectSubheaderProps: true,
-					tabSlugifyProps: {
-						enableCustomId: true,
-					},
-				},
-			],
-			rehypeFileTree,
-			rehypeHeaderText,
-			/**
-			 * Insert custom HTML generation code here
-			 */
-			[
-				rehypeAstroImageMd,
-				{
-					maxHeight: 768,
-					maxWidth: 768,
-				},
-			],
-			rehypeUnicornIFrameClickToRun,
-			rehypeUnicornElementMap,
-			[
-				rehypeExcerpt,
-				{
-					maxLength: 150,
-				},
-			],
-			rehypeWordCount,
-		],
+		rehypePlugins: createRehypePlugins({ format: "html" }),
 	} as AstroUserConfig["markdown"] as never,
 });

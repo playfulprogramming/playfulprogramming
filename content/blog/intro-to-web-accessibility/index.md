@@ -182,13 +182,13 @@ Many phones using iOS and Android allow users to change the font size on their m
 
 <div style="display: flex; justify-content: space-around">
     <figure>
-		<img src="./ios_text_size.png"  style="height: 300px"/>            
+		<img src="./ios_text_size.png"/>            
         <figcaption>
             iOS font size settings screen
         </figcaption>
     </figure>
     <figure>
-        <img src="./android_text_size.png"  style="height: 300px"/>
+        <img src="./android_text_size.png"/>
         <figcaption>
             Android font size settings screen
         </figcaption>

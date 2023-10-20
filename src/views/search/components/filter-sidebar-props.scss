@@ -1,0 +1,61 @@
+@import "src/tokens/index";
+
+:root {
+	--search-page_filter_sidebar_padding-end: 0px;
+
+	--search-page_search-bar_max-height: var(--min-target-size_l);
+
+	--search-page_filter_sidebar_padding-vertical: var(--site-spacing);
+	--search-page_filter_sidebar_padding-start: var(--site-spacing);
+	--search-page_filter_sidebar_gap: var(--spc-4x);
+
+	--search-page_filter_list_header_min-height: var(--min-target-size_l);
+	--search-page_filter_list_header_gap: var(--spc-1x);
+	--search-page_filter_list_header_title_padding: var(--spc-1x);
+	--search-page_filter_list_header_padding-start: var(--spc-3x);
+	--search-page_filter_list_header_padding-end: var(--spc-2x);
+	--search-page_filter_list_header_padding-vertical: var(--spc-2x);
+
+	--search-page_filter_list_header_title_color: var(--foreground_emphasis-high);
+	--search-page_filter_list_header_count_color: var(--primary_default);
+	--search-page_filter_list_header_icon_color: var(--primary_default);
+	--search-page_filter_list_header_icon_size: var(--icon-size_regular);
+
+	--search-page_filter_list_divider_color: var(--background_disabled);
+	--search-page_filter_list_divider_width: var(--border-width_s);
+
+	--search-page_filter_list_header_background-color_hovered: var(
+		--surface_primary_emphasis-none
+	);
+	--search-page_filter_list_header_background-color_pressed: var(
+		--surface_primary_emphasis-low
+	);
+	--search-page_filter_list_header_background-color_focused: var(
+		--background_focused
+	);
+	--search-page_filter_list_header_focus-outline_width: var(
+		--border-width_focus
+	);
+	--search-page_filter_list_header_focus-outline_color: var(
+		--focus-outline_primary
+	);
+
+	--search-page_filter_list_corner-radius: var(--corner-radius_l);
+
+	@include from($desktopLarge) {
+		--search-page_search-bar_max-height: var(--min-target-size_m);
+
+		--search-page_filter_sidebar_width: 360px;
+		--search-page_filter_sidebar_padding-end: var(--site-spacing);
+	}
+
+	@include from($desktopSmall) {
+		--search-page_filter_sidebar_width: 320px;
+	}
+
+	@include from($tabletLarge) {
+		--search-page_search-bar_max-height: var(--min-target-size_m);
+		--search-page_filter_sidebar_padding-end: 0px;
+		--search-page_filter_sidebar_width: 288px;
+	}
+}

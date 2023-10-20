@@ -9,6 +9,8 @@ import { visit } from "unist-util-visit";
  */
 export const rehypeHeaderText = () => {
 	return (tree: Root, file) => {
+		const headingsWithId = (file.data.astro.frontmatter.headingsWithId = []);
+
 		visit(tree, "element", (node: Parent["children"][number]) => {
 			if (
 				headingRank(node) &&
@@ -16,20 +18,27 @@ export const rehypeHeaderText = () => {
 				node.properties &&
 				!hasProperty(node, "data-header-text")
 			) {
-				const headerText = toString(node);
+				const headerText = toString(node as never);
 				node.properties["data-header-text"] = headerText;
+
+				// wrap header contents in a <span> (for inline text styling on :focus)
+				// see: src/views/base/scripts/heading-link.module.scss
+				node.children = [
+					{
+						type: "element",
+						tagName: "span",
+						properties: {},
+						children: node.children,
+					},
+				];
 
 				const headingWithID = {
 					value: headerText,
 					depth: headingRank(node)!,
-					slug: node.properties["id"] as string,
+					slug: node.properties["id"]! as string,
 				};
 
-				if (file.data.astro.frontmatter.headingsWithId) {
-					file.data.astro.frontmatter.headingsWithId.push(headingWithID);
-				} else {
-					file.data.astro.frontmatter.headingsWithId = [headingWithID];
-				}
+				headingsWithId.push(headingWithID);
 			}
 		});
 	};

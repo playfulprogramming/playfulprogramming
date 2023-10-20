@@ -1,0 +1,36 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root {
+	--pricing-container_default: var(--slate-800);
+	--pricing-container_highlighted: var(--slate-700);
+	--pricing-container-radius: var(--corner-radius-2x);
+	--bullet-list-item-gap: 4px;
+	--bullet-list-item-icon-size: 12px;
+	--sale-badge-size: 72px;
+	--sale-badge-offset: -16px;
+	--sale-badge-rotation: -30deg;
+
+	--pricing-toggle-track-color: rgba(var(--state-overlay), 0.48);
+	--pricing-toggle-track-color_hovered: rgba(var(--state-overlay), 0.64);
+	--pricing-toggle-track-color_pressed: rgba(var(--state-overlay), 1);
+
+	--pricing-toggle-width: 56px;
+	--pricing-toggle-height: 32px;
+	--pricing-toggle-thumb-size: 20px;
+	--pricing-toggle-thumb-size_hovered: 24px;
+	--pricing-toggle-thumb-size_pressed: 28px;
+
+	--pricing-toggle-gap: 6px;
+	--pricing-toggle-gap_hovered: 4px;
+	--pricing-toggle-gap_pressed: 2px;
+}
+
+@include from($desktop) {
+	:root {
+		--bullet-list-item-icon-size: 16px;
+		--sale-badge-size: 128px;
+		--sale-badge-offset: -48px;
+		--pricing-container-radius: var(--corner-radius-3x);
+	}
+}

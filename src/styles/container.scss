@@ -1,0 +1,8 @@
+@import "src/tokens/index";
+
+.container {
+	margin: 0 auto;
+	padding: 0 var(--site-spacing);
+
+	max-width: var(--max-width_l);
+}

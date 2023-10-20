@@ -1,0 +1,159 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.signUpContainer {
+	text-align: center;
+	color: var(--on-dark-emphasis-high);
+	max-width: var(--max-width_small);
+	margin: 0 auto;
+	padding: var(--section-ver-padding) var(--section-hor-padding) 96px;
+}
+
+.signUpFormContainer {
+	position: relative;
+	border-style: solid;
+	padding: 0 var(--section-hor-padding) var(--section-ver-padding);
+	border-width: var(--border-2x);
+	border-color: var(--outline);
+	border-radius: var(--outline-corner-radius);
+}
+
+.signUpFormContainer > picture:first-child {
+	display: block;
+	height: var(--avatar-size_large);
+	width: var(--avatar-size_large);
+	position: relative;
+	top: calc(var(--avatar-size_large) / -2);
+	padding-right: var(--outline-gap);
+	padding-left: var(--outline-gap);
+	background: var(--section-background);
+	margin: 0 auto calc(var(--avatar-size_large) / -2);
+	transition: background var(--animStyle) var(--animSpeed);
+	will-change: transition;
+}
+
+.avatar {
+	height: var(--avatar-size_large);
+	width: var(--avatar-size_large);
+	border-radius: var(--corner-radius-circle);
+}
+
+.thankYouForCheckingOut {
+	letter-spacing: 0.25em !important;
+	text-transform: uppercase !important;
+	display: block;
+}
+
+.seriesTitleContainer {
+	display: block;
+	margin-top: var(--spc-1x);
+	margin-bottom: calc(var(--section-gap) + calc(var(--avatar-size_large) / 2));
+}
+
+.seriesTitle {
+	background: var(--gradient-ffg);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.signUpForUpdates {
+	margin: var(--section-gap) 0 0;
+}
+
+.signUpInstructions {
+	color: var(--on-dark-emphasis-medium);
+	margin: 0 0 var(--section-gap);
+}
+
+.signUpDisclaimer {
+	margin-top: var(--spc-2x);
+	margin-bottom: var(--section-gap);
+	color: var(--on-dark-emphasis-medium);
+}
+
+.getInvolvedContainer {
+	padding: var(--section-gap) 0;
+}
+
+.getInvolvedHeader {
+	margin: 0;
+}
+
+.getInvolvedExplainer {
+	margin: 0;
+	color: var(--on-dark-emphasis-medium);
+}
+
+.signUpInstructions,
+.getInvolvedExplainer {
+	margin-top: var(--spc-1x);
+}
+
+.buttonContainer {
+	position: absolute;
+	bottom: calc(var(--social-btn-height) / -2);
+	left: 50%;
+	transform: translateX(-50%);
+	height: var(--social-btn-height);
+	width: calc(100% - (var(--section-hor-padding) * 2));
+	background: var(--section-background);
+	display: flex;
+	gap: var(--outline-gap);
+	padding: 0 var(--outline-gap);
+	transition: background var(--animStyle) var(--animSpeed);
+	will-change: transition;
+}
+
+@include from($desktop) {
+	.buttonContainer {
+		width: 50%;
+	}
+}
+
+.twitterButton,
+.discordButton {
+	display: inline-flex !important;
+	border: none !important;
+	justify-content: center;
+	align-items: center;
+	flex-basis: 100%;
+}
+
+.twitterButton > svg,
+.discordButton > svg {
+	height: var(--social-btn-icon-size);
+	width: var(--social-btn-icon-size);
+}
+
+.twitterButton {
+	--twitter-btn-color: #1da1f2;
+	--twitter-btn-color_hovered: #068eef;
+	--twitter-btn-color_pressed: #0079db;
+	background: var(--twitter-btn-color);
+	height: 100%;
+}
+
+.twitterButton:hover {
+	background: var(--twitter-btn-color_hovered);
+}
+
+.twitterButton:active {
+	background: var(--twitter-btn-color_pressed);
+}
+
+.discordButton {
+	--discord-btn-color: #5865f2;
+	--discord-btn-color_hovered: #4956df;
+	--discord-btn-color_pressed: #3945c6;
+	background: var(--discord-btn-color);
+	height: 100%;
+}
+
+.discordButton:hover {
+	background: var(--discord-btn-color_hovered);
+}
+
+.discordButton:active {
+	background: var(--discord-btn-color_pressed);
+}

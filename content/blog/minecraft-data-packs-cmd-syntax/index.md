@@ -5,10 +5,10 @@
 	published: '2022-06-15T21:12:03.284Z',
 	edited: '2023-09-27',
 	authors: ['fennifith'],
-	tags: [],
+	tags: ["minecraft", "gamedev"],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "Minecraft Data Pack Programming",
+	collection: "minecraft-data-packs",
 	order: 2
 }
 ---

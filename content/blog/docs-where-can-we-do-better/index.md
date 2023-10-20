@@ -51,7 +51,10 @@ This is the raw type definition for this object and its properties and methods. 
 
 For example:
 
-<h3>getMember(id: string): Member | null</h3>
+```
+getMember(id: string): Member | null
+```
+
 Returns the Member object for the user with the given id, or null if they aren't in the Guild.
 
 ---

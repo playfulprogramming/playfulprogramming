@@ -8,7 +8,7 @@
     attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-lit-framework/',
-    series: "Web Components 101",
+    collection: "web-components-101",
     order: 3
 }
 ---

@@ -1,0 +1,23 @@
+@import "./vars";
+
+@function pxToRem($pxNum) {
+	@return #{calc($pxNum / 16)}rem;
+}
+
+@mixin transition($properties) {
+	$transitions: ();
+	@each $prop in $properties {
+		$transitions: append($transitions, $prop $animStyle $animSpeed, comma);
+	}
+	transition: $transitions;
+}
+
+@mixin darkTheme() {
+	// these need to be defined separately because :global does not work outside of CSS modules
+	html.dark & {
+		@content;
+	}
+	:global(html.dark) & {
+		@content;
+	}
+}

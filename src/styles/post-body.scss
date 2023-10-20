@@ -1,236 +1,201 @@
-@import "./vars";
-@import "./utils";
-@import "./text_styles";
-@import "./file-list";
+@import "src/tokens/index";
+@import "./text-styles.scss";
+
+:where(a) {
+	color: var(--primary_default);
+}
+
+:where(a:visited) {
+	color: var(--secondary_default);
+}
 
 .post-body {
-	margin: 0 auto #{$baseUnit * 4}px;
-	max-width: 768px;
-	line-height: 1.7;
-
-	// Fix autolink-headings anchors positioning
-	.anchor {
-		line-height: 1;
-		padding-right: 24px;
-
-		svg {
-			vertical-align: middle;
-		}
+	h1 {
+		@extend .text-style-headline-1;
+		margin: 0 auto;
+		margin-top: var(--h1_block-padding-top);
+		margin-bottom: var(--h1_block-padding-bottom);
 	}
 
-	.anchor.before {
-		position: absolute;
-		top: 0;
-		left: 0;
-		transform: translateX(-100%);
-		padding-right: 24px;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
+	h2 {
+		@extend .text-style-headline-2;
+		margin: 0 auto;
+		margin-top: var(--h2_block-padding-top);
+		margin-bottom: var(--h2_block-padding-bottom);
 	}
 
-	h1 .anchor svg,
-	h2 .anchor svg,
-	h3 .anchor svg,
-	h4 .anchor svg,
-	h5 .anchor svg,
-	h6 .anchor svg {
-		visibility: hidden;
+	h3 {
+		@extend .text-style-headline-3;
+		margin: 0 auto;
+		margin-top: var(--h3_block-padding-top);
+		margin-bottom: var(--h3_block-padding-bottom);
 	}
 
-	h1:hover .anchor svg,
-	h2:hover .anchor svg,
-	h3:hover .anchor svg,
-	h4:hover .anchor svg,
-	h5:hover .anchor svg,
-	h6:hover .anchor svg,
-	h1 .anchor:focus svg,
-	h2 .anchor:focus svg,
-	h3 .anchor:focus svg,
-	h4 .anchor:focus svg,
-	h5 .anchor:focus svg,
-	h6 .anchor:focus svg {
-		visibility: visible;
+	h4 {
+		@extend .text-style-headline-4;
+		margin: 0 auto;
+		margin-top: var(--h4_block-padding-top);
+		margin-bottom: var(--h4_block-padding-bottom);
 	}
 
-	img {
+	h5 {
+		@extend .text-style-headline-5;
+		margin: 0 auto;
+		margin-top: var(--h5_block-padding-top);
+		margin-bottom: var(--h5_block-padding-bottom);
+	}
+
+	h6 {
+		@extend .text-style-headline-6;
+		margin: 0 auto;
+		margin-top: var(--h6_block-padding-top);
+		margin-bottom: var(--h6_block-padding-bottom);
+	}
+
+	p {
+		@extend .text-style-body-large;
+		margin-top: var(--p_block-padding-vertical);
+		margin-bottom: var(--p_block-padding-vertical);
+	}
+
+	color: var(--foreground_emphasis-high);
+
+	h1,
+	.text-style-headline-1,
+	h2,
+	.text-style-headline-2,
+	h3,
+	.text-style-headline-3,
+	h4,
+	.text-style-headline-4,
+	h5,
+	.text-style-headline-5,
+	h6,
+	.text-style-headline-6 {
+		color: var(--foreground_emphasis-high);
+	}
+
+	img:not([data-dont-round]):not([src$=".svg"]),
+	video:not([data-dont-round]) {
+		border-radius: var(--corner-radius_m);
+	}
+
+	img.medium-zoom-image {
 		max-width: 100%;
+		height: auto;
 	}
 
-	img[src$=".svg"] {
+	img.medium-zoom-image[src$=".svg"] {
 		width: 100%;
 		max-height: 50vh;
 	}
 
+	pre,
+	code {
+		@extend .text-style-code;
+	}
+
+	code:not(pre code) {
+		font-family: var(--uu-font-family-code);
+		font-size: 0.8em;
+		font-weight: 500;
+
+		color: var(--secondary_on-variant);
+
+		background-color: var(--background_secondary);
+		padding-bottom: 0.15em;
+		padding-left: 0.15em;
+		padding-right: 0.15em;
+		border: 0.075em solid var(--secondary_variant);
+		border-radius: 0.25em;
+
+		// the table header has a primary background...
+		&:where(thead code) {
+			color: var(--white);
+			background-color: var(--primary30);
+			border-color: var(--primary60);
+		}
+	}
+
+	a code {
+		text-decoration: underline;
+	}
+
+	a:focus-visible:not([class]) {
+		// adding +0.5px to each value converted to rem to ensure that it is
+		// the expected size when aliasing rounds it down to a px value
+		outline: pxToRem(3.5) solid var(--focus-outline_primary);
+		outline-offset: pxToRem(1.5);
+		border-radius: calc(var(--border-width_focus) / 2);
+	}
+
+	kbd {
+		font-family: var(--uu-font-family-code);
+		font-size: 0.8em;
+		font-weight: 500;
+		color: var(--black);
+		background-color: #eaeaea;
+		text-shadow: 0px 0.075em var(--white);
+		line-height: 1;
+		padding: 0.15em;
+		border: 0.075em solid var(--white);
+		border-radius: 0.25em;
+		box-shadow: var(--shadow_sticker);
+	}
+
+	// <code> and <kbd> styling will overlap other lines in header elements
+	// because their containers expand past the available line-height.
+	// - `display: inline-flex` forces the line to expand to fit these elements.
+	//   while centering its contents (`align-items: center`)
+	// - albeit with the caveat of not being able to wrap its contents between lines
 	h1,
 	h2,
 	h3,
 	h4,
 	h5,
 	h6 {
-		margin-top: 1.25em;
-		line-height: 1.5;
-		margin-bottom: 0;
-	}
-
-	h1 + h2,
-	h2 + h3,
-	h3 + h4,
-	h4 + h5,
-	h5 + h6 {
-		margin-top: 0.75em;
-	}
-
-	thead tr:first-child {
-		th, td {
-			border-top: none;
-		}
-	}
-
-	tbody tr:last-child {
-		th, td {
-			border-bottom: none;
-		}
-	}
-
-	table tr {
-		td:first-child, th:first-child {
-			border-left: none;
-		}
-	}
-
-	table tr {
-		td:last-child, th:last-child {
-			border-right: none;
-		}
-	}
-
-	.table-container {
-		max-width: 100%;
-		// overflow: auto;
-	}
-
-	table {
-		border-radius: var(--cardRadius);
-		border-collapse: collapse;
-		// Border-collapse and border-radius don't mix. This is a workaround for that issue
-		box-shadow: 0 0 0 1px var(--primary);
-
-		@include until($endSmallScreenSize) {
-			ul {
-				padding: 0;
-				list-style: none;
-			}
-		}
-	}
-
-	// Only use a sticky header on tables with 4+ rows
-	table:has(tr:nth-child(4)) thead {
-		position: sticky;
-		top: 0;
-	}
-
-	thead {
-		border-top-left-radius: var(--cardRadius);
-		border-top-right-radius: var(--cardRadius);
-		// This effectively sets a background using an extremely inset box shadow, which is affected by the border radius
-		box-shadow: inset 100vw 100vh 0 var(--cardActiveBackground), var(--cardActiveBoxShadow);
-	}
-
-	td,
-	th {
-		border: var(--cardOutlineStyle);
-		padding: .3rem .6rem;
-		line-height: 110%;
-
-		&> code {
-			word-break: break-word;
-		}
-
-		@include until($endSmallScreenSize) {
-			padding-left: 5px;
-			padding-right: 5px;
-		}
-	}
-
-	iframe {
-		box-sizing: border-box;
-		display: block;
-		max-width: 100%;
-		min-height: 500px;
-		border: var(--cardOutlineStyle);
-		border-radius: 8px;
-		overflow: hidden;
-	}
-
-	p > code {
-		display: inline;
-		padding: 0 0.4em;
-		font-size: 85%;
-		color: var(--black);
-		background-color: var(--codeInlineBackground);
-		border-radius: 4px;
-	}
-
-	details {
-		border: 2px solid var(--darkPrimary);
-		border-radius: 0.5rem;
-		margin-bottom: 1em;
-
-		summary {
-			padding: 0.5rem 1.5rem;
-			background: var(--darkPrimary);
-			color: var(--backgroundColor);
-			cursor: pointer;
-		}
-
-		summary ~ * {
-			margin-left: 1.5rem;
-			margin-right: 1.5rem;
-		}
-	}
-
-	kbd {
-		background-color: #eee;
-		border-radius: 3px;
-		border: 1px solid #b4b4b4;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-			0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
-		color: #333;
-		display: inline-block;
-		font-size: 0.85em;
-		font-weight: 700;
-		line-height: 1;
-		padding: 2px 4px;
-		white-space: nowrap;
-	}
-
-	blockquote {
 		position: relative;
-		margin-left: 1em;
-		color: var(--midImpactBlack);
 
-		&::before {
-			content: " ";
-			position: absolute;
-			left: 0;
-			top: 0;
-			height: 100%;
-			width: 3px;
-			background: var(--darkPrimary);
-			left: -1em;
+		code {
+			display: inline-flex;
+			height: calc(1.2em + 0.15em);
+			align-items: center;
 		}
 
-		/*a {
-        color: rgba(0, 10, 125, 0.6);
-    }*/
+		kbd {
+			display: inline-flex;
+			height: calc(1.2em + 2 * 0.15em);
+			align-items: center;
+		}
 	}
 
-	blockquote.bigBlock {
-		&,
-		& * {
-			font-size: 1.5rem;
-		}
+	hr {
+		position: relative;
+		overflow: clip;
+		border: none;
+		margin-top: var(--site-spacing);
+		margin-bottom: var(--site-spacing);
+
+		color: var(--primary_variant);
+		height: 20px;
+
+		background: linear-gradient(
+			to right,
+			transparent,
+			currentColor 1%,
+			currentColor 99%,
+			transparent
+		);
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 8 8' fill='none'%3E%3Cpath stroke='%23000' stroke-width='1.6' stroke-linecap='round' d='M -4 4 C -3 5 -1 5 0 4 C 1 3 3 3 4 4 C 5 5 7 5 8 4 C 9 3 11 3 12 4'%3E%3C/path%3E%3C/svg%3E");
+		mask-repeat: repeat-x;
 	}
 }
+
+@import "src/styles/markdown/blockquote";
+@import "src/styles/markdown/codeblock";
+@import "src/styles/markdown/embed";
+@import "src/styles/markdown/hints";
+@import "src/styles/markdown/lists";
+@import "src/styles/markdown/table";
+@import "src/styles/markdown/tooltips";
+@import "src/styles/markdown/file-list";

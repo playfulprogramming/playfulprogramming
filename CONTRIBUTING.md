@@ -41,9 +41,9 @@ Here's an example of what your entry might look like:
   // "description" is a short bio that will be shown on your profile page
   "description": "Haskell programmer, fanfiction author, and an omniscient unicorn.",
 
-  // Social usernames can include "twitter", "github", "linkedIn",
-  // "twitch", and "dribbble", as well as a "website" that can be
-  // anything you want!
+  // Social usernames can include "twitter", "github", "gitlab",
+  // "linkedIn", "twitch", "dribbble", "mastodon", "threads", "youtube",
+  // and "cohost", as well as a "website" that can be anything you want!
   "socials": {
     "twitter": "UnicornUttrncs",
     "github": "unicorn-utterances",

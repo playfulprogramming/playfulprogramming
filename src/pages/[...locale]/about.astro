@@ -1,0 +1,37 @@
+---
+import Document from "src/layouts/document.astro";
+import SEO from "components/seo/seo.astro";
+import AboutView from "src/views/about/about.astro";
+import {
+	getLanguageFromFilename,
+	getTranslatedPage,
+	translate,
+} from "utils/translations";
+
+const { locales } = getTranslatedPage(
+	Astro,
+	await Astro.glob("../../../content/site/about-us*.mdx"),
+);
+
+export async function getStaticPaths() {
+	const globResults = await Astro.glob("../../../content/site/about-us*.mdx");
+	return globResults.map((globItem) => {
+		const locale = getLanguageFromFilename(globItem.file);
+		return {
+			params: {
+				locale: locale !== "en" ? locale : undefined,
+			},
+		};
+	});
+}
+---
+
+<Document>
+	<SEO
+		title={translate(Astro, "title.about_us")}
+		description={translate(Astro, "desc.about_us")}
+		providedLangs={locales}
+		slot="head"
+	/>
+	<AboutView />
+</Document>

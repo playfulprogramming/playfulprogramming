@@ -1,4 +1,5 @@
 ---
+import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "constants/theme";
 import { Languages } from "types/index";
 
 /**
@@ -19,7 +20,16 @@ lang ??= "en";
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#127db3" />
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: light)"
+			content={THEME_COLOR_LIGHT}
+		/>
+		<meta
+			name="theme-color"
+			media="(prefers-color-scheme: dark)"
+			content={THEME_COLOR_DARK}
+		/>
 		<link
 			rel="apple-touch-icon"
 			sizes="48x48"
@@ -65,8 +75,7 @@ lang ??= "en";
 			defer
 			data-domain="unicorn-utterances.com"
 			src="/areyoumyuser/js/script.js"
-			data-api="/areyoumyuser/api/event"
-		></script>
+			data-api="/areyoumyuser/api/event"></script>
 		<script is:inline>
 			window.plausible =
 				window.plausible ||

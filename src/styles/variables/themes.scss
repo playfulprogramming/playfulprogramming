@@ -1,0 +1,101 @@
+// Light theme
+:root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
+::backdrop {
+	--primary_default: var(--primary40);
+	--primary_on-default: var(--primary95);
+	--primary_variant: var(--primary80);
+	--primary_on-variant: var(--primary10);
+	--primary_high-contrast: var(--primary20);
+	--primary_high-contrast_hovered: var(--primary30);
+	--primary_high-contrast_pressed: var(--primary40);
+	--secondary_default: var(--secondary40);
+	--secondary_on-default: var(--secondary95);
+	--secondary_variant: var(--secondary80);
+	--secondary_on-variant: var(--secondary10);
+	--secondary_high-contrast: var(--secondary20);
+	--secondary_high-contrast_hovered: var(--secondary30);
+	--secondary_high-contrast_pressed: var(--secondary40);
+	--error_default: var(--error40);
+	--error_on-default: var(--error95);
+	--error_variant: var(--error80);
+	--error_on-variant: var(--error10);
+	--error_high-contrast: var(--error20);
+	--error_high-contrast_hovered: var(--error30);
+	--error_high-contrast_pressed: var(--error40);
+	--surface_primary_emphasis-high: var(--primary80);
+	--surface_primary_emphasis-medium: var(--primary80_64);
+	--surface_primary_emphasis-low: var(--primary80_32);
+	--surface_primary_emphasis-none: var(--primary80_16);
+	--surface_secondary_emphasis-high: var(--secondary80);
+	--surface_secondary_emphasis-medium: var(--secondary80_64);
+	--surface_secondary_emphasis-low: var(--secondary80_32);
+	--surface_secondary_emphasis-none: var(--secondary80_16);
+	--surface_error_emphasis-high: var(--error80);
+	--surface_error_emphasis-medium: var(--error80_64);
+	--surface_error_emphasis-low: var(--error80_32);
+	--surface_error_emphasis-none: var(--error80_16);
+	--background_primary: var(--primary95);
+	--background_secondary: var(--secondary95);
+	--background_error: var(--error95);
+	--background_focus: var(--white);
+	--background_disabled: var(--neutral10_12);
+	--foreground_emphasis-high: var(--neutral10);
+	--foreground_emphasis-medium: var(--neutral10_72);
+	--foreground_disabled: var(--neutral10_48);
+	--focus-outline_primary: var(--primary40);
+	--focus-outline_secondary: var(--secondary40);
+	--focus-outline_error: var(--error40);
+}
+
+html.dark,
+body.dark,
+.darkTheme {
+	&,
+	& ::backdrop {
+		--primary_default: var(--primary80);
+		--primary_on-default: var(--primary10);
+		--primary_variant: var(--primary40);
+		--primary_on-variant: var(--primary95);
+		--primary_high-contrast: var(--primary80);
+		--primary_high-contrast_hovered: var(--primary70);
+		--primary_high-contrast_pressed: var(--primary60);
+		--secondary_default: var(--secondary80);
+		--secondary_on-default: var(--secondary10);
+		--secondary_variant: var(--secondary40);
+		--secondary_on-variant: var(--secondary95);
+		--secondary_high-contrast: var(--secondary80);
+		--secondary_high-contrast_hovered: var(--secondary70);
+		--secondary_high-contrast_pressed: var(--secondary60);
+		--error_default: var(--error80);
+		--error_on-default: var(--error10);
+		--error_variant: var(--error40);
+		--error_on-variant: var(--error95);
+		--error_high-contrast: var(--error80);
+		--error_high-contrast_hovered: var(--error70);
+		--error_high-contrast_pressed: var(--error60);
+		--surface_primary_emphasis-high: var(--primary40);
+		--surface_primary_emphasis-medium: var(--primary40_64);
+		--surface_primary_emphasis-low: var(--primary40_32);
+		--surface_primary_emphasis-none: var(--primary40_16);
+		--surface_secondary_emphasis-high: var(--secondary40);
+		--surface_secondary_emphasis-medium: var(--secondary40_64);
+		--surface_secondary_emphasis-low: var(--secondary40_32);
+		--surface_secondary_emphasis-none: var(--secondary40_16);
+		--surface_error_emphasis-high: var(--error40);
+		--surface_error_emphasis-medium: var(--error40_64);
+		--surface_error_emphasis-low: var(--error40_32);
+		--surface_error_emphasis-none: var(--error40_16);
+		--background_primary: var(--primary10);
+		--background_secondary: var(--secondary10);
+		--background_error: var(--error10);
+		--background_focus: var(--black);
+		--background_disabled: var(--neutral95_12);
+		--foreground_emphasis-high: var(--neutral95);
+		--foreground_emphasis-medium: var(--neutral95_72);
+		--foreground_disabled: var(--neutral95_48);
+		--focus-outline_primary: var(--primary80);
+		--focus-outline_secondary: var(--secondary80);
+		--focus-outline_error: var(--error80);
+	}
+}

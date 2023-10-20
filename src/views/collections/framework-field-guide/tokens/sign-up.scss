@@ -1,0 +1,31 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root {
+	--sign-up-avatar-size: var(--avatar-size_large);
+	--sign-up-btn-gap: var(--spc-6x);
+
+	--outline-gap: var(--spc-1x);
+	--outline-corner-radius: var(--corner-radius-2x);
+
+	--social-btn-icon-size: 24px;
+	--social-btn-height: 40px;
+}
+
+@include from($tablet) {
+	:root {
+		--outline-gap: var(--spc-2x);
+	}
+}
+
+@include from($desktop) {
+	:root {
+		--sign-up-btn-gap: var(--spc-3x);
+
+		--outline-gap: var(--spc-3x);
+		--outline-corner-radius: var(--corner-radius-3x);
+
+		--social-btn-icon-size: 32px;
+		--social-btn-height: 64px;
+	}
+}

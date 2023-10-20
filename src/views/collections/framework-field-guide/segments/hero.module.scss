@@ -1,0 +1,184 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+body {
+	--backgroundColor: var(--fund-200) !important;
+}
+
+.sunContainerContainer {
+	position: relative;
+	z-index: -1;
+	transition: transform 1ms;
+}
+
+.sunContainerContainer > div {
+	position: relative;
+}
+
+.sunContainerContainer > div > svg {
+	position: absolute;
+	left: -30%;
+	top: -100px;
+	z-index: -1;
+
+	transition: all 300ms ease-in-out;
+
+	height: 320px;
+	width: 320px;
+
+	@include from($tablet) {
+		left: -40%;
+		height: 480px;
+		width: 480px;
+	}
+
+	@include from($desktop) {
+		left: -40%;
+		height: 560px;
+		width: 560px;
+	}
+}
+
+.heroContainer {
+	padding: var(--spc-6x) var(--section-hor-padding);
+	text-align: center;
+}
+
+.titleContainer {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+
+	display: grid;
+	position: relative;
+	grid-template-columns: 1fr auto auto auto 1fr;
+	grid-template-rows: 1fr;
+}
+
+.sparkContainer {
+	height: 100%;
+	box-sizing: border-box;
+	padding: 1rem;
+}
+
+.sparkContainer > svg {
+	height: 100%;
+	width: 100%;
+	fill: var(--outline) !important;
+}
+
+.introducing {
+	letter-spacing: 0.25em !important;
+	text-transform: uppercase !important;
+	color: var(--on-light-emphasis-high);
+}
+
+.seriesTitle {
+	margin-top: var(--spc-2x);
+	margin-bottom: var(--spc-3x);
+	color: var(--on-light-emphasis-high);
+}
+
+.booksContainer {
+	margin: var(--spc-6x) 0;
+	list-style: none;
+	padding: 0;
+	display: grid;
+
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+
+	.bookItemContainer:first-child {
+		grid-column: span 2;
+	}
+
+	.heroLine {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: -2;
+		height: calc(100%);
+		width: 100%;
+		top: 0.75rem;
+		border-radius: var(--corner-radius-2x);
+		box-sizing: border-box;
+		border: 2px dotted var(--outline);
+	}
+
+	.heroLineBottomHider {
+		position: relative;
+		left: -50%;
+		height: 1rem;
+		background: var(--fund-200);
+		z-index: -1;
+		top: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	@include from($tablet) {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: 1fr;
+
+		.bookItemContainer:first-child {
+			grid-column: unset;
+		}
+
+		.heroLine {
+			all: unset;
+			width: 200%;
+			position: absolute;
+			top: 0.75rem;
+			height: 0px;
+			border-bottom: 2px dotted var(--outline);
+			z-index: -1;
+		}
+
+		.heroLineBottomHider {
+			all: unset;
+		}
+	}
+}
+
+.bookItemContainer {
+	position: relative;
+}
+
+.explainer {
+	color: var(--on-light-emphasis-medium);
+}
+
+.frameworkName {
+	color: var(--on-light-emphasis-high);
+}
+
+.readyToStart {
+	color: var(--on-light-emphasis-high);
+}
+
+.bookPart {
+	text-transform: uppercase !important;
+	display: inline-block;
+	border-radius: var(--corner-radius-circular);
+	padding: 0 var(--spc-2x);
+	background: var(--fund-200);
+	color: var(--on-light-emphasis-low);
+	margin: 0;
+}
+
+.bookPartName {
+	color: var(--on-light-emphasis-high);
+
+	margin-top: 0;
+	margin-bottom: var(--spc-2x);
+
+	@include from($desktop) {
+		margin-top: var(--spc-1x);
+		margin-bottom: var(--spc-4x);
+	}
+}
+
+.bookPartBottomText {
+	margin-top: var(--spc-1x);
+	color: var(--on-light-emphasis-medium);
+}

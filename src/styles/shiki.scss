@@ -1,4 +1,4 @@
-@import "./text_styles";
+@import "src/tokens/index";
 
 /*
  * This code handles line of code counting
@@ -22,11 +22,15 @@ pre code .line::before {
 	// Otherwise, the first tab is offset by the width of the line counter,
 	// leading to inconsistent tab alignment.
 	position: absolute;
-	left: 0;
+	left: var(--shiki_padding);
 	width: 1rem;
 	display: inline-block;
 	text-align: right;
-	color: rgba(115, 138, 148, 0.4);
+	color: var(--foreground_disabled);
+}
+
+pre code .line.highlight::before {
+	color: var(--foreground_emphasis-medium);
 }
 
 /*  Start of Shiki Twoslash CSS:
@@ -42,74 +46,80 @@ Code blocks structurally look like:
   </pre>
 */
 
-:root, .darkTheme {
-	--shiki-color-background: var(--white);
-	--shiki-token-function: var(--functionColor);
-	--shiki-color-text: var(--punctuationColor);
-	--shiki-token-string: var(--stringColor);
-	--shiki-token-keyword: var(--keywordColor);
-	--shiki-string-expression: var(--operatorColor);
-	--shiki-token-constant: var(--varColor);
-	--shiki-token-comment: var(--commentColor);
+// Provides the github-light and github-dark themes as CSS variables
+// using https://github.com/sdorra/convert-sh-theme
+.shiki {
+	--shiki-color-text: #24292e;
+	--shiki-color-background: #fff;
+
+	--shiki-token-constant: #005cc5;
+	--shiki-token-string: #032f62;
+	--shiki-token-comment: #6a737d;
+	--shiki-token-keyword: #d73a49;
+	--shiki-token-parameter: #24292e;
+	--shiki-token-function: #24292e;
+	--shiki-token-string-expression: #22863a;
+	--shiki-token-punctuation: #24292e;
+	--shiki-token-link: #24292e;
+
+	--shiki_padding: 12px;
+
+	@include darkTheme {
+		--shiki-color-text: #e1e4e8;
+		--shiki-color-background: #24292e;
+
+		--shiki-token-constant: #79b8ff;
+		--shiki-token-string: #9ecbff;
+		--shiki-token-comment: #6a737d;
+		--shiki-token-keyword: #f97583;
+		--shiki-token-parameter: #e1e4e8;
+		--shiki-token-function: #e1e4e8;
+		--shiki-token-string-expression: #85e89d;
+		--shiki-token-punctuation: #e1e4e8;
+		--shiki-token-link: #e1e4e8;
+	}
 }
 
 pre {
-	/* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
-	background-color: white;
-	color: black;
-
-	/* All code samples get a grey border, twoslash ones get a different color */
-	border-left: 1px solid #999;
-	border-bottom: 1px solid #999;
-
 	/* Important to allow the code to move horizontally; */
 	overflow-x: auto;
 	position: relative;
 }
-pre:not(:last-child) {
-	margin-bottom: 3rem;
-}
-pre:first-child {
-	margin-top: 0;
-}
-pre:last-child {
-	margin-top: 0;
-}
+
 pre .code-container {
 	/* Give it some space to breathe */
-	padding: 12px;
+	padding: var(--shiki_padding) 0;
+	display: flex;
+
+	code {
+		flex-grow: 1;
+	}
 }
+
 pre.shiki {
 	overflow-x: auto;
-}
-pre.shiki:hover .dim {
-	opacity: 1;
-}
-pre.shiki div.dim {
-	opacity: 0.5;
-}
-pre.shiki div.dim,
-pre.shiki div.highlight {
-	margin: 0;
-	padding: 0;
-}
-pre.shiki div.highlight {
-	opacity: 1;
-	background-color: var(--cardActiveBackground);
 }
 pre.shiki div.line {
 	// must be the same value as used for line-height
 	min-height: 1.7em;
+	padding: 0 var(--shiki_padding);
+}
+pre.shiki div.highlight {
+	font-weight: bold;
+	background-color: var(--surface_primary_emphasis-none);
+}
+
+pre.shiki div:not(.highlight) + div.highlight {
+	border-top: 2px dashed var(--primary_default);
+}
+
+pre.shiki div.highlight + div:not(.highlight) {
+	border-top: 2px dashed var(--primary_default);
 }
 
 /** Don't show the language identifiers */
 pre.shiki .language-id {
 	display: none;
-}
-
-/* Visually differentiates twoslash code samples  */
-pre.twoslash {
-	border-color: #719af4;
 }
 
 /** When you mouse over the pre, show the underlines */
@@ -128,7 +138,7 @@ pre.twoslash data-lsp:hover::before {
 	text-align: left;
 	padding: 5px 8px;
 	border-radius: 2px;
-	font-family: $robotoMono;
+	font-family: var(--uu-font-family-code);
 	font-size: 0.8rem;
 	white-space: pre-wrap;
 	z-index: 100;
@@ -167,7 +177,7 @@ pre .code-container:hover a {
 
 pre code {
 	font-size: 0.9rem;
-	font-family: $robotoMono;
+	font-family: var(--uu-font-family-code);
 	white-space: pre;
 	-webkit-overflow-scrolling: touch;
 }
@@ -251,7 +261,7 @@ pre .inline-completions ul.dropdown {
 	background-color: gainsboro;
 	color: grey;
 	padding-top: 4px;
-	font-family: $robotoMono;
+	font-family: var(--uu-font-family-code);
 	font-size: 0.8rem;
 	margin: 0;
 	padding: 0;
@@ -306,7 +316,7 @@ data-lsp {
 }
 .tag-container .twoslash-annotation {
 	position: absolute;
-	font-family: $robotoMono;
+	font-family: var(--uu-font-family-code);
 	right: -10px;
 	/** Default annotation text to 200px */
 	width: 200px;

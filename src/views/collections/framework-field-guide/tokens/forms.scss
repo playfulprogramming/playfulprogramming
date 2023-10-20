@@ -1,0 +1,17 @@
+@import "./breakpoints";
+@import "./utils";
+
+:root {
+	--form-border-radius: 12px;
+	--form-border-width: var(--border-2x);
+
+	--form-padding-horizontal: var(--spc-2x);
+	--form-padding-vertical: var(--spc-1x);
+}
+
+@include from($desktop) {
+	:root {
+		--form-padding-horizontal: var(--spc-2x);
+		--form-padding-vertical: var(--spc-2x);
+	}
+}

@@ -10,10 +10,11 @@
 			"github": "crutchcorn",
 			"twitch": "crutchcorn"
 		},
-		"pronouns": "they/themselves",
+		"pronouns": "they/them",
 		"profileImg": "./crutchcorn.png",
 		"color": "#ba68c8",
-		"roles": ["devops", "developer", "author", "community"]
+		"roles": ["devops", "developer", "author", "community"],
+		"achievements": ["messages-1000", "partner"]
 	},
 	{
 		"id": "fennifith",
@@ -22,13 +23,17 @@
 		"lastName": "Fenn",
 		"description": "Enjoys writing software on loud keyboards. Starts too many projects. Consumes food.",
 		"socials": {
-			"twitter": "fennifith",
-			"github": "fennifith"
+			"github": "fennifith",
+			"twitch": "fennifith",
+			"mastodon": "https://is.a.horrific.dev/@fennifith",
+			"website": "https://jfenn.me",
+			"linkedIn": "james-fenn-3390b8167"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./fennifith.jpg",
 		"color": "#0091EA",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-500", "partner"]
 	},
 	{
 		"id": "evelynhathaway",
@@ -40,10 +45,11 @@
 			"twitter": "eeveedev",
 			"github": "evelynhathaway"
 		},
-		"pronouns": "she",
+		"pronouns": "she/her",
 		"profileImg": "proud.png",
 		"color": "#ef5f17",
-		"roles": ["developer", "devops", "community"]
+		"roles": ["developer", "devops", "community"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "adueppen",
@@ -56,10 +62,11 @@
 			"github": "adueppen",
 			"website": "https://ajd.sh/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./adueppen.png",
 		"color": "#69ffff",
-		"roles": ["developer", "community"]
+		"roles": ["developer", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "zavukodlak",
@@ -72,10 +79,11 @@
 			"website": "https://vukash.in/",
 			"dribbble": "vukashin"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./vukashin.png",
 		"color": "#3485FF",
-		"roles": ["designer"]
+		"roles": ["designer"],
+		"achievements": ["site-logo"]
 	},
 	{
 		"id": "tommyemo",
@@ -87,10 +95,11 @@
 			"twitter": "tommy_emo_",
 			"website": "https://www.tommyemo.net/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./tommyemo.jpg",
 		"color": "#8539EB",
-		"roles": ["designer"]
+		"roles": ["designer"],
+		"achievements": ["site-redesign"]
 	},
 	{
 		"id": "edpratti",
@@ -102,10 +111,11 @@
 			"twitter": "edpratti",
 			"website": "http://pratti.design"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./edpratti.jpg",
 		"color": "#FF3300",
-		"roles": ["designer", "author"]
+		"roles": ["designer", "author"],
+		"achievements": ["site-redesign"]
 	},
 	{
 		"id": "sarsamurmu",
@@ -118,7 +128,7 @@
 			"github": "sarsamurmu",
 			"website": "https://sarsamurmu.github.io"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./sarsamurmu.png",
 		"color": "#7C4DFF",
 		"roles": ["developer"]
@@ -132,10 +142,11 @@
 		"socials": {
 			"github": "MDutro"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./mdutro.jpg",
 		"color": "#7C4DFF",
-		"roles": ["developer", "author", "community"]
+		"roles": ["developer", "author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "reikaze",
@@ -147,7 +158,7 @@
 			"twitter": "Reikaze0",
 			"github": "Reikaze"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./reikaze.jpg",
 		"color": "#ba68c8",
 		"roles": ["author"]
@@ -162,7 +173,7 @@
 			"github": "thodges314",
 			"linkedIn": "thomas-hodges"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./thodges.png",
 		"color": "#ba68c8",
 		"roles": ["author"]
@@ -179,8 +190,9 @@
 		},
 		"color": "#ba68c8",
 		"profileImg": "./hello.png",
-		"pronouns": "he",
-		"roles": ["author", "community"]
+		"pronouns": "he/him",
+		"roles": ["author", "community"],
+		"achievements": ["messages-1000"]
 	},
 	{
 		"id": "seanmiller",
@@ -194,7 +206,7 @@
 			"website": "https://sean.millerfamily.tech",
 			"linkedIn": "tamuseanmiller"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./seanmiller.jpg",
 		"color": "#551a8b",
 		"roles": ["author"]
@@ -211,7 +223,7 @@
 			"website": "https://pierrejacquier.com",
 			"linkedIn": "pierrejacquier"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./pierremtb.jpg",
 		"color": "#FFEB3B",
 		"roles": ["author"]
@@ -227,10 +239,11 @@
 			"github": "rodentman87",
 			"website": "https://likesdinosaurs.com"
 		},
-		"pronouns": "she",
+		"pronouns": "she/her",
 		"profileImg": "./maisydino.jpg",
 		"color": "#FDF6E3",
-		"roles": ["author", "community"]
+		"roles": ["author", "community"],
+		"achievements": ["messages-500"]
 	},
 	{
 		"id": "bobrossrtx",
@@ -243,7 +256,7 @@
 			"github": "bobrossrtx",
 			"website": "https://www.owenboreham.tech"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./bobrossrtx.jpg",
 		"color": "#b7e11e",
 		"roles": ["developer", "author"]
@@ -260,7 +273,7 @@
 			"twitch": "ljtechdotca",
 			"website": "https://ljtech.ca"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./ljtechdotca.png",
 		"color": "#7b61ff",
 		"roles": ["author"]
@@ -272,7 +285,7 @@
 		"lastName": "Hawkins",
 		"description": "I am a high school student who focuses on python. Most of my scripts I have made where just for fun or to work something out that I couldn't.",
 		"socials": {},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./goofy.png",
 		"color": "#18BBC9",
 		"roles": ["author"]
@@ -305,7 +318,7 @@
 			"github": "fmothe",
 			"twitch": "mothevv"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./fmothe.jpg",
 		"color": "#18BBC9",
 		"roles": ["translator"]
@@ -322,7 +335,7 @@
 			"website": "https://jahir.dev",
 			"linkedIn": "jahirfiquitiva"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./jahirfiquitiva.jpg",
 		"color": "#3867d6",
 		"roles": ["translator"]
@@ -338,7 +351,7 @@
 			"github": "kaleem68",
 			"linkedIn": "nixamani5"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./kaleem.jpeg",
 		"color": "#a8b3ba",
 		"roles": ["author"]
@@ -356,7 +369,8 @@
 		},
 		"profileImg": "./xeno.jpg",
 		"color": "",
-		"roles": ["developer", "author", "community", "translator"]
+		"roles": ["developer", "author", "community", "translator"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "alexchadwick",
@@ -371,7 +385,7 @@
 			"linkedIn": "alexchadwickp",
 			"website": "https://alexchadwick.com"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./alexchadwick.jpg",
 		"color": "",
 		"roles": ["author", "translator"]
@@ -387,7 +401,7 @@
 			"github": "eneajaho",
 			"website": "https://eneajaho.me/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./eneajahollari.jpeg",
 		"color": "#580dff",
 		"roles": ["author"]
@@ -404,7 +418,7 @@
 			"linkedIn": "wgeorgecook",
 			"website": "https://williamgeorgecook.com"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./williamcook.jpg",
 		"color": "#AF7AC5",
 		"roles": ["author"]
@@ -419,7 +433,7 @@
 			"twitter": "rudolphschmitz",
 			"github": "rwschmitz"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./rudy.jpg",
 		"color": "#ba68c8",
 		"roles": ["community"]
@@ -435,10 +449,11 @@
 			"github": "LayZeeDK",
 			"twitch": "LayZeeDK"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./lars-gyrup-brink-nielsen.jpg",
 		"color": "#1b9bf0",
-		"roles": ["author"]
+		"roles": ["author"],
+		"achievements": ["messages-200"]
 	},
 	{
 		"id": "Nessjs",
@@ -451,7 +466,7 @@
 			"linkedIn": "ricardo-freitas-0b620124b/",
 			"website": "https://rmotafreitas.github.io/ness.card/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./nessjs.jpg",
 		"color": "#D36996",
 		"roles": ["translator"]
@@ -466,7 +481,7 @@
 			"twitter": "kevttob",
 			"website": "https://221pxls.com/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./kevttob.jpg",
 		"color": "#99EEC9",
 		"roles": ["designer"]
@@ -499,7 +514,7 @@
 			"twitch": "badcop_",
 			"website": "https://sarah.engineer/"
 		},
-		"pronouns": "she",
+		"pronouns": "she/her",
 		"profileImg": "./badcop.png",
 		"color": "#2464B6",
 		"roles": ["author"]
@@ -516,7 +531,7 @@
 			"linkedIn": "mark-spratt",
 			"website": "https://markspratt.dev/"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./markspratt.jpg",
 		"color": "#42AD8B",
 		"roles": ["author"]
@@ -547,7 +562,7 @@
 		"socials": {
 			"github": "richarddprasad"
 		},
-		"pronouns": "he",
+		"pronouns": "he/him",
 		"profileImg": "./hello.png",
 		"color": "#1AB5E5",
 		"roles": ["author"]

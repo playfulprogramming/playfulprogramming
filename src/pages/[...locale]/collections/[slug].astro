@@ -1,0 +1,116 @@
+---
+import SEO from "src/components/seo/seo.astro";
+import Document from "src/layouts/document.astro";
+import { ExtendedCollectionInfo } from "types/CollectionInfo";
+import { MarkdownInstance } from "astro";
+import { getPostsByCollection } from "utils/api";
+import CollectionPage from "src/views/collections/collection-page.astro";
+import CollectionChapter from "src/views/collections/collection-chapter.astro";
+import { SubHeader } from "src/components/subheader/subheader";
+import { getLanguageFromFilename, translate } from "utils/translations";
+
+export async function getStaticPaths() {
+	const collections = await Astro.glob(
+		"../../../../content/collections/**/*.md",
+	);
+
+	return collections.map((collection) => {
+		const locale = getLanguageFromFilename(collection.file);
+
+		return {
+			params: {
+				locale: locale !== "en" ? locale : undefined,
+				slug: collection.frontmatter.slug,
+			},
+			props: {
+				Content: collection.Content,
+				collection: collection.frontmatter,
+			},
+		};
+	});
+}
+
+interface CollectionProps {
+	collection: ExtendedCollectionInfo;
+	Content: MarkdownInstance<never>["Content"];
+}
+
+const { Content, collection } = Astro.props as CollectionProps;
+
+const { slug } = collection;
+
+const collectionPosts = getPostsByCollection(slug, collection.locale);
+---
+
+<Document size="l">
+	<SEO
+		slot="head"
+		title={collection.title}
+		description={collection.description}
+		unicornsData={collection.authorsMeta}
+		publishedTime={collection.published}
+		type={collection.type}
+		shareImage={collection.socialImg ||
+			collection.coverImgMeta.relativeServerPath}
+		providedLangs={collection.locales}
+	/>
+	<main>
+		<CollectionPage
+			Content={Content}
+			collection={collection}
+			coverImgPath={collection.coverImgMeta.relativeServerPath}
+		/>
+		<section class="collection-post-list-container">
+			<div class="collection-post-list">
+				<SubHeader tag="h2" text={translate(Astro, "desc.chapter_listing")} />
+				<ol>
+					{
+						(collectionPosts ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										num={post.order}
+										title={post.title}
+										description={post.description}
+										href={`/posts/${post.slug}`}
+									/>
+								</li>
+							);
+						})
+					}
+					{
+						(collection?.chapterList ?? []).map((post) => {
+							return (
+								<li>
+									<CollectionChapter
+										num={post.order}
+										title={post.title}
+										description={post.description}
+									/>
+								</li>
+							);
+						})
+					}
+				</ol>
+			</div>
+		</section>
+	</main>
+</Document>
+
+<style>
+	.collection-post-list-container {
+		background: var(--surface_primary_emphasis-none);
+	}
+
+	.collection-post-list {
+		max-width: var(--max-width_m);
+		margin: 0 auto;
+		padding: 0 var(--site-spacing) var(--site-spacing);
+	}
+
+	.collection-post-list ol {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+</style>

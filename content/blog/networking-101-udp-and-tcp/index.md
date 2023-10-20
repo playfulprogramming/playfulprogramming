@@ -7,7 +7,7 @@
 	tags: ['networking'],
 	attached: [],
 	license: 'cc-by-nc-sa-4',
-	series: "Networking 101",
+	collection: "Networking 101",
 	order: 2
 }
 ---

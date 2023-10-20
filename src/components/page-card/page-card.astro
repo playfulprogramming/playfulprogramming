@@ -1,0 +1,35 @@
+---
+import styles from "./page-card.module.scss";
+
+interface PageCardProps {
+	title: string;
+	description: string;
+	imageSrc: astroHTML.JSX.ImgHTMLAttributes["src"];
+	imageAlt: string;
+	numberOfButtons?: number;
+}
+
+const { title, description, imageAlt, imageSrc, numberOfButtons } =
+	Astro.props as PageCardProps;
+---
+
+<div class={styles.pageCardContainer}>
+	<div class={styles.imageContainer}>
+		<img class={styles.image} src={imageSrc} alt={imageAlt} />
+	</div>
+	<h1 class={`text-style-headline-1 ${styles.title}`}>
+		<span>{title}</span>
+	</h1>
+	<p class={`text-style-body-large-bold ${styles.description}`}>
+		{description}
+	</p>
+	<div class={styles.pageCardSpacer}></div>
+	<div
+		class={`${styles.buttonsContainer} ${
+			numberOfButtons === 2 ? styles.twoButtons : ""
+		}`}
+	>
+		<slot name="button" />
+		<slot name="second-button" />
+	</div>
+</div>

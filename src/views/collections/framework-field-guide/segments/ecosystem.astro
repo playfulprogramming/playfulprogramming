@@ -1,0 +1,88 @@
+---
+import BigFilledButton from "../components/big-filled-button.astro";
+import ChipGroup, { TagList } from "../components/chip-group.astro";
+import SectionMetric from "../components/section-metric.astro";
+import "../components/shared-section-styling.scss";
+import EcosystemBookCover from "./ecosystem-book-cover.astro";
+
+const tags: TagList = [
+	"Static site generation",
+	"Server-side rendering",
+	"Build tooling",
+	"CSS-in-JS",
+	"CSS Modules",
+	"Routing",
+	"Observables",
+	"HTTP Networking",
+	"GraphQL",
+	"Internationalization (i18n)",
+	"Testing",
+	"Visual playground",
+	"Global storage",
+	"Developer Tools",
+	"Integration testing",
+	"End-to-End testing",
+	"Vite",
+	"RxJS",
+	"NextJS",
+	"Redux",
+	"Pinia",
+	"MSW",
+	"Testing Library",
+	"Webpack",
+	"Angular CLI",
+	"Create React App (CRA)",
+	"Styled Components",
+	"Flamegraphs",
+	"Bundling",
+	"Compilers",
+] as const;
+---
+
+<section data-change-color-to="ecos" aria-labelledby="ecosystem-title">
+	<EcosystemBookCover />
+	<div class="class-book-2">
+		<div class="book-section" style="background: var(--section-background);">
+			<h2 id="ecosystem-title" class={`text-style-display-1 book-title`}>
+				Ecosystem
+			</h2>
+			<p class={`text-style-headline-4 book-subtitle`}>
+				Learn the tools surrounding these frameworks
+			</p>
+			<p class={`text-style-body-large book-bio`}>
+				While React, Angular, and Vue all provide a strong set of core features,
+				that's only part of their story. The third-party ecosystem of these
+				frameworks offers a myriad of highly useful and broadly adopted tools.
+				These tools allow you to level-up your apps — making them more
+				performant, stable, and easier to maintain.
+			</p>
+			<div class="book-ctas">
+				<BigFilledButton
+					href="#signup-form"
+					onclick="event.preventDefault();var title=document.getElementById('signup-form');title.scrollIntoView({behavior: 'smooth', block: 'start'})"
+				>
+					Sign up for updates
+				</BigFilledButton>
+				<!-- <BigOutlinedButton>Learn more</BigOutlinedButton> -->
+			</div>
+			<p class={`text-style-body-large-bold book-coming-soon`}>
+				Coming soon — in production now!
+			</p>
+			<div class="section-metrics-main-container" data-no-horiz-pad>
+				<p class="srOnly">This book has:</p>
+				<SectionMetric
+					ariaLabel={"12* chapters"}
+					numberStr="12"
+					subtitle="chapters"
+					asterisk={true}
+				/>
+			</div>
+			<div class="section-chip-group-container" data-no-max-width>
+				<ChipGroup tags={tags} ariaLabel="Subjects taught in Ecosystem" />
+			</div>
+			<p class="text-style-body-large-bold section-disclaimer">
+				*This book’s contents are subject to change
+			</p>
+		</div>
+	</div>
+</section>

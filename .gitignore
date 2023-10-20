@@ -20,3 +20,6 @@ pnpm-debug.log*
 .idea/
 .eslintcache
 .vercel
+.puppeteer
+
+.vercel

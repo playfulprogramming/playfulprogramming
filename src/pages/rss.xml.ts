@@ -1,11 +1,11 @@
 import { Feed } from "feed";
 import { MarkdownInstance } from "astro";
 import { siteUrl } from "constants/site-config";
-import { PostInfo } from "types/PostInfo";
+import { ExtendedPostInfo } from "types/index";
 
-const postImportResult = import.meta.glob<MarkdownInstance<PostInfo>>(
+const postImportResult = import.meta.glob<MarkdownInstance<ExtendedPostInfo>>(
 	"../../content/blog/**/*.md",
-	{ eager: true }
+	{ eager: true },
 );
 const posts = Object.values(postImportResult);
 
@@ -27,10 +27,11 @@ export const get = () => {
 	});
 
 	posts
+		.filter((post) => !post.frontmatter.noindex)
 		.sort((a, b) =>
 			new Date(b.frontmatter.published) > new Date(a.frontmatter.published)
 				? 1
-				: -1
+				: -1,
 		)
 		.forEach((post) => {
 			const nodeUrl = `${siteUrl}/posts/${post.frontmatter.slug}`;
@@ -48,12 +49,7 @@ export const get = () => {
 				}),
 				date: new Date(post.frontmatter.published),
 				copyright: post.frontmatter.licenseMeta?.displayName,
-				extensions: [
-					{
-						name: "comments",
-						objects: `${nodeUrl}#disqus_thread`,
-					},
-				],
+				extensions: [],
 			});
 		});
 

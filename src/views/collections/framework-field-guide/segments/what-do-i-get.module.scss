@@ -1,0 +1,186 @@
+@import "../tokens/utils";
+@import "../tokens/breakpoints.scss";
+
+.container {
+	padding: var(--section-ver-padding) var(--section-hor-padding);
+	text-align: center;
+	max-width: var(--max-width_large);
+	margin: 0 auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-6x);
+}
+
+.headerContainer {
+	margin: 0;
+}
+
+.headerTop {
+	display: block;
+	color: var(--slate-300);
+}
+
+.headerBottom {
+	display: block;
+	color: var(--slate-100);
+}
+
+.explainerText {
+	color: var(--slate-100);
+	max-width: var(--max-width_xsmall);
+	margin: 0 auto;
+}
+
+.srOnly {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.toggleListContainer {
+	padding: var(--spc-1x);
+	overflow: hidden;
+	position: relative;
+	max-width: 864px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.toggleListContainerInner {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background-color: var(--slate-800);
+	border-radius: var(--corner-radius-6x);
+}
+
+.fieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.checkboxContainer {
+	width: 100%;
+}
+
+.checkBox ~ label {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--spc-2x) var(--spc-1x);
+	border-radius: var(--corner-radius-6x);
+	box-sizing: border-box;
+	user-select: none;
+	cursor: pointer;
+
+	@include from($desktop) {
+		padding: var(--spc-2x) var(--spc-3x);
+	}
+}
+
+.highlightedContainer {
+	position: absolute;
+	// 8px due to padding
+	top: var(--spc-1x);
+	left: var(--spc-1x);
+	width: calc(100% - var(--spc-1x) - var(--spc-1x));
+	pointer-events: none;
+	// Index 1
+	clip-path: inset(0 66.66% 0 0 round 48px);
+	transition: clip-path 300ms;
+
+	&.toggleListContainerInner {
+		background-color: var(--slate-100);
+	}
+
+	.checkBox ~ label {
+		color: var(--slate-900);
+	}
+}
+
+.toggleListContainer[data-selected-index="1"] {
+	.highlightedContainer {
+		clip-path: inset(0 66.66% 0 0 round 48px);
+	}
+}
+
+.toggleListContainer[data-selected-index="2"] {
+	.highlightedContainer {
+		clip-path: inset(0 33.33% 0 33.33% round 48px);
+	}
+}
+
+.toggleListContainer[data-selected-index="3"] {
+	.highlightedContainer {
+		clip-path: inset(0 0 0 66.66% round 48px);
+	}
+}
+
+.calendarContainer {
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+}
+
+.calendarContainer::before {
+	position: absolute;
+	content: " ";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		var(--section-background) 0%,
+		transparent 33.33%,
+		transparent 66.67%,
+		var(--section-background) 100%
+	);
+}
+
+.calendar {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spc-1x);
+}
+
+.week {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spc-1x);
+}
+
+.day {
+	/* Ed said it's okay to hardcode these :) */
+	display: flex;
+	height: 20px;
+	width: 20px;
+	flex-shrink: 0;
+	border-radius: 4px;
+	transition: background 200ms ease-in-out;
+}
+
+.day[data-activity-level="0"] {
+	background: var(--slate-800);
+}
+
+.day[data-activity-level="1"] {
+	background: var(--slate-600);
+}
+
+.day[data-activity-level="2"] {
+	background: var(--slate-500);
+}
+
+.day[data-activity-level="3"] {
+	background: var(--slate-400);
+}

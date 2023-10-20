@@ -1,0 +1,29 @@
+// Light theme
+:root,
+// https://stackoverflow.com/questions/58818299/css-variables-not-working-in-dialogbackdrop
+::backdrop {
+	--shadow_sticker: 0px 1.25px 1.5px 0px rgba(0, 0, 0, 0.24),
+		0px 0px 1px 0px rgba(0, 0, 0, 0.16);
+	// Half the blur, because of bugs in spec:
+	// https://stackoverflow.com/questions/39575894/why-does-box-shadow-look-different-than-filter-drop-shadow
+	--shadow_sticker_drop_shadow: drop-shadow(
+			0px 1.25px 0.75px rgba(0, 0, 0, 0.24)
+		)
+		drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.16));
+	--shadow_popup: 0px 8px 16px rgba(79, 97, 109, 0.24),
+		0px 4px 6px rgba(79, 97, 109, 0.24);
+}
+
+html.dark,
+body.dark,
+.darkTheme {
+	&,
+	& ::backdrop {
+		--shadow_sticker: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.72),
+			0px 0px 1px 0px rgba(0, 0, 0, 0.48);
+		--shadow_sticker_drop_shadow: drop-shadow(0px 1px 0.75px rgba(0, 0, 0, 0.72))
+			drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.48));
+		--shadow_popup: 0px 8px 16px rgba(0, 0, 0, 0.72),
+			0px 4px 6px rgba(0, 0, 0, 0.72);
+	}
+}

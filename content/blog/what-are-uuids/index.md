@@ -7,7 +7,7 @@
     tags: ['computer science'],
     attached: [],
     license: 'cc-by-4',
-    series: "Explaining UUIDs",
+    collection: "Explaining UUIDs",
     order: 1
 }
 ---

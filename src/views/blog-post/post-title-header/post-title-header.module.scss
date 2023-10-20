@@ -1,0 +1,143 @@
+@import "src/tokens/index";
+
+:root {
+	--article-header_padding-bottom: var(--spc-6x);
+	--article-header_details_icon_size: var(--icon-size_dense);
+	--article-header_details_icon_margin-end: var(--spc-2x);
+
+	--article-header_details_padding-vertical: var(--spc-4x);
+	--article-header_details_author-gap: 0.5rem;
+	--article-header_details_date-gap: 0.5rem;
+	--article-header_details_gap: var(--spc-2x);
+
+	--article-header_title_color: var(--foreground_emphasis-high);
+	--article-header_details_icon_color: var(--foreground_disabled);
+	--article-header_details_date_color: var(--foreground_emphasis-high);
+	--article-header_details_date_edited_color: var(--foreground_emphasis-medium);
+	--article-header_details_author_color: var(--link-color);
+
+	@include from($desktopSmall) {
+		--article-header_details_gap: var(--spc-3x);
+	}
+}
+
+.title {
+	margin: 0;
+	color: var(--article-header_title_color);
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	gap: var(--article-header_details_gap);
+
+	padding: var(--article-header_details_padding-vertical) 0;
+
+	.date,
+	.authors,
+	.wordCount,
+	.originalLink {
+		display: flex;
+		align-items: flex-start;
+
+		svg {
+			width: var(--article-header_details_icon_size);
+			height: var(--article-header_details_icon_size);
+			padding: var(--icon-size-dense-padding);
+			color: var(--article-header_details_icon_color);
+			margin-right: var(--article-header_details_icon_margin-end);
+			flex-shrink: 0;
+		}
+
+		a:not(:hover):not(:focus):not(:active) {
+			text-decoration: none;
+		}
+	}
+
+	.originalLink,
+	.wordCount {
+		color: var(--foreground_emphasis-medium);
+	}
+
+	.date {
+		color: var(--article-header_details_date_color);
+		flex-wrap: wrap;
+
+		flex-direction: column;
+		gap: var(--article-header_details_gap);
+
+		@include from($mobile) {
+			flex-direction: row;
+			gap: 0;
+		}
+
+		&__published {
+			display: flex;
+			align-items: flex-start;
+			flex-direction: row;
+		}
+
+		&__edited {
+			//  I don't like it when
+			// Auto-formatting plugins
+			//  Put bugs in my code.
+			display: flex;
+
+			color: var(--article-header_details_date_edited_color);
+			margin-left: calc(
+				var(--article-header_details_icon_size) +
+					var(--article-header_details_icon_margin-end)
+			);
+			position: relative;
+
+			@include from($mobile) {
+				margin-left: 0;
+			}
+
+			&::before {
+				position: absolute;
+				content: "•";
+				left: calc(
+					-0.5 * var(--article-header_details_icon_size) + -1 * var(--article-header_details_icon_margin-end)
+				);
+				transform: translateX(-50%);
+
+				@include from($mobile) {
+					position: unset;
+					transform: none;
+					margin-left: var(--article-header_details_date-gap);
+					padding-right: var(--article-header_details_date-gap);
+				}
+			}
+		}
+	}
+
+	.authors {
+		color: var(--article-header_details_author_color);
+
+		&__list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--article-header_details_author-gap);
+		}
+	}
+}
+
+.tags {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	gap: var(--chip-gap);
+}
+
+.container {
+	padding-bottom: var(--article-header_padding-bottom);
+}

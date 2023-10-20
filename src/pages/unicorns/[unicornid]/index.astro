@@ -1,11 +1,9 @@
 ---
 import Document from "../../../layouts/document.astro";
 import SEO from "components/seo/seo.astro";
-import UnicornsPage from "../../../page-components/unicorns/unicorn-page.astro";
-import { getAllPostsForUnicornListView } from "utils/api";
-import { PostInfo } from "types/PostInfo";
+import UnicornsPage from "src/views/unicorn/unicorn-page.astro";
+import { getPostsByUnicorn } from "utils/api";
 import { unicorns } from "utils/data";
-import { Page } from "astro";
 
 export async function getStaticPaths() {
 	return unicorns.map((unicorn) => ({ params: { unicornid: unicorn.id } }));
@@ -15,25 +13,10 @@ const params = Astro.params as { unicornid: string };
 
 const unicorn = unicorns.find((unicorn) => unicorn.id === params.unicornid);
 
-const posts = await Astro.glob<PostInfo>("../../../../content/blog/**/*.md");
-const enPosts = getAllPostsForUnicornListView(unicorn.id, posts, "en");
-const postsToDisplay = enPosts.slice(0, 8);
-
-const page = {
-	total: enPosts.length,
-	currentPage: 1,
-	size: postsToDisplay.length,
-	lastPage: Math.floor(enPosts.length / postsToDisplay.length),
-	url: {
-		current: `/unicorns/${unicorn.id}`,
-		next: `/unicorns/${unicorn.id}/page/2`,
-	},
-} as Page<PostInfo>;
-
-const rootURL = `/unicorns/${unicorn.id}/`;
+const posts = getPostsByUnicorn(unicorn.id, "en");
 ---
 
-<Document>
+<Document size="xl">
 	<SEO
 		slot="head"
 		title={unicorn.name}
@@ -42,13 +25,7 @@ const rootURL = `/unicorns/${unicorn.id}/`;
 		type="profile"
 		pathName={`/unicorns/${unicorn.id}`}
 	/>
-	<div class="listViewContent">
-		<UnicornsPage
-			unicorn={unicorn}
-			page={page}
-			posts={postsToDisplay}
-			allPosts={enPosts}
-			rootURL={rootURL}
-		/>
-	</div>
+	<main class="listViewContent">
+		<UnicornsPage unicorn={unicorn} posts={posts} />
+	</main>
 </Document>

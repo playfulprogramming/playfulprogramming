@@ -1,102 +1,85 @@
-import { readFileAsBase64 } from "./read-file-as-base64";
-import { dirname, resolve } from "path";
-import { PostInfo } from "types/index";
-import { promises as fs } from "fs";
+import { ExtendedPostInfo } from "types/index";
 import { render } from "preact-render-to-string";
 import { createElement } from "preact";
-import { COLORS } from "constants/theme";
-
+import sharp from "sharp";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-import { default as remarkTwoslashDefault } from "remark-shiki-twoslash";
 import remarkToRehype from "remark-rehype";
 import { findAllAfter } from "unist-util-find-all-after";
+import { toString } from "hast-util-to-string";
 import rehypeStringify from "rehype-stringify";
-import { fileURLToPath } from "url";
+import { Layout, PAGE_HEIGHT, PAGE_WIDTH } from "./base";
 
-// https://github.com/shikijs/twoslash/issues/147
-const remarkTwoslash = (
-	remarkTwoslashDefault as never as { default: typeof remarkTwoslashDefault }
-).default
-	?? remarkTwoslashDefault;
+const unifiedChain = unified()
+	.use(remarkParse)
+	.use(remarkToRehype, { allowDangerousHtml: true })
+	.use(() => (tree) => {
+		// extract code snippets from parsed markdown
+		const nodes = findAllAfter(tree, 0, { tagName: "pre" });
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+		// join code parts into one element
+		const value =
+			nodes
+				.map((node) => toString(node))
+				.join("\n")
+				.trim() +
+			"\n" +
+			renderPostPreviewToString.toString().replace(/([;,])/g, (s) => s + "\n");
 
-const unifiedChain = () => {
-	const unifiedChain = unified()
-		.use(remarkParse)
-		.use(() => (tree) => {
-			// extract code snippets from parsed markdown
-			const nodes = findAllAfter(tree, 0, { type: "code" });
-
-			// join code parts into one element
-			const value =
-				nodes
-					.map((node) => (node as any).value)
-					.join("\n")
-					.trim() +
-				"\n" +
-				renderPostPreviewToString
-					.toString()
-					.replace(/([;,])/g, (s) => s + "\n");
-
-			return {
-				type: "root",
+		const children = value
+			.split("\n")
+			.filter((value) => !!value.trim().length)
+			.map((value) => ({
+				type: "element",
+				tagName: "code",
 				children: [
 					{
-						type: "code",
-						lang: (nodes[0] as any)?.lang || "javascript",
-						value,
+						type: "text",
+						value: value,
 					},
 				],
-			};
-		})
-		.use([[remarkTwoslash, { themes: ["css-variables"] }]])
-		.use(remarkToRehype, { allowDangerousHtml: true })
-		.use(rehypeStringify, { allowDangerousHtml: true });
+			}));
 
-	return unifiedChain;
-};
+		return {
+			type: "root",
+			children: [
+				{
+					type: "element",
+					tagName: "pre",
+					children,
+				},
+			],
+		};
+	})
+	.use(rehypeStringify, { allowDangerousHtml: true });
 
 async function markdownToHtml(content: string) {
-	return await (await unifiedChain().process(content)).toString();
+	return await (await unifiedChain.process(content)).toString();
 }
 
-//const __dirname = dirname(fileURLToPath(import.meta.url));
+const authorImageCache = new Map<string, string>();
 
-const colorsCSS = (Object.keys(COLORS) as Array<keyof typeof COLORS>).reduce(
-	(stylesheetStr, colorKey, i, arr) => {
-		let str = stylesheetStr + `\n--${colorKey}: ${COLORS[colorKey].light};`;
-		if (i === arr.length - 1) str += "\n}";
-		return str;
-	},
-	":root {\n"
-);
+export const renderPostPreviewToString = async (
+	layout: Layout,
+	post: ExtendedPostInfo,
+) => {
+	const authorImageMap = Object.fromEntries(
+		await Promise.all(
+			post.authorsMeta.map(async (author) => {
+				if (authorImageCache.has(author.id))
+					return [author.id, authorImageCache.get(author.id)];
 
-export const heightWidth = { width: 1280, height: 640 };
+				const buffer = await sharp(author.profileImgMeta.absoluteFSPath)
+					.resize(90, 90)
+					.jpeg({ mozjpeg: true })
+					.toBuffer();
 
-const unicornUtterancesHead = readFileAsBase64(
-	resolve(__dirname, "../../src/assets/unicorn_head_1024.png")
-);
+				const image = "data:image/jpeg;base64," + buffer.toString("base64");
 
-export const renderPostPreviewToString = async (post: PostInfo) => {
-	const shikiSCSS = await fs.readFile(
-		resolve(__dirname, "../../src/styles/shiki.scss"),
-		"utf8"
-	);
-
-	const twitterLargeCardPreviewCSS = await fs.readFile(
-		resolve(__dirname, "./twitter-large-card.css"),
-		"utf8"
-	);
-
-	// This needs to happen here, since otherwise the `import` is stale at runtime,
-	// thus breaking live refresh
-	const TwitterLargeCard = // We need `?update=""` to cache bust for live reload
-		(await import(`./twitter-large-card.js?update=${Date.now()}`)).default;
-
-	const authorImagesStrs = post.authorsMeta.map((author) =>
-		readFileAsBase64(author.profileImgMeta.absoluteFSPath)
+				authorImageCache.set(author.id, image);
+				return [author.id, image];
+			}),
+		),
 	);
 
 	const postHtml = await markdownToHtml(post.contentMeta);
@@ -106,24 +89,27 @@ export const renderPostPreviewToString = async (post: PostInfo) => {
 	<html>
 	<head>
 	<style>
-	${shikiSCSS}
-	</style>
-	<style>
-	${colorsCSS}
-	</style>
-	<style>
-	${twitterLargeCardPreviewCSS}
+	${layout.css}
+
+	html, body {
+		margin: 0;
+  		padding: 0;
+		width: ${PAGE_WIDTH}px;
+		height: ${PAGE_HEIGHT}px;
+		position: relative;
+		overflow: hidden;
+	}
 	</style>
 	</head>
 	<body>
 	${render(
-		createElement(TwitterLargeCard, {
+		createElement(layout.Component, {
 			post,
 			postHtml,
-			...heightWidth,
-			authorImagesStrs,
-			unicornUtterancesHead,
-		})
+			width: PAGE_WIDTH,
+			height: PAGE_HEIGHT,
+			authorImageMap,
+		}),
 	)}
 	</body>
 	</html>
