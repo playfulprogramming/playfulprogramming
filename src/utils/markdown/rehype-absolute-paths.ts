@@ -2,8 +2,11 @@ import { Element, Root } from "hast";
 import { isURL } from "../url-paths";
 import { visit } from "unist-util-visit";
 import { join } from "path";
+import { Plugin } from "unified";
 
-export function rehypeMakeImagePathsAbsolute(options: { path: string }) {
+export const rehypeMakeImagePathsAbsolute: Plugin<[{ path: string }], Root> = (
+	options,
+) => {
 	return (tree: Root) => {
 		function imgVisitor(node: Element) {
 			if (node.tagName === "img") {
@@ -19,10 +22,10 @@ export function rehypeMakeImagePathsAbsolute(options: { path: string }) {
 		visit(tree, "element", imgVisitor);
 		return tree;
 	};
-}
+};
 
-export function rehypeMakeHrefPathsAbsolute() {
-	return (tree: Root) => {
+export const rehypeMakeHrefPathsAbsolute: Plugin<[], Root> = () => {
+	return (tree) => {
 		function aVisitor(node: Element) {
 			if (node.tagName === "a") {
 				const href = node.properties!.href as string;
@@ -38,4 +41,4 @@ export function rehypeMakeHrefPathsAbsolute() {
 		visit(tree, "element", aVisitor);
 		return tree;
 	};
-}
+};

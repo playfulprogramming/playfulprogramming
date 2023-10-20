@@ -11,6 +11,7 @@ import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 // This does not download the whole file to get the file size
 import probe from "probe-image-size";
 import { IFramePlaceholder } from "./iframe-placeholder";
+import { Plugin } from "unified";
 
 // default icon, used if a frame's favicon cannot be resolved
 let defaultPageIcon: Promise<GetPictureResult>;
@@ -140,8 +141,8 @@ async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 }
 
 // TODO: Add switch/case and dedicated files ala "Components"
-export const rehypeUnicornIFrameClickToRun = () => {
-	return async (tree: Root) => {
+export const rehypeUnicornIFrameClickToRun: Plugin<[], Root> = () => {
+	return async (tree) => {
 		const iframeNodes: Element[] = [];
 		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "iframe") {

@@ -4,6 +4,7 @@ import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import { Element, Node, Parent, Text } from "hast";
 import { TabInfo, Tabs } from "./tabs";
 import { toString } from "hast-util-to-string";
+import { Plugin } from "unified";
 
 const isNodeHeading = (n: Element) =>
 	n.type === "element" && /h[1-6]/.exec(n.tagName);
@@ -76,8 +77,8 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
  * To align with React Tabs package:
  * @see https://github.com/reactjs/react-tabs
  */
-export const rehypeTabs = () => {
-	return (tree: Root) => {
+export const rehypeTabs: Plugin<[], Root> = () => {
+	return (tree) => {
 		const replaceTabNodes = (nodes: Node[]) => {
 			let sectionStarted = false;
 			const largestSize = findLargestHeading(nodes as Element[]);

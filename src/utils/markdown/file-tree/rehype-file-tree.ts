@@ -26,6 +26,7 @@ import replaceAllBetween from "unist-util-replace-all-between";
 import JSON5 from "json5";
 import { FileList, Directory, File } from "./file-list";
 import { Root } from "postcss";
+import { Plugin } from "unified";
 
 interface DirectoryMetadata {
 	open?: boolean;
@@ -33,8 +34,8 @@ interface DirectoryMetadata {
 
 interface FileMetadata {}
 
-export const rehypeFileTree = () => {
-	return (tree: Root) => {
+export const rehypeFileTree: Plugin<[], Root> = () => {
+	return (tree) => {
 		function replaceFiletreeNodes(nodes: Node[]) {
 			const items: Array<Directory | File> = [];
 

@@ -3,11 +3,11 @@ import { visit } from "unist-util-visit";
 import { urlPathRegex, resolvePath } from "../url-paths";
 
 import path from "path";
-import { AstroVFile } from "./types";
+import { Plugin } from "unified";
 
 // TODO: Add switch/case and dedicated files ala "Components"
-export const rehypeUnicornElementMap = () => {
-	return async (tree: Root, file: AstroVFile) => {
+export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
+	return async (tree, file) => {
 		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "video") {
 				node.properties.muted ??= true;

@@ -13,7 +13,6 @@ import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
 import { resolvePath } from "../url-paths";
 import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
-import { ISizeCalculationResult } from "image-size/dist/types/interface";
 
 const MAX_WIDTH = 768;
 const MAX_HEIGHT = 768;

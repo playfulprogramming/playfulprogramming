@@ -3,7 +3,8 @@ import { hasProperty } from "hast-util-has-property";
 import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
 import { visit } from "unist-util-visit";
-import { AstroVFile } from "./types";
+import { AstroVFile, isAstroVFile } from "./types";
+import { Plugin } from "unified";
 
 interface RehypeHeaderClassOpts {
 	depth: number;
@@ -14,11 +15,14 @@ interface RehypeHeaderClassOpts {
  * Plugin to act as "rehype-behead", but add a className to display headings
  * at the intended visual level.
  */
-export const rehypeHeaderClass = (opts: RehypeHeaderClassOpts) => {
-	return (tree: Root, file: AstroVFile) => {
+export const rehypeHeaderClass: Plugin<[RehypeHeaderClassOpts], Root> = (
+	opts,
+) => {
+	return (tree, file) => {
 		// hacky (temporary) fix to exclude the site/about-us*.mdx files, since
 		// those start at a different heading level
-		if (file.data.astro.frontmatter.slug === "site") return;
+		if (isAstroVFile(file) && file.data.astro.frontmatter.slug === "site")
+			return;
 
 		// Find the minimum heading rank in the file
 		// (e.g. if it starts at h2, minDepth = 2)
