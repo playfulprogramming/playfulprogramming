@@ -8,7 +8,7 @@ export const TwitchTransformer = {
 	},
 	getHTML(url: string) {
 		const srcUrl = new URL(url);
-		let embedUrl: URL;
+		let embedUrl: URL | undefined = undefined;
 
 		if (srcUrl.host === "clips.twitch.tv") {
 			const clipId =

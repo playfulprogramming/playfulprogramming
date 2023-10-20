@@ -1,11 +1,9 @@
 import { JSXNode } from "components/types";
 import styles from "./search-hero.module.scss";
 import tags from "../../../../content/data/tags.json";
-import { MutableRef } from "preact/hooks";
-import { Ref } from "preact";
 
 const stickers = Object.values(tags)
-	.filter((tag) => !!tag["shownWithBranding"] && !!tag["image"])
+	.filter((tag) => "shownWithBranding" in tag && "image" in tag && tag.shownWithBranding)
 	.sort(() => 0.5 - Math.random()) as { image: string }[];
 
 const stickerTransforms = [

@@ -72,7 +72,7 @@ const TwitterLargeCard = ({
 					</div>
 					<div class="postInfo">
 						<span class="authors">
-							{post.authors.map((id) => getUnicornById(id, post.locale).name).join(", ")}
+							{post.authors.map((id) => getUnicornById(id, post.locale)!.name).join(", ")}
 						</span>
 						<span class="date">
 							{post.publishedMeta} &nbsp;&middot;&nbsp; {post.wordCount.toLocaleString("en")} words

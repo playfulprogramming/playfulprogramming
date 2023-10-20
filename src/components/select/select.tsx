@@ -213,8 +213,10 @@ function ListBox(props: ListBoxProps) {
 
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
-	listBoxProps["id"] = undefined;
-	listBoxProps["aria-labelledby"] = undefined;
+	Object.assign(listBoxProps, {
+		["id"]: undefined,
+		["aria-labelledby"]: undefined,
+	});
 
 	return (
 		<ul {...listBoxProps} ref={listBoxRef} class={styles.optionsList}>
@@ -242,8 +244,10 @@ export function Option({ item, state }: OptionProps) {
 
 	// As this is inside a portal (within <Popover>), nothing from Preact's useId can be trusted
 	// ...but nothing should be using these IDs anyway.
-	optionProps["aria-labelledby"] = undefined;
-	optionProps["aria-describedby"] = undefined;
+	Object.assign(optionProps, {
+		["aria-labelledby"]: undefined,
+		["aria-describedby"]: undefined,
+	});
 
 	return (
 		<li

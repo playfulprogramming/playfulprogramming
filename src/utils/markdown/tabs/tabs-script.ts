@@ -60,6 +60,8 @@ export const enableTabs = () => {
 	function handleClick(e: Event) {
 		const target = e.target as HTMLElement;
 		const tabName = target.dataset.tabname;
+		if (!tabName) return;
+
 		changeTabs(tabName);
 
 		if (shouldScrollToTab) {
@@ -76,31 +78,33 @@ export const enableTabs = () => {
 	}
 
 	// Iterate through all tabs to populate tabEntries & set listeners
-	document.querySelectorAll('[role="tablist"]').forEach((tabList) => {
-		const entry: TabEntry = new Map();
-		const parent = tabList.parentElement;
+	document
+		.querySelectorAll<HTMLElement>('[role="tablist"]')
+		.forEach((tabList) => {
+			const entry: TabEntry = new Map();
+			const parent = tabList.parentElement!;
 
-		const tabs: NodeListOf<HTMLElement> =
-			tabList.querySelectorAll('[role="tab"]');
+			const tabs: NodeListOf<HTMLElement> =
+				tabList.querySelectorAll('[role="tab"]');
 
-		tabs.forEach((tab) => {
-			const panel = parent.querySelector<HTMLElement>(
-				`#${tab.getAttribute("aria-controls")}`,
-			);
-			entry.set(tab.dataset.tabname, {
-				tab,
-				panel,
+			tabs.forEach((tab) => {
+				const panel = parent.querySelector<HTMLElement>(
+					`#${tab.getAttribute("aria-controls")}`,
+				)!;
+				entry.set(tab.dataset.tabname!, {
+					tab,
+					panel,
+				});
+
+				// Add a click event handler to each tab
+				tab.addEventListener("click", handleClick);
 			});
 
-			// Add a click event handler to each tab
-			tab.addEventListener("click", handleClick);
+			// Enable arrow navigation between tabs in the tab list
+			tabList.addEventListener("keydown", handleKeydown);
+
+			tabEntries.push(entry);
 		});
-
-		// Enable arrow navigation between tabs in the tab list
-		tabList.addEventListener("keydown", handleKeydown);
-
-		tabEntries.push(entry);
-	});
 
 	function changeTabs(tabName: string) {
 		// find all tabs on the page that match the selected tabname

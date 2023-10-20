@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck TODO
+
 // https://github.com/wuct/raf-throttle/blob/master/rafThrottle.js
 const rafThrottle = (callback) => {
 	let requestId = null;

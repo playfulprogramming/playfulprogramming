@@ -1,10 +1,18 @@
 import { JSXNode, PropsWithChildren } from "../types";
-import { createElement, Ref, VNode } from "preact";
 import { JSX } from "preact";
-import { forwardRef } from "preact/compat";
-import { useMemo } from "preact/hooks";
+import { ForwardedRef, forwardRef } from "preact/compat";
 
 type AllowedTags = "a" | "button" | "span" | "div";
+
+type AllowedElements<Tag extends AllowedTags> = (
+	Tag extends "a"
+		? HTMLAnchorElement
+		: Tag extends "div"
+		? HTMLDivElement
+		: Tag extends "span"
+		? HTMLSpanElement
+		: HTMLButtonElement
+);
 
 type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 	{
@@ -19,19 +27,11 @@ type ButtonProps<Tag extends AllowedTags> = PropsWithChildren<
 			| "secondary-emphasized"
 			| "primary"
 			| "secondary";
-	} & JSX.HTMLAttributes<
-		Tag extends "a"
-			? HTMLAnchorElement
-			: Tag extends "div"
-			? HTMLDivElement
-			: Tag extends "span"
-			? HTMLSpanElement
-			: HTMLButtonElement
-	>
+	} & JSX.HTMLAttributes<AllowedElements<Tag>>
 >;
 
-const ButtonWrapper = forwardRef(
-	<T extends AllowedTags = "a">(
+const ButtonWrapper = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
+	(
 		{
 			tag = "a" as never,
 			class: className,
@@ -41,16 +41,8 @@ const ButtonWrapper = forwardRef(
 			rightIcon,
 			isFocusVisible,
 			...props
-		}: ButtonProps<T>,
-		ref: Ref<
-			T extends "a"
-				? HTMLAnchorElement
-				: T extends "div"
-				? HTMLDivElement
-				: T extends "span"
-				? HTMLSpanElement
-				: HTMLButtonElement
-		>,
+		},
+		ref,
 	) => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const Wrapper: any = tag;
@@ -85,10 +77,10 @@ const ButtonWrapper = forwardRef(
 	},
 );
 
-export const Button = forwardRef(
-	<T extends AllowedTags = "a">(
-		{ class: className = "", ...props }: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
+export const Button = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
+	(
+		{ class: className = "", ...props },
+		ref,
 	) => {
 		return (
 			<ButtonWrapper
@@ -100,10 +92,10 @@ export const Button = forwardRef(
 	},
 );
 
-export const LargeButton = forwardRef(
-	<T extends AllowedTags = "a">(
-		{ class: className = "", ...props }: ButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
+export const LargeButton = forwardRef<AllowedElements<AllowedTags> | null, ButtonProps<AllowedTags>>(
+	(
+		{ class: className = "", ...props },
+		ref,
 	) => {
 		return (
 			<ButtonWrapper
@@ -120,10 +112,10 @@ type IconOnlyButtonProps<T extends AllowedTags = "a"> = Omit<
 	"leftIcon" | "rightIcon"
 >;
 
-export const IconOnlyButton = forwardRef(
-	<T extends AllowedTags = "a">(
-		{ class: className = "", children, ...props }: IconOnlyButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
+export const IconOnlyButton = forwardRef<AllowedElements<AllowedTags> | null, IconOnlyButtonProps<AllowedTags>>(
+	(
+		{ class: className = "", children, ...props },
+		ref,
 	) => {
 		return (
 			<ButtonWrapper
@@ -139,10 +131,10 @@ export const IconOnlyButton = forwardRef(
 	},
 );
 
-export const LargeIconOnlyButton = forwardRef(
-	<T extends AllowedTags = "a">(
-		{ class: className = "", children, ...props }: IconOnlyButtonProps<T>,
-		ref: Ref<T extends "a" ? HTMLAnchorElement : HTMLButtonElement>,
+export const LargeIconOnlyButton = forwardRef<AllowedElements<AllowedTags> | null, IconOnlyButtonProps<AllowedTags>>(
+	(
+		{ class: className = "", children, ...props },
+		ref,
 	) => {
 		return (
 			<ButtonWrapper {...props} class={`iconOnly large ${className}`} ref={ref}>

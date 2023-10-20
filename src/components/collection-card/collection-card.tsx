@@ -56,7 +56,7 @@ export const CollectionCard = ({
 								className={`text-style-button-regular ${style.authorListItem}`}
 							>
 								<UUPicture
-									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)!}
 									alt=""
 									class={style.authorImage}
 								/>

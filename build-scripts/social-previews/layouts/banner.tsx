@@ -4,8 +4,10 @@ import style from "./banner-css";
 import classnames from "classnames";
 import tags from "../../../content/data/tags.json";
 import fs from "fs";
+import { TagInfo } from "types/TagInfo";
 
 const TAG_SVG_DEFAULT = fs.readFileSync("public/stickers/role_devops.svg", "utf-8");
+const tagsMap = new Map(Object.entries(tags));
 
 function BannerCodeScreen({
 	post,
@@ -19,8 +21,9 @@ function BannerCodeScreen({
 	const rotX = (post.description.length % 20) - 10;
 	const rotY = (post.title.length * 3) % 20;
 
-	const tagInfo = post.tags.map(tag => tags[tag])
-		.filter(t => t?.emoji || (t?.image && t?.shownWithBranding))[0];
+	const tagInfo = post.tags.map(tag => tagsMap.get(tag))
+		.filter((t): t is TagInfo => !!t)
+		.filter(t => t.emoji || (t.image && t.shownWithBranding))[0];
 
 	const tagSvg = tagInfo?.image
 		? fs.readFileSync("public" + tagInfo.image, "utf-8")

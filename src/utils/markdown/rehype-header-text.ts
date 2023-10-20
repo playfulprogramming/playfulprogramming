@@ -4,12 +4,13 @@ import { toString } from "hast-util-to-string";
 import { Root, Parent } from "hast";
 import { visit } from "unist-util-visit";
 import { PostHeadingInfo } from "src/types/index";
+import { AstroVFile } from "./types";
 
 /**
  * Plugin to add `data-header-text`s to headings.
  */
 export const rehypeHeaderText = () => {
-	return (tree: Root, file) => {
+	return (tree: Root, file: AstroVFile) => {
 		const headingsWithId: PostHeadingInfo[] =
 			(file.data.astro.frontmatter.headingsWithId = []);
 

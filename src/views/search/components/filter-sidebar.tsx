@@ -112,7 +112,7 @@ export const FilterSidebar = ({
 							count={author.numPosts}
 							icon={
 								<UUPicture
-									picture={unicornProfilePicMap.find((u) => u.id === author.id)}
+									picture={unicornProfilePicMap.find((u) => u.id === author.id)!}
 									alt={""}
 									class={styles.authorIcon}
 								/>

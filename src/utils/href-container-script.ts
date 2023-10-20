@@ -30,9 +30,17 @@ function isNestedElement(e: MouseEvent) {
 		if (target.getAttribute("data-dont-bind-navigate-click") !== null)
 			return true;
 
-		target = target.parentElement;
+		if (target.parentElement) target = target.parentElement;
+		else break;
 	}
 	return false;
+}
+
+declare global {
+	function handleHrefContainerMouseDown(e: MouseEvent): void;
+	function handleHrefContainerMouseUp(e: MouseEvent): void;
+	function handleHrefContainerAuxClick(e: MouseEvent): void;
+	function handleHrefContainerClick(e: MouseEvent): void;
 }
 
 globalThis.handleHrefContainerMouseDown = (e: MouseEvent) => {
@@ -46,7 +54,7 @@ globalThis.handleHrefContainerMouseDown = (e: MouseEvent) => {
 // implement the AuxClick event using MouseUp (only on browsers that don't support auxclick; i.e. safari)
 globalThis.handleHrefContainerMouseUp = (e: MouseEvent) => {
 	// if auxclick is supported, do nothing
-	if ("onauxclick" in e.currentTarget) return;
+	if (e.currentTarget && "onauxclick" in e.currentTarget) return;
 	// otherwise, pass mouseup events to auxclick
 	globalThis.handleHrefContainerAuxClick(e);
 };
@@ -95,7 +103,7 @@ globalThis.handleHrefContainerClick = (e: MouseEvent) => {
 	)
 		return;
 
-	window.location.href = href;
+	window.location.href = String(href);
 };
 
 export function getHrefContainerProps(href: string) {

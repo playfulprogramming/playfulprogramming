@@ -25,7 +25,7 @@ const userLogins = getUnicornsByLang("en")
 	.filter((unicorn) => !!unicorn.socials.github)
 	.map((unicorn) => unicorn.socials.github);
 
-const userResult: Record<string, { id: string }> = await octokit?.graphql(`
+const userResult = (await octokit?.graphql(`
 query {
 	${userLogins.map(
 		(login, i) => `
@@ -35,12 +35,12 @@ query {
 	`,
 	)}
 }
-`);
+`)) as Record<string, { id: string }>;
 
 const userIds: Record<string, string> = {};
 if (userResult) {
 	userLogins.forEach((login, i) => {
-		userIds[login] = userResult[`user${i}`].id;
+		if (login !== undefined) userIds[login] = userResult[`user${i}`].id;
 	});
 }
 

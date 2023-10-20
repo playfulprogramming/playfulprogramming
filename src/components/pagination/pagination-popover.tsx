@@ -21,7 +21,7 @@ import { DOMProps } from "@react-types/shared";
 
 function PopupContents(
 	props: Pick<PaginationProps, "page" | "getPageHref" | "softNavigate"> & {
-		titleId: string;
+		titleId?: string;
 		close: () => void;
 	},
 ) {
@@ -32,6 +32,8 @@ function PopupContents(
 			class={style.popupInner}
 			onSubmit={(e) => {
 				e.preventDefault();
+				if (!props.getPageHref) return;
+
 				if (props.softNavigate) {
 					props.softNavigate(props.getPageHref(count));
 					props.close();

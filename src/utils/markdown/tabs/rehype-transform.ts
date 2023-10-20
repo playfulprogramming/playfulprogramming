@@ -1,6 +1,5 @@
 import { Root } from "hast";
 import replaceAllBetween from "unist-util-replace-all-between";
-import { Plugin } from "unified";
 import { getHeaderNodeId, slugs } from "rehype-slug-custom-id";
 import { Element, Node, Parent, Text } from "hast";
 import { TabInfo, Tabs } from "./tabs";
@@ -77,8 +76,8 @@ const getApproxLineCount = (nodes: Node[], inParagraph?: boolean): number => {
  * To align with React Tabs package:
  * @see https://github.com/reactjs/react-tabs
  */
-export const rehypeTabs: Plugin<[], Root> = () => {
-	return (tree) => {
+export const rehypeTabs = () => {
+	return (tree: Root) => {
 		const replaceTabNodes = (nodes: Node[]) => {
 			let sectionStarted = false;
 			const largestSize = findLargestHeading(nodes as Element[]);
@@ -109,18 +108,18 @@ export const rehypeTabs: Plugin<[], Root> = () => {
 				}
 
 				// For any other heading found in the tab contents, append to the nested headers array
-				if (isNodeHeading(localNode)) {
+				if (isNodeHeading(localNode) && tabs.length) {
 					const lastTab = tabs.at(-1);
 
 					// Store the related tab ID in the attributes of the header
-					localNode.properties["data-tabname"] = lastTab.slug;
+					localNode.properties["data-tabname"] = lastTab?.slug;
 
 					// Add header ID to array
-					tabs.at(-1).headers.push(localNode.properties.id.toString());
+					tabs.at(-1)?.headers?.push(String(localNode.properties.id));
 				}
 
 				// Otherwise, append the node as tab content
-				tabs.at(-1).contents.push(localNode);
+				tabs.at(-1)?.contents?.push(localNode);
 			}
 
 			// Determine if the set of tabs should use a constant height (via the "tabs-small" class)

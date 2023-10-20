@@ -32,7 +32,7 @@ const createPostIndex = () => {
 				getFn: (post) => {
 					return post.authors
 						.map((id) => api.getUnicornById(id, post.locale))
-						.flatMap((author) => Object.values(author.socials))
+						.flatMap((author) => Object.values(author!.socials))
 						.join(", ");
 				},
 				weight: 1.2,
@@ -60,7 +60,7 @@ const createCollectionIndex = () => {
 				name: "authorName",
 				getFn: (post) => {
 					return post.authors
-						.map((id) => api.getUnicornById(id, post.locale).name)
+						.map((id) => api.getUnicornById(id, post.locale)!.name)
 						.join(", ");
 				},
 				weight: 1.8,
@@ -70,7 +70,7 @@ const createCollectionIndex = () => {
 				getFn: (post) => {
 					return post.authors
 						.map((id) => api.getUnicornById(id, post.locale))
-						.flatMap((author) => Object.values(author.socials))
+						.flatMap((author) => Object.values(author!.socials))
 						.join(", ");
 				},
 				weight: 1.2,
@@ -87,12 +87,13 @@ const createCollectionIndex = () => {
 const postIndex = createPostIndex();
 const collectionIndex = createCollectionIndex();
 
-const unicorns: Record<string, UnicornInfo> = api
-	.getUnicornsByLang("en")
-	.reduce((obj, unicorn) => {
+const unicorns = api.getUnicornsByLang("en").reduce(
+	(obj, unicorn) => {
 		obj[unicorn.id] = unicorn;
 		return obj;
-	}, {});
+	},
+	{} as Record<string, UnicornInfo>,
+);
 
 const json = JSON.stringify({
 	postIndex,

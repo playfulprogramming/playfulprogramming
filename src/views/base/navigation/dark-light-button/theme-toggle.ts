@@ -15,13 +15,13 @@ export const themeToggle = () => {
 	const lightIconEls = document.querySelectorAll<HTMLElement>(
 		"[data-theme-toggle-icon='light']",
 	);
-	function toggleButton(theme) {
+	function toggleButton(theme: string) {
 		themeToggleBtns.forEach((el) => (el.ariaPressed = `${theme === "dark"}`));
 		lightIconEls.forEach((el) => {
-			el.style.display = theme === "light" ? null : "none";
+			el.style.display = theme === "light" ? "" : "none";
 		});
 		darkIconEls.forEach((el) => {
-			el.style.display = theme === "light" ? "none" : null;
+			el.style.display = theme === "light" ? "none" : "";
 		});
 
 		// update the meta theme-color attribute(s) based on the user preference

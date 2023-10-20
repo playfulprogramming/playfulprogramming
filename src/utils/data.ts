@@ -49,7 +49,7 @@ const tagExplainerParser = unified()
 
 for (const [key, tag] of Object.entries(tagsRaw)) {
 	let explainer = undefined;
-	let explainerType = undefined;
+	let explainerType: TagInfo["explainerType"] | undefined = undefined;
 
 	if ("image" in tag && tag.image.endsWith(".svg")) {
 		const license = await fs
@@ -100,6 +100,9 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 		const frontmatter = matter(fileContents).data as RawUnicornInfo;
 
 		const profileImgSize = getImageSize(frontmatter.profileImg, unicornPath);
+		if (!profileImgSize) {
+			throw new Error(`${unicornPath}: Unable to parse profile image size`);
+		}
 
 		const unicorn: UnicornInfo = {
 			pronouns: "",
@@ -115,7 +118,7 @@ async function readUnicorn(unicornPath: string): Promise<UnicornInfo[]> {
 			profileImgMeta: {
 				height: profileImgSize.height as number,
 				width: profileImgSize.width as number,
-				...resolvePath(frontmatter.profileImg, unicornPath),
+				...resolvePath(frontmatter.profileImg, unicornPath)!,
 			},
 		};
 
@@ -178,14 +181,17 @@ async function readCollection(
 		const frontmatter = matter(fileContents).data as RawCollectionInfo;
 
 		const coverImgSize = getImageSize(frontmatter.coverImg, collectionPath);
+		if (!coverImgSize) {
+			throw new Error(`${collectionPath}: Unable to parse cover image size`);
+		}
 
 		const coverImgMeta = {
 			height: coverImgSize.height as number,
 			width: coverImgSize.width as number,
-			...resolvePath(frontmatter.coverImg, collectionPath),
+			...resolvePath(frontmatter.coverImg, collectionPath)!,
 		};
 
-		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
+		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
 			} else {
@@ -267,7 +273,7 @@ async function readPost(
 		// get an excerpt of the post markdown no longer than 150 chars
 		const excerpt = getExcerpt(fileMatter.content, 150);
 
-		const frontmatterTags = [...frontmatter.tags].filter((tag) => {
+		const frontmatterTags = (frontmatter.tags || []).filter((tag) => {
 			if (tags.has(tag)) {
 				return true;
 			} else {

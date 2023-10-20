@@ -41,7 +41,7 @@ afterAll(() => server.close());
 function mockFetch(fn: (searchStr: string) => ServerReturnType) {
 	server.use(
 		rest.get<ServerReturnType>(`/api/search`, async (req, res, ctx) => {
-			const searchString = req.url.searchParams.get("query");
+			const searchString = req.url.searchParams.get("query")!;
 			return res(ctx.json(fn(searchString)));
 		}),
 	);
@@ -53,7 +53,9 @@ function mockFetchWithStatus(
 ) {
 	server.use(
 		rest.get<never>(`/api/search`, async (req, res, ctx) => {
-			const searchString = req.url.searchParams.get("query");
+			const searchString = req.url.searchParams.get("query")!;
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore it's fine
 			return res(ctx.status(status), ctx.json(fn(searchString)));
 		}),
 	);
@@ -338,7 +340,7 @@ describe("Search page", () => {
 		const select =
 			container instanceof HTMLSelectElement
 				? container
-				: container.querySelector("select");
+				: container.querySelector("select")!;
 
 		await user.selectOptions(select, "newest");
 
@@ -398,7 +400,7 @@ describe("Search page", () => {
 		const select =
 			container instanceof HTMLSelectElement
 				? container
-				: container.querySelector("select");
+				: container.querySelector("select")!;
 
 		user.selectOptions(select, "newest");
 

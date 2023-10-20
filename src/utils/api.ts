@@ -18,6 +18,7 @@ export function getUnicornById(
 	language: Languages,
 ): UnicornInfo | undefined {
 	const locales = unicorns.get(id);
+	if (!locales) return undefined;
 	return locales.find((u) => u.locale === language) || locales[0];
 }
 
@@ -51,7 +52,9 @@ export function getPostsByCollection(
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
 		.filter((p) => p?.collection === collectionSlug)
 		.filter((p) => !p.noindex)
-		.sort((postA, postB) => (postA.order > postB.order ? 1 : -1));
+		.sort((postA, postB) =>
+			Number(postA.order) > Number(postB.order) ? 1 : -1,
+		);
 }
 
 export function getPostsByUnicorn(

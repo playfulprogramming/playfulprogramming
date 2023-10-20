@@ -46,17 +46,17 @@ const getOrderRange = (arr: PostInfo[]) => {
 					smallest: curr,
 				};
 			}
-			if (curr.order! < prev.smallest.order!) {
+			if (curr.order! < prev.smallest!.order!) {
 				prev.smallest = curr;
 			}
-			if (curr.order! > prev.largest.order!) {
+			if (curr.order! > prev.largest!.order!) {
 				prev.largest = curr;
 			}
 			return prev;
 		},
 		{
-			largest: null as PostInfo,
-			smallest: null as PostInfo,
+			largest: undefined as PostInfo | undefined,
+			smallest: undefined as PostInfo | undefined,
 		},
 	);
 };
@@ -104,8 +104,8 @@ export const getSuggestedArticles = (postNode: PostInfo) => {
 				const { largest, smallest } = getOrderRange(suggestedArticles) || {};
 				for (const suggestedPost of extraSuggestedArticles) {
 					if (
-						suggestedPost.order === smallest.order! - 1 ||
-						suggestedPost.order === largest.order! + 1
+						suggestedPost.order === smallest!.order! - 1 ||
+						suggestedPost.order === largest!.order! + 1
 					) {
 						suggestedArticles.push(suggestedPost);
 					}

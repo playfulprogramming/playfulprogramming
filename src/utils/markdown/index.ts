@@ -1,4 +1,3 @@
-import { Plugin } from "unified";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
 import { rehypeTabs } from "./tabs/rehype-transform";
@@ -17,11 +16,17 @@ import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
+import { Plugin } from "unified";
 
+// TODO: this does not actually validate that the adjacent config matches the type of the plugin in an array structure
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
+type RehypePlugin<T = any> =
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	| (T | ((config: T) => any))[]
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	| (() => any);
 
-export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
+export function createRehypePlugins(config: MarkdownConfig): Plugin[] {
 	return [
 		// This is required to handle unsafe HTML embedded into Markdown
 		[rehypeRaw, { passThrough: [`mdxjsEsm`] }],
@@ -29,7 +34,7 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 		...(config.format === "epub"
 			? [
 					rehypeFixTwoSlashXHTML,
-					[rehypeMakeImagePathsAbsolute, { path: config.path }] as RehypePlugin,
+					[rehypeMakeImagePathsAbsolute, { path: config.path }],
 					rehypeMakeHrefPathsAbsolute,
 			  ]
 			: []),
@@ -70,8 +75,8 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 							className: (depth: number) =>
 								`text-style-headline-${Math.min(depth + 1, 6)}`,
 						},
-					] as RehypePlugin,
+					],
 			  ]
 			: []),
-	];
+	] as RehypePlugin[] as Plugin[];
 }

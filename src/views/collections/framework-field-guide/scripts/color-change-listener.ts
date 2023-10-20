@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck TODO
+
 function throttle(callback, limit) {
 	let waiting = false;
 	return function (...props) {
