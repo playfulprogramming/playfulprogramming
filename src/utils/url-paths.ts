@@ -60,6 +60,10 @@ export function resolvePath(
 	return {
 		absoluteFSPath,
 		relativePath: path.relative(rootDir, absoluteFSPath),
-		relativeServerPath: "/" + path.relative(rootServerDir, absoluteFSPath),
+		relativeServerPath: isAbsolute
+			? // if the path is absolute, then absoluteFSPath is already inside the rootServerDir
+			  "/" + path.relative(rootServerDir, absoluteFSPath)
+			: // otherwise, it should resolve relative to the rootDir to avoid "/../content/image.png"
+			  "/" + path.relative(rootDir, absoluteFSPath),
 	};
 }
