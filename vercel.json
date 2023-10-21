@@ -36,6 +36,47 @@
 					"value": "public, max-age=31536000, immutable"
 				}
 			]
+		},
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Content-Security-Policy",
+					"value": "default-src 'self';base-uri 'self';font-src 'self';form-action 'self';frame-ancestors 'self';frame-src https:;img-src 'self' https: data:;object-src 'none';script-src 'self' 'unsafe-inline';script-src-attr 'none';style-src 'self' 'unsafe-inline';upgrade-insecure-requests"
+				},
+				{
+					"key": "Cross-Origin-Opener-Policy",
+					"value": "same-origin"
+				},
+				{
+					"key": "Cross-Origin-Resource-Policy",
+					"value": "same-origin"
+				},
+				{
+					"key": "Referrer-Policy",
+					"value": "no-referrer"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
+				},
+				{
+					"key": "X-Download-Options",
+					"value": "noopen"
+				},
+				{
+					"key": "X-Frame-Options",
+					"value": "DENY"
+				},
+				{
+					"key": "X-Permitted-Cross-Domain-Policies",
+					"value": "DENY"
+				},
+				{
+					"key": "X-XSS-Protection",
+					"value": "0"
+				}
+			]
 		}
 	]
 }
