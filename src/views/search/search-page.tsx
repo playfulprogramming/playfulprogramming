@@ -207,6 +207,10 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		[urlParams],
 	);
 
+	const unicornsMap = useMemo(() => {
+		return new Map(Object.entries(data.unicorns));
+	}, [data.unicorns]);
+
 	const showArticles =
 		contentToDisplay === "all" || contentToDisplay === "articles";
 
@@ -359,7 +363,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 				unicornProfilePicMap={unicornProfilePicMap}
 				collections={data.collections}
 				posts={data.posts}
-				unicornsMap={new Map(Object.entries(data.unicorns))}
+				unicornsMap={unicornsMap}
 				selectedTags={selectedTags}
 				setSelectedTags={setSelectedTags}
 				selectedAuthorIds={selectedUnicorns}
@@ -483,7 +487,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
-												authors={collection.authors.map(id => data.unicorns[id]).filter(u => !!u)}
+												authors={collection.authors.map(id => unicornsMap.get(id)!).filter((u) => !!u)}
 												headingTag="h3"
 											/>
 										</li>
@@ -505,7 +509,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 								<PostCardGrid
 									aria-labelledby={"articles-header"}
 									postsToDisplay={posts}
-									postAuthors={new Map(Object.entries(data.unicorns))}
+									postAuthors={unicornsMap}
 									postHeadingTag="h3"
 									unicornProfilePicMap={unicornProfilePicMap}
 								/>
