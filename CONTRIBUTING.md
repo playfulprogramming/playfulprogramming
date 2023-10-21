@@ -93,6 +93,19 @@ Hi! This is my first post! (TODO: write more text here)
 
 > **Note**: The "title" that you define here will always be displayed at the top of the post. You don't need to start your post with another heading - otherwise your post will have two titles!
 
+<details>
+  <summary><strong>Optional Properties</strong></summary>
+
+  There are a few extra properties that you *can* specify in the post frontmatter, but are not required:
+
+  - `authors: ["author1", "author2"]` can be used to manually specify the author IDs of a post, if written by multiple authors.
+  - `edited: "2023-10-21"` can specify the "last updated" date of the post if any edits are made.
+  - `collection: "My Awesome Article Series"` will treat a group of posts as a series if they all specify the same `collection` string.
+  - `order: 0` will reorder posts in a collection according to whatever value you provide. This has no effect unless the post is in a collection.
+  - `originalLink: "https://example.com"` specifies an external URL that the post was originally sourced from. If you're reposting something you've written for another blog, this is important to provide!
+
+</details>
+
 ## Licenses
 
 Providing a license helps to explain what readers can do with your work - whether that involves using it for course material, or reusing it in other forms. See [the Creative Commons site](https://creativecommons.org/about/cclicenses/) for an overview of what permissions the various licenses allow.
