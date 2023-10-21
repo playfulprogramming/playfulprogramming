@@ -4,9 +4,7 @@
     description: 'bash? You mean the terminal where I do my git commands?',
     published: '2023-03-05T21:07:09.945Z',
     edited: '2023-03-05T21:07:09.945Z',
-    authors: ['badcop'],
     tags: ['bash', 'twitch'],
-    attached: [],
     license: 'cc-by-nc-nd-4',
     originalLink: 'https://sarah.engineer/posts/twitch-chat-bash/'
 }

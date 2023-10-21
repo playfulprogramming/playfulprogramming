@@ -4,9 +4,7 @@
 	description: "A file extension isn't the only way a file is inditified, so what does it do?",
 	published: "2020-07-11T20:58:16.292Z",
 	edited: "2020-07-11T20:58:16.292Z",
-	authors: ["skatcat31"],
 	tags: ["computer science"],
-	attached: [],
 	license: "cc-by-nc-sa-4"
 }
 ---

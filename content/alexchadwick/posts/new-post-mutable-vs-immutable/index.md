@@ -3,9 +3,7 @@
 	title: "Mutable vs Immutable Data Types",
 	description: "Using mutable data types can be dangerous in multi-threaded applications. To help that we can make sure of thread safer immutable data types",
 	published: '2022-07-20T16:56:03.000Z',
-	authors: ['alexchadwick'],
 	tags: ['typescript', 'computer science'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

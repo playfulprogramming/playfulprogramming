@@ -3,9 +3,7 @@
     title: "Package Font Files on NPM for Angular Usage",
     description: "Do you use custom fonts that you want to share with multiple apps? Learn how to distribute those fonts on NPM and consume them in Angular!",
     published: '2020-11-24T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['angular', 'javascript', 'npm'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

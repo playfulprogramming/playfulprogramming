@@ -5,7 +5,6 @@
     published: '2022-08-20T21:52:59.284Z',
     authors: ['crutchcorn', 'LayZee'],
     tags: ['angular', 'javascript', 'webdev'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

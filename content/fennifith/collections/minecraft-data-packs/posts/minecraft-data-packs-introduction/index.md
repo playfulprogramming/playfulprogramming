@@ -4,9 +4,7 @@
 	description: "Learn the beginnings of data pack development in Minecraft - using commands and functions to add custom behavior from scratch!",
 	published: '2022-06-14T21:12:03.284Z',
 	edited: '2023-09-27',
-	authors: ['fennifith'],
 	tags: ["minecraft", "gamedev"],
-	attached: [],
 	license: 'cc-by-nc-sa-4',
 	collection: "minecraft-data-packs",
 	order: 1

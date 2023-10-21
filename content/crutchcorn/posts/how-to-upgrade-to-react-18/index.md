@@ -3,9 +3,7 @@
     title: "How to Upgrade to React 18",
     description: "React 18 introduces some awesome features that I'm sure you can't wait to try! Here's how you can get started with React 18 today!",
     published: '2022-01-07T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['react', 'webdev'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/how-to-upgrade-to-react-18/'
 }

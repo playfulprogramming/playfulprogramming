@@ -3,9 +3,7 @@
 	title: "What is Server Side Rendering (SSR) and Static Site Generation (SSG)?",
 	description: "An explanation of what server-side rendering is, what static site generation is, and how you can utilize them in React, Angular, or Vue!",
 	published: '2020-03-24T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['ssr', 'ssg', 'nextjs', 'react'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

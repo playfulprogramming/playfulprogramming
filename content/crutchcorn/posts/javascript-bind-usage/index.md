@@ -3,9 +3,7 @@
     title: "Mastering JavaScript's `this` keyword using `bind`",
     description: "JavaScript's `this` keyword is imperative when dealing with classes in JavaScript, but can introduce some headaches. Let's solve that using the `bind` method",
     published: '2023-03-16T21:52:59.284Z',
-    authors: ['crutchcorn'],
     tags: ['javascript'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

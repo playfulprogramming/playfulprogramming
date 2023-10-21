@@ -3,9 +3,7 @@
 	title: "Example Post",
 	description: "Look at all those edge cases!",
 	published: '1999-09-18',
-	authors: ['fennifith'],
 	tags: [],
-	attached: [],
 	license: 'cc-by-nc-sa-4',
 	noindex: true
 }

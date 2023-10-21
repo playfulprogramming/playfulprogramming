@@ -3,9 +3,7 @@
     title: 'Keeping API Keys Secret in React Apps',
     description: 'Save yourself money by hiding your API keys from prying eyes and nasty bots.',
     published: '2020-04-20T22:07:09.945Z',
-    authors: ['MDutro'],
     tags: ['react', 'nodejs'],
-    attached: [],
     license: 'cc-by-nc-nd-4'
 }
 ---

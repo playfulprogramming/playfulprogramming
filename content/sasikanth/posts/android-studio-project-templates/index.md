@@ -4,9 +4,7 @@
 	description: "Showing how we can build a Android Studio plugin to provide our own project templates in the Android Studio new project wizard",
 	published: "2023-02-05T14:17:00.247Z",
 	edited: "2023-02-05T14:17:00.247Z",
-	authors: ["sasikanth"],
 	tags: ["android", "testing"],
-	attached: [],
 	license: "cc-by-nc-sa-4",
 	originalLink: "https://www.sasikanth.dev/creating-project-templates-in-android-studio/"
 }

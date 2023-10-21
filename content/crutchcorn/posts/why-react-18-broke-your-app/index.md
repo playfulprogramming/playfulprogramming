@@ -3,9 +3,7 @@
     title: "Why React 18 Broke Your App",
     description: "React 18's internal changes improved a lot, but may have broken your app in the process. Here's why and how you can fix it",
     published: '2022-01-27T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['react', 'webdev'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/development/why-react-18-broke-your-app/'
 }

@@ -3,9 +3,7 @@
     title: "Using JavaScript classes without the `class` keyword",
     description: "Classes are a core feature of JavaScript - but they weren't always that way. How did earlier JS devs write classes? Let's learn how together.",
     published: '2023-06-29T21:52:59.284Z',
-    authors: ['crutchcorn'],
     tags: ['javascript'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

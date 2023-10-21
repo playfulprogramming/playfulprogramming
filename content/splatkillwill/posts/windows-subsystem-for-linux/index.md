@@ -4,9 +4,7 @@
     description: 'Utilize the best of both worlds — Windows and Linux — without having to dual boot. Windows Subset for Linux (WSL) lets you run software designed for Linux in Windows.',
     published: '2022-05-24T22:07:20.000Z',
     edited: '2022-05-24T22:07:20.000Z',
-    authors: ['splatkillwill'],
     tags: ['windows', 'linux'],
-    attached: [],
     license: 'cc-by-nc-nd-4',
     originalLink: "https://gatimus.com/blog/windows-subsystem-for-linux"
 }

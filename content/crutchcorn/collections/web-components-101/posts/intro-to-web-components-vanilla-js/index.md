@@ -3,9 +3,7 @@
     title: "Web Components 101: Vanilla JS",
     description: "One of the ways web components differs from a framework is that it works right in the browser. Here's how to build them from scratch.",
     published: '2021-07-15T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['javascript', 'html', 'webdev'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/intro-to-web-components-vanilla-js/',
     order: 2

@@ -4,9 +4,7 @@
     description: "Tips on how to get yourself a proper development environment on the iPad to fully exploit its potential.",
     published: '2021-02-11T00:00:00.000Z',
     edited: '2021-02-12T00:00:00.000Z',
-    authors: ['pierremtb'],
     tags: ['tools', 'opinion'],
-    attached: [],
     license: 'cc-by-nc-nd-4'
 }
 ---

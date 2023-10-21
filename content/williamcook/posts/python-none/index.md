@@ -3,9 +3,7 @@
     title: 'Python None',
     description: "Interpreted languages have various footguns. Let's explore one such footgun I ran into recently with Python and how I fixed it.",
     published: '2022-07-27T20:00:00.945Z',
-    authors: ['williamcook'],
     tags: ['python', 'go'],
-    attached: [],
     license: 'cc-by-nc-nd-4',
     originalLink: "https://williamgeorgecook.com/posts/python_none/"
 }

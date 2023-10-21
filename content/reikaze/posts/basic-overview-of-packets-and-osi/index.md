@@ -5,7 +5,6 @@
 	published: '2020-03-11T13:45:00.284Z',
 	authors: ['reikaze', 'crutchcorn'],
 	tags: ['networking'],
-	attached: [],
 	license: 'cc-by-nc-sa-4',
     collection: "Networking 101",
     order: 1

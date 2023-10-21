@@ -3,9 +3,7 @@
     title: "WebDev 101: How to use npm and Yarn",
     description: "You've heard a lot about Node, NPM, and Yarn - but aren't sure what they are. Let's introduce them in-depth and answer questions about them!",
     published: '2021-04-05T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['webdev', 'javascript', 'nodejs'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

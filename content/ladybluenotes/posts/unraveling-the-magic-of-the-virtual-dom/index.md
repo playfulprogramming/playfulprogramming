@@ -3,9 +3,7 @@
     title: "Unraveling the Magic of the Virtual DOM",
     description: "The VDOM is the secret sauce that empowers developers to create the captivating, dynamic web applications that we use every day.",
     published: '2023-06-08',
-    authors: ['ladybluenotes'],
     tags: ['webdev', 'javascript'],
-    attached: [],
     license: 'cc-by-nc-sa-4',
     originalLink: 'https://blog.sarahgerrard.me/unraveling-the-magic-of-the-virtual-dom'
 }

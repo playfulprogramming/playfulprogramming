@@ -4,9 +4,7 @@
     description: 'Learn to use when to use HashMap instead of Loop',
     published: '2022-06-24T05:12:03.284Z',
     edited: '2022-06-27T05:12:04.284Z',
-    authors: ['kaleem'],
     tags: ['javascript', 'computer science'],
-    attached: [],
     originalLink: 'https://dev.to/kaleemniz/when-to-use-map-instead-of-loop-3cda',
     license: 'cc-by-nc-nd-4'
 }

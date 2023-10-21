@@ -4,9 +4,7 @@
     description: 'Angular differs from Vue in some keys ways, including its "Incremental rendering". This shift introduces something I call "DOM Pollution"; its why I prefer Vue over Angular.',
     published: '2022-06-06T10:08:00.000Z',
     edited: '2022-06-06T10:08:00.000Z',
-    authors: ['splatkillwill'],
     tags: ['webdev', 'angular', 'vue'],
-    attached: [],
     license: 'cc-by-nc-nd-4'
 }
 ---

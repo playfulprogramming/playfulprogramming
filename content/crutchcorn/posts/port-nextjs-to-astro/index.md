@@ -3,9 +3,7 @@
 	title: 'Porting a Next.js Site to Astro Step-by-Step',
 	description: "Let's port a site from Next.js to Astro, expanding on the official migration guide.",
 	published: '2023-06-29T22:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['nextjs', 'react', 'astro'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

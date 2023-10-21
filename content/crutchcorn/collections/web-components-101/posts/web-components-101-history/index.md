@@ -3,9 +3,7 @@
     title: "Web Components 101: History",
     description: "Web components have had a long history to get where they are today. Let's look back to see where they came from & their immense growth!",
     published: '2021-12-21T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['webdev', 'history'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-history/',
     order: 1

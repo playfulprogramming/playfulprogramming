@@ -3,9 +3,7 @@
 	title: "How to ask better questions",
 	description: "We all ask questions from time to time, so here are some of my favourite tips when it comes to how to improve the quality of your questions.",
 	published: '2022-07-20T20:10:03.000Z',
-	authors: ['alexchadwick'],
 	tags: ['opinion'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

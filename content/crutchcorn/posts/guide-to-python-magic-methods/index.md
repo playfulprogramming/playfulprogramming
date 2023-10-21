@@ -3,9 +3,7 @@
     title: "A Guide to Python's Secret Superpower: Magic Methods",
     description: "",
     published: '2022-06-08T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['python'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/development/guide-to-python-magic-methods/'
 }

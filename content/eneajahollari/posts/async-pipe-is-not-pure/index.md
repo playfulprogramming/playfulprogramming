@@ -3,9 +3,7 @@
 	title: "Async pipe is not pure 🤯",
 	description: "Learn how angular's async pipe is not pure and how that's not a problem, by building async pipe from scratch.",
 	published: '2023-01-18T18:00:00.284Z',
-	authors: ['eneajahollari'],
 tags: ['angular'],
-	attached: [],
   license: 'cc-by-nc-sa-4',
   originalLink: "https://itnext.io/async-pipe-is-not-pure-948f7b24e2d1"
 }

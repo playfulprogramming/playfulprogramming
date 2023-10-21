@@ -4,9 +4,7 @@
   description: "Making hilarious things with no emitted code.",
   published: "2023-01-05T20:35:30Z",
   edited: "2023-06-25T00:35:10Z",
-  authors: ["maisydino"],
   tags: ["typescript"],
-  attached: [],
   license: "cc-by-nc-sa-4",
   originalLink: "https://www.likesdinosaurs.com/posts/fun-with-types",
 }

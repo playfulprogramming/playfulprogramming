@@ -3,9 +3,7 @@
 	title: "Formik Works Great; Here's Why I Wrote My Own",
 	description: "Formik works incredibly, but I have some concerns with it. As a result, I ended up writing my own library called \"HouseForm\" to compete. Here's why.",
 	published: "2023-02-18T04:45:30.247Z",
-	authors: ["crutchcorn"],
 	tags: ["react", "opinion"],
-	attached: [],
 	license: "cc-by-nc-sa-4",
     originalLink: "https://dev.to/crutchcorn/formik-works-great-heres-why-i-wrote-my-own-591m"
 }

@@ -4,9 +4,7 @@
     description: 'A peek under the hood of Vue compilation. See how Vue interpretes TypeScript',
     published: '2022-07-30T09:30:00.000Z',
     edited: '2022-07-30T09:30:00.000Z',
-    authors: ['splatkillwill'],
     tags: ['webdev', 'vue'],
-    attached: [],
     license: 'cc-by-nc-nd-4'
 }
 ---

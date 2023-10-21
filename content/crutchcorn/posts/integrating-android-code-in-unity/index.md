@@ -3,9 +3,7 @@
 	title: "Integrating Native Android Code in Unity",
 	description: "Have you ever wanted to run native Java and Kotlin code from your mobile game written in Unity? Well, you can! Let's see how.",
 	published: '2020-01-04T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['gamedev', 'android', 'csharp', 'java'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

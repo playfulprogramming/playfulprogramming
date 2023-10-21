@@ -1,12 +1,10 @@
 ---
 {
-title: "A Better Way To Code: Documentation Driven Development",
-description: "Test Driven Development is often taught to improve a your workflow; I present Documentation Driven Development as an alternative approach.",
-published: '2022-01-18T22:12:03.284Z',
-authors: ['crutchcorn'],
-tags: ['testing', 'opinion', 'documentation'],
-attached: [],
-license: 'cc-by-nc-sa-4',
+    title: "A Better Way To Code: Documentation Driven Development",
+    description: "Test Driven Development is often taught to improve a your workflow; I present Documentation Driven Development as an alternative approach.",
+    published: '2022-01-18T22:12:03.284Z',
+    tags: ['testing', 'opinion', 'documentation'],
+    license: 'cc-by-nc-sa-4',
 }
 ---
 

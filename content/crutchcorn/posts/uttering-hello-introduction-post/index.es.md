@@ -3,9 +3,7 @@
     title: "Uttering Hello — El primer post del sitio",
     description: 'Una introducción a Unicorn Utterances, incluyendo misión y una hoja de ruta general.',
     published: '2019-06-29T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['announcements'],
-    attached: [],
     license: 'cc-by-4'
 }
 ---

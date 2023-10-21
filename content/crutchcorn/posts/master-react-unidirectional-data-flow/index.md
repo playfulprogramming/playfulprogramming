@@ -3,9 +3,7 @@
     title: "Master React Unidirectional Data Flow",
     description: "Making sure your app's code is structured well is critical. Mastering React Unidirectionality is a huge part of that. Learn how to here.",
     published: '2021-04-27T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['react', 'javascript'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/master-react-unidirectional-data-flow/'
 }

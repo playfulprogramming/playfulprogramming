@@ -4,9 +4,7 @@
     title: "Project Management for Individuals",
     description: "Having the ability to structure your projects (and these don't exclusively have to be programming related) gives you a massive advantage when it comes to being organised, and keeping your life organised.",
     published: '2022-07-26T15:45:03.000Z',
-    authors: ['alexchadwick'],
     tags: ['opinion'],
-    attached: [],
     license: 'cc-by-nc-sa-4'
 }
 ---

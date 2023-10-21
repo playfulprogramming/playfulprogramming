@@ -3,9 +3,7 @@
   title: "How to Setup a React Native Monorepo",
   description: "React Native can be challenging to setup a monorepo for. Let's explore what an optimal monorepo setup looks like for it.",
   published: '2023-06-29T13:45:00.284Z',
-  authors: ['crutchcorn'],
   tags: ['react', 'react native'],
-  attached: [],
   license: 'cc-by-nc-sa-4',
   originalLink: "https://blog.cvoice.io/how-to-setup-a-react-native-monorepo"
 }

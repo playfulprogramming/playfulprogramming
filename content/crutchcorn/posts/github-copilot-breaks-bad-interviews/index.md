@@ -3,9 +3,7 @@
     title: "GitHub Copilot Breaks Bad Interviews",
     description: "GitHub Copilot is a huge step forward for tech. Luckily, it improves our lives. Unfortunately, it will break your interviews. Here's why.",
     published: '2021-07-22T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['interviewing', 'opinion', 'copilot'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/github-copilot-breaks-bad-interviews/'
 }

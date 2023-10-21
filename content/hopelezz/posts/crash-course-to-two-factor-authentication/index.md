@@ -4,9 +4,7 @@
   description: 
     "Two-Factor Authentication is a security feature that adds an extra layer of protection to your online accounts.",
   published: "2023-04-24T20:08:26.988Z",
-  authors: ["hopelezz"],
   tags: ["tools", "security", "auth"],
-  attached: [],
   license: "cc-by-4",
   originalLink: "https://blackskies.net/posts/2-two-factor-auth/"
 }

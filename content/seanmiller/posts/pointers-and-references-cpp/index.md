@@ -3,9 +3,7 @@
     title: 'Pointers and References in C/C++',
     description: 'An overview of how pointers and references function in C/C++',
     published: '2020-06-02T09:40:00.000Z',
-    authors: ['seanmiller'],
     tags: ['computer science', 'cpp'],
-    attached: [],
     license: 'cc-by-nc-nd-4'
 }
 ---

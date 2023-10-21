@@ -3,9 +3,7 @@
     title: "What Happened to UUIDv2?",
     description: "You may have heard that \"UUIDv2 is bad\". Maybe you've never even heard of them and thought UUIDs went from v1 to v3. Why is that? What did UUIDv2 do wrong?",
     published: '2023-01-15T21:52:59.284Z',
-    authors: ['crutchcorn'],
     tags: ['computer science'],
-    attached: [],
     license: 'cc-by-4',
     collection: "Explaining UUIDs",
     order: 2

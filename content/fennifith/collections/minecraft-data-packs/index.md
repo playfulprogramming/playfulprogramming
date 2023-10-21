@@ -3,7 +3,6 @@
   title: "Minecraft Data Pack Programming",
   associatedSeries: "Minecraft Data Pack Programming",
   description: "Learn to build unique game behavior in Minecraft - using functions, entity selectors, NBT data, and more!",
-  authors: ["fennifith"],
   tags: ["minecraft"],
   coverImg: "./cover.png",
   published: "2022-06-14T20:54:00.284Z",

@@ -3,9 +3,7 @@
 	title: "Data Storage Options for React Native",
 	description: "React Native contains multiple different ways you can persist data for your application. Let's look at the choices and their pros and cons.",
 	published: '2020-04-14T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['react', 'react native'],
-	attached: [],
 	license: 'cc-by-nc-sa-4',
 }
 ---

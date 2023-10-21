@@ -6,7 +6,6 @@
   authors: ['crutchcorn', 'skatcat31'],
   translators: ['alexchadwickp'],
   tags: ['testing', 'jest'],
-  attached: [],
   license: 'cc-by-nc-sa-4'
 }
 ---

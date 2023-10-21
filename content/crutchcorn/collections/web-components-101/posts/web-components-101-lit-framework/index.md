@@ -3,9 +3,7 @@
     title: "Web Components 101: Lit Framework",
     description: "Google pushed for web components, sure, but they didn't stop there. They also went on to make an amazing framework to help build them: Lit!",
     published: '2021-11-04T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['webdev', 'lit'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/web-components-101-lit-framework/',
     order: 3

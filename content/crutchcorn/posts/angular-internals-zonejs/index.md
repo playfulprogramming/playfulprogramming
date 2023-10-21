@@ -3,9 +3,7 @@
 	title: "Angular Internals: How Reactivity Works with Zone.js",
 	description: "Reactivity is core to JavaScript frameworks; changing data should cause a re-render. How does this work in Angular? Let's dive into the Angular source code to see.",
 	published: '2023-01-02T13:45:00.284Z',
-	authors: ['crutchcorn'],
 	tags: ['angular', 'javascript'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

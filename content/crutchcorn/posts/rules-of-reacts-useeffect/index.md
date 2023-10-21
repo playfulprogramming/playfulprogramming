@@ -3,9 +3,7 @@
     title: "Rules of React's useEffect",
     description: "useEffect is prolific in React apps. Here are four rules associated with the hook and in-depth explanations of why they're important.",
     published: '2022-02-22T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['react', 'javascript'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/development/rules-of-reacts-useeffect/'
 }

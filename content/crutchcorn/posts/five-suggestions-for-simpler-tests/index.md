@@ -5,7 +5,6 @@
   published: '2020-05-26T05:12:03.284Z',
   authors: ['crutchcorn', 'skatcat31'],
   tags: ['testing', 'jest'],
-  attached: [],
   license: 'cc-by-nc-sa-4'
 }
 ---

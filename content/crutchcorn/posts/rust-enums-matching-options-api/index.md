@@ -3,9 +3,7 @@
     title: "Rust Enums, Matching, & Options API",
     description: "Rust allows you to build super-fast and flexible applications. Let's build one leveraging enums, pattern matching, and the Options API.",
     published: '2021-04-16T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['rust'],
-    attached: [],
     license: 'coderpad',
     originalLink: 'https://coderpad.io/blog/rust-enums-matching-options-api/'
 }

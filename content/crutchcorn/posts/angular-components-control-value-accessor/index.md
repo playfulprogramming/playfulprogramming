@@ -3,9 +3,7 @@
 	title: "Better Angular Form Components with ngModel and formControl Implementation",
 	description: "Some components make controlling their state easier with 'formControl' and 'ngModel'. Let's see how we can build our own!",
 	published: '2020-06-09T13:45:00.284Z',
-	authors: ['crutchcorn'],
 	tags: ['angular', 'javascript'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

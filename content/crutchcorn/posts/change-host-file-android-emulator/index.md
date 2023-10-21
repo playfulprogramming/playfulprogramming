@@ -3,9 +3,7 @@
     title: "Change the Host File of an Android Emulator",
     description: "In order to test web applications with Android properly, you may need to edit the Android Emulator network host file. Here's how to do so.",
     published: '2019-12-27T22:12:03.284Z',
-    authors: ['crutchcorn'],
     tags: ['android'],
-    attached: [],
     license: 'cc-by-4',
     originalLink: "https://www.thepolyglotdeveloper.com/2019/12/change-host-file-android-emulator/"
 }

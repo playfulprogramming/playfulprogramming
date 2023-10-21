@@ -3,9 +3,7 @@
     title: "How to get started with .NET",
     description: "Did you know that 35% of developers are using .NET? This is a great article to read to get started with .NET.",
     published: '2022-01-18T19:20:19.000Z',
-    authors: ['bobrossrtx'],
     tags: ['dotnet', 'csharp'],
-    attached: [],
     license: 'cc-by-4',
     originalLink: 'https://dev.to/bobrossrtx/how-to-get-started-with-net-50bh'
 }

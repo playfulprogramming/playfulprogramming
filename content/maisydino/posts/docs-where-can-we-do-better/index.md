@@ -3,9 +3,7 @@
   title: "Docs, Where Can We Do Better?",
   description: "My personal approach to writing docs, mainly aimed at frameworks and the like.",
   published: "2021-11-13T05:12:03.284Z",
-  authors: ["maisydino"],
   tags: ["documentation"],
-  attached: [],
   license: "cc-by-nc-sa-4",
   originalLink: "https://likesdinosaurs.com/posts/first-post",
 }

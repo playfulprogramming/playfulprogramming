@@ -2,7 +2,6 @@
 {
   title: "Web Components 101",
   description: "Learn the history of web components, alongside how to use them with both Lit and Vanilla JavaScript.",
-  authors: ["crutchcorn"],
   tags: ["webdev", "lit"],
   coverImg: "./cover.png",
   published: "2022-03-14T13:45:00.284Z",

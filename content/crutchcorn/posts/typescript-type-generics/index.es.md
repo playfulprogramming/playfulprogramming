@@ -3,9 +3,7 @@
 	title: "TypeScript Intermediates - Type Generics",
 	description: 'An introduction to the type generic functionality in TypeScript',
 	published: '2019-09-26T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['typescript'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

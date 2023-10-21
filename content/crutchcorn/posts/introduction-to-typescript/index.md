@@ -3,9 +3,7 @@
 	title: "Introduction to TypeScript — What is TypeScript?",
 	description: "An introduction and explanation of what TypeScript is, is not, and what it's used for",
 	published: '2019-10-13T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['typescript'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---

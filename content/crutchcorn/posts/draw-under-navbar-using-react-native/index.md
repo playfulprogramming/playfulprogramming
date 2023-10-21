@@ -3,9 +3,7 @@
 	title: "Draw under the Android NavBar Using React Native",
 	description: "Android allows you to draw content under the navigation bar. It's a neat effect! Let's add that to our React Native apps.",
 	published: '2020-04-16T05:12:03.284Z',
-	authors: ['crutchcorn'],
 	tags: ['android', 'react native'],
-	attached: [],
 	license: 'cc-by-nc-sa-4'
 }
 ---
