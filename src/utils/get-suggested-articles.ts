@@ -40,16 +40,24 @@ const howManySimilarBetween = <T>(arr1: T[], arr2: T[]): number => {
 const getOrderRange = (arr: PostInfo[]) => {
 	return arr.reduce(
 		(prev, curr) => {
-			if (prev.smallest === null || prev.largest === null) {
+			if (!prev.smallest || !prev.largest) {
 				return {
 					largest: curr,
 					smallest: curr,
 				};
 			}
-			if (curr.order! < prev.smallest!.order!) {
+			if (
+				curr.order !== undefined &&
+				prev.smallest.order !== undefined &&
+				curr.order < prev.smallest.order
+			) {
 				prev.smallest = curr;
 			}
-			if (curr.order! > prev.largest!.order!) {
+			if (
+				curr.order !== undefined &&
+				prev.largest.order !== undefined &&
+				curr.order > prev.largest.order
+			) {
 				prev.largest = curr;
 			}
 			return prev;
@@ -104,8 +112,10 @@ export const getSuggestedArticles = (postNode: PostInfo) => {
 				const { largest, smallest } = getOrderRange(suggestedArticles) || {};
 				for (const suggestedPost of extraSuggestedArticles) {
 					if (
-						suggestedPost.order === smallest!.order! - 1 ||
-						suggestedPost.order === largest!.order! + 1
+						largest &&
+						smallest &&
+						(suggestedPost.order === smallest.order! - 1 ||
+							suggestedPost.order === largest.order! + 1)
 					) {
 						suggestedArticles.push(suggestedPost);
 					}
