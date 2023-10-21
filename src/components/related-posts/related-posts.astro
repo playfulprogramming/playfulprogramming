@@ -4,6 +4,7 @@ import style from "./related-posts.module.scss";
 import RelatedPostsCard from "./related-posts-card.astro";
 import * as api from "utils/api";
 import { getSuggestedArticles } from "utils/get-suggested-articles";
+import { isDefined } from "utils/is-defined";
 
 interface RelatedPostsProps {
 	post: PostInfo;
@@ -11,9 +12,9 @@ interface RelatedPostsProps {
 }
 
 const { post, headingId } = Astro.props as RelatedPostsProps;
-const authors = post.authors.map(
-	(unicornId) => api.getUnicornById(unicornId, post.locale)!,
-);
+const authors = post.authors
+	.map((unicornId) => api.getUnicornById(unicornId, post.locale))
+	.filter(isDefined);
 const suggestedArticles = getSuggestedArticles(post);
 ---
 

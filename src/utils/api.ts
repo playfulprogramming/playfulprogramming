@@ -1,6 +1,7 @@
 import { CollectionInfo, PostInfo, RolesInfo, UnicornInfo } from "types/index";
 import { Languages } from "types/index";
 import { roles, unicorns, posts, collections } from "./data";
+import { isDefined } from "./is-defined";
 
 function compareByDate(date1: string, date2: string): number {
 	return new Date(date1) > new Date(date2) ? -1 : 1;
@@ -25,7 +26,7 @@ export function getUnicornById(
 export function getUnicornsByLang(language: Languages): UnicornInfo[] {
 	return [...unicorns.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((u) => !!u);
+		.filter(isDefined);
 }
 
 export function getPostBySlug(
@@ -39,7 +40,7 @@ export function getPostBySlug(
 export function getPostsByLang(language: Languages): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => !!p)
+		.filter(isDefined)
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
 }
@@ -63,7 +64,8 @@ export function getPostsByUnicorn(
 ): PostInfo[] {
 	return [...posts.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((p) => p?.authors?.includes(unicornId))
+		.filter(isDefined)
+		.filter((p) => p.authors.includes(unicornId))
 		.filter((p) => !p.noindex)
 		.sort(compareByPublished);
 }
@@ -79,7 +81,7 @@ export function getCollectionBySlug(
 export function getCollectionsByLang(language: Languages): CollectionInfo[] {
 	return [...collections.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((c) => !!c)
+		.filter(isDefined)
 		.sort(compareByPublished);
 }
 
@@ -89,7 +91,7 @@ export function getCollectionsByUnicorn(
 ): CollectionInfo[] {
 	return [...collections.values()]
 		.map((locales) => locales.find((p) => p.locale === language) || locales[0])
-		.filter((c) => !!c)
+		.filter(isDefined)
 		.filter((c) => c.authors.includes(unicornId))
 		.sort(compareByPublished);
 }

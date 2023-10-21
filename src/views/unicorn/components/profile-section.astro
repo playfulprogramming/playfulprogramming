@@ -1,10 +1,11 @@
 ---
 import styles from "./profile-section.module.scss";
-import { Picture as UUPicture } from "../../../components";
-import { ProfilePictureMap } from "../../../utils/get-unicorn-profile-pic-map";
-import { UnicornInfo } from "../../../types";
-import * as api from "utils/api";
+import { Picture as UUPicture } from "components/index";
+import { UnicornInfo } from "types/index";
 import Icon from "astro-icon";
+import * as api from "utils/api";
+import type { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
+import { isDefined } from "utils/is-defined";
 
 interface ProfileSectionProps {
 	unicornProfilePicMap: ProfilePictureMap;
@@ -77,9 +78,9 @@ const socials = [
 	href: string;
 }[];
 
-const roles = unicorn.roles.map(
-	(roleId) => api.getRoleById(roleId, unicorn.locale)!,
-);
+const roles = unicorn.roles
+	.map((roleId) => api.getRoleById(roleId, unicorn.locale))
+	.filter(isDefined);
 ---
 
 <section class={styles.container}>

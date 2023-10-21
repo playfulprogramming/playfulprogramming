@@ -11,6 +11,7 @@ import { buildSearchQuery } from "../../utils/search";
 import { getAchievements, Achievement } from "src/utils/achievements";
 import { translate } from "utils/translations";
 import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
 
 interface UnicornPageProps {
 	unicorn: UnicornInfo;
@@ -31,10 +32,10 @@ const showAchievementToggle =
 const showPostsToggle = posts.length > postsToDisplay.length;
 
 const postAuthors = new Map(
-	[...new Set(posts.flatMap((p) => p.authors))].map((id) => [
-		id,
-		api.getUnicornById(id, unicorn.locale)!,
-	]),
+	[...new Set(posts.flatMap((p) => p.authors))]
+		.map((id) => api.getUnicornById(id, unicorn.locale))
+		.filter(isDefined)
+		.map((u) => [u.id, u]),
 );
 ---
 

@@ -5,6 +5,7 @@ import { getUnicornProfilePicMap } from "utils/get-unicorn-profile-pic-map";
 import { Pagination } from "components/pagination/pagination";
 import { Page } from "astro";
 import * as api from "utils/api";
+import { isDefined } from "utils/is-defined";
 
 export interface PageProps {
 	posts: PostInfo[];
@@ -16,10 +17,10 @@ const { posts, page, locale } = Astro.props as PageProps;
 const unicornProfilePicMap = await getUnicornProfilePicMap();
 
 const postAuthors = new Map(
-	[...new Set(posts.flatMap((p) => p.authors))].map((id) => [
-		id,
-		api.getUnicornById(id, locale)!,
-	]),
+	[...new Set(posts.flatMap((p) => p.authors))]
+		.map((id) => api.getUnicornById(id, locale))
+		.filter(isDefined)
+		.map((u) => [u.id, u]),
 );
 ---
 

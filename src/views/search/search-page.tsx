@@ -43,6 +43,7 @@ import { SortType } from "./components/types";
 import { SearchResultCount } from "./components/search-result-count";
 import { ServerReturnType } from "./types";
 import { CollectionInfo } from "types/CollectionInfo";
+import { isDefined } from "utils/is-defined";
 
 const DEFAULT_SORT = "relevance";
 const DEFAULT_CONTENT_TO_DISPLAY = "all";
@@ -487,7 +488,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 											<CollectionCard
 												unicornProfilePicMap={unicornProfilePicMap}
 												collection={collection}
-												authors={collection.authors.map(id => unicornsMap.get(id)!).filter((u) => !!u)}
+												authors={collection.authors.map(id => unicornsMap.get(id)).filter(isDefined)}
 												headingTag="h3"
 											/>
 										</li>

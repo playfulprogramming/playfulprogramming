@@ -4,10 +4,11 @@ import style from "./banner-css";
 import classnames from "classnames";
 import tags from "../../../content/data/tags.json";
 import fs from "fs";
+import { isDefined } from "utils/is-defined";
 import { TagInfo } from "types/TagInfo";
 
 const TAG_SVG_DEFAULT = fs.readFileSync("public/stickers/role_devops.svg", "utf-8");
-const tagsMap = new Map(Object.entries(tags));
+const tagsMap = new Map<string, TagInfo>(Object.entries(tags));
 
 function BannerCodeScreen({
 	post,
@@ -22,7 +23,7 @@ function BannerCodeScreen({
 	const rotY = (post.title.length * 3) % 20;
 
 	const tagInfo = post.tags.map(tag => tagsMap.get(tag))
-		.filter((t): t is TagInfo => !!t)
+		.filter(isDefined)
 		.filter(t => t.emoji || (t.image && t.shownWithBranding))[0];
 
 	const tagSvg = tagInfo?.image

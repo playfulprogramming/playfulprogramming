@@ -1,12 +1,12 @@
 ---
 import { Chip } from "../chip/chip";
-import { translate } from "../../utils";
+import { translate } from "utils/translations";
 import style from "./search-section.module.scss";
-import * as data from "../../utils/data";
+import * as data from "utils/data";
 import { SearchInput } from "../input/input";
 import { IconOnlyButton } from "../button/button";
 import { Icon } from "astro-icon";
-import { SEARCH_QUERY_KEY, buildSearchQuery } from "../../utils/search";
+import { SEARCH_QUERY_KEY, buildSearchQuery } from "utils/search";
 
 const tagsToDisplay = [...data.tags.entries()]
 	.sort(() => 0.5 - Math.random())

@@ -3,6 +3,7 @@ import { PostCard, PostCardExpanded } from "./post-card";
 import { PostInfo, UnicornInfo } from "types/index";
 import { ProfilePictureMap } from "utils/get-unicorn-profile-pic-map";
 import { HTMLAttributes } from "preact/compat";
+import { isDefined } from "utils/is-defined";
 
 export interface PostGridProps extends HTMLAttributes<HTMLUListElement> {
 	postsToDisplay: PostInfo[];
@@ -23,8 +24,8 @@ export function PostCardGrid({
 	return (
 		<ul {...props} class={style.list} role="list" id="post-list-container">
 			{postsToDisplay.map((post, i) => {
-				const authors = post.authors.map(id => postAuthors.get(id)!)
-					.filter(u => !!u);
+				const authors = post.authors.map(id => postAuthors.get(id))
+					.filter(isDefined);
 
 				return expanded && post.bannerImg ? (
 					<PostCardExpanded
