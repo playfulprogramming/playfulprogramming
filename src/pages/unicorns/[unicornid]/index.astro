@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const params = Astro.params as { unicornid: string };
 
 const locale: Languages = "en";
-const unicorn = api.getUnicornById(params.unicornid, locale);
+const unicorn = api.getUnicornById(params.unicornid, locale)!;
 const posts = api.getPostsByUnicorn(unicorn.id, locale);
 ---
 

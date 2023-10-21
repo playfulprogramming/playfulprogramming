@@ -104,7 +104,7 @@ const GHLink = `https://github.com/${siteMetadata.repoPath}/tree/main${siteMetad
 			</h2>
 			<Content />
 			{
-				post.collection ? (
+				collectionPosts?.length ? (
 					<ArticleNav
 						post={post}
 						collection={collection}

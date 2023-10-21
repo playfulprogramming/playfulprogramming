@@ -58,9 +58,9 @@ async function generateCollectionEPub(
 	collectionPosts: PostInfo[],
 	fileLocation: string,
 ) {
-	const authors = collection.authors.map((id) => {
-		return getUnicornById(id, collection.locale).name;
-	});
+	const authors = collection.authors
+		.map((id) => getUnicornById(id, collection.locale)?.name)
+		.filter((name): name is string => !!name);
 
 	const epub = new EPub(
 		{

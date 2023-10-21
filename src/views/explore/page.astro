@@ -18,7 +18,7 @@ const unicornProfilePicMap = await getUnicornProfilePicMap();
 const postAuthors = new Map(
 	[...new Set(posts.flatMap((p) => p.authors))].map((id) => [
 		id,
-		api.getUnicornById(id, locale),
+		api.getUnicornById(id, locale)!,
 	]),
 );
 ---

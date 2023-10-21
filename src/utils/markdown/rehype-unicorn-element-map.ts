@@ -1,14 +1,14 @@
 import { Root, Element } from "hast";
-import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { urlPathRegex, resolvePath } from "../url-paths";
 
 import path from "path";
+import { Plugin } from "unified";
 
 // TODO: Add switch/case and dedicated files ala "Components"
 export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 	return async (tree, file) => {
-		visit(tree, (node: Element) => {
+		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "video") {
 				node.properties.muted ??= true;
 				node.properties.autoPlay ??= true;
@@ -19,7 +19,7 @@ export const rehypeUnicornElementMap: Plugin<[], Root> = () => {
 
 				if (file.path) {
 					const resolvedPath = resolvePath(
-						node.properties.src.toString(),
+						String(node.properties.src),
 						path.dirname(file.path),
 					);
 					if (resolvedPath)

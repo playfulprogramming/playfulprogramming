@@ -36,19 +36,24 @@ export default defineConfig({
 			lastmod: new Date(),
 			i18n: {
 				defaultLocale: "en",
-				locales: Object.keys(languages).reduce((prev, key) => {
-					prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
-					return prev;
-				}, {}),
+				locales: Object.keys(languages).reduce(
+					(prev, key) => {
+						prev[key] = fileToOpenGraphConverter(key as keyof typeof languages);
+						return prev;
+					},
+					{} as Record<string, string>,
+				),
 			},
 			filter(page) {
 				// return true, unless lart part of the URL ends with "_noindex"
 				// in which case it should not be in the sitemap
-				return !page
-					.split("/")
-					.filter((part) => !!part.length)
-					.at(-1)
-					.endsWith("_noindex");
+				return !(
+					page
+						.split("/")
+						.filter((part) => !!part.length)
+						.at(-1)
+						?.endsWith("_noindex") ?? false
+				);
 			},
 			serialize({ url, ...rest }) {
 				return {

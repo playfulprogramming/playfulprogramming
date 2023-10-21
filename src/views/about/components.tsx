@@ -8,7 +8,7 @@ import mastodon from "src/icons/mastodon.svg?raw";
 import facebook from "src/icons/facebook.svg?raw";
 import rss from "src/icons/rss.svg?raw";
 
-const icons = { discord, linkedin, twitter, mastodon, facebook, rss };
+const icons: Record<string, string> = { discord, linkedin, twitter, mastodon, facebook, rss };
 
 // Components used in the .MDX about files
 // - see /content/site/about-us*.mdx for usages

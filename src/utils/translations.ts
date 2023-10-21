@@ -3,8 +3,8 @@ import { languages } from "../constants/index";
 import { basename } from "path";
 import { MDXInstance, MarkdownInstance } from "astro";
 
-function isLanguageKey(str: string): str is Languages {
-	return Object.keys(languages).includes(str);
+function isLanguageKey(str: string | undefined): str is Languages {
+	return str !== undefined && Object.keys(languages).includes(str);
 }
 
 /**
@@ -116,7 +116,7 @@ export function getTranslatedPage<
 }
 
 // fetch translation files from /data/i18n
-let i18nFiles: Record<string, unknown>;
+let i18nFiles: Record<string, { default: Record<string, string> }>;
 try {
 	i18nFiles = import.meta.glob("../../content/data/i18n/*.json", {
 		eager: true,
@@ -127,12 +127,10 @@ try {
 
 const i18n: Partial<Record<Languages, Map<string, string>>> =
 	Object.fromEntries(
-		Object.entries(i18nFiles).map(
-			([file, content]: [string, { default: Record<string, string> }]) => [
-				basename(file).split(".")[0],
-				new Map(Object.entries(content.default)),
-			],
-		),
+		Object.entries(i18nFiles).map(([file, content]) => [
+			basename(file).split(".")[0],
+			new Map(Object.entries(content.default)),
+		]),
 	);
 
 // warn about any values that do not have full translations

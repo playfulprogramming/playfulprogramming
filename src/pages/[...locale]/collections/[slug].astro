@@ -43,7 +43,7 @@ const params = Astro.params as {
 };
 
 const locale = params.locale || "en";
-const collection = api.getCollectionBySlug(params.slug, locale);
+const collection = api.getCollectionBySlug(params.slug, locale)!;
 const collectionPosts = api.getPostsByCollection(params.slug, locale);
 const authors = collection.authors.map((authorId) =>
 	api.getUnicornById(authorId, locale),

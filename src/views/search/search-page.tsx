@@ -101,7 +101,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 		500,
 	);
 
-	const resultsHeading = useRef<HTMLDivElement>();
+	const resultsHeading = useRef<HTMLDivElement | null>(null);
 
 	const onManualSubmit = useCallback(
 		(str: string) => {
@@ -139,7 +139,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 			totalPosts: 0,
 			collections: [],
 			totalCollections: 0,
-		},
+		} as ServerReturnType,
 		refetchOnWindowFocus: false,
 		retry: false,
 		enabled,
@@ -194,7 +194,7 @@ function SearchPageBase({ unicornProfilePicMap }: SearchPageProps) {
 	// Setup content to display
 	const contentToDisplay = useMemo(() => {
 		const urlVal = urlParams.get(CONTENT_TO_DISPLAY_KEY);
-		const isValid = ["all", "articles", "collections"].includes(urlVal);
+		const isValid = ["all", "articles", "collections"].includes(String(urlVal));
 		if (isValid) return urlVal as "all" | "articles" | "collections";
 		return DEFAULT_CONTENT_TO_DISPLAY;
 	}, [urlParams]);

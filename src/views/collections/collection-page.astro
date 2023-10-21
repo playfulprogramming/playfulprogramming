@@ -1,5 +1,5 @@
 ---
-import { CollectionInfo, PostInfo, UnicornInfo } from "../../types";
+import { CollectionInfo, UnicornInfo } from "../../types";
 import { MarkdownInstance } from "astro";
 import { Picture } from "@astrojs/image/components";
 import { Picture as UUPicture } from "components/image/picture";
@@ -59,7 +59,7 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 			</div>
 			<div class={styles.buttonContainer}>
 				{
-					collection.buttons.map((button, i) => (
+					collection.buttons?.map((button, i) => (
 						<LargeButton
 							tag="a"
 							href={button.url}
@@ -88,9 +88,9 @@ const coverImgWidth = Math.max(480, Math.ceil(720 * coverImgAspectRatio));
 									style={{ borderColor: author.color }}
 								>
 									<UUPicture
-										picture={unicornProfilePicMap.find(
-											(u) => u.id === author.id,
-										)}
+										picture={
+											unicornProfilePicMap.find((u) => u.id === author.id)!
+										}
 										alt=""
 									/>
 								</div>

@@ -1,23 +1,23 @@
 // https://github.com/wuct/raf-throttle/blob/master/rafThrottle.js
-const rafThrottle = (callback) => {
-	let requestId = null;
+function rafThrottle<A extends unknown[]>(
+	callback: (this: unknown, ...args: A) => void,
+): (this: unknown, ...args: A) => void {
+	let requestId: number | null = null;
 
-	let lastArgs;
+	let lastArgs: A;
 
-	const later = (context) => () => {
+	const later = (context: unknown) => () => {
 		requestId = null;
 		callback.apply(context, lastArgs);
 	};
 
-	const throttled = function (...args) {
+	return function (...args: A) {
 		lastArgs = args;
 		if (requestId === null) {
 			requestId = requestAnimationFrame(later(this));
 		}
 	};
-
-	return throttled;
-};
+}
 
 // Thanks https://easings.net/
 function easeOutExpo(x: number): number {
@@ -51,7 +51,7 @@ export const enableParallaxScrolling = () => {
 
 			const moveOnScrollBy = Number(el.dataset.moveOnScrollBy);
 
-			const parentHeight = el.parentElement.clientHeight;
+			const parentHeight = el.parentElement!.clientHeight;
 
 			return { top, trueTop, moveOnScrollBy, parentHeight };
 		});

@@ -1,6 +1,6 @@
 import { PostInfo } from "types/index";
 import { render } from "preact-render-to-string";
-import { createElement } from "preact";
+import { VNode, createElement } from "preact";
 import sharp from "sharp";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -68,7 +68,7 @@ export const renderPostPreviewToString = async (
 	const authorImageMap = Object.fromEntries(
 		await Promise.all(
 			post.authors.map(async (authorId) => {
-				const author = getUnicornById(authorId, post.locale);
+				const author = getUnicornById(authorId, post.locale)!;
 
 				if (authorImageCache.has(author.id))
 					return [author.id, authorImageCache.get(author.id)];
@@ -113,7 +113,7 @@ export const renderPostPreviewToString = async (
 			width: PAGE_WIDTH,
 			height: PAGE_HEIGHT,
 			authorImageMap,
-		}),
+		}) as VNode<{}>,
 	)}
 	</body>
 	</html>

@@ -32,8 +32,8 @@ export const get = () => {
 				.map((id) => getUnicornById(id, post.locale))
 				.map((author) => {
 					return {
-						name: author.name,
-						link: `${siteUrl}/unicorns/${author.id}`,
+						name: author!.name,
+						link: `${siteUrl}/unicorns/${author!.id}`,
 					};
 				}),
 			date: new Date(post.published),

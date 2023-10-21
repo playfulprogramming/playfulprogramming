@@ -23,7 +23,7 @@ export function PostCardGrid({
 	return (
 		<ul {...props} class={style.list} role="list" id="post-list-container">
 			{postsToDisplay.map((post, i) => {
-				const authors = post.authors.map(id => postAuthors.get(id))
+				const authors = post.authors.map(id => postAuthors.get(id)!)
 					.filter(u => !!u);
 
 				return expanded && post.bannerImg ? (

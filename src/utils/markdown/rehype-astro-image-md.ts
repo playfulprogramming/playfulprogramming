@@ -11,11 +11,8 @@ import path from "path";
  */
 import { getPicture } from "./get-picture-hack";
 import { getImageSize } from "../get-image-size";
-import { fileURLToPath } from "url";
 import { resolvePath } from "../url-paths";
 import { getLargestSourceSetSrc } from "../get-largest-source-set-src";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const MAX_WIDTH = 768;
 const MAX_HEIGHT = 768;
@@ -33,7 +30,7 @@ function getPixelValue(attr: unknown): number | undefined {
 export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 	return async (tree, file) => {
 		const imgNodes: Element[] = [];
-		visit(tree, (node: Element) => {
+		visit(tree, "element", (node: Element) => {
 			if (node.tagName === "img") {
 				imgNodes.push(node);
 			}
@@ -72,7 +69,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 				const nodeWidth = getPixelValue(node.properties.width);
 				const nodeHeight = getPixelValue(node.properties.height);
 
-				const dimensions = { ...srcSize };
+				const dimensions = { ...srcSize } as { width: number; height: number };
 				if (nodeHeight) {
 					dimensions.height = nodeHeight;
 					dimensions.width = Math.floor(nodeHeight * imageRatio);
@@ -119,7 +116,7 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 						alt: nodeAlt || "",
 					});
 
-					pngSource = originalPictureResult.sources.reduce(
+					const newPngSource = originalPictureResult.sources.reduce(
 						(prev, source) => {
 							const largestSrc = getLargestSourceSetSrc(source.srcset);
 							// select first option
@@ -146,8 +143,10 @@ export const rehypeAstroImageMd: Plugin<[], Root> = () => {
 							}
 							return prev;
 						},
-						null as ReturnType<typeof getLargestSourceSetSrc>,
+						undefined as ReturnType<typeof getLargestSourceSetSrc> | undefined,
 					);
+
+					if (newPngSource) pngSource = newPngSource;
 				}
 
 				const sources = pictureResult.sources.map((attrs) => {

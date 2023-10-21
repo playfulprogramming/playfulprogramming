@@ -33,7 +33,7 @@ const showPostsToggle = posts.length > postsToDisplay.length;
 const postAuthors = new Map(
 	[...new Set(posts.flatMap((p) => p.authors))].map((id) => [
 		id,
-		api.getUnicornById(id, unicorn.locale),
+		api.getUnicornById(id, unicorn.locale)!,
 	]),
 );
 ---
@@ -115,9 +115,9 @@ const postAuthors = new Map(
 <script>
 	const viewAllAchievementsButton: HTMLElement = document.querySelector(
 		"#view-all-achievements",
-	);
+	)!;
 	const viewAllAchievementsText: HTMLElement =
-		viewAllAchievementsButton.querySelector(".innerText");
+		viewAllAchievementsButton.querySelector(".innerText")!;
 
 	if (viewAllAchievementsButton) {
 		const hiddenAchievements: HTMLElement[] = Array.from(

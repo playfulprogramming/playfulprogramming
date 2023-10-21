@@ -1,6 +1,6 @@
 export const onSoftNavClick =
 	(softNavigate: (href: string) => void) => (e: MouseEvent) => {
-		let link = e.target as HTMLElement;
+		let link = e.target as HTMLElement | null;
 		// Could click on a child element of an anchor
 		while (link && !(link instanceof HTMLAnchorElement)) {
 			link = link.parentElement;

@@ -51,7 +51,7 @@ const params = Astro.params as {
 };
 
 const locale = params.locale ?? "en";
-const post = api.getPostBySlug(slug, locale);
+const post = api.getPostBySlug(slug, locale)!;
 const authors = post.authors.map((unicornId) =>
 	api.getUnicornById(unicornId, locale),
 );
