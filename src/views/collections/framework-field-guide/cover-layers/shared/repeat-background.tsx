@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck TODO
-
 import { JSX } from "preact";
 import {
 	useCallback,
@@ -31,7 +28,7 @@ export const RepeatBackground = ({
 
 	const elRef = useRef<HTMLDivElement>();
 
-	const checkEl = useCallback((el) => {
+	const checkEl = useCallback((el: HTMLDivElement | undefined) => {
 		if (hasSet || !el) return;
 		setHasSet(true);
 		const repeatLocal = Math.ceil(

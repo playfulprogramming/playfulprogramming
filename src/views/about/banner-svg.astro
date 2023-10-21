@@ -44,6 +44,8 @@ const unicornImages = await Promise.all(
 			alt: "",
 		});
 
+		if (!image.src) return "";
+
 		return `
 		<image class="bannerSvgImage" width="96" height="96" xlink:href="${escape(
 			image.src,

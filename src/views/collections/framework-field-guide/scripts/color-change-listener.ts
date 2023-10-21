@@ -1,7 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck TODO
-
-function throttle(callback, limit) {
+function throttle<A extends unknown[]>(
+	callback: (this: unknown, ...args: A) => void,
+	limit: number,
+): (this: unknown, ...args: A) => void {
 	let waiting = false;
 	return function (...props) {
 		if (!waiting) {

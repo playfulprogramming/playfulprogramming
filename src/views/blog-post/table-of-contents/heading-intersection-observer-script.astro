@@ -20,8 +20,8 @@ const { headingsToDisplaySlugs } = Astro.props as {
 			? window.matchMedia("(prefers-reduced-motion: reduce)").matches
 			: false;
 
-		const tocListRef: HTMLOListElement = document.querySelector("#tocList");
-		const tocListContainer = tocListRef.parentElement?.parentElement;
+		const tocListRef: HTMLOListElement = document.querySelector("#tocList")!;
+		const tocListContainer = tocListRef.parentElement!.parentElement!;
 
 		const linkRefs: LinkRef[] = [
 			...(document.querySelectorAll(
@@ -30,7 +30,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 		].map((li) => ({
 			li,
 			anchor: li.firstElementChild as HTMLAnchorElement,
-			id: li.firstElementChild.getAttribute("href").slice(1),
+			id: li.firstElementChild!.getAttribute("href")!.slice(1),
 		}));
 
 		// return whether an element is currently visible within a scrolling container
@@ -51,10 +51,13 @@ const { headingsToDisplaySlugs } = Astro.props as {
 		function handleAnchorClick(e: Event) {
 			e.preventDefault();
 			const anchor = e.target as HTMLAnchorElement;
+			if (!anchor) return;
 			const li = anchor.parentElement as HTMLLIElement;
-			const heading = document.getElementById(
-				anchor.getAttribute("href").slice(1),
-			);
+			if (!li) return;
+			const href = anchor.getAttribute("href");
+			if (!href) return;
+			const heading = document.getElementById(href.slice(1));
+			if (!heading) return;
 			const isLiVisible = isVisibleInContainer(tocListContainer, li);
 
 			/*
@@ -84,7 +87,7 @@ const { headingsToDisplaySlugs } = Astro.props as {
 
 			// update the "location.hash" for the selected heading
 			// - must be `replaceState`, as setting `location.hash` directly results in a page scroll
-			window.history.replaceState(null, null, anchor.getAttribute("href"));
+			window.history.replaceState(null, "", anchor.getAttribute("href"));
 
 			return false;
 		}

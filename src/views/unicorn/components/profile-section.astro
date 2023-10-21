@@ -71,10 +71,14 @@ const socials = [
 		name: "Cohost",
 		href: `https://cohost.org/${unicorn.socials.cohost}`,
 	},
-].filter((s) => !!s);
+].filter((s) => !!s) as {
+	icon: string;
+	name: string;
+	href: string;
+}[];
 
-const roles = unicorn.roles.map((roleId) =>
-	api.getRoleById(roleId, unicorn.locale),
+const roles = unicorn.roles.map(
+	(roleId) => api.getRoleById(roleId, unicorn.locale)!,
 );
 ---
 
@@ -82,7 +86,7 @@ const roles = unicorn.roles.map((roleId) =>
 	<div class={styles.cardContainer}>
 		<div class={styles.nameAndDesc}>
 			<UUPicture
-				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)}
+				picture={unicornProfilePicMap.find((u) => u.id === unicorn.id)!}
 				alt=""
 				class={styles.authorImage}
 			/>
