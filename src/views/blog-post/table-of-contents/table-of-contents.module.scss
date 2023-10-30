@@ -59,6 +59,7 @@
 .container {
 	position: sticky;
 	top: var(--toc_header_padding-top);
+	padding-bottom: var(--site-spacing);
 }
 
 .tocTitle {
