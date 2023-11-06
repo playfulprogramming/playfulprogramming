@@ -3,39 +3,56 @@
   title: "How to Build Original Projects",
   description: "People often say that you should build your own projects to grow as a developer, without explaining how. Let's learn how to actually plan and build your own custom projects.",
   published: '2023-10-31',
-  authors: ["reyes-dev"],
+  authors: ["jarrodreyes"],
   tags: ["opinion"],
   license: 'cc-by-4'
 }
 ---
 
-There's a lot of different ways to practice programming. You can solve coding exercises, follow tutorials and courses that walk you through the process of learning syntax and concepts, or read books on a particular programming language. Maybe you've done some or all of these, but don't feel enthusiastic about your results. You're not growing or having much fun, yet you feel obligated to keep consuming material in order to obtain skills.
+There's a lot of different ways to practice programming. You can solve coding exercises, go through courses, or read books. Maybe you've done some or all of these, but don't feel enthusiastic about your results. You're not growing or having much fun, yet you feel obligated to keep consuming material in order to obtain skills.
 
 I'm going to suggest another way to grow as a software developer that you might want to experiment with: building original projects. The broadest definition of an original project can be boiled down to:
 - It is a new creation of your mind; there is no guide or tutorial that can teach you directly how to build it
 - It solves a real world problem you or others have
 
-To clarify, an original project is not necessarily a completely new product that nobody has ever thought of, or invented before (although it can be!).  I also don't mean that you are *not allowed* to reference guides, tutorials, documentation, other people's code or Google in the process of building an original project. The opposite is true, and I highly encourage using all resources at your disposal.
+To clarify, an original project is not necessarily a completely new product that nobody has ever thought of, or invented before (although it can be!).  I also don't mean that you are *not allowed* to reference external materials while building one for it to be *genuinely original*.
 
-Rather, the essence of the original project is autonomy and personal vision. You are laying all the groundwork: the ideas, plan, research, and features. Then, you will execute on your plan of action by translating the broad ideas into code. By the end, you will have in your hands new software for your use case. You will be trading in the prepackaged, tutorial-project approach for a slightly scarier, but ultimately more rewarding approach, driven mainly by your creativity and problem-solving skills.
+Rather, the essence of the original project is autonomy and personal vision. You are laying all the groundwork: the ideas, plan, research, and features. Then, you will execute on your plan of action by translating the broad ideas into code. By the end, you will have in your hands new software for your use case. 
+
+You will be trading in the prepackaged, tutorial-project approach for a slightly scarier, but ultimately more rewarding approach, driven mainly by your creativity and problem-solving skills.
 
 # Why should you build original projects?
-There can be a myriad of motivations for pursuing an original project. These can range from learning new technologies/concepts, to making that dream app you wish existed, wishing a plugin or tool existed for some piece of software you already use, or even just fun and entertainment. Whatever your reasons, building an original project is sure to be a powerful learning experience that challenges you in new ways. This act of creation will draw out all your latent abilities, giving you a fresh view into your strengths and weaknesses as an engineer. You will level up, build something useful and have fun along the way.
+Motivations for building an original project can range from learning purposes, to making that dream app you wish existed, to writing plugins/tools for software you already use, or even just pure entertainment. You likely have your own motivations, and hopefully I can convince you to take the plunge.
+
+Building an original project is an exciting act of creation that will draw out all of your latent abilities, giving you a fresh view into your strengths and weaknesses as an engineer. You will level up, build something useful and have fun along the way. 
 
 If that's too abstract, consider these more practical reasons:
-- It brings you immediately to the end-goal of programming, your dream projects, instead of waiting until you are "skilled enough" to tackle them
-- Your problem-solving skills will get a major upgrade, since you have no easy way forward but to come up with novel solutions
-- The end product brings immediate, tangible value to yours or others lives
-- It is highly motivating to work on something you actually care about
-- They stand out as portfolio pieces
+- It brings you immediately to the end-goal of programming, your dream projects, instead of waiting until you are "skilled enough" to tackle them.
+- Your problem-solving skills will get a major upgrade, since you have no easy way forward but to come up with novel solutions.
+- The end product brings immediate, tangible value to yours or others lives.
+- It is highly motivating to work on something you actually care about.
+- They stand out as portfolio pieces.
+
+> In my case, I built my [dream app](https://github.com/reyes-dev/dreampack) (pun intended) from scratch following the process outlined in this article. Most of what is written here is insight garnered from the direct experience of building that project!
 
 # What if you don't feel "ready" yet?
-You might feel that you're not ready to build your own projects yet, that you're still missing the right knowledge or experience to begin. That's a common feeling, but you might be more ready than you believe. While it's true that you're going to need to draw information from various sources to make progress and eventually succeed in completing the project, you actually don't need to know *everything* before you start. Regardless of how many tutorials you watch beforehand, you are going to end up looking up language syntax, error messages, and much more. Paradoxically, building your first few original projects is what will make you truly "ready", since you will become comfortable facing strange problems with unknown solutions; that in itself is readiness. You will get into the habit of looking stuff up as you go, and gain immediate, hands-on experience with real world scenarios in the process.
+
+You might feel that you're not ready to build your own projects yet, that you're still missing the right knowledge or experience to begin. That's a common feeling, but you might be more ready than you believe. 
+
+For example, you don't need to know *everything* about programming to start. Regardless of how much you learn prior to building your project, you're still going to have to look up stuff like language syntax, error messages and weird behaviors.
+
+Paradoxically, building your first few original projects is what will make you truly "ready", since you will become comfortable facing strange problems with unknown solutions; that in itself is readiness. You will get into the habit of looking stuff up as you go, and gain immediate, hands-on experience with real world scenarios in the process.
 
 All this being said, if you feel overwhelmed or anxious, that's okay. The rest of this article will walk you through an approach that will hopefully alleviate some of these feelings of confusion.
 
 # Start with the problem you want to solve
-Chances are, there is some area of your life that software can improve; something unique to your interests or circumstances that is meaningful to you. Reflect also on problems other people have that could be solved with software. If nothing comes to mind immediately, that's also okay. Try getting into the habit of asking yourself in every situation if something could be built to address it, and consider keeping an idea journal of potential projects you might want to build. The keys to generating project ideas are to be attentive to the world around you, look at what other people are already building and keep all your ideas recorded somewhere so you don't forget anything!
+Chances are, there is some area of your life that software can improve; something unique to your interests that is meaningful to you. Reflect on problems other people have that could be solved with software. Try getting into the habit of asking yourself in every situation if something could be built to address it. 
+
+Some keys to generating project ideas:
+
+- Be attentive to the world around you.
+- Look at what other people are already building.
+- Consider keeping a journal of project ideas.
 
 Once you have something that excites you, hold on to that idea.
 
@@ -45,9 +62,12 @@ Now that you have the destination, you need a route to get there. A plan is your
 ## Brainstorm
 I recommend starting with a brainstorming session where you jot all of your ideas and thoughts down somewhere. Take this as an opportunity to think through your approach and what exactly you want your program to accomplish. You can also decide what programming languages, frameworks or libraries you might want to use here.
 
-For example, here is a fake brainstorming session for a hypothetical website: *I want to create an indie game blog site that let's people create accounts and write reviews of their favorite indie games, share their hours played/achievements from their Steam account at the top of the review, and upload video files to insert into the blogpost for an audio-textual experience that clearly describes the game. At the end of the blogpost, links with image preview thumbnails to Twitch streams of the game being reviewed are provided for the reader in case they want to see the game in action. These could be current livestreams of the game or past livestreams of the writer.*
+For example, here is a fake brainstorming session for a hypothetical website:
+
+> *I want to create an indie game blog site that let's people create accounts and write reviews of their favorite indie games, share their hours played/achievements from their Steam account at the top of the review, and upload video files to insert into the blogpost for an audio-textual experience that clearly describes the game. At the end of the blogpost, links with image preview thumbnails to Twitch streams of the game being reviewed are provided for the reader in case they want to see the game in action. These could be current livestreams of the game or past livestreams of the writer.*
+
 ## Step-by-step plan
-Next, I recommend taking that unorganized jumble of ideas you've produced and unpacking them into a neater, but still rough sketch of your project that outlines that core features at a high level. If you've generated tons of ideas, it's also important to start separating core, essential features from nice-to-have-but-unnecessary-features. For our indie game blog, the core functionality boils down to:
+Next, I recommend taking that unorganized jumble of ideas you've produced and unpacking them into a neater, but still rough sketch of your project that outlines that core features at a high-level. If you've generated tons of ideas, it's also time to start separating core features from optionals. For our indie game blog, the core functionality boils down to:
 
 - Authorization: You need a way for users to sign up, log in and log out.
 - Blogposts: You need a way for writers to create and save new blogposts, embed videos and pictures.
@@ -56,43 +76,70 @@ Next, I recommend taking that unorganized jumble of ideas you've produced and un
 - User interface: How should the layout of the website look visually? You might need some mockups. 
 
 Each of these can be further broken down into subtasks, until you end up with something like:
--  Implementing Blogposts
-	1. First create simple text-only posts that can be posted by authorized users and publicly viewed by anyone. Make some pages with forms for creating new posts.
-	2. Look into how to allow authors to upload/insert video files to their blog post.
-	3. Find a way to link Steam account data to author account, and display relevant information such as the amount of hours the author has played this game.
-	4. With Twitch API access in hand, display past streams of the game at the bottom of any given blogpost.
+- Implementing Authorization
 
-Admittedly, this is a gross oversimplification. Depending on the size and scope of your project, there may be *many other factors* at play: What technologies or libraries should you use? Will it be desktop, mobile or cross-platform? How many hours will you work on it per day/week? 
+  1. Find a suitable authorization library.
 
-While you should address the glaring issues that come to mind as much as possible, at the start of a fresh project, predicting *every step* you'll need to reach the goal line is virtually impossible. A feature that seems like it can be added in one or two steps is actually a 10-step process that gives rise to new bugs. That's a normal part of the process. What we're doing here is preparing a general approach to how we want to build our project using plain language, and setting up actionable tasks that are small enough to be achievable. Be flexible and willing to adjust your plan as needed.
+     > - Do some research on various auth libraries in my technology if competitors exist
+     > - Weigh their pros/cons and pick the best one for my usecase
+
+  2. Read through the documentation and understand how it works.
+
+  3. Add it to your project, set it up following the instructions.
+
+     > - Add links to login/register pages
+     > - Setup forms/views if necessary
+     > - Test login is working properly and new users are registered
+
+- Implementing Blogposts
+
+  1. First create simple text-only posts that can be posted by authorized users and publicly viewed by anyone. 
+
+     > - Write tests for new posts flow
+     >
+     > - Setup views and build form for creating new posts
+     > - Display new posts on the home page
+
+  2. Look into how to allow authors to upload/insert video files to their blog post.
+
+  3. Find a way to link Steam account data to author account, and display relevant information such as the amount of hours the author has played this game.
+
+  4. With Twitch API access in hand, display past streams of the game at the bottom of any given blogpost.
+
+...And so on until you've covered the high-level features.
+
+Admittedly, this is a gross oversimplification. Depending on the size and scope of your project, there may be *many other factors* at play: What technologies should you use? Will it be desktop, mobile or cross-platform? How many hours will you work on it per day/week? 
+
+While you should address the glaring issues that come to mind as much as possible, at the start of a fresh project, predicting *every step* you'll need to reach the goal line is virtually impossible.  
+
+What we're doing here is preparing a general approach to how we want to build our project using plain language, and setting up actionable tasks that are small enough to be achievable. Be flexible and willing to adjust your plan as needed.
+
 ## Gather resources
-You'll want to spend some time gathering resources that you can reference and use during your development process. You can find and vet different libraries here, as well as store the best sources of information like docs or courses.
+Spend some time gathering a few resources that you can reference during development. You can find and vet different libraries here, as well as bookmark the best sources of information like docs, books or courses. Consider also making a list of communities that you can ask for help in a moment of need.
 
-When you reach a point where you're not sure how to proceed, your first instinct may be to run to Google, Stack Overflow or ChatGPT. It's fine to use these when the need arises, but you may benefit from spending some time gathering reference material ahead of time, during the planning phase. This can be documentation (or specific pages of docs), articles that address certain problems, videos or courses of your used technologies. It can also be a list of communities that you can ask for help in a moment of need. 
-
-The point is that we want to take a proactive, not reactive, approach that keeps us in charge during a crisis, and not be at the whim of our emotions and search algorithms. By consulting primary sources and other human beings, we are also more likely to gain a deeper understanding of the underlying holes in our knowledge that lead us to being confused in the first place.
-
-You can gather as many resources for as diverse a set of problems as you please, but you don't have to go overboard and buy every course, join every programming Discord channel and check out every book from your local library. Don't spend all your energy at this stage. It's enough to have the docs for your technologies within reach, and some articles, posts, videos, or books that address the problems you feel you might have the hardest time with. Anxious about testing? Pick up a book or course on the subject for your language. Worst case scenario, you might have to seek out a different resource on the fly if it isn't enough.
+When you reach a point where you're not sure how to proceed, your first instinct may be to run to Google, Stack Overflow or ChatGPT. It's fine to use these when the need arises, but we want to take a proactive approach that keeps us in charge during a crisis. By preparing relevant resources to cover the gaps in our knowledge upfront, you'll be better suited to overcome the many inevitable obstacles you'll face.
 
 ## Wrapping up the planning phase
-I recommend keeping notes to record your progress if the project is of sufficient size or complexity. See if you can discover weak points in your system to target, such as specific concepts you haven't understood deeply but might need to, or areas that are slowing down your progress such as a gap in CSS or testing knowledge.
+With the broad vision in place, a set of sub-tasks, and a bunch of great resources, you're ready to take action. Keep in mind that your plan will change! It is not meant to be a burden that gets in the way of building, but rather a flexible view into the bigger picture of what you're trying to achieve, something to keep you grounded on the path to completion.
 
-With the broad vision in place, a set of problems and sub-problems, and a bunch of great resources, you're ready to take action. Keep in mind that your plan will change. Bugs will come up that you didn't expect. You might change your mind on a feature, or decide that you picked the wrong technologies, and end up rewriting portions of the codebase. Your plan is not meant to be a burden that gets in the way of building, but rather a flexible view into the bigger picture of what you're trying to achieve, something to keep you grounded on the path to completion.
+Finally, I recommend [keeping a living document](https://unicorn-utterances.com/posts/documentation-driven-development) to record your progress if the project is of sufficient size or complexity. Use it to keep track of your gaps in technical knowledge, how you achieved results, or possible improvements to the architecture of your codebase. Record your insights and make plans to address issues that crop up.
+
 # Start building the project
-If you're like me, the first step can be anxiety provoking. Depending on what you're building, this can literally be as simple as making a new directory, or running a scaffolding command. You might build out a simple homepage with a greeting, or write your first function. In your planning phase, you should have prioritized features and prepared actionable tasks ready to tackle. All that's left is to actually write some code!
+If you're like me, the first step can be anxiety provoking. This can be as simple as making a new directory, or running a scaffolding command, building out the homepage, or writing your first function. In the planning phase, you should have planned out your core features, prepared actionable tasks, and gathered your preferred tools. All that's left is to actually write some code!
 
-I have less to say here than in the next section. You likely have your tools picked out, such as the programming language(s) you'll be working with, frameworks, your preferred IDE, bundler, version control, CI/CD, etc... You may also have a preferred paradigm like Test-Driven Development. This article is not about making these choices; it's up to you call the shots here and set everything up for a good start. When you're ready, write out your first lines of code to tackle any feature or page. Reference your resources, docs or Google for syntax, and build until you hit your first serious challenge, which the next section can help you with.   
+When you're ready, write out the first lines of code to tackle any feature or page. Reference your resources, docs or Google for syntax, and build until you hit your first serious challenge, which the next section can help you with.   
+
 # Troubleshooting
-Inevitably, you are going to run into hard problems that don't have obvious solutions at first. Because you are not solving something like a code exercise or tutorial project that has the answers for you on demand, should you want them, you will likely run into cryptic issues that require arcane solutions. Since these issues will range in difficulty from easy to hard, you'll want to have a few handy methods to overcome them without too much frustration or despair. Always remember that the chances are greatly in your favor that there is *some way* to solve your problem.
+Eventually, you are going to encounter hard problems that don't have obvious solutions at first. These issues will range in difficulty from easy to cryptic, so you'll want to have a few handy protocols to overcome them without too much frustration. Always remember that the chances are greatly in your favor that there is *some way* to solve your problem.
 
 But then, how? Let's take a step back first and understand what this section is all about. When writing code, you eventually reach a point of confusion where you don't know what to do anymore. This can be for a variety of reasons (like being tired or sleep-deprived), but generally the root cause is that you lack some kind of fundamental understanding:
 - You're unsure what you specifically want to accomplish.
 - There is a gap between what you want to accomplish and your knowledge of how to do that.
 
-The following techniques address these root causes, and can be used individually or mixed together. Each of these could warrant a blogpost of their own, so I'll only be touching upon them briefly, but know that they are there and more can be learned about them online.
+The following techniques address these root causes, and can be used individually or mixed together. Each of these could warrant a blogpost of their own, so I'll only be touching upon them briefly, but know that more can be learned about them online.
 ## Walk through the problem
 
-It's always helpful to begin with broadening your understanding of the issue at hand. Once you've laid out what you're trying to solve, and ways to potentially solve it, even if you aren't 100% clear on what to do, you can move forward with more confidence.
+It's always helpful to begin with broadening your understanding of the issue at hand. Once you've laid out what you're trying to solve, and ways to potentially solve it, you can move forward with more confidence.
 
 ### Write it down
 Write your problem on paper as clearly and specifically as possible. Explain what is happening, possible reasons it might be happening, and what should be happening instead. For example:
@@ -101,25 +148,35 @@ Write your problem on paper as clearly and specifically as possible. Explain wha
 - I want new posts to be displayed without a refresh.
 ### Consider your options and act on one
 
-Once your problem is clearly written down, what comes next is some attempt at solving it by racking your brain and taking stock of your options, perhaps also in written form: *Maybe I could use a for loop here. There might be a section in the docs that addresses this, I could go read it. Maybe one of my dependencies is at fault. Is this a config problem? I could Google this to see how other people have solved it. I could revert the code to before I had this issue.*
+Once your problem is clearly written down, what comes next is some attempt at solving it by racking your brain and taking stock of your options: 
 
-Okay, it's starting to seem like I am saying that you should solve your problem by solving your problem. The problem here is that your specific situation is going to be wildly unique, and the best approach can only be determined by you in that instant. You'll have to draw on your established knowledge and resources (which I, as the author, am unaware of) and leverage all that you know to handle it. This is indeed the hardest part, and often you will have to broaden your knowledge base by reading and looking stuff up, from specific syntax to core concepts of a library to design patterns. 
+> *Maybe I could use a for loop here. There's a section in the docs that addresses this, I could go reread it. Maybe one of my dependencies is at fault. Is this a config problem? I could Google this to see how other people have solved it.*
 
-What I am advocating is writing down all the things you CAN do, as opposed to becoming paralyzed in indecision, even if your only practical next step is "look up how other people have done this before". Often that can be the seed of new understanding and renewed curiosity. Pick one path forward and walk down it.
+Okay, it's starting to seem like I am saying that you should solve your problem by solving your problem. The problem here is that your specific situation is going to be wildly unique, and the best approach can only be determined by you in that instant. You'll have to draw on all that you know and improvise for what you don't.
 
-Let's say I want new posts to be presented to my timeline without a full-page refresh. After some Googling, I see that WebSockets is a way to accomplish this. I read through a guide, and gain a basic understanding. Before coding an implementation, I write out simple instructions:
+Write down all the things you CAN do, even if your only practical next step is "look up the problem". Pick one path forward and walk down it.
+
+Let's say my problem is that I want new posts to be presented to my timeline without a full-page refresh, but I'm clueless about how to do this. After some Googling, I see that WebSockets is a way to accomplish this. I read through a guide, and gain a basic understanding. Before coding an implementation, I write out pseudocode:
 
 1. First open a web socket connection on the client
 2. When the form for a new post gets submitted, send the post through the websocket
 3. Listen for when the post is received by the server
 4. When a post is received, run a function that appends the new post to an element
 
+Next, we follow through with real code at the most atomic level.
+
 ### Divide and conquer
- A sufficiently complex problem will benefit from breaking it down to the smallest subproblems, eventually hitting bedrock and reaching tasks that you can actually take action on. Implementing WebSockets sounds daunting at first. But with our instructions, we just need to tackle one tiny subproblem at a time, starting with the first. The first subproblem can be solved with a single line of code:
 
-`let socket = new WebSocket(url);`
+ A sufficiently complex problem will benefit from breaking it down to the smallest subproblems, eventually hitting bedrock and reaching actionable tasks. Using WebSockets sounds daunting at first, but with our approach we just need to tackle one tiny task at a time. The first task can be completed with one line of code:
 
-> When to use:  Whenever you're lost or confused, in need of clarity and a path to action.
+```javascript
+// Open a web socket connection
+let socket = new WebSocket(url);
+```
+
+We took a single unknown, broadened our knowledge base and applied a potential solution. Rinse and repeat.
+
+> When to use:  You're lost or confused, in need of clarity and a path to action.
 
 ## Tackling Error Messages
 Error messages will be your constant companion in building projects, and at times can seem obtuse and confusing. However, behind their intimidating exterior lies a wealth of useful information. Let's see if we can take advantage of error messages to solve our problems.
@@ -154,7 +211,12 @@ print();
 
 Attempting to run it will result in this error message:
 
-![error](./error.png)
+```
+Uncaught ReferenceError: c is not defined
+	at add (script.js:5:3)
+	at print (script.js:9:15)
+	at script.js:13:1
+```
 
 What went wrong? If we take the message apart piece by piece, we'll understand.
 
@@ -188,13 +250,14 @@ const sum = add(a, b);
 
 Now we can follow the stack trace up further:
 
-```at add (script.js:5:3)
+```
+at add (script.js:5:3)
 at add (script.js:5:3)
 ```
 
 Which tells us that we should look on line 5:
 
-```
+```javascript
 function add(a, b) {
   return c; // This looks like the culprit
 }
@@ -202,7 +265,7 @@ function add(a, b) {
 
 Bingo! It seems like this line, `return c;` is the issue, and true to the error's message, it is trying to reference a `c` variable that has not been defined in the scope of this function. What we wanted to do was store the addition of `a` and `b` in a `c` variable and return it, like so:
 
-``` 
+```javascript
 function add(a, b) {
   const c = a + b;
   return c;
@@ -213,19 +276,25 @@ This solves the error and now if we run the script, `7` is logged to the console
 
 ### Researching error messages
 
-After you've looked into the message and stack trace, you might still have questions. In this case, it's okay to copy-and-paste the message into Google or StackOverflow. Someone else may have run into the same error and posted about it, or a very similar error that can still lead to insight. You might also check out the docs or forum for your technology. However, I'd still recommend parsing your message manually first, as doing so can give you useful information like the type of the error, which you can also look up and read about.
+After you've looked into the message and stack trace, you might still have questions. In this case, it's okay to copy-and-paste the message into Google or StackOverflow. Someone else may have run into the same error and posted about it, or a very similar error that can still lead to insight. You might also investigate the docs or forums for your technology. 
+
+I'd still recommend parsing your message manually first, as doing so can give you useful information like the type of the error, which you can also look up and read about.
 
 > When to use: If your problem stems from a bug that produces an error message, always!
 
 ## Try Debugging
-How you debug will depend on your choice of programming language and code editor, and there are even debuggers that work on the command line or in your browser. If you use Chrome, one way to practice is to use the built-in debugger, [as outlined in this official guide to debugging JavaScript in Chrome](https://developer.chrome.com/docs/devtools/javascript/). The basic premise of debuggers are that you can observe the behavior of your code as it's executing. By setting one or several `breakpoints`, your debugger will allow you to slowly step forward line-by-line starting from one of the breakpoints set. The benefit of this is that you can examine the state of your variables in the current scope as you move through the execution of your code.   
+The basic premise of debuggers are that you can observe the behavior of your code as it's executing. By setting one or several `breakpoints`, your debugger will allow you to slowly step forward line-by-line starting from one of the breakpoints set. The benefit of this is that you can examine the state of your variables in the current scope as you move through the execution of your code.   
+
+How you debug will depend on your development environment and language. If you use Chrome, one way to practice is to use the built-in debugger, [as outlined in this official guide to debugging JavaScript in Chrome](https://developer.chrome.com/docs/devtools/javascript/). There is also a [powerful way to debug NodeJS applications using Chrome](https://unicorn-utterances.com/posts/debugging-nodejs-programs-using-chrome) if that interests you.
 
 Your IDE will likely have a built-in debugger: learn it! For a quicker fix, you can also try print debugging using your language's print method, for example `console.log` in JavaScript.
 
 > When to use: You feel that greater understanding of your code's state at different points in its execution will help solve the problem, or after reading an error message.
 
 ## SLOWLY re-read primary sources
-Sometimes what you lack is a strong enough conceptual basis to properly handle the problem. If you're having trouble applying something that you lightly skimmed or even skipped the docs for, you'll want to go back and reread it thoroughly. Even if you did read it slowly the first time, by the time you've grappled with the tech, your perspective will have changed a bit, and you might need a refresher. All docs are different, but you'll want to peek around at a few different key areas:
+Sometimes what you lack is a strong enough conceptual basis to properly handle the problem. If you're having trouble applying something that you skimmed/skipped the docs for, try to go back and reread thoroughly. 
+
+Even if you did read it slowly the first time, by the time you've grappled with some code, your perspective has changed a bit, so refreshing your understanding may be more beneficial than you think. All docs are different, but you'll want to peek around at a few different key areas:
 
 - The table of contents. This might seem obvious, but really take a look at it. You might find a relevant article that you missed before. There may also be different sections, like a FAQ, examples, API reference, or tutorials.
 - Getting Started/Basics. True to the name, you can usually begin here. If you just wanted to jump ahead to what is relevant to you, don't forget that you can always acquire a more fundamental understand reading through the introductory articles. 
@@ -236,19 +305,25 @@ Sometimes what you lack is a strong enough conceptual basis to properly handle t
 > When to use: You feel that you're missing something, or can't understand how to use a technology for desired effect, it's likely your knowledge is has shaky foundations.
 
 ## Seek the help of tech communities
-If you've entered some communities, introduce yourself and try leveraging their help in a respectful manner for new perspectives into your issue! Find the relevant channel or subforum of your community, and then communicate your problem clearly, providing relevant context, errors, and code samples. Sometimes the mere act of explaining your problem to others will grant new insight on how to solve it.
+If you've entered some communities, introduce yourself and try leveraging their help in a respectful manner for new perspectives into your issue. Find the relevant channel or subforum of your community, and then [ask good questions](https://unicorn-utterances.com/posts/how-to-ask-good-questions), providing relevant context, errors, and code samples. Sometimes the mere act of explaining your problem to others will grant new insight on how to solve it.
 
 Please be polite towards others when asking for help. Programming-related problems can be frustrating and at times emotional, but if people are offering to help you out of kindness, be mindful of your reaction to their advice.
 
 > When to use: You've tried to solve your problem other ways to no avail, or else when you've sunk lots of time into a problem and still see no path towards a working solution.
 
 ## Experiment
-Experimenting with your code will yield fresh perspectives on the problems you face. Try setting up an environment where you can freely alter your implementation. If you're using git, you can create a new branch with `git checkout -b branch-name` and make changes to your code with no consequences. Create several differing branches to try different ways to implement the same feature, and pick the best possible route. Comment out code, or try a different library. Seek new dev tools or algorithms. Look at other people's code. Sometimes you just need to play and tinker until you've broken new ground.
+Experimenting with your code will yield fresh perspectives on the problems you face. Try setting up an environment where you can freely alter your implementation. 
+
+If you're using git, you can create a new branch with `git checkout -b branch-name` and make changes to your code with no consequences. Create several differing branches to try different ways to implement the same feature, and pick the best possible route. 
+
+Comment out code, or try a different library. Seek new dev tools or algorithms. Look at other people's code. Sometimes you just need to play and tinker until you've broken new ground.
 
 > When to use: You want to generate new approaches to solving a problem.
 
 ## Build out a miniature project 
-One tactic I find helpful, especially when adopting new technologies or methods, is to spin up a smaller, simple environment to experiment in with zero pressure. You can use one of the many online development environments or scaffold a quick local repo. Either way, you just want to quickly try out a new technology or implementation in a contained environment, grapple with it and gain a better understanding. The benefit of this approach is that you can quickly hit a lightbulb moment of clarity on how to do something without it getting tangled in the rest of your main projects mess. When the time comes to integrate it into your project, you will already have hands on experience.
+One tactic I find helpful, especially when adopting new technologies or methods, is to spin up a smaller, simple environment to experiment in with zero pressure. You can use one of the many online development environments or scaffold a quick local repo. 
+
+Either way, the idea here is to get your hands dirty with a new technology or code solution in a safe, contained environment. Play around and quickly gain a better understanding by adjusting factors and constraints. The benefit of this approach is that you can quickly hit a lightbulb moment of clarity on how to do something without it getting tangled in the rest of your main projects mess. When the time comes to integrate it into your project, you will already have hands on experience.
 
 > When to use: You want to test out some code and understand it without interference from the rest of your program.
 
@@ -265,19 +340,26 @@ My favorite method for solving all problems in programming (or life): sleep on i
 # Pitfalls and Woes
 If your project drags on for long enough, you may eventually run into some pitfalls that slow your progress and simulate the feeling of getting stuck in mud.
 ## Feature creep
-If you are very enthusiastic about the thing you're building, you might be dreaming up all the things it will be able to do. You might also get obsessive over refactoring and perfecting your code. This is a good sign, as it shows you see yourself as both an inventor and an artisan. However, it's important to draw the line between essential functionality and desired functionality, or in simpler terms, needs and wants. If you must continue, just be honest with yourself about what is really important.
+If you are very enthusiastic about the thing you're building, you might be dreaming up all the things it will be able to do. You might also get obsessive over refactoring and perfecting your code. This is actually a good sign, as it shows that you are both an inventor and an artisan of your craft. 
+
+However, it's important to draw the line between essential functionality and desired functionality, or in simpler terms, needs and wants. Just be honest with yourself about what is really important. If your goal is rapid growth, a fancier navbar may not be mission critical.
+
 ## Boredom
-It's day 1, you're pumped up, you can see the dollar signs (or GitHub stars), and you initialize the repo. Skip forward to day 180, how do you feel? Maybe you're still excited to work on the project, but you've grown acquainted with it, hacked out the main features, and you're starting to get interested in other projects, other technologies, or even different tech stacks. How do you keep momentum when you get tired of your pet project? 
+It's day 1, you're pumped up, you can see the dollar signs (or GitHub stars), and you initialize the repo. Skip forward to day 180, how do you feel? Maybe you're still excited to work on the project, but you've grown used to it, hacked out the main features, and you're starting to get interested in other projects. 
 
-One approach is to establish a minimal habit, where you set aside a certain amount of time a day or week to continue building and perfecting your personal project, while spending the bulk of your time elsewhere. 
+How do you keep momentum when you get tired of your pet project? 
 
-Another approach is to reignite the fire with a new brainstorming session, reconnecting with what got you excited about it in the first place. Consider all the benefits you or your users could derive from adding that new feature, or optimizing performance, or redesigning the UI.
+One approach is to establish a minimal habit, where you set aside a certain *small* amount of time a day or week to continue building and perfecting your personal project, while spending the bulk of your time elsewhere. 
+
+Another approach is to reignite the fire with a new brainstorming session, reconnecting with what got you excited about it in the first place. Consider all the benefits you or your users could derive from adding that new feature, or optimizing performance, rewriting in a new language, or redesigning the UI.
 ## Stuck on unsolvable problem
 If you've tried everything in the troubleshooting section and still see no results, don't fret! You may have to work around it: Go with a hacky solution, study more, ask more people, experiment further or shelve it for now. Usually, sheer persistence is enough. It's critical not to beat yourself up, as everyone is bested occasionally by really hard problems. 
 
 # Wrapping up your Projects
 
-If you've made it this far, congratulations! Finishing a project or reaching a major milestone can be a triumphant experience. Hopefully you've clearly defined the stopping (or slowing) point, and overcome your major problems and pitfalls in order to arrive here. Even if your project remains incomplete, it's very likely that you learned a lot in the process, identified your strengths and weaknesses, and arrived at the other end a better engineer. You may also be committed to maintaining your project, or  just want to keep improving it into the indefinite future. It's all up to you!
+If you've made it this far, congratulations! Finishing a project or reaching a major milestone can be a triumphant experience. Hopefully you've clearly defined the stopping (or slowing) point, and overcome your major problems and pitfalls in order to arrive here. 
+
+Even if your project remains incomplete, it's very likely that you learned a lot in the process, identified your strengths and weaknesses, and arrived at the other end a better engineer. You may also be committed to maintaining your project, or  just want to keep improving it into the indefinite future. It's all up to you!
 
 # Conclusion
 As a final note, don't worry about how long each step of the process takes. Planning, for example, shouldn't take *X amount of hours/days*. It's always up to you when to move on with things. Do what works best for your workflow. 
