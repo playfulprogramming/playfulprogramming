@@ -1,7 +1,7 @@
 ---
 {
 	title: "Figma to Compose: Line Height & Baseline Grids",
-	description: "A detailed guide on how make text in Jetpack Compose match your mockups, and why baseline grids are not all that they're hyped up to be.",
+	description: "A detailed guide on how to make text in Jetpack Compose match your mockups, and why baseline grids are not all that they're hyped up to be.",
 	published: "2023-11-12T04:45:30.247Z",
 	edited: "2023-11-12T04:45:30.247Z",
 	authors: ["edpratti"],
@@ -23,7 +23,7 @@ In this article I’ll cover how you can now fix this in Jetpack Compose, and ma
 # Preface
 For the entirety of this article, I have defined 3 different concepts that will help illustrate the differences between how Figma and Compose draw their text.
 
-- `Text bounds:` The minimum height required for the text vector.
+- `Text vector bounds:` The minimum height required for the text vector.
 - `Line height:` Defines the height of the line. Figma and Compose perform this differently.
 - `Text container:` The outer bounds of the text.
 
@@ -89,11 +89,11 @@ In most cases, developers will account for this by centering the `TextView` with
 
 ![Mockup showing a baseline grid aligned textView that has been forced to be vertically centered to the icon.](baseline_alignment_centering.png)
 
-This essentially nullifies the baseline alignment that was put in place.
+This essentially nullifies the baseline alignment that was put in place. Developers ***can*** fix this by setting the icon to scale off the text size.
 
 ## Baseline grid alignment in containers
 
-Containers with single-line labels also suffer from visual misalignment when dealing with baselines. Here's a button with all three alignment options; bottom baseline, line height centering, and top baseline.
+Containers with single-line labels also suffer from visual misalignment when dealing with baselines. Here's a button with all three alignment options; **bottom baseline, line height centering, and top baseline**.
 
 ![Examples of line alignment. First is bottom baseline, middle is line centering, and the third is top baseline.](baseline_shift_examples.png)
 
