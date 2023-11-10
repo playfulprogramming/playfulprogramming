@@ -2,8 +2,7 @@
 {
 	title: "Figma to Compose: Line Height & Baseline Grids",
 	description: "A detailed guide on how to make text in Jetpack Compose match your mockups, and why baseline grids are not all that they're hyped up to be.",
-	published: "2023-11-12T04:45:30.247Z",
-	edited: "2023-11-12T04:45:30.247Z",
+	published: "2023-11-09T04:45:30.247Z",
 	authors: ["edpratti"],
 	tags: ["android", "design"],
 	attached: [],
