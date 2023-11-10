@@ -11,9 +11,19 @@
 }
 ---
 
-# Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.
+# There is a newer article available.
 
-_**I really care about implementation.**_ I obsess over it. I’m constantly thinking about it.
+> **This article is severely outdated.:**
+> To learn how to make your Figma mockups match your Android app using Jetpack Compose, check out the article below.
+>
+> [**Figma to Compose: Line Height & Baseline Grids**](/posts/figma-compose-line-height)
+
+For those of you who still wish to know how designers handled these problems in the past, feel free to continue reading.
+
+---
+
+
+# Testing the limits of `firstBaselineToTopHeight` and `lastBaselineToBottomHeight` to deliver a perfect result.
 
 Whenever I’m designing an app, I always try to focus on how a UI can be created optimally and how well the composition inside a design tool can translate to platform components and paradigms.
 
