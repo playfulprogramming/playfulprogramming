@@ -2,7 +2,7 @@
 {
   title: "How to Build Original Projects",
   description: "People often say that you should build your own projects to grow as a developer, without explaining how. Let's learn how to actually plan and build your own custom projects.",
-  published: '2023-10-31',
+  published: '2023-11-09',
   authors: ["reyes-dev"],
   tags: ["opinion"],
   license: 'cc-by-4'
