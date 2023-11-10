@@ -1,7 +1,7 @@
 ---
 {
 	title: "Figma to Compose: Line Height & Baseline Grids",
-	description: "A simple explination of writing better tests for Angular applications and setting up Angular Testing Library",
+	description: "A detailed guide on how make text in Jetpack Compose match your mockups, and why baseline grids are not all that they're hyped up to be.",
 	published: "2023-11-12T04:45:30.247Z",
 	edited: "2023-11-12T04:45:30.247Z",
 	authors: ["edpratti"],
