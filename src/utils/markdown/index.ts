@@ -92,7 +92,8 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 									}
 
 									const q = iFrameUrl.search;
-									const currentBranch = branch.sync();
+									const currentBranch =
+										process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
 									const repoPath = siteMetadata.repoPath;
 									const provider = `stackblitz.com/github`;
 									return `
