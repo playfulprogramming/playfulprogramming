@@ -1,4 +1,5 @@
 import { Root, Element } from "hast";
+import { VFile } from "vfile";
 import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
@@ -14,7 +15,7 @@ import probe from "probe-image-size";
 import { IFramePlaceholder } from "./iframe-placeholder";
 
 interface RehypeUnicornIFrameClickToRunProps {
-	srcReplacements?: Array<(val: string, root: Root) => string>;
+	srcReplacements?: Array<(val: string, root: VFile) => string>;
 }
 
 // default icon, used if a frame's favicon cannot be resolved
