@@ -1,4 +1,5 @@
 import { Root, Element } from "hast";
+import { VFile } from "vfile";
 import { Plugin } from "unified";
 
 import { visit } from "unist-util-visit";
@@ -13,7 +14,9 @@ import type { GetPictureResult } from "@astrojs/image/dist/lib/get-picture";
 import probe from "probe-image-size";
 import { IFramePlaceholder } from "./iframe-placeholder";
 
-interface RehypeUnicornIFrameClickToRunProps {}
+interface RehypeUnicornIFrameClickToRunProps {
+	srcReplacements?: Array<(val: string, root: VFile) => string>;
+}
 
 // default icon, used if a frame's favicon cannot be resolved
 let defaultPageIcon: Promise<GetPictureResult>;
@@ -120,7 +123,7 @@ type PageInfo = {
 	icon: GetPictureResult;
 };
 
-async function fetchPageInfo(src: string): Promise<PageInfo | null> {
+export async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 	// fetch origin url, catch any connection timeout errors
 	const url = new URL(src);
 	url.search = ""; // remove any search params
@@ -143,8 +146,8 @@ async function fetchPageInfo(src: string): Promise<PageInfo | null> {
 export const rehypeUnicornIFrameClickToRun: Plugin<
 	[RehypeUnicornIFrameClickToRunProps | never],
 	Root
-> = () => {
-	return async (tree) => {
+> = ({ srcReplacements = [], ...props }) => {
+	return async (tree, file) => {
 		const iframeNodes: Element[] = [];
 		visit(tree, (node: Element) => {
 			if (node.tagName === "iframe") {
@@ -164,6 +167,10 @@ export const rehypeUnicornIFrameClickToRun: Plugin<
 					// eslint-disable-next-line prefer-const
 					...propsToPreserve
 				} = iframeNode.properties;
+
+				for (const replacement of srcReplacements) {
+					src = replacement(src as string, file);
+				}
 
 				width = width ?? EMBED_SIZE.w;
 				height = height ?? EMBED_SIZE.h;

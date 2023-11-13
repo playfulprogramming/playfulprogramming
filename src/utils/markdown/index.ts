@@ -1,6 +1,9 @@
 import { Plugin } from "unified";
 import rehypeSlug from "rehype-slug-custom-id";
 import rehypeRaw from "rehype-raw";
+import { VFile } from "vfile";
+import { resolve, relative, dirname } from "path";
+import * as branch from "git-branch";
 import { rehypeTabs } from "./tabs/rehype-transform";
 import { rehypeTooltips } from "./tooltips/rehype-transform";
 import { rehypeHints } from "./hints/rehype-transform";
@@ -20,6 +23,7 @@ import { rehypeHeaderText } from "./rehype-header-text";
 import { rehypeHeaderClass } from "./rehype-header-class";
 import { rehypeFileTree } from "./file-tree/rehype-file-tree";
 import { rehypeTwoslashTabindex } from "./twoslash-tabindex/rehype-transform";
+import { siteMetadata } from "../../constants/site-config";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RehypePlugin = Plugin<any[]> | [Plugin<any[]>, any];
@@ -67,7 +71,38 @@ export function createRehypePlugins(config: MarkdownConfig): RehypePlugin[] {
 					rehypeHints,
 					rehypeTooltips,
 					rehypeAstroImageMd,
-					rehypeUnicornIFrameClickToRun,
+					[
+						rehypeUnicornIFrameClickToRun,
+						{
+							srcReplacements: [
+								(val: string, file: VFile) => {
+									const iFrameUrl = new URL(val);
+									if (!iFrameUrl.protocol.startsWith("uu-code:")) return val;
+
+									const contentDir = dirname(file.path);
+									const fullPath = resolve(contentDir, iFrameUrl.pathname);
+
+									const fsRelativePath = relative(process.cwd(), fullPath);
+
+									// Windows paths need to be converted to URLs
+									let urlRelativePath = fsRelativePath.replace(/\\/g, "/");
+
+									if (urlRelativePath.startsWith("/")) {
+										urlRelativePath = urlRelativePath.slice(1);
+									}
+
+									const q = iFrameUrl.search;
+									const currentBranch =
+										process.env.VERCEL_GIT_COMMIT_REF ?? branch.sync();
+									const repoPath = siteMetadata.repoPath;
+									const provider = `stackblitz.com/github`;
+									return `
+										https://${provider}/${repoPath}/tree/${currentBranch}/${urlRelativePath}${q}
+									`.trim();
+								},
+							],
+						},
+					] as RehypePlugin,
 					rehypeUnicornElementMap,
 					rehypeTwoslashTabindex,
 					rehypeFileTree,

@@ -1,0 +1,6 @@
+<h1>Form Control</h1>
+<app-example-input placeholder="What's your favorite animal?" [formControl]="control"></app-example-input>
+<p>The value of the input is: {{control.value}}</p>
+<h1>ngModel</h1>
+<app-example-input placeholder="What's your favorite animal?" [(ngModel)]="modelValue"></app-example-input>
+<p>The value of the input is: {{modelValue}}</p>
