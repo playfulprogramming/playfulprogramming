@@ -519,15 +519,17 @@ We can chain together ternary operations to treat them as nested `if` statements
 By doing so, we can represent the following JavaScript pseudo-syntax:
 
 ```js
-// JavaScript 
-if (isFolder) {
-	return "Folder";
-} else {
-	if (isImage) {
-		return "Image"	
-	} else {
-		return "File"
-	}
+function getType() {
+    // JavaScript 
+    if (isFolder) {
+        return "Folder";
+    } else {
+        if (isImage) {
+            return "Image"
+        } else {
+            return "File"
+        }
+    }
 }
 ```
 
@@ -581,9 +583,11 @@ Using this tool, we can simply set the `ngSwitch` value to `true` and add a cond
 Just as Vue's `v-if/v-else` attributes match JavaScript's `if...else` syntax, we can reuse similar logic to JavaScript's:
 
 ```js
-if (isFolder) return "Folder";
-else if (isImage) return "Image";
-else return "File";
+function getType() {
+    if (isFolder) return "Folder";
+    else if (isImage) return "Image";
+    else return "File";
+}
 ```
 
 Using Vue's `v-else-if` attribute:
@@ -1833,7 +1837,7 @@ Now that we've got an initial list of dropdowns rendering, let's move forward wi
 To do this, we'll use an object map that uses the name of the category as the key and the `expanded` state as the key's value:
 
 ```js
-{
+({
     // This is expanded
     "Articles I'll Never Finish": true,
     // These are not
@@ -1842,7 +1846,7 @@ To do this, we'll use an object map that uses the name of the category as the ke
     "Movies": false,
     "Pictures": false,
     "Website Redesigns v5": false,
-}
+})
 ```
 
 To create this object map, we can create a function called `objFromCategories` that takes our string array and constructs the above from above:
