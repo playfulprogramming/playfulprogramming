@@ -1,61 +1,73 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "DemoApp": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "configurations": {
-            "development": {
-              "buildOptimizer": false,
-              "extractLicenses": false,
-              "namedChunks": true,
-              "optimization": false,
-              "sourceMap": true,
-              "vendorChunk": true
-            },
-            "production": {
-              "aot": true,
-              "buildOptimizer": true,
-              "extractLicenses": true,
-              "fileReplacements": [],
-              "namedChunks": false,
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "vendorChunk": false
-            }
-          },
           "options": {
-            "assets": [],
+            "outputPath": "dist/demo-app",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "outputPath": "dist/demo",
-            "scripts": [],
-            "styles": [],
-            "tsConfig": "src/tsconfig.app.json"
-          }
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "development": {
-              "browserTarget": "demo:build:development"
-            },
             "production": {
-              "browserTarget": "demo:build:production"
+              "browserTarget": "DemoApp:build:production"
+            },
+            "development": {
+              "browserTarget": "DemoApp:build:development"
             }
           },
           "defaultConfiguration": "development"
-        }
-      },
-      "prefix": "app",
-      "projectType": "application",
-      "root": "",
-      "schematics": {},
-      "sourceRoot": "src"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "DemoApp:build"
+          }
+        },
+      }
     }
-  },
-  "version": 1
+  }
 }
