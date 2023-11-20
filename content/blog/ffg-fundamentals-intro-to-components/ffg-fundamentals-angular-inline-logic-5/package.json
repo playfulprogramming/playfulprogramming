@@ -1,0 +1,32 @@
+{
+  "name": "stackblitz-starters-bs3ycw",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "16.2.1",
+    "@angular/common": "16.2.1",
+    "@angular/compiler": "16.2.1",
+    "@angular/core": "16.2.1",
+    "@angular/platform-browser": "16.2.1",
+    "@angular/platform-browser-dynamic": "16.2.1",
+    "rxjs": "^6.5.3 || ^7.4.0",
+    "tslib": "2.6.2",
+    "zone.js": "0.13.1"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1100.4",
+    "@angular/cli": "~11.0.4",
+    "@angular/compiler-cli": "~11.0.4",
+    "@types/node": "^12.11.1",
+    "ts-node": "~8.3.0",
+    "typescript": "~4.0.2"
+  }
+}
