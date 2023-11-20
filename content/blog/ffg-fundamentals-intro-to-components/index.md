@@ -399,15 +399,15 @@ Which we can `import` into another component to use it there:
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+   import File from './File.vue';
+</script>
+
 <template>
   <ul>
     <li><File/></li>
   </ul>
 </template>
-
-<script setup>
-import File from './File.vue';
-</script>
 ```
 
 <iframe data-frame-title="Vue Parent/Child - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-parent-child-2?template=node&embed=1&file=src%2FFileList.vue&terminal=dev"></iframe>
@@ -469,6 +469,10 @@ export class FileListComponent {}
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+   import File from './File.vue';
+</script>
+
 <template>
   <ul>
     <li><File/></li>
@@ -476,10 +480,6 @@ export class FileListComponent {}
     <li><File/></li>
   </ul>
 </template>
-
-<script setup>
-import File from './File.vue';
-</script>
 ```
 
 <iframe data-frame-title="Vue Component Reuse - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-component-reuse-3?template=node&embed=1&file=src%2FFileList.vue"></iframe>
@@ -574,18 +574,22 @@ export class FileListComponent {}
 
 ```vue
 <!-- File.vue -->
+<script setup>
+   import FileDate from './FileDate.vue';
+</script>
+
 <template>
   <div><a href="/file/file_one">File one<FileDate/></a></div>
 </template>
-
-<script setup>
-import FileDate from './FileDate.vue';
-</script>
 ```
 
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+   import File from './File.vue';
+</script>
+
 <template>
   <ul>
     <li><File/></li>
@@ -593,10 +597,6 @@ import FileDate from './FileDate.vue';
     <li><File/></li>
   </ul>
 </template>
-
-<script setup>
-import File from './File.vue';
-</script>
 ```
 
 <iframe data-frame-title="Vue Component Hierarchy - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-component-hierarchy-4?template=node&embed=1&file=src%2FFileList.vue,src%2FFile.vue,src%2FFileDate.vue"></iframe>
@@ -651,13 +651,13 @@ export class FileDateComponent {
 
 ```vue
 <!-- FileDate.vue -->
+<script setup>
+   const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
+</script>
+
 <template>
   <span>12/03/21</span>
 </template>
-
-<script setup>
-const dateStr = `${(new Date()).getMonth() + 1}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
-</script>
 ```
 
 <iframe data-frame-title="Vue Inline Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-inline-logic-5?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -727,24 +727,24 @@ export class FileDateComponent {
 
 ## Vue
 
-```vue {6-13,15}
+```vue {2-9,11}
 <!-- FileDate.vue -->
+<script setup>
+   function formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
+   }
+
+   const dateStr = formatDate();
+</script>
+
 <template>
   <span>12/03/21</span>
 </template>
-
-<script setup>
-function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
-}
-
-const dateStr = formatDate();
-</script>
 ```
 
 <iframe data-frame-title="Vue Extracted Logic - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-extracted-logic-6?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -817,30 +817,30 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {6,19-21}
+```vue {2,15-17}
 <!-- FileDate.vue -->
+<script setup>
+   import {onMounted} from 'vue';
+
+   function formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
+   }
+
+   const dateStr = formatDate();
+
+   onMounted(() => {
+      console.log(dateStr);
+   })
+</script>
+
 <template>
   <span>12/03/21</span>
 </template>
-
-<script setup>
-import {onMounted} from 'vue';
-
-function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
-}
-
-const dateStr = formatDate();
-
-onMounted(() => {
-  console.log(dateStr);
-})
-</script>
 ```
 
 <iframe data-frame-title="Vue Side Effect Intro - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-side-effect-intro-7?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -918,26 +918,26 @@ Every class property inside of the component instance is usable inside of the `@
 
 ### Vue
 
-```vue {2}
+```vue {17}
 <!-- FileDate.vue -->
+<script setup>
+   import {onMounted} from 'vue';
+
+   function formatDate() {
+      const today = new Date();
+      // Month starts at 0, annoyingly
+      const monthNum = today.getMonth() + 1;
+      const dateNum = today.getDate();
+      const yearNum = today.getFullYear();
+      return monthNum + "/" + dateNum + "/" + yearNum;
+   }
+
+   const dateStr = formatDate();
+</script>
+
 <template>
   <span>{{dateStr}}</span>
 </template>
-
-<script setup>
-import {onMounted} from 'vue';
-
-function formatDate() {
-  const today = new Date();
-  // Month starts at 0, annoyingly
-  const monthNum = today.getMonth() + 1;
-  const dateNum = today.getDate();
-  const yearNum = today.getFullYear();
-  return monthNum + "/" + dateNum + "/" + yearNum;
-}
-
-const dateStr = formatDate();
-</script>
 ```
 
 <iframe data-frame-title="Vue Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-display-8?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -1067,33 +1067,33 @@ export class FileDateComponent implements OnInit {
 
 Similar to how React has `useState` in order to set data in a component, Vue introduces an API called `ref` in order to have data updates trigger a re-render.
 
-```vue {18-24}
+```vue {14-20}
 <!-- FileDate.vue -->
+<script setup>
+   import { ref, onMounted } from 'vue'
+
+   function formatDate(inputDate) {
+      // Month starts at 0, annoyingly
+      const monthNum = inputDate.getMonth() + 1
+      const dateNum = inputDate.getDate()
+      const yearNum = inputDate.getFullYear()
+      return monthNum + '/' + dateNum + '/' + yearNum
+   }
+
+   const dateStr = ref(formatDate(new Date()))
+
+   onMounted(() => {
+      setTimeout(() => {
+         // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
+         const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
+         dateStr.value = formatDate(tomorrow)
+      }, 5000)
+   })
+</script>
+
 <template>
   <span>{{ dateStr }}</span>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-function formatDate(inputDate) {
-  // Month starts at 0, annoyingly
-  const monthNum = inputDate.getMonth() + 1
-  const dateNum = inputDate.getDate()
-  const yearNum = inputDate.getFullYear()
-  return monthNum + '/' + dateNum + '/' + yearNum
-}
-
-const dateStr = ref(formatDate(new Date()))
-
-onMounted(() => {
-  setTimeout(() => {
-    // 24 hours, 60 minutes, 60 seconds, 1000 milliseconds
-    const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
-    dateStr.value = formatDate(tomorrow)
-  }, 5000)
-})
-</script>
 ```
 
 <iframe data-frame-title="Vue Live Display - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-live-display-9?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -1155,18 +1155,18 @@ export class FileDateComponent implements OnInit {
 
 ### Vue
 
-```vue {2}
+```vue {9}
 <!-- FileDate.vue -->
+<script setup>
+   // ...
+
+   const dateStr = ref(formatDate(new Date()))
+
+</script>
+
 <template>
   <span aria-label="January 10th, 2023">{{dateStr}}</span>
 </template>
-
-<script setup>
-// ...
-
-const dateStr = ref(formatDate(new Date()))
-
-</script>
 ```
 
 <!-- tabs:end -->
@@ -1273,40 +1273,40 @@ export class FileDateComponent implements OnInit {
 
 ```vue
 <!-- FileDate.vue -->
+<script setup>
+   // ...
+
+   function formatReadableDate(inputDate) {
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const monthStr = months[inputDate.getMonth()];
+      const dateSuffixStr = dateSuffix(inputDate.getDate());
+      const yearNum = inputDate.getFullYear();
+      return monthStr + " " + dateSuffixStr + "," + yearNum;
+   }
+
+   function dateSuffix(dayNumber) {
+      const lastDigit = dayNumber % 10;
+      if (lastDigit == 1 && dayNumber != 11) {
+         return dayNumber + "st";
+      }
+      if (lastDigit == 2 && dayNumber != 12) {
+         return dayNumber + "nd";
+      }
+      if (lastDigit == 3 && dayNumber != 13) {
+         return dayNumber + "rd";
+      }
+      return dayNumber + "th";
+   }
+
+   const dateStr = ref(formatDate(new Date()))
+   const labelText = ref(formatReadableDate(new Date()))
+
+   // ...
+</script>
+
 <template>
   <span v-bind:aria-label="labelText">{{dateStr}}</span>
 </template>
-
-<script setup>
-// ...
-
-function formatReadableDate(inputDate) {
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const monthStr = months[inputDate.getMonth()];
-  const dateSuffixStr = dateSuffix(inputDate.getDate());
-  const yearNum = inputDate.getFullYear();
-  return monthStr + " " + dateSuffixStr + "," + yearNum;
-}
-
-function dateSuffix(dayNumber) {
-  const lastDigit = dayNumber % 10;
-  if (lastDigit == 1 && dayNumber != 11) {
-    return dayNumber + "st";
-  }
-  if (lastDigit == 2 && dayNumber != 12) {
-    return dayNumber + "nd";
-  }
-  if (lastDigit == 3 && dayNumber != 13) {
-    return dayNumber + "rd";
-  }
-  return dayNumber + "th";
-}
-
-const dateStr = ref(formatDate(new Date()))
-const labelText = ref(formatReadableDate(new Date()))
-
-// ...
-</script>
 ```
 
 <iframe data-frame-title="Vue Attribute Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-attribute-binding-10?template=node&embed=1&file=src%2FFileDate.vue"></iframe>
@@ -1419,23 +1419,27 @@ export class FileListComponent {}
 
 ## Vue
 
-```vue {3,10}
+```vue {4,9}
 <!-- File.vue -->
+<script setup>
+   import FileDate from './FileDate.vue';
+
+   const props = defineProps(['fileName'])
+</script>
+
 <template>
   <div>
     <a href="/file/file_one">{{ props.fileName }}<FileDate/></a>
   </div>
 </template>
-
-<script setup>
-import FileDate from './FileDate.vue';
-
-const props = defineProps(['fileName'])
-</script>
 ```
 
-```vue {3}
+```vue {7}
 <!-- FileList.vue -->
+<script setup>
+   import File from './File.vue'
+</script>
+
 <template>
   <ul>
     <li><File :fileName="'File one'" /></li>
@@ -1443,10 +1447,6 @@ const props = defineProps(['fileName'])
     <li><File :fileName="'File three'" /></li>
   </ul>
 </template>
-
-<script setup>
-import File from './File.vue'
-</script>
 ```
 
 <iframe data-frame-title="Vue Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-props-11?template=node&embed=1&file=src%2FFile.vue"></iframe>
@@ -1530,23 +1530,27 @@ export class FileListComponent {}
 
 ### Vue
 
-```vue {10}
+```vue {4}
 <!-- File.vue -->
+<script setup>
+   import FileDate from './FileDate.vue';
+
+   const props = defineProps(['fileName', 'href'])
+</script>
+
 <template>
   <div>
     <a :href="props.href">{{ props.fileName }}<FileDate/></a>
   </div>
 </template>
-
-<script setup>
-import FileDate from './FileDate.vue';
-
-const props = defineProps(['fileName', 'href'])
-</script>
 ```
 
-```vue {3}
+```vue {7}
 <!-- FileList.vue -->
+<script setup>
+   import File from './File.vue'
+</script>
+
 <template>
   <ul>
     <li><File :fileName="'File one'" :href="'/file/file_one'"/></li>
@@ -1554,10 +1558,6 @@ const props = defineProps(['fileName', 'href'])
     <li><File :fileName="'File three'" :href="'/file/file_three'"/></li>
   </ul>
 </template>
-
-<script setup>
-import File from './File.vue'
-</script>
 ```
 
 <iframe data-frame-title="Vue Multi Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-multi-props-12?template=node&embed=1&file=src%2FFile.vue"></iframe>
@@ -1658,26 +1658,34 @@ This is because Angular doesn't allow you to access `@Input` values in the root 
 
 ### Vue
 
-```vue {8}
+```vue {4}
 <!-- FileDate.vue -->
+<script setup>
+  // ...
+
+  const props = defineProps(['inputDate'])
+
+  const dateStr = ref(formatDate(props.inputDate))
+  const labelText = ref(formatDate(props.inputDate))
+
+  // ...
+</script>
+
 <template>
   <span :aria-label="labelText">{{ dateStr }}</span>
 </template>
-
-<script setup>
-// ...
-
-const props = defineProps(['inputDate'])
-
-const dateStr = ref(formatDate(props.inputDate))
-const labelText = ref(formatDate(props.inputDate))
-
-// ...
-</script>
 ```
 
-```vue {4,15}
+```vue {6,12}
 <!-- File.vue -->
+<script setup>
+   import FileDate from './FileDate.vue'
+
+   const props = defineProps(['fileName', 'href']);
+
+   const inputDate = new Date();
+</script>
+
 <template>
   <div>
     <a :href="props.href">{{ props.fileName }}
@@ -1685,14 +1693,6 @@ const labelText = ref(formatDate(props.inputDate))
     </a>
   </div>
 </template>
-
-<script setup>
-import FileDate from './FileDate.vue'
-
-const props = defineProps(['fileName', 'href']);
-
-const inputDate = new Date();
-</script>
 ```
 
 <iframe data-frame-title="Vue Object Props - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-object-props-13?template=node&embed=1&file=src%2FFile.vue"></iframe>
@@ -1752,7 +1752,6 @@ export class GenericListComponent implements OnInit {
 
 ```vue
 <!-- GenericList.vue -->
-<!-- ... -->
 <script setup>
 import {onMounted} from 'vue';
 
@@ -1763,6 +1762,7 @@ onMounted(() => {
 	props.inputArray.push("some value");
 });
 </script>
+<!-- ... -->
 ```
 
 <!-- tabs:end -->
@@ -1873,6 +1873,17 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
 
 ```vue
 <!-- File.vue -->
+<script setup>
+   import { ref } from 'vue';
+   const props = defineProps(['fileName']);
+
+   const isSelected = ref(false);
+   const inputDate = new Date();
+   function selectFile() {
+      isSelected.value = !isSelected.value;
+   }
+</script>
+
 <template>
    <button
     v-on:click="selectFile()"
@@ -1886,16 +1897,6 @@ Instead of the `[]` symbols to do input binding, we're using the `()` symbols to
       <FileDate :inputDate="inputDate" />
    </button>
 </template>
-<script setup>
-import { ref } from 'vue';
-const props = defineProps(['fileName']);
-
-const isSelected = ref(false);
-const inputDate = new Date();
-function selectFile() {
-   isSelected.value = !isSelected.value;
-}
-</script>
 ```
 
 <iframe data-frame-title="Vue Event Binding - StackBlitz" src="uu-remote-code:./ffg-fundamentals-vue-event-binding-14?template=node&embed=1&file=src%2FFile.vue"></iframe>
@@ -2077,6 +2078,12 @@ Vue introduces the idea of an emitted event using the `defineEmits` global funct
 
 ```vue
 <!-- File.vue -->
+<script setup>
+   const props = defineProps(['isSelected', 'fileName', 'href']);
+
+   const emit = defineEmits(['selected']);
+</script>
+
 <template>
   <button
     v-on:click="emit('selected')"
@@ -2090,18 +2097,27 @@ Vue introduces the idea of an emitted event using the `defineEmits` global funct
     </a>
   </button>
 </template>
-
-<script setup>
-const props = defineProps(['isSelected', 'fileName', 'href']);
-
-const emit = defineEmits(['selected']);
-</script>
 ```
 
 >  The `defineEmits` function does not need to be imported from `vue`, since Vue's compiler handles that for us.
 
 ```vue
 <!-- FileList.vue -->
+<script setup>
+   import {ref} from 'vue';
+   import File from './File.vue';
+
+   const selectedIndex = ref(-1);
+
+   function onSelected(idx) {
+      if (selectedIndex.value === idx) {
+         selectedIndex.value = -1;
+         return;
+      }
+      selectedIndex.value = idx;
+   }
+</script>
+
 <template>
   <ul>
       <li><File 
@@ -2124,21 +2140,6 @@ const emit = defineEmits(['selected']);
       /></li>
     </ul>
 </template>
-
-<script setup>
-import {ref} from 'vue';
-import File from './File.vue';
-
-const selectedIndex = ref(-1);
-
-function onSelected(idx) {
-  if (selectedIndex.value === idx) {
-    selectedIndex.value = -1;
-    return;
-  }
-  selectedIndex.value = idx;
-}
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2392,6 +2393,10 @@ export class SidebarComponent {}
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+   import ExpandableDropdown from './ExpandableDropdown.vue'
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown name="Movies" />
@@ -2401,14 +2406,14 @@ export class SidebarComponent {}
   <ExpandableDropdown name="Website Redesigns v5" />
   <ExpandableDropdown name="Invoices" />
 </template>
-
-<script setup>
-import ExpandableDropdown from './ExpandableDropdown.vue'
-</script>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+   const props = defineProps(['name'])
+</script>
+
 <template>
   <div>
     <button>
@@ -2416,10 +2421,6 @@ import ExpandableDropdown from './ExpandableDropdown.vue'
     </button>
   </div>
 </template>
-
-<script setup>
-const props = defineProps(['name'])
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2561,6 +2562,19 @@ export class SidebarComponent {
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+   import { ref } from 'vue'
+   import ExpandableDropdown from './ExpandableDropdown.vue'
+
+   // Just to show that the value is displaying properly
+   const moviesExpanded = ref(true)
+   const picturesExpanded = ref(false)
+   const conceptsExpanded = ref(false)
+   const articlesExpanded = ref(false)
+   const redesignExpanded = ref(false)
+   const invoicesExpanded = ref(false)
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown
@@ -2588,23 +2602,14 @@ export class SidebarComponent {
     :expanded="invoicesExpanded"
   />
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import ExpandableDropdown from './ExpandableDropdown.vue'
-
-// Just to show that the value is displaying properly
-const moviesExpanded = ref(true)
-const picturesExpanded = ref(false)
-const conceptsExpanded = ref(false)
-const articlesExpanded = ref(false)
-const redesignExpanded = ref(false)
-const invoicesExpanded = ref(false)
-</script>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+   const props = defineProps(['name', 'expanded'])
+</script>
+
 <template>
   <div>
     <button>
@@ -2615,10 +2620,6 @@ const invoicesExpanded = ref(false)
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps(['name', 'expanded'])
-</script>
 ```
 
 > Don't forget to add our new `expanded` property name inside of `defineProps`! Otherwise, this component won't bind the value correctly.
@@ -2762,6 +2763,19 @@ export class SidebarComponent {
 
 ```vue
 <!-- Sidebar.vue -->
+<script setup>
+   import { ref } from 'vue'
+   import ExpandableDropdown from './ExpandableDropdown.vue'
+
+   // Just to show that the value is displaying properly
+   const moviesExpanded = ref(true)
+   const picturesExpanded = ref(false)
+   const conceptsExpanded = ref(false)
+   const articlesExpanded = ref(false)
+   const redesignExpanded = ref(false)
+   const invoicesExpanded = ref(false)
+</script>
+
 <template>
   <h1>My Files</h1>
   <ExpandableDropdown name="Movies" 
@@ -2791,23 +2805,15 @@ export class SidebarComponent {
     @toggle="invoicesExpanded = !invoicesExpanded" 
   />
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import ExpandableDropdown from './ExpandableDropdown.vue'
-
-// Just to show that the value is displaying properly
-const moviesExpanded = ref(true)
-const picturesExpanded = ref(false)
-const conceptsExpanded = ref(false)
-const articlesExpanded = ref(false)
-const redesignExpanded = ref(false)
-const invoicesExpanded = ref(false)
-</script>
 ```
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+   const props = defineProps(['name', 'expanded'])
+   const emit = defineEmits(['toggle'])
+</script>
+
 <template>
   <div>
     <button @click="emit('toggle')">
@@ -2818,11 +2824,6 @@ const invoicesExpanded = ref(false)
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps(['name', 'expanded'])
-const emit = defineEmits(['toggle'])
-</script>
 ```
 
 <!-- tabs:end -->
@@ -2876,6 +2877,11 @@ export class ExpandableDropdownComponent {
 
 ```vue
 <!-- ExpandableDropdown.vue -->
+<script setup>
+   const props = defineProps(['name', 'expanded'])
+   const emit = defineEmits(['toggle'])
+</script>
+
 <template>
   <div>
     <button @click="emit('toggle')">
@@ -2885,11 +2891,6 @@ export class ExpandableDropdownComponent {
     <div :hidden="!expanded">More information here</div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps(['name', 'expanded'])
-const emit = defineEmits(['toggle'])
-</script>
 ```
 
 <!-- tabs:end -->
